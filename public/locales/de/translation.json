@@ -17,7 +17,8 @@
         "reference": "Referenz",
         "source": "Quelle",
         "status": "Status",
-        "title": "Dieses Spiel enthält Anticheat-Software"
+        "title": "Dieses Spiel enthält Anticheat-Software",
+        "multiplayer_may_not_work": "Wegen des nicht vorhandenen oder kaputten Anticheatsupports funktionieren Multiplayerfunktionen eventuell nicht."
     },
     "box": {
         "cache-cleared": {
@@ -267,7 +268,8 @@
         "only": "auswählen",
         "reset": "Zurücksetzen",
         "select_all": "Alle auswählen",
-        "show_support_offline_only": "Keine aktive Internetverbindung notwendig"
+        "show_support_offline_only": "Keine aktive Internetverbindung notwendig",
+        "show_third_party_managed_only": "Nur von Drittanbietern verwaltete anzeigen"
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
@@ -685,7 +687,15 @@
         },
         "after-launch-script-path": "Wähle ein Skript aus, das ausgeführt wird nachdem du das Spiel schließt",
         "before-launch-script-path": "Wähle ein Script aus, das ausgeführt wird bevor das Spiel gestartet wird",
-        "msync": "Msync Aktivieren"
+        "msync": "Msync Aktivieren",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Spiele mit kaputtem oder abgelehntem Anticheat laufen vieleicht, aber Multiplayerfeatures funktionieren nicht. Fragen sie nicht nach Support, wenn Sie sie wissentlich installieren.",
+                "title": "Sind sie sicher?",
+                "understand": "Ich verstehe"
+            },
+            "label": "Erlaube installation von Spielen mit kaputtem oder abgelehntem Anticheat"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

@@ -38,7 +38,8 @@
             "title": "Avinstallera",
             "prefix_warning": "Vinprefixet för det här spelet är standardprefixet. Om du verkligen vill ta bort det måste du göra det manuellt.",
             "dlc": "Vill du avinstallera \"{{title}}\" (DLC)?",
-            "cannotUninstallEpic": "Epic spel kan inte avinstalleras samtidigt som ett annat Epic spel installeras."
+            "cannotUninstallEpic": "Epic spel kan inte avinstalleras samtidigt som ett annat Epic spel installeras.",
+            "gameIsRunning": "{{title}} körs. Stäng spelet för att avinstallera det."
         },
         "update": {
             "message": "Det finns en speluppdatering, uppdatera nu?",
@@ -106,7 +107,9 @@
             "toggle": "Behåll spelet i en viss version"
         },
         "changelogFor": "Ändringslogg för {{gameTitle}}",
-        "modify": "Modifiera installation"
+        "modify": "Modifiera installation",
+        "extra_info": "Extra information",
+        "install_info": "Installationsinformation"
     },
     "gamecard": {
         "moving": "Flyttar",
@@ -135,7 +138,8 @@
         "game-scores": "Spelresultat",
         "installedInfo": "Installerad information",
         "protondb-compatibility-info": "Protonkompatibilitetsnivå",
-        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet"
+        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
+        "third-party-app": "Tredjeparts hanterare"
     },
     "install": {
         "disk-space-left": "Utrymme tillgängligt",
@@ -152,7 +156,8 @@
             "title": "Antifusk trasigt/nekat",
             "install_anyway": "Ja (Jag förstår att flerspelarfunktioner inte kommer att fungera)",
             "multiplayer_message": "Antifuskstödet är trasigt eller nekat. Spelet kan öppnas men flerspelarfunktionerna kommer inte att fungera. Vill du installera det ändå?",
-            "ok": "Ok"
+            "ok": "Ok",
+            "disabled_installation": "Antifusk stödet är trasigt eller nekat och flerspelarfunktionerna kommer inte att fungera. Spelet kan inte installeras. För att installera det här spelet, inaktivera denna kontroll i de avancerade inställningarna."
         },
         "flatpak-path-not-writtable": "Fel: Sandlådeåtkomst har inte beviljats till den här sökvägen, dataförlust kommer att inträffa."
     },
@@ -281,5 +286,10 @@
         "dlcsCollapsible": "DLC",
         "versionCollapsable": "Spelversion",
         "nodlcs": "Ingen DLC tillgänglig"
+    },
+    "third-party-managed": {
+        "header": "Detta spel hanteras av ett tredjeparts program",
+        "notice1": "Detta spel hanteras av tredjeparts programmet: \"{{application_name}}\"",
+        "notice2": "Efter att ha klickat på Installera kommer Heroic att köra programmet för att slutföra installationsprocessen"
     }
 }

@@ -4,7 +4,7 @@
         "open": "Otvoriť odkaz",
         "copy": "Kopírovať",
         "copied": "Skopírované!",
-        "loading": "Loading",
+        "loading": "Načítavam",
         "error": "Chyba, skúste iný kód"
     },
     "message": {
@@ -21,5 +21,5 @@
         "error": "Error",
         "loading": "Loading Game list, please wait"
     },
-    "welcome": "Welcome!"
+    "welcome": "Vitajte!"
 }
