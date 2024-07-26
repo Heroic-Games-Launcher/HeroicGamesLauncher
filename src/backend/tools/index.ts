@@ -513,8 +513,8 @@ export const Winetricks = {
       await Winetricks.download()
     }
 
-    if (isUmuSupported(wineVersion.type)) {
-      winetricks = `${getUmuPath()}`
+    if (await isUmuSupported(wineVersion.type)) {
+      winetricks = await getUmuPath()
 
       if (args.includes('-q')) {
         args.splice(args.indexOf('-q'), 1)
@@ -528,6 +528,7 @@ export const Winetricks = {
       }
     }
 
+    const umuSupported = await isUmuSupported(wineVersion.type)
     return new Promise<string[] | null>((resolve) => {
       const { winePrefix, wineVersion: alwaysWine_wineVersion } =
         getWineFromProton(wineVersion, baseWinePrefix)
@@ -542,7 +543,7 @@ export const Winetricks = {
         wineVersion: alwaysWine_wineVersion
       }
 
-      if (isUmuSupported(wineVersion.type)) {
+      if (umuSupported) {
         settingsWithWineVersion = gameSettings
       }
 

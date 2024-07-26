@@ -386,7 +386,7 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
-    if (isUmuSupported(wineType)) {
+    if (await isUmuSupported(wineType)) {
       const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
       if (umuId) {
         commandEnv['GAMEID'] = umuId

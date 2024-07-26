@@ -231,10 +231,10 @@ async function prepareLaunch(
   }
 
   if (
-    isUmuSupported(gameSettings.wineVersion.type, false) &&
+    (await isUmuSupported(gameSettings.wineVersion.type, false)) &&
     !(await isInstalled('umu')) &&
     isOnline() &&
-    getUmuPath() === defaultUmuPath
+    (await getUmuPath()) === defaultUmuPath
   ) {
     await download('umu')
   }
@@ -766,7 +766,7 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  if (!existsSync(winePrefix) && !isUmuSupported(wineVersion.type)) {
+  if (!existsSync(winePrefix) && !(await isUmuSupported(wineVersion.type))) {
     mkdirSync(winePrefix, { recursive: true })
   }
 
@@ -778,7 +778,7 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   const command = runWineCommand({
-    commandParts: isUmuSupported(wineVersion.type)
+    commandParts: (await isUmuSupported(wineVersion.type))
       ? ['createprefix']
       : ['wineboot', '--init'],
     wait: haveToWait,
@@ -874,13 +874,13 @@ async function runWineCommand({
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
+  const umuSupported = await isUmuSupported(wineVersion.type)
+  const runnerBin = umuSupported ? await getUmuPath() : wineBin
 
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
-    const umuSupported = isUmuSupported(wineVersion.type)
-    const runnerBin = umuSupported ? getUmuPath() : wineBin
     let bin = runnerBin
 
     if (wrappers.length) {

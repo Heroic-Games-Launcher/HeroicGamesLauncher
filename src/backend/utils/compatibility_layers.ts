@@ -18,6 +18,7 @@ import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
 import { Path } from 'backend/schemas'
+import { searchForExecutableOnPath } from './os/path'
 
 /**
  * Loads the default wine installation path and version.
@@ -426,13 +427,13 @@ export type AllowedWineFlags = Pick<
  * @param wineType The type of the Wine version
  * @param wrapper Any wrappers to be used, may be `''`
  */
-export function getWineFlags(
+export async function getWineFlags(
   wineBin: string,
   wineType: WineInstallation['type'],
   wrapper: string
-): AllowedWineFlags {
+): Promise<AllowedWineFlags> {
   let partialCommand: AllowedWineFlags = {}
-  const umuSupported = isUmuSupported(wineType)
+  const umuSupported = await isUmuSupported(wineType)
   switch (wineType) {
     case 'wine':
     case 'toolkit':
@@ -448,7 +449,7 @@ export function getWineFlags(
       }
       if (umuSupported) {
         partialCommand['--wrapper'] = NonEmptyString.parse(
-          `${wrapper} "${getUmuPath()}"`
+          (wrapper ? `${wrapper} ` : '') + `"${await getUmuPath()}"`
         )
       }
       break
@@ -482,29 +483,17 @@ export function getWineFlagsArray(
   return commandArray
 }
 
-export function getUmuPath() {
-  //TODO: figure out how to use searchForExecutableOnPath here
+export const getUmuPath = async () =>
+  searchForExecutableOnPath('umu-run').then((path) => path ?? defaultUmuPath)
 
-  const paths = ['/app/share', '/usr/local/share', '/usr/share', '/opt']
-
-  for (const path of paths) {
-    const fullPath = join(path, 'umu', 'umu_run.py')
-    if (existsSync(fullPath)) {
-      return fullPath
-    }
-  }
-
-  return defaultUmuPath
-}
-
-export function isUmuSupported(
+export async function isUmuSupported(
   wineType: WineInstallation['type'],
   checkUmuInstalled = true
-): boolean {
+): Promise<boolean> {
   const umuEnabled =
     GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !== false
   const wineVersionSupported = wineType === 'proton'
-  const umuInstalled = checkUmuInstalled ? existsSync(getUmuPath()) : true
+  const umuInstalled = checkUmuInstalled ? existsSync(await getUmuPath()) : true
 
   return umuEnabled && wineVersionSupported && umuInstalled
 }
