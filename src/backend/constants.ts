@@ -90,7 +90,7 @@ const publicDir = resolve(
 )
 const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const vulkanHelperBin = fixAsarPath(
-  join(publicDir, 'bin', process.platform, 'vulkan-helper')
+  join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
 )
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))

@@ -443,34 +443,55 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
   return { dir, bin }
 }
 
+function archSpecificBinary(binaryName: string) {
+  // Try to use the arch-native binary first, if that doesn't exist fall back to
+  // the x64 version (assume a compatibility layer like box64 is installed)
+  const archSpecificPath = join(
+    publicDir,
+    'bin',
+    process.arch,
+    process.platform,
+    binaryName
+  )
+  if (existsSync(archSpecificPath)) return archSpecificPath
+  return join(publicDir, 'bin', 'x64', process.platform, binaryName)
+}
+
+let defaultLegendaryPath: string | undefined = undefined
 function getLegendaryBin(): { dir: string; bin: string } {
   const settings = GlobalConfig.get().getSettings()
   if (settings?.altLegendaryBin) {
     return splitPathAndName(settings.altLegendaryBin)
   }
-  return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'legendary'))
-  )
+
+  if (!defaultLegendaryPath)
+    defaultLegendaryPath = archSpecificBinary('legendary')
+
+  return splitPathAndName(fixAsarPath(defaultLegendaryPath))
 }
 
+let defaultGogdlPath: string | undefined = undefined
 function getGOGdlBin(): { dir: string; bin: string } {
   const settings = GlobalConfig.get().getSettings()
   if (settings?.altGogdlBin) {
     return splitPathAndName(settings.altGogdlBin)
   }
-  return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
-  )
+
+  if (!defaultGogdlPath) defaultGogdlPath = archSpecificBinary('gogdl')
+
+  return splitPathAndName(fixAsarPath(defaultGogdlPath))
 }
 
+let defaultNilePath: string | undefined = undefined
 function getNileBin(): { dir: string; bin: string } {
   const settings = GlobalConfig.get().getSettings()
   if (settings?.altNileBin) {
     return splitPathAndName(settings.altNileBin)
   }
-  return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
-  )
+
+  if (!defaultNilePath) defaultNilePath = archSpecificBinary('nile')
+
+  return splitPathAndName(fixAsarPath(defaultNilePath))
 }
 
 function getFormattedOsName(): string {
