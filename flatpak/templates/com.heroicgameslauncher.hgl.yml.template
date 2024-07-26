@@ -44,6 +44,9 @@ finish-args:
   - --socket=pulseaudio
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
+  # umu
+  - --filesystem=~/.var/app/org.openwinecomponents.umu.umu-launcher/data/umu
+  - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
