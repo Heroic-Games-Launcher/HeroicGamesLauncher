@@ -550,7 +550,8 @@ export const Winetricks = {
         ...setupWineEnvVars(settingsWithWineVersion, appName),
         WINEPREFIX: winePrefix,
         PATH: `${winepath}:${process.env.PATH}`,
-        GAMEID: gui ? 'winetricks-gui' : 'umu-0'
+        GAMEID: gui ? 'winetricks-gui' : 'umu-0',
+        UMU_RUNTIME_UPDATE: '0'
       }
 
       const wineServer = join(winepath, 'wineserver')
