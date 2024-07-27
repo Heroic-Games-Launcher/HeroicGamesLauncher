@@ -6,6 +6,7 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
   private using_in_memory: boolean
   private current_store: Store | Map<string, ValueType>
   private readonly lifespan: number | null
+  private invalidateCheck: (data: ValueType) => boolean
 
   /**
    * Creates a new cache store
@@ -13,7 +14,11 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
    * @param max_value_lifespan How long an individual entry in the store will
    *                           be cached (in minutes)
    */
-  constructor(filename: string, max_value_lifespan: number | null = 60 * 6) {
+  constructor(
+    filename: string,
+    max_value_lifespan: number | null = 60 * 6,
+    options?: { invalidateCheck?: (data: ValueType) => boolean }
+  ) {
     this.store = new Store({
       cwd: 'store_cache',
       name: filename,
@@ -23,6 +28,11 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
     this.using_in_memory = false
     this.current_store = this.store
     this.lifespan = max_value_lifespan
+    if (options && options.invalidateCheck) {
+      this.invalidateCheck = options.invalidateCheck
+    } else {
+      this.invalidateCheck = () => true
+    }
   }
 
   /**
@@ -54,7 +64,10 @@ export default class CacheStore<ValueType, KeyType extends string = string> {
       const updateDate = new Date(lastUpdateTimestamp)
       const msSinceUpdate = Date.now() - updateDate.getTime()
       const minutesSinceUpdate = msSinceUpdate / 1000 / 60
-      if (minutesSinceUpdate > this.lifespan) {
+      if (
+        minutesSinceUpdate > this.lifespan &&
+        this.invalidateCheck(this.current_store.get(key) as ValueType)
+      ) {
         this.current_store.delete(key)
         this.current_store.delete(`__timestamp.${key}`)
         return fallback

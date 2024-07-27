@@ -18,7 +18,7 @@ import {
 
 import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
-import { join, normalize } from 'path'
+import { join, dirname } from 'path'
 
 import {
   defaultWinePrefix,
@@ -29,7 +29,8 @@ import {
   isWindows,
   isSteamDeckGameMode,
   runtimePath,
-  userHome
+  userHome,
+  defaultUmuPath
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -71,7 +72,6 @@ import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
-import { sendFrontendMessage } from './main_window'
 import {
   createAbortController,
   deleteAbortController
@@ -79,6 +79,8 @@ import {
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
+import { sendFrontendMessage } from './main_window'
+import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -228,17 +230,27 @@ async function prepareLaunch(
     }
   }
 
+  if (
+    (await isUmuSupported(gameSettings.wineVersion.type, false)) &&
+    !(await isInstalled('umu')) &&
+    isOnline() &&
+    (await getUmuPath()) === defaultUmuPath
+  ) {
+    await download('umu')
+  }
+
   // If the Steam Runtime is enabled, find a valid one
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
-    (isNative || gameSettings.wineVersion.type === 'proton')
+    (isNative || !isUmuSupported(gameSettings.wineVersion.type))
+
   if (shouldUseRuntime) {
     // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
     let nonNativeRuntime: SteamRuntime['type'] = 'soldier'
     if (!isNative) {
       try {
-        const parentPath = normalize(join(gameSettings.wineVersion.bin, '..'))
+        const parentPath = dirname(gameSettings.wineVersion.bin)
         const requiredAppId = VDF.parse(
           readFileSync(join(parentPath, 'toolmanifest.vdf'), 'utf-8')
         ).manifest?.require_tool_appid
@@ -250,8 +262,8 @@ async function prepareLaunch(
         )
       }
     }
-    // for native games lets use scout for now
-    const runtimeType = isNative ? 'sniper' : nonNativeRuntime
+
+    const runtimeType = isNative ? 'scout' : nonNativeRuntime
     const { path, args } = await getSteamRuntime(runtimeType)
     if (!path) {
       return {
@@ -267,6 +279,8 @@ async function prepareLaunch(
           } installed`
       }
     }
+
+    logInfo(`Using Steam ${runtimeType} Runtime`, LogPrefix.Backend)
 
     steamRuntime = [path, ...args]
   }
@@ -300,14 +314,6 @@ async function prepareWineLaunch(
     if (!(await validWine(defaultWine))) {
       return { success: false }
     }
-  }
-
-  // Log warning about Proton
-  if (gameSettings.wineVersion.type === 'proton') {
-    logWarning(
-      'You are using Proton, this can lead to some bugs. Please do not open issues with bugs related to games',
-      LogPrefix.Backend
-    )
   }
 
   // Verify that the CrossOver bottle exists
@@ -497,16 +503,20 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
 
   ret.HEROIC_APP_NAME = wrapperEnv.appName
   ret.HEROIC_APP_RUNNER = wrapperEnv.appRunner
+  ret.GAMEID = 'umu-0'
 
   switch (wrapperEnv.appRunner) {
     case 'gog':
       ret.HEROIC_APP_SOURCE = 'gog'
+      ret.STORE = 'gog'
       break
     case 'legendary':
       ret.HEROIC_APP_SOURCE = 'epic'
+      ret.STORE = 'egs'
       break
     case 'nile':
       ret.HEROIC_APP_SOURCE = 'amazon'
+      ret.STORE = 'amazon'
       break
     case 'sideload':
       ret.HEROIC_APP_SOURCE = 'sideload'
@@ -527,9 +537,6 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
 
   const ret: Record<string, string> = {}
 
-  ret.DOTNET_BUNDLE_EXTRACT_BASE_DIR = ''
-  ret.DOTNET_ROOT = ''
-
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
   const steamInstallPath = join(flatPakHome, '.steam', 'steam')
   switch (wineVersion.type) {
@@ -544,7 +551,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       )
       if (dllOverridesVar) {
         ret[dllOverridesVar.key] =
-          dllOverridesVar.value + ',' + wmbDisableString
+          dllOverridesVar.value + ';' + wmbDisableString
       } else {
         ret.WINEDLLOVERRIDES = wmbDisableString
       }
@@ -553,7 +560,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
     case 'proton':
       ret.STEAM_COMPAT_CLIENT_INSTALL_PATH = steamInstallPath
+      ret.WINEPREFIX = winePrefix
       ret.STEAM_COMPAT_DATA_PATH = winePrefix
+      ret.PROTONPATH = dirname(gameSettings.wineVersion.bin)
       break
     case 'crossover':
       ret.CX_BOTTLE = wineCrossoverBottle
@@ -757,7 +766,7 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  if (!existsSync(winePrefix)) {
+  if (!existsSync(winePrefix) && !(await isUmuSupported(wineVersion.type))) {
     mkdirSync(winePrefix, { recursive: true })
   }
 
@@ -769,9 +778,12 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   const command = runWineCommand({
-    commandParts: ['wineboot', '--init'],
+    commandParts: (await isUmuSupported(wineVersion.type))
+      ? ['createprefix']
+      : ['wineboot', '--init'],
     wait: haveToWait,
     gameSettings: settings,
+    protonVerb: 'run',
     skipPrefixCheckIKnowWhatImDoing: true
   })
 
@@ -801,7 +813,6 @@ function launchCleanup(rpcClient?: RpcClient) {
 async function runWineCommand({
   gameSettings,
   commandParts,
-  gameInstallPath,
   wait,
   protonVerb = 'run',
   installFolderName,
@@ -856,27 +867,25 @@ async function runWineCommand({
 
   const env_vars = {
     ...process.env,
-    ...setupEnvVars(settings, gameInstallPath),
-    ...setupWineEnvVars(settings, installFolderName)
-  }
-
-  const isProton = wineVersion.type === 'proton'
-  if (isProton) {
-    commandParts.unshift(protonVerb)
+    GAMEID: 'umu-0',
+    ...setupEnvVars(settings),
+    ...setupWineEnvVars(settings, installFolderName),
+    PROTON_VERB: protonVerb
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
+  const umuSupported = await isUmuSupported(wineVersion.type)
+  const runnerBin = umuSupported ? await getUmuPath() : wineBin
 
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
-    let bin = ''
+    let bin = runnerBin
+
     if (wrappers.length) {
       bin = wrappers.shift()!
-      commandParts.unshift(...wrappers, wineBin)
-    } else {
-      bin = wineBin
+      commandParts.unshift(...wrappers, runnerBin)
     }
 
     const child = spawn(bin, commandParts, {

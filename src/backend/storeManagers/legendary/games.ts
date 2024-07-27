@@ -77,7 +77,8 @@ import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
-  getWineFlags
+  getWineFlags,
+  isUmuSupported
 } from 'backend/utils/compatibility_layers'
 import {
   LegendaryAppName,
@@ -86,6 +87,7 @@ import {
   PositiveInteger
 } from './commands/base'
 import { LegendaryCommand } from './commands'
+import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
@@ -911,13 +913,19 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
+    if (await isUmuSupported(wineType)) {
+      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (umuId) {
+        commandEnv['GAMEID'] = umuId
+      }
+    }
     // Fix for people with old config
     const wineBin =
       wineExec.startsWith("'") && wineExec.endsWith("'")
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlags = getWineFlags(wineBin, wineType, shlex.join(wrappers))
+    wineFlags = await getWineFlags(wineBin, wineType, shlex.join(wrappers))
   }
 
   const appNameToLaunch =
@@ -950,12 +958,6 @@ export async function launch(
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
   sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
-
-  sendGameStatusUpdate({
-    appName,
-    runner: 'legendary',
-    status: 'playing'
-  })
 
   const { error } = await runLegendaryCommand(command, {
     abortId: appName,

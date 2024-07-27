@@ -42,7 +42,10 @@ import {
 import { existsSync } from 'graceful-fs'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { t } from 'i18next'
-import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
+import {
+  getWineFlagsArray,
+  isUmuSupported
+} from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
 import { join } from 'path'
 import {
@@ -62,6 +65,7 @@ import {
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 import { sendFrontendMessage } from 'backend/main_window'
 import setup from './setup'
+import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 
 export async function getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)
@@ -382,6 +386,13 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
+    if (await isUmuSupported(wineType)) {
+      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (umuId) {
+        commandEnv['GAMEID'] = umuId
+      }
+    }
+
     // Fix for people with old config
     const wineBin =
       wineExec.startsWith("'") && wineExec.endsWith("'")
@@ -389,7 +400,7 @@ export async function launch(
         : wineExec
 
     wineFlag = [
-      ...getWineFlagsArray(wineBin, wineType, shlex.join(wrappers)),
+      ...(await getWineFlagsArray(wineBin, wineType, shlex.join(wrappers))),
       '--wine-prefix',
       gameSettings.winePrefix
     ]
@@ -413,12 +424,6 @@ export async function launch(
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
   sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
-
-  sendGameStatusUpdate({
-    appName,
-    runner: 'nile',
-    status: 'playing'
-  })
 
   const { error } = await runNileCommand(commandParts, {
     abortId: appName,
