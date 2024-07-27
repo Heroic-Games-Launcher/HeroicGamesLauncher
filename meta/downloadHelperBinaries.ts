@@ -11,7 +11,7 @@ const RELEASE_TAGS = {
   legendary: '0.20.35',
   gogdl: 'v1.1.1',
   nile: 'v1.1.0',
-  comet: 'v0.1.1'
+  comet: 'v0.1.2'
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
@@ -145,12 +145,12 @@ async function downloadComet() {
     RELEASE_TAGS['comet'],
     {
       x64: {
-        linux: 'comet_linux_x86_64',
-        darwin: 'comet_macOS_x86_64',
-        win32: 'comet_windows_x86_64.exe'
+        linux: 'comet-x86_64-unknown-linux-gnu',
+        darwin: 'comet-x86_64-apple-darwin',
+        win32: 'comet-x86_64-pc-windows-msvc.exe'
       },
       arm64: {
-        darwin: 'comet_macOS_arm64'
+        darwin: 'comet-aarch64-apple-darwin'
       }
     }
   )
