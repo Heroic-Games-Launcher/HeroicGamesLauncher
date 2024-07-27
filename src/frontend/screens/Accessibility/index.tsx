@@ -164,7 +164,7 @@ export default React.memo(function Accessibility() {
           value={contentFont}
           onChange={handleContentFontFamily}
           label={t(
-            'accessibility.content_font_family_no_default',
+            'accessibility.content_font_family_default',
             'Content Font Family (Default: {{fontFamily}})',
             { fontFamily: defaultSecondaryFont.split(',')[0].trim() }
           )}
@@ -177,7 +177,7 @@ export default React.memo(function Accessibility() {
           value={actionFont}
           onChange={handleActionsFontFamily}
           label={t(
-            'accessibility.actions_font_family_no_default',
+            'accessibility.actions_font_family_default',
             'Actions Font Family (Default: {{fontFamily}})',
             { fontFamily: defaultPrimaryFont.split(',')[0].trim() }
           )}
