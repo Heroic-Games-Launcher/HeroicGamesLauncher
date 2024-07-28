@@ -506,6 +506,7 @@ export async function launch(
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
     appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -718,6 +719,7 @@ export async function launch(
     logInfo(`Killing Comet!`, LogPrefix.Gog)
     child.kill()
   }
+  launchCleanup(rpcClient)
 
   if (abort) {
     return true
@@ -726,8 +728,6 @@ export async function launch(
   if (error) {
     logError(['Error launching game:', error], LogPrefix.Gog)
   }
-
-  launchCleanup(rpcClient)
 
   return !error
 }
