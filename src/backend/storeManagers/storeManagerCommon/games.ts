@@ -179,6 +179,7 @@ export async function launchGame(
 
     if (!launchPrepSuccess) {
       appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+      launchCleanup()
       showDialogBoxModalAuto({
         title: i18next.t('box.error.launchAborted', 'Launch aborted'),
         message: launchPrepFailReason!,
