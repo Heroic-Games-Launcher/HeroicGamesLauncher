@@ -66,6 +66,7 @@ export type ExperimentalFeatures = {
   enableHelp: boolean
   automaticWinetricksFixes: boolean
   umuSupport: boolean
+  cometSupport: boolean
 }
 
 export interface AppSettings extends GameSettings {

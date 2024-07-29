@@ -212,7 +212,7 @@ class GlobalState extends PureComponent<Props> {
       enableHelp: false,
       automaticWinetricksFixes: true,
       umuSupport: true,
-      ...(globalSettings?.experimentalFeatures || {})
+      cometSupport: true
     },
     disableDialogBackdropClose: configStore.get(
       'disableDialogBackdropClose',

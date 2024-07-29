@@ -688,7 +688,12 @@ export async function launch(
 
   let child = undefined
 
-  if (userData && userData.username) {
+  if (
+    userData &&
+    userData.username &&
+    GlobalConfig.get().getSettings().experimentalFeatures?.cometSupport !==
+      false
+  ) {
     const path = getCometBin()
     child = spawn(join(path.dir, path.bin), [
       '--from-heroic',
