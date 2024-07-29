@@ -210,7 +210,8 @@ class GlobalState extends PureComponent<Props> {
     experimentalFeatures: globalSettings?.experimentalFeatures || {
       enableNewDesign: false,
       enableHelp: false,
-      automaticWinetricksFixes: true
+      automaticWinetricksFixes: true,
+      cometSupport: true
     },
     disableDialogBackdropClose: configStore.get(
       'disableDialogBackdropClose',

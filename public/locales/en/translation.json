@@ -635,7 +635,8 @@
         "experimental_features": {
             "automaticWinetricksFixes": "Apply known fixes automatically",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design"
+            "enableNewDesign": "New design",
+            "cometSupport": "Comet support"
         },
         "frameless-window": {
             "confirmation": {
