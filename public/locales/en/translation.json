@@ -634,9 +634,9 @@
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
             "automaticWinetricksFixes": "Apply known fixes automatically",
+            "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design",
-            "cometSupport": "Comet support"
+            "enableNewDesign": "New design"
         },
         "frameless-window": {
             "confirmation": {
