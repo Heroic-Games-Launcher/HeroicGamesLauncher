@@ -12,7 +12,8 @@ const srcAliases = ['backend', 'frontend', 'common'].map((aliasName) => ({
 
 const dependenciesToNotExternalize = [
   '@xhmikosr/decompress',
-  '@xhmikosr/decompress-targz'
+  '@xhmikosr/decompress-targz',
+  '@xhmikosr/decompress-unzip'
 ]
 
 // FIXME: Potentially publish this as a dedicated plugin, if other projects

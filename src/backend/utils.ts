@@ -84,6 +84,7 @@ import EasyDl from 'easydl'
 import decompress from '@xhmikosr/decompress'
 import decompressTargz from '@xhmikosr/decompress-targz'
 import decompressTarxz from '@felipecrs/decompress-tarxz'
+import decompressUnzip from '@xhmikosr/decompress-unzip'
 import {
   deviceNameCache,
   vendorNameCache
@@ -836,7 +837,7 @@ async function shutdownWine(gameSettings: GameSettings) {
       gameSettings,
       commandParts: ['wineboot', '-k'],
       wait: true,
-      protonVerb: 'waitforexitandrun'
+      protonVerb: 'runinprefix'
     })
   }
 }
@@ -1530,7 +1531,7 @@ async function extractDecompress(
   )
   try {
     await decompress(path, destination, {
-      plugins: [decompressTargz(), decompressTarxz()],
+      plugins: [decompressTargz(), decompressTarxz(), decompressUnzip()],
       strip
     })
   } catch (error) {
