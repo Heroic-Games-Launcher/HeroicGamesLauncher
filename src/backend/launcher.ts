@@ -375,7 +375,7 @@ async function prepareWineLaunch(
     )
     if (existsSync(installerScript)) {
       await runWineCommand({
-        commandParts: [],
+        commandParts: [installerScript],
         gameSettings,
         protonVerb: 'runinprefix', // Prefix was verified before this, it's safe
         skipPrefixCheckIKnowWhatImDoing: true
