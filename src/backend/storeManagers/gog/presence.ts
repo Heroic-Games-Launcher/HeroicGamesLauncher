@@ -3,6 +3,7 @@ import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
 import { axiosClient } from 'backend/utils'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'
+import { GlobalConfig } from 'backend/config'
 
 interface PresencePayload {
   application_type: string
@@ -21,7 +22,8 @@ function setCurrentGame(game: string) {
 
 async function setPresence() {
   try {
-    if (!GOGUser.isLoggedIn() || !isOnline) return
+    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+    if (disablePlaytimeSync || !GOGUser.isLoggedIn() || !isOnline()) return
     const credentials = await GOGUser.getCredentials()
     if (!credentials) return
 
@@ -56,7 +58,7 @@ async function setPresence() {
 
 async function deletePresence() {
   try {
-    if (!GOGUser.isLoggedIn() || !isOnline) return
+    if (!GOGUser.isLoggedIn() || !isOnline()) return
     const credentials = await GOGUser.getCredentials()
     if (!credentials) {
       return

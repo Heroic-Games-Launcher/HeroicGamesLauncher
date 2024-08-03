@@ -7,6 +7,10 @@ jest.mock('@xhmikosr/decompress', () => {
   return jest.fn().mockImplementation(async () => Promise.resolve())
 })
 
+jest.mock('@xhmikosr/decompress-unzip', () => {
+  return jest.fn().mockImplementation(() => {})
+})
+
 jest.mock('@xhmikosr/decompress-targz', () => {
   return jest.fn().mockImplementation(() => {})
 })

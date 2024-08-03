@@ -23,3 +23,4 @@ declare module '@xhmikosr/decompress' {
 
 declare module '@xhmikosr/decompress-targz'
 declare module '@felipecrs/decompress-tarxz'
+declare module '@xhmikosr/decompress-unzip'
