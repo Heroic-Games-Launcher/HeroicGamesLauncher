@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'backend/config'
 import {
   configPath,
+  defaultUmuPath,
   getSteamLibraries,
   isMac,
   toolsPath,
@@ -17,6 +18,7 @@ import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
 import { Path } from 'backend/schemas'
+import { searchForExecutableOnPath } from './os/path'
 
 /**
  * Loads the default wine installation path and version.
@@ -476,12 +478,13 @@ export type AllowedWineFlags = Pick<
  * @param wineType The type of the Wine version
  * @param wrapper Any wrappers to be used, may be `''`
  */
-export function getWineFlags(
+export async function getWineFlags(
   wineBin: string,
   wineType: WineInstallation['type'],
   wrapper: string
-): AllowedWineFlags {
+): Promise<AllowedWineFlags> {
   let partialCommand: AllowedWineFlags = {}
+  const umuSupported = await isUmuSupported(wineType)
   switch (wineType) {
     case 'wine':
     case 'toolkit':
@@ -492,7 +495,12 @@ export function getWineFlags(
       partialCommand = {
         '--no-wine': true,
         '--wrapper': NonEmptyString.parse(
-          `${wrapper} '${wineBin}' waitforexitandrun`
+          `${wrapper} "${wineBin}" waitforexitandrun`
+        )
+      }
+      if (umuSupported) {
+        partialCommand['--wrapper'] = NonEmptyString.parse(
+          (wrapper ? `${wrapper} ` : '') + `"${await getUmuPath()}"`
         )
       }
       break
@@ -511,12 +519,12 @@ export function getWineFlags(
 /**
  * Like {@link getWineFlags}, but returns a `string[]` with the flags instead
  */
-export function getWineFlagsArray(
+export async function getWineFlagsArray(
   wineBin: string,
   wineType: WineInstallation['type'],
   wrapper: string
-): string[] {
-  const partialCommand = getWineFlags(wineBin, wineType, wrapper)
+): Promise<string[]> {
+  const partialCommand = await getWineFlags(wineBin, wineType, wrapper)
 
   const commandArray: string[] = []
   for (const [key, value] of Object.entries(partialCommand)) {
@@ -524,4 +532,19 @@ export function getWineFlagsArray(
     else commandArray.push(key, value)
   }
   return commandArray
+}
+
+export const getUmuPath = async () =>
+  searchForExecutableOnPath('umu-run').then((path) => path ?? defaultUmuPath)
+
+export async function isUmuSupported(
+  wineType: WineInstallation['type'],
+  checkUmuInstalled = true
+): Promise<boolean> {
+  const umuEnabled =
+    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !== false
+  const wineVersionSupported = wineType === 'proton'
+  const umuInstalled = checkUmuInstalled ? existsSync(await getUmuPath()) : true
+
+  return umuEnabled && wineVersionSupported && umuInstalled
 }
