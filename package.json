@@ -1,8 +1,8 @@
 {
   "name": "heroic",
-  "version": "2.14.1",
+  "version": "2.15.0",
   "versionNames": {
-    "stable": "Flame Emperor Sabo",
+    "stable": "Emeth",
     "beta": "Caesar Clown"
   },
   "private": false,
