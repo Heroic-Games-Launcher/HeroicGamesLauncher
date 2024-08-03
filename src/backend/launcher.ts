@@ -383,8 +383,7 @@ async function prepareWineLaunch(
       await runWineCommand({
         commandParts: [installerScript],
         gameSettings,
-        protonVerb: 'runinprefix', // Prefix was verified before this, it's safe
-        skipPrefixCheckIKnowWhatImDoing: true
+        protonVerb: 'runinprefix'
       })
     } else {
       logWarning(
