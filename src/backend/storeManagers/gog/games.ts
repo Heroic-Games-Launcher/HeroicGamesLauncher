@@ -399,11 +399,12 @@ export async function install(
   }
 
   const sizeOnDisk = await getPathDiskSize(join(path, gameInfo.folder_name))
+  const install_path = join(path, gameInfo.folder_name)
 
   const installedData: InstalledInfo = {
     platform: installPlatform,
     executable: '',
-    install_path: join(path, gameInfo.folder_name),
+    install_path,
     install_size: getFileSize(sizeOnDisk),
     is_dlc: false,
     version: additionalInfo ? additionalInfo.version : installInfo.game.version,
@@ -432,6 +433,17 @@ export async function install(
           e
         ],
         LogPrefix.Gog
+      )
+    }
+  } else if (isLinuxNative) {
+    const installer = join(install_path, 'support/postinst.sh')
+    if (existsSync(installer)) {
+      logInfo(`Running ${installer}`, LogPrefix.Gog)
+      await spawnAsync(installer, []).catch((err) =>
+        logError(
+          `Failed to run linux installer: ${installer} - ${err}`,
+          LogPrefix.Gog
+        )
       )
     }
   }
@@ -1117,9 +1129,6 @@ export async function update(
     gameObject.version = installInfo.game.version
     gameObject.branch = updateOverwrites?.branch
     gameObject.language = overwrittenLanguage
-    if (updateOverwrites?.dlcs) {
-      gameObject.installedDLCs = updateOverwrites?.dlcs
-    }
     gameObject.versionEtag = etag
   } else {
     const installerInfo = await getLinuxInstallerInfo(appName)
@@ -1127,6 +1136,9 @@ export async function update(
       return { status: 'error' }
     }
     gameObject.version = installerInfo.version
+  }
+  if (updateOverwrites?.dlcs) {
+    gameObject.installedDLCs = updateOverwrites?.dlcs
   }
   const sizeOnDisk = await getPathDiskSize(join(gameObject.install_path))
   gameObject.install_size = getFileSize(sizeOnDisk)
@@ -1140,6 +1152,17 @@ export async function update(
     (isWindows || existsSync(gameSettings.winePrefix))
   ) {
     await setup(appName, gameObject, false)
+  } else if (gameObject.platform === 'linux') {
+    const installer = join(gameObject.install_path, 'support/postinst.sh')
+    if (existsSync(installer)) {
+      logInfo(`Running ${installer}`, LogPrefix.Gog)
+      await spawnAsync(installer, []).catch((err) =>
+        logError(
+          `Failed to run linux installer: ${installer} - ${err}`,
+          LogPrefix.Gog
+        )
+      )
+    }
   }
   sendGameStatusUpdate({
     appName: appName,
