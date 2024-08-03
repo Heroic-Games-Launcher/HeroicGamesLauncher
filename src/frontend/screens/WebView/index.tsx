@@ -262,7 +262,7 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current, preloadPath, amazonLoginData])
+  }, [webviewRef.current, preloadPath, amazonLoginData, runner])
 
   useEffect(() => {
     const webview = webviewRef.current
