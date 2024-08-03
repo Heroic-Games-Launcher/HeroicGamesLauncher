@@ -68,7 +68,7 @@ jobs:
         if: ${{ success() }}
 
       - name: Publish AUR package
-        uses: KSXGitHub/github-actions-deploy-aur@v2
+        uses: KSXGitHub/github-actions-deploy-aur@v2.7.2
         with:
           pkgname: heroic-games-launcher-bin
           pkgbuild: ./PKGBUILD

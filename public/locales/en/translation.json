@@ -636,7 +636,8 @@
             "automaticWinetricksFixes": "Apply known fixes automatically",
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design"
+            "enableNewDesign": "New design",
+            "umuSupport": "Use UMU as Proton runtime"
         },
         "frameless-window": {
             "confirmation": {

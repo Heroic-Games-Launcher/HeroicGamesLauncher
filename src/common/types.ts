@@ -66,6 +66,7 @@ export type ExperimentalFeatures = {
   enableHelp: boolean
   automaticWinetricksFixes: boolean
   cometSupport: boolean
+  umuSupport: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -479,6 +480,7 @@ export type RuntimeName =
   | 'eac_runtime'
   | 'battleye_runtime'
   | 'comet_dummy_service'
+  | 'umu'
 
 export type RecentGame = {
   appName: string
@@ -676,6 +678,7 @@ export interface WikiInfo {
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
   steamInfo: SteamInfo | null
+  umuId: string | null
 }
 
 /**
