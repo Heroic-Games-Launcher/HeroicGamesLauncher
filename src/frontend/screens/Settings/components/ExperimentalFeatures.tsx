@@ -7,7 +7,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 const ExperimentalFeatures = () => {
   const { platform } = useContext(ContextProvider)
 
-  const FEATURES = ['enableNewDesign', 'enableHelp']
+  const FEATURES = ['enableNewDesign', 'enableHelp', 'cometSupport']
 
   if (platform !== 'win32') {
     FEATURES.push('automaticWinetricksFixes')
@@ -24,6 +24,7 @@ const ExperimentalFeatures = () => {
       enableNewDesign: false,
       enableHelp: false,
       automaticWinetricksFixes: true,
+      cometSupport: true,
       umuSupport: false
     }
   )
@@ -43,6 +44,7 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableNewDesign', 'New design')
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.automaticWinetricksFixes', 'Apply known fixes automatically')
+    t('setting.experimental_features.cometSupport', 'Comet support')
     t('setting.experimental_features.umuSupport', 'Use UMU as Proton runtime')
   */
 

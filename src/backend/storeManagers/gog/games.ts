@@ -24,7 +24,8 @@ import {
   shutdownWine,
   sendProgressUpdate,
   sendGameStatusUpdate,
-  getPathDiskSize
+  getPathDiskSize,
+  getCometBin
 } from '../../utils'
 import {
   ExtraInfo,
@@ -55,6 +56,7 @@ import {
 } from './electronStores'
 import {
   appendGamePlayLog,
+  appendRunnerLog,
   appendWinetricksGamePlayLog,
   logDebug,
   logError,
@@ -104,6 +106,7 @@ import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
 import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
+import { spawn } from 'child_process'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
@@ -679,7 +682,33 @@ export async function launch(
   )
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+
   sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
+
+  let child = undefined
+
+  if (
+    userData &&
+    userData.username &&
+    GlobalConfig.get().getSettings().experimentalFeatures?.cometSupport !==
+      false
+  ) {
+    const path = getCometBin()
+    child = spawn(join(path.dir, path.bin), [
+      '--from-heroic',
+      '--username',
+      userData.username,
+      '--quit'
+    ])
+    child.stdout.on('data', (data) => {
+      appendRunnerLog('gog', data.toString())
+    })
+    child.stderr.on('data', (data) => {
+      appendRunnerLog('gog', data.toString())
+    })
+    logInfo(`Launching Comet!`, LogPrefix.Gog)
+  }
 
   const { error, abort } = await runGogdlCommand(commandParts, {
     abortId: appName,
@@ -691,6 +720,10 @@ export async function launch(
     }
   })
 
+  if (child) {
+    logInfo(`Killing Comet!`, LogPrefix.Gog)
+    child.kill()
+  }
   launchCleanup(rpcClient)
 
   if (abort) {

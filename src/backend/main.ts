@@ -44,6 +44,7 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
+import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
 import {
   clearCache,
@@ -360,6 +361,7 @@ if (!gotTheLock) {
         prefix: LogPrefix.Backend
       })
     }
+    runOnceWhenOnline(gogPresence.setPresence)
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -1050,6 +1052,11 @@ ipcMain.handle(
       skipVersionCheck
     )
 
+    if (runner === 'gog') {
+      gogPresence.setCurrentGame(appName)
+      await gogPresence.setPresence()
+    }
+
     const launchResult = await command
       .catch((exception) => {
         logError(exception, LogPrefix.Backend)
@@ -1065,6 +1072,10 @@ ipcMain.handle(
         stopLogger(appName)
       })
 
+    if (runner === 'gog') {
+      gogPresence.setCurrentGame('')
+      await gogPresence.setPresence()
+    }
     // Stop display sleep blocker
     if (powerDisplayId !== null) {
       logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)

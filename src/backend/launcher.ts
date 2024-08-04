@@ -344,6 +344,8 @@ async function prepareWineLaunch(
   }
 
   const { updated: winePrefixUpdated } = await verifyWinePrefix(gameSettings)
+  const experimentalFeatures =
+    GlobalConfig.get().getSettings().experimentalFeatures
   if (winePrefixUpdated) {
     logInfo(
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
@@ -363,11 +365,30 @@ async function prepareWineLaunch(
     if (runner === 'legendary') {
       await legendarySetup(appName)
     }
-    if (
-      GlobalConfig.get().getSettings().experimentalFeatures
-        ?.automaticWinetricksFixes !== false
-    ) {
+    if (experimentalFeatures?.automaticWinetricksFixes !== false) {
       await installFixes(appName, runner)
+    }
+  }
+
+  if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
+    if (isOnline() && !(await isInstalled('comet_dummy_service'))) {
+      await download('comet_dummy_service')
+    }
+    const installerScript = join(
+      runtimePath,
+      'comet_dummy_service',
+      'install-dummy-service.bat'
+    )
+    if (existsSync(installerScript)) {
+      await runWineCommand({
+        commandParts: [installerScript],
+        gameSettings,
+        protonVerb: 'runinprefix'
+      })
+    } else {
+      logWarning(
+        "Comet dummy service isn't downloaded, online functionality may not work"
+      )
     }
   }
 

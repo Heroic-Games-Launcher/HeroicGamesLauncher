@@ -5,12 +5,13 @@ import { Readable } from 'stream'
 import { finished } from 'stream/promises'
 
 type SupportedPlatform = 'win32' | 'darwin' | 'linux'
-type DownloadedBinary = 'legendary' | 'gogdl' | 'nile'
+type DownloadedBinary = 'legendary' | 'gogdl' | 'nile' | 'comet'
 
 const RELEASE_TAGS = {
   legendary: '0.20.35',
   gogdl: 'v1.1.1',
-  nile: 'v1.1.0'
+  nile: 'v1.1.0',
+  comet: 'v0.1.2'
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
@@ -137,6 +138,24 @@ async function downloadNile() {
   })
 }
 
+async function downloadComet() {
+  return downloadGithubAssets(
+    'comet',
+    'imLinguin/comet',
+    RELEASE_TAGS['comet'],
+    {
+      x64: {
+        linux: 'comet-x86_64-unknown-linux-gnu',
+        darwin: 'comet-x86_64-apple-darwin',
+        win32: 'comet-x86_64-pc-windows-msvc.exe'
+      },
+      arm64: {
+        darwin: 'comet-aarch64-apple-darwin'
+      }
+    }
+  )
+}
+
 /**
  * Finds out which binaries need to be downloaded by comparing
  * `public/bin/.release_tags` to RELEASE_TAGS
@@ -150,7 +169,7 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   try {
     storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
-    return ['legendary', 'gogdl', 'nile']
+    return ['legendary', 'gogdl', 'nile', 'comet']
   }
   const binariesToDownload: DownloadedBinary[] = []
   for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
@@ -184,6 +203,8 @@ async function main() {
   if (binariesToDownload.includes('gogdl'))
     promisesToAwait.push(downloadGogdl())
   if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
+  if (binariesToDownload.includes('comet'))
+    promisesToAwait.push(downloadComet())
 
   await Promise.all(promisesToAwait)
 

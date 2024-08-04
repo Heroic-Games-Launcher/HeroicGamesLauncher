@@ -98,6 +98,7 @@ const initialContext: ContextType = {
     enableNewDesign: false,
     enableHelp: false,
     automaticWinetricksFixes: true,
+    cometSupport: true,
     umuSupport: false
   },
   handleExperimentalFeatures: () => null,

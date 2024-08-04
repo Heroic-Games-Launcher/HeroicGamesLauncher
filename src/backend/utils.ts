@@ -57,6 +57,7 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import gogPresence from './storeManagers/gog/presence'
 import {
   installStore as nileInstallStore,
   libraryStore as nileLibraryStore
@@ -83,6 +84,7 @@ import EasyDl from 'easydl'
 import decompress from '@xhmikosr/decompress'
 import decompressTargz from '@xhmikosr/decompress-targz'
 import decompressTarxz from '@felipecrs/decompress-tarxz'
+import decompressUnzip from '@xhmikosr/decompress-unzip'
 import {
   deviceNameCache,
   vendorNameCache
@@ -242,6 +244,8 @@ const showAboutWindow = () => {
 async function handleExit() {
   const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
+
+  await gogPresence.deletePresence()
 
   if (isLocked && mainWindow) {
     const { response } = await showMessageBox(mainWindow, {
@@ -484,6 +488,18 @@ function getGOGdlBin(): { dir: string; bin: string } {
   if (!defaultGogdlPath) defaultGogdlPath = archSpecificBinary('gogdl')
 
   return splitPathAndName(fixAsarPath(defaultGogdlPath))
+}
+
+let defaultCometPath: string | undefined = undefined
+function getCometBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altCometBin) {
+    return splitPathAndName(settings.altCometBin)
+  }
+
+  if (!defaultCometPath) defaultCometPath = archSpecificBinary('comet')
+
+  return splitPathAndName(fixAsarPath(defaultCometPath))
 }
 
 let defaultNilePath: string | undefined = undefined
@@ -1519,7 +1535,7 @@ async function extractDecompress(
   )
   try {
     await decompress(path, destination, {
-      plugins: [decompressTargz(), decompressTarxz()],
+      plugins: [decompressTargz(), decompressTarxz(), decompressUnzip()],
       strip
     })
   } catch (error) {
@@ -1546,6 +1562,7 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
+  getCometBin,
   getNileBin,
   formatEpicStoreUrl,
   getSteamRuntime,

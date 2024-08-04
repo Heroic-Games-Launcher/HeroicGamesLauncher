@@ -65,6 +65,7 @@ export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
   automaticWinetricksFixes: boolean
+  cometSupport: boolean
   umuSupport: boolean
 }
 
@@ -73,6 +74,7 @@ export interface AppSettings extends GameSettings {
   addStartMenuShortcuts: boolean
   addSteamShortcuts: boolean
   altGogdlBin: string
+  altCometBin: string
   altLegendaryBin: string
   altNileBin: string
   autoUpdateGames: boolean
@@ -474,7 +476,11 @@ export interface Runtime {
   url: string
 }
 
-export type RuntimeName = 'eac_runtime' | 'battleye_runtime' | 'umu'
+export type RuntimeName =
+  | 'eac_runtime'
+  | 'battleye_runtime'
+  | 'comet_dummy_service'
+  | 'umu'
 
 export type RecentGame = {
   appName: string
