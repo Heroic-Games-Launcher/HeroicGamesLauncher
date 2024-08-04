@@ -1,5 +1,5 @@
 import { app } from 'electron'
-import { readFile } from 'fs/promises'
+import { open } from 'fs/promises'
 import path from 'path'
 import { z } from 'zod'
 
@@ -29,6 +29,26 @@ async function sendRequestToApi(formData: FormData, url = 'https://0x0.st') {
   })
 }
 
+const KiB = 1024
+const MiB = KiB * 1024
+
+/**
+ * Reads the first `size` bytes of a file
+ * @param file The file to read
+ * @param size The maximum number of bytes to read
+ */
+async function readPartOfFile(file: string, size: number) {
+  const fileHandle = await open(file, 'r')
+
+  const fileSize = (await fileHandle.stat()).size
+  size = Math.min(size, fileSize)
+
+  const buffer = Buffer.alloc(size)
+  await fileHandle.read(buffer, 0, size, 0)
+  await fileHandle.close()
+  return buffer
+}
+
 /**
  * Uploads the log file of a game / runner / Heroic to https://0x0.st
  * @param name See {@link UploadedLogData.name}
@@ -42,7 +62,7 @@ async function uploadLogFile(
   const fileLocation = getLogFile(appNameOrRunner)
   const filename = path.basename(fileLocation)
 
-  const fileContents = await readFile(fileLocation)
+  const fileContents = await readPartOfFile(fileLocation, 10 * MiB)
   const fileBlob = new Blob([fileContents])
 
   const formData = new FormData()
