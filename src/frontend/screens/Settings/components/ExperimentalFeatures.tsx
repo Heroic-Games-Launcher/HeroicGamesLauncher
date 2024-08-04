@@ -24,7 +24,7 @@ const ExperimentalFeatures = () => {
       enableNewDesign: false,
       enableHelp: false,
       automaticWinetricksFixes: true,
-      umuSupport: true
+      umuSupport: false
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
