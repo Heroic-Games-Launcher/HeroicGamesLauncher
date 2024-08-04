@@ -99,7 +99,7 @@ const initialContext: ContextType = {
     enableHelp: false,
     automaticWinetricksFixes: true,
     cometSupport: true,
-    umuSupport: true
+    umuSupport: false
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,

@@ -542,7 +542,7 @@ export async function isUmuSupported(
   checkUmuInstalled = true
 ): Promise<boolean> {
   const umuEnabled =
-    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport !== false
+    GlobalConfig.get().getSettings().experimentalFeatures?.umuSupport === true
   const wineVersionSupported = wineType === 'proton'
   const umuInstalled = checkUmuInstalled ? existsSync(await getUmuPath()) : true
 

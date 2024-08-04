@@ -25,7 +25,7 @@ const ExperimentalFeatures = () => {
       enableHelp: false,
       automaticWinetricksFixes: true,
       cometSupport: true,
-      umuSupport: true
+      umuSupport: false
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
