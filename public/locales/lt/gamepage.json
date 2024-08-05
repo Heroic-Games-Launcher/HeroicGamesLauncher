@@ -142,9 +142,11 @@
             "syncing": "Sinchronizuojami (žaidimo) išsaugojimai"
         },
         "game": {
-            "not-installable-game": "Žaidimas NĖRA įdiegiamas"
+            "not-installable-game": "Žaidimas NĖRA įdiegiamas",
+            "third-party-game": "Trečiosios šalies žaidimas NEPALAIKOMAS"
         },
-        "winetricks": "Įdiegiami „Winetricks“ paketai"
+        "winetricks": "Įdiegiami „Winetricks“ paketai",
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai"
     },
     "modifyInstall": {
         "dlcsCollapsible": "„DLC“",
@@ -181,7 +183,8 @@
         "path": "Įdiegimo kelias",
         "canRunOffline": "Reikalinga interneto prieiga",
         "game-scores": "Žaidimo taškai",
-        "protondb-compatibility-info": "„Proton“ palaikymo sluoksnis/pakopa"
+        "protondb-compatibility-info": "„Proton“ palaikymo sluoksnis/pakopa",
+        "third-party-app": "Trečiosios šalies tvarkytuvas/-ė"
     },
     "howLongToBeat": "Laikas įveikti",
     "sideload": {
@@ -198,7 +201,9 @@
         },
         "placeholder": {
             "image": "Įklijuokite nuotraukos/vaizdo/paveikslėlio „URL“ – saitą čia",
-            "url": "Įklijuokite žaidimo „URL“ – saitą čia"
+            "url": "Įklijuokite žaidimo „URL“ – saitą čia",
+            "title": "Pridėkite antraštę/pavadinimą prie savo žaidimo/programos",
+            "useragent": "Įrašykite pasirinktinį naudotojo/vartotojo agentą čia, norint jį pritaikyti šioje naršyklėje; programos/žaidimo"
         }
     },
     "specs": {
@@ -228,7 +233,10 @@
         "playing": "Žaidžiama",
         "totalDownloaded": "Iš viso atsisiųsta",
         "queued": "Eilėje",
-        "winetricks": "Pritaikomi „Winetricks“ sutaisymai"
+        "winetricks": "Pritaikomi „Winetricks“ sutaisymai",
+        "gog-goodie": "Šis žaidimas neatrodo įdiegiamas. Patikrinkite/Peržiūrėkite atsisiunčiama turinį – https://gog.com/account",
+        "this-game-uses-third-party": "Šis žaidimas naudoja trečios šalies paleidiklį, o jis nėra palaikomas (kol kas)",
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)"
     },
     "not_logged_in": {
         "login": "Prisijungti",
@@ -269,6 +277,8 @@
     "enabled": "Įjungta/Įgalinta (-as/-i)",
     "report_problem": "Praneškite apie problemą, paleidžiant ir žaidžiant šį žaidimą",
     "third-party-managed": {
-        "notice2": "Paspaudus – „Įdiegti“, „Heroic“ vykdys nurodytą aplikaciją, kad užbaigtų įdiegimo procesą"
+        "notice2": "Paspaudus – „Įdiegti“, „Heroic“ vykdys nurodytą aplikaciją, kad užbaigtų įdiegimo procesą",
+        "header": "Šis žaidimas tvarkomas trečios šalies aplikacijos",
+        "notice1": "Šis žaidimas tvarkomas trečios šalies aplikacijos: „{{application_name}}“"
     }
 }
