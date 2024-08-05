@@ -635,7 +635,7 @@
         "maxworkers": "Nombre maximum de processus pendant le téléchargement",
         "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
-        "prefered_language": "Langage préféré (fr, en...)",
+        "prefered_language": "Langue préférée (fr, en...)",
         "preferSystemLibs": "Opter de préférence pour les bibliothèques système",
         "primerun": {
             "confirmation": {
@@ -671,7 +671,9 @@
         "experimental_features": {
             "enableNewDesign": "Nouveau concept",
             "enableHelp": "Composant d'Aide",
-            "automaticWinetricksFixes": "Appliquer les corrections connues automatiquement"
+            "automaticWinetricksFixes": "Appliquer les corrections connues automatiquement",
+            "cometSupport": "Intégration de Comet",
+            "umuSupport": "Utiliser UMU comme moteur de Proton"
         },
         "frameless-window": {
             "confirmation": {
@@ -760,7 +762,8 @@
             "copyToClipboard": "Copier dans le presse-papier",
             "heroicVersion": "Heroic : {{heroicVersion}}",
             "nileVersion": "Nile : {{nileVersion}}",
-            "systemModel": "Modèle de système :"
+            "systemModel": "Modèle de système :",
+            "cometVersion": "Comet : {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Fonctionnalités expérimentales"
