@@ -5,6 +5,22 @@
         "error": {
             "generic": {
                 "title": "Pažymėti „.*EXE“, kurį vykdyti"
+            },
+            "title": "Klaida",
+            "dxvk": {
+                "title": "„DXVK/VKD3D“ klaida"
+            },
+            "update": {
+                "title": "Atnaujinimo klaida"
+            },
+            "winetricks": {
+                "title": "„Winetricks“ klaida"
+            },
+            "add": {
+                "steam": {
+                    "title": "Pridedama klaida",
+                    "body": "Pridedant „{{game}}“ į/prie „Steam“ nepavyko su: {{newLine}} {{error}}"
+                }
             }
         },
         "no": "NE",
@@ -15,7 +31,29 @@
             "button": "Pažymėti"
         },
         "yes": "TAIP",
-        "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką"
+        "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką",
+        "default-steam-path": "„Steam“ kelias.",
+        "ok": "GERAI",
+        "postpone": "Atidėti",
+        "quit": {
+            "title": "Išeiti"
+        },
+        "shortcuts": {
+            "title": "Nuorodos"
+        },
+        "sync": {
+            "error": "Negalimas kelias"
+        },
+        "warning": {
+            "title": "Įspėjimas"
+        },
+        "downloadNow": "Atsisiųsti dabar",
+        "info": {
+            "update": {
+                "title-finished": "Atnaujinimas baigtas"
+            }
+        },
+        "dontShowAgain": "Neberodyti daugiau"
     },
     "notify": {
         "uninstalled": "Išdiegti",
@@ -30,54 +68,125 @@
                     "title": "Pašalinti iš „Steam“"
                 }
             }
-        }
+        },
+        "install": {
+            "canceled": "Įdiegimas atšauktas",
+            "error": "Įdiegimas nepavyko",
+            "failed": "Įdiegimas nepavyko",
+            "finished": "Įdiegimas baigtas",
+            "imported": "Žaidimas importuotas",
+            "startInstall": "Įdiegimas pradėtas"
+        },
+        "moved": "Perkėlimas baigtas",
+        "update": {
+            "failed": "Atnaujinimas nepavyko",
+            "canceled": "Atnaujinimas atšauktas",
+            "started": "Atnaujinimas pradėtas",
+            "finished": "Atnaujinimas baigtas",
+            "paused": "Atnaujinimas sustabdytas"
+        },
+        "moving": "Perkeliamas žaidimas"
     },
     "button": {
         "login": "Prisijungti",
-        "continue": "Tęsti"
+        "continue": "Tęsti",
+        "cancel": "Atšaukti"
     },
     "controller": {
         "hints": {
-            "select": "Pažymėti"
+            "select": "Pažymėti",
+            "game_settings": "Žaidimo nustatymai",
+            "install_game": "Įdiegti žaidimą",
+            "play_game": "Žaisti žaidimą",
+            "update_game": "Atnaujinti žaidimą",
+            "back": "Atgal",
+            "options": "Parinktys",
+            "scroll": "Slinkti",
+            "game_details": "Žaidimo išsamumas"
         }
     },
     "dlc": {
         "size": "Dydis",
-        "title": "Antraštė/Pavadinimas"
+        "title": "Antraštė/Pavadinimas",
+        "actions": "Veiksmai"
     },
     "download-manager": {
         "install-type": {
             "install": "Įdiegti",
             "update": "Atnaujinti"
-        }
+        },
+        "label": {
+            "disk": "Diskas",
+            "speed": "Atsisiųsti"
+        },
+        "link": "Atsisiuntimai",
+        "queue": {
+            "type": "Tipas",
+            "end-time": "Baigta –",
+            "queue-time": "Pridėta –",
+            "start-time": "Pradėta –"
+        },
+        "ETA": "Numatytas laikas",
+        "title": "Atsisiuntimai"
     },
     "game": {
-        "modify": "Redaguoti įdiegimą"
+        "modify": "Redaguoti įdiegimą",
+        "store": "Parduotuvė"
     },
     "header": {
-        "categories": "Kategorijos"
+        "categories": "Kategorijos",
+        "show_hidden": "Rodyti paslėptus",
+        "filters": "Filtrai",
+        "only": "tik",
+        "reset": "Atstatyti",
+        "uncategorized": "Be kategorijos"
     },
     "help": {
         "title": {
-            "settings": "Nustatymai"
+            "settings": "Nustatymai",
+            "accessibility": "Prieinamumas",
+            "downloadManager": "Atsisiuntimo tvarkytuvas/-ė",
+            "login": "Prisijungti",
+            "library": "Biblioteka"
+        },
+        "button": {
+            "close": "Uždaryti pagalbą",
+            "open": "Atidaryti pagalbą"
+        },
+        "other": {
+            "part4": "Naudokite – ",
+            "part5": "Žaidimo argumentai"
         }
     },
     "info": {
-        "version": "„Wine“ versija"
+        "version": "„Wine“ versija",
+        "heroic": {
+            "stable": "Stabilus",
+            "version": "„Heroic“ versija",
+            "beta": "„Beta“"
+        }
     },
     "infobox": {
-        "requirements": "Sistemos reikalavimai"
+        "requirements": "Sistemos reikalavimai",
+        "help": "Pagalba",
+        "warning": "Įspėjimas",
+        "wine-path": "„Wine“ kelias",
+        "wine-prefix": {
+            "title": "„Wine“ prielinksnis/priešdėlis"
+        }
     },
     "label": {
         "loading": "Kraunama"
     },
     "loading": {
-        "default": "Kraunama"
+        "default": "Kraunama",
+        "website": "Kraunamas tinklapis"
     },
     "queue": {
         "label": {
             "downloading": "Atsisiunčiama",
-            "queued": "Eilėje"
+            "queued": "Eilėje",
+            "canceled": "Atšaukta/-s"
         }
     },
     "setting": {
@@ -86,29 +195,93 @@
             "enable": "Įjungta/Įgalinta (-as/-i)",
             "install": "Įdiegti",
             "remove": "Išdiegti",
-            "updateNow": "Atnaujinti"
+            "updateNow": "Atnaujinti",
+            "cancelInstall": "Atšaukti",
+            "updating": "Atnaujinama...",
+            "currentVersion": "Dabartinė versija: {{version}}",
+            "latestVersion": "Naujausia/Paskiausia versija: {{version}}"
         },
         "library_top_option": {
-            "disabled": "Išjungta/Neįgalinta (-as/-i)"
+            "disabled": "Išjungta/Neįgalinta (-as/-i)",
+            "favourites": "Mėgstamiausi žaidimai"
         },
         "winecrossoverbottle": "„CrossOver butelis“",
-        "wineversion": "„Wine“ versija"
+        "wineversion": "„Wine“ versija",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "Aš supratau",
+                "title": "Ar Jūs esate tikra/-s?"
+            }
+        },
+        "manualsync": {
+            "download": "Atsisiųsti"
+        },
+        "experimental_features": {
+            "enableNewDesign": "Naujas dizainas",
+            "enableHelp": "Pagalbos komponentas"
+        },
+        "crossover-version": "„Crossover“/„Wine“ versija",
+        "default-install-path": "Numatytas įdiegimo kelias",
+        "default-steam-path": "Numatytas „Steam“ kelias",
+        "download-no-https": "Atsisiųsti žaidimus be „HTTPS“ (naudinga naudojant „CDNs“; pvz.: „LanCache“)",
+        "frameless-window": {
+            "confirmation": {
+                "message": "Ši funkcija vis dar eksperimentinė. Prašome pranešti apie problemas, su kuriomis Jūs susiduriate „GitHub“ platformoje."
+            }
+        },
+        "autoUpdateGames": "Automatiškai atnaujinti žaidimus"
     },
     "settings": {
         "advanced": {
-            "details": "Išsamumas"
+            "details": "Išsamumas",
+            "clearCache": {
+                "help10": "„Heroic“ konfigūracija",
+                "help7": "Parduotuvės prisijungimas",
+                "help8": "Įdiegti žaidimai",
+                "help9": "Žaidimų nustatymai"
+            }
+        },
+        "navbar": {
+            "gamescope": "„Gamescope“",
+            "log": "Žurnalas",
+            "other": "Kita/-s/-i",
+            "games_settings_defaults": "Žaidimo numatytieji",
+            "systemInformation": "Sistemos informacija"
+        },
+        "systemInformation": {
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gpuDriver": "Tvarkyklė: {{driverVersion}}",
+            "gpuWithNumber": "„GPU“ {{number}}:",
+            "gogdlVersion": "„Gogdl“: {{gogdlVersion}}",
+            "legendaryVersion": "„Legendary“: {{legendaryVersion}}",
+            "nileVersion": "„Nile“: {{nileVersion}}",
+            "os": "Operacinė sistema:",
+            "osVersion": "Versija – {{versionNumber}}",
+            "systemModel": "Sistemos modelis:",
+            "gpu": "„GPU“:",
+            "cpu": "„CPU“:",
+            "memory": "Atmintis:",
+            "software": "Taikomoji programa:",
+            "heroicVersion": "„Heroic“: {{heroicVersion}}",
+            "systemSpecifications": "Sistemos specifikacijos:"
+        },
+        "experimental_features": {
+            "title": "Eksperimentinės funkcijos"
         }
     },
     "Settings": "Nustatymai",
     "status": {
         "installing": "Įdiegiama",
-        "processing": "Apdorojami failai, prašome palaukti"
+        "processing": "Apdorojami failai, prašome palaukti",
+        "preparing_login": "Paruošiamas prisijungimas... ",
+        "logging": "Prisijungiama..."
     },
     "window": {
         "close": "Uždaryti"
     },
     "wine": {
-        "size": "Dydis"
+        "size": "Dydis",
+        "actions": "Veiksmas"
     },
     "winetricks": {
         "install": "Įdiegti",
@@ -117,5 +290,87 @@
     "accessibility": {
         "fonts": "Šriftai",
         "title": "Prieinamumas"
+    },
+    "add_game": "Pridėti žaidimą",
+    "anticheat": {
+        "source": "Šaltinis",
+        "anticheats": "Anti-sukčiavimas"
+    },
+    "Amazon Games": "„Amazon“ žaidimai",
+    "categories-manager": {
+        "add": "Pridėti",
+        "remove": "Pašalinti – „{{name}}“",
+        "rename": "Pervadinti – „{{name}}“",
+        "title": "Tvarkyti kategorijas"
+    },
+    "category-settings": {
+        "cancel": "Atšaukti",
+        "warning": "Įspėjimas",
+        "new-category": "Nauja kategorija",
+        "remove-category": "Pašalinti kategoriją"
+    },
+    "docs": "Dokumentacija",
+    "epic": {
+        "offline-notification-title": "atsijungęs/-usi"
+    },
+    "Epic Games": "„Epic Games“",
+    "gog-store": "„GOG“ parduotuvė",
+    "Library": "Biblioteka",
+    "login": {
+        "amazon": "„Amazon“ prisijungimas",
+        "gog": "„GOG“ prisijungimas"
+    },
+    "offline-message": {
+        "ignore": "Ignoruoti",
+        "offline": "Atsijungęs/-usi",
+        "retrying": "Bandoma dar kartą"
+    },
+    "options": {
+        "wrapper": {
+            "args": "Argumentai"
+        },
+        "gamescope": {
+            "additionalOptions": "Papildomos parinktys"
+        },
+        "advanced": {
+            "value": "Reikšmė",
+            "placeHolderKey": "PAVADINIMAS",
+            "placeHolderValue": "Pvz.: Kelias/Į/Papildomi failai"
+        }
+    },
+    "other": {
+        "gogdl-version": "„GOGDL“ versija: ",
+        "nile-version": "„Nile“ versija: ",
+        "legendary-version": "„Legendary“ versija: "
+    },
+    "platforms": {
+        "browser": "Naršyklė",
+        "win": "„Windows“",
+        "linux": "„Linux“",
+        "mac": "„Mac“"
+    },
+    "please-wait": "Prašome palaukti...",
+    "prime-gaming": "„Prime Gaming“",
+    "store": "„Epic“ parduotuvė",
+    "title": {
+        "allGames": "Visi žaidimai"
+    },
+    "tray": {
+        "about": "Apie",
+        "show": "Rodyti"
+    },
+    "userselector": {
+        "cancel": "Atšaukti",
+        "discord": "„Discord“"
+    },
+    "error": "Klaida",
+    "favourites": "Mėgstamiausi",
+    "GOG": "„GOG“",
+    "Other": "Kita/-s/-i",
+    "Open": "Atidaryti",
+    "stores": "Parduotuvės",
+    "adtraction-locked": {
+        "dont-show-again": "Neberodinėti šio įspėjimo",
+        "title": "„Adtraction“ yra užblokuotas"
     }
 }
