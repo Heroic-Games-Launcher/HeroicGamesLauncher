@@ -108,7 +108,7 @@
         },
         "quit": {
             "message": "Bekleyen işlemler var, emin misiniz?",
-            "title": "Çık"
+            "title": "Çıkış"
         },
         "reset-heroic": {
             "question": {
@@ -565,7 +565,7 @@
         "crossover-version": "Crossover/Wine Sürümü",
         "custom_themes_path": "Özel Temaların Yolu",
         "customWineProton": "Özel Wine/Proton Yolları",
-        "darktray": "Koyu Tepsi Simgesi Kullan",
+        "darktray": "Koyu tepsi simgesi kullan",
         "default-install-path": "Öntanımlı Kurulum Yolu",
         "default-steam-path": "Öntanımlı Steam dosya yolu",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
@@ -573,7 +573,7 @@
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "download-no-https": "Oyunları HTTPS olmadan indirin (LanCache gibi CDN'ler için kullanışlıdır)",
         "dxvkfpslimit": "FPS'i sınırla (DX9, 10 and 11)",
-        "egs-sync": "Kurulu Epic Games ile Eşzamanla",
+        "egs-sync": "Kurulu Epic Games ile eşzamanla",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "eosOverlay": {
             "cancelInstall": "İptal",
@@ -596,7 +596,7 @@
             "updating": "Güncelleniyor..."
         },
         "esync": "Esync'i Etkinleştir",
-        "exit-to-tray": "Sistem Tepsisine Küçült",
+        "exit-to-tray": "Sistem tepsisine küçült",
         "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "GameMode Kullan (Feral Game Mode kurulu olmalıdır)",
@@ -665,7 +665,7 @@
         "addgamestoapplications": "Oyunları Uygulamalara otomatik ekle",
         "alt-nile-bin": "Alternatif Bir Nil İkilisi Seçin",
         "autodxvknvapi": "DXVK-NVAPI'yı Ön Eke kendiliğinden Kur/Güncelle",
-        "disablePlaytimeSync": "Oynama süresi senkronizasyonunu devre dışı bırak",
+        "disablePlaytimeSync": "Oynama süresi eşzamanlamasını devre dışı bırak",
         "experimental_features": {
             "enableNewDesign": "Yeni tasarım",
             "enableHelp": "Yardım bileşeni",
