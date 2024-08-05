@@ -671,7 +671,9 @@
         "experimental_features": {
             "enableNewDesign": "Ny design",
             "enableHelp": "Hjälp komponent",
-            "automaticWinetricksFixes": "Tillämpa kända fixar automatiskt"
+            "automaticWinetricksFixes": "Tillämpa kända fixar automatiskt",
+            "umuSupport": "Använd UMU som Proton körtid",
+            "cometSupport": "Comet stöd"
         },
         "frameless-window": {
             "confirmation": {
@@ -760,7 +762,8 @@
             "memory": "Minne:",
             "copyToClipboard": "Kopiera till urklipp",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Experimentella funktioner"
