@@ -6,7 +6,8 @@
         "fonts": "フォント",
         "title": "アクセシビリティ",
         "zoom": "拡大/縮小",
-        "disable_dialog_backdrop_close": "枠外をクリックしてもダイアログを閉じないようにする"
+        "disable_dialog_backdrop_close": "枠外をクリックしてもダイアログを閉じないようにする",
+        "titles_always_visible": "ライブラリのタイトルを常に表示"
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -16,7 +17,8 @@
         "reference": "参照",
         "source": "ソース",
         "status": "状態",
-        "title": "このゲームにはアンチチートソフトウェアが含まれています"
+        "title": "このゲームにはアンチチートソフトウェアが含まれています",
+        "multiplayer_may_not_work": "マルチプレイ機能は、アンチチートのサポートが拒否されているか壊れているため、動作しない場合があります。"
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "選択",
-            "exe": "EXEを選択"
+            "exe": "EXEを選択",
+            "script": "スクリプト選択..."
         },
         "shortcuts": {
             "message": "デスクトップとスタートメニューにショートカットが作成されました",
@@ -170,7 +173,9 @@
         "yes": "はい",
         "dontShowAgain": "次回から確認しない",
         "choose-nile-binary": "Nileバイナリを選択",
-        "update": "Update"
+        "update": "Update",
+        "postpone": "延期",
+        "changelog": "変更履歴"
     },
     "button": {
         "cancel": "キャンセル",
@@ -263,7 +268,8 @@
         "reset": "リセット",
         "only": "単独表示",
         "no_categories": "カスタムカテゴリーがありません。各ゲームメニューからカテゴリーを追加してください。",
-        "show_support_offline_only": "オフライン対応のゲームのみ表示する"
+        "show_support_offline_only": "オフライン対応のゲームのみ表示する",
+        "show_third_party_managed_only": "サードパーティで管理しているゲームのみ表示"
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -312,7 +318,8 @@
             "upscaleWidth": "Gamescopeで使用される横解像度。16:9のアスペクト比を想定しています。",
             "gameHeight": "ゲームで使用される縦解像度。Gamescopeでは16:9のアスペクト比を想定しています。",
             "upscaleHeight": "Gamescopeで使用される縦解像度。16:9のアスペクト比を想定しています。",
-            "fpsLimiter": "Gamescopeが制限するフレーム数（例:60）"
+            "fpsLimiter": "Gamescopeが制限するフレーム数（例:60）",
+            "additionalOptions": "gamescopeに渡す追加のコマンドラインフラグ。"
         },
         "dxvknvapi": "DXVK-NVAPIは、DXVKとLinuxネイティブNVAPIの上に構築されたNVAPIの実装で、Nvidia GPU上でDLSSを使用することができます。",
         "disablePlaytimeSync": "指定したストアのサーバーとのプレイタイムの同期を無効にする（現時点ではGOGのみ対応）",
@@ -502,7 +509,9 @@
             "interger": "整数アップスケール",
             "upscaleHeight": "縦解像度のアップスケール",
             "fpsLimiterNoFocus": "FPSリミッター（非アクティブ）",
-            "stretch": "引き伸ばし"
+            "stretch": "引き伸ばし",
+            "windowed": "ウィンドウ",
+            "additionalOptions": "追加オプション"
         }
     },
     "other": {
@@ -674,9 +683,21 @@
         "experimental_features": {
             "enableNewDesign": "新デザイン",
             "enableHelp": "ヘルプコンポーネント",
-            "automaticWinetricksFixes": "既存の修正を自動的に適用"
+            "automaticWinetricksFixes": "既存の修正を自動的に適用",
+            "cometSupport": "Cometサポート",
+            "umuSupport": "UMUをProtonのランタイムとして使用"
         },
-        "msync": "Esyncを有効にする"
+        "msync": "Esyncを有効にする",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "アンチチートが壊れているか拒否されています。ゲームが動作する可能性はありますが、マルチプレイ機能は動作しません。 このことを理解してインストールした場合はサポートを求めないでください。",
+                "title": "本当によろしいですか？",
+                "understand": "理解しました"
+            },
+            "label": "アンチチートが壊れていたり、拒否されているゲームのインストールを許可"
+        },
+        "before-launch-script-path": "ゲーム起動前に実行するスクリプトを選択",
+        "after-launch-script-path": "ゲーム終了後に実行するスクリプトを選択"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -741,7 +762,8 @@
             "memory": "メモリー:",
             "copyToClipboard": "クリップボードにコピー",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "実験的機能"
@@ -885,6 +907,24 @@
         "wine-ge": "Wine-GE-ProtonはGlorious Eggrollによって作成されたWineの亜種です。Steam以外での使用を推奨するWineです。トラブルシューティング時に便利なログを提供します。"
     },
     "categories-manager": {
-        "add-placeholder": "新しいカテゴリーを追加"
+        "add-placeholder": "新しいカテゴリーを追加",
+        "add": "追加",
+        "cancel-remove": "\"{{name}}\"の削除を取り消す",
+        "no-categories": "まだカテゴリーはありません。",
+        "title": "カテゴリーの管理",
+        "cancel-rename": "\"{{name}}\"の名前変更を取り消す",
+        "confirm-remove": "\"{{name}}\"の削除を確認する",
+        "confirm-rename": "\"{{oldName}}\"から\"{{newName}}\"へ名前変更の確認",
+        "remove": "\"{{name}}\"を削除",
+        "rename": "\"{{name}}\"を名前変更"
+    },
+    "adtraction-locked": {
+        "description": "track.adtraction.comドメインが読み込みできないか、ブロックされているようです。 adtractionでは、GOG ストアで購入するとHeroicに資金援助が行われます。寄付を希望される場合は、ブロックを解除することを検討してください。",
+        "dont-show-again": "この警告を二度と表示しない",
+        "title": "Adtractionがブロックされています"
+    },
+    "emptyLibrary": {
+        "noGames": "ライブラリがありません。 ストアを使用して<1>ログイン</1>するか、<3></3>をクリックして手動で追加してください。",
+        "noResults": "現在のフィルターでは検索結果がありません。"
     }
 }
