@@ -7,6 +7,7 @@ import { getMainWindow, sendFrontendMessage } from './main_window'
 import { icon } from './constants'
 
 type Command = 'ping' | 'launch'
+type EGLCommand = 'store' | 'apps'
 
 const RUNNERS = ['legendary', 'gog', 'nile', 'sideload']
 
@@ -42,6 +43,51 @@ export async function handleProtocol(args: string[]) {
   }
 }
 
+export async function handleEGLProtocol(args: string[]) {
+  // const mainWindow = getMainWindow()
+
+  const url = getEGLUrl(args)
+  if (!url) {
+    return
+  }
+
+  const [command, arg] = parseEGLUrl(url)
+  const decoded = decodeURI(arg || '').split('?')
+  const decoded_data = decoded[0]
+
+  switch (command) {
+    case 'store':
+      logInfo(`opening store ${arg}`, LogPrefix.ProtocolHandler)
+      if (arg === 'library') sendFrontendMessage('openScreen', '/library')
+      else
+        sendFrontendMessage(
+          'openScreen',
+          `/store-page?store-url=${'https://www.epicgames.com/store/' + arg}`
+        )
+      break
+    case 'apps':
+      logInfo(`opening app ${decoded.join('?')}`, LogPrefix.ProtocolHandler)
+      if (decoded_data.split(':').length === 2) {
+        //ID based path
+        const ids = decoded_data.split(':')
+        if (ids.length === 3) {
+          logInfo('valid ID!', LogPrefix.ProtocolHandler)
+        }
+      } else {
+        //Windows Path
+      }
+      break
+    default:
+      logInfo(
+        `received unknown EGL command ${command}`,
+        LogPrefix.ProtocolHandler
+      )
+      return
+  }
+
+  return
+}
+
 /**
  * Gets the url from the args
  * @param args The args to search
@@ -56,6 +102,15 @@ export async function handleProtocol(args: string[]) {
  **/
 function getUrl(args: string[]): string | undefined {
   return args.find((arg) => arg.startsWith('heroic://'))
+}
+
+/**
+ * Gets the url from the args
+ * @param args The args to search
+ * @returns The url if found, undefined otherwise
+ **/
+function getEGLUrl(args: string[]): string | undefined {
+  return args.find((arg) => arg.startsWith('com.epicgames.launcher://'))
 }
 
 /**
@@ -82,6 +137,21 @@ function parseUrl(url: string): [Command, Runner?, string?] {
     const [command, arg] = fullCommand.split('/')
     return [command as Command, undefined, arg]
   }
+}
+
+function parseEGLUrl(url: string): [EGLCommand, string?] {
+  const [, fullCommand] = url.split('://')
+
+  const index = fullCommand.indexOf('/')
+
+  if (index === -1) {
+    return [fullCommand as EGLCommand]
+  }
+
+  return [
+    fullCommand.substring(0, index) as EGLCommand,
+    fullCommand.substring(index + 1)
+  ]
 }
 
 async function handlePing(arg: string) {

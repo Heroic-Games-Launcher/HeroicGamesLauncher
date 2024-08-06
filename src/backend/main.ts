@@ -24,7 +24,7 @@ import {
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
-import { cpus } from 'os'
+import { cpus, platform } from 'os'
 import {
   existsSync,
   rmSync,
@@ -96,7 +96,7 @@ import {
   isWindows,
   isMac
 } from './constants'
-import { handleProtocol } from './protocol'
+import { handleEGLProtocol, handleProtocol } from './protocol'
 import {
   appendGamePlayLog,
   initGamePlayLog,
@@ -300,6 +300,7 @@ if (!gotTheLock) {
     mainWindow?.show()
 
     handleProtocol(argv)
+    handleEGLProtocol(argv)
   })
   app.whenReady().then(async () => {
     initLogger()
@@ -434,6 +435,27 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
+    if (!app.isDefaultProtocolClient('com.epicgames.launcher')) {
+      //no offical client on linux
+      if (platform() === 'linux') {
+        if (app.setAsDefaultProtocolClient('com.epicgames.launcher')) {
+          logInfo('Registered protocol with OS.', LogPrefix.Backend)
+        } else {
+          logWarning('Failed to register protocol with OS.', LogPrefix.Backend)
+        }
+      } else {
+        logWarning(
+          'Epic Games Launcher protocol not registered.',
+          LogPrefix.Backend
+        )
+      }
+    }
+
+    protocol.handle('com.epicgames.launcher', (request) => {
+      handleEGLProtocol([request.url])
+      return new Response('Operation initiated.', { status: 201 })
+    })
+
     const headless = isCLINoGui || settings.startInTray
     if (!headless) {
       mainWindow.once('ready-to-show', () => {
@@ -475,6 +497,7 @@ ipcMain.on('notify', (event, args) => notify(args))
 ipcMain.once('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
+  handleEGLProtocol([openUrlArgument, ...process.argv])
 
   if (isSnap) {
     const snapWarning: Electron.MessageBoxOptions = {
@@ -601,6 +624,7 @@ app.on('open-url', (event, url) => {
 
   if (mainWindow) {
     handleProtocol([url])
+    handleEGLProtocol([url])
   } else {
     openUrlArgument = url
   }
