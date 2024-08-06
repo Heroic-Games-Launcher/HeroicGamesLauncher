@@ -168,6 +168,10 @@ export async function getLinuxWineSet(
   protonPaths.forEach((path) => {
     if (existsSync(path)) {
       readdirSync(path).forEach((version) => {
+        // Only relevant to Lutris
+        if (version.startsWith('UMU-Latest')) {
+          return
+        }
         const protonBin = join(path, version, 'proton')
         // check if bin exists to avoid false positives
         if (existsSync(protonBin)) {
