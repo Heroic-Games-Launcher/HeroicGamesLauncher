@@ -88,15 +88,7 @@ async function extractTarFile(
     extractedPath = splitPath.join('.tar')
   }
   mkdirSync(extractedPath, { recursive: true })
-  let tarflags = ''
-  switch (contentType) {
-    case 'application/x-xz':
-      tarflags = '-Jxf'
-      break
-    default:
-      throw new Error('Unrecognized content_type: ' + contentType)
-  }
-
+  const tarflags = '-Jxf'
   const strip = options?.strip
 
   return new Promise((res, rej) => {
