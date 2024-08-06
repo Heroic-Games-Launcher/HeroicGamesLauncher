@@ -46,10 +46,6 @@ const LoginWarning = function ({
     loginPath = amazonLoginPath
   }
 
-  const closeOnClick = () => {
-    onClose()
-  }
-
   return (
     <Dialog onClose={onClose} className="notLoggedIn" showCloseButton={true}>
       <DialogHeader onClose={onClose}>
@@ -57,7 +53,7 @@ const LoginWarning = function ({
       </DialogHeader>
       <DialogContent>
         <p>{textContent}</p>
-        <NavLink className="button" to={loginPath} onClick={closeOnClick}>
+        <NavLink className="button" to={loginPath} onClick={onClose}>
           <span>{t('not_logged_in.login', 'Log in')}</span>
         </NavLink>
       </DialogContent>
