@@ -44,16 +44,17 @@ export async function handleProtocol(args: string[]) {
 }
 
 export async function handleEGLProtocol(args: string[]) {
-  // const mainWindow = getMainWindow()
+  const mainWindow = getMainWindow()
 
   const url = getEGLUrl(args)
   if (!url) {
     return
   }
 
-  const [command, arg] = parseEGLUrl(url)
-  const decoded = decodeURI(arg || '').split('?')
+  const [command, arg] = parseEGLUrl(decodeURIComponent(url))
+  const decoded = (arg || '').split('?')
   const decoded_data = decoded[0]
+  const tokens = decoded_data.split(':')
 
   switch (command) {
     case 'store':
@@ -67,12 +68,10 @@ export async function handleEGLProtocol(args: string[]) {
       break
     case 'apps':
       logInfo(`opening app ${decoded.join('?')}`, LogPrefix.ProtocolHandler)
-      if (decoded_data.split(':').length === 2) {
+      if (tokens.length === 3) {
         //ID based path
-        const ids = decoded_data.split(':')
-        if (ids.length === 3) {
-          logInfo('valid ID!', LogPrefix.ProtocolHandler)
-        }
+        logInfo(`Launching ID ${tokens[2]}`, LogPrefix.ProtocolHandler)
+        handleLaunch('legendary', tokens[2], mainWindow)
       } else {
         //Windows Path
       }
