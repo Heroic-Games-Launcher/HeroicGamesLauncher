@@ -243,7 +243,7 @@ async function prepareLaunch(
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
-    (isNative || !isUmuSupported(gameSettings.wineVersion.type))
+    (isNative || !(await isUmuSupported(gameSettings.wineVersion.type)))
 
   if (shouldUseRuntime) {
     // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
