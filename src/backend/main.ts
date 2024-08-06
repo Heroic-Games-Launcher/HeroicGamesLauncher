@@ -518,11 +518,13 @@ ipcMain.once('frontendReady', () => {
 
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
-  logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
+  logError(err, LogPrefix.Backend)
+
   // We might get "object has been destroyed" exceptions in CI, since we start
   // and close Heroic quickly there. Displaying an error box would lock up
   // the test (until the timeout is reached), so let's not do that
   if (process.env.CI === 'e2e') return
+
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
