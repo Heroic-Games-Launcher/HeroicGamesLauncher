@@ -3,21 +3,6 @@ import { unzipFile } from '../../utilities'
 
 jest.mock('backend/logger/logger')
 jest.mock('backend/logger/logfile')
-jest.mock('@xhmikosr/decompress', () => {
-  return jest.fn().mockImplementation(async () => Promise.resolve())
-})
-
-jest.mock('@xhmikosr/decompress-unzip', () => {
-  return jest.fn().mockImplementation(() => {})
-})
-
-jest.mock('@xhmikosr/decompress-targz', () => {
-  return jest.fn().mockImplementation(() => {})
-})
-
-jest.mock('@felipecrs/decompress-tarxz', () => {
-  return jest.fn().mockImplementation(() => {})
-})
 
 describe('Utilities - Unzip', () => {
   test('unzip file fails because of invalid archive path', async () => {
