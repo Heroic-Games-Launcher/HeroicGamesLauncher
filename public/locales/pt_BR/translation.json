@@ -314,12 +314,12 @@
         "dxvknvapi": "DXVK-NVAPI é uma implementação de NVAPI construído sobre DXVK e o NVAPI nativo linux, ele permite o uso de DLSS em GPUs Nvidia.",
         "disablePlaytimeSync": "Desativa a sincronização do tempo de jogo com determinados servidores da loja (atualmente apenas GOG é compatível)",
         "gamescope": {
-            "fpsLimiterNoFocus": "O limite de FPS gamescope deve limitar por segundo se o jogo não estiver focado.",
+            "fpsLimiterNoFocus": "O limite de FPS que o gamescope deve limitar por segundo se o jogo não estiver focado.",
             "upscaleMethod": "O método de upscaling que o gamescope deve usar.",
-            "gameWidth": "A resolução de largura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
-            "upscaleWidth": "A resolução de largura usada pelo gamescope. Uma proporção de aspecto de 16:9 é assumida.",
-            "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
-            "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de aspecto de 16:9 é assumida.",
+            "gameWidth": "A resolução de largura usada pelo jogo. Uma proporção de tela 16:9 é assumida pelo gamescope.",
+            "upscaleWidth": "A resolução de largura usada pelo gamescope. Uma proporção de tela 16:9 é assumida.",
+            "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de tela 16:9 é assumida pelo gamescope.",
+            "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de tela 16:9 é assumida.",
             "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60",
             "additionalOptions": "Flags adicionais de linha de comando para passar ao gamescope."
         },
@@ -584,7 +584,7 @@
             "currentVersion": "Versão atual: {{version}}",
             "disable": "Desabilitar",
             "enable": "Habilitar",
-            "install": "Install",
+            "install": "Instalar",
             "installed": "O EOS Overlay está instalado",
             "installing": "O EOS Overlay está sendo instalado...",
             "latestVersion": "Versão mais recente: {{version}}",
@@ -594,7 +594,7 @@
             "remove": "Desinstalar",
             "removeConfirm": "Tem a certeza de que quer desinstalar o EOS Overlay?",
             "removeConfirmTitle": "Confirme a remoção do overlay",
-            "updateNow": "Update",
+            "updateNow": "Atualizar",
             "updating": "Atualizando..."
         },
         "esync": "Habilitar Esync",
@@ -671,7 +671,9 @@
             "enableNewShinyFeature": "Novidade",
             "enableNewDesign": "Novo design",
             "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
-            "enableHelp": "Componente de ajuda"
+            "enableHelp": "Componente de ajuda",
+            "umuSupport": "Usar UMU como Proton runtime",
+            "cometSupport": "Suporte ao Comet"
         },
         "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo",
         "frameless-window": {
@@ -683,13 +685,13 @@
         },
         "gamescope": {
             "enableLimiter": "Habilitar limitador de FPS",
-            "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
+            "enableUpscaling": "Permite aprimoramento de escala (Upscaling)",
             "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH."
         },
         "msync": "Habilitar Msync",
         "allow_installation_broken_anticheat": {
             "confirmation": {
-                "message": "Jogos com um sistema anti-trapaças comprometido ou não suportado podem rodar,mas a função multijogador não irá funcionar.Não peça suporte se você instalá-los estando ciente disso.",
+                "message": "Jogos com um sistema anti-trapaças comprometido ou não suportado podem rodar, mas a função multijogador não irá funcionar. Não peça suporte se você instalá-los estando ciente disso.",
                 "title": "Você tem certeza?",
                 "understand": "Eu entendo"
             },
@@ -701,7 +703,7 @@
     "settings": {
         "battlEyeRuntime": {
             "installing": "Instalando o BattlEye Runtime...",
-            "name": "Execução do AntiTrapaça BattlEye"
+            "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copiado para a área de Transferência!",
@@ -709,15 +711,15 @@
         "default_hint": "Mudanças nessa sessão só são aplicadas como valores padrão quando novos jogos forem instalados. Para modificar as configurações de um jogo já instalado, use o botão de configurações na página do jogo.",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "O GameMode é necessário para que o tempo de execução do EAC funcione no Flatpak. Deseja habilitá-lo agora?",
+                "message": "O GameMode é necessário para que o EAC runtime funcione no Flatpak. Deseja habilitá-lo agora?",
                 "title": "GameMode necessário"
             },
             "installing": "Instalando o EAC Runtime...",
-            "name": "Execução do EasyAntiCheat"
+            "name": "EasyAntiCheat Runtime"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "O tempo de execução do EAC está ativado, o que não funcionará corretamente sem o GameMode. Deseja desativar o EAC Runtime e o GameMode?",
+                "message": "O EAC runtime está ativado, o que não funcionará corretamente sem o GameMode. Deseja desativar o EAC Runtime e o GameMode?",
                 "title": "EAC runtime ativado"
             }
         },
@@ -761,7 +763,8 @@
             "memory": "Memória:",
             "copyToClipboard": "Copiar para área de transferência",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Recursos Experimentais"
@@ -922,7 +925,7 @@
     },
     "adtraction-locked": {
         "dont-show-again": "Não exibir este aviso novamente",
-        "description": "O domínio track.adtraction.com foi incapaz de carregar ou está bloqueado. Com adtraction,qualquer compra feita na loja GOG irá apoiar Heroic financialmente,Considere remover o bloqueio se deseja contribuir.",
+        "description": "O domínio track.adtraction.com foi incapaz de carregar ou está bloqueado. Com adtraction, qualquer compra feita na loja GOG irá apoiar Heroic financialmente, Considere remover o bloqueio se deseja contribuir.",
         "title": "Adtraction está bloqueado"
     }
 }

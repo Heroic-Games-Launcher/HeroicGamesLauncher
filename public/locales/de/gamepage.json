@@ -1,20 +1,20 @@
 {
     "box": {
         "change": {
-            "message": "Dies wird den Installationsort dieses Spiels ändern, sind sie sicher?",
-            "path": "Wählen sie einen neuen Installationspfad",
+            "message": "Das Installationspfad wird durch diese Aktion geändert, möchten Sie fortfahren?",
+            "path": "Wählen Sie einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
             "message": "Dies kann einige Zeit in Anspruch nehmen, trotzdem fortfahren?",
-            "path": "Wähle, wohin du verschieben möchtest",
+            "path": "Wähle, wohin du es verschieben möchtest",
             "title": "Spielinstallation verschieben"
         },
         "no": "NEIN",
         "repair": {
-            "message": "Möchtest du versuchen, dieses Spiel zu reparieren? Das kann einige Zeit in Anspruch nehmen.",
+            "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Das kann eine lange Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und reparieren"
         },
         "runexe": {
@@ -38,7 +38,8 @@
             "title": "Deinstallieren",
             "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn du es wirklich löschen möchtest, dann musst du das manuell tun.",
             "dlc": "Möchtest du das DLC \"{{title}}\" deinstallieren?",
-            "cannotUninstallEpic": "Spiele von Epic Games können nicht deinstalliert werden, während ein anderes Epic Spiel installiert wird."
+            "cannotUninstallEpic": "Spiele von Epic Games können nicht deinstalliert werden, während ein anderes Epic Spiel installiert wird.",
+            "gameIsRunning": "{{title}} leuft grade. Beenden Sie das Spiel, um es zu deinstallieren."
         },
         "update": {
             "message": "Für dieses Spiel ist eine Aktualisierung verfügbar. Jetzt installieren?",
@@ -106,7 +107,9 @@
             "toggle": "Behalte das Spiel in einer spezifischen Version"
         },
         "changelogFor": "Änderungskatalog für {{gameTitle}}",
-        "modify": "Installation modifizieren"
+        "modify": "Installation modifizieren",
+        "extra_info": "Extra info",
+        "install_info": "Informationen zur Installation"
     },
     "gamecard": {
         "moving": "Wird verschoben …",
@@ -135,7 +138,8 @@
         "game-scores": "Spielbewertungen",
         "installedInfo": "Installierte Informationen",
         "protondb-compatibility-info": "Proton-Kompatibilitätsstufe",
-        "steamdeck-compatibility-info": "Steam Deck-Kompatibilität"
+        "steamdeck-compatibility-info": "Steam Deck-Kompatibilität",
+        "third-party-app": "Externer Manager"
     },
     "install": {
         "disk-space-left": "Verfügbarer Speicherplatz",
@@ -150,7 +154,10 @@
             "title": "Unterstützung vom Anticheat-System kaputt oder verweigert",
             "cancel": "Nein",
             "install": "Ja (Ich verstehe, dass es nicht funktionieren wird)",
-            "ok": "Ok"
+            "ok": "Ok",
+            "disabled_installation": "Die Anti-Cheat-Unterstützung ist defekt oder wird verweigert und die Multiplayer-Funktionen funktionieren nicht. Das Spiel kann nicht installiert werden. Um dieses Spiel zu installieren, deaktivieren Sie diese Überprüfung in den erweiterten Einstellungen.",
+            "install_anyway": "Ja (ich verstehe, dass die Multiplayer-Funktionen nicht funktionieren werden)",
+            "multiplayer_message": "Die Anti-Cheat-Unterstützung ist defekt oder wird verweigert. Das Spiel kann zwar geöffnet werden, aber die Multiplayer-Funktionen funktionieren nicht. Möchten Sie es trotzdem installieren?"
         },
         "flatpak-path-not-writtable": "Fehler: Sandbox Zugriff auf diesen Pfad nicht authorisiert. Datenverlust wird eintreten."
     },
@@ -233,7 +240,7 @@
         "uninstalling": "Wird deinstalliert …",
         "updating": "Spiel wird aktualisiert …",
         "playing": "Wird gespielt …",
-        "moving-files": "Datei verschieben '{{file}}': {{percent}} ",
+        "moving-files": "Datei verschieben '{{file}}': {{percent}}%",
         "syncingSaves": "Spielstände werden synchronisiert …",
         "launching": "Wird gestartet …",
         "ubisoft": "Ubisoft wird installiert …",
@@ -279,5 +286,10 @@
             "collapsible": "REDmod Integration",
             "enable": "Mods aktivieren"
         }
+    },
+    "third-party-managed": {
+        "header": "Dieses Spiel wird von einer Drittanbieteranwendung verwaltet",
+        "notice1": "Dieses Spiel wird von einer Drittanbieteranwendung verwaltet: „{{application_name}}“",
+        "notice2": "Nach dem Klicken auf Installieren führt Heroic die Anwendung aus, um den Installationsvorgang abzuschließen"
     }
 }

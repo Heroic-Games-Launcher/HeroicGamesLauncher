@@ -108,7 +108,7 @@
         "changelogFor": "Dziennik zmian dla {{gameTitle}}",
         "modify": "Modyfikuj Instalację",
         "extra_info": "Dodatkowe Informacje",
-        "install_info": "Informacje o installacji"
+        "install_info": "Informacje o instalacji"
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -286,8 +286,8 @@
         "versionCollapsable": "Wersja Gry"
     },
     "third-party-managed": {
-        "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikacje",
-        "notice1": "Ta gra jest zarządzana poprzez aplikacje zewnętrzną: \"{{application_name}}\"",
-        "notice2": "Po naciśnięciu instalujm Heroic uruchomi aplikacje w celu zakończenia procesu instalacji"
+        "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikację",
+        "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
+        "notice2": "Po naciśnięciu instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
     }
 }

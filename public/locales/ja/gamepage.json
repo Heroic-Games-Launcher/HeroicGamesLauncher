@@ -38,7 +38,8 @@
             "title": "アンインストール",
             "prefix_warning": "このゲームが使用しているWine環境はデフォルトの環境です。本当に削除したい場合は、手動で行う必要があります。",
             "dlc": "\"{{title}}\"のDLCをアンインストールしますか?",
-            "cannotUninstallEpic": "別のEpicゲームをインストール中に、Epicゲームをアンインストールすることはできません。"
+            "cannotUninstallEpic": "別のEpicゲームをインストール中に、Epicゲームをアンインストールすることはできません。",
+            "gameIsRunning": "{{title}}が実行中です。 アンインストールするにはゲームを終了してください。"
         },
         "update": {
             "message": "このゲームにはアップデートがありますが、今すぐアップデートしますか？",
@@ -106,7 +107,9 @@
             "toggle": "ゲームを特定のバージョンに保つ"
         },
         "changelogFor": "{{gameTitle}}の変更履歴",
-        "modify": "インストールの変更"
+        "modify": "インストールの変更",
+        "extra_info": "追加情報",
+        "install_info": "インストール情報"
     },
     "gamecard": {
         "moving": "移動中",
@@ -135,7 +138,8 @@
         "game-scores": "ゲームの評価",
         "installedInfo": "インストール情報",
         "protondb-compatibility-info": "Proton互換性レベル",
-        "steamdeck-compatibility-info": "SteamDeck の互換性"
+        "steamdeck-compatibility-info": "SteamDeck の互換性",
+        "third-party-app": "サードパーティマネージャー"
     },
     "install": {
         "disk-space-left": "空き領域",
@@ -150,7 +154,10 @@
             "message": "アンチチートサポートは機能しないか拒否されます。ゲームは正常に動作しません。それでもインストールしますか？",
             "install": "はい（正しく機能しないことは理解しています）",
             "title": "アンチチート 破損/拒否",
-            "ok": "Ok"
+            "ok": "Ok",
+            "disabled_installation": "アンチチートのサポートが壊れているか拒否されており、マルチプレイ機能が動作しません。 ゲームをインストールできません。 このゲームをインストールする場合は、詳細設定でこのチェックを無効にしてください。",
+            "install_anyway": "OK（マルチプレイ機能が使えないことを理解しました）",
+            "multiplayer_message": "アンチチートのサポートが壊れているか拒否されています。 マルチプレイ機能は動作しませんが、インストールしますか？"
         },
         "flatpak-path-not-writtable": "エラー：このパスにサンドボックスへのアクセスが許可されていないため、データの損失が発生します。"
     },
@@ -189,7 +196,8 @@
     "setting": {
         "use-default-wine-settings": "デフォルトのWine設定を使用",
         "winecrossoverbottle": "CrossOverボトル",
-        "show-wine-settings": "Wineの設定を表示する"
+        "show-wine-settings": "Wineの設定を表示する",
+        "warn-use-default-wine-settings": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。"
     },
     "sideload": {
         "field": {
@@ -278,5 +286,10 @@
             "collapsible": "REDmodの統合"
         },
         "versionCollapsable": "ゲームバージョン"
+    },
+    "third-party-managed": {
+        "notice2": "インストールをクリックすると、Heroicはインストールプロセスを完了するためにアプリケーションを実行します",
+        "header": "このゲームはサードパーティのアプリケーションによって管理されています",
+        "notice1": "このゲームはサードパーティのアプリケーションによって管理されています： \"{{application_name}}\""
     }
 }

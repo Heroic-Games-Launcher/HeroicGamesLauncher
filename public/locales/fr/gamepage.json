@@ -38,7 +38,8 @@
             "title": "Désinstaller",
             "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement.",
             "dlc": "Voulez-vous désinstaller l'extension « {{title}} » ?",
-            "cannotUninstallEpic": "Les jeux Epic Games ne peuvent pas être désinstallés lorsqu'un autre jeu Epic Games est en cours d'installation."
+            "cannotUninstallEpic": "Les jeux Epic Games ne peuvent pas être désinstallés lorsqu'un autre jeu Epic Games est en cours d'installation.",
+            "gameIsRunning": "{{title}} est en cours d'exécution. Fermez le jeu pour pouvoir le désinstaller."
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
@@ -73,7 +74,7 @@
         "uninstall": "Désinstaller",
         "update": "Mise à jour",
         "details": "Détails",
-        "changelog": "Afficher l'historique des changements"
+        "changelog": "Afficher le journal des changements"
     },
     "cloud_save_unsupported": "Non-supporté",
     "disabled": "Désactivé",
@@ -107,7 +108,7 @@
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l'installation",
-        "extra_info": "Informaitons supplémentaires",
+        "extra_info": "Critiques",
         "install_info": "Informations d'installation"
     },
     "gamecard": {

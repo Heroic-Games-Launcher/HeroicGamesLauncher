@@ -37,7 +37,7 @@
             "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente.",
-            "dlc": "Deseja desinstalar esta a DLC \"{{title}}\"?",
+            "dlc": "Deseja desinstalar esta (DLC) \"{{title}}\"?",
             "cannotUninstallEpic": "A Epic games não pode ser desinstalada enquanto outra está sendo instalada.",
             "gameIsRunning": "{{title}}está rodando. Feche o jogo para o desinstalar."
         },
@@ -106,7 +106,7 @@
             "buildsSelector": "Selecione a versão do jogo",
             "toggle": "Manter o jogo em uma versão específica"
         },
-        "changelogFor": "Log de mudanças para {{gameTitle}}",
+        "changelogFor": "Log de alterações para {{gameTitle}}",
         "modify": "Modificar instalação",
         "extra_info": "Informações extras",
         "install_info": "Dados da instalação"

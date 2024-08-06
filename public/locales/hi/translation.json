@@ -34,7 +34,10 @@
         "yes": "हाँ",
         "cache-cleared": {
             "message": "हीरोइक कैश साफ हो गया।"
-        }
+        },
+        "changelog": "बदलाव",
+        "choose-egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है",
+        "choose-gogdl-binary": "GOGDL बाइनरी चुनें (पुनः आरंभ करने की आवश्यकता है)"
     },
     "controller": {
         "hints": {
@@ -141,5 +144,8 @@
             }
         },
         "uninstalled": "अनइंस्टॉल करो"
+    },
+    "placeholder": {
+        "egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है"
     }
 }

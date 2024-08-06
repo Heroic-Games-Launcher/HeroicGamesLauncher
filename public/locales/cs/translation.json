@@ -671,7 +671,9 @@
             "enableNewShinyFeature": "Nová skvělá funkce",
             "enableNewDesign": "Nový design",
             "enableHelp": "Komponenta nápovědy",
-            "automaticWinetricksFixes": "Automaticky použít známé opravy"
+            "automaticWinetricksFixes": "Automaticky použít známé opravy",
+            "umuSupport": "Použít UMU jako runtime Protonu",
+            "cometSupport": "Podpora Comet"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
@@ -764,7 +766,8 @@
             "memory": "Paměť:",
             "copyToClipboard": "Zkopírovat do schránky",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "gamescope": {
             "searchMsg": "Hledání spustitelného souboru gamescope."
