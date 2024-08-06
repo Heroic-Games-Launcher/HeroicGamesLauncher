@@ -1,11 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Acties Lettertypefamilie (standaard):",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Lettertypen",
         "title": "Toegankelijkheid",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "disable_dialog_backdrop_close": "Zet vensters sluiten bij het klikken buiten deze vensters uit",
+        "titles_always_visible": "Laat altijd titels in mijn bibliotheek zien"
     },
     "add_game": "Voeg game toe",
     "All": "Allemaal",
@@ -15,7 +17,8 @@
         "reference": "Referentie",
         "source": "Source",
         "status": "Status",
-        "title": "Deze game bevat anticheat software"
+        "title": "Deze game bevat anticheat software",
+        "multiplayer_may_not_work": "Multiplayer functies werken misschien niet vanwege geblokkeerde of niet werkende Anticheat ondersteuning."
     },
     "box": {
         "cache-cleared": {
@@ -119,7 +122,8 @@
         },
         "select": {
             "button": "Selecteer",
-            "exe": "Selecteer EXE"
+            "exe": "Selecteer EXE",
+            "script": "Selecteer script ..."
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
@@ -155,15 +159,22 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "weet u zeker dat u wil uitloggen?"
+                    "title": "weet u zeker dat u wil uitloggen?",
+                    "message": "Elke niet opgeslagen aanpassingen kunnen verloren gaan"
                 }
+            },
+            "snap": {
+                "checkbox": "Toon dit bericht niet opnieuw",
+                "title": "Heroic voert uit als een Snap"
             }
         },
         "wineprefix": "Selecteer een Wine Prefix Folder",
         "yes": "JA",
         "dontShowAgain": "Niet meer laten zien",
         "choose-nile-binary": "Selecteer Nijl binair",
-        "update": "Update"
+        "update": "Update",
+        "postpone": "Stel uit",
+        "changelog": "Updatelog"
     },
     "button": {
         "cancel": "Cancel",
@@ -224,7 +235,8 @@
     "game": {
         "status": "Status",
         "store": "Store",
-        "title": "Game Title"
+        "title": "Game Title",
+        "modify": "Pas installatie aan"
     },
     "generic": {
         "error": {
@@ -247,7 +259,13 @@
         "show_hidden": "Show Hidden",
         "store": "Filter Store",
         "filters": "Filter",
-        "categories": "Categorieën"
+        "categories": "Categorieën",
+        "show_third_party_managed_only": "Enkel door derde partij beheerde tonen",
+        "show_installed_only": "Enkel geïnstalleerde tonen",
+        "show_support_offline_only": "Enkel offline-ondersteunde tonen",
+        "uncategorized": "Niet Gecategoriseerd",
+        "no_categories": "Geen aangepaste categorieën. Voeg categorieën toe in elk game menu.",
+        "select_all": "Selecteer Alles"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -296,6 +314,28 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine Manager",
             "library": "Bibliotheek"
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "button": {
+            "close": "Sluit Help",
+            "open": "Open Help"
+        },
+        "disablePlaytimeSync": "Schakel speeltijd synkronisatie uit met de servers van de winkels (momenteel werkt enkel GOG)",
+        "content": {
+            "accessibility": "Toont Toegankelijkheidsinstellingen.",
+            "downloadManager": "Toont huidige en vorige downloads.",
+            "library": "Toont alle games in het bezit.",
+            "login": "Log in op de verschillende winkels.",
+            "settingsDefault": "Toont alle instellingen van Heroic en standaardwaarden voor games.",
+            "customThemesPath": "Lees onze wiki.",
+            "defaultInstallPath": "Dit is het standaard pad dat voorgeselecteerd wordt bij het installeren van games.",
+            "settingsGame": "Toon alle instellingen voor een game.",
+            "wineManager": "Installeer verschillende versies van Wine, Proton, Crossover, etc."
+        },
+        "dxvknvapi": "DXVK-NVAPI is een implementatie van NVAPI gebouwd bovenop DXVK en het linux native NVAPI, het staat toe dat DLSS werkt met Nvidia GPUs.",
+        "gamescope": {
+            "fpsLimiter": "Het aantal frames gamescope moet naar limiteren. Bijvb. 60",
+            "fpsLimiterNoFocus": "De framelimiet gamescope moet aanhouden als de game niet is gefocused."
         }
     },
     "info": {
@@ -353,7 +393,8 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "amazon": "Amazon-login"
+        "amazon": "Amazon-login",
+        "old-mac": "Uw macOS versie is {{version}}. macOS 12 of nieuwer is nodig om in te loggen."
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -442,6 +483,16 @@
             "placeHolderKey": "New Wrapper",
             "placeHolderValue": "Wrapper Arguments",
             "title": "Wrapper command:"
+        },
+        "gamescope": {
+            "nis": "Nvidia beeldschaling (NIS)",
+            "gameWidth": "Game breedte",
+            "fpsLimiterNoFocus": "FPS Limiet (geen focus)",
+            "fullscreen": "Volledig scherm",
+            "gameHeight": "Game Hoogte",
+            "windowed": "In venster",
+            "additionalOptions": "Additionele opties",
+            "fpsLimiter": "FPS limiet"
         }
     },
     "other": {
@@ -548,7 +599,8 @@
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "show-in-folder": "Show log file in folder",
+            "join-heroic-discord": "Kom in onze Discord"
         },
         "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
         "manualsync": {
@@ -595,7 +647,33 @@
         "addgamestoapplications": "Voeg automatisch games toe aan applicaties",
         "showMetalOverlay": "Statistieken-overlay weergeven",
         "alt-nile-bin": "Kies een alternatief Nijlbinair getal",
-        "autodxvknvapi": "Automatisch installeren/updated van DXVK-NVAPI op Prefix"
+        "autodxvknvapi": "Automatisch installeren/updated van DXVK-NVAPI op Prefix",
+        "msync": "Esync inschakelen",
+        "gamescope": {
+            "enableUpscaling": "Zet Upscaling aan",
+            "enableLimiter": "Zet FPS limiteerder aan"
+        },
+        "before-launch-script-path": "Selecteer een script om uit te voeren voordat een game is opgestart",
+        "frameless-window": {
+            "description": "Gebruik frameloos venster (herstart nodig)",
+            "confirmation": {
+                "message": "Deze functie is nog experimenteel. Gelieve fouten die u ondervindt te rapporteren op GitHub.",
+                "title": "Experimentele functie"
+            }
+        },
+        "after-launch-script-path": "Selecteer een script om uit te voeren nadat de game afsluit",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Games met niet werkende antichat kunnen werken, maar multiplayerfuncties zullen niet werken. Vraag niet om ondersteuning als je een spel installeert en dit weet.",
+                "title": "Weet je het zeker?",
+                "understand": "Ik weet het zeker"
+            },
+            "label": "Sta installatie van games toe met niet werkende anticheat"
+        },
+        "disablePlaytimeSync": "Schakel speeltijd synchronisatie uit",
+        "experimental_features": {
+            "enableNewDesign": "Nieuw uiterlijk"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -630,7 +708,9 @@
             "log": "Log",
             "other": "Overig",
             "sync": "Cloud Slag Sync",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "systemInformation": "Systeeminformatie",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -640,11 +720,46 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installed Games"
+                "help8": "Installed Games",
+                "help9": "Game settings",
+                "help10": "Heroic configuratie",
+                "help3": "Legendary bibliotheekinfo (lijst van spellen, installatieinfo, gameinfo)",
+                "help2": "Info van derde partijen (scores, steam ondersteuning, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help4": "GOG bibliotheek info (lijst van games, installatiedialoog info, Api info -bijvb: benodigdheden-)",
+                "help5": "Amazon bibliotheek info (lijst van games, installatiedialoog info)",
+                "help6": "Dit zal NIET verwijderen:",
+                "help7": "Winkellogin"
             },
             "title": {
-                "resetHeroic": "Reset Heroic"
-            }
+                "resetHeroic": "Reset Heroic",
+                "clearCache": "Cache leegmaken"
+            },
+            "resetHeroic": {
+                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+            },
+            "details": "Details"
+        },
+        "systemInformation": {
+            "systemModel": "Systeem Model:",
+            "copyToClipboard": "Kopieer naar klembord",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "os": "Besturingssysteem:",
+            "memoryStats": "{{percentUsed}}% gebruikt {{usedGib}} / {{totalGib}}",
+            "cpuDescription": "{{numOfCores}}x{{modelName}}",
+            "memory": "Geheugen:",
+            "gpu": "GPU:",
+            "cpu": "CPU:",
+            "osVersion": "Versie {{versionNumber}}",
+            "showDetailed": "Toon gedetailleerde systeemspecificaties",
+            "steamDeck": "Steam Deck {{model}}",
+            "systemSpecifications": "Systeem Specificaties:",
+            "osNameFlatpak": "{{osName}} (in Flatpak)"
+        },
+        "experimental_features": {
+            "title": "Experimentele Functies"
+        },
+        "offline": {
+            "warning": "Deze game ondersteunt geen offline modus, zet dit aan op eigen risico. De game werkt misschien niet."
         }
     },
     "Settings": "Instellingen",
@@ -731,13 +846,44 @@
     "prime-gaming": "Prime-gaming",
     "winetricks": {
         "install": "Install",
-        "loading": "Loading"
+        "loading": "Loading",
+        "installed": "Geïnstalleerde componenten:",
+        "search": "Zoek naar lettertypen of componenten",
+        "installing": "Installatie bezig: {{component}}"
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "new-category": "Nieuwe Categorie",
+        "remove-category": "Verwijder Categorie",
+        "add-new-category": "Voeg nieuwe categorie toe",
+        "delete-question": "Als u doorgaat zal u deze categorie permanent verwijderen en het ontkoppelen van alle games. Wilt u doorgaan?"
     },
     "window": {
-        "close": "sluit"
+        "close": "sluit",
+        "restore": "Herstel venster",
+        "maximize": "Maximaliseer venster",
+        "minimize": "Minimaliseer venster"
+    },
+    "emptyLibrary": {
+        "noGames": "Uw bibliotheek is leeg. U kan <1>Inloggen</1> met een winkel of klik <3></3> om een manueel toe te voegen.",
+        "noResults": "De huidige filters produceerden geen resultaten."
+    },
+    "adtraction-locked": {
+        "title": "Adtraction is geblokkeerd",
+        "description": "Het lijkt erop dat u het domeinnaam \"track.adtraction.com\" heeft geblokkeerd, of dat deze niet kon laden. Met adtraction, kunt u met elke aankoop binnen de GOG winkel, Heroic financieel steunen. Als u wilt steunen, gelieve deze blokkade te verwijderen.",
+        "dont-show-again": "Toon deze waarschuwing niet opnieuw"
+    },
+    "categories-manager": {
+        "add-placeholder": "Voeg nieuwe categorie toe",
+        "cancel-remove": "Annuleer verwijdering van \"{{name}}\"",
+        "cancel-rename": "Annuleer het wijzigen van de naam van \"{{name}}\"",
+        "confirm-remove": "Bevestig verwijdering van \"{{name}}\"",
+        "confirm-rename": "Bevestig het wijzigen van \"{{oldName}}\" in \"{{newName}}\"",
+        "no-categories": "Nog geen categorieën.",
+        "remove": "Verwijder \"{{name}}\"",
+        "rename": "Wijzig naam van \"{{name}}\"",
+        "title": "Beheer categorieën",
+        "add": "Voeg toe"
     }
 }

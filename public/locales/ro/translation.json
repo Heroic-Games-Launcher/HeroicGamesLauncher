@@ -591,7 +591,8 @@
         "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
         "showMetalOverlay": "Afișați statistici suprapuse",
         "alt-nile-bin": "Alegeți un binar alternativ pentru Nil",
-        "autodxvknvapi": "Instalare/Actualizare automată DXVK-NVAPI în Prefix"
+        "autodxvknvapi": "Instalare/Actualizare automată DXVK-NVAPI în Prefix",
+        "msync": "Activați Esync"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -636,7 +637,8 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Jocuri instalate"
+                "help8": "Jocuri instalate",
+                "help9": "Game Settings"
             },
             "details": "Detalii"
         }

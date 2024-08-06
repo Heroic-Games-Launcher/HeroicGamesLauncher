@@ -149,7 +149,8 @@
             "cancel": "いいえ",
             "message": "アンチチートサポートは機能しないか拒否されます。ゲームは正常に動作しません。それでもインストールしますか？",
             "install": "はい（正しく機能しないことは理解しています）",
-            "title": "アンチチート 破損/拒否"
+            "title": "アンチチート 破損/拒否",
+            "ok": "Ok"
         },
         "flatpak-path-not-writtable": "エラー：このパスにサンドボックスへのアクセスが許可されていないため、データの損失が発生します。"
     },
@@ -187,7 +188,8 @@
     },
     "setting": {
         "use-default-wine-settings": "デフォルトのWine設定を使用",
-        "winecrossoverbottle": "CrossOverボトル"
+        "winecrossoverbottle": "CrossOverボトル",
+        "show-wine-settings": "Wineの設定を表示する"
     },
     "sideload": {
         "field": {
@@ -230,7 +232,7 @@
         "uninstalling": "アンインストール中",
         "updating": "ゲームをアップデート中",
         "playing": "プレイ中",
-        "moving-files": "ファイル '{{file}}' を移動中: {{percent}} ",
+        "moving-files": "ファイル '{{file}}' を移動中: {{percent}} %",
         "syncingSaves": "セーブデータを同期中",
         "launching": "起動中",
         "ubisoft": "Ubisoftをインストール中",

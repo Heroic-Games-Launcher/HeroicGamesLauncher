@@ -334,14 +334,13 @@
     }
   }
 
-  .installProgress[value] {
-    appearance: none;
+  .MuiLinearProgress-root {
     width: 169px;
     height: 5px;
+    background-color: var(--neutral-05);
 
-    &::-webkit-progress-value {
-      color: var(--success);
-      animation: animate-stripes 5s linear infinite;
+    .MuiLinearProgress-bar {
+      background-color: var(--success);
     }
   }
 
@@ -417,6 +416,7 @@
 
     & > svg {
       height: 20px;
+      margin-inline-end: 5px; /* for compatibility, before was hardcoded in JS*/
     }
   }
 
@@ -428,49 +428,91 @@
 }
 
 .App:not(.oldDesign) .gameConfigContainer {
-  display: flex;
-  padding: 2vh 2vw;
-  height: 100%;
-  gap: min(3vw, 50px);
-  align-items: flex-start;
-  max-height: 1100px;
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  ); /* assure that the columns are always the same width */
+  grid-template-rows: min-content 1fr min-content;
+  row-gap: var(--space-md);
+  column-gap: min(var(--space-lg), 50px);
+  grid-template-areas:
+    'top top'
+    'main extra'
+    'report report';
 
-  .backButton,
-  .showInfo,
-  .showExtra,
-  .showRequirements {
+  padding: var(--space-lg);
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  align-items: flex-start;
+
+  /*
+  ** Adding icons to the MUI tabs makes them at least 72px high
+  ** min-height is guaranteed by the min height of the tab parent element itself
+  ** which is 44px
+  */
+  .MuiTab-labelIcon {
+    min-height: unset;
+  }
+
+  p {
+    margin-block-start: var(--space-xs);
+    margin-block-end: var(--space-xs);
+  }
+
+  ::-webkit-scrollbar {
+    background: none;
+  }
+
+  .backButton {
     justify-self: flex-start;
     width: 44px;
     height: 44px;
     padding: 6px;
-    background: var(--neutral-03);
+    color: var(--navbar-inactive);
+    background-color: var(--navbar-background);
     border-radius: 10px;
     display: grid;
     place-items: center;
     border: none;
 
     svg path {
-      fill: var(--neutral-06);
+      fill: currentColor;
       transition: fill 0.2s;
     }
 
     &:hover {
-      svg path {
-        fill: var(--neutral-05);
-      }
+      color: var(--navbar-active);
+    }
+  }
+
+  .topRowWrapper {
+    display: flex;
+    grid-area: top;
+    gap: var(--space-sm);
+    z-index: 30;
+
+    & > * {
+      filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
+    }
+
+    .backButton {
+      margin-inline-end: auto;
     }
   }
 
   .mainInfoWrapper,
   .extraInfoWrapper {
-    flex-basis: 50%;
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    overflow-y: auto;
   }
 
   .mainInfo,
-  .tabContent {
+  .extraInfo {
     outline: 3px solid #8a8a8a;
     outline-offset: -3px;
     border-radius: 15px;
@@ -481,6 +523,7 @@
     justify-self: stretch;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     & > * {
       position: relative;
@@ -507,28 +550,11 @@
   }
 
   .mainInfoWrapper {
-    grid-template-columns: 1fr min-content min-content;
-    grid-template-areas: 'back settings menu' 'main main main' 'report report report';
-    column-gap: 15px;
+    grid-area: main;
     min-width: 300px;
-    width: 50%;
-
-    .backButton {
-      grid-area: back;
-    }
-
-    .game-actions {
-      grid-area: menu;
-    }
-
-    .settings-icon {
-      grid-area: settings;
-      right: unset;
-    }
 
     .mainInfo {
-      grid-area: main;
-      padding: min(25vh, 300px) min(4vw, 70px) min(5vh, 25px);
+      padding: max(20vh, 125px) min(4vw, 70px) min(5vh, 25px);
       background-color: var(--body-background);
 
       .store-icon {
@@ -571,10 +597,11 @@
 
       .summary {
         overflow: auto;
-        font-size: 18px;
-        line-height: 34px;
+        font-size: var(--text-lg);
+        line-height: 1.5em;
         text-align: left;
         flex-grow: 1;
+        margin-top: var(--space-xs);
       }
 
       .genres {
@@ -596,56 +623,93 @@
         text-align: left;
       }
 
-      .buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        column-gap: 10px;
-        margin-top: 15px;
+      .MuiLinearProgress-root {
+        display: block;
+        background-color: var(--neutral-05);
 
-        // hiding the `uninstall` button temporarily until
-        // properly implemented
-        button:nth-child(2) {
-          display: none;
+        .MuiLinearProgress-bar {
+          background-color: var(--success);
         }
       }
-    }
 
-    .reportProblem {
-      grid-area: report;
-      svg {
-        margin-inline-end: 0.5rem;
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 10px;
+        margin-top: 15px;
+        width: auto;
+
+        .buttonWithIcon > svg {
+          display: flex;
+          place-items: center;
+          justify-content: center;
+          margin-inline-end: var(--space-2xs);
+          width: auto;
+          max-height: 1em;
+        }
+
+        & > button {
+          align-self: center;
+          max-height: unset;
+          padding: var(--space-sm) var(--space-md);
+        }
+
+        & .mainBtn {
+          min-width: 200px;
+          font-size: var(--text-md);
+
+          & svg {
+            transform: scale(1.2);
+
+            &[data-icon='play'],
+            &[data-icon='stop'] {
+              /* For some reason Play/Stop icons are much smaller the rest */
+              transform: scale(1.6);
+            }
+          }
+        }
+
+        & .delBtn {
+          font-size: var(--text-sm);
+          padding: var(--space-2xs) var(--space-xs);
+          & svg {
+            margin-inline-end: 0;
+          }
+        }
       }
     }
   }
 
   .extraInfoWrapper {
-    .tabs {
-      display: flex;
-      gap: 15px;
-      justify-content: flex-end;
-    }
+    grid-area: extra;
 
-    .tabContent {
+    .extraInfo {
       padding: 4vh 1.5vw;
 
       & > div {
-        overflow: auto;
-        padding: 10px;
+        overflow-y: auto;
+        padding: 5px 10px;
+        max-width: 100%;
       }
 
-      &.infoTab,
-      &.extraTab {
-        & > div > *,
-        & > div > .popover-wrapper > * {
+      & div.infoTab,
+      & div.extraTab {
+        & > div > * {
           display: flex;
           text-align: end;
-          font-size: 16px;
+          font-size: var(--space-unit-fixed);
           line-height: 24px;
-          height: 56px;
-          gap: 10px;
-          padding: 10px 0;
+          gap: var(--space-sm-fixed);
+          padding: var(--space-unit-fixed) 0;
           align-items: center;
           border-bottom: 1px solid var(--base-06);
+
+          &:focus-visible,
+          &:has(:focus-visible) {
+            /* do not use :focus-within to prevent outline form appearing when using a mouse */
+            outline: 2px auto -webkit-focus-ring-color;
+          }
 
           &:last-child {
             border-bottom: 0px;
@@ -664,6 +728,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            word-break: break-all;
           }
 
           &:hover .truncatedPath,
@@ -673,10 +738,33 @@
             background: var(--body-background);
           }
         }
-        .popover-wrapper {
-          overflow: visible;
-          .popover {
-            height: auto;
+        & > div > .hltbWrapper > .MuiAccordion-root {
+          background-color: unset;
+          box-shadow: none;
+          color: var(--text-default);
+          flex-grow: 1;
+
+          & > .MuiAccordionSummary-root:focus-visible {
+            background: unset; /* no more darker background */
+          }
+
+          & > .MuiAccordionSummary-root {
+            padding: 0;
+            min-height: unset;
+
+            & > .MuiAccordionSummary-content {
+              margin: 0;
+              display: flex;
+              gap: 10px;
+            }
+
+            & .MuiAccordionSummary-expandIconWrapper {
+              color: inherit;
+            }
+          }
+
+          .MuiAccordionDetails-root {
+            padding-bottom: 8px;
           }
         }
       }
@@ -684,6 +772,14 @@
 
     .anticheatInfo {
       max-width: none;
+      margin: 0;
+    }
+  }
+
+  .reportProblem {
+    grid-area: report;
+    svg {
+      margin-inline-end: 0.5rem;
     }
   }
 
@@ -691,10 +787,6 @@
   .extraInfoWrapper {
     max-width: 800px;
     height: 100%;
-  }
-  .mainInfo,
-  .tabContent {
-    max-height: 900px;
   }
 
   .store-icon {
@@ -720,22 +812,20 @@
     width: 44px;
     position: relative;
     padding: 6px;
-    right: 6px;
-    background: var(--neutral-03);
+    color: var(--navbar-inactive);
+    background-color: var(--navbar-background);
     border-radius: 10px;
     display: grid;
     place-items: center;
     height: 44px;
 
     svg path {
-      fill: var(--neutral-06);
+      fill: currentColor;
       transition: fill 0.2s;
     }
 
     &:hover {
-      svg path {
-        fill: var(--neutral-05);
-      }
+      color: var(--navbar-active);
     }
   }
 
@@ -747,7 +837,7 @@
     .toggle {
       align-self: flex-end;
       border: none;
-      color: var(--neutral-06);
+      color: var(--navbar-inactive);
       font-size: var(--text-2xl);
       padding: var(--space-xs-fixed);
       cursor: pointer;
@@ -757,14 +847,14 @@
       justify-content: center;
       width: 44px;
       height: 44px;
-      background: var(--neutral-03);
+      background-color: var(--navbar-background);
       border-radius: 10px;
     }
 
     &:focus-within .toggle,
     &:hover .toggle,
     .toggle:hover {
-      color: var(--neutral-05);
+      color: var(--navbar-active);
     }
 
     .gameTools {
@@ -772,7 +862,7 @@
       opacity: 1;
       pointer-events: all;
       transition: all 0.2s;
-      background: var(--navbar-background);
+      background-color: var(--navbar-background);
       border-radius: 5px;
       z-index: 2;
       padding: 0;
@@ -788,10 +878,11 @@
       text-align: start;
       white-space: nowrap;
       font-size: 1rem;
-      background: var(--navbar-background);
+      background: none;
+      color: var(--navbar-inactive);
 
       &:hover {
-        color: var(--accent-overlay);
+        color: var(--navbar-active);
       }
 
       &:last-child {
@@ -814,10 +905,18 @@
     z-index: -1;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     object-fit: cover;
-    filter: blur(15px) brightness(30%);
+    filter: blur(15px);
+    opacity: 0.3;
+    /* scale is so there will be no ugly edges because of the blur */
+    transform: scale(1.1);
   }
+}
+
+.App:not(.oldDesign).isRTL .gameConfigContainer .game-actions .gameTools {
+  left: 0;
+  right: unset;
 }

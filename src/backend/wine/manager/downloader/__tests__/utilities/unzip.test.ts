@@ -7,6 +7,10 @@ jest.mock('@xhmikosr/decompress', () => {
   return jest.fn().mockImplementation(async () => Promise.resolve())
 })
 
+jest.mock('@xhmikosr/decompress-unzip', () => {
+  return jest.fn().mockImplementation(() => {})
+})
+
 jest.mock('@xhmikosr/decompress-targz', () => {
   return jest.fn().mockImplementation(() => {})
 })
@@ -14,7 +18,6 @@ jest.mock('@xhmikosr/decompress-targz', () => {
 jest.mock('@felipecrs/decompress-tarxz', () => {
   return jest.fn().mockImplementation(() => {})
 })
-const workDir = process.cwd()
 
 describe('Utilities - Unzip', () => {
   test('unzip file fails because of invalid archive path', async () => {
@@ -36,9 +39,7 @@ describe('Utilities - Unzip', () => {
         unzipDir: __dirname,
         onProgress: progress
       })
-    ).rejects.toStrictEqual(
-      `Archive path ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities is not a file!`
-    )
+    ).rejects.toStrictEqual(`Archive path ${__dirname} is not a file!`)
   })
 
   test('unzip file fails because of invalid install path', async () => {
@@ -67,7 +68,7 @@ describe('Utilities - Unzip', () => {
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.xz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${__dirname}/../test_data/test.tar.xz to ${installDir}.`
     )
 
     if (existsSync(installDir)) {
@@ -90,7 +91,7 @@ describe('Utilities - Unzip', () => {
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${__dirname}/../test_data/test.tar.gz to ${installDir}.`
     )
 
     if (existsSync(installDir)) {
@@ -113,7 +114,7 @@ describe('Utilities - Unzip', () => {
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${__dirname}/../test_data/test.tar.gz to ${installDir}.`
     )
 
     await expect(
@@ -124,14 +125,14 @@ describe('Utilities - Unzip', () => {
         onProgress: progress
       })
     ).resolves.toStrictEqual(
-      `Succesfully unzip ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/../test_data/test.tar.gz to ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities/test_unzip.`
+      `Succesfully unzip ${__dirname}/../test_data/test.tar.gz to ${installDir}.`
     )
 
     if (existsSync(installDir)) {
       rmSync(installDir, { recursive: true })
     }
 
-    expect(progress).toBeCalledWith('unzipping')
-    expect(progress).toBeCalledWith('idle')
+    expect(progress).toBeCalledWith({ status: 'unzipping' })
+    expect(progress).toBeCalledWith({ status: 'idle' })
   })
 })

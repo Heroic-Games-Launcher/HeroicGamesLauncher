@@ -1,11 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Kelompok Font Tindakan (Default: ",
+        "actions_font_family_no_default": "Keluarga Fon Aksi (Bawaan):",
         "all_tiles_in_color": "Tampilkan semua kolom gim dalam warna",
         "content_font_family_no_default": "Keluarga Font Konten (Default: ",
         "fonts": "Fon",
         "title": "Aksesibilitas",
-        "zoom": "Perbesar"
+        "zoom": "Perbesar",
+        "disable_dialog_backdrop_close": "Nonaktifkan dialog penutup dengan mengeklik bagian luar",
+        "titles_always_visible": "Selalu tampilkan judul di perpustakaan"
     },
     "add_game": "Tambahkan Gim",
     "All": "Semua",
@@ -15,7 +17,8 @@
         "reference": "Referensi",
         "source": "Sumber",
         "status": "Status",
-        "title": "Gim ini mengandung perangkat lunak anticheat"
+        "title": "Gim ini mengandung perangkat lunak anticheat",
+        "multiplayer_may_not_work": "Fitur multipemain mungkin tidak bekerja dikarenakan dukungan anticheat yang ditolak atau rusak."
     },
     "box": {
         "cache-cleared": {
@@ -23,7 +26,7 @@
             "title": "Tembolok telah dibersihkan"
         },
         "choose": "Pilih",
-        "choose-egs-prefix": "Pilih Prefiks di mana EGS dipasang",
+        "choose-egs-prefix": "Pilih Prefiks di mana EGS diinstal",
         "choose-gogdl-binary": "Pilih GOGDL Binary (perlu memulai ulang)",
         "choose-legendary-binary": "Pilih Legendary binary",
         "customWine": "Pilih Wine atau Proton Binary",
@@ -101,7 +104,7 @@
         "ok": "OKE",
         "protocol": {
             "install": {
-                "not_installed": "Saat ini tidak dipasang. Pasang sekarang?"
+                "not_installed": "Saat ini tidak diinstal. Instal sekarang?"
             }
         },
         "quit": {
@@ -119,7 +122,8 @@
         },
         "select": {
             "button": "Pilih",
-            "exe": "Pilih EXE"
+            "exe": "Pilih EXE",
+            "script": "Pilih skrip ..."
         },
         "shortcuts": {
             "message": "Pintasan dibuat di Desktop dan Start Menu",
@@ -135,22 +139,22 @@
         },
         "vcruntime": {
             "install": {
-                "message": "Tautan unduhan dari Visual C++ Runtimes sudah dibuka. Silahkan pasang kedua versi dari X86 dan X64."
+                "message": "Tautan unduhan dari Visual C++ Runtimes sudah dibuka. Silahkan instal kedua versi dari X86 dan X64."
             },
             "notfound": {
-                "message": "Microsoft Visual C++ Runtimes belum terpasang, yang dibutuhkan dari beberapa gim yang akan dimainkan",
-                "title": "VCRuntime belum terpasang"
+                "message": "Microsoft Visual C++ Runtimes belum terinstal, yang dibutuhkan dari beberapa gim yang akan dimainkan",
+                "title": "VCRuntime belum terinstal"
             }
         },
         "warning": {
             "epic": {
                 "import": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diimpor!",
-                "install": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat dipasang!",
+                "install": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diinstal!",
                 "update": "Server Epic mengalami penghentian besar saat ini, gim tidak dapat diperbarui!"
             },
             "title": "Peringatan",
             "wine-change": {
-                "message": "Kami tidak dapat menemukan versi wine yang dipilih untuk meluncurkan judul ini ({{selectedWine}}). {{newline}} Tapi kami menemukan yang lain, apakah Anda ingin melanjutkan peluncuran menggunakan {{foundWine}}?",
+                "message": "Kami tidak dapat menemukan versi wine yang dipilih untuk meluncurkan judul ini ({{selectedWine}}). {{newline}} Tetapi kami menemukan yang lain, apakah Anda ingin melanjutkan peluncuran menggunakan {{foundWine}}?",
                 "title": "Wine tidak ditemukan!"
             },
             "sideload": {
@@ -167,7 +171,9 @@
         "yes": "YA",
         "dontShowAgain": "Jangan tampilkan lagi",
         "choose-nile-binary": "Pilih Nile binary",
-        "update": "Perbarui"
+        "update": "Perbarui",
+        "changelog": "Log Perubahan",
+        "postpone": "Tunda"
     },
     "button": {
         "cancel": "Batalkan",
@@ -187,7 +193,7 @@
             "close_options": "Tutup pilihan",
             "game_details": "Detail gim",
             "game_settings": "Pengaturan gim",
-            "install_game": "Pasang gim",
+            "install_game": "Instal gim",
             "move_cursor": "Pindahkan kursor",
             "open_virtual_keyboard": "Buka papan ketik virtual",
             "options": "Pilihan",
@@ -201,7 +207,7 @@
     "docs": "Dokumentasi",
     "download-manager": {
         "install-type": {
-            "install": "Pasang",
+            "install": "Instal",
             "update": "Perbarui"
         },
         "label": {
@@ -228,11 +234,12 @@
     "game": {
         "status": "Status",
         "store": "Toko",
-        "title": "Judul Gim"
+        "title": "Judul Gim",
+        "modify": "Ubah Pemasangan"
     },
     "generic": {
         "error": {
-            "component": "Tidak ada Gim yang ditemukan - Silakan coba log keluar lalu log masuk lagi atau salah satu opsi di bawah ini"
+            "component": "Tidak ada Gim yang ditemukan - Silakan coba keluar lalu masuk lagi atau salah satu opsi di bawah ini"
         },
         "library": {
             "refresh": "Segarkan Pustaka"
@@ -252,7 +259,7 @@
         "store": "Toko Filter",
         "filters": "Filter",
         "all_categories": "Semua Kategori",
-        "show_installed_only": "Tampilkan yang terpasang saja",
+        "show_installed_only": "Tampilkan yang terinstal saja",
         "uncategorized": "Tidak dikategorikan",
         "categories": "Kategori"
     },
@@ -298,12 +305,13 @@
         "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun.",
         "title": {
             "accessibility": "Aksesibilitas",
-            "login": "Login",
+            "login": "Masuk",
             "settings": "Pengaturan",
             "downloadManager": "Download Manager",
             "wineManager": "Manajer Wine",
             "library": "Pustaka"
-        }
+        },
+        "msync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung."
     },
     "info": {
         "heroic": {
@@ -328,7 +336,7 @@
             "title": "Prefiks Wine"
         },
         "wine-repfix": {
-            "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terpasang melalui winetricks."
+            "message": "Wine membutuhkan WINEPREFIX untuk menjalankan aplikasi Windows. Prefiks ini mengandung berkas konfigurasi Wine dan reproduksi dari struktur berkas yang ada dalam partisi C: (penyimpanan utama dalam OS Windows). Berkas yang disimpan dari hasil reproduksi ini adalah, penyimpanan save gim dan perangkat lunak lainnya yang terinstal melalui winetricks."
         },
         "wine-path-invalid": "Lokasi Wine tidak valid, silakan pilih lokasi yang lain.",
         "wine-path-none-found": "Tidak ada versi Wine yang ditemukan, unduh dari Wine Manager"
@@ -470,7 +478,7 @@
         "alt-legendary-bin": "Menggunakan Legendary binary bawaan...",
         "custom_themes_path": "Pilih jalur untuk mencari file CSS khusus",
         "dxvkfpsvalue": "Nilai bilangan bulat positif (contohnya 30, 60, ...)",
-        "egs-prefix": "Prefiks di mana EGS dipasang",
+        "egs-prefix": "Prefiks di mana EGS diinstal",
         "prefered_language": "Kode 2 karakter (contohnya: \"en\" atau \"fr\")",
         "alt-nile-bin": "Menggunakan Nile binary bawaan ..."
     },
@@ -503,7 +511,7 @@
         "addgamestosteam": "Tambahkan game ke Steam secara otomatis",
         "alt-gogdl-bin": "Pilih GOGDL Binary alternatif untuk digunakan",
         "alt-legendary-bin": "Pilih Legendary Binary Alternatif",
-        "autodxvk": "Pasang/Perbarui Otomatis DXVK di Prefiks",
+        "autodxvk": "Instal/Perbarui Otomatis DXVK di Prefiks",
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
@@ -519,7 +527,7 @@
         "discordRPC": "Aktifkan Discord Rich Presence",
         "download-no-https": "Unduh gim tanpa HTTPS (berguna untuk CDN misalnya LanCache)",
         "dxvkfpslimit": "Batasi FPS (DX9, 10 dan 11)",
-        "egs-sync": "Sinkronkan dengan Epic Games yang Terpasang",
+        "egs-sync": "Sinkronkan dengan Epic Games yang Terinstal",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
         "eosOverlay": {
             "cancelInstall": "Batalkan",
@@ -529,12 +537,12 @@
             "disable": "Nonaktif",
             "enable": "Aktif",
             "install": "Install",
-            "installed": "EOS Overlay terpasang",
-            "installing": "EOS Overlay sedang dipasang....",
+            "installed": "EOS Overlay terinstal",
+            "installing": "EOS Overlay sedang diinstal....",
             "latestVersion": "Versi Terbaru: {{version}}",
-            "notInstalled": "EOS Overlay tidak dipasang",
-            "notInstalledMsg": "EOS Overlay tidak dipasang. Apakah Anda ingin memasangnya sekarang?",
-            "notInstalledTitle": "Overlay tidak dipasang",
+            "notInstalled": "EOS Overlay tidak diinstal",
+            "notInstalledMsg": "EOS Overlay tidak diinstal. Apakah Anda ingin memasangnya sekarang?",
+            "notInstalledTitle": "Overlay tidak diinstal",
             "remove": "Copot",
             "removeConfirm": "Apakah Anda yakin ingin mencopot EOS Overlay?",
             "removeConfirmTitle": "Konfirmasi penghapusan Overlay",
@@ -545,14 +553,14 @@
         "exit-to-tray": "Keluar ke Baki Sistem",
         "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
         "fsync": "Aktifkan Fsync",
-        "gamemode": "Gunakan GameMode (Feral Game Mode perlu dipasang)",
+        "gamemode": "Gunakan GameMode (Feral Game Mode perlu diinstal)",
         "hideChangelogsOnStartup": "Jangan tampilkan daftar ubahan saat memulai",
         "language": "Pilih Bahasa",
         "library_top_option": {
             "disabled": "Matikan",
             "favourites": "Gim Favorit",
             "recently_played": "Gim yang Baru Dimainkan",
-            "recently_played_installed": "Gim yang Baru Dimainkan (Hanya yang terpasang)"
+            "recently_played_installed": "Gim yang Baru Dimainkan (Hanya yang terinstal)"
         },
         "library_top_section": "Bagian Atas Pustaka",
         "log": {
@@ -564,7 +572,7 @@
             "no-file": "Tidak ditemukan berkas log",
             "show-in-folder": "Tampilkan berkas log di dalam folder"
         },
-        "mangohud": "Aktifkan Mangohud (Mangohud perlu dipasang)",
+        "mangohud": "Aktifkan Mangohud (Mangohud perlu diinstal)",
         "manualsync": {
             "download": "Unduh",
             "forcedownload": "Unduh Paksa",
@@ -609,7 +617,7 @@
         "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
         "showMetalOverlay": "Tampilkan Overlay Statistik",
         "alt-nile-bin": "Pilih Nile Binary Alternatif",
-        "autodxvknvapi": "Pasang/ Perbarui Otomatis DXVK-NVAPI sesuai Prefiks",
+        "autodxvknvapi": "Instal/ Perbarui Otomatis DXVK-NVAPI sesuai Prefiks",
         "gamescope": {
             "enableLimiter": "Hidupkan Pembatas FPS"
         },
@@ -618,11 +626,12 @@
         },
         "frameless-window": {
             "description": "Gunakan frameless window (perlu restart)"
-        }
+        },
+        "msync": "Aktifkan Esync"
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "Memasang BattlEye Runtime...",
+            "installing": "Menginstal BattlEye Runtime...",
             "name": "BattlEye AntiCheat Runtime"
         },
         "clear-cache": "Hapus Tembolok Heroic",
@@ -634,7 +643,7 @@
                 "message": "GameMode dibutuhkan untuk menjalankan EAC runtime di Flatpak. Apakah anda ingin menghidupkannya sekarang?",
                 "title": "GameMode dibutuhkan"
             },
-            "installing": "Memasang EAC Runtime...",
+            "installing": "Menginstal EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
         },
         "gameMode": {
@@ -666,10 +675,14 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Gim Terpasang"
+                "help8": "Gim Terinstal",
+                "help9": "Pengaturan gim"
             },
             "title": {
                 "resetHeroic": "Reset Heroic"
+            },
+            "resetHeroic": {
+                "help": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini."
             }
         }
     },
@@ -679,8 +692,8 @@
         "uncollapse": "Tampilkan bilah samping"
     },
     "status": {
-        "installing": "Memasang",
-        "logging": "Log Masuk...",
+        "installing": "Menginstal",
+        "logging": "Masuk Akun...",
         "processing": "Memproses berkas, harap tunggu",
         "preparing_login": "Persiapan Masuk Akun... "
     },
@@ -749,14 +762,14 @@
         "size": "Ukuran",
         "title": "Judul",
         "actions": "Tindakan",
-        "installDlcs": "Pasang semua DLC",
+        "installDlcs": "Instal semua DLC",
         "noDlcFound": "Tidak ada DLC yang ditemukan"
     },
     "amazon": "Amazon",
     "prime-gaming": "Prime Gaming",
     "Amazon Games": "Amazon Games",
     "winetricks": {
-        "install": "Pasang",
+        "install": "Instal",
         "loading": "Memuat"
     },
     "category-settings": {
@@ -768,5 +781,13 @@
     },
     "window": {
         "close": "Tutup"
+    },
+    "categories-manager": {
+        "add-placeholder": "Buat Kategori Baru"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Jangan tampilkan peringatan ini lagi",
+        "title": "Adtraction diblokir",
+        "description": "Sepertinya domain track.adtraction.com gagal dimuat atau diblokir. Dengan adtraction, pembelian apa pun yang Anda lakukan di toko GOG akan mendukung Heroic secara finansial. Pertimbangkanlah untuk menghapus blokiran jika Anda ingin berkontribusi."
     }
 }

@@ -10,21 +10,21 @@
         "move": {
             "message": "Môže to trvať dlho, si si istý?",
             "path": "Vyberte si, kam sa chcete presunúť",
-            "title": "Inštalácia hry Move"
+            "title": "Presunúť Inštaláciu Hry"
         },
         "no": "NIE",
         "repair": {
-            "message": "Chcete sa pokúsiť opraviť túto hru? Môže to trvať dlho.",
+            "message": "Chcete sa pokúsiť opraviť súbory tejto hry? Môže to trvať dlho.",
             "title": "Overiť a opraviť"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Vybrať EXE na Spustenie"
         },
         "select": {
-            "button": "Select"
+            "button": "Vybrať"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Vyberte Spustiteľný Súbor"
         },
         "stopInstall": {
             "keepInstalling": "Pokračujte v inštalácii",
@@ -33,44 +33,47 @@
         },
         "uninstall": {
             "checkbox": "Odstrániť predponu: {{prefix}}{{newLine}}Poznámka: Túto akciu nie je možné vrátiť späť a odstránia sa tým aj nezálohované uložené súbory.",
-            "message": "Chcete túto hru odinštalovať?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "message": "Chcete odinštalovať {{title}}?",
+            "settingcheckbox": "Vymažte nastavenia a odstráňte log {{newLine}}Poznámka: Toto sa nedá vrátiť späť. Akékoľvek zmenené nastavenia budú stratené a log bude vymazaný.",
             "title": "Odinštalovať",
             "prefix_warning": "Predpona Wine pre túto hru je predvolená predpona. Ak to naozaj chcete odstrániť, musíte to urobiť ručne.",
-            "dlc": "Chcete odinštalovať toto DLC?"
+            "dlc": "Chcete odinštalovať toto DLC?",
+            "cannotUninstallEpic": "Epic games nemôže byť odinštalovaný keď Epic hra sa inštaluje."
         },
         "update": {
-            "message": "Táto hra má aktualizáciu, použiť aktualizáciu teraz?",
+            "message": "Táto hra má aktualizáciu, inštalovať aktualizáciu teraz?",
             "title": "Hra vyžaduje aktualizáciu"
         },
         "wineprefix": "Vyberte Priečinok WinePrefix",
-        "yes": "ÁNO"
+        "yes": "ÁNO",
+        "close": "Zatvoriť"
     },
     "button": {
         "add_to_favourites": "Pridať do obľúbených",
         "cancel": "Pozastaviť/Zrušiť",
         "continue": "Pokračovať v sťahovaní",
-        "finish": "Finish",
+        "finish": "Dokončiť",
         "force_update": "Vynútiť aktualizáciu, ak je k dispozícii",
-        "force-innstall": "Force Install",
+        "force-innstall": "Natvrdo Inštalovať",
         "hide_game": "Skryť hru",
         "import": "Importovať hru",
         "install": "Inštalácia",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Žiadna cesta nie je vybraná",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Vymazať z rady"
         },
         "remove_from_favourites": "Odstrániť z obľúbených",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Vymazať z posledných",
+        "run-exe-first": "Spustiť Inštalátor",
+        "running-setup": "Beží Inštalátor",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Upraviť nastavenie App/Game"
         },
         "unhide_game": "Odkryť hru",
         "uninstall": "Odinštalovať",
         "update": "Aktualizovať",
-        "details": "Podrobnosti"
+        "details": "Podrobnosti",
+        "changelog": "Zobraziť Changelog"
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -81,108 +84,134 @@
     "game": {
         "downloadSize": "Veľkosť na stiahnutie",
         "firstPlayed": "Prvýkrát hrané",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Získanie veľkosti sťahovania",
+        "getting-install-size": "Zisťovanie veľkosti inštalácie",
         "installSize": "Veľkosť inštalácie",
         "language": "Jazyk",
         "lastPlayed": "Naposledy hrané",
         "neverPlayed": "Nikdy",
-        "platform": "Vyberte Verzia platformy na inštaláciu",
-        "requirements": "Požiadavky na systém",
-        "totalPlayed": "Hraný čas",
+        "platform": "Vyberte Verziu platformy na inštaláciu",
+        "requirements": "Systémové Požiadavky",
+        "totalPlayed": "Čas Hrania",
         "dlcs": "DLC",
         "branch": {
-            "disabled": "Zakázané"
+            "disabled": "Zakázané",
+            "select": "Vybrať betaverziu",
+            "password": "Nastavte heslo súkromnej verzie",
+            "setPrivateBranchPassword": "Nastavte heslo súkromnej verzie"
         },
         "builds": {
-            "version": "Verzia"
-        }
+            "version": "Verzia",
+            "buildsSelector": "Vybrať verziu hry",
+            "toggle": "Nechať hru v tejto verzii"
+        },
+        "changelogFor": "Zoznam zmien pre {{gameTitle}}",
+        "modify": "Zmeniť Inštaláciu",
+        "extra_info": "Extra Informácie",
+        "install_info": "Informácie o inštalácii"
     },
     "gamecard": {
-        "moving": "Sťahovanie",
-        "repairing": "Oprava"
+        "moving": "Presúvanie",
+        "repairing": "Opravovanie"
     },
     "generic": {
         "error": "Neznáma chyba",
         "noDescription": "Popis nie je k dispozícii"
     },
-    "hours": "Hours",
+    "hours": "Hodín",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Kompletionista",
+        "main-plus-extras": "Hlavné + doplnky",
+        "main-story": "Hlavný Príbeh"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Ako dlho na prejdenie hry",
     "info": {
-        "canRunOffline": "Vyžaduje sa online",
+        "canRunOffline": "Vyžaduje sa internet",
         "installedPlatform": "Nainštalovaná platforma",
-        "path": "Inštalovať cestu",
+        "path": "Cesta Inštalácie",
         "size": "Veľkosť",
         "syncsaves": "Synchronizovať uloženia",
         "version": "Verzia",
-        "apple-gaming-wiki": "Hodnotenie AppleGamingWiki",
+        "apple-gaming-wiki": "Hodnotenie od AppleGamingWiki",
         "clickToOpen": "Kliknutím otvoríte",
         "game-scores": "Skóre hry",
-        "installedInfo": "Inštalované informácie",
-        "protondb-compatibility-info": "Úroveň protónovej kompatibility",
-        "steamdeck-compatibility-info": "Kompatibilita so SteamDeck"
+        "installedInfo": "Informácie o Inštalácii",
+        "protondb-compatibility-info": "Úroveň kompatibility Proton",
+        "steamdeck-compatibility-info": "Kompatibilita so Steam Deck",
+        "third-party-app": "Správca z Tretej Strany"
     },
     "install": {
-        "disk-space-left": "Priestor k dispozícii",
+        "disk-space-left": "Uložisko k dispozícii",
         "not-enough-disk-space": "Nedostatočný priestor na disku",
-        "path": "Vyberte Inštalovať cestu",
+        "path": "Vyberte Cestu Inštalácie",
         "path-not-writtable": "Upozornenie: Cesta nemusí byť zapisovateľná.",
         "space-after-install": "Po inštalácii",
         "wineprefix": "WinePrefix",
-        "wineversion": "Verzia vína"
+        "wineversion": "Verzia Winu",
+        "anticheat-warning": {
+            "disabled_installation": "Podpora anticheatov je prerušená alebo odmietnutá a funkcie pre viacerých hráčov nebudú fungovať. Hru nie je možné nainštalovať. Ak chcete nainštalovať túto hru, vypnite túto kontrolu v rozšírených nastaveniach.",
+            "ok": "OK",
+            "install_anyway": "Áno (Rozumiem že online funkcie hry nebudú fungovať)",
+            "multiplayer_message": "Anticheat podpora je prerušená alebo odmietnutá. Hra sa môže otvoriť, ale funkcie pre viacerých hráčov nebudú fungovať. Chcete ho napriek tomu nainštalovať?",
+            "cancel": "Nie",
+            "title": "Anticheat Nefunguje/Nepovolený"
+        },
+        "flatpak-path-not-writtable": "Chyba: Tejto ceste nebol udelený prístup do Sandboxu, dôjde k strate údajov."
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported",
-            "not-installable-game": "Hra NIE JE INŠTALOVANÁ"
+            "third-party-game": "Hra z Tretej Strany NEPODPOROVANÁ",
+            "not-installable-game": "Hra NIE JE INŠTALOVATEĽNÁ"
         },
         "playing": {
             "start": "Hrať teraz",
-            "stop": "Prehráva sa (Stop)"
+            "stop": "Hráš (Stop)"
         },
         "saves": {
             "syncing": "Synchronizácia uloženia"
         },
-        "launching": "Spustenie",
-        "ubisoft": "Inštalácia Ubisoft Connect"
+        "launching": "Spúšťam",
+        "ubisoft": "Inštalácia Ubisoft Connect",
+        "redist": "Inštalujem Redistributables",
+        "winetricks": "Inštalujem Balíky Winetricks"
     },
     "launch": {
         "options": "Možnosti spustenia..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "epic": "Nie ste prihlásený s účtom Epic v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:",
+        "gog": "Nie ste prihlásený s účtom GOG v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:",
+        "login": "Prihlásiť sa",
+        "title": "NIE STE PRIHLÁSENÝ",
+        "amazon": "Nie ste prihlásený s účtom Amazon v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:"
     },
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {
         "title": "Vyberte komponenty na inštaláciu"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "use-default-wine-settings": "Použiť predvolené nastavenia Winu",
+        "winecrossoverbottle": "Fľaša CrossOver",
+        "show-wine-settings": "Zobraziť nastavenia Winu",
+        "warn-use-default-wine-settings": "Túto možnosť použite iba vtedy, ak viete, čo robíte.<br/>Zdieľanie rovnakého prefixu pre viacero hier môže spôsobiť problémy, ak sú ich závislosti nekompatibilné."
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Názov"
         },
         "info": {
-            "exe": "Select Executable",
-            "image": "App Image",
-            "title": "Game/App Title",
-            "broser": "Adresa URL prehliadača"
+            "exe": "Vybrať spustiteľný súbor",
+            "image": "Fotka Aplikácie",
+            "title": "Game/App Názov",
+            "broser": "Adresa URL prehliadača",
+            "fullscreen": "Spustiť na celú obrazovku (ukončiť z F11)",
+            "useragent": "Vlastný Useragent"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App",
-            "url": "Sem prilepte webovú adresu hry"
+            "image": "Sem prilepte adresu URL obrázka",
+            "title": "Pridať názov k vašej Game/App",
+            "url": "Sem prilepte webovú adresu hry",
+            "useragent": "Sem napíšte vlastného useragenta, ktorý sa bude používať v tejto aplikácii/hre prehliadača"
         }
     },
     "specs": {
@@ -191,30 +220,32 @@
     },
     "status": {
         "clickToUpdate": "Kliknutím aktualizujte",
-        "gameNotAvailable": "Game not available",
-        "hasUpdates": "K dispozícii nová verzia!",
+        "gameNotAvailable": "Hra Nedostupná",
+        "hasUpdates": "K dispozícii je nová verzia!",
         "installed": "Nainštalované",
         "installing": "Inštaluje sa",
         "moving": "Prebieha inštalácia, čakajte",
         "notinstalled": "Táto hra nie je nainštalovaná",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Nepodporované",
+        "notSupportedGame": "Nepodporované",
         "processing": "Prebieha spracovanie súborov, čakajte",
-        "queued": "Queued",
+        "queued": "V rade",
         "reparing": "Oprava hry, čakajte prosím",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "Celkom stiahnutých",
-        "uninstalling": "Uninstalling",
-        "updating": "Aktualizácia hry",
-        "playing": "Prehrávanie",
-        "moving-files": "Presúvam súbor '{{file}}': {{percent}} ",
+        "this-game-uses-third-party": "Táto hra používa spúšťač tretej strany a zatiaľ nie je podporovaný",
+        "totalDownloaded": "Celkom stiahnutých hier",
+        "uninstalling": "Odinštalujem",
+        "updating": "Aktualizujem hru",
+        "playing": "Hráš",
+        "moving-files": "Presúvam súbor '{{file}}': {{percent}}",
         "syncingSaves": "Synchronizácia uloženia",
-        "launching": "Spustenie",
+        "launching": "Spúšťam",
         "ubisoft": "Inštalácia Ubisoftu",
-        "downloading": "Downloading",
+        "downloading": "Sťahujem",
         "extracting": "Extrakcia",
         "gog-goodie": "Zdá sa, že túto hru nie je možné nainštalovať. Skontrolujte obsah na stiahnutie na https://gog.com/account",
-        "goodie": "Nedá sa nainštalovať"
+        "goodie": "Nedá sa nainštalovať",
+        "redist": "Inštalujem Redistributables ({{redist}})",
+        "winetricks": "Aplikujem opravy Winetricks"
     },
     "submenu": {
         "addShortcut": "Pridať skratku",
@@ -225,14 +256,35 @@
         "move": "Presunúť hru",
         "protondb": "Skontrolujte kompatibilitu",
         "removeFromSteam": "Odstrániť zo služby Steam",
-        "removeShortcut": "Odstráňte skratky",
-        "settings": "nastavenie",
-        "store": "Stránka obchodu",
+        "removeShortcut": "Odstrániť skratky",
+        "settings": "Nastavenia",
+        "store": "Stránka Obchodu",
         "verify": "Overiť a opraviť",
         "extraInfo": "Ďalšie informácie",
-        "logs": "Denníky"
+        "logs": "Denníky",
+        "categories": "Kategórie"
     },
     "help": {
-        "cloud_save_unsupported": "Táto hra nepodporuje ukladanie do cloudu. Tieto informácie poskytujú vývojári hry. Niektoré hry implementujú svoj vlastný systém ukladania do cloudu"
+        "cloud_save_unsupported": "Táto hra nepodporuje ukladanie do cloudu. Tieto informácie poskytujú vývojári hry. Niektoré hry implementujú svoj vlastný systém ukladania do cloudu",
+        "content": {
+            "gamePage": "Zobraziť všetky detaily hry a akcie. Pre viac možností použite ponuku 3 bodky."
+        },
+        "title": {
+            "gamePage": "Stránka Hry"
+        }
+    },
+    "modifyInstall": {
+        "versionCollapsable": "Verzia Hry",
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Žiadne DLC dostupné",
+        "redMod": {
+            "enable": "Zapnúť Mody",
+            "collapsible": "Integrácia REDmod"
+        }
+    },
+    "third-party-managed": {
+        "header": "Túto hru spravuje aplikácia z tretej strany",
+        "notice1": "Túto hru spravuje aplikácia z tretej strany: \"{{application_name}}\"",
+        "notice2": "Po kliknutí na tlačidlo Inštalovať Heroic spustí aplikáciu, aby sa dokončil proces inštalácie"
     }
 }

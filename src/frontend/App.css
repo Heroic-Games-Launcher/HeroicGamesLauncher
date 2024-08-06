@@ -1,5 +1,5 @@
-@import '~@fontsource/rubik/index.css';
-@import '~@fontsource/cabin/index.css';
+@import '@fontsource/rubik/index.css';
+@import '@fontsource/cabin/index.css';
 /*
   Subset of font https://github.com/googlefonts/noto-emoji
   which includes only flags emoji generated using command:
@@ -78,6 +78,12 @@ body {
   :popover-open {
     pointer-events: all;
   }
+}
+
+/* Remove outline on the root element since it's not clickable anyway and it's partially hidden away by sidebar */
+
+#root:focus-visible {
+  outline: none;
 }
 
 /* disable links when the help is open, so users cannot navigate

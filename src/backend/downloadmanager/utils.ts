@@ -185,7 +185,7 @@ async function downloadFixesFor(appName: string, runner: Runner) {
   if (!existsSync(fixesPath)) {
     mkdirSync(fixesPath, { recursive: true })
   }
-  downloadFile({ url, dest })
+  downloadFile({ url, dest, ignoreFailure: true })
 }
 
 export { installQueueElement, updateQueueElement }

@@ -65,6 +65,8 @@ export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
   automaticWinetricksFixes: boolean
+  cometSupport: boolean
+  umuSupport: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -72,6 +74,7 @@ export interface AppSettings extends GameSettings {
   addStartMenuShortcuts: boolean
   addSteamShortcuts: boolean
   altGogdlBin: string
+  altCometBin: string
   altLegendaryBin: string
   altNileBin: string
   autoUpdateGames: boolean
@@ -99,6 +102,7 @@ export interface AppSettings extends GameSettings {
   maxWorkers: number
   minimizeOnLaunch: boolean
   startInTray: boolean
+  allowInstallationBrokenAnticheat: boolean
 }
 
 export type LibraryTopSectionOptions =
@@ -121,6 +125,7 @@ export interface ExtraInfo {
   releaseDate?: string
   storeUrl?: string
   changelog?: string
+  genres?: string[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -132,6 +137,7 @@ export interface GameInfo {
   art_cover: string
   art_logo?: string
   art_background?: string
+  art_icon?: string
   art_square: string
   cloud_save_enabled?: boolean
   developer?: string
@@ -148,7 +154,8 @@ export interface GameInfo {
   gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
-  thirdPartyManagedApp?: string | undefined
+  thirdPartyManagedApp?: string
+  isEAManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
   browserUrl?: string
@@ -469,7 +476,11 @@ export interface Runtime {
   url: string
 }
 
-export type RuntimeName = 'eac_runtime' | 'battleye_runtime'
+export type RuntimeName =
+  | 'eac_runtime'
+  | 'battleye_runtime'
+  | 'comet_dummy_service'
+  | 'umu'
 
 export type RecentGame = {
   appName: string
@@ -667,6 +678,7 @@ export interface WikiInfo {
   howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
   steamInfo: SteamInfo | null
+  umuId: string | null
 }
 
 /**
@@ -674,13 +686,13 @@ export interface WikiInfo {
  */
 export type Type =
   | 'Wine-GE'
-  | 'Wine-GE-LoL'
   | 'Proton-GE'
   | 'Proton'
   | 'Wine-Lutris'
   | 'Wine-Kron4ek'
   | 'Wine-Crossover'
   | 'Wine-Staging-macOS'
+  | 'Game-Porting-Toolkit'
 
 /**
  * Interface contains information about a version
@@ -710,22 +722,13 @@ export enum Repositorys {
   PROTON,
   WINELUTRIS,
   WINECROSSOVER,
-  WINESTAGINGMACOS
+  WINESTAGINGMACOS,
+  GPTK
 }
 
-/**
- * Type for the progress callback state
- */
-export type State = 'downloading' | 'unzipping' | 'idle'
-
-/**
- * Interface for the information that progress callback returns
- */
-export interface ProgressInfo {
-  percentage: number
-  avgSpeed: number
-  eta: string
-}
+export type WineManagerStatus =
+  | { status: 'idle' | 'unzipping' }
+  | { status: 'downloading'; percentage: number; avgSpeed: number; eta: string }
 
 export interface WineManagerUISettings {
   value: string

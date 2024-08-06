@@ -141,6 +141,7 @@ interface AsyncIPCFunctions {
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
+  getCometVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
   isFrameless: () => boolean
@@ -224,11 +225,9 @@ interface AsyncIPCFunctions {
   }) => Promise<void>
   isNative: (args: { appName: string; runner: Runner }) => boolean
   getLogContent: (appNameOrRunner: string) => string
-  installWineVersion: (
-    release: WineVersionInfo
-  ) => Promise<'error' | 'abort' | 'success'>
+  installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
-  removeWineVersion: (release: WineVersionInfo) => Promise<boolean>
+  removeWineVersion: (release: WineVersionInfo) => Promise<void>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>
@@ -249,7 +248,7 @@ interface AsyncIPCFunctions {
   disableEosOverlay: (appName: string) => Promise<void>
   isEosOverlayEnabled: (appName?: string) => Promise<boolean>
   downloadRuntime: (runtime_name: RuntimeName) => Promise<boolean>
-  isRuntimeInstalled: (runtime_name: RuntimeName) => boolean
+  isRuntimeInstalled: (runtime_name: RuntimeName) => Promise<boolean>
   getDMQueueInformation: () => {
     elements: DMQueueElement[]
     finished: DMQueueElement[]

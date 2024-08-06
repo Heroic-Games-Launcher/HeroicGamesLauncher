@@ -106,7 +106,8 @@
   transform: translateY(100%);
 }
 
-.gameCard:hover .gameTitle {
+.gameCard:hover .gameTitle,
+.titlesAlwaysVisible .gameTitle {
   display: block;
   transform: translateY(0);
 }
@@ -301,8 +302,8 @@
 
 .gameCard:hover .gameImg:not(.installed),
 .gameCard:hover .gameLogo:not(.installed),
-.gameImg.allTilesInColor,
-.gameLogo.allTilesInColor {
+.allTilesInColor .gameImg,
+.allTilesInColor .gameLogo {
   filter: grayscale(0);
 }
 

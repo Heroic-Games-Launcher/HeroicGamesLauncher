@@ -6,7 +6,8 @@
         "fonts": "Typsnitt",
         "title": "Handikappsanpassning",
         "zoom": "Zoom",
-        "disable_dialog_backdrop_close": "Inaktivera stängning av dialogrutor genom att klicka utanför"
+        "disable_dialog_backdrop_close": "Inaktivera stängning av dialogrutor genom att klicka utanför",
+        "titles_always_visible": "Visa alltid titlar i bibliotek"
     },
     "add_game": "Lägg till spel",
     "All": "Alla",
@@ -16,7 +17,8 @@
         "reference": "Referens",
         "source": "Källa",
         "status": "Status",
-        "title": "Spelet innehåller fuskbekämpande mjukvara (anticheat)"
+        "title": "Spelet innehåller fuskbekämpande mjukvara (anticheat)",
+        "multiplayer_may_not_work": "Flerspelarfunktioner kanske inte fungerar på grund av nekat eller trasigt antifusk stöd."
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "Ange val",
-            "exe": "Ange programfil"
+            "exe": "Ange programfil",
+            "script": "Välj skript ..."
         },
         "shortcuts": {
             "message": "Genvägar skapades på Skrivbordet och Startmenyn",
@@ -265,7 +268,8 @@
         "reset": "Återställ",
         "no_categories": "Inga anpassade kategorier. Lägg till kategorier genom att använda varje spelmeny.",
         "categories": "Kategorier",
-        "show_support_offline_only": "Visa spel med offline stöd endast"
+        "show_support_offline_only": "Visa spel med offline stöd endast",
+        "show_third_party_managed_only": "Visa tredjeparts hanterade endast"
     },
     "help": {
         "amdfsr": "AMD's FSR hjälper till att öka bildhastigheten genom att skala upp lägre upplösningar i helskärmsläge. Bildkvaliteten ökar från 5 mot 1 till priset av en liten påverkan av prestandan. Aktivering kan förbättra prestandan.",
@@ -316,7 +320,8 @@
             "fpsLimiter": "Antal bildrutor som gamescope ska begränsas till exempelvis 60",
             "fpsLimiterNoFocus": "Gränsen för bildhastighet gamescope ska avgränsa per sekund om spelet inte är fokuserat.",
             "gameWidth": "Breddupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
-            "gameHeight": "Höjdupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope."
+            "gameHeight": "Höjdupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
+            "additionalOptions": "Ytterligare kommandoradsflaggor att skicka in i gamescope."
         },
         "title": {
             "accessibility": "Handikappsanpassning",
@@ -340,7 +345,8 @@
         "button": {
             "open": "Öppna hjälp",
             "close": "Stäng hjälp"
-        }
+        },
+        "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds."
     },
     "info": {
         "heroic": {
@@ -504,7 +510,8 @@
             "upscaleHeight": "Uppskalning höjd",
             "interger": "Heltal Uppskala",
             "stretch": "Sträck bilden",
-            "windowed": "I fönster"
+            "windowed": "I fönster",
+            "additionalOptions": "Ytterligare alternativ"
         }
     },
     "other": {
@@ -677,6 +684,17 @@
             "enableLimiter": "Aktivera FPS-begränsning",
             "enableUpscaling": "Aktiverar uppskalning",
             "missingMsg": "Gamescope hittades inte i PATH (sökväg). Installera eller lägg till den i PATH."
+        },
+        "msync": "Aktivera Msync",
+        "after-launch-script-path": "Välj ett skript att köra efter att spelet avslutats",
+        "before-launch-script-path": "Välj ett skript att köra innan spelet startas",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "Är du säker?",
+                "message": "Spel med trasiga eller nekade antifusk kanske inte kan köras, men flerspelarspel funktioner fungerar inte. Be inte om support om du installerar dem med vetskap om detta.",
+                "understand": "Jag förstår"
+            },
+            "label": "Tillåt installation av spel med trasigt eller nekat antifusk"
         }
     },
     "settings": {
@@ -882,7 +900,6 @@
         "warning": "Varning"
     },
     "wineExplanation": {
-        "wine-ge-lol": "Wine-GE-Proton...-LoL-byggen är avsedda att ENDAST användas för League of Legends. Dessa byggen bör INTE användas för något annat spel eftersom de kan orsaka problem.",
         "proton-ge": "Proton-GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är tänkt att användas för Steam, men vissa spel utanför Steam kan fungera bättre med denna variant. Den ger mestadels värdelösa loggar för felsökning.",
         "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning."
     },
@@ -894,5 +911,17 @@
         "description": "Det verkar som om domänen track.adtraction.com inte kunde laddas eller är blockerad. Med adtraction stöder alla köp du gör via Heroic på GOGs butik ekonomiskt. Överväg att ta bort spärren om du vill bidra.",
         "dont-show-again": "Visa inte denna varning igen",
         "title": "Adtraction är blockerat"
+    },
+    "categories-manager": {
+        "add-placeholder": "Lägg till ny kategori",
+        "cancel-remove": "Avbryt borttagning av \"{{name}}\"",
+        "confirm-remove": "Bekräfta borttagning av \"{{name}}\"",
+        "add": "Lägg till",
+        "cancel-rename": "Avbryt ändra namn på \"{{name}}\"",
+        "confirm-rename": "Bekräfta namnbyte på \"{{oldName}}\" som \"{{newName}}\"",
+        "no-categories": "Inga kategorier ännu.",
+        "remove": "Ta bort \"{{name}}\"",
+        "rename": "Byt namn \"{{name}}\"",
+        "title": "Hantera kategorier"
     }
 }

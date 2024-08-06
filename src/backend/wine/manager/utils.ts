@@ -7,10 +7,9 @@ import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import {
   WineVersionInfo,
-  ProgressInfo,
   Repositorys,
-  State,
-  VersionInfo
+  VersionInfo,
+  WineManagerStatus
 } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
@@ -41,7 +40,11 @@ async function updateWineVersionInfos(
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
 
     const repositorys = isMac
-      ? [Repositorys.WINECROSSOVER, Repositorys.WINESTAGINGMACOS]
+      ? [
+          Repositorys.WINECROSSOVER,
+          Repositorys.WINESTAGINGMACOS,
+          Repositorys.GPTK
+        ]
       : [Repositorys.WINEGE, Repositorys.PROTONGE]
 
     await getAvailableVersions({
@@ -87,15 +90,29 @@ async function updateWineVersionInfos(
   return releases
 }
 
+function getInstallDir(release: WineVersionInfo): string {
+  if (release?.type?.includes('Wine')) {
+    return `${toolsPath}/wine`
+  } else if (release.type.includes('Toolkit')) {
+    return `${toolsPath}/game-porting-toolkit`
+  } else {
+    return `${toolsPath}/proton`
+  }
+}
+
 async function installWineVersion(
   release: WineVersionInfo,
-  onProgress: (state: State, progress?: ProgressInfo) => void
+  onProgress: (status: WineManagerStatus) => void
 ) {
   let updatedInfo: WineVersionInfo
   const variant = release.hasUpdate ? 'update' : 'installation'
 
   if (!existsSync(`${toolsPath}/wine`)) {
     mkdirSync(`${toolsPath}/wine`, { recursive: true })
+  }
+
+  if (isMac && !existsSync(`${toolsPath}/game-porting-toolkit`)) {
+    mkdirSync(`${toolsPath}/game-porting-toolkit`, { recursive: true })
   }
 
   if (!existsSync(`${toolsPath}/proton`)) {
@@ -107,9 +124,7 @@ async function installWineVersion(
     LogPrefix.WineDownloader
   )
 
-  const installDir = release?.type?.includes('Wine')
-    ? `${toolsPath}/wine`
-    : `${toolsPath}/proton`
+  const installDir = getInstallDir(release)
 
   const abortController = createAbortController(release.version)
 

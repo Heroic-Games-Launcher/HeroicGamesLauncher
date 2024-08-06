@@ -32,6 +32,7 @@ export default function WineVersionSelector() {
       setRefreshing(false)
     }
     getAltWine()
+    return window.api.handleWineVersionsUpdated(getAltWine)
   }, [])
 
   useEffect(() => {

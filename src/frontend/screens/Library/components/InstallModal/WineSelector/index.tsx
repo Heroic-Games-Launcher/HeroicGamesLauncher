@@ -22,6 +22,8 @@ type Props = {
   wineVersionList: WineInstallation[]
   wineVersion: WineInstallation | undefined
   title?: string
+  appName: string
+  initiallyOpen?: boolean
 }
 
 export default function WineSelector({
@@ -32,10 +34,13 @@ export default function WineSelector({
   wineVersion,
   title = 'sideload',
   crossoverBottle,
-  setCrossoverBottle
+  setCrossoverBottle,
+  initiallyOpen,
+  appName
 }: Props) {
   const { t, i18n } = useTranslation('gamepage')
 
+  const [detailsOpen, setDetailsOpen] = React.useState(!!initiallyOpen)
   const [useDefaultSettings, setUseDefaultSettings] = React.useState(false)
   const [description, setDescription] = React.useState('')
 
@@ -62,10 +67,10 @@ export default function WineSelector({
         setWineVersion(wineVersion)
         setCrossoverBottle(defaultBottle)
       } else {
-        const sugestedWinePrefix = `${prefixFolder}/${removeSpecialcharacters(
-          title
-        )}`
-        setWinePrefix(sugestedWinePrefix)
+        const dirName =
+          removeSpecialcharacters(title) || removeSpecialcharacters(appName)
+        const suggestedWinePrefix = `${prefixFolder}/${dirName}`
+        setWinePrefix(suggestedWinePrefix)
         setWineVersion(wineVersion || undefined)
       }
     }
@@ -77,7 +82,7 @@ export default function WineSelector({
 
   return (
     <>
-      <details>
+      <details open={detailsOpen} onChange={() => setDetailsOpen(detailsOpen)}>
         <summary>
           {t('setting.show-wine-settings', 'Show Wine settings')}
         </summary>

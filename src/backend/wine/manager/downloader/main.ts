@@ -15,9 +15,10 @@ import {
   PROTON_URL,
   WINELUTRIS_URL,
   WINECROSSOVER_URL,
-  WINESTAGINGMACOS_URL
+  WINESTAGINGMACOS_URL,
+  GPTK_URL
 } from './constants'
-import { VersionInfo, Repositorys, State, ProgressInfo } from 'common/types'
+import { VersionInfo, Repositorys } from 'common/types'
 import {
   fetchReleases,
   getFolderSize,
@@ -25,6 +26,7 @@ import {
   unzipFile
 } from './utilities'
 import { axiosClient, calculateEta, downloadFile } from 'backend/utils'
+import type { WineManagerStatus } from 'common/types'
 
 interface getVersionsProps {
   repositorys?: Repositorys[]
@@ -133,6 +135,20 @@ async function getAvailableVersions({
           })
         break
       }
+      case Repositorys.GPTK: {
+        await fetchReleases({
+          url: GPTK_URL,
+          type: 'Game-Porting-Toolkit',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            logError(error, LogPrefix.WineDownloader)
+          })
+        break
+      }
       default: {
         logWarning(
           `Unknown and not supported repository key passed! Skip fetch for ${repo}`,
@@ -150,7 +166,7 @@ interface installProps {
   versionInfo: VersionInfo
   installDir: string
   overwrite?: boolean
-  onProgress?: (state: State, progress?: ProgressInfo) => void
+  onProgress?: (state: WineManagerStatus) => void
   abortSignal?: AbortSignal
 }
 
@@ -247,7 +263,8 @@ async function installVersion({
       versionInfo.downsize
     )
 
-    onProgress('downloading', {
+    onProgress({
+      status: 'downloading',
       percentage,
       eta: eta!,
       avgSpeed: downloadSpeed

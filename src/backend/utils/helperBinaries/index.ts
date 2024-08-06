@@ -1,6 +1,9 @@
 import { runRunnerCommand as runLegendaryCommand } from '../../storeManagers/legendary/library'
 import { runRunnerCommand as runGogdlCommand } from '../../storeManagers/gog/library'
 import { runRunnerCommand as runNileCommand } from '../../storeManagers/nile/library'
+import { spawnSync } from 'node:child_process'
+import { getCometBin } from 'backend/utils'
+import { join } from 'path'
 
 async function getLegendaryVersion(): Promise<string> {
   const { stdout, error, abort } = await runLegendaryCommand(
@@ -35,6 +38,15 @@ async function getGogdlVersion(): Promise<string> {
   return stdout
 }
 
+async function getCometVersion(): Promise<string> {
+  const path = getCometBin()
+  const { stdout, error } = spawnSync(join(path.dir, path.bin), ['--version'])
+
+  if (error) return 'invalid'
+
+  return stdout.toString()
+}
+
 async function getNileVersion(): Promise<string> {
   const { stdout, error } = await runNileCommand(['--version'], {
     abortId: 'nile-version'
@@ -45,4 +57,4 @@ async function getNileVersion(): Promise<string> {
   return stdout
 }
 
-export { getLegendaryVersion, getGogdlVersion, getNileVersion }
+export { getLegendaryVersion, getGogdlVersion, getNileVersion, getCometVersion }

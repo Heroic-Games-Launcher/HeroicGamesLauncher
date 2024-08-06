@@ -6,7 +6,8 @@
         "fonts": "Písma",
         "title": "Přístupnost",
         "zoom": "Přiblížení",
-        "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč"
+        "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč",
+        "titles_always_visible": "Vždy zobrazovat názvy v knihovně"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -16,7 +17,8 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "Tato hra obsahuje anticheatový software"
+        "title": "Tato hra obsahuje anticheatový software",
+        "multiplayer_may_not_work": "Funkce hry více hráčů nemusí fungovat kvůli rozbité nebo zakázané podpoře anticheatu."
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "Vybrat",
-            "exe": "Vyberte EXE"
+            "exe": "Vyberte EXE",
+            "script": "Vyberte skript..."
         },
         "shortcuts": {
             "message": "Zástupci byli vytvořeni na ploše a v nabídce Start",
@@ -265,7 +268,8 @@
         "reset": "Resetovat",
         "no_categories": "Žádné vlastní kategorie. Přidejte je pomocí nabídky každé hry.",
         "categories": "Kategorie",
-        "show_support_offline_only": "Zobrazit pouze s podporovaným režimem offline"
+        "show_support_offline_only": "Zobrazit pouze s podporovaným režimem offline",
+        "show_third_party_managed_only": "Zobrazit pouze hry spravované třetí stranou"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -316,7 +320,8 @@
             "upscaleWidth": "Rozlišení šířky používané službou gamescope. Je předpokládán rozměr 16:9.",
             "gameHeight": "Rozlišení výšky používané hrou. Gamescope předpokládá poměr stran 16:9.",
             "upscaleHeight": "Rozlišení výšky používané službou gamescope. Je předpokládán rozměr 16:9.",
-            "fpsLimiter": "Počet snímků, na který by měl být omezen gamescope. Např. 60"
+            "fpsLimiter": "Počet snímků, na který by měl být omezen gamescope. Např. 60",
+            "additionalOptions": "Další vlajky příkazového řádku k použití v gamescope."
         },
         "title": {
             "accessibility": "Přístupnost",
@@ -505,7 +510,8 @@
             "fullscreen": "Celá obrazovka",
             "interger": "Celočíselný upscaling",
             "stretch": "Roztáhnout obraz",
-            "windowed": "V okně"
+            "windowed": "V okně",
+            "additionalOptions": "Další možnosti"
         }
     },
     "other": {
@@ -680,7 +686,17 @@
             },
             "description": "Použít okno bez okrajů (vyžaduje restart)"
         },
-        "msync": "Povolit Msync"
+        "msync": "Povolit Msync",
+        "after-launch-script-path": "Vybrat skript ke spuštění po ukončení hry",
+        "before-launch-script-path": "Vybrat skript ke spuštění přes zapnutím hry",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Hry s rozbitým nebo zakázaným anticheatem se mohou spustit, nebudou v nich ale fungovat funkce hry více hráčů. Pokud je přesto nainstalujete, neočekávejte prosím podporu.",
+                "title": "Opravdu?",
+                "understand": "Rozumím"
+            },
+            "label": "Povolit instalaci her s rozbitým nebo zakázaným anticheatem"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -886,8 +902,7 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton je verze Protonu, kterou vytvořil Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
-        "wine-ge": "Wine-GE-Proton je verze Wine, kterou vytvořil Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb.",
-        "wine-ge-lol": "Sestavení Wine-GE-Proton...-LoL jsou vytvořeny pro použití POUZE ve hře League of Legends. Tato sestavení by NEMĚLA být použita pro jiné hry, jelikož mohou způsobit problémy."
+        "wine-ge": "Wine-GE-Proton je verze Wine, kterou vytvořil Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
     },
     "emptyLibrary": {
         "noGames": "Vaše knihovna je prázdná. Můžete se <1>přihlásit</1> prostřednictvím obchodu nebo kliknout na <3></3> pro jeho ruční přidání.",
@@ -897,5 +912,17 @@
         "title": "Služba adtraction je blokována",
         "description": "Vypadá to, že doména track.adtraction.com je blokovaná. Se službou adtraction finančně podpoříte Heroic každým nákupem provedeným v obchodě GOG. Zvažte prosím odstranění blokování, pokud si přejete přispět projektu.",
         "dont-show-again": "Toto varování již nezobrazovat"
+    },
+    "categories-manager": {
+        "add": "Přidat",
+        "cancel-remove": "Zrušit odebrání „{{name}}“",
+        "cancel-rename": "Zrušit přejmenování „{{name}}“",
+        "confirm-rename": "Potvrdit přejmenování „{{oldName}}“ na „{{newName}}“",
+        "no-categories": "Zatím žádné kategorie.",
+        "remove": "Odebrat „{{name}}“",
+        "title": "Správa kategorií",
+        "confirm-remove": "Potvrdit odebrání „{{name}}“",
+        "rename": "Přejmenovat „{{name}}“",
+        "add-placeholder": "Přidat novou kategorii"
     }
 }

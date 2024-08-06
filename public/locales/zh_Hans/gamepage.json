@@ -38,7 +38,8 @@
             "title": "卸载",
             "prefix_warning": "此游戏的 Wine 前缀是默认前缀。如果你真的想删除它，你必须手动进行。",
             "dlc": "您要卸载此 \"{{title}}\" (DLC) 吗？",
-            "cannotUninstallEpic": "安装 Epic 游戏时不能卸载其他 Epic 游戏。"
+            "cannotUninstallEpic": "安装 Epic 游戏时不能卸载其他 Epic 游戏。",
+            "gameIsRunning": "{{title}} 运行中。关闭此游戏来卸载它。"
         },
         "update": {
             "message": "该游戏有更新，您想要现在更新吗？",
@@ -106,7 +107,9 @@
             "toggle": "将游戏保持在特定的版本"
         },
         "changelogFor": "{{gameTitle}} 更新记录",
-        "modify": "修改安装"
+        "modify": "修改安装",
+        "extra_info": "附加信息",
+        "install_info": "安装信息"
     },
     "gamecard": {
         "moving": "移动中",
@@ -135,7 +138,8 @@
         "game-scores": "游戏分数",
         "installedInfo": "已安装信息",
         "protondb-compatibility-info": "Proton 兼容性级别",
-        "steamdeck-compatibility-info": "SteamDeck 兼容性"
+        "steamdeck-compatibility-info": "SteamDeck 兼容性",
+        "third-party-app": "第三方管理器"
     },
     "install": {
         "disk-space-left": "可用空间",
@@ -149,7 +153,11 @@
             "cancel": "否",
             "message": "反作弊支持损坏或被拒。游戏不会正常运行。你仍要安装它吗？",
             "install": "是（我理解它不会正常工作）",
-            "title": "反作弊损坏/被拒"
+            "title": "反作弊损坏/被拒",
+            "install_anyway": "是（我了解多玩家功能不会正常工作）",
+            "multiplayer_message": "反作弊支持损坏或被拒绝。可以打开游戏但多玩家功能不会正常工作。你仍要安装它吗？",
+            "ok": "是",
+            "disabled_installation": "反作弊支持损坏或被拒绝，多玩家功能不会正常工作。无法安装游戏。要安装此游戏，请在高级设置中取消勾选此选项。"
         },
         "flatpak-path-not-writtable": "错误：未授予此路径沙盒访问权限，可能发生数据丢失。"
     },
@@ -278,5 +286,10 @@
             "enable": "启用 mods"
         },
         "versionCollapsable": "游戏版本"
+    },
+    "third-party-managed": {
+        "header": "此游戏由第三方程序管理",
+        "notice2": "单击“安装”后，Heroic 为了完成安装过程将运行程序",
+        "notice1": "此游戏由下列第三方程序程序管理： \"{{application_name}}\""
     }
 }

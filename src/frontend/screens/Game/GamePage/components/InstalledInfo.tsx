@@ -25,6 +25,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   }
 
   const isSideloaded = runner === 'sideload'
+  const isThirdParty = !!gameInfo.thirdPartyManagedApp
 
   const {
     install: { platform: installPlatform },
@@ -70,7 +71,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
 
   const info = (
     <>
-      {!isSideloaded && (
+      {!isSideloaded && !isThirdParty && (
         <div>
           <b>{t('info.size')}:</b> {install_size}
         </div>
@@ -79,7 +80,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
         <b>{t('info.installedPlatform', 'Installed Platform')}:</b>{' '}
         {installPlatform === 'osx' ? 'MacOS' : installPlatform}
       </div>
-      {!isSideloaded && (
+      {!isSideloaded && !isThirdParty && (
         <div>
           <b>{t('info.version')}:</b> {version}
         </div>
@@ -88,15 +89,23 @@ const InstalledInfo = ({ gameInfo }: Props) => {
         <b>{t('info.canRunOffline', 'Online Required')}:</b>{' '}
         {t(canRunOffline ? 'box.no' : 'box.yes')}
       </div>
-      <div
-        className="clickable"
-        onClick={() =>
-          appLocation !== undefined ? window.api.openFolder(appLocation) : {}
-        }
-      >
-        <b>{t('info.path')}:</b>{' '}
-        <div className="truncatedPath">{appLocation}</div>
-      </div>
+      {isThirdParty && (
+        <div>
+          <b>{t('info.third-party-app', 'Third-Party Manager')}</b>{' '}
+          {gameInfo.isEAManaged ? 'EA app' : gameInfo.thirdPartyManagedApp}
+        </div>
+      )}
+      {!isThirdParty && (
+        <div
+          className="clickable"
+          onClick={() =>
+            appLocation !== undefined ? window.api.openFolder(appLocation) : {}
+          }
+        >
+          <b>{t('info.path')}:</b>{' '}
+          <div className="truncatedPath">{appLocation}</div>
+        </div>
+      )}
       {!is.win && !is.native && (
         <>
           <div>

@@ -85,6 +85,8 @@ export interface ContextType {
   installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
+  titlesAlwaysVisible: boolean
+  setTitlesAlwaysVisible: (value: boolean) => void
   setSideBarCollapsed: (value: boolean) => void
   sidebarCollapsed: boolean
   activeController: string
@@ -229,6 +231,8 @@ export interface LibraryContextType {
   setSortInstalled: (value: boolean) => void
   showSupportOfflineOnly: boolean
   setShowSupportOfflineOnly: (value: boolean) => void
+  showThirdPartyManagedOnly: boolean
+  setShowThirdPartyManagedOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
 }

@@ -6,7 +6,8 @@
         "fonts": "字体",
         "title": "辅助功能",
         "zoom": "缩放",
-        "disable_dialog_backdrop_close": "在对话框外单击禁用关闭对话框"
+        "disable_dialog_backdrop_close": "在对话框外单击禁用关闭对话框",
+        "titles_always_visible": "始终在游戏库中显示标题"
     },
     "add_game": "添加游戏",
     "All": "全部",
@@ -16,7 +17,8 @@
         "reference": "引用",
         "source": "来源",
         "status": "状态",
-        "title": "此游戏包含反作弊软件"
+        "title": "此游戏包含反作弊软件",
+        "multiplayer_may_not_work": "由于被拒绝或损坏的反作弊支持，多玩家功能可能不会正常工作。"
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "选择",
-            "exe": "选择 EXE"
+            "exe": "选择 EXE",
+            "script": "选择脚本…"
         },
         "shortcuts": {
             "message": "桌面与开始菜单快捷方式已创建",
@@ -265,7 +268,8 @@
         "reset": "重置",
         "no_categories": "无自定义分类。使用每个游戏菜单添加分类。",
         "categories": "分类",
-        "show_support_offline_only": "只显示支持离线玩的游戏"
+        "show_support_offline_only": "只显示支持离线玩的游戏",
+        "show_third_party_managed_only": "只显示受第三方管理的游戏"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -316,7 +320,8 @@
             "upscaleWidth": "Gamescope 所用的宽度分辨率。假定 16:9 的长宽比。",
             "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
             "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
-            "fpsLimiter": "Gamescope 帧数限制，比如 60"
+            "fpsLimiter": "Gamescope 帧数限制，比如 60",
+            "additionalOptions": "要传递给 gamescope 的额外命令行标记。"
         },
         "content": {
             "defaultInstallPath": "这是安装游戏时预先选择的默认路径。",
@@ -505,7 +510,8 @@
             "fullscreen": "全屏",
             "interger": "整数型 Upscale",
             "stretch": "拉伸图像",
-            "windowed": "已窗口化"
+            "windowed": "已窗口化",
+            "additionalOptions": "额外选项"
         }
     },
     "other": {
@@ -680,7 +686,17 @@
             },
             "description": "使用无框架窗口（需要重启）"
         },
-        "msync": "启用 Msync"
+        "msync": "启用 Msync",
+        "after-launch-script-path": "选择在游戏退出后要运行的脚本",
+        "before-launch-script-path": "选择游戏启动前要运行的脚本",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "你确定吗？",
+                "understand": "我理解",
+                "message": "反作弊损坏或被拒绝的游戏可以运行，但多玩家功能不会正常运作。如果你知晓这一点但仍安装了这样的游戏，请不要寻求支持。"
+            },
+            "label": "允许安装反作弊损坏或被拒绝的游戏"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -886,7 +902,6 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Protonis 是 Glorious Eggroll 创建的 Wine 变体。它是建议用于 Steam 之外的 Wine 版本，提供对故障排除有用的日志。",
-        "wine-ge-lol": "Wine-GE-Proton...-LoL 构建是专为 League of Legends 打造的。由于会造成问题，它们不应被用于任何其他游戏。",
         "proton-ge": "Proton-GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。"
     },
     "emptyLibrary": {
@@ -897,5 +912,17 @@
         "dont-show-again": "不再显示此警告",
         "title": "Adtraction 被封禁",
         "description": "track.adtraction.com 域名似乎无法加载或者被封禁。通过 adtraction，你在 GOG 商店的任意购买都会在经济上支持 Heroic。如果希望作贡献，请考虑解除对此站点的封禁。"
+    },
+    "categories-manager": {
+        "confirm-rename": "确认将“{{oldName}}“重命名为“{{newName}}”",
+        "add": "添加",
+        "no-categories": "尚无分类。",
+        "remove": "删除“{{name}}”",
+        "cancel-remove": "取消删除“{{name}}”",
+        "rename": "重命名“{{name}}”",
+        "cancel-rename": "取消重命名“{{name}}”",
+        "confirm-remove": "确认删除“{{name}}”",
+        "title": "管理分类",
+        "add-placeholder": "添加新分类"
     }
 }

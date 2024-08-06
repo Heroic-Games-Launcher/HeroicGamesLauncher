@@ -15,6 +15,7 @@ import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 function Root() {
   const {
@@ -29,6 +30,10 @@ function Root() {
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
 
+  const theme = createTheme({
+    direction: isRTL ? 'rtl' : 'ltr'
+  })
+
   return (
     <div
       id="app"
@@ -41,25 +46,27 @@ function Root() {
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}
     >
-      <OfflineMessage />
-      <Sidebar />
-      <main className="content">
-        <DialogHandler />
-        {isSettingsModalOpen.gameInfo && (
-          <SettingsModal
-            gameInfo={isSettingsModalOpen.gameInfo}
-            type={isSettingsModalOpen.type}
-          />
-        )}
-        <ExternalLinkDialog />
-        <Outlet />
-      </main>
-      <div className="controller">
-        <ControllerHints />
-        <div className="simple-keyboard"></div>
-      </div>
-      {showOverlayControls && <WindowControls />}
-      {experimentalFeatures.enableHelp && <Help items={help.items} />}
+      <ThemeProvider theme={theme}>
+        <OfflineMessage />
+        <Sidebar />
+        <main className="content">
+          <DialogHandler />
+          {isSettingsModalOpen.gameInfo && (
+            <SettingsModal
+              gameInfo={isSettingsModalOpen.gameInfo}
+              type={isSettingsModalOpen.type}
+            />
+          )}
+          <ExternalLinkDialog />
+          <Outlet />
+        </main>
+        <div className="controller">
+          <ControllerHints />
+          <div className="simple-keyboard"></div>
+        </div>
+        {showOverlayControls && <WindowControls />}
+        {experimentalFeatures.enableHelp && <Help items={help.items} />}
+      </ThemeProvider>
     </div>
   )
 }

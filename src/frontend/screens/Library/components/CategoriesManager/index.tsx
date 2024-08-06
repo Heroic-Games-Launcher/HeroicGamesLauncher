@@ -30,6 +30,8 @@ function CategoryItem({
   const [renameMode, setRenameMode] = useState(false)
   const [newName, setNewName] = useState(name)
   const [removeMode, setRemoveMode] = useState(false)
+  const isNewNameEmptyOrEqualsOldName =
+    newName.trim() === '' || newName === name
 
   const rename = () => {
     renameFunction(name, newName)
@@ -57,6 +59,7 @@ function CategoryItem({
             'Confirm rename of "{{oldName}}" as "{{newName}}"',
             { oldName: name, newName }
           )}
+          disabled={isNewNameEmptyOrEqualsOldName}
         >
           <FontAwesomeIcon icon={faCheck} />
         </button>
@@ -157,6 +160,8 @@ function CategoriesManager() {
 
   const [newCategoryName, setNewCategoryName] = useState('')
 
+  const isCategoryNameEmpty = newCategoryName.trim() === ''
+
   const removeCategory = (cat: string) => {
     customCategories.removeCategory(cat)
   }
@@ -206,6 +211,7 @@ function CategoriesManager() {
               className="button"
               onClick={() => addCategory()}
               title={t('categories-manager.add', 'Add')}
+              disabled={isCategoryNameEmpty}
             >
               <FontAwesomeIcon icon={faAdd} />
             </button>

@@ -8,14 +8,16 @@ init:
 
 install:
   - pip install castlabs-evs
-  - yarn install --force
+  - corepack enable
+  - corepack prepare pnpm@latest-8 --activate
+  - pnpm install
 
 environment:
   GH_TOKEN:
     secure: kZMGyhBmfPsJKEryrd+I7gTEudm8tW0jSrKKhtT/3fbqKQzndTWp47C1Eetx5kFs
 
 build_script:
-  - yarn sign:win
+  - npm run sign:win
   - 7z.exe a -tzip dist\HeroicWin.zip dist\*x64.exe dist\*.blockmap dist\*.yml
 
 test: off

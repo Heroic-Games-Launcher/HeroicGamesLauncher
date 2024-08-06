@@ -21,3 +21,7 @@ export const WINECROSSOVER_URL =
 /// Url to Wine Staging for macOS github release page
 export const WINESTAGINGMACOS_URL =
   'https://api.github.com/repos/Gcenx/macOS_Wine_builds/releases'
+
+/// Url to Game Porting Toolkit from Gcenx github release page
+export const GPTK_URL =
+  'https://api.github.com/repos/Gcenx/game-porting-toolkit/releases'

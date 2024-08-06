@@ -70,6 +70,8 @@ const initialContext: ContextType = {
   setZoomPercent: () => null,
   allTilesInColor: false,
   setAllTilesInColor: () => null,
+  titlesAlwaysVisible: false,
+  setTitlesAlwaysVisible: () => null,
   sidebarCollapsed: false,
   setSideBarCollapsed: () => null,
   activeController: '',
@@ -95,7 +97,9 @@ const initialContext: ContextType = {
   experimentalFeatures: {
     enableNewDesign: false,
     enableHelp: false,
-    automaticWinetricksFixes: true
+    automaticWinetricksFixes: true,
+    cometSupport: true,
+    umuSupport: false
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,

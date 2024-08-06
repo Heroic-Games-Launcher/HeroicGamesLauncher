@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { ReactComponent as AMDLogo } from 'frontend/assets/amd-logo.svg'
-import { ReactComponent as NVIDIALogo } from 'frontend/assets/nvidia-logo.svg'
-import { ReactComponent as IntelLogo } from 'frontend/assets/intel-logo.svg'
+import AMDLogo from 'frontend/assets/amd-logo.svg?react'
+import NVIDIALogo from 'frontend/assets/nvidia-logo.svg?react'
+import IntelLogo from 'frontend/assets/intel-logo.svg?react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faApple } from '@fortawesome/free-brands-svg-icons'

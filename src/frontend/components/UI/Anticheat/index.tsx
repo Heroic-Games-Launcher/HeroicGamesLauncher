@@ -2,9 +2,9 @@ import React, { MouseEvent, useContext } from 'react'
 import { AntiCheatInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 
-import { ReactComponent as InfoIcon } from 'frontend/assets/info_icon.svg'
-import { ReactComponent as DeniedIcon } from 'frontend/assets/denied_icon.svg'
-import { ReactComponent as AllowedIcon } from 'frontend/assets/rounded_checkmark_icon.svg'
+import InfoIcon from 'frontend/assets/info_icon.svg?react'
+import DeniedIcon from 'frontend/assets/denied_icon.svg?react'
+import AllowedIcon from 'frontend/assets/rounded_checkmark_icon.svg?react'
 
 import './index.scss'
 import { useTranslation } from 'react-i18next'
@@ -65,8 +65,8 @@ export default function Anticheat({ anticheatInfo }: Props) {
         {mayNotWork && (
           <p>
             {t(
-              'anticheat.may_not_work',
-              'It may not work due to denied or broken anticheat support.'
+              'anticheat.multiplayer_may_not_work',
+              'Multiplayer features may not work due to denied or broken anticheat support.'
             )}
           </p>
         )}

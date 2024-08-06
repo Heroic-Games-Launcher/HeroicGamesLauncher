@@ -6,7 +6,7 @@ import React, {
   useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useLocation, useParams } from 'react-router'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
 import { ToggleSwitch, UpdateComponent } from 'frontend/components/UI'
 import WebviewControls from 'frontend/components/UI/WebviewControls'
@@ -109,9 +109,9 @@ export default function WebView() {
   useEffect(() => {
     let mounted = true
     const fetchLocalPreloadPath = async () => {
-      const path = (await window.api.getLocalPeloadPath()) as unknown
+      const path = await window.api.getLocalPeloadPath()
       if (mounted) {
-        setPreloadPath(path as string)
+        setPreloadPath(path)
       }
     }
 
@@ -122,7 +122,7 @@ export default function WebView() {
     return () => {
       mounted = false
     }
-  }, [])
+  }, [isEpicLogin])
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -225,7 +225,18 @@ export default function WebView() {
         if (validatedURL && validatedURL.match(/track\.adtraction\.com/)) {
           const parsedUrl = new URL(validatedURL)
           const redirectUrl = parsedUrl.searchParams.get('url')
-          webview.loadURL(redirectUrl || 'https://gog.com')
+          const url = new URL(redirectUrl || 'https://gog.com')
+          // Remove any port definitions
+          // Recently GOG made a change where they started to provide a port
+          // in a URL that adtraction is supposed to redirect to.
+          // This leads to urls like https://gog.com:80
+          // That address is unreachable
+          //
+          // Add a entry below if you notice this line of code and cringe
+          // - username - DD/MM/YY
+          // - imLinguin - 01/07/24
+          url.port = ''
+          webview.loadURL(url.toString())
           if (!localStorage.getItem('adtraction-warning')) {
             setShowAdtractionWarning(true)
           }
@@ -251,7 +262,7 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current, preloadPath, amazonLoginData])
+  }, [webviewRef.current, preloadPath, amazonLoginData, runner])
 
   useEffect(() => {
     const webview = webviewRef.current
@@ -298,6 +309,8 @@ export default function WebView() {
       setShowLoginWarningFor('gog')
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
+    } else {
+      setShowLoginWarningFor(null)
     }
   }, [startUrl])
 

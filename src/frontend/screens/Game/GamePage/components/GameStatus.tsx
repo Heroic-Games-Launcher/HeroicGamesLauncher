@@ -4,6 +4,7 @@ import { GameInfo, InstallProgress } from 'common/types'
 import { getProgress } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { LinearProgress } from '@mui/material'
 
 interface Props {
   gameInfo: GameInfo
@@ -118,9 +119,9 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
   return (
     <div className="gameStatus">
       {(is.installing || is.updating) && (
-        <progress
+        <LinearProgress
+          variant="determinate"
           className="installProgress"
-          max={100}
           value={getProgress(progress)}
         />
       )}

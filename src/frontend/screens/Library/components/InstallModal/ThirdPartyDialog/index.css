@@ -1,0 +1,25 @@
+.thirdPartyNotice {
+  display: flex;
+  max-width: 560px;
+  gap: 0.4rem;
+  padding: var(--space-md);
+  border-radius: 20px;
+  background-color: var(--current-background);
+  margin-bottom: var(--space-lg);
+  border: 2px solid var(--anticheat-supported);
+  & > div.noticeInfo {
+    margin: 0 var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+  & .noticeIcon path {
+    fill: var(--anticheat-supported);
+  }
+  & h4 {
+    margin: 0 0 var(--space-md);
+  }
+  & p {
+    margin: 0 0 var(--space-md);
+  }
+}

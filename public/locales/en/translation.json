@@ -6,6 +6,7 @@
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
         "fonts": "Fonts",
         "title": "Accessibility",
+        "titles_always_visible": "Always show titles in library",
         "zoom": "Zoom"
     },
     "add_game": "Add Game",
@@ -17,7 +18,7 @@
     "Amazon Games": "Amazon Games",
     "anticheat": {
         "anticheats": "Anticheats",
-        "may_not_work": "It may not work due to denied or broken anticheat support.",
+        "multiplayer_may_not_work": "Multiplayer features may not work due to denied or broken anticheat support.",
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
@@ -286,6 +287,7 @@
         "show_hidden": "Show Hidden",
         "show_installed_only": "Show Installed only",
         "show_support_offline_only": "Show offline-supported only",
+        "show_third_party_managed_only": "Show third-party managed only",
         "uncategorized": "Uncategorized"
     },
     "help": {
@@ -574,6 +576,14 @@
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
         "after-launch-script-path": "Select a script to run after the game exits",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Games with broken or denied anticheat may run, but multiplayer features won't work. Do not ask for support if you install them knowing this.",
+                "title": "Are you sure?",
+                "understand": "I understand"
+            },
+            "label": "Allow installation of games with broken or denied anticheat"
+        },
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
@@ -624,8 +634,10 @@
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
             "automaticWinetricksFixes": "Apply known fixes automatically",
+            "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design"
+            "enableNewDesign": "New design",
+            "umuSupport": "Use UMU as Proton runtime"
         },
         "frameless-window": {
             "confirmation": {
@@ -775,6 +787,7 @@
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         },
         "systemInformation": {
+            "cometVersion": "Comet: {{cometVersion}}",
             "copyToClipboard": "Copy to clipboard",
             "cpu": "CPU:",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -865,8 +878,7 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used in Steam, but some games outside Steam may work better with this variant. It provides mostly useless logs for troubleshooting.",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting.",
-        "wine-ge-lol": "Wine-GE-Proton...-LoL builds are meant to be used ONLY for League of Legends. These builds should NOT be used for any other game since they can cause problems."
+        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting."
     },
     "winetricks": {
         "install": "Install",

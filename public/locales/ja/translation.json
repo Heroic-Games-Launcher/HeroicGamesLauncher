@@ -338,7 +338,8 @@
             "settingsGame": "ゲームのすべての設定を表示します。",
             "login": "それぞれのストアにログインします。",
             "wineManager": "各バージョンのWine、Proton、Crossoverなどをインストールします。"
-        }
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
     },
     "info": {
         "heroic": {
@@ -674,7 +675,8 @@
             "enableNewDesign": "新デザイン",
             "enableHelp": "ヘルプコンポーネント",
             "automaticWinetricksFixes": "既存の修正を自動的に適用"
-        }
+        },
+        "msync": "Esyncを有効にする"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -881,5 +883,8 @@
     "wineExplanation": {
         "proton-ge": "Proton-GE-ProtonはGlorious Eggrollによって作成されたProtonの亜種です。Steamで使うことを想定していますが、Steam以外のゲームではこの亜種の方がうまく動くかもしれません。トラブルシューティングのためにほとんど役に立たないログを提供します。",
         "wine-ge": "Wine-GE-ProtonはGlorious Eggrollによって作成されたWineの亜種です。Steam以外での使用を推奨するWineです。トラブルシューティング時に便利なログを提供します。"
+    },
+    "categories-manager": {
+        "add-placeholder": "新しいカテゴリーを追加"
     }
 }

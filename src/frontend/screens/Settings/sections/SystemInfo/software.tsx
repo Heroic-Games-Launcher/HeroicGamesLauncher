@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 
-import { ReactComponent as HeroicIcon } from 'frontend/assets/heroic-icon.svg'
+import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
 import { useTranslation } from 'react-i18next'
@@ -16,8 +16,13 @@ interface Props {
 function SoftwareInfo({ software }: Props) {
   const { t } = useTranslation()
 
-  const { heroicVersion, legendaryVersion, gogdlVersion, nileVersion } =
-    software
+  const {
+    heroicVersion,
+    legendaryVersion,
+    gogdlVersion,
+    cometVersion,
+    nileVersion
+  } = software
 
   return (
     <Paper sx={{ padding: 1 }} square>
@@ -48,6 +53,14 @@ function SoftwareInfo({ software }: Props) {
             'Gogdl: {{gogdlVersion}}',
             {
               gogdlVersion
+            }
+          )}
+          <br />
+          {t(
+            'settings.systemInformation.cometVersion',
+            'Comet: {{cometVersion}}',
+            {
+              cometVersion
             }
           )}
           <br />

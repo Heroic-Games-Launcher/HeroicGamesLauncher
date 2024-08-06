@@ -24,7 +24,8 @@ import {
   shutdownWine,
   sendProgressUpdate,
   sendGameStatusUpdate,
-  getPathDiskSize
+  getPathDiskSize,
+  getCometBin
 } from '../../utils'
 import {
   ExtraInfo,
@@ -55,6 +56,7 @@ import {
 } from './electronStores'
 import {
   appendGamePlayLog,
+  appendRunnerLog,
   appendWinetricksGamePlayLog,
   logDebug,
   logError,
@@ -94,13 +96,18 @@ import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
-import { getWineFlagsArray } from 'backend/utils/compatibility_layers'
+import {
+  getWineFlagsArray,
+  isUmuSupported
+} from 'backend/utils/compatibility_layers'
 import axios, { AxiosError } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
 import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
+import { spawn } from 'child_process'
+import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -119,19 +126,22 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
 
   const gamesData = await getGamesData(appName)
 
-  const gogStoreUrl = gamesData?._links?.store.href
+  let gogStoreUrl = gamesData?._links?.store.href
   const releaseDate =
     gamesData?._embedded.product?.globalReleaseDate?.substring(0, 19)
 
-  const storeUrl = new URL(gogStoreUrl)
-  storeUrl.hostname = 'af.gog.com'
-  storeUrl.searchParams.set('as', '1838482841')
+  if (gogStoreUrl) {
+    const storeUrl = new URL(gogStoreUrl)
+    storeUrl.hostname = 'af.gog.com'
+    storeUrl.searchParams.set('as', '1838482841')
+    gogStoreUrl = storeUrl.toString()
+  }
 
   const extra: ExtraInfo = {
     about: gameInfo.extra?.about,
     reqs,
     releaseDate,
-    storeUrl: storeUrl.toString(),
+    storeUrl: gogStoreUrl,
     changelog: productInfo?.data.changelog
   }
   return extra
@@ -496,6 +506,7 @@ export async function launch(
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
     appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -555,13 +566,20 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
+    if (await isUmuSupported(wineType)) {
+      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (umuId) {
+        commandEnv['GAMEID'] = umuId
+      }
+    }
+
     // Fix for people with old config
     const wineBin =
       wineExec.startsWith("'") && wineExec.endsWith("'")
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlag = getWineFlagsArray(wineBin, wineType, shlex.join(wrappers))
+    wineFlag = await getWineFlagsArray(wineBin, wineType, shlex.join(wrappers))
   }
 
   const commandParts = [
@@ -664,13 +682,33 @@ export async function launch(
   )
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
+  const userData: UserData | undefined = configStore.get_nodefault('userData')
+
   sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
 
-  sendGameStatusUpdate({
-    appName,
-    runner: 'gog',
-    status: 'playing'
-  })
+  let child = undefined
+
+  if (
+    userData &&
+    userData.username &&
+    GlobalConfig.get().getSettings().experimentalFeatures?.cometSupport !==
+      false
+  ) {
+    const path = getCometBin()
+    child = spawn(join(path.dir, path.bin), [
+      '--from-heroic',
+      '--username',
+      userData.username,
+      '--quit'
+    ])
+    child.stdout.on('data', (data) => {
+      appendRunnerLog('gog', data.toString())
+    })
+    child.stderr.on('data', (data) => {
+      appendRunnerLog('gog', data.toString())
+    })
+    logInfo(`Launching Comet!`, LogPrefix.Gog)
+  }
 
   const { error, abort } = await runGogdlCommand(commandParts, {
     abortId: appName,
@@ -682,6 +720,12 @@ export async function launch(
     }
   })
 
+  if (child) {
+    logInfo(`Killing Comet!`, LogPrefix.Gog)
+    child.kill()
+  }
+  launchCleanup(rpcClient)
+
   if (abort) {
     return true
   }
@@ -689,8 +733,6 @@ export async function launch(
   if (error) {
     logError(['Error launching game:', error], LogPrefix.Gog)
   }
-
-  launchCleanup(rpcClient)
 
   return !error
 }

@@ -24,7 +24,8 @@ export function hasStatus(
   const {
     thirdPartyManagedApp = undefined,
     is_installed,
-    runner
+    runner,
+    isEAManaged
   } = { ...gameInfo }
 
   React.useEffect(() => {
@@ -48,7 +49,7 @@ export function hasStatus(
         return setGameStatus({ status, folder, label, statusContext })
       }
 
-      if (thirdPartyManagedApp === 'Origin') {
+      if (thirdPartyManagedApp && !isEAManaged) {
         const label = getStatusLabel({
           status: 'notSupportedGame',
           t,
@@ -61,7 +62,7 @@ export function hasStatus(
         })
       }
 
-      if (is_installed) {
+      if (is_installed && !thirdPartyManagedApp) {
         const gameAvailable = await handleNonAvailableGames(appName, runner)
         if (!gameAvailable) {
           const label = getStatusLabel({

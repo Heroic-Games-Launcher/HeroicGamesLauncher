@@ -3,7 +3,7 @@ import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 
 import { DMQueueElement, DownloadManagerState } from 'common/types'
-import { ReactComponent as StopIcon } from 'frontend/assets/stop-icon.svg'
+import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
 import { getGameInfo, getStoreName } from 'frontend/helpers'
@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
-import { ReactComponent as PlayIcon } from 'frontend/assets/play-icon.svg'
-import { ReactComponent as PauseIcon } from 'frontend/assets/pause-icon.svg'
+import PlayIcon from 'frontend/assets/play-icon.svg?react'
+import PauseIcon from 'frontend/assets/pause-icon.svg?react'
 
 type Props = {
   element?: DMQueueElement
