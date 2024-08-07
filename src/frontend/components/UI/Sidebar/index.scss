@@ -3,9 +3,9 @@
   --sidebar-vertical-padding: var(--space-lg);
   position: relative;
   z-index: 10;
-  display: grid;
-  grid-template-rows: min-content 2fr min-content min-content;
-  grid-template-areas: 'icon' 'links' 'utils' 'updates' 'version';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   grid-area: sidebar;
   height: 100%;
   padding: 0;
@@ -26,213 +26,372 @@
     margin-top: var(--space-xs);
     justify-self: center;
   }
-}
 
-.Sidebar.collapsed {
-  --sidebar-vertical-padding: var(--space-xs);
-  --sidebar-horizontal-padding: var(--space-lg);
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.Sidebar__section {
-  display: flex;
-  width: 100%;
-  height: fit-content;
-  font-family: var(--secondary-font-family);
-  flex-direction: column;
-  -webkit-app-region: no-drag;
-}
-
-.Sidebar__item {
-  display: flex;
-  width: 100%;
-  padding: var(--space-xs) var(--sidebar-horizontal-padding);
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: var(--text-md);
-  color: var(--navbar-accent);
-  color: var(--navbar-inactive, var(--navbar-accent));
-  transition: color 250ms;
-  text-align: start;
-  font-family: var(--primary-font-family);
-  border-radius: 0;
-}
-
-.collapsed .Sidebar__item {
-  padding: var(--space-xs) 0;
-}
-
-.collapsed .Sidebar__itemIcon {
-  margin: 0 auto;
-}
-.Sidebar__item:focus-visible {
-  outline: 2px solid var(--text-hover);
-  outline-offset: -2px;
-}
-
-.Sidebar__item.active {
-  color: var(--accent);
-  color: var(--navbar-active, var(--accent-overlay));
-
-  .Sidebar__itemIcon {
-    color: var(--accent);
-    color: var(--navbar-active, var(--accent-overlay));
+  .Sidebar__section {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    font-family: var(--secondary-font-family);
+    flex-direction: column;
+    -webkit-app-region: no-drag;
   }
-}
 
-.Sidebar__item.active:not(.SidebarLinks__subItem) {
-  background-color: var(--navbar-active-background);
-}
+  .Sidebar__item {
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    padding: var(--space-xs) var(--sidebar-horizontal-padding);
+    margin: 0 var(--space-2xs);
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: var(--text-md);
+    color: var(--navbar-accent);
+    color: var(--navbar-inactive, var(--navbar-accent));
+    text-align: start;
+    font-family: var(--primary-font-family);
+    border-radius: 4px;
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease,
+      background-color 0.2s ease;
 
-.Sidebar__item.active.SidebarLinks__subItem {
-  font-weight: var(--bold);
-}
+    .SidebarSubmenu {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
 
-.Sidebar__itemIcon {
-  box-sizing: border-box;
-  width: 24px;
-  margin-inline-end: 10px;
-  display: inline-flex;
-  justify-content: center;
-  color: var(--accent);
-  color: var(--navbar-inactive, var(--accent));
-}
+    & > * {
+      transition: transform 0.2s ease;
+    }
 
-.currentDownloads {
-  grid-area: utils;
-  align-self: end;
-  margin-block: 0 var(--sidebar-vertical-padding);
-  margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
-}
+    &.large {
+      padding: var(--space-sm) var(--sidebar-horizontal-padding);
+    }
 
-.divider {
-  height: 1px;
-  opacity: 0.5;
-  margin: var(--space-3xs) var(--space-xs);
-  background-color: var(--divider);
-}
+    & + .Sidebar__item {
+      margin-top: var(--space-3xs);
+    }
 
-.heroicVersion {
-  display: flex;
-  gap: 5px;
-  grid-area: version;
-  margin-block: 0 var(--sidebar-vertical-padding);
-  margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
-  font-size: var(--text-sm);
-  cursor: pointer;
-  transition: 300ms;
-  color: var(--brand-text-01);
-  -webkit-app-region: no-drag;
-}
+    &:focus-visible,
+    &:has(.MuiAccordionSummary-root:focus-visible),
+    &:has(.MuiAccordionSummary-root a:focus-visible) {
+      outline: 2px solid var(--text-hover);
+      outline-offset: -2px;
+    }
 
-.heroicVersion:hover {
-  color: var(--accent);
-}
+    &.SidebarLinks__subItem {
+      padding-block: var(--space-3xs);
+      padding-inline: var(--space-sm) var(--sidebar-horizontal-padding);
+      font-size: var(--text-sm);
+      line-height: 1.3em;
+      white-space: break-spaces;
+      background-color: transparent;
+      margin: 0;
+    }
 
-.heroicNewReleases {
-  grid-area: updates;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-block: 0 var(--space-sm);
-  margin-inline: var(--space-3xs) var(--sidebar-horizontal-padding);
-  font-size: var(--text-sm);
-}
+    &.Sidebar__quit {
+      color: var(--status-danger);
+    }
 
-.heroicNewReleases > a {
-  color: var(--accent);
-  transition: 300ms;
-  -webkit-app-region: no-drag;
-}
+    &.active {
+      color: var(--accent);
+      color: var(--navbar-active, var(--accent-overlay));
+      cursor: default;
 
-.heroicNewReleases > a:hover {
-  color: var(--accent-overlay);
-}
+      &.SidebarLinks__subItem {
+        font-weight: var(--bold);
+      }
 
-.Sidebar.collapsed {
-  .heroicVersion {
-    margin: var(--space-sm);
-    font-size: var(--text-xs);
-    text-align: center;
-    &__title {
-      display: none;
+      &:not(.SidebarLinks__subItem) {
+        background-color: var(--navbar-active-background);
+      }
+    }
+
+    &:not(.active) {
+      &:hover {
+        background-color: var(--navbar-active-background);
+        color: var(--text-hover);
+
+        .heroicNewReleases .highlighted {
+          color: var(--accent-overlay);
+        }
+
+        & > * {
+          transform: translateX(calc(-1 * var(--space-3xs)));
+        }
+      }
+
+      &.Sidebar__quit:hover {
+        color: var(--status-danger-hover);
+      }
+
+      &.SidebarLinks__subItem:hover {
+        background-color: transparent;
+      }
+    }
+
+    .heroicNewReleases {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-size: var(--text-sm);
+
+      .highlighted {
+        transition: color 0.2s ease;
+        color: var(--accent);
+      }
+    }
+
+    .MuiBadge-badge {
+      background-color: var(--accent-overlay);
+      transform: scale(0) translate(50%, 50%);
+    }
+
+    .MuiAccordion-root {
+      border-radius: 0;
+      background-color: unset;
+      padding: 0;
+      margin: 0;
+      color: inherit;
+      box-shadow: none;
+      width: -webkit-fill-available;
+
+      .MuiAccordionSummary-root {
+        min-height: unset;
+        padding: 0;
+        display: flex;
+        align-items: center;
+
+        &:focus {
+          background-color: unset;
+        }
+
+        .MuiAccordionSummary-expandIconWrapper {
+          color: currentColor;
+        }
+
+        .MuiAccordionSummary-content {
+          display: flex;
+          align-items: center;
+          margin: 0;
+          flex-grow: 1;
+
+          a {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            color: inherit;
+
+            &:focus-visible {
+              outline: none;
+            }
+          }
+        }
+      }
+
+      .MuiAccordionDetails-root {
+        padding: 0;
+        margin-block-start: var(--space-xs);
+        margin-left: var(--space-md);
+        border-inline-start: 0.5px solid var(--neutral-03);
+
+        &:not(:has(.SidebarLinks__subItem)) {
+          margin-left: var(--space-xs);
+          border-inline-start: 0;
+        }
+      }
     }
   }
 
-  .heroicNewReleases {
-    display: none;
+  .Sidebar__itemIcon {
+    box-sizing: border-box;
+    width: 1.1em;
+    margin-inline-end: var(--space-xs);
+    display: inline-flex;
+    justify-content: center;
+    color: currentColor;
+    min-height: vat(--text-md);
+    svg {
+      fill: currentColor;
+      height: 1em;
+    }
+  }
+
+  .SidebarLinks__subItem .Sidebar__itemIcon {
+    margin-inline-end: var(--space-3xs);
+  }
+
+  .filler {
+    display: block;
+    flex-grow: 1;
+    min-height: var(--space-md);
   }
 
   .currentDownloads {
-    margin-inline: auto;
-    .statusIcon {
-      display: block;
+    margin-block: 0 var(--sidebar-vertical-padding);
+    margin-inline: var(--sidebar-horizontal-padding) var(--space-3xs);
+  }
+
+  .divider {
+    min-height: 1px;
+    height: 1px;
+    opacity: 0.5;
+    margin: var(--space-sm) var(--space-xs);
+    background-color: var(--neutral-05);
+    align-self: stretch;
+  }
+
+  .heroicVersion {
+    display: flex;
+    gap: 5px;
+    grid-area: version;
+    margin-top: var(--space-xs);
+    margin-bottom: var(--sidebar-vertical-padding);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: 300ms;
+    color: var(--brand-text-01);
+    -webkit-app-region: no-drag;
+
+    &:hover {
+      color: var(--accent);
     }
-    .full-size {
+  }
+
+  &.collapsed {
+    --sidebar-vertical-padding: var(--space-xs);
+    --sidebar-horizontal-padding: var(--space-lg);
+    overflow-x: visible;
+    overflow-y: auto;
+
+    .Sidebar__item {
+      padding: var(--space-3xs) 0;
+
+      &[data-tooltip-content] {
+        position: static;
+      }
+
+      &:not(:has(.Sidebar__itemIcon)) {
+        &:not(.active):hover::before {
+          transform: translateX(calc(-0.25 * var(--space-3xs)));
+        }
+        &::before {
+          content: '•';
+          display: block;
+          margin: auto;
+          font-size: 4em;
+          color: currentColor;
+          transition: transform 0.2s ease;
+        }
+      }
+
+      &:not(.active) {
+        &:hover > * {
+          transform: translateX(calc(-0.6 * var(--space-3xs)));
+        }
+      }
+
+      @keyframes tooltip-in {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      &[data-tooltip-content]:not(.active) {
+        &:hover::after,
+        &:has(:focus-visible)::after,
+        &:focus-visible::after {
+          content: attr(data-tooltip-content);
+          position: fixed;
+          display: block;
+          padding: var(--space-xs);
+          color: var(--navbar-inactive);
+          border-radius: 4px;
+          overflow: hidden;
+          background-color: var(--background-lighter, var(--navbar-background));
+          margin-inline-start: calc(var(--sidebar-width) + var(--space-3xs));
+          margin-bottom: calc(var(--scroll-offset) * 2);
+          left: 0;
+          box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+          pointer-events: none;
+          user-select: none;
+          font-size: var(--text-md);
+          font-weight: normal;
+          text-decoration: none;
+          animation: tooltip-in 0.2s ease;
+          transform-origin: 0% 50%;
+        }
+      }
+
+      &.SidebarLinks__subItem {
+        padding: var(--space-2xs) 0;
+      }
+
+      & > span,
+      a > span,
+      .MuiAccordionSummary-content > span {
+        display: none;
+      }
+
+      .MuiBadge-badge:not(.MuiBadge-invisible) {
+        transform: scale(1) translate(50%, 50%);
+      }
+
+      .MuiAccordionSummary-expandIconWrapper {
+        display: none;
+      }
+
+      .MuiAccordionDetails-root {
+        margin-left: var(--space-xs);
+      }
+
+      svg {
+        transform: scale(1.3);
+        margin: var(--space-3xs) 0;
+      }
+    }
+
+    .Sidebar__itemIcon {
+      margin: 0 auto;
+    }
+
+    .heroicVersion {
+      margin: var(--space-sm);
+      font-size: var(--text-xs);
+      text-align: center;
+      &__title {
+        display: none;
+      }
+    }
+
+    .heroicNewReleases {
+      display: none;
+    }
+
+    .MuiAccordionDetails-root:has(.currentDownload) {
+      display: none;
+    }
+
+    .currentDownload {
       display: none;
     }
   }
 }
 
-.Sidebar.collapsed .divider {
-  margin: var(--space-3xs) 0;
-}
-
-.Sidebar.collapsed .Sidebar__item.active span,
-.Sidebar.collapsed .Sidebar__item > span {
-  display: none;
-}
-
-.Sidebar.collapsed .SidebarItemWithSubmenu:has(.SidebarSubmenu) {
-  position: relative;
-  z-index: 2;
-}
-
-.Sidebar.collapsed .SidebarItemWithSubmenu .SidebarSubmenu {
-  display: none;
-}
-
-.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu span,
-.Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu span {
-  display: block;
-}
-
-.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu,
-.Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
-  display: block;
-  position: fixed;
-  left: var(--sidebar-width);
-  top: 66px;
-  background-color: var(--navbar-background);
-  padding: var(--space-2xs) 0;
-}
-
-.isRTL .Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu,
-.isRTL .Sidebar.collapsed .SidebarItemWithSubmenu:focus-within .SidebarSubmenu {
-  right: var(--sidebar-width);
-  left: auto;
-}
-
-.Sidebar.collapsed .SidebarItemWithSubmenu:hover .SidebarSubmenu.settings,
-.Sidebar.collapsed
-  .SidebarItemWithSubmenu:focus-within
-  .SidebarSubmenu.settings {
-  top: 114px;
-}
-
-.Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem::before {
-  display: none;
-}
-
-.Sidebar.collapsed .Sidebar__item.SidebarLinks__subItem {
-  padding: var(--space-xs) var(--sidebar-horizontal-padding);
-}
-.Sidebar.collapsed .Sidebar__item.active svg,
-.Sidebar.collapsed .Sidebar__item svg {
-  transform: scale(1.2);
-  padding: var(--space-2xs) 0;
+@media screen and (max-width: 730px) {
+  .Sidebar__item.SidebarLinks__subItem,
+  .Sidebar__item.SidebarLinks__subItem:hover {
+    padding: var(--space-3xs) var(--sidebar-horizontal-padding) var(--space-3xs)
+      var(--space-lg);
+  }
 }
 
 .resizer {
@@ -248,4 +407,28 @@
 .isRTL .resizer {
   left: 0;
   right: auto;
+}
+
+.isRTL .Sidebar.collapsed .Sidebar__item[data-tooltip-content]:not(.active) {
+  &:hover::after,
+  &:has(:focus-visible)::after,
+  &:focus-visible::after {
+    left: unset;
+    right: 0;
+    transform-origin: 100% 50%;
+  }
+}
+
+.isRTL
+  .Sidebar.collapsed
+  .Sidebar__item:not(:has(.Sidebar__itemIcon)):not(.active):hover::before {
+  transform: translateX(calc(0.25 * var(--space-3xs)));
+}
+
+.isRTL .Sidebar .Sidebar__item:not(.active):hover > * {
+  transform: translateX(calc(1 * var(--space-3xs)));
+}
+
+.isRTL .Sidebar.collapsed .Sidebar__item:not(.active):hover > * {
+  transform: translateX(calc(0.6 * var(--space-3xs)));
 }
