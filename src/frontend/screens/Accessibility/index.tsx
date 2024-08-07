@@ -163,14 +163,11 @@ export default React.memo(function Accessibility() {
           htmlId="content-font-family"
           value={contentFont}
           onChange={handleContentFontFamily}
-          label={
-            t(
-              'accessibility.content_font_family_no_default',
-              'Content Font Family (Default: '
-            ) +
-            defaultSecondaryFont.split(',')[0].trim() +
-            ')'
-          }
+          label={t(
+            'accessibility.content_font_family_default',
+            'Content Font Family (Default: {{fontFamily}})',
+            { fontFamily: defaultSecondaryFont.split(',')[0].trim() }
+          )}
         >
           {options}
         </SelectField>
@@ -179,14 +176,11 @@ export default React.memo(function Accessibility() {
           htmlId="actions-font-family"
           value={actionFont}
           onChange={handleActionsFontFamily}
-          label={
-            t(
-              'accessibility.actions_font_family_no_default',
-              'Actions Font Family (Default: '
-            ) +
-            defaultPrimaryFont.split(',')[0].trim() +
-            ')'
-          }
+          label={t(
+            'accessibility.actions_font_family_default',
+            'Actions Font Family (Default: {{fontFamily}})',
+            { fontFamily: defaultPrimaryFont.split(',')[0].trim() }
+          )}
         >
           {options}
         </SelectField>
