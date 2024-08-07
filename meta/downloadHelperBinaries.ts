@@ -10,7 +10,7 @@ type DownloadedBinary = 'legendary' | 'gogdl' | 'nile' | 'comet'
 const RELEASE_TAGS = {
   legendary: '0.20.35',
   gogdl: 'v1.1.1',
-  nile: 'v1.1.0',
+  nile: 'v1.1.1',
   comet: 'v0.1.2'
 } as const satisfies Record<DownloadedBinary, string>
 
