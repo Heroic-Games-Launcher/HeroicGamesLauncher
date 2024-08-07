@@ -1,20 +1,20 @@
 {
     "button": {
         "login": "Oturum Aç",
-        "open": "Linki aç",
+        "open": "Bağlantıyı aç",
         "copy": "Kopyala",
         "copied": "Kopyalandı!",
         "error": "Hata, farklı bir Kod deneyin",
         "loading": "Yükleniyor"
     },
     "message": {
-        "part1": "Oturum açabilmeniz ve oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
+        "part1": "Oturum açıp oyunlarınızı kurabilmeniz için öncelikle aşağıdaki adımları uygulamanız gerekiyor:",
         "part2": "Aç",
         "part3": "Epic Store burada",
         "part4": "açın, hesabınıza giriş yapın ve",
-        "part5": "authorization code bilgi numarasını kopyalayın",
+        "part5": "yetkilendirme kodu bilgi numarası",
         "part6": "Aşağıdaki kutucuğa yapıştır",
-        "part7": "authorization code numaranızı",
+        "part7": "yetkilendirme kodu numarası",
         "part8": "yapıştırın ve oturum aç düğmesine tıklayın."
     },
     "status": {
