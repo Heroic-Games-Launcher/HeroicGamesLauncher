@@ -43,7 +43,8 @@ export enum LogPrefix {
 export const RunnerToLogPrefixMap = {
   legendary: LogPrefix.Legendary,
   gog: LogPrefix.Gog,
-  sideload: LogPrefix.Sideload
+  sideload: LogPrefix.Sideload,
+  nile: LogPrefix.Nile
 }
 
 type LogInputType = unknown
@@ -134,16 +135,21 @@ function convertInputToString(param: LogInputType): string {
     switch (typeof value) {
       case 'string':
         return value
-      case 'object':
+      case 'object': {
         // Object.prototype.toString.call(value).includes('Error') will catch all
         // Error types (Error, EvalError, SyntaxError, ...)
-        if (Object.prototype.toString.call(value).includes('Error')) {
-          return value!['stack'] ? value!['stack'] : value!.toString()
+        const isError =
+          value && Object.prototype.toString.call(value).includes('Error')
+        if (isError) {
+          if (value && 'stack' in value && typeof value.stack === 'string')
+            return value.stack
+          return value.toString()
         } else if (Object.prototype.toString.call(value).includes('Object')) {
           return JSON.stringify(value, null, 2)
         } else {
           return `${value}`
         }
+      }
       case 'number':
         return String(value)
       case 'boolean':
@@ -310,9 +316,9 @@ export function logChangedSetting(
   config: Partial<AppSettings>,
   oldConfig: GameSettings
 ) {
-  const changedSettings = Object.keys(config).filter(
-    (key) => config[key] !== oldConfig[key]
-  )
+  const changedSettings = Object.entries(config)
+    .filter(([key, value]) => value !== oldConfig[key as keyof GameSettings])
+    .map(([key]) => key as keyof GameSettings)
 
   changedSettings.forEach((changedSetting) => {
     // check if both are empty arrays

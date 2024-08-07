@@ -136,7 +136,7 @@ window.setTheme = async (themeClass: string) => {
 
   document.body.className = themeClass
 
-  if (navigator['windowControlsOverlay']?.visible) {
+  if (navigator.windowControlsOverlay.visible) {
     const titlebarOverlay = Object.fromEntries(
       ['height', 'color', 'symbol-color']
         .map((item) => [

@@ -175,7 +175,7 @@ async function generateMacOsApp(gameInfo: GameInfo) {
   logInfo('Generating macOS shortcut', LogPrefix.Backend)
 
   // shortcutFiles => [desktop, menu] on mac, we don't add desktop shortcut
-  const appShortcut = shortcutFiles(gameInfo.title)[1]!
+  const appShortcut = shortcutFiles(gameInfo.title)[1]
   const macOSFolder = `${appShortcut}/Contents/MacOS`
   const resourcesFolder = `${appShortcut}/Contents/Resources`
   const plistFile = `${appShortcut}/Contents/Info.plist`

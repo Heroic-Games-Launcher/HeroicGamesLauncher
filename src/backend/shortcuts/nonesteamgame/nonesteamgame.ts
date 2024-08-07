@@ -146,14 +146,14 @@ function hasParameterCaseInsensitive(object: ShortcutEntry, key: string) {
 }
 
 /** Return AppName property case insensitive
- *  @param {Object} object
+ *  @param entry
  *  @returns Title of Shortcut Entry
  */
-function getAppName(object: ShortcutEntry) {
-  const foundkey =
-    Object.keys(object).find((key) => key.toLowerCase() === 'appname') ??
-    'AppName'
-  return object[foundkey]
+function getAppName(entry: ShortcutEntry) {
+  for (const [key, value] of Object.entries(entry)) {
+    if (key.toLowerCase() === 'appname') return value
+  }
+  return undefined
 }
 
 /**
@@ -431,6 +431,10 @@ async function removeNonSteamGame(props: {
 
     const exe = shortcutObj.Exe
     const appName = getAppName(shortcutObj)
+    if (!appName) {
+      errors.push('Could not find AppName in shortcut object')
+      continue
+    }
 
     // remove
     content.shortcuts.splice(index, 1)

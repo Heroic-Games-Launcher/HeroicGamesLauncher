@@ -13,22 +13,15 @@ import { logInfo, RunnerToLogPrefixMap } from 'backend/logger/logger'
 
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import { DMQueueElement, GameInfo, Runner } from 'common/types'
-type GameManagerMap = {
-  [key in Runner]: GameManager
-}
 
-export const gameManagerMap: GameManagerMap = {
+export const gameManagerMap: Record<Runner, GameManager> = {
   sideload: SideloadGameManager,
   gog: GOGGameManager,
   legendary: LegendaryGameManager,
   nile: NileGameManager
 }
 
-type LibraryManagerMap = {
-  [key in Runner]: LibraryManager
-}
-
-export const libraryManagerMap: LibraryManagerMap = {
+export const libraryManagerMap: Record<Runner, LibraryManager> = {
   sideload: SideloadLibraryManager,
   gog: GOGLibraryManager,
   legendary: LegendaryLibraryManager,

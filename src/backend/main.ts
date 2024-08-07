@@ -5,8 +5,7 @@ import {
   GameSettings,
   DiskSpaceData,
   StatusPromise,
-  GamepadInputEvent,
-  Runner
+  GamepadInputEvent
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -651,10 +650,13 @@ ipcMain.handle('runWineCommand', async (e, args) => runWineCommand(args))
 ipcMain.handle('checkGameUpdates', async (): Promise<string[]> => {
   let oldGames: string[] = []
   const { autoUpdateGames } = GlobalConfig.get().getSettings()
-  for (const runner in libraryManagerMap) {
-    let gamesToUpdate = await libraryManagerMap[runner].listUpdateableGames()
+  for (const [runner, libraryManager] of Object.entries(libraryManagerMap)) {
+    let gamesToUpdate = await libraryManager.listUpdateableGames()
     if (autoUpdateGames) {
-      gamesToUpdate = autoUpdate(runner as Runner, gamesToUpdate)
+      gamesToUpdate = autoUpdate(
+        runner as keyof typeof libraryManagerMap,
+        gamesToUpdate
+      )
     }
     oldGames = [...oldGames, ...gamesToUpdate]
   }
@@ -936,8 +938,8 @@ ipcMain.handle('refreshLibrary', async (e, library?) => {
     await libraryManagerMap[library].refresh()
   } else {
     const allRefreshPromises = []
-    for (const runner_i in libraryManagerMap) {
-      allRefreshPromises.push(libraryManagerMap[runner_i].refresh())
+    for (const libraryManager of Object.values(libraryManagerMap)) {
+      allRefreshPromises.push(libraryManager.refresh())
     }
     await Promise.allSettled(allRefreshPromises)
   }

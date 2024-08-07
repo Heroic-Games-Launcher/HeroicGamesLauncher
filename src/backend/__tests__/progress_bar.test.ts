@@ -15,11 +15,13 @@ describe('progress_bar', () => {
 
   // stub windows
   beforeAll(() => {
+    // @ts-expect-error FIXME Mocks should not work like this
     BrowserWindow['setAllWindows']([window])
   })
 
   // cleanup stubs
   afterAll(() => {
+    // @ts-expect-error FIXME Mocks should not work like this
     BrowserWindow['setAllWindows']([])
   })
 

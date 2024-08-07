@@ -913,7 +913,7 @@ async function runWineCommand({
     return { stdout: '', stderr: '' }
   }
 
-  const env_vars = {
+  const env_vars: Record<string, string> = {
     ...process.env,
     GAMEID: 'umu-0',
     ...setupEnvVars(settings),
@@ -1027,7 +1027,7 @@ interface RunnerProps {
   dir: string
 }
 
-const commandsRunning = {}
+const commandsRunning: Record<string, Promise<ExecResult>> = {}
 
 let shouldUsePowerShell: boolean | null = null
 
@@ -1151,7 +1151,7 @@ async function callRunner(
   const key = [runner.name, commandParts].join(' ')
   const currentPromise = commandsRunning[key]
 
-  if (currentPromise) {
+  if (currentPromise !== undefined) {
     return currentPromise
   }
 

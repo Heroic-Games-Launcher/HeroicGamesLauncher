@@ -53,7 +53,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   return appIcon
 }
 
-const iconSizesByPlatform = {
+const iconSizesByPlatform: Record<NodeJS.Platform, Electron.ResizeOptions> = {
   darwin: {
     width: 20,
     height: 20
