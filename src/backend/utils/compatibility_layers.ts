@@ -306,33 +306,47 @@ export async function getCrossover(): Promise<Set<WineInstallation>> {
     return crossover
   }
 
+  const crossoverMacPath = new Set<string>()
+
+  // search for crossover installed on default path
+  const crossoverDefaultPath = [
+    '/Applications/CrossOver.app',
+    '/Applications/CrossOver Preview.app'
+  ]
+  crossoverDefaultPath.forEach((crossoverAppPath) => {
+    if (existsSync(crossoverAppPath)) {
+      crossoverMacPath.add(crossoverAppPath)
+    }
+  })
+
+  // search for crossover installed around the system
   await execAsync(
     'mdfind kMDItemCFBundleIdentifier = "com.codeweavers.CrossOver"'
-  )
-    .then(async ({ stdout }) => {
-      stdout.split('\n').forEach((crossoverMacPath) => {
-        const infoFilePath = join(crossoverMacPath, 'Contents/Info.plist')
-        if (crossoverMacPath && existsSync(infoFilePath)) {
-          const info = plistParse(
-            readFileSync(infoFilePath, 'utf-8')
-          ) as PlistObject
-          const version = info['CFBundleShortVersionString'] || ''
-          const crossoverWineBin = join(
-            crossoverMacPath,
-            'Contents/SharedSupport/CrossOver/bin/wine'
-          )
-          crossover.add({
-            bin: crossoverWineBin,
-            name: `CrossOver - ${version}`,
-            type: 'crossover',
-            ...getWineExecs(crossoverWineBin)
-          })
-        }
+  ).then(async ({ stdout }) => {
+    stdout.split('\n').forEach((crossoverPath) => {
+      crossoverMacPath.add(crossoverPath)
+    })
+  })
+
+  crossoverMacPath.forEach((crossoverPath) => {
+    const infoFilePath = join(crossoverPath, 'Contents/Info.plist')
+    if (crossoverPath && existsSync(infoFilePath)) {
+      const info = plistParse(
+        readFileSync(infoFilePath, 'utf-8')
+      ) as PlistObject
+      const version = info['CFBundleShortVersionString'] || ''
+      const crossoverWineBin = join(
+        crossoverPath,
+        'Contents/SharedSupport/CrossOver/bin/wine'
+      )
+      crossover.add({
+        bin: crossoverWineBin,
+        name: `CrossOver - ${version}`,
+        type: 'crossover',
+        ...getWineExecs(crossoverWineBin)
       })
-    })
-    .catch(() => {
-      logInfo('CrossOver not found', LogPrefix.GlobalConfig)
-    })
+    }
+  })
   return crossover
 }
 
