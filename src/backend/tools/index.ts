@@ -17,7 +17,8 @@ import {
   axiosClient,
   downloadFile,
   execAsync,
-  getWineFromProton
+  getWineFromProton,
+  spawnAsync
 } from '../utils'
 import {
   execOptions,
@@ -117,8 +118,12 @@ async function installOrUpdateTool(tool: Tool) {
 
   const extractDestination = join(toolsPath, tool.name, latestVersion)
   mkdirSync(extractDestination, { recursive: true })
-  const extractCommand = `${tool.extractCommand} ${latestVersion} -C ${toolsPath}/${tool.name}`
-  await execAsync(extractCommand)
+
+  await spawnAsync(tool.extractCommand, [
+    latestVersion,
+    '-C',
+    `${toolsPath}/${tool.name}`
+  ])
     .then(() => {
       writeFileSync(installedVersionStorage, latestVersion)
       logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
