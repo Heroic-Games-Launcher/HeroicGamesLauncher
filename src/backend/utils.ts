@@ -1478,6 +1478,38 @@ function calculateEta(
   return eta
 }
 
+interface ExtractOptions {
+  path: string
+  destination: string
+  strip: number
+}
+
+async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
+  if (path.includes('.tar')) return extractTarFile({ path, destination, strip })
+
+  logError(['extractFiles: Unsupported file', path], LogPrefix.Backend)
+  return { status: 'error', error: 'Unsupported file type' }
+}
+
+async function extractTarFile({
+  path,
+  destination,
+  strip = 0
+}: ExtractOptions) {
+  const { code, stderr } = await spawnAsync('tar', [
+    '-xf',
+    path,
+    '-C',
+    destination,
+    `--strip-components=${strip}`
+  ])
+  if (code !== 0) {
+    logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
+    return { status: 'error', error: stderr }
+  }
+  return { status: 'done', installPath: destination }
+}
+
 const axiosClient = axios.create({
   timeout: 10 * 1000,
   httpsAgent: new https.Agent({ keepAlive: true })
@@ -1518,6 +1550,7 @@ export {
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,
+  extractFiles,
   axiosClient
 }
 
