@@ -40,7 +40,8 @@ import {
   configStore,
   isCLINoGui,
   isLinux,
-  epicRedistPath
+  epicRedistPath,
+  CONFIG_STORE_KEYS
 } from '../../constants'
 import {
   appendGamePlayLog,
@@ -178,7 +179,7 @@ async function getProductSlug(namespace: string, title: string) {
 }
 
 async function getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
-  let lang = configStore.get('language', '')
+  let lang = configStore.get(CONFIG_STORE_KEYS.LANGUAGE, '')
   if (lang === 'pt') {
     lang = 'pt-BR'
   }
@@ -864,7 +865,8 @@ export async function launch(
     return false
   }
 
-  const languageCode = gameSettings.language || configStore.get('language', '')
+  const languageCode =
+    gameSettings.language || configStore.get(CONFIG_STORE_KEYS.LANGUAGE, '')
 
   let commandEnv = {
     ...process.env,

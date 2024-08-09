@@ -35,7 +35,8 @@ import {
   isMac,
   configStore,
   isLinux,
-  isSnap
+  isSnap,
+  CONFIG_STORE_KEYS
 } from './constants'
 import {
   appendGamePlayLog,
@@ -658,7 +659,7 @@ function detectVCRedist(mainWindow: BrowserWindow) {
     return
   }
 
-  const skip = configStore.get('skipVcRuntime', false)
+  const skip = configStore.get(CONFIG_STORE_KEYS.SKIP_VC_RUNTIME, false)
 
   if (skip) {
     return
@@ -727,7 +728,7 @@ function detectVCRedist(mainWindow: BrowserWindow) {
       })
 
       if (response === 2) {
-        return configStore.set('skipVcRuntime', true)
+        return configStore.set(CONFIG_STORE_KEYS.SKIP_VC_RUNTIME, true)
       }
 
       if (response === 0) {
