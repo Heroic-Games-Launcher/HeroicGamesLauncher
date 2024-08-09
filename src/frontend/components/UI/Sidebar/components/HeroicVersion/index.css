@@ -1,0 +1,47 @@
+.Sidebar {
+  .heroicVersion {
+    display: flex;
+    gap: 5px;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: 300ms;
+    color: var(--brand-text-01);
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+
+  .heroicNewReleases {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: var(--text-sm);
+
+    & > a {
+      color: var(--accent);
+      transition: 300ms;
+      -webkit-app-region: no-drag;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--accent-overlay);
+      }
+    }
+  }
+
+  &.collapsed {
+    .heroicVersion {
+      font-size: var(--text-xs);
+      text-align: center;
+    }
+
+    .heroicVersion__title {
+      display: none;
+    }
+
+    .heroicNewReleases {
+      display: none;
+    }
+  }
+}

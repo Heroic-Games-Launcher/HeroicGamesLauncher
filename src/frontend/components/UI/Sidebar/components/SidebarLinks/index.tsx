@@ -10,34 +10,23 @@ import {
   faWineGlass,
   faBarsProgress
 } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { NavLink, useLocation } from 'react-router-dom'
-import classNames from 'classnames'
+import { useLocation } from 'react-router-dom'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Runner } from 'common/types'
-import './index.css'
 import QuitButton from '../QuitButton'
-import { LocationState } from 'frontend/types'
 import { SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY } from 'frontend/components/UI/ExternalLinkDialog'
+import SidebarItem from '../SidebarItem'
 
-type PathSplit = [
-  a: undefined,
-  b: undefined,
-  runner: Runner | 'app',
-  appName: string,
-  type: string
-]
+type PathSplit = [a: undefined, b: undefined, type: string]
 
 export default function SidebarLinks() {
   const { t } = useTranslation()
-  const { state } = useLocation() as { state: LocationState }
   const location = useLocation() as { pathname: string }
-  const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
+  const [, , type] = location.pathname.split('/') as PathSplit
 
   const {
     amazon,
@@ -53,8 +42,6 @@ export default function SidebarLinks() {
     location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
-
-  const settingsPath = '/settings/app/default/general'
 
   const loggedIn = epic.username || gog.username || amazon.user_id
 
@@ -101,288 +88,159 @@ export default function SidebarLinks() {
   return (
     <div className="SidebarLinks Sidebar__section">
       {!loggedIn && (
-        <NavLink
-          className={({ isActive }) =>
-            classNames('Sidebar__item', { active: isActive })
-          }
-          to={'/login'}
-        >
-          <>
-            <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon
-                icon={faUser}
-                title={t('button.login', 'Login')}
-              />
-            </div>
-            <span>{t('button.login', 'Login')}</span>
-          </>
-        </NavLink>
+        <SidebarItem
+          icon={faUser}
+          label={t('button.login', 'Login')}
+          url="/login"
+        />
       )}
-      <NavLink
-        className={({ isActive }) =>
-          classNames('Sidebar__item', {
-            active: isActive || location.pathname.includes('gamepage')
-          })
-        }
-        to={'/'}
+      <SidebarItem
+        isActiveFallback={location.pathname.includes('gamepage')}
+        url="/"
+        icon={faGamepad}
+        label={t('Library')}
         onClick={async () => handleRefresh()}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon icon={faGamepad} title={t('Library')} />
-          </div>
-          <span>{t('Library')}</span>
-        </>
-      </NavLink>
+      />
+
       <div className="SidebarItemWithSubmenu">
-        <NavLink
-          className={({ isActive }) =>
-            classNames('Sidebar__item', {
-              active: isActive || location.pathname.includes('store')
-            })
-          }
-          to={`/store/${defaultStore}`}
-        >
-          <>
-            <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faStore} title={t('stores', 'Stores')} />
-            </div>
-            <span>{t('stores', 'Stores')}</span>
-          </>
-        </NavLink>
+        <SidebarItem
+          isActiveFallback={location.pathname.includes('store')}
+          url={`/store/${defaultStore}`}
+          icon={faStore}
+          label={t('stores', 'Stores')}
+        />
         {inWebviewScreen && (
           <div className="SidebarSubmenu">
-            <NavLink
-              data-testid="store"
-              className={({ isActive }) =>
-                classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                  active: isActive
-                })
-              }
-              to="/store/epic"
-            >
-              <span>{t('store', 'Epic Store')}</span>
-            </NavLink>
-            <NavLink
-              data-testid="store"
-              className={({ isActive }) =>
-                classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                  active: isActive
-                })
-              }
-              to="/store/gog"
-            >
-              <span>{t('gog-store', 'GOG Store')}</span>
-            </NavLink>
-            <NavLink
-              data-testid="store"
-              className={({ isActive }) =>
-                classNames('Sidebar__item', 'SidebarLinks__subItem', {
-                  active: isActive
-                })
-              }
-              to="/store/amazon"
-            >
-              <span>{t('prime-gaming', 'Prime Gaming')}</span>
-            </NavLink>
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/store/epic"
+              label={t('store', 'Epic Store')}
+            />
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/store/gog"
+              label={t('gog-store', 'GOG Store')}
+            />
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/store/amazon"
+              label={t('prime-gaming', 'Prime Gaming')}
+            />
           </div>
         )}
       </div>
       <div className="divider" />
       <div className="SidebarItemWithSubmenu">
-        <NavLink
-          data-testid="settings"
-          className={({ isActive }) =>
-            classNames('Sidebar__item', {
-              active: isActive || location.pathname.includes('settings')
-            })
-          }
-          to={{ pathname: settingsPath }}
-          state={{
-            fromGameCard: false
-          }}
-        >
-          <>
-            <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon icon={faSlidersH} title={t('Settings')} />
-            </div>
-            <span>{t('Settings', 'Settings')}</span>
-          </>
-        </NavLink>
+        <SidebarItem
+          isActiveFallback={location.pathname.includes('settings')}
+          icon={faSlidersH}
+          label={t('Settings', 'Settings')}
+          url="/settings/general"
+        />
         {isSettings && (
           <div className="SidebarSubmenu settings">
-            <NavLink
-              role="link"
-              to={{ pathname: '/settings/app/default/general' }}
-              state={{ fromGameCard: false }}
-              className={classNames('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'general'
-              })}
-            >
-              <span>{t('settings.navbar.general')}</span>
-            </NavLink>
+            <SidebarItem
+              url="/settings/general"
+              isActiveFallback={type === 'general'}
+              className="SidebarLinks__subItem"
+              label={t('settings.navbar.general')}
+            />
+
             {!isWin && (
-              <NavLink
-                role="link"
-                to={`/settings/${runner}/${appName}/games_settings`}
-                state={{ ...state, runner: state?.runner }}
-                className={classNames('Sidebar__item SidebarLinks__subItem', {
-                  ['active']: type === 'games_settings'
-                })}
-              >
-                <span>
-                  {t(
-                    'settings.navbar.games_settings_defaults',
-                    'Game Defaults'
-                  )}
-                </span>
-              </NavLink>
+              <SidebarItem
+                url="/settings/games_settings"
+                isActiveFallback={type === 'games_settings'}
+                className="SidebarLinks__subItem"
+                label={t(
+                  'settings.navbar.games_settings_defaults',
+                  'Game Defaults'
+                )}
+              />
             )}
-            <NavLink
-              role="link"
-              to={`/settings/${runner}/${appName}/advanced`}
-              state={{ ...state, runner: state?.runner }}
-              className={classNames('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'advanced'
-              })}
-            >
-              <span>{t('settings.navbar.advanced', 'Advanced')}</span>
-            </NavLink>
-            <NavLink
-              role="link"
-              to={`/settings/${runner}/${appName}/systeminfo`}
-              state={{ ...state, runner: state?.runner }}
-              className={classNames('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'systeminfo'
-              })}
-            >
-              <span>
-                {t('settings.navbar.systemInformation', 'System Information')}
-              </span>
-            </NavLink>
-            <NavLink
-              role="link"
-              to={`/settings/${runner}/${appName}/log`}
-              state={{ ...state, runner: state?.runner }}
-              className={classNames('Sidebar__item SidebarLinks__subItem', {
-                ['active']: type === 'log'
-              })}
-            >
-              <span>{t('settings.navbar.log', 'Log')}</span>
-            </NavLink>
+
+            <SidebarItem
+              url="/settings/advanced"
+              isActiveFallback={type === 'advanced'}
+              className="SidebarLinks__subItem"
+              label={t('settings.navbar.advanced', 'Advanced')}
+            />
+
+            <SidebarItem
+              url="/settings/systeminfo"
+              isActiveFallback={type === 'systeminfo'}
+              className="SidebarLinks__subItem"
+              label={t(
+                'settings.navbar.systemInformation',
+                'System Information'
+              )}
+            />
+
+            <SidebarItem
+              url="/settings/log"
+              isActiveFallback={type === 'log'}
+              className="SidebarLinks__subItem"
+              label={t('settings.navbar.log', 'Log')}
+            />
           </div>
         )}
       </div>
-      <NavLink
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/download-manager' }}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon
-              icon={faBarsProgress}
-              title={t('download-manager.link', 'Downloads')}
-            />
-          </div>
-          <span>{t('download-manager.link', 'Downloads')}</span>
-        </>
-      </NavLink>
+      <SidebarItem
+        url="/download-manager"
+        icon={faBarsProgress}
+        label={t('download-manager.link', 'Downloads')}
+      />
+
       {!isWin && (
-        <NavLink
-          className={({ isActive }) =>
-            classNames('Sidebar__item', { active: isActive })
-          }
-          to={{ pathname: '/wine-manager' }}
-        >
-          <>
-            <div className="Sidebar__itemIcon">
-              <FontAwesomeIcon
-                icon={faWineGlass}
-                title={t('wine.manager.link', 'Wine Manager')}
-              />
-            </div>
-            <span>{t('wine.manager.link', 'Wine Manager')}</span>
-          </>
-        </NavLink>
+        <SidebarItem
+          url="/wine-manager"
+          icon={faWineGlass}
+          label={t('wine.manager.link', 'Wine Manager')}
+        />
       )}
+
       {loggedIn && (
-        <NavLink className="Sidebar__item" to={'/login'}>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon
-              icon={faUserAlt}
-              title={t('userselector.manageaccounts', 'Manage Accounts')}
-            />
-          </div>
-          <span>{t('userselector.manageaccounts', 'Manage Accounts')}</span>
-        </NavLink>
+        <SidebarItem
+          url="/login"
+          icon={faUserAlt}
+          label={t('userselector.manageaccounts', 'Manage Accounts')}
+        />
       )}
-      <NavLink
-        data-testid="accessibility"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/accessibility' }}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon
-              icon={faUniversalAccess}
-              title={t('accessibility.title', 'Accessibility')}
-            />
-          </div>
-          <span>{t('accessibility.title', 'Accessibility')}</span>
-        </>
-      </NavLink>
+
+      <SidebarItem
+        url="/accessibility"
+        icon={faUniversalAccess}
+        label={t('accessibility.title', 'Accessibility')}
+      />
+
       <div className="divider" />
-      <NavLink
-        data-testid="wiki"
-        className={({ isActive }) =>
-          classNames('Sidebar__item', { active: isActive })
-        }
-        to={{ pathname: '/wiki' }}
-      >
-        <>
-          <div className="Sidebar__itemIcon">
-            <FontAwesomeIcon
-              icon={faBookOpen}
-              title={t('docs', 'Documentation')}
-            />
-          </div>
-          <span>{t('docs', 'Documentation')}</span>
-        </>
-      </NavLink>
-      <button
-        className="Sidebar__item"
+
+      <SidebarItem
+        url="/wiki"
+        icon={faBookOpen}
+        label={t('docs', 'Documentation')}
+      />
+
+      <SidebarItem
+        elementType="button"
         onClick={() => handleExternalLink(openDiscordLink)}
-      >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon
-            icon={faDiscord}
-            title={t('userselector.discord', 'Discord')}
-          />
-        </div>
-        <span>{t('userselector.discord', 'Discord')}</span>
-      </button>
-      <button
-        className="Sidebar__item"
+        icon={faDiscord}
+        label={t('userselector.discord', 'Discord')}
+      />
+
+      <SidebarItem
+        elementType="button"
         onClick={() => handleExternalLink(window.api.openPatreonPage)}
-      >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faPatreon} title="Patreon" />
-        </div>
-        <span>Patreon</span>
-      </button>
-      <button
-        className="Sidebar__item"
+        icon={faPatreon}
+        label="Patreon"
+      />
+
+      <SidebarItem
+        elementType="button"
         onClick={() => handleExternalLink(window.api.openKofiPage)}
-      >
-        <div className="Sidebar__itemIcon">
-          <FontAwesomeIcon icon={faCoffee} title="Ko-fi" />
-        </div>
-        <span>Ko-fi</span>
-      </button>
+        icon={faCoffee}
+        label="Ko-fi"
+      />
+
       <QuitButton />
     </div>
   )

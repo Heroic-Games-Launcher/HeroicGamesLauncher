@@ -1653,7 +1653,7 @@ ipcMain.on('processShortcut', async (e, combination: string) => {
       break
     // hotkey to open the settings on frontend
     case 'ctrl+k':
-      sendFrontendMessage('openScreen', '/settings/app/default/general')
+      sendFrontendMessage('openScreen', '/settings/general')
       break
     // hotkey to open the downloads screen on frontend
     case 'ctrl+j':

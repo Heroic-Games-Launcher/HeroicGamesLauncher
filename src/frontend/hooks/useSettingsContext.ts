@@ -6,8 +6,8 @@ import ContextProvider from 'frontend/state/ContextProvider'
 
 type Props = {
   appName: string
-  gameInfo: GameInfo
-  runner: Runner
+  gameInfo?: GameInfo
+  runner?: Runner
 }
 
 const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
