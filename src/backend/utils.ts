@@ -34,8 +34,7 @@ import {
   GITHUB_API,
   isMac,
   configStore,
-  isLinux,
-  isSnap
+  isLinux
 } from './constants'
 import {
   appendGamePlayLog,
@@ -81,10 +80,6 @@ import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
 import EasyDl from 'easydl'
 
-import decompress from '@xhmikosr/decompress'
-import decompressTargz from '@xhmikosr/decompress-targz'
-import decompressTarxz from '@felipecrs/decompress-tarxz'
-import decompressUnzip from '@xhmikosr/decompress-unzip'
 import {
   deviceNameCache,
   vendorNameCache
@@ -1490,26 +1485,17 @@ interface ExtractOptions {
 }
 
 async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
-  if (!isSnap && (path.endsWith('.tar.xz') || path.endsWith('.tar.gz'))) {
-    try {
-      await extractNative(path, destination, strip)
-    } catch (error) {
-      logError(['Error:', error], LogPrefix.Backend)
-    }
-  } else {
-    try {
-      await extractDecompress(path, destination, strip)
-    } catch (error) {
-      logError(['Error:', error], LogPrefix.Backend)
-    }
-  }
+  if (path.includes('.tar')) return extractTarFile({ path, destination, strip })
+
+  logError(['extractFiles: Unsupported file', path], LogPrefix.Backend)
+  return { status: 'error', error: 'Unsupported file type' }
 }
 
-async function extractNative(path: string, destination: string, strip: number) {
-  logInfo(
-    `Extracting ${path} to ${destination} using native tar`,
-    LogPrefix.Backend
-  )
+async function extractTarFile({
+  path,
+  destination,
+  strip = 0
+}: ExtractOptions) {
   const { code, stderr } = await spawnAsync('tar', [
     '-xf',
     path,
@@ -1522,25 +1508,6 @@ async function extractNative(path: string, destination: string, strip: number) {
     return { status: 'error', error: stderr }
   }
   return { status: 'done', installPath: destination }
-}
-
-async function extractDecompress(
-  path: string,
-  destination: string,
-  strip: number
-) {
-  logInfo(
-    `Extracting ${path} to ${destination} using decompress`,
-    LogPrefix.Backend
-  )
-  try {
-    await decompress(path, destination, {
-      plugins: [decompressTargz(), decompressTarxz(), decompressUnzip()],
-      strip
-    })
-  } catch (error) {
-    logError(['Error:', error], LogPrefix.Backend)
-  }
 }
 
 const axiosClient = axios.create({

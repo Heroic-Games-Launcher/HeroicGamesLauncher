@@ -87,7 +87,6 @@ async function extractTarFile(
     extractedPath = splitPath.join('.tar')
   }
   mkdirSync(extractedPath, { recursive: true })
-
   const strip = options?.strip
 
   return extractFiles({

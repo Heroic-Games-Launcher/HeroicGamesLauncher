@@ -1,7 +1,6 @@
 appId: com.heroicgameslauncher.hgl
 productName: Heroic
 afterSign: sign/afterSign.js
-afterPack: sign/afterPack.js
 files:
   - build/**/*
   - node_modules/**/*
@@ -17,9 +16,6 @@ asarUnpack:
   - build/webviewPreload.js
   - build/bin/**/*
   - '!build/bin/legendary.LICENSE'
-
-electronDownload:
-  mirror: https://github.com/castlabs/electron-releases/releases/download/v
 
 protocols:
   - name: heroic

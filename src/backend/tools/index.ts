@@ -117,24 +117,17 @@ async function installOrUpdateTool(tool: Tool) {
 
   const extractDestination = join(toolsPath, tool.name, latestVersion)
   mkdirSync(extractDestination, { recursive: true })
-  try {
-    await extractFiles({
-      path: latestVersionArchivePath,
-      destination: extractDestination,
-      strip: tool.strip ?? 1
-    })
-  } catch (error) {
-    logError(
-      [`Extraction of ${tool.name} failed with:`, error],
-      LogPrefix.DXVKInstaller
-    )
-    return
-  } finally {
-    rmSync(latestVersionArchivePath)
-  }
+  const extractResult = await extractFiles({
+    path: latestVersionArchivePath,
+    destination: extractDestination,
+    strip: tool.strip ?? 1
+  })
+  rmSync(latestVersionArchivePath)
 
-  writeFileSync(installedVersionStorage, latestVersion)
-  logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
+  if (extractResult.status === 'done') {
+    writeFileSync(installedVersionStorage, latestVersion)
+    logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
+  }
 }
 
 export const DXVK = {
