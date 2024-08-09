@@ -445,9 +445,11 @@ export async function refresh(): Promise<ExecResult> {
   for (const chunk of chunks) {
     const settled = await Promise.allSettled(chunk)
     const fulfilled = settled
-      .filter((promise) => promise.status === 'fulfilled')
-      //@ts-expect-error Typescript is confused about this filter statement, it's correct however
-      .map((promise: PromiseFulfilledResult<GameInfo>) => promise.value)
+      .filter(
+        (promise): promise is PromiseFulfilledResult<GameInfo> =>
+          promise.status === 'fulfilled'
+      )
+      .map((promise) => promise.value)
 
     fulfilled.forEach((data: GameInfo) => {
       if (data?.app_name) {
@@ -869,7 +871,7 @@ export async function getBuilds(
     url.searchParams.set('password', password)
   }
 
-  const headers: AxiosRequestHeaders = {}
+  const headers = {} as AxiosRequestHeaders
   if (access_token) {
     headers.Authorization = `Bearer ${access_token}`
   }
@@ -1221,7 +1223,7 @@ export async function getGamesdbData(
       logError(
         [
           `Was not able to get GamesDB data for ${game_id}`,
-          error.response?.data.error_description
+          error.response?.data
         ],
         LogPrefix.ExtraGameInfo
       )
@@ -1265,7 +1267,7 @@ export async function getProductApi(
     url.searchParams.set('expand', expand.join(','))
   }
 
-  const headers: AxiosRequestHeaders = {}
+  const headers = {} as AxiosRequestHeaders
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`
   }
