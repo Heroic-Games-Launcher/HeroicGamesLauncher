@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
 import { clearCache } from '../../utils'
-import { userInfo, configStore } from '../../constants'
+import { userInfo, configStore, CONFIG_STORE_KEYS } from '../../constants'
 import { logError, LogPrefix } from '../../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
@@ -69,7 +69,7 @@ export class LegendaryUser {
     await ses.clearCache()
     await ses.clearAuthCache()
     await ses.clearHostResolverCache()
-    configStore.delete('userInfo')
+    configStore.delete(CONFIG_STORE_KEYS.USER_INFO)
     clearCache('legendary')
   }
 
@@ -79,7 +79,7 @@ export class LegendaryUser {
 
   public static getUserInfo(): UserInfo | undefined {
     if (!LegendaryUser.isLoggedIn()) {
-      configStore.delete('userInfo')
+      configStore.delete(CONFIG_STORE_KEYS.USER_INFO)
       return
     }
     try {
@@ -90,7 +90,7 @@ export class LegendaryUser {
         displayName: userInfoObject.displayName,
         user: user().username
       }
-      configStore.set('userInfo', info)
+      configStore.set(CONFIG_STORE_KEYS.USER_INFO, info)
       return info
     } catch (error) {
       logError(

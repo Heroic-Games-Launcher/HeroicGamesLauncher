@@ -13,16 +13,37 @@ import { GlobalConfig } from './config'
 import { TypeCheckedStoreBackend } from './electron_store'
 import { dirSync } from 'tmp'
 
-const configStore = new TypeCheckedStoreBackend('configStore', {
-  cwd: 'store'
-})
+export enum CONFIG_STORE_KEYS {
+  CONFIG_STORE = 'configStore',
+  TIMESTAMP_STORE = 'timestampStore',
+  FONTS_STORE = 'fontsStore',
+  GENERAL_LOGS = 'general-logs',
+  WINDOW_PROPS = 'window-props',
+  USER_HOME = 'userHome',
+  READY_TO_SHOW = 'ready-to-show',
+  ZOOM_PERCENT = 'zoomPercent',
+  SHOW_SNAP_WARNING = 'showSnapWarning',
+  SETTINGS = 'settings',
+  GAMES_RECENT = 'games.recent',
+  LANGUAGE = 'language',
+  USER_INFO = 'userInfo',
+  GET = 'get',
+  SKIP_VC_RUNTIME = 'skipVcRuntime'
+}
 
-const tsStore = new TypeCheckedStoreBackend('timestampStore', {
+const configStore = new TypeCheckedStoreBackend(
+  CONFIG_STORE_KEYS.CONFIG_STORE,
+  {
+    cwd: 'store'
+  }
+)
+
+const tsStore = new TypeCheckedStoreBackend(CONFIG_STORE_KEYS.TIMESTAMP_STORE, {
   cwd: 'store',
   name: 'timestamp'
 })
 
-const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
+const fontsStore = new TypeCheckedStoreBackend(CONFIG_STORE_KEYS.FONTS_STORE, {
   cwd: 'store',
   name: 'fonts'
 })
