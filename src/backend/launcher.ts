@@ -243,6 +243,7 @@ async function prepareLaunch(
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
+    gameSettings.wineVersion.type === 'proton' &&
     (isNative || !(await isUmuSupported(gameSettings.wineVersion.type)))
 
   if (shouldUseRuntime) {
