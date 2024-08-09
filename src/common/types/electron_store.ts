@@ -81,6 +81,7 @@ export interface StoreStructure {
   downloadManager: {
     queue: DMQueueElement[]
     finished: DMQueueElement[]
+    autoShutdown: boolean
   }
   gogSyncStore: {
     [appName: string]: {
