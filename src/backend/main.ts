@@ -410,7 +410,7 @@ if (!gotTheLock) {
       handleProtocol([request.url])
       return new Response('Operation initiated.', { status: 201 })
     })
-    if (!app.isDefaultProtocolClient('heroic')) {
+    if (process.env.CI !== 'e2e' && !app.isDefaultProtocolClient('heroic')) {
       if (app.setAsDefaultProtocolClient('heroic')) {
         logInfo('Registered protocol with OS.', LogPrefix.Backend)
       } else {

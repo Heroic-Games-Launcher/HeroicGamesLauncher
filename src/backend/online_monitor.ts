@@ -73,6 +73,11 @@ const ping = async (url: string, signal: AbortSignal) => {
 }
 
 const pingSites = () => {
+  if (process.env.CI === 'e2e') {
+    setStatus('online')
+    return
+  }
+
   logInfo(`Pinging external endpoints`, LogPrefix.Connection)
   abortController = new AbortController()
 
