@@ -31,6 +31,7 @@ export default function GOGModifyInstallModal({
 }: GOGModifyInstallModal) {
   const { t, i18n } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
+  const isLinux = gameInfo.install.platform === 'linux'
   const [gameInstallInfo, setGameInstallInfo] = useState<GogInstallInfo>()
 
   const [installLanguages, setInstallLanguages] = useState<string[]>([])
@@ -65,7 +66,7 @@ export default function GOGModifyInstallModal({
   const [currentTab, setCurrentTab] = useState('updates')
 
   const handleConfirm = () => {
-    const gameBuild = selectedBuild || builds[0].build_id
+    const gameBuild = selectedBuild || builds[0]?.build_id
     const versionPinned = !!selectedBuild
     const buildModified = gameBuild !== gameInfo.install.buildId
     const languageModified = installLanguage !== gameInfo.install.language
@@ -100,7 +101,9 @@ export default function GOGModifyInstallModal({
     }
 
     const gameModified =
-      buildModified || branchModified || languageModified || dlcModified
+      (!isLinux && (buildModified || branchModified)) ||
+      languageModified ||
+      dlcModified
 
     if (gameModified) {
       // Create update
@@ -247,35 +250,39 @@ export default function GOGModifyInstallModal({
         )}
       </Tabs>
       <TabPanel value={currentTab} index={'updates'}>
-        <div className="ModifyInstall__branch">
-          <BranchSelector
-            appName={gameInfo.app_name}
-            branches={branches}
-            branch={branch}
-            setBranch={setBranch}
-            savedBranchPassword={savedBranchPassword}
-            onPasswordChange={(newPasswd) => setSavedBranchPassword(newPasswd)}
-          />
-        </div>
-
-        {installLanguages.length > 1 && (
-          <div className="ModifyInstall__languages">
-            <GameLanguageSelector
-              installLanguages={installLanguages}
-              setInstallLanguage={setInstallLanguage}
-              installPlatform={gameInfo.install.platform ?? 'windows'}
-              installLanguage={installLanguage}
+        {!!branches.length && (
+          <div className="ModifyInstall__branch">
+            <BranchSelector
+              appName={gameInfo.app_name}
+              branches={branches}
+              branch={branch}
+              setBranch={setBranch}
+              savedBranchPassword={savedBranchPassword}
+              onPasswordChange={(newPasswd) =>
+                setSavedBranchPassword(newPasswd)
+              }
             />
           </div>
         )}
 
-        <div className="ModifyInstall__version">
-          <BuildSelector
-            gameBuilds={builds}
-            selectedBuild={selectedBuild}
-            setSelectedBuild={setSelectedBuild}
+        <div className="ModifyInstall__languages">
+          <GameLanguageSelector
+            installLanguages={installLanguages}
+            setInstallLanguage={setInstallLanguage}
+            installPlatform={gameInfo.install.platform ?? 'windows'}
+            installLanguage={installLanguage}
           />
         </div>
+
+        {!!builds.length && (
+          <div className="ModifyInstall__version">
+            <BuildSelector
+              gameBuilds={builds}
+              selectedBuild={selectedBuild}
+              setSelectedBuild={setSelectedBuild}
+            />
+          </div>
+        )}
       </TabPanel>
       <TabPanel value={currentTab} index={'dlc'}>
         <div className="ModifyInstall__gogDlcs">
