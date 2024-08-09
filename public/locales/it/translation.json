@@ -9,7 +9,7 @@
         "disable_dialog_backdrop_close": "Disattiva la chiusura delle finestre di dialogo facendo clic all'esterno",
         "titles_always_visible": "Mostra sempre i titoli in libreria"
     },
-    "add_game": "Aggiungi Un Gioco",
+    "add_game": "Aggiungi Gioco",
     "All": "Tutto",
     "anticheat": {
         "anticheats": "Anticheat",
@@ -670,7 +670,9 @@
             "enableNewShinyFeature": "Nuova funzione bellissima",
             "enableNewDesign": "Nuovo design",
             "automaticWinetricksFixes": "Applica correzioni note automaticamente",
-            "enableHelp": "Componente aiuto"
+            "enableHelp": "Componente aiuto",
+            "cometSupport": "Supporto Comet",
+            "umuSupport": "Utilizza UMU come runtime Proton"
         },
         "allow_installation_broken_anticheat": {
             "label": "Permetti l'installazione dei giochi con l'anticheat bloccato o non funzionante",
@@ -760,7 +762,8 @@
             "memory": "Memoria:",
             "copyToClipboard": "Copia negli appunti",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Funzioni Sperimentali"
