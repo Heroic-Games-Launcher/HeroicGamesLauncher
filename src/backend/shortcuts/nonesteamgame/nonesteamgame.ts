@@ -18,7 +18,7 @@ import {
   removeImagesFromSteam
 } from './steamhelper'
 import { app } from 'electron'
-import { isFlatpak, isWindows, tsStore } from '../../constants'
+import { isFlatpak, isWindows, TS_STORE_KEYS, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
@@ -317,7 +317,7 @@ async function addNonSteamGame(props: {
     newEntry.DevkitOverrideAppID = false
 
     const lastPlayed = tsStore.get_nodefault(
-      `${props.gameInfo.app_name}.lastPlayed`
+      `${props.gameInfo.app_name}.${TS_STORE_KEYS.LAST_PLAYED}`
     )
     if (lastPlayed) {
       newEntry.LastPlayTime = new Date(lastPlayed)
