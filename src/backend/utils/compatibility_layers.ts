@@ -444,29 +444,35 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
     return whisky
   }
 
-  await execAsync(
-    'mdfind kMDItemCFBundleIdentifier = "com.isaacmarovitz.Whisky"'
-  ).then(async ({ stdout }) => {
-    stdout.split('\n').forEach((whiskyMacPath) => {
-      const infoFilePath = join(whiskyMacPath, 'Contents/Info.plist')
-      if (whiskyMacPath && existsSync(infoFilePath)) {
-        const info = plistParse(
-          readFileSync(infoFilePath, 'utf-8')
-        ) as PlistObject
-        const version = info['CFBundleShortVersionString'] || ''
-        const whiskyWineBin = `${userHome}/Library/Application Support/com.isaacmarovitz.Whisky/Libraries/Wine/bin/wine64`
+  const whiskyWinePath = join(
+    userHome,
+    'Library/Application Support/com.isaacmarovitz.Whisky/Libraries'
+  )
+  const whiskyVersionPlist = join(whiskyWinePath, 'WhiskyWineVersion.plist')
+  const whiskyWineBin = join(whiskyWinePath, 'Wine/bin/wine64')
 
-        whisky.add({
-          bin: whiskyWineBin,
-          name: `Whisky - ${version}`,
-          type: `toolkit`,
-          lib: `${dirname(whiskyWineBin)}/../lib`,
-          lib32: `${dirname(whiskyWineBin)}/../lib`,
-          ...getWineExecs(whiskyWineBin)
-        })
-      }
-    })
-  })
+  if (existsSync(whiskyVersionPlist) && existsSync(whiskyWineBin)) {
+    try {
+      const info = plistParse(
+        readFileSync(whiskyVersionPlist, 'utf-8')
+      ) as PlistObject
+      const version = info['version']
+      const versionString = `${version['major']}.${version['minor']}.${version['patch']}-${version['build']}`
+      whisky.add({
+        bin: whiskyWineBin,
+        name: `Whisky - ${versionString}`,
+        type: 'toolkit',
+        lib: join(whiskyWinePath, 'Wine/lib'),
+        lib32: join(whiskyWinePath, 'Wine/lib'),
+        ...getWineExecs(whiskyWineBin)
+      })
+    } catch (error) {
+      logError(
+        `Error getting wine version for ${whiskyWineBin}`,
+        LogPrefix.GlobalConfig
+      )
+    }
+  }
 
   return whisky
 }
