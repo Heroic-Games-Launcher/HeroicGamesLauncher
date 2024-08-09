@@ -13,6 +13,10 @@ import { GlobalConfig } from './config'
 import { TypeCheckedStoreBackend } from './electron_store'
 import { dirSync } from 'tmp'
 
+export enum FONTS_STORE_KEYS {
+  FONTS = 'fonts'
+}
+
 const configStore = new TypeCheckedStoreBackend('configStore', {
   cwd: 'store'
 })

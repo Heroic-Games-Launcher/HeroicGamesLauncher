@@ -91,7 +91,8 @@ import {
   isSnap,
   fixesPath,
   isWindows,
-  isMac
+  isMac,
+  FONTS_STORE_KEYS
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -1578,11 +1579,11 @@ ipcMain.handle('gamepadAction', async (event, args) => {
 })
 
 ipcMain.handle('getFonts', async (event, reload) => {
-  let cachedFonts = fontsStore.get('fonts', [])
+  let cachedFonts = fontsStore.get(FONTS_STORE_KEYS.FONTS, [])
   if (cachedFonts.length === 0 || reload) {
     cachedFonts = await getFonts()
     cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
-    fontsStore.set('fonts', cachedFonts)
+    fontsStore.set(FONTS_STORE_KEYS.FONTS, cachedFonts)
   }
   return cachedFonts
 })
