@@ -94,7 +94,8 @@ import {
   isSnap,
   fixesPath,
   isWindows,
-  isMac
+  isMac,
+  TS_STORE_KEYS
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -958,7 +959,7 @@ ipcMain.handle(
 
     if (!tsStore.has(game.app_name)) {
       tsStore.set(
-        `${game.app_name}.firstPlayed`,
+        `${game.app_name}.${TS_STORE_KEYS.FIRST_PLAYED}`,
         startPlayingDate.toISOString()
       )
     }
@@ -1089,8 +1090,12 @@ ipcMain.handle(
     const sessionPlaytime =
       (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
     const totalPlaytime =
-      sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
-    tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+      sessionPlaytime +
+      tsStore.get(`${appName}.${TS_STORE_KEYS.TOTAL_PLAYED}`, 0)
+    tsStore.set(
+      `${appName}.${TS_STORE_KEYS.TOTAL_PLAYED}`,
+      Math.floor(totalPlaytime)
+    )
 
     const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
     if (runner === 'gog') {

@@ -17,6 +17,12 @@ const configStore = new TypeCheckedStoreBackend('configStore', {
   cwd: 'store'
 })
 
+export enum TS_STORE_KEYS {
+  FIRST_PLAYED = 'firstPlayed',
+  LAST_PLAYED = 'lastPlayed',
+  TOTAL_PLAYED = 'totalPlayed'
+}
+
 const tsStore = new TypeCheckedStoreBackend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
