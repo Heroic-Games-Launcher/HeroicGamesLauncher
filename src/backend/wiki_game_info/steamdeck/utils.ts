@@ -18,7 +18,7 @@ export async function getSteamDeckComp(
       logError(
         [
           `Was not able to get Stem Deck data for ${steamID}`,
-          error.response?.data.error_description
+          error.response?.data
         ],
         LogPrefix.ExtraGameInfo
       )

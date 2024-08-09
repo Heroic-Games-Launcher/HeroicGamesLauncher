@@ -5,10 +5,6 @@ import axios from 'axios'
 import EventEmitter from 'node:events'
 import { sendFrontendMessage } from './main_window'
 
-//**********FORCE TO USE http adapter (node.js version):*****
-axios.defaults.adapter = require('axios/lib/adapters/http.js')
-//**********FORCE TO USE http adapter (node.js version):*****
-
 let status: ConnectivityStatus
 let abortController: AbortController
 let retryTimer: NodeJS.Timeout
