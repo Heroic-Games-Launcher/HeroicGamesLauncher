@@ -67,7 +67,7 @@ export const openWebviewPage = (url: string) =>
 export const setZoomFactor = (zoom: string) =>
   ipcRenderer.send('setZoomFactor', zoom)
 export const frontendReady = () => ipcRenderer.send('frontendReady')
-export const lock = () => ipcRenderer.send('lock')
+export const lock = (playing: boolean) => ipcRenderer.send('lock', playing)
 export const unlock = () => ipcRenderer.send('unlock')
 export const login = async (sid: string) => ipcRenderer.invoke('login', sid)
 export const logoutLegendary = async () => ipcRenderer.invoke('logoutLegendary')

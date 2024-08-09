@@ -10,7 +10,8 @@ import {
   Runner,
   WineVersionInfo,
   LibraryTopSectionOptions,
-  ExperimentalFeatures
+  ExperimentalFeatures,
+  Status
 } from 'common/types'
 import {
   DialogModalOptions,
@@ -930,12 +931,28 @@ class GlobalState extends PureComponent<Props> {
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
 
-    const pendingOps = libraryStatus.filter(
-      (game) => game.status !== 'playing' && game.status !== 'done'
+    const allowedPendingOps: Status[] = [
+      'installing',
+      'updating',
+      'launching',
+      'playing',
+      'redist',
+      'winetricks',
+      'extracting',
+      'repairing',
+      'moving',
+      'syncing-saves',
+      'uninstalling'
+    ]
+
+    const pendingOps = libraryStatus.filter((game) =>
+      allowedPendingOps.includes(game.status)
     ).length
+    const playing =
+      libraryStatus.filter((game) => game.status === 'playing').length > 0
 
     if (pendingOps) {
-      window.api.lock()
+      window.api.lock(playing)
     } else {
       window.api.unlock()
     }
