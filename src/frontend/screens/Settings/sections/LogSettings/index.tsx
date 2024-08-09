@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { Done } from '@mui/icons-material'
 import { UpdateComponent } from 'frontend/components/UI'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
@@ -11,6 +9,12 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import {
+  useGlobalState,
+  useShallowGlobalState
+} from 'frontend/state/GlobalStateV2'
+import Upload from '@mui/icons-material/Upload'
+import Cloud from '@mui/icons-material/Cloud'
 
 interface LogBoxProps {
   logFileContent: string
@@ -66,6 +70,10 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
 export default function LogSettings() {
   const { t } = useTranslation()
   const { appName } = useContext(SettingsContext)
+  const { setUploadLogFileProps } = useShallowGlobalState(
+    'setUploadLogFileProps'
+  )
+  const isInSettingsMenu = appName === 'default'
 
   const [logFileContent, setLogFileContent] = useState<string>('')
   const [logFileExist, setLogFileExist] = useState<boolean>(false)
@@ -73,7 +81,6 @@ export default function LogSettings() {
     appName === 'default' ? 'heroic' : appName
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
-  const [copiedLog, setCopiedLog] = useState<boolean>(false)
 
   const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
   const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
@@ -113,6 +120,28 @@ export default function LogSettings() {
   function showLogFileInFolder() {
     window.api.showLogFileInFolder(showLogOf)
   }
+
+  const descriptiveLogFileName = useMemo(() => {
+    if (showLogOf === 'heroic')
+      return t('setting.log.descriptiveNames.heroic', 'General Heroic log')
+    if (showLogOf === 'legendary')
+      return t(
+        'setting.log.descriptiveNames.legendary',
+        'Epic Games / Legendary log'
+      )
+    if (showLogOf === 'gogdl')
+      return t('setting.log.descriptiveNames.gog', 'GOG log')
+    if (showLogOf === 'nile')
+      return t('setting.log.descriptiveNames.nile', 'Amazon / Nile log')
+    const gameTitle = installedGames.find(
+      ({ app_name }) => app_name === showLogOf
+    )?.title
+    return t(
+      'setting.log.descriptiveNames.game-log',
+      'Game log of {{gameTitle}}',
+      { gameTitle }
+    )
+  }, [showLogOf, installedGames, t])
 
   return (
     <>
@@ -175,64 +204,79 @@ export default function LogSettings() {
           <LogBox logFileContent={logFileContent} />
         )}
       </div>
-      {logFileExist && (
-        <span className="footerFlex">
-          <a
-            onClick={showLogFileInFolder}
-            title={t('setting.log.show-in-folder', 'Show log file in folder')}
-            className="button is-footer"
-          >
-            <div className="button-icontext-flex">
-              <div className="button-icon-flex">
-                <FontAwesomeIcon icon={faFolderOpen} />
+      <span className="footerFlex">
+        {logFileExist && (
+          <>
+            <a
+              onClick={showLogFileInFolder}
+              title={t('setting.log.show-in-folder', 'Show log file in folder')}
+              className="button is-footer"
+            >
+              <div className="button-icontext-flex">
+                <div className="button-icon-flex">
+                  <FontAwesomeIcon icon={faFolderOpen} />
+                </div>
+                <span className="button-icon-text">
+                  {t('setting.log.show-in-folder', 'Show log file in folder')}
+                </span>
               </div>
-              <span className="button-icon-text">
-                {t('setting.log.show-in-folder', 'Show log file in folder')}
-              </span>
-            </div>
-          </a>
-          <a
-            onClick={() => {
-              navigator.clipboard.writeText(logFileContent)
-              setCopiedLog(true)
-              setTimeout(() => {
-                setCopiedLog(false)
-              }, 3000)
-            }}
-            title={t(
-              'setting.log.copy-to-clipboard',
-              'Copy log content to clipboard.'
-            )}
-            className="button is-footer"
-          >
-            <div className="button-icontext-flex">
-              <div className="button-icon-flex">
-                {copiedLog ? <Done /> : <ContentCopyIcon />}
+            </a>
+            <a
+              onClick={() => {
+                setUploadLogFileProps({
+                  appNameOrRunner: showLogOf,
+                  name: descriptiveLogFileName
+                })
+              }}
+              title={t('setting.log.upload.button', 'Upload log file')}
+              className="button is-footer"
+            >
+              <div className="button-icontext-flex">
+                <div className="button-icon-flex">
+                  <Upload />
+                </div>
+                <span className="button-icon-text">
+                  {t('setting.log.upload.button', 'Upload log file')}
+                </span>
               </div>
-              <span className="button-icon-text">
-                {t(
-                  'setting.log.copy-to-clipboard',
-                  'Copy log content to clipboard.'
-                )}
-              </span>
-            </div>
-          </a>
-          <a
-            onClick={openDiscordLink}
-            title={t('setting.log.join-heroic-discord', 'Join our Discord')}
-            className="button is-footer"
-          >
-            <div className="button-icontext-flex">
-              <div className="button-icon-flex">
-                <FontAwesomeIcon icon={faDiscord} />
+            </a>
+            <a
+              onClick={openDiscordLink}
+              title={t('setting.log.join-heroic-discord', 'Join our Discord')}
+              className="button is-footer"
+            >
+              <div className="button-icontext-flex">
+                <div className="button-icon-flex">
+                  <FontAwesomeIcon icon={faDiscord} />
+                </div>
+                <span className="button-icon-text">
+                  {t('setting.log.join-heroic-discord', 'Join our Discord')}
+                </span>
               </div>
-              <span className="button-icon-text">
-                {t('setting.log.join-heroic-discord', 'Join our Discord')}
-              </span>
-            </div>
-          </a>
-        </span>
-      )}
+            </a>
+          </>
+        )}
+        {isInSettingsMenu && (
+          <>
+            <a
+              onClick={() =>
+                useGlobalState.setState({ showUploadedLogFileList: true })
+              }
+              title={t('setting.log.show-uploads', 'Show uploaded log files')}
+              className="button is-footer"
+            >
+              <div className="button-icontext-flex">
+                <div className="button-icon-flex">
+                  <Cloud />
+                </div>
+                <span className="button-icon-text">
+                  {t('setting.log.show-uploads', 'Show uploaded log files')}
+                </span>
+              </div>
+            </a>
+          </>
+        )}
+      </span>
     </>
   )
 }

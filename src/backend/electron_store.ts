@@ -53,4 +53,8 @@ export class TypeCheckedStoreBackend<
   public clear() {
     this.store.clear()
   }
+
+  public get raw_store() {
+    return this.store.store as StoreStructure[Name]
+  }
 }

@@ -31,7 +31,8 @@ import {
   ExtraInfo,
   LaunchOption,
   DownloadManagerState,
-  InstallInfo
+  InstallInfo,
+  UploadedLogData
 } from 'common/types'
 import { SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -296,6 +297,13 @@ interface AsyncIPCFunctions {
     enabled: boolean
     modsToLoad: string[]
   }) => Promise<void>
+
+  uploadLogFile: (
+    name: string,
+    appNameOrRunner: string
+  ) => Promise<false | [string, UploadedLogData]>
+  deleteUploadedLogFile: (url: string) => Promise<boolean>
+  getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

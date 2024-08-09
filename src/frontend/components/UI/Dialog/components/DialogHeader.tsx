@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 
 interface DialogHeaderProps {
-  onClose: () => void
+  onClose?: () => void
   children: ReactNode
 }
 
