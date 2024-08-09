@@ -298,20 +298,18 @@ export const DXVK = {
     // copy the new dlls to the prefix
     if (is64bitPrefix) {
       dlls32.forEach((dll) => {
-        if (!isMac) {
-          copyFile(
-            `${toolPathx32}/${dll}`,
-            `${winePrefix}/drive_c/windows/syswow64/${dll}`,
-            (err) => {
-              if (err) {
-                logError(
-                  [`Error when copying ${dll}`, err],
-                  LogPrefix.DXVKInstaller
-                )
-              }
+        copyFile(
+          `${toolPathx32}/${dll}`,
+          `${winePrefix}/drive_c/windows/syswow64/${dll}`,
+          (err) => {
+            if (err) {
+              logError(
+                [`Error when copying ${dll}`, err],
+                LogPrefix.DXVKInstaller
+              )
             }
-          )
-        }
+          }
+        )
       })
       dlls64.forEach((dll) => {
         copyFile(
@@ -329,20 +327,18 @@ export const DXVK = {
       })
     } else {
       dlls32.forEach((dll) => {
-        if (!isMac) {
-          copyFile(
-            `${toolPathx32}/${dll}`,
-            `${winePrefix}/drive_c/windows/system32/${dll}`,
-            (err) => {
-              if (err) {
-                logError(
-                  [`Error when copying ${dll}`, err],
-                  LogPrefix.DXVKInstaller
-                )
-              }
+        copyFile(
+          `${toolPathx32}/${dll}`,
+          `${winePrefix}/drive_c/windows/system32/${dll}`,
+          (err) => {
+            if (err) {
+              logError(
+                [`Error when copying ${dll}`, err],
+                LogPrefix.DXVKInstaller
+              )
             }
-          )
-        }
+          }
+        )
       })
     }
 
