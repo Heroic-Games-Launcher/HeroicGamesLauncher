@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, unlinkSync } from 'graceful-fs'
 
-import { configStore, CONFIG_STORE_KEYS } from '../constants'
+import { configStore } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
 import {
@@ -59,7 +59,7 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   initRunnerLog('gog', newGogdlLogFile)
   initRunnerLog('nile', newNileLogFile)
 
-  const logs = configStore.get(CONFIG_STORE_KEYS.GENERAL_LOGS, {
+  const logs = configStore.get('general-logs', {
     currentLogFile: '',
     lastLogFile: '',
     legendaryLogFile: '',
@@ -103,7 +103,7 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   logs.gogdlLogFile = newGogdlLogFile
   logs.nileLogFile = newNileLogFile
 
-  configStore.set(CONFIG_STORE_KEYS.GENERAL_LOGS, logs)
+  configStore.set('general-logs', logs)
 
   // get longest prefix to log lines in a kind of table
   for (const prefix in LogPrefix) {
@@ -121,7 +121,7 @@ export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
  * @returns path to log file
  */
 export function getLogFile(appNameOrRunner: string): string {
-  const logs = configStore.get(CONFIG_STORE_KEYS.GENERAL_LOGS, {
+  const logs = configStore.get('general-logs', {
     currentLogFile: '',
     lastLogFile: '',
     legendaryLogFile: '',

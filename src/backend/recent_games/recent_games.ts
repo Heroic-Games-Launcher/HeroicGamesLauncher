@@ -2,7 +2,7 @@ import { GameInfo, RecentGame } from 'common/types'
 import { backendEvents } from '../backend_events'
 import { sendFrontendMessage } from '../main_window'
 import { GlobalConfig } from '../config'
-import { configStore, CONFIG_STORE_KEYS } from '../constants'
+import { configStore } from '../constants'
 
 const maxRecentGames = async () => {
   const { maxRecentGames } = GlobalConfig.get().getSettings()
@@ -10,7 +10,7 @@ const maxRecentGames = async () => {
 }
 
 const getRecentGames = async (options?: { limited: boolean }) => {
-  const games = configStore.get(CONFIG_STORE_KEYS.GAMES_RECENT, [])
+  const games = configStore.get('games.recent', [])
   if (options?.limited) {
     return games.slice(0, await maxRecentGames())
   } else {
@@ -20,7 +20,7 @@ const getRecentGames = async (options?: { limited: boolean }) => {
 
 const setRecentGames = (recentGames: RecentGame[]) => {
   // store
-  configStore.set(CONFIG_STORE_KEYS.GAMES_RECENT, recentGames)
+  configStore.set('games.recent', recentGames)
 
   // emit
   sendFrontendMessage('recentGamesChanged', recentGames)

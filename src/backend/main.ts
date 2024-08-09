@@ -94,8 +94,7 @@ import {
   isSnap,
   fixesPath,
   isWindows,
-  isMac,
-  CONFIG_STORE_KEYS
+  isMac
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -168,7 +167,7 @@ const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
-  configStore.set(CONFIG_STORE_KEYS.USER_HOME, userHome)
+  configStore.set('userHome', userHome)
   const mainWindow = createMainWindow()
 
   if ((isSteamDeckGameMode || isCLIFullscreen) && !isCLINoGui) {
@@ -222,7 +221,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
     if (!isCLIFullscreen && !isSteamDeckGameMode) {
       // store windows properties
-      configStore.set(CONFIG_STORE_KEYS.WINDOW_PROPS, {
+      configStore.set('window-props', {
         ...mainWindow.getBounds(),
         maximized: mainWindow.isMaximized()
       })
@@ -437,8 +436,8 @@ if (!gotTheLock) {
 
     const headless = isCLINoGui || settings.startInTray
     if (!headless) {
-      mainWindow.once(CONFIG_STORE_KEYS.READY_TO_SHOW, () => {
-        const props = configStore.get_nodefault(CONFIG_STORE_KEYS.WINDOW_PROPS)
+      mainWindow.once('ready-to-show', () => {
+        const props = configStore.get_nodefault('window-props')
         mainWindow.show()
         // Apply maximize only if we show the window
         if (props?.maximized) {
@@ -450,7 +449,7 @@ if (!gotTheLock) {
     // set initial zoom level after a moment, if set in sync the value stays as 1
     setTimeout(() => {
       const zoomFactor = processZoomForScreen(
-        configStore.get(CONFIG_STORE_KEYS.ZOOM_PERCENT, 100) / 100
+        configStore.get('zoomPercent', 100) / 100
       )
 
       mainWindow.webContents.setZoomLevel(zoomFactor)
@@ -491,10 +490,7 @@ ipcMain.once('frontendReady', () => {
       checkboxChecked: false
     }
 
-    const showSnapWarning = configStore.get(
-      CONFIG_STORE_KEYS.SHOW_SNAP_WARNING,
-      true
-    )
+    const showSnapWarning = configStore.get('showSnapWarning', true)
 
     if (showSnapWarning) {
       dialog
@@ -503,7 +499,7 @@ ipcMain.once('frontendReady', () => {
         })
         .then((result) => {
           if (result.checkboxChecked) {
-            configStore.set(CONFIG_STORE_KEYS.SHOW_SNAP_WARNING, false)
+            configStore.set('showSnapWarning', false)
           }
         })
     }

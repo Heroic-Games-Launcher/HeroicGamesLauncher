@@ -2,7 +2,7 @@ import { DirResult, dirSync } from 'tmp'
 import graceful_fs from 'graceful-fs'
 import { join } from 'path'
 import { app } from 'electron'
-import { configStore, CONFIG_STORE_KEYS } from '../../constants'
+import { configStore } from '../../constants'
 import * as logfile from '../logfile'
 import * as logger from '../logger'
 import { describeSkipOnWindows } from 'backend/__tests__/skip'
@@ -45,7 +45,7 @@ describeSkipOnWindows('logger/logfile.ts', () => {
 
   test('createNewLogFileAndClearOldOnes success', () => {
     jest.spyOn(app, 'getPath').mockReturnValue(tmpDir.name)
-    configStore.set(CONFIG_STORE_KEYS.GENERAL_LOGS, {
+    configStore.set('general-logs', {
       currentLogFile: 'old/log/path/file.log',
       lastLogFile: '',
       legendaryLogFile: '',
@@ -126,7 +126,7 @@ describeSkipOnWindows('logger/logfile.ts', () => {
     expect(logfile.getLogFile('gogdl')).toMatch(/-gogdl.log$/)
     expect(logfile.getLogFile('nile')).toMatch(/-nile.log$/)
     // get game log
-    expect(logfile.getLogFile('MyApp')).toContain(
+    expect(logfile.getLogFile('MyApp')).toBe(
       '/tmp/appData/heroic/GamesConfig/MyApp-lastPlay.log'
     )
   })

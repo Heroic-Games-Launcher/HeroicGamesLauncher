@@ -1,7 +1,7 @@
 import { AppSettings, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
-import { configStore, CONFIG_STORE_KEYS } from './constants'
+import { configStore } from './constants'
 import type { FrontendMessages } from 'common/types/frontend_messages'
 
 let mainWindow: BrowserWindow | null = null
@@ -47,8 +47,8 @@ export const createMainWindow = () => {
     maximized: false
   } as WindowProps
 
-  if (configStore.has(CONFIG_STORE_KEYS.WINDOW_PROPS)) {
-    windowProps = configStore.get(CONFIG_STORE_KEYS.WINDOW_PROPS, windowProps)
+  if (configStore.has('window-props')) {
+    windowProps = configStore.get('window-props', windowProps)
   } else {
     // make sure initial screen size is not bigger than the available screen space
     const screenInfo = screen.getPrimaryDisplay()
@@ -62,7 +62,7 @@ export const createMainWindow = () => {
     }
   }
   // Set up frameless window if enabled in settings
-  const settings = configStore.get(CONFIG_STORE_KEYS.SETTINGS, <AppSettings>{})
+  const settings = configStore.get('settings', <AppSettings>{})
   if (settings?.framelessWindow) {
     // use native overlay controls where supported
     if (['darwin', 'win32'].includes(process.platform)) {
