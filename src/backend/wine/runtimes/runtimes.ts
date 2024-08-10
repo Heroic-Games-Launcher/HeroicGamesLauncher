@@ -19,15 +19,7 @@ async function _get(): Promise<Runtime[]> {
   if (!allRuntimes.data) {
     logError('Failed to fetch runtime list', LogPrefix.Runtime)
   }
-  const runtimes: Runtime[] = allRuntimes.data || []
-  runtimes.push({
-    id: 2000,
-    name: 'comet_dummy_service',
-    architecture: 'all',
-    created_at: '2024-07-27T19:35:07.389453Z',
-    url: 'https://github.com/imLinguin/comet/releases/download/v0.1.2/dummy-service.zip'
-  })
-  return runtimes
+  return allRuntimes.data || []
 }
 
 async function download(name: RuntimeName): Promise<boolean> {

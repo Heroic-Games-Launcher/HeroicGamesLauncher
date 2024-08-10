@@ -108,7 +108,7 @@ async function downloadLegendary() {
 }
 
 async function downloadGogdl() {
-  return downloadGithubAssets(
+  await downloadGithubAssets(
     'gogdl',
     'Heroic-Games-Launcher/heroic-gogdl',
     RELEASE_TAGS['gogdl'],
@@ -126,7 +126,7 @@ async function downloadGogdl() {
 }
 
 async function downloadNile() {
-  return downloadGithubAssets('nile', 'imLinguin/nile', RELEASE_TAGS['nile'], {
+  await downloadGithubAssets('nile', 'imLinguin/nile', RELEASE_TAGS['nile'], {
     x64: {
       linux: 'nile_linux_x86_64',
       darwin: 'nile_macOS_x86_64',
@@ -139,7 +139,18 @@ async function downloadNile() {
 }
 
 async function downloadComet() {
-  return downloadGithubAssets(
+  await downloadGithubAssets(
+    'GalaxyCommunication',
+    'imLinguin/comet',
+    RELEASE_TAGS['comet'],
+    {
+      x64: {
+        win32: 'GalaxyCommunication-dummy.exe'
+      },
+      arm64: {}
+    }
+  )
+  await downloadGithubAssets(
     'comet',
     'imLinguin/comet',
     RELEASE_TAGS['comet'],
