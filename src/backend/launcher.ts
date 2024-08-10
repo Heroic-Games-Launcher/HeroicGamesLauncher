@@ -381,13 +381,13 @@ async function prepareWineLaunch(
         'bin/x64/win32/GalaxyCommunication.exe'
       )
 
-      const winePrefix = gameSettings.winePrefix
-      let driveLocation =
-        'drive_c/ProgramData/GOG.com/Galaxy/redists/GalaxyCommunication.exe'
-      if (gameSettings.wineVersion.type === 'proton') {
-        driveLocation = join('pfx', driveLocation)
-      }
-      const communicationDest = join(winePrefix, driveLocation)
+      const galaxyCommPath =
+        'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
+      const communicationDest = await getWinePath({
+        path: galaxyCommPath,
+        gameSettings,
+        variant: 'unix'
+      })
 
       if (!existsSync(communicationDest)) {
         mkdirSync(dirname(communicationDest), { recursive: true })
@@ -397,7 +397,7 @@ async function prepareWineLaunch(
             'sc',
             'create',
             'GalaxyCommunication',
-            'binpath=C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
+            `binpath=${galaxyCommPath}`
           ],
           gameSettings,
           protonVerb: 'runinprefix'
@@ -855,7 +855,8 @@ async function runWineCommand({
   installFolderName,
   options,
   startFolder,
-  skipPrefixCheckIKnowWhatImDoing = false
+  skipPrefixCheckIKnowWhatImDoing = false,
+  ignoreLogging = false
 }: WineCommandArgs): Promise<{
   stderr: string
   stdout: string
@@ -908,6 +909,10 @@ async function runWineCommand({
     ...setupEnvVars(settings),
     ...setupWineEnvVars(settings, installFolderName),
     PROTON_VERB: protonVerb
+  }
+
+  if (ignoreLogging) {
+    delete env_vars['PROTON_LOG']
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
@@ -1359,7 +1364,8 @@ async function getWinePath({
       path
     ],
     wait: false,
-    protonVerb: 'runinprefix'
+    protonVerb: 'runinprefix',
+    ignoreLogging: true
   })
   return stdout.trim()
 }

@@ -587,6 +587,7 @@ export type WineCommandArgs = {
   options?: CallRunnerOptions
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
+  ignoreLogging?: boolean
 }
 
 export interface SaveSyncArgs {
