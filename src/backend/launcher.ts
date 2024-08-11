@@ -919,6 +919,10 @@ async function runWineCommand({
   const umuSupported = await isUmuSupported(wineVersion.type)
   const runnerBin = umuSupported ? await getUmuPath() : wineBin
 
+  if (wineVersion.type === 'proton' && !umuSupported) {
+    commandParts.unshift(protonVerb)
+  }
+
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
