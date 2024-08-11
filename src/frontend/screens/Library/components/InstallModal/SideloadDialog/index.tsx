@@ -7,7 +7,8 @@ import {
   CachedImage,
   TextInputField,
   PathSelectionBox,
-  ToggleSwitch
+  ToggleSwitch,
+  InfoBox
 } from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
@@ -17,12 +18,13 @@ import {
   writeConfig
 } from 'frontend/helpers'
 import React, { useContext, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import axios from 'axios'
+import { NavLink } from 'react-router-dom'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -289,6 +291,22 @@ export default function SideloadDialog({
             </span>
           </div>
           <div className="sideloadForm">
+            <InfoBox
+              text={t(
+                'sideload.import-hint.title',
+                'Important! Are you adding a game from Epic/GOG/Amazon? Click here!'
+              )}
+            >
+              <div className="sideloadImportHint">
+                <Trans key="sideload.import-hint.content">
+                  Do NOT use this feature for that.
+                  <br />
+                  Instead, <NavLink to={'/login'}>log into</NavLink> the store,
+                  look for the game in your library, open the installation
+                  dialog, and click the &quot;Import Game&quot; button
+                </Trans>
+              </div>
+            </InfoBox>
             <TextInputField
               label={t('sideload.info.title', 'Game/App Title')}
               placeholder={t(

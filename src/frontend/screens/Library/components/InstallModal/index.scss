@@ -103,3 +103,9 @@
 .sideloadForm {
   padding-inline-start: var(--space-xs);
 }
+
+.sideloadImportHint {
+  a {
+    text-decoration: underline;
+  }
+}
