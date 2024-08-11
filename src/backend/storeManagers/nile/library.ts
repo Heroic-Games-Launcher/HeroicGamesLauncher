@@ -1,10 +1,5 @@
 import JSON5 from 'json5'
-import {
-  nileConfigPath,
-  nileInstalled,
-  nileLibrary,
-  nileLogFile
-} from 'backend/constants'
+import { nileConfigPath, nileInstalled, nileLibrary } from 'backend/constants'
 import {
   LogPrefix,
   logDebug,
@@ -28,6 +23,7 @@ import { dirname, join } from 'path'
 import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { NileUser } from './user'
+import { getLogFile } from '../../logger/logfile'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -483,7 +479,7 @@ export async function runRunnerCommand(
     { name: 'nile', logPrefix: LogPrefix.Nile, bin, dir },
     {
       ...options,
-      verboseLogFile: nileLogFile
+      verboseLogFile: getLogFile('nile')
     }
   )
 }

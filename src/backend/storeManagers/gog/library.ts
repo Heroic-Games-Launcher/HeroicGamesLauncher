@@ -36,8 +36,9 @@ import {
   LogPrefix,
   logWarning
 } from '../../logger/logger'
+import { getLogFile } from '../../logger/logfile'
 import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
-import { gogdlConfigPath, gogdlLogFile } from '../../constants'
+import { gogdlConfigPath } from '../../constants'
 import {
   libraryStore,
   installedGamesStore,
@@ -1333,7 +1334,7 @@ export async function runRunnerCommand(
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
     {
       ...options,
-      verboseLogFile: gogdlLogFile
+      verboseLogFile: getLogFile('gogdl')
     }
   )
 }

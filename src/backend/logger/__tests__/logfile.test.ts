@@ -31,7 +31,7 @@ describeSkipOnWindows('logger/logfile.ts', () => {
     })
     const consoleSpy = jest.spyOn(console, 'log')
 
-    const logs = logfile.createNewLogFileAndClearOldOnes()
+    const logs = logfile.testingExports.createNewLogFileAndClearOldOnes()
 
     expect(logs.currentLogFile).toBe('')
     expect(logs.gogdlLogFile).toBe('')
@@ -53,7 +53,7 @@ describeSkipOnWindows('logger/logfile.ts', () => {
       nileLogFile: ''
     })
 
-    const data = logfile.createNewLogFileAndClearOldOnes()
+    const data = logfile.testingExports.createNewLogFileAndClearOldOnes()
 
     expect(logger.logError).not.toBeCalled()
     expect(data).toStrictEqual({
@@ -81,7 +81,7 @@ describeSkipOnWindows('logger/logfile.ts', () => {
 
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
 
-    logfile.createNewLogFileAndClearOldOnes()
+    logfile.testingExports.createNewLogFileAndClearOldOnes()
 
     expect(logger.logError).toBeCalledWith(
       [
@@ -113,7 +113,7 @@ describeSkipOnWindows('logger/logfile.ts', () => {
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeTruthy()
     expect(graceful_fs.existsSync(yearOutdatedLogFile)).toBeTruthy()
 
-    logfile.createNewLogFileAndClearOldOnes()
+    logfile.testingExports.createNewLogFileAndClearOldOnes()
 
     expect(logger.logError).not.toBeCalled()
     expect(graceful_fs.existsSync(monthOutdatedLogFile)).toBeFalsy()

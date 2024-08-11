@@ -157,6 +157,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { initLogfile } from './logger/logfile'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -300,6 +301,7 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     initLogger()
+    initLogfile()
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
