@@ -11,6 +11,7 @@ install:
   - corepack enable
   - corepack prepare pnpm@latest-8 --activate
   - pnpm install
+  - pnpm download-helper-binaries
 
 environment:
   GH_TOKEN:
