@@ -385,7 +385,7 @@ export async function refresh(): Promise<ExecResult> {
 
   const gamesObjects: GameInfo[] = [redistGameInfo]
   apiInfoCache.use_in_memory() // Prevent blocking operations
-  const promises = filteredApiArray.map(async (game): Promise<GameInfo> => {
+  for (const game of filteredApiArray) {
     let retries = 5
     while (retries > 0) {
       let gdbData
@@ -399,8 +399,12 @@ export async function refresh(): Promise<ExecResult> {
         )
         gdbData = data
       } catch {
-        await new Promise((resolve) => setTimeout(resolve, 2000))
         retries -= 1
+        logError(
+          `Error getting gamesdb data for ${game.external_id} retries: ${retries}/5`,
+          LogPrefix.Gog
+        )
+        await new Promise((resolve) => setTimeout(resolve, 2000))
         continue
       }
 
@@ -431,30 +435,9 @@ export async function refresh(): Promise<ExecResult> {
         copyObject.is_installed = true
         copyObject.install = installedInfo
       }
-      return copyObject
+      library.set(copyObject.app_name, copyObject)
+      break
     }
-    throw new Error('Exceeeded max number of retries')
-  })
-
-  // Await in chunks of 10
-  const chunks: Array<Array<Promise<GameInfo>>> = []
-  while (promises.length) {
-    chunks.push(promises.splice(0, 10))
-  }
-
-  for (const chunk of chunks) {
-    const settled = await Promise.allSettled(chunk)
-    const fulfilled = settled
-      .filter((promise) => promise.status === 'fulfilled')
-      //@ts-expect-error Typescript is confused about this filter statement, it's correct however
-      .map((promise: PromiseFulfilledResult<GameInfo>) => promise.value)
-
-    fulfilled.forEach((data: GameInfo) => {
-      if (data?.app_name) {
-        sendFrontendMessage('pushGameToLibrary', data)
-        library.set(data.app_name, data)
-      }
-    })
   }
 
   apiInfoCache.commit() // Sync cache to drive
