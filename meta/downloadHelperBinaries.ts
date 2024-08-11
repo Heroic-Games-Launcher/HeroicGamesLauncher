@@ -22,10 +22,14 @@ const pathExists = async (path: string): Promise<boolean> =>
 
 async function downloadFile(url: string, dst: string) {
   const response = await fetch(url, {
+    keepalive: true,
     headers: {
       'User-Agent': 'HeroicBinaryUpdater/1.0'
     }
   })
+  if (response.status !== 200) {
+    throw Error(`Failed to download ${url}: ${response.status}`)
+  }
   await mkdir(dirname(dst), { recursive: true })
   const fileStream = createWriteStream(dst, { flags: 'w' })
   await finished(Readable.fromWeb(response.body).pipe(fileStream))
@@ -108,7 +112,7 @@ async function downloadLegendary() {
 }
 
 async function downloadGogdl() {
-  await downloadGithubAssets(
+  return downloadGithubAssets(
     'gogdl',
     'Heroic-Games-Launcher/heroic-gogdl',
     RELEASE_TAGS['gogdl'],
@@ -126,7 +130,7 @@ async function downloadGogdl() {
 }
 
 async function downloadNile() {
-  await downloadGithubAssets('nile', 'imLinguin/nile', RELEASE_TAGS['nile'], {
+  return downloadGithubAssets('nile', 'imLinguin/nile', RELEASE_TAGS['nile'], {
     x64: {
       linux: 'nile_linux_x86_64',
       darwin: 'nile_macOS_x86_64',
@@ -139,22 +143,19 @@ async function downloadNile() {
 }
 
 async function downloadComet() {
-  await downloadGithubAssets(
-    'GalaxyCommunication',
-    'imLinguin/comet',
-    RELEASE_TAGS['comet'],
-    {
-      x64: {
-        win32: 'GalaxyCommunication-dummy.exe'
-      },
-      arm64: {}
-    }
-  )
-  await downloadGithubAssets(
-    'comet',
-    'imLinguin/comet',
-    RELEASE_TAGS['comet'],
-    {
+  return Promise.all([
+    downloadGithubAssets(
+      'GalaxyCommunication',
+      'imLinguin/comet',
+      RELEASE_TAGS['comet'],
+      {
+        x64: {
+          win32: 'GalaxyCommunication-dummy.exe'
+        },
+        arm64: {}
+      }
+    ),
+    downloadGithubAssets('comet', 'imLinguin/comet', RELEASE_TAGS['comet'], {
       x64: {
         linux: 'comet-x86_64-unknown-linux-gnu',
         darwin: 'comet-x86_64-apple-darwin',
@@ -163,8 +164,8 @@ async function downloadComet() {
       arm64: {
         darwin: 'comet-aarch64-apple-darwin'
       }
-    }
-  )
+    })
+  ])
 }
 
 /**
