@@ -936,7 +936,7 @@ export async function gogToUnifiedInfo(
       .replace('{ext}', 'jpg') ?? background
 
   const icon = (
-    info.game?.square_icon.url_format || info.game?.icon?.url_format
+    info.game?.square_icon?.url_format || info.game?.icon?.url_format
   )
     ?.replace('{formatter}', '')
     .replace('{ext}', 'jpg')

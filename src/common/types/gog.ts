@@ -276,7 +276,7 @@ interface GamesDBDataInner extends GamesDBDataBase {
   icon?: {
     url_format: string
   }
-  square_icon: {
+  square_icon?: {
     url_format: string
   }
   global_popularity_all_time: number
