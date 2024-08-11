@@ -30,7 +30,8 @@ import {
   isSteamDeckGameMode,
   runtimePath,
   userHome,
-  defaultUmuPath
+  defaultUmuPath,
+  publicDir
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -81,6 +82,7 @@ import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
 import { sendFrontendMessage } from './main_window'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
+import { copyFile } from 'fs/promises'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -372,26 +374,38 @@ async function prepareWineLaunch(
     }
   }
 
-  if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
-    if (isOnline() && !(await isInstalled('comet_dummy_service'))) {
-      await download('comet_dummy_service')
-    }
-    const installerScript = join(
-      runtimePath,
-      'comet_dummy_service',
-      'install-dummy-service.bat'
-    )
-    if (existsSync(installerScript)) {
-      await runWineCommand({
-        commandParts: [installerScript],
-        gameSettings,
-        protonVerb: 'runinprefix'
-      })
-    } else {
-      logWarning(
-        "Comet dummy service isn't downloaded, online functionality may not work"
+  try {
+    if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
+      const communicationSource = join(
+        publicDir,
+        'bin/x64/win32/GalaxyCommunication.exe'
       )
+
+      const galaxyCommPath =
+        'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
+      const communicationDest = await getWinePath({
+        path: galaxyCommPath,
+        gameSettings,
+        variant: 'unix'
+      })
+
+      if (!existsSync(communicationDest)) {
+        mkdirSync(dirname(communicationDest), { recursive: true })
+        await copyFile(communicationSource, communicationDest)
+        await runWineCommand({
+          commandParts: [
+            'sc',
+            'create',
+            'GalaxyCommunication',
+            `binpath=${galaxyCommPath}`
+          ],
+          gameSettings,
+          protonVerb: 'runinprefix'
+        })
+      }
     }
+  } catch (err) {
+    logError('Failed to install GalaxyCommunication dummy into the prefix')
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -841,7 +855,8 @@ async function runWineCommand({
   installFolderName,
   options,
   startFolder,
-  skipPrefixCheckIKnowWhatImDoing = false
+  skipPrefixCheckIKnowWhatImDoing = false,
+  ignoreLogging = false
 }: WineCommandArgs): Promise<{
   stderr: string
   stdout: string
@@ -894,6 +909,10 @@ async function runWineCommand({
     ...setupEnvVars(settings),
     ...setupWineEnvVars(settings, installFolderName),
     PROTON_VERB: protonVerb
+  }
+
+  if (ignoreLogging) {
+    delete env_vars['PROTON_LOG']
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
@@ -1345,7 +1364,8 @@ async function getWinePath({
       path
     ],
     wait: false,
-    protonVerb: 'runinprefix'
+    protonVerb: 'runinprefix',
+    ignoreLogging: true
   })
   return stdout.trim()
 }
