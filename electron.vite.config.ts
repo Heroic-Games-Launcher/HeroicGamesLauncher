@@ -1,20 +1,10 @@
-import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import { defineConfig } from 'electron-vite'
 import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
 import path from 'path'
 
-import type { Plugin } from 'vite'
-
-const srcAliases = ['backend', 'frontend', 'common'].map((aliasName) => ({
-  find: aliasName,
-  replacement: path.join(__dirname, 'src', aliasName)
-}))
-
-const dependenciesToNotExternalize = [
-  '@xhmikosr/decompress',
-  '@xhmikosr/decompress-targz',
-  '@xhmikosr/decompress-unzip'
-]
+import { mergeConfig, type Plugin } from 'vite'
+import getMainViteConfig, { srcAliases } from './meta/getMainViteConfig'
 
 // FIXME: Potentially publish this as a dedicated plugin, if other projects
 //        run into the same issue
@@ -30,30 +20,15 @@ const vite_plugin_react_dev_tools: Plugin = {
 }
 
 export default defineConfig(({ mode }) => ({
-  main: {
-    build: {
-      rollupOptions: {
-        input: 'src/backend/main.ts'
-      },
-      outDir: 'build/main',
-      minify: true,
-      sourcemap: mode === 'development' ? 'inline' : false
-    },
-    resolve: { alias: srcAliases },
-    plugins: [externalizeDepsPlugin({ exclude: dependenciesToNotExternalize })]
-  },
-  preload: {
+  main: getMainViteConfig(mode),
+  preload: mergeConfig(getMainViteConfig(mode), {
     build: {
       rollupOptions: {
         input: 'src/backend/preload.ts'
       },
-      outDir: 'build/preload',
-      minify: true,
-      sourcemap: mode === 'development' ? 'inline' : false
-    },
-    resolve: { alias: srcAliases },
-    plugins: [externalizeDepsPlugin({ exclude: dependenciesToNotExternalize })]
-  },
+      outDir: 'build/preload'
+    }
+  }),
   renderer: {
     root: '.',
     build: {
