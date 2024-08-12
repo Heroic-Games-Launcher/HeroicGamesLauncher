@@ -28,6 +28,7 @@ interface Props {
   label?: string
   afterInput?: ReactNode
   disabled?: boolean
+  warning?: ReactNode
 }
 
 const PathSelectionBox = ({
@@ -43,7 +44,8 @@ const PathSelectionBox = ({
   htmlId,
   label,
   afterInput,
-  disabled = false
+  disabled = false,
+  warning
 }: Props) => {
   const { t } = useTranslation()
   // We only send `onPathChange` updates when the user is done editing, so we
@@ -89,6 +91,7 @@ const PathSelectionBox = ({
       htmlId={htmlId}
       label={label}
       afterInput={afterInput}
+      warning={warning}
     />
   )
 }
