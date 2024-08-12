@@ -15,7 +15,7 @@ const RunnerToStore = {
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon } = useContext(ContextProvider)
+  const { epic, gog, amazon } = useContext(ContextProvider)
   const {
     setShowFavourites,
     setShowHidden,
@@ -129,7 +129,7 @@ export default function LibraryFilters() {
       <ToggleSwitch
         key={store}
         htmlId={store}
-        handleChange={() => toggleStoreFilter(store as Category)}
+        handleChange={() => toggleStoreFilter(store)}
         value={storesFilters[store]}
         title={t(RunnerToStore[store])}
       />
@@ -171,8 +171,8 @@ export default function LibraryFilters() {
         <hr />
 
         {platformToggle('win')}
-        {platform === 'linux' && platformToggle('linux')}
-        {platform === 'darwin' && platformToggle('mac')}
+        {isLinux && platformToggle('linux')}
+        {isMac && platformToggle('mac')}
         {platformToggle('browser')}
 
         <hr />

@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, SelectField } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '..'
@@ -9,8 +8,6 @@ import { Link } from 'react-router-dom'
 
 export default function WineVersionSelector() {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
 
   const [wineVersion, setWineVersion] = useSetting(
     'wineVersion',

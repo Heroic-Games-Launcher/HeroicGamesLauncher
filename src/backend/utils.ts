@@ -29,12 +29,9 @@ import {
   configPath,
   gamesConfigPath,
   icon,
-  isWindows,
   publicDir,
   GITHUB_API,
-  isMac,
-  configStore,
-  isLinux
+  configStore
 } from './constants'
 import {
   appendGamePlayLog,

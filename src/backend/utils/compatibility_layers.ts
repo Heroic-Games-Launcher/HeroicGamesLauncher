@@ -3,7 +3,6 @@ import {
   configPath,
   defaultUmuPath,
   getSteamLibraries,
-  isMac,
   toolsPath,
   userHome
 } from 'backend/constants'

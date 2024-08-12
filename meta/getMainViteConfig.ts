@@ -2,11 +2,25 @@ import path from 'path'
 
 import { externalizeDepsPlugin } from 'electron-vite'
 import type { UserConfig } from 'vite'
+import replace, { type Replacement } from '@rollup/plugin-replace'
 
 const srcAliases = {
   backend: path.join(__dirname, '..', 'src', 'backend'),
   frontend: path.join(__dirname, '..', 'src', 'frontend'),
   common: path.join(__dirname, '..', 'src', 'common')
+}
+
+const getPatternsToReplace = (mode: string): Record<string, Replacement> => {
+  let [, buildPlatform] = mode.split('__')
+  // If there is no build platform in the mode string, assume the current platform
+  if (!buildPlatform) buildPlatform = process.platform
+
+  return {
+    'process.platform': JSON.stringify(buildPlatform),
+    isWindows: `${buildPlatform === 'win32'}`,
+    isMac: `${buildPlatform === 'darwin'}`,
+    isLinux: `${buildPlatform === 'linux'}`
+  }
 }
 
 const getMainViteConfig = (mode: string): UserConfig => ({
@@ -16,11 +30,17 @@ const getMainViteConfig = (mode: string): UserConfig => ({
     },
     outDir: 'build/main',
     minify: true,
-    sourcemap: mode === 'development' ? 'inline' : false
+    sourcemap: mode.startsWith('development') ? 'inline' : false
   },
   resolve: { alias: srcAliases },
-  plugins: [externalizeDepsPlugin()]
+  plugins: [
+    replace({
+      preventAssignment: true,
+      values: getPatternsToReplace(mode)
+    }),
+    externalizeDepsPlugin()
+  ]
 })
 
-export { srcAliases }
+export { srcAliases, getPatternsToReplace }
 export default getMainViteConfig

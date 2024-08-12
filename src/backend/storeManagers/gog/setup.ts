@@ -8,12 +8,7 @@ import {
 } from '../../utils'
 import { GameConfig } from '../../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import {
-  gogdlConfigPath,
-  gogRedistPath,
-  gogSupportPath,
-  isWindows
-} from '../../constants'
+import { gogdlConfigPath, gogRedistPath, gogSupportPath } from '../../constants'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
 import { readFile } from 'node:fs/promises'

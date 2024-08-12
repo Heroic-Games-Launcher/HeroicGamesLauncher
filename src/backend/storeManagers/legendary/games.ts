@@ -34,12 +34,9 @@ import {
   spawnAsync
 } from '../../utils'
 import {
-  isMac,
-  isWindows,
   installed,
   configStore,
   isCLINoGui,
-  isLinux,
   epicRedistPath
 } from '../../constants'
 import {
@@ -898,7 +895,7 @@ export async function launch(
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason!,
+          message: wineLaunchPrepFailReason,
           type: 'ERROR'
         })
       }
@@ -1041,7 +1038,7 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
   return new Promise((resolve) => {
     const info = getGameInfo(appName)
     if (info && info.is_installed) {
-      if (info.install.install_path && existsSync(info.install.install_path!)) {
+      if (info.install.install_path && existsSync(info.install.install_path)) {
         resolve(true)
       } else {
         resolve(false)

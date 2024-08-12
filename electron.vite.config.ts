@@ -4,7 +4,11 @@ import svgr from 'vite-plugin-svgr'
 import path from 'path'
 
 import { mergeConfig, type Plugin } from 'vite'
-import getMainViteConfig, { srcAliases } from './meta/getMainViteConfig'
+import getMainViteConfig, {
+  srcAliases,
+  getPatternsToReplace
+} from './meta/getMainViteConfig'
+import replace from '@rollup/plugin-replace'
 
 // FIXME: Potentially publish this as a dedicated plugin, if other projects
 //        run into the same issue
@@ -45,6 +49,10 @@ export default defineConfig(({ mode }) => ({
     plugins: [
       react(),
       svgr(),
+      replace({
+        preventAssignment: true,
+        values: getPatternsToReplace(mode)
+      }),
       mode !== 'production' && vite_plugin_react_dev_tools
     ]
   }

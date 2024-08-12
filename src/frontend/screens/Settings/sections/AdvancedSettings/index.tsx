@@ -42,9 +42,8 @@ export default function AdvancedSetting() {
     useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
 
-  const { libraryStatus, platform } = useContext(ContextProvider)
+  const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
-  const isWindows = platform === 'win32'
 
   useEffect(() => {
     // set copied to clipboard status to true if it's not already set to true

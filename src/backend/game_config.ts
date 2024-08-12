@@ -6,8 +6,6 @@ import {
   currentGameConfigVersion,
   configPath,
   gamesConfigPath,
-  isMac,
-  isWindows,
   userHome,
   defaultWinePrefix
 } from './constants'
@@ -169,7 +167,7 @@ abstract class GameConfig {
     } else {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGameConfigVersion` at this point.
-      this.config = (await this.getSettings()) as GameSettings
+      this.config = await this.getSettings()
     }
   }
 }

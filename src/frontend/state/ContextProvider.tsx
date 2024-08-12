@@ -32,7 +32,6 @@ const initialContext: ContextType = {
   libraryStatus: [],
   libraryTopSection: 'disabled',
   handleLibraryTopSection: () => null,
-  platform: 'unknown',
   refresh: async () => Promise.resolve(),
   refreshLibrary: async () => Promise.resolve(),
   refreshWineVersionInfo: async () => Promise.resolve(),

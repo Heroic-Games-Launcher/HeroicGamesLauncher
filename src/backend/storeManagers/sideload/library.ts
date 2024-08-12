@@ -1,4 +1,3 @@
-import { isMac } from 'backend/constants'
 import { ExecResult, GameInfo } from 'common/types'
 import { readdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
@@ -65,8 +64,6 @@ export function addNewApp({
   libraryStore.set('games', current)
   return
 }
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 export function installState() {
   logWarning(`installState not implemented on Sideload Library Manager`)

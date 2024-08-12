@@ -9,7 +9,6 @@ import {
 } from './nonesteamgame/nonesteamgame'
 import { getInfo } from '../utils'
 import { shortcutFiles } from './shortcuts/shortcuts'
-import { isMac } from 'backend/constants'
 import { notify } from 'backend/dialog/dialog'
 
 ipcMain.on('addShortcut', async (event, appName, runner, fromMenu) => {

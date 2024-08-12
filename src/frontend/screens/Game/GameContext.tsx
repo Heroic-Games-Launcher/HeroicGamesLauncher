@@ -14,9 +14,7 @@ const initialContext: GameContextType = {
     installingWinetricksPackages: false,
     installingRedist: false,
     launching: false,
-    linux: false,
     linuxNative: false,
-    mac: false,
     macNative: false,
     native: false,
     moving: false,
@@ -29,8 +27,7 @@ const initialContext: GameContextType = {
     sideloaded: false,
     syncing: false,
     uninstalling: false,
-    updating: false,
-    win: false
+    updating: false
   },
   status: undefined,
   wikiInfo: null
