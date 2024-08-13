@@ -69,6 +69,9 @@ linux:
     - build/bin/*/linux/*
     - build/bin/x64/win32/GalaxyCommunication.exe
 
+rpm:
+  fpm: ['--rpm-rpmbuild-define', '_build_id_links none']
+
 snap:
   base: core20
   confinement: strict
