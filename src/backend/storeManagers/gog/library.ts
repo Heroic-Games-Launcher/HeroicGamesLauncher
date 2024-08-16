@@ -263,7 +263,9 @@ async function loadLocalLibrary() {
   for (const game of libraryStore.get('games', [])) {
     const copyObject = { ...game }
     if (installedGames.has(game.app_name)) {
-      await checkForOfflineInstallerChanges(game.app_name)
+      if (isOnline()) {
+        await checkForOfflineInstallerChanges(game.app_name)
+      }
       copyObject.install = installedGames.get(game.app_name)!
       copyObject.is_installed = true
     }
