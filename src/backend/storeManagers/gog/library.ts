@@ -1273,7 +1273,7 @@ export async function getLinuxInstallersLanguages(appName: string) {
     const possibleLanguages: string[] = []
 
     for (const installer of linuxInstallers) {
-      possibleLanguages.push(installer.language as string)
+      possibleLanguages.push(installer.language)
     }
 
     return possibleLanguages

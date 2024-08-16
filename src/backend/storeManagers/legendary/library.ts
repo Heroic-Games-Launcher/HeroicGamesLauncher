@@ -136,7 +136,7 @@ export function refreshInstalled() {
     try {
       installedCache = Object.entries(
         JSON.parse(readFileSync(installedJSON, 'utf-8'))
-      ) as [string, InstalledJsonMetadata][]
+      )
     } catch (error) {
       // disabling log here because its giving false positives on import command
       logError(
@@ -743,9 +743,7 @@ export async function getGameSdl(
     const sdlList: SelectiveDownload[] = []
 
     list.forEach((key) => {
-      const { name, description, tags } = response.data[
-        key
-      ] as SelectiveDownload
+      const { name, description, tags } = response.data[key]
       if (key === '__required') {
         sdlList.unshift({ name, description, tags, required: true })
       } else {
