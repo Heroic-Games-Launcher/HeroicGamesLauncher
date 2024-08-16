@@ -31,9 +31,10 @@ import {
   ExtraInfo,
   LaunchOption,
   DownloadManagerState,
-  InstallInfo
+  InstallInfo,
+  WikiInfo
 } from 'common/types'
-import { SelectiveDownload } from 'common/types/legendary'
+import { GameOverride, SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
   NileLoginData,
@@ -279,7 +280,7 @@ interface AsyncIPCFunctions {
   toggleDXVKNVAPI: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getLaunchOptions: (appName: string, runner: Runner) => Promise<LaunchOption[]>
-  getGameOverride: () => Promise<GameOverride | null>
+  getGameOverride: () => Promise<GameOverride>
   getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
   getPlaytimeFromRunner: (
     runner: Runner,

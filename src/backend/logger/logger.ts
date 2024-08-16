@@ -45,7 +45,7 @@ export const RunnerToLogPrefixMap = {
   sideload: LogPrefix.Sideload
 }
 
-type LogInputType = unknown[] | unknown
+type LogInputType = unknown
 
 interface LogOptions {
   prefix?: LogPrefix
