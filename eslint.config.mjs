@@ -15,7 +15,6 @@ export default tseslint.config(
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
       // FIXME: All of these rules should be errors instead
-      '@typescript-eslint/await-thenable': 'warn',
       '@typescript-eslint/no-base-to-string': 'warn',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-for-in-array': 'warn',

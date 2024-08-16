@@ -513,7 +513,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   gogLogout = async () => {
-    await window.api.logoutGOG()
+    window.api.logoutGOG()
     this.setState({
       gog: {
         library: [],
