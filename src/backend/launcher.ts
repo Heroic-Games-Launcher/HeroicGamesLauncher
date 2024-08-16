@@ -234,8 +234,8 @@ async function prepareLaunch(
 
   if (
     (await isUmuSupported(gameSettings.wineVersion.type, false)) &&
-    !(await isInstalled('umu')) &&
     isOnline() &&
+    !(await isInstalled('umu')) &&
     (await getUmuPath()) === defaultUmuPath
   ) {
     await download('umu')
