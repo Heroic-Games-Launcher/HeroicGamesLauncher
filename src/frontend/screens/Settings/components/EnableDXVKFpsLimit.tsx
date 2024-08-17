@@ -54,7 +54,7 @@ const EnableDXVKFpsLimit = () => {
             'Positive integer value (e.g. 30, 60, ...)'
           )}
           value={DXVKFpsCap}
-          onChange={(event) => setDXVKFpsCap(event.target.value)}
+          onChange={(newValue) => setDXVKFpsCap(newValue)}
         />
       )}
     </>

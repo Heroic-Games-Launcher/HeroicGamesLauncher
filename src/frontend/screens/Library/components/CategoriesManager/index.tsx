@@ -141,7 +141,7 @@ function CategoryItem({
         <TextInputField
           htmlId={`edit-${name.replace(' ', '-')}`}
           value={newName}
-          onChange={(e) => setNewName(e.target.value)}
+          onChange={(newValue) => setNewName(newValue)}
           label={t('categories-manager.rename', 'Rename "{{name}}"', { name })}
         />
       )}
@@ -201,7 +201,7 @@ function CategoriesManager() {
         <TextInputField
           htmlId="new-category-name"
           value={newCategoryName}
-          onChange={(e) => setNewCategoryName(e.target.value)}
+          onChange={(newValue) => setNewCategoryName(newValue)}
           placeholder={t(
             'categories-manager.add-placeholder',
             'Add new category'
