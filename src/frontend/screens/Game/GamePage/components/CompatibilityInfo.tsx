@@ -75,8 +75,8 @@ const CompatibilityInfo = ({ gameInfo }: Props) => {
             {t('info.protondb-compatibility-info', 'Proton Compatibility Tier')}
             :
           </b>
-          {steamInfo!.compatibilityLevel!.charAt(0).toUpperCase() +
-            steamInfo!.compatibilityLevel!.slice(1)}
+          {steamInfo.compatibilityLevel!.charAt(0).toUpperCase() +
+            steamInfo.compatibilityLevel!.slice(1)}
         </a>
       )}
       {hasSteamDeckCompat && (

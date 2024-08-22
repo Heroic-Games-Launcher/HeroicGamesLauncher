@@ -140,7 +140,7 @@ export default function AdvancedSetting() {
   }
 
   async function cancelEosOverlayInstallOrUpdate() {
-    await window.api.abort(eosOverlayAppName)
+    window.api.abort(eosOverlayAppName)
     setEosOverlayInstallingOrUpdating(false)
   }
 

@@ -556,9 +556,8 @@ export default React.memo(function Library(): JSX.Element {
         const header = document.querySelector('.Header')
         if (header) {
           const headerHeight = header.getBoundingClientRect().height
-          const libraryHeader = document.querySelector(
-            '.libraryHeader'
-          ) as HTMLDivElement
+          const libraryHeader =
+            document.querySelector<HTMLDivElement>('.libraryHeader')
           libraryHeader &&
             libraryHeader.style.setProperty(
               '--header-height',
