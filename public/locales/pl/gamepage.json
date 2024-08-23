@@ -38,7 +38,8 @@
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
             "dlc": "Czy chcesz odinstalować DLC \"{{title}}\"?",
-            "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana."
+            "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana.",
+            "gameIsRunning": "{{title}} jest uruchomiony. Zamknij grę, aby ją odinstalować."
         },
         "update": {
             "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
@@ -83,12 +84,12 @@
     "enabled": "Włączono",
     "game": {
         "downloadSize": "Rozmiar pobierania",
-        "firstPlayed": "Pierwsze uruchomienie",
+        "firstPlayed": "Pierwsze Uruchomienie",
         "getting-download-size": "Sprawdzanie rozmiaru pliku do pobrania",
         "getting-install-size": "Sprawdzanie rozmiaru instalacji",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
-        "lastPlayed": "Ostatnio uruchamiana",
+        "lastPlayed": "Ostatnie Uruchomienie",
         "neverPlayed": "Nigdy",
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
@@ -137,7 +138,8 @@
         "game-scores": "Wyniki gier",
         "installedInfo": "Zainstalowane informacje",
         "protondb-compatibility-info": "Poziom zgodności Proton",
-        "steamdeck-compatibility-info": "Zgodność ze SteamDeck"
+        "steamdeck-compatibility-info": "Zgodność ze SteamDeck",
+        "third-party-app": "Menedżer Zewnętrzny"
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -153,8 +155,8 @@
             "install": "Tak (Rozumiem, że to nie zadziała)",
             "title": "Niewspierany Anticheat",
             "ok": "Ok",
-            "install_anyway": "Tak (Rozumiem że funkcje wieloosobowe nie będa działać)",
-            "disabled_installation": "Wsparcie antycheata dla tej gry jest zepsute lub wyłączone, i funkcje wieloosobowe nie będą działać. Gra nie może być zainstalowana. Aby zainstalować tą gre wyłącz opcje sprawdzania tego w zaawansowanych ustawieniach",
+            "install_anyway": "Tak (rozumiem, że funkcje wieloosobowe nie będą działać)",
+            "disabled_installation": "Wsparcie antycheata dla tej gry jest zepsute lub wyłączone, funkcje wieloosobowe nie będą działać. Gra nie może być zainstalowana. Aby zainstalować grę, wyłącz opcję sprawdzania w zaawansowanych ustawieniach.",
             "multiplayer_message": "Wsparcie antycheata nie działa lub jest zablokowane. Gra może się uruchomić ale funkcje wieloosobowe mogą nie działać. Czy chcesz zainstalować?"
         },
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
@@ -166,7 +168,7 @@
         },
         "playing": {
             "start": "Graj",
-            "stop": "Gra uruchomiona (Zatrzymaj)"
+            "stop": "Gra uruchomiona (zatrzymaj)"
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
@@ -207,13 +209,13 @@
             "title": "Tytuł gry/aplikacji",
             "broser": "URL przeglądarki",
             "useragent": "Niestandardowy User Agent",
-            "fullscreen": "Uruchom w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
+            "fullscreen": "Uruchom tryb pełnego ekranu (naciśnij F11, aby wyjść)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazka tutaj",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
-            "useragent": "Wpisz niestandardowy User Agent, który będzie używany w tej aplikacji/grze przeglądarkowej"
+            "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
         }
     },
     "specs": {
