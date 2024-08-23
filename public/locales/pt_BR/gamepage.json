@@ -33,11 +33,11 @@
         },
         "uninstall": {
             "checkbox": "Remover prefixo: {{prefix}}{{newLine}}Obs.: Isso não pode ser desfeito e também vai remover jogos salvos sem backup.",
-            "message": "Deseja desinstalar o jogo \"{{title}}\"?",
+            "message": "Deseja desinstalar \"{{title}}\"?",
             "settingcheckbox": "Apagar configurações e remover logs{{newLine}}Obs: Isto não pode ser desfeito. Qualquer configuração modificada será esquecida e o log será deletado.",
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se você realmente deseja excluí-lo, deve fazê-lo manualmente.",
-            "dlc": "Deseja desinstalar esta (DLC) \"{{title}}\"?",
+            "dlc": "Deseja desinstalar \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "A Epic games não pode ser desinstalada enquanto outra está sendo instalada.",
             "gameIsRunning": "{{title}}está rodando. Feche o jogo para o desinstalar."
         },
@@ -272,7 +272,7 @@
     "help": {
         "cloud_save_unsupported": "Este jogo não suporta salvamentos na nuvem. Esta informação é fornecida pelos desenvolvedores do jogo. Alguns jogos implementam seu próprio sistema de salvamento na nuvem",
         "title": {
-            "gamePage": "Página do jogo"
+            "gamePage": "Página do Jogo"
         },
         "content": {
             "gamePage": "Mostre todos os detalhes e ações do jogo. Use o menu de 3 pontos para mais opções."
