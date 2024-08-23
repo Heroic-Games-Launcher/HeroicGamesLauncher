@@ -671,7 +671,9 @@
             "enableNewShinyFeature": "Una nueva función brillante",
             "enableNewDesign": "Nuevo diseño",
             "enableHelp": "Componente de ayuda",
-            "automaticWinetricksFixes": "Aplicar correcciones conocidas automáticamente"
+            "automaticWinetricksFixes": "Aplicar correcciones conocidas automáticamente",
+            "cometSupport": "Soporte para Comet",
+            "umuSupport": "Usar UMU como entorno de ejecución de Proton"
         },
         "disablePlaytimeSync": "Desactivar la sincronización del tiempo de juego",
         "frameless-window": {
@@ -764,7 +766,8 @@
             "memory": "Memoria:",
             "copyToClipboard": "Copiar al portapapeles",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "gamescope": {
             "searchMsg": "Buscando el ejecutable de gamescope."
