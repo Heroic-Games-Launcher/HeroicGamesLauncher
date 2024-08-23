@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Content -kirjasinperhe (vakio: ",
         "fonts": "Kirjasimet",
         "title": "Käytettävyys",
-        "zoom": "Lähennä"
+        "zoom": "Lähennä",
+        "disable_dialog_backdrop_close": "Kytke pois ilmoitteiden sulkeminen ulkopuolella napsauttamisen kautta",
+        "titles_always_visible": "Näytä nimet kirjastossa aina"
     },
     "add_game": "Lisää peli",
     "All": "Kaikki",
@@ -15,7 +17,8 @@
         "reference": "Viite",
         "source": "Lähde",
         "status": "Tila",
-        "title": "Tämä peli sisältää huijauksenesto-ohjelmistoa"
+        "title": "Tämä peli sisältää huijauksenesto-ohjelmistoa",
+        "multiplayer_may_not_work": "Moninpeliin tarkoitetut ominaisuudet eivät mahdollisesti toimi estetyn- tai rikkinäisen huijauksenestotuen uupumisen takia."
     },
     "box": {
         "cache-cleared": {
@@ -119,7 +122,8 @@
         },
         "select": {
             "button": "Valitse",
-            "exe": "Valitse EXE"
+            "exe": "Valitse EXE",
+            "script": "Valitse komentosyöte ..."
         },
         "shortcuts": {
             "message": "Pikakuvakkeet luotiin työpöydälle ja Käynnistä-valikkoon",
@@ -158,13 +162,20 @@
                     "title": "Oletko varma että haluat lopettaa?",
                     "message": "Kaikki tallentamattomat edistysaskeleet voidaan menettää"
                 }
+            },
+            "snap": {
+                "message": "Aivan kaikki ominaisuudet eivät vielä ole saavutettavissa sovelluksen Snap-julkaisussa ja työstämme korjauksia.{{newLine}}Rajoituksia joita tällä hetkellä on havaittu: {{newLine}}Heroic ei löydä Protonia Steam:istä tai Wine:stä Lutris-käynnistimen kautta.{{newLine}}{{newLine}}Peliavustajat kuten Gamescope, GameMode ja MangoHud eivät myöskään toimi, koska Heroic:illa ei ole niihin pääsyä.{{newLine}}{{newLine}}Hyödyntääksesi näitä ominaisuuksia, asenna Heroic Games Launcher Flatpak, DEB tai AppImage -paketointien kautta.",
+                "title": "Ajossa on Heroic:in Snap-paketointi",
+                "checkbox": "Älä näytä tätä viestiä enää"
             }
         },
         "wineprefix": "Valitse Wine Prefix kansio",
         "yes": "KYLLÄ",
         "dontShowAgain": "Älä näytä uudelleen",
         "choose-nile-binary": "Valitse Nile-ajotiedosto",
-        "update": "Päivitä"
+        "update": "Päivitä",
+        "changelog": "Muutoskirjaukset",
+        "postpone": "Viivytä"
     },
     "button": {
         "cancel": "Keskeytä",
@@ -249,7 +260,15 @@
         "show_hidden": "Näytä piilotetut",
         "store": "Suodata kauppaa",
         "filters": "Suodata",
-        "categories": "Kategoria"
+        "categories": "Kategoria",
+        "only": "vain",
+        "reset": "Nollaa",
+        "show_support_offline_only": "Näytä vain verkkoyhteyttä vaatimattomat",
+        "select_all": "Valitse kaikki",
+        "uncategorized": "Luokittelemattomat",
+        "show_installed_only": "Näytä vain asennetut",
+        "show_third_party_managed_only": "Näytä vain kolmansien osapuolten ylläpitämät",
+        "no_categories": "Muovattuja luokituksia ei ole. Lisää luokkia käyttäen pelivalikkoja."
     },
     "help": {
         "amdfsr": "AMD:n FSR auttaa tehostamaan ruudunpäivitystä skaalaamalla ylös näyttötarkkuutta kokoruututilassa. Kuvalaatu paranee 5:stä 1:een pienen suorituskykyverotuksen kustannuksella. Tämän päällekytkentä saattaa parantaa suoritusta.",
@@ -301,7 +320,19 @@
             "wineManager": "Wine-hallinta",
             "library": "Kirjasto"
         },
-        "msync": "Fsync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä tuettujen Linux-ydinten kohdalla."
+        "msync": "Fsync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä tuettujen Linux-ydinten kohdalla.",
+        "content": {
+            "library": "Näyttää kaikki omistetut pelit.",
+            "accessibility": "Näyttää käytettävyysasetukset.",
+            "customThemesPath": "Lue Wiki-tietokantamme.",
+            "downloadManager": "Näyttää nykyiset- ja menneet lataukset.",
+            "login": "Sisäänkirjaudu eri kauppoihin.",
+            "defaultInstallPath": "Tämä on ennalta valittu vakiopolku pelejä asennettaessa."
+        },
+        "button": {
+            "close": "Sulje apu",
+            "open": "Avaa apu"
+        }
     },
     "info": {
         "heroic": {
@@ -448,6 +479,9 @@
             "placeHolderKey": "Uusi käärin",
             "placeHolderValue": "Käärinkäskyt",
             "title": "Käärimen käsky:"
+        },
+        "gamescope": {
+            "upscaleWidth": "Skaalan leveys"
         }
     },
     "other": {
@@ -679,7 +713,8 @@
         "advanced": {
             "clearCache": {
                 "help8": "Asennetut pelit",
-                "help9": "Peliasetukset"
+                "help9": "Peliasetukset",
+                "help2": "Kolmannen osapuolen pelitiedot (pisteet, Steam-yhteensopivuus, läpipeluuaika, PcGamingWiki, AppleGamingWiki)"
             },
             "title": {
                 "resetHeroic": "Nollaa Heroic"
@@ -780,6 +815,31 @@
     },
     "category-settings": {
         "cancel": "Peruuta",
-        "warning": "Varoitus"
+        "warning": "Varoitus",
+        "add-new-category": "Lisää uusi luokitus",
+        "delete-question": "Jatkaminen poistaa tämän luokituksen pysyvästi ja se riisutaan pois kaikista peleistä. Jatketaanko?",
+        "new-category": "Uusi luokka",
+        "remove-category": "Poista luokka"
+    },
+    "adtraction-locked": {
+        "description": "Osoite track.adtraction.com ei ladannut tai se on estetty. Ostaessasi adtraction kautta, jokainen tekemäsi ostos GOG-kaupasta tukee Heroic:ia taloudellisesti. Harkitse eston poistamista mikäli haluat antaa tukesi.",
+        "dont-show-again": "Älä näytä tätä varoitusta enää",
+        "title": "Adtraction on estetty"
+    },
+    "categories-manager": {
+        "add": "Lisää",
+        "cancel-remove": "Peru \"{{name}}\" poistaminen",
+        "cancel-rename": "Peru uudelleennimeäminen \"{{name}}\"",
+        "confirm-remove": "Vahvista \"{{name}}\" poistaminen",
+        "confirm-rename": "Vahvista uudelleennimeäminen \"{{oldName}}\" josta \"{{newName}}\"",
+        "no-categories": "Luokkia ei vielä ole.",
+        "add-placeholder": "Lisää uusi luokka",
+        "title": "Hallinnoi luokkia",
+        "rename": "Uudelleennimeä \"{{name}}\"",
+        "remove": "Poista \"{{name}}\""
+    },
+    "emptyLibrary": {
+        "noGames": "Kirjastosi on tyhjä. Voit <1>kirjautua sisään</1> käyttäen kauppaa tai napsauta <3></3> lisätäksesi sellaisen manuaalisesti.",
+        "noResults": "Nämä suodattimet eivät tuottaneet tuloksia."
     }
 }
