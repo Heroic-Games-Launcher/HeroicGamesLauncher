@@ -453,11 +453,8 @@ export const Winetricks = {
       return
     }
 
-    const linuxUrl =
+    const url =
       'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
-    const macUrl =
-      'https://raw.githubusercontent.com/The-Wineskin-Project/winetricks/macOS/src/winetricks'
-    const url = isMac ? macUrl : linuxUrl
     const path = `${toolsPath}/winetricks`
 
     if (!isOnline()) {
