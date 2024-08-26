@@ -295,30 +295,29 @@ export const DXVK = {
       logInfo('Removing DXVK DLLs', LogPrefix.DXVKInstaller)
 
       // removing DXVK dlls
+      let dllsToRemove
       if (is64bitPrefix) {
-        dlls32.forEach((dll) => {
-          rm(`${winePrefix}/drive_c/windows/syswow64/${dll}`, (err) => {
-            if (err) {
-              logError([`Error removing ${dll}`, err], LogPrefix.DXVKInstaller)
-            }
-          })
-        })
-        dlls64.forEach((dll) => {
-          rm(`${winePrefix}/drive_c/windows/system32/${dll}`, (err) => {
-            if (err) {
-              logError([`Error removing ${dll}`, err], LogPrefix.DXVKInstaller)
-            }
-          })
-        })
+        dllsToRemove = dlls64.map(
+          (dll) => `${winePrefix}/drive_c/windows/system32/${dll}`
+        )
+        dllsToRemove.concat(
+          dlls32.map((dll) => `${winePrefix}/drive_c/windows/syswow64/${dll}`)
+        )
       } else {
-        dlls32.forEach((dll) => {
-          rm(`${winePrefix}/drive_c/windows/system32/${dll}`, (err) => {
-            if (err) {
-              logError([`Error removing ${dll}`, err], LogPrefix.DXVKInstaller)
-            }
-          })
-        })
+        dllsToRemove = dlls32.map(
+          (dll) => `${winePrefix}/drive_c/windows/system32/${dll}`
+        )
       }
+      dllsToRemove.forEach((dllFile) => {
+        rm(dllFile, (err) => {
+          if (err) {
+            logError(
+              [`Error removing ${dllFile}`, err],
+              LogPrefix.DXVKInstaller
+            )
+          }
+        })
+      })
 
       // Restore stock Wine libraries
       logInfo('Restoring Wine stock DLLs', LogPrefix.DXVKInstaller)
