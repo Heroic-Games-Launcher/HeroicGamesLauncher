@@ -309,14 +309,11 @@ export const DXVK = {
         )
       }
       dllsToRemove.forEach((dllFile) => {
-        rm(dllFile, (err) => {
-          if (err) {
-            logError(
-              [`Error removing ${dllFile}`, err],
-              LogPrefix.DXVKInstaller
-            )
-          }
-        })
+        try {
+          rmSync(dllFile)
+        } catch (err) {
+          logError([`Error removing ${dllFile}`, err], LogPrefix.DXVKInstaller)
+        }
       })
 
       // Restore stock Wine libraries
