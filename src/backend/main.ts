@@ -24,13 +24,7 @@ import {
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
-import {
-  existsSync,
-  rmSync,
-  watch,
-  readdirSync,
-  readFileSync
-} from 'graceful-fs'
+import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
 
 import Backend from 'i18next-fs-backend'
@@ -60,6 +54,7 @@ import {
   downloadDefaultWine,
   sendGameStatusUpdate
 } from './utils'
+import { uninstallGameCallback } from './utils/uninstaller'
 import {
   configStore,
   discordLink,
@@ -87,7 +82,6 @@ import {
   createNecessaryFolders,
   fixAsarPath,
   isSnap,
-  fixesPath,
   isWindows,
   isMac
 } from './constants'
@@ -144,7 +138,6 @@ import {
   getGameOverride,
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
-import { storeMap } from 'common/utils'
 import { backendEvents } from './backend_events'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
@@ -957,72 +950,7 @@ ipcMain.handle('openDialog', async (e, args) => {
 
 ipcMain.on('showItemInFolder', async (e, item) => showItemInFolder(item))
 
-ipcMain.handle(
-  'uninstall',
-  async (event, appName, runner, shouldRemovePrefix, shouldRemoveSetting) => {
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'uninstalling'
-    })
-
-    const { title } = gameManagerMap[runner].getGameInfo(appName)
-
-    let uninstalled = false
-
-    try {
-      await gameManagerMap[runner].uninstall({ appName, shouldRemovePrefix })
-      uninstalled = true
-    } catch (error) {
-      notify({
-        title,
-        body: i18next.t('notify.uninstalled.error', 'Error uninstalling')
-      })
-      logError(error, LogPrefix.Backend)
-    }
-
-    if (uninstalled) {
-      if (shouldRemovePrefix) {
-        const { winePrefix } = await gameManagerMap[runner].getSettings(appName)
-        logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
-        // remove prefix if exists
-        if (existsSync(winePrefix)) {
-          rmSync(winePrefix, { recursive: true })
-        }
-      }
-      if (shouldRemoveSetting) {
-        const removeIfExists = (filename: string) => {
-          logInfo(`Removing ${filename}`, LogPrefix.Backend)
-          const gameSettingsFile = join(gamesConfigPath, filename)
-          if (existsSync(gameSettingsFile)) {
-            rmSync(gameSettingsFile)
-          }
-        }
-
-        removeIfExists(appName.concat('.json'))
-        removeIfExists(appName.concat('.log'))
-        removeIfExists(appName.concat('-lastPlay.log'))
-      }
-
-      const fixFilePath = path.join(
-        fixesPath,
-        `${appName}-${storeMap[runner]}.json`
-      )
-      if (existsSync(fixFilePath)) {
-        rmSync(fixFilePath)
-      }
-
-      notify({ title, body: i18next.t('notify.uninstalled') })
-      logInfo('Finished uninstalling', LogPrefix.Backend)
-    }
-
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
-    })
-  }
-)
+ipcMain.handle('uninstall', uninstallGameCallback)
 
 ipcMain.handle('repair', async (event, appName, runner) => {
   if (!isOnline()) {
