@@ -55,14 +55,14 @@ export const removePrefix = async (appName: string, runner: Runner) => {
   rmSync(winePrefix, { recursive: true })
 }
 
-export const removeFixFile = (appName: string, runner: Runner) => {
+const removeFixFile = (appName: string, runner: Runner) => {
   const fixFilePath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
   if (existsSync(fixFilePath)) {
     rmSync(fixFilePath)
   }
 }
 
-export const removeSettingsAndLogs = (appName: string) => {
+const removeSettingsAndLogs = (appName: string) => {
   const removeIfExists = (filename: string) => {
     logInfo(`Removing ${filename}`, LogPrefix.Backend)
     const gameSettingsFile = join(gamesConfigPath, filename)
