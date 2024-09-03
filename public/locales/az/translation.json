@@ -219,7 +219,8 @@
     "game": {
         "status": "Vəziyyət",
         "store": "Mağaza",
-        "title": "Oyunun adı"
+        "title": "Oyunun adı",
+        "modify": "Quraşdırmaya dəyişiklik et"
     },
     "generic": {
         "error": {
@@ -240,7 +241,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Yalnız Sevimliləri göstərin",
         "show_hidden": "Gizli göstər",
-        "store": "Filtr Mağazası"
+        "store": "Filtr Mağazası",
+        "categories": "Kateqoriyalar"
     },
     "help": {
         "amdfsr": "AMD-nin FSR tam ekran rejimində daha aşağı təsvir ölçüsünü artırmaqla kadr sürətini artırmağa kömək edir. Şəkil keyfiyyəti cüzi performans zərbəsi hesabına 5-dən 1-ə yüksəlir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
@@ -720,5 +722,8 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "Bağla"
     }
 }
