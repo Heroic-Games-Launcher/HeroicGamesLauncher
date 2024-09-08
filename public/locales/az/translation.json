@@ -537,7 +537,10 @@
             "instructions_title": "Problemi necə bildirmək olar?",
             "last-log": "Son Giriş",
             "no-file": "Heç bir jurnal faylı tapılmadı",
-            "show-in-folder": "Günlük faylını qovluqda göstərin"
+            "show-in-folder": "Günlük faylını qovluqda göstərin",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Mangohudu aktivləşdirin (Mangohud quraşdırılmalıdır)",
         "manualsync": {
