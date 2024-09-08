@@ -619,7 +619,10 @@
             "last-log": "Son Günlük",
             "no-file": "Günlük dosyası bulunamadı",
             "show-in-folder": "Günlük dosyasını klasörde göster",
-            "join-heroic-discord": "Discord kanalımıza katıl"
+            "join-heroic-discord": "Discord kanalımıza katıl",
+            "upload": {
+                "actions": "Eylemler"
+            }
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
