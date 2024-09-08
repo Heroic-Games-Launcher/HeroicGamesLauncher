@@ -571,7 +571,10 @@
             "instructions_title": "Bagaimana cara melaporkan masalah?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
-            "show-in-folder": "Tampilkan berkas log di dalam folder"
+            "show-in-folder": "Tampilkan berkas log di dalam folder",
+            "upload": {
+                "actions": "Aksi"
+            }
         },
         "mangohud": "Aktifkan Mangohud (Mangohud perlu diinstal)",
         "manualsync": {
