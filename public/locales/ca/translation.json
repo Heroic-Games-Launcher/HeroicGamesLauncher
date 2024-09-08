@@ -619,7 +619,10 @@
             "last-log": "Últim registre",
             "no-file": "No s'ha trobat cap registre",
             "show-in-folder": "Obre la carpeta del registre",
-            "join-heroic-discord": "Uneix-te al nostre Discord"
+            "join-heroic-discord": "Uneix-te al nostre Discord",
+            "upload": {
+                "actions": "Acció"
+            }
         },
         "mangohud": "Activa el Mangohud (cal que el Mangohud estigui instal·lat)",
         "manualsync": {
