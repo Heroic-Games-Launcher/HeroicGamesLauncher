@@ -619,7 +619,10 @@
             "last-log": "Последний журнал",
             "no-file": "Файл журнала не найден",
             "show-in-folder": "Показать файл журнала в папке",
-            "join-heroic-discord": "Присоединяйтесь к нашему Discord"
+            "join-heroic-discord": "Присоединяйтесь к нашему Discord",
+            "upload": {
+                "actions": "Действие"
+            }
         },
         "mangohud": "Включить Mangohud (требуется установленный Mangohud)",
         "manualsync": {
