@@ -548,7 +548,10 @@
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "Nije pronađena nijedna datoteka dnevnika",
-            "show-in-folder": "Show log file in folder"
+            "show-in-folder": "Show log file in folder",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Omogući Mangohud (Mangohud mora biti instaliran)",
         "manualsync": {
