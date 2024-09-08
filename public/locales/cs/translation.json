@@ -621,8 +621,41 @@
             "show-in-folder": "Zobrazit soubor protokolu ve složce",
             "join-heroic-discord": "Připojte se k našemu Discordu",
             "upload": {
-                "actions": "Akce"
-            }
+                "actions": "Akce",
+                "confirm": {
+                    "content": "Opravdu chcete nahrát soubor „{{name}}“?",
+                    "title": "Nahrát soubor protokolu?"
+                },
+                "delete": "Požádat o smazání souboru protokolu",
+                "error": {
+                    "title": "Nahrání selhalo",
+                    "content": "Nepodařilo se nahrát soubor protokolu. Více podrobností viz obecný protokol Heroic"
+                },
+                "header": "Nahrány soubory protokolů",
+                "minutes-ago": "Nahráno {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Nebyly nahrány žádné soubory protokolů",
+                "uploading": {
+                    "content": "Nahrávání souboru protokolu...",
+                    "title": "Nahrávání"
+                },
+                "button": "Nahrát soubor protokolu",
+                "done": {
+                    "content": "Nahráno na {{url}} (adresa zkopírována do schránky)",
+                    "title": "Nahrávání dokončeno"
+                },
+                "open": "Otevřít nahraný soubor protokolu",
+                "upload-date": "Datum nahrání",
+                "hours-ago": "Nahráno {{hoursAgo, relativetime(hours)}}",
+                "title": "Název protokolu"
+            },
+            "descriptiveNames": {
+                "gog": "Protokol GOG",
+                "heroic": "Obecný protokol Heroic",
+                "game-log": "Protokol hry {{gameTitle}}",
+                "legendary": "Protokol Epic Games / Legendary",
+                "nile": "Protokol Amazon / Nile"
+            },
+            "show-uploads": "Zobrazit nahrané soubory protokolů"
         },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
