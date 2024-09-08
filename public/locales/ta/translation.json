@@ -590,7 +590,10 @@
             "instructions_title": "சிக்கலை எவ்வாறு புகாரளிப்பது?",
             "last-log": "Last Log",
             "no-file": "பதிவு கோப்பு எதுவும் கிடைக்கவில்லை",
-            "show-in-folder": "கோப்புறையில் பதிவு கோப்பைக் காட்டு"
+            "show-in-folder": "கோப்புறையில் பதிவு கோப்பைக் காட்டு",
+            "upload": {
+                "actions": "செயல்"
+            }
         },
         "mangohud": "Mangohud ஐ இயக்கு (Mangohud நிறுவப்பட்டிருக்க வேண்டும்)",
         "manualsync": {
