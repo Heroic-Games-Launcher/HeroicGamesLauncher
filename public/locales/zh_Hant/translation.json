@@ -575,7 +575,10 @@
             "last-log": "上一個日誌",
             "no-file": "未找到日誌檔案",
             "show-in-folder": "顯示日誌所在資料夾",
-            "join-heroic-discord": "加入我們的 Discord"
+            "join-heroic-discord": "加入我們的 Discord",
+            "upload": {
+                "actions": "操作"
+            }
         },
         "mangohud": "啟用 MangoHud（需要已安裝 Mangohud）",
         "manualsync": {
