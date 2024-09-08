@@ -588,7 +588,10 @@
             "instructions_title": "Miten raportoin ongelman?",
             "last-log": "Viimeisin loki",
             "no-file": "Lokitiedostoja ei löytynyt",
-            "show-in-folder": "Näytä lokitiedosto kansiossa"
+            "show-in-folder": "Näytä lokitiedosto kansiossa",
+            "upload": {
+                "actions": "Toiminnot"
+            }
         },
         "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
         "manualsync": {
