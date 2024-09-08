@@ -645,7 +645,8 @@
                 "header": "已上传的日志文件",
                 "minutes-ago": "上传于 {{minutesAgo, relativetime(minutes)}} 分钟前",
                 "delete": "请求日志文件删除",
-                "hours-ago": "上传于{{hoursAgo, relativetime(hours)}}小时前"
+                "hours-ago": "上传于{{hoursAgo, relativetime(hours)}}小时前",
+                "actions": "操作"
             },
             "descriptiveNames": {
                 "game-log": "{{gameTitle}}的游戏日志",
