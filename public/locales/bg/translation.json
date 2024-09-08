@@ -618,7 +618,43 @@
             "last-log": "Последен журнал",
             "no-file": "Не е намерен файл с журнал",
             "show-in-folder": "Показване на файла с журнала в папката му",
-            "join-heroic-discord": "Присъединете се към нашия Discord"
+            "join-heroic-discord": "Присъединете се към нашия Discord",
+            "descriptiveNames": {
+                "game-log": "Журнал на играта от {{gameTitle}}",
+                "gog": "Журнал на GOG",
+                "heroic": "Общ журнал на Heroic",
+                "legendary": "Журнал на Epic Games / Legendary",
+                "nile": "Журнал на Amazon / Nile"
+            },
+            "upload": {
+                "title": "Заглавие на журнала",
+                "upload-date": "Дата на качване",
+                "uploading": {
+                    "content": "Качване на файла с журнала…",
+                    "title": "Качване"
+                },
+                "confirm": {
+                    "title": "Качване на файла с журнала?",
+                    "content": "Наистина ли искате да качите „{{name}}“?"
+                },
+                "actions": "Действия",
+                "button": "Качване на файл с журнал",
+                "hours-ago": "Качено {{hoursAgo, relativetime(hours)}}",
+                "no-files": "Не бяха качени никакви файлове с журнали",
+                "delete": "Заявка за изтриване на файла с журнала",
+                "error": {
+                    "title": "Качването беше неуспешно",
+                    "content": "Качването на файла с журнала беше неуспешно. Прегледайте общия журнал на Heroic за подробности."
+                },
+                "header": "Качени файлове с журнали",
+                "minutes-ago": "Качено {{minutesAgo, relativetime(minutes)}}",
+                "done": {
+                    "content": "Качено на {{url}} (адресът е копиран в буфера)",
+                    "title": "Качването е завършено"
+                },
+                "open": "Отваряне на качването на файл с журнал"
+            },
+            "show-uploads": "Показване на качените файлове с журнали"
         },
         "mangohud": "Използване на Mangohud (Mangohud трябва да е инсталирано)",
         "manualsync": {
