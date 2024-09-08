@@ -544,7 +544,10 @@
             "instructions_title": "Cum se raportează o problemă?",
             "last-log": "Ultimul jurnal",
             "no-file": "Nu a fost găsit niciun fișier jurnal",
-            "show-in-folder": "Afișați fișierul jurnal în dosar"
+            "show-in-folder": "Afișați fișierul jurnal în dosar",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Activați Mangohud (Mangohud trebuie instalat)",
         "manualsync": {
