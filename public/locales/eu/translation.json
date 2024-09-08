@@ -538,7 +538,10 @@
             "instructions_title": "Nola salatu arazo bat?",
             "last-log": "Azken erregistroa",
             "no-file": "Ez da aurkitu erregistro-fitxategirik",
-            "show-in-folder": "Erakutsi erregistro-fitxategia karpetan"
+            "show-in-folder": "Erakutsi erregistro-fitxategia karpetan",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Gaitu Mangohud (Mangohud instalatu behar da)",
         "manualsync": {
