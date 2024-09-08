@@ -357,7 +357,10 @@
             "current-log": "לוג נוכחי",
             "instructions": "הצטרפו לדיסקורד שלנו וחפשו את החלק בשם \"#-support\". קראו את ההודעה המוצמדת \"Read Me First | Frequently Asked Questions\" ופעלו לפי ההוראות כדי לשתף את הלוגים הללו וכל מידע רלוונטי על הבעיה שלכם.",
             "no-file": "לא נמצא קובץ לוג",
-            "show-in-folder": "הצגת קובץ הלוג בתוך התיקייה שלה"
+            "show-in-folder": "הצגת קובץ הלוג בתוך התיקייה שלה",
+            "upload": {
+                "actions": "פעולות"
+            }
         },
         "mangohud": "הפעל Mangohud (צריכה להיות התקנה של Mangohud)",
         "manualsync": {
