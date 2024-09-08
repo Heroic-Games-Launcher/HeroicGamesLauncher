@@ -8,6 +8,7 @@ import type {
   GameStatus,
   RecentGame,
   Runner,
+  UploadedLogData,
   WineManagerStatus
 } from 'common/types'
 
@@ -43,6 +44,8 @@ type FrontendMessages = {
   }) => void
   progressOfWineManager: (version: string, progress: WineManagerStatus) => void
   'installing-winetricks-component': (component: string) => void
+  logFileUploaded: (url: string, data: UploadedLogData) => void
+  logFileUploadDeleted: (url: string) => void
 
   [key: `progressUpdate${string}`]: (progress: GameStatus) => void
 

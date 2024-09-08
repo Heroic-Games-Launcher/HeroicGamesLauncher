@@ -14,7 +14,8 @@ import {
   AppSettings,
   WikiInfo,
   GameInfo,
-  WindowProps
+  WindowProps,
+  UploadedLogData
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
@@ -97,6 +98,7 @@ export interface StoreStructure {
   wikigameinfo: {
     [title: string]: WikiInfo
   }
+  uploadedLogs: Record<string, UploadedLogData>
 }
 
 export type StoreOptions<T extends Record<string, unknown>> = Store.Options<T>
