@@ -600,7 +600,10 @@
             "last-log": "Last Log",
             "no-file": "No log file found",
             "show-in-folder": "Show log file in folder",
-            "join-heroic-discord": "Kom in onze Discord"
+            "join-heroic-discord": "Kom in onze Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
         "manualsync": {
