@@ -619,7 +619,10 @@
             "last-log": "Dernier log",
             "no-file": "Aucun rapport de fonctionnement n'a été trouvé",
             "show-in-folder": "Montrer le rapport de fonctionnement dans le dossier",
-            "join-heroic-discord": "Rejoignez notre serveur Discord"
+            "join-heroic-discord": "Rejoignez notre serveur Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
         "manualsync": {
