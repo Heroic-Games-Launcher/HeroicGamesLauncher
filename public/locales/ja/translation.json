@@ -619,7 +619,10 @@
             "last-log": "最後のログ",
             "no-file": "ログファイルが見つかりません",
             "show-in-folder": "ログファイルをフォルダに表示",
-            "join-heroic-discord": "Discordに参加する"
+            "join-heroic-discord": "Discordに参加する",
+            "upload": {
+                "actions": "操作"
+            }
         },
         "mangohud": "Mangohudを有効にする（Mangohudがインストールされている必要があります）",
         "manualsync": {
