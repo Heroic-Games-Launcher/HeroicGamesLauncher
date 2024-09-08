@@ -619,7 +619,10 @@
             "last-log": "آخر سجل",
             "no-file": "لم يُعثر على ملف سجل",
             "show-in-folder": "إظهار ملف السجل في المجلد",
-            "join-heroic-discord": "انضم إلى Discord"
+            "join-heroic-discord": "انضم إلى Discord",
+            "upload": {
+                "actions": "إجراءات"
+            }
         },
         "mangohud": "مكِّن مانجو.هَد (يجب تثبيت مانجو.هَد)",
         "manualsync": {
