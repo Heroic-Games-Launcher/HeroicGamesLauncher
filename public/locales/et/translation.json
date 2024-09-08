@@ -618,7 +618,10 @@
             "last-log": "Viimane logi",
             "no-file": "Logifaili ei leitud",
             "show-in-folder": "Kuva logifail kaustas",
-            "join-heroic-discord": "Liituge meie Discordiga"
+            "join-heroic-discord": "Liituge meie Discordiga",
+            "upload": {
+                "actions": "Toimingud"
+            }
         },
         "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
         "manualsync": {
