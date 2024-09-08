@@ -619,7 +619,10 @@
             "last-log": "Poslední protokol",
             "no-file": "Nebyl nalezen žádný soubor protokolu",
             "show-in-folder": "Zobrazit soubor protokolu ve složce",
-            "join-heroic-discord": "Připojte se k našemu Discordu"
+            "join-heroic-discord": "Připojte se k našemu Discordu",
+            "upload": {
+                "actions": "Akce"
+            }
         },
         "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
         "manualsync": {
