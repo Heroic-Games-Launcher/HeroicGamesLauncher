@@ -619,7 +619,42 @@
             "last-log": "上一日志",
             "no-file": "未找到日志文件",
             "show-in-folder": "显示文件夹中的日志文件",
-            "join-heroic-discord": "加入我们的 Discord"
+            "join-heroic-discord": "加入我们的 Discord",
+            "upload": {
+                "button": "上传日志文件",
+                "done": {
+                    "title": "上传完毕",
+                    "content": "已上传到 {{url}}（URL 已复制到你的剪贴板）"
+                },
+                "no-files": "没有日志文件被上传",
+                "open": "打开已上传的日志文件",
+                "title": "日志标题",
+                "upload-date": "上传日期",
+                "uploading": {
+                    "title": "上传中",
+                    "content": "正在上传日志文件…"
+                },
+                "confirm": {
+                    "content": "你真想上传“{{name}}”吗？",
+                    "title": "上传日志文件？"
+                },
+                "error": {
+                    "content": "上传日志文件失败。详情请查看 Heroic 的常规日志",
+                    "title": "上传失败了"
+                },
+                "header": "已上传的日志文件",
+                "minutes-ago": "上传于 {{minutesAgo, relativetime(minutes)}} 分钟前",
+                "delete": "请求日志文件删除",
+                "hours-ago": "上传于{{hoursAgo, relativetime(hours)}}小时前"
+            },
+            "descriptiveNames": {
+                "game-log": "{{gameTitle}}的游戏日志",
+                "gog": "GOG 日志",
+                "heroic": "常规 Heroic 日志",
+                "legendary": "Epic Games / Legendary 日志",
+                "nile": "Amazon / Nile 日志"
+            },
+            "show-uploads": "显示上传的日志文件"
         },
         "mangohud": "启用 MangoHud（需要已安装 Mangohud）",
         "manualsync": {
