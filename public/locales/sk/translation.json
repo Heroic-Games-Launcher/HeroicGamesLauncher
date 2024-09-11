@@ -618,7 +618,10 @@
             "last-log": "Last Log",
             "no-file": "No log file found.",
             "show-in-folder": "Show log file in folder",
-            "join-heroic-discord": "Pripoj sa na náš Discord"
+            "join-heroic-discord": "Pripoj sa na náš Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Povoliť Mangohud (musí byť nainštalovaný Mangohud)",
         "manualsync": {

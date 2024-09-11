@@ -568,7 +568,10 @@
             "instructions_title": "Hvordan rapportere et problem?",
             "last-log": "Siste logg",
             "no-file": "Ingen loggfil funnet",
-            "show-in-folder": "Vis loggfil i mappe"
+            "show-in-folder": "Vis loggfil i mappe",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Aktiver Mangohud (Mangohud må installeres)",
         "manualsync": {

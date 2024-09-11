@@ -619,7 +619,10 @@
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
             "show-in-folder": "Visa loggfiler i mapp",
-            "join-heroic-discord": "Gå med i vår Discord"
+            "join-heroic-discord": "Gå med i vår Discord",
+            "upload": {
+                "actions": "Åtgärd"
+            }
         },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {

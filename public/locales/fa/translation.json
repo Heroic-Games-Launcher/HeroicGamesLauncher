@@ -550,7 +550,10 @@
             "instructions_title": "چگونه یک مشکل را گزارش کنید؟",
             "last-log": "آخرین لاگ",
             "no-file": "فایل لاگی پیدا نشد",
-            "show-in-folder": "نمایش فایل لاگ در پوشه"
+            "show-in-folder": "نمایش فایل لاگ در پوشه",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "فعالسازی Mangohud (Mangohud باید نصب شده باشد)",
         "manualsync": {

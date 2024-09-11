@@ -259,7 +259,7 @@
         "show_favourites_only": "Показать только избранное",
         "show_hidden": "Показать скрытые",
         "store": "Магазин",
-        "filters": "Фильтр",
+        "filters": "Фильтры",
         "all_categories": "Все категории",
         "show_installed_only": "Показать только установленные",
         "uncategorized": "Без категории",
@@ -324,7 +324,7 @@
             "additionalOptions": "Дополнительные параметры командной строки для передачи в Gamescope."
         },
         "title": {
-            "accessibility": "Доступность",
+            "accessibility": "Универсальный доступ",
             "login": "Вход",
             "settings": "Настройки",
             "downloadManager": "Менеджер загрузок",
@@ -403,7 +403,7 @@
         "epic": "Вход в Epic Games",
         "gog": "Вход в GOG",
         "message": "Войдите с помощью своей платформы. Вы можете войти одновременно в несколько платформ.",
-        "amazon": "Амазон Войти",
+        "amazon": "Войти через Амазон",
         "old-mac": "Ваша версия macOS: {{version}}. Для входа требуется macOS 12 или новее."
     },
     "message": {
@@ -438,7 +438,7 @@
             "finished": "Установка завершена",
             "imported": "Игра импортирована",
             "startInstall": "Установка начата",
-            "failed": "Установка не удалась",
+            "failed": "Установка не выполнена",
             "paused": "Установка приостановлена"
         },
         "moved": "Перемещение завершено",
@@ -518,7 +518,7 @@
         "gogdl-version": "Версия GOGDL : ",
         "legendary-version": "Версия Legendary: ",
         "weblate": "Помогите перевести Heroic.",
-        "nile-version": "Версия Нила: "
+        "nile-version": "Версия Nile: "
     },
     "Other": "Другое",
     "placeholder": {
@@ -548,7 +548,7 @@
             "queued": "Очередь",
             "remove": "Удалить из загрузок",
             "pause": "Приостановить загрузку",
-            "resume": "Возобновление загрузки"
+            "resume": "Возобновить загрузку"
         }
     },
     "Recent": "Запускались недавно",
@@ -619,7 +619,10 @@
             "last-log": "Последний журнал",
             "no-file": "Файл журнала не найден",
             "show-in-folder": "Показать файл журнала в папке",
-            "join-heroic-discord": "Присоединяйтесь к нашему Discord"
+            "join-heroic-discord": "Присоединяйтесь к нашему Discord",
+            "upload": {
+                "actions": "Действие"
+            }
         },
         "mangohud": "Включить Mangohud (требуется установленный Mangohud)",
         "manualsync": {
@@ -663,15 +666,17 @@
         "autoUpdateGames": "Обновлять игры автоматически",
         "ignoreGameUpdates": "Игнорировать обновления игры",
         "disable_logs": "Отключить журналы",
-        "addgamestoapplications": "Добавляйте игры в приложения автоматически",
-        "showMetalOverlay": "Показать наложение статистики",
+        "addgamestoapplications": "Добавлять игры в Приложения автоматически",
+        "showMetalOverlay": "Показать оверлей статистики",
         "alt-nile-bin": "Выберите альтернативный двоичный файл Nile",
         "autodxvknvapi": "Автоматически устанавливать/обновлять DXVK-NVAPI в префиксе",
         "experimental_features": {
             "enableNewShinyFeature": "Новая блестящая функция",
             "enableNewDesign": "Новый дизайн",
             "enableHelp": "Компонент Справки",
-            "automaticWinetricksFixes": "Автоматическое применение известных исправлений"
+            "automaticWinetricksFixes": "Автоматическое применение известных исправлений",
+            "cometSupport": "Поддержка Comet",
+            "umuSupport": "Использовать UMU как среду Proton"
         },
         "disablePlaytimeSync": "Отключить синхронизацию времени воспроизведения",
         "frameless-window": {
@@ -761,7 +766,8 @@
             "memory": "Объём памяти:",
             "copyToClipboard": "Копировать в буфер обмена",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Версия Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Экспериментальные возможности"
@@ -791,7 +797,7 @@
             },
             "details": "Подробности",
             "resetHeroic": {
-                "help": "Вы уверены, что хотите сбросить Heroic? Это удалит все настройки и кэширование, но не удалит установленные игры или учетные данные Epic. Портативные версии (AppImage, WinPortable, ...) Heroic после этого необходимо перезапустить вручную."
+                "help": "Это удалит все настройки и кэширование, но не удалит установленные игры или учетные данные Epic. Портативные версии (AppImage, WinPortable, ...) heroic после этого необходимо перезапустить вручную."
             }
         }
     },
@@ -876,9 +882,9 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon Games",
-    "prime-gaming": "Прайм Гейминг",
+    "prime-gaming": "Prime Gaming",
     "winetricks": {
-        "install": "Установка",
+        "install": "Установить",
         "loading": "Скачивание",
         "installing": "Установка в процессе: {{component}}",
         "openGUI": "Открыть GUI Winetricks",

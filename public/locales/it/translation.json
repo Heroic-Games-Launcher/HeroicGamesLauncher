@@ -618,7 +618,10 @@
             "last-log": "Ultimo accesso",
             "no-file": "Nessun log file trovato",
             "show-in-folder": "Mostra il log file nella cartella",
-            "join-heroic-discord": "Unisciti al nostro Discord"
+            "join-heroic-discord": "Unisciti al nostro Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
         "manualsync": {

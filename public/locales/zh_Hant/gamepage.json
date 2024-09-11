@@ -14,17 +14,17 @@
         },
         "no": "否",
         "repair": {
-            "message": "你想嘗試修復這個遊戲的檔案嗎？這可能需要很長的時間。",
+            "message": "您想嘗試修復這個遊戲的檔案嗎？這可能需要很長的時間。",
             "title": "驗證並修復遊戲檔案"
         },
         "runexe": {
-            "title": "選擇要執行的EXE檔案"
+            "title": "選擇要執行的 EXE 檔案"
         },
         "select": {
             "button": "選擇"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "選擇可執行檔"
         },
         "stopInstall": {
             "keepInstalling": "繼續安裝",
@@ -33,14 +33,15 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "你希望解除安裝「{{title}}」嗎？",
+            "message": "您要解除安裝「{{title}}」嗎？",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "解除安裝",
-            "prefix_warning": "此遊戲的 Wine 前綴是默認前綴。如果你真的想刪除它，你必須手動進行。",
-            "dlc": "您要解除安裝「{{title}}」 DLC 嗎？"
+            "prefix_warning": "此遊戲的 Wine 前綴是預設前綴。如果您真的想刪除它，必須手動進行。",
+            "dlc": "您要解除安裝「{{title}}」 DLC 嗎？",
+            "cannotUninstallEpic": "安裝 Epic 遊戲時不能解除安裝其它 Epic 遊戲。"
         },
         "update": {
-            "message": "此遊戲有更新，你希望現在更新嗎？",
+            "message": "此遊戲有更新，您希望現在更新嗎？",
             "title": "遊戲需要更新"
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
@@ -59,26 +60,27 @@
         "install": "安裝",
         "no-path-selected": "未選擇路徑",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "從佇列中移除"
         },
         "remove_from_favourites": "自我的最愛移除",
-        "remove_from_recent": "Remove From Recent",
+        "remove_from_recent": "從最近移除",
         "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "running-setup": "執行安裝",
         "sideload": {
             "edit": "編輯應用程式/遊戲"
         },
         "unhide_game": "取消隱藏遊戲",
         "uninstall": "解除安裝",
         "update": "更新",
-        "details": "細節"
+        "details": "內容",
+        "changelog": "顯示更新日誌"
     },
     "cloud_save_unsupported": "不支援",
-    "disabled": "已禁用",
+    "disabled": "已關閉",
     "dlc": {
         "installDlcs": "安裝所有DLC"
     },
-    "enabled": "已啟用",
+    "enabled": "已開啟",
     "game": {
         "downloadSize": "下載大小",
         "firstPlayed": "首次遊玩",
@@ -96,8 +98,12 @@
             "disabled": "已關閉"
         },
         "builds": {
-            "version": "版本號"
-        }
+            "version": "版本",
+            "buildsSelector": "選擇遊戲版本"
+        },
+        "install_info": "安裝訊息",
+        "modify": "修改安裝",
+        "changelogFor": "{{gameTitle}} 更新日誌"
     },
     "gamecard": {
         "moving": "移動中",
@@ -109,11 +115,11 @@
     },
     "hours": "小時",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "完美通關",
+        "main-plus-extras": "主線 + 支線",
+        "main-story": "主線故事"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "通關時數",
     "info": {
         "canRunOffline": "需要連線至網路",
         "installedPlatform": "已安裝平台",
@@ -123,10 +129,10 @@
         "version": "版本",
         "apple-gaming-wiki": "AppleGamingWiki 評級",
         "clickToOpen": "點擊開啟",
-        "game-scores": "比賽成績",
+        "game-scores": "遊戲分數",
         "installedInfo": "安裝訊息",
-        "protondb-compatibility-info": "質子兼容性層",
-        "steamdeck-compatibility-info": "SteamDeck 兼容性"
+        "protondb-compatibility-info": "Proton 相容性等級",
+        "steamdeck-compatibility-info": "SteamDeck 相容性"
     },
     "install": {
         "disk-space-left": "可用空間",
@@ -134,15 +140,15 @@
         "path": "選擇安裝路徑",
         "path-not-writtable": "警告：路徑可能不可寫入。",
         "space-after-install": "安裝後",
-        "wineprefix": "WinePrefix容器",
-        "wineversion": "Wine版本",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Wine 版本",
         "anticheat-warning": {
             "ok": "Ok"
         }
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported",
+            "third-party-game": "不支援第三方遊戲",
             "not-installable-game": "遊戲不可安裝"
         },
         "playing": {
@@ -156,13 +162,13 @@
         "ubisoft": "安裝育碧連接"
     },
     "launch": {
-        "options": "啟動選項..."
+        "options": "啟動選項…"
     },
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in",
+        "login": "登入",
+        "title": "您未登入",
         "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "回報執行此遊戲時出現的問題",
@@ -170,15 +176,16 @@
         "title": "選擇要安裝的元件"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "CrossOver 容器"
+        "use-default-wine-settings": "使用預設 Wine 設定",
+        "winecrossoverbottle": "CrossOver 容器",
+        "show-wine-settings": "顯示 Wine 設定"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "標題"
         },
         "info": {
-            "exe": "Select Executable",
+            "exe": "選擇可執行檔",
             "image": "App Image",
             "title": "Game/App Title",
             "broser": "瀏覽器網址"
@@ -201,17 +208,17 @@
         "installing": "正在安裝",
         "moving": "正在移動，請稍等",
         "notinstalled": "未安裝此遊戲",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "不支援",
+        "notSupportedGame": "不支援",
         "processing": "檔案處理中，請等待",
-        "queued": "Queued",
+        "queued": "佇列中",
         "reparing": "遊戲修復中，請稍等",
         "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
         "totalDownloaded": "總共已下載",
         "uninstalling": "解除安裝中",
         "updating": "遊戲更新中",
         "playing": "遊戲中",
-        "moving-files": "移動文件“{{file}}”：{{percent}} ",
+        "moving-files": "移動檔案中'{{file}}': {{percent}}%",
         "syncingSaves": "同步保存",
         "ubisoft": "安裝育碧",
         "launching": "啟動中",
@@ -224,20 +231,30 @@
         "addShortcut": "新增捷徑",
         "addToSteam": "加入到 Steam",
         "change": "更改安裝路徑",
-        "disableEosOverlay": "停用 EOS 內嵌界面",
-        "enableEosOverlay": "啟用 EOS 內嵌界面",
+        "disableEosOverlay": "停用 EOS 內嵌介面",
+        "enableEosOverlay": "啟用 EOS 內嵌介面",
         "move": "移動遊戲",
         "protondb": "檢查相容性",
         "removeFromSteam": "從 Steam 移除",
         "removeShortcut": "移除捷徑",
         "settings": "設定",
         "store": "商店頁面",
-        "verify": "驗證並修復遊戲文件",
+        "verify": "驗證並修復遊戲檔案",
         "extraInfo": "額外信息",
         "logs": "日誌",
         "categories": "分類"
     },
     "help": {
-        "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統"
+        "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統",
+        "title": {
+            "gamePage": "遊戲頁面"
+        }
+    },
+    "modifyInstall": {
+        "versionCollapsable": "遊戲版本",
+        "redMod": {
+            "enable": "啟用模組"
+        },
+        "dlcsCollapsible": "DLC"
     }
 }

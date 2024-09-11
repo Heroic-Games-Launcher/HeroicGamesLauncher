@@ -555,7 +555,10 @@
             "instructions_title": "How to report a problem?",
             "last-log": "마지막 로그",
             "no-file": "로그 파일을 찾을 수 없습니다",
-            "show-in-folder": "폴더에 있는 로그 파일 표시"
+            "show-in-folder": "폴더에 있는 로그 파일 표시",
+            "upload": {
+                "actions": "동작"
+            }
         },
         "mangohud": "Mangohud 활성화 (Mangohud가 설치 되어있어야 함)",
         "manualsync": {

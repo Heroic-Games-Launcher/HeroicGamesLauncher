@@ -39,7 +39,8 @@
             "title": "أزِل التثبيت",
             "prefix_warning": "سابقة واين لهذه اللعبة هي السابقة الافتراضية. إذا أردت حذفها فعليك فعل ذلك يدويًّا.",
             "dlc": "هل تريد إلغاء تثبيت محتوى قابل للتنزيل (DLC) الخاص ب {{title}} ؟",
-            "cannotUninstallEpic": "لا يُزال أبك جيمز ريثما تُثبَّت لعبة منه."
+            "cannotUninstallEpic": "لا يُزال أبك جيمز ريثما تُثبَّت لعبة منه.",
+            "gameIsRunning": "إن {{title}} قيد التشغيل. أغلق اللعبة لإلغاء تثبيتها."
         },
         "update": {
             "message": "هنالك تحديث متاح لهذه اللعبة، هل تريد تطبيقه الآن؟",
@@ -108,7 +109,8 @@
         },
         "changelogFor": "سجل التغيير لـ {{gameTitle}}",
         "modify": "تعديل التثبيت",
-        "extra_info": "معلومات إضافية"
+        "extra_info": "معلومات إضافية",
+        "install_info": "معلومات التثبيت"
     },
     "gamecard": {
         "moving": "قيد النقل",
@@ -137,7 +139,8 @@
         "game-scores": "نتائج اللعبة",
         "installedInfo": "معلومات المثبَّت",
         "protondb-compatibility-info": "طبقة توافق البروتون",
-        "steamdeck-compatibility-info": "التوافق مع SteamDeck"
+        "steamdeck-compatibility-info": "التوافق مع SteamDeck",
+        "third-party-app": "إدارة الأطراف الثالثة"
     },
     "install": {
         "disk-space-left": "المساحة المتوفرة",
@@ -282,5 +285,10 @@
         },
         "versionCollapsable": "نسخة اللعبة",
         "nodlcs": "لا يوجد محتوى قابل للتنزيل (DLC) متاح"
+    },
+    "third-party-managed": {
+        "header": "هذه اللّعبة مدارة من قبل برنامج طرف ثالث",
+        "notice1": "هذه اللّعبة مدارة من قبل برنامج طرف ثالث: \"{{application_name}}\"",
+        "notice2": "بعد الضغط على تثبيت، Heroic سوف يقوم بتشغيل التطبيق لإكمال عملية التثبيت"
     }
 }

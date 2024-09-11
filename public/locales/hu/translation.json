@@ -612,7 +612,10 @@
             "last-log": "Utolsó napló",
             "no-file": "Nem található naplófájl",
             "show-in-folder": "Naplófájl megjelenítése mappában",
-            "join-heroic-discord": "Csatlakozzon a Discordunkhoz"
+            "join-heroic-discord": "Csatlakozzon a Discordunkhoz",
+            "upload": {
+                "actions": "Műveletek"
+            }
         },
         "mangohud": "Mangohud engedélyezése (a Mangohudnak telepítve kell lennie)",
         "manualsync": {

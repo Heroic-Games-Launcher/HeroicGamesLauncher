@@ -12,7 +12,7 @@
             "path": "Hara köçmək istədiyinizi seçin",
             "title": "Move Oyun Quraşdırması"
         },
-        "no": "YOX",
+        "no": "XEYR",
         "repair": {
             "message": "Bu oyunu təmir etməyə cəhd etmək istəyirsiniz? Bu uzun müddət çəkə bilər.",
             "title": "Doğrulayın və Təmir edin"
@@ -34,18 +34,21 @@
         "uninstall": {
             "checkbox": "Siz də prefiksi silmək istərdinizmi? Bu geri qaytarıla bilməz.",
             "checkbox_prefix": "Prefiks",
-            "message": "Bu oyunu silmək istəyirsiniz?",
+            "message": "{{title}}-i⁴ silmək istəyirsiniz?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Silin",
             "prefix_warning": "Bu oyun üçün Şərab prefiksi standart prefiksdir. Əgər həqiqətən silmək istəyirsinizsə, bunu əl ilə etməlisiniz.",
-            "dlc": "Bu DLC-ni silmək istəyirsiniz?"
+            "dlc": "{{title}} DLC-ni silmək istəyirsiniz?",
+            "cannotUninstallEpic": "Başqa Epic oyunu quraşdırılarkən Epic gamesi silmək mümkün deyil.",
+            "gameIsRunning": "{{title}} işləyir. Bunu silmek üçün oyunu bağlayın."
         },
         "update": {
             "message": "Bu oyunun yeniləməsi var, yeniləmə indi tətbiq edilsin?",
             "title": "Oyun yeniləməyə ehtiyacı var"
         },
         "wineprefix": "WinePrefix Qovluğunu seçin",
-        "yes": "HƏ"
+        "yes": "HƏ",
+        "close": "Bağla"
     },
     "button": {
         "add_to_favourites": "Sevimlilərə əlavə edin",
@@ -71,7 +74,8 @@
         "unhide_game": "Oyunu Gizlət",
         "uninstall": "Silin",
         "update": "Yeniləyin",
-        "details": "Təfərrüatlar"
+        "details": "Təfərrüatlar",
+        "changelog": "Dəyişikliklər jurnalını göstərin"
     },
     "cloud_save_unsupported": "Dəstəklənmir",
     "disabled": "Əlil",
@@ -91,7 +95,22 @@
         "platform": "Quraşdırmaq üçün Platforma Versiyasını seçin",
         "requirements": "Sistem Tələbləri",
         "totalPlayed": "Oynanan Vaxt",
-        "dlcs": "DLC-lər"
+        "dlcs": "DLC-lər",
+        "branch": {
+            "disabled": "Qeyri-aktiv",
+            "setPrivateBranchPassword": "Şəxsi kanal parolu təyin edin",
+            "password": "Şəxsi kanal parolu təyin edin",
+            "select": "Beta kanalını seçin"
+        },
+        "extra_info": "Əlavə məlumat",
+        "install_info": "Quraşdırma məlumatı",
+        "modify": "Quraşdırmaya dəyişiklik et",
+        "builds": {
+            "buildsSelector": "Oyun versiyasını seçin",
+            "toggle": "Oyunu xüsusi versiyada saxlayın",
+            "version": "Versiya"
+        },
+        "changelogFor": "{{gameTitle}} üçün dəyişiklik jurnalı"
     },
     "gamecard": {
         "moving": "Hərəkət edir",
@@ -120,7 +139,8 @@
         "game-scores": "Oyun Xalları",
         "installedInfo": "Quraşdırılmış Məlumat",
         "protondb-compatibility-info": "Proton Uyğunluq Səviyyəsi",
-        "steamdeck-compatibility-info": "SteamDeck Uyğunluğu"
+        "steamdeck-compatibility-info": "SteamDeck Uyğunluğu",
+        "third-party-app": "Üçüncü-Tərəf İdarəedici"
     },
     "install": {
         "disk-space-left": "Yer Mövcuddur",
@@ -129,7 +149,16 @@
         "path-not-writtable": "Xəbərdarlıq: yol yazıla bilən olmaya bilər.",
         "space-after-install": "Quraşdırıldıqdan sonra",
         "wineprefix": "WinePrefiks",
-        "wineversion": "Şərab versiyası"
+        "wineversion": "Şərab versiyası",
+        "anticheat-warning": {
+            "disabled_installation": "Antiçit dəstəyi ya işləmir, ya da danır və çoxoyunçu funksiyaları çalışmayacaq. Oyunu quraşdırmaq mümkün deyil. Bu oyunu quraşdırmaq üçün, bu kontrolu qabaqcıl ayarlardan əngəlləyin.",
+            "ok": "Yaxşı",
+            "cancel": "yox",
+            "install_anyway": "Bəli (Mən başa düşürəm ki, çoxoyunçu funksiyaları işləməyəcək)",
+            "title": "Antiçit İşləmir/Danır",
+            "multiplayer_message": "Antiçit dəstəyi ya işləmir, ya da danır. Oyun açıla bilər ancaq, çoxoyunçu funksiyaları işləməyəcək. Buna baxmayaraq oyunu quraşdırmaq istəyirsiniz?"
+        },
+        "flatpak-path-not-writtable": "Xəta: Səndboks girişi bu \"fayl məkanına-path\" verilməyib, məlumat itkiləri baş verəcək."
     },
     "label": {
         "game": {
@@ -144,7 +173,9 @@
             "syncing": "Sinxronizasiya Saxlamalar"
         },
         "launching": "Başlanır",
-        "ubisoft": "Ubisoft Connect quraşdırılır"
+        "ubisoft": "Ubisoft Connect quraşdırılır",
+        "winetricks": "Vayntriks Paketləri Quraşdırılır",
+        "redist": "Redistributables-Lazımi Fayllar Quraşdırılır"
     },
     "launch": {
         "options": "Başlama Seçimləri..."
@@ -162,7 +193,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Use Default Wine Settings",
-        "winecrossoverbottle": "Krossover şüşə"
+        "winecrossoverbottle": "Krossover şüşə",
+        "show-wine-settings": "Vine Ayarlarını Göstər",
+        "warn-use-default-wine-settings": "Bu ayarı yalnız nə etdiyini bilirsənsə, istifadə et. <br/>Birdən çox oyun üçün eyni prefiksin paylaşılması, onların \"dependencies\"- asılılıqları ilə uyğun gəlmirsə, problemlər yarada bilər."
     },
     "sideload": {
         "field": {
@@ -172,12 +205,15 @@
             "exe": "Select Executable",
             "image": "App Image",
             "title": "Game/App Title",
-            "broser": "BrowserURL"
+            "broser": "BrowserURL",
+            "fullscreen": "Tam Ekranda Başlat (çıxmaq üçün F11-ə basın)",
+            "useragent": "Özəl İstifadəçi Agenti"
         },
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "Oyun URL-ni bura yerləşdirin"
+            "url": "Oyun URL-ni bura yerləşdirin",
+            "useragent": "Bu brauzer proqramında/oyununda istifadə etmək üçün özəl istifadəçi agenti yazın"
         }
     },
     "specs": {
@@ -202,14 +238,16 @@
         "uninstalling": "Uninstalling",
         "updating": "Oyun Yenilənir",
         "playing": "Oynayan",
-        "moving-files": "'{{file}}' faylı köçürülür: {{percent}} ",
+        "moving-files": "'{{file}}' faylı köçürülür: {{percent}}%",
         "syncingSaves": "Sinxronizasiya Saxlamalar",
         "launching": "Başlanır",
         "ubisoft": "Ubisoft quraşdırılması",
         "downloading": "Downloading",
         "extracting": "Çıxarma",
         "gog-goodie": "Bu oyun quraşdırmaq mümkün deyil. Yüklənə bilən məzmunu https://gog.com/account saytında yoxlayın",
-        "goodie": "Quraşdırıla bilməz"
+        "goodie": "Quraşdırıla bilməz",
+        "winetricks": "Vayntriks Problem Həlletmə Ayarları Tətbiq olunur",
+        "redist": "\"Redistributables\"-Lazımi Fayllar Quraşdırılır {{redist}}"
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",
@@ -225,9 +263,30 @@
         "store": "Mağaza Səhifəsi",
         "verify": "Doğrulayın və Təmir edin",
         "extraInfo": "Əlavə məlumat",
-        "logs": "Qeydlər"
+        "logs": "Qeydlər",
+        "categories": "Kateqoriyalar"
     },
     "help": {
-        "cloud_save_unsupported": "Bu oyun bulud qənaətlərini dəstəkləmir. Bu məlumat oyun tərtibatçıları tərəfindən verilir. Bəzi oyunlar öz bulud qənaət sistemini tətbiq edir"
+        "cloud_save_unsupported": "Bu oyun bulud qənaətlərini dəstəkləmir. Bu məlumat oyun tərtibatçıları tərəfindən verilir. Bəzi oyunlar öz bulud qənaət sistemini tətbiq edir",
+        "content": {
+            "gamePage": "Bütün oyun detallarını və fəaliyyətlərini göstər. Daha çox seçim üçün 3 nöqte menyusundan istifadə edin."
+        },
+        "title": {
+            "gamePage": "Oyun Səhifəsi"
+        }
+    },
+    "third-party-managed": {
+        "notice1": "Bu oyun üçüncü tərəf proqram tərəfindən idarə olunur: {{application_name}}",
+        "header": "Bu oyun üçüncü tərəf proqram tərəfindən idarə olunur",
+        "notice2": "Quraşdıra basdıqdan sonra, Heroic quraşdırma prosessini tamamlamaq üçün proqram çalışdıracaq"
+    },
+    "modifyInstall": {
+        "redMod": {
+            "enable": "Modları Aç",
+            "collapsible": "REDmod İntegrasiyası"
+        },
+        "versionCollapsable": "Oyun Versiyası",
+        "dlcsCollapsible": "DLC-Əlavə Genişləmə Paketləri",
+        "nodlcs": "DLC-Əlavə Genişləmə Paketləri yoxdur və ya əlçatan deyil"
     }
 }

@@ -619,7 +619,10 @@
             "last-log": "Último registro",
             "no-file": "No se ha encontrado ningún archivo de registro",
             "show-in-folder": "Mostrar el archivo de registro en la carpeta",
-            "join-heroic-discord": "Únase a nuestro Discord"
+            "join-heroic-discord": "Únase a nuestro Discord",
+            "upload": {
+                "actions": "Acciones"
+            }
         },
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
         "manualsync": {
@@ -671,7 +674,9 @@
             "enableNewShinyFeature": "Una nueva función brillante",
             "enableNewDesign": "Nuevo diseño",
             "enableHelp": "Componente de ayuda",
-            "automaticWinetricksFixes": "Aplicar correcciones conocidas automáticamente"
+            "automaticWinetricksFixes": "Aplicar correcciones conocidas automáticamente",
+            "cometSupport": "Soporte para Comet",
+            "umuSupport": "Usar UMU como entorno de ejecución de Proton"
         },
         "disablePlaytimeSync": "Desactivar la sincronización del tiempo de juego",
         "frameless-window": {
@@ -764,7 +769,8 @@
             "memory": "Memoria:",
             "copyToClipboard": "Copiar al portapapeles",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "gamescope": {
             "searchMsg": "Buscando el ejecutable de gamescope."

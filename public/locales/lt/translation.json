@@ -229,7 +229,12 @@
                 "message": "Ši funkcija vis dar eksperimentinė. Prašome pranešti apie problemas, su kuriomis Jūs susiduriate „GitHub“ platformoje."
             }
         },
-        "autoUpdateGames": "Automatiškai atnaujinti žaidimus"
+        "autoUpdateGames": "Automatiškai atnaujinti žaidimus",
+        "log": {
+            "upload": {
+                "actions": "Veiksmai"
+            }
+        }
     },
     "settings": {
         "advanced": {

@@ -33,12 +33,13 @@
         },
         "uninstall": {
             "checkbox": "Remover prefixo: {{prefix}}{{newLine}}Nota: Isto não pode ser desfeito e também vai remover os ficheiros de gravações não guardados.",
-            "message": "Você quer desinstalar esse jogo?",
+            "message": "Quer desinstalar esse \"{{title}}\"?",
             "settingcheckbox": "Apaga as definições e remove o registo{{newLine}}Nota: Isto não pode ser desfeito. Quaisquer definições alteradas vão ser esquecidas e o registo vai ser apagado.",
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se quer realmente apagá-lo, deverá fazê-lo manualmente.",
             "dlc": "Você quer desinstalar essa DLC?",
-            "cannotUninstallEpic": "O Epic games não pode ser desinstalado enquanto tem um jogo a ser descarregado a partir do mesmo."
+            "cannotUninstallEpic": "O Epic games não pode ser desinstalado enquanto tem um jogo a ser descarregado a partir do mesmo.",
+            "gameIsRunning": "{{title}} está a decorrer. Fecha o jogo para o desinstalar."
         },
         "update": {
             "message": "Este jogo tem uma nova atualização, aplicar atualização agora?",
@@ -106,7 +107,9 @@
             "toggle": "Deixe o jogo em uma versão especifica"
         },
         "changelogFor": "Log para {{gameTitle}}",
-        "modify": "Modificar instalação"
+        "modify": "Modificar instalação",
+        "extra_info": "Informação extra",
+        "install_info": "Informação de instalação"
     },
     "gamecard": {
         "moving": "A mover",
@@ -135,7 +138,8 @@
         "game-scores": "Pontuações do Jogo",
         "installedInfo": "Informação Instalada",
         "protondb-compatibility-info": "Níveis de compatibilidade com o Proton",
-        "steamdeck-compatibility-info": "Compatibilidade do SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilidade do SteamDeck",
+        "third-party-app": "Gestor de Terceiros"
     },
     "install": {
         "disk-space-left": "Espaço Disponível",
@@ -152,7 +156,8 @@
             "title": "Anti-batota Danificado/Recusado",
             "install_anyway": "Sim (eu entendo que os recursos multiplayer do jogo não vão funcionar.)",
             "multiplayer_message": "O suporte anticheat esta com algum problema ou não iniciado. O jogo deve abrir mas os recursos multiplayer não vão funcionar. Voce deseja instalar mesmo assim?",
-            "ok": "Ok"
+            "ok": "Ok",
+            "disabled_installation": "O suporte anticheat não está funcional e as funcionalidades multiplayer também não. O jogo não pode ser instalado. Para instalar este jogo, desative esta verificação nas definições avançadas."
         },
         "flatpak-path-not-writtable": "Erro: Acesso à área restrita não concedido a este caminho, ocorrerá perda de dados."
     },
@@ -243,7 +248,7 @@
         "gog-goodie": "Parece que este jogo não é instalável. Verifique o conteúdo descarregável em https://gog.com/account",
         "goodie": "Não instalável",
         "redist": "Instalando Redistributables ({{redist}})",
-        "winetricks": "Aplicando opções do Winetricks"
+        "winetricks": "Aplicando as correções do Winetricks"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",
@@ -279,5 +284,10 @@
             "collapsible": "REDmod Integração."
         },
         "versionCollapsable": "Versão do jogo"
+    },
+    "third-party-managed": {
+        "header": "Este jogo é gerido por uma aplicação de terceiros",
+        "notice2": "Após clicar em Instalar, o Heroic executará o aplicativo para concluir o processo de instalação",
+        "notice1": "Este jogo é gerido por uma aplicação de terceiros: \"{{application_name}}\""
     }
 }

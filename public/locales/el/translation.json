@@ -559,7 +559,10 @@
             "instructions_title": "How to report a problem?",
             "last-log": "Τελευταίο Αρχείο Καταγραφής",
             "no-file": "Δεν βρέθηκε αρχείο σύνδεσης",
-            "show-in-folder": "Εμφάνιση αρχείου καταγραφής στον φάκελο"
+            "show-in-folder": "Εμφάνιση αρχείου καταγραφής στον φάκελο",
+            "upload": {
+                "actions": "Ενέργεια"
+            }
         },
         "mangohud": "Ενεργοποίηση Mangohud (απαραίτητη η εγκατάσταση του Mangohud)",
         "manualsync": {
