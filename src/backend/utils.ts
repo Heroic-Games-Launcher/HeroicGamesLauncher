@@ -580,9 +580,9 @@ function constructAndUpdateRPC(
   const client = makeClient(appId)
   const versionText = `Heroic ${app.getVersion()}`
 
-  const replaceVariables = (str?: string) =>
+  const replaceVariables = (str: string) =>
     str
-      ?.replace(/{game}/gi, gameInfo.title)
+      .replace(/{game}/gi, gameInfo.title)
       .replace(/{platform}/gi, getFormattedOsName())
 
   const image = gameInfo.art_icon || gameInfo.art_square
