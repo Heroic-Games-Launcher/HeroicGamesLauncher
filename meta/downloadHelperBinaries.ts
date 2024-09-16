@@ -162,7 +162,8 @@ async function downloadComet() {
         win32: 'comet-x86_64-pc-windows-msvc.exe'
       },
       arm64: {
-        darwin: 'comet-aarch64-apple-darwin'
+        darwin: 'comet-aarch64-apple-darwin',
+        linux: 'comet-aarch64-unknown-linux-gnu'
       }
     })
   ])
