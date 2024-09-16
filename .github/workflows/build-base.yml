@@ -50,7 +50,7 @@ jobs:
                     (matrix.os == 'ubuntu-22.04'  && 'linux-AppImage-x64') }}
           path: ${{ (matrix.os == 'windows-2022'  && 'dist/Heroic*.exe'      ) ||
                     (matrix.os == 'macos-12'      && 'dist/Heroic*x64.dmg'   ) ||
-                    (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic*64.AppImage') }}
+                    (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic*x86_64.AppImage') }}
           retention-days: 14
       - name: Upload linux ARM version
         uses: actions/upload-artifact@v3

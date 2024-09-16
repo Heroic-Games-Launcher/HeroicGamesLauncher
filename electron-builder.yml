@@ -59,12 +59,13 @@ dmg:
       path: /Applications
 
 linux:
+  artifactName: ${productName}-${version}-linux-${arch}.${ext}
   category: Game
   icon: build/icon.icns
-  description: An Open Source Launcher for GOG and Epic Games
   desktop:
     Name: Heroic Games Launcher
-    Comment[de]: Ein Open Source Spielelauncher for GOG und Epic Games
+    Comment[de]: Ein OSS-Spielelauncher für GOG, Epic Games und Amazon Games
+    Comment[pl]: Otwartoźródłowy launcher dla GOG, Epic Games i Amazon Games
   files:
     - build/bin/*/linux/*
     - build/bin/x64/win32/GalaxyCommunication.exe
