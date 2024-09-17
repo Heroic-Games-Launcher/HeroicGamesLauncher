@@ -269,6 +269,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   })
 
   function applyZoom() {
+<<<<<<< HEAD
 	const zoomFactor = processZoomForScreen(
         configStore.get('zoomPercent', 100) / 100
     )
@@ -282,6 +283,21 @@ async function initializeWindow(): Promise<BrowserWindow> {
   mainWindow.on('enter-full-screen', applyZoom);
   mainWindow.on('leave-full-screen', applyZoom);
   mainWindow.webContents.on('did-navigate', applyZoom);
+=======
+    const zoomFactor = processZoomForScreen(
+      configStore.get('zoomPercent', 100) / 100
+    )
+    mainWindow.webContents.setZoomLevel(zoomFactor)
+    mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
+  }
+
+  mainWindow.on('maximize', applyZoom)
+  mainWindow.on('unmaximize', applyZoom)
+  mainWindow.on('restore', applyZoom)
+  mainWindow.on('enter-full-screen', applyZoom)
+  mainWindow.on('leave-full-screen', applyZoom)
+  mainWindow.webContents.on('did-navigate', applyZoom)
+>>>>>>> 2fe6b8c2 (Used Prettier)
 
   return mainWindow
 }
