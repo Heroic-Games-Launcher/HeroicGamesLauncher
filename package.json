@@ -152,7 +152,7 @@
     "typescript": "4.9.4",
     "typescript-eslint": "^7.17.0",
     "unimported": "1.26.0",
-    "vite": "5.2.8",
+    "vite": "5.2.14",
     "vite-plugin-svgr": "4.2.0"
   },
   "resolutions": {
