@@ -69,7 +69,7 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
-import { readFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
@@ -826,13 +826,16 @@ export async function verifyWinePrefix(
 
   return command
     .then((result) => {
-      // This is kinda hacky
-      const wasUpdated = result.stderr.includes(
-        wineVersion.type === 'proton'
-          ? 'Proton: Upgrading prefix from'
-          : 'has been updated'
-      )
-      return { res: result, updated: wasUpdated }
+      const currentWinePath = join(winePrefix, 'current_wine')
+      if (
+        !existsSync(currentWinePath) ||
+        readFileSync(currentWinePath, 'utf-8') != wineVersion.bin
+      ) {
+        writeFileSync(currentWinePath, wineVersion.bin, 'utf-8')
+        return { res: result, updated: true }
+      } else {
+        return { res: result, updated: false }
+      }
     })
     .catch((error) => {
       logError(['Unable to create Wineprefix: ', error], LogPrefix.Backend)
