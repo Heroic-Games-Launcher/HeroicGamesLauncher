@@ -64,7 +64,6 @@ export type Release = {
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
-  automaticWinetricksFixes: boolean
   cometSupport: boolean
   umuSupport: boolean
 }
