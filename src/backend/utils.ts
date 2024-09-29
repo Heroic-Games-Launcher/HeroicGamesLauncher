@@ -34,7 +34,10 @@ import {
   GITHUB_API,
   isMac,
   configStore,
-  isLinux
+  isLinux,
+  legendaryConfigPath,
+  gogdlConfigPath,
+  nileConfigPath
 } from './constants'
 import {
   appendGamePlayLog,
@@ -414,7 +417,13 @@ function clearCache(
 }
 
 function resetHeroic() {
-  const appFolders = [gamesConfigPath, configPath]
+  const appFolders = [
+    gamesConfigPath,
+    configPath,
+    legendaryConfigPath,
+    gogdlConfigPath,
+    nileConfigPath
+  ]
   appFolders.forEach((folder) => {
     rmSync(folder, { recursive: true, force: true })
   })
