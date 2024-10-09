@@ -123,7 +123,12 @@
         "choose-gogdl-binary": "Pasirinkti „GOGDL“ dvejetainę (reikalauja paleidimo iš naujo)",
         "choose-legendary-binary": "Pasirinkti „Legendary“ dvejetainę",
         "choose-nile-binary": "Pasirinkti „Nile“ dvejetainę",
-        "customWine": "Pasirinkti „Wine“ ar „Proton“ dvejetainę"
+        "customWine": "Pasirinkti „Wine“ ar „Proton“ dvejetainę",
+        "reset-heroic": {
+            "question": {
+                "title": "Atstatyti „Heroic“"
+            }
+        }
     },
     "notify": {
         "uninstalled": "Išdiegti",
@@ -193,7 +198,8 @@
             "space": "Tarpas",
             "close_keyboard": "Uždaryti klaviatūrą",
             "close_options": "Uždaryti parinktis",
-            "close_dialog": "Uždaryti dialogo langą"
+            "close_dialog": "Uždaryti dialogo langą",
+            "backspace": "Grįžties klavišas"
         }
     },
     "dlc": {
@@ -276,7 +282,8 @@
             "fallback": "Palikti tuščią, norint naudoti „Heroic“ kalbą."
         },
         "wine": {
-            "part1": "„Heroic“ ieško „Wine“, „Proton“ ir „CrossOver“ versijų, šiuose aplankuose:"
+            "part1": "„Heroic“ ieško „Wine“, „Proton“ ir „CrossOver“ versijų, šiuose aplankuose:",
+            "part2": "Kitoks vietoms, naudokite virtualųjį katalogą į vieną iš šių aplankų/-alų"
         },
         "custom_themes_path": "Nenaudoti „CSS“ failų iš nepatikimų šaltinių. Kai esate abejonėje, klauskite apžiūros mūsų „Discord“ kanale.",
         "mangohud": "„MangoHUD“ yra apvalkalas, kuris rodo ir stebi kdr./sek., temperatūrą, „CPU“/„GPU“ apkrovą ir kitus sisteminius išteklius.",
@@ -368,13 +375,17 @@
             "confirmation": {
                 "understand": "Aš supratau",
                 "title": "Ar Jūs esate tikra/-s?"
-            }
+            },
+            "label": "Leisti žaidimų įdiegimą su neveikiančiu ar atmestu anti-sukčiavimu"
         },
         "manualsync": {
             "download": "Atsisiųsti",
             "forceupload": "Priverstinai įkelti",
             "forcedownload": "Priverstinai atsisiųsti",
-            "upload": "Įkelti"
+            "upload": "Įkelti",
+            "sync": "Sinchronizuoti",
+            "syncing": "Sinchronizuojama",
+            "title": "Rankinio sinchronizavimo išsaugojimai"
         },
         "experimental_features": {
             "enableNewDesign": "Naujas dizainas",
@@ -421,7 +432,8 @@
                 },
                 "delete": "Prašyti žurnalo failo ištrynimo",
                 "open": "Atidaryti įkelta žurnalo failą",
-                "no-files": "Jokie žurnalo failai nebuvo įkelti"
+                "no-files": "Jokie žurnalo failai nebuvo įkelti",
+                "title": "Žurnalo antraštė"
             },
             "descriptiveNames": {
                 "game-log": "„{{gameTitle}}“ žaidimo žurnalas",
@@ -470,7 +482,16 @@
         },
         "hideChangelogsOnStartup": "Nerodyti keitinių žurnalo paleidime",
         "maxRecentGames": "Rodyti neseniai žaistus",
-        "maxworkers": "Didžiausias darbuotojų skaičius, kai siunčiamasi"
+        "maxworkers": "Didžiausias darbuotojų skaičius, kai siunčiamasi",
+        "autodxvk": "Automatiškai įdiegti/atnaujinti „DXVK“ ant prielinksnio/priešdėlio",
+        "autodxvknvapi": "Automatiškai įdiegti/atnaujinti „DXVK-NVAPI“ ant prielinksnio/priešdėlio",
+        "autosync": "Automatiškai sinchronizuoti išsaugojimus",
+        "autovkd3d": "Automatiškai įdiegti/atnaujinti „VKD3D“ ant prielinksnio/priešdėlio",
+        "defaultWinePrefix": "Nustatyti aplanką/-alą naujiems „Wine“ prielinksniams/priešdėliams",
+        "egs-sync": "Sinchronizuoti su įdiegtu „Epic Games“",
+        "runexe": {
+            "title": "Vykdyti „*.EXE“ ant prielinksnio/priešdėlio"
+        }
     },
     "settings": {
         "advanced": {
@@ -488,7 +509,8 @@
                 "help2": "Trečių šalių informacija apie žaidimus (įvertinimai, „Steam“ palaikymas, laikas įveikti, „pcgamingwiki“, „applegamingwiki“)"
             },
             "title": {
-                "clearCache": "Išvalyti talpyklą/podėlį"
+                "clearCache": "Išvalyti talpyklą/podėlį",
+                "resetHeroic": "Atstatyti „Heroic“"
             }
         },
         "navbar": {
@@ -496,7 +518,8 @@
             "log": "Žurnalas",
             "other": "Kita/-s/-i",
             "games_settings_defaults": "Žaidimo numatytieji",
-            "systemInformation": "Sistemos informacija"
+            "systemInformation": "Sistemos informacija",
+            "sync": "Sinchronizavimas debesijos išsaugojimų"
         },
         "systemInformation": {
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -529,7 +552,10 @@
         "default_hint": "Pakeitimai šiame skyriuje tik prisitaiko kaip numatytos reikšmes, kai įdiegiami žaidimai. Jei Jūs norite pakeisti jau įdiegto žaidimo nustatymus, naudokite – „Nustatymai“ mygtuką žaidimo puslapyje.",
         "eacRuntime": {
             "name": "„EasyAntiCheat“ vykdantysis",
-            "installing": "Įdiegiamas „EAC“ vykdantysis..."
+            "installing": "Įdiegiamas „EAC“ vykdantysis...",
+            "gameModeRequired": {
+                "title": "Reikalinga žaidimo veiksena"
+            }
         },
         "open-config-file": "Atidaryti konfigūracijos failą",
         "clear-cache": "Išvalyti „Heroic“ talpyklą/podėlį",
@@ -542,6 +568,13 @@
         "battlEyeRuntime": {
             "installing": "Įdiagiamas „BattlEye“ vykdantysis...",
             "name": "„BattlEye AntiCheat“ vykdantysis"
+        },
+        "offline": {
+            "warning": "Šis žaidimas nurodomai nepalaiko neprisijungusią veikseną, įjunkite šį savo nuožiūrą. Žaidimas gali neveikti."
+        },
+        "reset-heroic": "Atstatyti „Heroic“",
+        "saves": {
+            "warning": "Debesijos išsaugojimo funkcija yra „Beta“ stadijoje, prašome atlikti atsargines kopijas savo išsaugojimų prieš sinchronizuojant (tuo atveju, jeigu įvyktu kažkas blogai)"
         }
     },
     "Settings": "Nustatymai",
@@ -552,7 +585,8 @@
         "logging": "Prisijungiama..."
     },
     "window": {
-        "close": "Uždaryti"
+        "close": "Uždaryti",
+        "restore": "Atkurti langą"
     },
     "wine": {
         "size": "Dydis",
@@ -560,7 +594,8 @@
         "manager": {
             "link": "„Wine“ tvarkytuvė/-as",
             "title": "„Wine“ tvarkytuvė/-as",
-            "not-found": "Nerasta jokia „Wine“ versija. Prašome paspausti ant atnaujinimo piktogramos, norint bandyti dar kartą."
+            "not-found": "Nerasta jokia „Wine“ versija. Prašome paspausti ant atnaujinimo piktogramos, norint bandyti dar kartą.",
+            "unzipping": "Išarchyvuojama/Išskleidžiama"
         },
         "release": "Išleidimo data"
     },
@@ -577,7 +612,8 @@
         "all_tiles_in_color": "Rodyti visas žaidimų plyteles spalvotai",
         "titles_always_visible": "Visada rodyti plyteles bibliotekoje",
         "actions_font_family_no_default": "Veiksmų šrifto „šeima“ (numatyta/-s):",
-        "content_font_family_no_default": "Turinio šrifto „šeima“ (numatyta/-s): "
+        "content_font_family_no_default": "Turinio šrifto „šeima“ (numatyta/-s): ",
+        "zoom": "Priartinimas ir atitolinimas"
     },
     "add_game": "Pridėti žaidimą",
     "anticheat": {
@@ -645,7 +681,8 @@
             "gameHeight": "Žaidimo aukštis",
             "borderless": "Berėmis",
             "fullscreen": "Pilno ekrano",
-            "stretch": "Ištempti vaizdą"
+            "stretch": "Ištempti vaizdą",
+            "windowed": "Languotas"
         },
         "advanced": {
             "value": "Reikšmė",
@@ -770,5 +807,9 @@
     "wineExplanation": {
         "wine-ge": "„Wine-GE-Proton“ yra „Wine“ variantas sukurtas „Glorious Eggroll“. Yra rekomenduojamas „Wine“, nenaudojant „Steam“. Jis pateikia reikšmingus žurnalus derinimui.",
         "proton-ge": "„Proton-GE-Proton“ yra „Proton“ variantas sukurtas „Glorious Eggroll“. Jis yra skirtas, naudojant „Steam“, bet kai kurie žaidimai, neveikiantys „Steam“ gali veikti geriau su šiuo variantu. Jis pateikia daugmaž nereikšmingus žurnalus derinimui."
+    },
+    "message": {
+        "sync": "Sinchronizavimas baigtas",
+        "unsync": "Išsinchronizavimas baigtas"
     }
 }
