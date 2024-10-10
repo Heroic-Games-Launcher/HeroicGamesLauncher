@@ -40,7 +40,11 @@
             "legendary": {
                 "generic": "Įvyko klaida! Pamėginkite atsijungti ir vėl prisijungti prie savo „Epic“ paskyros. {{newline}}  {{error}}"
             },
-            "moving": "Klaida perkeliant žaidimą – „{{error}}“"
+            "moving": "Klaida perkeliant žaidimą – „{{error}}“",
+            "cx-bottle-not-found": {
+                "message": "„CrossOver bottle“ – „{{bottle_name}}“ neegzistuoja, negalima paleisti!",
+                "title": "„CrossOver bottle“ nerasta/-s"
+            }
         },
         "no": "NE",
         "runexe": {
@@ -86,6 +90,11 @@
                 "confirmExit": {
                     "message": "Bet kokia neišsaugota pažanga, gali būti prarasta"
                 }
+            },
+            "epic": {
+                "import": "„Epic“ serveriai šiuo metu turi įtakingą prastovą, žaidimas negali būti importuotas!",
+                "install": "„Epic“ serveriai šiuo metu turi įtakingą prastovą, žaidimas negali būti įdiegtas!",
+                "update": "„Epic“ serveriai šiuo metu turi įtakingą prastovą, žaidimas negali būti atnaujintas!"
             }
         },
         "downloadNow": "Atsisiųsti dabar",
@@ -126,7 +135,8 @@
         "customWine": "Pasirinkti „Wine“ ar „Proton“ dvejetainę",
         "reset-heroic": {
             "question": {
-                "title": "Atstatyti „Heroic“"
+                "title": "Atstatyti „Heroic“",
+                "message": "Ar Jūs tikrai norite atstatyti „Heroic“? Šis pašalins visus/-as nustatymus ir talpyklas/podėlius, bet nepašalins Jūsų įdiegtų žaidimų ar Jūsų „Epic“ kredencialų. Perkeliamos „Heroic“ versijos („AppImage“, „WinPortable“ ir t.t.) turi būti paleidžiamos iš naujo rankiniu būdu po vėliau."
             }
         }
     },
@@ -301,7 +311,9 @@
         "dxvk": "„DXVK“ yra „Vulkan“ pagrindo vertimo sluoksnis „DirectX 9/10/11“ žaidimams. Įjungus/Įgalinant gali pagerinti palaikomumą. Gali sukelti problemų, ypatingai senesniems „DirectX“ žaidimams.",
         "sync": {
             "part1": "„Heroic“ bandys atspėti teisinga išsaugojimų aplanką/-alą ir jis dažniausiai atspėja. Atvejais kai jis yra neteisingas, naudokite perkeičiamąjį parinkimą, norint pakeisti jį."
-        }
+        },
+        "disablePlaytimeSync": "Išjungia/Išgalina žaidimo laikotarpio sinchronizavimą su duotos parduotuvės serveriais (kol kas tik „GOG“ yra palaikomas)",
+        "general": "Sinchronizuoti su „EGL“, jei Jūs turite veikiantį „Epic Games“ paleidiklio įdiegimą kitur ir norite importuoti savo žaidimus, siekiant išvengti jų atsisiuntimą dar kartą."
     },
     "info": {
         "version": "„Wine“ versija",
@@ -621,7 +633,8 @@
         "anticheats": "Anti-sukčiavimas",
         "status": "Būsena/Būklė",
         "title": "Šis žaidimas įtraukia anti-sukčiavimo taikomąją programą",
-        "reference": "Išnaša/Pamatinis"
+        "reference": "Išnaša/Pamatinis",
+        "multiplayer_may_not_work": "Daugiažaidėjė̄škos funkcijos gali neveikti, dėl sugedusio ar atmesto anti-sukčiavimo palaikymo."
     },
     "Amazon Games": "„Amazon“ žaidimai",
     "categories-manager": {
@@ -646,7 +659,8 @@
     },
     "docs": "Dokumentacija",
     "epic": {
-        "offline-notification-title": "atsijungęs/-usi"
+        "offline-notification-title": "atsijungęs/-usi",
+        "offline-notification-body": "Internetinės paslaugos gali neveikti, nes „Epic Games“ serveriai yra atsijungę!"
     },
     "Epic Games": "„Epic Games“",
     "gog-store": "„GOG“ parduotuvė",
