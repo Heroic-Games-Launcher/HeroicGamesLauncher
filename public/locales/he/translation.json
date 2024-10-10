@@ -429,7 +429,7 @@
     },
     "accessibility": {
         "content_font_family_no_default": "משפחת גופני תוכן (ברירת מחדל: ",
-        "actions_font_family_no_default": "משפחת גופני פעולות (ברירת מחדל: ",
+        "actions_font_family_no_default": "משפחת גופני פעולות (ברירת מחדל):",
         "zoom": "זום",
         "all_tiles_in_color": "הצג את כל אריחי המשחק בצבע",
         "fonts": "גופנים",
@@ -751,5 +751,8 @@
     "category-settings": {
         "cancel": "בטל",
         "warning": "אזהרה"
+    },
+    "window": {
+        "close": "לסגור"
     }
 }

@@ -621,8 +621,24 @@
             "show-in-folder": "Visa loggfiler i mapp",
             "join-heroic-discord": "Gå med i vår Discord",
             "upload": {
-                "actions": "Åtgärd"
-            }
+                "actions": "Åtgärd",
+                "button": "Ladda upp loggfil",
+                "confirm": {
+                    "title": "Ladda upp loggfil?"
+                },
+                "done": {
+                    "title": "Uppladdning klar"
+                },
+                "error": {
+                    "title": "Uppladdning misslyckades"
+                },
+                "header": "Ladda upp loggfil?"
+            },
+            "descriptiveNames": {
+                "game-log": "Spellogg för {{gameTitle}}",
+                "gog": "GOG-logg"
+            },
+            "show-uploads": "Visa uppladdade loggfiler"
         },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {

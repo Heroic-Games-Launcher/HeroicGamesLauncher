@@ -621,8 +621,41 @@
             "show-in-folder": "Показати файл журналу в теці",
             "join-heroic-discord": "Приєднуйтесь до нашого Discord",
             "upload": {
-                "actions": "Дія"
-            }
+                "actions": "Дія",
+                "done": {
+                    "content": "Завантажено на {{url}} (URL скопійовано в буфер обміну)",
+                    "title": "Завантаження завершено"
+                },
+                "title": "Назва журналу",
+                "upload-date": "Дата завантаження",
+                "uploading": {
+                    "content": "Завантаження файлу журналу...",
+                    "title": "Завантаження"
+                },
+                "error": {
+                    "title": "Завантаження не вдалося",
+                    "content": "Не вдалося завантажити файл журналу. Перевірте загальний журнал Heroic для отримання деталей"
+                },
+                "button": "Завантажити файл журналу",
+                "confirm": {
+                    "content": "Ви справді хочете завантажити \"{{name}}\"?",
+                    "title": "Завантажити файл журналу?"
+                },
+                "delete": "Запросити видалення файлу журналу",
+                "header": "Завантажені файли журналів",
+                "hours-ago": "Завантажено {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Завантажено {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Жодного файлу журналу не було завантажено",
+                "open": "Відкрити завантаження файлу журналу"
+            },
+            "descriptiveNames": {
+                "game-log": "Журнал гри {{gameTitle}}",
+                "gog": "Журнал GOG",
+                "heroic": "Загальний журнал Heroic",
+                "nile": "Журнал Amazon / Nile",
+                "legendary": "Журнал Epic Games / Legendary"
+            },
+            "show-uploads": "Показати завантажені файли журналів"
         },
         "mangohud": "Ввімкнути Mangohud (Mangohud має бути встановлений)",
         "manualsync": {
@@ -674,7 +707,9 @@
             "enableNewShinyFeature": "Нова блискуча функція",
             "enableNewDesign": "Новий дизайн",
             "enableHelp": "Компонент допомоги",
-            "automaticWinetricksFixes": "Автоматично застосовувати відомі виправлення"
+            "automaticWinetricksFixes": "Автоматично застосовувати відомі виправлення",
+            "cometSupport": "Підтримка Comet",
+            "umuSupport": "Використовувати UMU як середовище виконання Proton"
         },
         "disablePlaytimeSync": "Вимкнути синхронізацію часу відтворення",
         "frameless-window": {
@@ -764,7 +799,8 @@
             "memory": "Обсяг пам'яті:",
             "copyToClipboard": "Копіювати в буфер обміну",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Версія Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Експериментальні особливості"

@@ -161,6 +161,9 @@
                     "title": "您確定要登出嗎？",
                     "message": "任何未儲存進度將遺失"
                 }
+            },
+            "snap": {
+                "checkbox": "不要再顯示此訊息"
             }
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
@@ -168,7 +171,8 @@
         "dontShowAgain": "不再顯示",
         "choose-nile-binary": "選擇 Nile 二進位檔案",
         "update": "更新",
-        "changelog": "更新日誌"
+        "changelog": "更新日誌",
+        "postpone": "延遲"
     },
     "button": {
         "cancel": "取消",
@@ -259,7 +263,8 @@
         "filters": "篩選",
         "select_all": "全選",
         "reset": "重置",
-        "uncategorized": "未分類"
+        "uncategorized": "未分類",
+        "only": "僅"
     },
     "help": {
         "amdfsr": "AMD FSR 通過在全螢幕模式下提高較低解析度來提高畫面幀率。影像品質從 5 提高到 1，但代價是效能稍有下降。啟用可能會提高效能。",
@@ -312,6 +317,10 @@
         "msync": "Fsync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支援的 Linux 內核的效能。",
         "content": {
             "settingsGame": "顯示遊戲的全部設定。"
+        },
+        "button": {
+            "open": "開啟幫助",
+            "close": "關閉幫助"
         }
     },
     "info": {
@@ -577,7 +586,14 @@
             "show-in-folder": "顯示日誌所在資料夾",
             "join-heroic-discord": "加入我們的 Discord",
             "upload": {
-                "actions": "操作"
+                "actions": "操作",
+                "done": {
+                    "title": "上載完成"
+                },
+                "uploading": {
+                    "title": "上載中"
+                },
+                "upload-date": "上載日期"
             }
         },
         "mangohud": "啟用 MangoHud（需要已安裝 Mangohud）",
@@ -635,6 +651,11 @@
         "experimental_features": {
             "enableHelp": "幫助元件",
             "enableNewDesign": "新設計"
+        },
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "我理解"
+            }
         }
     },
     "settings": {
@@ -704,7 +725,10 @@
             "osVersion": "版本 {{versionNumber}}",
             "cpu": "處理器：",
             "gpuDriver": "驅動程式：{{driverVersion}}",
-            "memory": "記憶體："
+            "memory": "記憶體：",
+            "systemModel": "系統型號：",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gpuWithNumber": "GPU {{number}}："
         },
         "experimental_features": {
             "title": "實驗性功能"
@@ -807,7 +831,9 @@
         "new-category": "新分類"
     },
     "window": {
-        "close": "關閉"
+        "close": "關閉",
+        "maximize": "最大化視窗",
+        "minimize": "最小化視窗"
     },
     "categories-manager": {
         "title": "管理分類",

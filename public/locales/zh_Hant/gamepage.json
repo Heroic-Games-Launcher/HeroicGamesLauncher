@@ -38,7 +38,8 @@
             "title": "解除安裝",
             "prefix_warning": "此遊戲的 Wine 前綴是預設前綴。如果您真的想刪除它，必須手動進行。",
             "dlc": "您要解除安裝「{{title}}」 DLC 嗎？",
-            "cannotUninstallEpic": "安裝 Epic 遊戲時不能解除安裝其它 Epic 遊戲。"
+            "cannotUninstallEpic": "安裝 Epic 遊戲時不能解除安裝其它 Epic 遊戲。",
+            "gameIsRunning": "{{title}} 執行中。關閉遊戲以將其解除安裝。"
         },
         "update": {
             "message": "此遊戲有更新，您希望現在更新嗎？",
@@ -95,11 +96,15 @@
         "totalPlayed": "遊玩時間",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "已關閉"
+            "disabled": "已關閉",
+            "select": "選擇測試版頻道",
+            "password": "設定私密頻道密碼",
+            "setPrivateBranchPassword": "設定私密頻道密碼"
         },
         "builds": {
             "version": "版本",
-            "buildsSelector": "選擇遊戲版本"
+            "buildsSelector": "選擇遊戲版本",
+            "toggle": "將遊戲保持在特定版本"
         },
         "install_info": "安裝訊息",
         "modify": "修改安裝",
@@ -132,7 +137,8 @@
         "game-scores": "遊戲分數",
         "installedInfo": "安裝訊息",
         "protondb-compatibility-info": "Proton 相容性等級",
-        "steamdeck-compatibility-info": "SteamDeck 相容性"
+        "steamdeck-compatibility-info": "SteamDeck 相容性",
+        "third-party-app": "第三方管理器"
     },
     "install": {
         "disk-space-left": "可用空間",
@@ -143,7 +149,9 @@
         "wineprefix": "WinePrefix",
         "wineversion": "Wine 版本",
         "anticheat-warning": {
-            "ok": "Ok"
+            "ok": "Ok",
+            "install_anyway": "是（我理解多人遊戲功能不會正常工作）",
+            "cancel": "否"
         }
     },
     "label": {
@@ -253,7 +261,8 @@
     "modifyInstall": {
         "versionCollapsable": "遊戲版本",
         "redMod": {
-            "enable": "啟用模組"
+            "enable": "啟用模組",
+            "collapsible": "REDmod 整合"
         },
         "dlcsCollapsible": "DLC"
     }
