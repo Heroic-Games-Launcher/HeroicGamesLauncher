@@ -620,8 +620,41 @@
             "show-in-folder": "Mostra il log file nella cartella",
             "join-heroic-discord": "Unisciti al nostro Discord",
             "upload": {
-                "actions": "Action"
-            }
+                "actions": "Action",
+                "button": "Carica file log",
+                "confirm": {
+                    "content": "Vuoi davvero caricare \"{{name}}\"?",
+                    "title": "Caricare file di log?"
+                },
+                "delete": "Richiedi cancellazione log file",
+                "done": {
+                    "content": "Caricato su {{url}} (URL copiato negli appunti)",
+                    "title": "Caricamento completato"
+                },
+                "error": {
+                    "content": "Caricamento log fallito. Controlla il log generale di Heroic per dettagli",
+                    "title": "Caricamento fallito"
+                },
+                "header": "File di log caricati",
+                "hours-ago": "Caricato {{hoursAgo, relativetime(hours)}}",
+                "no-files": "Nessun file di log è stato caricato",
+                "minutes-ago": "Caricato {{minutesAgo, relativetime(minutes)}}",
+                "open": "Apri caricamento file di log",
+                "title": "Titolo Log",
+                "upload-date": "Data caricamento",
+                "uploading": {
+                    "title": "Caricamento",
+                    "content": "Caricamento file log..."
+                }
+            },
+            "descriptiveNames": {
+                "game-log": "Log di gioco di {{gameTitle}}",
+                "gog": "Log GOG",
+                "heroic": "Log Generico Heroic",
+                "legendary": "Epic Games / Legendary log",
+                "nile": "Amazon / Nile log"
+            },
+            "show-uploads": "Mostra file di log caricati"
         },
         "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
         "manualsync": {
