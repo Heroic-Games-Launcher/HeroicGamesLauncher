@@ -154,7 +154,7 @@
             "message": "Wsparcie dla systemów Anticheat nie działa poprawnie lub nie istnieje. Gra nie będzie działać. Czy chcesz zainstalować ją mimo wszystko?",
             "install": "Tak (Rozumiem, że to nie zadziała)",
             "title": "Niewspierany Anticheat",
-            "ok": "Ok",
+            "ok": "OK",
             "install_anyway": "Tak (rozumiem, że funkcje wieloosobowe nie będą działać)",
             "disabled_installation": "Wsparcie antycheata dla tej gry jest zepsute lub wyłączone, funkcje wieloosobowe nie będą działać. Gra nie może być zainstalowana. Aby zainstalować grę, wyłącz opcję sprawdzania w zaawansowanych ustawieniach.",
             "multiplayer_message": "Wsparcie antycheata nie działa lub jest zablokowane. Gra może się uruchomić ale funkcje wieloosobowe mogą nie działać. Czy chcesz zainstalować?"
