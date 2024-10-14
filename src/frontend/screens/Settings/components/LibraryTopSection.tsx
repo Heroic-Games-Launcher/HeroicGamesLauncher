@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { LibraryTopSectionOptions } from 'common/types'
+import { MenuItem, SelectChangeEvent } from '@mui/material'
 
 const LibraryTopSection = () => {
   const { t } = useTranslation()
@@ -13,9 +14,8 @@ const LibraryTopSection = () => {
     'disabled'
   )
 
-  const onSectionChange = (event: ChangeEvent) => {
-    const newValue = (event.target as HTMLSelectElement)
-      .value as LibraryTopSectionOptions
+  const onSectionChange = (event: SelectChangeEvent) => {
+    const newValue = event.target.value as LibraryTopSectionOptions
     handleLibraryTopSection(newValue)
     setLibraryTopSection(newValue)
   }
@@ -27,24 +27,24 @@ const LibraryTopSection = () => {
       onChange={onSectionChange}
       value={libraryTopSection}
     >
-      <option value="recently_played">
+      <MenuItem value="recently_played">
         {t(
           'setting.library_top_option.recently_played',
           'Recently Played Games'
         )}
-      </option>
-      <option value="recently_played_installed">
+      </MenuItem>
+      <MenuItem value="recently_played_installed">
         {t(
           'setting.library_top_option.recently_played_installed',
           'Recently Played Games (Only Installed)'
         )}
-      </option>
-      <option value="favourites">
+      </MenuItem>
+      <MenuItem value="favourites">
         {t('setting.library_top_option.favourites', 'Favourite Games')}
-      </option>
-      <option value="disabled">
+      </MenuItem>
+      <MenuItem value="disabled">
         {t('setting.library_top_option.disabled', 'Disabled')}
-      </option>
+      </MenuItem>
     </SelectField>
   )
 }
