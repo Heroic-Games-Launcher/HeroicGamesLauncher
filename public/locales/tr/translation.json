@@ -621,8 +621,39 @@
             "show-in-folder": "Günlük dosyasını klasörde göster",
             "join-heroic-discord": "Discord kanalımıza katıl",
             "upload": {
-                "actions": "Eylemler"
-            }
+                "actions": "Eylemler",
+                "button": "Kayıt dosyası yükle",
+                "confirm": {
+                    "content": "Gerçekten “{{name}}” yüklemek istiyor musunuz?",
+                    "title": "Kayıt dosyası yüklensin mi?"
+                },
+                "delete": "Kayıt dosyası silme talebi oluşturun",
+                "done": {
+                    "content": "{{url}} adresine yüklendi (URL panoya kopyalandı)",
+                    "title": "Yükleme tamamlandı"
+                },
+                "error": {
+                    "content": "Kayıt dosyası yüklenemedi. Ayrıntılar için Heroic'in genel kayıtlarını kontrol edin",
+                    "title": "Yükleme başarısız"
+                },
+                "header": "Kayıt dosyaları yüklendi",
+                "hours-ago": "Yüklendi {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Yüklendi {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Hiçbir kayıt dosyası yüklenmedi",
+                "open": "Kayıt dosyası yüklemeyi aç",
+                "title": "Kayıt başlığı",
+                "upload-date": "Yükleme tarihi",
+                "uploading": {
+                    "content": "Kayıt dosyası yükleniyor...",
+                    "title": "Yükleniyor"
+                }
+            },
+            "descriptiveNames": {
+                "gog": "GOG kaydı",
+                "heroic": "Genel Heroic kaydı",
+                "game-log": "{{gameTitle}} oyun kaydı"
+            },
+            "show-uploads": "Yüklenmiş kayıt dosyalarını göster"
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
