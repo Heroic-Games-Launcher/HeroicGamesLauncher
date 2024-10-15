@@ -6,7 +6,7 @@ import { SelectField } from 'frontend/components/UI'
 
 interface Props {
   gameInfo: GameInfo
-  setLaunchArguments: (selected_option: LaunchOption) => void
+  setLaunchArguments: (selected_option: LaunchOption | undefined) => void
 }
 
 const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
@@ -17,7 +17,7 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
 
   useEffect(() => {
     window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
-  }, [])
+  }, [gameInfo])
 
   if (!gameInfo.is_installed) {
     return null
@@ -31,9 +31,14 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
     <SelectField
       htmlId="launch_options"
       onChange={({ target: { value } }) => {
-        const selectedIndex = Number(value)
-        setSelectedLaunchOptionIndex(selectedIndex)
-        setLaunchArguments(launchOptions[selectedIndex])
+        if (value === '') {
+          setSelectedLaunchOptionIndex(-1)
+          setLaunchArguments(undefined)
+        } else {
+          const selectedIndex = Number(value)
+          setSelectedLaunchOptionIndex(selectedIndex)
+          setLaunchArguments(launchOptions[selectedIndex])
+        }
       }}
       value={selectedLaunchOptionIndex.toString()}
       prompt={t('launch.options', 'Launch Options...')}
