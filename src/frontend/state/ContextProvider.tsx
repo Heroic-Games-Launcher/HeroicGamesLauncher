@@ -97,7 +97,6 @@ const initialContext: ContextType = {
   experimentalFeatures: {
     enableNewDesign: false,
     enableHelp: false,
-    automaticWinetricksFixes: true,
     cometSupport: true,
     umuSupport: false
   },

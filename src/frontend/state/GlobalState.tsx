@@ -211,7 +211,6 @@ class GlobalState extends PureComponent<Props> {
     experimentalFeatures: {
       enableNewDesign: false,
       enableHelp: false,
-      automaticWinetricksFixes: true,
       cometSupport: true,
       umuSupport: false,
       ...(globalSettings?.experimentalFeatures || {})
