@@ -20,6 +20,7 @@ import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import ThirdPartyDialog from './ThirdPartyDialog'
+import { MenuItem } from '@mui/material'
 
 type Props = {
   appName: string
@@ -144,9 +145,9 @@ export default React.memo(function InstallModal({
         }
       >
         {availablePlatforms.map((p, i) => (
-          <option value={p.value} key={i}>
+          <MenuItem value={p.value} key={i}>
             {p.name}
-          </option>
+          </MenuItem>
         ))}
       </SelectField>
     )

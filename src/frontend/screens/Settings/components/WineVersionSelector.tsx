@@ -6,6 +6,7 @@ import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '..'
 import { Link } from 'react-router-dom'
+import { MenuItem } from '@mui/material'
 
 export default function WineVersionSelector() {
   const { t } = useTranslation()
@@ -16,7 +17,7 @@ export default function WineVersionSelector() {
     'wineVersion',
     defaultWineVersion
   )
-  const [altWine, setAltWine] = useState<WineInstallation[]>([])
+  const [altWine, setAltWine] = useState<WineInstallation[]>()
   const [validWine, setValidWine] = useState(true)
   const [refreshing, setRefreshing] = useState(true)
 
@@ -45,6 +46,10 @@ export default function WineVersionSelector() {
     }
     updateWine()
   }, [wineVersion])
+
+  if (!altWine) {
+    return <></>
+  }
 
   return (
     <SelectField
@@ -104,7 +109,9 @@ export default function WineVersionSelector() {
       }
     >
       {altWine.map(({ name }, i) => (
-        <option key={i}>{name}</option>
+        <MenuItem key={i} value={name}>
+          {name}
+        </MenuItem>
       ))}
     </SelectField>
   )

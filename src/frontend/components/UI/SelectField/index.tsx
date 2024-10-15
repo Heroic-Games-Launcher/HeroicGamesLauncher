@@ -1,12 +1,13 @@
-import React, { ChangeEvent, ReactNode, useContext } from 'react'
+import React, { ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { Select, MenuItem, SelectChangeEvent } from '@mui/material'
 import './index.css'
 
 interface SelectFieldProps {
   htmlId: string
   value: string
-  onChange: (event: ChangeEvent<HTMLSelectElement>) => void
+  onChange: (event: SelectChangeEvent) => void
   children: ReactNode
   afterSelect?: ReactNode
   label?: string
@@ -15,7 +16,7 @@ interface SelectFieldProps {
   extraClass?: string
 }
 
-const SelectField = ({
+export default function SelectField({
   htmlId,
   value,
   onChange,
@@ -25,7 +26,7 @@ const SelectField = ({
   extraClass = '',
   afterSelect,
   children
-}: SelectFieldProps) => {
+}: SelectFieldProps) {
   const { isRTL } = useContext(ContextProvider)
 
   return (
@@ -35,13 +36,11 @@ const SelectField = ({
       })}
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
-      <select id={htmlId} value={value} onChange={onChange} disabled={disabled}>
-        {prompt && <option value="">{prompt}</option>}
+      <Select id={htmlId} value={value} onChange={onChange} disabled={disabled}>
+        {prompt && <MenuItem value="">{prompt}</MenuItem>}
         {children}
-      </select>
+      </Select>
       {afterSelect}
     </div>
   )
 }
-
-export default React.memo(SelectField)

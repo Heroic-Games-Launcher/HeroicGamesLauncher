@@ -3,6 +3,7 @@ import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
+import { MenuItem } from '@mui/material'
 
 interface Props {
   gameInfo: GameInfo
@@ -39,9 +40,9 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
       prompt={t('launch.options', 'Launch Options...')}
     >
       {launchOptions.map((option, index) => (
-        <option key={index} value={index}>
+        <MenuItem key={index} value={index}>
           {option.type === 'dlc' ? option.dlcTitle : option.name}
-        </option>
+        </MenuItem>
       ))}
     </SelectField>
   )
