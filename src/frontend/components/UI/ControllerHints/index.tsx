@@ -141,19 +141,19 @@ export default function ControllerHints() {
     <div className={`controller-hints ${layout}`}>
       <div className="hint">
         <i className="buttonImage main-action" />
-        {mainActionHint || '–'}
+        {mainActionHint || '-'}
       </div>
       <div className="hint">
         <i className="buttonImage back" />
-        {backActionHint || backActionFallback || '–'}
+        {backActionHint || backActionFallback || '-'}
       </div>
       <div className="hint">
         <i className="buttonImage alt-action" />
-        {altActionHint || '–'}
+        {altActionHint || '-'}
       </div>
       <div className="hint">
         <i className="buttonImage alt-action2" />
-        {altActionHint2 || '–'}
+        {altActionHint2 || '-'}
       </div>
       <div className="hint">
         <i className="buttonImage d-pad" />
