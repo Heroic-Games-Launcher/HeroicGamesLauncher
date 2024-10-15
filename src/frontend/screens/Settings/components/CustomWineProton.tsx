@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField, SvgButton } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import { Tooltip } from '@mui/material'
@@ -11,8 +10,6 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 export default function CustomWineProton() {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const { platform } = useContext(ContextProvider)
-  const isWin = platform === 'win32'
 
   const [customWinePaths, setCustomWinePaths] = useSetting(
     'customWinePaths',
@@ -45,7 +42,7 @@ export default function CustomWineProton() {
     return setSelectedPath(customWinePaths.length ? customWinePaths[0] : '')
   }
 
-  if (!isDefault || isWin) {
+  if (!isDefault || isWindows) {
     return <></>
   }
 

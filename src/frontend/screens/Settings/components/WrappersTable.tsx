@@ -1,22 +1,19 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox } from 'frontend/components/UI'
 import {
   ColumnProps,
   TableInput
 } from 'frontend/components/UI/TwoColTableInput'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { WrapperVariable } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 
 const WrappersTable = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
-  const isWindow = platform === 'win32'
 
   const [wrapperOptions, setWrapperOptions] = useSetting('wrapperOptions', [])
 
-  if (isWindow) {
+  if (isWindows) {
     return <></>
   }
 

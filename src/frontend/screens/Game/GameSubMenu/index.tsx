@@ -43,16 +43,9 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
-  const {
-    refresh,
-    platform,
-    libraryStatus,
-    showDialogModal,
-    setIsSettingsModalOpen
-  } = useContext(ContextProvider)
+  const { refresh, libraryStatus, showDialogModal, setIsSettingsModalOpen } =
+    useContext(ContextProvider)
   const { is } = useContext(GameContext)
-  const isWin = platform === 'win32'
-  const isLinux = platform === 'linux'
 
   const [steamRefresh, setSteamRefresh] = useState<boolean>(false)
   const [addedToSteam, setAddedToSteam] = useState<boolean>(false)
@@ -199,7 +192,7 @@ export default function GamesSubmenu({
     })
 
     // only unix specific
-    if (!isWin && runner === 'legendary') {
+    if (!isWindows && runner === 'legendary') {
       // check if eos overlay is enabled
       const { status } =
         libraryStatus.filter(

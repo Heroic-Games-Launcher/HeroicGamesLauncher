@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
@@ -11,16 +10,13 @@ import SettingsContext from '../SettingsContext'
 const SteamRuntime = () => {
   const { t } = useTranslation()
   const { isLinuxNative } = useContext(SettingsContext)
-  const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
-  const isWin = platform === 'win32'
   const [useSteamRuntime, setUseSteamRuntime] = useSetting(
     'useSteamRuntime',
     false
   )
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
-  const isProton = !isWin && wineVersion?.type === 'proton'
+  const isProton = !isWindows && wineVersion?.type === 'proton'
 
   const showSteamRuntime = isLinuxNative || isProton
 

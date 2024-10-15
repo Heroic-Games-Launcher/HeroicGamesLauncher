@@ -90,7 +90,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     epic,
     gog,
     gameUpdates,
-    platform,
     showDialogModal,
     isSettingsModalOpen,
     connectivity,
@@ -133,9 +132,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
-  const isWin = platform === 'win32'
-  const isLinux = platform === 'linux'
-  const isMac = platform === 'darwin'
   const isSideloaded = runner === 'sideload'
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
 
@@ -315,12 +311,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
         installingWinetricksPackages: isInstallingWinetricksPackages,
         installingRedist: isInstallingRedist,
         launching: isLaunching,
-        linux: isLinux,
         linuxNative: isLinuxNative,
-        mac: isMac,
         macNative: isMacNative,
         moving: isMoving,
-        native: isWin || isMacNative || isLinuxNative,
+        native: isWindows || isMacNative || isLinuxNative,
         notAvailable,
         notInstallable,
         notSupportedGame,
@@ -330,8 +324,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         sideloaded: isSideloaded,
         syncing: isSyncing,
         uninstalling: isUninstalling,
-        updating: isUpdating,
-        win: isWin
+        updating: isUpdating
       },
       statusContext,
       status,

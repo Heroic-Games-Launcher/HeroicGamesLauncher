@@ -2,16 +2,13 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField, ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
 
 const EnableFSR = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
   const { isLinuxNative } = useContext(SettingsContext)
-  const isLinux = platform === 'linux'
   const [enableFSR, setEnableFSR] = useSetting('enableFSR', false)
   const [maxSharpness, setFsrSharpness] = useSetting('maxSharpness', 5)
 

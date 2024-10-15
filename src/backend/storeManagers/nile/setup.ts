@@ -7,7 +7,6 @@ import {
 } from 'backend/logger/logger'
 import { fetchFuelJSON, getGameInfo } from './library'
 import { GameConfig } from 'backend/game_config'
-import { isWindows } from 'backend/constants'
 import {
   checkWineBeforeLaunch,
   sendGameStatusUpdate,

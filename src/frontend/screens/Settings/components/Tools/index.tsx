@@ -7,7 +7,6 @@ import classNames from 'classnames'
 import { getGameInfo } from 'frontend/helpers'
 
 import SettingsContext from '../../SettingsContext'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { Winetricks } from 'frontend/components/UI'
 
 export default function Tools() {
@@ -16,8 +15,6 @@ export default function Tools() {
   const [winetricksRunning, setWinetricksRunning] = useState(false)
   const [runExeRunning, setRunExeRunning] = useState(false)
   const { appName, runner, isDefault } = useContext(SettingsContext)
-  const { platform } = useContext(ContextProvider)
-  const isWindows = platform === 'win32'
 
   if (isDefault || isWindows) {
     return <></>

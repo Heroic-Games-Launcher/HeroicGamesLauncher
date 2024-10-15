@@ -106,10 +106,7 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, platform, showDialogModal } =
-    useContext(ContextProvider)
-
-  const isWin = platform === 'win32'
+  const { libraryStatus, showDialogModal } = useContext(ContextProvider)
 
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
@@ -250,7 +247,7 @@ export default function DownloadDialog({
     backdropClick()
 
     // Write Default game config with prefix on linux
-    if (!isWin) {
+    if (!isWindows) {
       const gameSettings = await window.api.requestGameSettings(appName)
 
       if (wineVersion) {

@@ -8,8 +8,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const UseDGPU = () => {
   const { t } = useTranslation()
-  const { platform, showDialogModal } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
+  const { showDialogModal } = useContext(ContextProvider)
 
   const [useDGPU, setUseDGPU] = useSetting('nvidiaPrime', false)
 

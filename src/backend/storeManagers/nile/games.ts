@@ -28,7 +28,6 @@ import {
   logInfo,
   logsDisabled
 } from 'backend/logger/logger'
-import { isLinux, isWindows } from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
 import {
   getRunnerCallWithoutCredentials,

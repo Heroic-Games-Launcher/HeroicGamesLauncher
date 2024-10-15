@@ -31,7 +31,7 @@ export default function GOGModifyInstallModal({
 }: GOGModifyInstallModal) {
   const { t, i18n } = useTranslation('gamepage')
   const { t: tr } = useTranslation()
-  const isLinux = gameInfo.install.platform === 'linux'
+  const isLinuxNativeGame = gameInfo.install.platform === 'linux'
   const [gameInstallInfo, setGameInstallInfo] = useState<GogInstallInfo>()
 
   const [installLanguages, setInstallLanguages] = useState<string[]>([])
@@ -101,7 +101,7 @@ export default function GOGModifyInstallModal({
     }
 
     const gameModified =
-      (!isLinux && (buildModified || branchModified)) ||
+      (!isLinuxNativeGame && (buildModified || branchModified)) ||
       languageModified ||
       dlcModified
 

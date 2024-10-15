@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
@@ -8,11 +7,8 @@ import { defaultWineVersion } from '..'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
   const { getSetting } = useContext(SettingsContext)
   const wineVersion = getSetting('wineVersion', defaultWineVersion)
-
-  const isWin = platform === 'win32'
 
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
   const [winePrefix, setWinePrefix] = useSetting(
@@ -20,7 +16,7 @@ const WinePrefix = () => {
     defaultWinePrefix + '/default'
   )
 
-  if (isWin || wineVersion.type === 'crossover') {
+  if (isWindows || wineVersion.type === 'crossover') {
     return <></>
   }
 

@@ -34,12 +34,9 @@ import {
   spawnAsync
 } from '../../utils'
 import {
-  isMac,
-  isWindows,
   installed,
   configStore,
   isCLINoGui,
-  isLinux,
   epicRedistPath
 } from '../../constants'
 import {

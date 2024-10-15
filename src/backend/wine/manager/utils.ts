@@ -13,7 +13,7 @@ import {
 } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
-import { toolsPath, isMac } from '../../constants'
+import { toolsPath } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 import {

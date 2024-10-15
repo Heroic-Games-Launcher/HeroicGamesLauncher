@@ -20,14 +20,7 @@ import {
   extractFiles,
   getWineFromProton
 } from '../utils'
-import {
-  execOptions,
-  toolsPath,
-  isMac,
-  isWindows,
-  userHome,
-  isLinux
-} from '../constants'
+import { execOptions, toolsPath, userHome } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'

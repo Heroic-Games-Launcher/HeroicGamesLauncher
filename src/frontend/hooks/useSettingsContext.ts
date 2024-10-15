@@ -1,8 +1,7 @@
 import { AppSettings, GameInfo, Runner } from 'common/types'
 import { SettingsContextType } from 'frontend/types'
 import { useTranslation } from 'react-i18next'
-import { useState, useEffect, useContext } from 'react'
-import ContextProvider from 'frontend/state/ContextProvider'
+import { useState, useEffect } from 'react'
 
 type Props = {
   appName: string
@@ -13,11 +12,8 @@ type Props = {
 const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
   const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
   const { i18n } = useTranslation()
-  const { platform } = useContext(ContextProvider)
 
   const isDefault = appName === 'default'
-  const isLinux = platform === 'linux'
-  const isMac = platform === 'darwin'
   const isMacNative =
     isMac &&
     (['Mac', 'osx'].includes(gameInfo?.install.platform ?? '') || false)

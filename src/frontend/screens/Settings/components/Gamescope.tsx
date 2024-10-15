@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   SelectField,
@@ -7,14 +7,11 @@ import {
   UpdateComponent
 } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const Gamescope = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
   const [gamescope, setGamescope] = useSetting('gamescope', {
     enableUpscaling: false,
     enableLimiter: false,

@@ -13,9 +13,8 @@ import {
 } from 'frontend/components/UI/Dialog'
 import { install, writeConfig } from 'frontend/helpers'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { InstallProgress } from 'frontend/types'
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import AllowedIcon from 'frontend/assets/rounded_checkmark_icon.svg?react'
 import { AvailablePlatforms } from '..'
@@ -47,15 +46,13 @@ export default function ThirdPartyDialog({
   platformToInstall
 }: Props) {
   const { t } = useTranslation('gamepage')
-  const { platform } = useContext(ContextProvider)
-  const isWin = platform === 'win32'
   const progress = {} as InstallProgress
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
   const handleInstall = useCallback(async () => {
     // Write Default game config with prefix on linux
-    if (!isWin) {
+    if (!isWindows) {
       const gameSettings = await window.api.requestGameSettings(appName)
 
       if (wineVersion) {

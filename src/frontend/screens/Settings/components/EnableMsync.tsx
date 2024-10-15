@@ -1,4 +1,3 @@
-import ContextProvider from 'frontend/state/ContextProvider'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
@@ -9,9 +8,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const EnableMsync = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
   const { isMacNative } = useContext(SettingsContext)
-  const isMac = platform === 'darwin'
   const [enableMsync, setEnableMsync] = useSetting('enableMsync', false)
 
   if (!isMac || isMacNative) {

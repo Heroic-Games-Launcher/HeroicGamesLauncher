@@ -52,8 +52,8 @@ const ReleaseDate: React.FC<ReleaseDateProps> = ({ date, runnerDate }) => {
         }
 
         if (
-          (platformName === 'Linux' && is.linuxNative && is.linux) ||
-          (platformName === 'OS X' && is.macNative && is.mac)
+          (platformName === 'Linux' && is.linuxNative && isLinux) ||
+          (platformName === 'OS X' && is.macNative && isMac)
         ) {
           return convertDate(releaseDate)
         }

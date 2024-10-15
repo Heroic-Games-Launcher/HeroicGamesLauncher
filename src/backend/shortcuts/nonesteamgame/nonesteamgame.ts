@@ -18,7 +18,7 @@ import {
   removeImagesFromSteam
 } from './steamhelper'
 import { app } from 'electron'
-import { isFlatpak, isWindows, tsStore } from '../../constants'
+import { isFlatpak, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'

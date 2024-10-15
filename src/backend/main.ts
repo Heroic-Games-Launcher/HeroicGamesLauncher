@@ -89,9 +89,7 @@ import {
   createNecessaryFolders,
   fixAsarPath,
   isSnap,
-  fixesPath,
-  isWindows,
-  isMac
+  fixesPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import {

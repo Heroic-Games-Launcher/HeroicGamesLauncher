@@ -6,7 +6,6 @@ import { defaultWineVersion } from '..'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
-import ContextProvider from 'frontend/state/ContextProvider'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
@@ -14,8 +13,6 @@ const AutoDXVK = () => {
     'autoInstallDxvk',
     false
   )
-  const { platform } = useContext(ContextProvider)
-  const isLinux = platform === 'linux'
   const [autoInstallVkd3d] = useSetting('autoInstallVkd3d', false)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const { appName } = useContext(SettingsContext)

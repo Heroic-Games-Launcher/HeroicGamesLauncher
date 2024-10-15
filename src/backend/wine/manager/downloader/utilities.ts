@@ -1,4 +1,3 @@
-import { isMac } from '../../../constants'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync } from 'child_process'
 

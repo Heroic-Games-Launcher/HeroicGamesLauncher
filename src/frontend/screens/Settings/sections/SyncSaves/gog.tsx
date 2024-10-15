@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
@@ -38,9 +37,6 @@ export default function GOGSyncSaves({
   const [retry, setRetry] = useState<boolean>(false)
 
   const { t } = useTranslation()
-
-  const { platform } = useContext(ContextProvider)
-  const isWin = platform === 'win32'
 
   const { appName } = useContext(SettingsContext)
 
@@ -198,7 +194,7 @@ export default function GOGSyncSaves({
           <InfoBox text="infobox.help">
             <ul>
               <li>{t('help.sync.part1')}</li>
-              {!isWin && <li>{t('help.sync.part2')}</li>}
+              {!isWindows && <li>{t('help.sync.part2')}</li>}
               <li>{t('help.sync.part3')}</li>
               <li>{t('help.sync.part4')}</li>
             </ul>

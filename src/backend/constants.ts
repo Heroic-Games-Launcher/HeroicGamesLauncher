@@ -27,9 +27,6 @@ const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
   name: 'fonts'
 })
 
-const isMac = process.platform === 'darwin'
-const isWindows = process.platform === 'win32'
-const isLinux = process.platform === 'linux'
 const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isCLIFullscreen = process.argv.includes('--fullscreen')
 const isCLINoGui = process.argv.includes('--no-gui')
@@ -260,9 +257,6 @@ export {
   installed,
   isFlatpak,
   isSnap,
-  isMac,
-  isWindows,
-  isLinux,
   legendaryConfigPath,
   legendaryMetadata,
   epicLoginUrl,

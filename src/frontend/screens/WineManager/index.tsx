@@ -41,9 +41,7 @@ export default function WineManager(): JSX.Element | null {
     </p>
   )
 
-  const { refreshWineVersionInfo, refreshing, platform } =
-    useContext(ContextProvider)
-  const isLinux = platform === 'linux'
+  const { refreshWineVersionInfo, refreshing } = useContext(ContextProvider)
 
   const winege: WineManagerUISettings = {
     type: 'Wine-GE',

@@ -56,7 +56,6 @@ export default React.memo(function Library(): JSX.Element {
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
-    platform,
     currentCustomCategories,
     customCategories,
     hiddenGames
@@ -267,10 +266,10 @@ export default React.memo(function Library(): JSX.Element {
     if (platformsFilters['win']) {
       displayedPlatforms.push('win')
     }
-    if (platformsFilters['mac'] && platform === 'darwin') {
+    if (platformsFilters['mac'] && isMac) {
       displayedPlatforms.push('mac')
     }
-    if (platformsFilters['linux'] && platform === 'linux') {
+    if (platformsFilters['linux'] && isLinux) {
       displayedPlatforms.push('linux')
     }
     if (platformsFilters['browser']) {
@@ -296,10 +295,10 @@ export default React.memo(function Library(): JSX.Element {
       if (game?.is_installed) {
         gamePlatforms = [game?.install?.platform?.toLowerCase() || 'windows']
       } else {
-        if (game.is_linux_native && platform === 'linux') {
+        if (game.is_linux_native && isLinux) {
           gamePlatforms.push('linux')
         }
-        if (game.is_mac_native && platform === 'darwin') {
+        if (game.is_mac_native && isMac) {
           gamePlatforms.push('mac')
         }
         gamePlatforms.push('windows')

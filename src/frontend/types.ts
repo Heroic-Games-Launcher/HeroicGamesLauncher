@@ -31,7 +31,6 @@ export interface ContextType {
   libraryStatus: GameStatus[]
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
-  platform: NodeJS.Platform | 'unknown'
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
@@ -249,9 +248,7 @@ export interface GameContextType {
     installingWinetricksPackages: boolean
     installingRedist: boolean
     launching: boolean
-    linux: boolean
     linuxNative: boolean
-    mac: boolean
     macNative: boolean
     moving: boolean
     native: boolean
@@ -265,7 +262,6 @@ export interface GameContextType {
     syncing: boolean
     uninstalling: boolean
     updating: boolean
-    win: boolean
   }
   statusContext?: string
   status: Status | undefined

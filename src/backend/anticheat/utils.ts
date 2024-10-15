@@ -1,4 +1,4 @@
-import { anticheatDataPath, isMac, isWindows } from '../constants'
+import { anticheatDataPath } from '../constants'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
 import { AntiCheatInfo } from 'common/types'

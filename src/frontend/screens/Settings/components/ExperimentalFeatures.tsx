@@ -5,15 +5,13 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 const ExperimentalFeatures = () => {
-  const { platform } = useContext(ContextProvider)
-
   const FEATURES = ['enableNewDesign', 'enableHelp', 'cometSupport']
 
-  if (platform !== 'win32') {
+  if (!isWindows) {
     FEATURES.push('automaticWinetricksFixes')
   }
 
-  if (platform === 'linux') {
+  if (isLinux) {
     FEATURES.push('umuSupport')
   }
 

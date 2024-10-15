@@ -1,4 +1,3 @@
-import { isMac } from 'backend/constants'
 import { ExecResult, GameInfo } from 'common/types'
 import { readdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
