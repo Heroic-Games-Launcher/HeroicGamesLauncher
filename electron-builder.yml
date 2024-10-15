@@ -21,6 +21,9 @@ protocols:
   - name: heroic
     schemes:
       - heroic
+  - name: Epic Games Launcher Protocol
+    schemes:
+      - com.epicgames.launcher
 
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
