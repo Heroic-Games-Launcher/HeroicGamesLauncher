@@ -84,7 +84,7 @@ import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
-import type { WineManagerStatus } from 'common/types'
+import type { discordRPCOptions, WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 
 const execAsync = promisify(exec)
@@ -571,12 +571,29 @@ async function getSteamRuntime(
   return allAvailableRuntimes.pop()!
 }
 
-function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
-  const client = makeClient('852942976564723722')
+function constructAndUpdateRPC(
+  gameInfo: GameInfo,
+  userSettings: discordRPCOptions
+): RpcClient {
+  const appId = userSettings.appId || '852942976564723722'
+
+  const client = makeClient(appId)
   const versionText = `Heroic ${app.getVersion()}`
 
+  const replaceVariables = (str: string) =>
+    str
+      .replace(/{game}/gi, gameInfo.title)
+      .replace(/{platform}/gi, getFormattedOsName())
+
   const image = gameInfo.art_icon || gameInfo.art_square
-  const title = gameInfo.title
+  const title = replaceVariables(
+    typeof userSettings.title === 'string' ? userSettings.title : '{game}'
+  )
+  const state = replaceVariables(
+    typeof userSettings.state === 'string'
+      ? userSettings.state
+      : 'via Heroic on {platform}'
+  )
 
   const overrides = image.startsWith('http')
     ? {
@@ -595,7 +612,7 @@ function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
     instance: true,
     large_text: title,
     startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName(),
+    state: state,
     ...overrides
   })
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)

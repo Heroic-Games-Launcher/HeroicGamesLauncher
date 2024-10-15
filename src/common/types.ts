@@ -61,6 +61,13 @@ export type Release = {
   body?: string
 }
 
+export interface discordRPCOptions {
+  enabled: boolean
+  appId?: string
+  title?: string
+  state?: string
+}
+
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
@@ -89,7 +96,7 @@ export interface AppSettings extends GameSettings {
   disableController: boolean
   disablePlaytimeSync: boolean
   disableLogs: boolean
-  discordRPC: boolean
+  discordRPC: discordRPCOptions
   downloadNoHttps: boolean
   egsLinkedPath: string
   enableUpdates: boolean
