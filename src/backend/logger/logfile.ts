@@ -29,7 +29,7 @@ export const getLongestPrefix = (): number => longestPrefix
  * It also removes old logs every new month.
  * @returns path to current log file
  */
-export function createNewLogFileAndClearOldOnes(): createLogFileReturn {
+function createNewLogFileAndClearOldOnes(): createLogFileReturn {
   const date = new Date()
   let logDir = ''
   try {
@@ -158,4 +158,13 @@ export function appendMessageToLogFile(message: string) {
       skipLogToFile: true
     })
   }
+}
+
+export function initLogfile() {
+  createNewLogFileAndClearOldOnes()
+}
+
+// ts-prune-ignore-next
+export const testingExports = {
+  createNewLogFileAndClearOldOnes
 }
