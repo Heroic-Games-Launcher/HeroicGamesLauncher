@@ -268,6 +268,21 @@ async function initializeWindow(): Promise<BrowserWindow> {
     mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
   })
 
+  function applyZoom() {
+    const zoomFactor = processZoomForScreen(
+      configStore.get('zoomPercent', 100) / 100
+    )
+    mainWindow.webContents.setZoomLevel(zoomFactor)
+    mainWindow.webContents.setVisualZoomLevelLimits(1, 1)
+  }
+
+  mainWindow.on('maximize', applyZoom)
+  mainWindow.on('unmaximize', applyZoom)
+  mainWindow.on('restore', applyZoom)
+  mainWindow.on('enter-full-screen', applyZoom)
+  mainWindow.on('leave-full-screen', applyZoom)
+  mainWindow.webContents.on('did-navigate', applyZoom)
+
   return mainWindow
 }
 
