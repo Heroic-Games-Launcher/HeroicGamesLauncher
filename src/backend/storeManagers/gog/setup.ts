@@ -173,11 +173,11 @@ async function setup(
     context: 'GOG'
   })
   if (manifestData.version === 1) {
-    if (existsSync(gameSupportDir)) {
+    if (existsSync(path.join(gogSupportPath, appName))) {
       for (const supportCommand of manifestData.product?.support_commands ||
         []) {
         if (
-          !supportCommand.languages.includes(
+          supportCommand.languages.includes(
             gameInfo.install.language ?? 'English'
           ) ||
           supportCommand.languages.includes('Neutral')
