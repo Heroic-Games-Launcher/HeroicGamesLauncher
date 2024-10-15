@@ -3,19 +3,22 @@
         "actions_font_family_no_default": "Actions Font Family (Default: ",
         "all_tiles_in_color": "Vis alle spillfliser i farger",
         "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Skrifter",
+        "fonts": "Skrifttyper",
         "title": "Tilgjengelighet",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "disable_dialog_backdrop_close": "Deaktiver lukking av dialogbokser ved å klikke utenfor",
+        "titles_always_visible": "Vis alltid titler i biblioteket"
     },
     "add_game": "Legg til spill",
     "All": "Alle",
     "anticheat": {
-        "anticheats": "Anticheats",
+        "anticheats": "Anti-juks",
         "may_not_work": "Det kan hende det ikke fungerer på grunn av avvist eller ødelagt anticheat-støtte.",
         "reference": "Referanse",
         "source": "Kilde",
         "status": "Status",
-        "title": "Dette spillet inkluderer anticheat-programvare"
+        "title": "Dette spillet inkluderer anticheat-programvare",
+        "multiplayer_may_not_work": "Flerspillerfunksjoner kan være utilgjengelige på grunn av avvist eller ødelagt støtte for anti-juks."
     },
     "box": {
         "cache-cleared": {
@@ -56,7 +59,7 @@
                 "title": "Spillmappen ser ut til å være slettet, vil du fjerne spillet fra installeringslisten?"
             },
             "generic": {
-                "message": "En ukjent feil oppstod",
+                "message": "generisk feilmelding",
                 "title": "Ukjent feil"
             },
             "launchAborted": "Oppstart avbrutt",
@@ -115,17 +118,18 @@
             }
         },
         "runexe": {
-            "title": "Velg EXE å kjøre"
+            "title": "Velg EXE for å kjøre"
         },
         "select": {
             "button": "Velg",
-            "exe": "Velg EXE"
+            "exe": "Velg EXE",
+            "script": "Velg skript ..."
         },
         "shortcuts": {
             "message": "Snarveier ble opprettet på skrivebordet og startmenyen",
             "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Snarveier ble fjernet fra skrivebordet og startmenyen",
-            "message-remove-mac": "Shortcuts were removed from the Applications folder",
+            "message-remove-mac": "Snarveier ble fjernet fra applikasjonsmappen",
             "title": "Snarveier"
         },
         "sync": {
@@ -152,13 +156,26 @@
             "wine-change": {
                 "message": "Vi kunne ikke finne den valgte vinversjonen for å lansere denne tittelen ({{selectedWine}}). {{newline}} Vi fant en annen, vil du fortsette å lansere med {{foundWine}}?",
                 "title": "Finner ikke vin!"
+            },
+            "snap": {
+                "checkbox": "Ikke vis denne meldingen igjen",
+                "message": "Noen funksjoner er foreløpig ikke tilgjengelige i Snap-versjonen av appen, og vi jobber med å fikse det.{{newLine}}Nåværende begrensninger er:{{newLine}}Heroic vil ikke kunne finne Proton fra Steam eller Wine fra Lutris.{{newLine}}{{newLine}}Gamescope, GameMode og MangoHud vil heller ikke fungere, siden Heroic ikke har tilgang til dem.{{newLine}}{{newLine}}For å få tilgang til disse funksjonene, vennligst installer Heroic som en Flatpak, DEB eller fra AppImage.",
+                "title": "Heroic kjører som en Snap"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Ulagret fremgang kan gå tapt",
+                    "title": "Er du sikker på at du vil avslutte?"
+                }
             }
         },
         "wineprefix": "Velg mappe for Wine-prefiks",
         "yes": "Ja",
         "dontShowAgain": "Ikke vis igjen",
         "choose-nile-binary": "Velg Nile binær",
-        "update": "Update"
+        "update": "Update",
+        "changelog": "Endringslogg",
+        "postpone": "Utsett"
     },
     "button": {
         "cancel": "Cancel",
@@ -250,7 +267,8 @@
         "select_all": "Velg alt",
         "reset": "Tilbakestill",
         "show_support_offline_only": "Vis kun støttet uten nett",
-        "uncategorized": "Ukategorisert"
+        "uncategorized": "Ukategorisert",
+        "show_third_party_managed_only": "Vis kun tredjepartsadministrerte"
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
@@ -315,6 +333,12 @@
         "button": {
             "close": "Lukk hjelp",
             "open": "Åpne hjelp"
+        },
+        "dxvknvapi": "DXVK-NVAPI er en implementering av NVAPI bygget på toppen av DXVK og den Linux-native NVAPI. Den muliggjør bruk av DLSS på Nvidia GPU-er.",
+        "gamescope": {
+            "fpsLimiter": "Antall bilder per sekund gamescope skal begrense til. F.eks. 60",
+            "additionalOptions": "Ekstra kommandolinjeflagg som skal sendes til gamescope.",
+            "fpsLimiterNoFocus": "Bildefrekvensgrensen som gamescope skal begrense per sekund hvis spillet ikke er i fokus."
         }
     },
     "info": {
@@ -555,7 +579,7 @@
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Velg programspråk",
         "library_top_option": {
-            "disabled": "Funksjonshemmet",
+            "disabled": "Deaktivert",
             "favourites": "Favorittspill",
             "recently_played": "Nylig spilte spill",
             "recently_played_installed": "Nylig spilte spill (kun installert)"
@@ -583,7 +607,7 @@
             "title": "Manuell synkronisering lagrer",
             "upload": "Last opp"
         },
-        "maxRecentGames": "Spilt nylig for å vise",
+        "maxRecentGames": "Antall \"Nylig spilt\" å vise",
         "maxworkers": "Maksimalt antall arbeidere ved nedlasting",
         "minimize-on-launch": "Minimer heroisk etter spillstart",
         "offlinemode": "Kjør spillet frakoblet",
@@ -609,7 +633,7 @@
         "showfps": "Vis FPS (DX9, 10 og 11)",
         "start-in-tray": "Start Minimert",
         "steamruntime": "Bruk Steam Runtime",
-        "winecrossoverbottle": "CrossOver flaske",
+        "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix-mappen",
         "wineversion": "Wine-versjon",
         "autoUpdateGames": "Oppdater spill automatisk",
@@ -721,15 +745,15 @@
     "two_col_table": {
         "save_hint": "Endringer i denne tabellen lagres ikke automatisk. Klikk på +-knappen"
     },
-    "Update Available!": "Ny versjon tilgjengelig",
+    "Update Available!": "Ny versjon tilgjengelig!",
     "userselector": {
         "discord": "Discord",
-        "logging_out": "Logging out",
+        "logging_out": "Logger ut",
         "logout": "Logg ut",
         "logout_confirmation": "Er du sikker på at du vil logge ut?",
         "manageaccounts": "Administrer kontoer",
         "quit": "Avslutt",
-        "cancel": "Cancel",
+        "cancel": "Avbryt",
         "quitMessage": "Er du sikker på at du vil slutte?"
     },
     "webview": {
@@ -743,10 +767,10 @@
     "wine": {
         "actions": "Handling",
         "manager": {
-            "link": "Vinsjef",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Vinsjef",
-            "unzipping": "Pakning ut"
+            "link": "Wine-behandler",
+            "not-found": "Ingen Wine-versjoner funnet. Vennligst klikk på oppdateringsikonet for å prøve igjen.",
+            "title": "Wine-behandler",
+            "unzipping": "Pakker ut"
         },
         "release": "Utgivelsesdato",
         "size": "Størrelse"
@@ -769,20 +793,51 @@
     "Amazon Games": "Amazon-spill",
     "prime-gaming": "Prime Gaming",
     "winetricks": {
-        "install": "Install",
-        "loading": "Loading"
+        "install": "Installer",
+        "loading": "Laster inn",
+        "nothingYet": "Ingenting er installert av Winetricks ennå",
+        "installing": "Installasjon pågår: {{component}}",
+        "installed": "Installerte komponenter:",
+        "openGUI": "Åpne Winetricks GUI",
+        "search": "Søk etter skrifttyper eller komponenter"
     },
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning",
         "new-category": "Ny kategori",
-        "remove-category": "Fjern kategori"
+        "remove-category": "Fjern kategori",
+        "add-new-category": "Legg til ny kategori",
+        "delete-question": "Å fortsette vil permanent fjerne denne kategorien og fjerne den fra alle spill. Vil du fortsette?"
     },
     "emptyLibrary": {
         "noGames": "Biblioteket ditt er tomt. Du kan <1>logge inn</1> ved å bruke en butikk eller klikke <3></3> for å legge til manuelt.",
         "noResults": "De nåværende filtrene ga ingen resultater."
     },
     "window": {
-        "close": "Lukk"
+        "close": "Lukk",
+        "minimize": "Minimer vindu",
+        "restore": "Gjenopprett vindu",
+        "maximize": "Maksimer vindu"
+    },
+    "wineExplanation": {
+        "wine-ge": "Wine-GE-Proton er en Wine-variant laget av Glorious Eggroll. Det er den anbefalte Wine-versjonen for bruk utenfor Steam. Den gir nyttige logger ved feilsøking.",
+        "proton-ge": "Proton-GE-Proton er en Proton-variant opprettet av Glorious Eggroll. Den er ment for bruk i Steam, men noen spill utenfor Steam kan fungere bedre med denne varianten. Den gir stort sett ubrukelige logger for feilsøking."
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Ikke vis denne advarselen igjen",
+        "description": "Det ser ut til at domenet track.adtraction.com ikke kunne lastes eller er blokkert. Med Adtraction støtter ethvert kjøp du gjør i GOG-butikken Heroic økonomisk. Vurder å fjerne blokkeringen hvis du ønsker å bidra.",
+        "title": "Adtraction er blokkert"
+    },
+    "categories-manager": {
+        "add": "Legg til",
+        "add-placeholder": "Legg til ny kategori",
+        "cancel-remove": "Avbryt fjerning av \"{{name}}\"",
+        "cancel-rename": "Avbryt navnendring av \"{{name}}\"",
+        "confirm-remove": "Bekreft fjerning av \"{{name}}\"",
+        "confirm-rename": "Bekreft omdøping av \"{{oldName}}\" til \"{{newName}}\"",
+        "no-categories": "Ingen kategorier enda.",
+        "remove": "Fjern \"{{name}}\"",
+        "rename": "Omdøp \"{{name}}\"",
+        "title": "Behandle kategorier"
     }
 }

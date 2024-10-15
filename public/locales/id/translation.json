@@ -787,7 +787,16 @@
         "close": "Tutup"
     },
     "categories-manager": {
-        "add-placeholder": "Buat Kategori Baru"
+        "add-placeholder": "Buat Kategori Baru",
+        "cancel-remove": "Batalkan penghapusan \"{{name}}\"",
+        "add": "Tambah",
+        "confirm-remove": "Konfirmasi penghapusan \"{{name}}\"",
+        "confirm-rename": "Konfirmasi pengubahan \"{{oldName}}\" menjadi \"{{newName}}\"",
+        "cancel-rename": "Batalkan pengubahan \"{{name}}\"",
+        "no-categories": "Belum ada kategori.",
+        "remove": "Hapus \"{{name}}\"",
+        "rename": "Ubah \"{{name}}\"",
+        "title": "Kelola Kategori"
     },
     "adtraction-locked": {
         "dont-show-again": "Jangan tampilkan peringatan ini lagi",

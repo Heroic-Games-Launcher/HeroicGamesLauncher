@@ -6,7 +6,7 @@
         "fonts": "Czcionki",
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż",
-        "disable_dialog_backdrop_close": "Wyłącz zamykanie okienek poprzez kliknięcie poza nimi",
+        "disable_dialog_backdrop_close": "Nie zamykaj okienek, gdy klikniesz poza nimi",
         "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece"
     },
     "add_game": "Dodaj Grę",
@@ -241,7 +241,7 @@
     },
     "generic": {
         "error": {
-            "component": "Nie znaleziono żadnych gier - Spróbuj wylogować i zalogować się ponownie lub postępuj zgodnie z jedną z opcji poniżej"
+            "component": "Nie znaleziono żadnych gier - spróbuj wylogować i zalogować się ponownie lub postępuj zgodnie z jedną z opcji poniżej"
         },
         "library": {
             "refresh": "Odśwież Bibliotekę"
@@ -262,7 +262,7 @@
         "filters": "Filtry",
         "categories": "Kategorie",
         "no_categories": "Brak własnych kategorii. Dodaj kategorie używając menu każdej gry.",
-        "only": "wyłącznie",
+        "only": "< tylko ten",
         "reset": "Resetuj",
         "show_installed_only": "Pokaż tylko zainstalowane",
         "show_support_offline_only": "Pokaż tylko obsługiwane bez dostępu do internetu",
@@ -620,8 +620,41 @@
             "show-in-folder": "Pokaż plik logu w folderze",
             "join-heroic-discord": "Dołącz do naszego Discorda",
             "upload": {
-                "actions": "Działania"
-            }
+                "actions": "Działania",
+                "button": "Prześlij plik dziennika",
+                "confirm": {
+                    "content": "Czy naprawdę chcesz przesłać \"{{name}}\"?",
+                    "title": "Przesłać plik dziennika?"
+                },
+                "delete": "Żądanie usunięcia pliku dziennika",
+                "done": {
+                    "content": "Przesłano do {{url}} (adres URL skopiowany do schowka)",
+                    "title": "Przesyłanie zakończone"
+                },
+                "error": {
+                    "title": "Przesyłanie nie powiodło się",
+                    "content": "Nie udało się przesłać pliku dziennika. Sprawdź ogólny dziennik Heroic, aby uzyskać szczegółowe informacje"
+                },
+                "header": "Przesłane pliki dziennika",
+                "no-files": "Nie przesłano żadnych plików dziennika",
+                "hours-ago": "Przesłano {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Przesłano {{minutesAgo, relativetime(minutes)}}",
+                "open": "Otwórz przesyłanie pliku dziennika",
+                "title": "Tytuł pliku dziennika",
+                "upload-date": "Data przesłania",
+                "uploading": {
+                    "content": "Przesyłanie pliku dziennika...",
+                    "title": "Przesyłanie"
+                }
+            },
+            "descriptiveNames": {
+                "game-log": "Plik dziennika gry {{gameTitle}}",
+                "gog": "GOG log",
+                "heroic": "General Heroic log",
+                "legendary": "Epic Games / Legendary log",
+                "nile": "Amazon / Nile log"
+            },
+            "show-uploads": "Pokaż przesłane pliki dziennika"
         },
         "mangohud": "Włącz Mangohud (wymagany zainstalowany Mangohud)",
         "manualsync": {

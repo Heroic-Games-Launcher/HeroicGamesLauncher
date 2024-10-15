@@ -620,8 +620,41 @@
             "show-in-folder": "Kuva logifail kaustas",
             "join-heroic-discord": "Liituge meie Discordiga",
             "upload": {
-                "actions": "Toimingud"
-            }
+                "actions": "Toimingud",
+                "delete": "Taotle logifaili kustutamist",
+                "done": {
+                    "content": "Üles laetud asukohta {{url}} (URL kopeeritud lõikelauale)",
+                    "title": "Üleslaadimine lõpetatud"
+                },
+                "button": "Lae üles logifail",
+                "confirm": {
+                    "content": "Kas soovite tõesti üles laadida \"{{name}}\"?",
+                    "title": "Lae logifail üles?"
+                },
+                "error": {
+                    "content": "Ei suutnud logifaili üles laadida. Üksikasjade jaoks kontrollige Heroicu üldist logi",
+                    "title": "Üleslaadimine ebaõnnestus"
+                },
+                "header": "Üles laetud logifailid",
+                "hours-ago": "Üles laetud {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Üles laetud {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Ühtegi logifaili ei laetud üles",
+                "open": "Ava logifaili üleslaadimine",
+                "title": "Logi pealkiri",
+                "upload-date": "Üleslaadimise kuupäev",
+                "uploading": {
+                    "content": "Laen logifaili üles...",
+                    "title": "Üleslaadimine"
+                }
+            },
+            "descriptiveNames": {
+                "heroic": "Üldine Heroicu logi",
+                "legendary": "Epic Games / Legendary logi",
+                "game-log": "{{gameTitle}} mängu logi",
+                "gog": "GOG logi",
+                "nile": "Amazon / Nile logi"
+            },
+            "show-uploads": "Näita üles laetud logifaile"
         },
         "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
         "manualsync": {
