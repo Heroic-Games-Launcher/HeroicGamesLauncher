@@ -295,7 +295,7 @@ export default function SideloadDialog({
                 'sideload.placeholder.title',
                 'Add a title to your Game/App'
               )}
-              onChange={(e) => handleTitle(e.target.value)}
+              onChange={(newValue) => handleTitle(newValue)}
               onBlur={async () => searchImage()}
               htmlId="sideload-title"
               value={title}
@@ -307,7 +307,7 @@ export default function SideloadDialog({
                 'sideload.placeholder.image',
                 'Paste an Image URL here'
               )}
-              onChange={(e) => setImageUrl(e.target.value)}
+              onChange={(newValue) => setImageUrl(newValue)}
               htmlId="sideload-image"
               value={imageUrl}
             />
@@ -334,7 +334,7 @@ export default function SideloadDialog({
                     'sideload.placeholder.url',
                     'Paste the Game URL here'
                   )}
-                  onChange={(e) => handleGameUrl(e.target.value)}
+                  onChange={(newValue) => handleGameUrl(newValue)}
                   htmlId="sideload-game-url"
                   value={gameUrl}
                 />
@@ -344,7 +344,7 @@ export default function SideloadDialog({
                     'sideload.placeholder.useragent',
                     'Write a custom user agent here to be used on this browser app/game'
                   )}
-                  onChange={(e) => setCustomUserAgent(e.target.value)}
+                  onChange={(newValue) => setCustomUserAgent(newValue)}
                   htmlId="sideload-user-agent"
                   value={customUserAgent}
                 />
