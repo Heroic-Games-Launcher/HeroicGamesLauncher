@@ -15,11 +15,13 @@ import { constants as FS_CONSTANTS } from 'graceful-fs'
 import i18next from 'i18next'
 import {
   callRunner,
+  getRunnerCallWithoutCredentials,
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
+  setupWineEnvVars,
   setupWrapperEnvVars,
   setupWrappers
 } from '../../launcher'
@@ -198,11 +200,6 @@ export async function launchGame(
 
     // Native
     if (isNative) {
-      logInfo(
-        `launching native sideloaded game: ${executable} ${extraArgsJoined}`,
-        LogPrefix.Backend
-      )
-
       try {
         await access(executable, FS_CONSTANTS.X_OK)
       } catch (error) {
@@ -217,10 +214,24 @@ export async function launchGame(
       }
 
       const env = {
-        ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
         ...setupEnvVars(gameSettings, gameInfo.install.install_path)
       }
+
+      if (wrappers.length > 0) {
+        extraArgs.unshift(...wrappers, executable)
+        executable = extraArgs.shift()!
+      }
+
+      const fullCommand = getRunnerCallWithoutCredentials(
+        extraArgs,
+        env,
+        executable
+      )
+      appendGamePlayLog(
+        gameInfo,
+        `Launch Command: ${fullCommand}\n\nGame Log:\n`
+      )
 
       await callRunner(
         extraArgs,
@@ -233,8 +244,12 @@ export async function launchGame(
         {
           env,
           wrappers,
+          app_name: appName,
           logFile: lastPlayLogFileLocation(appName),
-          logMessagePrefix: LogPrefix.Backend
+          logMessagePrefix: LogPrefix.Backend,
+          onOutput: (output) => {
+            if (!logsDisabled) appendGamePlayLog(gameInfo, output)
+          }
         }
       )
 
@@ -251,6 +266,27 @@ export async function launchGame(
       LogPrefix.Backend
     )
 
+    const logCommand = [
+      ...wrappers,
+      gameSettings.wineVersion.bin,
+      executable,
+      ...extraArgs
+    ]
+    const logExec = logCommand.shift()!
+
+    const fullCommand = getRunnerCallWithoutCredentials(
+      logCommand,
+      {
+        GAMEID: 'umu-0',
+        ...setupEnvVars(gameSettings, gameInfo.install.install_path),
+        ...setupWineEnvVars(gameSettings, dirname(executable)),
+        PROTON_VERB: 'waitforexitandrun'
+      },
+      logExec
+    )
+
+    appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
+
     await runWineCommand({
       commandParts: [executable, ...extraArgs],
       gameSettings,
@@ -259,6 +295,7 @@ export async function launchGame(
       startFolder: dirname(executable),
       options: {
         wrappers,
+        app_name: appName,
         logFile: lastPlayLogFileLocation(appName),
         logMessagePrefix: LogPrefix.Backend,
         onOutput: (output) => {

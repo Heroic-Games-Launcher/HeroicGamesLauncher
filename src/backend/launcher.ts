@@ -1069,7 +1069,8 @@ async function callRunner(
   runner: RunnerProps,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
-  const appName = appNameFromCommandParts(commandParts, runner.name)
+  const appName =
+    options?.app_name || appNameFromCommandParts(commandParts, runner.name)
 
   // Necessary to get rid of possible undefined or null entries, else
   // TypeError is triggered

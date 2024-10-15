@@ -44,7 +44,7 @@ async function getCometVersion(): Promise<string> {
 
   if (error) return 'invalid'
 
-  return stdout.toString()
+  return stdout.toString().trimEnd()
 }
 
 async function getNileVersion(): Promise<string> {

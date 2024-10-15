@@ -403,6 +403,7 @@ export interface CallRunnerOptions {
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
+  app_name?: string
 }
 
 export interface EnviromentVariable {
