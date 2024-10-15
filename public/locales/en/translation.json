@@ -1,8 +1,8 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default):",
+        "actions_font_family_default": "Actions Font Family (Default: {{fontFamily}})",
         "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family_no_default": "Content Font Family (Default: ",
+        "content_font_family_default": "Content Font Family (Default: {{fontFamily}})",
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
         "fonts": "Fonts",
         "title": "Accessibility",
