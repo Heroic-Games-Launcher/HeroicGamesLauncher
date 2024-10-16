@@ -241,7 +241,11 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "auto-shutdown": {
+            "label": "Automatically shutdown machine when all downloads are finished",
+            "description": "This will shutdown the machine when all downloads are successfully finished."
+        }
     },
     "emptyLibrary": {
         "noGames": "Your library is empty. You can <1>log in</1> using a store or click <3></3> to add one manually.",
