@@ -45,7 +45,7 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
   # umu
-  - --filesystem=~/.var/app/org.openwinecomponents.umu.umu-launcher/data/umu
+  - --filesystem=xdg-data/umu:create
   - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
 
 add-extensions:

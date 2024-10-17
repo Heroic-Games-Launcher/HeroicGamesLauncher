@@ -816,7 +816,7 @@ export async function verifyWinePrefix(
 
   const command = runWineCommand({
     commandParts: (await isUmuSupported(wineVersion.type))
-      ? ['createprefix']
+      ? ['']
       : ['wineboot', '--init'],
     wait: haveToWait,
     gameSettings: settings,
