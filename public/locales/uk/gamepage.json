@@ -122,7 +122,7 @@
     "hours": "Години",
     "how-long-to-beat": {
         "completionist": "Повне проходження",
-        "main-plus-extras": "Основна + додаткові",
+        "main-plus-extras": "Основне + Додаткове",
         "main-story": "Основна історія"
     },
     "howLongToBeat": "Ігровий час",
@@ -195,7 +195,7 @@
     },
     "setting": {
         "use-default-wine-settings": "Використовувати типові налаштування Wine",
-        "winecrossoverbottle": "CrossOver Bottle",
+        "winecrossoverbottle": "Пляшка CrossOver",
         "show-wine-settings": "Показати налаштування Wine",
         "warn-use-default-wine-settings": "Використовуйте цю опцію, лише якщо ви знаєте, що робите.<br/>Використання одного префікса для кількох ігор може спричинити проблеми, якщо їхні залежності несумісні."
     },
