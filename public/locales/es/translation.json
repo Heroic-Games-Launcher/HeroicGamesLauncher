@@ -26,7 +26,7 @@
             "title": "Caché borrado"
         },
         "choose": "Seleccionar",
-        "choose-egs-prefix": "Elige el prefijo de Wine donde está instalado EGS",
+        "choose-egs-prefix": "Elija el Prefix de Wine donde está instalado EGS",
         "choose-gogdl-binary": "Seleccionar binario de GOGDL (requiere reiniciar)",
         "choose-legendary-binary": "Seleccione el binario de Legendary",
         "customWine": "Selecciona un binario de Wine o Proton",
@@ -160,12 +160,12 @@
             "sideload": {
                 "confirmExit": {
                     "message": "Todo progreso no guardado podría perderse",
-                    "title": "¿Seguro que quieres salir?"
+                    "title": "¿Estás seguro de que quieres salir?"
                 }
             },
             "snap": {
                 "checkbox": "No mostrar este mensaje de nuevo",
-                "title": "Heroic se ejecuta como Snap",
+                "title": "Heroic se ejecuta como un Snap",
                 "message": "Algunas características no están disponibles en la versión Snap de la aplicación por ahora y estamos tratando de arreglarlo.{{newLine}}Las limitaciones actuales son: {{newLine}}Heroic no podrá encontrar Proton desde Steam o Wine desde Lutris.{{newLine}}{{newLine}}Gamescope, GameMode y MangoHud tampoco funcionarán ya que Heroic no puede tener acceso a ellos.{{newLine}}{{newLine}}Para tener acceso a esta característica por favor instala Heroic como Flatpak, DEB o desde la AppImage."
             }
         },
@@ -317,9 +317,9 @@
             "fpsLimiterNoFocus": "El límite de velocidad de fotogramas (fps) que debe aplicar gamescope si el juego no está en primer plano.",
             "fpsLimiter": "El número máximo de fotogramas (fps) de gamescope, por ejemplo, es 60",
             "upscaleMethod": "El método de escalado que gamescope debe usar.",
-            "gameWidth": "La resolución para el ancho utilizada por el juego. Gamescope asume una relación del aspecto de 16:9.",
+            "gameWidth": "La resolución para el ancho del juego. Gamescope asume una relación de aspecto de 16:9.",
             "upscaleWidth": "La resolución utilizada para el ancho por gamescope. Se asume una relación del aspecto de 16:9.",
-            "gameHeight": "La resolución para la altura utilizada por el juego. Gamescope asume una relación del aspecto de 16:9.",
+            "gameHeight": "La resolución para la altura del juego. Gamescope asume una relación de aspecto de 16:9.",
             "upscaleHeight": "La resolución para la altura utilizada por gamescope. Se asume una relación del aspecto de 16:9.",
             "additionalOptions": "Variables de línea de comandos adicionales para gamescope."
         },
@@ -404,7 +404,7 @@
         "gog": "Iniciar Sesión en GOG",
         "message": "Inicie sesión en sus plataformas. Puede iniciar sesión en más de una a la vez.",
         "amazon": "Inicio de sesión en Amazon",
-        "old-mac": "Tu versión de macOS es {{version}}, macOS 12 o posterior es requerido para iniciar sesión."
+        "old-mac": "Tu versión de macOS es {{version}}. Se requiere macOS 12 o posterior para ingresar a su cuenta."
     },
     "message": {
         "sync": "Sincronización completa",
@@ -499,7 +499,7 @@
             "title": "Comando Wrapper:"
         },
         "gamescope": {
-            "upscaleHeight": "Altura de reescala",
+            "upscaleHeight": "Altura de reescalado",
             "nis": "NVIDIA Image Scale (NIS)",
             "borderless": "Sin bordes",
             "fpsLimiter": "Limitador de FPS",
@@ -559,9 +559,9 @@
         "addgamestosteam": "Agregar juegos a Steam automáticamente",
         "alt-gogdl-bin": "Elige un binario de GOGDL alternativo para usar",
         "alt-legendary-bin": "Elige un binario de Legendary alternativo",
-        "autodxvk": "Autoinstalar/Actualizar DXVK en el Prefijo",
+        "autodxvk": "Instalar/Actualizar automáticamente DXVK en el Prefijo",
         "autosync": "Autosincronizar guardados",
-        "autovkd3d": "Autoinstalar/Actualizar VKD3D en el Prefijo",
+        "autovkd3d": "Instalar/Actualizar automáticamente VKD3D en el Prefijo",
         "change-target-exe": "Seleccione un EXE alternativo para ejecutar",
         "checkForUpdatesOnStartup": "Comprobar actualizaciones de Heroic al iniciar",
         "crossover-version": "Versión crossover/vino",
@@ -621,8 +621,41 @@
             "show-in-folder": "Mostrar el archivo de registro en la carpeta",
             "join-heroic-discord": "Únase a nuestro Discord",
             "upload": {
-                "actions": "Acciones"
-            }
+                "actions": "Acciones",
+                "button": "Subir archivo de registro",
+                "confirm": {
+                    "content": "¿Está seguro que quiere cargar \"{{name}}\"?",
+                    "title": "¿Cargar archivo de registro?"
+                },
+                "delete": "Pedir borrado de registro",
+                "done": {
+                    "content": "Subido a {{url}} (URL copiada al portapapeles)",
+                    "title": "Subida completada"
+                },
+                "error": {
+                    "content": "Falló la subida del registro. Ver el registro general de Heroic para detalles",
+                    "title": "Error al subir"
+                },
+                "header": "Se subieron los registros",
+                "hours-ago": "Subido {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Subido {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "No se subieron archivos de registro",
+                "open": "Abrir carga de registros",
+                "title": "Título del registro",
+                "upload-date": "Fecha de subida",
+                "uploading": {
+                    "content": "Subiendo archivo de registro...",
+                    "title": "Subiendo"
+                }
+            },
+            "descriptiveNames": {
+                "nile": "Registro de Amazon / Nile",
+                "game-log": "Registro de juego de {{gameTitle}}",
+                "gog": "Registro de GOG",
+                "heroic": "Registro general de Heroic",
+                "legendary": "Registro de Epic Games / Legendary"
+            },
+            "show-uploads": "Mostrar los registros subidos"
         },
         "mangohud": "Habilitar Mangohud (es necesario instalar Mangohud)",
         "manualsync": {
@@ -668,8 +701,8 @@
         "disable_logs": "Deshabilitar registros",
         "addgamestoapplications": "Agregar juegos a Aplicaciones automáticamente",
         "showMetalOverlay": "Mostrar superposición de estadísticas",
-        "alt-nile-bin": "Elige un binario alternativo de Nile",
-        "autodxvknvapi": "Autoinstalar/Actualizar DXVK-NVAPI en el Prefijo",
+        "alt-nile-bin": "Elija un binario alternativo de Nile",
+        "autodxvknvapi": "Instalar/Actualizar automáticamente DXVK-NVAPI en el Prefijo",
         "experimental_features": {
             "enableNewShinyFeature": "Una nueva función brillante",
             "enableNewDesign": "Nuevo diseño",
@@ -867,7 +900,7 @@
         "size": "Tamaño"
     },
     "externalLink": {
-        "dontAskAgain": "no vuelvas a preguntar",
+        "dontAskAgain": "No volver a preguntar",
         "warning": "Está a punto de abrir un enlace externo."
     },
     "wiki_info": {
@@ -896,7 +929,7 @@
         "maximize": "Maximizar la ventana",
         "minimize": "Minimizar la ventana",
         "close": "Cerrar",
-        "restore": "Restaurar la ventana"
+        "restore": "Restablecer la ventana"
     },
     "category-settings": {
         "remove-category": "Eliminar la categoría",
