@@ -50,7 +50,10 @@
   opacity: 0%;
 }
 
-.selectFieldWrapper .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline .css-ihdtdm {
+.selectFieldWrapper
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-notchedOutline
+  .css-ihdtdm {
   width: 0;
 }
 
