@@ -44,9 +44,22 @@
   min-width: 100px;
 }
 
+/* hide the second arrow */
+.selectFieldWrapper .MuiOutlinedInput-root .MuiSvgIcon-root {
+  opacity: 0%;
+}
+
+.selectFieldWrapper .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline .css-ihdtdm {
+  width: 0;
+}
+
 .MuiPopover-root .MuiPaper-root {
   color: var(--text-secondary);
   background-color: var(--input-background);
+}
+
+.MuiPopover-root .MuiPaper-root .MuiMenuItem-root {
+  font-family: var(--primary-font-family);
 }
 
 .selectStyle {
