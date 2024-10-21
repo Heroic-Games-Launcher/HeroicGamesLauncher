@@ -86,7 +86,7 @@ async function initQueue() {
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
-    status === 'done' ? (didReallyDownload = true) : (didReallyDownload = false)
+   didReallyDownload = status === 'done'
 
     processNotification(element, status)
 
