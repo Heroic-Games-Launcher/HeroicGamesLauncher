@@ -224,7 +224,16 @@
             "type": "Type"
         },
         "title": "Téléchargements",
-        "ETA": "Temps estimé"
+        "ETA": "Temps estimé",
+        "auto-shutdown": {
+            "label": "Arrêt automatique",
+            "description": "Cela éteindra la machine lorsque tous les téléchargements seront terminés avec succès.",
+            "cancellationPrompt": {
+                "title": "Arrêt automatique dans 10s...",
+                "message": "Voulez vous annuler l'arrêt automatique ?",
+                "cancel": "Annuler l'arrêt"
+            }
+        }
     },
     "epic": {
         "offline-notification-body": "Les services en ligne peuvent ne pas entièrement fonctionner car les serveurs d'Epic Games sont hors ligne !",
