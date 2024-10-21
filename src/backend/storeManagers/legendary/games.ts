@@ -23,13 +23,15 @@ import {
 } from './library'
 import { LegendaryUser } from './user'
 import {
+  downloadFile,
   getLegendaryBin,
   killPattern,
   moveOnUnix,
   moveOnWindows,
   sendGameStatusUpdate,
   sendProgressUpdate,
-  shutdownWine
+  shutdownWine,
+  spawnAsync
 } from '../../utils'
 import {
   isMac,
@@ -37,7 +39,8 @@ import {
   installed,
   configStore,
   isCLINoGui,
-  isLinux
+  isLinux,
+  epicRedistPath
 } from '../../constants'
 import {
   appendGamePlayLog,
@@ -74,7 +77,8 @@ import { sendFrontendMessage } from '../../main_window'
 import { RemoveArgs } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
-  getWineFlags
+  getWineFlags,
+  isUmuSupported
 } from 'backend/utils/compatibility_layers'
 import {
   LegendaryAppName,
@@ -83,7 +87,10 @@ import {
   PositiveInteger
 } from './commands/base'
 import { LegendaryCommand } from './commands'
+import { getUmuId } from 'backend/wiki_game_info/umu/utils'
+import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
+import { mkdirSync } from 'fs'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -144,9 +151,13 @@ async function getProductSlug(namespace: string, title: string) {
   }
 
   try {
-    const result = await axios('https://www.epicgames.com/graphql', {
+    const result = await axios('https://launcher.store.epicgames.com/graphql', {
       data: graphql,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EpicGamesLauncher'
+      },
       method: 'POST'
     })
 
@@ -233,9 +244,13 @@ async function getExtraFromGraphql(
   }
 
   try {
-    const result = await axios('https://www.epicgames.com/graphql', {
+    const result = await axios('https://launcher.store.epicgames.com/graphql', {
       data: graphql,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EpicGamesLauncher'
+      },
       method: 'POST'
     })
 
@@ -289,6 +304,7 @@ const emptyExtraInfo = {
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const { namespace, title } = getGameInfo(appName)
   if (namespace === undefined) return emptyExtraInfo
+
   const cachedExtraInfo = gameInfoStore.get(namespace)
   if (cachedExtraInfo) {
     return cachedExtraInfo
@@ -571,6 +587,18 @@ export async function install(
   status: 'done' | 'error' | 'abort'
   error?: string
 }> {
+  const gameInfo = getGameInfo(appName)
+  if (gameInfo.thirdPartyManagedApp) {
+    if (!gameInfo.isEAManaged) {
+      logError(
+        ['Third party app', gameInfo.thirdPartyManagedApp, 'not supported'],
+        LogPrefix.Legendary
+      )
+      return { status: 'error' }
+    }
+
+    return installEA(gameInfo, platformToInstall)
+  }
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
   const info = await getInstallInfo(appName, platformToInstall)
 
@@ -634,7 +662,54 @@ export async function install(
   return { status: 'done' }
 }
 
+async function installEA(
+  gameInfo: GameInfo,
+  platformToInstall: string
+): Promise<{
+  status: 'done' | 'error' | 'abort'
+  error?: string
+}> {
+  logInfo('Getting EA App installer', LogPrefix.Legendary)
+  const installerPath = join(epicRedistPath, 'EAappInstaller.exe')
+
+  if (!existsSync(epicRedistPath)) {
+    mkdirSync(epicRedistPath, { recursive: true })
+  }
+
+  if (!existsSync(installerPath)) {
+    try {
+      await downloadFile({
+        url: 'https://origin-a.akamaihd.net/EA-Desktop-Client-Download/installer-releases/EAappInstaller.exe',
+        dest: installerPath
+      })
+    } catch (e) {
+      return { status: 'error', error: `${e}` }
+    }
+  }
+
+  if (isWindows) {
+    const process = await spawnAsync(installerPath, [
+      'EAX_LAUNCH_CLIENT=0',
+      'IGNORE_INSTALLED=1'
+    ])
+
+    if (process.code !== null && process.code === 3) {
+      return { status: 'abort' }
+    }
+  }
+
+  await thirdParty.addInstalledGame(gameInfo.app_name, platformToInstall)
+
+  return { status: 'done' }
+}
+
 export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+  const gameInfo = getGameInfo(appName)
+  if (gameInfo.thirdPartyManagedApp) {
+    await thirdParty.removeInstalledGame(appName)
+    return { stdout: '', stderr: '' }
+  }
+
   const command: LegendaryCommand = {
     subcommand: 'uninstall',
     appName: LegendaryAppName.parse(appName),
@@ -780,6 +855,7 @@ export async function launch(
   } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
     appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
       message: launchPrepFailReason!,
@@ -822,7 +898,7 @@ export async function launch(
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason!,
+          message: wineLaunchPrepFailReason,
           type: 'ERROR'
         })
       }
@@ -838,13 +914,19 @@ export async function launch(
 
     const { bin: wineExec, type: wineType } = gameSettings.wineVersion
 
+    if (await isUmuSupported(wineType)) {
+      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (umuId) {
+        commandEnv['GAMEID'] = umuId
+      }
+    }
     // Fix for people with old config
     const wineBin =
       wineExec.startsWith("'") && wineExec.endsWith("'")
         ? wineExec.replaceAll("'", '')
         : wineExec
 
-    wineFlags = getWineFlags(wineBin, wineType, shlex.join(wrappers))
+    wineFlags = await getWineFlags(wineBin, wineType, shlex.join(wrappers))
   }
 
   const appNameToLaunch =
@@ -867,6 +949,7 @@ export async function launch(
     command['--override-exe'] = Path.parse(gameSettings.targetExe)
   if (offlineMode) command['--offline'] = true
   if (isCLINoGui) command['--skip-version-check'] = true
+  if (gameInfo.isEAManaged) command['--origin'] = true
 
   const fullCommand = getRunnerCallWithoutCredentials(
     command,
@@ -876,12 +959,6 @@ export async function launch(
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
   sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
-
-  sendGameStatusUpdate({
-    appName,
-    runner: 'legendary',
-    status: 'playing'
-  })
 
   const { error } = await runLegendaryCommand(command, {
     abortId: appName,
@@ -964,7 +1041,7 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
   return new Promise((resolve) => {
     const info = getGameInfo(appName)
     if (info && info.is_installed) {
-      if (info.install.install_path && existsSync(info.install.install_path!)) {
+      if (info.install.install_path && existsSync(info.install.install_path)) {
         resolve(true)
       } else {
         resolve(false)

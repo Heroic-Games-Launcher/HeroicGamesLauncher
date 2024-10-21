@@ -34,6 +34,7 @@ import {
   BeforeLaunchScriptPath,
   AfterLaunchScriptPath
 } from '../../components'
+import { TabPanel } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
@@ -45,27 +46,6 @@ import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
 import { Tabs, Tab } from '@mui/material'
 import { GameInfo } from 'common/types'
-
-type TabPanelProps = {
-  children?: React.ReactNode
-  index: string
-  value: string
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
-      {value === index && <div>{children}</div>}
-    </div>
-  )
-}
 
 const windowsPlatforms = ['Win32', 'Windows', 'windows']
 function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
@@ -117,7 +97,7 @@ export default function GamesSettings() {
   }
   // Get the latest used tab index for the current game
   const localStorageKey = gameInfo
-    ? `${gameInfo!.app_name}-setting_tab`
+    ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
     localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)

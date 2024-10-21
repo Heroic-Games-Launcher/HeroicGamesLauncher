@@ -11,7 +11,7 @@ import { StyledEngineProvider } from '@mui/material/styles'
 
 import { useAwaited } from 'frontend/hooks/useAwaited'
 
-import { ReactComponent as SteamDeckLogo } from 'frontend/assets/steam-deck-logo.svg'
+import SteamDeckLogo from 'frontend/assets/steam-deck-logo.svg?react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
 import CPUCard from './cpu'

@@ -219,7 +219,8 @@
     "game": {
         "status": "Egoera",
         "store": "Denda",
-        "title": "Jokoaren izenburua"
+        "title": "Jokoaren izenburua",
+        "modify": "Aldatu Instalazioa"
     },
     "generic": {
         "error": {
@@ -537,7 +538,10 @@
             "instructions_title": "Nola salatu arazo bat?",
             "last-log": "Azken erregistroa",
             "no-file": "Ez da aurkitu erregistro-fitxategirik",
-            "show-in-folder": "Erakutsi erregistro-fitxategia karpetan"
+            "show-in-folder": "Erakutsi erregistro-fitxategia karpetan",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Gaitu Mangohud (Mangohud instalatu behar da)",
         "manualsync": {
@@ -630,6 +634,12 @@
             "details": "Xehetasunak",
             "title": {
                 "resetHeroic": "Berrezarri Heroic"
+            },
+            "resetHeroic": {
+                "help": "Ziur zaude Heroic berrabiarazi nahi duzula? Horrek ezarpen guztiak eta cacheko biltegiratzea ezabatuko ditu, baina ez ditu zure instalatutako jokoak edo Epic-eko kredentzialak ezabatuko. Heroic-en bertsio eramangarriak (AppImage, WinPortable, ...) berrabiarazi egin behar dira."
+            },
+            "clearCache": {
+                "help9": "Game Settings"
             }
         }
     },
@@ -722,5 +732,8 @@
     "category-settings": {
         "cancel": "Ezeztatu",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "Itxi"
     }
 }

@@ -38,14 +38,16 @@
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Desinslalatu",
             "prefix_warning": "Joko honen Wine aurrizkia lehenetsitako aurrizkia da. Benetan ezabatu nahi baduzu, eskuz egin behar duzu.",
-            "dlc": "DLC hau desinstalatu nahi duzu?"
+            "dlc": "DLC hau desinstalatu nahi duzu?",
+            "cannotUninstallEpic": "Epic games ezin da desinstalatu beste Epic joku bat instalatzen ari den bitartean."
         },
         "update": {
             "message": "Joko honek eguneraketa bat du, orain eguneratu?",
             "title": "Jokoak eguneraketa behar du"
         },
         "wineprefix": "Hautatu WinePrefix karpeta",
-        "yes": "BAI"
+        "yes": "BAI",
+        "close": "Itxi"
     },
     "button": {
         "add_to_favourites": "Gehitu gogokoetara",
@@ -71,7 +73,8 @@
         "unhide_game": "Erakutsi jokoa",
         "uninstall": "Desinslalatu",
         "update": "Eguneratu",
-        "details": "Xehetasunak"
+        "details": "Xehetasunak",
+        "changelog": "Aldaketak erakutsi"
     },
     "cloud_save_unsupported": "Onartu gabe",
     "disabled": "Desgaituta",
@@ -93,8 +96,18 @@
         "totalPlayed": "Denbora jokatua",
         "dlcs": "DLCak",
         "builds": {
-            "version": "Bertsioa"
-        }
+            "version": "Bertsioa",
+            "buildsSelector": "Hautatu jokoaren bertsioa",
+            "toggle": "Mantendu jokoa bertsio zehatz batean"
+        },
+        "branch": {
+            "disabled": "Desgaituta",
+            "select": "Hautatu beta kanala",
+            "setPrivateBranchPassword": "Ezarri kanal pribatuaren pasahitza",
+            "password": "Ezarri kanal pribatuaren pasahitza"
+        },
+        "modify": "Aldatu Instalazioa",
+        "changelogFor": "{{gameTitle}}-(r)en aldaketak"
     },
     "gamecard": {
         "moving": "Mugitzen",
@@ -132,7 +145,13 @@
         "path-not-writtable": "Ohartarazpena: sarbide-ibilbidea ezin da idatzi.",
         "space-after-install": "Instalazioaren ondoren",
         "wineprefix": "WinePrefix",
-        "wineversion": "Ardoaren bertsioa"
+        "wineversion": "Ardoaren bertsioa",
+        "anticheat-warning": {
+            "message": "Anticheat-a hautsita edo ukatu egiten da. Jokoak ez du funtzionatuko. Instalatu nahi duzu hala ere?",
+            "cancel": "Ez",
+            "install": "Bai (ulertzen dut ez duela funtzionatuko)",
+            "title": "Antiiruzurra hautsita/ukatua"
+        }
     },
     "label": {
         "game": {
@@ -231,6 +250,12 @@
         "logs": "Erregistroak"
     },
     "help": {
-        "cloud_save_unsupported": "Joko honek ez du onartzen hodeian gordetzea. Informazio hau jokoen garatzaileek ematen dute. Zenbait jokok hodeian gordetzeko sistema propioa ezartzen dute"
+        "cloud_save_unsupported": "Joko honek ez du onartzen hodeian gordetzea. Informazio hau jokoen garatzaileek ematen dute. Zenbait jokok hodeian gordetzeko sistema propioa ezartzen dute",
+        "content": {
+            "gamePage": "Erakutsi jokoaren xehetasun eta ekintza guztiak. Erabili 3 puntuko menua aukera gehiago ikusteko."
+        },
+        "title": {
+            "gamePage": "Jokoaren orria"
+        }
     }
 }

@@ -2,13 +2,23 @@ import { isMac } from '../../../constants'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync } from 'child_process'
 
-import { ProgressInfo, State, VersionInfo, Type } from 'common/types'
+import { VersionInfo, Type, type WineManagerStatus } from 'common/types'
 import { axiosClient, extractFiles } from 'backend/utils'
 
 interface fetchProps {
   url: string
   type: Type
   count: number
+}
+
+function getVersionName(type: string, tag_name: string): string {
+  if (type.includes('Wine')) {
+    return `Wine-${tag_name}`
+  } else if (type.includes('Toolkit')) {
+    return `${tag_name}`
+  } else {
+    return `Proton-${tag_name}`
+  }
 }
 
 /**
@@ -32,9 +42,7 @@ async function fetchReleases({
       .then((data) => {
         for (const release of data.data) {
           const release_data = {} as VersionInfo
-          release_data.version = type.includes('Wine')
-            ? `Wine-${release.tag_name}`
-            : `Proton-${release.tag_name}`
+          release_data.version = getVersionName(type, release.tag_name)
           release_data.type = type
           release_data.date = release.published_at.split('T')[0]
           release_data.disksize = 0
@@ -116,7 +124,7 @@ interface unzipProps {
   filePath: string
   unzipDir: string
   overwrite?: boolean
-  onProgress: (state: State, progress?: ProgressInfo) => void
+  onProgress: (state: WineManagerStatus) => void
   abortSignal?: AbortSignal
 }
 
@@ -151,15 +159,15 @@ async function unzipFile({
 
     extractFiles({ path: filePath, destination: unzipDir, strip: 1 })
       .then(() => {
-        onProgress('idle')
+        onProgress({ status: 'idle' })
         resolve(`Succesfully unzip ${filePath} to ${unzipDir}.`)
       })
       .catch((error) => {
-        onProgress('idle')
+        onProgress({ status: 'idle' })
         reject(`Unzip of ${filePath} failed with:\n ${error}!`)
       })
 
-    onProgress('unzipping')
+    onProgress({ status: 'unzipping' })
   })
 }
 

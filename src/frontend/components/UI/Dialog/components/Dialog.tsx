@@ -32,7 +32,7 @@ export const Dialog: React.FC<DialogProps> = ({
   const { disableDialogBackdropClose } = useContext(ContextProvider)
 
   useEffect(() => {
-    setFocusOnClose(document.querySelector('*:focus') as HTMLElement)
+    setFocusOnClose(document.querySelector<HTMLElement>('*:focus'))
   }, [])
 
   const close = () => {

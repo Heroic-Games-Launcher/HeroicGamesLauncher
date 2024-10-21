@@ -53,7 +53,7 @@ const LoginWarning = function ({
       </DialogHeader>
       <DialogContent>
         <p>{textContent}</p>
-        <NavLink className="button" to={loginPath}>
+        <NavLink className="button" to={loginPath} onClick={onClose}>
           <span>{t('not_logged_in.login', 'Log in')}</span>
         </NavLink>
       </DialogContent>

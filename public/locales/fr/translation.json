@@ -6,7 +6,8 @@
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
         "zoom": "Agrandir",
-        "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors"
+        "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors",
+        "titles_always_visible": "Toujours afficher les titres dans la bibliothèque"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -16,7 +17,8 @@
         "reference": "Référence",
         "source": "Source",
         "status": "État",
-        "title": "Ce jeu inclut un logiciel anti-triche"
+        "title": "Ce jeu inclut un logiciel anti-triche",
+        "multiplayer_may_not_work": "Les éléments multijoueur pourraient ne pas fonctionner en raison d'une incompatibilité avec les systèmes anti-triche."
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "Sélectionner",
-            "exe": "Choisir le fichier .exe"
+            "exe": "Choisir le fichier .exe",
+            "script": "Sélectionner un script..."
         },
         "shortcuts": {
             "message": "Des raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
@@ -157,7 +160,7 @@
             "sideload": {
                 "confirmExit": {
                     "title": "Êtes-vous sûr de vouloir quitter ?",
-                    "message": "Toute progression non sauvegardée pourrait être perdue"
+                    "message": "Tout progrès non sauvegardé pourrait être perdu"
                 }
             },
             "snap": {
@@ -265,7 +268,8 @@
         "only": "seulement",
         "reset": "Réinitialiser",
         "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu.",
-        "show_support_offline_only": "N'afficher que les jeux hors-ligne"
+        "show_support_offline_only": "N'afficher que les jeux hors-ligne",
+        "show_third_party_managed_only": "N'afficher que ceux gérés par une app tierce"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -316,7 +320,8 @@
             "gameHeight": "La hauteur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
             "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé.",
             "fpsLimiterNoFocus": "Le ratio d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
-            "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60"
+            "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60",
+            "additionalOptions": "Indicateurs de ligne de commande supplémentaires à transmettre à gamescope."
         },
         "title": {
             "accessibility": "Accessibilité",
@@ -339,7 +344,7 @@
         },
         "button": {
             "open": "Afficher l'aide",
-            "close": "Fermer l'aide"
+            "close": "Fermer la fenêtre d'aide"
         },
         "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles."
     },
@@ -501,11 +506,12 @@
             "upscaleWidth": "Améliorer selon la largeur",
             "fullscreen": "Plein-écran",
             "gameWidth": "Largeur du jeu",
-            "upscaleHeight": "Améliorer selon la hauteur",
+            "upscaleHeight": "Mettre à l'échelle en hauteur",
             "fpsLimiterNoFocus": "Limiteur de FPS (sans focus)",
             "stretch": "Étirer l'image",
             "interger": "Échelle supérieure selon un nombre entier",
-            "windowed": "Fenêtré"
+            "windowed": "Fenêtré",
+            "additionalOptions": "Options supplémentaires"
         }
     },
     "other": {
@@ -608,12 +614,15 @@
         "log": {
             "copy-to-clipboard": "Copier le contenu du rapport dans le presse-papier",
             "current-log": "Log actuel",
-            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager le contenu de ces rapports d'événements, ainsi que toute information pertinente concernant votre problème.",
+            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager ces journaux et toute information pertinente concernant votre problème.",
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
             "no-file": "Aucun rapport de fonctionnement n'a été trouvé",
             "show-in-folder": "Montrer le rapport de fonctionnement dans le dossier",
-            "join-heroic-discord": "Rejoignez notre serveur Discord"
+            "join-heroic-discord": "Rejoignez notre serveur Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
         "manualsync": {
@@ -629,7 +638,7 @@
         "maxworkers": "Nombre maximum de processus pendant le téléchargement",
         "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
         "offlinemode": "Lancer le jeu hors ligne",
-        "prefered_language": "Langage préféré (fr, en...)",
+        "prefered_language": "Langue préférée (fr, en...)",
         "preferSystemLibs": "Opter de préférence pour les bibliothèques système",
         "primerun": {
             "confirmation": {
@@ -665,7 +674,9 @@
         "experimental_features": {
             "enableNewDesign": "Nouveau concept",
             "enableHelp": "Composant d'Aide",
-            "automaticWinetricksFixes": "Appliquer les corrections Winetricks connues automatiquement"
+            "automaticWinetricksFixes": "Appliquer les corrections connues automatiquement",
+            "cometSupport": "Intégration de Comet",
+            "umuSupport": "Utiliser UMU comme moteur de Proton"
         },
         "frameless-window": {
             "confirmation": {
@@ -679,7 +690,17 @@
             "enableUpscaling": "Activer la mise à l'échelle",
             "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN."
         },
-        "msync": "Activer Msync"
+        "msync": "Activer Msync",
+        "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",
+        "after-launch-script-path": "Sélectionnez un script à exécuter après l'arrêt du jeu",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Les jeux comportant un système anti-triche incompatible peuvent être lancés, mais les éléments multijoueur ne fonctionneront pas. Sachant cela, ne sollicitez pas de l'aide s'ils ne fonctionnent pas après les avoir malgré tout installés.",
+                "title": "Êtes-vous sûr(e) ?",
+                "understand": "Je comprends"
+            },
+            "label": "Permettre l'installation de jeux dont les systèmes anti-triche seront inopérants"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -744,7 +765,8 @@
             "copyToClipboard": "Copier dans le presse-papier",
             "heroicVersion": "Heroic : {{heroicVersion}}",
             "nileVersion": "Nile : {{nileVersion}}",
-            "systemModel": "Modèle de système :"
+            "systemModel": "Modèle de système :",
+            "cometVersion": "Comet : {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Fonctionnalités expérimentales"
@@ -764,7 +786,7 @@
                 "help9": "Paramètres de jeux",
                 "help10": "Configuration d'Heroic",
                 "help3": "Informations de la bibliothèque Legendary (liste des jeux, informations de la fenêtre d'installation, informations sur le jeu)",
-                "help4": "Informations de la bibliothèque GOG (liste des jeux, informations de la fenêtre d'installation, infos de l'api -i.e : configuration requise-)",
+                "help4": "Informations de la bibliothèque GOG (liste des jeux, informations de la fenêtre d'installation, informations de l'api -i.e : configuration requise-)",
                 "help5": "Informations de la bibliothèque Amazon (liste des jeux, informations de la fenêtre d'installation)",
                 "help7": "Connexion à la boutique"
             },
@@ -828,7 +850,7 @@
         "controls": {
             "back": "Retour",
             "forward": "Avancer",
-            "openInBrowser": "Ouvrir dans le navigateur",
+            "openInBrowser": "Ouvrir dans un navigateur",
             "reload": "Recharger la page"
         }
     },
@@ -885,7 +907,6 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton est une variante de Proton créée par Glorious Eggroll. Il est destiné à être utilisé par Steam, mais certains jeux extérieurs à Steam pourraient mieux fonctionner avec cette version. Il propose des rapports pour la plupart inutiles à la résolution des problèmes.",
-        "wine-ge-lol": "Les versions de Wine-GE-Proton...-LoL sont faites pour être utiisées UNIQUEMENT pour League of Legends. Ces versions ne devraient PAS être employées pour d'autres jeux car elles peuvent causer des problèmes.",
         "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. C'est la version de Wine recommandée pour un usage en dehors de Steam."
     },
     "emptyLibrary": {
@@ -896,5 +917,17 @@
         "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",
         "dont-show-again": "Ne plus afficher cet avertissement à l'avenir",
         "title": "Adtraction a été bloqué"
+    },
+    "categories-manager": {
+        "add-placeholder": "Ajouter une nouvelle catégorie",
+        "confirm-rename": "Confirmer que « {{oldName}} » sera renommé « {{newName}} »",
+        "no-categories": "Aucune catégorie.",
+        "remove": "Supprimer « {{name}} »",
+        "cancel-rename": "Annuler le renommage de « {{name}} »",
+        "add": "Ajouter",
+        "cancel-remove": "Annuler la suppression de « {{name}} »",
+        "confirm-remove": "Confirmer la suppression de « {{name}} »",
+        "rename": "Renommer « {{name}} »",
+        "title": "Organiser les catégories"
     }
 }

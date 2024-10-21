@@ -7,8 +7,6 @@ import {
   Release,
   GameInfo,
   GameSettings,
-  State,
-  ProgressInfo,
   GameStatus
 } from 'common/types'
 import axios from 'axios'
@@ -36,8 +34,7 @@ import {
   GITHUB_API,
   isMac,
   configStore,
-  isLinux,
-  isSnap
+  isLinux
 } from './constants'
 import {
   appendGamePlayLog,
@@ -59,6 +56,7 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import gogPresence from './storeManagers/gog/presence'
 import {
   installStore as nileInstallStore,
   libraryStore as nileLibraryStore
@@ -82,13 +80,12 @@ import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
 import EasyDl from 'easydl'
 
-import decompress from '@xhmikosr/decompress'
-import decompressTargz from '@xhmikosr/decompress-targz'
-import decompressTarxz from '@felipecrs/decompress-tarxz'
 import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
+import type { WineManagerStatus } from 'common/types'
+import { isUmuSupported } from './utils/compatibility_layers'
 
 const execAsync = promisify(exec)
 
@@ -143,11 +140,14 @@ function semverGt(target: string, base: string) {
 
 const getFileSize = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
-function getWineFromProton(
+async function getWineFromProton(
   wineVersion: WineInstallation,
   winePrefix: string
-): { winePrefix: string; wineVersion: WineInstallation } {
-  if (wineVersion.type !== 'proton') {
+): Promise<{ winePrefix: string; wineVersion: WineInstallation }> {
+  if (
+    wineVersion.type !== 'proton' ||
+    (await isUmuSupported(wineVersion.type))
+  ) {
     return { winePrefix, wineVersion }
   }
 
@@ -239,6 +239,8 @@ const showAboutWindow = () => {
 async function handleExit() {
   const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
+
+  await gogPresence.deletePresence()
 
   if (isLocked && mainWindow) {
     const { response } = await showMessageBox(mainWindow, {
@@ -444,34 +446,67 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
   return { dir, bin }
 }
 
+function archSpecificBinary(binaryName: string) {
+  // Try to use the arch-native binary first, if that doesn't exist fall back to
+  // the x64 version (assume a compatibility layer like box64 is installed)
+  const archSpecificPath = join(
+    publicDir,
+    'bin',
+    process.arch,
+    process.platform,
+    binaryName
+  )
+  if (existsSync(archSpecificPath)) return archSpecificPath
+  return join(publicDir, 'bin', 'x64', process.platform, binaryName)
+}
+
+let defaultLegendaryPath: string | undefined = undefined
 function getLegendaryBin(): { dir: string; bin: string } {
   const settings = GlobalConfig.get().getSettings()
   if (settings?.altLegendaryBin) {
     return splitPathAndName(settings.altLegendaryBin)
   }
-  return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'legendary'))
-  )
+
+  if (!defaultLegendaryPath)
+    defaultLegendaryPath = archSpecificBinary('legendary')
+
+  return splitPathAndName(fixAsarPath(defaultLegendaryPath))
 }
 
+let defaultGogdlPath: string | undefined = undefined
 function getGOGdlBin(): { dir: string; bin: string } {
   const settings = GlobalConfig.get().getSettings()
   if (settings?.altGogdlBin) {
     return splitPathAndName(settings.altGogdlBin)
   }
-  return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'gogdl'))
-  )
+
+  if (!defaultGogdlPath) defaultGogdlPath = archSpecificBinary('gogdl')
+
+  return splitPathAndName(fixAsarPath(defaultGogdlPath))
 }
 
+let defaultCometPath: string | undefined = undefined
+function getCometBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altCometBin) {
+    return splitPathAndName(settings.altCometBin)
+  }
+
+  if (!defaultCometPath) defaultCometPath = archSpecificBinary('comet')
+
+  return splitPathAndName(fixAsarPath(defaultCometPath))
+}
+
+let defaultNilePath: string | undefined = undefined
 function getNileBin(): { dir: string; bin: string } {
   const settings = GlobalConfig.get().getSettings()
   if (settings?.altNileBin) {
     return splitPathAndName(settings.altNileBin)
   }
-  return splitPathAndName(
-    fixAsarPath(join(publicDir, 'bin', process.platform, 'nile'))
-  )
+
+  if (!defaultNilePath) defaultNilePath = archSpecificBinary('nile')
+
+  return splitPathAndName(fixAsarPath(defaultNilePath))
 }
 
 function getFormattedOsName(): string {
@@ -536,15 +571,32 @@ async function getSteamRuntime(
   return allAvailableRuntimes.pop()!
 }
 
-function constructAndUpdateRPC(gameName: string): RpcClient {
+function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
   const client = makeClient('852942976564723722')
+  const versionText = `Heroic ${app.getVersion()}`
+
+  const image = gameInfo.art_icon || gameInfo.art_square
+  const title = gameInfo.title
+
+  const overrides = image.startsWith('http')
+    ? {
+        largeImageKey: image,
+        smallImageKey: 'icon_new',
+        largeImageText: title,
+        smallImageText: versionText
+      }
+    : {
+        largeImageKey: 'icon_new',
+        largeImageText: versionText
+      }
+
   client.updatePresence({
-    details: gameName,
+    details: title,
     instance: true,
-    largeImageKey: 'icon_new',
-    large_text: gameName,
+    large_text: title,
     startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName()
+    state: 'via Heroic on ' + getFormattedOsName(),
+    ...overrides
   })
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
@@ -784,13 +836,13 @@ async function shutdownWine(gameSettings: GameSettings) {
       gameSettings,
       commandParts: ['wineboot', '-k'],
       wait: true,
-      protonVerb: 'waitforexitandrun'
+      protonVerb: 'run'
     })
   }
 }
 
 const getShellPath = async (path: string): Promise<string> =>
-  normalize((await execAsync(`echo "${path}"`)).stdout.trim())
+  normalize((await execAsync(`echo ${path}`)).stdout.trim())
 
 export const spawnAsync = async (
   command: string,
@@ -870,7 +922,7 @@ export async function downloadDefaultWine() {
         !version.version.endsWith('-LoL')
       )
     } else if (isMac) {
-      return version.version.includes('Wine-Crossover')
+      return version.version.includes('Game-Porting-Toolkit')
     }
     return false
   })[0]
@@ -881,11 +933,8 @@ export async function downloadDefaultWine() {
   }
 
   // download the latest version
-  const onProgress = (state: State, progress?: ProgressInfo) => {
-    sendFrontendMessage(`progressOfWineManager${release.version}`, {
-      state,
-      progress
-    })
+  const onProgress = (state: WineManagerStatus) => {
+    sendFrontendMessage('progressOfWineManager', release.version, state)
   }
   const result = await installWineVersion(release, onProgress)
 
@@ -925,7 +974,7 @@ export async function checkWineBeforeLaunch(
 
       appendGamePlayLog(
         gameInfo,
-        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`
+        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.\n`
       )
     }
 
@@ -940,6 +989,10 @@ export async function checkWineBeforeLaunch(
 
       if (response === 0) {
         logInfo(`Changing wine version to ${defaultwine.name}`)
+        appendGamePlayLog(
+          gameInfo,
+          `Changing wine version to ${defaultwine.name}\n`
+        )
         gameSettings.wineVersion = defaultwine
         GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
         return true
@@ -1250,6 +1303,7 @@ interface DownloadArgs {
   dest: string
   abortSignal?: AbortSignal
   progressCallback?: ProgressCallback
+  ignoreFailure?: boolean
 }
 
 /**
@@ -1258,6 +1312,7 @@ interface DownloadArgs {
  * @param {string} dest - The destination path to save the downloaded file.
  * @param {AbortSignal} abortSignal - The AbortSignal instance to cancel the download.
  * @param {ProgressCallback} [progressCallback] - An optional callback function to track the download progress.
+ * @param {boolean} ignoreFailure - When "true", failure to download the file is ignore (no log and no thrown error).
  * @returns {Promise<void>} - A Promise that resolves when the download is complete.
  * @throws {Error} - If the download fails or is incomplete.
  */
@@ -1265,7 +1320,8 @@ export async function downloadFile({
   url,
   dest,
   abortSignal,
-  progressCallback
+  progressCallback,
+  ignoreFailure
 }: DownloadArgs): Promise<void> {
   let lastProgressUpdateTime = Date.now()
   let lastBytesWritten = 0
@@ -1276,11 +1332,15 @@ export async function downloadFile({
     const response = await axiosClient.head(url)
     fileSize = parseInt(response.headers['content-length'], 10)
   } catch (err) {
-    logError(
-      `Downloader: Failed to get headers for ${url}. \nError: ${err}`,
-      LogPrefix.DownloadManager
-    )
-    throw new Error('Failed to get headers')
+    if (!ignoreFailure) {
+      logError(
+        `Downloader: Failed to get headers for ${url}. \nError: ${err}`,
+        LogPrefix.DownloadManager
+      )
+      throw new Error('Failed to get headers')
+    } else {
+      return
+    }
   }
 
   try {
@@ -1352,11 +1412,15 @@ export async function downloadFile({
       LogPrefix.DownloadManager
     )
   } catch (err) {
-    logError(
-      `Downloader: Download Failed with: ${err}`,
-      LogPrefix.DownloadManager
-    )
-    throw new Error(`Download failed with ${err}`)
+    if (!ignoreFailure) {
+      logError(
+        `Downloader: Download Failed with: ${err}`,
+        LogPrefix.DownloadManager
+      )
+      throw new Error(`Download failed with ${err}`)
+    } else {
+      return
+    }
   }
 }
 
@@ -1421,26 +1485,17 @@ interface ExtractOptions {
 }
 
 async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
-  if (!isSnap && (path.endsWith('.tar.xz') || path.endsWith('.tar.gz'))) {
-    try {
-      await extractNative(path, destination, strip)
-    } catch (error) {
-      logError(['Error:', error], LogPrefix.Backend)
-    }
-  } else {
-    try {
-      await extractDecompress(path, destination, strip)
-    } catch (error) {
-      logError(['Error:', error], LogPrefix.Backend)
-    }
-  }
+  if (path.includes('.tar')) return extractTarFile({ path, destination, strip })
+
+  logError(['extractFiles: Unsupported file', path], LogPrefix.Backend)
+  return { status: 'error', error: 'Unsupported file type' }
 }
 
-async function extractNative(path: string, destination: string, strip: number) {
-  logInfo(
-    `Extracting ${path} to ${destination} using native tar`,
-    LogPrefix.Backend
-  )
+async function extractTarFile({
+  path,
+  destination,
+  strip = 0
+}: ExtractOptions) {
   const { code, stderr } = await spawnAsync('tar', [
     '-xf',
     path,
@@ -1453,25 +1508,6 @@ async function extractNative(path: string, destination: string, strip: number) {
     return { status: 'error', error: stderr }
   }
   return { status: 'done', installPath: destination }
-}
-
-async function extractDecompress(
-  path: string,
-  destination: string,
-  strip: number
-) {
-  logInfo(
-    `Extracting ${path} to ${destination} using decompress`,
-    LogPrefix.Backend
-  )
-  try {
-    await decompress(path, destination, {
-      plugins: [decompressTargz(), decompressTarxz()],
-      strip
-    })
-  } catch (error) {
-    logError(['Error:', error], LogPrefix.Backend)
-  }
 }
 
 const axiosClient = axios.create({
@@ -1493,6 +1529,7 @@ export {
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,
+  getCometBin,
   getNileBin,
   formatEpicStoreUrl,
   getSteamRuntime,

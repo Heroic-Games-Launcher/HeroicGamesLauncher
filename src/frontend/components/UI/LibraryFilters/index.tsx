@@ -30,7 +30,9 @@ export default function LibraryFilters() {
     platformsFilters,
     setPlatformsFilters,
     showSupportOfflineOnly,
-    setShowSupportOfflineOnly
+    setShowSupportOfflineOnly,
+    showThirdPartyManagedOnly,
+    setShowThirdPartyManagedOnly
   } = useContext(LibraryContext)
 
   const toggleShowHidden = () => {
@@ -51,6 +53,10 @@ export default function LibraryFilters() {
 
   const toggleOnlySupportOffline = () => {
     setShowSupportOfflineOnly(!showSupportOfflineOnly)
+  }
+
+  const toggleThirdParty = () => {
+    setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
   }
 
   const toggleStoreFilter = (store: Category) => {
@@ -123,7 +129,7 @@ export default function LibraryFilters() {
       <ToggleSwitch
         key={store}
         htmlId={store}
-        handleChange={() => toggleStoreFilter(store as Category)}
+        handleChange={() => toggleStoreFilter(store)}
         value={storesFilters[store]}
         title={t(RunnerToStore[store])}
       />
@@ -207,6 +213,16 @@ export default function LibraryFilters() {
           title={t(
             'header.show_support_offline_only',
             'Show offline-supported only'
+          )}
+        />
+        <ToggleSwitch
+          key="only-third-party-managed"
+          htmlId="only-third-party-managed"
+          handleChange={() => toggleThirdParty()}
+          value={showThirdPartyManagedOnly}
+          title={t(
+            'header.show_third_party_managed_only',
+            'Show third-party managed only'
           )}
         />
         <hr />

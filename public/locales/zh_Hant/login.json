@@ -1,7 +1,7 @@
 {
     "button": {
         "login": "登入",
-        "open": "打開鏈接",
+        "open": "開啟連結",
         "copy": "複製",
         "copied": "已複製！",
         "error": "錯誤，嘗試不同的代碼",
@@ -10,11 +10,11 @@
     "message": {
         "part1": "為了讓您能夠登入並安裝您的遊戲，您首先需要按照以下步驟操作：",
         "part2": "開啟",
-        "part3": "Epic Games商城",
+        "part3": "Epic Games 商店",
         "part4": "，登入您的帳號，複製您的",
         "part5": "資訊號碼",
         "part6": "貼上您的",
-        "part7": "authorization號碼",
+        "part7": "授權碼",
         "part8": "到下面的輸入框中，點擊登入並稍等。"
     },
     "status": {

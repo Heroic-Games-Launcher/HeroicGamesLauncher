@@ -32,13 +32,14 @@
             "title": "Installatie stoppen"
         },
         "uninstall": {
-            "checkbox": "Verwijder prefix: {{prefix}}{{newLine}}Note: DIt kan niet ongedaan gemaakt worden, en zal ook niet geback-upte opslagbestanden verwijderen.",
+            "checkbox": "Verwijder prefix: {{prefix}}{{newLine}}Note: Dit kan niet terug gedraaid worden, en zal ook opslagbestanden verwijderen welke niet gebackupped zijn.",
             "message": "Wilt u {{title}} verwijderen?",
             "settingcheckbox": "Herstel instellingen en verwijder log{{newLine}}Let op: Dit kan niet ongedaan gemaakt worden. Elke aangepaste instelling wordt vergeten en logboek zal verwijderd worden.",
             "title": "Verwijderen",
             "prefix_warning": "Het Wine-voorvoegsel voor dit spel is het standaardvoorvoegsel. Als u het echt wilt verwijderen, moet u dit handmatig doen.",
             "dlc": "Wilt u deze \"{{title}}\" DLC verwijderen?",
-            "cannotUninstallEpic": "Epic Games kan niet verwijderd worden wanneer een ander Epic spel wordt geïnstalleerd."
+            "cannotUninstallEpic": "Epic Games kan niet verwijderd worden wanneer een ander Epic spel wordt geïnstalleerd.",
+            "gameIsRunning": "{{title}} draait. Sluit het programma om het te verwijderen."
         },
         "update": {
             "message": "Dit spel heeft een update, update nu toepassen?",
@@ -72,7 +73,8 @@
         "unhide_game": "Zet Game terug",
         "uninstall": "Verwijderen",
         "update": "Update",
-        "details": "Details"
+        "details": "Details",
+        "changelog": "Toon Changelog"
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -94,11 +96,20 @@
         "totalPlayed": "Tijd gespeeld",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "Disabled"
+            "disabled": "Disabled",
+            "select": "Selecteer bètakanaal",
+            "password": "Ze wachtwoord voor privékanaal",
+            "setPrivateBranchPassword": "Zet wachtwoord voor privékanaal"
         },
         "builds": {
-            "version": "Versie"
-        }
+            "version": "Versie",
+            "toggle": "Behoud het spel op de specifieke versie",
+            "buildsSelector": "Selecteer spelversie"
+        },
+        "modify": "Pas installatie aan",
+        "changelogFor": "Changelog van {{gameTitle}}",
+        "extra_info": "Extra info",
+        "install_info": "Installatie-info"
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",
@@ -127,7 +138,8 @@
         "game-scores": "Spelscores",
         "installedInfo": "Geïnstalleerde informatie",
         "protondb-compatibility-info": "Proton-compatibiliteitslaag",
-        "steamdeck-compatibility-info": "SteamDeck-compatibiliteit"
+        "steamdeck-compatibility-info": "SteamDeck-compatibiliteit",
+        "third-party-app": "Beheerder van derden"
     },
     "install": {
         "disk-space-left": "Beschikbare ruimte",
@@ -141,8 +153,13 @@
             "install": "Ja (Ik begrijp dat dit niet zal werken)",
             "cancel": "Nee",
             "title": "Anticheat geblokkeerd/stuk",
-            "message": "De anticheat-ondersteuning is stuk of is geblokkeerd. Deze game zal niet werken. Wil je het toch installeren?"
-        }
+            "message": "De anticheat-ondersteuning is stuk of is geblokkeerd. Deze game zal niet werken. Wil je het toch installeren?",
+            "ok": "Ok",
+            "install_anyway": "Ja (Ik begrijp dat de multiplayeronderdelen niet zullen werken)",
+            "multiplayer_message": "De anticheatondersteuning is kapot of verworpen. Het spel opent mogelijks wel, maal multiplayeronderdelen werken niet. Toch installeren?",
+            "disabled_installation": "De anticheatondersteuning is kapot of verworpen en multiplayeronderdelen werken niet. Het spel kan niet geïnstalleerd worden. Om het spel toch te installeren, zet de check in de geavanceerde instellingen uit."
+        },
+        "flatpak-path-not-writtable": "Fout: Sandboxtoegang werd niet toegestaan naar dit pad, er zal data verloren gaan."
     },
     "label": {
         "game": {
@@ -157,7 +174,8 @@
             "syncing": "Saves synchroniseren"
         },
         "launching": "Lancering",
-        "ubisoft": "Ubisoft Connect installeren"
+        "ubisoft": "Ubisoft Connect installeren",
+        "winetricks": "Winetricks Paketten aan het installeren"
     },
     "launch": {
         "options": "Opstartopties..."
@@ -252,5 +270,18 @@
         "title": {
             "gamePage": "Gamepagina"
         }
+    },
+    "modifyInstall": {
+        "redMod": {
+            "collapsible": "REDmod Intergratie",
+            "enable": "Mods inschakelen"
+        },
+        "versionCollapsable": "Game Versie",
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Geen DLC beschikbaar"
+    },
+    "third-party-managed": {
+        "header": "Dit spel wordt beheerd door een third-party applicatie",
+        "notice1": "Het volgende spel wordt beheerd door een third-party applicatie: \"{{application_name}}\""
     }
 }

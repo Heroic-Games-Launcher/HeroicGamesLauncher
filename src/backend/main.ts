@@ -19,7 +19,6 @@ import {
   protocol,
   screen,
   clipboard,
-  components,
   session
 } from 'electron'
 import 'backend/updater'
@@ -28,12 +27,11 @@ import { cpus } from 'os'
 import {
   existsSync,
   rmSync,
-  unlinkSync,
   watch,
-  writeFileSync,
   readdirSync,
   readFileSync
 } from 'graceful-fs'
+import 'source-map-support/register'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
@@ -43,6 +41,7 @@ import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
+import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
 import {
   clearCache,
@@ -237,22 +236,13 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   detectVCRedist(mainWindow)
 
-  if (process.env.VITE_DEV_SERVER_URL) {
-    if (!process.env.HEROIC_NO_REACT_DEVTOOLS) {
-      import('electron-devtools-installer').then((devtools) => {
-        const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtools
-
-        installExtension(REACT_DEVELOPER_TOOLS).catch((err: string) => {
-          logWarning(['An error occurred: ', err], LogPrefix.Backend)
-        })
-      })
-    }
-    mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL)
+  if (process.env.ELECTRON_RENDERER_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
     Menu.setApplicationMenu(null)
-    mainWindow.loadURL(`file://${path.join(publicDir, '../build/index.html')}`)
+    mainWindow.loadFile(join(publicDir, 'index.html'))
     if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
@@ -324,17 +314,6 @@ if (!gotTheLock) {
       )
     }
 
-    if (!process.env.CI) {
-      await components.whenReady().catch((e) => {
-        logError([
-          'Failed to download / update DRM components.',
-          'Make sure you do not block update.googleapis.com domain if you want to use WideVine in Browser sideloaded apps',
-          e
-        ])
-      })
-      logInfo(['DRM module staus', components.status()])
-    }
-
     // try to fix notification app name on windows
     if (isWindows) {
       app.setAppUserModelId('Heroic Games Launcher')
@@ -368,6 +347,7 @@ if (!gotTheLock) {
         prefix: LogPrefix.Backend
       })
     }
+    runOnceWhenOnline(gogPresence.setPresence)
     await i18next.use(Backend).init({
       backend: {
         addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
@@ -524,11 +504,13 @@ ipcMain.once('frontendReady', () => {
 
 // Maybe this can help with white screens
 process.on('uncaughtException', async (err) => {
-  logError(`${err.name}: ${err.message}`, LogPrefix.Backend)
+  logError(err, LogPrefix.Backend)
+
   // We might get "object has been destroyed" exceptions in CI, since we start
   // and close Heroic quickly there. Displaying an error box would lock up
   // the test (until the timeout is reached), so let's not do that
   if (process.env.CI === 'e2e') return
+
   showDialogBoxModalAuto({
     title: i18next.t(
       'box.error.uncaught-exception.title',
@@ -545,24 +527,31 @@ process.on('uncaughtException', async (err) => {
 })
 
 let powerId: number | null
+let displaySleepId: number | null
 
-ipcMain.on('lock', () => {
-  if (!existsSync(join(gamesConfigPath, 'lock'))) {
-    writeFileSync(join(gamesConfigPath, 'lock'), '')
-    if (!powerId) {
-      logInfo('Preventing machine to sleep', LogPrefix.Backend)
-      powerId = powerSaveBlocker.start('prevent-app-suspension')
-    }
+ipcMain.on('lock', (e, playing: boolean) => {
+  if (!playing && (!powerId || !powerSaveBlocker.isStarted(powerId))) {
+    logInfo('Preventing machine to sleep', LogPrefix.Backend)
+    powerId = powerSaveBlocker.start('prevent-app-suspension')
+  }
+
+  if (
+    playing &&
+    (!displaySleepId || !powerSaveBlocker.isStarted(displaySleepId))
+  ) {
+    logInfo('Preventing display to sleep', LogPrefix.Backend)
+    displaySleepId = powerSaveBlocker.start('prevent-display-sleep')
   }
 })
 
 ipcMain.on('unlock', () => {
-  if (existsSync(join(gamesConfigPath, 'lock'))) {
-    unlinkSync(join(gamesConfigPath, 'lock'))
-    if (powerId) {
-      logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
-      powerSaveBlocker.stop(powerId)
-    }
+  if (powerId && powerSaveBlocker.isStarted(powerId)) {
+    logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
+    powerSaveBlocker.stop(powerId)
+  }
+  if (displaySleepId && powerSaveBlocker.isStarted(displaySleepId)) {
+    logInfo('Stopping Display Sleep Blocker', LogPrefix.Backend)
+    powerSaveBlocker.stop(displaySleepId)
   }
 })
 
@@ -717,7 +706,14 @@ ipcMain.handle('getGameInfo', async (event, appName, runner) => {
   if (runner === 'legendary' && !LegendaryLibraryManager.hasGame(appName)) {
     return null
   }
-  return gameManagerMap[runner].getGameInfo(appName)
+  const tempGameInfo = gameManagerMap[runner].getGameInfo(appName)
+  // The game managers return an empty object if they couldn't fetch the game
+  // info, since most of the backend assumes getting it can never fail (and
+  // an empty object is a little easier to work with than `null`)
+  // The frontend can however handle being passed an explicit `null` value, so
+  // we return that here instead if the game info is empty
+  if (!Object.keys(tempGameInfo).length) return null
+  return tempGameInfo
 })
 
 ipcMain.handle('getExtraInfo', async (event, appName, runner) => {
@@ -1051,6 +1047,11 @@ ipcMain.handle(
       skipVersionCheck
     )
 
+    if (runner === 'gog') {
+      gogPresence.setCurrentGame(appName)
+      await gogPresence.setPresence()
+    }
+
     const launchResult = await command
       .catch((exception) => {
         logError(exception, LogPrefix.Backend)
@@ -1066,6 +1067,10 @@ ipcMain.handle(
         stopLogger(appName)
       })
 
+    if (runner === 'gog') {
+      gogPresence.setCurrentGame('')
+      await gogPresence.setPresence()
+    }
     // Stop display sleep blocker
     if (powerDisplayId !== null) {
       logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)

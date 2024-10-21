@@ -38,7 +38,8 @@
             "title": "Desinstalar",
             "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente deseas eliminarlo, debes hacerlo manualmente.",
             "dlc": "¿Quieres desinstalar \"{{title}}\" (DLC)?",
-            "cannotUninstallEpic": "Epic Games no se puede desinstalar mientras se está instalando otro juego de Epic."
+            "cannotUninstallEpic": "Epic Games no se puede desinstalar mientras se está instalando otro juego de Epic.",
+            "gameIsRunning": "{{title}} se está ejecutando. Ciérralo para desinstalarlo."
         },
         "update": {
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
@@ -106,7 +107,9 @@
             "toggle": "Mantener el juego en una versión específica"
         },
         "modify": "Modificar instalación",
-        "changelogFor": "Registro de cambios de {{gameTitle}}"
+        "changelogFor": "Registro de cambios de {{gameTitle}}",
+        "extra_info": "Información adicional",
+        "install_info": "Información sobre la instalación"
     },
     "gamecard": {
         "moving": "Moviendo",
@@ -133,9 +136,10 @@
         "apple-gaming-wiki": "Calificación de AppleGamingWiki",
         "clickToOpen": "Haz clic para abrir",
         "game-scores": "Calificaciones del juego",
-        "installedInfo": "Información instalada",
+        "installedInfo": "Información de la instalación",
         "protondb-compatibility-info": "Nivel de compatibilidad con Proton",
-        "steamdeck-compatibility-info": "Compatibilidad con SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilidad con SteamDeck",
+        "third-party-app": "Administrador de terceros"
     },
     "install": {
         "disk-space-left": "Espacio disponible",
@@ -149,7 +153,11 @@
             "cancel": "No",
             "message": "El soporte de anticheat está roto o denegado. El juego no funcionará. ¿Quieres instalarlo de todos modos?",
             "install": "Sí (entiendo que no funcionará)",
-            "title": "Anticheat Roto/Denegado"
+            "title": "Anticheat Roto/Denegado",
+            "ok": "Ok",
+            "install_anyway": "Sí (Entiendo que las características multijugador no funcionarán)",
+            "disabled_installation": "El soporte antitrampas está roto o ha sido denegado y las características multijugador no funcionarán. El juego no puede ser instalado. Para instalar este juego, desactiva esta comprobación en los ajustes avanzados.",
+            "multiplayer_message": "El soporte antitrampas está roto o ha sido denegado. El juego podría ejecutarse, pero las características multijugador no funcionarán. ¿Deseas instalarlo de todos modos?"
         },
         "flatpak-path-not-writtable": "Error: No se ha concedido acceso al Sandbox a esta ruta, se perderán los datos."
     },
@@ -179,7 +187,7 @@
         "gog": "No has iniciado sesión con una cuenta de GOG en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:",
         "login": "Iniciar sesión",
         "title": "No has iniciado sesión",
-        "amazon": "No has iniciado sesión con una cuenta de Epic en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:"
+        "amazon": "No has iniciado sesión con una cuenta de Amazon en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:"
     },
     "report_problem": "Reportar un problema al ejecutar este juego",
     "sdl": {
@@ -232,7 +240,7 @@
         "uninstalling": "Desinstalando",
         "updating": "Actualizando juego",
         "playing": "Jugando",
-        "moving-files": "Moviendo archivo '{{file}}': {{percent}} ",
+        "moving-files": "Moviendo archivo '{{file}}': {{percent}}%",
         "syncingSaves": "Sincronizando guardados",
         "launching": "Ejecutando",
         "ubisoft": "Instalando Ubisoft",
@@ -278,5 +286,10 @@
         },
         "versionCollapsable": "Versión del juego",
         "dlcsCollapsible": "DLC"
+    },
+    "third-party-managed": {
+        "notice2": "Después de hacer clic en Instalar, Heroic ejecutará la aplicación para poder completar el proceso de instalación",
+        "notice1": "Este juego es administrado por una aplicación de terceros: \"{{application_name}}\"",
+        "header": "Este juego es administrado por una aplicación de terceros"
     }
 }

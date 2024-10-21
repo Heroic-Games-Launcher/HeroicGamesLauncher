@@ -14,7 +14,8 @@ import {
   AppSettings,
   WikiInfo,
   GameInfo,
-  WindowProps
+  WindowProps,
+  UploadedLogData
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
@@ -34,6 +35,7 @@ export interface StoreStructure {
     contentFontFamily: string
     actionsFontFamily: string
     allTilesInColor: boolean
+    titlesAlwaysVisible: boolean
     disableDialogBackdropClose: boolean
     language: string
     'general-logs': {
@@ -97,6 +99,7 @@ export interface StoreStructure {
   wikigameinfo: {
     [title: string]: WikiInfo
   }
+  uploadedLogs: Record<string, UploadedLogData>
 }
 
 export type StoreOptions<T extends Record<string, unknown>> = Store.Options<T>

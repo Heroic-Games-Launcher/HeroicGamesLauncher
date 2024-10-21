@@ -31,9 +31,11 @@ import {
   ExtraInfo,
   LaunchOption,
   DownloadManagerState,
-  InstallInfo
+  InstallInfo,
+  WikiInfo,
+  UploadedLogData
 } from 'common/types'
-import { SelectiveDownload } from 'common/types/legendary'
+import { GameOverride, SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import {
   NileLoginData,
@@ -56,7 +58,7 @@ interface SyncIPCFunctions {
   changeLanguage: (language: string) => void
   notify: (args: { title: string; body: string }) => void
   frontendReady: () => void
-  lock: () => void
+  lock: (playing: boolean) => void
   unlock: () => void
   quit: () => void
   openExternalUrl: (url: string) => void
@@ -142,6 +144,7 @@ interface AsyncIPCFunctions {
   getHeroicVersion: () => string
   getLegendaryVersion: () => Promise<string>
   getGogdlVersion: () => Promise<string>
+  getCometVersion: () => Promise<string>
   getNileVersion: () => Promise<string>
   isFullscreen: () => boolean
   isFrameless: () => boolean
@@ -225,11 +228,9 @@ interface AsyncIPCFunctions {
   }) => Promise<void>
   isNative: (args: { appName: string; runner: Runner }) => boolean
   getLogContent: (appNameOrRunner: string) => string
-  installWineVersion: (
-    release: WineVersionInfo
-  ) => Promise<'error' | 'abort' | 'success'>
+  installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
-  removeWineVersion: (release: WineVersionInfo) => Promise<boolean>
+  removeWineVersion: (release: WineVersionInfo) => Promise<void>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>
@@ -250,7 +251,7 @@ interface AsyncIPCFunctions {
   disableEosOverlay: (appName: string) => Promise<void>
   isEosOverlayEnabled: (appName?: string) => Promise<boolean>
   downloadRuntime: (runtime_name: RuntimeName) => Promise<boolean>
-  isRuntimeInstalled: (runtime_name: RuntimeName) => boolean
+  isRuntimeInstalled: (runtime_name: RuntimeName) => Promise<boolean>
   getDMQueueInformation: () => {
     elements: DMQueueElement[]
     finished: DMQueueElement[]
@@ -282,7 +283,7 @@ interface AsyncIPCFunctions {
   toggleDXVKNVAPI: (args: ToolArgs) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
   getLaunchOptions: (appName: string, runner: Runner) => Promise<LaunchOption[]>
-  getGameOverride: () => Promise<GameOverride | null>
+  getGameOverride: () => Promise<GameOverride>
   getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
   getPlaytimeFromRunner: (
     runner: Runner,
@@ -299,6 +300,13 @@ interface AsyncIPCFunctions {
     enabled: boolean
     modsToLoad: string[]
   }) => Promise<void>
+
+  uploadLogFile: (
+    name: string,
+    appNameOrRunner: string
+  ) => Promise<false | [string, UploadedLogData]>
+  deleteUploadedLogFile: (url: string) => Promise<boolean>
+  getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file

@@ -111,7 +111,7 @@ export default function LegendarySyncSaves({
             path={savesPath}
             placeholder={t('setting.savefolder.placeholder')}
             pathDialogTitle={t('box.sync.title')}
-            canEditPath={isSyncing}
+            canEditPath={!isSyncing}
             afterInput={
               <span
                 role={'button'}

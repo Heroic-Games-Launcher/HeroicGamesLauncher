@@ -74,7 +74,6 @@ async function downloadFile(url: string, filePath: string) {
 
 async function extractTarFile(
   filePath: string,
-  contentType: string,
   options?: { extractedPath?: string; strip?: number }
 ) {
   if (!existsSync(filePath)) {
@@ -88,7 +87,6 @@ async function extractTarFile(
     extractedPath = splitPath.join('.tar')
   }
   mkdirSync(extractedPath, { recursive: true })
-
   const strip = options?.strip
 
   return extractFiles({

@@ -1,11 +1,13 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Família de Fontes Action (Padrão: ",
-        "all_tiles_in_color": "Mostrar todos os retângulos dos jogos a cores",
-        "content_font_family_no_default": "Família da Fonte Family (Padrão: ",
+        "actions_font_family_no_default": "Ações de familia fonte (Default):",
+        "all_tiles_in_color": "Mostrar todas as partes do jogo em cores",
+        "content_font_family_no_default": "Família da Fonte Family (Default): ",
         "fonts": "Fontes",
         "title": "Acessibilidade",
-        "zoom": "Ampliar"
+        "zoom": "Ampliar",
+        "disable_dialog_backdrop_close": "Desativar Fechar dialogos por click fora",
+        "titles_always_visible": "Sempre mostrar titulos na Biblioteca"
     },
     "add_game": "Adicionar Jogo",
     "All": "Tudo",
@@ -15,7 +17,8 @@
         "reference": "Referência",
         "source": "Fonte",
         "status": "Estado",
-        "title": "Este jogo inclui software anti-batota"
+        "title": "Este jogo inclui software anti-batota",
+        "multiplayer_may_not_work": "Funcionalidade multiplyaer poderá não funcionar devido a um anticheat não suportado."
     },
     "box": {
         "cache-cleared": {
@@ -25,7 +28,7 @@
         "choose": "Escolher",
         "choose-egs-prefix": "Selecione o Prefix onde a EGS está instalada",
         "choose-gogdl-binary": "Selecione o binário GOGDL (Precisa de reiniciar)",
-        "choose-legendary-binary": "Selecionar binário do Legendary",
+        "choose-legendary-binary": "Selecione o Legendary binário",
         "customWine": "Selecione o binário do Wine ou Proton",
         "default-install-path": "Selecione o Caminho de Instalação Padrão",
         "default-steam-path": "Caminho da Steam.",
@@ -119,7 +122,8 @@
         },
         "select": {
             "button": "Selecionar",
-            "exe": "Selecionar EXE"
+            "exe": "Selecionar EXE",
+            "script": "Selecionar script..."
         },
         "shortcuts": {
             "message": "Os atalhos foram criados no Ambiente de trabalho e no Menu Inicial",
@@ -169,7 +173,9 @@
         "yes": "SIM",
         "dontShowAgain": "Não mostrar novamente",
         "choose-nile-binary": "Selecione o binário do Nilo",
-        "update": "Atualizar"
+        "update": "Atualizar",
+        "changelog": "log",
+        "postpone": "Adiar"
     },
     "button": {
         "cancel": "Cancelar",
@@ -230,7 +236,8 @@
     "game": {
         "status": "Estado",
         "store": "Loja",
-        "title": "Título do Jogo"
+        "title": "Título do Jogo",
+        "modify": "Modificar instalação"
     },
     "generic": {
         "error": {
@@ -259,7 +266,9 @@
         "reset": "Reiniciar",
         "show_installed_only": "Mostrar só Instalados",
         "no_categories": "Nenhuma categoria personalizada. Adicionar categorias usando o menu de cada jogo.",
-        "uncategorized": "Sem Categoria"
+        "uncategorized": "Sem Categoria",
+        "show_support_offline_only": "Mostrar apenas suportados offline",
+        "show_third_party_managed_only": "Mostrar apenas geridos por terceiros"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a impulsionar os fotogramas por segundo (FPS) ao aumentar a escala de resoluções mais baixas no modo de Ecrã Inteiro. A qualidade da imagem aumenta de 5 a 1 com um custo pequeno do desempenho. Ao ligar pode melhorar o desempenho.",
@@ -310,7 +319,8 @@
             "upscaleWidth": "A resolução de largura usada pelo gamescope. Uma proporção de aspeto de 16:9 é assumida.",
             "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de 16:9 é assumida pelo gamescope.",
             "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de aspeto de 16:9 é assumida.",
-            "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60"
+            "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60",
+            "additionalOptions": "Configurações adicionais de linha de comando para o gamescope."
         },
         "title": {
             "accessibility": "Acessibilidade",
@@ -319,6 +329,22 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine Manager",
             "library": "Biblioteca"
+        },
+        "content": {
+            "settingsDefault": "Mostrar todas as configurações da Heroic e seu padrões para jogos.",
+            "customThemesPath": "Confira nossa wiki.",
+            "defaultInstallPath": "Este é o caminho padrão pré-selecionado ao instalar jogos.",
+            "library": "Mostrar todos os próprios.",
+            "login": "Logar em lojas diferentes.",
+            "wineManager": "Instalar versões diferentes do Wine, Proton, Crossover, etc.",
+            "accessibility": "Mostrar opções de acessibilidade.",
+            "downloadManager": "Mostrar downloads atuais e passados.",
+            "settingsGame": "Mostrar todas as configurações para um jogo."
+        },
+        "msync": "Mysnc tem como objetivo reduzir a sobrecarga do Wineserver em jogos de uso intenso de CPU. Ativando-o poderá melhorar a performance em kernels Linux suportados.",
+        "button": {
+            "close": "Fechar Ajuda",
+            "open": "Abrir Ajuda"
         }
     },
     "info": {
@@ -480,7 +506,11 @@
             "gameWidth": "Largura do jogo",
             "upscaleHeight": "Aprimoramento(Upscale) de Altura",
             "fpsLimiterNoFocus": "Limitador de FPS (Sem foco)",
-            "stretch": "Esticar imagem"
+            "stretch": "Esticar imagem",
+            "windowed": "Modo janela",
+            "additionalOptions": "Opções adicionais",
+            "interger": "Integer Upscale",
+            "nis": "Escala de imagem NVIDIA (NIS)"
         }
     },
     "other": {
@@ -587,7 +617,11 @@
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "show-in-folder": "Show log file in folder",
+            "join-heroic-discord": "Junta-te ao nosso Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
         "manualsync": {
@@ -637,7 +671,11 @@
         "autodxvknvapi": "Instalar/Atualizar DXVK-NVAPI automaticamente",
         "disablePlaytimeSync": "Desativar sincronização do tempo de jogo",
         "experimental_features": {
-            "enableNewDesign": "Novo design"
+            "enableNewDesign": "Novo design",
+            "enableHelp": "Ajuda de componente",
+            "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
+            "umuSupport": "Utilize UMU como runtime do Proton",
+            "cometSupport": "Suporte Comet"
         },
         "frameless-window": {
             "confirmation": {
@@ -648,7 +686,19 @@
         },
         "gamescope": {
             "enableLimiter": "Ativar limitador de FPS",
-            "enableUpscaling": "Permite aprimoramento de escala (Upscalling)"
+            "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
+            "missingMsg": "Não foi possível encontrar o gamescope no diretório. Instale-o ou adicione-o ao diretório."
+        },
+        "after-launch-script-path": "Selecione um script para rodar após o fechamento do jogo",
+        "before-launch-script-path": "Selecionar um script para rodar antes do lançamento do jogo",
+        "msync": "Enable Esync",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Jogos com anticheat não suportado podem ser executados, mas o multiplayer não funcionará. Não peça apoio se os instalar sabendo disso.",
+                "title": "Tem a certeza?",
+                "understand": "Eu entendo"
+            },
+            "label": "Permitir instalação de jogos com anticheat não suportado"
         }
     },
     "settings": {
@@ -714,7 +764,8 @@
             "showDetailed": "Mostrar especificações detalhadas do sistema",
             "memory": "Memória:",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Funcionalidades Experimentais"
@@ -724,12 +775,28 @@
         },
         "advanced": {
             "clearCache": {
-                "help8": "Installed Games"
+                "help8": "Installed Games",
+                "help9": "Configurações do jogo",
+                "help10": "Configuração Heroic",
+                "help6": "Isto NÃO excluirá:",
+                "help2": "Informação sobre jogos de terceiros (pontuações, compatibilidade com Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help1": "Esta ação irá limpar os caches seguintes:",
+                "help3": "Informação da biblioteca lendária (lista de jogos, informação da caixa de diálogo de instalação, informação do jogo)",
+                "help5": "Informação da biblioteca Amazon (lista de jogos, informação da caixa de diálogo de instalação)",
+                "help7": "Login da loja",
+                "help4": "Informação da biblioteca do GOG (lista de jogos, informação do diálogo de instalação, informação da API, e.g: requisitos)"
             },
             "details": "Detalhes",
             "title": {
-                "resetHeroic": "Restaurar Heroic"
+                "resetHeroic": "Restaurar Heroic",
+                "clearCache": "Limpar cache"
+            },
+            "resetHeroic": {
+                "help": "Tem a certeza de que deseja restaurar o Heroic? Isto irá remover todas as definições e o cache, mas não irá remover os jogos instalados nem as suas credenciais da Epic. As versões portáteis (AppImage, WinPortable, ...) do Heroic terão de ser reiniciadas manualmente posteriormente."
             }
+        },
+        "offline": {
+            "warning": "Este jogo não permite explicitamente o modo offline, ative-o por sua conta e risco. O jogo pode não funcionar."
         }
     },
     "Settings": "Configurações",
@@ -836,5 +903,30 @@
         "maximize": "Maximizar janela",
         "close": "Fechar",
         "restore": "Restaurar janela"
+    },
+    "categories-manager": {
+        "add-placeholder": "Adicionar Nova Categoria",
+        "cancel-remove": "Cancelar remoção de \"{{name}}\"",
+        "remove": "Remover \"{{name}}\"",
+        "cancel-rename": "Cancelar renomeação de \"{{name}}\"",
+        "confirm-remove": "Confirmar remoção de \"{{name}}\"",
+        "confirm-rename": "Confirmar renomeação de \"{{oldName}}\" para \"{{newName}}\"",
+        "no-categories": "Sem categorias ainda.",
+        "rename": "Renomear \"{{name}}\"",
+        "title": "Gerenciar categorias",
+        "add": "Adicionar"
+    },
+    "adtraction-locked": {
+        "description": "Parece que o dominío track.adtraction.com foi desativado para iniciar ou está bloqueado. Com atração, Qualquer compra que você fizer na GOG store ajuadará o Projeto Heroic. Considere remover o bloqueio se você contribuir.",
+        "dont-show-again": "Não mostrar esse aviso outra vez",
+        "title": "Atração esta bloqueada"
+    },
+    "emptyLibrary": {
+        "noGames": "Sua biblioteca está vazia. Você pode <1>log in</1> usando a loja ou clicar <3></3> para adicionar uma manualmente.",
+        "noResults": "Os filtros atuais não produziram resultados."
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton é uma variante do Proton criada por Glorious Eggroll. Foi concebido para ser utilizado no Steam, mas alguns jogos fora do Steam podem funcionar melhor com esta variante. Fornece registos praticamente inúteis para solução de problemas.",
+        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada pela Glorious Eggroll. É o Wine recomendado para ser utilizado fora do Steam. Isto fornece registos úteis para solução de problemas."
     }
 }

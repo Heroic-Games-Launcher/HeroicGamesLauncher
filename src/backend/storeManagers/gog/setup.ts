@@ -125,20 +125,46 @@ async function setup(
     return
   }
 
-  const gameSupportDir = path.join(gogSupportPath, appName) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
+  let gameSupportDir = path.join(gogSupportPath, appName) // This doesn't need to exist, scriptinterpreter.exe will handle it gracefully
 
   const installLanguage = gameInfo.install.language?.split('-')[0]
   const languages = new Intl.DisplayNames(['en'], { type: 'language' })
   const lang: string | undefined = languages.of(installLanguage!)
 
   const dependencies: string[] = []
-  const gameDirectoryPath = isWindows
-    ? gameInfo.install.install_path!
-    : await getWinePath({
-        path: gameInfo.install.install_path!,
-        variant: 'win',
-        gameSettings
+  let gameDirectoryPath = gameInfo.install.install_path!
+
+  // Do a pass on dependencies
+  if (manifestData.version === 1) {
+    // Find redist depots and push to dependency installer
+    for (const depot of manifestData.product.depots) {
+      if ('redist' in depot && !dependencies.includes(depot.redist)) {
+        dependencies.push(depot.redist)
+      }
+    }
+  } else {
+    for (const dep of manifestData.dependencies || []) {
+      if (!dependencies.includes(dep)) {
+        dependencies.push(dep)
+      }
+    }
+  }
+
+  // When there is no scummvm in dependencies, proceed with windows paths
+  if (!isWindows) {
+    if (!dependencies.find((dep) => dep.toLowerCase() === 'scummvm')) {
+      gameSupportDir = await getWinePath({
+        path: gameSupportDir,
+        gameSettings,
+        variant: 'win'
       })
+      gameDirectoryPath = await getWinePath({
+        path: gameDirectoryPath,
+        gameSettings,
+        variant: 'win'
+      })
+    }
+  }
 
   sendGameStatusUpdate({
     appName,
@@ -157,7 +183,8 @@ async function setup(
           supportCommand.languages.includes('Neutral')
         ) {
           const absPath = path.join(
-            gameSupportDir,
+            gogSupportPath,
+            appName,
             supportCommand.gameID,
             supportCommand.executable
           )
@@ -181,27 +208,18 @@ async function setup(
             wait: false,
             protonVerb: 'run',
             skipPrefixCheckIKnowWhatImDoing: true,
-            startFolder: path.join(gameSupportDir, supportCommand.gameID)
+            startFolder: path.join(
+              gogSupportPath,
+              appName,
+              supportCommand.gameID
+            )
           })
         }
-      }
-    }
-    // Find redist depots and push to dependency installer
-    for (const depot of manifestData.product.depots) {
-      if ('redist' in depot && !dependencies.includes(depot.redist)) {
-        dependencies.push(depot.redist)
       }
     }
   } else {
     // check if scriptinterpreter is required based on manifest
     if (manifestData.scriptInterpreter) {
-      const wineGameSupportDir = isWindows
-        ? gameSupportDir
-        : await getWinePath({
-            path: gameSupportDir,
-            variant: 'win',
-            gameSettings
-          })
       const isiPath = path.join(
         gogRedistPath,
         '__redist/ISI/scriptinterpreter.exe'
@@ -240,7 +258,8 @@ async function setup(
             `/galaxyclient`,
             `/buildId=${gameInfo.install.buildId}`,
             `/versionName=${gameInfo.install.version}`,
-            `/supportDir=${wineGameSupportDir}`,
+            `/lang-code=${gameInfo.install.language || 'en-US'}`,
+            `/supportDir=${gameSupportDir}`,
             '/nodesktopshorctut',
             '/nodesktopshortcut'
           ]
@@ -270,7 +289,8 @@ async function setup(
           continue
         }
         const absPath = path.join(
-          gameSupportDir,
+          gogSupportPath,
+          appName,
           manifestProduct.productId,
           manifestProduct.temp_executable
         )
@@ -295,14 +315,12 @@ async function setup(
           wait: false,
           protonVerb: 'run',
           skipPrefixCheckIKnowWhatImDoing: true,
-          startFolder: path.join(gameSupportDir, manifestProduct.productId)
+          startFolder: path.join(
+            gogSupportPath,
+            appName,
+            manifestProduct.productId
+          )
         })
-      }
-    }
-
-    for (const dep of manifestData.dependencies || []) {
-      if (!dependencies.includes(dep)) {
-        dependencies.push(dep)
       }
     }
   }

@@ -1,0 +1,151 @@
+{
+    "accessibility": {
+        "all_tiles_in_color": "सभी गेम टाइलों को रंग में दिखाओ",
+        "title": "सुलभता",
+        "titles_always_visible": "टाइलों को हमेशा लाइब्रेरी में दिखाओ",
+        "zoom": "ज़ूम करो",
+        "fonts": "फ़ॉन्ट",
+        "actions_font_family_no_default": "ऐक्शन्स फ़ॉन्ट फैमिली (डिफ़ॉल्ट):",
+        "content_font_family_no_default": "सामग्री फ़ॉन्ट फैमिली (डिफ़ॉल्ट): ",
+        "disable_dialog_backdrop_close": "बाहर क्लिक करके संवाद अक्षम करो"
+    },
+    "add_game": "गेम जोड़ो",
+    "adtraction-locked": {
+        "description": "ऐसा लगता है कि track.adtraction.com डोमेन लोड नहीं हो पाया या ब्लॉक हो गया है। ऐडट्रैक्शन के साथ जीओजी स्टोर में आपके द्वारा की गई कोई भी खरीदारी हीरोइक को आर्थिक रूप से सहायता करती है। अगर तुम योगदान देना चाहते हो तो ब्लॉक हटाने पर विचार करो।",
+        "dont-show-again": "यह चेतावनी दोबारा मत दिखाओ",
+        "title": "ऐडट्रैक्शन पाबंदित है"
+    },
+    "Amazon Games": "अमेज़न गेम्स",
+    "box": {
+        "choose": "चुनो",
+        "error": {
+            "generic": {
+                "title": "EXE चुनकर चलाओ"
+            }
+        },
+        "no": "नहीं",
+        "runexe": {
+            "title": "EXE चुनकर चलाओ"
+        },
+        "select": {
+            "button": "चुनो"
+        },
+        "update": "अपडेट करो",
+        "yes": "हाँ",
+        "cache-cleared": {
+            "message": "हीरोइक कैश साफ हो गया।"
+        },
+        "changelog": "बदलाव",
+        "choose-egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है",
+        "choose-gogdl-binary": "GOGDL बाइनरी चुनें (पुनः आरंभ करने की आवश्यकता है)"
+    },
+    "controller": {
+        "hints": {
+            "select": "चुनो"
+        }
+    },
+    "dlc": {
+        "size": "साइज़",
+        "title": "शीर्षक"
+    },
+    "info": {
+        "version": "वाइन वर्शन"
+    },
+    "setting": {
+        "eosOverlay": {
+            "install": "इंस्टॉल करो",
+            "remove": "अनइंस्टॉल करो",
+            "updateNow": "अपडेट करो",
+            "disable": "अक्षम",
+            "enable": "क्षम"
+        },
+        "library_top_option": {
+            "disabled": "अक्षम"
+        },
+        "winecrossoverbottle": "क्रॉसओवर बोतल",
+        "wineversion": "वाइन वर्शन"
+    },
+    "settings": {
+        "advanced": {
+            "details": "विवरण"
+        }
+    },
+    "Settings": "सेटिंग",
+    "window": {
+        "close": "बंद करो"
+    },
+    "wine": {
+        "size": "साइज़"
+    },
+    "button": {
+        "login": "लॉग इन"
+    },
+    "download-manager": {
+        "install-type": {
+            "install": "इंस्टॉल करो",
+            "update": "अपडेट करो"
+        }
+    },
+    "game": {
+        "modify": "इंस्टॉलेशन में बदलाव करो",
+        "status": "स्थिति"
+    },
+    "header": {
+        "categories": "श्रेणियाँ"
+    },
+    "help": {
+        "title": {
+            "settings": "सेटिंग",
+            "accessibility": "सुलभता"
+        }
+    },
+    "infobox": {
+        "requirements": "सिस्टम आवश्यकताएँ"
+    },
+    "label": {
+        "loading": "लोड हो रहा है"
+    },
+    "loading": {
+        "default": "लोड हो रहा है"
+    },
+    "queue": {
+        "label": {
+            "downloading": "डाउनलोड हो रहा है",
+            "queued": "कतार में"
+        }
+    },
+    "status": {
+        "installing": "इंस्टॉल हो रहा है",
+        "processing": "फाइलें जाँची जा रही हैं, प्लीज़ इंतेज़ार करो"
+    },
+    "winetricks": {
+        "install": "इंस्टॉल करो",
+        "loading": "लोड हो रहा है"
+    },
+    "anticheat": {
+        "anticheats": "ऐंटीचीट",
+        "source": "स्रोत",
+        "status": "स्थिति",
+        "multiplayer_may_not_work": "मल्टीप्लेयर सुविधाएँ पाबंदित या टूटे हुए ऐंटीचीट समर्थन की वजह से शायद नहीं चल पाएँगी।",
+        "reference": "संदर्भ",
+        "title": "इस गेम में ऐंटीचीट सॉफ़्टवेयर है"
+    },
+    "notify": {
+        "finished": {
+            "remove": {
+                "steam": {
+                    "title": "स्टीम से हटाओ"
+                }
+            },
+            "add": {
+                "steam": {
+                    "title": "स्टीम में जोड़ो"
+                }
+            }
+        },
+        "uninstalled": "अनइंस्टॉल करो"
+    },
+    "placeholder": {
+        "egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है"
+    }
+}

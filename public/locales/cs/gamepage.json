@@ -38,7 +38,8 @@
             "title": "Odinstalovat",
             "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně.",
             "dlc": "Chcete odinstalovat „{{title}}“ (DLC)?",
-            "cannotUninstallEpic": "Hry Epic nelze odinstalovat při instalaci jiné hry Epic."
+            "cannotUninstallEpic": "Hry Epic nelze odinstalovat při instalaci jiné hry Epic.",
+            "gameIsRunning": "Hra {{title}} je spuštěna. Pro její odinstalaci ji zavřete."
         },
         "update": {
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat nyní?",
@@ -106,7 +107,9 @@
             "setPrivateBranchPassword": "Nastavit heslo soukromého kanálu"
         },
         "changelogFor": "Seznam změn hry {{gameTitle}}",
-        "modify": "Upravit instalaci"
+        "modify": "Upravit instalaci",
+        "extra_info": "Další informace",
+        "install_info": "Informace o instalaci"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -135,7 +138,8 @@
         "game-scores": "Skóre hry",
         "installedInfo": "Instalované informace",
         "protondb-compatibility-info": "Úroveň protonové kompatibility",
-        "steamdeck-compatibility-info": "Kompatibilita se SteamDeck"
+        "steamdeck-compatibility-info": "Kompatibilita se SteamDeck",
+        "third-party-app": "Správce třetí strany"
     },
     "install": {
         "disk-space-left": "Volné místo",
@@ -149,7 +153,11 @@
             "cancel": "Ne",
             "message": "Podpora anticheatu je rozbitá nebo zakázaná. Hra nebude fungovat. Chcete jej přesto nainstalovat?",
             "install": "Ano (chápu, že to nebude fungovat)",
-            "title": "Rozbitý/zakázaný anticheat"
+            "title": "Rozbitý/zakázaný anticheat",
+            "install_anyway": "Ano (rozumím, že funkce hry více hráčů nebudou fungovat)",
+            "multiplayer_message": "Podpora anticheatu je rozbitá nebo odmítnutá. Hra se může otevřít, ale nebudou fungovat funkce hry více hráčů. Chcete ji přesto nainstalovat?",
+            "ok": "Ok",
+            "disabled_installation": "Podpora anticheatu je rozbitá nebo zakázaná a funkce hry více hráčů nebudou fungovat. Hru nelze nainstalovat. Pro nainstalování hry zakažte tuto kontrolu v pokročilých nastaveních."
         },
         "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat."
     },
@@ -278,5 +286,10 @@
         },
         "versionCollapsable": "Verze hry",
         "nodlcs": "Není dostupné žádné DLC"
+    },
+    "third-party-managed": {
+        "notice2": "Po kliknutí na Instalovat spustí Heroic aplikaci, aby dokončil proces instalace",
+        "header": "Tato hra je spravována aplikací třetí strany",
+        "notice1": "Tato hra je spravována aplikací třetí strany: „{{application_name}}“"
     }
 }

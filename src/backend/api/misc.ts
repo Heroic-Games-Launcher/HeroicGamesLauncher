@@ -5,7 +5,8 @@ import {
   Tools,
   DialogType,
   ButtonOptions,
-  GamepadActionArgs
+  GamepadActionArgs,
+  type UploadedLogData
 } from 'common/types'
 import { NileRegisterData } from 'common/types/nile'
 
@@ -67,7 +68,7 @@ export const openWebviewPage = (url: string) =>
 export const setZoomFactor = (zoom: string) =>
   ipcRenderer.send('setZoomFactor', zoom)
 export const frontendReady = () => ipcRenderer.send('frontendReady')
-export const lock = () => ipcRenderer.send('lock')
+export const lock = (playing: boolean) => ipcRenderer.send('lock', playing)
 export const unlock = () => ipcRenderer.send('unlock')
 export const login = async (sid: string) => ipcRenderer.invoke('login', sid)
 export const logoutLegendary = async () => ipcRenderer.invoke('logoutLegendary')
@@ -208,3 +209,26 @@ export const fetchPlaytimeFromServer = async (
   runner: Runner,
   appName: string
 ) => ipcRenderer.invoke('getPlaytimeFromRunner', runner, appName)
+
+export const getUploadedLogFiles = async () =>
+  ipcRenderer.invoke('getUploadedLogFiles')
+export const uploadLogFile = async (name: string, appNameOrRunner: string) =>
+  ipcRenderer.invoke('uploadLogFile', name, appNameOrRunner)
+export const deleteUploadedLogFile = async (url: string) =>
+  ipcRenderer.invoke('deleteUploadedLogFile', url)
+
+export const logFileUploadedSlot = (
+  callback: (
+    e: Electron.IpcRendererEvent,
+    url: string,
+    data: UploadedLogData
+  ) => void
+) => {
+  ipcRenderer.on('logFileUploaded', callback)
+}
+
+export const logFileUploadDeletedSlot = (
+  callback: (e: Electron.IpcRendererEvent, url: string) => void
+) => {
+  ipcRenderer.on('logFileUploadDeleted', callback)
+}

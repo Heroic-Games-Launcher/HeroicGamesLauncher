@@ -54,6 +54,7 @@ import {
   DAYS,
   downloadFile as downloadFileInet
 } from '../utils/inet/downloader'
+import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
 
 interface Tool {
   name: string
@@ -116,24 +117,17 @@ async function installOrUpdateTool(tool: Tool) {
 
   const extractDestination = join(toolsPath, tool.name, latestVersion)
   mkdirSync(extractDestination, { recursive: true })
-  try {
-    await extractFiles({
-      path: latestVersionArchivePath,
-      destination: extractDestination,
-      strip: tool.strip ?? 1
-    })
-  } catch (error) {
-    logError(
-      [`Extraction of ${tool.name} failed with:`, error],
-      LogPrefix.DXVKInstaller
-    )
-    return
-  } finally {
-    rmSync(latestVersionArchivePath)
-  }
+  const extractResult = await extractFiles({
+    path: latestVersionArchivePath,
+    destination: extractDestination,
+    strip: tool.strip ?? 1
+  })
+  rmSync(latestVersionArchivePath)
 
-  writeFileSync(installedVersionStorage, latestVersion)
-  logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
+  if (extractResult.status === 'done') {
+    writeFileSync(installedVersionStorage, latestVersion)
+    logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
+  }
 }
 
 export const DXVK = {
@@ -209,6 +203,12 @@ export const DXVK = {
 
     tool = isMac ? 'dxvk-macOS' : tool
 
+    const is64bitPrefix = existsSync(`${winePrefix}/drive_c/windows/syswow64`)
+
+    if (!is64bitPrefix) {
+      logWarning('Installing DXVK on a 32-bit prefix!', LogPrefix.DXVKInstaller)
+    }
+
     if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
       logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
       await DXVK.getLatest()
@@ -249,23 +249,25 @@ export const DXVK = {
       logInfo('Removing DLL overrides', LogPrefix.DXVKInstaller)
 
       // unregister the dlls on the wine prefix
-      dlls64.forEach(async (dll) => {
-        dll = dll.replace('.dll', '')
-        const unregisterDll = [
-          'reg',
-          'delete',
-          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
-          '/v',
-          dll,
-          '/f'
-        ]
-        await runWineCommand({
-          gameSettings,
-          commandParts: unregisterDll,
-          wait: true,
-          protonVerb: 'run'
+      if (is64bitPrefix) {
+        dlls64.forEach(async (dll) => {
+          dll = dll.replace('.dll', '')
+          const unregisterDll = [
+            'reg',
+            'delete',
+            'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+            '/v',
+            dll,
+            '/f'
+          ]
+          await runWineCommand({
+            gameSettings,
+            commandParts: unregisterDll,
+            wait: true,
+            protonVerb: 'run'
+          })
         })
-      })
+      }
       dlls32.forEach(async (dll) => {
         dll = dll.replace('.dll', '')
         const unregisterDll = [
@@ -294,8 +296,8 @@ export const DXVK = {
     }
 
     // copy the new dlls to the prefix
-    dlls32.forEach((dll) => {
-      if (!isMac) {
+    if (is64bitPrefix) {
+      dlls32.forEach((dll) => {
         copyFile(
           `${toolPathx32}/${dll}`,
           `${winePrefix}/drive_c/windows/syswow64/${dll}`,
@@ -308,44 +310,61 @@ export const DXVK = {
             }
           }
         )
-      }
-    })
-    dlls64.forEach((dll) => {
-      copyFile(
-        `${toolPathx64}/${dll}`,
-        `${winePrefix}/drive_c/windows/system32/${dll}`,
-        (err) => {
-          if (err) {
-            logError(
-              [`Error when copying ${dll}`, err],
-              LogPrefix.DXVKInstaller
-            )
+      })
+      dlls64.forEach((dll) => {
+        copyFile(
+          `${toolPathx64}/${dll}`,
+          `${winePrefix}/drive_c/windows/system32/${dll}`,
+          (err) => {
+            if (err) {
+              logError(
+                [`Error when copying ${dll}`, err],
+                LogPrefix.DXVKInstaller
+              )
+            }
           }
-        }
-      )
-    })
+        )
+      })
+    } else {
+      dlls32.forEach((dll) => {
+        copyFile(
+          `${toolPathx32}/${dll}`,
+          `${winePrefix}/drive_c/windows/system32/${dll}`,
+          (err) => {
+            if (err) {
+              logError(
+                [`Error when copying ${dll}`, err],
+                LogPrefix.DXVKInstaller
+              )
+            }
+          }
+        )
+      })
+    }
 
     // register dlls on the wine prefix
-    dlls64.forEach(async (dll) => {
-      // remove the .dll extension otherwise will fail
-      dll = dll.replace('.dll', '')
-      const registerDll = [
-        'reg',
-        'add',
-        'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
-        '/v',
-        dll,
-        '/d',
-        'native,builtin',
-        '/f'
-      ]
-      await runWineCommand({
-        gameSettings,
-        commandParts: registerDll,
-        wait: true,
-        protonVerb: 'run'
+    if (is64bitPrefix) {
+      dlls64.forEach(async (dll) => {
+        // remove the .dll extension otherwise will fail
+        dll = dll.replace('.dll', '')
+        const registerDll = [
+          'reg',
+          'add',
+          'HKEY_CURRENT_USER\\Software\\Wine\\DllOverrides',
+          '/v',
+          dll,
+          '/d',
+          'native,builtin',
+          '/f'
+        ]
+        await runWineCommand({
+          gameSettings,
+          commandParts: registerDll,
+          wait: true,
+          protonVerb: 'run'
+        })
       })
-    })
+    }
     dlls32.forEach(async (dll) => {
       // remove the .dll extension otherwise will fail
       dll = dll.replace('.dll', '')
@@ -434,11 +453,8 @@ export const Winetricks = {
       return
     }
 
-    const linuxUrl =
+    const url =
       'https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks'
-    const macUrl =
-      'https://raw.githubusercontent.com/The-Wineskin-Project/winetricks/macOS/src/winetricks'
-    const url = isMac ? macUrl : linuxUrl
     const path = `${toolsPath}/winetricks`
 
     if (!isOnline()) {
@@ -475,15 +491,32 @@ export const Winetricks = {
     if (!(await validWine(wineVersion))) {
       return
     }
-    const winetricks = `${toolsPath}/winetricks`
+
+    let winetricks = `${toolsPath}/winetricks`
+    const gui = args.includes('--gui')
 
     if (!existsSync(winetricks)) {
       await Winetricks.download()
     }
 
+    if (await isUmuSupported(wineVersion.type)) {
+      winetricks = await getUmuPath()
+
+      if (args.includes('-q')) {
+        args.splice(args.indexOf('-q'), 1)
+      }
+
+      if (gui) {
+        args.splice(args.indexOf('--gui'), 1)
+        args.unshift('')
+      } else {
+        args.unshift('winetricks')
+      }
+    }
+
+    const { winePrefix, wineVersion: alwaysWine_wineVersion } =
+      await getWineFromProton(wineVersion, baseWinePrefix)
     return new Promise<string[] | null>((resolve) => {
-      const { winePrefix, wineVersion: alwaysWine_wineVersion } =
-        getWineFromProton(wineVersion, baseWinePrefix)
       const wineBin = alwaysWine_wineVersion.bin
       // We have to run Winetricks with an actual `wine` binary, meaning we
       // might need to set some environment variables differently than normal
@@ -502,7 +535,9 @@ export const Winetricks = {
         ...setupEnvVars(settingsWithWineVersion),
         ...setupWineEnvVars(settingsWithWineVersion, appName),
         WINEPREFIX: winePrefix,
-        PATH: `${winepath}:${process.env.PATH}`
+        PATH: `${winepath}:${process.env.PATH}`,
+        GAMEID: gui ? 'winetricks-gui' : 'umu-0',
+        UMU_RUNTIME_UPDATE: '0'
       }
 
       const wineServer = join(winepath, 'wineserver')
@@ -560,12 +595,7 @@ export const Winetricks = {
         }
       })
 
-      logInfo(
-        `Running WINEPREFIX='${winePrefix}' PATH='${winepath}':$PATH ${winetricks} ${args.join(
-          ' '
-        )}`,
-        LogPrefix.WineTricks
-      )
+      logInfo(`Running ${winetricks} ${args.join(' ')}`, LogPrefix.WineTricks)
 
       const child = spawn(winetricks, args, { env: envs })
 
@@ -619,7 +649,7 @@ export const Winetricks = {
     })
   },
   run: async (runner: Runner, appName: string) => {
-    await Winetricks.runWithArgs(runner, appName, ['--force', '-q'])
+    await Winetricks.runWithArgs(runner, appName, ['-q', '--gui'])
   },
   listAvailable: async (runner: Runner, appName: string) => {
     try {
@@ -655,7 +685,7 @@ export const Winetricks = {
   },
   listInstalled: async (runner: Runner, appName: string) => {
     const gameSettings = await gameManagerMap[runner].getSettings(appName)
-    const { winePrefix } = getWineFromProton(
+    const { winePrefix } = await getWineFromProton(
       gameSettings.wineVersion,
       gameSettings.winePrefix
     )

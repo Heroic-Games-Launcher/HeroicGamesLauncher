@@ -38,7 +38,8 @@
             "title": "Odinstaluj",
             "prefix_warning": "Prefiks Wine dla tej gry jest prefiksem domyślnym. Jeśli na pewno chcesz go usunąć, musisz to zrobić ręcznie.",
             "dlc": "Czy chcesz odinstalować DLC \"{{title}}\"?",
-            "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana."
+            "cannotUninstallEpic": "Gry pochodzące z Epic nie mogą być odinstalowane, podczas gdy inna gra ze sklepu Epic jest instalowana.",
+            "gameIsRunning": "{{title}} jest uruchomiony. Zamknij grę, aby ją odinstalować."
         },
         "update": {
             "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
@@ -83,12 +84,12 @@
     "enabled": "Włączono",
     "game": {
         "downloadSize": "Rozmiar pobierania",
-        "firstPlayed": "Pierwsze uruchomienie",
+        "firstPlayed": "Pierwsze Uruchomienie",
         "getting-download-size": "Sprawdzanie rozmiaru pliku do pobrania",
         "getting-install-size": "Sprawdzanie rozmiaru instalacji",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
-        "lastPlayed": "Ostatnio uruchamiana",
+        "lastPlayed": "Ostatnie Uruchomienie",
         "neverPlayed": "Nigdy",
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
@@ -106,7 +107,9 @@
             "toggle": "Utrzymuj grę na konkretnej wersji"
         },
         "changelogFor": "Dziennik zmian dla {{gameTitle}}",
-        "modify": "Modyfikuj Instalację"
+        "modify": "Modyfikuj Instalację",
+        "extra_info": "Dodatkowe Informacje",
+        "install_info": "Informacje o instalacji"
     },
     "gamecard": {
         "moving": "Przenoszenie",
@@ -135,7 +138,8 @@
         "game-scores": "Wyniki gier",
         "installedInfo": "Zainstalowane informacje",
         "protondb-compatibility-info": "Poziom zgodności Proton",
-        "steamdeck-compatibility-info": "Zgodność ze SteamDeck"
+        "steamdeck-compatibility-info": "Zgodność ze SteamDeck",
+        "third-party-app": "Menedżer Zewnętrzny"
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -149,7 +153,11 @@
             "cancel": "Nie",
             "message": "Wsparcie dla systemów Anticheat nie działa poprawnie lub nie istnieje. Gra nie będzie działać. Czy chcesz zainstalować ją mimo wszystko?",
             "install": "Tak (Rozumiem, że to nie zadziała)",
-            "title": "Niewspierany Anticheat"
+            "title": "Niewspierany Anticheat",
+            "ok": "OK",
+            "install_anyway": "Tak (rozumiem, że funkcje wieloosobowe nie będą działać)",
+            "disabled_installation": "Wsparcie antycheata dla tej gry jest zepsute lub wyłączone, funkcje wieloosobowe nie będą działać. Gra nie może być zainstalowana. Aby zainstalować grę, wyłącz opcję sprawdzania w zaawansowanych ustawieniach.",
+            "multiplayer_message": "Wsparcie antycheata nie działa lub jest zablokowane. Gra może się uruchomić ale funkcje wieloosobowe mogą nie działać. Czy chcesz zainstalować?"
         },
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
     },
@@ -160,7 +168,7 @@
         },
         "playing": {
             "start": "Graj",
-            "stop": "Gra uruchomiona (Zatrzymaj)"
+            "stop": "Gra uruchomiona (zatrzymaj)"
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
@@ -187,7 +195,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Użyj domyślnych ustawień Wine",
-        "winecrossoverbottle": "Butelka CrossOver"
+        "winecrossoverbottle": "Butelka CrossOver",
+        "show-wine-settings": "Pokaż ustawienia Wine",
+        "warn-use-default-wine-settings": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne."
     },
     "sideload": {
         "field": {
@@ -199,13 +209,13 @@
             "title": "Tytuł gry/aplikacji",
             "broser": "URL przeglądarki",
             "useragent": "Niestandardowy User Agent",
-            "fullscreen": "Uruchom w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
+            "fullscreen": "Uruchom tryb pełnego ekranu (naciśnij F11, aby wyjść)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazka tutaj",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
-            "useragent": "Wpisz niestandardowy User Agent, który będzie używany w tej aplikacji/grze przeglądarkowej"
+            "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
         }
     },
     "specs": {
@@ -230,7 +240,7 @@
         "uninstalling": "Odinstalowywanie",
         "updating": "Aktualizowanie gry",
         "playing": "W grze",
-        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}} ",
+        "moving-files": "Przenoszenie pliku „{{file}}”: {{percent}}%",
         "syncingSaves": "Synchronizowanie zapisów",
         "launching": "Uruchamianie",
         "ubisoft": "Instalowanie Ubisoft",
@@ -276,5 +286,10 @@
             "enable": "Włącz mody"
         },
         "versionCollapsable": "Wersja Gry"
+    },
+    "third-party-managed": {
+        "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikację",
+        "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
+        "notice2": "Po naciśnięciu instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
     }
 }

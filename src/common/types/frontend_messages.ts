@@ -6,10 +6,10 @@ import type {
   DownloadManagerState,
   GameInfo,
   GameStatus,
-  ProgressInfo,
   RecentGame,
   Runner,
-  State
+  UploadedLogData,
+  WineManagerStatus
 } from 'common/types'
 
 type FrontendMessages = {
@@ -42,13 +42,12 @@ type FrontendMessages = {
     messages: string[]
     installingComponent: string
   }) => void
+  progressOfWineManager: (version: string, progress: WineManagerStatus) => void
   'installing-winetricks-component': (component: string) => void
+  logFileUploaded: (url: string, data: UploadedLogData) => void
+  logFileUploadDeleted: (url: string) => void
 
   [key: `progressUpdate${string}`]: (progress: GameStatus) => void
-  [key: `progressOfWineManager${string}`]: (progress: {
-    state: State
-    progress?: ProgressInfo
-  }) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

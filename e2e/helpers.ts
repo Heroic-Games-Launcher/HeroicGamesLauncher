@@ -5,7 +5,7 @@ import {
   type ElectronApplication
 } from '@playwright/test'
 
-const main_js = join(__dirname, '../build/electron/main.js')
+const main_js = join(__dirname, '../build/main/main.js')
 
 /**
  * Helper function to define a test requiring Heroic to be running

@@ -25,6 +25,8 @@ export default React.memo(function Accessibility() {
     setZoomPercent,
     allTilesInColor,
     setAllTilesInColor,
+    titlesAlwaysVisible,
+    setTitlesAlwaysVisible,
     setPrimaryFontFamily,
     setSecondaryFontFamily,
     disableDialogBackdropClose,
@@ -202,6 +204,22 @@ export default React.memo(function Accessibility() {
               title={t(
                 'accessibility.all_tiles_in_color',
                 'Show all game tiles in color'
+              )}
+            />
+          </label>
+        </span>
+
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              htmlId="setTitlesAlwaysVisible"
+              value={titlesAlwaysVisible}
+              handleChange={() => {
+                setTitlesAlwaysVisible(!titlesAlwaysVisible)
+              }}
+              title={t(
+                'accessibility.titles_always_visible',
+                'Always show titles in library'
               )}
             />
           </label>

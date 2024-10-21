@@ -55,7 +55,8 @@
     .dropdown {
       pointer-events: all;
       opacity: 1;
-      max-height: 100vh;
+      max-height: 70vh;
+      overflow-y: auto;
       box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
     }
   }

@@ -6,7 +6,8 @@
         "fonts": "الخطوط",
         "title": "إمكانية الوصول",
         "zoom": "تكبير",
-        "disable_dialog_backdrop_close": "قم بتعطيل مربعات الحوار الختامية من خلال النقر بالخارج"
+        "disable_dialog_backdrop_close": "قم بتعطيل مربعات الحوار الختامية من خلال النقر بالخارج",
+        "titles_always_visible": "أظهر العنواين في المكتبة دائماً"
     },
     "add_game": "أضف لعبة",
     "All": "الكل",
@@ -16,7 +17,8 @@
         "reference": "المرجع",
         "source": "المصدر",
         "status": "الحالة",
-        "title": "تتضمن هذه اللعبة برنامج مكافحة غش"
+        "title": "تتضمن هذه اللعبة برنامج مكافحة غش",
+        "multiplayer_may_not_work": "مزايا تعدد اللاعبين قد لا تعمل بسبب عدم عمل برنامج منع الغش."
     },
     "box": {
         "cache-cleared": {
@@ -120,7 +122,8 @@
         },
         "select": {
             "button": "اختر",
-            "exe": "اختر ملفًا تنفيذيًا"
+            "exe": "اختر ملفًا تنفيذيًا",
+            "script": "اختار السكريبت ..."
         },
         "shortcuts": {
             "message": "أُنشئت الاختصارات على سطح المكتب وقائمة ابدأ",
@@ -170,7 +173,9 @@
         "yes": "نعم",
         "dontShowAgain": "لا تظهر مرَّةً أخرى",
         "choose-nile-binary": "حدِّد ملفَّ تشغيل النيل",
-        "update": "حدّث"
+        "update": "حدّث",
+        "changelog": "سجل التغيرات",
+        "postpone": "أجِّل"
     },
     "button": {
         "cancel": "ألغِ",
@@ -263,7 +268,8 @@
         "only": "فقط",
         "reset": "صفِّر",
         "no_categories": "لا فئات مخصَّصة، وإضافتها تكون بالقائمة عند كل لعبة.",
-        "show_support_offline_only": "إظهار المدعوم بدون إنترنت فقط"
+        "show_support_offline_only": "إظهار المدعوم بدون إنترنت فقط",
+        "show_third_party_managed_only": "أظهر من الأطراف الثالثة فقط"
     },
     "help": {
         "amdfsr": "تساعد تقنية إف.إس.آر من أي.إم.دي على رفع معدل الإطارات من خلال رفع جودة الدقة المنخفضة في وضع ملء الشاشة. تزداد جودة الصورة من 5 إلى 1 على حساب انخفاض طفيف في الأداء. قد يؤدي التمكين إلى تحسين الأداء.",
@@ -314,7 +320,8 @@
             "upscaleWidth": "عرض النافذة عند gamescope، ويُفتَرض أن نسبة الطولَين ٩:١٦.",
             "gameHeight": "طول نافذة اللعبة، ويفترض gamescope أن نسبة الطولَين ٩:١٦.",
             "upscaleHeight": "طول النافذة عند gamescope، ويُفتَرض أن نسبة الطولَين ٩:١٦.",
-            "fpsLimiter": "غاية عدد إطارات gamescope، فمثًلا حدها ٦٠"
+            "fpsLimiter": "غاية عدد إطارات gamescope، فمثًلا حدها ٦٠",
+            "additionalOptions": "أعلام سطر الأوامر الأضافية المُمَرّرة إلى gamescope."
         },
         "title": {
             "accessibility": "إمكانية الوصول",
@@ -338,7 +345,8 @@
         "button": {
             "close": "إغلاق التعليمات",
             "open": "افتح التعليمات"
-        }
+        },
+        "msync": "يهدف إف.سنك إلى تقليل الحمل على خادم واين في الألعاب كثيفة الاستخدام لوحدة المعالجة المركزية. قد يؤدي التمكين إلى تحسين الأداء على أنوية لينكس المدعومة."
     },
     "info": {
         "heroic": {
@@ -501,7 +509,9 @@
             "interger": "التجويد بالإعداد الصحيحة",
             "upscaleHeight": "طول التجويد",
             "fpsLimiterNoFocus": "حدُّ معدَّل الإطارات (دون التركيز)",
-            "stretch": "مدِّد الصورة"
+            "stretch": "مدِّد الصورة",
+            "additionalOptions": "الإعدادات الإضافية",
+            "windowed": "داخل نافذة"
         }
     },
     "other": {
@@ -609,7 +619,10 @@
             "last-log": "آخر سجل",
             "no-file": "لم يُعثر على ملف سجل",
             "show-in-folder": "إظهار ملف السجل في المجلد",
-            "join-heroic-discord": "انضم إلى Discord"
+            "join-heroic-discord": "انضم إلى Discord",
+            "upload": {
+                "actions": "إجراءات"
+            }
         },
         "mangohud": "مكِّن مانجو.هَد (يجب تثبيت مانجو.هَد)",
         "manualsync": {
@@ -661,7 +674,9 @@
             "enableNewShinyFeature": "ميزة جديدة",
             "enableNewDesign": "تصميم جديد",
             "automaticWinetricksFixes": "قم بتطبيق الإصلاحات المعروفة تلقائيًا",
-            "enableHelp": "مكون المساعدة"
+            "enableHelp": "مكون المساعدة",
+            "cometSupport": "دعم كوميت",
+            "umuSupport": "استخدم يو.إم.يو. كمشغّل بروتون"
         },
         "disablePlaytimeSync": "يعطِّل مزامنة وقت اللعب",
         "gamescope": {
@@ -675,7 +690,18 @@
                 "title": "أمامك فائدة تجريبية"
             },
             "description": "استخدم نافذةً لا إطار لها (تحتاج لإعادة التشغيل)"
-        }
+        },
+        "msync": "مكِّن إي.سِنك",
+        "allow_installation_broken_anticheat": {
+            "label": "السّماح بتثبيت الألعاب ذات برامج منع الغش المعطّلة",
+            "confirmation": {
+                "message": "الألعاب ذات برامج منع الغش المعطلة قد تعمل، لكنّ مزايا تعدد اللاعبين ستكون معطّلة. لا تطلب المساعدة إن كنت ثبّتّ هذه الألعاب مع علمك بهذا.",
+                "title": "هل أنت متأكّد؟",
+                "understand": "أفهم"
+            }
+        },
+        "after-launch-script-path": "اختر سكريبتاً للتّنفيذ بعد إغلاق اللّعبة",
+        "before-launch-script-path": "إختر سكريبتاً للتّنفيذ قبل تشغيل اللّعبة"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -743,7 +769,8 @@
             "memory": "الذاكرة:",
             "copyToClipboard": "انسخه",
             "heroicVersion": "هِرُوِك: {{heroicVersion}}",
-            "nileVersion": "النِّيل: {{nileVersion}}"
+            "nileVersion": "النِّيل: {{nileVersion}}",
+            "cometVersion": "كوميت: {{cometVersion}}"
         },
         "gamescope": {
             "searchMsg": "أَبحث عن ملفِّ تنفيذ gamescope."
@@ -885,7 +912,23 @@
     },
     "wineExplanation": {
         "proton-ge": "Proton-GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
-        "wine-ge": "Wine-GE-Proton هو نوع من Wine تم إنشاؤه بواسطة Glorious Eggroll. إنه Wine الموصى باستخدامه خارج Steam. يوفر هذا سجلات مفيدة عند استكشاف الأخطاء وإصلاحها.",
-        "wine-ge-lol": "تصميمات Wine-GE-Proton...-LoL مخصصة للاستخدام فقط في League of Legends. لا ينبغي استخدام هذه الإصدارات في أي لعبة أخرى لأنها قد تسبب مشاكل."
+        "wine-ge": "Wine-GE-Proton هو نوع من Wine تم إنشاؤه بواسطة Glorious Eggroll. إنه Wine الموصى باستخدامه خارج Steam. يوفر هذا سجلات مفيدة عند استكشاف الأخطاء وإصلاحها."
+    },
+    "categories-manager": {
+        "add-placeholder": "أضف فئةً",
+        "cancel-rename": "ألغي إعادة تسمية \"{{name}}\"",
+        "confirm-remove": "أكِّد إزالة \"{{name}}\"",
+        "no-categories": "لا يوجد فئات حتى الأن.",
+        "remove": "أزيل \"{{name}}\"",
+        "add": "أضيف",
+        "cancel-remove": "ألغي إزالة \"{{name}}\"",
+        "confirm-rename": "أكِّد تغيير اسم \"{{oldName}}\" إلى \"{{newName}}\"",
+        "title": "أدير الفئات",
+        "rename": "أعيد تسمية \"{{name}}\""
+    },
+    "adtraction-locked": {
+        "dont-show-again": "لا تظهر هذا التحذير مجدداً",
+        "title": "Adtraction محظور",
+        "description": "يبدو أن عنوان track.adtraction.com لم يتمكن من التحميل أو تم حظره. مع هذا العنوان, أي شراء تقوم به على متجر GOG يدعم هيرويك مادياً. فكر بازالة الحظر اذا كنت تريد المساهمة."
     }
 }

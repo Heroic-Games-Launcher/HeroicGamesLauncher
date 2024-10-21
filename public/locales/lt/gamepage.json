@@ -1,0 +1,284 @@
+{
+    "box": {
+        "change": {
+            "path": "Pasirinkti naują įdiegimo kelią",
+            "title": "Pakeisti žaidimo įdiegimo kelią",
+            "message": "Šis pakeis žaidimo įdiegimo vietovę, ar Jūs esate tikra/-s?"
+        },
+        "choose": "Pasirinkti",
+        "no": "NE",
+        "uninstall": {
+            "title": "Išdiegti",
+            "cannotUninstallEpic": "„Epic Games“ negali būti išdiegtas, kol kitas „Epic“ žaidimas yra įdiegiamas.",
+            "checkbox": "Pašalinti prielinksnį/priešdėlį: {{prefix}}{{newLine}}Pastaba: Šis veiksmas negali būti anuliuotas ir, tai pat, pašalins visus (žaidimo) išsaugojimo failus, kuriuos nesate įsikėlę atsarginei kopijai.",
+            "dlc": "Ar Jūs norite išdiegti – „{{title}}“ („DLC“)?",
+            "gameIsRunning": "„{{title}}“ veikia. Uždarykite žaidimą, norint jį išdiegti.",
+            "message": "Ar Jūs norite išdiegti – „{{title}}“?",
+            "prefix_warning": "„Wine“ prielinksnis/priešdėlis šiam žaidimui yra numatytas. Jeigu Jūs tikrai norite jį ištrinti, tada Jūs galite ta padaryti rankiniu būdu.",
+            "settingcheckbox": "Išvalyti nustatymus ir pašalinti žurnalą{{newLine}}Pastaba: Šis veiksmas negali būti anuliuotas. Bet kokie pakeisti nustatymai bus užmiršti ir žurnalas bus ištrintas."
+        },
+        "close": "Uždaryti",
+        "yes": "TAIP",
+        "move": {
+            "title": "Perkelti žaidimo įdiegimą",
+            "message": "Šis veiksmas gali užtrukti ganėtinai ilgai, ar Jūs esate tikra/-s?",
+            "path": "Pasirinkite kur Jūs norite perkelti"
+        },
+        "update": {
+            "title": "Žaidimas reikalauja atnaujinimo",
+            "message": "Šis žaidimas turi galimą atnaujinimą, pritaikyti šį atnaujinimą dabar?"
+        },
+        "select": {
+            "button": "Pažymėti"
+        },
+        "importpath": "Pasirinkti žaidimo aplanką, kurį importuoti",
+        "repair": {
+            "message": "Ar Jūs norite bandyti sutaisyti šį žaidimą? Šis veiksmas gali užtrukti ganėtinai ilgą laiką.",
+            "title": "Patikrinti/Patvirtinti ir sutaisyti"
+        },
+        "runexe": {
+            "title": "Pažymėti „.*EXE“, kurį vykdyti"
+        },
+        "sideload": {
+            "exe": "Pažymėti vykdomąjį"
+        },
+        "stopInstall": {
+            "keepInstalling": "Tęsti įdiegimo procesą",
+            "message": "Ar Jūs norite LAIKYTI atsisiųstus failus?",
+            "title": "Stabdyti įdiegimą"
+        },
+        "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką"
+    },
+    "button": {
+        "add_to_favourites": "Pridėti prie mėgstamiausių",
+        "uninstall": "Išdiegti",
+        "running-setup": "Vykdoma sąranka",
+        "sideload": {
+            "edit": "Redaguoti programą/žaidimą"
+        },
+        "unhide_game": "Nebeslėpti žaidimo",
+        "update": "Atnaujinti",
+        "cancel": "Sustabdyti/Atšaukti",
+        "finish": "Užbaigti",
+        "install": "Įdiegti",
+        "continue": "Tęsti atsisiuntimą",
+        "force-innstall": "Priverstinai įdiegti",
+        "hide_game": "Slėpti žaidimą",
+        "import": "Importuoti žaidimą",
+        "queue": {
+            "remove": "Pašalinti iš eilės"
+        },
+        "remove_from_favourites": "Pašalinti iš mėgstamiausių",
+        "force_update": "Priverstinai atnaujinti, jeigu galima",
+        "changelog": "Rodyti keitinių̃ žurnalą",
+        "details": "Išsamumas",
+        "no-path-selected": "Joks kelias nepažymėtas",
+        "remove_from_recent": "Pašalinti iš paskiausių",
+        "run-exe-first": "Pirmiausiai vykdyti įdiegiklį"
+    },
+    "cloud_save_unsupported": "Nepalaikoma/-s",
+    "game": {
+        "builds": {
+            "version": "Versija",
+            "buildsSelector": "Pasirinkti žaidimo versiją",
+            "toggle": "Laikyti žaidimą specifinėje versijoje"
+        },
+        "language": "Kalba",
+        "neverPlayed": "Niekada",
+        "downloadSize": "Atsisiuntimo dydis",
+        "extra_info": "Papildoma informacija",
+        "firstPlayed": "Pirma kartą žaista",
+        "install_info": "Įdiegimo informacija",
+        "installSize": "Įdiegimo dydis",
+        "lastPlayed": "Paskutinį kartą žaista",
+        "requirements": "Sistemos reikalavimai",
+        "totalPlayed": "Laikas žaista",
+        "branch": {
+            "disabled": "Išjungta/Neįgalinta (-as/-i)",
+            "password": "Nustatyti privataus kanalo slaptažodį",
+            "select": "Pasirinkti „beta“ kanalą",
+            "setPrivateBranchPassword": "Nustatyti privataus kanalo slaptažodį"
+        },
+        "changelogFor": "Keitinių̃ žurnãlas, skirtas – „{{gameTitle}}“",
+        "getting-download-size": "Gaunamas atsisiuntimo dydis",
+        "getting-install-size": "Gaunamas įdiegimo dydis",
+        "modify": "Redaguoti įdiegimą",
+        "platform": "Pasirinkti platformos versiją, kurią įdiegti"
+    },
+    "gamecard": {
+        "repairing": "Taisoma/-s",
+        "moving": "Perkeliama"
+    },
+    "generic": {
+        "error": "Nežinoma klaida",
+        "noDescription": "Nėra jokio pasiekiamo aprašymo"
+    },
+    "hours": "Valandos",
+    "install": {
+        "anticheat-warning": {
+            "ok": "Gerai",
+            "cancel": "Ne",
+            "install_anyway": "Taip (Aš suvokiu, kad daugiažaidėjė̄škumo funkcijos neveiks)",
+            "title": "Anti-sukčiavimas sugedęs/neleistas",
+            "disabled_installation": "Anti-sukčiavimo palaikymas yra sugedęs arba neleidžiamas ir daugiažaidėjė̄škumo funkcijos neveiks. Žaidimas negali būti įdiegtas. Norint įdiegti šį žaidimą, išjunkite šią patikrą pažangiose nustatymuose.",
+            "multiplayer_message": "Anti-sukčiavimo palaikymas yra sugedęs arba neleidžiamas. Žaidimas galimai pasileis, bet daugiažaidėjė̄škumo funkcijos neveiks.. Ar Jūs vis tiek norite įdiegti šį žaidimą?"
+        },
+        "wineversion": "„Wine“ versija",
+        "not-enough-disk-space": "Nepakankamai disko vietos/talpos",
+        "disk-space-left": "Laisva talpa/vietovė",
+        "path": "Pasirinkite įdiegimo kelią",
+        "path-not-writtable": "Įspėjimas: nurodytas kelias galimai neleidžia (į)rašyti.",
+        "space-after-install": "Po įdiegimo",
+        "wineprefix": "„Wine“ prielinksnis/priešdėlis",
+        "flatpak-path-not-writtable": "Klaida: „Smėlio dėžės“ prieiga nebuvo suteikta šiam keliui, duomenų praradimas įvyks."
+    },
+    "label": {
+        "launching": "Paleidžiama",
+        "playing": {
+            "start": "Žaisti dabar",
+            "stop": "Žaidžia/-ma (Stabdyti)"
+        },
+        "saves": {
+            "syncing": "Sinchronizuojami (žaidimo) išsaugojimai"
+        },
+        "game": {
+            "not-installable-game": "Žaidimas NĖRA įdiegiamas",
+            "third-party-game": "Trečiosios šalies žaidimas NEPALAIKOMAS"
+        },
+        "winetricks": "Įdiegiami „Winetricks“ paketai",
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai"
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "„DLC“",
+        "versionCollapsable": "Žaidimo versija",
+        "redMod": {
+            "collapsible": "„REDmod“ integracija",
+            "enable": "Įjungtt/Įgalinti modifikacijas"
+        },
+        "nodlcs": "Nėra pasiekiamų „DLC“"
+    },
+    "help": {
+        "title": {
+            "gamePage": "Žaidimo puslapis"
+        },
+        "cloud_save_unsupported": "Šis žaidimas nepalaiko „debesies“ išsaugojimų. Ši informacija pateikiama žaidimo kūrėjų. Kai kurie žaidimai įtaiso savo „debesies“ išsaugojimo sistemas",
+        "content": {
+            "gamePage": "Rodyti visų žaidimų išsamumus ir veiksmus. Naudokite 3-ių taškiukų menių, norint gauti daugiau parinkčių."
+        }
+    },
+    "how-long-to-beat": {
+        "main-story": "Pagrindinė istorija",
+        "main-plus-extras": "Pagrindinis + Papildomi",
+        "completionist": "Užbaigikas"
+    },
+    "info": {
+        "apple-gaming-wiki": "„AppleGamingWiki“ įvertinimas",
+        "installedInfo": "Įdiegta informacija",
+        "installedPlatform": "Įdiegta platforma",
+        "steamdeck-compatibility-info": "„SteamDeck“ palaikymas",
+        "syncsaves": "Sinchronizuoti (žaidimo) išsaugojimus",
+        "clickToOpen": "Paspauskite, kad atidarytumėte",
+        "size": "Dydis",
+        "version": "Versija",
+        "path": "Įdiegimo kelias",
+        "canRunOffline": "Reikalinga interneto prieiga",
+        "game-scores": "Žaidimo taškai",
+        "protondb-compatibility-info": "„Proton“ palaikymo sluoksnis/pakopa",
+        "third-party-app": "Trečiosios šalies tvarkytuvas/-ė"
+    },
+    "howLongToBeat": "Laikas įveikti",
+    "sideload": {
+        "info": {
+            "broser": "Naršyklės „URL“ – saitas",
+            "fullscreen": "Paleisti pilno ekrano režimu (spauskite – „F11“, kad išeitumėte)",
+            "exe": "Pažymėti vykdomąjį",
+            "image": "Programos laikmena",
+            "title": "Žaidimo/Programos antraštė/pavadinimas",
+            "useragent": "Pasirinktinis naudotojo/vartotojo agentas"
+        },
+        "field": {
+            "title": "Antraštė/Pavadinimas"
+        },
+        "placeholder": {
+            "image": "Įklijuokite nuotraukos/vaizdo/paveikslėlio „URL“ – saitą čia",
+            "url": "Įklijuokite žaidimo „URL“ – saitą čia",
+            "title": "Pridėkite antraštę/pavadinimą prie savo žaidimo/programos",
+            "useragent": "Įrašykite pasirinktinį naudotojo/vartotojo agentą čia, norint jį pritaikyti šioje naršyklėje; programos/žaidimo"
+        }
+    },
+    "specs": {
+        "recommended": "Rekomenduojama",
+        "minimum": "Minimumas"
+    },
+    "status": {
+        "downloading": "Atsisiunčiama",
+        "extracting": "Išskleidžiama",
+        "installed": "Įdiegta",
+        "installing": "Įdiegiama",
+        "launching": "Paleidžiama",
+        "goodie": "Neįdiegta",
+        "clickToUpdate": "Paspauskite, kad atnaujintumėte",
+        "gameNotAvailable": "Žaidimas nepasiekiamas",
+        "hasUpdates": "Nauja versija pasiekiama!",
+        "moving": "Perkeliamas įdiegimas, prašome palaukti",
+        "notSupported": "Nepalaikoma/-s",
+        "notSupportedGame": "Nepalaikoma/-s",
+        "syncingSaves": "Sinchronizuojami (žaidimo) išsaugojimai",
+        "updating": "Atnaujinamas žaidimas",
+        "moving-files": "Perkeliamas failas – „'{{file}};“: {{percent}}%",
+        "processing": "Apdorojami failai, prašome palaukti",
+        "reparing": "Sutaisomas žaidimas, prašome palaukti",
+        "notinstalled": "Šis žaidimas nėra įdiegtas",
+        "uninstalling": "Išdiegiama",
+        "playing": "Žaidžiama",
+        "totalDownloaded": "Iš viso atsisiųsta",
+        "queued": "Eilėje",
+        "winetricks": "Pritaikomi „Winetricks“ sutaisymai",
+        "gog-goodie": "Šis žaidimas neatrodo įdiegiamas. Patikrinkite/Peržiūrėkite atsisiunčiama turinį – https://gog.com/account",
+        "this-game-uses-third-party": "Šis žaidimas naudoja trečios šalies paleidiklį, o jis nėra palaikomas (kol kas)",
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)"
+    },
+    "not_logged_in": {
+        "login": "Prisijungti",
+        "title": "Jūs nesate prisijungę",
+        "amazon": "Jūs nesate prisijungę su „Amazon“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
+        "epic": "Jūs nesate prisijungę su „Epic“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
+        "gog": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:"
+    },
+    "setting": {
+        "show-wine-settings": "Rodyti „Wine“ nustatymus",
+        "use-default-wine-settings": "Naudoti numatytus „Wine“ nustatymus",
+        "warn-use-default-wine-settings": "Naudokite šią parinktį tik, jei Jūs žinote ką darote.<br/>Naudodami tą patį prielinksnį/priešdėlį keliems žaidimams gali sukelti problemų, jeigu jų priklausomybės yra nesuderinamos.",
+        "winecrossoverbottle": "„CrossOver butelis“"
+    },
+    "sdl": {
+        "title": "Pasirinkti komponentus, kurios įdiegti"
+    },
+    "submenu": {
+        "addShortcut": "Pridėti nuorodą",
+        "logs": "Žurnalai",
+        "move": "Perkelti žaidimą",
+        "protondb": "Patikrinti palaikymą",
+        "addToSteam": "Pridėti prie „Steam“",
+        "change": "Pakeisti įdiegimo kelią",
+        "removeFromSteam": "Pašalinti iš „Steam“",
+        "settings": "Nustatymai",
+        "categories": "Kategorijos",
+        "store": "Parduotuvės puslapis",
+        "removeShortcut": "Pašalinti nuorodas",
+        "verify": "Patikrinti/Patvirtinti ir sutaisyti",
+        "disableEosOverlay": "Išjungti „EOS“ uždangą",
+        "enableEosOverlay": "Įjungti „EOS“ uždangą"
+    },
+    "launch": {
+        "options": "Paleidimo parinktys..."
+    },
+    "disabled": "Išjungta/Neįgalinta (-as/-i)",
+    "enabled": "Įjungta/Įgalinta (-as/-i)",
+    "report_problem": "Praneškite apie problemą, paleidžiant ir žaidžiant šį žaidimą",
+    "third-party-managed": {
+        "notice2": "Paspaudus – „Įdiegti“, „Heroic“ vykdys nurodytą aplikaciją, kad užbaigtų įdiegimo procesą",
+        "header": "Šis žaidimas tvarkomas trečios šalies aplikacijos",
+        "notice1": "Šis žaidimas tvarkomas trečios šalies aplikacijos: „{{application_name}}“"
+    }
+}

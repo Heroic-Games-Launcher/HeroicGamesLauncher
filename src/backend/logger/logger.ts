@@ -36,7 +36,8 @@ export enum LogPrefix {
   Connection = 'Connection',
   DownloadManager = 'DownloadManager',
   ExtraGameInfo = 'ExtraGameInfo',
-  Sideload = 'Sideload'
+  Sideload = 'Sideload',
+  LogUploader = 'LogUploader'
 }
 
 export const RunnerToLogPrefixMap = {
@@ -45,7 +46,7 @@ export const RunnerToLogPrefixMap = {
   sideload: LogPrefix.Sideload
 }
 
-type LogInputType = unknown[] | unknown
+type LogInputType = unknown
 
 interface LogOptions {
   prefix?: LogPrefix

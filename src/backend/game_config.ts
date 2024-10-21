@@ -169,7 +169,7 @@ abstract class GameConfig {
     } else {
       // No upgrades necessary, load config.
       // `this.version` should be `currentGameConfigVersion` at this point.
-      this.config = (await this.getSettings()) as GameSettings
+      this.config = await this.getSettings()
     }
   }
 }
@@ -233,7 +233,8 @@ class GameConfigV0 extends GameConfig {
       eacRuntime,
       battlEyeRuntime,
       beforeLaunchScriptPath,
-      afterLaunchScriptPath
+      afterLaunchScriptPath,
+      gamescope
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -264,7 +265,8 @@ class GameConfigV0 extends GameConfig {
       eacRuntime,
       language: '', // we want to fallback to '' always here, fallback lang for games should be ''
       beforeLaunchScriptPath,
-      afterLaunchScriptPath
+      afterLaunchScriptPath,
+      gamescope
     } as GameSettings
 
     let gameSettings = {} as GameSettings

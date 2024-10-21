@@ -25,6 +25,8 @@ const initialContext: LibraryContextType = {
   setSortInstalled: () => null,
   showSupportOfflineOnly: false,
   setShowSupportOfflineOnly: () => null,
+  showThirdPartyManagedOnly: false,
+  setShowThirdPartyManagedOnly: () => null,
   handleAddGameButtonClick: () => null,
   setShowCategories: () => null
 }

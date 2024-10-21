@@ -40,6 +40,7 @@ export default function GameLanguageSelector({
       label={`${t('game.language', 'Language')}:`}
       htmlId="languagePick"
       value={installLanguage}
+      disabled={installLanguages?.length === 1}
       onChange={(e) => setInstallLanguage(e.target.value)}
     >
       {installLanguages &&

@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { GameInfo, GameStatus, Runner, WikiInfo } from 'common/types'
+import { GameInfo, GameStatus, Runner } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom'
 import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
+import GameContext from '../GameContext'
 
 interface Props {
   appName: string
@@ -19,7 +20,6 @@ interface Props {
   title: string
   storeUrl: string
   changelog?: string
-  installPlatform?: string
   runner: Runner
   handleUpdate: () => void
   handleChangeLog: () => void
@@ -36,7 +36,6 @@ export default function GamesSubmenu({
   storeUrl,
   changelog,
   runner,
-  installPlatform,
   handleUpdate,
   handleChangeLog,
   disableUpdate,
@@ -51,6 +50,7 @@ export default function GamesSubmenu({
     showDialogModal,
     setIsSettingsModalOpen
   } = useContext(ContextProvider)
+  const { is } = useContext(GameContext)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -67,6 +67,7 @@ export default function GamesSubmenu({
   )
   const { t } = useTranslation('gamepage')
   const isSideloaded = runner === 'sideload'
+  const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
 
   async function onMoveInstallYesClick() {
     const { defaultInstallPath } = await window.api.requestAppSettings()
@@ -214,14 +215,12 @@ export default function GamesSubmenu({
 
   useEffect(() => {
     // Get steam id and set direct proton db link
-    window.api
-      .getWikiGameInfo(title, appName, runner)
-      .then((info: WikiInfo) => {
-        const steamID = info?.pcgamingwiki?.steamID ?? info?.gamesdb?.steamID
-        if (steamID) {
-          setProtonDBurl(`https://www.protondb.com/app/${steamID}`)
-        }
-      })
+    window.api.getWikiGameInfo(title, appName, runner).then((info) => {
+      const steamID = info?.pcgamingwiki?.steamID ?? info?.gamesdb?.steamID
+      if (steamID) {
+        setProtonDBurl(`https://www.protondb.com/app/${steamID}`)
+      }
+    })
   }, [title, appName])
 
   const refreshCircle = () => {
@@ -232,7 +231,7 @@ export default function GamesSubmenu({
     onShowModifyInstall &&
     ['legendary', 'gog'].includes(runner) &&
     isInstalled &&
-    installPlatform !== 'linux'
+    !isThirdPartyManaged
 
   return (
     <>
@@ -279,10 +278,11 @@ export default function GamesSubmenu({
               <button
                 onClick={async () => setShowUninstallModal(true)}
                 className="link button is-text is-link"
+                disabled={is.playing}
               >
                 {t('button.uninstall', 'Uninstall')}
               </button>{' '}
-              {!isSideloaded && (
+              {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleUpdate()}
                   className="link button is-text is-link"
@@ -291,7 +291,7 @@ export default function GamesSubmenu({
                   {t('button.force_update', 'Force Update if Available')}
                 </button>
               )}{' '}
-              {!isSideloaded && (
+              {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleMoveInstall()}
                   className="link button is-text is-link"
@@ -299,7 +299,7 @@ export default function GamesSubmenu({
                   {t('submenu.move', 'Move Game')}
                 </button>
               )}{' '}
-              {!isSideloaded && (
+              {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleChangeInstall()}
                   className="link button is-text is-link"
@@ -307,7 +307,7 @@ export default function GamesSubmenu({
                   {t('submenu.change', 'Change Install Location')}
                 </button>
               )}{' '}
-              {!isSideloaded && (
+              {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleRepair(appName)}
                   className="link button is-text is-link"

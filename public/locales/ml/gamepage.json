@@ -135,7 +135,10 @@
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
         "wineprefix": "വൈൻ പ്രിഫിക്സ്",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine Version",
+        "anticheat-warning": {
+            "ok": "ശരി"
+        }
     },
     "label": {
         "game": {

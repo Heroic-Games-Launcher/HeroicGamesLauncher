@@ -318,7 +318,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine Manager",
             "library": "കളിശാല"
-        }
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
     },
     "info": {
         "heroic": {
@@ -581,7 +582,10 @@
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "show-in-folder": "Show log file in folder",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "മാന്ഘൗട്ട് ഉപയോഗിക്കൂ(മാന്ഘൗട്ട് ഇന്സ്റ്റാള് ചെയ്തിരിക്കണം)",
         "manualsync": {
@@ -641,7 +645,8 @@
         "disablePlaytimeSync": "കളിസമയം സിൻക്രൊനൈസേഷൻ കെടുത്തുക",
         "experimental_features": {
             "enableNewDesign": "പുതിയ ഡിസൈൻ"
-        }
+        },
+        "msync": "Esync വയ്ക്കൂ"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -701,7 +706,11 @@
                 "resetHeroic": "Reset Heroic"
             },
             "clearCache": {
-                "help8": "നട്ട കളികള്‍"
+                "help8": "നട്ട കളികള്‍",
+                "help9": "Game settings"
+            },
+            "resetHeroic": {
+                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
         }
     },
@@ -803,5 +812,8 @@
         "maximize": "മാക്സിമൈസ് ചെയ്യുക",
         "close": "അടയ്ക്കുക",
         "minimize": "മാക്സിമൈസ് ചെയ്യുക"
+    },
+    "categories-manager": {
+        "add-placeholder": "പുതിയ വിഭാഗം സൃഷ്ടിക്കുക"
     }
 }

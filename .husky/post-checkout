@@ -1,2 +1,3 @@
 #!/bin/bash
-yarn
+pnpm i
+pnpm download-helper-binaries

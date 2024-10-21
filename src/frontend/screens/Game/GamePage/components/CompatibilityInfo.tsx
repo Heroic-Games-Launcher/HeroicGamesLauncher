@@ -75,13 +75,13 @@ const CompatibilityInfo = ({ gameInfo }: Props) => {
             {t('info.protondb-compatibility-info', 'Proton Compatibility Tier')}
             :
           </b>
-          {steamInfo!.compatibilityLevel!.charAt(0).toUpperCase() +
-            steamInfo!.compatibilityLevel!.slice(1)}
+          {steamInfo.compatibilityLevel!.charAt(0).toUpperCase() +
+            steamInfo.compatibilityLevel!.slice(1)}
         </a>
       )}
       {hasSteamDeckCompat && (
         <a className="iconWithText" style={{ cursor: 'default' }}>
-          <WineBar />
+          <WineBar tabIndex={-1} />
           <b>
             {t('info.steamdeck-compatibility-info', 'SteamDeck Compatibility')}:
           </b>

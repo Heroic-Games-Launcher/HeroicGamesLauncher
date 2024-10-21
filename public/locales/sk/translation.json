@@ -1,30 +1,33 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
-        "all_tiles_in_color": "Show all game tiles in color",
-        "content_font_family_no_default": "Content Font Family (Default: ",
-        "fonts": "Fonts",
-        "title": "Accessibility",
-        "zoom": "Zoom"
+        "actions_font_family_no_default": "Actions Font Family (Predvolené):",
+        "all_tiles_in_color": "Zobraziť všetky herné dlaždice farebne",
+        "content_font_family_no_default": "Content Font Family (Predvolené: ",
+        "fonts": "Písma",
+        "title": "Prístupnosť",
+        "zoom": "Zoom",
+        "disable_dialog_backdrop_close": "Zakázať zatváranie dialógových okien kliknutím mimo",
+        "titles_always_visible": "Vždy zobrazovať tituly hier v knižnici"
     },
-    "add_game": "Add Game",
+    "add_game": "Pridať Hru",
     "All": "Všetky",
     "anticheat": {
-        "anticheats": "Anticheats",
+        "anticheats": "Anticheaty",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
+        "reference": "Odkaz",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "Táto hra obsahuje anticheat",
+        "multiplayer_may_not_work": "Online funkcie hry nemusia fungovať kvôli odmietnutej alebo nefunkčnej podpore anticheatov."
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic Cache Was Cleared!",
+            "message": "Vyrovnávacia pamäť Heroic bola vymazaná.",
             "title": "Cache Cleared"
         },
         "choose": "Vyberte si",
         "choose-egs-prefix": "Vyberte Prefix, kde je nainštalovaný EGS",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Vyberte GOGDL Binary (treba reštartovať)",
         "choose-legendary-binary": "Select Legendary Binary (needs restart)",
         "customWine": "Select the Wine or Proton Binary",
         "default-install-path": "Vyberte predvolenú cestu inštalácie",
@@ -119,7 +122,8 @@
         },
         "select": {
             "button": "Select",
-            "exe": "Select EXE..."
+            "exe": "Select EXE...",
+            "script": "Vybrať skript ..."
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
@@ -155,15 +159,23 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Naozaj sa chcete odhlásiť?"
+                    "title": "Naozaj sa chcete odhlásiť?",
+                    "message": "Akýkoľvek neuložený postup sa môže stratiť"
                 }
+            },
+            "snap": {
+                "checkbox": "Už nikdy nezobrazovať túto správu",
+                "title": "Heroic beží ako Snap",
+                "message": "Niektoré funkcie nie sú momentálne dostupné vo verzii aplikácie Snap a snažíme sa to napraviť.{{newLine}}Aktuálne obmedzenia sú: {{newLine}}Heroic nebude môcť nájsť Proton zo Steamu alebo Wine z Lutris .{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud tiež nebudú fungovať, pretože Heroic k nim nemá prístup.{{newLine}}{{newLine}}Ak chcete získať prístup k tejto funkcii, nainštalujte si Heroic ako Flatpak , DEB alebo z AppImage."
             }
         },
         "wineprefix": "Vyberte Priečinok predpony vína",
         "yes": "ÁNO",
         "dontShowAgain": "Už nezobrazovať",
         "choose-nile-binary": "Vyberte binárny Níl",
-        "update": "Aktualizovať"
+        "update": "Aktualizovať",
+        "changelog": "Zoznam Zmien",
+        "postpone": "Odložiť"
     },
     "button": {
         "cancel": "Cancel",
@@ -224,7 +236,8 @@
     "game": {
         "status": "Status",
         "store": "Store",
-        "title": "Game Title"
+        "title": "Game Title",
+        "modify": "Zmeniť Inštaláciu"
     },
     "generic": {
         "error": {
@@ -245,7 +258,17 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
-        "store": "Filter Store"
+        "store": "Filter Store",
+        "uncategorized": "Nekategorizované",
+        "reset": "Resetovať",
+        "select_all": "Vybrať Všetko",
+        "filters": "Filtre",
+        "no_categories": "Žiadne vlastné kategórie. Pridajte kategórie použitím každého zoznamu hry.",
+        "only": "iba",
+        "show_installed_only": "Zobraziť iba nainštalované",
+        "show_support_offline_only": "Zobraziť iba podporované offline",
+        "categories": "Kategórie",
+        "show_third_party_managed_only": "Zobraziť iba spravované tretími stranami"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -281,7 +304,7 @@
             "part3": "Manuálna synchronizácia: Ak chcete stiahnuť uložené hry uložené v cloude, vyberte možnosť Stiahnuť. Nahrať na nahranie miestnych do cloudu. Vynútiť stiahnutie a Vynútiť odovzdanie bude ignorovať verziu, ktorá je lokálne alebo v cloude.",
             "part4": "Automatická synchronizácia uloženia synchronizuje uložené položky pri každom spustení hry a po dokončení hry."
         },
-        "vkd3d": "VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games.",
+        "vkd3d": "VKD3D je prekladová vrstva založená na Vulkan pre hry DirectX 12. Povolenie môže výrazne zlepšiť kompatibilitu. Nemá žiadny vplyv na staršie hry DirectX.",
         "wine": {
             "part1": "Heroic hľadá verzie Wine, Proton a CrossOver v nasledujúcich priečinkoch:",
             "part2": "Pre ostatné miesta použite symbolický odkaz na jeden z týchto priečinkov"
@@ -292,7 +315,36 @@
             "settings": "nastavenie",
             "downloadManager": "Download Manager",
             "wineManager": "Wine Manager (Beta)",
-            "library": "Knižnica"
+            "library": "Knižnica",
+            "login": "Prihlásiť sa"
+        },
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "content": {
+            "customThemesPath": "Pozrite si našu wiki.",
+            "accessibility": "Zobrazuje nastavenia dostupnosti.",
+            "defaultInstallPath": "Toto je predvolená cesta predvybraná keď inštalujete hry.",
+            "downloadManager": "Zobrazuje aktuálne a minulé stiahnuté súbory.",
+            "login": "Prihlásiť sa do iných obchodov.",
+            "settingsGame": "Zobraziť všetky nastavenia pre hru.",
+            "settingsDefault": "Zobrazuje všetky nastavenia Heroic a predvolené hodnoty pre hry.",
+            "library": "Ukáže všetky vlastnené hry.",
+            "wineManager": "Nainštalujte rôzne verzie Wine, Proton, Crossover, atď."
+        },
+        "disablePlaytimeSync": "Zakáže synchronizáciu času hrania s danými servermi obchodu (momentálne je podporovaný iba s GOG)",
+        "gamescope": {
+            "gameHeight": "Rozlíšenie výšky používané hrou. Gamescope predpokladá pomer strán 16:9.",
+            "fpsLimiterNoFocus": "Na koľko by mal Limit FPS obmedziť, ak okno hry nie je vybrané.",
+            "upscaleHeight": "Rozlíšenie výšky používané gamescope. Predpokladá sa pomer strán 16:9.",
+            "additionalOptions": "Dodatočné príznaky príkazového riadku na prechod do gamescope.",
+            "fpsLimiter": "Počet FPS gamescope by mal limitovať na. napr. 60",
+            "gameWidth": "Rozlíšenie šírky používané hrou. Gamescope predpokladá pomer strán 16:9.",
+            "upscaleMethod": "Spôsob upscalingu, Ktorý by mal používať Gamescope.",
+            "upscaleWidth": "Rozlíšenie šírky používané gamescope. Predpokladá sa pomer strán 16:9."
+        },
+        "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
+        "button": {
+            "close": "Zatvoriť Pomocník",
+            "open": "Otvoriť Pomocník"
         }
     },
     "info": {
@@ -350,7 +402,8 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "amazon": "Prihlásenie na Amazon"
+        "amazon": "Prihlásenie na Amazon",
+        "old-mac": "Vaša verzia systému macOS je {{version}}. Na prihlásenie je potrebný macOS 12 alebo novší."
     },
     "message": {
         "sync": "Synchronizácia dokončená",
@@ -395,7 +448,7 @@
         },
         "uninstalled": "Odinštalované",
         "update": {
-            "canceled": "Aktualizované Zrušené",
+            "canceled": "Aktualizácia Zrušená",
             "finished": "Update Finished",
             "started": "Update Started",
             "failed": "Aktualizacia neuspešná",
@@ -403,7 +456,7 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Kontrolujeme pripojenie k:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com a{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
@@ -429,7 +482,11 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spúšťača",
-            "title": "Select EXE to Run"
+            "title": "Select EXE to Run",
+            "error": {
+                "env": "Premenné prostredia musia byť nakonfigurované v tabuľke nižšie.",
+                "command": "Syntax %command% zo služby Steam nie je platná ako argumenty hry."
+            }
         },
         "quote-args-with-spaces": "Warning: Make sure to quote args with spaces! E.g.: \"path/with spaces/\"",
         "wrapper": {
@@ -439,6 +496,21 @@
             "placeHolderKey": "New Wrapper",
             "placeHolderValue": "Wrapper Arguments",
             "title": "Wrapper command:"
+        },
+        "gamescope": {
+            "gameWidth": "Šírka Hry",
+            "stretch": "Roztiahnuť Obrázok",
+            "fullscreen": "Celá Obrazovka",
+            "gameHeight": "Výška Hry",
+            "upscaleHeight": "Upscale výška",
+            "upscaleWidth": "Upscale šírka",
+            "fpsLimiter": "Limiter FPS",
+            "fpsLimiterNoFocus": "Limiter FPS (bez zaostrenia)",
+            "additionalOptions": "Ďalšie možnosti",
+            "borderless": "Bez Okrajov",
+            "interger": "Integer Upscale",
+            "nis": "NVIDIA Image Scale (NIS)",
+            "windowed": "Režim v okne"
         }
     },
     "other": {
@@ -545,7 +617,11 @@
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found.",
-            "show-in-folder": "Show log file in folder"
+            "show-in-folder": "Show log file in folder",
+            "join-heroic-discord": "Pripoj sa na náš Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Povoliť Mangohud (musí byť nainštalovaný Mangohud)",
         "manualsync": {
@@ -592,7 +668,36 @@
         "addgamestoapplications": "Automaticky pridávajte hry do aplikácií",
         "showMetalOverlay": "Zobraziť prekrytie štatistík",
         "alt-nile-bin": "Vyberte si alternatívny binárny súbor Níl",
-        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix"
+        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
+        "msync": "Enable Esync",
+        "gamescope": {
+            "missingMsg": "Na PATH sa nám nepodarilo nájsť gamescope. Nainštalujte ho alebo pridajte do PATH.",
+            "enableUpscaling": "Zapne Upscalovanie",
+            "enableLimiter": "Zapnúť Limiter FPS"
+        },
+        "experimental_features": {
+            "enableHelp": "Komponent pomoci",
+            "enableNewDesign": "Nový Dizajn",
+            "automaticWinetricksFixes": "Automaticky použiť známe opravy"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Táto funkcia je zatiaľ experimentálna. Nahláste akékoľvek problémy, s ktorými sa stretnete, na GitHube.",
+                "title": "Experimentálna funkcia pred vami"
+            },
+            "description": "Použiť bezrámové okno (vyžaduje reštart)"
+        },
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Hry s nefunkčným alebo odmietnutým anticheatom sa môžu spustiť, ale funkcie pre viacerých hráčov nebudú fungovať. Ak ich inštalujete s vedomím, nežiadajte o podporu.",
+                "title": "Ste si istý?",
+                "understand": "Ja Rozumiem"
+            },
+            "label": "Povoliť inštaláciu hier s nefunkčným alebo odmietnutým anticheatom"
+        },
+        "before-launch-script-path": "Vyberte skript, ktorý sa má spustiť pred spustením hry",
+        "disablePlaytimeSync": "Vypnúť Synchronizáciu Hrania",
+        "after-launch-script-path": "Vyberte skript, ktorý sa má spustiť po ukončení hry"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -627,7 +732,9 @@
             "log": "Log",
             "other": "Other",
             "sync": "Cloud Saves Sync",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "gamescope": "Gamescope",
+            "systemInformation": "Informácie o Systéme"
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
@@ -638,8 +745,55 @@
         "advanced": {
             "details": "Podrobnosti",
             "title": {
-                "resetHeroic": "Reset Heroic"
+                "resetHeroic": "Reset Heroic",
+                "clearCache": "Vymazať Cache"
+            },
+            "resetHeroic": {
+                "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+            },
+            "clearCache": {
+                "help9": "Game settings",
+                "help1": "Táto akcia vymaže nasledujúci cache:",
+                "help7": "Prihlásenie do obchodu",
+                "help8": "Nainštalované hry",
+                "help6": "Toto NEVYMAŽE:",
+                "help10": "Konfigurácia Heroic",
+                "help2": "Informácie o hrách tretích strán (skóre, Kompatibilita so službou Steam, Howlongtobeat, PCgamingwiki, Applegamingwiki)",
+                "help3": "Informácie o knižnici Legendary (zoznam hier, informácie o dialógovom okne inštalácie, informácie o hre)",
+                "help4": "Informácie o knižnici GOG (zoznam hier, informácie o dialógovom okne inštalácie, informácie o api -t.j.: požiadavky-)",
+                "help5": "Informácie o knižnici Amazon (zoznam hier, informácie o dialógovom okne inštalácie)"
             }
+        },
+        "systemInformation": {
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "os": "Operačný Systém:",
+            "systemModel": "Model Systému:",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "gpuWithNumber": "GPU {{number}}:",
+            "nileVersion": "Verzia Nile: {{nileVersion}}",
+            "osNameFlatpak": "{{osName}} (vo vnútri Flatpaku)",
+            "osVersion": "Verzia systému {{versionNumber}}",
+            "showDetailed": "Zobraziť podrobné špecifikácie systému",
+            "steamDeck": "Steam Deck {{model}}",
+            "copyToClipboard": "Skopírovať do schránky",
+            "cpu": "CPU:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gpu": "GPU:",
+            "software": "Softvér:",
+            "heroicVersion": "Verzia Heroic: {{heroicVersion}}",
+            "legendaryVersion": "Verzia Legendary: {{legendaryVersion}}",
+            "memoryStats": "{{percentUsed}}% použité ({{usedGib}} / {{totalGib}}",
+            "systemSpecifications": "PC Špecifikácie:",
+            "memory": "Pamäť:"
+        },
+        "offline": {
+            "warning": "Táto hra výslovne neumožňuje offline režim, zapnite ho na vlastné riziko. Hra nemusí fungovať."
+        },
+        "experimental_features": {
+            "title": "Experimentálne Funkcie"
+        },
+        "gamescope": {
+            "searchMsg": "Hľadá sa spustiteľný súbor pre gamescope."
         }
     },
     "Settings": "nastavenie",
@@ -726,10 +880,50 @@
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Inštalácia",
-        "loading": "Loading"
+        "loading": "Loading",
+        "installing": "Prebieha inštalácia komponentu: {{component}}",
+        "openGUI": "Otvoriť GUI Winetricks",
+        "installed": "Nainštalované Komponenty:",
+        "search": "Vyhľadať písma alebo komponenty",
+        "nothingYet": "Nič nebolo nainštalované cez Winetricks"
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "add-new-category": "Pridať Novú Kategóriu",
+        "delete-question": "Ak budete pokračovať, natrvalo sa odstráni táto kategória a zruší sa jej priradenie k všetkým hrám. Ďalej?",
+        "new-category": "Nová Kategória",
+        "remove-category": "Vymazať Kategóriu"
+    },
+    "window": {
+        "close": "Zavrieť",
+        "minimize": "Minimalizovať okno",
+        "restore": "Obnoviť okno",
+        "maximize": "Maximalizovať okno"
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton je variant Proton vytvorený spoločnosťou Glorious Eggroll. Je určený na použitie v službe Steam, ale niektoré hry mimo služby Steam môžu s týmto variantom fungovať lepšie. Poskytuje väčšinou zbytočné protokoly na riešenie problémov.",
+        "wine-ge": "Wine-GE-Proton je variant Winu vytvorený spoločnosťou Glorious Eggroll. Je to odporúčaný Wine na použitie mimo služby Steam. To poskytuje užitočné protokoly pri riešení problémov."
+    },
+    "categories-manager": {
+        "rename": "Premenovať \"{{name}}\"",
+        "add": "Pridať",
+        "add-placeholder": "Pridať novú kategóriu",
+        "cancel-remove": "Zrušiť vymazanie „{{name}}“",
+        "cancel-rename": "Zrušiť premenovanie \"{{name}}\"",
+        "confirm-remove": "Potvrdiť vymazanie \"{{name}}\"",
+        "confirm-rename": "Potvrdiť premenovanie \"{{oldName}}\" na \"{{newName}}\"",
+        "no-categories": "Žiadne kategórie.",
+        "remove": "Vymazať \"{{name}}\"",
+        "title": "Spravovať Kategórie"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Toto upozornenie už nikdy nezobrazovať",
+        "description": "Zdá sa, že doménu track.adtraction.com sa nepodarilo načítať alebo je zablokovaná. Každý nákup, ktorý uskutočníte v obchode GOG, finančne podporuje Heroic. Ak chcete prispieť, zvážte odstránenie blokovania.",
+        "title": "Adtraction je blokovaný"
+    },
+    "emptyLibrary": {
+        "noGames": "Vaša knižnica je prázdna. Môžete sa <1>prihlásiť</1> pomocou obchodu alebo kliknúť na <3></3> a pridať ho ručne.",
+        "noResults": "Tieto filtre nemajú žiadne výsledky."
     }
 }
