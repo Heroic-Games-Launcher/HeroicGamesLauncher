@@ -157,6 +157,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { InstallResult } from 'common/types/game_manager'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -1275,7 +1276,13 @@ ipcMain.handle(
     const { title } = gameManagerMap[runner].getGameInfo(appName)
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    const moveRes = await gameManagerMap[runner].moveInstall(appName, path)
+    let moveRes: InstallResult = {
+      status: 'error',
+      error: 'No flatpak sandbox access to this path'
+    }
+
+    if (isAccessibleWithinFlatpakSandbox(path as Path))
+      moveRes = await gameManagerMap[runner].moveInstall(appName, path)
     if (moveRes.status === 'error') {
       notify({
         title,
