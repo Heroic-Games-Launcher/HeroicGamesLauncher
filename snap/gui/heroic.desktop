@@ -1,6 +1,5 @@
 [Desktop Entry]
-#Name=Heroic Games Launcher
-Name=Heroic Snap
+Name=Heroic Games Launcher
 Exec=heroic %u
 Terminal=false
 Type=Application
