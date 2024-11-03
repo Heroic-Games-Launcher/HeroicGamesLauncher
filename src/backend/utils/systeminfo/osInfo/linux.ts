@@ -14,7 +14,7 @@ function stripQuotes(stringMaybeWithQuotes: string): string {
 
 async function osInfo_linux(): Promise<{ name: string; version?: string }> {
   let os_release_path: string | null = null
-  for (const potPath of ['/run/host/os-release', '/etc/os-release']) {
+  for (const potPath of ['/run/host/os-release', '/var/lib/snapd/hostfs/etc/os-release', '/etc/os-release']) {
     try {
       await stat(potPath)
       os_release_path = potPath
