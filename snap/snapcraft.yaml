@@ -30,7 +30,7 @@ package-repositories:
     suites: [jammy]
     architectures: [amd64, i386]
     key-id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
-    url: https://deb.nodesource.com/node_20.x 
+    url: https://deb.nodesource.com/node_20.x
 
 layout:
   /usr/share/zenity:
@@ -97,7 +97,7 @@ parts:
   launcher:
     after: [heroic]
     plugin: nil
-    source: $CRAFT_PROJECT_DIR/snap/local/src 
+    source: $CRAFT_PROJECT_DIR/snap/local/src
     override-build: |
       mkdir -p $CRAFT_PART_INSTALL/usr/bin
       cp * $CRAFT_PART_INSTALL/usr/bin/
@@ -193,7 +193,7 @@ parts:
     after: [heroic]
     plugin: nil
     source: https://github.com/ninja-build/ninja.git
-    source-tag: "v1.12.1"
+    source-tag: 'v1.12.1'
     override-build: |
       rm -rf build
       rm -f ninja
@@ -215,7 +215,7 @@ parts:
     after: [ninja]
     plugin: nil
     source: https://github.com/mesonbuild/meson.git
-    source-tag: "1.4.1"
+    source-tag: '1.4.1'
     source-depth: 1
     override-build: |
       python3 -m pip install .
@@ -233,7 +233,7 @@ parts:
   mangohud:
     after: [meson-deps]
     source: https://github.com/flightlessmango/MangoHud.git
-    source-tag: "v0.7.2"
+    source-tag: 'v0.7.2'
     source-depth: 1
     plugin: meson
     organize:
@@ -262,13 +262,13 @@ parts:
       - libxkbcommon-dev
     # Fixes the $LIB being escaped for some reason
     override-build: |
-        craftctl default
-        sed -i 's/\/usr\/\\\$LIB/\$SNAP\/usr\/lib\/x86_64-linux-gnu/' $CRAFT_PART_INSTALL/usr/bin/mangohud
+      craftctl default
+      sed -i 's/\/usr\/\\\$LIB/\$SNAP\/usr\/lib\/x86_64-linux-gnu/' $CRAFT_PART_INSTALL/usr/bin/mangohud
 
   mangohud64:
     after: [meson-deps, mangohud]
     source: https://github.com/flightlessmango/MangoHud.git
-    source-tag: "v0.7.2"
+    source-tag: 'v0.7.2'
     source-depth: 1
     plugin: meson
     organize:
@@ -283,12 +283,12 @@ parts:
       - -usr/share/vulkan/implicit_layer.d/MangoHud.x86_64.json
       - -usr/share/vulkan/implicit_layer.d/libMangoApp.json
       - -usr/share/doc/mangohud/MangoHud.conf.example
-      - -usr/share/man/man1/mangohud.1 
+      - -usr/share/man/man1/mangohud.1
 
   gamemode:
     after: [meson-deps]
     source: https://github.com/FeralInteractive/gamemode.git
-    source-tag: "1.8.2"
+    source-tag: '1.8.2'
     source-depth: 1
     plugin: meson
     organize:
@@ -419,7 +419,6 @@ parts:
       - -usr/share/pkgconfig
       - -usr/share/themes
       - -usr/libexec
-
 
   conditioning:
     after: [heroic, debs]
