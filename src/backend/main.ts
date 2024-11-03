@@ -1281,7 +1281,7 @@ ipcMain.handle(
       error: 'No flatpak sandbox access to this path'
     }
 
-    if (isAccessibleWithinFlatpakSandbox(path as Path))
+    if (isAccessibleWithinFlatpakSandbox(Path.parse(path)))
       moveRes = await gameManagerMap[runner].moveInstall(appName, path)
     if (moveRes.status === 'error') {
       notify({
