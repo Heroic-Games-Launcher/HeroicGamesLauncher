@@ -69,7 +69,7 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
@@ -803,7 +803,8 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' }, updated: false }
   }
 
-  if (!existsSync(winePrefix) && !(await isUmuSupported(wineVersion.type))) {
+  const newPrefix = !existsSync(winePrefix)
+  if (newPrefix && !(await isUmuSupported(wineVersion.type))) {
     mkdirSync(winePrefix, { recursive: true })
   }
 
@@ -826,16 +827,7 @@ export async function verifyWinePrefix(
 
   return command
     .then((result) => {
-      const currentWinePath = join(winePrefix, 'current_wine')
-      if (
-        !existsSync(currentWinePath) ||
-        readFileSync(currentWinePath, 'utf-8') != wineVersion.bin
-      ) {
-        writeFileSync(currentWinePath, wineVersion.bin, 'utf-8')
-        return { res: result, updated: true }
-      } else {
-        return { res: result, updated: false }
-      }
+      return { res: result, updated: newPrefix }
     })
     .catch((error) => {
       logError(['Unable to create Wineprefix: ', error], LogPrefix.Backend)
