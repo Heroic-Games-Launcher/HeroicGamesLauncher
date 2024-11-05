@@ -608,7 +608,7 @@
         "disablePlaytimeSync": "Disable playtime synchronization",
         "discordRPC": "Enable Discord Rich Presence",
         "discordRPCAppID": "Application ID",
-        "discordRPCTitle": "Title",
+        "discordRPCDetails": "Details",
         "discordRPCState": "State",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
