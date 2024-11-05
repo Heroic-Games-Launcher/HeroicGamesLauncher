@@ -587,7 +587,7 @@ function constructAndUpdateRPC(
 
   const image = gameInfo.art_icon || gameInfo.art_square
   const title = replaceVariables(
-    typeof userSettings.title === 'string' ? userSettings.title : '{game}'
+    typeof userSettings.details === 'string' ? userSettings.details : '{game}'
   )
   const state = replaceVariables(
     typeof userSettings.state === 'string'
