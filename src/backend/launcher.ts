@@ -69,7 +69,7 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
-import { readFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
@@ -347,10 +347,25 @@ async function prepareWineLaunch(
     }
   }
 
-  const { updated: winePrefixUpdated } = await verifyWinePrefix(gameSettings)
+  await verifyWinePrefix(gameSettings)
   const experimentalFeatures =
     GlobalConfig.get().getSettings().experimentalFeatures
-  if (winePrefixUpdated) {
+
+  let hasUpdated = false
+  const appsNamesPath = join(gameSettings.winePrefix, 'installed_games')
+  if (!existsSync(appsNamesPath)) {
+    writeFileSync(appsNamesPath, JSON.stringify([appName]), 'utf-8')
+    hasUpdated = true
+  } else {
+    const installedGames : string[] = JSON.parse(readFileSync(appsNamesPath, 'utf-8'))
+    if (!installedGames.includes(appName)) {
+      installedGames.push(appName)
+      writeFileSync(appsNamesPath, JSON.stringify(installedGames), 'utf-8')
+      hasUpdated = true
+    }
+  }
+
+  if (hasUpdated) {
     logInfo(
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
@@ -790,21 +805,20 @@ export async function validWine(
  */
 export async function verifyWinePrefix(
   settings: GameSettings
-): Promise<{ res: ExecResult; updated: boolean }> {
+): Promise<{ res: ExecResult }> {
   const { winePrefix = defaultWinePrefix, wineVersion } = settings
 
   const isValidWine = await validWine(wineVersion)
 
   if (!isValidWine) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
+    return { res: { stdout: '', stderr: '' } }
   }
 
   if (wineVersion.type === 'crossover') {
-    return { res: { stdout: '', stderr: '' }, updated: false }
+    return { res: { stdout: '', stderr: '' } }
   }
 
-  const newPrefix = !existsSync(winePrefix)
-  if (newPrefix && !(await isUmuSupported(wineVersion.type))) {
+  if (!existsSync(winePrefix) && !(await isUmuSupported(wineVersion.type))) {
     mkdirSync(winePrefix, { recursive: true })
   }
 
@@ -827,7 +841,7 @@ export async function verifyWinePrefix(
 
   return command
     .then((result) => {
-      return { res: result, updated: newPrefix }
+      return { res: result }
     })
     .catch((error) => {
       logError(['Unable to create Wineprefix: ', error], LogPrefix.Backend)
