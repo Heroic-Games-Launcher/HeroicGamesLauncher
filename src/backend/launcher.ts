@@ -357,7 +357,9 @@ async function prepareWineLaunch(
     writeFileSync(appsNamesPath, JSON.stringify([appName]), 'utf-8')
     hasUpdated = true
   } else {
-    const installedGames : string[] = JSON.parse(readFileSync(appsNamesPath, 'utf-8'))
+    const installedGames: string[] = JSON.parse(
+      readFileSync(appsNamesPath, 'utf-8')
+    )
     if (!installedGames.includes(appName)) {
       installedGames.push(appName)
       writeFileSync(appsNamesPath, JSON.stringify(installedGames), 'utf-8')
