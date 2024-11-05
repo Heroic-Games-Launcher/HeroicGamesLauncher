@@ -621,8 +621,41 @@
             "show-in-folder": "Показать файл журнала в папке",
             "join-heroic-discord": "Присоединяйтесь к нашему Discord",
             "upload": {
-                "actions": "Действие"
-            }
+                "actions": "Действия",
+                "error": {
+                    "content": "Не удалось отправить файл журнала. Подробности содержатся в журнале Heroic",
+                    "title": "Отправка не удалась"
+                },
+                "button": "Отправить файл журнала",
+                "confirm": {
+                    "content": "Вы действительно хотите отправить «{{name}}»?",
+                    "title": "Отправить файл журнала?"
+                },
+                "delete": "Запросить удаление файла",
+                "done": {
+                    "content": "Отправлено на {{url}} (адрес скопирован в Буфер обмена)",
+                    "title": "Отправка завершена"
+                },
+                "header": "Отправленные файлы журнала",
+                "hours-ago": "Отправлено {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Отправлено {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Журналы не были отправлены",
+                "open": "Открыть окно отправки журнала",
+                "title": "Заголовок журнала",
+                "upload-date": "Дата отправки",
+                "uploading": {
+                    "content": "Отправка файла журнала...",
+                    "title": "Идет отправка"
+                }
+            },
+            "descriptiveNames": {
+                "game-log": "Журнал игры {{gameTitle}}",
+                "gog": "Журнал GOG",
+                "heroic": "Общий журнал Heroic",
+                "legendary": "Журнал Epic Games и Legendary",
+                "nile": "Журнал Amazon и Nile"
+            },
+            "show-uploads": "Показать отправленные журналы"
         },
         "mangohud": "Включить Mangohud (требуется установленный Mangohud)",
         "manualsync": {

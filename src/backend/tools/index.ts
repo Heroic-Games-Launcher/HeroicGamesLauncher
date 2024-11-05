@@ -206,7 +206,7 @@ export const DXVK = {
     const is64bitPrefix = existsSync(`${winePrefix}/drive_c/windows/syswow64`)
 
     if (!is64bitPrefix) {
-      logWarning('Installing DXVK on a 32-bit prefix!', LogPrefix.DXVKInstaller)
+      logWarning('32-bit prefix detected!', LogPrefix.DXVKInstaller)
     }
 
     if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
@@ -284,6 +284,40 @@ export const DXVK = {
           wait: true,
           protonVerb: 'run'
         })
+      })
+
+      logInfo('Removing DXVK DLLs', LogPrefix.DXVKInstaller)
+
+      // removing DXVK dlls
+      let dllsToRemove
+      if (is64bitPrefix) {
+        dllsToRemove = dlls64.map(
+          (dll) => `${winePrefix}/drive_c/windows/system32/${dll}`
+        )
+        dllsToRemove.concat(
+          dlls32.map((dll) => `${winePrefix}/drive_c/windows/syswow64/${dll}`)
+        )
+      } else {
+        dllsToRemove = dlls32.map(
+          (dll) => `${winePrefix}/drive_c/windows/system32/${dll}`
+        )
+      }
+      dllsToRemove.forEach((dllFile) => {
+        try {
+          rmSync(dllFile)
+        } catch (err) {
+          logError([`Error removing ${dllFile}`, err], LogPrefix.DXVKInstaller)
+        }
+      })
+
+      // Restore stock Wine libraries
+      logInfo('Restoring Wine stock DLLs', LogPrefix.DXVKInstaller)
+
+      await runWineCommand({
+        gameSettings,
+        commandParts: ['wineboot', '-u'],
+        wait: true,
+        protonVerb: 'run'
       })
       return true
     }

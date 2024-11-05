@@ -53,7 +53,7 @@
         "add_to_favourites": "Lisa lemmikute hulka",
         "cancel": "Peata/Tühista",
         "continue": "Jätka allalaadimist",
-        "finish": "Lõpeta",
+        "finish": "Valmis",
         "force_update": "Sunni uuendus, kui see on saadaval",
         "force-innstall": "Sunni paigaldamine",
         "hide_game": "Peida mäng",
@@ -204,14 +204,14 @@
         },
         "info": {
             "exe": "Vali käivitatav programm",
-            "image": "App Image",
+            "image": "Rakenduse pilt",
             "title": "Mängu/rakenduse pealkiri",
             "broser": "BrowserURL",
             "fullscreen": "Käivita täisekraanis (sulge klahviga F11)",
             "useragent": "Kohandatud User Agent"
         },
         "placeholder": {
-            "image": "Kleepige Image URL siia",
+            "image": "Kleepige pildi URL siia",
             "title": "Lisa pealkiri oma mängule/rakendusele",
             "url": "Asetage mängu URL siia",
             "useragent": "Kirjuta käsitsi User Agent siia, et kasutada seda selle brauseri äpi/mänguga"
