@@ -71,7 +71,7 @@ async function download(name: RuntimeName): Promise<boolean> {
 async function isInstalled(name: RuntimeName) {
   if (!existsSync(join(runtimePath, name))) return false
 
-  const runtimes = await _get()
+  const runtimes = await _get().catch(() => [])
   const runtime = runtimes.find((inst) => inst.name === name)
 
   // this should be impossible, so prevent redownload by faking it's installed
