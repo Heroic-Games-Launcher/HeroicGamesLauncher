@@ -39,20 +39,13 @@ export default function SidebarLinks() {
   const location = useLocation() as { pathname: string }
   const [, , runner, appName, type] = location.pathname.split('/') as PathSplit
 
-  const {
-    amazon,
-    epic,
-    gog,
-    platform,
-    refreshLibrary,
-    handleExternalLinkDialog
-  } = useContext(ContextProvider)
+  const { amazon, epic, gog, refreshLibrary, handleExternalLinkDialog } =
+    useContext(ContextProvider)
 
   const inWebviewScreen =
     location.pathname.includes('store') ||
     location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
-  const isWin = platform === 'win32'
 
   const settingsPath = '/settings/app/default/general'
 
@@ -221,7 +214,7 @@ export default function SidebarLinks() {
             >
               <span>{t('settings.navbar.general')}</span>
             </NavLink>
-            {!isWin && (
+            {!isWindows && (
               <NavLink
                 role="link"
                 to={`/settings/${runner}/${appName}/games_settings`}
@@ -289,7 +282,7 @@ export default function SidebarLinks() {
           <span>{t('download-manager.link', 'Downloads')}</span>
         </>
       </NavLink>
-      {!isWin && (
+      {!isWindows && (
         <NavLink
           className={({ isActive }) =>
             classNames('Sidebar__item', { active: isActive })

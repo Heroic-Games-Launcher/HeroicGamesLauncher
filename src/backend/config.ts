@@ -13,11 +13,8 @@ import {
   heroicInstallPath,
   userHome,
   isFlatpak,
-  isMac,
-  isWindows,
   getSteamCompatFolder,
-  configStore,
-  isLinux
+  configStore
 } from './constants'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'

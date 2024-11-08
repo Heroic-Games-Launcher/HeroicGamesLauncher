@@ -61,7 +61,7 @@ export default function SideloadDialog({
   const [addingApp, setAddingApp] = useState(false)
   const editMode = Boolean(appName)
 
-  const { refreshLibrary, platform } = useContext(ContextProvider)
+  const { refreshLibrary } = useContext(ContextProvider)
 
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)
@@ -269,7 +269,7 @@ export default function SideloadDialog({
   const showSideloadExe = appPlatform !== 'Browser'
 
   const shouldShowRunExe =
-    platform !== 'win32' &&
+    !isWindows &&
     appPlatform !== 'Mac' &&
     appPlatform !== 'linux' &&
     appPlatform !== 'Browser'

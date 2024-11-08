@@ -40,13 +40,7 @@ import {
   BaseLaunchOption
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
-import {
-  gogSupportPath,
-  gogdlConfigPath,
-  isWindows,
-  isMac,
-  isLinux
-} from '../../constants'
+import { gogSupportPath, gogdlConfigPath } from '../../constants'
 import {
   configStore,
   installedGamesStore,

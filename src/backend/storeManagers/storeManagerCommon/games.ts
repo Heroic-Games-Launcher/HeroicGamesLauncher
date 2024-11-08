@@ -1,6 +1,6 @@
 import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
-import { isMac, isLinux, icon } from '../../constants'
+import { icon } from '../../constants'
 import {
   appendGamePlayLog,
   appendWinetricksGamePlayLog,

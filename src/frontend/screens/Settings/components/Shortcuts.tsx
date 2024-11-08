@@ -1,17 +1,13 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 
 const Shortcuts = () => {
   const { t } = useTranslation()
   const { isDefault } = useContext(SettingsContext)
-  const { platform } = useContext(ContextProvider)
-  const isWin = platform === 'win32'
-  const isLinux = platform === 'linux'
-  const supportsDesktopShortcut = isWin || isLinux
+  const supportsDesktopShortcut = isWindows || isLinux
 
   const [addDesktopShortcuts, setAddDesktopShortcuts] = useSetting(
     'addDesktopShortcuts',
@@ -34,7 +30,7 @@ const Shortcuts = () => {
     'setting.addgamestostartmenu',
     'Add games to start menu automatically'
   )
-  if (!isLinux && !isWin) {
+  if (!isLinux && !isWindows) {
     menuShortcutsLabel = t(
       'setting.addgamestoapplications',
       'Add games to Applications automatically'

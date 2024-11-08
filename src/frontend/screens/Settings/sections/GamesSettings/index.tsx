@@ -35,7 +35,6 @@ import {
   AfterLaunchScriptPath
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
-import ContextProvider from 'frontend/state/ContextProvider'
 import Tools from '../../components/Tools'
 import SettingsContext from '../../SettingsContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -48,18 +47,18 @@ import { Tabs, Tab } from '@mui/material'
 import { GameInfo } from 'common/types'
 
 const windowsPlatforms = ['Win32', 'Windows', 'windows']
-function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
+function getStartingTab(gameInfo?: GameInfo | null): string {
   if (!gameInfo) {
-    if (platform !== 'win32') {
+    if (!isWindows) {
       return 'wine'
     }
     return 'advanced'
   }
-  if (platform === 'win32') {
+  if (isWindows) {
     return 'advanced'
   } else if (windowsPlatforms.includes(gameInfo?.install.platform || '')) {
     return 'wine'
-  } else if (platform === 'darwin') {
+  } else if (isMac) {
     return 'advanced'
   } else {
     return 'other'
@@ -68,13 +67,9 @@ function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
 
 export default function GamesSettings() {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
   const { isDefault, gameInfo } = useContext(SettingsContext)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
   const [isNative, setIsNative] = useState(false)
-  const isLinux = platform === 'linux'
-  const isWin = platform === 'win32'
-  const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
   const hasCloudSaves =
     gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
@@ -83,7 +78,7 @@ export default function GamesSettings() {
 
   function shouldShowSettings(tab: 'wine' | 'other'): boolean {
     if (tab === 'wine') {
-      if (isWin || isNative || isBrowserGame) {
+      if (isWindows || isNative || isBrowserGame) {
         return false
       }
       return true
@@ -100,7 +95,7 @@ export default function GamesSettings() {
     ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
-    localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)
+    localStorage.getItem(localStorageKey) || getStartingTab(gameInfo)
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (

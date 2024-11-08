@@ -6,8 +6,6 @@ import {
   currentGameConfigVersion,
   configPath,
   gamesConfigPath,
-  isMac,
-  isWindows,
   userHome,
   defaultWinePrefix
 } from './constants'

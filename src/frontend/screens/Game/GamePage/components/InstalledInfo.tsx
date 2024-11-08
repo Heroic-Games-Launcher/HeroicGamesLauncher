@@ -59,7 +59,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   let wineName = ''
   let wineType = ''
 
-  if (!is.win) {
+  if (!isWindows) {
     let wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
     if (wine.includes('Default')) {
       wine = wine.split('-')[0]
@@ -106,7 +106,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
           <div className="truncatedPath">{appLocation}</div>
         </div>
       )}
-      {!is.win && !is.native && (
+      {!isWindows && !is.native && (
         <>
           <div>
             <b>Wine:</b> {wineName}

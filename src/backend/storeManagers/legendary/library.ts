@@ -30,9 +30,7 @@ import {
   legendaryConfigPath,
   legendaryLogFile,
   legendaryMetadata,
-  isLinux,
-  userHome,
-  isWindows
+  userHome
 } from '../../constants'
 import {
   logDebug,

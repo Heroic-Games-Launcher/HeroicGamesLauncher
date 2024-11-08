@@ -9,8 +9,7 @@ import { InfoBox, ToggleSwitch, PathSelectionBox } from 'frontend/components/UI'
 const EgsSettings = () => {
   const { t } = useTranslation()
   const [isSyncing, setIsSyncing] = useState(false)
-  const { platform, refreshLibrary, showDialogModal } =
-    useContext(ContextProvider)
+  const { refreshLibrary, showDialogModal } = useContext(ContextProvider)
   const [egsPath, setEgsPath] = useSetting('egsLinkedPath', '')
 
   function handleSync(
@@ -51,7 +50,7 @@ const EgsSettings = () => {
   }
 
   // On Windows, Legendary only needs to be told to enable EGL sync
-  if (platform === 'win32') {
+  if (isWindows) {
     return (
       <ToggleSwitch
         htmlId="syncToggle"
