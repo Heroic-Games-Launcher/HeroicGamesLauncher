@@ -1,9 +1,9 @@
 id: com.heroicgameslauncher.hgl
 sdk: org.freedesktop.Sdk
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '24.08'
 base: org.electronjs.Electron2.BaseApp
-base-version: '22.08'
+base-version: '24.08'
 command: heroic-run
 separate-locales: false
 
@@ -18,50 +18,59 @@ sdk-extensions:
 finish-args:
   - --allow=devel
   - --allow=multiarch
+  # pressure vessel
+  - --allow=per-app-dev-shm
   - --device=all
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin:/usr/lib/extensions/vulkan/gamescope/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin:/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux
-  - --filesystem=xdg-data/lutris:rw
-  - --filesystem=xdg-data/Steam:rw
-  - --filesystem=xdg-data/applications:rw
+  - --env=LD_LIBRARY_PATH=/usr/lib/extensions/vulkan/gamescope/lib
+  - --filesystem=~/.local/share/lutris:rw
+  - --filesystem=~/.steam/steam:rw
+  - --filesystem=~/.local/share/applications:rw
   - --filesystem=~/.steam:rw
   - --filesystem=~/Games/Heroic:create
   - --filesystem=~/.var/app/com.valvesoftware.Steam:rw
+  - --filesystem=~/.config/MangoHud:ro
   - --filesystem=xdg-documents
   - --filesystem=xdg-desktop
+  - --filesystem=xdg-run/gamescope-0:rw
   # should fix access to SD card on the deck
   - --filesystem=/run/media
-  # There are still quite a few users using /mnt/ for external drives
+  # There are still quite a few users using /mnt/ and /media/ for external drives
   - --filesystem=/mnt
+  - --filesystem=/media
   # should fix steamdeck controler navigation
   - --filesystem=/run/udev:ro
   # should fix discord rich presence
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  # umu
+  - --filesystem=xdg-data/umu:create
   - --persist=.
   - --share=ipc
   - --share=network
   - --socket=x11
   - --socket=wayland
   - --socket=pulseaudio
-  - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
-  # umu
-  - --filesystem=~/.var/app/org.openwinecomponents.umu.umu-launcher/data/umu
+  - --talk-name=com.canonical.Unity
+  - --talk-name=org.freedesktop.ScreenSaver
+  # wine uses this for disk drives (mountmgr.sys)
+  - --system-talk-name=org.freedesktop.UDisks2
   - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '22.08'
+    version: '24.08'
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '22.08'
+    version: '24.08'
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
     version: '1.4'
-    versions: 22.08;1.4
+    versions: 24.08;1.4
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -81,8 +90,8 @@ add-extensions:
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '22.08'
-    versions: '22.08'
+    version: '24.08'
+    versions: '24.08'
     autodelete: false
     no-autodownload: true
     add-ld-path: lib
@@ -108,9 +117,25 @@ modules:
       - -DVULKAN_HEADERS_INSTALL_DIR=/app
       - -DCMAKE_BUILD_TYPE=Release
     sources:
-      - type: git
-        url: https://github.com/KhronosGroup/Vulkan-Tools.git
-        tag: sdk-1.3.224.1
+      - type: archive
+        url: https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.3.297/Vulkan-Tools-1.3.297.tar.gz
+        sha256: 95bffa39d90f3ec81d8e3a0fa6c846ac1a10442152cc0b6d0d6567ce48932f89
+    modules:
+      - name: volk
+        buildsystem: cmake-ninja
+        config-opts:
+          - -DVOLK_INSTALL=ON
+        sources:
+          - type: archive
+            url: https://github.com/zeux/volk/archive/vulkan-sdk-1.3.296.0.tar.gz
+            sha256: 8ffd0e81e29688f4abaa39e598937160b098228f37503903b10d481d4862ab85
+        modules:
+          - name: vulkan-headers
+            buildsystem: cmake-ninja
+            sources:
+              - type: archive
+                url: https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.3.297/Vulkan-Headers-v1.3.297.tar.gz
+                sha256: 1d679e2edc43cb7ad818b81dea960e374f1d6dd082325eb9b4c6113e76263c02
 
   - name: gamemode
     buildsystem: meson
@@ -121,8 +146,8 @@ modules:
     sources: &gamemode_sources
       - type: git
         url: https://github.com/FeralInteractive/gamemode.git
-        tag: '1.7'
-        commit: 4dc99dff76218718763a6b07fc1900fa6d1dafd9
+        tag: 1.8.2
+        commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
         x-checker-data:
           type: git
 
@@ -150,8 +175,8 @@ modules:
       - --disable-md2man
     sources:
       - type: archive
-        url: https://download.samba.org/pub/rsync/src/rsync-3.2.7.tar.gz
-        sha256: 4e7d9d3f6ed10878c58c5fb724a67dacf4b6aac7340b13e488fb2dc41346f2bb
+        url: https://download.samba.org/pub/rsync/src/rsync-3.3.0.tar.gz
+        sha256: 7399e9a6708c32d678a72a63219e96f23be0be2336e50fd1348498d07041df90
         x-checker-data:
           type: anitya
           project-id: 4217
@@ -166,6 +191,7 @@ modules:
       - ./Heroic-*.AppImage --appimage-extract
       - mv squashfs-root /app/bin/heroic
       - install -D heroic-run -t /app/bin
+      - patch-desktop-filename ${FLATPAK_DEST}/bin/heroic/resources/app.asar
     sources:
       - type: script
         dest-filename: heroic-run
@@ -176,7 +202,9 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
-      - ${heroic-app-image}
+      - type: file
+        url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.15.2/Heroic-2.15.2.AppImage
+        sha512: d03153e68bf1d98b6dfaa21bd5604db793b0dbe222a4e135b257b4b2e6b0e685b716283d50ab873b39975609746868f50cf3b24263c497f86321eb28cfc68aae
 
   - name: platform-bootstrap
     buildsystem: simple
@@ -225,11 +253,8 @@ modules:
       - DEST_MAN=$(FLATPAK_DEST)/share/man
     sources:
       - type: archive
-        url: https://downloads.sourceforge.net/p7zip/p7zip_16.02_src_all.tar.bz2
-        sha256: 5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f
-      - type: patch
-        paths:
-          - patches/p7zip/gcc10-conversion.patch
+        url: https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.05.tar.gz
+        sha256: d2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6
       - type: shell
         only-arches:
           - x86_64
@@ -270,8 +295,8 @@ modules:
       - DESTDIR=$(FLATPAK_DEST)
     sources:
       - type: archive
-        url: https://www.rarlab.com/rar/unrarsrc-6.2.10.tar.gz
-        sha256: 55fe6ebd5e48d6655bfda3fd19b55438ca05e13c7e69772420caad9fdb68ef42
+        url: https://www.rarlab.com/rar/unrarsrc-6.2.12.tar.gz
+        sha256: a008b5f949bca9bb4ffa1bebbfc8b3c14b89df10a10354809b845232d5f582e5
         x-checker-data:
           type: anitya
           project-id: 13306
@@ -292,10 +317,8 @@ modules:
       - --without-sqlite3
     sources:
       - type: archive
-        sha256: 58d1e7608c12404f0229a3d9a4953d0d00c18040504498b483305bcb3de907a5
-        url: https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0.tar.xz
-      - type: patch
-        path: patches/aria2/working-build.patch
+        sha256: 60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
+        url: https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
 
   - name: libcaca
     config-opts: &libcaca_config_opts
@@ -349,4 +372,4 @@ modules:
       - -DENABLE_STATIC:BOOL=NO
       - -DWITH_JPEG8:BOOL=YES
     sources: *libjpeg_sources
-  #END --- Winetricks Deps --
+  #END --- Winetricks Deps ---
