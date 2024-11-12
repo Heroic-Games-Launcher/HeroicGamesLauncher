@@ -29,7 +29,6 @@ finish-args:
   - --filesystem=~/.steam:rw
   - --filesystem=~/Games/Heroic:create
   - --filesystem=~/.var/app/com.valvesoftware.Steam:rw
-  - --filesystem=~/.config/MangoHud:ro
   - --filesystem=xdg-documents
   - --filesystem=xdg-desktop
   - --filesystem=xdg-run/gamescope-0:rw
