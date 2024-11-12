@@ -202,9 +202,7 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
-      - type: file
-        url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.15.2/Heroic-2.15.2.AppImage
-        sha512: d03153e68bf1d98b6dfaa21bd5604db793b0dbe222a4e135b257b4b2e6b0e685b716283d50ab873b39975609746868f50cf3b24263c497f86321eb28cfc68aae
+      - ${heroic-app-image}
 
   - name: platform-bootstrap
     buildsystem: simple
