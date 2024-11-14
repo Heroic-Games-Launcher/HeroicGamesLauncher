@@ -960,6 +960,19 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatPakHome
+    // add back default wine/dxvk debug logging
+    if (!gameSettings?.enviromentOptions.find((env) => env.key === 'WINEDEBUG'))
+      ret.WINEDEBUG = '+fixme'
+    if (
+      !gameSettings?.enviromentOptions.find(
+        (env) => env.key === 'DXVK_LOG_LEVEL'
+      )
+    )
+      ret.DXVK_LOG_LEVEL = 'info'
+    if (
+      !gameSettings?.enviromentOptions.find((env) => env.key === 'VKD3D_DEBUG')
+    )
+      ret.VKD3D_DEBUG = 'fixme'
   }
   if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
     // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1091-L1093
