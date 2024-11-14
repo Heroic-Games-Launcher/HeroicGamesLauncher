@@ -960,14 +960,6 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatPakHome
-
-    // Only set WINEDEBUG if PROTON_LOG is set since Proton will also log if just WINEDEBUG is set
-    if (
-      gameSettings?.enviromentOptions?.find((env) => env.key === 'PROTON_LOG')
-    ) {
-      // Stop Proton from overriding WINEDEBUG; this prevents logs growing to a few GB for some games
-      ret.WINEDEBUG = 'timestamp'
-    }
   }
   if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
     // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1091-L1093
