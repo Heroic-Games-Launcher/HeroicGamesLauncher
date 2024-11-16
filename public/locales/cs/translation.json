@@ -7,7 +7,9 @@
         "title": "Přístupnost",
         "zoom": "Přiblížení",
         "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč",
-        "titles_always_visible": "Vždy zobrazovat názvy v knihovně"
+        "titles_always_visible": "Vždy zobrazovat názvy v knihovně",
+        "actions_font_family_default": "Rodina písem akcí (výchozí: {{fontFamily}})",
+        "content_font_family_default": "Rodina písem obsahu (výchozí: {{fontFamily}})"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -400,10 +402,10 @@
     },
     "login": {
         "alternative_method": "Alternativní způsob přihlášení",
-        "epic": "Přihlášení s Epic Games",
-        "gog": "Přihlášení s GOG",
+        "epic": "Přihlášení s účtem Epic Games",
+        "gog": "Přihlášení s účtem GOG",
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
-        "amazon": "Přihlášení s Amazonem",
+        "amazon": "Přihlášení s účtem Amazon",
         "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější."
     },
     "message": {
@@ -574,9 +576,9 @@
         "disable_controller": "Zakázat navigaci v Heroic pomocí ovladače",
         "discordRPC": "Povolit Discord Rich Presence",
         "download-no-https": "Stahovat hry bez HTTPS (užitečné pro CDN, např. LanCache)",
-        "dxvkfpslimit": "Omezit FPS (DX9, 10 and 11)",
+        "dxvkfpslimit": "Omezit FPS (DX9, 10 a 11)",
         "egs-sync": "Synchronizovat s nainstalovanými Epic Games",
-        "enableFSRHack": "Povolte FSR Hack (verze Wine jej musí podporovat)",
+        "enableFSRHack": "Povolit FSR Hack (verze Wine jej musí podporovat)",
         "eosOverlay": {
             "cancelInstall": "Zrušit",
             "checkForUpdates": "Zkontrolovat aktualizace",
@@ -940,8 +942,8 @@
         "add-new-category": "Přidat novou kategorii"
     },
     "wineExplanation": {
-        "proton-ge": "Proton-GE-Proton je verze Protonu, kterou vytvořil Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
-        "wine-ge": "Wine-GE-Proton je verze Wine, kterou vytvořil Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
+        "proton-ge": "Proton-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
+        "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
     },
     "emptyLibrary": {
         "noGames": "Vaše knihovna je prázdná. Můžete se <1>přihlásit</1> prostřednictvím obchodu nebo kliknout na <3></3> pro jeho ruční přidání.",
