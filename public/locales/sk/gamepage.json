@@ -38,7 +38,8 @@
             "title": "Odinštalovať",
             "prefix_warning": "Predpona Wine pre túto hru je predvolená predpona. Ak to naozaj chcete odstrániť, musíte to urobiť ručne.",
             "dlc": "Chcete odinštalovať toto DLC?",
-            "cannotUninstallEpic": "Epic games nemôže byť odinštalovaný keď Epic hra sa inštaluje."
+            "cannotUninstallEpic": "Epic games nemôže byť odinštalovaný keď Epic hra sa inštaluje.",
+            "gameIsRunning": "{{title}} beží. Zatvorte hru na odinštalovanie."
         },
         "update": {
             "message": "Táto hra má aktualizáciu, inštalovať aktualizáciu teraz?",
