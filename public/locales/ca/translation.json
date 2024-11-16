@@ -375,7 +375,7 @@
         "wine-repfix": {
             "message": "El Wine fa servir el que s'anomena WINEPREFIX per a encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
         },
-        "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra.",
+        "wine-path-invalid": "La ruta del Wine no és vàlida. Selecciona'n una altra.",
         "wine-path-none-found": "No s'ha trobat cap versió de Wine, descarregueu-ne una des del Wine Manager"
     },
     "install": {
@@ -691,7 +691,7 @@
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
             "warning": "Comproveu si la ruta és correcta (feu clic per a provar-ho de nou)"
         },
-        "select_theme": "Selecciona un tema",
+        "select_theme": "Tema de la interfície",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "start-in-tray": "Inicia minimitzat",
         "steamruntime": "Utilitza el Runtime de l'Steam",
@@ -876,7 +876,7 @@
         "logging_out": "Es tanca la connexió",
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
-        "manageaccounts": "Gestiona els comptes",
+        "manageaccounts": "Gestor dels comptes",
         "quit": "Surt",
         "cancel": "Cancel·la",
         "quitMessage": "Esteu segur que voleu deixar-ho?"
