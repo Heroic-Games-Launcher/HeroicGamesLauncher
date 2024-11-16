@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Això canviarà la ruta d'instal·lació d'aquest joc, estàs segur?",
+            "message": "Això canviarà la ruta d'instal·lació d'aquest joc. Estàs segur?",
             "path": "Tria una ruta d'instal·lació nova",
             "title": "Canvia la ruta d'instal·lació dels jocs"
         },
