@@ -18,10 +18,10 @@
             "title": "Kiểm tra và sửa chữa"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Chọn EXE để chạy"
         },
         "select": {
-            "button": "Select"
+            "button": "Chọn"
         },
         "sideload": {
             "exe": "Select Executable"
@@ -33,28 +33,30 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Xác nhận gỡ cài đặt game?",
+            "message": "Bạn có chắc muốn gỡ cài đặt \"{{title}}\" không?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Gỡ cài đặt",
             "prefix_warning": "Tiền tố Wine cho trò chơi này là tiền tố mặc định. Nếu bạn thực sự muốn xóa nó, bạn phải thực hiện thủ công.",
-            "dlc": "Bạn có muốn Gỡ cài đặt DLC này không?"
+            "dlc": "Bạn có chắc muốn gỡ cài đặt \"{{title}}\" (DLC) không?",
+            "gameIsRunning": "{{title}} đang chạy. Hãy đóng trò chơi để gỡ cài đặt nó."
         },
         "update": {
             "message": "Game có bản cập nhật, xác nhận cập nhật?",
             "title": "Game cần cập nhật"
         },
         "wineprefix": "Chọn thư mục WinePrefix",
-        "yes": "Có"
+        "yes": "Có",
+        "close": "Đóng"
     },
     "button": {
         "add_to_favourites": "Thêm vào mục ưa thích",
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
-        "finish": "Finish",
+        "finish": "Hoàn thành",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
-        "hide_game": "Hide Game",
-        "import": "Import Game",
+        "hide_game": "Ẩn trò chơi",
+        "import": "Nhập trò chơi",
         "install": "Cài đặt",
         "no-path-selected": "No path selected",
         "queue": {
@@ -70,7 +72,8 @@
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật",
-        "details": "Chi tiết"
+        "details": "Chi tiết",
+        "changelog": "Hiện nhật ký thay đổi"
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Tắt",
@@ -92,11 +95,20 @@
         "totalPlayed": "Thời gian chơi",
         "dlcs": "Bản mở rộng",
         "branch": {
-            "disabled": "Tắt"
+            "disabled": "Tắt",
+            "password": "Đặt mật khẩu cho kênh riêng tư",
+            "select": "Chọn kênh beta",
+            "setPrivateBranchPassword": "Đặt mật khẩu cho kênh riêng tư"
         },
         "builds": {
-            "version": "Phiên bản"
-        }
+            "version": "Phiên bản",
+            "buildsSelector": "Chọn phiên bản trò chơi",
+            "toggle": "Giữ trò chơi ở tại phiên bản nhất định"
+        },
+        "changelogFor": "Nhật ký thay đổi của {{gameTitle}}",
+        "extra_info": "Thông tin thêm",
+        "install_info": "Thông tin cài đặt",
+        "modify": "Sửa đổi cài đặt"
     },
     "gamecard": {
         "moving": "Đang chuyển",
