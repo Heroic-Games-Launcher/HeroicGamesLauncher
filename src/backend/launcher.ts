@@ -369,9 +369,8 @@ async function prepareWineLaunch(
     if (runner === 'legendary') {
       await legendarySetup(appName)
     }
-    if (experimentalFeatures?.automaticWinetricksFixes !== false) {
-      await installFixes(appName, runner)
-    }
+
+    await installFixes(appName, runner)
   }
 
   try {
