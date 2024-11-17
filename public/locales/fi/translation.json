@@ -342,7 +342,8 @@
             "fpsLimiter": "Ruuturajoitus Gamescopelle. Esim. 60",
             "additionalOptions": "Lisää komentorivin lippuja jotka toimitetaan Gamescopeen.",
             "fpsLimiterNoFocus": "Rajoitettu ruutuvaste Gamescopelle jokaista sekuntia kohti mikäli pelinäkymä ei kohdistettu.",
-            "gameHeight": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus."
+            "gameHeight": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
+            "gameWidth": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus."
         }
     },
     "info": {
