@@ -224,7 +224,8 @@
     "game": {
         "status": "Status",
         "store": "Cửa hàng",
-        "title": "Tựa game"
+        "title": "Tựa game",
+        "modify": "Sửa đổi cài đặt"
     },
     "generic": {
         "error": {
@@ -744,5 +745,8 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "Đóng"
     }
 }
