@@ -40,18 +40,25 @@ jobs:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.snapcraftIdEdge }}
         if: runner.os == 'Linux' && inputs.publish-snap
       - name: Build AppImage version
-        run: pnpm dist:linux AppImage --publish=never
+        run: pnpm dist:linux AppImage --x64 --arm64 --publish=never
         if: runner.os == 'Linux'
       - name: Upload built version
         uses: actions/upload-artifact@v3
         with:
           name: ${{ (matrix.os == 'windows-2022'  && 'win-portable'  ) ||
                     (matrix.os == 'macos-12'      && 'mac-x64'       ) ||
-                    (matrix.os == 'ubuntu-22.04'  && 'linux-AppImage') }}
+                    (matrix.os == 'ubuntu-22.04'  && 'linux-AppImage-x64') }}
           path: ${{ (matrix.os == 'windows-2022'  && 'dist/Heroic*.exe'      ) ||
                     (matrix.os == 'macos-12'      && 'dist/Heroic*x64.dmg'   ) ||
-                    (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic-*.AppImage') }}
+                    (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic*x86_64.AppImage') }}
           retention-days: 14
+      - name: Upload linux ARM version
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-AppImage-arm64
+          path: dist/Heroic*arm64.AppImage
+          retention-days: 14
+        if: runner.os == 'Linux'
       - name: Upload macOS ARM version
         uses: actions/upload-artifact@v3
         with:
