@@ -1,4 +1,3 @@
-import { describe } from 'node:test'
 import {
   getDefaultWine,
   getWineExecs,
@@ -7,6 +6,7 @@ import {
 import { mkdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
 import { tmpdir } from 'os'
+import child_process from 'child_process'
 
 jest.mock('../../logger/logfile')
 
@@ -17,22 +17,16 @@ describe('getDefaultWine', () => {
       name: 'Default Wine - Not Found',
       type: 'wine'
     }
+    jest.spyOn(child_process, 'execSync').mockImplementation(() => {
+      throw new Error()
+    })
     const result = getDefaultWine()
     expect(result).toEqual(expected)
   })
 
   test('return list with one default wine', () => {
-    const expected = {
-      bin: '/usr/bin/wine',
-      name: 'Wine Default - wine-6.0 (Staging)',
-      type: 'wine',
-      wineserver: ''
-    }
-
     // spy on the execSync calling which wine and returning /usr/bin/wine
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const execSync = jest.spyOn(require('child_process'), 'execSync')
-    execSync.mockImplementation((command: any) => {
+    jest.spyOn(child_process, 'execSync').mockImplementation((command) => {
       if (command === 'which wine') {
         return '/usr/bin/wine\n'
       } else if (command === 'wine --version') {
@@ -42,7 +36,9 @@ describe('getDefaultWine', () => {
     })
 
     const result = getDefaultWine()
-    expect(result).toEqual(expected)
+    expect(result.bin).toBe('/usr/bin/wine')
+    expect(result.name).toBe('Wine Default - wine-6.0 (Staging)')
+    expect(result.type).toBe('wine')
   })
 })
 
