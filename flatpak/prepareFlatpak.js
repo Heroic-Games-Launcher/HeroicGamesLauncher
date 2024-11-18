@@ -56,5 +56,4 @@ async function main() {
     fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.desktop", "./flatpak-build/com.heroicgameslauncher.hgl.desktop")
     fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.png", "./flatpak-build/com.heroicgameslauncher.hgl.png")
     fs.copyFileSync("./flatpak/flathub.json", "./flatpak-build/flathub.json")
-    fs.cpSync("./flatpak/patches", "./flatpak-build/patches", { recursive: true })
 }
