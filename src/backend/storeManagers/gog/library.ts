@@ -871,7 +871,7 @@ export async function getBuilds(
     url.searchParams.set('password', password)
   }
 
-  const headers = {} as AxiosRequestHeaders
+  const headers: Record<string, string> = {}
   if (access_token) {
     headers.Authorization = `Bearer ${access_token}`
   }
@@ -1267,7 +1267,7 @@ export async function getProductApi(
     url.searchParams.set('expand', expand.join(','))
   }
 
-  const headers = {} as AxiosRequestHeaders
+  const headers: Record<string, string> = {}
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`
   }
