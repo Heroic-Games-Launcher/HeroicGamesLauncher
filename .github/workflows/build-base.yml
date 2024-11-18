@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2022, ubuntu-22.04, macos-12]
+        os: [windows-2022, ubuntu-22.04, macos-13]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -43,26 +43,32 @@ jobs:
         run: pnpm dist:linux AppImage --x64 --arm64 --publish=never
         if: runner.os == 'Linux'
       - name: Upload built version
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ (matrix.os == 'windows-2022'  && 'win-portable'  ) ||
-                    (matrix.os == 'macos-12'      && 'mac-x64'       ) ||
+                    (matrix.os == 'macos-13'      && 'mac-x64'       ) ||
                     (matrix.os == 'ubuntu-22.04'  && 'linux-AppImage-x64') }}
           path: ${{ (matrix.os == 'windows-2022'  && 'dist/Heroic*.exe'      ) ||
-                    (matrix.os == 'macos-12'      && 'dist/Heroic*x64.dmg'   ) ||
+                    (matrix.os == 'macos-13'      && 'dist/Heroic*x64.dmg'   ) ||
                     (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic*x86_64.AppImage') }}
           retention-days: 14
+          if-no-files-found: error
+          compression-level: 3
       - name: Upload linux ARM version
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linux-AppImage-arm64
           path: dist/Heroic*arm64.AppImage
           retention-days: 14
+          if-no-files-found: error
+          compression-level: 3
         if: runner.os == 'Linux'
       - name: Upload macOS ARM version
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mac-arm64
           path: dist/Heroic*arm64.dmg
           retention-days: 14
+          if-no-files-found: error
+          compression-level: 3
         if: runner.os == 'macOS'
