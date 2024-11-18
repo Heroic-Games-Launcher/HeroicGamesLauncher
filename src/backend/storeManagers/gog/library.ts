@@ -1,5 +1,5 @@
 import { sendFrontendMessage } from '../../main_window'
-import axios, { AxiosError, AxiosRequestHeaders, AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
   GameInfo,
@@ -854,7 +854,7 @@ export async function getBuilds(
     url.searchParams.set('password', password)
   }
 
-  const headers: AxiosRequestHeaders = {}
+  const headers: Record<string, string> = {}
   if (access_token) {
     headers.Authorization = `Bearer ${access_token}`
   }
@@ -1206,7 +1206,7 @@ export async function getGamesdbData(
       logError(
         [
           `Was not able to get GamesDB data for ${game_id}`,
-          error.response?.data.error_description
+          error.response?.data
         ],
         LogPrefix.ExtraGameInfo
       )
@@ -1250,7 +1250,7 @@ export async function getProductApi(
     url.searchParams.set('expand', expand.join(','))
   }
 
-  const headers: AxiosRequestHeaders = {}
+  const headers: Record<string, string> = {}
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`
   }

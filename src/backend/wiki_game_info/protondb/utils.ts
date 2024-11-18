@@ -19,7 +19,7 @@ export async function getInfoFromProtonDB(
       logError(
         [
           `Was not able to get ProtonDB data for ${steamID}`,
-          error.response?.data.error_description
+          error.response?.data
         ],
         LogPrefix.ExtraGameInfo
       )
