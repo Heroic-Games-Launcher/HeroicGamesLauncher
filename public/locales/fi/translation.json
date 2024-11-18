@@ -7,7 +7,9 @@
         "title": "Käytettävyys",
         "zoom": "Lähennä",
         "disable_dialog_backdrop_close": "Kytke pois ilmoitteiden sulkeminen ulkopuolella napsauttamisen kautta",
-        "titles_always_visible": "Näytä nimet kirjastossa aina"
+        "titles_always_visible": "Näytä nimet kirjastossa aina",
+        "actions_font_family_default": "Toimintojen kirjasinperhe (vakio: {{fontFamily}})",
+        "content_font_family_default": "Sisältöjen kirjasinperhe (vakio: {{fontFamily}})"
     },
     "add_game": "Lisää peli",
     "All": "Kaikki",
@@ -327,11 +329,21 @@
             "customThemesPath": "Lue Wiki-tietokantamme.",
             "downloadManager": "Näyttää nykyiset- ja menneet lataukset.",
             "login": "Sisäänkirjaudu eri kauppoihin.",
-            "defaultInstallPath": "Tämä on ennalta valittu vakiopolku pelejä asennettaessa."
+            "defaultInstallPath": "Tämä on ennalta valittu vakiopolku pelejä asennettaessa.",
+            "settingsGame": "Näytä pelille kaikki asetukset.",
+            "settingsDefault": "Näyttää kaikki Heroic:in asetukset sekä pelien vakiot niille.",
+            "wineManager": "Asenna eri versioita; Wine, Proton, Crossover, jne."
         },
         "button": {
             "close": "Sulje apu",
             "open": "Avaa apu"
+        },
+        "gamescope": {
+            "fpsLimiter": "Ruuturajoitus Gamescopelle. Esim. 60",
+            "additionalOptions": "Lisää komentorivin lippuja jotka toimitetaan Gamescopeen.",
+            "fpsLimiterNoFocus": "Rajoitettu ruutuvaste Gamescopelle jokaista sekuntia kohti mikäli pelinäkymä ei kohdistettu.",
+            "gameHeight": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
+            "gameWidth": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus."
         }
     },
     "info": {

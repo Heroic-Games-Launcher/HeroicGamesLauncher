@@ -586,7 +586,7 @@
             "enable": "Aktivieren",
             "install": "Installieren",
             "installed": "Das EOS-Overlay ist installiert",
-            "installing": "Das EOS-Overlay wird installiert …",
+            "installing": "Das EOS-Overlay wird installiert…",
             "latestVersion": "Neueste Version: {{version}}",
             "notInstalled": "Das EOS-Overlay ist nicht installiert",
             "notInstalledMsg": "Das EOS-Overlay ist nicht installiert. Möchtest du es jetzt installieren?",
@@ -595,7 +595,7 @@
             "removeConfirm": "Bist du sicher, dass du das EOS-Overlay deinstallieren möchtest?",
             "removeConfirmTitle": "Overlay-Entfernung bestätigen",
             "updateNow": "Aktualisieren",
-            "updating": "Wird aktualisiert …"
+            "updating": "Wird aktualisiert…"
         },
         "esync": "Esync aktivieren",
         "exit-to-tray": "Beim Beenden in die Taskleiste minimieren",
@@ -621,8 +621,41 @@
             "show-in-folder": "Log-Datei im Ordner anzeigen",
             "join-heroic-discord": "Komm auf unseren Discord-Server",
             "upload": {
-                "actions": "Aktion"
-            }
+                "actions": "Aktionen",
+                "confirm": {
+                    "title": "Log-Datei hochladen?",
+                    "content": "Willst du \"{{name}}\" wirklich hochladen?"
+                },
+                "delete": "Löschung von Log-Dateien anfordern",
+                "button": "Log-Datei hochladen",
+                "done": {
+                    "content": "Hochgeladen zu {{url}} (URL wurde in dir Zwischenablage kopiert)",
+                    "title": "Hochladen abgeschlossen"
+                },
+                "error": {
+                    "content": "Hochladen der Log-Datei fehlgeschlagen. Sieh dir Heroic's allgemeine Log-Datei an für mehr Infos",
+                    "title": "Hochladen fehlgeschlagen"
+                },
+                "header": "Log-Datein hochgeladen",
+                "hours-ago": "Hochgeladen vor {{hoursAgo, relativetime(hours)}} Stunden",
+                "minutes-ago": "Hochgeladen vor {{minutesAgo, relativetime(minutes)}} Minuten",
+                "no-files": "Es wurden keine Log-Dateien hochgeladen",
+                "open": "Hochgeladene Log-Dateien öffnen",
+                "title": "Log-Titel",
+                "upload-date": "Upload-Datum",
+                "uploading": {
+                    "content": "Log-Datei hochladen...",
+                    "title": "Hochladen"
+                }
+            },
+            "descriptiveNames": {
+                "heroic": "Allgemeine Heroic Logdatei",
+                "game-log": "Logdatei von {{gameTitle}}",
+                "gog": "GOG Log",
+                "legendary": "Epic Games / Legendary Log",
+                "nile": "Amazon / Nile Log"
+            },
+            "show-uploads": "Hochgeladene Log-Dateien anzeigen"
         },
         "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
         "manualsync": {
@@ -630,7 +663,7 @@
             "forcedownload": "Download erzwingen",
             "forceupload": "Upload erzwingen",
             "sync": "Synchronisieren",
-            "syncing": "Wird synchronisiert …",
+            "syncing": "Wird synchronisiert…",
             "title": "Spielstände manuell synchronisieren",
             "upload": "Upload"
         },
@@ -674,11 +707,13 @@
         "experimental_features": {
             "enableNewDesign": "Neues Design",
             "automaticWinetricksFixes": "Bekannte Winetricks Hilfsskripte automatisch anwenden",
-            "enableHelp": "Hilfe aktivieren"
+            "enableHelp": "Hilfe aktivieren",
+            "umuSupport": "UMU als Proton Laufzeit verwenden",
+            "cometSupport": "Comet Support"
         },
         "frameless-window": {
             "confirmation": {
-                "message": "Diese Funktion ist noch experimentell. Bitte melden Sie alle Probleme, die Sie mit ihr haben, auf GitHub.",
+                "message": "Diese Funktion ist noch experimentell. Bitte melde alle Probleme, die du mit ihr hast, auf GitHub.",
                 "title": "Experimentelle Funktion voraus"
             },
             "description": "Rahmenloses Fenster verwenden (Neustart erforderlich)"

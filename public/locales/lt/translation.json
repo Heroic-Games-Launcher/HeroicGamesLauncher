@@ -44,6 +44,10 @@
             "cx-bottle-not-found": {
                 "message": "„CrossOver bottle“ – „{{bottle_name}}“ neegzistuoja, negalima paleisti!",
                 "title": "„CrossOver bottle“ nerasta/-s"
+            },
+            "uncaught-exception": {
+                "message": "Įvyko nepagauta išimtis:{{newLine}}{{error}}{{newLine}}{{newLine}} Pranešti apie šią išimtį mūsų „Github“ saugykloje.",
+                "title": "Įvyko nepagauta išimtis!"
             }
         },
         "no": "NE",
@@ -88,7 +92,8 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "message": "Bet kokia neišsaugota pažanga, gali būti prarasta"
+                    "message": "Bet kokia neišsaugota pažanga, gali būti prarasta",
+                    "title": "Ar Jūs tikrai norite išeiti?"
                 }
             },
             "epic": {
@@ -215,7 +220,9 @@
     "dlc": {
         "size": "Dydis",
         "title": "Antraštė/Pavadinimas",
-        "actions": "Veiksmai"
+        "actions": "Veiksmai",
+        "noDlcFound": "Jokie „DLC“ nebuvo rasti",
+        "installDlcs": "Įdiegti visus „DLC“ (dgs.)"
     },
     "download-manager": {
         "install-type": {
@@ -239,7 +246,8 @@
     "game": {
         "modify": "Redaguoti įdiegimą",
         "store": "Parduotuvė",
-        "status": "Būsena/Būklė"
+        "status": "Būsena/Būklė",
+        "title": "Žaidimo titulas/pavadinimas"
     },
     "header": {
         "categories": "Kategorijos",
@@ -253,7 +261,8 @@
         "show_installed_only": "Rodyti tik įdiegtus",
         "show_support_offline_only": "Rodyti tik palaikančius veikti neprisijungus",
         "show_favourites_only": "Rodyti tik mėgstamiausius",
-        "show_third_party_managed_only": "Rodyti tik valdomus trečios partijos"
+        "show_third_party_managed_only": "Rodyti tik valdomus trečios partijos",
+        "select_all": "Pažymėti visus"
     },
     "help": {
         "title": {
@@ -271,7 +280,8 @@
         "other": {
             "part4": "Naudokite – ",
             "part5": "Žaidimo argumentai",
-            "part7": " –, kad praleistu paleidiklį kai kuriuose žaidimuose ir pan."
+            "part7": " –, kad praleistu paleidiklį kai kuriuose žaidimuose ir pan.",
+            "part6": " , kad būtų pakviestas po komandos paleidimo, pavyzdžiui: "
         },
         "content": {
             "accessibility": "Rodo prieinamumo nustatymus.",
@@ -296,7 +306,7 @@
             "part2": "Kitoks vietoms, naudokite virtualųjį katalogą į vieną iš šių aplankų/-alų"
         },
         "custom_themes_path": "Nenaudoti „CSS“ failų iš nepatikimų šaltinių. Kai esate abejonėje, klauskite apžiūros mūsų „Discord“ kanale.",
-        "mangohud": "„MangoHUD“ yra apvalkalas, kuris rodo ir stebi kdr./sek., temperatūrą, „CPU“/„GPU“ apkrovą ir kitus sisteminius išteklius.",
+        "mangohud": "„MangoHUD“ yra perdanga, kuri rodo ir stebi kdr./sek., temperatūrą, „CPU“/„GPU“ apkrovą ir kitus sisteminius išteklius.",
         "steam_path": {
             "info": "Šis kelias leidžia „Heroic“ numatyti kokią „Proton“ versiją „Steam“ naudos, skirta pridedant ne „Steam“ žaidimus į „Steam“."
         },
@@ -306,14 +316,30 @@
             "gameHeight": "Aukščio skiriamoji geba, kuri yra naudojama žaidimo. „Gamescope“ numato 16:9 proporciją.",
             "gameWidth": "Pločio skiriamoji geba, kuri yra naudojama žaidimo. „Gamescope“ numato 16:9 proporciją.",
             "upscaleHeight": "Aukščio skiriamoji geba, kuri yra naudojama „Gamescope“. Numatoma 16:9 proporcija.",
-            "upscaleWidth": "Pločio skiriamoji geba, kuri yra naudojama „Gamescope“. Numatoma 16:9 proporcija."
+            "upscaleWidth": "Pločio skiriamoji geba, kuri yra naudojama „Gamescope“. Numatoma 16:9 proporcija.",
+            "upscaleMethod": "Išplėstai padidintos gebos būdas, kurį „gamescope“ turėtų naudoti.",
+            "additionalOptions": "Papildomos komandinės eilutės „vėliavos“, kurias pravesti į „gamescope“."
         },
         "dxvk": "„DXVK“ yra „Vulkan“ pagrindo vertimo sluoksnis „DirectX 9/10/11“ žaidimams. Įjungus/Įgalinant gali pagerinti palaikomumą. Gali sukelti problemų, ypatingai senesniems „DirectX“ žaidimams.",
         "sync": {
-            "part1": "„Heroic“ bandys atspėti teisinga išsaugojimų aplanką/-alą ir jis dažniausiai atspėja. Atvejais kai jis yra neteisingas, naudokite perkeičiamąjį parinkimą, norint pakeisti jį."
+            "part1": "„Heroic“ bandys atspėti teisinga išsaugojimų aplanką/-alą ir jis dažniausiai atspėja. Atvejais kai jis yra neteisingas, naudokite perkeičiamąjį parinkimą, norint pakeisti jį.",
+            "part2": "Tuo atveju, kai Jūs pakeičiate prielinksnio/priešdėlio aplanką/-alą, skirtus „Wine“ ar „Proton“, reikės dar kart patikrinti šį kelią, kadangi „Proton“ naudoja kitokį prielinksnį/priešdėlį („/pfx“) or vartotojo/naudotojo vardą („steamuser“). Taigi, Jūs galite paprastai pašalinti dabartinį kelią ir išeiti iš sinchronizavimų nustatymo puslapio ir vėl sugrįžti, norint, kad „Heroic“ dar kartą atspėtų teisingąjį prielinksnį/priešdėlį.",
+            "part3": "Rankinis sinchronizavimas: Pasirinkite atsisiuntimą, norint atsisiųsti žaidimo išsaugojimus, kurie laikomi debesijoje. Pasirinkite įkėlimą, norint įkelti vietinius išsaugojimus į debesiją. Priverstinai atsisiųsti ir įkelti nepaisys jos parinkties versiją.",
+            "part4": "Automatinis išsaugojimų sinchronizavimas, sinchronizuos išsaugojimus kiekvieną kartą, kada Jūs pradėsite žaidimą ir kai jį baigsite žaisti."
         },
         "disablePlaytimeSync": "Išjungia/Išgalina žaidimo laikotarpio sinchronizavimą su duotos parduotuvės serveriais (kol kas tik „GOG“ yra palaikomas)",
-        "general": "Sinchronizuoti su „EGL“, jei Jūs turite veikiantį „Epic Games“ paleidiklio įdiegimą kitur ir norite importuoti savo žaidimus, siekiant išvengti jų atsisiuntimą dar kartą."
+        "general": "Sinchronizuoti su „EGL“, jei Jūs turite veikiantį „Epic Games“ paleidiklio įdiegimą kitur ir norite importuoti savo žaidimus, siekiant išvengti jų atsisiuntimą dar kartą.",
+        "preferSystemLibs": "Pasirinktinės „Wine“ versijos („Wine-GE“, „Wine-Lutris“) yra įtraukiamos su jų bibliotekų priklausomybėm. Įjungiant/Įgalinant šią parinktį, šios įtraukiamos bibliotekos bus ignoruojamos ir „Wine“ įkraus sistemines bibliotekas vietoj to. Įspėjimas! Problemos gali kilti, jeigu priklausomybės nebus pasiekiamos.",
+        "disable_logs": "Perjungiant šį pažymėjimo lauką į – „ON“, išjungia didžiąsias žurnalų failų įrašymus (kritinė informacija visada yra įrašoma). Įsitikinkite, kad išjungėte šį nustatymą prieš pranešant apie bet kokią problemą.",
+        "dxvknvapi": "„DXVK-NVAPI“ yra „NVAPI“ realizacija, kuri sukurta ant „DXVK“ ir jo „Linux NVAPI“, jis leidžia „DLSS“ naudojimą, skirtiems „Nvidia GPU“ (dgs.).",
+        "esync": "„Esync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą.",
+        "fsync": "„Fsync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikančių „Linux“ branduolių.",
+        "msync": "„Msync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikomų „Linux“ branduolių.",
+        "steamruntime": "Pasirinktinės bibliotekos, kurios yra telkiamos „Steam“, siekant paleisti „Linux“ ir „Windows“ („Proton“) žaidimus. Įjungiant/Įgalinant gali pagerinti palaikomumą.",
+        "vkd3d": "„VKD3D“ yra „Vulkas“ paremtas vertimo sluoksnis, skirtas „DirectX 12“ žaidimams. Įjungiant/Įgalinant gali žymiai pagerinti palaikomumą. Neturi jokio poveikio ant senesnių „DirectX“ žaidimų, jie reikalauja „DXVK“.",
+        "gamemode": "„Feral“ žaidimo veiksena pritaiko automatinius ir laikinus pakoregavimus sistemai, kai veikia žaidimai. Įjungiant/Įgalinant gali pagerinti našumą.",
+        "primerun": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
+        "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą."
     },
     "info": {
         "version": "„Wine“ versija",
@@ -338,7 +364,10 @@
             "title": "„Wine“ prielinksnis/priešdėlis"
         },
         "wine-path-invalid": "Negalimas „Wine“ kelias, prašome pasirinkti kitokį.",
-        "wine-path-none-found": "Jokia „Wine“ versija nebuvo rasta, atsisiųskite ją iš „Wine“ tvarkytuves/-o"
+        "wine-path-none-found": "Jokia „Wine“ versija nebuvo rasta, atsisiųskite ją iš „Wine“ tvarkytuves/-o",
+        "wine-repfix": {
+            "message": "„Wine“ naudoja tą ką jis vadina – „WINEPREFIX“, kad apkauptų (t.y. virtualizuotų) „Windows“ programas. Šis prielinksnis/priešdėlis sudaro „Wine“ konfigūracijos failai ir C: veikimo atkūrimą (pagrindinį „Windows“ OS diską). Šiame atkūrime, C: disko; Jūsų žaidimo išsaugojimai ir nepriklausomybės yra įdiegiamos per „winetricks“, kuriame yra laikomi."
+        }
     },
     "label": {
         "loading": "Kraunama",
@@ -373,7 +402,14 @@
             "currentVersion": "Dabartinė versija: {{version}}",
             "latestVersion": "Naujausia/Paskiausia versija: {{version}}",
             "checkForUpdates": "Tikrinti ar yra atnaujinimų",
-            "checkingForUpdates": "Tikrinama ar yra atnaujinimų..."
+            "checkingForUpdates": "Tikrinama ar yra atnaujinimų...",
+            "installed": "„EOS“ perdanga yra įdiegta",
+            "installing": "„EOS“ perdanga yra įdiegiama...",
+            "notInstalledMsg": "„EOS“ perdanga nėra įdiegta. Ar Jūs norite ją įdiegti dabar?",
+            "notInstalledTitle": "Perdanga nėra įdiegta",
+            "removeConfirm": "Ar Jūs tikrai norite išdiegti „EOS“ perdangą?",
+            "removeConfirmTitle": "Patvirtinti perdangos pašalinimą",
+            "notInstalled": "„EOS“ perdanga nėra įdiegta"
         },
         "library_top_option": {
             "disabled": "Išjungta/Neįgalinta (-as/-i)",
@@ -386,7 +422,8 @@
         "allow_installation_broken_anticheat": {
             "confirmation": {
                 "understand": "Aš supratau",
-                "title": "Ar Jūs esate tikra/-s?"
+                "title": "Ar Jūs esate tikra/-s?",
+                "message": "Žaidimai su sugedusiu ar atmestu anti-sukčiavimu gali veikti, bet daugiažaidėjė̄škos funkcijos neveiks. Neprašykite pagalbos, jeigu įdiegiate žinodami šį."
             },
             "label": "Leisti žaidimų įdiegimą su neveikiančiu ar atmestu anti-sukčiavimu"
         },
@@ -469,7 +506,8 @@
         "prefered_language": "Pageidaujama kalba (kalbos kodas)",
         "savefolder": {
             "not-found": "Išsaugojimo aplankas/-las nebuvo rastas, prašome jį pasirinkti rankiniu būdu (spauskite, norint bandyti dar kartą)",
-            "warning": "Prašome patikrinti dar kartą ar šis kelias yra teisingas (spausti, norint bandyti iš naujo)"
+            "warning": "Prašome patikrinti dar kartą ar šis kelias yra teisingas (spausti, norint bandyti iš naujo)",
+            "placeholder": "Pažymėkite tikslų žaidimų išsaugojimų aplanką/-alą"
         },
         "showfps": "Rodyti kdr./sek. („DX9/10/11“)",
         "steamruntime": "Naudoti „Steam“ vykdantįjį",
@@ -487,10 +525,13 @@
             "confirmation": {
                 "title": "Tik – 1 „GPU“ aptiktas",
                 "message": "Tik viena vaizdo plokštė buvo aptikti šioje sistemoje. Atkreipkite dėmesį, kad ši parinktis yra skirta tik daugelio „GPU“ sistemoms su paskirtim (kaip nešiojamiesiems kompiuteriams). Vieno „GPU“ sistemose, tik jis ir yra naudojamas; įjungus/įgalinus šią parinktį, gali sukelti problemų. Ar Jūs tikrai norite įjungti/įgalinti šią parinktį?"
-            }
+            },
+            "description": "Naudoti paskirtąją vaizdo plokštę"
         },
         "gamescope": {
-            "missingMsg": "Mes negalėjome surasti „Gamescope“ kelio vietoje. Įdiekite jį arba pridėkite prie kelio."
+            "missingMsg": "Mes negalėjome surasti „Gamescope“ kelio vietoje. Įdiekite jį arba pridėkite prie kelio.",
+            "enableLimiter": "Įjungti/Įgalinti kadrų per sekundę ribotuvą/-ę",
+            "enableUpscaling": "Įjungia/Įgalina išplečiama gebą"
         },
         "hideChangelogsOnStartup": "Nerodyti keitinių žurnalo paleidime",
         "maxRecentGames": "Rodyti neseniai žaistus",
@@ -502,8 +543,31 @@
         "defaultWinePrefix": "Nustatyti aplanką/-alą naujiems „Wine“ prielinksniams/priešdėliams",
         "egs-sync": "Sinchronizuoti su įdiegtu „Epic Games“",
         "runexe": {
-            "title": "Vykdyti „*.EXE“ ant prielinksnio/priešdėlio"
-        }
+            "title": "Vykdyti „*.EXE“ ant prielinksnio/priešdėlio",
+            "message": "Vilkti ir nutempti failus čia"
+        },
+        "alt-gogdl-bin": "Pasirinkite kurią pakaitinę „GOGDL“ dvejetainę naudoti",
+        "alt-legendary-bin": "Pasirinkite kurią pakaitinę „Legendary“ dvejetainę naudoti",
+        "alt-nile-bin": "Pasirinkite kurią pakaitinę „Nile“ dvejetainę naudoti",
+        "change-target-exe": "Pasirinkti pakaitinį „EXE“, kurį vykdyti",
+        "custom_themes_path": "Pasirinktinių apipavidalinimų kelias",
+        "disable_logs": "Išjungti žurnalus",
+        "disablePlaytimeSync": "Išjungti/Išgalinti žaidimo laikotarpio sinchronizavimą",
+        "esync": "Įjungti „Esync“",
+        "preferSystemLibs": "Pageidauti sisteminių bibliotekų",
+        "select_theme": "Pasirinkti apipavidalinimą",
+        "wineprefix": "„Wine“ prielinksnio/priešdėlio aplankas/-las",
+        "fsync": "Įjungti „Fsync“",
+        "msync": "Įjungti „Msync“",
+        "disable_controller": "Išjungti/Išgalinti „Heroic“ valdymą naudojant pultelį/valdiklį",
+        "enableFSRHack": "Įjungti/Įgalinti „FSR“ nulaužimą („Wine“ versija turi jį palaikyti)",
+        "exit-to-tray": "Išeiti į sistemos užduočių juostą",
+        "discordRPC": "Įjungti/Įgalinti išplėstinį „Discord“ veikimo palaikymą",
+        "FsrSharpnessStrenght": "„FSR“ ryškumo stiprumas",
+        "mangohud": "Įjungti/Įgalinti „Mangohud“ („Mangohud“ turi būti įdiegtas)",
+        "start-in-tray": "Pradėti minimizuotai",
+        "showMetalOverlay": "Rodyti perdangos statistiką",
+        "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)"
     },
     "settings": {
         "advanced": {
@@ -523,6 +587,9 @@
             "title": {
                 "clearCache": "Išvalyti talpyklą/podėlį",
                 "resetHeroic": "Atstatyti „Heroic“"
+            },
+            "resetHeroic": {
+                "help": "Šis pašalins visus nustatymus ir talpyklas/podėlius, bet nepašalins Jūsų įdiegtų žaidimų ar „Epic“ kredencialų. Perkeliamos „Heroic“ versijos („AppImage“, „WinPortable“ ir t.t.) reikalauja, kad būtų perleisto rankiniu būdo po šio."
             }
         },
         "navbar": {
@@ -531,7 +598,9 @@
             "other": "Kita/-s/-i",
             "games_settings_defaults": "Žaidimo numatytieji",
             "systemInformation": "Sistemos informacija",
-            "sync": "Sinchronizavimas debesijos išsaugojimų"
+            "sync": "Sinchronizavimas debesijos išsaugojimų",
+            "advanced": "Pažangūs",
+            "general": "Bendri"
         },
         "systemInformation": {
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -566,7 +635,8 @@
             "name": "„EasyAntiCheat“ vykdantysis",
             "installing": "Įdiegiamas „EAC“ vykdantysis...",
             "gameModeRequired": {
-                "title": "Reikalinga žaidimo veiksena"
+                "title": "Reikalinga žaidimo veiksena",
+                "message": "Žaidimo veiksena reikalauja „EAC“ vykdančiojo, kad veiktų ant „Flatpak“. Ar Jūs norite jį įjungti/įgalinti dabar?"
             }
         },
         "open-config-file": "Atidaryti konfigūracijos failą",
@@ -587,6 +657,12 @@
         "reset-heroic": "Atstatyti „Heroic“",
         "saves": {
             "warning": "Debesijos išsaugojimo funkcija yra „Beta“ stadijoje, prašome atlikti atsargines kopijas savo išsaugojimų prieš sinchronizuojant (tuo atveju, jeigu įvyktu kažkas blogai)"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "„EAC“ vykdantysis yra įjungtas/įgalintas, kuris tinkamai neveiks be žaidimo veiksenos. Ar Jūs norite išjungti/išgalinti „EAC“ vykdantįjį ir žaidimo veikseną?",
+                "title": "Įjungtas/Įgalintas „EAC“ vykdantysis"
+            }
         }
     },
     "Settings": "Nustatymai",
@@ -598,7 +674,9 @@
     },
     "window": {
         "close": "Uždaryti",
-        "restore": "Atkurti langą"
+        "restore": "Atkurti langą",
+        "maximize": "Maksimalizuoti langą",
+        "minimize": "Minimizuoti langą"
     },
     "wine": {
         "size": "Dydis",
@@ -616,7 +694,9 @@
         "loading": "Kraunama",
         "search": "Ieškoti šriftų ar komponentų",
         "installed": "Įdiegti komponentai:",
-        "installing": "Įdiegiamas vykdomas: „{{component}}“"
+        "installing": "Įdiegiamas vykdomas: „{{component}}“",
+        "nothingYet": "Kol kas niekas nebuvo įdiegta „Winetricks“",
+        "openGUI": "Atidaryti „Winetricks“ grafinę sąsają"
     },
     "accessibility": {
         "fonts": "Šriftai",
@@ -625,7 +705,10 @@
         "titles_always_visible": "Visada rodyti plyteles bibliotekoje",
         "actions_font_family_no_default": "Veiksmų šrifto „šeima“ (numatyta/-s):",
         "content_font_family_no_default": "Turinio šrifto „šeima“ (numatyta/-s): ",
-        "zoom": "Priartinimas ir atitolinimas"
+        "zoom": "Priartinimas ir atitolinimas",
+        "disable_dialog_backdrop_close": "Neleisti dialogų langų uždarymą spaustėlius ne jo lange",
+        "actions_font_family_default": "Veiksmšų šrifto „šeima“ (Numatyta: {{fontFamily}})",
+        "content_font_family_default": "Turinio šrifto „šeima“ (Numatyta: {{fontFamily}})"
     },
     "add_game": "Pridėti žaidimą",
     "anticheat": {
@@ -696,7 +779,13 @@
             "borderless": "Berėmis",
             "fullscreen": "Pilno ekrano",
             "stretch": "Ištempti vaizdą",
-            "windowed": "Languotas"
+            "windowed": "Languotas",
+            "fpsLimiter": "Kadrų per sekundę ribotuvas/-ė",
+            "fpsLimiterNoFocus": "Kadrų per sekundę ribotuvas/-ė (be fokuso)",
+            "nis": "„NVIDIA“ vaizdo skalė („NIS“)",
+            "upscaleHeight": "Išplėsti gebos aukštį",
+            "upscaleWidth": "Išplėsti gebos plotį",
+            "interger": "Sveikaskaitinis išplėstimas gebai"
         },
         "advanced": {
             "value": "Reikšmė",
@@ -745,7 +834,8 @@
     "tray": {
         "about": "Apie",
         "show": "Rodyti",
-        "quit": "Išeiti"
+        "quit": "Išeiti",
+        "reload": "Perleisti"
     },
     "userselector": {
         "cancel": "Atšaukti",
@@ -754,7 +844,8 @@
         "logout": "Atsijungti",
         "logout_confirmation": "Ar Jūs tikrai norite atsijungti?",
         "manageaccounts": "Tvarkyti paskyras",
-        "quit": "Išeiti"
+        "quit": "Išeiti",
+        "quitMessage": "Ar Jūs tikrai norite išeiti?"
     },
     "error": "Klaida",
     "favourites": "Mėgstamiausi",
@@ -807,6 +898,9 @@
     "generic": {
         "error": {
             "component": "Žaidimų nerasta. Bandykite atsijungti ir vėl prisijungti arba vieną iš pateiktų parinkčių apačioje"
+        },
+        "library": {
+            "refresh": "Atnaujinti biblioteką"
         }
     },
     "library": {
@@ -816,7 +910,8 @@
         "toggleLayout": {
             "grid": "Perjungti į tinklelinį išdėstymą",
             "list": "Perjungti į sąrašo išdėstymą"
-        }
+        },
+        "refresh": "Įkelti iš naujo"
     },
     "wineExplanation": {
         "wine-ge": "„Wine-GE-Proton“ yra „Wine“ variantas sukurtas „Glorious Eggroll“. Yra rekomenduojamas „Wine“, nenaudojant „Steam“. Jis pateikia reikšmingus žurnalus derinimui.",
@@ -825,5 +920,10 @@
     "message": {
         "sync": "Sinchronizavimas baigtas",
         "unsync": "Išsinchronizavimas baigtas"
+    },
+    "toolbox": {
+        "settings": {
+            "wineprefix": "Pažymėkite aplanką/-alą naujiems „Wine“ prielinksniams/priešdėliams"
+        }
     }
 }

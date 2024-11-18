@@ -129,7 +129,7 @@
     "info": {
         "canRunOffline": "Vyžaduje se být online",
         "installedPlatform": "Nainstalovaná platforma",
-        "path": "Cesta pro instalaci",
+        "path": "Adresář instalace",
         "size": "Velikost",
         "syncsaves": "Synchronizace uložených souborů",
         "version": "Verze",

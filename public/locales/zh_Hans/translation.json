@@ -7,7 +7,9 @@
         "title": "辅助功能",
         "zoom": "缩放",
         "disable_dialog_backdrop_close": "在对话框外单击禁用关闭对话框",
-        "titles_always_visible": "始终在游戏库中显示标题"
+        "titles_always_visible": "始终在游戏库中显示标题",
+        "actions_font_family_default": "操作字族（默认：{{fontFamily}}）",
+        "content_font_family_default": "内容字族（默认：{{fontFamily}}）"
     },
     "add_game": "添加游戏",
     "All": "全部",

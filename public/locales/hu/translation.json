@@ -6,17 +6,21 @@
         "fonts": "Betűkészletek",
         "title": "Akadálymentesítés",
         "zoom": "Nagyítás",
-        "disable_dialog_backdrop_close": "Párbeszédablakok mellékattintással való bezárásának letiltása"
+        "disable_dialog_backdrop_close": "Párbeszédablakok mellékattintással való bezárásának letiltása",
+        "content_font_family_default": "Tartalom betűkészlete (Alapértelmezett: {{fontFamily}})",
+        "titles_always_visible": "Címek megjelenítése mindig a könyvtárban",
+        "actions_font_family_default": "Műveletek betűkészlete (Alapértelmezett: {{fontFamily}})"
     },
     "add_game": "Játék hozzáadása",
     "All": "Összes",
     "anticheat": {
-        "anticheats": "Anticheat",
+        "anticheats": "Csalás elleni szoftverek",
         "may_not_work": "Lehet, hogy nem működik a tiltott vagy hibás csalás elleni védelmi támogatás miatt.",
         "reference": "Referencia",
         "source": "Forrás",
         "status": "Állapot",
-        "title": "Ez a játék csalás elleni védelmi szoftvert tartalmaz"
+        "title": "Ez a játék csalás elleni szoftvert tartalmaz",
+        "multiplayer_may_not_work": "A csalás elleni szoftver hibás vagy letiltott támogatása miatt a többjátékos funkciók lehet, hogy nem fognak működni."
     },
     "box": {
         "cache-cleared": {
@@ -63,7 +67,7 @@
             "launchAborted": "Indítás megszakítva",
             "title": "Hiba",
             "uncaught-exception": {
-                "message": "Váratlan hiba történt:{{newLine}}{{error}}{{newLine}}{{newLine}} Jelentsd a hibát a Github reponkban (angolul).",
+                "message": "Váratlan hiba történt:{{newLine}}{{error}}{{newLine}}{{newLine}} Jelentse a hibát a GitHub-tárolóban (angolul).",
                 "title": "Váratlan hiba történt!"
             },
             "update": {
@@ -85,7 +89,7 @@
                 "title": "Ubisoft Connect."
             },
             "legendary": {
-                "generic": "Hiba történt! Próbáljon kijelentkezni és bejelentkezni az Epic fiókjába. {{newline}} {{error}}"
+                "generic": "Hiba történt! Próbáljon kijelentkezni és bejelentkezni az Epic fiókjába. {{newline}}  {{error}}"
             }
         },
         "info": {
@@ -111,20 +115,21 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Biztos, hogy visszaállítja Heroicot? Ez törölni fogja a gyorsítótárat és minden beállítást, de a telepített játékait vagy az Epic fiókját nem. A hordozható verziókat (AppImage, WinPortable, …) ezután kézileg újra kell indítani.",
+                "message": "Biztos, hogy visszaállítja Heroicot? Ez törölni fogja a gyorsítótárat és az összes beállítást, de a telepített játékait vagy az Epic-fiókját nem. A hordozható verziókat (AppImage, WinPortable, …) ezután kézileg újra kell indítani.",
                 "title": "Heroic visszaállítása"
             }
         },
         "runexe": {
-            "title": "Válassza ki a futtatandó EXE fájlt"
+            "title": "Válassza ki a futtatandó EXE-fájlt"
         },
         "select": {
             "button": "Kiválasztás",
-            "exe": "EXE kiválasztása"
+            "exe": "EXE kiválasztása",
+            "script": "Parancsfájl kiválasztása…"
         },
         "shortcuts": {
-            "message": "Parancsikonok létre lettek hozva az asztalon és a Start menüben",
-            "message-mac": "Parancsikonok lettek létrehozva az Alkalmazások mappában",
+            "message": "A parancsikonok létre lettek hozva az Asztalon és a Start menüben",
+            "message-mac": "A parancsikonok létre lettek hozva az Alkalmazások mappában",
             "message-remove": "A parancsikonok el lettek távolítva az Asztalról és a Start menüből",
             "message-remove-mac": "A parancsikonok el lettek távolítva az Alkalmazások mappából",
             "title": "Parancsikonok"
@@ -151,7 +156,7 @@
             },
             "title": "Figyelmeztetés",
             "wine-change": {
-                "message": "Nem találtuk a kiválasztott Wine verziót a játék elindításához: ({{selectedWine}}). {{newline}} Találtunk egy másikat, folytatja az indítást a(z) {{foundWine}} használatával?",
+                "message": "A kiválasztott Wine verzió nem található a játék elindításához: ({{selectedWine}}). {{newline}} Található egy másik, folytatja az indítást a(z) {{foundWine}} használatával?",
                 "title": "A Wine nem található."
             },
             "sideload": {
@@ -163,7 +168,7 @@
             "snap": {
                 "checkbox": "Ne mutassa újra ezt az üzenetet",
                 "title": "A Heroic Snapként fut",
-                "message": "Néhány funkció egyelőre nem elérhető az alkalmazás Snap verziójában, dolgozunk a megoldáson. {{newLine}}Jelenlegi korlátozások: {{newLine}}A Heroic nem találja meg a Protont a Steamből vagy a Wine-t a Lutrisból.{{newLine}}{{newLine}}A Gamescope, a GameMode és a MangoHud szintén nem működik, mivel a Heroicnak nincs jogosultsága az elérésükhöz.{{newLine}}{{newLine}}Hogy hozzáférése legyen ehhez a funkcióhoz, telepítse a Heroicot flatpakként, DEB vagy AppImage csomagként."
+                "message": "Néhány funkció egyelőre nem elérhető az alkalmazás Snap verziójában, dolgozunk a megoldáson. {{newLine}}Jelenlegi korlátozások: {{newLine}}A Heroic nem találja meg a Protont a Steamből vagy a Wine-t a Lutrisból.{{newLine}}{{newLine}}A Gamescope, a GameMode és a MangoHud szintén nem működik, mivel a Heroicnak nincs jogosultsága az elérésükhöz.{{newLine}}{{newLine}}Hogy hozzáférése legyen ehhez a funkcióhoz, telepítse a Heroicot flatpakként, DEB vagy AppImage-csomagként."
             }
         },
         "wineprefix": "Wine előtagmappa kiválasztása",
@@ -262,9 +267,10 @@
         "only": "csak",
         "reset": "Visszaállítás",
         "show_installed_only": "Csak a telepítettek megjelenítése",
-        "no_categories": "Nincsenek egyedi kategóriák. Adjon hozzá kategóriákat a játékmenük használatával.",
+        "no_categories": "Nincsenek egyéni kategóriák. Adjon hozzá kategóriákat a játékmenük használatával.",
         "uncategorized": "Kategorizálatlan",
-        "show_support_offline_only": "Csak az offline támogatásúak megjelenítése"
+        "show_support_offline_only": "Csak az offline támogatásúak megjelenítése",
+        "show_third_party_managed_only": "Csak a külső kezelésűek megjelenítése"
     },
     "help": {
         "amdfsr": "Az AMD FSR segít a képkockasebesség növelésében az alacsonyabb felbontások felskálázásával teljes képernyős módban. A képminőség 5-ről 1-re növekszik, némi teljesítménycsökkenés mellett. Az engedélyezése javíthat a teljesítményen.",
@@ -313,7 +319,8 @@
             "upscaleWidth": "A gamescope által használt szélességi felbontás. 16:9-es képarányt feltételez.",
             "gameHeight": "A játék által használt magassági felbontás. A gamescope 16:9-es képarányt feltételez.",
             "fpsLimiter": "A gamescope képkockaszámkorlátja. Például 60.",
-            "upscaleHeight": "A gamescope által használt magassági felbontás. 16:9-es képarányt feltételez."
+            "upscaleHeight": "A gamescope által használt magassági felbontás. 16:9-es képarányt feltételez.",
+            "additionalOptions": "További átadandó parancssori kapcsolók a gamescope-hoz."
         },
         "dxvknvapi": "DXVK-NVAPI a NVAPI egy megvalósítása, amely a DXVK-ra és a Linux eredeti NVAPI-jára épül, és lehetővé teszi a DLSS használatát az Nvidia videókártyákon.",
         "disablePlaytimeSync": "Letiltja a játék közbeni szinkronizációt az adott áruház kiszolgálóival (jelenleg csak a GOG támogatott)",
@@ -501,10 +508,11 @@
             "fullscreen": "Teljes képernyős",
             "gameWidth": "Játék szélssége",
             "upscaleHeight": "Magasság felskálázása",
-            "fpsLimiterNoFocus": "FPS korlátozó (mikor nincs fókuszban)",
+            "fpsLimiterNoFocus": "FPS korlátozó (fókuszon kívül)",
             "interger": "Egészértékű felskálázás",
             "stretch": "Kép nyújtása",
-            "windowed": "Ablakos mód"
+            "windowed": "Ablakos mód",
+            "additionalOptions": "További kapcsolók"
         }
     },
     "other": {
@@ -555,7 +563,7 @@
         "autodxvk": "A DXVK automatikus telepítése/frissítése az előtagon",
         "autosync": "Mentések automatikus szinkronizálása",
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése az előtagon",
-        "change-target-exe": "Válasszon egy alternatív EXE fájlt a futtatáshoz",
+        "change-target-exe": "Válasszon egy alternatív EXE-fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "A Heroic frissítéseinek keresése indításkor",
         "crossover-version": "Crossover/Wine verzió",
         "custom_themes_path": "Egyéni témaútvonalak",
@@ -595,7 +603,7 @@
         "FsrSharpnessStrenght": "FSR élesség erőssége",
         "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (a Feral Game Mode-nak telepítve kell lennie)",
-        "hideChangelogsOnStartup": "Ne jelenítse meg a változósnaplókat indításkor",
+        "hideChangelogsOnStartup": "Ne jelenítse meg a változásnaplókat indításkor",
         "language": "Alkalmazás nyelvének kiválasztása",
         "library_top_option": {
             "disabled": "Tiltva",
@@ -614,8 +622,41 @@
             "show-in-folder": "Naplófájl megjelenítése mappában",
             "join-heroic-discord": "Csatlakozzon a Discordunkhoz",
             "upload": {
-                "actions": "Műveletek"
-            }
+                "actions": "Műveletek",
+                "confirm": {
+                    "content": "Biztos, hogy feltölti ezt: „{{name}}”?",
+                    "title": "Feltölti a naplófájlt?"
+                },
+                "delete": "Naplófájl törlésének kérése",
+                "done": {
+                    "content": "Feltöltve ide: {{url}} (A webcím a vágólapra másolva)",
+                    "title": "A feltöltés elkészült"
+                },
+                "minutes-ago": "Feltöltve: {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Nem lett naplófájl feltöltve",
+                "open": "Naplófájlfeltöltés megnyitása",
+                "uploading": {
+                    "title": "Feltöltés…",
+                    "content": "Naplófájl feltöltése…"
+                },
+                "button": "Naplófájl feltöltése",
+                "error": {
+                    "content": "A naplófájl feltöltése sikertelen. Ellenőrizze a Heroic általános naplóit a részletekért.",
+                    "title": "A feltöltés sikertelen"
+                },
+                "header": "Feltöltött naplófájlok",
+                "hours-ago": "Feltöltve: {{hoursAgo, relativetime(hours)}}",
+                "title": "Napló címe",
+                "upload-date": "Feltöltés ideje"
+            },
+            "descriptiveNames": {
+                "legendary": "Epic Games / Legendary napló",
+                "game-log": "A(z) {{gameTitle}} játéknaplója",
+                "gog": "GOG napló",
+                "heroic": "Általános Heroic napló",
+                "nile": "Amazon / Nile napló"
+            },
+            "show-uploads": "Feltöltött naplófájlok megjelenítése"
         },
         "mangohud": "Mangohud engedélyezése (a Mangohudnak telepítve kell lennie)",
         "manualsync": {
@@ -642,7 +683,7 @@
         },
         "runexe": {
             "message": "Húzza és ejtse ide ide a fájlokat",
-            "title": "EXE fájl futtatása az előtagon"
+            "title": "EXE-fájl futtatása az előtagon"
         },
         "savefolder": {
             "not-found": "A mentési mappa nem található, válassza ki kézileg (kattintson az újrapróbálkozáshoz)",
@@ -656,7 +697,7 @@
         "winecrossoverbottle": "CrossOver palack",
         "wineprefix": "Wine előtagmappa",
         "wineversion": "Wine verzió",
-        "ignoreGameUpdates": "Játékfrissítések figyelmen kívül hagyja",
+        "ignoreGameUpdates": "Játékfrissítések figyelmen kívül hagyása",
         "autoUpdateGames": "Játékok automatikus frissítése",
         "disable_logs": "Naplók letiltása",
         "showMetalOverlay": "Statisztikai átfedés megjelenítése",
@@ -679,9 +720,21 @@
         "experimental_features": {
             "enableNewDesign": "Új dizájn",
             "automaticWinetricksFixes": "Ismert javítások automatikus alkalmazása",
-            "enableHelp": "Súgó összetevő"
+            "enableHelp": "Súgó összetevő",
+            "cometSupport": "Comet támogatás",
+            "umuSupport": "Az UMU használata Proton futtatókörnyezetként"
         },
-        "msync": "Az Msync engedélyezése"
+        "msync": "Az Msync engedélyezése",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok lehet, hogy futnak, de a többjátékos funkciók nem fognak működni. Ne kérjen támogatást, ha ennek tudatában telepíti.",
+                "title": "Biztos benne?",
+                "understand": "Igen, megértettem"
+            },
+            "label": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezése"
+        },
+        "before-launch-script-path": "Válasszon egy a játék indítása előtt futtatandó parancsfájlt",
+        "after-launch-script-path": "Válassza ki a játék kilépése után futtatandó parancsfájlt"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -746,7 +799,8 @@
             "heroicVersion": "Heroic: {{heroicVersion}}",
             "gogdlVersion": "Gogdl: {{gogdlVersion}}",
             "nileVersion": "Nile: {{nileVersion}}",
-            "legendaryVersion": "Legendary: {{legendaryVersion}}"
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Kísérleti funkciók"
@@ -899,6 +953,15 @@
         "description": "Úgy néz ki, hogy a track.adtraction.com domaint nem lehetett betölteni, vagy le van tiltva. A reklámkövetéssel az összes, a GOG áruházban történő vásárlás pénzügyileg támogatja a Heroicot. Fontolja meg a tiltás eltávolítását, ha szeretne támogatni."
     },
     "categories-manager": {
-        "add-placeholder": "Új kategória hozzáadása"
+        "add-placeholder": "Új kategória hozzáadása",
+        "add": "Hozzáadás",
+        "cancel-remove": "A(z) „{{name}}” eltávolításának megszakítása",
+        "cancel-rename": "A(z) „{{name}}” átnevezésének megszakítása",
+        "confirm-remove": "A(z) „{{name}}” eltávolításának megerősítése",
+        "confirm-rename": "A(z) „{{oldName}}” „{{newName}}” névre átnevezésének megerősítése",
+        "remove": "A(z) „{{name}}” eltávolítása",
+        "rename": "A(z) „{{name}}” átnevezése",
+        "title": "Kategóriák kezelése",
+        "no-categories": "Még nincsenek kategóriák."
     }
 }

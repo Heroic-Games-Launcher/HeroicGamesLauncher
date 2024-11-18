@@ -7,7 +7,9 @@
         "title": "Accessibilidade",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Desative o fechamento de caixas de diálogo ao clicar fora",
-        "titles_always_visible": "Sempre exibir títulos na biblioteca"
+        "titles_always_visible": "Sempre exibir títulos na biblioteca",
+        "actions_font_family_default": "Ações de Família de Fontes (Padrão: {{fontFamily}})",
+        "content_font_family_default": "Conteúdo de Família de Fontes (Padrão: {{fontFamily}})"
     },
     "add_game": "Adicionar Jogo",
     "All": "Todos",

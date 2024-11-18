@@ -7,7 +7,9 @@
         "title": "Accessibilitat",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Desactiva que les finestres es tanquin en fer-hi clic fora",
-        "titles_always_visible": "Mostra sempre els títols a la biblioteca"
+        "titles_always_visible": "Mostra sempre els títols a la biblioteca",
+        "actions_font_family_default": "Tipus de lletra de les accions (per defecte, {{fontFamily}})",
+        "content_font_family_default": "Tipus de lletra dels continguts (per defecte, {{fontFamily}})"
     },
     "add_game": "Afegeix un joc",
     "All": "Tot",
@@ -22,7 +24,7 @@
     },
     "box": {
         "cache-cleared": {
-            "message": "S'ha buidat la memòria cau del Heroic.",
+            "message": "S'ha buidat la memòria cau de l'Heroic.",
             "title": "S'ha buidat la memòria cau"
         },
         "choose": "Tria",
@@ -96,7 +98,7 @@
                 "detail": "Vols baixar l'actualització en segon pla?",
                 "message": "Hi ha una versió nova disponible.",
                 "message-finished": "Vols reiniciar l'Heroic ara?",
-                "title": "Heroic Games Launcher",
+                "title": "Llançador de jocs Heroic",
                 "title-finished": "L'actualització s'ha completat"
             }
         },
@@ -165,8 +167,8 @@
             },
             "snap": {
                 "checkbox": "No mostris més aquest missatge",
-                "title": "Heroic s'executa com a Snap",
-                "message": "Algunes funcions de moment no estan disponibles a la versió de Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}El Heroic no serà capaç de trobar el Proton de l'Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran ja que el Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·leu el Heroic com a Flatpak, DEB o amb una AppImage."
+                "title": "L'Heroic s'executa com a Snap",
+                "message": "Algunes funcions de moment no estan disponibles a la versió de Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}L'Heroic no serà capaç de trobar el Proton de l'Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran ja que el Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·leu el Heroic com a Flatpak, DEB o amb una AppImage."
             }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
@@ -285,7 +287,7 @@
             "valid_codes": "Els codis de llengua vàlids depenen del joc."
         },
         "gamemode": "Feral GameMode aplica ajustaments automàtics i temporals al sistema quan s'executen jocs. Si s'activa, podria millorar el rendiment.",
-        "general": "Sincronitza amb l'EGL si ja tens instal·lat l'Epic Games Laucher en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
+        "general": "Sincronitza amb l'EGL si ja tens instal·lat el llançador de jocs Heroic en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
         "mangohud": "MangoHUD és una capa addicional que mostra i supervisa els FPS, la temperatura, la càrrega de CPU/GPU i altres recursos del sistema.",
         "other": {
             "part4": "Utilitza els ",
@@ -373,7 +375,7 @@
         "wine-repfix": {
             "message": "El Wine fa servir el que s'anomena WINEPREFIX per a encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
         },
-        "wine-path-invalid": "La ruta del Wine no és vàlida, selecciona'n una altra.",
+        "wine-path-invalid": "La ruta del Wine no és vàlida. Selecciona'n una altra.",
         "wine-path-none-found": "No s'ha trobat cap versió de Wine, descarregueu-ne una des del Wine Manager"
     },
     "install": {
@@ -517,7 +519,7 @@
     "other": {
         "gogdl-version": "Versió del GOGDL: ",
         "legendary-version": "Versió del Legendary: ",
-        "weblate": "Ajuda a traduir l'Heroic.",
+        "weblate": "Ajuda a traduir l'Heroic...",
         "nile-version": "Versió Nile: "
     },
     "Other": "Altres",
@@ -566,7 +568,7 @@
         "checkForUpdatesOnStartup": "Comprova si hi ha actualitzacions de l'Heroic a l'inici",
         "crossover-version": "Versió híbrida/Wine",
         "custom_themes_path": "Ruta dels temes personalitzats",
-        "customWineProton": "Rutes del Wine o Proton personalitzades",
+        "customWineProton": "Rutes personalitzades del Wine i del Proton",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
         "default-steam-path": "Ruta predefinida de l'Steam",
@@ -633,7 +635,7 @@
                     "content": "S'ha pujat a {{url}} (la URL s'ha copiat al porta-retalls)"
                 },
                 "error": {
-                    "content": "No s'ha pogut pujar el fitxer de registre. Comproveu el registre general del Heroic per a obtenir més detalls.",
+                    "content": "No s'ha pogut pujar el fitxer de registre. Comproveu el registre general de l'Heroic per a obtenir més detalls.",
                     "title": "La pujada ha fallat"
                 },
                 "header": "S'han pujat els fitxers de registre",
@@ -651,7 +653,7 @@
             "descriptiveNames": {
                 "game-log": "Registre de joc de {{gameTitle}}",
                 "gog": "Registre del GOG",
-                "heroic": "Registre general del Heroic",
+                "heroic": "Registre general de l'Heroic",
                 "legendary": "Registre de l'Epic Games/Legendary",
                 "nile": "Registre d'Amazon/Nile"
             },
@@ -689,7 +691,7 @@
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
             "warning": "Comproveu si la ruta és correcta (feu clic per a provar-ho de nou)"
         },
-        "select_theme": "Selecciona un tema",
+        "select_theme": "Tema de la interfície",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "start-in-tray": "Inicia minimitzat",
         "steamruntime": "Utilitza el Runtime de l'Steam",
@@ -823,13 +825,13 @@
                 "help6": "Això NO esborrarà:",
                 "help7": "Inici de sessió a la botiga",
                 "help4": "Informació de la biblioteca GOG (llista de jocs, informació dels diàlegs d'instal·lació i de l'api, com ara requisits)",
-                "help10": "Configuració del Heroic",
+                "help10": "Configuració de l'Heroic",
                 "help9": "Configuració dels jocs",
                 "help2": "Informació del joc de tercers (puntuació, compatibilitat amb l'Steam, howlongtobeat, pcgamingwiki, applegamingwiki)"
             },
             "details": "Detalls",
             "resetHeroic": {
-                "help": "S'eliminaran tots els ajustos i els continguts de la memòria cau, però no s'eliminarà els jocs instal·lats de l'Epic o les seves credencials. Les versions portables (AppImage, WinPortable, ...) que necessita el Heroic es reiniciaran manualment."
+                "help": "S'eliminaran tots els ajustos i els continguts de la memòria cau, però no s'eliminarà els jocs instal·lats de l'Epic o les seves credencials. Les versions portables (AppImage, WinPortable, ...) que necessita l'Heroic es reiniciaran manualment."
             }
         }
     },
@@ -874,7 +876,7 @@
         "logging_out": "Es tanca la connexió",
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
-        "manageaccounts": "Gestiona els comptes",
+        "manageaccounts": "Gestor dels comptes",
         "quit": "Surt",
         "cancel": "Cancel·la",
         "quitMessage": "Esteu segur que voleu deixar-ho?"
@@ -960,7 +962,7 @@
     },
     "adtraction-locked": {
         "dont-show-again": "No mostris més aquest avís",
-        "description": "El domini track.adtraction.com no es pot carregar o està blocat. Amb adtraction, qualsevol compra que realitzeu a la botiga GOG ajuda econòmicament el Heroic. Considereu si voleu treure el bloqueig per a col·laborar-hi.",
+        "description": "El domini track.adtraction.com no es pot carregar o està blocat. Amb adtraction, qualsevol compra que realitzeu a la botiga GOG ajuda econòmicament l'Heroic. Considereu si voleu treure el bloqueig per a col·laborar-hi.",
         "title": "Adtraction està blocat"
     }
 }
