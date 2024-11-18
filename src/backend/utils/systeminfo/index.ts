@@ -88,7 +88,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
 
   const sysinfo: SystemInformation = {
     CPU: {
-      model: cpus[0]!.model,
+      model: cpus[0].model,
       // FIXME: Technically the user could be on a server with more than one
       //        physical CPU installed, but I'd say that's rather unlikely
       cores: cpus.length

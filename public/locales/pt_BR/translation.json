@@ -7,7 +7,9 @@
         "title": "Accessibilidade",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Desative o fechamento de caixas de diálogo ao clicar fora",
-        "titles_always_visible": "Sempre exibir títulos na biblioteca"
+        "titles_always_visible": "Sempre exibir títulos na biblioteca",
+        "actions_font_family_default": "Ações de Família de Fontes (Padrão: {{fontFamily}})",
+        "content_font_family_default": "Conteúdo de Família de Fontes (Padrão: {{fontFamily}})"
     },
     "add_game": "Adicionar Jogo",
     "All": "Todos",
@@ -619,7 +621,43 @@
             "last-log": "Último log",
             "no-file": "Arquivo de log não encontrado",
             "show-in-folder": "Mostrar arquivo de log na pasta",
-            "join-heroic-discord": "Junte-se ao nosso Discord"
+            "join-heroic-discord": "Junte-se ao nosso Discord",
+            "upload": {
+                "actions": "Ações",
+                "button": "Enviar arquivo de registro",
+                "delete": "Solicitar a exclusão do arquivo de registro",
+                "confirm": {
+                    "title": "Carregar arquivo de registro?",
+                    "content": "Você realmente deseja enviar \"{{name}}\"?"
+                },
+                "done": {
+                    "title": "Carregamento concluído",
+                    "content": "Enviado para {{url}} ( URL copiada para sua área de transferência)"
+                },
+                "error": {
+                    "title": "Falha ao enviar",
+                    "content": "Falha ao enviar arquivo de registro. Verifique o registro geral Heroic para obter detalhes"
+                },
+                "header": "Arquivos de registro enviados",
+                "no-files": "Nenhum arquivo de registro foi carregado",
+                "minutes-ago": "Enviado {{minutesAgo, relativetime(minutes)}}",
+                "open": "Abrir registro de arquivo enviado",
+                "title": "Título de registro",
+                "upload-date": "Data de envio",
+                "uploading": {
+                    "content": "Carregando arquivo de registro...",
+                    "title": "Enviando"
+                },
+                "hours-ago": "Enviado {{hoursAgo, relativetime(hours)}}"
+            },
+            "descriptiveNames": {
+                "gog": "registro GOG",
+                "heroic": "Registro General Heroic",
+                "legendary": "Registro Epic Games / Legendary",
+                "nile": "Registro Amazon / Nile",
+                "game-log": "Registro do jogo {{gameTitle}}"
+            },
+            "show-uploads": "Exibir arquivos de registro enviados"
         },
         "mangohud": "Habilitar o MangoHud (precisa do mangohud instalado)",
         "manualsync": {

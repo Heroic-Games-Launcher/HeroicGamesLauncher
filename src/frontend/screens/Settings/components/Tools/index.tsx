@@ -23,8 +23,7 @@ export default function Tools() {
     return <></>
   }
 
-  type Tool = 'winecfg' | string
-  async function callTools(tool: Tool, exe?: string) {
+  async function callTools(tool: 'winecfg' | 'runExe', exe?: string) {
     const toolStates = {
       winecfg: setWinecfgRunning,
       runExe: setRunExeRunning

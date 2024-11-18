@@ -30,7 +30,8 @@ import {
   isSteamDeckGameMode,
   runtimePath,
   userHome,
-  defaultUmuPath
+  defaultUmuPath,
+  publicDir
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -68,7 +69,7 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
-import { readFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
@@ -81,6 +82,7 @@ import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
 import { sendFrontendMessage } from './main_window'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
+import { copyFile } from 'fs/promises'
 
 async function prepareLaunch(
   gameSettings: GameSettings,
@@ -232,8 +234,8 @@ async function prepareLaunch(
 
   if (
     (await isUmuSupported(gameSettings.wineVersion.type, false)) &&
-    !(await isInstalled('umu')) &&
     isOnline() &&
+    !(await isInstalled('umu')) &&
     (await getUmuPath()) === defaultUmuPath
   ) {
     await download('umu')
@@ -243,7 +245,9 @@ async function prepareLaunch(
   let steamRuntime: string[] = []
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
-    (isNative || !(await isUmuSupported(gameSettings.wineVersion.type)))
+    (isNative ||
+      (!(await isUmuSupported(gameSettings.wineVersion.type)) &&
+        gameSettings.wineVersion.type === 'proton'))
 
   if (shouldUseRuntime) {
     // Determine which runtime to use based on toolmanifest.vdf which is shipped with proton
@@ -343,10 +347,27 @@ async function prepareWineLaunch(
     }
   }
 
-  const { updated: winePrefixUpdated } = await verifyWinePrefix(gameSettings)
+  await verifyWinePrefix(gameSettings)
   const experimentalFeatures =
     GlobalConfig.get().getSettings().experimentalFeatures
-  if (winePrefixUpdated) {
+
+  let hasUpdated = false
+  const appsNamesPath = join(gameSettings.winePrefix, 'installed_games')
+  if (!existsSync(appsNamesPath)) {
+    writeFileSync(appsNamesPath, JSON.stringify([appName]), 'utf-8')
+    hasUpdated = true
+  } else {
+    const installedGames: string[] = JSON.parse(
+      readFileSync(appsNamesPath, 'utf-8')
+    )
+    if (!installedGames.includes(appName)) {
+      installedGames.push(appName)
+      writeFileSync(appsNamesPath, JSON.stringify(installedGames), 'utf-8')
+      hasUpdated = true
+    }
+  }
+
+  if (hasUpdated) {
     logInfo(
       ['Created/Updated Wineprefix at', gameSettings.winePrefix],
       LogPrefix.Backend
@@ -365,31 +386,42 @@ async function prepareWineLaunch(
     if (runner === 'legendary') {
       await legendarySetup(appName)
     }
-    if (experimentalFeatures?.automaticWinetricksFixes !== false) {
-      await installFixes(appName, runner)
-    }
+
+    await installFixes(appName, runner)
   }
 
-  if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
-    if (isOnline() && !(await isInstalled('comet_dummy_service'))) {
-      await download('comet_dummy_service')
-    }
-    const installerScript = join(
-      runtimePath,
-      'comet_dummy_service',
-      'install-dummy-service.bat'
-    )
-    if (existsSync(installerScript)) {
-      await runWineCommand({
-        commandParts: [installerScript],
-        gameSettings,
-        protonVerb: 'runinprefix'
-      })
-    } else {
-      logWarning(
-        "Comet dummy service isn't downloaded, online functionality may not work"
+  try {
+    if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
+      const communicationSource = join(
+        publicDir,
+        'bin/x64/win32/GalaxyCommunication.exe'
       )
+
+      const galaxyCommPath =
+        'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
+      const communicationDest = await getWinePath({
+        path: galaxyCommPath,
+        gameSettings,
+        variant: 'unix'
+      })
+
+      if (!existsSync(communicationDest)) {
+        mkdirSync(dirname(communicationDest), { recursive: true })
+        await copyFile(communicationSource, communicationDest)
+        await runWineCommand({
+          commandParts: [
+            'sc',
+            'create',
+            'GalaxyCommunication',
+            `binpath=${galaxyCommPath}`
+          ],
+          gameSettings,
+          protonVerb: 'runinprefix'
+        })
+      }
     }
+  } catch (err) {
+    logError('Failed to install GalaxyCommunication dummy into the prefix')
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -774,17 +806,17 @@ export async function validWine(
  */
 export async function verifyWinePrefix(
   settings: GameSettings
-): Promise<{ res: ExecResult; updated: boolean }> {
+): Promise<{ res: ExecResult }> {
   const { winePrefix = defaultWinePrefix, wineVersion } = settings
 
   const isValidWine = await validWine(wineVersion)
 
   if (!isValidWine) {
-    return { res: { stdout: '', stderr: '' }, updated: false }
+    return { res: { stdout: '', stderr: '' } }
   }
 
   if (wineVersion.type === 'crossover') {
-    return { res: { stdout: '', stderr: '' }, updated: false }
+    return { res: { stdout: '', stderr: '' } }
   }
 
   if (!existsSync(winePrefix) && !(await isUmuSupported(wineVersion.type))) {
@@ -810,13 +842,7 @@ export async function verifyWinePrefix(
 
   return command
     .then((result) => {
-      // This is kinda hacky
-      const wasUpdated = result.stderr.includes(
-        wineVersion.type === 'proton'
-          ? 'Proton: Upgrading prefix from'
-          : 'has been updated'
-      )
-      return { res: result, updated: wasUpdated }
+      return { res: result }
     })
     .catch((error) => {
       logError(['Unable to create Wineprefix: ', error], LogPrefix.Backend)
@@ -839,7 +865,8 @@ async function runWineCommand({
   installFolderName,
   options,
   startFolder,
-  skipPrefixCheckIKnowWhatImDoing = false
+  skipPrefixCheckIKnowWhatImDoing = false,
+  ignoreLogging = false
 }: WineCommandArgs): Promise<{
   stderr: string
   stdout: string
@@ -894,9 +921,17 @@ async function runWineCommand({
     PROTON_VERB: protonVerb
   }
 
+  if (ignoreLogging) {
+    delete env_vars['PROTON_LOG']
+  }
+
   const wineBin = wineVersion.bin.replaceAll("'", '')
   const umuSupported = await isUmuSupported(wineVersion.type)
   const runnerBin = umuSupported ? await getUmuPath() : wineBin
+
+  if (wineVersion.type === 'proton' && !umuSupported) {
+    commandParts.unshift(protonVerb)
+  }
 
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
@@ -1343,7 +1378,8 @@ async function getWinePath({
       path
     ],
     wait: false,
-    protonVerb: 'runinprefix'
+    protonVerb: 'runinprefix',
+    ignoreLogging: true
   })
   return stdout.trim()
 }

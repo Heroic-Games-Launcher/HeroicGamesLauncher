@@ -48,9 +48,7 @@ export default function SideloadDialog({
   appName
 }: Props) {
   const { t } = useTranslation('gamepage')
-  const [title, setTitle] = useState<string | never>(
-    t('sideload.field.title', 'Title')
-  )
+  const [title, setTitle] = useState<string>(t('sideload.field.title', 'Title'))
   const [selectedExe, setSelectedExe] = useState('')
   const [gameUrl, setGameUrl] = useState('')
   const [customUserAgent, setCustomUserAgent] = useState('')

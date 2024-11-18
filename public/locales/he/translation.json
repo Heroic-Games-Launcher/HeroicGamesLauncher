@@ -357,7 +357,10 @@
             "current-log": "לוג נוכחי",
             "instructions": "הצטרפו לדיסקורד שלנו וחפשו את החלק בשם \"#-support\". קראו את ההודעה המוצמדת \"Read Me First | Frequently Asked Questions\" ופעלו לפי ההוראות כדי לשתף את הלוגים הללו וכל מידע רלוונטי על הבעיה שלכם.",
             "no-file": "לא נמצא קובץ לוג",
-            "show-in-folder": "הצגת קובץ הלוג בתוך התיקייה שלה"
+            "show-in-folder": "הצגת קובץ הלוג בתוך התיקייה שלה",
+            "upload": {
+                "actions": "פעולות"
+            }
         },
         "mangohud": "הפעל Mangohud (צריכה להיות התקנה של Mangohud)",
         "manualsync": {
@@ -426,7 +429,7 @@
     },
     "accessibility": {
         "content_font_family_no_default": "משפחת גופני תוכן (ברירת מחדל: ",
-        "actions_font_family_no_default": "משפחת גופני פעולות (ברירת מחדל: ",
+        "actions_font_family_no_default": "משפחת גופני פעולות (ברירת מחדל):",
         "zoom": "זום",
         "all_tiles_in_color": "הצג את כל אריחי המשחק בצבע",
         "fonts": "גופנים",
@@ -748,5 +751,8 @@
     "category-settings": {
         "cancel": "בטל",
         "warning": "אזהרה"
+    },
+    "window": {
+        "close": "לסגור"
     }
 }

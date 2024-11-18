@@ -1,25 +1,25 @@
 {
     "button": {
         "login": "Bejelentkezés",
-        "open": "Link megnyitása",
+        "open": "Hivatkozás megnyitása",
         "copy": "Másolat",
         "copied": "Másolva!",
         "error": "Hiba, próbálkozzon másik kóddal",
         "loading": "Betöltés…"
     },
     "message": {
-        "part1": "Annak érdekében, hogy be tudj jelentkezni és le tudd tölteni a játékaid, először követned kell az itt lent felsoroltakat:",
-        "part2": "Nyisd meg az",
+        "part1": "Hogy be tudjon jelentkezni és le tudja tölteni a játékait, először követnie kell az itt felsoroltakat:",
+        "part2": "Nyissa meg az",
         "part3": "Epic Store-t itt",
-        "part4": ", jelentkezz be a fiókodba és másold ki a",
-        "part5": "authorization code információs számodat",
-        "part6": "Illeszd be az",
-        "part7": "authorization code számot",
-        "part8": "a lenti beviteli mezőbe, és kattints a bejelentkezés gombra, majd várj."
+        "part4": ", jelentkezzen be a fiókjába és másolja a",
+        "part5": "hitelesítőkód-információs számát",
+        "part6": "Illessze be a",
+        "part7": "hitelesítőkód számát",
+        "part8": "a lenti beviteli mezőbe, és kattintson a bejelentkezés gombra, majd várjon."
     },
     "status": {
         "error": "Hiba",
         "loading": "Játéklista betöltése, kérlek várj"
     },
-    "welcome": "Üdvözlünk!"
+    "welcome": "Üdvözöljük!"
 }

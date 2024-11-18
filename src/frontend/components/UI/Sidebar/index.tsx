@@ -8,6 +8,7 @@ import { DMQueueElement } from 'common/types'
 
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import { useNavigate } from 'react-router-dom'
+import { WebviewTag } from 'electron'
 
 let sidebarSize = localStorage.getItem('sidebar-width') || 240
 const minWidth = 60
@@ -82,9 +83,7 @@ export default React.memo(function Sidebar() {
       localStorage.setItem('sidebar-width', sidebarSize.toString())
 
       // Re-enable pointer events on webview element
-      const webviewEl = document.querySelector(
-        'webview'
-      ) as HTMLDivElement | null
+      const webviewEl = document.querySelector<WebviewTag>('webview')
       if (webviewEl) {
         webviewEl.style.pointerEvents = 'auto'
       }
@@ -95,7 +94,7 @@ export default React.memo(function Sidebar() {
     document.body.addEventListener('mousemove', onMouseMove)
 
     // Disable pointer events on webview element
-    const webviewEl = document.querySelector('webview') as HTMLDivElement | null
+    const webviewEl = document.querySelector<WebviewTag>('webview')
     if (webviewEl) {
       webviewEl.style.pointerEvents = 'none'
     }

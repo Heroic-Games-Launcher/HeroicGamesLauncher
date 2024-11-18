@@ -71,7 +71,6 @@ Heroic is built with Web Technologies:
 ## Planned features
 
 - Support Other Store (IndieGala, etc)
-- Play GOG games online
 
 ## Supported Operating Systems
 

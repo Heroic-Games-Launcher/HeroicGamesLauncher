@@ -164,7 +164,8 @@
                 }
             },
             "snap": {
-                "checkbox": "Jangan munculkan pesan ini lagi"
+                "checkbox": "Jangan munculkan pesan ini lagi",
+                "message": "Beberapa fitur tidak tersedia di versi Snap aplikasi untuk saat ini dan kami sedang berusaha untuk memperbaikinya.{{newLine}}Keterbatasan saat ini adalah: {{newLine}}Heroic tidak akan dapat menemukan Proton dari Steam atau Wine dari Lutris.{{newLine}}{{newLine}}Gamescope, GameMode, dan MangoHud juga tidak akan berfungsi karena Heroic tidak dapat mengaksesnya.{{newLine}}{{newLine}}Untuk mendapatkan akses ke fitur ini, silakan instal Heroic sebagai Flatpak, DEB, atau dari AppImage."
             }
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
@@ -570,7 +571,10 @@
             "instructions_title": "Bagaimana cara melaporkan masalah?",
             "last-log": "Log Terakhir",
             "no-file": "Tidak ditemukan berkas log",
-            "show-in-folder": "Tampilkan berkas log di dalam folder"
+            "show-in-folder": "Tampilkan berkas log di dalam folder",
+            "upload": {
+                "actions": "Aksi"
+            }
         },
         "mangohud": "Aktifkan Mangohud (Mangohud perlu diinstal)",
         "manualsync": {
@@ -783,7 +787,16 @@
         "close": "Tutup"
     },
     "categories-manager": {
-        "add-placeholder": "Buat Kategori Baru"
+        "add-placeholder": "Buat Kategori Baru",
+        "cancel-remove": "Batalkan penghapusan \"{{name}}\"",
+        "add": "Tambah",
+        "confirm-remove": "Konfirmasi penghapusan \"{{name}}\"",
+        "confirm-rename": "Konfirmasi pengubahan \"{{oldName}}\" menjadi \"{{newName}}\"",
+        "cancel-rename": "Batalkan pengubahan \"{{name}}\"",
+        "no-categories": "Belum ada kategori.",
+        "remove": "Hapus \"{{name}}\"",
+        "rename": "Ubah \"{{name}}\"",
+        "title": "Kelola Kategori"
     },
     "adtraction-locked": {
         "dont-show-again": "Jangan tampilkan peringatan ini lagi",

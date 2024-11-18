@@ -187,7 +187,7 @@ export async function getLinuxWineSet(
   })
 
   const defaultWineSet = new Set<WineInstallation>()
-  const defaultWine = await getDefaultWine()
+  const defaultWine = getDefaultWine()
   if (!defaultWine.name.includes('Not Found')) {
     defaultWineSet.add(defaultWine)
   }

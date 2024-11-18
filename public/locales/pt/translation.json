@@ -17,7 +17,8 @@
         "reference": "Referência",
         "source": "Fonte",
         "status": "Estado",
-        "title": "Este jogo inclui software anti-batota"
+        "title": "Este jogo inclui software anti-batota",
+        "multiplayer_may_not_work": "Funcionalidade multiplyaer poderá não funcionar devido a um anticheat não suportado."
     },
     "box": {
         "cache-cleared": {
@@ -266,7 +267,8 @@
         "show_installed_only": "Mostrar só Instalados",
         "no_categories": "Nenhuma categoria personalizada. Adicionar categorias usando o menu de cada jogo.",
         "uncategorized": "Sem Categoria",
-        "show_support_offline_only": "Mostrar apenas suportados offline"
+        "show_support_offline_only": "Mostrar apenas suportados offline",
+        "show_third_party_managed_only": "Mostrar apenas geridos por terceiros"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a impulsionar os fotogramas por segundo (FPS) ao aumentar a escala de resoluções mais baixas no modo de Ecrã Inteiro. A qualidade da imagem aumenta de 5 a 1 com um custo pequeno do desempenho. Ao ligar pode melhorar o desempenho.",
@@ -339,7 +341,7 @@
             "downloadManager": "Mostrar downloads atuais e passados.",
             "settingsGame": "Mostrar todas as configurações para um jogo."
         },
-        "msync": "Mysnc tem por objetivos reduzir a sobrecarga do servidor wine em jogos de uso intenso de CPU. Ativando-o pode melhorar a performance em kernels Linux suportados.",
+        "msync": "Mysnc tem como objetivo reduzir a sobrecarga do Wineserver em jogos de uso intenso de CPU. Ativando-o poderá melhorar a performance em kernels Linux suportados.",
         "button": {
             "close": "Fechar Ajuda",
             "open": "Abrir Ajuda"
@@ -507,7 +509,8 @@
             "stretch": "Esticar imagem",
             "windowed": "Modo janela",
             "additionalOptions": "Opções adicionais",
-            "interger": "Integer Upscale"
+            "interger": "Integer Upscale",
+            "nis": "Escala de imagem NVIDIA (NIS)"
         }
     },
     "other": {
@@ -614,7 +617,11 @@
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
             "no-file": "No log file found",
-            "show-in-folder": "Show log file in folder"
+            "show-in-folder": "Show log file in folder",
+            "join-heroic-discord": "Junta-te ao nosso Discord",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
         "manualsync": {
@@ -666,7 +673,9 @@
         "experimental_features": {
             "enableNewDesign": "Novo design",
             "enableHelp": "Ajuda de componente",
-            "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente"
+            "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
+            "umuSupport": "Utilize UMU como runtime do Proton",
+            "cometSupport": "Suporte Comet"
         },
         "frameless-window": {
             "confirmation": {
@@ -677,11 +686,20 @@
         },
         "gamescope": {
             "enableLimiter": "Ativar limitador de FPS",
-            "enableUpscaling": "Permite aprimoramento de escala (Upscalling)"
+            "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
+            "missingMsg": "Não foi possível encontrar o gamescope no diretório. Instale-o ou adicione-o ao diretório."
         },
         "after-launch-script-path": "Selecione um script para rodar após o fechamento do jogo",
         "before-launch-script-path": "Selecionar um script para rodar antes do lançamento do jogo",
-        "msync": "Enable Esync"
+        "msync": "Enable Esync",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Jogos com anticheat não suportado podem ser executados, mas o multiplayer não funcionará. Não peça apoio se os instalar sabendo disso.",
+                "title": "Tem a certeza?",
+                "understand": "Eu entendo"
+            },
+            "label": "Permitir instalação de jogos com anticheat não suportado"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -746,7 +764,8 @@
             "showDetailed": "Mostrar especificações detalhadas do sistema",
             "memory": "Memória:",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Funcionalidades Experimentais"
@@ -757,15 +776,27 @@
         "advanced": {
             "clearCache": {
                 "help8": "Installed Games",
-                "help9": "Configurações do jogo"
+                "help9": "Configurações do jogo",
+                "help10": "Configuração Heroic",
+                "help6": "Isto NÃO excluirá:",
+                "help2": "Informação sobre jogos de terceiros (pontuações, compatibilidade com Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help1": "Esta ação irá limpar os caches seguintes:",
+                "help3": "Informação da biblioteca lendária (lista de jogos, informação da caixa de diálogo de instalação, informação do jogo)",
+                "help5": "Informação da biblioteca Amazon (lista de jogos, informação da caixa de diálogo de instalação)",
+                "help7": "Login da loja",
+                "help4": "Informação da biblioteca do GOG (lista de jogos, informação do diálogo de instalação, informação da API, e.g: requisitos)"
             },
             "details": "Detalhes",
             "title": {
-                "resetHeroic": "Restaurar Heroic"
+                "resetHeroic": "Restaurar Heroic",
+                "clearCache": "Limpar cache"
             },
             "resetHeroic": {
                 "help": "Tem a certeza de que deseja restaurar o Heroic? Isto irá remover todas as definições e o cache, mas não irá remover os jogos instalados nem as suas credenciais da Epic. As versões portáteis (AppImage, WinPortable, ...) do Heroic terão de ser reiniciadas manualmente posteriormente."
             }
+        },
+        "offline": {
+            "warning": "Este jogo não permite explicitamente o modo offline, ative-o por sua conta e risco. O jogo pode não funcionar."
         }
     },
     "Settings": "Configurações",
@@ -893,5 +924,9 @@
     "emptyLibrary": {
         "noGames": "Sua biblioteca está vazia. Você pode <1>log in</1> usando a loja ou clicar <3></3> para adicionar uma manualmente.",
         "noResults": "Os filtros atuais não produziram resultados."
+    },
+    "wineExplanation": {
+        "proton-ge": "Proton-GE-Proton é uma variante do Proton criada por Glorious Eggroll. Foi concebido para ser utilizado no Steam, mas alguns jogos fora do Steam podem funcionar melhor com esta variante. Fornece registos praticamente inúteis para solução de problemas.",
+        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada pela Glorious Eggroll. É o Wine recomendado para ser utilizado fora do Steam. Isto fornece registos úteis para solução de problemas."
     }
 }

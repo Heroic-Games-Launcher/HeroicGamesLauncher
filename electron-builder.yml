@@ -40,7 +40,9 @@ mac:
     teamId: DLB2RYLUDX
   extendInfo:
     com.apple.security.cs.allow-jit: true
-  files: build/bin/*/darwin/*
+  files:
+    - build/bin/*/darwin/*
+    - build/bin/x64/win32/GalaxyCommunication.exe
 
 dmg:
   background: public/dmg.png
@@ -57,13 +59,19 @@ dmg:
       path: /Applications
 
 linux:
+  artifactName: ${productName}-${version}-linux-${arch}.${ext}
   category: Game
   icon: build/icon.icns
-  description: An Open Source Launcher for GOG and Epic Games
   desktop:
     Name: Heroic Games Launcher
-    Comment[de]: Ein Open Source Spielelauncher for GOG und Epic Games
-  files: build/bin/*/linux/*
+    Comment[de]: Ein OSS-Spielelauncher für GOG, Epic Games und Amazon Games
+    Comment[pl]: Otwartoźródłowy launcher dla GOG, Epic Games i Amazon Games
+  files:
+    - build/bin/*/linux/*
+    - build/bin/x64/win32/GalaxyCommunication.exe
+
+rpm:
+  fpm: ['--rpm-rpmbuild-define', '_build_id_links none']
 
 snap:
   base: core20

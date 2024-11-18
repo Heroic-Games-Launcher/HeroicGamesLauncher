@@ -97,7 +97,7 @@ export default function GamesSettings() {
   }
   // Get the latest used tab index for the current game
   const localStorageKey = gameInfo
-    ? `${gameInfo!.app_name}-setting_tab`
+    ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
     localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)

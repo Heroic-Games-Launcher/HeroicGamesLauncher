@@ -7,7 +7,9 @@
         "title": "Prístupnosť",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Zakázať zatváranie dialógových okien kliknutím mimo",
-        "titles_always_visible": "Vždy zobrazovať tituly hier v knižnici"
+        "titles_always_visible": "Vždy zobrazovať tituly hier v knižnici",
+        "content_font_family_default": "Obsah Fontána (Default: {{fontFamily}})",
+        "actions_font_family_default": "Akcie Font Family (Default: {{fontFamily}})"
     },
     "add_game": "Pridať Hru",
     "All": "Všetky",
@@ -41,7 +43,7 @@
                 }
             },
             "credentials": {
-                "message": "Your Crendentials have expired, Logout and Login Again!"
+                "message": "Vaše poverenia vypršali, prosím, prihláste sa a prihláste sa znova."
             },
             "cx-bottle-not-found": {
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
@@ -118,11 +120,11 @@
             }
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Vybrať EXE na Spustenie"
         },
         "select": {
             "button": "Select",
-            "exe": "Select EXE...",
+            "exe": "Vyberte EXE",
             "script": "Vybrať skript ..."
         },
         "shortcuts": {
@@ -169,7 +171,7 @@
                 "message": "Niektoré funkcie nie sú momentálne dostupné vo verzii aplikácie Snap a snažíme sa to napraviť.{{newLine}}Aktuálne obmedzenia sú: {{newLine}}Heroic nebude môcť nájsť Proton zo Steamu alebo Wine z Lutris .{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud tiež nebudú fungovať, pretože Heroic k nim nemá prístup.{{newLine}}{{newLine}}Ak chcete získať prístup k tejto funkcii, nainštalujte si Heroic ako Flatpak , DEB alebo z AppImage."
             }
         },
-        "wineprefix": "Vyberte Priečinok predpony vína",
+        "wineprefix": "Vyberte Wine Prefix Folder",
         "yes": "ÁNO",
         "dontShowAgain": "Už nezobrazovať",
         "choose-nile-binary": "Vyberte binárny Níl",
@@ -244,7 +246,7 @@
             "component": "No Games found - Try to logout and login again or one of the options bellow"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Obnoviť Knižnicu"
         }
     },
     "globalSettings": "Global Settings",
@@ -359,7 +361,7 @@
             "searching": "Trying to detect the correct save folder (click to cancel)"
         },
         "settings": "Nastavenia sa uložia automaticky",
-        "version": "Wine Version"
+        "version": "Wine verzia"
     },
     "infobox": {
         "help": "Pomoc",
@@ -383,7 +385,7 @@
         "releaseDate": "Release Date"
     },
     "library": {
-        "refresh": "Refresh Library",
+        "refresh": "Obnoviť",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -482,7 +484,7 @@
         },
         "gameargs": {
             "placeholder": "Sem vložte argumenty spúšťača",
-            "title": "Select EXE to Run",
+            "title": "Argumenty hry (Ak chcete spustiť po príkaze):",
             "error": {
                 "env": "Premenné prostredia musia byť nakonfigurované v tabuľke nižšie.",
                 "command": "Syntax %command% zo služby Steam nie je platná ako argumenty hry."
@@ -557,7 +559,7 @@
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary  (needs restart)to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary (needs restart)to use",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autosync": "Automatická synchronizácia Uloží",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
@@ -616,9 +618,45 @@
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
             "last-log": "Last Log",
-            "no-file": "No log file found.",
+            "no-file": "Nebol nájdený žiadny súbor denníka",
             "show-in-folder": "Show log file in folder",
-            "join-heroic-discord": "Pripoj sa na náš Discord"
+            "join-heroic-discord": "Pripoj sa na náš Discord",
+            "upload": {
+                "actions": "Akcie",
+                "button": "Nahrať súbor denníka",
+                "confirm": {
+                    "content": "Naozaj chcete nahrať \"{{name}}\"?",
+                    "title": "Nahrať súbor denníka?"
+                },
+                "delete": "Požiadať o vymazanie súboru denníka",
+                "done": {
+                    "content": "Nahrané na {{url}} (URL skopírovaný do schránky)",
+                    "title": "Nahrať kompletnú"
+                },
+                "error": {
+                    "content": "Nahrať súbor denníka. Skontrolujte všeobecné logo Heroic pre podrobnosti",
+                    "title": "Nahrať zlyhal"
+                },
+                "header": "Nahrané protokolové súbory",
+                "hours-ago": "Nahrané {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Nahrané {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Žiadne záznamy neboli nahrané",
+                "uploading": {
+                    "title": "Nahrať",
+                    "content": "Nahrať súbor denníka..."
+                },
+                "title": "Prihlásiť titul",
+                "open": "Otvoriť záznam súborov",
+                "upload-date": "dátum nahrania"
+            },
+            "descriptiveNames": {
+                "game-log": "Archív hry {{gameTitle}}",
+                "gog": "GOG protokol",
+                "heroic": "Všeobecný hrdina denník",
+                "legendary": "Epic hry / Legendárny denník",
+                "nile": "Amazon / Nile log"
+            },
+            "show-uploads": "Zobraziť nahrané protokolové súbory"
         },
         "mangohud": "Povoliť Mangohud (musí byť nainštalovaný Mangohud)",
         "manualsync": {
@@ -675,7 +713,9 @@
         "experimental_features": {
             "enableHelp": "Komponent pomoci",
             "enableNewDesign": "Nový Dizajn",
-            "automaticWinetricksFixes": "Automaticky použiť známe opravy"
+            "automaticWinetricksFixes": "Automaticky použiť známe opravy",
+            "cometSupport": "Podpora",
+            "umuSupport": "Použite UMU ako Proton runtime"
         },
         "frameless-window": {
             "confirmation": {
@@ -781,7 +821,8 @@
             "legendaryVersion": "Verzia Legendary: {{legendaryVersion}}",
             "memoryStats": "{{percentUsed}}% použité ({{usedGib}} / {{totalGib}}",
             "systemSpecifications": "PC Špecifikácie:",
-            "memory": "Pamäť:"
+            "memory": "Pamäť:",
+            "cometVersion": "Príchod: {{cometVersion}}"
         },
         "offline": {
             "warning": "Táto hra výslovne neumožňuje offline režim, zapnite ho na vlastné riziko. Hra nemusí fungovať."
@@ -799,9 +840,9 @@
         "uncollapse": "Uncollapse sidebar"
     },
     "status": {
-        "installing": "Installing",
+        "installing": "Inštaluje sa",
         "logging": "Logging In...",
-        "processing": "Processing files, please wait",
+        "processing": "Prebieha spracovanie súborov, čakajte",
         "preparing_login": "Pripravuje sa prihlásenie... "
     },
     "store": "Epic Store",
@@ -848,7 +889,7 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Akcia",
         "manager": {
             "link": "Wine Manager",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",

@@ -129,7 +129,7 @@ export default function LibraryFilters() {
       <ToggleSwitch
         key={store}
         htmlId={store}
-        handleChange={() => toggleStoreFilter(store as Category)}
+        handleChange={() => toggleStoreFilter(store)}
         value={storesFilters[store]}
         title={t(RunnerToStore[store])}
       />

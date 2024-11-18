@@ -224,7 +224,8 @@
     "game": {
         "status": "Status",
         "store": "Cửa hàng",
-        "title": "Tựa game"
+        "title": "Tựa game",
+        "modify": "Sửa đổi cài đặt"
     },
     "generic": {
         "error": {
@@ -547,7 +548,10 @@
             "instructions_title": "Làm sao để báo lỗi?",
             "last-log": "Log lần trước",
             "no-file": "Không tìm thấy file log",
-            "show-in-folder": "Hiển thị file log trong thư mục"
+            "show-in-folder": "Hiển thị file log trong thư mục",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Bật Mangohud (Cần cài mangohud)",
         "manualsync": {
@@ -741,5 +745,8 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "Đóng"
     }
 }

@@ -7,7 +7,9 @@
         "title": "Accessibilité",
         "zoom": "Agrandir",
         "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors",
-        "titles_always_visible": "Toujours afficher les titres dans la bibliothèque"
+        "titles_always_visible": "Toujours afficher les titres dans la bibliothèque",
+        "content_font_family_default": "Famille de police pour les contenus (Par défaut : {{fontFamily}})",
+        "actions_font_family_default": "Famille de police pour les actions (Par défaut : {{fontFamily}})"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -619,7 +621,43 @@
             "last-log": "Dernier log",
             "no-file": "Aucun rapport de fonctionnement n'a été trouvé",
             "show-in-folder": "Montrer le rapport de fonctionnement dans le dossier",
-            "join-heroic-discord": "Rejoignez notre serveur Discord"
+            "join-heroic-discord": "Rejoignez notre serveur Discord",
+            "upload": {
+                "actions": "Action",
+                "button": "Envoyer le rapport",
+                "confirm": {
+                    "content": "Voulez-vous vraiment envoyer « {{name}} » ?",
+                    "title": "Envoyer le rapport ?"
+                },
+                "delete": "Demander la suppression du rapport",
+                "done": {
+                    "content": "Envoyé vers {{url}} (adresse copiée dans votre presse-papier)",
+                    "title": "Envoi achevé"
+                },
+                "error": {
+                    "content": "L'envoi du rapport a échoué. Consultez le rapport général d'Heroic pour des détails",
+                    "title": "Envoi échoué"
+                },
+                "header": "Rapports envoyés",
+                "no-files": "Aucun rapport n'a été envoyé",
+                "open": "Ouvrir l'envoi de rapport",
+                "title": "Titre du rapport",
+                "uploading": {
+                    "title": "Envoi",
+                    "content": "Envoi du rapport en cours..."
+                },
+                "hours-ago": "Envoyé {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Envoyé {{minutesAgo, relativetime(minutes)}}",
+                "upload-date": "Date d'envoi"
+            },
+            "descriptiveNames": {
+                "game-log": "Rapport de jeu pour {{gameTitle}}",
+                "heroic": "Rapport général sur Heroic",
+                "gog": "Rapport sur GOG",
+                "legendary": "Rapport sur Epic Games / Legendary",
+                "nile": "Rapport sur Amazon / Nile"
+            },
+            "show-uploads": "Afficher les rapports envoyés"
         },
         "mangohud": "Activer Mangohud (Mangohud doit être installé)",
         "manualsync": {

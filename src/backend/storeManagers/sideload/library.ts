@@ -66,8 +66,6 @@ export function addNewApp({
   return
 }
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 export function installState() {
   logWarning(`installState not implemented on Sideload Library Manager`)
 }

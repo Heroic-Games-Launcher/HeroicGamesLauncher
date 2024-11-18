@@ -194,9 +194,7 @@ export async function getSteamLibraries(): Promise<string[]> {
     if (!json.libraryfolders) {
       return libraries
     }
-    const folders = Object.values(json.libraryfolders) as Array<{
-      path: string
-    }>
+    const folders: { path: string }[] = Object.values(json.libraryfolders)
     return [...libraries, ...folders.map((folder) => folder.path)].filter(
       (path) => existsSync(path)
     )

@@ -64,7 +64,6 @@ export type Release = {
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
-  automaticWinetricksFixes: boolean
   cometSupport: boolean
   umuSupport: boolean
 }
@@ -476,11 +475,7 @@ export interface Runtime {
   url: string
 }
 
-export type RuntimeName =
-  | 'eac_runtime'
-  | 'battleye_runtime'
-  | 'comet_dummy_service'
-  | 'umu'
+export type RuntimeName = 'eac_runtime' | 'battleye_runtime' | 'umu'
 
 export type RecentGame = {
   appName: string
@@ -591,6 +586,7 @@ export type WineCommandArgs = {
   options?: CallRunnerOptions
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
+  ignoreLogging?: boolean
 }
 
 export interface SaveSyncArgs {
@@ -769,4 +765,13 @@ export interface KnowFixesInfo {
   notes?: Record<string, string>
   winetricks?: string[]
   runInPrefix?: string[]
+}
+
+export interface UploadedLogData {
+  // Descriptive name of the log file (e.g. "Game log of ...")
+  name: string
+  // Token to modify the file (used to delete the log file on the server)
+  token: string
+  // Time the log file was uploaded (used to know whether it expired)
+  uploadedAt: number
 }

@@ -173,17 +173,18 @@ async function setup(
     context: 'GOG'
   })
   if (manifestData.version === 1) {
-    if (existsSync(gameSupportDir)) {
+    if (existsSync(path.join(gogSupportPath, appName))) {
       for (const supportCommand of manifestData.product?.support_commands ||
         []) {
         if (
-          !supportCommand.languages.includes(
+          supportCommand.languages.includes(
             gameInfo.install.language ?? 'English'
           ) ||
           supportCommand.languages.includes('Neutral')
         ) {
           const absPath = path.join(
-            gameSupportDir,
+            gogSupportPath,
+            appName,
             supportCommand.gameID,
             supportCommand.executable
           )
@@ -207,7 +208,11 @@ async function setup(
             wait: false,
             protonVerb: 'run',
             skipPrefixCheckIKnowWhatImDoing: true,
-            startFolder: path.join(gameSupportDir, supportCommand.gameID)
+            startFolder: path.join(
+              gogSupportPath,
+              appName,
+              supportCommand.gameID
+            )
           })
         }
       }
@@ -284,7 +289,8 @@ async function setup(
           continue
         }
         const absPath = path.join(
-          gameSupportDir,
+          gogSupportPath,
+          appName,
           manifestProduct.productId,
           manifestProduct.temp_executable
         )
@@ -309,7 +315,11 @@ async function setup(
           wait: false,
           protonVerb: 'run',
           skipPrefixCheckIKnowWhatImDoing: true,
-          startFolder: path.join(gameSupportDir, manifestProduct.productId)
+          startFolder: path.join(
+            gogSupportPath,
+            appName,
+            manifestProduct.productId
+          )
         })
       }
     }

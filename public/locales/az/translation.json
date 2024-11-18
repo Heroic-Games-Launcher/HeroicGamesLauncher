@@ -1,6 +1,6 @@
 {
     "accessibility": {
-        "actions_font_family_no_default": "Actions Font Family (Default: ",
+        "actions_font_family_no_default": "Hərəkət Yazıtipi Ailəsi (Default):",
         "all_tiles_in_color": "Bütün oyun plitələrini rəngli göstərin",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Şriftlər",
@@ -219,7 +219,8 @@
     "game": {
         "status": "Vəziyyət",
         "store": "Mağaza",
-        "title": "Oyunun adı"
+        "title": "Oyunun adı",
+        "modify": "Quraşdırmaya dəyişiklik et"
     },
     "generic": {
         "error": {
@@ -240,7 +241,8 @@
         "show_available_games": "Show non-Available games",
         "show_favourites_only": "Yalnız Sevimliləri göstərin",
         "show_hidden": "Gizli göstər",
-        "store": "Filtr Mağazası"
+        "store": "Filtr Mağazası",
+        "categories": "Kateqoriyalar"
     },
     "help": {
         "amdfsr": "AMD-nin FSR tam ekran rejimində daha aşağı təsvir ölçüsünü artırmaqla kadr sürətini artırmağa kömək edir. Şəkil keyfiyyəti cüzi performans zərbəsi hesabına 5-dən 1-ə yüksəlir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
@@ -535,7 +537,10 @@
             "instructions_title": "Problemi necə bildirmək olar?",
             "last-log": "Son Giriş",
             "no-file": "Heç bir jurnal faylı tapılmadı",
-            "show-in-folder": "Günlük faylını qovluqda göstərin"
+            "show-in-folder": "Günlük faylını qovluqda göstərin",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Mangohudu aktivləşdirin (Mangohud quraşdırılmalıdır)",
         "manualsync": {
@@ -720,5 +725,8 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "window": {
+        "close": "Bağla"
     }
 }

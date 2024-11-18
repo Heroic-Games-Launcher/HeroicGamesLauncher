@@ -14,7 +14,7 @@ async function main() {
     let releaseTime = ""
     if (process.argv[2] === "release") {
         const { data } = await axios.get("https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest")
-        const appimage = data.assets.find((asset) => asset.browser_download_url.includes(".AppImage"))
+        const appimage = data.assets.find((asset) => asset.browser_download_url.includes("x86_64.AppImage"))
         const outputFile = `${os.tmpdir()}/Heroic.AppImage`
         child_process.spawnSync("curl", ["-L", appimage.browser_download_url, "-o", outputFile, "--create-dirs"])
         const outputContent = fs.readFileSync(outputFile)
@@ -32,7 +32,7 @@ async function main() {
     } else {
         placeholder = [
             "type: file",
-            `path: "../dist/Heroic-${package.version}.AppImage"`
+            `path: "../dist/Heroic-${package.version}-linux-x86_64.AppImage"`
         ].join("\n        ")
         releaseTime = new Date().toISOString().split('T')[0]
     }
@@ -56,5 +56,4 @@ async function main() {
     fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.desktop", "./flatpak-build/com.heroicgameslauncher.hgl.desktop")
     fs.copyFileSync("./flatpak/com.heroicgameslauncher.hgl.png", "./flatpak-build/com.heroicgameslauncher.hgl.png")
     fs.copyFileSync("./flatpak/flathub.json", "./flatpak-build/flathub.json")
-    fs.cpSync("./flatpak/patches", "./flatpak-build/patches", { recursive: true })
 }

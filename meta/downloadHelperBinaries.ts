@@ -8,9 +8,9 @@ type SupportedPlatform = 'win32' | 'darwin' | 'linux'
 type DownloadedBinary = 'legendary' | 'gogdl' | 'nile' | 'comet'
 
 const RELEASE_TAGS = {
-  legendary: '0.20.35',
-  gogdl: 'v1.1.1',
-  nile: 'v1.1.1',
+  legendary: '0.20.36',
+  gogdl: 'v1.1.2',
+  nile: 'v1.1.2',
   comet: 'v0.1.2'
 } as const satisfies Record<DownloadedBinary, string>
 
@@ -22,10 +22,14 @@ const pathExists = async (path: string): Promise<boolean> =>
 
 async function downloadFile(url: string, dst: string) {
   const response = await fetch(url, {
+    keepalive: true,
     headers: {
       'User-Agent': 'HeroicBinaryUpdater/1.0'
     }
   })
+  if (response.status !== 200) {
+    throw Error(`Failed to download ${url}: ${response.status}`)
+  }
   await mkdir(dirname(dst), { recursive: true })
   const fileStream = createWriteStream(dst, { flags: 'w' })
   await finished(Readable.fromWeb(response.body).pipe(fileStream))
@@ -139,21 +143,30 @@ async function downloadNile() {
 }
 
 async function downloadComet() {
-  return downloadGithubAssets(
-    'comet',
-    'imLinguin/comet',
-    RELEASE_TAGS['comet'],
-    {
+  return Promise.all([
+    downloadGithubAssets(
+      'GalaxyCommunication',
+      'imLinguin/comet',
+      RELEASE_TAGS['comet'],
+      {
+        x64: {
+          win32: 'GalaxyCommunication-dummy.exe'
+        },
+        arm64: {}
+      }
+    ),
+    downloadGithubAssets('comet', 'imLinguin/comet', RELEASE_TAGS['comet'], {
       x64: {
         linux: 'comet-x86_64-unknown-linux-gnu',
         darwin: 'comet-x86_64-apple-darwin',
         win32: 'comet-x86_64-pc-windows-msvc.exe'
       },
       arm64: {
-        darwin: 'comet-aarch64-apple-darwin'
+        darwin: 'comet-aarch64-apple-darwin',
+        linux: 'comet-aarch64-unknown-linux-gnu'
       }
-    }
-  )
+    })
+  ])
 }
 
 /**

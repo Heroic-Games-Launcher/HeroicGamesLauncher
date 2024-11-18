@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { GameInfo, GameStatus, Runner, WikiInfo } from 'common/types'
+import { GameInfo, GameStatus, Runner } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -215,14 +215,12 @@ export default function GamesSubmenu({
 
   useEffect(() => {
     // Get steam id and set direct proton db link
-    window.api
-      .getWikiGameInfo(title, appName, runner)
-      .then((info: WikiInfo) => {
-        const steamID = info?.pcgamingwiki?.steamID ?? info?.gamesdb?.steamID
-        if (steamID) {
-          setProtonDBurl(`https://www.protondb.com/app/${steamID}`)
-        }
-      })
+    window.api.getWikiGameInfo(title, appName, runner).then((info) => {
+      const steamID = info?.pcgamingwiki?.steamID ?? info?.gamesdb?.steamID
+      if (steamID) {
+        setProtonDBurl(`https://www.protondb.com/app/${steamID}`)
+      }
+    })
   }, [title, appName])
 
   const refreshCircle = () => {

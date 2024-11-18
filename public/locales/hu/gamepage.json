@@ -18,7 +18,7 @@
             "title": "Ellenőrzés és javítás"
         },
         "runexe": {
-            "title": "Válassza ki a futtatandó EXE fájlt"
+            "title": "Válassza ki a futtatandó EXE-fájlt"
         },
         "select": {
             "button": "Kiválasztás"
@@ -34,14 +34,15 @@
         "uninstall": {
             "checkbox": "Előtag eltávolítása: {{prefix}}{{newLine}}Megjegyzés: Ez nem vonható vissza, és a külön nem tárolt mentéseket is törli.",
             "message": "Eltávolítja a(z) „{{title}}” játékot?",
-            "settingcheckbox": "Beállítások és a napló törlése{{newLine}} Megjegyzés: Ez nem vonható vissza. Minden módosított beállítás visszaáll és a naplófájl törlődik.",
+            "settingcheckbox": "Beállítások és a napló törlése{{newLine}}Megjegyzés: Ez nem vonható vissza. Az összes módosított beállítás el lesz felejtve, és a naplófájlok törölve lesznek.",
             "title": "Eltávolítás",
             "prefix_warning": "A játék Wine előtagja az alapértelmezett előtag. Ha valóban törölné, akkor kézileg kell megtennie.",
             "dlc": "Eltávolítja a(z) „{{title}}” DLC-t?",
-            "cannotUninstallEpic": "Az Epic Games-t nem lehet eltávolítani, amíg egy Epic játék telepítés alatt áll."
+            "cannotUninstallEpic": "Az Epic Games nem távolítható el, amíg egy Epic játék telepítés alatt áll.",
+            "gameIsRunning": "A(z) {{title}} fut. Az eltávolításához zárja be a játékot."
         },
         "update": {
-            "message": "Ennek a játéknak van egy frissítése, most alkalmazza?",
+            "message": "Frissítés érhető el ehhez a játékhoz, alkalmazza most?",
             "title": "A játékot frissíteni kell"
         },
         "wineprefix": "Wine előtagmappa kiválasztása",
@@ -50,10 +51,10 @@
     },
     "button": {
         "add_to_favourites": "Hozzáadás a kedvencekhez",
-        "cancel": "Szüneteltetés/mégse",
+        "cancel": "Szüneteltetés/megszakítás",
         "continue": "Letöltés folytatása",
         "finish": "Befejezés",
-        "force_update": "A frissítés kényszerítse, ha lehetséges",
+        "force_update": "Frissítés kényszerítse, ha lehetséges",
         "force-innstall": "Telepítés kényszerítése",
         "hide_game": "Játék elrejtése",
         "import": "Játék importálása",
@@ -105,8 +106,10 @@
             "buildsSelector": "Játékverzió kiválasztása",
             "toggle": "A játék egy adott verzión hagyása"
         },
-        "changelogFor": "Változásjegyzék a(z) {{gameTitle}} játékhoz",
-        "modify": "Telepítés módosítása"
+        "changelogFor": "Változásnapló a(z) {{gameTitle}} játékhoz",
+        "modify": "Telepítés módosítása",
+        "extra_info": "További információk",
+        "install_info": "Telepítési információk"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -135,7 +138,8 @@
         "game-scores": "Játékpontszámok",
         "installedInfo": "Telepített információk",
         "protondb-compatibility-info": "Proton kompatibilitási szint",
-        "steamdeck-compatibility-info": "SteamDeck kompatibilitás"
+        "steamdeck-compatibility-info": "SteamDeck kompatibilitás",
+        "third-party-app": "Külső kezelő"
     },
     "install": {
         "disk-space-left": "Elérhető tárhely",
@@ -149,8 +153,11 @@
             "cancel": "Nem",
             "install": "Igen (megértettem, hogy nem fog működni)",
             "message": "A csalás elleni védelem támogatása hibás vagy le van tiltva. A játék nem fog működni. Mindenképp telepíti?",
-            "title": "A csalás elleni védelem hibás/elutasítva",
-            "ok": "Ok"
+            "title": "A csalás elleni védelem hibás vagy tiltásra került",
+            "ok": "Ok",
+            "install_anyway": "Igen (Megértettem, hogy a többjátékos funkciók nem fognak működni)",
+            "multiplayer_message": "A csalás elleni szoftver támogatása hibás vagy tiltásra került. A játékot lehet, hogy meg lehet nyitni, de a többjátékos funkciók nem fognak működni. Mindenképp telepíti?",
+            "disabled_installation": "A csalás elleni szoftver támogatása hibás, vagy tiltásra került, és a többjátékos funkciók nem fognak működni. A játék nem telepíthető. A játék telepítéséhez tiltsa le ezt az ellenőrzést a speciális beállításokban."
         },
         "flatpak-path-not-writtable": "Hiba: nem lett hozzáférés adva a homokozóhoz ennél az elérési útnál, adatvesztés fog történni."
     },
@@ -219,7 +226,7 @@
         "gameNotAvailable": "A játék nem érhető el",
         "hasUpdates": "Új verzió érhető el!",
         "installed": "Telepítve",
-        "installing": "Telepítés",
+        "installing": "Telepítés…",
         "moving": "Telepítés áthelyezése, kis türelmet",
         "notinstalled": "Ez a játék nincs telepítve",
         "notSupported": "Nem támogatott",
@@ -227,7 +234,7 @@
         "processing": "Fájlok feldolgozása, kis türelmet",
         "queued": "Sorbaállítva",
         "reparing": "Játék javítása, kis türelmet",
-        "this-game-uses-third-party": "Ez a játék egy harmadik féltől származó klienst használ, és jelenleg még nem támogatott",
+        "this-game-uses-third-party": "Ez a játék egy külső klienst használ, és jelenleg még nem támogatott",
         "totalDownloaded": "Teljesen letöltve",
         "uninstalling": "Eltávolítás",
         "updating": "Játék frissítése",
@@ -237,8 +244,8 @@
         "launching": "Indítás…",
         "ubisoft": "Ubisoft telepítése",
         "downloading": "Letöltés folyamatban",
-        "extracting": "Kicsomagolás",
-        "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizze a letölthető tartalmat a https://gog.com/account oldalon",
+        "extracting": "Kibontás",
+        "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizze a letölthető tartalmat a https://gog.com/account oldalon.",
         "goodie": "Nem telepíthető",
         "winetricks": "Winetricks javítások alkalmazása",
         "redist": "Terjeszhető csomagok telepítése ({{redist}})"
@@ -277,5 +284,10 @@
         "dlcsCollapsible": "DLC",
         "nodlcs": "Nem érhető el DLC",
         "versionCollapsable": "Játékverzió"
+    },
+    "third-party-managed": {
+        "header": "Ezt a játékot egy külső alkalmazás kezeli",
+        "notice1": "Ezt a játékot egy külső alkalmazás kezeli: „{{application_name}}”",
+        "notice2": "A Telepítés gombra való kattintás után a Heroic futtatni fogja az alkalmazást, hogy befejezze a telepítési folyamatot"
     }
 }

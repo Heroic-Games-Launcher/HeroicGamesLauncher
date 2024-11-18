@@ -263,7 +263,9 @@ async function loadLocalLibrary() {
   for (const game of libraryStore.get('games', [])) {
     const copyObject = { ...game }
     if (installedGames.has(game.app_name)) {
-      await checkForOfflineInstallerChanges(game.app_name)
+      if (isOnline()) {
+        await checkForOfflineInstallerChanges(game.app_name)
+      }
       copyObject.install = installedGames.get(game.app_name)!
       copyObject.is_installed = true
     }
@@ -385,7 +387,7 @@ export async function refresh(): Promise<ExecResult> {
 
   const gamesObjects: GameInfo[] = [redistGameInfo]
   apiInfoCache.use_in_memory() // Prevent blocking operations
-  const promises = filteredApiArray.map(async (game): Promise<GameInfo> => {
+  for (const game of filteredApiArray) {
     let retries = 5
     while (retries > 0) {
       let gdbData
@@ -399,8 +401,12 @@ export async function refresh(): Promise<ExecResult> {
         )
         gdbData = data
       } catch {
-        await new Promise((resolve) => setTimeout(resolve, 2000))
         retries -= 1
+        logError(
+          `Error getting gamesdb data for ${game.external_id} retries: ${retries}/5`,
+          LogPrefix.Gog
+        )
+        await new Promise((resolve) => setTimeout(resolve, 2000))
         continue
       }
 
@@ -431,32 +437,9 @@ export async function refresh(): Promise<ExecResult> {
         copyObject.is_installed = true
         copyObject.install = installedInfo
       }
-      return copyObject
+      library.set(copyObject.app_name, copyObject)
+      break
     }
-    throw new Error('Exceeeded max number of retries')
-  })
-
-  // Await in chunks of 10
-  const chunks: Array<Array<Promise<GameInfo>>> = []
-  while (promises.length) {
-    chunks.push(promises.splice(0, 10))
-  }
-
-  for (const chunk of chunks) {
-    const settled = await Promise.allSettled(chunk)
-    const fulfilled = settled
-      .filter(
-        (promise): promise is PromiseFulfilledResult<GameInfo> =>
-          promise.status === 'fulfilled'
-      )
-      .map((promise) => promise.value)
-
-    fulfilled.forEach((data: GameInfo) => {
-      if (data?.app_name) {
-        sendFrontendMessage('pushGameToLibrary', data)
-        library.set(data.app_name, data)
-      }
-    })
   }
 
   apiInfoCache.commit() // Sync cache to drive
@@ -955,7 +938,7 @@ export async function gogToUnifiedInfo(
       .replace('{ext}', 'jpg') ?? background
 
   const icon = (
-    info.game?.square_icon.url_format || info.game?.icon?.url_format
+    info.game?.square_icon?.url_format || info.game?.icon?.url_format
   )
     ?.replace('{formatter}', '')
     .replace('{ext}', 'jpg')
@@ -1292,7 +1275,7 @@ export async function getLinuxInstallersLanguages(appName: string) {
     const possibleLanguages: string[] = []
 
     for (const installer of linuxInstallers) {
-      possibleLanguages.push(installer.language as string)
+      possibleLanguages.push(installer.language)
     }
 
     return possibleLanguages

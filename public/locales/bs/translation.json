@@ -545,7 +545,10 @@
             "instructions_title": "Kako prijaviti problem?",
             "last-log": "Zadnji dnevnik",
             "no-file": "Nije pronađena datoteka zapisnika",
-            "show-in-folder": "Prikaži datoteku zapisnika u mapi"
+            "show-in-folder": "Prikaži datoteku zapisnika u mapi",
+            "upload": {
+                "actions": "Action"
+            }
         },
         "mangohud": "Omogući Mangohud (Mangohud treba biti instaliran)",
         "manualsync": {

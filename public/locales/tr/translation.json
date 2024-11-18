@@ -7,7 +7,9 @@
         "title": "Erişilebilirlik",
         "zoom": "Yakınlaştır",
         "disable_dialog_backdrop_close": "Dışarı tıklayarak kutucuğu kapatmayı devre dışı bırakın",
-        "titles_always_visible": "Kütüphanede her zaman başlıkları göster"
+        "titles_always_visible": "Kütüphanede her zaman başlıkları göster",
+        "content_font_family_default": "İçerik Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
+        "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})"
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
@@ -96,7 +98,7 @@
                 "detail": "Güncellemeyi arka planda indirmek istiyor musunuz?",
                 "message": "Yeni bir sürüm var!",
                 "message-finished": "Heroic'i şimdi yeniden başlatmak istiyor musunuz?",
-                "title": "Heroic Games Launcher",
+                "title": "Heroic Games Başlatıcısı",
                 "title-finished": "Güncelleme Tamamlandı"
             }
         },
@@ -528,7 +530,7 @@
         "dxvkfpsvalue": "Pozitif tamsayı değeri (ör. 30, 60, ...)",
         "egs-prefix": "EGS'nin kurulu olduğu Ön Ek",
         "prefered_language": "2 karakterli kod (örneğin: \"en\" veya \"tr\")",
-        "alt-nile-bin": "Yerleşik Nile ikili dosyası kullanılıyor..."
+        "alt-nile-bin": "Yerleşik Nile binary dosyası kullanılıyor..."
     },
     "platforms": {
         "linux": "Linux",
@@ -619,7 +621,43 @@
             "last-log": "Son Günlük",
             "no-file": "Günlük dosyası bulunamadı",
             "show-in-folder": "Günlük dosyasını klasörde göster",
-            "join-heroic-discord": "Discord kanalımıza katıl"
+            "join-heroic-discord": "Discord kanalımıza katıl",
+            "upload": {
+                "actions": "Eylemler",
+                "button": "Kayıt dosyası yükle",
+                "confirm": {
+                    "content": "Gerçekten “{{name}}” yüklemek istiyor musunuz?",
+                    "title": "Kayıt dosyası yüklensin mi?"
+                },
+                "delete": "Kayıt dosyası silme talebi oluştur",
+                "done": {
+                    "content": "{{url}} adresine yüklendi (URL panoya kopyalandı)",
+                    "title": "Yükleme tamamlandı"
+                },
+                "error": {
+                    "content": "Kayıt dosyası yüklenemedi. Ayrıntılar için Heroic'in genel kayıtlarını kontrol edin",
+                    "title": "Yükleme başarısız"
+                },
+                "header": "Kayıt dosyaları yüklendi",
+                "hours-ago": "Yüklendi {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Yüklendi {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Hiçbir kayıt dosyası yüklenmedi",
+                "open": "Kayıt dosyası yüklemeyi aç",
+                "title": "Kayıt başlığı",
+                "upload-date": "Yükleme tarihi",
+                "uploading": {
+                    "content": "Kayıt dosyası yükleniyor...",
+                    "title": "Yükleniyor"
+                }
+            },
+            "descriptiveNames": {
+                "gog": "GOG kaydı",
+                "heroic": "Genel Heroic kaydı",
+                "game-log": "{{gameTitle}} oyun kaydı",
+                "legendary": "Epic Games / Legendary kaydı",
+                "nile": "Amazon / Nile kaydı"
+            },
+            "show-uploads": "Yüklenmiş kayıt dosyalarını göster"
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
@@ -923,8 +961,8 @@
         "cancel-remove": "Kaldırmayı iptal et: \"{{name}}\"",
         "confirm-remove": "Kaldırmayı onayla: \"{{name}}\"",
         "confirm-rename": "\"{{oldName}}\"i \"{{newName}}\" olarak adlandırmayı onayla",
-        "rename": "\"{{name}}\" yeniden adlandır",
+        "rename": "Yeniden adlandır: \"{{name}}\"",
         "title": "Kategorileri Yönet",
-        "remove": "\"{{name}}\" kaldır"
+        "remove": "Kaldır: \"{{name}}\""
     }
 }

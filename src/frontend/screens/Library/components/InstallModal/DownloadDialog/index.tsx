@@ -67,7 +67,7 @@ interface Props {
 
 type DiskSpaceInfo = {
   notEnoughDiskSpace: boolean
-  message: string | `ERROR`
+  message: string
   validPath: boolean
   validFlatpakPath: boolean
   spaceLeftAfter: string

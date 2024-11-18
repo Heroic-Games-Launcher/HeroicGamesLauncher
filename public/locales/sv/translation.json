@@ -5,9 +5,11 @@
         "content_font_family_no_default": "Typsnitt för innehåll (Standard: ",
         "fonts": "Typsnitt",
         "title": "Handikappsanpassning",
-        "zoom": "Zoom",
+        "zoom": "Zooma",
         "disable_dialog_backdrop_close": "Inaktivera stängning av dialogrutor genom att klicka utanför",
-        "titles_always_visible": "Visa alltid titlar i bibliotek"
+        "titles_always_visible": "Visa alltid titlar i bibliotek",
+        "actions_font_family_default": "Åtgärd teckensnittsfamilj (Standard: {{fontFamily}})",
+        "content_font_family_default": "Innehåll teckensnittsfamilj (Standard: {{fontFamily}})"
     },
     "add_game": "Lägg till spel",
     "All": "Alla",
@@ -27,7 +29,7 @@
         },
         "choose": "Välj",
         "choose-egs-prefix": "Ange prefix med befintlig EGS installation",
-        "choose-gogdl-binary": "Ange GOGDL programfil (omstart krävs)",
+        "choose-gogdl-binary": "Ange GOGDL-programfil (omstart krävs)",
         "choose-legendary-binary": "Ange Legendary programfil",
         "customWine": "Ange Wine/Proton version",
         "default-install-path": "Ange standard installationssökväg",
@@ -354,21 +356,21 @@
             "click-to-see-changelog": "Klicka för att se ändringsloggen",
             "newReleases": "Uppdatering tillgänglig!",
             "stable": "Stabil",
-            "version": "Heroic version"
+            "version": "Heroicversion"
         },
         "save-sync": {
             "searching": "Söker efter mapp för sparfiler (klicka för att avbryta)"
         },
         "settings": "Inställningar sparas automatiskt",
-        "version": "Wine version"
+        "version": "Wineversion"
     },
     "infobox": {
         "help": "Hjälp",
         "requirements": "Systemkrav",
         "warning": "Varning",
-        "wine-path": "Wine sökväg",
+        "wine-path": "Winesökväg",
         "wine-prefix": {
-            "title": "Wine prefix"
+            "title": "Wineprefix"
         },
         "wine-repfix": {
             "message": "Wine använder WINEPREFIX för att kapsla in Windows-applikationer. Detta prefix innehåller Wines konfigurationsfiler och en skapad filhierarki för C: (huvuddisken på ett Windows-operativsystem). I den skapade C:-enheten lagras spelets sparfiler och beroenden som installerats via winetricks."
@@ -396,14 +398,14 @@
     "Library": "Bibliotek",
     "loading": {
         "default": "Laddar",
-        "website": "Laddar websida"
+        "website": "Laddar webbsida"
     },
     "login": {
         "alternative_method": "Alternativ inloggningsmetod",
-        "epic": "Epic Games inloggning",
-        "gog": "GOG inloggning",
+        "epic": "Epic Games-inloggning",
+        "gog": "GOG-inloggning",
         "message": "Logga in på önskad plattform. Du kan vara inloggad på fler än en plattform samtidigt.",
-        "amazon": "Amazon logga in",
+        "amazon": "Amazon-inloggning",
         "old-mac": "Din macOS version är {{version}}. macOS 12 eller senare krävs för att logga in."
     },
     "message": {
@@ -458,7 +460,7 @@
     },
     "offline-message": {
         "hint": "Kontrollerar anslutning mot:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com och {{newline}}cloudflare-dns.com",
-        "ignore": "Ignore",
+        "ignore": "Ignorera",
         "offline": "Offline",
         "offline-retry-in": "Offline. Försöker igen om {{seconds}} sekunder.",
         "retrying": "Försöker igen"
@@ -515,10 +517,10 @@
         }
     },
     "other": {
-        "gogdl-version": "GOGDL version: ",
-        "legendary-version": "Legendary version: ",
+        "gogdl-version": "GOGDL-version: ",
+        "legendary-version": "Legendary-version: ",
         "weblate": "Bidra till översättning av Heroic.",
-        "nile-version": "Nile version: "
+        "nile-version": "Nile-version: "
     },
     "Other": "Övrigt",
     "placeholder": {
@@ -619,7 +621,43 @@
             "last-log": "Senaste logg",
             "no-file": "Ingen loggfil hittades",
             "show-in-folder": "Visa loggfiler i mapp",
-            "join-heroic-discord": "Gå med i vår Discord"
+            "join-heroic-discord": "Gå med i vår Discord",
+            "upload": {
+                "actions": "Åtgärd",
+                "button": "Ladda upp loggfil",
+                "confirm": {
+                    "title": "Ladda upp loggfil?",
+                    "content": "Vill du verkligen ladda upp \"{{name}}\"?"
+                },
+                "done": {
+                    "title": "Uppladdning klar",
+                    "content": "Uppladdad till {{url}} (URL har kopierats till ditt urklipp)"
+                },
+                "error": {
+                    "title": "Uppladdning misslyckades",
+                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer"
+                },
+                "header": "Ladda upp loggfil?",
+                "delete": "Begär borttagning av loggfil",
+                "hours-ago": "Uppladdad {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Uppladdad {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Inga loggfiler laddades upp",
+                "open": "Öppna uppladdning av loggfil",
+                "title": "Loggtitel",
+                "upload-date": "Uppladdningsdatum",
+                "uploading": {
+                    "content": "Laddar upp loggfil...",
+                    "title": "Laddar upp"
+                }
+            },
+            "descriptiveNames": {
+                "game-log": "Spellogg för {{gameTitle}}",
+                "gog": "GOG-logg",
+                "heroic": "Allmän Heroic logg",
+                "legendary": "Epic Games / Legendary logg",
+                "nile": "Amazon / Nile logg"
+            },
+            "show-uploads": "Visa uppladdade loggfiler"
         },
         "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
         "manualsync": {
@@ -659,7 +697,7 @@
         "steamruntime": "Använd Steam Runtime",
         "winecrossoverbottle": "CrossOver prefix",
         "wineprefix": "Wine-prefix mapp",
-        "wineversion": "Wine version",
+        "wineversion": "Wineversion",
         "ignoreGameUpdates": "Ignorera speluppdateringar",
         "autoUpdateGames": "Uppdatera spel automatiskt",
         "disable_logs": "Inaktivera loggar",
@@ -737,7 +775,7 @@
             "gamescope": "Gamescope"
         },
         "open-config-file": "Öppna konfigurationsfil",
-        "reset-heroic": "Grundinställ Heroic",
+        "reset-heroic": "Återställ Heroic",
         "saves": {
             "label": "Plats för sparfiler:",
             "warning": "Molnlagringsfunktionen är i beta, vänligen säkerhetskopiera dina sparade filer innan du synkroniserar (ifall något går fel)"
@@ -782,10 +820,10 @@
                 "help7": "Butik inloggning",
                 "help5": "Amazon biblioteksinformation (lista över spel, installationsdialoginformation)",
                 "help1": "Denna åtgärd rensar följande cacheminne:",
-                "help10": "Heroic konfiguration",
+                "help10": "Heroickonfiguration",
                 "help3": "Legendary biblioteksinformation (lista över spel, installationsdialoginformation, spelinformation)",
                 "help4": "GOG-biblioteksinformation (lista över spel, installationsdialoginformation, api-information -dvs: krav-)",
-                "help9": "Spel inställningar"
+                "help9": "Spelinställningar"
             },
             "title": {
                 "resetHeroic": "Grundåterställ Heroic",
@@ -816,7 +854,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "Ange standard prefix-sökväg för nya konfigurationer",
-            "wineprefix": "Ange sökväg för nya Wine prefix"
+            "wineprefix": "Ange sökväg för nya Wineprefix"
         }
     },
     "tooltip": {
@@ -854,9 +892,9 @@
     "wine": {
         "actions": "Åtgärd",
         "manager": {
-            "link": "Wine hanterare",
-            "not-found": "Inga Wine versioner hittades. Klicka på uppdateringsikonen för att försöka igen.",
-            "title": "Wine hanterare",
+            "link": "Winehanterare",
+            "not-found": "Inga Wineversioner hittades. Klicka på uppdateringsikonen för att försöka igen.",
+            "title": "Winehanterare",
             "unzipping": "Packar upp"
         },
         "release": "Utgivningsdatum",
@@ -877,7 +915,7 @@
         "title": "Titel"
     },
     "amazon": "Amazon",
-    "Amazon Games": "Amazon spel",
+    "Amazon Games": "Amazon-Spel",
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Installera",

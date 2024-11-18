@@ -225,7 +225,7 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
     removeFromQueue(currentElement.params.appName)
 
     if (removeDownloaded) {
-      const { appName, runner } = currentElement!.params
+      const { appName, runner } = currentElement.params
       const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
       if (folder_name) {
         removeFolder(currentElement.params.path, folder_name)
