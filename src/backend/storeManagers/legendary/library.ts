@@ -510,7 +510,14 @@ function loadFile(app_name: string): boolean {
   }
   const { namespace } = metadata
 
-  if (namespace === 'ue') {
+  const ueCategories = ['assets', 'asset-format', 'plugins', 'projects']
+  const isUeTitle =
+    namespace === 'ue' ||
+    !!metadata.categories.find((category) =>
+      ueCategories.includes(category.path)
+    )
+
+  if (isUeTitle) {
     return false
   }
 
