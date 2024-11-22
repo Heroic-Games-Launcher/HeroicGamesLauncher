@@ -7,7 +7,9 @@
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż",
         "disable_dialog_backdrop_close": "Nie zamykaj okienek, gdy klikniesz poza nimi",
-        "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece"
+        "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece",
+        "actions_font_family_default": "Rodzaj czcionki menu akcji (domyślna: {{fontFamily}})",
+        "content_font_family_default": "Rodzaj czcionki treści (domyślna: {{fontFamily}})"
     },
     "add_game": "Dodaj Grę",
     "All": "Wszystkie",
