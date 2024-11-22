@@ -25,6 +25,16 @@ export default function WineVersionSelector() {
     const getAltWine = async () => {
       setRefreshing(true)
       const wineList: WineInstallation[] = await window.api.getAlternativeWine()
+
+      // System Wine might change names (version strings) with updates. This
+      // will then lead to it not being found in the alt wine list, as it
+      // is indexed by name. To resolve this, search for the current Wine
+      // version by binary path and update it
+      const currentWine = wineList.find((wine) => wine.bin === wineVersion.bin)
+      if (currentWine) {
+        setWineVersion(currentWine)
+      }
+
       setAltWine(wineList)
       // Avoids not updating wine config when having one wine install only
       if (wineList && wineList.length === 1) {
