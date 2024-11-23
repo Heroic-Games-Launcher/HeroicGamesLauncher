@@ -30,9 +30,7 @@ describe('getInfoFromGamesDB', () => {
   test('catches axios throws', async () => {
     jest.spyOn(axiosClient, 'get').mockRejectedValueOnce({
       response: {
-        data: {
-          error_description: 'Failed'
-        }
+        data: 'Failed'
       }
     })
 
