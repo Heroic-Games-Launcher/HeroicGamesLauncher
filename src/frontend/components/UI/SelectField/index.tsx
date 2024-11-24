@@ -44,6 +44,9 @@ export default function SelectField({
         sx={{
           '& .MuiSelect-icon': { display: 'none' },
           '& .MuiOutlinedInput-notchedOutline legend': { width: 0 },
+          '& .MuiSelect-select': {
+            width: 'auto'
+          }
         }}
       >
         {prompt && <MenuItem value="">{prompt}</MenuItem>}
