@@ -14,7 +14,6 @@
   font-family: var(--primary-font-family), 'Noto Color Emoji';
   font-weight: normal;
   font-size: var(--text-md);
-  line-height: 19px;
   color: var(--text-secondary);
   text-indent: 22px;
   border: none;
