@@ -1,16 +1,20 @@
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ContextProvider from 'frontend/state/ContextProvider'
 import React, {
-  KeyboardEvent,
   ReactNode,
-  SyntheticEvent,
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState
 } from 'react'
+import {
+  Dialog as MuiDialog,
+  DialogContent,
+  IconButton,
+  Paper,
+  styled
+} from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+
+import ContextProvider from 'frontend/state/ContextProvider'
 
 interface DialogProps {
   className?: string
@@ -19,15 +23,22 @@ interface DialogProps {
   onClose: () => void
 }
 
+const StyledPaper = styled(Paper)(() => ({
+  backgroundColor: 'var(--modal-background)',
+  color: 'var(--text-default)',
+  maxWidth: '100%',
+  '&:has(.settingsDialogContent)': {
+    height: '80%'
+  }
+}))
+
 export const Dialog: React.FC<DialogProps> = ({
   children,
   className,
   showCloseButton = false,
   onClose
 }) => {
-  const dialogRef = useRef<HTMLDialogElement | null>(null)
-  const onCloseRef = useRef(onClose)
-  onCloseRef.current = onClose
+  const [open, setOpen] = useState(true)
   const [focusOnClose, setFocusOnClose] = useState<HTMLElement | null>(null)
   const { disableDialogBackdropClose } = useContext(ContextProvider)
 
@@ -35,84 +46,49 @@ export const Dialog: React.FC<DialogProps> = ({
     setFocusOnClose(document.querySelector<HTMLElement>('*:focus'))
   }, [])
 
-  const close = () => {
-    onCloseRef.current()
+  const close = useCallback(() => {
+    setOpen(false)
+    onClose()
     if (focusOnClose) {
       setTimeout(() => focusOnClose.focus(), 200)
     }
-  }
-
-  useEffect(() => {
-    const dialog = dialogRef.current
-    if (dialog) {
-      const cancel = () => {
-        close()
-      }
-      dialog.addEventListener('cancel', cancel)
-
-      if (disableDialogBackdropClose) {
-        dialog['showPopover']()
-
-        return () => {
-          dialog.removeEventListener('cancel', cancel)
-          dialog['hidePopover']()
-        }
-      } else {
-        dialog.showModal()
-
-        return () => {
-          dialog.removeEventListener('cancel', cancel)
-          dialog.close()
-        }
-      }
-    }
-    return
-  }, [dialogRef.current, disableDialogBackdropClose])
-
-  const onDialogClick = useCallback(
-    (e: SyntheticEvent) => {
-      if (e.target === dialogRef.current) {
-        const ev = e.nativeEvent as MouseEvent
-        const tg = e.target as HTMLElement
-        if (
-          ev.offsetX < 0 ||
-          ev.offsetX > tg.offsetWidth ||
-          ev.offsetY < 0 ||
-          ev.offsetY > tg.offsetHeight
-        ) {
-          close()
-        }
-      }
-    },
-    [onClose]
-  )
-
-  const closeIfEsc = (event: KeyboardEvent<HTMLDialogElement>) => {
-    if (event.key === 'Escape') {
-      close()
-    }
-  }
+  }, [onClose, focusOnClose])
 
   return (
-    <div className="Dialog">
-      <dialog
-        className={`Dialog__element ${className}`}
-        ref={dialogRef}
-        onClick={onDialogClick}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore, this feature is new and not yet typed
-        popover="manual"
-        onKeyUp={closeIfEsc}
-      >
+    <MuiDialog
+      open={open}
+      onClose={close}
+      scroll="paper"
+      maxWidth="md"
+      PaperComponent={StyledPaper}
+      PaperProps={{
+        className
+      }}
+      disableEscapeKeyDown={disableDialogBackdropClose}
+      sx={{
+        '& .Dialog__element': {
+          maxWidth: 'min(700px, 85vw)',
+          paddingTop: 'var(--dialog-margin-vertical)'
+        }
+      }}
+    >
+      <>
         {showCloseButton && (
-          <div className="Dialog__Close">
-            <button className="Dialog__CloseButton" onClick={close}>
-              <FontAwesomeIcon className="Dialog__CloseIcon" icon={faXmark} />
-            </button>
-          </div>
+          <IconButton
+            aria-label="close"
+            onClick={close}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: 'var(--text-default)'
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
         )}
-        {children}
-      </dialog>
-    </div>
+        <DialogContent>{children}</DialogContent>
+      </>
+    </MuiDialog>
   )
 }
