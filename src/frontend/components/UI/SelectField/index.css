@@ -47,10 +47,10 @@
 .MuiPopover-root .MuiPaper-root {
   color: var(--text-secondary);
   background-color: var(--input-background);
-}
 
-.MuiPopover-root .MuiPaper-root .MuiMenuItem-root {
-  font-family: var(--primary-font-family);
+  .MuiMenuItem-root {
+    font-family: var(--primary-font-family);
+  }
 }
 
 .selectStyle {
