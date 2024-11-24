@@ -36,7 +36,15 @@ export default function SelectField({
       })}
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
-      <Select id={htmlId} value={value} onChange={onChange} disabled={disabled}>
+      <Select
+        id={htmlId}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        sx={{
+          '& .MuiOutlinedInput-notchedOutline legend': { width: 0 },
+        }}
+      >
         {prompt && <MenuItem value="">{prompt}</MenuItem>}
         {children}
       </Select>
