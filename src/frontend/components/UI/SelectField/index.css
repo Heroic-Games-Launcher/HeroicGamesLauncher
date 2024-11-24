@@ -44,11 +44,6 @@
   min-width: 100px;
 }
 
-/* hide the second arrow */
-.selectFieldWrapper .MuiOutlinedInput-root .MuiSvgIcon-root {
-  opacity: 0%;
-}
-
 .MuiPopover-root .MuiPaper-root {
   color: var(--text-secondary);
   background-color: var(--input-background);

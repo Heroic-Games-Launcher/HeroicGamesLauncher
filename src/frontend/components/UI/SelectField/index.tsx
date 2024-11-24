@@ -42,6 +42,7 @@ export default function SelectField({
         onChange={onChange}
         disabled={disabled}
         sx={{
+          '& .MuiSelect-icon': { display: 'none' },
           '& .MuiOutlinedInput-notchedOutline legend': { width: 0 },
         }}
       >
