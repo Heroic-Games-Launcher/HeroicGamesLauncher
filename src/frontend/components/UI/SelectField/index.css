@@ -49,13 +49,6 @@
   opacity: 0%;
 }
 
-.selectFieldWrapper
-  .MuiOutlinedInput-root
-  .MuiOutlinedInput-notchedOutline
-  .css-ihdtdm {
-  width: 0;
-}
-
 .MuiPopover-root .MuiPaper-root {
   color: var(--text-secondary);
   background-color: var(--input-background);
