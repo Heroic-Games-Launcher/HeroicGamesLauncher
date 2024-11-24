@@ -4,8 +4,8 @@
 }
 
 .selectFieldWrapper select,
-.selectFieldWrapper .MuiOutlinedInput-root,
-.selectStyle {
+.selectStyle,
+.selectFieldWrapper .MuiOutlinedInput-root {
   border-radius: var(--space-3xs);
   grid-area: select;
   width: 100%;
