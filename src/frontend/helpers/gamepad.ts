@@ -291,18 +291,18 @@ export const initGamepad = () => {
     const el = currentElement()
     if (!el) return false
 
-    return !!el.closest('.Dialog__element')
+    return !!el.closest('.MuiDialog-root')
   }
 
   function closeDialog() {
     const el = currentElement()
     if (!el) return false
 
-    const dialog = el.closest('.Dialog__element')
+    const dialog = el.closest('.MuiDialog-root')
     if (!dialog) return false
 
     const closeButton = dialog.querySelector<HTMLButtonElement>(
-      '.Dialog__CloseButton'
+      '[aria-label="close"]'
     )
     if (!closeButton) return false
 
