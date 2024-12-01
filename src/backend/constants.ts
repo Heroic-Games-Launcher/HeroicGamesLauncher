@@ -5,7 +5,6 @@ import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from 'common/types'
 import { logDebug, LogPrefix } from './logger/logger'
-import { createNewLogFileAndClearOldOnes } from './logger/logfile'
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
@@ -74,14 +73,6 @@ const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
 const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(appFolder, 'images-cache')
 const fixesPath = join(appFolder, 'fixes')
-
-const {
-  currentLogFile,
-  lastLogFile,
-  legendaryLogFile,
-  gogdlLogFile,
-  nileLogFile
-} = createNewLogFileAndClearOldOnes()
 
 const publicDir = resolve(
   __dirname,
@@ -232,11 +223,6 @@ export function createNecessaryFolders() {
 export {
   currentGameConfigVersion,
   currentGlobalConfigVersion,
-  currentLogFile,
-  lastLogFile,
-  legendaryLogFile,
-  gogdlLogFile,
-  nileLogFile,
   discordLink,
   execOptions,
   fixAsarPath,
