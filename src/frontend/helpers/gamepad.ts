@@ -143,6 +143,8 @@ export const initGamepad = () => {
             el?.blur()
             el?.focus()
             return
+          } else if (isInMuiPopover()) {
+            action = 'tab'
           } else if (isContextMenu()) {
             action = 'rightClick'
           }
@@ -245,6 +247,13 @@ export const initGamepad = () => {
     if (!el) return false
 
     return el.classList.contains('MuiSelect-select')
+  }
+
+  function isInMuiPopover() {
+    const el = currentElement()
+    if (!el) return false
+
+    return !!el.closest('.MuiPopover-root')
   }
 
   function playable() {
