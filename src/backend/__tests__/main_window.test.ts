@@ -9,6 +9,7 @@ describe('main_window', () => {
   describe('sendFrontendMessage', () => {
     describe('if no main window', () => {
       beforeAll(() => {
+        // @ts-expect-error FIXME Mocks should not work like this
         BrowserWindow['setAllWindows']([])
       })
 
@@ -26,6 +27,7 @@ describe('main_window', () => {
 
       // stub windows
       beforeAll(() => {
+        // @ts-expect-error FIXME Mocks should not work like this
         BrowserWindow['setAllWindows']([window])
       })
 
@@ -36,6 +38,7 @@ describe('main_window', () => {
 
       // cleanup stubs
       afterAll(() => {
+        // @ts-expect-error FIXME Mocks should not work like this
         BrowserWindow['setAllWindows']([])
       })
 
@@ -65,6 +68,7 @@ describe('main_window', () => {
 
       it('creates the new window with the given geometry', () => {
         const window = createMainWindow()
+        // @ts-expect-error FIXME Mocks should not work like this
         const options = window['options']
 
         expect(options.height).toBe(600)
@@ -81,6 +85,7 @@ describe('main_window', () => {
 
       it('creates the new window with the default geometry', () => {
         const window = createMainWindow()
+        // @ts-expect-error FIXME Mocks should not work like this
         const options = window['options']
 
         expect(options.height).toBe(690)
@@ -99,6 +104,7 @@ describe('main_window', () => {
         } as Display)
 
         const window = createMainWindow()
+        // @ts-expect-error FIXME Mocks should not work like this
         const options = window['options']
 
         expect(options.height).toBe(690)
@@ -119,6 +125,7 @@ describe('main_window', () => {
       it('creates a simple frameless window on Linux', () => {
         const originalPlatform = overrideProcessPlatform('linux')
         const window = createMainWindow()
+        // @ts-expect-error FIXME Mocks should not work like this
         const options = window['options']
         overrideProcessPlatform(originalPlatform)
 
@@ -131,6 +138,7 @@ describe('main_window', () => {
         ;['darwin', 'win32'].forEach((platform) => {
           const originalPlatform = overrideProcessPlatform(platform)
           const window = createMainWindow()
+          // @ts-expect-error FIXME Mocks should not work like this
           const options = window['options']
           overrideProcessPlatform(originalPlatform)
 
@@ -151,6 +159,7 @@ describe('main_window', () => {
 
       it('creates the new window with default titlebar', () => {
         const window = createMainWindow()
+        // @ts-expect-error FIXME Mocks should not work like this
         const options = window['options']
 
         expect(options.frame).toBeUndefined()

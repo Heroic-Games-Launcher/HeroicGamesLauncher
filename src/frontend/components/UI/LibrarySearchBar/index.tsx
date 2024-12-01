@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { GameInfo } from '../../../../common/types'
+import type { GameInfo, Runner } from 'common/types'
 import SearchBar from '../SearchBar'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
@@ -11,10 +11,11 @@ function fixFilter(text: string) {
   return text.replaceAll(regex, '')
 }
 
-const RUNNER_TO_STORE = {
+const RUNNER_TO_STORE: Record<Runner, string> = {
   legendary: 'Epic',
   gog: 'GOG',
-  nile: 'Amazon'
+  nile: 'Amazon',
+  sideload: 'sideload'
 }
 
 export default function LibrarySearchBar() {
@@ -49,7 +50,7 @@ export default function LibrarySearchBar() {
 
   const suggestions = list.map((game) => (
     <li onClick={() => handleClick(game)} key={game.app_name}>
-      {game.title} <span>({RUNNER_TO_STORE[game.runner] || game.runner})</span>
+      {game.title} <span>({RUNNER_TO_STORE[game.runner]})</span>
     </li>
   ))
 

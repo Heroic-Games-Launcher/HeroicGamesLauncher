@@ -3,8 +3,8 @@ const GlobalConfig = (() => {
     darkTrayIcon: false
   }
 
-  const setConfigValue = (key: string, value: unknown) => {
-    config[key] = value
+  const setConfigValue = (key: keyof typeof config, value: unknown) => {
+    config[key] = value as never
   }
 
   return {

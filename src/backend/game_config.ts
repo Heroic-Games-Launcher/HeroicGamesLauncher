@@ -300,8 +300,8 @@ class GameConfigV0 extends GameConfig {
     }
   }
 
-  public setSetting(key: string, value: unknown) {
-    this.config[key] = value
+  public setSetting(key: keyof GameSettings, value: unknown) {
+    this.config[key] = value as never
     logInfo(`${this.appName}: Setting ${key} to ${JSON.stringify(value)}`)
     return this.flush()
   }
