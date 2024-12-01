@@ -10,6 +10,7 @@ import { downloadManagerStore } from 'frontend/helpers/electronStores'
 import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import DownloadManagerFooter from './DownloadManagerFooter'
 
 export default React.memo(function DownloadManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -181,6 +182,8 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
           </div>
         </div>
       )}
+      {/* Currently only has auto shutdown switch */}
+      <DownloadManagerFooter />
     </>
   )
 })
