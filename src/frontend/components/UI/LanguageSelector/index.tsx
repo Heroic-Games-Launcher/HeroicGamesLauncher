@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { configStore } from 'frontend/helpers/electronStores'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField } from '..'
+import { MenuItem } from '@mui/material'
 
 const storage: Storage = window.localStorage
 
@@ -132,9 +133,9 @@ export default function LanguageSelector({
     if (flagPossition === FlagPosition.APPEND) label = `${label} ${flag}`
 
     return (
-      <option key={lang} value={lang}>
+      <MenuItem key={lang} value={lang}>
         {label}
-      </option>
+      </MenuItem>
     )
   }
 

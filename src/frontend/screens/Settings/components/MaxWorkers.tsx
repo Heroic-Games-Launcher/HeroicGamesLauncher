@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
+import { MenuItem } from '@mui/material'
 
 const MaxWorkers = () => {
   const { t } = useTranslation()
@@ -25,11 +26,13 @@ const MaxWorkers = () => {
       extraClass="smaller"
     >
       {Array.from(Array(maxCpus).keys()).map((n) => (
-        <option key={n + 1}>{n + 1}</option>
+        <MenuItem key={n + 1} value={n + 1}>
+          {n + 1}
+        </MenuItem>
       ))}
-      <option key={0} value={0}>
+      <MenuItem key={0} value={0}>
         Max
-      </option>
+      </MenuItem>
     </SelectField>
   )
 }
