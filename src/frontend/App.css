@@ -70,12 +70,12 @@ body {
 }
 
 /* Disable content behind an opened dialog so it cannot be clicked */
-#root:has(dialog:popover-open) {
+body:has(dialog[open]) {
   pointer-events: none;
 
   /* Make sure content of the dialog and Help can be clicked */
   .HelpButton,
-  :popover-open {
+  dialog[open] {
     pointer-events: all;
   }
 }

@@ -50,20 +50,11 @@ export const Dialog: React.FC<DialogProps> = ({
       }
       dialog.addEventListener('cancel', cancel)
 
-      if (disableDialogBackdropClose) {
-        dialog['showPopover']()
+      dialog.showModal()
 
-        return () => {
-          dialog.removeEventListener('cancel', cancel)
-          dialog['hidePopover']()
-        }
-      } else {
-        dialog.showModal()
-
-        return () => {
-          dialog.removeEventListener('cancel', cancel)
-          dialog.close()
-        }
+      return () => {
+        dialog.removeEventListener('cancel', cancel)
+        dialog.close()
       }
     }
     return
@@ -71,6 +62,8 @@ export const Dialog: React.FC<DialogProps> = ({
 
   const onDialogClick = useCallback(
     (e: SyntheticEvent) => {
+      if (disableDialogBackdropClose) return
+
       if (e.target === dialogRef.current) {
         const ev = e.nativeEvent as MouseEvent
         const tg = e.target as HTMLElement
@@ -84,7 +77,7 @@ export const Dialog: React.FC<DialogProps> = ({
         }
       }
     },
-    [onClose]
+    [onClose, disableDialogBackdropClose]
   )
 
   const closeIfEsc = (event: KeyboardEvent<HTMLDialogElement>) => {
@@ -99,9 +92,6 @@ export const Dialog: React.FC<DialogProps> = ({
         className={`Dialog__element ${className}`}
         ref={dialogRef}
         onClick={onDialogClick}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore, this feature is new and not yet typed
-        popover="manual"
         onKeyUp={closeIfEsc}
       >
         {showCloseButton && (
