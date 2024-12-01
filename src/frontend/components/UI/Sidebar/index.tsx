@@ -1,41 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import CurrentDownload from './components/CurrentDownload'
-import SidebarLinks from './components/SidebarLinks'
+import MainLinks from './components/MainLinks'
+import ExtraLinks from './components/ExtraLinks'
 import './index.scss'
 import HeroicVersion from './components/HeroicVersion'
-import { DMQueueElement } from 'common/types'
 
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import { useNavigate } from 'react-router-dom'
 import { WebviewTag } from 'electron'
 
-let sidebarSize = localStorage.getItem('sidebar-width') || 240
+let sidebarSize = localStorage.getItem('sidebar-width') || 250
 const minWidth = 60
 const maxWidth = 400
-const collapsedWidth = 120
+const collapsedWidth = 175
 
 export default React.memo(function Sidebar() {
   const sidebarEl = useRef<HTMLDivElement | null>(null)
-  const [currentDMElement, setCurrentDMElement] = useState<DMQueueElement>()
 
   const navigate = useNavigate()
-
-  useEffect(() => {
-    window.api.getDMQueueInformation().then(({ elements }) => {
-      setCurrentDMElement(elements[0])
-    })
-
-    const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e, elements) => {
-        setCurrentDMElement(elements[0])
-      }
-    )
-
-    return () => {
-      removeHandleDMQueueInformation()
-    }
-  }, [])
 
   useEffect(() => {
     if (!sidebarEl.current) return
@@ -46,6 +28,7 @@ export default React.memo(function Sidebar() {
       sidebarEl.current.classList.remove('collapsed')
     }
 
+    sidebarEl.current.style.setProperty('--scroll-offset', '0px')
     sidebarEl.current.style.setProperty('--sidebar-width', `${sidebarSize}px`)
   }, [sidebarEl])
 
@@ -55,6 +38,15 @@ export default React.memo(function Sidebar() {
       navigate(screen, { state: { fromGameCard: false } })
     })
   }, [])
+
+  const handleScroll = () => {
+    if (!sidebarEl.current) return
+
+    sidebarEl.current.style.setProperty(
+      '--scroll-offset',
+      `${sidebarEl.current.scrollTop}px`
+    )
+  }
 
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     const isRTL = document.getElementById('app')?.classList.contains('isRTL')
@@ -130,18 +122,12 @@ export default React.memo(function Sidebar() {
   }
 
   return (
-    <aside ref={sidebarEl} className="Sidebar">
+    <aside ref={sidebarEl} className="Sidebar" onScroll={handleScroll}>
       <HeroicIcon className="heroicIcon" />
-      <SidebarLinks />
-      <div className="currentDownloads">
-        {currentDMElement && (
-          <CurrentDownload
-            key={currentDMElement.params.appName}
-            appName={currentDMElement.params.appName}
-            runner={currentDMElement.params.runner}
-          />
-        )}
-      </div>
+      <MainLinks />
+      <div className="filler" />
+      <ExtraLinks />
+      <div className="divider" />
       <HeroicVersion />
       <div className="resizer" onMouseDown={handleDragStart} />
     </aside>

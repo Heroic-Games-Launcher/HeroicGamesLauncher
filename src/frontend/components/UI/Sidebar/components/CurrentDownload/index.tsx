@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import LinearProgress from '@mui/material/LinearProgress'
 import Typography from '@mui/material/Typography'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,6 +17,9 @@ type Props = {
   runner: Runner
 }
 
+const EOS_APP_NAME = '98bc04bc842e4906993fd6d6644ffb8d'
+const EOS_APP_RUNNER = 'legendary'
+
 export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   const [progress] = hasProgress(appName)
   const [gameTitle, setGameTitle] = useState('')
@@ -28,10 +30,7 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
     const getGameTitle = async () => {
       // Hack for EOS Overlay. Not sure if this can be done better
       let title
-      if (
-        appName === '98bc04bc842e4906993fd6d6644ffb8d' &&
-        runner === 'legendary'
-      ) {
+      if (appName === EOS_APP_NAME && runner === EOS_APP_RUNNER) {
         title = 'EOS Overlay'
       } else {
         title = (await getGameInfo(appName, runner))!.title
@@ -52,37 +51,35 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
   }
 
   return (
-    <>
-      <Link to={`/download-manager`} className="currentDownload">
-        <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
-          <Badge
-            badgeContent={`${Math.round(progress.percent ?? 0)}%`}
-            color="primary"
-          >
-            <FontAwesomeIcon icon={faDownload} />
-          </Badge>
-        </span>
+    <div className="currentDownload">
+      <span className="statusIcon" title={`${getStatus()} - ${gameTitle}`}>
+        <Badge
+          badgeContent={`${Math.round(progress.percent ?? 0)}%`}
+          color="primary"
+        >
+          <FontAwesomeIcon icon={faDownload} />
+        </Badge>
+      </span>
 
-        <div className="full-size">
-          <span className="gameTitle">{gameTitle ?? 'GameName'}</span>
-          <br />
-          <span className="downloadStatus">{getStatus()}</span>
-          <br />
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ width: '100%', mr: 1 }}>
-              <LinearProgress
-                variant="determinate"
-                value={progress.percent || 0}
-              />
-            </Box>
-            <Box sx={{ minWidth: 35 }}>
-              <Typography variant="body2">{`${Math.round(
-                progress.percent || 0
-              )}%`}</Typography>
-            </Box>
+      <div className="full-size">
+        <span className="gameTitle">{gameTitle ?? 'GameName'}</span>
+        <br />
+        <span className="downloadStatus">{getStatus()}</span>
+        <br />
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ width: '100%', mr: 1 }}>
+            <LinearProgress
+              variant="determinate"
+              value={progress.percent || 0}
+            />
           </Box>
-        </div>
-      </Link>
-    </>
+          <Box sx={{ minWidth: 35 }}>
+            <Typography variant="body2">{`${Math.round(
+              progress.percent || 0
+            )}%`}</Typography>
+          </Box>
+        </Box>
+      </div>
+    </div>
   )
 })

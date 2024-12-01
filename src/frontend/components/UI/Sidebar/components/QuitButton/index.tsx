@@ -27,7 +27,11 @@ const QuitButton: React.FC = () => {
   }
 
   return (
-    <button className="Sidebar__item" onClick={() => handleQuitButton()}>
+    <button
+      className="Sidebar__item Sidebar__quit"
+      onClick={() => handleQuitButton()}
+      data-tooltip-content={t('userselector.quit', 'Quit')}
+    >
       <div className="Sidebar__itemIcon">
         <FontAwesomeIcon
           icon={faPowerOff}
