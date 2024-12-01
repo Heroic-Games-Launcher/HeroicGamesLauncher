@@ -39,20 +39,21 @@ export const Dialog: React.FC<DialogProps> = ({
   onClose
 }) => {
   const [open, setOpen] = useState(true)
-  const [focusOnClose, setFocusOnClose] = useState<HTMLElement | null>(null)
   const { disableDialogBackdropClose } = useContext(ContextProvider)
 
   useEffect(() => {
-    setFocusOnClose(document.querySelector<HTMLElement>('*:focus'))
+    // HACK: Focussing the dialog using JS does not seem to work
+    //       Instead, simulate one or two tab presses
+    // One tab to focus the dialog
+    window.api.gamepadAction({ action: 'tab' })
+    // Second tab to skip the close button if it's shown
+    if (showCloseButton) window.api.gamepadAction({ action: 'tab' })
   }, [])
 
   const close = useCallback(() => {
     setOpen(false)
     onClose()
-    if (focusOnClose) {
-      setTimeout(() => focusOnClose.focus(), 200)
-    }
-  }, [onClose, focusOnClose])
+  }, [onClose])
 
   return (
     <MuiDialog
