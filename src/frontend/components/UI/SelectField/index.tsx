@@ -45,7 +45,7 @@ export default function SelectField({
           '& .MuiSelect-icon': { display: 'none' },
           '& .MuiOutlinedInput-notchedOutline legend': { width: 0 },
           '& .MuiSelect-select': {
-            width: 'auto',
+            textAlign: isRTL ? 'right' : 'left',
             paddingLeft: 0
           }
         }}
