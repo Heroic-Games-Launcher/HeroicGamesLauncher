@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import { DialogTitle } from '@mui/material'
 
 interface DialogHeaderProps {
   onClose?: () => void
@@ -7,8 +8,15 @@ interface DialogHeaderProps {
 
 export const DialogHeader: React.FC<DialogHeaderProps> = ({ children }) => {
   return (
-    <div className="Dialog__header">
-      <h1 className="Dialog__headerTitle">{children}</h1>
-    </div>
+    <DialogTitle
+      sx={{
+        fontFamily: 'var(--primary-font-family)',
+        fontSize: 'var(--text-xl)',
+        fontWeight: 'var(--bold)',
+        paddingLeft: 0
+      }}
+    >
+      {children}
+    </DialogTitle>
   )
 }
