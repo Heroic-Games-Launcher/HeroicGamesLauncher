@@ -7,7 +7,9 @@
         "title": "Barrierefreiheit",
         "zoom": "Vergrößerung",
         "disable_dialog_backdrop_close": "Deaktiviere schließen der Dialoge bei Klick außerhalb",
-        "titles_always_visible": "Immer Spieltitel in Bibliothek anzeigen"
+        "titles_always_visible": "Immer Spieltitel in Bibliothek anzeigen",
+        "actions_font_family_default": "Schriftfamilie Aktionen (Standard: {{fontFamily}})",
+        "content_font_family_default": "Schriftfamilie Inhalt (Standard: {{fontFamily}})"
     },
     "add_game": "Spiel hinzufügen",
     "All": "Alle",
