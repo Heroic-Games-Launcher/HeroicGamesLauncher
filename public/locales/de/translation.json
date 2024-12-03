@@ -798,7 +798,8 @@
             "osVersion": "Version {{versionNumber}}",
             "memory": "Arbeitsspeicher:",
             "osNameFlatpak": "{{osName}} (in Flatpak)",
-            "systemModel": "System Model:"
+            "systemModel": "System Model:",
+            "cometVersion": "Comet: {{cometVersion}}"
         },
         "experimental_features": {
             "title": "Experimentelle Funktionen"
