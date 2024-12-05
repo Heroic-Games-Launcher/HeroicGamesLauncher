@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron'
 import i18next from 'i18next'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
@@ -22,7 +22,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     appIcon.setContextMenu(contextMenu(mainWindow, recentGames))
     //terrible two liner to make the tray icon menu appear in the dock too on macOS
     if (process.platform === 'darwin')
-      require('electron').app.dock.setMenu(contextMenu(mainWindow, recentGames))
+      app.dock.setMenu(contextMenu(mainWindow, recentGames))
   }
   await loadContextMenu()
 
