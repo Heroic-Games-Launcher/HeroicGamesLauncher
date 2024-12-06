@@ -6,7 +6,7 @@ import { handleProtocol } from '../protocol'
 import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
-import { iconDark, iconLight } from '../constants'
+import { iconDark, iconLight, isMac } from '../constants'
 import { backendEvents } from '../backend_events'
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
@@ -15,14 +15,11 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
 
   // helper function to set/update the context menu
   const loadContextMenu = async (recentGames?: RecentGame[]) => {
-    if (!recentGames) {
-      recentGames = await getRecentGames({ limited: true })
-    }
-
-    appIcon.setContextMenu(contextMenu(mainWindow, recentGames))
-    //terrible two liner to make the tray icon menu appear in the dock too on macOS
-    if (process.platform === 'darwin')
-      app.dock.setMenu(contextMenu(mainWindow, recentGames))
+    recentGames ??= await getRecentGames({ limited: true })
+    const currentContextMenu = contextMenu(mainWindow, recentGames)
+    appIcon.setContextMenu(currentContextMenu)
+    // makes the tray icon menu appear in the dock too on macOS
+    if (isMac) app.dock.setMenu(currentContextMenu)
   }
   await loadContextMenu()
 
@@ -112,7 +109,7 @@ const contextMenu = (
       label: i18next.t('tray.about', 'About')
     },
     {
-      accelerator: platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+      accelerator: isMac ? 'Cmd+R' : 'Ctrl+R',
       click: function () {
         mainWindow.reload()
       },
@@ -120,7 +117,7 @@ const contextMenu = (
     },
     {
       label: 'Debug',
-      accelerator: platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+      accelerator: isMac ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
       click: () => {
         mainWindow.webContents.openDevTools()
       }
@@ -130,7 +127,7 @@ const contextMenu = (
         handleExit()
       },
       label: i18next.t('tray.quit', 'Quit'),
-      accelerator: platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
+      accelerator: isMac ? 'Cmd+Q' : 'Ctrl+Q'
     }
   ])
 }
