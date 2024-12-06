@@ -16,10 +16,10 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // helper function to set/update the context menu
   const loadContextMenu = async (recentGames?: RecentGame[]) => {
     recentGames ??= await getRecentGames({ limited: true })
-    const currentContextMenu = contextMenu(mainWindow, recentGames)
-    appIcon.setContextMenu(currentContextMenu)
+    const newContextMenu = contextMenu(mainWindow, recentGames)
+    appIcon.setContextMenu(newContextMenu)
     // makes the tray icon menu appear in the dock too on macOS
-    if (isMac) app.dock.setMenu(currentContextMenu)
+    if (isMac) app.dock.setMenu(newContextMenu)
   }
   await loadContextMenu()
 
