@@ -79,11 +79,7 @@ const getIcon = (platform = process.platform) => {
 }
 
 // generate the context menu
-const contextMenu = (
-  mainWindow: BrowserWindow,
-  recentGames: RecentGame[],
-  platform = process.platform
-) => {
+const contextMenu = (mainWindow: BrowserWindow, recentGames: RecentGame[]) => {
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
