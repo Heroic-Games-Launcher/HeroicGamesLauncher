@@ -79,7 +79,11 @@ const getIcon = (platform = process.platform) => {
 }
 
 // generate the context menu
-const contextMenu = (mainWindow: BrowserWindow, recentGames: RecentGame[]) => {
+const contextMenu = (
+  mainWindow: BrowserWindow,
+  recentGames: RecentGame[],
+  platform = process.platform
+) => {
   const recentsMenu = recentGames.map((game) => {
     return {
       click: function () {
@@ -105,7 +109,7 @@ const contextMenu = (mainWindow: BrowserWindow, recentGames: RecentGame[]) => {
       label: i18next.t('tray.about', 'About')
     },
     {
-      accelerator: isMac ? 'Cmd+R' : 'Ctrl+R',
+      accelerator: platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
       click: function () {
         mainWindow.reload()
       },
@@ -113,7 +117,7 @@ const contextMenu = (mainWindow: BrowserWindow, recentGames: RecentGame[]) => {
     },
     {
       label: 'Debug',
-      accelerator: isMac ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+      accelerator: platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
       click: () => {
         mainWindow.webContents.openDevTools()
       }
@@ -123,7 +127,7 @@ const contextMenu = (mainWindow: BrowserWindow, recentGames: RecentGame[]) => {
         handleExit()
       },
       label: i18next.t('tray.quit', 'Quit'),
-      accelerator: isMac ? 'Cmd+Q' : 'Ctrl+Q'
+      accelerator: platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q'
     }
   ])
 }
