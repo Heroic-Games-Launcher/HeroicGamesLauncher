@@ -31,7 +31,7 @@
     "test:ci": "jest --runInBand --silent",
     "test:e2e": "electron-vite build && cross-env CI=e2e xvfb-maybe -- playwright test",
     "release:linux": "electron-vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
-    "release:mac": "electron-vite build && electron-builder -p always --mac --x64 --arm64",
+    "release:mac": "electron-vite build && electron-builder -p always --mac --x64 --arm64 --universal",
     "release:win": "electron-vite build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
     "sign:win": "electron-vite build && electron-builder -p never --win nsis --x64",
@@ -51,6 +51,7 @@
     "download-helper-binaries": "esbuild --bundle --platform=node --target=node21 meta/downloadHelperBinaries.ts | node"
   },
   "dependencies": {
+    "@electron/universal": "^2.0.1",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@fontsource/cabin": "4.5.10",

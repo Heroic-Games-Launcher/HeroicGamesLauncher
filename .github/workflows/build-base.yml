@@ -72,3 +72,12 @@ jobs:
           if-no-files-found: error
           compression-level: 3
         if: runner.os == 'macOS'
+      - name: Upload macOS Universal version
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-arm64
+          path: dist/Heroic*universal.dmg
+          retention-days: 14
+          if-no-files-found: error
+          compression-level: 3
+        if: runner.os == 'macOS'
