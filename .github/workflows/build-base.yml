@@ -75,7 +75,7 @@ jobs:
       - name: Upload macOS Universal version
         uses: actions/upload-artifact@v4
         with:
-          name: mac-arm64
+          name: mac-universal
           path: dist/Heroic*universal.dmg
           retention-days: 14
           if-no-files-found: error
