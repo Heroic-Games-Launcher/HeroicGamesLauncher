@@ -26,7 +26,7 @@ jobs:
         run: pnpm dist:win portable
         if: runner.os == 'Windows'
       - name: Build macOS x64 & arm64 versions
-        run: pnpm dist:mac --x64 --arm64 --publish=never
+        run: pnpm dist:mac --x64 --arm64  --universal --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.workflowToken }}
           GH_TOKEN: ${{ secrets.workflowToken }}
