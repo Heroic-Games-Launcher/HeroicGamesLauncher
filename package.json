@@ -51,7 +51,6 @@
     "download-helper-binaries": "esbuild --bundle --platform=node --target=node21 meta/downloadHelperBinaries.ts | node"
   },
   "dependencies": {
-    "@electron/universal": "^2.0.1",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@fontsource/cabin": "4.5.10",
