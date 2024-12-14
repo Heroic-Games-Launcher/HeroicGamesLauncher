@@ -527,117 +527,118 @@ class GameLogWriter extends LogWriter {
     notNative: boolean
   ): Partial<GameSettings> {
     // remove gamescope settings if it's disabled
-    const gscope = gameSettings['gamescope'] as Partial<GameScopeSettings>
+    const gscope: Partial<GameScopeSettings> | undefined =
+      gameSettings.gamescope
     if (gscope) {
-      if (!gscope['enableLimiter']) {
-        delete gscope['fpsLimiter']
-        delete gscope['fpsLimiterNoFocus']
+      if (!gscope.enableLimiter) {
+        delete gscope.fpsLimiter
+        delete gscope.fpsLimiterNoFocus
       }
-      if (!gscope['enableUpscaling']) {
-        delete gscope['upscaleMethod']
-        delete gscope['upscaleHeight']
-        delete gscope['upscaleWidth']
-        delete gscope['gameHeight']
-        delete gscope['gameWidth']
-        delete gscope['windowType']
+      if (!gscope.enableUpscaling) {
+        delete gscope.upscaleMethod
+        delete gscope.upscaleHeight
+        delete gscope.upscaleWidth
+        delete gscope.gameHeight
+        delete gscope.gameWidth
+        delete gscope.windowType
       }
     }
 
     // remove settings that are not used on Linux
     if (isLinux) {
-      delete gameSettings['enableMsync']
-      delete gameSettings['wineCrossoverBottle']
+      delete gameSettings.enableMsync
+      delete gameSettings.wineCrossoverBottle
 
       if (notNative) {
-        const wineType = gameSettings['wineVersion']
-        if (wineType) {
-          if (wineType['type'] === 'proton') {
-            delete gameSettings['autoInstallDxvk']
-            delete gameSettings['autoInstallVkd3d']
+        const wineVersion = gameSettings.wineVersion
+        if (wineVersion) {
+          if (wineVersion.type === 'proton') {
+            delete gameSettings.autoInstallDxvk
+            delete gameSettings.autoInstallVkd3d
           }
         }
       } else {
         // remove settings that are not used on native Linux games
-        delete gameSettings['wineVersion']
-        delete gameSettings['winePrefix']
-        delete gameSettings['autoInstallDxvk']
-        delete gameSettings['autoInstallDxvkNvapi']
-        delete gameSettings['autoInstallVkd3d']
-        delete gameSettings['enableFsync']
-        delete gameSettings['enableEsync']
-        delete gameSettings['enableFSR']
-        delete gameSettings['showFps']
-        delete gameSettings['enableDXVKFpsLimit']
-        delete gameSettings['eacRuntime']
-        delete gameSettings['battlEyeRuntime']
-        delete gameSettings['useGameMode']
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.autoInstallDxvk
+        delete gameSettings.autoInstallDxvkNvapi
+        delete gameSettings.autoInstallVkd3d
+        delete gameSettings.enableFsync
+        delete gameSettings.enableEsync
+        delete gameSettings.enableFSR
+        delete gameSettings.showFps
+        delete gameSettings.enableDXVKFpsLimit
+        delete gameSettings.eacRuntime
+        delete gameSettings.battlEyeRuntime
+        delete gameSettings.useGameMode
       }
     }
 
     // remove settings that are not used on Mac
     if (isMac) {
-      delete gameSettings['useGameMode']
-      delete gameSettings['gamescope']
-      delete gameSettings['nvidiaPrime']
-      delete gameSettings['battlEyeRuntime']
-      delete gameSettings['eacRuntime']
-      delete gameSettings['enableFSR']
-      delete gameSettings['showMangohud']
-      delete gameSettings['showFps']
+      delete gameSettings.useGameMode
+      delete gameSettings.gamescope
+      delete gameSettings.nvidiaPrime
+      delete gameSettings.battlEyeRuntime
+      delete gameSettings.eacRuntime
+      delete gameSettings.enableFSR
+      delete gameSettings.showMangohud
+      delete gameSettings.showFps
 
       if (notNative) {
-        const wineType = gameSettings['wineVersion']
+        const wineType = gameSettings.wineVersion
         if (wineType) {
-          if (wineType['type'] === 'wine') {
-            delete gameSettings['wineCrossoverBottle']
+          if (wineType.type === 'wine') {
+            delete gameSettings.wineCrossoverBottle
           }
 
-          if (wineType['type'] === 'toolkit') {
-            delete gameSettings['autoInstallDxvk']
-            delete gameSettings['autoInstallDxvkNvapi']
-            delete gameSettings['autoInstallVkd3d']
+          if (wineType.type === 'toolkit') {
+            delete gameSettings.autoInstallDxvk
+            delete gameSettings.autoInstallDxvkNvapi
+            delete gameSettings.autoInstallVkd3d
           }
 
-          if (wineType['type'] === 'crossover') {
-            delete gameSettings['autoInstallDxvk']
-            delete gameSettings['autoInstallDxvkNvapi']
-            delete gameSettings['autoInstallVkd3d']
+          if (wineType.type === 'crossover') {
+            delete gameSettings.autoInstallDxvk
+            delete gameSettings.autoInstallDxvkNvapi
+            delete gameSettings.autoInstallVkd3d
           }
         }
 
-        delete gameSettings['wineVersion']
-        delete gameSettings['winePrefix']
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
       } else {
         // remove settings that are not used on native Mac games
-        delete gameSettings['enableDXVKFpsLimit']
-        delete gameSettings['wineVersion']
-        delete gameSettings['winePrefix']
-        delete gameSettings['wineCrossoverBottle']
+        delete gameSettings.enableDXVKFpsLimit
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.wineCrossoverBottle
       }
     }
 
     // remove settings that are not used on Windows
     if (isWindows) {
-      delete gameSettings['enableMsync']
-      delete gameSettings['enableFSR']
-      delete gameSettings['enableEsync']
-      delete gameSettings['enableFsync']
-      delete gameSettings['enableDXVKFpsLimit']
-      delete gameSettings['DXVKFpsCap']
-      delete gameSettings['autoInstallDxvk']
-      delete gameSettings['autoInstallDxvkNvapi']
-      delete gameSettings['autoInstallVkd3d']
-      delete gameSettings['gamescope']
-      delete gameSettings['useGameMode']
-      delete gameSettings['showMangohud']
-      delete gameSettings['showFps']
-      delete gameSettings['preferSystemLibs']
-      delete gameSettings['wineCrossoverBottle']
-      delete gameSettings['winePrefix']
-      delete gameSettings['wineVersion']
-      delete gameSettings['battlEyeRuntime']
-      delete gameSettings['eacRuntime']
-      delete gameSettings['nvidiaPrime']
+      delete gameSettings.enableMsync
+      delete gameSettings.enableFSR
+      delete gameSettings.enableEsync
+      delete gameSettings.enableFsync
+      delete gameSettings.enableDXVKFpsLimit
+      delete gameSettings.DXVKFpsCap
+      delete gameSettings.autoInstallDxvk
+      delete gameSettings.autoInstallDxvkNvapi
+      delete gameSettings.autoInstallVkd3d
+      delete gameSettings.gamescope
+      delete gameSettings.useGameMode
+      delete gameSettings.showMangohud
+      delete gameSettings.showFps
+      delete gameSettings.preferSystemLibs
+      delete gameSettings.wineCrossoverBottle
+      delete gameSettings.winePrefix
+      delete gameSettings.wineVersion
+      delete gameSettings.battlEyeRuntime
+      delete gameSettings.eacRuntime
+      delete gameSettings.nvidiaPrime
     }
 
     return gameSettings
@@ -684,7 +685,7 @@ class GameLogWriter extends LogWriter {
       // log game settings
       const gameSettings = await gameManagerMap[runner].getSettings(app_name)
       const gameSettingsString = JSON.stringify(
-        this.filterGameSettingsForLog({ ...gameSettings }, notNative),
+        this.filterGameSettingsForLog(structuredClone(gameSettings), notNative),
         null,
         '\t'
       )
