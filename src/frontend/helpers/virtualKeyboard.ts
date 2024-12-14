@@ -4,8 +4,8 @@ import 'simple-keyboard/build/css/index.css'
 let virtualKeyboard: Keyboard | null = null
 let targetInput: HTMLInputElement | null = null
 
-function currentElement() {
-  return document.querySelector<HTMLElement>(':focus')
+function currentElement<T extends HTMLElement>() {
+  return document.querySelector<T>(':focus')
 }
 
 function focusKeyboard() {
@@ -31,25 +31,25 @@ function typeInInput(button: string) {
 }
 
 function makeKeyboardTopLayer() {
-  const wrapper = document.querySelector(
+  const wrapper = document.querySelector<HTMLDialogElement>(
     '.simple-keyboard-wrapper'
-  ) as HTMLDialogElement
-  wrapper.showModal()
+  )
+  wrapper?.showModal()
 }
 
 function closeKeyboardTopLayer() {
-  const wrapper = document.querySelector(
+  const wrapper = document.querySelector<HTMLDialogElement>(
     '.simple-keyboard-wrapper'
-  ) as HTMLDialogElement
-  wrapper.close()
+  )
+  wrapper?.close()
 }
 
 export const VirtualKeyboardController = {
   initOrFocus: () => {
-    const el = currentElement()
+    const el = currentElement<HTMLInputElement>()
     if (!el) return
 
-    targetInput = el as HTMLInputElement
+    targetInput = el
 
     if (!virtualKeyboard) {
       virtualKeyboard = new Keyboard({
