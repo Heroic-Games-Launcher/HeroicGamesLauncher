@@ -605,6 +605,7 @@
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_logs": "Disable Logs",
         "disablePlaytimeSync": "Disable playtime synchronization",
+        "disableUMU": "Disable UMU",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
@@ -635,8 +636,7 @@
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design",
-            "umuSupport": "Use UMU as Proton runtime"
+            "enableNewDesign": "New design"
         },
         "frameless-window": {
             "confirmation": {
