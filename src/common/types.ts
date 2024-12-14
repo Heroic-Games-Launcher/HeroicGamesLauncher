@@ -65,7 +65,6 @@ export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
   cometSupport: boolean
-  umuSupport: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -102,6 +101,7 @@ export interface AppSettings extends GameSettings {
   minimizeOnLaunch: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
+  disableUMU: boolean
 }
 
 export type LibraryTopSectionOptions =
@@ -202,6 +202,7 @@ export interface GameSettings {
   gogSaves?: GOGCloudSavesLocation[]
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string
+  disableUMU: boolean
 }
 
 export type Status =

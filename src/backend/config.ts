@@ -321,7 +321,8 @@ class GlobalConfigV0 extends GlobalConfig {
       battlEyeRuntime: isLinux,
       framelessWindow: false,
       beforeLaunchScriptPath: '',
-      afterLaunchScriptPath: ''
+      afterLaunchScriptPath: '',
+      disableUMU: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

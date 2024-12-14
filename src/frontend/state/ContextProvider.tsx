@@ -97,8 +97,7 @@ const initialContext: ContextType = {
   experimentalFeatures: {
     enableNewDesign: false,
     enableHelp: false,
-    cometSupport: true,
-    umuSupport: false
+    cometSupport: true
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,

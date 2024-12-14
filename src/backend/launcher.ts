@@ -233,7 +233,7 @@ async function prepareLaunch(
   }
 
   if (
-    (await isUmuSupported(gameSettings.wineVersion.type, false)) &&
+    (await isUmuSupported(gameSettings, false)) &&
     isOnline() &&
     !(await isInstalled('umu')) &&
     (await getUmuPath()) === defaultUmuPath
@@ -246,7 +246,7 @@ async function prepareLaunch(
   const shouldUseRuntime =
     gameSettings.useSteamRuntime &&
     (isNative ||
-      (!(await isUmuSupported(gameSettings.wineVersion.type)) &&
+      (!(await isUmuSupported(gameSettings)) &&
         gameSettings.wineVersion.type === 'proton'))
 
   if (shouldUseRuntime) {
@@ -819,7 +819,7 @@ export async function verifyWinePrefix(
     return { res: { stdout: '', stderr: '' } }
   }
 
-  if (!existsSync(winePrefix) && !(await isUmuSupported(wineVersion.type))) {
+  if (!existsSync(winePrefix) && !(await isUmuSupported(settings))) {
     mkdirSync(winePrefix, { recursive: true })
   }
 
@@ -831,7 +831,7 @@ export async function verifyWinePrefix(
   const haveToWait = !existsSync(systemRegPath)
 
   const command = runWineCommand({
-    commandParts: (await isUmuSupported(wineVersion.type))
+    commandParts: (await isUmuSupported(settings))
       ? ['createprefix']
       : ['wineboot', '--init'],
     wait: haveToWait,
@@ -926,7 +926,7 @@ async function runWineCommand({
   }
 
   const wineBin = wineVersion.bin.replaceAll("'", '')
-  const umuSupported = await isUmuSupported(wineVersion.type)
+  const umuSupported = await isUmuSupported(settings)
   const runnerBin = umuSupported ? await getUmuPath() : wineBin
 
   if (wineVersion.type === 'proton' && !umuSupported) {

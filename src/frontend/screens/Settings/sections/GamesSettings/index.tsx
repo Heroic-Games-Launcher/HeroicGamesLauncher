@@ -46,6 +46,7 @@ import SyncSaves from '../SyncSaves'
 import FooterInfo from '../FooterInfo'
 import { Tabs, Tab } from '@mui/material'
 import { GameInfo } from 'common/types'
+import DisableUMU from '../../components/DisableUMU'
 
 const windowsPlatforms = ['Win32', 'Windows', 'windows']
 function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
@@ -171,6 +172,7 @@ export default function GamesSettings() {
 
       <TabPanel value={value} index={'wine'}>
         <WineVersionSelector />
+        <DisableUMU />
         <WinePrefix />
         <CrossoverBottle />
         {!isCrossover && (
