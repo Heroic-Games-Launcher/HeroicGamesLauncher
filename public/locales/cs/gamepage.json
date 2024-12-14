@@ -216,6 +216,10 @@
             "title": "Přidejte název ke své hře/aplikaci",
             "url": "Sem vložte adresu URL hry",
             "useragent": "Sem zadejte vlastní User Agent (uživatelský agent) pro použití v této prohlížečové aplikaci/hře"
+        },
+        "import-hint": {
+            "content": "Tuto funkci k této akci NEPOUŽÍVEJTE.<1></1>Namísto toho se <3>přihlaste do obchodu</3>, vyhledejte hru ve své knihovně, otevřete instalační dialog a klikněte na tlačítko &quot;Importovat hru&quot;",
+            "title": "Důležité! Přidáváte hru z obchodu Epic/GOG/Amazon? Klikněte sem!"
         }
     },
     "specs": {
