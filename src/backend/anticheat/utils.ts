@@ -6,6 +6,7 @@ import { runOnceWhenOnline } from '../online_monitor'
 import { axiosClient } from 'backend/utils'
 
 async function downloadAntiCheatData() {
+  if (process.env.CI === 'e2e') return
   if (isWindows) return
 
   runOnceWhenOnline(async () => {

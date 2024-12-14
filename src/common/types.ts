@@ -775,3 +775,10 @@ export interface UploadedLogData {
   // Time the log file was uploaded (used to know whether it expired)
   uploadedAt: number
 }
+
+export interface RunnerCommandStub {
+  commandParts: string[]
+  response?: Promise<ExecResult>
+  stdout?: string
+  stderr?: string
+}
