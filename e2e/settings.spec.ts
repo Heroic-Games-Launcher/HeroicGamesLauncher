@@ -33,7 +33,10 @@ electronTest('Settings', async (app, page) => {
   })
 
   await test.step('shows the Advanced settings', async () => {
-    await page.getByTestId('settings').click()
+    await page
+      .locator('.Sidebar')
+      .locator('.Sidebar__item', { hasText: 'Settings' })
+      .click()
     page.getByText('Global Settings')
     await page.getByText('Advanced').click()
   })
