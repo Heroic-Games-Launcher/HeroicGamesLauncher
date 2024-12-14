@@ -19,11 +19,11 @@ export default function Tools() {
   const { platform } = useContext(ContextProvider)
   const isWindows = platform === 'win32'
 
-  if (isDefault || isWindows) {
+  if (isDefault || isWindows || !runner) {
     return <></>
   }
 
-  async function callTools(tool: 'winecfg' | 'runExe', exe?: string) {
+  const callTools = async (tool: 'winecfg' | 'runExe', exe?: string) => {
     const toolStates = {
       winecfg: setWinecfgRunning,
       runExe: setRunExeRunning
@@ -64,7 +64,7 @@ export default function Tools() {
     }
   }
 
-  async function dropHandler(ev: React.DragEvent<HTMLSpanElement>) {
+  const dropHandler = async (ev: React.DragEvent<HTMLSpanElement>) => {
     // Prevent default behavior (Prevent file from being opened)
     ev.preventDefault()
 
@@ -97,7 +97,9 @@ export default function Tools() {
   return (
     <>
       <div data-testid="toolsSettings" className="settingsTools">
-        {winetricksRunning && <Winetricks onClose={winetricksDialogClosed} />}
+        {winetricksRunning && (
+          <Winetricks onClose={winetricksDialogClosed} runner={runner} />
+        )}
         <div className="toolsWrapper">
           <button
             data-testid="wineCFG"

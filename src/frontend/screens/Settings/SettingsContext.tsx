@@ -9,7 +9,7 @@ const initialContext: SettingsContextType = {
   isDefault: true,
   appName: 'default',
   runner: 'legendary',
-  gameInfo: null,
+  gameInfo: undefined,
   isMacNative: false,
   isLinuxNative: false
 }

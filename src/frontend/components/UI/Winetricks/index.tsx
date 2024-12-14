@@ -4,13 +4,15 @@ import { ProgressDialog } from '../ProgressDialog'
 import WinetricksSearchBar from './WinetricksSearch'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
+import { Runner } from 'common/types'
 
 interface Props {
   onClose: () => void
+  runner: Runner
 }
 
-export default function Winetricks({ onClose }: Props) {
-  const { appName, runner } = useContext(SettingsContext)
+export default function Winetricks({ onClose, runner }: Props) {
+  const { appName } = useContext(SettingsContext)
   const { t } = useTranslation()
 
   const [loading, setLoading] = useState(true)

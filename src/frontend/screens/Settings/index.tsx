@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useEffect, useState } from 'react'
 
-import { NavLink, useLocation, useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
@@ -19,7 +19,7 @@ import {
 } from './sections'
 import { AppSettings, WineInstallation } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
-import { LocationState, SettingsContextType } from 'frontend/types'
+import { SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 
@@ -30,34 +30,29 @@ export const defaultWineVersion: WineInstallation = {
 }
 
 function Settings() {
-  const { t, i18n } = useTranslation()
-  const {
-    state: { fromGameCard, runner, gameInfo }
-  } = useLocation() as { state: LocationState }
-  const [title, setTitle] = useState('')
+  const { t } = useTranslation()
 
-  const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
+  const [currentConfig, setCurrentConfig] =
+    useState<Partial<AppSettings> | null>(null)
 
-  const { appName = '', type = '' } = useParams()
-  const isDefault = appName === 'default'
+  const { type = 'general' } = useParams()
+  const appName = 'default'
   const isGeneralSettings = type === 'general'
   const isSyncSettings = type === 'sync'
   const isGamesSettings = type === 'games_settings'
   const isLogSettings = type === 'log'
-  const isAdvancedSetting = type === 'advanced' && isDefault
-  const isSystemInfo = type === 'systeminfo' && isDefault
+  const isAdvancedSetting = type === 'advanced'
+  const isSystemInfo = type === 'systeminfo'
 
-  let helpContent = t(
+  // TODO: Adding this comment translation here for now to not lose the
+  // translation. This should be removed from here when the help is added
+  // to the SettingsModal component
+  // t('help.content.settingsGame', 'Show all settings for a game.')
+
+  const helpContent = t(
     'help.content.settingsDefault',
     'Shows all settings of Heroic and defaults for games.'
   )
-
-  if (!isDefault) {
-    helpContent = t(
-      'help.content.settingsGame',
-      'Show all settings for a game.'
-    )
-  }
 
   hasHelp(
     'settings',
@@ -68,40 +63,23 @@ function Settings() {
   // Load Heroic's or game's config, only if not loaded already
   useEffect(() => {
     const getSettings = async () => {
-      const config = isDefault
-        ? await window.api.requestAppSettings()
-        : await window.api.requestGameSettings(appName)
+      const config = await window.api.requestAppSettings()
       setCurrentConfig(config)
-
-      if (!isDefault) {
-        setTitle(gameInfo?.title ?? appName)
-      } else {
-        setTitle(t('globalSettings', 'Global Settings'))
-      }
     }
     getSettings()
-  }, [appName, isDefault, i18n.language])
-
-  // generate return path
-  let returnPath = '/'
-  if (!fromGameCard) {
-    returnPath = `/gamepage/${runner}/${appName}`
-    if (returnPath.includes('default')) {
-      returnPath = '/'
-    }
-  }
+  }, [])
 
   // create setting context functions
   const contextValues: SettingsContextType | null = useSettingsContext({
-    appName,
-    gameInfo,
-    runner
+    appName
   })
 
   // render `loading` while we fetch the settings
-  if (!title || !contextValues) {
+  if (!currentConfig || !contextValues) {
     return <UpdateComponent />
   }
+
+  const title = t('globalSettings', 'Global Settings')
 
   return (
     <ContextMenu
@@ -127,12 +105,7 @@ function Settings() {
       <SettingsContext.Provider value={contextValues}>
         <div className={`Settings ${type}`}>
           <div role="list" className="settingsWrapper">
-            <NavLink
-              to={returnPath}
-              role="link"
-              className="backButton"
-              state={{ gameInfo: gameInfo }}
-            >
+            <NavLink to="/library" role="link" className="backButton">
               <ArrowCircleLeftIcon />
             </NavLink>
             <h1 className="headerTitle" data-testid="headerTitle">
