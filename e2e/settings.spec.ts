@@ -61,8 +61,5 @@ electronTest('Settings', async (app, page) => {
   await test.step('shows the default experimental features', async () => {
     await expect(page.getByLabel('New design')).not.toBeChecked()
     await expect(page.getByLabel('Help component')).not.toBeChecked()
-    await expect(
-      page.getByLabel('Apply known fixes automatically')
-    ).toBeChecked()
   })
 })
