@@ -172,7 +172,6 @@ export default function GamesSettings() {
 
       <TabPanel value={value} index={'wine'}>
         <WineVersionSelector />
-        <DisableUMU />
         <WinePrefix />
         <CrossoverBottle />
         {!isCrossover && (
@@ -216,6 +215,7 @@ export default function GamesSettings() {
             <OfflineMode />
           </>
         )}
+        <DisableUMU />
         <AlternativeExe />
         <LauncherArgs />
         <div className="Field">
