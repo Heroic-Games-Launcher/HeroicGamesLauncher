@@ -618,7 +618,8 @@
         "show_hidden": "Vis skjult",
         "store": "Filterbutik",
         "hide_non_available_games": "Skjul ikke-tilgængelige spil",
-        "show_available_games": "Vis ikke-tilgængelige spil"
+        "show_available_games": "Vis ikke-tilgængelige spil",
+        "categories": "Kategorier"
     },
     "Settings": "Indstillinger",
     "sidebar": {
@@ -790,5 +791,11 @@
         "no-categories": "Ingen kategorier endnu.",
         "remove": "Fjern \"{{name}}\"",
         "rename": "Omdøb \"{{name}}\""
+    },
+    "window": {
+        "close": "Luk"
+    },
+    "category-settings": {
+        "add-new-category": "Tilføj ny kategori"
     }
 }
