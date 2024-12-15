@@ -2,6 +2,7 @@
 Name=Heroic Games Launcher
 Exec=heroic-run --ozone-platform-hint=auto %u
 Terminal=false
+SingleMainWindow=true
 Type=Application
 Icon=com.heroicgameslauncher.hgl
 StartupWMClass=heroic
