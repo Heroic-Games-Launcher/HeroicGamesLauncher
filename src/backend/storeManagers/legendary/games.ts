@@ -912,21 +912,14 @@ export async function launch(
       ...wineEnvVars
     }
 
-    const { bin: wineExec, type: wineType } = gameSettings.wineVersion
-
-    if (await isUmuSupported(wineType)) {
+    if (await isUmuSupported(gameSettings)) {
       const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
       if (umuId) {
         commandEnv['GAMEID'] = umuId
       }
     }
-    // Fix for people with old config
-    const wineBin =
-      wineExec.startsWith("'") && wineExec.endsWith("'")
-        ? wineExec.replaceAll("'", '')
-        : wineExec
 
-    wineFlags = await getWineFlags(wineBin, wineType, shlex.join(wrappers))
+    wineFlags = await getWineFlags(gameSettings, shlex.join(wrappers))
   }
 
   const appNameToLaunch =

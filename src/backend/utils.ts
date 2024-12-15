@@ -141,13 +141,12 @@ function semverGt(target: string, base: string) {
 const getFileSize = fileSize.partial({ base: 2 }) as (arg: unknown) => string
 
 async function getWineFromProton(
-  wineVersion: WineInstallation,
-  winePrefix: string
+  gameSettings: GameSettings
 ): Promise<{ winePrefix: string; wineVersion: WineInstallation }> {
-  if (
-    wineVersion.type !== 'proton' ||
-    (await isUmuSupported(wineVersion.type))
-  ) {
+  const wineVersion = gameSettings.wineVersion
+  let winePrefix = gameSettings.winePrefix
+
+  if (wineVersion.type !== 'proton' || (await isUmuSupported(gameSettings))) {
     return { winePrefix, wineVersion }
   }
 

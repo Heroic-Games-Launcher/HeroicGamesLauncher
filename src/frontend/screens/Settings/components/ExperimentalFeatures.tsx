@@ -5,13 +5,7 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 const ExperimentalFeatures = () => {
-  const { platform } = useContext(ContextProvider)
-
   const FEATURES = ['enableNewDesign', 'enableHelp', 'cometSupport']
-
-  if (platform === 'linux') {
-    FEATURES.push('umuSupport')
-  }
 
   const { t } = useTranslation()
   const [experimentalFeatures, setExperimentalFeatures] = useSetting(
@@ -19,8 +13,7 @@ const ExperimentalFeatures = () => {
     {
       enableNewDesign: false,
       enableHelp: false,
-      cometSupport: true,
-      umuSupport: false
+      cometSupport: true
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
@@ -39,7 +32,6 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableNewDesign', 'New design')
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.cometSupport', 'Comet support')
-    t('setting.experimental_features.umuSupport', 'Use UMU as Proton runtime')
   */
 
   return (

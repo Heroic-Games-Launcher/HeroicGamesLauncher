@@ -520,7 +520,6 @@ export const Winetricks = {
     const gameSettings = await gameManagerMap[runner].getSettings(appName)
 
     const { wineVersion } = gameSettings
-    const baseWinePrefix = gameSettings.winePrefix
 
     if (!(await validWine(wineVersion))) {
       return
@@ -533,7 +532,7 @@ export const Winetricks = {
       await Winetricks.download()
     }
 
-    if (await isUmuSupported(wineVersion.type)) {
+    if (await isUmuSupported(gameSettings)) {
       winetricks = await getUmuPath()
 
       if (args.includes('-q')) {
@@ -549,7 +548,7 @@ export const Winetricks = {
     }
 
     const { winePrefix, wineVersion: alwaysWine_wineVersion } =
-      await getWineFromProton(wineVersion, baseWinePrefix)
+      await getWineFromProton(gameSettings)
     return new Promise<string[] | null>((resolve) => {
       const wineBin = alwaysWine_wineVersion.bin
       // We have to run Winetricks with an actual `wine` binary, meaning we
@@ -719,10 +718,7 @@ export const Winetricks = {
   },
   listInstalled: async (runner: Runner, appName: string) => {
     const gameSettings = await gameManagerMap[runner].getSettings(appName)
-    const { winePrefix } = await getWineFromProton(
-      gameSettings.wineVersion,
-      gameSettings.winePrefix
-    )
+    const { winePrefix } = await getWineFromProton(gameSettings)
     const winetricksLogPath = join(winePrefix, 'winetricks.log')
     try {
       const winetricksLog = await readFile(winetricksLogPath, 'utf8')
