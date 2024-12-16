@@ -9,7 +9,7 @@
         "disable_dialog_backdrop_close": "Изключване на затварянето на диалогови прозорци чрез щракване извън тях",
         "titles_always_visible": "Винаги да се показват заглавията в библиотеката",
         "actions_font_family_default": "Шрифт за действията (по подразбиране: {{fontFamily}})",
-        "content_font_family_default": "Текущ шрифт (по подразбиране: {{fontFamily}})"
+        "content_font_family_default": "Шрифт за съдържанието (по подразбиране: {{fontFamily}})"
     },
     "add_game": "Добавяне на игра",
     "All": "Всички",
