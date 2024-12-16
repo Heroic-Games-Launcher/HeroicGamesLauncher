@@ -7,7 +7,9 @@
         "title": "Accessibilità",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Disattiva la chiusura delle finestre di dialogo facendo clic all'esterno",
-        "titles_always_visible": "Mostra sempre i titoli in libreria"
+        "titles_always_visible": "Mostra sempre i titoli in libreria",
+        "actions_font_family_default": "Famiglia Font Azioni (Default: {{fontFamily}})",
+        "content_font_family_default": "Famiglia Font Contenuto (Predefinito: {{fontFamily}})"
     },
     "add_game": "Aggiungi Gioco",
     "All": "Tutto",
@@ -620,7 +622,7 @@
             "show-in-folder": "Mostra il log file nella cartella",
             "join-heroic-discord": "Unisciti al nostro Discord",
             "upload": {
-                "actions": "Action",
+                "actions": "Azioni",
                 "button": "Carica file log",
                 "confirm": {
                     "content": "Vuoi davvero caricare \"{{name}}\"?",
@@ -733,7 +735,8 @@
         "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",
         "disablePlaytimeSync": "Disabilita la sincronizzazione del tempo di gioco",
         "after-launch-script-path": "Seleziona uno script da eseguire all'uscita del gioco",
-        "msync": "Abilita Msync"
+        "msync": "Abilita Msync",
+        "disableUMU": "Disabilita UMU"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -888,7 +891,7 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Azione",
         "manager": {
             "link": "Gestore di Wine",
             "not-found": "Nessuna versione di Wine trovata. Per favore clicca l'icona ricarica per provare ancora.",
