@@ -216,6 +216,10 @@
             "title": "Afegeix un títol al joc o aplicació",
             "url": "Enganxeu l'URL del joc aquí",
             "useragent": "Escriviu aquí un agent d'usuari personalitzat per a fer-lo servir en aquesta aplicació/joc de navegador."
+        },
+        "import-hint": {
+            "title": "Important! Si voleu afegir un joc d'Epic/GOGO/Amazon, feu clic aquí.",
+            "content": "No feu servir aquesta funció per a això.<1></1>En el seu lloc, <3>inicieu sessió</3> a la botiga, busqueu el joc a la vostra biblioteca, obriu el diàleg d'instal·lació i feu clic al botó &quot;Importa un joc&quot;."
         }
     },
     "specs": {
