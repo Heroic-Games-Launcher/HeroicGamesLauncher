@@ -242,7 +242,7 @@
         "this-game-uses-third-party": "Spelet använder tredjeparts-launcher och stöds ej i nuläget",
         "totalDownloaded": "Totalt Nerladdat",
         "uninstalling": "Avinstallerar",
-        "updating": "Updaterar spelet",
+        "updating": "Uppdaterar spelet",
         "playing": "Spelar",
         "moving-files": "Flyttar fil '{{file}}': {{percent}}%",
         "syncingSaves": "Synkroniserar sparfiler",
