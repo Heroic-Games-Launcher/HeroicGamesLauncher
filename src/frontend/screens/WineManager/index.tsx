@@ -45,9 +45,9 @@ export default function WineManager(): JSX.Element | null {
     useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
-  const winege: WineManagerUISettings = {
-    type: 'Wine-GE',
-    value: 'winege',
+  const protonge: WineManagerUISettings = {
+    type: 'Proton-GE',
+    value: 'protonge',
     enabled: isLinux
   }
   const gamePortingToolkit: WineManagerUISettings = {
@@ -57,14 +57,14 @@ export default function WineManager(): JSX.Element | null {
   }
 
   const [repository, setRepository] = useState<WineManagerUISettings>(
-    isLinux ? winege : gamePortingToolkit
+    isLinux ? protonge : gamePortingToolkit
   )
   const [wineManagerSettings, setWineManagerSettings] = useState<
     WineManagerUISettings[]
   >([
+    protonge,
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
-    { type: 'Proton-GE', value: 'protonge', enabled: isLinux },
-    { type: 'Game-Porting-Toolkit', value: 'gpt', enabled: !isLinux },
+    gamePortingToolkit,
     { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux }
   ])
 
@@ -114,20 +114,20 @@ export default function WineManager(): JSX.Element | null {
       case 'Wine-GE':
         return (
           <div className="infoBox">
-            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            <FontAwesomeIcon icon={faWarning} color={'orange'} />
             {t(
               'wineExplanation.wine-ge',
-              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting.'
+              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of Proton-GE with the UMU launcher.'
             )}
           </div>
         )
       case 'Proton-GE':
         return (
           <div className="infoBox">
-            <FontAwesomeIcon icon={faWarning} color={'orange'} />
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
             {t(
               'wineExplanation.proton-ge',
-              'Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used in Steam, but some games outside Steam may work better with this variant. It provides mostly useless logs for troubleshooting.'
+              'Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the UMU launcher (default in Heroic).'
             )}
           </div>
         )
