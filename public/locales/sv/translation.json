@@ -735,7 +735,8 @@
                 "understand": "Jag förstår"
             },
             "label": "Tillåt installation av spel med trasigt eller nekat antifusk"
-        }
+        },
+        "disableUMU": "Inaktivera UMU"
     },
     "settings": {
         "battlEyeRuntime": {

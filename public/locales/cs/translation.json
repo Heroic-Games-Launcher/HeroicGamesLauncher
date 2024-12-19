@@ -736,7 +736,8 @@
                 "understand": "Rozumím"
             },
             "label": "Povolit instalaci her s rozbitým nebo zakázaným anticheatem"
-        }
+        },
+        "disableUMU": "Zakázat UMU"
     },
     "settings": {
         "battlEyeRuntime": {

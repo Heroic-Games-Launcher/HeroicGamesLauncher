@@ -171,7 +171,7 @@
                 "message": "Деякі функції наразі відсутні в Snap версії програми і ми намагаємося це виправити.{{newLine}}Поточні обмеження: {{newLine}}Heroic не може знайти Proton від Steam або Wine від Lutris.{{newLine}}{{newLine}}Gamescope, GameMode і MangoHud також можуть не працювати, оскільки Heroic не має до них доступу.{{newLine}}{{newLine}}Щоб отримати доступ до цього функціонала, будь ласка, встановіть Heroic із пакета Flatpak, DEB або з AppImage."
             }
         },
-        "wineprefix": "Вибрати папку префікса Wine",
+        "wineprefix": "Обрати теку префікса Wine",
         "yes": "ТАК",
         "dontShowAgain": "Не показувати більше",
         "choose-nile-binary": "Вибрати двійковий файл Nile",
@@ -736,7 +736,8 @@
                 "understand": "Я розумію"
             },
             "label": "Дозволити встановлення ігор зі зламаним або забороненим античитом"
-        }
+        },
+        "disableUMU": "Вимкнути UMU"
     },
     "settings": {
         "battlEyeRuntime": {
