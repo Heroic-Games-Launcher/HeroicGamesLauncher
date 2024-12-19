@@ -739,6 +739,7 @@ export default function DownloadDialog({
         <button
           onClick={async () => handleInstall('import')}
           className={`button is-secondary outline`}
+          disabled={!validFlatpakPath}
         >
           {t('button.import')}
         </button>
