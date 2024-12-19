@@ -35,6 +35,7 @@ function handlePing(url: URL) {
 async function handleLaunch(url: URL) {
   let appName
   let runnerStr
+  let args: string[] = []
 
   if (url.pathname) {
     // Old-style pathname URLs:
@@ -48,6 +49,7 @@ async function handleLaunch(url: URL) {
     // `heroic://launch?appName=Quail&runner=legendary&arg=foo&arg=bar`
     appName = url.searchParams.get('appName')
     runnerStr = url.searchParams.get('runner')
+    args = url.searchParams.getAll('arg')
   }
 
   if (!appName) {
@@ -75,7 +77,8 @@ async function handleLaunch(url: URL) {
     return launchEventCallback({
       appName: appName,
       runner: gameInfo.runner,
-      skipVersionCheck: settings.ignoreGameUpdates
+      skipVersionCheck: settings.ignoreGameUpdates,
+      args
     })
   }
 

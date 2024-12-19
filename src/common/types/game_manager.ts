@@ -43,6 +43,7 @@ export interface GameManager {
   launch: (
     appName: string,
     launchArguments?: LaunchOption,
+    args?: string[],
     skipVersionCheck?: boolean
   ) => Promise<boolean>
   moveInstall: (

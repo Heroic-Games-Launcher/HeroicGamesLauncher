@@ -120,7 +120,8 @@ const openNewBrowserGameWindow = async ({
 export async function launchGame(
   appName: string,
   gameInfo: GameInfo,
-  runner: Runner
+  runner: Runner,
+  args: string[] = []
 ): Promise<boolean> {
   if (!gameInfo) {
     return false
@@ -151,7 +152,7 @@ export async function launchGame(
 
   const gameSettings = await getAppSettings(appName)
   const { launcherArgs } = gameSettings
-  const extraArgs = shlex.split(launcherArgs ?? '')
+  const extraArgs = [...shlex.split(launcherArgs ?? ''), ...args]
   const extraArgsJoined = extraArgs.join(' ')
 
   if (executable) {
