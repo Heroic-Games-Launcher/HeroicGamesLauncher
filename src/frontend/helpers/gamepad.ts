@@ -57,7 +57,9 @@ export const initGamepad = () => {
     altAction: { triggeredAt: {}, repeatDelay: false },
     rightClick: { triggeredAt: {}, repeatDelay: false },
     leftClick: { triggeredAt: {}, repeatDelay: false },
-    esc: { triggeredAt: {}, repeatDelay: false }
+    esc: { triggeredAt: {}, repeatDelay: false },
+    tab: { triggeredAt: {}, repeatDelay: false },
+    shiftTab: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
@@ -141,6 +143,8 @@ export const initGamepad = () => {
             el?.blur()
             el?.focus()
             return
+          } else if (isInMuiPopover()) {
+            action = 'tab'
           } else if (isContextMenu()) {
             action = 'rightClick'
           }
@@ -160,6 +164,22 @@ export const initGamepad = () => {
             VirtualKeyboardController.backspace()
             return
           }
+          break
+        case 'padDown':
+        case 'leftStickDown':
+          // MUI Selects open on arrow down, which is usually not your intention
+          // when navigating down with the stick, so we change the action to tab
+          if (isMuiSelect()) {
+            action = 'tab'
+          }
+          break
+        case 'padUp':
+        case 'leftStickUp':
+          // Same as above
+          if (isMuiSelect()) {
+            action = 'shiftTab'
+          }
+          break
       }
 
       if (action === 'mainAction') {
@@ -185,7 +205,7 @@ export const initGamepad = () => {
 
   const currentElement = () => document.querySelector<HTMLElement>(':focus')
 
-  const shouldSimulateClick = isSelect
+  const shouldSimulateClick = () => isSelect() || isMuiSelect()
   function isSelect() {
     const el = currentElement()
     if (!el) return false
@@ -220,6 +240,20 @@ export const initGamepad = () => {
     if (!parent) return false
 
     return parent.classList.contains('MuiMenu-list')
+  }
+
+  function isMuiSelect() {
+    const el = currentElement()
+    if (!el) return false
+
+    return el.classList.contains('MuiSelect-select')
+  }
+
+  function isInMuiPopover() {
+    const el = currentElement()
+    if (!el) return false
+
+    return !!el.closest('.MuiPopover-root')
   }
 
   function playable() {
@@ -266,18 +300,18 @@ export const initGamepad = () => {
     const el = currentElement()
     if (!el) return false
 
-    return !!el.closest('.Dialog__element')
+    return !!el.closest('.MuiDialog-root')
   }
 
   function closeDialog() {
     const el = currentElement()
     if (!el) return false
 
-    const dialog = el.closest('.Dialog__element')
+    const dialog = el.closest('.MuiDialog-root')
     if (!dialog) return false
 
     const closeButton = dialog.querySelector<HTMLButtonElement>(
-      '.Dialog__CloseButton'
+      '[aria-label="close"]'
     )
     if (!closeButton) return false
 

@@ -10,6 +10,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { MenuItem } from '@mui/material'
 
 const Gamescope = () => {
   const { t } = useTranslation()
@@ -146,18 +147,18 @@ const Gamescope = () => {
                 )}
               />
             }
-            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+            onChange={(event) =>
               setGamescope({
                 ...gamescope,
-                upscaleMethod: event.currentTarget.value
+                upscaleMethod: event.target.value
               })
             }
             value={gamescope.upscaleMethod}
           >
             {upscaleMethods.map((el) => (
-              <option value={el.value} key={el.value}>
+              <MenuItem value={el.value} key={el.value}>
                 {el.name}
-              </option>
+              </MenuItem>
             ))}
           </SelectField>
           {/* Game Res */}
@@ -272,18 +273,18 @@ const Gamescope = () => {
           <SelectField
             label={'Window Type'}
             htmlId="windowType"
-            onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+            onChange={(event) =>
               setGamescope({
                 ...gamescope,
-                windowType: event.currentTarget.value
+                windowType: event.target.value
               })
             }
             value={gamescope.windowType}
           >
             {windowTypes.map((el) => (
-              <option value={el.value} key={el.value}>
+              <MenuItem value={el.value} key={el.value}>
                 {el.name}
-              </option>
+              </MenuItem>
             ))}
           </SelectField>
         </>

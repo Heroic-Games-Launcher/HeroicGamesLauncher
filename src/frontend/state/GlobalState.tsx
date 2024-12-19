@@ -177,7 +177,7 @@ class GlobalState extends PureComponent<Props> {
     ),
     favouriteGames: configStore.get('games.favourites', []),
     customCategories: configStore.get('games.customCategories', {}),
-    theme: configStore.get('theme', ''),
+    theme: configStore.get('theme', 'midnightMirage'),
     isFullscreen: false,
     isFrameless: false,
     zoomPercent: configStore.get('zoomPercent', 100),
