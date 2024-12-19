@@ -1327,18 +1327,20 @@ ipcMain.handle(
 ipcMain.handle(
   'importGame',
   async (event, { appName, path, runner, platform }): StatusPromise => {
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline && runner === 'legendary') {
-      showDialogBoxModalAuto({
-        event,
-        title: i18next.t('box.warning.title', 'Warning'),
-        message: i18next.t(
-          'box.warning.epic.import',
-          'Epic Servers are having major outage right now, the game cannot be imported!'
-        ),
-        type: 'ERROR'
-      })
-      return { status: 'error' }
+    if (runner === 'legendary') {
+      const epicOffline = await isEpicServiceOffline()
+      if (epicOffline) {
+        showDialogBoxModalAuto({
+          event,
+          title: i18next.t('box.warning.title', 'Warning'),
+          message: i18next.t(
+            'box.warning.epic.import',
+            'Epic Servers are having major outage right now, the game cannot be imported!'
+          ),
+          type: 'ERROR'
+        })
+        return { status: 'error' }
+      }
     }
 
     const title = gameManagerMap[runner].getGameInfo(appName).title
@@ -1401,18 +1403,20 @@ ipcMain.handle('updateGame', async (event, appName, runner): StatusPromise => {
     return { status: 'error' }
   }
 
-  const epicOffline = await isEpicServiceOffline()
-  if (epicOffline && runner === 'legendary') {
-    showDialogBoxModalAuto({
-      event,
-      title: i18next.t('box.warning.title', 'Warning'),
-      message: i18next.t(
-        'box.warning.epic.update',
-        'Epic Servers are having major outage right now, the game cannot be updated!'
-      ),
-      type: 'ERROR'
-    })
-    return { status: 'error' }
+  if (runner === 'legendary') {
+    const epicOffline = await isEpicServiceOffline()
+    if (epicOffline) {
+      showDialogBoxModalAuto({
+        event,
+        title: i18next.t('box.warning.title', 'Warning'),
+        message: i18next.t(
+          'box.warning.epic.update',
+          'Epic Servers are having major outage right now, the game cannot be updated!'
+        ),
+        type: 'ERROR'
+      })
+      return { status: 'error' }
+    }
   }
 
   const { title } = gameManagerMap[runner].getGameInfo(appName)
