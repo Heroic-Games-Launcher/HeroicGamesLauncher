@@ -217,9 +217,13 @@ export async function launchGame(
       }
 
       const env = {
-        ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
         ...setupEnvVars(gameSettings, gameInfo.install.install_path)
+      }
+
+      if (wrappers.length > 0) {
+        extraArgs.unshift(...wrappers, executable)
+        executable = extraArgs.shift()!
       }
 
       await callRunner(
