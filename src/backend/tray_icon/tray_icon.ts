@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron'
 import i18next from 'i18next'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
@@ -6,20 +6,19 @@ import { handleProtocol } from '../protocol'
 import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
-import { iconDark, iconLight } from '../constants'
+import { iconDark, iconLight, isMac } from '../constants'
 import { backendEvents } from '../backend_events'
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon
   const appIcon = new Tray(getIcon(process.platform))
 
-  // helper function to set/update the context menu
+  // helper function to set/update the context menu and on macOS the dock menu
   const loadContextMenu = async (recentGames?: RecentGame[]) => {
-    if (!recentGames) {
-      recentGames = await getRecentGames({ limited: true })
-    }
-
-    appIcon.setContextMenu(contextMenu(mainWindow, recentGames))
+    recentGames ??= await getRecentGames({ limited: true })
+    const newContextMenu = contextMenu(mainWindow, recentGames)
+    appIcon.setContextMenu(newContextMenu)
+    if (isMac) app.dock.setMenu(newContextMenu)
   }
   await loadContextMenu()
 
