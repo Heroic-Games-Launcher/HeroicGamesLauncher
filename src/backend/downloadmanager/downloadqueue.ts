@@ -11,6 +11,8 @@ import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/constants'
+import { shutdown } from 'backend/utils/os/shutdown'
+import { dialog } from 'electron'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -23,6 +25,7 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 
 let queueState: DownloadManagerState = 'idle'
 let currentElement: DMQueueElement | null = null
+let didReallyDownload = false
 
 function getFirstQueueElement() {
   const elements = downloadManager.get('queue', [])
@@ -84,6 +87,7 @@ async function initQueue() {
         ? await installQueueElement(element.params)
         : await updateQueueElement(element.params)
     element.endTime = Date.now()
+    didReallyDownload = status === 'done'
 
     processNotification(element, status)
 
@@ -97,6 +101,39 @@ async function initQueue() {
   }
 
   queueState = 'idle'
+  if (!isPaused() && isIdle() && getAutoShutdown() && didReallyDownload) {
+    logInfo(
+      'Auto shutdown enabled. Shutting down in 10s...',
+      LogPrefix.DownloadManager
+    )
+    dialog
+      .showMessageBox({
+        title: i18next.t(
+          'download-manager.auto-shutdown.cancellationPrompt.title',
+          'Automatically shutting down in 10 seconds...'
+        ),
+        message: i18next.t(
+          'download-manager.auto-shutdown.cancellationPrompt.message',
+          'Do you want to cancel the shutdown?'
+        ),
+        buttons: [
+          i18next.t(
+            'download-manager.auto-shutdown.cancellationPrompt.cancel',
+            'Cancel shutdown'
+          )
+        ]
+      })
+      .then((result) => {
+        if (result.response === 0) {
+          logInfo('Shutdown cancelled by user', LogPrefix.DownloadManager)
+          setAutoShutdown(false)
+        }
+      })
+
+    setTimeout(() => {
+      getAutoShutdown() ? shutdown() : null
+    }, 10000)
+  }
 }
 
 async function addToQueue(element: DMQueueElement) {
@@ -251,6 +288,14 @@ function resumeCurrentDownload() {
   initQueue()
 }
 
+function getAutoShutdown(): boolean {
+  return downloadManager.get('autoShutdown', false)
+}
+
+function setAutoShutdown(value: boolean) {
+  downloadManager.set('autoShutdown', value)
+}
+
 function stopCurrentDownload() {
   const { appName, runner } = currentElement!.params
   callAbortController(appName)
@@ -318,5 +363,7 @@ export {
   getQueueInformation,
   cancelCurrentDownload,
   pauseCurrentDownload,
-  resumeCurrentDownload
+  resumeCurrentDownload,
+  setAutoShutdown,
+  getAutoShutdown
 }
