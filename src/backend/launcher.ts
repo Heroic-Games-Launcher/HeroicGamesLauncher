@@ -91,8 +91,11 @@ async function prepareLaunch(
 ): Promise<LaunchPreperationResult> {
   const globalSettings = GlobalConfig.get().getSettings()
 
-  const offlineMode =
-    gameSettings.offlineMode || !isOnline() || (await isEpicServiceOffline())
+  let offlineMode = gameSettings.offlineMode || !isOnline()
+
+  if (!offlineMode && gameInfo.runner === 'legendary') {
+    offlineMode = await isEpicServiceOffline()
+  }
 
   // Check if the game needs an internet connection
   if (!gameInfo.canRunOffline && offlineMode) {
