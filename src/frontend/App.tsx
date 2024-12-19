@@ -66,7 +66,9 @@ function Root() {
         </main>
         <div className="controller">
           <ControllerHints />
-          <div className="simple-keyboard"></div>
+          <dialog className="simple-keyboard-wrapper">
+            <div className="simple-keyboard"></div>
+          </dialog>
         </div>
         {showOverlayControls && <WindowControls />}
         {experimentalFeatures.enableHelp && <Help items={help.items} />}
