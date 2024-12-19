@@ -23,6 +23,7 @@ import { notify } from '../../dialog/dialog'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
+import { removeRecentGame } from 'backend/recent_games/recent_games'
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -128,6 +129,7 @@ export async function uninstall({
   notify({ title, body: i18next.t('notify.uninstalled') })
 
   removeShortcutsUtil(gameInfo)
+  removeRecentGame(appName)
 
   sendGameStatusUpdate({
     appName,
