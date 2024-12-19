@@ -911,8 +911,8 @@
         "size": "Size"
     },
     "wineExplanation": {
-        "proton-ge": "Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used in Steam, but some games outside Steam may work better with this variant. It provides mostly useless logs for troubleshooting.",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It is the recommended Wine to be used outside Steam. This provides useful logs when troubleshooting."
+        "proton-ge": "Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the UMU launcher (default in Heroic).",
+        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of Proton-GE with the UMU launcher."
     },
     "winetricks": {
         "install": "Install",
