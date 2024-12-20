@@ -26,7 +26,7 @@ jobs:
         run: pnpm dist:win portable
         if: runner.os == 'Windows'
       - name: Build macOS x64 & arm64 versions
-        run: pnpm dist:mac --x64 --arm64  --universal --publish=never
+        run: pnpm dist:mac --publish=never
         env:
           GITHUB_TOKEN: ${{ secrets.workflowToken }}
           GH_TOKEN: ${{ secrets.workflowToken }}
@@ -49,7 +49,7 @@ jobs:
                     (matrix.os == 'macos-13'      && 'mac-x64'       ) ||
                     (matrix.os == 'ubuntu-22.04'  && 'linux-AppImage-x64') }}
           path: ${{ (matrix.os == 'windows-2022'  && 'dist/Heroic*.exe'      ) ||
-                    (matrix.os == 'macos-13'      && 'dist/Heroic*x64.dmg'   ) ||
+                    (matrix.os == 'macos-13'      && 'dist/Heroic*universal.dmg'   ) ||
                     (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic*x86_64.AppImage') }}
           retention-days: 14
           if-no-files-found: error
@@ -63,21 +63,3 @@ jobs:
           if-no-files-found: error
           compression-level: 3
         if: runner.os == 'Linux'
-      - name: Upload macOS ARM version
-        uses: actions/upload-artifact@v4
-        with:
-          name: mac-arm64
-          path: dist/Heroic*arm64.dmg
-          retention-days: 14
-          if-no-files-found: error
-          compression-level: 3
-        if: runner.os == 'macOS'
-      - name: Upload macOS Universal version
-        uses: actions/upload-artifact@v4
-        with:
-          name: mac-universal
-          path: dist/Heroic*universal.dmg
-          retention-days: 14
-          if-no-files-found: error
-          compression-level: 3
-        if: runner.os == 'macOS'
