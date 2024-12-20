@@ -64,14 +64,6 @@ export const onProgressUpdate = (
   }
 }
 
-export const handleLaunchGame = (
-  callback: (
-    event: Electron.IpcRendererEvent,
-    appName: string,
-    runner: Runner
-  ) => Promise<{ status: 'done' | 'error' | 'abort' }>
-) => ipcRenderer.on('launchGame', callback)
-
 export const handleInstallGame = (
   callback: (
     event: Electron.IpcRendererEvent,

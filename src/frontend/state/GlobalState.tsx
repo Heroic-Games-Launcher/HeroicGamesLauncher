@@ -19,7 +19,7 @@ import {
   HelpItem
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
-import { getGameInfo, getLegendaryConfig, launch, notify } from '../helpers'
+import { getGameInfo, getLegendaryConfig, notify } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -772,31 +772,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   async componentDidMount() {
-    const { t } = this.props
     const { epic, gog, amazon, gameUpdates = [], libraryStatus } = this.state
-
-    // Deals launching from protocol. Also checks if the game is already running
-    window.api.handleLaunchGame(
-      async (
-        e: IpcRendererEvent,
-        appName: string,
-        runner: Runner
-      ): Promise<{ status: 'done' | 'error' | 'abort' }> => {
-        const currentApp = libraryStatus.filter(
-          (game) => game.appName === appName
-        )[0]
-        if (!currentApp) {
-          return launch({
-            appName,
-            t,
-            runner,
-            hasUpdate: false,
-            showDialogModal: this.handleShowDialogModal
-          })
-        }
-        return { status: 'error' }
-      }
-    )
 
     window.api.handleInstallGame(async (e, appName, runner) => {
       const currentApp = libraryStatus.filter(
