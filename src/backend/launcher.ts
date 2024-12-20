@@ -1712,7 +1712,5 @@ export {
   callRunner,
   getRunnerCallWithoutCredentials,
   getWinePath,
-  runAfterLaunchScript,
-  runBeforeLaunchScript,
   launchEventCallback
 }
