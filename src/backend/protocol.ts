@@ -5,8 +5,8 @@ import { getInfo } from './utils'
 import { GameInfo, Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { icon } from './constants'
-import { ipcMain } from 'electron/main'
 import { gameManagerMap } from './storeManagers'
+import { launchEventCallback } from './launcher'
 
 type Command = 'ping' | 'launch'
 
@@ -146,7 +146,7 @@ async function handleLaunch(
   }
 
   mainWindow?.hide()
-  ipcMain.emit('launch', {
+  launchEventCallback({
     appName: app_name,
     runner: gameRunner,
     skipVersionCheck: settings.ignoreGameUpdates
