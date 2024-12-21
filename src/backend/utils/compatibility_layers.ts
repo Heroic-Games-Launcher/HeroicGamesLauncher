@@ -559,7 +559,7 @@ export async function isUmuSupported(
 ): Promise<boolean> {
   if (!isLinux) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
-  if (gameSettings.disableUMU === false) return false
+  if (gameSettings.disableUMU === true) return false
   if (gameSettings.disableUMU === undefined) {
     // If the disableUMU setting is undefined it means the game was installed and configured
     // before the introduction of this setting, so the usage of UMU was dictated by the
