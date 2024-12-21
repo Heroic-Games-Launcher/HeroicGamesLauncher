@@ -65,7 +65,7 @@ export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
   cometSupport: boolean
-  umuSupport: boolean
+  umuSupport?: boolean
 }
 
 export interface AppSettings extends GameSettings {
