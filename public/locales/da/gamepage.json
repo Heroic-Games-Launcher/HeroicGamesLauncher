@@ -27,7 +27,7 @@
             "title": "Afinstaller",
             "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
             "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt.",
-            "dlc": "Vil du afinstallere denne DLC?",
+            "dlc": "Vil du afinstallere \"{{title}}\" DLC",
             "gameIsRunning": "{{title}} kører. Luk spillet for at afinstallere det."
         },
         "update": {
