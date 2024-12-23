@@ -735,7 +735,8 @@
                 "understand": "Ich verstehe"
             },
             "label": "Erlaube installation von Spielen mit kaputtem oder abgelehntem Anticheat"
-        }
+        },
+        "disableUMU": "UMU Ausschalten"
     },
     "settings": {
         "battlEyeRuntime": {
