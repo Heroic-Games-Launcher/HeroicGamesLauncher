@@ -6,13 +6,9 @@ import { PathSelectionBox } from 'frontend/components/UI'
 
 const BeforeLaunchScriptPath = () => {
   const { t } = useTranslation()
-  const { isDefault, gameInfo } = useContext(SettingsContext)
+  const { gameInfo } = useContext(SettingsContext)
 
   const [scriptPath, setScriptPath] = useSetting('beforeLaunchScriptPath', '')
-
-  if (isDefault) {
-    return <></>
-  }
 
   return (
     <PathSelectionBox
