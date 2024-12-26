@@ -218,7 +218,7 @@
       margin-bottom: 0;
     }
 
-    svg {
+    svg:not(:is(button > svg)) {
       cursor: text;
     }
 
