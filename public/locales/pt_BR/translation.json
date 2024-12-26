@@ -736,7 +736,8 @@
             "label": "Permitir instalação de jogos com o sistema anti-trapaças comprometido ou não suportado"
         },
         "before-launch-script-path": "Selecione um script para executar antes do jogo ser iniciado",
-        "after-launch-script-path": "Selecione um script para executar após o jogo ser finalizado"
+        "after-launch-script-path": "Selecione um script para executar após o jogo ser finalizado",
+        "disableUMU": "Desativar UMU"
     },
     "settings": {
         "battlEyeRuntime": {
