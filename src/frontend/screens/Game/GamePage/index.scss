@@ -218,10 +218,6 @@
       margin-bottom: 0;
     }
 
-    svg:not(:is(button > svg)) {
-      cursor: text;
-    }
-
     & > .selectFieldWrapper.Field {
       margin-bottom: var(--space-md);
     }
