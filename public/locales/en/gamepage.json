@@ -172,6 +172,7 @@
         "launching": "Launching",
         "playing": {
             "start": "Play Now",
+            "start_with_logs": "Play Now (with logs)",
             "stop": "Playing (Stop)"
         },
         "redist": "Installing Redistributables",

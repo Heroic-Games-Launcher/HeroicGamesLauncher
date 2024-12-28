@@ -93,8 +93,7 @@ import {
   logError,
   logInfo,
   LogPrefix,
-  logWarning,
-  stopLogger
+  logWarning
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
