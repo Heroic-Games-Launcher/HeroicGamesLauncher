@@ -1,76 +1,77 @@
 {
     "accessibility": {
         "actions_font_family_no_default": "Acties Lettertypefamilie (standaard):",
-        "all_tiles_in_color": "Show all game tiles in color",
+        "all_tiles_in_color": "Toon alle videospelposters in kleur",
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Lettertypen",
         "title": "Toegankelijkheid",
         "zoom": "Zoom",
-        "disable_dialog_backdrop_close": "Zet vensters sluiten bij het klikken buiten deze vensters uit",
-        "titles_always_visible": "Laat altijd titels in mijn bibliotheek zien"
+        "disable_dialog_backdrop_close": "Houd dialoogvensters bij het klikken buiten deze vensters open",
+        "titles_always_visible": "Laat altijd titels in mijn bibliotheek zien",
+        "actions_font_family_default": "Acties Lettertypefamilie (Standaard: {{fontFamily}})"
     },
     "add_game": "Voeg game toe",
     "All": "Allemaal",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Referentie",
-        "source": "Source",
+        "reference": "Verwijzing",
+        "source": "Bron",
         "status": "Status",
         "title": "Deze game bevat anticheat software",
         "multiplayer_may_not_work": "Multiplayer functies werken misschien niet vanwege geblokkeerde of niet werkende Anticheat ondersteuning."
     },
     "box": {
         "cache-cleared": {
-            "message": "Heroic cache is gewist!",
+            "message": "Heroic cache is gewist.",
             "title": "Cache gewist"
         },
         "choose": "Selecteer",
         "choose-egs-prefix": "Selecteer een prefix waar EGS is geïnstalleerd",
-        "choose-gogdl-binary": "Select GOGDL Binary (needs restart)",
+        "choose-gogdl-binary": "Selecteer GOGDL Binary (herstart vereist)",
         "choose-legendary-binary": "Selecteer Legendary binary",
         "customWine": "Selecteer de Wine of Proton binary",
-        "default-install-path": "Selecteer een standaard map",
-        "default-steam-path": "Steam path.",
-        "downloadNow": "Download now",
+        "default-install-path": "Selecteer een standaard installatiepad",
+        "default-steam-path": "Steam pad.",
+        "downloadNow": "Download nu",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Adding {{game}} to Steam failed with:{{newLine}} {{error}}",
-                    "title": "Adding Error"
+                    "body": "Het toevoegen van {{game}} aan Steam mislukt:{{newLine}} {{error}}",
+                    "title": "Toevoegingsfout"
                 }
             },
             "credentials": {
-                "message": "Uw inloggegevens zijn verlopen, gelieven uit te loggen en weer inloggen."
+                "message": "Uw inloggegevens zijn verlopen, gelieven uit te loggen en weer opnieuw in te loggen."
             },
             "cx-bottle-not-found": {
-                "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
-                "title": "CrossOver bottle not found"
+                "message": "De CrossOver fles \"{{bottle_name}}\" bestaat niet, kan niet starten!",
+                "title": "CrossOver fles niet gevonden"
             },
             "diskspace": {
-                "message": "Niet genoeg ruimte beschikbaar op de harde schijf",
+                "message": "Niet genoeg vrije schijfruimte",
                 "title": "Niet genoeg opslag"
             },
             "dxvk": {
-                "message": "Error bij de installatie van DXVK/VKD3D! Controleer uw verbinding of als u zstd/libzstd1 heeft geïnstalleerd!",
-                "title": "DXVK/VKD3D error"
+                "message": "Fout bij de installatie van DXVK/VKD3D! Controleer uw verbinding!",
+                "title": "DXVK/VKD3D fout"
             },
             "folder-not-found": {
-                "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
+                "title": "Spelmap lijkt te zijn verwijderd, wilt u de game van de installatielijst halen?"
             },
             "generic": {
                 "message": "algemene foutmelding",
-                "title": "Select EXE to Run"
+                "title": "Selecteer EXE om uit te voeren"
             },
-            "launchAborted": "Launch aborted",
-            "title": "Error",
+            "launchAborted": "Starten geannuleerd",
+            "title": "Fout",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
                 "title": "Uncaught Exception occured!"
             },
             "update": {
-                "message": "Something went wrong with the update, please check the logs or try again later!",
-                "title": "Update Error"
+                "message": "Er is iets misgegaan tijdens het updaten, controleert u A.U.B. de logbestanden of probeert u het later opnieuw!",
+                "title": "Update Fout"
             },
             "wine-not-found": {
                 "invalid": "The selected wine version was not found. Install it or select a different version in the game's settings{{newline}}Version: {{version}}{{newline}}Path: {{path}}",
@@ -78,8 +79,8 @@
                 "title": "Wine Not Found"
             },
             "winetricks": {
-                "message": "Winetricks returned the following error during execution:{{newLine}}{{error}}",
-                "title": "Winetricks error"
+                "message": "Winetricks gaf de volgende fout tijdens het uitvoeren:{{newLine}}{{error}}",
+                "title": "Winetricks fout"
             },
             "moving": "Fout bij verplaatsen van spel {{error}}",
             "ubisoft-connect": {
@@ -93,11 +94,11 @@
         "info": {
             "update": {
                 "changelog": "Open changelog",
-                "detail": "Do you want to download the update in the background?",
-                "message": "There is a new Version available!",
-                "message-finished": "Do you want to restart Heroic now?",
+                "detail": "Wilt u de update in de achtergrond downloaden?",
+                "message": "Er is een nieuwe versie beschikbaar!",
+                "message-finished": "Wilt u Heroic nu opnieuw opstarten?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Updaten Klaar"
             }
         },
         "no": "NEE",
@@ -108,12 +109,12 @@
             }
         },
         "quit": {
-            "message": "Er zijn processen in afwachting, weet u het zeker?",
-            "title": "Sluiten"
+            "message": "Er zijn nog processen bezig, weet u het zeker?",
+            "title": "Afsluiten"
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Weet u zeker dat u Heroic opnieuw in wilt stellen? Dit zal alle instellingen en caches, maar niet uw geïnstalleerde spellen of Epic inloggegevens verwijderen. Zogenoemde „draagbare” versies van Heroic (AppImage, WinPortable, ...) zullen hierna opnieuw moeten worden opgestart.",
                 "title": "Reset Heroic"
             }
         },
@@ -170,11 +171,11 @@
         },
         "wineprefix": "Selecteer een Wine Prefix Folder",
         "yes": "JA",
-        "dontShowAgain": "Niet meer laten zien",
-        "choose-nile-binary": "Selecteer Nijl binair",
+        "dontShowAgain": "Laat niet meer zien",
+        "choose-nile-binary": "Selecteer Nile binary",
         "update": "Update",
         "postpone": "Stel uit",
-        "changelog": "Updatelog"
+        "changelog": "Veranderingslogboek"
     },
     "button": {
         "cancel": "Cancel",
@@ -793,7 +794,7 @@
     },
     "tray": {
         "about": "Over",
-        "quit": "Stoppen",
+        "quit": "Stop",
         "reload": "Herladen",
         "show": "Tonen"
     },
@@ -874,7 +875,7 @@
     },
     "adtraction-locked": {
         "title": "Adtraction is geblokkeerd",
-        "description": "Het lijkt erop dat u het domeinnaam \"track.adtraction.com\" heeft geblokkeerd, of dat deze niet kon laden. Met adtraction, kunt u met elke aankoop binnen de GOG winkel, Heroic financieel steunen. Als u wilt steunen, gelieve deze blokkade te verwijderen.",
+        "description": "Het lijkt erop dat u het domeinnaam \"track.adtraction.com\" heeft geblokkeerd, of dat deze niet kon laden. Met adtraction kunt u met elke aankoop binnen de GOG winkel, Heroic financieel steunen. Als u ons wilt ondersteunen, gelieve deze blokkade te verwijderen.",
         "dont-show-again": "Toon deze waarschuwing niet opnieuw"
     },
     "categories-manager": {
