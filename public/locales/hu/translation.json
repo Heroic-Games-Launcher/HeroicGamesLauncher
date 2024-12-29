@@ -734,7 +734,8 @@
             "label": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezése"
         },
         "before-launch-script-path": "Válasszon egy a játék indítása előtt futtatandó parancsfájlt",
-        "after-launch-script-path": "Válassza ki a játék kilépése után futtatandó parancsfájlt"
+        "after-launch-script-path": "Válassza ki a játék kilépése után futtatandó parancsfájlt",
+        "disableUMU": "UMU letiltása"
     },
     "settings": {
         "battlEyeRuntime": {
