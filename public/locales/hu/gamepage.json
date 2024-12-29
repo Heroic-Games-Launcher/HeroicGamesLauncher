@@ -215,6 +215,9 @@
             "title": "Adjon címet a játékának/alkalmazásának",
             "url": "Ide illessze be a játék webcímét",
             "useragent": "Írjon ide egy egyéni felhasználói ügynököt, melyet ehhez a böngészős alkalmazáshoz/játékhoz használna"
+        },
+        "import-hint": {
+            "title": "Fontos! Egy játékot adsz hozzá éppen Epic/GOG/Amazon-ról? Kattints ide!"
         }
     },
     "specs": {
