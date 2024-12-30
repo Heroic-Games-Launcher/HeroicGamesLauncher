@@ -183,7 +183,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
   setTimeout(async () => {
     // Will download Wine if none was found
     const availableWine = await GlobalConfig.get().getAlternativeWine()
-    DXVK.getLatest()
     Winetricks.download()
     if (!availableWine.length) {
       downloadDefaultWine()
