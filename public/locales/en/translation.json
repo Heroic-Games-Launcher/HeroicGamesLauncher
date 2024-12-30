@@ -649,6 +649,7 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "gamescope": {
+            "enableGamescope": "Enable Gamescope",
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
             "missingMsg": "We could not found gamescope on the PATH. Install it or add it to the PATH."
