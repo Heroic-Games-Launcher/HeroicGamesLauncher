@@ -673,7 +673,7 @@ export async function launch(
         })
         return true
       }
-      commandParts.push('--prefer-task', '0')
+      if (modsAbleToLoad.length > 0) commandParts.push('--prefer-task', '0')
     } else {
       logError(['Unable to start modded game'], { prefix: LogPrefix.Gog })
     }
