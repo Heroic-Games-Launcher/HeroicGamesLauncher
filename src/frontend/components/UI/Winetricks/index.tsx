@@ -15,12 +15,13 @@ export default function Winetricks({ onClose, runner }: Props) {
   const { appName } = useContext(SettingsContext)
   const { t } = useTranslation()
 
-  const [loading, setLoading] = useState(true)
+  const [loadingInstalled, setLoadingInstalled] = useState(true)
+  const [loadingAvailable, setLoadingAvailable] = useState(true)
 
   // keep track of all installed components for a game/app
   const [installed, setInstalled] = useState<string[]>([])
   async function listInstalled() {
-    setLoading(true)
+    setLoadingInstalled(true)
     try {
       const components = await window.api.winetricksListInstalled(
         runner,
@@ -30,7 +31,7 @@ export default function Winetricks({ onClose, runner }: Props) {
     } catch {
       setInstalled([])
     }
-    setLoading(false)
+    setLoadingInstalled(false)
   }
   useEffect(() => {
     listInstalled()
@@ -39,6 +40,7 @@ export default function Winetricks({ onClose, runner }: Props) {
   const [allComponents, setAllComponents] = useState<string[]>([])
   useEffect(() => {
     async function listComponents() {
+      setLoadingAvailable(true)
       try {
         const components = await window.api.winetricksListAvailable(
           runner,
@@ -48,7 +50,9 @@ export default function Winetricks({ onClose, runner }: Props) {
       } catch {
         setAllComponents([])
       }
+      setLoadingAvailable(false)
     }
+
     listComponents()
   }, [])
 
@@ -108,9 +112,9 @@ export default function Winetricks({ onClose, runner }: Props) {
 
   const dialogContent = (
     <>
-      {!loading && (
+      {!loadingInstalled && (
         <div className="installWrapper">
-          {!installing && (
+          {!installing && allComponents.length !== 0 && (
             <div className="actions">
               <WinetricksSearchBar
                 allComponents={allComponents}
@@ -126,6 +130,19 @@ export default function Winetricks({ onClose, runner }: Props) {
               </button>
             </div>
           )}
+          {loadingAvailable && (
+            <span>
+              {t(
+                'winetricks.loading-available',
+                'Loading available components ...'
+              )}
+            </span>
+          )}
+          {!loadingAvailable && allComponents.length === 0 && (
+            <span>
+              {t('winetricks.no-components', 'No available components')}
+            </span>
+          )}
           {installing && (
             <p>
               {t(
@@ -140,8 +157,8 @@ export default function Winetricks({ onClose, runner }: Props) {
 
       <div className="installedWrapper">
         <b>{t('winetricks.installed', 'Installed components:')}</b>
-        {loading && <span>{t('winetricks.loading', 'Loading')}</span>}
-        {!loading && installed.length === 0 && (
+        {loadingInstalled && <span>{t('winetricks.loading', 'Loading')}</span>}
+        {!loadingInstalled && installed.length === 0 && (
           <span>
             {t(
               'winetricks.nothingYet',
@@ -149,7 +166,7 @@ export default function Winetricks({ onClose, runner }: Props) {
             )}
           </span>
         )}
-        {!loading && <span>{installed.join(', ')}</span>}
+        {!loadingInstalled && <span>{installed.join(', ')}</span>}
       </div>
     </>
   )
