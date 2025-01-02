@@ -103,7 +103,6 @@ import {
   logError,
   logInfo,
   LogPrefix,
-  logsDisabled,
   logWarning,
   stopLogger
 } from './logger/logger'
@@ -1015,13 +1014,6 @@ ipcMain.handle(
     }
 
     initGamePlayLog(game)
-
-    if (logsDisabled) {
-      appendGamePlayLog(
-        game,
-        'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
-      )
-    }
 
     const isNative = gameManagerMap[runner].isNative(appName)
 

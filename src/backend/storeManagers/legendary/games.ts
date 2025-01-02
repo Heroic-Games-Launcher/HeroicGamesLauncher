@@ -48,8 +48,7 @@ import {
   logError,
   logFileLocation,
   logInfo,
-  LogPrefix,
-  logsDisabled
+  LogPrefix
 } from '../../logger/logger'
 import {
   prepareLaunch,
@@ -951,6 +950,13 @@ export async function launch(
   )
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
+  if (!gameSettings.verboseLogs) {
+    appendGamePlayLog(
+      gameInfo,
+      'IMPORTANT: Logs are disabled. Enable verbose logs before reporting an issue.'
+    )
+  }
+
   sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
 
   const { error } = await runLegendaryCommand(command, {
@@ -959,7 +965,7 @@ export async function launch(
     wrappers: wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output) => {
-      if (!logsDisabled) appendGamePlayLog(gameInfo, output)
+      if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
     }
   })
 

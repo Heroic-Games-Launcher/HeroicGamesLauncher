@@ -1461,22 +1461,26 @@ async function runScriptForGame(
       env: scriptEnv
     })
 
-    child.stdout.on('data', (data) => {
-      appendGamePlayLog(gameInfo, data.toString())
-    })
+    if (gameSettings.verboseLogs) {
+      child.stdout.on('data', (data) => {
+        appendGamePlayLog(gameInfo, data.toString())
+      })
 
-    child.stderr.on('data', (data) => {
-      appendGamePlayLog(gameInfo, data.toString())
+      child.stderr.on('data', (data) => {
+        appendGamePlayLog(gameInfo, data.toString())
+      })
+    }
+
+    child.on('error', (err: Error) => {
+      if (gameSettings.verboseLogs) {
+        appendGamePlayLog(gameInfo, err.message)
+        if (err.stack) appendGamePlayLog(gameInfo, err.stack)
+      }
+      reject(err.message)
     })
 
     child.on('exit', () => {
       resolve(true)
-    })
-
-    child.on('error', (err: Error) => {
-      appendGamePlayLog(gameInfo, err.message)
-      if (err.stack) appendGamePlayLog(gameInfo, err.stack)
-      reject(err.message)
     })
   })
 }
