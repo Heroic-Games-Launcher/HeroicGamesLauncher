@@ -129,7 +129,7 @@ export default function WineSelector({
               label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
               htmlId="crossoverBottle"
               value={crossoverBottle}
-              onChange={(event) => setCrossoverBottle(event.target.value)}
+              onChange={(newValue) => setCrossoverBottle(newValue)}
               disabled={useDefaultSettings}
             />
           )}
