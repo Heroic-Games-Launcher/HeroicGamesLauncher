@@ -919,6 +919,8 @@
         "installed": "Installed components:",
         "installing": "Installation in progress: {{component}}",
         "loading": "Loading",
+        "loading-available": "Loading available components ...",
+        "no-components": "No available components",
         "nothingYet": "Nothing was installed by Winetricks yet",
         "openGUI": "Open Winetricks GUI",
         "search": "Search fonts or components"
