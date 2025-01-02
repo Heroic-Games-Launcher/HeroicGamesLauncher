@@ -463,52 +463,67 @@ async function prepareWineLaunch(
   return { success: true, envVars: envVars }
 }
 
-async function installFixes(appName: string, runner: Runner) {
+function readKnownFixes(appName: string, runner: Runner) {
   const fixPath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
 
-  if (!existsSync(fixPath)) return
+  if (!existsSync(fixPath)) return null
 
   try {
     const fixesContent = JSON.parse(
       readFileSync(fixPath).toString()
     ) as KnowFixesInfo
 
-    if (fixesContent.winetricks) {
-      sendGameStatusUpdate({
-        appName,
-        runner: runner,
-        status: 'winetricks'
-      })
-
-      for (const winetricksPackage of fixesContent.winetricks) {
-        await Winetricks.install(runner, appName, winetricksPackage)
-      }
-    }
-
-    if (fixesContent.runInPrefix) {
-      const gameInfo = gameManagerMap[runner].getGameInfo(appName)
-
-      sendGameStatusUpdate({
-        appName,
-        runner: runner,
-        status: 'redist',
-        context: 'FIXES'
-      })
-
-      for (const filePath of fixesContent.runInPrefix) {
-        const fullPath = join(gameInfo.install.install_path!, filePath)
-        await runWineCommandOnGame(appName, {
-          commandParts: [fullPath],
-          wait: true,
-          protonVerb: 'run'
-        })
-      }
-    }
+    return fixesContent
   } catch (error) {
     // if we fail to download the json file, it can be malformed causing
     // JSON.parse to throw an exception
     logWarning(`Known fixes could not be applied, ignoring.\n${error}`)
+    return null
   }
+}
+
+async function installFixes(appName: string, runner: Runner) {
+  const knownFixes = readKnownFixes(appName, runner)
+
+  if (!knownFixes) return
+
+  if (knownFixes.winetricks) {
+    sendGameStatusUpdate({
+      appName,
+      runner: runner,
+      status: 'winetricks'
+    })
+
+    for (const winetricksPackage of knownFixes.winetricks) {
+      await Winetricks.install(runner, appName, winetricksPackage)
+    }
+  }
+
+  if (knownFixes.runInPrefix) {
+    const gameInfo = gameManagerMap[runner].getGameInfo(appName)
+
+    sendGameStatusUpdate({
+      appName,
+      runner: runner,
+      status: 'redist',
+      context: 'FIXES'
+    })
+
+    for (const filePath of knownFixes.runInPrefix) {
+      const fullPath = join(gameInfo.install.install_path!, filePath)
+      await runWineCommandOnGame(appName, {
+        commandParts: [fullPath],
+        wait: true,
+        protonVerb: 'run'
+      })
+    }
+  }
+}
+
+function getKnownFixesEnvVariables(appName: string, runner: Runner) {
+  const knownFixes = readKnownFixes(appName, runner)
+
+  return knownFixes?.envVariables || {}
 }
 
 /**
@@ -916,7 +931,7 @@ async function runWineCommand({
     return { stdout: '', stderr: '' }
   }
 
-  const env_vars = {
+  const env_vars: Record<string, string> = {
     ...process.env,
     GAMEID: 'umu-0',
     ...setupEnvVars(settings),
@@ -1493,6 +1508,7 @@ export {
   callRunner,
   getRunnerCallWithoutCredentials,
   getWinePath,
+  getKnownFixesEnvVariables,
   runAfterLaunchScript,
   runBeforeLaunchScript
 }

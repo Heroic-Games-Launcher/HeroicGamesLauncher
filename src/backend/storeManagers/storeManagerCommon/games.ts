@@ -15,6 +15,7 @@ import { constants as FS_CONSTANTS } from 'graceful-fs'
 import i18next from 'i18next'
 import {
   callRunner,
+  getKnownFixesEnvVariables,
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
@@ -219,7 +220,8 @@ export async function launchGame(
       const env = {
         ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
-        ...setupEnvVars(gameSettings, gameInfo.install.install_path)
+        ...setupEnvVars(gameSettings, gameInfo.install.install_path),
+        ...getKnownFixesEnvVariables(appName, runner)
       }
 
       await callRunner(

@@ -68,6 +68,7 @@ import {
 } from '../../logger/logger'
 import { GOGUser } from './user'
 import {
+  getKnownFixesEnvVariables,
   getRunnerCallWithoutCredentials,
   getWinePath,
   launchCleanup,
@@ -536,7 +537,8 @@ export async function launch(
     ...setupWrapperEnvVars({ appName, appRunner: 'gog' }),
     ...(isWindows
       ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path))
+      : setupEnvVars(gameSettings, gameInfo.install.install_path)),
+    ...getKnownFixesEnvVariables(appName, 'gog')
   }
 
   const wrappers = setupWrappers(

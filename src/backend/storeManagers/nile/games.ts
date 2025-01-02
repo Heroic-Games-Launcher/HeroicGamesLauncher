@@ -31,6 +31,7 @@ import {
 import { isLinux, isWindows } from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
 import {
+  getKnownFixesEnvVariables,
   getRunnerCallWithoutCredentials,
   launchCleanup,
   prepareLaunch,
@@ -344,7 +345,8 @@ export async function launch(
     ...setupWrapperEnvVars({ appName, appRunner: 'nile' }),
     ...(isWindows
       ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path))
+      : setupEnvVars(gameSettings, gameInfo.install.install_path)),
+    ...getKnownFixesEnvVariables(appName, 'nile')
   }
 
   const wrappers = setupWrappers(

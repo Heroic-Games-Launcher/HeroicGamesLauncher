@@ -59,7 +59,8 @@ import {
   setupWrappers,
   launchCleanup,
   getRunnerCallWithoutCredentials,
-  runWineCommand as runWineCommandUtil
+  runWineCommand as runWineCommandUtil,
+  getKnownFixesEnvVariables
 } from '../../launcher'
 import {
   addShortcuts as addShortcutsUtil,
@@ -871,7 +872,8 @@ export async function launch(
     ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
     ...(isWindows
       ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path))
+      : setupEnvVars(gameSettings, gameInfo.install.install_path)),
+    ...getKnownFixesEnvVariables(appName, 'legendary')
   }
 
   const wrappers = setupWrappers(
