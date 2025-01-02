@@ -275,6 +275,10 @@ class GameConfigV0 extends GameConfig {
       // read game's settings
       const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
       gameSettings = settings[this.appName] || ({} as GameSettings)
+    } else {
+      // only set the `disableUMU` default value when getting settings for a new game
+      // we want it to be `undefined` for games that were installed already
+      defaultSettings.disableUMU = false
     }
 
     if (!isWindows) {
