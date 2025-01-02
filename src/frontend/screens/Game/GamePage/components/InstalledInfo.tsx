@@ -65,8 +65,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
       wine = wine.split('-')[0]
     }
     wineName = wine
-    wineType =
-      wineVersion.type === 'crossover' ? wineCrossoverBottle : winePrefix
+    wineType = wineVersion.type
   }
 
   const info = (
@@ -111,10 +110,10 @@ const InstalledInfo = ({ gameInfo }: Props) => {
           <div>
             <b>Wine:</b> {wineName}
           </div>
-          {wineVersion && wineType === 'crossover' ? (
+          {wineType === 'crossover' ? (
             <div>
               <b>{t2('setting.winecrossoverbottle', 'Bottle')}:</b>{' '}
-              <div className="truncatedPath">{winePrefix}</div>
+              <div>{wineCrossoverBottle}</div>
             </div>
           ) : (
             <div
