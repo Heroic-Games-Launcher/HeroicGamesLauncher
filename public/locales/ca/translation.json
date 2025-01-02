@@ -735,7 +735,8 @@
                 "message": "Els jocs amb suport antitrampes trencat o denegat poden funcionar, però les característiques multijugador no funcionaran. No demaneu suport si les instal·leu sabent això."
             },
             "label": "Permet instal·lar jocs amb suport antitrampes trencat o denegat"
-        }
+        },
+        "disableUMU": "Desactiva l'UMU"
     },
     "settings": {
         "battlEyeRuntime": {

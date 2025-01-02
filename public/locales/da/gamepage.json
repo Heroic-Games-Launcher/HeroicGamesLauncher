@@ -27,7 +27,8 @@
             "title": "Afinstaller",
             "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
             "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt.",
-            "dlc": "Vil du afinstallere denne DLC?"
+            "dlc": "Vil du afinstallere \"{{title}}\" DLC",
+            "gameIsRunning": "{{title}} kører. Luk spillet for at afinstallere det."
         },
         "update": {
             "title": "Spillet skal opdateres",
@@ -45,7 +46,8 @@
         },
         "sideload": {
             "exe": "Vælg Eksekverbar"
-        }
+        },
+        "close": "Luk"
     },
     "button": {
         "cancel": "Pause/Afbryd",
@@ -71,7 +73,8 @@
         "sideload": {
             "edit": "Rediger app/spil"
         },
-        "details": "detaljer"
+        "details": "detaljer",
+        "changelog": "Vis changelog"
     },
     "disabled": "Slå Fra",
     "dlc": {
@@ -99,7 +102,8 @@
         },
         "builds": {
             "version": "Version"
-        }
+        },
+        "extra_info": "Ekstra info"
     },
     "gamecard": {
         "moving": "Flytter",
@@ -117,7 +121,8 @@
         "game-scores": "Spilscore",
         "installedInfo": "Installeret information",
         "protondb-compatibility-info": "Protonkompatibilitetsniveau",
-        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet"
+        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
+        "third-party-app": "Tredjeparts-manager"
     },
     "install": {
         "path": "Vælg Installations Sti",
@@ -126,7 +131,13 @@
         "wineversion": "Wine version",
         "space-after-install": "Efter installation",
         "disk-space-left": "Ledig diskplads",
-        "path-not-writtable": "Advarsel: Sti er muligvis ikke skrivebar."
+        "path-not-writtable": "Advarsel: Sti er muligvis ikke skrivebar.",
+        "anticheat-warning": {
+            "ok": "Ok",
+            "multiplayer_message": "Anticheat-support virker ikke eller afvist. Spillet kan åbnes, men multiplayer-funktionerne virker ikke. Vil du installere det alligevel?",
+            "install_anyway": "Ja (jeg forstår, at multiplayer-funktionerne ikke vil fungere)",
+            "cancel": "Nej"
+        }
     },
     "label": {
         "playing": {
@@ -195,7 +206,8 @@
         "disableEosOverlay": "Deaktiver EOS Overlay",
         "enableEosOverlay": "Aktiver EOS Overlay",
         "extraInfo": "Ekstra info",
-        "logs": "Logs"
+        "logs": "Logs",
+        "categories": "Kategorier"
     },
     "generic": {
         "error": "Ukendt fejl",
@@ -224,7 +236,9 @@
             "exe": "Vælg Eksekverbar",
             "image": "App billede",
             "title": "Spil/App titel",
-            "broser": "BrowserURL"
+            "broser": "BrowserURL",
+            "fullscreen": "Åbn fuld skærm (F11 for at afslutte)",
+            "useragent": "Brugerdefineret User Agent"
         },
         "placeholder": {
             "image": "Indsæt en billed-URL her",
@@ -245,5 +259,12 @@
     "howLongToBeat": "Hvor længe skal man slå",
     "help": {
         "cloud_save_unsupported": "Dette spil understøtter ikke skylagring. Disse oplysninger leveres af spiludviklerne. Nogle spil implementerer deres eget skylagringssystem"
+    },
+    "modifyInstall": {
+        "nodlcs": "Ingen DLC tilgængelig",
+        "redMod": {
+            "enable": "Aktiver mods"
+        },
+        "dlcsCollapsible": "DLC"
     }
 }

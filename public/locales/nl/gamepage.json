@@ -32,7 +32,7 @@
             "title": "Installatie stoppen"
         },
         "uninstall": {
-            "checkbox": "Verwijder prefix: {{prefix}}{{newLine}}Note: Dit kan niet terug gedraaid worden, en zal ook opslagbestanden verwijderen welke niet gebackupped zijn.",
+            "checkbox": "Verwijder prefix: {{prefix}}{{newLine}}Note: Dit kan niet terug gedraaid worden, en zal ook de niet-geback-upte bestanden verwijderen.",
             "message": "Wilt u {{title}} verwijderen?",
             "settingcheckbox": "Herstel instellingen en verwijder log{{newLine}}Let op: Dit kan niet ongedaan gemaakt worden. Elke aangepaste instelling wordt vergeten en logboek zal verwijderd worden.",
             "title": "Verwijderen",
@@ -45,14 +45,14 @@
             "message": "Dit spel heeft een update, update nu toepassen?",
             "title": "Het spel heeft een update nodig"
         },
-        "wineprefix": "Selecteer WinePrefix Map",
+        "wineprefix": "Selecteer een WinePrefix map",
         "yes": "JA",
         "close": "sluit"
     },
     "button": {
         "add_to_favourites": "Voeg toe aan favorieten",
         "cancel": "Pauzeren/Annuleren",
-        "continue": "Doorgaan met Download",
+        "continue": "Hervat downloaden",
         "finish": "Gereed",
         "force_update": "Forceer update indien beschikbaar",
         "force-innstall": "Forceer installeren",

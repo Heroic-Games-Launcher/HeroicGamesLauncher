@@ -114,7 +114,8 @@
         },
         "select": {
             "button": "Vælg",
-            "exe": "Vælg EXE"
+            "exe": "Vælg EXE",
+            "script": "Vælg script ..."
         },
         "shortcuts": {
             "message": "Genveje var oprettet på Skrivebordet og i Start Menuen",
@@ -148,12 +149,23 @@
             "wine-change": {
                 "message": "Vi kunne ikke finde den valgte vinversion til at lancere denne titel ({{selectedWine}}). {{newline}} Vi fandt endnu en, vil du fortsætte med at lancere ved hjælp af {{foundWine}}?",
                 "title": "Vin ikke fundet!"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Eventuelle ikke-gemte fremskridt kan gå tabt",
+                    "title": "Er du sikker på, at du vil stoppe?"
+                }
+            },
+            "snap": {
+                "checkbox": "Vis ikke denne besked igen",
+                "title": "Heroic kører som en Snap"
             }
         },
         "default-steam-path": "Dampvej.",
         "dontShowAgain": "Vis ikke igen",
         "choose-nile-binary": "Vælg Nile binær",
-        "update": "Opdater"
+        "update": "Opdater",
+        "changelog": "Changelog"
     },
     "All": "Alle",
     "accessibility": {
@@ -164,7 +176,8 @@
         "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
         "content_font_family": "Indholdsskrifttypefamilie (standard: \"Cabin\")",
         "actions_font_family_no_default": "Actions Font Family (Standard: ",
-        "content_font_family_no_default": "Indholdsskrifttypefamilie (standard: "
+        "content_font_family_no_default": "Indholdsskrifttypefamilie (standard: ",
+        "titles_always_visible": "Vis altid titler i biblioteket"
     },
     "info": {
         "version": "Wine Version",
@@ -605,7 +618,8 @@
         "show_hidden": "Vis skjult",
         "store": "Filterbutik",
         "hide_non_available_games": "Skjul ikke-tilgængelige spil",
-        "show_available_games": "Vis ikke-tilgængelige spil"
+        "show_available_games": "Vis ikke-tilgængelige spil",
+        "categories": "Kategorier"
     },
     "Settings": "Indstillinger",
     "sidebar": {
@@ -628,7 +642,8 @@
         "reference": "Reference",
         "source": "Kilde",
         "status": "Status",
-        "title": "Dette spil inkluderer anticheat-software"
+        "title": "Dette spil inkluderer anticheat-software",
+        "multiplayer_may_not_work": "Multiplayer-funktioner fungerer muligvis ikke på grund af afvist eller ødelagt anticheat-support."
     },
     "docs": "Dokumentation",
     "epic": {
@@ -764,5 +779,23 @@
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Installer"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Vis ikke denne advarsel igen",
+        "description": "Det ser ud til, at domænet track.adtraction.com ikke kunne indlæses eller er blokeret. Med adtraction støtter ethvert køb, du foretager i GOG-butikken, Heroic økonomisk. Overvej at fjerne blokeringen, hvis du ønsker at bidrage.",
+        "title": "Adtraction er blokeret"
+    },
+    "categories-manager": {
+        "add": "Tilføj",
+        "add-placeholder": "Tilføj ny kategori",
+        "no-categories": "Ingen kategorier endnu.",
+        "remove": "Fjern \"{{name}}\"",
+        "rename": "Omdøb \"{{name}}\""
+    },
+    "window": {
+        "close": "Luk"
+    },
+    "category-settings": {
+        "add-new-category": "Tilføj ny kategori"
     }
 }
