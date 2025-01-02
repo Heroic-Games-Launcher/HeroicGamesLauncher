@@ -56,7 +56,6 @@ import {
   getLatestReleases,
   getShellPath,
   getCurrentChangelog,
-  checkWineBeforeLaunch,
   removeFolder,
   downloadDefaultWine,
   sendGameStatusUpdate
@@ -74,7 +73,6 @@ import {
   patreonPage,
   sidInfoUrl,
   supportURL,
-  tsStore,
   weblateUrl,
   wikiLink,
   fontsStore,
@@ -95,25 +93,17 @@ import {
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
-  appendGamePlayLog,
-  initGamePlayLog,
   initLogger,
   logChangedSetting,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
-  logsDisabled,
-  logWarning,
-  stopLogger
+  logWarning
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import {
-  runAfterLaunchScript,
-  runBeforeLaunchScript,
-  runWineCommand
-} from './launcher'
+import { launchEventCallback, runWineCommand } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -122,7 +112,6 @@ import {
   runOnceWhenOnline
 } from './online_monitor'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
-import { addRecentGame } from './recent_games/recent_games'
 import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import { initTrayIcon } from './tray_icon/tray_icon'
@@ -139,8 +128,7 @@ import {
   getBranchPassword,
   setBranchPassword,
   getGOGPlaytime,
-  syncQueuedPlaytimeGOG,
-  updateGOGPlaytime
+  syncQueuedPlaytimeGOG
 } from 'backend/storeManagers/gog/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
@@ -946,218 +934,10 @@ ipcMain.on('logError', (e, err) => logError(err, LogPrefix.Frontend))
 
 ipcMain.on('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
-let powerDisplayId: number | null
-
 // get pid/tid on launch and inject
-ipcMain.handle(
-  'launch',
-  async (
-    event,
-    { appName, launchArguments, runner, skipVersionCheck }
-  ): StatusPromise => {
-    const game = gameManagerMap[runner].getGameInfo(appName)
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
-    const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
-
-    const { title } = game
-
-    const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
-
-    const startPlayingDate = new Date()
-
-    if (!tsStore.has(game.app_name)) {
-      tsStore.set(
-        `${game.app_name}.firstPlayed`,
-        startPlayingDate.toISOString()
-      )
-    }
-
-    logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
-
-    if (autoSyncSaves && isOnline()) {
-      sendGameStatusUpdate({
-        appName,
-        runner,
-        status: 'syncing-saves'
-      })
-      logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
-      try {
-        await gameManagerMap[runner].syncSaves(
-          appName,
-          '--skip-upload',
-          savesPath,
-          gogSaves
-        )
-        logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
-      } catch (error) {
-        logError(
-          `Error while downloading saves for ${title}. ${error}`,
-          LogPrefix.Backend
-        )
-      }
-    }
-
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'launching'
-    })
-
-    const mainWindow = getMainWindow()
-    if (minimizeOnLaunch) {
-      mainWindow?.hide()
-    }
-
-    // Prevent display from sleep
-    if (!powerDisplayId) {
-      logInfo('Preventing display from sleep', LogPrefix.Backend)
-      powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
-    }
-
-    initGamePlayLog(game)
-
-    if (logsDisabled) {
-      appendGamePlayLog(
-        game,
-        'IMPORTANT: Logs are disabled. Enable logs before reporting an issue.'
-      )
-    }
-
-    const isNative = gameManagerMap[runner].isNative(appName)
-
-    // check if isNative, if not, check if wine is valid
-    if (!isNative) {
-      const isWineOkToLaunch = await checkWineBeforeLaunch(game, gameSettings)
-
-      if (!isWineOkToLaunch) {
-        logError(
-          `Was not possible to launch using ${gameSettings.wineVersion.name}`,
-          LogPrefix.Backend
-        )
-
-        sendGameStatusUpdate({
-          appName,
-          runner,
-          status: 'done'
-        })
-
-        stopLogger(appName)
-
-        return { status: 'error' }
-      }
-    }
-
-    await runBeforeLaunchScript(game, gameSettings)
-
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'launching'
-    })
-
-    const command = gameManagerMap[runner].launch(
-      appName,
-      launchArguments,
-      skipVersionCheck
-    )
-
-    if (runner === 'gog') {
-      gogPresence.setCurrentGame(appName)
-      await gogPresence.setPresence()
-    }
-
-    const launchResult = await command
-      .catch((exception) => {
-        logError(exception, LogPrefix.Backend)
-        appendGamePlayLog(
-          game,
-          `An exception occurred when launching the game:\n${exception.stack}`
-        )
-
-        return false
-      })
-      .finally(async () => {
-        await runAfterLaunchScript(game, gameSettings)
-        stopLogger(appName)
-      })
-
-    if (runner === 'gog') {
-      gogPresence.setCurrentGame('')
-      await gogPresence.setPresence()
-    }
-    // Stop display sleep blocker
-    if (powerDisplayId !== null) {
-      logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
-      powerSaveBlocker.stop(powerDisplayId)
-    }
-
-    // Update playtime and last played date
-    const finishedPlayingDate = new Date()
-    tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
-    // Playtime of this session in minutes
-    const sessionPlaytime =
-      (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
-    const totalPlaytime =
-      sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
-    tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
-
-    const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
-    if (runner === 'gog') {
-      if (!disablePlaytimeSync) {
-        await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
-      } else {
-        logWarning(
-          'Posting playtime session to server skipped - playtime sync disabled',
-          { prefix: LogPrefix.Backend }
-        )
-      }
-    }
-    await addRecentGame(game)
-
-    if (autoSyncSaves && isOnline()) {
-      sendGameStatusUpdate({
-        appName,
-        runner,
-        status: 'done'
-      })
-
-      sendGameStatusUpdate({
-        appName,
-        runner,
-        status: 'syncing-saves'
-      })
-
-      logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
-      try {
-        await gameManagerMap[runner].syncSaves(
-          appName,
-          '--skip-download',
-          savesPath,
-          gogSaves
-        )
-        logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
-      } catch (error) {
-        logError(
-          `Error uploading saves for ${title}. Error: ${error}`,
-          LogPrefix.Backend
-        )
-      }
-    }
-
-    sendGameStatusUpdate({
-      appName,
-      runner,
-      status: 'done'
-    })
-
-    // Exit if we've been launched without UI
-    if (isCLINoGui) {
-      app.exit()
-    }
-
-    return { status: launchResult ? 'done' : 'error' }
-  }
-)
+ipcMain.handle('launch', (event, args): StatusPromise => {
+  return launchEventCallback(args)
+})
 
 ipcMain.handle('openDialog', async (e, args) => {
   const mainWindow = getMainWindow()

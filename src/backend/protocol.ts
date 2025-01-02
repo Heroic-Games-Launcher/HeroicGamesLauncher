@@ -5,6 +5,8 @@ import { getInfo } from './utils'
 import { GameInfo, Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
 import { icon } from './constants'
+import { gameManagerMap } from './storeManagers'
+import { launchEventCallback } from './launcher'
 
 type Command = 'ping' | 'launch'
 
@@ -116,6 +118,7 @@ async function handleLaunch(
   }
 
   const { is_installed, title, app_name, runner: gameRunner } = game
+  const settings = await gameManagerMap[gameRunner].getSettings(app_name)
 
   if (!is_installed) {
     logInfo(`"${title}" not installed.`, LogPrefix.ProtocolHandler)
@@ -143,7 +146,11 @@ async function handleLaunch(
   }
 
   mainWindow?.hide()
-  sendFrontendMessage('launchGame', app_name, gameRunner)
+  launchEventCallback({
+    appName: app_name,
+    runner: gameRunner,
+    skipVersionCheck: settings.ignoreGameUpdates
+  })
 }
 
 /**
