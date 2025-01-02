@@ -926,7 +926,9 @@
         "openGUI": "Otevřít rozhraní Winetricks",
         "search": "Hledat písma nebo komponenty",
         "nothingYet": "Pomocí Winetricks zatím nebylo nic nainstalováno",
-        "installed": "Nainstalované komponenty:"
+        "installed": "Nainstalované komponenty:",
+        "loading-available": "Načítání dostupných komponent…",
+        "no-components": "Žádné dostupné komponenty"
     },
     "window": {
         "close": "Zavřít",
