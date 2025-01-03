@@ -28,10 +28,7 @@ import {
 import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { app } from 'electron'
-import {
-  addShortcuts,
-  removeShortcuts
-} from '../../shortcuts/shortcuts/shortcuts'
+import { addShortcuts } from '../../shortcuts/shortcuts/shortcuts'
 
 import {
   logDebug,

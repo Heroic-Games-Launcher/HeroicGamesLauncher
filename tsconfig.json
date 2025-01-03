@@ -2,7 +2,11 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "es2017",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
     "sourceMap": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
@@ -22,9 +26,20 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src/",
-    "types": ["@types/jest"],
-    "typeRoots": ["./node_modules", "src/common/typedefs"]
+    "types": [
+      "@types/jest"
+    ],
+    "typeRoots": [
+      "./node_modules",
+      "src/common/typedefs"
+    ]
   },
-  "include": ["src"],
-  "exclude": ["vite.config.ts", "**/__mocks__/**", "sign"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "vite.config.ts",
+    "**/__mocks__/**",
+    "sign"
+  ]
 }
