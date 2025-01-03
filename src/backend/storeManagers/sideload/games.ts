@@ -23,6 +23,7 @@ import { notify } from '../../dialog/dialog'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
+import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -127,7 +128,8 @@ export async function uninstall({
 
   notify({ title, body: i18next.t('notify.uninstalled') })
 
-  removeShortcutsUtil(gameInfo)
+  await removeShortcutsUtil(gameInfo)
+  await removeNonSteamGame({ gameInfo })
 
   sendGameStatusUpdate({
     appName,
@@ -232,7 +234,7 @@ export async function install(
   args: InstallArgs
 ): Promise<InstallResult> {
   logWarning(
-    `forceUninstall not implemented on Sideload Game Manager. called for appName = ${appName}`
+    `install not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
   return { status: 'error' }
 }
