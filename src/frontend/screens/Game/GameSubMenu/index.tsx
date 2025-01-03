@@ -184,6 +184,11 @@ export default function GamesSubmenu({
   }
 
   useEffect(() => {
+    // Check for game shortcuts on Steam
+    window.api.isAddedToSteam(appName, runner).then((added) => {
+      setAddedToSteam(added)
+    })
+
     if (!isInstalled) {
       return
     }
@@ -191,11 +196,6 @@ export default function GamesSubmenu({
     // Check for game shortcuts on desktop and start menu
     window.api.shortcutsExists(appName, runner).then((added) => {
       setHasShortcuts(added)
-    })
-
-    // Check for game shortcuts on Steam
-    window.api.isAddedToSteam(appName, runner).then((added) => {
-      setAddedToSteam(added)
     })
 
     // only unix specific
@@ -263,18 +263,6 @@ export default function GamesSubmenu({
                   ? t('submenu.removeShortcut', 'Remove shortcuts')
                   : t('submenu.addShortcut', 'Add shortcut')}
               </button>
-              {steamRefresh ? (
-                refreshCircle()
-              ) : (
-                <button
-                  onClick={async () => handleAddToSteam()}
-                  className="link button is-text is-link"
-                >
-                  {addedToSteam
-                    ? t('submenu.removeFromSteam', 'Remove from Steam')
-                    : t('submenu.addToSteam', 'Add to Steam')}
-                </button>
-              )}
               <button
                 onClick={async () => setShowUninstallModal(true)}
                 className="link button is-text is-link"
@@ -330,6 +318,18 @@ export default function GamesSubmenu({
                   </button>
                 ))}
             </>
+          )}
+          {steamRefresh ? (
+            refreshCircle()
+          ) : (
+            <button
+              onClick={async () => handleAddToSteam()}
+              className="link button is-text is-link"
+            >
+              {addedToSteam
+                ? t('submenu.removeFromSteam', 'Remove from Steam')
+                : t('submenu.addToSteam', 'Add to Steam')}
+            </button>
           )}
           <button
             onClick={() => setIsSettingsModalOpen(true, 'category', gameInfo)}
