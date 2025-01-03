@@ -29,7 +29,7 @@ import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { NileUser } from './user'
 import { runNileCommandStub } from './e2eMock'
-import { addShortcuts } from './games'
+import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
