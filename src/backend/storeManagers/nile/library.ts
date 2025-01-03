@@ -29,6 +29,7 @@ import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { NileUser } from './user'
 import { runNileCommandStub } from './e2eMock'
+import { addShortcuts } from './games'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
@@ -274,6 +275,11 @@ export async function refresh(): Promise<ExecResult | null> {
   loadGamesInAccount()
 
   const arr = Array.from(library.values())
+
+  for (const game of library.values()) {
+    await addShortcuts(game, false)
+  }
+
   libraryStore.set('library', arr)
   logInfo(['Game list updated, got', `${arr.length}`, 'games'], LogPrefix.Nile)
 
