@@ -129,7 +129,7 @@ async function prepareLaunch(
       }
     }
 
-    mangoHudCommand = [mangoHudBin, '--dlsym']
+    mangoHudCommand = [mangoHudBin]
   }
 
   if (gameSettings.useGameMode) {
@@ -683,6 +683,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (isLinux && gameSettings.battlEyeRuntime) {
     ret.PROTON_BATTLEYE_RUNTIME = join(runtimePath, 'battleye_runtime')
+  }
+  if (gameSettings.showMangohud) {
+    ret.MANGOHUD_DLSYM = '1'
   }
   if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
