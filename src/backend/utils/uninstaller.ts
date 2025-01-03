@@ -42,10 +42,11 @@ export const removePrefix = async (appName: string, runner: Runner) => {
 
   if (dirContent.length > 0) {
     const driveCPath = join(winePrefix, 'drive_c')
+    const pfxPath = join(winePrefix, 'pfx')
 
-    if (!existsSync(driveCPath)) {
+    if (!existsSync(driveCPath) && !existsSync(pfxPath)) {
       logInfo(
-        `Can't delete folder ${winePrefix}, folder does not contain a drive_c folder. If this is the correct prefix folder, delete it manually.`
+        `Can't delete folder ${winePrefix}, folder does not contain a drive_c/pfx folder. If this is the correct prefix folder, delete it manually.`
       )
       return
     }
