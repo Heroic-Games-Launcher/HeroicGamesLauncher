@@ -16,6 +16,7 @@ const Gamescope = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [gamescope, setGamescope] = useSetting('gamescope', {
+    enableGamescope: false,
     enableUpscaling: false,
     enableLimiter: false,
     windowType: 'fullscreen',
@@ -115,22 +116,38 @@ const Gamescope = () => {
 
   return (
     <div className="gamescopeSettings">
-      {/* Enable Upscale */}
+      {/* Enable Gamescope */}
       <div className="toggleRow">
         <ToggleSwitch
-          htmlId="gamescopeUpscaleToggle"
-          value={gamescope.enableUpscaling || false}
+          htmlId="gamescopeEnableToggle"
+          value={gamescope.enableGamescope || false}
           handleChange={() =>
             setGamescope({
               ...gamescope,
-              enableUpscaling: !gamescope.enableUpscaling
+              enableGamescope: !gamescope.enableGamescope
             })
           }
-          title={t('setting.gamescope.enableUpscaling', 'Enables Upscaling')}
+          title={t('setting.gamescope.enableGamescope', 'Enable Gamescope')}
         />
       </div>
+      {/* Enable Upscale */}
+      {gamescope.enableGamescope && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="gamescopeUpscaleToggle"
+            value={gamescope.enableUpscaling || false}
+            handleChange={() =>
+              setGamescope({
+                ...gamescope,
+                enableUpscaling: !gamescope.enableUpscaling
+              })
+            }
+            title={t('setting.gamescope.enableUpscaling', 'Enables Upscaling')}
+          />
+        </div>
+      )}
       {/* Upscale Settings */}
-      {gamescope.enableUpscaling && (
+      {gamescope.enableUpscaling && gamescope.enableGamescope && (
         <>
           {/* Upscale Method */}
           <SelectField
@@ -289,21 +306,23 @@ const Gamescope = () => {
         </>
       )}
       {/* Enable Limiter*/}
-      <div className="toggleRow">
-        <ToggleSwitch
-          htmlId="gamescopeLimiterToggle"
-          value={gamescope.enableLimiter || false}
-          handleChange={() =>
-            setGamescope({
-              ...gamescope,
-              enableLimiter: !gamescope.enableLimiter
-            })
-          }
-          title={t('setting.gamescope.enableLimiter', 'Enable FPS Limiter')}
-        />
-      </div>
+      {gamescope.enableGamescope && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="gamescopeLimiterToggle"
+            value={gamescope.enableLimiter || false}
+            handleChange={() =>
+              setGamescope({
+                ...gamescope,
+                enableLimiter: !gamescope.enableLimiter
+              })
+            }
+            title={t('setting.gamescope.enableLimiter', 'Enable FPS Limiter')}
+          />
+        </div>
+      )}
       {/* FPS Limiter Settings */}
-      {gamescope.enableLimiter && (
+      {gamescope.enableLimiter && gamescope.enableGamescope && (
         <div className="row">
           <TextInputField
             label={t('options.gamescope.fpsLimiter', 'FPS Limiter')}
@@ -362,31 +381,33 @@ const Gamescope = () => {
         </div>
       )}
       {/* Additional Options */}
-      <TextInputField
-        label={t('options.gamescope.additionalOptions', 'Additional Options')}
-        htmlId="additionalOptions"
-        placeholder=""
-        value={additionalOptions}
-        afterInput={
-          <FontAwesomeIcon
-            className="helpIcon"
-            icon={faCircleInfo}
-            title={t(
-              'help.gamescope.additionalOptions',
-              'Additional commandline flags to pass into gamescope.'
-            )}
-          />
-        }
-        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-          setAdditionalOptions(event.currentTarget.value)
-        }}
-        onBlur={(event: ChangeEvent<HTMLInputElement>) =>
-          setGamescope({
-            ...gamescope,
-            additionalOptions: event.currentTarget.value
-          })
-        }
-      />
+      {gamescope.enableGamescope && (
+        <TextInputField
+          label={t('options.gamescope.additionalOptions', 'Additional Options')}
+          htmlId="additionalOptions"
+          placeholder=""
+          value={additionalOptions}
+          afterInput={
+            <FontAwesomeIcon
+              className="helpIcon"
+              icon={faCircleInfo}
+              title={t(
+                'help.gamescope.additionalOptions',
+                'Additional commandline flags to pass into gamescope.'
+              )}
+            />
+          }
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            setAdditionalOptions(event.currentTarget.value)
+          }}
+          onBlur={(event: ChangeEvent<HTMLInputElement>) =>
+            setGamescope({
+              ...gamescope,
+              additionalOptions: event.currentTarget.value
+            })
+          }
+        />
+      )}
     </div>
   )
 }
