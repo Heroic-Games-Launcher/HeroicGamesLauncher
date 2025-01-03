@@ -81,3 +81,9 @@ export const resumeCurrentDownload = () =>
 
 export const pauseCurrentDownload = () =>
   ipcRenderer.send('pauseCurrentDownload')
+
+export const setAutoShutdown = (value: boolean) =>
+  ipcRenderer.send('setAutoShutdown', value)
+
+export const getAutoShutdownValue = async () =>
+  ipcRenderer.invoke('getAutoShutdownValue')
