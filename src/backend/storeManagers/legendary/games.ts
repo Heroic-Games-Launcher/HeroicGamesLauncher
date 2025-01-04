@@ -467,8 +467,14 @@ export function onInstallOrUpdateOutput(
     const downloaded = parseFloat(progress.bytes)
     const downloadCache = totalDownloadSize - currentDownloadSize[appName]
     const totalDownloaded = downloaded + downloadCache
-    const newPercent =
-      Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+    let newPercent: number
+    if (action === 'installing') {
+      newPercent =
+        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+    } else {
+      newPercent =
+        Math.round((downloaded / currentDownloadSize[appName]) * 10000) / 100
+    }
     progress.percent = newPercent >= 0 ? newPercent : undefined
   }
 
