@@ -68,10 +68,10 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
 
 export async function launch(
   appName: string,
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  launchArguments?: LaunchOption
+  launchArguments?: LaunchOption,
+  args: string[] = []
 ): Promise<boolean> {
-  return launchGame(appName, getGameInfo(appName), 'sideload')
+  return launchGame(appName, getGameInfo(appName), 'sideload', args)
 }
 
 export async function stop(appName: string): Promise<void> {

@@ -101,7 +101,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   appName,
   launchArguments,
   runner,
-  skipVersionCheck
+  skipVersionCheck,
+  args
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
@@ -203,6 +204,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const command = gameManagerMap[runner].launch(
     appName,
     launchArguments,
+    args,
     skipVersionCheck
   )
 

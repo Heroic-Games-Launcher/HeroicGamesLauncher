@@ -168,6 +168,7 @@ type LaunchOptions = {
   runner: Runner
   hasUpdate: boolean
   showDialogModal: (options: DialogModalOptions) => void
+  args?: string[]
 }
 
 const launch = async ({
@@ -176,7 +177,8 @@ const launch = async ({
   launchArguments,
   runner,
   hasUpdate,
-  showDialogModal
+  showDialogModal,
+  args
 }: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
   if (hasUpdate) {
     const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
@@ -186,6 +188,7 @@ const launch = async ({
         appName,
         runner,
         launchArguments,
+        args,
         skipVersionCheck: true
       })
     }
@@ -216,6 +219,7 @@ const launch = async ({
                     appName,
                     runner,
                     launchArguments,
+                    args,
                     skipVersionCheck: true
                   })
                 )
@@ -229,7 +233,7 @@ const launch = async ({
     return launchFinished
   }
 
-  return window.api.launch({ appName, launchArguments, runner })
+  return window.api.launch({ appName, launchArguments, runner, args })
 }
 
 const updateGame = (args: UpdateParams) => {

@@ -29,6 +29,7 @@ export type LaunchParams = {
   launchArguments?: LaunchOption
   runner: Runner
   skipVersionCheck?: boolean
+  args?: string[]
 }
 
 export type LaunchOption = BaseLaunchOption | DLCLaunchOption
