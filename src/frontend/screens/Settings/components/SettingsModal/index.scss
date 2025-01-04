@@ -10,17 +10,3 @@
     width: 100%;
   }
 }
-
-.InstallModal__dialog:has(.settingsDialogContent) {
-  margin-top: max(2rem, 13vh);
-  @media screen and (max-height: 800px) {
-    margin-top: max(2rem, 8vh);
-    .settingsDialogContent {
-      min-height: 70vh;
-    }
-  }
-
-  @media screen and (max-height: 700px) {
-    margin-top: max(2rem, 6vh);
-  }
-}
