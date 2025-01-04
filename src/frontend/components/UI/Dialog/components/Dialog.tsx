@@ -58,14 +58,16 @@ export const Dialog: React.FC<DialogProps> = ({
   return (
     <MuiDialog
       open={open}
-      onClose={close}
+      onClose={(e, reason) => {
+        if (disableDialogBackdropClose && reason === 'backdropClick') return
+        close()
+      }}
       scroll="paper"
       maxWidth="md"
       PaperComponent={StyledPaper}
       PaperProps={{
         className
       }}
-      disableEscapeKeyDown={disableDialogBackdropClose}
       sx={{
         '& .Dialog__element': {
           maxWidth: 'min(700px, 85vw)',
