@@ -3,7 +3,6 @@
   grid-template-areas: 'label' 'select';
 }
 
-.selectFieldWrapper select,
 .selectStyle,
 .selectFieldWrapper .MuiOutlinedInput-root {
   border-radius: var(--space-3xs);
@@ -57,7 +56,7 @@
   padding-inline-end: 4rem;
 }
 
-.selectFieldWrapper.isRTL select {
+.selectFieldWrapper.isRTL .MuiOutlinedInput-root {
   background-position:
     calc(15px) calc(50% + 1px),
     calc(20px) calc(50% + 1px),
