@@ -6,11 +6,17 @@
 	<name>
 		Heroic Games Launcher
 	</name>
+	<name xml:lang="ca">
+		Llançador de jocs Heroic
+	</name>
 	<summary>
 		An Open Source GOG and Epic Games Launcher.
 	</summary>
 	<summary xml:lang="de">
 		Ein Open Source Spielelauncher for GOG und Epic Games
+	</summary>
+	<summary xml:lang="ca">
+		Un llançador de jocs del GOG i de l'Epic Games de codi obert.
 	</summary>
 	<url type="homepage">
 		https://heroicgameslauncher.com
@@ -144,6 +150,62 @@
 			</li>
 			<li xml:lang="de">
 				Heroic hat keinen Zugriff auf /usr/bin, weshalb es dort installierte Wine oder Proton Versionen nicht finden kann.
+			</li>
+		</ul>
+
+		<p xml:lang="ca">
+			L'Heroic és un llançador de jocs de codi obert. Ara mateix, suporta els jocs de l'Epic Games Store que fan servir Legendary i els jocs de GOG Games amb la implementació de gogdl de l'Heroic.
+		</p>
+		<p xml:lang="ca">
+			Característiques principals:
+		</p>
+		<ul xml:lang="ca">
+			<li xml:lang="ca">
+				Accés als vostres jocs de l'Epic i del GOG amb una interfície intuïtitva.
+			</li>
+			<li xml:lang="ca">
+				També es poden afegir a l'Heroic els vostres jocs que no pertanyin a aquestes botigues, tant si són aplicacions natives com si no ho són.
+			</li>
+			<li xml:lang="ca">
+				Cua de descàrregues per a descarregar diversos jocs a la vegada.
+			</li>
+			<li xml:lang="ca">
+				Instal·lació i execució de jocs nadius i també de jocs de Windows amb el Wine o el Proton.
+			</li>
+			<li xml:lang="ca">
+				Suport per a desades al núvol per als jocs de l'Epic i del GOG.
+			</li>
+			<li xml:lang="ca">
+				Importeu jocs instal·lats a través de l'Epic Store o del Glaxay del GOG.
+			</li>
+			<li xml:lang="ca">
+				Verifiqueu i repareu instal·lacions defectuoses o moveu la instal·lació a altres carpetes.
+			</li>
+			<li xml:lang="ca">
+				Accediu a les botigues d'Epic i GOG i a la Wiki de l'Heroic directament des de l'aplicació.
+			</li>
+			<li xml:lang="ca">
+				Consulteu la base de dades <i>HowLongtoBeat</i> per a veure quant de temps es triga a arribar al final d'un joc.
+			</li>
+			<li xml:lang="ca">
+				I moltes altres funcions.
+			</li>
+		</ul>
+		<p xml:lang="ca">
+			Limitacions actuals del Flatpak:
+		</p>
+		<ul xml:lang="ca">
+			<li xml:lang="ca">
+				L'Heroic no trobarà ni farà servir les versions Flatpak del Wine i del Proton. Almenys, per ara no.
+			</li>
+			<li xml:lang="ca">
+				De moment, és millor fer servir el gestor intern del Wine per a descarregar i instal·lar les versions del Wine i del Proton.
+			</li>
+			<li xml:lang="ca">
+				Hauria de trobar la carpeta del Proton de l'Steam, tant per a versions Flatpak com no Flatpak de l'Steam, si estan instal·lades a la biblioteca a dins de la vostra carpeta $HOME.
+			</li>
+			<li xml:lang="ca">
+				L'Heroic no pot accedir a /usr/bin i, per això, per ara no podrà trobar-hi cap instal·lació del Wine o del Proton.
 			</li>
 		</ul>
 	</description>
