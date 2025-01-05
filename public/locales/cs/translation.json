@@ -942,7 +942,7 @@
         "add-new-category": "Přidat novou kategorii"
     },
     "wineExplanation": {
-        "proton-ge": "Proton-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
+        "proton-ge": "GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
         "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
     },
     "emptyLibrary": {

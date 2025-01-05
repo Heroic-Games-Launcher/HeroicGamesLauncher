@@ -5,12 +5,7 @@
 
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import {
-  WineVersionInfo,
-  Repositorys,
-  VersionInfo,
-  WineManagerStatus
-} from 'common/types'
+import { WineVersionInfo, Repositorys, WineManagerStatus } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
 import { toolsPath, isMac } from '../../constants'
@@ -57,6 +52,18 @@ async function updateWineVersionInfos(
 
       old_releases.forEach((old) => {
         const index = releases.findIndex((release) => {
+          if (release.type === 'GE-Proton') {
+            // The "Proton" prefix got dropped from the version string. We still
+            // want to detect old versions though
+            if (`Proton-${release.version}` === old.version) return true
+            // -latest is an even more special case, since it got renamed from
+            // "Proton-GE-latest" to "GE-Proton-latest"
+            if (
+              release.version === 'GE-Proton-latest' &&
+              old.version === 'Proton-GE-latest'
+            )
+              return true
+          }
           return release?.version === old?.version
         })
 
@@ -130,7 +137,7 @@ async function installWineVersion(
 
   try {
     const response = await installVersion({
-      versionInfo: release as VersionInfo,
+      versionInfo: release,
       installDir,
       overwrite: release.hasUpdate,
       onProgress: onProgress,

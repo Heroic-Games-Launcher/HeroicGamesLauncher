@@ -944,7 +944,7 @@
         "noResults": "A jelenlegi szűrők nem adtak találatokat."
     },
     "wineExplanation": {
-        "proton-ge": "A Proton-GE-Proton egy olyan Proton változat, melyet Glorious Eggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
+        "proton-ge": "A GE-Proton egy olyan Proton változat, melyet Glorious Eggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
         "wine-ge": "A Wine-GE-Proton egy olyan Wine változat, melyet Glorious Eggroll készít. Ez az ajánlott Wine verzió a nem steames játékokhoz. Hasznos naplókat biztosít a hibakereséshez."
     },
     "adtraction-locked": {

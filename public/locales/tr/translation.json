@@ -951,7 +951,7 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton Glorious Eggroll tarafından yapılmış bir Wine varyasyonudur. Steam dışında kullanılması önerilen Wine'dır. Sorun giderme sırasında kullanışlı hata günlükleri sağlar.",
-        "proton-ge": "Proton-GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
+        "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
     },
     "categories-manager": {
         "add-placeholder": "Yeni kategori ekle",

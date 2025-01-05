@@ -14,10 +14,8 @@ interface fetchProps {
 function getVersionName(type: string, tag_name: string): string {
   if (type.includes('Wine')) {
     return `Wine-${tag_name}`
-  } else if (type.includes('Toolkit')) {
-    return `${tag_name}`
   } else {
-    return `Proton-${tag_name}`
+    return tag_name
   }
 }
 
