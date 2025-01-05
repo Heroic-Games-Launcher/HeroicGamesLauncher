@@ -496,6 +496,11 @@ export async function syncSaves(): Promise<string> {
   return ''
 }
 
+export async function backupSaves(): Promise<string> {
+  // Amazon Games doesn't support cloud saves
+  return ''
+}
+
 export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   const commandParts = ['uninstall', appName]
 
