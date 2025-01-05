@@ -496,7 +496,7 @@ export async function syncSaves(): Promise<string> {
   return ''
 }
 
-export function backupSaves() {
+export async function backupSaves() {
   // Amazon Games doesn't support cloud saves
 }
 
