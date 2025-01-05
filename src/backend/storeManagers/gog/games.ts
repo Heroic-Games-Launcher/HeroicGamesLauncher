@@ -878,7 +878,7 @@ export async function syncSaves(
   return fullOutput
 }
 
-export function backupSaves(
+export async function backupSaves(
   appName: string,
   path: string,
   gogSaves?: GOGCloudSavesLocation[]

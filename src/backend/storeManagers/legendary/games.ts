@@ -836,7 +836,7 @@ export async function syncSaves(
   return fullOutput
 }
 
-export function backupSaves(appName: string, path: string) {
+export async function backupSaves(appName: string, path: string) {
   if (!path) {
     logError(
       'No path provided for SavesSync, nothing to backup. Check your settings!',

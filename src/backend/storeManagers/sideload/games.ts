@@ -221,11 +221,10 @@ export async function syncSaves(
   return ''
 }
 
-export async function backupSaves(appName: string): Promise<string> {
+export async function backupSaves(appName: string) {
   logWarning(
     `backupSaves not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
-  return ''
 }
 
 export async function forceUninstall(appName: string): Promise<void> {
