@@ -709,7 +709,7 @@
             "enableHelp": "Компонент Справки",
             "automaticWinetricksFixes": "Автоматическое применение известных исправлений",
             "cometSupport": "Поддержка Comet",
-            "umuSupport": "Использовать UMU как среду Proton"
+            "umuSupport": "Использовать umu как среду Proton"
         },
         "disablePlaytimeSync": "Отключить синхронизацию времени воспроизведения",
         "frameless-window": {

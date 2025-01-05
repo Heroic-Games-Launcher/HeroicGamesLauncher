@@ -710,7 +710,7 @@
             "enableNewDesign": "新设计",
             "enableHelp": "帮助组件",
             "automaticWinetricksFixes": "自动应用已知的修复",
-            "umuSupport": "将 UMU 用作 Proton 运行时",
+            "umuSupport": "将 umu 用作 Proton 运行时",
             "cometSupport": "Comet 支持"
         },
         "disablePlaytimeSync": "停用游戏时间同步",

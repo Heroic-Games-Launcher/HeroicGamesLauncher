@@ -711,7 +711,7 @@
             "enableHelp": "Компонент допомоги",
             "automaticWinetricksFixes": "Автоматично застосовувати відомі виправлення",
             "cometSupport": "Підтримка Comet",
-            "umuSupport": "Використовувати UMU як середовище виконання Proton"
+            "umuSupport": "Використовувати umu як середовище виконання Proton"
         },
         "disablePlaytimeSync": "Вимкнути синхронізацію часу відтворення",
         "frameless-window": {

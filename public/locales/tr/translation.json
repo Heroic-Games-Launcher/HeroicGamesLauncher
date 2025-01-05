@@ -711,7 +711,7 @@
             "enableHelp": "Yardım bileşeni",
             "automaticWinetricksFixes": "Bilinen düzeltmeleri kendiliğinden uygula",
             "cometSupport": "Comet desteği",
-            "umuSupport": "Proton çalışma zamanı olarak UMU kullan"
+            "umuSupport": "Proton çalışma zamanı olarak umu kullan"
         },
         "frameless-window": {
             "confirmation": {

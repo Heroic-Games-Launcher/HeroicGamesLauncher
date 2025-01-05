@@ -708,7 +708,7 @@
             "automaticWinetricksFixes": "Zastosuj znane poprawki automatycznie",
             "enableHelp": "Element pomocy",
             "cometSupport": "Wsparcie Comet",
-            "umuSupport": "Używanie UMU jako środowiska uruchomieniowego Proton"
+            "umuSupport": "Używanie umu jako środowiska uruchomieniowego Proton"
         },
         "frameless-window": {
             "confirmation": {

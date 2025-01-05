@@ -710,7 +710,7 @@
             "enableNewDesign": "Novo design",
             "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
             "enableHelp": "Componente de ajuda",
-            "umuSupport": "Usar UMU como Proton runtime",
+            "umuSupport": "Usar umu como Proton runtime",
             "cometSupport": "Suporte ao Comet"
         },
         "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo",

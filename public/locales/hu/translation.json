@@ -722,7 +722,7 @@
             "automaticWinetricksFixes": "Ismert javítások automatikus alkalmazása",
             "enableHelp": "Súgó összetevő",
             "cometSupport": "Comet támogatás",
-            "umuSupport": "Az UMU használata Proton futtatókörnyezetként"
+            "umuSupport": "Az umu használata Proton futtatókörnyezetként"
         },
         "msync": "Az Msync engedélyezése",
         "allow_installation_broken_anticheat": {

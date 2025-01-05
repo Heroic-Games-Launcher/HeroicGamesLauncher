@@ -710,7 +710,7 @@
             "enableNewDesign": "Ny design",
             "enableHelp": "Hjälp komponent",
             "automaticWinetricksFixes": "Tillämpa kända fixar automatiskt",
-            "umuSupport": "Använd UMU som Proton körtid",
+            "umuSupport": "Använd umu som Proton körtid",
             "cometSupport": "Comet stöd"
         },
         "frameless-window": {

@@ -707,7 +707,7 @@
             "enableNewDesign": "Нов дизайн",
             "enableHelp": "Помощен компонент",
             "automaticWinetricksFixes": "Автоматично прилагане на известните поправки",
-            "umuSupport": "Използване на UMU като среда за изпълнение на Proton",
+            "umuSupport": "Използване на umu като среда за изпълнение на Proton",
             "cometSupport": "Поддръжка на Comet"
         },
         "disablePlaytimeSync": "Изключване на синхронизирането на игралното време",

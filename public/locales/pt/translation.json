@@ -674,7 +674,7 @@
             "enableNewDesign": "Novo design",
             "enableHelp": "Ajuda de componente",
             "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
-            "umuSupport": "Utilize UMU como runtime do Proton",
+            "umuSupport": "Utilize umu como runtime do Proton",
             "cometSupport": "Suporte Comet"
         },
         "frameless-window": {

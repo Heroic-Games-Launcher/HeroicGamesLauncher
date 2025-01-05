@@ -714,7 +714,7 @@
             "enableHelp": "Abi komponent",
             "enableNewDesign": "Uus disain",
             "automaticWinetricksFixes": "Rakenda teadaolevad parandused automaatselt",
-            "umuSupport": "Kasuta UMU-d Protoni platvormina",
+            "umuSupport": "Kasuta umu-d Protoni platvormina",
             "cometSupport": "Comet tugi"
         },
         "before-launch-script-path": "Vali skript, mida käitada enne mängu käivitamist",

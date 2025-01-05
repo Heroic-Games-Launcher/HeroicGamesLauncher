@@ -725,7 +725,7 @@
             "enableHelp": "도움말 구성 요소",
             "automaticWinetricksFixes": "알려진 수정 사항을 자동으로 적용",
             "cometSupport": "코멧 지원",
-            "umuSupport": "UMU를 프로톤 런타임으로 사용"
+            "umuSupport": "umu를 프로톤 런타임으로 사용"
         },
         "gamescope": {
             "enableUpscaling": "업스케일링 가능",

@@ -708,7 +708,7 @@
             "enableNewDesign": "Neues Design",
             "automaticWinetricksFixes": "Bekannte Winetricks Hilfsskripte automatisch anwenden",
             "enableHelp": "Hilfe aktivieren",
-            "umuSupport": "UMU als Proton Laufzeit verwenden",
+            "umuSupport": "umu als Proton Laufzeit verwenden",
             "cometSupport": "Comet Support"
         },
         "frameless-window": {

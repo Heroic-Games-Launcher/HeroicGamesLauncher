@@ -711,7 +711,7 @@
             "enableHelp": "Composant d'Aide",
             "automaticWinetricksFixes": "Appliquer les corrections connues automatiquement",
             "cometSupport": "Intégration de Comet",
-            "umuSupport": "Utiliser UMU comme moteur de Proton"
+            "umuSupport": "Utiliser umu comme moteur de Proton"
         },
         "frameless-window": {
             "confirmation": {

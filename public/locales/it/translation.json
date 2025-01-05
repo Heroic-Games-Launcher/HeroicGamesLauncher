@@ -708,7 +708,7 @@
             "automaticWinetricksFixes": "Applica correzioni note automaticamente",
             "enableHelp": "Componente aiuto",
             "cometSupport": "Supporto Comet",
-            "umuSupport": "Utilizza UMU come runtime Proton"
+            "umuSupport": "Utilizza umu come runtime Proton"
         },
         "allow_installation_broken_anticheat": {
             "label": "Permetti l'installazione dei giochi con l'anticheat bloccato o non funzionante",

@@ -688,7 +688,7 @@
             "enableHelp": "ヘルプコンポーネント",
             "automaticWinetricksFixes": "既存の修正を自動的に適用",
             "cometSupport": "Cometサポート",
-            "umuSupport": "UMUをProtonのランタイムとして使用"
+            "umuSupport": "umuをProtonのランタイムとして使用"
         },
         "msync": "Esyncを有効にする",
         "allow_installation_broken_anticheat": {

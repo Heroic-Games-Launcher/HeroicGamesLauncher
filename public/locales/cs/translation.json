@@ -710,7 +710,7 @@
             "enableNewDesign": "Nový design",
             "enableHelp": "Komponenta nápovědy",
             "automaticWinetricksFixes": "Automaticky použít známé opravy",
-            "umuSupport": "Použít UMU jako runtime Protonu",
+            "umuSupport": "Použít umu jako runtime Protonu",
             "cometSupport": "Podpora Comet"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
