@@ -108,6 +108,7 @@ import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
 import { spawn } from 'child_process'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
+import { copySavesIntoBackup } from '../storeManagerCommon/games'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -875,6 +876,31 @@ export async function syncSaves(
   }
 
   return fullOutput
+}
+
+export function backupSaves(
+  appName: string,
+  path: string,
+  gogSaves?: GOGCloudSavesLocation[]
+) {
+  if (!gogSaves) {
+    logError(
+      'No gogSaves paths given, nothing to backup. Check your settings!',
+      LogPrefix.Gog
+    )
+    return
+  }
+
+  for (const savePath of gogSaves) {
+    if (!existsSync(savePath.location)) {
+      logError(
+        `Saves path '${savePath.location}' does no exist, nothing to backup.`,
+        LogPrefix.Gog
+      )
+    } else {
+      copySavesIntoBackup(appName, savePath.location, savePath.name)
+    }
+  }
 }
 
 export async function uninstall({

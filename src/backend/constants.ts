@@ -74,6 +74,7 @@ const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
 const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(appFolder, 'images-cache')
 const fixesPath = join(appFolder, 'fixes')
+const savesBackupsPath = join(appFolder, 'savesBackups')
 
 const {
   currentLogFile,
@@ -295,5 +296,6 @@ export {
   nileLibrary,
   nileUserData,
   fixesPath,
-  thirdPartyInstalled
+  thirdPartyInstalled,
+  savesBackupsPath
 }

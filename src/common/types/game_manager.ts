@@ -56,6 +56,11 @@ export interface GameManager {
     path: string,
     gogSaves?: GOGCloudSavesLocation[]
   ) => Promise<string>
+  backupSaves: (
+    appName: string,
+    path: string,
+    gogSaves?: GOGCloudSavesLocation[]
+  ) => Promise<string>
   uninstall: (args: RemoveArgs) => Promise<ExecResult>
   update: (
     appName: string,

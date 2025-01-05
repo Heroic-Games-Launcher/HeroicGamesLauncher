@@ -105,7 +105,12 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const {
+    autoSyncSaves,
+    savesPath,
+    gogSaves = [],
+    backupSavesAfterClosingGame
+  } = gameSettings
 
   const { title } = game
 
@@ -258,6 +263,10 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     }
   }
   await addRecentGame(game)
+
+  if (autoSyncSaves && backupSavesAfterClosingGame) {
+    await gameManagerMap[runner].backupSaves(appName, savesPath, gogSaves)
+  }
 
   if (autoSyncSaves && isOnline()) {
     sendGameStatusUpdate({
