@@ -32,11 +32,13 @@ const BackupSavesAfterClosingGame = () => {
 
       <InfoBox text={t('infobox.backupSaves.title', 'About Heroic backups')}>
         <Trans i18n={i18n} key="infobox.backupSaves.details">
-          Backups are stored in Heroic's config folder, in `savesBackups/
+          Backups are stored in Heroic&apos;s config folder, in `savesBackups/
           {appName}`.
+          <br />
           <br />
           To restore a backup, you must do it manually. This is intended as a
           safety measure and not as a full backup system.
+          <br />
           <br />
           You may want to delete old backups periodically to free up space.
         </Trans>

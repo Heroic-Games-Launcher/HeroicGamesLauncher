@@ -383,7 +383,7 @@
     },
     "infobox": {
         "backupSaves": {
-            "details": "Backups are stored in Heroic's config folder, in `savesBackups/{appName}`.<3></3>To restore a backup, you must do it manually. This is intended as a safety measure and not as a full backup system.<5></5>You may want to delete old backups periodically to free up space.",
+            "details": "Backups are stored in Heroic&apos;s config folder, in `savesBackups/{appName}`.<3></3><4></4>To restore a backup, you must do it manually. This is intended as a safety measure and not as a full backup system.<6></6><7></7>You may want to delete old backups periodically to free up space.",
             "title": "About Heroic backups"
         },
         "help": "Help",
