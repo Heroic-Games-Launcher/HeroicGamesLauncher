@@ -766,6 +766,7 @@ export interface KnowFixesInfo {
   notes?: Record<string, string>
   winetricks?: string[]
   runInPrefix?: string[]
+  envVariables?: Record<string, string>
 }
 
 export interface UploadedLogData {
