@@ -207,6 +207,7 @@ async function setup(
             gameSettings,
             wait: false,
             protonVerb: 'run',
+            installFolderName: gameInfo.install.install_path,
             skipPrefixCheckIKnowWhatImDoing: true,
             startFolder: path.join(
               gogSupportPath,
@@ -269,8 +270,9 @@ async function setup(
             gameSettings,
             wait: false,
             protonVerb: 'run',
+            installFolderName: gameInfo.install.install_path,
             skipPrefixCheckIKnowWhatImDoing: true,
-            startFolder: gogRedistPath
+            startFolder: gameInfo.install.install_path
           })
         }
       }
@@ -314,6 +316,7 @@ async function setup(
           gameSettings,
           wait: false,
           protonVerb: 'run',
+          installFolderName: gameInfo.install.install_path,
           skipPrefixCheckIKnowWhatImDoing: true,
           startFolder: path.join(
             gogSupportPath,
@@ -393,6 +396,7 @@ async function setup(
         startFolder: gogRedistPath,
         wait: false,
         protonVerb: 'run',
+        installFolderName: gameInfo.install.install_path,
         skipPrefixCheckIKnowWhatImDoing: true, // We are running those commands after we check if prefix is valid, this shouldn't cause issues
         gameInstallPath: gameInfo.install.install_path!
       })
