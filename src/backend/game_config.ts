@@ -234,7 +234,8 @@ class GameConfigV0 extends GameConfig {
       battlEyeRuntime,
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
-      gamescope
+      gamescope,
+      verboseLogs
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -266,7 +267,8 @@ class GameConfigV0 extends GameConfig {
       language: '', // we want to fallback to '' always here, fallback lang for games should be ''
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
-      gamescope
+      gamescope,
+      verboseLogs
     } as GameSettings
 
     let gameSettings = {} as GameSettings

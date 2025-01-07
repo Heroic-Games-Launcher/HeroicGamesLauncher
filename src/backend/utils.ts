@@ -971,7 +971,9 @@ export async function checkWineBeforeLaunch(
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
         LogPrefix.Backend
       )
+    }
 
+    if (gameSettings.verboseLogs) {
       appendGamePlayLog(
         gameInfo,
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.\n`
@@ -989,10 +991,12 @@ export async function checkWineBeforeLaunch(
 
       if (response === 0) {
         logInfo(`Changing wine version to ${defaultwine.name}`)
-        appendGamePlayLog(
-          gameInfo,
-          `Changing wine version to ${defaultwine.name}\n`
-        )
+        if (gameSettings.verboseLogs) {
+          appendGamePlayLog(
+            gameInfo,
+            `Changing wine version to ${defaultwine.name}\n`
+          )
+        }
         gameSettings.wineVersion = defaultwine
         GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
         return true
