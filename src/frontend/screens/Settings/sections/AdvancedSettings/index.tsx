@@ -26,6 +26,7 @@ import {
   ExperimentalFeatures,
   ResetHeroic
 } from '../../components'
+import AllowProtonExperimental from '../../components/AllowProtonExperimental'
 
 export default function AdvancedSetting() {
   const { config } = useContext(SettingsContext)
@@ -178,6 +179,8 @@ export default function AdvancedSetting() {
       <DisableLogs />
 
       <AllowInstallationBrokenAnticheat />
+
+      <AllowProtonExperimental />
 
       <hr />
 
