@@ -33,7 +33,6 @@ import {
   publicDir,
   GITHUB_API,
   isMac,
-  configStore,
   isLinux
 } from './constants'
 import {
@@ -86,6 +85,7 @@ import {
 } from './utils/systeminfo/gpu/pci_ids'
 import type { WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
+import { configStore } from './key_value_stores'
 
 const execAsync = promisify(exec)
 

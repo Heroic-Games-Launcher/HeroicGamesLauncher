@@ -56,7 +56,6 @@ import {
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
 import {
-  configStore,
   discordLink,
   gamesConfigPath,
   heroicGithubURL,
@@ -70,7 +69,6 @@ import {
   supportURL,
   weblateUrl,
   wikiLink,
-  fontsStore,
   configPath,
   isSteamDeckGameMode,
   isCLIFullscreen,
@@ -139,6 +137,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
+import { configStore, fontsStore } from './key_value_stores'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 

@@ -37,7 +37,6 @@ import {
   isMac,
   isWindows,
   installed,
-  configStore,
   isCLINoGui,
   isLinux,
   epicRedistPath
@@ -91,6 +90,7 @@ import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
+import { configStore } from 'backend/key_value_stores'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
