@@ -2,10 +2,10 @@ import { DirResult, dirSync } from 'tmp'
 import graceful_fs from 'graceful-fs'
 import { join } from 'path'
 import { app } from 'electron'
-import { configStore } from '../../constants'
 import * as logfile from '../logfile'
 import * as logger from '../logger'
 import { describeSkipOnWindows } from 'backend/__tests__/skip'
+import { configStore } from 'backend/key_value_stores'
 
 jest.mock('electron')
 jest.mock('electron-store')

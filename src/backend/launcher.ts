@@ -34,7 +34,6 @@ import {
   userHome,
   defaultUmuPath,
   publicDir,
-  tsStore,
   isCLINoGui,
   isIntelMac
 } from './constants'
@@ -96,6 +95,7 @@ import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
+import { tsStore } from './key_value_stores'
 
 let powerDisplayId: number | null
 
