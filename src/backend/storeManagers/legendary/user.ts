@@ -9,7 +9,7 @@ import { session } from 'electron'
 import { runRunnerCommand as runLegendaryCommand } from './library'
 import { LegendaryCommand } from './commands'
 import { NonEmptyString } from './commands/base'
-import { configStore } from 'backend/key_value_stores'
+import { configStore } from 'backend/constants/key_value_stores'
 
 export class LegendaryUser {
   public static async login(

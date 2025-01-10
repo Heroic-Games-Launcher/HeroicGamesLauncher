@@ -61,27 +61,16 @@ import {
   sendGameStatusUpdate
 } from './utils'
 import {
-  discordLink,
   gamesConfigPath,
-  heroicGithubURL,
   userHome,
   icon,
   installed,
-  kofiPage,
-  epicLoginUrl,
-  patreonPage,
-  sidInfoUrl,
-  supportURL,
-  weblateUrl,
-  wikiLink,
   configPath,
   isSteamDeckGameMode,
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
   publicDir,
-  wineprefixFAQ,
-  customThemesWikiLink,
   createNecessaryFolders,
   fixAsarPath,
   isSnap,
@@ -143,7 +132,20 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
-import { configStore, fontsStore } from './key_value_stores'
+import { configStore, fontsStore } from './constants/key_value_stores'
+import {
+  customThemesWikiLink,
+  discordLink,
+  epicLoginUrl,
+  heroicGithubURL,
+  kofiPage,
+  patreonPage,
+  sidInfoUrl,
+  supportURL,
+  weblateUrl,
+  wikiLink,
+  wineprefixFAQ
+} from './constants/urls'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 

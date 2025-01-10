@@ -3,7 +3,7 @@ import { initTrayIcon, testingExportsTrayIcon } from '../tray_icon'
 import { backendEvents } from '../../backend_events'
 import { GlobalConfig } from '../../config'
 import { RecentGame } from 'common/types'
-import { configStore } from 'backend/key_value_stores'
+import { configStore } from 'backend/constants/key_value_stores'
 
 jest.mock('../../logger/logfile')
 jest.mock('../../config')
