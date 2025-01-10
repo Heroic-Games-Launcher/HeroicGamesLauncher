@@ -10,22 +10,7 @@ import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
-import { TypeCheckedStoreBackend } from './electron_store'
 import { dirSync } from 'tmp'
-
-const configStore = new TypeCheckedStoreBackend('configStore', {
-  cwd: 'store'
-})
-
-const tsStore = new TypeCheckedStoreBackend('timestampStore', {
-  cwd: 'store',
-  name: 'timestamp'
-})
-
-const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
-  cwd: 'store',
-  name: 'fonts'
-})
 
 const isMac = process.platform === 'darwin'
 const isWindows = process.platform === 'win32'
@@ -240,7 +225,6 @@ export {
   discordLink,
   execOptions,
   fixAsarPath,
-  configStore,
   configPath,
   gamesConfigPath,
   heroicGithubURL,
@@ -273,8 +257,6 @@ export {
   userInfo,
   weblateUrl,
   wikiLink,
-  tsStore,
-  fontsStore,
   isSteamDeckGameMode,
   runtimePath,
   defaultUmuPath,

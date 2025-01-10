@@ -2,13 +2,14 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
 import { clearCache } from '../../utils'
-import { userInfo, configStore } from '../../constants'
+import { userInfo } from '../../constants'
 import { logError, LogPrefix } from '../../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runRunnerCommand as runLegendaryCommand } from './library'
 import { LegendaryCommand } from './commands'
 import { NonEmptyString } from './commands/base'
+import { configStore } from 'backend/key_value_stores'
 
 export class LegendaryUser {
   public static async login(

@@ -61,7 +61,6 @@ import {
   sendGameStatusUpdate
 } from './utils'
 import {
-  configStore,
   discordLink,
   gamesConfigPath,
   heroicGithubURL,
@@ -75,7 +74,6 @@ import {
   supportURL,
   weblateUrl,
   wikiLink,
-  fontsStore,
   configPath,
   isSteamDeckGameMode,
   isCLIFullscreen,
@@ -145,6 +143,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { configStore, fontsStore } from './key_value_stores'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 

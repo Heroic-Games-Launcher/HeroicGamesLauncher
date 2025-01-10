@@ -18,12 +18,13 @@ import {
   removeImagesFromSteam
 } from './steamhelper'
 import { app } from 'electron'
-import { isFlatpak, isWindows, tsStore } from '../../constants'
+import { isFlatpak, isWindows } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
+import { tsStore } from 'backend/key_value_stores'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
