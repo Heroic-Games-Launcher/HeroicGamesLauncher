@@ -57,7 +57,6 @@ const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
 const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
-const imagesCachePath = join(appFolder, 'images-cache')
 const fixesPath = join(appFolder, 'fixes')
 
 const {
@@ -178,7 +177,7 @@ const execOptions = {
   shell: getShell()
 }
 
-const defaultFolders = [gamesConfigPath, heroicIconFolder, imagesCachePath]
+const defaultFolders = [gamesConfigPath, heroicIconFolder]
 
 const necessaryFoldersByPlatform = {
   win32: [...defaultFolders],
@@ -212,7 +211,6 @@ export {
   toolsPath,
   defaultWinePrefixDir,
   defaultWinePrefix,
-  imagesCachePath,
   userHome,
   flatPakHome,
   icon,
