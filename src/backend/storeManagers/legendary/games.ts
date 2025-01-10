@@ -839,6 +839,7 @@ export async function syncSaves(
 export async function launch(
   appName: string,
   launchArguments?: LaunchOption,
+  args: string[] = [],
   skipVersionCheck = false
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
@@ -931,6 +932,7 @@ export async function launch(
     subcommand: 'launch',
     appName: LegendaryAppName.parse(appNameToLaunch),
     extraArguments: [
+      ...args,
       launchArguments?.type !== 'dlc' ? launchArguments?.parameters : undefined,
       gameSettings.launcherArgs
     ]

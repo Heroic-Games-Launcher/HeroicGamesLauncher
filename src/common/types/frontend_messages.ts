@@ -34,7 +34,7 @@ type FrontendMessages = {
     status: ConnectivityStatus
     retryIn: number
   }) => void
-  launchGame: (appName: string, runner: Runner) => void
+  launchGame: (appName: string, runner: Runner, args: string[]) => void
   installGame: (appName: string, runner: Runner) => void
   recentGamesChanged: (newRecentGames: RecentGame[]) => void
   pushGameToLibrary: (info: GameInfo) => void

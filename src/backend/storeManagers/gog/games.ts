@@ -486,7 +486,8 @@ export async function removeShortcuts(appName: string) {
 
 export async function launch(
   appName: string,
-  launchArguments?: LaunchOption
+  launchArguments?: LaunchOption,
+  args: string[] = []
 ): Promise<boolean> {
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
@@ -602,7 +603,8 @@ export async function launch(
     ...shlex.split(
       (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
     ),
-    ...shlex.split(gameSettings.launcherArgs ?? '')
+    ...shlex.split(gameSettings.launcherArgs ?? ''),
+    ...args
   ]
 
   if (gameInfo.install.cyberpunk?.modsEnabled) {
