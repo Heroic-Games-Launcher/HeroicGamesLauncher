@@ -11,7 +11,7 @@ import {
   LogPrefix,
   logsDisabled
 } from './logger'
-import { configStore } from 'backend/key_value_stores'
+import { configStore } from 'backend/constants/key_value_stores'
 
 interface createLogFileReturn {
   currentLogFile: string

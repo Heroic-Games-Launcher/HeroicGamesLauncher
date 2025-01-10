@@ -31,7 +31,6 @@ import {
   icon,
   isWindows,
   publicDir,
-  GITHUB_API,
   isMac,
   isLinux,
   isIntelMac
@@ -87,7 +86,8 @@ import {
 import type { WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 import { getSystemInfo } from './utils/systeminfo'
-import { configStore } from './key_value_stores'
+import { configStore } from './constants/key_value_stores'
+import { GITHUB_API } from './constants/urls'
 
 const execAsync = promisify(exec)
 

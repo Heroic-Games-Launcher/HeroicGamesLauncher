@@ -2,7 +2,7 @@ import { AppSettings, WindowProps } from 'common/types'
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import type { FrontendMessages } from 'common/types/frontend_messages'
-import { configStore } from './key_value_stores'
+import { configStore } from './constants/key_value_stores'
 
 let mainWindow: BrowserWindow | null = null
 

@@ -57,27 +57,16 @@ import {
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
 import {
-  discordLink,
   gamesConfigPath,
-  heroicGithubURL,
   userHome,
   icon,
   installed,
-  kofiPage,
-  epicLoginUrl,
-  patreonPage,
-  sidInfoUrl,
-  supportURL,
-  weblateUrl,
-  wikiLink,
   configPath,
   isSteamDeckGameMode,
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
   publicDir,
-  wineprefixFAQ,
-  customThemesWikiLink,
   createNecessaryFolders,
   isSnap,
   isWindows,
@@ -137,7 +126,20 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
-import { configStore, fontsStore } from './key_value_stores'
+import { configStore, fontsStore } from './constants/key_value_stores'
+import {
+  customThemesWikiLink,
+  discordLink,
+  epicLoginUrl,
+  heroicGithubURL,
+  kofiPage,
+  patreonPage,
+  sidInfoUrl,
+  supportURL,
+  weblateUrl,
+  wikiLink,
+  wineprefixFAQ
+} from './constants/urls'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 

@@ -32,7 +32,7 @@ import {
   getWineskinWine
 } from './utils/compatibility_layers'
 import { backendEvents } from './backend_events'
-import { configStore } from './key_value_stores'
+import { configStore } from './constants/key_value_stores'
 
 /**
  * This class does config handling.

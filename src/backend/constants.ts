@@ -91,24 +91,6 @@ const nileInstalled = join(nileConfigPath, 'installed.json')
 const nileLibrary = join(nileConfigPath, 'library.json')
 const nileUserData = join(nileConfigPath, 'user.json')
 const fallBackImage = 'fallback'
-const epicLoginUrl = 'https://legendary.gl/epiclogin'
-const sidInfoUrl =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-To:-Epic-Alternative-Login'
-const heroicGithubURL =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest'
-const GITHUB_API =
-  'https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases'
-const supportURL =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/main/Support.md'
-const discordLink = 'https://discord.gg/rHJ2uqdquK'
-const wikiLink =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
-const weblateUrl = 'https://hosted.weblate.org/projects/heroic-games-launcher'
-const kofiPage = 'https://ko-fi.com/heroicgames'
-const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
-const wineprefixFAQ = 'https://wiki.winehq.org/FAQ#Wineprefixes'
-const customThemesWikiLink =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Custom-Themes'
 
 /**
  * Get shell for different os
@@ -223,12 +205,10 @@ export {
   legendaryLogFile,
   gogdlLogFile,
   nileLogFile,
-  discordLink,
   execOptions,
   fixAsarPath,
   configPath,
   gamesConfigPath,
-  heroicGithubURL,
   heroicIconFolder,
   heroicInstallPath,
   toolsPath,
@@ -238,7 +218,6 @@ export {
   imagesCachePath,
   userHome,
   flatPakHome,
-  kofiPage,
   icon,
   iconDark,
   iconLight,
@@ -251,23 +230,14 @@ export {
   isLinux,
   legendaryConfigPath,
   legendaryMetadata,
-  epicLoginUrl,
-  patreonPage,
-  sidInfoUrl,
-  supportURL,
   fallBackImage,
   userInfo,
-  weblateUrl,
-  wikiLink,
   isSteamDeckGameMode,
   runtimePath,
   defaultUmuPath,
   isCLIFullscreen,
   isCLINoGui,
   publicDir,
-  GITHUB_API,
-  wineprefixFAQ,
-  customThemesWikiLink,
   gogdlAuthConfig,
   gogdlConfigPath,
   gogSupportPath,

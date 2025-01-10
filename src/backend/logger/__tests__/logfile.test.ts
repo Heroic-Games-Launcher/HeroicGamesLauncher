@@ -5,7 +5,7 @@ import { app } from 'electron'
 import * as logfile from '../logfile'
 import * as logger from '../logger'
 import { describeSkipOnWindows } from 'backend/__tests__/skip'
-import { configStore } from 'backend/key_value_stores'
+import { configStore } from 'backend/constants/key_value_stores'
 
 jest.mock('electron')
 jest.mock('electron-store')
