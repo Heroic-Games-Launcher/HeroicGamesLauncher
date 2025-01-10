@@ -56,7 +56,6 @@ const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
 const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
-const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 const imagesCachePath = join(appFolder, 'images-cache')
 const fixesPath = join(appFolder, 'fixes')
 
@@ -195,6 +194,7 @@ export function createNecessaryFolders() {
 }
 
 export {
+  appFolder,
   currentGameConfigVersion,
   currentGlobalConfigVersion,
   currentLogFile,
@@ -211,7 +211,6 @@ export {
   toolsPath,
   defaultWinePrefixDir,
   defaultWinePrefix,
-  anticheatDataPath,
   imagesCachePath,
   userHome,
   flatPakHome,
