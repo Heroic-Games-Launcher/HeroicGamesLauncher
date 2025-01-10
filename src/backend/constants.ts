@@ -79,8 +79,6 @@ const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
 )
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
-const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
-const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 const installed = join(legendaryConfigPath, 'installed.json')
 const thirdPartyInstalled = join(
   legendaryConfigPath,
@@ -219,8 +217,6 @@ export {
   userHome,
   flatPakHome,
   icon,
-  iconDark,
-  iconLight,
   installed,
   isFlatpak,
   isSnap,
