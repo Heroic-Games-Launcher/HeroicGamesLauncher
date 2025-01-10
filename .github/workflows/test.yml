@@ -21,4 +21,5 @@ jobs:
         uses: actions/checkout@v3
       - uses: ./.github/actions/install-deps
       - name: Test E2E
+        run: sudo chown root /home/runner/work/HeroicGamesLauncher/HeroicGamesLauncher/node_modules/electron/dist/chrome-sandbox && sudo chmod 4755 /home/runner/work/HeroicGamesLauncher/HeroicGamesLauncher/node_modules/electron/dist/chrome-sandbox
         run: DEBUG=* pnpm test:e2e
