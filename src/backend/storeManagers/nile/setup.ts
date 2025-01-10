@@ -93,7 +93,7 @@ export default async function setup(
     const exeArguments = action.Args ?? []
 
     if (isWindows) {
-      const command = ['Start-Process', '-FilePath', action.Command]
+      const command = ['-NoProfile','Start-Process', '-FilePath', action.Command]
       if (exeArguments.length) {
         command.push('-ArgumentList', ...exeArguments)
       }

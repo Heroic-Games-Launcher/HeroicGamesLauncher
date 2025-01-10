@@ -925,6 +925,7 @@ export async function uninstall({
       }
     } else {
       const adminCommand = [
+        '-NoProfile',
         'Start-Process',
         '-FilePath',
         uninstallerPath,
@@ -1031,6 +1032,7 @@ export async function update(
           const uninstallExeFile = uninstallerFile.replace('ini', 'exe')
           if (isWindows) {
             const adminCommand = [
+              '-NoProfile',
               'Start-Process',
               '-FilePath',
               uninstallExeFile,
