@@ -19,7 +19,7 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { existsSync, readFileSync, rmSync } from 'graceful-fs'
+import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
@@ -81,7 +81,9 @@ import {
   configPath,
   fixAsarPath,
   gamesConfigPath,
+  heroicIconFolder,
   publicDir,
+  toolsPath,
   windowIcon
 } from './constants/paths'
 import { parse } from '@node-steam/vdf'
@@ -505,6 +507,22 @@ function getNileBin(): { dir: string; bin: string } {
   if (!defaultNilePath) defaultNilePath = archSpecificBinary('nile')
 
   return splitPathAndName(fixAsarPath(defaultNilePath))
+}
+
+export function createNecessaryFolders() {
+  const defaultFolders = [gamesConfigPath, heroicIconFolder]
+
+  const necessaryFoldersByPlatform = {
+    win32: [...defaultFolders],
+    linux: [...defaultFolders, toolsPath],
+    darwin: [...defaultFolders, toolsPath]
+  }
+
+  necessaryFoldersByPlatform[process.platform].forEach((folder: string) => {
+    if (!existsSync(folder)) {
+      mkdirSync(folder)
+    }
+  })
 }
 
 function getFormattedOsName(): string {

@@ -52,10 +52,10 @@ import {
   getCurrentChangelog,
   removeFolder,
   downloadDefaultWine,
-  sendGameStatusUpdate
+  sendGameStatusUpdate,
+  createNecessaryFolders
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
-import { createNecessaryFolders } from './constants'
 import { handleProtocol } from './protocol'
 import {
   initLogger,
