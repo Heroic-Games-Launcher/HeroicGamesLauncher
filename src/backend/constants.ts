@@ -32,9 +32,6 @@ const {
   nileLogFile: ''
 } //createNewLogFileAndClearOldOnes()
 
-const vulkanHelperBin = fixAsarPath(
-  join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
-)
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 
 const fallBackImage = 'fallback'
@@ -155,6 +152,5 @@ export {
   execOptions,
   fixAsarPath,
   icon,
-  fallBackImage,
-  vulkanHelperBin
+  fallBackImage
 }
