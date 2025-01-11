@@ -1,5 +1,4 @@
-import { fixAsarPath } from 'backend/constants'
-import { publicDir } from 'backend/constants/paths'
+import { fixAsarPath, publicDir } from 'backend/constants/paths'
 import { spawnSync } from 'child_process'
 import { join } from 'path'
 import { gte as semverGte } from 'semver'
