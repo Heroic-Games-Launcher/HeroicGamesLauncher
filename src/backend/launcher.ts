@@ -1344,6 +1344,7 @@ async function callRunner(
       .map((part) => `"\`"${part}\`""`)
       .join(',')
     commandParts = [
+      '-NoProfile',
       'Start-Process',
       `"\`"${fullRunnerPath}\`""`,
       '-Wait',

@@ -35,6 +35,7 @@ async function runSetupCommand(wineArgs: WineCommandArgs) {
     return spawnAsync(
       'powershell',
       [
+        '-NoProfile',
         'Start-Process',
         '-FilePath',
         exe,
