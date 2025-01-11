@@ -53,10 +53,10 @@ import {
   removeFolder,
   downloadDefaultWine,
   sendGameStatusUpdate,
-  checkRosettaInstall
+  checkRosettaInstall,
+  createNecessaryFolders
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
-import { createNecessaryFolders } from './constants'
 import { handleProtocol } from './protocol'
 import {
   initLogger,
