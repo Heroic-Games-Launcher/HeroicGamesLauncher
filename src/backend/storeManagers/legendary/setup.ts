@@ -51,6 +51,7 @@ export const legendarySetup = async (appName: string) => {
       ) {
         await runWineCommand({
           gameSettings,
+          gameInstallPath: gameInfo.install.install_path,
           commandParts: [
             join(
               gameInfo.install.install_path ?? '',

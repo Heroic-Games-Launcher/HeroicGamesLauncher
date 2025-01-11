@@ -1102,6 +1102,7 @@ async function runWineCommand({
   wait,
   protonVerb = 'run',
   installFolderName,
+  gameInstallPath,
   options,
   startFolder,
   skipPrefixCheckIKnowWhatImDoing = false,
@@ -1155,7 +1156,7 @@ async function runWineCommand({
   const env_vars: Record<string, string> = {
     ...process.env,
     GAMEID: 'umu-0',
-    ...setupEnvVars(settings),
+    ...setupEnvVars(settings, gameInstallPath),
     ...setupWineEnvVars(settings, installFolderName),
     PROTON_VERB: protonVerb
   }

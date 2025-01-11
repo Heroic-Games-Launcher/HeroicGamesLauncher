@@ -207,12 +207,9 @@ async function setup(
             gameSettings,
             wait: false,
             protonVerb: 'run',
+            gameInstallPath: gameInfo.install.install_path,
             skipPrefixCheckIKnowWhatImDoing: true,
-            startFolder: path.join(
-              gogSupportPath,
-              appName,
-              supportCommand.gameID
-            )
+            startFolder: gameInfo.install.install_path
           })
         }
       }
@@ -269,8 +266,9 @@ async function setup(
             gameSettings,
             wait: false,
             protonVerb: 'run',
+            gameInstallPath: gameInfo.install.install_path,
             skipPrefixCheckIKnowWhatImDoing: true,
-            startFolder: gogRedistPath
+            startFolder: gameInfo.install.install_path
           })
         }
       }
@@ -314,12 +312,9 @@ async function setup(
           gameSettings,
           wait: false,
           protonVerb: 'run',
+          gameInstallPath: gameInfo.install.install_path,
           skipPrefixCheckIKnowWhatImDoing: true,
-          startFolder: path.join(
-            gogSupportPath,
-            appName,
-            manifestProduct.productId
-          )
+          startFolder: gameInfo.install.install_path
         })
       }
     }
