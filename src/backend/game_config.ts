@@ -6,13 +6,12 @@ import {
   currentGameConfigVersion,
   configPath,
   gamesConfigPath,
-  isMac,
-  isWindows,
   userHome,
   defaultWinePrefix
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { join } from 'path'
+import { isMac, isWindows } from './constants/environment'
 
 /**
  * This class does config handling for games.

@@ -17,12 +17,13 @@ import {
   SystemInformation
 } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
-import { gamesConfigPath, isWindows } from 'backend/constants'
+import { gamesConfigPath } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
 import { gameAnticheatInfo } from 'backend/anticheat/utils'
 import { isUmuSupported } from 'backend/utils/compatibility_layers'
+import { isWindows } from 'backend/constants/environment'
 
 export enum LogPrefix {
   General = '',

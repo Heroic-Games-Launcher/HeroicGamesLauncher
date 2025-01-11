@@ -33,7 +33,6 @@ import {
   shutdownWine,
   spawnAsync
 } from '../../utils'
-import { isMac, isWindows, isCLINoGui, isLinux } from '../../constants'
 import {
   appendGamePlayLog,
   appendWinetricksGamePlayLog,
@@ -86,6 +85,12 @@ import { mkdirSync } from 'fs'
 import { configStore } from 'backend/constants/key_value_stores'
 import { epicRedistPath } from 'backend/constants/paths'
 import { legendaryInstalled } from './constants'
+import {
+  isCLINoGui,
+  isLinux,
+  isMac,
+  isWindows
+} from 'backend/constants/environment'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`

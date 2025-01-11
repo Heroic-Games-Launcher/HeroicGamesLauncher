@@ -29,10 +29,7 @@ import {
   configPath,
   gamesConfigPath,
   icon,
-  isWindows,
-  publicDir,
-  isMac,
-  isLinux
+  publicDir
 } from './constants'
 import {
   appendGamePlayLog,
@@ -86,6 +83,7 @@ import type { WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 import { configStore } from './constants/key_value_stores'
 import { GITHUB_API } from './constants/urls'
+import { isLinux, isMac, isWindows } from './constants/environment'
 
 const execAsync = promisify(exec)
 
