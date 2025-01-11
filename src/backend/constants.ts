@@ -34,8 +34,6 @@ const {
 
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 
-const fallBackImage = 'fallback'
-
 /**
  * Get shell for different os
  * @returns Windows: powershell
@@ -151,6 +149,5 @@ export {
   nileLogFile,
   execOptions,
   fixAsarPath,
-  icon,
-  fallBackImage
+  icon
 }
