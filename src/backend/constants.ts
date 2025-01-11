@@ -10,7 +10,8 @@ import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
-import { appFolder } from './constants/paths'
+import { appFolder, toolsPath } from './constants/paths'
+import { isSnap } from './constants/environment'
 
 const isMac = process.platform === 'darwin'
 const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
@@ -20,27 +21,15 @@ const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isCLIFullscreen = process.argv.includes('--fullscreen')
 const isCLINoGui = process.argv.includes('--no-gui')
 const isFlatpak = Boolean(env.FLATPAK_ID)
-const isSnap = Boolean(env.SNAP)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const userHome = isSnap ? env.SNAP_REAL_HOME! : homedir()
 
-const legendaryConfigPath = isSnap
-  ? join(env.XDG_CONFIG_HOME!, 'legendary')
-  : join(appFolder, 'legendaryConfig', 'legendary')
-const gogdlConfigPath = join(appFolder, 'gogdlConfig', 'heroic_gogdl')
-const gogSupportPath = join(gogdlConfigPath, 'gog-support')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
-const toolsPath = join(appFolder, 'tools')
-const epicRedistPath = join(toolsPath, 'redist', 'legendary')
-const gogRedistPath = join(toolsPath, 'redist', 'gog')
 const heroicIconFolder = join(appFolder, 'icons')
-const runtimePath = join(toolsPath, 'runtimes')
-const defaultUmuPath = join(runtimePath, 'umu', 'umu_run.py')
-const userInfo = join(legendaryConfigPath, 'user.json')
 const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
 const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
@@ -59,17 +48,11 @@ const publicDir = resolve(
   '..',
   app.isPackaged || process.env.CI === 'e2e' ? '' : '../public'
 )
-const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
 )
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
-const installed = join(legendaryConfigPath, 'installed.json')
-const thirdPartyInstalled = join(
-  legendaryConfigPath,
-  'third-party-installed.json'
-)
-const legendaryMetadata = join(legendaryConfigPath, 'metadata')
+
 const fallBackImage = 'fallback'
 
 /**
@@ -191,35 +174,21 @@ export {
   gamesConfigPath,
   heroicIconFolder,
   heroicInstallPath,
-  toolsPath,
   defaultWinePrefixDir,
   defaultWinePrefix,
   userHome,
   flatPakHome,
   icon,
-  installed,
   isFlatpak,
-  isSnap,
   isMac,
   isIntelMac,
   isWindows,
   isLinux,
-  legendaryConfigPath,
-  legendaryMetadata,
   fallBackImage,
-  userInfo,
   isSteamDeckGameMode,
-  runtimePath,
-  defaultUmuPath,
   isCLIFullscreen,
   isCLINoGui,
   publicDir,
-  gogdlAuthConfig,
-  gogdlConfigPath,
-  gogSupportPath,
-  gogRedistPath,
-  epicRedistPath,
   vulkanHelperBin,
-  fixesPath,
-  thirdPartyInstalled
+  fixesPath
 }

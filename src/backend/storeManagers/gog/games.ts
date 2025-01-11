@@ -40,13 +40,7 @@ import {
   BaseLaunchOption
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
-import {
-  gogSupportPath,
-  gogdlConfigPath,
-  isWindows,
-  isMac,
-  isLinux
-} from '../../constants'
+import { isWindows, isMac, isLinux } from '../../constants'
 import {
   configStore,
   installedGamesStore,
@@ -108,6 +102,7 @@ import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
 import { spawn } from 'child_process'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
+import { gogdlConfigPath, gogSupportPath } from './constants'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)

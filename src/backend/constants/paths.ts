@@ -16,3 +16,8 @@ if (process.env.CI === 'e2e') {
 }
 
 export const appFolder = join(configFolder, 'heroic')
+export const userDataPath = app.getPath('userData')
+export const toolsPath = join(appFolder, 'tools')
+export const epicRedistPath = join(toolsPath, 'redist', 'legendary')
+export const runtimePath = join(toolsPath, 'runtimes')
+export const defaultUmuPath = join(runtimePath, 'umu', 'umu_run.py')

@@ -27,9 +27,7 @@ import {
 } from '../../utils'
 import {
   fallBackImage,
-  legendaryConfigPath,
   legendaryLogFile,
-  legendaryMetadata,
   isLinux,
   userHome,
   isWindows
@@ -59,6 +57,7 @@ import shlex from 'shlex'
 import thirdParty from './thirdParty'
 import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
+import { legendaryConfigPath, legendaryMetadata } from './constants'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
