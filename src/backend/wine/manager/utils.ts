@@ -13,13 +13,14 @@ import {
 } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
-import { toolsPath, isMac } from '../../constants'
+import { isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 import {
   createAbortController,
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
+import { toolsPath } from 'backend/constants/paths'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',

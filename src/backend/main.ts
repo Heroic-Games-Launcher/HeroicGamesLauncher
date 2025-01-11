@@ -64,7 +64,6 @@ import {
   gamesConfigPath,
   userHome,
   icon,
-  installed,
   configPath,
   isSteamDeckGameMode,
   isCLIFullscreen,
@@ -73,7 +72,6 @@ import {
   publicDir,
   createNecessaryFolders,
   fixAsarPath,
-  isSnap,
   fixesPath,
   isWindows,
   isMac
@@ -146,6 +144,8 @@ import {
   wikiLink,
   wineprefixFAQ
 } from './constants/urls'
+import { legendaryInstalled } from './storeManagers/legendary/constants'
+import { isSnap } from './constants/environment'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -907,9 +907,9 @@ ipcMain.on('setSetting', (event, { appName, key, value }) => {
 })
 
 // Watch the installed games file and trigger a refresh on the installed games if something changes
-if (existsSync(installed)) {
+if (existsSync(legendaryInstalled)) {
   let watchTimeout: NodeJS.Timeout | undefined
-  watch(installed, () => {
+  watch(legendaryInstalled, () => {
     logInfo('installed.json updated, refreshing library', LogPrefix.Legendary)
     // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
     // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
