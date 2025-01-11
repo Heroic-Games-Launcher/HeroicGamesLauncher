@@ -30,12 +30,7 @@ export const configPath = join(appFolder, 'config.json')
 export const gamesConfigPath = join(appFolder, 'GamesConfig')
 export const heroicIconFolder = join(appFolder, 'icons')
 export const heroicInstallPath = join(userHome, 'Games', 'Heroic')
-export const defaultWinePrefixDir = join(
-  userHome,
-  'Games',
-  'Heroic',
-  'Prefixes'
-)
+const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
 export const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
 export const fixesPath = join(appFolder, 'fixes')
 
