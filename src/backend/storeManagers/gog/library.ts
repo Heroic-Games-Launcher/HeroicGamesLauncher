@@ -29,6 +29,7 @@ import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import {
+  gogdlLogFile,
   logDebug,
   logError,
   logInfo,
@@ -36,7 +37,6 @@ import {
   logWarning
 } from '../../logger/logger'
 import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
-import { gogdlLogFile } from '../../constants'
 import {
   libraryStore,
   installedGamesStore,

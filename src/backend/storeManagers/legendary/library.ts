@@ -25,8 +25,8 @@ import {
   getFileSize,
   axiosClient
 } from '../../utils'
-import { legendaryLogFile } from '../../constants'
 import {
+  legendaryLogFile,
   logDebug,
   logError,
   logInfo,
