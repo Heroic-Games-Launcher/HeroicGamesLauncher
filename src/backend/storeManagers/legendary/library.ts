@@ -25,7 +25,7 @@ import {
   getFileSize,
   axiosClient
 } from '../../utils'
-import { fallBackImage, legendaryLogFile } from '../../constants'
+import { legendaryLogFile } from '../../constants'
 import {
   logDebug,
   logError,
@@ -54,6 +54,8 @@ import { runLegendaryCommandStub } from './e2eMock'
 import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isLinux, isWindows } from 'backend/constants/environment'
 import { userHome } from 'backend/constants/paths'
+
+const fallBackImage = 'fallback'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
