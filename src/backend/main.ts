@@ -56,7 +56,7 @@ import {
   checkRosettaInstall
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
-import { icon, createNecessaryFolders } from './constants'
+import { createNecessaryFolders } from './constants'
 import { handleProtocol } from './protocol'
 import {
   initLogger,
@@ -139,7 +139,8 @@ import {
   configPath,
   gamesConfigPath,
   publicDir,
-  userHome
+  userHome,
+  windowIcon
 } from './constants/paths'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
@@ -188,7 +189,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   const globalConf = GlobalConfig.get().getSettings()
 
-  mainWindow.setIcon(icon)
+  mainWindow.setIcon(windowIcon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
   mainWindow.on('maximize', () => sendFrontendMessage('maximized'))

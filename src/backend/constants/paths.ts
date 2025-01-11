@@ -45,3 +45,17 @@ export const publicDir = resolve(
   '..',
   app.isPackaged || process.env.CI === 'e2e' ? '' : '../public'
 )
+
+/**
+ * Fix path for packed files with asar, else will do nothing.
+ * @param origin  original path
+ * @returns fixed path
+ */
+export function fixAsarPath(origin: string): string {
+  if (!origin.includes('app.asar.unpacked')) {
+    return origin.replace('app.asar', 'app.asar.unpacked')
+  }
+  return origin
+}
+
+export const windowIcon = fixAsarPath(join(publicDir, 'icon.png'))

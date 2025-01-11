@@ -1,4 +1,4 @@
-import { fixAsarPath } from '../constants'
+import { fixAsarPath } from 'backend/constants/paths'
 
 export function overrideProcessPlatform(os: string): string {
   const original_os = process.platform

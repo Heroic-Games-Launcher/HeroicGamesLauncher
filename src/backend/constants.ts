@@ -9,7 +9,6 @@ import { GlobalConfig } from './config'
 import {
   gamesConfigPath,
   heroicIconFolder,
-  publicDir,
   toolsPath,
   userHome
 } from './constants/paths'
@@ -32,8 +31,6 @@ const {
   nileLogFile: ''
 } //createNewLogFileAndClearOldOnes()
 
-const icon = fixAsarPath(join(publicDir, 'icon.png'))
-
 /**
  * Get shell for different os
  * @returns Windows: powershell
@@ -51,18 +48,6 @@ function getShell() {
     default:
       return '/bin/bash'
   }
-}
-
-/**
- * Fix path for packed files with asar, else will do nothing.
- * @param origin  original path
- * @returns fixed path
- */
-function fixAsarPath(origin: string): string {
-  if (!origin.includes('app.asar.unpacked')) {
-    return origin.replace('app.asar', 'app.asar.unpacked')
-  }
-  return origin
 }
 
 export function getSteamCompatFolder() {
@@ -147,7 +132,5 @@ export {
   legendaryLogFile,
   gogdlLogFile,
   nileLogFile,
-  execOptions,
-  fixAsarPath,
-  icon
+  execOptions
 }

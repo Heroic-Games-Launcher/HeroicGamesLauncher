@@ -23,7 +23,7 @@ import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
-import { fixAsarPath, getSteamLibraries, icon } from './constants'
+import { getSteamLibraries } from './constants'
 import {
   appendGamePlayLog,
   logError,
@@ -78,7 +78,13 @@ import { getSystemInfo } from './utils/systeminfo'
 import { configStore } from './constants/key_value_stores'
 import { GITHUB_API } from './constants/urls'
 import { isLinux, isMac, isIntelMac, isWindows } from './constants/environment'
-import { configPath, gamesConfigPath, publicDir } from './constants/paths'
+import {
+  configPath,
+  fixAsarPath,
+  gamesConfigPath,
+  publicDir,
+  windowIcon
+} from './constants/paths'
 
 const execAsync = promisify(exec)
 
@@ -222,7 +228,7 @@ const showAboutWindow = () => {
     applicationName: 'Heroic Games Launcher',
     applicationVersion: getHeroicVersion(),
     copyright: 'GPL V3',
-    iconPath: icon,
+    iconPath: windowIcon,
     website: 'https://heroicgameslauncher.com'
   })
   return app.showAboutPanel()
@@ -1306,7 +1312,7 @@ export async function checkRosettaInstall() {
         'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart Heroic. '
       ),
       buttons: ['OK'],
-      icon: icon
+      icon: windowIcon
     })
 
     logInfo(
