@@ -65,16 +65,10 @@ import {
   userHome,
   icon,
   configPath,
-  isSteamDeckGameMode,
-  isCLIFullscreen,
-  isCLINoGui,
-  isFlatpak,
   publicDir,
   createNecessaryFolders,
   fixAsarPath,
-  fixesPath,
-  isWindows,
-  isMac
+  fixesPath
 } from './constants'
 import { handleProtocol } from './protocol'
 import {
@@ -145,7 +139,15 @@ import {
   wineprefixFAQ
 } from './constants/urls'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
-import { isSnap } from './constants/environment'
+import {
+  isCLIFullscreen,
+  isCLINoGui,
+  isFlatpak,
+  isMac,
+  isSnap,
+  isSteamDeckGameMode,
+  isWindows
+} from './constants/environment'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 

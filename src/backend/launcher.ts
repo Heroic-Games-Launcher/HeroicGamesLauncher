@@ -26,13 +26,8 @@ import {
   defaultWinePrefix,
   fixesPath,
   flatPakHome,
-  isLinux,
-  isMac,
-  isWindows,
-  isSteamDeckGameMode,
   userHome,
-  publicDir,
-  isCLINoGui
+  publicDir
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -93,6 +88,13 @@ import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
 import { defaultUmuPath, runtimePath } from './constants/paths'
+import {
+  isCLINoGui,
+  isLinux,
+  isMac,
+  isSteamDeckGameMode,
+  isWindows
+} from './constants/environment'
 
 let powerDisplayId: number | null
 

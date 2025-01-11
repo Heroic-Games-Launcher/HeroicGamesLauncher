@@ -6,9 +6,10 @@ import { handleProtocol } from '../protocol'
 import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
-import { fixAsarPath, isMac, publicDir } from '../constants'
+import { fixAsarPath, publicDir } from '../constants'
 import { backendEvents } from '../backend_events'
 import { join } from 'node:path'
+import { isMac } from 'backend/constants/environment'
 
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
