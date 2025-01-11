@@ -8,7 +8,6 @@ import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { WineVersionInfo, Repositorys, WineManagerStatus } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
-import { isMac } from '../../constants'
 import { sendFrontendMessage } from '../../main_window'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 import {
@@ -16,6 +15,7 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import { toolsPath } from 'backend/constants/paths'
+import { isMac } from 'backend/constants/environment'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',

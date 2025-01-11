@@ -1,26 +1,17 @@
 import { spawnSync } from 'child_process'
-import { homedir, cpus } from 'os'
+import { homedir } from 'os'
 import { join, resolve } from 'path'
 import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from 'common/types'
 import { logDebug, LogPrefix } from './logger/logger'
-import { createNewLogFileAndClearOldOnes } from './logger/logfile'
 import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
 import { appFolder, toolsPath } from './constants/paths'
-import { isSnap } from './constants/environment'
+import { isMac, isSnap, isWindows } from './constants/environment'
 
-const isMac = process.platform === 'darwin'
-const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
-const isWindows = process.platform === 'win32'
-const isLinux = process.platform === 'linux'
-const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
-const isCLIFullscreen = process.argv.includes('--fullscreen')
-const isCLINoGui = process.argv.includes('--no-gui')
-const isFlatpak = Boolean(env.FLATPAK_ID)
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
@@ -41,7 +32,13 @@ const {
   legendaryLogFile,
   gogdlLogFile,
   nileLogFile
-} = createNewLogFileAndClearOldOnes()
+} = {
+  currentLogFile: '',
+  lastLogFile: '',
+  legendaryLogFile: '',
+  gogdlLogFile: '',
+  nileLogFile: ''
+} //createNewLogFileAndClearOldOnes()
 
 const publicDir = resolve(
   __dirname,
@@ -179,15 +176,7 @@ export {
   userHome,
   flatPakHome,
   icon,
-  isFlatpak,
-  isMac,
-  isIntelMac,
-  isWindows,
-  isLinux,
   fallBackImage,
-  isSteamDeckGameMode,
-  isCLIFullscreen,
-  isCLINoGui,
   publicDir,
   vulkanHelperBin,
   fixesPath

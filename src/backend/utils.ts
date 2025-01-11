@@ -29,11 +29,7 @@ import {
   configPath,
   gamesConfigPath,
   icon,
-  isWindows,
-  publicDir,
-  isMac,
-  isLinux,
-  isIntelMac
+  publicDir
 } from './constants'
 import {
   appendGamePlayLog,
@@ -88,6 +84,7 @@ import { isUmuSupported } from './utils/compatibility_layers'
 import { getSystemInfo } from './utils/systeminfo'
 import { configStore } from './constants/key_value_stores'
 import { GITHUB_API } from './constants/urls'
+import { isLinux, isMac, isIntelMac, isWindows } from './constants/environment'
 
 const execAsync = promisify(exec)
 

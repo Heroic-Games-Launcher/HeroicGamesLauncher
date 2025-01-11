@@ -12,12 +12,7 @@ import {
   gamesConfigPath,
   heroicInstallPath,
   userHome,
-  isFlatpak,
-  isMac,
-  isWindows,
-  getSteamCompatFolder,
-  isLinux,
-  isIntelMac
+  getSteamCompatFolder
 } from './constants'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -33,6 +28,13 @@ import {
 } from './utils/compatibility_layers'
 import { backendEvents } from './backend_events'
 import { configStore } from './constants/key_value_stores'
+import {
+  isFlatpak,
+  isLinux,
+  isMac,
+  isIntelMac,
+  isWindows
+} from './constants/environment'
 
 /**
  * This class does config handling.
