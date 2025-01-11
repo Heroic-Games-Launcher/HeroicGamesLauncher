@@ -60,16 +60,7 @@ import {
   downloadDefaultWine,
   sendGameStatusUpdate
 } from './utils'
-import {
-  gamesConfigPath,
-  userHome,
-  icon,
-  configPath,
-  publicDir,
-  createNecessaryFolders,
-  fixAsarPath,
-  fixesPath
-} from './constants'
+import { icon, createNecessaryFolders, fixAsarPath } from './constants'
 import { handleProtocol } from './protocol'
 import {
   initLogger,
@@ -148,6 +139,13 @@ import {
   isSteamDeckGameMode,
   isWindows
 } from './constants/environment'
+import {
+  configPath,
+  fixesPath,
+  gamesConfigPath,
+  publicDir,
+  userHome
+} from './constants/paths'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 

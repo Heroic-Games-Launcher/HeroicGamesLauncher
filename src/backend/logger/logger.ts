@@ -13,11 +13,11 @@ import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { dirname, join } from 'path'
 import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
-import { gamesConfigPath } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
 import { isWindows } from 'backend/constants/environment'
+import { gamesConfigPath } from 'backend/constants/paths'
 
 export enum LogPrefix {
   General = '',

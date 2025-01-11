@@ -23,14 +23,7 @@ import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
-import {
-  fixAsarPath,
-  getSteamLibraries,
-  configPath,
-  gamesConfigPath,
-  icon,
-  publicDir
-} from './constants'
+import { fixAsarPath, getSteamLibraries, icon } from './constants'
 import {
   appendGamePlayLog,
   logError,
@@ -84,6 +77,7 @@ import { isUmuSupported } from './utils/compatibility_layers'
 import { configStore } from './constants/key_value_stores'
 import { GITHUB_API } from './constants/urls'
 import { isLinux, isMac, isWindows } from './constants/environment'
+import { configPath, gamesConfigPath, publicDir } from './constants/paths'
 
 const execAsync = promisify(exec)
 
