@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'backend/config'
-import { configPath, getSteamLibraries, userHome } from 'backend/constants'
+import { getSteamLibraries } from 'backend/constants'
 import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
 import { execAsync } from 'backend/utils'
 import { execSync } from 'child_process'
@@ -12,7 +12,12 @@ import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
 import { Path } from 'backend/schemas'
 import { searchForExecutableOnPath } from './os/path'
-import { defaultUmuPath, toolsPath } from 'backend/constants/paths'
+import {
+  configPath,
+  defaultUmuPath,
+  toolsPath,
+  userHome
+} from 'backend/constants/paths'
 import { isLinux, isMac } from 'backend/constants/environment'
 
 /**

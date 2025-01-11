@@ -20,7 +20,7 @@ import {
   extractFiles,
   getWineFromProton
 } from '../utils'
-import { execOptions, userHome } from '../constants'
+import { execOptions } from '../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
@@ -48,7 +48,7 @@ import {
   downloadFile as downloadFileInet
 } from '../utils/inet/downloader'
 import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
-import { toolsPath } from 'backend/constants/paths'
+import { toolsPath, userHome } from 'backend/constants/paths'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 interface Tool {

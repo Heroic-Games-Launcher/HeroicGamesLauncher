@@ -9,11 +9,11 @@ import { DMStatus, InstallParams, Runner } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
-import { fixesPath } from 'backend/constants'
 import pathModule from 'path'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
 import { gogdlConfigPath } from 'backend/storeManagers/gog/constants'
+import { fixesPath } from 'backend/constants/paths'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: DMStatus

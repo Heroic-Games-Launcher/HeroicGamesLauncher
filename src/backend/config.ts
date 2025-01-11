@@ -5,15 +5,7 @@ import {
   GlobalConfigVersion,
   WineInstallation
 } from 'common/types'
-import {
-  currentGlobalConfigVersion,
-  configPath,
-  defaultWinePrefix,
-  gamesConfigPath,
-  heroicInstallPath,
-  userHome,
-  getSteamCompatFolder
-} from './constants'
+import { currentGlobalConfigVersion, getSteamCompatFolder } from './constants'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import {
@@ -29,6 +21,13 @@ import {
 import { backendEvents } from './backend_events'
 import { configStore } from './constants/key_value_stores'
 import { isFlatpak, isLinux, isMac, isWindows } from './constants/environment'
+import {
+  configPath,
+  defaultWinePrefix,
+  gamesConfigPath,
+  heroicInstallPath,
+  userHome
+} from './constants/paths'
 
 /**
  * This class does config handling.
