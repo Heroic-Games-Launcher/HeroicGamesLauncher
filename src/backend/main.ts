@@ -56,14 +56,7 @@ import {
   checkRosettaInstall
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
-import {
-  gamesConfigPath,
-  userHome,
-  icon,
-  configPath,
-  publicDir,
-  createNecessaryFolders
-} from './constants'
+import { icon, createNecessaryFolders } from './constants'
 import { handleProtocol } from './protocol'
 import {
   initLogger,
@@ -142,6 +135,12 @@ import {
   isSteamDeckGameMode,
   isWindows
 } from './constants/environment'
+import {
+  configPath,
+  gamesConfigPath,
+  publicDir,
+  userHome
+} from './constants/paths'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 

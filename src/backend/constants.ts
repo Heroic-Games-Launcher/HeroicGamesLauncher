@@ -1,30 +1,22 @@
 import { spawnSync } from 'child_process'
-import { homedir } from 'os'
-import { join, resolve } from 'path'
+import { join } from 'path'
 import { parse } from '@node-steam/vdf'
 
 import { GameConfigVersion, GlobalConfigVersion } from 'common/types'
 import { logDebug, LogPrefix } from './logger/logger'
-import { env } from 'process'
-import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
-import { appFolder, toolsPath } from './constants/paths'
-import { isMac, isSnap, isWindows } from './constants/environment'
+import {
+  gamesConfigPath,
+  heroicIconFolder,
+  publicDir,
+  toolsPath,
+  userHome
+} from './constants/paths'
+import { isMac, isWindows } from './constants/environment'
 
 const currentGameConfigVersion: GameConfigVersion = 'v0'
 const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
-
-const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
-const userHome = isSnap ? env.SNAP_REAL_HOME! : homedir()
-
-const configPath = join(appFolder, 'config.json')
-const gamesConfigPath = join(appFolder, 'GamesConfig')
-const heroicIconFolder = join(appFolder, 'icons')
-const heroicInstallPath = join(userHome, 'Games', 'Heroic')
-const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
-const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
-const fixesPath = join(appFolder, 'fixes')
 
 const {
   currentLogFile,
@@ -40,11 +32,6 @@ const {
   nileLogFile: ''
 } //createNewLogFileAndClearOldOnes()
 
-const publicDir = resolve(
-  __dirname,
-  '..',
-  app.isPackaged || process.env.CI === 'e2e' ? '' : '../public'
-)
 const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
 )
@@ -167,17 +154,7 @@ export {
   nileLogFile,
   execOptions,
   fixAsarPath,
-  configPath,
-  gamesConfigPath,
-  heroicIconFolder,
-  heroicInstallPath,
-  defaultWinePrefixDir,
-  defaultWinePrefix,
-  userHome,
-  flatPakHome,
   icon,
   fallBackImage,
-  publicDir,
-  vulkanHelperBin,
-  fixesPath
+  vulkanHelperBin
 }

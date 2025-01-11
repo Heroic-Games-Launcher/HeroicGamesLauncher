@@ -2,16 +2,16 @@ import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 
 import { GameConfigVersion, GameSettings } from 'common/types'
 import { GlobalConfig } from './config'
-import {
-  currentGameConfigVersion,
-  configPath,
-  gamesConfigPath,
-  userHome,
-  defaultWinePrefix
-} from './constants'
+import { currentGameConfigVersion } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { join } from 'path'
 import { isMac, isWindows } from './constants/environment'
+import {
+  configPath,
+  defaultWinePrefix,
+  gamesConfigPath,
+  userHome
+} from './constants/paths'
 
 /**
  * This class does config handling for games.
