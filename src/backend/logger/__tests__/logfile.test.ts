@@ -9,7 +9,6 @@ import { configStore } from 'backend/constants/key_value_stores'
 
 jest.mock('electron')
 jest.mock('electron-store')
-jest.mock('../../constants')
 jest.mock('../logger')
 jest.unmock('../logfile')
 
