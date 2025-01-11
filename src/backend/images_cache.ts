@@ -3,7 +3,7 @@ import { createHash } from 'crypto'
 import { join } from 'path'
 import axios from 'axios'
 import { protocol } from 'electron'
-import { appFolder } from './constants'
+import { appFolder } from './constants/paths'
 
 const imagesCachePath = join(appFolder, 'images-cache')
 

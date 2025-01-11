@@ -10,7 +10,7 @@ import { env } from 'process'
 import { app } from 'electron'
 import { existsSync, mkdirSync, readFileSync } from 'graceful-fs'
 import { GlobalConfig } from './config'
-import { dirSync } from 'tmp'
+import { appFolder } from './constants/paths'
 
 const isMac = process.platform === 'darwin'
 const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
@@ -26,25 +26,12 @@ const currentGlobalConfigVersion: GlobalConfigVersion = 'v0'
 
 const flatPakHome = env.XDG_DATA_HOME?.replace('/data', '') || homedir()
 const userHome = isSnap ? env.SNAP_REAL_HOME! : homedir()
-let configFolder = app.getPath('appData')
-// If we're running tests, we want a config folder independent of the normal
-// user configuration
-if (process.env.CI === 'e2e') {
-  const temp_dir = dirSync({ unsafeCleanup: true })
-  logDebug(
-    `CI is set to "e2e", storing Heroic config files in ${temp_dir.name}`
-  )
-  configFolder = temp_dir.name
-  mkdirSync(join(configFolder, 'heroic'))
-}
 
-const appFolder = join(configFolder, 'heroic')
 const legendaryConfigPath = isSnap
   ? join(env.XDG_CONFIG_HOME!, 'legendary')
   : join(appFolder, 'legendaryConfig', 'legendary')
 const gogdlConfigPath = join(appFolder, 'gogdlConfig', 'heroic_gogdl')
 const gogSupportPath = join(gogdlConfigPath, 'gog-support')
-const nileConfigPath = join(appFolder, 'nile_config', 'nile')
 const configPath = join(appFolder, 'config.json')
 const gamesConfigPath = join(appFolder, 'GamesConfig')
 const toolsPath = join(appFolder, 'tools')
@@ -83,9 +70,6 @@ const thirdPartyInstalled = join(
   'third-party-installed.json'
 )
 const legendaryMetadata = join(legendaryConfigPath, 'metadata')
-const nileInstalled = join(nileConfigPath, 'installed.json')
-const nileLibrary = join(nileConfigPath, 'library.json')
-const nileUserData = join(nileConfigPath, 'user.json')
 const fallBackImage = 'fallback'
 
 /**
@@ -194,7 +178,6 @@ export function createNecessaryFolders() {
 }
 
 export {
-  appFolder,
   currentGameConfigVersion,
   currentGlobalConfigVersion,
   currentLogFile,
@@ -237,10 +220,6 @@ export {
   gogRedistPath,
   epicRedistPath,
   vulkanHelperBin,
-  nileConfigPath,
-  nileInstalled,
-  nileLibrary,
-  nileUserData,
   fixesPath,
   thirdPartyInstalled
 }
