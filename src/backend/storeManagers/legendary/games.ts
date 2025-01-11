@@ -83,8 +83,7 @@ import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
 import { configStore } from 'backend/constants/key_value_stores'
-import { epicRedistPath } from 'backend/constants/paths'
-import { legendaryInstalled } from './constants'
+import { epicRedistPath, legendaryInstalled } from './constants'
 import {
   isCLINoGui,
   isLinux,

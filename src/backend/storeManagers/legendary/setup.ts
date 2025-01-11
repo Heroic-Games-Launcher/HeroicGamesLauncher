@@ -7,7 +7,7 @@ import { split } from 'shlex'
 import { logError, LogPrefix } from 'backend/logger/logger'
 import { runWineCommand } from 'backend/launcher'
 import { GameConfig } from 'backend/game_config'
-import { epicRedistPath } from 'backend/constants/paths'
+import { epicRedistPath } from './constants'
 
 export const legendarySetup = async (appName: string) => {
   const gameInfo = getGameInfo(appName)
