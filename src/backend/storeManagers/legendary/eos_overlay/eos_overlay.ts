@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 import { t } from 'i18next'
 import { join } from 'path'
 
-import { toolsPath, isLinux, legendaryConfigPath } from 'backend/constants'
+import { isLinux } from 'backend/constants'
 import { logError, LogPrefix, logWarning } from 'backend/logger/logger'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { sendGameStatusUpdate } from 'backend/utils'
@@ -15,6 +15,8 @@ import { runRunnerCommand as runLegendaryCommand } from '../library'
 import { Path } from 'backend/schemas'
 
 import type { Runner } from 'common/types'
+import { toolsPath } from 'backend/constants/paths'
+import { legendaryConfigPath } from '../constants'
 
 const currentVersionPath = () =>
   join(legendaryConfigPath, 'overlay_version.json')

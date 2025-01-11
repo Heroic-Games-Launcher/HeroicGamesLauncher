@@ -8,12 +8,7 @@ import {
 } from '../../utils'
 import { GameConfig } from '../../game_config'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
-import {
-  gogdlConfigPath,
-  gogRedistPath,
-  gogSupportPath,
-  isWindows
-} from '../../constants'
+import { isWindows } from '../../constants'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
 import { readFile } from 'node:fs/promises'
@@ -23,6 +18,7 @@ import {
   GOGv1Manifest,
   GOGv2Manifest
 } from 'common/types/gog'
+import { gogdlConfigPath, gogRedistPath, gogSupportPath } from './constants'
 
 /*
  * Automatially executes command properly according to operating system

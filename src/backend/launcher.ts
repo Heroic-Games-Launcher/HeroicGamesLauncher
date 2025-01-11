@@ -30,9 +30,7 @@ import {
   isMac,
   isWindows,
   isSteamDeckGameMode,
-  runtimePath,
   userHome,
-  defaultUmuPath,
   publicDir,
   isCLINoGui
 } from './constants'
@@ -94,6 +92,7 @@ import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
+import { defaultUmuPath, runtimePath } from './constants/paths'
 
 let powerDisplayId: number | null
 

@@ -1,11 +1,9 @@
 import { GlobalConfig } from 'backend/config'
 import {
   configPath,
-  defaultUmuPath,
   getSteamLibraries,
   isLinux,
   isMac,
-  toolsPath,
   userHome
 } from 'backend/constants'
 import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
@@ -20,6 +18,7 @@ import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
 import { Path } from 'backend/schemas'
 import { searchForExecutableOnPath } from './os/path'
+import { defaultUmuPath, toolsPath } from 'backend/constants/paths'
 
 /**
  * Loads the default wine installation path and version.

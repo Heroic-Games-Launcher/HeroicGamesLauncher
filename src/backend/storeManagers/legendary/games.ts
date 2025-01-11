@@ -33,14 +33,7 @@ import {
   shutdownWine,
   spawnAsync
 } from '../../utils'
-import {
-  isMac,
-  isWindows,
-  installed,
-  isCLINoGui,
-  isLinux,
-  epicRedistPath
-} from '../../constants'
+import { isMac, isWindows, isCLINoGui, isLinux } from '../../constants'
 import {
   appendGamePlayLog,
   appendWinetricksGamePlayLog,
@@ -91,6 +84,8 @@ import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
 import { configStore } from 'backend/constants/key_value_stores'
+import { epicRedistPath } from 'backend/constants/paths'
+import { legendaryInstalled } from './constants'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -1018,7 +1013,7 @@ export async function forceUninstall(appName: string) {
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
     logError(
-      `Error reading ${installed}, could not complete operation`,
+      `Error reading ${legendaryInstalled}, could not complete operation`,
       LogPrefix.Legendary
     )
   }
