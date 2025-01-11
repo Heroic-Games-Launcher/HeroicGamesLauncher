@@ -1,11 +1,11 @@
 import JSON5 from 'json5'
-import { nileLogFile } from 'backend/constants'
 import {
   LogPrefix,
   logDebug,
   logError,
   logInfo,
-  logWarning
+  logWarning,
+  nileLogFile
 } from 'backend/logger/logger'
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {

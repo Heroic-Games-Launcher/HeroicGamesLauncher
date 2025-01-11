@@ -1,20 +1,6 @@
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { gamesConfigPath, heroicIconFolder, toolsPath } from './constants/paths'
 
-const {
-  currentLogFile,
-  lastLogFile,
-  legendaryLogFile,
-  gogdlLogFile,
-  nileLogFile
-} = {
-  currentLogFile: '',
-  lastLogFile: '',
-  legendaryLogFile: '',
-  gogdlLogFile: '',
-  nileLogFile: ''
-} //createNewLogFileAndClearOldOnes()
-
 export function createNecessaryFolders() {
   const defaultFolders = [gamesConfigPath, heroicIconFolder]
 
@@ -29,12 +15,4 @@ export function createNecessaryFolders() {
       mkdirSync(folder)
     }
   })
-}
-
-export {
-  currentLogFile,
-  lastLogFile,
-  legendaryLogFile,
-  gogdlLogFile,
-  nileLogFile
 }
