@@ -1,10 +1,11 @@
-import { appFolder, isMac, isWindows } from '../constants'
+import { isMac, isWindows } from '../constants'
 import { logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { readFileSync, writeFileSync } from 'graceful-fs'
 import { AntiCheatInfo } from 'common/types'
 import { runOnceWhenOnline } from '../online_monitor'
 import { axiosClient } from 'backend/utils'
 import { join } from 'node:path'
+import { appFolder } from 'backend/constants/paths'
 
 const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 
