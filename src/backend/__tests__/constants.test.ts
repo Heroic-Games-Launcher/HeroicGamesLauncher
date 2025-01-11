@@ -28,7 +28,7 @@ describe('Constants - fixAsarPath', () => {
 describe('Constants - getShell', () => {
   async function getShell(): Promise<string> {
     jest.resetModules()
-    return import('../constants').then((module) => {
+    return import('../constants/others').then((module) => {
       return module.execOptions.shell
     })
   }

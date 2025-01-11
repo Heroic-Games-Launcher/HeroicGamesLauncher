@@ -1,7 +1,6 @@
 import { GlobalConfig } from 'backend/config'
-import { getSteamLibraries } from 'backend/constants'
 import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
-import { execAsync } from 'backend/utils'
+import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
