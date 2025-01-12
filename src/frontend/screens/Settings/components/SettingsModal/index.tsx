@@ -16,7 +16,7 @@ import CategorySettings from '../../sections/CategorySettings'
 import {
   closeSettingsModal,
   useGameSettingsModal
-} from 'frontend/state/SettingsModal'
+} from 'frontend/state/GameSettingsModal'
 
 export type GameSettingsModalTypes = 'settings' | 'log' | 'category'
 

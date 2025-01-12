@@ -13,7 +13,7 @@ import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import GameContext from '../GameContext'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
-import { openGameCategoriesModal } from 'frontend/state/SettingsModal'
+import { openGameCategoriesModal } from 'frontend/state/GameSettingsModal'
 
 interface Props {
   appName: string
