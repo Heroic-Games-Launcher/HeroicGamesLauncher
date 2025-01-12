@@ -45,7 +45,7 @@ import {
   openGameCategoriesModal,
   openGameLogsModal,
   openGameSettingsModal
-} from 'frontend/state/SettingsModal'
+} from 'frontend/state/GameSettingsModal'
 
 interface Card {
   buttonClick: () => void
