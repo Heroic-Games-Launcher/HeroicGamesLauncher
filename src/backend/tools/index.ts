@@ -167,7 +167,7 @@ export const DXVK = {
       }
     ]
 
-    tools.forEach(installOrUpdateTool)
+    await Promise.all(tools.map(installOrUpdateTool))
   },
 
   installRemove: async (
