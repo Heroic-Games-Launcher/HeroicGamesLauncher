@@ -85,5 +85,3 @@ export function SettingsModalWrapper() {
     />
   )
 }
-
-export default SettingsModal
