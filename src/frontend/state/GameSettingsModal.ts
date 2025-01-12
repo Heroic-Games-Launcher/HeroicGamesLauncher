@@ -2,13 +2,13 @@ import { GameInfo } from 'common/types'
 import { GameSettingsModalTypes } from 'frontend/screens/Settings/components/SettingsModal'
 import { create } from 'zustand'
 
-interface GameSettingsModalOpen {
+interface GameSettingsModalState {
   isOpen: boolean
   type?: GameSettingsModalTypes
   gameInfo?: GameInfo
 }
 
-export const useGameSettingsModal = create<GameSettingsModalOpen>()(() => ({
+export const useGameSettingsModal = create<GameSettingsModalState>()(() => ({
   isOpen: false
 }))
 

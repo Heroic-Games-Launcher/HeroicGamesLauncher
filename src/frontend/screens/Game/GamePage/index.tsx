@@ -72,7 +72,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
 import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
-import { useGameSettingsModal } from 'frontend/state/SettingsModal'
+import { useGameSettingsModal } from 'frontend/state/GameSettingsModal'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
