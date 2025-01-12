@@ -3,7 +3,7 @@ import { GameInfo } from 'common/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
-import { openGameLogsModal } from 'frontend/state/SettingsModal'
+import { openGameLogsModal } from 'frontend/state/GameSettingsModal'
 
 interface Props {
   gameInfo: GameInfo
