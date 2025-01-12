@@ -72,6 +72,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
 import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
+import { useGameSettingsModal } from 'frontend/state/SettingsModal'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -93,10 +94,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
     gameUpdates,
     platform,
     showDialogModal,
-    isSettingsModalOpen,
     connectivity,
     experimentalFeatures
   } = useContext(ContextProvider)
+
+  const isSettingsModalOpen = useGameSettingsModal((state) => state.isOpen)
 
   hasHelp(
     'gamePage',

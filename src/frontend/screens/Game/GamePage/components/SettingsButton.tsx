@@ -1,23 +1,21 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { GameInfo } from 'common/types'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { SvgButton } from 'frontend/components/UI'
 import SettingsIcoAlt from 'frontend/assets/settings_icon_alt.svg?react'
+import { openGameSettingsModal } from 'frontend/state/SettingsModal'
 
 interface Props {
   gameInfo: GameInfo
 }
 
 const SettingsButton = ({ gameInfo }: Props) => {
-  const { setIsSettingsModalOpen } = useContext(ContextProvider)
-
   if (!gameInfo.is_installed) {
     return null
   }
 
   return (
     <SvgButton
-      onClick={() => setIsSettingsModalOpen(true, 'settings', gameInfo)}
+      onClick={() => openGameSettingsModal(gameInfo)}
       className={`settings-icon`}
     >
       <SettingsIcoAlt />
