@@ -695,12 +695,16 @@ export async function launch(
       false
   ) {
     const path = getCometBin()
-    child = spawn(join(path.dir, path.bin), [
-      '--from-heroic',
-      '--username',
-      userData.username,
-      '--quit'
-    ])
+    child = spawn(
+      join(path.dir, path.bin),
+      ['--from-heroic', '--username', userData.username, '--quit'],
+      {
+        env: {
+          ...process.env,
+          ...setupWrapperEnvVars({ appName, appRunner: 'gog' })
+        }
+      }
+    )
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {
