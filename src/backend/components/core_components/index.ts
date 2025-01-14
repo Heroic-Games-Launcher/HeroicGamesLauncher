@@ -1,8 +1,13 @@
 import * as Registry from '../registry'
 
-import LoggerComponent from './Logger'
+import LogFileComponent from './LogFile'
 import LogFileWriterComponent from './LogFileWriter'
+import LoggerComponent from './Logger'
 
-async function registerCoreComponents() {}
+async function registerCoreComponents() {
+  await Registry.registerComponent(new LogFileComponent())
+  await Registry.registerComponent(new LogFileWriterComponent())
+  await Registry.registerComponent(new LoggerComponent())
+}
 
 export { registerCoreComponents }
