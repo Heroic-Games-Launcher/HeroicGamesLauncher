@@ -145,7 +145,10 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
-import { init as initComponentRegistry } from 'backend/components/registry'
+import {
+  init as initComponentRegistry,
+  invokeEvent as invokeComponentEvent
+} from 'backend/components/registry'
 import { registerCoreComponents } from './components/core_components'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
@@ -305,6 +308,9 @@ if (!gotTheLock) {
   app.whenReady().then(async () => {
     await initComponentRegistry()
     await registerCoreComponents()
+    await invokeComponentEvent(undefined, 'logger:logInfo', [
+      'Heroic is starting up'
+    ])
 
     initLogger()
     initOnlineMonitor()
