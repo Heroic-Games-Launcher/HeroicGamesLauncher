@@ -1,288 +1,290 @@
 {
-    "box": {
-        "change": {
-            "message": "This will change the install location of this game, are you sure?",
-            "path": "Choose a new install path",
-            "title": "Change Games Install Path"
-        },
-        "choose": "Choose",
-        "close": "Close",
-        "importpath": "Choose Game Folder to import",
-        "move": {
-            "message": "This can take a long time, are you sure?",
-            "path": "Choose where you want to move",
-            "title": "Move Game Installation"
-        },
-        "no": "NO",
-        "repair": {
-            "message": "Do you want to try to repair this game? This can take a long time.",
-            "title": "Verify and Repair"
-        },
-        "runexe": {
-            "title": "Select EXE to Run"
-        },
-        "select": {
-            "button": "Select"
-        },
-        "sideload": {
-            "exe": "Select Executable"
-        },
-        "stopInstall": {
-            "keepInstalling": "Keep Installing",
-            "message": "Do you wish to KEEP downloaded files?",
-            "title": "Stop Installation"
-        },
-        "uninstall": {
-            "cannotUninstallEpic": "Epic games cannot be uninstalled while another Epic game is being installed.",
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "dlc": "Do you want to uninstall \"{{title}}\" (DLC)?",
-            "gameIsRunning": "{{title}} is running. Close the game to uninstall it.",
-            "message": "Do you want to uninstall \"{{title}}\"?",
-            "prefix_warning": "The Wine prefix for this game is the default prefix. If you really want to delete it, you have to do it manually.",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Uninstall"
-        },
-        "update": {
-            "message": "This game has an update, apply update now?",
-            "title": "Game Needs Update"
-        },
-        "wineprefix": "Select WinePrefix Folder",
-        "yes": "YES"
-    },
-    "button": {
-        "add_to_favourites": "Add To Favourites",
-        "cancel": "Pause/Cancel",
-        "changelog": "Show Changelog",
-        "continue": "Continue Download",
-        "details": "Details",
-        "finish": "Finish",
-        "force_update": "Force Update if Available",
-        "force-innstall": "Force Install",
-        "hide_game": "Hide Game",
-        "import": "Import Game",
-        "install": "Install",
-        "no-path-selected": "No path selected",
-        "queue": {
-            "remove": "Remove from Queue"
-        },
-        "remove_from_favourites": "Remove From Favourites",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
-        "sideload": {
-            "edit": "Edit App/Game"
-        },
-        "unhide_game": "Unhide Game",
-        "uninstall": "Uninstall",
-        "update": "Update"
-    },
-    "cloud_save_unsupported": "Unsupported",
-    "disabled": "Disabled",
-    "enabled": "Enabled",
-    "game": {
-        "branch": {
-            "disabled": "Disabled",
-            "password": "Set private channel password",
-            "select": "Select beta channel",
-            "setPrivateBranchPassword": "Set private channel password"
-        },
-        "builds": {
-            "buildsSelector": "Select game version",
-            "toggle": "Keep the game at specific version",
-            "version": "Version"
-        },
-        "changelogFor": "Changelog for {{gameTitle}}",
-        "downloadSize": "Download Size",
-        "extra_info": "Extra info",
-        "firstPlayed": "First Played",
-        "getting-download-size": "Getting download size",
-        "getting-install-size": "Getting install size",
-        "install_info": "Install info",
-        "installSize": "Install Size",
-        "language": "Language",
-        "lastPlayed": "Last Played",
-        "modify": "Modify Installation",
-        "neverPlayed": "Never",
-        "platform": "Select Platform Version to Install",
-        "requirements": "System Requirements",
-        "totalPlayed": "Time Played"
-    },
-    "gamecard": {
-        "moving": "Moving",
-        "repairing": "Repairing"
-    },
-    "generic": {
-        "error": "Unknown error",
-        "noDescription": "No description available"
-    },
-    "help": {
-        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system",
-        "content": {
-            "gamePage": "Show all game details and actions. Use the 3 dots menu for more options."
-        },
-        "title": {
-            "gamePage": "Game Page"
-        }
-    },
-    "hours": "Hours",
-    "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
-    },
-    "howLongToBeat": "How Long To Beat",
-    "info": {
-        "apple-gaming-wiki": "AppleGamingWiki Rating",
-        "canRunOffline": "Online Required",
-        "clickToOpen": "Click to open",
-        "game-scores": "Game Scores",
-        "installedInfo": "Installed Information",
-        "installedPlatform": "Installed Platform",
-        "path": "Install Path",
-        "protondb-compatibility-info": "Proton Compatibility Tier",
-        "size": "Size",
-        "steamdeck-compatibility-info": "SteamDeck Compatibility",
-        "syncsaves": "Sync Saves",
-        "third-party-app": "Third-Party Manager",
-        "version": "Version"
-    },
-    "install": {
-        "anticheat-warning": {
-            "cancel": "No",
-            "disabled_installation": "The anticheat support is broken or denied and the multiplayer features will not work. The game cannot be installed. To install this game, disable this check in the advanced settings.",
-            "install_anyway": "Yes (I understand the multiplayer features will not work)",
-            "multiplayer_message": "The anticheat support is broken or denied. The game may open but the multiplayer features will not work. Do you want to install it anyway?",
-            "ok": "Ok",
-            "title": "Anticheat Broken/Denied"
-        },
-        "disk-space-left": "Space Available",
-        "flatpak-path-not-writtable": "Error: Sandbox access not granted to this path, data loss will occur.",
-        "not-enough-disk-space": "Not enough disk space",
-        "path": "Select Install Path",
-        "path-not-writtable": "Warning: path might not be writable.",
-        "space-after-install": "After Install",
-        "wineprefix": "WinePrefix",
-        "wineversion": "Wine version"
-    },
-    "label": {
-        "game": {
-            "not-installable-game": "Game is NOT Installable",
-            "third-party-game": "Third-Party Game NOT Supported"
-        },
-        "launching": "Launching",
-        "playing": {
-            "start": "Play Now",
-            "stop": "Playing (Stop)"
-        },
-        "redist": "Installing Redistributables",
-        "saves": {
-            "syncing": "Syncing Saves"
-        },
-        "winetricks": "Installing Winetricks Packages"
-    },
-    "launch": {
-        "options": "Launch Options..."
-    },
-    "modifyInstall": {
-        "dlcsCollapsible": "DLC",
-        "nodlcs": "No DLC available",
-        "redMod": {
-            "collapsible": "REDmod Integration",
-            "enable": "Enable mods"
-        },
-        "versionCollapsable": "Game Version"
-    },
-    "not_logged_in": {
-        "amazon": "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:",
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
-        "login": "Log in",
-        "title": "You are NOT logged in"
-    },
-    "report_problem": "Report a problem running this game",
-    "sdl": {
-        "title": "Select components to Install"
-    },
-    "setting": {
-        "show-wine-settings": "Show Wine settings",
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "warn-use-default-wine-settings": "Only use this option if you know what you are doing.<br/>Sharing the same prefix for multiple games can create problems if their dependencies are incompatible.",
-        "winecrossoverbottle": "CrossOver Bottle"
-    },
-    "sideload": {
-        "field": {
-            "title": "Title"
-        },
-        "import-hint": {
-            "content": "Do NOT use this feature for that.<1></1>Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
-            "title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
-        },
-        "info": {
-            "broser": "BrowserURL",
-            "exe": "Select Executable",
-            "fullscreen": "Launch Fullscreen (F11 to exit)",
-            "image": "App Image",
-            "title": "Game/App Title",
-            "useragent": "Custom User Agent"
-        },
-        "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App",
-            "url": "Paste the Game URL here",
-            "useragent": "Write a custom user agent here to be used on this browser app/game"
-        }
-    },
-    "specs": {
-        "minimum": "Minimum",
-        "recommended": "Recommended"
-    },
-    "status": {
-        "clickToUpdate": "Click to Update",
-        "downloading": "Downloading",
-        "extracting": "Extracting",
-        "gameNotAvailable": "Game not available",
-        "gog-goodie": "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account",
-        "goodie": "Not installable",
-        "hasUpdates": "New Version Available!",
-        "installed": "Installed",
-        "installing": "Installing",
-        "launching": "Launching",
-        "moving": "Moving Installation, please wait",
-        "moving-files": "Moving file '{{file}}': {{percent}}%",
-        "notinstalled": "This game is not installed",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
-        "playing": "Playing",
-        "processing": "Processing files, please wait",
-        "queued": "Queued",
-        "redist": "Installing Redistributables ({{redist}})",
-        "reparing": "Repairing Game, please wait",
-        "syncingSaves": "Syncing Saves",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "Total Downloaded",
-        "uninstalling": "Uninstalling",
-        "updating": "Updating Game",
-        "winetricks": "Applying Winetricks fixes"
-    },
-    "submenu": {
-        "addShortcut": "Add shortcut",
-        "addToSteam": "Add to Steam",
-        "categories": "Categories",
-        "change": "Change install path",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
-        "logs": "Logs",
-        "move": "Move Game",
-        "protondb": "Check Compatibility",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
-        "settings": "Settings",
-        "store": "Store Page",
-        "verify": "Verify and Repair"
-    },
-    "third-party-managed": {
-        "header": "This game is managed by a third-party application",
-        "notice1": "This game is managed by a third-party application: \"{{application_name}}\"",
-        "notice2": "After clicking Install, Heroic will run the application in order to complete the installation process"
-    }
+	"box": {
+		"change": {
+			"message": "This will change the install location of this game, are you sure?",
+			"path": "Choose a new install path",
+			"title": "Change Games Install Path"
+		},
+		"choose": "Choose",
+		"close": "Close",
+		"importpath": "Choose Game Folder to import",
+		"move": {
+			"message": "This can take a long time, are you sure?",
+			"path": "Choose where you want to move",
+			"title": "Move Game Installation"
+		},
+		"no": "NO",
+		"repair": {
+			"message": "Do you want to try to repair this game? This can take a long time.",
+			"title": "Verify and Repair"
+		},
+		"runexe": {
+			"title": "Select EXE to Run"
+		},
+		"select": {
+			"button": "Select"
+		},
+		"sideload": {
+			"exe": "Select Executable"
+		},
+		"stopInstall": {
+			"keepInstalling": "Keep Installing",
+			"message": "Do you wish to KEEP downloaded files?",
+			"title": "Stop Installation"
+		},
+		"uninstall": {
+			"cannotUninstallEpic": "Epic games cannot be uninstalled while another Epic game is being installed.",
+			"checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+			"dlc": "Do you want to uninstall \"{{title}}\" (DLC)?",
+			"gameIsRunning": "{{title}} is running. Close the game to uninstall it.",
+			"message": "Do you want to uninstall \"{{title}}\"?",
+			"prefix_warning": "The Wine prefix for this game is the default prefix. If you really want to delete it, you have to do it manually.",
+			"settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+			"title": "Uninstall"
+		},
+		"update": {
+			"message": "This game has an update, apply update now?",
+			"title": "Game Needs Update"
+		},
+		"wineprefix": "Select WinePrefix Folder",
+		"yes": "YES"
+	},
+	"button": {
+		"add_to_favourites": "Add To Favourites",
+		"browse_files": "Browse Files",
+		"browse_prefix": "Browse Wine Prefix",
+		"cancel": "Pause/Cancel",
+		"changelog": "Show Changelog",
+		"continue": "Continue Download",
+		"details": "Details",
+		"finish": "Finish",
+		"force_update": "Force Update if Available",
+		"force-innstall": "Force Install",
+		"hide_game": "Hide Game",
+		"import": "Import Game",
+		"install": "Install",
+		"no-path-selected": "No path selected",
+		"queue": {
+			"remove": "Remove from Queue"
+		},
+		"remove_from_favourites": "Remove From Favourites",
+		"remove_from_recent": "Remove From Recent",
+		"run-exe-first": "Run Installer First",
+		"running-setup": "Running Setup",
+		"sideload": {
+			"edit": "Edit App/Game"
+		},
+		"unhide_game": "Unhide Game",
+		"uninstall": "Uninstall",
+		"update": "Update"
+	},
+	"cloud_save_unsupported": "Unsupported",
+	"disabled": "Disabled",
+	"enabled": "Enabled",
+	"game": {
+		"branch": {
+			"disabled": "Disabled",
+			"password": "Set private channel password",
+			"select": "Select beta channel",
+			"setPrivateBranchPassword": "Set private channel password"
+		},
+		"builds": {
+			"buildsSelector": "Select game version",
+			"toggle": "Keep the game at specific version",
+			"version": "Version"
+		},
+		"changelogFor": "Changelog for {{gameTitle}}",
+		"downloadSize": "Download Size",
+		"extra_info": "Extra info",
+		"firstPlayed": "First Played",
+		"getting-download-size": "Getting download size",
+		"getting-install-size": "Getting install size",
+		"install_info": "Install info",
+		"installSize": "Install Size",
+		"language": "Language",
+		"lastPlayed": "Last Played",
+		"modify": "Modify Installation",
+		"neverPlayed": "Never",
+		"platform": "Select Platform Version to Install",
+		"requirements": "System Requirements",
+		"totalPlayed": "Time Played"
+	},
+	"gamecard": {
+		"moving": "Moving",
+		"repairing": "Repairing"
+	},
+	"generic": {
+		"error": "Unknown error",
+		"noDescription": "No description available"
+	},
+	"help": {
+		"cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system",
+		"content": {
+			"gamePage": "Show all game details and actions. Use the 3 dots menu for more options."
+		},
+		"title": {
+			"gamePage": "Game Page"
+		}
+	},
+	"hours": "Hours",
+	"how-long-to-beat": {
+		"completionist": "Completionist",
+		"main-plus-extras": "Main + Extras",
+		"main-story": "Main Story"
+	},
+	"howLongToBeat": "How Long To Beat",
+	"info": {
+		"apple-gaming-wiki": "AppleGamingWiki Rating",
+		"canRunOffline": "Online Required",
+		"clickToOpen": "Click to open",
+		"game-scores": "Game Scores",
+		"installedInfo": "Installed Information",
+		"installedPlatform": "Installed Platform",
+		"path": "Install Path",
+		"protondb-compatibility-info": "Proton Compatibility Tier",
+		"size": "Size",
+		"steamdeck-compatibility-info": "SteamDeck Compatibility",
+		"syncsaves": "Sync Saves",
+		"third-party-app": "Third-Party Manager",
+		"version": "Version"
+	},
+	"install": {
+		"anticheat-warning": {
+			"cancel": "No",
+			"disabled_installation": "The anticheat support is broken or denied and the multiplayer features will not work. The game cannot be installed. To install this game, disable this check in the advanced settings.",
+			"install_anyway": "Yes (I understand the multiplayer features will not work)",
+			"multiplayer_message": "The anticheat support is broken or denied. The game may open but the multiplayer features will not work. Do you want to install it anyway?",
+			"ok": "Ok",
+			"title": "Anticheat Broken/Denied"
+		},
+		"disk-space-left": "Space Available",
+		"flatpak-path-not-writtable": "Error: Sandbox access not granted to this path, data loss will occur.",
+		"not-enough-disk-space": "Not enough disk space",
+		"path": "Select Install Path",
+		"path-not-writtable": "Warning: path might not be writable.",
+		"space-after-install": "After Install",
+		"wineprefix": "WinePrefix",
+		"wineversion": "Wine version"
+	},
+	"label": {
+		"game": {
+			"not-installable-game": "Game is NOT Installable",
+			"third-party-game": "Third-Party Game NOT Supported"
+		},
+		"launching": "Launching",
+		"playing": {
+			"start": "Play Now",
+			"stop": "Playing (Stop)"
+		},
+		"redist": "Installing Redistributables",
+		"saves": {
+			"syncing": "Syncing Saves"
+		},
+		"winetricks": "Installing Winetricks Packages"
+	},
+	"launch": {
+		"options": "Launch Options..."
+	},
+	"modifyInstall": {
+		"dlcsCollapsible": "DLC",
+		"nodlcs": "No DLC available",
+		"redMod": {
+			"collapsible": "REDmod Integration",
+			"enable": "Enable mods"
+		},
+		"versionCollapsable": "Game Version"
+	},
+	"not_logged_in": {
+		"amazon": "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:",
+		"epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+		"gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+		"login": "Log in",
+		"title": "You are NOT logged in"
+	},
+	"report_problem": "Report a problem running this game",
+	"sdl": {
+		"title": "Select components to Install"
+	},
+	"setting": {
+		"show-wine-settings": "Show Wine settings",
+		"use-default-wine-settings": "Use Default Wine Settings",
+		"warn-use-default-wine-settings": "Only use this option if you know what you are doing.<br/>Sharing the same prefix for multiple games can create problems if their dependencies are incompatible.",
+		"winecrossoverbottle": "CrossOver Bottle"
+	},
+	"sideload": {
+		"field": {
+			"title": "Title"
+		},
+		"import-hint": {
+			"content": "Do NOT use this feature for that.<1></1>Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
+			"title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
+		},
+		"info": {
+			"broser": "BrowserURL",
+			"exe": "Select Executable",
+			"fullscreen": "Launch Fullscreen (F11 to exit)",
+			"image": "App Image",
+			"title": "Game/App Title",
+			"useragent": "Custom User Agent"
+		},
+		"placeholder": {
+			"image": "Paste an Image URL here",
+			"title": "Add a title to your Game/App",
+			"url": "Paste the Game URL here",
+			"useragent": "Write a custom user agent here to be used on this browser app/game"
+		}
+	},
+	"specs": {
+		"minimum": "Minimum",
+		"recommended": "Recommended"
+	},
+	"status": {
+		"clickToUpdate": "Click to Update",
+		"downloading": "Downloading",
+		"extracting": "Extracting",
+		"gameNotAvailable": "Game not available",
+		"gog-goodie": "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account",
+		"goodie": "Not installable",
+		"hasUpdates": "New Version Available!",
+		"installed": "Installed",
+		"installing": "Installing",
+		"launching": "Launching",
+		"moving": "Moving Installation, please wait",
+		"moving-files": "Moving file '{{file}}': {{percent}}%",
+		"notinstalled": "This game is not installed",
+		"notSupported": "Not supported",
+		"notSupportedGame": "Not Supported",
+		"playing": "Playing",
+		"processing": "Processing files, please wait",
+		"queued": "Queued",
+		"redist": "Installing Redistributables ({{redist}})",
+		"reparing": "Repairing Game, please wait",
+		"syncingSaves": "Syncing Saves",
+		"this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+		"totalDownloaded": "Total Downloaded",
+		"uninstalling": "Uninstalling",
+		"updating": "Updating Game",
+		"winetricks": "Applying Winetricks fixes"
+	},
+	"submenu": {
+		"addShortcut": "Add shortcut",
+		"addToSteam": "Add to Steam",
+		"categories": "Categories",
+		"change": "Change install path",
+		"disableEosOverlay": "Disable EOS Overlay",
+		"enableEosOverlay": "Enable EOS Overlay",
+		"logs": "Logs",
+		"move": "Move Game",
+		"protondb": "Check Compatibility",
+		"removeFromSteam": "Remove from Steam",
+		"removeShortcut": "Remove shortcuts",
+		"settings": "Settings",
+		"store": "Store Page",
+		"verify": "Verify and Repair"
+	},
+	"third-party-managed": {
+		"header": "This game is managed by a third-party application",
+		"notice1": "This game is managed by a third-party application: \"{{application_name}}\"",
+		"notice2": "After clicking Install, Heroic will run the application in order to complete the installation process"
+	}
 }
