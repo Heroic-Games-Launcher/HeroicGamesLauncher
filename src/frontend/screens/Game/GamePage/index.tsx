@@ -58,7 +58,6 @@ import {
   DotsMenu,
   DownloadSizeInfo,
   GameStatus,
-  HLTB,
   InstalledInfo,
   LaunchOptions,
   MainButton,
@@ -245,10 +244,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   useEffect(() => {
     window.api.getWikiGameInfo(gameInfo.title, appName, runner).then((info) => {
-      if (
-        info &&
-        (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
-      ) {
+      if (info && (info.applegamingwiki || info.pcgamingwiki)) {
         setWikiInfo(info)
       }
     })
@@ -340,7 +336,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     const hasWikiInfo =
       wikiInfo?.applegamingwiki ||
-      wikiInfo?.howlongtobeat ||
       wikiInfo?.pcgamingwiki?.metacritic.score ||
       wikiInfo?.pcgamingwiki?.opencritic.score ||
       wikiInfo?.steamInfo
@@ -419,7 +414,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     )}
                     <InstalledInfo gameInfo={gameInfo} />
                     <Scores gameInfo={gameInfo} />
-                    <HLTB />
                     <CompatibilityInfo gameInfo={gameInfo} />
                     <AppleWikiInfo gameInfo={gameInfo} />
                     <Requirements />
@@ -569,7 +563,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         className="extraTab"
                       >
                         <Scores gameInfo={gameInfo} />
-                        <HLTB />
                         <CompatibilityInfo gameInfo={gameInfo} />
                         <AppleWikiInfo gameInfo={gameInfo} />
                       </TabPanel>
