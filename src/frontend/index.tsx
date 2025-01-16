@@ -37,6 +37,17 @@ const languageCode: string =
   configStore.get_nodefault('language') ?? storage.getItem('language') ?? 'en'
 configStore.set('language', languageCode)
 
+window.setCustomCSS = (cssString: string) => {
+  const style = document.createElement('style')
+  style.innerHTML = cssString
+  document.getElementById('customCSS')!.innerText = style.innerText
+}
+
+window.api
+  .getCustomCSS()
+  .then(window.setCustomCSS)
+  .catch(() => {})
+
 i18next
   // load translation using http -> see /public/locales
   // learn more: https://github.com/i18next/i18next-http-backend

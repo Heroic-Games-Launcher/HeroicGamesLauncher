@@ -321,6 +321,7 @@ interface AsyncIPCFunctions {
   ) => Promise<false | [string, UploadedLogData]>
   deleteUploadedLogFile: (url: string) => Promise<boolean>
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
+  getCustomCSS: () => Promise<string>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
