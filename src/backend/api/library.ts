@@ -102,3 +102,9 @@ export const getGameOverride = async () => ipcRenderer.invoke('getGameOverride')
 
 export const getGameSdl = async (appName: string) =>
   ipcRenderer.invoke('getGameSdl', appName)
+
+export const browseInstallPath = async (gameInfo: GameInfo) =>
+  await ipcRenderer.invoke('browseInstallPath', gameInfo)
+
+export const browsePrefixPath = async (gameInfo: GameInfo) =>
+  await ipcRenderer.invoke('browsePrefixPath', gameInfo)
