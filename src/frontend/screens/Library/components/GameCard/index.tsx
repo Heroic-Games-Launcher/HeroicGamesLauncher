@@ -24,6 +24,7 @@ import {
   getProgress,
   getStoreName,
   install,
+  isNativeGame,
   launch,
   sendKill
 } from 'frontend/helpers'
@@ -122,13 +123,7 @@ const GameCard = ({
   const { status, folder, label } = hasStatus(appName, gameInfo, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
-  const isInstallPlatformWindows =
-    gameInfo.install.platform?.toLowerCase().startsWith('win') ?? false
-  const isNative =
-    platform === 'win32' ||
-    !isInstallPlatformWindows ||
-    ((platform === 'linux') === gameInfo.is_linux_native &&
-      (platform === 'darwin') === gameInfo.is_mac_native)
+  const isNative = isNativeGame(gameInfo, platform)
 
   useEffect(() => {
     setIsLaunching(false)
@@ -383,7 +378,7 @@ const GameCard = ({
       show: isInstalled
     },
     {
-      label: t('button.browse_prefix', 'Browse Wine Prefix'),
+      label: t('button.browse_wine_prefix', 'Browse Wine Prefix'),
       onclick: onBrowsePrefix,
       show: isInstalled && !isNative
     }

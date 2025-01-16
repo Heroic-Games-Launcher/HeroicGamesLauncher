@@ -1,10 +1,10 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import { GameInfo, GameStatus, Runner } from 'common/types'
 
-import { createNewWindow, repair } from 'frontend/helpers'
+import { createNewWindow, isNativeGame, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
@@ -233,6 +233,16 @@ export default function GamesSubmenu({
     isInstalled &&
     !isThirdPartyManaged
 
+  const isNative = isNativeGame(gameInfo, platform)
+
+  const onBrowseFiles = useCallback(async () => {
+    await window.api.browseInstallPath(gameInfo)
+  }, [gameInfo])
+
+  const onBrowsePrefix = useCallback(async () => {
+    await window.api.browsePrefixPath(gameInfo)
+  }, [gameInfo])
+
   return (
     <>
       <div className="gameTools subMenuContainer">
@@ -375,6 +385,22 @@ export default function GamesSubmenu({
               className="link button is-text is-link"
             >
               {t('game.modify', 'Modify Installation')}
+            </button>
+          )}
+          {isInstalled && (
+            <button
+              onClick={async () => onBrowseFiles()}
+              className="link button is-text is-link"
+            >
+              {t('button.browse_files', 'Browse Files')}
+            </button>
+          )}
+          {!isNative && (
+            <button
+              onClick={async () => onBrowsePrefix()}
+              className="link button is-text is-link"
+            >
+              {t('button.browse_wine_prefix', 'Browse Wine Prefix')}
             </button>
           )}
         </div>
