@@ -4,6 +4,7 @@ import { backendEvents } from '../../backend_events'
 import { GlobalConfig } from '../../config'
 import { RecentGame } from 'common/types'
 import { configStore } from '../../constants'
+import i18next from 'i18next'
 
 jest.mock('../../logger/logfile')
 jest.mock('../../config')
@@ -24,6 +25,10 @@ describe('TrayIcon', () => {
 
   describe('content', () => {
     describe('contextMenu', () => {
+      beforeEach(() => {
+        setRecentGames([])
+      })
+
       it('shows recent games first', () => {
         const menu = testingExportsTrayIcon.contextMenu(mainWindow, [
           { title: 'game 1', appName: '123456' }
@@ -52,8 +57,9 @@ describe('TrayIcon', () => {
           click: expect.any(Function)
         })
       })
+
       describe('when recent games change', () => {
-        it('updates the content when recent games change', async () => {
+        it('updates the content', async () => {
           setRecentGames([{ title: 'game 1', appName: '12345' }])
 
           const appIcon = await initTrayIcon(mainWindow)
@@ -90,7 +96,7 @@ describe('TrayIcon', () => {
           })
         })
 
-        it('limits the games based on config', async () => {
+        it('limits the number games displayed based on config', async () => {
           // limits to maxRecentGames config
           GlobalConfig['setConfigValue']('maxRecentGames', 3)
 
@@ -133,6 +139,38 @@ describe('TrayIcon', () => {
           expect(items[3]).toEqual({
             type: 'separator'
           })
+        })
+      })
+
+      describe('when language changes', () => {
+        it('reloads the menu with the new language', async () => {
+          // mock some translation
+          const original_t = i18next.t
+          jest.spyOn(i18next, 't').mockImplementation((key) => {
+            if (key === 'tray.quit') {
+              return i18next.language === 'es' ? 'Salir' : 'Quit'
+            }
+            return key as string
+          })
+
+          // check it renders english
+          i18next.language = 'en'
+          const appIcon = await initTrayIcon(mainWindow)
+          let items = appIcon['menu']
+          expect(items[items.length - 1].label).toEqual('Quit')
+
+          // change language
+          i18next.language = 'es'
+          backendEvents.emit('languageChanged')
+          // wait for a moment since the event handler is async
+          await wait(5)
+
+          // check it renders spanish
+          items = appIcon['menu']
+          expect(items[items.length - 1].label).toEqual('Salir')
+
+          // reset t function mock
+          i18next.t = original_t
         })
       })
     })
