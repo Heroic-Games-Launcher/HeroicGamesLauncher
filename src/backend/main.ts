@@ -19,8 +19,7 @@ import {
   protocol,
   screen,
   clipboard,
-  session,
-  shell
+  session
 } from 'electron'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
