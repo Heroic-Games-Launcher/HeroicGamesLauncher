@@ -237,6 +237,7 @@ export default function GamesSubmenu({
 
   const onBrowseFiles = useCallback(() => {
     const path = gameInfo.install.install_path || gameInfo.folder_name
+
     if (path) {
       window.api.openFolder(path)
     }
