@@ -5,8 +5,7 @@ import React, {
   CSSProperties,
   useMemo,
   useState,
-  useEffect,
-  useCallback
+  useEffect
 } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,7 +23,6 @@ import {
   getProgress,
   getStoreName,
   install,
-  isNativeGame,
   launch,
   sendKill
 } from 'frontend/helpers'
@@ -95,8 +93,7 @@ const GameCard = ({
     favouriteGames,
     showDialogModal,
     setIsSettingsModalOpen,
-    activeController,
-    platform
+    activeController
   } = useContext(ContextProvider)
 
   const { layout } = useContext(LibraryContext)
@@ -123,7 +120,6 @@ const GameCard = ({
   const { status, folder, label } = hasStatus(appName, gameInfo, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
-  const isNative = isNativeGame(gameInfo, platform)
 
   useEffect(() => {
     setIsLaunching(false)
@@ -271,14 +267,6 @@ const GameCard = ({
     setShowUninstallModal(true)
   }
 
-  const onBrowseFiles = useCallback(async () => {
-    await window.api.browseInstallPath(gameInfo)
-  }, [gameInfo])
-
-  const onBrowsePrefix = useCallback(async () => {
-    await window.api.browsePrefixPath(gameInfo)
-  }, [gameInfo])
-
   const items: Item[] = [
     {
       // remove from install queue
@@ -371,16 +359,6 @@ const GameCard = ({
       label: t('button.uninstall'),
       onclick: onUninstallClick,
       show: isInstalled && !isUpdating && !isPlaying
-    },
-    {
-      label: t('button.browse_files', 'Browse Files'),
-      onclick: onBrowseFiles,
-      show: isInstalled
-    },
-    {
-      label: t('button.browse_wine_prefix', 'Browse Wine Prefix'),
-      onclick: onBrowsePrefix,
-      show: isInstalled && !isNative
     }
   ]
 

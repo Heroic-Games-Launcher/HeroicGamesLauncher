@@ -1499,25 +1499,6 @@ ipcMain.on('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
   libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
 })
 
-ipcMain.handle('browseInstallPath', async (e, gameInfo) => {
-  const dir = gameInfo.install.executable
-    ? path.dirname(gameInfo.install.executable)
-    : gameInfo.install.install_path
-
-  if (dir) {
-    await shell.openPath(dir)
-  }
-})
-
-ipcMain.handle('browsePrefixPath', async (e, gameInfo) => {
-  const gameSettings = await gameManagerMap[gameInfo.runner].getSettings(
-    gameInfo.app_name
-  )
-  if (gameSettings?.winePrefix) {
-    await shell.openPath(gameSettings.winePrefix)
-  }
-})
-
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')

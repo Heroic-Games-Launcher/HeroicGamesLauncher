@@ -155,20 +155,6 @@ function getPreferredInstallLanguage(
   return availableLanguages[0]
 }
 
-function isNativeGame(
-  gameInfo: GameInfo,
-  platform: NodeJS.Platform | 'unknown'
-) {
-  const isInstallPlatformWindows =
-    gameInfo.install.platform?.toLowerCase().startsWith('win') ?? false
-  return (
-    platform === 'win32' ||
-    !isInstallPlatformWindows ||
-    ((platform === 'linux') === gameInfo.is_linux_native &&
-      (platform === 'darwin') === gameInfo.is_mac_native)
-  )
-}
-
 export {
   createNewWindow,
   getGameInfo,
@@ -190,6 +176,5 @@ export {
   writeConfig,
   removeSpecialcharacters,
   getStoreName,
-  getPreferredInstallLanguage,
-  isNativeGame
+  getPreferredInstallLanguage
 }

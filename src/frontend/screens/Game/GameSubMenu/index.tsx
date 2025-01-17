@@ -4,7 +4,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import { GameInfo, GameStatus, Runner } from 'common/types'
 
-import { createNewWindow, isNativeGame, repair } from 'frontend/helpers'
+import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
@@ -50,7 +50,7 @@ export default function GamesSubmenu({
     showDialogModal,
     setIsSettingsModalOpen
   } = useContext(ContextProvider)
-  const { is } = useContext(GameContext)
+  const { is, gameSettings } = useContext(GameContext)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -233,15 +233,22 @@ export default function GamesSubmenu({
     isInstalled &&
     !isThirdPartyManaged
 
-  const isNative = isNativeGame(gameInfo, platform)
+  const hasWine = !is.win && !is.native
 
-  const onBrowseFiles = useCallback(async () => {
-    await window.api.browseInstallPath(gameInfo)
+  const onBrowseFiles = useCallback(() => {
+    const path = gameInfo.install.install_path || gameInfo.folder_name
+    if (path) {
+      window.api.openFolder(path)
+    }
   }, [gameInfo])
 
-  const onBrowsePrefix = useCallback(async () => {
-    await window.api.browsePrefixPath(gameInfo)
-  }, [gameInfo])
+  const onBrowsePrefix = useCallback(() => {
+    const path = gameSettings?.winePrefix
+
+    if (path) {
+      window.api.openFolder(path)
+    }
+  }, [gameSettings])
 
   return (
     <>
@@ -395,7 +402,7 @@ export default function GamesSubmenu({
               {t('button.browse_files', 'Browse Files')}
             </button>
           )}
-          {!isNative && (
+          {hasWine && (
             <button
               onClick={async () => onBrowsePrefix()}
               className="link button is-text is-link"
