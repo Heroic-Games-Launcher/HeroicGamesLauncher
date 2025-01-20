@@ -6,6 +6,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
+import { MenuItem } from '@mui/material'
 
 const EnableFSR = () => {
   const { t } = useTranslation()
@@ -51,7 +52,9 @@ const EnableFSR = () => {
           extraClass="smaller"
         >
           {Array.from(Array(5).keys()).map((n) => (
-            <option key={n + 1}>{n + 1}</option>
+            <MenuItem key={n + 1} value={n + 1}>
+              {n + 1}
+            </MenuItem>
           ))}
         </SelectField>
       )}

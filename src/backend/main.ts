@@ -5,7 +5,6 @@ import {
   GameSettings,
   DiskSpaceData,
   StatusPromise,
-  GamepadInputEvent,
   Runner
 } from 'common/types'
 import * as path from 'path'
@@ -1282,7 +1281,11 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   const mainWindow = getMainWindow()!
 
   const { action, metadata } = args
-  const inputEvents: GamepadInputEvent[] = []
+  const inputEvents: (
+    | Electron.MouseInputEvent
+    | Electron.MouseWheelInputEvent
+    | Electron.KeyboardInputEvent
+  )[] = []
 
   /*
    * How to extend:
@@ -1367,6 +1370,32 @@ ipcMain.handle('gamepadAction', async (event, args) => {
         type: 'keyUp',
         keyCode: 'Esc'
       })
+      break
+    case 'tab':
+      inputEvents.push(
+        {
+          type: 'keyDown',
+          keyCode: 'Tab'
+        },
+        {
+          type: 'keyUp',
+          keyCode: 'Tab'
+        }
+      )
+      break
+    case 'shiftTab':
+      inputEvents.push(
+        {
+          type: 'keyDown',
+          keyCode: 'Tab',
+          modifiers: ['shift']
+        },
+        {
+          type: 'keyUp',
+          keyCode: 'Tab',
+          modifiers: ['shift']
+        }
+      )
       break
   }
 

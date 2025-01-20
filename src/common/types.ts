@@ -348,30 +348,6 @@ export interface GOGImportData {
   dlcs: string[]
 }
 
-export type GamepadInputEvent =
-  | GamepadInputEventKey
-  | GamepadInputEventWheel
-  | GamepadInputEventMouse
-
-interface GamepadInputEventKey {
-  type: 'keyDown' | 'keyUp' | 'char'
-  keyCode: string
-}
-
-interface GamepadInputEventWheel {
-  type: 'mouseWheel'
-  deltaY: number
-  x: number
-  y: number
-}
-
-interface GamepadInputEventMouse {
-  type: 'mouseDown' | 'mouseUp'
-  x: number
-  y: number
-  button: 'left' | 'middle' | 'right'
-}
-
 export interface SteamRuntime {
   path: string
   type: 'sniper' | 'scout' | 'soldier'
@@ -542,6 +518,8 @@ interface GamepadActionArgsWithoutMetadata {
     | 'back'
     | 'altAction'
     | 'esc'
+    | 'tab'
+    | 'shiftTab'
   metadata?: undefined
 }
 
