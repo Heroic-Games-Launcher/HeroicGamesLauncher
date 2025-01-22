@@ -708,7 +708,7 @@
             "automaticWinetricksFixes": "Applica correzioni note automaticamente",
             "enableHelp": "Componente aiuto",
             "cometSupport": "Supporto Comet",
-            "umuSupport": "Utilizza UMU come runtime Proton"
+            "umuSupport": "Utilizza umu come runtime Proton"
         },
         "allow_installation_broken_anticheat": {
             "label": "Permetti l'installazione dei giochi con l'anticheat bloccato o non funzionante",
@@ -952,7 +952,7 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton è una variante Wine creata da Glorious Eggroll. È il Wine consigliato da utilizzare al di fuori di Steam. Fornisce logs utili per la risoluzione dei problemi.",
-        "proton-ge": "Proton-GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi."
+        "proton-ge": "GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi."
     },
     "adtraction-locked": {
         "description": "Sembra che il dominio track.adtraction.com non si sia caricato o sia bloccato. Con adtraction, ogni acquisto che fai nel GOG store supporta finanziariamente Heroic. Valuta di rimuovere il blocco se hai voglia di contribuire.",

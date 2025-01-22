@@ -917,15 +917,15 @@ export async function downloadDefaultWine() {
   await updateWineVersionInfos(true)
   // get list of wines on wineDownloaderInfoStore
   const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
-  // use Proton-GE type if on Linux and GamePortingToolkit if on Mac
-  const release = availableWine.filter((version) => {
+  // use GE-Proton type if on Linux and GamePortingToolkit if on Mac
+  const release = availableWine.find((version) => {
     if (isLinux) {
-      return version.version.includes('Proton-GE-Proton')
+      return version.type === 'GE-Proton'
     } else if (isMac) {
-      return version.version.includes('Game-Porting-Toolkit')
+      return version.type === 'Game-Porting-Toolkit'
     }
     return false
-  })[0]
+  })
 
   if (!release) {
     logError('Could not find default wine version', LogPrefix.Backend)

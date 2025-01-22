@@ -714,7 +714,7 @@
             "enableHelp": "Abi komponent",
             "enableNewDesign": "Uus disain",
             "automaticWinetricksFixes": "Rakenda teadaolevad parandused automaatselt",
-            "umuSupport": "Kasuta UMU-d Protoni platvormina",
+            "umuSupport": "Kasuta umu-d Protoni platvormina",
             "cometSupport": "Comet tugi"
         },
         "before-launch-script-path": "Vali skript, mida käitada enne mängu käivitamist",
@@ -944,7 +944,7 @@
         "title": "Halda kategooriaid"
     },
     "wineExplanation": {
-        "proton-ge": "Proton-GE-Proton on Protoni variant, mille lõi Glorious Eggroll. See on mõeldud Steami jaoks kasutamiseks, aga mõned Steami-välised mängud võivad sellega paremini töötada. Selle tõrkeotsingu logid on enamasti kasutud.",
+        "proton-ge": "GE-Proton on Protoni variant, mille lõi Glorious Eggroll. See on mõeldud Steami jaoks kasutamiseks, aga mõned Steami-välised mängud võivad sellega paremini töötada. Selle tõrkeotsingu logid on enamasti kasutud.",
         "wine-ge": "Wine-GE-Proton on Wine'i variant, mille lõi Glorious Eggroll. See on soovitatav Wine'i versioon, mida kasutada väljaspool Steami. Selle tõrkeotsingu logid on kasulikud ja asjakohased."
     },
     "adtraction-locked": {

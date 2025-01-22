@@ -104,7 +104,9 @@ export default function WineVersionSelector() {
       }
     >
       {altWine.map(({ name }, i) => (
-        <option key={i}>{name}</option>
+        <option key={i} value={name}>
+          {name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton')}
+        </option>
       ))}
     </SelectField>
   )

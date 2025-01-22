@@ -46,7 +46,7 @@ export default function WineManager(): JSX.Element | null {
   const isLinux = platform === 'linux'
 
   const protonge: WineManagerUISettings = {
-    type: 'Proton-GE',
+    type: 'GE-Proton',
     value: 'protonge',
     enabled: isLinux
   }
@@ -117,17 +117,17 @@ export default function WineManager(): JSX.Element | null {
             <FontAwesomeIcon icon={faWarning} color={'orange'} />
             {t(
               'wineExplanation.wine-ge',
-              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of Proton-GE with the UMU launcher.'
+              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.'
             )}
           </div>
         )
-      case 'Proton-GE':
+      case 'GE-Proton':
         return (
           <div className="infoBox">
             <FontAwesomeIcon icon={faCheck} color={'green'} />
             {t(
               'wineExplanation.proton-ge',
-              'Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the UMU launcher (default in Heroic).'
+              'GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).'
             )}
           </div>
         )
