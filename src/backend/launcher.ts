@@ -684,7 +684,7 @@ async function prepareWineLaunch(
   return { success: true, envVars: envVars }
 }
 
-function readKnownFixes(appName: string, runner: Runner) {
+export function readKnownFixes(appName: string, runner: Runner) {
   const fixPath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
 
   if (!existsSync(fixPath)) return null

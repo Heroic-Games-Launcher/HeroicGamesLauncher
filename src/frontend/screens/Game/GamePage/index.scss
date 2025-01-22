@@ -916,3 +916,20 @@
   left: 0;
   right: unset;
 }
+
+.gameConfigContainer {
+  .wikiLink {
+    background: var(--status-warning);
+    color: black;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    & svg {
+      margin-inline-end: 0.5rem;
+    }
+    & a {
+      color: black;
+      text-decoration: underline;
+    }
+  }
+}
