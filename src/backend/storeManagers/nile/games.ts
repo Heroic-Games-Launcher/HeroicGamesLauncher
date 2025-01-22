@@ -28,7 +28,6 @@ import {
   logInfo,
   logsDisabled
 } from 'backend/logger/logger'
-import { isLinux, isWindows } from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
 import {
   getKnownFixesEnvVariables,
@@ -67,6 +66,7 @@ import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgam
 import { sendFrontendMessage } from 'backend/main_window'
 import setup from './setup'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
+import { isLinux, isWindows } from 'backend/constants/environment'
 
 export async function getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)

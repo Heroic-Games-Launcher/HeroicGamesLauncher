@@ -10,7 +10,7 @@ import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
-import { gogRedistPath } from 'backend/constants'
+import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',

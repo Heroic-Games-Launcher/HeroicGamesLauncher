@@ -9,10 +9,11 @@ import { DMStatus, InstallParams, Runner } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
-import { fixesPath, isWindows } from 'backend/constants'
 import path from 'path'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
+import { isWindows } from 'backend/constants/environment'
+import { fixesPath } from 'backend/constants/paths'
 
 async function installQueueElement(params: InstallParams): Promise<{
   status: DMStatus
