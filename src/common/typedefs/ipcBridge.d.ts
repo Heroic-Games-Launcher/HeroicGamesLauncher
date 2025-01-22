@@ -34,7 +34,8 @@ import {
   InstallInfo,
   WikiInfo,
   UploadedLogData,
-  RunnerCommandStub
+  RunnerCommandStub,
+  KnowFixesInfo
 } from 'common/types'
 import { GameOverride, SelectiveDownload } from 'common/types/legendary'
 import { GOGCloudSavesLocation } from 'common/types/gog'
@@ -251,6 +252,7 @@ interface AsyncIPCFunctions {
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => AntiCheatInfo | null
+  getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
   getEosOverlayStatus: () => {
     isInstalled: boolean
     version?: string

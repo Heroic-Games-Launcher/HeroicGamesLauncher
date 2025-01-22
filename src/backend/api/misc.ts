@@ -115,6 +115,8 @@ export const callTool = async (toolArgs: Tools) =>
   ipcRenderer.invoke('callTool', toolArgs)
 export const getAnticheatInfo = async (namespace: string) =>
   ipcRenderer.invoke('getAnticheatInfo', namespace)
+export const getKnownFixes = async (appName: string, runner: Runner) =>
+  ipcRenderer.invoke('getKnownFixes', appName, runner)
 
 export const clipboardReadText = async () =>
   ipcRenderer.invoke('clipboardReadText')

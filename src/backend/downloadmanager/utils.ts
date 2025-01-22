@@ -9,7 +9,7 @@ import { DMStatus, InstallParams, Runner } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
-import { fixesPath, isWindows } from 'backend/constants'
+import { fixesPath } from 'backend/constants'
 import path from 'path'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
@@ -74,9 +74,7 @@ async function installQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    if (!isWindows) {
-      downloadFixesFor(appName, runner)
-    }
+    downloadFixesFor(appName, runner)
 
     const { status, error } = await gameManagerMap[runner].install(appName, {
       path: path.replaceAll("'", ''),
