@@ -284,5 +284,6 @@
         "header": "This game is managed by a third-party application",
         "notice1": "This game is managed by a third-party application: \"{{application_name}}\"",
         "notice2": "After clicking Install, Heroic will run the application in order to complete the installation process"
-    }
+    },
+    "wikiLink": "Important information about this game, read this:&nbsp;<1>Open page</1>"
 }

@@ -769,6 +769,7 @@ export interface KnowFixesInfo {
   winetricks?: string[]
   runInPrefix?: string[]
   envVariables?: Record<string, string>
+  wikiLink?: string
 }
 
 export interface UploadedLogData {
