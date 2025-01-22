@@ -69,7 +69,7 @@ export const initGamepad = () => {
     if (controllerIsDisabled) return
 
     if (!isFocused) {
-      // ignore gamepad events if heroic is not the focused app
+      // ignore gamepad events if Heroic is not the focused app
       //
       // the browser still detects the gamepad interactions even
       // if the screen is not focused when playing a game

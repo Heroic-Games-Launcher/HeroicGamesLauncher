@@ -5,7 +5,7 @@ import { WebviewTag } from 'electron'
 electronTest('webview', async (app) => {
   const page = await app.firstWindow()
 
-  await test.step('goes back and forth inside webview and also to heroic screens', async () => {
+  await test.step('goes back and forth inside webview and also to Heroic screens', async () => {
     // we have to do this or it fails, the icon also has the same text
     await page.locator('span').filter({ hasText: 'Documentation' }).click()
 

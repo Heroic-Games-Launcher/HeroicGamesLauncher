@@ -10,7 +10,7 @@ export const initShortcuts = () => {
       // Ctrl+L or Cmd+L, show library
       // Ctrl+J or Cmd+J, download manager
       // Ctrl+K or Cmd+K, settings
-      // Ctrl+Q or Cmd+Q, quit heroic
+      // Ctrl+Q or Cmd+Q, quit Heroic
       if (['r', 'j', 'k', 'l', 'q'].includes(e.key)) {
         window.api.processShortcut(`ctrl+${e.key}`)
       }
