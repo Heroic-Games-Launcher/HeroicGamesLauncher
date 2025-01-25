@@ -153,42 +153,6 @@ parts:
       - -etc/X11
       - -etc/xdg
 
-  # alsa-mixin:
-  #   plugin: dump
-  #   source: https://github.com/diddlesnaps/snapcraft-alsa.git
-  #   source-subdir: snapcraft-assets
-  #   source-depth: 1
-  #   build-packages:
-  #     - libasound2-dev
-  #   stage-packages:
-  #     - libasound2
-  #     - libasound2-plugins
-  #     - yad
-  #   stage:
-  #     # restrict to only audio-related files - you need to ensure
-  #     # that gtk3 is staged for yad to work correctly, to prompt
-  #     # users to connect the alsa plug or proceed with pulseaudio.
-  #     #
-  #     # This helps prevent symbol conflicts in situations where
-  #     # you're using a non-default library, such as those that the
-  #     # gnome-3-34 extension for core18 provides.
-  #     - etc/asound.conf
-  #     - snap/command-chain/alsa-launch
-  #     - usr/bin/yad*
-  #     - usr/lib/*/alsa-lib
-  #     - usr/lib/*/libasound*
-  #     - usr/lib/*/libasyncns*
-  #     - usr/lib/*/libdnsfile*
-  #     - usr/lib/*/libFLAC*
-  #     - usr/lib/*/libjack*
-  #     - usr/lib/*/libpulse*
-  #     - usr/lib/*/libsamplerate*
-  #     - usr/lib/*/libsndfile*
-  #     - usr/lib/*/libspeex*
-  #     - usr/lib/*/libvorbis*
-  #     - usr/lib/*/pulseaudio
-  #     - usr/share/alsa
-
   ninja:
     after: [heroic]
     plugin: nil
@@ -331,7 +295,6 @@ parts:
       - -usr/lib/*/libLLVM*
     override-build: |
       set -eux
-      patch -p1 < $CRAFT_PROJECT_DIR/dist.patch
       if [[ -n "${http_proxy:-}" ]]; then
         export HTTP_PROXY="${http_proxy:-}"
         export HTTPS_PROXY="${http_proxy:-}"
