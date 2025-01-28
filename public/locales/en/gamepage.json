@@ -149,7 +149,7 @@
     "install": {
         "anticheat-warning": {
             "cancel": "No",
-            "disabled_installation": "The anticheat support is broken or denied and the multiplayer features will not work. The game cannot be installed. To install this game, disable this check in the advanced settings.",
+            "disabled_installation": "This game uses anticheat software that is not compatible with your operating system or the support was not enabled by the game developers. This means that the multiplayer features will not work, and there is nothing you (or the Heroic team) can do about it.<1></1><2></2>To install this game and try it anyway, go to Settings, Advanced, and check the option to allow the installation of games with broken or denied anticheat.<4></4><5></5>Note that there is no solution for this and you will risk getting banned in the game.",
             "install_anyway": "Yes (I understand the multiplayer features will not work)",
             "multiplayer_message": "The anticheat support is broken or denied. The game may open but the multiplayer features will not work. Do you want to install it anyway?",
             "ok": "Ok",

@@ -244,7 +244,7 @@
         "title": "Downloads"
     },
     "emptyLibrary": {
-        "noGames": "Your library is empty. You can <1>log in</1> using a store or click <3></3> to add one manually.",
+        "noGames": "Your library is empty.<1></1><2></2>Click <4>here</4> to log in with your Epic, GOG.com, or Amazon accounts. Then, your games will show up here in the Library.<6></6><7></7>To use games or apps from other sources, click <9></9> to add them manually.",
         "noResults": "The current filters produced no results."
     },
     "epic": {

@@ -1,5 +1,5 @@
 import './index.css'
-import React, { useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { DialogType, ButtonOptions } from 'common/types'
 interface MessageBoxModalProps {
   title: string
-  message: string
+  message: string | ReactElement
   onClose: () => void
   buttons: Array<ButtonOptions>
   type: DialogType
@@ -34,7 +34,10 @@ function decodeHTML(html: string): Array<JSX.Element> {
 const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   const { t } = useTranslation()
 
-  const message = useMemo(() => decodeHTML(props.message), [props.message])
+  const message = useMemo(() => {
+    if (typeof props.message === 'string') return decodeHTML(props.message)
+    else return props.message
+  }, [props.message])
 
   const getButtons = function () {
     const allButtons = []
