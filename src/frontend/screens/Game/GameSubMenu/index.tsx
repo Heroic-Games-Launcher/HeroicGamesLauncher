@@ -237,7 +237,6 @@ export default function GamesSubmenu({
     !is.win && !is.native && gameSettings?.wineVersion.type !== 'crossover'
 
   const onBrowseFiles = useCallback(() => {
-    console.debug({ gameInfo })
     const path = gameInfo.install.install_path || gameInfo.folder_name
 
     if (path) {
