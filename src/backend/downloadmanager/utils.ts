@@ -9,9 +9,9 @@ import { DMStatus, InstallParams, Runner } from 'common/types'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
-import { fixesPath, isWindows } from 'backend/constants'
-import path from 'path'
-import { existsSync, mkdirSync } from 'graceful-fs'
+import { fixesPath, gogdlConfigPath, isWindows } from 'backend/constants'
+import pathModule from 'path'
+import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
 
 async function installQueueElement(params: InstallParams): Promise<{
@@ -52,6 +52,13 @@ async function installQueueElement(params: InstallParams): Promise<{
       })
       return { status: 'error' }
     }
+  }
+
+  if (runner === 'gog') {
+    // Sometimes, a game manifest file already exists and that makes the installation
+    // end as soon as it's started. We have to delete the file to prevent that issue.
+    const manifestPath = pathModule.join(gogdlConfigPath, 'manifests', appName)
+    if (existsSync(manifestPath)) rmSync(manifestPath)
   }
 
   sendGameStatusUpdate({
@@ -181,7 +188,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
 
 async function downloadFixesFor(appName: string, runner: Runner) {
   const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${storeMap[runner]}/${appName}-${storeMap[runner]}.json`
-  const dest = path.join(fixesPath, `${appName}-${storeMap[runner]}.json`)
+  const dest = pathModule.join(fixesPath, `${appName}-${storeMap[runner]}.json`)
   if (!existsSync(fixesPath)) {
     mkdirSync(fixesPath, { recursive: true })
   }
