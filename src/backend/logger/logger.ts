@@ -11,13 +11,18 @@ import { backendEvents } from 'backend/backend_events'
 import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
 import { dirname, join } from 'path'
-import { formatSystemInfo, getSystemInfo } from '../utils/systeminfo'
+import {
+  formatSystemInfo,
+  getSystemInfo,
+  SystemInformation
+} from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
 import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
 import { gameAnticheatInfo } from 'backend/anticheat/utils'
+import { isUmuSupported } from 'backend/utils/compatibility_layers'
 
 export enum LogPrefix {
   General = '',
@@ -461,6 +466,31 @@ class LogWriter {
   }
 }
 
+/*
+ * If we are running on a SteamDeck's gaming mode and the game is configured to use umu,
+ * we can check the availability of the env variables added by Steam's Shared Pre-cache
+ * that are required by umu to work properly
+ *
+ * More details: https://github.com/Open-Wine-Components/umu-launcher/wiki/Frequently-asked-questions-(FAQ)#why-am-i-not-able-to-see-my-game-when-using-my-launcher-from-steam-mode-gaming-mode
+ */
+const shouldToggleShaderPreCacheOn = async (
+  info: SystemInformation | null,
+  gameSettings: GameSettings
+) => {
+  if (!info) return false
+  if (!info.steamDeckInfo.isDeck) return false
+  if (info.steamDeckInfo.mode !== 'game') return false
+  if (!(await isUmuSupported(gameSettings))) return false
+
+  // check if all of the following env variables are undefined
+  return [
+    'STEAM_COMPAT_TRANSCODED_MEDIA_PATH',
+    'STEAM_COMPAT_MEDIA_PATH',
+    'STEAM_FOSSILIZE_DUMP_PATH',
+    'DXVK_STATE_CACHE_PATH'
+  ].every((envVar) => !process.env[envVar])
+}
+
 class GameLogWriter extends LogWriter {
   gameInfo: GameInfo
 
@@ -494,9 +524,10 @@ class GameLogWriter extends LogWriter {
           `Installed in: ${installPath}\n\n`
       )
 
+      let info: SystemInformation | null = null
       try {
         // log system information
-        const info = await getSystemInfo()
+        info = await getSystemInfo()
         const systemInfo = await formatSystemInfo(info)
 
         await appendFile(this.filePath, `System Info:\n${systemInfo}\n\n`)
@@ -524,6 +555,13 @@ class GameLogWriter extends LogWriter {
           this.filePath,
           `Anticheat Status: ${antiCheatInfo.status}\n` +
             `Anticheats: ${JSON.stringify(antiCheatInfo.anticheats)}\n\n`
+        )
+      }
+
+      if (await shouldToggleShaderPreCacheOn(info, gameSettings)) {
+        await appendFile(
+          this.filePath,
+          `Warning: Steam's Shader Pre-Caching is disabled and umu is enabled. Steam's Shader Pre-cache is required by umu to work properly on the SteamDeck's Gaming mode.\n\n`
         )
       }
 
