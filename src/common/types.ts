@@ -103,6 +103,7 @@ export interface AppSettings extends GameSettings {
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
+  allowProtonExperimental: boolean
 }
 
 export type LibraryTopSectionOptions =
