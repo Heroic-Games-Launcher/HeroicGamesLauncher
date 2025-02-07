@@ -11,8 +11,16 @@ function EmptyLibraryMessage() {
 
   let message = (
     <Trans i18n={i18n} i18nKey="emptyLibrary.noGames">
-      Your library is empty. You can <NavLink to="/login">log in</NavLink> using
-      a store or click <AddGameButton /> to add one manually.
+      Your library is empty.
+      <br />
+      <br />
+      Click <NavLink to="/login">here</NavLink> to log in with your Epic,
+      GOG.com, or Amazon accounts. Then, your games will show up here in the
+      Library.
+      <br />
+      <br />
+      To use games or apps from other sources, click <AddGameButton /> to add
+      them manually.
     </Trans>
   )
 
