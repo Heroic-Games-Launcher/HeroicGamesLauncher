@@ -140,6 +140,8 @@ export const getThemeCSS = async (theme: string) =>
 
 export const getCustomThemes = async () => ipcRenderer.invoke('getCustomThemes')
 
+export const getCustomCSS = async () => ipcRenderer.invoke('getCustomCSS')
+
 export const setTitleBarOverlay = (options: TitleBarOverlay) =>
   ipcRenderer.send('setTitleBarOverlay', options)
 

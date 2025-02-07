@@ -1415,6 +1415,10 @@ ipcMain.handle('getThemeCSS', async (event, theme) => {
   return readFileSync(cssPath, 'utf-8')
 })
 
+ipcMain.handle('getCustomCSS', async () => {
+  return GlobalConfig.get().getSettings().customCSS
+})
+
 ipcMain.on('setTitleBarOverlay', (e, args) => {
   const mainWindow = getMainWindow()
   if (typeof mainWindow?.['setTitleBarOverlay'] === 'function') {

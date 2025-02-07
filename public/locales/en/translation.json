@@ -596,6 +596,9 @@
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
+        "custom_css": {
+            "warning": "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changes manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
+        },
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
@@ -778,6 +781,9 @@
         "clear-cache": "Clear Heroic Cache",
         "copiedToClipboard": "Copied to Clipboard!",
         "copyToClipboard": "Copy All Settings to Clipboard",
+        "custom_css": {
+            "title": "Custom CSS Style"
+        },
         "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
         "eacRuntime": {
             "gameModeRequired": {

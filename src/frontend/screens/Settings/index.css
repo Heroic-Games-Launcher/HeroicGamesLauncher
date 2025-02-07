@@ -231,3 +231,34 @@ a {
 .infoBox.saves-warning svg {
   padding-inline-end: 10px;
 }
+
+.customCSSArea {
+  border-radius: var(--space-3xs);
+  width: 100%;
+  min-height: 200px;
+  background: var(--input-background);
+  font-family: var(--primary-font-family), 'Noto Color Emoji';
+  font-weight: normal;
+  font-size: var(--text-md);
+  line-height: 19px;
+  color: var(--text-secondary);
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 100px;
+  padding: 0.5rem;
+}
+
+.customCSSWarning {
+  background: var(--anticheat-denied, var(--status-danger));
+  color: var(--brand-text-01);
+  text-align: start;
+  padding: var(--space-md);
+  display: flex;
+  gap: var(--space-md);
+  border-radius: var(--space-3xs);
+}
