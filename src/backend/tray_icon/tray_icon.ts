@@ -29,7 +29,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     mainWindow.show()
   })
 
-  ipcMain.on('changeLanguage', async () => {
+  backendEvents.on('languageChanged', async () => {
     await loadContextMenu()
   })
 

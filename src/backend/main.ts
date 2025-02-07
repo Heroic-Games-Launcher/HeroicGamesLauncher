@@ -145,6 +145,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import { backendEvents } from './backend_events'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -448,6 +449,8 @@ if (!gotTheLock) {
       logInfo(['Changing Language to:', language], LogPrefix.Backend)
       await i18next.changeLanguage(language)
       gameInfoStore.clear()
+      GlobalConfig.get().setSetting('language', language)
+      backendEvents.emit('languageChanged')
     })
 
     downloadAntiCheatData()
