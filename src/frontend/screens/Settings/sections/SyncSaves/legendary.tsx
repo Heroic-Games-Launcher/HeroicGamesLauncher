@@ -23,6 +23,7 @@ interface Props {
   setSavesPath: (value: string) => void
   winePrefix?: string
   syncCommands: { name: string; value: string }[]
+  featureSupported: boolean
 }
 
 export default function LegendarySyncSaves({
@@ -32,7 +33,8 @@ export default function LegendarySyncSaves({
   setAutoSyncSaves,
   isProton,
   winePrefix,
-  syncCommands
+  syncCommands,
+  featureSupported
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -60,7 +62,7 @@ export default function LegendarySyncSaves({
       setLoading(false)
       setRetry(false)
     }
-    setDefaultSaveFolder()
+    if (featureSupported) setDefaultSaveFolder()
   }, [winePrefix, isProton, retry])
 
   async function handleSync() {
@@ -73,6 +75,17 @@ export default function LegendarySyncSaves({
       }
     )
     setIsSyncing(false)
+  }
+
+  if (!featureSupported) {
+    return (
+      <div style={{ color: 'red' }}>
+        {t(
+          'settings.saves.not_supported',
+          'This game does not support Cloud Saves.'
+        )}
+      </div>
+    )
   }
 
   return (

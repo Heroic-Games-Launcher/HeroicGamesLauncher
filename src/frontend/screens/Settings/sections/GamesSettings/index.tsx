@@ -77,8 +77,8 @@ export default function GamesSettings() {
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
   const isCrossover = wineVersion?.type === 'crossover'
-  const hasCloudSaves =
-    gameInfo?.cloud_save_enabled && gameInfo.install.platform !== 'linux'
+  const showCloudSavesTab =
+    gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
 
@@ -156,7 +156,7 @@ export default function GamesSettings() {
           value="advanced"
         />
 
-        {hasCloudSaves && (
+        {showCloudSavesTab && (
           <Tab
             label={t('settings.navbar.sync', 'Cloud Saves Sync')}
             value="saves"
