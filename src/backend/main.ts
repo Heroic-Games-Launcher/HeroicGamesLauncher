@@ -145,6 +145,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { storeMap } from 'common/utils'
+import MigrationComponent from './components/migration'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -301,6 +302,9 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    const migrationComponent = new MigrationComponent()
+    await migrationComponent.applyMigrations()
+
     initLogger()
     initOnlineMonitor()
     initStoreManagers()
