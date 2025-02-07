@@ -6,7 +6,6 @@ import { removeSpecialcharacters } from '../utils'
 import { Runner, SteamInfo, WikiInfo } from 'common/types'
 import { logError, logInfo, LogPrefix } from '../logger/logger'
 import { getInfoFromAppleGamingWiki } from './applegamingwiki/utils'
-import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
 import { isMac, isLinux } from '../constants'
 import { getUmuId } from './umu/utils'
@@ -31,14 +30,12 @@ export async function getWikiGameInfo(
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
-    const [pcgamingwiki, howlongtobeat, gamesdb, applegamingwiki, umuId] =
-      await Promise.all([
-        getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
-        getHowLongToBeat(title),
-        getInfoFromGamesDB(title, appName, runner),
-        isMac ? getInfoFromAppleGamingWiki(title) : null,
-        isLinux ? getUmuId(appName, runner) : null
-      ])
+    const [pcgamingwiki, gamesdb, applegamingwiki, umuId] = await Promise.all([
+      getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
+      getInfoFromGamesDB(title, appName, runner),
+      isMac ? getInfoFromAppleGamingWiki(title) : null,
+      isLinux ? getUmuId(appName, runner) : null
+    ])
 
     let steamInfo = null
     if (isLinux) {
@@ -61,7 +58,6 @@ export async function getWikiGameInfo(
     const wikiGameInfo = {
       pcgamingwiki,
       applegamingwiki,
-      howlongtobeat,
       gamesdb,
       steamInfo,
       umuId
