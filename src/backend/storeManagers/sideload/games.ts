@@ -23,6 +23,7 @@ import { notify } from '../../dialog/dialog'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
+import { removePrefix } from 'backend/utils/uninstaller'
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -110,14 +111,9 @@ export async function uninstall({
     title,
     install: { executable }
   } = gameInfo
-  const { winePrefix } = await getSettings(appName)
 
   if (shouldRemovePrefix) {
-    logInfo(`Removing prefix ${winePrefix}`, LogPrefix.Backend)
-    if (existsSync(winePrefix)) {
-      // remove prefix if exists
-      rmSync(winePrefix, { recursive: true })
-    }
+    removePrefix(appName, 'sideload')
   }
   libraryStore.set('games', current)
 
