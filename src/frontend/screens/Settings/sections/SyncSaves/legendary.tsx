@@ -14,6 +14,7 @@ import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
+import BackupSavesAfterClosingGame from '../../components/BackupSavesAfterClosingGame'
 
 interface Props {
   autoSyncSaves: boolean
@@ -177,6 +178,8 @@ export default function LegendarySyncSaves({
               <li>{t('help.sync.part4')}</li>
             </ul>
           </InfoBox>
+
+          <BackupSavesAfterClosingGame />
         </>
       )}
     </>

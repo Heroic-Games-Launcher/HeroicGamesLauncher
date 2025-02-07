@@ -92,6 +92,7 @@ import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
+import { copySavesIntoBackup } from '../storeManagerCommon/games'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -834,6 +835,26 @@ export async function syncSaves(
     )
   }
   return fullOutput
+}
+
+export async function backupSaves(appName: string, path: string) {
+  if (!path) {
+    logError(
+      'No path provided for SavesSync, nothing to backup. Check your settings!',
+      LogPrefix.Legendary
+    )
+    return
+  }
+
+  if (!existsSync(path)) {
+    logError(
+      'Saves path does no exist, nothing to backup.',
+      LogPrefix.Legendary
+    )
+    return
+  }
+
+  copySavesIntoBackup(appName, path)
 }
 
 export async function launch(

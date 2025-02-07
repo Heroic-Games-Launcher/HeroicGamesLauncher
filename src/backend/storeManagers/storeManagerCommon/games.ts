@@ -1,17 +1,23 @@
 import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
-import { isMac, isLinux, icon } from '../../constants'
+import { isMac, isLinux, icon, savesBackupsPath } from '../../constants'
 import {
   appendGamePlayLog,
   appendWinetricksGamePlayLog,
   lastPlayLogFileLocation,
+  logError,
   logInfo,
   LogPrefix,
   logsDisabled,
   logWarning
 } from '../../logger/logger'
-import { basename, dirname } from 'path'
-import { constants as FS_CONSTANTS } from 'graceful-fs'
+import { basename, dirname, join } from 'path'
+import {
+  cpSync,
+  existsSync,
+  constants as FS_CONSTANTS,
+  mkdirSync
+} from 'graceful-fs'
 import i18next from 'i18next'
 import {
   callRunner,
@@ -275,4 +281,41 @@ export async function launchGame(
     return true
   }
   return false
+}
+
+export function copySavesIntoBackup(
+  appName: string,
+  savesPath: string,
+  subfolder?: string
+) {
+  logInfo(`Creating backup of ${savesPath} for ${appName}`)
+
+  const timeStamp = new Date().toISOString().replace(/\.\d+Z/g, '')
+  let gameBackupsFolder = join(savesBackupsPath, appName)
+
+  // support GOGs multiple save paths for a single game using the save path name as a subfolder
+  if (subfolder) gameBackupsFolder = join(gameBackupsFolder, subfolder)
+
+  if (!existsSync(gameBackupsFolder)) {
+    try {
+      mkdirSync(gameBackupsFolder, { recursive: true })
+    } catch (error) {
+      logError(`Backup folder for ${appName} could not be created.`)
+      logError(error)
+      return
+    }
+  }
+
+  try {
+    cpSync(savesPath, join(gameBackupsFolder, timeStamp.toString()), {
+      recursive: true
+    })
+
+    logInfo(`Backup of ${savesPath} for ${appName} completed.`)
+  } catch (error) {
+    logError(
+      `An error ocurred while creating a backup of the saves of ${appName}.`
+    )
+    logError(error)
+  }
 }

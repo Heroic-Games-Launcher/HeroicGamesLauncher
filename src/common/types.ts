@@ -204,6 +204,7 @@ export interface GameSettings {
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string
   disableUMU: boolean
+  backupSavesAfterClosingGame: boolean
 }
 
 export type Status =
