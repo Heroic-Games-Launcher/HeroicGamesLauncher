@@ -192,6 +192,7 @@ export interface GameSettings {
   preferSystemLibs: boolean
   showFps: boolean
   showMangohud: boolean
+  steamAppId: string //Entered as string but used as number
   targetExe: string
   useGameMode: boolean
   useSteamRuntime: boolean
