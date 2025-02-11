@@ -299,7 +299,6 @@
         "steam_path": {
             "info": "Ez az elérési út teszi lehetővé, hogy a Heroic eldöntse, melyik verziójú Protont használja a Steam, a nem steames játékok Steamhez adásához."
         },
-        "steamruntime": "Steam által biztosított egyéni programkönyvtárak, melyek segítenek a linuxos és windowsos (Proton) játékok futtatásában. Az engedélyezése javíthatja a kompatibilitást.",
         "sync": {
             "part1": "A Heroic megpróbálja megtalálni a megfelelő mentési mappát, és ez az esetek többségében működik. Ha a mappa helytelen, akkor használja a felülbíráló mezőt a módosításához.",
             "part2": "Abban az esetben, ha megváltoztatja a Wine vagy a Proton előtagmappáját, ismét ellenőrizni kell az elérési utat, mivel a Proton más előtagot (/pfx) és felhasználónevet (steamuser) használ. Tehát egyszerűen törölheti az elérési utat, hogy kijusson a szinkronizálási beállítások oldalról, és visszalépjen a Heroichoz, hogy még egyszer megpróbálja megtalálni a megfelelő előtaggal rendelkező mappát.",
@@ -693,7 +692,6 @@
         "select_theme": "Téma kiválasztása",
         "showfps": "FPS megjelenítése (DX9, 10 és 11)",
         "start-in-tray": "Indítás minimalizálva",
-        "steamruntime": "Steam futtatókörnyezet használata",
         "winecrossoverbottle": "CrossOver palack",
         "wineprefix": "Wine előtagmappa",
         "wineversion": "Wine verzió",

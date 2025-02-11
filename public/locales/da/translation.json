@@ -215,7 +215,6 @@
     },
     "help": {
         "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
-        "steamruntime": "Brugerdefinerede biblioteker leveret af Steam til at hjælpe med at køre Linux og Windows (Proton) spil. Aktivering kan forbedre kompatibiliteten.",
         "fsync": "Fsync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
         "gamemode": "Feral GameMode anvender automatiske og midlertidige tweaks til systemet, når du kører spil. Aktivering kan forbedre ydeevnen.",
         "mangohud": "MangoHUD er en overlay, der viser og overvåger FPS, temperaturer, CPU/GPU-belastning og andre systemressourcer.",
@@ -350,7 +349,6 @@
         "showfps": "Vis FPS (DX9, 10 og 11)",
         "showUnrealMarket": "Vis Unreal Marketplace (skal genstartes)",
         "start-in-tray": "Start minimeret",
-        "steamruntime": "Brug Steam Runtime",
         "winecrossoverbottle": "CrossOver flaske",
         "defaultWinePrefix": "Indstil mappe til nye vinpræfikser",
         "disable_controller": "Deaktiver heroisk navigation ved hjælp af controller",

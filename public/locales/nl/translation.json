@@ -294,7 +294,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic probeert de juiste opslagmap te raden en dit zal over het algemeen werken. wanneer dit niet werkt, gebruik de overschijf-box om het te wijzigen.",
             "part2": "Als je de prefix map voor Wine of Proton wijzigt, moet u het pad opnieuw controleren sinds Proton een ander prefix (/pfx) en gebruikersnaam (steamuser) gebruikt. u kunt dus het huidige pad wissen dat u uitkomt uit de pagina Synchronisatie-instellingen en weer terug te gaan voor Heroic om de map alweer met het juiste voorvoegsel te raden.",
@@ -640,7 +639,6 @@
         "select_theme": "Select Theme",
         "showfps": "Toon FPS (DX9, DX10 en DX11)",
         "start-in-tray": "Start Geminimaliseerd",
-        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix map",
         "wineversion": "Wine versie",

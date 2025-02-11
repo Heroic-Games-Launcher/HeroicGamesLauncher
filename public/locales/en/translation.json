@@ -346,7 +346,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic tries to guess the right save folder and this will work on the majority of cases. In case the folder is wrong, use the override box to change it.",
             "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). So you can simple erase the current path get out of the sync settings page and get back again for Heroic to guess the folder one more time with the right prefix.",
@@ -743,7 +742,6 @@
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-tray": "Start Minimized",
-        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version"

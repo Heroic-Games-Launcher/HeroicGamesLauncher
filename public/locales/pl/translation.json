@@ -297,7 +297,6 @@
         "steam_path": {
             "info": "Ta ścieżka pozwala Heroic określić jakiej wersji Proton używa Steam, do dodawania gier spoza Steam do Steama."
         },
-        "steamruntime": "Niestandardowe biblioteki dostarczane przez Steam w celu ułatwienia uruchamiania gier Windows na Linux. Włączenie poprawi kompatybilność.",
         "sync": {
             "part1": "Heroic spróbuje odgadnąć właściwy folder zapisów gier. W większości przypadków działa to prawidłowo. Jeżeli jednak folder jest nieprawidłowy, użyj pola \"Nadpisz\" aby go zmienić.",
             "part2": "W przypadku zmiany folderu prefiksu dla Wine lub Proton, będziesz musiał ponownie sprawdzić ścieżkę, ponieważ Proton używa innego prefiksu (/pfx) i nazwy użytkownika (steamuser). Możesz więc po prostu usunąć bieżącą ścieżkę, wyjść ze strony ustawień synchronizacji i wrócić ponownie, aby Heroic jeszcze raz odgadł folder z odpowiednim prefiksem.",
@@ -691,7 +690,6 @@
         "select_theme": "Wybierz Motyw",
         "showfps": "Pokaż FPS (DX9, DX10, DX11)",
         "start-in-tray": "Uruchamiaj zminimalizowany",
-        "steamruntime": "Używaj Steam Runtime",
         "winecrossoverbottle": "Butelka CrossOver",
         "wineprefix": "Folder prefiksu Wine",
         "wineversion": "Wersja Wine",

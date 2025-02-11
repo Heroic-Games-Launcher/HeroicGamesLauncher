@@ -3,7 +3,6 @@ import {
   Runner,
   WineInstallation,
   RpcClient,
-  SteamRuntime,
   Release,
   GameInfo,
   GameSettings,
@@ -25,7 +24,6 @@ import i18next, { t } from 'i18next'
 
 import {
   fixAsarPath,
-  getSteamLibraries,
   configPath,
   gamesConfigPath,
   icon,
@@ -519,55 +517,6 @@ function getFormattedOsName(): string {
     default:
       return 'Unknown OS'
   }
-}
-
-async function getSteamRuntime(
-  requestedType: SteamRuntime['type']
-): Promise<SteamRuntime> {
-  const steamLibraries = await getSteamLibraries()
-  const runtimeTypes: SteamRuntime[] = [
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_sniper/_v2-entry-point',
-      type: 'sniper',
-      args: ['--']
-    },
-    {
-      path: 'steamapps/common/SteamLinuxRuntime_soldier/_v2-entry-point',
-      type: 'soldier',
-      args: ['--']
-    },
-    {
-      path: 'ubuntu12_32/steam-runtime/run.sh',
-      type: 'scout',
-      args: []
-    }
-  ]
-  const allAvailableRuntimes: SteamRuntime[] = []
-  steamLibraries.forEach((library) => {
-    runtimeTypes.forEach(({ path, type, args }) => {
-      const fullPath = join(library, path)
-      if (existsSync(fullPath)) {
-        allAvailableRuntimes.push({ path: fullPath, type, args })
-      }
-    })
-  })
-  // Add dummy runtime at the end to not return `undefined`
-  allAvailableRuntimes.push({ path: '', type: 'scout', args: [] })
-  const requestedRuntime = allAvailableRuntimes.find(({ type }) => {
-    return type === requestedType
-  })
-  if (requestedRuntime) {
-    return requestedRuntime
-  }
-  logWarning(
-    [
-      'No runtimes of type',
-      requestedType,
-      'could be found, returning first available one'
-    ],
-    LogPrefix.Backend
-  )
-  return allAvailableRuntimes.pop()!
 }
 
 function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
@@ -1532,7 +1481,6 @@ export {
   getCometBin,
   getNileBin,
   formatEpicStoreUrl,
-  getSteamRuntime,
   constructAndUpdateRPC,
   quoteIfNecessary,
   removeQuoteIfNecessary,

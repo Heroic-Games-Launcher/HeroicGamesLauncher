@@ -298,7 +298,6 @@
         "steam_path": {
             "info": "Dieser Pfad lässt Heroic ermitteln, welche Proton-Version Steam verwendet, um Nicht-Steam-Spiele zu Steam hinzuzufügen."
         },
-        "steamruntime": "Benutzerdefinierte Bibliotheken, die von Steam bereitgestellt werden, um die Ausführung von Linux- und Windows-Spielen (Proton) zu unterstützen. Durch Aktivieren kann die Kompatibilität verbessert werden.",
         "sync": {
             "part1": "Heroic versucht, den richtigen Spielstände Ordner zu erraten, was in den meisten Fällen auch funktioniert. Falls der richtige Ordner nicht gefunden wurde, verwende das Feld, um den jetzigen Ordner zu überschreiben.",
             "part2": "Falls du den Präfix-Ordner für Wine oder Proton änderst, musst du auch den Pfad erneut überprüfen, da Proton ein anderes Präfix (/pfx) und Benutzernamen (steamuser) verwendet. Du kannst in diesem Fall den jetzigen Ordner löschen, die Synchronisations-Einstellungen verlassen und wieder zurückkehren. Heroic wird dann erneut versuchen, den Ordner erneut mit dem richtigen Präfix zu finden.",
@@ -692,7 +691,6 @@
         "select_theme": "Design",
         "showfps": "FPS anzeigen (DX9, 10 und 11)",
         "start-in-tray": "Minimiert starten",
-        "steamruntime": "Steam Runtime verwenden",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Wine-Präfix-Ordner",
         "wineversion": "Wine-Version",

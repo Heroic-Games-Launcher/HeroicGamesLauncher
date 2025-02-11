@@ -287,7 +287,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Το Heroic προσπαθεί να μαντέψει τον σωστό φάκελο αποθήκευσης και αυτό θα δουλέψει στην πλειοψηφία των περιπτώσεων. Αν ο φάκελος είναι λάθος, χρησιμοποιήστε το κουτί κατίσχυσης για να τον αλλάξετε.",
             "part2": "Αν αλλάξετε τον φάκελο προθημάτων Wine ή Proton, θα χρειαστεί να επανελέγξετε την διαδρομή, καθώς το Proton χρησιμοποιεί διαφορετικό πρόθημα (/pfx) και όνομα χρήστη (steamuser). Έτσι, μπορείτε απλά να διαγράψετε την παρούσα διαδρομή, να βγείτε έξω από την σελίδα επιλογών συγχρονισμού και να επιστρέψετε για να μαντέψει το Heroic μία ακόμη φορά τον φάκελο χρησιμοποιώντας το σωστό πρόθημα.",
@@ -599,7 +598,6 @@
         "select_theme": "Επιλογή θέματος",
         "showfps": "Ένδειξη ταχύτητας καρέ (DX9, 10 και 11)",
         "start-in-tray": "Ελαχιστοποιημένη Έναρξη",
-        "steamruntime": "Χρήση Steam Runtime",
         "winecrossoverbottle": "CrossOver Περιβάλλον",
         "wineprefix": "Φάκελος Προθημάτων Wine",
         "wineversion": "Έκδοση Wine",

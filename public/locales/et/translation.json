@@ -297,7 +297,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Steami pakutavad kohandatud teegid, mis aitavad käivitada Linuxi ja Windowsi (Protoni) mänge. Lubamine võib parandada ühilduvust.",
         "sync": {
             "part1": "Heroic üritab ära arvata õige salvestuskausta ja see toimib enamikul juhtudel. Juhul kui kaust on vale, kasutage selle muutmiseks override-kasti.",
             "part2": "Kui te muudate Wine'i või Proton'i prefiksi kausta, peate te tee uuesti kontrollima, kuna Proton kasutab teistsugust prefiksit (/pfx) ja kasutajanime (steamuser). Nii et võite lihtsalt kustutada praeguse faili koha, lahkuda sünkroonimise seadete lehelt ja minna uuesti tagasi, et Heroic saaks arvata veelkord kausta õige eesliitega.",
@@ -691,7 +690,6 @@
         "select_theme": "Valige teema",
         "showfps": "Näita kaadrisagedust (DX9, 10 ja 11)",
         "start-in-tray": "Käivita minimeeritult",
-        "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
         "wineprefix": "WinePrefiksi kaust",
         "wineversion": "Wine'i versioon",

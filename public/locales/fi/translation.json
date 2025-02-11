@@ -299,7 +299,6 @@
         "steam_path": {
             "info": "Tämä polku määrittää Heroic:ille mitä Proton-versiota Steam käyttää, muiden kuin Steam-pelien lisäämiseksi."
         },
-        "steamruntime": "Steam:in toimittamat erilliskirjastot jotka auttavat Linux- ja Windows -pelien ajamisessa. Päällekytkeminen saattaa parantaa yhteensopivuutta.",
         "sync": {
             "part1": "Heroic yrittää arvata oikean kansion tallenteita varten. Tämä toimii useimmissa tapauksissa. Jos kansio on väärä, vaihda se ohitusruudun avulla.",
             "part2": "Jos aiot vaihtaa Winen tai Protonin prefix-kansiota, polku tulee tarkistaa uudelleen, koska Proton käyttää toista prefixiä (/pfx) ja käyttäjänimeä (steamuser). Voit poistaa nykyisen polun synkronointiasetuksista ja antaa Heroicin arvata kansio vielä kerran oikealla prefixillä.",
@@ -640,7 +639,6 @@
         "select_theme": "Valitse teema",
         "showfps": "Näytä ruudunpäivitys (DX9, 10 ja 11)",
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
-        "steamruntime": "Käytä Steam Runtimea",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix-kansio",
         "wineversion": "Wine-versio",

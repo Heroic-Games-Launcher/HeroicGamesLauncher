@@ -300,7 +300,6 @@
         "steam_path": {
             "info": "此路径让 Heroic 确定 Steam 所用的 Proton 版本，用于添加非 Steam 游戏到 Steam。"
         },
-        "steamruntime": "Steam 提供的用于帮助运行 Linux 和 Windows（Proton）游戏的自定义库。启用可能会提高兼容性。",
         "sync": {
             "part1": "大多数情况下，Heroic 启动器会正确猜测的存档的位置。但如果位置是错误的，请使用覆盖框更改。",
             "part2": "如果你改变了 Wine 或 Proton 的文件夹，你将需要再次检查路径，因为 Proton 使用不同的前置（/pfx）和用户名（steamuser）。很简单，你可以直接删除当前的路径，离开同步设置页面再回来，Heroic 会去重新猜测正确前置的文件夹。",
@@ -694,7 +693,6 @@
         "select_theme": "选择主题",
         "showfps": "显示帧率（DX 9、10 和 11）",
         "start-in-tray": "启动时最小化",
-        "steamruntime": "使用 Steam 运行时",
         "winecrossoverbottle": "CrossOver 容器",
         "wineprefix": "WinePrefix文件夹",
         "wineversion": "Wine 版本",

@@ -276,7 +276,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic đang tìm thư mục lưu, đa phần đều đúng. Trong trường hợp Heroic tìm sai, hãy sử dụng ô ghi đè để thay đổi.",
             "part2": "Trong trường hợp bạn thay đổi thư mục prefix cho Wine hoặc Proton, bạn sẽ cần kiểm tra lại đường dẫn vì Proton sử dụng prefix (/pfx) và tên người dùng (steamuser) khác. Bạn có thể xóa đường dẫn hiện tại, thoát khỏi trang cài đặt đồng bộ và quay lại lần nữa để Heroic tìm thư mục với prefix đúng.",
@@ -588,7 +587,6 @@
         "select_theme": "chọn Theme",
         "showfps": "Hiển thị FPS (DX9, 10 và 11)",
         "start-in-tray": "Thu nhỏ khi khởi động",
-        "steamruntime": "Sử dụng Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Thư mục WinePrefix",
         "wineversion": "Phiên bản Wine",
