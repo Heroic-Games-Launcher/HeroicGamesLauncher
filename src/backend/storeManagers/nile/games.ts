@@ -25,8 +25,7 @@ import {
   logDebug,
   logError,
   logFileLocation,
-  logInfo,
-  logsDisabled
+  logInfo
 } from 'backend/logger/logger'
 import { isLinux, isWindows } from 'backend/constants'
 import { GameConfig } from 'backend/game_config'
@@ -420,6 +419,13 @@ export async function launch(
   )
   appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
 
+  if (!gameSettings.verboseLogs) {
+    appendGamePlayLog(
+      gameInfo,
+      'IMPORTANT: Logs are disabled. Enable verbose logs before reporting an issue.'
+    )
+  }
+
   sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
 
   const { error } = await runNileCommand(commandParts, {
@@ -428,7 +434,7 @@ export async function launch(
     wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput(output) {
-      if (!logsDisabled) appendGamePlayLog(gameInfo, output)
+      if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
     }
   })
 
