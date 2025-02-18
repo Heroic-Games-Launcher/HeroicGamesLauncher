@@ -443,6 +443,10 @@ async function prepareLaunch(
         }
       }
 
+      if (gameSettings.gamescope.enableForceGrabCursor) {
+        gameScopeCommand.push('--force-grab-cursor')
+      }
+
       if (gameSettings.showMangohud) {
         gameScopeCommand.push('--mangoapp')
       }

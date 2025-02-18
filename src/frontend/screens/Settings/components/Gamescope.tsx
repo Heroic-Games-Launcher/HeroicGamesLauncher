@@ -18,6 +18,7 @@ const Gamescope = () => {
   const [gamescope, setGamescope] = useSetting('gamescope', {
     enableUpscaling: false,
     enableLimiter: false,
+    enableForceGrabCursor: false,
     windowType: 'fullscreen',
     gameWidth: '',
     gameHeight: '',
@@ -361,6 +362,31 @@ const Gamescope = () => {
           />
         </div>
       )}
+      {/* Enable Force Grab Cursor*/}
+      <div className="toggleRow">
+        <ToggleSwitch
+          htmlId="gamescopeForceGrabCursorToggle"
+          value={gamescope.enableForceGrabCursor || false}
+          handleChange={() =>
+            setGamescope({
+              ...gamescope,
+              enableForceGrabCursor: !gamescope.enableForceGrabCursor
+            })
+          }
+          title={t(
+            'setting.gamescope.enableForceGrabCursor',
+            'Enable Force Grab Cursor'
+          )}
+        />
+        <FontAwesomeIcon
+          className="helpIcon"
+          icon={faCircleInfo}
+          title={t(
+            'help.gamescope.forceGrabCursor',
+            'Always use relative mouse mode instead of flipping dependent on cursor visibility. (Useful for when applications keep losing focus)'
+          )}
+        />
+      </div>
       {/* Additional Options */}
       <TextInputField
         label={t('options.gamescope.additionalOptions', 'Additional Options')}
