@@ -736,7 +736,8 @@
                 "understand": "Rozumím"
             },
             "label": "Povolit instalaci her s rozbitým nebo zakázaným anticheatem"
-        }
+        },
+        "disableUMU": "Zakázat umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -832,7 +833,7 @@
                 "help7": "Přihlášení do obchodu"
             },
             "resetHeroic": {
-                "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze programu Heroic (AppImage, WinPortable, ...) musí být po této akci ručně restartovány."
+                "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze (AppImage, WinPortable, ...) je poté nutné restartovat ručně."
             }
         }
     },
@@ -925,7 +926,9 @@
         "openGUI": "Otevřít rozhraní Winetricks",
         "search": "Hledat písma nebo komponenty",
         "nothingYet": "Pomocí Winetricks zatím nebylo nic nainstalováno",
-        "installed": "Nainstalované komponenty:"
+        "installed": "Nainstalované komponenty:",
+        "loading-available": "Načítání dostupných komponent…",
+        "no-components": "Žádné dostupné komponenty"
     },
     "window": {
         "close": "Zavřít",
