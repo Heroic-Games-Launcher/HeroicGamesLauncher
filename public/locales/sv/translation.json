@@ -924,7 +924,9 @@
         "openGUI": "Öppna Winetricks GUI",
         "search": "Sök teckensnitt eller komponenter",
         "installed": "Installerade komponenter:",
-        "nothingYet": "Inget har installerats av Winetricks ännu"
+        "nothingYet": "Inget har installerats av Winetricks ännu",
+        "loading-available": "Laddar tillgängliga komponenter...",
+        "no-components": "Inga tillgängliga komponenter"
     },
     "window": {
         "minimize": "Minimera fönstret",
