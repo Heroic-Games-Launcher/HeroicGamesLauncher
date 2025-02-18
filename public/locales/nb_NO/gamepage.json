@@ -214,6 +214,10 @@
             "title": "Legg til en tittel til spillet/programmet ditt",
             "url": "Lim inn spillets URL her",
             "useragent": "Skriv inn en egendefinert brukeragent her som skal brukes på denne nettleserappen/spillet"
+        },
+        "import-hint": {
+            "content": "IKKE bruk denne egenskapen for det. <1></1> Bruk heller, <3>logg inn på</3> butikken, let etter spillet i biblioteket ditt, åpne installasjonsdialogen, og klikk på &quot;Importer Spill&quot; knappen",
+            "title": "Viktig! Legger du til et spill fra Epic/GOG/Amazon? Klikk her!"
         }
     },
     "specs": {
