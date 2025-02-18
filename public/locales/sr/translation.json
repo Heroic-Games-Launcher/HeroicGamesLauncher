@@ -722,7 +722,8 @@
     "amazon": "Амазон",
     "Amazon Games": "Амазон игре",
     "winetricks": {
-        "install": "Инсталирај"
+        "install": "Инсталирај",
+        "loading": "Лоадинг"
     },
     "category-settings": {
         "cancel": "Откажи",

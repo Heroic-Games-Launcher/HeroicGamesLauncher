@@ -7,7 +7,9 @@
         "title": "Tilgjengelighet",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Deaktiver lukking av dialogbokser ved å klikke utenfor",
-        "titles_always_visible": "Vis alltid titler i biblioteket"
+        "titles_always_visible": "Vis alltid titler i biblioteket",
+        "content_font_family_default": "Content Font Family (Standard: {{fontFamily}})",
+        "actions_font_family_default": "Actions Font Family (Standard: {{fontFamily}}"
     },
     "add_game": "Legg til spill",
     "All": "Alle",
@@ -338,8 +340,14 @@
         "gamescope": {
             "fpsLimiter": "Antall bilder per sekund gamescope skal begrense til. F.eks. 60",
             "additionalOptions": "Ekstra kommandolinjeflagg som skal sendes til gamescope.",
-            "fpsLimiterNoFocus": "Bildefrekvensgrensen som gamescope skal begrense per sekund hvis spillet ikke er i fokus."
-        }
+            "fpsLimiterNoFocus": "Bildefrekvensgrensen som gamescope skal begrense per sekund hvis spillet ikke er i fokus.",
+            "gameHeight": "Høydeoppløsningen er brukt av spillet. Sideforholdet 16:9 er antatt av gamescope.",
+            "gameWidth": "Høydeoppløsningen er brukt av spillet. Sideforholdet 16:9 er antatt av gamescope.",
+            "upscaleHeight": "Høydeoppløsningen brukt av gamescope. Sideforholdet 16:9 er antatt.",
+            "upscaleWidth": "Breddeoppløsningen er brukt av gamescrope. Sideforholdet 16:9 er antatt.",
+            "upscaleMethod": "Oppskaleringsmetoden gamescope burde bruke."
+        },
+        "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres."
     },
     "info": {
         "heroic": {
@@ -476,7 +484,11 @@
         },
         "gameargs": {
             "placeholder": "Legg inn Launcher-argumentene her",
-            "title": "Spillargumenter (for å kjøre etter kommandoen):"
+            "title": "Spillargumenter (for å kjøre etter kommandoen):",
+            "error": {
+                "env": "Miljøvariabler må være konfigurert i tabellen under.",
+                "command": "%command% syntaksen fra Steam er ikke gyldig som spillparametre."
+            }
         },
         "quote-args-with-spaces": "Advarsel: Sørg for å sitere args med mellomrom! For eksempel: \"bane/med mellomrom/\"",
         "wrapper": {
@@ -486,6 +498,21 @@
             "placeHolderKey": "Ny wrapper",
             "placeHolderValue": "Innpakningsargumenter",
             "title": "Wrapper kommando:"
+        },
+        "gamescope": {
+            "additionalOptions": "Ytterlige alternativer",
+            "fpsLimiterNoFocus": "FPS begrenser (Ingen fokus)",
+            "nis": "NVIDIA Image Scale (NIS)",
+            "fpsLimiter": "FPS begrenser",
+            "fullscreen": "Fullskjerm",
+            "gameHeight": "Spillhøyde",
+            "gameWidth": "Spillbredde",
+            "upscaleHeight": "Oppskaler høyde",
+            "upscaleWidth": "Oppskaler bredde",
+            "windowed": "Vindu",
+            "borderless": "Grenseløs",
+            "interger": "Heltallsoppskalering",
+            "stretch": "Strekk bildet"
         }
     },
     "other": {
@@ -594,8 +621,42 @@
             "no-file": "Ingen loggfil funnet",
             "show-in-folder": "Vis loggfil i mappe",
             "upload": {
-                "actions": "Action"
-            }
+                "actions": "Action",
+                "error": {
+                    "content": "Klarte ikke å laste opp loggfilen. Sjekk Heroic sin generelle logg for detaljer",
+                    "title": "Opplasting feilet"
+                },
+                "header": "Lastet opp loggfiler",
+                "uploading": {
+                    "content": "Laster opp loggfil...",
+                    "title": "Laster opp"
+                },
+                "done": {
+                    "title": "Opplasting ferdig",
+                    "content": "Lastet opp til {{url}} (Lenken er kopiert til utklippstavlen din)"
+                },
+                "delete": "Forespør loggfil-sletting",
+                "minutes-ago": "Lastet opp {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Ingen loggfiler ble lastet opp",
+                "title": "Loggtittel",
+                "open": "Åpne loggfilsopplasting",
+                "hours-ago": "Lastet opp {{hoursAgo, relativetime(hours)}}",
+                "button": "Last opp loggfil",
+                "confirm": {
+                    "content": "Vil du virkelig laste opp \"{{name}}\"?",
+                    "title": "Last opp loggfil?"
+                },
+                "upload-date": "Opplastingsdato"
+            },
+            "descriptiveNames": {
+                "game-log": "Spillogg for {{gameTitle}}",
+                "heroic": "Generell Heroic-logg",
+                "legendary": "Epic Games- / Legendary-logg",
+                "nile": "Amazon- / Nile-logg",
+                "gog": "GOG-logg"
+            },
+            "show-uploads": "Vis opplastede loggfiler",
+            "join-heroic-discord": "Bli med i vår discord"
         },
         "mangohud": "Aktiver Mangohud (Mangohud må installeres)",
         "manualsync": {
@@ -641,7 +702,37 @@
         "disable_logs": "Deaktiver logger",
         "showMetalOverlay": "Vis statistikkoverlegg",
         "addgamestoapplications": "Legg spill til applikasjoner automatisk",
-        "alt-nile-bin": "Velg en alternativ Nile Binær"
+        "alt-nile-bin": "Velg en alternativ Nile Binær",
+        "autodxvknvapi": "Installer/Oppdater DXVK-NVAPI automatisk på Prefix-en",
+        "disablePlaytimeSync": "Skru av spilletidssynkronisering",
+        "gamescope": {
+            "enableLimiter": "Skru på FPS begrenser",
+            "missingMsg": "Vi kunne ikke finne gamescope på PATH-en. Installer den eller legg den til PATH-en.",
+            "enableUpscaling": "Skru på oppskalering"
+        },
+        "msync": "Skru på Msync",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "Er du sikker?",
+                "understand": "Jeg forstår",
+                "message": "Spill med ødelagt eller nektet anticheat kan kjøres, men flerspillersfunksjoner vil ikke fungere. Ikke spør om støtte hvis du installerer de."
+            },
+            "label": "Tillat installasjon av spill med ødelagt eller nektet anticheat"
+        },
+        "after-launch-script-path": "Velg et skript som skal kjøres etter spillet avslutter",
+        "before-launch-script-path": "Velg et skript som skal kjøres før spillet starter",
+        "experimental_features": {
+            "enableHelp": "Hjelpskomponent",
+            "cometSupport": "Comet støtte",
+            "enableNewDesign": "Nytt design"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Denne funksjonen er fortsatt eksperimentell. Vennligst rapporter eventuelle problemer på GitHub.",
+                "title": "Eksperimentell funksjon fremover"
+            },
+            "description": "Bruk rammeløst vindu (behøver omstart)"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -676,7 +767,9 @@
             "log": "Logg",
             "other": "Annen",
             "sync": "Lagre-synkronisering",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "systemInformation": "Systeminformasjon",
+            "gamescope": "Gamescope"
         },
         "open-config-file": "Åpne konfigurasjonsfil",
         "reset-heroic": "Tilbakestill Heroic",
@@ -708,6 +801,31 @@
         },
         "experimental_features": {
             "title": "Eksperimentelle funksjoner"
+        },
+        "systemInformation": {
+            "osVersion": "Versjon {{versionNumber}}",
+            "systemSpecifications": "Systemspesifikasjoner:",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "memoryStats": "{{percentUsed}}% brukt ({{usedGib}} / {{totalGib}}",
+            "os": "Operativsystem:",
+            "software": "Programvare:",
+            "steamDeck": "Steam Deck {{model}}",
+            "systemModel": "Systemmodell:",
+            "cometVersion": "Comet: {{cometVersion}}",
+            "gpuWithNumber": "GPU {{number}}:",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "memory": "Minne:",
+            "cpu": "CPU:",
+            "copyToClipboard": "Kopier til utklippstavle",
+            "nileVersion": "Nile: {{nileVersion}}",
+            "osNameFlatpak": "{{osName}} (inni Flatpak)",
+            "showDetailed": "Vis detaljert systemspesifikasjoner"
+        },
+        "gamescope": {
+            "searchMsg": "Søker etter gamescope-kjørbar fil."
+        },
+        "offline": {
+            "warning": "Dette spillet tillater ikke eksplisitt offline-modus, slå dette på ved egen risiko. Spillet fungerer kanskje ikke."
         }
     },
     "Settings": "Innstillinger",
@@ -799,7 +917,9 @@
         "installing": "Installasjon pågår: {{component}}",
         "installed": "Installerte komponenter:",
         "openGUI": "Åpne Winetricks GUI",
-        "search": "Søk etter skrifttyper eller komponenter"
+        "search": "Søk etter skrifttyper eller komponenter",
+        "loading-available": "Laster tilgjengelige komponenter ...",
+        "no-components": "Ingen tilgjengelige komponenter"
     },
     "category-settings": {
         "cancel": "Cancel",

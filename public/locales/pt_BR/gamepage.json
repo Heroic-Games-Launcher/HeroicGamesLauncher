@@ -216,6 +216,10 @@
             "title": "Adicione um título ao seu Jogo/App",
             "url": "Cole o URL do jogo aqui",
             "useragent": "Escreva aqui um \"user agent\" personalizado para ser usado neste app/jogo de navegador"
+        },
+        "import-hint": {
+            "title": "Importante! Você está adicionando um jogo da Epic/GOG/Amazon? Clique aqui!",
+            "content": "NÃO utilize essa função para isso.<1></1>Invés disso, <3>faça o login</3> na loja, procure pelo jogo em sua biblioteca, abra o diálogo de instalação, e clique no botão &quot;Import Game&quot;"
         }
     },
     "specs": {
