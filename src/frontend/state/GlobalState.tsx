@@ -365,10 +365,13 @@ class GlobalState extends PureComponent<Props> {
   removeCustomCategory = (category: string) => {
     if (!this.state.customCategories[category]) return
 
+    const numberOfCategories = this.getCustomCategories().length
     const newCustomCategories = this.state.customCategories
     delete newCustomCategories[category]
-
     this.setState({ customCategories: { ...newCustomCategories } })
+    if (numberOfCategories === 1) {
+      this.setCurrentCustomCategories(['preset_uncategorized'])
+    }
     configStore.set('games.customCategories', newCustomCategories)
   }
 
