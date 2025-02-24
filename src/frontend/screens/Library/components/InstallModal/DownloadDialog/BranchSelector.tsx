@@ -44,7 +44,7 @@ export default function BranchSelector({
               htmlId="private-branch-password-input"
               value={branchPassword}
               type={'password'}
-              onChange={(e) => setBranchPassword(e.target.value)}
+              onChange={(newValue) => setBranchPassword(newValue)}
               placeholder={t(
                 'game.branch.password',
                 'Set private channel password'

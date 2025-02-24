@@ -68,16 +68,18 @@ a {
   text-decoration: none;
 }
 
-.simple-keyboard .hg-button {
-  background: var(--osk-button-background);
-  border-color: var(--osk-button-border);
-  color: var(--text-default);
-}
+.simple-keyboard-wrapper {
+  .hg-button {
+    background: var(--osk-button-background);
+    border-color: var(--osk-button-border);
+    color: var(--text-default);
+  }
 
-.simple-keyboard .hg-button.hg-activeButton {
-  background: var(--osk-button-border);
-  border-color: var(--osk-button-border);
-  color: var(--text-default);
+  .hg-button.hg-activeButton {
+    background: var(--osk-button-border);
+    border-color: var(--osk-button-border);
+    color: var(--text-default);
+  }
 }
 
 h1,
