@@ -292,7 +292,7 @@ class GlobalConfigV0 extends GlobalConfig {
       addStartMenuShortcuts: false,
       autoInstallDxvk: isLinux,
       autoInstallVkd3d: isLinux,
-      autoInstallDxvkNvapi: false,
+      autoInstallDxvkNvapi: isLinux,
       addSteamShortcuts: false,
       preferSystemLibs: false,
       checkForUpdatesOnStartup: !isFlatpak,
