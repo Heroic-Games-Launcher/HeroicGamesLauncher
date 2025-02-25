@@ -340,7 +340,7 @@ async function prepareLaunch(
   let mangoHudCommand: string[] = []
   let gameModeBin: string | null = null
   const gameScopeCommand: string[] = []
-  if (gameSettings.showMangohud) {
+  if (gameSettings.showMangohud && !isSteamDeckGameMode) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
       return {
