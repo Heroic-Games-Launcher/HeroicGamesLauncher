@@ -111,7 +111,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards.",
                 "title": "Reset Heroic"
             }
         },
@@ -608,7 +608,7 @@
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_logs": "Disable Logs",
         "disablePlaytimeSync": "Disable playtime synchronization",
-        "disableUMU": "Disable UMU",
+        "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
@@ -767,7 +767,7 @@
             },
             "details": "Details",
             "resetHeroic": {
-                "help": "This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
+                "help": "This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of Heroic needs to be restarted manually afterwards."
             },
             "title": {
                 "clearCache": "Clear Cache",
@@ -917,8 +917,8 @@
         "size": "Size"
     },
     "wineExplanation": {
-        "proton-ge": "Proton-GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the UMU launcher (default in Heroic).",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of Proton-GE with the UMU launcher."
+        "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
+        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher."
     },
     "winetricks": {
         "install": "Install",

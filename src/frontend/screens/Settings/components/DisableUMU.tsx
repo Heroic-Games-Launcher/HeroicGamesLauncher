@@ -23,7 +23,7 @@ const DisableUMU = () => {
       htmlId="disableUMU"
       value={disableUMU}
       handleChange={() => setDisableUMU(!disableUMU)}
-      title={t('setting.disableUMU', 'Disable UMU')}
+      title={t('setting.disableUMU', 'Disable umu')}
     />
   )
 }

@@ -7,7 +7,9 @@
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż",
         "disable_dialog_backdrop_close": "Nie zamykaj okienek, gdy klikniesz poza nimi",
-        "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece"
+        "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece",
+        "actions_font_family_default": "Rodzaj czcionki menu akcji (domyślna: {{fontFamily}})",
+        "content_font_family_default": "Rodzaj czcionki treści (domyślna: {{fontFamily}})"
     },
     "add_game": "Dodaj Grę",
     "All": "Wszystkie",
@@ -708,7 +710,7 @@
             "automaticWinetricksFixes": "Zastosuj znane poprawki automatycznie",
             "enableHelp": "Element pomocy",
             "cometSupport": "Wsparcie Comet",
-            "umuSupport": "Używanie UMU jako środowiska uruchomieniowego Proton"
+            "umuSupport": "Używanie umu jako środowiska uruchomieniowego Proton"
         },
         "frameless-window": {
             "confirmation": {
@@ -938,7 +940,7 @@
         "new-category": "Nowa Kategoria"
     },
     "wineExplanation": {
-        "proton-ge": "Proton-GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użytku w Steam, lecz niektóre gry spoza Steam mogą działać lepiej przy użyciu tej wersji. W większości zapewnia bezużyteczne dzienniki do rozwiązywania problemów.",
+        "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użytku w Steam, lecz niektóre gry spoza Steam mogą działać lepiej przy użyciu tej wersji. W większości zapewnia bezużyteczne dzienniki do rozwiązywania problemów.",
         "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest to rekomendowana wersja Wine do użytku poza Steam. Zapewnia użyteczne dzienniki do rozwiązywania problemów."
     },
     "emptyLibrary": {

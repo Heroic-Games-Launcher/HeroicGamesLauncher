@@ -38,7 +38,8 @@
             "title": "Poista asennus",
             "prefix_warning": "Tämän pelin Wine-prefix on oletusprefix. Jos todella haluat poistaa sen, sinun on tehtävä se manuaalisesti.",
             "dlc": "Haluatko poistaa \"{{title}}\" (DLC) asennuksen?",
-            "cannotUninstallEpic": "Epic–peliasennusta ei voi poistaa samaan aikaan, kun toista Epic–peliä asennetaan."
+            "cannotUninstallEpic": "Epic–peliasennusta ei voi poistaa samaan aikaan, kun toista Epic–peliä asennetaan.",
+            "gameIsRunning": "{{title}} on ajossa. Sulje peli jotta voit poistaa sen asennuksen."
         },
         "update": {
             "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
@@ -106,7 +107,9 @@
             "toggle": "Pidä peli tietyssä versiossa"
         },
         "modify": "Muokkaa Asennusta",
-        "changelogFor": "{{gameTitle}} muutosloki"
+        "changelogFor": "{{gameTitle}} muutosloki",
+        "extra_info": "Lisätiedot",
+        "install_info": "Asennustiedot"
     },
     "gamecard": {
         "moving": "Siirretään",
@@ -135,7 +138,8 @@
         "game-scores": "Pelin Pisteet",
         "installedInfo": "Asennettu tiedot",
         "protondb-compatibility-info": "Protonien yhteensopivuustaso",
-        "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus"
+        "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus",
+        "third-party-app": "Hallinta kolmansien osapuolten asetuksille"
     },
     "install": {
         "disk-space-left": "Tilaa saatavilla",
@@ -280,5 +284,10 @@
             "enable": "Salli modit"
         },
         "versionCollapsable": "Pelin versio"
+    },
+    "third-party-managed": {
+        "header": "Tätä peliä hallinnoi kolmannen osapuolen sovellus",
+        "notice1": "Tätä peliä hallinnoi kolmannen osapuolen sovellus: \"{{application_name}}\"",
+        "notice2": "Napsauttaessasi Asenna, Heroic ajaa sovelluksen jotta sen asennus voidaan saattaa päätökseen"
     }
 }

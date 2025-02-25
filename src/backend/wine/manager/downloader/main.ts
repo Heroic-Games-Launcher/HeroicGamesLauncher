@@ -18,7 +18,7 @@ import {
   WINESTAGINGMACOS_URL,
   GPTK_URL
 } from './constants'
-import { VersionInfo, Repositorys } from 'common/types'
+import { VersionInfo, Repositorys, WineVersionInfo } from 'common/types'
 import {
   fetchReleases,
   getFolderSize,
@@ -68,7 +68,7 @@ async function getAvailableVersions({
       case Repositorys.PROTONGE: {
         await fetchReleases({
           url: PROTONGE_URL,
-          type: 'Proton-GE',
+          type: 'GE-Proton',
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {
@@ -163,7 +163,7 @@ async function getAvailableVersions({
 }
 
 interface installProps {
-  versionInfo: VersionInfo
+  versionInfo: WineVersionInfo
   installDir: string
   overwrite?: boolean
   onProgress?: (state: WineManagerStatus) => void
@@ -173,7 +173,7 @@ interface installProps {
 /**
  * Installs a given version to the given installation directory.
  *
- * @param versionInfo the version to install as {@link VersionInfo}
+ * @param versionInfo the version to install
  * @param installDir absolute path to installation directory
  * @param overwrite allow overwriting existing version installation
  * @defaultValue false
@@ -198,7 +198,8 @@ async function installVersion({
 
   const tarFile =
     installDir + '/' + versionInfo.download.split('/').slice(-1)[0]
-  const installSubDir = installDir + '/' + versionInfo.version
+  const installSubDir =
+    versionInfo.installDir ?? installDir + '/' + versionInfo.version
   const sourceChecksum = versionInfo.checksum
     ? (
         await axiosClient.get(versionInfo.checksum, {

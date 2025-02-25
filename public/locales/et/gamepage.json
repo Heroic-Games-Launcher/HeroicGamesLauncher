@@ -215,6 +215,10 @@
             "title": "Lisa pealkiri oma mängule/rakendusele",
             "url": "Asetage mängu URL siia",
             "useragent": "Kirjuta käsitsi User Agent siia, et kasutada seda selle brauseri äpi/mänguga"
+        },
+        "import-hint": {
+            "title": "Tähtis! Kas lisate Epic/GOG/Amazoni mängu? Kliki siia!",
+            "content": "Ärge kasutage selleks seda funktsiooni.<1></1>Selle asemel <3>logige sisse</3> poodi, otsige mäng oma varamust üles, avage paigaldusaken ja klikkige nupul &quot;Impordi mäng&quot;"
         }
     },
     "specs": {

@@ -7,7 +7,9 @@
         "title": "Accessibilità",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Disattiva la chiusura delle finestre di dialogo facendo clic all'esterno",
-        "titles_always_visible": "Mostra sempre i titoli in libreria"
+        "titles_always_visible": "Mostra sempre i titoli in libreria",
+        "actions_font_family_default": "Famiglia Font Azioni (Default: {{fontFamily}})",
+        "content_font_family_default": "Famiglia Font Contenuto (Predefinito: {{fontFamily}})"
     },
     "add_game": "Aggiungi Gioco",
     "All": "Tutto",
@@ -708,7 +710,7 @@
             "automaticWinetricksFixes": "Applica correzioni note automaticamente",
             "enableHelp": "Componente aiuto",
             "cometSupport": "Supporto Comet",
-            "umuSupport": "Utilizza UMU come runtime Proton"
+            "umuSupport": "Utilizza umu come runtime Proton"
         },
         "allow_installation_broken_anticheat": {
             "label": "Permetti l'installazione dei giochi con l'anticheat bloccato o non funzionante",
@@ -733,7 +735,8 @@
         "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",
         "disablePlaytimeSync": "Disabilita la sincronizzazione del tempo di gioco",
         "after-launch-script-path": "Seleziona uno script da eseguire all'uscita del gioco",
-        "msync": "Abilita Msync"
+        "msync": "Abilita Msync",
+        "disableUMU": "Disabilita umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -922,7 +925,9 @@
         "search": "Cerca fonts o componenti",
         "installing": "Installazione in corso: {{component}}",
         "installed": "Componenti installate:",
-        "openGUI": "Apri GUI Winetricks"
+        "openGUI": "Apri GUI Winetricks",
+        "no-components": "Nessun componente disponibile",
+        "loading-available": "Caricamento dei componenti disponibili ..."
     },
     "category-settings": {
         "cancel": "Annulla",
@@ -951,8 +956,8 @@
         "no-categories": "Ancora nessuna categoria."
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton è una variante Wine creata da Glorious Eggroll. È il Wine consigliato da utilizzare al di fuori di Steam. Fornisce logs utili per la risoluzione dei problemi.",
-        "proton-ge": "Proton-GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi."
+        "wine-ge": "È stata deprecata e sostituita da GE-Proton, utilizzabile attraverso il launcher UMU.",
+        "proton-ge": "GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi."
     },
     "adtraction-locked": {
         "description": "Sembra che il dominio track.adtraction.com non si sia caricato o sia bloccato. Con adtraction, ogni acquisto che fai nel GOG store supporta finanziariamente Heroic. Valuta di rimuovere il blocco se hai voglia di contribuire.",

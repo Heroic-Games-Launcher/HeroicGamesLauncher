@@ -115,7 +115,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "你确定要重置 Heroic 吗？这会删除所有设置和缓存但不会删除你已安装的游戏或你的 Epic 凭据。便携版本 (AppImage, WinPortable, ...) 的 heroic 需要稍后手动重启。",
+                "message": "你确定要重置 Heroic 吗？这会删除所有设置和缓存但不会删除你已安装的游戏或你的 Epic 凭据。便携版本 (AppImage, WinPortable, ...) 的 Heroic 需要稍后手动重启。",
                 "title": "重置 Heroic"
             }
         },
@@ -710,7 +710,7 @@
             "enableNewDesign": "新设计",
             "enableHelp": "帮助组件",
             "automaticWinetricksFixes": "自动应用已知的修复",
-            "umuSupport": "将 UMU 用作 Proton 运行时",
+            "umuSupport": "将 umu 用作 Proton 运行时",
             "cometSupport": "Comet 支持"
         },
         "disablePlaytimeSync": "停用游戏时间同步",
@@ -736,7 +736,8 @@
                 "message": "反作弊损坏或被拒绝的游戏可以运行，但多玩家功能不会正常运作。如果你知晓这一点但仍安装了这样的游戏，请不要寻求支持。"
             },
             "label": "允许安装反作弊损坏或被拒绝的游戏"
-        }
+        },
+        "disableUMU": "禁用 umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -925,7 +926,9 @@
         "openGUI": "打开 Winetricks 用户界面",
         "search": "搜索字体或部件",
         "nothingYet": "Winetricks 还没安装任何东西",
-        "installed": "已安装的部件："
+        "installed": "已安装的部件：",
+        "loading-available": "加载可用的部件…",
+        "no-components": "没有可用的部件"
     },
     "window": {
         "minimize": "最小化窗口",
@@ -943,7 +946,7 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Protonis 是 Glorious Eggroll 创建的 Wine 变体。它是建议用于 Steam 之外的 Wine 版本，提供对故障排除有用的日志。",
-        "proton-ge": "Proton-GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。"
+        "proton-ge": "GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。"
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
