@@ -215,6 +215,10 @@
             "title": "Adjon címet a játékának/alkalmazásának",
             "url": "Ide illessze be a játék webcímét",
             "useragent": "Írjon ide egy egyéni felhasználói ügynököt, melyet ehhez a böngészős alkalmazáshoz/játékhoz használna"
+        },
+        "import-hint": {
+            "title": "Fontos! Egy játékot adsz hozzá éppen Epic/GOG/Amazon-ról? Kattints ide!",
+            "content": "NE használja erre ezt a funkciót.<1></1>Helyette <3>jelentkezzen be</3> az áruházba, keresse meg a játékot a könyvtárában, nyissa meg a telepítési párbeszédablakot, és kattintson a „Játék importálása” gombra."
         }
     },
     "specs": {

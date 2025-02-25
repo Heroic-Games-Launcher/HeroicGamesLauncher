@@ -696,7 +696,9 @@
         "installed": "Įdiegti komponentai:",
         "installing": "Įdiegiamas vykdomas: „{{component}}“",
         "nothingYet": "Kol kas niekas nebuvo įdiegta „Winetricks“",
-        "openGUI": "Atidaryti „Winetricks“ grafinę sąsają"
+        "openGUI": "Atidaryti „Winetricks“ grafinę sąsają",
+        "loading-available": "Kraunami pasiekiami komponentai...",
+        "no-components": "Nėra pasiekiamų komponentų"
     },
     "accessibility": {
         "fonts": "Šriftai",

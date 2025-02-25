@@ -213,6 +213,10 @@
             "title": "Pridať názov k vašej Game/App",
             "url": "Sem prilepte webovú adresu hry",
             "useragent": "Sem napíšte vlastného useragenta, ktorý sa bude používať v tejto aplikácii/hre prehliadača"
+        },
+        "import-hint": {
+            "title": "Dôležité! Pridáte hru z Epic/GOG/Amazon? Kliknite tu!",
+            "content": "Nepoužívajte túto funkciu.<1></1>Namiesto, <3>log do</3> obchod, hľadať hru vo vašej knižnici, otvorte inštalačný dialóg a kliknite na \"Import Game \" tlačidlo"
         }
     },
     "specs": {

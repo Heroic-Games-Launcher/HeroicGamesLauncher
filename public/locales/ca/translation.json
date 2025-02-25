@@ -924,7 +924,9 @@
         "openGUI": "Obre la interfície del Winetricks",
         "search": "Cerqueu fonts o components",
         "nothingYet": "El Winetricks encara no ha instal·lat res",
-        "installed": "Components instal·lats:"
+        "installed": "Components instal·lats:",
+        "loading-available": "Es carreguen els components disponibles...",
+        "no-components": "No hi ha complements disponibles."
     },
     "window": {
         "close": "Tanca",

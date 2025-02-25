@@ -736,7 +736,8 @@
                 "understand": "Я розумію"
             },
             "label": "Дозволити встановлення ігор зі зламаним або забороненим античитом"
-        }
+        },
+        "disableUMU": "Вимкнути umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -925,7 +926,9 @@
         "openGUI": "Відкрити інтерфейс Winetricks",
         "search": "Пошук шрифтів або компонентів",
         "nothingYet": "Winetricks ще нічого не встановив",
-        "installed": "Встановлені компоненти:"
+        "installed": "Встановлені компоненти:",
+        "loading-available": "Завантаження доступних компонентів...",
+        "no-components": "Немає доступних компонентів"
     },
     "category-settings": {
         "cancel": "Скасувати",

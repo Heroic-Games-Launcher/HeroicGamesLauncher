@@ -115,7 +115,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Biztos, hogy visszaállítja Heroicot? Ez törölni fogja a gyorsítótárat és az összes beállítást, de a telepített játékait vagy az Epic-fiókját nem. A hordozható verziókat (AppImage, WinPortable, …) ezután kézileg újra kell indítani.",
+                "message": "Biztos, hogy visszaállítja Heroicot? Ez törölni fogja a gyorsítótárat és az összes beállítást, de a telepített játékait vagy az Epic-fiókját nem. A Heroic hordozható verzióit (AppImage, WinPortable, …) ezután kézileg újra kell indítani.",
                 "title": "Heroic visszaállítása"
             }
         },
@@ -734,7 +734,8 @@
             "label": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezése"
         },
         "before-launch-script-path": "Válasszon egy a játék indítása előtt futtatandó parancsfájlt",
-        "after-launch-script-path": "Válassza ki a játék kilépése után futtatandó parancsfájlt"
+        "after-launch-script-path": "Válassza ki a játék kilépése után futtatandó parancsfájlt",
+        "disableUMU": "Az umu letiltása"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -923,7 +924,9 @@
         "openGUI": "Winetricks GUI megnyitása",
         "search": "Betűkészletek vagy összetevők keresése",
         "nothingYet": "Egyelőre semmit sem telepített a Winetricks",
-        "installed": "Telepített összetevők:"
+        "installed": "Telepített összetevők:",
+        "loading-available": "Elérhető összetevők betöltése…",
+        "no-components": "Nincsenek elérhető összetevők"
     },
     "category-settings": {
         "cancel": "Mégse",
@@ -945,7 +948,7 @@
     },
     "wineExplanation": {
         "proton-ge": "A GE-Proton egy olyan Proton változat, melyet Glorious Eggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
-        "wine-ge": "A Wine-GE-Proton egy olyan Wine változat, melyet Glorious Eggroll készít. Ez az ajánlott Wine verzió a nem steames játékokhoz. Hasznos naplókat biztosít a hibakereséshez."
+        "wine-ge": "A Wine-GE-Proton egy olyan Wine változat, melyet Glorious Eggroll készít. Elavult, a GE-Proton és az umu indító váltja."
     },
     "adtraction-locked": {
         "dont-show-again": "Ne jelenítse meg újra ezt a figyelmeztetést",

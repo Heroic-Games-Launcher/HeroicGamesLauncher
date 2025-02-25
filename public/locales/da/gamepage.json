@@ -27,7 +27,9 @@
             "title": "Afinstaller",
             "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
             "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt.",
-            "dlc": "Vil du afinstallere denne DLC?"
+            "dlc": "Vil du afinstallere denne DLC?",
+            "gameIsRunning": "{{title}} kører. Luk spillet for at afinstallere det.",
+            "cannotUninstallEpic": "Epic games kan ikke blive afinstalleret imens et andet Epic spil er ved at blive installeret."
         },
         "update": {
             "title": "Spillet skal opdateres",
@@ -45,7 +47,8 @@
         },
         "sideload": {
             "exe": "Vælg Eksekverbar"
-        }
+        },
+        "close": "Luk"
     },
     "button": {
         "cancel": "Pause/Afbryd",
@@ -71,7 +74,8 @@
         "sideload": {
             "edit": "Rediger app/spil"
         },
-        "details": "detaljer"
+        "details": "detaljer",
+        "changelog": "Vis changelog"
     },
     "disabled": "Slå Fra",
     "dlc": {
@@ -95,11 +99,20 @@
         "getting-install-size": "Får installationsstørrelse",
         "dlcs": "DLC'er",
         "branch": {
-            "disabled": "Slå Fra"
+            "disabled": "Slå Fra",
+            "select": "Vælg beta kanal",
+            "password": "Sæt private kanals kodeord",
+            "setPrivateBranchPassword": "Sæt private kanals kodeord"
         },
         "builds": {
-            "version": "Version"
-        }
+            "version": "Version",
+            "buildsSelector": "Vælg spil version",
+            "toggle": "Hold spillet ved en bestemt version"
+        },
+        "extra_info": "Ekstra info",
+        "install_info": "Installations infomation",
+        "modify": "Ændre installation",
+        "changelogFor": "Ændringslog for {{gameTitle}}"
     },
     "gamecard": {
         "moving": "Flytter",
@@ -117,7 +130,8 @@
         "game-scores": "Spilscore",
         "installedInfo": "Installeret information",
         "protondb-compatibility-info": "Protonkompatibilitetsniveau",
-        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet"
+        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
+        "third-party-app": "Tredjeparts-manager"
     },
     "install": {
         "path": "Vælg Installations Sti",
@@ -126,7 +140,16 @@
         "wineversion": "Wine version",
         "space-after-install": "Efter installation",
         "disk-space-left": "Ledig diskplads",
-        "path-not-writtable": "Advarsel: Sti er muligvis ikke skrivebar."
+        "path-not-writtable": "Advarsel: Sti er muligvis ikke skrivebar.",
+        "anticheat-warning": {
+            "install_anyway": "Ja (jeg forstår, at multiplayer-funktionerne ikke vil fungere)",
+            "ok": "Ok",
+            "multiplayer_message": "Anticheat-support virker ikke eller afvist. Spillet kan åbnes, men multiplayer-funktionerne virker ikke. Vil du installere det alligevel?",
+            "cancel": "Nej",
+            "title": "Anticheat Dysfunktionel/Afvist",
+            "disabled_installation": "Anticheat understøttelsen er dysfunktionel eller afvist. Multiplayer funktionaliteten vil ikke fungere. Spillet kan ikke installeres. For at installere dette spil skal denne mulighed deaktivere i de avancerede indstillinger."
+        },
+        "flatpak-path-not-writtable": "Fejl: Sandboxens tilgang til denne sti er ikke givet. Tab af data vil forkomme."
     },
     "label": {
         "playing": {
@@ -141,7 +164,9 @@
             "not-installable-game": "Spillet kan IKKE installeres"
         },
         "launching": "Lancering",
-        "ubisoft": "Installation af Ubisoft Connect"
+        "ubisoft": "Installation af Ubisoft Connect",
+        "redist": "Installere Redistributables",
+        "winetricks": "Installere Winetricks pakker"
     },
     "launch": {
         "options": "Opstartsinstillinger..."
@@ -178,7 +203,9 @@
         "downloading": "Downloader",
         "extracting": "Udvinding",
         "gog-goodie": "Dette spil ser ikke ud til at kunne installeres. Tjek downloadbart indhold på https://gog.com/account",
-        "goodie": "Kan ikke installeres"
+        "goodie": "Kan ikke installeres",
+        "winetricks": "Tilføjer Winetricks løsninger",
+        "redist": "Installerer Redistributables ({{redist}})"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -195,7 +222,8 @@
         "disableEosOverlay": "Deaktiver EOS Overlay",
         "enableEosOverlay": "Aktiver EOS Overlay",
         "extraInfo": "Ekstra info",
-        "logs": "Logs"
+        "logs": "Logs",
+        "categories": "Kategorier"
     },
     "generic": {
         "error": "Ukendt fejl",
@@ -224,17 +252,26 @@
             "exe": "Vælg Eksekverbar",
             "image": "App billede",
             "title": "Spil/App titel",
-            "broser": "BrowserURL"
+            "broser": "BrowserURL",
+            "fullscreen": "Åbn fuld skærm (F11 for at afslutte)",
+            "useragent": "Brugerdefineret User Agent"
         },
         "placeholder": {
             "image": "Indsæt en billed-URL her",
             "title": "Tilføj en titel til dit spil/app",
-            "url": "Indsæt spillets URL her"
+            "url": "Indsæt spillets URL her",
+            "useragent": "Skriv en brugerdefineret agent, der kan bruger i denne browser app/spil"
+        },
+        "import-hint": {
+            "content": "Brug IKKE denne funktionalitet til dettte. .<1></1>Istedet, skal du <3>logge ind</3> butikken, finde spillet i dit biblotek, åben installationsdialogkassen og kikke &quot;Import Game&quot; knappen",
+            "title": "Vigtigt! Vil du tilfølge et spil fra Epic/GOG/Amazon? Klik her!"
         }
     },
     "setting": {
         "use-default-wine-settings": "Brug standard vinindstillinger",
-        "winecrossoverbottle": "CrossOver flaske"
+        "winecrossoverbottle": "CrossOver flaske",
+        "show-wine-settings": "Vis Wine indstillinger",
+        "warn-use-default-wine-settings": "Brug kun denne mulighed, hvis du ved hvad du laver. <br/>Deling af den samme prefeks over flere spil kan skabe problemer, hvis deres afhængigheder er inkompatible."
     },
     "hours": "Timer",
     "how-long-to-beat": {
@@ -244,6 +281,26 @@
     },
     "howLongToBeat": "Hvor længe skal man slå",
     "help": {
-        "cloud_save_unsupported": "Dette spil understøtter ikke skylagring. Disse oplysninger leveres af spiludviklerne. Nogle spil implementerer deres eget skylagringssystem"
+        "cloud_save_unsupported": "Dette spil understøtter ikke skylagring. Disse oplysninger leveres af spiludviklerne. Nogle spil implementerer deres eget skylagringssystem",
+        "content": {
+            "gamePage": "Vis alle spil detaljer og handlinger. Klik på ikonet med de tre prikker for flere muligheder."
+        },
+        "title": {
+            "gamePage": "Spilside"
+        }
+    },
+    "third-party-managed": {
+        "header": "Dette spil er administreret af en tredjeparts applikation",
+        "notice2": "Efter at have klikket på Installer, vil Heroic åbne applikationen for at fuldføre installationsprocessen",
+        "notice1": "Dette spil er administreret af en tredjeparts applikation: \"{{application_name}}\""
+    },
+    "modifyInstall": {
+        "nodlcs": "Ingen DLC tilgængelig",
+        "redMod": {
+            "collapsible": "REDmod Integration",
+            "enable": "Aktiver mods"
+        },
+        "versionCollapsable": "Spil Version",
+        "dlcsCollapsible": "DLC"
     }
 }
