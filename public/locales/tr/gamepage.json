@@ -216,6 +216,9 @@
             "title": "Oyununuza/Uygulamanıza bir başlık ekleyin",
             "url": "Oyun URL'sini buraya yapıştırın",
             "useragent": "Bu tarayıcı uygulamasında veya oyununda kullanılacak özel bir kullanıcı aracısını buraya yazın"
+        },
+        "import-hint": {
+            "title": "Önemli! Epic/GOG/Amazon mağazasından bir oyun mu ekliyorsunuz? Buraya tıklayın!"
         }
     },
     "specs": {
