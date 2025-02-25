@@ -17,6 +17,7 @@ import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
+import { gameAnticheatInfo } from 'backend/anticheat/utils'
 
 export enum LogPrefix {
   General = '',
@@ -510,11 +511,21 @@ class GameLogWriter extends LogWriter {
       const gameSettings = await gameManagerMap[runner].getSettings(app_name)
       const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
       const startPlayingDate = new Date()
+      // log anticheat info
+      const antiCheatInfo = gameAnticheatInfo(this.gameInfo.namespace)
 
       await appendFile(
         this.filePath,
         `Game Settings: ${gameSettingsString}\n\n`
       )
+
+      if (antiCheatInfo != null) {
+        await appendFile(
+          this.filePath,
+          `Anticheat Status: ${antiCheatInfo.status}\n` +
+            `Anticheats: ${JSON.stringify(antiCheatInfo.anticheats)}\n\n`
+        )
+      }
 
       await appendFile(
         this.filePath,
