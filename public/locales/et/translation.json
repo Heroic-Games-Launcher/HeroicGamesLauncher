@@ -7,7 +7,9 @@
         "title": "Ligipääsetavus",
         "zoom": "Suum",
         "disable_dialog_backdrop_close": "Keela väljaspoole klikkides dialoogakende sulgemist",
-        "titles_always_visible": "Alati näita pealkirjasid varamus"
+        "titles_always_visible": "Alati näita pealkirjasid varamus",
+        "actions_font_family_default": "Toimingute fondiperekond (Vaikimisi: {{fontFamily}})",
+        "content_font_family_default": "Sisu fondiperekond (Vaikimisi: {{fontFamily}})"
     },
     "add_game": "Lisa mäng",
     "All": "Kõik",
@@ -732,7 +734,8 @@
                 "understand": "Ma saan aru"
             },
             "label": "Luba katkiste või keelatud sohivastaste meetmetega mängude installeerimist"
-        }
+        },
+        "disableUMU": "Keela umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -921,7 +924,9 @@
         "nothingYet": "Winetricksis ei ole veel midagi paigaldatud",
         "openGUI": "Ava Winetricksi graafiline kasutajaliides",
         "installing": "Paigaldamine: {{component}}",
-        "search": "Otsi fonte või komponente"
+        "search": "Otsi fonte või komponente",
+        "loading-available": "Laen saadavalolevaid komponente ...",
+        "no-components": "Komponente pole saadaval"
     },
     "category-settings": {
         "cancel": "Tühista",
