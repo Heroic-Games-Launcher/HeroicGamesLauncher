@@ -114,7 +114,8 @@
         },
         "select": {
             "button": "Vælg",
-            "exe": "Vælg EXE"
+            "exe": "Vælg EXE",
+            "script": "Vælg script ..."
         },
         "shortcuts": {
             "message": "Genveje var oprettet på Skrivebordet og i Start Menuen",
@@ -148,12 +149,25 @@
             "wine-change": {
                 "message": "Vi kunne ikke finde den valgte vinversion til at lancere denne titel ({{selectedWine}}). {{newline}} Vi fandt endnu en, vil du fortsætte med at lancere ved hjælp af {{foundWine}}?",
                 "title": "Vin ikke fundet!"
+            },
+            "snap": {
+                "title": "Heroic kører som en Snap",
+                "checkbox": "Vis ikke denne besked igen",
+                "message": "Nogle funktionaliteter er lige nu ikke til tilgængelig i Snap versionen. Dette er noget vi prøver at fikse.{{newLine}}Nuværende begrænsninger er: {{newLine}}Heroic har ikke mulighed for at finde Proton via Steam eller Wine via Lutris.{{newLine}}{{newLine}}Gamescope, GameMode og MangoHud vil heller ikke fungere, fordi Heroic ikke har adgang til dem.{{newLine}}{{newLine}}For at have adgang til disse funktionaliteter skal du installere Heroic som en Flatpak, DEB eller en AppImage."
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Er du sikker på, at du vil stoppe?",
+                    "message": "Eventuelle ikke-gemte fremskridt kan gå tabt"
+                }
             }
         },
         "default-steam-path": "Dampvej.",
         "dontShowAgain": "Vis ikke igen",
         "choose-nile-binary": "Vælg Nile binær",
-        "update": "Opdater"
+        "update": "Opdater",
+        "changelog": "Changelog",
+        "postpone": "Udsætte"
     },
     "All": "Alle",
     "accessibility": {
@@ -164,7 +178,11 @@
         "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
         "content_font_family": "Indholdsskrifttypefamilie (standard: \"Cabin\")",
         "actions_font_family_no_default": "Actions Font Family (Standard: ",
-        "content_font_family_no_default": "Indholdsskrifttypefamilie (standard: "
+        "content_font_family_no_default": "Indholdsskrifttypefamilie (standard: ",
+        "disable_dialog_backdrop_close": "Luk nedlukningsdialoger ved at klikke uden",
+        "titles_always_visible": "Vis altid titler i biblioteket",
+        "actions_font_family_default": "Actions Skrifttypefamilie (Standard: {{fontFamily}})",
+        "content_font_family_default": "Indhold Skrifttypefamilie (Standard: {{fontFamily}})"
     },
     "info": {
         "version": "Wine Version",
@@ -257,6 +275,14 @@
         "title": {
             "accessibility": "Tilgængelighed",
             "settings": "Indstillinger"
+        },
+        "content": {
+            "customThemesPath": "Tjek vores wiki.",
+            "accessibility": "Viser tilgængelighedsindstillinger."
+        },
+        "button": {
+            "open": "Åben Hjælp",
+            "close": "Luk Hjælp"
         }
     },
     "notify": {
@@ -535,7 +561,8 @@
     "game": {
         "status": "Status",
         "store": "butik",
-        "title": "Spiltitel"
+        "title": "Spiltitel",
+        "modify": "Ændre installation"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -605,7 +632,17 @@
         "show_hidden": "Vis skjult",
         "store": "Filterbutik",
         "hide_non_available_games": "Skjul ikke-tilgængelige spil",
-        "show_available_games": "Vis ikke-tilgængelige spil"
+        "show_available_games": "Vis ikke-tilgængelige spil",
+        "categories": "Kategorier",
+        "filters": "Filtre",
+        "uncategorized": "Ikke Kategoriseret",
+        "show_third_party_managed_only": "Vis Kun Trejdeparts Administreret",
+        "only": "kun",
+        "reset": "Genindlæs",
+        "select_all": "Vælg Alle",
+        "no_categories": "Ingen brugerdefineret katagorier. Tilføj katagorier ved brug af spilmenuerne.",
+        "show_installed_only": "Vis Kun Installeret",
+        "show_support_offline_only": "Vis Kun Offline-understøttet"
     },
     "Settings": "Indstillinger",
     "sidebar": {
@@ -628,7 +665,8 @@
         "reference": "Reference",
         "source": "Kilde",
         "status": "Status",
-        "title": "Dette spil inkluderer anticheat-software"
+        "title": "Dette spil inkluderer anticheat-software",
+        "multiplayer_may_not_work": "Multiplayer-funktioner fungerer muligvis ikke på grund af afvist eller ødelagt anticheat-support."
     },
     "docs": "Dokumentation",
     "epic": {
@@ -763,6 +801,39 @@
     "Amazon Games": "Amazon spil",
     "prime-gaming": "Prime Gaming",
     "winetricks": {
-        "install": "Installer"
+        "install": "Installer",
+        "loading": "Indlæser"
+    },
+    "adtraction-locked": {
+        "description": "Det ser ud til, at domænet track.adtraction.com ikke kunne indlæses eller er blokeret. Med adtraction støtter ethvert køb, du foretager i GOG-butikken, Heroic økonomisk. Overvej at fjerne blokeringen, hvis du ønsker at bidrage.",
+        "dont-show-again": "Vis ikke denne advarsel igen",
+        "title": "Adtraction er blokeret"
+    },
+    "categories-manager": {
+        "add-placeholder": "Tilføj ny kategori",
+        "no-categories": "Ingen kategorier endnu.",
+        "rename": "Omdøb \"{{name}}\"",
+        "add": "Tilføj",
+        "cancel-rename": "Annuller omdøbelsen af \"{{name}}\"",
+        "confirm-remove": "Bekræft fjernelse af \"{{name}}\"",
+        "confirm-rename": "Bekræft omdøbelsen af \"{{oldName}}\" som \"{{newName}}\"",
+        "title": "Administrer kategorier",
+        "cancel-remove": "Annuller fjernelse af \"{{name}}\"",
+        "remove": "Fjern \"{{name}}\""
+    },
+    "window": {
+        "close": "Luk"
+    },
+    "category-settings": {
+        "remove-category": "Fjern Kategori",
+        "warning": "Advarsel",
+        "cancel": "Annuller",
+        "add-new-category": "Tilføj ny kategori",
+        "delete-question": "At fortsætte vil permanent fjerne denne kategori og afbinde den fra alle spil. Fortsæt?",
+        "new-category": "Ny Kategori"
+    },
+    "emptyLibrary": {
+        "noGames": "Dit biblotek er tom. Du kan <1>logge ind</1> igennem en butik eller ved at klikke <3></3> for manuelt at tilføje et.",
+        "noResults": "De valgte filter produceret ingen resultater."
     }
 }
