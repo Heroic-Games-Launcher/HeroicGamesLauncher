@@ -7,7 +7,9 @@
         "title": "Acessibilidade",
         "zoom": "Ampliar",
         "disable_dialog_backdrop_close": "Desativar Fechar dialogos por click fora",
-        "titles_always_visible": "Sempre mostrar titulos na Biblioteca"
+        "titles_always_visible": "Sempre mostrar titulos na Biblioteca",
+        "content_font_family_default": "Content Font Family (Predefinição: {{fontFamily}})",
+        "actions_font_family_default": "Actions Font Family (Predefinição: {{fontFamily}})"
     },
     "add_game": "Adicionar Jogo",
     "All": "Tudo",
@@ -620,8 +622,41 @@
             "show-in-folder": "Show log file in folder",
             "join-heroic-discord": "Junta-te ao nosso Discord",
             "upload": {
-                "actions": "Action"
-            }
+                "actions": "Action",
+                "minutes-ago": "Enviado há {{minutesAgo, relativetime(minutes)}}",
+                "button": "Enviar arquivo de log",
+                "delete": "Solicitar exclusão do arquivo de log",
+                "done": {
+                    "content": "Enviado para {{url}} (URL copiada para sua área de transferência)",
+                    "title": "Envio completo"
+                },
+                "error": {
+                    "title": "Envio falhou",
+                    "content": "Falha ao enviar o arquivo de log. Verifique o log geral do Heroic para detalhes"
+                },
+                "header": "Arquivos de log enviados",
+                "hours-ago": "Enviado há {{hoursAgo, relativetime(hours)}}",
+                "no-files": "Nenhum arquivo de log foi enviado",
+                "open": "Abrir arquivo de log enviado",
+                "title": "Título do log",
+                "uploading": {
+                    "content": "Enviando arquivo de log...",
+                    "title": "Enviando"
+                },
+                "confirm": {
+                    "content": "Você realmente deseja enviar \"{{name}}\"?",
+                    "title": "Enviar arquivo de log?"
+                },
+                "upload-date": "Data de envio"
+            },
+            "descriptiveNames": {
+                "nile": "Log da Amazon / Nile",
+                "gog": "Log do GOG",
+                "heroic": "Log geral do Heroic",
+                "game-log": "Log do jogo {{gameTitle}}",
+                "legendary": "Log de Epic Games / Legendary"
+            },
+            "show-uploads": "Mostrar arquivos de log enviados"
         },
         "mangohud": "Habilitar Mangohud (necessita mangohud instalado)",
         "manualsync": {
@@ -888,7 +923,9 @@
         "openGUI": "Abrir Winetricks GUI",
         "search": "Procurar fontes ou componentes",
         "nothingYet": "Ainda não foi nada instalado pelo Winetricks",
-        "installed": "Componentes instalados:"
+        "installed": "Componentes instalados:",
+        "loading-available": "Carregando componentes disponíveis...",
+        "no-components": "Nenhum componente disponível"
     },
     "category-settings": {
         "cancel": "Cancelar",
