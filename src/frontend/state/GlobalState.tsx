@@ -344,6 +344,9 @@ class GlobalState extends PureComponent<Props> {
   getCustomCategories = () =>
     Array.from(new Set(Object.keys(this.state.customCategories))).sort()
 
+  getCurrentCustomCategories = () =>
+    Array.from(new Set(this.state.currentCustomCategories)).sort()
+
   setCustomCategory = (newCategory: string) => {
     const newCustomCategories = this.state.customCategories
     newCustomCategories[newCategory] = []
@@ -365,11 +368,17 @@ class GlobalState extends PureComponent<Props> {
   removeCustomCategory = (category: string) => {
     if (!this.state.customCategories[category]) return
 
-    const numberOfCategories = this.getCustomCategories().length
     const newCustomCategories = this.state.customCategories
     delete newCustomCategories[category]
     this.setState({ customCategories: { ...newCustomCategories } })
-    if (numberOfCategories === 1) {
+
+    const updatedCategories = this.getCurrentCustomCategories().filter(
+      (cat) => cat !== category
+    )
+    this.setCurrentCustomCategories(updatedCategories)
+    const numberOfCategories = updatedCategories.length
+
+    if (numberOfCategories < 1) {
       this.setCurrentCustomCategories(['preset_uncategorized'])
     }
     configStore.set('games.customCategories', newCustomCategories)
