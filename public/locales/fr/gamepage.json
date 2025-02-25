@@ -215,6 +215,10 @@
             "title": "Ajouter un titre à votre Jeu/Application",
             "url": "Collez l'URL du jeu ici",
             "useragent": "Créer un compte utilisateur personnalisé qui sera utilisé dans ce navigateur d'application/jeu"
+        },
+        "import-hint": {
+            "title": "Important ! Ajoutez-vous un jeu provenant de Epic/GOG/Amazon ? Cliquez ici !",
+            "content": "N'utilisez PAS cette fonctionnalité pour cela. <1></1>À la place, <3>connectez-vous</3> à la boutique, recherchez le jeu dans votre bibliothèque, ouvrez la fenêtre d'installation, et cliquez sur le bouton &quot;Import Game&quot;"
         }
     },
     "specs": {

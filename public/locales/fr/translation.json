@@ -924,7 +924,9 @@
         "openGUI": "Ouvrir l'interface de Winetricks",
         "search": "Rechercher des polices de caractères ou des composants",
         "nothingYet": "Rien n'a pour l'instant été installé avec Winetricks",
-        "installed": "Composants installés :"
+        "installed": "Composants installés :",
+        "no-components": "Aucun élément n'est disponible",
+        "loading-available": "Chargement des composants disponibles …"
     },
     "category-settings": {
         "cancel": "Annuler",
