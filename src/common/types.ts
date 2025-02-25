@@ -79,6 +79,7 @@ export interface AppSettings extends GameSettings {
   autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number
+  customCSS: string
   customThemesPath: string
   customWinePaths: string[]
   darkTrayIcon: boolean

@@ -168,6 +168,7 @@ declare global {
     setTheme: (themeClass: string) => void
     isSteamDeckGameMode: boolean
     platform: NodeJS.Platform
+    setCustomCSS: (cssString: string) => void
   }
 
   interface WindowEventMap {
