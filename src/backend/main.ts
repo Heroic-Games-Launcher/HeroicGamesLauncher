@@ -24,6 +24,7 @@ import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
 import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
+import { bootstrap } from 'global-agent'
 
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
@@ -161,6 +162,8 @@ if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
+  bootstrap()
+
   createNecessaryFolders()
   configStore.set('userHome', userHome)
   const mainWindow = createMainWindow()
