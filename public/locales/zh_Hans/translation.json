@@ -737,7 +737,10 @@
             },
             "label": "允许安装反作弊损坏或被拒绝的游戏"
         },
-        "disableUMU": "禁用 umu"
+        "disableUMU": "禁用 umu",
+        "custom_css": {
+            "warning": "警告：这应用到整个前端，意味着错误样式可以造成 Heroic 不稳定。如果有需要，可以手动在 `~/.config/heroic/config.json`文件中更改设置。不要从你不信任的来源复制样式。"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -835,6 +838,9 @@
                 "resetHeroic": "重置 Heroic"
             },
             "details": "详细内容"
+        },
+        "custom_css": {
+            "title": "自定义 CSS 样式"
         }
     },
     "Settings": "设置",
