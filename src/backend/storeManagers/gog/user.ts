@@ -8,6 +8,7 @@ import { GOGCredentials, UserData } from 'common/types/gog'
 import { runRunnerCommand } from './library'
 import { gogdlAuthConfig } from 'backend/constants'
 import { clearCache } from 'backend/utils'
+import { app } from 'electron'
 
 function authLogSanitizer(line: string) {
   try {
@@ -75,7 +76,7 @@ export class GOGUser {
       .get(`https://embed.gog.com/userData.json`, {
         headers: {
           Authorization: `Bearer ${user.access_token}`,
-          'User-Agent': 'GOGGalaxyClient/2.0.45.61 (GOG Galaxy)'
+          'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
         }
       })
       .catch((error) => {
