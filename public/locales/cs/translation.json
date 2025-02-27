@@ -737,7 +737,10 @@
             },
             "label": "Povolit instalaci her s rozbitým nebo zakázaným anticheatem"
         },
-        "disableUMU": "Zakázat umu"
+        "disableUMU": "Zakázat umu",
+        "custom_css": {
+            "warning": "Varování: toto nastavení platí pro celé rozhraní. To znamená, že špatný styl může způsobit, že Heroic bude kompletně nepoužitelný. Pokud je potřeba, nastavení lze ručně změnit v souboru `~/.config/heroic/config.json`. NEKOPÍRUJTE styly ze zdrojů, kterým nevěříte."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -835,6 +838,9 @@
             "resetHeroic": {
                 "help": "Tato akce odstraní všechna nastavení a mezipaměť, ale neodstraní vaše nainstalované hry nebo přihlašovací údaje do služby Epic. Přenosné verze (AppImage, WinPortable, ...) je poté nutné restartovat ručně."
             }
+        },
+        "custom_css": {
+            "title": "Vlastní styl CSS"
         }
     },
     "Settings": "Nastavení",
