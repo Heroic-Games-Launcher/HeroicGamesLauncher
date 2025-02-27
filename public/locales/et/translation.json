@@ -459,7 +459,7 @@
     },
     "offline-message": {
         "hint": "Kontrollime ühenduvust domeenidega:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com ja{{newline}}cloudflare-dns.com",
-        "ignore": "Ignoreeritud",
+        "ignore": "Ignoreeri",
         "offline": "Võrgust väljas",
         "offline-retry-in": "Võrguühendus puudub. Proovin uuesti {{seconds}} sekundi pärast.",
         "retrying": "Proovin uuesti"
@@ -679,7 +679,7 @@
                 "message": "Süsteemis tuvastati ainult üks graafikakaart. Pange tähele, et see valik on mõeldud ainult mitme GPU-ga süsteemide jaoks, millel on 'headless' GPU-d (näiteks sülearvutid). Ühe GPU-ga süsteemidel on GPU automaatselt kasutuses, ning see valik võib tekitada probleeme. Kas soovite tõesti seda valikut lubada?",
                 "title": "Ainult 1 graafikaprotsessor tuvastatud"
             },
-            "description": "Kasuta spetsiaalset graafikakaarti"
+            "description": "Kasuta pühendatud graafikakaarti"
         },
         "runexe": {
             "message": "Lohistage failid siia",
