@@ -7,9 +7,9 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - pip install castlabs-evs
+  - ps: Install-Product node 22 x64
   - corepack enable
-  - corepack prepare pnpm@latest-9 --activate
+  - corepack prepare pnpm@9.15.0 --activate
   - pnpm install
   - pnpm download-helper-binaries
 
