@@ -83,7 +83,7 @@ async function prepareImagesForSteam(props: {
     [
       headerArt,
       props.steamID
-        ? `${steamDBBaseURL}/${props.steamID}/library_hero.jpg`
+        ? `${steamDBBaseURL}/${props.steamID}/header.jpg`
         : props.gameInfo.art_cover
     ],
     [
