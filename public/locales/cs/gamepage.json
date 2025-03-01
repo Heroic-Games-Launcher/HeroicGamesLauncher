@@ -157,7 +157,7 @@
             "install_anyway": "Ano (rozumím, že funkce hry více hráčů nebudou fungovat)",
             "multiplayer_message": "Podpora anticheatu je rozbitá nebo odmítnutá. Hra se může otevřít, ale nebudou fungovat funkce hry více hráčů. Chcete ji přesto nainstalovat?",
             "ok": "Ok",
-            "disabled_installation": "Podpora anticheatu je rozbitá nebo zakázaná a funkce hry více hráčů nebudou fungovat. Hru nelze nainstalovat. Pro nainstalování hry zakažte tuto kontrolu v pokročilých nastaveních."
+            "disabled_installation": "Tato hra používá anticheat program, který není kompatibilní s vaším operačním systémem, nebo vývojáři hry nepovolili jeho podporu. To znamená, že funkce pro více hráčů nebudou fungovat a vy (ani tým Heroic) s tím nemůžete nic udělat.<1></1><2></2>Chcete-li tuto hru přesto nainstalovat a vyzkoušet, přejděte do Nastavení, Rozšířené a zaškrtněte možnost povolit instalaci her s nefunkčním nebo zakázaným anticheatem.<4></4><5></5>Upozorňujeme, že pro tuto situaci neexistuje žádné řešení a riskujete, že budete ve hře zablokován."
         },
         "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat."
     },
@@ -295,5 +295,6 @@
         "notice2": "Po kliknutí na Instalovat spustí Heroic aplikaci, aby dokončil proces instalace",
         "header": "Tato hra je spravována aplikací třetí strany",
         "notice1": "Tato hra je spravována aplikací třetí strany: „{{application_name}}“"
-    }
+    },
+    "wikiLink": "Důležité informace o této hře si přečtěte zde:&nbsp;<1>Otevřít stránku</1>"
 }

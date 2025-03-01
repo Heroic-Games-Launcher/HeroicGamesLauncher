@@ -323,7 +323,8 @@
             "gameHeight": "Rozlišení výšky používané hrou. Gamescope předpokládá poměr stran 16:9.",
             "upscaleHeight": "Rozlišení výšky používané službou gamescope. Je předpokládán rozměr 16:9.",
             "fpsLimiter": "Počet snímků, na který by měl být omezen gamescope. Např. 60",
-            "additionalOptions": "Další vlajky příkazového řádku k použití v gamescope."
+            "additionalOptions": "Další vlajky příkazového řádku k použití v gamescope.",
+            "forceGrabCursor": "Vždy používejte relativní režim myši namísto převracení v závislosti na viditelnosti kurzoru. (Užitečné v případě, že aplikace stále ztrácejí fokus)"
         },
         "title": {
             "accessibility": "Přístupnost",
@@ -717,7 +718,8 @@
         "gamescope": {
             "enableLimiter": "Zapnout omezení FPS",
             "enableUpscaling": "Povolí upscaling",
-            "missingMsg": "V PATH jsme nenašli gamescope. Nainstalujte jej nebo jej přidejte do PATH."
+            "missingMsg": "V PATH jsme nenašli gamescope. Nainstalujte jej nebo jej přidejte do PATH.",
+            "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru"
         },
         "frameless-window": {
             "confirmation": {
@@ -740,6 +742,9 @@
         "disableUMU": "Zakázat umu",
         "custom_css": {
             "warning": "Varování: toto nastavení platí pro celé rozhraní. To znamená, že špatný styl může způsobit, že Heroic bude kompletně nepoužitelný. Pokud je potřeba, nastavení lze ručně změnit v souboru `~/.config/heroic/config.json`. NEKOPÍRUJTE styly ze zdrojů, kterým nevěříte."
+        },
+        "verboseLogs": {
+            "description": "Povolit zobrazení protokolů"
         }
     },
     "settings": {
@@ -783,7 +788,9 @@
         "reset-heroic": "Resetovat Heroic",
         "saves": {
             "label": "Umístění pro ukládání:",
-            "warning": "Funkce Cloud Saves je v Beta verzi, před synchronizací si prosím uložená data zálohujte (pro případ, že by se něco pokazilo)"
+            "warning": "Funkce Cloud Saves je v Beta verzi, před synchronizací si prosím uložená data zálohujte (pro případ, že by se něco pokazilo)",
+            "gog_linux_native_warning": "Nativní hry pro Linux nepodporují funkci Cloud Saves na GOGu. Použijte raději verzi pro Windows.",
+            "not_supported": "Tato hra nepodporuje ukládání v cloudu."
         },
         "experimental_features": {
             "title": "Experimentální funkce"
@@ -955,7 +962,7 @@
         "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
     },
     "emptyLibrary": {
-        "noGames": "Vaše knihovna je prázdná. Můžete se <1>přihlásit</1> prostřednictvím obchodu nebo kliknout na <3></3> pro jeho ruční přidání.",
+        "noGames": "Vaše knihovna je prázdná.<1></1><2></2>Klikněte <4>zde</4> a přihlaste se pomocí účtu Epic, GOG.com nebo Amazon. Poté se vaše hry zobrazí zde v knihovně.<6></6><7></7>Chcete-li používat hry nebo aplikace z jiných zdrojů, klikněte na <9></9> a přidejte je ručně.",
         "noResults": "S nastavenými filtry nebyl nalezen žádný výsledek."
     },
     "adtraction-locked": {

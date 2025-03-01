@@ -735,6 +735,13 @@
                 "understand": "Jag förstår"
             },
             "label": "Tillåt installation av spel med trasigt eller nekat antifusk"
+        },
+        "verboseLogs": {
+            "description": "Aktivera detaljerade loggar"
+        },
+        "disableUMU": "Inaktivera UMU",
+        "custom_css": {
+            "warning": "Varning: detta gäller hela frontenden. Detta betyder att fel stil kan göra att Heroic blir oanvändbar. Om det behövs kan inställningen ändras manuellt i `~/.config/heroic/config.json`. Kopiera INTE stiler from källor du inte litar på."
         }
     },
     "settings": {
@@ -833,6 +840,9 @@
             "resetHeroic": {
                 "help": "Detta tar bort alla inställningar och cachelagring men tar inte bort dina installerade spel eller dina Epic-uppgifter. Portabla versioner (AppImage, WinPortable, ...) av heroic måste startas om manuellt efteråt."
             }
+        },
+        "custom_css": {
+            "title": "Anpassad CSS Stil"
         }
     },
     "Settings": "Inställningar",
