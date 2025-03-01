@@ -169,6 +169,15 @@ export async function getLinuxWineSet(
   protonPaths.forEach((path) => {
     if (existsSync(path)) {
       readdirSync(path).forEach((version) => {
+        if (version.includes('Experimental')) {
+          if (!GlobalConfig.get().getSettings().allowProtonExperimental) {
+            logInfo(
+              'Ignoring "Proton - Experimental". You can change this in Settings > Advanced'
+            )
+            return
+          }
+        }
+
         // Only relevant to Lutris
         if (version.startsWith('UMU-Latest')) {
           return

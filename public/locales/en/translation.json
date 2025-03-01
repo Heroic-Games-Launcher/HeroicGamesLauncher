@@ -584,6 +584,14 @@
             },
             "label": "Allow installation of games with broken or denied anticheat"
         },
+        "allow_proton_experimental": {
+            "confirmation": {
+                "message": "'Proton - Experimental' is, by nature, meant for experimentation and not for stable use. Using it as a default for all games can unexpectedly break games previously working during an upgrade. Use it only if you know what you are doing.",
+                "title": "Are you sure?",
+                "understand": "Don't allow it"
+            },
+            "label": "Allow using \"Proton - Experimental\" to run games"
+        },
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
