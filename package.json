@@ -157,5 +157,10 @@
   },
   "resolutions": {
     "ts-morph": "17.0.1"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@types/node": "patches/@types__node.patch"
+    }
   }
 }
