@@ -43,7 +43,7 @@ import React, {
   useMemo,
   useState
 } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '../index'
 import { configStore } from 'frontend/helpers/electronStores'
 import DLCDownloadListing from './DLCDownloadListing'
@@ -222,9 +222,25 @@ export default function DownloadDialog({
     } else {
       showDialogModal({
         title,
-        message: t(
-          'install.anticheat-warning.disabled_installation',
-          'The anticheat support is broken or denied and the multiplayer features will not work. The game cannot be installed. To install this game, disable this check in the advanced settings.'
+        message: (
+          <Trans
+            key="install.anticheat-warning.disabled_installation"
+            i18n={i18n}
+          >
+            This game uses anticheat software that is not compatible with your
+            operating system or the support was not enabled by the game
+            developers. This means that the multiplayer features will not work,
+            and there is nothing you (or the Heroic team) can do about it.
+            <br />
+            <br />
+            To install this game and try it anyway, go to Settings, Advanced,
+            and check the option to allow the installation of games with broken
+            or denied anticheat.
+            <br />
+            <br />
+            Note that there is no solution for this and you will risk getting
+            banned in the game.
+          </Trans>
         ),
         buttons: [
           {

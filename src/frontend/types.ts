@@ -127,7 +127,7 @@ export interface ContextType {
 export type DialogModalOptions = {
   showDialog?: boolean
   title?: string
-  message?: string
+  message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
   type?: DialogType
 }
