@@ -7,7 +7,6 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - ps: Install-Product node 22 x64
   - corepack enable
   - corepack prepare pnpm@9.15.0 --activate
   - pnpm install
