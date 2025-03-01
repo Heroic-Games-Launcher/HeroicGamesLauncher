@@ -104,6 +104,7 @@ export interface AppSettings extends GameSettings {
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
+  verboseLogs: boolean
 }
 
 export type LibraryTopSectionOptions =
@@ -205,6 +206,7 @@ export interface GameSettings {
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string
   disableUMU: boolean
+  verboseLogs: boolean
 }
 
 export type Status =
