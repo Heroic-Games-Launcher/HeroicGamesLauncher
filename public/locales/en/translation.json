@@ -330,7 +330,8 @@
             "gameWidth": "The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
             "upscaleHeight": "The height resolution used by gamescope. A 16:9 aspect ratio is assumed.",
             "upscaleMethod": "The upscaling method gamescope should use.",
-            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
+            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed.",
+            "forceGrabCursor": "Always use relative mouse mode instead of flipping dependent on cursor visibility. (Useful for when applications keep losing focus)"
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
@@ -654,6 +655,7 @@
         "gamescope": {
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
+            "enableForceGrabCursor": "Enable Force Grab Cursor",
             "missingMsg": "We could not found gamescope on the PATH. Install it or add it to the PATH."
         },
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
