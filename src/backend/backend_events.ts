@@ -6,6 +6,7 @@ import type { GameStatus, RecentGame } from 'common/types'
 type BackendEvents = {
   gameStatusUpdate: (payload: GameStatus) => void
   recentGamesChanged: (recentGames: RecentGame[]) => void
+  languageChanged: () => void
   settingChanged: (obj: {
     key: string
     oldValue: unknown
