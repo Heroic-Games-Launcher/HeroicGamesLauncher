@@ -322,7 +322,8 @@ class GlobalConfigV0 extends GlobalConfig {
       framelessWindow: false,
       beforeLaunchScriptPath: '',
       afterLaunchScriptPath: '',
-      disableUMU: false
+      disableUMU: false,
+      backupSavesAfterClosingGame: true
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

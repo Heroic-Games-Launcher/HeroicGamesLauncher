@@ -234,6 +234,7 @@ class GameConfigV0 extends GameConfig {
       battlEyeRuntime,
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
+      backupSavesAfterClosingGame,
       gamescope
     } = GlobalConfig.get().getSettings()
 
@@ -266,6 +267,7 @@ class GameConfigV0 extends GameConfig {
       language: '', // we want to fallback to '' always here, fallback lang for games should be ''
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
+      backupSavesAfterClosingGame,
       gamescope
     } as GameSettings
 
