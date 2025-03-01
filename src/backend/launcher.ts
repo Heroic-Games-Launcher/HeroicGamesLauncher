@@ -94,6 +94,8 @@ import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
+import { getDefaultSavePath } from './save_sync'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 
 let powerDisplayId: number | null
 
@@ -106,7 +108,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves } = gameSettings
+  let { savesPath, gogSaves = [] } = gameSettings
 
   const { title } = game
 
@@ -127,6 +130,20 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       status: 'syncing-saves'
     })
     logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
+    //recompute save path if user never computed it
+    if (runner === 'legendary' && !savesPath) {
+      savesPath = (await getDefaultSavePath(appName, runner, [])) as string
+    } else if (
+      runner === 'gog' &&
+      (gogSaves.length === 0 ||
+        (gogSaves[0].name === '' && gogSaves[0].location === ''))
+    ) {
+      gogSaves = (await getDefaultSavePath(
+        appName,
+        runner,
+        []
+      )) as GOGCloudSavesLocation[]
+    }
     try {
       await gameManagerMap[runner].syncSaves(
         appName,
