@@ -9,7 +9,7 @@ init:
 install:
   - pip install castlabs-evs
   - corepack enable
-  - corepack prepare pnpm@latest-8 --activate
+  - corepack prepare pnpm@latest-9 --activate
   - pnpm install
   - pnpm download-helper-binaries
 
