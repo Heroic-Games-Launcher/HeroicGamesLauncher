@@ -271,7 +271,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Linux və Windows (Proton) oyunlarını idarə etməyə kömək etmək üçün Steam tərəfindən təmin edilən xüsusi kitabxanalar. Aktivləşdirmə uyğunluğu yaxşılaşdıra bilər.",
         "sync": {
             "part1": "Heroic düzgün saxlama qovluğunu təxmin etməyə çalışır və bu, əksər hallarda işləyəcək. Qovluq səhv olarsa, onu dəyişdirmək üçün dəyişdirmə qutusundan istifadə edin.",
             "part2": "Şərab və ya Proton üçün prefiks qovluğunu dəyişdirdiyiniz halda, Proton fərqli prefiks (/pfx) və istifadəçi adından (buxarlayıcı) istifadə etdiyi üçün yolu yenidən yoxlamalı olacaqsınız. Beləliklə, siz sinxronizasiya parametrləri səhifəsindən sadəcə olaraq cari yolu silə və Heroic üçün düzgün prefikslə qovluğu bir daha təxmin etmək üçün yenidən geri qayıda bilərsiniz.",
@@ -577,7 +576,6 @@
         "select_theme": "Mövzu seçin",
         "showfps": "FPS göstərin (DX9, 10 və 11)",
         "start-in-tray": "Minimallaşdırılmış başlayın",
-        "steamruntime": "Steam Runtime istifadə edin",
         "winecrossoverbottle": "Krossover şüşə",
         "wineprefix": "WinePrefix qovluğu",
         "wineversion": "Şərab versiyası",

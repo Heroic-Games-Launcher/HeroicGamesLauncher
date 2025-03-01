@@ -515,9 +515,8 @@ export async function launch(
     rpcClient,
     mangoHudCommand,
     gameScopeCommand,
-    gameModeBin,
-    steamRuntime
-  } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
+    gameModeBin
+  } = await prepareLaunch(gameSettings, gameInfo)
   if (!launchPrepSuccess) {
     appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
     launchCleanup()
@@ -546,8 +545,7 @@ export async function launch(
     gameSettings,
     mangoHudCommand,
     gameModeBin,
-    gameScopeCommand,
-    steamRuntime?.length ? [...steamRuntime] : undefined
+    gameScopeCommand
   )
 
   let wineFlag: string[] = wrappers.length

@@ -288,7 +288,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "ശരിയായ അറകള് ഭൂരിഭാഗം തവണയും ഹീറോയിക് തപ്പിക്കണ്ടുപിടിക്കാറുണ്ട്. ഇത്തവണ ഈ അറ തെറ്റാണ്, ഇത് മാറ്റാനായി മാറ്റിയെഴുത്തുകളം ഉപയോഗിക്കൂ.",
             "part2": "നിങ്ങള് വൈനിന്റെയോ പ്രോട്ടോണിന്റെയോ അറകള്(ഉപസര്ഗ്ഗം/prefix) മാറ്റി എന്നിരിക്കട്ടെ, പ്രോട്ടോണ് ഒരു വ്യത്യസ്ത ഉപസര്ഗ്ഗവും(/pref) ഉപഭോക്തൃനാമവും(streamuser) ഉപയോഗിക്കുന്നുതിനാല് അതിന്റെ പാത(path) നിങ്ങള് ഉറപ്പുവരുത്തേണ്ടിയിരിക്കുന്നു. അതിന്റെ പഴയ അറ ഇല്ലായ്മ ചെയ്തശേഷം ഒന്നിപ്പിക്കല്(syncing) താളില്നിന്നു പുറത്തിറങ്ങി വീണ്ടും കയറി ഹീറോയികിനെ പുതിയ സ്ഥലം താനെ കണ്ടെത്താന് അനുവദിക്കൂ.",
@@ -622,7 +621,6 @@
         "select_theme": "Select Theme",
         "showfps": "ചിത്രനിരക്ക് കാണിക്കൂ (DX9ലും 10ലും 11ലും)",
         "start-in-tray": "ചെറിയ കളമാക്കി തുറക്കൂ",
-        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "ക്രോസ്സോവര് കുപ്പി",
         "wineprefix": "വൈനിരിക്കുന്ന അറ",
         "wineversion": "വൈനിന്റെ പതിപ്പ്",

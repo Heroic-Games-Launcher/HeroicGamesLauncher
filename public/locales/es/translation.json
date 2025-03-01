@@ -298,7 +298,6 @@
         "steam_path": {
             "info": "Esto ayuda a Heroic a encontrar versiones de Proton instaladas en Steam y a identificar a los usuarios para agregar juegos a Steam."
         },
-        "steamruntime": "Librerías provistas por Steam para ayudar a ejecutar juegos de Linux y Windows (Proton). Activarlas puede mejorar la compatibilidad.",
         "sync": {
             "part1": "Heroic intenta adivinar la carpeta de guardado correcta y esto funcionará en la mayoría de los casos. En caso de que la carpeta sea incorrecta, use el cuadro de sobreescritura para cambiarla.",
             "part2": "En caso de que cambies la carpeta del prefijo de Wine o Proton, deberás verificar la ruta nuevamente, ya que Proton usa un prefijo (/pfx) y un nombre de usuario (steamuser) diferentes. Por lo tanto, puedes borrar la ruta actual, salir de la página de configuración de sincronización y volver para que Heroic adivine la carpeta una vez más con el prefijo correcto.",
@@ -692,7 +691,6 @@
         "select_theme": "Seleccionar Tema",
         "showfps": "Mostrar FPS (Cuadros Por Segundo) (DX9, 10 y 11)",
         "start-in-tray": "Iniciar minimizado",
-        "steamruntime": "Usar Steam Runtime",
         "winecrossoverbottle": "Botella de CrossOver",
         "wineprefix": "Carpeta de Prefijo de Wine",
         "wineversion": "Versión de Wine",

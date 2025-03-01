@@ -300,7 +300,6 @@
         "steam_path": {
             "info": "Ce chemin permet à Heroic de déterminer quelle version de Proton est utilisée par Steam, afin d'ajouter sur Steam des jeux non-Steam."
         },
-        "steamruntime": "Bibliothèques additionnelles fournies par Steam pour aider à exécuter des jeux Linux et Windows (avec Proton). Pourrait améliorer la compatibilité.",
         "sync": {
             "part1": "Heroic essaie de déterminer quel est le bon dossier de sauvegarde et cela fonctionne dans la plus part des cas. Si le dossier choisi n'est pas le bon, utilisez le champ ci-dessus pour le changer.",
             "part2": "Dans le cas où vous changez le dossier de prefix de Wine ou Proton, vous aurez besoin de revérifier ce chemin car Proton utilise un prefix différent (/pfx) et un username (steamuser). Vous pouvez simplement effacer le chemin actuel quitter la page des options pour que Heroic essaie de deviner une fois de plus le dossier avec le bon prefix.",
@@ -694,7 +693,6 @@
         "select_theme": "Sélectionner le thème",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
-        "steamruntime": "Utiliser le runtime Steam",
         "winecrossoverbottle": "Pont-Bouteille",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",

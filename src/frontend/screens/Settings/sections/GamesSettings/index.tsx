@@ -23,7 +23,6 @@ import {
   PreferedLanguage,
   PreferSystemLibs,
   ShowFPS,
-  SteamRuntime,
   UseDGPU,
   WinePrefix,
   WineVersionSelector,
@@ -198,7 +197,6 @@ export default function GamesSettings() {
         <Mangohud />
         <GameMode />
         {isLinux && <PreferSystemLibs />}
-        <SteamRuntime />
         <UseDGPU />
         {!isNative && (
           <>

@@ -300,7 +300,6 @@
         "steam_path": {
             "info": "La ruta permet que l'Heroic determini quina versió de Proton fa servir l'Steam, per a afegir jocs que no són d'Steam a l'Steam."
         },
-        "steamruntime": "Biblioteques personalitzades que proporciona l'Steam per executar jocs de Linux i de Windows (Proton). Si s'activa, podria millorar la compatibilitat.",
         "sync": {
             "part1": "L'Heroic prova d'endevinar el directori on es desen les partides, i això funcionarà a la majoria de casos. En cas que el directori no sigui el correcte, utilitza la caixa per a canviar-lo.",
             "part2": "Si canvies el directori del prefix del Wine o del Proton, hauràs de comprovar de nou la ruta perquè el Proton empra un prefix (/pfx) i nom d'usuari (steamuser) diferent. Així doncs, pots suprimir la ruta actual, sortir de la configuració de sincronització i tornar-hi de nou perquè l'Heroic pugui esbrinar el directori de nou amb el prefix correcte.",
@@ -694,7 +693,6 @@
         "select_theme": "Tema de la interfície",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "start-in-tray": "Inicia minimitzat",
-        "steamruntime": "Utilitza el Runtime de l'Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine",

@@ -314,7 +314,6 @@
         "steam_path": {
             "info": "Bu yo'l Heroic-ga Steam-ga Steam bo'lmagan o'yinlarni qo'shish uchun Proton Steam-ning qaysi versiyasidan foydalanishini aniqlash imkonini beradi."
         },
-        "steamruntime": "Linux va Windows (Proton) o'yinlarini boshqarishga yordam berish uchun Steam tomonidan taqdim etilgan maxsus kutubxonalar. Yoqish moslikni yaxshilashi mumkin.",
         "sync": {
             "part1": "Heroic to'g'ri saqlash papkasini topishga harakat qiladi va bu ko'pchilik hollarda ishlaydi. Jild noto'g'ri bo'lsa, uni o'zgartirish uchun bekor qilish qutisidan foydalaning.",
             "part2": "Agar siz Wine yoki Proton uchun prefiks jildini o'zgartirsangiz, yo'lni qayta tekshirishingiz kerak bo'ladi, chunki Proton boshqa prefiks (/pfx) va foydalanuvchi nomidan (steamuzer) foydalanadi. Shunday qilib, joriy yo'lni oddiygina o'chirib tashlashingiz va sinxronlash sozlamalari sahifasidan chiqishingiz va Heroic uchun to'g'ri prefiks bilan papkani yana bir bor taxmin qilish uchun yana qaytib kelishingiz mumkin.",
@@ -609,7 +608,6 @@
         "select_theme": "Mavzuni tanlang",
         "showfps": "FPSni ko'rsatish (DX9, 10 va 11)",
         "start-in-tray": "Minimallashtirilgan boshlang",
-        "steamruntime": "Steam Runtime dan foydalaning",
         "winecrossoverbottle": "Krossover shishasi",
         "wineprefix": "WinePrefix papkasi",
         "wineversion": "Vino versiyasi",

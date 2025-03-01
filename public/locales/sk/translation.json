@@ -299,7 +299,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic sa snaží uhádnuť správny priečinok na uloženie a to bude fungovať vo väčšine prípadov. Ak je priečinok nesprávny, zmeňte ho pomocou poľa prepísať.",
             "part2": "V prípade, že zmeníte priečinok s predponou pre Wine alebo Proton, budete musieť znova skontrolovať cestu, pretože Proton používa inú predponu (/pfx) a používateľské meno (steamuser). Môžete teda jednoducho vymazať aktuálnu cestu, dostať sa zo stránky nastavení synchronizácie a vrátiť sa späť, aby Heroic uhádol priečinok ešte raz so správnou predponou.",
@@ -693,7 +692,6 @@
         "select_theme": "Select Theme",
         "showfps": "Zobraziť FPS (DX9, 10 a 11)",
         "start-in-tray": "Start Minimized",
-        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Priečinok WinePrefix",
         "wineversion": "Wine Version",

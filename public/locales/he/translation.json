@@ -413,7 +413,6 @@
         "minimize-on-launch": "צמצם את Heroic לאחר הפעלת המשחק",
         "showfps": "הצג FPS (קצב פריימים) (DX9, 10, ו-11)",
         "start-in-tray": "התחל מצומצם",
-        "steamruntime": "השתמש בSteam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "תיקיית WinePrefix",
         "experimental_features": {
@@ -508,7 +507,6 @@
         "steam_path": {
             "info": "המיקום הזה נותן לHeroic לקבוע באיזה גרסת Proton משתמשת Steam, על מנת להוסיף משחקים שאינם מSteam לSteam."
         },
-        "steamruntime": "ספריות מותאמות אישית המסופקות על ידי Steam כדי לסייע בהפעלת משחקי Linux ו-Windows (Proton). הפעלה עשויה לשפר את התאימות.",
         "vkd3d": "VKD3D הוא שכבת תרגום מבוססת Vulkan עבור משחקי DirectX 12. הפעלה יכולה לשפר תאימות באופן משמעותי. אין השפעה על משחקי DirectX ישנים יותר.",
         "title": {
             "accessibility": "נגישות",

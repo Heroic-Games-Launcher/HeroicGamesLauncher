@@ -271,7 +271,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Steam-ek eskaintzen dituen liburutegi pertsonalizatuak Linux eta Windows (Proton) jokoak exekutatzen laguntzeko. Gaitzeak bateragarritasuna hobetu dezake.",
         "sync": {
             "part1": "Heroic ondo gordetzeko karpeta asmatzen saiatzen da, eta honek kasu gehienetan funtzionatuko du. Karpeta okerra bada, erabili baliogabetze-koadroa karpeta aldatzeko.",
             "part2": "Prefix karpeta Wine edo Proton karpeta erabiliz gero, berriro egiaztatu beharko duzu ibilbidea, Proton-ek Prefix (/pfx) bat eta erabiltzaile-izen (steamuser) bat erabiltzen baititu. Beraz, uneko ibilbidea ezaba dezakezu, sinkronizazioko konfigurazio-orritik irten eta itzuli Heroic-ek karpeta berriro ere Prefix zuzenarekin asma dezan.",
@@ -578,7 +577,6 @@
         "select_theme": "Hautatu Gaia",
         "showfps": "Erakutsi FPS (DX9, 10 eta 11)",
         "start-in-tray": "Hasi minimizatua",
-        "steamruntime": "Erabili Steam Runtime",
         "winecrossoverbottle": "CrossOver botila",
         "wineprefix": "WinePrefix karpeta",
         "wineversion": "Ardoaren Bertsioa",

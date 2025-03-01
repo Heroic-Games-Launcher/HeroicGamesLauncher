@@ -275,7 +275,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.",
         "sync": {
             "part1": "Heroic intenta adiviñar o cartafol de gardado correcto e isto funcionará na maioría dos casos. No caso de que o cartafol sexa incorrecto, use a caixa de sobrescritura para cambialo.",
             "part2": "En caso de que cambie o cartafol de Prefix para Wine ou Proton, deberá verificar a ruta novamente, xa que Proton usa un Prefix (/pfx) e un nome de usuario (steamuser) diferentes. Polo tanto, pode borrar a ruta actual, saír da páxina de configuración de sincronización e volver para que Heroic adiviñe o cartafol unha vez máis co Prefix correcto.",
@@ -588,7 +587,6 @@
         "select_theme": "Select Theme",
         "showfps": "Mostrar FPS (DX9, 10 e 11)",
         "start-in-tray": "Iniciar minimizado",
-        "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Cartafol WinePrefix",
         "wineversion": "Versión de Wine",

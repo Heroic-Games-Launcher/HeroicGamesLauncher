@@ -275,7 +275,6 @@
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
-        "steamruntime": "Biblioteci personalizate furnizate de Steam pentru a ajuta la rularea jocurilor Linux și Windows (Proton). Activarea ar putea îmbunătăți compatibilitatea.",
         "sync": {
             "part1": "Heroic încearcă să ghicească folderul de salvare corect și acest lucru va funcționa în majoritatea cazurilor. În cazul în care folderul este greșit, utilizați caseta de înlocuire pentru a-l schimba.",
             "part2": "In case you change the prefix folder for Wine or Proton, you will need to check the path again since Proton uses a different prefix (/pfx) and username (steamuser). Deci, puteți șterge simplu calea curentă, ieșiți din pagina de setări de sincronizare și reveniți din nou pentru ca Heroic să ghicească folderul încă o dată cu prefixul corect.",
@@ -584,7 +583,6 @@
         "select_theme": "Selectează tema",
         "showfps": "Afișați FPS (DX9, 10 și 11)",
         "start-in-tray": "Pornește minimizat",
-        "steamruntime": "Utilizați Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "dosar WinePrefix",
         "wineversion": "Versiune Wine",

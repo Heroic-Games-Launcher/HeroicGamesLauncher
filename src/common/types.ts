@@ -195,7 +195,6 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
-  useSteamRuntime: boolean
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -373,12 +372,6 @@ interface GamepadInputEventMouse {
   button: 'left' | 'middle' | 'right'
 }
 
-export interface SteamRuntime {
-  path: string
-  type: 'sniper' | 'scout' | 'soldier'
-  args: string[]
-}
-
 export interface LaunchPreperationResult {
   success: boolean
   failureReason?: string
@@ -386,7 +379,6 @@ export interface LaunchPreperationResult {
   mangoHudCommand?: string[]
   gameModeBin?: string
   gameScopeCommand?: string[]
-  steamRuntime?: string[]
   offlineMode?: boolean
 }
 

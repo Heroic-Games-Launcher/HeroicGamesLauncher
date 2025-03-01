@@ -300,7 +300,6 @@
         "steam_path": {
             "info": "Bu yol, Heroic'in Steam dışı oyunları Steam'e eklemek için hangi Proton Steam sürümünün kullanılacağını belirlemesini sağlar."
         },
-        "steamruntime": "Linux ve Windows (Proton) oyunlarını çalıştırmaya yardımcı olmak için Steam tarafından sağlanan özel kitaplıklar. Etkinleştirmek uyumluluğu artırabilir.",
         "sync": {
             "part1": "Heroic doğru kayıt klasörünü algılamaya çalışır ve bu çoğu zaman çalışıyor. Eğer klasör yanlışsa, değiştirmek için geçersiz kıl kutucuğunu kullan.",
             "part2": "Wine ya da Proton ön ek klasörünü değiştirmek isterseniz, Proton farklı bir ön ek (/pfx) ve kullanıcı adı (steamuser) kullandığı için yolu tekrar gözden geçirmeniz gerekecek. Heroic'in doğru klasörü bir kez daha tahmin etmesi için basitçe eşzamanlama ayarlarından geçerli ön eki silebilir ve tekrar geri dönebilirsiniz.",
@@ -694,7 +693,6 @@
         "select_theme": "Tema Seç",
         "showfps": "FPS'i Göster (DX9, 10 and 11)",
         "start-in-tray": "Simge Durumunda Başlat",
-        "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix klasörü",
         "wineversion": "Wine Sürümü",

@@ -335,7 +335,6 @@
         "esync": "„Esync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą.",
         "fsync": "„Fsync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikančių „Linux“ branduolių.",
         "msync": "„Msync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikomų „Linux“ branduolių.",
-        "steamruntime": "Pasirinktinės bibliotekos, kurios yra telkiamos „Steam“, siekant paleisti „Linux“ ir „Windows“ („Proton“) žaidimus. Įjungiant/Įgalinant gali pagerinti palaikomumą.",
         "vkd3d": "„VKD3D“ yra „Vulkas“ paremtas vertimo sluoksnis, skirtas „DirectX 12“ žaidimams. Įjungiant/Įgalinant gali žymiai pagerinti palaikomumą. Neturi jokio poveikio ant senesnių „DirectX“ žaidimų, jie reikalauja „DXVK“.",
         "gamemode": "„Feral“ žaidimo veiksena pritaiko automatinius ir laikinus pakoregavimus sistemai, kai veikia žaidimai. Įjungiant/Įgalinant gali pagerinti našumą.",
         "primerun": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
@@ -510,7 +509,6 @@
             "placeholder": "Pažymėkite tikslų žaidimų išsaugojimų aplanką/-alą"
         },
         "showfps": "Rodyti kdr./sek. („DX9/10/11“)",
-        "steamruntime": "Naudoti „Steam“ vykdantįjį",
         "language": "Pasirinkti programos kalbą",
         "library_top_section": "Viršutinis bibliotekos skyrius",
         "ignoreGameUpdates": "Ignoruoti žaidimų atnaujinimus",

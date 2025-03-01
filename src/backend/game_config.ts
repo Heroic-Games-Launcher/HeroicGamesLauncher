@@ -229,7 +229,6 @@ class GameConfigV0 extends GameConfig {
       winePrefix,
       wineCrossoverBottle,
       wineVersion,
-      useSteamRuntime,
       eacRuntime,
       battlEyeRuntime,
       beforeLaunchScriptPath,
@@ -260,7 +259,6 @@ class GameConfigV0 extends GameConfig {
       showMangohud,
       targetExe,
       useGameMode,
-      useSteamRuntime,
       battlEyeRuntime,
       eacRuntime,
       language: '', // we want to fallback to '' always here, fallback lang for games should be ''

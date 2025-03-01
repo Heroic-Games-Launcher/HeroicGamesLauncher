@@ -291,7 +291,6 @@
         "steam_path": {
             "info": "Jalur ini memungkinkan Heroic menentukan versi apa yang digunakan oleh Proton Steam, untuk menambahkan game non-Steam ke Steam."
         },
-        "steamruntime": "Pustaka khusus disediakan oleh Steam untuk membantu menjalankan gim Linux dan Windows (Proton). Mengaktifkannya dapat meningkatkan kompatibilitas.",
         "sync": {
             "part1": "Heroic mencoba untuk menebak folder penyimpanan yang tepat dan ini biasanya akan berhasil. Jika folder salah, gunakan kotak penimpaan untuk mengubahnya.",
             "part2": "Jika Anda mengubah prefiks folder untuk Wine atau Proton, Anda perlu memeriksa lokasinya lagi karena Proton menggunakan prefiks (/pfx) dan nama pengguna (steamuser) yang berbeda. Jadi Anda dapat dengan mudah menghapus lokasi saat ini, keluar dari halaman pengaturan sinkronisasi, lalu kembali lagi dan biarkan Heroic menebak folder dengan prefiks yang tepat sekali lagi.",
@@ -611,7 +610,6 @@
         "select_theme": "Pilih Tema",
         "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
         "start-in-tray": "Mulai Diminimalkan",
-        "steamruntime": "Gunakan Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Folder Prefiks Wine",
         "wineversion": "Versi Wine",

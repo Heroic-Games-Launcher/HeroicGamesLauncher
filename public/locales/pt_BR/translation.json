@@ -300,7 +300,6 @@
         "steam_path": {
             "info": "Este caminho permite que o Heroic determine qual versão do Proton Steam usar para adicionar jogos não-Steam à Steam."
         },
-        "steamruntime": "Bibliotecas personalizadas fornecidas pelo Steam para ajudar a executar jogos Linux e Windows (Proton). A ativação pode melhorar a compatibilidade.",
         "sync": {
             "part1": "Heroic tenta advinhar a pasta de saves correta e isso funcionará na maioria dos casos. No caso da pasta estar errada, você pode selecioná-la manualmente.",
             "part2": "Caso você mude sua pasta de prefixo Wine ou Proton, você precisará conferir o diretório novamente, já que o Proton usa um prefixo (/pfx) e usuário (steamuser) diferentes. Então você pode simplesmente apagar o diretório atual, sair e abrir novamente a página de configuração das sincronizações para que o Heroic tente advinhar novamente a pasta com o prefix correto.",
@@ -694,7 +693,6 @@
         "select_theme": "Selecione um tema",
         "showfps": "Exibir contador de FPS (DX9, 10 e 11)",
         "start-in-tray": "Iniciar minimizado",
-        "steamruntime": "Utilizar Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "Pasta do prefixo Wine",
         "wineversion": "Versão do Wine",
