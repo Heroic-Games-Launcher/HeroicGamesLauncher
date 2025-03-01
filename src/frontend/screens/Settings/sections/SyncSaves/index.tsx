@@ -9,7 +9,7 @@ import LegendarySyncSaves from './legendary'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
-  const { runner } = useContext(SettingsContext)
+  const { runner, gameInfo } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
   const isWin = platform === 'win32'
 
@@ -32,6 +32,7 @@ const SyncSaves = () => {
   if (runner === 'legendary') {
     return (
       <LegendarySyncSaves
+        featureSupported={!!gameInfo?.cloud_save_enabled}
         savesPath={savesPath}
         setSavesPath={setSavesPath}
         autoSyncSaves={autoSyncSaves}
@@ -46,6 +47,8 @@ const SyncSaves = () => {
   if (runner === 'gog') {
     return (
       <GOGSyncSaves
+        featureSupported={!!gameInfo?.cloud_save_enabled}
+        isLinuxNative={gameInfo?.install.platform === 'linux'}
         gogSaves={gogSavesLocations}
         setGogSaves={setGogSavesLocations}
         autoSyncSaves={autoSyncSaves}

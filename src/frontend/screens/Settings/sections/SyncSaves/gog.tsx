@@ -21,6 +21,8 @@ interface Props {
   autoSyncSaves: boolean
   setAutoSyncSaves: (value: boolean) => void
   syncCommands: { name: string; value: string }[]
+  featureSupported: boolean
+  isLinuxNative: boolean
 }
 
 export default function GOGSyncSaves({
@@ -28,7 +30,9 @@ export default function GOGSyncSaves({
   setGogSaves,
   autoSyncSaves,
   setAutoSyncSaves,
-  syncCommands
+  syncCommands,
+  featureSupported,
+  isLinuxNative
 }: Props) {
   const [isLoading, setIsLoading] = useState(true)
   const [isSyncing, setIsSyncing] = useState(false)
@@ -67,7 +71,7 @@ export default function GOGSyncSaves({
       setIsSyncing(false)
       setIsLoading(false)
     }
-    getLocations()
+    if (featureSupported && !isLinuxNative) getLocations()
   }, [retry])
 
   const handleRetry = () => {
@@ -86,6 +90,24 @@ export default function GOGSyncSaves({
       })
 
     setIsSyncing(false)
+  }
+
+  if (isLinuxNative || !featureSupported) {
+    return (
+      <div style={{ color: 'red' }}>
+        {isLinuxNative &&
+          t(
+            'settings.saves.gog_linux_native_warning',
+            "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead."
+          )}
+        <br />
+        {!featureSupported &&
+          t(
+            'settings.saves.not_supported',
+            'Cloud Saves are not supported by this game.'
+          )}
+      </div>
+    )
   }
 
   return (
