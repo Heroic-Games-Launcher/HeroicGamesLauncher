@@ -20,8 +20,8 @@ import {
   sendKill,
   updateGame
 } from 'frontend/helpers'
-import { NavLink, useLocation, useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
+import { Trans, useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
@@ -71,13 +71,14 @@ import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
+import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const location = useLocation() as {
     state: { fromDM: boolean; gameInfo: GameInfo }
   }
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
 
   const { gameInfo: locationGameInfo } = location.state
@@ -132,6 +133,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }>({ error: false, message: '' })
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
+
+  const knownFixes = hasKnownFixes(appName, runner)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -347,6 +350,21 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
 
+    let wikiLink = <></>
+    if (knownFixes && knownFixes.wikiLink) {
+      wikiLink = (
+        <p className="wikiLink">
+          <Info />
+          <span>
+            <Trans key="wikiLink" i18n={i18n}>
+              Important information about this game, read this:&nbsp;
+              <Link to={knownFixes.wikiLink}>Open page</Link>
+            </Trans>
+          </span>
+        </p>
+      )
+    }
+
     return (
       <div className="gameConfigContainer">
         {!!(art_background ?? art_cover) &&
@@ -439,6 +457,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   />
 
                   <Anticheat anticheatInfo={anticheatInfo} />
+                  {wikiLink}
                   <MainButton
                     gameInfo={gameInfo}
                     handlePlay={handlePlay}
@@ -499,6 +518,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       gameInfo={gameInfo}
                       setLaunchArguments={setLaunchArguments}
                     />
+                    {wikiLink}
                     <div className="buttons">
                       <MainButton
                         gameInfo={gameInfo}

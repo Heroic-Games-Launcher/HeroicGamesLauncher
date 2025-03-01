@@ -103,7 +103,7 @@ import {
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
-import { launchEventCallback, runWineCommand } from './launcher'
+import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
 import shlex from 'shlex'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -1504,6 +1504,10 @@ ipcMain.handle('setCyberpunkModConfig', async (e, props) =>
 ipcMain.on('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
   libraryManagerMap[runner].changeVersionPinnedStatus(appName, status)
 })
+
+ipcMain.handle('getKnownFixes', (e, appName, runner) =>
+  readKnownFixes(appName, runner)
+)
 
 /*
   Other Keys that should go into translation files:
