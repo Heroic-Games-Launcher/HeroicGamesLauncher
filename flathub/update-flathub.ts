@@ -5,6 +5,24 @@ import * as child_process from 'child_process'
 import axios from 'axios'
 import { XMLParser, XMLBuilder } from 'fast-xml-parser'
 
+// Define interface for GitHub API Release response
+interface GitHubReleaseAsset {
+  name: string
+  browser_download_url: string
+  size: number
+  id: number
+  content_type: string
+}
+
+interface GitHubRelease {
+  tag_name: string
+  name: string
+  body: string
+  assets: GitHubReleaseAsset[]
+  published_at: string
+  html_url: string
+}
+
 async function main() {
   console.log('tag name: ', process.env.RELEASE_VERSION)
   const repoOrgName = 'Heroic-Games-Launcher'
@@ -16,22 +34,42 @@ async function main() {
     './com.heroicgameslauncher.hgl/com.heroicgameslauncher.hgl.yml'
   let heroicYml = fs.readFileSync(ymlFilePath).toString()
 
+  // Get the latest release information
+  console.log('Fetching latest release info')
+  const { data } = await axios.get<GitHubRelease>(
+    `https://api.github.com/repos/${repoName}/releases/latest`
+  )
+
+  // Use x86_64 only for now
+  const architecture = 'x86_64'
+
+  // Find the AppImage asset
+  const appimage = data.assets.find((asset) =>
+    asset.browser_download_url.includes('AppImage')
+  )
+
+  if (!appimage) {
+    throw new Error('Could not find AppImage asset in latest release')
+  }
+
+  console.log(`Using AppImage: ${appimage.browser_download_url}`)
+
+  // Construct the release string with x86_64 architecture
   const releaseString = `https://github.com/${repoName}/releases/download/${
     process.env.RELEASE_VERSION
-  }/Heroic-${process.env.RELEASE_VERSION?.substring(1)}.AppImage`
+  }/Heroic-${process.env.RELEASE_VERSION?.substring(
+    1
+  )}-linux-${architecture}.AppImage`
+
+  // Updated regex to match any architecture pattern in the URL
   heroicYml = heroicYml.replace(
-    /https:\/\/github.com\/Heroic-Games-Launcher\/HeroicGamesLauncher\/releases\/download\/v.*..*..*\/Heroic-.*..*..*.AppImage/,
+    /https:\/\/github.com\/Heroic-Games-Launcher\/HeroicGamesLauncher\/releases\/download\/v.*..*..*\/Heroic-.*..*..*(-linux-[a-z0-9_]+)?.AppImage/,
     releaseString
   )
 
   // update hash in com.heroicgameslauncher.hgl.yml from latest .AppImage release
   console.log('updating hash in com.heroicgameslauncher.hgl.yml')
-  const { data } = await axios.get(
-    `https://api.github.com/repos/${repoName}/releases/latest`
-  )
-  const appimage = data.assets.find((asset) =>
-    asset.browser_download_url.includes('AppImage')
-  )
+
   const outputFile = `${os.tmpdir()}/Heroic.AppImage`
   child_process.spawnSync('curl', [
     '-L',

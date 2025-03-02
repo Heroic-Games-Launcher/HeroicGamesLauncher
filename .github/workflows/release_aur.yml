@@ -21,7 +21,8 @@ jobs:
           set -x
           latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
           version_without_v=$(echo $latest_version | cut -c 2-)
-          curl -L https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/heroic-${version_without_v}.pacman -o heroic.pacman
+          # Updated artifact naming convention with platform and architecture
+          curl -L https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/Heroic-${version_without_v}-linux-x64.pacman -o heroic.pacman
           set +x
         if: ${{ success() }}
 
@@ -32,7 +33,8 @@ jobs:
           pkgver=${latest_version#v}
           pkgrel=1
           url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/"
-          _filename=heroic-${pkgver}.pacman
+          # Updated artifact naming convention with platform and architecture
+          _filename=Heroic-${pkgver}-linux-x64.pacman
           source=("$url/releases/download/$latest_version/$_filename")
           sha256sums=($(sha256sum heroic.pacman | cut -d' ' -f1))
 
