@@ -27,9 +27,27 @@ const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
   name: 'fonts'
 })
 
-const isMac = process.platform === 'darwin'
-const isWindows = process.platform === 'win32'
-const isLinux = process.platform === 'linux'
+let isMac = false
+let isWindows = false
+let isLinux = false
+
+// This is meant to be used only during tests to change the `isXYZ` platform constants
+// and allow testing different platform logic
+export function setPlatformConstants(
+  force_platform?: 'darwin' | 'win32' | 'linux'
+) {
+  if (force_platform) {
+    isMac = force_platform === 'darwin'
+    isWindows = force_platform === 'win32'
+    isLinux = force_platform === 'linux'
+  } else {
+    isMac = process.platform === 'darwin'
+    isWindows = process.platform === 'win32'
+    isLinux = process.platform === 'linux'
+  }
+}
+setPlatformConstants()
+
 const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
 const isCLIFullscreen = process.argv.includes('--fullscreen')
 const isCLINoGui = process.argv.includes('--no-gui')

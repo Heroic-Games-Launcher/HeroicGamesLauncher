@@ -14,7 +14,11 @@ const DisableUMU = () => {
   const [disableUMU, setDisableUMU] = useSetting('disableUMU', false)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
-  if (isDefault || platform !== 'linux' || wineVersion.type !== 'proton') {
+  if (platform !== 'linux') {
+    return <></>
+  }
+
+  if (!isDefault && wineVersion.type !== 'proton') {
     return <></>
   }
 

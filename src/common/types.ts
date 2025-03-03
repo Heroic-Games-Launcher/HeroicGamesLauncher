@@ -90,6 +90,7 @@ export interface AppSettings extends GameSettings {
   disableController: boolean
   disablePlaytimeSync: boolean
   disableLogs: boolean
+  disableUMU: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
   egsLinkedPath: string
@@ -104,7 +105,6 @@ export interface AppSettings extends GameSettings {
   minimizeOnLaunch: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
-  disableUMU: boolean
   verboseLogs: boolean
 }
 
