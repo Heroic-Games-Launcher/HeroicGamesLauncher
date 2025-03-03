@@ -216,7 +216,7 @@
         },
         "import-hint": {
             "title": "Dôležité! Pridáte hru z Epic/GOG/Amazon? Kliknite tu!",
-            "content": "Nepoužívajte túto funkciu.<1></1>Namiesto, <3>log do</3> obchod, hľadať hru vo vašej knižnici, otvorte inštalačný dialóg a kliknite na \"Import Game \" tlačidlo"
+            "content": "Nepoužívajte túto funkciu.<br />Namiesto, <3>log do</3> obchod, hľadať hru vo vašej knižnici, otvorte inštalačný dialóg a kliknite na \"Import Game \" tlačidlo"
         }
     },
     "specs": {

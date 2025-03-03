@@ -945,7 +945,6 @@
         "proton-ge": "GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit."
     },
     "emptyLibrary": {
-        "noGames": "Ihre Bibliothek ist leer. Sie können sich durch/bei einen Store <1>einloggen</1> oder auf <3></3> klicken, um manuell ein Spiel hinzuzufügen.",
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht."
     },
     "categories-manager": {

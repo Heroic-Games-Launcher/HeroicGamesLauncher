@@ -959,7 +959,6 @@
         "title": "Atração esta bloqueada"
     },
     "emptyLibrary": {
-        "noGames": "Sua biblioteca está vazia. Você pode <1>log in</1> usando a loja ou clicar <3></3> para adicionar uma manualmente.",
         "noResults": "Os filtros atuais não produziram resultados."
     },
     "wineExplanation": {

@@ -157,7 +157,7 @@
             "install_anyway": "Ano (rozumím, že funkce hry více hráčů nebudou fungovat)",
             "multiplayer_message": "Podpora anticheatu je rozbitá nebo odmítnutá. Hra se může otevřít, ale nebudou fungovat funkce hry více hráčů. Chcete ji přesto nainstalovat?",
             "ok": "Ok",
-            "disabled_installation": "Tato hra používá anticheat program, který není kompatibilní s vaším operačním systémem, nebo vývojáři hry nepovolili jeho podporu. To znamená, že funkce pro více hráčů nebudou fungovat a vy (ani tým Heroic) s tím nemůžete nic udělat.<1></1><2></2>Chcete-li tuto hru přesto nainstalovat a vyzkoušet, přejděte do Nastavení, Rozšířené a zaškrtněte možnost povolit instalaci her s nefunkčním nebo zakázaným anticheatem.<4></4><5></5>Upozorňujeme, že pro tuto situaci neexistuje žádné řešení a riskujete, že budete ve hře zablokován."
+            "disabled_installation": "Tato hra používá anticheat program, který není kompatibilní s vaším operačním systémem, nebo vývojáři hry nepovolili jeho podporu. To znamená, že funkce pro více hráčů nebudou fungovat a vy (ani tým Heroic) s tím nemůžete nic udělat.<br /><br />Chcete-li tuto hru přesto nainstalovat a vyzkoušet, přejděte do Nastavení, Rozšířené a zaškrtněte možnost povolit instalaci her s nefunkčním nebo zakázaným anticheatem.<br /><br />Upozorňujeme, že pro tuto situaci neexistuje žádné řešení a riskujete, že budete ve hře zablokován."
         },
         "flatpak-path-not-writtable": "Chyba: této cestě nebyl udělen přístup k sandboxu, vyskytne se ztráta dat."
     },
@@ -218,7 +218,7 @@
             "useragent": "Sem zadejte vlastní User Agent (uživatelský agent) pro použití v této prohlížečové aplikaci/hře"
         },
         "import-hint": {
-            "content": "Tuto funkci k této akci NEPOUŽÍVEJTE.<1></1>Namísto toho se <3>přihlaste do obchodu</3>, vyhledejte hru ve své knihovně, otevřete instalační dialog a klikněte na tlačítko &quot;Importovat hru&quot;",
+            "content": "Tuto funkci k této akci NEPOUŽÍVEJTE.<br />Namísto toho se <3>přihlaste do obchodu</3>, vyhledejte hru ve své knihovně, otevřete instalační dialog a klikněte na tlačítko &quot;Importovat hru&quot;",
             "title": "Důležité! Přidáváte hru z obchodu Epic/GOG/Amazon? Klikněte sem!"
         }
     },

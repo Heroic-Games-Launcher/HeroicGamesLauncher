@@ -157,7 +157,7 @@
             "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Voleu instal·lar-lo igualment?",
             "install_anyway": "Sí (entenc que les funcions multijugador no funcionen)",
             "ok": "D'acord",
-            "disabled_installation": "Aquest joc fa servir programari antitrampes que no és compatible amb el vostre sistema operatiu o els desenvolupadors del joc no n'han activat el suport. Això significa que les funcions multijugador no funcionaran i no hi ha res que pugueu fer per a resoldre-ho ‒ni tan sols l'equip de l'Heroic.<1></1><2></2>Per a instal·lar aquest joc i provar-lo de totes maneres, aneu a Configuració→Avançat i seleccioneu l'opció d'instal·lar jocs amb antitrampes trencat o denegat.<4></4><5></5>Tingueu en compte que no hi ha manera de resoldre-ho i us arrisqueu a què us expulsin de les partides."
+            "disabled_installation": "Aquest joc fa servir programari antitrampes que no és compatible amb el vostre sistema operatiu o els desenvolupadors del joc no n'han activat el suport. Això significa que les funcions multijugador no funcionaran i no hi ha res que pugueu fer per a resoldre-ho ‒ni tan sols l'equip de l'Heroic.<br /><br />Per a instal·lar aquest joc i provar-lo de totes maneres, aneu a Configuració→Avançat i seleccioneu l'opció d'instal·lar jocs amb antitrampes trencat o denegat.<br /><br />Tingueu en compte que no hi ha manera de resoldre-ho i us arrisqueu a què us expulsin de les partides."
         },
         "flatpak-path-not-writtable": "Error: L'accés lliure a aquest camí no està garantit. Potser es perden dades."
     },
@@ -219,7 +219,7 @@
         },
         "import-hint": {
             "title": "Important! Si voleu afegir un joc d'Epic/GOGO/Amazon, feu clic aquí.",
-            "content": "No feu servir aquesta funció per a això.<1></1>En el seu lloc, <3>inicieu sessió</3> a la botiga, busqueu el joc a la vostra biblioteca, obriu el diàleg d'instal·lació i feu clic al botó &quot;Importa un joc&quot;."
+            "content": "No feu servir aquesta funció per a això.<br />En el seu lloc, <3>inicieu sessió</3> a la botiga, busqueu el joc a la vostra biblioteca, obriu el diàleg d'instal·lació i feu clic al botó &quot;Importa un joc&quot;."
         }
     },
     "specs": {

@@ -941,8 +941,7 @@
         "add-new-category": "Yeni Kategori Ekle"
     },
     "emptyLibrary": {
-        "noResults": "Geçerli filtrelere uygun bir sonuç bulunamadı.",
-        "noGames": "Kütüphaneniz boş. Bir mağaza kullanarak <1>giriş yapabilirsiniz</1> veya <3></3> 'ye tıklayıp bir tane ekleyebilirsiniz."
+        "noResults": "Geçerli filtrelere uygun bir sonuç bulunamadı."
     },
     "adtraction-locked": {
         "description": "track.adtraction.com alan adı yüklenememiş veya engellenmiş gibi görünüyor. Adtraction ile GOG mağazasında yaptığınız her satın alma, Heroic'i maddi olarak destekliyor. Katkıda bulunmak istiyorsanız engeli kaldırmayı düşünebilirsiniz.",

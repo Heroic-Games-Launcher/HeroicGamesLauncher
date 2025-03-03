@@ -206,7 +206,7 @@
             "useragent": "Įrašykite pasirinktinį naudotojo/vartotojo agentą čia, norint jį pritaikyti šioje naršyklėje; programos/žaidimo"
         },
         "import-hint": {
-            "content": "NENAUDOKITE šios funkcijos šiam.<1></1>Vietoj to, <3>prisijunkite prie</3> parduotuvės, susiieškokite žaidimo savo bibliotekoje, atidarykite jo įdiegimo langą ir spauskite/spustelėkite – „&quot;Importuoti žaidimą&quot;“ mygtuką",
+            "content": "NENAUDOKITE šios funkcijos šiam.<br />Vietoj to, <3>prisijunkite prie</3> parduotuvės, susiieškokite žaidimo savo bibliotekoje, atidarykite jo įdiegimo langą ir spauskite/spustelėkite – „&quot;Importuoti žaidimą&quot;“ mygtuką",
             "title": "Svarbu! Ar Jūs pridedate žaidimą iš „Epic“/„GOG“/„Amazon“? Spauskite/Spustelėkite čia!"
         }
     },

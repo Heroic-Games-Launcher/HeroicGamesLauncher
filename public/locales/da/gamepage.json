@@ -263,7 +263,7 @@
             "useragent": "Skriv en brugerdefineret agent, der kan bruger i denne browser app/spil"
         },
         "import-hint": {
-            "content": "Brug IKKE denne funktionalitet til dettte. .<1></1>Istedet, skal du <3>logge ind</3> butikken, finde spillet i dit biblotek, åben installationsdialogkassen og kikke &quot;Import Game&quot; knappen",
+            "content": "Brug IKKE denne funktionalitet til dettte. .<br />Istedet, skal du <3>logge ind</3> butikken, finde spillet i dit biblotek, åben installationsdialogkassen og kikke &quot;Import Game&quot; knappen",
             "title": "Vigtigt! Vil du tilfølge et spil fra Epic/GOG/Amazon? Klik her!"
         }
     },

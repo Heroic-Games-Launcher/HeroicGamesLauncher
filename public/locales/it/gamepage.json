@@ -218,7 +218,7 @@
         },
         "import-hint": {
             "title": "Importante! Stai aggiungendo un gioco da Epic/GOG/Amazon? Clicca qui!",
-            "content": "NON utilizzare questa funzionalità per quello.<1></1>Invece, <3>accedi</3> allo store, cerca il gioco nella tua libreria, apri la finestra d'installazione e clicca il tasto &quot;Importa Gioco&quot;"
+            "content": "NON utilizzare questa funzionalità per quello.<br />Invece, <3>accedi</3> allo store, cerca il gioco nella tua libreria, apri la finestra d'installazione e clicca il tasto &quot;Importa Gioco&quot;"
         }
     },
     "specs": {

@@ -964,7 +964,6 @@
         "close": "Sulge"
     },
     "emptyLibrary": {
-        "noGames": "Teie varamu on tühi. Võite <1>sisse logida</1> kasutades poodi või klikkida <3></3>, et käsitsi lisada.",
         "noResults": "Praegused filtrid ei toonud tulemusi."
     }
 }

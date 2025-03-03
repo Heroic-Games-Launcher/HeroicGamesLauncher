@@ -963,7 +963,6 @@
         "title": "Adtraction je blokovaný"
     },
     "emptyLibrary": {
-        "noGames": "Vaša knižnica je prázdna. Môžete sa <1>prihlásiť</1> pomocou obchodu alebo kliknúť na <3></3> a pridať ho ručne.",
         "noResults": "Tieto filtre nemajú žiadne výsledky."
     }
 }

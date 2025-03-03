@@ -219,7 +219,7 @@
         },
         "import-hint": {
             "title": "Viktigt! Vill du lägga till ett spel från Epic/GOG/Amazon? Klicka här!",
-            "content": "Använd INTE den här funktionen för detta.<1></1>Istället <3>loggar du in på</3> butiken, letar efter spelet i ditt bibliotek, öppnar installationsdialogrutan och klickar på &quot;Importera spel&quot; knappen"
+            "content": "Använd INTE den här funktionen för detta.<br />Istället <3>loggar du in på</3> butiken, letar efter spelet i ditt bibliotek, öppnar installationsdialogrutan och klickar på &quot;Importera spel&quot; knappen"
         }
     },
     "specs": {

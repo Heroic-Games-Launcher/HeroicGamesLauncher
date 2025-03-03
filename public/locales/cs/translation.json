@@ -962,7 +962,7 @@
         "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
     },
     "emptyLibrary": {
-        "noGames": "Vaše knihovna je prázdná.<1></1><2></2>Klikněte <4>zde</4> a přihlaste se pomocí účtu Epic, GOG.com nebo Amazon. Poté se vaše hry zobrazí zde v knihovně.<6></6><7></7>Chcete-li používat hry nebo aplikace z jiných zdrojů, klikněte na <9></9> a přidejte je ručně.",
+        "noGames": "Vaše knihovna je prázdná.<br /><br />Klikněte <4>zde</4> a přihlaste se pomocí účtu Epic, GOG.com nebo Amazon. Poté se vaše hry zobrazí zde v knihovně.<br /><br />Chcete-li používat hry nebo aplikace z jiných zdrojů, klikněte na <br /> a přidejte je ručně.",
         "noResults": "S nastavenými filtry nebyl nalezen žádný výsledek."
     },
     "adtraction-locked": {

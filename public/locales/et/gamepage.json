@@ -218,7 +218,7 @@
         },
         "import-hint": {
             "title": "Tähtis! Kas lisate Epic/GOG/Amazoni mängu? Kliki siia!",
-            "content": "Ärge kasutage selleks seda funktsiooni.<1></1>Selle asemel <3>logige sisse</3> poodi, otsige mäng oma varamust üles, avage paigaldusaken ja klikkige nupul &quot;Impordi mäng&quot;"
+            "content": "Ärge kasutage selleks seda funktsiooni.<br />Selle asemel <3>logige sisse</3> poodi, otsige mäng oma varamust üles, avage paigaldusaken ja klikkige nupul &quot;Impordi mäng&quot;"
         }
     },
     "specs": {

@@ -943,7 +943,6 @@
         "minimize": "Ablak minimalizálása"
     },
     "emptyLibrary": {
-        "noGames": "A könyvtára üres. <1>Jelentkezzen be</1> egy bolt használatával, vagy kattintson erre a kézi hozzáadáshoz: <3></3>.",
         "noResults": "A jelenlegi szűrők nem adtak találatokat."
     },
     "wineExplanation": {
