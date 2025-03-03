@@ -323,7 +323,8 @@
             "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
             "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
             "fpsLimiter": "Gamescope 帧数限制，比如 60",
-            "additionalOptions": "要传递给 gamescope 的额外命令行标记。"
+            "additionalOptions": "要传递给 gamescope 的额外命令行标记。",
+            "forceGrabCursor": "总是使用相对鼠标模式而不是取决于指针可见性的翻转。（当程序一直失去焦点时有用）"
         },
         "content": {
             "defaultInstallPath": "这是安装游戏时预先选择的默认路径。",
@@ -717,7 +718,8 @@
         "gamescope": {
             "enableLimiter": "启用 FPS 限制程序",
             "enableUpscaling": "启用分辨率提升",
-            "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。"
+            "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
+            "enableForceGrabCursor": "启用强制抓取指针"
         },
         "frameless-window": {
             "confirmation": {
@@ -740,6 +742,9 @@
         "disableUMU": "禁用 umu",
         "custom_css": {
             "warning": "警告：这应用到整个前端，意味着错误样式可以造成 Heroic 不稳定。如果有需要，可以手动在 `~/.config/heroic/config.json`文件中更改设置。不要从你不信任的来源复制样式。"
+        },
+        "verboseLogs": {
+            "description": "启用详细记录"
         }
     },
     "settings": {
@@ -783,7 +788,9 @@
         "reset-heroic": "重置 Heroic",
         "saves": {
             "label": "存档位置：",
-            "warning": "云存档功能处于测试期，请在同步前备份你的存档（以防出现问题）"
+            "warning": "云存档功能处于测试期，请在同步前备份你的存档（以防出现问题）",
+            "gog_linux_native_warning": "Linux 原生游戏不支持 GOG 的云保存特性。请使用 Windows 版本。",
+            "not_supported": "此游戏不支持云保存。"
         },
         "experimental_features": {
             "title": "实验性功能"
@@ -956,7 +963,7 @@
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
-        "noGames": "你的库是空的。要<1>登录</1>你可以使用商店或单击 <3></3>来手动添加一个。"
+        "noGames": "你的库是空的。<1></1><2></2>单击 <4>此处</4> 用你的 Epic、GOG.com 或 Amazon 账户登录。登录后，你的游戏会出现在库中。<6></6><7></7>要使用来自其他来源的因改用或游戏，单击<9></9> 来手动添加它们。"
     },
     "adtraction-locked": {
         "dont-show-again": "不再显示此警告",
