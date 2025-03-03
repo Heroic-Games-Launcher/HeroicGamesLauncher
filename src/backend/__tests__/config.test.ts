@@ -6,7 +6,7 @@ import {
   heroicInstallPath,
   setPlatformConstants
 } from 'backend/constants'
-import { existsSync, rmSync } from 'graceful-fs'
+import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 
 describe('GlobalConfig', () => {
   const sharedDefaults = {
@@ -67,6 +67,9 @@ describe('GlobalConfig', () => {
   describe('getSettings', () => {
     describe('returns defaults if no settings yet', () => {
       const getSettings = () => {
+        // create config dir if needed
+        if (!existsSync(configPath)) mkdirSync(configPath, { recursive: true })
+
         // clear global config so we initialize a new one
         if (existsSync(configPath)) rmSync(configPath)
         GlobalConfig['globalInstance'] = null as any
