@@ -2,14 +2,7 @@ import './index.scss'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import {
-  ArrowCircleLeft,
-  ArrowBackIosNew,
-  Info,
-  Star,
-  Monitor,
-  DeleteOutline
-} from '@mui/icons-material'
+import { ArrowBackIosNew, Info, Star, Monitor } from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
 
@@ -272,7 +265,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const {
       runner,
       title,
-      art_square,
       art_cover,
       art_background,
       art_logo,
@@ -393,80 +385,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
         {title ? (
           <GameContext.Provider value={contextValues}>
-            {/* OLD DESIGN */}
-            {!experimentalFeatures.enableNewDesign && (
-              <>
-                <GamePicture
-                  art_square={art_square}
-                  art_logo={runner === 'nile' ? undefined : art_logo}
-                  store={runner}
-                />
-                <NavLink
-                  className="backButton"
-                  to={backRoute}
-                  title={t2('webview.controls.back', 'Go Back')}
-                >
-                  <ArrowCircleLeft />
-                </NavLink>
-                <div className="store-icon">
-                  <StoreLogos runner={runner} />
-                </div>
-                <div className="gameInfo">
-                  <div className="titleWrapper">
-                    <h1 className="title">{title}</h1>
-                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                  </div>
-                  <div className="infoWrapper">
-                    <Genres
-                      genres={
-                        extraInfo?.genres ||
-                        wikiInfo?.pcgamingwiki?.genres ||
-                        []
-                      }
-                    />
-                    <Developer gameInfo={gameInfo} />
-                    <ReleaseDate
-                      runnerDate={extraInfo?.releaseDate}
-                      date={wikiInfo?.pcgamingwiki?.releaseDate}
-                    />
-                    <Description />
-                    <CloudSavesSync gameInfo={gameInfo} />
-                    {!notInstallable && (
-                      <DownloadSizeInfo gameInfo={gameInfo} />
-                    )}
-                    <InstalledInfo gameInfo={gameInfo} />
-                    <Scores gameInfo={gameInfo} />
-                    <HLTB />
-                    <CompatibilityInfo gameInfo={gameInfo} />
-                    <AppleWikiInfo gameInfo={gameInfo} />
-                    <Requirements />
-                  </div>
-                  {!notInstallable && (
-                    <TimeContainer runner={runner} game={appName} />
-                  )}
-                  <GameStatus
-                    gameInfo={gameInfo}
-                    progress={progress}
-                    handleUpdate={handleUpdate}
-                    hasUpdate={hasUpdate}
-                  />
-                  <LaunchOptions
-                    gameInfo={gameInfo}
-                    setLaunchArguments={setLaunchArguments}
-                  />
-
-                  <Anticheat anticheatInfo={anticheatInfo} />
-                  {wikiLink}
-                  <MainButton
-                    gameInfo={gameInfo}
-                    handlePlay={handlePlay}
-                    handleInstall={handleInstall}
-                  />
-                  <ReportIssue gameInfo={gameInfo} />
-                </div>
-              </>
-            )}
             {/* NEW DESIGN */}
             {experimentalFeatures.enableNewDesign && (
               <>
@@ -478,8 +396,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   >
                     <ArrowBackIosNew />
                   </NavLink>
-                  {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                  <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  <div className="topRowWapperInner">
+                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  </div>
                 </div>
                 <div className="mainInfoWrapper">
                   <div className="mainInfo">
@@ -491,6 +411,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <div className="store-icon">
                       <StoreLogos runner={runner} />
                     </div>
+
                     <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
                     <Genres
                       genres={
@@ -504,6 +425,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       runnerDate={extraInfo?.releaseDate}
                       date={wikiInfo?.pcgamingwiki?.releaseDate}
                     />
+
                     <Description />
                     {!notInstallable && (
                       <TimeContainer runner={runner} game={appName} />
@@ -514,31 +436,18 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       handleUpdate={handleUpdate}
                       hasUpdate={hasUpdate}
                     />
-                    <LaunchOptions
-                      gameInfo={gameInfo}
-                      setLaunchArguments={setLaunchArguments}
-                    />
-                    {wikiLink}
                     <div className="buttons">
                       <MainButton
                         gameInfo={gameInfo}
                         handlePlay={handlePlay}
                         handleInstall={handleInstall}
                       />
-                      {gameInfo.is_installed && (
-                        <button
-                          className="button is-danger delBtn"
-                          onClick={() => {
-                            setShowUninstallModal(true)
-                          }}
-                        >
-                          <span className="buttonWithIcon">
-                            <DeleteOutline />
-                            {t('button.uninstall', 'Uninstall')}
-                          </span>
-                        </button>
-                      )}
                     </div>
+                    <LaunchOptions
+                      gameInfo={gameInfo}
+                      setLaunchArguments={setLaunchArguments}
+                    />
+                    {wikiLink}
                   </div>
                 </div>
                 <div className="extraInfoWrapper">
@@ -572,6 +481,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         />
                       )}
                     </Tabs>
+
                     <div>
                       <TabPanel
                         value={currentTab}
@@ -594,7 +504,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         <AppleWikiInfo gameInfo={gameInfo} />
                       </TabPanel>
 
-                      <TabPanel value={currentTab} index="requirements">
+                      <TabPanel
+                        className="tabPanelRequirements"
+                        value={currentTab}
+                        index="requirements"
+                      >
                         <Requirements />
                       </TabPanel>
                     </div>
