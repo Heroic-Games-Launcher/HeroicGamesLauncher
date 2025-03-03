@@ -9,7 +9,8 @@ import {
   isMac,
   isWindows,
   userHome,
-  defaultWinePrefix
+  defaultWinePrefix,
+  isLinux
 } from './constants'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import { join } from 'path'
@@ -235,7 +236,8 @@ class GameConfigV0 extends GameConfig {
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
       gamescope,
-      verboseLogs
+      verboseLogs,
+      disableUMU
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -277,10 +279,12 @@ class GameConfigV0 extends GameConfig {
       // read game's settings
       const settings = JSON.parse(readFileSync(this.path, 'utf-8'))
       gameSettings = settings[this.appName] || ({} as GameSettings)
-    } else {
+    }
+
+    if (isLinux && gameSettings.disableUMU === undefined) {
       // only set the `disableUMU` default value when getting settings for a new game
       // we want it to be `undefined` for games that were installed already
-      defaultSettings.disableUMU = false
+      defaultSettings.disableUMU = disableUMU
     }
 
     if (!isWindows) {
