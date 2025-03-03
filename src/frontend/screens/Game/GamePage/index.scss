@@ -11,7 +11,6 @@
     'left right'
     'report report';
 
- 
   overflow: hidden;
   justify-content: flex-start;
   align-items: flex-start;
@@ -23,11 +22,9 @@
   ** which is 44px
   */
 
-
   .MuiTab-labelIcon {
     min-height: unset;
   }
-
 
   p {
     margin-block-start: var(--space-xs);
@@ -96,7 +93,7 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    max-height: calc(100vh - 150px); 
+    max-height: calc(100vh - 150px);
     overflow-y: auto;
     overflow-x: hidden;
     align-items: flex-start;
@@ -148,8 +145,8 @@
       );
     }
   }
-  
- //mainInfoWrapper
+
+  //mainInfoWrapper
   .mainInfoWrapper {
     .mainInfo {
       padding: max(25vh, 125px) min(4vw, 70px) min(5vh, 25px);
@@ -265,7 +262,6 @@
 
         & > button {
           align-self: center;
-
         }
 
         & .mainBtn {
@@ -305,7 +301,6 @@
 
       & > div {
         overflow-y: auto;
-        
       }
 
       & div.infoTab,
@@ -320,15 +315,14 @@
           align-items: center;
           border-bottom: 1px solid transparent;
           background-image: linear-gradient(
-          to right,
-          transparent,
-          var(--neutral-04),
-          transparent
+            to right,
+            transparent,
+            var(--neutral-04),
+            transparent
           );
           background-position: bottom;
           background-size: 100% 1px;
           background-repeat: no-repeat;
-          
 
           &:focus-visible,
           &:has(:focus-visible) {
@@ -383,7 +377,6 @@
               gap: 10px;
             }
 
-
             & .MuiAccordionSummary-expandIconWrapper {
               color: inherit;
             }
@@ -394,8 +387,6 @@
           }
         }
       }
-
-  
     }
 
     .anticheatInfo {
@@ -569,8 +560,8 @@
 
     .mainInfo {
       padding: max(10vh, 80px) min(3vw, 50px) min(3vh, 20px);
-      }
-    
+    }
+
     .extraInfo {
       padding: 1vh 1vw;
     }
