@@ -965,7 +965,6 @@
         "title": "Adtraction è bloccato"
     },
     "emptyLibrary": {
-        "noGames": "La tua libreria è vuota. Puoi <1>collegarti</1> utilizzando uno store o cliccare <3></3> per aggiungerne uno manualmente.",
         "noResults": "I filtri attuali non hanno prodotto risultati."
     }
 }

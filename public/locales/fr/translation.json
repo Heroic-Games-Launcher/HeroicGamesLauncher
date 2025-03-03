@@ -947,8 +947,7 @@
         "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. C'est la version de Wine recommandée pour un usage en dehors de Steam."
     },
     "emptyLibrary": {
-        "noResults": "Les filtres actuels n'ont retourné aucun résultat.",
-        "noGames": "Votre bibliothèque est vide. Vous pouvez <1>vous connecter</1> dans une boutique ou cliquer sur <3></3> pour en ajouter un manuellement."
+        "noResults": "Les filtres actuels n'ont retourné aucun résultat."
     },
     "adtraction-locked": {
         "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",
