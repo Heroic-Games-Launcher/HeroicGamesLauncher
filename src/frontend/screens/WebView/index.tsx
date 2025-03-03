@@ -61,7 +61,7 @@ export default function WebView() {
     lang = 'pt-BR'
   }
 
-  const epicLoginUrl = 'https://legendary.gl/epiclogin'
+  const epicLoginUrl = 'https://www.epicgames.com/id/login?responseType=code'
 
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://af.gog.com?as=1838482841`
@@ -102,27 +102,6 @@ export default function WebView() {
       startUrl = queryParam
     }
   }
-
-  const isEpicLogin = runner === 'legendary' && startUrl === epicLoginUrl
-  const [preloadPath, setPreloadPath] = useState('')
-
-  useEffect(() => {
-    let mounted = true
-    const fetchLocalPreloadPath = async () => {
-      const path = await window.api.getLocalPeloadPath()
-      if (mounted) {
-        setPreloadPath(path)
-      }
-    }
-
-    if (isEpicLogin) {
-      fetchLocalPreloadPath()
-    }
-
-    return () => {
-      mounted = false
-    }
-  }, [isEpicLogin])
 
   useEffect(() => {
     if (pathname !== '/loginweb/nile') return
@@ -169,26 +148,7 @@ export default function WebView() {
 
   useLayoutEffect(() => {
     const webview = webviewRef.current
-    if (webview && ((preloadPath && isEpicLogin) || !isEpicLogin)) {
-      const onIpcMessage = async (event: unknown) => {
-        const e = event as { channel: string; args: string[] }
-        if (e.channel === 'processEpicLoginCode') {
-          try {
-            setLoading({
-              refresh: true,
-              message: t('status.logging', 'Logging In...')
-            })
-            await epic.login(e.args[0])
-            handleSuccessfulLogin()
-          } catch (error) {
-            console.error(error)
-            window.api.logError(String(error))
-          }
-        }
-      }
-
-      webview.addEventListener('ipc-message', onIpcMessage)
-
+    if (webview) {
       const loadstop = async () => {
         setLoading({ ...loading, refresh: false })
         // Ignore the login handling if not on login page
@@ -199,14 +159,12 @@ export default function WebView() {
           if (pageUrl.match(gogEmbedRegExp)) {
             const parsedURL = new URL(pageUrl)
             const code = parsedURL.searchParams.get('code')
-            setLoading({
-              refresh: true,
-              message: t('status.logging', 'Logging In...')
-            })
             if (code) {
-              gog.login(code).then(() => {
-                handleSuccessfulLogin()
+              setLoading({
+                refresh: true,
+                message: t('status.logging', 'Logging In...')
               })
+              gog.login(code).then(() => handleSuccessfulLogin())
             }
           }
         } else if (runner === 'nile') {
@@ -217,6 +175,19 @@ export default function WebView() {
           )
           if (code) {
             handleAmazonLogin(code)
+          }
+        } else if (runner == 'legendary') {
+          const pageUrl = webview.getURL()
+          const parsedUrl = new URL(pageUrl)
+          if (parsedUrl.hostname === 'localhost') {
+            const code = parsedUrl.searchParams.get('code')
+            if (code) {
+              setLoading({
+                refresh: true,
+                message: t('status.logging', 'Logging In...')
+              })
+              epic.login(code).then(() => handleSuccessfulLogin())
+            }
           }
         }
       }
@@ -255,14 +226,13 @@ export default function WebView() {
       webview.addEventListener('page-title-updated', updateConnectivity)
 
       return () => {
-        webview.removeEventListener('ipc-message', onIpcMessage)
         webview.removeEventListener('dom-ready', loadstop)
         webview.removeEventListener('did-fail-load', onerror)
         webview.removeEventListener('page-title-updated', updateConnectivity)
       }
     }
     return
-  }, [webviewRef.current, preloadPath, amazonLoginData, runner])
+  }, [webviewRef.current, amazonLoginData, runner])
 
   useEffect(() => {
     const webview = webviewRef.current
@@ -299,7 +269,11 @@ export default function WebView() {
     useState<boolean>(false)
 
   useEffect(() => {
-    if (startUrl.match(/epicgames\.com/) && !epic.username) {
+    if (
+      startUrl.match(/epicgames\.com/) &&
+      startUrl.indexOf('/id/login') < 0 &&
+      !epic.username
+    ) {
       setShowLoginWarningFor('epic')
     } else if (
       startUrl.match(/gog\.com/) &&
@@ -318,9 +292,10 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
-  if (!preloadPath && isEpicLogin) {
-    return <></>
-  }
+  const userAgent =
+    startUrl === epicLoginUrl
+      ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
+      : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0 HeroicGamesLauncher'
 
   return (
     <div className="WebView">
@@ -338,8 +313,7 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
-        useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0"
-        {...(preloadPath ? { preload: preloadPath } : {})}
+        useragent={userAgent}
       />
       {showLoginWarningFor && (
         <LoginWarning
