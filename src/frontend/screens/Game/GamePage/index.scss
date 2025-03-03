@@ -1,457 +1,33 @@
-.App.oldDesign {
-  .gameConfigContainer {
-    background: var(--background-darker);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    display: flex;
-    height: 100%;
-    overflow: hidden;
-    justify-content: stretch;
-    position: relative;
-
-    .titleWrapper {
-      display: flex;
-      position: sticky;
-      top: 0px;
-      padding-top: 2rem;
-      margin-top: 2rem;
-      background: var(--background-darker);
-      z-index: 1;
-      .title {
-        font-weight: var(--medium);
-        font-size: var(--text-xl);
-        line-height: 30px;
-        color: var(--text-default);
-        text-align: start;
-        flex-basis: 100%;
-        align-self: center;
-      }
-
-      .settings-icon {
-        width: 44px;
-        position: relative;
-        padding: 6px;
-        right: 6px;
-        background: var(--neutral-03);
-        border-radius: 10px;
-        display: grid;
-        place-items: center;
-        height: 44px;
-
-        svg path {
-          fill: var(--neutral-06);
-          transition: fill 0.2s;
-        }
-
-        &:hover {
-          svg path {
-            fill: var(--neutral-05);
-          }
-        }
-      }
-
-      .game-actions {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-
-        .toggle {
-          align-self: flex-end;
-          border: none;
-          color: var(--neutral-06);
-          font-size: var(--text-2xl);
-          padding: var(--space-xs-fixed);
-          cursor: pointer;
-          position: relative;
-          transition: color 0.2s;
-          display: flex;
-          justify-content: center;
-          width: 44px;
-          height: 44px;
-          background: var(--neutral-03);
-          border-radius: 10px;
-        }
-
-        &:focus-within .toggle,
-        &:hover .toggle,
-        .toggle:hover {
-          color: var(--neutral-05);
-        }
-
-        .gameTools {
-          position: absolute;
-          opacity: 1;
-          pointer-events: all;
-          transition: all 0.2s;
-          background: var(--navbar-background);
-          border-radius: 5px;
-          z-index: 2;
-          padding: 0;
-          max-height: 0px;
-          overflow: hidden;
-          right: 0;
-          top: 112%;
-        }
-
-        .gameTools .link {
-          width: 100%;
-          padding: 0 0 0.5rem;
-          text-align: start;
-          white-space: nowrap;
-          font-size: 1rem;
-          background: var(--navbar-background);
-
-          &:hover {
-            color: var(--accent-overlay);
-          }
-
-          &:last-child {
-            padding-bottom: 0;
-          }
-        }
-
-        &:focus-within .gameTools,
-        &:hover .gameTools {
-          opacity: 1;
-          pointer-events: all;
-          padding: var(--space-md);
-          max-height: 100vh;
-          box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
-        }
-      }
-    }
-
-    .store-icon {
-      position: absolute;
-      left: 1rem;
-      bottom: 0.5rem;
-      border-radius: 10px;
-      padding: var(--space-3xs);
-      place-content: center;
-      fill: var(--text-default);
-
-      & > svg {
-        background-color: var(--body-background);
-        width: 60px;
-        height: 60px;
-        padding: var(--space-3xs);
-        border-radius: 10px;
-
-        &.gogIcon {
-          padding: 0px var(--space-3xs) var(--space-3xs);
-        }
-      }
-    }
-  }
-
-  &.isRTL {
-    .gameTools {
-      right: auto !important;
-      left: 0px;
-    }
-    .settings-icon {
-      right: auto !important;
-      left: 6px;
-    }
-    .store-icon {
-      left: auto !important;
-      right: 1rem;
-    }
-    .backButton {
-      left: auto !important;
-      right: 12px;
-    }
-  }
-
-  .gameConfig {
-    display: flex;
-    align-self: center;
-    max-width: 1000px;
-  }
-
-  .gamePicture {
-    flex-basis: 40%;
-    flex-shrink: 0;
-    flex-grow: 0;
-  }
-
-  .backButton {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: none;
-    border: none;
-    color: var(--accent);
-
-    & > .MuiSvgIcon-root {
-      width: 40px;
-      height: 40px;
-      transition: 300ms;
-
-      &:hover {
-        color: var(--accent-overlay);
-      }
-    }
-  }
-
-  .isRTL .backButton {
-    right: 12px;
-    left: auto;
-    transform: scaleX(-100%);
-  }
-
-  .gameInfo {
-    text-align: initial;
-    align-self: flex-start;
-    font-size: var(--text-md);
-    color: var(--text-default);
-    display: flex;
-    flex-direction: column;
-    flex: 100%;
-    max-height: 100vh;
-    overflow-y: auto;
-    user-select: text;
-    padding-block: 0 4rem;
-    padding-inline: 1.2em 2.2em;
-
-    .title {
-      font-weight: var(--bold);
-      margin-bottom: 0;
-    }
-
-    & > .selectFieldWrapper.Field {
-      margin-bottom: var(--space-md);
-    }
-
-    & > *:not(:first-child) {
-      max-width: 560px;
-    }
-
-    .infoWrapper {
-      color: var(--text-default);
-      flex-grow: 1;
-      line-height: 22px;
-      display: flex;
-      flex-direction: column;
-
-      .iconWithText {
-        transition: color 300ms;
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
-    }
-
-    .timeContainerLabel,
-    .iconWithText {
-      align-self: flex-start;
-    }
-
-    .genres {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-xs);
-      margin-bottom: 0.5rem;
-
-      .genre {
-        background: var(--accent-overlay);
-        color: var(--text-tertiary);
-        padding: 1px 6px;
-        border-radius: 6px;
-        font-size: var(--text-sm);
-      }
-    }
-
-    .developer {
-      padding: var(--space-md-fixed) 0 0 0;
-      color: var(--text-default);
-    }
-
-    button {
-      max-width: 560px;
-    }
-
-    .summary {
-      font-family: var(--primary-font-family);
-      font-style: normal;
-      font-weight: normal;
-      padding-bottom: var(--space-sm);
-      margin-bottom: var(--space-md);
-      font-size: var(--text-md);
-      max-width: 560px;
-      text-overflow: ellipsis;
-      color: var(--text-default);
-      overflow: hidden;
-      -webkit-line-clamp: 5;
-      -webkit-box-orient: vertical;
-      overflow: auto;
-      height: 150px;
-      line-height: 1.5;
-      padding-top: var(--space-md-fixed);
-      b {
-        font-weight: 700;
-      }
-    }
-
-    .info .smallTitle {
-      font-weight: bold;
-    }
-
-    .reportProblem {
-      align-self: flex-start;
-      margin-top: 1.2em;
-      color: var(--accent);
-
-      &:hover {
-        color: var(--accent-overlay);
-      }
-
-      & svg {
-        margin-inline-end: 0.4em;
-      }
-    }
-  }
-
-  .gameRequirements {
-    align-self: flex-start;
-    overflow: auto;
-  }
-
-  .gamePageStoreIcon {
-    fill: var(--text-default);
-    flex-grow: 1;
-    text-align: end;
-    padding-inline-end: var(--space-sm);
-
-    & > svg {
-      width: var(--text-5xl);
-      height: var(--text-5xl);
-      padding: var(--space-3xs);
-      border-radius: 10px;
-    }
-  }
-
-  .MuiLinearProgress-root {
-    width: 169px;
-    height: 5px;
-    background-color: var(--neutral-05);
-
-    .MuiLinearProgress-bar {
-      background-color: var(--success);
-    }
-  }
-
-  .selectFieldWrapper.Field ~ .buttonsWrapper {
-    margin-top: 24px;
-  }
-
-  .updateText {
-    cursor: pointer;
-
-    &:hover {
-      color: var(--text-secondary);
-    }
-  }
-
-  .pictureTimeContainer {
-    display: flex;
-    flex-direction: column;
-    max-height: 400px;
-  }
-
-  .infoWrapper.itemContainer {
-    place-content: center;
-    text-align: initial;
-    width: 20vw;
-    min-width: fit-content;
-    max-width: 290px;
-    margin-bottom: 12px;
-  }
-
-  .itemTitle {
-    font-weight: var(--bold);
-    text-align: center;
-  }
-
-  .checkBox {
-    display: flex;
-    margin-top: 6px;
-    align-items: center;
-  }
-
-  .dlcTitle {
-    font-weight: var(--bold);
-    margin-top: 16px;
-  }
-
-  .sdlTitle {
-    cursor: pointer;
-    font-weight: var(--bold);
-
-    &:hover {
-      color: var(--download-button);
-    }
-  }
-
-  .MuiIconButton-colorPrimary,
-  .MuiCheckbox-colorPrimary.Mui-checked {
-    color: var(--download-button);
-  }
-
-  .PrivateSwitchBase-root-1 {
-    padding: var(--space-3xs);
-  }
-
-  .buttonsWrapper .button {
-    min-width: max-content;
-  }
-
-  .buttonWithIcon {
-    display: flex;
-    place-items: center;
-    justify-content: center;
-
-    & > svg {
-      height: 20px;
-      margin-inline-end: 5px; /* for compatibility, before was hardcoded in JS*/
-    }
-  }
-
-  @keyframes animate-stripes {
-    100% {
-      background-position: -100px 0px;
-    }
-  }
-}
-
 .App:not(.oldDesign) .gameConfigContainer {
   display: grid;
-  position: relative;
-  grid-template-columns: repeat(
-    2,
-    minmax(0, 1fr)
-  ); /* assure that the columns are always the same width */
-  grid-template-rows: min-content 1fr min-content;
-  row-gap: var(--space-md);
-  column-gap: min(var(--space-lg), 50px);
+  grid-template-columns: minmax(500px, 60%) minmax(500px, 60%);
+  padding: var(--space-md);
+  gap: var(--space-md);
+  border-radius: 10px;
+  max-width: 1920px;
+  max-height: 100vh;
   grid-template-areas:
-    'top top'
-    'main extra'
+    'header header'
+    'left right'
     'report report';
 
-  padding: var(--space-lg);
-  height: 100vh;
-  min-height: 600px;
+ 
   overflow: hidden;
+  justify-content: flex-start;
   align-items: flex-start;
+  align-content: flex-start;
 
   /*
   ** Adding icons to the MUI tabs makes them at least 72px high
   ** min-height is guaranteed by the min height of the tab parent element itself
   ** which is 44px
   */
+
+
   .MuiTab-labelIcon {
     min-height: unset;
   }
+
 
   p {
     margin-block-start: var(--space-xs);
@@ -467,7 +43,7 @@
     width: 44px;
     height: 44px;
     padding: 6px;
-    color: var(--navbar-inactive);
+    color: var(--status-default-hover);
     background-color: var(--navbar-background);
     border-radius: 10px;
     display: grid;
@@ -480,31 +56,59 @@
     }
 
     &:hover {
-      color: var(--navbar-active);
+      color: var(--);
     }
   }
 
   .topRowWrapper {
     display: flex;
-    grid-area: top;
-    gap: var(--space-sm);
-    z-index: 30;
+    grid-area: header;
+    align-items: center;
+    justify-content: space-between;
+    gap: auto;
+    z-index: 1;
+    width: 100%;
 
     & > * {
       filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
     }
 
     .backButton {
-      margin-inline-end: auto;
+      display: flex;
+      justify-content: flex-start;
+      gap: var(--space-sm);
+      align-self: start;
     }
+  }
+
+  .topRowWapperInner {
+    display: flex;
+    grid-area: header2;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1;
   }
 
   .mainInfoWrapper,
   .extraInfoWrapper {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    width: 100%;
+    height: 100%;
+    max-height: calc(100vh - 150px); 
     overflow-y: auto;
+    overflow-x: hidden;
+    align-items: flex-start;
+    justify-self: start;
+  }
+
+  .mainInfoWrapper {
+    grid-area: left;
+  }
+
+  .extraInfoWrapper {
+    grid-area: right;
   }
 
   .mainInfo,
@@ -540,17 +144,15 @@
       background-image: linear-gradient(
         180deg,
         transparent,
-        var(--body-background) 65%
+        var(--body-background) 70%
       );
     }
   }
-
+  
+ //mainInfoWrapper
   .mainInfoWrapper {
-    grid-area: main;
-    min-width: 300px;
-
     .mainInfo {
-      padding: max(20vh, 125px) min(4vw, 70px) min(5vh, 25px);
+      padding: max(25vh, 125px) min(4vw, 70px) min(5vh, 25px);
       background-color: var(--body-background);
 
       .store-icon {
@@ -570,9 +172,6 @@
 
         &::after {
           content: '';
-          display: block;
-          inset: 0px;
-          position: absolute;
           background-image: linear-gradient(
             180deg,
             transparent,
@@ -586,9 +185,23 @@
         line-height: 39px;
       }
 
-      h1,
+      h1 {
+        margin-bottom: 0.8rem;
+        padding-top: var(--space-xs);
+        color: var();
+      }
+
       .developer {
-        margin-bottom: 10px;
+        margin-bottom: 0.5rem;
+        color: var(--brand-text-02);
+        font-size: var(--text-md);
+        font-style: italic;
+      }
+
+      .releaseDate {
+        margin-bottom: 0.2rem;
+        color: var(--neutral-05);
+        font-size: var(--text-md);
       }
 
       .summary {
@@ -598,6 +211,14 @@
         text-align: left;
         flex-grow: 1;
         margin-top: var(--space-xs);
+        color: var(--neutral-06);
+        padding: 0 12px 0 0;
+      }
+
+      .timeContainerLabel {
+        margin-top: 0.8rem;
+        color: var(--neutral-08);
+        font-size: var(--text-md);
       }
 
       .genres {
@@ -630,25 +251,21 @@
 
       .buttons {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        row-gap: 10px;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         margin-top: 15px;
-        width: auto;
+        width: 100%;
 
         .buttonWithIcon > svg {
           display: flex;
-          place-items: center;
           justify-content: center;
           margin-inline-end: var(--space-2xs);
-          width: auto;
-          max-height: 1em;
         }
 
         & > button {
           align-self: center;
-          max-height: unset;
-          padding: var(--space-sm) var(--space-md);
+
         }
 
         & .mainBtn {
@@ -657,7 +274,10 @@
 
           & svg {
             transform: scale(1.2);
-
+            height: 16px;
+            width: 16px;
+            align-self: center;
+            color: var(--neutral-03);
             &[data-icon='play'],
             &[data-icon='stop'] {
               /* For some reason Play/Stop icons are much smaller the rest */
@@ -667,8 +287,8 @@
         }
 
         & .delBtn {
-          font-size: var(--text-sm);
-          padding: var(--space-2xs) var(--space-xs);
+          font-size: var(--text-md);
+          min-width: 150px;
           & svg {
             margin-inline-end: 0;
           }
@@ -677,16 +297,15 @@
     }
   }
 
-  .extraInfoWrapper {
-    grid-area: extra;
+  //extraInfoWrapper
 
+  .extraInfoWrapper {
     .extraInfo {
       padding: 4vh 1.5vw;
 
       & > div {
         overflow-y: auto;
-        padding: 5px 10px;
-        max-width: 100%;
+        
       }
 
       & div.infoTab,
@@ -696,10 +315,20 @@
           text-align: end;
           font-size: var(--space-unit-fixed);
           line-height: 24px;
-          gap: var(--space-sm-fixed);
+          gap: var(--space-md-fixed);
           padding: var(--space-unit-fixed) 0;
           align-items: center;
-          border-bottom: 1px solid var(--base-06);
+          border-bottom: 1px solid transparent;
+          background-image: linear-gradient(
+          to right,
+          transparent,
+          var(--neutral-04),
+          transparent
+          );
+          background-position: bottom;
+          background-size: 100% 1px;
+          background-repeat: no-repeat;
+          
 
           &:focus-visible,
           &:has(:focus-visible) {
@@ -754,6 +383,7 @@
               gap: 10px;
             }
 
+
             & .MuiAccordionSummary-expandIconWrapper {
               color: inherit;
             }
@@ -764,6 +394,8 @@
           }
         }
       }
+
+  
     }
 
     .anticheatInfo {
@@ -773,16 +405,12 @@
   }
 
   .reportProblem {
+    display: flex;
     grid-area: report;
+
     svg {
       margin-inline-end: 0.5rem;
     }
-  }
-
-  .mainInfoWrapper,
-  .extraInfoWrapper {
-    max-width: 800px;
-    height: 100%;
   }
 
   .store-icon {
@@ -793,9 +421,9 @@
 
     & > svg {
       background-color: var(--body-background);
-      width: 60px;
-      height: 60px;
-      padding: var(--space-3xs);
+      width: 46px;
+      height: 46px;
+      padding: var(--space-2xs);
       border-radius: 10px;
 
       &.gogIcon {
@@ -907,8 +535,6 @@
     object-fit: cover;
     filter: blur(15px);
     opacity: 0.3;
-    /* scale is so there will be no ugly edges because of the blur */
-    transform: scale(1.1);
   }
 }
 
@@ -924,12 +550,43 @@
     padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
+    align-self: flex-start;
     & svg {
       margin-inline-end: 0.5rem;
     }
     & a {
       color: black;
       text-decoration: underline;
+    }
+  }
+}
+// Media queries
+@media (max-width: 1280px) and (max-height: 800px) {
+  .App:not(.oldDesign) .gameConfigContainer {
+    padding: var(--space-md);
+    gap: var(--space-xs);
+    grid-template-columns: minmax(400px, 50%) minmax(400px, 50%);
+
+    .mainInfo {
+      padding: max(10vh, 80px) min(3vw, 50px) min(3vh, 20px);
+      }
+    
+    .extraInfo {
+      padding: 1vh 1vw;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'header'
+        'left'
+        'right'
+        'report';
+
+      .mainInfoWrapper,
+      .extraInfoWrapper {
+        justify-self: center;
+      }
     }
   }
 }
