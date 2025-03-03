@@ -248,6 +248,7 @@ export function createNecessaryFolders() {
 }
 
 export {
+  appFolder,
   currentGameConfigVersion,
   currentGlobalConfigVersion,
   currentLogFile,

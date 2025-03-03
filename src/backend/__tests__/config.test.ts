@@ -1,5 +1,6 @@
 import { GlobalConfig } from 'backend/config'
 import {
+  appFolder,
   configPath,
   defaultWinePrefix,
   getSteamCompatFolder,
@@ -68,7 +69,7 @@ describe('GlobalConfig', () => {
     describe('returns defaults if no settings yet', () => {
       const getSettings = () => {
         // create config dir if needed
-        if (!existsSync(configPath)) mkdirSync(configPath, { recursive: true })
+        if (!existsSync(appFolder)) mkdirSync(appFolder, { recursive: true })
 
         // clear global config so we initialize a new one
         if (existsSync(configPath)) rmSync(configPath)
