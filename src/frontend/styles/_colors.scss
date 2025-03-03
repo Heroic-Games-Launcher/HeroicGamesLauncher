@@ -2,9 +2,13 @@
   /* General Colors as on Figma. Do not add new colors here */
   /* Brand */
   --brand-primary: #1de8f5;
-  --brand-secondary: #819cff;
-  --brand-text-01: #e0f9ff;
-  --brand-text-02: #97e5f7;
+  --brand-primary-hover: #0db4be;
+  --brand-secondary: #bfb3ff;
+  --brand-secondary-hover: #dad5ff;
+  --brand-text-01: #caf3fd;
+  --brand-text-02: #a5edfd;
+  --brand-text-03: #6fd9f7;
+  --brand-text-04: #e0d0ff;
 
   /* Neutral */
   --neutral-01: #070a0b;
@@ -13,15 +17,17 @@
   --neutral-04: #495456;
   --neutral-05: #9eb7bc;
   --neutral-06: #d1e4e9;
+  --neutral-07: #f0f7f9;
+  --neutral-08: #f9fbfc;
 
   /* Status */
   --status-default: #d2d2d2;
   --status-success: #0ce396;
-  --status-warning: #daad0e;
-  --status-danger: #b80953;
-  --status-info: #0fefc7;
-  --primary-hover: #88ebf1;
-  --primary-active: #0db4be;
+  --status-warning: #f8ae79;
+  --status-danger: #f97881;
+  --status-info: #2ceac7;
+  --primary-hover: #0db4be;
+  --primary-active: #88ebf1;
   --secondary-hover: #a7baff;
   --secondary-active: #2253ff;
 
@@ -30,9 +36,9 @@
 
   /* Status Hover */
   --status-default-hover: rgb(197, 197, 197);
-  --status-success-hover: #14f7a7;
-  --status-warning-hover: #ffd426;
-  --status-danger-hover: #f4297e;
+  --status-success-hover: #39fab6;
+  --status-warning-hover: #ffbd8e;
+  --status-danger-hover: #fc9ba1;
   --status-info-hover: #0fefc7;
 
   /* Other */
