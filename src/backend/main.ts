@@ -162,6 +162,25 @@ if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
+  // Initialize global proxy agent
+  const http_proxy =
+    process.env.HTTP_PROXY ||
+    process.env.http_proxy ||
+    process.env.ALL_PROXY ||
+    process.env.all_proxy
+  const https_proxy =
+    process.env.HTTPS_PROXY ||
+    process.env.https_proxy ||
+    process.env.ALL_PROXY ||
+    process.env.all_proxy
+  if (http_proxy) {
+    logInfo('Using HTTP proxy: ' + http_proxy, LogPrefix.Backend)
+    process.env.GLOBAL_AGENT_HTTP_PROXY = http_proxy
+  }
+  if (https_proxy) {
+    logInfo('Using HTTPS proxy: ' + https_proxy, LogPrefix.Backend)
+    process.env.GLOBAL_AGENT_HTTPS_PROXY = https_proxy
+  }
   bootstrap()
 
   createNecessaryFolders()
