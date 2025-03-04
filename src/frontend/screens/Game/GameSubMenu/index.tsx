@@ -9,10 +9,10 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
-import { InstallModal } from 'frontend/screens/Library/components'
 import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import GameContext from '../GameContext'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 interface Props {
   appName: string
@@ -59,7 +59,6 @@ export default function GamesSubmenu({
   const [hasShortcuts, setHasShortcuts] = useState(false)
   const [eosOverlayEnabled, setEosOverlayEnabled] = useState<boolean>(false)
   const [eosOverlayRefresh, setEosOverlayRefresh] = useState<boolean>(false)
-  const [showModal, setShowModal] = useState(false)
   const eosOverlayAppName = '98bc04bc842e4906993fd6d6644ffb8d'
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [protonDBurl, setProtonDBurl] = useState(
@@ -147,7 +146,7 @@ export default function GamesSubmenu({
   }
 
   function handleEdit() {
-    setShowModal(true)
+    openInstallGameModal({ appName, runner, gameInfo })
   }
 
   async function handleEosOverlay() {
@@ -379,13 +378,6 @@ export default function GamesSubmenu({
           )}
         </div>
       </div>
-      {showModal && (
-        <InstallModal
-          appName={appName}
-          runner={runner}
-          backdropClick={() => setShowModal(false)}
-        />
-      )}
     </>
   )
 }
