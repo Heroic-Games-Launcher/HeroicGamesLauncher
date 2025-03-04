@@ -27,7 +27,7 @@ interface Props {
 const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
-  const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', false)
+  const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
   function getPlayLabel(): React.ReactNode {
     if (is.syncing) {
