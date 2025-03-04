@@ -723,7 +723,8 @@
         "gamescope": {
             "enableLimiter": "Activa el limitador de FPS",
             "enableUpscaling": "Activa l'escalatge",
-            "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·leu-lo o afegiu-lo a PATH."
+            "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·leu-lo o afegiu-lo a PATH.",
+            "enableForceGrabCursor": "Activa la captura forçada de cursor"
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
@@ -735,7 +736,11 @@
                 "message": "Els jocs amb suport antitrampes trencat o denegat poden funcionar, però les característiques multijugador no funcionaran. No demaneu suport si les instal·leu sabent això."
             },
             "label": "Permet instal·lar jocs amb suport antitrampes trencat o denegat"
-        }
+        },
+        "verboseLogs": {
+            "description": "Activa els registres detallats"
+        },
+        "disableUMU": "Desactiva l'UMU"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -778,7 +783,9 @@
         "reset-heroic": "Restableix l'Heroic",
         "saves": {
             "label": "Ubicació de les desades:",
-            "warning": "La funció de desar al núvol està en versió beta. Fes una còpia de seguretat de les partides desades abans de sincronitzar-les, per si res sortís malament."
+            "warning": "La funció de desar al núvol està en versió beta. Fes una còpia de seguretat de les partides desades abans de sincronitzar-les, per si res sortís malament.",
+            "gog_linux_native_warning": "Els jocs natius de Linux no suporten la funció de desades al núvol del GOG. Feu servir la versió Windows.",
+            "not_supported": "Aquest joc no suporta les desades al núvol."
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -833,6 +840,9 @@
             "resetHeroic": {
                 "help": "S'eliminaran tots els ajustos i els continguts de la memòria cau, però no s'eliminarà els jocs instal·lats de l'Epic o les seves credencials. Les versions portables (AppImage, WinPortable, ...) que necessita l'Heroic es reiniciaran manualment."
             }
+        },
+        "custom_css": {
+            "title": "Estil CSS personalitzat"
         }
     },
     "Settings": "Configuració",
