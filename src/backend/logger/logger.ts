@@ -585,6 +585,7 @@ class GameLogWriter extends LogWriter {
       delete gameSettings.enableFSR
       delete gameSettings.showMangohud
       delete gameSettings.showFps
+      delete gameSettings.disableUMU
 
       if (notNative) {
         const wineType = gameSettings.wineVersion
@@ -639,6 +640,7 @@ class GameLogWriter extends LogWriter {
       delete gameSettings.battlEyeRuntime
       delete gameSettings.eacRuntime
       delete gameSettings.nvidiaPrime
+      delete gameSettings.disableUMU
     }
 
     return gameSettings
