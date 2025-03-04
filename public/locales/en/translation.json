@@ -653,6 +653,7 @@
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "gamescope": {
+            "enableGamescope": "Enable Gamescope",
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
             "enableForceGrabCursor": "Enable Force Grab Cursor",

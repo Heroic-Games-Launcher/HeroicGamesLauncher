@@ -357,11 +357,7 @@ async function prepareLaunch(
     }
   }
 
-  if (
-    (gameSettings.gamescope?.enableLimiter ||
-      gameSettings.gamescope?.enableUpscaling) &&
-    !isSteamDeckGameMode
-  ) {
+  if (gameSettings.gamescope?.enableGamescope && !isSteamDeckGameMode) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
     if (!gameScopeBin) {
       logWarning(
