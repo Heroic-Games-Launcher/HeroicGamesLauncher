@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 
 import { GameInfo, GameStatus, Runner } from 'common/types'
 
@@ -50,7 +50,7 @@ export default function GamesSubmenu({
     showDialogModal,
     setIsSettingsModalOpen
   } = useContext(ContextProvider)
-  const { is } = useContext(GameContext)
+  const { is, gameSettings } = useContext(GameContext)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
 
@@ -233,6 +233,25 @@ export default function GamesSubmenu({
     isInstalled &&
     !isThirdPartyManaged
 
+  const hasWine =
+    !is.win && !is.native && gameSettings?.wineVersion.type !== 'crossover'
+
+  const onBrowseFiles = useCallback(() => {
+    const path = gameInfo.install.install_path || gameInfo.folder_name
+
+    if (path) {
+      window.api.openFolder(path)
+    }
+  }, [gameInfo])
+
+  const onBrowsePrefix = useCallback(() => {
+    const path = gameSettings?.winePrefix
+
+    if (path) {
+      window.api.openFolder(path)
+    }
+  }, [gameSettings])
+
   return (
     <>
       <div className="gameTools subMenuContainer">
@@ -375,6 +394,22 @@ export default function GamesSubmenu({
               className="link button is-text is-link"
             >
               {t('game.modify', 'Modify Installation')}
+            </button>
+          )}
+          {isInstalled && (
+            <button
+              onClick={async () => onBrowseFiles()}
+              className="link button is-text is-link"
+            >
+              {t('button.browse_files', 'Browse Files')}
+            </button>
+          )}
+          {hasWine && (
+            <button
+              onClick={async () => onBrowsePrefix()}
+              className="link button is-text is-link"
+            >
+              {t('button.browse_wine_prefix', 'Browse Wine Prefix')}
             </button>
           )}
         </div>
