@@ -40,6 +40,10 @@ export const publicDir = resolve(
   app.isPackaged || process.env.CI === 'e2e' ? '' : '../public'
 )
 
+export const fakeEpicExePath = fixAsarPath(
+  join(publicDir, 'bin', 'EpicGamesLauncher.exe')
+)
+
 /**
  * Fix path for packed files with asar, else will do nothing.
  * @param origin  original path

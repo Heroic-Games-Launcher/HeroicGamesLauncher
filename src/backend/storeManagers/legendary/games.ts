@@ -1,4 +1,4 @@
-import { existsSync } from 'graceful-fs'
+import { copyFileSync, existsSync } from 'graceful-fs'
 import axios from 'axios'
 
 import {
@@ -50,7 +50,8 @@ import {
   launchCleanup,
   getRunnerCallWithoutCredentials,
   runWineCommand as runWineCommandUtil,
-  getKnownFixesEnvVariables
+  getKnownFixesEnvVariables,
+  getWinePath
 } from '../../launcher'
 import {
   addShortcuts as addShortcutsUtil,
@@ -90,6 +91,7 @@ import {
   isMac,
   isWindows
 } from 'backend/constants/environment'
+import { fakeEpicExePath } from 'backend/constants'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -873,6 +875,22 @@ export async function launch(
       ? {}
       : setupEnvVars(gameSettings, gameInfo.install.install_path)),
     ...getKnownFixesEnvVariables(appName, 'legendary')
+  }
+
+  // We can get this env variable either from the game's settings or from known fixes
+  if (commandEnv['USE_FAKE_EPIC_EXE']) {
+    const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
+    const fakeEpicExePathInPrefix = await getWinePath({
+      path: fakeExeWinPath,
+      gameSettings,
+      variant: 'unix'
+    })
+
+    // we copy the file inside the prefix to avoid permission issues
+    if (!existsSync(fakeEpicExePathInPrefix))
+      copyFileSync(fakeEpicExePath, fakeEpicExePathInPrefix)
+
+    commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeExeWinPath
   }
 
   const wrappers = setupWrappers(
