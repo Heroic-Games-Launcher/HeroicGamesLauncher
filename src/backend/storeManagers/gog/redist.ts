@@ -1,11 +1,6 @@
 // Manage redist required by games and push them to download queue
 // as Galaxy Common Redistributables
 
-import {
-  gamesConfigPath,
-  gogdlConfigPath,
-  gogRedistPath
-} from 'backend/constants'
 import path from 'path'
 import { existsSync } from 'fs'
 import { readdir, readFile } from 'fs/promises'
@@ -26,6 +21,8 @@ import { DMQueueElement } from 'common/types'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'
 import { axiosClient } from 'backend/utils'
+import { gogdlConfigPath, gogRedistPath } from './constants'
+import { gamesConfigPath } from 'backend/constants/paths'
 
 export async function checkForRedistUpdates() {
   if (!GOGUser.isLoggedIn() || !isOnline()) {
