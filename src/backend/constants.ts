@@ -93,6 +93,9 @@ const gogdlAuthConfig = join(app.getPath('userData'), 'gog_store', 'auth.json')
 const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
 )
+const fakeEpicExePath = fixAsarPath(
+  join(publicDir, 'bin', 'EpicGamesLauncher.exe')
+)
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
@@ -240,6 +243,7 @@ export {
   nileLogFile,
   discordLink,
   execOptions,
+  fakeEpicExePath,
   fixAsarPath,
   configStore,
   configPath,
