@@ -103,16 +103,6 @@ export interface ContextType {
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
-  isSettingsModalOpen: {
-    value: boolean
-    gameInfo?: GameInfo | null
-    type: 'settings' | 'log'
-  }
-  setIsSettingsModalOpen: (
-    value: boolean,
-    type?: 'settings' | 'log' | 'category',
-    gameInfo?: GameInfo
-  ) => void
   help: {
     items: { [key: string]: HelpItem }
     addHelpItem: (helpItemId: string, helpItem: HelpItem) => void
