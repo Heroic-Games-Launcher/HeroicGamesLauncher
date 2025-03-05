@@ -156,7 +156,7 @@
             "title": "Niewspierany Anticheat",
             "ok": "OK",
             "install_anyway": "Tak (rozumiem, że funkcje wieloosobowe nie będą działać)",
-            "disabled_installation": "Wsparcie antycheata dla tej gry jest zepsute lub wyłączone, funkcje wieloosobowe nie będą działać. Gra nie może być zainstalowana. Aby zainstalować grę, wyłącz opcję sprawdzania w zaawansowanych ustawieniach.",
+            "disabled_installation": "Ta gra używa oprogramowania antycheat, które nie jest kompatybilne z Twoim systemem operacyjnym lub wsparcie nie zostało włączone przez twórców gry. Oznacza to, że funkcje gry wieloosobowej nie będą działać, a Ty (lub zespół Heroic) nie możesz niczego z tym problemem zrobić.<1></1><2></2>Aby zainstalować tę grę i mimo wszystko ją wypróbować, przejdź do Ustawień, Zaawansowane i zaznacz opcję zezwalania na instalację gier z uszkodzonym lub odrzuconym antycheatem.<4></4><5></5>Uważaj, że nie ma na to rozwiązania i ryzykujesz banem w grze!",
             "multiplayer_message": "Wsparcie antycheata nie działa lub jest zablokowane. Gra może się uruchomić ale funkcje wieloosobowe mogą nie działać. Czy chcesz zainstalować?"
         },
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
@@ -216,6 +216,10 @@
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
             "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
+        },
+        "import-hint": {
+            "title": "Uwaga! Czy dodajesz grę od Epic/GOG/Amazon? Kliknij tutaj!",
+            "content": "NIE używaj do tego tej funkcji.<1></1>Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
         }
     },
     "specs": {
@@ -291,5 +295,6 @@
         "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikację",
         "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
         "notice2": "Po naciśnięciu instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
-    }
+    },
+    "wikiLink": "Przeczytaj ważne informacje o tej grze:&nbsp;<1>otwórz stronę</1>"
 }

@@ -115,7 +115,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Czy jesteś pewny, że chcesz zresetować Heroic? To działanie usunie wszystkie twoje ustawienia i pliki cache, lecz nie usunie zainstalowanych gier. Wersje przenośne (AppImage, WinPortable, ...) muszą później zostać uruchomione ponownie ręcznie.",
+                "message": "Czy jesteś pewny, że chcesz zresetować Heroic? To działanie usunie wszystkie Twoje ustawienia i pliki cache, lecz nie usunie zainstalowanych gier. Wersje przenośne (AppImage, WinPortable, ...) muszą później zostać ponownie uruchomione ręcznie.",
                 "title": "Zresetuj Heroic"
             }
         },
@@ -322,7 +322,8 @@
             "gameHeight": "Wysokość (rozdzielczość) stosowana przez grę. Gamescope zakłada, proporcje ekranu w postaci 16:9.",
             "upscaleHeight": "Wysokość (rozdzielczość) używana przez gamescope. Przyjmuje się proporcje 16:9.",
             "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope. np. 60",
-            "additionalOptions": "Dodatkowe argumenty polecenia dla gamescope."
+            "additionalOptions": "Dodatkowe argumenty polecenia dla gamescope.",
+            "forceGrabCursor": "Zawsze używaj trybu relatywnego myszy zamiast odwracania w zależności od widoczności kursora (przydatne, gdy aplikacje tracą fokus)."
         },
         "title": {
             "accessibility": "Ułatwienia dostępu",
@@ -547,7 +548,7 @@
             "empty": "Nic do pobrania",
             "finished": "Ukończono",
             "queued": "W kolejce",
-            "remove": "Usuń z Pobrań",
+            "remove": "Usuń z Pobranych",
             "pause": "Wstrzymaj pobieranie",
             "resume": "Wznów pobieranie"
         }
@@ -722,19 +723,27 @@
         "gamescope": {
             "enableLimiter": "Włącz ograniczenie klatek na sekundę",
             "enableUpscaling": "Włącz skalowanie",
-            "missingMsg": "Nie udało się nam znaleźć gamescope na PATH. Zainstaluj je lub/i dodaj do PATH."
+            "missingMsg": "Nie udało się nam znaleźć gamescope na PATH. Zainstaluj je lub/i dodaj do PATH.",
+            "enableForceGrabCursor": "Włącz kursor Force Grab"
         },
         "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
         "before-launch-script-path": "Wybierz skrypt do uruchomienia przed rozpoczęciem gry",
         "msync": "Włącz Msync",
         "allow_installation_broken_anticheat": {
             "confirmation": {
-                "message": "Gra z uszkodzonym lub odmawiającym systemem anticheat może się uruchomić, ale multiplayer nie będzie działać. Nie proś o wsparcie, jeżeli instalujesz gry i o tym wiesz.",
+                "message": "Gra z uszkodzonym lub odmawiającym systemem anticheat może się uruchomić, ale multiplayer nie będzie działać. Nie proś o wsparcie, jeżeli instalujesz gry wiedząc o tym.",
                 "title": "Czy na pewno?",
                 "understand": "Rozumiem"
             },
             "label": "Zezwól na instalację gier z zepsutym lub odmawiającym anticheat'em"
-        }
+        },
+        "verboseLogs": {
+            "description": "Włącz szczegółowe dzienniki"
+        },
+        "custom_css": {
+            "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic będzie bezużyteczny. W razie potrzeby można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
+        },
+        "disableUMU": "Wyłącz umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -777,7 +786,9 @@
         "reset-heroic": "Zresetuj Heroic",
         "saves": {
             "label": "Lokalizacja zapisów gry:",
-            "warning": "Zapisy w chmurze są w fazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)"
+            "warning": "Zapisy w chmurze są w fazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)",
+            "not_supported": "Ta gra nie obsługuje zapisów w chmurze.",
+            "gog_linux_native_warning": "Gry natywne dla systemu Linux nie obsługują funkcji zapisywania w chmurze GOG. Skorzystaj z wersji dla systemu Windows."
         },
         "systemInformation": {
             "cpu": "Procesor:",
@@ -830,8 +841,11 @@
                 "clearCache": "Wyczyść Cache"
             },
             "resetHeroic": {
-                "help": "Ta akcja usunie wszystkie Ustawienia i pamięci Cache, ale nie usunie twoich Zainstalowanych gier czy informacji logowania Epic. Wersje przenośnie (AppImage, WinPortable, ...) Heroic będą musiały zostać uruchomione ponownie ręcznie."
+                "help": "Ta akcja usunie wszystkie Ustawienia i pamięci cache, ale nie usunie Twoich zainstalowanych gier czy informacji logowania Epic. Wersje przenośnie (AppImage, WinPortable, ...) Heroic będą musiały zostać uruchomione ponownie ręcznie."
             }
+        },
+        "custom_css": {
+            "title": "Własny styl CSS"
         }
     },
     "Settings": "Ustawienia",
@@ -923,7 +937,9 @@
         "openGUI": "Otwórz interfejs Winetricks",
         "search": "Szukaj czcionek lub bibliotek",
         "nothingYet": "Jeszcze nic nie zostało zainstalowane za pomocą Winetricks",
-        "installed": "Zainstalowane komponenty:"
+        "installed": "Zainstalowane komponenty:",
+        "loading-available": "Ładowanie dostępnych składników...",
+        "no-components": "Brak dostępnych składników"
     },
     "window": {
         "minimize": "Zminimalizuj okno",
@@ -941,11 +957,11 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użytku w Steam, lecz niektóre gry spoza Steam mogą działać lepiej przy użyciu tej wersji. W większości zapewnia bezużyteczne dzienniki do rozwiązywania problemów.",
-        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest to rekomendowana wersja Wine do użytku poza Steam. Zapewnia użyteczne dzienniki do rozwiązywania problemów."
+        "wine-ge": "Wine-GE-Proton to wariant Wine stworzony przez Glorious Eggroll. Został on wycofany na rzecz GE-Proton z programem uruchamiającym umu."
     },
     "emptyLibrary": {
         "noResults": "Wybrane filtry nie zwróciły wyników.",
-        "noGames": "Twoja biblioteka jest pusta. Możesz <1>zalogować się</1> przy użyciu sklepu lub kliknąć <3></3> by dodać grę ręcznie."
+        "noGames": "Twoja biblioteka jest pusta.<1></1><2></2>Kliknij <4>tutaj</4>, aby zalogować się za pomocą kont Epic, GOG.com lub Amazon. Następnie Twoje gry pojawią się w Bibliotece.<6></6><7></7>Aby korzystać z gier lub aplikacji z innych źródeł, kliknij <9></9>, aby dodać je ręcznie."
     },
     "categories-manager": {
         "add-placeholder": "Dodaj Nową Kategorię",
