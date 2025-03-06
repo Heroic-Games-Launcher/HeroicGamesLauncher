@@ -894,7 +894,6 @@
     },
     "Recent": "Neseniai žaista",
     "emptyLibrary": {
-        "noGames": "Jūsų biblioteka yra tuščia. Jūs galite <1>prisijungti</1> naudojant parduotuvę arba spauskite <3></3>, norint pridėti vieną rankiniu būdu.",
         "noResults": "Dabartiniai filtrai nedavė jokių rezultatų."
     },
     "generic": {
