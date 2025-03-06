@@ -394,9 +394,15 @@ class GlobalState extends PureComponent<Props> {
     this.setState({ customCategories: { ...newCustomCategories } })
     configStore.set('games.customCategories', newCustomCategories)
 
+    const selectedCategories = this.getCurrentCustomCategories()
     const newCurrentCustomCategories =
       this.state.currentCustomCategories.filter((cat) => cat !== oldName)
-    this.setCurrentCustomCategories([...newCurrentCustomCategories, newName])
+    if (!selectedCategories.includes(oldName)) {
+      this.setCurrentCustomCategories(newCurrentCustomCategories)
+      return
+    }
+    newCurrentCustomCategories.push(newName)
+    this.setCurrentCustomCategories(newCurrentCustomCategories)
   }
 
   addGameToCustomCategory = (category: string, appName: string) => {
