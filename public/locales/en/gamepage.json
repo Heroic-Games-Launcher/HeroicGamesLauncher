@@ -149,7 +149,7 @@
     "install": {
         "anticheat-warning": {
             "cancel": "No",
-            "disabled_installation": "This game uses anticheat software that is not compatible with your operating system or the support was not enabled by the game developers. This means that the multiplayer features will not work, and there is nothing you (or the Heroic team) can do about it.<1></1><2></2>To install this game and try it anyway, go to Settings, Advanced, and check the option to allow the installation of games with broken or denied anticheat.<4></4><5></5>Note that there is no solution for this and you will risk getting banned in the game.",
+            "disabled_installation": "This game uses anticheat software that is not compatible with your operating system or the support was not enabled by the game developers. This means that the multiplayer features will not work, and there is nothing you (or the Heroic team) can do about it.<br /><br />To install this game and try it anyway, go to Settings, Advanced, and check the option to allow the installation of games with broken or denied anticheat.<br /><br />Note that there is no solution for this and you will risk getting banned in the game.",
             "install_anyway": "Yes (I understand the multiplayer features will not work)",
             "multiplayer_message": "The anticheat support is broken or denied. The game may open but the multiplayer features will not work. Do you want to install it anyway?",
             "ok": "Ok",
@@ -214,7 +214,7 @@
             "title": "Title"
         },
         "import-hint": {
-            "content": "Do NOT use this feature for that.<1></1>Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
+            "content": "Do NOT use this feature for that.<br />Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
             "title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
         },
         "info": {

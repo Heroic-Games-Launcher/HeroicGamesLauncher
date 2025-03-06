@@ -943,8 +943,7 @@
         "restore": "Restaurar janela"
     },
     "emptyLibrary": {
-        "noResults": "Os filtros atuais não geraram resultados.",
-        "noGames": "Sua biblioteca está vazia. Você pode <1>log in</1> usando a loja ou clicar <3></3> para adicionar um manualmente."
+        "noResults": "Os filtros atuais não geraram resultados."
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. É feita para ser usada na Steam, mas alguns jogos fora da Steam podem funcionar melhor com essa variante. Ela fornece logs majoritariamente inúteis para solução de problemas.",

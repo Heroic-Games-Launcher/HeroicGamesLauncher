@@ -833,7 +833,6 @@
         "new-category": "Ny Kategori"
     },
     "emptyLibrary": {
-        "noGames": "Dit biblotek er tom. Du kan <1>logge ind</1> igennem en butik eller ved at klikke <3></3> for manuelt at tilføje et.",
         "noResults": "De valgte filter produceret ingen resultater."
     }
 }

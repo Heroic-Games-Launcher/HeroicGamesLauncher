@@ -944,8 +944,7 @@
         "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest to rekomendowana wersja Wine do użytku poza Steam. Zapewnia użyteczne dzienniki do rozwiązywania problemów."
     },
     "emptyLibrary": {
-        "noResults": "Wybrane filtry nie zwróciły wyników.",
-        "noGames": "Twoja biblioteka jest pusta. Możesz <1>zalogować się</1> przy użyciu sklepu lub kliknąć <3></3> by dodać grę ręcznie."
+        "noResults": "Wybrane filtry nie zwróciły wyników."
     },
     "categories-manager": {
         "add-placeholder": "Dodaj Nową Kategorię",

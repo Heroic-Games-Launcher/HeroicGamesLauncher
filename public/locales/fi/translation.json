@@ -856,7 +856,6 @@
         "remove": "Poista \"{{name}}\""
     },
     "emptyLibrary": {
-        "noGames": "Kirjastosi on tyhjä. Voit <1>kirjautua sisään</1> käyttäen kauppaa tai napsauta <3></3> lisätäksesi sellaisen manuaalisesti.",
         "noResults": "Nämä suodattimet eivät tuottaneet tuloksia."
     }
 }

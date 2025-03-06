@@ -930,7 +930,6 @@
         "delete-question": "Å fortsette vil permanent fjerne denne kategorien og fjerne den fra alle spill. Vil du fortsette?"
     },
     "emptyLibrary": {
-        "noGames": "Biblioteket ditt er tomt. Du kan <1>logge inn</1> ved å bruke en butikk eller klikke <3></3> for å legge til manuelt.",
         "noResults": "De nåværende filtrene ga ingen resultater."
     },
     "window": {
