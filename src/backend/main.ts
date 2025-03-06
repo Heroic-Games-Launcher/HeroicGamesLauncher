@@ -80,7 +80,6 @@ import {
   wineprefixFAQ,
   customThemesWikiLink,
   createNecessaryFolders,
-  fixAsarPath,
   isSnap,
   isWindows,
   isMac
@@ -772,9 +771,6 @@ ipcMain.handle('login', async (event, sid) => LegendaryUser.login(sid))
 ipcMain.handle('authGOG', async (event, code) => GOGUser.login(code))
 ipcMain.handle('logoutLegendary', LegendaryUser.logout)
 ipcMain.on('logoutGOG', GOGUser.logout)
-ipcMain.handle('getLocalPeloadPath', async () => {
-  return fixAsarPath(join('file://', publicDir, 'webviewPreload.js'))
-})
 
 ipcMain.handle('getAmazonLoginData', NileUser.getLoginData)
 ipcMain.handle('authAmazon', async (event, data) => NileUser.login(data))
