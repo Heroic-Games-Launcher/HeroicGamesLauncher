@@ -1,6 +1,11 @@
-import { vulkanHelperBin } from 'backend/constants'
+import { fixAsarPath, publicDir } from 'backend/constants/paths'
 import { spawnSync } from 'child_process'
+import { join } from 'path'
 import { gte as semverGte } from 'semver'
+
+const vulkanHelperBin = fixAsarPath(
+  join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
+)
 
 type VulkanVersion = [maj: number, min: number, patch: number]
 

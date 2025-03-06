@@ -15,11 +15,12 @@ import { join } from 'path'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { GlobalConfig } from '../../config'
 import { GameInfo } from 'common/types'
-import { isMac, userHome } from '../../constants'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 import sanitize from 'sanitize-filename'
 import * as GogLibraryManager from '../../storeManagers/gog/library'
+import { isMac } from 'backend/constants/environment'
+import { userHome } from 'backend/constants/paths'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications

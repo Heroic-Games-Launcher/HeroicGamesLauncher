@@ -52,39 +52,10 @@ import {
   getCurrentChangelog,
   removeFolder,
   downloadDefaultWine,
-  sendGameStatusUpdate
+  sendGameStatusUpdate,
+  createNecessaryFolders
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
-import {
-  configStore,
-  discordLink,
-  gamesConfigPath,
-  heroicGithubURL,
-  userHome,
-  icon,
-  installed,
-  kofiPage,
-  epicLoginUrl,
-  patreonPage,
-  sidInfoUrl,
-  supportURL,
-  weblateUrl,
-  wikiLink,
-  fontsStore,
-  configPath,
-  isSteamDeckGameMode,
-  isCLIFullscreen,
-  isCLINoGui,
-  isFlatpak,
-  publicDir,
-  wineprefixFAQ,
-  customThemesWikiLink,
-  createNecessaryFolders,
-  fixAsarPath,
-  isSnap,
-  isWindows,
-  isMac
-} from './constants'
 import { handleProtocol } from './protocol'
 import {
   initLogger,
@@ -139,6 +110,38 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
+import { configStore, fontsStore } from './constants/key_value_stores'
+import {
+  customThemesWikiLink,
+  discordLink,
+  epicLoginUrl,
+  heroicGithubURL,
+  kofiPage,
+  patreonPage,
+  sidInfoUrl,
+  supportURL,
+  weblateUrl,
+  wikiLink,
+  wineprefixFAQ
+} from './constants/urls'
+import { legendaryInstalled } from './storeManagers/legendary/constants'
+import {
+  isCLIFullscreen,
+  isCLINoGui,
+  isFlatpak,
+  isMac,
+  isSnap,
+  isSteamDeckGameMode,
+  isWindows
+} from './constants/environment'
+import {
+  configPath,
+  fixAsarPath,
+  gamesConfigPath,
+  publicDir,
+  userHome,
+  windowIcon
+} from './constants/paths'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -183,7 +186,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   const globalConf = GlobalConfig.get().getSettings()
 
-  mainWindow.setIcon(icon)
+  mainWindow.setIcon(windowIcon)
   app.commandLine.appendSwitch('enable-spatial-navigation')
 
   mainWindow.on('maximize', () => sendFrontendMessage('maximized'))
@@ -902,9 +905,9 @@ ipcMain.on('setSetting', (event, { appName, key, value }) => {
 })
 
 // Watch the installed games file and trigger a refresh on the installed games if something changes
-if (existsSync(installed)) {
+if (existsSync(legendaryInstalled)) {
   let watchTimeout: NodeJS.Timeout | undefined
-  watch(installed, () => {
+  watch(legendaryInstalled, () => {
     logInfo('installed.json updated, refreshing library', LogPrefix.Legendary)
     // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
     // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen

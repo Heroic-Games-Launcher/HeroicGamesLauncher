@@ -6,7 +6,11 @@
  */
 import { AppSettings, GameInfo, GameSettings, Runner } from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
-import { appendMessageToLogFile, getLongestPrefix } from './logfile'
+import {
+  appendMessageToLogFile,
+  createNewLogFileAndClearOldOnes,
+  getLongestPrefix
+} from './logfile'
 import { backendEvents } from 'backend/backend_events'
 import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
@@ -17,12 +21,13 @@ import {
   SystemInformation
 } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
-import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
 import { gameAnticheatInfo } from 'backend/anticheat/utils'
 import { isUmuSupported } from 'backend/utils/compatibility_layers'
+import { isWindows } from 'backend/constants/environment'
+import { gamesConfigPath } from 'backend/constants/paths'
 
 export enum LogPrefix {
   General = '',
@@ -63,8 +68,19 @@ interface LogOptions {
 
 // global variable to use by logBase
 export let logsDisabled = false
+export let currentLogFile = ''
+export let lastLogFile = ''
+export let legendaryLogFile = ''
+export let gogdlLogFile = ''
+export let nileLogFile = ''
 
 export function initLogger() {
+  const logs = createNewLogFileAndClearOldOnes()
+  currentLogFile = logs.currentLogFile
+  lastLogFile = logs.lastLogFile
+  legendaryLogFile = logs.legendaryLogFile
+  gogdlLogFile = logs.gogdlLogFile
+  nileLogFile = logs.nileLogFile
   // Add a basic error handler to our stdout/stderr. If we don't do this,
   // the main `process.on('uncaughtException', ...)` handler catches them (and
   // presents an error message to the user, which is hardly necessary for
