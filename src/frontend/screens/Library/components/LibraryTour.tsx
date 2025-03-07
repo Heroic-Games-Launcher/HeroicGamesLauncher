@@ -13,17 +13,23 @@ const LibraryTour: React.FC = () => {
     {
       intro: t(
         'tour.library.welcome.intro',
-        'Welcome to the Heroic Library! This is where you can see all your games across different stores. Make sure to login with your Epic, GOG or Amazon accounts or just add your own games to the library using the Add Game button above.'
+        'Welcome to the Heroic Library! This is where you can see all your games across different stores.'
       ),
       title: t('tour.library.welcome.title', 'Welcome to Heroic!')
+    },
+    {
+      intro: t(
+        'tour.library.welcome.intro2',
+        'If the library is empty, make sure to login with your accounts usinge the Manage accounts on the sidebar or add your own games using the Add Game button above.'
+      ),
+      title: t('tour.library.welcome.title2', 'Managing the library!')
     },
     {
       element: '[data-tour="library-game-card"]',
       intro: t(
         'tour.library.gameCard',
         'Right Click on thegame card to navigate to the game page and to see details and adjust settings or Left click to open the context menu.'
-      ),
-      position: 'right'
+      )
     },
     {
       element: '[data-tour="library-search"]',
@@ -58,7 +64,7 @@ const LibraryTour: React.FC = () => {
       position: 'bottom'
     },
     {
-      element: '[data-tour="library-sort-options"]',
+      element: '[data-tour="library-sort-az"]',
       intro: t(
         'tour.library.sortOptions',
         'Click here to sort games alphabetically.'
@@ -87,7 +93,10 @@ const LibraryTour: React.FC = () => {
       position: 'left'
     },
     {
-      intro: t('tour.library.end', "That's it! Enjoy your games and have fun!"),
+      intro: t(
+        'tour.library.end.intro',
+        "That's it! Enjoy your games and have fun!"
+      ),
       title: t('tour.library.end.title', 'Enjoy your games!')
     }
   ]

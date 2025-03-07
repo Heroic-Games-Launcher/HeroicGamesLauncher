@@ -1,7 +1,7 @@
 import React from 'react'
 import { Steps, StepsProps } from 'intro.js-react'
 import 'intro.js/introjs.css'
-import './Tour.css'
+import './Tour.scss'
 import { useTranslation } from 'react-i18next'
 import { useTour } from '../../state/TourContext'
 
@@ -45,7 +45,9 @@ const Tour: React.FC<TourProps> = ({
     disableInteraction: false,
     highlightClass: 'heroic-tour-highlight',
     tooltipClass: 'heroic-tour-tooltip',
-    overlayOpacity: 0.7
+    overlayOpacity: 0.7,
+    scrollToElement: false,
+    scrollPadding: 0
   }
 
   const handleComplete = () => {

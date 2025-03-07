@@ -78,7 +78,7 @@ export default React.memo(function ActionIcons({
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
-            data-tour="library-sort-installed"
+            data-tour="library-sort-az"
           />
         </button>
         <button

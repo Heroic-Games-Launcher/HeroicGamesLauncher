@@ -5,7 +5,16 @@
   border: 1px solid var(--neutral-04);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  min-width: 500px;
+  min-width: 450px;
+  max-width: 650px;
+}
+
+// Add the tooltip class styling
+.heroic-tour-tooltip {
+  background: var(--neutral-02);
+  color: var(--text-default);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--brand-primary);
 }
 
 .introjs-tooltiptext {
@@ -29,56 +38,62 @@
   padding: 6px 12px;
   text-shadow: none;
   transition: background-color 0.2s;
-}
 
-.introjs-button:hover,
-.introjs-button:focus {
-  background-color: var(--neutral-04);
-  color: var(--text-default);
-  border-color: var(--neutral-05);
-  box-shadow: none;
-  text-decoration: none;
-}
+  &:hover,
+  &:focus {
+    background-color: var(--neutral-04);
+    color: var(--text-default);
+    border-color: var(--neutral-05);
+    box-shadow: none;
+    text-decoration: none;
+  }
 
-.introjs-button:active {
-  background-color: var(--neutral-04);
+  &:active {
+    background-color: var(--neutral-04);
+  }
 }
 
 .introjs-nextbutton {
   background-color: var(--brand-primary);
   color: var(--neutral-01);
   border-color: var(--primary-active);
-}
 
-.introjs-nextbutton:hover,
-.introjs-nextbutton:focus {
-  background-color: var(--primary-hover);
-  color: var(--neutral-01);
-  border-color: var(--primary-active);
-}
+  &:hover,
+  &:focus {
+    background-color: var(--primary-hover);
+    color: var(--neutral-01);
+    border-color: var(--primary-active);
+  }
 
-.introjs-nextbutton:active {
-  background-color: var(--primary-active);
+  &:active {
+    background-color: var(--primary-active);
+  }
 }
 
 .introjs-skipbutton {
   color: var(--neutral-05);
-  font-size: var(--text-md) /* Reduced from default size */
+  font-size: 11px; /* Reduced from default size */
   text-transform: lowercase;
   font-weight: normal;
+
+  &:hover,
+  &:focus {
+    color: var(--neutral-06);
+  }
 }
 
-.introjs-skipbutton:hover,
-.introjs-skipbutton:focus {
-  color: var(--neutral-06);
-}
+.introjs-bullets {
+  ul {
+    li {
+      a {
+        background: var(--neutral-04);
 
-.introjs-bullets ul li a {
-  background: var(--neutral-04);
-}
-
-.introjs-bullets ul li a.active {
-  background: var(--brand-primary);
+        &.active {
+          background: var(--brand-primary);
+        }
+      }
+    }
+  }
 }
 
 .introjs-progress {

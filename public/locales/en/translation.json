@@ -885,6 +885,7 @@
             "addGame": "Add your own games or apps to the library by clicking here. They can be basically anything, even Browser URLs.",
             "categories": "Organize your games into categories to keep things tidy.",
             "end": {
+                "intro": "That's it! Enjoy your games and have fun!",
                 "title": "Enjoy your games!"
             },
             "filters": "Filter your games by store, platform, favorites and more using these options.",
@@ -895,8 +896,10 @@
             "sortOptions": "Click here to sort games alphabetically.",
             "viewToggle": "Switch between grid and list view for your games.",
             "welcome": {
-                "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores. Make sure to login with your Epic, GOG or Amazon accounts or just add your own games to the library using the Add Game button above.",
-                "title": "Welcome to Heroic!"
+                "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores.",
+                "intro2": "If the library is empty, make sure to login with your accounts using the Manage accounts on the sidebar or add your own games using the Add Game button above.",
+                "title": "Welcome to Heroic!",
+                "title2": "Managing the library!"
             }
         },
         "next": "Next",
