@@ -106,6 +106,12 @@ importers:
       ini:
         specifier: 3.0.0
         version: 3.0.0
+      intro.js:
+        specifier: ^7.2.0
+        version: 7.2.0
+      intro.js-react:
+        specifier: ^1.0.0
+        version: 1.0.0(intro.js@7.2.0)(react@18.2.0)
       json5:
         specifier: 2.2.3
         version: 2.2.3
@@ -3505,6 +3511,15 @@ packages:
   internmap@2.0.3:
     resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
     engines: {node: '>=12'}
+
+  intro.js-react@1.0.0:
+    resolution: {integrity: sha512-zR8pbTyX20RnCZpJMc0nuHBpsjcr1wFkj3ZookV6Ly4eE/LGpFTQwPsaA61Cryzwiy/tTFsusf4hPU9NpI9UOg==}
+    peerDependencies:
+      intro.js: '>=2.5.0'
+      react: '>=0.14.0'
+
+  intro.js@7.2.0:
+    resolution: {integrity: sha512-qbMfaB70rOXVBceIWNYnYTpVTiZsvQh/MIkfdQbpA9di9VBfj1GigUPfcCv3aOfsbrtPcri8vTLTA4FcEDcHSQ==}
 
   ip-address@9.0.5:
     resolution: {integrity: sha512-zHtQzGojZXTwZTHQqra+ETKd4Sn3vgi7uBmlPoXVWZqYvuKmtI0l/VZTjqGmJY9x88GGOaZ9+G9ES8hC4T4X8g==}
@@ -9601,6 +9616,13 @@ snapshots:
       side-channel: 1.0.6
 
   internmap@2.0.3: {}
+
+  intro.js-react@1.0.0(intro.js@7.2.0)(react@18.2.0):
+    dependencies:
+      intro.js: 7.2.0
+      react: 18.2.0
+
+  intro.js@7.2.0: {}
 
   ip-address@9.0.5:
     dependencies:
