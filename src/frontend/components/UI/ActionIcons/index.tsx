@@ -46,11 +46,11 @@ export default React.memo(function ActionIcons({
             className="FormControl__button"
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
-            data-tour="library-view-toggle"
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
               icon={faList}
+              data-tour="library-view-toggle"
             />
           </button>
         ) : (
@@ -58,11 +58,11 @@ export default React.memo(function ActionIcons({
             className="FormControl__button"
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
             onClick={() => handleLayout('grid')}
-            data-tour="library-view-toggle"
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
               icon={faBorderAll}
+              data-tour="library-view-toggle"
             />
           </button>
         )}
@@ -74,22 +74,22 @@ export default React.memo(function ActionIcons({
               : t('library.sortAscending', 'Sort Ascending')
           }
           onClick={() => setSortDescending(!sortDescending)}
-          data-tour="library-sort-options"
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
+            data-tour="library-sort-options"
           />
         </button>
         <button
           className="FormControl__button"
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => setSortInstalled(!sortInstalled)}
-          data-tour="library-sort-options"
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={sortInstalled ? hardDriveSolid : hardDriveLight}
+            data-tour="library-sort-options"
           />
         </button>
         <button

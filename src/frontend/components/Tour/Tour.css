@@ -5,12 +5,12 @@
   border: 1px solid var(--neutral-04);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  min-width: 500px;
 }
 
 .introjs-tooltiptext {
   color: var(--text-default);
-  font-size: 14px;
+  font-size: var(--text-xl);
   line-height: 1.5;
   padding: 16px;
 }
@@ -63,6 +63,9 @@
 
 .introjs-skipbutton {
   color: var(--neutral-05);
+  font-size: var(--text-md) /* Reduced from default size */
+  text-transform: lowercase;
+  font-weight: normal;
 }
 
 .introjs-skipbutton:hover,

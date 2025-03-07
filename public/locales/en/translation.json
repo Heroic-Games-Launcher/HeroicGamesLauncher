@@ -878,6 +878,29 @@
         "addpath": "Add New Path",
         "removepath": "Remove Path"
     },
+    "tour": {
+        "back": "Back",
+        "done": "Done",
+        "library": {
+            "addGame": "Add your own games or apps to the library by clicking here. They can be basically anything, even Browser URLs.",
+            "categories": "Organize your games into categories to keep things tidy.",
+            "end": {
+                "title": "Enjoy your games!"
+            },
+            "filters": "Filter your games by store, platform, favorites and more using these options.",
+            "gameCard": "Right Click on thegame card to navigate to the game page and to see details and adjust settings or Left click to open the context menu.",
+            "refresh": "Refresh your library to check for new games or updates.",
+            "search": "Use the Search bar to search for games by name or AppName.",
+            "sortOptions": "Click here to sort games alphabetically.",
+            "viewToggle": "Switch between grid and list view for your games.",
+            "welcome": {
+                "title": "Welcome to Heroic!"
+            }
+        },
+        "next": "Next",
+        "skip": "Skip",
+        "startTour": "Start Tour"
+    },
     "tray": {
         "about": "About",
         "quit": "Quit",

@@ -37,7 +37,7 @@ export default React.memo(function LibraryHeader({ list }: Props) {
           <span className="numberOfgames">{numberOfGames}</span>
           <AddGameButton data-tour="library-add-game" />
         </span>
-        <ActionIcons data-tour="library-view-toggle" />
+        <ActionIcons />
       </div>
     </h5>
   )

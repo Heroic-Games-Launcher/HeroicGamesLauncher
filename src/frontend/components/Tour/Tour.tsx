@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next'
 import { useTour } from '../../state/TourContext'
 
 export interface TourStep {
-  element: string
   intro: string
-  position?: 'top' | 'bottom' | 'left' | 'right' | 'auto'
+  element?: string
+  position?: 'top' | 'bottom' | 'left' | 'right' | 'auto' | 'center'
   title?: string
 }
 

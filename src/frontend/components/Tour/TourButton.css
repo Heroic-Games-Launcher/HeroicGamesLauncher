@@ -5,10 +5,9 @@
 }
 
 .tour-button:hover {
-  background-color: var(--neutral-04) !important;
   opacity: 1;
 }
 
 .tour-button svg {
-  font-size: 18px;
+  font-size: 22px;
 }
