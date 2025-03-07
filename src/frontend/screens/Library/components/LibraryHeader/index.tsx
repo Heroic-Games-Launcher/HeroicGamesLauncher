@@ -28,16 +28,16 @@ export default React.memo(function LibraryHeader({ list }: Props) {
   }, [list])
 
   return (
-    <h5 className="libraryHeader">
+    <h5 className="libraryHeader" data-tour="library-header">
       <div className="libraryHeaderWrapper">
         <span className="libraryTitle">
           {showFavourites
             ? t('favourites', 'Favourites')
             : t('title.allGames', 'All Games')}
           <span className="numberOfgames">{numberOfGames}</span>
-          <AddGameButton />
+          <AddGameButton data-tour="library-add-game" />
         </span>
-        <ActionIcons />
+        <ActionIcons data-tour="library-view-toggle" />
       </div>
     </h5>
   )

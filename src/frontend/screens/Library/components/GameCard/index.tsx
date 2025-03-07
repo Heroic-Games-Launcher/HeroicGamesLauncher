@@ -49,6 +49,7 @@ interface Card {
   justPlayed: boolean
   gameInfo: GameInfo
   forceCard?: boolean
+  dataTour?: string
 }
 
 const storage: Storage = window.localStorage
@@ -59,7 +60,8 @@ const GameCard = ({
   forceCard,
   isRecent = false,
   justPlayed = false,
-  gameInfo: gameInfoFromProps
+  gameInfo: gameInfoFromProps,
+  dataTour
 }: Card) => {
   const [visible, setVisible] = useState(false)
 
@@ -383,6 +385,7 @@ const GameCard = ({
         className={wrapperClasses}
         data-app-name={appName}
         data-invisible={true}
+        data-tour={dataTour}
       ></div>
     )
   }
@@ -400,7 +403,11 @@ const GameCard = ({
         />
       )}
       <ContextMenu items={items}>
-        <div className={wrapperClasses} data-app-name={appName}>
+        <div
+          className={wrapperClasses}
+          data-app-name={appName}
+          data-tour={dataTour}
+        >
           {haveStatus && <span className="gameCardStatus">{label}</span>}
           <Link
             to={`/gamepage/${runner}/${appName}`}

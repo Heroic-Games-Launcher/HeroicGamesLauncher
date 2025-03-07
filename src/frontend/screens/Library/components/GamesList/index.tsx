@@ -162,6 +162,7 @@ const GamesList = ({
               isRecent={isRecent}
               gameInfo={gameInfo}
               justPlayed={isJustPlayed}
+              dataTour={index === 0 ? 'library-game-card' : undefined}
             />
           )
         })}

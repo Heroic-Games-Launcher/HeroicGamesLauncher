@@ -58,11 +58,13 @@ export default function LibrarySearchBar() {
   }
 
   return (
-    <SearchBar
-      suggestionsListItems={suggestions}
-      onInputChanged={onInputChanged}
-      value={filterText}
-      placeholder={t('search', 'Search for Games')}
-    />
+    <div data-tour="library-search">
+      <SearchBar
+        suggestionsListItems={suggestions}
+        onInputChanged={onInputChanged}
+        value={filterText}
+        placeholder={t('search', 'Search for Games')}
+      />
+    </div>
   )
 }

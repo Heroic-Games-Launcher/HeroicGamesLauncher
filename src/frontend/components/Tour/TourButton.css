@@ -1,0 +1,16 @@
+.tour-button {
+  color: var(--brand-primary) !important;
+  background-color: var(--neutral-03) !important;
+  border: 1px solid var(--brand-primary) !important;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.tour-button:hover {
+  background-color: var(--neutral-04) !important;
+  opacity: 1;
+}
+
+.tour-button svg {
+  font-size: 18px;
+}
