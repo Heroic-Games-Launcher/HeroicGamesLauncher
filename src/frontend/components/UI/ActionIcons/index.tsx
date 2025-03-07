@@ -16,6 +16,8 @@ import FormControl from '../FormControl'
 import './index.css'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import TourButton from 'frontend/components/Tour/TourButton'
+import { LIBRARY_TOUR_ID } from 'frontend/screens/Library/components/LibraryTour'
 
 interface ActionIconsProps {
   'data-tour'?: string
@@ -105,9 +107,11 @@ export default React.memo(function ActionIcons({
             className={classNames('FormControl__segmentedFaIcon', {
               ['fa-spin']: refreshing
             })}
+            data-tour="library-refresh"
             icon={faSyncAlt}
           />
         </button>
+        <TourButton tourId={LIBRARY_TOUR_ID} className="library-tour-button" />
       </FormControl>
     </div>
   )

@@ -69,7 +69,7 @@ export default function CategoryFilter() {
   const categoriesList = customCategories.listCategories()
 
   return (
-    <div className="categoriesFilter">
+    <div className="categoriesFilter" data-tour="library-categories">
       <button className="selectStyle">
         {t('header.categories', 'Categories')}
       </button>

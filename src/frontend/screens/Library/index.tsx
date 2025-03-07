@@ -33,8 +33,7 @@ import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
-import TourButton from '../../components/Tour/TourButton'
-import LibraryTour, { LIBRARY_TOUR_ID } from './components/LibraryTour'
+import LibraryTour from './components/LibraryTour'
 
 const storage = window.localStorage
 
@@ -625,7 +624,6 @@ export default React.memo(function Library(): JSX.Element {
 
       <div className="listing">
         <span id="top" />
-        <TourButton tourId={LIBRARY_TOUR_ID} className="library-tour-button" />
         {showRecentGames && (
           <RecentlyPlayed
             handleModal={handleModal}
