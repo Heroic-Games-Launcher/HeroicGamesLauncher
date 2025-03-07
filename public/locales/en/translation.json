@@ -903,6 +903,23 @@
             }
         },
         "next": "Next",
+        "sidebar": {
+            "accessibility": "Access accessibility features to customize your experience.",
+            "accounts": "Manage your connected store accounts (Epic, GOG, Amazon), logout or login on them.",
+            "community": "Join our community on Discord and support Heroic's development.",
+            "docs": "Read documentation for help with using Heroic.",
+            "downloads": "Track and manage your game downloads and installations.",
+            "library": "Access your game library from different stores in one place.",
+            "quit": "Exit the application safely.",
+            "settings": "Configure Heroic's settings, game defaults, check logs and more.",
+            "stores": "Browse and shop for games in different stores including Epic, GOG, and Amazon.",
+            "version": "Check your current Heroic version, click it to see latest changelog, and access this tour from the help icon.",
+            "welcome": {
+                "intro": "On the Sidebar you will find all navigation options to explore the app.",
+                "title": "Sidebar Navigation"
+            },
+            "wine": "Manage or download new version of Wine/Proton/GPTK for running Windows games on Linux or macOS."
+        },
         "skip": "Skip",
         "startTour": "Start Tour"
     },

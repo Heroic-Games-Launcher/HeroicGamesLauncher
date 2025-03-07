@@ -54,7 +54,7 @@ const SidebarTour: React.FC = () => {
       element: '[data-tour="sidebar-wine"]',
       intro: t(
         'tour.sidebar.wine',
-        'Manage your Wine/Proton versions for running Windows games on Linux.'
+        'Manage or download new version of Wine/Proton/GPTK for running Windows games on Linux or macOS.'
       ),
       position: 'right'
     },

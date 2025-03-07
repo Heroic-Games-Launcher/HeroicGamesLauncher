@@ -89,6 +89,11 @@
   transition: opacity 0.2s ease;
   color: var(--brand-primary);
 
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
   &:hover {
     opacity: 1;
     color: var(--accent);
