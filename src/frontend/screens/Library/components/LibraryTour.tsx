@@ -12,16 +12,32 @@ const LibraryTour: React.FC = () => {
   const steps: TourStep[] = [
     {
       intro: t(
-        'tour.library.welcome',
-        'Welcome to Heroic Library! This is where you can see all your games across different stores. If the list is empty, make sure to login with your Epic, GOG or Amazon accounts or just add your own games to the library using the Add Game button above.'
+        'tour.library.welcome.intro',
+        'Welcome to the Heroic Library! This is where you can see all your games across different stores. Make sure to login with your Epic, GOG or Amazon accounts or just add your own games to the library using the Add Game button above.'
       ),
       title: t('tour.library.welcome.title', 'Welcome to Heroic!')
+    },
+    {
+      element: '[data-tour="library-game-card"]',
+      intro: t(
+        'tour.library.gameCard',
+        'Right Click on thegame card to navigate to the game page and to see details and adjust settings or Left click to open the context menu.'
+      ),
+      position: 'right'
     },
     {
       element: '[data-tour="library-search"]',
       intro: t(
         'tour.library.search',
         'Use the Search bar to search for games by name or AppName.'
+      ),
+      position: 'bottom'
+    },
+    {
+      element: '[data-tour="library-categories"]',
+      intro: t(
+        'tour.library.categories',
+        'Organize your games into categories to keep things tidy.'
       ),
       position: 'bottom'
     },
@@ -50,19 +66,8 @@ const LibraryTour: React.FC = () => {
       position: 'left'
     },
     {
-      element: '[data-tour="library-game-card"]',
-      intro: t(
-        'tour.library.gameCard',
-        'Right Click on thegame card to navigate to the game page and to see details and adjust settings or Left click to open the context menu.'
-      ),
-      position: 'top'
-    },
-    {
-      element: '[data-tour="library-add-game"]',
-      intro: t(
-        'tour.library.addGame',
-        'Add your own games or apps to the library by clicking here. They can be basically anything, even Browser URLs.'
-      ),
+      element: '[data-tour="library-sort-installed"]',
+      intro: t('tour.library.sortInstalled', 'Sort games by installed status.'),
       position: 'left'
     },
     {
@@ -74,12 +79,12 @@ const LibraryTour: React.FC = () => {
       position: 'bottom'
     },
     {
-      element: '[data-tour="library-categories"]',
+      element: '[data-tour="library-add-game"]',
       intro: t(
-        'tour.library.categories',
-        'Organize your games into categories to keep things tidy.'
+        'tour.library.addGame',
+        'Add your own games or apps to the library by clicking here. They can be basically anything, even Browser URLs.'
       ),
-      position: 'bottom'
+      position: 'left'
     },
     {
       intro: t('tour.library.end', "That's it! Enjoy your games and have fun!"),

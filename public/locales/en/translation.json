@@ -891,9 +891,11 @@
             "gameCard": "Right Click on thegame card to navigate to the game page and to see details and adjust settings or Left click to open the context menu.",
             "refresh": "Refresh your library to check for new games or updates.",
             "search": "Use the Search bar to search for games by name or AppName.",
+            "sortInstalled": "Sort games by installed status.",
             "sortOptions": "Click here to sort games alphabetically.",
             "viewToggle": "Switch between grid and list view for your games.",
             "welcome": {
+                "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores. Make sure to login with your Epic, GOG or Amazon accounts or just add your own games to the library using the Add Game button above.",
                 "title": "Welcome to Heroic!"
             }
         },

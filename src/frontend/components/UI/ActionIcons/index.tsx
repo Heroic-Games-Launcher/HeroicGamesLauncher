@@ -78,7 +78,7 @@ export default React.memo(function ActionIcons({
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
-            data-tour="library-sort-options"
+            data-tour="library-sort-installed"
           />
         </button>
         <button
@@ -89,7 +89,7 @@ export default React.memo(function ActionIcons({
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={sortInstalled ? hardDriveSolid : hardDriveLight}
-            data-tour="library-sort-options"
+            data-tour="library-sort-installed"
           />
         </button>
         <button

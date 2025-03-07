@@ -10,7 +10,7 @@
 
 .introjs-tooltiptext {
   color: var(--text-default);
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   line-height: 1.5;
   padding: 16px;
 }
