@@ -5,7 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { handleQuit } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-const QuitButton: React.FC = () => {
+interface QuitButtonProps {
+  dataTour?: string
+}
+
+const QuitButton: React.FC<QuitButtonProps> = ({ dataTour }) => {
   const { t } = useTranslation()
   const { showDialogModal } = useContext(ContextProvider)
 
@@ -27,7 +31,11 @@ const QuitButton: React.FC = () => {
   }
 
   return (
-    <button className="Sidebar__item" onClick={() => handleQuitButton()}>
+    <button
+      className="Sidebar__item"
+      onClick={() => handleQuitButton()}
+      data-tour={dataTour}
+    >
       <div className="Sidebar__itemIcon">
         <FontAwesomeIcon
           icon={faPowerOff}

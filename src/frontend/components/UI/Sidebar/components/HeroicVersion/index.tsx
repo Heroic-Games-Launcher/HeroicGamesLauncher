@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { ChangelogModal } from '../../../ChangelogModal'
-import './index.css'
+import TourButton from 'frontend/components/Tour/TourButton'
+import { SIDEBAR_TOUR_ID } from '../SidebarTour'
+import './index.scss'
 
 type Release = {
   html_url: string
@@ -29,7 +31,7 @@ export default React.memo(function HeroicVersion() {
     useContext(ContextProvider)
 
   useEffect(() => {
-    window.api.getHeroicVersion().then((version) => {
+    void window.api.getHeroicVersion().then((version) => {
       if (version !== lastVersion) {
         window.api.logInfo('Updated to a new version, cleaaning up the cache.')
         window.api.clearCache(false, true)
@@ -40,7 +42,12 @@ export default React.memo(function HeroicVersion() {
   }, [])
 
   useEffect(() => {
-    window.api.getLatestReleases().then((releases) => setNewReleases(releases))
+    window.api
+      .getLatestReleases()
+      .then((releases) => setNewReleases(releases))
+      .catch((error) => {
+        console.error('Failed to get latest releases:', error)
+      })
   }, [])
 
   const newStable: Release | undefined = newReleases?.filter(
@@ -54,55 +61,63 @@ export default React.memo(function HeroicVersion() {
   const version = heroicVersion
 
   return (
-    <>
-      {((showChangelogModal &&
-        !hideChangelogsOnStartup &&
-        heroicVersion !== lastChangelogShown) ||
-        showChangelogModalOnClick) && (
-        <ChangelogModal
-          dimissVersionCheck
-          onClose={() => {
-            setShowChangelogModal(false)
-            setShowChangelogModalOnClick(false)
-            setLastChangelogShown(heroicVersion)
-          }}
-        />
-      )}
-      <span
-        className="heroicVersion"
-        role="link"
-        title={t(
-          'info.heroic.click-to-see-changelog',
-          'Click to see changelog'
+    <div className="heroicVersionContainer" data-tour="sidebar-version">
+      <>
+        {((showChangelogModal &&
+          !hideChangelogsOnStartup &&
+          heroicVersion !== lastChangelogShown) ||
+          showChangelogModalOnClick) && (
+          <ChangelogModal
+            dimissVersionCheck
+            onClose={() => {
+              setShowChangelogModal(false)
+              setShowChangelogModalOnClick(false)
+              setLastChangelogShown(heroicVersion)
+            }}
+          />
         )}
-        onClick={() => setShowChangelogModalOnClick((current) => !current)}
-      >
-        <span className="heroicVersion__title">
-          <span>{t('info.heroic.version', 'Heroic Version')}: </span>
-        </span>
-        <strong>{version}</strong>
-      </span>
-      {shouldShowUpdates && (
-        <div className="heroicNewReleases">
-          <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
-          {newStable && (
-            <a
-              title={newStable.tag_name}
-              onClick={() => window.api.openExternalUrl(newStable.html_url)}
-            >
-              {t('info.heroic.stable', 'Stable')} ({newStable.tag_name})
-            </a>
-          )}
-          {newBeta && (
-            <a
-              title={newBeta.tag_name}
-              onClick={() => window.api.openExternalUrl(newBeta.html_url)}
-            >
-              {t('info.heroic.beta', 'Beta')} ({newBeta.tag_name})
-            </a>
-          )}
+        <div className="heroicVersionWrapper">
+          <span
+            className="heroicVersion"
+            role="link"
+            title={t(
+              'info.heroic.click-to-see-changelog',
+              'Click to see changelog'
+            )}
+            onClick={() => setShowChangelogModalOnClick((current) => !current)}
+          >
+            <span className="heroicVersion__title">
+              <span>{t('info.heroic.version', 'Heroic Version')}: </span>
+            </span>
+            <strong>{version}</strong>
+          </span>
+          <TourButton
+            tourId={SIDEBAR_TOUR_ID}
+            className="sidebar-tour-button"
+          />
         </div>
-      )}
-    </>
+        {shouldShowUpdates && (
+          <div className="heroicNewReleases">
+            <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
+            {newStable && (
+              <a
+                title={newStable.tag_name}
+                onClick={() => window.api.openExternalUrl(newStable.html_url)}
+              >
+                {t('info.heroic.stable', 'Stable')} ({newStable.tag_name})
+              </a>
+            )}
+            {newBeta && (
+              <a
+                title={newBeta.tag_name}
+                onClick={() => window.api.openExternalUrl(newBeta.html_url)}
+              >
+                {t('info.heroic.beta', 'Beta')} ({newBeta.tag_name})
+              </a>
+            )}
+          </div>
+        )}
+      </>
+    </div>
   )
 })

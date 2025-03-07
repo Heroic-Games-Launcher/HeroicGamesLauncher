@@ -13,6 +13,7 @@ interface SidebarItemProps {
   onClick?: MouseEventHandler
   className?: string
   elementType?: 'a' | 'button'
+  dataTour?: string
 }
 
 export default function SidebarItem({
@@ -22,7 +23,8 @@ export default function SidebarItem({
   isActiveFallback = false,
   onClick,
   className,
-  elementType
+  elementType,
+  dataTour
 }: SidebarItemProps) {
   const itemContent = (
     <>
@@ -38,7 +40,11 @@ export default function SidebarItem({
   switch (elementType) {
     case 'button':
       return (
-        <button className="Sidebar__item" onClick={onClick}>
+        <button
+          className="Sidebar__item"
+          onClick={onClick}
+          data-tour={dataTour}
+        >
           {itemContent}
         </button>
       )
@@ -52,6 +58,7 @@ export default function SidebarItem({
           }
           to={url}
           onClick={onClick}
+          data-tour={dataTour}
         >
           {itemContent}
         </NavLink>
