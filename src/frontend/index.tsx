@@ -89,6 +89,7 @@ i18next
       'hu',
       'ja',
       'ko',
+      'lt',
       'id',
       'it',
       'ml',
