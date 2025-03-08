@@ -380,6 +380,7 @@ if (!gotTheLock) {
         'ko',
         'id',
         'it',
+        'lt',
         'ml',
         'nb_NO',
         'nl',
