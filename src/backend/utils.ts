@@ -34,7 +34,8 @@ import {
   GITHUB_API,
   isMac,
   configStore,
-  isLinux
+  isLinux,
+  isIntelMac
 } from './constants'
 import {
   appendGamePlayLog,
@@ -922,7 +923,11 @@ export async function downloadDefaultWine() {
     if (isLinux) {
       return version.type === 'GE-Proton'
     } else if (isMac) {
-      return version.type === 'Game-Porting-Toolkit'
+      if (isIntelMac) {
+        return version.type === 'Wine-Crossover'
+      } else {
+        return version.type === 'Game-Porting-Toolkit'
+      }
     }
     return false
   })

@@ -1,5 +1,5 @@
 import { spawnSync } from 'child_process'
-import { homedir } from 'os'
+import { homedir, cpus } from 'os'
 import { join, resolve } from 'path'
 import { parse } from '@node-steam/vdf'
 
@@ -28,6 +28,7 @@ const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
 })
 
 const isMac = process.platform === 'darwin'
+const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
 const isWindows = process.platform === 'win32'
 const isLinux = process.platform === 'linux'
 const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
@@ -261,6 +262,7 @@ export {
   isFlatpak,
   isSnap,
   isMac,
+  isIntelMac,
   isWindows,
   isLinux,
   legendaryConfigPath,
