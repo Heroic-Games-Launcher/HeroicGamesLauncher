@@ -41,7 +41,7 @@ export default function WineManager(): JSX.Element | null {
     </p>
   )
 
-  const { refreshWineVersionInfo, refreshing, platform } =
+  const { refreshWineVersionInfo, refreshing, platform, isIntelMac } =
     useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
@@ -55,9 +55,14 @@ export default function WineManager(): JSX.Element | null {
     value: 'gpt',
     enabled: !isLinux
   }
+  const wineCrossover: WineManagerUISettings = {
+    type: 'Wine-Crossover',
+    value: 'winecrossover',
+    enabled: !isLinux
+  }
 
   const [repository, setRepository] = useState<WineManagerUISettings>(
-    isLinux ? protonge : gamePortingToolkit
+    isLinux ? protonge : isIntelMac ? wineCrossover : gamePortingToolkit
   )
   const [wineManagerSettings, setWineManagerSettings] = useState<
     WineManagerUISettings[]
@@ -65,7 +70,7 @@ export default function WineManager(): JSX.Element | null {
     protonge,
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
     gamePortingToolkit,
-    { type: 'Wine-Crossover', value: 'winecrossover', enabled: !isLinux }
+    wineCrossover
   ])
 
   const getWineVersions = (repo: Type) => {
