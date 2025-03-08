@@ -521,6 +521,32 @@ async function prepareLaunch(
   }
 }
 
+// Use Crossover's verbose output to extract the path of the game's configured bottle
+async function getCrossoverBottleFolder(gameSettings: GameSettings) {
+  const command = runWineCommand({
+    commandParts: [
+      '--bottle',
+      gameSettings.wineCrossoverBottle,
+      '--verbose', // so it prints the WINEPREFIX env value
+      'whoami' // using whoami because we have to call a command
+    ],
+    gameSettings,
+    skipPrefixCheckIKnowWhatImDoing: true
+  })
+
+  return command
+    .then((result) => {
+      // match the `WINEPREFIX = .....` line to extract the bottle folder
+      const match = result.stderr.match(/WINEPREFIX = "(.*)"\n/)
+      if (match) return match[1]
+
+      return null
+    })
+    .catch(() => {
+      return null
+    })
+}
+
 async function prepareWineLaunch(
   runner: Runner,
   appName: string
@@ -573,18 +599,28 @@ async function prepareWineLaunch(
     GlobalConfig.get().getSettings().experimentalFeatures
 
   let hasUpdated = false
-  const appsNamesPath = join(gameSettings.winePrefix, 'installed_games')
-  if (!existsSync(appsNamesPath)) {
-    writeFileSync(appsNamesPath, JSON.stringify([appName]), 'utf-8')
-    hasUpdated = true
-  } else {
-    const installedGames: string[] = JSON.parse(
-      readFileSync(appsNamesPath, 'utf-8')
-    )
-    if (!installedGames.includes(appName)) {
-      installedGames.push(appName)
-      writeFileSync(appsNamesPath, JSON.stringify(installedGames), 'utf-8')
+
+  let prefixOrBottleFolder: string | null = gameSettings.winePrefix
+  if (isMac && gameSettings.wineVersion.type === 'crossover') {
+    prefixOrBottleFolder = await getCrossoverBottleFolder(gameSettings)
+  }
+
+  // we check this because if the Crossover's bottle is not configured
+  // properly, this path will be null
+  if (prefixOrBottleFolder) {
+    const appsNamesPath = join(prefixOrBottleFolder, 'installed_games')
+    if (!existsSync(appsNamesPath)) {
+      writeFileSync(appsNamesPath, JSON.stringify([appName]), 'utf-8')
       hasUpdated = true
+    } else {
+      const installedGames: string[] = JSON.parse(
+        readFileSync(appsNamesPath, 'utf-8')
+      )
+      if (!installedGames.includes(appName)) {
+        installedGames.push(appName)
+        writeFileSync(appsNamesPath, JSON.stringify(installedGames), 'utf-8')
+        hasUpdated = true
+      }
     }
   }
 
