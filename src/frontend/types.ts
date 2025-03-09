@@ -32,6 +32,7 @@ export interface ContextType {
   libraryTopSection: string
   handleLibraryTopSection: (value: LibraryTopSectionOptions) => void
   platform: NodeJS.Platform | 'unknown'
+  isIntelMac: boolean
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
   refreshWineVersionInfo: (fetch: boolean) => void
