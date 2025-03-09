@@ -52,7 +52,8 @@ import {
   getCurrentChangelog,
   removeFolder,
   downloadDefaultWine,
-  sendGameStatusUpdate
+  sendGameStatusUpdate,
+  checkRosettaInstall
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
 import {
@@ -168,6 +169,9 @@ async function initializeWindow(): Promise<BrowserWindow> {
     Winetricks.download()
     if (!availableWine.length) {
       downloadDefaultWine()
+      if (isMac) {
+        checkRosettaInstall()
+      }
     }
   }, 2500)
 

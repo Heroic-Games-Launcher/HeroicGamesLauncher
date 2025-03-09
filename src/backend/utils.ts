@@ -1283,6 +1283,69 @@ async function getPathDiskSize(path: string): Promise<number> {
   return statData.size
 }
 
+export async function checkRosettaInstall() {
+  if (!isMac) {
+    return
+  }
+
+  // check if on arm64 macOS
+  const { stdout: archCheck } = await execAsync('arch')
+  const isArm64 = archCheck.trim() === 'arm64'
+
+  if (!isArm64) {
+    return
+  }
+
+  const { stdout: rosettaCheck } = await execAsync(
+    'arch -x86_64 /usr/sbin/sysctl sysctl.proc_translated'
+  )
+
+  const result = rosettaCheck.split(':')[1].trim() === '1'
+
+  logInfo(
+    `Rosetta is ${result ? 'available' : 'not available'} on this system.`,
+    LogPrefix.Backend
+  )
+
+  if (!result) {
+    // show a dialog saying that hyperplay wont run without rosetta and add information on how to install it
+    await dialog.showMessageBox({
+      title: i18next.t('box.warning.rosetta.title', 'Rosetta not found'),
+      message: i18next.t(
+        'box.warning.rosetta.message',
+        'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart HyperPlay. '
+      ),
+      buttons: ['OK'],
+      icon: icon
+    })
+
+    logInfo(
+      'Rosetta is not available, install it with: softwareupdate --install-rosetta from the terminal',
+      LogPrefix.Backend
+    )
+  }
+}
+
+export async function isMacSonomaOrHigher() {
+  if (!isMac) {
+    return false
+  }
+  logInfo('Checking if macOS is Sonoma or higher', LogPrefix.Backend)
+
+  const { release } = (await si.osInfo()) as { release: string }
+  const [major] = release.split('.').map(Number)
+  const isMacSonomaOrHigher = major >= 14
+
+  logInfo(
+    `macOS is ${
+      isMacSonomaOrHigher ? 'Sonoma or higher' : 'not Sonoma or higher'
+    }`,
+    LogPrefix.Backend
+  )
+
+  return isMacSonomaOrHigher
+}
+
 function sendGameStatusUpdate(payload: GameStatus) {
   sendFrontendMessage('gameStatusUpdate', payload)
   backendEvents.emit('gameStatusUpdate', payload)
