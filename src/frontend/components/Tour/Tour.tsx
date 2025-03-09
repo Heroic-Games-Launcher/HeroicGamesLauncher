@@ -12,7 +12,7 @@ export interface TourStep {
   title?: string
 }
 
-export interface TourProps {
+interface TourProps {
   tourId: string
   steps: TourStep[]
   enabled?: boolean

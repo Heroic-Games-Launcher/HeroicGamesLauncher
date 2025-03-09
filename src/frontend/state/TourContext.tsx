@@ -1,14 +1,14 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react'
 
 // Define the shape of our tour state
-export type TourState = {
+type TourState = {
   activeTour: string | null
   tourProgress: Record<string, boolean>
   completedTours: string[]
 }
 
 // Define the context value shape
-export type TourContextType = {
+type TourContextType = {
   tourState: TourState
   startTour: (tourId: string) => void
   endTour: (tourId: string, completed?: boolean) => void
@@ -40,8 +40,8 @@ type TourProviderProps = {
 export const TourProvider: React.FC<TourProviderProps> = ({ children }) => {
   const [tourState, setTourState] = useState<TourState>(() => {
     // Try to load tour state from localStorage
-    const savedState = localStorage.getItem('heroic-tour-state')
-    return savedState ? JSON.parse(savedState) : defaultState
+    const savedState = localStorage.getItem('heroic-tour-state') || undefined
+    return savedState ? (JSON.parse(savedState) as TourState) : defaultState
   })
 
   // Save state to localStorage whenever it changes
@@ -96,5 +96,3 @@ export const TourProvider: React.FC<TourProviderProps> = ({ children }) => {
 
 // Custom hook to use the tour context
 export const useTour = () => useContext(TourContext)
-
-export default TourContext
