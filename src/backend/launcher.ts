@@ -35,7 +35,8 @@ import {
   defaultUmuPath,
   publicDir,
   tsStore,
-  isCLINoGui
+  isCLINoGui,
+  isIntelMac
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -1028,7 +1029,8 @@ export async function validWine(
   const haveAll = necessary.every((binary) => existsSync(binary as string))
 
   if (isMac && type === 'toolkit') {
-    const isGPTKCompatible = await isMacSonomaOrHigher()
+    const isMacOSUpToDate = await isMacSonomaOrHigher()
+    const isGPTKCompatible: boolean = isMacOSUpToDate && !isIntelMac
     if (!isGPTKCompatible) {
       return false
     }

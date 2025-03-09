@@ -28,7 +28,7 @@ const fontsStore = new TypeCheckedStoreBackend('fontsStore', {
 })
 
 const isMac = process.platform === 'darwin'
-const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
+const isIntelMac: boolean = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
 const isWindows = process.platform === 'win32'
 const isLinux = process.platform === 'linux'
 const isSteamDeckGameMode = process.env.XDG_CURRENT_DESKTOP === 'gamescope'
