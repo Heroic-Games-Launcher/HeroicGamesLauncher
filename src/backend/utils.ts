@@ -87,6 +87,7 @@ import {
 } from './utils/systeminfo/gpu/pci_ids'
 import type { WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
+import { getSystemInfo } from './utils/systeminfo'
 
 const execAsync = promisify(exec)
 
@@ -1338,7 +1339,7 @@ export async function isMacSonomaOrHigher() {
   }
   logInfo('Checking if macOS is Sonoma or higher', LogPrefix.Backend)
 
-  const { release } = (await si.osInfo()) as { release: string }
+  const release = (await getSystemInfo(true)).OS.version
   const [major] = release.split('.').map(Number)
   const isMacSonomaOrHigher = major >= 14
 

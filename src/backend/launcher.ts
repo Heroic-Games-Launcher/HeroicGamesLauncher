@@ -47,7 +47,8 @@ import {
   removeQuoteIfNecessary,
   memoryLog,
   sendGameStatusUpdate,
-  checkWineBeforeLaunch
+  checkWineBeforeLaunch,
+  isMacSonomaOrHigher
 } from './utils'
 import {
   appendFileLog,
