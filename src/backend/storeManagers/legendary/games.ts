@@ -34,15 +34,6 @@ import {
   spawnAsync
 } from '../../utils'
 import {
-  isMac,
-  isWindows,
-  installed,
-  configStore,
-  isCLINoGui,
-  isLinux,
-  epicRedistPath
-} from '../../constants'
-import {
   appendGamePlayLog,
   appendWinetricksGamePlayLog,
   logError,
@@ -91,6 +82,14 @@ import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
+import { configStore } from 'backend/constants/key_value_stores'
+import { epicRedistPath, legendaryInstalled } from './constants'
+import {
+  isCLINoGui,
+  isLinux,
+  isMac,
+  isWindows
+} from 'backend/constants/environment'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -1018,7 +1017,7 @@ export async function forceUninstall(appName: string) {
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
     logError(
-      `Error reading ${installed}, could not complete operation`,
+      `Error reading ${legendaryInstalled}, could not complete operation`,
       LogPrefix.Legendary
     )
   }

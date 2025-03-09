@@ -1,10 +1,10 @@
-import { isMac } from 'backend/constants'
 import { ExecResult, GameInfo } from 'common/types'
 import { readdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
 import { libraryStore } from './electronStores'
 import { logWarning } from 'backend/logger/logger'
 import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
+import { isMac } from 'backend/constants/environment'
 
 export function addNewApp({
   app_name,
