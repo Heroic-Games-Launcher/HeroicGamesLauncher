@@ -62,62 +62,57 @@ export default React.memo(function HeroicVersion() {
 
   return (
     <div className="heroicVersionContainer" data-tour="sidebar-version">
-      <>
-        {((showChangelogModal &&
-          !hideChangelogsOnStartup &&
-          heroicVersion !== lastChangelogShown) ||
-          showChangelogModalOnClick) && (
-          <ChangelogModal
-            dimissVersionCheck
-            onClose={() => {
-              setShowChangelogModal(false)
-              setShowChangelogModalOnClick(false)
-              setLastChangelogShown(heroicVersion)
-            }}
-          />
-        )}
-        <div className="heroicVersionWrapper">
-          <span
-            className="heroicVersion"
-            role="link"
-            title={t(
-              'info.heroic.click-to-see-changelog',
-              'Click to see changelog'
-            )}
-            onClick={() => setShowChangelogModalOnClick((current) => !current)}
-          >
-            <span className="heroicVersion__title">
-              <span>{t('info.heroic.version', 'Heroic Version')}: </span>
-            </span>
-            <strong>{version}</strong>
+      {((showChangelogModal &&
+        !hideChangelogsOnStartup &&
+        heroicVersion !== lastChangelogShown) ||
+        showChangelogModalOnClick) && (
+        <ChangelogModal
+          dimissVersionCheck
+          onClose={() => {
+            setShowChangelogModal(false)
+            setShowChangelogModalOnClick(false)
+            setLastChangelogShown(heroicVersion)
+          }}
+        />
+      )}
+      <div className="heroicVersionWrapper">
+        <span
+          className="heroicVersion"
+          role="link"
+          title={t(
+            'info.heroic.click-to-see-changelog',
+            'Click to see changelog'
+          )}
+          onClick={() => setShowChangelogModalOnClick((current) => !current)}
+        >
+          <span className="heroicVersion__title">
+            <span>{t('info.heroic.version', 'Heroic Version')}: </span>
           </span>
-          <TourButton
-            tourId={SIDEBAR_TOUR_ID}
-            className="sidebar-tour-button"
-          />
+          <strong>{version}</strong>
+        </span>
+        <TourButton tourId={SIDEBAR_TOUR_ID} className="sidebar-tour-button" />
+      </div>
+      {shouldShowUpdates && (
+        <div className="heroicNewReleases">
+          <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
+          {newStable && (
+            <a
+              title={newStable.tag_name}
+              onClick={() => window.api.openExternalUrl(newStable.html_url)}
+            >
+              {t('info.heroic.stable', 'Stable')} ({newStable.tag_name})
+            </a>
+          )}
+          {newBeta && (
+            <a
+              title={newBeta.tag_name}
+              onClick={() => window.api.openExternalUrl(newBeta.html_url)}
+            >
+              {t('info.heroic.beta', 'Beta')} ({newBeta.tag_name})
+            </a>
+          )}
         </div>
-        {shouldShowUpdates && (
-          <div className="heroicNewReleases">
-            <span>{t('info.heroic.newReleases', 'Update Available!')}</span>
-            {newStable && (
-              <a
-                title={newStable.tag_name}
-                onClick={() => window.api.openExternalUrl(newStable.html_url)}
-              >
-                {t('info.heroic.stable', 'Stable')} ({newStable.tag_name})
-              </a>
-            )}
-            {newBeta && (
-              <a
-                title={newBeta.tag_name}
-                onClick={() => window.api.openExternalUrl(newBeta.html_url)}
-              >
-                {t('info.heroic.beta', 'Beta')} ({newBeta.tag_name})
-              </a>
-            )}
-          </div>
-        )}
-      </>
+      )}
     </div>
   )
 })

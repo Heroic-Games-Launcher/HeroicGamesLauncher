@@ -59,6 +59,14 @@ const SidebarTour: React.FC = () => {
       position: 'right'
     },
     {
+      element: '[data-tour="sidebar-login"]',
+      intro: t(
+        'tour.sidebar.login',
+        'Login to your Epic, GOG or Amazon Accounts.'
+      ),
+      position: 'right'
+    },
+    {
       element: '[data-tour="sidebar-manage-accounts"]',
       intro: t(
         'tour.sidebar.accounts',

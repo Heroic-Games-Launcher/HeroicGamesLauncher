@@ -96,6 +96,7 @@ export default function SidebarLinks() {
           icon={faUser}
           label={t('button.login', 'Login')}
           url="/login"
+          dataTour="sidebar-login"
         />
       )}
       <SidebarItem
