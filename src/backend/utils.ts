@@ -1307,12 +1307,12 @@ export async function checkRosettaInstall() {
   )
 
   if (!result) {
-    // show a dialog saying that hyperplay wont run without rosetta and add information on how to install it
+    // show a dialog saying that Heroic wont run without rosetta and add information on how to install it
     await dialog.showMessageBox({
       title: i18next.t('box.warning.rosetta.title', 'Rosetta not found'),
       message: i18next.t(
         'box.warning.rosetta.message',
-        'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart HyperPlay. '
+        'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart Heroic. '
       ),
       buttons: ['OK'],
       icon: icon
