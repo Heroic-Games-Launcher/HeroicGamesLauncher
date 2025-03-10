@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import Tour, { TourStep } from '../../../components/Tour/Tour'
 import { useTour } from '../../../state/TourContext'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 export const LIBRARY_TOUR_ID = 'library-tour'
 
 const LibraryTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
+  // Import context to check if there are any games in the library
+  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
 
-  const steps: TourStep[] = [
+  // Check if there are any games in the library
+  const hasGames = Boolean(
+    epic.library.length ||
+      gog.library.length ||
+      amazon.library.length ||
+      sideloadedLibrary.length
+  )
+
+  // Create intro steps first
+  const introSteps: TourStep[] = [
     {
       intro: t(
         'tour.library.welcome.intro',
@@ -23,19 +35,29 @@ const LibraryTour: React.FC = () => {
         'If the library is empty, make sure to login with your accounts usinge the Manage accounts on the sidebar or add your own games using the Add Game button above.'
       ),
       title: t('tour.library.welcome.title2', 'Managing the library!')
-    },
-    {
-      element: '[data-tour="library-game-card"]',
-      intro: t(
-        'tour.library.gameCard',
-        'Right Click on thegame card to navigate to the game page and to see details and adjust settings or Left click to open the context menu.'
-      )
-    },
+    }
+  ]
+
+  // Only include the game card step if there are games in the library
+  const gameCardStep: TourStep[] = hasGames
+    ? [
+        {
+          element: '[data-tour="library-game-card"]',
+          intro: t(
+            'tour.library.gameCard',
+            'Left-Click on the game card to navigate to the game page and to see details and adjust settings or Right-click to open the context menu.'
+          )
+        }
+      ]
+    : []
+
+  // Other UI elements steps
+  const uiSteps: TourStep[] = [
     {
       element: '[data-tour="library-search"]',
       intro: t(
         'tour.library.search',
-        'Use the Search bar to search for games by name or AppName.'
+        'Use the Search bar to search for your games.'
       ),
       position: 'bottom'
     },
@@ -100,6 +122,9 @@ const LibraryTour: React.FC = () => {
       title: t('tour.library.end.title', 'Enjoy your games!')
     }
   ]
+
+  // Combine all steps
+  const steps = [...introSteps, ...gameCardStep, ...uiSteps]
 
   return (
     <Tour
