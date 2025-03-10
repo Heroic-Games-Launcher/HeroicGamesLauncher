@@ -20,10 +20,13 @@ import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import ThirdPartyDialog from './ThirdPartyDialog'
+import {
+  closeInstallGameModal,
+  useInstallGameModal
+} from 'frontend/state/InstallGameModal'
 
 type Props = {
   appName: string
-  backdropClick: () => void
   runner: Runner
   gameInfo?: GameInfo | null
 }
@@ -35,12 +38,7 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-export default React.memo(function InstallModal({
-  appName,
-  backdropClick,
-  runner,
-  gameInfo = null
-}: Props) {
+function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const { platform } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
 
@@ -155,10 +153,12 @@ export default React.memo(function InstallModal({
   const showDownloadDialog = !isSideload && gameInfo
   const isThirdPartyManagedApp = gameInfo && !!gameInfo.thirdPartyManagedApp
 
+  const closeModal = () => closeInstallGameModal()
+
   return (
     <div className="InstallModal">
       <Dialog
-        onClose={backdropClick}
+        onClose={closeModal}
         showCloseButton
         className="InstallModal__dialog"
       >
@@ -169,7 +169,7 @@ export default React.memo(function InstallModal({
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
-            backdropClick={backdropClick}
+            backdropClick={closeModal}
             platformToInstall={platformToInstall}
             gameInfo={gameInfo}
             crossoverBottle={crossoverBottle}
@@ -197,7 +197,7 @@ export default React.memo(function InstallModal({
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
-            backdropClick={backdropClick}
+            backdropClick={closeModal}
             platformToInstall={platformToInstall}
             gameInfo={gameInfo}
             crossoverBottle={crossoverBottle}
@@ -223,7 +223,7 @@ export default React.memo(function InstallModal({
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
-            backdropClick={backdropClick}
+            backdropClick={closeModal}
             platformToInstall={platformToInstall}
             appName={appName}
             crossoverBottle={crossoverBottle}
@@ -246,4 +246,20 @@ export default React.memo(function InstallModal({
       </Dialog>
     </div>
   )
-})
+}
+
+export function InstallGameWrapper() {
+  const installGameModalState = useInstallGameModal()
+
+  if (!installGameModalState.isOpen) {
+    return <></>
+  }
+
+  return (
+    <InstallModal
+      appName={installGameModalState.appName!}
+      runner={installGameModalState.runner!}
+      gameInfo={installGameModalState.gameInfo}
+    />
+  )
+}
