@@ -1,32 +1,40 @@
 .gameRequirements {
+  display: flex;
   flex-direction: column;
   user-select: text;
-  width: fit-content;
+  width: 100%;
   overflow: hidden;
+  padding-top: var(--space-md);
 }
 .gameRequirements table td {
-  width: 40%;
-  vertical-align: baseline;
-  padding: var(--space-xs);
-}
-
-.gameRequirements table td:first-child {
-  width: 20%;
+  padding: var(--space-2xs) var(--space-md);
+  color: var(--neutral-07);
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    var(--neutral-04),
+    transparent
+  );
+  background-position: bottom;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
 }
 
 table td.specs {
   cursor: default;
-  color: var(--accent);
+  color: var(--neutral-06);
   opacity: 0.8;
 }
 
 .gameRequirements table span.title {
-  color: var(--text-secondary);
+  color: var(--neutral-05);
   font-size: var(--text-md);
 }
 
 table span.text {
-  color: var(--text-secondary);
+  color: var(--brand-text-04);
   font-size: var(--text-sm);
 }
 
