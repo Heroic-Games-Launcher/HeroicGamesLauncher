@@ -17,7 +17,8 @@ import {
   isWindows,
   getSteamCompatFolder,
   configStore,
-  isLinux
+  isLinux,
+  isIntelMac
 } from './constants'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
@@ -290,7 +291,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
-      autoInstallDxvk: isLinux,
+      autoInstallDxvk: isLinux || isIntelMac,
       autoInstallVkd3d: isLinux,
       autoInstallDxvkNvapi: isLinux,
       addSteamShortcuts: false,

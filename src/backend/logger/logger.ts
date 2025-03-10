@@ -90,7 +90,7 @@ export function initLogger() {
 
   if (logsDisabled) {
     logWarning(
-      'IMPORTANT: Logs are disabled. Enable logs before reporting any issue.',
+      'IMPORTANT: Logs are disabled. Enable logs before reporting any issue.\n',
       {
         forceLog: true
       }
