@@ -925,7 +925,7 @@ export async function downloadDefaultWine() {
       return version.type === 'GE-Proton'
     } else if (isMac) {
       const isMacOSUpToDate = await isMacSonomaOrHigher()
-      if (isIntelMac && isMacOSUpToDate) {
+      if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
       } else {
         return version.type === 'Game-Porting-Toolkit'
@@ -1291,15 +1291,7 @@ async function getPathDiskSize(path: string): Promise<number> {
 }
 
 export async function checkRosettaInstall() {
-  if (!isMac) {
-    return
-  }
-
-  // check if on arm64 macOS
-  const { stdout: archCheck } = await execAsync('arch')
-  const isArm64 = archCheck.trim() === 'arm64'
-
-  if (!isArm64) {
+  if (isIntelMac) {
     return
   }
 
@@ -1334,9 +1326,6 @@ export async function checkRosettaInstall() {
 }
 
 export async function isMacSonomaOrHigher() {
-  if (!isMac) {
-    return false
-  }
   logInfo('Checking if macOS is Sonoma or higher', LogPrefix.Backend)
 
   const release = (await getSystemInfo(true)).OS.version

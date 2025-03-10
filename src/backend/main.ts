@@ -166,12 +166,12 @@ async function initializeWindow(): Promise<BrowserWindow> {
   setTimeout(async () => {
     // Will download Wine if none was found
     const availableWine = await GlobalConfig.get().getAlternativeWine()
+    if (isMac) {
+      checkRosettaInstall()
+    }
     Winetricks.download()
     if (!availableWine.length) {
       downloadDefaultWine()
-      if (isMac) {
-        checkRosettaInstall()
-      }
     }
   }, 2500)
 
