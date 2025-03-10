@@ -1315,7 +1315,7 @@ export async function checkRosettaInstall() {
   )
 
   if (!result) {
-    // show a dialog saying that hyperplay wont run without rosetta and add information on how to install it
+    // show a dialog saying that Heroic wont run without rosetta and add information on how to install it
     await dialog.showMessageBox({
       title: i18next.t('box.warning.rosetta.title', 'Rosetta not found'),
       message: i18next.t(
