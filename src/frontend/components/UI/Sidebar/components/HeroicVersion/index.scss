@@ -1,4 +1,15 @@
 .Sidebar {
+  .heroicVersionWrapper {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+    margin-top: var(--space-sm);
+
+    button {
+      padding: 0;
+    }
+  }
+
   .heroicVersion {
     display: flex;
     gap: 5px;
@@ -31,6 +42,18 @@
   }
 
   &.collapsed {
+    .heroicVersionWrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        margin-bottom: var(--space-xs);
+      }
+    }
+
     .heroicVersion {
       font-size: var(--text-xs);
       text-align: center;
@@ -43,5 +66,23 @@
     .heroicNewReleases {
       display: none;
     }
+  }
+}
+
+.sidebar-tour-button {
+  margin-left: var(--space-xs);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  color: var(--brand-primary);
+  padding: 0;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    opacity: 1;
+    color: var(--accent);
   }
 }

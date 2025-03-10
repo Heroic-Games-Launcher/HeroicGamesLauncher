@@ -16,8 +16,16 @@ import FormControl from '../FormControl'
 import './index.css'
 import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import TourButton from 'frontend/components/Tour/TourButton'
+import { LIBRARY_TOUR_ID } from 'frontend/screens/Library/components/LibraryTour'
 
-export default React.memo(function ActionIcons() {
+interface ActionIconsProps {
+  'data-tour'?: string
+}
+
+export default React.memo(function ActionIcons({
+  'data-tour': dataTour
+}: ActionIconsProps = {}) {
   const { t } = useTranslation()
   const { refreshLibrary, refreshing } = useContext(ContextProvider)
 
@@ -31,7 +39,7 @@ export default React.memo(function ActionIcons() {
   } = useContext(LibraryContext)
 
   return (
-    <div className="ActionIcons">
+    <div className="ActionIcons" data-tour={dataTour}>
       <FormControl segmented small>
         {layout === 'grid' ? (
           <button
@@ -42,6 +50,7 @@ export default React.memo(function ActionIcons() {
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
               icon={faList}
+              data-tour="library-view-toggle"
             />
           </button>
         ) : (
@@ -53,6 +62,7 @@ export default React.memo(function ActionIcons() {
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
               icon={faBorderAll}
+              data-tour="library-view-toggle"
             />
           </button>
         )}
@@ -68,6 +78,7 @@ export default React.memo(function ActionIcons() {
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
+            data-tour="library-sort-az"
           />
         </button>
         <button
@@ -78,6 +89,7 @@ export default React.memo(function ActionIcons() {
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
             icon={sortInstalled ? hardDriveSolid : hardDriveLight}
+            data-tour="library-sort-installed"
           />
         </button>
         <button
@@ -95,9 +107,11 @@ export default React.memo(function ActionIcons() {
             className={classNames('FormControl__segmentedFaIcon', {
               ['fa-spin']: refreshing
             })}
+            data-tour="library-refresh"
             icon={faSyncAlt}
           />
         </button>
+        <TourButton tourId={LIBRARY_TOUR_ID} className="library-tour-button" />
       </FormControl>
     </div>
   )

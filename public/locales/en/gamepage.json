@@ -199,6 +199,15 @@
         "login": "Log in",
         "title": "You are NOT logged in"
     },
+    "Open": "Open",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "pause": "Pause download",
+            "remove": "Remove from Downloads",
+            "resume": "Resume download"
+        }
+    },
     "report_problem": "Report a problem running this game",
     "sdl": {
         "title": "Select components to Install"

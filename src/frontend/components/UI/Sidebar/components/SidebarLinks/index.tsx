@@ -59,9 +59,13 @@ export default function SidebarLinks() {
   }
 
   function handleExternalLink(linkCallback: () => void) {
-    const showExternalLinkDialog: boolean = JSON.parse(
-      localStorage.getItem(SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY) ?? 'true'
+    const showDialogSetting = localStorage.getItem(
+      SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY
     )
+    const showExternalLinkDialog = showDialogSetting
+      ? (JSON.parse(showDialogSetting) as boolean)
+      : true
+
     if (showExternalLinkDialog) {
       handleExternalLinkDialog({ showDialog: true, linkCallback })
     } else {
@@ -86,12 +90,13 @@ export default function SidebarLinks() {
   }
 
   return (
-    <div className="SidebarLinks Sidebar__section">
+    <div className="SidebarLinks Sidebar__section" data-tour="sidebar-menu">
       {!loggedIn && (
         <SidebarItem
           icon={faUser}
           label={t('button.login', 'Login')}
           url="/login"
+          dataTour="sidebar-login"
         />
       )}
       <SidebarItem
@@ -100,6 +105,7 @@ export default function SidebarLinks() {
         icon={faGamepad}
         label={t('Library')}
         onClick={async () => handleRefresh()}
+        dataTour="sidebar-library"
       />
 
       <div className="SidebarItemWithSubmenu">
@@ -108,6 +114,7 @@ export default function SidebarLinks() {
           url={`/store/${defaultStore}`}
           icon={faStore}
           label={t('stores', 'Stores')}
+          dataTour="sidebar-stores"
         />
         {inWebviewScreen && (
           <div className="SidebarSubmenu">
@@ -136,6 +143,7 @@ export default function SidebarLinks() {
           icon={faSlidersH}
           label={t('Settings', 'Settings')}
           url="/settings/general"
+          dataTour="sidebar-settings"
         />
         {isSettings && (
           <div className="SidebarSubmenu settings">
@@ -188,6 +196,7 @@ export default function SidebarLinks() {
         url="/download-manager"
         icon={faBarsProgress}
         label={t('download-manager.link', 'Downloads')}
+        dataTour="sidebar-downloads"
       />
 
       {!isWin && (
@@ -195,6 +204,7 @@ export default function SidebarLinks() {
           url="/wine-manager"
           icon={faWineGlass}
           label={t('wine.manager.link', 'Wine Manager')}
+          dataTour="sidebar-wine"
         />
       )}
 
@@ -203,6 +213,7 @@ export default function SidebarLinks() {
           url="/login"
           icon={faUserAlt}
           label={t('userselector.manageaccounts', 'Manage Accounts')}
+          dataTour="sidebar-manage-accounts"
         />
       )}
 
@@ -210,6 +221,7 @@ export default function SidebarLinks() {
         url="/accessibility"
         icon={faUniversalAccess}
         label={t('accessibility.title', 'Accessibility')}
+        dataTour="sidebar-accessibility"
       />
 
       <div className="divider" />
@@ -218,30 +230,33 @@ export default function SidebarLinks() {
         url="/wiki"
         icon={faBookOpen}
         label={t('docs', 'Documentation')}
+        dataTour="sidebar-docs"
       />
 
-      <SidebarItem
-        elementType="button"
-        onClick={() => handleExternalLink(openDiscordLink)}
-        icon={faDiscord}
-        label={t('userselector.discord', 'Discord')}
-      />
+      <div data-tour="sidebar-community">
+        <SidebarItem
+          elementType="button"
+          onClick={() => handleExternalLink(openDiscordLink)}
+          icon={faDiscord}
+          label={t('userselector.discord', 'Discord')}
+        />
 
-      <SidebarItem
-        elementType="button"
-        onClick={() => handleExternalLink(window.api.openPatreonPage)}
-        icon={faPatreon}
-        label="Patreon"
-      />
+        <SidebarItem
+          elementType="button"
+          onClick={() => handleExternalLink(window.api.openPatreonPage)}
+          icon={faPatreon}
+          label="Patreon"
+        />
 
-      <SidebarItem
-        elementType="button"
-        onClick={() => handleExternalLink(window.api.openKofiPage)}
-        icon={faCoffee}
-        label="Ko-fi"
-      />
+        <SidebarItem
+          elementType="button"
+          onClick={() => handleExternalLink(window.api.openKofiPage)}
+          icon={faCoffee}
+          label="Ko-fi"
+        />
+      </div>
 
-      <QuitButton />
+      <QuitButton dataTour="sidebar-quit" />
     </div>
   )
 }

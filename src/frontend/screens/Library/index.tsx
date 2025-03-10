@@ -33,6 +33,7 @@ import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
+import LibraryTour from './components/LibraryTour'
 
 const storage = window.localStorage
 
@@ -619,6 +620,7 @@ export default React.memo(function Library(): JSX.Element {
       }}
     >
       <Header />
+      <LibraryTour />
 
       <div className="listing">
         <span id="top" />
@@ -632,7 +634,9 @@ export default React.memo(function Library(): JSX.Element {
 
         {showFavourites && !showFavouritesLibrary && (
           <>
-            <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
+            <div className="library-section-header" data-tour="library-header">
+              <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
+            </div>
             <GamesList
               library={favourites}
               handleGameCardClick={handleModal}
