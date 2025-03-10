@@ -571,6 +571,7 @@
         "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteamuninstalled": "Add uninstalled games to Steam automatically",
         "after-launch-script-path": "Select a script to run after the game exits",
         "allow_installation_broken_anticheat": {
             "confirmation": {
