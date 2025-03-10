@@ -293,5 +293,6 @@
         "notice2": "Pärast paigaldamise alustamist käivitab Heroic selle rakenduse, et paigaldus lõpuni viia",
         "header": "Seda mängu haldab kolmanda osapoole rakendus",
         "notice1": "Seda mängu haldab kolmanda osapoole rakendus: \"{{application_name}}\""
-    }
+    },
+    "wikiLink": "Tähtis teave selle mängu kohta, lugege:&nbsp;<1>Ava lehekülg</1>"
 }
