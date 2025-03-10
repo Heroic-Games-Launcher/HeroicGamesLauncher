@@ -35,7 +35,8 @@ import {
   defaultUmuPath,
   publicDir,
   tsStore,
-  isCLINoGui
+  isCLINoGui,
+  isIntelMac
 } from './constants'
 import {
   constructAndUpdateRPC,
@@ -46,7 +47,8 @@ import {
   removeQuoteIfNecessary,
   memoryLog,
   sendGameStatusUpdate,
-  checkWineBeforeLaunch
+  checkWineBeforeLaunch,
+  isMacSonomaOrHigher
 } from './utils'
 import {
   appendFileLog,
@@ -1073,6 +1075,14 @@ export async function validWine(
   const { bin, wineserver, type } = wineVersion
   const necessary = type === 'wine' ? [bin, wineserver] : [bin]
   const haveAll = necessary.every((binary) => existsSync(binary as string))
+
+  if (isMac && type === 'toolkit') {
+    const isMacOSUpToDate = await isMacSonomaOrHigher()
+    const isGPTKCompatible: boolean = isMacOSUpToDate && !isIntelMac
+    if (!isGPTKCompatible) {
+      return false
+    }
+  }
 
   // if wine version does not exist, use the default one
   if (!haveAll) {

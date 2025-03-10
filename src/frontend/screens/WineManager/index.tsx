@@ -61,9 +61,20 @@ export default function WineManager(): JSX.Element | null {
     enabled: !isLinux
   }
 
+  const getDefaultRepository = (): WineManagerUISettings => {
+    if (isLinux) {
+      return protonge
+    } else if (isIntelMac) {
+      return wineCrossover
+    } else {
+      return gamePortingToolkit
+    }
+  }
+
   const [repository, setRepository] = useState<WineManagerUISettings>(
-    isLinux ? protonge : isIntelMac ? wineCrossover : gamePortingToolkit
+    getDefaultRepository()
   )
+
   const [wineManagerSettings, setWineManagerSettings] = useState<
     WineManagerUISettings[]
   >([

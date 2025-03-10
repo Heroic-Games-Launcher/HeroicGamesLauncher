@@ -87,6 +87,7 @@ import {
 } from './utils/systeminfo/gpu/pci_ids'
 import type { WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
+import { getSystemInfo } from './utils/systeminfo'
 
 const execAsync = promisify(exec)
 
@@ -919,11 +920,12 @@ export async function downloadDefaultWine() {
   // get list of wines on wineDownloaderInfoStore
   const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
   // use GE-Proton type if on Linux and GamePortingToolkit if on Mac
-  const release = availableWine.find((version) => {
+  const release = availableWine.find(async (version) => {
     if (isLinux) {
       return version.type === 'GE-Proton'
     } else if (isMac) {
-      if (isIntelMac) {
+      const isMacOSUpToDate = await isMacSonomaOrHigher()
+      if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
       } else {
         return version.type === 'Game-Porting-Toolkit'
@@ -1286,6 +1288,58 @@ async function getPathDiskSize(path: string): Promise<number> {
   }
 
   return statData.size
+}
+
+export async function checkRosettaInstall() {
+  if (isIntelMac) {
+    return
+  }
+
+  const { stdout: rosettaCheck } = await execAsync(
+    'arch -x86_64 /usr/sbin/sysctl sysctl.proc_translated'
+  )
+
+  const result = rosettaCheck.split(':')[1].trim() === '1'
+
+  logInfo(
+    `Rosetta is ${result ? 'available' : 'not available'} on this system.`,
+    LogPrefix.Backend
+  )
+
+  if (!result) {
+    // show a dialog saying that Heroic wont run without rosetta and add information on how to install it
+    await dialog.showMessageBox({
+      title: i18next.t('box.warning.rosetta.title', 'Rosetta not found'),
+      message: i18next.t(
+        'box.warning.rosetta.message',
+        'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart Heroic. '
+      ),
+      buttons: ['OK'],
+      icon: icon
+    })
+
+    logInfo(
+      'Rosetta is not available, install it with: softwareupdate --install-rosetta from the terminal',
+      LogPrefix.Backend
+    )
+  }
+}
+
+export async function isMacSonomaOrHigher() {
+  logInfo('Checking if macOS is Sonoma or higher', LogPrefix.Backend)
+
+  const release = (await getSystemInfo(true)).OS.version
+  const [major] = release.split('.').map(Number)
+  const isMacSonomaOrHigher = major >= 14
+
+  logInfo(
+    `macOS is ${
+      isMacSonomaOrHigher ? 'Sonoma or higher' : 'not Sonoma or higher'
+    }`,
+    LogPrefix.Backend
+  )
+
+  return isMacSonomaOrHigher
 }
 
 function sendGameStatusUpdate(payload: GameStatus) {
