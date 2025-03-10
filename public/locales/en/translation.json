@@ -480,7 +480,6 @@
         "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
         "retrying": "Retrying"
     },
-    "Open": "Open",
     "options": {
         "advanced": {
             "key": "Variable Name",
@@ -558,15 +557,11 @@
     "progress": "Progress",
     "queue": {
         "label": {
-            "canceled": "Canceled",
             "clear": "Clear List",
             "downloading": "Downloading",
             "empty": "Nothing to download",
             "finished": "Completed",
-            "pause": "Pause download",
-            "queued": "Queued",
-            "remove": "Remove from Downloads",
-            "resume": "Resume download"
+            "queued": "Queued"
         }
     },
     "Recent": "Played Recently",
@@ -877,6 +872,52 @@
     "tooltip": {
         "addpath": "Add New Path",
         "removepath": "Remove Path"
+    },
+    "tour": {
+        "back": "Back",
+        "done": "Done",
+        "library": {
+            "addGame": "Add your own games or apps to the library by clicking here. They can be basically anything, even Browser URLs.",
+            "categories": "Organize your games into categories to keep things tidy.",
+            "end": {
+                "intro": "That's it! Enjoy your games and have fun!",
+                "title": "Enjoy your games!"
+            },
+            "filters": "Filter your games by store, platform, favorites and more using these options.",
+            "gameCard": "Left-Click on the game card to navigate to the game page and to see details and adjust settings or Right-click to open the context menu.",
+            "refresh": "Refresh your library to check for new games or updates.",
+            "search": "Use the Search bar to search for your games.",
+            "sortInstalled": "Sort games by installed status.",
+            "sortOptions": "Click here to sort games alphabetically.",
+            "viewToggle": "Switch between grid and list view for your games.",
+            "welcome": {
+                "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores.",
+                "intro2": "If the library is empty, make sure to login with your accounts usinge the Manage accounts on the sidebar or add your own games using the Add Game button above.",
+                "title": "Welcome to Heroic!",
+                "title2": "Managing the library!"
+            }
+        },
+        "next": "Next",
+        "sidebar": {
+            "accessibility": "Access accessibility features to customize your experience.",
+            "accounts": "Manage your connected store accounts (Epic, GOG, Amazon), logout or login on them.",
+            "community": "Join our community on Discord and support Heroic's development.",
+            "docs": "Read documentation for help with using Heroic.",
+            "downloads": "Track and manage your game downloads and installations.",
+            "library": "Access your game library from different stores in one place.",
+            "login": "Log in to your game store accounts to access your library.",
+            "quit": "Exit the application safely.",
+            "settings": "Configure Heroic's settings, game defaults, check logs and more.",
+            "stores": "Browse and shop for games in different stores including Epic, GOG, and Amazon.",
+            "version": "Check your current Heroic version, click it to see latest changelog, and access this tour from the help icon.",
+            "welcome": {
+                "intro": "Welcome to Heroic! This sidebar contains all the navigation options to explore the app.",
+                "title": "Sidebar Navigation"
+            },
+            "wine": "Manage or download new version of Wine/Proton/GPTK for running Windows games on Linux or macOS."
+        },
+        "skip": "Skip",
+        "startTour": "Start Tour"
     },
     "tray": {
         "about": "About",

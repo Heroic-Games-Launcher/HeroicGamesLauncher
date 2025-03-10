@@ -160,7 +160,7 @@ export default function LibraryFilters() {
   }
 
   return (
-    <div className="libraryFilters">
+    <div className="libraryFilters" data-tour="library-filters">
       <button className="selectStyle">{t('header.filters', 'Filters')}</button>
       <div className="dropdown">
         {epic.username && storeToggle('legendary')}

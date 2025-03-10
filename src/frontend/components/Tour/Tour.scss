@@ -1,0 +1,123 @@
+/* Custom styling for intro.js elements */
+.introjs-tooltip {
+  background: var(--neutral-02);
+  color: var(--text-default);
+  border: 1px solid var(--neutral-04);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  min-width: 450px;
+  max-width: 650px;
+}
+
+// Add the tooltip class styling
+.heroic-tour-tooltip {
+  background: var(--neutral-02);
+  color: var(--text-default);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--brand-primary);
+}
+
+.introjs-tooltiptext {
+  color: var(--text-default);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  padding: 16px;
+}
+
+.introjs-tooltipbuttons {
+  border-top: 1px solid var(--neutral-04);
+  padding: 12px;
+}
+
+.introjs-button {
+  background: var(--neutral-03);
+  border: 1px solid var(--neutral-04);
+  color: var(--text-default);
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 6px 12px;
+  text-shadow: none;
+  transition: background-color 0.2s;
+
+  &:hover,
+  &:focus {
+    background-color: var(--neutral-04);
+    color: var(--text-default);
+    border-color: var(--neutral-05);
+    box-shadow: none;
+    text-decoration: none;
+  }
+
+  &:active {
+    background-color: var(--neutral-04);
+  }
+}
+
+.introjs-nextbutton {
+  background-color: var(--brand-primary);
+  color: var(--neutral-01);
+  border-color: var(--primary-active);
+
+  &:hover,
+  &:focus {
+    background-color: var(--primary-hover);
+    color: var(--neutral-01);
+    border-color: var(--primary-active);
+  }
+
+  &:active {
+    background-color: var(--primary-active);
+  }
+}
+
+.introjs-skipbutton {
+  color: var(--neutral-05);
+  font-size: 11px; /* Reduced from default size */
+  text-transform: lowercase;
+  font-weight: normal;
+
+  &:hover,
+  &:focus {
+    color: var(--neutral-06);
+  }
+}
+
+.introjs-bullets {
+  ul {
+    li {
+      a {
+        background: var(--neutral-04);
+
+        &.active {
+          background: var(--brand-primary);
+        }
+      }
+    }
+  }
+}
+
+.introjs-progress {
+  background-color: var(--neutral-04);
+}
+
+.introjs-progressbar {
+  background-color: var(--brand-primary);
+}
+
+.introjs-helperLayer {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--brand-primary);
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.6);
+}
+
+.heroic-tour-highlight {
+  background: rgba(29, 232, 245, 0.1) !important;
+  border: 2px solid var(--brand-primary) !important;
+}
+
+.introjs-tooltip-title {
+  color: var(--brand-primary);
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}

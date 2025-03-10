@@ -18,6 +18,7 @@ import classNames from 'classnames'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
+import { TourProvider } from './state/TourContext'
 
 function Root() {
   const {
@@ -49,27 +50,29 @@ function Root() {
       onDragStart={(e) => e.preventDefault()}
     >
       <ThemeProvider theme={theme}>
-        <OfflineMessage />
-        <Sidebar />
-        <main className="content">
-          <DialogHandler />
-          {isSettingsModalOpen.gameInfo && (
-            <SettingsModal
-              gameInfo={isSettingsModalOpen.gameInfo}
-              type={isSettingsModalOpen.type}
-            />
-          )}
-          <ExternalLinkDialog />
-          <LogFileUploadDialog />
-          <UploadedLogFilesList />
-          <Outlet />
-        </main>
-        <div className="controller">
-          <ControllerHints />
-          <div className="simple-keyboard"></div>
-        </div>
-        {showOverlayControls && <WindowControls />}
-        {experimentalFeatures.enableHelp && <Help items={help.items} />}
+        <TourProvider>
+          <OfflineMessage />
+          <Sidebar />
+          <main className="content">
+            <DialogHandler />
+            {isSettingsModalOpen.gameInfo && (
+              <SettingsModal
+                gameInfo={isSettingsModalOpen.gameInfo}
+                type={isSettingsModalOpen.type}
+              />
+            )}
+            <ExternalLinkDialog />
+            <LogFileUploadDialog />
+            <UploadedLogFilesList />
+            <Outlet />
+          </main>
+          <div className="controller">
+            <ControllerHints />
+            <div className="simple-keyboard"></div>
+          </div>
+          {showOverlayControls && <WindowControls />}
+          {experimentalFeatures.enableHelp && <Help items={help.items} />}
+        </TourProvider>
       </ThemeProvider>
     </div>
   )
