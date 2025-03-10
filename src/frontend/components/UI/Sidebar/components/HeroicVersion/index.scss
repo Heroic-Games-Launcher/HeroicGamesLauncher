@@ -1,4 +1,15 @@
 .Sidebar {
+  .heroicVersionWrapper {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+    margin-top: var(--space-sm);
+
+    button {
+      padding: 0;
+    }
+  }
+
   .heroicVersion {
     display: flex;
     gap: 5px;
@@ -63,6 +74,7 @@
   opacity: 0.8;
   transition: opacity 0.2s ease;
   color: var(--brand-primary);
+  padding: 0;
 
   svg {
     width: 18px;
