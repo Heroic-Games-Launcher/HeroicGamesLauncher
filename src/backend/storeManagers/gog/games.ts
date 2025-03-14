@@ -283,8 +283,8 @@ export function onInstallOrUpdateOutput(
     logInfo(
       [
         `Progress for ${getGameInfo(appName).title}:`,
-        `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
-        `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
+        `${progress.percent?.toFixed(2)}%/${progress.bytes}/${progress.eta}`.trim(),
+        `Down: ${progress.downSpeed?.toFixed(2)}MB/s / Disk: ${progress.diskSpeed?.toFixed(1)}MB/s`
       ],
       LogPrefix.Gog
     )
