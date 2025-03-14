@@ -23,6 +23,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
+import { GameConfig } from 'backend/game_config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 
 const getSteamUserdataDir = async () => {
@@ -215,7 +216,13 @@ async function addNonSteamGame(props: {
     props.gameInfo.app_name,
     props.gameInfo.runner
   )
-  const steamID = wikiInfo?.pcgamingwiki?.steamID ?? wikiInfo?.gamesdb?.steamID
+  const gameSettings =
+    GameConfig.get(props.gameInfo.app_name).config ||
+    (await GameConfig.get(props.gameInfo.app_name).getSettings())
+  const steamID =
+    gameSettings.steamAppId ??
+    wikiInfo?.pcgamingwiki?.steamID ??
+    wikiInfo?.gamesdb?.steamID
 
   const { folders, error } = checkSteamUserDataDir(steamUserdataDir)
 
