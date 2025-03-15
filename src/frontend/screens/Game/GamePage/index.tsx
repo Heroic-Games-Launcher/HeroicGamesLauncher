@@ -452,35 +452,41 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </div>
                 <div className="extraInfoWrapper">
                   <div className="extraInfo">
-                    <Tabs
-                      value={currentTab}
-                      onChange={(e, newVal) => setCurrentTab(newVal)}
-                      aria-label="gameinfo tabs"
-                      variant="scrollable"
-                    >
-                      <Tab
-                        value={'info'}
-                        label={t('game.install_info', 'Install info')}
-                        iconPosition="start"
-                        icon={<Info />}
-                      />
-                      {hasWikiInfo && (
+                    <div className="extraInfoTabs">
+                      <Tabs
+                        className="gameInfoTabs"
+                        value={currentTab}
+                        onChange={(e, newVal) => setCurrentTab(newVal)}
+                        aria-label="gameinfo tabs"
+                        variant="scrollable"
+                      >
                         <Tab
-                          value={'extra'}
-                          label={t('game.extra_info', 'Extra info')}
+                          className="tabButton"
+                          value={'info'}
+                          label={t('game.install_info', 'Install info')}
                           iconPosition="start"
-                          icon={<Star />}
+                          icon={<Info className="gameInfoTabsIcon" />}
                         />
-                      )}
-                      {hasRequirements && (
-                        <Tab
-                          value={'requirements'}
-                          label={t('game.requirements', 'Requirements')}
-                          iconPosition="start"
-                          icon={<Monitor />}
-                        />
-                      )}
-                    </Tabs>
+                        {hasWikiInfo && (
+                          <Tab
+                            className="tabButton"
+                            value={'extra'}
+                            label={t('game.extra_info', 'Extra info')}
+                            iconPosition="start"
+                            icon={<Star className="gameInfoTabsIcon" />}
+                          />
+                        )}
+                        {hasRequirements && (
+                          <Tab
+                            className="tabButton"
+                            value={'requirements'}
+                            label={t('game.requirements', 'Requirements')}
+                            iconPosition="start"
+                            icon={<Monitor className="gameInfoTabsIcon" />}
+                          />
+                        )}
+                      </Tabs>
+                    </div>
 
                     <div>
                       <TabPanel
