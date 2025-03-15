@@ -1,4 +1,4 @@
-.App:not(.oldDesign) .gameConfigContainer {
+.gameConfigContainer {
   display: grid;
   grid-template-columns: minmax(500px, 60%) minmax(500px, 60%);
   padding: var(--space-md);
@@ -8,7 +8,7 @@
   max-height: 100vh;
   grid-template-areas:
     'header header'
-    'left right'
+    'main extra'
     'report report';
 
   overflow: hidden;
@@ -53,7 +53,7 @@
     }
 
     &:hover {
-      color: var(--);
+      color: var(--status-default-hover);
     }
   }
 
@@ -72,15 +72,14 @@
 
     .backButton {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       gap: var(--space-sm);
-      align-self: start;
     }
   }
 
   .topRowWapperInner {
     display: flex;
-    grid-area: header2;
+    grid-area: header;
     gap: var(--space-sm);
     align-items: center;
     justify-content: flex-start;
@@ -101,11 +100,11 @@
   }
 
   .mainInfoWrapper {
-    grid-area: left;
+    grid-area: main;
   }
 
   .extraInfoWrapper {
-    grid-area: right;
+    grid-area: extra;
   }
 
   .mainInfo,
@@ -180,6 +179,7 @@
       h1 {
         font-size: 34px;
         line-height: 39px;
+        padding-bottom: var(--space-xs);
       }
 
       h1 {
@@ -196,25 +196,25 @@
       }
 
       .releaseDate {
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.3rem;
         color: var(--neutral-05);
-        font-size: var(--text-md);
+        font-size: var(--text-xs);
       }
 
       .summary {
         overflow: auto;
-        font-size: var(--text-lg);
+        font-size: var(--text-md);
         line-height: 1.5em;
         text-align: left;
         flex-grow: 1;
         margin-top: var(--space-xs);
         color: var(--neutral-06);
-        padding: 0 12px 0 0;
+        padding: 16px 0;
       }
 
       .timeContainerLabel {
         margin-top: 0.8rem;
-        color: var(--neutral-08);
+        color: var(--neutral-05);
         font-size: var(--text-md);
       }
 
@@ -222,14 +222,16 @@
         display: flex;
         flex-wrap: wrap;
         gap: var(--space-xs);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.8rem;
 
         .genre {
-          background: var(--accent-overlay);
-          color: var(--text-tertiary);
-          padding: 1px 6px;
-          border-radius: 6px;
+          background: var(--accent-02);
+          color: var(--brand-text-05);
+          padding: 4px 8px;
+          border-radius: 16px;
+          border: 1px solid var(--accent-02);
           font-size: var(--text-sm);
+          font-weight: 600;
         }
       }
 
@@ -297,7 +299,8 @@
 
   .extraInfoWrapper {
     .extraInfo {
-      padding: 4vh 1.5vw;
+      padding: 3vh 3.5vw;
+      gap: var(--space-sm);
 
       & > div {
         overflow-y: auto;
@@ -560,10 +563,14 @@
 
     .mainInfo {
       padding: max(10vh, 80px) min(3vw, 50px) min(3vh, 20px);
+
+      & > h1 {
+        padding-bottom: var(--space-xs);
+      }
     }
 
     .extraInfo {
-      padding: 1vh 1vw;
+      padding: 2vh 2.5vw;
     }
 
     @media (max-width: 768px) {
@@ -579,5 +586,51 @@
         justify-self: center;
       }
     }
+  }
+}
+
+.extraInfoTabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+
+  .gameInfoTabs {
+    align-items: center;
+    padding: var(--space-3xs);
+    border: 1px solid var(--neutral-04);
+    @supports (
+      background-color: color-mix(in srgb, var(--neutral-02), transparent)
+    ) {
+      background-color: color-mix(in srgb, var(--neutral-02) 35%, transparent);
+    }
+    @supports not (
+      background-color: color-mix(in srgb, var(--neutral-02), transparent)
+    ) {
+      background-color: var(--neutral-02);
+      opacity: 0.35;
+    }
+    border-radius: var(--space-xl);
+
+    .MuiTabs-indicator {
+      display: none;
+    }
+
+    .MuiTabs-flexContainer {
+      border-bottom: none;
+    }
+  }
+
+  .tabButton {
+    border-radius: var(--space-lg);
+
+    & .MuiTabs-indicator {
+      display: none;
+    }
+  }
+
+  .gameInfoTabsIcon {
+    width: var(--space-unit-fixed);
+    height: var(--space-unit-fixed);
   }
 }
