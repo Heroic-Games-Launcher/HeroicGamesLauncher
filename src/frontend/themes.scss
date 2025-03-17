@@ -8,7 +8,7 @@ body {
   --cancel-button-overlay: var(--status-warning-hover);
   --background-darker-80: var(--eighty-percent-black);
 
-  --anticheat-denied: var(--status-danger);
+  --anticheat-denied: #a25d21;
   --anticheat-broken: var(--status-warning);
   --anticheat-running: var(--status-default);
   --anticheat-supported: var(--status-success);
@@ -54,10 +54,10 @@ body.midnightMirage {
 
   /* Buttons */
   --primary-button: var(--gradient-01);
-  --secondary-button: var(--brand-primary);
+  --secondary-button: var(--brand-secondary);
+  --tertiary-button: var(--neutral-03);
   --button-stroke: var(--accent);
   --secondary-button-overlay: var(--primary-hover);
-  --tertiary-button: var(--status-warning);
   --tertiary-button-overlay: var(--status-warning-hover);
   --success-button: var(--gradient-01);
   --disabled-button: var(--neutral-03);
@@ -75,17 +75,17 @@ body.midnightMirage {
 
   /* Sidebar */
   --navbar-active: var(--text-secondary);
-  --navbar-inactive: var(--neutral-05);
+  --navbar-inactive: var(--neutral-06);
   --navbar-active-background: var(--background-darker);
   --navbar-accent: var(--text-default);
   --navbar-background: var(--background);
-  --divider: gray;
+  --divider: var(--neutral-03);
 
   /* Status */
   --success: var(--status-success);
   --success-hover: var(--status-success-hover);
-  --danger: var(--status-danger);
-  --danger-hover: var(--status-danger-hover);
+  --danger: #a62b2b;
+  --danger-hover: var(--status-danger);
 
   /* Others for compatibility, probably can be refactored */
   --primary: var(--brand-primary);
@@ -108,21 +108,23 @@ body.cyberSpaceOasisAlt {
   --current-background: var(--body-background);
   --modal-background: #13172a;
   --modal-border: #1f253f;
-  --text-hover: #59d0ea;
+  --text-hover: #7ae3fa;
   --primary: #07c5ef;
   --primary-hover: #4cdafa;
   --link-highlight: #07c5ef;
-  --accent: #eaa114;
+  --accent: #e0ab40;
   --accent-overlay: #ffbb33;
   --navbar-accent: var(--accent);
   --navbar-active-background: var(--background-lighter);
   --play-button: #59d0ea;
   --download-button: #3082d9;
   --download-button-overlay: #1372d7;
-  --danger: #bd0a0a; /* These success, danger and disabled colours need to be documented */
-  --success: #0bd58c;
-  --success-hover: #30eca8;
-  --danger-hover: #e43f3f;
+  --danger: var(
+    --status-danger
+  ); /* These success, danger and disabled colours need to be documented */
+  --success: #12e195;
+  --success-hover: #5cefb9;
+  --danger-hover: var(--status-danger-hover);
   --icon-disabled: #625e69;
   --icons-background: #17131c;
   --divider: gray;
@@ -131,8 +133,8 @@ body.cyberSpaceOasisAlt {
   --osk-button-border: var(--navbar-background);
   --controller-hints-background: transparent;
 
-  --anticheat-denied: var(--danger);
-  --anticheat-broken: #e8590c;
+  --anticheat-denied: #a62b2b;
+  --anticheat-broken: #a62b2b;
   --anticheat-running: #0e8598;
   --anticheat-supported: #2f9e44;
   --anticheat-planned: #6841d9;
@@ -157,15 +159,15 @@ body.cyberSpaceOasisAlt {
   --text-title: #ffffff;
   --text-tertiary: #101111; /* This is not defined in figma */
   --text-quartenary: #5a5e5f; /* this is meant to be a background colour */
-  --text-danger: #d22121;
+  --text-danger: var(--status-danger);
   --text-gametitle: var(--text-default);
-  --text-log: #f5cf69;
-  --text-warning: #eaa114;
+  --text-log: var(--status-warning);
+  --text-warning: var(--status-warning-hover);
 
   /*Action Icons*/
   --action-icon: var(--text-default);
-  --action-icon-hover: var(--text-hover);
-  --action-icon-active: var(--accent);
+  --action-icon-hover: var(--brand-text-01);
+  --action-icon-active: var(--brand-text-02);
 }
 
 body.gruvbox_dark {
