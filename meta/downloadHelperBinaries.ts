@@ -18,8 +18,8 @@ const RELEASE_TAGS = {
   legendary: '0.20.37',
   gogdl: 'v1.1.2',
   nile: 'v1.1.2',
-  comet: 'v0.2.0',
-  'epic-integration': 'v0.3'
+  comet: 'v0.3.0',
+  'epic-integration': 'v0.3',
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
