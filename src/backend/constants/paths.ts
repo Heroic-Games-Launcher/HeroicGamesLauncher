@@ -48,6 +48,14 @@ export const galaxyCommunicationExePath = fixAsarPath(
   join(publicDir, 'bin', 'x64', 'win32', 'GalaxyCommunication.exe')
 )
 
+export const galaxyOverlayShimExePath = fixAsarPath(
+  join(publicDir, 'bin', 'galaxy.exe')
+)
+
+export const galaxyOverlayShimUnixlibExePath = fixAsarPath(
+  join(publicDir, 'bin', 'libgalaxyunixlib.dll.so')
+)
+
 export const webviewPreloadPath = fixAsarPath(
   join('file://', publicDir, 'webviewPreload.js')
 )
