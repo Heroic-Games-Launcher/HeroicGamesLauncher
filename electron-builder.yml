@@ -80,6 +80,8 @@ linux:
     - build/bin/${arch}/linux/*
     - build/bin/x64/win32/GalaxyCommunication.exe
     - build/bin/x64/win32/EpicGamesLauncher.exe
+    - build/bin/galaxy.exe
+    - build/bin/libgalaxyunixlib.dll.so
 
 rpm:
   fpm: ['--rpm-rpmbuild-define', '_build_id_links none']
