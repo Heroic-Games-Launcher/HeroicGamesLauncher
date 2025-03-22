@@ -209,10 +209,7 @@ export const DXVK = {
       logWarning('32-bit prefix detected!', LogPrefix.DXVKInstaller)
     }
 
-    if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
-      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
-      await DXVK.getLatest()
-    }
+    await DXVK.getLatest()
 
     const globalVersion = readFileSync(`${toolsPath}/${tool}/latest_${tool}`)
       .toString()
