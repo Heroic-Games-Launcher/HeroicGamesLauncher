@@ -18,10 +18,9 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { app } from 'electron'
-import { legendaryConfigPath } from './constants'
-import { join } from 'path'
 import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import { LegendaryAppName } from './storeManagers/legendary/commands/base'
+import { legendaryInstalled } from './storeManagers/legendary/constants'
 
 async function getDefaultSavePath(
   appName: string,
@@ -54,7 +53,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     )
     // FIXME: This isn't really that safe
     try {
-      const installedJsonLoc = join(legendaryConfigPath, 'installed.json')
+      const installedJsonLoc = legendaryInstalled
       const installedJsonData = JSON.parse(
         readFileSync(installedJsonLoc, 'utf-8')
       )

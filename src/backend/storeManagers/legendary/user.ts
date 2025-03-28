@@ -2,13 +2,14 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
 import { clearCache } from '../../utils'
-import { userInfo, configStore } from '../../constants'
 import { logError, LogPrefix } from '../../logger/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runRunnerCommand as runLegendaryCommand } from './library'
 import { LegendaryCommand } from './commands'
 import { NonEmptyString } from './commands/base'
+import { configStore } from 'backend/constants/key_value_stores'
+import { legendaryUserInfo } from './constants'
 
 export class LegendaryUser {
   public static async login(
@@ -74,7 +75,7 @@ export class LegendaryUser {
   }
 
   public static isLoggedIn() {
-    return existsSync(userInfo)
+    return existsSync(legendaryUserInfo)
   }
 
   public static getUserInfo(): UserInfo | undefined {
@@ -83,7 +84,7 @@ export class LegendaryUser {
       return
     }
     try {
-      const userInfoContent = readFileSync(userInfo).toString()
+      const userInfoContent = readFileSync(legendaryUserInfo).toString()
       const userInfoObject = JSON.parse(userInfoContent)
       const info: UserInfo = {
         account_id: userInfoObject.account_id,
@@ -94,7 +95,7 @@ export class LegendaryUser {
       return info
     } catch (error) {
       logError(
-        `User info file corrupted, check ${userInfo}`,
+        `User info file corrupted, check ${legendaryUserInfo}`,
         LogPrefix.Legendary
       )
       return

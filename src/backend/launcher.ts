@@ -23,22 +23,6 @@ import { existsSync, mkdirSync } from 'graceful-fs'
 import { join, dirname } from 'path'
 
 import {
-  defaultWinePrefix,
-  fixesPath,
-  flatPakHome,
-  isLinux,
-  isMac,
-  isWindows,
-  isSteamDeckGameMode,
-  runtimePath,
-  userHome,
-  defaultUmuPath,
-  publicDir,
-  tsStore,
-  isCLINoGui,
-  isIntelMac
-} from './constants'
-import {
   constructAndUpdateRPC,
   getSteamRuntime,
   isEpicServiceOffline,
@@ -96,6 +80,24 @@ import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
+import { tsStore } from './constants/key_value_stores'
+import {
+  defaultUmuPath,
+  defaultWinePrefix,
+  fixesPath,
+  flatpakHome,
+  publicDir,
+  runtimePath,
+  userHome
+} from './constants/paths'
+import {
+  isCLINoGui,
+  isLinux,
+  isMac,
+  isSteamDeckGameMode,
+  isWindows,
+  isIntelMac
+} from './constants/environment'
 
 let powerDisplayId: number | null
 
@@ -865,7 +867,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   const ret: Record<string, string> = {}
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
-  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+  const steamInstallPath = join(flatpakHome, '.steam', 'steam')
   switch (wineVersion.type) {
     case 'wine': {
       ret.WINEPREFIX = winePrefix
@@ -961,7 +963,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
     // This sets the name of the log file given when setting PROTON_LOG=1
     ret.SteamGameId = `heroic-${gameId}`
-    ret.PROTON_LOG_DIR = flatPakHome
+    ret.PROTON_LOG_DIR = flatpakHome
     // add back default wine/dxvk debug logging
     if (gameSettings?.verboseLogs) {
       if (

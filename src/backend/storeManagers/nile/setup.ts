@@ -7,13 +7,13 @@ import {
 } from 'backend/logger/logger'
 import { fetchFuelJSON, getGameInfo } from './library'
 import { GameConfig } from 'backend/game_config'
-import { isWindows } from 'backend/constants'
 import {
   checkWineBeforeLaunch,
   sendGameStatusUpdate,
   spawnAsync
 } from 'backend/utils'
 import { runWineCommand, verifyWinePrefix } from 'backend/launcher'
+import { isWindows } from 'backend/constants/environment'
 
 /**
  * Handles installing dependencies for games that include PostInstall scripts
