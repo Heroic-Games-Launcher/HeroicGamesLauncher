@@ -241,7 +241,11 @@ export async function getWineOnMac(): Promise<Set<WineInstallation>> {
       ) as PlistObject
       const version = info['CFBundleShortVersionString'] || ''
       const name = info['CFBundleName'] || ''
-      const wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
+      let wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
+      if (!existsSync(wineBin)) {
+        // Fallback to wine if wine64 is not found
+        wineBin = join(winePath, '/Contents/Resources/wine/bin/wine')
+      }
       if (existsSync(wineBin)) {
         wineSet.add({
           ...getWineExecs(wineBin),
