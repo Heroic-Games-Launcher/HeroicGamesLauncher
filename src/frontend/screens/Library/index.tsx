@@ -27,22 +27,15 @@ import {
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 const storage = window.localStorage
-
-type ModalState = {
-  game: string
-  show: boolean
-  runner: Runner
-  gameInfo: GameInfo | null
-}
 
 export default React.memo(function Library(): JSX.Element {
   const { t } = useTranslation()
@@ -181,12 +174,6 @@ export default React.memo(function Library(): JSX.Element {
 
   const [showCategories, setShowCategories] = useState(false)
 
-  const [showModal, setShowModal] = useState<ModalState>({
-    game: '',
-    show: false,
-    runner: 'legendary',
-    gameInfo: null
-  })
   const [sortDescending, setSortDescending] = useState(
     JSON.parse(storage?.getItem('sortDescending') || 'false')
   )
@@ -246,7 +233,7 @@ export default React.memo(function Library(): JSX.Element {
     runner: Runner,
     gameInfo: GameInfo | null
   ) {
-    setShowModal({ game: appName, show: true, runner, gameInfo })
+    openInstallGameModal({ appName, runner, gameInfo })
   }
 
   // cache list of games being installed
@@ -665,22 +652,6 @@ export default React.memo(function Library(): JSX.Element {
       <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
         <ArrowDropUp id="backToTopArrow" className="material-icons" />
       </button>
-
-      {showModal.show && (
-        <InstallModal
-          appName={showModal.game}
-          runner={showModal.runner}
-          gameInfo={showModal.gameInfo}
-          backdropClick={() =>
-            setShowModal({
-              game: '',
-              show: false,
-              runner: 'legendary',
-              gameInfo: null
-            })
-          }
-        />
-      )}
 
       {showCategories && <CategoriesManager />}
     </LibraryContext.Provider>

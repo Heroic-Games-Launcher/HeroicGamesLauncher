@@ -19,6 +19,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
 import { TourProvider } from './state/TourContext'
+import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 
 function Root() {
   const {
@@ -61,6 +62,7 @@ function Root() {
                 type={isSettingsModalOpen.type}
               />
             )}
+            <InstallGameWrapper />
             <ExternalLinkDialog />
             <LogFileUploadDialog />
             <UploadedLogFilesList />
