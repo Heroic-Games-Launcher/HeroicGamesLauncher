@@ -270,6 +270,40 @@
       max-width: 560px;
     }
 
+    & .playButtons {
+      display: flex;
+
+      .mainBtn {
+        flex-grow: 1;
+      }
+
+      .altPlay {
+        position: relative;
+        margin-inline-start: 1px;
+        padding-inline: 8px;
+
+        & > svg {
+          rotate: 270deg;
+          font-size: 0.7rem;
+        }
+
+        a {
+          display: none;
+          position: absolute;
+          top: 100%;
+          right: 0px;
+          white-space: nowrap;
+        }
+
+        &:focus,
+        &:hover {
+          a {
+            display: block;
+          }
+        }
+      }
+    }
+
     .summary {
       font-family: var(--primary-font-family);
       font-style: normal;
@@ -649,6 +683,37 @@
           align-self: center;
           max-height: unset;
           padding: var(--space-sm) var(--space-md);
+        }
+
+        & .playButtons {
+          display: flex;
+          justify-content: center;
+
+          .altPlay {
+            position: relative;
+            margin-inline-start: 1px;
+            padding-inline: 8px;
+
+            & > svg {
+              rotate: 270deg;
+              font-size: 0.7rem;
+            }
+
+            a {
+              display: none;
+              position: absolute;
+              top: 100%;
+              right: 0px;
+              white-space: nowrap;
+            }
+
+            &:focus,
+            &:hover {
+              a {
+                display: block;
+              }
+            }
+          }
         }
 
         & .mainBtn {
