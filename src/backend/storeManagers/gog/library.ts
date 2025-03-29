@@ -28,6 +28,7 @@ import {
 import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { app } from 'electron'
+import { addShortcuts } from '../../shortcuts/shortcuts/shortcuts'
 
 import {
   logDebug,
@@ -385,6 +386,7 @@ export async function refresh(): Promise<ExecResult> {
   const filteredApiArray = gameApiArray.filter(
     (entry) => entry.platform_id === 'gog'
   )
+  console.log(filteredApiArray.length)
 
   const gamesObjects: GameInfo[] = [redistGameInfo]
   apiInfoCache.use_in_memory() // Prevent blocking operations
@@ -441,6 +443,10 @@ export async function refresh(): Promise<ExecResult> {
       library.set(copyObject.app_name, copyObject)
       break
     }
+  }
+
+  for (const game of gamesObjects) {
+    await addShortcuts(game, false)
   }
 
   apiInfoCache.commit() // Sync cache to drive
