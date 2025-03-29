@@ -293,5 +293,13 @@
         "notice2": "Après avoir cliqué sur Installer, Heroic exécutera l'application afin de terminer le processus d'installation",
         "header": "Ce jeu est géré par une application tierce",
         "notice1": "Ce jeu est géré par une application tierce : « {{application_name}} »"
+    },
+    "Open": "Ouvrez",
+    "queue": {
+        "label": {
+            "canceled": "Annulé",
+            "pause": "Interrompre le téléchargement",
+            "remove": "Retirer de la liste des téléchargements"
+        }
     }
 }
