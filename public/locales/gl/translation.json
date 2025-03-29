@@ -744,5 +744,8 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "tour": {
+        "back": "Back"
     }
 }
