@@ -778,7 +778,9 @@
         "reset-heroic": "Heroic'i Sıfırla",
         "saves": {
             "label": "Save Location:",
-            "warning": "Bulut Kayıtları özelliği Beta aşamasındadır, lütfen senkronize etmeden önce kayıtlarınızı yedekleyin (bir şeyler ters giderse diye)"
+            "warning": "Bulut Kayıtları özelliği Beta aşamasındadır, lütfen senkronize etmeden önce kayıtlarınızı yedekleyin (bir şeyler ters giderse diye)",
+            "not_supported": "Bu oyun Bulut Kayıtlarını desteklememektedir.",
+            "gog_linux_native_warning": "Linux tabanlı oyunlar GOG'un Buluta Kaydetme özelliğini desteklemez. Bunun yerine Windows sürümünü kullanın."
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -963,5 +965,49 @@
         "rename": "Yeniden adlandır: \"{{name}}\"",
         "title": "Kategorileri Yönet",
         "remove": "Kaldır: \"{{name}}\""
+    },
+    "tour": {
+        "back": "Back",
+        "library": {
+            "categories": "Her şeyi düzenli tutmak için oyunlarınızı kategoriler halinde düzenleyin.",
+            "end": {
+                "intro": "İşte bu kadar! Oyunlarınızın tadını çıkarın!",
+                "title": "İyi oyunlar!"
+            },
+            "filters": "Bu seçenekleri kullanarak oyunlarınızı mağazaya, platforma, favorilerinize ve daha fazlasına göre filtreleyin.",
+            "refresh": "Yeni oyunları veya güncellemeleri kontrol etmek için kitaplığınızı yenileyin.",
+            "search": "Oyunlarınızı aramak için Arama çubuğunu kullanın.",
+            "sortInstalled": "Oyunları yüklü olma durumuna göre sıralayın.",
+            "sortOptions": "Oyunları alfabetik olarak sıralamak için buraya tıklayın.",
+            "viewToggle": "Oyunlarınız için ızgara ve liste görünümü arasında geçiş yapın.",
+            "welcome": {
+                "intro": "Heroic Kütüphanesine hoş geldiniz! Burası farklı mağazalardaki tüm oyunlarınızı görebileceğiniz yerdir.",
+                "intro2": "Eğer kütüphane boşsa, kenar çubuğunda bulunan Hesapları yönet butonunu kullanarak hesaplarınızla giriş yaptığınızdan veya yukarıdaki Oyun Ekle butonunu kullanarak kendi oyunlarınızı eklediğinizden emin olun.",
+                "title": "Heroic'e hoşgeldiniz!"
+            },
+            "addGame": "Buraya tıklayarak kendi oyunlarınızı veya uygulamalarınızı kütüphaneye ekleyin. Bunlar temelde herhangi bir şey olabilir, hatta Tarayıcı URL'leri bile olabilir.",
+            "gameCard": "Oyun sayfasına gitmek, ayrıntıları görmek ve ayarları yapmak için oyun kartına sol tıklayın veya içerik menüsünü açmak için sağ tıklayın."
+        },
+        "next": "Sonraki",
+        "sidebar": {
+            "accessibility": "Deneyiminizi özelleştirmek için erişilebilirlik özelliklerine erişin.",
+            "community": "Discord'daki topluluğumuza katılın ve Heroic'in gelişimini destekleyin.",
+            "docs": "Heroic'in kullanımıyla ilgili yardım için belgeleri okuyun.",
+            "downloads": "Oyun indirmelerinizi ve yüklemelerinizi takip edin ve yönetin.",
+            "library": "Farklı mağazalardaki oyun kütüphanenize tek bir yerden erişin.",
+            "quit": "Güvenli bir şekilde uygulamadan çıkın.",
+            "settings": "Heroic'in ayarlarını, oyun varsayılanlarını yapılandırın, günlükleri kontrol edin ve daha fazlasını yapın.",
+            "stores": "Epic, GOG ve Amazon gibi farklı mağazalarda oyunlara göz atın ve alışveriş yapın.",
+            "version": "Mevcut Heroic sürümünüzü kontrol edin, en son değişiklik günlüğünü görmek için tıklayın ve yardım simgesinden bu tura erişin.",
+            "welcome": {
+                "intro": "Heroic'e Hoşgeldiniz! Bu kenar çubuğu, uygulamayı keşfetmek için tüm gezinme seçeneklerini içerir.",
+                "title": "Kenar Çubuğunda Gezinme"
+            },
+            "wine": "Windows oyunlarını Linux veya macOS üzerinde çalıştırmak için Wine/Proton/GPTK'nın yeni sürümünü yönetin veya indirin.",
+            "accounts": "Bağlı mağaza hesaplarınızı (Epic, GOG, Amazon) yönetin, oturumunuzu kapatın veya oturum açın.",
+            "login": "Kitaplığınıza erişmek için oyun mağazası hesaplarınızda oturum açın."
+        },
+        "skip": "Atla",
+        "startTour": "Tura Başlayın"
     }
 }

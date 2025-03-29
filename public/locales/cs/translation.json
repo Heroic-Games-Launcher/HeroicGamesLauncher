@@ -981,5 +981,51 @@
         "confirm-remove": "Potvrdit odebrání „{{name}}“",
         "rename": "Přejmenovat „{{name}}“",
         "add-placeholder": "Přidat novou kategorii"
+    },
+    "tour": {
+        "library": {
+            "end": {
+                "intro": "To je vše! Užijte si své hry a přejeme hodně zábavy!",
+                "title": "Užijte si své hry!"
+            },
+            "filters": "Filtrujte své hry podle obchodu, platformy, oblíbených a dalších pomocí těchto možností.",
+            "refresh": "Obnovte svou knihovnu pro kontrolu nových her nebo aktualizací.",
+            "sortInstalled": "Seřaďte hry podle stavu instalace.",
+            "viewToggle": "Přepněte mezi zobrazením vašich her v mřížce a v seznamu.",
+            "welcome": {
+                "title": "Vítejte v aplikaci Heroic!",
+                "title2": "Správa knihovny!",
+                "intro": "Vítejte v knihovně Heroic! Zde najdete všechny své hry napříč různými obchody.",
+                "intro2": "Pokud je knihovna prázdná, přihlaste se svými účty pomocí tlačítka Spravovat účty na postranní liště nebo přidejte své vlastní hry pomocí tlačítka Přidat hru výše."
+            },
+            "categories": "Organizujte své hry do kategorií a udržte tak svou knihovnu přehlednou.",
+            "addGame": "Kliknutím sem do knihovny přidáte své hry nebo aplikace. Může se jednat o prakticky cokoli, včetně webových adres.",
+            "sortOptions": "Klikněte sem pro abecední řazení her.",
+            "search": "Použijte vyhledávací pole pro vyhledání vašich her.",
+            "gameCard": "Klikněte levým na kartu hry pro navigaci na stránku hry, zobrazení podrobností a úpravu nastavení nebo klikněte pravým pro otevření kontextové nabídky."
+        },
+        "next": "Další",
+        "sidebar": {
+            "docs": "Přečtěte si dokumentaci pro nápovědu aplikace.",
+            "downloads": "Sledujte a spravujte svá stahování a instalace.",
+            "library": "Procházejte svou knihovnu z různých obchodů na jednom místě.",
+            "login": "Přihlaste se do svých účtů v herních obchodech a procházejte svou knihovnu.",
+            "quit": "Bezpečně opusťte aplikaci.",
+            "stores": "Procházejte a nakupujte hry v různých obchodech, včetně obchodů Epic, GOG a Amazon.",
+            "version": "Zkontrolujte svou aktuální verzi aplikace Heroic, klikněte pro zobrazení seznamu změn a znovu spusťte tuto prohlídku pomocí ikony nápovědy.",
+            "welcome": {
+                "title": "Postranní navigace",
+                "intro": "Vítejte v aplikaci Heroic! Tato postranní lišta obsahuje všechny navigační možnosti pro procházení aplikace."
+            },
+            "wine": "Spravujte nebo stáhněte novou verzi Wine/Proton/GPTK pro spuštění Windows her na Linuxu nebo macOS.",
+            "settings": "Nastavte si nastavení aplikace Heroic, výchozí hodnoty her, zkontrolujte protokoly a další.",
+            "accessibility": "Prozkoumejte nastavení přístupnosti pro přizpůsobení pro vaše potřeby.",
+            "accounts": "Spravujte své připojené účty obchodů (Epic, GOG, Amazon), odhlaste se nebo se do nich přihlaste.",
+            "community": "Připojte se k naší komunitě na Discordu a podpořte vývoj aplikace Heroic."
+        },
+        "skip": "Přeskočit",
+        "startTour": "Spustit prohlídku",
+        "back": "Zpět",
+        "done": "Hotovo"
     }
 }
