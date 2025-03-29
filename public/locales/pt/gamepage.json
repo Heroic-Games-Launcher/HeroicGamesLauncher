@@ -293,5 +293,12 @@
         "header": "Este jogo é gerido por uma aplicação de terceiros",
         "notice2": "Após clicar em Instalar, o Heroic executará o aplicativo para concluir o processo de instalação",
         "notice1": "Este jogo é gerido por uma aplicação de terceiros: \"{{application_name}}\""
+    },
+    "Open": "Abra a",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
     }
 }
