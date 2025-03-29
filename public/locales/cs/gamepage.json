@@ -296,5 +296,14 @@
         "header": "Tato hra je spravována aplikací třetí strany",
         "notice1": "Tato hra je spravována aplikací třetí strany: „{{application_name}}“"
     },
-    "wikiLink": "Důležité informace o této hře si přečtěte zde:&nbsp;<1>Otevřít stránku</1>"
+    "wikiLink": "Důležité informace o této hře si přečtěte zde:&nbsp;<1>Otevřít stránku</1>",
+    "Open": "Otevřít",
+    "queue": {
+        "label": {
+            "resume": "Pokračovat ve stahování",
+            "canceled": "Zrušeno",
+            "remove": "Odstranit ze stažených",
+            "pause": "Pozastavit stahování"
+        }
+    }
 }
