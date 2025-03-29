@@ -216,6 +216,10 @@
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
             "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
+        },
+        "import-hint": {
+            "title": "Uwaga! Czy dodajesz grę od Epic/GOG/Amazon? Kliknij tutaj!",
+            "content": "NIE używaj do tego tej funkcji.<1></1>Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
         }
     },
     "specs": {
@@ -291,5 +295,13 @@
         "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikację",
         "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
         "notice2": "Po naciśnięciu instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
-    }
+    },
+    "wikiLink": "Przeczytaj ważne informacje o tej grze:&nbsp;<1>otwórz stronę</1>",
+    "queue": {
+        "label": {
+            "remove": "Usuń z Pobranych",
+            "canceled": "Canceled"
+        }
+    },
+    "Open": "Otwórz"
 }
