@@ -159,5 +159,8 @@
         "main-plus-extras": "Төп + Өстәмәлер",
         "main-story": "Төп хикәя",
         "completionist": "Тәмамланчы"
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC-лар"
     }
 }
