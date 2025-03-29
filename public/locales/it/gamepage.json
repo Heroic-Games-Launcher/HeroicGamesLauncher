@@ -293,5 +293,13 @@
         "header": "Questo gioco è gestito da un'applicazione di terze parti",
         "notice1": "Questo gioco è gestito da un'applicazione di terze parti: \"{{application_name}}\"",
         "notice2": "Dopo aver cliccato Installa, Heroic eseguirà l'applicazione al fine di completare il processo d'installazione"
+    },
+    "Open": "Apri",
+    "queue": {
+        "label": {
+            "canceled": "Annullato",
+            "remove": "Rimuovi dai Download",
+            "resume": "Riprendi il download"
+        }
     }
 }
