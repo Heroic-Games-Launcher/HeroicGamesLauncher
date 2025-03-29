@@ -292,5 +292,11 @@
         "header": "Dette spillet administreres av en tredjepartsapplikasjon",
         "notice2": "Etter å ha klikket på installer, vil Heroic kjøre applikasjonen for å fullføre installasjonsprosessen",
         "notice1": "Dette spillet administreres av en tredjepartsapplikasjon: \"{{application_name}}\""
+    },
+    "queue": {
+        "label": {
+            "canceled": "Avbrutt",
+            "remove": "Fjern fra Nedlastninger"
+        }
     }
 }
