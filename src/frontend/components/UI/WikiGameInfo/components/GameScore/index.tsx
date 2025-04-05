@@ -1,3 +1,4 @@
+import React from 'react'
 import './index.scss'
 import { PCGamingWikiInfo } from 'common/types'
 import classNames from 'classnames'
