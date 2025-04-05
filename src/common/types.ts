@@ -63,7 +63,6 @@ export type Release = {
 }
 
 export type ExperimentalFeatures = {
-  enableNewDesign: boolean
   enableHelp: boolean
   cometSupport: boolean
   umuSupport?: boolean
