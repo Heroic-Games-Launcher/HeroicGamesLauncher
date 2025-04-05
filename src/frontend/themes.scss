@@ -53,13 +53,13 @@ body.midnightMirage {
   --icons-background: var(--neutral-02);
 
   /* Buttons */
-  --primary-button: var(--gradient-01);
+  --primary-button: var(--brand-primary);
   --secondary-button: var(--brand-secondary);
   --tertiary-button: var(--neutral-03);
   --button-stroke: var(--accent);
   --secondary-button-overlay: var(--primary-hover);
   --tertiary-button-overlay: var(--status-warning-hover);
-  --success-button: var(--gradient-01);
+  --success-button: var(--status-success);
   --disabled-button: var(--neutral-03);
   --disabled-button-overlay: var(--neutral-05);
   --play-button: var(--primary-button);
@@ -285,16 +285,16 @@ body.dracula-classic {
 }
 
 body.nord-light {
-  --neutral-06: #2e3440;
-  --neutral-03: #429ec5;
-  --accent: #30444a;
+  --neutral-06: #c4cbda;
+  --neutral-03: #3687a9;
+  --accent: #80a9b5;
   --accent-overlay: #81a1c1;
   --navbar-accent: #81a1c1;
-  --background: #eceff4;
+  --background: #3e4a63;
   --body-background: var(--background);
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
-  --navbar-background: #4c566a;
+  --navbar-background: #5c6a87;
   --navbar-active-background: #2e3440;
   --gradient-body-background: linear-gradient(
     90deg,
@@ -302,38 +302,39 @@ body.nord-light {
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #d8dee9;
+  --input-background: #415880;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #3e532d;
-  --success-hover: #617550;
+  --success: #5a7246;
+  --success-hover: #719d4a;
   --primary: #b48ead;
   --primary-hover: #a17399;
   --danger: #bf616a;
   --text-log: #f7b32a;
-  --text-title: #20242c;
-  --text-default: var(--text-title);
-  --text-secondary: #393b41;
+  --text-title: #ffffff;
+  --text-default: var(--neutral-08);
+  --text-secondary: var(--neutral-07);
   --text-tertiary: var(--brand-text-01);
-  --text-hover: #5e81ac;
+  --text-hover: #7395bf;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
-  --action-icon: #748aa0;
+  --action-icon: #c1d7ed;
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--text-default);
   --navbar-inactive: #ffffff;
   --navbar-active: #d0ddff;
-  --status-warning: #b86901;
-  --gamecard-title-color: #ccdaf8cc;
-  --install-button: var(--primary);
+  --status-warning: #dcff19;
+  --gamecard-title-color: #f1f6ffcc;
+  --install-button: var(--status-success);
+  --download-button: var(--brand-primary);
 
   .playIcon circle {
     fill: var(--status-success);
   }
 
   .downIcon circle {
-    fill: var(--primary);
+    fill: var(--primary-active);
   }
 
   .button.is-link {
@@ -342,7 +343,7 @@ body.nord-light {
 
   .currentDownload {
     color: var(--navbar-active);
-    --success: #0bd48c;
+    --success: var(--status-success);
   }
 
   .selectFieldWrapper select > option {
@@ -387,8 +388,8 @@ body.nord-light .alternative > svg {
 }
 
 body.nord-dark {
-  --accent: #88c0d0;
-  --accent-overlay: #bdeaf7;
+  --accent: #a5dceb;
+  --accent-overlay: #cbeef8;
   --navbar-accent: #8192b1;
   --background: #191c22;
   --body-background: var(--background);
@@ -419,6 +420,7 @@ body.nord-dark {
   --action-icon: #748aa0;
   --action-icon-hover: var(--accent-overlay);
   --action-icon-active: var(--text-default);
+  --download-button: var(--brand-primary);
 }
 
 body.marine,
@@ -510,7 +512,7 @@ body.old-school {
   --action-icon: var(--text-default);
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--accent);
-  --primary-button: var(--success);
+  --primary-button: var(--status-success);
 }
 body.classic .sid-input,
 body.old-school .sid-input {
