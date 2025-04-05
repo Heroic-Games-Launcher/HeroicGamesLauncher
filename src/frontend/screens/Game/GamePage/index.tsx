@@ -294,7 +294,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     const isMacNative = ['osx', 'Mac'].includes(installPlatform ?? '')
-    const isLinuxNative = installPlatform === 'linux'
+    const isLinuxNative = ['linux', 'Linux'].includes(installPlatform ?? '')
 
     // create setting context functions
     const contextValues: GameContextType = {
