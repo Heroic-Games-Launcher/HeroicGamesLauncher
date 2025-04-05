@@ -30,7 +30,7 @@ import 'source-map-support/register'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
-import { DXVK, Winetricks } from './tools'
+import { DXVK, SteamWindows, Winetricks } from './tools'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
@@ -53,7 +53,8 @@ import {
   removeFolder,
   downloadDefaultWine,
   sendGameStatusUpdate,
-  checkRosettaInstall
+  checkRosettaInstall,
+  writeConfig
 } from './utils'
 import { uninstallGameCallback } from './utils/uninstaller'
 import {
@@ -868,31 +869,9 @@ ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.handle('writeConfig', (event, { appName, config }) => {
-  logInfo(
-    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
-    LogPrefix.Backend
-  )
-  const oldConfig =
-    appName === 'default'
-      ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
-
-  // log only the changed setting
-  logChangedSetting(config, oldConfig)
-
-  if (appName === 'default') {
-    GlobalConfig.get().set(config as AppSettings)
-    GlobalConfig.get().flush()
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (currentConfigStore) {
-      configStore.set('settings', { ...currentConfigStore, ...config })
-    }
-  } else {
-    GameConfig.get(appName).config = config as GameSettings
-    GameConfig.get(appName).flush()
-  }
-})
+ipcMain.handle('writeConfig', (event, { appName, config }) =>
+  writeConfig(appName, config)
+)
 
 ipcMain.on('setSetting', (event, { appName, key, value }) => {
   if (appName === 'default') {
@@ -1438,6 +1417,8 @@ ipcMain.handle('getKnownFixes', (e, appName, runner) =>
   readKnownFixes(appName, runner)
 )
 
+ipcMain.handle('installSteamWindows', async () => SteamWindows.installSteam())
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1464,4 +1445,3 @@ import {
   isAccessibleWithinFlatpakSandbox,
   isWritable
 } from './utils/filesystem'
-import { Path } from './schemas'
