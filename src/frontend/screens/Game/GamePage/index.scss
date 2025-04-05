@@ -5,7 +5,8 @@
   gap: var(--space-md);
   border-radius: 10px;
   max-width: 1920px;
-  max-height: 100vh;
+  height: 100vh;
+  min-height: 100v;
   grid-template-areas:
     'header header'
     'main extra'
@@ -179,13 +180,9 @@
       h1 {
         font-size: 34px;
         line-height: 39px;
-        padding-bottom: var(--space-xs);
-      }
-
-      h1 {
+        padding: var(--space-xs) 0;
         margin-bottom: 0.8rem;
-        padding-top: var(--space-xs);
-        color: var();
+        color: var(--text-title);
       }
 
       .developer {
@@ -254,7 +251,8 @@
         justify-content: flex-start;
         align-items: center;
         margin-top: 15px;
-        width: 100%;
+        max-width: 250px;
+        border-radius: 8px;
 
         .buttonWithIcon > svg {
           display: flex;
@@ -269,13 +267,15 @@
         & .mainBtn {
           min-width: 200px;
           font-size: var(--text-md);
+          background-color: var(--download-button);
+          color: var(--neutral-01);
 
           & svg {
             transform: scale(1.2);
             height: 16px;
             width: 16px;
             align-self: center;
-            color: var(--neutral-03);
+            color: var(--neutral-02);
             &[data-icon='play'],
             &[data-icon='stop'] {
               /* For some reason Play/Stop icons are much smaller the rest */
@@ -316,15 +316,10 @@
           gap: var(--space-md-fixed);
           padding: var(--space-unit-fixed) 0;
           align-items: center;
-          border-bottom: 1px solid transparent;
-          background-image: linear-gradient(
-            to right,
-            transparent,
-            var(--neutral-04),
-            transparent
-          );
+          border-bottom: 1px solid var(--neutral-04);
+          background-image: linear-gradient(to right, transparent, transparent);
           background-position: bottom;
-          background-size: 100% 1px;
+          background-size: 100vw;
           background-repeat: no-repeat;
 
           &:focus-visible,
@@ -523,12 +518,14 @@
     z-index: -1;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    height: 100vh;
+    width: 100vw;
     overflow: hidden;
     object-fit: cover;
     filter: blur(15px);
     opacity: 0.3;
+    /* scale is so there will be no ugly edges because of the blur */
+    transform: scale(1.1);
   }
 }
 
@@ -597,6 +594,7 @@
 
   .gameInfoTabs {
     align-items: center;
+    justify-content: space-between;
     padding: var(--space-3xs);
     border: 1px solid var(--neutral-04);
     @supports (
@@ -610,7 +608,7 @@
       background-color: var(--neutral-02);
       opacity: 0.35;
     }
-    border-radius: var(--space-xl);
+    border-radius: var(--space-xs);
 
     .MuiTabs-indicator {
       display: none;
