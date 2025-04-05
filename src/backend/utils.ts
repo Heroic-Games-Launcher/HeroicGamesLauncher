@@ -919,12 +919,11 @@ export async function downloadDefaultWine() {
   await updateWineVersionInfos(true)
   // get list of wines on wineDownloaderInfoStore
   const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
-  // use GE-Proton type if on Linux and GamePortingToolkit if on Mac
-  const release = availableWine.find(async (version) => {
+  const isMacOSUpToDate = await isMacSonomaOrHigher()
+  const release = availableWine.find((version) => {
     if (isLinux) {
       return version.type === 'GE-Proton'
     } else if (isMac) {
-      const isMacOSUpToDate = await isMacSonomaOrHigher()
       if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
       } else {
