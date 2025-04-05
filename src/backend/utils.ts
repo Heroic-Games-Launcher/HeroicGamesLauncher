@@ -915,6 +915,7 @@ async function ContinueWithFoundWine(
 }
 
 export async function downloadDefaultWine() {
+  if (isWindows) return null
   // refresh wine list
   await updateWineVersionInfos(true)
   // get list of wines on wineDownloaderInfoStore
@@ -1325,6 +1326,7 @@ export async function checkRosettaInstall() {
 }
 
 export async function isMacSonomaOrHigher() {
+  if (!isMac) return false
   logInfo('Checking if macOS is Sonoma or higher', LogPrefix.Backend)
 
   const release = (await getSystemInfo(true)).OS.version
