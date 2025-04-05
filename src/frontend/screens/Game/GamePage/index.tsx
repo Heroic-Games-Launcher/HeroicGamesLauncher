@@ -87,8 +87,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
-    connectivity,
-    experimentalFeatures
+    connectivity
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -359,13 +358,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {!!(art_background ?? art_cover) &&
-          experimentalFeatures.enableNewDesign && (
-            <CachedImage
-              src={art_background || art_cover}
-              className="backgroundImage"
-            />
-          )}
+        {!!(art_background ?? art_cover) && (
+          <CachedImage
+            src={art_background || art_cover}
+            className="backgroundImage"
+          />
+        )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
             appName={showModal.game}
@@ -384,9 +382,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
         )}
 
         {title ? (
-          <GameContext.Provider value={contextValues}>
-            {/* NEW DESIGN */}
-            {experimentalFeatures.enableNewDesign && (
+          <>
+            <GameContext.Provider value={contextValues}>
+              {/* NEW DESIGN */}
               <>
                 <div className="topRowWrapper">
                   <NavLink
@@ -524,8 +522,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </div>
                 <ReportIssue gameInfo={gameInfo} />
               </>
-            )}
-          </GameContext.Provider>
+            </GameContext.Provider>
+          </>
         ) : (
           <UpdateComponent />
         )}
