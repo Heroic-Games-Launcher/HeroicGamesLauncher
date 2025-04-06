@@ -14,7 +14,7 @@ runs:
       run: pnpm add --global node-gyp
       shell: bash
     - name: Install modules
-      run: pnpm install --no-frozen-lockfile
+      run: pnpm install
       shell: bash
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
