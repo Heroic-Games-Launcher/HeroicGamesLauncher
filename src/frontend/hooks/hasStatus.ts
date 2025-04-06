@@ -12,6 +12,9 @@ export function hasStatus(
 ) {
   const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
   const [progress] = hasProgress(appName)
+  const [newGameInfo, setNewGameInfo] = React.useState<GameInfo | undefined>(
+    gameInfo
+  )
   const { t } = useTranslation('gamepage')
 
   const [gameStatus, setGameStatus] = React.useState<{
@@ -26,7 +29,27 @@ export function hasStatus(
     is_installed,
     runner = 'sideload',
     isEAManaged
-  } = { ...gameInfo }
+  } = { ...newGameInfo }
+
+  React.useEffect(() => {
+    if (newGameInfo) {
+      return
+    }
+    const getGameInfo = async () => {
+      const updatedInfo = await window.api.getGameInfo(
+        appName,
+        runner || 'sideload'
+      )
+      if (updatedInfo) {
+        setNewGameInfo(updatedInfo)
+      }
+    }
+    getGameInfo()
+  }, [appName, gameInfo])
+
+  if (runner === 'sideload') {
+    console.log(newGameInfo)
+  }
 
   React.useEffect(() => {
     const checkGameStatus = async () => {
