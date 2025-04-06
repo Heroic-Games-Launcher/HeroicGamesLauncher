@@ -35,7 +35,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
 import { isOnline } from '../online_monitor'
-import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import {
   prepareWineLaunch,
   runWineCommand,
@@ -983,8 +983,24 @@ export const SteamWindows = {
       })
 
       logInfo(`Steam installed at ${dirname(executable)}`, LogPrefix.Backend)
+
+      notify({
+        title: i18next.t('notification.steam.title', 'Steam installed'),
+        body: i18next.t(
+          'notification.steam.success',
+          'Steam for Windows has been installed successfully!'
+        )
+      })
     } catch (error) {
       logError(['Error Installing Steam', error], LogPrefix.Backend)
+
+      notify({
+        title: i18next.t('notification.steam.title', 'Steam error'),
+        body: i18next.t(
+          'notification.steam.error',
+          'Steam installation failed! Please read the instructions carefully and try again!'
+        )
+      })
 
       showDialogBoxModalAuto({
         title: i18next.t('box.error.steam.title', 'Steam error'),

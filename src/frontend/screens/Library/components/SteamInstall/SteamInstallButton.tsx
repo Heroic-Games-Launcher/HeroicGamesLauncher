@@ -19,9 +19,7 @@ export default function SteamInstallButton({
   const { showDialogModal, sideloadedLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
   const [showInstallDialog, setShowInstallDialog] = useState(false)
-  const [showAlert, setShowAlert] = useState<'success' | 'danger' | 'none'>(
-    'none'
-  )
+
   const { status } = hasStatus('steam')
   const isLaunching = status === 'playing'
 
@@ -44,13 +42,7 @@ export default function SteamInstallButton({
   const installSteamMutation = useMutation({
     mutationKey: ['steamInstall'],
     onSuccess: () => {
-      setShowAlert('success')
-      setTimeout(() => setShowAlert('none'), 5000)
       setShowInstallDialog(false)
-    },
-    onError: () => {
-      setShowAlert('danger')
-      setTimeout(() => setShowAlert('none'), 5000)
     },
     mutationFn: async () => window.api.installSteamWindows()
   })
@@ -101,8 +93,6 @@ export default function SteamInstallButton({
     `Compatibility layer not available. Please install one from "Settings > Wine Manager" first.`
   )
 
-  const showSuccessAlert = showAlert === 'success'
-  const showErrorAlert = showAlert === 'danger'
   const isButtonDisabled =
     !isCompatibilityLayerAvailable || isInstalling || isLaunching
 
@@ -132,16 +122,6 @@ export default function SteamInstallButton({
           onClose={() => setShowInstallDialog(false)}
           onInstall={installSteamMutation.mutate}
         />
-      ) : null}
-      {showSuccessAlert ? (
-        <div className="alert alert-success">
-          {t('Steam Installation Complete', 'Steam Installation Complete')}
-        </div>
-      ) : null}
-      {showErrorAlert ? (
-        <div className="alert alert-danger">
-          {t('Steam Installation Failed', 'Steam Installation Failed')}
-        </div>
       ) : null}
     </>
   )

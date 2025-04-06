@@ -451,6 +451,13 @@
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
     },
+    "notification": {
+        "steam": {
+            "error": "Steam installation failed! Please read the instructions carefully and try again!",
+            "success": "Steam for Windows has been installed successfully!",
+            "title": "Steam error"
+        }
+    },
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -886,8 +893,6 @@
         "processing": "Processing files, please wait"
     },
     "Steam Installation": "",
-    "Steam Installation Complete": "Steam Installation Complete",
-    "Steam Installation Failed": "Steam Installation Failed",
     "steam-install": {
         "compatibility-layer-not-available": "Compatibility layer not available. Please install one from \"Settings > Wine Manager\" first.",
         "launch-tooltip": "Launch Steam using the Heroic Compatibility Layer",
