@@ -47,10 +47,6 @@ export function hasStatus(
     getGameInfo()
   }, [appName, gameInfo])
 
-  if (runner === 'sideload') {
-    console.log(newGameInfo)
-  }
-
   React.useEffect(() => {
     const checkGameStatus = async () => {
       const {

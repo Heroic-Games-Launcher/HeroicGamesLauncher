@@ -88,7 +88,7 @@ export default function SteamInstallButton({
     The Recommended specs are a Mac with Apple Silicon CPU (M1 or above) and at least 16GB of RAM.`
       )
 
-  const comatibilityLayerNotAvailableTooltip = t(
+  const compatibilityLayerNotAvailableTooltip = t(
     'steam-install.compatibility-layer-not-available',
     `Compatibility layer not available. Please install one from "Settings > Wine Manager" first.`
   )
@@ -103,7 +103,7 @@ export default function SteamInstallButton({
         title={
           isCompatibilityLayerAvailable
             ? toolTipText
-            : comatibilityLayerNotAvailableTooltip
+            : compatibilityLayerNotAvailableTooltip
         }
       >
         <button
