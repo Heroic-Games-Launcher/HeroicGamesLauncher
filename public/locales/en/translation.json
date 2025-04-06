@@ -1,4 +1,5 @@
 {
+    "16GB of RAM": "16GB of RAM",
     "accessibility": {
         "actions_font_family_default": "Actions Font Family (Default: {{fontFamily}})",
         "all_tiles_in_color": "Show all game tiles in color",
@@ -24,6 +25,8 @@
         "status": "Status",
         "title": "This game includes anticheat software"
     },
+    "Apple Silicon M1 or above": "Apple Silicon M1 or above",
+    "Be aware that not all games will work, and even if they do, they may not run as expected": "Be aware that not all games will work, and even if they do, they may not run as expected.",
     "box": {
         "cache-cleared": {
             "message": "Heroic cache cleared.",
@@ -74,6 +77,11 @@
                 "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
             },
             "moving": "Error Moving Game {{error}}",
+            "steam": {
+                "error": "Steam executable not found. Installation was probably canceled by user or failed on Steam side.",
+                "message": "Steam installation failed! Please read the instructions carefully and try again! {{paragraph}} {{error}}",
+                "title": "Steam error"
+            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -150,6 +158,10 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
+            "rosetta": {
+                "message": "Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: \"softwareupdate --install-rosetta\" and restart Heroic. ",
+                "title": "Rosetta not found"
+            },
             "sideload": {
                 "confirmExit": {
                     "message": "Any unsaved progress might be lost",
@@ -176,6 +188,7 @@
         "go_to_library": "Go to Library",
         "login": "Log in"
     },
+    "Cancel Installation": "Cancel Installation",
     "categories-manager": {
         "add": "Add",
         "add-placeholder": "Add new category",
@@ -243,6 +256,7 @@
         },
         "title": "Downloads"
     },
+    "Downloading": "Downloading {{percent}}%",
     "emptyLibrary": {
         "noGames": "Your library is empty.<br /><br />Click <4>here</4> to log in with your Epic, GOG.com, or Amazon accounts. Then, your games will show up here in the Library.<br /><br />To use games or apps from other sources, click <br /> to add them manually.",
         "noResults": "The current filters produced no results."
@@ -368,6 +382,8 @@
             "part2": "For other places, use a symbolic link to one of these folders"
         }
     },
+    "Heroic will notify you once the installation is done;": "Heroic will notify you once the installation is done.",
+    "If you wish to continue, please be patient since it can take a few minutes to finish depending on your internet connection and system configuration": "If you wish to continue, please be patient since it can take a few minutes to finish depending on your internet connection and system configuration.",
     "info": {
         "heroic": {
             "beta": "Beta",
@@ -396,10 +412,15 @@
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         }
     },
+    "Install Steam": "Install Steam",
+    "Installing": "Installing",
+    "Installing Steam": "Installing Steam...",
     "label": {
         "loading": "Loading",
         "releaseDate": "Release Date"
     },
+    "Launch Steam": "Launch Steam",
+    "Launching Steam": "Launching Steam...",
     "library": {
         "refresh": "Refresh",
         "sortAscending": "Sort Ascending",
@@ -422,6 +443,9 @@
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in."
+    },
+    "macOS 14": {
+        "0 or above": "macOS 14.0 or above"
     },
     "message": {
         "sync": "Sync Complete",
@@ -552,6 +576,7 @@
         "mac": "Mac",
         "win": "Windows"
     },
+    "Please Wait": "Please Wait",
     "please-wait": "Please wait...",
     "prime-gaming": "Prime Gaming",
     "progress": "Progress",
@@ -565,6 +590,7 @@
         }
     },
     "Recent": "Played Recently",
+    "Recommended specs for a better experience": "Recommended specs for a better experience",
     "search": "Search for Games",
     "setting": {
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
@@ -858,6 +884,14 @@
         "logging": "Logging In...",
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
+    },
+    "Steam Installation": "",
+    "Steam Installation Complete": "Steam Installation Complete",
+    "Steam Installation Failed": "Steam Installation Failed",
+    "steam-install": {
+        "compatibility-layer-not-available": "Compatibility layer not available. Please install one from \"Settings > Wine Manager\" first.",
+        "launch-tooltip": "Launch Steam using the Heroic Compatibility Layer",
+        "tooltip": "This will install the Windows version of Steam and it will run using a Heroic Compatibility Layer. \n\n    Some games especially older titles, newer 3D games, or those with anti-cheat software may not work properly. \n\n    The Recommended specs are a Mac with Apple Silicon CPU (M1 or above) and at least 16GB of RAM."
     },
     "store": "Epic Store",
     "stores": "Stores",
