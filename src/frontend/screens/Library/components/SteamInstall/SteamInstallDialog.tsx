@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { TFunction } from 'i18next'
 import { Dialog } from 'frontend/components/UI/Dialog'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import { faSteam, faWindows } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './index.scss'
 
 interface SteamInstallDialogProps {
   isInstalling: boolean
@@ -34,9 +37,15 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
   const downloadMessage = getProgressMessage(percent, t)
 
   return (
-    <Dialog showCloseButton={false} onClose={onClose}>
+    <Dialog showCloseButton={false} onClose={onClose} className="steamModal">
       <div>
-        <h6>{t('Steam Installation')}</h6>
+        <h6>
+          <span className="iconsWrapper">
+            <FontAwesomeIcon icon={faSteam} />
+            <FontAwesomeIcon icon={faWindows} />
+          </span>
+          {t('Steam Installation')}
+        </h6>
       </div>
       <div>
         <ul>
@@ -74,8 +83,15 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
           </li>
         </ul>
       </div>
-      <div className="Dialog__footer" style={{ marginTop: 'var(--space-md)' }}>
-        <button onClick={onInstall} disabled={isInstalling}>
+      <div
+        className="Dialog__footer"
+        style={{ marginTop: 'var(--space-md)', padding: 0 }}
+      >
+        <button
+          onClick={onInstall}
+          disabled={isInstalling}
+          className="button is-secondary"
+        >
           {isInstalling ? (
             <span>{downloadMessage}</span>
           ) : (
@@ -83,7 +99,11 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
           )}
         </button>
         {isInstalling ? null : (
-          <button onClick={onClose} disabled={isInstalling}>
+          <button
+            onClick={onClose}
+            disabled={isInstalling}
+            className="button is-tertiary"
+          >
             {t('Cancel Installation', 'Cancel Installation')}
           </button>
         )}
