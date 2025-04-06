@@ -3,7 +3,7 @@ import { GameInfo } from 'common/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
-import { openGameLogsModal } from 'frontend/state/GameSettingsModal'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
 interface Props {
   gameInfo: GameInfo
@@ -11,6 +11,7 @@ interface Props {
 
 const ReportIssue = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
+  const { openGameLogsModal } = useShallowGlobalState('openGameLogsModal')
   const showReportIssue =
     gameInfo.is_installed && gameInfo.install.platform !== 'Browser'
 

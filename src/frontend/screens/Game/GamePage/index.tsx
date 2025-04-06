@@ -65,7 +65,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
 import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
-import { useGameSettingsModal } from 'frontend/state/GameSettingsModal'
+import { useGlobalState } from 'frontend/state/GlobalStateV2'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -84,7 +84,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { epic, gog, gameUpdates, platform, showDialogModal, connectivity } =
     useContext(ContextProvider)
 
-  const isSettingsModalOpen = useGameSettingsModal((state) => state.isOpen)
+  const isSettingsModalOpen = useGlobalState(
+    (state) => state.settingsModalProps.isOpen
+  )
 
   hasHelp(
     'gamePage',

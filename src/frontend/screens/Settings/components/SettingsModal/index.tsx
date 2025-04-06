@@ -13,20 +13,18 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { SettingsContextType } from 'frontend/types'
 import CategorySettings from '../../sections/CategorySettings'
-import {
-  closeSettingsModal,
-  useGameSettingsModal
-} from 'frontend/state/GameSettingsModal'
+import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
 
-export type GameSettingsModalTypes = 'settings' | 'log' | 'category'
+export type GameSettingsModalType = 'settings' | 'log' | 'category'
 
 type Props = {
   gameInfo: GameInfo
-  type: GameSettingsModalTypes
+  type: GameSettingsModalType
 }
 
 function SettingsModal({ gameInfo, type }: Props) {
   const { t } = useTranslation()
+  const { closeSettingsModal } = useShallowGlobalState('closeSettingsModal')
 
   const { app_name: appName, runner, title } = gameInfo
 
@@ -72,16 +70,11 @@ function SettingsModal({ gameInfo, type }: Props) {
 }
 
 export function SettingsModalWrapper() {
-  const gameSettingsModal = useGameSettingsModal()
+  const { settingsModalProps } = useShallowGlobalState('settingsModalProps')
 
-  if (!gameSettingsModal.isOpen) {
+  if (!settingsModalProps.isOpen) {
     return <></>
   }
 
-  return (
-    <SettingsModal
-      gameInfo={gameSettingsModal.gameInfo!}
-      type={gameSettingsModal.type!}
-    />
-  )
+  return <SettingsModal {...settingsModalProps} />
 }
