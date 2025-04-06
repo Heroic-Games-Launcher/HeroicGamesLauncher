@@ -67,7 +67,7 @@ import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
-import { useGameSettingsModal } from 'frontend/state/GameSettingsModal'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -85,7 +85,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const { epic, gog, gameUpdates, platform, showDialogModal, connectivity } =
     useContext(ContextProvider)
 
-  const isSettingsModalOpen = useGameSettingsModal((state) => state.isOpen)
+  const { settingsModalProps } = useGlobalState.keys('settingsModalProps')
 
   hasHelp(
     'gamePage',
@@ -232,7 +232,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     epic.library,
     gog.library,
     gameInfo,
-    isSettingsModalOpen,
+    settingsModalProps.isOpen,
     isOffline
   ])
 
