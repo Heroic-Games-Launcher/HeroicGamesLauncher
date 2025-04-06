@@ -12,8 +12,7 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 import { Tooltip } from '@mui/material/'
 
 export default function SteamInstallButton() {
-  const { platform, showDialogModal, sideloadedLibrary } =
-    useContext(ContextProvider)
+  const { showDialogModal, sideloadedLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
   const [showInstallDialog, setShowInstallDialog] = useState(false)
   const [showAlert, setShowAlert] = useState<'success' | 'danger' | 'none'>(
@@ -22,11 +21,8 @@ export default function SteamInstallButton() {
   const { status } = hasStatus('steam')
   const isLaunching = status === 'playing'
 
-  const isMac = platform === 'darwin'
   const isSteamInstalled =
-    (isMac &&
-      sideloadedLibrary.find((app) => app.app_name === 'steam')
-        ?.is_installed) ||
+    sideloadedLibrary.find((app) => app.app_name === 'steam')?.is_installed ||
     false
 
   const wineList = useQuery({

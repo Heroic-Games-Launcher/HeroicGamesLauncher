@@ -9,6 +9,16 @@
     font-size: var(--text-xl);
     font-weight: 400;
     margin-bottom: var(--space-xs);
+    display: grid;
+    grid-template-columns: 10% 90%;
+    align-items: center;
+    gap: var(--space-xs);
+
+    .iconsWrapper {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
   }
 }
 
