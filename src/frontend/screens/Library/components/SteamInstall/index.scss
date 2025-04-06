@@ -1,0 +1,33 @@
+.steamModal {
+  padding: var(--space-lg);
+
+  .Dialog_footer {
+    padding: 0;
+  }
+
+  h6 {
+    font-size: var(--text-xl);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+  }
+}
+
+.installSteamButton {
+  font-family: var(--secondary-font-family);
+  border-radius: var(--space-md);
+  color: var(--text-tertiary);
+  background: var(--tertiary-button, var(--accent));
+  padding: var(--space-xs) var(--space-md);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 300ms;
+
+  &:hover {
+    box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
+  }
+
+  svg {
+    margin-right: var(--space-2xs);
+  }
+}

@@ -3,12 +3,13 @@ import { faSteam } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
+import './index.scss'
 
 import SteamInstallDialog from './SteamInstallDialog'
 import { launch } from 'frontend/helpers'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { hasStatus } from 'frontend/hooks/hasStatus'
-import { Tooltip } from '@mui/material'
+import { Tooltip } from '@mui/material/'
 
 export default function SteamInstallButton() {
   const { platform, showDialogModal, sideloadedLibrary } =
@@ -108,14 +109,18 @@ export default function SteamInstallButton() {
   return (
     <>
       <Tooltip
+        arrow
         title={
           isCompatibilityLayerAvailable
             ? toolTipText
             : comatibilityLayerNotAvailableTooltip
         }
-        className={'Tooltip caption-sm'}
       >
-        <button onClick={handleSteamInstallation} disabled={isButtonDisabled}>
+        <button
+          onClick={handleSteamInstallation}
+          disabled={isButtonDisabled}
+          className="installSteamButton"
+        >
           <FontAwesomeIcon icon={faSteam} size="lg" />
           {renderButtonText()}
         </button>
