@@ -915,16 +915,16 @@ async function ContinueWithFoundWine(
 }
 
 export async function downloadDefaultWine() {
+  if (isWindows) return null
   // refresh wine list
   await updateWineVersionInfos(true)
   // get list of wines on wineDownloaderInfoStore
   const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
-  // use GE-Proton type if on Linux and GamePortingToolkit if on Mac
-  const release = availableWine.find(async (version) => {
+  const isMacOSUpToDate = await isMacSonomaOrHigher()
+  const release = availableWine.find((version) => {
     if (isLinux) {
       return version.type === 'GE-Proton'
     } else if (isMac) {
-      const isMacOSUpToDate = await isMacSonomaOrHigher()
       if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
       } else {
@@ -1326,6 +1326,7 @@ export async function checkRosettaInstall() {
 }
 
 export async function isMacSonomaOrHigher() {
+  if (!isMac) return false
   logInfo('Checking if macOS is Sonoma or higher', LogPrefix.Backend)
 
   const release = (await getSystemInfo(true)).OS.version
