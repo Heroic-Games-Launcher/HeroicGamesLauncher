@@ -11,7 +11,11 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import { Tooltip } from '@mui/material/'
 
-export default function SteamInstallButton() {
+export default function SteamInstallButton({
+  dataTourId
+}: {
+  dataTourId?: string
+}) {
   const { showDialogModal, sideloadedLibrary } = useContext(ContextProvider)
   const { t } = useTranslation()
   const [showInstallDialog, setShowInstallDialog] = useState(false)
@@ -113,6 +117,7 @@ export default function SteamInstallButton() {
         }
       >
         <button
+          data-tour={dataTourId}
           onClick={handleSteamInstallation}
           disabled={isButtonDisabled}
           className="installSteamButton"

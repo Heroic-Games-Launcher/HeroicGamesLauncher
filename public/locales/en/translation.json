@@ -923,6 +923,7 @@
             "search": "Use the Search bar to search for your games.",
             "sortInstalled": "Sort games by installed status.",
             "sortOptions": "Click here to sort games alphabetically.",
+            "steamInstall": "Use this button to install the Windows version of Steam and play your Windows games using Crossover, Wine or GPTK.",
             "viewToggle": "Switch between grid and list view for your games.",
             "welcome": {
                 "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores.",
