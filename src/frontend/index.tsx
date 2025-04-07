@@ -4,6 +4,7 @@ import React, { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import './index.scss'
 import './themes.scss'
@@ -112,19 +113,23 @@ i18next
     ]
   })
 
+const queryClient = new QueryClient()
+
 const container = document.getElementById('root')
 const root = createRoot(container!) // createRoot(container!) if you use TypeScript
 const App = lazy(async () => import('./App'))
 
 root.render(
   // <React.StrictMode>
-  <GlobalState>
-    <I18nextProvider i18n={i18next}>
-      <Suspense fallback={<Loading />}>
-        <App />
-      </Suspense>
-    </I18nextProvider>
-  </GlobalState>
+  <QueryClientProvider client={queryClient}>
+    <GlobalState>
+      <I18nextProvider i18n={i18next}>
+        <Suspense fallback={<Loading />}>
+          <App />
+        </Suspense>
+      </I18nextProvider>
+    </GlobalState>
+  </QueryClientProvider>
   // </React.StrictMode>
 )
 
