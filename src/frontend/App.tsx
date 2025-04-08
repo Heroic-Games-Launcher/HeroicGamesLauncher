@@ -11,7 +11,6 @@ import Sidebar from './components/UI/Sidebar'
 import ContextProvider from './state/ContextProvider'
 import { ControllerHints, Help, OfflineMessage } from './components/UI'
 import DialogHandler from './components/UI/DialogHandler'
-import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
@@ -19,16 +18,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
 import { TourProvider } from './state/TourContext'
+import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 
 function Root() {
-  const {
-    isSettingsModalOpen,
-    isRTL,
-    isFullscreen,
-    isFrameless,
-    experimentalFeatures,
-    help
-  } = useContext(ContextProvider)
+  const { isRTL, isFullscreen, isFrameless, experimentalFeatures, help } =
+    useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
@@ -55,12 +49,7 @@ function Root() {
           <Sidebar />
           <main className="content">
             <DialogHandler />
-            {isSettingsModalOpen.gameInfo && (
-              <SettingsModal
-                gameInfo={isSettingsModalOpen.gameInfo}
-                type={isSettingsModalOpen.type}
-              />
-            )}
+            <SettingsModalWrapper />
             <ExternalLinkDialog />
             <LogFileUploadDialog />
             <UploadedLogFilesList />
