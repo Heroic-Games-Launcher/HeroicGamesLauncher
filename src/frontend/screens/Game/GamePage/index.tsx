@@ -72,6 +72,8 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
 import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
+import useSettingsContext from 'frontend/hooks/useSettingsContext'
+import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -268,7 +270,14 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   let hasUpdate = false
 
-  if (gameInfo && gameInfo.install) {
+  // create setting context functions
+  const settingsContextValues = useSettingsContext({
+    appName,
+    gameInfo,
+    runner
+  })
+
+  if (gameInfo && gameInfo.install && settingsContextValues) {
     const {
       runner,
       title,
@@ -366,145 +375,86 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     return (
-      <div className="gameConfigContainer">
-        {!!(art_background ?? art_cover) &&
-          experimentalFeatures.enableNewDesign && (
-            <CachedImage
-              src={art_background || art_cover}
-              className="backgroundImage"
+      <SettingsContext.Provider value={settingsContextValues}>
+        <div className="gameConfigContainer">
+          {!!(art_background ?? art_cover) &&
+            experimentalFeatures.enableNewDesign && (
+              <CachedImage
+                src={art_background || art_cover}
+                className="backgroundImage"
+              />
+            )}
+          {gameInfo.runner !== 'sideload' && showModal.show && (
+            <InstallModal
+              appName={showModal.game}
+              runner={runner}
+              backdropClick={() => setShowModal({ game: '', show: false })}
+              gameInfo={gameInfo}
             />
           )}
-        {gameInfo.runner !== 'sideload' && showModal.show && (
-          <InstallModal
-            appName={showModal.game}
-            runner={runner}
-            backdropClick={() => setShowModal({ game: '', show: false })}
-            gameInfo={gameInfo}
-          />
-        )}
-        {showUninstallModal && (
-          <UninstallModal
-            appName={appName}
-            runner={runner}
-            onClose={() => setShowUninstallModal(false)}
-            isDlc={false}
-          />
-        )}
+          {showUninstallModal && (
+            <UninstallModal
+              appName={appName}
+              runner={runner}
+              onClose={() => setShowUninstallModal(false)}
+              isDlc={false}
+            />
+          )}
 
-        {title ? (
-          <GameContext.Provider value={contextValues}>
-            {/* OLD DESIGN */}
-            {!experimentalFeatures.enableNewDesign && (
-              <>
-                <GamePicture
-                  art_square={art_square}
-                  art_logo={runner === 'nile' ? undefined : art_logo}
-                  store={runner}
-                />
-                <NavLink
-                  className="backButton"
-                  to={backRoute}
-                  title={t2('webview.controls.back', 'Go Back')}
-                >
-                  <ArrowCircleLeft />
-                </NavLink>
-                <div className="store-icon">
-                  <StoreLogos runner={runner} />
-                </div>
-                <div className="gameInfo">
-                  <div className="titleWrapper">
-                    <h1 className="title">{title}</h1>
-                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                  </div>
-                  <div className="infoWrapper">
-                    <Genres
-                      genres={
-                        extraInfo?.genres ||
-                        wikiInfo?.pcgamingwiki?.genres ||
-                        []
-                      }
-                    />
-                    <Developer gameInfo={gameInfo} />
-                    <ReleaseDate
-                      runnerDate={extraInfo?.releaseDate}
-                      date={wikiInfo?.pcgamingwiki?.releaseDate}
-                    />
-                    <Description />
-                    <CloudSavesSync gameInfo={gameInfo} />
-                    {!notInstallable && (
-                      <DownloadSizeInfo gameInfo={gameInfo} />
-                    )}
-                    <InstalledInfo gameInfo={gameInfo} />
-                    <Scores gameInfo={gameInfo} />
-                    <HLTB />
-                    <CompatibilityInfo gameInfo={gameInfo} />
-                    <AppleWikiInfo gameInfo={gameInfo} />
-                    <Requirements />
-                  </div>
-                  {!notInstallable && (
-                    <TimeContainer runner={runner} game={appName} />
-                  )}
-                  <GameStatus
-                    gameInfo={gameInfo}
-                    progress={progress}
-                    handleUpdate={handleUpdate}
-                    hasUpdate={hasUpdate}
+          {title ? (
+            <GameContext.Provider value={contextValues}>
+              {/* OLD DESIGN */}
+              {!experimentalFeatures.enableNewDesign && (
+                <>
+                  <GamePicture
+                    art_square={art_square}
+                    art_logo={runner === 'nile' ? undefined : art_logo}
+                    store={runner}
                   />
-                  <LaunchOptions
-                    gameInfo={gameInfo}
-                    setLaunchArguments={setLaunchArguments}
-                  />
-
-                  <Anticheat anticheatInfo={anticheatInfo} />
-                  {wikiLink}
-                  <MainButton
-                    gameInfo={gameInfo}
-                    handlePlay={handlePlay}
-                    handleInstall={handleInstall}
-                  />
-                  <ReportIssue gameInfo={gameInfo} />
-                </div>
-              </>
-            )}
-            {/* NEW DESIGN */}
-            {experimentalFeatures.enableNewDesign && (
-              <>
-                <div className="topRowWrapper">
                   <NavLink
                     className="backButton"
                     to={backRoute}
                     title={t2('webview.controls.back', 'Go Back')}
                   >
-                    <ArrowBackIosNew />
+                    <ArrowCircleLeft />
                   </NavLink>
-                  {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                  <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                </div>
-                <div className="mainInfoWrapper">
-                  <div className="mainInfo">
-                    <GamePicture
-                      art_square={art_cover}
-                      art_logo={art_logo}
-                      store={runner}
-                    />
-                    <div className="store-icon">
-                      <StoreLogos runner={runner} />
+                  <div className="store-icon">
+                    <StoreLogos runner={runner} />
+                  </div>
+                  <div className="gameInfo">
+                    <div className="titleWrapper">
+                      <h1 className="title">{title}</h1>
+                      {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                      <DotsMenu
+                        gameInfo={gameInfo}
+                        handleUpdate={handleUpdate}
+                      />
                     </div>
-                    <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
-                    <Genres
-                      genres={
-                        gameInfo.extra?.genres ||
-                        wikiInfo?.pcgamingwiki?.genres ||
-                        []
-                      }
-                    />
-                    <Developer gameInfo={gameInfo} />
-                    <ReleaseDate
-                      runnerDate={extraInfo?.releaseDate}
-                      date={wikiInfo?.pcgamingwiki?.releaseDate}
-                    />
-                    <Description />
+                    <div className="infoWrapper">
+                      <Genres
+                        genres={
+                          extraInfo?.genres ||
+                          wikiInfo?.pcgamingwiki?.genres ||
+                          []
+                        }
+                      />
+                      <Developer gameInfo={gameInfo} />
+                      <ReleaseDate
+                        runnerDate={extraInfo?.releaseDate}
+                        date={wikiInfo?.pcgamingwiki?.releaseDate}
+                      />
+                      <Description />
+                      <CloudSavesSync gameInfo={gameInfo} />
+                      {!notInstallable && (
+                        <DownloadSizeInfo gameInfo={gameInfo} />
+                      )}
+                      <InstalledInfo gameInfo={gameInfo} />
+                      <Scores gameInfo={gameInfo} />
+                      <HLTB />
+                      <CompatibilityInfo gameInfo={gameInfo} />
+                      <AppleWikiInfo gameInfo={gameInfo} />
+                      <Requirements />
+                    </div>
                     {!notInstallable && (
                       <TimeContainer runner={runner} game={appName} />
                     )}
@@ -518,98 +468,162 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       gameInfo={gameInfo}
                       setLaunchArguments={setLaunchArguments}
                     />
+
+                    <Anticheat anticheatInfo={anticheatInfo} />
                     {wikiLink}
-                    <div className="buttons">
-                      <MainButton
-                        gameInfo={gameInfo}
-                        handlePlay={handlePlay}
-                        handleInstall={handleInstall}
-                      />
-                      {gameInfo.is_installed && (
-                        <button
-                          className="button is-danger delBtn"
-                          onClick={() => {
-                            setShowUninstallModal(true)
-                          }}
-                        >
-                          <span className="buttonWithIcon">
-                            <DeleteOutline />
-                            {t('button.uninstall', 'Uninstall')}
-                          </span>
-                        </button>
-                      )}
-                    </div>
+                    <MainButton
+                      gameInfo={gameInfo}
+                      handlePlay={handlePlay}
+                      handleInstall={handleInstall}
+                    />
+                    <ReportIssue gameInfo={gameInfo} />
                   </div>
-                </div>
-                <div className="extraInfoWrapper">
-                  <div className="extraInfo">
-                    <Tabs
-                      value={currentTab}
-                      onChange={(e, newVal) => setCurrentTab(newVal)}
-                      aria-label="gameinfo tabs"
-                      variant="scrollable"
+                </>
+              )}
+              {/* NEW DESIGN */}
+              {experimentalFeatures.enableNewDesign && (
+                <>
+                  <div className="topRowWrapper">
+                    <NavLink
+                      className="backButton"
+                      to={backRoute}
+                      title={t2('webview.controls.back', 'Go Back')}
                     >
-                      <Tab
-                        value={'info'}
-                        label={t('game.install_info', 'Install info')}
-                        iconPosition="start"
-                        icon={<Info />}
+                      <ArrowBackIosNew />
+                    </NavLink>
+                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  </div>
+                  <div className="mainInfoWrapper">
+                    <div className="mainInfo">
+                      <GamePicture
+                        art_square={art_cover}
+                        art_logo={art_logo}
+                        store={runner}
                       />
-                      {hasWikiInfo && (
-                        <Tab
-                          value={'extra'}
-                          label={t('game.extra_info', 'Extra info')}
-                          iconPosition="start"
-                          icon={<Star />}
-                        />
+                      <div className="store-icon">
+                        <StoreLogos runner={runner} />
+                      </div>
+                      <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
+                      <Genres
+                        genres={
+                          gameInfo.extra?.genres ||
+                          wikiInfo?.pcgamingwiki?.genres ||
+                          []
+                        }
+                      />
+                      <Developer gameInfo={gameInfo} />
+                      <ReleaseDate
+                        runnerDate={extraInfo?.releaseDate}
+                        date={wikiInfo?.pcgamingwiki?.releaseDate}
+                      />
+                      <Description />
+                      {!notInstallable && (
+                        <TimeContainer runner={runner} game={appName} />
                       )}
-                      {hasRequirements && (
-                        <Tab
-                          value={'requirements'}
-                          label={t('game.requirements', 'Requirements')}
-                          iconPosition="start"
-                          icon={<Monitor />}
+                      <GameStatus
+                        gameInfo={gameInfo}
+                        progress={progress}
+                        handleUpdate={handleUpdate}
+                        hasUpdate={hasUpdate}
+                      />
+                      <LaunchOptions
+                        gameInfo={gameInfo}
+                        setLaunchArguments={setLaunchArguments}
+                      />
+                      {wikiLink}
+                      <div className="buttons">
+                        <MainButton
+                          gameInfo={gameInfo}
+                          handlePlay={handlePlay}
+                          handleInstall={handleInstall}
                         />
-                      )}
-                    </Tabs>
-                    <div>
-                      <TabPanel
-                        value={currentTab}
-                        index="info"
-                        className="infoTab"
-                      >
-                        <DownloadSizeInfo gameInfo={gameInfo} />
-                        <InstalledInfo gameInfo={gameInfo} />
-                        <CloudSavesSync gameInfo={gameInfo} />
-                      </TabPanel>
-
-                      <TabPanel
-                        value={currentTab}
-                        index="extra"
-                        className="extraTab"
-                      >
-                        <Scores gameInfo={gameInfo} />
-                        <HLTB />
-                        <CompatibilityInfo gameInfo={gameInfo} />
-                        <AppleWikiInfo gameInfo={gameInfo} />
-                      </TabPanel>
-
-                      <TabPanel value={currentTab} index="requirements">
-                        <Requirements />
-                      </TabPanel>
+                        {gameInfo.is_installed && (
+                          <button
+                            className="button is-danger delBtn"
+                            onClick={() => {
+                              setShowUninstallModal(true)
+                            }}
+                          >
+                            <span className="buttonWithIcon">
+                              <DeleteOutline />
+                              {t('button.uninstall', 'Uninstall')}
+                            </span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
+                  <div className="extraInfoWrapper">
+                    <div className="extraInfo">
+                      <Tabs
+                        value={currentTab}
+                        onChange={(e, newVal) => setCurrentTab(newVal)}
+                        aria-label="gameinfo tabs"
+                        variant="scrollable"
+                      >
+                        <Tab
+                          value={'info'}
+                          label={t('game.install_info', 'Install info')}
+                          iconPosition="start"
+                          icon={<Info />}
+                        />
+                        {hasWikiInfo && (
+                          <Tab
+                            value={'extra'}
+                            label={t('game.extra_info', 'Extra info')}
+                            iconPosition="start"
+                            icon={<Star />}
+                          />
+                        )}
+                        {hasRequirements && (
+                          <Tab
+                            value={'requirements'}
+                            label={t('game.requirements', 'Requirements')}
+                            iconPosition="start"
+                            icon={<Monitor />}
+                          />
+                        )}
+                      </Tabs>
+                      <div>
+                        <TabPanel
+                          value={currentTab}
+                          index="info"
+                          className="infoTab"
+                        >
+                          <DownloadSizeInfo gameInfo={gameInfo} />
+                          <InstalledInfo gameInfo={gameInfo} />
+                          <CloudSavesSync gameInfo={gameInfo} />
+                        </TabPanel>
 
-                  <Anticheat anticheatInfo={anticheatInfo} />
-                </div>
-                <ReportIssue gameInfo={gameInfo} />
-              </>
-            )}
-          </GameContext.Provider>
-        ) : (
-          <UpdateComponent />
-        )}
-      </div>
+                        <TabPanel
+                          value={currentTab}
+                          index="extra"
+                          className="extraTab"
+                        >
+                          <Scores gameInfo={gameInfo} />
+                          <HLTB />
+                          <CompatibilityInfo gameInfo={gameInfo} />
+                          <AppleWikiInfo gameInfo={gameInfo} />
+                        </TabPanel>
+
+                        <TabPanel value={currentTab} index="requirements">
+                          <Requirements />
+                        </TabPanel>
+                      </div>
+                    </div>
+
+                    <Anticheat anticheatInfo={anticheatInfo} />
+                  </div>
+                  <ReportIssue gameInfo={gameInfo} />
+                </>
+              )}
+            </GameContext.Provider>
+          ) : (
+            <UpdateComponent />
+          )}
+        </div>
+      </SettingsContext.Provider>
     )
   }
   return <UpdateComponent />
