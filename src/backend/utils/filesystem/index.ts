@@ -1,5 +1,5 @@
+import { isFlatpak } from 'backend/constants/environment'
 import type { Path } from 'backend/schemas'
-import { isFlatpak } from 'backend/constants'
 
 interface DiskInfo {
   freeSpace: number
