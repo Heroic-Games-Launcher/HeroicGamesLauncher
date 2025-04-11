@@ -265,5 +265,12 @@
             "collapsible": "REDmod 整合"
         },
         "dlcsCollapsible": "DLC"
+    },
+    "Open": "開啟",
+    "queue": {
+        "label": {
+            "canceled": "已取消",
+            "remove": "從下載中移除"
+        }
     }
 }
