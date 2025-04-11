@@ -732,7 +732,8 @@
                 "title": "Eksperimentell funksjon fremover"
             },
             "description": "Bruk rammeløst vindu (behøver omstart)"
-        }
+        },
+        "disableUMU": "Skru av umu"
     },
     "settings": {
         "battlEyeRuntime": {
