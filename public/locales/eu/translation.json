@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Letra-tipoak",
         "title": "Erabilerraztasuna",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "content_font_family_default": "Content Font Family (Default:",
+        "actions_font_family_default": "Actions Font Family (Default:"
     },
     "add_game": "Gehitu jokoa",
     "All": "Dena",
@@ -15,7 +17,8 @@
         "reference": "Erreferentzia",
         "source": "Iturria",
         "status": "Egoera",
-        "title": "Joko honek antitranpa softwarea dauka"
+        "title": "Joko honek antitranpa softwarea dauka",
+        "multiplayer_may_not_work": "Posible da ez funtzionatzea antitranpa sistema ukatu edo apurtutako batengatik."
     },
     "box": {
         "cache-cleared": {
