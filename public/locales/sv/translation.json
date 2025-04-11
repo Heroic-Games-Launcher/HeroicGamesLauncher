@@ -975,5 +975,8 @@
         "remove": "Ta bort \"{{name}}\"",
         "rename": "Byt namn \"{{name}}\"",
         "title": "Hantera kategorier"
+    },
+    "tour": {
+        "back": "Bakåt"
     }
 }
