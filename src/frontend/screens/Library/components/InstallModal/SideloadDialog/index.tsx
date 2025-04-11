@@ -1,6 +1,6 @@
 import './index.scss'
 import short from 'short-uuid'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
@@ -25,6 +25,8 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import axios from 'axios'
 import { NavLink } from 'react-router-dom'
+import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
+import Folder from '@mui/icons-material/Folder'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
@@ -145,6 +147,22 @@ export default function SideloadDialog({
       window.api.logError(`${error}`)
     } finally {
       setSearching(false)
+    }
+  }
+
+  async function handleSelectLocalImage() {
+    const path = await window.api.openDialog({
+      buttonLabel: t('box.select.button', 'Select'),
+      properties: ['openFile'],
+      title: t('box.select.image', 'Select Image'),
+      filters: [
+        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'] },
+        { name: 'All', extensions: ['*'] }
+      ]
+    })
+
+    if (path) {
+      setImageUrl(`file://${path}`)
     }
   }
 
@@ -319,7 +337,7 @@ export default function SideloadDialog({
               value={title}
               maxLength={40}
             />
-            <TextInputField
+            <TextInputWithIconField
               label={t('sideload.info.image', 'App Image')}
               placeholder={t(
                 'sideload.placeholder.image',
@@ -328,6 +346,8 @@ export default function SideloadDialog({
               onChange={(e) => setImageUrl(e.target.value)}
               htmlId="sideload-image"
               value={imageUrl}
+              icon={<Folder />}
+              onIconClick={handleSelectLocalImage}
             />
             {!editMode && children}
             {showSideloadExe && (
