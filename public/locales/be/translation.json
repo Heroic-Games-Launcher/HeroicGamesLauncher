@@ -7,7 +7,9 @@
         "title": "Даступнасць",
         "zoom": "Маштаб",
         "disable_dialog_backdrop_close": "Адключыць закрыццё дыялогавых вокнаў, націснуўшы за іх мяжой",
-        "titles_always_visible": "Заўсёды паказваць загалоўкі ў бібліятэцы"
+        "titles_always_visible": "Заўсёды паказваць загалоўкі ў бібліятэцы",
+        "actions_font_family_default": "Шрыфт для дзеянняў (Па змаўчанні:",
+        "content_font_family_default": "Шрыфт для змесціва (Па змаўчанні:"
     },
     "add_game": "Дадаць гульню",
     "All": "Усе",
@@ -927,5 +929,8 @@
         "confirm-remove": "Пацвердзіць выдаленне \"{{name}}\"",
         "confirm-rename": "Пацвердзіць перайменаванне \"{{oldName}}\" у \"{{newName}}\"",
         "no-categories": "Пакуль няма катэгорый."
+    },
+    "tour": {
+        "back": "Назад"
     }
 }
