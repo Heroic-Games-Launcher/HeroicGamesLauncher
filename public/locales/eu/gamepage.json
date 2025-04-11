@@ -150,7 +150,8 @@
             "message": "Anticheat-a hautsita edo ukatu egiten da. Jokoak ez du funtzionatuko. Instalatu nahi duzu hala ere?",
             "cancel": "Ez",
             "install": "Bai (ulertzen dut ez duela funtzionatuko)",
-            "title": "Antiiruzurra hautsita/ukatua"
+            "title": "Antiiruzurra hautsita/ukatua",
+            "multiplayer_message": "Anticheat-a hautsita edo ukatu egiten da. Jokoak ez du funtzionatuko. Instalatu nahi duzu hala ere?"
         }
     },
     "label": {
@@ -256,6 +257,12 @@
         },
         "title": {
             "gamePage": "Jokoaren orria"
+        }
+    },
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
         }
     }
 }

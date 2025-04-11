@@ -283,5 +283,12 @@
     "third-party-managed": {
         "header": "Dit spel wordt beheerd door een third-party applicatie",
         "notice1": "Het volgende spel wordt beheerd door een third-party applicatie: \"{{application_name}}\""
+    },
+    "Open": "Open de",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
     }
 }

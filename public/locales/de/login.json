@@ -4,16 +4,16 @@
         "open": "Link öffnen",
         "copy": "Kopieren",
         "copied": "Kopiert!",
-        "error": "Fehler. Probiere einen anderen Code",
-        "loading": "Wird geladen …"
+        "error": "Fehler, versuche einen anderen Code",
+        "loading": "Wird geladen"
     },
     "message": {
-        "part1": "Damit du dich anmelden und deine Spiele installieren kannst, musst du zunächst die folgenden Schritte ausführen:",
+        "part1": "Damit Du Dich anmelden und Deine Spiele installieren kannst, musst Du zunächst die folgenden Schritte ausführen:",
         "part2": "Öffne den",
         "part3": "Epic Store hier",
         "part4": ", melde dich mit deinem Konto an und kopiere deine",
         "part5": "Autorisierungscode-Informationsnummer",
-        "part6": "Füge deine",
+        "part6": "Füge Deine",
         "part7": "Autorisierungscodenummer",
         "part8": "in das untere Eingabefeld ein und klicke auf „Anmelden“."
     },

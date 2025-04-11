@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Phông chữ",
         "title": "Khả năng tiếp cận",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "actions_font_family_default": "Actions Font Family (Default:",
+        "content_font_family_default": "Content Font Family (Default:"
     },
     "add_game": "Thêm trò chơi",
     "All": "Tất cả",
@@ -15,7 +17,8 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "Trò chơi này có chứa phần mềm chống gian lận"
+        "title": "Trò chơi này có chứa phần mềm chống gian lận",
+        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support."
     },
     "box": {
         "cache-cleared": {
@@ -654,6 +657,9 @@
             "resetHeroic": {
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
+        },
+        "systemInformation": {
+            "copyToClipboard": "Đã sao chép vào bộ nhớ tạm!"
         }
     },
     "Settings": "Cài đặt",
@@ -748,5 +754,8 @@
     },
     "window": {
         "close": "Đóng"
+    },
+    "tour": {
+        "back": "Back"
     }
 }

@@ -966,5 +966,8 @@
     },
     "emptyLibrary": {
         "noResults": "I filtri attuali non hanno prodotto risultati."
+    },
+    "tour": {
+        "back": "Indietro"
     }
 }
