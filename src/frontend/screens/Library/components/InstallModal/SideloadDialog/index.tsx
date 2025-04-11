@@ -1,6 +1,6 @@
 import './index.scss'
 import short from 'short-uuid'
-import { faSpinner, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
