@@ -8,6 +8,7 @@ import './index.scss'
 import SteamInstallDialog from './SteamInstallDialog'
 import { launch } from 'frontend/helpers'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import { hasProgress } from 'frontend/hooks/hasProgress'
 import { Tooltip } from '@mui/material/'
 import { WineInstallation } from 'common/types'
 
@@ -30,6 +31,8 @@ export default function SteamInstallButton({
   const [wineList, setWineList] = useState<WineInstallation[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isInstalling, setIsInstalling] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
+  const [progress] = hasProgress('steam')
 
   // Fetch wine list on component mount
   useEffect(() => {
@@ -111,6 +114,19 @@ export default function SteamInstallButton({
   const isButtonDisabled =
     !isCompatibilityLayerAvailable || isInstalling || isLaunching || isLoading
 
+  const handleButtonClick = () => {
+    if (
+      isInstalling &&
+      progress.percent &&
+      progress.percent < 95 &&
+      isHovering
+    ) {
+      window.api.abort('steam-download')
+    } else {
+      handleSteamInstallation()
+    }
+  }
+
   return (
     <>
       <Tooltip
@@ -123,12 +139,33 @@ export default function SteamInstallButton({
       >
         <button
           data-tour={dataTourId}
-          onClick={handleSteamInstallation}
-          disabled={isButtonDisabled}
+          onClick={handleButtonClick}
+          disabled={
+            isButtonDisabled &&
+            !(isInstalling && progress.percent && progress.percent < 95)
+          }
           className="installSteamButton"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+          style={
+            isInstalling &&
+            progress.percent &&
+            progress.percent < 95 &&
+            isHovering
+              ? {
+                  backgroundColor: 'var(--danger)',
+                  transition: 'background-color 0.2s ease-in-out'
+                }
+              : {}
+          }
         >
           <FontAwesomeIcon icon={faSteam} size="lg" />
-          {renderButtonText()}
+          {isInstalling &&
+          progress.percent &&
+          progress.percent < 95 &&
+          isHovering
+            ? t('label.steam.abort', 'Abort Installation')
+            : renderButtonText()}
         </button>
       </Tooltip>
       {showInstallDialog ? (

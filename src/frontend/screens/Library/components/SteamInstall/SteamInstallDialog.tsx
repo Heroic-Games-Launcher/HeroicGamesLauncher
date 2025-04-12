@@ -34,6 +34,7 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
 }) => {
   const { t } = useTranslation('gamepage')
   const [progress] = hasProgress('steam')
+  const [isHovering, setIsHovering] = useState(false)
 
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
@@ -52,6 +53,14 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
 
   const percent = progress.percent ?? 0
   const downloadMessage = getProgressMessage(percent, t)
+
+  const handleButtonClick = () => {
+    if (isInstalling && percent < 95 && isHovering) {
+      window.api.abort('steam-download')
+    } else {
+      onInstall()
+    }
+  }
 
   return (
     <Dialog
@@ -145,14 +154,19 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
         style={{ marginTop: 'var(--space-md)', padding: 0 }}
       >
         <button
-          onClick={onInstall}
-          disabled={isInstalling}
+          onClick={handleButtonClick}
+          disabled={isInstalling && percent >= 95}
           className="button is-secondary"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
           style={
             isInstalling
               ? {
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  backgroundColor:
+                    percent < 95 && isHovering ? 'var(--danger)' : undefined,
+                  transition: 'background-color 0.2s ease-in-out'
                 }
               : {}
           }
@@ -162,7 +176,9 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
           )}
           <span className="button-text">
             {isInstalling
-              ? downloadMessage
+              ? percent < 95 && isHovering
+                ? t('label.steam.abort', 'Abort Installation')
+                : downloadMessage
               : t('label.steam.install', 'Install Steam')}
           </span>
         </button>

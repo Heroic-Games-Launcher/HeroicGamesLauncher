@@ -181,6 +181,7 @@
             "syncing": "Syncing Saves"
         },
         "steam": {
+            "abort": "Abort Installation",
             "appleSilicon": "Apple Silicon M1+ or Intel with dedicated GPU",
             "cancel": "Cancel Installation",
             "compatibility": "Be aware that not all games will work, and even if they do, they may not run as expected.",
