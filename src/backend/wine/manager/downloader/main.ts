@@ -256,6 +256,7 @@ async function installVersion({
   const getProgress = (
     downloadedBytes: number,
     downloadSpeed: number,
+    writespeed: number,
     percentage: number
   ) => {
     const eta = calculateEta(
