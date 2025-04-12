@@ -904,6 +904,7 @@ export const SteamWindows = {
     }
 
     const gameSettings = await gameManagerMap['sideload'].getSettings('steam')
+    const isCrossover = gameSettings.wineVersion.type === 'crossover'
     if (!gameSettings) {
       return
     }
@@ -916,15 +917,17 @@ export const SteamWindows = {
     })
 
     try {
-      await runWineCommand({
-        commandParts: ['wineboot', '-init'],
-        wait: true,
-        gameSettings: {
-          ...gameSettings,
-          winePrefix,
-          wineVersion
-        }
-      })
+      if (!isCrossover) {
+        await runWineCommand({
+          commandParts: ['wineboot', '-init'],
+          wait: true,
+          gameSettings: {
+            ...gameSettings,
+            winePrefix,
+            wineVersion
+          }
+        })
+      }
 
       const unzipFile = join(toolsPath, 'steam', 'Steam.zip')
       const unzipPath = `${winePrefix}/drive_c/Program Files (x86)/Steam`
