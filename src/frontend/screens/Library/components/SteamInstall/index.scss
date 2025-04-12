@@ -41,3 +41,14 @@
     margin-right: var(--space-2xs);
   }
 }
+
+.link {
+  color: var(--text-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 300ms;
+
+  &:hover {
+    color: var(--accent);
+  }
+}

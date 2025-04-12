@@ -841,13 +841,13 @@ export async function runWineCommandOnGame(
   })
 }
 
+const STEAM_DOWNLOAD_URL = 'https://archive.org/download/SteamHeroic/Steam.zip'
+
 /**
  * Download and Install the Windows version of Steam on a Wine Prefix on macOS only
  */
 export const SteamWindows = {
   downloadSteam: async () => {
-    const steamURL =
-      'https://drive.usercontent.google.com/download?id=1MXowtPBihbljXFs_5cM1AfyOjnC3raaT&export=download&authuser=0&confirm=t&uuid=e159346a-5836-4f7d-8aed-af3d8340fef7&at=AENtkXa2d83g4dE_UZYQKKLoEUje%3A1732794843031'
     const directory = `${toolsPath}/steam`
     const fileName = 'Steam.zip'
     const window = getMainWindow()
@@ -888,7 +888,7 @@ export const SteamWindows = {
 
     try {
       await downloadFile({
-        url: steamURL,
+        url: STEAM_DOWNLOAD_URL,
         dest: join(directory, fileName),
         abortSignal: abortController.signal,
         progressCallback: handleProgress,

@@ -36,7 +36,6 @@ function Root() {
   const theme = createTheme({
     direction: isRTL ? 'rtl' : 'ltr',
     components: {
-      // Name of the component
       MuiTooltip: {
         styleOverrides: {
           tooltip: {

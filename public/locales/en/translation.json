@@ -426,7 +426,10 @@
             "patience": "If you wish to continue, please be patient since it can take a few minutes to finish depending on your internet connection and system configuration.",
             "pleaseWait": "Please Wait",
             "ram": "8GB of RAM",
-            "recommended": "Recommended specs for a better experience"
+            "recommended": "Recommended specs for a better experience",
+            "specificVersion-pt1": "This will download a specific version of Steam from",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "made to work through Heroic since new versions of Steam won't work on macOS."
         }
     },
     "library": {

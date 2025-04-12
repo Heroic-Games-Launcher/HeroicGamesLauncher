@@ -84,6 +84,24 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
               'Heroic will notify you once the installation is done.'
             )}
           </li>
+          <li>
+            {t(
+              'label.steam.specificVersion-pt1',
+              'This will download a specific version of Steam from'
+            )}{' '}
+            <a
+              href="https://archive.org/details/SteamHeroic"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link"
+            >
+              {t('label.steam.specificVersion-pt2', 'archive.org')}
+            </a>{' '}
+            {t(
+              'label.steam.specificVersion-pt3',
+              "made to work through Heroic since new versions of Steam won't work on macOS."
+            )}
+          </li>
         </ul>
       </div>
       <div
