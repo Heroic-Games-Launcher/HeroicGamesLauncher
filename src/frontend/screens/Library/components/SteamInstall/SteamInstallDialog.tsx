@@ -15,12 +15,12 @@ interface SteamInstallDialogProps {
 
 const getProgressMessage = (percent: number, t: TFunction) => {
   if (!percent) {
-    return t('Please Wait', 'Please Wait')
+    return t('label.steam.pleaseWait', 'Please Wait')
   }
   if (percent > 95) {
-    return t('Installing', 'Installing')
+    return t('label.steam.installing', 'Installing')
   }
-  return t('Downloading', 'Downloading {{percent}}%', {
+  return t('label.steam.downloading', 'Downloading {{percent}}%', {
     percent: percent.toFixed(0)
   })
 }
@@ -44,40 +44,43 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
             <FontAwesomeIcon icon={faSteam} />
             <FontAwesomeIcon icon={faWindows} />
           </span>
-          {t('Steam Installation')}
+          {t('label.steam.installation', 'Steam Installation')}
         </h6>
       </div>
       <div>
         <ul>
           <li>
             {t(
-              'Recommended specs for a better experience',
+              'label.steam.recommended',
               'Recommended specs for a better experience'
             )}
             :
           </li>
           <ul>
             <li>
-              {t('Apple Silicon M1 or above', 'Apple Silicon M1 or above')}
+              {t(
+                'label.steam.appleSilicon',
+                'Apple Silicon M1+ or Intel with dedicated GPU'
+              )}
             </li>
-            <li>{t('macOS 14.0 or above', 'macOS 14.0 or above')}</li>
-            <li>{t('16GB of RAM', '16GB of RAM')}</li>
+            <li>{t('label.steam.macOS', 'macOS 14.0 or above')}</li>
+            <li>{t('label.steam.ram', '8GB of RAM')}</li>
           </ul>
           <li>
             {t(
-              'Be aware that not all games will work, and even if they do, they may not run as expected.',
+              'label.steam.compatibility',
               'Be aware that not all games will work, and even if they do, they may not run as expected.'
             )}
           </li>
           <li>
             {t(
-              'If you wish to continue, please be patient since it can take a few minutes to finish depending on your internet connection and system configuration.',
+              'label.steam.patience',
               'If you wish to continue, please be patient since it can take a few minutes to finish depending on your internet connection and system configuration.'
             )}
           </li>
           <li>
             {t(
-              'Heroic will notify you once the installation is done;',
+              'label.steam.notification',
               'Heroic will notify you once the installation is done.'
             )}
           </li>
@@ -95,7 +98,7 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
           {isInstalling ? (
             <span>{downloadMessage}</span>
           ) : (
-            t('Install Steam', 'Install Steam')
+            t('label.steam.install', 'Install Steam')
           )}
         </button>
         {isInstalling ? null : (
@@ -104,7 +107,7 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
             disabled={isInstalling}
             className="button is-tertiary"
           >
-            {t('Cancel Installation', 'Cancel Installation')}
+            {t('label.steam.cancel', 'Cancel Installation')}
           </button>
         )}
       </div>

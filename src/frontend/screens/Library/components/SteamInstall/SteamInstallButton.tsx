@@ -80,31 +80,31 @@ export default function SteamInstallButton({
 
   function renderButtonText() {
     if (isLaunching) {
-      return t('Launching Steam', 'Launching Steam...')
+      return t('label.steam.launching', 'Launching Steam...')
     }
     if (isInstalling) {
-      return t('Installing Steam', 'Installing Steam...')
+      return t('label.steam.installing', 'Installing Steam...')
     }
     if (isSteamInstalled) {
-      return t('Launch Steam', 'Launch Steam')
+      return t('label.steam.launch', 'Launch Steam')
     }
-    return t('Install Steam', 'Install Steam')
+    return t('label.steam.install', 'Install Steam')
   }
 
   const toolTipText = isSteamInstalled
     ? t(
-        'steam-install.launch-tooltip',
+        'label.steam.launch-tooltip',
         'Launch Steam using the Heroic Compatibility Layer'
       )
     : t(
-        'steam-install.tooltip',
+        'label.steam.install-tooltip',
         `This will install the Windows version of Steam and it will run using a Heroic Compatibility Layer. \n
     Some games especially older titles, newer 3D games, or those with anti-cheat software may not work properly. \n
     The Recommended specs are a Mac with Apple Silicon CPU (M1 or above) and at least 16GB of RAM.`
       )
 
   const compatibilityLayerNotAvailableTooltip = t(
-    'steam-install.compatibility-layer-not-available',
+    'label.steam.compatibility-layer-not-available',
     `Compatibility layer not available. Please install one from "Settings > Wine Manager" first.`
   )
 
