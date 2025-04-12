@@ -56,6 +56,15 @@ import {
   checkRosettaInstall,
   writeConfig
 } from './utils'
+
+import {
+  getDiskInfo,
+  isAccessibleWithinFlatpakSandbox,
+  isWritable
+} from './utils/filesystem'
+
+import { Path } from './schemas'
+
 import { uninstallGameCallback } from './utils/uninstaller'
 import {
   configStore,
@@ -559,6 +568,7 @@ ipcMain.on('unlock', () => {
 
 ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
   // FIXME: Propagate errors
+
   const parsedPath = Path.parse(folder)
 
   const { freeSpace, totalSpace } = await getDiskInfo(parsedPath)
@@ -1439,8 +1449,3 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
-import {
-  getDiskInfo,
-  isAccessibleWithinFlatpakSandbox,
-  isWritable
-} from './utils/filesystem'
