@@ -462,8 +462,7 @@
     "notification": {
         "steam": {
             "error": "Steam installation failed! Please read the instructions carefully and try again!",
-            "success": "Steam for Windows has been installed successfully!",
-            "title": "Steam error"
+            "success": "Steam for Windows has been installed successfully!"
         }
     },
     "notify": {
