@@ -89,7 +89,6 @@ import {
 import { handleProtocol } from './protocol'
 import {
   initLogger,
-  logChangedSetting,
   logDebug,
   logError,
   logInfo,
