@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TFunction } from 'i18next'
 import { Dialog } from 'frontend/components/UI/Dialog'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import { faSteam, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import WineSelector from '../InstallModal/WineSelector'
+import { WineInstallation } from 'common/types'
 import './index.scss'
 
 interface SteamInstallDialogProps {
@@ -33,11 +35,30 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
   const { t } = useTranslation()
   const [progress] = hasProgress('steam')
 
+  const [winePrefix, setWinePrefix] = useState('...')
+  const [wineVersion, setWineVersion] = useState<WineInstallation>()
+  const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
+  const [crossoverBottle, setCrossoverBottle] = useState('')
+
+  // Fetch wine versions when component mounts
+  useEffect(() => {
+    const getWine = async () => {
+      const newWineList: WineInstallation[] =
+        await window.api.getAlternativeWine()
+      setWineVersionList(newWineList)
+    }
+    getWine()
+  }, [])
+
   const percent = progress.percent ?? 0
   const downloadMessage = getProgressMessage(percent, t)
 
   return (
-    <Dialog showCloseButton={false} onClose={onClose} className="steamModal">
+    <Dialog
+      showCloseButton={false}
+      onClose={onClose}
+      className="InstallModal__dialog steamModal "
+    >
       <div>
         <h6>
           <span className="iconsWrapper">
@@ -104,6 +125,21 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
           </li>
         </ul>
       </div>
+      {/* Wine Selector */}
+      <div style={{ marginBottom: 'var(--space-md)' }}>
+        <WineSelector
+          appName="steam"
+          winePrefix={winePrefix}
+          wineVersion={wineVersion}
+          wineVersionList={wineVersionList}
+          title="Steam"
+          setWinePrefix={setWinePrefix}
+          setWineVersion={setWineVersion}
+          crossoverBottle={crossoverBottle}
+          setCrossoverBottle={setCrossoverBottle}
+        />
+      </div>
+
       <div
         className="Dialog__footer"
         style={{ marginTop: 'var(--space-md)', padding: 0 }}
