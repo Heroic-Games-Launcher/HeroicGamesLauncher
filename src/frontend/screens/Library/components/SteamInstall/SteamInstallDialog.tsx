@@ -17,7 +17,7 @@ const getProgressMessage = (percent: number, t: TFunction) => {
   if (!percent) {
     return t('label.steam.pleaseWait', 'Please Wait')
   }
-  if (percent > 95) {
+  if (percent > 99) {
     return t('label.steam.installing', 'Installing')
   }
   return t('label.steam.downloading', 'Downloading {{percent}}%', {
@@ -112,12 +112,23 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
           onClick={onInstall}
           disabled={isInstalling}
           className="button is-secondary"
+          style={
+            isInstalling
+              ? {
+                  position: 'relative',
+                  overflow: 'hidden'
+                }
+              : {}
+          }
         >
-          {isInstalling ? (
-            <span>{downloadMessage}</span>
-          ) : (
-            t('label.steam.install', 'Install Steam')
+          {isInstalling && (
+            <div className="progress-bar" style={{ width: `${percent}%` }} />
           )}
+          <span className="button-text">
+            {isInstalling
+              ? downloadMessage
+              : t('label.steam.install', 'Install Steam')}
+          </span>
         </button>
         {isInstalling ? null : (
           <button

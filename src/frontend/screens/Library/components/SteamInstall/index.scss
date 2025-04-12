@@ -42,6 +42,26 @@
   }
 }
 
+.button {
+  position: relative;
+
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--accent);
+    opacity: 0.5;
+    z-index: 1;
+    transition: width 0.3s ease;
+  }
+
+  .button-text {
+    position: relative;
+    z-index: 2;
+  }
+}
+
 .link {
   color: var(--text-primary);
   text-decoration: underline;
