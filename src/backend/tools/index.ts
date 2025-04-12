@@ -977,7 +977,7 @@ export const SteamWindows = {
       logInfo(`Steam installed at ${dirname(executable)}`, LogPrefix.Backend)
 
       notify({
-        title: i18next.t('notification.steam.title', 'Steam installed'),
+        title: i18next.t('notification.steam.success', 'Steam installed'),
         body: i18next.t(
           'notification.steam.success',
           'Steam for Windows has been installed successfully!'
@@ -987,7 +987,7 @@ export const SteamWindows = {
       logError(['Error Installing Steam', error], LogPrefix.Backend)
 
       notify({
-        title: i18next.t('notification.steam.title', 'Steam error'),
+        title: i18next.t('notification.steam.error', 'Steam error'),
         body: i18next.t(
           'notification.steam.error',
           'Steam installation failed! Please read the instructions carefully and try again!'
