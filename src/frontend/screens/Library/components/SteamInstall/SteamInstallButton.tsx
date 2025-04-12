@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { faSteam } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -7,9 +7,9 @@ import './index.scss'
 
 import SteamInstallDialog from './SteamInstallDialog'
 import { launch } from 'frontend/helpers'
-import { useMutation, useQuery } from '@tanstack/react-query'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import { Tooltip } from '@mui/material/'
+import { WineInstallation } from 'common/types'
 
 export default function SteamInstallButton({
   dataTourId
@@ -27,27 +27,42 @@ export default function SteamInstallButton({
     sideloadedLibrary.find((app) => app.app_name === 'steam')?.is_installed ||
     false
 
-  const wineList = useQuery({
-    queryKey: ['alternativeWine'],
-    queryFn: async () => {
-      const response = await window.api.getAlternativeWine()
-      if (!response) return []
-      return response
+  const [wineList, setWineList] = useState<WineInstallation[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isInstalling, setIsInstalling] = useState(false)
+
+  // Fetch wine list on component mount
+  useEffect(() => {
+    const fetchWineList = async () => {
+      try {
+        setIsLoading(true)
+        const response = await window.api.getAlternativeWine()
+        setWineList(response || [])
+      } catch (error) {
+        console.error('Failed to fetch wine list:', error)
+        setWineList([])
+      } finally {
+        setIsLoading(false)
+      }
     }
-  })
 
-  const isCompatibilityLayerAvailable =
-    wineList.data && wineList.data.length > 0
+    fetchWineList()
+  }, [])
 
-  const installSteamMutation = useMutation({
-    mutationKey: ['steamInstall'],
-    onSuccess: () => {
+  const isCompatibilityLayerAvailable = wineList.length > 0
+
+  // Function to handle Steam installation
+  const installSteam = async () => {
+    try {
+      setIsInstalling(true)
+      await window.api.installSteamWindows()
       setShowInstallDialog(false)
-    },
-    mutationFn: async () => window.api.installSteamWindows()
-  })
-
-  const isInstalling = installSteamMutation.isPending
+    } catch (error) {
+      console.error('Failed to install Steam:', error)
+    } finally {
+      setIsInstalling(false)
+    }
+  }
 
   async function handleSteamInstallation() {
     if (isSteamInstalled) {
@@ -94,7 +109,7 @@ export default function SteamInstallButton({
   )
 
   const isButtonDisabled =
-    !isCompatibilityLayerAvailable || isInstalling || isLaunching
+    !isCompatibilityLayerAvailable || isInstalling || isLaunching || isLoading
 
   return (
     <>
@@ -120,7 +135,7 @@ export default function SteamInstallButton({
         <SteamInstallDialog
           isInstalling={isInstalling}
           onClose={() => setShowInstallDialog(false)}
-          onInstall={installSteamMutation.mutate}
+          onInstall={installSteam}
         />
       ) : null}
     </>
