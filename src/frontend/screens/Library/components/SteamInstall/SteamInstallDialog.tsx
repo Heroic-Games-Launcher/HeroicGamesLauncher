@@ -32,7 +32,7 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
   onClose,
   onInstall
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('gamepage')
   const [progress] = hasProgress('steam')
 
   const [winePrefix, setWinePrefix] = useState('...')

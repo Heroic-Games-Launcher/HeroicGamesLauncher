@@ -17,7 +17,7 @@ export default function SteamInstallButton({
   dataTourId?: string
 }) {
   const { showDialogModal, sideloadedLibrary } = useContext(ContextProvider)
-  const { t } = useTranslation()
+  const { t } = useTranslation('gamepage')
   const [showInstallDialog, setShowInstallDialog] = useState(false)
 
   const { status } = hasStatus('steam')
@@ -93,14 +93,14 @@ export default function SteamInstallButton({
 
   const toolTipText = isSteamInstalled
     ? t(
-        'label.steam.launch-tooltip',
+        'label.steam.launch',
         'Launch Steam using the Heroic Compatibility Layer'
       )
     : t(
         'label.steam.install-tooltip',
         `This will install the Windows version of Steam and it will run using a Heroic Compatibility Layer. \n
     Some games especially older titles, newer 3D games, or those with anti-cheat software may not work properly. \n
-    The Recommended specs are a Mac with Apple Silicon CPU (M1 or above) and at least 16GB of RAM.`
+    `
       )
 
   const compatibilityLayerNotAvailableTooltip = t(

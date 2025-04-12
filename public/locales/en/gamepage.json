@@ -180,6 +180,28 @@
         "saves": {
             "syncing": "Syncing Saves"
         },
+        "steam": {
+            "appleSilicon": "Apple Silicon M1+ or Intel with dedicated GPU",
+            "cancel": "Cancel Installation",
+            "compatibility": "Be aware that not all games will work, and even if they do, they may not run as expected.",
+            "compatibility-layer-not-available": "Compatibility layer not available. Please install one from \"Settings > Wine Manager\" first.",
+            "downloading": "Downloading {{percent}}%",
+            "install": "Install Steam",
+            "install-tooltip": "This will install the Windows version of Steam and it will run using a Heroic Compatibility Layer. \n\n    Some games especially older titles, newer 3D games, or those with anti-cheat software may not work properly. \n\n    ",
+            "installation": "Steam Installation",
+            "installing": "Installing",
+            "launch": "Launch Steam using the Heroic Compatibility Layer",
+            "launching": "Launching Steam...",
+            "macOS": "macOS 14.0 or above",
+            "notification": "Heroic will notify you once the installation is done.",
+            "patience": "If you wish to continue, please be patient since it can take a few minutes to finish depending on your internet connection and system configuration.",
+            "pleaseWait": "Please Wait",
+            "ram": "8GB of RAM",
+            "recommended": "Recommended specs for a better experience",
+            "specificVersion-pt1": "This will download a specific version of Steam from",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "made to work through Heroic since new versions of Steam won't work on macOS."
+        },
         "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
