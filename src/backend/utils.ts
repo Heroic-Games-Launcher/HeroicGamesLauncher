@@ -1357,8 +1357,8 @@ interface ProgressCallback {
   (
     downloadedBytes: number,
     downloadSpeed: number,
-    diskWriteSpeed: number,
-    progress: number
+    progress: number,
+    diskWriteSpeed: number
   ): void
 }
 
@@ -1429,8 +1429,8 @@ export async function downloadFile({
       (
         bytes: number,
         speed: number,
-        writingSpeed: number,
-        percentage: number
+        percentage: number,
+        writingSpeed: number
       ) => {
         if (progressCallback) {
           logInfo(
@@ -1439,7 +1439,7 @@ export async function downloadFile({
             )}  @${bytesToSize(speed)}/s (${percentage.toFixed(2)}%)`,
             LogPrefix.Backend
           )
-          progressCallback(bytes, speed, writingSpeed, percentage)
+          progressCallback(bytes, speed, percentage, writingSpeed)
         }
       },
       1000
@@ -1454,7 +1454,7 @@ export async function downloadFile({
         const bytesWrittenSinceLastUpdate = bytes - lastBytesWritten
         const writingSpeed = bytesWrittenSinceLastUpdate / (timeElapsed / 1000) // Bytes per second
 
-        throttledProgressCallback(bytes, speed, writingSpeed, percentage)
+        throttledProgressCallback(bytes, speed, percentage, writingSpeed)
 
         lastProgressUpdateTime = currentTime
         lastBytesWritten = bytes

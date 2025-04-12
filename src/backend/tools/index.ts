@@ -864,8 +864,8 @@ export const SteamWindows = {
     function handleProgress(
       downloadedBytes: number,
       downloadSpeed: number,
-      diskWriteSpeed: number,
-      progress: number
+      progress: number,
+      diskWriteSpeed: number
     ) {
       window?.webContents.send(`progressUpdate-steam`, {
         appName: 'steam',
