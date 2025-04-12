@@ -15,7 +15,6 @@ import {
 import { spawn } from 'child_process'
 import {
   axiosClient,
-  calculateProgress,
   downloadFile,
   execAsync,
   extractFiles,
@@ -868,20 +867,13 @@ export const SteamWindows = {
       diskWriteSpeed: number,
       progress: number
     ) {
-      const currentProgress = calculateProgress(
-        downloadedBytes,
-        Number.parseInt('718394478'),
-        downloadSpeed,
-        diskWriteSpeed,
-        progress
-      )
-
       window?.webContents.send(`progressUpdate-steam`, {
         appName: 'steam',
         status: 'installing',
         runner: 'sideload',
         progress: {
-          ...currentProgress
+          percent: progress,
+          bytes: '718394478'
         }
       })
     }

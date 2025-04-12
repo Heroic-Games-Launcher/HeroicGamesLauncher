@@ -1429,8 +1429,8 @@ export async function downloadFile({
       (
         bytes: number,
         speed: number,
-        percentage: number,
-        writingSpeed: number
+        writingSpeed: number,
+        percentage: number
       ) => {
         if (progressCallback) {
           logInfo(
@@ -1439,7 +1439,7 @@ export async function downloadFile({
             )}  @${bytesToSize(speed)}/s (${percentage.toFixed(2)}%)`,
             LogPrefix.Backend
           )
-          progressCallback(bytes, speed, percentage, writingSpeed)
+          progressCallback(bytes, speed, writingSpeed, percentage)
         }
       },
       1000
@@ -1454,7 +1454,7 @@ export async function downloadFile({
         const bytesWrittenSinceLastUpdate = bytes - lastBytesWritten
         const writingSpeed = bytesWrittenSinceLastUpdate / (timeElapsed / 1000) // Bytes per second
 
-        throttledProgressCallback(bytes, speed, percentage, writingSpeed)
+        throttledProgressCallback(bytes, speed, writingSpeed, percentage)
 
         lastProgressUpdateTime = currentTime
         lastBytesWritten = bytes
@@ -1602,28 +1602,6 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
   } else {
     GameConfig.get(appName).config = config as GameSettings
     GameConfig.get(appName).flush()
-  }
-}
-
-function roundToTenth(x: number) {
-  return Math.round(x * 10) / 10
-}
-
-export function calculateProgress(
-  downloadedBytes: number,
-  downloadSize: number,
-  downloadSpeed: number,
-  diskWriteSpeed: number,
-  progress: number
-) {
-  const eta = calculateEta(downloadedBytes, downloadSpeed, downloadSize)
-
-  return {
-    percent: roundToTenth(progress),
-    diskSpeed: roundToTenth(diskWriteSpeed / 1024 / 1024),
-    downSpeed: roundToTenth(downloadSpeed / 1024 / 1024),
-    bytes: roundToTenth(downloadedBytes / 1024 / 1024),
-    eta
   }
 }
 
