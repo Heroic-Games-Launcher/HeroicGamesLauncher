@@ -341,7 +341,7 @@ export default function SideloadDialog({
               label={t('sideload.info.image', 'App Image')}
               placeholder={t(
                 'sideload.placeholder.image',
-                'Paste an Image URL here'
+                'Paste an URL of an Image or select one from your computer'
               )}
               onChange={(e) => setImageUrl(e.target.value)}
               htmlId="sideload-image"
