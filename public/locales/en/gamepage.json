@@ -22,7 +22,8 @@
             "title": "Select EXE to Run"
         },
         "select": {
-            "button": "Select"
+            "button": "Select",
+            "image": "Select Image"
         },
         "sideload": {
             "exe": "Select Executable"
