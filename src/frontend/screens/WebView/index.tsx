@@ -151,6 +151,14 @@ export default function WebView() {
     if (webview) {
       const loadstop = async () => {
         setLoading({ ...loading, refresh: false })
+        const userAgent =
+          startUrl === epicLoginUrl
+            ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
+            : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0'
+        if (webview.getUserAgent() != userAgent) {
+          webview.setUserAgent(userAgent)
+          console.log(userAgent)
+        }
         // Ignore the login handling if not on login page
         if (!runner) {
           return
@@ -292,11 +300,6 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
-  const userAgent =
-    startUrl === epicLoginUrl
-      ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
-      : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0 HeroicGamesLauncher'
-
   return (
     <div className="WebView">
       {webviewRef.current && (
@@ -313,7 +316,6 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
-        useragent={userAgent}
       />
       {showLoginWarningFor && (
         <LoginWarning
