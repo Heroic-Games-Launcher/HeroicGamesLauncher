@@ -157,7 +157,6 @@ export default function WebView() {
             : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/200.0'
         if (webview.getUserAgent() != userAgent) {
           webview.setUserAgent(userAgent)
-          console.log(userAgent)
         }
         // Ignore the login handling if not on login page
         if (!runner) {
