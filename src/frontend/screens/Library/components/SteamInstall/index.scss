@@ -1,0 +1,75 @@
+.steamModal {
+  padding: var(--space-lg);
+  min-width: 500px;
+
+  .Dialog_footer {
+    padding: 0;
+  }
+
+  h6 {
+    font-size: var(--text-xl);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+    display: grid;
+    grid-template-columns: 10% 90%;
+    align-items: center;
+    gap: var(--space-xs);
+
+    .iconsWrapper {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+  }
+}
+
+.installSteamButton {
+  font-family: var(--secondary-font-family);
+  border-radius: var(--space-md);
+  color: var(--text-tertiary);
+  background: var(--tertiary-button, var(--accent));
+  padding: var(--space-xs) var(--space-md);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 300ms;
+
+  &:hover {
+    box-shadow: 0px 0px 0px 3px var(--button-stroke, var(--text-default));
+  }
+
+  svg {
+    margin-right: var(--space-2xs);
+  }
+}
+
+.button {
+  position: relative;
+
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--accent-overlay);
+    opacity: 0.5;
+    z-index: 1;
+    transition: width 0.3s ease;
+  }
+
+  .button-text {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.link {
+  color: var(--text-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 300ms;
+
+  &:hover {
+    color: var(--accent);
+  }
+}

@@ -5,6 +5,7 @@ import { dirname, join } from 'path'
 import { libraryStore } from './electronStores'
 import { logWarning } from 'backend/logger/logger'
 import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
+import { sendFrontendMessage } from 'backend/main_window'
 
 export function addNewApp({
   app_name,
@@ -63,6 +64,9 @@ export function addNewApp({
   }
 
   libraryStore.set('games', current)
+
+  sendFrontendMessage('refreshLibrary', 'sideload')
+
   return
 }
 

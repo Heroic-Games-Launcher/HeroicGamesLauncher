@@ -39,6 +39,7 @@ import {
 } from './constants'
 import {
   appendGamePlayLog,
+  logChangedSetting,
   logError,
   logInfo,
   LogPrefix,
@@ -85,7 +86,7 @@ import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
-import type { WineManagerStatus } from 'common/types'
+import type { AppSettings, WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 import { getSystemInfo } from './utils/systeminfo'
 
@@ -1357,8 +1358,8 @@ interface ProgressCallback {
   (
     downloadedBytes: number,
     downloadSpeed: number,
-    diskWriteSpeed: number,
-    progress: number
+    progress: number,
+    diskWriteSpeed: number
   ): void
 }
 
@@ -1578,6 +1579,32 @@ const axiosClient = axios.create({
   timeout: 10 * 1000,
   httpsAgent: new https.Agent({ keepAlive: true })
 })
+
+export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
+  logInfo(
+    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
+    LogPrefix.Backend
+  )
+  const oldConfig =
+    appName === 'default'
+      ? GlobalConfig.get().getSettings()
+      : GameConfig.get(appName).config
+
+  // log only the changed setting
+  logChangedSetting(config, oldConfig)
+
+  if (appName === 'default') {
+    GlobalConfig.get().set(config as AppSettings)
+    GlobalConfig.get().flush()
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (currentConfigStore) {
+      configStore.set('settings', { ...currentConfigStore, ...config })
+    }
+  } else {
+    GameConfig.get(appName).config = config as GameSettings
+    GameConfig.get(appName).flush()
+  }
+}
 
 export {
   errorHandler,
