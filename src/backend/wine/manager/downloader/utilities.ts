@@ -143,16 +143,14 @@ async function unzipFile({
   return new Promise((resolve, reject) => {
     try {
       if (!existsSync(filePath)) {
-        reject(`Zip file ${filePath} does not exist!`)
+        reject(new Error(`Zip file ${filePath} does not exist!`))
       } else if (statSync(filePath).isDirectory()) {
-        reject(`Archive path ${filePath} is not a file!`)
+        reject(new Error(`Archive path ${filePath} is not a file!`))
       } else if (!existsSync(unzipDir)) {
-        reject(`Install path ${unzipDir} does not exist!`)
+        reject(new Error(`Install path ${unzipDir} does not exist!`))
       }
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore: can't give error a type but it mostly a Error or SystemError
-      reject(error.message)
+      reject(new Error(undefined, { cause: error }))
     }
 
     extractFiles({ path: filePath, destination: unzipDir, strip: 1 })
@@ -162,7 +160,7 @@ async function unzipFile({
       })
       .catch((error) => {
         onProgress({ status: 'idle' })
-        reject(`Unzip of ${filePath} failed with:\n ${error}!`)
+        reject(new Error(`Unzip of ${filePath} failed`, { cause: error }))
       })
 
     onProgress({ status: 'unzipping' })

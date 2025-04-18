@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
+import type { ExperimentalFeatures as ExperimentalFeaturesT } from 'common/types'
 
 const ExperimentalFeatures = () => {
-  const FEATURES = ['enableNewDesign', 'enableHelp', 'cometSupport']
+  const FEATURES = ['enableNewDesign', 'enableHelp', 'cometSupport'] as const
 
   const { t } = useTranslation()
   const [experimentalFeatures, setExperimentalFeatures] = useSetting(
@@ -18,7 +19,7 @@ const ExperimentalFeatures = () => {
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
 
-  const toggleFeature = (feature: string) => {
+  const toggleFeature = (feature: keyof ExperimentalFeaturesT) => {
     const newFeatures = {
       ...experimentalFeatures,
       [feature]: !experimentalFeatures[feature]

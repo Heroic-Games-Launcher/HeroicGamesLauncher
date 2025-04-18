@@ -18,7 +18,7 @@ function authLogSanitizer(line: string) {
     output.refresh_token = '<redacted>'
     output.user_id = '<redacted>'
     return JSON.stringify(output) + '\n'
-  } catch (error) {
+  } catch {
     return line
   }
 }
@@ -46,7 +46,10 @@ export class GOGUser {
       }
     } catch (err) {
       logError(
-        `GOG login failed to parse std output from gogdl. stdout: ${stdout.trim()}`,
+        [
+          `GOG login failed to parse std output from gogdl. stdout: ${stdout.trim()}\nerror:`,
+          err
+        ],
         LogPrefix.Gog
       )
       return { status: 'error' }

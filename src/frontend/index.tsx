@@ -148,7 +148,7 @@ window.setTheme = async (themeClass: string) => {
 
   document.body.className = themeClass
 
-  if (navigator['windowControlsOverlay']?.visible) {
+  if (navigator.windowControlsOverlay.visible) {
     const titlebarOverlay = Object.fromEntries(
       ['height', 'color', 'symbol-color']
         .map((item) => [
@@ -214,7 +214,7 @@ window.imageData = async (
     )
 
     img.addEventListener('error', (error) => {
-      reject(error)
+      reject(new Error(error.message, { cause: error }))
     })
 
     // set src to trigger the callback

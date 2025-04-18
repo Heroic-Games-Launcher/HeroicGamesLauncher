@@ -49,6 +49,7 @@ export enum LogPrefix {
 export const RunnerToLogPrefixMap = {
   legendary: LogPrefix.Legendary,
   gog: LogPrefix.Gog,
+  nile: LogPrefix.Nile,
   sideload: LogPrefix.Sideload
 }
 
@@ -143,8 +144,10 @@ function convertInputToString(param: LogInputType): string {
       case 'object':
         // Object.prototype.toString.call(value).includes('Error') will catch all
         // Error types (Error, EvalError, SyntaxError, ...)
-        if (Object.prototype.toString.call(value).includes('Error')) {
-          return value!['stack'] ? value!['stack'] : value!.toString()
+        if (value && Object.prototype.toString.call(value).includes('Error')) {
+          return 'stack' in value && typeof value.stack === 'string'
+            ? value.stack
+            : value.toString()
         } else if (Object.prototype.toString.call(value).includes('Object')) {
           return JSON.stringify(value, null, 2)
         } else {
@@ -316,9 +319,9 @@ export function logChangedSetting(
   config: Partial<AppSettings>,
   oldConfig: GameSettings
 ) {
-  const changedSettings = Object.keys(config).filter(
-    (key) => config[key] !== oldConfig[key]
-  )
+  const changedSettings = (
+    Object.keys(config) as (keyof GameSettings)[]
+  ).filter((key) => config[key] !== oldConfig[key])
 
   changedSettings.forEach((changedSetting) => {
     // check if both are empty arrays
@@ -440,11 +443,7 @@ class LogWriter {
     // the disk write
     this.timeoutId = setTimeout(async () => this.appendMessages(), 1000)
 
-    try {
-      await appendFile(this.filePath, messagesToWrite.join(''))
-    } catch (error) {
-      // ignore failures if messages could not be written
-    }
+    await appendFile(this.filePath, messagesToWrite.join('')).catch(() => {})
   }
 
   async initLog() {
@@ -604,7 +603,7 @@ export async function appendWinetricksGamePlayLog(gameInfo: GameInfo) {
             resolve(`Winetricks packages: ${packagesString}\n\n`)
           })
           .catch((error) => {
-            reject(error)
+            reject(new Error(undefined, { cause: error }))
           })
       })
     )

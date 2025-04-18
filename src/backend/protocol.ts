@@ -6,9 +6,7 @@ import { getMainWindow, sendFrontendMessage } from './main_window'
 import { icon } from './constants'
 import { gameManagerMap } from './storeManagers'
 import { launchEventCallback } from './launcher'
-import { z } from 'zod'
-
-const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
+import { Runners } from './schemas'
 
 export function handleProtocol(args: string[]) {
   const urlStr = args.find((arg) => arg.startsWith('heroic://'))
@@ -58,7 +56,7 @@ async function handleLaunch(url: URL) {
   }
 
   let runner: Runner | undefined
-  const runnerParse = RUNNERS.safeParse(runnerStr)
+  const runnerParse = Runners.safeParse(runnerStr)
   if (runnerParse.success) {
     runner = runnerParse.data
   }
@@ -114,7 +112,7 @@ function findGame(
   if (runner) return gameManagerMap[runner].getGameInfo(appName)
 
   // If no runner is specified, search for the game in all runners and return the first one found
-  for (const runner of RUNNERS.options) {
+  for (const runner of Runners.options) {
     const maybeGameInfo = gameManagerMap[runner].getGameInfo(appName)
     if (maybeGameInfo.app_name) return maybeGameInfo
   }

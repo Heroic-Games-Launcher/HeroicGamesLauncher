@@ -17,7 +17,7 @@ import {
   removeSpecialcharacters,
   writeConfig
 } from 'frontend/helpers'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
@@ -190,23 +190,33 @@ export default function SideloadDialog({
     return backdropClick()
   }
 
-  const fileFilters = {
-    Windows: [
-      { name: 'Executables', extensions: ['exe', 'msi'] },
-      { name: 'Scripts', extensions: ['bat'] },
-      { name: 'All', extensions: ['*'] }
-    ],
-    linux: [
-      { name: 'AppImages', extensions: ['AppImage'] },
-      { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },
-      { name: 'All', extensions: ['*'] }
-    ],
-    Mac: [
-      { name: 'Apps', extensions: ['App'] },
-      { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },
-      { name: 'All', extensions: ['*'] }
-    ]
-  }
+  const fileFilters = useCallback((platform: InstallPlatform) => {
+    switch (platform) {
+      case 'Windows':
+      case 'windows':
+      case 'Win32':
+        return [
+          { name: 'Executables', extensions: ['exe', 'msi'] },
+          { name: 'Scripts', extensions: ['bat'] },
+          { name: 'All', extensions: ['*'] }
+        ]
+      case 'linux':
+        return [
+          { name: 'AppImages', extensions: ['AppImage'] },
+          { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },
+          { name: 'All', extensions: ['*'] }
+        ]
+      case 'Mac':
+      case 'osx':
+        return [
+          { name: 'Apps', extensions: ['App'] },
+          { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },
+          { name: 'All', extensions: ['*'] }
+        ]
+      default:
+        return []
+    }
+  }, [])
 
   const handleRunExe = async () => {
     let exeToRun = ''
@@ -214,7 +224,7 @@ export default function SideloadDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
       title: t('box.runexe.title', 'Select EXE to Run'),
-      filters: fileFilters[appPlatform]
+      filters: fileFilters(appPlatform)
     })
     if (path) {
       exeToRun = path
@@ -338,7 +348,7 @@ export default function SideloadDialog({
                 placeholder={t('sideload.info.exe', 'Select Executable')}
                 pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
                 pathDialogDefaultPath={winePrefix}
-                pathDialogFilters={fileFilters[platformToInstall]}
+                pathDialogFilters={fileFilters(platformToInstall)}
                 htmlId="sideload-exe"
                 label={t('sideload.info.exe', 'Select Executable')}
                 noDeleteButton

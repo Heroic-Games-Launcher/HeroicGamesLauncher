@@ -27,7 +27,7 @@ let currentStubs = [...defaultStubs]
 
 export const runLegendaryCommandStub = async (command: LegendaryCommand) => {
   const stub = currentStubs.find((stub) =>
-    stub.commandParts.every((part) => command[part])
+    stub.commandParts.every((part) => command[part as keyof LegendaryCommand])
   )
 
   if (stub?.response) return stub.response

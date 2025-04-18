@@ -32,8 +32,7 @@ function readFile(fileName: string, language: string) {
     return JSON.parse(
       readFileSync(join(localesPath, language, fileName + '.json')).toString()
     )
-  } catch (error) {
-    // console.log(error)
+  } catch {
     return null
   }
 }

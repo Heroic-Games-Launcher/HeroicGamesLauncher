@@ -266,7 +266,7 @@ async function convertPngToICNS(
 
     return true
   } catch (error) {
-    logError('Error converting icon to icns', LogPrefix.Backend)
+    logError(['Error converting icon to icns:', error], LogPrefix.Backend)
     return false
   }
 }

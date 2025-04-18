@@ -288,7 +288,7 @@ export async function getWineskinWine(): Promise<Set<WineInstallation>> {
             })
           } catch (error) {
             logError(
-              `Error getting wine version for ${wineBin}`,
+              [`Error getting wine version for ${wineBin}`, error],
               LogPrefix.GlobalConfig
             )
           }
@@ -381,7 +381,7 @@ export async function getGamePortingToolkitWine(): Promise<
         }
       } catch (error) {
         logError(
-          `Error getting wine version for GPTK ${wineBin}`,
+          [`Error getting wine version for GPTK ${wineBin}:`, error],
           LogPrefix.GlobalConfig
         )
       }
@@ -428,7 +428,7 @@ export async function getSystemGamePortingToolkitWine(): Promise<
       })
     } catch (error) {
       logError(
-        `Error getting wine version for ${wineBin}`,
+        [`Error getting wine version for ${wineBin}:`, error],
         LogPrefix.GlobalConfig
       )
     }
@@ -461,7 +461,14 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       const info = plistParse(
         readFileSync(whiskyVersionPlist, 'utf-8')
       ) as PlistObject
-      const version = info['version']
+      // FIXME: Verify this type at runtime
+      const version = info['version'] as {
+        build: string
+        major: number
+        minor: number
+        patch: number
+        preRelease: string
+      }
       const versionString = `${version['major']}.${version['minor']}.${version['patch']}-${version['build']}`
       whisky.add({
         bin: whiskyWineBin,
@@ -473,7 +480,7 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       })
     } catch (error) {
       logError(
-        `Error getting wine version for ${whiskyWineBin}`,
+        [`Error getting wine version for ${whiskyWineBin}:`, error],
         LogPrefix.GlobalConfig
       )
     }
