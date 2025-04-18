@@ -4,7 +4,6 @@ import GameContext from '../../GameContext'
 import { DownloadDone } from '@mui/icons-material'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import { GameInfo } from 'common/types'
-import ContextProvider from 'frontend/state/ContextProvider'
 
 interface Props {
   gameInfo: GameInfo
@@ -14,7 +13,6 @@ const InstalledInfo = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
   const { gameSettings, runner, is } = useContext(GameContext)
-  const { experimentalFeatures } = useContext(ContextProvider)
 
   if (!gameInfo.is_installed) {
     return null
@@ -130,9 +128,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
     </>
   )
 
-  if (experimentalFeatures.enableNewDesign) {
-    return info
-  }
+  return info
 
   return (
     <PopoverComponent

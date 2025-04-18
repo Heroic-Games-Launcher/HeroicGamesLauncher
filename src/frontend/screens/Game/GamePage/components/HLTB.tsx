@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { Speed, ExpandMore } from '@mui/icons-material'
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
@@ -10,7 +9,6 @@ import HowLongToBeat from 'frontend/components/UI/WikiGameInfo/components/HowLon
 const HLTB = () => {
   const { t } = useTranslation('gamepage')
   const { wikiInfo } = useContext(GameContext)
-  const { experimentalFeatures } = useContext(ContextProvider)
 
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -28,7 +26,7 @@ const HLTB = () => {
     return null
   }
 
-  if (experimentalFeatures.enableNewDesign) {
+  if (howlongtobeat) {
     return (
       <div className="hltbWrapper">
         <Accordion expanded={isExpanded} onChange={handleExpansionChange}>
