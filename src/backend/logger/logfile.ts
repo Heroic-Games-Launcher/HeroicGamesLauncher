@@ -1,6 +1,5 @@
 import { existsSync, readdirSync, unlinkSync } from 'graceful-fs'
 
-import { configStore } from '../constants'
 import { app } from 'electron'
 import { join } from 'path'
 import {
@@ -12,6 +11,7 @@ import {
   LogPrefix,
   logsDisabled
 } from './logger'
+import { configStore } from 'backend/constants/key_value_stores'
 
 interface createLogFileReturn {
   currentLogFile: string

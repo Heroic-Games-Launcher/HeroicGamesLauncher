@@ -1,10 +1,10 @@
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
-import { heroicIconFolder as iconsFolder } from '../constants'
 import { GameInfo } from 'common/types'
 import { basename, dirname, extname, join } from 'path'
 import { getProductApi } from 'backend/storeManagers/gog/library'
 import { downloadFile } from 'backend/utils'
 import { createAbortController } from 'backend/utils/aborthandler/aborthandler'
+import { heroicIconFolder as iconsFolder } from 'backend/constants/paths'
 
 function createImage(
   buffer: Buffer,

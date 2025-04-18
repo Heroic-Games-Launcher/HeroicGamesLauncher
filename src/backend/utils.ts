@@ -19,26 +19,13 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { existsSync, rmSync } from 'graceful-fs'
+import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
 import {
-  fixAsarPath,
-  getSteamLibraries,
-  configPath,
-  gamesConfigPath,
-  icon,
-  isWindows,
-  publicDir,
-  GITHUB_API,
-  isMac,
-  configStore,
-  isLinux,
-  isIntelMac
-} from './constants'
-import {
   appendGamePlayLog,
+  logDebug,
   logError,
   logInfo,
   LogPrefix,
@@ -88,6 +75,19 @@ import {
 import type { WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 import { getSystemInfo } from './utils/systeminfo'
+import { configStore } from './constants/key_value_stores'
+import { GITHUB_API } from './constants/urls'
+import { isLinux, isMac, isIntelMac, isWindows } from './constants/environment'
+import {
+  configPath,
+  fixAsarPath,
+  gamesConfigPath,
+  heroicIconFolder,
+  publicDir,
+  toolsPath,
+  windowIcon
+} from './constants/paths'
+import { parse } from '@node-steam/vdf'
 
 const execAsync = promisify(exec)
 
@@ -231,7 +231,7 @@ const showAboutWindow = () => {
     applicationName: 'Heroic Games Launcher',
     applicationVersion: getHeroicVersion(),
     copyright: 'GPL V3',
-    iconPath: icon,
+    iconPath: windowIcon,
     website: 'https://heroicgameslauncher.com'
   })
   return app.showAboutPanel()
@@ -510,6 +510,22 @@ function getNileBin(): { dir: string; bin: string } {
   return splitPathAndName(fixAsarPath(defaultNilePath))
 }
 
+export function createNecessaryFolders() {
+  const defaultFolders = [gamesConfigPath, heroicIconFolder]
+
+  const necessaryFoldersByPlatform = {
+    win32: [...defaultFolders],
+    linux: [...defaultFolders, toolsPath],
+    darwin: [...defaultFolders, toolsPath]
+  }
+
+  necessaryFoldersByPlatform[process.platform].forEach((folder: string) => {
+    if (!existsSync(folder)) {
+      mkdirSync(folder)
+    }
+  })
+}
+
 function getFormattedOsName(): string {
   switch (process.platform) {
     case 'linux':
@@ -521,6 +537,29 @@ function getFormattedOsName(): string {
     default:
       return 'Unknown OS'
   }
+}
+
+export async function getSteamLibraries(): Promise<string[]> {
+  const { defaultSteamPath } = GlobalConfig.get().getSettings()
+  const path = defaultSteamPath.replaceAll("'", '')
+  const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')
+  const libraries = ['/usr/share/steam']
+
+  if (existsSync(vdfFile)) {
+    const json = parse(readFileSync(vdfFile, 'utf-8'))
+    if (!json.libraryfolders) {
+      return libraries
+    }
+    const folders: { path: string }[] = Object.values(json.libraryfolders)
+    return [...libraries, ...folders.map((folder) => folder.path)].filter(
+      (path) => existsSync(path)
+    )
+  }
+  logDebug(
+    'Unable to load Steam Libraries, libraryfolders.vdf not found',
+    LogPrefix.Backend
+  )
+  return libraries
 }
 
 async function getSteamRuntime(
@@ -1315,7 +1354,7 @@ export async function checkRosettaInstall() {
         'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart Heroic. '
       ),
       buttons: ['OK'],
-      icon: icon
+      icon: windowIcon
     })
 
     logInfo(
