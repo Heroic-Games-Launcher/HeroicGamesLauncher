@@ -96,11 +96,6 @@ interface StateProps {
   sideloadedLibrary: GameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
-  settingsModalOpen: {
-    value: boolean
-    type: 'settings' | 'log'
-    gameInfo?: GameInfo | null
-  }
   showInstallModal: {
     show: boolean
     gameInfo: GameInfo | null
@@ -209,7 +204,6 @@ class GlobalState extends PureComponent<Props> {
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
     lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
-    settingsModalOpen: { value: false, type: 'settings', gameInfo: undefined },
     helpItems: {},
     experimentalFeatures: {
       enableNewDesign: false,
@@ -571,22 +565,6 @@ class GlobalState extends PureComponent<Props> {
   }
 
   getAmazonLoginData = async () => window.api.getAmazonLoginData()
-
-  handleSettingsModalOpen = (
-    value: boolean,
-    type?: 'settings' | 'log' | 'category',
-    gameInfo?: GameInfo
-  ) => {
-    if (gameInfo) {
-      this.setState({
-        settingsModalOpen: { value, type, gameInfo }
-      })
-    } else {
-      this.setState({
-        settingsModalOpen: { value, gameInfo: null }
-      })
-    }
-  }
 
   refresh = async (
     library?: Runner | 'all',
@@ -973,7 +951,6 @@ class GlobalState extends PureComponent<Props> {
       favouriteGames,
       customCategories,
       hiddenGames,
-      settingsModalOpen,
       hideChangelogsOnStartup,
       lastChangelogShown,
       libraryStatus
@@ -1049,8 +1026,6 @@ class GlobalState extends PureComponent<Props> {
           setHideChangelogsOnStartup: this.setHideChangelogsOnStartup,
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
-          isSettingsModalOpen: settingsModalOpen,
-          setIsSettingsModalOpen: this.handleSettingsModalOpen,
           setCurrentCustomCategories: this.setCurrentCustomCategories,
           help: {
             items: this.state.helpItems,
