@@ -557,6 +557,7 @@ async function prepareWineLaunch(
   failureReason?: string
   envVars?: Record<string, string>
 }> {
+  const extendedEnv: Record<string, string> = {}
   const gameSettings =
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
@@ -655,18 +656,25 @@ async function prepareWineLaunch(
         publicDir,
         'bin/x64/win32/GalaxyCommunication.exe'
       )
+      const galaxyWrapper = join(publicDir, 'bin/galaxy.exe')
+      const galaxyUnixLib = join(publicDir, 'bin/libgalaxyunixlib.dll.so')
 
-      const galaxyCommPath =
-        'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
+      const galaxyCommPath = 'C:\\ProgramData\\GOG.com\\Galaxy'
       const communicationDest = await getWinePath({
         path: galaxyCommPath,
         gameSettings,
         variant: 'unix'
       })
 
-      if (!existsSync(communicationDest)) {
-        mkdirSync(dirname(communicationDest), { recursive: true })
-        await copyFile(communicationSource, communicationDest)
+      const communicationExe = join(
+        communicationDest,
+        'redists/GalaxyCommunication.exe'
+      )
+      const galaxyOverlay = join(communicationDest, 'overlay-heroic')
+
+      if (!existsSync(communicationExe)) {
+        mkdirSync(dirname(communicationExe), { recursive: true })
+        await copyFile(communicationSource, communicationExe)
         await runWineCommand({
           commandParts: [
             'sc',
@@ -678,9 +686,21 @@ async function prepareWineLaunch(
           protonVerb: 'runinprefix'
         })
       }
+      if (!existsSync(galaxyOverlay)) {
+        mkdirSync(galaxyOverlay, { recursive: true })
+        await copyFile(galaxyWrapper, join(galaxyOverlay, 'galaxy.exe'))
+        await copyFile(
+          galaxyUnixLib,
+          join(galaxyOverlay, 'libgalaxyunixlib.dll.so')
+        )
+      }
+      extendedEnv['HEROIC_GOGDL_WRAPPER_EXE'] = join(
+        galaxyOverlay,
+        'galaxy.exe'
+      )
     }
   } catch (err) {
-    logError('Failed to install GalaxyCommunication dummy into the prefix')
+    logError(`Failed to install galaxy components into the prefix ${err}`)
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -716,7 +736,7 @@ async function prepareWineLaunch(
     gameManagerMap[runner].getGameInfo(appName)
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
-  return { success: true, envVars: envVars }
+  return { success: true, envVars: { ...envVars, ...extendedEnv } }
 }
 
 export function readKnownFixes(appName: string, runner: Runner) {
