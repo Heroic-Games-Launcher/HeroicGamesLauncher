@@ -7,7 +7,9 @@
         "title": "접근성",
         "zoom": "확대/축소",
         "disable_dialog_backdrop_close": "안내창 바깥을 클릭하여 종료하지 않기",
-        "titles_always_visible": "라이브러리에 항상 제목 표시"
+        "titles_always_visible": "라이브러리에 항상 제목 표시",
+        "content_font_family_default": "콘텐츠 글꼴 패밀리 (기본값:",
+        "actions_font_family_default": "Actions Font Family (Default:"
     },
     "add_game": "게임 추가",
     "All": "모두",
@@ -960,5 +962,8 @@
     },
     "emptyLibrary": {
         "noResults": "현재 필터로는 결과가 생성되지 않았습니다."
+    },
+    "tour": {
+        "back": "뒤로"
     }
 }

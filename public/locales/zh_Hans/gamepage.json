@@ -74,7 +74,9 @@
         "uninstall": "卸载",
         "update": "更新",
         "details": "详细内容",
-        "changelog": "显示更新日志"
+        "changelog": "显示更新日志",
+        "browse_files": "浏览文件",
+        "browse_wine_prefix": "浏览 Wine Prefix"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -296,5 +298,14 @@
         "notice2": "单击“安装”后，Heroic 为了完成安装过程将运行程序",
         "notice1": "此游戏由下列第三方程序程序管理： \"{{application_name}}\""
     },
-    "wikiLink": "关于此游戏的重要信息，请阅读：&nbsp;<1>打开页面</1>"
+    "wikiLink": "关于此游戏的重要信息，请阅读：&nbsp;<1>打开页面</1>",
+    "Open": "打开",
+    "queue": {
+        "label": {
+            "pause": "暂停下载",
+            "resume": "继续下载",
+            "remove": "从下载中删除",
+            "canceled": "已取消"
+        }
+    }
 }

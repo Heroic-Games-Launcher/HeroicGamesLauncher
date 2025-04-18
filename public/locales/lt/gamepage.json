@@ -284,5 +284,15 @@
         "notice2": "Paspaudus – „Įdiegti“, „Heroic“ vykdys nurodytą aplikaciją, kad užbaigtų įdiegimo procesą",
         "header": "Šis žaidimas tvarkomas trečios šalies aplikacijos",
         "notice1": "Šis žaidimas tvarkomas trečios šalies aplikacijos: „{{application_name}}“"
+    },
+    "wikiLink": "Svarbi informacija apie šį žaidimą, skaitykite šį:&nbsp;<1>Atidaryti puslapį</1>",
+    "Open": "Atidaryti",
+    "queue": {
+        "label": {
+            "canceled": "Atšaukta/-s",
+            "pause": "Sustabdyti atsisiuntimą",
+            "remove": "Pašalinti iš atsisiuntimų",
+            "resume": "Pratęsti atsisiuntimą"
+        }
     }
 }

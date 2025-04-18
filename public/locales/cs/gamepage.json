@@ -74,7 +74,9 @@
         "uninstall": "Odinstalovat",
         "update": "Update",
         "details": "Podrobnosti",
-        "changelog": "Zobrazit seznam změn"
+        "changelog": "Zobrazit seznam změn",
+        "browse_files": "Procházet soubory",
+        "browse_wine_prefix": "Procházet předpony Wine"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -296,5 +298,14 @@
         "header": "Tato hra je spravována aplikací třetí strany",
         "notice1": "Tato hra je spravována aplikací třetí strany: „{{application_name}}“"
     },
-    "wikiLink": "Důležité informace o této hře si přečtěte zde:&nbsp;<1>Otevřít stránku</1>"
+    "wikiLink": "Důležité informace o této hře si přečtěte zde:&nbsp;<1>Otevřít stránku</1>",
+    "Open": "Otevřít",
+    "queue": {
+        "label": {
+            "resume": "Pokračovat ve stahování",
+            "canceled": "Zrušeno",
+            "remove": "Odstranit ze stažených",
+            "pause": "Pozastavit stahování"
+        }
+    }
 }
