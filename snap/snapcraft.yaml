@@ -427,7 +427,7 @@ parts:
 apps:
   heroic:
     command-chain: [bin/desktop-launch]
-    command: heroic --no-sandbox --ozone-platform-hint=auto
+    command: heroic --no-sandbox
     environment:
       HOME: $SNAP_USER_COMMON
       #LIBGL_DEBUG: verbose
