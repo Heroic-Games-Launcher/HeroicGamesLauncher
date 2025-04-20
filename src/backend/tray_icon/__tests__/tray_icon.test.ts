@@ -34,6 +34,7 @@ describe('TrayIcon', () => {
           { title: 'game 1', appName: '123456' }
         ])
 
+        // @ts-expect-error FIXME: Mocks shouldn't add functionality
         expect(menu[0]).toEqual({
           click: expect.any(Function),
           label: 'game 1'
@@ -64,11 +65,13 @@ describe('TrayIcon', () => {
 
           const appIcon = await initTrayIcon(mainWindow)
 
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           expect(appIcon['menu'][0]).toEqual({
             click: expect.any(Function),
             label: 'game 1'
           })
 
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           expect(appIcon['menu'][1]).toEqual({
             type: 'separator'
           })
@@ -81,16 +84,19 @@ describe('TrayIcon', () => {
           // wait for a moment since the event handler is async
           await wait(5)
 
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           expect(appIcon['menu'][0]).toEqual({
             click: expect.any(Function),
             label: 'game 2'
           })
 
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           expect(appIcon['menu'][1]).toEqual({
             click: expect.any(Function),
             label: 'game 1'
           })
 
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           expect(appIcon['menu'][2]).toEqual({
             type: 'separator'
           })
@@ -98,12 +104,14 @@ describe('TrayIcon', () => {
 
         it('limits the number games displayed based on config', async () => {
           // limits to maxRecentGames config
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           GlobalConfig['setConfigValue']('maxRecentGames', 3)
 
           setRecentGames([])
 
           const appIcon = await initTrayIcon(mainWindow)
 
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           expect(appIcon['menu'][0]).toEqual({
             type: 'separator'
           })
@@ -119,6 +127,7 @@ describe('TrayIcon', () => {
           // wait for a moment since the event handler is async
           await wait(5)
 
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           const items = appIcon['menu']
 
           expect(items[0]).toEqual({
@@ -156,6 +165,7 @@ describe('TrayIcon', () => {
           // check it renders english
           i18next.language = 'en'
           const appIcon = await initTrayIcon(mainWindow)
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           let items = appIcon['menu']
           expect(items[items.length - 1].label).toEqual('Quit')
 
@@ -166,6 +176,7 @@ describe('TrayIcon', () => {
           await wait(5)
 
           // check it renders spanish
+          // @ts-expect-error FIXME: Mocks shouldn't add functionality
           items = appIcon['menu']
           expect(items[items.length - 1].label).toEqual('Salir')
 
@@ -191,10 +202,12 @@ describe('TrayIcon', () => {
       setRecentGames(recentGames)
 
       // defaults to 5
+      // @ts-expect-error FIXME: Mocks shouldn't add functionality
       GlobalConfig['setConfigValue']('maxRecentGames', undefined)
 
       const appIcon = await initTrayIcon(mainWindow)
 
+      // @ts-expect-error FIXME: Mocks shouldn't add functionality
       const items = appIcon['menu']
 
       expect(items[0]).toEqual({
@@ -239,11 +252,13 @@ describe('TrayIcon', () => {
     })
 
     it('can show dark or light icon', () => {
+      // @ts-expect-error FIXME: Mocks shouldn't add functionality
       GlobalConfig['setConfigValue']('darkTrayIcon', true)
 
       let icon = testingExportsTrayIcon.getIcon()
       expect(icon).toMatch(/.*icon-dark.png/)
 
+      // @ts-expect-error FIXME: Mocks shouldn't add functionality
       GlobalConfig['setConfigValue']('darkTrayIcon', false)
 
       icon = testingExportsTrayIcon.getIcon()

@@ -31,6 +31,7 @@ export default tseslint.config(
         'error',
         { ignore: ['partition', 'allowpopups', 'useragent'] }
       ],
+      'react/prop-types': 'off',
       '@typescript-eslint/no-misused-promises': [
         'error',
         { checksVoidReturn: false }

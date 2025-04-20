@@ -506,7 +506,10 @@ function loadFile(app_name: string): boolean {
     const data = loadGameMetadata(app_name)
     metadata = data.metadata
   } catch (error) {
-    logError(['Failed to parse metadata for', app_name], LogPrefix.Legendary)
+    logError(
+      [`Failed to parse metadata for ${app_name}:`, error],
+      LogPrefix.Legendary
+    )
     return false
   }
   const { namespace } = metadata
@@ -933,7 +936,8 @@ export async function getLaunchOptions(
           'Failed to load DLC metadata for',
           dlc.app_name,
           '(base game is',
-          `${appName})`
+          `${appName}):`,
+          e
         ],
         LogPrefix.Legendary
       )

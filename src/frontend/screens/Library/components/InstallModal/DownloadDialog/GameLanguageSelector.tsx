@@ -29,7 +29,7 @@ export default function GameLanguageSelector({
           }
         )
         return displayNames.of(locale)
-      } catch (e) {
+      } catch {
         return language
       }
     }

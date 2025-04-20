@@ -335,9 +335,7 @@ async function setup(
     try {
       gogRedistManifestData = JSON.parse(gogRedistManifestDataRaw)
     } catch (e) {
-      logError('SETUP: Failed to parse redist manifest', {
-        prefix: LogPrefix.Gog
-      })
+      logError(['SETUP: Failed to parse redist manifest:', e], LogPrefix.Gog)
       return
     }
 

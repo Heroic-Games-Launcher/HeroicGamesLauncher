@@ -149,11 +149,10 @@ function hasParameterCaseInsensitive(object: ShortcutEntry, key: string) {
  *  @param {Object} object
  *  @returns Title of Shortcut Entry
  */
-function getAppName(object: ShortcutEntry) {
-  const foundkey =
-    Object.keys(object).find((key) => key.toLowerCase() === 'appname') ??
-    'AppName'
-  return object[foundkey]
+function getAppName(object: ShortcutEntry): string {
+  return Object.entries(object).find(
+    ([key]) => key.toLowerCase() === 'appname'
+  )?.[1]
 }
 
 /**

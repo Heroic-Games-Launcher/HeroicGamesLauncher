@@ -206,7 +206,7 @@ export async function launchGame(
 
       try {
         await access(executable, FS_CONSTANTS.X_OK)
-      } catch (error) {
+      } catch {
         logWarning(
           'File not executable, changing permissions temporarily',
           LogPrefix.Backend

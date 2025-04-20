@@ -117,7 +117,7 @@ export const initGamepad = () => {
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
           } else if (isGameCard()) {
-            action === 'mainAction'
+            action = 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
             // simulate a left click on a virtual keyboard button
             action = 'leftClick'

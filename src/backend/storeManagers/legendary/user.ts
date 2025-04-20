@@ -94,7 +94,7 @@ export class LegendaryUser {
       return info
     } catch (error) {
       logError(
-        `User info file corrupted, check ${userInfo}`,
+        [`User info file corrupted, check ${userInfo}:`, error],
         LogPrefix.Legendary
       )
       return

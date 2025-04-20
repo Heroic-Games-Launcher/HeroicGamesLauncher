@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "target": "es2017",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "sourceMap": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
@@ -12,7 +12,6 @@
     "noImplicitAny": true,
     "importHelpers": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -22,8 +21,7 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src/",
-    "types": ["@types/jest"],
-    "typeRoots": ["./node_modules", "src/common/typedefs"]
+    "typeRoots": ["./node_modules/@types", "src/common/typedefs"]
   },
   "include": ["src"],
   "exclude": ["vite.config.ts", "**/__mocks__/**", "sign"]

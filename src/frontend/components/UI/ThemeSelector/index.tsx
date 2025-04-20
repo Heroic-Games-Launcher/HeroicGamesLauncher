@@ -6,7 +6,7 @@ import { AppSettings } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 
-export const defaultThemes = {
+export const defaultThemes: Record<string, string> = {
   midnightMirage: 'Midnight Mirage',
   cyberSpaceOasis: 'Cyberspace Oasis',
   cyberSpaceOasisAlt: 'Cyberspace Oasis Classic',

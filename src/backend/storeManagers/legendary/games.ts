@@ -207,6 +207,10 @@ async function getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
       return null
     }
   } catch (error) {
+    logError(
+      ['Failed to parse EGS Content API response:', error],
+      LogPrefix.Legendary
+    )
     return null
   }
 }
@@ -1018,7 +1022,7 @@ export async function forceUninstall(appName: string) {
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
     logError(
-      `Error reading ${installed}, could not complete operation`,
+      [`Error reading ${installed}, could not complete operation:`, error],
       LogPrefix.Legendary
     )
   }

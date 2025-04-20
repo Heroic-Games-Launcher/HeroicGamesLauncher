@@ -72,7 +72,7 @@ abstract class GlobalConfig {
         version = JSON.parse(readFileSync(configPath, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${configPath}`,
+          [`Config file is corrupted, please check ${configPath}:`, error],
           LogPrefix.Backend
         )
         version = 'v0'
@@ -330,7 +330,10 @@ class GlobalConfigV0 extends GlobalConfig {
     return settings
   }
 
-  public setSetting(key: string, value: unknown) {
+  public setSetting<Key extends keyof AppSettings>(
+    key: Key,
+    value: AppSettings[Key]
+  ) {
     const config = this.getSettings()
     const configStoreSettings = configStore.get_nodefault('settings') || config
     configStore.set('settings', { ...configStoreSettings, [key]: value })

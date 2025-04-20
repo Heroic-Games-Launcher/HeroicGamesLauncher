@@ -58,7 +58,7 @@ abstract class GameConfig {
         version = JSON.parse(readFileSync(path, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${path}`,
+          [`Config file is corrupted, please check ${path}:`, error],
           LogPrefix.Backend
         )
         version = 'v0'
@@ -306,7 +306,10 @@ class GameConfigV0 extends GameConfig {
     }
   }
 
-  public setSetting(key: string, value: unknown) {
+  public setSetting<Key extends keyof GameSettings>(
+    key: Key,
+    value: GameSettings[Key]
+  ) {
     this.config[key] = value
     logInfo(`${this.appName}: Setting ${key} to ${JSON.stringify(value)}`)
     return this.flush()

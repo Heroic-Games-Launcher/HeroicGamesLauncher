@@ -1,8 +1,8 @@
 diff --git a/process.d.ts b/process.d.ts
-index 5f84863f9b4824dd1bd753726e6cbb3813fe358e..0c8f938a9cb5b807cf7415356ca064495b13cce7 100644
+index 63b6525878620b265f9c607edc0864d09d1b93e5..5dfb8d83cd201a10aa4b6a02b215bdbca147703f 100644
 --- a/process.d.ts
 +++ b/process.d.ts
-@@ -66,17 +66,9 @@ declare module "process" {
+@@ -256,17 +256,9 @@ declare module "process" {
                  openssl: string;
              }
              type Platform =
@@ -20,7 +20,7 @@ index 5f84863f9b4824dd1bd753726e6cbb3813fe358e..0c8f938a9cb5b807cf7415356ca06449
              type Architecture =
                  | "arm"
                  | "arm64"
-@@ -1258,12 +1250,8 @@ declare module "process" {
+@@ -1526,12 +1518,8 @@ declare module "process" {
                   *
                   * Currently possible values are:
                   *
@@ -33,7 +33,7 @@ index 5f84863f9b4824dd1bd753726e6cbb3813fe358e..0c8f938a9cb5b807cf7415356ca06449
                   * * `'win32'`
                   *
                   * ```js
-@@ -1271,9 +1259,6 @@ declare module "process" {
+@@ -1539,9 +1527,6 @@ declare module "process" {
                   *
                   * console.log(`This platform is ${platform}`);
                   * ```

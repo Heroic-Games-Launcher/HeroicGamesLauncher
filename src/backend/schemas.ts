@@ -7,4 +7,6 @@ const Path = z
   .brand('Path')
 type Path = z.infer<typeof Path>
 
-export { Path }
+const Runners = z.enum(['legendary', 'gog', 'nile', 'sideload'])
+
+export { Path, Runners }

@@ -189,7 +189,7 @@ async function main() {
   const releaseListTag = releasesTag?.releases[0].release[0].description[1]
 
   if (releaseListTag === undefined) {
-    throw 'releaseListTag ul undefined'
+    throw new Error('releaseListTag ul undefined')
   }
 
   releaseListTag.ul = [...releaseNotesElements] // Set the <ul> element to the generated <li> elements
