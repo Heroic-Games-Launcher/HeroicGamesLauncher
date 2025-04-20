@@ -4,7 +4,7 @@ summary: An Open Source Launcher for GOG, Epic Games and Amazon Games
 description: |
   Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games
   Store using Legendary, Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.
-adopt-info: heroic
+version: 2.16.1
 icon: src/frontend/assets/heroic-icon.svg
 grade: stable
 confinement: strict
@@ -280,7 +280,7 @@ parts:
 
   heroic:
     source: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher.git
-    source-tag: 'v2.15.2'
+    source-tag: 'v${SNAPCRAFT_PROJECT_VERSION}'
     source-depth: 1
     plugin: dump
     build-packages:
