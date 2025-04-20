@@ -1,8 +1,9 @@
 name: heroic
-summary: An Open Source Launcher for GOG Amazon and Epic Games
+title: Heroic Games Launcher
+summary: An Open Source Launcher for GOG, Epic Games and Amazon Games
 description: |
   Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games
-  Store using Legendary Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.
+  Store using Legendary, Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.
 adopt-info: heroic
 icon: src/frontend/assets/heroic-icon.svg
 grade: stable
@@ -13,6 +14,16 @@ base: core22
 compression: lzo
 assumes:
   - snapd2.62
+
+license: GPL-3.0-only
+contact: https://discord.gg/rHJ2uqdquK
+issues: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues
+donation:
+  - https://github.com/sponsors/Heroic-Games-Launcher
+  - https://patreon.com/heroicgameslauncher
+  - https://ko-fi.com/heroicgames
+source-code: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher
+website: https://heroicgameslauncher.com/
 
 lint:
   # Snapcraft's `ldd` lint can't handle 32-bit things,
@@ -416,7 +427,7 @@ parts:
 apps:
   heroic:
     command-chain: [bin/desktop-launch]
-    command: heroic --no-sandbox
+    command: heroic --no-sandbox --ozone-platform-hint=auto
     environment:
       HOME: $SNAP_USER_COMMON
       #LIBGL_DEBUG: verbose
