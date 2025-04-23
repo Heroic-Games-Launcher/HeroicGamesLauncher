@@ -1,0 +1,2 @@
+patchedDependencies:
+  '@types/node@20.14.14': patches/@types__node@20.14.14.patch
