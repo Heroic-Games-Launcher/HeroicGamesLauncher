@@ -21,6 +21,7 @@
   "engines": {
     "node": ">= 16"
   },
+  "packageManager": "pnpm@10.9.0",
   "scripts": {
     "start": "electron-vite dev --watch",
     "debug:react": "pnpm start & react-devtools",
