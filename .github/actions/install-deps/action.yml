@@ -8,7 +8,7 @@ runs:
         node-version: '20'
     - uses: pnpm/action-setup@v3
       with:
-        version: 9
+        version: 10
         standalone: ${{ runner.os == 'Windows' }}
     - name: Install node-gyp
       run: pnpm add --global node-gyp
