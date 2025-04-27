@@ -5,13 +5,12 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 const ExperimentalFeatures = () => {
-  const FEATURES = ['enableNewDesign', 'enableHelp', 'cometSupport']
+  const FEATURES = ['enableHelp', 'cometSupport']
 
   const { t } = useTranslation()
   const [experimentalFeatures, setExperimentalFeatures] = useSetting(
     'experimentalFeatures',
     {
-      enableNewDesign: false,
       enableHelp: false,
       cometSupport: true
     }
@@ -21,7 +20,8 @@ const ExperimentalFeatures = () => {
   const toggleFeature = (feature: string) => {
     const newFeatures = {
       ...experimentalFeatures,
-      [feature]: !experimentalFeatures[feature]
+      [feature]:
+        !experimentalFeatures[feature as keyof typeof experimentalFeatures]
     }
     setExperimentalFeatures(newFeatures) // update settings
     handleExperimentalFeatures(newFeatures) // update global state
@@ -44,7 +44,11 @@ const ExperimentalFeatures = () => {
           <div key={feature}>
             <ToggleSwitch
               htmlId={feature}
-              value={experimentalFeatures[feature]}
+              value={
+                experimentalFeatures[
+                  feature as keyof typeof experimentalFeatures
+                ]
+              }
               handleChange={() => toggleFeature(feature)}
               title={t(`setting.experimental_features.${feature}`, feature)}
             />
