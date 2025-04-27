@@ -41,7 +41,7 @@ export const publicDir = resolve(
 )
 
 export const fakeEpicExePath = fixAsarPath(
-  join(publicDir, 'bin', 'EpicGamesLauncher.exe')
+  join(publicDir, 'bin', 'x64', 'win32', 'EpicGamesLauncher.exe')
 )
 
 /**
