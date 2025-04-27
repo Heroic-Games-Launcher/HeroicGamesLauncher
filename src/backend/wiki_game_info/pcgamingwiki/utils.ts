@@ -1,7 +1,6 @@
 import {
   direct3DVersionsRegEx,
   genresRegEx,
-  howLongToBeatIDRegEx,
   idgbRegEx,
   metacriticRegEx,
   opencriticRegEx,
@@ -37,7 +36,6 @@ export async function getInfoFromPCGamingWiki(
     const opencritic = getGameScore(wikitext, opencriticRegEx)
     const igdb = getGameScore(wikitext, idgbRegEx)
     const steamID = wikitext.match(steamIDRegEx)?.[1] ?? ''
-    const howLongToBeatID = wikitext.match(howLongToBeatIDRegEx)?.[1] ?? ''
     const direct3DVersions = wikitext.match(direct3DVersionsRegEx)?.[1] ?? ''
     const genres = wikitext.match(genresRegEx)?.[1] ?? ''
 
@@ -45,7 +43,6 @@ export async function getInfoFromPCGamingWiki(
 
     return {
       steamID,
-      howLongToBeatID,
       metacritic,
       opencritic,
       igdb,
