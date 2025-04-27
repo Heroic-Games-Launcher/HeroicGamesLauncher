@@ -1,0 +1,13 @@
+patchedDependencies:
+  '@types/node@20.14.14': patches/@types__node@20.14.14.patch
+
+onlyBuiltDependencies:
+  - '@fortawesome/fontawesome-common-types'
+  - '@fortawesome/fontawesome-svg-core'
+  - '@fortawesome/free-brands-svg-icons'
+  - '@fortawesome/free-regular-svg-icons'
+  - '@fortawesome/free-solid-svg-icons'
+  - '@swc/core'
+  - electron
+  - esbuild
+  - register-scheme
