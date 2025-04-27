@@ -94,7 +94,7 @@ const vulkanHelperBin = fixAsarPath(
   join(publicDir, 'bin', process.arch, process.platform, 'vulkan-helper')
 )
 const fakeEpicExePath = fixAsarPath(
-  join(publicDir, 'bin', 'EpicGamesLauncher.exe')
+  join(publicDir, 'bin', 'x64', 'win32', 'EpicGamesLauncher.exe')
 )
 const icon = fixAsarPath(join(publicDir, 'icon.png'))
 const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
