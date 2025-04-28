@@ -1,9 +1,9 @@
-import { isMac } from '../../../constants'
 import { existsSync, statSync, unlinkSync } from 'graceful-fs'
 import { spawnSync } from 'child_process'
 
 import { VersionInfo, Type, type WineManagerStatus } from 'common/types'
 import { axiosClient, extractFiles } from 'backend/utils'
+import { isMac } from 'backend/constants/environment'
 
 interface fetchProps {
   url: string

@@ -3,10 +3,10 @@ import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
 import { GameInfo, Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
-import { icon } from './constants'
 import { gameManagerMap } from './storeManagers'
 import { launchEventCallback } from './launcher'
 import { z } from 'zod'
+import { windowIcon } from './constants/paths'
 
 const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
 
@@ -95,7 +95,7 @@ async function handleLaunch(url: URL) {
       'Is Not Installed, do you wish to Install it?'
     )}`,
     title: title,
-    icon: icon
+    icon: windowIcon
   })
   if (response === 0) {
     sendFrontendMessage('installGame', appName, gameInfo.runner)
