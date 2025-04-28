@@ -34,11 +34,22 @@ async function addShortcuts(gameInfo: GameInfo, fromMenu?: boolean) {
   const { app_name, runner, title } = gameInfo
 
   logInfo(`Adding shortcuts for ${title}`, LogPrefix.Backend)
-  const { addDesktopShortcuts, addStartMenuShortcuts, addSteamShortcuts } =
-    GlobalConfig.get().getSettings()
+  const {
+    addDesktopShortcuts,
+    addStartMenuShortcuts,
+    addSteamShortcuts,
+    addSteamShortcutsUninstalled
+  } = GlobalConfig.get().getSettings()
 
-  if (addSteamShortcuts) {
-    addNonSteamGame({ gameInfo })
+  if (
+    (addSteamShortcuts && gameInfo.is_installed) ||
+    addSteamShortcutsUninstalled
+  ) {
+    await addNonSteamGame({ gameInfo })
+  }
+
+  if (!gameInfo.is_installed) {
+    return
   }
 
   const launchWithProtocol = `heroic://launch?appName=${app_name}&runner=${runner}`

@@ -59,6 +59,7 @@ import shlex from 'shlex'
 import thirdParty from './thirdParty'
 import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
+import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
@@ -181,7 +182,13 @@ export async function refresh(): Promise<ExecResult | null> {
   } catch (error) {
     logError(error, LogPrefix.Legendary)
   }
+
   const arr = Array.from(library.values())
+
+  for (const game of library.values()) {
+    await addShortcuts(game, false)
+  }
+
   libraryStore.set('library', arr)
   logInfo(
     ['Game list updated, got', `${arr.length}`, 'games & DLCs'],
