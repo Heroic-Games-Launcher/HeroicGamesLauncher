@@ -176,9 +176,6 @@ importers:
         specifier: ^4.4.7
         version: 4.5.2(@types/react@18.3.3)(react@18.2.0)
     devDependencies:
-      '@electron/notarize':
-        specifier: ^2.3.2
-        version: 2.3.2
       '@eslint/js':
         specifier: ^9.7.0
         version: 9.9.0
@@ -616,10 +613,6 @@ packages:
 
   '@electron/notarize@2.2.1':
     resolution: {integrity: sha512-aL+bFMIkpR0cmmj5Zgy0LMKEpgy43/hw5zadEArgmAMWWlKc5buwFvFT9G/o/YJkvXAJm5q3iuTuLaiaXW39sg==}
-    engines: {node: '>= 10.0.0'}
-
-  '@electron/notarize@2.3.2':
-    resolution: {integrity: sha512-zfayxCe19euNwRycCty1C7lF7snk9YwfRpB5M8GLr1a4ICH63znxaPNAubrMvj0yDvVozqfgsdYpXVUnpWBDpg==}
     engines: {node: '>= 10.0.0'}
 
   '@electron/notarize@2.5.0':
@@ -6420,14 +6413,6 @@ snapshots:
       - supports-color
 
   '@electron/notarize@2.2.1':
-    dependencies:
-      debug: 4.3.4
-      fs-extra: 9.1.0
-      promise-retry: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@electron/notarize@2.3.2':
     dependencies:
       debug: 4.3.4
       fs-extra: 9.1.0
