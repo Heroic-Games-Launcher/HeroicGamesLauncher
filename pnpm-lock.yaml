@@ -179,9 +179,6 @@ importers:
         specifier: ^4.4.7
         version: 4.5.6(@types/react@18.3.3)(react@18.2.0)
     devDependencies:
-      '@electron/notarize':
-        specifier: ^2.3.2
-        version: 2.5.0
       '@eslint/js':
         specifier: ^9.7.0
         version: 9.25.1

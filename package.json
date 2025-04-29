@@ -109,7 +109,6 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
-    "@electron/notarize": "^2.3.2",
     "@eslint/js": "^9.7.0",
     "@playwright/test": "1.42.1",
     "@testing-library/dom": "9.0.1",
