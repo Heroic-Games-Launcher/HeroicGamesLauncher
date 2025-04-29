@@ -16,26 +16,6 @@
   .active {
     animation: fading 1s alternate infinite;
   }
-
-  .drag {
-    font-family: var(--font-secondary-regular);
-    font-size: var(--text-md);
-    line-height: 19px;
-    text-decoration: underline;
-    transition: 350ms;
-    flex-direction: column;
-    text-decoration: none;
-    white-space: nowrap;
-    justify-content: center;
-
-    & span {
-      transition: 350ms;
-      font-size: var(--text-xs);
-      font-style: italic;
-      color: var(--text-secondary);
-      text-decoration: none;
-    }
-  }
 }
 
 @keyframes fading {
