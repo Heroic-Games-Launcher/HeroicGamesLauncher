@@ -29,7 +29,7 @@ const CachedImage = (props: Props) => {
   }
 
   let src = useFallback ? props.fallback : props.src
-  src = useCache ? `imagecache://${src}` : src
+  src = useCache && src ? `imagecache://${encodeURIComponent(src)}` : src
 
   return (
     <img
