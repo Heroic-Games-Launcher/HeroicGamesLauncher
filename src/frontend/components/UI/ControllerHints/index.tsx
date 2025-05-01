@@ -57,7 +57,7 @@ export default function ControllerHints() {
         'controller.hints.open_virtual_keyboard',
         'Open virtual keyboard'
       )
-    } else if (target.closest('.MuiMenu-list')) {
+    } else if (target.closest('.contextMenu')) {
       // focusing a context menu on a card or list item
       main = t('controller.hints.select', 'Select')
       back = t('controller.hints.back', 'Back')
@@ -70,6 +70,9 @@ export default function ControllerHints() {
       alt2 = t('controller.hints.space', 'Space')
     } else if (installDialog) {
       back = t('controller.hints.close_dialog', 'Close dialog')
+    } else if (target.closest('.MuiList-root')) {
+      main = t('controller.hints.select', 'Select')
+      back = t('controller.hints.close_options', 'Close options')
     }
 
     setMainActionHint(main)
