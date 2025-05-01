@@ -172,6 +172,9 @@ export const initGamepad = () => {
           if (isMuiSelect()) {
             action = 'tab'
           }
+          if (isMuiDialogCloseButton()) {
+            action = 'tab'
+          }
           break
         case 'padUp':
         case 'leftStickUp':
@@ -247,6 +250,18 @@ export const initGamepad = () => {
     if (!el) return false
 
     return el.classList.contains('MuiSelect-select')
+  }
+
+  function isMuiDialogCloseButton() {
+    const el = currentElement()
+    if (!el) return false
+
+    const isIconButton = el.classList.contains('MuiIconButton-root')
+    if (!isIconButton) return false
+
+    const parent = el.parentElement
+    if (!parent) return false
+    return parent.classList.contains('MuiDialog-paper')
   }
 
   function isInMuiPopover() {
