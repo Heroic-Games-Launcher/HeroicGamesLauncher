@@ -14,7 +14,8 @@
   height: 100%;
   width: 100%;
   --gradient-angle: 90deg;
-  background: linear-gradient(
+  background:
+    linear-gradient(
       var(--gradient-angle),
       rgba(0, 0, 0, 0),
       var(--background-darker) 100%
