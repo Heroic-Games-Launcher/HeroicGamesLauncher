@@ -14,10 +14,12 @@ import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+import SettingsContext from '../Settings/SettingsContext'
+import useSettingsContext from '../../hooks/useSettingsContext'
 import './index.css'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 
-export default React.memo(function Accessibility() {
+const Accessibility = React.memo(function Accessibility() {
   const { t } = useTranslation()
   const {
     isRTL,
@@ -238,3 +240,13 @@ export default React.memo(function Accessibility() {
     </div>
   )
 })
+
+export default function AccessibilityWrapper() {
+  const settingsContext = useSettingsContext({ appName: 'default' })
+  if (!settingsContext) return <></>
+  return (
+    <SettingsContext.Provider value={settingsContext}>
+      <Accessibility />
+    </SettingsContext.Provider>
+  )
+}
