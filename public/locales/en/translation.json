@@ -241,7 +241,16 @@
             "start-time": "Started at",
             "type": "Type"
         },
-        "title": "Downloads"
+        "title": "Downloads",
+        "auto-shutdown": {
+            "label": "Automatically shutdown machine when all downloads are finished",
+            "description": "This will shutdown the machine when all downloads are successfully finished.",
+            "cancellationPrompt": {
+                "title": "Automatically shutting down in 10 seconds...",
+                "message": "Do you want to cancel the shutdown?",
+                "cancel": "Cancel shutdown"
+            }
+        }
     },
     "emptyLibrary": {
         "noGames": "Your library is empty.<br /><br />Click <4>here</4> to log in with your Epic, GOG.com, or Amazon accounts. Then, your games will show up here in the Library.<br /><br />To use games or apps from other sources, click <br /> to add them manually.",
