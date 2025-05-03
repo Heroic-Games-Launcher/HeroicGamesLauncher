@@ -747,7 +747,7 @@ export interface WindowProps extends Electron.Rectangle {
   titleBarOverlay?: TitleBarOverlay | boolean
 }
 
-interface GameScopeSettings {
+export interface GameScopeSettings {
   enableUpscaling: boolean
   enableLimiter: boolean
   enableForceGrabCursor: boolean
