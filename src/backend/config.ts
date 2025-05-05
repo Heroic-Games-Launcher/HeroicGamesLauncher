@@ -7,7 +7,7 @@ import {
 } from 'common/types'
 import { currentGlobalConfigVersion } from 'backend/constants/others'
 
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger'
 import {
   getCrossover,
   getDefaultWine,

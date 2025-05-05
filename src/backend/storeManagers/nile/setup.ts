@@ -3,8 +3,9 @@ import {
   logDebug,
   logError,
   logInfo,
-  logWarning
-} from 'backend/logger/logger'
+  logWarning,
+  getRunnerLogWriter
+} from 'backend/logger'
 import { fetchFuelJSON, getGameInfo } from './library'
 import { GameConfig } from 'backend/game_config'
 import {
@@ -66,7 +67,12 @@ export default async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameSettings)
+    const logWriter = getRunnerLogWriter('nile')
+    const isWineOkToLaunch = await checkWineBeforeLaunch(
+      gameInfo,
+      gameSettings,
+      logWriter
+    )
 
     if (!isWineOkToLaunch) {
       logError(

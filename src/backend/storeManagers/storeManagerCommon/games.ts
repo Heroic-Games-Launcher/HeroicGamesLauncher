@@ -1,13 +1,11 @@
-import { CallRunnerOptions, GameInfo, GameSettings, Runner } from 'common/types'
+import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
 import {
-  appendGamePlayLog,
-  appendWinetricksGamePlayLog,
-  lastPlayLogFileLocation,
+  createGameLogWriter,
   logInfo,
   LogPrefix,
   logWarning
-} from '../../logger/logger'
+} from 'backend/logger'
 import { basename, dirname } from 'path'
 import { constants as FS_CONSTANTS } from 'graceful-fs'
 import i18next from 'i18next'
@@ -34,6 +32,8 @@ import { gameManagerMap } from '../index'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
 import { windowIcon } from 'backend/constants/paths'
+
+import type LogWriter from 'backend/logger/log_writer'
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
@@ -120,6 +120,7 @@ const openNewBrowserGameWindow = async ({
 
 export async function launchGame(
   appName: string,
+  logWriter: LogWriter,
   gameInfo: GameInfo,
   runner: Runner,
   args: string[] = []
@@ -166,11 +167,10 @@ export async function launchGame(
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(gameSettings, gameInfo, isNative)
+    } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative)
 
     if (!isNative) {
-      await prepareWineLaunch(runner, appName)
-      appendWinetricksGamePlayLog(gameInfo)
+      await prepareWineLaunch(runner, appName, logWriter)
     }
 
     const wrappers = setupWrappers(
@@ -182,7 +182,7 @@ export async function launchGame(
     )
 
     if (!launchPrepSuccess) {
-      appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+      logWriter.logError(['Launch aborted:', launchPrepFailReason])
       launchCleanup()
       showDialogBoxModalAuto({
         title: i18next.t('box.error.launchAborted', 'Launch aborted'),
@@ -225,25 +225,8 @@ export async function launchGame(
         ...getKnownFixesEnvVariables(appName, runner)
       }
 
-      appendGamePlayLog(gameInfo, `Game Log:\n`)
+      const logFileWriter = await createGameLogWriter(appName, 'sideload')
 
-      if (!gameSettings.verboseLogs) {
-        appendGamePlayLog(
-          gameInfo,
-          "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n"
-        )
-      }
-
-      const runnerOptions: CallRunnerOptions = {
-        env,
-        wrappers,
-        logMessagePrefix: LogPrefix.Backend
-      }
-      if (gameSettings.verboseLogs) {
-        runnerOptions.onOutput = (output) => {
-          if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
-        }
-      }
       await callRunner(
         extraArgs,
         {
@@ -252,7 +235,12 @@ export async function launchGame(
           bin: basename(executable),
           dir: dirname(executable)
         },
-        runnerOptions
+        {
+          env,
+          wrappers,
+          logWriters: [logFileWriter],
+          logMessagePrefix: LogPrefix.Backend
+        }
       )
 
       launchCleanup(rpcClient)
@@ -268,15 +256,6 @@ export async function launchGame(
       LogPrefix.Backend
     )
 
-    appendGamePlayLog(gameInfo, `Game Log:\n`)
-
-    if (!gameSettings.verboseLogs) {
-      appendGamePlayLog(
-        gameInfo,
-        "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n"
-      )
-    }
-
     await runWineCommand({
       commandParts: [executable, ...extraArgs],
       gameSettings,
@@ -285,11 +264,8 @@ export async function launchGame(
       startFolder: dirname(executable),
       options: {
         wrappers,
-        logFile: lastPlayLogFileLocation(appName),
-        logMessagePrefix: LogPrefix.Backend,
-        onOutput: (output) => {
-          if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
-        }
+        logWriters: [logWriter],
+        logMessagePrefix: LogPrefix.Backend
       }
     })
 

@@ -1,4 +1,4 @@
-import { logWarning, LogPrefix, logError } from 'backend/logger/logger'
+import { logWarning, LogPrefix, logError } from 'backend/logger'
 import * as crypto from 'crypto'
 import {
   existsSync,
