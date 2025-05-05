@@ -567,7 +567,8 @@
         "mangohud": "Įjungti/Įgalinti „Mangohud“ („Mangohud“ turi būti įdiegtas)",
         "start-in-tray": "Pradėti minimizuotai",
         "showMetalOverlay": "Rodyti perdangos statistiką",
-        "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)"
+        "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)",
+        "disableUMU": "Išjungti/Išgalinti „UMU“"
     },
     "settings": {
         "advanced": {
@@ -926,5 +927,8 @@
         "settings": {
             "wineprefix": "Pažymėkite aplanką/-alą naujiems „Wine“ prielinksniams/priešdėliams"
         }
+    },
+    "tour": {
+        "back": "Atgal"
     }
 }
