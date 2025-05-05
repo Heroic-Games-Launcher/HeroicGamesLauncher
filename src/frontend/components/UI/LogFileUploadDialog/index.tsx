@@ -31,7 +31,7 @@ export default function LogUploadDialog() {
 
     const result = await window.api.uploadLogFile(
       uploadLogFileProps.name,
-      uploadLogFileProps.appNameOrRunner
+      uploadLogFileProps.logFileArgs
     )
 
     setUploading(false)

@@ -1,4 +1,4 @@
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import axios, { AxiosError } from 'axios'
 import { app } from 'electron'
 import { z } from 'zod'

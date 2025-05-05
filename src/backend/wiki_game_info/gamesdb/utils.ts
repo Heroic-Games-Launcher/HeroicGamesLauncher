@@ -1,5 +1,5 @@
 import { GamesDBInfo, Runner } from 'common/types'
-import { logInfo, LogPrefix } from 'backend/logger/logger'
+import { logInfo, LogPrefix } from 'backend/logger'
 import { GamesDBData } from 'common/types/gog'
 import { getGamesdbData } from 'backend/storeManagers/gog/library'
 import { storeMap } from 'common/utils'
