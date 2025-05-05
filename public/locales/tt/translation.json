@@ -107,7 +107,8 @@
     "amazon": "Amazon",
     "Amazon Games": "Amazon Уеннары",
     "game": {
-        "status": "Халәт"
+        "status": "Халәт",
+        "title": "Уен/Кушымта Исеме"
     },
     "winetricks": {
         "install": "Урнаштыру",
@@ -122,6 +123,13 @@
     "settings": {
         "advanced": {
             "details": "Нечкәлекләр"
+        },
+        "navbar": {
+            "log": "Журналлар"
         }
+    },
+    "store": "Epic Store монда",
+    "window": {
+        "close": "Lukk"
     }
 }

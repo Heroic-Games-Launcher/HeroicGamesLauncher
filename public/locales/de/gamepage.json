@@ -74,7 +74,9 @@
         "uninstall": "Deinstallieren",
         "update": "Aktualisieren",
         "details": "Informationen",
-        "changelog": "Änderungskatalog Anzeigen"
+        "changelog": "Änderungskatalog Anzeigen",
+        "browse_files": "Dateien durchsuchen",
+        "browse_wine_prefix": "Wine präfix durchsuchen"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -291,5 +293,14 @@
         "header": "Dieses Spiel wird von einer Drittanbieteranwendung verwaltet",
         "notice1": "Dieses Spiel wird von einer Drittanbieteranwendung verwaltet: „{{application_name}}“",
         "notice2": "Nach dem Klicken auf Installieren führt Heroic die Anwendung aus, um den Installationsvorgang abzuschließen"
+    },
+    "Open": "Öffnen",
+    "queue": {
+        "label": {
+            "canceled": "Abgebrochen",
+            "remove": "Aus Downloads entfernen",
+            "pause": "Download pausieren",
+            "resume": "Download fortsetzen"
+        }
     }
 }

@@ -495,7 +495,9 @@
             "title": "Käärimen käsky:"
         },
         "gamescope": {
-            "upscaleWidth": "Skaalan leveys"
+            "upscaleWidth": "Skaalan leveys",
+            "fullscreen": "Koko näyttö",
+            "windowed": "Ikkunoitu"
         }
     },
     "other": {
@@ -605,7 +607,8 @@
             "show-in-folder": "Näytä lokitiedosto kansiossa",
             "upload": {
                 "actions": "Toiminnot"
-            }
+            },
+            "join-heroic-discord": "Liity Discordiimme"
         },
         "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
         "manualsync": {
@@ -658,7 +661,18 @@
             "enableNewDesign": "Uusi malli"
         },
         "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä",
-        "msync": "Ota Esync käyttöön"
+        "msync": "Ota Esync käyttöön",
+        "frameless-window": {
+            "confirmation": {
+                "title": "Kokeelliset ominaisuudet"
+            }
+        },
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "Ymmärrän",
+                "title": "Oletko varma?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -708,7 +722,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary-julkaisu: {{legendaryVersion}}",
             "systemSpecifications": "Järjestelmämääritykset:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Ajuri: {{driverVersion}}",
             "os": "Käyttöjärjestelmä:",
             "gpu": "Näytönohjain:",
@@ -734,11 +748,15 @@
                 "help2": "Kolmannen osapuolen pelitiedot (pisteet, Steam-yhteensopivuus, läpipeluuaika, PcGamingWiki, AppleGamingWiki)"
             },
             "title": {
-                "resetHeroic": "Nollaa Heroic"
+                "resetHeroic": "Nollaa Heroic",
+                "clearCache": "Tyhjennä välimuisti"
             },
             "resetHeroic": {
                 "help": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin."
             }
+        },
+        "custom_css": {
+            "title": "Mukautettu CSS-tyyli"
         }
     },
     "Settings": "Asetukset",
@@ -825,10 +843,19 @@
     "prime-gaming": "Amazon Prime Gaming",
     "winetricks": {
         "install": "Asenna",
-        "loading": "Ladataan"
+        "loading": "Ladataan",
+        "openGUI": "Avaa Winetricksin käyttöliittymä",
+        "installing": "Asennus meneillään: {{component}}",
+        "search": "Etsi fontteja tai komponentteja",
+        "installed": "Asennetut komponentit:",
+        "loading-available": "Ladataan saatavilla olevia komponentteja...",
+        "no-components": "Ei saatavilla olevia komponentteja"
     },
     "window": {
-        "close": "Sulje"
+        "close": "Sulje",
+        "maximize": "Suurenna ikkuna",
+        "restore": "Palauta ikkuna",
+        "minimize": "Pienennä ikkuna"
     },
     "category-settings": {
         "cancel": "Peruuta",
@@ -857,5 +884,22 @@
     },
     "emptyLibrary": {
         "noResults": "Nämä suodattimet eivät tuottaneet tuloksia."
+    },
+    "tour": {
+        "back": "Takaisin",
+        "done": "Valmis",
+        "library": {
+            "end": {
+                "title": "Nauti peleistäsi!"
+            },
+            "welcome": {
+                "intro": "Tervetuloa Heroic-kirjastoon! Täältä näet kaikki pelisi riippumatta mistä kaupasta ne ovat peräisin.",
+                "title": "Tervetuloa Heroiciin!",
+                "title2": "Kirjaston hallinta!"
+            }
+        },
+        "next": "Seuraava",
+        "startTour": "Käynnistä tutustumiskierros",
+        "skip": "Ohita"
     }
 }

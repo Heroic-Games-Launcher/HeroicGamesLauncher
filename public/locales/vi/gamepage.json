@@ -246,5 +246,14 @@
     },
     "help": {
         "cloud_save_unsupported": "Trò chơi này không hỗ trợ tiết kiệm điện toán đám mây. Thông tin này được cung cấp bởi các nhà phát triển trò chơi. Một số trò chơi triển khai hệ thống lưu trên đám mây của riêng họ"
+    },
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "Bản mở rộng"
     }
 }

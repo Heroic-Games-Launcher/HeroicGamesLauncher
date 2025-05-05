@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Şriftlər",
         "title": "Əlçatanlıq",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "actions_font_family_default": "Actions Font Family (Default:",
+        "content_font_family_default": "Content Font Family (Default:"
     },
     "add_game": "Add Game",
     "All": "Hamısı",
