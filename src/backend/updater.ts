@@ -4,7 +4,7 @@ import { t } from 'i18next'
 
 import { icon } from './constants'
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { logError, LogPrefix } from './logger/logger'
+import { logError, LogPrefix } from './logger'
 
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false

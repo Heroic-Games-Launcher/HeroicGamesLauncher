@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { existsSync, unlinkSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { GOGLoginData } from 'common/types'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'

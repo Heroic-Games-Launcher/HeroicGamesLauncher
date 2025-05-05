@@ -28,13 +28,12 @@ import {
   userHome,
   isLinux
 } from '../constants'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
 import { isOnline } from '../online_monitor'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
 import {
-  prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
   setupWineEnvVars,
@@ -822,8 +821,6 @@ export async function runWineCommandOnGame(
   }
   const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  await prepareWineLaunch(runner, appName)
 
   return runWineCommand({
     gameSettings,

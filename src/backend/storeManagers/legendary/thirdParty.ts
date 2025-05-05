@@ -1,5 +1,5 @@
 import { thirdPartyInstalled } from 'backend/constants'
-import { LogPrefix, logWarning, logError } from 'backend/logger/logger'
+import { LogPrefix, logWarning, logError } from 'backend/logger'
 import { InstalledJsonMetadata } from 'common/types/legendary'
 import { existsSync, readFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'

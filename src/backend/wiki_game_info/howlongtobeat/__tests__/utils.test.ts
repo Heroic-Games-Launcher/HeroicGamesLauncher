@@ -1,9 +1,8 @@
-import { logError } from 'backend/logger/logger'
+import { logError } from 'backend/logger'
 import { getHowLongToBeat, type HowLongToBeatEntry } from '../utils'
 import axios from 'axios'
 
-jest.mock('backend/logger/logfile')
-jest.mock('backend/logger/logger')
+jest.mock('backend/logger')
 jest.mock('electron-store')
 
 describe('getHowLongToBeat', () => {

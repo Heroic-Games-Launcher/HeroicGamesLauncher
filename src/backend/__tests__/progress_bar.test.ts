@@ -3,7 +3,7 @@ import { backendEvents } from '../backend_events'
 import { sendGameStatusUpdate, sendProgressUpdate } from '../utils'
 import '../progress_bar'
 
-jest.mock('../logger/logfile')
+jest.mock('../logger')
 
 describe('progress_bar', () => {
   const window = {

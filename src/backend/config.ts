@@ -21,7 +21,7 @@ import {
   isIntelMac
 } from './constants'
 
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger'
 import {
   getCrossover,
   getDefaultWine,

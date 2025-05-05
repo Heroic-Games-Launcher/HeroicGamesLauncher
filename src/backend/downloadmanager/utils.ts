@@ -1,5 +1,5 @@
 import { gameManagerMap } from 'backend/storeManagers'
-import { logError, LogPrefix, logWarning } from '../logger/logger'
+import { logError, LogPrefix, logWarning } from 'backend/logger'
 import {
   downloadFile,
   isEpicServiceOffline,

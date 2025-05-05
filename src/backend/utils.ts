@@ -12,13 +12,7 @@ import {
 import axios from 'axios'
 import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import {
-  exec,
-  ExecException,
-  spawn,
-  SpawnOptions,
-  spawnSync
-} from 'child_process'
+import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
 import { existsSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
@@ -37,14 +31,7 @@ import {
   isLinux,
   isIntelMac
 } from './constants'
-import {
-  appendGamePlayLog,
-  logError,
-  logInfo,
-  LogPrefix,
-  logsDisabled,
-  logWarning
-} from './logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import {
@@ -88,6 +75,8 @@ import {
 import type { WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 import { getSystemInfo } from './utils/systeminfo'
+
+import type LogWriter from 'backend/logger/log_writer'
 
 const execAsync = promisify(exec)
 
@@ -276,18 +265,15 @@ async function handleExit() {
 
 type ErrorHandlerMessage = {
   error?: string
-  logPath?: string
   appName?: string
   runner: string
 }
 
 async function errorHandler({
   error,
-  logPath,
   runner: r,
   appName
 }: ErrorHandlerMessage): Promise<void> {
-  const noSpaceMsg = 'Not enough available disk space'
   const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
@@ -295,26 +281,6 @@ async function errorHandler({
   // this message appears on macOS when no Crossover was found in the system but its a false alarm
   const ignoreCrossoverMessage = 'IndexError: list index out of range'
 
-  if (logPath) {
-    execAsync(`tail "${logPath}" | grep 'disk space'`)
-      .then(async ({ stdout }) => {
-        if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg, LogPrefix.Backend)
-          return showDialogBoxModalAuto({
-            title: i18next.t('box.error.diskspace.title', 'No Space'),
-            message: i18next.t(
-              'box.error.diskspace.message',
-              'Not enough available disk space'
-            ),
-            type: 'ERROR'
-          })
-        }
-      })
-      .catch((err: ExecException) => {
-        // Grep returns 1 when it didn't find any text, which is fine in this case
-        if (err.code !== 1) logInfo('operation interrupted', LogPrefix.Backend)
-      })
-  }
   if (error) {
     if (error.includes(ignoreCrossoverMessage)) {
       return
@@ -966,14 +932,16 @@ export async function downloadDefaultWine() {
 
 export async function checkWineBeforeLaunch(
   gameInfo: GameInfo,
-  gameSettings: GameSettings
+  gameSettings: GameSettings,
+  logWriter: LogWriter
 ): Promise<boolean> {
   const wineIsValid = await validWine(gameSettings.wineVersion)
 
   if (wineIsValid) {
     return true
   } else {
-    if (!logsDisabled) {
+    const { disableLogs } = GlobalConfig.get().getSettings()
+    if (!disableLogs) {
       logError(
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
         LogPrefix.Backend
@@ -981,10 +949,11 @@ export async function checkWineBeforeLaunch(
     }
 
     if (gameSettings.verboseLogs) {
-      appendGamePlayLog(
-        gameInfo,
-        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.\n`
-      )
+      logWriter.logWarning([
+        'Wine version',
+        gameSettings.wineVersion.name,
+        'is not valid, trying another one.\n'
+      ])
     }
 
     // check if the default wine is valid now
@@ -999,10 +968,11 @@ export async function checkWineBeforeLaunch(
       if (response === 0) {
         logInfo(`Changing wine version to ${defaultwine.name}`)
         if (gameSettings.verboseLogs) {
-          appendGamePlayLog(
-            gameInfo,
-            `Changing wine version to ${defaultwine.name}\n`
-          )
+          logWriter.logInfo([
+            'Changing wine version to',
+            defaultwine.name,
+            '\n'
+          ])
         }
         gameSettings.wineVersion = defaultwine
         GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
