@@ -6,7 +6,7 @@ import { RecentGame } from 'common/types'
 import { configStore } from '../../constants'
 import i18next from 'i18next'
 
-jest.mock('../../logger/logfile')
+jest.mock('../../logger')
 jest.mock('../../config')
 
 const wait = async (ms: number) =>

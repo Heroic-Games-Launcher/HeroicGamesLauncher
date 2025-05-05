@@ -12,6 +12,7 @@ import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
+import type LogWriter from 'backend/logger/log_writer'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -401,8 +402,7 @@ export interface RpcClient {
 
 export interface CallRunnerOptions {
   logMessagePrefix?: string
-  logFile?: string
-  verboseLogFile?: string
+  logWriters?: LogWriter[]
   logSanitizer?: (line: string) => string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]

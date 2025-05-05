@@ -8,7 +8,7 @@ import {
 } from 'graceful-fs'
 import { join } from 'path'
 import { runtimePath } from './../../constants'
-import { logError, logInfo, LogPrefix } from './../../logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { Runtime, RuntimeName } from 'common/types'
 import { downloadFile, extractTarFile } from './util'
 import { axiosClient } from 'backend/utils'

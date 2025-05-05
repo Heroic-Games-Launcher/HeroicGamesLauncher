@@ -9,6 +9,7 @@ import {
   type UploadedLogData
 } from 'common/types'
 import { NileRegisterData } from 'common/types/nile'
+import type { GetLogFileArgs } from '../logger/paths'
 
 export const clearCache = (showDialog?: boolean, fromVersionChange?: boolean) =>
   ipcRenderer.send('clearCache', showDialog, fromVersionChange)
@@ -212,8 +213,8 @@ export const fetchPlaytimeFromServer = async (
 
 export const getUploadedLogFiles = async () =>
   ipcRenderer.invoke('getUploadedLogFiles')
-export const uploadLogFile = async (name: string, appNameOrRunner: string) =>
-  ipcRenderer.invoke('uploadLogFile', name, appNameOrRunner)
+export const uploadLogFile = async (name: string, args: GetLogFileArgs) =>
+  ipcRenderer.invoke('uploadLogFile', name, args)
 export const deleteUploadedLogFile = async (url: string) =>
   ipcRenderer.invoke('deleteUploadedLogFile', url)
 

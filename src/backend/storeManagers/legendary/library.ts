@@ -28,7 +28,6 @@ import {
 import {
   fallBackImage,
   legendaryConfigPath,
-  legendaryLogFile,
   legendaryMetadata,
   isLinux,
   userHome,
@@ -40,7 +39,7 @@ import {
   logInfo,
   LogPrefix,
   logWarning
-} from '../../logger/logger'
+} from 'backend/logger'
 import {
   gamesOverrideStore,
   installStore,
@@ -716,10 +715,7 @@ export async function runRunnerCommand(
   return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
-    {
-      ...options,
-      verboseLogFile: legendaryLogFile
-    }
+    options
   )
 }
 

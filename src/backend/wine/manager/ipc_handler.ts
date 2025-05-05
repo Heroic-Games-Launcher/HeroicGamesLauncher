@@ -4,7 +4,7 @@ import {
   removeWineVersion,
   updateWineVersionInfos
 } from './utils'
-import { logError, LogPrefix } from '../../logger/logger'
+import { logError, LogPrefix } from 'backend/logger'
 import { sendFrontendMessage } from '../../main_window'
 import type { WineManagerStatus } from 'common/types'
 import { notify } from '../../dialog/dialog'

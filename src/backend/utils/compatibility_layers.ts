@@ -8,7 +8,7 @@ import {
   toolsPath,
   userHome
 } from 'backend/constants'
-import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
+import { logError, LogPrefix, logInfo } from 'backend/logger'
 import { execAsync } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'

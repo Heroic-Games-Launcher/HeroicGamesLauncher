@@ -1,17 +1,12 @@
 import JSON5 from 'json5'
-import {
-  nileConfigPath,
-  nileInstalled,
-  nileLibrary,
-  nileLogFile
-} from 'backend/constants'
+import { nileConfigPath, nileInstalled, nileLibrary } from 'backend/constants'
 import {
   LogPrefix,
   logDebug,
   logError,
   logInfo,
   logWarning
-} from 'backend/logger/logger'
+} from 'backend/logger'
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
   FuelSchema,
@@ -486,10 +481,7 @@ export async function runRunnerCommand(
   return callRunner(
     commandParts,
     { name: 'nile', logPrefix: LogPrefix.Nile, bin, dir },
-    {
-      ...options,
-      verboseLogFile: nileLogFile
-    }
+    options
   )
 }
 

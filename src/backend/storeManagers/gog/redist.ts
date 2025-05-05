@@ -9,7 +9,7 @@ import {
 import path from 'path'
 import { existsSync } from 'fs'
 import { readdir, readFile } from 'fs/promises'
-import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import {
   GOGRedistManifest,
   GOGv1Manifest,
@@ -26,6 +26,7 @@ import { DMQueueElement } from 'common/types'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'
 import { axiosClient } from 'backend/utils'
+import LogWriter from '../../logger/log_writer'
 
 export async function checkForRedistUpdates() {
   if (!GOGUser.isLoggedIn() || !isOnline()) {
@@ -203,10 +204,11 @@ export async function updateRedist(redistToSync: string[]): Promise<{
     prefix: LogPrefix.Gog
   })
 
+  const redistLogWriter = new LogWriter(logPath, false, false)
   const res = await runGogdlCommand(commandParts, {
     abortId: 'gog-redist',
     logMessagePrefix: 'GOG REDIST:',
-    logFile: logPath,
+    logWriters: [redistLogWriter],
     onOutput: (output) =>
       onInstallOrUpdateOutput('gog-redist', 'updating', output)
   })

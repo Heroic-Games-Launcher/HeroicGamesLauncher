@@ -11,7 +11,7 @@ import {
   userHome,
   defaultWinePrefix
 } from './constants'
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { join } from 'path'
 
 /**

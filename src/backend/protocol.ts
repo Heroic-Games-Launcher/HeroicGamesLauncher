@@ -1,5 +1,5 @@
 import { dialog } from 'electron'
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger'
 import i18next from 'i18next'
 import { GameInfo, Runner } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from './main_window'
