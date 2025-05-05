@@ -7,7 +7,9 @@
         "title": "無障礙設定",
         "zoom": "縮放",
         "titles_always_visible": "總是在遊戲庫中顯示標題",
-        "disable_dialog_backdrop_close": "停用在對話框外點擊關閉"
+        "disable_dialog_backdrop_close": "停用在對話框外點擊關閉",
+        "actions_font_family_default": "Actions Font Family (Default:",
+        "content_font_family_default": "內容字型家族（預設："
     },
     "add_game": "新增遊戲",
     "All": "全部",
@@ -17,7 +19,8 @@
         "reference": "參考",
         "source": "來源",
         "status": "狀態",
-        "title": "此遊戲包含反作弊軟體"
+        "title": "此遊戲包含反作弊軟體",
+        "multiplayer_may_not_work": "由於拒絕或破壞的反作弊支持，它可能無法運作。"
     },
     "box": {
         "cache-cleared": {
@@ -656,6 +659,11 @@
             "confirmation": {
                 "understand": "我理解"
             }
+        },
+        "frameless-window": {
+            "confirmation": {
+                "title": "實驗性功能"
+            }
         }
     },
     "settings": {
@@ -849,5 +857,8 @@
     },
     "adtraction-locked": {
         "dont-show-again": "不再顯示警告"
+    },
+    "tour": {
+        "back": "返回"
     }
 }
