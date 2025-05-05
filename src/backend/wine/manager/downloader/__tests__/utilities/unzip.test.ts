@@ -1,8 +1,7 @@
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { unzipFile } from '../../utilities'
 
-jest.mock('backend/logger/logger')
-jest.mock('backend/logger/logfile')
+jest.mock('backend/logger')
 
 describe('Utilities - Unzip', () => {
   test('unzip file fails because of invalid archive path', async () => {
