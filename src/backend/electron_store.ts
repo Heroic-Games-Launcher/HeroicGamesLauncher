@@ -8,14 +8,12 @@ import {
 } from 'common/types/electron_store'
 import { Get } from 'type-fest'
 
-export class TypeCheckedStoreBackend<
-  Name extends ValidStoreName,
-  Structure extends StoreStructure[Name]
-> implements TypeCheckedStore<Name, Structure>
+export class TypeCheckedStoreBackend<Name extends ValidStoreName>
+  implements TypeCheckedStore<Name>
 {
   private store: Store
 
-  constructor(name: Name, options: Store.Options<Structure>) {
+  constructor(name: Name, options: Store.Options<StoreStructure[Name]>) {
     // @ts-expect-error This looks like a bug in electron-store's type definitions
     this.store = new Store(options)
   }
@@ -26,22 +24,22 @@ export class TypeCheckedStoreBackend<
 
   public get<KeyType extends string>(
     key: KeyType,
-    defaultValue: NonNullable<UnknownGuard<Get<Structure, KeyType>>>
+    defaultValue: NonNullable<UnknownGuard<Get<StoreStructure[Name], KeyType>>>
   ) {
     return this.store.get(key, defaultValue) as NonNullable<
-      UnknownGuard<Get<Structure, KeyType>>
+      UnknownGuard<Get<StoreStructure[Name], KeyType>>
     >
   }
 
   public get_nodefault<KeyType extends string>(key: KeyType) {
     return this.store.get(key) as UnknownGuard<
-      Get<Structure, KeyType> | undefined
+      Get<StoreStructure[Name], KeyType> | undefined
     >
   }
 
   public set<KeyType extends string>(
     key: KeyType,
-    value: UnknownGuard<Get<Structure, KeyType>>
+    value: UnknownGuard<Get<StoreStructure[Name], KeyType>>
   ) {
     this.store.set(key, value)
   }
