@@ -139,6 +139,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
+import MigrationSystem from './migration'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -298,6 +299,8 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    await MigrationSystem.get().applyMigrations()
+
     initLogger()
     initOnlineMonitor()
     initStoreManagers()
