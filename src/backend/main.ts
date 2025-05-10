@@ -142,6 +142,7 @@ import {
   userHome,
   windowIcon
 } from './constants/paths'
+import MigrationSystem from './migration'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -301,6 +302,8 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    await MigrationSystem.get().applyMigrations()
+
     initLogger()
     initOnlineMonitor()
     initStoreManagers()
