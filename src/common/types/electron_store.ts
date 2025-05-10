@@ -99,6 +99,9 @@ export interface StoreStructure {
     [title: string]: WikiInfo
   }
   uploadedLogs: Record<string, UploadedLogData>
+  migrationsStore: {
+    appliedMigrations: string[]
+  }
 }
 
 export type StoreOptions<T extends Record<string, unknown>> = Store.Options<T>
