@@ -30,8 +30,6 @@ import {
   legendaryConfigPath,
   legendaryLogFile,
   legendaryMetadata,
-  isLinux,
-  userHome,
   isWindows
 } from '../../constants'
 import {
@@ -50,8 +48,6 @@ import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
-import { app } from 'electron'
-import { copySync } from 'fs-extra'
 import { LegendaryCommand } from './commands'
 import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { Path } from 'backend/schemas'
@@ -65,15 +61,6 @@ let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
 export async function initLegendaryLibraryManager() {
-  // Migrate user data from global Legendary config if necessary
-  const globalLegendaryConfig = isLinux
-    ? join(app.getPath('appData'), 'legendary')
-    : join(userHome, '.config', 'legendary')
-  if (!existsSync(legendaryConfigPath) && existsSync(globalLegendaryConfig)) {
-    mkdirSync(legendaryConfigPath, { recursive: true })
-    copySync(globalLegendaryConfig, legendaryConfigPath)
-  }
-
   loadGamesInAccount()
   refreshInstalled()
 }
