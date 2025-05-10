@@ -112,24 +112,21 @@ export type UnknownGuard<T> = unknown extends T
     : never
   : T
 
-export abstract class TypeCheckedStore<
-  Name extends ValidStoreName,
-  Structure extends StoreStructure[Name]
-> {
+export abstract class TypeCheckedStore<Name extends ValidStoreName> {
   abstract has(key: string): boolean
 
   abstract get<KeyType extends string>(
     key: KeyType,
-    defaultValue: NonNullable<UnknownGuard<Get<Structure, KeyType>>>
-  ): NonNullable<UnknownGuard<Get<Structure, KeyType>>>
+    defaultValue: NonNullable<UnknownGuard<Get<StoreStructure[Name], KeyType>>>
+  ): NonNullable<UnknownGuard<Get<StoreStructure[Name], KeyType>>>
 
   abstract get_nodefault<KeyType extends string>(
     key: KeyType
-  ): UnknownGuard<Get<Structure, KeyType> | undefined>
+  ): UnknownGuard<Get<StoreStructure[Name], KeyType> | undefined>
 
   abstract set<KeyType extends string>(
     key: KeyType,
-    value: UnknownGuard<Get<Structure, KeyType>>
+    value: UnknownGuard<Get<StoreStructure[Name], KeyType>>
   ): void
 
   // FIXME: This is currently not type-checked properly
