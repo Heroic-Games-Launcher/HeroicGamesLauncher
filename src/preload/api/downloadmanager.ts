@@ -1,4 +1,4 @@
-import { DownloadManagerState } from './../../common/types'
+import { DownloadManagerState } from '../../common/types'
 import { ipcRenderer } from 'electron'
 import { DMQueueElement, InstallParams, UpdateParams } from 'common/types'
 

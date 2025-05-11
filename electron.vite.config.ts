@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => ({
   preload: {
     build: {
       rollupOptions: {
-        input: 'src/backend/preload.ts'
+        input: 'src/preload/index.ts'
       },
       outDir: 'build/preload',
       minify: true,
