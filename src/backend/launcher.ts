@@ -6,7 +6,7 @@ import {
   WrapperEnv,
   WrapperVariable,
   ExecResult,
-  LaunchPreperationResult,
+  LaunchPreparationResult,
   RpcClient,
   WineInstallation,
   WineCommandArgs,
@@ -304,7 +304,7 @@ async function prepareLaunch(
   gameSettings: GameSettings,
   gameInfo: GameInfo,
   isNative: boolean
-): Promise<LaunchPreperationResult> {
+): Promise<LaunchPreparationResult> {
   const globalSettings = GlobalConfig.get().getSettings()
 
   let offlineMode = gameSettings.offlineMode || !isOnline()
@@ -320,6 +320,8 @@ async function prepareLaunch(
     )
   }
 
+  const wrappers: string[] = []
+
   // Update Discord RPC if enabled
   let rpcClient = undefined
   if (globalSettings.discordRPC) {
@@ -328,14 +330,107 @@ async function prepareLaunch(
 
   // If we're not on Linux, we can return here
   if (!isLinux) {
-    return { success: true, rpcClient, offlineMode }
+    return { success: true, rpcClient, offlineMode, wrappers }
   }
 
-  // Figure out where MangoHud/GameMode/Gamescope are located, if they're enabled
-  let mangoHudCommand: string[] = []
-  let gameModeBin: string | null = null
-  const gameScopeCommand: string[] = []
-  if (gameSettings.showMangohud && !isSteamDeckGameMode) {
+  const useGamescope =
+    gameSettings.gamescope?.enableLimiter ||
+    gameSettings.gamescope?.enableUpscaling
+  if (useGamescope && !isSteamDeckGameMode) {
+    const gameScopeBin = await searchForExecutableOnPath('gamescope')
+    if (!gameScopeBin) {
+      return {
+        success: false,
+        failureReason:
+          'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
+      }
+    }
+    // Gamescope does not provide a version option and they changed
+    // cli options on version 3.12. So we do what lutris does.
+    let oldVersion = true // < 3.12
+    const { stderr } = spawnSync(gameScopeBin, ['--help'], {
+      encoding: 'utf-8'
+    })
+    if (stderr && stderr.includes('-F, --filter')) {
+      oldVersion = false
+    }
+
+    wrappers.push(gameScopeBin)
+
+    if (gameSettings.gamescope.enableUpscaling) {
+      // game res
+      if (gameSettings.gamescope.gameWidth) {
+        wrappers.push('-w', gameSettings.gamescope.gameWidth)
+      }
+      if (gameSettings.gamescope.gameHeight) {
+        wrappers.push('-h', gameSettings.gamescope.gameHeight)
+      }
+
+      // gamescope res
+      if (gameSettings.gamescope.upscaleWidth) {
+        wrappers.push('-W', gameSettings.gamescope.upscaleWidth)
+      }
+      if (gameSettings.gamescope.upscaleHeight) {
+        wrappers.push('-H', gameSettings.gamescope.upscaleHeight)
+      }
+
+      // upscale method
+      if (gameSettings.gamescope.upscaleMethod === 'fsr') {
+        oldVersion ? wrappers.push('-U') : wrappers.push('-F', 'fsr')
+      }
+      if (gameSettings.gamescope.upscaleMethod === 'nis') {
+        oldVersion ? wrappers.push('-Y') : wrappers.push('-F', 'nis')
+      }
+      if (gameSettings.gamescope.upscaleMethod === 'integer') {
+        oldVersion ? wrappers.push('-i') : wrappers.push('-S', 'integer')
+      }
+      // didn't find stretch in old version
+      if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
+        wrappers.push('-S', 'stretch')
+      }
+
+      // window type
+      if (gameSettings.gamescope.windowType === 'fullscreen') {
+        wrappers.push('-f')
+      }
+      if (gameSettings.gamescope.windowType === 'borderless') {
+        wrappers.push('-b')
+      }
+    }
+
+    if (gameSettings.gamescope.enableLimiter) {
+      if (gameSettings.gamescope.fpsLimiter) {
+        wrappers.push('-r', gameSettings.gamescope.fpsLimiter)
+      }
+      if (gameSettings.gamescope.fpsLimiterNoFocus) {
+        wrappers.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
+      }
+    }
+
+    if (gameSettings.gamescope.enableForceGrabCursor) {
+      wrappers.push('--force-grab-cursor')
+    }
+
+    if (gameSettings.showMangohud) {
+      wrappers.push('--mangoapp')
+    }
+
+    wrappers.push(
+      ...shlex.split(gameSettings.gamescope.additionalOptions ?? '')
+    )
+
+    // Note: needs to be the last option
+    wrappers.push('--')
+  }
+
+  if (gameSettings.wrapperOptions) {
+    gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
+      wrappers.push(wrapperEntry.exe)
+      wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
+    })
+  }
+
+  if (gameSettings.showMangohud && !useGamescope && !isSteamDeckGameMode) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
       return {
@@ -345,11 +440,11 @@ async function prepareLaunch(
       }
     }
 
-    mangoHudCommand = [mangoHudBin, '--dlsym']
+    wrappers.push(mangoHudBin, '--dlsym')
   }
 
   if (gameSettings.useGameMode) {
-    gameModeBin = await searchForExecutableOnPath('gamemoderun')
+    const gameModeBin = await searchForExecutableOnPath('gamemoderun')
     if (!gameModeBin) {
       return {
         success: false,
@@ -357,102 +452,8 @@ async function prepareLaunch(
           'GameMode is enabled, but `gamemoderun` executable could not be found on $PATH'
       }
     }
-  }
 
-  if (
-    (gameSettings.gamescope?.enableLimiter ||
-      gameSettings.gamescope?.enableUpscaling) &&
-    !isSteamDeckGameMode
-  ) {
-    const gameScopeBin = await searchForExecutableOnPath('gamescope')
-    if (!gameScopeBin) {
-      logWarning(
-        'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
-      )
-    } else {
-      // Gamescope does not provide a version option and they changed
-      // cli options on version 3.12. So we do what lutris does.
-      let oldVersion = true // < 3.12
-      const { stderr } = spawnSync(gameScopeBin, ['--help'], {
-        encoding: 'utf-8'
-      })
-      if (stderr && stderr.includes('-F, --filter')) {
-        oldVersion = false
-      }
-
-      gameScopeCommand.push(gameScopeBin)
-
-      if (gameSettings.gamescope.enableUpscaling) {
-        // game res
-        if (gameSettings.gamescope.gameWidth) {
-          gameScopeCommand.push('-w', gameSettings.gamescope.gameWidth)
-        }
-        if (gameSettings.gamescope.gameHeight) {
-          gameScopeCommand.push('-h', gameSettings.gamescope.gameHeight)
-        }
-
-        // gamescope res
-        if (gameSettings.gamescope.upscaleWidth) {
-          gameScopeCommand.push('-W', gameSettings.gamescope.upscaleWidth)
-        }
-        if (gameSettings.gamescope.upscaleHeight) {
-          gameScopeCommand.push('-H', gameSettings.gamescope.upscaleHeight)
-        }
-
-        // upscale method
-        if (gameSettings.gamescope.upscaleMethod === 'fsr') {
-          oldVersion
-            ? gameScopeCommand.push('-U')
-            : gameScopeCommand.push('-F', 'fsr')
-        }
-        if (gameSettings.gamescope.upscaleMethod === 'nis') {
-          oldVersion
-            ? gameScopeCommand.push('-Y')
-            : gameScopeCommand.push('-F', 'nis')
-        }
-        if (gameSettings.gamescope.upscaleMethod === 'integer') {
-          oldVersion
-            ? gameScopeCommand.push('-i')
-            : gameScopeCommand.push('-S', 'integer')
-        }
-        // didn't find stretch in old version
-        if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
-          gameScopeCommand.push('-S', 'stretch')
-        }
-
-        // window type
-        if (gameSettings.gamescope.windowType === 'fullscreen') {
-          gameScopeCommand.push('-f')
-        }
-        if (gameSettings.gamescope.windowType === 'borderless') {
-          gameScopeCommand.push('-b')
-        }
-      }
-
-      if (gameSettings.gamescope.enableLimiter) {
-        if (gameSettings.gamescope.fpsLimiter) {
-          gameScopeCommand.push('-r', gameSettings.gamescope.fpsLimiter)
-        }
-        if (gameSettings.gamescope.fpsLimiterNoFocus) {
-          gameScopeCommand.push('-o', gameSettings.gamescope.fpsLimiterNoFocus)
-        }
-      }
-
-      if (gameSettings.gamescope.enableForceGrabCursor) {
-        gameScopeCommand.push('--force-grab-cursor')
-      }
-
-      if (gameSettings.showMangohud) {
-        gameScopeCommand.push('--mangoapp')
-      }
-
-      gameScopeCommand.push(
-        ...shlex.split(gameSettings.gamescope.additionalOptions ?? '')
-      )
-
-      // Note: needs to be the last option
-      gameScopeCommand.push('--')
-    }
+    wrappers.push(gameModeBin)
   }
 
   if (
@@ -462,6 +463,10 @@ async function prepareLaunch(
     (await getUmuPath()) === defaultUmuPath
   ) {
     await download('umu')
+  }
+
+  if (await isUmuSupported(gameSettings)) {
+    wrappers.push(await getUmuPath())
   }
 
   // If the Steam Runtime is enabled, find a valid one
@@ -511,14 +516,12 @@ async function prepareLaunch(
 
     steamRuntime = [path, ...args]
   }
+  wrappers.push(...steamRuntime)
 
   return {
     success: true,
     rpcClient,
-    mangoHudCommand,
-    gameModeBin: gameModeBin ?? undefined,
-    gameScopeCommand,
-    steamRuntime,
+    wrappers,
     offlineMode
   }
 }
@@ -1020,38 +1023,6 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     }
   }
   return ret
-}
-
-function setupWrappers(
-  gameSettings: GameSettings,
-  mangoHudCommand?: string[],
-  gameModeBin?: string,
-  gameScopeCommand?: string[],
-  steamRuntime?: string[]
-): Array<string> {
-  const wrappers: string[] = []
-
-  // let gamescope be first wrapper always
-  if (gameScopeCommand) {
-    wrappers.push(...gameScopeCommand)
-  }
-
-  if (gameSettings.wrapperOptions) {
-    gameSettings.wrapperOptions.forEach((wrapperEntry: WrapperVariable) => {
-      wrappers.push(wrapperEntry.exe)
-      wrappers.push(...shlex.split(wrapperEntry.args ?? ''))
-    })
-  }
-  if (mangoHudCommand && gameScopeCommand?.length === 0) {
-    wrappers.push(...mangoHudCommand)
-  }
-  if (gameModeBin) {
-    wrappers.push(gameModeBin)
-  }
-  if (steamRuntime) {
-    wrappers.push(...steamRuntime)
-  }
-  return wrappers.filter((n) => n)
 }
 
 /**
@@ -1784,7 +1755,6 @@ export {
   setupEnvVars,
   setupWrapperEnvVars,
   setupWineEnvVars,
-  setupWrappers,
   runWineCommand,
   callRunner,
   getRunnerCallWithoutCredentials,

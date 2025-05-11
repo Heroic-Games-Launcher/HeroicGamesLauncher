@@ -382,16 +382,17 @@ export interface SteamRuntime {
   args: string[]
 }
 
-export interface LaunchPreperationResult {
-  success: boolean
-  failureReason?: string
-  rpcClient?: RpcClient
-  mangoHudCommand?: string[]
-  gameModeBin?: string
-  gameScopeCommand?: string[]
-  steamRuntime?: string[]
-  offlineMode?: boolean
-}
+export type LaunchPreparationResult =
+  | {
+      success: false
+      failureReason: string
+    }
+  | {
+      success: true
+      rpcClient: RpcClient | undefined
+      offlineMode: boolean
+      wrappers: string[]
+    }
 
 export interface RpcClient {
   updatePresence(d: unknown): void
@@ -405,9 +406,12 @@ export interface CallRunnerOptions {
   verboseLogFile?: string
   logSanitizer?: (line: string) => string
   env?: Record<string, string> | NodeJS.ProcessEnv
-  wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
+}
+
+interface RunWineCommandOptions extends CallRunnerOptions {
+  wrappers?: string[]
 }
 
 export interface EnviromentVariable {
@@ -589,7 +593,7 @@ export type WineCommandArgs = {
   gameSettings?: GameSettings
   gameInstallPath?: string
   installFolderName?: string
-  options?: CallRunnerOptions
+  options?: RunWineCommandOptions
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
   ignoreLogging?: boolean

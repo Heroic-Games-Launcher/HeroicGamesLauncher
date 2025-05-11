@@ -36,8 +36,7 @@ import {
   prepareLaunch,
   prepareWineLaunch,
   setupEnvVars,
-  setupWrapperEnvVars,
-  setupWrappers
+  setupWrapperEnvVars
 } from 'backend/launcher'
 import { existsSync } from 'graceful-fs'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
@@ -316,22 +315,21 @@ export async function launch(
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
 
-  const {
-    success: launchPrepSuccess,
-    failureReason: launchPrepFailReason,
-    rpcClient,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime
-  } = await prepareLaunch(gameSettings, gameInfo, isNative())
+  const launchPrepResult = await prepareLaunch(
+    gameSettings,
+    gameInfo,
+    isNative()
+  )
 
-  if (!launchPrepSuccess) {
-    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+  if (!launchPrepResult.success) {
+    appendGamePlayLog(
+      gameInfo,
+      `Launch aborted: ${launchPrepResult.failureReason}`
+    )
     launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
-      message: launchPrepFailReason!,
+      message: launchPrepResult.failureReason,
       type: 'ERROR'
     })
     return false
@@ -349,16 +347,8 @@ export async function launch(
     ...getKnownFixesEnvVariables(appName, 'nile')
   }
 
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
-
-  let wineFlag: string[] = wrappers.length
-    ? ['--wrapper', shlex.join(wrappers)]
+  let wineFlags: string[] = launchPrepResult.wrappers.length
+    ? ['--wrapper', shlex.join(launchPrepResult.wrappers)]
     : []
 
   if (!isNative()) {
@@ -394,8 +384,8 @@ export async function launch(
       }
     }
 
-    wineFlag = [
-      ...(await getWineFlagsArray(gameSettings, shlex.join(wrappers))),
+    wineFlags = [
+      ...getWineFlagsArray(gameSettings, shlex.join(launchPrepResult.wrappers)),
       '--wine-prefix',
       gameSettings.winePrefix
     ]
@@ -404,7 +394,7 @@ export async function launch(
   const commandParts = [
     'launch',
     ...exeOverrideFlag, // Check if this works
-    ...wineFlag,
+    ...wineFlags,
     ...shlex.split(
       (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
     ),
@@ -431,7 +421,6 @@ export async function launch(
   const { error } = await runNileCommand(commandParts, {
     abortId: appName,
     env: commandEnv,
-    wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput(output) {
       if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
@@ -442,7 +431,7 @@ export async function launch(
     logError(['Error launching game:', error], LogPrefix.Nile)
   }
 
-  launchCleanup(rpcClient)
+  launchCleanup(launchPrepResult.rpcClient)
 
   return !error
 }

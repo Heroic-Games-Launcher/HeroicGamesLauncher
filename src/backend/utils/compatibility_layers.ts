@@ -488,15 +488,15 @@ export type AllowedWineFlags = Pick<
 >
 
 /**
- * Returns a LegendaryCommand with the required flags to use a specified Wine version
- * @param wineBin The full path to the Wine binary (`wine`/`wine64`/`proton`)
- * @param wineType The type of the Wine version
+ * Returns a partial LegendaryCommand with the required flags to use a specified
+ * Wine version
+ * @param gameSettings
  * @param wrapper Any wrappers to be used, may be `''`
  */
-export async function getWineFlags(
+export function getWineFlags(
   gameSettings: GameSettings,
   wrapper: string
-): Promise<AllowedWineFlags> {
+): AllowedWineFlags {
   let partialCommand: AllowedWineFlags = {}
   const { type: wineType, bin: wineExec } = gameSettings.wineVersion
 
@@ -508,6 +508,7 @@ export async function getWineFlags(
 
   switch (wineType) {
     case 'wine':
+    case 'crossover':
     case 'toolkit':
       partialCommand = { '--wine': Path.parse(wineBin) }
       if (wrapper) partialCommand['--wrapper'] = NonEmptyString.parse(wrapper)
@@ -516,20 +517,9 @@ export async function getWineFlags(
       partialCommand = {
         '--no-wine': true,
         '--wrapper': NonEmptyString.parse(
-          `${wrapper} "${wineBin}" waitforexitandrun`
+          (wrapper ? `${wrapper} ` : '') + `"${wineBin}" waitforexitandrun`
         )
       }
-      if (await isUmuSupported(gameSettings)) {
-        partialCommand['--wrapper'] = NonEmptyString.parse(
-          (wrapper ? `${wrapper} ` : '') + `"${await getUmuPath()}"`
-        )
-      }
-      break
-    case 'crossover':
-      partialCommand = {
-        '--wine': Path.parse(wineBin)
-      }
-      if (wrapper) partialCommand['--wrapper'] = NonEmptyString.parse(wrapper)
       break
     default:
       break
@@ -540,11 +530,11 @@ export async function getWineFlags(
 /**
  * Like {@link getWineFlags}, but returns a `string[]` with the flags instead
  */
-export async function getWineFlagsArray(
+export function getWineFlagsArray(
   gameSettings: GameSettings,
   wrapper: string
-): Promise<string[]> {
-  const partialCommand = await getWineFlags(gameSettings, wrapper)
+): string[] {
+  const partialCommand = getWineFlags(gameSettings, wrapper)
 
   const commandArray: string[] = []
   for (const [key, value] of Object.entries(partialCommand)) {
