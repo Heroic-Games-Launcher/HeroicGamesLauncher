@@ -197,7 +197,6 @@ export interface GameSettings {
   showMangohud: boolean
   targetExe: string
   useGameMode: boolean
-  useSteamRuntime: boolean
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
@@ -374,12 +373,6 @@ interface GamepadInputEventMouse {
   x: number
   y: number
   button: 'left' | 'middle' | 'right'
-}
-
-export interface SteamRuntime {
-  path: string
-  type: 'sniper' | 'scout' | 'soldier'
-  args: string[]
 }
 
 export type LaunchPreparationResult =

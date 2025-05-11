@@ -8,13 +8,18 @@ import { defaultWineVersion } from '..'
 
 const DisableUMU = () => {
   const { t } = useTranslation()
-  const { isDefault } = useContext(SettingsContext)
+  const { isDefault, isLinuxNative } = useContext(SettingsContext)
   const { platform } = useContext(ContextProvider)
 
   const [disableUMU, setDisableUMU] = useSetting('disableUMU', false)
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
-  if (isDefault || platform !== 'linux' || wineVersion.type !== 'proton') {
+  const show =
+    !isDefault &&
+    platform === 'linux' &&
+    (isLinuxNative || wineVersion.type === 'proton')
+
+  if (!show) {
     return <></>
   }
 
