@@ -8,8 +8,57 @@ import {
   resumeCurrentDownload
 } from './downloadqueue'
 
-ipcMain.handle('addToDMQueue', async (e, element) => {
-  await addToQueue(element)
+import type { DMQueueElement } from 'common/types'
+
+ipcMain.handle('install', async (_e, args) => {
+  const dmQueueElement: DMQueueElement = {
+    params: args,
+    type: 'install',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+
+  await addToQueue(dmQueueElement)
+
+  // Add Dlcs to the queue
+  if (
+    Array.isArray(args.installDlcs) &&
+    args.installDlcs.length > 0 &&
+    args.runner === 'legendary'
+  ) {
+    for (const dlc of args.installDlcs) {
+      const dlcQueueElement: DMQueueElement = {
+        params: {
+          ...args,
+          appName: dlc
+        },
+        type: 'install',
+        addToQueueTime: Date.now(),
+        endTime: 0,
+        startTime: 0
+      }
+      await addToQueue(dlcQueueElement)
+    }
+  }
+})
+
+ipcMain.handle('updateGame', async (_e, args) => {
+  const {
+    gameInfo: {
+      install: { platform, install_path }
+    }
+  } = args
+
+  const dmQueueElement: DMQueueElement = {
+    params: { ...args, path: install_path!, platformToInstall: platform! },
+    type: 'update',
+    addToQueueTime: Date.now(),
+    endTime: 0,
+    startTime: 0
+  }
+
+  await addToQueue(dmQueueElement)
 })
 
 ipcMain.on('removeFromDMQueue', (e, appName) => {
