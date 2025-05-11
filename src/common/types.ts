@@ -391,6 +391,7 @@ export type LaunchPreparationResult =
       success: true
       rpcClient: RpcClient | undefined
       offlineMode: boolean
+      env: Record<string, string>
       wrappers: string[]
     }
 

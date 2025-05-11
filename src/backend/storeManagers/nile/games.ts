@@ -341,6 +341,7 @@ export async function launch(
   let commandEnv = {
     ...process.env,
     ...setupWrapperEnvVars({ appName, appRunner: 'nile' }),
+    ...launchPrepResult.env,
     ...(isWindows
       ? {}
       : setupEnvVars(gameSettings, gameInfo.install.install_path)),

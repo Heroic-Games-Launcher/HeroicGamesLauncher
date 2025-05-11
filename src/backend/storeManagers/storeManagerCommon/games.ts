@@ -209,6 +209,7 @@ export async function launchGame(
 
       const env = {
         ...process.env,
+        ...launchPrepResult.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
         ...setupEnvVars(gameSettings, gameInfo.install.install_path),
         ...getKnownFixesEnvVariables(appName, runner)

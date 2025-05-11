@@ -320,6 +320,7 @@ async function prepareLaunch(
     )
   }
 
+  const env: Record<string, string> = {}
   const wrappers: string[] = []
 
   // Update Discord RPC if enabled
@@ -330,7 +331,7 @@ async function prepareLaunch(
 
   // If we're not on Linux, we can return here
   if (!isLinux) {
-    return { success: true, rpcClient, offlineMode, wrappers }
+    return { success: true, rpcClient, offlineMode, env, wrappers }
   }
 
   const useGamescope =
@@ -521,6 +522,7 @@ async function prepareLaunch(
   return {
     success: true,
     rpcClient,
+    env,
     wrappers,
     offlineMode
   }
