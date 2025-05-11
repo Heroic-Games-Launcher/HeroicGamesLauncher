@@ -1074,56 +1074,6 @@ ipcMain.handle('kill', async (event, appName, runner) => {
   return gameManagerMap[runner].stop(appName)
 })
 
-ipcMain.handle('updateGame', async (event, appName, runner): StatusPromise => {
-  if (!isOnline()) {
-    logWarning(
-      `App offline, skipping install for game '${appName}'.`,
-      LogPrefix.Backend
-    )
-    return { status: 'error' }
-  }
-
-  if (runner === 'legendary') {
-    const epicOffline = await isEpicServiceOffline()
-    if (epicOffline) {
-      showDialogBoxModalAuto({
-        event,
-        title: i18next.t('box.warning.title', 'Warning'),
-        message: i18next.t(
-          'box.warning.epic.update',
-          'Epic Servers are having major outage right now, the game cannot be updated!'
-        ),
-        type: 'ERROR'
-      })
-      return { status: 'error' }
-    }
-  }
-
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
-  notify({
-    title,
-    body: i18next.t('notify.update.started', 'Update Started')
-  })
-
-  let status: 'done' | 'error' | 'abort' = 'error'
-  try {
-    status = (await gameManagerMap[runner].update(appName)).status
-  } catch (error) {
-    logError(error, LogPrefix.Backend)
-    notify({ title, body: i18next.t('notify.update.canceled') })
-    return { status: 'error' }
-  }
-  notify({
-    title,
-    body:
-      status === 'done'
-        ? i18next.t('notify.update.finished')
-        : i18next.t('notify.update.canceled')
-  })
-  logInfo('finished updating', LogPrefix.Backend)
-  return { status }
-})
-
 ipcMain.handle(
   'changeInstallPath',
   async (event, { appName, path, runner }) => {
