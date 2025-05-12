@@ -150,6 +150,10 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
+            "rosetta": {
+                "message": "Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: \"softwareupdate --install-rosetta\" and restart Heroic. ",
+                "title": "Rosetta not found"
+            },
             "sideload": {
                 "confirmExit": {
                     "message": "Any unsaved progress might be lost",
