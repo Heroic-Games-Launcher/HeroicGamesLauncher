@@ -34,7 +34,21 @@ function Root() {
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
 
   const theme = createTheme({
-    direction: isRTL ? 'rtl' : 'ltr'
+    direction: isRTL ? 'rtl' : 'ltr',
+    components: {
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            fontSize: 'var(--text-md)',
+            backgroundColor: 'var(--background-darker)',
+            color: 'var(--text-primary)',
+            padding: 'var(--space-md)',
+            borderRadius: 'var(--space-sm)',
+            maxWidth: '350px'
+          }
+        }
+      }
+    }
   })
 
   return (

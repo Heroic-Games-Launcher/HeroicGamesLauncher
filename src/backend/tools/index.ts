@@ -18,7 +18,9 @@ import {
   downloadFile,
   execAsync,
   extractFiles,
-  getWineFromProton
+  getWineFromProton,
+  spawnAsync,
+  writeConfig
 } from '../utils'
 import {
   execOptions,
@@ -32,7 +34,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
 import { isOnline } from '../online_monitor'
-import { showDialogBoxModalAuto } from '../dialog/dialog'
+import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import {
   prepareWineLaunch,
   runWineCommand,
@@ -40,7 +42,7 @@ import {
   setupWineEnvVars,
   validWine
 } from '../launcher'
-import { chmod, readFile } from 'fs/promises'
+import { chmod, mkdir, readFile } from 'fs/promises'
 import {
   any_gpu_supports_version,
   get_nvngx_path,
@@ -49,12 +51,14 @@ import {
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
 import { gameManagerMap } from '../storeManagers'
-import { sendFrontendMessage } from '../main_window'
+import { getMainWindow, sendFrontendMessage } from '../main_window'
 import {
   DAYS,
   downloadFile as downloadFileInet
 } from '../utils/inet/downloader'
 import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
+import { addNewApp } from 'backend/storeManagers/sideload/library'
+import { GlobalConfig } from 'backend/config'
 
 interface Tool {
   name: string
@@ -834,4 +838,178 @@ export async function runWineCommandOnGame(
     protonVerb,
     startFolder
   })
+}
+
+const STEAM_DOWNLOAD_URL = 'https://archive.org/download/SteamHeroic/Steam.zip'
+
+/**
+ * Download and Install the Windows version of Steam on a Wine Prefix on macOS only
+ */
+export const SteamWindows = {
+  downloadSteam: async () => {
+    const directory = `${toolsPath}/steam`
+    const fileName = 'Steam.zip'
+    const window = getMainWindow()
+
+    if (!existsSync(directory)) {
+      mkdirSync(directory, { recursive: true })
+    }
+
+    if (!isOnline() || existsSync(join(directory, fileName)) || !window) {
+      return
+    }
+
+    const abortController = createAbortController('steam-download')
+
+    function handleProgress(
+      downloadedBytes: number,
+      downloadSpeed: number,
+      progress: number
+    ) {
+      window?.webContents.send(`progressUpdate-steam`, {
+        appName: 'steam',
+        status: 'installing',
+        runner: 'sideload',
+        progress: {
+          percent: progress,
+          bytes: '718394478'
+        }
+      })
+    }
+
+    try {
+      await downloadFile({
+        url: STEAM_DOWNLOAD_URL,
+        dest: join(directory, fileName),
+        abortSignal: abortController.signal,
+        progressCallback: handleProgress,
+        ignoreFailure: false
+      })
+    } catch (error) {
+      logError(['Error downloading Steam', error], LogPrefix.Backend)
+      throw new Error('Error downloading Steam')
+    }
+  },
+  installSteam: async () => {
+    const steamCoverArt =
+      'https://cdn2.steamgriddb.com/file/sgdb-cdn/grid/a7e8ba67562ea4d4ca0421066466ece4.png'
+    const steamSetupPath = `${toolsPath}/steam/Steam.zip`
+    const { defaultWinePrefix, wineVersion } = GlobalConfig.get().getSettings()
+    // won't use just Steam here to avoid issue with people that already has a prefix with this name
+    const winePrefix = join(dirname(defaultWinePrefix), 'SteamHeroic')
+
+    if (!existsSync(steamSetupPath)) {
+      await SteamWindows.downloadSteam()
+    }
+
+    const gameSettings = await gameManagerMap['sideload'].getSettings('steam')
+    const isCrossover = gameSettings.wineVersion.type === 'crossover'
+    if (!gameSettings) {
+      return
+    }
+    writeConfig('steam', {
+      ...gameSettings,
+      winePrefix,
+      wineVersion,
+      launcherArgs:
+        '-noverifyfiles -nobootstrapupdate -skipinitialbootstrap -norepairfiles -overridepackageurl'
+    })
+
+    try {
+      if (!isCrossover) {
+        await runWineCommand({
+          commandParts: ['wineboot', '-init'],
+          wait: true,
+          gameSettings: {
+            ...gameSettings,
+            winePrefix,
+            wineVersion
+          }
+        })
+      }
+
+      const unzipFile = join(toolsPath, 'steam', 'Steam.zip')
+      const unzipPath = `${winePrefix}/drive_c/Program Files (x86)/Steam`
+      if (!existsSync(unzipPath)) {
+        await mkdir(unzipPath, { recursive: true })
+      }
+
+      logInfo('Extracting Steam...', LogPrefix.Backend)
+      await spawnAsync('unzip', ['-o', unzipFile, '-d', unzipPath])
+
+      // Add Steam to the library
+      const executable = join(unzipPath, 'steam.exe')
+
+      if (!existsSync(executable)) {
+        logError(['Steam executable not found', executable], LogPrefix.Backend)
+        showDialogBoxModalAuto({
+          title: i18next.t('box.error.steam.title', 'Steam error'),
+          message: i18next.t(
+            'box.error.steam.message',
+            'Steam installation failed! Please read the instructions carefully and try again! {{paragraph}} {{error}}',
+            {
+              paragraph: '\n \n',
+              error: i18next.t(
+                'box.error.steam.error',
+                'Steam executable not found. Installation was probably canceled by user or failed on Steam side.'
+              )
+            }
+          ),
+          type: 'ERROR'
+        })
+        throw new Error('Steam executable not found')
+      }
+
+      addNewApp({
+        app_name: 'steam',
+        runner: 'sideload',
+        art_cover: steamCoverArt,
+        art_square: steamCoverArt,
+        is_installed: true,
+        title: 'Steam for Windows',
+        canRunOffline: false,
+        install: {
+          executable,
+          is_dlc: false,
+          platform: 'windows'
+        },
+        description: 'Play Steam Windows Games on macOS'
+      })
+
+      logInfo(`Steam installed at ${dirname(executable)}`, LogPrefix.Backend)
+
+      notify({
+        title: i18next.t('notification.steam.success', 'Steam installed'),
+        body: i18next.t(
+          'notification.steam.success',
+          'Steam for Windows has been installed successfully!'
+        )
+      })
+    } catch (error) {
+      logError(['Error Installing Steam', error], LogPrefix.Backend)
+
+      notify({
+        title: i18next.t('notification.steam.error', 'Steam error'),
+        body: i18next.t(
+          'notification.steam.error',
+          'Steam installation failed! Please read the instructions carefully and try again!'
+        )
+      })
+
+      showDialogBoxModalAuto({
+        title: i18next.t('box.error.steam.title', 'Steam error'),
+        message: i18next.t(
+          'box.error.steam.message',
+          'Steam installation failed! Please read the instructions carefully and try again! {{paragraph}} {{error}}',
+          {
+            paragraph: '\n \n',
+            error: error
+          }
+        ),
+        type: 'ERROR'
+      })
+
+      throw new Error('Steam installation failed')
+    }
+  }
 }
