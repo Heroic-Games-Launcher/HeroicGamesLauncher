@@ -39,7 +39,20 @@ export default tseslint.config(
         'error',
         { checksVoidReturn: false }
       ],
-      'import/no-duplicates': 'error'
+      'import/no-duplicates': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'electron',
+              importNames: ['ipcMain', 'ipcRenderer'],
+              message:
+                'Use the helper functions declared in [backend|preload]/ipc instead.'
+            }
+          ]
+        }
+      ]
     },
 
     plugins: {
