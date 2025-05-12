@@ -8,7 +8,7 @@ import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { WineVersionInfo, Repositorys, WineManagerStatus } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
-import { sendFrontendMessage } from '../../main_window'
+import { sendFrontendMessage } from '../../ipc'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
 import {
   createAbortController,

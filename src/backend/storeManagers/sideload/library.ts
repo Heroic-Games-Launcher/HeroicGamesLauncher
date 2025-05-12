@@ -4,7 +4,7 @@ import { dirname, join } from 'path'
 import { libraryStore } from './electronStores'
 import { logWarning } from 'backend/logger/logger'
 import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
-import { sendFrontendMessage } from 'backend/main_window'
+import { sendFrontendMessage } from 'backend/ipc'
 import { isMac } from 'backend/constants/environment'
 
 export function addNewApp({

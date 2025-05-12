@@ -46,7 +46,7 @@ import {
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
 import { gameManagerMap } from '../storeManagers'
-import { getMainWindow, sendFrontendMessage } from '../main_window'
+import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
   downloadFile as downloadFileInet
@@ -843,13 +843,12 @@ export const SteamWindows = {
   downloadSteam: async () => {
     const directory = `${toolsPath}/steam`
     const fileName = 'Steam.zip'
-    const window = getMainWindow()
 
     if (!existsSync(directory)) {
       mkdirSync(directory, { recursive: true })
     }
 
-    if (!isOnline() || existsSync(join(directory, fileName)) || !window) {
+    if (!isOnline() || existsSync(join(directory, fileName))) {
       return
     }
 
