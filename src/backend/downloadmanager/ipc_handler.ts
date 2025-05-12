@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { addHandler, addListener } from '../ipc'
 import {
   addToQueue,
   cancelCurrentDownload,
@@ -10,7 +10,7 @@ import {
 
 import type { DMQueueElement } from 'common/types'
 
-ipcMain.handle('install', async (_e, args) => {
+addHandler('install', async (_e, args) => {
   const dmQueueElement: DMQueueElement = {
     params: args,
     type: 'install',
@@ -43,7 +43,7 @@ ipcMain.handle('install', async (_e, args) => {
   }
 })
 
-ipcMain.handle('updateGame', async (_e, args) => {
+addHandler('updateGame', async (_e, args) => {
   const {
     gameInfo: {
       install: { platform, install_path }
@@ -61,20 +61,10 @@ ipcMain.handle('updateGame', async (_e, args) => {
   await addToQueue(dmQueueElement)
 })
 
-ipcMain.on('removeFromDMQueue', (e, appName) => {
-  removeFromQueue(appName)
-})
-
-ipcMain.on('resumeCurrentDownload', () => {
-  resumeCurrentDownload()
-})
-
-ipcMain.on('pauseCurrentDownload', () => {
-  pauseCurrentDownload()
-})
-
-ipcMain.on('cancelDownload', (e, removeDownloaded) => {
+addListener('removeFromDMQueue', (e, appName) => removeFromQueue(appName))
+addListener('resumeCurrentDownload', () => resumeCurrentDownload())
+addListener('pauseCurrentDownload', () => pauseCurrentDownload())
+addListener('cancelDownload', (e, removeDownloaded) =>
   cancelCurrentDownload({ removeDownloaded })
-})
-
-ipcMain.handle('getDMQueueInformation', getQueueInformation)
+)
+addHandler('getDMQueueInformation', getQueueInformation)

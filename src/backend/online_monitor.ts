@@ -1,9 +1,10 @@
 import { ConnectivityStatus } from 'common/types'
-import { ipcMain, net } from 'electron'
+import { net } from 'electron'
+import { addListener, addHandler } from 'backend/ipc'
 import { logInfo, LogPrefix } from './logger/logger'
 import axios from 'axios'
 import EventEmitter from 'node:events'
-import { sendFrontendMessage } from './main_window'
+import { sendFrontendMessage } from './ipc'
 
 let status: ConnectivityStatus
 let abortController: AbortController
@@ -98,7 +99,7 @@ const pingSites = () => {
 
 export const initOnlineMonitor = () => {
   // listen to events from the frontend
-  ipcMain.on(
+  addListener(
     'connectivity-changed',
     (event, newStatus: ConnectivityStatus): void => {
       setStatus(newStatus)
@@ -113,14 +114,14 @@ export const initOnlineMonitor = () => {
   }
 
   // listen to the frontend asking for current status
-  ipcMain.handle(
+  addHandler(
     'get-connectivity-status',
     (): { status: ConnectivityStatus; retryIn: number } => {
       return { status, retryIn }
     }
   )
 
-  ipcMain.on('set-connectivity-online', () => {
+  addListener('set-connectivity-online', () => {
     setStatus('online')
   })
 }

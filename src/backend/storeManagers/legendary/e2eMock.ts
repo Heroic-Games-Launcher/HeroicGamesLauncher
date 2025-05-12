@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { addTestOnlyListener } from 'backend/ipc'
 import { RunnerCommandStub } from 'common/types'
 import { LegendaryCommand } from './commands'
 
@@ -39,10 +39,11 @@ export const runLegendaryCommandStub = async (command: LegendaryCommand) => {
 }
 
 // Add listeners to be called from e2e tests to stub the legendary command calls
-if (process.env.CI === 'e2e') {
-  ipcMain.on('setLegendaryCommandStub', (stubs) => (currentStubs = [...stubs]))
-  ipcMain.on(
-    'resetLegendaryCommandStub',
-    () => (currentStubs = [...defaultStubs])
-  )
-}
+addTestOnlyListener(
+  'setLegendaryCommandStub',
+  (stubs) => (currentStubs = [...stubs])
+)
+addTestOnlyListener(
+  'resetLegendaryCommandStub',
+  () => (currentStubs = [...defaultStubs])
+)

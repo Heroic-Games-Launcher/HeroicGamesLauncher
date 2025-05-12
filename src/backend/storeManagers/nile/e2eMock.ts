@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { addTestOnlyListener } from 'backend/ipc'
 import { RunnerCommandStub } from 'common/types'
 
 /*
@@ -35,7 +35,11 @@ export const runNileCommandStub = async (command: string[]) => {
 }
 
 // Add listeners to be called from e2e tests to stub the nile command calls
-if (process.env.CI === 'e2e') {
-  ipcMain.on('setNileCommandStub', (stubs) => (currentStubs = [...stubs]))
-  ipcMain.on('resetNileCommandStub', () => (currentStubs = [...defaultStubs]))
-}
+addTestOnlyListener(
+  'setNileCommandStub',
+  (stubs) => (currentStubs = [...stubs])
+)
+addTestOnlyListener(
+  'resetNileCommandStub',
+  () => (currentStubs = [...defaultStubs])
+)

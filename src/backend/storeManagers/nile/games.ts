@@ -61,7 +61,7 @@ import {
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
-import { sendFrontendMessage } from 'backend/main_window'
+import { sendFrontendMessage } from '../../ipc'
 import setup from './setup'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import { isLinux, isWindows } from 'backend/constants/environment'
