@@ -76,8 +76,7 @@ import {
   runWineCommand,
   runWineCommand as runWineCommandUtil,
   setupEnvVars,
-  setupWrapperEnvVars,
-  setupWrappers
+  setupWrapperEnvVars
 } from '../../launcher'
 import {
   addShortcuts as addShortcutsUtil,
@@ -508,21 +507,20 @@ export async function launch(
     return false
   }
 
-  const {
-    success: launchPrepSuccess,
-    failureReason: launchPrepFailReason,
-    rpcClient,
-    mangoHudCommand,
-    gameScopeCommand,
-    gameModeBin,
-    steamRuntime
-  } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
-  if (!launchPrepSuccess) {
-    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+  const launchPrepResult = await prepareLaunch(
+    gameSettings,
+    gameInfo,
+    isNative(appName)
+  )
+  if (!launchPrepResult.success) {
+    appendGamePlayLog(
+      gameInfo,
+      `Launch aborted: ${launchPrepResult.failureReason}`
+    )
     launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
-      message: launchPrepFailReason!,
+      message: launchPrepResult.failureReason,
       type: 'ERROR'
     })
     return false
@@ -535,22 +533,15 @@ export async function launch(
   let commandEnv = {
     ...process.env,
     ...setupWrapperEnvVars({ appName, appRunner: 'gog' }),
+    ...launchPrepResult.env,
     ...(isWindows
       ? {}
       : setupEnvVars(gameSettings, gameInfo.install.install_path)),
     ...getKnownFixesEnvVariables(appName, 'gog')
   }
 
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
-
-  let wineFlag: string[] = wrappers.length
-    ? ['--wrapper', shlex.join(wrappers)]
+  let wineFlags: string[] = launchPrepResult.wrappers.length
+    ? ['--wrapper', shlex.join(launchPrepResult.wrappers)]
     : []
 
   if (!isNative(appName)) {
@@ -585,7 +576,10 @@ export async function launch(
       }
     }
 
-    wineFlag = await getWineFlagsArray(gameSettings, shlex.join(wrappers))
+    wineFlags = getWineFlagsArray(
+      gameSettings,
+      shlex.join(launchPrepResult.wrappers)
+    )
   }
 
   const commandParts = [
@@ -596,7 +590,7 @@ export async function launch(
     gameInfo.install.cyberpunk?.modsEnabled
       ? '1597316373'
       : gameInfo.app_name,
-    ...wineFlag,
+    ...wineFlags,
     '--platform',
     gameInfo.install.platform.toLowerCase(),
     ...shlex.split(
@@ -727,7 +721,6 @@ export async function launch(
   const { error, abort } = await runGogdlCommand(commandParts, {
     abortId: appName,
     env: commandEnv,
-    wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output: string) => {
       if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
@@ -738,7 +731,7 @@ export async function launch(
     logInfo(`Killing Comet!`, LogPrefix.Gog)
     child.kill()
   }
-  launchCleanup(rpcClient)
+  launchCleanup(launchPrepResult.rpcClient)
 
   if (abort) {
     return true

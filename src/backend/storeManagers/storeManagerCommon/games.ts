@@ -20,8 +20,7 @@ import {
   prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
-  setupWrapperEnvVars,
-  setupWrappers
+  setupWrapperEnvVars
 } from '../../launcher'
 import { access, chmod } from 'fs/promises'
 import shlex from 'shlex'
@@ -157,38 +156,29 @@ export async function launchGame(
 
   if (executable) {
     const isNative = gameManagerMap[runner].isNative(appName)
-    const {
-      success: launchPrepSuccess,
-      failureReason: launchPrepFailReason,
-      rpcClient,
-      mangoHudCommand,
-      gameScopeCommand,
-      gameModeBin,
-      steamRuntime
-    } = await prepareLaunch(gameSettings, gameInfo, isNative)
+    const launchPrepResult = await prepareLaunch(
+      gameSettings,
+      gameInfo,
+      isNative
+    )
+
+    if (!launchPrepResult.success) {
+      appendGamePlayLog(
+        gameInfo,
+        `Launch aborted: ${launchPrepResult.failureReason}`
+      )
+      launchCleanup()
+      showDialogBoxModalAuto({
+        title: i18next.t('box.error.launchAborted', 'Launch aborted'),
+        message: launchPrepResult.failureReason,
+        type: 'ERROR'
+      })
+      return false
+    }
 
     if (!isNative) {
       await prepareWineLaunch(runner, appName)
       appendWinetricksGamePlayLog(gameInfo)
-    }
-
-    const wrappers = setupWrappers(
-      gameSettings,
-      mangoHudCommand,
-      gameModeBin,
-      gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
-    )
-
-    if (!launchPrepSuccess) {
-      appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
-      launchCleanup()
-      showDialogBoxModalAuto({
-        title: i18next.t('box.error.launchAborted', 'Launch aborted'),
-        message: launchPrepFailReason!,
-        type: 'ERROR'
-      })
-      return false
     }
 
     sendGameStatusUpdate({
@@ -219,6 +209,7 @@ export async function launchGame(
 
       const env = {
         ...process.env,
+        ...launchPrepResult.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
         ...setupEnvVars(gameSettings, gameInfo.install.install_path),
         ...getKnownFixesEnvVariables(appName, runner)
@@ -234,13 +225,12 @@ export async function launchGame(
         },
         {
           env,
-          wrappers,
           logFile: lastPlayLogFileLocation(appName),
           logMessagePrefix: LogPrefix.Backend
         }
       )
 
-      launchCleanup(rpcClient)
+      launchCleanup(launchPrepResult.rpcClient)
       // TODO: check and revert to previous permissions
       if (isLinux || (isMac && !executable.endsWith('.app'))) {
         await chmod(executable, 0o775)
@@ -260,7 +250,7 @@ export async function launchGame(
       protonVerb: 'waitforexitandrun',
       startFolder: dirname(executable),
       options: {
-        wrappers,
+        wrappers: launchPrepResult.wrappers,
         logFile: lastPlayLogFileLocation(appName),
         logMessagePrefix: LogPrefix.Backend,
         onOutput: (output) => {
@@ -269,7 +259,7 @@ export async function launchGame(
       }
     })
 
-    launchCleanup(rpcClient)
+    launchCleanup(launchPrepResult.rpcClient)
 
     return true
   }

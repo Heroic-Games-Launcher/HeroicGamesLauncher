@@ -55,7 +55,6 @@ import {
   prepareWineLaunch,
   setupEnvVars,
   setupWrapperEnvVars,
-  setupWrappers,
   launchCleanup,
   getRunnerCallWithoutCredentials,
   runWineCommand as runWineCommandUtil,
@@ -844,22 +843,20 @@ export async function launch(
   const gameSettings = await getSettings(appName)
   const gameInfo = getGameInfo(appName)
 
-  const {
-    success: launchPrepSuccess,
-    failureReason: launchPrepFailReason,
-    rpcClient,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime,
-    offlineMode
-  } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
-  if (!launchPrepSuccess) {
-    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+  const launchPrepResult = await prepareLaunch(
+    gameSettings,
+    gameInfo,
+    isNative(appName)
+  )
+  if (!launchPrepResult.success) {
+    appendGamePlayLog(
+      gameInfo,
+      `Launch aborted: ${launchPrepResult.failureReason}`
+    )
     launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
-      message: launchPrepFailReason!,
+      message: launchPrepResult.failureReason,
       type: 'ERROR'
     })
     return false
@@ -870,22 +867,17 @@ export async function launch(
   let commandEnv = {
     ...process.env,
     ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
+    ...launchPrepResult.env,
     ...(isWindows
       ? {}
       : setupEnvVars(gameSettings, gameInfo.install.install_path)),
     ...getKnownFixesEnvVariables(appName, 'legendary')
   }
 
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
-
-  let wineFlags: AllowedWineFlags = wrappers.length
-    ? { '--wrapper': NonEmptyString.parse(shlex.join(wrappers)) }
+  let wineFlags: AllowedWineFlags = launchPrepResult.wrappers.length
+    ? {
+        '--wrapper': NonEmptyString.parse(shlex.join(launchPrepResult.wrappers))
+      }
     : {}
 
   if (!isNative(appName)) {
@@ -921,7 +913,10 @@ export async function launch(
       }
     }
 
-    wineFlags = await getWineFlags(gameSettings, shlex.join(wrappers))
+    wineFlags = getWineFlags(
+      gameSettings,
+      shlex.join(launchPrepResult.wrappers)
+    )
   }
 
   const appNameToLaunch =
@@ -943,7 +938,7 @@ export async function launch(
   if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
   if (gameSettings.targetExe)
     command['--override-exe'] = Path.parse(gameSettings.targetExe)
-  if (offlineMode) command['--offline'] = true
+  if (launchPrepResult.offlineMode) command['--offline'] = true
   if (isCLINoGui) command['--skip-version-check'] = true
   if (gameInfo.isEAManaged) command['--origin'] = true
 
@@ -966,7 +961,6 @@ export async function launch(
   const { error } = await runLegendaryCommand(command, {
     abortId: appName,
     env: commandEnv,
-    wrappers: wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
     onOutput: (output) => {
       if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
@@ -981,7 +975,7 @@ export async function launch(
     })
   }
 
-  launchCleanup(rpcClient)
+  launchCleanup(launchPrepResult.rpcClient)
 
   return !error
 }
