@@ -33,7 +33,8 @@ async function downloadFile(url: string, dst: string) {
       const response = await fetch(url, {
         keepalive: true,
         headers: {
-          'User-Agent': 'HeroicBinaryUpdater/1.0'
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
         },
         // Increase timeout with each attempt
         signal: AbortSignal.timeout((attempt + 1) * 30000) // 30s, 60s, 90s
@@ -231,15 +232,21 @@ async function main() {
   const proxyUri = process.env['HTTPS_PROXY'] || process.env['https_proxy']
   if (proxyUri) {
     console.log(`Using proxy: ${proxyUri}`)
-    const options = {
-      connect: {
-        timeout: 60000, // 60 seconds
-        maxCachedSessions: 0 // Disable session caching
+    const proxyAgent = new ProxyAgent({
+      uri: proxyUri,
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
       },
-      keepAliveTimeout: 60000,
-      keepAliveMaxTimeout: 60000
-    }
-    const proxyAgent = new ProxyAgent(proxyUri, options)
+      requestTls: {
+        minVersion: 'TLSv1.2',
+        ciphers: 'HIGH:!aNULL:!MD5'
+      },
+      proxyTls: {
+        minVersion: 'TLSv1.2',
+        ciphers: 'HIGH:!aNULL:!MD5'
+      }
+    })
     setGlobalDispatcher(proxyAgent)
   }
 
