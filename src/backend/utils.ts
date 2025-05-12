@@ -1125,7 +1125,7 @@ export async function moveOnWindows(
       const filenameMatch = data.match(/([\w.:\\]+)$/)?.[1]
       if (filenameMatch) currentFile = filenameMatch
 
-      sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+      sendFrontendMessage('progressUpdate', {
         appName: gameInfo.app_name,
         runner: gameInfo.runner,
         status: 'moving',
@@ -1231,7 +1231,7 @@ export async function moveOnUnix(
           }
         }
 
-        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+        sendFrontendMessage('progressUpdate', {
           appName: gameInfo.app_name,
           runner: gameInfo.runner,
           status: 'moving',
@@ -1388,7 +1388,7 @@ function sendGameStatusUpdate(payload: GameStatus) {
 }
 
 function sendProgressUpdate(payload: GameStatus) {
-  sendFrontendMessage(`progressUpdate-${payload.appName}`, payload)
+  sendFrontendMessage('progressUpdate', payload)
   backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
 }
 
