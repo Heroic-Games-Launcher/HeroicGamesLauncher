@@ -55,12 +55,11 @@ export const handleGameStatus = (
 }
 
 export const onProgressUpdate = (
-  appName: string,
   onChange: (e: Electron.IpcRendererEvent, status: GameStatus) => void
 ) => {
-  ipcRenderer.on(`progressUpdate-${appName}`, onChange)
+  ipcRenderer.on('progressUpdate', onChange)
   return () => {
-    ipcRenderer.removeListener(`progressUpdate-${appName}`, onChange)
+    ipcRenderer.removeListener('progressUpdate', onChange)
   }
 }
 

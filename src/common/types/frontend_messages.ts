@@ -46,8 +46,7 @@ type FrontendMessages = {
   'installing-winetricks-component': (component: string) => void
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
-
-  [key: `progressUpdate${string}`]: (progress: GameStatus) => void
+  progressUpdate: (progress: GameStatus) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

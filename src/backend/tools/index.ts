@@ -861,7 +861,7 @@ export const SteamWindows = {
       progress: number
     ) {
       const downloadSize = 718394478
-      sendFrontendMessage(`progressUpdate-steam`, {
+      sendFrontendMessage(`progressUpdate`, {
         appName: 'steam',
         status: 'installing',
         runner: 'sideload',

@@ -41,10 +41,8 @@ export const hasProgress = (appName: string) => {
         })
       }
     }
-    const setGameStatusRemoveListener = window.api.onProgressUpdate(
-      appName,
-      handleProgressUpdate
-    )
+    const setGameStatusRemoveListener =
+      window.api.onProgressUpdate(handleProgressUpdate)
 
     return () => {
       setGameStatusRemoveListener()
