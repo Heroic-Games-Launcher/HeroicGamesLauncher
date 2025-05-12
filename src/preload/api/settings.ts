@@ -1,49 +1,24 @@
-import { ipcRenderer } from 'electron'
-import type { SystemInformation } from '../../backend/utils/systeminfo'
+import { makeListenerCaller, makeHandlerInvoker } from '../ipc'
 
-export const requestAppSettings = async () =>
-  ipcRenderer.invoke('requestAppSettings')
-
-export const requestGameSettings = async (appName: string) =>
-  ipcRenderer.invoke('requestGameSettings', appName)
-
-export const setSetting = (args: {
-  appName: string
-  key: keyof AppSettings
-  value: unknown
-}) => ipcRenderer.send('setSetting', args)
-
-export const getLegendaryVersion = async () =>
-  ipcRenderer.invoke('getLegendaryVersion')
-export const getGogdlVersion = async () => ipcRenderer.invoke('getGogdlVersion')
-export const getCometVersion = async () => ipcRenderer.invoke('getCometVersion')
-export const getNileVersion = async () => ipcRenderer.invoke('getNileVersion')
-export const getEosOverlayStatus = async () =>
-  ipcRenderer.invoke('getEosOverlayStatus')
-export const getLatestEosOverlayVersion = async () =>
-  ipcRenderer.invoke('getLatestEosOverlayVersion')
-export const removeEosOverlay = async () =>
-  ipcRenderer.invoke('removeEosOverlay')
-export const updateEosOverlayInfo = async () =>
-  ipcRenderer.invoke('updateEosOverlayInfo')
-
-export const changeTrayColor = () => ipcRenderer.send('changeTrayColor')
-export const getMaxCpus = async () => ipcRenderer.invoke('getMaxCpus')
-export const showUpdateSetting = async () =>
-  ipcRenderer.invoke('showUpdateSetting')
-export const egsSync = async (args: string) =>
-  ipcRenderer.invoke('egsSync', args)
-
-export const showLogFileInFolder = (appNameOrRunner: string) =>
-  ipcRenderer.send('showLogFileInFolder', appNameOrRunner)
-export const getLogContent = async (appNameOrRunner: string) =>
-  ipcRenderer.invoke('getLogContent', appNameOrRunner)
-
+export const requestAppSettings = makeHandlerInvoker('requestAppSettings')
+export const requestGameSettings = makeHandlerInvoker('requestGameSettings')
+export const setSetting = makeListenerCaller('setSetting')
+export const getLegendaryVersion = makeHandlerInvoker('getLegendaryVersion')
+export const getGogdlVersion = makeHandlerInvoker('getGogdlVersion')
+export const getCometVersion = makeHandlerInvoker('getCometVersion')
+export const getNileVersion = makeHandlerInvoker('getNileVersion')
+export const getEosOverlayStatus = makeHandlerInvoker('getEosOverlayStatus')
+export const getLatestEosOverlayVersion = makeHandlerInvoker('getLatestEosOverlayVersion')
+export const removeEosOverlay = makeHandlerInvoker('removeEosOverlay')
+export const updateEosOverlayInfo = makeHandlerInvoker('updateEosOverlayInfo')
+export const changeTrayColor = makeListenerCaller('changeTrayColor')
+export const getMaxCpus = makeHandlerInvoker('getMaxCpus')
+export const showUpdateSetting = makeHandlerInvoker('showUpdateSetting')
+export const egsSync = makeHandlerInvoker('egsSync')
+export const showLogFileInFolder = makeListenerCaller('showLogFileInFolder')
+export const getLogContent = makeHandlerInvoker('getLogContent')
 export const systemInfo = {
-  get: async (cache?: boolean): Promise<SystemInformation> =>
-    ipcRenderer.invoke('getSystemInfo', cache),
-  copyToClipboard: (): void => ipcRenderer.send('copySystemInfoToClipboard')
+  get: makeHandlerInvoker('getSystemInfo'),
+  copyToClipboard: makeListenerCaller('copySystemInfoToClipboard')
 }
-
-export const hasExecutable = async (executable: string) =>
-  ipcRenderer.invoke('hasExecutable', executable)
+export const hasExecutable = makeHandlerInvoker('hasExecutable')

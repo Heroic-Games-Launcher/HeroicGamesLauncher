@@ -1,106 +1,20 @@
-import { ipcRenderer } from 'electron'
-import {
-  Runner,
-  LaunchParams,
-  ImportGameArgs,
-  GameStatus,
-  GameInfo
-} from 'common/types'
+import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '../ipc'
 
-export const removeFolder = (args: [path: string, folderName: string]) =>
-  ipcRenderer.send('removeFolder', args)
-
-export const openDialog = async (args: Electron.OpenDialogOptions) =>
-  ipcRenderer.invoke('openDialog', args)
-
-export const uninstall = async (
-  appName: string,
-  runner: Runner,
-  shouldRemovePrefix: boolean,
-  shouldRemoveSetting: boolean
-) => {
-  if (runner === 'sideload') {
-    return ipcRenderer.invoke('removeApp', {
-      appName,
-      shouldRemovePrefix,
-      runner
-    })
-  } else {
-    return ipcRenderer.invoke(
-      'uninstall',
-      appName,
-      runner,
-      shouldRemovePrefix,
-      shouldRemoveSetting
-    )
-  }
-}
-
-export const repair = async (appName: string, runner: Runner) =>
-  ipcRenderer.invoke('repair', appName, runner)
-
-export const launch = async (args: LaunchParams) =>
-  ipcRenderer.invoke('launch', args)
-
-export const importGame = async (args: ImportGameArgs) =>
-  ipcRenderer.invoke('importGame', args)
-
-export const handleGameStatus = (
-  onChange: (e: Electron.IpcRendererEvent, status: GameStatus) => void
-) => {
-  ipcRenderer.on('gameStatusUpdate', onChange)
-  return () => {
-    ipcRenderer.removeListener('gameStatusUpdate', onChange)
-  }
-}
-
-export const onProgressUpdate = (
-  onChange: (e: Electron.IpcRendererEvent, status: GameStatus) => void
-) => {
-  ipcRenderer.on('progressUpdate', onChange)
-  return () => {
-    ipcRenderer.removeListener('progressUpdate', onChange)
-  }
-}
-
-export const handleInstallGame = (
-  callback: (
-    event: Electron.IpcRendererEvent,
-    appName: string,
-    runner: Runner
-  ) => void
-) => ipcRenderer.on('installGame', callback)
-
-export const handleRefreshLibrary = (
-  callback: (event: Electron.IpcRendererEvent, runner?: Runner) => void
-) => ipcRenderer.on('refreshLibrary', callback)
-
-export const handleGamePush = (
-  callback: (event: Electron.IpcRendererEvent, game: GameInfo) => void
-) => ipcRenderer.on('pushGameToLibrary', callback)
-
-export const removeRecentGame = async (appName: string) =>
-  ipcRenderer.invoke('removeRecent', appName)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const handleRecentGamesChanged = (callback: any) => {
-  ipcRenderer.on('recentGamesChanged', callback)
-  return () => {
-    ipcRenderer.removeListener('recentGamesChanged', callback)
-  }
-}
-
-export const addNewApp = (args: GameInfo) => ipcRenderer.send('addNewApp', args)
-
-export const changeGameVersionPinnedStatus = (
-  appName: string,
-  runner: Runner,
-  status: boolean
-) => ipcRenderer.send('changeGameVersionPinnedStatus', appName, runner, status)
-
-export const getGameOverride = async () => ipcRenderer.invoke('getGameOverride')
-
-export const getGameSdl = async (appName: string) =>
-  ipcRenderer.invoke('getGameSdl', appName)
-
-export const installSteamWindows = async (path: string) =>
-  ipcRenderer.invoke('installSteamWindows', path)
+export const removeFolder = makeListenerCaller('removeFolder')
+export const openDialog = makeHandlerInvoker('openDialog')
+export const uninstall = makeHandlerInvoker('uninstall')
+export const repair = makeHandlerInvoker('repair')
+export const launch = makeHandlerInvoker('launch')
+export const importGame = makeHandlerInvoker('importGame')
+export const handleGameStatus = frontendListenerSlot('gameStatusUpdate')
+export const onProgressUpdate = frontendListenerSlot('progressUpdate')
+export const handleInstallGame = frontendListenerSlot('installGame')
+export const handleRefreshLibrary = frontendListenerSlot('refreshLibrary')
+export const handleGamePush = frontendListenerSlot('pushGameToLibrary')
+export const removeRecentGame = makeHandlerInvoker('removeRecent')
+export const handleRecentGamesChanged = frontendListenerSlot('recentGamesChanged')
+export const addNewApp = makeListenerCaller('addNewApp')
+export const changeGameVersionPinnedStatus = makeListenerCaller('changeGameVersionPinnedStatus')
+export const getGameOverride = makeHandlerInvoker('getGameOverride')
+export const getGameSdl = makeHandlerInvoker('getGameSdl')
+export const installSteamWindows = makeHandlerInvoker('installSteamWindows')
