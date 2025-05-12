@@ -1,5 +1,4 @@
 import {
-  BaseLaunchOption,
   ExecResult,
   ExtraInfo,
   GameInfo,
@@ -336,9 +335,13 @@ export async function launch(
     })
     return false
   }
-  const exeOverrideFlag = gameSettings.targetExe
-    ? ['--override-exe', gameSettings.targetExe]
-    : []
+
+  let exeOverrideFlag: string[] = []
+  if (launchArguments?.type === 'altExe') {
+    exeOverrideFlag = ['--override-exe', launchArguments.executable]
+  } else if (gameSettings.targetExe) {
+    exeOverrideFlag = ['--override-exe', gameSettings.targetExe]
+  }
 
   let commandEnv = {
     ...process.env,
@@ -401,13 +404,17 @@ export async function launch(
     ]
   }
 
+  const launchArgumentsArgs =
+    launchArguments &&
+    (launchArguments.type === undefined || launchArguments.type === 'basic')
+      ? launchArguments.parameters
+      : ''
+
   const commandParts = [
     'launch',
     ...exeOverrideFlag, // Check if this works
     ...wineFlag,
-    ...shlex.split(
-      (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
-    ),
+    ...shlex.split(launchArgumentsArgs),
     ...shlex.split(gameSettings.launcherArgs ?? ''),
     appName,
     ...args

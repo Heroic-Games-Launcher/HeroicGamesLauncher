@@ -36,8 +36,7 @@ import {
   InstalledInfo,
   InstallPlatform,
   InstallProgress,
-  LaunchOption,
-  BaseLaunchOption
+  LaunchOption
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -523,9 +522,12 @@ export async function launch(
     return false
   }
 
-  const exeOverrideFlag = gameSettings.targetExe
-    ? ['--override-exe', gameSettings.targetExe]
-    : []
+  let exeOverrideFlag: string[] = []
+  if (launchArguments?.type === 'altExe') {
+    exeOverrideFlag = ['--override-exe', launchArguments.executable]
+  } else if (gameSettings.targetExe) {
+    exeOverrideFlag = ['--override-exe', gameSettings.targetExe]
+  }
 
   let commandEnv = {
     ...process.env,
@@ -583,6 +585,12 @@ export async function launch(
     wineFlag = await getWineFlagsArray(gameSettings, shlex.join(wrappers))
   }
 
+  const launchArgumentsArgs =
+    launchArguments &&
+    (launchArguments.type === undefined || launchArguments.type === 'basic')
+      ? launchArguments.parameters
+      : ''
+
   const commandParts = [
     'launch',
     gameInfo.install.install_path,
@@ -594,9 +602,7 @@ export async function launch(
     ...wineFlag,
     '--platform',
     gameInfo.install.platform.toLowerCase(),
-    ...shlex.split(
-      (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
-    ),
+    ...shlex.split(launchArgumentsArgs),
     ...shlex.split(gameSettings.launcherArgs ?? ''),
     ...args
   ]

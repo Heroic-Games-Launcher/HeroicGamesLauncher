@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
 import { useTranslation } from 'react-i18next'
@@ -27,6 +27,18 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
     return null
   }
 
+  const labelForLaunchOption = useCallback((option: LaunchOption) => {
+    switch (option.type) {
+      case undefined:
+      case 'basic':
+        return option.name
+      case 'dlc':
+        return option.dlcTitle
+      case 'altExe':
+        return option.executable
+    }
+  }, [])
+
   return (
     <SelectField
       htmlId="launch_options"
@@ -45,7 +57,7 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
     >
       {launchOptions.map((option, index) => (
         <option key={index} value={index}>
-          {option.type === 'dlc' ? option.dlcTitle : option.name}
+          {labelForLaunchOption(option)}
         </option>
       ))}
     </SelectField>
