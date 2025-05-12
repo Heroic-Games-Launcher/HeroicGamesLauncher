@@ -1,12 +1,11 @@
-import { AppSettings, GameSettings } from 'common/types'
 import { ipcRenderer } from 'electron'
 import type { SystemInformation } from '../../backend/utils/systeminfo'
 
 export const requestAppSettings = async () =>
-  ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>
+  ipcRenderer.invoke('requestAppSettings')
 
 export const requestGameSettings = async (appName: string) =>
-  ipcRenderer.invoke('requestSettings', appName) as Promise<GameSettings>
+  ipcRenderer.invoke('requestGameSettings', appName)
 
 export const setSetting = (args: {
   appName: string
