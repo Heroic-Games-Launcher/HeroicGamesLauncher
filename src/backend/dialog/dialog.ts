@@ -1,4 +1,4 @@
-import { LogPrefix, logWarning } from '../logger/logger'
+import { LogPrefix, logWarning } from 'backend/logger'
 import { dialog, Notification } from 'electron'
 import { ButtonOptions, DialogType } from 'common/types'
 import { getMainWindow, sendFrontendMessage } from '../main_window'

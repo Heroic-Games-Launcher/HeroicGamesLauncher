@@ -59,14 +59,13 @@ import {
 import { uninstallGameCallback } from './utils/uninstaller'
 import { handleProtocol } from './protocol'
 import {
-  initLogger,
-  logChangedSetting,
+  init as initLogger,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from './logger/logger'
+} from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { getFonts } from 'font-list'
 import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
@@ -886,7 +885,20 @@ ipcMain.handle('writeConfig', (event, { appName, config }) => {
       : GameConfig.get(appName).config
 
   // log only the changed setting
-  logChangedSetting(config, oldConfig)
+  const sharedKeys: (keyof AppSettings)[] = (
+    Object.keys(oldConfig) as (keyof AppSettings)[]
+  ).filter((key) => key in config)
+  const changedKeys = sharedKeys.filter(
+    (key) => JSON.stringify(oldConfig[key]) !== JSON.stringify(config[key])
+  )
+  for (const key of changedKeys) {
+    const oldValue = oldConfig[key]
+    const newValue = config[key]
+    logInfo(
+      ['Changed config:', key, 'from', oldValue, 'to', newValue],
+      LogPrefix.Backend
+    )
+  }
 
   if (appName === 'default') {
     GlobalConfig.get().set(config as AppSettings)
@@ -933,10 +945,6 @@ ipcMain.handle('refreshLibrary', async (e, library?) => {
     await Promise.allSettled(allRefreshPromises)
   }
 })
-
-ipcMain.on('logError', (e, err) => logError(err, LogPrefix.Frontend))
-
-ipcMain.on('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 // get pid/tid on launch and inject
 ipcMain.handle('launch', (event, args): StatusPromise => {

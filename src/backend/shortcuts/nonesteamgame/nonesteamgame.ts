@@ -18,7 +18,7 @@ import {
   removeImagesFromSteam
 } from './steamhelper'
 import { app } from 'electron'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'

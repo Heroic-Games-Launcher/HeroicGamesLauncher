@@ -2,10 +2,9 @@ import { GamesDBInfo } from 'common/types'
 import { axiosClient } from 'backend/utils'
 import testData from './test-data.json'
 import { getInfoFromGamesDB } from '../utils'
-import { logError } from '../../../logger/logger'
+import { logError } from 'backend/logger'
 
-jest.mock('backend/logger/logfile')
-jest.mock('backend/logger/logger')
+jest.mock('backend/logger')
 jest.mock('electron-store')
 
 describe('getInfoFromGamesDB', () => {

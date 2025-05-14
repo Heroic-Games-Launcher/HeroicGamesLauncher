@@ -1,6 +1,7 @@
 import { AppSettings, GameSettings } from 'common/types'
 import { ipcRenderer } from 'electron'
 import type { SystemInformation } from '../utils/systeminfo'
+import type { GetLogFileArgs } from '../logger/paths'
 
 export const requestAppSettings = async () =>
   ipcRenderer.invoke('requestSettings', 'default') as Promise<AppSettings>
@@ -35,10 +36,10 @@ export const showUpdateSetting = async () =>
 export const egsSync = async (args: string) =>
   ipcRenderer.invoke('egsSync', args)
 
-export const showLogFileInFolder = (appNameOrRunner: string) =>
-  ipcRenderer.send('showLogFileInFolder', appNameOrRunner)
-export const getLogContent = async (appNameOrRunner: string) =>
-  ipcRenderer.invoke('getLogContent', appNameOrRunner)
+export const showLogFileInFolder = (args: GetLogFileArgs) =>
+  ipcRenderer.send('showLogFileInFolder', args)
+export const getLogContent = async (args: GetLogFileArgs) =>
+  ipcRenderer.invoke('getLogContent', args)
 
 export const systemInfo = {
   get: async (cache?: boolean): Promise<SystemInformation> =>
