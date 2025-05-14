@@ -51,9 +51,10 @@ export enum LogPrefix {
   LogUploader = 'LogUploader'
 }
 
-export const RunnerToLogPrefixMap = {
+export const RunnerToLogPrefixMap: Record<Runner, LogPrefix> = {
   legendary: LogPrefix.Legendary,
   gog: LogPrefix.Gog,
+  nile: LogPrefix.Nile,
   sideload: LogPrefix.Sideload
 }
 
