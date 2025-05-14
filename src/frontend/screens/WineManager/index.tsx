@@ -182,7 +182,7 @@ export default function WineManager(): JSX.Element | null {
           <button
             className={'FormControl__button'}
             title={t('generic.library.refresh', 'Refresh Library')}
-            onClick={async () => refreshWineVersionInfo(true)}
+            onClick={() => refreshWineVersionInfo(true)}
           >
             <FontAwesomeIcon
               className={'FormControl__segmentedFaIcon'}

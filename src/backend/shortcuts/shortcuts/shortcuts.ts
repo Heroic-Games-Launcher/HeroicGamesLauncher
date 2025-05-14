@@ -182,7 +182,7 @@ async function generateMacOsApp(gameInfo: GameInfo) {
   const plistFile = `${appShortcut}/Contents/Info.plist`
 
   // create the .app folder
-  if (!existsSync(appShortcut)) {
+  if (appShortcut && !existsSync(appShortcut)) {
     mkdirSync(appShortcut, { recursive: true })
   }
 
@@ -236,9 +236,11 @@ async function generateMacOsApp(gameInfo: GameInfo) {
   } else {
     logError('Error generating MacOS App', LogPrefix.Backend)
     // remove the .app folder
-    rm(appShortcut, { recursive: true }, () =>
-      logInfo('Temporary MacOS App removed', LogPrefix.Backend)
-    )
+    if (appShortcut) {
+      rm(appShortcut, { recursive: true }, () =>
+        logInfo('Temporary MacOS App removed', LogPrefix.Backend)
+      )
+    }
   }
 }
 

@@ -364,17 +364,16 @@ const GameCard = ({
     }
   ]
 
-  const instClass = isInstalled ? 'installed' : ''
-  const hiddenClass = isHiddenGame ? 'hidden' : ''
-  const notAvailableClass = notAvailable ? 'notAvailable' : ''
-  const gamepadClass = activeController ? 'gamepad' : ''
-  const justPlayedClass = justPlayed ? 'justPlayed' : ''
-  const imgClasses = `gameImg ${isInstalled ? 'installed' : ''}`
-  const logoClasses = `gameLogo ${isInstalled ? 'installed' : ''}`
+  const wrapperClasses = classNames(grid ? 'gameCard' : 'gameListItem', {
+    installed: isInstalled,
+    hidden: isHiddenGame,
+    notAvailable: notAvailable,
+    gamepad: activeController,
+    justPlayed: justPlayed
+  })
 
-  const wrapperClasses = `${
-    grid ? 'gameCard' : 'gameListItem'
-  }  ${instClass} ${hiddenClass} ${notAvailableClass} ${gamepadClass} ${justPlayedClass}`
+  const imgClasses = classNames('gameImg', { installed: isInstalled })
+  const logoClasses = classNames('gameLogo', { installed: isInstalled })
 
   const showUpdateButton =
     hasUpdate && !isUpdating && !isQueued && !notAvailable

@@ -49,7 +49,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 10%;
   grid-template-areas: 'name store platform action';
-  margin: 0 var(--space-sm-fixed);
+  width: 100%;
   align-items: center;
   justify-items: baseline;
   position: relative;

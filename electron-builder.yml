@@ -1,6 +1,5 @@
 appId: com.heroicgameslauncher.hgl
 productName: Heroic
-afterSign: sign/afterSign.js
 files:
   - build/**/*
   - node_modules/**/*
@@ -35,8 +34,6 @@ mac:
   icon: build/icon.icns
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
-  notarize:
-    teamId: DLB2RYLUDX
   extendInfo:
     com.apple.security.cs.allow-jit: true
   files:
@@ -62,9 +59,10 @@ linux:
   category: Game
   icon: build/icon.icns
   desktop:
-    Name: Heroic Games Launcher
-    Comment[de]: Ein OSS-Spielelauncher für GOG, Epic Games und Amazon Games
-    Comment[pl]: Otwartoźródłowy launcher dla GOG, Epic Games i Amazon Games
+    entry:
+      Name: Heroic Games Launcher
+      Comment[de]: Ein OSS-Spielelauncher für GOG, Epic Games und Amazon Games
+      Comment[pl]: Otwartoźródłowy launcher dla GOG, Epic Games i Amazon Games
   files:
     - build/bin/${arch}/linux/*
     - build/bin/x64/win32/GalaxyCommunication.exe

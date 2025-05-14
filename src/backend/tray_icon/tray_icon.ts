@@ -23,7 +23,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     recentGames ??= await getRecentGames({ limited: true })
     const newContextMenu = contextMenu(mainWindow, recentGames)
     appIcon.setContextMenu(newContextMenu)
-    if (isMac) app.dock.setMenu(newContextMenu)
+    if (isMac) app.dock?.setMenu(newContextMenu)
   }
   await loadContextMenu()
 
