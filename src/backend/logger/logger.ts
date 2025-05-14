@@ -331,9 +331,9 @@ export function logChangedSetting(
   config: Partial<AppSettings>,
   oldConfig: GameSettings
 ) {
-  const changedSettings = Object.keys(config).filter(
-    (key) => config[key] !== oldConfig[key]
-  )
+  const changedSettings = (
+    Object.keys(config) as (keyof GameSettings)[]
+  ).filter((key) => config[key] !== oldConfig[key])
 
   changedSettings.forEach((changedSetting) => {
     // check if both are empty arrays
