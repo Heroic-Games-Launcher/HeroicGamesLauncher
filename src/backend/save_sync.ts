@@ -1,5 +1,5 @@
 import { InstalledInfo, Runner } from 'common/types'
-import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
+import { GOGCloudSavesLocation } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { getSaveSyncLocation, readInfoFile } from './storeManagers/gog/library'
@@ -142,7 +142,7 @@ async function getDefaultGogSavePaths(
     })
   }
 
-  const gogVariableMap: Record<SaveFolderVariable, string> = {
+  const gogVariableMap: Record<string, string> = {
     INSTALL: install_path,
     SAVED_GAMES: '%USERPROFILE%/Saved Games',
     APPLICATION_DATA_LOCAL: '%LOCALAPPDATA%',
