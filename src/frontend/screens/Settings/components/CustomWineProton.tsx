@@ -4,7 +4,7 @@ import { SelectField, SvgButton } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
-import { Tooltip } from '@mui/material'
+import { MenuItem, Tooltip } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
@@ -97,7 +97,9 @@ export default function CustomWineProton() {
       }
     >
       {customWinePaths.map((path: string) => (
-        <option key={path}>{path}</option>
+        <MenuItem key={path} value={path}>
+          {path}
+        </MenuItem>
       ))}
     </SelectField>
   )

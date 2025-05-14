@@ -2,6 +2,7 @@ import { InstallPlatform } from 'common/types'
 import { SelectField } from 'frontend/components/UI'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { MenuItem } from '@mui/material'
 
 interface GameLanguageSelectorProps {
   installLanguages: string[]
@@ -45,9 +46,9 @@ export default function GameLanguageSelector({
     >
       {installLanguages &&
         installLanguages.map((value) => (
-          <option value={value} key={value}>
+          <MenuItem value={value} key={value}>
             {getLanguageName(value)}
-          </option>
+          </MenuItem>
         ))}
     </SelectField>
   )

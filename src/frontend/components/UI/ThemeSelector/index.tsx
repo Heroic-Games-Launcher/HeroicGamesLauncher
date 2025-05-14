@@ -5,6 +5,7 @@ import { SelectField, InfoBox, PathSelectionBox } from '..'
 import { AppSettings } from 'common/types'
 import { writeConfig } from 'frontend/helpers'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { MenuItem } from '@mui/material'
 
 export const defaultThemes = {
   midnightMirage: 'Midnight Mirage',
@@ -75,9 +76,9 @@ export const ThemeSelector = () => {
         value={theme}
       >
         {themes.map((key) => (
-          <option key={key} value={key}>
+          <MenuItem key={key} value={key}>
             {defaultThemes[key] || key}
-          </option>
+          </MenuItem>
         ))}
       </SelectField>
 

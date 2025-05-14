@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
+import { MenuItem } from '@mui/material'
 
 const MaxRecentGames = () => {
   const { t } = useTranslation()
@@ -23,7 +24,9 @@ const MaxRecentGames = () => {
       value={maxRecentGames.toString()}
     >
       {Array.from(Array(10).keys()).map((n) => (
-        <option key={n + 1}>{n + 1}</option>
+        <MenuItem key={n + 1} value={n + 1}>
+          {n + 1}
+        </MenuItem>
       ))}
     </SelectField>
   )
