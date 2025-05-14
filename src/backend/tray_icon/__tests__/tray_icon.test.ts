@@ -32,7 +32,7 @@ describe('TrayIcon', () => {
       it('shows recent games first', () => {
         const menu = testingExportsTrayIcon.contextMenu(mainWindow, [
           { title: 'game 1', appName: '123456' }
-        ])
+        ]) as unknown as Electron.MenuItemConstructorOptions[]
 
         expect(menu[0]).toEqual({
           click: expect.any(Function),
@@ -64,12 +64,12 @@ describe('TrayIcon', () => {
 
           const appIcon = await initTrayIcon(mainWindow)
 
-          expect(appIcon['menu'][0]).toEqual({
+          expect(appIcon.menu[0]).toEqual({
             click: expect.any(Function),
             label: 'game 1'
           })
 
-          expect(appIcon['menu'][1]).toEqual({
+          expect(appIcon.menu[1]).toEqual({
             type: 'separator'
           })
 
@@ -81,30 +81,30 @@ describe('TrayIcon', () => {
           // wait for a moment since the event handler is async
           await wait(5)
 
-          expect(appIcon['menu'][0]).toEqual({
+          expect(appIcon.menu[0]).toEqual({
             click: expect.any(Function),
             label: 'game 2'
           })
 
-          expect(appIcon['menu'][1]).toEqual({
+          expect(appIcon.menu[1]).toEqual({
             click: expect.any(Function),
             label: 'game 1'
           })
 
-          expect(appIcon['menu'][2]).toEqual({
+          expect(appIcon.menu[2]).toEqual({
             type: 'separator'
           })
         })
 
         it('limits the number games displayed based on config', async () => {
           // limits to maxRecentGames config
-          GlobalConfig['setConfigValue']('maxRecentGames', 3)
+          GlobalConfig.setConfigValue('maxRecentGames', 3)
 
           setRecentGames([])
 
           const appIcon = await initTrayIcon(mainWindow)
 
-          expect(appIcon['menu'][0]).toEqual({
+          expect(appIcon.menu[0]).toEqual({
             type: 'separator'
           })
 
@@ -119,7 +119,7 @@ describe('TrayIcon', () => {
           // wait for a moment since the event handler is async
           await wait(5)
 
-          const items = appIcon['menu']
+          const items = appIcon.menu
 
           expect(items[0]).toEqual({
             click: expect.any(Function),
@@ -156,7 +156,7 @@ describe('TrayIcon', () => {
           // check it renders english
           i18next.language = 'en'
           const appIcon = await initTrayIcon(mainWindow)
-          let items = appIcon['menu']
+          let items = appIcon.menu
           expect(items[items.length - 1].label).toEqual('Quit')
 
           // change language
@@ -166,7 +166,7 @@ describe('TrayIcon', () => {
           await wait(5)
 
           // check it renders spanish
-          items = appIcon['menu']
+          items = appIcon.menu
           expect(items[items.length - 1].label).toEqual('Salir')
 
           // reset t function mock
@@ -191,11 +191,11 @@ describe('TrayIcon', () => {
       setRecentGames(recentGames)
 
       // defaults to 5
-      GlobalConfig['setConfigValue']('maxRecentGames', undefined)
+      GlobalConfig.setConfigValue('maxRecentGames', undefined)
 
       const appIcon = await initTrayIcon(mainWindow)
 
-      const items = appIcon['menu']
+      const items = appIcon.menu
 
       expect(items[0]).toEqual({
         click: expect.any(Function),
@@ -239,12 +239,12 @@ describe('TrayIcon', () => {
     })
 
     it('can show dark or light icon', () => {
-      GlobalConfig['setConfigValue']('darkTrayIcon', true)
+      GlobalConfig.setConfigValue('darkTrayIcon', true)
 
       let icon = testingExportsTrayIcon.getIcon()
       expect(icon).toMatch(/.*icon-dark.png/)
 
-      GlobalConfig['setConfigValue']('darkTrayIcon', false)
+      GlobalConfig.setConfigValue('darkTrayIcon', false)
 
       icon = testingExportsTrayIcon.getIcon()
       expect(icon).toMatch(/.*icon-light.png/)
