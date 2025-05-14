@@ -18,12 +18,13 @@ import {
   removeImagesFromSteam
 } from './steamhelper'
 import { app } from 'electron'
-import { isFlatpak, isWindows, tsStore } from '../../constants'
 import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
+import { tsStore } from 'backend/constants/key_value_stores'
+import { isAppImage, isFlatpak, isWindows } from 'backend/constants/environment'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
@@ -268,8 +269,8 @@ async function addNonSteamGame(props: {
 
     if (isFlatpak) {
       newEntry.Exe = `"flatpak"`
-    } else if (!isWindows && process.env.APPIMAGE) {
-      newEntry.Exe = `"${process.env.APPIMAGE}"`
+    } else if (!isWindows && isAppImage) {
+      newEntry.Exe = `"${isAppImage}"`
     } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
       newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}"`
       newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`

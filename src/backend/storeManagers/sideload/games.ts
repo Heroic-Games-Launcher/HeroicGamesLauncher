@@ -9,7 +9,6 @@ import {
 } from 'common/types'
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
-import { isWindows, isMac, isLinux } from '../../constants'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
 import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
 import { dirname } from 'path'
@@ -25,6 +24,7 @@ import { GOGCloudSavesLocation } from 'common/types/gog'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { removePrefix } from 'backend/utils/uninstaller'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
+import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])

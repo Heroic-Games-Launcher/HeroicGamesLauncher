@@ -5,21 +5,7 @@ import {
   GlobalConfigVersion,
   WineInstallation
 } from 'common/types'
-import {
-  currentGlobalConfigVersion,
-  configPath,
-  defaultWinePrefix,
-  gamesConfigPath,
-  heroicInstallPath,
-  userHome,
-  isFlatpak,
-  isMac,
-  isWindows,
-  getSteamCompatFolder,
-  configStore,
-  isLinux,
-  isIntelMac
-} from './constants'
+import { currentGlobalConfigVersion } from 'backend/constants/others'
 
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import {
@@ -33,6 +19,51 @@ import {
   getWineskinWine
 } from './utils/compatibility_layers'
 import { backendEvents } from './backend_events'
+import { configStore } from './constants/key_value_stores'
+import {
+  isFlatpak,
+  isLinux,
+  isMac,
+  isIntelMac,
+  isWindows
+} from './constants/environment'
+import {
+  configPath,
+  defaultWinePrefix,
+  gamesConfigPath,
+  heroicInstallPath,
+  userHome
+} from './constants/paths'
+import { join } from 'path'
+import { spawnSync } from 'child_process'
+
+function getSteamCompatFolder() {
+  // Paths are from https://savelocation.net/steam-game-folder
+  if (isWindows) {
+    const defaultWinPath = join(process.env['PROGRAMFILES(X86)'] ?? '', 'Steam')
+    return defaultWinPath
+  } else if (isMac) {
+    return join(userHome, 'Library/Application Support/Steam')
+  } else {
+    const flatpakSteamPath = join(
+      userHome,
+      '.var/app/com.valvesoftware.Steam/.steam/steam'
+    )
+
+    if (existsSync(flatpakSteamPath)) {
+      // check if steam is really installed via flatpak
+      const { status } = spawnSync('flatpak', [
+        'info',
+        'com.valvesoftware.Steam'
+      ])
+
+      if (status === 0) {
+        return flatpakSteamPath
+      }
+    }
+    return join(userHome, '.steam/steam')
+  }
+}
 
 /**
  * This class does config handling.

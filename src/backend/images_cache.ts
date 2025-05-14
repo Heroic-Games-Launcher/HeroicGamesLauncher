@@ -1,9 +1,11 @@
 import { existsSync, createWriteStream, mkdirSync } from 'graceful-fs'
 import { createHash } from 'crypto'
-import { imagesCachePath } from './constants'
 import { join } from 'path'
 import axios from 'axios'
 import { protocol } from 'electron'
+import { appFolder } from './constants/paths'
+
+const imagesCachePath = join(appFolder, 'images-cache')
 
 export const initImagesCache = () => {
   // make sure we have a folder to store the cache
