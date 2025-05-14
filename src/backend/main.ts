@@ -340,6 +340,10 @@ if (!gotTheLock) {
 
     const settings = GlobalConfig.get().getSettings()
 
+    if (settings?.disableSmoothScrolling) {
+      app.commandLine.appendSwitch('disable-smooth-scrolling')
+    }
+
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
     if (!settings.disablePlaytimeSync) {
