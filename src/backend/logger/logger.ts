@@ -157,10 +157,8 @@ function convertInputToString(param: LogInputType): string {
       case 'string':
         return value
       case 'object':
-        // Object.prototype.toString.call(value).includes('Error') will catch all
-        // Error types (Error, EvalError, SyntaxError, ...)
-        if (Object.prototype.toString.call(value).includes('Error')) {
-          return value!['stack'] ? value!['stack'] : value!.toString()
+        if (value instanceof Error) {
+          return value.stack ?? value.message
         } else if (Object.prototype.toString.call(value).includes('Object')) {
           return JSON.stringify(value, null, 2)
         } else {
