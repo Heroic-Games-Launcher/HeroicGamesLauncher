@@ -74,6 +74,12 @@ export type Release = {
   body?: string
 }
 
+export interface discordRPCOptions {
+  appId?: string
+  details?: string
+  state?: string
+}
+
 export type ExperimentalFeatures = {
   enableNewDesign: boolean
   enableHelp: boolean
@@ -104,6 +110,9 @@ export interface AppSettings extends GameSettings {
   disableSmoothScrolling: boolean
   disableLogs: boolean
   discordRPC: boolean
+  discordRPCAppId: string
+  discordRPCDetails: string
+  discordRPCState: string
   downloadNoHttps: boolean
   egsLinkedPath: string
   enableUpdates: boolean

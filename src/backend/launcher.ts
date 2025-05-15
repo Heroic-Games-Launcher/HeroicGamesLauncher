@@ -325,7 +325,11 @@ async function prepareLaunch(
   // Update Discord RPC if enabled
   let rpcClient = undefined
   if (globalSettings.discordRPC) {
-    rpcClient = constructAndUpdateRPC(gameInfo)
+    rpcClient = constructAndUpdateRPC(gameInfo, {
+      appId: globalSettings.discordRPCAppId,
+      details: globalSettings.discordRPCDetails,
+      state: globalSettings.discordRPCState
+    })
   }
 
   // If we're not on Linux, we can return here
