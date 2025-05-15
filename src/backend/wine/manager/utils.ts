@@ -173,11 +173,11 @@ async function installWineVersion(
     }
   } catch (error) {
     if (abortController.signal.aborted) {
-      logWarning(String(error), LogPrefix.WineDownloader)
-      return 'abort' as const
+      logWarning(error, LogPrefix.WineDownloader)
+      return 'abort'
     } else {
-      logError(String(error), LogPrefix.WineDownloader)
-      return 'error' as const
+      logError(error, LogPrefix.WineDownloader)
+      return 'error'
     }
   } finally {
     deleteAbortController(release.version)
@@ -196,7 +196,7 @@ async function installWineVersion(
         `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
         LogPrefix.WineDownloader
       )
-      return 'error' as const
+      return 'error'
     }
 
     releases[index] = updatedInfo
@@ -207,7 +207,7 @@ async function installWineVersion(
       `Couldn't find a tools entry in electron-store -> wine-downloader-info.json. Tool ${release.version} couldn't be installed!`,
       LogPrefix.WineDownloader
     )
-    return 'error' as const
+    return 'error'
   }
 
   logInfo(
@@ -216,7 +216,7 @@ async function installWineVersion(
   )
 
   sendFrontendMessage('wineVersionsUpdated')
-  return 'success' as const
+  return 'success'
 }
 
 async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
@@ -235,8 +235,6 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
 
   // update tool information
   if (wineDownloaderInfoStore.has('wine-releases')) {
-    // Add await to ensure it's properly async
-    await Promise.resolve() // This ensures the function is truly async
     const releases = wineDownloaderInfoStore.get('wine-releases', [])
 
     const index = releases.findIndex((storedRelease) => {
