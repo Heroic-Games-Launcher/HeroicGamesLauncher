@@ -106,23 +106,20 @@ function getInstallDir(release: WineVersionInfo): string {
   } else if (release.type.includes('Toolkit')) {
     return `${toolsPath}/game-porting-toolkit`
   } else {
-    // Check if we want to download Proton-GE directly to Steam
-    if (release.type === 'GE-Proton') {
-      const config = GlobalConfig.get().getSettings()
-      if (config.downloadProtonToSteam && config.defaultSteamPath) {
-        const steamCompatPath = join(
-          config.defaultSteamPath,
-          'compatibilitytools.d'
-        )
-        if (existsSync(steamCompatPath)) {
-          return steamCompatPath
-        }
-        // If Steam path doesn't exist, fall back to default
-        logWarning(
-          'Steam compatibilitytools.d directory does not exist, defaulting to Heroic tools path',
-          LogPrefix.WineDownloader
-        )
+    const config = GlobalConfig.get().getSettings()
+    if (config.downloadProtonToSteam && config.defaultSteamPath) {
+      const steamCompatPath = join(
+        config.defaultSteamPath,
+        'compatibilitytools.d'
+      )
+      if (existsSync(steamCompatPath)) {
+        return steamCompatPath
       }
+      // If Steam path doesn't exist, fall back to default
+      logWarning(
+        'Steam compatibilitytools.d directory does not exist, defaulting to Heroic tools path',
+        LogPrefix.WineDownloader
+      )
     }
     return `${toolsPath}/proton`
   }
