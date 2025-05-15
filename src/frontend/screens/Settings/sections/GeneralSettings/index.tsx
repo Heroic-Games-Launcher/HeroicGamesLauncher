@@ -67,7 +67,7 @@ export default function GeneralSettings() {
       <DiscordRPC />
 
       <DisableController />
-      
+
       <DownloadProtonToSteam />
 
       <LibraryTopSection />

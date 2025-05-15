@@ -5,6 +5,8 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import SettingsContext from '../SettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 const DownloadProtonToSteam = () => {
   const { t } = useTranslation()
@@ -35,16 +37,26 @@ const DownloadProtonToSteam = () => {
   )
 
   return (
-    <ToggleSwitch
-      title={t(
-        'setting.download-proton-to-steam',
-        'Download Proton-GE to Steam directory'
-      )}
-      htmlId="download-proton-to-steam"
-      handleChange={() => setDownloadProtonToSteam(!downloadProtonToSteam)}
-      value={downloadProtonToSteam}
-      description={helpContent}
-    />
+    <div className="toggleRow">
+      <ToggleSwitch
+        title={t(
+          'setting.download-proton-to-steam',
+          'Download Proton-GE to Steam directory'
+        )}
+        htmlId="download-proton-to-steam"
+        handleChange={() => setDownloadProtonToSteam(!downloadProtonToSteam)}
+        value={downloadProtonToSteam}
+        description={helpContent}
+      />
+      <FontAwesomeIcon
+        className="helpIcon"
+        icon={faCircleInfo}
+        title={t(
+          'help.download_proton_to_steam',
+          "When enabled, Proton-GE will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'Default Steam path' setting above."
+        )}
+      />
+    </div>
   )
 }
 
