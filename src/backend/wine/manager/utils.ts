@@ -15,7 +15,7 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import { toolsPath } from 'backend/constants/paths'
-import { isMac, isLinux } from 'backend/constants/environment'
+import { isMac } from 'backend/constants/environment'
 import { GlobalConfig } from '../../config'
 import { join } from 'path'
 
@@ -107,7 +107,7 @@ function getInstallDir(release: WineVersionInfo): string {
     return `${toolsPath}/game-porting-toolkit`
   } else {
     // Check if we want to download Proton-GE directly to Steam
-    if (isLinux && release.type === 'GE-Proton') {
+    if (release.type === 'GE-Proton') {
       const config = GlobalConfig.get().getSettings()
       if (config.downloadProtonToSteam && config.defaultSteamPath) {
         const steamCompatPath = join(
