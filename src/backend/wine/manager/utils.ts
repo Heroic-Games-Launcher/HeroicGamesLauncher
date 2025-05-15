@@ -15,7 +15,9 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import { toolsPath } from 'backend/constants/paths'
-import { isMac } from 'backend/constants/environment'
+import { isMac, isLinux } from 'backend/constants/environment'
+import { GlobalConfig } from '../../config'
+import { join } from 'path'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
@@ -104,6 +106,24 @@ function getInstallDir(release: WineVersionInfo): string {
   } else if (release.type.includes('Toolkit')) {
     return `${toolsPath}/game-porting-toolkit`
   } else {
+    // Check if we want to download Proton-GE directly to Steam
+    if (isLinux && release.type === 'GE-Proton') {
+      const config = GlobalConfig.get().getSettings()
+      if (config.downloadProtonToSteam && config.defaultSteamPath) {
+        const steamCompatPath = join(
+          config.defaultSteamPath,
+          'compatibilitytools.d'
+        )
+        if (existsSync(steamCompatPath)) {
+          return steamCompatPath
+        }
+        // If Steam path doesn't exist, fall back to default
+        logWarning(
+          'Steam compatibilitytools.d directory does not exist, defaulting to Heroic tools path',
+          LogPrefix.WineDownloader
+        )
+      }
+    }
     return `${toolsPath}/proton`
   }
 }
@@ -153,11 +173,11 @@ async function installWineVersion(
     }
   } catch (error) {
     if (abortController.signal.aborted) {
-      logWarning(error, LogPrefix.WineDownloader)
-      return 'abort'
+      logWarning(String(error), LogPrefix.WineDownloader)
+      return 'abort' as const
     } else {
-      logError(error, LogPrefix.WineDownloader)
-      return 'error'
+      logError(String(error), LogPrefix.WineDownloader)
+      return 'error' as const
     }
   } finally {
     deleteAbortController(release.version)
@@ -176,7 +196,7 @@ async function installWineVersion(
         `Can't find ${release.version} in electron-store -> wine-downloader-info.json!`,
         LogPrefix.WineDownloader
       )
-      return 'error'
+      return 'error' as const
     }
 
     releases[index] = updatedInfo
@@ -187,7 +207,7 @@ async function installWineVersion(
       `Couldn't find a tools entry in electron-store -> wine-downloader-info.json. Tool ${release.version} couldn't be installed!`,
       LogPrefix.WineDownloader
     )
-    return 'error'
+    return 'error' as const
   }
 
   logInfo(
@@ -196,7 +216,7 @@ async function installWineVersion(
   )
 
   sendFrontendMessage('wineVersionsUpdated')
-  return 'success'
+  return 'success' as const
 }
 
 async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
@@ -215,6 +235,8 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
 
   // update tool information
   if (wineDownloaderInfoStore.has('wine-releases')) {
+    // Add await to ensure it's properly async
+    await Promise.resolve() // This ensures the function is truly async
     const releases = wineDownloaderInfoStore.get('wine-releases', [])
 
     const index = releases.findIndex((storedRelease) => {
