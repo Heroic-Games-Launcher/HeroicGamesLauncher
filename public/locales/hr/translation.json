@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Obitelj fontova za sadržaj (Zadano: ",
         "fonts": "Fontovi",
         "title": "Prilagodbe",
-        "zoom": "Uvečaj"
+        "zoom": "Uvečaj",
+        "actions_font_family_default": "Actions Font Family (Default:",
+        "content_font_family_default": "Content Font Family (Default:"
     },
     "add_game": "Dodaj igru",
     "All": "Sve",
@@ -15,7 +17,8 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "Ova igra uključuje softver protiv varanja"
+        "title": "Ova igra uključuje softver protiv varanja",
+        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support."
     },
     "box": {
         "cache-cleared": {
@@ -654,6 +657,9 @@
             "resetHeroic": {
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
+        },
+        "systemInformation": {
+            "copyToClipboard": "Copied to Clipboard!"
         }
     },
     "Settings": "Postavke",
@@ -745,5 +751,8 @@
     "category-settings": {
         "cancel": "Odustani",
         "warning": "Upozorenje"
+    },
+    "tour": {
+        "back": "Back"
     }
 }

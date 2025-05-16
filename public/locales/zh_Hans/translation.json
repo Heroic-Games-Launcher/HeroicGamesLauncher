@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "在对话框外单击禁用关闭对话框",
         "titles_always_visible": "始终在游戏库中显示标题",
         "actions_font_family_default": "操作字族（默认：{{fontFamily}}）",
-        "content_font_family_default": "内容字族（默认：{{fontFamily}}）"
+        "content_font_family_default": "内容字族（默认：{{fontFamily}}）",
+        "disable_smooth_scrolling": "禁用平滑滚动（需要重启）"
     },
     "add_game": "添加游戏",
     "All": "全部",
@@ -169,6 +170,10 @@
                 "checkbox": "不再显示本消息",
                 "title": "Heroic 正以 Snap 运行",
                 "message": "某些功能眼下在本应用的 Snap 版本中不可用，我们正尝试修复它。{{newLine}}当前限制为：{{newLine}}Heroic 无法从 Steam 找到 Proton 或从 Lutris 找到 Wine。{{newLine}}{{newLine}}Gamescope、GameMode 和 MangoHud 也无法正常工作，因为 Heroci 无法有权限访问它们。{{newLine}}{{newLine}}要访问此功能，请以 Flakpak、DEB 格式包安装 Heroic 或从 AppImage 安装。"
+            },
+            "rosetta": {
+                "title": "未找到 Rosetta",
+                "message": "Heroic 需要 Rosetta 在配备 Apple Silicon 芯片的 macOS 上正确运行。请用以下命令从 macOS 终端安装它：\"softwareupdate --install-rosetta\"，并重启 Heroic。 "
             }
         },
         "wineprefix": "选择 Wine Prefix 文件夹",
@@ -981,5 +986,51 @@
         "confirm-remove": "确认删除“{{name}}”",
         "title": "管理分类",
         "add-placeholder": "添加新分类"
+    },
+    "tour": {
+        "back": "返回",
+        "library": {
+            "end": {
+                "intro": "好啦！享受游戏，玩得高兴！",
+                "title": "享受游戏！"
+            },
+            "filters": "使用这些选项按商店、平台、收藏和更多维度过滤游戏。",
+            "search": "使用搜索栏搜索游戏。",
+            "sortInstalled": "按安装状态分类游戏。",
+            "sortOptions": "单击此处按字母分类游戏。",
+            "welcome": {
+                "intro2": "如果游戏库为空，请用侧边栏的“管理账户”登录你的账户或用上方的“添加游戏”按钮添加自己的游戏。",
+                "title": "欢迎来到 Heroic！",
+                "title2": "管理游戏库！",
+                "intro": "欢迎来到 Heroic 游戏库！在这里你可以看到不同商店中你所有的游戏。"
+            },
+            "viewToggle": "选择游戏视图样式是网格还是列表。",
+            "categories": "将游戏分入不同类别保持整洁。",
+            "addGame": "单击此处将你自己的游戏或应用添加到库中。基本啥都行，即使是浏览器 URLs。",
+            "refresh": "刷新库检查新游戏或更新。",
+            "gameCard": "左键单击游戏卡片导航至游戏页，查看详情和调整设置，或右键单击打开上下文菜单。"
+        },
+        "sidebar": {
+            "community": "加入我们的 Discord 社区并支持 Heroic 的开发。",
+            "docs": "阅读文档获得使用 Heroic 的帮助。",
+            "downloads": "追踪并管理你的游戏下载和安装。",
+            "library": "在一个地方访问不同商店中你的游戏库。",
+            "login": "登录游戏商店账户来访问游戏库。",
+            "quit": "安全退出程序。",
+            "settings": "配置 Heroic 的设置、游戏默认、检查日志和更多。",
+            "stores": "浏览并购买 Epic、GOG 和亚马逊等不同商店中的游戏。",
+            "version": "检查当前 Heroic 版本，单击它查看最新更新记录，并从帮助图标访问此入门指南。",
+            "welcome": {
+                "intro": "欢迎来到 Heroic！此侧边栏包括了所有探索本程序的导航选项。",
+                "title": "侧边栏导航"
+            },
+            "accessibility": "访问无障碍功能定制体验。",
+            "accounts": "管理已连接的商店账户（Epic、GOG、Amazon），退出登录或登录账户。",
+            "wine": "管理或下载新版 Wine/Proton/GPTK 来在 Linux 或 macOS 上运行 Windows 游戏。"
+        },
+        "skip": "跳过",
+        "startTour": "开始入门指南",
+        "next": "下一步",
+        "done": "完毕"
     }
 }

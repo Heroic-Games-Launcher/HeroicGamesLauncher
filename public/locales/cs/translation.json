@@ -168,7 +168,11 @@
             "snap": {
                 "checkbox": "Tuto zprávu již nezobrazovat",
                 "title": "Heroic spuštěn jako Snap",
-                "message": "Některé funkce nejsou ve verzi aplikace Snap prozatím dostupné a snažíme se je opravit.{{newLine}}Aktuální omezení jsou: {{newLine}}Heroic nebude schopen najít Proton ze služby Steam nebo Wine z Lutrisu.{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud také nebudou fungovat, protože k nim Heroic nemá přístup.{{newLine}}{{newLine}}Chcete-li mít přístup k těmto funkcím, nainstalujte si Heroic jako Flatpak, DEB nebo z AppImage."
+                "message": "Některé funkce nejsou ve Snap verzi aplikace prozatím dostupné a snažíme se je opravit.{{newLine}}Aktuální omezení jsou: {{newLine}}Heroic nebude schopen najít Proton ze služby Steam nebo Wine z Lutrisu.{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud také nebudou fungovat, protože k nim Heroic nemá přístup.{{newLine}}{{newLine}}Chcete-li mít přístup k těmto funkcím, nainstalujte si Heroic jako Flatpak, DEB nebo AppImage."
+            },
+            "rosetta": {
+                "title": "Rosetta nebyla nalezena",
+                "message": "Heroic vyžaduje Rosettu, aby správně fungoval na macOS s čipy Apple Silicon. Prosím, nainstalujte ji z terminálu macOS pomocí následujícího příkazu: \"softwareupdate --install-rosetta\" a restartujte Heroic. "
             }
         },
         "wineprefix": "Vyberte složku WinePrefix",
@@ -182,7 +186,7 @@
     "button": {
         "cancel": "Zrušit",
         "go_to_library": "Přejít do knihovny",
-        "login": "Přihlásit se",
+        "login": "Login",
         "sync": "Synchronizovat",
         "syncing": "Synchronizuji",
         "unsync": "Desynchroniozovat",
@@ -261,7 +265,7 @@
         "show_favourites_only": "Zobrazit pouze oblíbené",
         "show_hidden": "Zobrazit skryté",
         "store": "Filtrovat obchod",
-        "filters": "Filtr",
+        "filters": "Filtry",
         "all_categories": "Všechny kategorie",
         "show_installed_only": "Zobrazit pouze nainstalované",
         "uncategorized": "Nezařazeno",
@@ -328,9 +332,9 @@
         },
         "title": {
             "accessibility": "Přístupnost",
-            "login": "Login",
+            "login": "Přihlásit se",
             "settings": "Nastavení",
-            "downloadManager": "Download Manager",
+            "downloadManager": "Správce Stahování",
             "wineManager": "Správce Wine",
             "library": "Knihovna"
         },
@@ -384,7 +388,7 @@
     },
     "label": {
         "loading": "Načítání",
-        "releaseDate": "Release Date"
+        "releaseDate": "Datum Vydání"
     },
     "library": {
         "refresh": "Obnovit",
@@ -488,8 +492,8 @@
             "placeholder": "Sem vložte argumenty spouštěče",
             "title": "Herní argumenty (ke spuštění po příkazu):",
             "error": {
-                "command": "Syntaxe příkazu %command% ze Steamu není platná jako herní argument.",
-                "env": "Proměnné prostředí musí být nastaveny v tabulce níže."
+                "command": "Syntax příkazu %command% ze služby Steam není platný jako herní parametr.",
+                "env": "Proměnné prostředí musí být konfigurovány v tabulce níže."
             }
         },
         "quote-args-with-spaces": "Upozornění: Nezapomeňte uvozovat argumenty s mezerami! Např.: \"cesta/s mezerami/\"",
@@ -718,12 +722,12 @@
         "gamescope": {
             "enableLimiter": "Zapnout omezení FPS",
             "enableUpscaling": "Povolí upscaling",
-            "missingMsg": "V PATH jsme nenašli gamescope. Nainstalujte jej nebo jej přidejte do PATH.",
+            "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
             "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru"
         },
         "frameless-window": {
             "confirmation": {
-                "message": "Tato funkce je stále experimentální. Nahlaste prosím všechny objevené problémy na GitHub.",
+                "message": "Tato funkce je stále experimentální. Prosím nahlaste jakékoli problémy, na které narazíte, na GitHub.",
                 "title": "Pozor, experimentální funkce"
             },
             "description": "Použít okno bez okrajů (vyžaduje restart)"
@@ -831,7 +835,7 @@
                 "clearCache": "Vymazat mezipaměť"
             },
             "clearCache": {
-                "help8": "Installed Games",
+                "help8": "Nainstalované Hry",
                 "help1": "Tato akce vymaže následující mezipaměti:",
                 "help2": "Informace o hrách od třetí strany (skóre, kompatibilita se službou Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
                 "help4": "Informace o knihovně GOG (seznam her, informace v instalačním dialogu, informace o api -např.: požadavky-)",
@@ -940,7 +944,7 @@
         "search": "Hledat písma nebo komponenty",
         "nothingYet": "Pomocí Winetricks zatím nebylo nic nainstalováno",
         "installed": "Nainstalované komponenty:",
-        "loading-available": "Načítání dostupných komponent…",
+        "loading-available": "Načítání dostupných komponentů…",
         "no-components": "Žádné dostupné komponenty"
     },
     "window": {
@@ -981,5 +985,51 @@
         "confirm-remove": "Potvrdit odebrání „{{name}}“",
         "rename": "Přejmenovat „{{name}}“",
         "add-placeholder": "Přidat novou kategorii"
+    },
+    "tour": {
+        "library": {
+            "end": {
+                "intro": "To je vše! Užijte si své hry a přejeme hodně zábavy!",
+                "title": "Užijte si své hry!"
+            },
+            "filters": "Filtrujte své hry podle obchodu, platformy, oblíbených a dalších pomocí těchto možností.",
+            "refresh": "Obnovte svou knihovnu pro kontrolu nových her nebo aktualizací.",
+            "sortInstalled": "Seřaďte hry podle stavu instalace.",
+            "viewToggle": "Přepněte mezi zobrazením vašich her v mřížce a v seznamu.",
+            "welcome": {
+                "title": "Vítejte v aplikaci Heroic!",
+                "title2": "Správa knihovny!",
+                "intro": "Vítejte v knihovně Heroic! Zde najdete všechny své hry napříč různými obchody.",
+                "intro2": "Pokud je knihovna prázdná, přihlaste se svými účty pomocí tlačítka Spravovat účty na postranní liště nebo přidejte své vlastní hry pomocí tlačítka Přidat hru výše."
+            },
+            "categories": "Organizujte své hry do kategorií a udržte tak svou knihovnu přehlednou.",
+            "addGame": "Kliknutím sem do knihovny přidáte své hry nebo aplikace. Může se jednat o prakticky cokoli, včetně webových adres.",
+            "sortOptions": "Klikněte sem pro abecední řazení her.",
+            "search": "Použijte vyhledávací pole pro vyhledání vašich her.",
+            "gameCard": "Klikněte levým na kartu hry pro navigaci na stránku hry, zobrazení podrobností a úpravu nastavení nebo klikněte pravým pro otevření kontextové nabídky."
+        },
+        "next": "Další",
+        "sidebar": {
+            "docs": "Přečtěte si dokumentaci pro nápovědu aplikace.",
+            "downloads": "Sledujte a spravujte svá stahování a instalace.",
+            "library": "Procházejte svou knihovnu z různých obchodů na jednom místě.",
+            "login": "Přihlaste se do svých účtů v herních obchodech a procházejte svou knihovnu.",
+            "quit": "Bezpečně opusťte aplikaci.",
+            "stores": "Procházejte a nakupujte hry v různých obchodech, včetně obchodů Epic, GOG a Amazon.",
+            "version": "Zkontrolujte svou aktuální verzi aplikace Heroic, klikněte pro zobrazení seznamu změn a znovu spusťte tuto prohlídku pomocí ikony nápovědy.",
+            "welcome": {
+                "title": "Postranní navigace",
+                "intro": "Vítejte v aplikaci Heroic! Tato postranní lišta obsahuje všechny navigační možnosti pro procházení aplikace."
+            },
+            "wine": "Spravujte nebo stáhněte novou verzi Wine/Proton/GPTK pro spuštění Windows her na Linuxu nebo macOS.",
+            "settings": "Nastavte si nastavení aplikace Heroic, výchozí hodnoty her, zkontrolujte protokoly a další.",
+            "accessibility": "Prozkoumejte nastavení přístupnosti pro přizpůsobení pro vaše potřeby.",
+            "accounts": "Spravujte své připojené účty obchodů (Epic, GOG, Amazon), odhlaste se nebo se do nich přihlaste.",
+            "community": "Připojte se k naší komunitě na Discordu a podpořte vývoj aplikace Heroic."
+        },
+        "skip": "Přeskočit",
+        "startTour": "Spustit prohlídku",
+        "back": "Zpět",
+        "done": "Hotovo"
     }
 }

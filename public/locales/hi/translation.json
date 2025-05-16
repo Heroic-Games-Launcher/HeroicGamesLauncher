@@ -7,7 +7,8 @@
         "fonts": "फ़ॉन्ट",
         "actions_font_family_no_default": "ऐक्शन्स फ़ॉन्ट फैमिली (डिफ़ॉल्ट):",
         "content_font_family_no_default": "सामग्री फ़ॉन्ट फैमिली (डिफ़ॉल्ट): ",
-        "disable_dialog_backdrop_close": "बाहर क्लिक करके संवाद अक्षम करो"
+        "disable_dialog_backdrop_close": "बाहर क्लिक करके संवाद अक्षम करो",
+        "content_font_family_default": "सामग्री फ़ॉन्ट फैमिली (डिफ़ॉल्ट):"
     },
     "add_game": "गेम जोड़ो",
     "adtraction-locked": {
@@ -21,6 +22,9 @@
         "error": {
             "generic": {
                 "title": "EXE चुनकर चलाओ"
+            },
+            "diskspace": {
+                "message": "डिस्क पर जगह काफी नहीं है"
             }
         },
         "no": "नहीं",
@@ -68,6 +72,9 @@
     "settings": {
         "advanced": {
             "details": "विवरण"
+        },
+        "navbar": {
+            "log": "लॉग"
         }
     },
     "Settings": "सेटिंग",
@@ -88,7 +95,8 @@
     },
     "game": {
         "modify": "इंस्टॉलेशन में बदलाव करो",
-        "status": "स्थिति"
+        "status": "स्थिति",
+        "title": "गेम/ऐप शीर्षक"
     },
     "header": {
         "categories": "श्रेणियाँ"
@@ -147,5 +155,6 @@
     },
     "placeholder": {
         "egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है"
-    }
+    },
+    "store": "यहाँ एपिक स्टोर"
 }

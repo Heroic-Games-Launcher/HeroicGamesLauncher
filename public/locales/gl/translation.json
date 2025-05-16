@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fonts",
         "title": "Accessibility",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "actions_font_family_default": "Actions Font Family (Default:",
+        "content_font_family_default": "Content Font Family (Default:"
     },
     "add_game": "Add Game",
     "All": "Todos",
@@ -15,7 +17,8 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "This game includes anticheat software",
+        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support."
     },
     "box": {
         "cache-cleared": {
@@ -57,7 +60,7 @@
             },
             "generic": {
                 "message": "mensaxe de erro xenérico",
-                "title": "Select EXE to Run"
+                "title": "Seleccionar o EXE a executar"
             },
             "launchAborted": "Launch aborted",
             "title": "Erro",
@@ -189,7 +192,7 @@
             "options": "Options",
             "play_game": "Play game",
             "scroll": "Scroll",
-            "select": "Select",
+            "select": "Seleccionar",
             "space": "Space",
             "update_game": "Update game"
         }
@@ -653,6 +656,9 @@
             "resetHeroic": {
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
+        },
+        "systemInformation": {
+            "copyToClipboard": "Copied to Clipboard!"
         }
     },
     "Settings": "Preferencias",
@@ -744,5 +750,11 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "tour": {
+        "back": "Back"
+    },
+    "window": {
+        "close": "Pechar"
     }
 }

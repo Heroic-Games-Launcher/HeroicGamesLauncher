@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Deaktiviere schließen der Dialoge bei Klick außerhalb",
         "titles_always_visible": "Immer Spieltitel in Bibliothek anzeigen",
         "content_font_family_default": "Schriftfamilie Inhalt (Standard: {{fontFamily}})",
-        "actions_font_family_default": "Schriftfamilie Aktionen (Standard: {{fontFamily}})"
+        "actions_font_family_default": "Schriftfamilie Aktionen (Standard: {{fontFamily}})",
+        "disable_smooth_scrolling": "Smooth Scrolling deaktivieren (benötigt Neustart)"
     },
     "add_game": "Spiel hinzufügen",
     "All": "Alle",
@@ -735,6 +736,13 @@
                 "understand": "Ich verstehe"
             },
             "label": "Erlaube installation von Spielen mit kaputtem oder abgelehntem Anticheat"
+        },
+        "disableUMU": "umu ausschalten",
+        "custom_css": {
+            "warning": "Achtung: Dies bezieht sich auf das gesamte Frontend. Das bedeutet, das ein falscher Style Heroic unbenutzbar machen kann. Falls nötig, kann diese Einstellung manuell in `~/.config/heroic/config.json` geändert werden. Kopiere KEINE Styles aus Quellen, denen du nicht vertraust."
+        },
+        "verboseLogs": {
+            "description": "Aktiviere ausführliche Logs"
         }
     },
     "settings": {
@@ -778,7 +786,9 @@
         "reset-heroic": "Heroic zurücksetzen",
         "saves": {
             "label": "Speicherstand-Pfad:",
-            "warning": "Die Cloudspeicher-Funktion befindet sich in der Beta-Phase. Bitte sichere deine Spielstände vor der Synchronisation (falls etwas schiefgeht)"
+            "warning": "Die Cloudspeicher-Funktion befindet sich in der Beta-Phase. Bitte sichere deine Spielstände vor der Synchronisation (falls etwas schiefgeht)",
+            "not_supported": "Dieses Spiel unterstützt keine Cloud-Speicher.",
+            "gog_linux_native_warning": "Native Linux Spiele unterstützen GOGs Cloud-Speicherungen nicht. Nutze stattdessen die Windows-version."
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -831,8 +841,11 @@
                 "clearCache": "Cache löschen"
             },
             "resetHeroic": {
-                "help": "Dies wird alle Einstellungen und Caches löschen, jedoch weder deine installieren Spiele, noch deine Epic Logindaten entfernen. Bewegbare Versionen (AppImage, WinPortable, ...) von Heroic müssen nachher manuell neugestartet werden."
+                "help": "Dies wird alle Einstellungen und Caches löschen, jedoch weder deine installieren Spiele, noch deine Epic Logindaten entfernen. Portable Versionen (AppImage, WinPortable, ...) von Heroic müssen anschließend manuell neugestartet werden."
             }
+        },
+        "custom_css": {
+            "title": "Nutzerdefinierter CSS Style"
         }
     },
     "Settings": "Einstellungen",
@@ -945,7 +958,8 @@
         "proton-ge": "GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit."
     },
     "emptyLibrary": {
-        "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht."
+        "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht.",
+        "noGames": "Deine Bibliothek ist leer.<br /><br />Klicke <4>hier</4> um dich mit deinen Epic, GOG.com, oder Amazon Accounts anzumelden. Danach werden deine Spiele hier in der Bibliothek auftauchen.<br /><br />Um Spiele oder Apps aus anderen Quellen zu nutzen, klicke <br /> um sie manuell hinzuzufügen."
     },
     "categories-manager": {
         "add-placeholder": "Neue Kategorie hinzufügen",
@@ -963,5 +977,26 @@
         "description": "Es scheint die Domäne track.adtraction.com konnte nicht geladen werden oder ist blockiert. Mit Adtraction unterstützt jeder Kauf den du auf GOG tätigst Heroic finanziell. Ziehe in Erwägung den Block aufzuheben wenn du Heroic unterstützen willst.",
         "dont-show-again": "Diese Warnung nicht mehr anzeigen",
         "title": "Adtraction ist blockiert"
+    },
+    "tour": {
+        "back": "Zurück",
+        "library": {
+            "categories": "Ordne deine Spiele Kategorien zu, um den Überblick zu behalten.",
+            "end": {
+                "title": "Viel Spaß bei deinen Spielen!",
+                "intro": "Das war's! Viel Spaß bei deinen Spielen!"
+            },
+            "search": "Nutze die Suchleiste um nach deinen Spielen zu suchen.",
+            "sortOptions": "Klicke hier, um Spiele alphabetisch zu sortieren.",
+            "viewToggle": "Wechsle zwischen Raster- und Listenansicht für deine Spiele.",
+            "welcome": {
+                "title": "Willkommen bei Heroic!",
+                "title2": "Die Bibliothek verwalten!",
+                "intro": "Willkommen zur Heroic Bibliothek! Hier kannst du all deine Spiele aus verschiedenen Stores sehen."
+            },
+            "addGame": "Klicke hier, um deine eigenen Spiele oder Apps zur Bibliothek hinzuzufügen. Diese können alles mögliche sein, sogar Browser URLs.",
+            "filters": "Filtere mit diesen Optionen deine Spiele nach Store, Plattform, Favoriten und mehr."
+        },
+        "done": "Fertig"
     }
 }
