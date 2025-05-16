@@ -1532,7 +1532,7 @@ async function callRunner(
       }
 
       res({
-        stdout: stdout.join('\n'),
+        stdout: stdout.join(),
         stderr: stderr.join('\n')
       })
     })

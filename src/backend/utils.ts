@@ -1283,7 +1283,7 @@ const memoryLog = (limit = 50) => {
       }
     },
     join: (separator = '') => {
-      return lines.reverse().join(separator)
+      return lines.slice().reverse().join(separator)
     }
   }
 }
