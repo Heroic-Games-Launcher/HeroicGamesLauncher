@@ -7,12 +7,15 @@
         "uninstall": {
             "title": "Бетерү",
             "message": "Бу уенны бетерергә телисезме?",
-            "dlc": "Бу DLC-ны бетерергә телисезме?"
+            "dlc": "Бу DLC-ны бетерергә телисезме?",
+            "checkbox": "Fjern prefix: {{prefix}}{{newLine}}OBS: Dette kan ikke reverseres og vil også fjerne lagringsfiler som ikke er sikkerhetskopiert.",
+            "cannotUninstallEpic": "Epic-spill kan ikke avinstalleres samtidig som andre Epic-spill installeres."
         },
         "no": "ЮК",
         "stopInstall": {
             "keepInstalling": "Урнаштыруны дәвам итү",
-            "title": "Урнаштыруны туктату"
+            "title": "Урнаштыруны туктату",
+            "message": "Ønsker du å BEHOLDE nedlastede filer?"
         },
         "choose": "Сайлау",
         "yes": "ӘЙЕ",
@@ -21,7 +24,23 @@
         },
         "select": {
             "button": "Сайлау"
-        }
+        },
+        "change": {
+            "message": "Dette vil endre spillets installasjonssted, er du sikker?",
+            "title": "Endre spillets installasjonssted",
+            "path": "Velg et nytt installasjonssted"
+        },
+        "importpath": "Velg en spillmappe å importere",
+        "repair": {
+            "message": "Vil du forsøke å reparere dette spillet? Dette kan ta en stund.",
+            "title": "Bekreft og reparer"
+        },
+        "move": {
+            "title": "Flytt spillinstallasjon",
+            "path": "Velg hvor du vil flytte",
+            "message": "Dette kan ta litt tid, er du sikker?"
+        },
+        "close": "Lukk"
     },
     "game": {
         "dlcs": "DLC-лар",
@@ -111,7 +130,8 @@
         "removeFromSteam": "Steam-дан бетерү",
         "removeShortcut": "Ярлыкларны бетерү",
         "move": "Уенны күчерү",
-        "change": "Урнаштыру юлын үзгәртү"
+        "change": "Урнаштыру юлын үзгәртү",
+        "verify": "Bekreft og reparer"
     },
     "install": {
         "anticheat-warning": {
@@ -159,5 +179,8 @@
         "main-plus-extras": "Төп + Өстәмәлер",
         "main-story": "Төп хикәя",
         "completionist": "Тәмамланчы"
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC-лар"
     }
 }
