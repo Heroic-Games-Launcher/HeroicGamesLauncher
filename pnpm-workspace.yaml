@@ -1,5 +1,5 @@
 patchedDependencies:
-  '@types/node@20.14.14': patches/@types__node@20.14.14.patch
+  '@types/node@22.15.18': patches/@types__node@22.15.18.patch
 
 onlyBuiltDependencies:
   - '@fortawesome/fontawesome-common-types'

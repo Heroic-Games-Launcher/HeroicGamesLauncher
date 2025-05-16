@@ -1323,7 +1323,7 @@ interface RunnerProps {
   dir: string
 }
 
-const commandsRunning = {}
+const commandsRunning: Record<string, Promise<ExecResult>> = {}
 
 let shouldUsePowerShell: boolean | null = null
 
@@ -1448,7 +1448,7 @@ async function callRunner(
   const key = [runner.name, commandParts].join(' ')
   const currentPromise = commandsRunning[key]
 
-  if (currentPromise) {
+  if (key in commandsRunning) {
     return currentPromise
   }
 

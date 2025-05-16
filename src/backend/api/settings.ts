@@ -10,7 +10,7 @@ export const requestGameSettings = async (appName: string) =>
 
 export const setSetting = (args: {
   appName: string
-  key: string
+  key: keyof AppSettings
   value: unknown
 }) => ipcRenderer.send('setSetting', args)
 
