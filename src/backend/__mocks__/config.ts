@@ -1,10 +1,12 @@
+import type { AppSettings } from 'common/types'
+
 const GlobalConfig = (() => {
-  const config = {
+  const config: Partial<AppSettings> = {
     darkTrayIcon: false
   }
 
-  const setConfigValue = (key: string, value: unknown) => {
-    config[key] = value
+  const setConfigValue = (key: keyof AppSettings, value: unknown) => {
+    config[key] = value as never
   }
 
   return {

@@ -142,7 +142,7 @@ async function getDefaultGogSavePaths(
     })
   }
 
-  const gogVariableMap: Record<SaveFolderVariable, string> = {
+  const gogVariableMap: Record<string, string> = {
     INSTALL: install_path,
     SAVED_GAMES: '%USERPROFILE%/Saved Games',
     APPLICATION_DATA_LOCAL: '%LOCALAPPDATA%',
@@ -152,7 +152,7 @@ async function getDefaultGogSavePaths(
     DOCUMENTS: gameManagerMap['gog'].isNative(appName)
       ? app.getPath('documents')
       : '%USERPROFILE%\\Documents'
-  }
+  } satisfies Record<SaveFolderVariable, string>
   const resolvedLocations: GOGCloudSavesLocation[] = []
   for (const location of gog_save_location) {
     // If a location with the same name already has a path set,

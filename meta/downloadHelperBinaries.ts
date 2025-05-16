@@ -23,45 +23,18 @@ const pathExists = async (path: string): Promise<boolean> =>
   )
 
 async function downloadFile(url: string, dst: string) {
-  // Try multiple times with increasing timeouts
-  const maxRetries = 3
-  let lastError
-
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      console.log(`Attempt ${attempt + 1}/${maxRetries} to download ${url}`)
-      const response = await fetch(url, {
-        keepalive: true,
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-        },
-        // Increase timeout with each attempt
-        signal: AbortSignal.timeout((attempt + 1) * 30000) // 30s, 60s, 90s
-      })
-
-      if (response.status !== 200) {
-        throw Error(`Failed to download ${url}: ${response.status}`)
-      }
-
-      await mkdir(dirname(dst), { recursive: true })
-      const fileStream = createWriteStream(dst, { flags: 'w' })
-      await finished(Readable.fromWeb(response.body).pipe(fileStream))
-
-      return // Success!
-    } catch (error) {
-      console.error(`Attempt ${attempt + 1} failed:`, error.message)
-      lastError = error
-      // Wait before retrying
-      await new Promise((resolve) => setTimeout(resolve, 5000))
+  const response = await fetch(url, {
+    keepalive: true,
+    headers: {
+      'User-Agent': 'HeroicBinaryUpdater/1.0'
     }
+  })
+  if (response.status !== 200) {
+    throw Error(`Failed to download ${url}: ${response.status}`)
   }
-
-  // If we get here, all attempts failed
-  throw (
-    lastError ||
-    new Error(`Failed to download ${url} after ${maxRetries} attempts`)
-  )
+  await mkdir(dirname(dst), { recursive: true })
+  const fileStream = createWriteStream(dst, { flags: 'w' })
+  await finished(Readable.fromWeb(response.body).pipe(fileStream))
 }
 
 async function downloadAsset(
@@ -229,63 +202,38 @@ async function storeDownloadedTags() {
 }
 
 async function main() {
-  const proxyUri = process.env['HTTPS_PROXY'] || process.env['https_proxy']
+  const proxyUri = process.env['HTTPS_PROXY']
   if (proxyUri) {
     console.log(`Using proxy: ${proxyUri}`)
-    const proxyAgent = new ProxyAgent({
-      uri: proxyUri,
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-      },
-      requestTls: {
-        minVersion: 'TLSv1.2',
-        ciphers: 'HIGH:!aNULL:!MD5'
-      },
-      proxyTls: {
-        minVersion: 'TLSv1.2',
-        ciphers: 'HIGH:!aNULL:!MD5'
-      }
-    })
+    const proxyAgent = new ProxyAgent(proxyUri)
     setGlobalDispatcher(proxyAgent)
   }
 
-  // Set custom DNS servers as fallback
-  process.env.NODE_OPTIONS = process.env.NODE_OPTIONS || ''
-  process.env.NODE_OPTIONS += ' --dns-result-order=ipv4first'
-
-  try {
-    if (!(await pathExists('public/bin'))) {
-      console.error('public/bin not found, are you in the source root?')
-      await mkdir('public/bin', { recursive: true })
-      console.log('Created public/bin directory')
-    }
-
-    const binariesToDownload = await compareDownloadedTags()
-    if (!binariesToDownload.length) {
-      console.log('Nothing to download, binaries are up-to-date')
-      return
-    }
-
-    console.log('Downloading:', binariesToDownload)
-    const promisesToAwait: Promise<unknown>[] = []
-
-    if (binariesToDownload.includes('legendary'))
-      promisesToAwait.push(downloadLegendary())
-    if (binariesToDownload.includes('gogdl'))
-      promisesToAwait.push(downloadGogdl())
-    if (binariesToDownload.includes('nile'))
-      promisesToAwait.push(downloadNile())
-    if (binariesToDownload.includes('comet'))
-      promisesToAwait.push(downloadComet())
-
-    await Promise.all(promisesToAwait)
-
-    await storeDownloadedTags()
-  } catch (err) {
-    console.error('Error in main function:', err)
-    process.exit(1)
+  if (!(await pathExists('public/bin'))) {
+    console.error('public/bin not found, are you in the source root?')
+    return
   }
+
+  const binariesToDownload = await compareDownloadedTags()
+  if (!binariesToDownload.length) {
+    console.log('Nothing to download, binaries are up-to-date')
+    return
+  }
+
+  console.log('Downloading:', binariesToDownload)
+  const promisesToAwait: Promise<unknown>[] = []
+
+  if (binariesToDownload.includes('legendary'))
+    promisesToAwait.push(downloadLegendary())
+  if (binariesToDownload.includes('gogdl'))
+    promisesToAwait.push(downloadGogdl())
+  if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
+  if (binariesToDownload.includes('comet'))
+    promisesToAwait.push(downloadComet())
+
+  await Promise.all(promisesToAwait)
+
+  await storeDownloadedTags()
 }
 
 void main()

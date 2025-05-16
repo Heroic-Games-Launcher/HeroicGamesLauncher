@@ -246,7 +246,7 @@ abstract class GlobalConfig {
   public abstract flush(): void
 
   /** change a specific setting */
-  public abstract setSetting(key: string, value: unknown): void
+  public abstract setSetting(key: keyof AppSettings, value: unknown): void
 
   /**
    * Load the config file, upgrade if needed.
@@ -361,13 +361,13 @@ class GlobalConfigV0 extends GlobalConfig {
     return settings
   }
 
-  public setSetting(key: string, value: unknown) {
+  public setSetting(key: keyof AppSettings, value: unknown) {
     const config = this.getSettings()
     const configStoreSettings = configStore.get_nodefault('settings') || config
     configStore.set('settings', { ...configStoreSettings, [key]: value })
 
     const oldValue = config[key]
-    config[key] = value
+    config[key] = value as never
     this.config = config
 
     backendEvents.emit('settingChanged', { key, oldValue, newValue: value })

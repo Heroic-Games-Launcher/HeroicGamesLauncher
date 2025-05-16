@@ -459,7 +459,14 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       const info = plistParse(
         readFileSync(whiskyVersionPlist, 'utf-8')
       ) as PlistObject
-      const version = info['version']
+      // FIXME: Verify this type at runtime
+      const version = info['version'] as {
+        build: string
+        major: number
+        minor: number
+        patch: number
+        preRelease: string
+      }
       const versionString = `${version['major']}.${version['minor']}.${version['patch']}-${version['build']}`
       whisky.add({
         bin: whiskyWineBin,
