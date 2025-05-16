@@ -140,6 +140,15 @@ interface FeatureSupport {
   }
 }
 
+export type SaveFolderVariable =
+  | 'INSTALL'
+  | 'SAVED_GAMES'
+  | 'APPLICATION_DATA_LOCAL'
+  | 'APPLICATION_DATA_LOCAL_LOW'
+  | 'APPLICATION_DATA_ROAMING'
+  | 'DOCUMENTS'
+  | 'APPLICATION_SUPPORT'
+
 // Data returned from https://embed.gog.com/userData.json
 export interface UserData {
   country: string

@@ -1,5 +1,5 @@
 import { InstalledInfo, Runner } from 'common/types'
-import { GOGCloudSavesLocation } from 'common/types/gog'
+import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { getSaveSyncLocation, readInfoFile } from './storeManagers/gog/library'
@@ -152,7 +152,7 @@ async function getDefaultGogSavePaths(
     DOCUMENTS: gameManagerMap['gog'].isNative(appName)
       ? app.getPath('documents')
       : '%USERPROFILE%\\Documents'
-  }
+  } satisfies Record<SaveFolderVariable, string>
   const resolvedLocations: GOGCloudSavesLocation[] = []
   for (const location of gog_save_location) {
     // If a location with the same name already has a path set,
