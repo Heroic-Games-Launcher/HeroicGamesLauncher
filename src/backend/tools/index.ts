@@ -42,7 +42,7 @@ import {
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
 import { gameManagerMap } from '../storeManagers'
-import { sendFrontendMessage } from '../main_window'
+import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
   downloadFile as downloadFileInet

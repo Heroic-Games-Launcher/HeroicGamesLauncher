@@ -55,7 +55,8 @@ export default function LegendarySyncSaves({
       setLoading(true)
       const newSavePath = (await window.api.getDefaultSavePath(
         appName,
-        'legendary'
+        'legendary',
+        []
       )) as string
 
       setSavesPath(newSavePath)

@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { TypeCheckedStoreBackend } from '../electron_store'
 import { getLogFile } from './logfile'
 import { logError, logInfo, LogPrefix } from './logger'
-import { sendFrontendMessage } from '../main_window'
+import { sendFrontendMessage } from '../ipc'
 
 import type { UploadedLogData } from 'common/types'
 
