@@ -355,7 +355,8 @@ class GlobalConfigV0 extends GlobalConfig {
       beforeLaunchScriptPath: '',
       afterLaunchScriptPath: '',
       disableUMU: false,
-      verboseLogs: false
+      verboseLogs: false,
+      downloadProtonToSteam: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

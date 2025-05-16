@@ -16,6 +16,8 @@ import {
 } from 'backend/utils/aborthandler/aborthandler'
 import { toolsPath } from 'backend/constants/paths'
 import { isMac } from 'backend/constants/environment'
+import { GlobalConfig } from '../../config'
+import { join } from 'path'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
@@ -104,6 +106,21 @@ function getInstallDir(release: WineVersionInfo): string {
   } else if (release.type.includes('Toolkit')) {
     return `${toolsPath}/game-porting-toolkit`
   } else {
+    const config = GlobalConfig.get().getSettings()
+    if (config.downloadProtonToSteam && config.defaultSteamPath) {
+      const steamCompatPath = join(
+        config.defaultSteamPath,
+        'compatibilitytools.d'
+      )
+      if (existsSync(steamCompatPath)) {
+        return steamCompatPath
+      }
+      // If Steam path doesn't exist, fall back to default
+      logWarning(
+        'Steam compatibilitytools.d directory does not exist, defaulting to Heroic tools path',
+        LogPrefix.WineDownloader
+      )
+    }
     return `${toolsPath}/proton`
   }
 }

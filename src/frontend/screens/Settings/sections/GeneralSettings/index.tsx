@@ -10,6 +10,7 @@ import {
   DefaultSteamPath,
   DisableController,
   DiscordRPC,
+  DownloadProtonToSteam,
   EgsSettings,
   HideChangelogOnStartup,
   LibraryTopSection,
@@ -66,6 +67,8 @@ export default function GeneralSettings() {
       <DiscordRPC />
 
       <DisableController />
+
+      <DownloadProtonToSteam />
 
       <LibraryTopSection />
 
