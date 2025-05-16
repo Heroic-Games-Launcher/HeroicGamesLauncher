@@ -5,7 +5,6 @@ import { Star } from '@mui/icons-material'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
 import { GameInfo } from 'common/types'
-import ContextProvider from 'frontend/state/ContextProvider'
 
 interface Props {
   gameInfo: GameInfo
@@ -14,7 +13,6 @@ interface Props {
 const Scores = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { wikiInfo } = useContext(GameContext)
-  const { experimentalFeatures } = useContext(ContextProvider)
 
   if (!wikiInfo) {
     return null
@@ -35,7 +33,7 @@ const Scores = ({ gameInfo }: Props) => {
     return null
   }
 
-  if (experimentalFeatures.enableNewDesign) {
+  if (hasScores) {
     return <GameScore info={pcgamingwiki} title={gameInfo.title} />
   }
 

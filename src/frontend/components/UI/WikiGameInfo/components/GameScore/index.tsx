@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './index.scss'
 import { PCGamingWikiInfo } from 'common/types'
 import classNames from 'classnames'
 import { createNewWindow } from 'frontend/helpers'
-import ContextProvider from 'frontend/state/ContextProvider'
 
 type Props = {
   title: string
@@ -11,8 +10,6 @@ type Props = {
 }
 
 export default function GameScore({ title, info }: Props) {
-  const { experimentalFeatures } = useContext(ContextProvider)
-
   if (!info || (!info.metacritic && !info.opencritic && !info.igdb)) {
     return null
   }
@@ -37,11 +34,12 @@ export default function GameScore({ title, info }: Props) {
     return null
   }
 
-  if (experimentalFeatures.enableNewDesign) {
+  if (shouldShow) {
     return (
       <>
         {metacritic.score && (
           <a
+            className={classNames('circle', getColorClass(metacritic.score))}
             onClick={() => {
               if (metacritic.urlid) {
                 createNewWindow(
