@@ -74,7 +74,9 @@
         "uninstall": "Verwijderen",
         "update": "Update",
         "details": "Details",
-        "changelog": "Toon Changelog"
+        "changelog": "Toon Changelog",
+        "browse_files": "Blader door Bestanden",
+        "browse_wine_prefix": "Blader Wineprefix"
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -175,7 +177,8 @@
         },
         "launching": "Lancering",
         "ubisoft": "Ubisoft Connect installeren",
-        "winetricks": "Winetricks Paketten aan het installeren"
+        "winetricks": "Winetricks Paketten aan het installeren",
+        "redist": "Herverdelers installeren"
     },
     "launch": {
         "options": "Opstartopties..."
@@ -193,7 +196,9 @@
     },
     "setting": {
         "use-default-wine-settings": "Gebruik \"Default Wine\" instellingen",
-        "winecrossoverbottle": "CrossOver Bottle"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "warn-use-default-wine-settings": "Gebruik deze optie alleen als je weet wat je doet.<br/>Dezelfde prefix gebruiken voor meerdere games kan problemen veroorzaken als afhankelijkheden niet compatibel zijn.",
+        "show-wine-settings": "Bekijk Wine instellingen"
     },
     "sideload": {
         "field": {
@@ -212,6 +217,10 @@
             "title": "Voeg een titel toe aan jouw Game/App",
             "url": "Plak hier de game-URL",
             "useragent": "Schrijf een aangepaste user agent hier om te gebruiken in deze browser applicatie/game"
+        },
+        "import-hint": {
+            "content": "Gebruik deze functie daar NIET voor.<br />In plaats daarvan, <3>Log in</3>zoek het spel in jouw bibliotheek in de winkel, open het installatiedialoogvenster en klik op de &quot;Import Game&quot; knop",
+            "title": "Belangrijk! Voeg je een spel toe vanaf Epic/GOG/Amazon? Klik hier!"
         }
     },
     "specs": {
@@ -236,14 +245,16 @@
         "uninstalling": "Aan het verwijderen",
         "updating": "Spel aan het updaten",
         "playing": "Spelen",
-        "moving-files": "Bestand verplaatsen '{{file}}': {{percent}} ",
+        "moving-files": "Bestand verplaatsen '{{file}}': {{percent}}%",
         "syncingSaves": "Saves synchroniseren",
         "launching": "Lancering",
         "ubisoft": "Ubisoft installeren",
         "downloading": "Downloaden",
         "extracting": "Extraheren",
         "gog-goodie": "Deze game lijkt niet te kunnen worden geïnstalleerd. Controleer downloadbare inhoud op https://gog.com/account",
-        "goodie": "Niet installeerbaar"
+        "goodie": "Niet installeerbaar",
+        "redist": "Herverdelers installeren {{redist}}",
+        "winetricks": "Winetricks verbeteringen toepassen"
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -282,6 +293,17 @@
     },
     "third-party-managed": {
         "header": "Dit spel wordt beheerd door een third-party applicatie",
-        "notice1": "Het volgende spel wordt beheerd door een third-party applicatie: \"{{application_name}}\""
-    }
+        "notice1": "Het volgende spel wordt beheerd door een third-party applicatie: \"{{application_name}}\"",
+        "notice2": "Nadat je op installeren hebt geklikt zal Heroic de applicatie starten om het installatieproces te voltooien"
+    },
+    "Open": "Open de",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads",
+            "pause": "Downloaden pauzeren",
+            "resume": "Downloaden hervatten"
+        }
+    },
+    "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>"
 }
