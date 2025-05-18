@@ -6,7 +6,7 @@
             "title": "Muuda mängude paigaldamiskohta"
         },
         "choose": "Valige",
-        "importpath": "Valige imporditav mängude kaust",
+        "importpath": "Valige mängude kaust, mida importida",
         "move": {
             "message": "See võib võtta kaua aega, kas olete kindel?",
             "path": "Valige, kuhu soovite liigutada",
@@ -74,7 +74,9 @@
         "uninstall": "Eemalda",
         "update": "Uuenda",
         "details": "Üksikasjad",
-        "changelog": "Näita muutuste nimekirja"
+        "changelog": "Näita muutuste nimekirja",
+        "browse_files": "Sirvi faile",
+        "browse_wine_prefix": "Sirvi Wine'i prefiksi"
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",
@@ -121,7 +123,7 @@
     },
     "hours": "Tunnid",
     "how-long-to-beat": {
-        "completionist": "Completionist",
+        "completionist": "Perfektsionist",
         "main-plus-extras": "Põhi + lisad",
         "main-story": "Põhilugu"
     },
@@ -155,9 +157,9 @@
             "title": "Sohivastased meetmed katkised/keelatud",
             "message": "Sohivastaste meetmete tugi on katkine või keelatud. Mäng ei hakka tööle. Kas soovite seda siiski installeerida?",
             "ok": "Ok",
-            "multiplayer_message": "Sohivastased meetmed on katkised või keelatud. Mäng võib käivituda, aga mitmikmängu funktsioonid ei toimi. Kas soovite seda ikka installeerida?",
+            "multiplayer_message": "Sohivastased meetmed on katkised või keelatud. Mäng võib käivituda, aga mitmikmängu funktsioonid ei toimi. Kas soovite seda siiski paigaldada?",
             "install_anyway": "Jah (ma saan aru, et mitmikmängu funktsioonid ei toimi)",
-            "disabled_installation": "Sohivastased meetmed on katkised või keelatud ning mitmikmängu funktsioonid ei toimi. Mängu ei saa paigaldada. Selle mängu installeerimiseks, palun lülitage see kontroll täpsemates seadetes."
+            "disabled_installation": "See mäng kasutab sohivastast tarkvara, mis ei ühildu teie operatsioonisüsteemiga, või mängu loojad ei ole selle tuge lubanud. See tähendab, et mitmikmängu funktsioonid ei toimi ning selle vastu pole teil (ega Heroicu tiimil) võimalik midagi teha.<br /><br />Et seda mängu siiski paigaldada ja käivitada, minge Seaded, Täpsem, ja pange linnuke sättele, mis lubab katkiste või keelatud sohivastaste meetmetega mängude paigaldamist.<br /><br />Pange tähele, et selle vastu ei ole lahendust ning mäng võib teie konto blokeerida."
         },
         "flatpak-path-not-writtable": "Viga: Liivakasti ligipääsu ei ole antud sellele asukohale, jätkates esineb andmete kadumine."
     },
@@ -293,5 +295,15 @@
         "notice2": "Pärast paigaldamise alustamist käivitab Heroic selle rakenduse, et paigaldus lõpuni viia",
         "header": "Seda mängu haldab kolmanda osapoole rakendus",
         "notice1": "Seda mängu haldab kolmanda osapoole rakendus: \"{{application_name}}\""
-    }
+    },
+    "wikiLink": "Tähtis teave selle mängu kohta, lugege:&nbsp;<1>Ava lehekülg</1>",
+    "queue": {
+        "label": {
+            "canceled": "Tühistatud",
+            "pause": "Pane pausile",
+            "remove": "Eemalda allalaadimistest",
+            "resume": "Jätka allalaadimist"
+        }
+    },
+    "Open": "Ava"
 }
