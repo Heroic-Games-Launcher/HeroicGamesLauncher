@@ -6,7 +6,7 @@
   border-radius: 10px;
   max-width: 1920px;
   height: 100vh;
-  min-height: 100v;
+  min-height: 100vh;
   grid-template-areas:
     'header header'
     'main extra'
@@ -267,8 +267,6 @@
         & .mainBtn {
           min-width: 200px;
           font-size: var(--text-md);
-          background-color: var(--download-button);
-          color: var(--neutral-01);
 
           & svg {
             transform: scale(1.2);
@@ -524,8 +522,6 @@
     object-fit: cover;
     filter: blur(15px);
     opacity: 0.3;
-    /* scale is so there will be no ugly edges because of the blur */
-    transform: scale(1.1);
   }
 }
 
