@@ -74,7 +74,9 @@
         "uninstall": "Kaldır",
         "update": "Güncelle",
         "details": "Detaylar",
-        "changelog": "Değişiklik Günlüğünü Göster"
+        "changelog": "Değişiklik Günlüğünü Göster",
+        "browse_files": "Dosyalara Gözat",
+        "browse_wine_prefix": "Wine Ön Eki'ni Gözat"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",
@@ -294,5 +296,14 @@
         "header": "Oyun üçüncü parti bir uygulama tarafından yönetiliyor",
         "notice1": "Bu oyun üçüncü parti {{application_name}} uygulaması tarafından yönetiliyor",
         "notice2": "Kur'a bastıktan sonra, Heroic kurulum işlemini bitirmek için uygulamayı çalıştıracak"
+    },
+    "Open": "Epic Store'u",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads",
+            "pause": "İndirmeyi durdur",
+            "resume": "İndirmeye devam et"
+        }
     }
 }
