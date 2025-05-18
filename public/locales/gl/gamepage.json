@@ -18,13 +18,13 @@
             "title": "Verificar e reparar"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Seleccionar o EXE a executar"
         },
         "select": {
-            "button": "Select"
+            "button": "Seleccionar"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Seleccionar Executabel"
         },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
@@ -44,7 +44,8 @@
             "title": "O xogo precisa unha actualización"
         },
         "wineprefix": "Seleccione o cartafol co prefixo de Wine",
-        "yes": "Sí"
+        "yes": "Sí",
+        "close": "Pechar"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",
@@ -177,7 +178,7 @@
             "title": "Title"
         },
         "info": {
-            "exe": "Select Executable",
+            "exe": "Seleccionar Executabel",
             "image": "App Image",
             "title": "Game/App Title",
             "broser": "URL do navegador"
@@ -237,5 +238,14 @@
     },
     "help": {
         "cloud_save_unsupported": "Este xogo non admite gardados na nube. Esta información é proporcionada polos desenvolvedores do xogo. Algúns xogos implementan o seu propio sistema de gardar na nube"
+    },
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLCs"
     }
 }

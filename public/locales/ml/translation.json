@@ -5,7 +5,9 @@
         "content_font_family_no_default": "Content Font Family (Default: ",
         "fonts": "Fonts",
         "title": "Accessibility",
-        "zoom": "Zoom"
+        "zoom": "Zoom",
+        "content_font_family_default": "Content Font Family (Default:",
+        "actions_font_family_default": "Actions Font Family (Default:"
     },
     "add_game": "Add Game",
     "All": "എല്ലാം",
@@ -15,7 +17,8 @@
         "reference": "Reference",
         "source": "Source",
         "status": "Status",
-        "title": "This game includes anticheat software"
+        "title": "This game includes anticheat software",
+        "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support."
     },
     "box": {
         "cache-cleared": {
@@ -815,5 +818,8 @@
     },
     "categories-manager": {
         "add-placeholder": "പുതിയ വിഭാഗം സൃഷ്ടിക്കുക"
+    },
+    "tour": {
+        "back": "പുറകോട്ട്"
     }
 }

@@ -1,0 +1,42 @@
+{
+    "box": {
+        "choose": "Ôbier",
+        "runexe": {
+            "title": "Ôbier zbiōr EXE do ôtwarcio"
+        },
+        "repair": {
+            "title": "Zweryfikuj i sprow",
+            "message": "Chcesz sprōbować sprawić ta gra? To może weznōńć moc czasu."
+        },
+        "change": {
+            "message": "To zmiyni plac instalacyje tyj gry. Na zicher?",
+            "path": "Ôbier nowo ściyżka instalacyje",
+            "title": "Zmiyń ściyżka instalacyje ger"
+        },
+        "close": "Zawrzij",
+        "no": "NIY",
+        "importpath": "Ôbier folder gry do importu",
+        "move": {
+            "message": "To może weznōńć moc czasu. Na zicher?",
+            "path": "Ôbier, kaj chcesz przeniyś",
+            "title": "Przeniyś zbiory gry"
+        },
+        "select": {
+            "button": "Ôbier"
+        },
+        "sideload": {
+            "exe": "Ôbier wykōnowalny zbiōr"
+        },
+        "stopInstall": {
+            "keepInstalling": "Kōntynuuj instalowanie"
+        }
+    },
+    "submenu": {
+        "verify": "Zweryfikuj i sprow"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Ôbier wykōnowalny zbiōr"
+        }
+    }
+}

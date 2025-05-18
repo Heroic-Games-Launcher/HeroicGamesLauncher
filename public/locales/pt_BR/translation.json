@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Desative o fechamento de caixas de diálogo ao clicar fora",
         "titles_always_visible": "Sempre exibir títulos na biblioteca",
         "actions_font_family_default": "Ações de Família de Fontes (Padrão: {{fontFamily}})",
-        "content_font_family_default": "Conteúdo de Família de Fontes (Padrão: {{fontFamily}})"
+        "content_font_family_default": "Conteúdo de Família de Fontes (Padrão: {{fontFamily}})",
+        "disable_smooth_scrolling": "Desativar rolagem suave ( O Heroic precisará ser reiniciado)"
     },
     "add_game": "Adicionar Jogo",
     "All": "Todos",
@@ -115,7 +116,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Tem certeza que quer reconfigurar o Heroic? Isso removerá todas as configurações e cache,porém não vai remover seus jogos instalados nem suas credenciais da Epic. Versões portáteis (AppImage, WinPortable, ...) do Heroic precisam ser reabertas manualmente após isso.",
+                "message": "Tem certeza que deseja reconfigurar o Heroic? Isso removerá todas as configurações e cache, porém não irá remover seus jogos instalados nem suas credenciais da Epic. Versões portáteis (AppImage, WinPortable, ...) do Heroic precisam ser reabertas manualmente após isso.",
                 "title": "Redefinir Heroic"
             }
         },
@@ -169,6 +170,10 @@
                 "checkbox": "Não mostre esta mensagem novamente",
                 "title": "A Heroic está sendo executada como um Snap",
                 "message": "Alguns recursos não estão disponíveis na versão Snap do aplicativo no momento e estamos tentando consertar isso.{{newLine}}As limitações atuais são: {{newLine}}Heroic não será capaz de encontrar o Proton da Steam ou o Wine do Lutris .{{newLine}}{{newLine}}Gamescope, GameMode e MangoHud também não funcionarão, pois o Heroic não pode ter acesso a eles.{{newLine}}{{newLine}}Para ter acesso a estes recursos, instale Heroic no formato Flatpak , DEB ou AppImage."
+            },
+            "rosetta": {
+                "title": "Rosetta não encontrado",
+                "message": "O Heroic necessita do Rosetta para funcionar corretamente no MacOS com chips Apple Silicon. Por favor instale-o através do terminal macOS usando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicie o Heroic. "
             }
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
@@ -323,7 +328,8 @@
             "gameHeight": "A resolução de altura usada pelo jogo. Uma proporção de tela 16:9 é assumida pelo gamescope.",
             "upscaleHeight": "A resolução de altura usada pelo gamescope. Uma proporção de tela 16:9 é assumida.",
             "fpsLimiter": "A quantidade de frames que o gamescope deve limitar. Ex: 60",
-            "additionalOptions": "Flags adicionais de linha de comando para passar ao gamescope."
+            "additionalOptions": "Flags adicionais de linha de comando para passar ao gamescope.",
+            "forceGrabCursor": "Sempre usar o modo relativo do mouse em vez de inverter dependendo da visibilidade do cursor. (Útil para quando os aplicativos continuam perdendo o foco)"
         },
         "title": {
             "accessibility": "Acessibilidade",
@@ -724,7 +730,8 @@
         "gamescope": {
             "enableLimiter": "Habilitar limitador de FPS",
             "enableUpscaling": "Permite aprimoramento de escala (Upscaling)",
-            "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH."
+            "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH.",
+            "enableForceGrabCursor": "Habilitar a captura forçada do cursor"
         },
         "msync": "Habilitar Msync",
         "allow_installation_broken_anticheat": {
@@ -736,12 +743,19 @@
             "label": "Permitir instalação de jogos com o sistema anti-trapaças comprometido ou não suportado"
         },
         "before-launch-script-path": "Selecione um script para executar antes do jogo ser iniciado",
-        "after-launch-script-path": "Selecione um script para executar após o jogo ser finalizado"
+        "after-launch-script-path": "Selecione um script para executar após o jogo ser finalizado",
+        "verboseLogs": {
+            "description": "Habilitar logs detalhados"
+        },
+        "disableUMU": "Desabilitar umu",
+        "custom_css": {
+            "warning": "Alerta: Isso é aplicado a todo o frontend. Isto significa que o estilo errado pode tornar o Heroic inutilizável. Se necessário, as configurações podem ser alteradas manualmente em `~/.config/heroic/config.json`. NÃO copie estilos de fontes que você não confie."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Instalando o BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "BattlEye Anti-Trapaça Executor"
         },
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copiado para a área de Transferência!",
@@ -779,7 +793,9 @@
         "reset-heroic": "Redefinir Heroic",
         "saves": {
             "label": "Salvar localização:",
-            "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)"
+            "warning": "O recurso Cloud Saves está em Beta, faça backup de seus saves antes de sincronizar (caso algo dê errado)",
+            "gog_linux_native_warning": "Jogos nativos do Linux não suportam o recurso de salvamento na nuvem da GOG. Use a versão do Windows em vez disso.",
+            "not_supported": "Este jogo não suporta salvamentos na nuvem."
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -832,8 +848,11 @@
             },
             "details": "Detalhes",
             "resetHeroic": {
-                "help": "Isso irá remover todas as Configurações e Caching, mas não removerá seus jogos Instalados ou suas credenciais Epic. Versões portáteis (AppImage, WinPortable, ...) do heroic precisam ser reiniciadas manualmente logo depois."
+                "help": "Isso irá remover todas as Configurações e Cache, mas não removerá seus jogos Instalados ou suas credenciais Epic. Versões portáteis (AppImage, WinPortable, ...) do Heroic precisam ser reiniciadas manualmente logo depois."
             }
+        },
+        "custom_css": {
+            "title": "Estilo CSS Customizado"
         }
     },
     "Settings": "Configurações",
@@ -926,7 +945,8 @@
         "search": "Procurar fontes ou componentes",
         "nothingYet": "Ainda não há nada instalado pelo Winetricks",
         "installed": "Componentes instalados:",
-        "no-components": "Nenhum componentes disponíveis"
+        "no-components": "Nenhum componentes disponíveis",
+        "loading-available": "Carregando os componentes disponíveis..."
     },
     "category-settings": {
         "cancel": "Cancelar",
@@ -943,10 +963,11 @@
         "restore": "Restaurar janela"
     },
     "emptyLibrary": {
-        "noResults": "Os filtros atuais não geraram resultados."
+        "noResults": "Os filtros atuais não geraram resultados.",
+        "noGames": "A sua biblioteca está vazia.<br /><br />Clique <4>aqui</4> para fazer login com a sua conta Epic, GOG.com ou Amazon. Após isso, seus jogos serão exibidos na biblioteca.<br /><br />Para usar jogos ou aplicativos de outras fontes, clique <br/> para adicioná-los manualmente."
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. É feita para ser usada na Steam, mas alguns jogos fora da Steam podem funcionar melhor com essa variante. Ela fornece logs majoritariamente inúteis para solução de problemas.",
+        "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. Ela deve ser usada junto com o umu launcher ( ativado por padrão no Heroic).",
         "wine-ge": "Wine-GE-Proton é uma variante Wine criada por Glorious Eggroll. É o Wine recomendado para ser usado fora da Steam. Ele fornece logs úteis para solução de problemas."
     },
     "categories-manager": {
@@ -965,5 +986,51 @@
         "dont-show-again": "Não exibir este aviso novamente",
         "description": "O domínio track.adtraction.com foi incapaz de carregar ou está bloqueado. Com adtraction, qualquer compra feita na loja GOG irá apoiar Heroic financialmente, Considere remover o bloqueio se deseja contribuir.",
         "title": "Adtraction está bloqueado"
+    },
+    "tour": {
+        "back": "Voltar",
+        "library": {
+            "welcome": {
+                "title": "Bem vindo ao Heroic!",
+                "title2": "Gerenciando a biblioteca!",
+                "intro2": "Se a biblioteca estiver vazia, tenha certeza de fazer o login com as suas contas usando a função de gerenciar contas na barra lateral ou adicione os seus próprios jogos usando o botão Adicionar Jogo na parte superior.",
+                "intro": "Bem vindo a Biblioteca do Heroic! Aqui você verá todos os seus jogos em diferentes lojas."
+            },
+            "addGame": "Adicione os seus próprios jogos ou aplicativos à biblioteca ao clicar aqui. Eles podem ser qualquer coisa, inclusive URLS de navegador.",
+            "categories": "Organize os seus jogos em categorias para manter as coisas organizadas.",
+            "end": {
+                "intro": "É isso! Aproveite os seus jogos e se divirta!",
+                "title": "Aproveite os seus jogos!"
+            },
+            "filters": "Filtre os seus jogos por loja, plataforma, favoritos e mais usando estas opções.",
+            "gameCard": "Clique com o botão esquerdo do mouse no cartão do jogo para navegar até a página do jogo para ver detalhes e ajustar configurações, ou clique com o botão direito do mouse para abrir o menu de contexto.",
+            "refresh": "Atualize sua biblioteca para verificar se há novos jogos ou atualizações.",
+            "search": "Use a barra de pesquisa para procurar seus jogos.",
+            "sortInstalled": "Classificar jogos por status de instalação.",
+            "sortOptions": "Clique aqui para classificar os jogos de maneira alfabética.",
+            "viewToggle": "Alternar entre a visualização em grade e em lista para seus jogos."
+        },
+        "sidebar": {
+            "stores": "Navegue e faça a compra de jogos em diferentes lojas incluindo Epic, GOG, e Amazon.",
+            "docs": "Leia a documentação para obter ajuda sobre como usar o Heroic.",
+            "quit": "Sair do aplicativo de maneira segura.",
+            "accessibility": "Acesse os recursos de acessibilidade para customizar a sua experiência.",
+            "downloads": "Rastreie e gerencie os downloads e as instalações de seus jogos.",
+            "accounts": "Gerencie as suas contas conectadas de lojas (Epic, GOG, Amazon), fazer o login ou sair de uma das contas.",
+            "community": "Junte-se à nossa comunidade no Discord e apoie o desenvolvimento do Heroic.",
+            "library": "Acesse a sua biblioteca de jogos de diferentes lojas em um único lugar.",
+            "login": "Faça o login em suas contas de lojas de jogos para acessar a sua biblioteca.",
+            "settings": "Ajuste as configurações do Heroic, padrões dos jogos, verifique logs e mais.",
+            "version": "Verifique a sua versão atual do Heroic, clique nela para ver o último registro de alterações, e acesse este tour através do ícone de ajuda.",
+            "welcome": {
+                "intro": "Bem vindo ao Heroic! Esta barra lateral contém todas as opções de navegação para explorar o aplicativo.",
+                "title": "Navegação da Barra Lateral"
+            },
+            "wine": "Gerencie ou baixe novas versões do Wine/Proton/GPTK para rodar jogos do Windows no Linux ou macOS."
+        },
+        "next": "Próximo",
+        "done": "Pronto",
+        "skip": "Pular",
+        "startTour": "Iniciar o Tour"
     }
 }
