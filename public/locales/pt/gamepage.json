@@ -37,7 +37,7 @@
             "settingcheckbox": "Apaga as definições e remove o registo{{newLine}}Nota: Isto não pode ser desfeito. Quaisquer definições alteradas vão ser esquecidas e o registo vai ser apagado.",
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este jogo é o prefixo padrão. Se quer realmente apagá-lo, deverá fazê-lo manualmente.",
-            "dlc": "Você quer desinstalar essa DLC?",
+            "dlc": "Você quer desinstalar \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "O Epic games não pode ser desinstalado enquanto tem um jogo a ser descarregado a partir do mesmo.",
             "gameIsRunning": "{{title}} está a decorrer. Fecha o jogo para o desinstalar."
         },
@@ -45,7 +45,7 @@
             "message": "Este jogo tem uma nova atualização, aplicar atualização agora?",
             "title": "O Jogo Precisa de Atualizar"
         },
-        "wineprefix": "Selecionar a Pasta do Prefixo do Wine",
+        "wineprefix": "Selecionar a pasta do Prefixo Wine",
         "yes": "SIM",
         "close": "Fechar"
     },
@@ -74,7 +74,9 @@
         "uninstall": "Desinstalar",
         "update": "Atualizar",
         "details": "Detalhes",
-        "changelog": "Mostrar Log"
+        "changelog": "Mostrar Log",
+        "browse_files": "Pesquise arquivos",
+        "browse_wine_prefix": "Pesquise o Prefixo Wine"
     },
     "cloud_save_unsupported": "Não é suportado",
     "disabled": "Desligado",
@@ -148,7 +150,7 @@
         "path-not-writtable": "Aviso: o caminho pode não permitir que possa gravar.",
         "space-after-install": "Depois da Instalação",
         "wineprefix": "Prefixo do Wine",
-        "wineversion": "Versão Wine.",
+        "wineversion": "Versão Wine",
         "anticheat-warning": {
             "cancel": "Não",
             "message": "O suporte anti-batota está danificado ou foi recusado. O jogo não irá funcionar. Deseja instalá-lo mesmo assim?",
@@ -157,7 +159,7 @@
             "install_anyway": "Sim (eu entendo que os recursos multiplayer do jogo não vão funcionar.)",
             "multiplayer_message": "O suporte anticheat esta com algum problema ou não iniciado. O jogo deve abrir mas os recursos multiplayer não vão funcionar. Voce deseja instalar mesmo assim?",
             "ok": "Ok",
-            "disabled_installation": "O suporte anticheat não está funcional e as funcionalidades multiplayer também não. O jogo não pode ser instalado. Para instalar este jogo, desative esta verificação nas definições avançadas."
+            "disabled_installation": "Este jogo usa um sistema de anti-trapaça que não é compatível com seu sistema operacional ou não teve o suporte habilitado pelos desenvolvedores do jogo. Isso significa que os recursos multiplayer não funcionarão, e não há nada que você (ou a equipe do Heroic) possa fazer sobre isso. <br /><br />Para instalar este jogo e testá-lo mesmo assim, vá em Configurações, Avançado, e marque a opção para permitir a instalação de jogos com anti-trapaça quebrado ou negado. <br /><br />Lembre-se que não existe solução para isso e você corre o risco de ser banido no jogo."
         },
         "flatpak-path-not-writtable": "Erro: Acesso à área restrita não concedido a este caminho, ocorrerá perda de dados."
     },
@@ -285,7 +287,7 @@
         "nodlcs": "DLC não disponível",
         "redMod": {
             "enable": "Ativar mods",
-            "collapsible": "REDmod Integração."
+            "collapsible": "REDmod Integração"
         },
         "versionCollapsable": "Versão do jogo"
     },
@@ -293,5 +295,15 @@
         "header": "Este jogo é gerido por uma aplicação de terceiros",
         "notice2": "Após clicar em Instalar, o Heroic executará o aplicativo para concluir o processo de instalação",
         "notice1": "Este jogo é gerido por uma aplicação de terceiros: \"{{application_name}}\""
-    }
+    },
+    "Open": "Abra",
+    "queue": {
+        "label": {
+            "canceled": "Cancelado",
+            "remove": "Remover dos Downloads",
+            "resume": "Continuar download",
+            "pause": "Pausar download"
+        }
+    },
+    "wikiLink": "Informação importante sobre esse jogo, leia isso:&nbsp;<1>Abrir pagina</1>"
 }
