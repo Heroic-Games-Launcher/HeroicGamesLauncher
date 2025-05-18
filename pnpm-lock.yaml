@@ -323,9 +323,6 @@ importers:
       unimported:
         specifier: 1.26.0
         version: 1.26.0(eslint@9.7.0)
-      vite:
-        specifier: 6.3.5
-        version: 6.3.5(@types/node@22.15.18(patch_hash=8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831))(sass@1.59.2)
       vite-plugin-svgr:
         specifier: 4.3.0
         version: 4.3.0(rollup@4.41.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.18(patch_hash=8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831))(sass@1.59.2))

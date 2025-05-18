@@ -157,7 +157,6 @@
     "typescript-eslint": "^7.17.0",
     "undici": "^7.8.0",
     "unimported": "1.26.0",
-    "vite": "6.3.5",
     "vite-plugin-svgr": "4.3.0"
   },
   "resolutions": {
