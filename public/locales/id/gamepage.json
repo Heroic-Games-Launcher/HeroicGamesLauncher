@@ -286,5 +286,12 @@
         "notice1": "Gim ini dikelola oleh aplikasi pihak ketiga: \"{{application_name}}\"",
         "header": "Gim ini dikelola oleh aplikasi pihak ketiga",
         "notice2": "Setelah mengklik Pasang, Heroic akan menjalankan aplikasi untuk menyelesaikan proses pemasangan"
+    },
+    "Open": "Buka",
+    "queue": {
+        "label": {
+            "canceled": "Dibatalkan",
+            "remove": "Hapus dari Unduhan"
+        }
     }
 }
