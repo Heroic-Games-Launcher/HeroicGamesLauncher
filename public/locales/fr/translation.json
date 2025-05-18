@@ -723,7 +723,8 @@
         "gamescope": {
             "enableLimiter": "Activer le limiteur de FPS",
             "enableUpscaling": "Activer la mise à l'échelle",
-            "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN."
+            "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN.",
+            "enableForceGrabCursor": "Activer « Force Grab Cursor »"
         },
         "msync": "Activer Msync",
         "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",
@@ -735,7 +736,14 @@
                 "understand": "Je comprends"
             },
             "label": "Permettre l'installation de jeux dont les systèmes anti-triche seront inopérants"
-        }
+        },
+        "verboseLogs": {
+            "description": "Activer « verbose » dans les rapports d'événements"
+        },
+        "custom_css": {
+            "warning": "Avertissement : ceci s'applique à toute l'interface. Cela signifie qu'un style erroné peut rendre Heroic inutilisable. Si nécessaire, ce paramètre peut être modifié depuis `~/.config/heroic/config.json`. Ne copiez PAS de styles provenant de sources auxquelles vous ne faites pas confiance."
+        },
+        "disableUMU": "Désactiver umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -778,7 +786,9 @@
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Emplacement de la sauvegarde :",
-            "warning": "La sauvegarde dans le Cloud est une fonctionnalité au stade Beta, veuillez faire une autre copie de vos sauvegardes avant d'initier la synchronisation (au cas où quelque chose se passerait mal)"
+            "warning": "La sauvegarde dans le Cloud est une fonctionnalité au stade Beta, veuillez faire une autre copie de vos sauvegardes avant d'initier la synchronisation (au cas où quelque chose se passerait mal)",
+            "gog_linux_native_warning": "Sur Linux, les jeux natifs ne sont pas compatibles avec la fonctionnalité de synchronisation des sauvegardes sur les serveurs de GOG. Utilisez plutôt la version pour Windows.",
+            "not_supported": "Ce jeu n'est pas compatible avec la synchronisation des sauvegardes."
         },
         "systemInformation": {
             "cpu": "Processeur :",
@@ -833,6 +843,9 @@
             "resetHeroic": {
                 "help": "Cette action supprimera tous les paramètres et les données en cache mais ne supprimera ni vos jeux installés, ni vos identifiants Epic. La version portable (AppImage, WinPortable, ...) d'Heroic devra ensuite être redémarrée manuellement."
             }
+        },
+        "custom_css": {
+            "title": "Style CSS personnalisé"
         }
     },
     "Settings": "Options",
@@ -947,7 +960,8 @@
         "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. C'est la version de Wine recommandée pour un usage en dehors de Steam."
     },
     "emptyLibrary": {
-        "noResults": "Les filtres actuels n'ont retourné aucun résultat."
+        "noResults": "Les filtres actuels n'ont retourné aucun résultat.",
+        "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la Bibliothèque.<br /><br />Si vous souhaitez ajouter des jeux ou des applications provenant d'autres sources, cliquez sur <br />."
     },
     "adtraction-locked": {
         "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",
@@ -965,5 +979,49 @@
         "confirm-remove": "Confirmer la suppression de « {{name}} »",
         "rename": "Renommer « {{name}} »",
         "title": "Organiser les catégories"
+    },
+    "tour": {
+        "library": {
+            "addGame": "Ajouter vos propres jeux ou applications à la bibliothèque en cliquant ici. Cela peut être n'importe quoi, même une adresse internet.",
+            "filters": "Filtrez vos jeux par boutique, platforme, favoris et davantage en utilisant ces options.",
+            "categories": "Organisez vos jeux par catégories pour garder les choses en ordre.",
+            "end": {
+                "intro": "Voilà ! Profitez de vos jeux et amusez-vous !",
+                "title": "Profitez de vos jeux !"
+            },
+            "refresh": "Actualisez votre bibliothèque pour vérifier si de nouveaux jeux ou des mises à jour sont disponibles.",
+            "search": "Utilisez la barre de recherche pour rechercher vos jeux.",
+            "viewToggle": "Alterner entre l'affichage sous forme de grille et l'affichage sous forme de liste de vos jeux.",
+            "welcome": {
+                "title": "Bienvenue dans Heroic !",
+                "title2": "Gestion de la bibliothèque !",
+                "intro2": "Si la bibliothèque est vide, assurez-vous de vous connecter à vos comptes depuis l'onglet de la barre latérale « Gestion des comptes » ou ajoutez vos propres jeux avec le bouton « Ajouter un jeu » ci-dessus.",
+                "intro": "Bienvenue dans la Bibliothèque d'Heroic ! Vous pouvez voir ici tous les jeux que vous possédez dans les différentes boutiques."
+            },
+            "gameCard": "Faites un clic-gauche sur la vignette du jeu afin de naviguer vers sa page, consulter ses détails et ajuster ses paramètres ou faites un clic-droit pour ouvrir le menu contextuel."
+        },
+        "back": "Retour",
+        "done": "Compris",
+        "next": "Suivant",
+        "sidebar": {
+            "accessibility": "Accédez aux fonctions d'accessibilité pour personnaliser votre expérience.",
+            "accounts": "Gérez vos comptes connectés (GOG, Epic, Amazon), connectez-vous ou déconnectez-vous..",
+            "community": "Rejoignez notre communauté sur Discord et soutenez le développement d'Heroic.",
+            "downloads": "Suivez et gérez le téléchargement et l'installation de vos jeux.",
+            "library": "Accédez à votre ludothèque éparse depuis un seul endroit.",
+            "login": "Connectez-vous au compte de votre boutique pour accéder à votre ludothèque.",
+            "settings": "Configurez Heroic, modifiez les paramètres par défaut des jeux, consultez les rapports d'événements et plus.",
+            "welcome": {
+                "intro": "Bienvenue dans Heroic ! Cette barre latérale contient toutes les options de navigation permettant d'explorer l'application.",
+                "title": "Navigation dans la barre latérale"
+            },
+            "stores": "Parcourez les différentes boutiques et achetez des jeux chez GOG, Epic ou Amazon.",
+            "version": "Vérifiez la version actuelle d'Heroic, cliquez dessus pour consulter les dernier changements et accédez à cette visite guidée depuis le bouton d'aide.",
+            "wine": "Gérez ou téléchargez une nouvelle version de Wine/Proton/GPTK pour exécuter des jeux Windows sur Linux ou MacOS.",
+            "quit": "Quittez l'application de manière sûre.",
+            "docs": "Lisez la documentation pour en apprendre plus sur l'utilisation d'Heroic."
+        },
+        "skip": "Passer",
+        "startTour": "Débuter la visite guidée"
     }
 }
