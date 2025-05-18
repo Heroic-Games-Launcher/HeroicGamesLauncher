@@ -1,15 +1,6 @@
 import { GlobalConfig } from 'backend/config'
-import {
-  configPath,
-  defaultUmuPath,
-  getSteamLibraries,
-  isLinux,
-  isMac,
-  toolsPath,
-  userHome
-} from 'backend/constants'
 import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
-import { execAsync } from 'backend/utils'
+import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
@@ -20,6 +11,13 @@ import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
 import { Path } from 'backend/schemas'
 import { searchForExecutableOnPath } from './os/path'
+import {
+  configPath,
+  defaultUmuPath,
+  toolsPath,
+  userHome
+} from 'backend/constants/paths'
+import { isLinux, isMac } from 'backend/constants/environment'
 
 /**
  * Loads the default wine installation path and version.
@@ -461,7 +459,14 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       const info = plistParse(
         readFileSync(whiskyVersionPlist, 'utf-8')
       ) as PlistObject
-      const version = info['version']
+      // FIXME: Verify this type at runtime
+      const version = info['version'] as {
+        build: string
+        major: number
+        minor: number
+        patch: number
+        preRelease: string
+      }
       const versionString = `${version['major']}.${version['minor']}.${version['patch']}-${version['build']}`
       whisky.add({
         bin: whiskyWineBin,

@@ -28,7 +28,7 @@ function copyTestFile(file: string, alternativeUserPath = '') {
 describe('NonSteamGame', () => {
   beforeEach(() => {
     tmpDir = dirSync({ unsafeCleanup: true })
-    GlobalConfig['setConfigValue']('defaultSteamPath', tmpDir.name + "'")
+    GlobalConfig.setConfigValue('defaultSteamPath', tmpDir.name + "'")
     tmpSteamUserConfigDir = join(
       tmpDir.name,
       'userdata',

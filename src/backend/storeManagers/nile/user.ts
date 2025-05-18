@@ -6,9 +6,9 @@ import {
 } from 'common/types/nile'
 import { runRunnerCommand } from './library'
 import { existsSync, readFileSync } from 'graceful-fs'
-import { nileUserData } from 'backend/constants'
 import { configStore } from './electronStores'
 import { clearCache } from 'backend/utils'
+import { nileUserData } from './constants'
 
 function authLogSanitizer(line: string) {
   try {

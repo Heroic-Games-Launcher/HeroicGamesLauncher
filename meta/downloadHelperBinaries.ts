@@ -4,6 +4,8 @@ import { dirname, join } from 'path'
 import { Readable } from 'stream'
 import { finished } from 'stream/promises'
 
+import { setGlobalDispatcher, ProxyAgent } from 'undici'
+
 type SupportedPlatform = 'win32' | 'darwin' | 'linux'
 type DownloadedBinary = 'legendary' | 'gogdl' | 'nile' | 'comet'
 
@@ -105,6 +107,7 @@ async function downloadLegendary() {
         win32: 'legendary_windows_x86_64.exe'
       },
       arm64: {
+        linux: 'legendary_linux_arm64',
         darwin: 'legendary_macOS_arm64'
       }
     }
@@ -123,6 +126,7 @@ async function downloadGogdl() {
         win32: 'gogdl_windows_x86_64.exe'
       },
       arm64: {
+        linux: 'gogdl_linux_arm64',
         darwin: 'gogdl_macOS_arm64'
       }
     }
@@ -137,6 +141,7 @@ async function downloadNile() {
       win32: 'nile_windows_x86_64.exe'
     },
     arm64: {
+      linux: 'nile_linux_arm64',
       darwin: 'nile_macOS_arm64'
     }
   })
@@ -197,6 +202,13 @@ async function storeDownloadedTags() {
 }
 
 async function main() {
+  const proxyUri = process.env['HTTPS_PROXY']
+  if (proxyUri) {
+    console.log(`Using proxy: ${proxyUri}`)
+    const proxyAgent = new ProxyAgent(proxyUri)
+    setGlobalDispatcher(proxyAgent)
+  }
+
   if (!(await pathExists('public/bin'))) {
     console.error('public/bin not found, are you in the source root?')
     return

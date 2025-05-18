@@ -26,15 +26,7 @@ import {
   axiosClient
 } from '../../utils'
 import {
-  fallBackImage,
-  legendaryConfigPath,
   legendaryLogFile,
-  legendaryMetadata,
-  isLinux,
-  userHome,
-  isWindows
-} from '../../constants'
-import {
   logDebug,
   logError,
   logInfo,
@@ -59,6 +51,11 @@ import shlex from 'shlex'
 import thirdParty from './thirdParty'
 import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
+import { legendaryConfigPath, legendaryMetadata } from './constants'
+import { isLinux, isWindows } from 'backend/constants/environment'
+import { userHome } from 'backend/constants/paths'
+
+const fallBackImage = 'fallback'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()

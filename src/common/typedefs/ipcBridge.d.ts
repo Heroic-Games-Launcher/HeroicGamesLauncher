@@ -99,7 +99,11 @@ interface SyncIPCFunctions {
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
   'set-connectivity-online': () => void
   changeTrayColor: () => void
-  setSetting: (args: { appName: string; key: string; value: unknown }) => void
+  setSetting: (args: {
+    appName: string
+    key: keyof AppSettings
+    value: unknown
+  }) => void
   resumeCurrentDownload: () => void
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
