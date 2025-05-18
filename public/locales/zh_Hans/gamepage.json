@@ -21,7 +21,8 @@
             "title": "选择要运行的 EXE"
         },
         "select": {
-            "button": "选择"
+            "button": "选择",
+            "image": "选择图片"
         },
         "sideload": {
             "exe": "选择可执行文件"
@@ -74,7 +75,9 @@
         "uninstall": "卸载",
         "update": "更新",
         "details": "详细内容",
-        "changelog": "显示更新日志"
+        "changelog": "显示更新日志",
+        "browse_files": "浏览文件",
+        "browse_wine_prefix": "浏览 Wine Prefix"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -212,7 +215,7 @@
             "fullscreen": "启动全屏（按 F11 退出）"
         },
         "placeholder": {
-            "image": "在此粘贴映像 URL",
+            "image": "粘贴图片 URL 计算机中选择一张",
             "title": "添加标题到你的“游戏/应用”",
             "url": "在此处粘贴游戏网址",
             "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
@@ -296,5 +299,14 @@
         "notice2": "单击“安装”后，Heroic 为了完成安装过程将运行程序",
         "notice1": "此游戏由下列第三方程序程序管理： \"{{application_name}}\""
     },
-    "wikiLink": "关于此游戏的重要信息，请阅读：&nbsp;<1>打开页面</1>"
+    "wikiLink": "关于此游戏的重要信息，请阅读：&nbsp;<1>打开页面</1>",
+    "Open": "打开",
+    "queue": {
+        "label": {
+            "pause": "暂停下载",
+            "resume": "继续下载",
+            "remove": "从下载中删除",
+            "canceled": "已取消"
+        }
+    }
 }
