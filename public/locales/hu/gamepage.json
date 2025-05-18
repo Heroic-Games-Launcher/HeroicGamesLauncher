@@ -157,7 +157,7 @@
             "ok": "Ok",
             "install_anyway": "Igen (Megértettem, hogy a többjátékos funkciók nem fognak működni)",
             "multiplayer_message": "A csalás elleni szoftver támogatása hibás vagy tiltásra került. A játékot lehet, hogy meg lehet nyitni, de a többjátékos funkciók nem fognak működni. Mindenképp telepíti?",
-            "disabled_installation": "A csalás elleni szoftver támogatása hibás, vagy tiltásra került, és a többjátékos funkciók nem fognak működni. A játék nem telepíthető. A játék telepítéséhez tiltsa le ezt az ellenőrzést a speciális beállításokban."
+            "disabled_installation": "A játék olyan csalás elleni szoftvert használ, amely nem kompatibilis az operációs rendszerével, vagy a támogatást a játék fejlesztői nem engedélyezték. Ez azt jelenti, hogy a többjátékos funkciók nem fognak működni, és ez ellen semmit sem tehet (ahogy a Heroic csapata sem).<br /><br />A játék telepítéséhez, és hogy mégis megpróbálja, kattintson a Beállítások, Speciális menüpontra, és kapcsolja be a hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezését.<br /><br />Vegye figyelembe, hogy erre nincs megoldás, és azt kockáztatja, hogy kitiltják a játékból."
         },
         "flatpak-path-not-writtable": "Hiba: nem lett hozzáférés adva a homokozóhoz ennél az elérési útnál, adatvesztés fog történni."
     },
@@ -293,5 +293,15 @@
         "header": "Ezt a játékot egy külső alkalmazás kezeli",
         "notice1": "Ezt a játékot egy külső alkalmazás kezeli: „{{application_name}}”",
         "notice2": "A Telepítés gombra való kattintás után a Heroic futtatni fogja az alkalmazást, hogy befejezze a telepítési folyamatot"
-    }
+    },
+    "Open": "Megnyitás",
+    "queue": {
+        "label": {
+            "canceled": "Megszakítva",
+            "remove": "Eltávolítás a letöltések közül",
+            "pause": "Letöltés szüneteltetése",
+            "resume": "Letöltés folytatása"
+        }
+    },
+    "wikiLink": "Fontos információ erről a játékról, olvassa el ezt:&nbsp;<1>Oldal megnyitása</1>"
 }
