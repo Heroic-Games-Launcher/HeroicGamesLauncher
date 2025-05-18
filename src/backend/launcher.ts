@@ -1489,7 +1489,7 @@ async function callRunner(
         options.onOutput(data, child)
       }
 
-      stdout.push(data.trim())
+      stdout.push(data)
     })
 
     child.stderr.setEncoding('utf-8')
@@ -1516,7 +1516,7 @@ async function callRunner(
         options.onOutput(data, child)
       }
 
-      stderr.push(data.trim())
+      stderr.push(data)
     })
 
     child.on('close', (code, signal) => {
@@ -1532,8 +1532,8 @@ async function callRunner(
       }
 
       res({
-        stdout: stdout.join('\n'),
-        stderr: stderr.join('\n')
+        stdout: stdout.join(),
+        stderr: stderr.join()
       })
     })
 
