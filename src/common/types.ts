@@ -105,6 +105,7 @@ export interface AppSettings extends GameSettings {
   disableLogs: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
+  downloadProtonToSteam: boolean
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
