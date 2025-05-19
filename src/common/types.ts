@@ -10,7 +10,6 @@ import {
 } from './types/legendary'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
-import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 
@@ -656,7 +655,6 @@ export interface GameScoreInfo {
 }
 export interface PCGamingWikiInfo {
   steamID: string
-  howLongToBeatID: string
   metacritic: GameScoreInfo
   opencritic: GameScoreInfo
   igdb: GameScoreInfo
@@ -691,7 +689,6 @@ export interface SteamInfo {
 export interface WikiInfo {
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
-  howlongtobeat: HowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
   steamInfo: SteamInfo | null
   umuId: string | null
