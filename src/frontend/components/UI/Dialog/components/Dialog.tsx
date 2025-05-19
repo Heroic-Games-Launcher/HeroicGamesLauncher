@@ -12,6 +12,11 @@ import React, {
   useState
 } from 'react'
 
+interface HTMLDialogElementPopover extends HTMLDialogElement {
+  showPopover: () => void
+  hidePopover: () => void
+}
+
 interface DialogProps {
   className?: string
   children: ReactNode
@@ -25,7 +30,7 @@ export const Dialog: React.FC<DialogProps> = ({
   showCloseButton = false,
   onClose
 }) => {
-  const dialogRef = useRef<HTMLDialogElement | null>(null)
+  const dialogRef = useRef<HTMLDialogElementPopover | null>(null)
   const onCloseRef = useRef(onClose)
   onCloseRef.current = onClose
   const [focusOnClose, setFocusOnClose] = useState<HTMLElement | null>(null)
@@ -51,11 +56,11 @@ export const Dialog: React.FC<DialogProps> = ({
       dialog.addEventListener('cancel', cancel)
 
       if (disableDialogBackdropClose) {
-        dialog['showPopover']()
+        dialog.showPopover()
 
         return () => {
           dialog.removeEventListener('cancel', cancel)
-          dialog['hidePopover']()
+          dialog.hidePopover()
         }
       } else {
         dialog.showModal()

@@ -340,8 +340,8 @@ export function logChangedSetting(
     if (
       Array.isArray(config[changedSetting]) &&
       Array.isArray(oldConfig[changedSetting]) &&
-      config[changedSetting].length === 0 &&
-      oldConfig[changedSetting].length === 0
+      config[changedSetting] &&
+      oldConfig[changedSetting]
     ) {
       return
     }
