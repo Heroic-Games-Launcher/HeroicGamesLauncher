@@ -17,7 +17,8 @@ export default function SteamInstallButton({
 }: {
   dataTourId?: string
 }) {
-  const { showDialogModal, sideloadedLibrary } = useContext(ContextProvider)
+  const { showDialogModal, sideloadedLibrary, platform, isIntelMac } =
+    useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const [showInstallDialog, setShowInstallDialog] = useState(false)
 
@@ -33,6 +34,8 @@ export default function SteamInstallButton({
   const [isInstalling, setIsInstalling] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [progress] = hasProgress('steam')
+
+  const showButton = platform === 'darwin' && !isIntelMac && !isSteamInstalled
 
   // Fetch wine list on component mount
   useEffect(() => {
@@ -55,10 +58,10 @@ export default function SteamInstallButton({
   const isCompatibilityLayerAvailable = wineList.length > 0
 
   // Function to handle Steam installation
-  const installSteam = async () => {
+  const installSteam = async (path: string) => {
     try {
       setIsInstalling(true)
-      await window.api.installSteamWindows()
+      await window.api.installSteamWindows(path)
       setShowInstallDialog(false)
     } catch (error) {
       console.error('Failed to install Steam:', error)
@@ -125,6 +128,10 @@ export default function SteamInstallButton({
     } else {
       handleSteamInstallation()
     }
+  }
+
+  if (!showButton) {
+    return null
   }
 
   return (

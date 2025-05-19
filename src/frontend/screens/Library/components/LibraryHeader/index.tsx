@@ -6,7 +6,6 @@ import LibraryContext from '../../LibraryContext'
 import './index.css'
 import AddGameButton from '../AddGameButton'
 import SteamInstallButton from '../SteamInstall/SteamInstallButton'
-import ContextProvider from 'frontend/state/ContextProvider'
 
 type Props = {
   list: GameInfo[]
@@ -15,9 +14,6 @@ type Props = {
 export default React.memo(function LibraryHeader({ list }: Props) {
   const { t } = useTranslation()
   const { showFavourites } = useContext(LibraryContext)
-  const { platform } = useContext(ContextProvider)
-
-  const isMac = platform === 'darwin'
 
   const numberOfGames = useMemo(() => {
     if (!list) {
@@ -41,7 +37,7 @@ export default React.memo(function LibraryHeader({ list }: Props) {
             : t('title.allGames', 'All Games')}
           <span className="numberOfgames">{numberOfGames}</span>
           <AddGameButton data-tour="library-add-game" />
-          {isMac && <SteamInstallButton dataTourId="install-steam-button" />}
+          <SteamInstallButton dataTourId="install-steam-button" />
         </span>
         <ActionIcons />
       </div>

@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TFunction } from 'i18next'
 import { Dialog } from 'frontend/components/UI/Dialog'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import { faSteam, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import WineSelector from '../InstallModal/WineSelector'
-import { WineInstallation } from 'common/types'
+import { PathSelectionBox } from 'frontend/components/UI'
 import './index.scss'
 
 interface SteamInstallDialogProps {
   isInstalling: boolean
   onClose: () => void
-  onInstall: () => void
+  onInstall: (installPath: string) => void
 }
 
 const getProgressMessage = (percent: number, t: TFunction) => {
@@ -35,20 +34,17 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
   const { t } = useTranslation('gamepage')
   const [progress] = hasProgress('steam')
   const [isHovering, setIsHovering] = useState(false)
+  const [installPath, setInstallPath] = useState('')
 
-  const [winePrefix, setWinePrefix] = useState('...')
-  const [wineVersion, setWineVersion] = useState<WineInstallation>()
-  const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
-  const [crossoverBottle, setCrossoverBottle] = useState('')
-
-  // Fetch wine versions when component mounts
   useEffect(() => {
-    const getWine = async () => {
-      const newWineList: WineInstallation[] =
-        await window.api.getAlternativeWine()
-      setWineVersionList(newWineList)
+    const getDefaultWinePrefix = async () => {
+      const { defaultWinePrefix } = await window.api.requestAppSettings()
+      console.log('prefix', defaultWinePrefix)
+      if (defaultWinePrefix) {
+        setInstallPath(`${defaultWinePrefix}/SteamHeroic`)
+      }
     }
-    getWine()
+    getDefaultWinePrefix()
   }, [])
 
   const percent = progress.percent ?? 0
@@ -58,7 +54,7 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
     if (isInstalling && percent < 95 && isHovering) {
       window.api.abort('steam-download')
     } else {
-      onInstall()
+      onInstall(installPath)
     }
   }
 
@@ -89,8 +85,8 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
           <ul>
             <li>
               {t(
-                'label.steam.appleSilicon',
-                'Apple Silicon M1+ or Intel with dedicated GPU'
+                'label.steam.hardware',
+                'Apple Silicon M1+ (for Intel Macs Steam will work with Crossover)'
               )}
             </li>
             <li>{t('label.steam.macOS', 'macOS 14.0 or above')}</li>
@@ -131,21 +127,32 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
               'label.steam.specificVersion-pt3',
               "made to work through Heroic since new versions of Steam won't work on macOS."
             )}
+            <li>
+              {t(
+                'label.steam.crossover',
+                "If you have Crossover installed, you won't need this since it can run the normal Steam just fine."
+              )}
+            </li>
           </li>
         </ul>
       </div>
-      {/* Wine Selector */}
+      {/* Installation Path Selector */}
       <div style={{ marginBottom: 'var(--space-md)' }}>
-        <WineSelector
-          appName="steam"
-          winePrefix={winePrefix}
-          wineVersion={wineVersion}
-          wineVersionList={wineVersionList}
-          title="Steam"
-          setWinePrefix={setWinePrefix}
-          setWineVersion={setWineVersion}
-          crossoverBottle={crossoverBottle}
-          setCrossoverBottle={setCrossoverBottle}
+        <PathSelectionBox
+          htmlId="steam-install-path"
+          type="directory"
+          onPathChange={setInstallPath}
+          path={installPath}
+          pathDialogTitle={t(
+            'box.select-install-path',
+            'Select Steam Installation Path'
+          )}
+          label={t('label.steam.install-path', 'Steam Installation Path')}
+          placeholder={t(
+            'label.steam.select-path',
+            'Select installation folder for Steam'
+          )}
+          noDeleteButton
         />
       </div>
 
@@ -155,7 +162,9 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
       >
         <button
           onClick={handleButtonClick}
-          disabled={isInstalling && percent >= 95}
+          disabled={
+            (isInstalling && percent >= 95) || (!isInstalling && !installPath)
+          }
           className="button is-secondary"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}

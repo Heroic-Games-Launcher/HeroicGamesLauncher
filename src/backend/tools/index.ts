@@ -885,13 +885,11 @@ export const SteamWindows = {
       throw new Error('Error downloading Steam')
     }
   },
-  installSteam: async () => {
+  installSteam: async (path: string) => {
     const steamCoverArt =
       'https://cdn2.steamgriddb.com/file/sgdb-cdn/grid/a7e8ba67562ea4d4ca0421066466ece4.png'
     const steamSetupPath = `${toolsPath}/steam/Steam.zip`
-    const { defaultWinePrefix, wineVersion } = GlobalConfig.get().getSettings()
-    // won't use just Steam here to avoid issue with people that already has a prefix with this name
-    const winePrefix = join(dirname(defaultWinePrefix), 'SteamHeroic')
+    const { wineVersion } = GlobalConfig.get().getSettings()
 
     if (!existsSync(steamSetupPath)) {
       await SteamWindows.downloadSteam()
@@ -904,7 +902,7 @@ export const SteamWindows = {
     }
     writeConfig('steam', {
       ...gameSettings,
-      winePrefix,
+      winePrefix: path,
       wineVersion,
       launcherArgs:
         '-noverifyfiles -nobootstrapupdate -skipinitialbootstrap -norepairfiles -overridepackageurl'
@@ -917,14 +915,14 @@ export const SteamWindows = {
           wait: true,
           gameSettings: {
             ...gameSettings,
-            winePrefix,
+            winePrefix: path,
             wineVersion
           }
         })
       }
 
       const unzipFile = join(toolsPath, 'steam', 'Steam.zip')
-      const unzipPath = `${winePrefix}/drive_c/Program Files (x86)/Steam`
+      const unzipPath = `${path}/drive_c/Program Files (x86)/Steam`
       if (!existsSync(unzipPath)) {
         await mkdir(unzipPath, { recursive: true })
       }

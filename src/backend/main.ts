@@ -1434,7 +1434,9 @@ ipcMain.handle('getKnownFixes', (e, appName, runner) =>
   readKnownFixes(appName, runner)
 )
 
-ipcMain.handle('installSteamWindows', async () => SteamWindows.installSteam())
+ipcMain.handle('installSteamWindows', async (e, path: string) =>
+  SteamWindows.installSteam(path)
+)
 
 /*
   Other Keys that should go into translation files:

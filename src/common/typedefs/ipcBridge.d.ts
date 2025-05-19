@@ -327,7 +327,7 @@ interface AsyncIPCFunctions {
   deleteUploadedLogFile: (url: string) => Promise<boolean>
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
-  installSteamWindows: () => Promise<void>
+  installSteamWindows: (path: string) => Promise<void>
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
