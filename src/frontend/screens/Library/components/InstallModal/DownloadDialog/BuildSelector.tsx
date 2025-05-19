@@ -2,6 +2,7 @@ import React from 'react'
 import { SelectField, ToggleSwitch } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { BuildItem } from 'common/types/gog'
+import { MenuItem } from '@mui/material'
 
 interface BuildSelectorProps {
   gameBuilds: BuildItem[]
@@ -49,12 +50,12 @@ export default function BuildSelector({
           onChange={(e) => setSelectedBuild(e.target.value)}
         >
           {gameBuilds.map((build) => (
-            <option key={`build-${build.build_id}`} value={build.build_id}>
+            <MenuItem key={`build-${build.build_id}`} value={build.build_id}>
               <>
                 {t('game.builds.version', 'Version')} {build.version_name} -{' '}
                 {getFormattedDate(build.date_published)}
               </>
-            </option>
+            </MenuItem>
           ))}
         </SelectField>
       )}
