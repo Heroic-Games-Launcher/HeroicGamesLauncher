@@ -658,7 +658,7 @@
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
-            "missingMsg": "We could not found gamescope on the PATH. Install it or add it to the PATH."
+            "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH."
         },
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",

@@ -4,7 +4,7 @@
         "open": "Åpen lenke",
         "copy": "Kopiere",
         "copied": "Kopiert!",
-        "loading": "Loading",
+        "loading": "Laster",
         "error": "Feil, prøv en annen kode"
     },
     "message": {
@@ -21,5 +21,5 @@
         "error": "Feil",
         "loading": "Laster inn liste over spill …"
     },
-    "welcome": "Velkommen."
+    "welcome": "Velkommen!"
 }

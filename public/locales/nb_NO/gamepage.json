@@ -1,12 +1,12 @@
 {
     "box": {
         "change": {
-            "message": "Endre hvor spillet er installert?",
+            "message": "Dette vil endre hvor spillet er installert, er du sikker?",
             "path": "Velg nytt installasjonssted",
             "title": "Endre installasjonssted for spill"
         },
         "choose": "Velg",
-        "importpath": "Vleg spillmappe å importere",
+        "importpath": "Velg spillmappe å importere",
         "move": {
             "message": "Dette kan ta lang tid, er du sikker?",
             "path": "Velg hvor du ønsker å flytte filene",
@@ -21,7 +21,8 @@
             "title": "Velg EXE for å kjøre"
         },
         "select": {
-            "button": "Velg"
+            "button": "Velg",
+            "image": "Velg bilde"
         },
         "sideload": {
             "exe": "Velg kjørbar fil"
@@ -46,7 +47,7 @@
             "message": "Dette spillet har en oppdatering. Vil du installere oppdatering nå?",
             "title": "Spillet trenger oppdatering"
         },
-        "wineprefix": "Velg WinePrefix-mappe",
+        "wineprefix": "Velg Wine-prefiksmappe",
         "yes": "Ja",
         "close": "Lukk"
     },
@@ -71,11 +72,13 @@
         "sideload": {
             "edit": "Rediger app/spill"
         },
-        "unhide_game": "Vis spill",
+        "unhide_game": "Synligjør spillet",
         "uninstall": "Avinstaller",
         "update": "Oppdater",
         "details": "Detaljer",
-        "changelog": "Vis endringslogg"
+        "changelog": "Vis endringslogg",
+        "browse_wine_prefix": "Bla gjennom Wine Prefix",
+        "browse_files": "Bla gjennom filer"
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Deaktivert",
@@ -126,7 +129,7 @@
         "main-plus-extras": "Hoved + Ekstra",
         "main-story": "Hovedhistorie"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Hvor lenge spillet tar å slå",
     "info": {
         "canRunOffline": "Krever tilkobling til internett",
         "installedPlatform": "Installert plattform",
@@ -138,7 +141,7 @@
         "clickToOpen": "Klikk for å åpne",
         "game-scores": "Spillresultater",
         "installedInfo": "Installert informasjon",
-        "protondb-compatibility-info": "Protonkompatibilitetsnivå",
+        "protondb-compatibility-info": "Proton-kompatibilitetsnivå",
         "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
         "third-party-app": "Tredjepartsbehandler"
     },
@@ -153,7 +156,7 @@
         "anticheat-warning": {
             "ok": "Ok",
             "install_anyway": "Ja (jeg forstår at flerspillerfunksjonene ikke vil fungere)",
-            "disabled_installation": "Støtten for anti-juks er ødelagt eller avvist, og flerspillerfunksjonene vil ikke fungere. Spillet kan ikke installeres. For å installere dette spillet, deaktiver denne sjekken i avanserte innstillinger.",
+            "disabled_installation": "Dette spillet bruker anti-jukse-programvare som ikke er kompatibelt med operativsystemet ditt, eller at har ikke utviklerne til dette spillet skrudd det på. Dette betyr at flerspillerdelen av spillet ikke kommer til å fungere, og det er ingenting du (eller Heroic) kan gjøre med det.<br /><br /> Hvis du vil installere det og prøve det allikevel, gå til «Innstillinger», «Avansert», og skru på installering av spill med ødelagt eller ikke-fungerende anti-jukse-programmer.<br /><br />Merk at det ikke finnes noen løsning på dette problemet og du kan risikere å bli bannlyst fra spillet.",
             "multiplayer_message": "Støtten for anti-juks er ødelagt eller avvist. Spillet vil kanskje starte, men flerspillerfunksjonene vil ikke fungere. Vil du installere det likevel?",
             "cancel": "Nei",
             "title": "Anti-juks ødelagt/avvist"
@@ -210,7 +213,7 @@
             "useragent": "Egendefinert brukeragent"
         },
         "placeholder": {
-            "image": "Lim inn en bilde-URL her",
+            "image": "Lim inn en bilde-URL her eller velg et bilde fra datamaskinen din",
             "title": "Legg til en tittel til spillet/programmet ditt",
             "url": "Lim inn spillets URL her",
             "useragent": "Skriv inn en egendefinert brukeragent her som skal brukes på denne nettleserappen/spillet"
@@ -292,5 +295,15 @@
         "header": "Dette spillet administreres av en tredjepartsapplikasjon",
         "notice2": "Etter å ha klikket på installer, vil Heroic kjøre applikasjonen for å fullføre installasjonsprosessen",
         "notice1": "Dette spillet administreres av en tredjepartsapplikasjon: \"{{application_name}}\""
-    }
+    },
+    "queue": {
+        "label": {
+            "canceled": "Avbrutt",
+            "remove": "Fjern fra Nedlastninger",
+            "pause": "Sett nedlasting på pause",
+            "resume": "Fortsett å laste ned"
+        }
+    },
+    "wikiLink": "Viktig informasjon om dette spillet: les dette:&nbsp;<1>Åpne side</1>",
+    "Open": "Åpne"
 }

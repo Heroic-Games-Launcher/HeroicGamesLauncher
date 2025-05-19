@@ -957,7 +957,8 @@
         "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning."
     },
     "emptyLibrary": {
-        "noResults": "De nuvarande filtren gav inga resultat."
+        "noResults": "De nuvarande filtren gav inga resultat.",
+        "noGames": "Ditt bibliotek är tomt.<br /><br />Klicka <4>här</4> för att logga in med ditt Epic, GOG.com, eller Amazon konto. Efter det kommer dina spel synas här i biblioteket.<br /><br />För att använda spel eller appar från andra källor, klicka <br /> för att lägga till dem manuellt."
     },
     "adtraction-locked": {
         "description": "Det verkar som om domänen track.adtraction.com inte kunde laddas eller är blockerad. Med adtraction stöder alla köp du gör via Heroic på GOGs butik ekonomiskt. Överväg att ta bort spärren om du vill bidra.",
@@ -975,5 +976,16 @@
         "remove": "Ta bort \"{{name}}\"",
         "rename": "Byt namn \"{{name}}\"",
         "title": "Hantera kategorier"
+    },
+    "tour": {
+        "back": "Bakåt",
+        "library": {
+            "end": {
+                "title": "Njut av dina spel!"
+            },
+            "filters": "Filtrera dina spel efter butik, plattform, favoriter och mer via dessa alternativ.",
+            "gameCard": "Vänster-klicka på spelkortet för att navigera till spelsidan och för att se detaljer och justera inställningar, eller höger-klicka för att öppna kontext-menyn.",
+            "refresh": "Uppdatera ditt bibliotek för att kolla efter nya spel eller uppdateringar."
+        }
     }
 }

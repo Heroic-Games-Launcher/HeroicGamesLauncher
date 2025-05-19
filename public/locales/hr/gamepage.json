@@ -237,5 +237,15 @@
     },
     "help": {
         "cloud_save_unsupported": "Ova igra ne podržava spremanje u oblak. Ove informacije pružaju programeri igre. Neke igre implementiraju vlastiti sustav spremanja u oblak"
+    },
+    "Open": "Otvori",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLCs"
     }
 }
