@@ -964,5 +964,8 @@
     },
     "emptyLibrary": {
         "noResults": "Tieto filtre nemajú žiadne výsledky."
+    },
+    "tour": {
+        "back": "Back"
     }
 }

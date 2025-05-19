@@ -22,7 +22,8 @@
             "title": "Select EXE to Run"
         },
         "select": {
-            "button": "Select"
+            "button": "Select",
+            "image": "Select Image"
         },
         "sideload": {
             "exe": "Select Executable"
@@ -260,7 +261,7 @@
             "useragent": "Custom User Agent"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
+            "image": "Paste an URL of an Image or select one from your computer",
             "title": "Add a title to your Game/App",
             "url": "Paste the Game URL here",
             "useragent": "Write a custom user agent here to be used on this browser app/game"

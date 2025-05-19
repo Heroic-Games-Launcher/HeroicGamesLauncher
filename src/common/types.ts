@@ -12,6 +12,7 @@ import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
+import type { Path } from 'backend/schemas'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -32,14 +33,25 @@ export type LaunchParams = {
   args?: string[]
 }
 
-export type LaunchOption = BaseLaunchOption | DLCLaunchOption
+export type LaunchOption =
+  | BaseLaunchOption
+  | AltExeLaunchOption
+  | DLCLaunchOption
 
-export interface BaseLaunchOption {
+// Option to append extra parameters to the launch command
+interface BaseLaunchOption {
   type?: 'basic'
   name: string
   parameters: string
 }
 
+// Option to launch an alternative executable instead
+interface AltExeLaunchOption {
+  type: 'altExe'
+  executable: Path
+}
+
+// Option to launch a DLC (another game) instead of the base game
 interface DLCLaunchOption {
   type: 'dlc'
   dlcAppName: string
@@ -63,7 +75,6 @@ export type Release = {
 }
 
 export type ExperimentalFeatures = {
-  enableNewDesign: boolean
   enableHelp: boolean
   cometSupport: boolean
   umuSupport?: boolean
@@ -89,9 +100,11 @@ export interface AppSettings extends GameSettings {
   defaultWinePrefix: string
   disableController: boolean
   disablePlaytimeSync: boolean
+  disableSmoothScrolling: boolean
   disableLogs: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
+  downloadProtonToSteam: boolean
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean

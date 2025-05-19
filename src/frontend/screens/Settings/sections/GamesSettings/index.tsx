@@ -91,8 +91,8 @@ export default function GamesSettings() {
       return true
     }
 
-    // Other tab show on linux and mac
-    if (isLinux || (isMac && tab === 'other')) {
+    // Other tab show on linux and mac (if not native)
+    if (isLinux || (isMac && !isNative)) {
       return true
     }
     return false

@@ -2,8 +2,9 @@ import React, { useContext } from 'react'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
-import { Category } from 'frontend/types'
+import { Category, PlatformsFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
+import type { Runner } from 'common/types'
 import './index.css'
 
 const RunnerToStore = {
@@ -59,13 +60,13 @@ export default function LibraryFilters() {
     setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
   }
 
-  const toggleStoreFilter = (store: Category) => {
+  const toggleStoreFilter = (store: Runner) => {
     const currentValue = storesFilters[store]
     const newFilters = { ...storesFilters, [store]: !currentValue }
     setStoresFilters(newFilters)
   }
 
-  const togglePlatformFilter = (plat: string) => {
+  const togglePlatformFilter = (plat: keyof PlatformsFilters) => {
     const currentValue = platformsFilters[plat]
     const newFilters = { ...platformsFilters, [plat]: !currentValue }
     setPlatformsFilters(newFilters)
@@ -102,7 +103,7 @@ export default function LibraryFilters() {
   // t('platforms.linux', 'Linux')
   // t('platforms.mac', 'Mac')
   // t('platforms.win', 'Windows')
-  const platformToggle = (plat: string) => {
+  const platformToggle = (plat: keyof PlatformsFilters) => {
     const toggle = (
       <ToggleSwitch
         key={plat}
@@ -124,7 +125,7 @@ export default function LibraryFilters() {
   // t('GOG', 'GOG')
   // t('Amazon Games', 'Amazon Games')
   // t('Other', 'Other')
-  const storeToggle = (store: Category) => {
+  const storeToggle = (store: Runner) => {
     const toggle = (
       <ToggleSwitch
         key={store}

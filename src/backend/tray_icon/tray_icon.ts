@@ -6,8 +6,13 @@ import { handleProtocol } from '../protocol'
 import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
-import { iconDark, iconLight, isMac } from '../constants'
 import { backendEvents } from '../backend_events'
+import { join } from 'node:path'
+import { isMac } from 'backend/constants/environment'
+import { fixAsarPath, publicDir } from 'backend/constants/paths'
+
+const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
+const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon
@@ -18,7 +23,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     recentGames ??= await getRecentGames({ limited: true })
     const newContextMenu = contextMenu(mainWindow, recentGames)
     appIcon.setContextMenu(newContextMenu)
-    if (isMac) app.dock.setMenu(newContextMenu)
+    if (isMac) app.dock?.setMenu(newContextMenu)
   }
   await loadContextMenu()
 

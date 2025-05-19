@@ -297,7 +297,7 @@
         "preferSystemLibs": "Kohandatud Wine versioonid (Wine-GE, Wine-Lutris) tarnitakse koos nende teegi sõltuvustega. Selle valiku lubamisel ignoreeritakse neid tarnitud teeke ja Wine laadib selle asemel süsteemiteeke. Hoiatus! Kui sõltuvusi ei täideta, võib tekkida probleeme.",
         "primerun": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "See asukoht lubab Heroicul määrata, millist Protoni versiooni Steam kasutab, et lisada Steamiväliseid mänge Steami."
         },
         "steamruntime": "Steami pakutavad kohandatud teegid, mis aitavad käivitada Linuxi ja Windowsi (Protoni) mänge. Lubamine võib parandada ühilduvust.",
         "sync": {
@@ -329,13 +329,14 @@
             "upscaleWidth": "Kuvasuhe laius, mida gamescope kasutab. Eeldatakse 16:9 kuvasuhet.",
             "fpsLimiter": "Gamescope'i kaadrisageduse limiit, nt. 60",
             "gameHeight": "Kuvasuhe kõrgus, mida mäng kasutab. Gamescope eeldab 16:9 kuvasuhet.",
-            "gameWidth": "Kuvasuhe laius, mida mäng kasutab. Gamescope eeldab 16:9 kuvasuhet."
+            "gameWidth": "Kuvasuhe laius, mida mäng kasutab. Gamescope eeldab 16:9 kuvasuhet.",
+            "forceGrabCursor": "Alati kasuta suhtelist hiirerežiimi selle asemel, et vahetada kursori nähtavuse põhjal. (Kasulik, kui rakendused kaotavad sageli fookust)"
         },
         "content": {
             "customThemesPath": "Vaadake meie vikit.",
             "settingsGame": "Näitab kõiki mängu seadeid.",
-            "wineManager": "Installeeri Wine'i, Protoni, Crossoveri jms. erinevaid versioone.",
-            "defaultInstallPath": "See on vaikimisi asukoht, mida kasutatakse mängude installeerimisel.",
+            "wineManager": "Paigalda Wine'i, Protoni, Crossoveri jms. erinevaid versioone.",
+            "defaultInstallPath": "See on vaikimisi asukoht, mida kasutatakse mängude paigaldamisel.",
             "library": "Näitab kõiki omatud mänge.",
             "accessibility": "Näita ligipääsetavuse seadeid.",
             "downloadManager": "Näitab praeguseid ja eelnevaid allalaadimisi.",
@@ -440,7 +441,7 @@
             "imported": "Mäng imporditud",
             "startInstall": "Paigaldamine alustatud",
             "failed": "Paigaldamine ebaõnnestus",
-            "paused": "Installimine peatatud"
+            "paused": "Paigaldamine pausil"
         },
         "moved": "Teisaldamine on lõpule viidud",
         "moving": "Mängu liigutamine",
@@ -707,7 +708,8 @@
         "gamescope": {
             "missingMsg": "Me ei leidnud gamescope'i PATH-il. Installeerige see või lisage see PATH-ile.",
             "enableUpscaling": "Lubab ülesskaleerimist",
-            "enableLimiter": "Luba FPS limiit"
+            "enableLimiter": "Luba FPS limiit",
+            "enableForceGrabCursor": "Luba sunnitud kursori haaramine"
         },
         "after-launch-script-path": "Vali skript, mida käitada pärast mängu sulgemist",
         "msync": "Luba Msync",
@@ -729,13 +731,19 @@
         },
         "allow_installation_broken_anticheat": {
             "confirmation": {
-                "message": "Mängud katkiste või keelatud sohivastaste meetmetega võivad toimida, aga mitmikmängu funktsioonid ei toimi. Ärge paluge tuge, kui olete sellest installeerimise hetkel teadlik.",
+                "message": "Mängud katkiste või keelatud sohivastaste meetmetega võivad toimida, aga mitmikmängu funktsioonid ei toimi. Ärge paluge tuge, kui olete sellest paigaldamise hetkel teadlik.",
                 "title": "Kas olete kindel?",
                 "understand": "Ma saan aru"
             },
-            "label": "Luba katkiste või keelatud sohivastaste meetmetega mängude installeerimist"
+            "label": "Luba katkiste või keelatud sohivastaste meetmetega mängude paigaldamine"
         },
-        "disableUMU": "Keela umu"
+        "disableUMU": "Keela umu",
+        "verboseLogs": {
+            "description": "Luba üksikasjalised logid"
+        },
+        "custom_css": {
+            "warning": "Hoiatus: see rakendub tervele eesliidesele. See tähendab, et vale stiil võib teha Heroicu kasutuskõlbmatuks. Kui vaja, võib seda sätet käsitsi muuta failis `~/.config/heroic/config.json`. ÄRGE KOPEERIGE stiile allikatest, mida te ei usalda."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -778,7 +786,9 @@
         "reset-heroic": "Lähtesta Heroic",
         "saves": {
             "label": "Salvestuste asukoht:",
-            "warning": "Pilvesalvestuse funktsioon on beetaversioonis, enne sünkroonimist varundage oma salvestused (juhuks, kui midagi läheb valesti)"
+            "warning": "Pilvesalvestuse funktsioon on beetaversioonis, enne sünkroonimist varundage oma salvestused (juhuks, kui midagi läheb valesti)",
+            "gog_linux_native_warning": "Linuxil otse mängivad mängud ei toeta GOG pilvesalvestusi. Kasutage selle asemel Windowsi versiooni.",
+            "not_supported": "See mäng ei toeta pilvesalvestusi."
         },
         "advanced": {
             "clearCache": {
@@ -833,6 +843,9 @@
         },
         "gamescope": {
             "searchMsg": "Otsin gamescope programmi."
+        },
+        "custom_css": {
+            "title": "Kasutajaliidese CSS stiil"
         }
     },
     "Settings": "Seaded",
@@ -964,6 +977,53 @@
         "close": "Sulge"
     },
     "emptyLibrary": {
-        "noResults": "Praegused filtrid ei toonud tulemusi."
+        "noResults": "Praegused filtrid ei toonud tulemusi.",
+        "noGames": "Teie varamu on tühi.<br /><br />Klikkige <4>siia,</4> et sisse logida oma Epicu, GOG.com või Amazoni kontodega. Siis ilmuvad teie mängud siia varamusse.<br /><br />Et kasutada mänge või rakendusi teistest allikatest, klikkige <br /> et need käsitsi lisada."
+    },
+    "tour": {
+        "back": "Tagasi",
+        "done": "Valmis",
+        "library": {
+            "categories": "Organiseerige oma mängud kategooriatesse, et hoida asjad puhtana.",
+            "end": {
+                "intro": "Ongi kõik! Nautige oma mänge ja lõbutsege!",
+                "title": "Nautige oma mänge!"
+            },
+            "filters": "Filtreerige oma mänge poe, platvormi, lemmikute ja muu põhjal nende valikute abil.",
+            "refresh": "Värskendage oma varamut, et järele vaadata uute mängude või uuenduste saadavust.",
+            "search": "Kasutage otsingut, et otsida oma mänge.",
+            "sortInstalled": "Sorteeri mänge paigaldatuse põhjal.",
+            "sortOptions": "Klikkige siia, et sorteerida mänge tähestikulises järjekorras.",
+            "viewToggle": "Vali mängude jaoks ruudustiku või nimekirja vaade.",
+            "welcome": {
+                "intro": "Tere tulemast Heroicu varamusse! Siin võite näha kõiki oma mänge üle mitme erineva poe.",
+                "intro2": "Kui varamu on tühi, siis logige kindlasti oma kontodesse sisse vajutades \"kontode haldamise\" valikut küljeribal või lisage omaenda mänge vajutades \"lisa mäng\" nuppu üleval.",
+                "title": "Tere tulemast Heroicusse!",
+                "title2": "Varamu haldamine!"
+            },
+            "gameCard": "Tehke vasakklõps mängu kaardil, et minna mängu lehele, näha üksikasju ja muuta seadeid, või paremklõps, et avada menüü.",
+            "addGame": "Klikkige siia, et lisada oma mänge või rakendusi varamusse. Need võivad olla peaaegu mis iganes, isegi brauseri URLid."
+        },
+        "next": "Järgmine",
+        "sidebar": {
+            "community": "Liituge meie Discordi kogukonnaga ja toetage Heroicu arendamist.",
+            "accessibility": "Vaadake ligipääsetavuse seadeid, et oma kogemust kohendada.",
+            "version": "Kontrollige oma praegust Heroicu versiooni. Klikkige siia, et näha uusimaid muudatusi ja külastage seda tuuri läbi abiikooni.",
+            "stores": "Sirvige ja ostelge mängusid erinevates poodides, sealhulgas Epicus, GOG-is ja Amazonis.",
+            "quit": "Väljuge ohutult rakendusest.",
+            "login": "Logige sisse oma mängupoodide kontodele, et oma varamule ligi pääseda.",
+            "library": "Pääsege oma eri poodides olevatele mängude varamutele ligi ühest kohast.",
+            "downloads": "Jälgige ja hallake oma mängude allalaadimisi ja paigaldamisi.",
+            "docs": "Lugege dokumentatsiooni, et leida abi Heroicu kasutamisel.",
+            "welcome": {
+                "title": "Küljeribal navigeerimine",
+                "intro": "Tere tulemast Heroicusse! Sellelt küljeribalt leiate kõik valikud, et rakenduses ringi liikuda."
+            },
+            "settings": "Vaadake üle Heroicu ja mängude vaikimisi seaded, kontrollige logisid ja muud.",
+            "wine": "Hallake või laadige alla uus Wine/Proton/GPTK versioon, et käivitada Windowsi mänge Linuxil või macOS-il.",
+            "accounts": "Hallake oma ühendatud poekontosid (Epic, GOG, Amazon), logige nendega välja või sisse."
+        },
+        "skip": "Jäta vahele",
+        "startTour": "Alusta tuur"
     }
 }

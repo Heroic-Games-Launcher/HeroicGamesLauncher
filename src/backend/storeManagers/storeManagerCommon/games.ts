@@ -1,6 +1,5 @@
 import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
-import { isMac, isLinux, icon } from '../../constants'
 import {
   appendGamePlayLog,
   appendWinetricksGamePlayLog,
@@ -33,6 +32,8 @@ import {
 import { BrowserWindow, dialog, Menu } from 'electron'
 import { gameManagerMap } from '../index'
 import { sendGameStatusUpdate } from 'backend/utils'
+import { isLinux, isMac } from 'backend/constants/environment'
+import { windowIcon } from 'backend/constants/paths'
 
 async function getAppSettings(appName: string): Promise<GameSettings> {
   return (
@@ -58,7 +59,7 @@ const openNewBrowserGameWindow = async ({
 
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
-      icon: icon,
+      icon: windowIcon,
       fullscreen: launchFullScreen ?? false,
       autoHideMenuBar: true,
       webPreferences: {

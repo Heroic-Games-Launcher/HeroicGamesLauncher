@@ -68,13 +68,15 @@
         "run-exe-first": "Uruchom najpierw instalator",
         "running-setup": "Rozpoczynanie instalacji",
         "sideload": {
-            "edit": "Edytuj Aplikację/Grę"
+            "edit": "Edytuj aplikację/grę"
         },
-        "unhide_game": "Odkryj Grę",
+        "unhide_game": "Odkryj grę",
         "uninstall": "Odinstaluj",
         "update": "Aktualizuj",
         "details": "Szczegóły",
-        "changelog": "Pokaż dziennik zmian"
+        "changelog": "Pokaż dziennik zmian",
+        "browse_files": "Przeglądaj pliki",
+        "browse_wine_prefix": "Przeglądaj prefiks Wine"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -84,16 +86,16 @@
     "enabled": "Włączono",
     "game": {
         "downloadSize": "Rozmiar pobierania",
-        "firstPlayed": "Pierwsze Uruchomienie",
+        "firstPlayed": "Pierwsze uruchomienie",
         "getting-download-size": "Sprawdzanie rozmiaru pliku do pobrania",
         "getting-install-size": "Sprawdzanie rozmiaru instalacji",
         "installSize": "Rozmiar instalacji",
         "language": "Język",
-        "lastPlayed": "Ostatnie Uruchomienie",
+        "lastPlayed": "Ostatnie uruchomienie",
         "neverPlayed": "Nigdy",
         "platform": "Wybierz wersję platformy do zainstalowania",
         "requirements": "Wymagania systemowe",
-        "totalPlayed": "Czas Gry",
+        "totalPlayed": "Czas gry",
         "dlcs": "DLC",
         "branch": {
             "disabled": "Wyłączone",
@@ -107,7 +109,7 @@
             "toggle": "Utrzymuj grę na konkretnej wersji"
         },
         "changelogFor": "Dziennik zmian dla {{gameTitle}}",
-        "modify": "Modyfikuj Instalację",
+        "modify": "Modyfikuj instalację",
         "extra_info": "Dodatkowe Informacje",
         "install_info": "Informacje o instalacji"
     },
@@ -139,7 +141,7 @@
         "installedInfo": "Zainstalowane informacje",
         "protondb-compatibility-info": "Poziom zgodności Proton",
         "steamdeck-compatibility-info": "Zgodność ze SteamDeck",
-        "third-party-app": "Menedżer Zewnętrzny"
+        "third-party-app": "Menedżer zewnętrzny"
     },
     "install": {
         "disk-space-left": "Dostępne miejsce",
@@ -156,7 +158,7 @@
             "title": "Niewspierany Anticheat",
             "ok": "OK",
             "install_anyway": "Tak (rozumiem, że funkcje wieloosobowe nie będą działać)",
-            "disabled_installation": "Wsparcie antycheata dla tej gry jest zepsute lub wyłączone, funkcje wieloosobowe nie będą działać. Gra nie może być zainstalowana. Aby zainstalować grę, wyłącz opcję sprawdzania w zaawansowanych ustawieniach.",
+            "disabled_installation": "Wsparcie antycheata dla tej gry nie jest kompatybilne z twoim systemem operacyjnym lub twórcy gry nie włączyli wsparcia dla niego. Oznacza to, że funkcje wieloosobowe nie będą działać i nikt (ani ty, ani zespół Heroic) jest w stanie cokolwiek z tym zrobić.<br /><br />Aby mimo tego zainstalować grę, przejdź do Ustawienia, Zaawansowane i zaznacz opcję zezwalania na instalaowanie gier z uszkodzonym lub niedostępnym antycheatem.<br /><br />Uwaga: nie ma na to żadnego rozwiązania i będziesz ryzykować otrzymaniem bana w grze.",
             "multiplayer_message": "Wsparcie antycheata nie działa lub jest zablokowane. Gra może się uruchomić ale funkcje wieloosobowe mogą nie działać. Czy chcesz zainstalować?"
         },
         "flatpak-path-not-writtable": "Błąd: Brak dostępu do tej ścieżki, spowoduje to utratę danych."
@@ -180,7 +182,7 @@
         "redist": "Instalowanie pakietów redystrybucyjnych"
     },
     "launch": {
-        "options": "Opcje Uruchamiania..."
+        "options": "Opcje uruchamiania..."
     },
     "not_logged_in": {
         "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
@@ -209,13 +211,17 @@
             "title": "Tytuł gry/aplikacji",
             "broser": "URL przeglądarki",
             "useragent": "Niestandardowy User Agent",
-            "fullscreen": "Uruchom tryb pełnego ekranu (naciśnij F11, aby wyjść)"
+            "fullscreen": "Otwórz w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazka tutaj",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
             "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
+        },
+        "import-hint": {
+            "title": "Uwaga! Czy dodajesz grę od Epic/GOG/Amazon? Kliknij tutaj!",
+            "content": "NIE używaj do tego tej funkcji.<1></1>Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
         }
     },
     "specs": {
@@ -254,13 +260,13 @@
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
-        "addToSteam": "Dodaj do Steam'a",
+        "addToSteam": "Dodaj do Steama",
         "change": "Zmień ścieżkę instalacji",
         "disableEosOverlay": "Wyłącz nakładkę EOS",
         "enableEosOverlay": "Włącz nakładkę EOS",
         "move": "Przenieś grę",
         "protondb": "Sprawdź kompatybilność",
-        "removeFromSteam": "Usuń ze Steam'a",
+        "removeFromSteam": "Usuń ze Steama",
         "removeShortcut": "Usuń skróty",
         "settings": "Ustawienia",
         "store": "Strona sklepu",
@@ -272,7 +278,7 @@
     "help": {
         "cloud_save_unsupported": "Ta gra nie obsługuje zapisów w chmurze. Informacje te są dostarczane przez twórców gry. Niektóre gry mają własny system zapisywania w chmurze",
         "title": {
-            "gamePage": "Strona Gry"
+            "gamePage": "Strona gry"
         },
         "content": {
             "gamePage": "Pokaż wszystkie szczegóły i akcje dla gry. Użyj menu 3 kropek aby zobaczyć więcej opcji."
@@ -285,11 +291,21 @@
             "collapsible": "Integracja REDmod",
             "enable": "Włącz mody"
         },
-        "versionCollapsable": "Wersja Gry"
+        "versionCollapsable": "Wersja gry"
     },
     "third-party-managed": {
         "header": "Ta gra jest zarządzana poprzez zewnętrzną aplikację",
         "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
-        "notice2": "Po naciśnięciu instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
-    }
+        "notice2": "Po naciśnięciu Instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
+    },
+    "wikiLink": "Przeczytaj ważne informacje o tej grze:&nbsp;<1>otwórz stronę</1>",
+    "queue": {
+        "label": {
+            "remove": "Usuń z pobranych",
+            "canceled": "Anulowano",
+            "pause": "Wstrzymaj pobieranie",
+            "resume": "Wznów pobieranie"
+        }
+    },
+    "Open": "Otwórz"
 }

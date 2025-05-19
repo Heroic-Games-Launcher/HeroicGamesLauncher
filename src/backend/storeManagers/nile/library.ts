@@ -1,16 +1,11 @@
 import JSON5 from 'json5'
 import {
-  nileConfigPath,
-  nileInstalled,
-  nileLibrary,
-  nileLogFile
-} from 'backend/constants'
-import {
   LogPrefix,
   logDebug,
   logError,
   logInfo,
-  logWarning
+  logWarning,
+  nileLogFile
 } from 'backend/logger/logger'
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
@@ -29,6 +24,7 @@ import { app } from 'electron'
 import { copySync } from 'fs-extra'
 import { NileUser } from './user'
 import { runNileCommandStub } from './e2eMock'
+import { nileConfigPath, nileInstalled, nileLibrary } from './constants'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()

@@ -153,7 +153,7 @@ If you're not using the Flatpak version, make sure you have all Wine dependencie
 #### Debian, Ubuntu and Derivatives
 
 Download the file ending in .deb from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest).  
-Double-click it to open it up in your Software Manager, or run `sudo dpkg -i heroic_*_amd64.deb` to install it directly:
+Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Heroic_*_amd64.deb` to install it directly.
 
 #### Arch (AUR)
 
@@ -211,7 +211,7 @@ Otherwise, download the file ending in .dmg from the [latest release](https://gi
 
 This part will walk you through setting up a development environment so you can build Heroic binaries yourself or make changes to the code.
 
-1. Make sure Git, NodeJS, and pnpm 9 are installed  
+1. Make sure Git, NodeJS, and pnpm 10 are installed  
    **NOTE**: On Windows, due to an issue with electron-builder, you'll need the standalone version of pnpm (`@pnpm/exe`)
    to build packages
 2. Clone the repo and enter the cloned folder, for example with these commands:

@@ -295,5 +295,13 @@
         "header": "Detta spel hanteras av ett tredjeparts program",
         "notice1": "Detta spel hanteras av tredjeparts programmet: \"{{application_name}}\"",
         "notice2": "Efter att ha klickat på Installera kommer Heroic att köra programmet för att slutföra installationsprocessen"
+    },
+    "Open": "Öppna",
+    "queue": {
+        "label": {
+            "canceled": "Avbruten",
+            "remove": "Ta bort från nedladdningar",
+            "resume": "Återuppta nedladdning"
+        }
     }
 }

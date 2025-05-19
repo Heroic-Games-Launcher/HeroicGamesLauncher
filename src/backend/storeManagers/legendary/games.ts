@@ -34,15 +34,6 @@ import {
   spawnAsync
 } from '../../utils'
 import {
-  isMac,
-  isWindows,
-  installed,
-  configStore,
-  isCLINoGui,
-  isLinux,
-  epicRedistPath
-} from '../../constants'
-import {
   appendGamePlayLog,
   appendWinetricksGamePlayLog,
   logError,
@@ -91,6 +82,14 @@ import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import thirdParty from './thirdParty'
 import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
+import { configStore } from 'backend/constants/key_value_stores'
+import { epicRedistPath, legendaryInstalled } from './constants'
+import {
+  isCLINoGui,
+  isLinux,
+  isMac,
+  isWindows
+} from 'backend/constants/environment'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -927,21 +926,25 @@ export async function launch(
   const appNameToLaunch =
     launchArguments?.type === 'dlc' ? launchArguments.dlcAppName : appName
 
+  const launchArgumentArgs =
+    launchArguments &&
+    (launchArguments.type === undefined || launchArguments.type === 'basic')
+      ? launchArguments.parameters
+      : undefined
+
   const command: LegendaryCommand = {
     subcommand: 'launch',
     appName: LegendaryAppName.parse(appNameToLaunch),
-    extraArguments: [
-      ...args,
-      launchArguments?.type !== 'dlc' ? launchArguments?.parameters : undefined,
-      gameSettings.launcherArgs
-    ]
+    extraArguments: [...args, launchArgumentArgs, gameSettings.launcherArgs]
       .filter(Boolean)
       .join(' '),
     ...wineFlags
   }
   if (skipVersionCheck) command['--skip-version-check'] = true
   if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
-  if (gameSettings.targetExe)
+  if (launchArguments?.type === 'altExe')
+    command['--override-exe'] = launchArguments.executable
+  else if (gameSettings.targetExe)
     command['--override-exe'] = Path.parse(gameSettings.targetExe)
   if (offlineMode) command['--offline'] = true
   if (isCLINoGui) command['--skip-version-check'] = true
@@ -1018,7 +1021,7 @@ export async function forceUninstall(appName: string) {
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
     logError(
-      `Error reading ${installed}, could not complete operation`,
+      `Error reading ${legendaryInstalled}, could not complete operation`,
       LogPrefix.Legendary
     )
   }

@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Kytke pois ilmoitteiden sulkeminen ulkopuolella napsauttamisen kautta",
         "titles_always_visible": "Näytä nimet kirjastossa aina",
         "actions_font_family_default": "Toimintojen kirjasinperhe (vakio: {{fontFamily}})",
-        "content_font_family_default": "Sisältöjen kirjasinperhe (vakio: {{fontFamily}})"
+        "content_font_family_default": "Sisältöjen kirjasinperhe (vakio: {{fontFamily}})",
+        "disable_smooth_scrolling": "Kytke pois sulava vieritys (uudelleenkäynnistys vaaditaan)"
     },
     "add_game": "Lisää peli",
     "All": "Kaikki",
@@ -115,7 +116,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin.",
+                "message": "Oletko varma Heroic:in asetusten nollaamisesta? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei kuitenkaan asentamiasi pelejä eikä Epic -kirjautumisiasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:ista vaativat manuaalisen uudelleenkäynnistyksen jälkeenpäin.",
                 "title": "Nollaa Heroic"
             }
         },
@@ -169,6 +170,10 @@
                 "message": "Aivan kaikki ominaisuudet eivät vielä ole saavutettavissa sovelluksen Snap-julkaisussa ja työstämme korjauksia.{{newLine}}Rajoituksia joita tällä hetkellä on havaittu: {{newLine}}Heroic ei löydä Protonia Steam:istä tai Wine:stä Lutris-käynnistimen kautta.{{newLine}}{{newLine}}Peliavustajat kuten Gamescope, GameMode ja MangoHud eivät myöskään toimi, koska Heroic:illa ei ole niihin pääsyä.{{newLine}}{{newLine}}Hyödyntääksesi näitä ominaisuuksia, asenna Heroic Games Launcher Flatpak, DEB tai AppImage -paketointien kautta.",
                 "title": "Ajossa on Heroic:in Snap-paketointi",
                 "checkbox": "Älä näytä tätä viestiä enää"
+            },
+            "rosetta": {
+                "title": "Rosettaa ei löytynyt",
+                "message": "Heroic vaatii Rosetta:n jotta sitä voidaan ajaa asianmukaisesti macOS:llä Apple Silicon -piireillä. Asenna se macOS:n päätteestä seuraavalla käskyllä: \"softwareupdate --install-rosetta\" ja uudelleenkäynnistä Heroic. "
             }
         },
         "wineprefix": "Valitse Wine Prefix kansio",
@@ -345,7 +350,9 @@
             "gameHeight": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
             "gameWidth": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
             "upscaleHeight": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
-            "upscaleWidth": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus."
+            "upscaleWidth": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
+            "forceGrabCursor": "Käytä aina suhteellista hiiritilaa joka toimii osoittimen sen hetkisen paikan mukaisesti. (Hyödyllinen kun ohjelmisto menettää jatkuvasti kohdistuksensa)",
+            "upscaleMethod": "Ylösskaalauksen menetelmä jota Gamescope asetetaan toteuttamaan."
         }
     },
     "info": {
@@ -495,7 +502,9 @@
             "title": "Käärimen käsky:"
         },
         "gamescope": {
-            "upscaleWidth": "Skaalan leveys"
+            "upscaleWidth": "Skaalan leveys",
+            "fullscreen": "Koko näyttö",
+            "windowed": "Ikkunoitu"
         }
     },
     "other": {
@@ -605,7 +614,8 @@
             "show-in-folder": "Näytä lokitiedosto kansiossa",
             "upload": {
                 "actions": "Toiminnot"
-            }
+            },
+            "join-heroic-discord": "Liity Discordiimme"
         },
         "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
         "manualsync": {
@@ -658,7 +668,18 @@
             "enableNewDesign": "Uusi malli"
         },
         "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä",
-        "msync": "Ota Esync käyttöön"
+        "msync": "Ota Esync käyttöön",
+        "frameless-window": {
+            "confirmation": {
+                "title": "Kokeelliset ominaisuudet"
+            }
+        },
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "Ymmärrän",
+                "title": "Oletko varma?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -708,7 +729,7 @@
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary-julkaisu: {{legendaryVersion}}",
             "systemSpecifications": "Järjestelmämääritykset:",
-            "steamDeck": "Steam Deck",
+            "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Ajuri: {{driverVersion}}",
             "os": "Käyttöjärjestelmä:",
             "gpu": "Näytönohjain:",
@@ -734,11 +755,15 @@
                 "help2": "Kolmannen osapuolen pelitiedot (pisteet, Steam-yhteensopivuus, läpipeluuaika, PcGamingWiki, AppleGamingWiki)"
             },
             "title": {
-                "resetHeroic": "Nollaa Heroic"
+                "resetHeroic": "Nollaa Heroic",
+                "clearCache": "Tyhjennä välimuisti"
             },
             "resetHeroic": {
                 "help": "Haluatko varmasti nollata Heroic:in? Tämä poistaa kaikki asetukset sekä välimuistin, mutta ei asentamiasi pelejä eikä Epic-tietojasi. Portattavat julkaisut (AppImage, WinPortable, ...) Heroic:istä pitää uudelleenkäynnistää manuaalisesti jälkeenpäin."
             }
+        },
+        "custom_css": {
+            "title": "Mukautettu CSS-tyyli"
         }
     },
     "Settings": "Asetukset",
@@ -825,10 +850,19 @@
     "prime-gaming": "Amazon Prime Gaming",
     "winetricks": {
         "install": "Asenna",
-        "loading": "Ladataan"
+        "loading": "Ladataan",
+        "openGUI": "Avaa Winetricksin käyttöliittymä",
+        "installing": "Asennus meneillään: {{component}}",
+        "search": "Etsi fontteja tai komponentteja",
+        "installed": "Asennetut komponentit:",
+        "loading-available": "Ladataan saatavilla olevia komponentteja...",
+        "no-components": "Ei saatavilla olevia komponentteja"
     },
     "window": {
-        "close": "Sulje"
+        "close": "Sulje",
+        "maximize": "Suurenna ikkuna",
+        "restore": "Palauta ikkuna",
+        "minimize": "Pienennä ikkuna"
     },
     "category-settings": {
         "cancel": "Peruuta",
@@ -856,6 +890,24 @@
         "remove": "Poista \"{{name}}\""
     },
     "emptyLibrary": {
-        "noResults": "Nämä suodattimet eivät tuottaneet tuloksia."
+        "noResults": "Nämä suodattimet eivät tuottaneet tuloksia.",
+        "noGames": "Kirjastosi on tyhjä.<br /><br />Napsauta <4>tässä</4> kirjautuaksesi sisään Epic, GOG.com, tai Amazon -tilillesi. Tämän jälkeen pelisi ilmestyvät tähän kirjastonäkymään.<br /><br />Käyttääksesi pelejä- tai sovelluksia muista lähteistä, napsauta <br /> lisätäksesi ne manuaalisesti."
+    },
+    "tour": {
+        "back": "Takaisin",
+        "done": "Valmis",
+        "library": {
+            "end": {
+                "title": "Nauti peleistäsi!"
+            },
+            "welcome": {
+                "intro": "Tervetuloa Heroic-kirjastoon! Täältä näet kaikki pelisi riippumatta mistä kaupasta ne ovat peräisin.",
+                "title": "Tervetuloa Heroiciin!",
+                "title2": "Kirjaston hallinta!"
+            }
+        },
+        "next": "Seuraava",
+        "startTour": "Käynnistä tutustumiskierros",
+        "skip": "Ohita"
     }
 }

@@ -288,5 +288,11 @@
         "versionCollapsable": "Oyun Versiyası",
         "dlcsCollapsible": "DLC-Əlavə Genişləmə Paketləri",
         "nodlcs": "DLC-Əlavə Genişləmə Paketləri yoxdur və ya əlçatan deyil"
+    },
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
     }
 }

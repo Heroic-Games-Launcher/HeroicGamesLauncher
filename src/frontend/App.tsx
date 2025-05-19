@@ -57,8 +57,7 @@ function Root() {
       className={classNames('App', {
         isRTL,
         frameless: isFrameless,
-        fullscreen: isFullscreen,
-        oldDesign: !experimentalFeatures.enableNewDesign
+        fullscreen: isFullscreen
       })}
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}
