@@ -328,6 +328,7 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   installSteamWindows: (path: string) => Promise<void>
+  isIntelMac: () => boolean
 }
 
 // This is quite ugly & throws a lot of errors in a regular .ts file
