@@ -140,6 +140,7 @@ import {
   userHome,
   windowIcon
 } from './constants/paths'
+import { supportedLanguages } from 'common/languages'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -363,50 +364,7 @@ if (!gotTheLock) {
       returnNull: false,
       fallbackLng: 'en',
       lng: settings.language,
-      supportedLngs: [
-        'ar',
-        'az',
-        'be',
-        'bg',
-        'bs',
-        'ca',
-        'cs',
-        'de',
-        'el',
-        'en',
-        'es',
-        'et',
-        'eu',
-        'fa',
-        'fi',
-        'fr',
-        'gl',
-        'he',
-        'hr',
-        'hu',
-        'ja',
-        'ko',
-        'id',
-        'it',
-        'lt',
-        'ml',
-        'nb_NO',
-        'nl',
-        'pl',
-        'pt',
-        'pt_BR',
-        'ro',
-        'ru',
-        'sr',
-        'sk',
-        'sv',
-        'ta',
-        'tr',
-        'uk',
-        'vi',
-        'zh_Hans',
-        'zh_Hant'
-      ]
+      supportedLngs: supportedLanguages
     })
 
     const mainWindow = await initializeWindow()
