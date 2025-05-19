@@ -2,19 +2,19 @@
     "button": {
         "login": "Kirjaudu sisään",
         "open": "Avaa linkki",
-        "copy": "Kopio",
+        "copy": "Kopioi",
         "copied": "Kopioitu!",
         "error": "Virhe, kokeile toista koodia",
-        "loading": "Loading"
+        "loading": "Ladataan"
     },
     "message": {
-        "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, suorita askeleet jotka alla:",
+        "part1": "Ennen kuin voit kirjautua sisään ja asentaa pelejäsi, suorita alla mainitut vaiheet:",
         "part2": "Avaa",
         "part3": "Epic Store tässä",
         "part4": ", kirjaudu sisään omalle käyttäjällesi ja kopioi sinun",
-        "part5": "authorization code-tietonumero",
+        "part5": "valtuutuskoodi",
         "part6": "Liitä oma",
-        "part7": "authorization code-numero",
+        "part7": "valtuutuskoodinumero",
         "part8": "syötelaatikkoon alla sekä napsauta sisäänkirjautumisen painiketta."
     },
     "status": {

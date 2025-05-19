@@ -320,7 +320,8 @@
             "gameHeight": "A játék által használt magassági felbontás. A gamescope 16:9-es képarányt feltételez.",
             "fpsLimiter": "A gamescope képkockaszámkorlátja. Például 60.",
             "upscaleHeight": "A gamescope által használt magassági felbontás. 16:9-es képarányt feltételez.",
-            "additionalOptions": "További átadandó parancssori kapcsolók a gamescope-hoz."
+            "additionalOptions": "További átadandó parancssori kapcsolók a gamescope-hoz.",
+            "forceGrabCursor": "Mindig relatív egérmód használata a kurzor láthatóságától függő váltás helyett. (Hasznos, ha az alkalmazások elveszítik a fókuszt)"
         },
         "dxvknvapi": "DXVK-NVAPI a NVAPI egy megvalósítása, amely a DXVK-ra és a Linux eredeti NVAPI-jára épül, és lehetővé teszi a DLSS használatát az Nvidia videókártyákon.",
         "disablePlaytimeSync": "Letiltja a játék közbeni szinkronizációt az adott áruház kiszolgálóival (jelenleg csak a GOG támogatott)",
@@ -345,7 +346,7 @@
             "customThemesPath": "Nézze meg a wikinket.",
             "downloadManager": "Megjeleníti a jelenlegi és múltbéli letöltéseket.",
             "library": "Megjeleníti az összes birtokolt játékot.",
-            "login": "Bejelentkezés a különböző boltokba."
+            "login": "Bejelentkezés a különböző áruházakba."
         },
         "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Az engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken."
     },
@@ -714,7 +715,8 @@
         "gamescope": {
             "enableUpscaling": "Engedélyezi a felskálázást",
             "missingMsg": "A gamescope nem található a PATH-on. Telepítse, vagy adja hozzá a PATH-hoz.",
-            "enableLimiter": "FPS korlátozó engedélyezése"
+            "enableLimiter": "FPS korlátozó engedélyezése",
+            "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése"
         },
         "disablePlaytimeSync": "Játék közbeni szinkronizáció letiltása",
         "experimental_features": {
@@ -735,7 +737,13 @@
         },
         "before-launch-script-path": "Válasszon egy a játék indítása előtt futtatandó parancsfájlt",
         "after-launch-script-path": "Válassza ki a játék kilépése után futtatandó parancsfájlt",
-        "disableUMU": "Az umu letiltása"
+        "disableUMU": "Az umu letiltása",
+        "verboseLogs": {
+            "description": "Bőbeszédű naplók engedélyezése"
+        },
+        "custom_css": {
+            "warning": "Figyelmeztetés: ez az egész előtét-alkalmazásra érvényes. Ez azt jelenti, hogy a hibás stílus használhatatlanná teheti a Heroicot. Ha szükséges, a beállítás kézileg megváltoztatható a `~/.config/heroic/config.json` fájlban. NE másoljon stílusokat olyan forrásokból, melyekben nem bízik."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -778,7 +786,9 @@
         "reset-heroic": "A Heroic visszaállítása",
         "saves": {
             "label": "Save Location:",
-            "warning": "A felhőmentés funkciója béta állapotú, szinkronizálás előtt készítsen biztonsági mentést a mentéseiről (ha esetleg valami rosszul sikerülne)"
+            "warning": "A felhőmentés funkciója béta állapotú, szinkronizálás előtt készítsen biztonsági mentést a mentéseiről (ha esetleg valami rosszul sikerülne)",
+            "gog_linux_native_warning": "A natív linuxos játékok nem támogatják a GOG felhőmentési funkcióját. Használja inkább a windowsos verziót.",
+            "not_supported": "Ez a játék nem támogatja a felhőmentéseket."
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -817,7 +827,7 @@
                 "help4": "GOG könyvtárinformációk (játéklista, telepítési párbeszédablak információi, API-információk, tehát előfeltételek)",
                 "help5": "Amazan könyvtárinformációk (játéklista, telepítési párbeszédablak információi)",
                 "help6": "Ez NEM törli ezeket:",
-                "help7": "Bolti bejelentkezések",
+                "help7": "Áruházi bejelentkezések",
                 "help9": "Játékbeállítások",
                 "help3": "Legendary könyvtárinformációk (játéklista, telepítési párbeszédablak információi, játékinformációk)",
                 "help2": "Harmadik féltől származó játékinformációk (pontok, steam kompatibilitás, howlongtobeat, pcgamingwiki, applegamingwiki)"
@@ -833,6 +843,9 @@
         },
         "offline": {
             "warning": "Ez a játék nem engedélyezi explicit módon a kapcsolat nélküli módot, saját felelősségére kapcsolja be. Lehet, hogy a játék nem fog működni."
+        },
+        "custom_css": {
+            "title": "Egyéni CSS stílus"
         }
     },
     "Settings": "Beállítások",
@@ -847,7 +860,7 @@
         "preparing_login": "Bejelentkezés előkészítése… "
     },
     "store": "Epic Store",
-    "stores": "Boltok",
+    "stores": "Áruházak",
     "title": {
         "allGames": "Összes játék"
     },
@@ -943,7 +956,8 @@
         "minimize": "Ablak minimalizálása"
     },
     "emptyLibrary": {
-        "noResults": "A jelenlegi szűrők nem adtak találatokat."
+        "noResults": "A jelenlegi szűrők nem adtak találatokat.",
+        "noGames": "A könyvtára üres.<br /><br />Kattintson <4>ide</4>, hogy bejelentkezzen az Epic, GOG.com vagy Amazon-fiókjába. Ezután a játékai meg fognak itt jelenni a Könyvtárban.<br /><br />A más forrásból származó játékok vagy alkalmazások használatához, kattintson <br /> a kézi hozzáadásukhoz."
     },
     "wineExplanation": {
         "proton-ge": "A GE-Proton egy olyan Proton változat, melyet Glorious Eggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
@@ -965,5 +979,51 @@
         "rename": "A(z) „{{name}}” átnevezése",
         "title": "Kategóriák kezelése",
         "no-categories": "Még nincsenek kategóriák."
+    },
+    "tour": {
+        "library": {
+            "addGame": "Adja hozzá a saját játékait vagy alkalmazásait a könyvtárhoz, kattintson ide. Ez gyakorlatilag bármi lehet, még webcímek is.",
+            "filters": "Szűrje a játékait áruház, platform, kedvencek és továbbiak szerint, az alábbi lehetőségek használatával.",
+            "gameCard": "Kattintson bal egérgombbal a játékkártyára, hogy a játék oldalára navigáljon, és lássa a részleteit és módosítsa a beállításait, vagy kattintson jobb egérgombbal a helyi menü megnyitásához.",
+            "welcome": {
+                "intro": "Üdvözli a Heroic könyvtára! Itt láthatja a különböző áruházakból származó összes játékát.",
+                "intro2": "Ha a könyvtár üres, akkor győződjön meg arról, hogy bejelentkezett-e a fiókjaiba a Fiókok kezelése oldalsáv-menüpont használatával, vagy adja hozzá kézileg a saját játékait a fenti Játék hozzáadása gombbal.",
+                "title": "Üdvözli a Heroic!",
+                "title2": "A könyvtár kezelése!"
+            },
+            "categories": "Szervezze kategóriákba a játékait, hogy rendezett legyen.",
+            "end": {
+                "intro": "Ennyi! Élvezze a játékait, és szórakozzon jól!",
+                "title": "Élvezze a játékait!"
+            },
+            "refresh": "Frissítse a könyvtárát az új játékok és frissítések kereséséhez.",
+            "search": "Használja a keresősávot a játékai kereséséhez.",
+            "sortInstalled": "Rendezze a játékokat telepítési állapot alapján.",
+            "sortOptions": "Kattintson ide a játékok betűrend szerinti rendezéséhez.",
+            "viewToggle": "Váltson a játékai rács- és listanézete között."
+        },
+        "next": "Következő",
+        "sidebar": {
+            "accessibility": "Érje el az akadálymentesítési funkciókat az élménye testreszabásához.",
+            "accounts": "Kezelje az összekapcsolt áruházi fiókokat (Epic, GOG, Amazon), jelentkezzen be vagy ki belőlük.",
+            "community": "Csatlakozzon a közösségünkhöz a Discordon, és támogassa a Heroic fejlesztését.",
+            "docs": "Olvassa el a dokumentációt, hogy segítséget kapjon a Heroic használatához.",
+            "login": "Jelentkezzen be a játékáruház-fiókjába, hogy hozzáférjen a könyvtárához.",
+            "quit": "Biztonságos kilépés az alkalmazásból.",
+            "settings": "Állítsa be a Heroic beállításait, a játékok alapértelmezéseit, nézze meg a naplókat és így tovább.",
+            "welcome": {
+                "title": "Oldalsáv-navigáció",
+                "intro": "Üdvözli a Heroic! Az oldalsáv tartalmazza az összes navigációs lehetőséget az alkalmazás felfedezéséhez."
+            },
+            "wine": "Kezelje vagy töltse le a Wine/Proton/GPTK új verzióját a windowsos játékok Linuxon vagy macOS-en való futtatásához.",
+            "downloads": "Kövesse és kezelje a játékletöltéseket és -telepítéseket.",
+            "library": "Érje el egy helyen a különböző áruházakból származó játékkönyvtárát.",
+            "stores": "Böngésszen és vásároljon játékokat a különböző áruházakban, köztük az Epicen, GOG-n vagy Amazonon.",
+            "version": "Nézze meg a Heroic jelenlegi verzióját, kattintson rá a legutóbbi változásnapló megtekintéséhez, és érje el ezt az útmutató a súgó ikonra kattintva."
+        },
+        "skip": "Kihagyás",
+        "startTour": "Bemutató indítása",
+        "back": "Vissza",
+        "done": "Kész"
     }
 }

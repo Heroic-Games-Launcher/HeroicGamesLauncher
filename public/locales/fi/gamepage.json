@@ -74,7 +74,8 @@
         "uninstall": "Poista asennus",
         "update": "Päivitä",
         "details": "Yksityiskohdat",
-        "changelog": "Näytä muutosloki"
+        "changelog": "Näytä muutosloki",
+        "browse_files": "Selaa tiedostoja"
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",
@@ -289,5 +290,14 @@
         "header": "Tätä peliä hallinnoi kolmannen osapuolen sovellus",
         "notice1": "Tätä peliä hallinnoi kolmannen osapuolen sovellus: \"{{application_name}}\"",
         "notice2": "Napsauttaessasi Asenna, Heroic ajaa sovelluksen jotta sen asennus voidaan saattaa päätökseen"
+    },
+    "Open": "Avaa",
+    "queue": {
+        "label": {
+            "canceled": "Keskeytetty",
+            "pause": "Tauota lataus",
+            "remove": "Poista latauksista",
+            "resume": "Jatka latausta"
+        }
     }
 }
