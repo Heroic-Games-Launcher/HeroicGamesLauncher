@@ -39,7 +39,8 @@ async function handleLaunch(url: URL) {
   let args: string[] = []
   let altExe: Path | undefined = undefined
 
-  if (url.pathname) {
+  // Windows automatically adds a trailing / to shortcuts
+  if (url.pathname && url.pathname !== '/') {
     // Old-style pathname URLs:
     // - `heroic://launch/Quail`
     // - `heroic://launch/legendary/Quail`
