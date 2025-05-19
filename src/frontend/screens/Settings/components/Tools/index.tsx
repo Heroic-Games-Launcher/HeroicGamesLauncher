@@ -72,7 +72,11 @@ export default function Tools() {
       // Use DataTransferItemList interface to access the file(s)
       // If dropped items aren't files, reject them
       if (ev.dataTransfer.items[0].kind === 'file') {
-        const exe = ev.dataTransfer.items[0].getAsFile()?.path
+        const file = ev.dataTransfer.items[0].getAsFile()
+        // In Electron, File objects have a non-standard path property
+        const exe = file
+          ? (file as unknown as { path: string }).path
+          : undefined
         if (exe) {
           return callTools('runExe', exe)
         }
