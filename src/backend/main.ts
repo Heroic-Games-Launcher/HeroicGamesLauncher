@@ -130,6 +130,7 @@ import {
   isFlatpak,
   isLinux,
   isMac,
+  isLinux,
   isSnap,
   isSteamDeckGameMode,
   isWindows
@@ -144,6 +145,7 @@ import {
 import { supportedLanguages } from 'common/languages'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
+if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
 const { showOpenDialog } = dialog
 
