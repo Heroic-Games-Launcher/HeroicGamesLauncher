@@ -36,13 +36,16 @@ const EnableDXVKFpsLimit = () => {
           htmlId="enableDXVKFpsLimit"
           value={enableDXVKFpsLimit || false}
           handleChange={() => setDXVKFpsLimit(!enableDXVKFpsLimit)}
-          title={t('setting.dxvkfpslimit', 'Limit FPS (DX9, 10 and 11)')}
+          title={t('setting.fpslimit', 'Limit FPS')}
         />
 
         <FontAwesomeIcon
           className="helpIcon"
           icon={faCircleInfo}
-          title={t('help.dxvkfpslimit', 'Sets a frame rate cap for DXVK games')}
+          title={t(
+            'help.fpslimit',
+            'Sets a frame rate cap for DXVK/VKD3D games'
+          )}
         />
       </div>
 
