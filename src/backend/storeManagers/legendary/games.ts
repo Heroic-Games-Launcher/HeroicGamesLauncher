@@ -91,7 +91,7 @@ import {
   isMac,
   isWindows
 } from 'backend/constants/environment'
-import { fakeEpicExePath } from 'backend/constants'
+import { fakeEpicExePath } from 'backend/constants/paths'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
