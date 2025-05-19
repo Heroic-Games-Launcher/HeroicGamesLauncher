@@ -889,7 +889,15 @@ export const SteamWindows = {
     const steamCoverArt =
       'https://cdn2.steamgriddb.com/file/sgdb-cdn/grid/a7e8ba67562ea4d4ca0421066466ece4.png'
     const steamSetupPath = `${toolsPath}/steam/Steam.zip`
-    const { wineVersion } = GlobalConfig.get().getSettings()
+    let { wineVersion } = GlobalConfig.get().getSettings()
+
+    if (wineVersion.type !== 'toolkit') {
+      const wineList = await GlobalConfig.get().getAlternativeWine()
+      const gptk = wineList.find((wine) => wine.type === 'toolkit')
+      if (gptk) {
+        wineVersion = gptk
+      }
+    }
 
     if (!existsSync(steamSetupPath)) {
       await SteamWindows.downloadSteam()
