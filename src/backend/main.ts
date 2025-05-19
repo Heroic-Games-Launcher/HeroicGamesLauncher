@@ -130,7 +130,6 @@ import {
   isFlatpak,
   isLinux,
   isMac,
-  isLinux,
   isSnap,
   isSteamDeckGameMode,
   isWindows
