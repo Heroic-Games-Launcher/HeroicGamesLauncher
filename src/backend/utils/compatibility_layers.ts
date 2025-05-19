@@ -569,21 +569,6 @@ export async function isUmuSupported(
   if (!isLinux) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
   if (gameSettings.disableUMU === true) return false
-  if (gameSettings.disableUMU === undefined) {
-    // If the disableUMU setting is undefined it means the game was installed and configured
-    // before the introduction of this setting, so the usage of UMU was dictated by the
-    // experimental feature configuration.
-    //
-    // We have to check this to not enable UMU incorrectly even if the setting is not editable
-    // anymore.
-    // If we don't, we would end up enabling UMU for games that are already functional with proton
-    // without UMU to not mess their prefix
-    const experimentalFeatures =
-      GlobalConfig.get().getSettings().experimentalFeatures
-
-    // if UMU was never enabled or was enabled and then disabled
-    if (!experimentalFeatures?.umuSupport) return false
-  }
   if (!checkUmuInstalled) return true
   if (!existsSync(await getUmuPath())) return false
 
