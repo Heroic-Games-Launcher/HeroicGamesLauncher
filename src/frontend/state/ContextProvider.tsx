@@ -96,7 +96,6 @@ const initialContext: ContextType = {
     removeHelpItem: () => null
   },
   experimentalFeatures: {
-    enableNewDesign: false,
     enableHelp: false,
     cometSupport: true
   },

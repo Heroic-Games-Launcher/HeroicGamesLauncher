@@ -698,7 +698,6 @@
         "autodxvknvapi": "Аўтаматычнае ўсталяванне/абнаўленне DXVK-NVAPI на прэфіксе",
         "experimental_features": {
             "enableNewShinyFeature": "Новая бліскучая функцыя",
-            "enableNewDesign": "Новы дызайн",
             "automaticWinetricksFixes": "Аўтаматычнае ўжыванне вядомых выпраўленняў",
             "enableHelp": "Кампанент даведкі",
             "umuSupport": "Выкарыстоўваць umu у якасці асяроддзя выканання Proton"

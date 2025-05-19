@@ -7,7 +7,6 @@ import { ExperimentalFeatures as IExperimentalFeatures } from 'common/types'
 
 const ExperimentalFeatures = () => {
   const FEATURES: (keyof IExperimentalFeatures)[] = [
-    'enableNewDesign',
     'enableHelp',
     'cometSupport'
   ]
@@ -16,7 +15,6 @@ const ExperimentalFeatures = () => {
   const [experimentalFeatures, setExperimentalFeatures] = useSetting(
     'experimentalFeatures',
     {
-      enableNewDesign: false,
       enableHelp: false,
       cometSupport: true
     }
