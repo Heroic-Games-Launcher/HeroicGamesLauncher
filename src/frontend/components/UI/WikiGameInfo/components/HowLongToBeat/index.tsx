@@ -14,7 +14,7 @@ export default function HowLongToBeat({ info }: Props) {
     return null
   }
 
-  const { comp_100, comp_plus, comp_main } = info
+  const { completionist, mainExtra, mainStory } = info
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function HowLongToBeat({ info }: Props) {
             {t('how-long-to-beat.main-story', 'Main Story')}
           </div>
           <div className="circle__value">
-            {Math.round(comp_main)} {t('hours', 'Hours')}
+            {mainStory} {t('hours', 'Hours')}
           </div>
         </div>
         <div className="circle green">
@@ -32,7 +32,7 @@ export default function HowLongToBeat({ info }: Props) {
             {t('how-long-to-beat.main-plus-extras', 'Main + Extras')}
           </div>
           <div className="circle__value">
-            {Math.round(comp_plus)} {t('hours', 'Hours')}
+            {mainExtra} {t('hours', 'Hours')}
           </div>
         </div>
         <div className="circle green">
@@ -40,7 +40,7 @@ export default function HowLongToBeat({ info }: Props) {
             {t('how-long-to-beat.completionist', 'Completionist')}
           </div>
           <div className="circle__value">
-            {Math.round(comp_100)} {t('hours', 'Hours')}
+            {completionist} {t('hours', 'Hours')}
           </div>
         </div>
       </div>
