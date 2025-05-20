@@ -39,12 +39,11 @@ const SteamInstallDialog: React.FC<SteamInstallDialogProps> = ({
   useEffect(() => {
     const getDefaultWinePrefix = async () => {
       const { defaultWinePrefix } = await window.api.requestAppSettings()
-      console.log('prefix', defaultWinePrefix)
       if (defaultWinePrefix) {
         setInstallPath(`${defaultWinePrefix}/SteamHeroic`)
       }
     }
-    getDefaultWinePrefix()
+    void getDefaultWinePrefix()
   }, [])
 
   const percent = progress.percent ?? 0

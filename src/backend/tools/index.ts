@@ -15,6 +15,7 @@ import {
 import { spawn } from 'child_process'
 import {
   axiosClient,
+  calculateEta,
   downloadFile,
   execAsync,
   extractFiles,
@@ -33,7 +34,8 @@ import {
   runWineCommand,
   setupEnvVars,
   setupWineEnvVars,
-  validWine
+  validWine,
+  verifyWinePrefix
 } from '../launcher'
 import { chmod, mkdir, readFile } from 'fs/promises'
 import {
@@ -861,13 +863,17 @@ export const SteamWindows = {
       downloadSpeed: number,
       progress: number
     ) {
-      window?.webContents.send(`progressUpdate-steam`, {
+      const downloadSize = 718394478
+      sendFrontendMessage(`progressUpdate-steam`, {
         appName: 'steam',
         status: 'installing',
         runner: 'sideload',
         progress: {
           percent: progress,
-          bytes: '718394478'
+          bytes: downloadedBytes.toString(),
+          eta:
+            calculateEta(downloadedBytes, downloadSpeed, downloadSize) ||
+            '00:00:00'
         }
       })
     }
@@ -888,7 +894,7 @@ export const SteamWindows = {
   installSteam: async (path: string) => {
     const steamCoverArt =
       'https://cdn2.steamgriddb.com/file/sgdb-cdn/grid/a7e8ba67562ea4d4ca0421066466ece4.png'
-    const steamSetupPath = `${toolsPath}/steam/Steam.zip`
+    const steamSetupPath = join(toolsPath, 'steam', 'Steam.zip')
     let { wineVersion } = GlobalConfig.get().getSettings()
 
     if (wineVersion.type !== 'toolkit') {
@@ -918,19 +924,15 @@ export const SteamWindows = {
 
     try {
       if (!isCrossover) {
-        await runWineCommand({
-          commandParts: ['wineboot', '-init'],
-          wait: true,
-          gameSettings: {
-            ...gameSettings,
-            winePrefix: path,
-            wineVersion
-          }
+        await verifyWinePrefix({
+          ...gameSettings,
+          winePrefix: path,
+          wineVersion
         })
       }
 
-      const unzipFile = join(toolsPath, 'steam', 'Steam.zip')
-      const unzipPath = `${path}/drive_c/Program Files (x86)/Steam`
+      const unzipFile = join(steamSetupPath)
+      const unzipPath = join(path, 'drive_c', 'Program Files (x86)', 'Steam')
       if (!existsSync(unzipPath)) {
         await mkdir(unzipPath, { recursive: true })
       }
