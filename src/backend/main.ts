@@ -138,6 +138,7 @@ import {
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
+  isIntelMac,
   isMac,
   isSnap,
   isSteamDeckGameMode,
@@ -174,14 +175,27 @@ async function initializeWindow(): Promise<BrowserWindow> {
   }
 
   setTimeout(async () => {
-    // Will download Wine if none was found
+    // Will download Wine/GPTK if none was found
     const availableWine = await GlobalConfig.get().getAlternativeWine()
+    let shouldDownloadWine = !availableWine.length
+
+    if (isMac && !isIntelMac) {
+      const toolkitDownloaded = availableWine.some(
+        (wine) => wine.type === 'toolkit'
+      )
+
+      if (!toolkitDownloaded) {
+        shouldDownloadWine = true
+      }
+    }
+
+    Winetricks.download()
+    if (shouldDownloadWine) {
+      downloadDefaultWine()
+    }
+
     if (isMac) {
       checkRosettaInstall()
-    }
-    Winetricks.download()
-    if (!availableWine.length) {
-      downloadDefaultWine()
     }
   }, 2500)
 
