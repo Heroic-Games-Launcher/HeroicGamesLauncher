@@ -183,9 +183,7 @@
         },
         "winetricks": "Installing Winetricks Packages"
     },
-    "launch": {
-        "options": "Launch Options..."
-    },
+    "launch_options": "Launch Options",
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
         "nodlcs": "No DLC available",
