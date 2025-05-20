@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import './index.scss'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
+import { createNewWindow } from 'frontend/helpers'
 
 type Props = {
   info: HowLongToBeatEntry
@@ -14,12 +15,15 @@ export default function HowLongToBeat({ info }: Props) {
     return null
   }
 
-  const { completionist, mainExtra, mainStory } = info
+  const { completionist, mainExtra, mainStory, gameWebLink = '' } = info
 
   return (
     <>
       <div className="howLongToBeat">
-        <div className="circle green">
+        <div
+          className="circle green"
+          onClick={() => createNewWindow(gameWebLink)}
+        >
           <div className="circle__title">
             {t('how-long-to-beat.main-story', 'Main Story')}
           </div>
@@ -27,7 +31,10 @@ export default function HowLongToBeat({ info }: Props) {
             {mainStory} {t('hours', 'Hours')}
           </div>
         </div>
-        <div className="circle green">
+        <div
+          className="circle green"
+          onClick={() => createNewWindow(gameWebLink)}
+        >
           <div className="circle__title">
             {t('how-long-to-beat.main-plus-extras', 'Main + Extras')}
           </div>
@@ -35,7 +42,10 @@ export default function HowLongToBeat({ info }: Props) {
             {mainExtra} {t('hours', 'Hours')}
           </div>
         </div>
-        <div className="circle green">
+        <div
+          className="circle green"
+          onClick={() => createNewWindow(gameWebLink)}
+        >
           <div className="circle__title">
             {t('how-long-to-beat.completionist', 'Completionist')}
           </div>
