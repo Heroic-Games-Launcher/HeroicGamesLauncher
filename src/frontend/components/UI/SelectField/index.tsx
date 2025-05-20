@@ -14,6 +14,7 @@ interface SelectFieldProps {
   prompt?: string
   disabled?: boolean
   extraClass?: string
+  title?: string
 }
 
 export default function SelectField({
@@ -25,7 +26,8 @@ export default function SelectField({
   disabled = false,
   extraClass = '',
   afterSelect,
-  children
+  children,
+  title
 }: SelectFieldProps) {
   const { isRTL } = useContext(ContextProvider)
 
@@ -37,6 +39,7 @@ export default function SelectField({
     >
       {label && <label htmlFor={htmlId}>{label}</label>}
       <Select
+        title={title}
         id={htmlId}
         value={value}
         onChange={onChange}
