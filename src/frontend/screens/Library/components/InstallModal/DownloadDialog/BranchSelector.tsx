@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { SelectField, TextInputField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'
+import { MenuItem } from '@mui/material'
 
 interface BranchSelectorProps {
   appName: string
@@ -94,16 +95,16 @@ export default function BranchSelector({
         }}
       >
         {branches.map((branch) => (
-          <option value={String(branch)} key={String(branch)}>
+          <MenuItem value={String(branch)} key={String(branch)}>
             {branch || t('game.branch.disabled', 'Disabled')}
-          </option>
+          </MenuItem>
         ))}
-        <option value={'heroic-update-passwordOption'}>
+        <MenuItem value={'heroic-update-passwordOption'}>
           {t(
             'game.branch.setPrivateBranchPassword',
             'Set private channel password'
           )}
-        </option>
+        </MenuItem>
       </SelectField>
     </div>
   )

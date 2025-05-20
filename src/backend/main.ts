@@ -4,8 +4,7 @@ import {
   AppSettings,
   GameSettings,
   DiskSpaceData,
-  StatusPromise,
-  GamepadInputEvent
+  StatusPromise
 } from 'common/types'
 import * as path from 'path'
 import {
@@ -151,6 +150,7 @@ import {
   userHome,
   windowIcon
 } from './constants/paths'
+import { supportedLanguages } from 'common/languages'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 
@@ -387,50 +387,7 @@ if (!gotTheLock) {
       returnNull: false,
       fallbackLng: 'en',
       lng: settings.language,
-      supportedLngs: [
-        'ar',
-        'az',
-        'be',
-        'bg',
-        'bs',
-        'ca',
-        'cs',
-        'de',
-        'el',
-        'en',
-        'es',
-        'et',
-        'eu',
-        'fa',
-        'fi',
-        'fr',
-        'gl',
-        'he',
-        'hr',
-        'hu',
-        'ja',
-        'ko',
-        'id',
-        'it',
-        'lt',
-        'ml',
-        'nb_NO',
-        'nl',
-        'pl',
-        'pt',
-        'pt_BR',
-        'ro',
-        'ru',
-        'sr',
-        'sk',
-        'sv',
-        'ta',
-        'tr',
-        'uk',
-        'vi',
-        'zh_Hans',
-        'zh_Hant'
-      ]
+      supportedLngs: supportedLanguages
     })
 
     const mainWindow = await initializeWindow()
@@ -1224,7 +1181,11 @@ ipcMain.handle('gamepadAction', async (event, args) => {
   const mainWindow = getMainWindow()!
 
   const { action, metadata } = args
-  const inputEvents: GamepadInputEvent[] = []
+  const inputEvents: (
+    | Electron.MouseInputEvent
+    | Electron.MouseWheelInputEvent
+    | Electron.KeyboardInputEvent
+  )[] = []
 
   /*
    * How to extend:
@@ -1309,6 +1270,32 @@ ipcMain.handle('gamepadAction', async (event, args) => {
         type: 'keyUp',
         keyCode: 'Esc'
       })
+      break
+    case 'tab':
+      inputEvents.push(
+        {
+          type: 'keyDown',
+          keyCode: 'Tab'
+        },
+        {
+          type: 'keyUp',
+          keyCode: 'Tab'
+        }
+      )
+      break
+    case 'shiftTab':
+      inputEvents.push(
+        {
+          type: 'keyDown',
+          keyCode: 'Tab',
+          modifiers: ['shift']
+        },
+        {
+          type: 'keyUp',
+          keyCode: 'Tab',
+          modifiers: ['shift']
+        }
+      )
       break
   }
 

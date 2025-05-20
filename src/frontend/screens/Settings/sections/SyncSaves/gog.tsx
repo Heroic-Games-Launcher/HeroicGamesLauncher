@@ -14,6 +14,7 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
+import { MenuItem } from '@mui/material'
 
 interface Props {
   gogSaves: GOGCloudSavesLocation[]
@@ -205,9 +206,9 @@ export default function GOGSyncSaves({
             }
           >
             {syncCommands.map((el, i) => (
-              <option value={el.value} key={i}>
+              <MenuItem value={el.value} key={i}>
                 {el.name}
-              </option>
+              </MenuItem>
             ))}
           </SelectField>
           <ToggleSwitch

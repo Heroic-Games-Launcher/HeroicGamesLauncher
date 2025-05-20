@@ -3,8 +3,8 @@
   grid-template-areas: 'label' 'select';
 }
 
-.selectFieldWrapper select,
-.selectStyle {
+.selectStyle,
+.selectFieldWrapper .MuiOutlinedInput-root {
   border-radius: var(--space-3xs);
   grid-area: select;
   width: 100%;
@@ -13,9 +13,7 @@
   font-family: var(--primary-font-family), 'Noto Color Emoji';
   font-weight: normal;
   font-size: var(--text-md);
-  line-height: 19px;
   color: var(--text-secondary);
-  text-indent: 22px;
   border: none;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
@@ -44,11 +42,21 @@
   min-width: 100px;
 }
 
+.MuiPopover-root .MuiPaper-root {
+  color: var(--text-secondary);
+  background-color: var(--input-background);
+
+  .MuiMenuItem-root {
+    font-family: var(--primary-font-family);
+  }
+}
+
 .selectStyle {
+  text-indent: 22px;
   padding-inline-end: 4rem;
 }
 
-.selectFieldWrapper.isRTL select {
+.selectFieldWrapper.isRTL .MuiOutlinedInput-root {
   background-position:
     calc(15px) calc(50% + 1px),
     calc(20px) calc(50% + 1px),

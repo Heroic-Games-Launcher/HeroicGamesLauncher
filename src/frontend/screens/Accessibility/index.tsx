@@ -19,6 +19,7 @@ import SettingsContext from '../Settings/SettingsContext'
 import useSettingsContext from '../../hooks/useSettingsContext'
 import './index.css'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { MenuItem, SelectChangeEvent } from '@mui/material'
 
 const Accessibility = React.memo(function Accessibility() {
   const { t } = useTranslation()
@@ -94,12 +95,12 @@ const Accessibility = React.memo(function Accessibility() {
     setZoomPercent(parseInt(event.target.value))
   }
 
-  const handleContentFontFamily = (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleContentFontFamily = (event: SelectChangeEvent) => {
     setSecondaryFontFamily(event.target.value)
     setContentFont(event.target.value)
   }
 
-  const handleActionsFontFamily = (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleActionsFontFamily = (event: SelectChangeEvent) => {
     setPrimaryFontFamily(event.target.value)
     setActionFont(event.target.value)
   }
@@ -108,9 +109,9 @@ const Accessibility = React.memo(function Accessibility() {
     return fonts.map((font) => {
       const style: CSSProperties = { fontFamily: font }
       return (
-        <option key={font} value={font} style={style}>
+        <MenuItem key={font} value={font} style={style}>
           {font}
-        </option>
+        </MenuItem>
       )
     })
   }, [fonts])
