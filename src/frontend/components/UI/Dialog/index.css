@@ -1,10 +1,6 @@
 .Dialog {
   padding: 0;
   text-align: start;
-
-  --dialog-margin-horizontal: 32px;
-  --dialog-margin-vertical: 24px;
-  --dialog-gap: 24px;
 }
 
 .Dialog__element {
@@ -112,6 +108,5 @@
   display: flex;
   gap: 16px;
   justify-content: end;
-  padding: 0 var(--dialog-margin-horizontal) var(--dialog-margin-vertical)
-    var(--dialog-margin-horizontal);
+  padding-top: var(--space-md);
 }
