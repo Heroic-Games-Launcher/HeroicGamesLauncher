@@ -16,11 +16,6 @@ import CloseIcon from '@mui/icons-material/Close'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 
-interface HTMLDialogElementPopover extends HTMLDialogElement {
-  showPopover: () => void
-  hidePopover: () => void
-}
-
 interface DialogProps {
   className?: string
   children: ReactNode
