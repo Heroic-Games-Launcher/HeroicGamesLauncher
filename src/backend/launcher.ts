@@ -858,7 +858,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
 /**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
- * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
+ * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId` if it's unset
  * @returns A Record that can be passed to execAsync/spawn
  */
 function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
@@ -959,10 +959,10 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
-    ret.STEAM_COMPAT_APP_ID = '0'
-    ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
+    ret.STEAM_COMPAT_APP_ID = process.env.STEAM_COMPAT_APP_ID || '0'
+    ret.SteamAppId = process.env.SteamAppId || ret.STEAM_COMPAT_APP_ID
     // This sets the name of the log file given when setting PROTON_LOG=1
-    ret.SteamGameId = `heroic-${gameId}`
+    ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
     ret.PROTON_LOG_DIR = flatpakHome
     // add back default wine/dxvk debug logging
     if (gameSettings?.verboseLogs) {
