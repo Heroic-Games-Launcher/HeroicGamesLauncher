@@ -1,9 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import { MenuItem } from '@mui/material'
+import useLaunchOptions from 'frontend/hooks/useLaunchOptions'
 
 interface Props {
   gameInfo: GameInfo
@@ -13,48 +14,36 @@ interface Props {
 const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
   const { t } = useTranslation('gamepage')
   const { appName, runner } = useContext(GameContext)
-  const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(-1)
 
+  const {
+    launchOptions,
+    selectedOption,
+    selectedIndex,
+    selectOption,
+    labelForLaunchOption
+  } = useLaunchOptions({
+    appName,
+    runner
+  })
+
+  // Update parent component with selected option
   useEffect(() => {
-    window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
-  }, [gameInfo])
+    setLaunchArguments(selectedOption)
+  }, [selectedOption])
 
-  if (!gameInfo.is_installed) {
+  if (!gameInfo.is_installed || !launchOptions.length) {
     return null
   }
-
-  if (!launchOptions.length) {
-    return null
-  }
-
-  const labelForLaunchOption = useCallback((option: LaunchOption) => {
-    switch (option.type) {
-      case undefined:
-      case 'basic':
-        return option.name
-      case 'dlc':
-        return option.dlcTitle
-      case 'altExe':
-        return option.executable
-    }
-  }, [])
 
   return (
     <SelectField
       htmlId="launch_options"
+      title={t('launch_options', 'Launch Options')}
       onChange={({ target: { value } }) => {
-        if (value === '') {
-          setSelectedLaunchOptionIndex(-1)
-          setLaunchArguments(undefined)
-        } else {
-          const selectedIndex = Number(value)
-          setSelectedLaunchOptionIndex(selectedIndex)
-          setLaunchArguments(launchOptions[selectedIndex])
-        }
+        const index = value === '' ? -1 : Number(value)
+        selectOption(index, true)
       }}
-      value={selectedLaunchOptionIndex.toString()}
-      prompt={t('launch.options', 'Launch Options...')}
+      value={selectedIndex.toString()}
     >
       {launchOptions.map((option, index) => (
         <MenuItem key={index} value={index}>
