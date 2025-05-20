@@ -15,7 +15,7 @@ interface UseLaunchOptionsResult {
   labelForLaunchOption: (option: LaunchOption) => string | undefined
 }
 
-export const useLaunchOptions = ({
+const useLaunchOptions = ({
   appName,
   runner,
   storageKeyPrefix = 'heroic_launch_option_'
