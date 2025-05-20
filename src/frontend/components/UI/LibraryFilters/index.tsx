@@ -33,7 +33,9 @@ export default function LibraryFilters() {
     showSupportOfflineOnly,
     setShowSupportOfflineOnly,
     showThirdPartyManagedOnly,
-    setShowThirdPartyManagedOnly
+    setShowThirdPartyManagedOnly,
+    showUpdatesOnly,
+    setShowUpdatesOnly
   } = useContext(LibraryContext)
 
   const toggleShowHidden = () => {
@@ -58,6 +60,10 @@ export default function LibraryFilters() {
 
   const toggleThirdParty = () => {
     setShowThirdPartyManagedOnly(!showThirdPartyManagedOnly)
+  }
+
+  const toggleUpdatesOnly = () => {
+    setShowUpdatesOnly(!showUpdatesOnly)
   }
 
   const toggleStoreFilter = (store: Runner) => {
@@ -158,6 +164,9 @@ export default function LibraryFilters() {
     setShowNonAvailable(true)
     setShowFavourites(false)
     setShowInstalledOnly(false)
+    setShowSupportOfflineOnly(false)
+    setShowThirdPartyManagedOnly(false)
+    setShowUpdatesOnly(false)
   }
 
   return (
@@ -225,6 +234,13 @@ export default function LibraryFilters() {
             'header.show_third_party_managed_only',
             'Show third-party managed only'
           )}
+        />
+        <ToggleSwitch
+          key="only-updates-available"
+          htmlId="only-updates-available"
+          handleChange={() => toggleUpdatesOnly()}
+          value={showUpdatesOnly}
+          title={t('header.show_updates_only', 'Show games with updates only')}
         />
         <hr />
         <button
