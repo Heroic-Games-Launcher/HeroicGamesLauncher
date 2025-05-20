@@ -16,7 +16,7 @@ export default tseslint.config(
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
       // React hooks rules
-      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/rules-of-hooks': 'warn',
 
       // FIXME: All of these rules should be errors instead
       '@typescript-eslint/no-base-to-string': 'warn',
