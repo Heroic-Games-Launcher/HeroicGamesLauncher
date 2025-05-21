@@ -11,6 +11,7 @@ import {
 import { TFunction } from 'i18next'
 import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
+import { shouldShowLaunchOptionsDialog } from 'frontend/components/UI/LaunchOptionsDialog/LaunchOptionsDialog'
 
 const storage: Storage = window.localStorage
 
@@ -226,6 +227,42 @@ const launch = async ({
               }
             }
           ]
+        })
+      }
+    )
+
+    return launchFinished
+  }
+
+  // Check if we should show the launch options dialog
+  const shouldShowDialog = await shouldShowLaunchOptionsDialog(appName, runner)
+
+  if (shouldShowDialog) {
+    // Get launch options and show the dialog
+    const launchFinished = new Promise<{ status: 'done' | 'error' | 'abort' }>(
+      (res) => {
+        showDialogModal({
+          title: t('launch_options_dialog.title', 'Select Launch Option'),
+          message: '',
+          customComponent: 'LaunchOptionsDialog',
+          componentProps: {
+            appName,
+            runner,
+            onSelect: (selectedOption: LaunchOption | undefined) => {
+              res(
+                window.api.launch({
+                  appName,
+                  runner,
+                  launchArguments: selectedOption,
+                  args
+                })
+              )
+            },
+            onCancel: () => {
+              res({ status: 'abort' })
+            }
+          },
+          buttons: []
         })
       }
     )
