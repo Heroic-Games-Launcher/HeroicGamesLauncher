@@ -81,7 +81,7 @@ const useLaunchOptions = ({
     }
 
     void fetchLaunchOptions()
-  }, [appName, runner, storageKey, selectOption])
+  }, [appName])
 
   return {
     launchOptions,
