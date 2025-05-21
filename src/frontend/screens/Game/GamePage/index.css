@@ -307,6 +307,8 @@
         & .mainBtn {
           min-width: 200px;
           font-size: var(--text-md);
+          display: flex;
+          justify-content: center;
           white-space: nowrap;
 
           span {
