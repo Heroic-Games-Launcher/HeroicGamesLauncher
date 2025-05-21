@@ -94,6 +94,9 @@ importers:
       graceful-fs:
         specifier: 4.2.10
         version: 4.2.10
+      howlongtobeat-js:
+        specifier: ^1.0.2
+        version: 1.0.2
       i18next:
         specifier: 22.4.11
         version: 22.4.11
@@ -3182,6 +3185,9 @@ packages:
     resolution: {integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==}
     engines: {node: '>=10'}
 
+  howlongtobeat-js@1.0.2:
+    resolution: {integrity: sha512-vdQNgRjH31eLkCOFcO+6oMrtDjkEffRf+6rM8GW9BPCJGjCD6w7Pmf4k3aYaPQyGT2xegcVpdFf5CzICYVcpLA==}
+
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
 
@@ -3842,6 +3848,9 @@ packages:
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
+
+  lodash.clonedeep@4.5.0:
+    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
 
   lodash.defaults@4.2.0:
     resolution: {integrity: sha512-qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==}
@@ -5458,6 +5467,9 @@ packages:
     resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  user-agents@1.1.545:
+    resolution: {integrity: sha512-/bIVCcwWwH+ZCVTxl1nvQvQ8DJWboOLBD9XeHCayhKanY/yEiEh47hVTGpO3UlfgPUQGSSRYMuDkCDDx0EJoww==}
 
   utf8-byte-length@1.0.4:
     resolution: {integrity: sha512-4+wkEYLBbWxqTahEsWrhxepcoVOJ+1z5PGIjPZxRkytcdSUaNjIjBM7Xn8E+pdSuV7SzvWovBFA54FO0JSoqhA==}
@@ -9167,6 +9179,14 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
+  howlongtobeat-js@1.0.2:
+    dependencies:
+      axios: 1.7.7
+      cheerio: 1.0.0
+      user-agents: 1.1.545
+    transitivePeerDependencies:
+      - debug
+
   html-escaper@2.0.2: {}
 
   html-parse-stringify@3.0.1:
@@ -9985,6 +10005,8 @@ snapshots:
   locate-path@6.0.0:
     dependencies:
       p-locate: 5.0.0
+
+  lodash.clonedeep@4.5.0: {}
 
   lodash.defaults@4.2.0: {}
 
@@ -11813,6 +11835,10 @@ snapshots:
   use-sync-external-store@1.5.0(react@18.2.0):
     dependencies:
       react: 18.2.0
+
+  user-agents@1.1.545:
+    dependencies:
+      lodash.clonedeep: 4.5.0
 
   utf8-byte-length@1.0.4: {}
 
