@@ -8,6 +8,20 @@ import { defaultWineVersion } from '..'
 import { Link } from 'react-router-dom'
 import { MenuItem } from '@mui/material'
 
+interface ListItemProps {
+  version: WineInstallation
+}
+
+const WineVersionListItem = React.memo(function WineVersionListItem({
+  version
+}: ListItemProps) {
+  const { name } = version
+
+  return (
+    <>{name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton')}</>
+  )
+})
+
 export default function WineVersionSelector() {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
@@ -118,9 +132,9 @@ export default function WineVersionSelector() {
         </>
       }
     >
-      {altWine.map(({ name }, i) => (
-        <MenuItem key={i} value={name}>
-          {name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton')}
+      {altWine.map((version, i) => (
+        <MenuItem key={i} value={version.name}>
+          <WineVersionListItem version={version} />
         </MenuItem>
       ))}
     </SelectField>
