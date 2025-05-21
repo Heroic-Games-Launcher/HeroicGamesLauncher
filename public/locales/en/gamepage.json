@@ -55,6 +55,7 @@
         "browse_files": "Browse Files",
         "browse_wine_prefix": "Browse Wine Prefix",
         "cancel": "Pause/Cancel",
+        "cancelLaunch": "Cancel",
         "changelog": "Show Changelog",
         "continue": "Continue Download",
         "details": "Details",
@@ -64,6 +65,7 @@
         "hide_game": "Hide Game",
         "import": "Import Game",
         "install": "Install",
+        "launch": "Launch",
         "no-path-selected": "No path selected",
         "queue": {
             "remove": "Remove from Queue"
@@ -184,6 +186,11 @@
         "winetricks": "Installing Winetricks Packages"
     },
     "launch_options": "Launch Options",
+    "launch_options_dialog": {
+        "description": "Select the launch option to use for this game:",
+        "dont_show_again": "Don't show this dialog again",
+        "title": "Select Launch Option"
+    },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
         "nodlcs": "No DLC available",
@@ -281,6 +288,7 @@
         "change": "Change install path",
         "disableEosOverlay": "Disable EOS Overlay",
         "enableEosOverlay": "Enable EOS Overlay",
+        "launch_options_dialog": "Show Launch Options",
         "logs": "Logs",
         "move": "Move Game",
         "protondb": "Check Compatibility",
