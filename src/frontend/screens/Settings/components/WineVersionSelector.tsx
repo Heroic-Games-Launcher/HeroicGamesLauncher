@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, SelectField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -6,7 +6,12 @@ import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '..'
 import { Link } from 'react-router-dom'
-import { MenuItem } from '@mui/material'
+import { Box, MenuItem, SvgIcon } from '@mui/material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
+import ProtonLogo from 'frontend/assets/proton_logo.svg?react'
+import CodeweaversLogo from 'frontend/assets/codeweavers_icon.svg?react'
+import { faApple } from '@fortawesome/free-brands-svg-icons'
 
 interface ListItemProps {
   version: WineInstallation
@@ -15,10 +20,26 @@ interface ListItemProps {
 const WineVersionListItem = React.memo(function WineVersionListItem({
   version
 }: ListItemProps) {
-  const { name } = version
+  const { name, type } = version
+
+  const icon = useMemo(() => {
+    switch (type) {
+      case 'wine':
+        return <FontAwesomeIcon icon={faWineGlass} />
+      case 'proton':
+        return <ProtonLogo />
+      case 'crossover':
+        return <CodeweaversLogo />
+      case 'toolkit':
+        return <FontAwesomeIcon icon={faApple} />
+    }
+  }, [type])
 
   return (
-    <>{name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton')}</>
+    <Box sx={{ display: 'flex', placeItems: 'center' }}>
+      <SvgIcon sx={{ mr: 1 }}>{icon}</SvgIcon>
+      {name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton')}
+    </Box>
   )
 })
 
