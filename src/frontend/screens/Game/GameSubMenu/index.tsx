@@ -9,11 +9,31 @@ import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { NavLink } from 'react-router-dom'
 
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, SvgIcon } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import GameContext from '../GameContext'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+
+import {
+  ArrowUpward as ArrowUpwardIcon,
+  CheckCircle as CheckCircleIcon,
+  Delete as DeleteIcon,
+  DesktopAccessDisabled as DesktopAccessDisabledIcon,
+  DriveFileMove as DriveFileMoveIcon,
+  Edit as EditIcon,
+  FindInPage as FindInPageIcon,
+  Folder as FolderIcon,
+  FormatListBulleted as FormatListBulletedIcon,
+  Info as InfoIcon,
+  PictureInPicture as PictureInPictureIcon,
+  Repartition as RepartitionIcon,
+  Shortcut as ShortcutIcon,
+  ShoppingCart as ShoppingCartIcon
+} from '@mui/icons-material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
+import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   appName: string
@@ -267,56 +287,63 @@ export default function GamesSubmenu({
               {isSideloaded && (
                 <button
                   onClick={async () => handleEdit()}
-                  className="link button is-text is-link"
+                  className="link button is-text is-link buttonWithIcon"
                 >
+                  <EditIcon />
                   {t('button.sideload.edit', 'Edit App/Game')}
                 </button>
               )}{' '}
               <button
                 onClick={() => handleShortcuts()}
-                className="link button is-text is-link"
+                className="link button is-text is-link buttonWithIcon"
               >
+                <ShortcutIcon />
                 {hasShortcuts
                   ? t('submenu.removeShortcut', 'Remove shortcuts')
                   : t('submenu.addShortcut', 'Add shortcut')}
               </button>
               <button
                 onClick={async () => setShowUninstallModal(true)}
-                className="link button is-text is-link"
+                className="link button is-text is-link buttonWithIcon"
                 disabled={is.playing}
               >
+                <DeleteIcon />
                 {t('button.uninstall', 'Uninstall')}
               </button>{' '}
               {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleUpdate()}
-                  className="link button is-text is-link"
+                  className="link button is-text is-link buttonWithIcon"
                   disabled={disableUpdate}
                 >
+                  <ArrowUpwardIcon />
                   {t('button.force_update', 'Force Update if Available')}
                 </button>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleMoveInstall()}
-                  className="link button is-text is-link"
+                  className="link button is-text is-link buttonWithIcon"
                 >
+                  <DriveFileMoveIcon />
                   {t('submenu.move', 'Move Game')}
                 </button>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleChangeInstall()}
-                  className="link button is-text is-link"
+                  className="link button is-text is-link buttonWithIcon"
                 >
+                  <FindInPageIcon />
                   {t('submenu.change', 'Change Install Location')}
                 </button>
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
                 <button
                   onClick={async () => handleRepair(appName)}
-                  className="link button is-text is-link"
+                  className="link button is-text is-link buttonWithIcon"
                 >
+                  <CheckCircleIcon />
                   {t('submenu.verify', 'Verify and Repair')}
                 </button>
               )}{' '}
@@ -326,9 +353,10 @@ export default function GamesSubmenu({
                   refreshCircle()
                 ) : (
                   <button
-                    className="link button is-text is-link"
+                    className="link button is-text is-link buttonWithIcon"
                     onClick={handleEosOverlay}
                   >
+                    <PictureInPictureIcon />
                     {eosOverlayEnabled
                       ? t('submenu.disableEosOverlay', 'Disable EOS Overlay')
                       : t('submenu.enableEosOverlay', 'Enable EOS Overlay')}
@@ -341,8 +369,11 @@ export default function GamesSubmenu({
           ) : (
             <button
               onClick={async () => handleAddToSteam()}
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
             >
+              <SvgIcon>
+                <FontAwesomeIcon icon={faSteam} />
+              </SvgIcon>
               {addedToSteam
                 ? t('submenu.removeFromSteam', 'Remove from Steam')
                 : t('submenu.addToSteam', 'Add to Steam')}
@@ -350,63 +381,75 @@ export default function GamesSubmenu({
           )}
           <button
             onClick={() => openGameCategoriesModal(gameInfo)}
-            className="link button is-text is-link"
+            className="link button is-text is-link buttonWithIcon"
           >
+            <FormatListBulletedIcon />
             {t('submenu.categories', 'Categories')}
           </button>
           {!isSideloaded && storeUrl && (
             <NavLink
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
               to={`/store-page?store-url=${storeUrl}`}
             >
+              <ShoppingCartIcon />
               {t('submenu.store')}
             </NavLink>
           )}
           {!isSideloaded && !!changelog?.length && (
             <button
               onClick={() => handleChangeLog()}
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
             >
+              <InfoIcon />
               {t('button.changelog', 'Show Changelog')}
             </button>
           )}{' '}
           {!isSideloaded && isLinux && (
             <button
               onClick={() => createNewWindow(protonDBurl)}
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
             >
+              <SvgIcon>
+                <FontAwesomeIcon icon={faLinux} />
+              </SvgIcon>
               {t('submenu.protondb', 'Check Compatibility')}
             </button>
           )}
           {onShowRequirements && (
             <button
               onClick={async () => onShowRequirements()}
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
             >
+              <DesktopAccessDisabledIcon />
               {t('game.requirements', 'Requirements')}
             </button>
           )}
           {showModifyItem && (
             <button
               onClick={async () => onShowModifyInstall()}
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
             >
+              <RepartitionIcon />
               {t('game.modify', 'Modify Installation')}
             </button>
           )}
           {isInstalled && (
             <button
               onClick={async () => onBrowseFiles()}
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
             >
+              <FolderIcon />
               {t('button.browse_files', 'Browse Files')}
             </button>
           )}
           {hasWine && (
             <button
               onClick={async () => onBrowsePrefix()}
-              className="link button is-text is-link"
+              className="link button is-text is-link buttonWithIcon"
             >
+              <SvgIcon>
+                <FontAwesomeIcon icon={faWineGlass} />
+              </SvgIcon>
               {t('button.browse_wine_prefix', 'Browse Wine Prefix')}
             </button>
           )}
