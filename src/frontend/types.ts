@@ -131,6 +131,8 @@ export type DialogModalOptions = {
   message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
   type?: DialogType
+  customComponent?: 'LaunchOptionsDialog' // Add more custom component types as needed
+  componentProps?: Record<string, unknown> // Props to pass to the custom component
 }
 
 export interface ExternalLinkDialogOptions {
