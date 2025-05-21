@@ -318,8 +318,8 @@
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "disablePlaytimeSync": "Disables playtime synchronization with given store's servers (currently only GOG is supported)",
         "download_proton_steam": "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'Default Steam path' setting above.",
+        "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
@@ -615,7 +615,7 @@
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-proton-steam": "Download GE-Proton to Steam directory",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
+        "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
