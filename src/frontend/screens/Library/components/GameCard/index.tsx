@@ -41,7 +41,6 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
-import useLaunchOptions from 'frontend/hooks/useLaunchOptions'
 
 interface Card {
   buttonClick: () => void
@@ -121,11 +120,6 @@ const GameCard = ({
   }
 
   const { status, folder, label } = hasStatus(appName, gameInfo, size)
-
-  const { selectedOption } = useLaunchOptions({
-    appName,
-    runner
-  })
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
 
@@ -532,8 +526,7 @@ const GameCard = ({
         t,
         runner,
         hasUpdate,
-        showDialogModal,
-        launchArguments: selectedOption
+        showDialogModal
       })
     }
     return
