@@ -185,9 +185,10 @@
         },
         "winetricks": "Installing Winetricks Packages"
     },
-    "launch_options": "Launch Options",
+    "launch_options": {
+        "title": "Game Launch Option"
+    },
     "launch_options_dialog": {
-        "description": "Select the launch option to use for this game:",
         "dont_show_again": "Don't show this dialog again",
         "title": "Select Launch Option"
     },

@@ -19,7 +19,7 @@ interface Props {
   onSelect: (launchOption: LaunchOption | undefined) => void
 }
 
-const DONT_SHOW_STORAGE_PREFIX = 'heroic_launch_options_dialog_dont_show_'
+const DONT_SHOW_STORAGE_PREFIX = 'skip_launch_options_dialog_'
 
 const LaunchOptionsDialog = ({ appName, runner, onClose, onSelect }: Props) => {
   const { t } = useTranslation('gamepage')
@@ -64,15 +64,9 @@ const LaunchOptionsDialog = ({ appName, runner, onClose, onSelect }: Props) => {
   return (
     <Dialog onClose={onClose} showCloseButton>
       <DialogHeader>
-        {t('launch_options_dialog.title', 'Select Launch Option')}
+        {t('launch_options.title', 'Game Launch Option')}
       </DialogHeader>
       <DialogContent>
-        <p className="launch-options-description">
-          {t(
-            'launch_options_dialog.description',
-            'Select the launch option to use for this game:'
-          )}
-        </p>
         <RadioGroup
           value={selectedIndex.toString()}
           onChange={handleChange}

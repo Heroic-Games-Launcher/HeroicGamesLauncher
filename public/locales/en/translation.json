@@ -177,10 +177,8 @@
     },
     "button": {
         "cancel": "Cancel",
-        "cancelLaunch": "Cancel",
         "continue": "Continue",
         "go_to_library": "Go to Library",
-        "launch": "Launch",
         "login": "Log in"
     },
     "categories-manager": {
@@ -407,11 +405,6 @@
     "label": {
         "loading": "Loading",
         "releaseDate": "Release Date"
-    },
-    "launch_options_dialog": {
-        "description": "Select the launch option to use for this game:",
-        "dont_show_again": "Don't show this dialog again",
-        "title": "Select Launch Option"
     },
     "library": {
         "refresh": "Refresh",
