@@ -176,7 +176,11 @@
         "launching": "Indítás…",
         "ubisoft": "A Ubisoft Connect telepítése",
         "winetricks": "Winetricks csomagok telepítése",
-        "redist": "Terjeszthető csomagok telepítése"
+        "redist": "Terjeszthető csomagok telepítése",
+        "steam": {
+            "pleaseWait": "Kis türelmet…",
+            "installing": "Telepítés…"
+        }
     },
     "launch": {
         "options": "Indítási kapcsolók…"
