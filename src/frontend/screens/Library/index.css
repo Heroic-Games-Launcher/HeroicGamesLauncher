@@ -21,13 +21,14 @@
   padding-top: 1em;
   min-height: 2vh;
   min-width: 80vw;
+  margin: 0 var(--space-md-fixed);
 }
 
 .gameListHeader {
   display: grid;
   grid-template-columns: 3fr 2fr 1fr 10%;
   justify-items: baseline;
-  margin: 0 var(--space-xl-fixed);
+  width: 100%;
   color: var(--text-default);
   font-weight: var(--bold);
   padding-bottom: 0.5rem;

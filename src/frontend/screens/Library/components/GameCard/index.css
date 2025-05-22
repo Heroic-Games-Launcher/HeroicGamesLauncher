@@ -181,7 +181,7 @@
   position: relative;
   cursor: default;
   place-self: center;
-  margin: 0 var(--space-xl-fixed) var(--space-xs-fixed);
+  width: 100%;
   padding: var(--space-xs-fixed) 0;
   border-bottom: 1px solid gray;
 }

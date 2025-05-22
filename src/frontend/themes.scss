@@ -55,7 +55,6 @@ body.midnightMirage {
   /* Buttons */
   --primary-button: var(--brand-primary);
   --secondary-button: var(--brand-secondary);
-  --tertiary-button: var(--neutral-03);
   --button-stroke: var(--accent);
   --secondary-button-overlay: var(--primary-hover);
   --tertiary-button-overlay: var(--status-warning-hover);
@@ -339,6 +338,7 @@ body.nord-light {
   --success-button: #3687a9;
   --secondary-button: #15a3e0;
   --icons-background: #6f738f;
+  --tertiary-button: #6f738f;
 
   .playIcon circle {
     fill: var(--status-success);

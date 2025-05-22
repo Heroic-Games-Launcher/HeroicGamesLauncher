@@ -169,8 +169,7 @@ class GlobalState extends PureComponent<Props> {
     libraryStatus: [],
     libraryTopSection: globalSettings?.libraryTopSection || 'disabled',
     platform: window.platform,
-    isIntelMac:
-      window.platform === 'darwin' && navigator.platform === 'MacIntel',
+    isIntelMac: false,
     refreshing: false,
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
@@ -787,7 +786,14 @@ class GlobalState extends PureComponent<Props> {
   }
 
   async componentDidMount() {
-    const { epic, gog, amazon, gameUpdates = [], libraryStatus } = this.state
+    const {
+      epic,
+      gog,
+      amazon,
+      gameUpdates = [],
+      libraryStatus,
+      platform
+    } = this.state
 
     window.api.handleInstallGame(async (e, appName, runner) => {
       const currentApp = libraryStatus.filter(
@@ -841,6 +847,10 @@ class GlobalState extends PureComponent<Props> {
         })
       }
     })
+
+    if (platform === 'darwin') {
+      this.setState({ isIntelMac: await window.api.isIntelMac() })
+    }
 
     this.setState({
       isFullscreen: await window.api.isFullscreen(),
