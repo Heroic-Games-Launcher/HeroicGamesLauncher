@@ -20,14 +20,6 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
     window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
   }, [gameInfo])
 
-  if (!gameInfo.is_installed) {
-    return null
-  }
-
-  if (!launchOptions.length) {
-    return null
-  }
-
   const labelForLaunchOption = useCallback((option: LaunchOption) => {
     switch (option.type) {
       case undefined:
@@ -39,6 +31,14 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
         return option.executable
     }
   }, [])
+
+  if (!gameInfo.is_installed) {
+    return null
+  }
+
+  if (!launchOptions.length) {
+    return null
+  }
 
   return (
     <SelectField
