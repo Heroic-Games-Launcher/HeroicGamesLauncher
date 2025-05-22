@@ -8,6 +8,7 @@ init:
 
 install:
   - corepack enable
+  - corepack prepare pnpm@10 --activate
   - pnpm install
   - pnpm download-helper-binaries
 
