@@ -161,7 +161,11 @@
             "syncing": "Đang đồng bộ bản lưu"
         },
         "launching": "ra mắt",
-        "ubisoft": "Cài đặt Ubisoft Connect"
+        "ubisoft": "Cài đặt Ubisoft Connect",
+        "steam": {
+            "installing": "Đang cài đặt",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Tuỳ chọn khởi chạy..."
