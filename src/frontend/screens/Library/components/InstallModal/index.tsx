@@ -101,9 +101,8 @@ export default React.memo(function InstallModal({
     return 'Windows'
   }
 
-  const [platformToInstall, setPlatformToInstall] = useState<InstallPlatform>(
-    getDefaultplatform()
-  )
+  const [platformToInstall, setPlatformToInstall] =
+    useState<InstallPlatform>(getDefaultplatform())
 
   const hasWine = platformToInstall === 'Windows' && !isWin
 

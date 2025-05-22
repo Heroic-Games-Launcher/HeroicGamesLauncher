@@ -750,7 +750,6 @@
             "description": "Use Dedicated Graphics Card"
         },
         "runexe": {
-            "message": "Drag and Drop Files here",
             "title": "Run EXE on Prefix"
         },
         "savefolder": {

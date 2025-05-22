@@ -64,32 +64,6 @@ export default function Tools() {
     }
   }
 
-  const dropHandler = async (ev: React.DragEvent<HTMLSpanElement>) => {
-    // Prevent default behavior (Prevent file from being opened)
-    ev.preventDefault()
-
-    if (ev.dataTransfer.items) {
-      // Use DataTransferItemList interface to access the file(s)
-      // If dropped items aren't files, reject them
-      if (ev.dataTransfer.items[0].kind === 'file') {
-        const file = ev.dataTransfer.items[0].getAsFile()
-        // In Electron, File objects have a non-standard path property
-        const exe = file
-          ? (file as unknown as { path: string }).path
-          : undefined
-        if (exe) {
-          return callTools('runExe', exe)
-        }
-      }
-    }
-    return
-  }
-
-  function dragOverHandler(ev: React.DragEvent<HTMLSpanElement>) {
-    // Prevent default behavior (Prevent file from being opened)
-    ev.preventDefault()
-  }
-
   function openWinetricksDialog() {
     setWinetricksRunning(true)
   }
@@ -120,15 +94,12 @@ export default function Tools() {
             <span className="toolTitle">Winetricks</span>
           </button>
           <a
-            onDrop={async (ev) => dropHandler(ev)}
-            onDragOver={(ev) => dragOverHandler(ev)}
-            className={classNames('button outline drag', {
+            className={classNames('button outline', {
               active: runExeRunning
             })}
             onClick={handleRunExe}
           >
-            {t('setting.runexe.title')} <br />
-            <span>{t('setting.runexe.message')}</span>
+            {t('setting.runexe.title')}
           </a>
         </div>
       </div>

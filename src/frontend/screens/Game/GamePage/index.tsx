@@ -188,8 +188,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
           (is_linux_native && isLinux
             ? 'linux'
             : is_mac_native && isMac
-            ? 'Mac'
-            : 'Windows')
+              ? 'Mac'
+              : 'Windows')
 
         if (
           runner !== 'sideload' &&
