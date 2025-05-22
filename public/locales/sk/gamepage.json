@@ -174,7 +174,11 @@
         "launching": "Spúšťam",
         "ubisoft": "Inštalácia Ubisoft Connect",
         "redist": "Inštalujem Redistributables",
-        "winetricks": "Inštalujem Balíky Winetricks"
+        "winetricks": "Inštalujem Balíky Winetricks",
+        "steam": {
+            "installing": "Inštaluje sa",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Možnosti spustenia..."
