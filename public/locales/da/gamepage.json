@@ -166,7 +166,10 @@
         "launching": "Lancering",
         "ubisoft": "Installation af Ubisoft Connect",
         "redist": "Installere Redistributables",
-        "winetricks": "Installere Winetricks pakker"
+        "winetricks": "Installere Winetricks pakker",
+        "steam": {
+            "installing": "Installerer"
+        }
     },
     "launch": {
         "options": "Opstartsinstillinger..."
