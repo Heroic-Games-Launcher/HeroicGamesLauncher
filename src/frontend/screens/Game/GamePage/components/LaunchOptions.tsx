@@ -14,7 +14,7 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
   const { t } = useTranslation('gamepage')
   const { appName, runner } = useContext(GameContext)
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(-1)
+  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(0)
 
   useEffect(() => {
     window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
@@ -54,7 +54,6 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
         }
       }}
       value={selectedLaunchOptionIndex.toString()}
-      prompt={t('launch.options', 'Launch Options...')}
     >
       {launchOptions.map((option, index) => (
         <MenuItem key={index} value={index}>

@@ -434,6 +434,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       handleUpdate={handleUpdate}
                       hasUpdate={hasUpdate}
                     />
+                    <LaunchOptions
+                      gameInfo={gameInfo}
+                      setLaunchArguments={setLaunchArguments}
+                    />
                     <div className="buttons">
                       <MainButton
                         gameInfo={gameInfo}
@@ -441,10 +445,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         handleInstall={handleInstall}
                       />
                     </div>
-                    <LaunchOptions
-                      gameInfo={gameInfo}
-                      setLaunchArguments={setLaunchArguments}
-                    />
                     {wikiLink}
                   </div>
                 </div>
