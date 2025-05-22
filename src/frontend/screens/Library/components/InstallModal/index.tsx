@@ -32,7 +32,7 @@ type Props = {
 export type AvailablePlatforms = {
   name: string
   available: boolean
-  value: string
+  value: InstallPlatform
   icon: IconDefinition
 }[]
 
@@ -62,7 +62,7 @@ export default React.memo(function InstallModal({
     {
       name: 'Linux',
       available: isLinux && (isSideload || isLinuxNative),
-      value: 'Linux',
+      value: 'linux',
       icon: faLinux
     },
     {
@@ -89,7 +89,7 @@ export default React.memo(function InstallModal({
     (p) => p.available
   )
 
-  const getDefaultplatform = () => {
+  const getDefaultplatform = (): InstallPlatform => {
     if (isLinux && gameInfo?.is_linux_native) {
       return 'linux'
     }
