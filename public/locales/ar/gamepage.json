@@ -177,7 +177,11 @@
         "launching": "يشغَّل",
         "ubisoft": "يثبّت يوبيسوفت كنكت",
         "redist": "تثبيت العناصر القابلة لإعادة التوزيع",
-        "winetricks": "تثبيت حزم Winetricks"
+        "winetricks": "تثبيت حزم Winetricks",
+        "steam": {
+            "installing": "قيد التثبيت",
+            "pleaseWait": "يُرجى الانتظار..."
+        }
     },
     "launch": {
         "options": "خيارات التشغيل..."
