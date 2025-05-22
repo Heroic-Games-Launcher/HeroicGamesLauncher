@@ -167,7 +167,10 @@
             "syncing": "Zaintza-zaindegien sinkronizazioa"
         },
         "launching": "Abian jartzea",
-        "ubisoft": "Ubisoft Connect instalatzen"
+        "ubisoft": "Ubisoft Connect instalatzen",
+        "steam": {
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Jaurtiketa-aukerak..."
