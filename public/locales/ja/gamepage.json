@@ -177,7 +177,11 @@
         "ubisoft": "Ubisoft Connectをインストール中",
         "prerequisites": "前提条件のインストール",
         "winetricks": "Winetricksパッケージのインストール",
-        "redist": "再頒布可能ファイルのインストール"
+        "redist": "再頒布可能ファイルのインストール",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "起動オプション…"
