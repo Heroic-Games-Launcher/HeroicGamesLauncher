@@ -179,7 +179,11 @@
         "ubisoft": "Ubisoft Connect Yükleniyor",
         "winetricks": "Winetricks Paketleri Kuruluyor",
         "prerequisites": "Gereksinimler Kuruluyor",
-        "redist": "Dağıtılabilirler Kuruluyor"
+        "redist": "Dağıtılabilirler Kuruluyor",
+        "steam": {
+            "installing": "Kuruluyor",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Başlatma Seçenekleri..."
