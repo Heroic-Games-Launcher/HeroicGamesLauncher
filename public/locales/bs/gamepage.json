@@ -150,7 +150,11 @@
             "syncing": "Sinhoniziranje podataka"
         },
         "launching": "Lansiranje",
-        "ubisoft": "Instalacija Ubisoft Connecta"
+        "ubisoft": "Instalacija Ubisoft Connecta",
+        "steam": {
+            "installing": "Instalira se",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Opcije za pokretanje..."
