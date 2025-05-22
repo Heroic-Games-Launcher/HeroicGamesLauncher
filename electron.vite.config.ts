@@ -66,13 +66,6 @@ export default defineConfig(({ mode }) => ({
       minify: true,
       sourcemap: mode === 'development' ? 'inline' : false
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern'
-        }
-      }
-    },
     resolve: { alias: srcAliases },
     plugins: [
       react(),
