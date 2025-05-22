@@ -11,6 +11,9 @@ patchedDependencies:
   '@types/node@22.15.18':
     hash: 8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831
     path: patches/@types__node@22.15.18.patch
+  howlongtobeat-js@1.0.2:
+    hash: f0cfbc863bfb47b8e8b07f34b2fa66b4c168f4cb04433b96b71cd7a8b85a74e3
+    path: patches/howlongtobeat-js@1.0.2.patch
 
 importers:
 
@@ -96,7 +99,7 @@ importers:
         version: 4.2.11
       howlongtobeat-js:
         specifier: ^1.0.2
-        version: 1.0.2
+        version: 1.0.2(patch_hash=f0cfbc863bfb47b8e8b07f34b2fa66b4c168f4cb04433b96b71cd7a8b85a74e3)
       i18next:
         specifier: ^22.5.1
         version: 22.5.1
@@ -9775,7 +9778,7 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
-  howlongtobeat-js@1.0.2:
+  howlongtobeat-js@1.0.2(patch_hash=f0cfbc863bfb47b8e8b07f34b2fa66b4c168f4cb04433b96b71cd7a8b85a74e3):
     dependencies:
       axios: 1.9.0
       cheerio: 1.0.0

@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index 5c5e4135..5da790fe 100644
+--- a/package.json
++++ b/package.json
+@@ -22,7 +22,6 @@
+   "dependencies": {
+     "axios": "^1.6.5",
+     "cheerio": "^1.0.0-rc.12",
+-    "howlongtobeat-js": "^1.0.1",
+     "user-agents": "^1.1.80"
+   },
+   "devDependencies": {
