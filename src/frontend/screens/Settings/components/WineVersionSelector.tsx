@@ -12,6 +12,8 @@ import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 import ProtonLogo from 'frontend/assets/proton_logo.svg?react'
 import CodeweaversLogo from 'frontend/assets/codeweavers_icon.svg?react'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
+import Badge from '@mui/material/Badge'
+import { Autorenew as AutorenewIcon } from '@mui/icons-material'
 
 interface ListItemProps {
   version: WineInstallation
@@ -22,7 +24,12 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
 }: ListItemProps) {
   const { name, type } = version
 
-  const icon = useMemo(() => {
+  const substitutedName = useMemo(
+    () => name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton'),
+    [name]
+  )
+
+  const primaryIcon = useMemo(() => {
     switch (type) {
       case 'wine':
         return <FontAwesomeIcon icon={faWineGlass} />
@@ -35,10 +42,23 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
     }
   }, [type])
 
+  const icon = useMemo(() => {
+    if (name.includes('-latest'))
+      return (
+        <Box sx={{ mr: 1 }}>
+          <Badge badgeContent={<AutorenewIcon sx={{ fontSize: 17.5 }} />}>
+            <SvgIcon>{primaryIcon}</SvgIcon>
+          </Badge>
+        </Box>
+      )
+
+    return <SvgIcon sx={{ mr: 1 }}>{primaryIcon}</SvgIcon>
+  }, [name, primaryIcon])
+
   return (
     <Box sx={{ display: 'flex', placeItems: 'center' }}>
-      <SvgIcon sx={{ mr: 1 }}>{icon}</SvgIcon>
-      {name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton')}
+      {icon}
+      {substitutedName}
     </Box>
   )
 })
