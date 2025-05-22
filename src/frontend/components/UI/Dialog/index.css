@@ -112,6 +112,5 @@
   display: flex;
   gap: 16px;
   justify-content: end;
-  padding: 0 var(--dialog-margin-horizontal) var(--dialog-margin-vertical)
-    var(--dialog-margin-horizontal);
+  padding-top: var(--space-md);
 }
