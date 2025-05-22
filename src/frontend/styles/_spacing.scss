@@ -18,6 +18,10 @@
   --space-lg-fixed: calc(1.2 * var(--space-unit-fixed));
   --space-xl-fixed: calc(2.5 * var(--space-unit-fixed));
   --space-2xl-fixed: calc(4.5 * var(--space-unit-fixed));
+
+  --dialog-margin-horizontal: var(--space-lg);
+  --dialog-margin-vertical: var(--space-md);
+  --dialog-gap: var(--space-lg);
 }
 
 h1,

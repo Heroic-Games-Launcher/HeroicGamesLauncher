@@ -8,13 +8,23 @@ import {
 } from 'frontend/components/UI/Dialog'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import { DialogType, ButtonOptions } from 'common/types'
+import { DialogType, ButtonOptions, Runner, LaunchOption } from 'common/types'
+import LaunchOptionsDialog from 'frontend/components/UI/LaunchOptionsDialog'
+
 interface MessageBoxModalProps {
   title: string
   message: string | ReactElement
   onClose: () => void
   buttons: Array<ButtonOptions>
   type: DialogType
+  customComponent?: 'LaunchOptionsDialog'
+  componentProps?: {
+    appName?: string
+    runner?: Runner
+    onSelect?: (option: LaunchOption | undefined) => void
+    onCancel?: () => void
+    [key: string]: unknown
+  }
 }
 
 // This function proper parses the message from the backend and returns HTML code with an array of spans and paragraphs
@@ -40,6 +50,11 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   }, [props.message])
 
   const getButtons = function () {
+    // If using a custom component and no buttons are provided, don't show any buttons
+    if (props.customComponent && !props.buttons.length) {
+      return []
+    }
+
     const allButtons = []
     for (let i = 0; i < props.buttons.length; ++i) {
       allButtons.push(
@@ -59,6 +74,31 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
   }
 
   const getContent = () => {
+    // Handle custom components
+    if (props.customComponent) {
+      switch (props.customComponent) {
+        case 'LaunchOptionsDialog':
+          return (
+            <LaunchOptionsDialog
+              appName={props.componentProps?.appName || ''}
+              runner={props.componentProps?.runner || 'legendary'}
+              onClose={() => {
+                props.onClose()
+                props.componentProps?.onCancel?.()
+              }}
+              onSelect={(option) => {
+                if (props.componentProps?.onSelect) {
+                  props.componentProps.onSelect(option)
+                }
+                props.onClose()
+              }}
+            />
+          )
+        default:
+          return props.message
+      }
+    }
+
     switch (props.type) {
       case 'ERROR':
         return (
@@ -69,10 +109,8 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
             <div className="errorDialog error-box">{message}</div>
           </>
         )
-        break
       default:
         return props.message
-        break
     }
   }
 

@@ -97,7 +97,7 @@ export default function LogSettings() {
   }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
 
   const getLogContent = () => {
-    window.api.getLogContent(showLogOf).then((content: string) => {
+    void window.api.getLogContent(showLogOf).then((content: string) => {
       if (!content) {
         setLogFileContent(t('setting.log.no-file', 'No log file found.'))
         setLogFileExist(false)
@@ -153,48 +153,50 @@ export default function LogSettings() {
         )}
       </p>
       <div className="logs-wrapper">
-        <span className="log-buttongroup">
-          {[
-            ['Heroic', 'heroic'],
-            ['Epic/Legendary', 'legendary'],
-            ['GOG', 'gogdl'],
-            ['Amazon/Nile', 'nile']
-          ].map((log) => {
-            const [label, value] = log
-            return (
-              <a
-                key={value}
-                className={`log-buttons ${
-                  showLogOf === value ? 'log-choosen' : ''
-                }`}
-                onClick={() => {
-                  setRefreshing(true)
-                  setShowLogOf(value)
-                }}
-                title={label}
-              >
-                {label}
-              </a>
-            )
-          })}
-          {installedGames.map((game) => {
-            return (
-              <a
-                key={game.app_name}
-                className={`log-buttons ${
-                  showLogOf === game.app_name ? 'log-choosen' : ''
-                }`}
-                onClick={() => {
-                  setRefreshing(true)
-                  setShowLogOf(game.app_name)
-                }}
-                title={game.title}
-              >
-                {game.title}
-              </a>
-            )
-          })}
-        </span>
+        {isInSettingsMenu && (
+          <span className="log-buttongroup">
+            {[
+              ['Heroic', 'heroic'],
+              ['Epic/Legendary', 'legendary'],
+              ['GOG', 'gogdl'],
+              ['Amazon/Nile', 'nile']
+            ].map((log) => {
+              const [label, value] = log
+              return (
+                <a
+                  key={value}
+                  className={`log-buttons ${
+                    showLogOf === value ? 'log-choosen' : ''
+                  }`}
+                  onClick={() => {
+                    setRefreshing(true)
+                    setShowLogOf(value)
+                  }}
+                  title={label}
+                >
+                  {label}
+                </a>
+              )
+            })}
+            {installedGames.map((game) => {
+              return (
+                <a
+                  key={game.app_name}
+                  className={`log-buttons ${
+                    showLogOf === game.app_name ? 'log-choosen' : ''
+                  }`}
+                  onClick={() => {
+                    setRefreshing(true)
+                    setShowLogOf(game.app_name)
+                  }}
+                  title={game.title}
+                >
+                  {game.title}
+                </a>
+              )
+            })}
+          </span>
+        )}
 
         {refreshing ? (
           <span className="setting log-box">

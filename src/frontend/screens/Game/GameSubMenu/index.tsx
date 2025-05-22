@@ -2,7 +2,7 @@ import './index.css'
 
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import { GameInfo, GameStatus, LaunchOption, Runner } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -68,6 +68,8 @@ export default function GamesSubmenu({
   const { t } = useTranslation('gamepage')
   const isSideloaded = runner === 'sideload'
   const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
+  const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
+  const [hasLaunchOptions, setHasLaunchOptions] = useState<boolean>(false)
 
   async function onMoveInstallYesClick() {
     const { defaultInstallPath } = await window.api.requestAppSettings()
@@ -198,6 +200,12 @@ export default function GamesSubmenu({
       setHasShortcuts(added)
     })
 
+    // Check for available launch options
+    void window.api.getLaunchOptions(appName, runner).then((options) => {
+      setLaunchOptions(options)
+      setHasLaunchOptions(options.length > 1)
+    })
+
     // only unix specific
     if (!isWin && runner === 'legendary') {
       // check if eos overlay is enabled
@@ -252,6 +260,34 @@ export default function GamesSubmenu({
     }
   }, [gameSettings])
 
+  const handleShowLaunchOptions = () => {
+    showDialogModal({
+      showDialog: true,
+      title: t('launch_options_dialog.title', 'Select Launch Option'),
+      customComponent: 'LaunchOptionsDialog',
+      componentProps: {
+        appName,
+        runner,
+        onSelect: (selectedOption: LaunchOption | undefined) => {
+          // Store selection in localStorage
+          if (selectedOption) {
+            const index = launchOptions.findIndex(
+              (option) => option === selectedOption
+            )
+            if (index >= 0) {
+              localStorage.setItem(
+                `heroic_launch_option_${appName}`,
+                index.toString()
+              )
+            }
+          }
+        },
+        onCancel: () => {}
+      },
+      buttons: []
+    })
+  }
+
   return (
     <>
       <div className="gameTools subMenuContainer">
@@ -272,6 +308,14 @@ export default function GamesSubmenu({
                   className="link button is-text is-link"
                 >
                   {t('button.sideload.edit', 'Edit App/Game')}
+                </button>
+              )}{' '}
+              {hasLaunchOptions && (
+                <button
+                  onClick={handleShowLaunchOptions}
+                  className="link button is-text is-link"
+                >
+                  {t('submenu.launch_options_dialog', 'Show Launch Options')}
                 </button>
               )}{' '}
               <button

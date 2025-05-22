@@ -131,10 +131,10 @@ const GameCard = ({
         setGameInfo(newInfo)
       }
     }
-    updateGameInfo()
+    void updateGameInfo()
   }, [status])
 
-  async function handleUpdate() {
+  function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
   }
@@ -291,7 +291,7 @@ const GameCard = ({
     {
       // update
       label: t('button.update', 'Update'),
-      onclick: async () => handleUpdate(),
+      onclick: () => handleUpdate(),
       show: hasUpdate && !isUpdating && !isQueued
     },
     {
@@ -470,7 +470,7 @@ const GameCard = ({
                 <SvgButton
                   className="updateIcon"
                   title={`${t('button.update')} (${title})`}
-                  onClick={async () => handleUpdate()}
+                  onClick={() => handleUpdate()}
                 >
                   <FontAwesomeIcon size={'2x'} icon={faRepeat} />
                 </SvgButton>
@@ -520,6 +520,7 @@ const GameCard = ({
 
     if (isInstalled) {
       setIsLaunching(true)
+
       return launch({
         appName,
         t,

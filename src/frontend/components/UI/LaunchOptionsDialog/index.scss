@@ -1,0 +1,35 @@
+.launch-options-description {
+  margin-bottom: var(--space-md);
+}
+
+.launch-options-list {
+  margin-bottom: var(--space-lg);
+
+  .launch-option-item {
+    margin: var(--space-xs) 0;
+
+    /* Style for radio buttons */
+    .MuiRadio-root {
+      color: var(--accent);
+
+      &.Mui-checked {
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+.dont-show-again {
+  margin-top: var(--space-md);
+  border-top: 1px solid var(--modal-border);
+  padding-top: var(--space-md);
+
+  /* Style for checkbox */
+  .MuiCheckbox-root {
+    color: var(--accent);
+
+    &.Mui-checked {
+      color: var(--accent);
+    }
+  }
+}
