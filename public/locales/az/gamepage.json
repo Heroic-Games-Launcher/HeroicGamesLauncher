@@ -175,7 +175,10 @@
         "launching": "Başlanır",
         "ubisoft": "Ubisoft Connect quraşdırılır",
         "winetricks": "Vayntriks Paketləri Quraşdırılır",
-        "redist": "Redistributables-Lazımi Fayllar Quraşdırılır"
+        "redist": "Redistributables-Lazımi Fayllar Quraşdırılır",
+        "steam": {
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Başlama Seçimləri..."
