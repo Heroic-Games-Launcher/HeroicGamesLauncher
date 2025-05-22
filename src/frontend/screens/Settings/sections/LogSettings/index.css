@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: min-content 1fr;
   grid-template-rows: 1fr;
-  column-gap: 0.5rem;
+  gap: 0.5rem;
   height: 25em;
   width: 100%;
 
@@ -33,6 +33,13 @@
     grid-column: 2;
     height: 100%;
   }
+}
+
+.logs-wrapper.game-log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 50vw;
 }
 
 dialog .logs-wrapper {

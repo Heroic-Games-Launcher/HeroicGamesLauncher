@@ -34,7 +34,7 @@ const LibraryTour: React.FC = () => {
     {
       intro: t(
         'tour.library.welcome.intro2',
-        'If the library is empty, make sure to login with your accounts usinge the Manage accounts on the sidebar or add your own games using the Add Game button above.'
+        'If the library is empty, make sure to login with your accounts using the Manage accounts on the sidebar or add your own games using the Add Game button above.'
       ),
       title: t('tour.library.welcome.title2', 'Managing the library!')
     }

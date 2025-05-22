@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
-import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import { MenuItem } from '@mui/material'
 
@@ -11,22 +10,13 @@ interface Props {
 }
 
 const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
-  const { t } = useTranslation('gamepage')
   const { appName, runner } = useContext(GameContext)
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(-1)
+  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(0)
 
   useEffect(() => {
-    window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
+    void window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
   }, [gameInfo])
-
-  if (!gameInfo.is_installed) {
-    return null
-  }
-
-  if (!launchOptions.length) {
-    return null
-  }
 
   const labelForLaunchOption = useCallback((option: LaunchOption) => {
     switch (option.type) {
@@ -39,6 +29,14 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
         return option.executable
     }
   }, [])
+
+  if (!gameInfo.is_installed) {
+    return null
+  }
+
+  if (!launchOptions.length) {
+    return null
+  }
 
   return (
     <SelectField
@@ -54,7 +52,6 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
         }
       }}
       value={selectedLaunchOptionIndex.toString()}
-      prompt={t('launch.options', 'Launch Options...')}
     >
       {launchOptions.map((option, index) => (
         <MenuItem key={index} value={index}>
