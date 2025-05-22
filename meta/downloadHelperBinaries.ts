@@ -7,13 +7,19 @@ import { finished } from 'stream/promises'
 import { setGlobalDispatcher, ProxyAgent } from 'undici'
 
 type SupportedPlatform = 'win32' | 'darwin' | 'linux'
-type DownloadedBinary = 'legendary' | 'gogdl' | 'nile' | 'comet'
+type DownloadedBinary =
+  | 'legendary'
+  | 'gogdl'
+  | 'nile'
+  | 'comet'
+  | 'epic-integration'
 
 const RELEASE_TAGS = {
-  legendary: '0.20.36',
+  legendary: '0.20.37',
   gogdl: 'v1.1.2',
   nile: 'v1.1.2',
-  comet: 'v0.2.0'
+  comet: 'v0.2.0',
+  'epic-integration': 'v0.3'
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
@@ -174,6 +180,20 @@ async function downloadComet() {
   ])
 }
 
+async function downloadEpicIntegration() {
+  return downloadGithubAssets(
+    'EpicGamesLauncher',
+    'Etaash-mathamsetty/heroic-epic-integration',
+    RELEASE_TAGS['epic-integration'],
+    {
+      x64: {
+        win32: 'EpicGamesLauncher.exe'
+      },
+      arm64: {}
+    }
+  )
+}
+
 /**
  * Finds out which binaries need to be downloaded by comparing
  * `public/bin/.release_tags` to RELEASE_TAGS
@@ -187,7 +207,7 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   try {
     storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
-    return ['legendary', 'gogdl', 'nile', 'comet']
+    return ['legendary', 'gogdl', 'nile', 'comet', 'epic-integration']
   }
   const binariesToDownload: DownloadedBinary[] = []
   for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
@@ -230,6 +250,8 @@ async function main() {
   if (binariesToDownload.includes('nile')) promisesToAwait.push(downloadNile())
   if (binariesToDownload.includes('comet'))
     promisesToAwait.push(downloadComet())
+  if (binariesToDownload.includes('epic-integration'))
+    promisesToAwait.push(downloadEpicIntegration())
 
   await Promise.all(promisesToAwait)
 

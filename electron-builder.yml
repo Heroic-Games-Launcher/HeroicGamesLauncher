@@ -23,7 +23,7 @@ protocols:
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
   icon: build/win_icon.ico
-  files: build/bin/*/win32/*
+  files: build/bin/${arch}/win32/*
 
 portable:
   artifactName: ${productName}-${version}-Portable-${arch}.${ext}
@@ -39,6 +39,7 @@ mac:
   files:
     - build/bin/${arch}/darwin/*
     - build/bin/x64/win32/GalaxyCommunication.exe
+    - build/bin/x64/win32/EpicGamesLauncher.exe
 
 dmg:
   background: public/dmg.png
@@ -66,6 +67,7 @@ linux:
   files:
     - build/bin/${arch}/linux/*
     - build/bin/x64/win32/GalaxyCommunication.exe
+    - build/bin/x64/win32/EpicGamesLauncher.exe
 
 rpm:
   fpm: ['--rpm-rpmbuild-define', '_build_id_links none']
