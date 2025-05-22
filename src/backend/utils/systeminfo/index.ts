@@ -96,8 +96,8 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
     memory: {
       total: memory.total,
       used: memory.used,
-      totalFormatted: filesize(memory.total, { base: 2 }) as string,
-      usedFormatted: filesize(memory.used, { base: 2 }) as string
+      totalFormatted: filesize(memory.total, { base: 2 }),
+      usedFormatted: filesize(memory.used, { base: 2 })
     },
     GPUs: gpus,
     OS: {

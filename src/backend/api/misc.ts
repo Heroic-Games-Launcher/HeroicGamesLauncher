@@ -232,3 +232,5 @@ export const logFileUploadDeletedSlot = (
 ) => {
   ipcRenderer.on('logFileUploadDeleted', callback)
 }
+
+export const isIntelMac = async () => ipcRenderer.invoke('isIntelMac')

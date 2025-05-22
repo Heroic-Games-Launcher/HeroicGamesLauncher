@@ -139,7 +139,7 @@ export default function WineSelector({
             label={`${t('install.wineversion')}:`}
             htmlId="wineVersion"
             value={wineVersion?.name || ''}
-            disabled={useDefaultSettings}
+            disabled={useDefaultSettings || wineVersionList.length === 0}
             onChange={(e) =>
               setWineVersion(
                 wineVersionList.find(

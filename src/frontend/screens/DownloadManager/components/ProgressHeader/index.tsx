@@ -43,7 +43,7 @@ export default function ProgressHeader(props: {
       download:
         progress.downSpeed && progress.downSpeed > 0
           ? progress.downSpeed
-          : avgSpeed.at(-1)?.download ?? 0,
+          : (avgSpeed.at(-1)?.download ?? 0),
       disk: progress.diskSpeed ?? 0
     })
 
@@ -126,7 +126,7 @@ export default function ProgressHeader(props: {
                 title={t('download-manager.ETA', 'Estimated Time')}
               >
                 {props.state === 'running'
-                  ? progress.eta ?? '00.00.00'
+                  ? (progress.eta ?? '00.00.00')
                   : 'Paused'}
               </Typography>
             </Box>

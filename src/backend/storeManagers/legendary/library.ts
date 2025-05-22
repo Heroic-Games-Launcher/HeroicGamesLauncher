@@ -541,8 +541,8 @@ function loadFile(app_name: string): boolean {
   // TODO: I don't own any game on PC and the mobile store so I don't know if they have to be
   // handled differently, for now we are only skipping if it's only available for Android
   if (
-    releaseInfo.every(
-      (info) => info.platform?.every((plat) => plat === 'Android')
+    releaseInfo.every((info) =>
+      info.platform?.every((plat) => plat === 'Android')
     )
   ) {
     return false

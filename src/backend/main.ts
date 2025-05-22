@@ -28,7 +28,7 @@ import 'source-map-support/register'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
-import { DXVK, Winetricks } from './tools'
+import { DXVK, SteamWindows, Winetricks } from './tools'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
@@ -52,13 +52,22 @@ import {
   downloadDefaultWine,
   sendGameStatusUpdate,
   checkRosettaInstall,
+  writeConfig,
   createNecessaryFolders
 } from './utils'
+
+import {
+  getDiskInfo,
+  isAccessibleWithinFlatpakSandbox,
+  isWritable
+} from './utils/filesystem'
+
+import { Path } from './schemas'
+
 import { uninstallGameCallback } from './utils/uninstaller'
 import { handleProtocol } from './protocol'
 import {
   initLogger,
-  logChangedSetting,
   logDebug,
   logError,
   logInfo,
@@ -128,6 +137,8 @@ import {
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
+  isIntelMac,
+  isLinux,
   isMac,
   isSnap,
   isSteamDeckGameMode,
@@ -140,8 +151,10 @@ import {
   userHome,
   windowIcon
 } from './constants/paths'
+import { supportedLanguages } from 'common/languages'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
+if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
 const { showOpenDialog } = dialog
 
@@ -164,14 +177,27 @@ async function initializeWindow(): Promise<BrowserWindow> {
   }
 
   setTimeout(async () => {
-    // Will download Wine if none was found
+    // Will download Wine/GPTK if none was found
     const availableWine = await GlobalConfig.get().getAlternativeWine()
+    let shouldDownloadWine = !availableWine.length
+
+    if (isMac && !isIntelMac) {
+      const toolkitDownloaded = availableWine.some(
+        (wine) => wine.type === 'toolkit'
+      )
+
+      if (!toolkitDownloaded) {
+        shouldDownloadWine = true
+      }
+    }
+
+    Winetricks.download()
+    if (shouldDownloadWine) {
+      downloadDefaultWine()
+    }
+
     if (isMac) {
       checkRosettaInstall()
-    }
-    Winetricks.download()
-    if (!availableWine.length) {
-      downloadDefaultWine()
     }
   }, 2500)
 
@@ -228,7 +254,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadFile(join(publicDir, 'index.html'))
-    if (globalConf.checkForUpdatesOnStartup) {
+    if (globalConf.checkForUpdatesOnStartup && !isLinux) {
       autoUpdater.checkForUpdates()
     }
   }
@@ -363,50 +389,7 @@ if (!gotTheLock) {
       returnNull: false,
       fallbackLng: 'en',
       lng: settings.language,
-      supportedLngs: [
-        'ar',
-        'az',
-        'be',
-        'bg',
-        'bs',
-        'ca',
-        'cs',
-        'de',
-        'el',
-        'en',
-        'es',
-        'et',
-        'eu',
-        'fa',
-        'fi',
-        'fr',
-        'gl',
-        'he',
-        'hr',
-        'hu',
-        'ja',
-        'ko',
-        'id',
-        'it',
-        'lt',
-        'ml',
-        'nb_NO',
-        'nl',
-        'pl',
-        'pt',
-        'pt_BR',
-        'ro',
-        'ru',
-        'sr',
-        'sk',
-        'sv',
-        'ta',
-        'tr',
-        'uk',
-        'vi',
-        'zh_Hans',
-        'zh_Hant'
-      ]
+      supportedLngs: supportedLanguages
     })
 
     const mainWindow = await initializeWindow()
@@ -564,6 +547,7 @@ ipcMain.on('unlock', () => {
 
 ipcMain.handle('checkDiskSpace', async (_e, folder): Promise<DiskSpaceData> => {
   // FIXME: Propagate errors
+
   const parsedPath = Path.parse(folder)
 
   const { freeSpace, totalSpace } = await getDiskInfo(parsedPath)
@@ -875,31 +859,9 @@ ipcMain.handle('toggleVKD3D', async (event, { appName, action }) =>
     )
 )
 
-ipcMain.handle('writeConfig', (event, { appName, config }) => {
-  logInfo(
-    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
-    LogPrefix.Backend
-  )
-  const oldConfig =
-    appName === 'default'
-      ? GlobalConfig.get().getSettings()
-      : GameConfig.get(appName).config
-
-  // log only the changed setting
-  logChangedSetting(config, oldConfig)
-
-  if (appName === 'default') {
-    GlobalConfig.get().set(config as AppSettings)
-    GlobalConfig.get().flush()
-    const currentConfigStore = configStore.get_nodefault('settings')
-    if (currentConfigStore) {
-      configStore.set('settings', { ...currentConfigStore, ...config })
-    }
-  } else {
-    GameConfig.get(appName).config = config as GameSettings
-    GameConfig.get(appName).flush()
-  }
-})
+ipcMain.handle('writeConfig', (event, { appName, config }) =>
+  writeConfig(appName, config)
+)
 
 ipcMain.on('setSetting', (event, { appName, key, value }) => {
   if (appName === 'default') {
@@ -1475,6 +1437,10 @@ ipcMain.handle('getKnownFixes', (e, appName, runner) =>
   readKnownFixes(appName, runner)
 )
 
+ipcMain.handle('installSteamWindows', async (e, path: string) =>
+  SteamWindows.installSteam(path)
+)
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
@@ -1496,9 +1462,3 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
-import {
-  getDiskInfo,
-  isAccessibleWithinFlatpakSandbox,
-  isWritable
-} from './utils/filesystem'
-import { Path } from './schemas'
