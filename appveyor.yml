@@ -7,8 +7,7 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - corepack enable
-  - corepack prepare pnpm@10 --activate
+  - npm install -g pnpm@10
   - pnpm install
   - pnpm download-helper-binaries
 
