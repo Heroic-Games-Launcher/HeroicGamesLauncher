@@ -15,6 +15,7 @@ import {
 } from 'frontend/state/GlobalStateV2'
 import Upload from '@mui/icons-material/Upload'
 import Cloud from '@mui/icons-material/Cloud'
+import classNames from 'classnames'
 
 interface LogBoxProps {
   logFileContent: string
@@ -152,7 +153,11 @@ export default function LogSettings() {
           'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
         )}
       </p>
-      <div className="logs-wrapper">
+      <div
+        className={classNames('logs-wrapper', {
+          'game-log': !isInSettingsMenu
+        })}
+      >
         {isInSettingsMenu && (
           <span className="log-buttongroup">
             {[
