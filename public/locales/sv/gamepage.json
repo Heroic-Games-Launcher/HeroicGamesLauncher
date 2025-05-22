@@ -177,7 +177,11 @@
         "ubisoft": "Installera Ubisoft Connect",
         "winetricks": "Installerar Winetricks paket",
         "prerequisites": "Installerar krav",
-        "redist": "Installerar Redistributables"
+        "redist": "Installerar Redistributables",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Var god dröj..."
+        }
     },
     "launch": {
         "options": "Startalternativ..."
