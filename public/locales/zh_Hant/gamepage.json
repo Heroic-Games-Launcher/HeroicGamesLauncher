@@ -167,7 +167,11 @@
             "syncing": "存檔同步中"
         },
         "launching": "啟動中",
-        "ubisoft": "安裝育碧連接"
+        "ubisoft": "安裝育碧連接",
+        "steam": {
+            "pleaseWait": "Please wait...",
+            "installing": "正在安裝"
+        }
     },
     "launch": {
         "options": "啟動選項…"
