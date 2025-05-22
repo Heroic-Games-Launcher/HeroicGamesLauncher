@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors",
         "titles_always_visible": "Toujours afficher les titres dans la bibliothèque",
         "content_font_family_default": "Famille de police pour les contenus (Par défaut : {{fontFamily}})",
-        "actions_font_family_default": "Famille de police pour les actions (Par défaut : {{fontFamily}})"
+        "actions_font_family_default": "Famille de police pour les actions (Par défaut : {{fontFamily}})",
+        "disable_smooth_scrolling": "Désactiver le défilement doux (requiert un redémarrage)"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
@@ -115,7 +116,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Êtes-vous certain(e) de vouloir réinitialiser Heroic ? Cette action va supprimer tous les paramètres et le cache mais ne supprimera pas vos jeux installés ou vos identifiants Epic. Les versions portables (AppImage, WinPortable...) d'Heroic devront ensuite être redémarrées manuellement.",
+                "message": "Êtes-vous certain(e) de vouloir réinitialiser Heroic ? Cette action supprimera tous les paramètres et le cache, mais ne supprimera pas vos jeux installés ou vos identifiants Epic. Les versions portables (AppImage, WinPortable...) d'Heroic devront ensuite être redémarrées manuellement.",
                 "title": "Réinitialiser Heroic"
             }
         },
@@ -169,9 +170,13 @@
                 "checkbox": "Ne plus afficher ce message",
                 "title": "Heroic est exécuté en tant que Snap",
                 "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
+            },
+            "rosetta": {
+                "title": "Rosetta non trouvé",
+                "message": "Heroic requiert Rosetta pour s'exécuter correctement sur un appareil macOS comportant des puces Apple Silicon. Veuillez l'installer depuis le terminal macOS en utilisant la commande suivante : « softwareupdate --install-rosetta » et redémarrez Heroic. "
             }
         },
-        "wineprefix": "Choisir le dossier Wine Prefix",
+        "wineprefix": "Choisissez le dossier WinePrefix",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
         "choose-nile-binary": "Sélectionnez le binaire de Nile",
@@ -249,7 +254,7 @@
             "refresh": "Rafraîchir la Bibliothèque"
         }
     },
-    "globalSettings": "Paramètres généraux",
+    "globalSettings": "Paramètres globaux",
     "GOG": "GOG",
     "gog-store": "Boutique GOG",
     "header": {
@@ -271,7 +276,8 @@
         "reset": "Réinitialiser",
         "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu.",
         "show_support_offline_only": "N'afficher que les jeux hors-ligne",
-        "show_third_party_managed_only": "N'afficher que ceux gérés par une app tierce"
+        "show_third_party_managed_only": "N'afficher que ceux gérés par une app tierce",
+        "show_updates_only": "N'afficher que les jeux à mettre à jour"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -323,7 +329,8 @@
             "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé.",
             "fpsLimiterNoFocus": "Le ratio d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
             "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60",
-            "additionalOptions": "Indicateurs de ligne de commande supplémentaires à transmettre à gamescope."
+            "additionalOptions": "Indicateurs de ligne de commande supplémentaires à transmettre à gamescope.",
+            "forceGrabCursor": "Toujours utiliser le mode souris relatif au lieu de basculer en fonction de la visibilité du curseur. (Utile quand les applications ne cessent de perdre la focalisation)"
         },
         "title": {
             "accessibility": "Accessibilité",
@@ -348,7 +355,8 @@
             "open": "Afficher l'aide",
             "close": "Fermer la fenêtre d'aide"
         },
-        "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles."
+        "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles.",
+        "download_proton_steam": "Lorsqu'activé, GE-Proton sera téléchargé directement vers le dossier des outils de compatibilité de Steam, en lieu et place du chemin par défaut d'Heroic. Il utilisera le chemin vers Steam définit dans le champ 'Chemin vers Steam par défaut' ci-dessus."
     },
     "info": {
         "heroic": {
@@ -387,9 +395,9 @@
     },
     "library": {
         "refresh": "Actualiser",
-        "sortAscending": "Ordre croissant",
-        "sortByStatus": "Classer par statut (installé/non installé)",
-        "sortDescending": "Ordre décroissant",
+        "sortAscending": "Classer par ordre croissant",
+        "sortByStatus": "Classer par statut (installé/non-installé)",
+        "sortDescending": "Classer par ordre décroissant",
         "toggleLayout": {
             "grid": "Afficher sous forme de grille",
             "list": "Afficher sous forme de liste"
@@ -616,14 +624,14 @@
         "log": {
             "copy-to-clipboard": "Copier le contenu du rapport dans le presse-papier",
             "current-log": "Log actuel",
-            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager ces journaux et toute information pertinente concernant votre problème.",
+            "instructions": "Rejoignez notre Discord et recherchez la section \"#-support\". Lisez le fil épinglé \"Read Me First | Frequently Asked Questions\" et suivez les instructions pour partager ces rapports d'événements et toute information pertinente concernant votre problème.",
             "instructions_title": "Comment signaler un problème ?",
             "last-log": "Dernier log",
             "no-file": "Aucun rapport de fonctionnement n'a été trouvé",
             "show-in-folder": "Montrer le rapport de fonctionnement dans le dossier",
             "join-heroic-discord": "Rejoignez notre serveur Discord",
             "upload": {
-                "actions": "Action",
+                "actions": "Actions",
                 "button": "Envoyer le rapport",
                 "confirm": {
                     "content": "Voulez-vous vraiment envoyer « {{name}} » ?",
@@ -723,7 +731,7 @@
         "gamescope": {
             "enableLimiter": "Activer le limiteur de FPS",
             "enableUpscaling": "Activer la mise à l'échelle",
-            "missingMsg": "Nous n'avons pas pu trouver Gamescope sur le CHEMIN. Installez-le ou ajoutez-le au CHEMIN.",
+            "missingMsg": "Nous n'avons pas pu trouver gamescope dans ce PATH. Installez-le ou ajoutez-le au PATH.",
             "enableForceGrabCursor": "Activer « Force Grab Cursor »"
         },
         "msync": "Activer Msync",
@@ -743,7 +751,8 @@
         "custom_css": {
             "warning": "Avertissement : ceci s'applique à toute l'interface. Cela signifie qu'un style erroné peut rendre Heroic inutilisable. Si nécessaire, ce paramètre peut être modifié depuis `~/.config/heroic/config.json`. Ne copiez PAS de styles provenant de sources auxquelles vous ne faites pas confiance."
         },
-        "disableUMU": "Désactiver umu"
+        "disableUMU": "Désactiver umu",
+        "download-proton-steam": "Télécharger GE-Proton dans le dossier de Steam"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -775,7 +784,7 @@
             "advanced": "Avancé",
             "games_settings_defaults": "Paramètres de jeu par défaut",
             "general": "Général",
-            "log": "Rapport",
+            "log": "Rapports d'événements",
             "other": "Autre",
             "sync": "Synchronisation des sauvegardes dans le Cloud",
             "wineExt": "Extensions de Wine",
@@ -841,7 +850,7 @@
             },
             "details": "Détails",
             "resetHeroic": {
-                "help": "Cette action supprimera tous les paramètres et les données en cache mais ne supprimera ni vos jeux installés, ni vos identifiants Epic. La version portable (AppImage, WinPortable, ...) d'Heroic devra ensuite être redémarrée manuellement."
+                "help": "Cette action supprimera tous les paramètres et les données en cache, mais ne supprimera ni vos jeux installés, ni vos identifiants Epic. La version portable (AppImage, WinPortable, ...) d'Heroic devra ensuite être redémarrée manuellement."
             }
         },
         "custom_css": {
@@ -939,7 +948,7 @@
         "nothingYet": "Rien n'a pour l'instant été installé avec Winetricks",
         "installed": "Composants installés :",
         "no-components": "Aucun élément n'est disponible",
-        "loading-available": "Chargement des composants disponibles …"
+        "loading-available": "Chargement des composants disponibles..."
     },
     "category-settings": {
         "cancel": "Annuler",
@@ -998,7 +1007,9 @@
                 "intro2": "Si la bibliothèque est vide, assurez-vous de vous connecter à vos comptes depuis l'onglet de la barre latérale « Gestion des comptes » ou ajoutez vos propres jeux avec le bouton « Ajouter un jeu » ci-dessus.",
                 "intro": "Bienvenue dans la Bibliothèque d'Heroic ! Vous pouvez voir ici tous les jeux que vous possédez dans les différentes boutiques."
             },
-            "gameCard": "Faites un clic-gauche sur la vignette du jeu afin de naviguer vers sa page, consulter ses détails et ajuster ses paramètres ou faites un clic-droit pour ouvrir le menu contextuel."
+            "gameCard": "Faites un clic-gauche sur la vignette du jeu afin de naviguer vers sa page, consulter ses détails et ajuster ses paramètres ou faites un clic-droit pour ouvrir le menu contextuel.",
+            "sortInstalled": "Classez les jeux selon leur statut (installé/non-installé).",
+            "sortOptions": "Cliquez ici pour classer les jeux par ordre alphabétique."
         },
         "back": "Retour",
         "done": "Compris",
