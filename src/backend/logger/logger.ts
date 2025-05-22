@@ -345,9 +345,7 @@ export function logChangedSetting(
     // check if both are empty arrays
     if (
       Array.isArray(config[changedSetting]) &&
-      Array.isArray(oldConfig[changedSetting]) &&
-      config[changedSetting].length === 0 &&
-      oldConfig[changedSetting].length === 0
+      Array.isArray(oldConfig[changedSetting])
     ) {
       return
     }

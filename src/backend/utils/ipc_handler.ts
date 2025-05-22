@@ -8,6 +8,7 @@ import {
 } from './helperBinaries'
 import { hasExecutable } from './os/path'
 import { formatSystemInfo, getSystemInfo } from './systeminfo'
+import { isIntelMac } from 'backend/constants/environment'
 
 ipcMain.on('abort', async (event, id) => {
   callAbortController(id)
@@ -22,4 +23,8 @@ ipcMain.on('copySystemInfoToClipboard', async () =>
 )
 ipcMain.handle('hasExecutable', async (event, executable) => {
   return hasExecutable(executable)
+})
+
+ipcMain.handle('isIntelMac', () => {
+  return isIntelMac
 })
