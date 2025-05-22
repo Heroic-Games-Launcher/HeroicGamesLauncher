@@ -1284,7 +1284,7 @@ const memoryLog = (limit = 50) => {
       }
     },
     join: (separator = '') => {
-      return lines.reverse().join(separator)
+      return lines.toReversed().join(separator)
     }
   }
 }

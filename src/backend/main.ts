@@ -138,6 +138,7 @@ import {
   isCLINoGui,
   isFlatpak,
   isIntelMac,
+  isLinux,
   isMac,
   isSnap,
   isSteamDeckGameMode,
@@ -252,7 +253,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadFile(join(publicDir, 'index.html'))
-    if (globalConf.checkForUpdatesOnStartup) {
+    if (globalConf.checkForUpdatesOnStartup && !isLinux) {
       autoUpdater.checkForUpdates()
     }
   }

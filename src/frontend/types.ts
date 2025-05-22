@@ -235,6 +235,8 @@ export interface LibraryContextType {
   setShowSupportOfflineOnly: (value: boolean) => void
   showThirdPartyManagedOnly: boolean
   setShowThirdPartyManagedOnly: (value: boolean) => void
+  showUpdatesOnly: boolean
+  setShowUpdatesOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
 }
