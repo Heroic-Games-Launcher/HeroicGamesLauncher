@@ -160,7 +160,11 @@
             "syncing": "در حال همگام سازی ذخیره ها"
         },
         "launching": "در حال راه اندازی",
-        "ubisoft": "در حال نصب Ubisoft Connect"
+        "ubisoft": "در حال نصب Ubisoft Connect",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "لطفا صیر کنید..."
+        }
     },
     "launch": {
         "options": "گزینه های اجرا..."

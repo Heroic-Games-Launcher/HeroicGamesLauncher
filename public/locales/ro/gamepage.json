@@ -155,7 +155,11 @@
             "syncing": "Sincronizează Salvările"
         },
         "launching": "Lansare",
-        "ubisoft": "Instalarea Ubisoft Connect"
+        "ubisoft": "Instalarea Ubisoft Connect",
+        "steam": {
+            "installing": "Se Instalează",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Opțiuni de Lansare..."

@@ -177,7 +177,11 @@
         "launching": "Käynnistetään",
         "ubisoft": "Ubisoft Connectin asentaminen",
         "winetricks": "Asennetaan Winetricks-paketteja",
-        "redist": "Asennetaan uudelleenjaeltavat osat"
+        "redist": "Asennetaan uudelleenjaeltavat osat",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Odota..."
+        }
     },
     "launch": {
         "options": "Käynnistysasetukset..."

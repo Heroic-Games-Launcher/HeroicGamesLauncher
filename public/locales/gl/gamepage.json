@@ -153,7 +153,11 @@
             "syncing": "Sincronización de gardados"
         },
         "launching": "Lanzamento",
-        "ubisoft": "Instalación de Ubisoft Connect"
+        "ubisoft": "Instalación de Ubisoft Connect",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Opcións de arrinque..."

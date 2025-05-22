@@ -178,7 +178,11 @@
         "launching": "Iniciando",
         "ubisoft": "A instalar Ubisoft Connect",
         "winetricks": "Instalando Winetricks Packages",
-        "redist": "Instalando Redistributables"
+        "redist": "Instalando Redistributables",
+        "steam": {
+            "installing": "A instalar",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "opções do launcher..."

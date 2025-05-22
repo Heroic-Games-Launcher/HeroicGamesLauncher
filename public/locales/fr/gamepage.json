@@ -21,7 +21,8 @@
             "title": "Sélectionner l'exécutable à lancer"
         },
         "select": {
-            "button": "Sélectionner"
+            "button": "Sélectionner",
+            "image": "Sélectionner une image"
         },
         "sideload": {
             "exe": "Sélectionner l'exécutable"
@@ -45,7 +46,7 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour du jeu nécessaire"
         },
-        "wineprefix": "Sélectionner le dossier WinePrefix",
+        "wineprefix": "Sélectionnez le dossier WinePrefix",
         "yes": "OUI",
         "close": "Fermer"
     },
@@ -178,7 +179,11 @@
         "launching": "Lancement",
         "ubisoft": "Installation d'Ubisoft Connect",
         "redist": "Installation des paquets redistribuables",
-        "winetricks": "Installation des paquets Winetricks"
+        "winetricks": "Installation des paquets Winetricks",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Veuillez patienter..."
+        }
     },
     "launch": {
         "options": "Paramètres de lancement..."
@@ -213,7 +218,7 @@
             "fullscreen": "Exécuter en plein écran (F11 pour quitter)"
         },
         "placeholder": {
-            "image": "Collez ici l'URL d'une image",
+            "image": "Collez ici l'URL d'une image ou sélectionnez-en une provenant de votre ordinateur",
             "title": "Ajouter un titre à votre Jeu/Application",
             "url": "Collez l'URL du jeu ici",
             "useragent": "Créer un compte utilisateur personnalisé qui sera utilisé dans ce navigateur d'application/jeu"

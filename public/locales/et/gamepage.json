@@ -178,7 +178,11 @@
         "launching": "Käivitamine",
         "ubisoft": "Ubisoft Connecti installimine",
         "redist": "Vajalike pakkide paigaldamine",
-        "winetricks": "Winetricksi pakkide paigaldamine"
+        "winetricks": "Winetricksi pakkide paigaldamine",
+        "steam": {
+            "installing": "Paigaldamine",
+            "pleaseWait": "Palun oodake..."
+        }
     },
     "launch": {
         "options": "Käivitusvalikud..."

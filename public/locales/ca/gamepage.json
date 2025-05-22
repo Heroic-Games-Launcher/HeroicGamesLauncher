@@ -180,7 +180,11 @@
         "ubisoft": "S'instal·la l'Ubisoft Connect",
         "winetricks": "S'estan instal·lant els paquets del Winetricks",
         "prerequisites": "S'estan instal·lant els prerequisits",
-        "redist": "Instal·la redistribuïbles"
+        "redist": "Instal·la redistribuïbles",
+        "steam": {
+            "installing": "S'està instal·lant...",
+            "pleaseWait": "Espera..."
+        }
     },
     "launch": {
         "options": "Opcions d'execució..."

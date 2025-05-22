@@ -175,7 +175,11 @@
         "launching": "실행 중",
         "ubisoft": "Ubisoft 연결 설치",
         "redist": "재배포 가능 패키지 설치",
-        "winetricks": "와인트릭스 패키지 설치"
+        "winetricks": "와인트릭스 패키지 설치",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "잠시만 기다려 주세요...."
+        }
     },
     "launch": {
         "options": "실행 옵션..."

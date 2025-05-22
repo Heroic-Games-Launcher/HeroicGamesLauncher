@@ -177,7 +177,11 @@
         "ubisoft": "Instalando Ubisoft Connect",
         "winetricks": "Instalar paquetes Winetricks",
         "prerequisites": "Instalación de los equisitos previos",
-        "redist": "Instalación de redistribuibles"
+        "redist": "Instalación de redistribuibles",
+        "steam": {
+            "installing": "Instalando",
+            "pleaseWait": "Por favor, espere..."
+        }
     },
     "launch": {
         "options": "Opciones de arranque..."

@@ -173,7 +173,11 @@
         "launching": "Meluncurkan",
         "ubisoft": "Memasang Ubisoft Connect",
         "winetricks": "Menginstal Paket Winetricks",
-        "redist": "Menginstal Redistributable"
+        "redist": "Menginstal Redistributable",
+        "steam": {
+            "installing": "Memasang",
+            "pleaseWait": "Mohon tunggu..."
+        }
     },
     "launch": {
         "options": "Opsi Peluncuran…"

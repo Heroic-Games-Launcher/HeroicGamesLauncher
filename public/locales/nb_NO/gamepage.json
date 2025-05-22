@@ -178,7 +178,10 @@
         "launching": "Starter",
         "ubisoft": "Installerer Ubisoft Connect",
         "redist": "Installerer redistributables",
-        "winetricks": "Installerer Winetricks-pakker"
+        "winetricks": "Installerer Winetricks-pakker",
+        "steam": {
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Startalternativer..."

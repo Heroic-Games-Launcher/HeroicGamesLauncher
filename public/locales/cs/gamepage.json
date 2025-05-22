@@ -180,7 +180,11 @@
         "ubisoft": "Instalace Ubisoft Connect",
         "winetricks": "Instalace balíčků Winetricks",
         "prerequisites": "Instalace závislostí",
-        "redist": "Instalace Redistributables"
+        "redist": "Instalace Redistributables",
+        "steam": {
+            "installing": "Instaluji",
+            "pleaseWait": "Čekejte prosím..."
+        }
     },
     "launch": {
         "options": "Možnosti spuštění..."

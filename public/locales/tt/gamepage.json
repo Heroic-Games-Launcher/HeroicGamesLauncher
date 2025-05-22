@@ -165,6 +165,9 @@
         "launching": "Эшләтеп җибәрелә",
         "game": {
             "not-installable-game": "Уен УРНАШТЫРЫП БУЛМЫЙ"
+        },
+        "steam": {
+            "installing": "Урнаштырыла"
         }
     },
     "disabled": "Cүндерелгән",

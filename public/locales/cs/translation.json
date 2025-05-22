@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Zakázat zavření dialogů kliknutím pryč",
         "titles_always_visible": "Vždy zobrazovat názvy v knihovně",
         "actions_font_family_default": "Rodina písem akcí (výchozí: {{fontFamily}})",
-        "content_font_family_default": "Rodina písem obsahu (výchozí: {{fontFamily}})"
+        "content_font_family_default": "Rodina písem obsahu (výchozí: {{fontFamily}})",
+        "disable_smooth_scrolling": "Zakázat plynulé posouvání (vyžaduje restart)"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -275,7 +276,8 @@
         "no_categories": "Žádné vlastní kategorie. Přidejte je pomocí nabídky každé hry.",
         "categories": "Kategorie",
         "show_support_offline_only": "Zobrazit pouze s podporovaným režimem offline",
-        "show_third_party_managed_only": "Zobrazit pouze hry spravované třetí stranou"
+        "show_third_party_managed_only": "Zobrazit pouze hry spravované třetí stranou",
+        "show_updates_only": "Zobrazit pouze hry s aktualizacemi"
     },
     "help": {
         "amdfsr": "Funkce AMD FSR pomáhá zvýšit snímkovou frekvenci škálováním nižšího rozlišení v režimu celé obrazovky. Kvalita obrazu se zvýší z 5 na 1 za cenu mírného snížení výkonu. Povolení může zlepšit výkon.",
@@ -353,7 +355,8 @@
             "open": "Otevřít nápovědu",
             "close": "Zavřít nápovědu"
         },
-        "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon."
+        "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon.",
+        "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“."
     },
     "info": {
         "heroic": {
@@ -749,7 +752,8 @@
         },
         "verboseLogs": {
             "description": "Povolit zobrazení protokolů"
-        }
+        },
+        "download-proton-steam": "Stáhnout GE-Proton do adresáře služby Steam"
     },
     "settings": {
         "battlEyeRuntime": {

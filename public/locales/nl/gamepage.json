@@ -178,7 +178,11 @@
         "launching": "Lancering",
         "ubisoft": "Ubisoft Connect installeren",
         "winetricks": "Winetricks Paketten aan het installeren",
-        "redist": "Herverdelers installeren"
+        "redist": "Herverdelers installeren",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Opstartopties..."

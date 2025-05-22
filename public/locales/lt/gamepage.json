@@ -146,7 +146,11 @@
             "third-party-game": "Trečiosios šalies žaidimas NEPALAIKOMAS"
         },
         "winetricks": "Įdiegiami „Winetricks“ paketai",
-        "redist": "Įdiegiami įterptiniai taikomieji komponentai"
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai",
+        "steam": {
+            "installing": "Įdiegiama",
+            "pleaseWait": "Prašome palaukti..."
+        }
     },
     "modifyInstall": {
         "dlcsCollapsible": "„DLC“",

@@ -700,7 +700,8 @@
             "enableNewShinyFeature": "Новая бліскучая функцыя",
             "automaticWinetricksFixes": "Аўтаматычнае ўжыванне вядомых выпраўленняў",
             "enableHelp": "Кампанент даведкі",
-            "umuSupport": "Выкарыстоўваць umu у якасці асяроддзя выканання Proton"
+            "umuSupport": "Выкарыстоўваць umu у якасці асяроддзя выканання Proton",
+            "enableNewDesign": "Новы дызайн"
         },
         "disablePlaytimeSync": "Адключыць сінхранізацыю часу прайгравання",
         "frameless-window": {
@@ -917,7 +918,8 @@
         "search": "Шукаць шрыфты ці кампаненты",
         "nothingYet": "Нічога не было ўсталявана з дапамогай Winetricks",
         "installed": "Усталяваныя кампаненты:",
-        "loading-available": "Загрузка даступных кампанентаў..."
+        "loading-available": "Загрузка даступных кампанентаў...",
+        "no-components": "Загрузка даступных кампанентаў..."
     },
     "category-settings": {
         "cancel": "Скасаваць",

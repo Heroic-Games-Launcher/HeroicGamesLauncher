@@ -153,7 +153,11 @@
             "syncing": "സൂക്ഷിപ്പുകള് ഒന്നിപ്പിക്കുന്നു"
         },
         "launching": "ലോഞ്ച് ചെയ്യുന്നു",
-        "ubisoft": "Ubisoft കണക്ട് ഇൻസ്റ്റാൾ ചെയ്യുന്നു"
+        "ubisoft": "Ubisoft കണക്ട് ഇൻസ്റ്റാൾ ചെയ്യുന്നു",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "വിക്ഷേപണ ബദലുകൾ..."
