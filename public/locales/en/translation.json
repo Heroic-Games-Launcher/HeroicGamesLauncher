@@ -911,7 +911,7 @@
             "viewToggle": "Switch between grid and list view for your games.",
             "welcome": {
                 "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores.",
-                "intro2": "If the library is empty, make sure to login with your accounts usinge the Manage accounts on the sidebar or add your own games using the Add Game button above.",
+                "intro2": "If the library is empty, make sure to login with your accounts using the Manage accounts on the sidebar or add your own games using the Add Game button above.",
                 "title": "Welcome to Heroic!",
                 "title2": "Managing the library!"
             }
