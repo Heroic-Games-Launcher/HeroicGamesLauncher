@@ -141,6 +141,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import-x": "^3.1.0",
     "eslint-plugin-react": "7.35.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "fast-xml-parser": "^4.3.6",
     "husky": "8.0.3",
     "i18next-parser": "9.3.0",
