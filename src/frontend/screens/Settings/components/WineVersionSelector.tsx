@@ -17,7 +17,7 @@ interface ListItemProps {
   version: WineInstallation
 }
 
-const WineVersionListItem = React.memo(function WineVersionListItem({
+export const WineVersionListItem = React.memo(function WineVersionListItem({
   version
 }: ListItemProps) {
   const { name, type } = version
