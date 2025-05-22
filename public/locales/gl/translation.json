@@ -7,17 +7,18 @@
         "title": "Accessibility",
         "zoom": "Zoom",
         "actions_font_family_default": "Actions Font Family (Default:",
-        "content_font_family_default": "Content Font Family (Default:"
+        "content_font_family_default": "Content Font Family (Default:",
+        "titles_always_visible": "Mostrar sempre os títulos na biblioteca"
     },
-    "add_game": "Add Game",
+    "add_game": "Engadir xogo",
     "All": "Todos",
     "anticheat": {
         "anticheats": "Anticheats",
         "may_not_work": "It may not work due to denied or broken anticheat support.",
-        "reference": "Reference",
-        "source": "Source",
-        "status": "Status",
-        "title": "This game includes anticheat software",
+        "reference": "Referencia",
+        "source": "Fonte",
+        "status": "Estado",
+        "title": "Este xogo inclúe software anticheat",
         "multiplayer_may_not_work": "It may not work due to denied or broken anticheat support."
     },
     "box": {
@@ -25,7 +26,7 @@
             "message": "Limpouse a caché de Heroic.",
             "title": "Caché borrada"
         },
-        "choose": "Seleccionar",
+        "choose": "Escoller",
         "choose-egs-prefix": "Seleccionar o prefixo onde se instalará EGS",
         "choose-gogdl-binary": "Seleccionar binario GOGDL (precisa reinicio)",
         "choose-legendary-binary": "Seleccionar o binario Legendary",
@@ -88,6 +89,10 @@
             },
             "legendary": {
                 "generic": "Produciuse un erro! Tenta pechar sesión e iniciar sesión na túa conta de Epic. {{newline}} {{error}}"
+            },
+            "steam": {
+                "title": "Erro de Steam",
+                "message": "A installación de Steam fallou! Por favor lea atentamente as instruccións e inténteo de novo!"
             }
         },
         "info": {
@@ -299,7 +304,8 @@
             "wineManager": "Wine Manager",
             "library": "Biblioteca"
         },
-        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {
@@ -756,5 +762,8 @@
     },
     "window": {
         "close": "Pechar"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Non volver a amosar esta advertencia"
     }
 }
