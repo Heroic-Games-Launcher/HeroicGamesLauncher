@@ -172,7 +172,11 @@
         "launching": "Εκκίνηση",
         "ubisoft": "Εγκατάσταση του Ubisoft Connect",
         "redist": "Εγκατάσταση Αναδιανεμητών",
-        "winetricks": "Εγκατάσταση πακέτων Winetricks"
+        "winetricks": "Εγκατάσταση πακέτων Winetricks",
+        "steam": {
+            "installing": "Εγκατάσταση",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης..."
