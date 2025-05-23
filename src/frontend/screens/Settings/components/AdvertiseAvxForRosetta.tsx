@@ -6,14 +6,18 @@ import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { defaultWineVersion } from '..'
 
 const AdvertiseAvxForRosetta = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const { isMacNative } = useContext(SettingsContext)
   const isMac = platform === 'darwin'
-  const [wineVersion] = useSetting('wineVersion', { type: '', name: '', bin: '' })
-  const [advertiseAvxForRosetta, setAdvertiseAvxForRosetta] = useSetting('advertiseAvxForRosetta', false)
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
+  const [advertiseAvxForRosetta, setAdvertiseAvxForRosetta] = useSetting(
+    'advertiseAvxForRosetta',
+    false
+  )
 
   // Only show on macOS when using toolkit wine and not native games
   if (!isMac || isMacNative || wineVersion.type !== 'toolkit') {
