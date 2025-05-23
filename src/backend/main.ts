@@ -152,6 +152,7 @@ import {
   windowIcon
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
+import MigrationSystem from './migration'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -325,6 +326,8 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    await MigrationSystem.get().applyMigrations()
+
     initLogger()
     initOnlineMonitor()
     initStoreManagers()
