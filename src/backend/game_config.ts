@@ -234,7 +234,8 @@ class GameConfigV0 extends GameConfig {
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
       gamescope,
-      verboseLogs
+      verboseLogs,
+      advertiseAvxForRosetta
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -268,7 +269,7 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
-      advertiseAvxForRosetta: isMac && wineVersion.type === 'toolkit'
+      advertiseAvxForRosetta
     } as GameSettings
 
     let gameSettings = {} as GameSettings
