@@ -35,7 +35,7 @@ const TextInputField = ({
       {label && <label htmlFor={htmlId}>{label}</label>}
       {inputIcon}
       <input type="text" id={htmlId} value={value} {...inputProps} />
-      {value && warning}
+      {warning}
       {afterInput}
     </div>
   )
