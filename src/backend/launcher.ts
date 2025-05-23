@@ -1022,7 +1022,11 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       )
     }
   }
-  if (gameSettings.advertiseAvxForRosetta && isMac && wineVersion.type === 'toolkit') {
+  if (
+    gameSettings.advertiseAvxForRosetta &&
+    isMac &&
+    wineVersion.type === 'toolkit'
+  ) {
     ret.ROSETTA_ADVERTISE_AVX = '1'
   }
   return ret
