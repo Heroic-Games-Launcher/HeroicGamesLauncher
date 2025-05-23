@@ -86,7 +86,7 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { sendFrontendMessage } from '../../main_window'
+import { sendFrontendMessage } from '../../ipc'
 import { RemoveArgs } from 'common/types/game_manager'
 import {
   getWineFlagsArray,

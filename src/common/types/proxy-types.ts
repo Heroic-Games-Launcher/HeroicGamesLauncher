@@ -1,4 +1,4 @@
-type ApiType = typeof import('../../backend/api').default
+type ApiType = typeof import('../../preload/api').default
 
 declare global {
   interface Window {

@@ -1,6 +1,4 @@
-import { ipcMain } from 'electron'
+import { addHandler } from 'backend/ipc'
 import { removeRecentGame } from './recent_games'
 
-ipcMain.handle('removeRecent', async (_event, appName) =>
-  removeRecentGame(appName)
-)
+addHandler('removeRecent', async (_event, appName) => removeRecentGame(appName))

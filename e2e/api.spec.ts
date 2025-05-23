@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import { compareVersions } from 'compare-versions'
 import { electronTest } from './helpers'
 
-declare const window: { api: typeof import('../src/backend/api').default }
+declare const window: { api: typeof import('../src/preload/api').default }
 
 electronTest('renders the first page', async (app, page) => {
   await expect(page).toHaveTitle('Heroic Games Launcher')

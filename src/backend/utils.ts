@@ -53,7 +53,8 @@ import {
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
-import { getMainWindow, sendFrontendMessage } from './main_window'
+import { getMainWindow } from './main_window'
+import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
@@ -1126,7 +1127,7 @@ export async function moveOnWindows(
       const filenameMatch = data.match(/([\w.:\\]+)$/)?.[1]
       if (filenameMatch) currentFile = filenameMatch
 
-      sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+      sendFrontendMessage('progressUpdate', {
         appName: gameInfo.app_name,
         runner: gameInfo.runner,
         status: 'moving',
@@ -1232,7 +1233,7 @@ export async function moveOnUnix(
           }
         }
 
-        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+        sendFrontendMessage('progressUpdate', {
           appName: gameInfo.app_name,
           runner: gameInfo.runner,
           status: 'moving',
@@ -1389,7 +1390,7 @@ function sendGameStatusUpdate(payload: GameStatus) {
 }
 
 function sendProgressUpdate(payload: GameStatus) {
-  sendFrontendMessage(`progressUpdate-${payload.appName}`, payload)
+  sendFrontendMessage('progressUpdate', payload)
   backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
 }
 

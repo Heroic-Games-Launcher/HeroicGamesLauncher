@@ -1,59 +1,53 @@
-import { EventEmitter } from 'node:events'
-import { IpcMainEvent, OpenDialogOptions, TitleBarOverlay } from 'electron'
+import type { OpenDialogOptions, TitleBarOverlay } from 'electron'
 
-import {
-  Runner,
-  DiskSpaceData,
-  Tools,
-  WineCommandArgs,
-  Release,
-  GameInfo,
-  GameSettings,
-  InstallPlatform,
-  UserInfo,
-  WineInstallation,
-  AppSettings,
-  ToolArgs,
-  LaunchParams,
-  InstallParams,
-  MoveGameArgs,
-  ImportGameArgs,
-  StatusPromise,
-  SaveSyncArgs,
-  RunWineCommandArgs,
-  SideloadGame,
-  WineVersionInfo,
-  AntiCheatInfo,
-  RuntimeName,
-  DMQueueElement,
-  ConnectivityStatus,
-  GamepadActionArgs,
-  ExtraInfo,
-  LaunchOption,
-  DownloadManagerState,
-  InstallInfo,
-  WikiInfo,
-  UploadedLogData,
-  RunnerCommandStub,
-  KnowFixesInfo
-} from 'common/types'
-import { GameOverride, SelectiveDownload } from 'common/types/legendary'
-import { GOGCloudSavesLocation } from 'common/types/gog'
-import {
-  NileLoginData,
-  NileRegisterData,
-  NileUserData
-} from 'common/types/nile'
 import type { SystemInformation } from 'backend/utils/systeminfo'
 
-/**
- * Some notes here:
- *  - One could've used arrays as keys for the `SyncIPCFunctions` interface
- *    (holding just the parameters to the callbacks, if any), since the callbacks
- *    there will never return anything other than void.
- *    I've decided against that to keep it in line with the `AsyncIPCFunctions`
- *    interface
- */
+import type {
+  AntiCheatInfo,
+  AppSettings,
+  ButtonOptions,
+  ConnectivityStatus,
+  DialogType,
+  DiskSpaceData,
+  DMQueueElement,
+  DownloadManagerState,
+  ExecResult,
+  ExtraInfo,
+  GameInfo,
+  GamepadActionArgs,
+  GameSettings,
+  GameStatus,
+  ImportGameArgs,
+  InstallInfo,
+  InstallParams,
+  InstallPlatform,
+  KnowFixesInfo,
+  LaunchOption,
+  LaunchParams,
+  MoveGameArgs,
+  RecentGame,
+  Release,
+  Runner,
+  RunnerCommandStub,
+  RuntimeName,
+  RunWineCommandArgs,
+  SaveSyncArgs,
+  StatusPromise,
+  ToolArgs,
+  Tools,
+  UpdateParams,
+  UploadedLogData,
+  UserInfo,
+  WikiInfo,
+  WineCommandArgs,
+  WineInstallation,
+  WineManagerStatus,
+  WineVersionInfo
+} from '../types'
+import type { GOGCloudSavesLocation, UserData } from './gog'
+import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
+import type { GameOverride, SelectiveDownload } from './legendary'
+
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
   setZoomFactor: (zoomFactor: string) => void
@@ -89,7 +83,7 @@ interface SyncIPCFunctions {
   showItemInFolder: (item: string) => void
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
-  addNewApp: (args: SideloadGame) => void
+  addNewApp: (args: GameInfo) => void
   showLogFileInFolder: (appNameOrRunner: string) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
@@ -113,11 +107,11 @@ interface SyncIPCFunctions {
   unmaximizeWindow: () => void
   closeWindow: () => void
   setTitleBarOverlay: (options: TitleBarOverlay) => void
-  winetricksInstall: ({
+  winetricksInstall: (
     runner: Runner,
     appName: string,
     component: string
-  }) => void
+  ) => void
   changeGameVersionPinnedStatus: (
     appName: string,
     runner: Runner,
@@ -142,21 +136,14 @@ interface TestSyncIPCFunctions {
 
 // ts-prune-ignore-next
 interface AsyncIPCFunctions {
-  addToDMQueue: (element: DMQueueElement) => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (args: Tools) => Promise<void>
   runWineCommand: (
     args: WineCommandArgs
   ) => Promise<{ stdout: string; stderr: string }>
-  winetricksInstalled: ({
-    runner: Runner,
-    appName: string
-  }) => Promise<string[]>
-  winetricksAvailable: ({
-    runner: Runner,
-    appName: string
-  }) => Promise<string[]>
+  winetricksInstalled: (runner: Runner, appName: string) => Promise<string[]>
+  winetricksAvailable: (runner: Runner, appName: string) => Promise<string[]>
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
@@ -207,14 +194,13 @@ interface AsyncIPCFunctions {
   logoutAmazon: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
-  requestSettings: (appName: string) => Promise<AppSettings | GameSettings>
+  requestAppSettings: () => AppSettings
+  requestGameSettings: (appName: string) => Promise<GameSettings>
   writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
   refreshLibrary: (library?: Runner | 'all') => Promise<void>
   launch: (args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
-  install: (
-    args: InstallParams
-  ) => Promise<{ status: 'error' | 'done' | 'abort' }>
+  install: (args: InstallParams) => Promise<void>
   uninstall: (
     appName: string,
     runner: Runner,
@@ -224,7 +210,7 @@ interface AsyncIPCFunctions {
   repair: (appName: string, runner: Runner) => Promise<void>
   moveInstall: (args: MoveGameArgs) => Promise<void>
   importGame: (args: ImportGameArgs) => StatusPromise
-  updateGame: (appName: string, runner: Runner) => StatusPromise
+  updateGame: (args: UpdateParams) => Promise<void>
   changeInstallPath: (args: MoveGameArgs) => Promise<void>
   egsSync: (arg: string) => Promise<string>
   syncGOGSaves: (
@@ -240,11 +226,6 @@ interface AsyncIPCFunctions {
   clipboardReadText: () => string
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
-  removeApp: (args: {
-    appName: string
-    shouldRemovePrefix: boolean
-    runner: Runner
-  }) => Promise<void>
   isNative: (args: { appName: string; runner: Runner }) => boolean
   getLogContent: (appNameOrRunner: string) => string
   installWineVersion: (release: WineVersionInfo) => Promise<void>
@@ -331,65 +312,49 @@ interface AsyncIPCFunctions {
   isIntelMac: () => boolean
 }
 
-// This is quite ugly & throws a lot of errors in a regular .ts file
-// TODO: Find a TS magician who can improve this further
-// ts-prune-ignore-next
-declare namespace Electron {
-  class IpcMain extends EventEmitter {
-    public on: (<
-      Name extends keyof SyncIPCFunctions,
-      Definition extends SyncIPCFunctions[Name]
-    >(
-      name: Name,
-      callback: (e: IpcMainEvent, ...args: Parameters<Definition>) => void
-    ) => void) &
-      (<
-        Name extends keyof TestSyncIPCFunctions,
-        Definition extends TestSyncIPCFunctions[Name]
-      >(
-        name: Name,
-        callback: (...args: Parameters<Definition>) => void
-      ) => void)
+interface FrontendMessages {
+  gameStatusUpdate: (status: GameStatus) => void
+  wineVersionsUpdated: () => void
+  showDialog: (
+    title: string,
+    message: string,
+    type: DialogType,
+    buttons?: Array<ButtonOptions>
+  ) => void
+  changedDMQueueInformation: (
+    elements: DMQueueElement[],
+    state: DownloadManagerState
+  ) => void
+  maximized: () => void
+  unmaximized: () => void
+  fullscreen: (status: boolean) => void
+  refreshLibrary: (runner?: Runner) => void
+  openScreen: (screen: string) => void
+  'connectivity-changed': (status: {
+    status: ConnectivityStatus
+    retryIn: number
+  }) => void
+  launchGame: (appName: string, runner: Runner, args: string[]) => void
+  installGame: (appName: string, runner: Runner) => void
+  recentGamesChanged: (newRecentGames: RecentGame[]) => void
+  pushGameToLibrary: (info: GameInfo) => void
+  progressOfWinetricks: (payload: {
+    messages: string[]
+    installingComponent: string
+  }) => void
+  progressOfWineManager: (version: string, progress: WineManagerStatus) => void
+  'installing-winetricks-component': (component: string) => void
+  logFileUploaded: (url: string, data: UploadedLogData) => void
+  logFileUploadDeleted: (url: string) => void
+  progressUpdate: (progress: GameStatus) => void
 
-    public handle: <
-      Name extends keyof AsyncIPCFunctions,
-      Definition extends AsyncIPCFunctions[Name]
-    >(
-      name: Name,
-      callback: (
-        e: IpcMainEvent,
-        ...args: Parameters<Definition>
-      ) => ReturnType<Definition>
-    ) => void
-  }
-
-  class IpcRenderer extends EventEmitter {
-    public send: <
-      Name extends keyof SyncIPCFunctions,
-      Definition extends SyncIPCFunctions[Name]
-    >(
-      name: Name,
-      ...args: Parameters<Definition>
-    ) => void
-
-    public invoke: <
-      Name extends keyof AsyncIPCFunctions,
-      Definition extends AsyncIPCFunctions[Name],
-      Ret extends ReturnType<Definition>
-    >(
-      name: Name,
-      ...args: Parameters<Definition>
-    ) => Ret extends Promise<unknown> ? Ret : Promise<Ret>
-  }
-
-  namespace CrossProcessExports {
-    const ipcMain: IpcMain
-    type IpcMain = Electron.IpcMain
-    const ipcRenderer: IpcRenderer
-    type IpcRenderer = Electron.IpcRenderer
-  }
+  // Used inside tests, so we can be a bit lenient with the type checking here
+  message: (...params: unknown[]) => void
 }
 
-declare module 'electron' {
-  export = Electron.CrossProcessExports
+export type {
+  SyncIPCFunctions,
+  TestSyncIPCFunctions,
+  AsyncIPCFunctions,
+  FrontendMessages
 }
