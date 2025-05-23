@@ -221,6 +221,7 @@ export interface GameSettings {
   afterLaunchScriptPath: string
   disableUMU: boolean
   verboseLogs: boolean
+  advertiseAvxForRosetta: boolean
 }
 
 export type Status =

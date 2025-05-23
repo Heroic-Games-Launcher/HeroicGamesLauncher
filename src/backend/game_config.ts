@@ -267,7 +267,8 @@ class GameConfigV0 extends GameConfig {
       beforeLaunchScriptPath,
       afterLaunchScriptPath,
       gamescope,
-      verboseLogs
+      verboseLogs,
+      advertiseAvxForRosetta: false
     } as GameSettings
 
     let gameSettings = {} as GameSettings

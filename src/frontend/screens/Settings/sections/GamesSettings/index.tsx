@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import {
+  AdvertiseAvxForRosetta,
   AlternativeExe,
   AutoDXVK,
   AutoDXVKNVAPI,
@@ -187,6 +188,7 @@ export default function GamesSettings() {
             <EnableEsync />
             <EnableFsync />
             <EnableMsync />
+            <AdvertiseAvxForRosetta />
             <EnableFSR />
             <EnableDXVKFpsLimit />
             <Tools />
