@@ -196,7 +196,7 @@ export async function getLinuxWineSet(
     customWineSet = getCustomWinePaths()
   }
 
-  return new Set([...defaultWineSet, ...altWine, ...proton, ...customWineSet])
+  return new Set([...proton, ...altWine, ...defaultWineSet, ...customWineSet])
 }
 
 /// --------------- MACOS ------------------
