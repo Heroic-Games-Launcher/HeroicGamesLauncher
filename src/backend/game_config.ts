@@ -268,7 +268,7 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
-      advertiseAvxForRosetta: false
+      advertiseAvxForRosetta: isMac && wineVersion.type === 'toolkit'
     } as GameSettings
 
     let gameSettings = {} as GameSettings
