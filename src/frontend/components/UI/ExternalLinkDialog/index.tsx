@@ -13,20 +13,21 @@ export default function ExternalLinkDialog() {
     useContext(ContextProvider)
 
   function onClose() {
+    setShowDialog(false)
     handleExternalLinkDialog({ showDialog: false, linkCallback: undefined })
   }
 
   function onContinue() {
+    onHideDialogChange()
     if (externalLinkDialogOptions.linkCallback !== undefined)
       externalLinkDialogOptions.linkCallback()
     onClose()
   }
 
   function onHideDialogChange() {
-    setShowDialog(!showDialog)
     localStorage.setItem(
       SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY,
-      showDialog.toString()
+      showDialog ? 'false' : 'true'
     )
   }
 
@@ -38,7 +39,7 @@ export default function ExternalLinkDialog() {
         <br></br>
         <ToggleSwitch
           htmlId="externalLinkDialog"
-          handleChange={onHideDialogChange}
+          handleChange={() => setShowDialog(!showDialog)}
           value={showDialog}
           title={t('externalLink.dontAskAgain', "Don't ask again")}
         ></ToggleSwitch>
