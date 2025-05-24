@@ -7,7 +7,13 @@ import {
   spawnAsync
 } from '../../utils'
 import { GameConfig } from '../../game_config'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import {
+  getRunnerLogWriter,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from 'backend/logger'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
 import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
 import { readFile } from 'node:fs/promises'
@@ -82,7 +88,12 @@ async function setup(
 
   const gameSettings = GameConfig.get(appName).config
   if (!isWindows) {
-    const isWineOkToLaunch = await checkWineBeforeLaunch(gameInfo, gameSettings)
+    const logWriter = getRunnerLogWriter('gog')
+    const isWineOkToLaunch = await checkWineBeforeLaunch(
+      gameInfo,
+      gameSettings,
+      logWriter
+    )
 
     if (!isWineOkToLaunch) {
       logError(

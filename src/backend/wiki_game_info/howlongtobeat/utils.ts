@@ -1,4 +1,4 @@
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { HowLongToBeat } from 'howlongtobeat-js'
 
 export interface HowLongToBeatEntry {

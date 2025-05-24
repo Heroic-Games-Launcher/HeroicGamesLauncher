@@ -3,7 +3,7 @@ import {
   crossoverRatingRegEx,
   wineRatingRegEx
 } from './constants'
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { AppleGamingWikiInfo } from 'common/types'
 import { axiosClient } from 'backend/utils'
 

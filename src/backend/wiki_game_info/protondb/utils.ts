@@ -1,7 +1,7 @@
 import { ProtonDBCompatibilityInfo } from 'common/types'
 import { AxiosError } from 'axios'
 import { axiosClient } from 'backend/utils'
-import { logDebug, logError, LogPrefix } from 'backend/logger/logger'
+import { logDebug, logError, LogPrefix } from 'backend/logger'
 
 export async function getInfoFromProtonDB(
   steamID: string | undefined

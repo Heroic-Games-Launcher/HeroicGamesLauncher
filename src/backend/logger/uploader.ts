@@ -4,8 +4,7 @@ import path from 'path'
 import { z } from 'zod'
 
 import { TypeCheckedStoreBackend } from '../electron_store'
-import { getLogFile } from './logfile'
-import { logError, logInfo, LogPrefix } from './logger'
+import { getLogFilePath, logError, logInfo, LogPrefix } from '../logger'
 import { sendFrontendMessage } from '../ipc'
 
 import type { UploadedLogData } from 'common/types'
@@ -52,14 +51,14 @@ async function readPartOfFile(file: string, size: number) {
 /**
  * Uploads the log file of a game / runner / Heroic to https://0x0.st
  * @param name See {@link UploadedLogData.name}
- * @param appNameOrRunner Used to get the log file path. See {@link getLogFile}
+ * @param getLogFileArgs Used to get the log file path. See {@link getLogFilePath}
  * @returns `false` if an error occurred, otherwise the URL to the uploaded file and {@link UploadedLogData}
  */
 async function uploadLogFile(
   name: string,
-  appNameOrRunner: string
+  getLogFileArgs: Parameters<typeof getLogFilePath>[0]
 ): Promise<false | [string, UploadedLogData]> {
-  const fileLocation = getLogFile(appNameOrRunner)
+  const fileLocation = getLogFilePath(getLogFileArgs)
   const filename = path.basename(fileLocation)
 
   const fileContents = await readPartOfFile(fileLocation, 10 * MiB)
