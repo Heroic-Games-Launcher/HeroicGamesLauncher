@@ -114,7 +114,10 @@ async function handleLaunch(url: URL) {
   })
   if (response === 0) {
     if (isCLINoGui) {
-      logInfo('--no-gui flag detected but user wants to install, showing GUI', LogPrefix.ProtocolHandler)
+      logInfo(
+        '--no-gui flag detected but user wants to install, showing GUI',
+        LogPrefix.ProtocolHandler
+      )
       mainWindow.show()
     }
     sendFrontendMessage('installGame', appName, gameInfo.runner)

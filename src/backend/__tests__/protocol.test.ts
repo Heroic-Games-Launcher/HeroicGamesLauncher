@@ -95,7 +95,7 @@ describe('protocol.ts --no-gui behavior', () => {
   const mockMainWindow = {
     show: jest.fn()
   }
-  
+
   const mockGameInfo = {
     app_name: 'test-game',
     title: 'Test Game',
@@ -110,9 +110,13 @@ describe('protocol.ts --no-gui behavior', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     ;(getMainWindow as jest.Mock).mockReturnValue(mockMainWindow)
-    ;(gameManagerMap.legendary.getGameInfo as jest.Mock).mockReturnValue(mockGameInfo)
-    ;(gameManagerMap.legendary.getSettings as jest.Mock).mockResolvedValue(mockGameSettings)
-    
+    ;(gameManagerMap.legendary.getGameInfo as jest.Mock).mockReturnValue(
+      mockGameInfo
+    )
+    ;(gameManagerMap.legendary.getSettings as jest.Mock).mockResolvedValue(
+      mockGameSettings
+    )
+
     // Mock other game managers to return empty objects
     ;(gameManagerMap.gog.getGameInfo as jest.Mock).mockReturnValue({})
     ;(gameManagerMap.nile.getGameInfo as jest.Mock).mockReturnValue({})
@@ -143,7 +147,11 @@ describe('protocol.ts --no-gui behavior', () => {
         await handleProtocol(['heroic://launch/test-game'])
 
         expect(mockMainWindow.show).toHaveBeenCalled()
-        expect(sendFrontendMessage).toHaveBeenCalledWith('installGame', 'test-game', 'legendary')
+        expect(sendFrontendMessage).toHaveBeenCalledWith(
+          'installGame',
+          'test-game',
+          'legendary'
+        )
         expect(app.quit).not.toHaveBeenCalled()
       })
     })
@@ -167,7 +175,11 @@ describe('protocol.ts --no-gui behavior', () => {
 
         await handleProtocol(['heroic://launch/test-game'])
 
-        expect(sendFrontendMessage).toHaveBeenCalledWith('installGame', 'test-game', 'legendary')
+        expect(sendFrontendMessage).toHaveBeenCalledWith(
+          'installGame',
+          'test-game',
+          'legendary'
+        )
         expect(app.quit).not.toHaveBeenCalled()
         expect(mockMainWindow.show).not.toHaveBeenCalled()
       })
@@ -199,7 +211,7 @@ describe('protocol.ts --no-gui behavior', () => {
   describe('edge cases', () => {
     test('should handle invalid URLs gracefully', async () => {
       await handleProtocol(['not-a-heroic-url'])
-      
+
       // Should not crash or call any dialog/app methods
       expect(dialog.showMessageBox).not.toHaveBeenCalled()
       expect(app.quit).not.toHaveBeenCalled()
