@@ -1,9 +1,9 @@
 id: com.heroicgameslauncher.hgl
 sdk: org.freedesktop.Sdk
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
+base-version: '24.08'
 command: heroic-run
 separate-locales: false
 
@@ -18,6 +18,8 @@ sdk-extensions:
 finish-args:
   - --allow=devel
   - --allow=multiarch
+  - --allow=bluetooth
+
   # pressure vessel
   - --allow=per-app-dev-shm
   - --device=all
@@ -43,6 +45,7 @@ finish-args:
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
   # umu
   - --filesystem=xdg-data/umu:create
+  - --filesystem=xdg-config/MangoHud:ro
   - --persist=.
   - --share=ipc
   - --share=network
@@ -52,24 +55,56 @@ finish-args:
   - --talk-name=org.kde.StatusNotifierWatcher
   - --talk-name=com.canonical.Unity
   - --talk-name=org.freedesktop.ScreenSaver
+
+  # copied from steam (wip)
   # wine uses this for disk drives (mountmgr.sys)
   - --system-talk-name=org.freedesktop.UDisks2
+  - --talk-name=org.gnome.SettingsDaemon.MediaKeys
+  # Wine uses UDisks2 to enumerate disk drives
+  - --system-talk-name=org.freedesktop.UDisks2
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --system-talk-name=org.freedesktop.UPower
+  - --talk-name=org.freedesktop.PowerManagement
+  - --talk-name=org.freedesktop.Notifications
+  - --env=TZ=
+  - --unset-env=TZ
+  - --env=LC_ADDRESS=C
+  - --env=LC_COLLATE=C
+  - --env=LC_MONETARY=C
+  - --env=LC_MEASUREMENT=C
+  - --env=LC_NAME=C
+  - --env=LC_NUMERIC=C
+  - --env=LC_TELEPHONE=C
+  - --env=ALSA_CONFIG_PATH=
+  - --unset-env=ALSA_CONFIG_PATH
+  - --env=MESA_GLSL_CACHE_DIR=
+  - --unset-env=MESA_GLSL_CACHE_DIR
+  - --env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES=
+  - --unset-env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES
+  - --env=STEAM_RUNTIME=
+  - --unset-env=STEAM_RUNTIME
+  - --env=SDL_VIDEODRIVER=
+  - --unset-env=SDL_VIDEODRIVER
+  - --env=DBUS_FATAL_WARNINGS=0
+  - --env=PROTON_DEBUG_DIR=/var/tmp
+  - --env=XDG_CONFIG_DIRS=/etc/xdg:/usr/lib/x86_64-linux-gnu/GL:/usr/lib/i386-linux-gnu/GL
   - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
+  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/app/lib32/gstreamer-1.0:/usr/lib/extensions/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '23.08'
+    version: '24.08'
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '23.08'
+    version: '24.08'
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
     version: '1.4'
-    versions: 23.08;1.4
+    versions: 24.08;1.4
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -89,8 +124,8 @@ add-extensions:
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '23.08'
-    versions: '23.08'
+    version: '24.08'
+    versions: '24.08'
     autodelete: false
     no-autodownload: true
     add-ld-path: lib
@@ -174,8 +209,8 @@ modules:
       - --disable-md2man
     sources:
       - type: archive
-        url: https://download.samba.org/pub/rsync/src/rsync-3.3.0.tar.gz
-        sha256: 7399e9a6708c32d678a72a63219e96f23be0be2336e50fd1348498d07041df90
+        url: https://download.samba.org/pub/rsync/src/rsync-3.4.1.tar.gz
+        sha256: 2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52
         x-checker-data:
           type: anitya
           project-id: 4217
@@ -201,7 +236,9 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper /app/bin/heroic/heroic "$@"
 
-      - ${heroic-app-image}
+      - type: file
+        url: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.16.1/Heroic-2.16.1-linux-x86_64.AppImage
+        sha512: 5bf1dc026f0b4c0cc24af33f750fc80e837b5f682b44b52051d47575d390d975b0bf2609e38c203be978a50edb8366a58af528ab32e8560613b63200979a6cae
 
   - name: platform-bootstrap
     buildsystem: simple
