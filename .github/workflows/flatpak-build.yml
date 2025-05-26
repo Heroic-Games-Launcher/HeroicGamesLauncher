@@ -14,11 +14,11 @@ jobs:
     name: 'Flatpak Build'
     runs-on: ubuntu-latest
     container:
-      image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: ./.github/actions/install-deps
       - name: Build artifacts.
         run: pnpm dist:linux appimage --publish=never
