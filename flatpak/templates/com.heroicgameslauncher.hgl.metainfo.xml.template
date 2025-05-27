@@ -230,7 +230,7 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="v2.16.1" date="2025-03-10">
+   	<release version="${heroic-version}" date="${heroic-release-date}">
       <description>
         <p>General</p>
         <ul>
