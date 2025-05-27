@@ -1,4 +1,3 @@
-import i18next from 'i18next'
 import { GlobalConfig } from 'backend/config'
 import {
   logError,
@@ -25,7 +24,6 @@ import {
 } from 'backend/constants/paths'
 import { isLinux, isMac } from 'backend/constants/environment'
 import { getSystemInfo } from './systeminfo'
-import { dialog } from 'electron'
 
 /**
  * Loads the default wine installation path and version.
@@ -587,15 +585,10 @@ export async function isUmuSupported(
   )
 
   if (isPreCacheDisabled) {
-    await dialog.showMessageBox({
-      type: 'info',
-      title: i18next.t('umuPreCacheTitle', 'Steam Pre-Cache disabled'),
-      message: i18next.t(
-        'umuPreCacheMessage',
-        'UMU is enabled, but the Steam Pre-Cache is disabled. This may cause issues with some games. Enable it in the Steam settings for UMU to work properly.'
-      ),
-      buttons: [i18next.t('ok', 'OK')]
-    })
+    logInfo(
+      'UMU is disabled due to pre-cache being disabled',
+      LogPrefix.Runtime
+    )
     return false
   }
 
