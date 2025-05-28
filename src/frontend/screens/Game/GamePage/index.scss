@@ -582,6 +582,33 @@
   }
 }
 
+@media (max-width: 1250px) {
+  .gameConfigContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+
+    .mainInfoWrapper,
+    .extraInfoWrapper {
+      max-height: 35vh;
+      min-height: fit-content;
+    }
+  }
+}
+
+@media (max-height: 560px) {
+  .mainInfo .gamePicture,
+  .mainInfo .store-icon,
+  .mainInfo .gameStatus,
+  .mainInfo .developer,
+  .mainInfo .releaseDate,
+  .mainInfo .genre,
+  .mainInfo .timeContainerLabel,
+  .mainInfo .summary {
+    display: none;
+  }
+}
+
 .extraInfoTabs {
   display: flex;
   flex-direction: row;
