@@ -496,12 +496,19 @@ const shouldToggleShaderPreCacheOn = async (
   info: SystemInformation | null,
   gameSettings: GameSettings
 ) => {
+  logDebug(`Checking if we should toggle Shader Pre-Caching`, LogPrefix.Backend)
+
   if (!info) return false
   if (!info.steamDeckInfo.isDeck) return false
   if (info.steamDeckInfo.mode !== 'game') return false
   if (!(await isUmuSupported(gameSettings))) return false
 
   // check if all of the following env variables are undefined
+  logDebug(
+    `Checking for Steam's Shared Pre-cache env variables`,
+    LogPrefix.Backend
+  )
+
   return [
     'STEAM_COMPAT_TRANSCODED_MEDIA_PATH',
     'STEAM_COMPAT_MEDIA_PATH',
