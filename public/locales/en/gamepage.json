@@ -26,6 +26,10 @@
             "image": "Select Image"
         },
         "select-install-path": "Select Steam Installation Path",
+        "selectLaunchOption": {
+            "message": "Please select a launch option for this game:",
+            "title": "Select Launch Option"
+        },
         "sideload": {
             "exe": "Select Executable"
         },

@@ -825,6 +825,7 @@
         "gamescope": {
             "searchMsg": "Searching for gamescope executable."
         },
+        "launchOptions": "Launch Options",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -838,6 +839,7 @@
             "sync": "Cloud Saves Sync",
             "systemInformation": "System Information"
         },
+        "noLaunchOption": "No Launch Option",
         "offline": {
             "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."
         },
