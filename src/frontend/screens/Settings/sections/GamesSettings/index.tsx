@@ -19,6 +19,7 @@ import {
   EnvVariablesTable,
   GameMode,
   LauncherArgs,
+  LaunchOptionSelector,
   Mangohud,
   OfflineMode,
   PreferedLanguage,
@@ -221,6 +222,7 @@ export default function GamesSettings() {
         <VerboseLogs />
         <DisableUMU />
         <AlternativeExe />
+        <LaunchOptionSelector />
         <LauncherArgs />
         <div className="Field">
           <label>Scripts:</label>
