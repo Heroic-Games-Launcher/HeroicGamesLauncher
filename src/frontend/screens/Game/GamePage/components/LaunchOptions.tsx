@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
 import { SelectField } from 'frontend/components/UI'
-import { MenuItem } from '@mui/material'
+import { MenuItem, SelectChangeEvent } from '@mui/material'
 
 interface Props {
   gameInfo: GameInfo
@@ -10,25 +10,110 @@ interface Props {
 }
 
 const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
-  const { appName, runner } = useContext(GameContext)
+  const { appName, runner, gameSettings } = useContext(GameContext)
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(0)
+  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(-1)
 
   useEffect(() => {
-    void window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
-  }, [gameInfo])
+    const fetchLaunchOptions = async () => {
+      const options = await window.api.getLaunchOptions(appName, runner)
+      setLaunchOptions(options)
+
+      if (gameSettings?.lastUsedLaunchOption && options.length > 0) {
+        const lastOption = gameSettings.lastUsedLaunchOption
+        const foundIndex = options.findIndex((option) => {
+          if (option.type !== lastOption.type) return false
+
+          if (
+            (option.type === undefined || option.type === 'basic') &&
+            'name' in option &&
+            'name' in lastOption &&
+            'parameters' in option &&
+            'parameters' in lastOption
+          ) {
+            return (
+              option.name === lastOption.name &&
+              option.parameters === lastOption.parameters
+            )
+          }
+
+          if (
+            option.type === 'dlc' &&
+            'dlcAppName' in option &&
+            'dlcAppName' in lastOption
+          ) {
+            return option.dlcAppName === lastOption.dlcAppName
+          }
+
+          if (
+            option.type === 'altExe' &&
+            'executable' in option &&
+            'executable' in lastOption
+          ) {
+            return option.executable === lastOption.executable
+          }
+
+          return false
+        })
+
+        if (foundIndex !== -1) {
+          setSelectedLaunchOptionIndex(foundIndex)
+          setLaunchArguments(options[foundIndex])
+        } else {
+          setSelectedLaunchOptionIndex(0)
+          if (options.length > 0) {
+            setLaunchArguments(options[0])
+          }
+        }
+      } else if (options.length > 0) {
+        // If no saved option, use the first one
+        setSelectedLaunchOptionIndex(0)
+        setLaunchArguments(options[0])
+      }
+    }
+
+    void fetchLaunchOptions()
+  }, [gameInfo, appName, runner, gameSettings])
 
   const labelForLaunchOption = useCallback((option: LaunchOption) => {
     switch (option.type) {
       case undefined:
       case 'basic':
-        return option.name
+        return 'name' in option ? option.name : 'Launch Option'
       case 'dlc':
-        return option.dlcTitle
+        return 'dlcTitle' in option ? option.dlcTitle : 'DLC'
       case 'altExe':
-        return option.executable
+        return 'executable' in option
+          ? option.executable
+          : 'Alternative Executable'
     }
   }, [])
+
+  const handleLaunchOptionChange = (event: SelectChangeEvent) => {
+    const value = event.target.value
+
+    if (value === '') {
+      setSelectedLaunchOptionIndex(-1)
+      setLaunchArguments(undefined)
+      // Save the setting
+      void window.api.setSetting({
+        appName,
+        key: 'lastUsedLaunchOption',
+        value: undefined
+      })
+    } else {
+      const selectedIndex = Number(value)
+      setSelectedLaunchOptionIndex(selectedIndex)
+      const selectedOption = launchOptions[selectedIndex]
+      setLaunchArguments(selectedOption)
+      // Save the setting
+      void window.api.setSetting({
+        appName,
+        key: 'lastUsedLaunchOption',
+        value: selectedOption
+      })
+    }
+  }
 
   if (!gameInfo.is_installed) {
     return null
@@ -41,16 +126,7 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
   return (
     <SelectField
       htmlId="launch_options"
-      onChange={({ target: { value } }) => {
-        if (value === '') {
-          setSelectedLaunchOptionIndex(-1)
-          setLaunchArguments(undefined)
-        } else {
-          const selectedIndex = Number(value)
-          setSelectedLaunchOptionIndex(selectedIndex)
-          setLaunchArguments(launchOptions[selectedIndex])
-        }
-      }}
+      onChange={handleLaunchOptionChange}
       value={selectedLaunchOptionIndex.toString()}
     >
       {launchOptions.map((option, index) => (

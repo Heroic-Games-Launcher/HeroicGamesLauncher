@@ -113,6 +113,10 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
   const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
 
+  if (!launchArguments && gameSettings.lastUsedLaunchOption) {
+    launchArguments = gameSettings.lastUsedLaunchOption
+  }
+
   const { title } = game
 
   const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
