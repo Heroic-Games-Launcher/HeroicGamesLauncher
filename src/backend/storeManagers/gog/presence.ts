@@ -1,5 +1,5 @@
 import { app } from 'electron'
-import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { axiosClient } from 'backend/utils'
 import { GOGUser } from './user'
 import { isOnline } from 'backend/online_monitor'

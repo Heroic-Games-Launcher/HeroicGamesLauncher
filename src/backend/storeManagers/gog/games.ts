@@ -17,7 +17,6 @@ import { GlobalConfig } from '../../config'
 import {
   errorHandler,
   getFileSize,
-  getGOGdlBin,
   spawnAsync,
   moveOnUnix,
   moveOnWindows,
@@ -47,20 +46,17 @@ import {
   syncStore
 } from './electronStores'
 import {
-  appendGamePlayLog,
-  appendRunnerLog,
-  appendWinetricksGamePlayLog,
   logDebug,
   logError,
-  logFileLocation,
   logInfo,
   LogPrefix,
-  logWarning
-} from '../../logger/logger'
+  logWarning,
+  createGameLogWriter,
+  getRunnerLogWriter
+} from 'backend/logger'
 import { GOGUser } from './user'
 import {
   getKnownFixesEnvVariables,
-  getRunnerCallWithoutCredentials,
   getWinePath,
   launchCleanup,
   prepareLaunch,
@@ -102,6 +98,8 @@ import { spawn } from 'child_process'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import { gogdlConfigPath, gogSupportPath } from './constants'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+
+import type LogWriter from 'backend/logger/log_writer'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -359,9 +357,10 @@ export async function install(
     onInstallOrUpdateOutput(appName, 'installing', data)
   }
 
+  const installLogWriter = await createGameLogWriter(appName, 'gog', 'install')
   const res = await runGogdlCommand(commandParts, {
     abortId: appName,
-    logFile: logFileLocation(appName),
+    logWriters: [installLogWriter],
     onOutput,
     logMessagePrefix: `Installing ${appName}`
   })
@@ -479,6 +478,7 @@ export async function removeShortcuts(appName: string) {
 
 export async function launch(
   appName: string,
+  logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
@@ -510,9 +510,9 @@ export async function launch(
     gameScopeCommand,
     gameModeBin,
     steamRuntime
-  } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
+  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
-    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    logWriter.logError(['Launch aborted:', launchPrepFailReason])
     launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
@@ -555,9 +555,9 @@ export async function launch(
       success: wineLaunchPrepSuccess,
       failureReason: wineLaunchPrepFailReason,
       envVars: wineEnvVars
-    } = await prepareWineLaunch('gog', appName)
+    } = await prepareWineLaunch('gog', appName, logWriter)
     if (!wineLaunchPrepSuccess) {
-      appendGamePlayLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
+      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -567,8 +567,6 @@ export async function launch(
       }
       return false
     }
-
-    appendWinetricksGamePlayLog(gameInfo)
 
     commandEnv = {
       ...commandEnv,
@@ -665,8 +663,7 @@ export async function launch(
         })
       }
       logInfo(result.stdout, { prefix: LogPrefix.Gog })
-      appendGamePlayLog(
-        gameInfo,
+      logWriter.writeString(
         `\nMods deploy log:\n${result.stdout}\n\n${result.stderr}\n\n\n`
       )
       if (result.stderr.includes('deploy has succeeded')) {
@@ -683,25 +680,13 @@ export async function launch(
     }
   }
 
-  const fullCommand = getRunnerCallWithoutCredentials(
-    commandParts,
-    commandEnv,
-    join(...Object.values(getGOGdlBin()))
-  )
-  appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
-
-  if (!gameSettings.verboseLogs) {
-    appendGamePlayLog(
-      gameInfo,
-      "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n\n"
-    )
-  }
-
   const userData: UserData | undefined = configStore.get_nodefault('userData')
 
   sendGameStatusUpdate({ appName, runner: 'gog', status: 'playing' })
 
   let child = undefined
+
+  const cometLogWriter = getRunnerLogWriter('comet')
 
   if (
     userData &&
@@ -716,11 +701,13 @@ export async function launch(
       userData.username,
       '--quit'
     ])
-    child.stdout.on('data', (data) => {
-      appendRunnerLog('gog', data.toString())
+    child.stdout.setEncoding('utf-8')
+    child.stderr.setEncoding('utf-8')
+    child.stdout.on('data', (data: string) => {
+      cometLogWriter.writeString(data)
     })
-    child.stderr.on('data', (data) => {
-      appendRunnerLog('gog', data.toString())
+    child.stderr.on('data', (data: string) => {
+      cometLogWriter.writeString(data)
     })
     logInfo(`Launching Comet!`, LogPrefix.Gog)
   }
@@ -730,9 +717,7 @@ export async function launch(
     env: commandEnv,
     wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
-    onOutput: (output: string) => {
-      if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
-    }
+    logWriters: [logWriter]
   })
 
   if (child) {
@@ -788,7 +773,7 @@ export async function moveInstall(
  * verification step doesn't have progress, but download does
  */
 export async function repair(appName: string): Promise<ExecResult> {
-  const { installPlatform, gameData, credentials, withDlcs, logPath, workers } =
+  const { installPlatform, gameData, credentials, withDlcs, workers } =
     await getCommandParameters(appName)
 
   if (!credentials) {
@@ -817,9 +802,10 @@ export async function repair(appName: string): Promise<ExecResult> {
     commandParts.push('--password', privateBranchPassword)
   }
 
+  const repairLogWriter = await createGameLogWriter(appName, 'gog', 'repair')
   const res = await runGogdlCommand(commandParts, {
     abortId: appName,
-    logFile: logPath,
+    logWriters: [repairLogWriter],
     logMessagePrefix: `Repairing ${appName}`
   })
 
@@ -1000,7 +986,6 @@ export async function update(
     gameData,
     credentials,
     withDlcs,
-    logPath,
     workers,
     dlcs,
     branch
@@ -1125,9 +1110,10 @@ export async function update(
     onInstallOrUpdateOutput(appName, 'updating', data)
   }
 
+  const updateLogWriter = await createGameLogWriter(appName, 'gog', 'update')
   const res = await runGogdlCommand(commandParts, {
     abortId: appName,
-    logFile: logPath,
+    logWriters: [updateLogWriter],
     onOutput,
     logMessagePrefix: `Updating ${appName}`
   })
@@ -1225,7 +1211,6 @@ async function getCommandParameters(appName: string) {
   const { maxWorkers } = GlobalConfig.get().getSettings()
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
   const gameData = getGameInfo(appName)
-  const logPath = logFileLocation(appName)
   const credentials = await GOGUser.getCredentials()
 
   const numberOfDLCs = gameData.install?.installedDLCs?.length || 0
@@ -1250,7 +1235,6 @@ async function getCommandParameters(appName: string) {
     withDlcs,
     workers,
     installPlatform,
-    logPath,
     credentials,
     gameData,
     dlcs,

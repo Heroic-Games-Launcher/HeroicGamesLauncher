@@ -1,4 +1,4 @@
-import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
+import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger'
 import {
   NileLoginData,
   NileRegisterData,

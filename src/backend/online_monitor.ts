@@ -1,7 +1,7 @@
 import { ConnectivityStatus } from 'common/types'
 import { net } from 'electron'
 import { addListener, addHandler } from 'backend/ipc'
-import { logInfo, LogPrefix } from './logger/logger'
+import { logInfo, LogPrefix } from './logger'
 import axios from 'axios'
 import EventEmitter from 'node:events'
 import { sendFrontendMessage } from './ipc'

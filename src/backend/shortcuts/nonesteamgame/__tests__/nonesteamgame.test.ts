@@ -5,10 +5,9 @@ import { DirResult, dirSync } from 'tmp'
 import { addNonSteamGame, removeNonSteamGame } from '../nonesteamgame'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import { GlobalConfig } from 'backend/config'
-import { logInfo, logError, logWarning } from '../../../logger/logger'
+import { logInfo, logError, logWarning } from 'backend/logger'
 
-jest.mock('backend/logger/logfile')
-jest.mock('backend/logger/logger')
+jest.mock('backend/logger')
 jest.mock('backend/dialog/dialog')
 jest.mock('backend/utils')
 jest.mock('backend/config')
