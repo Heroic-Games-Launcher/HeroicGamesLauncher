@@ -1,10 +1,9 @@
 .gameConfigContainer {
   display: grid;
-  grid-template-columns: minmax(500px, 60%) minmax(500px, 60%);
+  grid-template-columns: 1fr 1fr;
   padding: var(--space-md);
   gap: var(--space-md);
   border-radius: 10px;
-  max-width: 1920px;
   height: 100vh;
   min-height: 100vh;
   grid-template-areas:
@@ -92,7 +91,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 92vh;
     max-height: calc(100vh - 150px);
     overflow-y: auto;
     overflow-x: hidden;
