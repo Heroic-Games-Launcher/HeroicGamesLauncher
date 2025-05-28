@@ -27,7 +27,7 @@
         },
         "select-install-path": "Select Steam Installation Path",
         "selectLaunchOption": {
-            "message": "Please select a launch option for this game:",
+            "body": "Please select a launch option for this game (it can be changed later on the game settings):",
             "title": "Select Launch Option"
         },
         "sideload": {

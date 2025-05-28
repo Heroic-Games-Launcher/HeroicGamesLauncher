@@ -10,7 +10,7 @@ const LaunchOptionSelector = () => {
   const { t } = useTranslation()
   const { isDefault, appName, gameInfo } = useContext(SettingsContext)
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const defaultLaunchOption: LaunchOption = {
     type: 'basic',
@@ -123,9 +123,6 @@ const LaunchOptionSelector = () => {
           onChange={handleLaunchOptionChange}
           value={selectedIndex.toString()}
         >
-          <MenuItem value="-1">
-            {t('settings.noLaunchOption', 'No Launch Option')}
-          </MenuItem>
           {launchOptions.map((option, index) => (
             <MenuItem key={index} value={index.toString()}>
               {labelForLaunchOption(option)}

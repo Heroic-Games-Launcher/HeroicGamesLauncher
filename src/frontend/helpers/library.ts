@@ -357,8 +357,8 @@ async function checkLaunchOptionsAndLaunch({
 
     showDialogModal({
       message: t(
-        'gamepage:box.selectLaunchOption.message',
-        'Please select a launch option for this game:'
+        'gamepage:box.selectLaunchOption.body',
+        'Please select a launch option for this game (it can be changed later on the game settings):'
       ),
       title: t('gamepage:box.selectLaunchOption.title', 'Select Launch Option'),
       buttons: optionButtons
