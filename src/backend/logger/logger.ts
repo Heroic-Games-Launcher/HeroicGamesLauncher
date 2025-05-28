@@ -492,7 +492,7 @@ class LogWriter {
  *
  * More details: https://github.com/Open-Wine-Components/umu-launcher/wiki/Frequently-asked-questions-(FAQ)#why-am-i-not-able-to-see-my-game-when-using-my-launcher-from-steam-mode-gaming-mode
  */
-export const shouldToggleShaderPreCacheOn = async (
+const shouldToggleShaderPreCacheOn = async (
   info: SystemInformation | null,
   gameSettings: GameSettings
 ) => {

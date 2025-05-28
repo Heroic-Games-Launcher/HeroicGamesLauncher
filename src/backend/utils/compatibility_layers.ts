@@ -1,10 +1,5 @@
 import { GlobalConfig } from 'backend/config'
-import {
-  logError,
-  LogPrefix,
-  logInfo,
-  shouldToggleShaderPreCacheOn
-} from 'backend/logger/logger'
+import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
 import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
@@ -23,7 +18,6 @@ import {
   userHome
 } from 'backend/constants/paths'
 import { isLinux, isMac } from 'backend/constants/environment'
-import { getSystemInfo } from './systeminfo'
 
 /**
  * Loads the default wine installation path and version.
@@ -574,23 +568,14 @@ export async function isUmuSupported(
 ): Promise<boolean> {
   if (!isLinux) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
-  if (gameSettings.disableUMU === false) return false
-  if (!checkUmuInstalled) return true
-  if (!existsSync(await getUmuPath())) return false
-
-  const info = await getSystemInfo()
-  const isPreCacheDisabled = await shouldToggleShaderPreCacheOn(
-    info,
-    gameSettings
-  )
-
-  if (isPreCacheDisabled) {
-    logInfo(
-      'UMU is disabled due to pre-cache being disabled',
-      LogPrefix.Runtime
-    )
+  if (
+    gameSettings.disableUMU === undefined ||
+    gameSettings.disableUMU === true
+  ) {
     return false
   }
+  if (!checkUmuInstalled) return true
+  if (!existsSync(await getUmuPath())) return false
 
   return true
 }
