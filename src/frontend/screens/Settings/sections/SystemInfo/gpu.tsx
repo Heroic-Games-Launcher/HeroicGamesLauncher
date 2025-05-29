@@ -37,10 +37,10 @@ function GPUCard({ gpu, gpuNumber, showNumber }: GPUCardProps) {
     <Paper sx={{ padding: 1, height: '100%' }} square>
       <Typography variant="h6">{headingText}</Typography>
       <Grid container spacing={1}>
-        <Grid item xs={2}>
+        <Grid size={2}>
           <VendorLogo model={vendorString} />
         </Grid>
-        <Grid item xs={10}>
+        <Grid size={10}>
           {deviceString}
           <br />
           DID={deviceId} VID={vendorId}, DSID={subdeviceId} VSID={subvendorId}

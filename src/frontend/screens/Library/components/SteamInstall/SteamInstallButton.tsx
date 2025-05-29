@@ -9,7 +9,7 @@ import SteamInstallDialog from './SteamInstallDialog'
 import { launch } from 'frontend/helpers'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import { Tooltip } from '@mui/material/'
+import { Tooltip } from '@mui/material'
 import { WineInstallation } from 'common/types'
 
 export default function SteamInstallButton({
