@@ -353,7 +353,8 @@
             "upscaleMethod": "Oppskaleringsmetoden gamescope burde bruke.",
             "forceGrabCursor": "Bruk alltid relativ musemodus i stedet for å veksle avhengig av markørens synlighet. (Nyttig når applikasjoner stadig mister fokus)"
         },
-        "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres."
+        "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {

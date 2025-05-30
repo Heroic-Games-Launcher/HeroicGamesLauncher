@@ -91,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Une erreur est survenue ! Essayez de vous déconnecter et de vous reconnecter à votre compte Epic. {{newline}} {{error}}"
+            },
+            "steam": {
+                "error": "Executable de Steam non trouvé. L'installation aura probablement été annulée par l'utilisateur ou aura échoué en raison de problèmes imputables à Steam.",
+                "message": "L'installation de Steam a échoué ! Veuillez lire les instructions attentivement et réessayer ! {{paragraph}} {{error}}",
+                "title": "Erreur Steam"
             }
         },
         "info": {
@@ -337,7 +342,7 @@
             "login": "Connexion",
             "settings": "Options",
             "downloadManager": "Gestionnaire de téléchargements",
-            "wineManager": "Gestionnaire Wine",
+            "wineManager": "Gestion de Wine",
             "library": "Bibliothèque"
         },
         "content": {
@@ -356,7 +361,9 @@
             "close": "Fermer la fenêtre d'aide"
         },
         "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles.",
-        "download_proton_steam": "Lorsqu'activé, GE-Proton sera téléchargé directement vers le dossier des outils de compatibilité de Steam, en lieu et place du chemin par défaut d'Heroic. Il utilisera le chemin vers Steam définit dans le champ 'Chemin vers Steam par défaut' ci-dessus."
+        "download_proton_steam": "Lorsqu'activé, GE-Proton sera téléchargé directement vers le dossier des outils de compatibilité de Steam, en lieu et place du chemin par défaut d'Heroic. Il utilisera le chemin vers Steam définit dans le champ 'Chemin vers Steam par défaut' ci-dessus.",
+        "dxfpslimit": "Définir un plafond de fréquences d'images pour les jeux DXVK",
+        "advertiseAvxForRosetta": "Active la compatibilité avec l'ensemble d'instructions AVX lors de l'exécution de jeux Windows via Rosetta sur les Macs Apple Silicon. Cela peut être nécessaire pour certains jeux comme Death Stranding, qui requièrent une compatibilité avec AVX."
     },
     "info": {
         "heroic": {
@@ -752,7 +759,9 @@
             "warning": "Avertissement : ceci s'applique à toute l'interface. Cela signifie qu'un style erroné peut rendre Heroic inutilisable. Si nécessaire, ce paramètre peut être modifié depuis `~/.config/heroic/config.json`. Ne copiez PAS de styles provenant de sources auxquelles vous ne faites pas confiance."
         },
         "disableUMU": "Désactiver umu",
-        "download-proton-steam": "Télécharger GE-Proton dans le dossier de Steam"
+        "download-proton-steam": "Télécharger GE-Proton dans le dossier de Steam",
+        "advertiseAvxForRosetta": "Promouvoir AVX pour Rosetta",
+        "dxfpslimit": "Limiter les FPS des jeux DirectX"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1009,7 +1018,8 @@
             },
             "gameCard": "Faites un clic-gauche sur la vignette du jeu afin de naviguer vers sa page, consulter ses détails et ajuster ses paramètres ou faites un clic-droit pour ouvrir le menu contextuel.",
             "sortInstalled": "Classez les jeux selon leur statut (installé/non-installé).",
-            "sortOptions": "Cliquez ici pour classer les jeux par ordre alphabétique."
+            "sortOptions": "Cliquez ici pour classer les jeux par ordre alphabétique.",
+            "steamInstall": "Utilisez ce bouton pour installer la version Windows de Steam et jouer à vos jeux Windows au moyen de Crossover, Wine ou GPTK."
         },
         "back": "Retour",
         "done": "Compris",
@@ -1034,5 +1044,11 @@
         },
         "skip": "Passer",
         "startTour": "Débuter la visite guidée"
+    },
+    "notification": {
+        "steam": {
+            "error": "L'installation de Steam a échoué ! Veuillez lire les instructions attentivement et réessayer !",
+            "success": "Steam pour Windows a été installé avec succès !"
+        }
     }
 }

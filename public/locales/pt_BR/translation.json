@@ -354,7 +354,8 @@
             "login": "Fazer login em diferentes lojas.",
             "settingsDefault": "Mostra todas as configurações da Heroic e padrões para jogos."
         },
-        "msync": "O msync visa reduzir a sobrecarga do wineserver em jogos que demandam muito da CPU. Habilitá-lo pode melhorar a performance em kernels Linux que o suportam."
+        "msync": "O msync visa reduzir a sobrecarga do wineserver em jogos que demandam muito da CPU. Habilitá-lo pode melhorar a performance em kernels Linux que o suportam.",
+        "dxfpslimit": "Aplicar um limite de Quadros por Segundo para jogos em DXVK"
     },
     "info": {
         "heroic": {

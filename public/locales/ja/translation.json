@@ -349,7 +349,8 @@
             "login": "それぞれのストアにログインします。",
             "wineManager": "各バージョンのWine、Proton、Crossoverなどをインストールします。"
         },
-        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {

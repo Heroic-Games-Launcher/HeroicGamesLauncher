@@ -48,7 +48,8 @@
         },
         "wineprefix": "Sélectionnez le dossier WinePrefix",
         "yes": "OUI",
-        "close": "Fermer"
+        "close": "Fermer",
+        "select-install-path": "Sélectionnez le chemin d'installation de Steam"
     },
     "button": {
         "add_to_favourites": "Ajouter aux favoris",
@@ -57,7 +58,7 @@
         "finish": "Terminer",
         "force_update": "Forcer la mise à jour si disponible",
         "force-innstall": "Forcer l'installation",
-        "hide_game": "Cacher le jeu",
+        "hide_game": "Masquer le jeu",
         "import": "Importer le jeu",
         "install": "Installer",
         "no-path-selected": "Aucun chemin sélectionné",
@@ -71,7 +72,7 @@
         "sideload": {
             "edit": "Modifier l'application/le jeu"
         },
-        "unhide_game": "Afficher le jeu",
+        "unhide_game": "Dé-masquer le jeu",
         "uninstall": "Désinstaller",
         "update": "Mise à jour",
         "details": "Détails",
@@ -111,8 +112,8 @@
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l'installation",
-        "extra_info": "Critiques",
-        "install_info": "Informations d'installation"
+        "extra_info": "Informations supplémentaires",
+        "install_info": "Infos sur l'installation"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -182,7 +183,29 @@
         "winetricks": "Installation des paquets Winetricks",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Veuillez patienter..."
+            "pleaseWait": "Veuillez patienter...",
+            "installation": "Installation de Steam",
+            "compatibility-layer-not-available": "Couche de compatibilité non disponible. Veuillez en installer une depuis « Options > Gestion de Wine ».",
+            "abort": "Interrompre l'installation",
+            "cancel": "Annuler l'installation",
+            "compatibility": "Soyez conscient(e) que tous les jeux ne fonctionneront pas, et même s'ils fonctionnent, ils pourraient ne pas s'exécuter comme prévu.",
+            "crossover": "Si Crossover est installé, vous n'aurez pas besoin de cela, puisqu'il peut très bien faire fonctionner le Steam ordinaire.",
+            "downloading": "En cours de téléchargement {{percent}}%",
+            "hardware": "Apple Silicon M1+ (pour les Macs Intel, Steam fonctionnera avec Crossover)",
+            "install": "Installer Steam",
+            "install-path": "Chemin d'installation de Steam",
+            "install-tooltip": "Ceci installera la version Windows de Steam et ce dernier utilisera une strate de compatibilité fournie par Heroic pour fonctionner. \n\n        Certains jeux, en particulier des titres anciens, des jeux en 3D récents, ou ceux comportant un logiciel anti-triche, pourraient ne pas fonctionner correctement. \n\n    ",
+            "launch": "Lancer Steam avec la couche de compatibilité d'Heroic",
+            "launching": "Lancement de Steam…",
+            "macOS": "macOS 14.0 ou plus récent",
+            "notification": "Heroic vous avertira lorsque l'installation aura été achevée.",
+            "patience": "Si vous souhaitez continuer, soyez patient(e) ; il peut faloir plusieurs minutes pour terminer ce processus en fonction de votre connexion internet et de la configuration de votre système.",
+            "specificVersion-pt3": "faite pour fonctionner à travers Heroic, puisque les nouvelles versions de Steam ne fonctionneront pas sur macOS.",
+            "ram": "8GB de RAM",
+            "recommended": "Spécifications recommandées pour une meilleure expérience",
+            "select-path": "Choisissez un dossier d'installation pour Steam",
+            "specificVersion-pt1": "Ceci téléchargera une version de Steam spécifique depuis",
+            "specificVersion-pt2": "archive.org"
         }
     },
     "launch": {

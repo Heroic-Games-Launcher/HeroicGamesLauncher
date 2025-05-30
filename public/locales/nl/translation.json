@@ -338,7 +338,8 @@
         "gamescope": {
             "fpsLimiter": "Het aantal frames gamescope moet naar limiteren. Bijvb. 60",
             "fpsLimiterNoFocus": "De framelimiet gamescope moet aanhouden als de game niet is gefocused."
-        }
+        },
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {

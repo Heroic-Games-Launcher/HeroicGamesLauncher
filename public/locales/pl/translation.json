@@ -348,7 +348,8 @@
             "settingsDefault": "Pokazuje wszystkie opcje Heroic i domyślne opcje gier.",
             "wineManager": "Zainstaluj inne wersje Wine, Protona, Crossover, itp."
         },
-        "msync": "Zadaniem Msync jest zmniejszenie narzutu wydajności spowodowanego przez wineserver w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność na obsługiwanych kernelach Linuksa."
+        "msync": "Zadaniem Msync jest zmniejszenie narzutu wydajności spowodowanego przez wineserver w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność na obsługiwanych kernelach Linuksa.",
+        "dxfpslimit": "Ustala limit klatek na sekundę dla gier z DXVK"
     },
     "info": {
         "heroic": {

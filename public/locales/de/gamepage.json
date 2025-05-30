@@ -21,7 +21,8 @@
             "title": "Wähle auszuführende EXE"
         },
         "select": {
-            "button": "Auswählen"
+            "button": "Auswählen",
+            "image": "Bild auswählen"
         },
         "sideload": {
             "exe": "Wähle ausführbare Datei"
@@ -47,7 +48,8 @@
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA",
-        "close": "Schließen"
+        "close": "Schließen",
+        "select-install-path": "Wählen Sie den Steam-Installationspfad aus"
     },
     "button": {
         "add_to_favourites": "Zu Favoriten hinzufügen",
@@ -182,7 +184,16 @@
         "redist": "Installiere weiterverbreitbare Komponenten",
         "steam": {
             "installing": "Wird installiert",
-            "pleaseWait": "Bitte warten..."
+            "pleaseWait": "Bitte warten...",
+            "compatibility": "Nicht alle Spiele werden funktionieren. Jene, die funktionieren, können anders als erwartet laufen.",
+            "install": "Steam installieren",
+            "notification": "Heroic wird dich benachrichtigen, sobald die Installation fertig ist.",
+            "install-path": "Steam-Installationspfad",
+            "launching": "Steam wird gestartet...",
+            "macOS": "macOS 14.0 und höher",
+            "ram": "8GB RAM",
+            "recommended": "Für eine bessere Erfahrung empfohlene Systemvoraussetzungen",
+            "abort": "Installation abbrechen"
         }
     },
     "launch": {
