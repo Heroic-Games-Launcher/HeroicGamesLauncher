@@ -348,7 +348,8 @@
             "open": "Abrir la ayuda",
             "close": "Cerrar ayuda"
         },
-        "msync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten."
+        "msync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
+        "dxfpslimit": "Configura un límite de cuadros por segundo para juegos con DXVK"
     },
     "info": {
         "heroic": {
