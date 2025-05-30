@@ -347,7 +347,8 @@
         "button": {
             "close": "Zatvoriť Pomocník",
             "open": "Otvoriť Pomocník"
-        }
+        },
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {
