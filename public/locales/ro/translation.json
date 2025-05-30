@@ -295,7 +295,8 @@
             "settings": "Setări",
             "downloadManager": "Download Manager",
             "library": "Bibliotecă"
-        }
+        },
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {
