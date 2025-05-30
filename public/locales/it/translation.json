@@ -353,7 +353,8 @@
             "upscaleWidth": "La larghezza della risoluzione usata dal gioco. 16:9 è l'aspetto predefinito.",
             "forceGrabCursor": "Utilizzare sempre la modalità relativa del mouse invece di ribaltare a seconda della visibilità del cursore. (Utili per quando le applicazioni continuano a perdere fuoco)"
         },
-        "msync": "Msync mira a ridurre l'overhead del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni sui kernel Linux supportati."
+        "msync": "Msync mira a ridurre l'overhead del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni sui kernel Linux supportati.",
+        "dxfpslimit": "Imposta un limite per gli la frequenza di aggiornamento (FPS) per i giochi che supportano DXVK"
     },
     "info": {
         "heroic": {
