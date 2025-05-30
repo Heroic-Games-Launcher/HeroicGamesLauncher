@@ -348,7 +348,8 @@
             "open": "Öppna hjälp",
             "close": "Stäng hjälp"
         },
-        "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds."
+        "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds.",
+        "dxfpslimit": "Ställer in ett bildhastighetstak för DXVK spel"
     },
     "info": {
         "heroic": {
