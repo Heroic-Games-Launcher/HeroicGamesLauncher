@@ -339,7 +339,8 @@
         "vkd3d": "„VKD3D“ yra „Vulkas“ paremtas vertimo sluoksnis, skirtas „DirectX 12“ žaidimams. Įjungiant/Įgalinant gali žymiai pagerinti palaikomumą. Neturi jokio poveikio ant senesnių „DirectX“ žaidimų, jie reikalauja „DXVK“.",
         "gamemode": "„Feral“ žaidimo veiksena pritaiko automatinius ir laikinus pakoregavimus sistemai, kai veikia žaidimai. Įjungiant/Įgalinant gali pagerinti našumą.",
         "primerun": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
-        "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą."
+        "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą.",
+        "dxfpslimit": "Nustato kadrų dažnio ribą „DXVK“ žaidimams"
     },
     "info": {
         "version": "„Wine“ versija",
