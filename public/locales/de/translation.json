@@ -91,6 +91,9 @@
             },
             "legendary": {
                 "generic": "Ein Fehler ist aufgetreten! Versuche, dich bei deinem Epic-Konto ab- und anzumelden. {{newline}}  {{error}}"
+            },
+            "steam": {
+                "message": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!"
             }
         },
         "info": {
@@ -170,6 +173,9 @@
                 "checkbox": "Diese Meldung nicht mehr anzeigen",
                 "title": "Heroic läuft als Snap",
                 "message": "Einige Funktionen sind in der Snap-Version der App noch nicht verfügbar und wir versuchen, dies zu beheben.{{newLine}}Die aktuellen Einschränkungen sind: {{newLine}}Heroic wird nicht in der Lage sein, Proton von Steam oder Wine von Lutris zu finden.{{newLine}}{{newLine}}Gamescope, GameMode und MangoHud werden ebenfalls nicht funktionieren, da Heroic keinen Zugriff darauf hat.{{newLine}}{{newLine}}Um Zugriff auf diese Funktionen zu haben, installieren Sie Heroic bitte als Flatpak, DEB oder vom AppImage."
+            },
+            "rosetta": {
+                "title": "Rosetta wurde nicht gefunden"
             }
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
@@ -272,7 +278,8 @@
         "reset": "Zurücksetzen",
         "select_all": "Alle auswählen",
         "show_support_offline_only": "Keine aktive Internetverbindung notwendig",
-        "show_third_party_managed_only": "Nur von Drittanbietern verwaltete anzeigen"
+        "show_third_party_managed_only": "Nur von Drittanbietern verwaltete anzeigen",
+        "show_updates_only": "Nur Spiele mit Updates anzeigen"
     },
     "help": {
         "amdfsr": "AMDs FSR hilft bei der Verbesserung der Framerate durch Hochskalierung niedrigerer Auflösungen im Vollbildmodus. Die Bildqualität wird von 5 auf 1 erhöht, allerdings auf Kosten einer leichten Leistungseinbuße. Das Aktivieren kann die Leistung verbessern.",
@@ -349,7 +356,8 @@
             "close": "Hilfe schließen",
             "open": "Hilfe öffnen"
         },
-        "msync": "Msync zielt darauf ab, Winserver Overhead in CPU-intensiven Spielen zu reduzieren. Aktivieren kann die Leistung auf unterstützten Linux-Kernels verbessern."
+        "msync": "Msync zielt darauf ab, Winserver Overhead in CPU-intensiven Spielen zu reduzieren. Aktivieren kann die Leistung auf unterstützten Linux-Kernels verbessern.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {
@@ -937,7 +945,9 @@
         "openGUI": "Winetricks GUI öffnen",
         "search": "Schriftarten oder Komponenten suchen",
         "nothingYet": "Es wurde noch nichts von Winetricks installiert",
-        "installed": "Installierte Komponenten:"
+        "installed": "Installierte Komponenten:",
+        "no-components": "Keine verfügbaren Komponenten",
+        "loading-available": "Verfügbare Komponenten werden geladen ..."
     },
     "category-settings": {
         "cancel": "Abbrechen",
@@ -995,8 +1005,23 @@
                 "intro": "Willkommen zur Heroic Bibliothek! Hier kannst du all deine Spiele aus verschiedenen Stores sehen."
             },
             "addGame": "Klicke hier, um deine eigenen Spiele oder Apps zur Bibliothek hinzuzufügen. Diese können alles mögliche sein, sogar Browser URLs.",
-            "filters": "Filtere mit diesen Optionen deine Spiele nach Store, Plattform, Favoriten und mehr."
+            "filters": "Filtere mit diesen Optionen deine Spiele nach Store, Plattform, Favoriten und mehr.",
+            "steamInstall": "Benutze diesen Button, um die Windows-Version von Steam zu installieren und spiele deine Windows-Spiele mit Crossover, Wine oder GPTK.",
+            "refresh": "Aktualisiere deine Bibliothek, um nach neuen Spielen oder Updates zu suchen."
         },
-        "done": "Fertig"
+        "done": "Fertig",
+        "sidebar": {
+            "accessibility": "Auf Einstellungen zur Barrierefreiheit zugreifen, um deine Erfahrung anzupassen.",
+            "library": "Greife von einem Ort auf deine Spielbibliothek aus verschiedenen Stores zu."
+        },
+        "next": "Weiter",
+        "startTour": "Tour starten",
+        "skip": "Überspringen"
+    },
+    "notification": {
+        "steam": {
+            "error": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!",
+            "success": "Steam für Windows wurde erfolgreich installiert!"
+        }
     }
 }
