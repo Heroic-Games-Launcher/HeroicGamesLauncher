@@ -603,17 +603,16 @@ class GameLogWriter extends LogWriter {
             delete gameSettings.autoInstallDxvk
             delete gameSettings.autoInstallDxvkNvapi
             delete gameSettings.autoInstallVkd3d
+            delete gameSettings.wineCrossoverBottle
           }
 
           if (wineType.type === 'crossover') {
             delete gameSettings.autoInstallDxvk
             delete gameSettings.autoInstallDxvkNvapi
             delete gameSettings.autoInstallVkd3d
+            delete gameSettings.winePrefix
           }
         }
-
-        delete gameSettings.wineVersion
-        delete gameSettings.winePrefix
       } else {
         // remove settings that are not used on native Mac games
         delete gameSettings.enableDXVKFpsLimit
