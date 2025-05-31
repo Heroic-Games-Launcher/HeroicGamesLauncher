@@ -79,10 +79,15 @@ const Gamescope = () => {
   if (!isInstalled) {
     return (
       <div style={{ color: 'red' }}>
-        {t(
-          'setting.gamescope.missingMsg',
-          'We could not found gamescope on the PATH. Install it or add it to the PATH.'
-        )}
+        {window.isFlatpak
+          ? t(
+              'setting.gamescope.missingMsgFlatpak',
+              "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime 24.08 and restart Heroic."
+            )
+          : t(
+              'setting.gamescope.missingMsg',
+              'We could not find gamescope on the PATH. Install it or add it to the PATH.'
+            )}
       </div>
     )
   }

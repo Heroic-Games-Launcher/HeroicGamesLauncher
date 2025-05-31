@@ -157,7 +157,6 @@ interface AsyncIPCFunctions {
   isFrameless: () => boolean
   isMaximized: () => boolean
   isMinimized: () => boolean
-  isFlatpak: () => boolean
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>

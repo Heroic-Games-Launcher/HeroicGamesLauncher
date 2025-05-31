@@ -17,10 +17,9 @@ const GameMode = () => {
     return <></>
   }
 
-  async function handleGameMode() {
+  function handleGameMode() {
     if (useGameMode && eacRuntime) {
-      const isFlatpak = await window.api.isFlatpak()
-      if (isFlatpak) {
+      if (window.isFlatpak) {
         showDialogModal({
           showDialog: true,
           title: t(

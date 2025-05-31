@@ -168,6 +168,7 @@ declare global {
     ) => Promise<string>
     setTheme: (themeClass: string) => void
     isSteamDeckGameMode: boolean
+    isFlatpak: boolean
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
   }

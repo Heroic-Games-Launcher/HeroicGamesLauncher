@@ -16,7 +16,7 @@ const UseFramelessWindow = () => {
     return <></>
   }
 
-  async function toggleFramelessWindow() {
+  function toggleFramelessWindow() {
     if (!framelessWindow) {
       showDialogModal({
         title: t(
