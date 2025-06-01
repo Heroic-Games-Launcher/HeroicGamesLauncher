@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const Mangohud = () => {
   const { t } = useTranslation()
@@ -25,10 +24,8 @@ const Mangohud = () => {
         title={t('setting.mangohud')}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.mangohud',
           'MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
         )}

@@ -2,10 +2,9 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import SettingsContext from '../SettingsContext'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoVKD3D = () => {
   const { t } = useTranslation()
@@ -53,10 +52,8 @@ const AutoVKD3D = () => {
         disabled={!autoInstallDxvk || installingVKD3D}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.vkd3d',
           'VKD3D is a Vulkan-based translational layer for DirectX 12 games. Enabling may improve compatibility significantly. Has no effect on older DirectX games, it requires DXVK.'
         )}

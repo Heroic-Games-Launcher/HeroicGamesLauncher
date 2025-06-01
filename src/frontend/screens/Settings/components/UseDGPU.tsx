@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const UseDGPU = () => {
   const { t } = useTranslation()
@@ -51,10 +50,8 @@ const UseDGPU = () => {
         title={t('setting.primerun.description', 'Use Dedicated Graphics Card')}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.primerun',
           'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)'
         )}

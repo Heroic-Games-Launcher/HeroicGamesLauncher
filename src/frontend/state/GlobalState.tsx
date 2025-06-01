@@ -892,6 +892,10 @@ class GlobalState extends PureComponent<Props> {
     window.addEventListener(
       'controller-changed',
       (e: CustomEvent<{ controllerId: string }>) => {
+        document.body.classList.toggle(
+          'controllerLayout',
+          e.detail.controllerId !== ''
+        )
         this.setState({ activeController: e.detail.controllerId })
       }
     )
