@@ -525,12 +525,10 @@ function loadFile(app_name: string): boolean {
     return false
   }
 
-  // skip games that are only available for Android, obtanied from the Epic Mobile Store app
-  // TODO: I don't own any game on PC and the mobile store so I don't know if they have to be
-  // handled differently, for now we are only skipping if it's only available for Android
+  // skip games that are only available for Android or iOS, obtanied from the Epic Mobile Store app
   if (
     releaseInfo.every((info) =>
-      info.platform?.every((plat) => plat === 'Android')
+      info.platform?.every((plat) => plat === 'Android' || plat === 'iOS')
     )
   ) {
     return false
