@@ -878,19 +878,23 @@ export async function launch(
   }
 
   // We can get this env variable either from the game's settings or from known fixes
-  if (commandEnv['USE_FAKE_EPIC_EXE']) {
-    const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
-    const fakeEpicExePathInPrefix = await getWinePath({
-      path: fakeExeWinPath,
-      gameSettings,
-      variant: 'unix'
-    })
+  if (commandEnv['USE_FAKE_EPIC_EXE'] && !isWindows) {
+    if (isWindows) {
+      commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeEpicExePath
+    } else {
+      // on linux and mac, we copy the fake exe
+      const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
+      const fakeEpicExePathInPrefix = await getWinePath({
+        path: fakeExeWinPath,
+        gameSettings,
+        variant: 'unix'
+      })
 
-    // we copy the file inside the prefix to avoid permission issues
-    if (!existsSync(fakeEpicExePathInPrefix))
-      copyFileSync(fakeEpicExePath, fakeEpicExePathInPrefix)
-
-    commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeExeWinPath
+      // we copy the file inside the prefix to avoid permission issues
+      if (!existsSync(fakeEpicExePathInPrefix))
+        copyFileSync(fakeEpicExePath, fakeEpicExePathInPrefix)
+      commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeExeWinPath
+    }
   }
 
   const wrappers = setupWrappers(
