@@ -8,11 +8,20 @@ on:
       ref_name:
         description: 'Release Flatpak'
         required: false
+      is_prerelease:
+        description: 'Is this a pre-release/beta?'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 env:
   GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
   GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
   RELEASE_VERSION: ${{ github.ref_name }}
+  IS_PRERELEASE: ${{ github.event.release.prerelease || github.event.inputs.is_prerelease || 'false' }}
 
 jobs:
   draft-releases:
@@ -30,7 +39,7 @@ jobs:
       - name: Checkout flathub repository.
         run: git clone https://github.com/flathub/com.heroicgameslauncher.hgl.git
       - name: Update flathub release
-        run: export RELEASE_VERSION=${{ github.ref_name }} && pnpm release:updateFlathub:ci
+        run: export RELEASE_VERSION=${{ github.ref_name }} && export IS_PRERELEASE=${{ env.IS_PRERELEASE }} && pnpm release:updateFlathub:ci
       - name: Branch flathub repo
         run: git checkout -b "${{ github.ref_name }}"
         working-directory: ./com.heroicgameslauncher.hgl
@@ -48,5 +57,10 @@ jobs:
           directory: com.heroicgameslauncher.hgl
           repository: flathub/com.heroicgameslauncher.hgl
       - name: PR to flathub repo
-        run: sleep 5 && gh pr create --title ${{ github.ref_name }} --body ${{ github.ref_name }} --base master --head ${{ github.ref_name }}
+        run: |
+          if [ "${{ env.IS_PRERELEASE }}" = "true" ]; then
+            sleep 5 && gh pr create --title ${{ github.ref_name }} --body ${{ github.ref_name }} --base beta --head ${{ github.ref_name }}
+          else
+            sleep 5 && gh pr create --title ${{ github.ref_name }} --body ${{ github.ref_name }} --base master --head ${{ github.ref_name }}
+          fi
         working-directory: ./com.heroicgameslauncher.hgl

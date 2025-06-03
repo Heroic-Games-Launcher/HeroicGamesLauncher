@@ -36,17 +36,9 @@ import {
   InstalledInfo,
   InstallPlatform,
   InstallProgress,
-  LaunchOption,
-  BaseLaunchOption
+  LaunchOption
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
-import {
-  gogSupportPath,
-  gogdlConfigPath,
-  isWindows,
-  isMac,
-  isLinux
-} from '../../constants'
 import {
   configStore,
   installedGamesStore,
@@ -94,7 +86,7 @@ import {
 } from 'common/types/gog'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
-import { sendFrontendMessage } from '../../main_window'
+import { sendFrontendMessage } from '../../ipc'
 import { RemoveArgs } from 'common/types/game_manager'
 import {
   getWineFlagsArray,
@@ -108,6 +100,8 @@ import ini from 'ini'
 import { getRequiredRedistList, updateRedist } from './redist'
 import { spawn } from 'child_process'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
+import { gogdlConfigPath, gogSupportPath } from './constants'
+import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -528,9 +522,12 @@ export async function launch(
     return false
   }
 
-  const exeOverrideFlag = gameSettings.targetExe
-    ? ['--override-exe', gameSettings.targetExe]
-    : []
+  let exeOverrideFlag: string[] = []
+  if (launchArguments?.type === 'altExe') {
+    exeOverrideFlag = ['--override-exe', launchArguments.executable]
+  } else if (gameSettings.targetExe) {
+    exeOverrideFlag = ['--override-exe', gameSettings.targetExe]
+  }
 
   let commandEnv = {
     ...process.env,
@@ -588,6 +585,12 @@ export async function launch(
     wineFlag = await getWineFlagsArray(gameSettings, shlex.join(wrappers))
   }
 
+  const launchArgumentsArgs =
+    launchArguments &&
+    (launchArguments.type === undefined || launchArguments.type === 'basic')
+      ? launchArguments.parameters
+      : ''
+
   const commandParts = [
     'launch',
     gameInfo.install.install_path,
@@ -599,9 +602,7 @@ export async function launch(
     ...wineFlag,
     '--platform',
     gameInfo.install.platform.toLowerCase(),
-    ...shlex.split(
-      (launchArguments as BaseLaunchOption | undefined)?.parameters ?? ''
-    ),
+    ...shlex.split(launchArgumentsArgs),
     ...shlex.split(gameSettings.launcherArgs ?? ''),
     ...args
   ]

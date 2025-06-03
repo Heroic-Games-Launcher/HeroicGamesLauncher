@@ -146,7 +146,11 @@
             "third-party-game": "Trečiosios šalies žaidimas NEPALAIKOMAS"
         },
         "winetricks": "Įdiegiami „Winetricks“ paketai",
-        "redist": "Įdiegiami įterptiniai taikomieji komponentai"
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai",
+        "steam": {
+            "installing": "Įdiegiama",
+            "pleaseWait": "Prašome palaukti..."
+        }
     },
     "modifyInstall": {
         "dlcsCollapsible": "„DLC“",
@@ -284,5 +288,15 @@
         "notice2": "Paspaudus – „Įdiegti“, „Heroic“ vykdys nurodytą aplikaciją, kad užbaigtų įdiegimo procesą",
         "header": "Šis žaidimas tvarkomas trečios šalies aplikacijos",
         "notice1": "Šis žaidimas tvarkomas trečios šalies aplikacijos: „{{application_name}}“"
+    },
+    "wikiLink": "Svarbi informacija apie šį žaidimą, skaitykite šį:&nbsp;<1>Atidaryti puslapį</1>",
+    "Open": "Atidaryti",
+    "queue": {
+        "label": {
+            "canceled": "Atšaukta/-s",
+            "pause": "Sustabdyti atsisiuntimą",
+            "remove": "Pašalinti iš atsisiuntimų",
+            "resume": "Pratęsti atsisiuntimą"
+        }
     }
 }

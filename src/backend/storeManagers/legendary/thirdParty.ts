@@ -1,8 +1,8 @@
-import { thirdPartyInstalled } from 'backend/constants'
 import { LogPrefix, logWarning, logError } from 'backend/logger/logger'
 import { InstalledJsonMetadata } from 'common/types/legendary'
 import { existsSync, readFileSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
+import { thirdPartyInstalled } from './constants'
 
 const getInstalledGames = (): [string, InstalledJsonMetadata][] => {
   if (existsSync(thirdPartyInstalled)) {

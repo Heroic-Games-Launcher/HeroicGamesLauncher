@@ -21,7 +21,8 @@
             "title": "Sélectionner l'exécutable à lancer"
         },
         "select": {
-            "button": "Sélectionner"
+            "button": "Sélectionner",
+            "image": "Sélectionner une image"
         },
         "sideload": {
             "exe": "Sélectionner l'exécutable"
@@ -45,7 +46,7 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour du jeu nécessaire"
         },
-        "wineprefix": "Sélectionner le dossier WinePrefix",
+        "wineprefix": "Sélectionnez le dossier WinePrefix",
         "yes": "OUI",
         "close": "Fermer"
     },
@@ -74,7 +75,9 @@
         "uninstall": "Désinstaller",
         "update": "Mise à jour",
         "details": "Détails",
-        "changelog": "Afficher le journal des changements"
+        "changelog": "Afficher le journal des changements",
+        "browse_files": "Parcourir les fichiers",
+        "browse_wine_prefix": "Parcourir le préfixe Wine"
     },
     "cloud_save_unsupported": "Non-supporté",
     "disabled": "Désactivé",
@@ -157,7 +160,7 @@
             "install_anyway": "Oui (je comprends que les éléments multijoueurs ne fonctionneront pas)",
             "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée. Le jeu peut être exécuté mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?",
             "ok": "Ok",
-            "disabled_installation": "La compatibilité avec les systèmes anti-triche est interrompue ou déniée ; les éléments multijoueur ne fonctionneront donc pas. Le jeu ne peut pas être installé. Pour installer ce jeu quand même, désactivez cette vérification dans les paramètres avancés."
+            "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n'est pas compatible avec votre système d'exploitation ou n'a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et il n'y a rien que vous (ni l'équipe d'Heroic) puisse faire à ce sujet. <br /><br />Pour installer ce jeu et essayer quand même, rendez-vous dans Paramètres, Avancés, et cochez l'option permettant d'autoriser l'installation de jeux comportant un anti-triche cassé ou refusé. <br /><br />Notez qu'il n'existe pas de solution à ce problème et que vous risquerez d'être banni du jeu."
         },
         "flatpak-path-not-writtable": "Erreur : le chemin n'est pas accessible en mode bac-à-sable, risque de perte de données."
     },
@@ -176,7 +179,11 @@
         "launching": "Lancement",
         "ubisoft": "Installation d'Ubisoft Connect",
         "redist": "Installation des paquets redistribuables",
-        "winetricks": "Installation des paquets Winetricks"
+        "winetricks": "Installation des paquets Winetricks",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Veuillez patienter..."
+        }
     },
     "launch": {
         "options": "Paramètres de lancement..."
@@ -211,7 +218,7 @@
             "fullscreen": "Exécuter en plein écran (F11 pour quitter)"
         },
         "placeholder": {
-            "image": "Collez ici l'URL d'une image",
+            "image": "Collez ici l'URL d'une image ou sélectionnez-en une provenant de votre ordinateur",
             "title": "Ajouter un titre à votre Jeu/Application",
             "url": "Collez l'URL du jeu ici",
             "useragent": "Créer un compte utilisateur personnalisé qui sera utilisé dans ce navigateur d'application/jeu"
@@ -293,5 +300,15 @@
         "notice2": "Après avoir cliqué sur Installer, Heroic exécutera l'application afin de terminer le processus d'installation",
         "header": "Ce jeu est géré par une application tierce",
         "notice1": "Ce jeu est géré par une application tierce : « {{application_name}} »"
-    }
+    },
+    "Open": "Ouvrez",
+    "queue": {
+        "label": {
+            "canceled": "Annulé",
+            "pause": "Interrompre le téléchargement",
+            "remove": "Retirer de la liste des téléchargements",
+            "resume": "Reprendre le téléchargement"
+        }
+    },
+    "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>"
 }

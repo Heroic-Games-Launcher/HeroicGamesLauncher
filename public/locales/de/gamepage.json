@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Das Installationspfad wird durch diese Aktion geändert, möchten Sie fortfahren?",
+            "message": "Der Installationspfad wird durch diese Aktion geändert, möchten Sie fortfahren?",
             "path": "Wählen Sie einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
@@ -74,7 +74,9 @@
         "uninstall": "Deinstallieren",
         "update": "Aktualisieren",
         "details": "Informationen",
-        "changelog": "Änderungskatalog Anzeigen"
+        "changelog": "Änderungskatalog Anzeigen",
+        "browse_files": "Dateien durchsuchen",
+        "browse_wine_prefix": "Wine präfix durchsuchen"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -177,7 +179,11 @@
         "ubisoft": "Ubisoft Connect wird installiert …",
         "prerequisites": "Installiere Voraussetzungen",
         "winetricks": "Installiere Winetricks Pakete",
-        "redist": "Installiere weiterverbreitbare Komponenten"
+        "redist": "Installiere weiterverbreitbare Komponenten",
+        "steam": {
+            "installing": "Wird installiert",
+            "pleaseWait": "Bitte warten..."
+        }
     },
     "launch": {
         "options": "Startoptionen …"
@@ -216,6 +222,10 @@
             "title": "Einen Titel zum Spiel / zur Anwendung hinzufügen",
             "url": "Hier die URL des Spiels einfügen",
             "useragent": "Schreiben Sie hier einen benutzerdefinierten User-Agent, der für diese Browser-Anwendung/dieses Spiel verwendet werden soll"
+        },
+        "import-hint": {
+            "title": "Wichtig! Fügen Sie ein Spiel von Epic/GOG/Amazon hinzu? Klicken Sie hier!",
+            "content": "Verwenden Sie diese Funktion NICHT dafür.<br />Loggen Sie sich stattdessen im Store ein, suchen Sie das Spiel in Ihrer Bibliothek, öffnen Sie den Installationsdialog und klicken Sie auf die Schaltfläche &quot;Spiel importieren&quot;"
         }
     },
     "specs": {
@@ -291,5 +301,15 @@
         "header": "Dieses Spiel wird von einer Drittanbieteranwendung verwaltet",
         "notice1": "Dieses Spiel wird von einer Drittanbieteranwendung verwaltet: „{{application_name}}“",
         "notice2": "Nach dem Klicken auf Installieren führt Heroic die Anwendung aus, um den Installationsvorgang abzuschließen"
-    }
+    },
+    "Open": "Öffnen",
+    "queue": {
+        "label": {
+            "canceled": "Abgebrochen",
+            "remove": "Aus Downloads entfernen",
+            "pause": "Download pausieren",
+            "resume": "Download fortsetzen"
+        }
+    },
+    "wikiLink": "Wichtige Informationen über dieses Spiel, lesen Sie hier:&nbsp;<1>Öffne Seite</1>"
 }

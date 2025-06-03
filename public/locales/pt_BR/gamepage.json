@@ -21,7 +21,8 @@
             "title": "Selecione o EXE para executar"
         },
         "select": {
-            "button": "Selecionar"
+            "button": "Selecionar",
+            "image": "Selecionar Imagem"
         },
         "sideload": {
             "exe": "Selecionar executável"
@@ -74,7 +75,9 @@
         "uninstall": "Desinstalar",
         "update": "Atualizar",
         "details": "Detalhes",
-        "changelog": "Mostrar Lista de Mudanças"
+        "changelog": "Mostrar Lista de Mudanças",
+        "browse_files": "Navegar pelos arquivos",
+        "browse_wine_prefix": "Navegar pelo prefixo Wine"
     },
     "cloud_save_unsupported": "Sem suporte",
     "disabled": "Desabilitado",
@@ -157,7 +160,7 @@
             "ok": "Ok",
             "install_anyway": "Sim (Eu entendo que a função multijogador não funcionará)",
             "multiplayer_message": "Suporte ao sistema antitrapaça foi negado ou comprometido. O jogo pode rodar mas a função multijogador não funcionará. Quer instalá-lo mesmo assim?",
-            "disabled_installation": "Suporte ao sistema antitrapaça foi negado ou comprometido, portanto a função multijogador não funcionará. O jogo não pode ser instalado. Para instalar este jogo, desabilite essa verificação nas configurações avançadas."
+            "disabled_installation": "Suporte ao sistema antitrapaça foi negado ou comprometido, portanto a função multijogador não funcionará, e não há nada que você (ou a equipe do Heroic) possa fazer sobre isso.<br /><br /> Para instalar o jogo mesmo assim, vá em Configurações, Avançado, e marque a opção para permitir a instalação de jogos com o sistema antitrapaça negado ou comprometido.<br /><br /> Mantenha em mente que não há nenhuma solução para isso, e você corre o risco de ser banido no jogo."
         },
         "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados."
     },
@@ -177,7 +180,11 @@
         "ubisoft": "Instalando o Ubisoft Connect",
         "winetricks": "Instalando pacotes Winetricks",
         "prerequisites": "Instalando Pré-requisitos",
-        "redist": "Instalando Distribuições"
+        "redist": "Instalando Distribuições",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Por favor aguarde..."
+        }
     },
     "launch": {
         "options": "Opções de Inicialização..."
@@ -295,5 +302,15 @@
         "header": "Este jogo é gerenciado por um aplicativo de terceiros",
         "notice2": "Após clicar em instalar,Heroic irá executar o aplicativo para terminar o processo de instalação",
         "notice1": "Este jogo é gerenciado por um aplicativo de terceiros: \"{{application_name}}\""
-    }
+    },
+    "queue": {
+        "label": {
+            "remove": "Remover da fila",
+            "canceled": "Cancelado",
+            "resume": "Retomar download",
+            "pause": "Pausar o download"
+        }
+    },
+    "Open": "Abrir",
+    "wikiLink": "Informação importante sobre esse jogo, leia isto:&nbsp;<1>Open page</1>"
 }

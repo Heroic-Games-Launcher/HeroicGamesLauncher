@@ -2,14 +2,7 @@ import './index.scss'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import {
-  ArrowCircleLeft,
-  ArrowBackIosNew,
-  Info,
-  Star,
-  Monitor,
-  DeleteOutline
-} from '@mui/icons-material'
+import { ArrowBackIosNew, Info, Star, Monitor } from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
 
@@ -94,8 +87,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     platform,
     showDialogModal,
     isSettingsModalOpen,
-    connectivity,
-    experimentalFeatures
+    connectivity
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -196,8 +188,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
           (is_linux_native && isLinux
             ? 'linux'
             : is_mac_native && isMac
-            ? 'Mac'
-            : 'Windows')
+              ? 'Mac'
+              : 'Windows')
 
         if (
           runner !== 'sideload' &&
@@ -272,7 +264,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     const {
       runner,
       title,
-      art_square,
       art_cover,
       art_background,
       art_logo,
@@ -303,7 +294,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     const isMacNative = ['osx', 'Mac'].includes(installPlatform ?? '')
-    const isLinuxNative = installPlatform === 'linux'
+    const isLinuxNative = ['linux', 'Linux'].includes(installPlatform ?? '')
 
     // create setting context functions
     const contextValues: GameContextType = {
@@ -367,13 +358,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     return (
       <div className="gameConfigContainer">
-        {!!(art_background ?? art_cover) &&
-          experimentalFeatures.enableNewDesign && (
-            <CachedImage
-              src={art_background || art_cover}
-              className="backgroundImage"
-            />
-          )}
+        {!!(art_background ?? art_cover) && (
+          <CachedImage
+            src={art_background || art_cover}
+            className="backgroundImage"
+          />
+        )}
         {gameInfo.runner !== 'sideload' && showModal.show && (
           <InstallModal
             appName={showModal.game}
@@ -392,83 +382,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
         )}
 
         {title ? (
-          <GameContext.Provider value={contextValues}>
-            {/* OLD DESIGN */}
-            {!experimentalFeatures.enableNewDesign && (
-              <>
-                <GamePicture
-                  art_square={art_square}
-                  art_logo={runner === 'nile' ? undefined : art_logo}
-                  store={runner}
-                />
-                <NavLink
-                  className="backButton"
-                  to={backRoute}
-                  title={t2('webview.controls.back', 'Go Back')}
-                >
-                  <ArrowCircleLeft />
-                </NavLink>
-                <div className="store-icon">
-                  <StoreLogos runner={runner} />
-                </div>
-                <div className="gameInfo">
-                  <div className="titleWrapper">
-                    <h1 className="title">{title}</h1>
-                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
-                  </div>
-                  <div className="infoWrapper">
-                    <Genres
-                      genres={
-                        extraInfo?.genres ||
-                        wikiInfo?.pcgamingwiki?.genres ||
-                        []
-                      }
-                    />
-                    <Developer gameInfo={gameInfo} />
-                    <ReleaseDate
-                      runnerDate={extraInfo?.releaseDate}
-                      date={wikiInfo?.pcgamingwiki?.releaseDate}
-                    />
-                    <Description />
-                    <CloudSavesSync gameInfo={gameInfo} />
-                    {!notInstallable && (
-                      <DownloadSizeInfo gameInfo={gameInfo} />
-                    )}
-                    <InstalledInfo gameInfo={gameInfo} />
-                    <Scores gameInfo={gameInfo} />
-                    <HLTB />
-                    <CompatibilityInfo gameInfo={gameInfo} />
-                    <AppleWikiInfo gameInfo={gameInfo} />
-                    <Requirements />
-                  </div>
-                  {!notInstallable && (
-                    <TimeContainer runner={runner} game={appName} />
-                  )}
-                  <GameStatus
-                    gameInfo={gameInfo}
-                    progress={progress}
-                    handleUpdate={handleUpdate}
-                    hasUpdate={hasUpdate}
-                  />
-                  <LaunchOptions
-                    gameInfo={gameInfo}
-                    setLaunchArguments={setLaunchArguments}
-                  />
-
-                  <Anticheat anticheatInfo={anticheatInfo} />
-                  {wikiLink}
-                  <MainButton
-                    gameInfo={gameInfo}
-                    handlePlay={handlePlay}
-                    handleInstall={handleInstall}
-                  />
-                  <ReportIssue gameInfo={gameInfo} />
-                </div>
-              </>
-            )}
-            {/* NEW DESIGN */}
-            {experimentalFeatures.enableNewDesign && (
+          <>
+            <GameContext.Provider value={contextValues}>
+              {/* NEW DESIGN */}
               <>
                 <div className="topRowWrapper">
                   <NavLink
@@ -478,8 +394,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   >
                     <ArrowBackIosNew />
                   </NavLink>
-                  {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                  <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  <div className="topRowWapperInner">
+                    {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                    <DotsMenu gameInfo={gameInfo} handleUpdate={handleUpdate} />
+                  </div>
                 </div>
                 <div className="mainInfoWrapper">
                   <div className="mainInfo">
@@ -491,6 +409,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     <div className="store-icon">
                       <StoreLogos runner={runner} />
                     </div>
+
                     <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
                     <Genres
                       genres={
@@ -504,6 +423,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       runnerDate={extraInfo?.releaseDate}
                       date={wikiInfo?.pcgamingwiki?.releaseDate}
                     />
+
                     <Description />
                     {!notInstallable && (
                       <TimeContainer runner={runner} game={appName} />
@@ -518,60 +438,54 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       gameInfo={gameInfo}
                       setLaunchArguments={setLaunchArguments}
                     />
-                    {wikiLink}
                     <div className="buttons">
                       <MainButton
                         gameInfo={gameInfo}
                         handlePlay={handlePlay}
                         handleInstall={handleInstall}
                       />
-                      {gameInfo.is_installed && (
-                        <button
-                          className="button is-danger delBtn"
-                          onClick={() => {
-                            setShowUninstallModal(true)
-                          }}
-                        >
-                          <span className="buttonWithIcon">
-                            <DeleteOutline />
-                            {t('button.uninstall', 'Uninstall')}
-                          </span>
-                        </button>
-                      )}
                     </div>
+                    {wikiLink}
                   </div>
                 </div>
                 <div className="extraInfoWrapper">
                   <div className="extraInfo">
-                    <Tabs
-                      value={currentTab}
-                      onChange={(e, newVal) => setCurrentTab(newVal)}
-                      aria-label="gameinfo tabs"
-                      variant="scrollable"
-                    >
-                      <Tab
-                        value={'info'}
-                        label={t('game.install_info', 'Install info')}
-                        iconPosition="start"
-                        icon={<Info />}
-                      />
-                      {hasWikiInfo && (
+                    <div className="extraInfoTabs">
+                      <Tabs
+                        className="gameInfoTabs"
+                        value={currentTab}
+                        onChange={(e, newVal) => setCurrentTab(newVal)}
+                        aria-label="gameinfo tabs"
+                        variant="scrollable"
+                      >
                         <Tab
-                          value={'extra'}
-                          label={t('game.extra_info', 'Extra info')}
+                          className="tabButton"
+                          value={'info'}
+                          label={t('game.install_info', 'Install info')}
                           iconPosition="start"
-                          icon={<Star />}
+                          icon={<Info className="gameInfoTabsIcon" />}
                         />
-                      )}
-                      {hasRequirements && (
-                        <Tab
-                          value={'requirements'}
-                          label={t('game.requirements', 'Requirements')}
-                          iconPosition="start"
-                          icon={<Monitor />}
-                        />
-                      )}
-                    </Tabs>
+                        {hasWikiInfo && (
+                          <Tab
+                            className="tabButton"
+                            value={'extra'}
+                            label={t('game.extra_info', 'Extra info')}
+                            iconPosition="start"
+                            icon={<Star className="gameInfoTabsIcon" />}
+                          />
+                        )}
+                        {hasRequirements && (
+                          <Tab
+                            className="tabButton"
+                            value={'requirements'}
+                            label={t('game.requirements', 'Requirements')}
+                            iconPosition="start"
+                            icon={<Monitor className="gameInfoTabsIcon" />}
+                          />
+                        )}
+                      </Tabs>
+                    </div>
+
                     <div>
                       <TabPanel
                         value={currentTab}
@@ -594,7 +508,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         <AppleWikiInfo gameInfo={gameInfo} />
                       </TabPanel>
 
-                      <TabPanel value={currentTab} index="requirements">
+                      <TabPanel
+                        className="tabPanelRequirements"
+                        value={currentTab}
+                        index="requirements"
+                      >
                         <Requirements />
                       </TabPanel>
                     </div>
@@ -604,8 +522,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 </div>
                 <ReportIssue gameInfo={gameInfo} />
               </>
-            )}
-          </GameContext.Provider>
+            </GameContext.Provider>
+          </>
         ) : (
           <UpdateComponent />
         )}

@@ -4,7 +4,7 @@
   "entry": [
     "src/frontend/index.tsx",
     "src/backend/main.ts",
-    "src/backend/preload.ts"
+    "src/preload/index.ts"
   ],
   "aliases": {
     "backend/*": ["./backend", "./backend/*"],

@@ -174,7 +174,11 @@
         "launching": "Spúšťam",
         "ubisoft": "Inštalácia Ubisoft Connect",
         "redist": "Inštalujem Redistributables",
-        "winetricks": "Inštalujem Balíky Winetricks"
+        "winetricks": "Inštalujem Balíky Winetricks",
+        "steam": {
+            "installing": "Inštaluje sa",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Možnosti spustenia..."
@@ -291,5 +295,11 @@
         "header": "Túto hru spravuje aplikácia z tretej strany",
         "notice1": "Túto hru spravuje aplikácia z tretej strany: \"{{application_name}}\"",
         "notice2": "Po kliknutí na tlačidlo Inštalovať Heroic spustí aplikáciu, aby sa dokončil proces inštalácie"
+    },
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
     }
 }

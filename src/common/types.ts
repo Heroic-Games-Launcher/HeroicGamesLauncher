@@ -12,6 +12,7 @@ import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
+import type { Path } from 'backend/schemas'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -32,14 +33,25 @@ export type LaunchParams = {
   args?: string[]
 }
 
-export type LaunchOption = BaseLaunchOption | DLCLaunchOption
+export type LaunchOption =
+  | BaseLaunchOption
+  | AltExeLaunchOption
+  | DLCLaunchOption
 
-export interface BaseLaunchOption {
+// Option to append extra parameters to the launch command
+interface BaseLaunchOption {
   type?: 'basic'
   name: string
   parameters: string
 }
 
+// Option to launch an alternative executable instead
+interface AltExeLaunchOption {
+  type: 'altExe'
+  executable: Path
+}
+
+// Option to launch a DLC (another game) instead of the base game
 interface DLCLaunchOption {
   type: 'dlc'
   dlcAppName: string
@@ -63,7 +75,6 @@ export type Release = {
 }
 
 export type ExperimentalFeatures = {
-  enableNewDesign: boolean
   enableHelp: boolean
   cometSupport: boolean
   umuSupport?: boolean
@@ -89,9 +100,11 @@ export interface AppSettings extends GameSettings {
   defaultWinePrefix: string
   disableController: boolean
   disablePlaytimeSync: boolean
+  disableSmoothScrolling: boolean
   disableLogs: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
+  downloadProtonToSteam: boolean
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
@@ -208,6 +221,7 @@ export interface GameSettings {
   afterLaunchScriptPath: string
   disableUMU: boolean
   verboseLogs: boolean
+  advertiseAvxForRosetta: boolean
 }
 
 export type Status =
@@ -350,30 +364,6 @@ export interface GOGImportData {
   platform: GogInstallPlatform
   versionName: string
   dlcs: string[]
-}
-
-export type GamepadInputEvent =
-  | GamepadInputEventKey
-  | GamepadInputEventWheel
-  | GamepadInputEventMouse
-
-interface GamepadInputEventKey {
-  type: 'keyDown' | 'keyUp' | 'char'
-  keyCode: string
-}
-
-interface GamepadInputEventWheel {
-  type: 'mouseWheel'
-  deltaY: number
-  x: number
-  y: number
-}
-
-interface GamepadInputEventMouse {
-  type: 'mouseDown' | 'mouseUp'
-  x: number
-  y: number
-  button: 'left' | 'middle' | 'right'
 }
 
 export interface SteamRuntime {
@@ -546,6 +536,8 @@ interface GamepadActionArgsWithoutMetadata {
     | 'back'
     | 'altAction'
     | 'esc'
+    | 'tab'
+    | 'shiftTab'
   metadata?: undefined
 }
 
@@ -747,7 +739,7 @@ export interface WindowProps extends Electron.Rectangle {
   titleBarOverlay?: TitleBarOverlay | boolean
 }
 
-interface GameScopeSettings {
+export interface GameScopeSettings {
   enableUpscaling: boolean
   enableLimiter: boolean
   enableForceGrabCursor: boolean

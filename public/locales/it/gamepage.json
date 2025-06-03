@@ -18,10 +18,11 @@
             "title": "Verifica e ripara"
         },
         "runexe": {
-            "title": "Seleziona EXE per eseguire"
+            "title": "Seleziona EXE da eseguire"
         },
         "select": {
-            "button": "Seleziona"
+            "button": "Seleziona",
+            "image": "Seleziona un'immagine"
         },
         "sideload": {
             "exe": "Seleziona Eseguibile"
@@ -74,7 +75,9 @@
         "uninstall": "Disinstalla",
         "update": "Aggiorna",
         "details": "Dettagli",
-        "changelog": "Mostra Changelog"
+        "changelog": "Mostra Changelog",
+        "browse_files": "Sfoglia file",
+        "browse_wine_prefix": "Sfoglia prefisso Wine"
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -156,7 +159,7 @@
             "title": "Anticheat Rotto/Negato",
             "ok": "Ok",
             "install_anyway": "Sì (comprendo che le funzionalità multiplayer non funzioneranno)",
-            "disabled_installation": "Il supporto anticheat è bloccato o non funzionante e le funzionalità multiplayer non funzioneranno. Il gioco non può essere installato. Per installare questo gioco, disabilita questo controllo nelle impostazioni avanzate.",
+            "disabled_installation": "Questo gioco utilizza un anticheat che non è compatibile con il tuo sistema operativo o il supporto non è stato abilitato dagli sviluppatori. Questo significa che le funzionalità multigiocatore non saranno disponibili e non c'è nulla che tu (o il team di Heroic) possa fare.<br /><br />Per installare questo gioco e provarlo comunque, vai nelle Impostazioni, Avanzate, e abilita l'opzione per consentire l'installazione di giochi con anticheat non funzionanti o rifiutati.<br /><br />Considera che non c'è alcuna soluzione e che rischi di essere bannato in gioco.",
             "multiplayer_message": "Il supporto dell'anticheat è bloccato o non funzionante. Il gioco potrebbe aprirsi ma le funzionalità multiplayer non funzioneranno. Vuoi installarlo comunque?"
         },
         "flatpak-path-not-writtable": "Errore: accesso a Sandbox non garantito su questa posizione, i dati andranno persi."
@@ -176,7 +179,11 @@
         "launching": "Avviando",
         "ubisoft": "Installazione di Ubisoft Connect",
         "redist": "Installazione componenti ridistribuibili",
-        "winetricks": "Installazione pacchetti Winetricks"
+        "winetricks": "Installazione pacchetti Winetricks",
+        "steam": {
+            "installing": "Installazione in corso",
+            "pleaseWait": "Attendi, per favore..."
+        }
     },
     "launch": {
         "options": "Opzioni di avvio..."
@@ -211,14 +218,14 @@
             "fullscreen": "Apri schermo intero (F11 per uscire)"
         },
         "placeholder": {
-            "image": "Incolla qui l'URL di un'Immagine",
+            "image": "Incolla qui l'URL di un'Immagine o seleziona un'immagine dal computer",
             "title": "Aggiungi un Titolo per il tuo Gioco/App",
             "url": "Incolla qui l'URL del gioco",
             "useragent": "Scrivi un user agent personalizzato qui da utilizzare su questa applicazione/gioco su browser"
         },
         "import-hint": {
             "title": "Importante! Stai aggiungendo un gioco da Epic/GOG/Amazon? Clicca qui!",
-            "content": "NON utilizzare questa funzionalità per quello.<br />Invece, <3>accedi</3> allo store, cerca il gioco nella tua libreria, apri la finestra d'installazione e clicca il tasto &quot;Importa Gioco&quot;"
+            "content": "NON utilizzare questa funzionalità per fare questo.<br />Invece, <3>accedi</3> al negozio, cerca il gioco nella tua libreria, apri la finestra d'installazione e clicca il tasto &quot;Importa Gioco&quot;"
         }
     },
     "specs": {
@@ -293,5 +300,15 @@
         "header": "Questo gioco è gestito da un'applicazione di terze parti",
         "notice1": "Questo gioco è gestito da un'applicazione di terze parti: \"{{application_name}}\"",
         "notice2": "Dopo aver cliccato Installa, Heroic eseguirà l'applicazione al fine di completare il processo d'installazione"
-    }
+    },
+    "Open": "Apri",
+    "queue": {
+        "label": {
+            "canceled": "Annullato",
+            "remove": "Rimuovi dai Download",
+            "resume": "Riprendi il download",
+            "pause": "Metti in pausa il download"
+        }
+    },
+    "wikiLink": "Informazioni importanti su questo gioco, leggi qui:&nbsp;<1>Apri la pagina</1>"
 }

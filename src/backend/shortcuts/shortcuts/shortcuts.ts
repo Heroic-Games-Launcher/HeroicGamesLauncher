@@ -15,11 +15,12 @@ import { join } from 'path'
 import { logError, logInfo, LogPrefix } from '../../logger/logger'
 import { GlobalConfig } from '../../config'
 import { GameInfo } from 'common/types'
-import { isMac, userHome } from '../../constants'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 import sanitize from 'sanitize-filename'
 import * as GogLibraryManager from '../../storeManagers/gog/library'
+import { isMac } from 'backend/constants/environment'
+import { userHome } from 'backend/constants/paths'
 
 /**
  * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
@@ -181,7 +182,7 @@ async function generateMacOsApp(gameInfo: GameInfo) {
   const plistFile = `${appShortcut}/Contents/Info.plist`
 
   // create the .app folder
-  if (!existsSync(appShortcut)) {
+  if (appShortcut && !existsSync(appShortcut)) {
     mkdirSync(appShortcut, { recursive: true })
   }
 
@@ -235,9 +236,11 @@ async function generateMacOsApp(gameInfo: GameInfo) {
   } else {
     logError('Error generating MacOS App', LogPrefix.Backend)
     // remove the .app folder
-    rm(appShortcut, { recursive: true }, () =>
-      logInfo('Temporary MacOS App removed', LogPrefix.Backend)
-    )
+    if (appShortcut) {
+      rm(appShortcut, { recursive: true }, () =>
+        logInfo('Temporary MacOS App removed', LogPrefix.Backend)
+      )
+    }
   }
 }
 

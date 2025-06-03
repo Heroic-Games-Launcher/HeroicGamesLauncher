@@ -167,7 +167,11 @@
             "syncing": "存檔同步中"
         },
         "launching": "啟動中",
-        "ubisoft": "安裝育碧連接"
+        "ubisoft": "安裝育碧連接",
+        "steam": {
+            "pleaseWait": "Please wait...",
+            "installing": "正在安裝"
+        }
     },
     "launch": {
         "options": "啟動選項…"
@@ -265,5 +269,12 @@
             "collapsible": "REDmod 整合"
         },
         "dlcsCollapsible": "DLC"
+    },
+    "Open": "開啟",
+    "queue": {
+        "label": {
+            "canceled": "已取消",
+            "remove": "從下載中移除"
+        }
     }
 }

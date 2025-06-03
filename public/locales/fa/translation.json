@@ -5,7 +5,9 @@
         "content_font_family_no_default": "خانواده فونت محتوا (Default: ",
         "fonts": "فونت ها",
         "title": "دسترسی ها",
-        "zoom": "زوم"
+        "zoom": "زوم",
+        "actions_font_family_default": "خانواده فونت فعالیت ها (Default:",
+        "content_font_family_default": "خانواده فونت محتوا (Default:"
     },
     "add_game": "افزودن بازی",
     "All": "همه",
@@ -15,7 +17,8 @@
         "reference": "مرجع",
         "source": "Source",
         "status": "Status",
-        "title": "این بازی شامل نرم افزار آنتی چیت می باشد"
+        "title": "این بازی شامل نرم افزار آنتی چیت می باشد",
+        "multiplayer_may_not_work": "ممکن است به خاطر پشتیبانی ناقص یا عدم پشتیبانی آنتی چیت کار نکند."
     },
     "box": {
         "cache-cleared": {
@@ -655,6 +658,9 @@
             "resetHeroic": {
                 "help": "آیا از بازنشانی Heroic مطمئن هستید؟ این کار تمام تنظیمات و کش ها را پاک می کند اما بازی های نصب شده شما یا اعتبارهای Epic شما را پاک نمی کند. نسخه های پورتابل (AppImage, WinPortable, ...) نیازمند راه اندازی مجدد دستی پس از آن هستند."
             }
+        },
+        "systemInformation": {
+            "copyToClipboard": "در کليپ بورد کپی شد!"
         }
     },
     "Settings": "تنظیمات",
@@ -749,5 +755,8 @@
     "category-settings": {
         "cancel": "انصراف",
         "warning": "هشدار"
+    },
+    "tour": {
+        "back": "بازگشت"
     }
 }

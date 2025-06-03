@@ -4,13 +4,13 @@ import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
 import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
 import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
-import { sendFrontendMessage } from '../main_window'
+import { sendFrontendMessage } from '../ipc'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
 import i18next from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
-import { gogRedistPath } from 'backend/constants'
+import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',

@@ -2,14 +2,19 @@ import { dialog, shell, nativeImage } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'
 
-import { icon } from './constants'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { logError, LogPrefix } from './logger/logger'
+import { windowIcon } from './constants/paths'
+import { isLinux } from './constants/environment'
 
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false
 
 async function showAutoupdateDialog() {
+  if (isLinux) {
+    return
+  }
+
   const { response } = await dialog.showMessageBox({
     title: t('box.info.update.title', 'Heroic Games Launcher'),
     message: t('box.info.update.message', 'There is a new Version available!'),
@@ -18,7 +23,7 @@ async function showAutoupdateDialog() {
       'Do you want to download the update in the background?'
     ),
 
-    icon: nativeImage.createFromPath(icon),
+    icon: nativeImage.createFromPath(windowIcon),
     buttons: [
       t('box.update', 'Update'),
       t('box.postpone', 'Postpone'),

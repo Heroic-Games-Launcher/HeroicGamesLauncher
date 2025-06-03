@@ -177,7 +177,11 @@
         "ubisoft": "Ubisoft Connectをインストール中",
         "prerequisites": "前提条件のインストール",
         "winetricks": "Winetricksパッケージのインストール",
-        "redist": "再頒布可能ファイルのインストール"
+        "redist": "再頒布可能ファイルのインストール",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "起動オプション…"
@@ -216,6 +220,10 @@
             "title": "ゲーム/Appにタイトルを追加してください",
             "url": "ゲームのURLをここに貼り付けます",
             "useragent": "このブラウザゲーム/Appで使用するカスタムユーザーエージェントを入力します"
+        },
+        "import-hint": {
+            "content": "そのためにこの機能を使用しないでください。<br />代わりに、ストアに<3>ログイン</3>し、ライブラリでゲームを探し、インストールダイアログを開いて「ゲームのインポート」ボタンをクリックします。",
+            "title": "重要! Epic/GOG/Amazonからゲームを追加しますか? ここをクリックしてください!"
         }
     },
     "specs": {
@@ -291,5 +299,15 @@
         "notice2": "インストールをクリックすると、Heroicはインストールプロセスを完了するためにアプリケーションを実行します",
         "header": "このゲームはサードパーティのアプリケーションによって管理されています",
         "notice1": "このゲームはサードパーティのアプリケーションによって管理されています： \"{{application_name}}\""
-    }
+    },
+    "Open": "開く",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads",
+            "pause": "ダウンロードを一時停止",
+            "resume": "ダウンロードを再開"
+        }
+    },
+    "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>"
 }

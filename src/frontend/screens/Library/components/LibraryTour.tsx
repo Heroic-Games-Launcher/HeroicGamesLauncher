@@ -10,7 +10,9 @@ const LibraryTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
   // Import context to check if there are any games in the library
-  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, sideloadedLibrary, platform } =
+    useContext(ContextProvider)
+  const isMac = platform === 'darwin'
 
   // Check if there are any games in the library
   const hasGames = Boolean(
@@ -32,7 +34,7 @@ const LibraryTour: React.FC = () => {
     {
       intro: t(
         'tour.library.welcome.intro2',
-        'If the library is empty, make sure to login with your accounts usinge the Manage accounts on the sidebar or add your own games using the Add Game button above.'
+        'If the library is empty, make sure to login with your accounts using the Manage accounts on the sidebar or add your own games using the Add Game button above.'
       ),
       title: t('tour.library.welcome.title2', 'Managing the library!')
     }
@@ -113,7 +115,24 @@ const LibraryTour: React.FC = () => {
         'Add your own games or apps to the library by clicking here. They can be basically anything, even Browser URLs.'
       ),
       position: 'left'
-    },
+    }
+  ]
+
+  // Steam installation step only for macOS
+  const macSteps: TourStep[] = isMac
+    ? [
+        {
+          element: '[data-tour="install-steam-button"]',
+          intro: t(
+            'tour.library.steamInstall',
+            'Use this button to install the Windows version of Steam and play your Windows games using Crossover, Wine or GPTK.'
+          )
+        }
+      ]
+    : []
+
+  // Final step
+  const finalStep: TourStep[] = [
     {
       intro: t(
         'tour.library.end.intro',
@@ -124,7 +143,13 @@ const LibraryTour: React.FC = () => {
   ]
 
   // Combine all steps
-  const steps = [...introSteps, ...gameCardStep, ...uiSteps]
+  const steps = [
+    ...introSteps,
+    ...gameCardStep,
+    ...uiSteps,
+    ...macSteps,
+    ...finalStep
+  ]
 
   return (
     <Tour

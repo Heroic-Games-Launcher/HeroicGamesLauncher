@@ -153,7 +153,11 @@
             "syncing": "സൂക്ഷിപ്പുകള് ഒന്നിപ്പിക്കുന്നു"
         },
         "launching": "ലോഞ്ച് ചെയ്യുന്നു",
-        "ubisoft": "Ubisoft കണക്ട് ഇൻസ്റ്റാൾ ചെയ്യുന്നു"
+        "ubisoft": "Ubisoft കണക്ട് ഇൻസ്റ്റാൾ ചെയ്യുന്നു",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "വിക്ഷേപണ ബദലുകൾ..."
@@ -239,5 +243,15 @@
     },
     "help": {
         "cloud_save_unsupported": "ഈ ഗെയിം ക്ലൗഡ് സേവുകളെ പിന്തുണയ്ക്കുന്നില്ല. ഗെയിം ഡെവലപ്പർമാരാണ് ഈ വിവരങ്ങൾ നൽകിയിരിക്കുന്നത്. ചില ഗെയിമുകൾ അവരുടെ സ്വന്തം ക്ലൗഡ് സേവ് സിസ്റ്റം നടപ്പിലാക്കുന്നു"
+    },
+    "Open": "തുറക്കൂ",
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLCs"
     }
 }

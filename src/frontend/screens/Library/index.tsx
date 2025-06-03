@@ -60,7 +60,8 @@ export default React.memo(function Library(): JSX.Element {
     platform,
     currentCustomCategories,
     customCategories,
-    hiddenGames
+    hiddenGames,
+    gameUpdates
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -173,10 +174,17 @@ export default React.memo(function Library(): JSX.Element {
   const [showThirdPartyManagedOnly, setShowThirdPartyManagedOnly] = useState(
     JSON.parse(storage.getItem('show_third_party_managed_only') || 'false')
   )
-
   const handleShowThirdPartyOnly = (value: boolean) => {
     storage.setItem('show_third_party_managed_only', JSON.stringify(value))
     setShowThirdPartyManagedOnly(value)
+  }
+
+  const [showUpdatesOnly, setShowUpdatesOnly] = useState(
+    JSON.parse(storage.getItem('show_updates_only') || 'false')
+  )
+  const handleShowUpdatesOnly = (value: boolean) => {
+    storage.setItem('show_updates_only', JSON.stringify(value))
+    setShowUpdatesOnly(value)
   }
 
   const [showCategories, setShowCategories] = useState(false)
@@ -450,6 +458,10 @@ export default React.memo(function Library(): JSX.Element {
         library = library.filter((game) => !!game.thirdPartyManagedApp)
       }
 
+      if (showUpdatesOnly) {
+        library = library.filter((game) => gameUpdates.includes(game.app_name))
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -540,7 +552,9 @@ export default React.memo(function Library(): JSX.Element {
     showInstalledOnly,
     showNonAvailable,
     showSupportOfflineOnly,
-    showThirdPartyManagedOnly
+    showThirdPartyManagedOnly,
+    showUpdatesOnly,
+    gameUpdates
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -613,6 +627,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
         showThirdPartyManagedOnly,
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
+        showUpdatesOnly,
+        setShowUpdatesOnly: handleShowUpdatesOnly,
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),

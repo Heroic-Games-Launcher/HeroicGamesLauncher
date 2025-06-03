@@ -1,12 +1,14 @@
 import { dialog } from 'electron'
 import { logError, logInfo, LogPrefix } from './logger/logger'
 import i18next from 'i18next'
-import { GameInfo, Runner } from 'common/types'
-import { getMainWindow, sendFrontendMessage } from './main_window'
-import { icon } from './constants'
+import { GameInfo, LaunchOption, Runner } from 'common/types'
+import { getMainWindow } from './main_window'
+import { sendFrontendMessage } from './ipc'
 import { gameManagerMap } from './storeManagers'
 import { launchEventCallback } from './launcher'
 import { z } from 'zod'
+import { windowIcon } from './constants/paths'
+import { Path } from './schemas'
 
 const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
 
@@ -36,8 +38,10 @@ async function handleLaunch(url: URL) {
   let appName
   let runnerStr
   let args: string[] = []
+  let altExe: Path | undefined = undefined
 
-  if (url.pathname) {
+  // Windows automatically adds a trailing / to shortcuts
+  if (url.pathname && url.pathname !== '/') {
     // Old-style pathname URLs:
     // - `heroic://launch/Quail`
     // - `heroic://launch/legendary/Quail`
@@ -50,6 +54,8 @@ async function handleLaunch(url: URL) {
     appName = url.searchParams.get('appName')
     runnerStr = url.searchParams.get('runner')
     args = url.searchParams.getAll('arg')
+    const altExeParse = Path.safeParse(url.searchParams.get('altExe'))
+    if (altExeParse.success) altExe = altExeParse.data
   }
 
   if (!appName) {
@@ -74,11 +80,19 @@ async function handleLaunch(url: URL) {
   const settings = await gameManagerMap[gameInfo.runner].getSettings(appName)
 
   if (is_installed) {
+    let launchOption: LaunchOption | undefined = undefined
+    if (altExe)
+      launchOption = {
+        type: 'altExe',
+        executable: altExe
+      }
+
     return launchEventCallback({
       appName: appName,
       runner: gameInfo.runner,
       skipVersionCheck: settings.ignoreGameUpdates,
-      args
+      args,
+      launchArguments: launchOption
     })
   }
 
@@ -95,7 +109,7 @@ async function handleLaunch(url: URL) {
       'Is Not Installed, do you wish to Install it?'
     )}`,
     title: title,
-    icon: icon
+    icon: windowIcon
   })
   if (response === 0) {
     sendFrontendMessage('installGame', appName, gameInfo.runner)

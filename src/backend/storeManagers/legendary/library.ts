@@ -26,15 +26,7 @@ import {
   axiosClient
 } from '../../utils'
 import {
-  fallBackImage,
-  legendaryConfigPath,
   legendaryLogFile,
-  legendaryMetadata,
-  isLinux,
-  userHome,
-  isWindows
-} from '../../constants'
-import {
   logDebug,
   logError,
   logInfo,
@@ -50,8 +42,6 @@ import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
-import { app } from 'electron'
-import { copySync } from 'fs-extra'
 import { LegendaryCommand } from './commands'
 import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { Path } from 'backend/schemas'
@@ -59,21 +49,16 @@ import shlex from 'shlex'
 import thirdParty from './thirdParty'
 import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
+import { legendaryConfigPath, legendaryMetadata } from './constants'
+import { isWindows } from 'backend/constants/environment'
+
+const fallBackImage = 'fallback'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
 export async function initLegendaryLibraryManager() {
-  // Migrate user data from global Legendary config if necessary
-  const globalLegendaryConfig = isLinux
-    ? join(app.getPath('appData'), 'legendary')
-    : join(userHome, '.config', 'legendary')
-  if (!existsSync(legendaryConfigPath) && existsSync(globalLegendaryConfig)) {
-    mkdirSync(legendaryConfigPath, { recursive: true })
-    copySync(globalLegendaryConfig, legendaryConfigPath)
-  }
-
   loadGamesInAccount()
   refreshInstalled()
 }
@@ -544,8 +529,8 @@ function loadFile(app_name: string): boolean {
   // TODO: I don't own any game on PC and the mobile store so I don't know if they have to be
   // handled differently, for now we are only skipping if it's only available for Android
   if (
-    releaseInfo.every(
-      (info) => info.platform?.every((plat) => plat === 'Android')
+    releaseInfo.every((info) =>
+      info.platform?.every((plat) => plat === 'Android')
     )
   ) {
     return false

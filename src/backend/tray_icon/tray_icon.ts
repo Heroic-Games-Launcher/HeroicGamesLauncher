@@ -1,13 +1,19 @@
-import { app, BrowserWindow, ipcMain, Menu, nativeImage, Tray } from 'electron'
+import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron'
 import i18next from 'i18next'
+import { addListener } from 'backend/ipc'
 import { RecentGame } from 'common/types'
 import { logInfo, LogPrefix } from '../logger/logger'
 import { handleProtocol } from '../protocol'
 import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
 import { GlobalConfig } from '../config'
-import { iconDark, iconLight, isMac } from '../constants'
 import { backendEvents } from '../backend_events'
+import { join } from 'node:path'
+import { isMac } from 'backend/constants/environment'
+import { fixAsarPath, publicDir } from 'backend/constants/paths'
+
+const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
+const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
   // create icon
@@ -18,7 +24,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     recentGames ??= await getRecentGames({ limited: true })
     const newContextMenu = contextMenu(mainWindow, recentGames)
     appIcon.setContextMenu(newContextMenu)
-    if (isMac) app.dock.setMenu(newContextMenu)
+    if (isMac) app.dock?.setMenu(newContextMenu)
   }
   await loadContextMenu()
 
@@ -33,7 +39,7 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
     await loadContextMenu()
   })
 
-  ipcMain.on('changeTrayColor', () => {
+  addListener('changeTrayColor', () => {
     logInfo('Changing Tray icon Color...', LogPrefix.Backend)
     setTimeout(async () => {
       appIcon.setImage(getIcon(process.platform))

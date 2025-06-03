@@ -3,6 +3,7 @@
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
 import importPlugin from 'eslint-plugin-import-x'
 
@@ -14,6 +15,9 @@ export default tseslint.config(
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
+      // React hooks rules
+      'react-hooks/rules-of-hooks': 'warn',
+
       // FIXME: All of these rules should be errors instead
       '@typescript-eslint/no-base-to-string': 'warn',
       '@typescript-eslint/no-floating-promises': 'warn',
@@ -35,11 +39,25 @@ export default tseslint.config(
         'error',
         { checksVoidReturn: false }
       ],
-      'import/no-duplicates': 'error'
+      'import/no-duplicates': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'electron',
+              importNames: ['ipcMain', 'ipcRenderer'],
+              message:
+                'Use the helper functions declared in [backend|preload]/ipc instead.'
+            }
+          ]
+        }
+      ]
     },
 
     plugins: {
-      import: importPlugin
+      import: importPlugin,
+      'react-hooks': reactHooks
     },
     languageOptions: {
       parserOptions: {

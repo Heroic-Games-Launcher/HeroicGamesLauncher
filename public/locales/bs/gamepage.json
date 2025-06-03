@@ -150,7 +150,11 @@
             "syncing": "Sinhoniziranje podataka"
         },
         "launching": "Lansiranje",
-        "ubisoft": "Instalacija Ubisoft Connecta"
+        "ubisoft": "Instalacija Ubisoft Connecta",
+        "steam": {
+            "installing": "Instalira se",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Opcije za pokretanje..."
@@ -235,5 +239,11 @@
     },
     "help": {
         "cloud_save_unsupported": "Ova igra ne podržava spremanje u oblaku. Ove informacije daju programeri igre. Neke igre implementiraju sopstveni sistem čuvanja u oblaku"
+    },
+    "queue": {
+        "label": {
+            "remove": "Remove from Downloads",
+            "canceled": "Canceled"
+        }
     }
 }

@@ -19,26 +19,14 @@ import {
   SpawnOptions,
   spawnSync
 } from 'child_process'
-import { existsSync, rmSync } from 'graceful-fs'
+import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
 import {
-  fixAsarPath,
-  getSteamLibraries,
-  configPath,
-  gamesConfigPath,
-  icon,
-  isWindows,
-  publicDir,
-  GITHUB_API,
-  isMac,
-  configStore,
-  isLinux,
-  isIntelMac
-} from './constants'
-import {
   appendGamePlayLog,
+  logChangedSetting,
+  logDebug,
   logError,
   logInfo,
   LogPrefix,
@@ -65,7 +53,8 @@ import {
 import * as fileSize from 'filesize'
 import makeClient from 'discord-rich-presence-typescript'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
-import { getMainWindow, sendFrontendMessage } from './main_window'
+import { getMainWindow } from './main_window'
+import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
@@ -85,9 +74,22 @@ import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
-import type { WineManagerStatus } from 'common/types'
+import type { AppSettings, WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 import { getSystemInfo } from './utils/systeminfo'
+import { configStore } from './constants/key_value_stores'
+import { GITHUB_API } from './constants/urls'
+import { isLinux, isMac, isIntelMac, isWindows } from './constants/environment'
+import {
+  configPath,
+  fixAsarPath,
+  gamesConfigPath,
+  heroicIconFolder,
+  publicDir,
+  toolsPath,
+  windowIcon
+} from './constants/paths'
+import { parse } from '@node-steam/vdf'
 
 const execAsync = promisify(exec)
 
@@ -231,7 +233,7 @@ const showAboutWindow = () => {
     applicationName: 'Heroic Games Launcher',
     applicationVersion: getHeroicVersion(),
     copyright: 'GPL V3',
-    iconPath: icon,
+    iconPath: windowIcon,
     website: 'https://heroicgameslauncher.com'
   })
   return app.showAboutPanel()
@@ -510,6 +512,22 @@ function getNileBin(): { dir: string; bin: string } {
   return splitPathAndName(fixAsarPath(defaultNilePath))
 }
 
+export function createNecessaryFolders() {
+  const defaultFolders = [gamesConfigPath, heroicIconFolder]
+
+  const necessaryFoldersByPlatform = {
+    win32: [...defaultFolders],
+    linux: [...defaultFolders, toolsPath],
+    darwin: [...defaultFolders, toolsPath]
+  }
+
+  necessaryFoldersByPlatform[process.platform].forEach((folder: string) => {
+    if (!existsSync(folder)) {
+      mkdirSync(folder)
+    }
+  })
+}
+
 function getFormattedOsName(): string {
   switch (process.platform) {
     case 'linux':
@@ -521,6 +539,29 @@ function getFormattedOsName(): string {
     default:
       return 'Unknown OS'
   }
+}
+
+export async function getSteamLibraries(): Promise<string[]> {
+  const { defaultSteamPath } = GlobalConfig.get().getSettings()
+  const path = defaultSteamPath.replaceAll("'", '')
+  const vdfFile = join(path, 'steamapps', 'libraryfolders.vdf')
+  const libraries = ['/usr/share/steam']
+
+  if (existsSync(vdfFile)) {
+    const json = parse(readFileSync(vdfFile, 'utf-8'))
+    if (!json.libraryfolders) {
+      return libraries
+    }
+    const folders: { path: string }[] = Object.values(json.libraryfolders)
+    return [...libraries, ...folders.map((folder) => folder.path)].filter(
+      (path) => existsSync(path)
+    )
+  }
+  logDebug(
+    'Unable to load Steam Libraries, libraryfolders.vdf not found',
+    LogPrefix.Backend
+  )
+  return libraries
 }
 
 async function getSteamRuntime(
@@ -915,16 +956,16 @@ async function ContinueWithFoundWine(
 }
 
 export async function downloadDefaultWine() {
+  if (isWindows) return null
   // refresh wine list
   await updateWineVersionInfos(true)
   // get list of wines on wineDownloaderInfoStore
   const availableWine = wineDownloaderInfoStore.get('wine-releases', [])
-  // use GE-Proton type if on Linux and GamePortingToolkit if on Mac
-  const release = availableWine.find(async (version) => {
+  const isMacOSUpToDate = await isMacSonomaOrHigher()
+  const release = availableWine.find((version) => {
     if (isLinux) {
       return version.type === 'GE-Proton'
     } else if (isMac) {
-      const isMacOSUpToDate = await isMacSonomaOrHigher()
       if (isIntelMac || !isMacOSUpToDate) {
         return version.type === 'Wine-Crossover'
       } else {
@@ -1086,7 +1127,7 @@ export async function moveOnWindows(
       const filenameMatch = data.match(/([\w.:\\]+)$/)?.[1]
       if (filenameMatch) currentFile = filenameMatch
 
-      sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+      sendFrontendMessage('progressUpdate', {
         appName: gameInfo.app_name,
         runner: gameInfo.runner,
         status: 'moving',
@@ -1192,7 +1233,7 @@ export async function moveOnUnix(
           }
         }
 
-        sendFrontendMessage(`progressUpdate-${gameInfo.app_name}`, {
+        sendFrontendMessage('progressUpdate', {
           appName: gameInfo.app_name,
           runner: gameInfo.runner,
           status: 'moving',
@@ -1244,7 +1285,7 @@ const memoryLog = (limit = 50) => {
       }
     },
     join: (separator = '') => {
-      return lines.reverse().join(separator)
+      return lines.toReversed().join(separator)
     }
   }
 }
@@ -1315,7 +1356,7 @@ export async function checkRosettaInstall() {
         'Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: "softwareupdate --install-rosetta" and restart Heroic. '
       ),
       buttons: ['OK'],
-      icon: icon
+      icon: windowIcon
     })
 
     logInfo(
@@ -1326,6 +1367,7 @@ export async function checkRosettaInstall() {
 }
 
 export async function isMacSonomaOrHigher() {
+  if (!isMac) return false
   logInfo('Checking if macOS is Sonoma or higher', LogPrefix.Backend)
 
   const release = (await getSystemInfo(true)).OS.version
@@ -1348,7 +1390,7 @@ function sendGameStatusUpdate(payload: GameStatus) {
 }
 
 function sendProgressUpdate(payload: GameStatus) {
-  sendFrontendMessage(`progressUpdate-${payload.appName}`, payload)
+  sendFrontendMessage('progressUpdate', payload)
   backendEvents.emit(`progressUpdate-${payload.appName}`, payload)
 }
 
@@ -1356,8 +1398,8 @@ interface ProgressCallback {
   (
     downloadedBytes: number,
     downloadSpeed: number,
-    diskWriteSpeed: number,
-    progress: number
+    progress: number,
+    diskWriteSpeed: number
   ): void
 }
 
@@ -1577,6 +1619,32 @@ const axiosClient = axios.create({
   timeout: 10 * 1000,
   httpsAgent: new https.Agent({ keepAlive: true })
 })
+
+export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
+  logInfo(
+    `Writing config for ${appName === 'default' ? 'Heroic' : appName}`,
+    LogPrefix.Backend
+  )
+  const oldConfig =
+    appName === 'default'
+      ? GlobalConfig.get().getSettings()
+      : GameConfig.get(appName).config
+
+  // log only the changed setting
+  logChangedSetting(config, oldConfig)
+
+  if (appName === 'default') {
+    GlobalConfig.get().set(config as AppSettings)
+    GlobalConfig.get().flush()
+    const currentConfigStore = configStore.get_nodefault('settings')
+    if (currentConfigStore) {
+      configStore.set('settings', { ...currentConfigStore, ...config })
+    }
+  } else {
+    GameConfig.get(appName).config = config as GameSettings
+    GameConfig.get(appName).flush()
+  }
+}
 
 export {
   errorHandler,

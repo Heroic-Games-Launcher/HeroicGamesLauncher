@@ -15,6 +15,7 @@ import {
 } from 'frontend/state/GlobalStateV2'
 import Upload from '@mui/icons-material/Upload'
 import Cloud from '@mui/icons-material/Cloud'
+import classNames from 'classnames'
 
 interface LogBoxProps {
   logFileContent: string
@@ -97,7 +98,7 @@ export default function LogSettings() {
   }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
 
   const getLogContent = () => {
-    window.api.getLogContent(showLogOf).then((content: string) => {
+    void window.api.getLogContent(showLogOf).then((content: string) => {
       if (!content) {
         setLogFileContent(t('setting.log.no-file', 'No log file found.'))
         setLogFileExist(false)
@@ -152,49 +153,55 @@ export default function LogSettings() {
           'Join our Discord and look for the "#-support" section. Read the pinned "Read Me First | Frequently Asked Questions" thread and follow the instructions to share these logs and any relevant information about your problem.'
         )}
       </p>
-      <div className="logs-wrapper">
-        <span className="log-buttongroup">
-          {[
-            ['Heroic', 'heroic'],
-            ['Epic/Legendary', 'legendary'],
-            ['GOG', 'gogdl'],
-            ['Amazon/Nile', 'nile']
-          ].map((log) => {
-            const [label, value] = log
-            return (
-              <a
-                key={value}
-                className={`log-buttons ${
-                  showLogOf === value ? 'log-choosen' : ''
-                }`}
-                onClick={() => {
-                  setRefreshing(true)
-                  setShowLogOf(value)
-                }}
-                title={label}
-              >
-                {label}
-              </a>
-            )
-          })}
-          {installedGames.map((game) => {
-            return (
-              <a
-                key={game.app_name}
-                className={`log-buttons ${
-                  showLogOf === game.app_name ? 'log-choosen' : ''
-                }`}
-                onClick={() => {
-                  setRefreshing(true)
-                  setShowLogOf(game.app_name)
-                }}
-                title={game.title}
-              >
-                {game.title}
-              </a>
-            )
-          })}
-        </span>
+      <div
+        className={classNames('logs-wrapper', {
+          'game-log': !isInSettingsMenu
+        })}
+      >
+        {isInSettingsMenu && (
+          <span className="log-buttongroup">
+            {[
+              ['Heroic', 'heroic'],
+              ['Epic/Legendary', 'legendary'],
+              ['GOG', 'gogdl'],
+              ['Amazon/Nile', 'nile']
+            ].map((log) => {
+              const [label, value] = log
+              return (
+                <a
+                  key={value}
+                  className={`log-buttons ${
+                    showLogOf === value ? 'log-choosen' : ''
+                  }`}
+                  onClick={() => {
+                    setRefreshing(true)
+                    setShowLogOf(value)
+                  }}
+                  title={label}
+                >
+                  {label}
+                </a>
+              )
+            })}
+            {installedGames.map((game) => {
+              return (
+                <a
+                  key={game.app_name}
+                  className={`log-buttons ${
+                    showLogOf === game.app_name ? 'log-choosen' : ''
+                  }`}
+                  onClick={() => {
+                    setRefreshing(true)
+                    setShowLogOf(game.app_name)
+                  }}
+                  title={game.title}
+                >
+                  {game.title}
+                </a>
+              )
+            })}
+          </span>
+        )}
 
         {refreshing ? (
           <span className="setting log-box">

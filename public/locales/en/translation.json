@@ -4,6 +4,7 @@
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family_default": "Content Font Family (Default: {{fontFamily}})",
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
+        "disable_smooth_scrolling": "Disable smooth scrolling (requires restart)",
         "fonts": "Fonts",
         "title": "Accessibility",
         "titles_always_visible": "Always show titles in library",
@@ -74,6 +75,11 @@
                 "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
             },
             "moving": "Error Moving Game {{error}}",
+            "steam": {
+                "error": "Steam executable not found. Installation was probably canceled by user or failed on Steam side.",
+                "message": "Steam installation failed! Please read the instructions carefully and try again! {{paragraph}} {{error}}",
+                "title": "Steam error"
+            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -149,6 +155,10 @@
                 "import": "Epic Servers are having major outage right now, the game cannot be imported!",
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
+            },
+            "rosetta": {
+                "message": "Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: \"softwareupdate --install-rosetta\" and restart Heroic. ",
+                "title": "Rosetta not found"
             },
             "sideload": {
                 "confirmExit": {
@@ -288,9 +298,11 @@
         "show_installed_only": "Show Installed only",
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
+        "show_updates_only": "Show games with updates only",
         "uncategorized": "Uncategorized"
     },
     "help": {
+        "advertiseAvxForRosetta": "Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "button": {
             "close": "Close Help",
@@ -311,8 +323,9 @@
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "disablePlaytimeSync": "Disables playtime synchronization with given store's servers (currently only GOG is supported)",
+        "download_proton_steam": "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'Default Steam path' setting above.",
+        "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
@@ -426,6 +439,12 @@
     "message": {
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
+    },
+    "notification": {
+        "steam": {
+            "error": "Steam installation failed! Please read the instructions carefully and try again!",
+            "success": "Steam for Windows has been installed successfully!"
+        }
     },
     "notify": {
         "error": {
@@ -571,6 +590,7 @@
         "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
+        "advertiseAvxForRosetta": "Advertise AVX for Rosetta",
         "after-launch-script-path": "Select a script to run after the game exits",
         "allow_installation_broken_anticheat": {
             "confirmation": {
@@ -607,7 +627,8 @@
         "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
+        "download-proton-steam": "Download GE-Proton to Steam directory",
+        "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
@@ -651,7 +672,7 @@
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
-            "missingMsg": "We could not found gamescope on the PATH. Install it or add it to the PATH."
+            "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH."
         },
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
@@ -731,7 +752,6 @@
             "description": "Use Dedicated Graphics Card"
         },
         "runexe": {
-            "message": "Drag and Drop Files here",
             "title": "Run EXE on Prefix"
         },
         "savefolder": {
@@ -889,10 +909,11 @@
             "search": "Use the Search bar to search for your games.",
             "sortInstalled": "Sort games by installed status.",
             "sortOptions": "Click here to sort games alphabetically.",
+            "steamInstall": "Use this button to install the Windows version of Steam and play your Windows games using Crossover, Wine or GPTK.",
             "viewToggle": "Switch between grid and list view for your games.",
             "welcome": {
                 "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores.",
-                "intro2": "If the library is empty, make sure to login with your accounts usinge the Manage accounts on the sidebar or add your own games using the Add Game button above.",
+                "intro2": "If the library is empty, make sure to login with your accounts using the Manage accounts on the sidebar or add your own games using the Add Game button above.",
                 "title": "Welcome to Heroic!",
                 "title2": "Managing the library!"
             }

@@ -9,14 +9,12 @@ import {
 } from 'common/types/electron_store'
 import { GameInfo } from 'common/types'
 
-export class TypeCheckedStoreFrontend<
-  Name extends ValidStoreName,
-  Structure extends StoreStructure[Name]
-> implements TypeCheckedStore<Name, Structure>
+export class TypeCheckedStoreFrontend<Name extends ValidStoreName>
+  implements TypeCheckedStore<Name>
 {
   private storeName: ValidStoreName
 
-  constructor(name: Name, options: StoreOptions<Structure>) {
+  constructor(name: Name, options: StoreOptions<StoreStructure[Name]>) {
     this.storeName = name
     // @ts-expect-error This looks like a bug in electron-store's type definitions
     window.api.storeNew(name, options)
@@ -28,24 +26,24 @@ export class TypeCheckedStoreFrontend<
 
   public get<KeyType extends string>(
     key: KeyType,
-    defaultValue: NonNullable<UnknownGuard<Get<Structure, KeyType>>>
+    defaultValue: NonNullable<UnknownGuard<Get<StoreStructure[Name], KeyType>>>
   ) {
     return window.api.storeGet(
       this.storeName,
       key,
       defaultValue
-    ) as NonNullable<UnknownGuard<Get<Structure, KeyType>>>
+    ) as NonNullable<UnknownGuard<Get<StoreStructure[Name], KeyType>>>
   }
 
   public get_nodefault<KeyType extends string>(key: KeyType) {
     return window.api.storeGet(this.storeName, key) as UnknownGuard<
-      Get<Structure, KeyType> | undefined
+      Get<StoreStructure[Name], KeyType> | undefined
     >
   }
 
   public set<KeyType extends string>(
     key: KeyType,
-    value: UnknownGuard<Get<Structure, KeyType>>
+    value: UnknownGuard<Get<StoreStructure[Name], KeyType>>
   ) {
     window.api.storeSet(this.storeName, key, value)
   }

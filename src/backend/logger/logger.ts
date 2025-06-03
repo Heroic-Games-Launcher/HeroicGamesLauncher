@@ -4,9 +4,19 @@
  *        Note that with console.log and console.warn everything will be saved too.
  *        error equals console.error
  */
-import { AppSettings, GameInfo, GameSettings, Runner } from 'common/types'
+import {
+  AppSettings,
+  GameInfo,
+  GameScopeSettings,
+  GameSettings,
+  Runner
+} from 'common/types'
 import { showDialogBoxModalAuto } from '../dialog/dialog'
-import { appendMessageToLogFile, getLongestPrefix } from './logfile'
+import {
+  appendMessageToLogFile,
+  createNewLogFileAndClearOldOnes,
+  getLongestPrefix
+} from './logfile'
 import { backendEvents } from 'backend/backend_events'
 import { GlobalConfig } from 'backend/config'
 import { getGOGdlBin, getLegendaryBin } from 'backend/utils'
@@ -17,12 +27,13 @@ import {
   SystemInformation
 } from '../utils/systeminfo'
 import { appendFile, writeFile } from 'fs/promises'
-import { gamesConfigPath, isWindows } from 'backend/constants'
 import { gameManagerMap } from 'backend/storeManagers'
 import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
 import { gameAnticheatInfo } from 'backend/anticheat/utils'
 import { isUmuSupported } from 'backend/utils/compatibility_layers'
+import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import { gamesConfigPath } from 'backend/constants/paths'
 
 export enum LogPrefix {
   General = '',
@@ -46,9 +57,10 @@ export enum LogPrefix {
   LogUploader = 'LogUploader'
 }
 
-export const RunnerToLogPrefixMap = {
+export const RunnerToLogPrefixMap: Record<Runner, LogPrefix> = {
   legendary: LogPrefix.Legendary,
   gog: LogPrefix.Gog,
+  nile: LogPrefix.Nile,
   sideload: LogPrefix.Sideload
 }
 
@@ -63,8 +75,19 @@ interface LogOptions {
 
 // global variable to use by logBase
 export let logsDisabled = false
+export let currentLogFile = ''
+export let lastLogFile = ''
+export let legendaryLogFile = ''
+export let gogdlLogFile = ''
+export let nileLogFile = ''
 
 export function initLogger() {
+  const logs = createNewLogFileAndClearOldOnes()
+  currentLogFile = logs.currentLogFile
+  lastLogFile = logs.lastLogFile
+  legendaryLogFile = logs.legendaryLogFile
+  gogdlLogFile = logs.gogdlLogFile
+  nileLogFile = logs.nileLogFile
   // Add a basic error handler to our stdout/stderr. If we don't do this,
   // the main `process.on('uncaughtException', ...)` handler catches them (and
   // presents an error message to the user, which is hardly necessary for
@@ -141,10 +164,8 @@ function convertInputToString(param: LogInputType): string {
       case 'string':
         return value
       case 'object':
-        // Object.prototype.toString.call(value).includes('Error') will catch all
-        // Error types (Error, EvalError, SyntaxError, ...)
-        if (Object.prototype.toString.call(value).includes('Error')) {
-          return value!['stack'] ? value!['stack'] : value!.toString()
+        if (value instanceof Error) {
+          return value.stack ?? value.message
         } else if (Object.prototype.toString.call(value).includes('Object')) {
           return JSON.stringify(value, null, 2)
         } else {
@@ -316,17 +337,15 @@ export function logChangedSetting(
   config: Partial<AppSettings>,
   oldConfig: GameSettings
 ) {
-  const changedSettings = Object.keys(config).filter(
-    (key) => config[key] !== oldConfig[key]
-  )
+  const changedSettings = (
+    Object.keys(config) as (keyof GameSettings)[]
+  ).filter((key) => config[key] !== oldConfig[key])
 
   changedSettings.forEach((changedSetting) => {
     // check if both are empty arrays
     if (
       Array.isArray(config[changedSetting]) &&
-      Array.isArray(oldConfig[changedSetting]) &&
-      config[changedSetting].length === 0 &&
-      oldConfig[changedSetting].length === 0
+      Array.isArray(oldConfig[changedSetting])
     ) {
       return
     }
@@ -477,12 +496,19 @@ const shouldToggleShaderPreCacheOn = async (
   info: SystemInformation | null,
   gameSettings: GameSettings
 ) => {
+  logDebug(`Checking if we should toggle Shader Pre-Caching`, LogPrefix.Backend)
+
   if (!info) return false
   if (!info.steamDeckInfo.isDeck) return false
   if (info.steamDeckInfo.mode !== 'game') return false
   if (!(await isUmuSupported(gameSettings))) return false
 
   // check if all of the following env variables are undefined
+  logDebug(
+    `Checking for Steam's Shared Pre-cache env variables`,
+    LogPrefix.Backend
+  )
+
   return [
     'STEAM_COMPAT_TRANSCODED_MEDIA_PATH',
     'STEAM_COMPAT_MEDIA_PATH',
@@ -498,6 +524,131 @@ class GameLogWriter extends LogWriter {
     super()
     this.gameInfo = gameInfo
     this.filePath = lastPlayLogFileLocation(gameInfo.app_name)
+  }
+
+  // cleanup settings for logs to avoid confusions during support requests
+  filterGameSettingsForLog(
+    gameSettings: Partial<GameSettings>,
+    notNative: boolean
+  ): Partial<GameSettings> {
+    // remove gamescope settings if it's disabled
+    const gscope: Partial<GameScopeSettings> | undefined =
+      gameSettings.gamescope
+    if (gscope) {
+      if (!gscope.enableLimiter) {
+        delete gscope.fpsLimiter
+        delete gscope.fpsLimiterNoFocus
+      }
+      if (!gscope.enableUpscaling) {
+        delete gscope.upscaleMethod
+        delete gscope.upscaleHeight
+        delete gscope.upscaleWidth
+        delete gscope.gameHeight
+        delete gscope.gameWidth
+        delete gscope.windowType
+      }
+    }
+
+    // remove settings that are not used on Linux
+    if (isLinux) {
+      delete gameSettings.enableMsync
+      delete gameSettings.wineCrossoverBottle
+
+      if (notNative) {
+        const wineVersion = gameSettings.wineVersion
+        if (wineVersion) {
+          if (wineVersion.type === 'proton') {
+            delete gameSettings.autoInstallDxvk
+            delete gameSettings.autoInstallVkd3d
+          }
+        }
+      } else {
+        // remove settings that are not used on native Linux games
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.autoInstallDxvk
+        delete gameSettings.autoInstallDxvkNvapi
+        delete gameSettings.autoInstallVkd3d
+        delete gameSettings.enableFsync
+        delete gameSettings.enableEsync
+        delete gameSettings.enableFSR
+        delete gameSettings.showFps
+        delete gameSettings.enableDXVKFpsLimit
+        delete gameSettings.eacRuntime
+        delete gameSettings.battlEyeRuntime
+        delete gameSettings.useGameMode
+      }
+    }
+
+    // remove settings that are not used on Mac
+    if (isMac) {
+      delete gameSettings.useGameMode
+      delete gameSettings.gamescope
+      delete gameSettings.nvidiaPrime
+      delete gameSettings.battlEyeRuntime
+      delete gameSettings.eacRuntime
+      delete gameSettings.enableFSR
+      delete gameSettings.showMangohud
+      delete gameSettings.showFps
+      delete gameSettings.disableUMU
+
+      if (notNative) {
+        const wineType = gameSettings.wineVersion
+        if (wineType) {
+          if (wineType.type === 'wine') {
+            delete gameSettings.wineCrossoverBottle
+          }
+
+          if (wineType.type === 'toolkit') {
+            delete gameSettings.autoInstallDxvk
+            delete gameSettings.autoInstallDxvkNvapi
+            delete gameSettings.autoInstallVkd3d
+          }
+
+          if (wineType.type === 'crossover') {
+            delete gameSettings.autoInstallDxvk
+            delete gameSettings.autoInstallDxvkNvapi
+            delete gameSettings.autoInstallVkd3d
+          }
+        }
+
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+      } else {
+        // remove settings that are not used on native Mac games
+        delete gameSettings.enableDXVKFpsLimit
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.wineCrossoverBottle
+      }
+    }
+
+    // remove settings that are not used on Windows
+    if (isWindows) {
+      delete gameSettings.enableMsync
+      delete gameSettings.enableFSR
+      delete gameSettings.enableEsync
+      delete gameSettings.enableFsync
+      delete gameSettings.enableDXVKFpsLimit
+      delete gameSettings.DXVKFpsCap
+      delete gameSettings.autoInstallDxvk
+      delete gameSettings.autoInstallDxvkNvapi
+      delete gameSettings.autoInstallVkd3d
+      delete gameSettings.gamescope
+      delete gameSettings.useGameMode
+      delete gameSettings.showMangohud
+      delete gameSettings.showFps
+      delete gameSettings.preferSystemLibs
+      delete gameSettings.wineCrossoverBottle
+      delete gameSettings.winePrefix
+      delete gameSettings.wineVersion
+      delete gameSettings.battlEyeRuntime
+      delete gameSettings.eacRuntime
+      delete gameSettings.nvidiaPrime
+      delete gameSettings.disableUMU
+    }
+
+    return gameSettings
   }
 
   async initLog() {
@@ -540,7 +691,11 @@ class GameLogWriter extends LogWriter {
 
       // log game settings
       const gameSettings = await gameManagerMap[runner].getSettings(app_name)
-      const gameSettingsString = JSON.stringify(gameSettings, null, '\t')
+      const gameSettingsString = JSON.stringify(
+        this.filterGameSettingsForLog(structuredClone(gameSettings), notNative),
+        null,
+        '\t'
+      )
       const startPlayingDate = new Date()
       // log anticheat info
       const antiCheatInfo = gameAnticheatInfo(this.gameInfo.namespace)

@@ -56,7 +56,8 @@ body {
   position: sticky;
   bottom: 0px;
   background: var(--background);
-  z-index: 10;
+  /* MUI Dialogs use a z-index of 1300, make sure this is never less than it */
+  z-index: 1400;
 }
 
 .App .offline-message {

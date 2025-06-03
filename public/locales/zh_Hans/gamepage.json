@@ -21,7 +21,8 @@
             "title": "选择要运行的 EXE"
         },
         "select": {
-            "button": "选择"
+            "button": "选择",
+            "image": "选择图片"
         },
         "sideload": {
             "exe": "选择可执行文件"
@@ -47,7 +48,8 @@
         },
         "wineprefix": "选择 WinePrefix 文件夹",
         "yes": "是",
-        "close": "关闭"
+        "close": "关闭",
+        "select-install-path": "选择 Steam 安装路径"
     },
     "button": {
         "add_to_favourites": "添加到收藏",
@@ -74,7 +76,9 @@
         "uninstall": "卸载",
         "update": "更新",
         "details": "详细内容",
-        "changelog": "显示更新日志"
+        "changelog": "显示更新日志",
+        "browse_files": "浏览文件",
+        "browse_wine_prefix": "浏览 Wine Prefix"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -177,7 +181,33 @@
         "ubisoft": "安装 Ubisoft Connect",
         "winetricks": "正在安装 Winetricks 包",
         "prerequisites": "正在安装必需的库等",
-        "redist": "正在安装 Redistributables"
+        "redist": "正在安装 Redistributables",
+        "steam": {
+            "abort": "中止安装",
+            "cancel": "取消安装",
+            "compatibility": "请注意，并非所有游戏都能运行，即使能运行，表现也可能不如预期。",
+            "compatibility-layer-not-available": "兼容层不可用。请先从“设置 > Wine 管理器”安装一个兼容层。",
+            "crossover": "如果您已安装 Crossover，则不需要此项，因为它可以很好地运行普通的 Steam。",
+            "downloading": "下载中 {{percent}}%",
+            "hardware": "Apple Silicon M1+（对于 Intel Mac，Steam 可通过 Crossover 运行）",
+            "install": "安装 Steam",
+            "install-path": "Steam 安装路径",
+            "install-tooltip": "这将安装 Windows 版本的 Steam，并通过 Heroic 兼容层运行。\n\n    某些游戏，尤其是较旧的游戏、新的 3D 游戏或带有反作弊软件的游戏，可能无法正常运行。 \n\n    ",
+            "installation": "Steam 安装",
+            "launch": "使用 Heroic 兼容层启动 Steam",
+            "launching": "正在启动 Steam...",
+            "macOS": "macOS 14.0 或更高版本",
+            "notification": "安装完成后，Heroic 会通知您。",
+            "patience": "如果您希望继续，请耐心等待，完成时间取决于您的网络连接和系统配置，可能需要几分钟。",
+            "ram": "8GB 内存",
+            "recommended": "推荐配置以获得更佳体验",
+            "select-path": "选择 Steam 安装文件夹",
+            "specificVersion-pt1": "这将从以下位置下载特定版本的 Steam",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "该版本经过调整以通过 Heroic 运行，因为新版本的 Steam 无法在 macOS 上运行。",
+            "installing": "安装中",
+            "pleaseWait": "请等待"
+        }
     },
     "launch": {
         "options": "启动选项..."
@@ -212,7 +242,7 @@
             "fullscreen": "启动全屏（按 F11 退出）"
         },
         "placeholder": {
-            "image": "在此粘贴映像 URL",
+            "image": "粘贴图片 URL 计算机中选择一张",
             "title": "添加标题到你的“游戏/应用”",
             "url": "在此处粘贴游戏网址",
             "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
@@ -296,5 +326,14 @@
         "notice2": "单击“安装”后，Heroic 为了完成安装过程将运行程序",
         "notice1": "此游戏由下列第三方程序程序管理： \"{{application_name}}\""
     },
-    "wikiLink": "关于此游戏的重要信息，请阅读：&nbsp;<1>打开页面</1>"
+    "wikiLink": "关于此游戏的重要信息，请阅读：&nbsp;<1>打开页面</1>",
+    "Open": "打开",
+    "queue": {
+        "label": {
+            "pause": "暂停下载",
+            "resume": "继续下载",
+            "remove": "从下载中删除",
+            "canceled": "已取消"
+        }
+    }
 }

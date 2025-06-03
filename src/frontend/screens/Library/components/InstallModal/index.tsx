@@ -20,6 +20,7 @@ import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import ThirdPartyDialog from './ThirdPartyDialog'
+import { MenuItem } from '@mui/material'
 
 type Props = {
   appName: string
@@ -31,7 +32,7 @@ type Props = {
 export type AvailablePlatforms = {
   name: string
   available: boolean
-  value: string
+  value: InstallPlatform
   icon: IconDefinition
 }[]
 
@@ -61,7 +62,7 @@ export default React.memo(function InstallModal({
     {
       name: 'Linux',
       available: isLinux && (isSideload || isLinuxNative),
-      value: 'Linux',
+      value: 'linux',
       icon: faLinux
     },
     {
@@ -88,7 +89,7 @@ export default React.memo(function InstallModal({
     (p) => p.available
   )
 
-  const getDefaultplatform = () => {
+  const getDefaultplatform = (): InstallPlatform => {
     if (isLinux && gameInfo?.is_linux_native) {
       return 'linux'
     }
@@ -100,9 +101,8 @@ export default React.memo(function InstallModal({
     return 'Windows'
   }
 
-  const [platformToInstall, setPlatformToInstall] = useState<InstallPlatform>(
-    getDefaultplatform()
-  )
+  const [platformToInstall, setPlatformToInstall] =
+    useState<InstallPlatform>(getDefaultplatform())
 
   const hasWine = platformToInstall === 'Windows' && !isWin
 
@@ -144,9 +144,9 @@ export default React.memo(function InstallModal({
         }
       >
         {availablePlatforms.map((p, i) => (
-          <option value={p.value} key={i}>
+          <MenuItem value={p.value} key={i}>
             {p.name}
-          </option>
+          </MenuItem>
         ))}
       </SelectField>
     )

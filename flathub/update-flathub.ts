@@ -25,6 +25,7 @@ interface GitHubRelease {
 
 async function main() {
   console.log('tag name: ', process.env.RELEASE_VERSION)
+  console.log('is prerelease: ', process.env.IS_PRERELEASE)
   const repoOrgName = 'Heroic-Games-Launcher'
   const repoName = repoOrgName + '/HeroicGamesLauncher'
 
@@ -34,17 +35,29 @@ async function main() {
     './com.heroicgameslauncher.hgl/com.heroicgameslauncher.hgl.yml'
   let heroicYml = fs.readFileSync(ymlFilePath).toString()
 
-  // Get the latest release information
-  console.log('Fetching latest release info')
-  const { data } = await axios.get<GitHubRelease>(
-    `https://api.github.com/repos/${repoName}/releases/latest`
-  )
+  // Get the specific release information (either latest or by tag for pre-releases)
+  console.log('Fetching release info')
+  let releaseData: GitHubRelease
+
+  if (process.env.IS_PRERELEASE === 'true' && process.env.RELEASE_VERSION) {
+    // For pre-releases, fetch the specific release by tag
+    const { data } = await axios.get<GitHubRelease>(
+      `https://api.github.com/repos/${repoName}/releases/tags/${process.env.RELEASE_VERSION}`
+    )
+    releaseData = data
+  } else {
+    // For regular releases, fetch the latest release
+    const { data } = await axios.get<GitHubRelease>(
+      `https://api.github.com/repos/${repoName}/releases/latest`
+    )
+    releaseData = data
+  }
 
   // Use x86_64 only for now
   const architecture = 'x86_64'
 
   // Find the AppImage asset
-  const appimage = data.assets.find((asset) =>
+  const appimage = releaseData.assets.find((asset) =>
     asset.browser_download_url.includes('AppImage')
   )
 

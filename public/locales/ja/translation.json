@@ -7,7 +7,9 @@
         "title": "アクセシビリティ",
         "zoom": "拡大/縮小",
         "disable_dialog_backdrop_close": "枠外をクリックしてもダイアログを閉じないようにする",
-        "titles_always_visible": "ライブラリのタイトルを常に表示"
+        "titles_always_visible": "ライブラリのタイトルを常に表示",
+        "actions_font_family_default": "アクション用フォント （既定: {{fontFamily}}）",
+        "content_font_family_default": "コンテンツ用フォント （既定: {{fontFamily}}）"
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -319,7 +321,8 @@
             "gameHeight": "ゲームで使用される縦解像度。Gamescopeでは16:9のアスペクト比を想定しています。",
             "upscaleHeight": "Gamescopeで使用される縦解像度。16:9のアスペクト比を想定しています。",
             "fpsLimiter": "Gamescopeが制限するフレーム数（例:60）",
-            "additionalOptions": "gamescopeに渡す追加のコマンドラインフラグ。"
+            "additionalOptions": "gamescopeに渡す追加のコマンドラインフラグ。",
+            "forceGrabCursor": "カーソルの可視性に応じて切り替えるのではなく、常に相対マウスモードを使用します。（アプリケーションがフォーカスを失い続ける場合に便利です）"
         },
         "dxvknvapi": "DXVK-NVAPIは、DXVKとLinuxネイティブNVAPIの上に構築されたNVAPIの実装で、Nvidia GPU上でDLSSを使用することができます。",
         "disablePlaytimeSync": "指定したストアのサーバーとのプレイタイムの同期を無効にする（現時点ではGOGのみ対応）",
@@ -621,8 +624,41 @@
             "show-in-folder": "ログファイルをフォルダに表示",
             "join-heroic-discord": "Discordに参加する",
             "upload": {
-                "actions": "操作"
-            }
+                "actions": "操作",
+                "button": "ログファイルをアップロード",
+                "delete": "ログファイルの削除をリクエストする",
+                "done": {
+                    "content": "{{url}} にアップロードされました （URL がクリップボードにコピーされました）",
+                    "title": "アップロード完了"
+                },
+                "uploading": {
+                    "content": "ログファイルをアップロードしています...",
+                    "title": "アップロード中"
+                },
+                "upload-date": "アップロード日",
+                "error": {
+                    "title": "アップロードに失敗しました",
+                    "content": "ログファイルのアップロードに失敗しました。詳細については、Heroic の一般ログを確認してください。"
+                },
+                "header": "アップロード済みのログファイル",
+                "no-files": "ログファイルはアップロードされませんでした",
+                "minutes-ago": "{{minutesAgo, relativetime(minutes)}}にアップロードされました",
+                "open": "ログファイルのアップロードを開く",
+                "hours-ago": "{{hoursAgo, relativetime(hours)}}にアップロードされました",
+                "title": "ログタイトル",
+                "confirm": {
+                    "content": "本当に「{{name}}」をアップロードしますか?",
+                    "title": "ログファイルをアップロードしますか?"
+                }
+            },
+            "descriptiveNames": {
+                "game-log": "{{gameTitle}}のゲームログ",
+                "heroic": "一般のHeroicログ",
+                "gog": "GOGログ",
+                "legendary": "Epic Games / Legendaryログ",
+                "nile": "Amazon / Nileログ"
+            },
+            "show-uploads": "アップロードされたログファイルを表示する"
         },
         "mangohud": "Mangohudを有効にする（Mangohudがインストールされている必要があります）",
         "manualsync": {
@@ -680,7 +716,8 @@
         "gamescope": {
             "enableLimiter": "FPSリミッターを有効",
             "enableUpscaling": "アップスケーリングを有効",
-            "missingMsg": "PATHにGamescopeが見つかりません。インストールするか、PATHに追加してください。"
+            "missingMsg": "PATHにGamescopeが見つかりません。インストールするか、PATHに追加してください。",
+            "enableForceGrabCursor": "強制的にグラブカーソルを有効にする"
         },
         "disablePlaytimeSync": "プレイ時間の同期を無効",
         "experimental_features": {
@@ -700,7 +737,14 @@
             "label": "アンチチートが壊れていたり、拒否されているゲームのインストールを許可"
         },
         "before-launch-script-path": "ゲーム起動前に実行するスクリプトを選択",
-        "after-launch-script-path": "ゲーム終了後に実行するスクリプトを選択"
+        "after-launch-script-path": "ゲーム終了後に実行するスクリプトを選択",
+        "disableUMU": "UMUを無効にする",
+        "custom_css": {
+            "warning": "警告：これはフロントエンド全体に適用されます。間違ったCSSスタイルはHeroicを利用できなくなる可能性があります。必要に応じて、設定は`~/.config/heroic/config.json`で手動で変更できます。信頼できないソースからCSSスタイルをコピーしないでください。"
+        },
+        "verboseLogs": {
+            "description": "詳細なログを有効にする"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -743,7 +787,9 @@
         "reset-heroic": "Heroicをリセット",
         "saves": {
             "label": "Save Location:",
-            "warning": "クラウドセーブ機能は実験的な機能です。同期する前にセーブデータをバックアップしてください（何か問題が発生した場合に備えて）"
+            "warning": "クラウドセーブ機能は実験的な機能です。同期する前にセーブデータをバックアップしてください（何か問題が発生した場合に備えて）",
+            "not_supported": "このゲームはクラウドセーブをサポートしていません。",
+            "gog_linux_native_warning": "LinuxネイティブゲームはGOGのクラウドセーブ機能をサポートしていません。代わりにWindows版を使用してください。"
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -798,6 +844,9 @@
             "resetHeroic": {
                 "help": "これにより、すべての設定とキャッシュが削除されますが、インストール済みのゲームやEpicの認証情報は削除されません。また、Heroicのポータブル版（AppImage、WinPortable、...）を手動で再起動する必要があります。"
             }
+        },
+        "custom_css": {
+            "title": "カスタムCSSスタイル"
         }
     },
     "Settings": "設定",
@@ -889,7 +938,9 @@
         "openGUI": "WinetricksのGUIを開く",
         "search": "フォントまたはコンポーネントの検索",
         "nothingYet": "Winetricksではまだ何もインストールされていません",
-        "installed": "インストール済みのコンポーネント:"
+        "installed": "インストール済みのコンポーネント:",
+        "loading-available": "利用可能なコンポーネントを読み込んでいます...",
+        "no-components": "利用可能なコンポーネントがありません"
     },
     "category-settings": {
         "cancel": "キャンセル",
@@ -927,6 +978,53 @@
         "title": "Adtractionがブロックされています"
     },
     "emptyLibrary": {
-        "noResults": "現在のフィルターでは検索結果がありません。"
+        "noResults": "現在のフィルターでは検索結果がありません。",
+        "noGames": "ライブラリが空です。<br /><br /><4>こちら</4>をクリックして、Epic、GOG.com、またはAmazonアカウントでログインしてください。<br /><br />その他のゲームやアプリを登録するには、「ゲームの追加」をクリックして手動で追加してください。"
+    },
+    "tour": {
+        "done": "完了",
+        "back": "戻る",
+        "library": {
+            "categories": "ゲームをカテゴリ別に整理しましょう。",
+            "end": {
+                "intro": "以上です！ゲームを楽しんでください！",
+                "title": "ゲームを楽しんでください！"
+            },
+            "addGame": "ここをクリックして、ライブラリに手持ちのゲームやアプリを追加してください。それらは基本的に何でも構いません、ブラウザのURLでも可能です。",
+            "filters": "これらのオプションを使用して、ストア、プラットフォーム、お気に入りなどでゲームをフィルタリングします。",
+            "gameCard": "ゲームカードを左クリックすると、ゲームページに移動して詳細の表示や設定の調整ができます。また、右クリックするとコンテキストメニューが開きます。",
+            "search": "検索バーを使用してゲームを検索します。",
+            "sortOptions": "ゲームをアルファベット順に並べ替えるには、ここをクリックしてください。",
+            "viewToggle": "ゲームのグリッド表示とリスト表示を切り替えます。",
+            "sortInstalled": "ゲームをインストールの状態別に並べ替えます。",
+            "welcome": {
+                "intro": "Heroic ライブラリへようこそ! ここでは、さまざまなストアにあるすべてのゲームを見ることができます。",
+                "intro2": "ライブラリが空の場合は、サイドバーの「アカウントの管理」を使用して自分のアカウントでログインするか、上の「ゲームの追加」ボタンを使用して手持ちのゲームを追加してください。",
+                "title": "Heroicへようこそ！",
+                "title2": "ライブラリを管理します！"
+            },
+            "refresh": "ライブラリを更新して、新しいゲームやアップデートがあるかどうかを確認します。"
+        },
+        "next": "進む",
+        "sidebar": {
+            "accessibility": "アクセシビリティ機能から、自分好みにカスタマイズできます。",
+            "community": "Discordのコミュニティに参加して、Heroicの開発をサポートしてください。",
+            "docs": "Heroicの使用に関するヘルプについてはドキュメントをご確認ください。",
+            "downloads": "ゲームのダウンロード・インストール状況の確認と管理ができます。",
+            "library": "さまざまなストアのゲームライブラリに 1か所でアクセスできます。",
+            "login": "ライブラリにアクセスするには、各ゲームストアのアカウントにログインしてください。",
+            "quit": "アプリケーションを安全に終了します。",
+            "settings": "Heroicの設定、ゲームのデフォルト設定、ログの確認などを行います。",
+            "stores": "Epic、GOG、Amazonなどのさまざまなストアでゲームを閲覧して購入できます。",
+            "welcome": {
+                "intro": "Heroic へようこそ! このサイドバーには、アプリを探索するためのすべてのナビゲーションオプションが含まれています。",
+                "title": "サイドバーナビゲーション"
+            },
+            "wine": "LinuxまたはmacOSで Windowsゲームを実行するための Wine/Proton/GPTK の新しいバージョンの管理やダウンロードができます。",
+            "version": "現在のHeroic バージョンを確認し、それをクリックして最新の変更ログを表示し、ヘルプアイコンからこのツアーにアクセスします。",
+            "accounts": "接続されているストアのアカウント（Epic、GOG、Amazon）を管理し、ログアウトまたはログインできます。"
+        },
+        "startTour": "ツアーを開始",
+        "skip": "スキップ"
     }
 }

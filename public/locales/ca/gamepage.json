@@ -21,7 +21,8 @@
             "title": "Tria un EXE per executar"
         },
         "select": {
-            "button": "Tria"
+            "button": "Tria",
+            "image": "Tria una imatge"
         },
         "sideload": {
             "exe": "Selecciona l'executable"
@@ -74,7 +75,9 @@
         "uninstall": "Desinstal·la",
         "update": "Actualitza",
         "details": "Detalls",
-        "changelog": "Mostra el registre"
+        "changelog": "Mostra el registre",
+        "browse_files": "Explora els fitxers",
+        "browse_wine_prefix": "Explora el prefix Wine"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -177,7 +180,11 @@
         "ubisoft": "S'instal·la l'Ubisoft Connect",
         "winetricks": "S'estan instal·lant els paquets del Winetricks",
         "prerequisites": "S'estan instal·lant els prerequisits",
-        "redist": "Instal·la redistribuïbles"
+        "redist": "Instal·la redistribuïbles",
+        "steam": {
+            "installing": "S'està instal·lant...",
+            "pleaseWait": "Espera..."
+        }
     },
     "launch": {
         "options": "Opcions d'execució..."
@@ -212,7 +219,7 @@
             "fullscreen": "Inicia a pantalla completa (F11 per a sortir)"
         },
         "placeholder": {
-            "image": "Enganxa-hi l'URL d'una imatge",
+            "image": "Enganxa l'URL d'una imatge o selecciona'n una del teu ordinador",
             "title": "Afegeix un títol al joc o aplicació",
             "url": "Enganxeu l'URL del joc aquí",
             "useragent": "Escriviu aquí un agent d'usuari personalitzat per a fer-lo servir en aquesta aplicació/joc de navegador."
@@ -296,5 +303,14 @@
         "notice1": "Aquest joc el gestiona una aplicació de tercers: «{{application_name}}»",
         "notice2": "Després de fer clic a «Instal·la», el Heroic executarà l'aplicació per tal de completar el procés d'instal·lació."
     },
-    "wikiLink": "Informació important d'aquest joc. Llegiu:&nbsp;<1>Obre la pàgina</1>"
+    "wikiLink": "Informació important d'aquest joc. Llegiu:&nbsp;<1>Obre la pàgina</1>",
+    "Open": "Obre",
+    "queue": {
+        "label": {
+            "canceled": "Cancel·lat",
+            "remove": "Suprimeix de les baixades",
+            "pause": "Posa la descàrrega en pausa",
+            "resume": "Reprèn la descàrrega"
+        }
+    }
 }

@@ -175,7 +175,11 @@
         "launching": "실행 중",
         "ubisoft": "Ubisoft 연결 설치",
         "redist": "재배포 가능 패키지 설치",
-        "winetricks": "와인트릭스 패키지 설치"
+        "winetricks": "와인트릭스 패키지 설치",
+        "steam": {
+            "installing": "Installing",
+            "pleaseWait": "잠시만 기다려 주세요...."
+        }
     },
     "launch": {
         "options": "실행 옵션..."
@@ -288,5 +292,13 @@
         "header": "이 게임은 타사 애플리케이션에 의해 관리됨",
         "notice2": "설치를 클릭하면 Heroic이 설치 프로세스를 완료하기 위해 애플리케이션을 실행",
         "notice1": "이 게임은 타사 애플리케이션에서 관리합니다: \"{{application_name}}\""
+    },
+    "Open": "열기",
+    "queue": {
+        "label": {
+            "canceled": "취소됨",
+            "pause": "다운로드 일시 정지",
+            "remove": "다운로드에서 제거"
+        }
     }
 }

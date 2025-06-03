@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Deaktiver lukking av dialogbokser ved å klikke utenfor",
         "titles_always_visible": "Vis alltid titler i biblioteket",
         "content_font_family_default": "Content Font Family (Standard: {{fontFamily}})",
-        "actions_font_family_default": "Actions Font Family (Standard: {{fontFamily}}"
+        "actions_font_family_default": "Actions Font Family (Standard: {{fontFamily}}",
+        "disable_smooth_scrolling": "Skru av jevn rulling (krever omstart)"
     },
     "add_game": "Legg til spill",
     "All": "Alle",
@@ -67,7 +68,7 @@
             "launchAborted": "Oppstart avbrutt",
             "title": "Feil",
             "uncaught-exception": {
-                "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
+                "message": "En ukjent feil oppsto:{{newLine}}{{error}}{{newLine}}{{newLine}} Rapporter feilen på Github-en vår.",
                 "title": "Ufanget unntak skjedde!"
             },
             "update": {
@@ -81,7 +82,7 @@
             },
             "winetricks": {
                 "message": "Winetricks returnerte følgende feil under kjøring:{{newLine}}{{error}}",
-                "title": "Winetricks feil"
+                "title": "Winetricks-feil"
             },
             "moving": "Feil ved flytting av spill {{error}}",
             "ubisoft-connect": {
@@ -115,7 +116,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Er du sikker på at du vil tilbakestille Heroic? Dette vil fjerne alle innstillinger og hurtigbufring, men vil ikke fjerne de installerte spillene dine eller Epic-legitimasjonen din",
+                "message": "Er du sikker på at du vil tilbakestille Heroic? Dette vil fjerne alle innstillinger og hurtigbufring, men vil ikke fjerne de installerte spillene dine eller Epic-legitimasjonen din. De portable versjonene av Heroic (AppImage, WinPortable, osv.) må startes på nytt manuelt i etterkant av dette.",
                 "title": "Tilbakestill Heroic"
             }
         },
@@ -129,7 +130,7 @@
         },
         "shortcuts": {
             "message": "Snarveier ble opprettet på skrivebordet og startmenyen",
-            "message-mac": "Shortcuts were created on the Applications folder",
+            "message-mac": "Snarveier ble opprettet i applikasjonsmappen",
             "message-remove": "Snarveier ble fjernet fra skrivebordet og startmenyen",
             "message-remove-mac": "Snarveier ble fjernet fra applikasjonsmappen",
             "title": "Snarveier"
@@ -156,8 +157,8 @@
             },
             "title": "Advarsel",
             "wine-change": {
-                "message": "Vi kunne ikke finne den valgte vinversjonen for å lansere denne tittelen ({{selectedWine}}). {{newline}} Vi fant en annen, vil du fortsette å lansere med {{foundWine}}?",
-                "title": "Finner ikke vin!"
+                "message": "Vi kunne ikke finne den valgte Wine-versjonen for å starte dette programmet ({{selectedWine}}). {{newline}} Vi fant en annen, vil du fortsette med {{foundWine}}?",
+                "title": "Fant ikke Wine!"
             },
             "snap": {
                 "checkbox": "Ikke vis denne meldingen igjen",
@@ -169,9 +170,13 @@
                     "message": "Ulagret fremgang kan gå tapt",
                     "title": "Er du sikker på at du vil avslutte?"
                 }
+            },
+            "rosetta": {
+                "message": "Heroic krevet at Rosetta er installert for å fungere på Apple Silicon-maskiner. Vennligst installer det fra macOS-terminalen med følgende kommando: «softwareupdate --install-rosetta». Start deretter Heroic på nytt. ",
+                "title": "Rosetta ble ikke funnet"
             }
         },
-        "wineprefix": "Velg mappe for Wine-prefiks",
+        "wineprefix": "Velg Wine-prefiksmappe",
         "yes": "Ja",
         "dontShowAgain": "Ikke vis igjen",
         "choose-nile-binary": "Velg Nile binær",
@@ -180,7 +185,7 @@
         "postpone": "Utsett"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Avbryt",
         "go_to_library": "Gå til biblioteket",
         "login": "Logg inn",
         "sync": "Synkroniser",
@@ -191,10 +196,10 @@
     "controller": {
         "hints": {
             "back": "Tilbake",
-            "backspace": "Tilbake",
+            "backspace": "Tilbaketasten",
             "close_dialog": "Lukk dialog",
             "close_keyboard": "Lukk tastaturet",
-            "close_options": "Close Options",
+            "close_options": "Lukk innstillinger",
             "game_details": "Spilldetaljer",
             "game_settings": "Spillinnstillinger",
             "install_game": "Installer spillet",
@@ -203,7 +208,7 @@
             "options": "Options",
             "play_game": "Spill",
             "scroll": "Rull",
-            "select": "Select",
+            "select": "Velg",
             "space": "Rom",
             "update_game": "Oppdater spillet"
         }
@@ -251,13 +256,13 @@
     },
     "globalSettings": "Globale innstillinger",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG Butikken",
     "header": {
         "hide_non_available_games": "Hide non-available games",
         "ignore_hidden": "Ignorer skjult",
         "platform": "Plattform",
         "show_all_games": "Vis alle spill",
-        "show_available_games": "Show non-Available games",
+        "show_available_games": "Vis utilgjengelige spill",
         "show_favourites_only": "Vis kun favoritter",
         "show_hidden": "Vis skjult",
         "store": "Filterbutikk",
@@ -274,12 +279,12 @@
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
-        "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
-        "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "custom_themes_path": "Ikke bruk CSS-filer fra kilder du ikke stoler på- Hvis du er i tvil, spør om hjelp i en av Discord-kanalene våre.",
+        "custom_themes_wiki": "Sjekk wikien vår for mer info om hvordan man legger til egendefinerte tema. Klikk her.",
         "dxvk": "DXVK er et Vulkan-basert translasjonslag for DirectX 9, 10 og 11-spill. Aktivering kan forbedre kompatibiliteten. Kan forårsake problemer spesielt for eldre DirectX-spill.",
-        "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
-        "esync": "Esync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen.",
-        "fsync": "Fsync har som mål å redusere vinserveroverhead i CPU-intensive spill. Aktivering kan forbedre ytelsen på støttede Linux-kjerner.",
+        "dxvkfpslimit": "Setter en maksgrense for bildehastighet i DXVK-spill",
+        "esync": "Esync har som mål å redusere wineserver-overhead i CPU-intensive spill. Aktivering kan forbedre ytelsen.",
+        "fsync": "Fsync har som mål å redusere wineserver-overhead i CPU-intensive spill. Aktivering kan forbedre ytelsen på støttede Linux-kjerner.",
         "game_language": {
             "fallback": "La stå tomt for å bruke Heroics språk.",
             "in_game_config": "Ikke alle spill støtter denne konfigurasjonen, noen har språkinnstilling i spillet.",
@@ -294,26 +299,26 @@
             "part6": " for å bli kalt etter startkommandoen, for eksempel: ",
             "part7": " for å hoppe over startprogrammet i noen spill osv."
         },
-        "preferSystemLibs": "Custom Wine-versjoner (Wine-GE, Wine-Lutris) sendes med deres bibliotekavhengigheter. Ved å aktivere dette alternativet vil disse sendte bibliotekene bli ignorert og Wine vil laste inn systembibliotekene i stedet. Advarsel! Problemer kan oppstå hvis avhengigheter ikke oppfylles.",
+        "preferSystemLibs": "Egendefinerte Wine-versjoner (Wine-GE, Wine-Lutris) sendes med deres bibliotekavhengigheter. Ved å aktivere dette alternativet vil disse bibliotekene bli ignorert og Wine vil laste inn systembibliotekene i stedet. Advarsel! Problemer kan oppstå hvis avhengigheter ikke oppfylles.",
         "primerun": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
+            "info": "Denne stien lar Heroic se hvilken versjon av Proton Steam bruker, for å legge til spill i Steam."
         },
         "steamruntime": "Egendefinerte biblioteker levert av Steam for å hjelpe til med å kjøre Linux og Windows (Proton)-spill. Aktivering kan forbedre kompatibiliteten.",
         "sync": {
             "part1": "Heroic prøver å gjette riktig lagringsmappe, og dette vil fungere i de fleste tilfeller. I tilfelle mappen er feil, bruk overstyringsboksen for å endre den.",
-            "part2": "I tilfelle du endrer prefiksmappen for Wine eller Proton, må du sjekke banen på nytt siden Proton bruker et annet prefiks (/pfx) og brukernavn (steamuser). Så du kan enkelt slette den gjeldende banen gå ut av siden med synkroniseringsinnstillinger og komme tilbake igjen for Heroic å gjette mappen en gang til med riktig prefiks.",
+            "part2": "Hvis du endrer prefiksmappen for Wine eller Proton, må du sjekke banen på nytt siden Proton bruker et annet prefiks (/pfx) og brukernavn (steamuser). Så du kan enkelt slette den gjeldende banen gå ut av siden med synkroniseringsinnstillinger og komme tilbake igjen for Heroic å gjette mappen en gang til med riktig prefiks.",
             "part3": "Manuell synkronisering: Velg Last ned for å laste ned spill som er lagret i nettskyen. Last opp for å laste opp de lokale til skyen. Tving nedlasting og Tving opplasting vil ignorere versjonen som er lokalt eller på skyen.",
             "part4": "Synkroniser lagrer Automatisk vil synkronisere lagrene hver gang du starter et spill og etter endt spill."
         },
         "vkd3d": "VKD3D er et Vulkan-basert translasjonslag for DirectX 12-spill. Aktivering kan forbedre kompatibiliteten betraktelig. Har ingen effekt på eldre DirectX-spill.",
         "wine": {
-            "part1": "Heroiske søk etter versjoner av Wine, Proton og CrossOver i følgende mapper:",
+            "part1": "Heroic søker etter versjoner av Wine, Proton og CrossOver i følgende mapper:",
             "part2": "For andre steder, bruk en symbolsk lenke til en av disse mappene"
         },
         "disable_logs": "Slå denne avmerkingsboksen PÅ for å deaktivere de fleste skrivingene til loggfiler (kritisk informasjon logges alltid). Sørg for å slå AV denne innstillingen før du rapporterer problemer.",
         "title": {
-            "login": "Logg inn",
+            "login": "Innlogging",
             "downloadManager": "Download Manager",
             "library": "Bibliotek",
             "settings": "Innstillinger",
@@ -345,20 +350,21 @@
             "gameWidth": "Høydeoppløsningen er brukt av spillet. Sideforholdet 16:9 er antatt av gamescope.",
             "upscaleHeight": "Høydeoppløsningen brukt av gamescope. Sideforholdet 16:9 er antatt.",
             "upscaleWidth": "Breddeoppløsningen er brukt av gamescrope. Sideforholdet 16:9 er antatt.",
-            "upscaleMethod": "Oppskaleringsmetoden gamescope burde bruke."
+            "upscaleMethod": "Oppskaleringsmetoden gamescope burde bruke.",
+            "forceGrabCursor": "Bruk alltid relativ musemodus i stedet for å veksle avhengig av markørens synlighet. (Nyttig når applikasjoner stadig mister fokus)"
         },
         "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres."
     },
     "info": {
         "heroic": {
             "beta": "Beta",
-            "click-to-see-changelog": "Click to see changelog",
-            "newReleases": "Ny versjon tilgjengelig",
+            "click-to-see-changelog": "Klikk for å se endringsloggen",
+            "newReleases": "Oppdatering tilgjengelig!",
             "stable": "Stabil",
-            "version": "Heroisk versjon"
+            "version": "Heroic-versjon"
         },
         "save-sync": {
-            "searching": "Trying to detect the correct save folder (click to cancel)"
+            "searching": "Prøver å finne riktig savemappe (klikk for å avbryte)"
         },
         "settings": "Innstillinger lagres automatisk",
         "version": "Wine-versjon"
@@ -366,22 +372,22 @@
     "infobox": {
         "help": "Hjelp",
         "requirements": "Systemkrav",
-        "warning": "Warning",
-        "wine-path": "Vinstien",
+        "warning": "Advarsel",
+        "wine-path": "Wine-sti",
         "wine-prefix": {
-            "title": "Vinprefiks"
+            "title": "Wine-prefiks"
         },
         "wine-repfix": {
-            "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via vintriks."
+            "message": "Wine bruker det som kalles WINEPREFIX for å kapsle inn Windows-applikasjoner. Dette prefikset inneholder Wine-konfigurasjonsfilene og en reproduksjon av filhierarkiet til C: (hoveddisken på et Windows-operativsystem). I denne reproduksjonen av C:-stasjonen, lagres spilllagringsfiler og avhengigheter installert via winetricks."
         },
-        "wine-path-invalid": "Vinstien er ugyldig. Velg en annen.",
-        "wine-path-none-found": "Ingen vinversjon ble funnet, last ned en fra Wine Manager"
+        "wine-path-invalid": "Wine-stien er ugyldig. Velg en annen.",
+        "wine-path-none-found": "Ingen Wine-versjon ble funnet, last ned en i Wine-administrering"
     },
     "install": {
         "path": "Velg Installer bane"
     },
     "label": {
-        "loading": "Loading",
+        "loading": "Laster",
         "releaseDate": "Utgivelsesdato"
     },
     "library": {
@@ -400,10 +406,10 @@
         "website": "Laster inn nettsted"
     },
     "login": {
-        "alternative_method": "Alternative Login Method",
-        "epic": "Epic Games Login",
-        "gog": "GOG Login",
-        "message": "Login with your platform. You can login to more than one platform at the same time.",
+        "alternative_method": "Alternativ innloggingsmetode",
+        "epic": "Epic Games-innlogging",
+        "gog": "GOG-innlogging",
+        "message": "Logg inn med plattformen din. Du kan være innlogget i flere plattformer samtidig.",
         "amazon": "Amazon-pålogging",
         "old-mac": "MacOS-versjonen din er {{version}}. macOS 12 eller nyere kreves for å logge på."
     },
@@ -443,7 +449,7 @@
             "paused": "Installasjon satt på pause"
         },
         "moved": "Flytting fullført",
-        "moving": "Moving Game",
+        "moving": "Flytter spill",
         "new-heroic-version": "En ny Heroic-versjon ble utgitt!",
         "refresh": {
             "error": "Kunne ikke hente utgivelser fra oppstrøms, kanskje på grunn av Github API-begrensninger! Prøv igjen senere."
@@ -458,11 +464,11 @@
         }
     },
     "offline-message": {
-        "hint": "We are checking the connectivity against:{{newline}}github.com,{{newline}}gog.com and{{newline}}store.epicgames.com",
+        "hint": "Vi sjekker om vi kan koble til:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com, og{{newline}}cloudflare-dns.com",
         "ignore": "Ignore",
         "offline": "Offline",
-        "offline-retry-in": "Offline. Retrying in {{seconds}} seconds.",
-        "retrying": "Retrying"
+        "offline-retry-in": "Offline. Prøver på nytt om {{seconds}} sekunder.",
+        "retrying": "Prøver på nytt"
     },
     "Open": "Åpen",
     "options": {
@@ -470,7 +476,7 @@
             "key": "Variabelnavn",
             "placeHolderKey": "NAVN",
             "placeHolderValue": "Eks.: Path/To/ExtraFiles",
-            "title": "Avanserte alternativer (miljøvariabler):",
+            "title": "Avanserte alternativer (miljøvariabler)",
             "value": "Verdi"
         },
         "env_variables": {
@@ -502,7 +508,7 @@
         "gamescope": {
             "additionalOptions": "Ytterlige alternativer",
             "fpsLimiterNoFocus": "FPS begrenser (Ingen fokus)",
-            "nis": "NVIDIA Image Scale (NIS)",
+            "nis": "NVIDIA-bildeskala (NIS)",
             "fpsLimiter": "FPS begrenser",
             "fullscreen": "Fullskjerm",
             "gameHeight": "Spillhøyde",
@@ -525,8 +531,8 @@
     "placeholder": {
         "alt-gogdl-bin": "Bruker innebygd GOGDL binær...",
         "alt-legendary-bin": "Bruker innebygd Legendary binær...",
-        "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
+        "custom_themes_path": "Velg stien for å søke etter egendefinerte CSS-filer",
+        "dxvkfpsvalue": "Positive heltallsverdier (30, 60, ...)",
         "egs-prefix": "Prefiks der EGS er installert",
         "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")",
         "alt-nile-bin": "Bruker innebygd Nile binær..."
@@ -537,7 +543,7 @@
         "win": "Windows",
         "browser": "Nettleser"
     },
-    "please-wait": "Please wait...",
+    "please-wait": "Vennligst vent...",
     "progress": "Framgang",
     "queue": {
         "label": {
@@ -553,29 +559,29 @@
         }
     },
     "Recent": "Nylig spilt",
-    "search": "Skriv inn spillnavnet her …",
+    "search": "Søk etter spill",
     "setting": {
         "adddesktopshortcuts": "Legg til skrivebordssnarveier automatisk",
         "addgamestostartmenu": "Legg til spill på startmenyen automatisk",
-        "addgamestosteam": "Add games to Steam automatically",
+        "addgamestosteam": "Legg spill til Steam automatisk",
         "alt-gogdl-bin": "Velg en alternativ GOGDL-binær du vil bruke",
         "alt-legendary-bin": "Velg en alternativ legendarisk binær",
         "autodxvk": "Autoinstaller/oppdater DXVK på prefiks",
-        "autosync": "Autosync lagrer",
+        "autosync": "Autosynkroniser lagringsfiler",
         "autovkd3d": "Autoinstaller/oppdater VKD3D på prefiks",
         "change-target-exe": "Velg en alternativ EXE å kjøre",
-        "checkForUpdatesOnStartup": "Se etter heroiske oppdateringer ved oppstart",
-        "crossover-version": "Crossover-versjon",
+        "checkForUpdatesOnStartup": "Se etter oppdateringer til Heroic ved oppstart",
+        "crossover-version": "Crossover/Wine-versjon",
         "custom_themes_path": "Stil til egendefinerte temaer",
-        "customWineProton": "Egendefinerte wine-/proton stier",
+        "customWineProton": "Egendefinerte Wine-/Proton-stier",
         "darktray": "Bruk mørkt skuff-ikon",
         "default-install-path": "Standard installasjonsbane",
         "default-steam-path": "Standard Steam-bane",
-        "defaultWinePrefix": "Angi mappe for nye vinprefikser",
-        "disable_controller": "Deaktiver heroisk navigasjon ved hjelp av kontrolleren",
+        "defaultWinePrefix": "Angi mappe for nye Wine-prefikser",
+        "disable_controller": "Deaktiver kontrollernavigasjon av Heroic",
         "discordRPC": "Aktiver Discord Rich Presence",
         "download-no-https": "Last ned spill uten HTTPS (nyttig for CDN-er, f.eks. LanCache)",
-        "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
+        "dxvkfpslimit": "Begrens bildehastighet (DX9, 10 og 11)",
         "egs-sync": "Synkroniser med installerte episke spill",
         "enableFSRHack": "Aktiver FSR Hack (Wine-versjonen må støtte det)",
         "eosOverlay": {
@@ -603,7 +609,7 @@
         "FsrSharpnessStrenght": "FSR Skarphet Styrke",
         "fsync": "Aktiver Fsync",
         "gamemode": "Bruk GameMode (Feral Game Mode må installeres)",
-        "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "hideChangelogsOnStartup": "Ikke vis endringslogger ved oppstart",
         "language": "Velg programspråk",
         "library_top_option": {
             "disabled": "Deaktivert",
@@ -664,20 +670,20 @@
             "forcedownload": "Tving nedlasting",
             "forceupload": "Tving opplasting",
             "sync": "Synkroniser",
-            "syncing": "Synkroniserer …",
-            "title": "Manuell synkronisering lagrer",
+            "syncing": "Synkroniserer",
+            "title": "Manuell synkronisering av lagringsfiler",
             "upload": "Last opp"
         },
         "maxRecentGames": "Antall \"Nylig spilt\" å vise",
         "maxworkers": "Maksimalt antall arbeidere ved nedlasting",
-        "minimize-on-launch": "Minimer heroisk etter spillstart",
+        "minimize-on-launch": "Minimer Heroic etter spillstart",
         "offlinemode": "Kjør spillet frakoblet",
         "prefered_language": "Foretrukket språk (språkkode)",
         "preferSystemLibs": "Foretrekker systembiblioteker",
         "primerun": {
             "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
+                "message": "Bare ett skjermkort ble funnet i systemet. Merk at denne innstillingen er ment å brukes i systemer med flere skjermkort og hodeløse skjermkort (som for eksempel laptopper). På systemer med bare ett skjermkort, velges den automatisk, og å skru på denne innstillingen kan forårsake problemer. Vil du likevel skru den på?",
+                "title": "Bare 1 skjermkort funnet"
             },
             "description": "Bruk dedikert grafikkort"
         },
@@ -686,16 +692,16 @@
             "title": "Kjør EXE på prefiks"
         },
         "savefolder": {
-            "not-found": "Save folder not found, please select it manually (click to retry)",
+            "not-found": "Lagringsmappe ikke funnet, vennligst velg den manuelt (klikk for å prøve på nytt)",
             "placeholder": "Velg den nøyaktige mappen for lagring av spill",
-            "warning": "Please check twice if the path is correct (click to retry)"
+            "warning": "Klikk her to ganger hvis stien er riktig (klikk for å prøve på nytt)"
         },
         "select_theme": "Velg Tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
         "start-in-tray": "Start Minimert",
         "steamruntime": "Bruk Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix-mappen",
+        "wineprefix": "WinePrefix-mappe",
         "wineversion": "Wine-versjon",
         "autoUpdateGames": "Oppdater spill automatisk",
         "ignoreGameUpdates": "Ignorer spilloppdateringer",
@@ -707,8 +713,9 @@
         "disablePlaytimeSync": "Skru av spilletidssynkronisering",
         "gamescope": {
             "enableLimiter": "Skru på FPS begrenser",
-            "missingMsg": "Vi kunne ikke finne gamescope på PATH-en. Installer den eller legg den til PATH-en.",
-            "enableUpscaling": "Skru på oppskalering"
+            "missingMsg": "Vi kunne ikke finne gamescope på STIEN. Installer den eller legg den til STIEN.",
+            "enableUpscaling": "Skru på oppskalering",
+            "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker"
         },
         "msync": "Skru på Msync",
         "allow_installation_broken_anticheat": {
@@ -732,6 +739,13 @@
                 "title": "Eksperimentell funksjon fremover"
             },
             "description": "Bruk rammeløst vindu (behøver omstart)"
+        },
+        "disableUMU": "Skru av umu",
+        "verboseLogs": {
+            "description": "Aktiver detaljerte logger"
+        },
+        "custom_css": {
+            "warning": "Advarsel: dette gjelder hele brukerflaten. Det betyr at feil stil kan gjøre Heroic ubrukelig. Om nødvendig kan innstillingen endres manuelt i `~/.config/heroic/config.json`. IKKE kopier stiler fra kilder du ikke stoler på."
         }
     },
     "settings": {
@@ -742,7 +756,7 @@
         "clear-cache": "Tøm Heroic hurtigbuffer",
         "copiedToClipboard": "Kopiert til utklippstavlen!",
         "copyToClipboard": "Kopier alle innstillinger til utklippstavlen",
-        "default_hint": "Changes in this section only apply as default values when installing games. If you want to change the settings of an already installed game, use the Settings button in the game page.",
+        "default_hint": "Endringer i denne seksjonen gjelder bare som standardverdier når spill installeres. Hvis du vil endre innstillingene til et spill som allerede er installert, bruk «Innstillinger»-knappen fra spillsiden.",
         "eacRuntime": {
             "gameModeRequired": {
                 "message": "GameMode kreves for at EAC-kjøretiden skal fungere på Flatpak. Vil du aktivere det nå?",
@@ -762,11 +776,11 @@
         },
         "navbar": {
             "advanced": "Avansert",
-            "games_settings_defaults": "Game Defaults",
+            "games_settings_defaults": "Standardinnstillinger",
             "general": "Generell",
             "log": "Logg",
             "other": "Annen",
-            "sync": "Lagre-synkronisering",
+            "sync": "Skylagring-synkronisering",
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformasjon",
             "gamescope": "Gamescope"
@@ -775,7 +789,9 @@
         "reset-heroic": "Tilbakestill Heroic",
         "saves": {
             "label": "Lagre plassering:",
-            "warning": "Cloud Saves-funksjonen er i beta, vennligst ta sikkerhetskopi av lagrene dine før synkronisering (i tilfelle noe går galt)"
+            "warning": "Skylagringsfunksjonen er i beta, vennligst sikkerhetskopier lagringsfilene dine før synkronisering (i tilfelle noe går galt)",
+            "not_supported": "Dette spillet støtter ikke skylagringer.",
+            "gog_linux_native_warning": "Linux-versjonen av spill støtter ikke GOG sin skylagrings-funksjon. Bruk Windows-versjonen i stedet."
         },
         "advanced": {
             "clearCache": {
@@ -819,13 +835,20 @@
             "copyToClipboard": "Kopier til utklippstavle",
             "nileVersion": "Nile: {{nileVersion}}",
             "osNameFlatpak": "{{osName}} (inni Flatpak)",
-            "showDetailed": "Vis detaljert systemspesifikasjoner"
+            "showDetailed": "Vis detaljert systemspesifikasjoner",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gpu": "GPU:",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}"
         },
         "gamescope": {
             "searchMsg": "Søker etter gamescope-kjørbar fil."
         },
         "offline": {
             "warning": "Dette spillet tillater ikke eksplisitt offline-modus, slå dette på ved egen risiko. Spillet fungerer kanskje ikke."
+        },
+        "custom_css": {
+            "title": "Egendefinert CSS-stil"
         }
     },
     "Settings": "Innstillinger",
@@ -847,7 +870,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "Velg standard prefiksmappe for nye konfigurasjoner",
-            "wineprefix": "Velg en mappe for nye vinprefikser"
+            "wineprefix": "Velg en mappe for nye Wine-prefikser"
         }
     },
     "tooltip": {
@@ -886,7 +909,7 @@
         "actions": "Handling",
         "manager": {
             "link": "Wine-behandler",
-            "not-found": "Ingen Wine-versjoner funnet. Vennligst klikk på oppdateringsikonet for å prøve igjen.",
+            "not-found": "Ingen Wine-versjoner funnet. Vennligst klikk på oppdateringsikonet for å prøve på nytt.",
             "title": "Wine-behandler",
             "unzipping": "Pakker ut"
         },
@@ -905,7 +928,7 @@
         "installDlcs": "Installer alle DLC-er",
         "noDlcFound": "Ingen DLC-er funnet",
         "size": "Størrelse",
-        "title": "Title"
+        "title": "Tittel"
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon-spill",
@@ -922,15 +945,16 @@
         "no-components": "Ingen tilgjengelige komponenter"
     },
     "category-settings": {
-        "cancel": "Cancel",
-        "warning": "Warning",
+        "cancel": "Avbryt",
+        "warning": "Advarsel",
         "new-category": "Ny kategori",
         "remove-category": "Fjern kategori",
         "add-new-category": "Legg til ny kategori",
         "delete-question": "Å fortsette vil permanent fjerne denne kategorien og fjerne den fra alle spill. Vil du fortsette?"
     },
     "emptyLibrary": {
-        "noResults": "De nåværende filtrene ga ingen resultater."
+        "noResults": "De nåværende filtrene ga ingen resultater.",
+        "noGames": "Biblioteket ditt er tomt. <br /><br />Trykk <4>her</4> for å logge inn med Epic, GOG.com eller Amazon-kontoer. Deretter vil spillene dine vises her i Biblioteket.<br /><br />For å bruke spill eller apper fra andre kilder, klikk <br /> for å legge dem til manuelt."
     },
     "window": {
         "close": "Lukk",
@@ -958,5 +982,51 @@
         "remove": "Fjern \"{{name}}\"",
         "rename": "Omdøp \"{{name}}\"",
         "title": "Behandle kategorier"
+    },
+    "tour": {
+        "back": "Tilbake",
+        "done": "Ferdig",
+        "library": {
+            "addGame": "Legg til dine egne spill eller apper til biblioteket ved å klikke her. De kan være hva som helst, til og med internett-lenker.",
+            "end": {
+                "title": "Nyt spillene dine!",
+                "intro": "Det var alt! Nyt spillene dine og ha det gøy!"
+            },
+            "filters": "Filtre spillene dine etter butikk, platform, favoritter og mere ved å bruke disse innstillingene.",
+            "categories": "Organiser spillene dine i kategorier for å holde ting ryddig.",
+            "refresh": "Oppdater biblioteket ditt for å se etter nye spill eller oppdateringer.",
+            "search": "Bruk søkefeltet til å søke etter spillene dine.",
+            "sortInstalled": "Sorter spill etter installasjons-status.",
+            "sortOptions": "Klikk her for å sortere spillene alfabetisk.",
+            "viewToggle": "Bytt mellom rutenett- og listevisning for spillene dine.",
+            "welcome": {
+                "intro": "Velkommen til Heroic biblioteket! Det er her du kan se alle spillene dine på tvers av forskjellige butikker.",
+                "intro2": "Hvis biblioteket er tomt, sørg for å logge på med kontoene dine ved å bruke Administrer kontoer i sidefeltet eller legg til dine egne spill ved å bruke Legg til spill-knappen ovenfor.",
+                "title": "Vekommen til Heroic!",
+                "title2": "Administrering av biblioteket!"
+            },
+            "gameCard": "Venstreklikk på spillkortet for å navigere til spillsiden og for å se detaljer og justere innstillinger eller Høyreklikk for å åpne kontekstmenyen."
+        },
+        "next": "Neste",
+        "sidebar": {
+            "accessibility": "Få tilgang til tilgjengelighetsfunksjoner for å tilpasse opplevelsen din.",
+            "accounts": "Administrer de tilkoblede butikk-kontoene dine (Epic, GOG, Amazon), logg ut eller logg på dem.",
+            "community": "Bli med i fellesskapet vårt på Discord og støtt Heroic sin utvikling.",
+            "library": "Få tilgang til spillbiblioteket ditt fra ulike butikker på ett sted.",
+            "docs": "Les dokumentasjonen for å få hjelp til å bruke Heroic.",
+            "downloads": "Spor og administrer spillnedlastinger og installasjoner.",
+            "login": "Logg på spillbutikk-kontoene dine for å få tilgang til biblioteket ditt.",
+            "quit": "Avslutt applikasjonen trygt.",
+            "settings": "Konfigurer Heroics innstillinger, spillstandarder, sjekk logger og mer.",
+            "stores": "Bla gjennom og kjøp spill i flere butikker, inkludert Epic, GOG og Amazon.",
+            "version": "Sjekk din nåværende Heroic-versjon, klikk på den for å se siste endringslogg, og få tilgang til denne omvisningen fra hjelpeikonet.",
+            "welcome": {
+                "intro": "Velkommen til Heroic! Dette sidefeltet inneholder alle navigasjonsalternativene for å utforske appen.",
+                "title": "Sidefeltsnavigering"
+            },
+            "wine": "Administrer eller last ned ny versjon av Wine/Proton/GPTK for å kjøre Windows-spill på Linux eller macOS."
+        },
+        "startTour": "Start omvisning",
+        "skip": "Hopp over"
     }
 }

@@ -155,7 +155,11 @@
             "syncing": "Sincronizează Salvările"
         },
         "launching": "Lansare",
-        "ubisoft": "Instalarea Ubisoft Connect"
+        "ubisoft": "Instalarea Ubisoft Connect",
+        "steam": {
+            "installing": "Se Instalează",
+            "pleaseWait": "Please wait..."
+        }
     },
     "launch": {
         "options": "Opțiuni de Lansare..."
@@ -240,5 +244,14 @@
     },
     "help": {
         "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud"
+    },
+    "queue": {
+        "label": {
+            "canceled": "Canceled",
+            "remove": "Remove from Downloads"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC-uri"
     }
 }

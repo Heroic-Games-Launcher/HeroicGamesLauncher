@@ -23,22 +23,6 @@ import { existsSync, mkdirSync } from 'graceful-fs'
 import { join, dirname } from 'path'
 
 import {
-  defaultWinePrefix,
-  fixesPath,
-  flatPakHome,
-  isLinux,
-  isMac,
-  isWindows,
-  isSteamDeckGameMode,
-  runtimePath,
-  userHome,
-  defaultUmuPath,
-  publicDir,
-  tsStore,
-  isCLINoGui,
-  isIntelMac
-} from './constants'
-import {
   constructAndUpdateRPC,
   getSteamRuntime,
   isEpicServiceOffline,
@@ -89,13 +73,32 @@ import {
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
-import { getMainWindow, sendFrontendMessage } from './main_window'
+import { getMainWindow } from './main_window'
+import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
+import { tsStore } from './constants/key_value_stores'
+import {
+  defaultUmuPath,
+  defaultWinePrefix,
+  fixesPath,
+  flatpakHome,
+  publicDir,
+  runtimePath,
+  userHome
+} from './constants/paths'
+import {
+  isCLINoGui,
+  isLinux,
+  isMac,
+  isSteamDeckGameMode,
+  isWindows,
+  isIntelMac
+} from './constants/environment'
 
 let powerDisplayId: number | null
 
@@ -856,7 +859,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
 /**
  * Maps Wine-related settings to environment variables
  * @param gameSettings The GameSettings to get the environment variables for
- * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId`
+ * @param gameId If Proton and the Steam Runtime are used, the SteamGameId variable will be set to `heroic-gameId` if it's unset
  * @returns A Record that can be passed to execAsync/spawn
  */
 function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
@@ -865,7 +868,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   const ret: Record<string, string> = {}
 
   // Add WINEPREFIX / STEAM_COMPAT_DATA_PATH / CX_BOTTLE
-  const steamInstallPath = join(flatPakHome, '.steam', 'steam')
+  const steamInstallPath = join(flatpakHome, '.steam', 'steam')
   switch (wineVersion.type) {
     case 'wine': {
       ret.WINEPREFIX = winePrefix
@@ -957,11 +960,11 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (wineVersion.type === 'proton') {
     // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
-    ret.STEAM_COMPAT_APP_ID = '0'
-    ret.SteamAppId = ret.STEAM_COMPAT_APP_ID
+    ret.STEAM_COMPAT_APP_ID = process.env.STEAM_COMPAT_APP_ID || '0'
+    ret.SteamAppId = process.env.SteamAppId || ret.STEAM_COMPAT_APP_ID
     // This sets the name of the log file given when setting PROTON_LOG=1
-    ret.SteamGameId = `heroic-${gameId}`
-    ret.PROTON_LOG_DIR = flatPakHome
+    ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
+    ret.PROTON_LOG_DIR = flatpakHome
     // add back default wine/dxvk debug logging
     if (gameSettings?.verboseLogs) {
       if (
@@ -1018,6 +1021,13 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
         ].join('\n')
       )
     }
+  }
+  if (
+    gameSettings.advertiseAvxForRosetta &&
+    isMac &&
+    wineVersion.type === 'toolkit'
+  ) {
+    ret.ROSETTA_ADVERTISE_AVX = '1'
   }
   return ret
 }
@@ -1321,7 +1331,7 @@ interface RunnerProps {
   dir: string
 }
 
-const commandsRunning = {}
+const commandsRunning: Record<string, Promise<ExecResult>> = {}
 
 let shouldUsePowerShell: boolean | null = null
 
@@ -1446,7 +1456,7 @@ async function callRunner(
   const key = [runner.name, commandParts].join(' ')
   const currentPromise = commandsRunning[key]
 
-  if (currentPromise) {
+  if (key in commandsRunning) {
     return currentPromise
   }
 
@@ -1530,7 +1540,7 @@ async function callRunner(
       }
 
       res({
-        stdout: stdout.join('\n'),
+        stdout: stdout.join(),
         stderr: stderr.join('\n')
       })
     })

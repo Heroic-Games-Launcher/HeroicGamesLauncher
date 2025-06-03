@@ -1,7 +1,8 @@
-import { createMainWindow, sendFrontendMessage } from '../main_window'
+import { createMainWindow } from '../main_window'
+import { sendFrontendMessage } from '../ipc'
 import { BrowserWindow, Display, screen } from 'electron'
-import { configStore } from '../constants'
 import { overrideProcessPlatform } from './constants.test'
+import { configStore } from 'backend/constants/key_value_stores'
 
 jest.mock('../logger/logfile')
 
@@ -9,7 +10,7 @@ describe('main_window', () => {
   describe('sendFrontendMessage', () => {
     describe('if no main window', () => {
       beforeAll(() => {
-        BrowserWindow['setAllWindows']([])
+        BrowserWindow.setAllWindows([])
       })
 
       it('returns false', () => {
@@ -26,7 +27,7 @@ describe('main_window', () => {
 
       // stub windows
       beforeAll(() => {
-        BrowserWindow['setAllWindows']([window])
+        BrowserWindow.setAllWindows([window])
       })
 
       // spy the `send` method
@@ -36,7 +37,7 @@ describe('main_window', () => {
 
       // cleanup stubs
       afterAll(() => {
-        BrowserWindow['setAllWindows']([])
+        BrowserWindow.setAllWindows([])
       })
 
       it('sends a message to its webContents', () => {
@@ -65,7 +66,7 @@ describe('main_window', () => {
 
       it('creates the new window with the given geometry', () => {
         const window = createMainWindow()
-        const options = window['options']
+        const options = window.options
 
         expect(options.height).toBe(600)
         expect(options.width).toBe(800)
@@ -81,7 +82,7 @@ describe('main_window', () => {
 
       it('creates the new window with the default geometry', () => {
         const window = createMainWindow()
-        const options = window['options']
+        const options = window.options
 
         expect(options.height).toBe(690)
         expect(options.width).toBe(1200)
@@ -99,7 +100,7 @@ describe('main_window', () => {
         } as Display)
 
         const window = createMainWindow()
-        const options = window['options']
+        const options = window.options
 
         expect(options.height).toBe(690)
         expect(options.width).toBe(1024 * 0.8) // 80% of the workAreaSize.width
@@ -119,7 +120,7 @@ describe('main_window', () => {
       it('creates a simple frameless window on Linux', () => {
         const originalPlatform = overrideProcessPlatform('linux')
         const window = createMainWindow()
-        const options = window['options']
+        const options = window.options
         overrideProcessPlatform(originalPlatform)
 
         expect(options.frame).toBe(false)
@@ -131,7 +132,7 @@ describe('main_window', () => {
         ;['darwin', 'win32'].forEach((platform) => {
           const originalPlatform = overrideProcessPlatform(platform)
           const window = createMainWindow()
-          const options = window['options']
+          const options = window.options
           overrideProcessPlatform(originalPlatform)
 
           expect(options.frame).toBeUndefined()
@@ -151,7 +152,7 @@ describe('main_window', () => {
 
       it('creates the new window with default titlebar', () => {
         const window = createMainWindow()
-        const options = window['options']
+        const options = window.options
 
         expect(options.frame).toBeUndefined()
         expect(options.titleBarStyle).toBeUndefined()

@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'backend/config'
-import { fixesPath, gamesConfigPath } from 'backend/constants'
+import { fixesPath, gamesConfigPath } from 'backend/constants/paths'
 import { notify } from 'backend/dialog/dialog'
 import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
 import { gameManagerMap } from 'backend/storeManagers'

@@ -1,15 +1,6 @@
 import { GlobalConfig } from 'backend/config'
-import {
-  configPath,
-  defaultUmuPath,
-  getSteamLibraries,
-  isLinux,
-  isMac,
-  toolsPath,
-  userHome
-} from 'backend/constants'
 import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
-import { execAsync } from 'backend/utils'
+import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
@@ -20,6 +11,13 @@ import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
 import { Path } from 'backend/schemas'
 import { searchForExecutableOnPath } from './os/path'
+import {
+  configPath,
+  defaultUmuPath,
+  toolsPath,
+  userHome
+} from 'backend/constants/paths'
+import { isLinux, isMac } from 'backend/constants/environment'
 
 /**
  * Loads the default wine installation path and version.
@@ -198,7 +196,7 @@ export async function getLinuxWineSet(
     customWineSet = getCustomWinePaths()
   }
 
-  return new Set([...defaultWineSet, ...altWine, ...proton, ...customWineSet])
+  return new Set([...proton, ...altWine, ...defaultWineSet, ...customWineSet])
 }
 
 /// --------------- MACOS ------------------
@@ -241,7 +239,11 @@ export async function getWineOnMac(): Promise<Set<WineInstallation>> {
       ) as PlistObject
       const version = info['CFBundleShortVersionString'] || ''
       const name = info['CFBundleName'] || ''
-      const wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
+      let wineBin = join(winePath, '/Contents/Resources/wine/bin/wine64')
+      if (!existsSync(wineBin)) {
+        // Fallback to wine if wine64 is not found
+        wineBin = join(winePath, '/Contents/Resources/wine/bin/wine')
+      }
       if (existsSync(wineBin)) {
         wineSet.add({
           ...getWineExecs(wineBin),
@@ -457,7 +459,14 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       const info = plistParse(
         readFileSync(whiskyVersionPlist, 'utf-8')
       ) as PlistObject
-      const version = info['version']
+      // FIXME: Verify this type at runtime
+      const version = info['version'] as {
+        build: string
+        major: number
+        minor: number
+        patch: number
+        preRelease: string
+      }
       const versionString = `${version['major']}.${version['minor']}.${version['patch']}-${version['build']}`
       whisky.add({
         bin: whiskyWineBin,
@@ -559,21 +568,11 @@ export async function isUmuSupported(
 ): Promise<boolean> {
   if (!isLinux) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
-  if (gameSettings.disableUMU === true) return false
-  if (gameSettings.disableUMU === undefined) {
-    // If the disableUMU setting is undefined it means the game was installed and configured
-    // before the introduction of this setting, so the usage of UMU was dictated by the
-    // experimental feature configuration.
-    //
-    // We have to check this to not enable UMU incorrectly even if the setting is not editable
-    // anymore.
-    // If we don't, we would end up enabling UMU for games that are already functional with proton
-    // without UMU to not mess their prefix
-    const experimentalFeatures =
-      GlobalConfig.get().getSettings().experimentalFeatures
-
-    // if UMU was never enabled or was enabled and then disabled
-    if (!experimentalFeatures?.umuSupport) return false
+  if (
+    gameSettings.disableUMU === undefined ||
+    gameSettings.disableUMU === true
+  ) {
+    return false
   }
   if (!checkUmuInstalled) return true
   if (!existsSync(await getUmuPath())) return false

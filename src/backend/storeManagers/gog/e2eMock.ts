@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import { addTestOnlyListener } from 'backend/ipc'
 import { RunnerCommandStub } from 'common/types'
 
 /*
@@ -35,7 +35,11 @@ export const runGogdlCommandStub = async (command: string[]) => {
 }
 
 // Add listeners to be called from e2e tests to stub the gogdl command calls
-if (process.env.CI === 'e2e') {
-  ipcMain.on('setGogdlCommandStub', (stubs) => (currentStubs = [...stubs]))
-  ipcMain.on('resetGogdlCommandStub', () => (currentStubs = [...defaultStubs]))
-}
+addTestOnlyListener(
+  'setGogdlCommandStub',
+  (stubs) => (currentStubs = [...stubs])
+)
+addTestOnlyListener(
+  'resetGogdlCommandStub',
+  () => (currentStubs = [...defaultStubs])
+)

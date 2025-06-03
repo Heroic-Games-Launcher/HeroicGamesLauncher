@@ -10,6 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { removeSpecialcharacters } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWarning } from '@fortawesome/free-solid-svg-icons'
+import { MenuItem } from '@mui/material'
 
 type Props = {
   setWineVersion: React.Dispatch<
@@ -138,7 +139,7 @@ export default function WineSelector({
             label={`${t('install.wineversion')}:`}
             htmlId="wineVersion"
             value={wineVersion?.name || ''}
-            disabled={useDefaultSettings}
+            disabled={useDefaultSettings || wineVersionList.length === 0}
             onChange={(e) =>
               setWineVersion(
                 wineVersionList.find(
@@ -149,9 +150,9 @@ export default function WineSelector({
           >
             {wineVersionList &&
               wineVersionList.map(({ name }, i) => (
-                <option value={name} key={i}>
+                <MenuItem value={name} key={i}>
                   {name}
-                </option>
+                </MenuItem>
               ))}
           </SelectField>
         </>

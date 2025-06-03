@@ -1,6 +1,6 @@
 import type { CpuInfo } from 'os'
 import type { GPUInfo } from './index'
-import { isSteamDeckGameMode } from 'backend/constants'
+import { isSteamDeckGameMode } from 'backend/constants/environment'
 
 type SteamDeckInfo =
   | { isDeck: true; model: string; mode: 'game' | 'desktop' }

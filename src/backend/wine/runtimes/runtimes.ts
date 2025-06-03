@@ -7,11 +7,11 @@ import {
   rmSync
 } from 'graceful-fs'
 import { join } from 'path'
-import { runtimePath } from './../../constants'
 import { logError, logInfo, LogPrefix } from './../../logger/logger'
 import { Runtime, RuntimeName } from 'common/types'
 import { downloadFile, extractTarFile } from './util'
 import { axiosClient } from 'backend/utils'
+import { runtimePath } from 'backend/constants/paths'
 
 async function _get(): Promise<Runtime[]> {
   mkdirSync(runtimePath, { recursive: true })

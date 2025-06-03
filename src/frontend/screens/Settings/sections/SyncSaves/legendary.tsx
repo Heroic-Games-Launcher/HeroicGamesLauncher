@@ -14,6 +14,7 @@ import { SyncType } from 'frontend/types'
 import { ProgressDialog } from 'frontend/components/UI/ProgressDialog'
 import SettingsContext from '../../SettingsContext'
 import TextWithProgress from 'frontend/components/UI/TextWithProgress'
+import { MenuItem } from '@mui/material'
 
 interface Props {
   autoSyncSaves: boolean
@@ -55,7 +56,8 @@ export default function LegendarySyncSaves({
       setLoading(true)
       const newSavePath = (await window.api.getDefaultSavePath(
         appName,
-        'legendary'
+        'legendary',
+        []
       )) as string
 
       setSavesPath(newSavePath)
@@ -170,9 +172,9 @@ export default function LegendarySyncSaves({
             }
           >
             {syncCommands.map((el, i) => (
-              <option value={el.value} key={i}>
+              <MenuItem value={el.value} key={i}>
                 {el.name}
-              </option>
+              </MenuItem>
             ))}
           </SelectField>
           <ToggleSwitch

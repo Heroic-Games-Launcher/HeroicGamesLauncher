@@ -21,7 +21,8 @@
             "title": "Vyberte EXE ke spuštění"
         },
         "select": {
-            "button": "Zvolit"
+            "button": "Zvolit",
+            "image": "Vybrat Obrázek"
         },
         "sideload": {
             "exe": "Vybrat spustitelný soubor"
@@ -74,7 +75,9 @@
         "uninstall": "Odinstalovat",
         "update": "Update",
         "details": "Podrobnosti",
-        "changelog": "Zobrazit seznam změn"
+        "changelog": "Zobrazit seznam změn",
+        "browse_files": "Procházet soubory",
+        "browse_wine_prefix": "Procházet předpony Wine"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -177,7 +180,11 @@
         "ubisoft": "Instalace Ubisoft Connect",
         "winetricks": "Instalace balíčků Winetricks",
         "prerequisites": "Instalace závislostí",
-        "redist": "Instalace Redistributables"
+        "redist": "Instalace Redistributables",
+        "steam": {
+            "installing": "Instaluji",
+            "pleaseWait": "Čekejte prosím..."
+        }
     },
     "launch": {
         "options": "Možnosti spuštění..."
@@ -212,7 +219,7 @@
             "fullscreen": "Spustit na celé obrazovce (F11 pro opuštění)"
         },
         "placeholder": {
-            "image": "Sem vložte URL obrázku",
+            "image": "Sem vložte URL obrázku, nebo vyberte soubor z vašeho zařízení",
             "title": "Přidejte název ke své hře/aplikaci",
             "url": "Sem vložte adresu URL hry",
             "useragent": "Sem zadejte vlastní User Agent (uživatelský agent) pro použití v této prohlížečové aplikaci/hře"
@@ -296,5 +303,14 @@
         "header": "Tato hra je spravována aplikací třetí strany",
         "notice1": "Tato hra je spravována aplikací třetí strany: „{{application_name}}“"
     },
-    "wikiLink": "Důležité informace o této hře si přečtěte zde:&nbsp;<1>Otevřít stránku</1>"
+    "wikiLink": "Důležité informace o této hře si přečtěte zde:&nbsp;<1>Otevřít stránku</1>",
+    "Open": "Otevřít",
+    "queue": {
+        "label": {
+            "resume": "Pokračovat ve stahování",
+            "canceled": "Zrušeno",
+            "remove": "Odstranit ze stažených",
+            "pause": "Pozastavit stahování"
+        }
+    }
 }
