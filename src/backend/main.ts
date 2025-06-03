@@ -182,6 +182,8 @@ async function initializeWindow(): Promise<BrowserWindow> {
       }
     }
 
+    void DXVK.getLatest()
+
     Winetricks.download()
     if (shouldDownloadWine) {
       downloadDefaultWine()
