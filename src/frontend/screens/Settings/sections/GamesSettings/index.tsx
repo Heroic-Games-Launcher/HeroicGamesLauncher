@@ -181,7 +181,7 @@ export default function GamesSettings() {
             <AutoDXVK />
             {isLinux && (
               <>
-                <AutoDXVKNVAPI />
+                {!window.isSteamDeck && <AutoDXVKNVAPI />}
                 <AutoVKD3D />
               </>
             )}

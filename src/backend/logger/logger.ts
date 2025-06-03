@@ -32,7 +32,12 @@ import { existsSync, mkdirSync, openSync } from 'graceful-fs'
 import { Winetricks } from 'backend/tools'
 import { gameAnticheatInfo } from 'backend/anticheat/utils'
 import { isUmuSupported } from 'backend/utils/compatibility_layers'
-import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import {
+  isLinux,
+  isMac,
+  isSteamDeck,
+  isWindows
+} from 'backend/constants/environment'
 import { gamesConfigPath } from 'backend/constants/paths'
 
 export enum LogPrefix {
@@ -561,6 +566,10 @@ class GameLogWriter extends LogWriter {
             delete gameSettings.autoInstallDxvk
             delete gameSettings.autoInstallVkd3d
           }
+        }
+
+        if (isSteamDeck) {
+          delete gameSettings.autoInstallDxvkNvapi
         }
       } else {
         // remove settings that are not used on native Linux games

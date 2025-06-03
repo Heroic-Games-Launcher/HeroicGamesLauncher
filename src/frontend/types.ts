@@ -167,6 +167,7 @@ declare global {
       canvas_height: number
     ) => Promise<string>
     setTheme: (themeClass: string) => void
+    isSteamDeck: boolean
     isSteamDeckGameMode: boolean
     isFlatpak: boolean
     platform: NodeJS.Platform
