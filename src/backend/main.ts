@@ -641,7 +641,6 @@ addHandler('getMaxCpus', () => cpus().length)
 
 addHandler('getHeroicVersion', app.getVersion)
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
-addHandler('isFlatpak', () => isFlatpak)
 addHandler('getGameOverride', async () => getGameOverride())
 addHandler('getGameSdl', async (event, appName) => getGameSdl(appName))
 

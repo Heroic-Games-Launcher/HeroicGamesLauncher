@@ -97,7 +97,8 @@ import {
   isMac,
   isSteamDeckGameMode,
   isWindows,
-  isIntelMac
+  isIntelMac,
+  isFlatpak
 } from './constants/environment'
 
 let powerDisplayId: number | null
@@ -341,10 +342,14 @@ async function prepareLaunch(
   if (gameSettings.showMangohud && !isSteamDeckGameMode) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
+      let reason =
+        'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
+      if (isFlatpak) {
+        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime 24.08`
+      }
       return {
         success: false,
-        failureReason:
-          'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
+        failureReason: reason
       }
     }
 
@@ -369,9 +374,13 @@ async function prepareLaunch(
   ) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
     if (!gameScopeBin) {
-      logWarning(
+      let warningMessage =
         'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
-      )
+      if (isFlatpak) {
+        warningMessage = `${warningMessage}. Make sure to install Gamescope's flatpak package with runtime 24.08`
+      }
+
+      logWarning(warningMessage)
     } else {
       // Gamescope does not provide a version option and they changed
       // cli options on version 3.12. So we do what lutris does.

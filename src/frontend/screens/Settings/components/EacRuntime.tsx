@@ -20,8 +20,7 @@ const EacRuntime = () => {
   const handleEacRuntime = async () => {
     if (!eacRuntime) {
       if (!useGameMode) {
-        const isFlatpak = await window.api.isFlatpak()
-        if (isFlatpak) {
+        if (window.isFlatpak) {
           showDialogModal({
             showDialog: true,
             message: t(
