@@ -7,7 +7,7 @@ export const isWindows = process.platform === 'win32'
 export const isLinux = process.platform === 'linux'
 export const isSteamDeckGameMode =
   process.env.XDG_CURRENT_DESKTOP === 'gamescope'
-export const isSteamDeckDesktopMode =
+const isSteamDeckDesktopMode =
   env.SESSION_MANAGER?.includes('unix/steamdeck') &&
   env.HOME === '/home/deck' &&
   env.DESKTOP_SESSION?.includes('steamos')
