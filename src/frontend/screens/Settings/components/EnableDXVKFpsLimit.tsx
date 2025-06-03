@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch, TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
 import { defaultWineVersion } from '..'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableDXVKFpsLimit = () => {
   const { t } = useTranslation()
@@ -39,10 +38,8 @@ const EnableDXVKFpsLimit = () => {
           title={t('setting.dxfpslimit', 'Limit DirectX Games FPS')}
         />
 
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t(
+        <InfoIcon
+          text={t(
             'help.dxfpslimit',
             'Sets a frame rate cap for DirectX Games (9-12)'
           )}

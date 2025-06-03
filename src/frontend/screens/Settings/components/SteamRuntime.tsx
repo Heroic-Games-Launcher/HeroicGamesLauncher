@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import SettingsContext from '../SettingsContext'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const SteamRuntime = () => {
   const { t } = useTranslation()
@@ -37,10 +36,8 @@ const SteamRuntime = () => {
         title={t('setting.steamruntime', 'Use Steam Runtime')}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.steamruntime',
           'Custom libraries provided by Steam to help run Linux and Windows (Proton) games. Enabling might improve compatibility.'
         )}

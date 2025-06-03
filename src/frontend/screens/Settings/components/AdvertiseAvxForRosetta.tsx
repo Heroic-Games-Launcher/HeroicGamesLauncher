@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AdvertiseAvxForRosetta = () => {
   const { t } = useTranslation()
@@ -33,10 +32,8 @@ const AdvertiseAvxForRosetta = () => {
         title={t('setting.advertiseAvxForRosetta', 'Advertise AVX for Rosetta')}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.advertiseAvxForRosetta',
           'Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.'
         )}

@@ -1,12 +1,11 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { defaultWineVersion } from '..'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
 import ContextProvider from 'frontend/state/ContextProvider'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoDXVK = () => {
   const { t } = useTranslation()
@@ -54,10 +53,8 @@ const AutoDXVK = () => {
         disabled={installingDxvk || (isLinux && autoInstallVkd3d)}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.dxvk',
           'DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.'
         )}

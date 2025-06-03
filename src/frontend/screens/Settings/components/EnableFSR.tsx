@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { SelectField, ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import SettingsContext from '../SettingsContext'
 import { MenuItem } from '@mui/material'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableFSR = () => {
   const { t } = useTranslation()
@@ -33,10 +32,8 @@ const EnableFSR = () => {
           )}
         />
 
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t(
+        <InfoIcon
+          text={t(
             'help.amdfsr',
             "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance."
           )}
