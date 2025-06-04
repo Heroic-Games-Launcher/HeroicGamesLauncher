@@ -116,7 +116,9 @@ describe('TrayIcon', () => {
 
           setRecentGames([])
 
-          const appIcon = await initTrayIcon(mainWindow)
+          const appIcon = (await initTrayIcon(
+            mainWindow
+          )) as Electron.CrossProcessExports.Tray
 
           expect(appIcon.menu[0]).toEqual({
             type: 'separator'
@@ -169,7 +171,9 @@ describe('TrayIcon', () => {
 
           // check it renders english
           i18next.language = 'en'
-          const appIcon = await initTrayIcon(mainWindow)
+          const appIcon = (await initTrayIcon(
+            mainWindow
+          )) as Electron.CrossProcessExports.Tray
           let items = appIcon.menu
           expect(items[items.length - 1].label).toEqual('Quit')
 
@@ -207,7 +211,9 @@ describe('TrayIcon', () => {
       // defaults to 5
       GlobalConfig.setConfigValue('maxRecentGames', undefined)
 
-      const appIcon = await initTrayIcon(mainWindow)
+      const appIcon = (await initTrayIcon(
+        mainWindow
+      )) as Electron.CrossProcessExports.Tray
 
       const items = appIcon.menu
 
