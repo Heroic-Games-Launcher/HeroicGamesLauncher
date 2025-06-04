@@ -348,7 +348,8 @@
         "button": {
             "close": "Fechar Ajuda",
             "open": "Abrir Ajuda"
-        }
+        },
+        "dxfpslimit": "Define um limite de fotogramas por segundo (FPS) para jogos DXVK"
     },
     "info": {
         "heroic": {
