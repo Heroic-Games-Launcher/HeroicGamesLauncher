@@ -424,6 +424,14 @@ body.nord-light {
     color: var(--navbar-active);
   }
 
+  body.nord-light .downIcon circle {
+    fill: var(--primary);
+  }
+
+  body.nord-light .currentDownload {
+    --success: #0bd48c;
+  }
+
   .CategoriesManager__Dialog {
     .MuiDialogContent-root {
       .Category {
