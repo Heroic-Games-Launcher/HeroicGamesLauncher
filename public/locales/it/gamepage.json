@@ -3,14 +3,14 @@
         "change": {
             "message": "Questo cambierà il percorso d'installazione del gioco, sei sicuro?",
             "path": "Seleziona un nuovo percorso d'installazione",
-            "title": "Cambia il percorso d'installazione del gioco"
+            "title": "Cambia il percorso d'installazione dei giochi"
         },
         "choose": "Scegli",
         "importpath": "Seleziona la cartella del gioco da importare",
         "move": {
             "message": "Quest'operazione può richiedere molto tempo, sei sicuro?",
-            "path": "Seleziona dove vuoi muoverla",
-            "title": "Muovi l'installazione del gioco"
+            "path": "Seleziona dove vuoi spostarla",
+            "title": "Sposta l'installazione del gioco"
         },
         "no": "NO",
         "repair": {
@@ -29,7 +29,7 @@
         },
         "stopInstall": {
             "keepInstalling": "Continua l'installazione",
-            "message": "Desideri TENERE i file scaricati?",
+            "message": "Desideri CONSERVARE i file scaricati?",
             "title": "Ferma l'installazione"
         },
         "uninstall": {
@@ -48,7 +48,8 @@
         },
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI",
-        "close": "Chiudi"
+        "close": "Chiudi",
+        "select-install-path": "Seleziona percorso di installazione di Steam"
     },
     "button": {
         "add_to_favourites": "Aggiungi Ai Preferiti",
@@ -182,7 +183,29 @@
         "winetricks": "Installazione pacchetti Winetricks",
         "steam": {
             "installing": "Installazione in corso",
-            "pleaseWait": "Attendi, per favore..."
+            "pleaseWait": "Attendi, per favore...",
+            "abort": "Interrompi Installazione",
+            "cancel": "Annulla Installazione",
+            "compatibility": "Tieni presente che non tutti i giochi funzioneranno e, anche se lo facessero, potrebbero non funzionare come previsto.",
+            "compatibility-layer-not-available": "Layer di compatibilità non disponibile. Installane uno da \"Impostazioni > Wine Manager\".",
+            "downloading": "Scaricamento {{percent}}%",
+            "hardware": "Apple Silicon M1+ (per i Mac Intel, Steam funzionerà con Crossover)",
+            "crossover": "Se hai installato Crossover, non ne avrai bisogno poiché funzionerà correttamente con Steam.",
+            "install": "Installa Steam",
+            "install-path": "Percorso di installazione Steam",
+            "install-tooltip": "Verrà installata la versione Windows di Steam, che verrà eseguita utilizzando un Heroic Compatibility Layer. \n\n    Alcuni giochi, in particolare i titoli più vecchi, i giochi 3D più recenti o quelli con software anti-cheat potrebbero non funzionare correttamente. \n\n    ",
+            "installation": "Installazione Steam",
+            "launch": "Avvia Steam utilizzando il Layer di compatibilità Heroic",
+            "launching": "Avvio di Steam...",
+            "macOS": "macOS 14.0 o versioni successive",
+            "notification": "Heroic ti avviserà una volta completata l'installazione.",
+            "patience": "Se desideri continuare, ti preghiamo di pazientare poiché il completamento potrebbe richiedere alcuni minuti, a seconda della tua connessione Internet e della configurazione del sistema.",
+            "ram": "8GB di RAM",
+            "recommended": "Specifiche consigliate per un'esperienza migliore",
+            "select-path": "Seleziona la cartella di installazione per Steam",
+            "specificVersion-pt1": "Questo scaricherà una versione specifica di Steam da",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "è stato reso compatibile con Heroic poiché le nuove versioni di Steam non funzionano su macOS."
         }
     },
     "launch": {

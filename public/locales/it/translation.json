@@ -91,6 +91,11 @@
             },
             "legendary": {
                 "generic": "C'è stato un errore! Prova a uscire e accedere al tuo account Epic. {{newline}} {{error}}"
+            },
+            "steam": {
+                "error": "Eseguibile di Steam non trovato. L'installazione è stata probabilmente annullata da un utente o ha fallito lato Steam.",
+                "message": "Installazione di Steam fallita! Leggi le istruzioni con attenzione e riprova! {{paragraph}} {{error}}",
+                "title": "Errore Steam"
             }
         },
         "info": {
@@ -275,7 +280,8 @@
         "only": "solo",
         "select_all": "Seleziona Tutto",
         "no_categories": "Nessuna categoria personalizzata. Aggiungi categorie utilizzando il menu di ogni gioco.",
-        "show_third_party_managed_only": "Mostra solo quelle gestite da terze parti"
+        "show_third_party_managed_only": "Mostra solo quelle gestite da terze parti",
+        "show_updates_only": "Mostra giochi solo con aggiornamenti"
     },
     "help": {
         "amdfsr": "FSR di AMD aiuta a incrementare il framerate grazie all'upscaling delle risoluzioni più basse in modalità schermo intero. La qualità dell'immagine aumenta da 5 a 1 al costo di un leggero calo delle prestazioni. L'attivazione può migliorare le prestazioni.",
@@ -353,7 +359,10 @@
             "upscaleWidth": "La larghezza della risoluzione usata dal gioco. 16:9 è l'aspetto predefinito.",
             "forceGrabCursor": "Utilizzare sempre la modalità relativa del mouse invece di ribaltare a seconda della visibilità del cursore. (Utili per quando le applicazioni continuano a perdere fuoco)"
         },
-        "msync": "Msync mira a ridurre l'overhead del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni sui kernel Linux supportati."
+        "msync": "Msync mira a ridurre l'overhead del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni sui kernel Linux supportati.",
+        "dxfpslimit": "Imposta un limite di frame rate per i giochi DirectX (9-12)",
+        "advertiseAvxForRosetta": "Abilita il supporto del set di istruzioni AVX durante l'esecuzione di giochi Windows tramite Rosetta su Mac con Apple Silicon. Potrebbe essere necessario per alcuni giochi, come Death Stranding, che richiedono il supporto AVX.",
+        "download_proton_steam": "Se abilitato, GE-Proton verrà scaricato direttamente nella directory degli strumenti di compatibilità di Steam invece che nel percorso Heroic predefinito. Utilizzerà il percorso di Steam impostato nell'impostazione 'Percorso Steam predefinito' qui sopra."
     },
     "info": {
         "heroic": {
@@ -749,7 +758,10 @@
         },
         "custom_css": {
             "warning": "Attenzione: questo vale per tutta l'interfaccia grafica. Questo significa che lo stile sbagliato può rendere Heroic inutilizzabile. Se necessario, l'impostazione può essere modificata manualmente in `~/.config/heroic/config.json`. NON copiare stili da una fonte poco attendibile."
-        }
+        },
+        "advertiseAvxForRosetta": "Pubblicizza AVX per Rosetta",
+        "dxfpslimit": "Limita gli FPS dei giochi DirectX",
+        "download-proton-steam": "Scarica GE-Proton nella directory di Steam"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1007,7 +1019,8 @@
             "sortOptions": "Clicca qui per ordinare i giochi in ordine alfabetico.",
             "categories": "Organizza i tuoi giochi in categorie per mantenere l'ordine.",
             "refresh": "Ricarica la tua libreria per mostrare i nuovi giochi o trovare aggiornamenti.",
-            "filters": "Filtra i tuoi giochi in base al negozio, la piattaforma, i tuoi preferiti ed altro utilizzando queste opzioni."
+            "filters": "Filtra i tuoi giochi in base al negozio, la piattaforma, i tuoi preferiti ed altro utilizzando queste opzioni.",
+            "steamInstall": "Utilizza questo pulsante per installare la versione Windows di Steam e giocare ai tuoi giochi Windows tramite Crossover, Wine o GPTK."
         },
         "sidebar": {
             "downloads": "Monitora e gestisci i download e le installazioni dei tuoi giochi.",
@@ -1031,5 +1044,11 @@
         "done": "Fatto",
         "startTour": "Inizia il tutorial",
         "skip": "Salta"
+    },
+    "notification": {
+        "steam": {
+            "error": "Installazione di Steam non riuscita! Leggi attentamente le istruzioni e riprova!",
+            "success": "Steam per Windows è stato installato correttamente!"
+        }
     }
 }
