@@ -74,7 +74,9 @@ describe('TrayIcon', () => {
         it('updates the content', async () => {
           setRecentGames([{ title: 'game 1', appName: '12345' }])
 
-          const appIcon = await initTrayIcon(mainWindow)
+          const appIcon = (await initTrayIcon(
+            mainWindow
+          )) as Electron.CrossProcessExports.Tray
 
           expect(appIcon.menu[0]).toEqual({
             click: expect.any(Function),
