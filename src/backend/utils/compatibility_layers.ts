@@ -575,6 +575,7 @@ export async function isUmuSupported(
   checkUmuInstalled = true
 ): Promise<boolean> {
   if (!isLinux) return false
+  if (gameSettings.doNotUseWine) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
   if (gameSettings.disableUMU === true) {
     return false
