@@ -49,6 +49,7 @@ import { Tabs, Tab } from '@mui/material'
 import { GameInfo } from 'common/types'
 import DisableUMU from '../../components/DisableUMU'
 import VerboseLogs from '../../components/VerboseLogs'
+import DoNotUseWine from '../../components/DoNotUseWine'
 
 const windowsPlatforms = ['Win32', 'Windows', 'windows']
 function getStartingTab(platform: string, gameInfo?: GameInfo | null): string {
@@ -194,6 +195,7 @@ export default function GamesSettings() {
             <Tools />
           </>
         )}
+        <DoNotUseWine />
       </TabPanel>
 
       <TabPanel value={value} index={'other'}>
