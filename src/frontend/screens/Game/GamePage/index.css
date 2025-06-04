@@ -272,10 +272,46 @@
           align-self: center;
         }
 
+        & .playButtons {
+          display: flex;
+          justify-content: center;
+
+          .altPlay {
+            position: relative;
+            margin-inline-start: 1px;
+            padding-inline: 8px;
+
+            & > svg {
+              rotate: 90deg;
+              font-size: 0.7rem;
+            }
+
+            a {
+              display: none;
+              position: absolute;
+              bottom: 100%;
+              right: -10px;
+              white-space: nowrap;
+            }
+
+            &:focus,
+            &:hover,
+            &:focus-within {
+              a {
+                display: block;
+              }
+            }
+          }
+        }
+
         & .mainBtn {
           min-width: 200px;
           font-size: var(--text-md);
           white-space: nowrap;
+
+          span {
+            white-space: nowrap;
+          }
 
           & svg {
             transform: scale(1.2);
