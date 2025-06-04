@@ -23,6 +23,18 @@ describe('TrayIcon', () => {
     configStore.get = jest.fn()
   })
 
+  it('shows no icon if noTrayIcon setting', async () => {
+    GlobalConfig.setConfigValue('noTrayIcon', true)
+
+    const noAppIcon = await initTrayIcon(mainWindow)
+    expect(noAppIcon).toBeNull()
+
+    GlobalConfig.setConfigValue('noTrayIcon', false)
+
+    const appIcon = await initTrayIcon(mainWindow)
+    expect(appIcon).not.toBeNull()
+  })
+
   describe('content', () => {
     describe('contextMenu', () => {
       beforeEach(() => {

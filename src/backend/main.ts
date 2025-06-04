@@ -228,9 +228,9 @@ async function initializeWindow(): Promise<BrowserWindow> {
       })
     }
 
-    const { exitToTray } = GlobalConfig.get().getSettings()
+    const { exitToTray, noTrayIcon } = GlobalConfig.get().getSettings()
 
-    if (exitToTray) {
+    if (exitToTray && !noTrayIcon) {
       logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
       return mainWindow.hide()
     }
@@ -403,7 +403,8 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
-    const headless = isCLINoGui || settings.startInTray
+    const headless =
+      isCLINoGui || (settings.startInTray && !settings.noTrayIcon)
     if (!headless) {
       mainWindow.once('ready-to-show', () => {
         const props = configStore.get_nodefault('window-props')
