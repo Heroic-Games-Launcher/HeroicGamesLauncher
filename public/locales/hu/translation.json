@@ -348,7 +348,8 @@
             "library": "Megjeleníti az összes birtokolt játékot.",
             "login": "Bejelentkezés a különböző áruházakba."
         },
-        "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Az engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken."
+        "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Az engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken.",
+        "dxfpslimit": "Képkockaszámkorlátot állít be a DXVK-s játékokhoz"
     },
     "info": {
         "heroic": {

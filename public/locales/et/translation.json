@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Keela väljaspoole klikkides dialoogakende sulgemist",
         "titles_always_visible": "Alati näita pealkirjasid varamus",
         "actions_font_family_default": "Toimingute fondiperekond (Vaikimisi: {{fontFamily}})",
-        "content_font_family_default": "Sisu fondiperekond (Vaikimisi: {{fontFamily}})"
+        "content_font_family_default": "Sisu fondiperekond (Vaikimisi: {{fontFamily}})",
+        "disable_smooth_scrolling": "Keela sujuv kerimine (nõuab restarti)"
     },
     "add_game": "Lisa mäng",
     "All": "Kõik",
@@ -90,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Esines tõrge! Proovige oma Epic kontost välja logida ja uuesti sisse logida. {{newline}}  {{error}}"
+            },
+            "steam": {
+                "error": "Steami programmi ei leitud. Paigaldamine oli ilmselt kasutaja poolt tühistatud või ebaõnnestus Steami poolel.",
+                "message": "Steami paigaldamine ebaõnnestus! Palun lugege hoolikalt juhiseid ja proovige uuesti! {{paragraph}}{{error}}",
+                "title": "Steami viga"
             }
         },
         "info": {
@@ -169,6 +175,10 @@
                 "checkbox": "Ära enam seda teavitust näita",
                 "title": "Heroic töötab kui Snap",
                 "message": "Mõningaid võimalusi ei ole äpi Snap versioonis saadaval ning me üritame seda parandada.{{newLine}}Praeguste piirangute hulgas on: {{newLine}}Heroic ei leia Protonit üles Steamist või Lutrisest.{{newLine}}{{newLine}}Gamescope, GameMode ja MangoHud ei toimi, sest Heroicul ei ole neile ligipääsu.{{newLine}}{{newLine}}Et sellest mööda pääseda, installeerige Heroic kasutades Flatpaki, DEB-i või AppImage'it."
+            },
+            "rosetta": {
+                "title": "Rosettat ei leitud",
+                "message": "Heroic nõuab Rosettat, et Apple Siliconi kiipidega macOS süsteemidel korralikult toimida. Palun paigaldage see macOS-i terminalist kasutades järgmist käsku: \"softwareupdate --install-rosetta\" ja taaskäivitage Heroic. "
             }
         },
         "wineprefix": "Valige WinePrefiksi kaust",
@@ -270,7 +280,8 @@
         "no_categories": "Käsitsi kategooriaid ei ole. Lisage kategooriaid kasutades iga mängu menüüd.",
         "show_support_offline_only": "Näita ainult ilma võrguühenduse toega",
         "only": "ainult",
-        "show_third_party_managed_only": "Näita ainult kolmanda osapoole hallatud"
+        "show_third_party_managed_only": "Näita ainult kolmanda osapoole hallatud",
+        "show_updates_only": "Näita ainult uuendustega mänge"
     },
     "help": {
         "amdfsr": "AMD FSR aitab suurendada kaadrisagedust, suurendades madalamaid resolutsioone täisekraani režiimis. Pildikvaliteet suureneb 5-st 1-le, mis toob aga kaasa kerge jõudluse vähenemise. Lubamine võib parandada jõudlust.",
@@ -348,7 +359,10 @@
         "button": {
             "close": "Sulge abi",
             "open": "Ava abi"
-        }
+        },
+        "dxfpslimit": "Kehtestab kaadrisageduse piirangu DXVK mängude jaoks",
+        "download_proton_steam": "Kui lubatud, laetakse GE-Proton alla otse Steami ühilduvustööriistade kausta, mitte Heroicu vaikimisi teele. See kasutab Steami vaiketeed, mis on määratud üleval 'Steami vaiketee' valikus.",
+        "advertiseAvxForRosetta": "Lubab toe AVX käsustiku jaoks, kui mängite Windowsi mänge Apple Siliconi Mac-idel läbi Rosetta. See võib olla vajalik teatud mängude jaoks, mis vajavad AVX-i tuge, näiteks \"Death Stranding\"."
     },
     "info": {
         "heroic": {
@@ -743,7 +757,10 @@
         },
         "custom_css": {
             "warning": "Hoiatus: see rakendub tervele eesliidesele. See tähendab, et vale stiil võib teha Heroicu kasutuskõlbmatuks. Kui vaja, võib seda sätet käsitsi muuta failis `~/.config/heroic/config.json`. ÄRGE KOPEERIGE stiile allikatest, mida te ei usalda."
-        }
+        },
+        "advertiseAvxForRosetta": "Kuuluta Rosettale AVX-tuge",
+        "download-proton-steam": "Lae alla GE-Proton Steami kausta",
+        "dxfpslimit": "Piira DirectX mängude kaadrisagedust"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1002,7 +1019,8 @@
                 "title2": "Varamu haldamine!"
             },
             "gameCard": "Tehke vasakklõps mängu kaardil, et minna mängu lehele, näha üksikasju ja muuta seadeid, või paremklõps, et avada menüü.",
-            "addGame": "Klikkige siia, et lisada oma mänge või rakendusi varamusse. Need võivad olla peaaegu mis iganes, isegi brauseri URLid."
+            "addGame": "Klikkige siia, et lisada oma mänge või rakendusi varamusse. Need võivad olla peaaegu mis iganes, isegi brauseri URLid.",
+            "steamInstall": "Kasutage seda nuppu, et paigaldada Steami Windowsi versioon ja mängida oma Windowsi mänge kasutades Crossoverit, Wine'i või GPTK-d."
         },
         "next": "Järgmine",
         "sidebar": {
@@ -1025,5 +1043,11 @@
         },
         "skip": "Jäta vahele",
         "startTour": "Alusta tuur"
+    },
+    "notification": {
+        "steam": {
+            "error": "Steami paigaldamine ebaõnnestus! Palun lugege hoolikalt juhiseid ja proovige uuesti!",
+            "success": "Steam Windowsi jaoks on edukalt paigaldatud!"
+        }
     }
 }
