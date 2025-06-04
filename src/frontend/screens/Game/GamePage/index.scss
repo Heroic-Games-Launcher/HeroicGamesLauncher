@@ -1,12 +1,12 @@
 .gameConfigContainer {
   display: grid;
-  grid-template-columns: minmax(500px, 60%) minmax(500px, 60%);
+  grid-template-columns: 1fr 1fr;
   padding: var(--space-md);
   gap: var(--space-md);
   border-radius: 10px;
-  max-width: 1920px;
   height: 100vh;
   min-height: 100vh;
+  max-width: 2400px;
   grid-template-areas:
     'header header'
     'main extra'
@@ -92,8 +92,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
-    max-height: calc(100vh - 150px);
+    height: 70vh;
+    max-height: 1100px;
+    max-width: 1200px;
     overflow-y: auto;
     overflow-x: hidden;
     align-items: flex-start;
@@ -578,6 +579,42 @@
       .extraInfoWrapper {
         justify-self: center;
       }
+    }
+  }
+}
+
+@media (max-width: 1250px) {
+  .gameConfigContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+
+    .mainInfoWrapper,
+    .extraInfoWrapper {
+      max-height: 35vh;
+      min-height: fit-content;
+
+      .mainInfo {
+        padding-top: 345px;
+      }
+    }
+  }
+}
+
+@media (max-height: 560px) {
+  .mainInfo {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+
+    .gamePicture,
+    .store-icon,
+    .gameStatus,
+    .developer,
+    .releaseDate,
+    .genre,
+    .timeContainerLabel,
+    .summary {
+      display: none;
     }
   }
 }
