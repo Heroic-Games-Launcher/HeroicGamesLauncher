@@ -16,6 +16,9 @@ const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
+  const { noTrayIcon } = GlobalConfig.get().getSettings()
+  if (noTrayIcon) return null
+
   // create icon
   const appIcon = new Tray(getIcon(process.platform))
 

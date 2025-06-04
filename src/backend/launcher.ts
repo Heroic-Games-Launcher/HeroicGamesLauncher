@@ -115,7 +115,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
   const { title } = game
 
-  const { minimizeOnLaunch } = GlobalConfig.get().getSettings()
+  const { minimizeOnLaunch, noTrayIcon } = GlobalConfig.get().getSettings()
 
   const startPlayingDate = new Date()
 
@@ -155,7 +155,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   })
 
   const mainWindow = getMainWindow()
-  if (minimizeOnLaunch) {
+  if (minimizeOnLaunch && !noTrayIcon) {
     mainWindow?.hide()
   }
 
