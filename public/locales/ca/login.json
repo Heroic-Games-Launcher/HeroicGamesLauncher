@@ -1,9 +1,9 @@
 {
     "button": {
         "login": "Inicia la sessió",
-        "copy": "Còpia",
-        "open": "Enllaç obert",
-        "copied": "Copiat!",
+        "copy": "Copia",
+        "open": "Obre l'enllaç",
+        "copied": "S'ha copiat",
         "loading": "Es carrega",
         "error": "Error, prova amb un codi diferent"
     },

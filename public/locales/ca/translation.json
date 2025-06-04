@@ -34,12 +34,12 @@
         "choose-legendary-binary": "Selecciona el binari del Legendary",
         "customWine": "Selecciona el binari del Wine o del Proton",
         "default-install-path": "Tria la ruta d'instal·lació predefinida",
-        "default-steam-path": "Ruta de l'Steam.",
+        "default-steam-path": "Ruta del Steam.",
         "downloadNow": "Baixa ara",
         "error": {
             "add": {
                 "steam": {
-                    "body": "{{game}} no s'ha pogut afegir a l'Steam a causa de:{{newLine}} {{error}}",
+                    "body": "{{game}} no s'ha pogut afegir al Steam a causa de: {{newLine}} {{error}}",
                     "title": "Error en afegir el component"
                 }
             },
@@ -90,7 +90,12 @@
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "S'ha produït un error! Proveu de tancar la sessió i iniciar sessió al vostre compte d'Epic. {{newline}} {{error}}"
+                "generic": "S'ha produït un error. Proveu de tancar la sessió del compte de l'Epic i tornar a iniciar-la. {{newline}}  {{error}}"
+            },
+            "steam": {
+                "error": "No s'ha trobat l'executable del Steam. És probable que l'usuari hagi cancel·lat la instal·lació, o hagi fallat per la banda del Steam.",
+                "message": "Ha fallat la instal·lació del Steam. Llegeix amb compte les instruccions i torna a provar-ho. {{paragraph}} {{error}}",
+                "title": "Error del Steam"
             }
         },
         "info": {
@@ -169,7 +174,7 @@
             "snap": {
                 "checkbox": "No mostris més aquest missatge",
                 "title": "L'Heroic s'executa com a Snap",
-                "message": "Algunes funcions de moment no estan disponibles a la versió de Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}L'Heroic no serà capaç de trobar el Proton de l'Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran ja que el Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·leu el Heroic com a Flatpak, DEB o amb una AppImage."
+                "message": "Algunes funcions de moment no estan disponibles a la versió Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}L'Heroic no serà capaç de trobar el Proton del Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran, ja que l'Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·leu l'Heroic com a Flatpak, DEB o amb l'AppImage."
             },
             "rosetta": {
                 "title": "La Rosetta no s'ha trobat.",
@@ -178,8 +183,8 @@
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ",
-        "dontShowAgain": "No tornis a mostrar",
-        "choose-nile-binary": "Seleccioneu el binari del Nil",
+        "dontShowAgain": "No ho tornis a mostrar",
+        "choose-nile-binary": "Selecciona el binari del Nile",
         "update": "Actualitza",
         "changelog": "Registre de canvis",
         "postpone": "Posposa"
@@ -266,7 +271,7 @@
         "show_favourites_only": "Mostra'n només els preferits",
         "show_hidden": "Mostra'n els amagats",
         "store": "Filtre de botigues",
-        "filters": "Filtra",
+        "filters": "Filtres",
         "all_categories": "Totes les categories",
         "show_installed_only": "Mostra només els instal·lats",
         "uncategorized": "Sense categoria",
@@ -276,7 +281,8 @@
         "show_support_offline_only": "Mostra només els disponibles sense connexió",
         "select_all": "Selecciona-ho tot",
         "no_categories": "No existeixen categories personalitzades. Afegiu-ne des del menú de cada joc.",
-        "show_third_party_managed_only": "Mostra només els gestionats per tercers"
+        "show_third_party_managed_only": "Mostra només els gestionats per tercers",
+        "show_updates_only": "Mostra només els jocs amb actualitzacions"
     },
     "help": {
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
@@ -303,12 +309,12 @@
         "preferSystemLibs": "Les versions personalitzades del Wine (Wine-GE, Wine-Lutris) s'envien amb les seves dependències de biblioteques. Quan s'activa aquesta opció, s'ignoraran les biblioteques enviades i Wine carregarà les biblioteques del sistema. Avís! Es poden produir problemes si no es compleixen les dependències.",
         "primerun": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU «headless» per a renderitzar, com ara NVIDIA Optimus o AMD Crossfire.",
         "steam_path": {
-            "info": "La ruta permet que l'Heroic determini quina versió de Proton fa servir l'Steam, per a afegir jocs que no són d'Steam a l'Steam."
+            "info": "La ruta permet que l'Heroic determini quina versió del Proton fa servir el Steam, per a afegir-hi jocs que no són del Steam."
         },
-        "steamruntime": "Biblioteques personalitzades que proporciona l'Steam per executar jocs de Linux i de Windows (Proton). Si s'activa, podria millorar la compatibilitat.",
+        "steamruntime": "Biblioteques personalitzades que proporciona el Steam per a ajudar a executar jocs de Linux i de Windows (Proton). Si s'activa, podria millorar la compatibilitat.",
         "sync": {
             "part1": "L'Heroic prova d'endevinar el directori on es desen les partides, i això funcionarà a la majoria de casos. En cas que el directori no sigui el correcte, utilitza la caixa per a canviar-lo.",
-            "part2": "Si canvies el directori del prefix del Wine o del Proton, hauràs de comprovar de nou la ruta perquè el Proton empra un prefix (/pfx) i nom d'usuari (steamuser) diferent. Així doncs, pots suprimir la ruta actual, sortir de la configuració de sincronització i tornar-hi de nou perquè l'Heroic pugui esbrinar el directori de nou amb el prefix correcte.",
+            "part2": "Si canvies el directori del prefix del Wine o del Proton, hauràs de comprovar de nou la ruta perquè el Proton empra un prefix (/pfx) i nom d'usuari (steamuser) diferents. Així doncs, pots suprimir la ruta actual, sortir de la configuració de sincronització i tornar-hi de nou perquè l'Heroic pugui esbrinar el directori de nou amb el prefix correcte.",
             "part3": "Sincronització manual: Tria «Baixa» per a baixar les partides desades al núvol. «Puja» per a pujar les dades locals al núvol. «Força la baixada» i «Força la pujada» ignorarà la versió local o del núvol.",
             "part4": "«Sincronitza les partides desades automàticament» sincronitzarà les dades cada vegada que iniciïs un joc i quan acabis de jugar."
         },
@@ -317,7 +323,7 @@
             "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
             "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
         },
-        "disable_logs": "Activeu aquesta casella de selecció per desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegureu-vos de desactivar aquesta configuració abans d'informar de qualsevol problema.",
+        "disable_logs": "Activa aquesta opció per a desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegura't de desactivar-la abans d'informar de qualsevol problema.",
         "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia.",
         "disablePlaytimeSync": "Desactiva la sincronització del temps de joc amb els servidors d'una botiga determinada. Actualment, només ho suporta el GOG.",
         "gamescope": {
@@ -333,9 +339,9 @@
         },
         "title": {
             "accessibility": "Accessibilitat",
-            "login": "Login",
+            "login": "Inici de sessió",
             "settings": "Configuració",
-            "downloadManager": "Download Manager",
+            "downloadManager": "Gestor de baixades",
             "wineManager": "Gestor del Wine",
             "library": "Biblioteca"
         },
@@ -354,7 +360,10 @@
             "library": "Mostra tots els jocs que tens.",
             "login": "Inicia la sessió en diverses botigues."
         },
-        "msync": "L'Msync vol reduir la sobrecàrrega del wineserver en jocs intensius de CPU. Si s'habilita, pot millorar el rendiment en nuclis Linux compatibles."
+        "msync": "L'Msync vol reduir la sobrecàrrega del wineserver en jocs intensius de CPU. Si s'habilita, pot millorar el rendiment en nuclis Linux compatibles.",
+        "dxfpslimit": "Estableix un límit als FPS per als jocs que utilitzin DirectX (9-12)",
+        "download_proton_steam": "En activar-ho, el GE-Proton es baixarà directament a la carpeta d'eines de compatibilitat del Steam en compte de la ruta predefinida de l'Heroic. S'utilitzarà la ruta del Steam definida al paràmetre «Ruta predefinida del Steam» de sobre.",
+        "advertiseAvxForRosetta": "Activa la compatibilitat amb el conjunt d'instruccions AVX en executar jocs de Windows mitjançant Rosetta als Mac amb Apple Silicon. Això podria ser un requisit per a alguns jocs, com ara el Death Stranding, que necessita compatibilitat amb AVX."
     },
     "info": {
         "heroic": {
@@ -382,14 +391,14 @@
             "message": "El Wine fa servir el que s'anomena WINEPREFIX per a encapsular les aplicacions de Windows. El prefix conté els fitxers de la configuració del Wine i una reproducció de la jerarquia de fitxers a la unitat C: (el disc principal del SO Windows). En aquesta reproducció del disc és on es desen les partides i s'instal·len les dependències a través del winetricks."
         },
         "wine-path-invalid": "La ruta del Wine no és vàlida. Selecciona'n una altra.",
-        "wine-path-none-found": "No s'ha trobat cap versió de Wine, descarregueu-ne una des del Wine Manager"
+        "wine-path-none-found": "No s'ha trobat cap versió del Wine, baixeu-ne una des del Gestor del Wine"
     },
     "install": {
         "path": "Selecciona la ruta d'instal·lació"
     },
     "label": {
         "loading": "Es carrega",
-        "releaseDate": "Release Date"
+        "releaseDate": "Data de publicació"
     },
     "library": {
         "refresh": "Actualitza",
@@ -426,16 +435,16 @@
         "finished": {
             "add": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris de l'Steam. Consulta els registres per a més informació. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha afegit correctament a l'Steam. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
-                    "title": "S'ha afegit a l'Steam"
+                    "corrupt": "{{game}} no s'ha pogut afegir a tots els usuaris del Steam. Consulta els registres per a més informació. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
+                    "success": "{{game}} s'ha afegit correctament al Steam. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
+                    "title": "S'ha afegit al Steam"
                 }
             },
             "remove": {
                 "steam": {
-                    "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris de l'Steam. Consulta els registres per a més informació. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
-                    "success": "{{game}} s'ha suprimit correctament de l'Steam. Cal reiniciar l'Steam perquè els canvis tinguin efecte.",
-                    "title": "S'ha suprimit de l'Steam"
+                    "corrupt": "{{game}} no s'ha pogut suprimir de tots els usuaris del Steam. Consulta els registres per a més informació. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
+                    "success": "{{game}} s'ha suprimit correctament del Steam. Cal reiniciar el Steam perquè els canvis tinguin efecte.",
+                    "title": "S'ha suprimit del Steam"
                 }
             },
             "reparing": "Ha finalitzat la reparació del joc"
@@ -493,7 +502,7 @@
             "placeholder": "Introdueix aquí els arguments del llançador",
             "title": "Arguments del joc (s'executaran després de l'ordre):",
             "error": {
-                "command": "La sintaxi %command% de l'Steam no és vàlida com a argument del joc.",
+                "command": "La sintaxi %command% del Steam no és vàlida com a argument del joc.",
                 "env": "Les variables d'entorn s’han de configurar a la taula de sota."
             }
         },
@@ -526,7 +535,7 @@
         "gogdl-version": "Versió del GOGDL: ",
         "legendary-version": "Versió del Legendary: ",
         "weblate": "Ajuda a traduir l'Heroic...",
-        "nile-version": "Versió Nile: "
+        "nile-version": "Versió del Nile: "
     },
     "Other": "Altres",
     "placeholder": {
@@ -536,7 +545,7 @@
         "dxvkfpsvalue": "Valor enter positiu (com ara 30, 60, ...)",
         "egs-prefix": "Prefix on l'EGS està instal·lat",
         "prefered_language": "Codi de dos caràcters, com ara «en», «fr» o «ca»",
-        "alt-nile-bin": "S'està utilitzant el binari integrat del Nil..."
+        "alt-nile-bin": "S'utilitza el binari integrat del Nile..."
     },
     "platforms": {
         "linux": "Linux",
@@ -564,7 +573,7 @@
     "setting": {
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
-        "addgamestosteam": "Afegeix els jocs a l'Steam automàticament",
+        "addgamestosteam": "Afegeix els jocs al Steam automàticament",
         "alt-gogdl-bin": "Tria un binari alternatiu del GOGDL",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
@@ -577,7 +586,7 @@
         "customWineProton": "Rutes personalitzades del Wine i del Proton",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
-        "default-steam-path": "Ruta predefinida de l'Steam",
+        "default-steam-path": "Ruta predefinida del Steam",
         "defaultWinePrefix": "Directori de prefixos Wine nous",
         "disable_controller": "Desactiva la navegació de l'Heroic amb el controlador",
         "discordRPC": "Activa la Discord Rich Presence",
@@ -629,7 +638,7 @@
             "show-in-folder": "Obre la carpeta del registre",
             "join-heroic-discord": "Uneix-te al nostre Discord",
             "upload": {
-                "actions": "Acció",
+                "actions": "Accions",
                 "button": "Puja el fitxer de registre",
                 "confirm": {
                     "title": "Voleu pujar el fitxer de registre?",
@@ -700,7 +709,7 @@
         "select_theme": "Tema de la interfície",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "start-in-tray": "Inicia minimitzat",
-        "steamruntime": "Utilitza el Runtime de l'Steam",
+        "steamruntime": "Utilitza el Runtime del Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine",
@@ -709,7 +718,7 @@
         "disable_logs": "Desactiva els registres",
         "showMetalOverlay": "Mostra la superposició d'estadístiques",
         "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament",
-        "alt-nile-bin": "Trieu un binari alternatiu del Nil",
+        "alt-nile-bin": "Tria un binari alternatiu del Nile",
         "autodxvknvapi": "Instal·la/Actualitza el DXVK-NVAPI al prefix automàticament",
         "disablePlaytimeSync": "Desactiva la sincronització del temps de reproducció",
         "experimental_features": {
@@ -746,10 +755,13 @@
         "verboseLogs": {
             "description": "Activa els registres detallats"
         },
-        "disableUMU": "Desactiva l'UMU",
+        "disableUMU": "Desactiva l'umu",
         "custom_css": {
             "warning": "Avís: s'aplica a tota la interfície. Això significa que amb un estil erroni podeu inutilitzar l'Heroic. Si ho necessiteu, podeu canviar manualment l'opció des de `~/.config/heroic/config.json`. No copieu estils d'orígens desconeguts o de poca confiança."
-        }
+        },
+        "dxfpslimit": "Limita els FPS dels jocs per DirectX",
+        "download-proton-steam": "Baixa el GE-Proton a la carpeta del Steam",
+        "advertiseAvxForRosetta": "Promociona l'AVX per a Rosetta"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -793,8 +805,8 @@
         "saves": {
             "label": "Ubicació de les desades:",
             "warning": "La funció de desar al núvol està en versió beta. Fes una còpia de seguretat de les partides desades abans de sincronitzar-les, per si res sortís malament.",
-            "gog_linux_native_warning": "Els jocs natius de Linux no suporten la funció de desades al núvol del GOG. Feu servir la versió Windows.",
-            "not_supported": "Aquest joc no suporta les desades al núvol."
+            "gog_linux_native_warning": "Els jocs natius de Linux no són compatibles amb la funció de partides desades al núvol del GOG. Feu servir la versió del Windows.",
+            "not_supported": "Aquest joc no és compatible amb les partides desades al núvol."
         },
         "systemInformation": {
             "cpu": "CPU:",
@@ -843,7 +855,7 @@
                 "help4": "Informació de la biblioteca GOG (llista de jocs, informació dels diàlegs d'instal·lació i de l'api, com ara requisits)",
                 "help10": "Configuració de l'Heroic",
                 "help9": "Configuració dels jocs",
-                "help2": "Informació del joc de tercers (puntuació, compatibilitat amb l'Steam, howlongtobeat, pcgamingwiki, applegamingwiki)"
+                "help2": "Informació del joc de tercers (puntuació, compatibilitat amb el Steam, howlongtobeat, pcgamingwiki, applegamingwiki)"
             },
             "details": "Detalls",
             "resetHeroic": {
@@ -889,13 +901,13 @@
     "two_col_table": {
         "save_hint": "Els canvis en aquesta taula no es desen automàticament. Fes clic al botó +"
     },
-    "Update Available!": "Hi ha una actualització disponible!",
+    "Update Available!": "Hi ha una actualització disponible",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Es tanca la connexió",
         "logout": "Tanca la sessió",
         "logout_confirmation": "Segur que vols tancar la sessió?",
-        "manageaccounts": "Gestor dels comptes",
+        "manageaccounts": "Gestor de comptes",
         "quit": "Surt",
         "cancel": "Cancel·la",
         "quitMessage": "Segur que vols tancar l'aplicació?"
@@ -928,8 +940,8 @@
     },
     "dlc": {
         "actions": "Accions",
-        "installDlcs": "Instal·la tots els DLCs",
-        "noDlcFound": "No s'han trobat DLC",
+        "installDlcs": "Instal·la tots els DLC",
+        "noDlcFound": "No s'ha trobat cap DLC",
         "size": "Mida",
         "title": "Títol"
     },
@@ -938,13 +950,13 @@
     "Amazon Games": "Jocs d'Amazon",
     "winetricks": {
         "install": "Instal·la",
-        "loading": "Es carrega",
+        "loading": "S'està carregant",
         "installing": "Instal·lació en curs: {{component}}",
         "openGUI": "Obre la interfície del Winetricks",
         "search": "Cerqueu fonts o components",
         "nothingYet": "El Winetricks encara no ha instal·lat res",
         "installed": "Components instal·lats:",
-        "loading-available": "Es carreguen els components disponibles...",
+        "loading-available": "S'estan carregant els components disponibles...",
         "no-components": "No hi ha complements disponibles."
     },
     "window": {
@@ -955,15 +967,15 @@
     },
     "category-settings": {
         "cancel": "Cancel·la",
-        "warning": "Avís",
+        "warning": "Atenció",
         "remove-category": "Trau la categoria",
         "delete-question": "Si continueu, es traurà la categoria i les seves assignacions de jocs permanentment. Voleu continuar?",
         "new-category": "Categoria nova",
         "add-new-category": "Afegeix una categoria nova"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb l'Steam, però alguns jocs de fora de l'Steam també poden funcionar millor amb el Proton-GE-Proton. Proporciona registres generalment poc útils per a la solució de problemes.",
-        "wine-ge": "Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. És el Wine recomanat per a fer servir fora d'Steam. Proporciona registres útils per a la solució de problemes."
+        "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb el llançador umu (predefinit a l'Heroic).",
+        "wine-ge": "El Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. S'ha quedat obsolet en favor del GE-Proton i el llançador umu."
     },
     "emptyLibrary": {
         "noResults": "Els filtres actuals no han produït cap resultat.",
@@ -979,7 +991,7 @@
         "remove": "Elimina «{{name}}»",
         "rename": "Reanomena «{{name}}»",
         "title": "Administra les categories",
-        "add-placeholder": "Afegeix una categoria nova"
+        "add-placeholder": "Afegeix una categoria"
     },
     "adtraction-locked": {
         "dont-show-again": "No mostris més aquest avís",
@@ -1002,13 +1014,14 @@
                 "intro": "Us donem la benvinguda a la biblioteca de l'Heroic! Aquí és on podeu veure tots els vostres jocs de les diferents botigues.",
                 "title": "Us donem la benvinguda a l'Heroic!",
                 "title2": "Gestionant la biblioteca!",
-                "intro2": "Si la biblioteca està buida, inicieu sessió als vostres comptes amb el Gestor de Comptes de la barra lateral o afegiu els vostres jocs propis amb el botó d'Afegeix Joc de més amunt."
+                "intro2": "Si la biblioteca està buida, inicia la sessió als teus comptes amb el Gestor de comptes de la barra lateral, o afegeix els teus jocs amb el botó «Afegeix un joc» de més amunt."
             },
-            "sortInstalled": "Ordeneu els jocs per l'estat d'instal·lació.",
+            "sortInstalled": "Ordena els jocs per l'estat d'instal·lació.",
             "viewToggle": "Commuteu entre la vista de llista o graella.",
             "addGame": "Podeu afegir els vostres jocs o aplicacions propis a la biblioteca si feu clic aquí. Poden ser de qualsevol tipus, fins i tot direccions URL.",
             "categories": "Organitzeu els vostres jocs en categories per a mantenir-ho tot ben ordenat.",
-            "gameCard": "Feu clic amb el botó esquerre a la carta del joc per a navegar a la pàgina del joc, veure'n els detalls i ajustar-ne la configuració. Si hi feu clic amb el botó dret, s'obrirà el menú contextual."
+            "gameCard": "Feu clic amb el botó esquerre a la carta del joc per a navegar a la pàgina del joc, veure'n els detalls i ajustar-ne la configuració. Si hi feu clic amb el botó dret, s'obrirà el menú contextual.",
+            "steamInstall": "Utilitza aquest botó per a instal·lar la versió del Steam per al Windows i jugar als teus jocs de Windows fent servir el Crossover, Wine o GPTK."
         },
         "next": "Següent",
         "sidebar": {
@@ -1031,5 +1044,11 @@
         },
         "skip": "Salta",
         "startTour": "Inicia la guia"
+    },
+    "notification": {
+        "steam": {
+            "error": "La instal·lació del Steam ha fallat. Llegeix amb compte les instruccions i tornar a provar-ho.",
+            "success": "El Steam per a Windows s'ha instal·lat correctament."
+        }
     }
 }
