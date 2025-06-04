@@ -3,6 +3,7 @@ import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
 import { SelectField } from 'frontend/components/UI'
 import { MenuItem } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   gameInfo: GameInfo
@@ -11,8 +12,9 @@ interface Props {
 
 const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
   const { appName, runner } = useContext(GameContext)
+  const { t } = useTranslation('gamepage')
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(0)
+  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(-1)
 
   useEffect(() => {
     void window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
@@ -53,6 +55,9 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
       }}
       value={selectedLaunchOptionIndex.toString()}
     >
+      <MenuItem key={'-1'} value={'-1'}>
+        {t('launch.options', 'Launch Options...')}
+      </MenuItem>
       {launchOptions.map((option, index) => (
         <MenuItem key={index} value={index}>
           {labelForLaunchOption(option)}
