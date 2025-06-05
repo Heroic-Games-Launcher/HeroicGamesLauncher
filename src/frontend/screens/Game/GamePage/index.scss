@@ -150,7 +150,7 @@
   //mainInfoWrapper
   .mainInfoWrapper {
     .mainInfo {
-      padding: max(25vh, 125px) min(4vw, 70px) min(5vh, 25px);
+      padding: max(25vh, 125px) min(4vw, 70px) min(5vh, 40px);
       background-color: var(--body-background);
 
       .store-icon {
@@ -265,9 +265,45 @@
           align-self: center;
         }
 
+        & .playButtons {
+          display: flex;
+          justify-content: center;
+
+          .altPlay {
+            position: relative;
+            margin-inline-start: 1px;
+            padding-inline: 8px;
+
+            & > svg {
+              rotate: 270deg;
+              font-size: 0.7rem;
+            }
+
+            a {
+              display: none;
+              position: absolute;
+              top: 100%;
+              right: -10px;
+              white-space: nowrap;
+            }
+
+            &:focus,
+            &:hover,
+            &:focus-within {
+              a {
+                display: block;
+              }
+            }
+          }
+        }
+
         & .mainBtn {
           min-width: 200px;
           font-size: var(--text-md);
+
+          span {
+            white-space: nowrap;
+          }
 
           & svg {
             transform: scale(1.2);
