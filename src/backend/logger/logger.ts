@@ -534,7 +534,7 @@ const shouldToggleShaderPreCacheOn = async (
         'box.shaderPreCachingDisabledMessage',
         "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU."
       ),
-      buttons: [i18next.t('box.ok', 'OK')]
+      buttons: [i18next.t('box.launchAnyway', 'Launch Game Anyway')]
     })
 
     return true
