@@ -1,11 +1,12 @@
 .gameConfigContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content 1fr min-content;
   padding: var(--space-md);
   gap: var(--space-md);
   border-radius: 10px;
-  height: 100vh;
   min-height: 100vh;
+  height: 100vh;
   max-width: 2400px;
   grid-template-areas:
     'header header'
@@ -25,9 +26,10 @@
 
   .MuiTab-labelIcon {
     min-height: unset;
+    align-items: flex-start;
   }
 
-  p {
+  & > p {
     margin-block-start: var(--space-xs);
     margin-block-end: var(--space-xs);
   }
@@ -92,7 +94,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 70vh;
+    height: 100%;
     max-height: 1100px;
     max-width: 1200px;
     overflow-y: auto;
@@ -103,10 +105,12 @@
 
   .mainInfoWrapper {
     grid-area: main;
+    container: main-info-wrapper / size;
   }
 
   .extraInfoWrapper {
     grid-area: extra;
+    max-width: 850px;
   }
 
   .mainInfo,
@@ -147,10 +151,9 @@
     }
   }
 
-  //mainInfoWrapper
   .mainInfoWrapper {
     .mainInfo {
-      padding: max(25vh, 125px) min(4vw, 70px) min(5vh, 25px);
+      padding: 0px min(4vw, 70px);
       background-color: var(--body-background);
 
       .store-icon {
@@ -184,6 +187,7 @@
         padding: var(--space-xs) 0;
         margin-bottom: 0.8rem;
         color: var(--text-title);
+        margin-top: 16vh;
       }
 
       .developer {
@@ -254,6 +258,7 @@
         margin-top: 15px;
         max-width: 250px;
         border-radius: 8px;
+        margin-bottom: 25px;
 
         .buttonWithIcon > svg {
           display: flex;
@@ -294,14 +299,12 @@
     }
   }
 
-  //extraInfoWrapper
-
   .extraInfoWrapper {
     .extraInfo {
       padding: 3vh 3.5vw;
       gap: var(--space-sm);
 
-      & > div {
+      & > div:last-child {
         overflow-y: auto;
       }
 
@@ -526,7 +529,7 @@
   }
 }
 
-.App:not(.oldDesign).isRTL .gameConfigContainer .game-actions .gameTools {
+.App.isRTL .gameConfigContainer .game-actions .gameTools {
   left: 0;
   right: unset;
 }
@@ -548,72 +551,49 @@
     }
   }
 }
-// Media queries
-@media (max-width: 1280px) and (max-height: 800px) {
-  .App:not(.oldDesign) .gameConfigContainer {
-    padding: var(--space-md);
-    gap: var(--space-xs);
-    grid-template-columns: minmax(400px, 50%) minmax(400px, 50%);
 
-    .mainInfo {
-      padding: max(10vh, 80px) min(3vw, 50px) min(3vh, 20px);
-
-      & > h1 {
-        padding-bottom: var(--space-xs);
-      }
-    }
-
-    .extraInfo {
-      padding: 2vh 2.5vw;
-    }
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'header'
-        'left'
-        'right'
-        'report';
-
-      .mainInfoWrapper,
-      .extraInfoWrapper {
-        justify-self: center;
-      }
-    }
-  }
-}
-
-@media (max-width: 1250px) {
+@container main-content (max-width: 700px) {
   .gameConfigContainer {
-    display: flex;
-    flex-wrap: wrap;
-    overflow: auto;
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr 1fr min-content;
+    grid-template-areas:
+      'header'
+      'main'
+      'extra'
+      'report';
+  }
+}
 
-    .mainInfoWrapper,
-    .extraInfoWrapper {
-      max-height: 35vh;
-      min-height: fit-content;
-
-      .mainInfo {
-        padding-top: 345px;
-      }
+@container main-info-wrapper (max-height: 560px) {
+  .mainInfo {
+    .developer,
+    .releaseDate {
+      display: none;
     }
   }
 }
 
-@media (max-height: 560px) {
+@container main-info-wrapper (max-height: 500px) {
   .mainInfo {
-    padding-top: var(--space-md);
-    padding-bottom: var(--space-md);
-
-    .gamePicture,
-    .store-icon,
-    .gameStatus,
-    .developer,
-    .releaseDate,
     .genre,
-    .timeContainerLabel,
     .summary {
+      display: none;
+    }
+  }
+}
+
+@container main-info-wrapper (max-height: 450px) {
+  .mainInfo {
+    .gameStatus {
+      display: none;
+    }
+  }
+}
+
+@container main-info-wrapper (max-height: 400px) {
+  .mainInfo {
+    .timeContainerLabel {
       display: none;
     }
   }
@@ -661,7 +641,7 @@
   }
 
   .gameInfoTabsIcon {
-    width: var(--space-unit-fixed);
-    height: var(--space-unit-fixed);
+    width: 1rem;
+    height: 1rem;
   }
 }

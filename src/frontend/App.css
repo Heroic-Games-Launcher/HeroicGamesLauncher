@@ -37,6 +37,7 @@ body {
 }
 
 .App .content {
+  container: main-content / inline-size;
   display: flex;
   grid-area: content;
   flex-direction: column;
