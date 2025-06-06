@@ -312,6 +312,7 @@
       & div.extraTab {
         & > div > * {
           display: flex;
+          overflow: hidden;
           text-align: end;
           font-size: var(--space-unit-fixed);
           line-height: 24px;
