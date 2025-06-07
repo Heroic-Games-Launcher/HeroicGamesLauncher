@@ -21,7 +21,8 @@
             "title": "Válassza ki a futtatandó EXE-fájlt"
         },
         "select": {
-            "button": "Kiválasztás"
+            "button": "Kiválasztás",
+            "image": "Kép kiválasztása"
         },
         "sideload": {
             "exe": "Indítófájl kiválasztása"
@@ -47,7 +48,8 @@
         },
         "wineprefix": "Wine előtagmappa kiválasztása",
         "yes": "IGEN",
-        "close": "Bezárás"
+        "close": "Bezárás",
+        "select-install-path": "Steam telepítési útvonalának kiválasztása"
     },
     "button": {
         "add_to_favourites": "Hozzáadás a kedvencekhez",
@@ -74,7 +76,9 @@
         "uninstall": "Eltávolítás",
         "update": "Frissítés",
         "details": "Részletek",
-        "changelog": "Változásnapló megjelenítése"
+        "changelog": "Változásnapló megjelenítése",
+        "browse_files": "Fájlok tallózása",
+        "browse_wine_prefix": "Wine előtag tallózása"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -179,7 +183,29 @@
         "redist": "Terjeszthető csomagok telepítése",
         "steam": {
             "pleaseWait": "Kis türelmet…",
-            "installing": "Telepítés…"
+            "installing": "Telepítés…",
+            "compatibility-layer-not-available": "Nem érhető el kompatibilitási réteg. Először telepítsen egyet a „Beállítások > Wine kezelő” oldalról.",
+            "crossover": "Ha a Crossover telepítve van, akkor erre nincs szükség, mert működni fog a normál Steam.",
+            "hardware": "Apple Silicon M1+ (az inteles Macre készült Steam nem fog működni a Crossoverrel)",
+            "install": "Steam telepítése",
+            "install-path": "A Steam telepítési útvonala",
+            "install-tooltip": "Ez telepíti a Steam windowsos verzióját, és a Heroic kompatibilitási rétegével lesz futtatva. \n\n    Egyes játékok, különösen régebbi címek, újabb 3D-s játékok, vagy a csalás elleni szoftvert használók, lehet hogy nem fognak megfelelően működni. \n\n    ",
+            "installation": "A Steam telepítése",
+            "patience": "Ha folytatná, akkor legyen türelemmel, mert az internetkapcsolatától és a rendszer beállításaitól függően ez percekig is eltarthat.",
+            "specificVersion-pt2": "archive.org-ról,",
+            "specificVersion-pt3": "amely a Heroicon keresztül működik, mert a Steam új verziói nem fognak működni macOS-en.",
+            "abort": "Telepítés megszakítása",
+            "cancel": "Telepítés megszakítása",
+            "compatibility": "Vegye figyelembe, hogy nem minden játék fog működni, és ha működik is, nem biztos hogy a várt módon.",
+            "downloading": "Letöltés: {{percent}}%",
+            "launch": "A Steam indítása a Heroic kompatibilitási réteggel",
+            "launching": "A Steam indítása…",
+            "macOS": "macOS 14.0 vagy újabb",
+            "notification": "A Heroic értesíteni fogja, ha a telepítés elkészült.",
+            "ram": "8GB RAM",
+            "recommended": "A jobb élmény érdekében javasolt specifikációk",
+            "select-path": "A Steam telepítési mappájának kiválasztása",
+            "specificVersion-pt1": "Ez letölti a Steam egy olyan verzióját az"
         }
     },
     "launch": {
@@ -215,13 +241,13 @@
             "useragent": "Egyéni felhasználói ügynök"
         },
         "placeholder": {
-            "image": "Ide illessze be a kép webcímét",
+            "image": "Ide illessze be a kép webcímét, vagy válasszon egyet a számítógépéről",
             "title": "Adjon címet a játékának/alkalmazásának",
             "url": "Ide illessze be a játék webcímét",
             "useragent": "Írjon ide egy egyéni felhasználói ügynököt, melyet ehhez a böngészős alkalmazáshoz/játékhoz használna"
         },
         "import-hint": {
-            "title": "Fontos! Egy játékot adsz hozzá éppen Epic/GOG/Amazon-ról? Kattints ide!",
+            "title": "Fontos! Épp egy játékot ad hozzá az Epicről/GOG-ról/Amazonról? Kattintson ide!",
             "content": "NE használja erre ezt a funkciót.<br />Helyette <3>jelentkezzen be</3> az áruházba, keresse meg a játékot a könyvtárában, nyissa meg a telepítési párbeszédablakot, és kattintson a „Játék importálása” gombra."
         }
     },
