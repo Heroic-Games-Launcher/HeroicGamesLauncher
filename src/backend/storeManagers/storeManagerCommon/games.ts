@@ -1,4 +1,4 @@
-import { GameInfo, GameSettings, Runner } from 'common/types'
+import { CallRunnerOptions, GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
 import {
   appendGamePlayLog,
@@ -225,6 +225,25 @@ export async function launchGame(
         ...getKnownFixesEnvVariables(appName, runner)
       }
 
+      appendGamePlayLog(gameInfo, `Game Log:\n`)
+
+      if (!gameSettings.verboseLogs) {
+        appendGamePlayLog(
+          gameInfo,
+          "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n"
+        )
+      }
+
+      const runnerOptions: CallRunnerOptions = {
+        env,
+        wrappers,
+        logMessagePrefix: LogPrefix.Backend
+      }
+      if (gameSettings.verboseLogs) {
+        runnerOptions.onOutput = (output) => {
+          if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
+        }
+      }
       await callRunner(
         extraArgs,
         {
@@ -233,12 +252,7 @@ export async function launchGame(
           bin: basename(executable),
           dir: dirname(executable)
         },
-        {
-          env,
-          wrappers,
-          logFile: lastPlayLogFileLocation(appName),
-          logMessagePrefix: LogPrefix.Backend
-        }
+        runnerOptions
       )
 
       launchCleanup(rpcClient)
@@ -253,6 +267,15 @@ export async function launchGame(
       `launching non-native sideloaded: ${executable} ${extraArgsJoined}`,
       LogPrefix.Backend
     )
+
+    appendGamePlayLog(gameInfo, `Game Log:\n`)
+
+    if (!gameSettings.verboseLogs) {
+      appendGamePlayLog(
+        gameInfo,
+        "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n"
+      )
+    }
 
     await runWineCommand({
       commandParts: [executable, ...extraArgs],

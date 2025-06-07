@@ -693,7 +693,7 @@ export async function launch(
   if (!gameSettings.verboseLogs) {
     appendGamePlayLog(
       gameInfo,
-      "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n\n"
+      "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n"
     )
   }
 
