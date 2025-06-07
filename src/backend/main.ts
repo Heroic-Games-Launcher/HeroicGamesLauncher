@@ -143,6 +143,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import LibraryManager from './libraries'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -319,6 +320,7 @@ if (!gotTheLock) {
   })
   app.whenReady().then(async () => {
     await MigrationSystem.get().applyMigrations()
+    await LibraryManager.get().init()
 
     initLogger()
     initOnlineMonitor()
@@ -1352,3 +1354,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './libraries/ipc_handler'

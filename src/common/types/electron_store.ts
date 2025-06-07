@@ -19,6 +19,7 @@ import {
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
+import type { Path } from 'backend/schemas'
 
 export interface StoreStructure {
   configStore: {
@@ -101,6 +102,10 @@ export interface StoreStructure {
   uploadedLogs: Record<string, UploadedLogData>
   migrationsStore: {
     appliedMigrations: string[]
+  }
+  librariesStore: {
+    libraryPaths: Path[]
+    preferredLibraryIndex: number
   }
 }
 

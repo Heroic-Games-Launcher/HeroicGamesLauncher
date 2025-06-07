@@ -174,6 +174,13 @@ export default function SidebarLinks() {
             />
 
             <SidebarItem
+              url="/settings/libraries"
+              isActiveFallback={type === 'libraries'}
+              className="SidebarLinks__subItem"
+              label={t('settings.navbar.libraries', 'Libraries')}
+            />
+
+            <SidebarItem
               url="/settings/systeminfo"
               isActiveFallback={type === 'systeminfo'}
               className="SidebarLinks__subItem"

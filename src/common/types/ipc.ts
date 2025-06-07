@@ -47,6 +47,7 @@ import type {
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
+import type { LibraryInfo } from 'backend/libraries/types'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -309,6 +310,10 @@ interface AsyncIPCFunctions {
   getCustomCSS: () => Promise<string>
   installSteamWindows: (path: string) => Promise<void>
   isIntelMac: () => boolean
+  libraries__getAll: () => Promise<Record<string, LibraryInfo | false>>
+  libraries__add: (path: string, name: string) => Promise<boolean>
+  libraries__rename: (path: string, newName: string) => Promise<boolean>
+  libraries__delete: (path: string) => Promise<boolean>
 }
 
 interface FrontendMessages {
@@ -346,6 +351,8 @@ interface FrontendMessages {
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
   progressUpdate: (progress: GameStatus) => void
+  pushLibrary: (library: [path: string, info: LibraryInfo | false]) => void
+  removeLibrary: (path: string) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void
