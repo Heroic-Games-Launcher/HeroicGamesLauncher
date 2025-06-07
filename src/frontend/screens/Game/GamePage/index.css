@@ -181,6 +181,10 @@
         }
       }
 
+      & > :last-child {
+        margin-bottom: 25px;
+      }
+
       h1 {
         font-size: 34px;
         line-height: 39px;
@@ -258,7 +262,6 @@
         margin-top: 15px;
         max-width: 250px;
         border-radius: 8px;
-        margin-bottom: 25px;
 
         .buttonWithIcon > svg {
           display: flex;
@@ -569,7 +572,8 @@
 @container main-info-wrapper (max-height: 560px) {
   .mainInfo {
     .developer,
-    .releaseDate {
+    .releaseDate,
+    .genre {
       display: none;
     }
   }
@@ -577,7 +581,6 @@
 
 @container main-info-wrapper (max-height: 500px) {
   .mainInfo {
-    .genre,
     .summary {
       display: none;
     }
@@ -586,14 +589,7 @@
 
 @container main-info-wrapper (max-height: 450px) {
   .mainInfo {
-    .gameStatus {
-      display: none;
-    }
-  }
-}
-
-@container main-info-wrapper (max-height: 400px) {
-  .mainInfo {
+    .gameStatus,
     .timeContainerLabel {
       display: none;
     }
