@@ -155,6 +155,13 @@ function getPreferredInstallLanguage(
   return availableLanguages[0]
 }
 
+function bytesToSize(bytes: number) {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+  if (bytes === 0) return `0 ${sizes[0]}`
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
+}
+
 export {
   createNewWindow,
   getGameInfo,
@@ -176,5 +183,6 @@ export {
   writeConfig,
   removeSpecialcharacters,
   getStoreName,
-  getPreferredInstallLanguage
+  getPreferredInstallLanguage,
+  bytesToSize
 }

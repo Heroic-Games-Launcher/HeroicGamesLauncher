@@ -2,6 +2,8 @@ import { isFlatpak } from 'backend/constants/environment'
 import type { Path } from 'backend/schemas'
 
 interface DiskInfo {
+  mountPoint: string
+  label?: string
   freeSpace: number
   totalSpace: number
 }
@@ -22,7 +24,7 @@ async function getDiskInfo(path: Path): Promise<DiskInfo> {
       return getDiskInfo_windows(path)
     }
     default:
-      return { freeSpace: 0, totalSpace: 0 }
+      return { freeSpace: 0, totalSpace: 0, mountPoint: '' }
   }
 }
 

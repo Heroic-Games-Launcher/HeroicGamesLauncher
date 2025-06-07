@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { useShallow } from 'zustand/react/shallow'
 
+import type { LibraryInfo } from 'backend/libraries/types'
+
 interface GlobalStateV2 {
   uploadLogFileProps:
     | false
@@ -11,6 +13,8 @@ interface GlobalStateV2 {
   setUploadLogFileProps: (props: GlobalStateV2['uploadLogFileProps']) => void
 
   showUploadedLogFileList: boolean
+
+  libraries: Record<string, LibraryInfo | false>
 }
 
 const useGlobalState = create<GlobalStateV2>()((set) => ({
@@ -19,7 +23,9 @@ const useGlobalState = create<GlobalStateV2>()((set) => ({
     set({ uploadLogFileProps })
   },
 
-  showUploadedLogFileList: false
+  showUploadedLogFileList: false,
+
+  libraries: {}
 }))
 
 function useShallowGlobalState<Keys extends (keyof GlobalStateV2)[]>(
@@ -34,5 +40,26 @@ function useShallowGlobalState<Keys extends (keyof GlobalStateV2)[]>(
     )
   )
 }
+
+void window.api.libraries
+  .getAll()
+  .then((libraries) => useGlobalState.setState({ libraries }))
+window.api.libraries.onLibraryPush((e, library) =>
+  useGlobalState.setState((state) => ({
+    libraries: {
+      ...state.libraries,
+      [library[0]]: library[1]
+    }
+  }))
+)
+window.api.libraries.onLibraryDelete((e, path) => {
+  const { libraries } = useGlobalState.getState()
+  delete libraries[path]
+  useGlobalState.setState({
+    libraries: {
+      ...libraries
+    }
+  })
+})
 
 export { useGlobalState, useShallowGlobalState }
