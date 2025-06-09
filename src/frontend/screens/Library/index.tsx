@@ -34,6 +34,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
+import AlphabetFilter from './components/AlphabetFilter/AlphabetFilter' // 1. Import AlphabetFilter
 
 const storage = window.localStorage
 
@@ -189,6 +190,9 @@ export default React.memo(function Library(): JSX.Element {
 
   const [showCategories, setShowCategories] = useState(false)
 
+  // 2. Add State for AlphabetFilter
+  const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<string | null>(null)
+
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
     show: false,
@@ -209,6 +213,14 @@ export default React.memo(function Library(): JSX.Element {
   function handleSortInstalled(value: boolean) {
     storage.setItem('sortInstalled', JSON.stringify(value))
     setSortInstalled(value)
+  }
+
+  // 3. Create Handler Function for AlphabetFilter
+  const handleAlphabetFilterChange = (letter: string | null) => {
+    // If the same letter is clicked, it means we want to clear the filter (letter will be null from component)
+    // If a new letter is clicked, set it.
+    // If the incoming letter from component is null (because current active filter was clicked), set it to null.
+    setAlphabetFilterLetter(letter)
   }
 
   const backToTopElement = useRef(null)
@@ -515,6 +527,18 @@ export default React.memo(function Library(): JSX.Element {
       )
     }
 
+    // Alphabetical filter
+    if (alphabetFilterLetter) {
+      if (alphabetFilterLetter === '#') {
+        const startsWithNumber = /^[0-9]/
+        library = library.filter((game) => game.title && startsWithNumber.test(game.title))
+      } else {
+        library = library.filter((game) =>
+          game.title && game.title.toLowerCase().startsWith(alphabetFilterLetter.toLowerCase())
+        )
+      }
+    }
+
     // sort
     library = library.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -554,7 +578,8 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
-    gameUpdates
+    gameUpdates,
+    alphabetFilterLetter // Add alphabetFilterLetter to dependency array
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -663,6 +688,12 @@ export default React.memo(function Library(): JSX.Element {
         )}
 
         <LibraryHeader list={libraryToShow} />
+
+        {/* 4. Render AlphabetFilter */}
+        <AlphabetFilter
+          currentFilter={alphabetFilterLetter}
+          onFilterChange={handleAlphabetFilterChange}
+        />
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 

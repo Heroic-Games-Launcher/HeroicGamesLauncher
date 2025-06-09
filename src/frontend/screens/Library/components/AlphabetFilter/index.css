@@ -1,0 +1,37 @@
+.alphabet-filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px; /* Add some space below the filter */
+}
+
+.alphabet-filter-button {
+  background-color: #f0f0f0; /* Light grey background */
+  border: 1px solid #ccc; /* Grey border */
+  border-radius: 4px; /* Rounded corners */
+  color: #333; /* Dark grey text */
+  cursor: pointer;
+  font-size: 1em;
+  margin: 0 4px; /* Spacing between buttons */
+  padding: 8px 12px; /* Padding inside buttons */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Smooth transitions */
+  outline: none; /* Remove default focus outline */
+}
+
+.alphabet-filter-button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+}
+
+.alphabet-filter-button-active {
+  background-color: #007bff; /* Blue background for active filter */
+  color: white; /* White text for active filter */
+  border-color: #0056b3; /* Darker blue border */
+  font-weight: bold;
+}
+
+/* Style for the '#' button specifically if needed, otherwise it uses the general button styles */
+.alphabet-filter-symbol {
+  /* You can add specific styles for the '#' button if it needs to look different */
+}
