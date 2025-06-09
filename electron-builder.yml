@@ -9,6 +9,7 @@ files:
 asarUnpack:
   - build/icon.png
   - build/icon.icns
+  - build/mac-icon.icns
   - build/win_icon.ico
   - build/icon-dark.png
   - build/icon-light.png
