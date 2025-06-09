@@ -25,6 +25,7 @@ import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { removePrefix } from 'backend/utils/uninstaller'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgame'
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -126,6 +127,7 @@ export async function uninstall({
 
   removeShortcutsUtil(gameInfo)
   removeRecentGame(appName)
+  removeNonSteamGame({ gameInfo })
 
   sendGameStatusUpdate({
     appName,
@@ -230,7 +232,7 @@ export async function install(
   args: InstallArgs
 ): Promise<InstallResult> {
   logWarning(
-    `forceUninstall not implemented on Sideload Game Manager. called for appName = ${appName}`
+    `install not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
   return { status: 'error' }
 }
