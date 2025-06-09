@@ -34,7 +34,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
-import AlphabetFilter from './components/AlphabetFilter/AlphabetFilter' // 1. Import AlphabetFilter
+import AlphabetFilter from './components/AlphabetFilter/AlphabetFilter'
 
 const storage = window.localStorage
 
