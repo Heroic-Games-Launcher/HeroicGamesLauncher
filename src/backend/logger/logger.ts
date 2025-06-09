@@ -39,8 +39,6 @@ import {
   isWindows
 } from 'backend/constants/environment'
 import { gamesConfigPath } from 'backend/constants/paths'
-import { dialog } from 'electron'
-import i18next from 'i18next'
 
 export enum LogPrefix {
   General = '',
@@ -499,7 +497,7 @@ class LogWriter {
  *
  * More details: https://github.com/Open-Wine-Components/umu-launcher/wiki/Frequently-asked-questions-(FAQ)#why-am-i-not-able-to-see-my-game-when-using-my-launcher-from-steam-mode-gaming-mode
  */
-const shouldToggleShaderPreCacheOn = async (
+export const shouldToggleShaderPreCacheOn = async (
   info: SystemInformation | null,
   gameSettings: GameSettings
 ) => {
@@ -516,31 +514,12 @@ const shouldToggleShaderPreCacheOn = async (
     LogPrefix.Backend
   )
 
-  const envVarsNotSet = [
+  return [
     'STEAM_COMPAT_TRANSCODED_MEDIA_PATH',
     'STEAM_COMPAT_MEDIA_PATH',
     'STEAM_FOSSILIZE_DUMP_PATH',
     'DXVK_STATE_CACHE_PATH'
   ].every((envVar) => !process.env[envVar])
-
-  if (envVarsNotSet) {
-    await dialog.showMessageBox({
-      type: 'warning',
-      title: i18next.t(
-        'box.shaderPreCachingDisabledTitle',
-        'Shader Pre-Caching Disabled'
-      ),
-      message: i18next.t(
-        'box.shaderPreCachingDisabledMessage',
-        "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU."
-      ),
-      buttons: [i18next.t('box.launchAnyway', 'Launch Game Anyway')]
-    })
-
-    return true
-  }
-
-  return envVarsNotSet
 }
 
 class GameLogWriter extends LogWriter {

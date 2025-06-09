@@ -48,6 +48,7 @@ import {
   LogPrefix,
   logsDisabled,
   logWarning,
+  shouldToggleShaderPreCacheOn,
   stopLogger
 } from './logger/logger'
 import { GlobalConfig } from './config'
@@ -77,7 +78,7 @@ import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
-import { app, powerSaveBlocker } from 'electron'
+import { app, dialog, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
@@ -100,6 +101,7 @@ import {
   isIntelMac,
   isFlatpak
 } from './constants/environment'
+import { getSystemInfo } from './utils/systeminfo'
 
 let powerDisplayId: number | null
 
@@ -189,6 +191,27 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       stopLogger(appName)
 
       return { status: 'error' }
+    }
+
+    const info = await getSystemInfo()
+    const isPreCacheDisabled = await shouldToggleShaderPreCacheOn(
+      info,
+      gameSettings
+    )
+
+    if (isPreCacheDisabled) {
+      await dialog.showMessageBox({
+        type: 'warning',
+        title: i18next.t(
+          'box.shaderPreCachingDisabledTitle',
+          'Shader Pre-Caching Disabled'
+        ),
+        message: i18next.t(
+          'box.shaderPreCachingDisabledMessage',
+          "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU."
+        ),
+        buttons: [i18next.t('box.launchAnyway', 'Launch Game Anyway')]
+      })
     }
   }
 
