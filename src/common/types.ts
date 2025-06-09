@@ -226,6 +226,7 @@ export interface GameSettings {
 
 export type Status =
   | 'installing'
+  | 'importing'
   | 'updating'
   | 'launching'
   | 'playing'
