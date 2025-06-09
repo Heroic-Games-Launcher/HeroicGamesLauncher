@@ -443,6 +443,10 @@ body.nord-light {
       }
     }
   }
+
+  .tour-button {
+    --tour-button-color: var(--accent);
+  }
 }
 
 body.nord-light .alternative > svg {

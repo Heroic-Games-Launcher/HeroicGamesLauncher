@@ -1,5 +1,5 @@
 .tour-button {
-  color: var(--brand-primary) !important;
+  color: var(--tour-button-color, var(--brand-primary)) !important;
   transition: all 0.2s ease;
   opacity: 1;
   svg {
