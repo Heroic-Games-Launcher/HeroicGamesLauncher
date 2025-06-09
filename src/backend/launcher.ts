@@ -224,9 +224,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
           runner,
           status: 'done'
         })
+        logInfo(
+          `User aborted the launch of ${title} because Shader Pre-Caching is disabled`,
+          LogPrefix.Backend
+        )
         stopLogger(appName)
         return { status: 'abort' }
       }
+
+      logWarning(
+        `User launched ${title} with Shader Pre-Caching disabled. Issues might occur.`,
+        LogPrefix.Backend
+      )
     }
   }
 
