@@ -200,7 +200,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     )
 
     if (isPreCacheDisabled) {
-      await dialog.showMessageBox({
+      const { response } = await dialog.showMessageBox({
         type: 'warning',
         title: i18next.t(
           'box.shaderPreCachingDisabledTitle',
@@ -210,8 +210,23 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
           'box.shaderPreCachingDisabledMessage',
           "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU."
         ),
-        buttons: [i18next.t('box.launchAnyway', 'Launch Game Anyway')]
+        buttons: [
+          i18next.t('box.launchAnyway', 'Launch Game Anyway'),
+          i18next.t('button.cancel', 'Cancel')
+        ],
+        cancelId: 1,
+        defaultId: 0
       })
+
+      if (response === 1) {
+        sendGameStatusUpdate({
+          appName,
+          runner,
+          status: 'done'
+        })
+        stopLogger(appName)
+        return { status: 'abort' }
+      }
     }
   }
 
