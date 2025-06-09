@@ -191,7 +191,9 @@ export default React.memo(function Library(): JSX.Element {
   const [showCategories, setShowCategories] = useState(false)
 
   // 2. Add State for AlphabetFilter
-  const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<string | null>(null)
+  const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<
+    string | null
+  >(null)
 
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
@@ -420,77 +422,77 @@ export default React.memo(function Library(): JSX.Element {
 
   // select library
   const gamesForAlphabetFilter = useMemo(() => {
-    let library: Array<GameInfo> = makeLibrary();
+    let library: Array<GameInfo> = makeLibrary()
 
     if (showFavouritesLibrary) {
       library = library.filter((game) =>
         favouritesIds.includes(`${game.app_name}_${game.runner}`)
-      );
+      )
     } else {
       if (currentCustomCategories && currentCustomCategories.length > 0) {
-        const gamesInSelectedCategories = new Set<string>();
+        const gamesInSelectedCategories = new Set<string>()
         currentCustomCategories.forEach((category) => {
           if (category === 'preset_uncategorized') {
             const categorizedGames = Array.from(
               new Set(Object.values(customCategories.list).flat())
-            );
+            )
             library.forEach((game) => {
               if (
                 !categorizedGames.includes(`${game.app_name}_${game.runner}`)
               ) {
-                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`);
+                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`)
               }
-            });
+            })
           } else {
-            const gamesInCustomCategory = customCategories.list[category];
+            const gamesInCustomCategory = customCategories.list[category]
             if (gamesInCustomCategory) {
               gamesInCustomCategory.forEach((game) => {
-                gamesInSelectedCategories.add(game);
-              });
+                gamesInSelectedCategories.add(game)
+              })
             }
           }
-        });
+        })
         library = library.filter((game) =>
           gamesInSelectedCategories.has(`${game.app_name}_${game.runner}`)
-        );
+        )
       }
 
       if (showSupportOfflineOnly) {
-        library = library.filter((game) => game.canRunOffline);
+        library = library.filter((game) => game.canRunOffline)
       }
 
       if (showThirdPartyManagedOnly) {
-        library = library.filter((game) => !!game.thirdPartyManagedApp);
+        library = library.filter((game) => !!game.thirdPartyManagedApp)
       }
 
       if (showUpdatesOnly) {
-        library = library.filter((game) => gameUpdates.includes(game.app_name));
+        library = library.filter((game) => gameUpdates.includes(game.app_name))
       }
 
       if (!showNonAvailable) {
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]';
-        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames);
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
         library = library.filter(
           (game) => !nonAvailbleGamesArray.includes(game.app_name)
-        );
+        )
       }
 
       if (showInstalledOnly) {
-        library = library.filter((game) => game.is_installed);
+        library = library.filter((game) => game.is_installed)
       }
 
       // Duplicate check for showNonAvailable - remove if not intended, keeping for accuracy for now
       if (!showNonAvailable) {
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]';
-        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames);
+        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
         library = library.filter(
           (game) => !nonAvailbleGamesArray.includes(game.app_name)
-        );
+        )
       }
     }
 
     // filter by platform
-    library = filterByPlatform(library); // Apply platform filter using the existing function
+    library = filterByPlatform(library) // Apply platform filter using the existing function
 
     // filter by text search (Fuse.js)
     try {
@@ -499,28 +501,28 @@ export default React.memo(function Library(): JSX.Element {
         threshold: 0.4,
         useExtendedSearch: true,
         keys: ['title']
-      };
-      const fuse = new Fuse(library, options); // Use the current state of 'library'
+      }
+      const fuse = new Fuse(library, options) // Use the current state of 'library'
 
       if (filterText) {
-        const fuzzySearch = fuse.search(filterText).map((game) => game?.item);
-        library = fuzzySearch;
+        const fuzzySearch = fuse.search(filterText).map((game) => game?.item)
+        library = fuzzySearch
       }
       // No 'else' needed, library remains as is if filterText is empty
     } catch (error) {
-      console.log('Error during Fuse.js search:', error);
+      console.log('Error during Fuse.js search:', error)
     }
 
     // hide hidden games
     const hiddenGamesAppNames = hiddenGames.list.map(
       (hidden: HiddenGame) => hidden?.appName
-    );
+    )
     if (!showHidden) {
       library = library.filter(
         (game) => !hiddenGamesAppNames.includes(game?.app_name)
-      );
+      )
     }
-    return library; // This is the list before alphabet filter and sorting
+    return library // This is the list before alphabet filter and sorting
   }, [
     storesFilters, // makeLibrary depends on this via epic, gog, amazon, sideloadedLibrary contexts
     platformsFilters, // filterByPlatform depends on this
@@ -543,10 +545,10 @@ export default React.memo(function Library(): JSX.Element {
     showInstalledOnly,
     platform // filterByPlatform depends on this
     // Dependencies NOT included: alphabetFilterLetter, sortDescending, sortInstalled, installing (if only for sorting)
-  ]);
+  ])
 
   const libraryToShow = useMemo(() => {
-    let library: Array<GameInfo> = [...gamesForAlphabetFilter]; // Start with the pre-filtered list
+    let library: Array<GameInfo> = [...gamesForAlphabetFilter] // Start with the pre-filtered list
 
     if (showFavouritesLibrary) {
       library = library.filter((game) =>
@@ -657,10 +659,16 @@ export default React.memo(function Library(): JSX.Element {
     if (alphabetFilterLetter) {
       if (alphabetFilterLetter === '#') {
         const startsWithNumber = /^[0-9]/
-        library = library.filter((game) => game.title && startsWithNumber.test(game.title))
+        library = library.filter(
+          (game) => game.title && startsWithNumber.test(game.title)
+        )
       } else {
-        library = library.filter((game) =>
-          game.title && game.title.toLowerCase().startsWith(alphabetFilterLetter.toLowerCase())
+        library = library.filter(
+          (game) =>
+            game.title &&
+            game.title
+              .toLowerCase()
+              .startsWith(alphabetFilterLetter.toLowerCase())
         )
       }
     }
@@ -707,8 +715,8 @@ export default React.memo(function Library(): JSX.Element {
     gameUpdates,
     alphabetFilterLetter,
     sortDescending, // Sorting is applied after alphabet filter
-    sortInstalled,  // Sorting is applied after alphabet filter
-    installing      // Sorting by installed status might use this
+    sortInstalled, // Sorting is applied after alphabet filter
+    installing // Sorting by installed status might use this
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
