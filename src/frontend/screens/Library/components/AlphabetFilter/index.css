@@ -1,37 +1,60 @@
 .alphabet-filter-container {
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Center the buttons horizontally */
+  justify-content: center;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 20px; /* Add some space below the filter */
+  padding: 8px; /* Adjusted padding */
+  margin-bottom: 16px; /* Adjusted margin */
 }
 
 .alphabet-filter-button {
-  background-color: #f0f0f0; /* Light grey background */
-  border: 1px solid #ccc; /* Grey border */
-  border-radius: 4px; /* Rounded corners */
-  color: #333; /* Dark grey text */
+  background-color: transparent; /* Softer style: plain text initially */
+  border: none; /* Softer style: remove border */
+  border-radius: 6px; /* Softer style: slightly more rounded for hover/active states */
+  color: #555; /* Softer style: slightly lighter default text color */
   cursor: pointer;
-  font-size: 1em;
-  margin: 0 4px; /* Spacing between buttons */
-  padding: 8px 12px; /* Padding inside buttons */
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Smooth transitions */
-  outline: none; /* Remove default focus outline */
+  font-size: 0.95em; /* Slightly smaller font for a cleaner look */
+  font-weight: 500; /* Medium weight for clarity */
+  margin: 0 3px; /* Adjusted spacing */
+  padding: 6px 10px; /* Adjusted padding */
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: none;
+  user-select: none; /* Prevent text selection on click */
 }
 
-.alphabet-filter-button:hover {
-  background-color: #e0e0e0; /* Slightly darker on hover */
+/* Hover effect for enabled, non-active buttons */
+.alphabet-filter-button:not(.alphabet-filter-button--active):not(.alphabet-filter-button--disabled):hover {
+  background-color: #e9ecef; /* Light grey subtle background on hover */
+  color: #333;
 }
 
-.alphabet-filter-button-active {
+/* Active filter style */
+.alphabet-filter-button--active {
   background-color: #007bff; /* Blue background for active filter */
-  color: white; /* White text for active filter */
-  border-color: #0056b3; /* Darker blue border */
+  color: white;
   font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0, 123, 255, 0.3); /* Subtle shadow for active state */
+}
+.alphabet-filter-button--active:hover {
+  background-color: #0069d9; /* Slightly darker blue on hover for active button */
 }
 
-/* Style for the '#' button specifically if needed, otherwise it uses the general button styles */
+/* Disabled button style */
+.alphabet-filter-button--disabled {
+  color: #adb5bd; /* Grayed out text */
+  cursor: not-allowed;
+  background-color: transparent; /* Ensure no background for disabled */
+  box-shadow: none; /* Ensure no shadow for disabled */
+}
+/* Ensure no hover effects for disabled buttons */
+.alphabet-filter-button--disabled:hover {
+  background-color: transparent;
+  color: #adb5bd;
+}
+
+/* Style for the '#' button specifically if needed */
+/* Can be combined with other states, e.g., .alphabet-filter-symbol.alphabet-filter-button--active */
 .alphabet-filter-symbol {
-  /* You can add specific styles for the '#' button if it needs to look different */
+  /* Example: Slightly different padding or font if needed */
+  /* padding: 6px 8px; */
 }
