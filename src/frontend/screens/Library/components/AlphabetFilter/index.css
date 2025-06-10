@@ -79,7 +79,7 @@ body.old-school .alphabet-filter-button--active {
 
 .alphabet-filter-button--active {
   background-color: var(--filter-accent-color);
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: 700;
   box-shadow: 0 4px 12px -2px var(--filter-shadow-color);
   transform: translateY(-2px);
