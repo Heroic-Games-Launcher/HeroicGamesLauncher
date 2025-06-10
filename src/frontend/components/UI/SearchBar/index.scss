@@ -60,6 +60,7 @@
     transition: color 250ms;
     background: transparent;
     border: none;
+    color: var(--text-secondary);
 
     svg {
       cursor: pointer;
@@ -75,9 +76,9 @@
     border: none;
     outline: none;
     transition: color 250ms;
+    color: var(--text-secondary);
 
     &::placeholder {
-      color: var(--text-secondary);
       opacity: 0.8;
     }
   }

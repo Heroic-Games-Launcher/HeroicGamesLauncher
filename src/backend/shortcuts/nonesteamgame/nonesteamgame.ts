@@ -269,7 +269,7 @@ async function addNonSteamGame(props: {
     if (isFlatpak) {
       newEntry.Exe = `"flatpak"`
     } else if (!isWindows && isAppImage) {
-      newEntry.Exe = `"${isAppImage}"`
+      newEntry.Exe = `"${process.env.APPIMAGE}"`
     } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
       newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}"`
       newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`

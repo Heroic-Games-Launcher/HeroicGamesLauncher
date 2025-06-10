@@ -497,7 +497,7 @@ class LogWriter {
  *
  * More details: https://github.com/Open-Wine-Components/umu-launcher/wiki/Frequently-asked-questions-(FAQ)#why-am-i-not-able-to-see-my-game-when-using-my-launcher-from-steam-mode-gaming-mode
  */
-const shouldToggleShaderPreCacheOn = async (
+export const shouldToggleShaderPreCacheOn = async (
   info: SystemInformation | null,
   gameSettings: GameSettings
 ) => {
@@ -776,7 +776,7 @@ export async function appendWinetricksGamePlayLog(gameInfo: GameInfo) {
 
 export function stopLogger(appName: string) {
   logsWriters[`${appName}-lastPlay`]?.logMessage(
-    '============= End of log ============='
+    '\n============= End of log ============='
   )
   delete logsWriters[`${appName}-lastPlay`]
 }

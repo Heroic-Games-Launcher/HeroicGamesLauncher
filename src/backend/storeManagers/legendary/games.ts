@@ -871,14 +871,12 @@ export async function launch(
   let commandEnv = {
     ...process.env,
     ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
-    ...(isWindows
-      ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path)),
+    ...setupEnvVars(gameSettings, gameInfo.install.install_path),
     ...getKnownFixesEnvVariables(appName, 'legendary')
   }
 
   // We can get this env variable either from the game's settings or from known fixes
-  if (commandEnv['USE_FAKE_EPIC_EXE'] && !isWindows) {
+  if (commandEnv['USE_FAKE_EPIC_EXE']) {
     if (isWindows) {
       commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeEpicExePath
     } else {
@@ -982,7 +980,7 @@ export async function launch(
   if (!gameSettings.verboseLogs) {
     appendGamePlayLog(
       gameInfo,
-      "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n\n"
+      "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n"
     )
   }
 
