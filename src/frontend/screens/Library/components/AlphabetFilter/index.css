@@ -1,98 +1,107 @@
-/*
-  Modern Alphabet Filter
-  - Uses CSS variables for easy theming.
-  - Aligned with a dark UI.
-  - Adds subtle animations and accessibility features.
-*/
-
+/* Root Variables */
 :root {
-  /* --- THEME COLORS (Adjust these to perfectly match your app) --- */
-  --filter-accent-color: #00aeef; /* A vibrant teal/cyan from your 'ADD GAME' button */
-  --filter-accent-hover: #0095c7; /* A slightly darker shade for hover */
-  --filter-text-available: #b0b8c4; /* A calm, readable grey for available letters */
-  --filter-text-hover: #ffffff; /* White text on hover for high contrast */
-  --filter-text-disabled: #4a5568; /* A very muted grey for disabled letters */
-  --filter-bg-hover: rgba(
-    255,
-    255,
-    255,
-    0.08
-  ); /* A subtle, translucent background on hover */
-  --filter-shadow-color: rgba(
-    0,
-    174,
-    239,
-    0.25
-  ); /* Soft shadow for the active button */
+  --filter-accent-color: var(--primary, var(--brand-primary));
+  --filter-accent-hover: var(--primary-hover, var(--brand-primary-hover));
+  --filter-text-available: #b0b8c4;
+  --filter-text-hover: #ffffff;
+  --filter-text-disabled: #4a5568;
+  --filter-bg-hover: rgba(255, 255, 255, 0.08);
+  --filter-shadow-color: rgb(from var(--filter-accent-color) r g b / 0.25);
 
-  /* --- SIZING & TIMING --- */
-  --filter-border-radius: 8px; /* Slightly softer corners */
+  --filter-border-radius: 8px;
   --filter-transition-speed: 0.2s ease-in-out;
 }
 
-.alphabet-filter-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 24px; /* A bit more space below */
+/* Theme-dynamic accent for active letter */
+body .alphabet-filter-button--active {
+  --filter-accent-color: var(--accent, var(--primary, var(--brand-primary)));
+  --filter-accent-hover: var(
+    --accent-overlay,
+    var(--primary-hover, var(--brand-primary-hover))
+  );
 }
 
+body.zombie .alphabet-filter-button--active,
+body.zombie-classic .alphabet-filter-button--active {
+  --filter-accent-color: var(--primary-button);
+  --filter-accent-hover: var(--primary-button-hover, var(--primary-button));
+}
+
+body.old-school .alphabet-filter-button--active {
+  --filter-accent-color: var(--status-success);
+  --filter-accent-hover: var(--status-success-hover);
+}
+
+/* Alphabet Filter Container */
+.alphabet-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 24px;
+  margin-top: 16px;
+}
+
+/* Alphabet Filter Button Base Styles */
 .alphabet-filter-button {
-  /* --- Base Styles --- */
   background-color: transparent;
   border: none;
   color: var(--filter-text-available);
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    sans-serif; /* Modern system font stack */
+    sans-serif;
   font-size: 14px;
-  font-weight: 600; /* Semibold looks clean and modern */
+  font-weight: 600;
   cursor: pointer;
 
-  /* --- Sizing & Spacing --- */
   padding: 8px 10px;
-  margin: 0 4px; /* A little more breathing room */
-  min-width: 36px; /* Ensures buttons have a consistent minimum width */
+  margin: 0 4px;
+  min-width: 36px;
   text-align: center;
 
-  /* --- Polish --- */
   border-radius: var(--filter-border-radius);
   transition: all var(--filter-transition-speed);
   user-select: none;
-  outline: none; /* We'll use focus-visible for accessibility */
+  outline: none;
 }
 
-/* --- STATES --- */
-
-/* Hover on available, non-active buttons */
+/* Alphabet Filter Button States */
 .alphabet-filter-button:not(.alphabet-filter-button--active):not(
     .alphabet-filter-button--disabled
   ):hover {
   background-color: var(--filter-bg-hover);
   color: var(--filter-text-hover);
-  transform: translateY(-2px); /* Subtle lift effect */
+  transform: translateY(-2px);
 }
 
-/* Accessibility: Show a clear outline only for keyboard navigation */
 .alphabet-filter-button:focus-visible {
   box-shadow: 0 0 0 3px var(--filter-accent-color);
 }
 
-/* Active "Pill" Style */
 .alphabet-filter-button--active {
   background-color: var(--filter-accent-color);
   color: white;
-  font-weight: 700; /* Bold for emphasis */
+  font-weight: 700;
   box-shadow: 0 4px 12px -2px var(--filter-shadow-color);
-  transform: translateY(-2px); /* Keep it lifted */
+  transform: translateY(-2px);
 }
 
 .alphabet-filter-button--active:hover {
   background-color: var(--filter-accent-hover);
 }
 
-/* Disabled Style (cleaner and more minimal) */
 .alphabet-filter-button--disabled {
   color: var(--filter-text-disabled);
   cursor: not-allowed;
-  /* No background, no hover effect, just faded text */
+}
+
+/*
+ * Light Theme Overrides
+ * This block inverts the color logic to be intuitive on a light background.
+ */
+body[data-theme-light='true'] {
+  --filter-text-available: #4a5568;
+  --filter-text-disabled: #cbd5e0;
+
+  --filter-text-hover: #1a202c;
+  --filter-bg-hover: rgba(0, 0, 0, 0.05);
 }

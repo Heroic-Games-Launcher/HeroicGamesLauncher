@@ -6,12 +6,15 @@ import LibraryContext from '../../LibraryContext'
 import './index.css'
 import AddGameButton from '../AddGameButton'
 import SteamInstallButton from '../SteamInstall/SteamInstallButton'
+// FontAwesomeIcon, faFilter, and faFilterCircleXmark are no longer needed here
 
 type Props = {
   list: GameInfo[]
+  showAlphabetFilter: boolean
+  onToggleAlphabetFilter: () => void
 }
 
-export default React.memo(function LibraryHeader({ list }: Props) {
+export default React.memo(function LibraryHeader({ list, showAlphabetFilter, onToggleAlphabetFilter }: Props) {
   const { t } = useTranslation()
   const { showFavourites } = useContext(LibraryContext)
 
@@ -39,7 +42,10 @@ export default React.memo(function LibraryHeader({ list }: Props) {
           <AddGameButton data-tour="library-add-game" />
           <SteamInstallButton dataTourId="install-steam-button" />
         </span>
-        <ActionIcons />
+        <ActionIcons
+          showAlphabetFilter={showAlphabetFilter}
+          onToggleAlphabetFilter={onToggleAlphabetFilter}
+        />
       </div>
     </h5>
   )

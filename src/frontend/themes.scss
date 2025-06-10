@@ -91,6 +91,10 @@ body.midnightMirage {
   /* Others for compatibility, probably can be refactored */
   --primary: var(--brand-primary);
   --secondary: var(--brand-secondary);
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.classic,
@@ -173,6 +177,10 @@ body.cyberSpaceOasisAlt {
   /*Buttons*/
   --success-button: #12e195;
   --secondary-button: #ffbb33;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.gruvbox_dark {
@@ -212,6 +220,10 @@ body.gruvbox_dark {
   --icon-disabled: #928374;
   --success-button: #9bce6b;
   --secondary-button: #e2951a;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.high-contrast {
@@ -246,6 +258,11 @@ body.high-contrast {
   --secondary-button: #f364b5;
 
   --success-button: #00ddff;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
+
   .heroicVersion {
     color: var(--text-default);
   }
@@ -261,7 +278,6 @@ body.dracula-classic {
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
   --navbar-background: #44475a;
-  --navbar-active: var(--accent);
   --navbar-active-background: #282a36;
   --gradient-body-background: linear-gradient(
     90deg,
@@ -292,6 +308,10 @@ body.dracula-classic {
   .heroicVersion {
     color: var(--text-default);
   }
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.nord-light {
@@ -447,6 +467,9 @@ body.nord-light {
   .tour-button {
     --tour-button-color: var(--accent);
   }
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.nord-light .alternative > svg {
@@ -489,6 +512,10 @@ body.nord-dark {
   --download-button: var(--brand-primary);
   --success-button: #94f1ab;
   --secondary-button: #a5dceb;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.marine,
@@ -523,6 +550,10 @@ body.marine-classic {
   --secondary-button: #d39f37;
   --success-button: #66e9fd;
   --icons-background: #134c5c;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.zombie,
@@ -557,6 +588,10 @@ body.zombie-classic {
   --secondary-button: #59c627;
   --success-button: #d8d784;
   --icons-background: #323232;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 
 body.old-school {
@@ -590,6 +625,10 @@ body.old-school {
   --success-button: #0bd48c;
   --secondary-button: #ffa800;
   --icons-background: #323232;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }
 body.classic .sid-input,
 body.old-school .sid-input {
@@ -643,4 +682,8 @@ body.sweet-dark {
   --success-button: #9a8de7;
   --secondary-button: #ff9af7;
   --icons-background: #302530;
+
+  /* AlphabetFilter */
+  --filter-accent-color: var(--accent);
+  --filter-accent-hover: var(--accent-overlay, var(--accent));
 }

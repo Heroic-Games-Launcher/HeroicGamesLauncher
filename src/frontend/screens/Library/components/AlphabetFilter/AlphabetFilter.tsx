@@ -1,11 +1,17 @@
-import React, { useMemo } from 'react'
-import './index.css' // Import the CSS file
-import { GameInfo } from 'common/types' // 1. Import GameInfo
+import React, { useMemo, useContext, useEffect } from 'react'
+import './index.css'
+import { GameInfo } from 'common/types'
+import { themeType } from 'frontend/components/UI/ThemeSelector/index'
+import ContextProvider from 'frontend/state/ContextProvider'
+
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const SYMBOLS = ['#'];
+const ALPHABET_AND_SYMBOLS = [...ALPHABET, ...SYMBOLS];
 
 interface AlphabetFilterProps {
   currentFilter: string | null
   onFilterChange: (filter: string | null) => void
-  allGames: GameInfo[] // 1. Add allGames prop
+  allGames: GameInfo[]
 }
 
 const AlphabetFilter: React.FC<AlphabetFilterProps> = ({
@@ -13,47 +19,53 @@ const AlphabetFilter: React.FC<AlphabetFilterProps> = ({
   onFilterChange,
   allGames
 }) => {
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-  const symbols = ['#']
+  const { theme } = useContext(ContextProvider)
+  useEffect(() => {
+    if (themeType[theme] === 'light') {
+      document.body.setAttribute('data-theme-light', 'true')
+    } else {
+      document.body.removeAttribute('data-theme-light')
+    }
+  }, [theme])
 
-  // 2. Calculate Available Letters
+  const isLightTheme = themeType[theme] === 'light'
+
   const availableChars = useMemo(() => {
     const chars = new Set<string>()
     if (!allGames) return chars
     allGames.forEach((game) => {
-      if (game && game.title) {
-        // Added null check for game itself
-        const firstChar = game.title.charAt(0)
-        if (/[0-9]/.test(firstChar)) {
-          chars.add('#')
-        } else if (/[a-zA-Z]/.test(firstChar)) {
-          chars.add(firstChar.toUpperCase())
+      if (game?.title) {
+        const firstCharMatch = game.title.match(/[a-zA-Z0-9]/)
+        if (firstCharMatch) {
+          const char = firstCharMatch[0]
+          if (/[0-9]/.test(char)) {
+            chars.add('#')
+          } else {
+            chars.add(char.toUpperCase())
+          }
         }
       }
     })
     return chars
   }, [allGames])
 
-  // 4. Update getButtonClassName
   const getButtonClassName = (value: string, isEnabled: boolean) => {
     let className = 'alphabet-filter-button'
     if (!isEnabled) {
       className += ' alphabet-filter-button--disabled'
+      if (isLightTheme) className += ' alphabet-filter-button--disabled-light'
     } else if (value === currentFilter) {
-      // Active class should only apply if enabled, but active implies enabled.
-      className += ' alphabet-filter-button-active'
+      className += ' alphabet-filter-button--active'
     }
-    // Specific styling for '#' can remain if needed, independent of active/disabled state for base style
     if (value === '#') {
       className += ' alphabet-filter-symbol'
     }
     return className
   }
 
-  // 3. Modify Button Rendering Logic (onClick part)
   const handleClick = (value: string, isEnabled: boolean) => {
     if (!isEnabled) {
-      return // Do nothing if not enabled
+      return
     }
     if (value === currentFilter) {
       onFilterChange(null)
@@ -64,29 +76,16 @@ const AlphabetFilter: React.FC<AlphabetFilterProps> = ({
 
   return (
     <div className="alphabet-filter-container">
-      {alphabet.map((letter) => {
-        const isEnabled = availableChars.has(letter)
+      {ALPHABET_AND_SYMBOLS.map((char) => {
+        const isEnabled = availableChars.has(char)
         return (
           <button
-            key={letter}
-            onClick={() => handleClick(letter, isEnabled)}
-            className={getButtonClassName(letter, isEnabled)}
-            disabled={!isEnabled} // Add HTML disabled attribute for accessibility
+            key={char}
+            onClick={() => handleClick(char, isEnabled)}
+            className={getButtonClassName(char, isEnabled)}
+            disabled={!isEnabled}
           >
-            {letter}
-          </button>
-        )
-      })}
-      {symbols.map((symbol) => {
-        const isEnabled = availableChars.has(symbol)
-        return (
-          <button
-            key={symbol}
-            onClick={() => handleClick(symbol, isEnabled)}
-            className={getButtonClassName(symbol, isEnabled)}
-            disabled={!isEnabled} // Add HTML disabled attribute for accessibility
-          >
-            {symbol}
+            {char}
           </button>
         )
       })}
