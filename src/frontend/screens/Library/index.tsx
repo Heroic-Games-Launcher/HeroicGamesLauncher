@@ -190,7 +190,13 @@ export default React.memo(function Library(): JSX.Element {
 
   const [showCategories, setShowCategories] = useState(false)
 
-  // 2. Add State for AlphabetFilter
+  const [showAlphabetFilter, setShowAlphabetFilter] = useState(
+    JSON.parse(storage.getItem('show_alphabet_filter') || 'false')
+  )
+  const handleToggleAlphabetFilter = () => {
+    storage.setItem('show_alphabet_filter', JSON.stringify(!showAlphabetFilter))
+    setShowAlphabetFilter(!showAlphabetFilter)
+  }
   const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<
     string | null
   >(null)
@@ -218,12 +224,6 @@ export default React.memo(function Library(): JSX.Element {
   }
 
   // 3. Create Handler Function for AlphabetFilter
-  const handleAlphabetFilterChange = (letter: string | null) => {
-    // If the same letter is clicked, it means we want to clear the filter (letter will be null from component)
-    // If a new letter is clicked, set it.
-    // If the incoming letter from component is null (because current active filter was clicked), set it to null.
-    setAlphabetFilterLetter(letter)
-  }
 
   const backToTopElement = useRef(null)
 
@@ -794,7 +794,12 @@ export default React.memo(function Library(): JSX.Element {
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
-        setShowCategories
+        setShowCategories,
+        showAlphabetFilter,
+        onToggleAlphabetFilter: handleToggleAlphabetFilter,
+        alphabetFilterLetter,
+        setAlphabetFilterLetter,
+        gamesForAlphabetFilter
       }}
     >
       <Header />
@@ -827,11 +832,7 @@ export default React.memo(function Library(): JSX.Element {
         <LibraryHeader list={libraryToShow} />
 
         {/* 4. Render AlphabetFilter */}
-        <AlphabetFilter
-          currentFilter={alphabetFilterLetter}
-          onFilterChange={handleAlphabetFilterChange}
-          allGames={gamesForAlphabetFilter} // Pass the pre-filtered list
-        />
+        {showAlphabetFilter && <AlphabetFilter />}
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 
