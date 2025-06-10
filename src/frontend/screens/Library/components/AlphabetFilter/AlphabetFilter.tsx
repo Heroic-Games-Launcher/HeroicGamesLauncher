@@ -4,9 +4,9 @@ import { GameInfo } from 'common/types'
 import { themeType } from 'frontend/components/UI/ThemeSelector/index'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-const SYMBOLS = ['#'];
-const ALPHABET_AND_SYMBOLS = [...ALPHABET, ...SYMBOLS];
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+const SYMBOLS = ['#']
+const ALPHABET_AND_SYMBOLS = [...ALPHABET, ...SYMBOLS]
 
 interface AlphabetFilterProps {
   currentFilter: string | null

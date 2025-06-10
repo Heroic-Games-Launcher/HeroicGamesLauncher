@@ -101,7 +101,11 @@ export default React.memo(function ActionIcons({
         {showAlphabetFilter !== undefined && onToggleAlphabetFilter && (
           <button
             className="FormControl__button"
-            title={showAlphabetFilter ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter') : t('library.showAlphabetFilter', 'Show Alphabet Filter')}
+            title={
+              showAlphabetFilter
+                ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
+                : t('library.showAlphabetFilter', 'Show Alphabet Filter')
+            }
             onClick={onToggleAlphabetFilter}
           >
             <FontAwesomeIcon

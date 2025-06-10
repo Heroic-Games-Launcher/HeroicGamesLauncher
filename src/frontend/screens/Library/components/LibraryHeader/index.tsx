@@ -14,7 +14,11 @@ type Props = {
   onToggleAlphabetFilter: () => void
 }
 
-export default React.memo(function LibraryHeader({ list, showAlphabetFilter, onToggleAlphabetFilter }: Props) {
+export default React.memo(function LibraryHeader({
+  list,
+  showAlphabetFilter,
+  onToggleAlphabetFilter
+}: Props) {
   const { t } = useTranslation()
   const { showFavourites } = useContext(LibraryContext)
 
