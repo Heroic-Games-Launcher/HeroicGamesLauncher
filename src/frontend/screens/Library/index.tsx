@@ -190,12 +190,13 @@ export default React.memo(function Library(): JSX.Element {
 
   const [showCategories, setShowCategories] = useState(false)
 
-  const [showAlphabetFilter, setShowAlphabetFilter] = useState(
-    JSON.parse(storage.getItem('show_alphabet_filter') || 'false')
+  const [isAlphabetFilterVisible, setIsAlphabetFilterVisible] = useState(
+    JSON.parse(storage.getItem('isAlphabetFilterVisible') || 'true')
   )
   const handleToggleAlphabetFilter = () => {
-    storage.setItem('show_alphabet_filter', JSON.stringify(!showAlphabetFilter))
-    setShowAlphabetFilter(!showAlphabetFilter)
+    const newValue = !isAlphabetFilterVisible
+    storage.setItem('isAlphabetFilterVisible', JSON.stringify(newValue))
+    setIsAlphabetFilterVisible(newValue)
   }
   const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<
     string | null
@@ -222,8 +223,6 @@ export default React.memo(function Library(): JSX.Element {
     storage.setItem('sortInstalled', JSON.stringify(value))
     setSortInstalled(value)
   }
-
-  // 3. Create Handler Function for AlphabetFilter
 
   const backToTopElement = useRef(null)
 
@@ -381,7 +380,8 @@ export default React.memo(function Library(): JSX.Element {
     favouriteGamesList,
     epic,
     gog,
-    amazon
+    amazon,
+    sideloadedLibrary
   ])
 
   const favouritesIds = useMemo(() => {
@@ -396,7 +396,7 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['legendary'] && epic.username) {
       displayedStores.push('legendary')
     }
-    if (storesFilters['nile'] && amazon.username) {
+    if (storesFilters['nile'] && amazon.user_id) {
       displayedStores.push('nile')
     }
     if (storesFilters['sideload']) {
@@ -420,135 +420,8 @@ export default React.memo(function Library(): JSX.Element {
     return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
   }
 
-  // select library
   const gamesForAlphabetFilter = useMemo(() => {
     let library: Array<GameInfo> = makeLibrary()
-
-    if (showFavouritesLibrary) {
-      library = library.filter((game) =>
-        favouritesIds.includes(`${game.app_name}_${game.runner}`)
-      )
-    } else {
-      if (currentCustomCategories && currentCustomCategories.length > 0) {
-        const gamesInSelectedCategories = new Set<string>()
-        currentCustomCategories.forEach((category) => {
-          if (category === 'preset_uncategorized') {
-            const categorizedGames = Array.from(
-              new Set(Object.values(customCategories.list).flat())
-            )
-            library.forEach((game) => {
-              if (
-                !categorizedGames.includes(`${game.app_name}_${game.runner}`)
-              ) {
-                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`)
-              }
-            })
-          } else {
-            const gamesInCustomCategory = customCategories.list[category]
-            if (gamesInCustomCategory) {
-              gamesInCustomCategory.forEach((game) => {
-                gamesInSelectedCategories.add(game)
-              })
-            }
-          }
-        })
-        library = library.filter((game) =>
-          gamesInSelectedCategories.has(`${game.app_name}_${game.runner}`)
-        )
-      }
-
-      if (showSupportOfflineOnly) {
-        library = library.filter((game) => game.canRunOffline)
-      }
-
-      if (showThirdPartyManagedOnly) {
-        library = library.filter((game) => !!game.thirdPartyManagedApp)
-      }
-
-      if (showUpdatesOnly) {
-        library = library.filter((game) => gameUpdates.includes(game.app_name))
-      }
-
-      if (!showNonAvailable) {
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
-        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
-        library = library.filter(
-          (game) => !nonAvailbleGamesArray.includes(game.app_name)
-        )
-      }
-
-      if (showInstalledOnly) {
-        library = library.filter((game) => game.is_installed)
-      }
-
-      // Duplicate check for showNonAvailable - remove if not intended, keeping for accuracy for now
-      if (!showNonAvailable) {
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
-        const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
-        library = library.filter(
-          (game) => !nonAvailbleGamesArray.includes(game.app_name)
-        )
-      }
-    }
-
-    // filter by platform
-    library = filterByPlatform(library) // Apply platform filter using the existing function
-
-    // filter by text search (Fuse.js)
-    try {
-      const options = {
-        minMatchCharLength: 1,
-        threshold: 0.4,
-        useExtendedSearch: true,
-        keys: ['title']
-      }
-      const fuse = new Fuse(library, options) // Use the current state of 'library'
-
-      if (filterText) {
-        const fuzzySearch = fuse.search(filterText).map((game) => game?.item)
-        library = fuzzySearch
-      }
-      // No 'else' needed, library remains as is if filterText is empty
-    } catch (error) {
-      console.log('Error during Fuse.js search:', error)
-    }
-
-    // hide hidden games
-    const hiddenGamesAppNames = hiddenGames.list.map(
-      (hidden: HiddenGame) => hidden?.appName
-    )
-    if (!showHidden) {
-      library = library.filter(
-        (game) => !hiddenGamesAppNames.includes(game?.app_name)
-      )
-    }
-    return library // This is the list before alphabet filter and sorting
-  }, [
-    storesFilters, // makeLibrary depends on this via epic, gog, amazon, sideloadedLibrary contexts
-    platformsFilters, // filterByPlatform depends on this
-    epic.library, // makeLibrary
-    gog.library, // makeLibrary
-    amazon.library, // makeLibrary
-    sideloadedLibrary, // makeLibrary
-    filterText,
-    showHidden,
-    hiddenGames.list, // Be specific with dependencies
-    showFavouritesLibrary,
-    favouritesIds, // Dependency for showFavouritesLibrary branch
-    currentCustomCategories,
-    customCategories.list, // Dependency for custom categories branch
-    showSupportOfflineOnly,
-    showThirdPartyManagedOnly,
-    showUpdatesOnly,
-    gameUpdates,
-    showNonAvailable,
-    showInstalledOnly,
-    platform // filterByPlatform depends on this
-    // Dependencies NOT included: alphabetFilterLetter, sortDescending, sortInstalled, installing (if only for sorting)
-  ])
-
-  const libraryToShow = useMemo(() => {
-    let library: Array<GameInfo> = [...gamesForAlphabetFilter] // Start with the pre-filtered list
 
     if (showFavouritesLibrary) {
       library = library.filter((game) =>
@@ -655,6 +528,37 @@ export default React.memo(function Library(): JSX.Element {
       )
     }
 
+    return library
+  }, [
+    storesFilters,
+    platformsFilters,
+    epic.library,
+    epic.username,
+    gog.library,
+    gog.username,
+    amazon.library,
+    amazon.user_id,
+    sideloadedLibrary,
+    platform,
+    filterText,
+    showHidden,
+    hiddenGames,
+    showFavouritesLibrary,
+    favouritesIds,
+    currentCustomCategories,
+    customCategories,
+    showInstalledOnly,
+    showNonAvailable,
+    showSupportOfflineOnly,
+    showThirdPartyManagedOnly,
+    showUpdatesOnly,
+    gameUpdates
+  ])
+
+  // select library
+  const libraryToShow = useMemo(() => {
+    let library = [...gamesForAlphabetFilter]
+
     // Alphabetical filter
     if (alphabetFilterLetter) {
       if (alphabetFilterLetter === '#') {
@@ -695,28 +599,11 @@ export default React.memo(function Library(): JSX.Element {
 
     return [...library]
   }, [
-    storesFilters,
-    platformsFilters,
-    epic.library,
-    gog.library,
-    amazon.library,
-    filterText,
-    installing,
+    gamesForAlphabetFilter,
+    alphabetFilterLetter,
     sortDescending,
     sortInstalled,
-    showHidden,
-    hiddenGames,
-    showFavouritesLibrary,
-    showInstalledOnly,
-    showNonAvailable,
-    showSupportOfflineOnly,
-    showThirdPartyManagedOnly,
-    showUpdatesOnly,
-    gameUpdates,
-    alphabetFilterLetter,
-    sortDescending, // Sorting is applied after alphabet filter
-    sortInstalled, // Sorting is applied after alphabet filter
-    installing // Sorting by installed status might use this
+    installing
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -795,11 +682,11 @@ export default React.memo(function Library(): JSX.Element {
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
         setShowCategories,
-        showAlphabetFilter,
+        showAlphabetFilter: isAlphabetFilterVisible,
         onToggleAlphabetFilter: handleToggleAlphabetFilter,
+        gamesForAlphabetFilter,
         alphabetFilterLetter,
-        setAlphabetFilterLetter,
-        gamesForAlphabetFilter
+        setAlphabetFilterLetter
       }}
     >
       <Header />
@@ -831,8 +718,7 @@ export default React.memo(function Library(): JSX.Element {
 
         <LibraryHeader list={libraryToShow} />
 
-        {/* 4. Render AlphabetFilter */}
-        {showAlphabetFilter && <AlphabetFilter />}
+        {isAlphabetFilterVisible && <AlphabetFilter />}
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 
