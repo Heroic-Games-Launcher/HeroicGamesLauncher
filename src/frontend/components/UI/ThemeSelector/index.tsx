@@ -24,24 +24,6 @@ export const defaultThemes: Record<string, string> = {
   sweet: 'Sweet'
 }
 
-// Tag system for dark/light theme
-export const themeType: Record<string, 'dark' | 'light'> = {
-  midnightMirage: 'dark',
-  cyberSpaceOasis: 'dark',
-  cyberSpaceOasisAlt: 'dark',
-  'high-contrast': 'dark',
-  'old-school': 'dark',
-  dracula: 'dark',
-  marine: 'dark',
-  'marine-classic': 'dark',
-  zombie: 'dark',
-  'zombie-classic': 'dark',
-  'nord-light': 'light',
-  'nord-dark': 'dark',
-  gruvbox_dark: 'dark',
-  sweet: 'dark'
-}
-
 export const ThemeSelector = () => {
   const { theme, setTheme } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -76,17 +58,12 @@ export const ThemeSelector = () => {
 
   useEffect(() => {
     const getPath = async () => {
-      try {
-        const config = await window.api.requestAppSettings()
-        setAppConfig(config)
-        setThemesPath(config.customThemesPath || '')
-        await loadThemes()
-      } catch (error) {
-        console.error('Failed to load theme settings:', error)
-      }
+      const config = await window.api.requestAppSettings()
+      setAppConfig(config)
+      setThemesPath(config.customThemesPath || '')
+      loadThemes()
     }
-
-    void getPath()
+    getPath()
   }, [])
 
   return (

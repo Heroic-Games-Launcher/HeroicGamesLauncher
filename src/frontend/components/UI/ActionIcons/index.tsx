@@ -23,14 +23,10 @@ import { LIBRARY_TOUR_ID } from 'frontend/screens/Library/components/LibraryTour
 
 interface ActionIconsProps {
   'data-tour'?: string
-  showAlphabetFilter?: boolean
-  onToggleAlphabetFilter?: () => void
 }
 
 export default React.memo(function ActionIcons({
-  'data-tour': dataTour,
-  showAlphabetFilter,
-  onToggleAlphabetFilter
+  'data-tour': dataTour
 }: ActionIconsProps = {}) {
   const { t } = useTranslation()
   const { refreshLibrary, refreshing } = useContext(ContextProvider)
@@ -41,7 +37,9 @@ export default React.memo(function ActionIcons({
     sortDescending,
     setSortDescending,
     sortInstalled,
-    setSortInstalled
+    setSortInstalled,
+    showAlphabetFilter,
+    onToggleAlphabetFilter
   } = useContext(LibraryContext)
 
   return (

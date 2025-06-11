@@ -1,34 +1,17 @@
-import React, { useMemo, useContext, useEffect } from 'react'
+import React, { useMemo, useContext } from 'react'
 import './index.css'
-import { GameInfo } from 'common/types'
-import { themeType } from 'frontend/components/UI/ThemeSelector/index'
-import ContextProvider from 'frontend/state/ContextProvider'
+import LibraryContext from '../../LibraryContext'
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 const SYMBOLS = ['#']
 const ALPHABET_AND_SYMBOLS = [...ALPHABET, ...SYMBOLS]
 
-interface AlphabetFilterProps {
-  currentFilter: string | null
-  onFilterChange: (filter: string | null) => void
-  allGames: GameInfo[]
-}
-
-const AlphabetFilter: React.FC<AlphabetFilterProps> = ({
-  currentFilter,
-  onFilterChange,
-  allGames
-}) => {
-  const { theme } = useContext(ContextProvider)
-  useEffect(() => {
-    if (themeType[theme] === 'light') {
-      document.body.setAttribute('data-theme-light', 'true')
-    } else {
-      document.body.removeAttribute('data-theme-light')
-    }
-  }, [theme])
-
-  const isLightTheme = themeType[theme] === 'light'
+const AlphabetFilter: React.FC = () => {
+  const {
+    alphabetFilterLetter: currentFilter,
+    setAlphabetFilterLetter: onFilterChange,
+    gamesForAlphabetFilter: allGames
+  } = useContext(LibraryContext)
 
   const availableChars = useMemo(() => {
     const chars = new Set<string>()
@@ -53,7 +36,6 @@ const AlphabetFilter: React.FC<AlphabetFilterProps> = ({
     let className = 'alphabet-filter-button'
     if (!isEnabled) {
       className += ' alphabet-filter-button--disabled'
-      if (isLightTheme) className += ' alphabet-filter-button--disabled-light'
     } else if (value === currentFilter) {
       className += ' alphabet-filter-button--active'
     }

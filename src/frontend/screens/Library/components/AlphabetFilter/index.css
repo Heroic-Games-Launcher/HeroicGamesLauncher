@@ -1,11 +1,10 @@
-/* Root Variables */
 :root {
   --filter-accent-color: var(--primary, var(--brand-primary));
   --filter-accent-hover: var(--primary-hover, var(--brand-primary-hover));
-  --filter-text-available: #b0b8c4;
-  --filter-text-hover: #ffffff;
-  --filter-text-disabled: #4a5568;
-  --filter-bg-hover: rgba(255, 255, 255, 0.08);
+  --filter-text-available: var(--text-secondary);
+  --filter-text-hover: var(--text-hover);
+  --filter-text-disabled: var(--input-background);
+  --filter-bg-hover: var(--filter-bg-hover, rgba(255, 255, 255, 0.12));
   --filter-shadow-color: rgb(from var(--filter-accent-color) r g b / 0.25);
 
   --filter-border-radius: 8px;
@@ -45,7 +44,7 @@ body.old-school .alphabet-filter-button--active {
 .alphabet-filter-button {
   background-color: transparent;
   border: none;
-  color: var(--filter-text-available);
+  color: var(--filter-accent-color);
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
     sans-serif;
@@ -79,7 +78,7 @@ body.old-school .alphabet-filter-button--active {
 
 .alphabet-filter-button--active {
   background-color: var(--filter-accent-color);
-  color: rgb(0, 0, 0);
+  color: var(--text-tertiary);
   font-weight: 700;
   box-shadow: 0 4px 12px -2px var(--filter-shadow-color);
   transform: translateY(-2px);
@@ -92,16 +91,5 @@ body.old-school .alphabet-filter-button--active {
 .alphabet-filter-button--disabled {
   color: var(--filter-text-disabled);
   cursor: not-allowed;
-}
-
-/*
- * Light Theme Overrides
- * This block inverts the color logic to be intuitive on a light background.
- */
-body[data-theme-light='true'] {
-  --filter-text-available: #4a5568;
-  --filter-text-disabled: #cbd5e0;
-
-  --filter-text-hover: #1a202c;
-  --filter-bg-hover: rgba(0, 0, 0, 0.05);
+  opacity: 0.5;
 }
