@@ -14,6 +14,7 @@ import CodeweaversLogo from 'frontend/assets/codeweavers_icon.svg?react'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
 import Badge from '@mui/material/Badge'
 import { Autorenew as AutorenewIcon } from '@mui/icons-material'
+import GELogo from 'frontend/assets/ge-logo.svg?react'
 
 interface ListItemProps {
   version: WineInstallation
@@ -34,13 +35,14 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
       case 'wine':
         return <FontAwesomeIcon icon={faWineGlass} />
       case 'proton':
+        if (name.includes('GE')) return <GELogo />
         return <ProtonLogo />
       case 'crossover':
         return <CodeweaversLogo />
       case 'toolkit':
         return <FontAwesomeIcon icon={faApple} />
     }
-  }, [type])
+  }, [name, type])
 
   const icon = useMemo(() => {
     if (name.includes('-latest'))
