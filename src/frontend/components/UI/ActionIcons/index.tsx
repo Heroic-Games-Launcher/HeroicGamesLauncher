@@ -96,7 +96,7 @@ export default React.memo(function ActionIcons({
             data-tour="library-sort-installed"
           />
         </button>
-        {showAlphabetFilter !== undefined && onToggleAlphabetFilter && (
+        {showAlphabetFilter !== undefined && (
           <button
             className="FormControl__button"
             title={

@@ -2,9 +2,7 @@ import React, { useMemo, useContext } from 'react'
 import './index.css'
 import LibraryContext from '../../LibraryContext'
 
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-const SYMBOLS = ['#']
-const ALPHABET_AND_SYMBOLS = [...ALPHABET, ...SYMBOLS]
+const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('')
 
 const AlphabetFilter: React.FC = () => {
   const {

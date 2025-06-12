@@ -571,8 +571,8 @@ export default React.memo(function Library(): JSX.Element {
           (game) =>
             game.title &&
             game.title
-              .toLowerCase()
-              .startsWith(alphabetFilterLetter.toLowerCase())
+              .toUpperCase()
+              .startsWith(alphabetFilterLetter)
         )
       }
     }
