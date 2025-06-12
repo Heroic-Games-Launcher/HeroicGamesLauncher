@@ -191,8 +191,8 @@
     "not_logged_in": {
         "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
         "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
-        "login": "Zaloguj",
-        "title": "NIE jesteś zalogowany",
+        "login": "Zaloguj się",
+        "title": "Jesteś niezalogowany",
         "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
@@ -215,7 +215,7 @@
             "title": "Tytuł gry/aplikacji",
             "broser": "URL przeglądarki",
             "useragent": "Niestandardowy User Agent",
-            "fullscreen": "Otwórz w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
+            "fullscreen": "Otwórz w trybie pełnoekranowym (F11 aby wyjsć)"
         },
         "placeholder": {
             "image": "Wklej adres URL obrazka tutaj",

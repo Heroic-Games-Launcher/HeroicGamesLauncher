@@ -180,7 +180,9 @@
         "redist": "Installerar Redistributables",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Var god dröj..."
+            "pleaseWait": "Var god dröj...",
+            "compatibility": "Var medveten om att alla spel inte fungerar, även om de fungerar kanske de inte fungerar som förväntat.",
+            "abort": "Avbryt installation"
         }
     },
     "launch": {
