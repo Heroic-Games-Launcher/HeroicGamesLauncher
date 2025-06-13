@@ -314,6 +314,7 @@ interface AsyncIPCFunctions {
   libraries__add: (path: string) => Promise<boolean>
   libraries__rename: (path: string, newName: string) => Promise<boolean>
   libraries__delete: (path: string) => Promise<boolean>
+  libraries__readInfoForPath: (path: string) => Promise<LibraryInfo | false>
 }
 
 interface FrontendMessages {

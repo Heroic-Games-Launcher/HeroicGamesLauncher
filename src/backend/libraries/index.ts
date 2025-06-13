@@ -94,6 +94,10 @@ export default class LibraryManager {
     return true
   }
 
+  public importTemporaryLibrary(path: Path): Library {
+    return new Library(path, true)
+  }
+
   private static getDefaultLibraryPaths(): Path[] {
     const defaultPaths: Path[] = []
 

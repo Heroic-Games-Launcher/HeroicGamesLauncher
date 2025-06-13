@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Typography } from '@mui/material'
-import { Warning as WarningIcon } from '@mui/icons-material'
+import { Warning as WarningIcon, Info as InfoIcon } from '@mui/icons-material'
 
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../Dialog'
 import PathSelectionBox from '../PathSelectionBox'
 import TextInputField from '../TextInputField'
+
+import type { LibraryInfo } from 'backend/libraries/types'
 
 interface Props {
   closed: boolean
@@ -21,6 +23,7 @@ export default React.memo(function LibraryCreationDialog({
   const { t } = useTranslation()
   const [path, setPath] = useState<string>('')
   const [name, setName] = useState<string>('')
+  const [existingInfo, setExistingInfo] = useState<LibraryInfo>()
   const [failedToAdd, setFailedToAdd] = useState(false)
 
   const onClose = useCallback(() => {
@@ -28,6 +31,7 @@ export default React.memo(function LibraryCreationDialog({
     if (onUserCancel) onUserCancel()
     setPath('')
     setName('')
+    setExistingInfo(undefined)
     setFailedToAdd(false)
   }, [setPath, setName])
 
@@ -36,6 +40,12 @@ export default React.memo(function LibraryCreationDialog({
 
     const folderName = path.split(/[/\\]/).at(-1)
     if (folderName) setName(folderName)
+
+    void window.api.libraries.readInfoForPath(path).then((info) => {
+      if (!info) return
+      setName(info.name)
+      setExistingInfo(info)
+    })
   }, [path])
 
   const addLibrary = useCallback(async () => {
@@ -73,6 +83,21 @@ export default React.memo(function LibraryCreationDialog({
             onChange={(e) => setName(e.target.value)}
           ></TextInputField>
         </Box>
+
+        {existingInfo && (
+          <Box display="flex" alignItems="center" mt={2}>
+            <InfoIcon />
+            <Typography>
+              {t(
+                'settings.library.addDialog.existingLibraryImport',
+                'Your existing library containing {{numGames}} game(s) will be imported',
+                {
+                  numGames: existingInfo.games.length
+                }
+              )}
+            </Typography>
+          </Box>
+        )}
 
         {failedToAdd && (
           <Box display="flex" alignItems="center" mt={2}>

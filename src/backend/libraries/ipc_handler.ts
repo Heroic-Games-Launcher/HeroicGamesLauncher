@@ -32,3 +32,7 @@ addHandler('libraries__rename', async (e, path, newName) =>
 addHandler('libraries__delete', async (e, path) =>
   LibraryManager.get().delete(Path.parse(path))
 )
+
+addHandler('libraries__readInfoForPath', async (e, path) =>
+  LibraryManager.get().importTemporaryLibrary(Path.parse(path)).readInfo()
+)
