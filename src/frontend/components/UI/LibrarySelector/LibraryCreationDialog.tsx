@@ -28,6 +28,7 @@ export default React.memo(function LibraryCreationDialog({
     if (onUserCancel) onUserCancel()
     setPath('')
     setName('')
+    setFailedToAdd(false)
   }, [setPath, setName])
 
   const setPathAndUpdateName = useCallback(
