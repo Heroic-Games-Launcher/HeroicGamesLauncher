@@ -319,6 +319,21 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    const settings = GlobalConfig.get().getSettings()
+    await i18next.use(Backend).init({
+      backend: {
+        addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
+        allowMultiLoading: false,
+        loadPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}.json')
+      },
+      debug: false,
+      returnEmptyString: false,
+      returnNull: false,
+      fallbackLng: 'en',
+      lng: settings.language,
+      supportedLngs: supportedLanguages
+    })
+
     await MigrationSystem.get().applyMigrations()
     await LibraryManager.get().init()
 
@@ -359,8 +374,6 @@ if (!gotTheLock) {
       }
     })
 
-    const settings = GlobalConfig.get().getSettings()
-
     if (settings?.disableSmoothScrolling) {
       app.commandLine.appendSwitch('disable-smooth-scrolling')
     }
@@ -375,19 +388,6 @@ if (!gotTheLock) {
       })
     }
     runOnceWhenOnline(gogPresence.setPresence)
-    await i18next.use(Backend).init({
-      backend: {
-        addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
-        allowMultiLoading: false,
-        loadPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}.json')
-      },
-      debug: false,
-      returnEmptyString: false,
-      returnNull: false,
-      fallbackLng: 'en',
-      lng: settings.language,
-      supportedLngs: supportedLanguages
-    })
 
     const mainWindow = await initializeWindow()
 
