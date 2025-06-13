@@ -16,7 +16,8 @@ const AlphabetFilter: React.FC = () => {
     if (!allGames) return chars
     allGames.forEach((game) => {
       if (game?.title) {
-        const firstCharMatch = game.title.match(/[a-zA-Z0-9]/)
+        const processedTitle = game.title.replace(/^the\s/i, '')
+        const firstCharMatch = processedTitle.match(/[a-zA-Z0-9]/)
         if (firstCharMatch) {
           const char = firstCharMatch[0]
           if (/[0-9]/.test(char)) {
@@ -37,9 +38,6 @@ const AlphabetFilter: React.FC = () => {
     } else if (value === currentFilter) {
       className += ' alphabet-filter-button--active'
     }
-    if (value === '#') {
-      className += ' alphabet-filter-symbol'
-    }
     return className
   }
 
@@ -56,7 +54,7 @@ const AlphabetFilter: React.FC = () => {
 
   return (
     <div className="alphabet-filter-container">
-      {ALPHABET_AND_SYMBOLS.map((char) => {
+      {CHARS.map((char) => {
         const isEnabled = availableChars.has(char)
         return (
           <button

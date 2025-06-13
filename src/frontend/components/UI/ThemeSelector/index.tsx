@@ -53,7 +53,7 @@ export const ThemeSelector = () => {
     setThemesPath(path)
     await writeConfig({ appName: 'default', config: newAppConfig })
     setAppConfig(newAppConfig)
-    await loadThemes()
+    loadThemes()
   }
 
   useEffect(() => {

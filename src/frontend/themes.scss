@@ -2,7 +2,6 @@ body {
   --text-default: #eae8e5;
   --text-secondary: #b1b1b1;
   --text-tertiary: var(--neutral-01);
-  --titlebar-symbol-color: var(--text-default);
   --tertiary-button: var(--status-warning);
   --tertiary-button-overlay: var(--status-warning-hover);
   --cancel-button: var(--status-warning);
@@ -16,9 +15,19 @@ body {
   --anticheat-planned: var(--status-info);
   --anticheat-unknown: var(--status-denied);
 
-  /* AlphabetFilter */
-  --filter-accent-color: var(--accent);
-  --filter-accent-hover: var(--accent-overlay, var(--accent));
+  --alphabet-filter-accent-color: var(--accent);
+  --alphabet-filter-accent-hover: var(--accent-overlay, var(--accent));
+}
+
+body.alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(
+    --accent,
+    var(--primary, var(--brand-primary))
+  );
+  --alphabet-filter-accent-hover: var(
+    --accent-overlay,
+    var(--primary-hover, var(--brand-primary-hover))
+  );
 }
 
 body.midnightMirage {
@@ -267,6 +276,7 @@ body.dracula-classic {
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
   --navbar-background: #44475a;
+  --navbar-active: var(--accent);
   --navbar-active-background: #282a36;
   --gradient-body-background: linear-gradient(
     90deg,
@@ -564,6 +574,15 @@ body.zombie-classic {
   --icons-background: #323232;
 }
 
+body.zombie .alphabet-filter-button--active,
+body.zombie-classic .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--primary-button);
+  --alphabet-filter-accent-hover: var(
+    --primary-button-hover,
+    var(--primary-button)
+  );
+}
+
 body.old-school {
   --accent: #ffa800;
   --accent-overlay: #ffc44f;
@@ -599,6 +618,11 @@ body.old-school {
 body.classic .sid-input,
 body.old-school .sid-input {
   background: var(--background);
+}
+
+body.old-school .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--status-success);
+  --alphabet-filter-accent-hover: var(--status-success-hover);
 }
 
 body.classic,

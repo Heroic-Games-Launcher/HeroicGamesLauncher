@@ -34,7 +34,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
-import AlphabetFilter from './components/AlphabetFilter/AlphabetFilter'
+import AlphabetFilter from './components/AlphabetFilter'
 
 const storage = window.localStorage
 
@@ -396,7 +396,7 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['legendary'] && epic.username) {
       displayedStores.push('legendary')
     }
-    if (storesFilters['nile'] && amazon.user_id) {
+    if (storesFilters['nile'] && amazon.username) {
       displayedStores.push('nile')
     }
     if (storesFilters['sideload']) {
@@ -561,20 +561,20 @@ export default React.memo(function Library(): JSX.Element {
 
     // Alphabetical filter
     if (alphabetFilterLetter) {
-      if (alphabetFilterLetter === '#') {
-        const startsWithNumber = /^[0-9]/
-        library = library.filter(
-          (game) => game.title && startsWithNumber.test(game.title)
-        )
-      } else {
-        library = library.filter(
-          (game) =>
-            game.title &&
-            game.title
-              .toUpperCase()
-              .startsWith(alphabetFilterLetter)
-        )
-      }
+      library = library.filter((game) => {
+        if (!game.title) return false
+
+        let normalizedTitle = game.title.replace(/^the\s/i, '')
+        normalizedTitle = normalizedTitle.trim().toUpperCase()
+        normalizedTitle = normalizedTitle.replace(/^[^A-Z0-9]+/, '')
+
+        if (alphabetFilterLetter === '#') {
+          const startsWithNumber = /^[0-9]/
+          return startsWithNumber.test(normalizedTitle)
+        } else {
+          return normalizedTitle.startsWith(alphabetFilterLetter)
+        }
+      })
     }
 
     // sort
