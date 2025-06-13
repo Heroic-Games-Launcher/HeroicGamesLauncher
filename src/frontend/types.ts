@@ -252,6 +252,7 @@ export interface GameContextType {
   gameInstallInfo: InstallInfo | null
   is: {
     installing: boolean
+    importing: boolean
     installingWinetricksPackages: boolean
     installingRedist: boolean
     launching: boolean
