@@ -311,7 +311,7 @@ interface AsyncIPCFunctions {
   installSteamWindows: (path: string) => Promise<void>
   isIntelMac: () => boolean
   libraries__getAll: () => Promise<Record<string, LibraryInfo | false>>
-  libraries__add: (path: string, name: string) => Promise<boolean>
+  libraries__add: (path: string) => Promise<boolean>
   libraries__rename: (path: string, newName: string) => Promise<boolean>
   libraries__delete: (path: string) => Promise<boolean>
 }

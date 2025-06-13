@@ -40,13 +40,11 @@ export default class LibraryManager {
     return [...this.#libraryMap.values()]
   }
 
-  public async add(pathToAdd: Path, name?: string): Promise<Library | false> {
+  public async add(pathToAdd: Path): Promise<Library | false> {
     if (this.#libraryMap.has(pathToAdd)) return false
 
     const newLibrary = new Library(pathToAdd, true)
     await newLibrary.ensureInfo()
-
-    if (name) await newLibrary.setName(name)
 
     this.#librariesStore.set('libraryPaths', [
       ...this.#librariesStore.get('libraryPaths', []),

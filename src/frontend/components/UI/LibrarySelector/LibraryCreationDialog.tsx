@@ -40,11 +40,11 @@ export default React.memo(function LibraryCreationDialog({
   )
 
   const addLibrary = useCallback(async () => {
-    const wasAdded = await window.api.libraries.add(path, name)
-    if (wasAdded) close()
-    else {
-      setFailedToAdd(true)
-    }
+    const wasAdded = await window.api.libraries.add(path)
+    if (wasAdded) {
+      await window.api.libraries.rename(path, name)
+      close()
+    } else setFailedToAdd(true)
   }, [path, name])
 
   if (closed) return <></>

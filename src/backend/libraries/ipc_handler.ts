@@ -19,9 +19,9 @@ addHandler('libraries__getAll', async () => {
   return Object.fromEntries(infoRecordEntries)
 })
 
-addHandler('libraries__add', async (e, path, name) =>
+addHandler('libraries__add', async (e, path) =>
   LibraryManager.get()
-    .add(Path.parse(path), name)
+    .add(Path.parse(path))
     .then((ret) => !!ret)
 )
 
