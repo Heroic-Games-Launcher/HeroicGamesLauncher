@@ -45,6 +45,7 @@ Heroic is built with Web Technologies:
     - [Building with VS Code](#building-with-vs-code)
     - [Quickly testing/debugging Heroic on your own system](#quickly-testingdebugging-heroic-on-your-own-system)
     - [Testing with Docker](#testing-with-docker)
+    - [Development on nix](#development-on-nix)
   - [Sponsors](#sponsors)
   - [Screenshots](#screenshots)
   - [Credits](#credits)
@@ -254,6 +255,10 @@ To do that, open up the command palette (Ctrl + P), type in "task" and press Spa
 
 If you want to quickly test a change, or you're implementing features that require a lot of restarts, you can use Vite's development server to speed up the process:  
 Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `pnpm start`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
+
+### Development on Nix
+
+After cloning the repository, Nix users can use `nix-shell` to make Node.JS/pnpm available and automatically run [installation step](#development-environment) 3 and 4. See [shell.nix](shell.nix) for more information.
 
 ## Sponsors
 
