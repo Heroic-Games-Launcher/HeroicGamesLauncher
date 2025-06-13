@@ -113,7 +113,7 @@
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l'installation",
         "extra_info": "Informations supplémentaires",
-        "install_info": "Infos sur l'installation"
+        "install_info": "Installation"
     },
     "gamecard": {
         "moving": "Déplacement",

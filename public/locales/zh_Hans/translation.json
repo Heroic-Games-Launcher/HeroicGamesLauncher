@@ -187,7 +187,10 @@
         "choose-nile-binary": "选择 Nile 二进制文件",
         "changelog": "更改记录",
         "postpone": "延迟",
-        "update": "更新"
+        "update": "更新",
+        "launchAnyway": "仍要启动游戏",
+        "shaderPreCachingDisabledTitle": "禁用了 Shader 预缓存",
+        "shaderPreCachingDisabledMessage": "Steam 的 Shader 预缓存被禁用。请在桌面模式下于 Steam 设置中启用它确保游戏在 UMU 启动器下正常运行。"
     },
     "button": {
         "cancel": "取消",
