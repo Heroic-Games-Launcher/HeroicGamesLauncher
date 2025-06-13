@@ -85,9 +85,6 @@ importers:
       filesize:
         specifier: ^10.1.6
         version: 10.1.6
-      font-list:
-        specifier: ^1.5.1
-        version: 1.5.1
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
@@ -3094,9 +3091,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-
-  font-list@1.5.1:
-    resolution: {integrity: sha512-Hr5V0dsSv91wH3FgirXd7qh1PydqA/vMQyWjFFWn+lUPJtC+3i2tzgVqbLRcvQh87TGdbTGbAR3mEo4VlwC1jw==}
 
   for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
@@ -9270,8 +9264,6 @@ snapshots:
       vlq: 0.2.3
 
   follow-redirects@1.15.9: {}
-
-  font-list@1.5.1: {}
 
   for-each@0.3.5:
     dependencies:

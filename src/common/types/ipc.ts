@@ -219,7 +219,6 @@ interface AsyncIPCFunctions {
   ) => Promise<string>
   syncSaves: (args: SaveSyncArgs) => Promise<string>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
-  getFonts: (reload: boolean) => Promise<string[]>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
   clipboardReadText: () => string
