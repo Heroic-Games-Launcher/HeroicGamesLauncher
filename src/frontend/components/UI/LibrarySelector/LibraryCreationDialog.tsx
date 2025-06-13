@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Box, Typography } from '@mui/material'
 import { Warning as WarningIcon } from '@mui/icons-material'
@@ -31,14 +31,12 @@ export default React.memo(function LibraryCreationDialog({
     setFailedToAdd(false)
   }, [setPath, setName])
 
-  const setPathAndUpdateName = useCallback(
-    (newPath: string) => {
-      setPath(newPath)
-      const folderName = newPath.split(/[/\\]/).at(-1)
-      if (folderName) setName(folderName)
-    },
-    [setPath, setName]
-  )
+  useEffect(() => {
+    if (!path) return
+
+    const folderName = path.split(/[/\\]/).at(-1)
+    if (folderName) setName(folderName)
+  }, [path])
 
   const addLibrary = useCallback(async () => {
     const wasAdded = await window.api.libraries.add(path)
@@ -61,7 +59,7 @@ export default React.memo(function LibraryCreationDialog({
             htmlId={'library-path'}
             type={'directory'}
             label={t('settings.libraries.addDialog.pathLabel', 'Library path')}
-            onPathChange={setPathAndUpdateName}
+            onPathChange={setPath}
             path={path}
             pathDialogTitle={t(
               'settings.libraries.addDialog.pathDialogTitle',
