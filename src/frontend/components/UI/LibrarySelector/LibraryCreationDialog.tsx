@@ -74,19 +74,19 @@ export default React.memo(function LibraryCreationDialog({
             onChange={(e) => setName(e.target.value)}
           ></TextInputField>
         </Box>
-      </DialogContent>
 
-      {failedToAdd && (
-        <Box display="flex" alignItems="center" mt={2}>
-          <WarningIcon />
-          <Typography>
-            {t(
-              'settings.libraries.addDialog.failMessage',
-              'Failed to add library. Make sure the provided path is writable'
-            )}
-          </Typography>
-        </Box>
-      )}
+        {failedToAdd && (
+          <Box display="flex" alignItems="center" mt={2}>
+            <WarningIcon />
+            <Typography>
+              {t(
+                'settings.libraries.addDialog.failMessage',
+                'Failed to add library. Make sure the provided path is writable'
+              )}
+            </Typography>
+          </Box>
+        )}
+      </DialogContent>
 
       <DialogFooter>
         <button
