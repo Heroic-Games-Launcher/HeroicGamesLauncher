@@ -47,7 +47,8 @@
         },
         "wineprefix": "Selecionar a pasta do Prefixo Wine",
         "yes": "SIM",
-        "close": "Fechar"
+        "close": "Fechar",
+        "select-install-path": "Selecione o Caminho de Instalação da Steam"
     },
     "button": {
         "add_to_favourites": "Adicionar aos Favoritos",
@@ -181,7 +182,22 @@
         "redist": "Instalando Redistributables",
         "steam": {
             "installing": "A instalar",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "patience": "Se deseja prosseguir, por favor tenha paciência pois poderá demorar alguns minutos a concluir dependendo da conexão com a internet e configurações de sistema.",
+            "notification": "O Heroic irá notificá-lo aquando da conclusão da instalação.",
+            "select-path": "Seleciona a pasta de instalação da Steam",
+            "specificVersion-pt3": "feito para funcionar através do Heroic visto que novas versões da Steam não funcionam no macOS.",
+            "abort": "Abortar Instalação",
+            "compatibility": "Esteja consciente de que nem todos os jogos irão funcionar e, mesmo que funcionem, podem não funcionar corretamente.",
+            "cancel": "Cancelar Instalação",
+            "downloading": "A transferir {{percent}}%",
+            "install": "Instalar Steam",
+            "install-path": "Caminho de Instalação da Steam",
+            "installation": "Instalação da Steam",
+            "launching": "A Inicializar a Steam...",
+            "macOS": "macOS 14.0 ou superior",
+            "ram": "8GB de RAM",
+            "recommended": "Especificações recomendadas para uma melhor experiência"
         }
     },
     "launch": {
@@ -217,7 +233,7 @@
             "fullscreen": "Iniciar em Ecrã Inteiro (F11 para sair)"
         },
         "placeholder": {
-            "image": "Colar um URL da Imagem aqui",
+            "image": "Cole um URL da Imagem aqui ou selecione uma do seu computador",
             "title": "Adicionar um título ao Jogo/App",
             "url": "Colar a URL do Jogo aqui",
             "useragent": "Escrever aqui um agente de utilizador personalizado para usar neste navegador/jogo"
