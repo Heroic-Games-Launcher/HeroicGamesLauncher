@@ -39,7 +39,11 @@ async function getDiskInfo_windows(path: Path): Promise<DiskInfo> {
 
   let parsedDisks: Win32_LogicalDisk[]
   try {
-    parsedDisks = Win32_LogicalDisk.array().parse(JSON.parse(stdout))
+    const parsed = Win32_LogicalDisk.or(Win32_LogicalDisk.array()).parse(
+      JSON.parse(stdout)
+    )
+    if (Array.isArray(parsed)) parsedDisks = parsed
+    else parsedDisks = [parsed]
   } catch {
     parsedDisks = []
   }
