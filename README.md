@@ -37,6 +37,7 @@ Heroic is built with Web Technologies:
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
+      - [Nix(OS)](#nixos)
       - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
     - [Windows](#windows)
     - [macOS](#macos)
@@ -175,6 +176,28 @@ Enable it with `sudo dnf copr enable atim/heroic-games-launcher`, then install H
 ##### Binary package from the releases page
 
 You can alternatively download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
+
+#### Nix(OS)
+
+Two community-maintained versions are available in [nixpkgs](https://search.nixos.org/packages?type=packages&query=heroic), named [heroic](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/by-name/he/heroic-unwrapped/package.nix#L110) (with an [FHS environment](https://nixos.org/manual/nixpkgs/stable/#sec-fhs-environments)) and [heroic-unwrapped](https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/he/heroic-unwrapped/package.nix) (without FHS).
+
+- Nix shell: `nix-shell -p heroic`
+- NixOS:
+
+  ```nixos
+  # /etc/nixos/configuration.nix
+  { config, pkgs, ... }:
+
+  {
+    users.users.example = {
+      isNormalUser = true;
+      description = "Example user";
+      packages = with pkgs; [
+        heroic
+      ];
+    };
+  }
+  ```
 
 #### Other Distributions (AppImage and TAR.XZ)
 
