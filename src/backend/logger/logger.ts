@@ -575,6 +575,7 @@ class GameLogWriter extends LogWriter {
         // remove settings that are not used on native Linux games
         delete gameSettings.wineVersion
         delete gameSettings.winePrefix
+        delete gameSettings.doNotUseWine
         delete gameSettings.autoInstallDxvk
         delete gameSettings.autoInstallDxvkNvapi
         delete gameSettings.autoInstallVkd3d
@@ -628,6 +629,7 @@ class GameLogWriter extends LogWriter {
         delete gameSettings.wineVersion
         delete gameSettings.winePrefix
         delete gameSettings.wineCrossoverBottle
+        delete gameSettings.doNotUseWine
       }
     }
 
@@ -650,6 +652,7 @@ class GameLogWriter extends LogWriter {
       delete gameSettings.wineCrossoverBottle
       delete gameSettings.winePrefix
       delete gameSettings.wineVersion
+      delete gameSettings.doNotUseWine
       delete gameSettings.battlEyeRuntime
       delete gameSettings.eacRuntime
       delete gameSettings.nvidiaPrime
