@@ -8,7 +8,8 @@ import type { DiskInfo } from './index'
 const Win32_LogicalDisk = z.object({
   Caption: z.string(),
   FreeSpace: z.number().nullable(),
-  Size: z.number().nullable()
+  Size: z.number().nullable(),
+  VolumeName: z.string().nullable()
 })
 type Win32_LogicalDisk = z.infer<typeof Win32_LogicalDisk>
 
@@ -28,10 +29,10 @@ async function getDiskInfo_windows(path: Path): Promise<DiskInfo> {
     '-Class',
     'Win32_LogicalDisk',
     '-Property',
-    'Caption,FreeSpace,Size',
+    'Caption,FreeSpace,Size,VolumeName',
     '|',
     'Select-Object',
-    'Caption,FreeSpace,Size',
+    'Caption,FreeSpace,Size,VolumeName',
     '|',
     'ConvertTo-Json',
     '-Compress'
@@ -50,10 +51,15 @@ async function getDiskInfo_windows(path: Path): Promise<DiskInfo> {
     if (!disk.FreeSpace || !disk.Size) continue
 
     if (path.startsWith(disk.Caption))
-      return { freeSpace: disk.FreeSpace, totalSpace: disk.Size }
+      return {
+        mountPoint: disk.Caption,
+        label: disk.VolumeName ?? undefined,
+        freeSpace: disk.FreeSpace,
+        totalSpace: disk.Size
+      }
   }
 
-  return { freeSpace: 0, totalSpace: 0 }
+  return { freeSpace: 0, totalSpace: 0, mountPoint: '' }
 }
 
 async function isWritable_windows(path: Path): Promise<boolean> {
