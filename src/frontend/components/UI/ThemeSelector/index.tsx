@@ -63,7 +63,6 @@ export const ThemeSelector = () => {
       setThemesPath(config.customThemesPath || '')
       loadThemes()
     }
-
     getPath()
   }, [])
 
