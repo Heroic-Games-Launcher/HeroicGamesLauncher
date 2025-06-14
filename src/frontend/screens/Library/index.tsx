@@ -564,15 +564,14 @@ export default React.memo(function Library(): JSX.Element {
       library = library.filter((game) => {
         if (!game.title) return false
 
-        let normalizedTitle = game.title.replace(/^the\s/i, '')
-        normalizedTitle = normalizedTitle.trim().toUpperCase()
-        normalizedTitle = normalizedTitle.replace(/^[^A-Z0-9]+/, '')
+        const processedTitle = game.title.replace(/^the\s/i, '')
+        const firstCharMatch = processedTitle.match(/[a-zA-Z0-9]/)
+        const firstChar = firstCharMatch[0].toUpperCase()
 
         if (alphabetFilterLetter === '#') {
-          const startsWithNumber = /^[0-9]/
-          return startsWithNumber.test(normalizedTitle)
+          return /[0-9]/.test(firstChar)
         } else {
-          return normalizedTitle.startsWith(alphabetFilterLetter)
+          return firstChar === alphabetFilterLetter
         }
       })
     }
