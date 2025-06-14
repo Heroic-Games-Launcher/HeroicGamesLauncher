@@ -4,16 +4,19 @@
     --primary-hover,
     var(--brand-primary-hover)
   );
-  --filter-text-available: var(--text-secondary);
-  --filter-text-hover: var(--text-hover);
-  --filter-text-disabled: var(--input-background);
-  --filter-bg-hover: var(--filter-bg-hover, rgba(255, 255, 255, 0.12));
-  --filter-shadow-color: rgb(
+  --alphabet-filter-text-available: var(--text-secondary);
+  --alphabet-filter-text-hover: var(--text-hover);
+  --alphabet-filter-text-disabled: var(--input-background);
+  --alphabet-filter-bg-hover: var(
+    --alphabet-filter-bg-hover,
+    rgba(255, 255, 255, 0.12)
+  );
+  --alphabet-filter-shadow-color: rgb(
     from var(--alphabet-filter-accent-color) r g b / 0.25
   );
 
-  --filter-border-radius: 8px;
-  --filter-transition-speed: 0.2s ease-in-out;
+  --alphabet-filter-border-radius: 8px;
+  --alphabet-filter-transition-speed: 0.2s ease-in-out;
 }
 
 .alphabet-filter-container {
@@ -40,8 +43,8 @@
   min-width: 36px;
   text-align: center;
 
-  border-radius: var(--filter-border-radius);
-  transition: all var(--filter-transition-speed);
+  border-radius: var(--alphabet-filter-border-radius);
+  transition: all var(--alphabet-filter-transition-speed);
   user-select: none;
   outline: none;
 }
@@ -49,9 +52,10 @@
 .alphabet-filter-button:not(.alphabet-filter-button--active):not(
     .alphabet-filter-button--disabled
   ):hover {
-  background-color: var(--filter-bg-hover);
-  color: var(--filter-text-hover);
+  background-color: var(--alphabet-filter-bg-hover);
+  color: var(--alphabet-filter-text-hover);
   transform: translateY(-2px);
+  box-shadow: 0 0 0 1px var(--alphabet-filter-accent-color);
 }
 
 .alphabet-filter-button:focus-visible {
@@ -62,16 +66,19 @@
   background-color: var(--alphabet-filter-accent-color);
   color: var(--text-tertiary);
   font-weight: 700;
-  box-shadow: 0 4px 12px -2px var(--filter-shadow-color);
+  box-shadow: 0 4px 12px -2px var(--alphabet-filter-shadow-color);
   transform: translateY(-2px);
 }
 
 .alphabet-filter-button--active:hover {
   background-color: var(--alphabet-filter-accent-hover);
+  box-shadow:
+    0 4px 12px -2px var(--alphabet-filter-shadow-color),
+    0 0 0 2px var(--alphabet-filter-accent-hover);
 }
 
 .alphabet-filter-button--disabled {
-  color: var(--filter-text-disabled);
+  color: var(--alphabet-filter-text-disabled);
   cursor: not-allowed;
   opacity: 0.5;
 }
