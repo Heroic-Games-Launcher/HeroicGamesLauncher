@@ -123,8 +123,8 @@ export const initGamepad = () => {
           } else if (VirtualKeyboardController.isButtonFocused()) {
             // simulate a left click on a virtual keyboard button
             action = 'leftClick'
-          } else if (isSearchInput()) {
-            // open virtual keyboard if focusing the search input
+          } else if (isTextInput()) {
+            // open virtual keyboard if focusing a text input
             VirtualKeyboardController.initOrFocus()
             return
           }
@@ -206,7 +206,15 @@ export const initGamepad = () => {
     }
   }
 
-  const currentElement = () => document.querySelector<HTMLElement>(':focus')
+  const currentElement = () => {
+    const el = document.querySelector<HTMLElement>(':focus')
+    if (!el) return
+
+    // we can't call `click` in svg elements, so we use its parent
+    if (el.tagName === 'svg') return el.parentElement
+
+    return el
+  }
 
   const shouldSimulateClick = () => isSelect() || isMuiSelect()
   function isSelect() {
@@ -216,13 +224,11 @@ export const initGamepad = () => {
     return el.tagName === 'SELECT'
   }
 
-  function isSearchInput() {
+  function isTextInput() {
     const el = currentElement()
     if (!el) return false
 
-    // only change this if you change the id of the input element
-    // in frontend/components/UI/SearchBar/index.tsx
-    return el.id === 'search'
+    return el.tagName === 'INPUT' && (el as HTMLInputElement).type === 'text'
   }
 
   function isGameCard() {
