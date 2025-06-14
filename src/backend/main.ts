@@ -70,7 +70,6 @@ import {
   logWarning
 } from './logger/logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import { getFonts } from 'font-list'
 import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -108,7 +107,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
-import { configStore, fontsStore } from './constants/key_value_stores'
+import { configStore } from './constants/key_value_stores'
 import {
   customThemesWikiLink,
   discordLink,
@@ -1198,16 +1197,6 @@ addHandler('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => mainWindow.webContents.sendInputEvent(event))
   }
-})
-
-addHandler('getFonts', async (event, reload) => {
-  let cachedFonts = fontsStore.get('fonts', [])
-  if (cachedFonts.length === 0 || reload) {
-    cachedFonts = await getFonts()
-    cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
-    fontsStore.set('fonts', cachedFonts)
-  }
-  return cachedFonts
 })
 
 addHandler('getShellPath', async (event, path) => getShellPath(path))
