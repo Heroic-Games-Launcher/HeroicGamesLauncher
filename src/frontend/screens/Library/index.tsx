@@ -566,6 +566,7 @@ export default React.memo(function Library(): JSX.Element {
 
         const processedTitle = game.title.replace(/^the\s/i, '')
         const firstCharMatch = processedTitle.match(/[a-zA-Z0-9]/)
+        if (!firstCharMatch) return false
         const firstChar = firstCharMatch[0].toUpperCase()
 
         if (alphabetFilterLetter === '#') {
