@@ -8,7 +8,8 @@ const AlphabetFilter: React.FC = () => {
   const {
     alphabetFilterLetter: currentFilter,
     setAlphabetFilterLetter: onFilterChange,
-    gamesForAlphabetFilter: allGames
+    gamesForAlphabetFilter: allGames,
+    handleSearch
   } = useContext(LibraryContext)
 
   const availableChars = useMemo(() => {
@@ -31,23 +32,21 @@ const AlphabetFilter: React.FC = () => {
     return chars
   }, [allGames])
 
-  const getButtonClassName = (value: string, isEnabled: boolean) => {
+  const getButtonClassName = (value: string) => {
     let className = 'alphabet-filter-button'
-    if (!isEnabled) {
-      className += ' alphabet-filter-button--disabled'
-    } else if (value === currentFilter) {
+    if (value === currentFilter) {
       className += ' alphabet-filter-button--active'
+    } else if (!availableChars.has(value)) {
+      className += ' alphabet-filter-button--disabled'
     }
     return className
   }
 
-  const handleClick = (value: string, isEnabled: boolean) => {
-    if (!isEnabled) {
-      return
-    }
+  const handleClick = (value: string) => {
     if (value === currentFilter) {
       onFilterChange(null)
-    } else {
+      handleSearch('')
+    } else if (availableChars.has(value)) {
       onFilterChange(value)
     }
   }
@@ -55,13 +54,13 @@ const AlphabetFilter: React.FC = () => {
   return (
     <div className="alphabet-filter-container">
       {CHARS.map((char) => {
-        const isEnabled = availableChars.has(char)
+        const isInteractable = availableChars.has(char) || char === currentFilter
         return (
           <button
             key={char}
-            onClick={() => handleClick(char, isEnabled)}
-            className={getButtonClassName(char, isEnabled)}
-            disabled={!isEnabled}
+            onClick={() => handleClick(char)}
+            className={getButtonClassName(char)}
+            disabled={!isInteractable}
           >
             {char}
           </button>
