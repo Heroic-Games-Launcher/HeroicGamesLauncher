@@ -774,7 +774,7 @@
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
         "wineversion": "Wine Version",
-        "wineWayland": "Enable Wine-Wayland (Experimental)"
+        "wineWayland": "Enable Wine-Wayland (Experimental) (Wine version needs to support it)"
     },
     "settings": {
         "advanced": {

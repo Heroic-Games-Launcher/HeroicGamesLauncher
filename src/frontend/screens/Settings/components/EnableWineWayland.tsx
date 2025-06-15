@@ -26,7 +26,10 @@ const EnableWineWayland = () => {
         htmlId="wineWaylandToggle"
         value={enableWineWayland || false}
         handleChange={() => setEnableWineWayland(!enableWineWayland)}
-        title={t('setting.wineWayland', 'Enable Wine-Wayland (Experimental)')}
+        title={t(
+          'setting.wineWayland',
+          'Enable Wine-Wayland (Experimental) (Wine version needs to support it)'
+        )}
       />
 
       <InfoIcon
