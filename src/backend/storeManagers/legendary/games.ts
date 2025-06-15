@@ -39,6 +39,8 @@ import {
   logError,
   logFileLocation,
   logInfo,
+  LogLevel,
+  LogLevelsMap,
   LogPrefix
 } from '../../logger/logger'
 import {
@@ -785,7 +787,8 @@ export async function importGame(
 
   const res = await runLegendaryCommand(command, { abortId: appName })
   addShortcuts(appName)
-
+  const stdLogs = convertStdLogsIntoObj(res.stderr)
+  res.error = stdLogs.ERROR.join('')
   if (res.error) {
     logError(
       ['Failed to import', `${appName}:`, res.error],
@@ -793,6 +796,28 @@ export async function importGame(
     )
   }
   return res
+}
+
+function convertStdLogsIntoObj(logString: string): LogLevelsMap {
+  const Levels: LogLevelsMap = {
+    INFO: [],
+    ERROR: [],
+    WARN: [],
+    DEBUG: []
+  }
+  const matches = logString.match(
+    /\[[^\]]+\] (INFO|ERROR|WARN|DEBUG): .*?(?=\[[^\]]+\] (INFO|ERROR|WARN|DEBUG):|$)/gs
+  )
+  if (matches) {
+    for (const entry of matches) {
+      const match = entry.match(/\[([^\]]+)\] (INFO|ERROR|WARN|DEBUG): (.*)/)
+      if (match) {
+        const level = match[2] as LogLevel
+        Levels[level].push(entry.trim())
+      }
+    }
+  }
+  return Levels
 }
 
 /**

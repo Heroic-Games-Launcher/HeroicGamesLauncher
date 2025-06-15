@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "target": "es2017",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "target": "es2018",
+    "lib": ["esnext", "dom", "dom.iterable", "es2018"],
     "sourceMap": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
