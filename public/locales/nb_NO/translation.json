@@ -187,7 +187,8 @@
         "choose-nile-binary": "Velg Nile binær",
         "update": "Update",
         "changelog": "Endringslogg",
-        "postpone": "Utsett"
+        "postpone": "Utsett",
+        "launchAnyway": "Start spillet alikevel"
     },
     "button": {
         "cancel": "Avbryt",
