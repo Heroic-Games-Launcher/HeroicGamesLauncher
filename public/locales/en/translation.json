@@ -383,6 +383,7 @@
             "part1": "Heroic searches for versions of Wine, Proton, and CrossOver in the following folders:",
             "part2": "For other places, use a symbolic link to one of these folders"
         },
+        "wine-hdr": "HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.",
         "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games."
     },
     "info": {
@@ -678,6 +679,7 @@
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
             "missingMsgFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime 24.08 and restart Heroic."
         },
+        "hdr": "Enable HDR",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",

@@ -15,30 +15,51 @@ const EnableWineWayland = () => {
     'enableWineWayland',
     false
   )
+  const [enableHDR, setEnableHDR] = useSetting('enableHDR', false)
 
   if (!isLinux || isLinuxNative) {
     return <></>
   }
 
   return (
-    <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="wineWaylandToggle"
-        value={enableWineWayland || false}
-        handleChange={() => setEnableWineWayland(!enableWineWayland)}
-        title={t(
-          'setting.wineWayland',
-          'Enable Wine-Wayland (Experimental) (Wine version needs to support it)'
-        )}
-      />
+    <>
+      <div className="toggleRow">
+        <ToggleSwitch
+          htmlId="wineWaylandToggle"
+          value={enableWineWayland || false}
+          handleChange={() => setEnableWineWayland(!enableWineWayland)}
+          title={t(
+            'setting.wineWayland',
+            'Enable Wine-Wayland (Experimental) (Wine version needs to support it)'
+          )}
+        />
 
-      <InfoIcon
-        text={t(
-          'help.wine-wayland',
-          'The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.'
-        )}
-      />
-    </div>
+        <InfoIcon
+          text={t(
+            'help.wine-wayland',
+            'The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.'
+          )}
+        />
+      </div>
+
+      {enableWineWayland && (
+        <div className="toggleRow">
+          <ToggleSwitch
+            htmlId="hdrToggle"
+            value={enableHDR || false}
+            handleChange={() => setEnableHDR(!enableHDR)}
+            title={t('setting.hdr', 'Enable HDR')}
+          />
+
+          <InfoIcon
+            text={t(
+              'help.wine-hdr',
+              'HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.'
+            )}
+          />
+        </div>
+      )}
+    </>
   )
 }
 

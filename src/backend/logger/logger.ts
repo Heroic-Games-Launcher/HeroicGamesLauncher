@@ -582,6 +582,7 @@ class GameLogWriter extends LogWriter {
         delete gameSettings.enableEsync
         delete gameSettings.enableFSR
         delete gameSettings.enableWineWayland
+        delete gameSettings.enableHDR
         delete gameSettings.showFps
         delete gameSettings.enableDXVKFpsLimit
         delete gameSettings.eacRuntime
@@ -599,6 +600,7 @@ class GameLogWriter extends LogWriter {
       delete gameSettings.eacRuntime
       delete gameSettings.enableFSR
       delete gameSettings.enableWineWayland
+      delete gameSettings.enableHDR
       delete gameSettings.showMangohud
       delete gameSettings.showFps
       delete gameSettings.disableUMU
@@ -640,6 +642,7 @@ class GameLogWriter extends LogWriter {
       delete gameSettings.enableEsync
       delete gameSettings.enableFsync
       delete gameSettings.enableWineWayland
+      delete gameSettings.enableHDR
       delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.DXVKFpsCap
       delete gameSettings.autoInstallDxvk
