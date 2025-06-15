@@ -980,7 +980,7 @@ addHandler(
     })
 
     const abortMessage = () => {
-      notify({ title, body: i18next.t('notify.install.canceled') })
+      notify({ title, body: i18next.t('notify.importing.failed') })
       sendGameStatusUpdate({
         appName,
         runner,

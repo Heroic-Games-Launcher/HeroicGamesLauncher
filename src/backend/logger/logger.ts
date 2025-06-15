@@ -78,6 +78,12 @@ interface LogOptions {
   forceLog?: boolean
 }
 
+export type LogLevel = 'INFO' | 'ERROR' | 'WARN' | 'DEBUG'
+
+export type LogLevelsMap = {
+  [level in LogLevel]: string[]
+}
+
 // global variable to use by logBase
 export let logsDisabled = false
 export let currentLogFile = ''

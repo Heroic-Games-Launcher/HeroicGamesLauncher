@@ -470,6 +470,9 @@
             },
             "reparing": "Finished Repairing"
         },
+        "importing": {
+            "failed": "Importing Failed"
+        },
         "install": {
             "canceled": "Installation Canceled",
             "error": "Installation Failed",
