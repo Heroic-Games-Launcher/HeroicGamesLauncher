@@ -990,6 +990,19 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
   }
+  if (isLinux && gameSettings.enableWineWayland) {
+    if (wineVersion.type === 'proton') {
+      ret.PROTON_ENABLE_WAYLAND = '1'
+      if (gameSettings.enableHDR) {
+        ret.PROTON_ENABLE_HDR = '1'
+      }
+    } else {
+      ret.DISPLAY = ''
+      if (gameSettings.enableHDR) {
+        ret.DXVK_HDR = '1'
+      }
+    }
+  }
   if (wineVersion.type === 'proton') {
     if (gameSettings.autoInstallDxvkNvapi) {
       ret.PROTON_ENABLE_NVAPI = '1'
