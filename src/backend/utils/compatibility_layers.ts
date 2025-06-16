@@ -404,7 +404,7 @@ export async function getSystemGamePortingToolkitWine(): Promise<
   logInfo('Searching for Gaming Porting Toolkit Wine', LogPrefix.GlobalConfig)
   const { stdout } = await execAsync('mdfind wine64')
   const wineBin = stdout.split('\n').filter((p) => {
-    return p.match(/game-porting-toolkit.*\/wine64$/)
+    return p.match(/^(?!.*heroic\/tools).*game-porting-toolkit.*\/wine64$/)
   })[0]
 
   if (existsSync(wineBin)) {
