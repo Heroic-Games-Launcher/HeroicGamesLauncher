@@ -704,7 +704,10 @@ async function installEA(
   return { status: 'done' }
 }
 
-export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+export async function uninstall({
+  appName,
+  deleteFiles = true
+}: RemoveArgs): Promise<ExecResult> {
   const gameInfo = getGameInfo(appName)
   if (gameInfo.thirdPartyManagedApp) {
     await thirdParty.removeInstalledGame(appName)
@@ -716,6 +719,8 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     appName: LegendaryAppName.parse(appName),
     '-y': true
   }
+
+  if (!deleteFiles) command['--keep-files'] = true
 
   const res = await runLegendaryCommand(command, {
     abortId: appName,
