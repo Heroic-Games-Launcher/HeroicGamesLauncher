@@ -1,8 +1,9 @@
 import z from 'zod'
+import { NonEmptyString } from '../storeManagers/legendary/commands/base'
 
 const MinimalGameInfoBase = z.object({
   appName: z.string(),
-  platform: z.enum(['win32', 'darwin', 'linux']),
+  platform: z.enum(['windows', 'macOS', 'linux']),
   version: z.string(),
   // Folder name/path relative to the library path
   folderName: z.string()
@@ -10,8 +11,9 @@ const MinimalGameInfoBase = z.object({
 
 const MinimalGameInfoLegendary = MinimalGameInfoBase.extend({
   runner: z.literal('legendary'),
-  installTags: z.string().optional()
+  sdlList: NonEmptyString.array().optional()
 })
+type MinimalGameInfoLegendary = z.infer<typeof MinimalGameInfoLegendary>
 
 const MinimalGameInfoGog = MinimalGameInfoBase.extend({
   runner: z.literal('gog'),
@@ -20,7 +22,7 @@ const MinimalGameInfoGog = MinimalGameInfoBase.extend({
   branch: z.string()
 })
 
-const MinimalGameInfoAmazon = MinimalGameInfoBase.extend({
+const MinimalGameInfoNile = MinimalGameInfoBase.extend({
   runner: z.literal('nile')
   // TODO: Same as above: Does Amazon need anything at all here?
 })
@@ -28,7 +30,7 @@ const MinimalGameInfoAmazon = MinimalGameInfoBase.extend({
 const MinimalGameInfo = z.discriminatedUnion('runner', [
   MinimalGameInfoLegendary,
   MinimalGameInfoGog,
-  MinimalGameInfoAmazon
+  MinimalGameInfoNile
 ])
 type MinimalGameInfo = z.infer<typeof MinimalGameInfo>
 
@@ -39,3 +41,8 @@ const SerializedLibraryInfo = z.object({
 type SerializedLibraryInfo = z.infer<typeof SerializedLibraryInfo>
 
 export { SerializedLibraryInfo, MinimalGameInfo }
+export type {
+  MinimalGameInfoLegendary,
+  MinimalGameInfoGog,
+  MinimalGameInfoNile
+}
