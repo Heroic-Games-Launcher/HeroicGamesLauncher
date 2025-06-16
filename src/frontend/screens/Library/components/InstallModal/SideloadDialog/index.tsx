@@ -322,25 +322,22 @@ export default function SideloadDialog({
             </span>
           </div>
           <div className="sideloadForm">
-            <div className="sideloadImportBox">
-              <InfoBox
-                text={t(
-                  'sideload.import-hint.title',
-                  'Important! Are you adding a game from Epic/GOG/Amazon? Click here!'
-                )}
-              >
-                <div className="sideloadImportHint">
-                  <Trans i18n={i18n} key="sideload.import-hint.content">
-                    Do NOT use this feature for that.
-                    <br />
-                    Instead, <NavLink to={'/login'}>log into</NavLink> the
-                    store, look for the game in your library, open the
-                    installation dialog, and click the &quot;Import Game&quot;
-                    button
-                  </Trans>
-                </div>
-              </InfoBox>
-            </div>
+            <InfoBox
+              text={t(
+                'sideload.import-hint.title',
+                'Important! Are you adding a game from Epic/GOG/Amazon? Click here!'
+              )}
+            >
+              <div className="sideloadImportHint">
+                <Trans i18n={i18n} key="sideload.import-hint.content">
+                  Do NOT use this feature for that.
+                  <br />
+                  Instead, <NavLink to={'/login'}>log into</NavLink> the store,
+                  look for the game in your library, open the installation
+                  dialog, and click the &quot;Import Game&quot; button
+                </Trans>
+              </div>
+            </InfoBox>
             <TextInputField
               label={t('sideload.info.title', 'Game/App Title')}
               placeholder={t(
