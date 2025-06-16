@@ -976,7 +976,7 @@ addHandler(
     sendGameStatusUpdate({
       appName,
       runner,
-      status: 'installing'
+      status: 'importing'
     })
 
     const abortMessage = () => {

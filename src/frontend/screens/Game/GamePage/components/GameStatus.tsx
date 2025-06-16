@@ -87,11 +87,11 @@ const GameStatus = ({ gameInfo, progress, handleUpdate, hasUpdate }: Props) => {
       return `${t('status.updating')} ${currentProgress}`
     }
 
-    if (!is.updating && is.installing) {
+    if (!is.updating && (is.installing || is.importing)) {
       if (!currentProgress) {
         return `${t('status.processing', 'Processing files, please wait')}...`
       }
-      return `${t('status.installing')} ${currentProgress}`
+      return `${t(is.importing ? 'status.importing' : 'status.installing')} ${currentProgress}`
     }
 
     if (is.queued) {
