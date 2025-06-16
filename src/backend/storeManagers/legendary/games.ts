@@ -39,6 +39,7 @@ import {
   logError,
   logFileLocation,
   logInfo,
+  logWarning,
   LogPrefix
 } from '../../logger/logger'
 import {
@@ -92,6 +93,11 @@ import {
   isWindows
 } from 'backend/constants/environment'
 import { fakeEpicExePath } from 'backend/constants/paths'
+import type Library from '../../libraries/library'
+import type {
+  MinimalGameInfo,
+  MinimalGameInfoLegendary
+} from '../../libraries/schemas'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -776,12 +782,14 @@ export async function repair(appName: string): Promise<ExecResult> {
 export async function importGame(
   appName: string,
   folderPath: string,
-  platform: InstallPlatform
+  platform: InstallPlatform,
+  sdlList?: NonEmptyString[]
 ): Promise<ExecResult> {
   const command: LegendaryCommand = {
     subcommand: 'import',
     appName: LegendaryAppName.parse(appName),
     installationDirectory: Path.parse(folderPath),
+    sdlList,
     '--with-dlcs': true,
     '--platform': LegendaryPlatform.parse(platform)
   }
@@ -1105,4 +1113,51 @@ export async function runWineCommandOnGame(
     protonVerb,
     startFolder
   })
+}
+
+function storageLibraryPlatformToInstallPlatform(
+  platform: MinimalGameInfo['platform']
+): LegendaryPlatform {
+  switch (platform) {
+    case 'windows':
+      return 'Windows'
+    case 'macOS':
+      return 'Mac'
+  }
+  throw new Error(`Unsupported platform ${platform}`)
+}
+
+export const supportsStorageLibraries = true
+
+export async function importFromStorageLibrary(
+  library: Library,
+  gameInfo: MinimalGameInfo
+): Promise<true | string> {
+  const { appName, platform, version, folderName, sdlList } =
+    gameInfo as MinimalGameInfoLegendary
+  const fullFolderPath = join(library.path, folderName)
+  const installPlatform = storageLibraryPlatformToInstallPlatform(platform)
+  const result = await importGame(
+    appName,
+    fullFolderPath,
+    installPlatform,
+    sdlList
+  )
+
+  const installedInfo = await getInstallInfo(appName, installPlatform)
+  if (installedInfo.game.version !== version) {
+    logWarning(
+      `Imported version (${installedInfo.game.version}) differs from version in library info (${version})`
+    )
+  }
+
+  return result.error ?? true
+}
+
+export async function removeFromStorageLibrary(
+  gameInfo: MinimalGameInfo
+): Promise<true | string> {
+  const { appName } = gameInfo as MinimalGameInfoLegendary
+  const result = await uninstall({ appName, deleteFiles: false })
+  return result.error ?? true
 }

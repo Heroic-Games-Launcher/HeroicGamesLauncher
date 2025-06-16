@@ -857,6 +857,11 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
       break
     case 'import':
       commandParts.push(command.appName, command.installationDirectory)
+      if (command.sdlList) {
+        commandParts.push('--install-tag=')
+        for (const sdlTag of command.sdlList)
+          commandParts.push('--install-tag', sdlTag)
+      }
       break
   }
 

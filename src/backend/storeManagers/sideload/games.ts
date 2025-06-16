@@ -248,3 +248,5 @@ export async function update(
 ): Promise<{ status: 'done' | 'error' }> {
   return { status: 'error' }
 }
+
+export const supportsStorageLibraries = false

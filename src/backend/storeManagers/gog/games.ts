@@ -1485,3 +1485,5 @@ export async function getCyberpunkMods(): Promise<string[]> {
     return acc
   }, [] as string[])
 }
+
+export const supportsStorageLibraries = false
