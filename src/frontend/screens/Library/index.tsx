@@ -190,13 +190,13 @@ export default React.memo(function Library(): JSX.Element {
 
   const [showCategories, setShowCategories] = useState(false)
 
-  const [isAlphabetFilterVisible, setIsAlphabetFilterVisible] = useState(
-    JSON.parse(storage.getItem('isAlphabetFilterVisible') || 'true')
+  const [showAlphabetFilter, setShowAlphabetFilter] = useState(
+    JSON.parse(storage.getItem('showAlphabetFilter') || 'true')
   )
   const handleToggleAlphabetFilter = () => {
-    const newValue = !isAlphabetFilterVisible
-    storage.setItem('isAlphabetFilterVisible', JSON.stringify(newValue))
-    setIsAlphabetFilterVisible(newValue)
+    const newValue = !showAlphabetFilter
+    storage.setItem('showAlphabetFilter', JSON.stringify(newValue))
+    setShowAlphabetFilter(newValue)
   }
   const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<
     string | null
@@ -533,11 +533,8 @@ export default React.memo(function Library(): JSX.Element {
     storesFilters,
     platformsFilters,
     epic.library,
-    epic.username,
     gog.library,
-    gog.username,
     amazon.library,
-    amazon.user_id,
     sideloadedLibrary,
     platform,
     filterText,
@@ -682,7 +679,7 @@ export default React.memo(function Library(): JSX.Element {
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
         setShowCategories,
-        showAlphabetFilter: isAlphabetFilterVisible,
+        showAlphabetFilter: showAlphabetFilter,
         onToggleAlphabetFilter: handleToggleAlphabetFilter,
         gamesForAlphabetFilter,
         alphabetFilterLetter,
@@ -718,7 +715,7 @@ export default React.memo(function Library(): JSX.Element {
 
         <LibraryHeader list={libraryToShow} />
 
-        {isAlphabetFilterVisible && <AlphabetFilter />}
+        {showAlphabetFilter && <AlphabetFilter />}
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 

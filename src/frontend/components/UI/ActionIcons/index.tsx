@@ -96,22 +96,20 @@ export default React.memo(function ActionIcons({
             data-tour="library-sort-installed"
           />
         </button>
-        {showAlphabetFilter !== undefined && (
-          <button
-            className="FormControl__button"
-            title={
-              showAlphabetFilter
-                ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
-                : t('library.showAlphabetFilter', 'Show Alphabet Filter')
-            }
-            onClick={onToggleAlphabetFilter}
-          >
-            <FontAwesomeIcon
-              className="FormControl__segmentedFaIcon"
-              icon={showAlphabetFilter ? faFilterCircleXmark : faFilter}
-            />
-          </button>
-        )}
+        <button
+          className="FormControl__button"
+          title={
+            showAlphabetFilter
+              ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
+              : t('library.showAlphabetFilter', 'Show Alphabet Filter')
+          }
+          onClick={onToggleAlphabetFilter}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={showAlphabetFilter ? faFilterCircleXmark : faFilter}
+          />
+        </button>
         <button
           className={classNames('FormControl__button', {
             active: refreshing

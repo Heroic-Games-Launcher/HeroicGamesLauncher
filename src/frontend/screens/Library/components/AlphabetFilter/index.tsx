@@ -8,8 +8,7 @@ const AlphabetFilter: React.FC = () => {
   const {
     alphabetFilterLetter: currentFilter,
     setAlphabetFilterLetter: onFilterChange,
-    gamesForAlphabetFilter: allGames,
-    handleSearch
+    gamesForAlphabetFilter: allGames
   } = useContext(LibraryContext)
 
   const availableChars = useMemo(() => {
@@ -45,7 +44,6 @@ const AlphabetFilter: React.FC = () => {
   const handleClick = (value: string) => {
     if (value === currentFilter) {
       onFilterChange(null)
-      handleSearch('')
     } else if (availableChars.has(value)) {
       onFilterChange(value)
     }
