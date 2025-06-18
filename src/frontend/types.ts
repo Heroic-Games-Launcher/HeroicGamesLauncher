@@ -241,8 +241,8 @@ export interface LibraryContextType {
   setShowUpdatesOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
-  showAlphabetFilter?: boolean
-  onToggleAlphabetFilter?: () => void
+  showAlphabetFilter: boolean
+  onToggleAlphabetFilter: () => void
   alphabetFilterLetter: string | null
   setAlphabetFilterLetter: (letter: string | null) => void
   gamesForAlphabetFilter: GameInfo[]
