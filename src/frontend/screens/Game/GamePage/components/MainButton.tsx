@@ -74,21 +74,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     )
   }
 
-  function showAltPlayAction() {
-    if (
-      is.syncing ||
-      is.installingRedist ||
-      is.installingWinetricksPackages ||
-      is.launching ||
-      is.playing
-    ) {
-      return false
-    }
-
-    return true
-  }
-
-  function getAltPlayLabel() {
+  function altPlayAction() {
     if (
       is.syncing ||
       is.installingRedist ||
@@ -99,20 +85,20 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
       return <></>
     }
 
-    if (verboseLogs) {
-      return (
-        <span className="buttonWithIcon">
-          <PlayArrow data-icon="play" />
-          {t('label.playing.start')}
-        </span>
-      )
-    }
+    const label = verboseLogs
+      ? t('label.playing.start')
+      : t('label.playing.start_with_logs', 'Play Now (with logs)')
 
     return (
-      <span className="buttonWithIcon">
-        <PlayArrow data-icon="play" />
-        {t('label.playing.start_with_logs', 'Play Now (with logs)')}
-      </span>
+      <button className="button altPlay is-success">
+        <ArrowBackIosNew />
+        <a className="button" onClick={handleAltLaunch}>
+          <span className="buttonWithIcon">
+            <PlayArrow data-icon="play" />
+            {label}
+          </span>
+        </a>
+      </button>
     )
   }
 
@@ -175,6 +161,18 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
       {is_installed && !is.queued && (
         <>
           <button
+            disabled={
+              is.reparing ||
+              is.moving ||
+              is.updating ||
+              is.uninstalling ||
+              is.syncing ||
+              is.launching ||
+              is.installingWinetricksPackages ||
+              is.installingRedist
+            }
+            autoFocus={true}
+            onClick={async () => handlePlay(gameInfo)}
             className={classNames(
               'button',
               {
@@ -193,29 +191,10 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
               },
               'mainBtn'
             )}
-            disabled={
-              is.reparing ||
-              is.moving ||
-              is.updating ||
-              is.uninstalling ||
-              is.syncing ||
-              is.launching ||
-              is.installingWinetricksPackages ||
-              is.installingRedist
-            }
-            autoFocus={true}
-            onClick={async () => handlePlay(gameInfo)}
           >
             {getPlayLabel()}
           </button>
-          {showAltPlayAction() && (
-            <button className="button altPlay is-success">
-              <ArrowBackIosNew />
-              <a className="button" onClick={handleAltLaunch}>
-                {getAltPlayLabel()}
-              </a>
-            </button>
-          )}
+          {altPlayAction()}
         </>
       )}
       {(!is_installed || is.queued) && (
