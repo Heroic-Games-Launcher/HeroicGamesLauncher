@@ -263,7 +263,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   let hasUpdate = false
 
-  // create setting context functions
   const settingsContextValues = useSettingsContext({
     appName,
     gameInfo,
