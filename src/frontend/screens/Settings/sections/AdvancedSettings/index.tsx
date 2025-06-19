@@ -16,6 +16,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameStatus } from 'common/types'
 import {
   AllowInstallationBrokenAnticheat,
+  AllowNonGEProton,
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
@@ -26,7 +27,6 @@ import {
   ExperimentalFeatures,
   ResetHeroic
 } from '../../components'
-import AllowProtonExperimental from '../../components/AllowProtonExperimental'
 
 export default function AdvancedSetting() {
   const { config } = useContext(SettingsContext)
@@ -180,7 +180,7 @@ export default function AdvancedSetting() {
 
       <AllowInstallationBrokenAnticheat />
 
-      <AllowProtonExperimental />
+      <AllowNonGEProton />
 
       <hr />
 
