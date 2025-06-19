@@ -671,6 +671,7 @@ async function prepareWineLaunch(
   if (prefixOrBottleFolder) {
     const appsNamesPath = join(prefixOrBottleFolder, 'installed_games')
     if (!existsSync(appsNamesPath)) {
+      mkdirSync(prefixOrBottleFolder, { recursive: true })
       writeFileSync(appsNamesPath, JSON.stringify([appName]), 'utf-8')
       hasUpdated = true
     } else {
