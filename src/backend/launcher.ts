@@ -583,7 +583,7 @@ async function prepareLaunch(
 }
 
 // Use Crossover's verbose output to extract the path of the game's configured bottle
-async function getCrossoverBottleFolder(gameSettings: GameSettings) {
+export async function getCrossoverBottleFolder(gameSettings: GameSettings) {
   const command = runWineCommand({
     commandParts: [
       '--bottle',
