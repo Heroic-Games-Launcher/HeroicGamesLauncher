@@ -13,7 +13,7 @@ interface GlobalStateV2 {
   showUploadedLogFileList: boolean
 }
 
-const useGlobalState = create<GlobalStateV2>()((set) => ({
+const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
   uploadLogFileProps: false,
   setUploadLogFileProps: (uploadLogFileProps) => {
     set({ uploadLogFileProps })
@@ -21,6 +21,19 @@ const useGlobalState = create<GlobalStateV2>()((set) => ({
 
   showUploadedLogFileList: false
 }))
+
+/**
+ * Wrapper around {@link useGlobalStateRaw} to only re-render if
+ * the return value of `selector` changes
+ * @param selector A function picking state out of {@link GlobalStateV2}. If the
+ *                 return value of this function changes, the component is
+ *                 re-rendered
+ */
+const useGlobalState = <T>(
+  selector: Parameters<typeof useShallow<GlobalStateV2, T>>[0]
+) => useGlobalStateRaw(useShallow(selector))
+
+useGlobalState.setState = useGlobalStateRaw.setState
 
 function useShallowGlobalState<Keys extends (keyof GlobalStateV2)[]>(
   ...keys: Keys
