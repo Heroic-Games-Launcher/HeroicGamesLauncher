@@ -9,10 +9,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
-import {
-  useGlobalState,
-  useShallowGlobalState
-} from 'frontend/state/GlobalStateV2'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 import Upload from '@mui/icons-material/Upload'
 import Cloud from '@mui/icons-material/Cloud'
 import classNames from 'classnames'
@@ -71,9 +68,7 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
 export default function LogSettings() {
   const { t } = useTranslation()
   const { appName } = useContext(SettingsContext)
-  const { setUploadLogFileProps } = useShallowGlobalState(
-    'setUploadLogFileProps'
-  )
+  const { setUploadLogFileProps } = useGlobalState.keys('setUploadLogFileProps')
   const isInSettingsMenu = appName === 'default'
 
   const [logFileContent, setLogFileContent] = useState<string>('')

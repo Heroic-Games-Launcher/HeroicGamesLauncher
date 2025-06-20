@@ -33,8 +33,6 @@ const useGlobalState = <T>(
   selector: Parameters<typeof useShallow<GlobalStateV2, T>>[0]
 ) => useGlobalStateRaw(useShallow(selector))
 
-useGlobalState.setState = useGlobalStateRaw.setState
-
 /**
  * Shorthand to select properties from {@link GlobalStateV2}
  * @example
@@ -57,4 +55,8 @@ const useGlobalStateKeys = <Keys extends (keyof GlobalStateV2)[]>(
       }
   )
 
-export { useGlobalState, useGlobalStateKeys as useShallowGlobalState }
+export default {
+  ...useGlobalState,
+  keys: useGlobalStateKeys,
+  setState: useGlobalStateRaw.setState
+}
