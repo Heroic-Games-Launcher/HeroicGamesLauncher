@@ -35,17 +35,26 @@ const useGlobalState = <T>(
 
 useGlobalState.setState = useGlobalStateRaw.setState
 
-function useShallowGlobalState<Keys extends (keyof GlobalStateV2)[]>(
+/**
+ * Shorthand to select properties from {@link GlobalStateV2}
+ * @example
+ * ```ts
+ * const { foo, bar } = useGlobalStateKeys('foo', 'bar')
+ * ```
+ * is equivalent to
+ * ```ts
+ * const { foo, bar } = useGlobalState(({ foo, bar }) => ({ foo, bar }))
+ * ```
+ * @param keys The keys to return. Properties of {@link GlobalStateV2}
+ */
+const useGlobalStateKeys = <Keys extends (keyof GlobalStateV2)[]>(
   ...keys: Keys
-): Pick<GlobalStateV2, Keys[number]> {
-  return useGlobalState(
-    useShallow(
-      (state) =>
-        Object.fromEntries(keys.map((key) => [key, state[key]])) as {
-          [key in Keys[number]]: GlobalStateV2[key]
-        }
-    )
+): Pick<GlobalStateV2, Keys[number]> =>
+  useGlobalState(
+    (state) =>
+      Object.fromEntries(keys.map((key) => [key, state[key]])) as {
+        [key in Keys[number]]: GlobalStateV2[key]
+      }
   )
-}
 
-export { useGlobalState, useShallowGlobalState }
+export { useGlobalState, useGlobalStateKeys as useShallowGlobalState }
