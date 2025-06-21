@@ -214,7 +214,7 @@ window.imageData = async (
     )
 
     img.addEventListener('error', (error) => {
-      reject(error)
+      reject(new Error(error.message, { cause: error }))
     })
 
     // set src to trigger the callback
