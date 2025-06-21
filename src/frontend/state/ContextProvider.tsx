@@ -88,8 +88,6 @@ const initialContext: ContextType = {
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
   setLastChangelogShown: () => null,
-  isSettingsModalOpen: { value: false, type: 'settings' },
-  setIsSettingsModalOpen: () => null,
   help: {
     items: {},
     addHelpItem: () => null,
