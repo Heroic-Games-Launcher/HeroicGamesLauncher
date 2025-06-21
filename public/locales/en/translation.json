@@ -417,6 +417,7 @@
         "releaseDate": "Release Date"
     },
     "library": {
+        "refresh": "Refresh",
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
         "sortAscending": "Sort Ascending",
