@@ -39,6 +39,7 @@ import {
   isWindows
 } from 'backend/constants/environment'
 import { gamesConfigPath } from 'backend/constants/paths'
+import { getCrossoverBottleFolder } from 'backend/launcher'
 
 export enum LogPrefix {
   General = '',
@@ -661,6 +662,7 @@ class GameLogWriter extends LogWriter {
 
   async initLog() {
     const { app_name, runner } = this.gameInfo
+    const gameSettings = await gameManagerMap[runner].getSettings(app_name)
 
     const notNative =
       ['windows', 'Windows', 'Win32'].includes(
@@ -670,18 +672,39 @@ class GameLogWriter extends LogWriter {
     // init log file and then append message if any
     try {
       // log game title and install directory
-
-      const installPath =
-        this.gameInfo.runner === 'sideload'
-          ? this.gameInfo.folder_name
-          : this.gameInfo.install.install_path
-
       await writeFile(
         this.filePath,
         `Launching "${this.gameInfo.title}" (${runner})\n` +
-          `Native? ${notNative ? 'No' : 'Yes'}\n` +
-          `Installed in: ${installPath}\n\n`
+          `Native? ${notNative ? 'No' : 'Yes'}\n`
       )
+
+      const isThirdPartyManagedApp =
+        this.gameInfo && !!this.gameInfo.thirdPartyManagedApp
+
+      if (isThirdPartyManagedApp) {
+        if (!isWindows) {
+          let prefixOrBottleFolder: string | null = gameSettings.winePrefix
+          if (isMac && gameSettings.wineVersion.type === 'crossover') {
+            prefixOrBottleFolder = await getCrossoverBottleFolder(gameSettings)
+          }
+          await appendFile(
+            this.filePath,
+            `Installed in: ${prefixOrBottleFolder}\n`
+          )
+        }
+
+        await appendFile(
+          this.filePath,
+          `Managed by a third-party app: ${this.gameInfo.thirdPartyManagedApp}\n\n`
+        )
+      } else {
+        const installPath =
+          this.gameInfo.runner === 'sideload'
+            ? this.gameInfo.folder_name
+            : this.gameInfo.install.install_path
+
+        await appendFile(this.filePath, `Installed in: ${installPath}\n\n`)
+      }
 
       let info: SystemInformation | null = null
       try {
@@ -698,7 +721,6 @@ class GameLogWriter extends LogWriter {
       }
 
       // log game settings
-      const gameSettings = await gameManagerMap[runner].getSettings(app_name)
       const gameSettingsString = JSON.stringify(
         this.filterGameSettingsForLog(structuredClone(gameSettings), notNative),
         null,
