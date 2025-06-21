@@ -418,6 +418,7 @@
     },
     "library": {
         "hideAlphabetFilter": "Hide Alphabet Filter",
+        "refresh": "Refresh",
         "showAlphabetFilter": "Show Alphabet Filter",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
