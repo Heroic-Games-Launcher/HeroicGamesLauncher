@@ -4,7 +4,9 @@ import {
   faSyncAlt,
   faArrowDownAZ,
   faArrowDownZA,
-  faHardDrive as hardDriveSolid
+  faHardDrive as hardDriveSolid,
+  faFilter,
+  faFilterCircleXmark
 } from '@fortawesome/free-solid-svg-icons'
 import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
@@ -35,7 +37,9 @@ export default React.memo(function ActionIcons({
     sortDescending,
     setSortDescending,
     sortInstalled,
-    setSortInstalled
+    setSortInstalled,
+    showAlphabetFilter,
+    onToggleAlphabetFilter
   } = useContext(LibraryContext)
 
   return (
@@ -90,6 +94,20 @@ export default React.memo(function ActionIcons({
             className="FormControl__segmentedFaIcon"
             icon={sortInstalled ? hardDriveSolid : hardDriveLight}
             data-tour="library-sort-installed"
+          />
+        </button>
+        <button
+          className="FormControl__button"
+          title={
+            showAlphabetFilter
+              ? t('library.hideAlphabetFilter', 'Hide Alphabet Filter')
+              : t('library.showAlphabetFilter', 'Show Alphabet Filter')
+          }
+          onClick={onToggleAlphabetFilter}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={showAlphabetFilter ? faFilterCircleXmark : faFilter}
           />
         </button>
         <button
