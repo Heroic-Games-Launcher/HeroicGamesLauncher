@@ -114,7 +114,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves, savesPath, gogSaves = [], doNotUseWine } = gameSettings
 
   const { title } = game
 
@@ -173,7 +173,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const isNative = gameManagerMap[runner].isNative(appName)
 
   // check if isNative, if not, check if wine is valid
-  if (!isNative) {
+  if (!isNative && !doNotUseWine) {
     const isWineOkToLaunch = await checkWineBeforeLaunch(game, gameSettings)
 
     if (!isWineOkToLaunch) {
@@ -515,6 +515,7 @@ async function prepareLaunch(
   }
 
   if (
+    !gameSettings.doNotUseWine &&
     (await isUmuSupported(gameSettings, false)) &&
     isOnline() &&
     !(await isInstalled('umu')) &&
