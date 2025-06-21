@@ -1,6 +1,6 @@
 import { InstallPlatform } from 'common/types'
 import { SelectField } from 'frontend/components/UI'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem } from '@mui/material'
 

@@ -1,6 +1,6 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
 import { Box, LinearProgress, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
