@@ -815,7 +815,7 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
     return release as Release
   } catch (error) {
     logError(
-      ['Error when checking for current Heroic changelog'],
+      ['Error when checking for current Heroic changelog:', error],
       LogPrefix.Backend
     )
     return null
@@ -889,13 +889,7 @@ export const spawnAsync = async (
   }
 
   return new Promise((resolve, reject) => {
-    child.on('error', (error) =>
-      reject({
-        code: 1,
-        stdout: stdout.join(''),
-        stderr: stderr.join('').concat(error.message)
-      })
-    )
+    child.on('error', reject)
     child.on('close', (code) => {
       resolve({
         code,

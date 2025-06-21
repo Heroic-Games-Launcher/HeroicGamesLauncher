@@ -64,7 +64,10 @@ const removeInstalledGame = async (appName: string) => {
     const buffer = await readFile(thirdPartyInstalled, 'utf-8')
     installedAppNames.push(...(JSON.parse(buffer) as [string, string][]))
   } catch (err) {
-    logWarning('Failed to read third-party-installed.json', LogPrefix.Legendary)
+    logWarning(
+      ['Failed to read third-party-installed.json:', err],
+      LogPrefix.Legendary
+    )
   }
   const index = installedAppNames.findIndex((a) => a[0] === appName)
   installedAppNames.splice(index, 1)
@@ -76,7 +79,10 @@ const removeInstalledGame = async (appName: string) => {
       'utf-8'
     )
   } catch (e) {
-    logError('Failed to write third-party-installed.json', LogPrefix.Legendary)
+    logError(
+      ['Failed to write third-party-installed.json:', e],
+      LogPrefix.Legendary
+    )
   }
 }
 

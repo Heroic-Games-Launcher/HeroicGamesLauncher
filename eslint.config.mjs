@@ -9,7 +9,7 @@ import { importX } from 'eslint-plugin-import-x'
 
 export default tseslint.config(
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.recommendedTypeChecked,
   importX.flatConfigs.recommended,
   importX.flatConfigs.typescript,
   react.configs.flat.recommended,
