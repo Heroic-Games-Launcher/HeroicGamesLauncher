@@ -1,12 +1,11 @@
 import { axiosClient } from 'backend/utils'
 import { app } from 'electron'
-import { logError } from '../logger/logger'
+import { logError } from '../logger'
 import * as utils from '../utils'
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 
 jest.mock('electron')
-jest.mock('../logger/logger')
-jest.mock('../logger/logfile')
+jest.mock('../logger')
 jest.mock('../dialog/dialog')
 
 describe('backend/utils.ts', () => {

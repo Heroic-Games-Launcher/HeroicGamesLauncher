@@ -9,6 +9,7 @@ import {
   LaunchOption
 } from 'common/types'
 import { GOGCloudSavesLocation } from './gog'
+import type LogWriter from 'backend/logger/log_writer'
 
 export interface InstallResult {
   status: 'done' | 'error' | 'abort'
@@ -42,6 +43,7 @@ export interface GameManager {
   removeShortcuts: (appName: string) => Promise<void>
   launch: (
     appName: string,
+    logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args?: string[],
     skipVersionCheck?: boolean

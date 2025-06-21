@@ -47,6 +47,7 @@ import type {
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
+import type { GetLogFileArgs } from 'backend/logger/paths'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -84,7 +85,7 @@ interface SyncIPCFunctions {
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
   addNewApp: (args: GameInfo) => void
-  showLogFileInFolder: (appNameOrRunner: string) => void
+  showLogFileInFolder: (args: GetLogFileArgs) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
   removeFromDMQueue: (appName: string) => void
@@ -225,7 +226,7 @@ interface AsyncIPCFunctions {
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (appNameOrRunner: string) => string
+  getLogContent: (args: GetLogFileArgs) => string
   installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<void>
@@ -233,7 +234,7 @@ interface AsyncIPCFunctions {
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
-  getAnticheatInfo: (appNamespace: string) => AntiCheatInfo | null
+  getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
   getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
   getEosOverlayStatus: () => {
     isInstalled: boolean
@@ -301,7 +302,7 @@ interface AsyncIPCFunctions {
 
   uploadLogFile: (
     name: string,
-    appNameOrRunner: string
+    args: GetLogFileArgs
   ) => Promise<false | [string, UploadedLogData]>
   deleteUploadedLogFile: (url: string) => Promise<boolean>
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>

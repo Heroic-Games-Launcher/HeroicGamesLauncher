@@ -3,7 +3,7 @@ import { autoUpdater } from 'electron-updater'
 import { t } from 'i18next'
 
 import { showDialogBoxModalAuto } from './dialog/dialog'
-import { logError, LogPrefix } from './logger/logger'
+import { logError, LogPrefix } from './logger'
 import { windowIcon } from './constants/paths'
 import { isLinux } from './constants/environment'
 

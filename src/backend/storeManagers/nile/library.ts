@@ -4,9 +4,8 @@ import {
   logDebug,
   logError,
   logInfo,
-  logWarning,
-  nileLogFile
-} from 'backend/logger/logger'
+  logWarning
+} from 'backend/logger'
 import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
 import {
   FuelSchema,
@@ -482,10 +481,7 @@ export async function runRunnerCommand(
   return callRunner(
     commandParts,
     { name: 'nile', logPrefix: LogPrefix.Nile, bin, dir },
-    {
-      ...options,
-      verboseLogFile: nileLogFile
-    }
+    options
   )
 }
 

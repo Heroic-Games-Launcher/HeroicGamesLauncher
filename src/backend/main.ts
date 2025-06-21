@@ -62,13 +62,13 @@ import { Path } from './schemas'
 import { uninstallGameCallback } from './utils/uninstaller'
 import { handleProtocol } from './protocol'
 import {
-  initLogger,
+  init as initLogger,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from './logger/logger'
+} from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
@@ -844,10 +844,6 @@ addHandler('refreshLibrary', async (e, library?) => {
     await Promise.allSettled(allRefreshPromises)
   }
 })
-
-addListener('logError', (e, err) => logError(err, LogPrefix.Frontend))
-
-addListener('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 // get pid/tid on launch and inject
 addHandler('launch', (event, args): StatusPromise => {

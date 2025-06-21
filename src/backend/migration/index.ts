@@ -1,5 +1,5 @@
 import { TypeCheckedStoreBackend } from '../electron_store'
-import { logError, logInfo } from '../logger/logger'
+import { logError, logInfo } from '../logger'
 
 import { LegendaryGlobalConfigFolderMigration } from './migrations/legendary'
 
