@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SyncType } from 'common/types'
 import { GOGCloudSavesLocation } from 'common/types/gog'
