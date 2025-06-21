@@ -14,6 +14,7 @@ export default tseslint.config(
   importX.flatConfigs.typescript,
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
+  reactHooks.configs['recommended-latest'],
   prettier,
   {
     files: ['**/*.ts', '**/*.tsx'],
@@ -57,9 +58,6 @@ export default tseslint.config(
       ]
     },
 
-    plugins: {
-      'react-hooks': reactHooks
-    },
     languageOptions: {
       parserOptions: {
         project: './tsconfig.eslint.json',
