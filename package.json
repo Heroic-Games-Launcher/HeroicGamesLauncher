@@ -114,7 +114,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.6.1",
-    "@types/eslint__js": "^8.42.3",
     "@types/fs-extra": "^11.0.4",
     "@types/graceful-fs": "^4.1.9",
     "@types/ini": "^1.3.34",
