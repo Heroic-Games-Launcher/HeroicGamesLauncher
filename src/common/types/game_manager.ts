@@ -9,6 +9,8 @@ import {
   LaunchOption
 } from 'common/types'
 import { GOGCloudSavesLocation } from './gog'
+import type { MinimalGameInfo } from 'backend/libraries/schemas'
+import type Library from 'backend/libraries/library'
 
 export interface InstallResult {
   status: 'done' | 'error' | 'abort'
@@ -21,7 +23,7 @@ export type RemoveArgs = {
   deleteFiles?: boolean
 }
 
-export interface GameManager {
+interface BaseGameManager {
   getSettings: (appName: string) => Promise<GameSettings>
   getGameInfo: (appName: string) => GameInfo
   getExtraInfo: (appName: string) => Promise<ExtraInfo>
@@ -72,6 +74,24 @@ export interface GameManager {
   stop: (appName: string, stopWine?: boolean) => Promise<void>
   isGameAvailable: (appName: string) => Promise<boolean>
 }
+
+type StorageLibrarySupport =
+  | {
+      supportsStorageLibraries: false
+    }
+  | {
+      supportsStorageLibraries: true
+      // FIXME: Proper types here, requires making LibraryManager generic
+      importFromStorageLibrary: (
+        library: Library,
+        gameInfo: MinimalGameInfo
+      ) => Promise<true | string>
+      removeFromStorageLibrary: (
+        gameInfo: MinimalGameInfo
+      ) => Promise<true | string>
+    }
+
+export type GameManager = BaseGameManager & StorageLibrarySupport
 
 export interface LibraryManager {
   refresh: () => Promise<ExecResult | null>

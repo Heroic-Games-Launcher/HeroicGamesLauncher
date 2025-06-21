@@ -142,6 +142,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import LibraryManager from './libraries'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -317,7 +318,23 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    const settings = GlobalConfig.get().getSettings()
+    await i18next.use(Backend).init({
+      backend: {
+        addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
+        allowMultiLoading: false,
+        loadPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}.json')
+      },
+      debug: false,
+      returnEmptyString: false,
+      returnNull: false,
+      fallbackLng: 'en',
+      lng: settings.language,
+      supportedLngs: supportedLanguages
+    })
+
     await MigrationSystem.get().applyMigrations()
+    await LibraryManager.get().init()
 
     initLogger()
     initOnlineMonitor()
@@ -356,8 +373,6 @@ if (!gotTheLock) {
       }
     })
 
-    const settings = GlobalConfig.get().getSettings()
-
     if (settings?.disableSmoothScrolling) {
       app.commandLine.appendSwitch('disable-smooth-scrolling')
     }
@@ -372,19 +387,6 @@ if (!gotTheLock) {
       })
     }
     runOnceWhenOnline(gogPresence.setPresence)
-    await i18next.use(Backend).init({
-      backend: {
-        addPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}'),
-        allowMultiLoading: false,
-        loadPath: path.join(publicDir, 'locales', '{{lng}}', '{{ns}}.json')
-      },
-      debug: false,
-      returnEmptyString: false,
-      returnNull: false,
-      fallbackLng: 'en',
-      lng: settings.language,
-      supportedLngs: supportedLanguages
-    })
 
     const mainWindow = await initializeWindow()
 
@@ -1341,3 +1343,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './libraries/ipc_handler'

@@ -596,3 +596,5 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
     )
   })
 }
+
+export const supportsStorageLibraries = false

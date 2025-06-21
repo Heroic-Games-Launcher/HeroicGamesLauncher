@@ -18,3 +18,12 @@ export const changeGameVersionPinnedStatus = makeListenerCaller('changeGameVersi
 export const getGameOverride = makeHandlerInvoker('getGameOverride')
 export const getGameSdl = makeHandlerInvoker('getGameSdl')
 export const installSteamWindows = makeHandlerInvoker('installSteamWindows')
+export const libraries = {
+  getAll: makeHandlerInvoker('libraries__getAll'),
+  add: makeHandlerInvoker('libraries__add'),
+  rename: makeHandlerInvoker('libraries__rename'),
+  delete: makeHandlerInvoker('libraries__delete'),
+  readInfoForPath: makeHandlerInvoker('libraries__readInfoForPath'),
+  onLibraryPush: frontendListenerSlot('pushLibrary'),
+  onLibraryDelete: frontendListenerSlot('removeLibrary')
+}

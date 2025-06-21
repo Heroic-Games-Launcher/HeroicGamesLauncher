@@ -26,6 +26,7 @@ interface DialogProps {
 const StyledPaper = styled(Paper)(() => ({
   backgroundColor: 'var(--modal-background)',
   color: 'var(--text-default)',
+  minWidth: '50vw',
   maxWidth: '100%',
   '&:has(.settingsDialogContent)': {
     height: '80%'
