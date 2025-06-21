@@ -8,7 +8,9 @@
         "zoom": "Zoom",
         "actions_font_family_default": "Actions Font Family (Default:",
         "content_font_family_default": "Content Font Family (Default:",
-        "titles_always_visible": "Mostrar sempre os títulos na biblioteca"
+        "titles_always_visible": "Mostrar sempre os títulos na biblioteca",
+        "disable_dialog_backdrop_close": "Dehabilita que as caixas de diálogo se pechen ao premer fora delas",
+        "disable_smooth_scrolling": "Desactiva o suavizado de scroll (precisa reiniciar)"
     },
     "add_game": "Engadir xogo",
     "All": "Todos",
@@ -92,7 +94,8 @@
             },
             "steam": {
                 "title": "Erro de Steam",
-                "message": "A installación de Steam fallou! Por favor lea atentamente as instruccións e inténteo de novo!"
+                "message": "A installación de Steam fallou! Por favor lea atentamente as instruccións e inténteo de novo!",
+                "error": "Non se atopou o executábel de Steam. Probablemente a instalación foi cancelada polo usuario ou fallou no lado de Steam."
             }
         },
         "info": {
@@ -118,7 +121,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards.",
+                "message": "Seguro que queres reiniciar Heroic? Isto eliminará todos os axustes e a caché pero non borrará os teus xogos instalados ou as túas credenciais de Epic. As versións portables (AppImage, WinPortable, ...) de Heroic deberán ser reiniciadas despois manualmente.",
                 "title": "Restabelecer Heroic"
             }
         },
@@ -170,7 +173,8 @@
             },
             "snap": {
                 "checkbox": "Non volver a mostrar esta mensaxe",
-                "title": "Heroic está a funcionar coma un Snap"
+                "title": "Heroic está a funcionar coma un Snap",
+                "message": "Algunhas funcións aínda non se encontran dispoñíbeis na versión de Snap da aplicación e seguimos a traballar para reparalas.{{newLine}}As limitacións actuais son:{{newLine}}Heroic non poderá atopar Proton dende Steam ou Wine dende Lutris.{{newLine}}{{newLine}}Gamescope, GameMode e MangoHud tampouco han funcionar, xa que Heroic non pode acceder a eles.{{newLine}}{{newLine}}Para acceder a esta funcionalidade instala Heroic coma un Flatpak, DEB ou dende a AppImage."
             },
             "rosetta": {
                 "title": "Non se puido atopar Rosetta",
@@ -181,7 +185,12 @@
         "yes": "Sí",
         "dontShowAgain": "Non volvas mostrar",
         "choose-nile-binary": "Seleccione o binario do Nilo",
-        "update": "Update"
+        "update": "Update",
+        "changelog": "Rexistro de cambios",
+        "launchAnyway": "Arrincar o Xogo De Todos Modos",
+        "postpone": "Adiar",
+        "shaderPreCachingDisabledMessage": "O caché de shaders de Steam está desactivado. Por favor actívao nas opcións de Steam no Modo de Escritorio para garantir que o xogo funcione correctamente con UMU.",
+        "shaderPreCachingDisabledTitle": "Caché de Shaders Desactivado"
     },
     "button": {
         "cancel": "Cancel",
@@ -518,7 +527,7 @@
         }
     },
     "Recent": "Xogado recentemente",
-    "search": "Buscalos xogos",
+    "search": "Buscar xogos",
     "setting": {
         "adddesktopshortcuts": "Engadir atallos de escritorio automaticamente",
         "addgamestostartmenu": "Engadir xogos ao menú de inicio automaticamente",
@@ -692,6 +701,9 @@
         },
         "systemInformation": {
             "copyToClipboard": "Copied to Clipboard!"
+        },
+        "gamescope": {
+            "searchMsg": "Buscando o executable de gamescope."
         }
     },
     "Settings": "Preferencias",
@@ -789,13 +801,18 @@
         "delete-question": "Ao continuar eliminarase permanentemente esta categoría e se desasignará de todos os xogos. Desexa continuar?"
     },
     "tour": {
-        "back": "Back"
+        "back": "Back",
+        "library": {
+            "search": "Usa a barra de buscas para atopar os teus xogos."
+        }
     },
     "window": {
         "close": "Pechar"
     },
     "adtraction-locked": {
-        "dont-show-again": "Non volver a amosar esta advertencia"
+        "dont-show-again": "Non volver a amosar esta advertencia",
+        "description": "Semella que o dominio track.adtraction.com non se puido cargar ou está bloqueado. Con adtraction calquera compra que fagas na tenda de GOG apoia a Heroic economicamente. Considera eliminar o bloqueo se queres contribuír.",
+        "title": "Adtraction está bloqueado"
     },
     "categories-manager": {
         "no-categories": "Aínda non tes ningunha categoría.",
