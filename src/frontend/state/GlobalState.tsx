@@ -23,7 +23,6 @@ import { getGameInfo, getLegendaryConfig, notify } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
-import { InstallModal } from 'frontend/screens/Library/components'
 
 import {
   configStore,
@@ -978,7 +977,6 @@ class GlobalState extends PureComponent<Props> {
 
   render() {
     const {
-      showInstallModal,
       language,
       epic,
       gog,
@@ -1074,18 +1072,6 @@ class GlobalState extends PureComponent<Props> {
         }}
       >
         {this.props.children}
-        {showInstallModal.show && (
-          <InstallModal
-            appName={showInstallModal.appName}
-            runner={showInstallModal.runner}
-            gameInfo={showInstallModal.gameInfo}
-            backdropClick={() =>
-              this.setState({
-                showInstallModal: { ...showInstallModal, show: false }
-              })
-            }
-          />
-        )}
       </ContextProvider.Provider>
     )
   }
