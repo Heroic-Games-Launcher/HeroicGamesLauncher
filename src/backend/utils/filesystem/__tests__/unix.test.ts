@@ -33,7 +33,7 @@ describe('getDiskInfo_unix', () => {
       .spyOn(fs.promises, 'access')
       .mockImplementation(async (path) => {
         if (path === '/foo/bar/baz') {
-          return Promise.reject()
+          return Promise.reject(new Error())
         }
         return Promise.resolve()
       })

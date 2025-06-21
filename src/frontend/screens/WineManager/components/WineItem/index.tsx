@@ -65,7 +65,7 @@ const WineItem = ({
   }
 
   function openInstallDir() {
-    installDir !== undefined ? window.api.showItemInFolder(installDir) : {}
+    if (installDir) window.api.showItemInFolder(installDir)
   }
 
   const renderStatus = () => {

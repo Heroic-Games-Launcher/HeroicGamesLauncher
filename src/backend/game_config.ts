@@ -57,7 +57,7 @@ abstract class GameConfig {
         version = JSON.parse(readFileSync(path, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${path}`,
+          [`Config file is corrupted, please check ${path}:`, error],
           LogPrefix.Backend
         )
         version = 'v0'

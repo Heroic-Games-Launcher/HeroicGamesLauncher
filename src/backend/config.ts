@@ -103,7 +103,7 @@ abstract class GlobalConfig {
         version = JSON.parse(readFileSync(configPath, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${configPath}`,
+          [`Config file is corrupted, please check ${configPath}:`, error],
           LogPrefix.Backend
         )
         version = 'v0'
