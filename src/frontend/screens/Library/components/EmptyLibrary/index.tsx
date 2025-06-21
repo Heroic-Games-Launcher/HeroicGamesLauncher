@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Trans, useTranslation } from 'react-i18next'
 import './index.css'

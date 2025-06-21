@@ -1,7 +1,7 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import {

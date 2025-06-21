@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { UpdateComponentBase } from 'frontend/components/UI/UpdateComponent'
 import { useTranslation } from 'react-i18next'
 

@@ -13,6 +13,7 @@ export default tseslint.config(
   importX.flatConfigs.recommended,
   importX.flatConfigs.typescript,
   react.configs.flat.recommended,
+  react.configs.flat['jsx-runtime'],
   prettier,
   {
     files: ['**/*.ts', '**/*.tsx'],
