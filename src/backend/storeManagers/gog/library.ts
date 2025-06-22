@@ -29,13 +29,12 @@ import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import {
-  gogdlLogFile,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from '../../logger/logger'
+} from 'backend/logger'
 import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
 import {
   libraryStore,
@@ -1339,10 +1338,7 @@ export async function runRunnerCommand(
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
-    {
-      ...options,
-      verboseLogFile: gogdlLogFile
-    }
+    options
   )
 }
 

@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'graceful-fs'
 
 import { UserInfo } from 'common/types'
 import { clearCache } from '../../utils'
-import { logError, LogPrefix } from '../../logger/logger'
+import { logError, LogPrefix } from 'backend/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
 import { runRunnerCommand as runLegendaryCommand } from './library'

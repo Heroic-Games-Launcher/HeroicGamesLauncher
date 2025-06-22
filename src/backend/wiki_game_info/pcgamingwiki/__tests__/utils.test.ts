@@ -1,9 +1,8 @@
-import { logError } from 'backend/logger/logger'
+import { logError } from 'backend/logger'
 import { getInfoFromPCGamingWiki } from '../utils'
 import { axiosClient } from 'backend/utils'
 
-jest.mock('backend/logger/logfile')
-jest.mock('backend/logger/logger')
+jest.mock('backend/logger')
 
 describe('getInfoFromPCGamingWiki', () => {
   test('fetches successfully via title', async () => {

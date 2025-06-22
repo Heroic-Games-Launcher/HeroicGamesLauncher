@@ -1,11 +1,13 @@
 import { create } from 'zustand'
 import { useShallow } from 'zustand/react/shallow'
 
+import type { GetLogFileArgs } from 'backend/logger/paths'
+
 interface GlobalStateV2 {
   uploadLogFileProps:
     | false
     | {
-        appNameOrRunner: string
+        logFileArgs: GetLogFileArgs
         name: string
       }
   setUploadLogFileProps: (props: GlobalStateV2['uploadLogFileProps']) => void

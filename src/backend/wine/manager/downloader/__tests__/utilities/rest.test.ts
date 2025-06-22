@@ -2,7 +2,7 @@ import { existsSync, writeFileSync } from 'graceful-fs'
 import { getFolderSize, unlinkFile } from '../../utilities'
 import { testSkipOnWindows } from 'backend/__tests__/skip'
 
-jest.mock('backend/logger/logger')
+jest.mock('backend/logger')
 
 const workDir = process.cwd()
 
