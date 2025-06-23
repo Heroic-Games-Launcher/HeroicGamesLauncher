@@ -32,7 +32,6 @@ import {
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 
-import { InstallModal } from 'frontend/screens/Library/components'
 import { install } from 'frontend/helpers/library'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
@@ -65,6 +64,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
 import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -76,7 +76,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const { gameInfo: locationGameInfo } = location.state
 
-  const [showModal, setShowModal] = useState({ game: '', show: false })
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
@@ -256,7 +255,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
 
   function handleModal() {
-    setShowModal({ game: appName, show: true })
+    openInstallGameModal({ appName, runner, gameInfo })
   }
 
   let hasUpdate = false
@@ -364,14 +363,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
           <CachedImage
             src={art_background || art_cover}
             className="backgroundImage"
-          />
-        )}
-        {gameInfo.runner !== 'sideload' && showModal.show && (
-          <InstallModal
-            appName={showModal.game}
-            runner={runner}
-            backdropClick={() => setShowModal({ game: '', show: false })}
-            gameInfo={gameInfo}
           />
         )}
         {showUninstallModal && (
