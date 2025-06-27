@@ -515,13 +515,15 @@ async function prepareLaunch(
   ])
 
   const acInfoPromise = gameAnticheatInfo(gameInfo.namespace)
+  logWriter.logInfo(
+    acInfoPromise.then((info) =>
+      info?.status ? `Anticheat Status: ${info.status}` : ''
+    )
+  )
   logWriter.logInfo([
-    'Anticheat Status:',
-    acInfoPromise.then((info) => info?.status ?? 'Unknown')
-  ])
-  logWriter.logInfo([
-    'Anticheats:',
-    acInfoPromise.then((info) => info?.anticheats ?? [])
+    acInfoPromise.then((info) =>
+      info?.anticheats ? `Anticheats: ${info.anticheats}\n` : ''
+    )
   ])
 
   logWriter.logWarning(
