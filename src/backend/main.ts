@@ -317,9 +317,10 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    initLogger()
+
     await MigrationSystem.get().applyMigrations()
 
-    initLogger()
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
