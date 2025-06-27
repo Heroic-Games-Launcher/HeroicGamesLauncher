@@ -541,7 +541,7 @@ async function prepareLaunch(
   ])
   const native = gameManagerMap[gameInfo.runner].isNative(gameInfo.app_name)
   await logWriter.logInfo(['Native?', native])
-  await logWriter.logInfo(['Installed in:', installPath])
+  await logWriter.logInfo(['Installed in:', installPath, '\n\n'])
 
   await logWriter.logInfo([
     'System Info:',
@@ -552,7 +552,8 @@ async function prepareLaunch(
 
   await logWriter.logInfo([
     'Game Settings:',
-    filterGameSettingsForLog(gameSettings, !native)
+    filterGameSettingsForLog(gameSettings, !native),
+    '\n\n'
   ])
 
   const acInfoPromise = gameAnticheatInfo(gameInfo.namespace)
@@ -563,7 +564,7 @@ async function prepareLaunch(
   )
   logWriter.logInfo([
     acInfoPromise.then((info) =>
-      info?.anticheats ? `Anticheats: ${info.anticheats}\n` : ''
+      info?.anticheats ? `Anticheats: ${info.anticheats}\n\n` : ''
     )
   ])
 
@@ -1695,9 +1696,10 @@ async function callRunner(
 
   if (options?.logWriters) {
     for (const writer of options.logWriters) {
-      await writer.writeString('\n')
-      await writer.logInfo([prefix, safeCommand].filter(Boolean).join(' '))
-      await writer.writeString('\n')
+      await writer.logInfo(
+        [prefix, safeCommand, '\n\n'].filter(Boolean).join(' ')
+      )
+      await writer.logInfo('Game Output:')
     }
 
     const files = options.logWriters
