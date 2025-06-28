@@ -62,15 +62,14 @@ import { Path } from './schemas'
 import { uninstallGameCallback } from './utils/uninstaller'
 import { handleProtocol } from './protocol'
 import {
-  initLogger,
+  init as initLogger,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from './logger/logger'
+} from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import { getFonts } from 'font-list'
 import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
@@ -108,7 +107,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
-import { configStore, fontsStore } from './constants/key_value_stores'
+import { configStore } from './constants/key_value_stores'
 import {
   customThemesWikiLink,
   discordLink,
@@ -181,6 +180,8 @@ async function initializeWindow(): Promise<BrowserWindow> {
         shouldDownloadWine = true
       }
     }
+
+    void DXVK.getLatest()
 
     Winetricks.download()
     if (shouldDownloadWine) {
@@ -639,7 +640,6 @@ addHandler('getMaxCpus', () => cpus().length)
 
 addHandler('getHeroicVersion', app.getVersion)
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
-addHandler('isFlatpak', () => isFlatpak)
 addHandler('getGameOverride', async () => getGameOverride())
 addHandler('getGameSdl', async (event, appName) => getGameSdl(appName))
 
@@ -845,10 +845,6 @@ addHandler('refreshLibrary', async (e, library?) => {
   }
 })
 
-addListener('logError', (e, err) => logError(err, LogPrefix.Frontend))
-
-addListener('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
-
 // get pid/tid on launch and inject
 addHandler('launch', (event, args): StatusPromise => {
   return launchEventCallback(args)
@@ -976,11 +972,14 @@ addHandler(
     sendGameStatusUpdate({
       appName,
       runner,
-      status: 'installing'
+      status: 'importing'
     })
 
     const abortMessage = () => {
-      notify({ title, body: i18next.t('notify.install.canceled') })
+      notify({
+        title,
+        body: i18next.t('notify.import.failed', 'Importing Failed')
+      })
       sendGameStatusUpdate({
         appName,
         runner,
@@ -1197,16 +1196,6 @@ addHandler('gamepadAction', async (event, args) => {
   if (inputEvents.length) {
     inputEvents.forEach((event) => mainWindow.webContents.sendInputEvent(event))
   }
-})
-
-addHandler('getFonts', async (event, reload) => {
-  let cachedFonts = fontsStore.get('fonts', [])
-  if (cachedFonts.length === 0 || reload) {
-    cachedFonts = await getFonts()
-    cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
-    fontsStore.set('fonts', cachedFonts)
-  }
-  return cachedFonts
 })
 
 addHandler('getShellPath', async (event, path) => getShellPath(path))

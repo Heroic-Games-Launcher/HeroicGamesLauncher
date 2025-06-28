@@ -314,7 +314,8 @@
             "wineManager": "Manajer Wine",
             "library": "Pustaka"
         },
-        "msync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung."
+        "msync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
+        "dxfpslimit": "Atur batas maksimal frame untuk gim DXVK"
     },
     "info": {
         "heroic": {

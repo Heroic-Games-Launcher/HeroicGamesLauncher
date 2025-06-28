@@ -1,4 +1,4 @@
-import { LogPrefix, logError } from './../../logger/logger'
+import { LogPrefix, logError } from 'backend/logger'
 
 const abortControllers = new Map<string, AbortController>()
 

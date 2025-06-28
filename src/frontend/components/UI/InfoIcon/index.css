@@ -1,0 +1,23 @@
+.InfoIcon {
+  position: relative;
+
+  & > span {
+    display: none;
+    right: 0px;
+  }
+}
+
+.isRTL .InfoIcon > span {
+  right: unset;
+  left: 0px;
+}
+
+body.controllerLayout label:focus + .InfoIcon > span {
+  display: block;
+  position: absolute;
+  width: min(400px, 70vw);
+  top: 100%;
+  z-index: 1;
+  padding: 0.3rem 0.5rem;
+  background: var(--background);
+}

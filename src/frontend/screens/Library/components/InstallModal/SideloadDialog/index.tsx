@@ -233,6 +233,7 @@ export default function SideloadDialog({
         ]
       // FIXME: Can these happen?
       case 'Android':
+      case 'iOS':
       case 'Browser':
         return []
     }

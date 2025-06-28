@@ -55,10 +55,6 @@
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
-            "diskspace": {
-                "message": "Not enough available disk space",
-                "title": "No Space"
-            },
             "dxvk": {
                 "message": "Error installing DXVK/VKD3D! Please check your connection!",
                 "title": "DXVK/VKD3D error"
@@ -103,6 +99,7 @@
                 "title-finished": "Update Finished"
             }
         },
+        "launchAnyway": "Launch Game Anyway",
         "no": "NO",
         "ok": "OK",
         "postpone": "Postpone",
@@ -129,6 +126,8 @@
             "exe": "Select EXE",
             "script": "Select script ..."
         },
+        "shaderPreCachingDisabledMessage": "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU.",
+        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Disabled",
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
             "message-mac": "Shortcuts were created on the Applications folder",
@@ -302,6 +301,7 @@
         "uncategorized": "Uncategorized"
     },
     "help": {
+        "advertiseAvxForRosetta": "Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "button": {
             "close": "Close Help",
@@ -413,7 +413,8 @@
         "releaseDate": "Release Date"
     },
     "library": {
-        "refresh": "Refresh",
+        "hideAlphabetFilter": "Hide Alphabet Filter",
+        "showAlphabetFilter": "Show Alphabet Filter",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -466,6 +467,9 @@
                 }
             },
             "reparing": "Finished Repairing"
+        },
+        "import": {
+            "failed": "Importing Failed"
         },
         "install": {
             "canceled": "Installation Canceled",
@@ -589,6 +593,7 @@
         "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
+        "advertiseAvxForRosetta": "Advertise AVX for Rosetta",
         "after-launch-script-path": "Select a script to run after the game exits",
         "allow_installation_broken_anticheat": {
             "confirmation": {
@@ -670,7 +675,8 @@
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
-            "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH."
+            "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
+            "missingMsgFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime 24.08 and restart Heroic."
         },
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",

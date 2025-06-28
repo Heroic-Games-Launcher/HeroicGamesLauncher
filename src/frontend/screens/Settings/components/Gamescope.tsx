@@ -8,9 +8,8 @@ import {
 } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { MenuItem } from '@mui/material'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const Gamescope = () => {
   const { t } = useTranslation()
@@ -79,10 +78,15 @@ const Gamescope = () => {
   if (!isInstalled) {
     return (
       <div style={{ color: 'red' }}>
-        {t(
-          'setting.gamescope.missingMsg',
-          'We could not found gamescope on the PATH. Install it or add it to the PATH.'
-        )}
+        {window.isFlatpak
+          ? t(
+              'setting.gamescope.missingMsgFlatpak',
+              "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime 24.08 and restart Heroic."
+            )
+          : t(
+              'setting.gamescope.missingMsg',
+              'We could not find gamescope on the PATH. Install it or add it to the PATH.'
+            )}
       </div>
     )
   }
@@ -139,10 +143,8 @@ const Gamescope = () => {
             label={'Upscale Method'}
             htmlId="upscaleMethod"
             afterSelect={
-              <FontAwesomeIcon
-                className="helpIcon"
-                icon={faCircleInfo}
-                title={t(
+              <InfoIcon
+                text={t(
                   'help.gamescope.upscaleMethod',
                   'The upscaling method gamescope should use.'
                 )}
@@ -171,10 +173,8 @@ const Gamescope = () => {
               maxLength={4}
               value={gamescope.gameWidth}
               afterInput={
-                <FontAwesomeIcon
-                  className="helpIcon"
-                  icon={faCircleInfo}
-                  title={t(
+                <InfoIcon
+                  text={t(
                     'help.gamescope.gameWidth',
                     'The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
                   )}
@@ -197,10 +197,8 @@ const Gamescope = () => {
               maxLength={4}
               value={gamescope.gameHeight}
               afterInput={
-                <FontAwesomeIcon
-                  className="helpIcon"
-                  icon={faCircleInfo}
-                  title={t(
+                <InfoIcon
+                  text={t(
                     'help.gamescope.gameHeight',
                     'The height resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.'
                   )}
@@ -225,10 +223,8 @@ const Gamescope = () => {
               maxLength={4}
               value={gamescope.upscaleWidth}
               afterInput={
-                <FontAwesomeIcon
-                  className="helpIcon"
-                  icon={faCircleInfo}
-                  title={t(
+                <InfoIcon
+                  text={t(
                     'help.gamescope.upscaleWidth',
                     'The width resolution used by gamescope. A 16:9 aspect ratio is assumed.'
                   )}
@@ -251,10 +247,8 @@ const Gamescope = () => {
               maxLength={4}
               value={gamescope.upscaleHeight}
               afterInput={
-                <FontAwesomeIcon
-                  className="helpIcon"
-                  icon={faCircleInfo}
-                  title={t(
+                <InfoIcon
+                  text={t(
                     'help.gamescope.upscaleHeight',
                     'The height resolution used by gamescope. A 16:9 aspect ratio is assumed.'
                   )}
@@ -314,10 +308,8 @@ const Gamescope = () => {
             maxLength={3}
             value={gamescope.fpsLimiter}
             afterInput={
-              <FontAwesomeIcon
-                className="helpIcon"
-                icon={faCircleInfo}
-                title={t(
+              <InfoIcon
+                text={t(
                   'help.gamescope.fpsLimiter',
                   'The frame rate limit gamescope should limit per second.'
                 )}
@@ -343,10 +335,8 @@ const Gamescope = () => {
             maxLength={3}
             value={gamescope.fpsLimiterNoFocus}
             afterInput={
-              <FontAwesomeIcon
-                className="helpIcon"
-                icon={faCircleInfo}
-                title={t(
+              <InfoIcon
+                text={t(
                   'help.gamescope.fpsLimiterNoFocus',
                   'The frame rate limit gamescope should limit per second if the game is not focused.'
                 )}
@@ -379,10 +369,8 @@ const Gamescope = () => {
             'Enable Force Grab Cursor'
           )}
         />
-        <FontAwesomeIcon
-          className="helpIcon"
-          icon={faCircleInfo}
-          title={t(
+        <InfoIcon
+          text={t(
             'help.gamescope.forceGrabCursor',
             'Always use relative mouse mode instead of flipping dependent on cursor visibility. (Useful for when applications keep losing focus)'
           )}
@@ -395,10 +383,8 @@ const Gamescope = () => {
         placeholder=""
         value={additionalOptions}
         afterInput={
-          <FontAwesomeIcon
-            className="helpIcon"
-            icon={faCircleInfo}
-            title={t(
+          <InfoIcon
+            text={t(
               'help.gamescope.additionalOptions',
               'Additional commandline flags to pass into gamescope.'
             )}

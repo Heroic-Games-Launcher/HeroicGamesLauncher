@@ -91,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Došlo k chybě! Zkuste se odhlásit a znovu přihlásit ke svému účtu Epic. {{newline}}  {{error}}"
+            },
+            "steam": {
+                "error": "Spustitelný soubor Steamu nebyl nalezen. Instalace byla pravděpodobně zrušena uživatelem nebo selhala na straně Steamu.",
+                "message": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu! {{paragraph}} {{error}}",
+                "title": "Chyba Steamu"
             }
         },
         "info": {
@@ -356,7 +361,9 @@
             "close": "Zavřít nápovědu"
         },
         "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon.",
-        "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“."
+        "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“.",
+        "dxfpslimit": "Nastavení limitu snímkové frekvence pro DXVK hry",
+        "advertiseAvxForRosetta": "Povoluje podporu instrukční sady AVX při spouštění her pro Windows prostřednictvím Rosetty na počítačích Apple Silicon Mac. To může být nutné u některých her, jako je Death Stranding, které podporu AVX vyžadují."
     },
     "info": {
         "heroic": {
@@ -753,7 +760,9 @@
         "verboseLogs": {
             "description": "Povolit zobrazení protokolů"
         },
-        "download-proton-steam": "Stáhnout GE-Proton do adresáře služby Steam"
+        "download-proton-steam": "Stáhnout GE-Proton do adresáře služby Steam",
+        "advertiseAvxForRosetta": "Propagovat AVX pro Rosettu",
+        "dxfpslimit": "Omezit FPS ve hrách DirectX"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1004,13 +1013,14 @@
                 "title": "Vítejte v aplikaci Heroic!",
                 "title2": "Správa knihovny!",
                 "intro": "Vítejte v knihovně Heroic! Zde najdete všechny své hry napříč různými obchody.",
-                "intro2": "Pokud je knihovna prázdná, přihlaste se svými účty pomocí tlačítka Spravovat účty na postranní liště nebo přidejte své vlastní hry pomocí tlačítka Přidat hru výše."
+                "intro2": "Pokud je knihovna prázdná, nezapomeňte se přihlásit pomocí svých účtů v okně Správa účtů na bočním panelu nebo přidejte vlastní hry pomocí tlačítka Přidat hru výše."
             },
             "categories": "Organizujte své hry do kategorií a udržte tak svou knihovnu přehlednou.",
             "addGame": "Kliknutím sem do knihovny přidáte své hry nebo aplikace. Může se jednat o prakticky cokoli, včetně webových adres.",
             "sortOptions": "Klikněte sem pro abecední řazení her.",
             "search": "Použijte vyhledávací pole pro vyhledání vašich her.",
-            "gameCard": "Klikněte levým na kartu hry pro navigaci na stránku hry, zobrazení podrobností a úpravu nastavení nebo klikněte pravým pro otevření kontextové nabídky."
+            "gameCard": "Klikněte levým na kartu hry pro navigaci na stránku hry, zobrazení podrobností a úpravu nastavení nebo klikněte pravým pro otevření kontextové nabídky.",
+            "steamInstall": "Pomocí tohoto tlačítka můžete nainstalovat verzi Steamu pro systém Windows a hrát hry pro systém Windows pomocí aplikací Crossover, Wine nebo GPTK."
         },
         "next": "Další",
         "sidebar": {
@@ -1035,5 +1045,11 @@
         "startTour": "Spustit prohlídku",
         "back": "Zpět",
         "done": "Hotovo"
+    },
+    "notification": {
+        "steam": {
+            "success": "Steam pro Windows byl úspěšně nainstalován!",
+            "error": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu!"
+        }
     }
 }

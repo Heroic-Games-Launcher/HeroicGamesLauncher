@@ -24,13 +24,12 @@ import {
   writeConfig
 } from '../utils'
 import { execOptions } from 'backend/constants/others'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import i18next from 'i18next'
 import { dirname, join } from 'path'
 import { isOnline } from '../online_monitor'
 import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import {
-  prepareWineLaunch,
   runWineCommand,
   setupEnvVars,
   setupWineEnvVars,
@@ -210,7 +209,10 @@ export const DXVK = {
       logWarning('32-bit prefix detected!', LogPrefix.DXVKInstaller)
     }
 
-    await DXVK.getLatest()
+    if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
+      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
+      await DXVK.getLatest()
+    }
 
     const globalVersion = readFileSync(`${toolsPath}/${tool}/latest_${tool}`)
       .toString()
@@ -820,8 +822,6 @@ export async function runWineCommandOnGame(
   }
   const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-
-  await prepareWineLaunch(runner, appName)
 
   return runWineCommand({
     gameSettings,

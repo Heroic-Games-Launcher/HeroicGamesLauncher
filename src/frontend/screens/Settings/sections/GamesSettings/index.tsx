@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import {
+  AdvertiseAvxForRosetta,
   AlternativeExe,
   AutoDXVK,
   AutoDXVKNVAPI,
@@ -180,13 +181,14 @@ export default function GamesSettings() {
             <AutoDXVK />
             {isLinux && (
               <>
-                <AutoDXVKNVAPI />
+                {!window.isSteamDeck && <AutoDXVKNVAPI />}
                 <AutoVKD3D />
               </>
             )}
             <EnableEsync />
             <EnableFsync />
             <EnableMsync />
+            <AdvertiseAvxForRosetta />
             <EnableFSR />
             <EnableDXVKFpsLimit />
             <Tools />

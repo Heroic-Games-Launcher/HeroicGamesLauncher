@@ -127,7 +127,8 @@
         },
         "select": {
             "button": "Seleccionar",
-            "exe": "Seleccionar EXE"
+            "exe": "Seleccionar EXE",
+            "script": "Seleccione un Script..."
         },
         "shortcuts": {
             "message": "Creáronse atallos no escritorio e no menú principal",
@@ -163,8 +164,17 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Está seguro que quere pechar a sesión?"
+                    "title": "Está seguro que quere pechar a sesión?",
+                    "message": "Calquera progreso non gardado podería perderse"
                 }
+            },
+            "snap": {
+                "checkbox": "Non volver a mostrar esta mensaxe",
+                "title": "Heroic está a funcionar coma un Snap"
+            },
+            "rosetta": {
+                "title": "Non se puido atopar Rosetta",
+                "message": "Heroic precisa Rosetta para poder funcionar correctamente en macOS con chips de Apple Silicon. Por favor instáleo dende a terminal empregando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicie Heroic. "
             }
         },
         "wineprefix": "Seleccionar o cartafol de prefixo de Wine",
@@ -232,7 +242,8 @@
     "game": {
         "status": "Status",
         "store": "Store",
-        "title": "Game Title"
+        "title": "Game Title",
+        "modify": "Modificar instalación"
     },
     "generic": {
         "error": {
@@ -254,7 +265,16 @@
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
         "store": "Filter Store",
-        "filters": "Filtrar"
+        "filters": "Filtrar",
+        "reset": "Reiniciar",
+        "show_installed_only": "Mostrar só xogos instalados",
+        "uncategorized": "Sen categoría",
+        "show_support_offline_only": "Mostrar só xogos compatibles sen conexión",
+        "categories": "Categorías",
+        "select_all": "Seleccionar todo",
+        "show_third_party_managed_only": "Mostrar só xogos xestionado por terceiros",
+        "no_categories": "Non tes categorías personalizadas. Engade categorías empregando os menús de cada xogo.",
+        "show_updates_only": "Mostrar só xogos con actualizacións"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -305,7 +325,14 @@
             "library": "Biblioteca"
         },
         "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "button": {
+            "open": "Abrir Axuda",
+            "close": "Pechar Axuda"
+        },
+        "content": {
+            "accessibility": "Mostrar axustes de accesibilidade."
+        }
     },
     "info": {
         "heroic": {
@@ -755,7 +782,11 @@
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "remove-category": "Eliminar categoría",
+        "new-category": "Nova categoría",
+        "add-new-category": "Engadir nova categoría",
+        "delete-question": "Ao continuar eliminarase permanentemente esta categoría e se desasignará de todos os xogos. Desexa continuar?"
     },
     "tour": {
         "back": "Back"
@@ -765,5 +796,21 @@
     },
     "adtraction-locked": {
         "dont-show-again": "Non volver a amosar esta advertencia"
+    },
+    "categories-manager": {
+        "no-categories": "Aínda non tes ningunha categoría.",
+        "remove": "Eliminar \"{{name}}\"",
+        "rename": "Renomear\"{{name}}\"",
+        "add": "Engadir",
+        "add-placeholder": "Engadir unha nova categoría",
+        "title": "Xestionar categorías"
+    },
+    "emptyLibrary": {
+        "noResults": "Non se atopou ningún resultado cos filtros actuais."
+    },
+    "notification": {
+        "steam": {
+            "error": "A installación de Steam fallou! Por favor lea atentamente as instruccións e inténteo de novo!"
+        }
     }
 }

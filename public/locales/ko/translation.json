@@ -347,7 +347,8 @@
             "close": "도움말 닫기"
         },
         "disablePlaytimeSync": "지정된 스토어 서버(현재는 GOG만 지원됨)의 플레이타임 동기화를 비활성화",
-        "dxvknvapi": "DXVK-NVAPI는 DXVK와 리눅스 기본 NVAPI를 기반으로 구축된 NVAPI 구현으로, 엔비디아 GPU에서 DLSS를 사용할 수 있도록 해줍니다."
+        "dxvknvapi": "DXVK-NVAPI는 DXVK와 리눅스 기본 NVAPI를 기반으로 구축된 NVAPI 구현으로, 엔비디아 GPU에서 DLSS를 사용할 수 있도록 해줍니다.",
+        "dxfpslimit": "DXVK 게임에 대한 프레임 속도 제한 설정"
     },
     "info": {
         "heroic": {

@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
@@ -135,6 +135,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
 
   const isInstalling = status === 'installing'
+  const isImporting = status === 'importing'
   const isPlaying = status === 'playing'
   const isUpdating = status === 'updating'
   const isQueued = status === 'queued'
@@ -306,6 +307,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       gameExtraInfo: extraInfo,
       is: {
         installing: isInstalling,
+        importing: isImporting,
         installingWinetricksPackages: isInstallingWinetricksPackages,
         installingRedist: isInstallingRedist,
         launching: isLaunching,

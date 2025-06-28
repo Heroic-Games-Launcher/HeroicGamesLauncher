@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Párbeszédablakok mellékattintással való bezárásának letiltása",
         "content_font_family_default": "Tartalom betűkészlete (Alapértelmezett: {{fontFamily}})",
         "titles_always_visible": "Címek megjelenítése mindig a könyvtárban",
-        "actions_font_family_default": "Műveletek betűkészlete (Alapértelmezett: {{fontFamily}})"
+        "actions_font_family_default": "Műveletek betűkészlete (Alapértelmezett: {{fontFamily}})",
+        "disable_smooth_scrolling": "Sima görgetés letiltása (újraindítást igényel)"
     },
     "add_game": "Játék hozzáadása",
     "All": "Összes",
@@ -90,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Hiba történt! Próbáljon kijelentkezni és bejelentkezni az Epic fiókjába. {{newline}}  {{error}}"
+            },
+            "steam": {
+                "message": "A Steam telepítése sikertelen! Olvassa el figyelmesen az utasításokat, és próbálja újra! {{paragraph}} {{error}}",
+                "title": "Steam hiba",
+                "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán."
             }
         },
         "info": {
@@ -169,6 +175,10 @@
                 "checkbox": "Ne mutassa újra ezt az üzenetet",
                 "title": "A Heroic Snapként fut",
                 "message": "Néhány funkció egyelőre nem elérhető az alkalmazás Snap verziójában, dolgozunk a megoldáson. {{newLine}}Jelenlegi korlátozások: {{newLine}}A Heroic nem találja meg a Protont a Steamből vagy a Wine-t a Lutrisból.{{newLine}}{{newLine}}A Gamescope, a GameMode és a MangoHud szintén nem működik, mivel a Heroicnak nincs jogosultsága az elérésükhöz.{{newLine}}{{newLine}}Hogy hozzáférése legyen ehhez a funkcióhoz, telepítse a Heroicot flatpakként, DEB vagy AppImage-csomagként."
+            },
+            "rosetta": {
+                "title": "A Rosetta nem található",
+                "message": "A Heroichoz jelenleg a Rosetta szükséges macOS-en az Apple Silicon chipek esetén. Telepítse a macOS terminálból a következő parancs használatával: „softwareupdate --install-rosetta”, majd indítsa újra a Heroicot. "
             }
         },
         "wineprefix": "Wine előtagmappa kiválasztása",
@@ -270,7 +280,8 @@
         "no_categories": "Nincsenek egyéni kategóriák. Adjon hozzá kategóriákat a játékmenük használatával.",
         "uncategorized": "Kategorizálatlan",
         "show_support_offline_only": "Csak az offline támogatásúak megjelenítése",
-        "show_third_party_managed_only": "Csak a külső kezelésűek megjelenítése"
+        "show_third_party_managed_only": "Csak a külső kezelésűek megjelenítése",
+        "show_updates_only": "Csak a frissítésekkel rendelkező játékok megjelenítése"
     },
     "help": {
         "amdfsr": "Az AMD FSR segít a képkockasebesség növelésében az alacsonyabb felbontások felskálázásával teljes képernyős módban. A képminőség 5-ről 1-re növekszik, némi teljesítménycsökkenés mellett. Az engedélyezése javíthat a teljesítményen.",
@@ -348,7 +359,10 @@
             "library": "Megjeleníti az összes birtokolt játékot.",
             "login": "Bejelentkezés a különböző áruházakba."
         },
-        "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Az engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken."
+        "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Az engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken.",
+        "dxfpslimit": "Képkockaszámkorlátot állít be a DXVK-s játékokhoz",
+        "advertiseAvxForRosetta": "Engedélyezi az AVX utasításkészlet támogatását, ha windowsos játékokat futtat a Rosettával az Apple Silicon Maceken. Ez az olyan játékok esetén lehet szükséges, mint a Death Stranding, amelyhez AVX támogatás szükséges.",
+        "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni."
     },
     "info": {
         "heroic": {
@@ -716,7 +730,8 @@
             "enableUpscaling": "Engedélyezi a felskálázást",
             "missingMsg": "A gamescope nem található a PATH-on. Telepítse, vagy adja hozzá a PATH-hoz.",
             "enableLimiter": "FPS korlátozó engedélyezése",
-            "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése"
+            "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése",
+            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 24.08-as futtatókörnyezettel, és indítsa újra a Heroicot."
         },
         "disablePlaytimeSync": "Játék közbeni szinkronizáció letiltása",
         "experimental_features": {
@@ -743,7 +758,10 @@
         },
         "custom_css": {
             "warning": "Figyelmeztetés: ez az egész előtét-alkalmazásra érvényes. Ez azt jelenti, hogy a hibás stílus használhatatlanná teheti a Heroicot. Ha szükséges, a beállítás kézileg megváltoztatható a `~/.config/heroic/config.json` fájlban. NE másoljon stílusokat olyan forrásokból, melyekben nem bízik."
-        }
+        },
+        "advertiseAvxForRosetta": "AVX hirdetése a Rosetta esetén",
+        "dxfpslimit": "A DirectX-es játékok FPS-ének korlátozása",
+        "download-proton-steam": "A GE-Proton letöltése a Steam könyvtárába"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1000,7 +1018,8 @@
             "search": "Használja a keresősávot a játékai kereséséhez.",
             "sortInstalled": "Rendezze a játékokat telepítési állapot alapján.",
             "sortOptions": "Kattintson ide a játékok betűrend szerinti rendezéséhez.",
-            "viewToggle": "Váltson a játékai rács- és listanézete között."
+            "viewToggle": "Váltson a játékai rács- és listanézete között.",
+            "steamInstall": "Használja ezt a gombot a Steam windowsos verziójának telepítéséhez, és játsszon a windowsos játékaival Crossover, Wine vagy GPTK segítségével."
         },
         "next": "Következő",
         "sidebar": {
@@ -1025,5 +1044,11 @@
         "startTour": "Bemutató indítása",
         "back": "Vissza",
         "done": "Kész"
+    },
+    "notification": {
+        "steam": {
+            "error": "A Steam telepítése sikertelen! Olvassa el figyelmesen az utasításokat, és próbálja újra!",
+            "success": "A windowsos Steam sikeresen telepítve!"
+        }
     }
 }

@@ -4,7 +4,7 @@
  */
 
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { WineVersionInfo, Repositorys, WineManagerStatus } from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'

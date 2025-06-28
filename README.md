@@ -222,6 +222,7 @@ This part will walk you through setting up a development environment so you can 
    ```
 
 3. Make sure all dependencies are installed by running `pnpm install`
+4. Download all helper binaries using `pnpm download-helper-binaries`
 
 ### Building Heroic Binaries
 

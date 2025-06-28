@@ -7,7 +7,7 @@ import {
 } from 'common/types'
 import { currentGlobalConfigVersion } from 'backend/constants/others'
 
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger'
 import {
   getCrossover,
   getDefaultWine,
@@ -356,7 +356,8 @@ class GlobalConfigV0 extends GlobalConfig {
       afterLaunchScriptPath: '',
       disableUMU: false,
       verboseLogs: false,
-      downloadProtonToSteam: false
+      downloadProtonToSteam: false,
+      advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit'
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

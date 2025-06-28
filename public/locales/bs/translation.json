@@ -295,7 +295,8 @@
             "downloadManager": "Download Manager",
             "wineManager": "Wine menadžer",
             "library": "Biblioteka"
-        }
+        },
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {

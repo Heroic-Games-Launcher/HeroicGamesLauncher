@@ -90,7 +90,12 @@
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "发生了错误！尝试注销并登录您的 Epic 帐户。 {{newline}} {{error}}"
+                "generic": "发生了错误！尝试注销并登录你的 Epic 账号。 {{newline}} {{error}}"
+            },
+            "steam": {
+                "error": "未找到 Steam 可执行文件。安装可能被用户取消或在 Steam 端失败。",
+                "message": "Steam 安装失败！请仔细阅读说明并重试！ {{paragraph}} {{error}}",
+                "title": "Steam 错误"
             }
         },
         "info": {
@@ -182,7 +187,10 @@
         "choose-nile-binary": "选择 Nile 二进制文件",
         "changelog": "更改记录",
         "postpone": "延迟",
-        "update": "更新"
+        "update": "更新",
+        "launchAnyway": "仍要启动游戏",
+        "shaderPreCachingDisabledTitle": "禁用了 Shader 预缓存",
+        "shaderPreCachingDisabledMessage": "Steam 的 Shader 预缓存被禁用。请在桌面模式下于 Steam 设置中启用它确保游戏在 UMU 启动器下正常运行。"
     },
     "button": {
         "cancel": "取消",
@@ -267,7 +275,7 @@
         "show_hidden": "显示隐藏项",
         "store": "过滤商店",
         "filters": "筛选",
-        "show_installed_only": "只显示已安装的游戏",
+        "show_installed_only": "仅显示已安装的游戏",
         "all_categories": "所有分类",
         "uncategorized": "未分类",
         "select_all": "全选",
@@ -275,9 +283,9 @@
         "reset": "重置",
         "no_categories": "无自定义分类。使用每个游戏菜单添加分类。",
         "categories": "分类",
-        "show_support_offline_only": "只显示支持离线玩的游戏",
-        "show_third_party_managed_only": "只显示受第三方管理的游戏",
-        "show_updates_only": "只显示有更新的游戏"
+        "show_support_offline_only": "仅显示支持离线玩的游戏",
+        "show_third_party_managed_only": "仅显示受第三方管理的游戏",
+        "show_updates_only": "仅显示有更新的游戏"
     },
     "help": {
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
@@ -357,7 +365,8 @@
         },
         "msync": "Msync 旨在减少 wineserver 在 CPU 消耗巨大的游戏中的开销。开启它可能会改善受支持的 Linux 内核上的性能。",
         "download_proton_steam": "启用后，GE-Proton 将被直接下载到 Steam 兼容性工具目录而非默认的 Heroic 路径。它会使用上方 “默认 Steam 路径”设置中设定的 Steam 路径。",
-        "dxfpslimit": "设置 DirectX 游戏（9-12）的帧率上限"
+        "dxfpslimit": "设置 DirectX 游戏（9-12）的帧率上限",
+        "advertiseAvxForRosetta": "在 Apple Silicon Mac 机器上通过 Rosetta 运行 Windows 游戏时启用 AVX 指令集支持。这对于一些需要 AVX 支持的游戏如《死亡搁浅》等来说可能是必需的。"
     },
     "info": {
         "heroic": {
@@ -413,8 +422,8 @@
         "alternative_method": "备选登录方式",
         "epic": "Epic Games 登录",
         "gog": "GOG 登录",
-        "message": "登录您的平台。您可以同时登录多个平台。",
-        "amazon": "亚马逊登录",
+        "message": "登录你的平台。你可以同时登录多个平台。",
+        "amazon": "Amazon 登录",
         "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。"
     },
     "message": {
@@ -727,7 +736,8 @@
             "enableLimiter": "启用 FPS 限制程序",
             "enableUpscaling": "启用分辨率提升",
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
-            "enableForceGrabCursor": "启用强制抓取指针"
+            "enableForceGrabCursor": "启用强制抓取指针",
+            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 24.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic."
         },
         "frameless-window": {
             "confirmation": {
@@ -755,7 +765,8 @@
             "description": "启用详细记录"
         },
         "download-proton-steam": "下载 GE-Proton 到 Steam 目录",
-        "dxfpslimit": "限制 DirectX 游戏的每秒帧率"
+        "dxfpslimit": "限制 DirectX 游戏的每秒帧率",
+        "advertiseAvxForRosetta": "通告 Rosetta 的 AVX 支持"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -901,7 +912,7 @@
         "logging_out": "退出登录",
         "logout": "退出登录",
         "logout_confirmation": "你确定要退出登录吗？",
-        "manageaccounts": "管理帐户",
+        "manageaccounts": "管理账号",
         "quit": "退出",
         "cancel": "取消",
         "quitMessage": "你确定你要退出吗？"
@@ -926,7 +937,7 @@
         "size": "大小"
     },
     "externalLink": {
-        "warning": "您即将打开一个外部链接。",
+        "warning": "你即将打开一个外部链接。",
         "dontAskAgain": "不再询问"
     },
     "wiki_info": {
@@ -940,7 +951,7 @@
         "title": "标题"
     },
     "amazon": "亚马逊",
-    "Amazon Games": "亚马逊游戏",
+    "Amazon Games": "Amazon 游戏",
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "安装",
@@ -973,7 +984,7 @@
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
-        "noGames": "你的库是空的。<br /><br />单击 <4>此处</4> 用你的 Epic、GOG.com 或 Amazon 账户登录。登录后，你的游戏会出现在库中。<br /><br />要使用来自其他来源的因改用或游戏，单击<br /> 来手动添加它们。"
+        "noGames": "你的仓库是空的。<br /><br />单击<4>此处</4>登录你的 Epic、GOG.com 或 Amazon 账号。登录后，你的游戏会出现在库中。<br /><br />要使用其它来源的应用或游戏，请单击手动添加。"
     },
     "adtraction-locked": {
         "dont-show-again": "不再显示此警告",
@@ -1004,7 +1015,7 @@
             "sortInstalled": "按安装状态分类游戏。",
             "sortOptions": "单击此处按字母分类游戏。",
             "welcome": {
-                "intro2": "如果游戏库为空，请用侧边栏的“管理账户”登录你的账户或用上方的“添加游戏”按钮添加自己的游戏。",
+                "intro2": "如果游戏库为空，请用侧边栏的“管理账号”登录你的账号或用上方的“添加游戏”按钮添加自己的游戏。",
                 "title": "欢迎来到 Heroic！",
                 "title2": "管理游戏库！",
                 "intro": "欢迎来到 Heroic 游戏库！在这里你可以看到不同商店中你所有的游戏。"
@@ -1013,29 +1024,36 @@
             "categories": "将游戏分入不同类别保持整洁。",
             "addGame": "单击此处将你自己的游戏或应用添加到库中。基本啥都行，即使是浏览器 URLs。",
             "refresh": "刷新库检查新游戏或更新。",
-            "gameCard": "左键单击游戏卡片导航至游戏页，查看详情和调整设置，或右键单击打开上下文菜单。"
+            "gameCard": "左键单击游戏卡片导航至游戏页，查看详情和调整设置，或右键单击打开上下文菜单。",
+            "steamInstall": "使用此按钮安装 Windows 版 Steam，并通过 Crossover、Wine 或 GPTK 玩你的 Windows 游戏。"
         },
         "sidebar": {
             "community": "加入我们的 Discord 社区并支持 Heroic 的开发。",
             "docs": "阅读文档获得使用 Heroic 的帮助。",
             "downloads": "追踪并管理你的游戏下载和安装。",
             "library": "在一个地方访问不同商店中你的游戏库。",
-            "login": "登录游戏商店账户来访问游戏库。",
+            "login": "登录游戏商店账号来访问游戏库。",
             "quit": "安全退出程序。",
             "settings": "配置 Heroic 的设置、游戏默认、检查日志和更多。",
-            "stores": "浏览并购买 Epic、GOG 和亚马逊等不同商店中的游戏。",
+            "stores": "浏览并购买 Epic、GOG 和 Amazon 等不同商店中的游戏。",
             "version": "检查当前 Heroic 版本，单击它查看最新更新记录，并从帮助图标访问此入门指南。",
             "welcome": {
                 "intro": "欢迎来到 Heroic！此侧边栏包括了所有探索本程序的导航选项。",
                 "title": "侧边栏导航"
             },
             "accessibility": "访问无障碍功能定制体验。",
-            "accounts": "管理已连接的商店账户（Epic、GOG、Amazon），退出登录或登录账户。",
+            "accounts": "管理已连接的商店账号（Epic、GOG、Amazon），退出登录或登录账号。",
             "wine": "管理或下载新版 Wine/Proton/GPTK 来在 Linux 或 macOS 上运行 Windows 游戏。"
         },
         "skip": "跳过",
         "startTour": "开始入门指南",
         "next": "下一步",
         "done": "完毕"
+    },
+    "notification": {
+        "steam": {
+            "error": "Steam 安装失败！请仔细阅读说明并重试！",
+            "success": "Windows 版 Steam 已成功安装！"
+        }
     }
 }

@@ -13,6 +13,9 @@
   transition: 150ms;
   text-align: initial;
   align-items: flex-start;
+  & .link {
+    text-decoration: none;
+  }
 }
 
 .dots {
