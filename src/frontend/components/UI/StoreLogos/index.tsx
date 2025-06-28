@@ -1,4 +1,3 @@
-import React from 'react'
 import { Runner } from 'common/types'
 import EpicLogo from 'frontend/assets/epic-logo.svg?react'
 import GOGLogo from 'frontend/assets/gog-logo.svg?react'

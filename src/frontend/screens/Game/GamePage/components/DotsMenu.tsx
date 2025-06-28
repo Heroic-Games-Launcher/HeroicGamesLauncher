@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import GameContext from '../../GameContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GameSubMenu from '../../GameSubMenu'

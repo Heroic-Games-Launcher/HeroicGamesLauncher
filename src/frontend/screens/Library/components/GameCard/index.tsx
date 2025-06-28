@@ -1,12 +1,6 @@
 import './index.css'
 
-import React, {
-  useContext,
-  CSSProperties,
-  useMemo,
-  useState,
-  useEffect
-} from 'react'
+import { useContext, CSSProperties, useMemo, useState, useEffect } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
