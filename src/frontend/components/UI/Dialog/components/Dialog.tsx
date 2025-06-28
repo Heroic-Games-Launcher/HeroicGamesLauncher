@@ -28,7 +28,7 @@ const StyledPaper = styled(Paper)(() => ({
   color: 'var(--text-default)',
   maxWidth: '100%',
   '&:has(.settingsDialogContent)': {
-    height: '80%'
+    maxHeight: '80%'
   }
 }))
 
