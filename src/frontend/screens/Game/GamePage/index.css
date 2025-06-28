@@ -111,6 +111,7 @@
   .extraInfoWrapper {
     grid-area: extra;
     max-width: 850px;
+    gap: 1rem;
   }
 
   .mainInfo,
@@ -396,6 +397,7 @@
     .anticheatInfo {
       max-width: none;
       margin: 0;
+      align-self: center;
     }
   }
 
