@@ -14,7 +14,7 @@
 
 .frameless:not(.fullscreen) .Header {
   padding-right: calc(
-    var(--overlay-controls-width) - env(titlebar-area-x, 0px)
+    var(--overlay-controls-width) - env(titlebar-area-x, 0px) + 10px
   );
 }
 
