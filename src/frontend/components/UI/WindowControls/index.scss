@@ -1,9 +1,11 @@
 .windowControls {
-  position: fixed;
-  top: 0;
-  right: 0;
+  grid-area: content;
+  justify-self: right;
+  align-self: start;
   z-index: 100;
   -webkit-app-region: no-drag;
+  position: sticky;
+  top: 0px;
 
   button {
     display: inline-flex;

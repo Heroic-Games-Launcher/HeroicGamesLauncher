@@ -5,8 +5,7 @@
   padding: var(--space-md);
   gap: var(--space-md);
   border-radius: 10px;
-  height: 100vh;
-  min-height: 100vh;
+  height: 100%;
   max-width: 2400px;
   grid-template-areas:
     'header header'
@@ -67,7 +66,6 @@
     justify-content: space-between;
     gap: auto;
     z-index: 1;
-    width: 100%;
 
     & > * {
       filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
@@ -111,6 +109,7 @@
   .extraInfoWrapper {
     grid-area: extra;
     max-width: 850px;
+    gap: 1rem;
   }
 
   .mainInfo,
@@ -276,6 +275,7 @@
         & .mainBtn {
           min-width: 200px;
           font-size: var(--text-md);
+          white-space: nowrap;
 
           & svg {
             transform: scale(1.2);
@@ -396,6 +396,7 @@
     .anticheatInfo {
       max-width: none;
       margin: 0;
+      align-self: center;
     }
   }
 
@@ -536,6 +537,10 @@
 .App.isRTL .gameConfigContainer .game-actions .gameTools {
   left: 0;
   right: unset;
+}
+
+.App.frameless:not(.fullscreen) .topRowWrapper {
+  margin-right: var(--overlay-controls-width);
 }
 
 .gameConfigContainer {

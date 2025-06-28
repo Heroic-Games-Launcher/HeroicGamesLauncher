@@ -1,7 +1,7 @@
 .sideloadGrid {
   display: grid;
   justify-content: space-around;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: min-content 1fr;
 
   .textInputFieldWrapper.Field .selectFieldWrapper.Field {
     margin: 0 var(--space-xs);
