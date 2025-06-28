@@ -14,6 +14,20 @@ body {
   --anticheat-supported: var(--status-success);
   --anticheat-planned: var(--status-info);
   --anticheat-unknown: var(--status-denied);
+
+  --alphabet-filter-accent-color: var(--accent);
+  --alphabet-filter-accent-hover: var(--accent-overlay, var(--accent));
+}
+
+body.alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(
+    --accent,
+    var(--primary, var(--brand-primary))
+  );
+  --alphabet-filter-accent-hover: var(
+    --accent-overlay,
+    var(--primary-hover, var(--brand-primary-hover))
+  );
 }
 
 body.midnightMirage {
@@ -246,6 +260,7 @@ body.high-contrast {
   --secondary-button: #f364b5;
 
   --success-button: #00ddff;
+
   .heroicVersion {
     color: var(--text-default);
   }
@@ -559,6 +574,15 @@ body.zombie-classic {
   --icons-background: #323232;
 }
 
+body.zombie .alphabet-filter-button--active,
+body.zombie-classic .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--primary-button);
+  --alphabet-filter-accent-hover: var(
+    --primary-button-hover,
+    var(--primary-button)
+  );
+}
+
 body.old-school {
   --accent: #ffa800;
   --accent-overlay: #ffc44f;
@@ -594,6 +618,11 @@ body.old-school {
 body.classic .sid-input,
 body.old-school .sid-input {
   background: var(--background);
+}
+
+body.old-school .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--status-success);
+  --alphabet-filter-accent-hover: var(--status-success-hover);
 }
 
 body.classic,
