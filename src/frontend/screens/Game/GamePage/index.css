@@ -275,6 +275,7 @@
         & .mainBtn {
           min-width: 200px;
           font-size: var(--text-md);
+          white-space: nowrap;
 
           & svg {
             transform: scale(1.2);
