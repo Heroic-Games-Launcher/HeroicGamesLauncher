@@ -800,7 +800,8 @@ export async function importGame(
     logWriters: [logWriter]
   })
   addShortcuts(appName)
-
+  const errorMatch = res.stderr.match(/^.*ERROR:.*$/gm)?.join('') ?? ''
+  res.error = (res.error ?? '') + errorMatch
   if (res.error) {
     logError(
       ['Failed to import', `${appName}:`, res.error],
