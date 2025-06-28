@@ -5,8 +5,7 @@
   padding: var(--space-md);
   gap: var(--space-md);
   border-radius: 10px;
-  height: 100vh;
-  min-height: 100vh;
+  height: 100%;
   max-width: 2400px;
   grid-template-areas:
     'header header'
