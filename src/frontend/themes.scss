@@ -313,7 +313,6 @@ body.nord-light {
   --primary: #b48ead;
   --primary-hover: #a17399;
   --danger: #bf616a;
-  --text-log: #f7b32a;
   --text-tertiary: var(--brand-text-01);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
@@ -346,6 +345,7 @@ body.nord-light {
   --gamecard-title-color: #ccdaf8cc;
   --install-button: var(--primary);
   --status-success-hover: #5e81ac;
+  --text-log: var(--status-warning);
 
   .developer,
   .releaseDate,
@@ -425,14 +425,6 @@ body.nord-light {
     color: var(--navbar-active);
   }
 
-  body.nord-light .downIcon circle {
-    fill: var(--primary);
-  }
-
-  body.nord-light .currentDownload {
-    --success: #0bd48c;
-  }
-
   .CategoriesManager__Dialog {
     .MuiDialogContent-root {
       .Category {
@@ -447,10 +439,10 @@ body.nord-light {
   .tour-button {
     --tour-button-color: var(--accent);
   }
-}
 
-body.nord-light .alternative > svg {
-  fill: var(--accent) !important;
+  .alternative > svg {
+    fill: var(--accent) !important;
+  }
 }
 
 body.nord-dark {
