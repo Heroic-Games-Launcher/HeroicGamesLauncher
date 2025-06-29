@@ -146,6 +146,16 @@ export default function WebView() {
     navigate('/login')
   }
 
+  const [webviewPreloadPath, setWebviewPreloadPath] = useState('')
+  useEffect(() => {
+    const fetchWebviewPreloadPath = async () => {
+      const path = await window.api.getWebviewPreloadPath()
+      setWebviewPreloadPath(path)
+    }
+
+    void fetchWebviewPreloadPath()
+  }, [])
+
   useLayoutEffect(() => {
     const webview = webviewRef.current
     if (webview) {
@@ -239,7 +249,7 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current, amazonLoginData, runner])
+  }, [webviewRef.current, amazonLoginData, runner, webviewPreloadPath])
 
   useEffect(() => {
     const webview = webviewRef.current
@@ -299,6 +309,41 @@ export default function WebView() {
     setShowLoginWarningFor(null)
   }
 
+  // Handle back/forward mouse buttons to navigate inside webview
+  useEffect(() => {
+    if (!webviewRef.current) return
+
+    const webview = webviewRef.current
+
+    const handleMouseBackForward = (ev: MouseEvent) => {
+      // 3 and 4 are the typical `button` value for mouse back/forward buttons on mouseup events
+      switch (ev.button) {
+        case 3:
+          if (webview.canGoBack()) {
+            ev.preventDefault()
+            webview.goBack()
+          }
+          break
+        case 4:
+          if (webview.canGoForward()) {
+            ev.preventDefault()
+            webview.goForward()
+          }
+          break
+      }
+    }
+
+    document.addEventListener('mouseup', handleMouseBackForward)
+
+    return () => {
+      document.removeEventListener('mouseup', handleMouseBackForward)
+    }
+  }, [webviewRef.current])
+
+  if (!webviewPreloadPath) {
+    return <></>
+  }
+
   return (
     <div className="WebView">
       {webviewRef.current && (
@@ -315,6 +360,7 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
+        {...{ preload: webviewPreloadPath }}
       />
       {showLoginWarningFor && (
         <LoginWarning
