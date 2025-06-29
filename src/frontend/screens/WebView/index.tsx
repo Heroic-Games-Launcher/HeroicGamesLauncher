@@ -360,7 +360,7 @@ export default function WebView() {
         partition="persist:epicstore"
         src={startUrl}
         allowpopups={trueAsStr}
-        {...{ preload: webviewPreloadPath }}
+        preload={webviewPreloadPath}
       />
       {showLoginWarningFor && (
         <LoginWarning
