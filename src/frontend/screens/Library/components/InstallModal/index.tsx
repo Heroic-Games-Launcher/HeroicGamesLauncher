@@ -147,7 +147,7 @@ export default React.memo(function InstallModal({
         {availablePlatforms.map((p, i) => (
           <MenuItem value={p.value} key={i}>
             <Box sx={{ display: 'flex', placeItems: 'center' }}>
-              <SvgIcon sx={{ mr: 1 }}>
+              <SvgIcon sx={{ marginInlineEnd: 1 }}>
                 <FontAwesomeIcon icon={p.icon} />
               </SvgIcon>
               {p.name}
