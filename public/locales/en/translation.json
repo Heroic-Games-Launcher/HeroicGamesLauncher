@@ -612,7 +612,8 @@
                 "show": "I understand, show them",
                 "title": "Are you sure?"
             },
-            "label": "Allow using non-GE Proton builds to run games"
+            "label": "Allow using non-GE Proton builds to run games",
+            "wine_selector_warning": "Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings"
         },
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",

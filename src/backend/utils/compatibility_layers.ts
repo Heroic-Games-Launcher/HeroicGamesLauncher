@@ -174,16 +174,6 @@ export async function getLinuxWineSet(
         const protonBin = join(path, version, 'proton')
         // check if bin exists to avoid false positives
         if (existsSync(protonBin)) {
-          if (
-            !version.includes('GE') &&
-            !GlobalConfig.get().getSettings().allowNonGEProton
-          ) {
-            logInfo(
-              `Ignoring "${version}". You can change this in Settings > Advanced`
-            )
-            return
-          }
-
           proton.add({
             bin: protonBin,
             name: `Proton - ${version}`,
