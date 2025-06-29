@@ -138,6 +138,7 @@ import {
   gamesConfigPath,
   publicDir,
   userHome,
+  webviewPreloadPath,
   windowIcon
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
@@ -1200,6 +1201,8 @@ addHandler('gamepadAction', async (event, args) => {
 })
 
 addHandler('getShellPath', async (event, path) => getShellPath(path))
+
+addHandler('getWebviewPreloadPath', () => webviewPreloadPath)
 
 addHandler('clipboardReadText', () => clipboard.readText())
 

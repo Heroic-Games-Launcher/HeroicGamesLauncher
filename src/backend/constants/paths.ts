@@ -44,6 +44,10 @@ export const fakeEpicExePath = fixAsarPath(
   join(publicDir, 'bin', 'x64', 'win32', 'EpicGamesLauncher.exe')
 )
 
+export const webviewPreloadPath = fixAsarPath(
+  join('file://', publicDir, 'webviewPreload.js')
+)
+
 /**
  * Fix path for packed files with asar, else will do nothing.
  * @param origin  original path
