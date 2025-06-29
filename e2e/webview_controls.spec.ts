@@ -47,6 +47,32 @@ electronTest('webview', async (app) => {
     )
     await page.waitForTimeout(200)
 
+    // simulate mouse back
+    await page.dispatchEvent('body', 'mouseup', {
+      button: 3,
+      bubbles: true,
+      cancelable: true
+    })
+    await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
+      'value',
+      'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
+    )
+    await page.waitForTimeout(600)
+
+    // simulate mouse forward
+    await page.dispatchEvent('webview', 'mouseup', {
+      button: 4,
+      bubbles: true,
+      cancelable: true
+    })
+    await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
+      'value',
+      'https://www.google.com/'
+    )
+    await page.waitForTimeout(600)
+
+    // it looks like we can't simulate mouse buttons INSIDE the webview to also test those
+
     // go back twice to end up in the library
     await page.getByTitle('Go back').click()
     await page.getByTitle('Go back').click()
