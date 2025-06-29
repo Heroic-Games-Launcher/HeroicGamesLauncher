@@ -47,14 +47,14 @@ export const WineVersionListItem = React.memo(function WineVersionListItem({
   const icon = useMemo(() => {
     if (name.includes('-latest'))
       return (
-        <Box sx={{ mr: 1 }}>
+        <Box sx={{ marginInlineEnd: 1 }}>
           <Badge badgeContent={<AutorenewIcon sx={{ fontSize: 17.5 }} />}>
             <SvgIcon>{primaryIcon}</SvgIcon>
           </Badge>
         </Box>
       )
 
-    return <SvgIcon sx={{ mr: 1 }}>{primaryIcon}</SvgIcon>
+    return <SvgIcon sx={{ marginInlineEnd: 1 }}>{primaryIcon}</SvgIcon>
   }, [name, primaryIcon])
 
   return (
