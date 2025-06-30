@@ -8,8 +8,9 @@
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Desactivar el cierre de diálogos pulsando fuera",
         "titles_always_visible": "Siempre mostrar títulos en biblioteca",
-        "actions_font_family_default": "Tipografía de acciones (Por Defecto:",
-        "content_font_family_default": "Tipografía de contenido (Por Defecto:"
+        "actions_font_family_default": "Tipografía de acciones (Por Defecto: {{fontFamily}})",
+        "content_font_family_default": "Tipografía de contenido (Por Defecto: {{fontFamily}})",
+        "disable_smooth_scrolling": "Desactivar scroll suave (requiere reiniciar)"
     },
     "add_game": "Añadir juego",
     "All": "Todos",
@@ -90,6 +91,11 @@
             },
             "legendary": {
                 "generic": "¡Se ha producido un error! Intente cerrar sesión e iniciar sesión nuevamente en su cuenta de Epic. {{newline}} {{error}}"
+            },
+            "steam": {
+                "error": "Ejecutable de Steam no encontrado. La instalación probablemente fue cancelada por el usuario o falló.",
+                "message": "Falló instalación de Steam! Por favor, leer las instrucciones con atención e intentar otra vez! {{paragraph}}{{error}}",
+                "title": "Error de Steam"
             }
         },
         "info": {
@@ -115,7 +121,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "¿Estás seguro de que quieres restablecer Heroic? Esto eliminará todas las configuraciones y caché, pero no eliminará los juegos instalados ni las credenciales. Versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser iniciadas manualmente luego de ejecutar esta acción.",
+                "message": "¿Estás seguro de que quieres restablecer Heroic? Esto eliminará todas las configuraciones y caché, pero no eliminará tus juegos instalados ni las credenciales de Epic. Las versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser reiniciadas manualmente luego de ejecutar esta acción.",
                 "title": "Restablecer Heroic"
             }
         },
@@ -169,6 +175,10 @@
                 "checkbox": "No mostrar este mensaje de nuevo",
                 "title": "Heroic se ejecuta como un Snap",
                 "message": "Algunas características no están disponibles en la versión Snap de la aplicación por ahora y estamos tratando de arreglarlo.{{newLine}}Las limitaciones actuales son: {{newLine}}Heroic no podrá encontrar Proton desde Steam o Wine desde Lutris.{{newLine}}{{newLine}}Gamescope, GameMode y MangoHud tampoco funcionarán ya que Heroic no puede tener acceso a ellos.{{newLine}}{{newLine}}Para tener acceso a esta característica por favor instala Heroic como Flatpak, DEB o desde la AppImage."
+            },
+            "rosetta": {
+                "message": "Heroic require Rosetta para funcionar correctamente en macOS con chips Apple Silicon. Por favor, instalar desde una terminal de macOS usando el siguiente comando: \"softwareupdate --install-rosetta\" y reiniciar Heroic. ",
+                "title": "Rosetta no encontrado"
             }
         },
         "wineprefix": "Seleccione la carpeta de los prefijos de Wine",
@@ -177,7 +187,10 @@
         "choose-nile-binary": "Seleccionar binario del Nile",
         "update": "Actualizar",
         "postpone": "Posponer",
-        "changelog": "Registro de cambios"
+        "changelog": "Registro de cambios",
+        "launchAnyway": "Ejecutar de todas formas",
+        "shaderPreCachingDisabledMessage": "El Shader Pre-cache de Steam está desactivado. Por favor, activalo en la configuración de Steam en Modo Escritorio para asegurar que el juego funcione correctamente con umu.",
+        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Desactivado"
     },
     "button": {
         "cancel": "Cancelar",
@@ -271,7 +284,8 @@
         "no_categories": "No hay categorías personalizadas. Añade categorías utilizando el menú de cada juego.",
         "categories": "Categorías",
         "show_support_offline_only": "Mostrar solo compatible sin conexión",
-        "show_third_party_managed_only": "Mostrar sólo administrados por terceros"
+        "show_third_party_managed_only": "Mostrar sólo administrados por terceros",
+        "show_updates_only": "Mostrar sólo juegos con actualizaciones"
     },
     "help": {
         "amdfsr": "El FSR de AMD ayuda a aumentar la velocidad de los fotogramas mediante el escalado de las resoluciones más bajas en el modo de pantalla completa. La calidad de la imagen aumenta de 5 a 1 a costa de un ligero impacto en el rendimiento. Su activación puede mejorar el rendimiento.",
@@ -323,7 +337,8 @@
             "upscaleWidth": "La resolución utilizada para el ancho por gamescope. Se asume una relación del aspecto de 16:9.",
             "gameHeight": "La resolución para la altura del juego. Gamescope asume una relación de aspecto de 16:9.",
             "upscaleHeight": "La resolución para la altura utilizada por gamescope. Se asume una relación del aspecto de 16:9.",
-            "additionalOptions": "Variables de línea de comandos adicionales para gamescope."
+            "additionalOptions": "Variables de línea de comandos adicionales para gamescope.",
+            "forceGrabCursor": "Usar modo de mouse relativo en lugar de cambiar dependiendo de la visibilidad del cursor. (Sirve para cuando las aplicaciones pierden foco)"
         },
         "title": {
             "accessibility": "Accesibilidad",
@@ -349,7 +364,9 @@
             "close": "Cerrar ayuda"
         },
         "msync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
-        "dxfpslimit": "Configura un límite de cuadros por segundo para juegos con DXVK"
+        "dxfpslimit": "Configura un límite de cuadros por segundo para juegos con DXVK",
+        "advertiseAvxForRosetta": "Activa el set de soporte de instrucciones AVX cuando se ejecutan juegos de Windows a través de Rosetta en computadoras Apple Sillicon. Esto podría ser requerido por algunos juegos como Death Stranding que necesita soporte AVX.",
+        "download_proton_steam": "Si se activa, GE-Proton se descargará directamente en el directorio de herramientas de compatibilidad de Steam en lugar de la ruta por defecto de Heroic. Se usará la ruta de Steam de la configuración 'Ruta por defecto de Steam' más arriba."
     },
     "info": {
         "heroic": {
@@ -725,7 +742,8 @@
         "gamescope": {
             "enableLimiter": "Activar el limitador de FPS",
             "enableUpscaling": "Permite la ampliación",
-            "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH."
+            "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH.",
+            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic."
         },
         "msync": "Habilitar Esync",
         "allow_installation_broken_anticheat": {
@@ -737,7 +755,16 @@
             "label": "Permitir la instalación de juegos con anticheat roto o denegado"
         },
         "before-launch-script-path": "Seleccionar una secuencia de comandos para ejecutar antes de que se inicie el juego",
-        "after-launch-script-path": "Seleccionar una secuencia de comandos para ejecutar cuando se sale del juego"
+        "after-launch-script-path": "Seleccionar una secuencia de comandos para ejecutar cuando se sale del juego",
+        "download-proton-steam": "Descargar GE-Proton en el directorio de Steam",
+        "dxfpslimit": "Limitar FPS en Juegos con DirectX",
+        "verboseLogs": {
+            "description": "Activar registrados detallados"
+        },
+        "custom_css": {
+            "warning": "Advertencia: esto se aplica a todo el frontend. Eso significa que el estilo incorrecto podría provocar que Heroic no se pueda usar. De ser necesario, la configuración se puede cambiar manualmente en `~/.config/heroic/config.json`. NO COPIAR estilos de fuentes no confiables."
+        },
+        "disableUMU": "Desactivar umu"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -780,7 +807,9 @@
         "reset-heroic": "Restablecer Heroic",
         "saves": {
             "label": "Ubicación de guardados:",
-            "warning": "La funcionalidad Cloud Saves es Beta, por favor, respalda tus guardados antes de sincronizar (en caso de que algo salga mal)"
+            "warning": "La funcionalidad Cloud Saves es Beta, por favor, respalda tus guardados antes de sincronizar (en caso de que algo salga mal)",
+            "not_supported": "Este juego no soporta Cloud Saves.",
+            "gog_linux_native_warning": "Juegos nativos de linux no soportan la funcionalidad de Cloud Saves de GOG. Usar la versión de Windows en su lugar."
         },
         "experimental_features": {
             "title": "Funciones experimentales"
@@ -835,6 +864,9 @@
                 "help": "Esto eliminará todas las configuraciones y caché, pero no eliminará los juegos instalados ni tus credenciales de Epic. Versiones portables (AppImage, WinPortable, ...) de Heroic tienen que ser reiniciadas manualmente luego de ejecutar esta acción."
             },
             "details": "Detalles"
+        },
+        "custom_css": {
+            "title": "Estilo CSS personalizado"
         }
     },
     "Settings": "Ajustes",
@@ -948,7 +980,8 @@
         "description": "Parece que el dominio track.adtraction.com no pudo cargar o está bloqueado. Con adtraction, cualquier compra que haga en la tienda GOG apoya Heroic financieramente. Considere eliminar el bloqueo si desea contribuir."
     },
     "emptyLibrary": {
-        "noResults": "Los filtros actuales no produjeron resultados."
+        "noResults": "Los filtros actuales no produjeron resultados.",
+        "noGames": "La biblioteca está vacía.<br /><br />Hacer click <4>acá</4> para iniciar sesión con Epic, GOG.com, o Amazon. Luego, los juegos aparecerán en la Biblioteca.<br /><br />Para usar juegos o aplicaciones de otras fuentes, hacer click <br /> para agegarlos maualmente."
     },
     "categories-manager": {
         "add-placeholder": "Añadir una nueva categoría",
@@ -967,6 +1000,22 @@
         "wine-ge": "Wine-GE-Proton es una variante de Wine creada por Glorious Eggroll. Es la versión de Wine para ser usada fuera de Steam. Genera registros útiles para solucionar problemas."
     },
     "tour": {
-        "back": "Volver"
+        "back": "Volver",
+        "done": "Listo",
+        "library": {
+            "end": {
+                "intro": "Eso es todo! Disfruta tus juegos y diviértete!",
+                "title": "Disfruta tus juegos!"
+            },
+            "filters": "Filtra tus juegos por tienda, plataforma, favorites, y más usando estas opciones.",
+            "categories": "Organiza tus juegos en categorías para mantener las cosas ordenadas.",
+            "addGame": "Agrega tus propios juegos y apps haciendo click aquí. Pueden ser básicamente cualquier cosa, incluso URLs web."
+        }
+    },
+    "notification": {
+        "steam": {
+            "success": "Steam para Windows de instaló correctamente!",
+            "error": "La instalación de Steam falló! Por favor, leer las instrucciones detenidamente y volver a intentar!"
+        }
     }
 }
