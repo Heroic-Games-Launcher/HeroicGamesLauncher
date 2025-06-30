@@ -156,7 +156,8 @@
         "ubisoft": "Ubisoft കണക്ട് ഇൻസ്റ്റാൾ ചെയ്യുന്നു",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "നടീല് നിര്ത്തൂ"
         }
     },
     "launch": {
