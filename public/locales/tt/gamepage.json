@@ -167,7 +167,8 @@
             "not-installable-game": "Уен УРНАШТЫРЫП БУЛМЫЙ"
         },
         "steam": {
-            "installing": "Урнаштырыла"
+            "installing": "Урнаштырыла",
+            "installation": "Урнаштыруны туктату"
         }
     },
     "disabled": "Cүндерелгән",
