@@ -282,7 +282,8 @@
         "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizze a letölthető tartalmat a https://gog.com/account oldalon.",
         "goodie": "Nem telepíthető",
         "winetricks": "Winetricks javítások alkalmazása",
-        "redist": "Terjeszhető csomagok telepítése ({{redist}})"
+        "redist": "Terjeszhető csomagok telepítése ({{redist}})",
+        "importing": "Importálás"
     },
     "submenu": {
         "addShortcut": "Parancsikon hozzáadása",
