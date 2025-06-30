@@ -180,7 +180,8 @@
         "winetricks": "تثبيت حزم Winetricks",
         "steam": {
             "installing": "قيد التثبيت",
-            "pleaseWait": "يُرجى الانتظار..."
+            "pleaseWait": "يُرجى الانتظار...",
+            "installation": "إيقاف التثبيت"
         }
     },
     "launch": {
