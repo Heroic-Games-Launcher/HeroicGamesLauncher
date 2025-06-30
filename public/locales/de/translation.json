@@ -93,7 +93,9 @@
                 "generic": "Ein Fehler ist aufgetreten! Versuche, dich bei deinem Epic-Konto ab- und anzumelden. {{newline}}  {{error}}"
             },
             "steam": {
-                "message": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!"
+                "message": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!",
+                "error": "Steam konnte nicht ausgeführt werden. Installation wurde wahrscheinlich durch Nutzer oder Steam gestoppt.",
+                "title": "Steam Fehler"
             }
         },
         "info": {
@@ -175,7 +177,8 @@
                 "message": "Einige Funktionen sind in der Snap-Version der App noch nicht verfügbar und wir versuchen, dies zu beheben.{{newLine}}Die aktuellen Einschränkungen sind: {{newLine}}Heroic wird nicht in der Lage sein, Proton von Steam oder Wine von Lutris zu finden.{{newLine}}{{newLine}}Gamescope, GameMode und MangoHud werden ebenfalls nicht funktionieren, da Heroic keinen Zugriff darauf hat.{{newLine}}{{newLine}}Um Zugriff auf diese Funktionen zu haben, installieren Sie Heroic bitte als Flatpak, DEB oder vom AppImage."
             },
             "rosetta": {
-                "title": "Rosetta wurde nicht gefunden"
+                "title": "Rosetta wurde nicht gefunden",
+                "message": "Heroic benötigt Rosetta, um auf macOS mit Apple-Silicon-Chips korrekt zu funktionieren. Bitte installiere Rosetta über das Terminal mit folgendem Befehl: „softwareupdate --install-rosetta“ und starte Heroic anschließend neu. "
             }
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
@@ -184,7 +187,10 @@
         "choose-nile-binary": "Wähle eine Nile-Binärdatei aus",
         "update": "Update",
         "postpone": "Später",
-        "changelog": "Änderungsprotokoll"
+        "changelog": "Änderungsprotokoll",
+        "launchAnyway": "Spiel trotzdem starten",
+        "shaderPreCachingDisabledMessage": "Der Shader-Pre-Cache von Steam ist deaktiviert. Bitte aktiviere ihn in den Steam-Einstellungen im Desktop-Modus, damit das Spiel mit UMU ordnungsgemäß funktioniert.",
+        "shaderPreCachingDisabledTitle": "Shader-Pre-Cache deaktiviert"
     },
     "button": {
         "cancel": "Abbrechen",
@@ -357,7 +363,9 @@
             "open": "Hilfe öffnen"
         },
         "msync": "Msync zielt darauf ab, Winserver Overhead in CPU-intensiven Spielen zu reduzieren. Aktivieren kann die Leistung auf unterstützten Linux-Kernels verbessern.",
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "advertiseAvxForRosetta": "Aktiviere die Unterstützung des AVX-Befehlssatzes beim Ausführen von Windows-Spielen über Rosetta auf Apple-Silicon-Macs. Dies kann für einige Spiele wie Death Stranding erforderlich sein, die AVX-Unterstützung benötigen.",
+        "download_proton_steam": "Wenn aktiviert, wird GE-Proton direkt in das Kompatibilitätstools-Verzeichnis von Steam heruntergeladen, anstatt in den standardmäßigen Heroic-Pfad. Es wird den festgelegte Steam-Pfad aus der Einstellung „Standard-Steam-Pfad“ oben verwenden."
     },
     "info": {
         "heroic": {
@@ -751,7 +759,8 @@
         },
         "verboseLogs": {
             "description": "Aktiviere ausführliche Logs"
-        }
+        },
+        "download-proton-steam": "Lade GE-Proton in das Steam-Verzeichnis herunter"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -964,7 +973,7 @@
         "restore": "Fenster wiederherstellen"
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton ist eine Wine-Variation erstellt von Glorious Eggroll. Es ist gedacht zur Verwendung außerhalb von Steam. Zudem stellt es nützliche Fehlerprotokolle bereit.",
+        "wine-ge": "Wine-GE-Proton ist eine von Glorious Eggroll entwickelte Wine-Variante. Sie wurde zugunsten von GE-Proton mit dem umu-Launcher eingestellt.",
         "proton-ge": "GE-Proton ist eine Variante von Proton, geschaffen von Glorious Eggroll. Obwohl diese Variante für Steam gedacht ist funktionieren einige Spiele außerhalb Steams trotzdem besser mit dieser. Es stellt jedoch größtenteils nutzlose Fehlerprotokolle bereit."
     },
     "emptyLibrary": {
@@ -1002,17 +1011,31 @@
             "welcome": {
                 "title": "Willkommen bei Heroic!",
                 "title2": "Die Bibliothek verwalten!",
-                "intro": "Willkommen zur Heroic Bibliothek! Hier kannst du all deine Spiele aus verschiedenen Stores sehen."
+                "intro": "Willkommen zur Heroic Bibliothek! Hier kannst du all deine Spiele aus verschiedenen Stores sehen.",
+                "intro2": "Falls die Bibliothek leer ist, melde dich bitte mit deinen Accounts über \"Konten verwalten\" in der Seitenleiste an oder füge deine eigenen Spiele mit  \"Spiel hinzufügen\" oben hinzu."
             },
             "addGame": "Klicke hier, um deine eigenen Spiele oder Apps zur Bibliothek hinzuzufügen. Diese können alles mögliche sein, sogar Browser URLs.",
             "filters": "Filtere mit diesen Optionen deine Spiele nach Store, Plattform, Favoriten und mehr.",
             "steamInstall": "Benutze diesen Button, um die Windows-Version von Steam zu installieren und spiele deine Windows-Spiele mit Crossover, Wine oder GPTK.",
-            "refresh": "Aktualisiere deine Bibliothek, um nach neuen Spielen oder Updates zu suchen."
+            "refresh": "Aktualisiere deine Bibliothek, um nach neuen Spielen oder Updates zu suchen.",
+            "gameCard": "Links-Click auf die Spielekarte um zur Spieleseite zu kommen und um details und Einstellungen anzupassen oder Rechts-Click um das Kontext Menü zu öffnen.",
+            "sortInstalled": "Sortiere Spiele nach Installationsstatus."
         },
         "done": "Fertig",
         "sidebar": {
             "accessibility": "Auf Einstellungen zur Barrierefreiheit zugreifen, um deine Erfahrung anzupassen.",
-            "library": "Greife von einem Ort auf deine Spielbibliothek aus verschiedenen Stores zu."
+            "library": "Greife von einem Ort auf deine Spielbibliothek aus verschiedenen Stores zu.",
+            "downloads": "Verfolge und verwalte deine Spieleinstallationen.",
+            "wine": "Verwalte oder lade neue Version von Wine/Proton/GPTK um Windowsspiele auf Linux oder macOS spielen zu können.",
+            "version": "Überprüfe deine aktuelle Heroicversion, um die letzten Änderungen einzusehen und Zugang zur dieser Tour mithilfe des Hilfesymbol.",
+            "welcome": {
+                "title": "Seitenleiste Navigation"
+            },
+            "docs": "Lese die Dokumente für Hilfe, bei der Verwendung von Heroic.",
+            "quit": "Verlasse die Applikation sicher.",
+            "accounts": "Verwalte deine verbundenen Accounts (Epic,GOG,Amazon), melde dich an oder ab von ihnen.",
+            "community": "Betrete unserer Community auf Discord und unterstütze Heroics Weiterentwicklung.",
+            "stores": "Durchsuche und kaufe unterschiedliche Spiele in unterschiedlichen Shops unteranderem Epic,GOG und Amazon."
         },
         "next": "Weiter",
         "startTour": "Tour starten",
