@@ -38,5 +38,13 @@
         "info": {
             "exe": "Ôbier wykōnowalny zbiōr"
         }
+    },
+    "status": {
+        "installing": "Kōntynuuj instalowanie"
+    },
+    "label": {
+        "steam": {
+            "installing": "Kōntynuuj instalowanie"
+        }
     }
 }
