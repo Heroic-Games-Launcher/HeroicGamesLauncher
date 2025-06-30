@@ -21,7 +21,8 @@
             "title": "Wybierz EXE do uruchomienia"
         },
         "select": {
-            "button": "Wybierz"
+            "button": "Wybierz",
+            "image": "Wybierz obraz"
         },
         "sideload": {
             "exe": "Wybierz plik wykonywalny"
@@ -47,7 +48,8 @@
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK",
-        "close": "Zamknij"
+        "close": "Zamknij",
+        "select-install-path": "Wybierz ścieżkę instalacji Steam"
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
@@ -182,7 +184,29 @@
         "redist": "Instalowanie pakietów redystrybucyjnych",
         "steam": {
             "installing": "Instalowanie",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Proszę czekać",
+            "crossover": "Jeśli masz zainstalowany program Crossover, nie będzie ci to potrzebne, ponieważ potrafi on uruchamiać zwykły Steam bez problemu.",
+            "abort": "Przerwij instalację",
+            "recommended": "Zalecane specyfikacje dla lepszego komfortu",
+            "compatibility": "Instalacja Steam nie powiodła się! Przeczytaj dokładnie instrukcje i spróbuj ponownie.",
+            "install-tooltip": "To zainstaluje windowsową wersję programu Steam i będzie ona działać przy użyciu warstwy kompatybilności programu Heroic. \n\n    Niektóre gry, zwłaszcza starsze tytuły, nowsze gry 3D lub te z oprogramowaniem antycziterskim, mogą nie działać poprawnie. \n\n    ",
+            "specificVersion-pt1": "Spowoduje to pobranie określonej wersji Steam z",
+            "launching": "Uruchamianie Steam...",
+            "macOS": "macOS 14.0 lub nowszy",
+            "cancel": "Anuluj instalację",
+            "compatibility-layer-not-available": "Warstwa zgodności jest niedostępna. Zainstaluj ją najpierw z 'Ustawienia > Menedżer Wine'.",
+            "downloading": "Pobieranie {{percent}}%",
+            "hardware": "Apple Silicon M1+ (dla Maców z procesorami Intel Steam będzie działał z programem Crossover)",
+            "install": "Zainstaluj Steam",
+            "install-path": "Ścieżka instalacji Steam",
+            "installation": "Instalacja Steam",
+            "launch": "Uruchom Steam, używając warstwy zgodności programu Heroic",
+            "notification": "Heroic powiadomi cię, gdy instalacja zostanie zakończona.",
+            "patience": "Jeśli chcesz kontynuować, prosimy o cierpliwość, ponieważ może to potrwać kilka minut, w zależności od połączenia internetowego i konfiguracji systemu.",
+            "ram": "8 GB pamięci RAM",
+            "select-path": "Wybierz katalog instalacji dla Steam",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "zoptymalizowanej do działania poprzez program Heroic, ponieważ nowe wersje Steam nie będą działać na macOS."
         }
     },
     "launch": {
@@ -218,7 +242,7 @@
             "fullscreen": "Otwórz w trybie pełnoekranowym (F11 aby wyjsć)"
         },
         "placeholder": {
-            "image": "Wklej adres URL obrazka tutaj",
+            "image": "Wklej adres URL obrazu lub wybierz jeden z komputera",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
             "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
@@ -260,7 +284,8 @@
         "goodie": "Nie do zainstalowania",
         "prerequisites": "Status instalacji wstępnych wymagań",
         "winetricks": "Zastosowywanie poprawek Winetricks",
-        "redist": "Instalowanie pakietów redystrybucyjnych ({{redist}})"
+        "redist": "Instalowanie pakietów redystrybucyjnych ({{redist}})",
+        "importing": "Importowanie"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",

@@ -176,7 +176,8 @@
         "redist": "Menginstal Redistributable",
         "steam": {
             "installing": "Memasang",
-            "pleaseWait": "Mohon tunggu..."
+            "pleaseWait": "Mohon tunggu...",
+            "installation": "Hentikan Pemasangan"
         }
     },
     "launch": {

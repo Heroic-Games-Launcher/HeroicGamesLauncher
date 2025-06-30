@@ -48,12 +48,13 @@
         },
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM",
-        "close": "Fechar"
+        "close": "Fechar",
+        "select-install-path": "Selecione o diretório de instalação da Steam"
     },
     "button": {
         "add_to_favourites": "Adicionar aos favoritos",
         "cancel": "Pausar/Cancelar",
-        "continue": "Continuar Download",
+        "continue": "Continuar Baixando",
         "finish": "Terminar",
         "force_update": "Forçar atualização se disponível",
         "force-innstall": "Forçar instalação",
@@ -183,7 +184,8 @@
         "redist": "Instalando Distribuições",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Por favor aguarde..."
+            "pleaseWait": "Por favor aguarde...",
+            "installation": "Parar a Instalação"
         }
     },
     "launch": {

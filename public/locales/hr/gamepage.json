@@ -155,7 +155,8 @@
         "ubisoft": "Instaliranje Ubisoft Connecta",
         "steam": {
             "installing": "Instaliranje u tijeku",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Zaustavi instalaciju"
         }
     },
     "launch": {
