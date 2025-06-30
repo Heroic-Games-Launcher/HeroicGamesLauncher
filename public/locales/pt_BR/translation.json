@@ -91,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Ocorreu um erro! Tente sair e fazer login na sua conta Epic. {{newline}} {{error}}"
+            },
+            "steam": {
+                "error": "Executável da Steam não encontrado. Instalação foi provavelmente cancelada pelo usuário ou houve uma falha da Steam.",
+                "message": "Instalação da steam falhou. Por favor leia as instruções cuidadosamente e tente novamente! {{paragraph}} {{error}}",
+                "title": "Erro na Steam"
             }
         },
         "info": {
@@ -182,7 +187,8 @@
         "choose-nile-binary": "Selecione o binário do Nilo",
         "update": "Atualização",
         "changelog": "Registro de Alterações",
-        "postpone": "Adiar"
+        "postpone": "Adiar",
+        "launchAnyway": "Iniciar o jogo mesmo assim"
     },
     "button": {
         "cancel": "Cancelar",
