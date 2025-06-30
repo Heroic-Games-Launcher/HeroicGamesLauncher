@@ -158,7 +158,8 @@
         "ubisoft": "Instalarea Ubisoft Connect",
         "steam": {
             "installing": "Se Instalează",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Opriți instalarea"
         }
     },
     "launch": {
