@@ -187,7 +187,10 @@
         "choose-nile-binary": "Seleziona binario di Nile",
         "update": "Aggiorna",
         "changelog": "Note di rilascio",
-        "postpone": "Posponi"
+        "postpone": "Posponi",
+        "launchAnyway": "Lancia comunque il gioco",
+        "shaderPreCachingDisabledMessage": "La Pre-cache dello Share di Steam è disabilitata. Per favore abilitala nelle Impostazioni Steam nella Modalità Desktop per assicurarti che il gioco funzioni correttamente con UMU.",
+        "shaderPreCachingDisabledTitle": "Pre-Caching Shader Disabilitato"
     },
     "button": {
         "cancel": "Annulla",
@@ -407,7 +410,9 @@
         "toggleLayout": {
             "grid": "Visualizza come griglia",
             "list": "Visualizza come lista"
-        }
+        },
+        "hideAlphabetFilter": "Nascondi filtro alfabetico",
+        "showAlphabetFilter": "Mostra filtro alfabetico"
     },
     "Library": "Libreria",
     "loading": {
@@ -470,6 +475,9 @@
             "started": "Aggiornamento avviato",
             "failed": "Aggiornamento non riuscito",
             "paused": "Aggiornamento sospeso"
+        },
+        "import": {
+            "failed": "Importazione fallita"
         }
     },
     "offline-message": {
@@ -746,7 +754,8 @@
             "enableLimiter": "Abilita Limitatore FPS",
             "enableUpscaling": "Abilita Upscaling",
             "missingMsg": "Non troviamo il gamescope nel PATH. Installalo o aggiungilo al PATH.",
-            "enableForceGrabCursor": "Blocca il cursore alla finestra"
+            "enableForceGrabCursor": "Blocca il cursore alla finestra",
+            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 24.08 e riavvia Heroic."
         },
         "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",
         "disablePlaytimeSync": "Disabilita la sincronizzazione del tempo di gioco",
