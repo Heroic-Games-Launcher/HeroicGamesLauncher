@@ -180,7 +180,8 @@
         "redist": "Asennetaan uudelleenjaeltavat osat",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Odota..."
+            "pleaseWait": "Odota...",
+            "installation": "Pysäytä asennus"
         }
     },
     "launch": {
