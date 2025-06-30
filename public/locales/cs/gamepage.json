@@ -284,7 +284,8 @@
         "goodie": "Nelze nainstalovat",
         "prerequisites": "Instalace závislostí",
         "winetricks": "Aplikace oprav Winetricks",
-        "redist": "Instalace Redistributables ({{redist}})"
+        "redist": "Instalace Redistributables ({{redist}})",
+        "importing": "Importování"
     },
     "submenu": {
         "addShortcut": "Přidat zástupce",
