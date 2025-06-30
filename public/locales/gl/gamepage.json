@@ -157,7 +157,8 @@
         "ubisoft": "Instalación de Ubisoft Connect",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Deter a instalación"
         }
     },
     "launch": {
