@@ -168,7 +168,8 @@
         "redist": "Installere Redistributables",
         "winetricks": "Installere Winetricks pakker",
         "steam": {
-            "installing": "Installerer"
+            "installing": "Installerer",
+            "installation": "Stop installationen"
         }
     },
     "launch": {
