@@ -158,7 +158,7 @@
             "message": "La compatibilitat amb el sistema antitrampes s'ha trencat o rebutjat. El joc no funcionarà. Segur que el voleu instal·lar de totes maneres?",
             "install": "Sí (entenc que no funcionarà)",
             "title": "Antitrampes trencat/rebutjat",
-            "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Voleu instal·lar-lo igualment?",
+            "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Vols instal·lar-lo igualment?",
             "install_anyway": "Sí (entenc que les funcions multijugador no funcionen)",
             "ok": "D'acord",
             "disabled_installation": "Aquest joc fa servir programari antitrampes que no és compatible amb el vostre sistema operatiu o els desenvolupadors del joc no n'han activat el suport. Això significa que les funcions multijugador no funcionaran i no hi ha res que pugueu fer per a resoldre-ho ‒ni tan sols l'equip de l'Heroic.<br /><br />Per a instal·lar aquest joc i provar-lo de totes maneres, aneu a Configuració→Avançat i seleccioneu l'opció d'instal·lar jocs amb antitrampes trencat o denegat.<br /><br />Tingueu en compte que no hi ha manera de resoldre-ho i us arrisqueu a què us expulsin de les partides."
@@ -248,7 +248,7 @@
             "useragent": "Escriviu aquí un agent d'usuari personalitzat per a fer-lo servir en aquesta aplicació/joc de navegador."
         },
         "import-hint": {
-            "title": "Important! Si voleu afegir un joc d'Epic/GOG/Amazon, feu clic aquí.",
+            "title": "Important! Si vols afegir un joc d'Epic/GOG/Amazon, fes clic aquí.",
             "content": "No feu servir aquesta funció per a això.<br />En el seu lloc, <3>inicieu sessió</3> a la botiga, busqueu el joc a la vostra biblioteca, obriu el diàleg d'instal·lació i feu clic al botó &quot;Importa un joc&quot;."
         }
     },
@@ -284,7 +284,8 @@
         "goodie": "No instal·lable",
         "prerequisites": "S'estan instal·lant els prerequisits",
         "winetricks": "S'estan aplicant les correccions del Winetricks",
-        "redist": "S'instal·len els redistribuïbles ({{redist}})"
+        "redist": "S'instal·len els redistribuïbles ({{redist}})",
+        "importing": "S'està important"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",
