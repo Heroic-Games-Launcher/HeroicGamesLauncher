@@ -178,7 +178,8 @@
         "winetricks": "와인트릭스 패키지 설치",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "잠시만 기다려 주세요...."
+            "pleaseWait": "잠시만 기다려 주세요....",
+            "installation": "설치 중지"
         }
     },
     "launch": {
