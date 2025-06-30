@@ -8,8 +8,9 @@
         "zoom": "Przybliż",
         "disable_dialog_backdrop_close": "Nie zamykaj okienek, gdy klikniesz poza nimi",
         "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece",
-        "actions_font_family_default": "Rodzaj czcionki menu akcji (domyślna: {{fontFamily}})",
-        "content_font_family_default": "Rodzaj czcionki treści (domyślna: {{fontFamily}})"
+        "actions_font_family_default": "Rodzaj czcionki akcji (domyślna: {{fontFamily}})",
+        "content_font_family_default": "Rodzaj czcionki treści (domyślna: {{fontFamily}})",
+        "disable_smooth_scrolling": "Wyłącz płynne przewijanie (wymagany restart)"
     },
     "add_game": "Dodaj grę",
     "All": "Wszystkie",
@@ -90,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Wystąpił błąd! Spróbuj wylogować się i zalogować na swoje konto Epic. {{newline}} {{error}}"
+            },
+            "steam": {
+                "error": "Nie znaleziono pliku wykonywalnego Steam. Instalacja została prawdopodobnie przerwana przez użytkownika lub wystąpił błąd po stronie Steam.",
+                "message": "Błąd podczas instalacji Steam! Prosimy o dokładne zapoznanie się z instrukcją, po czym prosimy spróbować ponownie! {{paragraph}} {{error}}",
+                "title": "Błąd Steam"
             }
         },
         "info": {
@@ -169,6 +175,10 @@
                 "checkbox": "Nie pokazuj tego więcej",
                 "title": "Heroic jest uruchomiony jako Snap",
                 "message": "Niektóre funkcjonalności nie są dostępne w wersji Snap, pracujemy nad nimi.{{newLine}}Obecne ograniczenia to: {{newLine}}Heroic nie będzie w stanie znaleźć Protona należącego do Steam lub Wine należącego do Lutris.{{newLine}}{{newLine}}Gamescope, GameMode oraz MangoHud również nie będą działać, ponieważ Heroic nie ma do nich dostępu.{{newLine}}{{newLine}}Aby uzyskać dostęp do powyższych funkcji, zainstaluj Heroic za pomocą Flatpak, paczki DEB lub AppImage."
+            },
+            "rosetta": {
+                "title": "Nie znaleziono Rosetta",
+                "message": "Program Heroic wymaga programu Rosetta do prawidłowego działania na macOS z procesorami Apple Silicon. Zainstaluj go z terminala macOS za pomocą polecenia: 'softwareupdate --install-rosetta', a następnie uruchom ponownie Heroic.• "
             }
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
@@ -177,7 +187,10 @@
         "choose-nile-binary": "Wybierz plik wykonywalny Nile",
         "update": "Aktualizuj",
         "postpone": "Odłóż",
-        "changelog": "Dziennik zmian"
+        "changelog": "Dziennik zmian",
+        "launchAnyway": "Uruchom grę mimo to",
+        "shaderPreCachingDisabledMessage": "Pamięć wstępna cieniowania Steam jest wyłączona. Aby program działał poprawnie z UMU, włącz ją w ustawieniach Steam w trybie pulpitu.",
+        "shaderPreCachingDisabledTitle": "Wstępna pamięć podręczna cieniowania wyłączona"
     },
     "button": {
         "cancel": "Anuluj",
@@ -270,7 +283,8 @@
         "show_support_offline_only": "Pokaż tylko obsługiwane offline",
         "uncategorized": "Nieskategoryzowane",
         "select_all": "Zaznacz wszystkie",
-        "show_third_party_managed_only": "Wyświetlaj tylko zarządzane zewnętrznie"
+        "show_third_party_managed_only": "Wyświetlaj tylko zarządzane zewnętrznie",
+        "show_updates_only": "Pokaż tylko gry z aktualizacją"
     },
     "help": {
         "amdfsr": "AMD FSR pomaga podnieść liczbę klatek na sekundę poprzez podniesienie niżej rozdzielczości do rozdzielczości monitora. Jakość obrazu można dostosować od 5 do 1, z drobnym spadkiem wydajności. Włączenie może poprawić wydajność.",
@@ -323,7 +337,7 @@
             "upscaleHeight": "Wysokość (rozdzielczość) używana przez gamescope. Przyjmuje się proporcje 16:9.",
             "fpsLimiter": "Limit klatek na sekundę, który powinien zastosować gamescope; np. 60",
             "additionalOptions": "Dodatkowe argumenty linii poleceń dla gamescope.",
-            "forceGrabCursor": "Zawsze używaj trybu relatywnego myszy zamiast odwracania w zależności od widoczności kursora (przydatne, gdy aplikacje tracą fokus)."
+            "forceGrabCursor": "Zawsze używaj trybu relatywnego myszy zamiast odwracania w zależności od widoczności kursora (przydatne, gdy aplikacje tracą skupienie)"
         },
         "title": {
             "accessibility": "Ułatwienia dostępu",
@@ -349,7 +363,9 @@
             "wineManager": "Zainstaluj inne wersje Wine, Protona, Crossover, itp."
         },
         "msync": "Zadaniem Msync jest zmniejszenie narzutu wydajności spowodowanego przez wineserver w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność na obsługiwanych kernelach Linuksa.",
-        "dxfpslimit": "Ustala limit klatek na sekundę dla gier z DXVK"
+        "dxfpslimit": "Ustala limit klatek na sekundę dla gier z DXVK (9-12)",
+        "advertiseAvxForRosetta": "Umożliwia obsługę zestawu instrukcji AVX podczas uruchamiania gier z systemu Windows za pomocą programu Rosetta na Macach z procesorami Apple Silicon. Może być to wymagane w przypadku niektórych gier, takich jak Death Stranding, które potrzebują obsługi AVX.",
+        "download_proton_steam": "Po włączeniu, GE-Proton zostanie pobrany bezpośrednio do katalogu narzędzi zgodności Steam, zamiast do domyślnej ścieżki programu Heroic. Będzie używana ścieżka Steam ustawiona w opcji 'Domyślna ścieżka Steam' powyżej."
     },
     "info": {
         "heroic": {
@@ -394,7 +410,9 @@
         "toggleLayout": {
             "grid": "Przełącz na tryb siatki",
             "list": "Przełącz na tryb listy"
-        }
+        },
+        "hideAlphabetFilter": "Ukryj sortowanie alfabetyczne",
+        "showAlphabetFilter": "Pokaż sortowanie alfabetyczne"
     },
     "Library": "Biblioteka",
     "loading": {
@@ -457,6 +475,9 @@
             "started": "Aktualizacja rozpoczęta",
             "failed": "Aktualizacja nie powiodła się",
             "paused": "Aktualizacja wstrzymana"
+        },
+        "import": {
+            "failed": "Błąd importowania"
         }
     },
     "offline-message": {
@@ -724,8 +745,9 @@
         "gamescope": {
             "enableLimiter": "Włącz ograniczenie klatek na sekundę",
             "enableUpscaling": "Włącz skalowanie",
-            "missingMsg": "Nie udało się nam znaleźć gamescope na PATH. Zainstaluj je lub/i dodaj do PATH.",
-            "enableForceGrabCursor": "Włącz kursor Force Grab"
+            "missingMsg": "Nie mogliśmy znaleźć gamescope w ścieżce PATH. Zainstaluj go lub dodaj do ścieżki PATH.",
+            "enableForceGrabCursor": "Włącz kursor Force Grab",
+            "missingMsgFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 24.08 i uruchom ponownie program Heroic."
         },
         "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
         "before-launch-script-path": "Wybierz skrypt do uruchomienia przed rozpoczęciem gry",
@@ -744,7 +766,10 @@
         "custom_css": {
             "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic będzie bezużyteczny. W razie potrzeby można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
         },
-        "disableUMU": "Wyłącz umu"
+        "disableUMU": "Wyłącz umu",
+        "advertiseAvxForRosetta": "Promuj AVX dla Rosetty",
+        "dxfpslimit": "Ogranicz FPSy w grach DirectX",
+        "download-proton-steam": "Pobierz GE-Proton do katalogu Steam"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -986,7 +1011,7 @@
             "welcome": {
                 "title": "Witaj w Heroic!",
                 "title2": "Zarządzanie biblioteką!",
-                "intro2": "Jeśli biblioteka jest pusta, zaloguj się do swoich kont, klikając na \"Zarządzaj kontami\" w pasku bocznym, lub dodaj własne gry, klikając na przycisk \"Dodaj grę\" powyżej.",
+                "intro2": "Jeśli biblioteka jest pusta, upewnij się, że zalogowałeś się na swoje konta za pomocą 'Zarządzaj kontami' na pasku bocznym lub dodaj własne gry, używając przycisku 'Dodaj grę' powyżej.",
                 "intro": "Witaj w bibliotece Heroic! Znajdziesz tu wszystkie swoje gry z różnych sklepów."
             },
             "gameCard": "Naciśnij lewym przyciskiem myszy na kartę gry, aby przejść do jej strony i wyświetlić informacje oraz dostosować ustawienia, lub prawym przyciskiem, by otworzyć menu kontekstowe.",
@@ -1001,7 +1026,8 @@
             "search": "Użyj paska wyszukiwania, aby znaleźć swoje gry.",
             "sortInstalled": "Sortuj gry według ich statusu instalacji.",
             "sortOptions": "Kliknij tutaj, aby posortować gry alfabetycznie.",
-            "viewToggle": "Przełączaj pomiędzy widokami siatki i listy dla swoich gier."
+            "viewToggle": "Przełączaj pomiędzy widokami siatki i listy dla swoich gier.",
+            "steamInstall": "Użyj tego przycisku, aby zainstalować wersję Steam dla systemu Windows i grać w swoje gry z systemu Windows, używając programów Crossover, Wine lub GPTK."
         },
         "sidebar": {
             "stores": "Przeglądaj i kupuj gry w różnych sklepach, m.in. Epic, GOG i Amazon.",
@@ -1026,5 +1052,11 @@
         "next": "Następny",
         "skip": "Pomiń",
         "startTour": "Rozpocznij przewodnik"
+    },
+    "notification": {
+        "steam": {
+            "error": "Pamiętaj, że nie wszystkie gry będą działać, a nawet jeśli tak, to mogą nie działać zgodnie z oczekiwaniami!",
+            "success": "Steam dla Windows został pomyślnie zainstalowany!"
+        }
     }
 }
