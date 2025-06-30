@@ -174,7 +174,8 @@
         },
         "redist": "पुनर्वितरणीयों को इंस्टॉल किया जा रहा है",
         "steam": {
-            "installing": "इंस्टॉल हो रहा है"
+            "installing": "इंस्टॉल हो रहा है",
+            "installation": "इंस्टॉल रोको"
         }
     },
     "modifyInstall": {
