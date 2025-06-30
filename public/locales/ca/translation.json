@@ -174,11 +174,11 @@
             "snap": {
                 "checkbox": "No mostris més aquest missatge",
                 "title": "L'Heroic s'executa com a Snap",
-                "message": "Algunes funcions de moment no estan disponibles a la versió Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}L'Heroic no serà capaç de trobar el Proton del Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran, ja que l'Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·leu l'Heroic com a Flatpak, DEB o amb l'AppImage."
+                "message": "Algunes funcions de moment no estan disponibles a la versió Snap i ho estem mirant d'arreglar.{{newLine}}Les limitacions actuals són: {{newLine}}L'Heroic no serà capaç de trobar el Proton del Steam o el Wine del Lutris.{{newLine}}{{newLine}}Gamescope, GameMode i MangoHud tampoc funcionaran, ja que l'Heroic no hi té accés.{{newLine}}{{newLine}}Per a poder fer servir aquestes funcions, instal·la l'Heroic com a Flatpak, DEB o amb l'AppImage."
             },
             "rosetta": {
                 "title": "La Rosetta no s'ha trobat.",
-                "message": "L'Heroic necessita la Rosetta per a executar jocs en el macOS amb xips d'Apple Silicon. Instal·leu-la des del terminal macOS amb l'ordre: «softwareupdate --install-rosetta» i reinicieu l'Heroic. "
+                "message": "L'Heroic necessita la Rosetta per a executar jocs en el macOS amb xips d'Apple Silicon. Instal·la-la des del terminal macOS amb l'ordre: «softwareupdate --install-rosetta» i reinicia l'Heroic. "
             }
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
@@ -187,7 +187,10 @@
         "choose-nile-binary": "Selecciona el binari del Nile",
         "update": "Actualitza",
         "changelog": "Registre de canvis",
-        "postpone": "Posposa"
+        "postpone": "Posposa",
+        "launchAnyway": "Llança el joc de totes maneres",
+        "shaderPreCachingDisabledMessage": "La precaché del shader de l'Steam està desactivada. Activa-la des de la configuració de l'Steam en mode escriptori per a assegurar que el joc funciona adequadament amb UMU.",
+        "shaderPreCachingDisabledTitle": "Pre-caché del shader desactivada"
     },
     "button": {
         "cancel": "Cancel·la",
@@ -280,7 +283,7 @@
         "reset": "Restableix",
         "show_support_offline_only": "Mostra només els disponibles sense connexió",
         "select_all": "Selecciona-ho tot",
-        "no_categories": "No existeixen categories personalitzades. Afegiu-ne des del menú de cada joc.",
+        "no_categories": "No existeixen categories personalitzades. Afegeix-ne des del menú de cada joc.",
         "show_third_party_managed_only": "Mostra només els gestionats per tercers",
         "show_updates_only": "Mostra només els jocs amb actualitzacions"
     },
@@ -408,7 +411,9 @@
         "toggleLayout": {
             "grid": "Commuta a una vista en graella",
             "list": "Commuta a una vista en llista"
-        }
+        },
+        "hideAlphabetFilter": "Amaga el filtre d'alfabet",
+        "showAlphabetFilter": "Mostra el filtre d'alfabet"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -471,6 +476,9 @@
             "started": "S'ha iniciat l'actualització",
             "failed": "No s'ha pogut actualitzar",
             "paused": "Actualització en pausa"
+        },
+        "import": {
+            "failed": "La importació ha fallat"
         }
     },
     "offline-message": {
@@ -641,8 +649,8 @@
                 "actions": "Accions",
                 "button": "Puja el fitxer de registre",
                 "confirm": {
-                    "title": "Voleu pujar el fitxer de registre?",
-                    "content": "Esteu segur que voleu pujar «{{name}}»?"
+                    "title": "Vols pujar el fitxer de registre?",
+                    "content": "Estàs segur que vols pujar «{{name}}»?"
                 },
                 "delete": "Sol·licitud per a esborrar el fitxer de registre",
                 "done": {
@@ -738,17 +746,18 @@
         "gamescope": {
             "enableLimiter": "Activa el limitador de FPS",
             "enableUpscaling": "Activa l'escalatge",
-            "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·leu-lo o afegiu-lo a PATH.",
-            "enableForceGrabCursor": "Activa la captura forçada de cursor"
+            "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
+            "enableForceGrabCursor": "Activa la captura forçada de cursor",
+            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic."
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
         "before-launch-script-path": "Seleccioneu un script que s'executarà abans que s'iniciï joc",
         "allow_installation_broken_anticheat": {
             "confirmation": {
-                "title": "Esteu segur?",
+                "title": "Estàs segur?",
                 "understand": "Sí, ho entenc.",
-                "message": "Els jocs amb suport antitrampes trencat o denegat poden funcionar, però les característiques multijugador no funcionaran. No demaneu suport si les instal·leu sabent això."
+                "message": "Els jocs amb suport antitrampes trencat o denegat poden funcionar, però les característiques multijugador no funcionaran. No demanis suport si les instal·les en aquest cas."
             },
             "label": "Permet instal·lar jocs amb suport antitrampes trencat o denegat"
         },
@@ -928,7 +937,7 @@
             "title": "Gestor del Wine",
             "unzipping": "S'està descomprimint"
         },
-        "release": "Release Date",
+        "release": "Data de llançament",
         "size": "Mida"
     },
     "externalLink": {
@@ -953,7 +962,7 @@
         "loading": "S'està carregant",
         "installing": "Instal·lació en curs: {{component}}",
         "openGUI": "Obre la interfície del Winetricks",
-        "search": "Cerqueu fonts o components",
+        "search": "Cerca fonts o components",
         "nothingYet": "El Winetricks encara no ha instal·lat res",
         "installed": "Components instal·lats:",
         "loading-available": "S'estan carregant els components disponibles...",
@@ -969,7 +978,7 @@
         "cancel": "Cancel·la",
         "warning": "Atenció",
         "remove-category": "Trau la categoria",
-        "delete-question": "Si continueu, es traurà la categoria i les seves assignacions de jocs permanentment. Voleu continuar?",
+        "delete-question": "Si continues, es traurà la categoria i les seves assignacions de jocs permanentment. Vols continuar?",
         "new-category": "Categoria nova",
         "add-new-category": "Afegeix una categoria nova"
     },
@@ -995,7 +1004,7 @@
     },
     "adtraction-locked": {
         "dont-show-again": "No mostris més aquest avís",
-        "description": "El domini track.adtraction.com no es pot carregar o està blocat. Amb adtraction, qualsevol compra que realitzeu a la botiga GOG ajuda econòmicament l'Heroic. Considereu si voleu treure el bloqueig per a col·laborar-hi.",
+        "description": "El domini track.adtraction.com no es pot carregar o està blocat. Amb adtraction, qualsevol compra que realitzis a la botiga GOG ajuda econòmicament l'Heroic. Considera si vols treure el bloqueig per a col·laborar-hi.",
         "title": "Adtraction està blocat"
     },
     "tour": {
@@ -1040,7 +1049,7 @@
                 "intro": "Us donem la benvinguda a l'Heroic! Aquesta barra lateral conté totes les opcions de navegació per a explorar l'aplicació."
             },
             "wine": "Gestioneu o descarregueu versions noves del Wine/Proton/GPTK per a executar jocs de Windows en màquines Linux o macOS.",
-            "stores": "Cerqueu i compreu jocs de diferents botigues com ara Epic, GOG o Amazon."
+            "stores": "Cerca i compra jocs de diferents botigues com ara Epic, GOG o Amazon."
         },
         "skip": "Salta",
         "startTour": "Inicia la guia"
