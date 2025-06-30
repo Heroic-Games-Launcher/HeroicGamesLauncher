@@ -5,16 +5,16 @@
         "copy": "Sao chép",
         "copied": "Đã sao chép!",
         "error": "Lỗi, hãy thử Mã khác",
-        "loading": "Loading"
+        "loading": "Đang tải"
     },
     "message": {
         "part1": "Để đăng nhập và cài đặt game, làm theo hướng dẫn sau:",
         "part2": "Mở",
         "part3": "Cửa hàng Epic",
         "part4": ",Đăng nhập vào tài khoản rồi sao chép",
-        "part5": "Thông tin authorization code",
+        "part5": "thông tin mã đăng nhập",
         "part6": "Dán",
-        "part7": "authorization code",
+        "part7": "mã xác minh",
         "part8": "trong ô bên dưới và nhấp vào nút đăng nhập."
     },
     "status": {
