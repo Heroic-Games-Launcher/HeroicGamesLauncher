@@ -411,7 +411,9 @@
         "toggleLayout": {
             "grid": "切换到网格布局",
             "list": "切换到列表布局"
-        }
+        },
+        "hideAlphabetFilter": "隐藏字母表筛选器",
+        "showAlphabetFilter": "显示字母表筛选器"
     },
     "Library": "仓库",
     "loading": {

@@ -163,7 +163,8 @@
         "ubisoft": "در حال نصب Ubisoft Connect",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "لطفا صیر کنید..."
+            "pleaseWait": "لطفا صیر کنید...",
+            "installation": "توقف نصب"
         }
     },
     "launch": {

@@ -180,7 +180,8 @@
         "redist": "再頒布可能ファイルのインストール",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "インストールを停止する"
         }
     },
     "launch": {

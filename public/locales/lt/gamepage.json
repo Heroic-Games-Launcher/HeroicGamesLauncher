@@ -149,7 +149,8 @@
         "redist": "Įdiegiami įterptiniai taikomieji komponentai",
         "steam": {
             "installing": "Įdiegiama",
-            "pleaseWait": "Prašome palaukti..."
+            "pleaseWait": "Prašome palaukti...",
+            "installation": "Stabdyti įdiegimą"
         }
     },
     "modifyInstall": {
