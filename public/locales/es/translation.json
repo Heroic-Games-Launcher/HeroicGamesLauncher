@@ -411,7 +411,9 @@
         "toggleLayout": {
             "grid": "Cambiar a vista de grilla",
             "list": "Cambiar a vista de lista"
-        }
+        },
+        "hideAlphabetFilter": "Ocultar Filtro del Alfabeto",
+        "showAlphabetFilter": "Mostar filtro del alfabeto"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -474,6 +476,9 @@
             "started": "Actualización iniciada",
             "failed": "Actualización fallida",
             "paused": "Actualización en pausa"
+        },
+        "import": {
+            "failed": "Fallo el importado"
         }
     },
     "offline-message": {
@@ -1009,7 +1014,26 @@
             },
             "filters": "Filtra tus juegos por tienda, plataforma, favorites, y más usando estas opciones.",
             "categories": "Organiza tus juegos en categorías para mantener las cosas ordenadas.",
-            "addGame": "Agrega tus propios juegos y apps haciendo click aquí. Pueden ser básicamente cualquier cosa, incluso URLs web."
+            "addGame": "Agrega tus propios juegos y apps haciendo click aquí. Pueden ser básicamente cualquier cosa, incluso URLs web.",
+            "gameCard": "Clic Izquierdo en la tarjeta de juego para navegar a la pagina del juego y para ver detalles y ajustar los ajustes o Clic derecho para abrir el menú de contexto.",
+            "refresh": "Refresca tu librería para revisar nuevos juegos o actualizaciones.",
+            "search": "Usa la barra de búsqueda para buscar por tus juegos.",
+            "sortInstalled": "Organiza juegos por el status de descarga.",
+            "sortOptions": "Haz clic acá para organizar juegos alfabéticamente.",
+            "steamInstall": "Usa este botón para instalar la versión de Windows de Steam y poder jugar tus juegos de windows usando Crossover, Wine o GPTK.",
+            "welcome": {
+                "intro": "Bienvenido a la librería de Heroic! Acá es donde tu puedes ver todos tus juegos atravez de diferentes tiendas digitales.",
+                "intro2": "Si la libreria esta vacia, asegurate de iniciar sesion con tus cuentas usando el boton que dice \"Manejar cuentas\" en la barra lateral o añade tus propios juegos usando el boton de Añadir Juego arriba.",
+                "title": "Bienvenido a Heroic!",
+                "title2": "Gestionando la biblioteca!"
+            }
+        },
+        "next": "Siguiente",
+        "sidebar": {
+            "accessibility": "Accede a funciones de accesibilidad para customizar tu experiencia.",
+            "accounts": "Maneja tu cuenta de tiendas digitales (Epic, GOG, Amazon), termina tu sesion o inicia sesion con ellas.",
+            "community": "Unete a nuestra comunidad en Discord y ayuda el desarrollo de Heroic.",
+            "docs": "Lee la documentación para ayuda usando Heroic."
         }
     },
     "notification": {
