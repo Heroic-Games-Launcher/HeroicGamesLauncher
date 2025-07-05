@@ -33,7 +33,8 @@ import {
   IgnoreGameUpdates,
   Gamescope,
   BeforeLaunchScriptPath,
-  AfterLaunchScriptPath
+  AfterLaunchScriptPath,
+  EscapeFlatpakSandbox
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -83,6 +84,7 @@ export default function GamesSettings() {
     gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
+  const isFlatpak = window.isFlatpak
 
   function shouldShowSettings(tab: 'wine' | 'other'): boolean {
     if (tab === 'wine') {
@@ -219,6 +221,7 @@ export default function GamesSettings() {
           </>
         )}
         <VerboseLogs />
+        {isFlatpak && <EscapeFlatpakSandbox />}
         <DisableUMU />
         <AlternativeExe />
         <LauncherArgs />
