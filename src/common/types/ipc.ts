@@ -222,6 +222,7 @@ interface AsyncIPCFunctions {
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
+  getWebviewPreloadPath: () => string
   clipboardReadText: () => string
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
