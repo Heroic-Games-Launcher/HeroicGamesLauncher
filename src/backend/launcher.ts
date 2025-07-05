@@ -615,19 +615,16 @@ async function prepareLaunch(
 
         // upscale method
         if (gameSettings.gamescope.upscaleMethod === 'fsr') {
-          oldVersion
-            ? gameScopeCommand.push('-U')
-            : gameScopeCommand.push('-F', 'fsr')
+          if (oldVersion) gameScopeCommand.push('-U')
+          else gameScopeCommand.push('-F', 'fsr')
         }
         if (gameSettings.gamescope.upscaleMethod === 'nis') {
-          oldVersion
-            ? gameScopeCommand.push('-Y')
-            : gameScopeCommand.push('-F', 'nis')
+          if (oldVersion) gameScopeCommand.push('-Y')
+          else gameScopeCommand.push('-F', 'nis')
         }
         if (gameSettings.gamescope.upscaleMethod === 'integer') {
-          oldVersion
-            ? gameScopeCommand.push('-i')
-            : gameScopeCommand.push('-S', 'integer')
+          if (oldVersion) gameScopeCommand.push('-i')
+          else gameScopeCommand.push('-S', 'integer')
         }
         // didn't find stretch in old version
         if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
@@ -906,7 +903,10 @@ async function prepareWineLaunch(
       }
     }
   } catch (err) {
-    logError('Failed to install GalaxyCommunication dummy into the prefix')
+    logError([
+      'Failed to install GalaxyCommunication dummy into the prefix:',
+      err
+    ])
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -1126,7 +1126,8 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
 
   if (gameSettings.showFps) {
-    isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
+    if (isMac) ret.MTL_HUD_ENABLED = '1'
+    else ret.DXVK_HUD = 'fps'
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
@@ -1723,7 +1724,7 @@ async function callRunner(
       })
 
       if (signal && !child.killed) {
-        rej('Process terminated with signal ' + signal)
+        rej(new Error(`Process terminated with signal ${signal}`))
       }
 
       res({
@@ -1958,11 +1959,11 @@ async function runScriptForGame(
       })
     }
 
-    child.on('error', (err: Error) => {
+    child.on('error', (err) => {
       if (gameSettings.verboseLogs) {
         logWriter.logError(err)
       }
-      reject(err.message)
+      reject(err)
     })
 
     child.on('exit', () => {

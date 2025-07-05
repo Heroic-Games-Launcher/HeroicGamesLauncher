@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { GameInfo } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SvgButton } from 'frontend/components/UI'

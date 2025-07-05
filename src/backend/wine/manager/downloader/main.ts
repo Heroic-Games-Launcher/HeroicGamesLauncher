@@ -49,7 +49,7 @@ async function getAvailableVersions({
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
 
-  for await (const repo of repositorys) {
+  for (const repo of repositorys) {
     switch (repo) {
       case Repositorys.WINEGE: {
         await fetchReleases({

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
 import { Speed, ExpandMore } from '@mui/icons-material'
