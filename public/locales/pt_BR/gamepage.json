@@ -185,7 +185,8 @@
         "steam": {
             "installing": "Installing",
             "pleaseWait": "Por favor aguarde...",
-            "installation": "Parar a Instalação"
+            "installation": "Parar a Instalação",
+            "install-path": "Selecione o diretório de instalação da  Steam"
         }
     },
     "launch": {

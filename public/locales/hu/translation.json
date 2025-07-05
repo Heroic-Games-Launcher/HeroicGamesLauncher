@@ -410,7 +410,9 @@
         "toggleLayout": {
             "grid": "Rács elrendezés engedélyezése",
             "list": "Lista elrendezés engedélyezése"
-        }
+        },
+        "hideAlphabetFilter": "Betűrendes szűrő elrejtése",
+        "showAlphabetFilter": "Betűrendes szűrő megjelenítése"
     },
     "Library": "Könyvtár",
     "loading": {
@@ -473,6 +475,9 @@
             "started": "A frissítés elindult",
             "failed": "A frissítés sikertelen",
             "paused": "A frissítés szünetel"
+        },
+        "import": {
+            "failed": "Az importálás nem sikerült"
         }
     },
     "offline-message": {

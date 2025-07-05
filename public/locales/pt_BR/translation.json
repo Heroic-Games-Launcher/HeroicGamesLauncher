@@ -1039,5 +1039,10 @@
         "done": "Pronto",
         "skip": "Pular",
         "startTour": "Iniciar o Tour"
+    },
+    "notification": {
+        "steam": {
+            "error": "Instalação da steam falhou. Por favor  leia as instruções cuidadosamente e tente novamente!"
+        }
     }
 }
