@@ -180,12 +180,10 @@ const Gamescope = () => {
                   )}
                 />
               }
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              onChange={(newValue) => {
                 setGamescope({
                   ...gamescope,
-                  gameWidth:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.gameWidth
+                  gameWidth: setResolution(newValue) ?? gamescope.gameWidth
                 })
               }}
             />
@@ -204,12 +202,10 @@ const Gamescope = () => {
                   )}
                 />
               }
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              onChange={(newValue) => {
                 setGamescope({
                   ...gamescope,
-                  gameHeight:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.gameHeight
+                  gameHeight: setResolution(newValue) ?? gamescope.gameHeight
                 })
               }}
             />
@@ -230,12 +226,11 @@ const Gamescope = () => {
                   )}
                 />
               }
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              onChange={(newValue) => {
                 setGamescope({
                   ...gamescope,
                   upscaleWidth:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.upscaleWidth
+                    setResolution(newValue) ?? gamescope.upscaleWidth
                 })
               }}
             />
@@ -254,12 +249,11 @@ const Gamescope = () => {
                   )}
                 />
               }
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              onChange={(newValue) => {
                 setGamescope({
                   ...gamescope,
                   upscaleHeight:
-                    setResolution(event.currentTarget.value) ??
-                    gamescope.upscaleHeight
+                    setResolution(newValue) ?? gamescope.upscaleHeight
                 })
               }}
             />
@@ -315,12 +309,10 @@ const Gamescope = () => {
                 )}
               />
             }
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            onChange={(newValue) => {
               setGamescope({
                 ...gamescope,
-                fpsLimiter:
-                  setResolution(event.currentTarget.value) ??
-                  gamescope.fpsLimiter
+                fpsLimiter: setResolution(newValue) ?? gamescope.fpsLimiter
               })
             }}
           />
@@ -342,12 +334,11 @@ const Gamescope = () => {
                 )}
               />
             }
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            onChange={(newValue) => {
               setGamescope({
                 ...gamescope,
                 fpsLimiterNoFocus:
-                  setResolution(event.currentTarget.value) ??
-                  gamescope.fpsLimiterNoFocus
+                  setResolution(newValue) ?? gamescope.fpsLimiterNoFocus
               })
             }}
           />
@@ -390,8 +381,8 @@ const Gamescope = () => {
             )}
           />
         }
-        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-          setAdditionalOptions(event.currentTarget.value)
+        onChange={(newValue) => {
+          setAdditionalOptions(newValue)
         }}
         onBlur={(event: ChangeEvent<HTMLInputElement>) =>
           setGamescope({
