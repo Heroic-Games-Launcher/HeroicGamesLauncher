@@ -10,7 +10,7 @@ import {
 import { libraryStore } from './electronStores'
 import { GameConfig } from '../../game_config'
 import { killPattern, sendGameStatusUpdate, shutdownWine } from '../../utils'
-import { logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { dirname } from 'path'
 import { existsSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
@@ -25,6 +25,8 @@ import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { removePrefix } from 'backend/utils/uninstaller'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+
+import type LogWriter from 'backend/logger/log_writer'
 
 export function getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
@@ -70,10 +72,11 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
 
 export async function launch(
   appName: string,
+  logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
-  return launchGame(appName, getGameInfo(appName), 'sideload', args)
+  return launchGame(appName, logWriter, getGameInfo(appName), 'sideload', args)
 }
 
 export async function stop(appName: string): Promise<void> {

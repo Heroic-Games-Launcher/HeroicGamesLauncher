@@ -14,6 +14,20 @@ body {
   --anticheat-supported: var(--status-success);
   --anticheat-planned: var(--status-info);
   --anticheat-unknown: var(--status-denied);
+
+  --alphabet-filter-accent-color: var(--accent);
+  --alphabet-filter-accent-hover: var(--accent-overlay, var(--accent));
+}
+
+body.alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(
+    --accent,
+    var(--primary, var(--brand-primary))
+  );
+  --alphabet-filter-accent-hover: var(
+    --accent-overlay,
+    var(--primary-hover, var(--brand-primary-hover))
+  );
 }
 
 body.midnightMirage {
@@ -246,6 +260,7 @@ body.high-contrast {
   --secondary-button: #f364b5;
 
   --success-button: #00ddff;
+
   .heroicVersion {
     color: var(--text-default);
   }
@@ -313,7 +328,6 @@ body.nord-light {
   --primary: #b48ead;
   --primary-hover: #a17399;
   --danger: #bf616a;
-  --text-log: #f7b32a;
   --text-tertiary: var(--brand-text-01);
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
@@ -346,6 +360,13 @@ body.nord-light {
   --gamecard-title-color: #ccdaf8cc;
   --install-button: var(--primary);
   --status-success-hover: #5e81ac;
+  --text-log: var(--status-warning);
+  --tour-popup-background: var(--input-background);
+  --tour-bullet-active: var(--accent);
+  --tour-bullet-inactive: var(--accent-overlay);
+  --tour-popup-title: var(--text-title);
+  --tour-popup-skip-color: var(--text-secondary);
+  --tour-popup-skip-color-hover: var(--text-title);
 
   .developer,
   .releaseDate,
@@ -425,14 +446,6 @@ body.nord-light {
     color: var(--navbar-active);
   }
 
-  body.nord-light .downIcon circle {
-    fill: var(--primary);
-  }
-
-  body.nord-light .currentDownload {
-    --success: #0bd48c;
-  }
-
   .CategoriesManager__Dialog {
     .MuiDialogContent-root {
       .Category {
@@ -447,10 +460,14 @@ body.nord-light {
   .tour-button {
     --tour-button-color: var(--accent);
   }
-}
 
-body.nord-light .alternative > svg {
-  fill: var(--accent) !important;
+  .Sidebar .tour-button {
+    --tour-button-color: var(--primary-active);
+  }
+
+  .alternative > svg {
+    fill: var(--accent) !important;
+  }
 }
 
 body.nord-dark {
@@ -559,6 +576,15 @@ body.zombie-classic {
   --icons-background: #323232;
 }
 
+body.zombie .alphabet-filter-button--active,
+body.zombie-classic .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--primary-button);
+  --alphabet-filter-accent-hover: var(
+    --primary-button-hover,
+    var(--primary-button)
+  );
+}
+
 body.old-school {
   --accent: #ffa800;
   --accent-overlay: #ffc44f;
@@ -594,6 +620,11 @@ body.old-school {
 body.classic .sid-input,
 body.old-school .sid-input {
   background: var(--background);
+}
+
+body.old-school .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--status-success);
+  --alphabet-filter-accent-hover: var(--status-success-hover);
 }
 
 body.classic,

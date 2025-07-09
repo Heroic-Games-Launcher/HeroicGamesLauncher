@@ -4,7 +4,7 @@ import { BrowserWindow, Display, screen } from 'electron'
 import { overrideProcessPlatform } from './constants.test'
 import { configStore } from 'backend/constants/key_value_stores'
 
-jest.mock('../logger/logfile')
+jest.mock('../logger')
 
 describe('main_window', () => {
   describe('sendFrontendMessage', () => {

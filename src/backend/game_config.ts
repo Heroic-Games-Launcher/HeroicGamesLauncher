@@ -2,9 +2,9 @@ import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 
 import { GameConfigVersion, GameSettings } from 'common/types'
 import { GlobalConfig } from './config'
-import { currentGameConfigVersion } from 'backend/constants/others'
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { join } from 'path'
+import { currentGameConfigVersion } from 'backend/constants/others'
 import { isMac, isWindows } from './constants/environment'
 import {
   configPath,

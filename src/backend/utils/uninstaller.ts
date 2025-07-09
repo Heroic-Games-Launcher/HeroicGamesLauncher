@@ -1,7 +1,7 @@
 import { GlobalConfig } from 'backend/config'
 import { fixesPath, gamesConfigPath } from 'backend/constants/paths'
 import { notify } from 'backend/dialog/dialog'
-import { logError, logInfo, LogPrefix } from 'backend/logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { gameManagerMap } from 'backend/storeManagers'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { Runner } from 'common/types'

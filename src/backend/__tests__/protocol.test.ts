@@ -60,7 +60,7 @@ jest.mock('../storeManagers', () => ({
   }
 }))
 
-jest.mock('../logger/logger', () => ({
+jest.mock('../logger', () => ({
   logInfo: jest.fn(),
   logError: jest.fn(),
   LogPrefix: {

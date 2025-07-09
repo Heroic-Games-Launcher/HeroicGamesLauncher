@@ -129,7 +129,7 @@
         "main-plus-extras": "Põhi + lisad",
         "main-story": "Põhilugu"
     },
-    "howLongToBeat": "Kui kaua, et läbi teha",
+    "howLongToBeat": "Kui kaua, et lõpuni mängida",
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
         "installedPlatform": "Paigaldatud platvorm",
@@ -282,7 +282,8 @@
         "gog-goodie": "See mäng ei paista olevat paigaldatav. Kontrollige allalaaditavat sisu (DLC) aadressil https://gog.com/account",
         "goodie": "Ei ole paigaldatav",
         "redist": "Vajalike pakkide paigaldamine ({{redist}})",
-        "winetricks": "Winetricksi paranduste rakendamine"
+        "winetricks": "Winetricksi paranduste rakendamine",
+        "importing": "Importimine"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",

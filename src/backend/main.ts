@@ -62,13 +62,13 @@ import { Path } from './schemas'
 import { uninstallGameCallback } from './utils/uninstaller'
 import { handleProtocol } from './protocol'
 import {
-  initLogger,
+  init as initLogger,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from './logger/logger'
+} from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
@@ -403,15 +403,23 @@ if (!gotTheLock) {
     }
 
     const headless = isCLINoGui || settings.startInTray
+
     if (!headless) {
-      mainWindow.once('ready-to-show', () => {
+      const isWayland = Boolean(process.env.WAYLAND_DISPLAY)
+      const showWindow = () => {
         const props = configStore.get_nodefault('window-props')
         mainWindow.show()
         // Apply maximize only if we show the window
         if (props?.maximized) {
           mainWindow.maximize()
         }
-      })
+      }
+      if (isWayland) {
+        // Electron + Wayland don't send ready-to-show
+        mainWindow.webContents.once('did-finish-load', showWindow)
+      } else {
+        mainWindow.once('ready-to-show', showWindow)
+      }
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
@@ -845,10 +853,6 @@ addHandler('refreshLibrary', async (e, library?) => {
   }
 })
 
-addListener('logError', (e, err) => logError(err, LogPrefix.Frontend))
-
-addListener('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
-
 // get pid/tid on launch and inject
 addHandler('launch', (event, args): StatusPromise => {
   return launchEventCallback(args)
@@ -976,11 +980,14 @@ addHandler(
     sendGameStatusUpdate({
       appName,
       runner,
-      status: 'installing'
+      status: 'importing'
     })
 
     const abortMessage = () => {
-      notify({ title, body: i18next.t('notify.install.canceled') })
+      notify({
+        title,
+        body: i18next.t('notify.import.failed', 'Importing Failed')
+      })
       sendGameStatusUpdate({
         appName,
         runner,

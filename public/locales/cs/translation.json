@@ -187,7 +187,10 @@
         "choose-nile-binary": "Vyberte binární soubor Nile",
         "update": "Aktualizovat",
         "changelog": "Seznam změn",
-        "postpone": "Odložit"
+        "postpone": "Odložit",
+        "launchAnyway": "Spustit hru i tak",
+        "shaderPreCachingDisabledMessage": "Předběžné ukládání shaderů ve Steamu je deaktivováno. Aktivujte jej v nastavení Steamu v režimu pro stolní počítače, aby hra s UMU fungovala správně.",
+        "shaderPreCachingDisabledTitle": "Předběžné ukládání do mezipaměti shaderů je zakázáno"
     },
     "button": {
         "cancel": "Zrušit",
@@ -408,7 +411,9 @@
         "toggleLayout": {
             "grid": "Přepnout na rozvržení mřížky",
             "list": "Přepnout na rozvržení seznamu"
-        }
+        },
+        "hideAlphabetFilter": "Skrýt filtr abecedy",
+        "showAlphabetFilter": "Zobrazit filtr abecedy"
     },
     "Library": "Knihovna",
     "loading": {
@@ -471,6 +476,9 @@
             "started": "Aktualizace zahájena",
             "failed": "Aktualizace selhala",
             "paused": "Aktualizace pozastavena"
+        },
+        "import": {
+            "failed": "Import se nezdařil"
         }
     },
     "offline-message": {
@@ -733,7 +741,8 @@
             "enableLimiter": "Zapnout omezení FPS",
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
-            "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru"
+            "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
+            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 24.08 a restartujte Heroic."
         },
         "frameless-window": {
             "confirmation": {

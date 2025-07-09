@@ -34,6 +34,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
+import AlphabetFilter from './components/AlphabetFilter'
 
 const storage = window.localStorage
 
@@ -188,6 +189,18 @@ export default React.memo(function Library(): JSX.Element {
   }
 
   const [showCategories, setShowCategories] = useState(false)
+
+  const [showAlphabetFilter, setShowAlphabetFilter] = useState(
+    JSON.parse(storage.getItem('showAlphabetFilter') || 'true')
+  )
+  const handleToggleAlphabetFilter = () => {
+    const newValue = !showAlphabetFilter
+    storage.setItem('showAlphabetFilter', JSON.stringify(newValue))
+    setShowAlphabetFilter(newValue)
+  }
+  const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<
+    string | null
+  >(null)
 
   const [showModal, setShowModal] = useState<ModalState>({
     game: '',
@@ -367,7 +380,8 @@ export default React.memo(function Library(): JSX.Element {
     favouriteGamesList,
     epic,
     gog,
-    amazon
+    amazon,
+    sideloadedLibrary
   ])
 
   const favouritesIds = useMemo(() => {
@@ -406,8 +420,7 @@ export default React.memo(function Library(): JSX.Element {
     return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
   }
 
-  // select library
-  const libraryToShow = useMemo(() => {
+  const gamesForAlphabetFilter = useMemo(() => {
     let library: Array<GameInfo> = makeLibrary()
 
     if (showFavouritesLibrary) {
@@ -515,6 +528,52 @@ export default React.memo(function Library(): JSX.Element {
       )
     }
 
+    return library
+  }, [
+    storesFilters,
+    platformsFilters,
+    epic.library,
+    gog.library,
+    amazon.library,
+    sideloadedLibrary,
+    platform,
+    filterText,
+    showHidden,
+    hiddenGames,
+    showFavouritesLibrary,
+    favouritesIds,
+    currentCustomCategories,
+    customCategories,
+    showInstalledOnly,
+    showNonAvailable,
+    showSupportOfflineOnly,
+    showThirdPartyManagedOnly,
+    showUpdatesOnly,
+    gameUpdates
+  ])
+
+  // select library
+  const libraryToShow = useMemo(() => {
+    let library = [...gamesForAlphabetFilter]
+
+    // Alphabetical filter
+    if (alphabetFilterLetter) {
+      library = library.filter((game) => {
+        if (!game.title) return false
+
+        const processedTitle = game.title.replace(/^the\s/i, '')
+        const firstCharMatch = processedTitle.match(/[a-zA-Z0-9]/)
+        if (!firstCharMatch) return false
+        const firstChar = firstCharMatch[0].toUpperCase()
+
+        if (alphabetFilterLetter === '#') {
+          return /[0-9]/.test(firstChar)
+        } else {
+          return firstChar === alphabetFilterLetter
+        }
+      })
+    }
+
     // sort
     library = library.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -537,24 +596,11 @@ export default React.memo(function Library(): JSX.Element {
 
     return [...library]
   }, [
-    storesFilters,
-    platformsFilters,
-    epic.library,
-    gog.library,
-    amazon.library,
-    filterText,
-    installing,
+    gamesForAlphabetFilter,
+    alphabetFilterLetter,
     sortDescending,
     sortInstalled,
-    showHidden,
-    hiddenGames,
-    showFavouritesLibrary,
-    showInstalledOnly,
-    showNonAvailable,
-    showSupportOfflineOnly,
-    showThirdPartyManagedOnly,
-    showUpdatesOnly,
-    gameUpdates
+    installing
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -632,7 +678,12 @@ export default React.memo(function Library(): JSX.Element {
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
-        setShowCategories
+        setShowCategories,
+        showAlphabetFilter: showAlphabetFilter,
+        onToggleAlphabetFilter: handleToggleAlphabetFilter,
+        gamesForAlphabetFilter,
+        alphabetFilterLetter,
+        setAlphabetFilterLetter
       }}
     >
       <Header />
@@ -663,6 +714,8 @@ export default React.memo(function Library(): JSX.Element {
         )}
 
         <LibraryHeader list={libraryToShow} />
+
+        {showAlphabetFilter && <AlphabetFilter />}
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
 

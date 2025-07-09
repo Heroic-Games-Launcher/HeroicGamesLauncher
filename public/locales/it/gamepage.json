@@ -183,7 +183,7 @@
         "winetricks": "Installazione pacchetti Winetricks",
         "steam": {
             "installing": "Installazione in corso",
-            "pleaseWait": "Attendi, per favore...",
+            "pleaseWait": "Attendi, per favore",
             "abort": "Interrompi Installazione",
             "cancel": "Annulla Installazione",
             "compatibility": "Tieni presente che non tutti i giochi funzioneranno e, anche se lo facessero, potrebbero non funzionare come previsto.",
@@ -282,7 +282,8 @@
         "gog-goodie": "Questo gioco non sembra essere installabile. Controlla i contenuti scaricabili su https://gog.com/account",
         "goodie": "Non installabile",
         "redist": "Installazione ridistribuibili ({{redist}})",
-        "winetricks": "Applicazione correzioni Winetricks"
+        "winetricks": "Applicazione correzioni Winetricks",
+        "importing": "Importando"
     },
     "submenu": {
         "addShortcut": "Aggiungi scorciatoia",
