@@ -591,7 +591,8 @@ async function prepareLaunch(
       let reason =
         'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
       if (isFlatpak) {
-        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime 24.08`
+        const runtimeVersion = '23.08'
+        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime ${runtimeVersion} and restart Heroic.`
       }
       return {
         success: false,
