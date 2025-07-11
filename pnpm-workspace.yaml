@@ -1,6 +1,6 @@
 patchedDependencies:
   '@types/node@22.15.18': patches/@types__node@22.15.18.patch
-  'howlongtobeat-js@1.0.2': patches/howlongtobeat-js@1.0.2.patch
+  howlongtobeat-js@1.0.2: patches/howlongtobeat-js@1.0.2.patch
 
 onlyBuiltDependencies:
   - '@fortawesome/fontawesome-common-types'
@@ -12,3 +12,4 @@ onlyBuiltDependencies:
   - electron
   - esbuild
   - register-scheme
+  - unrs-resolver

@@ -1,4 +1,3 @@
-import React from 'react'
 import LibrarySearchBar from '../LibrarySearchBar'
 import CategoryFilter from '../CategoryFilter'
 import LibraryFilters from '../LibraryFilters'

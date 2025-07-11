@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState
-} from 'react'
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 
@@ -373,14 +367,14 @@ export default function WebView() {
           showCloseButton={true}
           onClose={() => {
             setShowAdtractionWarning(false)
-            dontShowAdtractionWarning &&
+            if (dontShowAdtractionWarning)
               localStorage.setItem('adtraction-warning', 'true')
           }}
         >
           <DialogHeader
             onClose={() => {
               setShowAdtractionWarning(false)
-              dontShowAdtractionWarning &&
+              if (dontShowAdtractionWarning)
                 localStorage.setItem('adtraction-warning', 'true')
             }}
           >

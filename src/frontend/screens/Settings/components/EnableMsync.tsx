@@ -1,5 +1,5 @@
 import ContextProvider from 'frontend/state/ContextProvider'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'

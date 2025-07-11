@@ -5,12 +5,16 @@ import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
-import importPlugin from 'eslint-plugin-import-x'
+import { importX } from 'eslint-plugin-import-x'
 
 export default tseslint.config(
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.recommendedTypeChecked,
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
   react.configs.flat.recommended,
+  react.configs.flat['jsx-runtime'],
+  reactHooks.configs['recommended-latest'],
   prettier,
   {
     files: ['**/*.ts', '**/*.tsx'],
@@ -39,7 +43,6 @@ export default tseslint.config(
         'error',
         { checksVoidReturn: false }
       ],
-      'import/no-duplicates': 'error',
       'no-restricted-imports': [
         'error',
         {
@@ -55,10 +58,6 @@ export default tseslint.config(
       ]
     },
 
-    plugins: {
-      import: importPlugin,
-      'react-hooks': reactHooks
-    },
     languageOptions: {
       parserOptions: {
         project: './tsconfig.eslint.json',
@@ -74,8 +73,7 @@ export default tseslint.config(
   {
     files: ['**/__tests__/**/*.ts', '**/__mocks__/**/*.ts'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      'import/no-duplicates': 'off'
+      '@typescript-eslint/no-explicit-any': 'off'
     }
   },
   {

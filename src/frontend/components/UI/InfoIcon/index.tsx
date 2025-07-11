@@ -1,6 +1,5 @@
 import './index.css'
 
-import React from 'react'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

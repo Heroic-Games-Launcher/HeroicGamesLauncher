@@ -286,7 +286,7 @@ export async function getWineskinWine(): Promise<Set<WineInstallation>> {
             })
           } catch (error) {
             logError(
-              `Error getting wine version for ${wineBin}`,
+              [`Error getting wine version for ${wineBin}:`, error],
               LogPrefix.GlobalConfig
             )
           }
@@ -379,7 +379,7 @@ export async function getGamePortingToolkitWine(): Promise<
         }
       } catch (error) {
         logError(
-          `Error getting wine version for GPTK ${wineBin}`,
+          [`Error getting wine version for GPTK ${wineBin};`, error],
           LogPrefix.GlobalConfig
         )
       }
@@ -426,7 +426,7 @@ export async function getSystemGamePortingToolkitWine(): Promise<
       })
     } catch (error) {
       logError(
-        `Error getting wine version for ${wineBin}`,
+        [`Error getting wine version for ${wineBin}:`, error],
         LogPrefix.GlobalConfig
       )
     }
@@ -478,7 +478,7 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       })
     } catch (error) {
       logError(
-        `Error getting wine version for ${whiskyWineBin}`,
+        [`Error getting wine version for ${whiskyWineBin}:`, error],
         LogPrefix.GlobalConfig
       )
     }

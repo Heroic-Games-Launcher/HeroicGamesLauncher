@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField, SvgButton } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
