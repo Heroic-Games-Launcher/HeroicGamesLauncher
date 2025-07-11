@@ -70,7 +70,7 @@ import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
-import { app, powerSaveBlocker } from 'electron'
+import { app, dialog, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
@@ -203,6 +203,47 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
       return { status: 'error' }
     }
+  }
+
+  const isPreCacheDisabled = await shouldToggleShaderPreCacheOn(gameSettings)
+
+  if (isPreCacheDisabled) {
+    const { response } = await dialog.showMessageBox({
+      type: 'warning',
+      title: i18next.t(
+        'box.shaderPreCachingDisabledTitle',
+        'Shader Pre-Caching Disabled'
+      ),
+      message: i18next.t(
+        'box.shaderPreCachingDisabledMessage',
+        "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU."
+      ),
+      buttons: [
+        i18next.t('box.launchAnyway', 'Launch Game Anyway'),
+        i18next.t('button.cancel', 'Cancel')
+      ],
+      cancelId: 1,
+      defaultId: 0
+    })
+
+    if (response === 1) {
+      sendGameStatusUpdate({
+        appName,
+        runner,
+        status: 'done'
+      })
+      logInfo(
+        `User aborted the launch of ${title} because Shader Pre-Caching is disabled`,
+        LogPrefix.Backend
+      )
+      await logWriter.close()
+      return { status: 'abort' }
+    }
+
+    logWarning(
+      `User launched ${title} with Shader Pre-Caching disabled. Issues might occur.`,
+      LogPrefix.Backend
+    )
   }
 
   await runBeforeLaunchScript(game, gameSettings, logWriter)
@@ -500,7 +541,7 @@ async function prepareLaunch(
   ])
   const native = gameManagerMap[gameInfo.runner].isNative(gameInfo.app_name)
   await logWriter.logInfo(['Native?', native])
-  await logWriter.logInfo(['Installed in:', installPath])
+  await logWriter.logInfo(['Installed in:', installPath, '\n\n'])
 
   await logWriter.logInfo([
     'System Info:',
@@ -511,17 +552,20 @@ async function prepareLaunch(
 
   await logWriter.logInfo([
     'Game Settings:',
-    filterGameSettingsForLog(gameSettings, !native)
+    filterGameSettingsForLog(gameSettings, !native),
+    '\n\n'
   ])
 
   const acInfoPromise = gameAnticheatInfo(gameInfo.namespace)
+  logWriter.logInfo(
+    acInfoPromise.then((info) =>
+      info?.status ? `Anticheat Status: ${info.status}` : ''
+    )
+  )
   logWriter.logInfo([
-    'Anticheat Status:',
-    acInfoPromise.then((info) => info?.status ?? 'Unknown')
-  ])
-  logWriter.logInfo([
-    'Anticheats:',
-    acInfoPromise.then((info) => info?.anticheats ?? [])
+    acInfoPromise.then((info) =>
+      info?.anticheats ? `Anticheats: ${info.anticheats}\n\n` : ''
+    )
   ])
 
   logWriter.logWarning(
@@ -1652,9 +1696,10 @@ async function callRunner(
 
   if (options?.logWriters) {
     for (const writer of options.logWriters) {
-      await writer.writeString('\n')
-      await writer.logInfo([prefix, safeCommand].filter(Boolean).join(' '))
-      await writer.writeString('\n')
+      await writer.logInfo(
+        [prefix, safeCommand, '\n\n'].filter(Boolean).join(' ')
+      )
+      await writer.logInfo('Game Output:')
     }
 
     const files = options.logWriters

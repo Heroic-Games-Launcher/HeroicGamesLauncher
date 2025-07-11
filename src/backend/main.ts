@@ -138,6 +138,7 @@ import {
   gamesConfigPath,
   publicDir,
   userHome,
+  webviewPreloadPath,
   windowIcon
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
@@ -317,9 +318,10 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    initLogger()
+
     await MigrationSystem.get().applyMigrations()
 
-    initLogger()
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
@@ -1207,6 +1209,8 @@ addHandler('gamepadAction', async (event, args) => {
 })
 
 addHandler('getShellPath', async (event, path) => getShellPath(path))
+
+addHandler('getWebviewPreloadPath', () => webviewPreloadPath)
 
 addHandler('clipboardReadText', () => clipboard.readText())
 

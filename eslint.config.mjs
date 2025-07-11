@@ -33,7 +33,7 @@ export default tseslint.config(
 
       'react/no-unknown-property': [
         'error',
-        { ignore: ['partition', 'allowpopups', 'useragent'] }
+        { ignore: ['partition', 'allowpopups', 'useragent', 'preload'] }
       ],
       '@typescript-eslint/no-misused-promises': [
         'error',
