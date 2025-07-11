@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "Inaktivera stängning av dialogrutor genom att klicka utanför",
         "titles_always_visible": "Visa alltid titlar i bibliotek",
         "actions_font_family_default": "Åtgärd teckensnittsfamilj (Standard: {{fontFamily}})",
-        "content_font_family_default": "Innehåll teckensnittsfamilj (Standard: {{fontFamily}})"
+        "content_font_family_default": "Innehåll teckensnittsfamilj (Standard: {{fontFamily}})",
+        "disable_smooth_scrolling": "Avaktivera mjuk skrollning (kräver omstart)"
     },
     "add_game": "Lägg till spel",
     "All": "Alla",
@@ -348,7 +349,8 @@
             "open": "Öppna hjälp",
             "close": "Stäng hjälp"
         },
-        "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds."
+        "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds.",
+        "dxfpslimit": "Ställer in ett bildhastighetstak för DXVK spel"
     },
     "info": {
         "heroic": {
@@ -985,7 +987,8 @@
             },
             "filters": "Filtrera dina spel efter butik, plattform, favoriter och mer via dessa alternativ.",
             "gameCard": "Vänster-klicka på spelkortet för att navigera till spelsidan och för att se detaljer och justera inställningar, eller höger-klicka för att öppna kontext-menyn.",
-            "refresh": "Uppdatera ditt bibliotek för att kolla efter nya spel eller uppdateringar."
+            "refresh": "Uppdatera ditt bibliotek för att kolla efter nya spel eller uppdateringar.",
+            "sortOptions": "Klicka här för att sortera i bokstavsordning."
         }
     }
 }

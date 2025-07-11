@@ -21,7 +21,8 @@
             "title": "Wähle auszuführende EXE"
         },
         "select": {
-            "button": "Auswählen"
+            "button": "Auswählen",
+            "image": "Bild auswählen"
         },
         "sideload": {
             "exe": "Wähle ausführbare Datei"
@@ -47,7 +48,8 @@
         },
         "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA",
-        "close": "Schließen"
+        "close": "Schließen",
+        "select-install-path": "Wählen Sie den Steam-Installationspfad aus"
     },
     "button": {
         "add_to_favourites": "Zu Favoriten hinzufügen",
@@ -157,7 +159,7 @@
             "cancel": "Nein",
             "install": "Ja (Ich verstehe, dass es nicht funktionieren wird)",
             "ok": "Ok",
-            "disabled_installation": "Die Anti-Cheat-Unterstützung ist defekt oder wird verweigert und die Multiplayer-Funktionen funktionieren nicht. Das Spiel kann nicht installiert werden. Um dieses Spiel zu installieren, deaktivieren Sie diese Überprüfung in den erweiterten Einstellungen.",
+            "disabled_installation": "Dieses Spiel verwendet Anticheat-Software, die nicht mit deinem Betriebssystem kompatibel ist oder deren Unterstützung von den Entwicklern nicht aktiviert wurde. Das bedeutet, dass die Multiplayer-Funktionen nicht funktionieren werden und es nichts gibt, was du (oder das Heroic-Team) dagegen tun können.<br /><br />Um das Spiel trotzdem zu installieren, gehe zu den Einstellungen, dann zu „Erweitert“ und aktiviere die Option, die Installation von Spielen mit defektem oder verweigertem Anticheat zu erlauben.<br /><br />Beachte, dass es keine Lösung dafür gibt und du das Risiko eingehst, im Spiel gebannt zu werden.",
             "install_anyway": "Ja (ich verstehe, dass die Multiplayer-Funktionen nicht funktionieren werden)",
             "multiplayer_message": "Die Anti-Cheat-Unterstützung ist defekt oder wird verweigert. Das Spiel kann zwar geöffnet werden, aber die Multiplayer-Funktionen funktionieren nicht. Möchten Sie es trotzdem installieren?"
         },
@@ -182,7 +184,23 @@
         "redist": "Installiere weiterverbreitbare Komponenten",
         "steam": {
             "installing": "Wird installiert",
-            "pleaseWait": "Bitte warten..."
+            "pleaseWait": "Bitte warten...",
+            "compatibility": "Nicht alle Spiele werden funktionieren. Jene, die funktionieren, können anders als erwartet laufen.",
+            "install": "Steam installieren",
+            "notification": "Heroic wird dich benachrichtigen, sobald die Installation fertig ist.",
+            "install-path": "Steam-Installationspfad",
+            "launching": "Steam wird gestartet...",
+            "macOS": "macOS 14.0 und höher",
+            "ram": "8GB RAM",
+            "recommended": "Für eine bessere Erfahrung empfohlene Systemvoraussetzungen",
+            "abort": "Installation abbrechen",
+            "installation": "Steam-Installationspfad",
+            "cancel": "Installation abbrechen",
+            "compatibility-layer-not-available": "Kompatibilitätsschicht nicht verfügbar. Bitte installiere zuerst eine aus „Einstellungen > Wine-Manager",
+            "crossover": "Wenn du  Crossover installiert hast, brauchst du das nicht mehr, da es Steam problemlos ausführen kann.",
+            "downloading": "Lädt {{percent}}% herunter",
+            "hardware": "Apple Silicon M1+ (für Intel-Macs funktioniert Steam mit Crossover)",
+            "launch": "Starte Steam mit der Heroic-Kompatibilitätsschicht"
         }
     },
     "launch": {

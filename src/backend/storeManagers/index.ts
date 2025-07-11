@@ -9,7 +9,7 @@ import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/librar
 import * as NileLibraryManager from 'backend/storeManagers/nile/library'
 import { GameManager, LibraryManager } from 'common/types/game_manager'
 
-import { logInfo, RunnerToLogPrefixMap } from 'backend/logger/logger'
+import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
 
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import { DMQueueElement, GameInfo, Runner } from 'common/types'

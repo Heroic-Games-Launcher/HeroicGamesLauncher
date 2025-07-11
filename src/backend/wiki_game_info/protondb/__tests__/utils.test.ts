@@ -1,10 +1,8 @@
-import { logError } from 'backend/logger/logger'
+import { logError } from 'backend/logger'
 import { getInfoFromProtonDB } from '../utils'
-import { AxiosError } from 'axios'
 import { axiosClient } from 'backend/utils'
 
-jest.mock('backend/logger/logfile')
-jest.mock('backend/logger/logger')
+jest.mock('backend/logger')
 
 describe('getInfoFromProtonDB', () => {
   test('fetches successfully via steamid', async () => {
@@ -28,7 +26,7 @@ describe('getInfoFromProtonDB', () => {
   test('does not find game', async () => {
     const mockAxios = jest
       .spyOn(axiosClient, 'get')
-      .mockRejectedValue(<AxiosError>new Error('not found'))
+      .mockRejectedValue(new Error('not found'))
 
     const result = await getInfoFromProtonDB('1234')
     expect(result).toBeNull()

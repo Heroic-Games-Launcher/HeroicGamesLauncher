@@ -56,7 +56,7 @@ export default function WineSelector({
 
       if (!wineVersion || !defaultPrefix || !defaultBottle) return
       setDescription(
-        `${defaultPrefix} / ${wineVersion.name.replace('Proton - ', '')}`
+        `${wineVersion.name.replace('Proton - ', '')}\n${defaultPrefix}`
       )
 
       if (!useDefaultSettings && wineVersion.type === 'crossover') {

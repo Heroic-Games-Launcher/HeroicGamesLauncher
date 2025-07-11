@@ -91,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Det har oppstått en feil! Prøv å logge ut og logge på Epic-kontoen din. {{newline}} {{error}}"
+            },
+            "steam": {
+                "message": "Installeringen av Steam mislyktes! Gå gjennom instruksjonene en gang til og prøv igjen! {{paragraph}} {{error}}",
+                "title": "Steam-feil",
+                "error": "Steams programfil ble ikke funnet. Installasjonen ble antagelig avbrutt eller mislyktes."
             }
         },
         "info": {
@@ -182,7 +187,10 @@
         "choose-nile-binary": "Velg Nile binær",
         "update": "Update",
         "changelog": "Endringslogg",
-        "postpone": "Utsett"
+        "postpone": "Utsett",
+        "launchAnyway": "Start spillet alikevel",
+        "shaderPreCachingDisabledMessage": "Steams forhåndslasting av shaders er skrudd av. Vennligst skru det på i Steams innstillinger så spillet funker riktig med UMU.",
+        "shaderPreCachingDisabledTitle": "Forhåndslasting av shaders skrudd av"
     },
     "button": {
         "cancel": "Avbryt",
@@ -275,7 +283,8 @@
         "reset": "Tilbakestill",
         "show_support_offline_only": "Vis kun støttet uten nett",
         "uncategorized": "Ukategorisert",
-        "show_third_party_managed_only": "Vis kun tredjepartsadministrerte"
+        "show_third_party_managed_only": "Vis kun tredjepartsadministrerte",
+        "show_updates_only": "Bare vis spill med oppdateringer"
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
@@ -353,7 +362,10 @@
             "upscaleMethod": "Oppskaleringsmetoden gamescope burde bruke.",
             "forceGrabCursor": "Bruk alltid relativ musemodus i stedet for å veksle avhengig av markørens synlighet. (Nyttig når applikasjoner stadig mister fokus)"
         },
-        "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres."
+        "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "advertiseAvxForRosetta": "Skrur på AVX-instruksjoner når Windows-spill kjøres gjennom Rosetta på Apple Silicon Mac-er. Dette kan være nødvendig for enkelte spill som Death Stranding som trenger AVX for å fungere.",
+        "download_proton_steam": "Med dette skrudd på vil GE-Proton bli lastet ned direkte til mappen med Steam-kompatibilitetsverktøy fremfor den vanlige for Heroic. GE-Proton vil bruke mappen angitt i «Standard Steam-bane»-innstillingen."
     },
     "info": {
         "heroic": {
@@ -715,7 +727,8 @@
             "enableLimiter": "Skru på FPS begrenser",
             "missingMsg": "Vi kunne ikke finne gamescope på STIEN. Installer den eller legg den til STIEN.",
             "enableUpscaling": "Skru på oppskalering",
-            "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker"
+            "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker",
+            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 24.08 og start Heroic på nytt."
         },
         "msync": "Skru på Msync",
         "allow_installation_broken_anticheat": {
@@ -746,7 +759,10 @@
         },
         "custom_css": {
             "warning": "Advarsel: dette gjelder hele brukerflaten. Det betyr at feil stil kan gjøre Heroic ubrukelig. Om nødvendig kan innstillingen endres manuelt i `~/.config/heroic/config.json`. IKKE kopier stiler fra kilder du ikke stoler på."
-        }
+        },
+        "advertiseAvxForRosetta": "Oppgi AVX til Rosetta",
+        "download-proton-steam": "Last ned GE-Proton til Steam-mappen",
+        "dxfpslimit": "Begrens DirectX-spills bildehastighet"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1001,11 +1017,12 @@
             "viewToggle": "Bytt mellom rutenett- og listevisning for spillene dine.",
             "welcome": {
                 "intro": "Velkommen til Heroic biblioteket! Det er her du kan se alle spillene dine på tvers av forskjellige butikker.",
-                "intro2": "Hvis biblioteket er tomt, sørg for å logge på med kontoene dine ved å bruke Administrer kontoer i sidefeltet eller legg til dine egne spill ved å bruke Legg til spill-knappen ovenfor.",
+                "intro2": "Hvis biblioteket er tomt, sørg for å logge på med kontoene dine ved å bruke «Administrer kontoer» i sidefeltet eller legg til dine egne spill ved å bruke «Legg til spill-knappen» ovenfor.",
                 "title": "Vekommen til Heroic!",
                 "title2": "Administrering av biblioteket!"
             },
-            "gameCard": "Venstreklikk på spillkortet for å navigere til spillsiden og for å se detaljer og justere innstillinger eller Høyreklikk for å åpne kontekstmenyen."
+            "gameCard": "Venstreklikk på spillkortet for å navigere til spillsiden og for å se detaljer og justere innstillinger eller Høyreklikk for å åpne kontekstmenyen.",
+            "steamInstall": "Bruk denne knappen for å installere Windows-versjonen av Steam og spill Windows-spillene dine gjennom Crossover, Wine eller GPTK."
         },
         "next": "Neste",
         "sidebar": {
@@ -1028,5 +1045,11 @@
         },
         "startTour": "Start omvisning",
         "skip": "Hopp over"
+    },
+    "notification": {
+        "steam": {
+            "error": "Steam kunne ikke installeres! Les instruksjonene en gang til og prøv igjen!",
+            "success": "Steam for Windows har blitt installert!"
+        }
     }
 }

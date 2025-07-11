@@ -177,7 +177,8 @@
         "winetricks": "Inštalujem Balíky Winetricks",
         "steam": {
             "installing": "Inštaluje sa",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Zastaviť inštaláciu"
         }
     },
     "launch": {

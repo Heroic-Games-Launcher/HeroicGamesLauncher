@@ -39,7 +39,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  max-width: 50vw;
+  width: 100vw;
+  max-width: 900px;
+}
+
+@media screen and (max-width: 1024px) {
+  .logs-wrapper.game-log {
+    width: calc(80vw - 24px);
+  }
 }
 
 dialog .logs-wrapper {

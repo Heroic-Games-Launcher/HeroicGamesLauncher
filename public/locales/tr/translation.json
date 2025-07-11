@@ -6,10 +6,11 @@
         "fonts": "Yazı Tipleri",
         "title": "Erişilebilirlik",
         "zoom": "Yakınlaştır",
-        "disable_dialog_backdrop_close": "Dışarı tıklayarak kutucuğu kapatmayı devre dışı bırakın",
+        "disable_dialog_backdrop_close": "Dışarı tıklayarak iletişim kutucuğunu kapatmayı devre dışı bırakın",
         "titles_always_visible": "Kütüphanede her zaman başlıkları göster",
         "content_font_family_default": "İçerik Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
-        "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})"
+        "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
+        "disable_smooth_scrolling": "Düzgün kaydırmayı devre dışı bırak (yeniden başlatılmalı)"
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
@@ -32,7 +33,7 @@
         "choose-gogdl-binary": "GOGDL İkili Dosyasını Seçin (yeniden başlatma gerektirir)",
         "choose-legendary-binary": "Legendary ikili dosyasını seçin",
         "customWine": "Wine veya Proton ikili dosyasını seçin",
-        "default-install-path": "Öntanımlı Kurulum Yolunu Seçin",
+        "default-install-path": "Öntanımlı Kurulum Yolunu Seç",
         "default-steam-path": "Steam yolu.",
         "downloadNow": "Şimdi indir",
         "error": {
@@ -90,6 +91,11 @@
             },
             "legendary": {
                 "generic": "Bir hata oluştu! Epic hesabınızın oturumunu kapatıp tekrar açmayı deneyiniz. {{newline}}  {{error}}"
+            },
+            "steam": {
+                "error": "Steam çalıştırılabilir dosyası bulunamadı. Kurulum muhtemelen kullanıcı tarafından iptal edildi veya Steam tarafında başarısız oldu.",
+                "message": "Steam kurulumu başarısız oldu! Lütfen talimatları dikkatlice okuyun ve tekrar deneyin! {{paragraph}} {{error}}",
+                "title": "Steam hata"
             }
         },
         "info": {
@@ -115,7 +121,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Heroic'i sıfırlamak istediğinizden emin misiniz? Bu işlem, tüm Ayarları ve Önbelleği temizleyecek ancak Kurulu oyunlarınızı ya da Epic kimlik bilgilerinizi kaldırmayacak. Heroic'in taşınabilir sürümleri (AppImage, WinPortable, ...) daha sonra manuel olarak yeniden başlatılmalıdır.",
+                "message": "Heroic'i sıfırlamak istediğinizden emin misiniz? Bu, tüm Ayarları ve Önbelleği kaldıracak ancak Kurulu oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic taşınabilir sürümlerinin (AppImage, WinPortable, ...) sonrasında el ile yeniden başlatılması gerekir.",
                 "title": "Heroic'i Sıfırla"
             }
         },
@@ -169,6 +175,10 @@
                 "checkbox": "Bu mesajı bir daha gösterme",
                 "title": "Heroic Snap sürümünde çalışıyor",
                 "message": "Bazı özellikler şimdilik uygulamanın Snap sürümünde yok ve bunu düzeltmeye çalışıyoruz.{{newLine}}Mevcut sınırlamalar şunlardır: {{newLine}}Heroic, Steam'den Proton ya da Lutris'ten Wine'ı bulamayacak.{{newLine}}{{newLine}}Gamescope, GameMode ve MangoHud da Heroic'in bunlara erişimi olamayacağı için çalışmayacaktır.{{newLine}}{{newLine}}Bu özelliğe erişmek için lütfen Heroic'i Flatpak, DEB ya da AppImage kullanarak kurun."
+            },
+            "rosetta": {
+                "message": "Heroic, Rosetta Apple Silicon yongalarına sahip macOS üstünde düzgün çalışmasını gerektirir. Lütfen aşağıdaki komutu kullanarak macOS terminalinden kurun: \"softwareupdate --install-rosetta\" ve Heroic yeniden başlatılmalı. ",
+                "title": "Rosetta bulunamadı"
             }
         },
         "wineprefix": "Wine Prefix Klasörünü Seç",
@@ -180,13 +190,13 @@
         "changelog": "Değişiklikler"
     },
     "button": {
-        "cancel": "İptal et",
+        "cancel": "İptal",
         "go_to_library": "Kütüphaneye Git",
         "login": "Oturum Aç",
         "sync": "Eşzamanla",
         "syncing": "Eşzamanlanıyor",
         "unsync": "Eşzamanlamayı kaldır",
-        "continue": "Devam et"
+        "continue": "Devam"
     },
     "controller": {
         "hints": {
@@ -195,7 +205,7 @@
             "close_dialog": "İletişim kutusunu kapat",
             "close_keyboard": "Klavyeyi kapat",
             "close_options": "Seçenekleri Kapat",
-            "game_details": "Oyun detayları",
+            "game_details": "Oyun ayrıntıları",
             "game_settings": "Oyun ayarları",
             "install_game": "Oyunu kur",
             "move_cursor": "İmleci hareket ettir",
@@ -271,7 +281,8 @@
         "only": "sadece",
         "reset": "Sıfırla",
         "no_categories": "Özel kategori yok. Her oyuna menüsünden kategori ekleyin.",
-        "show_third_party_managed_only": "Yalnızca üçüncü taraf yönetimindekileri göster"
+        "show_third_party_managed_only": "Yalnızca üçüncü taraf yönetimindekileri göster",
+        "show_updates_only": "Yalnızca güncellenen oyunları göster"
     },
     "help": {
         "amdfsr": "AMD'nin FSR özelliği, Tam Ekran Modunda daha düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Küçük bir performans artışı pahasına görüntü kalitesi 5'ten 1'e yükselir. Etkinleştirmek performansı artırabilir.",
@@ -287,7 +298,7 @@
             "valid_codes": "Geçerli dil kodları oyuna bağlıdır."
         },
         "gamemode": "Feral GameMode, oyunları çalıştırırken sisteme otomatik ve geçici ince ayarlar uygular. Etkinleştirmek performansı artırabilir.",
-        "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşzamanlayın.",
+        "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşitleyin.",
         "mangohud": "MangoHUD, FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını görüntüleyen ve izleyen bir arayüzdür.",
         "other": {
             "part4": "Oyunu başlatma komutuna eklenmesi için ",
@@ -323,7 +334,8 @@
             "upscaleHeight": "Gamescope'un kullanacağı dikey çözünürlük. 16:9 en boy oranı varsayılır.",
             "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60",
             "fpsLimiterNoFocus": "Oyuna odaklanılmamışsa gamescope kare hızı sınırı saniye başına sınırlandırılmalıdır.",
-            "additionalOptions": "Gamescope'a aktarılacak ek komut satırı bayrakları."
+            "additionalOptions": "Gamescope'a aktarılacak ek komut satırı bayrakları.",
+            "forceGrabCursor": "İmleç görünürlüğüne bağlı olarak çevirmek yerine her zaman göreceli fare modunu kullanın. (Uygulamalar odak kaybetmeye devam ettiğinde yararlıdır)"
         },
         "content": {
             "defaultInstallPath": "Bu, oyunlar kurulurken seçili gelen varsayılan yoldur.",
@@ -348,7 +360,10 @@
             "wineManager": "Wine Yöneticisi",
             "library": "Kütüphane"
         },
-        "msync": "Msync, İşlemci yoğun oyunlarda wine sunucu yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde başarımı artırabilir."
+        "msync": "Msync, İşlemci yoğun oyunlarda wine sunucu yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde başarımı artırabilir.",
+        "dxfpslimit": "DirectX Oyunları için bir kare hızı sınırı belirler (9-12)",
+        "advertiseAvxForRosetta": "Rosetta üzerinden Apple Silicon Mac'lerde Windows oyunları çalıştırırken AVX komut seti desteğini etkinleştirir. Bu, AVX desteğine ihtiyaç duyan Death Stranding gibi bazı oyunlar için gerekli olabilir.",
+        "download_proton_steam": "Etkinleştirildiğinde, GE-Proton varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilecektir. Yukarıdaki 'Varsayılan Steam yolu' ayarında ayarlanan Steam yolunu kullanacaktır."
     },
     "info": {
         "heroic": {
@@ -436,11 +451,11 @@
         },
         "install": {
             "canceled": "Kurulum İptal Edildi",
-            "error": "Kurulum Başarısız Oldu",
+            "error": "Kurulum Başarısız",
             "finished": "Kurulum Tamamlandı",
             "imported": "Oyun İçe Aktarıldı",
             "startInstall": "Kurulum Başladı",
-            "failed": "Kurulum Başarısız Oldu",
+            "failed": "Kurulum Başarısız",
             "paused": "Kurulum Duraklatıldı"
         },
         "moved": "Taşıma Tamamlandı",
@@ -571,25 +586,25 @@
         "customWineProton": "Özel Wine/Proton Yolları",
         "darktray": "Koyu tepsi simgesi kullan",
         "default-install-path": "Öntanımlı Kurulum Yolu",
-        "default-steam-path": "Öntanımlı Steam dosya yolu",
+        "default-steam-path": "Öntanımlı Steam Yolu",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "download-no-https": "Oyunları HTTPS olmadan indirin (LanCache gibi CDN'ler için kullanışlıdır)",
         "dxvkfpslimit": "FPS'i sınırla (DX9, 10 and 11)",
-        "egs-sync": "Kurulu Epic Games ile eşzamanla",
+        "egs-sync": "Kurulu Epic Games ile Eşitle",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "eosOverlay": {
             "cancelInstall": "İptal",
             "checkForUpdates": "Güncellemeleri kontrol et",
             "checkingForUpdates": "Güncellemeler kontrol ediliyor...",
-            "currentVersion": "Mevcut sürüm: {{version}}",
+            "currentVersion": "Mevcut Sürüm: {{version}}",
             "disable": "Devre Dışı",
             "enable": "Etkinleştir",
             "install": "Kur",
             "installed": "EOS Arayüzü kuruldu",
             "installing": "EOS Arayüzü kuruluyor...",
-            "latestVersion": "En son sürüm: {{version}}",
+            "latestVersion": "Son Sürüm: {{version}}",
             "notInstalled": "EOS Arayüzü kurulu değil",
             "notInstalledMsg": "EOS Arayüzü kurulu değil. Şimdi kurmak ister misiniz?",
             "notInstalledTitle": "Arayüz kurulu değil",
@@ -664,13 +679,13 @@
             "download": "İndir",
             "forcedownload": "İndirmeye Zorla",
             "forceupload": "Yüklemeye Zorla",
-            "sync": "Eşzamanla",
-            "syncing": "Eşzamanlanıyor",
-            "title": "Kayıtları Elle Eşzamanla",
+            "sync": "Eşitle",
+            "syncing": "Eşitleniyor",
+            "title": "Kayıtları El İle Eşitle",
             "upload": "Yükle"
         },
         "maxRecentGames": "Gösterilecek Son Oynananlar",
-        "maxworkers": "İndirirken azami işçi sayısı",
+        "maxworkers": "İndirme sırasında en yüksek bağlantı noktaları",
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
         "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
@@ -692,7 +707,7 @@
             "warning": "Lütfen yolun doğruluğunu iki kez denetleyin (tekrar denemek için tıklayın)"
         },
         "select_theme": "Tema Seç",
-        "showfps": "FPS'i Göster (DX9, 10 and 11)",
+        "showfps": "FPS Göster (DX9, 10 and 11)",
         "start-in-tray": "Simge Durumunda Başlat",
         "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Bottle",
@@ -701,7 +716,7 @@
         "autoUpdateGames": "Oyunları otomatik olarak güncelle",
         "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
         "disable_logs": "Günlükleri Devre Dışı Bırak",
-        "showMetalOverlay": "İstatistik Tablosunu Göster",
+        "showMetalOverlay": "İstatistik Kaplamasını Göster",
         "addgamestoapplications": "Oyunları Uygulamalara otomatik ekle",
         "alt-nile-bin": "Alternatif bir Nile İkili Dosyası Seçin",
         "autodxvknvapi": "DXVK-NVAPI'yı Ön Eke kendiliğinden Kur/Güncelle",
@@ -723,7 +738,8 @@
         "gamescope": {
             "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir",
             "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
-            "missingMsg": "PATH yolunda gamescope'u bulamadık. Kurun ya da PATH yoluna ekleyin."
+            "missingMsg": "Yolda gamesscope bulamadık. Kurun veya yola ekleyin.",
+            "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir"
         },
         "after-launch-script-path": "Oyun kapandıktan sonra çalıştırılacak betiği seçin",
         "before-launch-script-path": "Oyun başlatılmadan önce çalıştırılacak betiği seçin",
@@ -735,6 +751,16 @@
                 "message": "Hile engelleme özelliği bozuk olan veya reddedilen oyunlar çalıştırılabilir fakat çoklu oyuncu özellikleri kullanılamaz. Bunu bilerek indiriyorsanız bu konuda destek istemeyiniz."
             },
             "label": "Hile engelleme özelliği bozuk olan veya reddedilen oyunların kurulmasına izin ver"
+        },
+        "advertiseAvxForRosetta": "Rosetta için AVX tanıtın",
+        "download-proton-steam": "GE-Protonu Steam dizinine indirin",
+        "dxfpslimit": "DirectX Oyunlarında FPS Sınırla",
+        "disableUMU": "Umu devre dışı bırak",
+        "custom_css": {
+            "warning": "Uyarı: Bu tüm önyüz için geçerlidir. Yanlış ve hatalı stil Heroic'i kullanılamaz hale getirebilir. Gerekirse, ayar `~/.config/heroic/config.json` dosyasında el ile değiştirilebilir. Güvenmediğiniz kaynaklardan stilleri kopyalamayın."
+        },
+        "verboseLogs": {
+            "description": "Ayrıntılı günlükleri etkinleştir"
         }
     },
     "settings": {
@@ -818,7 +844,7 @@
             "clearCache": {
                 "help8": "Kurulu oyunlar",
                 "help1": "Bu eylem aşağıdaki ön bellekleri temizleyecek:",
-                "help10": "Heroic yapılandırma",
+                "help10": "Heroic yapılandırması",
                 "help7": "Mağaza oturum açma",
                 "help9": "Oyun ayarları",
                 "help6": "Bu işlem aşağıdakileri SİLMEYECEK:",
@@ -833,8 +859,11 @@
             },
             "details": "Ayrıntılar",
             "resetHeroic": {
-                "help": "Bu işlem, tüm Ayarları ve Önbelleği temizleyecek ancak Kurulu oyunlarınızı ya da Epic kimlik bilgilerinizi kaldırmayacak. Heroic'in taşınabilir sürümleri (AppImage, WinPortable, ...) daha sonra manuel olarak yeniden başlatılmalıdır."
+                "help": "Bu, tüm Ayarları ve Önbelleği kaldıracak ancak Kurulu oyunlarınızı veya Epic kimlik bilgilerinizi kaldırmayacaktır. Heroic taşınabilir sürümlerinin (AppImage, WinPortable, ...) daha sonra el ile yeniden başlatılması gerekir."
             }
+        },
+        "custom_css": {
+            "title": "Özel CSS Stili"
         }
     },
     "Settings": "Ayarlar",
@@ -926,7 +955,9 @@
         "openGUI": "Winetricks GUI’yi aç",
         "search": "Yazı tiplerini ya da bileşenleri ara",
         "nothingYet": "Winetricks tarafından henüz hiçbir şey kurulmadı",
-        "installed": "Kurulu bileşenler:"
+        "installed": "Kurulu bileşenler:",
+        "no-components": "Kullanılabilir bileşen yok",
+        "loading-available": "Mevcut bileşenler yükleniyor..."
     },
     "window": {
         "minimize": "Simge durumuna",
@@ -943,7 +974,8 @@
         "add-new-category": "Yeni Kategori Ekle"
     },
     "emptyLibrary": {
-        "noResults": "Geçerli filtrelere uygun bir sonuç bulunamadı."
+        "noResults": "Geçerli filtrelere uygun bir sonuç bulunamadı.",
+        "noGames": "Kütüphaneniz boş.<br /><br />Epic, GOG.com veya Amazon hesaplarınızla giriş yapmak için <4>buraya</4> tıklayın. Oyunlarınız kütüphanede burada görünecektir.<br /><br />Diğer kaynaklardan oyun veya uygulama kullanmak için, bunları el ile eklemek üzere <br /> öğesine tıklayın."
     },
     "adtraction-locked": {
         "description": "track.adtraction.com alan adı yüklenememiş veya engellenmiş gibi görünüyor. Adtraction ile GOG mağazasında yaptığınız her satın alma, Heroic'i maddi olarak destekliyor. Katkıda bulunmak istiyorsanız engeli kaldırmayı düşünebilirsiniz.",
@@ -951,7 +983,7 @@
         "title": "Adtraction engellendi"
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton Glorious Eggroll tarafından yapılmış bir Wine varyasyonudur. Steam dışında kullanılması önerilen Wine'dır. Sorun giderme sırasında kullanışlı hata günlükleri sağlar.",
+        "wine-ge": "Wine-GE-Proton, Glorious Eggroll tarafından geliştirilen bir Wine çeşididir. Umu başlatıcısı ile GE-Proton lehine kullanımdan kaldırılmıştır.",
         "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
     },
     "categories-manager": {
@@ -967,7 +999,7 @@
         "remove": "Kaldır: \"{{name}}\""
     },
     "tour": {
-        "back": "Back",
+        "back": "Geri",
         "library": {
             "categories": "Her şeyi düzenli tutmak için oyunlarınızı kategoriler halinde düzenleyin.",
             "end": {
@@ -982,11 +1014,13 @@
             "viewToggle": "Oyunlarınız için ızgara ve liste görünümü arasında geçiş yapın.",
             "welcome": {
                 "intro": "Heroic Kütüphanesine hoş geldiniz! Burası farklı mağazalardaki tüm oyunlarınızı görebileceğiniz yerdir.",
-                "intro2": "Eğer kütüphane boşsa, kenar çubuğunda bulunan Hesapları yönet butonunu kullanarak hesaplarınızla giriş yaptığınızdan veya yukarıdaki Oyun Ekle butonunu kullanarak kendi oyunlarınızı eklediğinizden emin olun.",
-                "title": "Heroic'e hoşgeldiniz!"
+                "intro2": "Kütüphaneniz boş ise yan tarafta bulunan Hesapları yönet düğmesini kullanarak hesaplarınızla giriş yapın veya yukarıdaki Oyun Ekle butonunu kullanarak kendi oyunlarınızı ekleyin.",
+                "title": "Heroic'e hoşgeldiniz!",
+                "title2": "Kütüphaneyi yönet!"
             },
             "addGame": "Buraya tıklayarak kendi oyunlarınızı veya uygulamalarınızı kütüphaneye ekleyin. Bunlar temelde herhangi bir şey olabilir, hatta Tarayıcı URL'leri bile olabilir.",
-            "gameCard": "Oyun sayfasına gitmek, ayrıntıları görmek ve ayarları yapmak için oyun kartına sol tıklayın veya içerik menüsünü açmak için sağ tıklayın."
+            "gameCard": "Oyun sayfasına gitmek, ayrıntıları görmek ve ayarları yapmak için oyun kartına sol tıklayın veya içerik menüsünü açmak için sağ tıklayın.",
+            "steamInstall": "Bu düğmeyi kullanarak Steam Windows sürümünü kurabilir ve Windows oyunlarınızı Crossover, Wine veya GPTK kullanarak oynayabilirsiniz."
         },
         "next": "Sonraki",
         "sidebar": {
@@ -1008,6 +1042,13 @@
             "login": "Kitaplığınıza erişmek için oyun mağazası hesaplarınızda oturum açın."
         },
         "skip": "Atla",
-        "startTour": "Tura Başlayın"
+        "startTour": "Tura Başlayın",
+        "done": "Tamamla"
+    },
+    "notification": {
+        "steam": {
+            "success": "Windows için Steam başarıyla kuruldu!",
+            "error": "Steam kurulumu başarısız oldu! Lütfen talimatları dikkatlice okuyun ve tekrar deneyin!"
+        }
     }
 }

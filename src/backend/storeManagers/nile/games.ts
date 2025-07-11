@@ -19,17 +19,14 @@ import {
 } from './library'
 import {
   LogPrefix,
-  appendGamePlayLog,
-  appendWinetricksGamePlayLog,
   logDebug,
   logError,
-  logFileLocation,
-  logInfo
-} from 'backend/logger/logger'
+  logInfo,
+  createGameLogWriter
+} from 'backend/logger'
 import { GameConfig } from 'backend/game_config'
 import {
   getKnownFixesEnvVariables,
-  getRunnerCallWithoutCredentials,
   launchCleanup,
   prepareLaunch,
   prepareWineLaunch,
@@ -45,9 +42,7 @@ import {
   isUmuSupported
 } from 'backend/utils/compatibility_layers'
 import shlex from 'shlex'
-import { join } from 'path'
 import {
-  getNileBin,
   killPattern,
   moveOnUnix,
   moveOnWindows,
@@ -65,6 +60,8 @@ import { sendFrontendMessage } from '../../ipc'
 import setup from './setup'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import { isLinux, isWindows } from 'backend/constants/environment'
+
+import type LogWriter from 'backend/logger/log_writer'
 
 export async function getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)
@@ -116,9 +113,10 @@ export async function importGame(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   platform: InstallPlatform
 ): Promise<ExecResult> {
+  const importLogWriter = await createGameLogWriter(appName, 'nile', 'import')
   const res = await runNileCommand(['import', '--path', folderPath, appName], {
     abortId: appName,
-    logFile: logFileLocation(appName),
+    logWriters: [importLogWriter],
     logMessagePrefix: `Importing ${appName}`
   })
 
@@ -255,9 +253,10 @@ export async function install(
     onInstallOrUpdateOutput(appName, 'installing', data)
   }
 
+  const installLogWriter = await createGameLogWriter(appName, 'nile', 'install')
   const res = await runNileCommand(commandParts, {
     abortId: appName,
-    logFile: logFileLocation(appName),
+    logWriters: [installLogWriter],
     onOutput,
     logMessagePrefix: `Installing ${appName}`
   })
@@ -309,6 +308,7 @@ export async function removeShortcuts(appName: string) {
 
 export async function launch(
   appName: string,
+  logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
@@ -323,10 +323,10 @@ export async function launch(
     gameModeBin,
     gameScopeCommand,
     steamRuntime
-  } = await prepareLaunch(gameSettings, gameInfo, isNative())
+  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative())
 
   if (!launchPrepSuccess) {
-    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    logWriter.logError(['Launch aborted:', launchPrepFailReason])
     launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
@@ -370,9 +370,9 @@ export async function launch(
       success: wineLaunchPrepSuccess,
       failureReason: wineLaunchPrepFailReason,
       envVars: wineEnvVars
-    } = await prepareWineLaunch('nile', appName)
+    } = await prepareWineLaunch('nile', appName, logWriter)
     if (!wineLaunchPrepSuccess) {
-      appendGamePlayLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
+      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -382,8 +382,6 @@ export async function launch(
       }
       return false
     }
-
-    appendWinetricksGamePlayLog(gameInfo)
 
     commandEnv = {
       ...commandEnv,
@@ -419,19 +417,6 @@ export async function launch(
     appName,
     ...args
   ]
-  const fullCommand = getRunnerCallWithoutCredentials(
-    commandParts,
-    commandEnv,
-    join(...Object.values(getNileBin()))
-  )
-  appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
-
-  if (!gameSettings.verboseLogs) {
-    appendGamePlayLog(
-      gameInfo,
-      "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n\n"
-    )
-  }
 
   sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
 
@@ -440,9 +425,7 @@ export async function launch(
     env: commandEnv,
     wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
-    onOutput(output) {
-      if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
-    }
+    logWriters: [logWriter]
   })
 
   if (error) {
@@ -492,11 +475,12 @@ export async function repair(appName: string): Promise<ExecResult> {
   }
 
   logDebug([appName, 'is installed at', install_path], LogPrefix.Nile)
+  const repairLogWriter = await createGameLogWriter(appName, 'nile', 'repair')
   const res = await runNileCommand(
     ['verify', '--path', install_path, appName],
     {
       abortId: appName,
-      logFile: logFileLocation(appName),
+      logWriters: [repairLogWriter],
       logMessagePrefix: `Repairing ${appName}`
     }
   )
@@ -543,9 +527,10 @@ export async function update(appName: string): Promise<InstallResult> {
     onInstallOrUpdateOutput(appName, 'updating', data)
   }
 
+  const updateLogWriter = await createGameLogWriter(appName, 'nile', 'update')
   const res = await runNileCommand(commandParts, {
     abortId: appName,
-    logFile: logFileLocation(appName),
+    logWriters: [updateLogWriter],
     onOutput,
     logMessagePrefix: `Updating ${appName}`
   })

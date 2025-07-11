@@ -57,7 +57,7 @@
         "browse_wine_prefix": "Browse Wine Prefix",
         "cancel": "Pause/Cancel",
         "changelog": "Show Changelog",
-        "continue": "Continue Download",
+        "continue": "Continue Downloading",
         "details": "Details",
         "finish": "Finish",
         "force_update": "Force Update if Available",
@@ -210,6 +210,9 @@
         },
         "winetricks": "Installing Winetricks Packages"
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
         "nodlcs": "No DLC available",
@@ -280,6 +283,7 @@
         "gog-goodie": "This game doesn't appear to be installable. Check downloadable content on https://gog.com/account",
         "goodie": "Not installable",
         "hasUpdates": "New Version Available!",
+        "importing": "Importing",
         "installed": "Installed",
         "installing": "Installing",
         "launching": "Launching",

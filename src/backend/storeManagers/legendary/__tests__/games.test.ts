@@ -1,9 +1,7 @@
 import { syncSaves } from '../games'
 import * as library from '../library'
 
-// Mock functions that the actual implementation depends on
-jest.mock('../../../logger/logger')
-jest.mock('../../../logger/logfile')
+jest.mock('backend/logger')
 
 describe('syncSaves', () => {
   test("returns 'No path provided.' if path parameter is falsy", async () => {

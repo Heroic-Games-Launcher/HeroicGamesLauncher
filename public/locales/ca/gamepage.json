@@ -48,7 +48,8 @@
         },
         "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ",
-        "close": "Tanca"
+        "close": "Tanca",
+        "select-install-path": "Selecciona la ruta d'instal·lació del Steam"
     },
     "button": {
         "add_to_favourites": "Afegeix a preferits",
@@ -120,7 +121,7 @@
     },
     "generic": {
         "error": "Error desconegut",
-        "noDescription": "No hi ha descripció disponible"
+        "noDescription": "No hi ha cap descripció disponible"
     },
     "hours": "Hores",
     "how-long-to-beat": {
@@ -137,9 +138,9 @@
         "syncsaves": "Sincronitza les partides desades",
         "version": "Versió",
         "apple-gaming-wiki": "Classificació AppleGamingWiki",
-        "clickToOpen": "Feu clic per obrir",
+        "clickToOpen": "Feu clic per a obrir",
         "game-scores": "Puntuacions del joc",
-        "installedInfo": "Informació instal·lada",
+        "installedInfo": "Informació de la instal·lació",
         "protondb-compatibility-info": "Nivell de compatibilitat amb el Proton",
         "steamdeck-compatibility-info": "Compatibilitat amb l'SteamDeck",
         "third-party-app": "Gestor de tercers"
@@ -157,7 +158,7 @@
             "message": "La compatibilitat amb el sistema antitrampes s'ha trencat o rebutjat. El joc no funcionarà. Segur que el voleu instal·lar de totes maneres?",
             "install": "Sí (entenc que no funcionarà)",
             "title": "Antitrampes trencat/rebutjat",
-            "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Voleu instal·lar-lo igualment?",
+            "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Vols instal·lar-lo igualment?",
             "install_anyway": "Sí (entenc que les funcions multijugador no funcionen)",
             "ok": "D'acord",
             "disabled_installation": "Aquest joc fa servir programari antitrampes que no és compatible amb el vostre sistema operatiu o els desenvolupadors del joc no n'han activat el suport. Això significa que les funcions multijugador no funcionaran i no hi ha res que pugueu fer per a resoldre-ho ‒ni tan sols l'equip de l'Heroic.<br /><br />Per a instal·lar aquest joc i provar-lo de totes maneres, aneu a Configuració→Avançat i seleccioneu l'opció d'instal·lar jocs amb antitrampes trencat o denegat.<br /><br />Tingueu en compte que no hi ha manera de resoldre-ho i us arrisqueu a què us expulsin de les partides."
@@ -182,8 +183,30 @@
         "prerequisites": "S'estan instal·lant els prerequisits",
         "redist": "Instal·la redistribuïbles",
         "steam": {
-            "installing": "S'està instal·lant...",
-            "pleaseWait": "Espera..."
+            "installing": "S'està instal·lant",
+            "pleaseWait": "Un moment",
+            "abort": "Avorta la instal·lació",
+            "cancel": "Cancel·la la instal·lació",
+            "compatibility": "Tingues en compte que no tots els jocs funcionaran, i fins i tot si ho fan, podrien no executar-se com s'espera.",
+            "compatibility-layer-not-available": "La capa de compatibilitat no està disponible. Instal·la'n una des de «Configuració > Gestor del Wine».",
+            "crossover": "Si tens instal·lat el Crossover no et cal això, ja que pot executar perfectament el Steam normal.",
+            "downloading": "S'està baixant {{percent}} %",
+            "install": "Instal·la Steam",
+            "hardware": "Apple Silicon M1+ (per als Intel Mac, Steam funcionarà amb el Crossover)",
+            "install-path": "Ruta d'instal·lació del Steam",
+            "install-tooltip": "Això instal·larà la versió de Windows del Steam i l'executarà utilitzant la capa de compatibilitat de l'Heroic. \n\n    Alguns jocs, especialment els antics, els nous en 3D o els que tinguin programes antitrampes, podrien no funcionar correctament. \n\n    ",
+            "installation": "Instal·lació del Steam",
+            "launch": "Inicia el Steam utilitzant la capa de compatibilitat de l'Heroic",
+            "launching": "S'està iniciant el Steam...",
+            "macOS": "macOS 14.0 o superior",
+            "notification": "L'Heroic et notificarà quan finalitzi la instal·lació.",
+            "patience": "Si vols continuar, tingues paciència, ja que podria trigar uns pocs minuts a finalitzar, depenent de la teua connexió a internet i la configuració del sistema.",
+            "ram": "8 GB de RAM",
+            "recommended": "Especificacions recomanades per a una millor experiència",
+            "select-path": "Selecciona la carpeta d'instal·lació del Steam",
+            "specificVersion-pt1": "Això baixarà una versió específica del Steam des de",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "feta perquè funcione amb l'Heroic, ja que les versions noves del Steam no funcionen en macOS."
         }
     },
     "launch": {
@@ -194,7 +217,7 @@
         "gog": "No has iniciat sessió amb un compte de GOG a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
         "login": "Inicia la sessió",
         "title": "No has iniciat sessió",
-        "amazon": "No has iniciat sessió amb un compte d'Epic a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:"
+        "amazon": "No has iniciat sessió amb un compte d'Amazon a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la, fes-ho millor amb aquest botó:"
     },
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {
@@ -225,7 +248,7 @@
             "useragent": "Escriviu aquí un agent d'usuari personalitzat per a fer-lo servir en aquesta aplicació/joc de navegador."
         },
         "import-hint": {
-            "title": "Important! Si voleu afegir un joc d'Epic/GOGO/Amazon, feu clic aquí.",
+            "title": "Important! Si vols afegir un joc d'Epic/GOG/Amazon, fes clic aquí.",
             "content": "No feu servir aquesta funció per a això.<br />En el seu lloc, <3>inicieu sessió</3> a la botiga, busqueu el joc a la vostra biblioteca, obriu el diàleg d'instal·lació i feu clic al botó &quot;Importa un joc&quot;."
         }
     },
@@ -253,15 +276,16 @@
         "playing": "Jugant",
         "moving-files": "Es mou el fitxer «{{file}}»: {{percent}} %",
         "syncingSaves": "S'estan sincronitzant les partides",
-        "launching": "Llançament",
+        "launching": "S'està iniciant",
         "ubisoft": "Instal·lació d'Ubisoft",
-        "downloading": "Es baixa",
-        "extracting": "Extracció",
-        "gog-goodie": "Sembla que aquest joc no es pot instal·lar. Comproveu el contingut baixable a https://gog.com/account",
+        "downloading": "S'està baixant",
+        "extracting": "S'està extraient",
+        "gog-goodie": "Sembla que aquest joc no es pot instal·lar. Comproveu el contingut descarregable a https://gog.com/account",
         "goodie": "No instal·lable",
         "prerequisites": "S'estan instal·lant els prerequisits",
         "winetricks": "S'estan aplicant les correccions del Winetricks",
-        "redist": "S'instal·len els redistribuïbles ({{redist}})"
+        "redist": "S'instal·len els redistribuïbles ({{redist}})",
+        "importing": "S'està important"
     },
     "submenu": {
         "addShortcut": "Afegeix una drecera",

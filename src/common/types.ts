@@ -13,6 +13,7 @@ import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
+import type LogWriter from 'backend/logger/log_writer'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
 
@@ -196,6 +197,8 @@ export interface GameSettings {
   enableFSR: boolean
   enableMsync: boolean
   enableFsync: boolean
+  enableWineWayland: boolean
+  enableHDR: boolean
   gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean
@@ -226,6 +229,7 @@ export interface GameSettings {
 
 export type Status =
   | 'installing'
+  | 'importing'
   | 'updating'
   | 'launching'
   | 'playing'
@@ -391,8 +395,7 @@ export interface RpcClient {
 
 export interface CallRunnerOptions {
   logMessagePrefix?: string
-  logFile?: string
-  verboseLogFile?: string
+  logWriters?: LogWriter[]
   logSanitizer?: (line: string) => string
   env?: Record<string, string> | NodeJS.ProcessEnv
   wrappers?: string[]
@@ -739,7 +742,7 @@ export interface WindowProps extends Electron.Rectangle {
   titleBarOverlay?: TitleBarOverlay | boolean
 }
 
-export interface GameScopeSettings {
+interface GameScopeSettings {
   enableUpscaling: boolean
   enableLimiter: boolean
   enableForceGrabCursor: boolean

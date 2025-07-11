@@ -97,7 +97,8 @@
         },
         "builds": {
             "version": "Versión"
-        }
+        },
+        "modify": "Modificar instalación"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -156,7 +157,8 @@
         "ubisoft": "Instalación de Ubisoft Connect",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Deter a instalación"
         }
     },
     "launch": {
@@ -238,7 +240,8 @@
         "store": "Páxina da tenda",
         "verify": "Verificar e reparar",
         "extraInfo": "Información extra",
-        "logs": "Rexistros"
+        "logs": "Rexistros",
+        "categories": "Categorías"
     },
     "help": {
         "cloud_save_unsupported": "Este xogo non admite gardados na nube. Esta información é proporcionada polos desenvolvedores do xogo. Algúns xogos implementan o seu propio sistema de gardar na nube"

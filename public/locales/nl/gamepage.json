@@ -181,7 +181,8 @@
         "redist": "Herverdelers installeren",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Installatie stoppen"
         }
     },
     "launch": {

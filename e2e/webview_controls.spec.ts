@@ -11,13 +11,13 @@ electronTest('webview', async (app) => {
 
     // we have to wait a bit for the webview to properly load these urls
     // it's not great to force a sleep, but without these it's too flaky
-    await page.waitForTimeout(300)
+    await page.waitForTimeout(600)
 
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
       'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
     )
-    await page.waitForTimeout(300)
+    await page.waitForTimeout(600)
 
     // we have to force a src change since we can't really click something reliably
     // inside the webview programatically
@@ -25,7 +25,7 @@ electronTest('webview', async (app) => {
       'webview',
       (el: WebviewTag) => (el.src = 'https://www.google.com/')
     )
-    await page.waitForTimeout(300)
+    await page.waitForTimeout(600)
 
     await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
       'value',
@@ -45,7 +45,33 @@ electronTest('webview', async (app) => {
       'value',
       'https://www.google.com/'
     )
-    await page.waitForTimeout(200)
+    await page.waitForTimeout(600)
+
+    // simulate mouse back
+    await page.dispatchEvent('body', 'mouseup', {
+      button: 3,
+      bubbles: true,
+      cancelable: true
+    })
+    await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
+      'value',
+      'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
+    )
+    await page.waitForTimeout(600)
+
+    // simulate mouse forward
+    await page.dispatchEvent('webview', 'mouseup', {
+      button: 4,
+      bubbles: true,
+      cancelable: true
+    })
+    await expect(page.locator('.WebviewControls__urlInput')).toHaveAttribute(
+      'value',
+      'https://www.google.com/'
+    )
+    await page.waitForTimeout(600)
+
+    // it looks like we can't simulate mouse buttons INSIDE the webview to also test those
 
     // go back twice to end up in the library
     await page.getByTitle('Go back').click()

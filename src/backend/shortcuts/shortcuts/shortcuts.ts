@@ -12,7 +12,7 @@ import {
 } from 'graceful-fs'
 import { IconIcns } from '@shockpkg/icon-encoder'
 import { join } from 'path'
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { GlobalConfig } from '../../config'
 import { GameInfo } from 'common/types'
 import { getIcon } from '../utils'

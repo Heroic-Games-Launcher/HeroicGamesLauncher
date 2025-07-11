@@ -21,7 +21,8 @@
             "title": "Valige EXE, mida käivitada"
         },
         "select": {
-            "button": "Vali"
+            "button": "Vali",
+            "image": "Vali pilt"
         },
         "sideload": {
             "exe": "Vali käivitatav programm"
@@ -47,7 +48,8 @@
         },
         "wineprefix": "Valige WinePrefiksi kaust",
         "yes": "JAH",
-        "close": "Sulge"
+        "close": "Sulge",
+        "select-install-path": "Vali Steami paigaldusasukoht"
     },
     "button": {
         "add_to_favourites": "Lisa lemmikute hulka",
@@ -127,7 +129,7 @@
         "main-plus-extras": "Põhi + lisad",
         "main-story": "Põhilugu"
     },
-    "howLongToBeat": "Kui kaua, et läbi teha",
+    "howLongToBeat": "Kui kaua, et lõpuni mängida",
     "info": {
         "canRunOffline": "Võrguühendus nõutud",
         "installedPlatform": "Paigaldatud platvorm",
@@ -181,7 +183,29 @@
         "winetricks": "Winetricksi pakkide paigaldamine",
         "steam": {
             "installing": "Paigaldamine",
-            "pleaseWait": "Palun oodake..."
+            "pleaseWait": "Palun oodake...",
+            "abort": "Katkesta paigaldamine",
+            "cancel": "Tühista paigaldamine",
+            "compatibility": "Olge teadlik, et kõik mängud ei pruugi töötada korralikult, ja isegi kui töötavad, ei pruugi nad töötada nii, nagu oodatud.",
+            "compatibility-layer-not-available": "Ühilduvuskiht pole saadaval. Palun paigaldage üks \"Seaded > Wine'i haldur\" menüüst.",
+            "crossover": "Kui teil on Crossover paigaldatud, ei lähe teil seda vaja, kuna tavaline Steam toimib sellega korralikult.",
+            "downloading": "Allalaadimine {{percent}}%",
+            "hardware": "Apple Silicon M1+ (Intel Mac-ide puhul toimib Steam Crossoveriga)",
+            "install": "Paigalda Steam",
+            "install-path": "Steami paigaldamise asukoht",
+            "install-tooltip": "See paigaldab Steami Windowsi versiooni ning see töötab Heroicu ühilduvuskihiga. \n\n\tMõned mängud, eriti vanemad mängud, uuemad 3D-mängud või mängud sohivastase tarkvaraga ei pruugi korralikult toimida. \n\n    ",
+            "installation": "Steami paigaldamine",
+            "launch": "Käivita Steam Heroicu ühilduvuskihiga",
+            "launching": "Steami käivitamine...",
+            "macOS": "macOS 14.0 või uuem",
+            "notification": "Heroic teavitab teid, kui paigaldamine valmis saab.",
+            "patience": "Kui soovite jätkata, palun olge kannatlik, kuna lõpuni viimine võib võtta mitu minutit olenevalt teie internetiühendusest ja süsteemi seadistusest.",
+            "ram": "8GB RAM-i",
+            "recommended": "Soovitatav riistvara parema kogemuse jaoks",
+            "select-path": "Vali Steami jaoks paigalduskaust",
+            "specificVersion-pt1": "See laeb alla konkreetse Steami versiooni asukohast",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "mis toimib läbi Heroicu, sest uued Steami versioonid ei tööta macOS-il."
         }
     },
     "launch": {
@@ -217,7 +241,7 @@
             "useragent": "Kohandatud User Agent"
         },
         "placeholder": {
-            "image": "Kleepige pildi URL siia",
+            "image": "Kleepige pildi URL siia või valige üks oma arvutist",
             "title": "Lisa pealkiri oma mängule/rakendusele",
             "url": "Asetage mängu URL siia",
             "useragent": "Kirjuta käsitsi User Agent siia, et kasutada seda selle brauseri äpi/mänguga"
@@ -258,7 +282,8 @@
         "gog-goodie": "See mäng ei paista olevat paigaldatav. Kontrollige allalaaditavat sisu (DLC) aadressil https://gog.com/account",
         "goodie": "Ei ole paigaldatav",
         "redist": "Vajalike pakkide paigaldamine ({{redist}})",
-        "winetricks": "Winetricksi paranduste rakendamine"
+        "winetricks": "Winetricksi paranduste rakendamine",
+        "importing": "Importimine"
     },
     "submenu": {
         "addShortcut": "Lisa otsetee",

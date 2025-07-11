@@ -49,7 +49,8 @@
         },
         "wineprefix": "Velg Wine-prefiksmappe",
         "yes": "Ja",
-        "close": "Lukk"
+        "close": "Lukk",
+        "select-install-path": "Velg installasjonssti for Steam"
     },
     "button": {
         "add_to_favourites": "Legg til i favoritter",
@@ -180,7 +181,21 @@
         "redist": "Installerer redistributables",
         "winetricks": "Installerer Winetricks-pakker",
         "steam": {
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "abort": "Avbryt installering",
+            "cancel": "Avbryt installering",
+            "compatibility": "Vær oppmerksom på at ikke alle spill kommer til å fungere, og til og med hvis de gjør det, er det ikke garantert at de fungerer som forventet.",
+            "compatibility-layer-not-available": "Kompatibilitetslag er ikke tilgjengelig. Installer en fra menyen først. «Innstillinger» -> «Wine Manager».",
+            "crossover": "Hvis du har Crossover installert, trenger du ikke dette, siden det kan da kjøre gjennom Steam som vanlig.",
+            "downloading": "Laster ned {{percent}}%",
+            "hardware": "Apple Silicon M1+ (på Intel Mac-er funker Steam med Crossover)",
+            "install": "Installer Steam",
+            "install-path": "Installasjonssti for Steam",
+            "installation": "Steam-installasjon",
+            "installing": "Installerer",
+            "launch": "Start Steam med Heroics kompatibilitetslag",
+            "launching": "Starter Steam...",
+            "macOS": "macOS 14.0 eller nyere"
         }
     },
     "launch": {

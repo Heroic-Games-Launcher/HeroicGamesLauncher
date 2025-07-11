@@ -21,14 +21,15 @@
             "title": "Chọn EXE để chạy"
         },
         "select": {
-            "button": "Chọn"
+            "button": "Chọn",
+            "image": "Chọn hình ảnh"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Chọn tập tin chạy"
         },
         "stopInstall": {
             "keepInstalling": "Tiếp tục cài",
-            "message": "Bạn có muốn GIỮ lại những file đã tải không?",
+            "message": "Bạn có muốn GIỮ LẠI những file đã tải không?",
             "title": "Dừng quá trình cài đặt"
         },
         "uninstall": {
@@ -38,7 +39,8 @@
             "title": "Gỡ cài đặt",
             "prefix_warning": "Tiền tố Wine cho trò chơi này là tiền tố mặc định. Nếu bạn thực sự muốn xóa nó, bạn phải thực hiện thủ công.",
             "dlc": "Bạn có chắc muốn gỡ cài đặt \"{{title}}\" (DLC) không?",
-            "gameIsRunning": "{{title}} đang chạy. Hãy đóng trò chơi để gỡ cài đặt nó."
+            "gameIsRunning": "{{title}} đang chạy. Hãy đóng trò chơi để gỡ cài đặt nó.",
+            "cannotUninstallEpic": "Không thể gỡ cài đặt game từ Epic khi đang cài đặt game khác từ Epic."
         },
         "update": {
             "message": "Game có bản cập nhật, xác nhận cập nhật?",
@@ -46,36 +48,38 @@
         },
         "wineprefix": "Chọn thư mục WinePrefix",
         "yes": "Có",
-        "close": "Đóng"
+        "close": "Đóng",
+        "select-install-path": "Chọn thư mục cài đặt Steam"
     },
     "button": {
         "add_to_favourites": "Thêm vào mục ưa thích",
         "cancel": "Tạm dừng/Huỷ",
         "continue": "Tiếp tục tải",
         "finish": "Hoàn thành",
-        "force_update": "Force Update if Available",
-        "force-innstall": "Force Install",
+        "force_update": "Bắt buộc cập nhật nếu có sẵn",
+        "force-innstall": "Cài đặt bắt buộc",
         "hide_game": "Ẩn trò chơi",
         "import": "Nhập trò chơi",
         "install": "Cài đặt",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Chưa chọn thư mục",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Xóa khỏi hàng chờ"
         },
         "remove_from_favourites": "Xóa khỏi mục ưa thích",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Xóa khỏi Gần đây",
+        "run-exe-first": "Chạy cài đặt trước",
+        "running-setup": "Đang chạy cài đặt",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Sửa đổi App/Game"
         },
         "unhide_game": "Bỏ ẩn Game",
         "uninstall": "Gỡ cài đặt",
         "update": "Cập nhật",
         "details": "Chi tiết",
-        "changelog": "Hiện nhật ký thay đổi"
+        "changelog": "Hiện nhật ký thay đổi",
+        "browse_files": "Tìm tệp tin"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Không hỗ trợ",
     "disabled": "Tắt",
     "dlc": {
         "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"
@@ -84,8 +88,8 @@
     "game": {
         "downloadSize": "Kích thước tải",
         "firstPlayed": "Lần chơi đầu tiên",
-        "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-download-size": "Đang cập nhật dung lượng tải xuống",
+        "getting-install-size": "Đang cập nhật dung lượng cài đặt",
         "installSize": "Kích thước cài",
         "language": "Ngôn ngữ",
         "lastPlayed": "Lần chơi trước",
@@ -164,7 +168,8 @@
         "ubisoft": "Cài đặt Ubisoft Connect",
         "steam": {
             "installing": "Đang cài đặt",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Dừng quá trình cài đặt"
         }
     },
     "launch": {
