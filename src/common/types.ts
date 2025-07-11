@@ -197,6 +197,8 @@ export interface GameSettings {
   enableFSR: boolean
   enableMsync: boolean
   enableFsync: boolean
+  enableWineWayland: boolean
+  enableHDR: boolean
   gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean
