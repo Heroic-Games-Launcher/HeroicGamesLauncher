@@ -55,6 +55,13 @@ export default function WineManager(): JSX.Element | null {
     value: 'gpt',
     enabled: !isLinux
   }
+
+  const wineStagingMacOS: WineManagerUISettings = {
+    type: 'Wine-Staging-macOS',
+    value: 'winestagingmacos',
+    enabled: !isLinux
+  }
+
   const wineCrossover: WineManagerUISettings = {
     type: 'Wine-Crossover',
     value: 'winecrossover',
@@ -81,7 +88,8 @@ export default function WineManager(): JSX.Element | null {
     protonge,
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
     gamePortingToolkit,
-    wineCrossover
+    wineCrossover,
+    wineStagingMacOS
   ])
 
   const getWineVersions = (repo: Type) => {
