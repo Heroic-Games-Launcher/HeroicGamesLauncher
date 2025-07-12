@@ -425,6 +425,7 @@ function filterGameSettingsForLog(
       delete gameSettings.autoInstallVkd3d
       delete gameSettings.enableFsync
       delete gameSettings.enableEsync
+      delete gameSettings.enableNtsync
       delete gameSettings.enableFSR
       delete gameSettings.enableWineWayland
       delete gameSettings.enableHDR
@@ -455,6 +456,7 @@ function filterGameSettingsForLog(
       if (wineType) {
         if (wineType.type === 'wine') {
           delete gameSettings.wineCrossoverBottle
+          delete gameSettings.enableNtsync
         }
 
         if (wineType.type === 'toolkit') {
@@ -486,6 +488,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableFSR
     delete gameSettings.enableEsync
     delete gameSettings.enableFsync
+    delete gameSettings.enableNtsync
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
     delete gameSettings.enableDXVKFpsLimit
@@ -1206,6 +1209,9 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
   if (isLinux && !gameSettings.enableFsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_FSYNC = '1'
+  }
+  if (isLinux && !gameSettings.enableNtsync && wineVersion.type === 'proton') {
+    ret.PROTON_USE_NTSYNC = '0'
   }
   if (isLinux && gameSettings.enableWineWayland) {
     if (wineVersion.type === 'proton') {
