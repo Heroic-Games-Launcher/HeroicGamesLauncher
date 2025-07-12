@@ -410,7 +410,9 @@
         "toggleLayout": {
             "grid": "Vaheta ruudustiku paigutusele",
             "list": "Vaheta loendi paigutusele"
-        }
+        },
+        "hideAlphabetFilter": "Peida tähestiku filter",
+        "showAlphabetFilter": "Näita tähestiku filtrit"
     },
     "Library": "Varamu",
     "loading": {
@@ -473,6 +475,9 @@
             "started": "Uuendamine algas",
             "failed": "Uuendus ebaõnnestus",
             "paused": "Värskendus peatatud"
+        },
+        "import": {
+            "failed": "Importimine nurjus"
         }
     },
     "offline-message": {
