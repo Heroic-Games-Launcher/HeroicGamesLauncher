@@ -16,6 +16,7 @@ import {
   EnableFSR,
   EnableFsync,
   EnableMsync,
+  EnableNtsync,
   EnableWineWayland,
   EnvVariablesTable,
   GameMode,
