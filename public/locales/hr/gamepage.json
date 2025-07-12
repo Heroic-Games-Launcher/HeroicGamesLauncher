@@ -96,7 +96,8 @@
         },
         "builds": {
             "version": "Verzija"
-        }
+        },
+        "modify": "Promjeni instalaciju"
     },
     "gamecard": {
         "moving": "Premještanje",
