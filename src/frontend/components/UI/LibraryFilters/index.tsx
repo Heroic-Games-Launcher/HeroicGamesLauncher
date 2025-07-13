@@ -88,6 +88,7 @@ export default function LibraryFilters() {
       legendary: false,
       gog: false,
       nile: false,
+      humbleBundle: false,
       sideload: false
     }
     newFilters = { ...newFilters, [store]: true }
@@ -152,6 +153,7 @@ export default function LibraryFilters() {
       legendary: true,
       gog: true,
       nile: true,
+      humbleBundle: true,
       sideload: true
     })
     setPlatformsFilters({
