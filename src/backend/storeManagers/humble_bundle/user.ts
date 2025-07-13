@@ -8,7 +8,7 @@ export class HumbleBundleUser {
     data?: HumbleBundleUserInfo
   }> {
     if (await this.isLoggedIn()) {
-      var response = await fetch('https://www.humblebundle.com/user/settings', {
+      const response = await fetch('https://www.humblebundle.com/user/settings', {
         redirect: 'manual',
         headers: {
           cookie: await this.getCookies()
