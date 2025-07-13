@@ -65,7 +65,12 @@ interface StateProps {
     library: GameInfo[]
     user_id?: string
     username?: string
-  }
+  },
+  humbleBundle: {
+    library: GameInfo[]
+    user_id?: string
+    username?: string
+  },
   wineVersions: WineVersionInfo[]
   error: boolean
   gameUpdates: string[]
@@ -148,6 +153,9 @@ class GlobalState extends PureComponent<Props> {
 
     return games
   }
+  loadHumbleBundleLibrary = (): Array<GameInfo> => {
+    return []
+  }
   state: StateProps = {
     epic: {
       library: libraryStore.get('library', []),
@@ -161,6 +169,11 @@ class GlobalState extends PureComponent<Props> {
       library: this.loadAmazonLibrary(),
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
+    },
+    humbleBundle: {
+      library: this.loadHumbleBundleLibrary(),
+      user_id: undefined,
+      username: undefined,
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,

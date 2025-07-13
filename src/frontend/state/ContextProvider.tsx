@@ -25,6 +25,18 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  humbleBundle: {
+    library: [],
+    getLoginData: async () =>
+      Promise.resolve({
+        client_id: '',
+        code_verifier: '',
+        serial: '',
+        url: ''
+      }),
+    login: async () => Promise.resolve(''),
+    logout: async () => Promise.resolve()
+  },
   installingEpicGame: false,
   sideloadedLibrary: [],
   error: false,

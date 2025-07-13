@@ -82,7 +82,15 @@ export interface ContextType {
     getLoginData: () => Promise<NileLoginData>
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
-  }
+  },
+  humbleBundle: {
+    library: GameInfo[]
+    user_id?: string
+    username?: string
+    getLoginData: () => Promise<NileLoginData>
+    login: (data: NileRegisterData) => Promise<string>
+    logout: () => Promise<void>
+  },
   installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
