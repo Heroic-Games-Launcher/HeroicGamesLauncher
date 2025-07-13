@@ -8,12 +8,15 @@ export class HumbleBundleUser {
     data?: HumbleBundleUserInfo
   }> {
     if (await this.isLoggedIn()) {
-      const response = await fetch('https://www.humblebundle.com/user/settings', {
-        redirect: 'manual',
-        headers: {
-          cookie: await this.getCookies()
+      const response = await fetch(
+        'https://www.humblebundle.com/user/settings',
+        {
+          redirect: 'manual',
+          headers: {
+            cookie: await this.getCookies()
+          }
         }
-      })
+      )
       const settings = await response.text()
       console.log(settings)
       const emailMatch = settings.match(
