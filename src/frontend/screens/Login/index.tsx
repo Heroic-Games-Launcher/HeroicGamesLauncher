@@ -8,6 +8,7 @@ import EpicLogo from 'frontend/assets/epic-logo.svg?react'
 import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import HeroicLogo from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
+import HumbleBundleLogo from 'frontend/assets/humble-bundle-logo.svg?react'
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
@@ -18,10 +19,12 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
+export const humbleBundleLoginPath = '/loginweb/humble-bundle'
 export const amazonLoginPath = '/loginweb/nile'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, refreshLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, humbleBundle, refreshLibrary } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
 
   hasHelp(
@@ -37,6 +40,9 @@ export default React.memo(function NewLogin() {
   const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
     Boolean(amazon.user_id)
+  )
+  const [isHumbleBundleLoggedIn, setIsHumbleBundleLoggedIn] = useState(
+    Boolean(humbleBundle.username)
   )
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
@@ -68,7 +74,8 @@ export default React.memo(function NewLogin() {
     setIsEpicLoggedIn(Boolean(epic.username))
     setIsGogLoggedIn(Boolean(gog.username))
     setIsAmazonLoggedIn(Boolean(amazon.user_id))
-  }, [epic.username, gog.username, amazon.user_id, t])
+    setIsHumbleBundleLoggedIn(Boolean(humbleBundle.username))
+  }, [epic.username, gog.username, amazon.user_id, humbleBundle.username, t])
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
@@ -143,6 +150,16 @@ export default React.memo(function NewLogin() {
               isLoggedIn={isAmazonLoggedIn}
               user={amazon.username || 'Unknown'}
               logoutAction={amazon.logout}
+              disabled={oldMac}
+            />
+            <Runner
+              class="nile"
+              buttonText={t('login.humble-bundle', 'Humble Bundle Login')}
+              icon={() => <HumbleBundleLogo />}
+              loginUrl={humbleBundleLoginPath}
+              isLoggedIn={isHumbleBundleLoggedIn}
+              user={humbleBundle.username || 'Unknown'}
+              logoutAction={humbleBundle.logout}
               disabled={oldMac}
             />
           </div>

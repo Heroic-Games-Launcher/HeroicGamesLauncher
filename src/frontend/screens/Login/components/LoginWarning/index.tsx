@@ -6,7 +6,12 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import { useTranslation } from 'react-i18next'
-import { amazonLoginPath, epicLoginPath, gogLoginPath } from '../..'
+import {
+  amazonLoginPath,
+  epicLoginPath,
+  gogLoginPath,
+  humbleBundleLoginPath
+} from '../..'
 import { NavLink } from 'react-router-dom'
 
 interface LoginWarningProps {
@@ -49,6 +54,7 @@ const LoginWarning = function ({
       'not_logged_in.humble-bundle',
       "You are not logged in with an Humble bundle account in Heroic. Don't use the store page to login, click the following button instead:"
     )
+    loginPath = humbleBundleLoginPath
   }
 
   return (
