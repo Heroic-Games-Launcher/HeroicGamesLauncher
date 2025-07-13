@@ -93,7 +93,7 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      humbleBundle: humbleBundleCategories.includes(storedCategory)
+      'humble-bundle': humbleBundleCategories.includes(storedCategory)
     }
   }
 
@@ -405,8 +405,8 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['nile'] && amazon.username) {
       displayedStores.push('nile')
     }
-    if (storesFilters['humbleBundle'] && humbleBundle.email) {
-      displayedStores.push('humbleBundle')
+    if (storesFilters['humble-bundle'] && humbleBundle.email) {
+      displayedStores.push('humble-bundle')
     }
     if (storesFilters['sideload']) {
       displayedStores.push('sideload')

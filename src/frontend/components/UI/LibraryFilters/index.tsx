@@ -11,6 +11,7 @@ const RunnerToStore = {
   legendary: 'Epic Games',
   gog: 'GOG',
   nile: 'Amazon Games',
+  'humble-bundle': 'Humble Bundle',
   sideload: 'Other'
 }
 
@@ -88,7 +89,7 @@ export default function LibraryFilters() {
       legendary: false,
       gog: false,
       nile: false,
-      humbleBundle: false,
+      'humble-bundle': false,
       sideload: false
     }
     newFilters = { ...newFilters, [store]: true }
@@ -153,7 +154,7 @@ export default function LibraryFilters() {
       legendary: true,
       gog: true,
       nile: true,
-      humbleBundle: true,
+      'humble-bundle': true,
       sideload: true
     })
     setPlatformsFilters({

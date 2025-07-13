@@ -2,11 +2,14 @@ import * as SideloadGameManager from 'backend/storeManagers/sideload/games'
 import * as GOGGameManager from 'backend/storeManagers/gog/games'
 import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
 import * as NileGameManager from 'backend/storeManagers/nile/games'
+import * as HumbleBundleGameManager from 'backend/storeManagers/humble_bundle/games'
 
 import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import * as NileLibraryManager from 'backend/storeManagers/nile/library'
+import * as HumbleBundleLibraryManager from 'backend/storeManagers/humble_bundle/library'
+
 import { GameManager, LibraryManager } from 'common/types/game_manager'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
@@ -21,7 +24,8 @@ export const gameManagerMap: GameManagerMap = {
   sideload: SideloadGameManager,
   gog: GOGGameManager,
   legendary: LegendaryGameManager,
-  nile: NileGameManager
+  nile: NileGameManager,
+  'humble-bundle': HumbleBundleGameManager
 }
 
 type LibraryManagerMap = {
@@ -32,7 +36,8 @@ export const libraryManagerMap: LibraryManagerMap = {
   sideload: SideloadLibraryManager,
   gog: GOGLibraryManager,
   legendary: LegendaryLibraryManager,
-  nile: NileLibraryManager
+  nile: NileLibraryManager,
+  'humble-bundle': HumbleBundleLibraryManager
 }
 
 function getDMElement(gameInfo: GameInfo, appName: string) {

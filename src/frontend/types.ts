@@ -18,7 +18,13 @@ import {
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Category =
+  | 'all'
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'humble-bundle'
 
 export interface ContextType {
   error: boolean
@@ -209,7 +215,7 @@ export interface StoresFilters {
   gog: boolean
   nile: boolean
   sideload: boolean
-  humbleBundle: boolean
+  'humble-bundle': boolean
 }
 
 export interface PlatformsFilters {

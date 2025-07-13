@@ -8,7 +8,7 @@ const initialContext: LibraryContextType = {
     legendary: true,
     gog: true,
     nile: true,
-    humbleBundle: true,
+    'humble-bundle': true,
     sideload: true
   },
   platformsFilters: { win: true, linux: true, mac: true, browser: true },

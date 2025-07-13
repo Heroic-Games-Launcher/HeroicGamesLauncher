@@ -41,7 +41,7 @@
     "dist:win": "electron-vite build && electron-builder --win",
     "dist:flatpak": "pnpm dist:linux appimage && pnpm flatpak:prepare && pnpm flatpak:build",
     "lint": "eslint --cache .",
-    "lint-fix": "eslint --fix --ext .tsx,ts ./src",
+    "lint-fix": "eslint --quiet --fix --ext .tsx,ts ./src",
     "flatpak:build": "cd flatpak-build && flatpak-builder build com.heroicgameslauncher.hgl.yml --install --force-clean --user",
     "flatpak:prepare": "node ./flatpak/prepareFlatpak.js",
     "flatpak:prepare-release": "node ./flatpak/prepareFlatpak.js release",
