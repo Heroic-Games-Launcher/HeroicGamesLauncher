@@ -242,6 +242,7 @@ const updateGame = (args: UpdateParams) => {
 
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
+export const humbleBundleCategories = ['all', 'humbleBundle']
 export const sideloadedCategories = ['all', 'sideload']
 export const amazonCategories = ['all', 'nile', 'amazon']
 

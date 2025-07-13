@@ -210,6 +210,7 @@ export interface StoresFilters {
   gog: boolean
   nile: boolean
   sideload: boolean
+  humbleBundle: boolean
 }
 
 export interface PlatformsFilters {

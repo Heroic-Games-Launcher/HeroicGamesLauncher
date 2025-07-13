@@ -8,16 +8,26 @@ export class HumbleBundleUser {
     data?: HumbleBundleUserInfo
   }> {
     if (await this.isLoggedIn()) {
-      const win = await this.openBrowser()
-      await win.loadURL('https://www.humblebundle.com/user/settings')
-
-      const email = await win.webContents.executeJavaScript(
-        "document.getElementById('email').value"
+      var response = await fetch('https://www.humblebundle.com/user/settings', {
+        redirect: 'manual',
+        headers: {
+          cookie: await this.getCookies()
+        }
+      })
+      const settings = await response.text()
+      console.log(settings)
+      const emailMatch = settings.match(
+        /<input[^>]*id=["']email["'][^>]*value=["']([^"']+)["']/
       )
 
-      await win.close()
+      if (!emailMatch) {
+        return {
+          status: 'error',
+          data: undefined
+        }
+      }
 
-      const userData = { email }
+      const userData = { email: emailMatch[1] }
 
       configStore.set('userData', userData)
       configStore.set('isLoggedIn', true)
@@ -37,37 +47,31 @@ export class HumbleBundleUser {
   }
 
   public static async isLoggedIn(): Promise<boolean> {
-    const win = await this.openBrowser()
-    await win.loadURL('https://www.humblebundle.com/user/settings')
-    const logged = !win.webContents.getURL().match('/login')
-    await win.close()
-    return logged
+    var response = await fetch('https://www.humblebundle.com/user/settings', {
+      redirect: 'manual',
+      headers: {
+        cookie: await this.getCookies()
+      }
+    })
+
+    console.log('.>>>', response.status)
+    return response.status == 200
   }
 
-  public static getUserInfo(): HumbleBundleUserInfo | undefined {
-    console.log('encule')
-    return { email: 'hello@hello.hello' }
+  public static async getUserInfo(): Promise<HumbleBundleUserInfo | undefined> {
+    const result = await this.login()
+    if (result.status == 'done') {
+      return result.data
+    }
+    return undefined
   }
 
-  private static async openBrowser() {
+  private static async getCookies() {
     const ses = session.fromPartition('persist:epicstore')
 
-    const win = new BrowserWindow({
-      width: 1280,
-      height: 1024,
-      show: true
-    })
-
-    const cookies = await ses.cookies.get({})
-    cookies.forEach(async (cookie) => {
-      try {
-        await win.webContents.session.cookies.set({
-          ...cookie,
-          url: 'www.humblebundle.com'
-        })
-      } catch (e) {}
-    })
-
-    return win
+    const cookies = await ses.cookies.get({ name: '_simpleauth_sess' })
+    const cookieString = cookies.map((c) => `${c.name}=${c.value}`).join('; ')
+    console.log(cookieString)
+    return cookieString
   }
 }

@@ -24,6 +24,7 @@ import {
   amazonCategories,
   epicCategories,
   gogCategories,
+  humbleBundleCategories,
   sideloadedCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
@@ -55,6 +56,7 @@ export default React.memo(function Library(): JSX.Element {
     epic,
     gog,
     amazon,
+    humbleBundle,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -90,7 +92,8 @@ export default React.memo(function Library(): JSX.Element {
       legendary: epicCategories.includes(storedCategory),
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
-      sideload: sideloadedCategories.includes(storedCategory)
+      sideload: sideloadedCategories.includes(storedCategory),
+      humbleBundle: humbleBundleCategories.includes(storedCategory)
     }
   }
 
@@ -368,6 +371,9 @@ export default React.memo(function Library(): JSX.Element {
       amazon.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      humbleBundle.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -398,6 +404,9 @@ export default React.memo(function Library(): JSX.Element {
     }
     if (storesFilters['nile'] && amazon.username) {
       displayedStores.push('nile')
+    }
+    if (storesFilters['humbleBundle'] && humbleBundle.username) {
+      displayedStores.push('humbleBundle')
     }
     if (storesFilters['sideload']) {
       displayedStores.push('sideload')
@@ -535,6 +544,7 @@ export default React.memo(function Library(): JSX.Element {
     epic.library,
     gog.library,
     amazon.library,
+    humbleBundle.library,
     sideloadedLibrary,
     platform,
     filterText,
