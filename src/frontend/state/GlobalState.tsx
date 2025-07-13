@@ -996,6 +996,7 @@ class GlobalState extends PureComponent<Props> {
       epic,
       gog,
       amazon,
+      humbleBundle,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -1033,6 +1034,13 @@ class GlobalState extends PureComponent<Props> {
             getLoginData: this.getAmazonLoginData,
             login: this.amazonLogin,
             logout: this.amazonLogout
+          },
+          humbleBundle: {
+            library: humbleBundle.library,
+            user_id: humbleBundle.user_id,
+            username: humbleBundle.username,
+            login: () =>  Promise.resolve(''),
+            logout: () => Promise.resolve()
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

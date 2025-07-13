@@ -87,7 +87,6 @@ export interface ContextType {
     library: GameInfo[]
     user_id?: string
     username?: string
-    getLoginData: () => Promise<NileLoginData>
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   },
