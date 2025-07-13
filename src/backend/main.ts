@@ -773,7 +773,7 @@ addHandler('isLoggedIn', LegendaryUser.isLoggedIn)
 
 addHandler('login', async (event, sid) => LegendaryUser.login(sid))
 addHandler('authGOG', async (event, code) => GOGUser.login(code))
-addHandler('authHumbleBundle', async (_event) => HumbleBundleUser.login())
+addHandler('authHumbleBundle', async (event) => HumbleBundleUser.login())
 addHandler('logoutLegendary', LegendaryUser.logout)
 addListener('logoutGOG', GOGUser.logout)
 

@@ -69,7 +69,6 @@ export default function WebView() {
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
-  const humbleBundleUrl = 'https://www.humblebundle.com/'
   const humbleBundleStore = 'https://www.humblebundle.com/store'
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'

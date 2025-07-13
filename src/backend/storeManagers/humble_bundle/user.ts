@@ -1,5 +1,5 @@
 import { HumbleBundleUserInfo } from 'common/types/humble_bundle'
-import { BrowserWindow, session } from 'electron'
+import { session } from 'electron'
 import { configStore } from './electronStores'
 
 export class HumbleBundleUser {
@@ -47,7 +47,7 @@ export class HumbleBundleUser {
   }
 
   public static async isLoggedIn(): Promise<boolean> {
-    var response = await fetch('https://www.humblebundle.com/user/settings', {
+    const response = await fetch('https://www.humblebundle.com/user/settings', {
       redirect: 'manual',
       headers: {
         cookie: await this.getCookies()
