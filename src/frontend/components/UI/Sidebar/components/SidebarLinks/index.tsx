@@ -133,6 +133,11 @@ export default function SidebarLinks() {
               url="/store/amazon"
               label={t('prime-gaming', 'Prime Gaming')}
             />
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/store/humble-bundle"
+              label={t('humble-bundle', 'Humble Bundle')}
+            />
           </div>
         )}
       </div>

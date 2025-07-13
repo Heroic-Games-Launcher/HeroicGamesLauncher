@@ -382,6 +382,7 @@
         "wine-hdr": "HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.",
         "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games."
     },
+    "humble-bundle": "Humble Bundle",
     "info": {
         "heroic": {
             "beta": "Beta",
