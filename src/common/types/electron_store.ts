@@ -19,6 +19,7 @@ import {
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
+import { HumbleBundleUserInfo } from './humble_bundle'
 
 export interface StoreStructure {
   configStore: {
@@ -69,6 +70,10 @@ export interface StoreStructure {
   gogConfigStore: {
     userData: UserData
     credentials?: GOGLoginData
+    isLoggedIn: boolean
+  }
+  humbleConfigStore: {
+    userData: HumbleBundleUserInfo
     isLoggedIn: boolean
   }
   nileConfigStore: {

@@ -30,6 +30,7 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
+import { HumbleBundleUser } from './storeManagers/humble_bundle/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -761,6 +762,10 @@ addHandler('getUserInfo', async () => {
   return LegendaryUser.getUserInfo()
 })
 
+addHandler('getHumbleBundleUserInfo', async () =>
+  HumbleBundleUser.getUserInfo()
+)
+
 addHandler('getAmazonUserInfo', async () => NileUser.getUserData())
 
 // Checks if the user have logged in with Legendary already
@@ -768,10 +773,12 @@ addHandler('isLoggedIn', LegendaryUser.isLoggedIn)
 
 addHandler('login', async (event, sid) => LegendaryUser.login(sid))
 addHandler('authGOG', async (event, code) => GOGUser.login(code))
+addHandler('authHumbleBundle', async (_event) => HumbleBundleUser.login())
 addHandler('logoutLegendary', LegendaryUser.logout)
 addListener('logoutGOG', GOGUser.logout)
 
 addHandler('getAmazonLoginData', NileUser.getLoginData)
+
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
 addHandler('logoutAmazon', NileUser.logout)
 

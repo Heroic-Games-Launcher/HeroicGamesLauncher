@@ -138,6 +138,17 @@ const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
+const humbleBundleLibraryStore = new CacheStore<
+  GameInfo[],
+  'humbleBundleLibrary'
+>('humble_bundle_library', null)
+const humbleBundleConfigStore = new TypeCheckedStoreFrontend(
+  'nileConfigStore',
+  {
+    cwd: 'humble_bundle'
+  }
+)
+
 const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
   'nile_library',
   null
@@ -172,5 +183,7 @@ export {
   wineDownloaderInfoStore,
   downloadManagerStore,
   nileLibraryStore,
-  nileConfigStore
+  nileConfigStore,
+  humbleBundleLibraryStore,
+  humbleBundleConfigStore
 }

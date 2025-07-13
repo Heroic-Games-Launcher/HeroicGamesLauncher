@@ -87,7 +87,7 @@ export interface ContextType {
     library: GameInfo[]
     user_id?: string
     username?: string
-    login: (data: NileRegisterData) => Promise<string>
+    login: () => Promise<string>
     logout: () => Promise<void>
   }
   installingEpicGame: boolean

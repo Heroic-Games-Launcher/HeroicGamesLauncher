@@ -69,6 +69,7 @@ export default function WebView() {
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
+  const humbleBundleUrl = 'https://www.humblebundle.com/'
   const humbleBundleStore = 'https://www.humblebundle.com/store'
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
@@ -214,6 +215,8 @@ export default function WebView() {
               epic.login(code).then(() => handleSuccessfulLogin())
             }
           }
+        } else if (runner === 'humble-bundle') {
+          humbleBundle.login().then(() => handleSuccessfulLogin())
         }
       }
 
@@ -293,7 +296,6 @@ export default function WebView() {
   const [dontShowAdtractionWarning, setDontShowAdtractionWarning] =
     useState<boolean>(false)
 
-  console.log('>>>>>', humbleBundle)
   useEffect(() => {
     if (
       startUrl.match(/epicgames\.com/) &&

@@ -30,6 +30,8 @@ import {
   gogConfigStore,
   gogInstalledGamesStore,
   gogLibraryStore,
+  humbleBundleLibraryStore,
+  humbleBundleConfigStore,
   libraryStore,
   nileConfigStore,
   nileLibraryStore,
@@ -154,7 +156,7 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
   loadHumbleBundleLibrary = (): Array<GameInfo> => {
-    return []
+    return humbleBundleLibraryStore.get('humbleBundleLibrary', [])
   }
   state: StateProps = {
     epic: {
@@ -173,7 +175,7 @@ class GlobalState extends PureComponent<Props> {
     humbleBundle: {
       library: this.loadHumbleBundleLibrary(),
       user_id: undefined,
-      username: undefined
+      username: nileConfigStore.get_nodefault('userData.username')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -519,8 +521,12 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
+  humbleLogin = async () => {
+    await window.api.authHumbleBundle()
+    return 'done'
+  }
+
   gogLogin = async (token: string) => {
-    console.log('logging gog')
     const response = await window.api.authGOG(token)
 
     if (response.status === 'done') {
@@ -878,6 +884,11 @@ class GlobalState extends PureComponent<Props> {
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
+    const humbleBundleUser = humbleBundleConfigStore.has('userData')
+
+    if (humbleBundleUser) {
+      await window.api.getHumbleBundleUserInfo()
+    }
 
     if (legendaryUser) {
       await window.api.getUserInfo()
@@ -1039,7 +1050,7 @@ class GlobalState extends PureComponent<Props> {
             library: humbleBundle.library,
             user_id: humbleBundle.user_id,
             username: humbleBundle.username,
-            login: () => Promise.resolve(''),
+            login: () => this.humbleLogin(),
             logout: () => Promise.resolve()
           },
           installingEpicGame,
