@@ -45,7 +45,7 @@ const LoginWarning = function ({
     )
     loginPath = amazonLoginPath
   } else if (warnLoginForStore === 'humble-bundle') {
-     textContent = t(
+    textContent = t(
       'not_logged_in.humble-bundle',
       "You are not logged in with an Humble bundle account in Heroic. Don't use the store page to login, click the following button instead:"
     )

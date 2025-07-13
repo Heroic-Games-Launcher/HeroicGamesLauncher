@@ -65,12 +65,12 @@ interface StateProps {
     library: GameInfo[]
     user_id?: string
     username?: string
-  },
+  }
   humbleBundle: {
     library: GameInfo[]
     user_id?: string
     username?: string
-  },
+  }
   wineVersions: WineVersionInfo[]
   error: boolean
   gameUpdates: string[]
@@ -173,7 +173,7 @@ class GlobalState extends PureComponent<Props> {
     humbleBundle: {
       library: this.loadHumbleBundleLibrary(),
       user_id: undefined,
-      username: undefined,
+      username: undefined
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -1039,7 +1039,7 @@ class GlobalState extends PureComponent<Props> {
             library: humbleBundle.library,
             user_id: humbleBundle.user_id,
             username: humbleBundle.username,
-            login: () =>  Promise.resolve(''),
+            login: () => Promise.resolve(''),
             logout: () => Promise.resolve()
           },
           installingEpicGame,

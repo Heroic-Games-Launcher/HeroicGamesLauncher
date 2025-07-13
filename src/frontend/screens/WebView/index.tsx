@@ -39,7 +39,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, humbleBundle, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon, humbleBundle, connectivity } =
+    useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -68,14 +69,14 @@ export default function WebView() {
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
-  const humbleBundleStore = 'https://www.humblebundle.com/store';
+  const humbleBundleStore = 'https://www.humblebundle.com/store'
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
   const gogLoginUrl =
     'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
 
-  const humbleBundleLoginUrl = 'https://www.humblebundle.com/login?goto=%2F';
+  const humbleBundleLoginUrl = 'https://www.humblebundle.com/login?goto=%2F'
 
   const trueAsStr = 'true' as unknown as boolean | undefined
 
@@ -292,8 +293,7 @@ export default function WebView() {
   const [dontShowAdtractionWarning, setDontShowAdtractionWarning] =
     useState<boolean>(false)
 
-
-      console.log('>>>>>', humbleBundle)
+  console.log('>>>>>', humbleBundle)
   useEffect(() => {
     if (
       startUrl.match(/epicgames\.com/) &&
