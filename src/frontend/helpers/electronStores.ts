@@ -143,9 +143,9 @@ const humbleBundleLibraryStore = new CacheStore<
   'humbleBundleLibrary'
 >('humble_bundle_library', null)
 const humbleBundleConfigStore = new TypeCheckedStoreFrontend(
-  'nileConfigStore',
+  'humbleConfigStore',
   {
-    cwd: 'humble_bundle'
+    cwd: 'humble_bundle_store'
   }
 )
 

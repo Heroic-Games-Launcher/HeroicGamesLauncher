@@ -310,7 +310,7 @@ export default function WebView() {
       setShowLoginWarningFor('gog')
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
-    } else if (startUrl.match(humbleBundleStore) && !humbleBundle.user_id) {
+    } else if (startUrl.match(humbleBundleStore) && !humbleBundle.email) {
       setShowLoginWarningFor('humble-bundle')
     } else {
       setShowLoginWarningFor(null)

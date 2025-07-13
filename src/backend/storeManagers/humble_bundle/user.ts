@@ -56,8 +56,6 @@ export class HumbleBundleUser {
         cookie: await this.getCookies()
       }
     })
-
-    console.log('.>>>', response.status)
     return response.status == 200
   }
 
@@ -69,7 +67,7 @@ export class HumbleBundleUser {
     return undefined
   }
 
-  private static async getCookies() {
+  public static async getCookies() {
     const ses = session.fromPartition('persist:epicstore')
 
     const cookies = await ses.cookies.get({ name: '_simpleauth_sess' })

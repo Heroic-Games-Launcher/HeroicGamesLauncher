@@ -85,8 +85,7 @@ export interface ContextType {
   }
   humbleBundle: {
     library: GameInfo[]
-    user_id?: string
-    username?: string
+    email?: string
     login: () => Promise<string>
     logout: () => Promise<void>
   }

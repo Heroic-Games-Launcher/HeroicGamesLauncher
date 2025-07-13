@@ -15,7 +15,7 @@ import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'humble-bundle'
 
 // NOTE: Do not put enum's in this module or it will break imports
 

@@ -71,7 +71,7 @@ interface StateProps {
   humbleBundle: {
     library: GameInfo[]
     user_id?: string
-    username?: string
+    email?: string
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -174,8 +174,7 @@ class GlobalState extends PureComponent<Props> {
     },
     humbleBundle: {
       library: this.loadHumbleBundleLibrary(),
-      user_id: undefined,
-      username: nileConfigStore.get_nodefault('userData.username')
+      email: humbleBundleConfigStore.get_nodefault('userData.email')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -522,8 +521,17 @@ class GlobalState extends PureComponent<Props> {
   }
 
   humbleLogin = async () => {
-    await window.api.authHumbleBundle()
-    return 'done'
+    const response = await window.api.authHumbleBundle()
+    if (response.status === 'done') {
+      this.setState({
+        humbleBundle: {
+          library: [],
+          ...response.data
+        }
+      })
+      this.handleSuccessfulLogin('humble-bundle')
+    }
+    return response.status
   }
 
   gogLogin = async (token: string) => {
@@ -611,7 +619,7 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, gameUpdates } = this.state
+    const { epic, gog, amazon, humbleBundle, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -645,6 +653,21 @@ class GlobalState extends PureComponent<Props> {
       amazonLibrary = this.loadAmazonLibrary()
     }
 
+    let humbleBundleLibrary = humbleBundleLibraryStore.get(
+      'humbleBundleLibrary',
+      []
+    )
+    console.log('.>>>>', humbleBundle)
+    if (
+      humbleBundle.email &&
+      (!humbleBundleLibrary.length || !humbleBundle.library.length)
+    ) {
+      window.api.logInfo('No cache found, getting data from humble bundle...')
+
+      await window.api.refreshLibrary('humble-bundle')
+      humbleBundleLibrary = this.loadHumbleBundleLibrary()
+    }
+
     const updatedSideload = sideloadLibrary.get('games', [])
 
     this.setState({
@@ -660,6 +683,10 @@ class GlobalState extends PureComponent<Props> {
         library: amazonLibrary,
         user_id: amazon.user_id,
         username: amazon.username
+      },
+      humbleBundle: {
+        library: humbleBundleLibrary,
+        email: humbleBundle.email
       },
       gameUpdates: updates,
       refreshing: false,
@@ -1048,10 +1075,9 @@ class GlobalState extends PureComponent<Props> {
           },
           humbleBundle: {
             library: humbleBundle.library,
-            user_id: humbleBundle.user_id,
-            username: humbleBundle.username,
-            login: () => this.humbleLogin(),
-            logout: () => Promise.resolve()
+            email: humbleBundle.email,
+            login: this.humbleLogin,
+            logout: () => Promise.resolve() // TODO(alex-min): implement
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

@@ -773,7 +773,7 @@ addHandler('isLoggedIn', LegendaryUser.isLoggedIn)
 
 addHandler('login', async (event, sid) => LegendaryUser.login(sid))
 addHandler('authGOG', async (event, code) => GOGUser.login(code))
-addHandler('authHumbleBundle', HumbleBundleUser.login)
+addHandler('authHumbleBundle', () => HumbleBundleUser.login())
 addHandler('logoutLegendary', LegendaryUser.logout)
 addListener('logoutGOG', GOGUser.logout)
 
@@ -851,6 +851,7 @@ if (existsSync(legendaryInstalled)) {
 }
 
 addHandler('refreshLibrary', async (e, library?) => {
+  console.log('refreshLibrary', library)
   if (library !== undefined && library !== 'all') {
     await libraryManagerMap[library].refresh()
   } else {

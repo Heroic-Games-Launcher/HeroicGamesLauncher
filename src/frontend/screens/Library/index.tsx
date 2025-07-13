@@ -405,7 +405,7 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['nile'] && amazon.username) {
       displayedStores.push('nile')
     }
-    if (storesFilters['humbleBundle'] && humbleBundle.username) {
+    if (storesFilters['humbleBundle'] && humbleBundle.email) {
       displayedStores.push('humbleBundle')
     }
     if (storesFilters['sideload']) {

@@ -42,7 +42,7 @@ export default React.memo(function NewLogin() {
     Boolean(amazon.user_id)
   )
   const [isHumbleBundleLoggedIn, setIsHumbleBundleLoggedIn] = useState(
-    Boolean(humbleBundle.username)
+    Boolean(humbleBundle.email)
   )
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
@@ -74,8 +74,8 @@ export default React.memo(function NewLogin() {
     setIsEpicLoggedIn(Boolean(epic.username))
     setIsGogLoggedIn(Boolean(gog.username))
     setIsAmazonLoggedIn(Boolean(amazon.user_id))
-    setIsHumbleBundleLoggedIn(Boolean(humbleBundle.username))
-  }, [epic.username, gog.username, amazon.user_id, humbleBundle.username, t])
+    setIsHumbleBundleLoggedIn(Boolean(humbleBundle.email))
+  }, [epic.username, gog.username, amazon.user_id, humbleBundle.email, t])
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
@@ -158,7 +158,7 @@ export default React.memo(function NewLogin() {
               icon={() => <HumbleBundleLogo />}
               loginUrl={humbleBundleLoginPath}
               isLoggedIn={isHumbleBundleLoggedIn}
-              user={humbleBundle.username || 'Unknown'}
+              user={humbleBundle.email || 'Unknown'}
               logoutAction={humbleBundle.logout}
               disabled={oldMac}
             />
