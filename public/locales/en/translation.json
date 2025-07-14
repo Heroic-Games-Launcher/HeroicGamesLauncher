@@ -17,6 +17,10 @@
         "title": "Adtraction is blocked"
     },
     "Amazon Games": "Amazon Games",
+    "analyticsModal": {
+        "message": "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. If you feel uncomfortable with this, this can be disabled anytime in Heroic's settings.",
+        "title": "Help Improve Heroic"
+    },
     "anticheat": {
         "anticheats": "Anticheats",
         "multiplayer_may_not_work": "Multiplayer features may not work due to denied or broken anticheat support.",
@@ -303,6 +307,7 @@
     "help": {
         "advertiseAvxForRosetta": "Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "analyticsOptIn": "Enables Heroic to collect 100% anonymous usage data to help improve the application.",
         "button": {
             "close": "Close Help",
             "open": "Open Help"
@@ -608,6 +613,7 @@
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
+        "analyticsOptIn": "Send anonymous data to help Heroic development",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",

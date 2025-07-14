@@ -5,6 +5,8 @@ import { createRoot } from 'react-dom/client'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
+import Plausible from 'plausible-tracker'
+
 import './index.scss'
 import './themes.scss'
 import GlobalState from './state/GlobalState'
@@ -15,6 +17,19 @@ import { defaultThemes } from './components/UI/ThemeSelector'
 import Loading from './screens/Loading'
 
 initOnlineMonitor()
+
+void window.api.requestAppSettings().then((settings) => {
+  if (settings) {
+    const shouldTrack = settings.analyticsOptIn === true
+
+    if (shouldTrack) {
+      Plausible({
+        domain: 'heroic-games-client.com',
+        trackLocalhost: true
+      }).enableAutoPageviews()
+    }
+  }
+})
 
 window.addEventListener('error', (ev: ErrorEvent) => {
   window.api.logError(ev.error)

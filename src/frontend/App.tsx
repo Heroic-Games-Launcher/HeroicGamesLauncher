@@ -42,7 +42,8 @@ function Root() {
         title: t('analyticsModal.title', 'Help Improve Heroic'),
         message: t(
           'analyticsModal.message',
-          "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. If you feel uncomfortable with this, this can be disabled anytime in Heroic's settings."
+          "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. If you feel uncomfortable with this, this can be disabled anytime in Heroic's settings.",
+          { newline: '\n\n' }
         ),
         buttons: [
           {
