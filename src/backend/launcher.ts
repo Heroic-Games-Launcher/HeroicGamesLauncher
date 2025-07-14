@@ -537,17 +537,38 @@ async function prepareLaunch(
     rpcClient = constructAndUpdateRPC(gameInfo)
   }
 
-  const installPath =
-    gameInfo.runner === 'sideload'
-      ? gameInfo.folder_name
-      : gameInfo.install.install_path
   await logWriter.logInfo([
     'Launching',
     `"${gameInfo.title}" (${gameInfo.runner})`
   ])
   const native = gameManagerMap[gameInfo.runner].isNative(gameInfo.app_name)
   await logWriter.logInfo(['Native?', native])
-  await logWriter.logInfo(['Installed in:', installPath, '\n\n'])
+
+  const isThirdPartyManagedApp = gameInfo && !!gameInfo.thirdPartyManagedApp
+
+  if (isThirdPartyManagedApp) {
+    if (!isWindows) {
+      let prefixOrBottleFolder: string | null = gameSettings.winePrefix
+      if (isMac && gameSettings.wineVersion.type === 'crossover') {
+        prefixOrBottleFolder = await getCrossoverBottleFolder(gameSettings)
+      }
+      if (prefixOrBottleFolder)
+        await logWriter.logInfo(['Installed in:', prefixOrBottleFolder])
+    }
+
+    await logWriter.logInfo([
+      'Managed by a third-party app:',
+      gameInfo.thirdPartyManagedApp,
+      '\n\n'
+    ])
+  } else {
+    const installPath =
+      gameInfo.runner === 'sideload'
+        ? gameInfo.folder_name
+        : gameInfo.install.install_path
+
+    await logWriter.logInfo(['Installed in:', installPath, '\n\n'])
+  }
 
   await logWriter.logInfo([
     'System Info:',
