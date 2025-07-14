@@ -13,7 +13,7 @@ import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import GameContext from '../GameContext'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
-import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 interface Props {
   appName: string
@@ -46,7 +46,7 @@ export default function GamesSubmenu({
 }: Props) {
   const { refresh, platform, libraryStatus, showDialogModal } =
     useContext(ContextProvider)
-  const { openGameCategoriesModal } = useShallowGlobalState(
+  const { openGameCategoriesModal } = useGlobalState.keys(
     'openGameCategoriesModal'
   )
   const { is, gameSettings } = useContext(GameContext)

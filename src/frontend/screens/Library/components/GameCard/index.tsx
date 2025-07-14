@@ -41,7 +41,7 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
-import { useShallowGlobalState } from 'frontend/state/GlobalStateV2'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 interface Card {
   buttonClick: () => void
@@ -94,7 +94,7 @@ const GameCard = ({
   const { hiddenGames, favouriteGames, showDialogModal, activeController } =
     useContext(ContextProvider)
   const { openGameSettingsModal, openGameLogsModal, openGameCategoriesModal } =
-    useShallowGlobalState(
+    useGlobalState.keys(
       'openGameSettingsModal',
       'openGameLogsModal',
       'openGameCategoriesModal'
