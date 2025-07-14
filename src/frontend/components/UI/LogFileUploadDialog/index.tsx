@@ -55,10 +55,10 @@ export default function LogUploadDialog() {
           { name: uploadLogFileProps.name }
         ),
         <>
-          <button onClick={doUpload} className={'button is-primary'}>
+          <button onClick={doUpload} className={'button is-danger'}>
             {t('box.yes')}
           </button>
-          <button onClick={onClose} className={'button is-danger'}>
+          <button onClick={onClose} className={'button is-secondary'}>
             {t('box.no')}
           </button>
         </>

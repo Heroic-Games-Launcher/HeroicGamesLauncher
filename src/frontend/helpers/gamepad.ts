@@ -329,18 +329,9 @@ export const initGamepad = () => {
       '[aria-label="close"]'
     )
 
-    if (closeButton) {
-      closeButton.click()
-      return true
-    }
+    if (!closeButton) return false
 
-    // if there's no close button, check against a secondary button
-    const secondaryButton =
-      dialog.querySelector<HTMLButtonElement>('.is-secondary')
-
-    if (!secondaryButton) return false
-
-    secondaryButton.click()
+    closeButton.click()
     return true
   }
 
