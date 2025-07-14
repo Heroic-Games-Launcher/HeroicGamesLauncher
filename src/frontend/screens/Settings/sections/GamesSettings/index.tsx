@@ -189,9 +189,9 @@ export default function GamesSettings() {
             )}
             <EnableEsync />
             <EnableFsync />
+            <EnableNtsync />
             <EnableWineWayland />
             <EnableMsync />
-            <EnableNtsync />
             <AdvertiseAvxForRosetta />
             <EnableFSR />
             <EnableDXVKFpsLimit />
