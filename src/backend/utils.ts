@@ -36,6 +36,7 @@ import {
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
 } from './storeManagers/gog/electronStores'
+import { libraryStore as humbleBundleLibraryStore } from './storeManagers/humble_bundle/electronStores'
 import gogPresence from './storeManagers/gog/presence'
 import {
   installStore as nileInstallStore,
@@ -357,7 +358,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 }
 
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile',
+  library?: 'gog' | 'legendary' | 'nile' | 'humble-bundle',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -378,6 +379,10 @@ function clearCache(
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+
+  if (library == 'humble-bundle' || !library) {
+    humbleBundleLibraryStore.clear()
   }
 
   if (!fromVersionChange) {

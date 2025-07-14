@@ -156,7 +156,7 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
   loadHumbleBundleLibrary = (): Array<GameInfo> => {
-    return humbleBundleLibraryStore.get('humbleBundleLibrary', [])
+    return humbleBundleLibraryStore.get('games', [])
   }
   state: StateProps = {
     epic: {
@@ -653,11 +653,7 @@ class GlobalState extends PureComponent<Props> {
       amazonLibrary = this.loadAmazonLibrary()
     }
 
-    let humbleBundleLibrary = humbleBundleLibraryStore.get(
-      'humbleBundleLibrary',
-      []
-    )
-    console.log('.>>>>', humbleBundle)
+    let humbleBundleLibrary = humbleBundleLibraryStore.get('games', [])
     if (
       humbleBundle.email &&
       (!humbleBundleLibrary.length || !humbleBundle.library.length)

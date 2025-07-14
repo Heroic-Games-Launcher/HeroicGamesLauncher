@@ -1,5 +1,3 @@
-// gameService.ts
-
 import LogWriter from 'backend/logger/log_writer'
 import {
   ExecResult,

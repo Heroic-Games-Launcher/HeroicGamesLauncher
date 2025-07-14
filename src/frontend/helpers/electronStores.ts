@@ -138,10 +138,10 @@ const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
-const humbleBundleLibraryStore = new CacheStore<
-  GameInfo[],
-  'humbleBundleLibrary'
->('humble_bundle_library', null)
+const humbleBundleLibraryStore = new CacheStore<GameInfo[], 'games'>(
+  'humble_bundle_library',
+  null
+)
 const humbleBundleConfigStore = new TypeCheckedStoreFrontend(
   'humbleConfigStore',
   {

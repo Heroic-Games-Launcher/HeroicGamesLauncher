@@ -419,14 +419,23 @@ export default React.memo(function Library(): JSX.Element {
     const showEpic = epic.username && displayedStores.includes('legendary')
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
+    const showHumbleBundle =
+      humbleBundle.email && displayedStores.includes('humble-bundle')
     const showSideloaded = displayedStores.includes('sideload')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
+    const humbleBundleLibrary = showHumbleBundle ? humbleBundle.library : []
 
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+    return [
+      ...sideloadedApps,
+      ...epicLibrary,
+      ...gogLibrary,
+      ...amazonLibrary,
+      ...humbleBundleLibrary
+    ]
   }
 
   const gamesForAlphabetFilter = useMemo(() => {

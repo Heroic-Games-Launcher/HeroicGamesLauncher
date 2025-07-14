@@ -148,7 +148,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile'
+  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'humble-bundle'
   store_url?: string
   app_name: string
   art_cover: string
