@@ -11,7 +11,12 @@ const EnableNtsync = () => {
   const { platform } = useContext(ContextProvider)
   const { isLinuxNative } = useContext(SettingsContext)
   const isLinux = platform === 'linux'
+  const [wineVersion] = useSetting('wineVersion')
   const [enableNtsync, setEnableNtsync] = useSetting('enableNtsync', false)
+
+  if (wineVersion.type !== 'proton' || wineVersion.bin.includes('toolkit')) {
+    return <></>
+  }
 
   if (!isLinux || isLinuxNative) {
     return <></>
@@ -19,19 +24,19 @@ const EnableNtsync = () => {
 
   return (
     <div className="toggleRow">
-      <ToggleSwitch
-        htmlId="NtsyncToggle"
-        value={enableNtsync || false}
-        handleChange={() => setEnableNtsync(!enableNtsync)}
-        title={t('setting.Ntsync', 'Enable Ntsync')}
-      />
+    <ToggleSwitch
+    htmlId="NtsyncToggle"
+    value={enableNtsync || false}
+    handleChange={() => setEnableNtsync(!enableNtsync)}
+    title={t('setting.Ntsync', 'Enable Ntsync')}
+    />
 
-      <InfoIcon
-        text={t(
-          'help.Ntsync',
-          'Ntsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
-        )}
-      />
+    <InfoIcon
+    text={t(
+      'help.Ntsync',
+      'Ntsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.'
+    )}
+    />
     </div>
   )
 }
