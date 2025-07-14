@@ -506,11 +506,11 @@
       }
 
       &:first-child {
-        margin-top: -0.15rem;
+        margin-top: -0.1rem;
       }
 
       &:last-child {
-        margin-bottom: -0.15rem;
+        margin-bottom: -0.1 rem;
       }
     }
 
