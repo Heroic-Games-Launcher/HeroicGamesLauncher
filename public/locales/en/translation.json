@@ -18,8 +18,9 @@
     },
     "Amazon Games": "Amazon Games",
     "analyticsModal": {
-        "message": "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. If you feel uncomfortable with this, this can be disabled anytime in Heroic's settings.",
-        "title": "Help Improve Heroic"
+        "disable": "Disable Analytics",
+        "message": "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. You can change this this anytime in Heroic's settings.",
+        "title": "Send Anonymous Analytics"
     },
     "anticheat": {
         "anticheats": "Anticheats",

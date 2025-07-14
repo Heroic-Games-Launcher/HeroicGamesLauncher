@@ -39,10 +39,10 @@ function Root() {
     if (!localStorage.getItem(storageKey)) {
       showDialogModal({
         showDialog: true,
-        title: t('analyticsModal.title', 'Help Improve Heroic'),
+        title: t('analyticsModal.title', 'Send Anonymous Analytics'),
         message: t(
           'analyticsModal.message',
-          "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. If you feel uncomfortable with this, this can be disabled anytime in Heroic's settings.",
+          "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. You can change this this anytime in Heroic's settings.",
           { newline: '\n\n' }
         ),
         buttons: [
@@ -50,6 +50,18 @@ function Root() {
             text: t('box.ok', 'OK'),
             onClick: () => {
               localStorage.setItem(storageKey, 'true')
+              showDialogModal({ showDialog: false })
+            }
+          },
+          {
+            text: t('analyticsModal.disable', 'Disable Analytics'),
+            onClick: () => {
+              localStorage.setItem(storageKey, 'true')
+              window.api.setSetting({
+                appName: 'default',
+                key: 'analyticsOptIn',
+                value: false
+              })
               showDialogModal({ showDialog: false })
             }
           }
