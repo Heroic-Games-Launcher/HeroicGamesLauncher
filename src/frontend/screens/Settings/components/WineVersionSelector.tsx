@@ -20,11 +20,29 @@ export default function WineVersionSelector() {
   const [altWine, setAltWine] = useState<WineInstallation[]>()
   const [validWine, setValidWine] = useState(true)
   const [refreshing, setRefreshing] = useState(true)
+  const [showHiddenProtonsMessage, setShowHiddenProtonsMessage] =
+    useState(false)
 
   useEffect(() => {
     const getAltWine = async () => {
       setRefreshing(true)
-      const wineList: WineInstallation[] = await window.api.getAlternativeWine()
+      let wineList: WineInstallation[] = await window.api.getAlternativeWine()
+
+      const { allowNonGEProton } = await window.api.requestAppSettings()
+      setShowHiddenProtonsMessage(!allowNonGEProton)
+
+      if (!allowNonGEProton) {
+        wineList = wineList.filter((wineItem) => {
+          // do not ignore wine/corssover/gptk/etc
+          if (!wineItem.name.match(/proton/i)) return true
+          // do not ignore wine-ge-proton, ge-proton, and proton-ge
+          if (wineItem.name.match(/wine|GE/)) return true
+          // do not ignore currently selected wine, in case stock proton is already delected
+          if (wineItem.bin == wineVersion.bin) return true
+
+          return false
+        })
+      }
 
       // System Wine might change names (version strings) with updates. This
       // will then lead to it not being found in the alt wine list, as it
@@ -42,7 +60,7 @@ export default function WineVersionSelector() {
       }
       setRefreshing(false)
     }
-    getAltWine()
+    void getAltWine()
     return window.api.handleWineVersionsUpdated(getAltWine)
   }, [])
 
@@ -54,7 +72,7 @@ export default function WineVersionSelector() {
       }
       return setValidWine(true)
     }
-    updateWine()
+    void updateWine()
   }, [wineVersion])
 
   if (!altWine) {
@@ -93,6 +111,14 @@ export default function WineVersionSelector() {
               )}
             </span>
           )}
+          {showHiddenProtonsMessage && (
+            <span className="warning">
+              {t(
+                'setting.allow_non_ge_proton.wine_selector_warning',
+                'Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings'
+              )}
+            </span>
+          )}
           {isLinux && (
             <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
               <span>{wineVersion.bin}</span>
@@ -102,15 +128,27 @@ export default function WineVersionSelector() {
             <InfoBox text="infobox.help">
               <span>{t('help.wine.part1')}</span>
               <ul>
-                <i>
-                  <li>~/.config/heroic/tools/wine</li>
-                  <li>~/.config/heroic/tools/proton</li>
-                  <li>~/.steam/root/compatibilitytools.d</li>
-                  <li>~/.steam/steamapps/common</li>
-                  <li>~/.local/share/lutris/runners/wine</li>
-                  <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
-                  <li>/usr/share/steam</li>
-                </i>
+                <li>
+                  <i>~/.config/heroic/tools/wine</i>
+                </li>
+                <li>
+                  <i>~/.config/heroic/tools/proton</i>
+                </li>
+                <li>
+                  <i>~/.steam/root/compatibilitytools.d</i>
+                </li>
+                <li>
+                  <i>~/.steam/steamapps/common</i>
+                </li>
+                <li>
+                  <i>~/.local/share/lutris/runners/wine</i>
+                </li>
+                <li>
+                  <i>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</i>
+                </li>
+                <li>
+                  <i>/usr/share/steam</i>
+                </li>
               </ul>
               <span>{t('help.wine.part2')}</span>
             </InfoBox>
