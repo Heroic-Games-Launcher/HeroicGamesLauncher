@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -e
+
+# Variables that should not be passed to the host environment (flatpak-spawn will set some of them again)
+unset "AT_SPI_BUS_ADDRES" "container" "DBUS_SESSION_BUS_ADDRESS" "DBUS_SYSTEM_BUS_ADDRESS" "FLATPAK_ID" "LD_LIBRARY_PATH" "LD_PRELOAD" "MEMORY_PRESSURE_WATCH" "PULSE_CLIENTCONFIG" "PULSE_SERVER" "SHELL" "SHELL_SESSION_ID" "XAUTHORITY" "XDG_CACHE_HOME" "XDG_CONFIG_DIRS" "XDG_CONFIG_HOME" "XDG_DATA_DIRS" "XDG_DATA_HOME" "XDG_STATE_HOME" "ZYPAK_BIN" "ZYPAK_LIB"
+
+# flatpak-spawn will not pass most of the environment variables to the host by default, so we need to pass them manually
+env_args=()
+while read -r -d '' line; do
+    [[ "$line" != PATH=* ]] && env_args+=(--env="$line")
+done < <(env -0)
+
+steamBaseFolder="${STEAM_BASE_FOLDER:-$HOME/.local/share/Steam}"
+
+# Flatpak unsets the LD_PRELOAD variable, so we need to set it manually if the Steam overlay is enabled.
+if [[ "$ENABLE_VK_LAYER_VALVE_steam_overlay_1" = 1 ]]; then
+    env_args+=(--env="LD_PRELOAD=$steamBaseFolder/ubuntu12_32/gameoverlayrenderer.so:$steamBaseFolder/ubuntu12_64/gameoverlayrenderer.so")
+else
+    # Otherwise mirror Heroics behaivour.
+    env_args+=(--env="LD_PRELOAD=")
+fi
+
+# If we are running in Steams Gamemode the window will not be brought to the front due to https://github.com/ValveSoftware/gamescope/issues/1341
+# In this case this even happens without the steam runtime, but because we will be outside of the flatpak sandbox we can use the steam reaper to work around this
+steamReaper=()
+# conditions mainly copied from umu
+if [ -v SteamGameId ] && [[ "$STEAM_MULTIPLE_XWAYLANDS" = 1 ]] && ([[ "$XDG_SESSION_DESKTOP" = "gamescope" ]] || [[ "$XDG_CURRENT_DESKTOP" = "gamescope" ]]); then
+    # SteamGameId is to big for bash, so we need to use python; the first 32 bits are the appId
+    appId=$(python -c "print(${SteamGameId}>>32)")
+    steamReaper=("$steamBaseFolder/ubuntu12_32/reaper" "SteamLaunch" "AppId=$appId" "--")
+fi
+
+# get out of the sandbox
+flatpak-spawn --watch-bus --host "${env_args[@]}" "${steamReaper[@]}" "$@" &
+child_pid=$!
+
+# exiting the script does not kill the child process on the host, so we need to do this. Additionally we need to kill the wineserver from the host
+cleanup() {
+    kill $child_pid 2>/dev/null
+    [ -v PROTONPATH ] && [ -v WINEPREFIX ] && flatpak-spawn --host --env=WINEPREFIX="${WINEPREFIX}" "${PROTONPATH}/files/bin/wineserver" -k
+    exit
+}
+trap cleanup EXIT SIGINT SIGTERM
+
+wait $child_pid
