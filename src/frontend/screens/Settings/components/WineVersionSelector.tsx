@@ -128,13 +128,27 @@ export default function WineVersionSelector() {
             <InfoBox text="infobox.help">
               <span>{t('help.wine.part1')}</span>
               <ul>
-                <li>~/.config/heroic/tools/wine</li>
-                <li>~/.config/heroic/tools/proton</li>
-                <li>~/.steam/root/compatibilitytools.d</li>
-                <li>~/.steam/steamapps/common</li>
-                <li>~/.local/share/lutris/runners/wine</li>
-                <li>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</li>
-                <li>/usr/share/steam</li>
+                <li>
+                  <i>~/.config/heroic/tools/wine</i>
+                </li>
+                <li>
+                  <i>~/.config/heroic/tools/proton</i>
+                </li>
+                <li>
+                  <i>~/.steam/root/compatibilitytools.d</i>
+                </li>
+                <li>
+                  <i>~/.steam/steamapps/common</i>
+                </li>
+                <li>
+                  <i>~/.local/share/lutris/runners/wine</i>
+                </li>
+                <li>
+                  <i>~/.var/app/com.valvesoftware.Steam (Steam Flatpak)</i>
+                </li>
+                <li>
+                  <i>/usr/share/steam</i>
+                </li>
               </ul>
               <span>{t('help.wine.part2')}</span>
             </InfoBox>
