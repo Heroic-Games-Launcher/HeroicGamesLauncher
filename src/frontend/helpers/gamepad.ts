@@ -331,6 +331,7 @@ export const initGamepad = () => {
     if (!closeButton) return false
 
     closeButton.click()
+
     return true
   }
 
