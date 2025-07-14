@@ -181,8 +181,8 @@ export function TableInput({
                 htmlId={`${header.key}-key`}
                 placeholder={inputPlaceHolder.key}
                 extraClass={keyError ? 'error' : ''}
-                onChange={(event) => {
-                  setValueInputs({ ...valueInputs, key: event.target.value })
+                onChange={(newValue) => {
+                  setValueInputs({ ...valueInputs, key: newValue })
                 }}
               />
             </td>
@@ -193,8 +193,8 @@ export function TableInput({
                 value={valueInputs.value}
                 htmlId={`${header.value}-key`}
                 placeholder={inputPlaceHolder.value}
-                onChange={(event) => {
-                  setValueInputs({ ...valueInputs, value: event.target.value })
+                onChange={(newValue) => {
+                  setValueInputs({ ...valueInputs, value: newValue })
                 }}
               />
             </td>

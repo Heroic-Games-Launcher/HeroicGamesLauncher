@@ -21,7 +21,7 @@ export default function CrossoverBottle() {
       label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
       htmlId="crossoverBottle"
       value={wineCrossoverBottle}
-      onChange={(event) => setWineCrossoverBottle(event.target.value)}
+      onChange={(newValue) => setWineCrossoverBottle(newValue)}
     />
   )
 }

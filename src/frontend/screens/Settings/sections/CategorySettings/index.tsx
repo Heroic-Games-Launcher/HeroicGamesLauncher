@@ -122,8 +122,8 @@ const CategorySettings = () => {
         <TextInputField
           label={t('category-settings.new-category', 'New category')}
           htmlId="new-category-input"
-          onChange={(e) => {
-            setNewCategory(e.target.value)
+          onChange={(newValue) => {
+            setNewCategory(newValue)
           }}
           value={newCategory}
           maxLength={33}

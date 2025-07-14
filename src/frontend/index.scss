@@ -42,7 +42,7 @@ body {
   // these 2 !important fix a problem when displaying the
   // context menu in the library, material ui sets values
   // that create problems, don't change
-  overflow: visible !important;
+  overflow: auto !important;
   padding: 0 !important;
 }
 
@@ -80,13 +80,16 @@ body {
   background: var(--gradient-body-background, var(--body-background));
 }
 
-.simple-keyboard {
-  position: absolute;
-  z-index: 10;
-  bottom: 100%;
-  left: 0px;
-  right: 0px;
-  background: var(--osk-background);
+.simple-keyboard-wrapper {
+  display: none;
+  &[open] {
+    position: fixed;
+    display: initial;
+    inset-block-start: auto;
+    inset-block-end: 50px;
+    width: 100vw;
+    background: var(--osk-background);
+  }
 }
 
 .smallInputInfo {
