@@ -19,6 +19,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
 import { TourProvider } from './state/TourContext'
+import { useTranslation } from 'react-i18next'
 
 function Root() {
   const {
@@ -27,8 +28,35 @@ function Root() {
     isFullscreen,
     isFrameless,
     experimentalFeatures,
-    help
+    help,
+    showDialogModal
   } = useContext(ContextProvider)
+
+  const { t } = useTranslation()
+
+  React.useEffect(() => {
+    const storageKey = 'analytics-modal-shown'
+    if (!localStorage.getItem(storageKey)) {
+      showDialogModal({
+        showDialog: true,
+        title: t('analyticsModal.title', 'Help Improve Heroic'),
+        message: t(
+          'analyticsModal.message',
+          "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. If you feel uncomfortable with this, this can be disabled anytime in Heroic's settings."
+        ),
+        buttons: [
+          {
+            text: t('box.ok', 'OK'),
+            onClick: () => {
+              localStorage.setItem(storageKey, 'true')
+              showDialogModal({ showDialog: false })
+            }
+          }
+        ],
+        type: 'MESSAGE'
+      })
+    }
+  }, [showDialogModal])
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
