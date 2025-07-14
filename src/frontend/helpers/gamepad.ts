@@ -328,7 +328,6 @@ export const initGamepad = () => {
     const closeButton = dialog.querySelector<HTMLButtonElement>(
       '[aria-label="close"]'
     )
-
     if (!closeButton) return false
 
     closeButton.click()
