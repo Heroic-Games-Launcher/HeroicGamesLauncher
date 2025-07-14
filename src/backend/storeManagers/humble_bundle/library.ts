@@ -8,7 +8,7 @@ import {
 import { HumbleBundleUser } from './user'
 import { logInfo, LogPrefix } from 'backend/logger'
 import { library, Order, OrderMap, Subproduct } from './constants'
-import { gridImageCache, libraryStore } from './electronStores'
+import { apiInfoCache, gridImageCache, libraryStore } from './electronStores'
 
 const defaultExecResult = {
   stderr: '',
@@ -31,7 +31,7 @@ export function getGameInfo(
   return undefined
 }
 
-export function getInstallInfo(
+export async function getInstallInfo(
   appName: string,
   installPlatform: InstallPlatform,
   options: {
@@ -41,7 +41,44 @@ export function getInstallInfo(
     retries?: number
   }
 ): Promise<InstallInfo | undefined> {
-  return Promise.resolve(undefined)
+  console.log({ installPlatform })
+  const products = apiInfoCache.get('humble_api_info') || {}
+  const product = products[appName]
+
+  if (!product) {
+    return undefined
+  }
+
+  const url = product.downloads.find((url) => url.platform == 'windows')
+    ?.download_struct?.[0]?.url?.web
+
+  if (!url) {
+    return undefined
+  }
+
+  const response = await fetch(url, { method: 'HEAD' })
+  const size = response.headers.get('content-length')
+
+  const downloadSize = size ? parseInt(size, 10) : 0
+
+  return {
+    manifest: { download_size: downloadSize, disk_size: downloadSize * 2 },
+    game: {
+      id: appName,
+      version: '0',
+      cloud_saves_supported: false,
+      external_activation: '',
+      app_name: appName,
+      is_dlc: false,
+      launch_options: [],
+      path: '',
+      owned_dlc: [],
+      platform_versions: {
+        Windows: ''
+      },
+      title: appName
+    }
+  }
 }
 
 export function listUpdateableGames(): Promise<string[]> {
@@ -117,20 +154,23 @@ async function refreshHumble() {
     orders = { ...orders, ...currentOrders }
   }
 
-  const games = await extractGameInfoFromOrder(Object.values(orders))
+  const allOrders = Object.values(orders)
+  const games = await extractGameInfoFromOrder(allOrders)
 
+  console.log('games', games)
   libraryStore.set('games', games)
 }
 
 async function extractGameInfoFromOrder(orders: Order[]) {
   const games: GameInfo[] = []
-  orders.forEach((order) => {
-    order.subproducts.forEach(async (product) => {
-      console.log('>>>isGame', isGame(product))
+  const apiCache: { [key: string]: Subproduct } = {}
+  for (const order of orders) {
+    for (const product of order.subproducts) {
       if (!isGame(product)) {
-        return
+        continue
       }
       const image = await searchImage(product.human_name)
+      apiCache[product.machine_name] = product
       games.push({
         runner: 'humble-bundle',
         app_name: product.machine_name,
@@ -142,10 +182,19 @@ async function extractGameInfoFromOrder(orders: Order[]) {
         is_installed: false,
         save_folder: '',
         canRunOffline: true,
-        title: product.human_name
+        title: product.human_name,
+        extra: {
+          about: {
+            description: product.display_item['description-text'],
+            shortDescription: product.display_item['description-text']
+          },
+          reqs: [],
+          genres: []
+        }
       })
-    })
-  })
+    }
+  }
+  apiInfoCache.set('humble_api_info', { ...apiCache })
 
   return games
 }

@@ -18,7 +18,6 @@ export class HumbleBundleUser {
         }
       )
       const settings = await response.text()
-      console.log(settings)
       const emailMatch = settings.match(
         /<input[^>]*id=["']email["'][^>]*value=["']([^"']+)["']/
       )
@@ -72,7 +71,6 @@ export class HumbleBundleUser {
 
     const cookies = await ses.cookies.get({ name: '_simpleauth_sess' })
     const cookieString = cookies.map((c) => `${c.name}=${c.value}`).join('; ')
-    console.log(cookieString)
     return cookieString
   }
 }

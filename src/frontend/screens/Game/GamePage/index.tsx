@@ -341,6 +341,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       wikiInfo?.pcgamingwiki?.opencritic.score ||
       wikiInfo?.steamInfo
 
+    console.log('>>>>>>>>', extraInfo)
     const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
 
     let wikiLink = <></>

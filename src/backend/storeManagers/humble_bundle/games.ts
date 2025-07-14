@@ -10,17 +10,34 @@ import {
 } from 'common/types'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { GOGCloudSavesLocation } from 'common/types/gog'
+import { apiInfoCache } from './electronStores'
+
+function getProductFromAppName(appName: string) {
+  const products = apiInfoCache.get('humble_api_info') || {}
+  const product = products[appName]
+
+  return product
+}
 
 export async function getSettings(appName: string): Promise<GameSettings> {
+  console.log('getSettings called with:', { appName })
   return {} as GameSettings
 }
 
 export function getGameInfo(appName: string): GameInfo {
+  console.log('getGameInfo called with:', { appName })
   return {} as GameInfo
 }
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
-  return {} as ExtraInfo
+  const product = getProductFromAppName(appName)
+  return {
+    reqs: [],
+    about: {
+      description: product.display_item['description-text'],
+      shortDescription: product.display_item['description-text']
+    }
+  }
 }
 
 export async function importGame(
@@ -28,6 +45,7 @@ export async function importGame(
   path: string,
   platform: InstallPlatform
 ): Promise<ExecResult> {
+  console.log('importGame called with:', { appName, path, platform })
   return {} as ExecResult
 }
 
@@ -37,17 +55,24 @@ export function onInstallOrUpdateOutput(
   data: string,
   totalDownloadSize: number
 ): void {
-  // stub
+  console.log('onInstallOrUpdateOutput called with:', {
+    appName,
+    action,
+    data,
+    totalDownloadSize
+  })
 }
 
 export async function install(
   appName: string,
   args: InstallArgs
 ): Promise<InstallResult> {
+  console.log('install called with:', { appName, args })
   return {} as InstallResult
 }
 
 export function isNative(appName: string): boolean {
+  console.log('isNative called with:', { appName })
   return false
 }
 
@@ -55,11 +80,11 @@ export async function addShortcuts(
   appName: string,
   fromMenu?: boolean
 ): Promise<void> {
-  // stub
+  console.log('addShortcuts called with:', { appName, fromMenu })
 }
 
 export async function removeShortcuts(appName: string): Promise<void> {
-  // stub
+  console.log('removeShortcuts called with:', { appName })
 }
 
 export async function launch(
@@ -69,6 +94,13 @@ export async function launch(
   args?: string[],
   skipVersionCheck?: boolean
 ): Promise<boolean> {
+  console.log('launch called with:', {
+    appName,
+    logWriter,
+    launchArguments,
+    args,
+    skipVersionCheck
+  })
   return false
 }
 
@@ -76,10 +108,12 @@ export async function moveInstall(
   appName: string,
   newInstallPath: string
 ): Promise<InstallResult> {
+  console.log('moveInstall called with:', { appName, newInstallPath })
   return {} as InstallResult
 }
 
 export async function repair(appName: string): Promise<ExecResult> {
+  console.log('repair called with:', { appName })
   return {} as ExecResult
 }
 
@@ -89,10 +123,12 @@ export async function syncSaves(
   path: string,
   gogSaves?: GOGCloudSavesLocation[]
 ): Promise<string> {
+  console.log('syncSaves called with:', { appName, arg, path, gogSaves })
   return ''
 }
 
 export async function uninstall(args: RemoveArgs): Promise<ExecResult> {
+  console.log('uninstall called with:', { args })
   return {} as ExecResult
 }
 
@@ -106,17 +142,19 @@ export async function update(
     dependencies?: string[]
   }
 ): Promise<InstallResult> {
+  console.log('update called with:', { appName, updateOverwrites })
   return {} as InstallResult
 }
 
 export async function forceUninstall(appName: string): Promise<void> {
-  // stub
+  console.log('forceUninstall called with:', { appName })
 }
 
 export async function stop(appName: string, stopWine?: boolean): Promise<void> {
-  // stub
+  console.log('stop called with:', { appName, stopWine })
 }
 
 export async function isGameAvailable(appName: string): Promise<boolean> {
+  console.log('isGameAvailable called with:', { appName })
   return false
 }
