@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SelectField, TextInputField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { Dialog, DialogContent } from 'frontend/components/UI/Dialog'

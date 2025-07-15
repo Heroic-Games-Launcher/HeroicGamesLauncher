@@ -1,6 +1,6 @@
 import { ButtonOptions, DialogType } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
-import React, { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import MessageBoxModal from './components/MessageBoxModal'
 export default function DialogHandler() {
   const { dialogModalOptions, showDialogModal } = useContext(ContextProvider)

@@ -1,6 +1,6 @@
 import './index.scss'
 import ContextProvider from 'frontend/state/ContextProvider'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import SettingsContext from '../../SettingsContext'
 import { Box, Button, Divider, IconButton } from '@mui/material'
 import { TextInputField, ToggleSwitch } from 'frontend/components/UI'

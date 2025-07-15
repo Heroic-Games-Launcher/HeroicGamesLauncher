@@ -1,4 +1,4 @@
-import React, { FocusEvent, ReactNode } from 'react'
+import { FocusEvent, ReactNode } from 'react'
 import TextInputField from '../TextInputField'
 import SvgButton from '../SvgButton'
 
