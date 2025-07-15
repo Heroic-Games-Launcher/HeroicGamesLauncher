@@ -10,7 +10,7 @@ const LibraryTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
   // Import context to check if there are any games in the library
-  const { epic, gog, amazon, sideloadedLibrary, platform } =
+  const { epic, gog, amazon, humbleBundle, sideloadedLibrary, platform } =
     useContext(ContextProvider)
   const isMac = platform === 'darwin'
 
@@ -19,6 +19,7 @@ const LibraryTour: React.FC = () => {
     epic.library.length ||
       gog.library.length ||
       amazon.library.length ||
+      humbleBundle.library.length ||
       sideloadedLibrary.length
   )
 

@@ -851,7 +851,6 @@ if (existsSync(legendaryInstalled)) {
 }
 
 addHandler('refreshLibrary', async (e, library?) => {
-  console.log('refreshLibrary', library)
   if (library !== undefined && library !== 'all') {
     await libraryManagerMap[library].refresh()
   } else {

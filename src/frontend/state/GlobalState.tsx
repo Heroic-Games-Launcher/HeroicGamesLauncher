@@ -832,6 +832,7 @@ class GlobalState extends PureComponent<Props> {
       epic,
       gog,
       amazon,
+      humbleBundle,
       gameUpdates = [],
       libraryStatus,
       platform
@@ -926,13 +927,14 @@ class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    if (legendaryUser || gogUser || amazonUser) {
+    if (legendaryUser || gogUser || amazonUser || humbleBundleUser) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:
           epic.library.length !== 0 ||
           gog.library.length !== 0 ||
-          amazon.library.length !== 0
+          amazon.library.length !== 0 ||
+          humbleBundle.library.length !== 0
       })
     }
 

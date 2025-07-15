@@ -40,7 +40,7 @@ export interface Subproduct {
   custom_download_page_box_css: string | null
   custom_download_page_box_html: string
   icon: string | null
-  display_item: {
+  display_item?: {
     'description-text': string
   }
 }

@@ -7,8 +7,9 @@ import {
 } from 'common/types'
 import { HumbleBundleUser } from './user'
 import { logInfo, LogPrefix } from 'backend/logger'
-import { library, Order, OrderMap, Subproduct } from './constants'
+import { Order, OrderMap, Subproduct } from './constants'
 import { apiInfoCache, gridImageCache, libraryStore } from './electronStores'
+import { getGameInfo as getGameInfoGame } from './games'
 
 const defaultExecResult = {
   stderr: '',
@@ -28,7 +29,7 @@ export function getGameInfo(
   appName: string,
   forceReload?: boolean
 ): GameInfo | undefined {
-  return undefined
+  return getGameInfoGame(appName)
 }
 
 export async function getInstallInfo(
@@ -41,7 +42,7 @@ export async function getInstallInfo(
     retries?: number
   }
 ): Promise<InstallInfo | undefined> {
-  console.log({ installPlatform })
+  console.log('getInstallInfo', { appName })
   const products = apiInfoCache.get('humble_api_info') || {}
   const product = products[appName]
 
@@ -155,10 +156,48 @@ async function refreshHumble() {
   }
 
   const allOrders = Object.values(orders)
+  const currentGames = libraryStore.get('games') || []
   const games = await extractGameInfoFromOrder(allOrders)
+  const mergedGames = games.map((game) => {
+    const existing = currentGames.find((g) => g.app_name === game.app_name)
+    return {
+      ...game,
+      install: existing?.install ?? game.install,
+      is_installed: existing?.is_installed || false
+    }
+  })
+  libraryStore.set('games', mergedGames)
+}
 
-  console.log('games', games)
-  libraryStore.set('games', games)
+export async function extractGameInfoFromProduct(
+  product: Subproduct
+): Promise<GameInfo | null> {
+  if (!isGame(product)) {
+    return null
+  }
+  const image = await searchImage(product.human_name)
+  return {
+    runner: 'humble-bundle',
+    app_name: product.machine_name,
+    art_cover: image || '',
+    art_square: image || '',
+    folder_name: product.human_name,
+    install: {
+      is_dlc: false
+    },
+    is_installed: false,
+    save_folder: '',
+    canRunOffline: true,
+    title: product.human_name,
+    extra: {
+      about: {
+        description: product?.display_item?.['description-text'] || '',
+        shortDescription: product?.display_item?.['description-text'] || ''
+      },
+      reqs: [],
+      genres: []
+    }
+  }
 }
 
 async function extractGameInfoFromOrder(orders: Order[]) {
@@ -166,32 +205,12 @@ async function extractGameInfoFromOrder(orders: Order[]) {
   const apiCache: { [key: string]: Subproduct } = {}
   for (const order of orders) {
     for (const product of order.subproducts) {
-      if (!isGame(product)) {
+      const gameInfo = await extractGameInfoFromProduct(product)
+      if (!gameInfo) {
         continue
       }
-      const image = await searchImage(product.human_name)
       apiCache[product.machine_name] = product
-      games.push({
-        runner: 'humble-bundle',
-        app_name: product.machine_name,
-        art_cover: image || '',
-        art_square: image || '',
-        install: {
-          is_dlc: false
-        },
-        is_installed: false,
-        save_folder: '',
-        canRunOffline: true,
-        title: product.human_name,
-        extra: {
-          about: {
-            description: product.display_item['description-text'],
-            shortDescription: product.display_item['description-text']
-          },
-          reqs: [],
-          genres: []
-        }
-      })
+      games.push(gameInfo)
     }
   }
   apiInfoCache.set('humble_api_info', { ...apiCache })

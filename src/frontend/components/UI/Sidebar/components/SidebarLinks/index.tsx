@@ -32,6 +32,7 @@ export default function SidebarLinks() {
     amazon,
     epic,
     gog,
+    humbleBundle,
     platform,
     refreshLibrary,
     handleExternalLinkDialog
@@ -51,6 +52,7 @@ export default function SidebarLinks() {
     const shouldRefresh =
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length) ||
+      (humbleBundle.email && !humbleBundle.library.length) ||
       (amazon.user_id && !amazon.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })

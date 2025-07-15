@@ -83,6 +83,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const {
     epic,
     gog,
+    humbleBundle,
     gameUpdates,
     platform,
     showDialogModal,
@@ -172,7 +173,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       }
     }
     updateGameInfo()
-  }, [status, gog.library, epic.library, isMoving])
+  }, [status, gog.library, epic.library, humbleBundle.library, isMoving])
 
   useEffect(() => {
     const updateConfig = async () => {
@@ -234,6 +235,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     status,
     epic.library,
     gog.library,
+    humbleBundle.library,
     gameInfo,
     isSettingsModalOpen,
     isOffline
@@ -341,7 +343,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
       wikiInfo?.pcgamingwiki?.opencritic.score ||
       wikiInfo?.steamInfo
 
-    console.log('>>>>>>>>', extraInfo)
     const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
 
     let wikiLink = <></>

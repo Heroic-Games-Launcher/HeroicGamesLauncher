@@ -80,7 +80,8 @@ export default function LogSettings() {
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
-  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, humbleBundle, sideloadedLibrary } =
+    useContext(ContextProvider)
   const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
 
   useEffect(() => {
@@ -88,11 +89,20 @@ export default function LogSettings() {
     games = games.concat(epic.library.filter((game) => game.is_installed))
     games = games.concat(gog.library.filter((game) => game.is_installed))
     games = games.concat(amazon.library.filter((game) => game.is_installed))
+    games = games.concat(
+      humbleBundle.library.filter((game) => game.is_installed)
+    )
     games = games.concat(sideloadedLibrary.filter((game) => game.is_installed))
     games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
 
     setInstalledGames(games)
-  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
+  }, [
+    epic.library,
+    gog.library,
+    amazon.library,
+    humbleBundle.library,
+    sideloadedLibrary
+  ])
 
   const getLogContent = () => {
     void window.api.getLogContent(showLogOf).then((content: string) => {

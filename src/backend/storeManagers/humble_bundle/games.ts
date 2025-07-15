@@ -10,7 +10,15 @@ import {
 } from 'common/types'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { GOGCloudSavesLocation } from 'common/types/gog'
-import { apiInfoCache } from './electronStores'
+import { apiInfoCache, libraryStore } from './electronStores'
+import { downloadAndExtractZip, findFirstExeFile } from './downloader'
+import { getPathDiskSize, sendProgressUpdate } from 'backend/utils'
+import { join } from 'path'
+import { mkdir } from 'fs/promises'
+import { promises as fs } from 'fs'
+import { setup } from './setup'
+import { GameConfig } from 'backend/game_config'
+import { launchGame } from '../storeManagerCommon/games'
 
 function getProductFromAppName(appName: string) {
   const products = apiInfoCache.get('humble_api_info') || {}
@@ -19,14 +27,40 @@ function getProductFromAppName(appName: string) {
   return product
 }
 
+function getDownloadUrl(appName: string) {
+  const product = getProductFromAppName(appName)
+  const url = product.downloads.find((url) => url.platform == 'windows')
+    ?.download_struct?.[0]?.url?.web
+  return url
+}
+
 export async function getSettings(appName: string): Promise<GameSettings> {
-  console.log('getSettings called with:', { appName })
-  return {} as GameSettings
+  return (
+    GameConfig.get(appName).config ||
+    (await GameConfig.get(appName).getSettings())
+  )
 }
 
 export function getGameInfo(appName: string): GameInfo {
-  console.log('getGameInfo called with:', { appName })
-  return {} as GameInfo
+  const games = libraryStore.get('games')
+  const game = (games?.find((game) => game.app_name == appName) ||
+    {}) as GameInfo
+  return game
+}
+
+export function saveGameInfo(gameInfo: GameInfo) {
+  const games = libraryStore.get('games') || []
+  const gameIndex = games
+    ?.map((game) => game.app_name)
+    .indexOf(gameInfo.app_name)
+
+  if (gameIndex == -1) {
+    games.push(gameInfo)
+  } else {
+    games[gameIndex] = gameInfo
+  }
+
+  libraryStore.set('games', games)
 }
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
@@ -34,8 +68,8 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   return {
     reqs: [],
     about: {
-      description: product.display_item['description-text'],
-      shortDescription: product.display_item['description-text']
+      description: product?.display_item?.['description-text'] || '',
+      shortDescription: product?.display_item?.['description-text'] || ''
     }
   }
 }
@@ -67,8 +101,90 @@ export async function install(
   appName: string,
   args: InstallArgs
 ): Promise<InstallResult> {
-  console.log('install called with:', { appName, args })
-  return {} as InstallResult
+  const url = getDownloadUrl(appName)
+  if (!url) {
+    // TODO(alex-min): i18n errors?
+    return { status: 'error', error: 'No download url found' }
+  }
+
+  const games = libraryStore.get('games')
+  if (!games) {
+    return { status: 'error', error: 'err' }
+  }
+
+  const game = games.find((game) => game.app_name == appName)
+
+  if (!game) {
+    return { status: 'error', error: 'err' }
+  }
+  try {
+    const path = join(args.path, game.folder_name || '')
+    await mkdir(path, { recursive: true })
+
+    const sizeOnDisk = await getPathDiskSize(
+      join(args.path, game.folder_name || '')
+    )
+    console.log({ sizeOnDisk })
+    const install_path = join(args.path, game.folder_name || '')
+
+    game.install = {
+      platform: 'Windows',
+      executable: '',
+      install_path,
+      install_size: '',
+      is_dlc: false,
+      version: '', // TODO(alex-min): change
+      appName,
+      installedDLCs: []
+    }
+    game.is_installed = true
+
+    libraryStore.set('games', games)
+
+    await downloadAndExtractZip(url, install_path, (progress) => {
+      sendProgressUpdate({
+        appName,
+        runner: 'humble-bundle',
+        status: 'installing',
+        progress
+      })
+    })
+
+    const executable = await findFirstExeFile(install_path)
+    if (!executable) {
+      // TODO(alex-min): error management
+      return { status: 'error' }
+    }
+
+    const gameInfo = {
+      ...game,
+      install: {
+        ...game.install,
+        executable: executable,
+        install_size: '1MB' // TODO(alex-min): change
+      }
+    }
+    await saveGameInfo(gameInfo)
+    await setup(gameInfo)
+
+    sendProgressUpdate({
+      appName,
+      runner: 'humble-bundle',
+      status: 'installed'
+    })
+
+    return { status: 'done' }
+  } catch (e) {
+    game.is_installed = false
+    game.install = {}
+    libraryStore.set('games', games)
+    sendProgressUpdate({
+      appName,
+      runner: 'humble-bundle',
+      status: 'error'
+    })
+    return { status: 'error', error: 'install failed' }
+  }
 }
 
 export function isNative(appName: string): boolean {
@@ -94,14 +210,13 @@ export async function launch(
   args?: string[],
   skipVersionCheck?: boolean
 ): Promise<boolean> {
-  console.log('launch called with:', {
+  return launchGame(
     appName,
     logWriter,
-    launchArguments,
-    args,
-    skipVersionCheck
-  })
-  return false
+    getGameInfo(appName),
+    'humble-bundle',
+    args
+  )
 }
 
 export async function moveInstall(
@@ -127,9 +242,22 @@ export async function syncSaves(
   return ''
 }
 
-export async function uninstall(args: RemoveArgs): Promise<ExecResult> {
-  console.log('uninstall called with:', { args })
-  return {} as ExecResult
+export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+  getProductFromAppName(appName)
+  const gameInfo = getGameInfo(appName)
+  const install_path = gameInfo.install?.install_path
+  if (!install_path) {
+    throw new Error('not installed')
+  }
+  // TODO(alex-min): error management
+  await fs.rm(install_path, { recursive: true, force: true })
+  await saveGameInfo({ ...gameInfo, install: {}, is_installed: false })
+  sendProgressUpdate({
+    appName,
+    runner: 'humble-bundle',
+    status: 'notInstalled'
+  })
+  return { stderr: '', stdout: '' }
 }
 
 export async function update(
@@ -155,6 +283,14 @@ export async function stop(appName: string, stopWine?: boolean): Promise<void> {
 }
 
 export async function isGameAvailable(appName: string): Promise<boolean> {
-  console.log('isGameAvailable called with:', { appName })
-  return false
+  const executable = getGameInfo(appName).install?.executable
+  if (!executable) {
+    return false
+  }
+  try {
+    await fs.access(executable)
+    return true
+  } catch {
+    return false
+  }
 }

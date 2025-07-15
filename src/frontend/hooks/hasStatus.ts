@@ -10,7 +10,8 @@ export function hasStatus(
   gameInfo?: GameInfo,
   gameSize?: string
 ) {
-  const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
+  const { libraryStatus, epic, gog, humbleBundle } =
+    React.useContext(ContextProvider)
   const [progress] = hasProgress(appName)
   const [newGameInfo, setNewGameInfo] = React.useState<GameInfo | undefined>(
     gameInfo
@@ -113,6 +114,7 @@ export function hasStatus(
     appName,
     epic.library,
     gog.library,
+    humbleBundle.library,
     is_installed,
     progress.percent
   ])
