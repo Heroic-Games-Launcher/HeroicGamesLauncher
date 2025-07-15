@@ -170,6 +170,7 @@ declare global {
     isSteamDeck: boolean
     isSteamDeckGameMode: boolean
     isFlatpak: boolean
+    flatpakRuntimeVersion?: string
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
   }

@@ -82,7 +82,7 @@ const Gamescope = () => {
           ? t(
               'setting.gamescope.warningFlatpak',
               "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic.",
-              { runtimeVersion: '23.08' }
+              { runtimeVersion: window.flatpakRuntimeVersion }
             )
           : t(
               'setting.gamescope.missingMsg',
