@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import classNames from 'classnames'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
@@ -178,17 +179,20 @@ export default function WineManager(): JSX.Element | null {
               }
               return null
             })}
-          </Tabs>
-          <button
-            className={'FormControl__button'}
-            title={t('generic.library.refresh', 'Refresh Library')}
-            onClick={() => refreshWineVersionInfo(true)}
-          >
-            <FontAwesomeIcon
-              className={'FormControl__segmentedFaIcon'}
-              icon={faSyncAlt}
+            <Tab
+              title={t('generic.library.refresh', 'Refresh Library')}
+              onClick={() => refreshWineVersionInfo(true)}
+              sx={{ minWidth: 0 }}
+              icon={
+                <FontAwesomeIcon
+                  className={classNames('FormControl__segmentedFaIcon', {
+                    'fa-spin': refreshing
+                  })}
+                  icon={faSyncAlt}
+                />
+              }
             />
-          </button>
+          </Tabs>
         </span>
         {wineVersionExplanation}
         {wineVersions.length ? (
