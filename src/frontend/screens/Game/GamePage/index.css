@@ -320,13 +320,17 @@
           font-size: var(--space-unit-fixed);
           line-height: 24px;
           gap: var(--space-md-fixed);
-          padding: var(--space-unit-fixed) 0;
+          padding: var(--space-unit-fixed);
           align-items: center;
           border-bottom: 1px solid var(--neutral-04);
           background-image: linear-gradient(to right, transparent, transparent);
           background-position: bottom;
           background-size: 100vw;
           background-repeat: no-repeat;
+
+          svg {
+            outline: none;
+          }
 
           &:focus-visible,
           &:has(:focus-visible) {
