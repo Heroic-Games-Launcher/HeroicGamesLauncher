@@ -23,6 +23,18 @@ interface GitHubRelease {
   html_url: string
 }
 
+interface XmlFormat {
+  component: {
+    releases: {
+      release: {
+        description: {
+          ul: Record<string, Record<string, string>[]>[]
+        }[]
+      }[]
+    }[]
+  }[]
+}
+
 async function main() {
   console.log('tag name: ', process.env.RELEASE_VERSION)
   console.log('is prerelease: ', process.env.IS_PRERELEASE)
@@ -150,7 +162,7 @@ async function main() {
     releaseNotesResult.stderr?.toString()
   )
 
-  const releaseNotesJson = JSON.parse(releaseNotesStdOut)
+  const releaseNotesJson = JSON.parse(releaseNotesStdOut) as { body: string }
   const releaseNotesComponents: string[] = releaseNotesJson.body.split('\n')
 
   // XML Modification with fast-xml-parser
@@ -165,8 +177,7 @@ async function main() {
 
   const parser = new XMLParser(parserOptions)
 
-  const heroicXmlJson = parser.parse(heroicXml)
-
+  const heroicXmlJson = parser.parse(heroicXml) as XmlFormat[]
   const builder = new XMLBuilder(parserOptions)
 
   const releaseNotesElements: Record<string, Array<Record<string, string>>>[] =
@@ -209,7 +220,7 @@ async function main() {
 
   console.log('new releaseListTag = ', JSON.stringify(releaseListTag, null, 2))
 
-  const updatedHeroicXml = builder.build(heroicXmlJson)
+  const updatedHeroicXml = builder.build(heroicXmlJson) as string
 
   console.log('updatedheroicXml = ', updatedHeroicXml)
 
@@ -220,4 +231,4 @@ async function main() {
   )
 }
 
-main()
+await main()
