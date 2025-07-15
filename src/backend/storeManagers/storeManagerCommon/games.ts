@@ -228,7 +228,6 @@ export async function launchGame(
         extraArgs.unshift(...wrappers, executable)
         executable = extraArgs.shift()!
       }
-      
       const logFileWriter = await createGameLogWriter(appName, 'sideload')
 
       await callRunner(
