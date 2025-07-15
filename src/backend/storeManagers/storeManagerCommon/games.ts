@@ -219,12 +219,15 @@ export async function launchGame(
       }
 
       const env = {
-        ...process.env,
         ...setupWrapperEnvVars({ appName, appRunner: runner }),
         ...setupEnvVars(gameSettings, gameInfo.install.install_path),
         ...getKnownFixesEnvVariables(appName, runner)
       }
 
+      if (wrappers.length > 0) {
+        extraArgs.unshift(...wrappers, executable)
+        executable = extraArgs.shift()!
+      }
       const logFileWriter = await createGameLogWriter(appName, 'sideload')
 
       await callRunner(
