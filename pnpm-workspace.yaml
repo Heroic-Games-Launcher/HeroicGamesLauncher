@@ -1,6 +1,7 @@
 patchedDependencies:
   '@types/node@22.15.18': patches/@types__node@22.15.18.patch
-  'howlongtobeat-js@1.0.2': patches/howlongtobeat-js@1.0.2.patch
+  howlongtobeat-js@1.0.2: patches/howlongtobeat-js@1.0.2.patch
+  '@xenova/transformers': patches/@xenova__transformers.patch
 
 onlyBuiltDependencies:
   - '@fortawesome/fontawesome-common-types'

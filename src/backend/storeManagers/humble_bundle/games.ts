@@ -11,12 +11,12 @@ import {
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { apiInfoCache, libraryStore } from './electronStores'
-import { downloadAndExtractZip, findFirstExeFile } from './downloader'
+import { downloadAndExtractZip, findMainGameExecutable } from './downloader'
 import { getPathDiskSize, sendProgressUpdate } from 'backend/utils'
 import { join } from 'path'
 import { mkdir } from 'fs/promises'
 import { promises as fs } from 'fs'
-import { setup } from './setup'
+import { checkIfInstaller, setup } from './setup'
 import { GameConfig } from 'backend/game_config'
 import { launchGame } from '../storeManagerCommon/games'
 
@@ -150,11 +150,14 @@ export async function install(
       })
     })
 
-    const executable = await findFirstExeFile(install_path)
+    const executable = await findMainGameExecutable(install_path)
+
     if (!executable) {
       // TODO(alex-min): error management
       return { status: 'error' }
     }
+
+    console.log('installer', await checkIfInstaller(executable))
 
     const gameInfo = {
       ...game,
