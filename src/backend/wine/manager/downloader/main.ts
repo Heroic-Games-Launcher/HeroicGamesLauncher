@@ -198,10 +198,9 @@ async function installVersion({
 
   const tarFile =
     installDir + '/' + versionInfo.download.split('/').slice(-1)[0]
-  const installSubDir =
-    versionInfo.installDir !== undefined && versionInfo.installDir !== ''
-      ? versionInfo.installDir
-      : installDir + '/' + versionInfo.version
+  const installSubDir = versionInfo.installDir
+    ? versionInfo.installDir
+    : installDir + '/' + versionInfo.version
   const sourceChecksum = versionInfo.checksum
     ? (
         await axiosClient.get(versionInfo.checksum, {
