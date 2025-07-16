@@ -612,6 +612,7 @@
                 "show": "I understand, show them",
                 "title": "Are you sure?"
             },
+            "info_label": "Non-GE Proton versions ignored",
             "label": "Allow using non-GE Proton builds to run games",
             "wine_selector_warning": "Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings"
         },

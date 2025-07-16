@@ -28,20 +28,26 @@ export default function WineVersionSelector() {
       setRefreshing(true)
       let wineList: WineInstallation[] = await window.api.getAlternativeWine()
 
-      const { allowNonGEProton } = await window.api.requestAppSettings()
-      setShowHiddenProtonsMessage(!allowNonGEProton)
+      if (isLinux) {
+        const { allowNonGEProton } = await window.api.requestAppSettings()
 
-      if (!allowNonGEProton) {
-        wineList = wineList.filter((wineItem) => {
-          // do not ignore wine/corssover/gptk/etc
-          if (!wineItem.name.match(/proton/i)) return true
-          // do not ignore wine-ge-proton, ge-proton, and proton-ge
-          if (wineItem.name.match(/wine|GE/)) return true
-          // do not ignore currently selected wine, in case stock proton is already delected
-          if (wineItem.bin == wineVersion.bin) return true
+        let protonsBeingIgnored = false
+        if (!allowNonGEProton) {
+          wineList = wineList.filter((wineItem) => {
+            // do not ignore wine/corssover/gptk/etc
+            if (!wineItem.name.match(/proton/i)) return true
+            // do not ignore wine-ge-proton, ge-proton, and proton-ge
+            if (wineItem.name.match(/wine|GE/)) return true
 
-          return false
-        })
+            protonsBeingIgnored = true
+
+            // do not ignore currently selected wine, in case stock proton is already delected
+            if (wineItem.bin == wineVersion.bin) return true
+
+            return false
+          })
+        }
+        setShowHiddenProtonsMessage(protonsBeingIgnored)
       }
 
       // System Wine might change names (version strings) with updates. This
@@ -111,13 +117,20 @@ export default function WineVersionSelector() {
               )}
             </span>
           )}
-          {showHiddenProtonsMessage && (
-            <span className="warning">
-              {t(
-                'setting.allow_non_ge_proton.wine_selector_warning',
-                'Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings'
+          {isLinux && showHiddenProtonsMessage && (
+            <InfoBox
+              text={t(
+                'setting.allow_non_ge_proton.info_label',
+                'Non-GE Proton versions ignored'
               )}
-            </span>
+            >
+              <span>
+                {t(
+                  'setting.allow_non_ge_proton.wine_selector_warning',
+                  'Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings'
+                )}
+              </span>
+            </InfoBox>
           )}
           {isLinux && (
             <InfoBox text={t('infobox.wine-path', 'Wine Path')}>
