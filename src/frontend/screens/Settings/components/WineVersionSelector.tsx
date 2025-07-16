@@ -34,7 +34,7 @@ export default function WineVersionSelector() {
         let protonsBeingIgnored = false
         if (!allowNonGEProton) {
           wineList = wineList.filter((wineItem) => {
-            // do not ignore wine/corssover/gptk/etc
+            // do not ignore wine/crossover/gptk/etc
             if (!wineItem.name.match(/proton/i)) return true
             // do not ignore wine-ge-proton, ge-proton, and proton-ge
             if (wineItem.name.match(/wine|GE/)) return true
