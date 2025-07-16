@@ -4,6 +4,7 @@ import { ButtonOptions, DialogType } from 'common/types'
 import { getMainWindow } from '../main_window'
 import { sendFrontendMessage } from '../ipc'
 import { isSteamDeckGameMode } from 'backend/constants/environment'
+import { windowIcon } from 'backend/constants/paths'
 
 const { showErrorBox, showMessageBox } = dialog
 
@@ -65,7 +66,8 @@ function notify({ body, title }: NotifyType) {
     const mainWindow = getMainWindow()
     const notify = new Notification({
       body,
-      title
+      title,
+      icon: windowIcon
     })
 
     notify.on('click', () => mainWindow?.show())
