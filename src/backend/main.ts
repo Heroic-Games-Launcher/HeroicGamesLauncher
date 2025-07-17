@@ -50,6 +50,7 @@ import {
   writeConfig,
   createNecessaryFolders
 } from './utils'
+import { Plausible } from './utils/plausible'
 
 import {
   getDiskInfo,
@@ -1375,5 +1376,3 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
-
-import { Plausible } from './utils/plausible'

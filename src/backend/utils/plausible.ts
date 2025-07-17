@@ -24,6 +24,11 @@ function sendPlausible(payload: object): Promise<void> {
         res.on('end', resolve)
       }
     )
+    req.setTimeout(5000, () => {
+      req.destroy()
+      reject(new Error('Request timed out'))
+    })
+
     req.on('error', reject)
     req.write(data)
     req.end()
