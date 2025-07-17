@@ -18,15 +18,35 @@ import Loading from './screens/Loading'
 
 initOnlineMonitor()
 
-void window.api.requestAppSettings().then((settings) => {
+void window.api.requestAppSettings().then(async (settings) => {
   if (settings) {
     const shouldTrack = settings.analyticsOptIn === true
 
     if (shouldTrack) {
-      Plausible({
+      const appVersion = await window.api.getHeroicVersion()
+      const loggedInProviders = await window.api.getLoggedInProviders()
+      const providersObject = loggedInProviders.reduce(
+        (acc, provider) => {
+          acc[provider] = true
+          return acc
+        },
+        {} as Record<string, boolean>
+      )
+
+      const plausible = Plausible({
         domain: 'heroic-games-client.com',
         trackLocalhost: true
-      }).enableAutoPageviews()
+      })
+      plausible.enableAutoPageviews()
+      plausible.trackEvent('App Loaded', {
+        props: {
+          version: appVersion,
+          gog: providersObject.gog || false,
+          epic: providersObject.epic || false,
+          amazon: providersObject.amazon || false,
+          providers: loggedInProviders.join(', ')
+        }
+      })
     }
   }
 })

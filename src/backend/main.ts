@@ -779,6 +779,20 @@ addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
 
+addHandler('getLoggedInProviders', async () => {
+  const loggedInProviders = []
+  if (LegendaryUser.isLoggedIn()) {
+    loggedInProviders.push('legendary')
+  }
+  if (GOGUser.isLoggedIn()) {
+    loggedInProviders.push('gog')
+  }
+  if (NileUser.isLoggedIn()) {
+    loggedInProviders.push('nile')
+  }
+  return loggedInProviders
+})
+
 addHandler('readConfig', async (event, configClass) => {
   if (configClass === 'library') {
     await libraryManagerMap['legendary'].refresh()

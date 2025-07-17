@@ -62,12 +62,18 @@ function Root() {
               <li>
                 {t(
                   'analyticsModal.info.pt4',
+                  'This data is used to gives insights on what to focus on next due to our limited resources and user feedback.'
+                )}
+              </li>
+              <li>
+                {t(
+                  'analyticsModal.info.pt5',
                   'Plausible Analytics is fully compliant with GDPR, CCPA and PECR.'
                 )}
               </li>
             </ul>
             {t(
-              'analyticsModal.info.pt5',
+              'analyticsModal.info.pt6',
               'You can change this setting at any time in the App Settings.'
             )}
           </>

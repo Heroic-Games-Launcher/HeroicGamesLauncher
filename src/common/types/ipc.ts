@@ -310,6 +310,7 @@ interface AsyncIPCFunctions {
   getCustomCSS: () => Promise<string>
   installSteamWindows: (path: string) => Promise<void>
   isIntelMac: () => boolean
+  getLoggedInProviders: () => Promise<string[]>
 }
 
 interface FrontendMessages {
