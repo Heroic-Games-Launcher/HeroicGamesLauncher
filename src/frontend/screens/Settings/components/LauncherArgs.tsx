@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
@@ -10,8 +10,7 @@ const LauncherArgs = () => {
   const [launcherArgs, setLauncherArgs] = useSetting('launcherArgs', '')
   const [error, setError] = useState('')
 
-  const handleLauncherArgs = (event: ChangeEvent<HTMLInputElement>) =>
-    setLauncherArgs(event.currentTarget.value)
+  const handleLauncherArgs = (newValue: string) => setLauncherArgs(newValue)
 
   useEffect(() => {
     if (launcherArgs.match(/%command/)) {

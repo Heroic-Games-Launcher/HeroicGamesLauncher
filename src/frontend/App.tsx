@@ -11,7 +11,6 @@ import Sidebar from './components/UI/Sidebar'
 import ContextProvider from './state/ContextProvider'
 import { ControllerHints, Help, OfflineMessage } from './components/UI'
 import DialogHandler from './components/UI/DialogHandler'
-import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
@@ -19,11 +18,12 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
 import { TourProvider } from './state/TourContext'
+import { InstallGameWrapper } from './screens/Library/components/InstallModal'
+import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 import { useTranslation } from 'react-i18next'
 
 function Root() {
   const {
-    isSettingsModalOpen,
     isRTL,
     isFullscreen,
     isFrameless,
@@ -142,12 +142,8 @@ function Root() {
           <Sidebar />
           <main className="content">
             <DialogHandler />
-            {isSettingsModalOpen.gameInfo && (
-              <SettingsModal
-                gameInfo={isSettingsModalOpen.gameInfo}
-                type={isSettingsModalOpen.type}
-              />
-            )}
+            <InstallGameWrapper />
+            <SettingsModalWrapper />
             <ExternalLinkDialog />
             <LogFileUploadDialog />
             <UploadedLogFilesList />
@@ -155,7 +151,9 @@ function Root() {
           </main>
           <div className="controller">
             <ControllerHints />
-            <div className="simple-keyboard"></div>
+            <dialog className="simple-keyboard-wrapper">
+              <div className="simple-keyboard"></div>
+            </dialog>
           </div>
           {showOverlayControls && <WindowControls />}
           {experimentalFeatures.enableHelp && <Help items={help.items} />}

@@ -79,20 +79,20 @@ export const Dialog: React.FC<DialogProps> = ({
       }}
     >
       <>
-        {showCloseButton && (
-          <IconButton
-            aria-label="close"
-            onClick={close}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: 'var(--text-default)'
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        )}
+        <IconButton
+          aria-label="close"
+          onClick={close}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            // showCloseButton used for gamepad back actions, should always be in DOM
+            display: showCloseButton ? 'auto' : 'none',
+            top: 8,
+            color: 'var(--text-default)'
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
         <DialogContent>{children}</DialogContent>
       </>
     </MuiDialog>

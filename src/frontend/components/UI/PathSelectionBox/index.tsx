@@ -80,7 +80,7 @@ const PathSelectionBox = ({
   return (
     <TextInputWithIconField
       value={tmpPath}
-      onChange={(e) => setTmpPath(e.target.value)}
+      onChange={(newVal) => setTmpPath(newVal)}
       onBlur={(e) => onPathChange(e.target.value)}
       onIconClick={handleIconClick}
       placeholder={placeholder}

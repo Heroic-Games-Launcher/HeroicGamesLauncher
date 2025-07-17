@@ -110,6 +110,7 @@ export interface AppSettings extends GameSettings {
   egsLinkedPath: string
   enableUpdates: boolean
   exitToTray: boolean
+  noTrayIcon: boolean
   experimentalFeatures?: ExperimentalFeatures
   framelessWindow: boolean
   hideChangelogsOnStartup: boolean
@@ -121,6 +122,7 @@ export interface AppSettings extends GameSettings {
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
   verboseLogs: boolean
+  allowNonGEProton: boolean
 }
 
 export type LibraryTopSectionOptions =

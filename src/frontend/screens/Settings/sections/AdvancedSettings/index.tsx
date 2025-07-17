@@ -16,6 +16,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameStatus } from 'common/types'
 import {
   AllowInstallationBrokenAnticheat,
+  AllowNonGEProton,
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
@@ -178,6 +179,8 @@ export default function AdvancedSetting() {
       <DisableLogs />
 
       <AllowInstallationBrokenAnticheat />
+
+      <AllowNonGEProton />
 
       <hr />
 

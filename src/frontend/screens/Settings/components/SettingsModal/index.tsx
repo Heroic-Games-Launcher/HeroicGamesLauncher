@@ -1,11 +1,10 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { GameInfo } from 'common/types'
 import {
   Dialog,
   DialogContent,
   DialogHeader
 } from 'frontend/components/UI/Dialog'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GamesSettings } from '../../sections'
 import SettingsContext from '../../SettingsContext'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
@@ -14,15 +13,18 @@ import './index.scss'
 import { useTranslation } from 'react-i18next'
 import { SettingsContextType } from 'frontend/types'
 import CategorySettings from '../../sections/CategorySettings'
+import useGlobalState from 'frontend/state/GlobalStateV2'
+
+export type GameSettingsModalType = 'settings' | 'log' | 'category'
 
 type Props = {
   gameInfo: GameInfo
-  type: 'settings' | 'log' | 'category'
+  type: GameSettingsModalType
 }
 
 function SettingsModal({ gameInfo, type }: Props) {
-  const { setIsSettingsModalOpen } = useContext(ContextProvider)
   const { t } = useTranslation()
+  const { closeSettingsModal } = useGlobalState.keys('closeSettingsModal')
 
   const { app_name: appName, runner, title } = gameInfo
 
@@ -49,11 +51,11 @@ function SettingsModal({ gameInfo, type }: Props) {
 
   return (
     <Dialog
-      onClose={() => setIsSettingsModalOpen(false)}
+      onClose={() => closeSettingsModal()}
       showCloseButton
       className={'InstallModal__dialog'}
     >
-      <DialogHeader onClose={() => setIsSettingsModalOpen(false)}>
+      <DialogHeader onClose={() => closeSettingsModal()}>
         {`${title} (${titleType})`}
       </DialogHeader>
       <DialogContent className="settingsDialogContent">
@@ -67,4 +69,12 @@ function SettingsModal({ gameInfo, type }: Props) {
   )
 }
 
-export default SettingsModal
+export function SettingsModalWrapper() {
+  const { settingsModalProps } = useGlobalState.keys('settingsModalProps')
+
+  if (!settingsModalProps.isOpen) {
+    return <></>
+  }
+
+  return <SettingsModal {...settingsModalProps} />
+}

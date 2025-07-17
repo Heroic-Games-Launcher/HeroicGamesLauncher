@@ -37,6 +37,7 @@ Heroic is built with Web Technologies:
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
+      - [Nix(OS)](#nixos)
       - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
     - [Windows](#windows)
     - [macOS](#macos)
@@ -45,6 +46,7 @@ Heroic is built with Web Technologies:
     - [Building with VS Code](#building-with-vs-code)
     - [Quickly testing/debugging Heroic on your own system](#quickly-testingdebugging-heroic-on-your-own-system)
     - [Testing with Docker](#testing-with-docker)
+    - [Development on nix](#development-on-nix)
   - [Sponsors](#sponsors)
   - [Screenshots](#screenshots)
   - [Credits](#credits)
@@ -175,6 +177,28 @@ Enable it with `sudo dnf copr enable atim/heroic-games-launcher`, then install H
 
 You can alternatively download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
 
+#### Nix(OS)
+
+Two community-maintained versions are available in [nixpkgs](https://search.nixos.org/packages?type=packages&query=heroic), named [heroic](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/by-name/he/heroic-unwrapped/package.nix#L110) (with an [FHS environment](https://nixos.org/manual/nixpkgs/stable/#sec-fhs-environments)) and [heroic-unwrapped](https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/he/heroic-unwrapped/package.nix) (without FHS).
+
+- Nix shell: `nix-shell -p heroic`
+- NixOS:
+
+  ```nixos
+  # /etc/nixos/configuration.nix
+  { config, pkgs, ... }:
+
+  {
+    users.users.example = {
+      isNormalUser = true;
+      description = "Example user";
+      packages = with pkgs; [
+        heroic
+      ];
+    };
+  }
+  ```
+
 #### Other Distributions (AppImage and TAR.XZ)
 
 Since these two distribution formats don't have a form of dependency management, make sure the `curl` command is available. You might run into weird issues if it's not.
@@ -254,6 +278,10 @@ To do that, open up the command palette (Ctrl + P), type in "task" and press Spa
 
 If you want to quickly test a change, or you're implementing features that require a lot of restarts, you can use Vite's development server to speed up the process:  
 Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `pnpm start`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
+
+### Development on Nix
+
+After cloning the repository, Nix users can use `nix-shell` to make Node.JS/pnpm available and automatically run [installation step](#development-environment) 3 and 4. See [shell.nix](shell.nix) for more information.
 
 ## Sponsors
 
