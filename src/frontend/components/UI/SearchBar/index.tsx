@@ -47,7 +47,7 @@ export default function SearchBar({
     <div className="SearchBar" data-testid="searchBar">
       <FontAwesomeIcon
         className="searchButton"
-        style={{ padding: 'var(--space-2xs) var(--space-sm)', paddingRight: 0 }}
+        style={{ padding: 'var(--space-2xs) var(--space-sm)' }}
         tabIndex={-1}
         icon={faSearch}
       />
