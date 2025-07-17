@@ -494,7 +494,6 @@
 
     .gameTools .link {
       width: 100%;
-      padding: 0.3rem;
       text-align: start;
       white-space: nowrap;
       font-size: 1rem;
@@ -506,11 +505,11 @@
       }
 
       &:first-child {
-        margin-top: -0.1rem;
+        margin-top: 0;
       }
 
       &:last-child {
-        margin-bottom: -0.1 rem;
+        margin-bottom: 0;
       }
     }
 
