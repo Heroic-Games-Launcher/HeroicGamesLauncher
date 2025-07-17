@@ -41,6 +41,7 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 interface Card {
   buttonClick: () => void
@@ -90,13 +91,14 @@ const GameCard = ({
 
   const navigate = useNavigate()
 
-  const {
-    hiddenGames,
-    favouriteGames,
-    showDialogModal,
-    setIsSettingsModalOpen,
-    activeController
-  } = useContext(ContextProvider)
+  const { hiddenGames, favouriteGames, showDialogModal, activeController } =
+    useContext(ContextProvider)
+  const { openGameSettingsModal, openGameLogsModal, openGameCategoriesModal } =
+    useGlobalState.keys(
+      'openGameSettingsModal',
+      'openGameLogsModal',
+      'openGameCategoriesModal'
+    )
 
   const { layout } = useContext(LibraryContext)
 
@@ -316,12 +318,12 @@ const GameCard = ({
     {
       // settings
       label: t('submenu.settings', 'Settings'),
-      onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
+      onclick: () => openGameSettingsModal(gameInfo),
       show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
       label: t('submenu.logs', 'Logs'),
-      onclick: () => setIsSettingsModalOpen(true, 'log', gameInfo),
+      onclick: () => openGameLogsModal(gameInfo),
       show: isInstalled && !isUninstalling && !isBrowserGame
     },
     {
@@ -343,7 +345,7 @@ const GameCard = ({
     },
     {
       label: t('submenu.categories', 'Categories'),
-      onclick: () => setIsSettingsModalOpen(true, 'category', gameInfo),
+      onclick: () => openGameCategoriesModal(gameInfo),
       show: true
     },
     {
@@ -479,9 +481,7 @@ const GameCard = ({
                   <SvgButton
                     title={`${t('submenu.settings')} (${title})`}
                     className="settingsIcon"
-                    onClick={() =>
-                      setIsSettingsModalOpen(true, 'settings', gameInfo)
-                    }
+                    onClick={() => openGameSettingsModal(gameInfo)}
                   >
                     <SettingsIcon />
                   </SvgButton>

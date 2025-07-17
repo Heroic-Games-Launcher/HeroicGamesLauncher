@@ -67,6 +67,7 @@ import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -81,15 +82,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [wikiInfo, setWikiInfo] = useState<WikiInfo | null>(null)
 
-  const {
-    epic,
-    gog,
-    gameUpdates,
-    platform,
-    showDialogModal,
-    isSettingsModalOpen,
-    connectivity
-  } = useContext(ContextProvider)
+  const { epic, gog, gameUpdates, platform, showDialogModal, connectivity } =
+    useContext(ContextProvider)
+
+  const { settingsModalProps } = useGlobalState.keys('settingsModalProps')
 
   hasHelp(
     'gamePage',
@@ -236,7 +232,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     epic.library,
     gog.library,
     gameInfo,
-    isSettingsModalOpen,
+    settingsModalProps.isOpen,
     isOffline
   ])
 

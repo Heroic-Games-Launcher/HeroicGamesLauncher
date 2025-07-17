@@ -13,6 +13,7 @@ import { CircularProgress } from '@mui/material'
 import UninstallModal from 'frontend/components/UI/UninstallModal'
 import GameContext from '../GameContext'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 interface Props {
   appName: string
@@ -43,13 +44,11 @@ export default function GamesSubmenu({
   onShowModifyInstall,
   gameInfo
 }: Props) {
-  const {
-    refresh,
-    platform,
-    libraryStatus,
-    showDialogModal,
-    setIsSettingsModalOpen
-  } = useContext(ContextProvider)
+  const { refresh, platform, libraryStatus, showDialogModal } =
+    useContext(ContextProvider)
+  const { openGameCategoriesModal } = useGlobalState.keys(
+    'openGameCategoriesModal'
+  )
   const { is, gameSettings } = useContext(GameContext)
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -350,7 +349,7 @@ export default function GamesSubmenu({
             </button>
           )}
           <button
-            onClick={() => setIsSettingsModalOpen(true, 'category', gameInfo)}
+            onClick={() => openGameCategoriesModal(gameInfo)}
             className="link button is-text is-link"
           >
             {t('submenu.categories', 'Categories')}
