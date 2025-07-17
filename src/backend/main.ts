@@ -360,6 +360,29 @@ if (!gotTheLock) {
 
     const settings = GlobalConfig.get().getSettings()
 
+    if (settings && settings.analyticsOptIn === true) {
+      const plausible = Plausible()
+      plausible.enableAutoPageviews()
+      const appVersion = app.getVersion()
+      const providersObject = {
+        gog: !!GOGUser.isLoggedIn(),
+        epic: !!LegendaryUser.isLoggedIn(),
+        amazon: !!NileUser.isLoggedIn()
+      }
+      const loggedInProviders = Object.entries(providersObject)
+        .filter(([, v]) => v)
+        .map(([k]) => k)
+      plausible.trackEvent('App Loaded', {
+        props: {
+          version: appVersion,
+          gog: providersObject.gog || false,
+          epic: providersObject.epic || false,
+          amazon: providersObject.amazon || false,
+          providers: loggedInProviders.join(', ')
+        }
+      })
+    }
+
     if (settings?.disableSmoothScrolling) {
       app.commandLine.appendSwitch('disable-smooth-scrolling')
     }
@@ -778,20 +801,6 @@ addHandler('logoutAmazon', NileUser.logout)
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
-
-addHandler('getLoggedInProviders', async () => {
-  const loggedInProviders = []
-  if (LegendaryUser.isLoggedIn()) {
-    loggedInProviders.push('legendary')
-  }
-  if (GOGUser.isLoggedIn()) {
-    loggedInProviders.push('gog')
-  }
-  if (NileUser.isLoggedIn()) {
-    loggedInProviders.push('nile')
-  }
-  return loggedInProviders
-})
 
 addHandler('readConfig', async (event, configClass) => {
   if (configClass === 'library') {
@@ -1366,3 +1375,5 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+
+import { Plausible } from './utils/plausible'

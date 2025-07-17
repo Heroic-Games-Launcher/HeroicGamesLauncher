@@ -1,8 +1,4 @@
-import {
-  makeListenerCaller,
-  makeHandlerInvoker,
-  frontendListenerSlot
-} from '../ipc'
+import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '../ipc'
 
 export const removeFolder = makeListenerCaller('removeFolder')
 export const openDialog = makeHandlerInvoker('openDialog')
@@ -16,13 +12,9 @@ export const handleInstallGame = frontendListenerSlot('installGame')
 export const handleRefreshLibrary = frontendListenerSlot('refreshLibrary')
 export const handleGamePush = frontendListenerSlot('pushGameToLibrary')
 export const removeRecentGame = makeHandlerInvoker('removeRecent')
-export const handleRecentGamesChanged =
-  frontendListenerSlot('recentGamesChanged')
+export const handleRecentGamesChanged = frontendListenerSlot('recentGamesChanged')
 export const addNewApp = makeListenerCaller('addNewApp')
-export const changeGameVersionPinnedStatus = makeListenerCaller(
-  'changeGameVersionPinnedStatus'
-)
+export const changeGameVersionPinnedStatus = makeListenerCaller('changeGameVersionPinnedStatus')
 export const getGameOverride = makeHandlerInvoker('getGameOverride')
 export const getGameSdl = makeHandlerInvoker('getGameSdl')
 export const installSteamWindows = makeHandlerInvoker('installSteamWindows')
-export const getLoggedInProviders = makeHandlerInvoker('getLoggedInProviders')

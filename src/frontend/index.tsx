@@ -5,8 +5,6 @@ import { createRoot } from 'react-dom/client'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
 
-import Plausible from 'plausible-tracker'
-
 import './index.scss'
 import './themes.scss'
 import GlobalState from './state/GlobalState'
@@ -17,39 +15,6 @@ import { defaultThemes } from './components/UI/ThemeSelector'
 import Loading from './screens/Loading'
 
 initOnlineMonitor()
-
-void window.api.requestAppSettings().then(async (settings) => {
-  if (settings) {
-    const shouldTrack = settings.analyticsOptIn === true
-
-    if (shouldTrack) {
-      const appVersion = await window.api.getHeroicVersion()
-      const loggedInProviders = await window.api.getLoggedInProviders()
-      const providersObject = loggedInProviders.reduce(
-        (acc, provider) => {
-          acc[provider] = true
-          return acc
-        },
-        {} as Record<string, boolean>
-      )
-
-      const plausible = Plausible({
-        domain: 'heroic-games-client.com',
-        trackLocalhost: true
-      })
-      plausible.enableAutoPageviews()
-      plausible.trackEvent('App Loaded', {
-        props: {
-          version: appVersion,
-          gog: providersObject.gog || false,
-          epic: providersObject.epic || false,
-          amazon: providersObject.amazon || false,
-          providers: loggedInProviders.join(', ')
-        }
-      })
-    }
-  }
-})
 
 window.addEventListener('error', (ev: ErrorEvent) => {
   window.api.logError(ev.error)
