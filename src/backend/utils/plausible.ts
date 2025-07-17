@@ -1,4 +1,3 @@
-// src/backend/utils/plausible.ts
 import https from 'https'
 
 const PLAUSIBLE_DOMAIN = 'heroic-games-client.com'
@@ -51,16 +50,3 @@ export function Plausible() {
     }
   }
 }
-
-// Example usage:
-// const plausible = Plausible()
-// plausible.enableAutoPageviews()
-// plausible.trackEvent('App Loaded', {
-//   props: {
-//     version: appVersion,
-//     gog: providersObject.gog || false,
-//     epic: providersObject.epic || false,
-//     amazon: providersObject.amazon || false,
-//     providers: loggedInProviders.join(', ')
-//   }
-// })
