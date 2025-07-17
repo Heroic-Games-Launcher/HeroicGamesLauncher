@@ -19,7 +19,14 @@
     "Amazon Games": "Amazon Games",
     "analyticsModal": {
         "disable": "Disable Analytics",
-        "message": "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. You can change this this anytime in Heroic's settings.",
+        "info": {
+            "pt1": "In order to improve the app, Heroic collects 100% anonymous data.",
+            "pt2": "Heroic uses the open-source Plausible Analytics platform to gather basic data like: App Version, OS, Stores and Country.",
+            "pt3": "It will never collect any personal information, including your username, IP address or email.",
+            "pt4": "This data is used to gives insights on what to focus on next due to our limited resources and user feedback.",
+            "pt5": "Plausible Analytics is fully compliant with GDPR, CCPA and PECR.",
+            "pt6": "You can change this setting at any time in the App Settings."
+        },
         "title": "Send Anonymous Analytics"
     },
     "anticheat": {

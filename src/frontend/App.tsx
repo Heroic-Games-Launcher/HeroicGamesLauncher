@@ -40,10 +40,37 @@ function Root() {
       showDialogModal({
         showDialog: true,
         title: t('analyticsModal.title', 'Send Anonymous Analytics'),
-        message: t(
-          'analyticsModal.message',
-          "Heroic collects 100% anonymous data via the open-source Plausible Analytics platform. {{newline}} {{newline}} Heroic will never collect any info regarding your identity or usage patterns, nor games or username. You can change this this anytime in Heroic's settings.",
-          { newline: '\n\n' }
+        message: (
+          <>
+            {t(
+              'analyticsModal.info.pt1',
+              'In order to improve the app, Heroic collects 100% anonymous data.'
+            )}
+            <ul>
+              <li>
+                {t(
+                  'analyticsModal.info.pt2',
+                  'Heroic uses the open-source Plausible Analytics platform to gather basic data like: App Version, OS, Stores and Country.'
+                )}
+              </li>
+              <li>
+                {t(
+                  'analyticsModal.info.pt3',
+                  'It will never collect any personal information, including your username, IP address or email.'
+                )}
+              </li>
+              <li>
+                {t(
+                  'analyticsModal.info.pt4',
+                  'Plausible Analytics is fully compliant with GDPR, CCPA and PECR.'
+                )}
+              </li>
+            </ul>
+            {t(
+              'analyticsModal.info.pt5',
+              'You can change this setting at any time in the App Settings.'
+            )}
+          </>
         ),
         buttons: [
           {
