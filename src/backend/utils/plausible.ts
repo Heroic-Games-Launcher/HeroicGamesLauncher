@@ -3,7 +3,7 @@ import https from 'https'
 const PLAUSIBLE_DOMAIN = 'heroic-games-client.com'
 const PLAUSIBLE_API = 'https://plausible.io/api/event'
 
-export interface PlausibleEventProps {
+interface PlausibleEventProps {
   [key: string]: string | number | boolean
 }
 
