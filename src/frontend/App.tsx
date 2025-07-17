@@ -20,89 +20,11 @@ import UploadedLogFilesList from './screens/Settings/sections/LogSettings/compon
 import { TourProvider } from './state/TourContext'
 import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
-import { useTranslation } from 'react-i18next'
+import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
 
 function Root() {
-  const {
-    isRTL,
-    isFullscreen,
-    isFrameless,
-    experimentalFeatures,
-    help,
-    showDialogModal
-  } = useContext(ContextProvider)
-
-  const { t } = useTranslation()
-
-  React.useEffect(() => {
-    const storageKey = 'analytics-modal-shown'
-    if (!localStorage.getItem(storageKey)) {
-      showDialogModal({
-        showDialog: true,
-        title: t('analyticsModal.title', 'Send Anonymous Analytics'),
-        message: (
-          <>
-            {t(
-              'analyticsModal.info.pt1',
-              'In order to improve the app, Heroic collects 100% anonymous data.'
-            )}
-            <ul>
-              <li>
-                {t(
-                  'analyticsModal.info.pt2',
-                  'Heroic uses the open-source Plausible Analytics platform to gather basic data like: App Version, OS, Stores and Country.'
-                )}
-              </li>
-              <li>
-                {t(
-                  'analyticsModal.info.pt3',
-                  'It will never collect any personal information, including your username, IP address or email.'
-                )}
-              </li>
-              <li>
-                {t(
-                  'analyticsModal.info.pt4',
-                  'This data is used to gives insights on what to focus on next due to our limited resources and user feedback.'
-                )}
-              </li>
-              <li>
-                {t(
-                  'analyticsModal.info.pt5',
-                  'Plausible Analytics is fully compliant with GDPR, CCPA and PECR.'
-                )}
-              </li>
-            </ul>
-            {t(
-              'analyticsModal.info.pt6',
-              'You can change this setting at any time in the App Settings.'
-            )}
-          </>
-        ),
-        buttons: [
-          {
-            text: t('box.ok', 'OK'),
-            onClick: () => {
-              localStorage.setItem(storageKey, 'true')
-              showDialogModal({ showDialog: false })
-            }
-          },
-          {
-            text: t('analyticsModal.disable', 'Disable Analytics'),
-            onClick: () => {
-              localStorage.setItem(storageKey, 'true')
-              window.api.setSetting({
-                appName: 'default',
-                key: 'analyticsOptIn',
-                value: false
-              })
-              showDialogModal({ showDialog: false })
-            }
-          }
-        ],
-        type: 'MESSAGE'
-      })
-    }
-  }, [showDialogModal])
+  const { isRTL, isFullscreen, isFrameless, experimentalFeatures, help } =
+    useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
@@ -148,6 +70,7 @@ function Root() {
             <LogFileUploadDialog />
             <UploadedLogFilesList />
             <Outlet />
+            <AnalyticsDialog />
           </main>
           <div className="controller">
             <ControllerHints />
