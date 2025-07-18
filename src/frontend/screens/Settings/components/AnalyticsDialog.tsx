@@ -51,9 +51,15 @@ export default function AnalyticsDialog() {
                   'Plausible Analytics is fully compliant with GDPR, CCPA and PECR.'
                 )}
               </li>
+              <li>
+                {t(
+                  'analyticsModal.info.pt6',
+                  'For transparency, you can view the data we collect on the Heroic logs.'
+                )}
+              </li>
             </ul>
             {t(
-              'analyticsModal.info.pt6',
+              'analyticsModal.info.pt7',
               'You can change this setting at any time in the App Settings.'
             )}
           </>

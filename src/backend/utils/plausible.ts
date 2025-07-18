@@ -73,6 +73,7 @@ export function startPlausible() {
     logInfo('Skipping Plausible Analytics in E2E tests', LogPrefix.Backend)
     return
   }
+
   const plausible = Plausible()
   plausible.enableAutoPageviews()
   const appVersion = app.getVersion()
@@ -84,19 +85,24 @@ export function startPlausible() {
   const loggedInProviders = Object.entries(providersObject)
     .filter(([, v]) => v)
     .map(([k]) => k)
+
+  const props = {
+    version: appVersion,
+    gog: providersObject.gog || false,
+    epic: providersObject.epic || false,
+    amazon: providersObject.amazon || false,
+    providers: loggedInProviders.join(', '),
+    OS: process.platform,
+    isFlatpak: isFlatpak,
+    isAppImage: isAppImage,
+    isSnap: isSnap,
+    isSteamDeckGameMode: isSteamDeckGameMode,
+    isSteamDeck: !!isSteamDeck
+  }
+
+  logInfo('Starting Plausible Analytics', LogPrefix.Backend)
+  logInfo(`Shared Data: ${JSON.stringify(props)}`, LogPrefix.Backend)
   plausible.trackEvent('App Loaded', {
-    props: {
-      version: appVersion,
-      gog: providersObject.gog || false,
-      epic: providersObject.epic || false,
-      amazon: providersObject.amazon || false,
-      providers: loggedInProviders.join(', '),
-      OS: process.platform,
-      isFlatpak: isFlatpak,
-      isAppImage: isAppImage,
-      isSnap: isSnap,
-      isSteamDeckGameMode: isSteamDeckGameMode,
-      isSteamDeck: !!isSteamDeck
-    }
+    props
   })
 }
