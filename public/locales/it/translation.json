@@ -187,10 +187,7 @@
         "choose-nile-binary": "Seleziona binario di Nile",
         "update": "Aggiorna",
         "changelog": "Note di rilascio",
-        "postpone": "Posponi",
-        "launchAnyway": "Lancia comunque il gioco",
-        "shaderPreCachingDisabledMessage": "La Pre-cache dello Share di Steam è disabilitata. Per favore abilitala nelle Impostazioni Steam nella Modalità Desktop per assicurarti che il gioco funzioni correttamente con UMU.",
-        "shaderPreCachingDisabledTitle": "Pre-Caching Shader Disabilitato"
+        "postpone": "Posponi"
     },
     "button": {
         "cancel": "Annulla",

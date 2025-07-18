@@ -187,10 +187,7 @@
         "choose-nile-binary": "Velg Nile binær",
         "update": "Update",
         "changelog": "Endringslogg",
-        "postpone": "Utsett",
-        "launchAnyway": "Start spillet alikevel",
-        "shaderPreCachingDisabledMessage": "Steams forhåndslasting av shaders er skrudd av. Vennligst skru det på i Steams innstillinger så spillet funker riktig med UMU.",
-        "shaderPreCachingDisabledTitle": "Forhåndslasting av shaders skrudd av"
+        "postpone": "Utsett"
     },
     "button": {
         "cancel": "Avbryt",
