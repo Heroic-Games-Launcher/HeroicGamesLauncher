@@ -24,7 +24,7 @@ export default function AnalyticsDialog() {
               <li>
                 {t(
                   'analyticsModal.info.pt2',
-                  'Heroic uses the open-source Plausible Analytics platform to gather basic data like: App Version, OS, Stores and Country.'
+                  'Heroic uses the open-source Plausible Analytics platform to gather basic data: App Version, OS, Stores Connected and Country.'
                 )}
               </li>
               <li>
@@ -36,7 +36,7 @@ export default function AnalyticsDialog() {
               <li>
                 {t(
                   'analyticsModal.info.pt4',
-                  'This data is used to gives insights on what to focus on next due to our limited resources and user feedback.'
+                  'This data is used to give us insights on what to focus on next due to our limited resources and user feedback.'
                 )}
               </li>
               <li>
@@ -54,14 +54,19 @@ export default function AnalyticsDialog() {
         ),
         buttons: [
           {
-            text: t('box.ok', 'OK'),
+            text: t('analyticsModal.enable', 'Enable'),
             onClick: () => {
               localStorage.setItem(STORAGE_KEY, 'true')
+              window.api.setSetting({
+                appName: 'default',
+                key: 'analyticsOptIn',
+                value: true
+              })
               showDialogModal({ showDialog: false })
             }
           },
           {
-            text: t('analyticsModal.disable', 'Disable Analytics'),
+            text: t('analyticsModal.disable', 'Disable'),
             onClick: () => {
               localStorage.setItem(STORAGE_KEY, 'true')
               window.api.setSetting({
