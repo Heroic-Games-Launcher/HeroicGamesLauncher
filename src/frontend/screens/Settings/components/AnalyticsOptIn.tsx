@@ -21,8 +21,8 @@ const AnalyticsOptIn = () => {
       />
       <InfoIcon
         text={t(
-          'help.analyticsOptIn',
-          'Enables Heroic to collect 100% anonymous usage data to help improve the application.'
+          'help.analytics',
+          'Enables Heroic to collect 100% anonymous usage data to help improve the application. Needs restart to take effect.'
         )}
       />
     </div>
