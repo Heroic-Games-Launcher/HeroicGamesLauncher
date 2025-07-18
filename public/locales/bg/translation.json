@@ -187,10 +187,7 @@
         "choose-nile-binary": "Изберете изпълнимия файл на Nile",
         "update": "Обновяване",
         "changelog": "Списък с промени",
-        "postpone": "Отлагане",
-        "launchAnyway": "Пускане на играта въпреки това",
-        "shaderPreCachingDisabledMessage": "Предварителното кеширане на шейдъри на Steam е изключено. Включете го в настройките на Steam в режим за работен плот, за да може играта да работи правилно с UMU.",
-        "shaderPreCachingDisabledTitle": "Предварителното кеширане на шейдъри е изключено"
+        "postpone": "Отлагане"
     },
     "button": {
         "cancel": "Отказ",

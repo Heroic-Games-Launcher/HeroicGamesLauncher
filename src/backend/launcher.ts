@@ -70,7 +70,7 @@ import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
-import { app, dialog, powerSaveBlocker } from 'electron'
+import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
@@ -206,47 +206,6 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     }
   }
 
-  const isPreCacheDisabled = await shouldToggleShaderPreCacheOn(gameSettings)
-
-  if (isPreCacheDisabled) {
-    const { response } = await dialog.showMessageBox({
-      type: 'warning',
-      title: i18next.t(
-        'box.shaderPreCachingDisabledTitle',
-        'Shader Pre-Caching Disabled'
-      ),
-      message: i18next.t(
-        'box.shaderPreCachingDisabledMessage',
-        "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU."
-      ),
-      buttons: [
-        i18next.t('box.launchAnyway', 'Launch Game Anyway'),
-        i18next.t('button.cancel', 'Cancel')
-      ],
-      cancelId: 1,
-      defaultId: 0
-    })
-
-    if (response === 1) {
-      sendGameStatusUpdate({
-        appName,
-        runner,
-        status: 'done'
-      })
-      logInfo(
-        `User aborted the launch of ${title} because Shader Pre-Caching is disabled`,
-        LogPrefix.Backend
-      )
-      await logWriter.close()
-      return { status: 'abort' }
-    }
-
-    logWarning(
-      `User launched ${title} with Shader Pre-Caching disabled. Issues might occur.`,
-      LogPrefix.Backend
-    )
-  }
-
   await runBeforeLaunchScript(game, gameSettings, logWriter)
 
   sendGameStatusUpdate({
@@ -358,24 +317,6 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   }
 
   return { status: launchResult ? 'done' : 'error' }
-}
-
-async function shouldToggleShaderPreCacheOn(
-  gameSettings: GameSettings
-): Promise<boolean> {
-  const info = await getSystemInfo()
-  if (!info) return false
-  if (!info.steamDeckInfo.isDeck) return false
-  if (info.steamDeckInfo.mode !== 'game') return false
-  if (!(await isUmuSupported(gameSettings))) return false
-
-  // check if all of the following env variables are undefined
-  return [
-    'STEAM_COMPAT_TRANSCODED_MEDIA_PATH',
-    'STEAM_COMPAT_MEDIA_PATH',
-    'STEAM_FOSSILIZE_DUMP_PATH',
-    'DXVK_STATE_CACHE_PATH'
-  ].every((envVar) => !process.env[envVar])
 }
 
 function filterGameSettingsForLog(
@@ -601,14 +542,6 @@ async function prepareLaunch(
       info?.anticheats ? `Anticheats: ${info.anticheats}\n\n` : ''
     )
   ])
-
-  logWriter.logWarning(
-    shouldToggleShaderPreCacheOn(gameSettings).then((b) =>
-      b
-        ? "Steam's Shader Pre-Caching is disabled and umu is enabled. Steam's Shader Pre-cache is required by umu to work properly on the SteamDeck's Gaming mode.\n\n"
-        : ''
-    )
-  )
 
   // If we're not on Linux, we can return here
   if (!isLinux) {

@@ -187,10 +187,7 @@
         "choose-nile-binary": "Sélectionnez le binaire de Nile",
         "update": "Mise à jour",
         "changelog": "Journal des changements",
-        "postpone": "Différer",
-        "launchAnyway": "Lancez le jeu quand même",
-        "shaderPreCachingDisabledTitle": "Mise en mémoire cache des shaders désactivée",
-        "shaderPreCachingDisabledMessage": "La mise en mémoire cache des shaders est désactivée. Veuillez l'activer dans les options de Steam en mode bureau afin que le jeu fonctionne normalement avec UMU."
+        "postpone": "Différer"
     },
     "button": {
         "cancel": "Annuler",

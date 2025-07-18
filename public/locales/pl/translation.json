@@ -187,10 +187,7 @@
         "choose-nile-binary": "Wybierz plik wykonywalny Nile",
         "update": "Aktualizuj",
         "postpone": "Odłóż",
-        "changelog": "Dziennik zmian",
-        "launchAnyway": "Uruchom grę mimo to",
-        "shaderPreCachingDisabledMessage": "Pamięć wstępna cieniowania Steam jest wyłączona. Aby program działał poprawnie z UMU, włącz ją w ustawieniach Steam w trybie pulpitu.",
-        "shaderPreCachingDisabledTitle": "Wstępna pamięć podręczna cieniowania wyłączona"
+        "changelog": "Dziennik zmian"
     },
     "button": {
         "cancel": "Anuluj",
