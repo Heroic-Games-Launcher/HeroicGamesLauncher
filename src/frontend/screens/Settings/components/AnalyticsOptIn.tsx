@@ -8,6 +8,12 @@ const AnalyticsOptIn = () => {
   const { t } = useTranslation()
   const [analyticsOptIn, setAnalyticsOptIn] = useSetting('analyticsOptIn', true)
 
+  React.useEffect(() => {
+    if (analyticsOptIn) {
+      window.api.startPlausible()
+    }
+  }, [analyticsOptIn])
+
   return (
     <div className="toggleRow">
       <ToggleSwitch

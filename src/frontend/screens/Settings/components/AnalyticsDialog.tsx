@@ -68,6 +68,7 @@ export default function AnalyticsDialog() {
                 key: 'analyticsOptIn',
                 value: true
               })
+              window.api.startPlausible()
               showDialogModal({ showDialog: false })
             }
           },

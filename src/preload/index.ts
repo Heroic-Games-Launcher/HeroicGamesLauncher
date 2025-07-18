@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { contextBridge } from 'electron'
 import api from './api'
-import {
-  isFlatpak,
-  isSteamDeck,
-  isSteamDeckGameMode
-} from 'backend/constants/environment'
+import { isFlatpak, isSteamDeck, isSteamDeckGameMode } from 'backend/constants/environment'
 
 contextBridge.exposeInMainWorld('api', api)
 contextBridge.exposeInMainWorld('isSteamDeckGameMode', isSteamDeckGameMode)

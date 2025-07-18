@@ -1336,6 +1336,8 @@ addHandler('installSteamWindows', async (e, path) =>
   SteamWindows.installSteam(path)
 )
 
+addListener('startPlausible', () => startPlausible())
+
 /*
   Other Keys that should go into translation files:
   t('box.error.generic.title')
