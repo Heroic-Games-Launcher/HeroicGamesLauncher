@@ -113,7 +113,6 @@
                 "title-finished": "Update Finished"
             }
         },
-        "launchAnyway": "Launch Game Anyway",
         "no": "NO",
         "ok": "OK",
         "postpone": "Postpone",
@@ -140,8 +139,6 @@
             "exe": "Select EXE",
             "script": "Select script ..."
         },
-        "shaderPreCachingDisabledMessage": "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU.",
-        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Disabled",
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
             "message-mac": "Shortcuts were created on the Applications folder",
@@ -705,7 +702,7 @@
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
-            "missingMsgFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime 24.08 and restart Heroic."
+            "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
