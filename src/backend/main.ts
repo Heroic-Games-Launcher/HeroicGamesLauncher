@@ -50,7 +50,7 @@ import {
   writeConfig,
   createNecessaryFolders
 } from './utils'
-import { Plausible } from './utils/plausible'
+import { startPlausible } from './utils/plausible'
 
 import {
   getDiskInfo,
@@ -124,7 +124,6 @@ import {
 } from './constants/urls'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
-  isAppImage,
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
@@ -132,7 +131,6 @@ import {
   isLinux,
   isMac,
   isSnap,
-  isSteamDeck,
   isSteamDeckGameMode,
   isWindows
 } from './constants/environment'
@@ -364,32 +362,7 @@ if (!gotTheLock) {
     const settings = GlobalConfig.get().getSettings()
 
     if (settings && settings.analyticsOptIn === true) {
-      const plausible = Plausible()
-      plausible.enableAutoPageviews()
-      const appVersion = app.getVersion()
-      const providersObject = {
-        gog: !!GOGUser.isLoggedIn(),
-        epic: !!LegendaryUser.isLoggedIn(),
-        amazon: !!NileUser.isLoggedIn()
-      }
-      const loggedInProviders = Object.entries(providersObject)
-        .filter(([, v]) => v)
-        .map(([k]) => k)
-      plausible.trackEvent('App Loaded', {
-        props: {
-          version: appVersion,
-          gog: providersObject.gog || false,
-          epic: providersObject.epic || false,
-          amazon: providersObject.amazon || false,
-          providers: loggedInProviders.join(', '),
-          OS: process.platform,
-          isFlatpak: isFlatpak,
-          isAppImage: isAppImage,
-          isSnap: isSnap,
-          isSteamDeckGameMode: isSteamDeckGameMode,
-          isSteamDeck: !!isSteamDeck
-        }
-      })
+      startPlausible()
     }
 
     if (settings?.disableSmoothScrolling) {

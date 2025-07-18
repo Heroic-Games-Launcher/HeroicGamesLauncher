@@ -1,3 +1,15 @@
+import {
+  isFlatpak,
+  isAppImage,
+  isSnap,
+  isSteamDeckGameMode,
+  isSteamDeck
+} from 'backend/constants/environment'
+import { logInfo, LogPrefix } from 'backend/logger'
+import { GOGUser } from 'backend/storeManagers/gog/user'
+import { LegendaryUser } from 'backend/storeManagers/legendary/user'
+import { NileUser } from 'backend/storeManagers/nile/user'
+import { app } from 'electron'
 import https from 'https'
 
 const PLAUSIBLE_DOMAIN = 'heroic-games-client.com'
@@ -54,4 +66,37 @@ export function Plausible() {
       }).catch(() => {})
     }
   }
+}
+
+export function startPlausible() {
+  if (process.env.CI === 'e2e') {
+    logInfo('Skipping Plausible Analytics in E2E tests', LogPrefix.Backend)
+    return
+  }
+  const plausible = Plausible()
+  plausible.enableAutoPageviews()
+  const appVersion = app.getVersion()
+  const providersObject = {
+    gog: !!GOGUser.isLoggedIn(),
+    epic: !!LegendaryUser.isLoggedIn(),
+    amazon: !!NileUser.isLoggedIn()
+  }
+  const loggedInProviders = Object.entries(providersObject)
+    .filter(([, v]) => v)
+    .map(([k]) => k)
+  plausible.trackEvent('App Loaded', {
+    props: {
+      version: appVersion,
+      gog: providersObject.gog || false,
+      epic: providersObject.epic || false,
+      amazon: providersObject.amazon || false,
+      providers: loggedInProviders.join(', '),
+      OS: process.platform,
+      isFlatpak: isFlatpak,
+      isAppImage: isAppImage,
+      isSnap: isSnap,
+      isSteamDeckGameMode: isSteamDeckGameMode,
+      isSteamDeck: !!isSteamDeck
+    }
+  })
 }
