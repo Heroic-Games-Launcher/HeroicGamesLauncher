@@ -124,6 +124,7 @@ import {
 } from './constants/urls'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
+  isAppImage,
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
@@ -131,6 +132,7 @@ import {
   isLinux,
   isMac,
   isSnap,
+  isSteamDeck,
   isSteamDeckGameMode,
   isWindows
 } from './constants/environment'
@@ -379,7 +381,13 @@ if (!gotTheLock) {
           gog: providersObject.gog || false,
           epic: providersObject.epic || false,
           amazon: providersObject.amazon || false,
-          providers: loggedInProviders.join(', ')
+          providers: loggedInProviders.join(', '),
+          OS: process.platform,
+          isFlatpak: isFlatpak,
+          isAppImage: isAppImage,
+          isSnap: isSnap,
+          isSteamDeckGameMode: isSteamDeckGameMode,
+          isSteamDeck: !!isSteamDeck
         }
       })
     }
