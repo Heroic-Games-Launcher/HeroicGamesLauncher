@@ -11,6 +11,12 @@ export default function AnalyticsDialog() {
 
   React.useEffect(() => {
     if (!localStorage.getItem(STORAGE_KEY)) {
+      if (window.isE2ETesting) {
+        // Skip showing the dialog in E2E tests
+        localStorage.setItem(STORAGE_KEY, 'true')
+        return
+      }
+
       showDialogModal({
         showDialog: true,
         title: t('analyticsModal.title', 'Send Anonymous Analytics'),

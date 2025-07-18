@@ -162,6 +162,7 @@ declare global {
     isFlatpak: boolean
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
+    isE2ETesting: boolean
   }
 
   interface WindowEventMap {
