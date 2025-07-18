@@ -17,4 +17,4 @@ export const isCLINoGui = process.argv.includes('--no-gui')
 export const isFlatpak = Boolean(env.FLATPAK_ID)
 export const isSnap = Boolean(env.SNAP)
 export const isAppImage = Boolean(env.APPIMAGE)
-export const flatpakRuntimeVersion = env.FLATPAK_RUNTIME_VERSION || '23.08'
+export const flatpakRuntimeVersion = env.FLATPAK_RUNTIME_VERSION
