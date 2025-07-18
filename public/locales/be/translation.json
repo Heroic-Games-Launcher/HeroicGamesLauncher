@@ -187,10 +187,7 @@
         "choose-nile-binary": "Выберыце выконвальны файл Nile",
         "update": "Абнаўленне",
         "postpone": "Адкласці",
-        "changelog": "Журнал змяненняў",
-        "launchAnyway": "Усё адно запусціць гульню",
-        "shaderPreCachingDisabledTitle": "Папярэдняе кэшаванне шэйдараў адключана",
-        "shaderPreCachingDisabledMessage": "Папярэдняе кэшаванне шэйдараў Steam адключана. Каб гульня працавала належным чынам з UMU, уключыце яго ў наладах Steam у рэжыме працоўнага стала."
+        "changelog": "Журнал змяненняў"
     },
     "button": {
         "cancel": "Скасаваць",

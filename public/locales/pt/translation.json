@@ -187,9 +187,7 @@
         "choose-nile-binary": "Selecione o binário do Nilo",
         "update": "Atualizar",
         "changelog": "Histórico de mudanças",
-        "postpone": "Adiar",
-        "launchAnyway": "Executar Jogo Mesmo Assim",
-        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Desativado"
+        "postpone": "Adiar"
     },
     "button": {
         "cancel": "Cancelar",

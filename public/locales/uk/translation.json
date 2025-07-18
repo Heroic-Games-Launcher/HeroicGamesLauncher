@@ -187,10 +187,7 @@
         "choose-nile-binary": "Вибрати двійковий файл Nile",
         "update": "Оновлення",
         "changelog": "Журнал змін",
-        "postpone": "Відкласти",
-        "shaderPreCachingDisabledMessage": "Попереднє кешування шейдерів Steam вимкнено. Увімкніть їх у налаштуваннях Steam у режимі робочого столу, щоби гра працювала належним чином з UMU.",
-        "shaderPreCachingDisabledTitle": "Попереднє кешування шейдерів вимкнено",
-        "launchAnyway": "Усе одно запустити гру"
+        "postpone": "Відкласти"
     },
     "button": {
         "cancel": "Скасувати",

@@ -187,8 +187,7 @@
         "choose-nile-binary": "Selecione o binário do Nilo",
         "update": "Atualização",
         "changelog": "Registro de Alterações",
-        "postpone": "Adiar",
-        "launchAnyway": "Iniciar o jogo mesmo assim"
+        "postpone": "Adiar"
     },
     "button": {
         "cancel": "Cancelar",

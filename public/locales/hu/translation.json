@@ -187,10 +187,7 @@
         "choose-nile-binary": "Nile bináris kiválasztása",
         "update": "Frissítés",
         "changelog": "Változásnapló",
-        "postpone": "Elhalasztás",
-        "shaderPreCachingDisabledMessage": "A Steam shader előtöltése ki van kapcsolva. Kérjük, engedélyezze a Steam beállításaiban asztali módban, hogy a játék megfelelően működjön az UMU-val.",
-        "shaderPreCachingDisabledTitle": "Shader előtöltés kikapcsolva",
-        "launchAnyway": "Játék indítása ennek ellenére"
+        "postpone": "Elhalasztás"
     },
     "button": {
         "cancel": "Mégse",
