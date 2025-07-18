@@ -9,6 +9,7 @@ import { logInfo, LogPrefix } from 'backend/logger'
 import { GOGUser } from 'backend/storeManagers/gog/user'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
+import { libraryStore } from 'backend/storeManagers/sideload/electronStores'
 import { app } from 'electron'
 import https from 'https'
 
@@ -47,7 +48,7 @@ function sendPlausible(payload: object): Promise<void> {
   })
 }
 
-export function Plausible() {
+function Plausible() {
   return {
     enableAutoPageviews() {
       // For desktop apps, send a single "pageview" event on app load
@@ -80,7 +81,8 @@ export function startPlausible() {
   const providersObject = {
     gog: !!GOGUser.isLoggedIn(),
     epic: !!LegendaryUser.isLoggedIn(),
-    amazon: !!NileUser.isLoggedIn()
+    amazon: !!NileUser.isLoggedIn(),
+    sideloaded: libraryStore.raw_store.games.length > 0
   }
   const loggedInProviders = Object.entries(providersObject)
     .filter(([, v]) => v)
