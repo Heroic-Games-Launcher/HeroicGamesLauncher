@@ -82,6 +82,7 @@ export type ExperimentalFeatures = {
 }
 
 export interface AppSettings extends GameSettings {
+  analyticsOptIn: boolean
   addDesktopShortcuts: boolean
   addStartMenuShortcuts: boolean
   addSteamShortcuts: boolean

@@ -20,6 +20,7 @@ import UploadedLogFilesList from './screens/Settings/sections/LogSettings/compon
 import { TourProvider } from './state/TourContext'
 import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
+import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
 
 function Root() {
   const { isRTL, isFullscreen, isFrameless, experimentalFeatures, help } =
@@ -69,6 +70,7 @@ function Root() {
             <LogFileUploadDialog />
             <UploadedLogFilesList />
             <Outlet />
+            <AnalyticsDialog />
           </main>
           <div className="controller">
             <ControllerHints />

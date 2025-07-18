@@ -17,6 +17,20 @@
         "title": "Adtraction is blocked"
     },
     "Amazon Games": "Amazon Games",
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable",
+        "info": {
+            "pt1": "In order to improve the app, Heroic collects 100% anonymous data.",
+            "pt2": "Heroic uses the open-source Plausible Analytics platform to gather basic data: App Version, OS, Stores Connected and Country.",
+            "pt3": "It will never collect any personal information, including your username, IP address or email.",
+            "pt4": "This data is used to give us insights on what to focus on next due to our limited resources and user feedback.",
+            "pt5": "Plausible Analytics is fully compliant with GDPR, CCPA and PECR.",
+            "pt6": "For transparency, you can view the data we collect on the Heroic logs.",
+            "pt7": "You can change this setting at any time in the App Settings."
+        },
+        "title": "Send Anonymous Analytics"
+    },
     "anticheat": {
         "anticheats": "Anticheats",
         "multiplayer_may_not_work": "Multiplayer features may not work due to denied or broken anticheat support.",
@@ -99,6 +113,7 @@
                 "title-finished": "Update Finished"
             }
         },
+        "launchAnyway": "Launch Game Anyway",
         "no": "NO",
         "ok": "OK",
         "postpone": "Postpone",
@@ -125,6 +140,8 @@
             "exe": "Select EXE",
             "script": "Select script ..."
         },
+        "shaderPreCachingDisabledMessage": "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU.",
+        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Disabled",
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
             "message-mac": "Shortcuts were created on the Applications folder",
@@ -300,6 +317,7 @@
     "help": {
         "advertiseAvxForRosetta": "Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "analytics": "Enables Heroic to collect 100% anonymous usage data to help improve the application. Needs restart to take effect.",
         "button": {
             "close": "Close Help",
             "open": "Open Help"
@@ -616,6 +634,7 @@
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
+        "analyticsOptIn": "Send anonymous data to help Heroic development",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",

@@ -22,7 +22,8 @@ import {
   UseDarkTrayIcon,
   UseFramelessWindow,
   WinePrefixesBasePath,
-  PlaytimeSync
+  PlaytimeSync,
+  AnalyticsOptIn
 } from '../../components'
 
 export default function GeneralSettings() {
@@ -69,6 +70,8 @@ export default function GeneralSettings() {
       <DisableController />
 
       <DownloadProtonToSteam />
+
+      <AnalyticsOptIn />
 
       <LibraryTopSection />
 
