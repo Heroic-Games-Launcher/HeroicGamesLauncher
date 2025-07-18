@@ -92,7 +92,8 @@ import {
   isWindows,
   isIntelMac,
   isSteamDeck,
-  isFlatpak
+  isFlatpak,
+  flatpakRuntimeVersion
 } from './constants/environment'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 import { gameAnticheatInfo } from './anticheat/utils'
@@ -618,7 +619,7 @@ async function prepareLaunch(
       let reason =
         'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
       if (isFlatpak) {
-        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime 24.08`
+        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime ${flatpakRuntimeVersion} and restart Heroic.`
       }
       return {
         success: false,
@@ -650,7 +651,7 @@ async function prepareLaunch(
       let warningMessage =
         'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
       if (isFlatpak) {
-        warningMessage = `${warningMessage}. Make sure to install Gamescope's flatpak package with runtime 24.08`
+        warningMessage = `${warningMessage}. Make sure to install Gamescope's flatpak package with runtime ${flatpakRuntimeVersion}`
       }
 
       logWarning(warningMessage)
