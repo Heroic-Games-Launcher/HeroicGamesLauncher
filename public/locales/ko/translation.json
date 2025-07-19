@@ -735,7 +735,12 @@
             "enableLimiter": "FPS 제한기 활성화",
             "missingMsg": "PATH에서 gamescope를 찾을 수 없습니다. 설치하거나 PATH에 추가하세요."
         },
-        "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택"
+        "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "확실합니까?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
