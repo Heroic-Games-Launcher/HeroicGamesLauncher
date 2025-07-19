@@ -12,6 +12,7 @@ import { findAllFiles, findMainGameExecutable } from './downloader'
 import { getSettings } from './games'
 import { runSetupCommand } from '../storeManagerCommon/games'
 import * as fs from 'fs'
+import { isWindows } from 'backend/constants/environment'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
  * For Galaxy games only (Windows)
@@ -41,13 +42,13 @@ export async function setup(gameInfo: GameInfo): Promise<void> {
 
 export async function getGameExecutableFromShortcuts(gameInfo: GameInfo) {
   const appData = await getAppDataDirectory(gameInfo.app_name)
-  //  const userProfile = path.join(gameInfo.install.install_path!, 'Desktop');
+  const startIconMenuDirectory = isWindows ? 'C:\ProgramData\Microsoft\Windows\Start Menu': `${(await getSettings(gameInfo.app_name)).winePrefix}/drive_c/ProgramData/Microsoft/Windows/Start Menu/`
 
   return await findMainGameExecutable(
     gameInfo,
     [
       appData,
-      `${(await getSettings(gameInfo.app_name)).winePrefix}/drive_c/ProgramData/Microsoft/Windows/Start Menu/`
+      startIconMenuDirectory
     ],
     '.lnk'
   )

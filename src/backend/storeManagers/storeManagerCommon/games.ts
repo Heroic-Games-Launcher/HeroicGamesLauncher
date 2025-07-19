@@ -295,13 +295,12 @@ export async function launchGame(
       LogPrefix.Backend
     )
 
-    console.log('exec wine', [executable, ...extraArgs])
     await runWineCommand({
       commandParts: [executable, ...extraArgs],
       gameSettings,
       wait: true,
       protonVerb: 'waitforexitandrun',
-      startFolder: '/home/alex/Games/Heroic/Prefixes/default/Oil Rush/drive_c/',
+      startFolder: dirname(executable),
       options: {
         wrappers,
         logWriters: [logWriter],

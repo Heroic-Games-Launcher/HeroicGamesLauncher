@@ -28,8 +28,8 @@ async function getDefaultSavePath(
       return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
     case 'nile':
       return ''
-    case 'humble-bundle':
-      return '' // TODO(alex-min): check that
+    case 'humble-bundle': // there's no save concept in humble bundle
+      return ''
     case 'sideload':
       return ''
   }
