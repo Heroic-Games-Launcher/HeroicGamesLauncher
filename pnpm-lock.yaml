@@ -245,6 +245,9 @@ importers:
       '@types/tmp':
         specifier: ^0.2.6
         version: 0.2.6
+      '@types/unzipper':
+        specifier: ^0.10.11
+        version: 0.10.11
       '@vitejs/plugin-react-swc':
         specifier: ^3.9.0
         version: 3.9.0(vite@6.3.5(@types/node@22.15.18(patch_hash=8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831))(sass@1.89.0))
@@ -1692,6 +1695,9 @@ packages:
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
+
+  '@types/unzipper@0.10.11':
+    resolution: {integrity: sha512-D25im2zjyMCcgL9ag6N46+wbtJBnXIr7SI4zHf9eJD2Dw2tEB5e+p5MYkrxKIVRscs5QV0EhtU9rgXSPx90oJg==}
 
   '@types/verror@1.10.11':
     resolution: {integrity: sha512-RlDm9K7+o5stv0Co8i8ZRGxDbrTxhJtgjqjFyVh/tXQyl/rYtTKlnTvZ88oSTeYREWurwx20Js4kTuKCsFkUtg==}
@@ -7389,6 +7395,10 @@ snapshots:
   '@types/tmp@0.2.6': {}
 
   '@types/unist@2.0.11': {}
+
+  '@types/unzipper@0.10.11':
+    dependencies:
+      '@types/node': 22.15.18(patch_hash=8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831)
 
   '@types/verror@1.10.11':
     optional: true
