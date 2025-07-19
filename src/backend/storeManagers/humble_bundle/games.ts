@@ -11,7 +11,6 @@ import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { apiInfoCache, libraryStore } from './electronStores'
 import { downloadAndExtract, findMainGameExecutable } from './downloader'
 import {
-  getPathDiskSize,
   killPattern,
   sendGameStatusUpdate,
   sendProgressUpdate,
