@@ -11,14 +11,27 @@ import {
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { GOGCloudSavesLocation } from 'common/types/gog'
 import { apiInfoCache, libraryStore } from './electronStores'
-import { downloadAndExtractZip, findMainGameExecutable } from './downloader'
-import { getPathDiskSize, sendProgressUpdate } from 'backend/utils'
+import { downloadAndExtract, findMainGameExecutable } from './downloader'
+import {
+  getPathDiskSize,
+  killPattern,
+  sendProgressUpdate,
+  shutdownWine
+} from 'backend/utils'
 import { join } from 'path'
 import { mkdir } from 'fs/promises'
 import { promises as fs } from 'fs'
-import { checkIfInstaller, setup } from './setup'
+import {
+  checkIfInstaller,
+  getGameExecutableFromProgramFiles,
+  getGameExecutableFromShortcuts,
+  installAllMSIFiles,
+  setup
+} from './setup'
 import { GameConfig } from 'backend/game_config'
-import { launchGame } from '../storeManagerCommon/games'
+import { launchGame, runSetupCommand } from '../storeManagerCommon/games'
+import { getRunnerLogWriter } from 'backend/logger'
+import { exec } from 'child_process'
 
 function getProductFromAppName(appName: string) {
   const products = apiInfoCache.get('humble_api_info') || {}
@@ -141,7 +154,7 @@ export async function install(
 
     libraryStore.set('games', games)
 
-    await downloadAndExtractZip(url, install_path, (progress) => {
+    await downloadAndExtract(url, install_path, (progress) => {
       sendProgressUpdate({
         appName,
         runner: 'humble-bundle',
@@ -150,25 +163,55 @@ export async function install(
       })
     })
 
-    const executable = await findMainGameExecutable(install_path)
-
-    if (!executable) {
-      // TODO(alex-min): error management
-      return { status: 'error' }
-    }
-
-    console.log('installer', await checkIfInstaller(executable))
-
+    const executable = await findMainGameExecutable(game, install_path)
     const gameInfo = {
       ...game,
       install: {
         ...game.install,
-        executable: executable,
+        executable: executable || undefined,
         install_size: '1MB' // TODO(alex-min): change
       }
     }
-    await saveGameInfo(gameInfo)
     await setup(gameInfo)
+
+    const msiFiles = await installAllMSIFiles(game, install_path)
+    //
+
+    let installer = false
+
+    if (!executable && msiFiles.length > 0) {
+      installer = true
+    }
+
+    if (executable && (await checkIfInstaller(executable))) {
+      installer = true
+      sendProgressUpdate({
+        appName: gameInfo.app_name,
+        runner: 'humble-bundle',
+        status: 'installing'
+      })
+      await runSetupCommand({
+        commandParts: [executable, '/silent'],
+        gameSettings: await getSettings(gameInfo.app_name),
+        wait: true,
+        protonVerb: 'run',
+        gameInstallPath: gameInfo.install.install_path,
+        startFolder: gameInfo.install.install_path
+      })
+      gameInfo.install.executable = undefined
+    }
+
+    if (installer) {
+      gameInfo.install.executable =
+        (await getGameExecutableFromShortcuts(gameInfo)) || undefined
+    }
+
+    if (!gameInfo.install.executable) {
+      let exec = await getGameExecutableFromProgramFiles(gameInfo)
+      gameInfo.install.executable = exec || undefined
+    }
+
+    await saveGameInfo(gameInfo)
 
     sendProgressUpdate({
       appName,
@@ -178,6 +221,7 @@ export async function install(
 
     return { status: 'done' }
   } catch (e) {
+    console.error(e)
     game.is_installed = false
     game.install = {}
     libraryStore.set('games', games)
@@ -253,7 +297,7 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
     throw new Error('not installed')
   }
   // TODO(alex-min): error management
-  await fs.rm(install_path, { recursive: true, force: true })
+  //  await fs.rm(install_path, { recursive: true, force: true })
   await saveGameInfo({ ...gameInfo, install: {}, is_installed: false })
   sendProgressUpdate({
     appName,
@@ -281,8 +325,21 @@ export async function forceUninstall(appName: string): Promise<void> {
   console.log('forceUninstall called with:', { appName })
 }
 
-export async function stop(appName: string, stopWine?: boolean): Promise<void> {
-  console.log('stop called with:', { appName, stopWine })
+export async function stop(appName: string): Promise<void> {
+  const {
+    install: { executable = undefined }
+  } = getGameInfo(appName)
+
+  if (executable) {
+    const split = executable.split('/')
+    const exe = split[split.length - 1]
+    killPattern(exe)
+
+    if (!isNative(appName)) {
+      const gameSettings = await getSettings(appName)
+      shutdownWine(gameSettings)
+    }
+  }
 }
 
 export async function isGameAvailable(appName: string): Promise<boolean> {

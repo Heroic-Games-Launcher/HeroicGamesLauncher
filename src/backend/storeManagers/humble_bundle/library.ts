@@ -10,6 +10,7 @@ import { logInfo, LogPrefix } from 'backend/logger'
 import { Order, OrderMap, Subproduct } from './constants'
 import { apiInfoCache, gridImageCache, libraryStore } from './electronStores'
 import { getGameInfo as getGameInfoGame } from './games'
+import { getAppDataDirectory } from 'backend/launcher'
 
 const defaultExecResult = {
   stderr: '',
@@ -42,7 +43,6 @@ export async function getInstallInfo(
     retries?: number
   }
 ): Promise<InstallInfo | undefined> {
-  console.log('getInstallInfo', { appName })
   const products = apiInfoCache.get('humble_api_info') || {}
   const product = products[appName]
 
@@ -63,7 +63,11 @@ export async function getInstallInfo(
   const downloadSize = size ? parseInt(size, 10) : 0
 
   return {
-    manifest: { download_size: downloadSize, disk_size: downloadSize * 2 },
+    manifest: {
+      download_size: downloadSize,
+      disk_size: downloadSize * 2,
+      app_name: appName
+    },
     game: {
       id: appName,
       version: '0',

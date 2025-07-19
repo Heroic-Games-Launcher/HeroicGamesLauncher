@@ -1900,6 +1900,34 @@ function getRunnerCallWithoutCredentials(
   ].join(' ')
 }
 
+async function getPathFromEnvVariable(appName: string, envVariable: string) {
+  if (isWindows) {
+    return process.env[envVariable]!
+  } else {
+    let gameSettings =
+      GameConfig.get(appName).config ||
+      (await GameConfig.get(appName).getSettings())
+    let result = await runWineCommand({
+      gameSettings,
+      commandParts: ['cmd', '/c', 'echo', `%${envVariable}%`],
+      wait: true
+    })
+
+    return getWinePath({ path: result.stdout, gameSettings })
+  }
+}
+
+export async function getAppDataDirectory(appName: string) {
+  return getPathFromEnvVariable(appName, 'APPDATA')
+}
+
+export async function getProgramfilesDirectory(appName: string) {
+  return [
+    await getPathFromEnvVariable(appName, 'ProgramFiles'),
+    await getPathFromEnvVariable(appName, 'ProgramFiles(x86)')
+  ]
+}
+
 /**
  * Converts Unix paths to Windows ones or vice versa
  * @param path The Windows/Unix path you have

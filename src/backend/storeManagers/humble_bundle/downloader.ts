@@ -2,8 +2,11 @@ import https from 'https'
 import fs from 'fs'
 import path from 'path'
 import unzipper from 'unzipper'
-import { readdir, stat } from 'fs/promises'
+import { readdir, stat, access } from 'fs/promises'
 import { pipeline, ZeroShotClassificationOutput } from '@xenova/transformers'
+import { URL } from 'url'
+import { GameInfo } from 'common/types'
+import { constants } from 'fs'
 
 export interface InstallProgress {
   bytes: string
@@ -24,6 +27,15 @@ type ClassificationResult = {
   }
 }
 
+async function fileExists(path: string) {
+  try {
+    await access(path, constants.F_OK)
+    return true
+  } catch {
+    return false
+  }
+}
+
 function formatBytes(bytes: number): string {
   const sizes = ['B', 'KB', 'MB', 'GB']
   if (bytes === 0) return '0 B'
@@ -37,19 +49,35 @@ function formatEta(seconds: number): string {
   return `${m}m ${s}s`
 }
 
-export function downloadAndExtractZip(
+export function downloadAndExtract(
   url: string,
   outputDir: string,
   progressCallback: (progress: InstallProgress) => void
 ): Promise<void> {
-  const tempZipPath = path.join(outputDir, 'temp.zip')
+  const executables = [
+    'application/octet-stream',
+    'application/x-msi',
+    'binary/octet-stream'
+  ]
+  if (
+    true ||
+    fs.existsSync(path.join(outputDir, '__extracted_successfully.txt'))
+  ) {
+    return new Promise((resolve) => resolve())
+  }
+  let outFilePath = path.join(outputDir, 'temp.zip')
   return new Promise((resolve, reject) => {
     https
       .get(url, (res) => {
         const total = parseInt(res.headers['content-length'] || '0', 10)
         if (!total) {
-          console.error('Missing content-length header.')
-          return
+          reject(new Error('missing content length'))
+        }
+        if (executables.includes(res.headers['content-type'] || '')) {
+          outFilePath = path.join(
+            outputDir,
+            path.basename(new URL(url).pathname)
+          )
         }
 
         let downloaded = 0
@@ -68,18 +96,21 @@ export function downloadAndExtractZip(
             eta: formatEta(eta),
             downSpeed: +(speed / 1024).toFixed(2), // KB/s
             folder: outputDir,
-            file: path.basename(tempZipPath)
+            file: path.basename(outFilePath)
           })
         })
 
-        const fileStream = fs.createWriteStream(tempZipPath)
+        const fileStream = fs.createWriteStream(outFilePath)
         res.pipe(fileStream)
 
         fileStream.on('finish', () => {
-          fs.createReadStream(tempZipPath)
+          if (executables.includes(res.headers['content-type'] || '')) {
+            return resolve()
+          }
+          fs.createReadStream(outFilePath)
             .pipe(unzipper.Extract({ path: outputDir }))
             .on('close', () => {
-              fs.unlinkSync(tempZipPath)
+              fs.unlinkSync(outFilePath)
               resolve()
             })
         })
@@ -91,68 +122,86 @@ export function downloadAndExtractZip(
   })
 }
 
-export async function findAllExeFiles(dir: string): Promise<string[]> {
-  const items = await readdir(dir)
+export async function findAllFiles(
+  dirs: string | string[],
+  extension: string | undefined = undefined
+): Promise<string[]> {
   const exeFiles: string[] = []
+  if (typeof dirs == 'string') {
+    dirs = [dirs]
+  }
+  for (let dir of dirs) {
+    const items = await readdir(dir)
 
-  for (const item of items) {
-    const fullPath = path.join(dir, item)
-    const itemStat = await stat(fullPath)
+    for (const item of items) {
+      const fullPath = path.join(dir, item)
+      const itemStat = await stat(fullPath)
 
-    if (itemStat.isDirectory()) {
-      const nestedExeFiles = await findAllExeFiles(fullPath)
-      exeFiles.push(...nestedExeFiles)
-    } else if (path.extname(item).toLowerCase() === '.exe') {
-      exeFiles.push(fullPath)
+      if (itemStat.isDirectory()) {
+        const nestedExeFiles = await findAllFiles(fullPath, extension)
+        exeFiles.push(...nestedExeFiles)
+      } else if (!extension || path.extname(item).toLowerCase() === extension) {
+        exeFiles.push(fullPath)
+      }
     }
   }
-
   return exeFiles
 }
 
-export async function findMainGameExecutable(dir: string) {
-  let executables = await findAllExeFiles(dir)
+export async function findMainGameExecutable(
+  game: GameInfo,
+  dir: string | string[],
+  extension = '.exe'
+) {
+  let executables = await findAllFiles(dir, extension)
   if (!executables.length) {
     return null
   }
 
-  const classifier = await pipeline(
-    'zero-shot-classification',
-    'MoritzLaurer/deberta-v3-xsmall-zeroshot-v1.1-all-33'
-  )
-  let results: ClassificationResult[] = []
-  for (let executable of executables) {
-    results.push({
-      exec: executable,
-      result: (await classifier(executable, [
-        'game',
-        'installer',
-        'tool',
-        'irrelevant'
-      ])) as ZeroShotClassificationOutput
+  if (executables.length == 1) {
+    return executables[0]
+  }
+
+  // We have multiple executables for this game
+  // we best guess which is the right one
+  // we might be wrong and some exceptions will be added by app_name here
+  const scores: { [key: string]: number } = {}
+  executables.forEach((exec) => {
+    scores[exec] ??= 0
+
+    let title = game.title.replace(/[^a-zA-Z0-9 ]/g, '')
+    // positive signals in the name
+    ;[
+      title,
+      game.app_name,
+      ...title.split(' '),
+      title.split(' ').join('')
+    ].forEach((signal) => {
+      scores[exec] += exec.match(new RegExp(signal, 'gi'))?.length ?? 0
     })
-  }
-  return findBestGameExecutable(results)
-}
 
-function findBestGameExecutable(
-  results: ClassificationResult[]
-): string | null {
-  let bestMatch: string | null = null
-  let highestScore = 0
+    // very positive signals
+    ;['launch', 'game', 'start'].forEach((signal) => {
+      scores[exec] += (exec.match(new RegExp(signal, 'gi'))?.length ?? 0) * 10
+    })
 
-  for (const { exec, result } of results) {
-    const gameIndex = result.labels.indexOf('game')
-    if (gameIndex === -1) continue
+    // very negative signals in the name
+    ;[
+      'uninstall',
+      'configure',
+      'unins000',
+      'restore',
+      'Joy2Key',
+      'readme'
+    ].forEach((signal) => {
+      scores[exec] -= (exec.match(new RegExp(signal, 'gi'))?.length ?? 0) * 10
+    })
+  })
 
-    const gameScore = result.scores[gameIndex]
-    if (gameScore > highestScore) {
-      highestScore = gameScore
-      bestMatch = exec
-    }
-  }
-
-  return bestMatch
+  const [bestExecutable, _] = Object.entries(scores).reduce((best, current) =>
+    current[1] > best[1] ? current : best
+  )
+  return bestExecutable
 }
 
 export async function fakeDownloadAndExtractZip(
