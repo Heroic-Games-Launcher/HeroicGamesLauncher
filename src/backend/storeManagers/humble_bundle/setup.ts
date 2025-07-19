@@ -42,7 +42,7 @@ export async function setup(gameInfo: GameInfo): Promise<void> {
 
 export async function getGameExecutableFromShortcuts(gameInfo: GameInfo) {
   const appData = await getAppDataDirectory(gameInfo.app_name)
-  const startIconMenuDirectory = isWindows ? 'C:\ProgramData\Microsoft\Windows\Start Menu': `${(await getSettings(gameInfo.app_name)).winePrefix}/drive_c/ProgramData/Microsoft/Windows/Start Menu/`
+  const startIconMenuDirectory = isWindows ? 'C:\\ProgramData\\Microsoft\\Windows\\Start Menu': `${(await getSettings(gameInfo.app_name)).winePrefix}/drive_c/ProgramData/Microsoft/Windows/Start Menu/`
 
   return await findMainGameExecutable(
     gameInfo,
