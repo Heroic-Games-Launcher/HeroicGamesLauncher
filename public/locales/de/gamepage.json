@@ -159,7 +159,7 @@
             "cancel": "Nein",
             "install": "Ja (Ich verstehe, dass es nicht funktionieren wird)",
             "ok": "Ok",
-            "disabled_installation": "Dieses Spiel verwendet Anticheat-Software, die nicht mit deinem Betriebssystem kompatibel ist oder deren Unterstützung von den Entwicklern nicht aktiviert wurde. Das bedeutet, dass die Multiplayer-Funktionen nicht funktionieren werden und es nichts gibt, was du (oder das Heroic-Team) dagegen tun können.<br /><br />Um das Spiel trotzdem zu installieren, gehe zu den Einstellungen, dann zu „Erweitert“ und aktiviere die Option, die Installation von Spielen mit defektem oder verweigertem Anticheat zu erlauben.<br /><br />Beachte, dass es keine Lösung dafür gibt und du das Risiko eingehst, im Spiel gebannt zu werden.",
+            "disabled_installation": "Die Anticheat Unterstützung des Spiels ist entweder kaputt oder der Zugriff darauf wurde verweigert. Die Multiplayer-Features werden deswegen wahrscheinlich nicht funktionieren. Das Spiel kann nicht installiert werden. Um dieses Spiel zu installieren, schalten Sie diese Prüfung in den erweiterten Einstellungen aus.",
             "install_anyway": "Ja (ich verstehe, dass die Multiplayer-Funktionen nicht funktionieren werden)",
             "multiplayer_message": "Die Anti-Cheat-Unterstützung ist defekt oder wird verweigert. Das Spiel kann zwar geöffnet werden, aber die Multiplayer-Funktionen funktionieren nicht. Möchten Sie es trotzdem installieren?"
         },
@@ -196,11 +196,17 @@
             "abort": "Installation abbrechen",
             "installation": "Steam-Installationspfad",
             "cancel": "Installation abbrechen",
-            "compatibility-layer-not-available": "Kompatibilitätsschicht nicht verfügbar. Bitte installiere zuerst eine aus „Einstellungen > Wine-Manager",
-            "crossover": "Wenn du  Crossover installiert hast, brauchst du das nicht mehr, da es Steam problemlos ausführen kann.",
+            "compatibility-layer-not-available": "Kompatibilitätsschicht nicht verfügbar. Bitte installiere zuerst eine aus „Einstellungen > Wine-Manager.",
+            "crossover": "Wenn du Crossover installiert hast, brauchst du das nicht mehr, da es Steam problemlos ausführen kann.",
             "downloading": "Lädt {{percent}}% herunter",
             "hardware": "Apple Silicon M1+ (für Intel-Macs funktioniert Steam mit Crossover)",
-            "launch": "Starte Steam mit der Heroic-Kompatibilitätsschicht"
+            "launch": "Starte Steam mit der Heroic-Kompatibilitätsschicht",
+            "install-tooltip": "Hiermit wird die Windowsversion von Steam des Spiels installiert. Unter Verwendung einer Heroic-Kompatibilitätsschicht. \n\nEinige Spiele, besonders ältere Titel oder sehr neue 3D-Spiele, oder solche mit Anti-Cheat-Komponenten, könnten möglicherweise nicht richtig funktionieren. \n\n    ",
+            "patience": "Wenn du fortfahren möchtest, sei bitte geduldig da der Vorgang einige Minuten benötigt. Die Dauer hängt von deiner Internetverbindung und der Systemkonfiguration ab.",
+            "select-path": "Wähle den Installationspfad für Steam",
+            "specificVersion-pt1": "Dies wird eine spezifische Steamversion herunterladen, von",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "durch Heroic nutzbar gemacht, da neuere Steam-Versionen nicht unter macOS funktionieren."
         }
     },
     "launch": {
@@ -236,7 +242,7 @@
             "useragent": "Benutzerdefinierter Agent"
         },
         "placeholder": {
-            "image": "Hier die URL eines Bildes einfügen",
+            "image": "Hier die URL eines Bildes einfügen oder eines auf deinem Computer auswählen",
             "title": "Einen Titel zum Spiel / zur Anwendung hinzufügen",
             "url": "Hier die URL des Spiels einfügen",
             "useragent": "Schreiben Sie hier einen benutzerdefinierten User-Agent, der für diese Browser-Anwendung/dieses Spiel verwendet werden soll"
@@ -278,7 +284,8 @@
         "goodie": "Kann nicht installiert werden",
         "prerequisites": "Installiere Voraussetzungen",
         "winetricks": "Winetrick Fehlerkorrekturen anwenden",
-        "redist": "Installiere weiterverteilbare Komponenten ({{redist}})"
+        "redist": "Installiere weiterverteilbare Komponenten ({{redist}})",
+        "importing": "Importiere"
     },
     "submenu": {
         "addShortcut": "Verknüpfung hinzufügen",
