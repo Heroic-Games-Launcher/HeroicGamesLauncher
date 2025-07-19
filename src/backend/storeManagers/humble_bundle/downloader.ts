@@ -121,10 +121,7 @@ export function downloadAndExtract(
           })
         }
       )
-      .on('error', (err) => {
-        // TODO(alex-min): Add logger
-        reject(err)
-      })
+      .on('error', (err) => reject(err))
       .end()
   })
 }

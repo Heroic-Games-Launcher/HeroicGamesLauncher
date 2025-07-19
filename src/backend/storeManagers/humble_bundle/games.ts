@@ -30,7 +30,7 @@ import {
 } from './setup'
 import { GameConfig } from 'backend/game_config'
 import { launchGame, runSetupCommand } from '../storeManagerCommon/games'
-import { logInfo, LogPrefix, logWarning } from 'backend/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { verifyWinePrefix } from 'backend/launcher'
 import { isWindows } from 'backend/constants/environment'
 import {
@@ -116,30 +116,26 @@ export async function install(
   appName: string,
   args: InstallArgs
 ): Promise<InstallResult> {
+  const product = getProductFromAppName(appName)
   const url = getDownloadUrl(appName)
-  if (!url) {
-    // TODO(alex-min): i18n errors?
-    return { status: 'error', error: 'No download url found' }
+  if (!product || !url) {
+    return { status: 'error' }
   }
 
   const games = libraryStore.get('games')
   if (!games) {
-    return { status: 'error', error: 'err' }
+    return { status: 'error' }
   }
 
   const game = games.find((game) => game.app_name == appName)
 
   if (!game) {
-    return { status: 'error', error: 'err' }
+    return { status: 'error' }
   }
   try {
     const path = join(args.path, game.folder_name || '')
     await mkdir(path, { recursive: true })
 
-    const sizeOnDisk = await getPathDiskSize(
-      join(args.path, game.folder_name || '')
-    )
-    console.log({ sizeOnDisk })
     const install_path = join(args.path, game.folder_name || '')
 
     game.install = {
@@ -148,7 +144,7 @@ export async function install(
       install_path,
       install_size: '',
       is_dlc: false,
-      version: '', // TODO(alex-min): change
+      version: '',
       appName,
       installedDLCs: []
     }
@@ -171,7 +167,9 @@ export async function install(
       install: {
         ...game.install,
         executable: executable || undefined,
-        install_size: '1MB' // TODO(alex-min): change
+        install_size:
+          product.downloads.find((url) => url.platform == 'windows')
+            ?.download_struct?.[0]?.human_size || ''
       }
     }
     await setup(gameInfo)
@@ -223,6 +221,7 @@ export async function install(
 
     return { status: 'done' }
   } catch (e) {
+    logError(`Unable to install game ${appName}: ${e}`, LogPrefix.Backend)
     console.error(e)
     game.is_installed = false
     game.install = {}
@@ -232,7 +231,7 @@ export async function install(
       runner: 'humble-bundle',
       status: 'error'
     })
-    return { status: 'error', error: 'install failed' }
+    return { status: 'error' }
   }
 }
 
