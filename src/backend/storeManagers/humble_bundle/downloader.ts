@@ -2,11 +2,9 @@ import https from 'https'
 import fs from 'fs'
 import path from 'path'
 import unzipper from 'unzipper'
-import { readdir, stat, access } from 'fs/promises'
-import { pipeline, ZeroShotClassificationOutput } from '@xenova/transformers'
+import { readdir, stat } from 'fs/promises'
 import { URL } from 'url'
 import { GameInfo } from 'common/types'
-import { constants } from 'fs'
 
 export interface InstallProgress {
   bytes: string
@@ -16,24 +14,6 @@ export interface InstallProgress {
   downSpeed?: number
   diskSpeed?: number
   file?: string
-}
-
-type ClassificationResult = {
-  exec: string
-  result: {
-    sequence: string
-    labels: string[]
-    scores: number[]
-  }
-}
-
-async function fileExists(path: string) {
-  try {
-    await access(path, constants.F_OK)
-    return true
-  } catch {
-    return false
-  }
 }
 
 function formatBytes(bytes: number): string {
@@ -59,66 +39,93 @@ export function downloadAndExtract(
     'application/x-msi',
     'binary/octet-stream'
   ]
-  if (
-    true ||
-    fs.existsSync(path.join(outputDir, '__extracted_successfully.txt'))
-  ) {
+  if (fs.existsSync(path.join(outputDir, '__extracted_successfully.txt'))) {
     return new Promise((resolve) => resolve())
   }
-  let outFilePath = path.join(outputDir, 'temp.zip')
+  const outFilePath = path.join(outputDir, 'temp.dl')
+  let finalFileName = ''
   return new Promise((resolve, reject) => {
+    let downloadedBytes = 0
+    if (fs.existsSync(outFilePath)) {
+      downloadedBytes = fs.statSync(outFilePath).size
+    }
     https
-      .get(url, (res) => {
-        const total = parseInt(res.headers['content-length'] || '0', 10)
-        if (!total) {
-          reject(new Error('missing content length'))
-        }
-        if (executables.includes(res.headers['content-type'] || '')) {
-          outFilePath = path.join(
+      .get(
+        url,
+        {
+          headers:
+            downloadedBytes > 0 ? { Range: `bytes=${downloadedBytes}-` } : {}
+        },
+        (res) => {
+          const acceptRanges = res.headers['accept-ranges'] === 'bytes'
+          console.log({ headers: res.headers })
+          console.log({ code: res.statusCode })
+          const statusResumable = acceptRanges
+          const canResume =
+            acceptRanges && downloadedBytes > 0 && statusResumable
+          const total =
+            parseInt(res.headers['content-length'] || '0', 10) +
+            (canResume ? downloadedBytes : 0)
+
+          if (!total) {
+            reject(new Error('missing content length'))
+          }
+          finalFileName = path.join(
             outputDir,
             path.basename(new URL(url).pathname)
           )
-        }
 
-        let downloaded = 0
-        const startTime = Date.now()
+          let downloaded = 0
+          const startTime = Date.now()
 
-        res.on('data', (chunk) => {
-          downloaded += chunk.length
-          const elapsed = (Date.now() - startTime) / 1000
-          const speed = downloaded / elapsed // bytes/sec
-          const remaining = total - downloaded
-          const eta = speed > 0 ? remaining / speed : 0
+          res.on('data', (chunk) => {
+            downloaded += chunk.length
+            const elapsed = (Date.now() - startTime) / 1000
+            const speed =
+              downloadedBytes > 0
+                ? (downloaded - downloadedBytes) / elapsed
+                : downloaded / elapsed
+            const remaining = total - downloaded
+            const eta = speed > 0 ? remaining / speed : 0
 
-          progressCallback({
-            bytes: formatBytes(downloaded),
-            percent: +((downloaded / total) * 100).toFixed(2),
-            eta: formatEta(eta),
-            downSpeed: +(speed / 1024).toFixed(2), // KB/s
-            folder: outputDir,
-            file: path.basename(outFilePath)
-          })
-        })
-
-        const fileStream = fs.createWriteStream(outFilePath)
-        res.pipe(fileStream)
-
-        fileStream.on('finish', () => {
-          if (executables.includes(res.headers['content-type'] || '')) {
-            return resolve()
-          }
-          fs.createReadStream(outFilePath)
-            .pipe(unzipper.Extract({ path: outputDir }))
-            .on('close', () => {
-              fs.unlinkSync(outFilePath)
-              resolve()
+            progressCallback({
+              bytes: formatBytes(downloaded),
+              percent: +((downloaded / total) * 100).toFixed(2),
+              eta: formatEta(eta),
+              downSpeed: +(speed / 1024).toFixed(2), // KB/s
+              folder: outputDir,
+              file: path.basename(outFilePath)
             })
-        })
-      })
+          })
+
+          const fileStream = fs.createWriteStream(outFilePath, {
+            flags: canResume ? 'a' : 'w'
+          })
+          res.pipe(fileStream)
+
+          fileStream.on('finish', () => {
+            if (executables.includes(res.headers['content-type'] || '')) {
+              fs.renameSync(outFilePath, finalFileName)
+              return resolve()
+            }
+            fs.createReadStream(outFilePath)
+              .pipe(unzipper.Extract({ path: outputDir }))
+              .on('close', () => {
+                fs.writeFileSync(
+                  path.join(outputDir, '__extracted_successfully.txt'),
+                  ''
+                )
+                fs.unlinkSync(outFilePath)
+                resolve()
+              })
+          })
+        }
+      )
       .on('error', (err) => {
         // TODO(alex-min): Add logger
         reject(err)
       })
+      .end()
   })
 }
 
@@ -130,7 +137,7 @@ export async function findAllFiles(
   if (typeof dirs == 'string') {
     dirs = [dirs]
   }
-  for (let dir of dirs) {
+  for (const dir of dirs) {
     const items = await readdir(dir)
 
     for (const item of items) {
@@ -153,7 +160,7 @@ export async function findMainGameExecutable(
   dir: string | string[],
   extension = '.exe'
 ) {
-  let executables = await findAllFiles(dir, extension)
+  const executables = await findAllFiles(dir, extension)
   if (!executables.length) {
     return null
   }
@@ -169,7 +176,8 @@ export async function findMainGameExecutable(
   executables.forEach((exec) => {
     scores[exec] ??= 0
 
-    let title = game.title.replace(/[^a-zA-Z0-9 ]/g, '')
+    const title = game.title.replace(/[^a-zA-Z0-9 ]/g, '')
+
     // positive signals in the name
     ;[
       title,
@@ -192,52 +200,16 @@ export async function findMainGameExecutable(
       'unins000',
       'restore',
       'Joy2Key',
-      'readme'
+      'readme',
+      'DirectX',
+      'DXSETUP'
     ].forEach((signal) => {
       scores[exec] -= (exec.match(new RegExp(signal, 'gi'))?.length ?? 0) * 10
     })
   })
 
-  const [bestExecutable, _] = Object.entries(scores).reduce((best, current) =>
+  const [bestExecutable] = Object.entries(scores).reduce((best, current) =>
     current[1] > best[1] ? current : best
   )
   return bestExecutable
-}
-
-export async function fakeDownloadAndExtractZip(
-  url: string,
-  outputDir: string,
-  progressCallback: (progress: InstallProgress) => void
-): Promise<void> {
-  const totalBytes = 100 * 1024 * 1024 // 100 MB
-  const duration = 300 // 5 minutes in seconds
-  const interval = 1000 // 1 second
-  const startTime = Date.now()
-  let elapsed = 0
-  let downloaded = 0
-
-  return new Promise((resolve) => {
-    const timer = setInterval(() => {
-      elapsed = (Date.now() - startTime) / 1000
-      const percent = Math.min((elapsed / duration) * 100, 100)
-      downloaded = Math.min((elapsed / duration) * totalBytes, totalBytes)
-      const remaining = duration - elapsed
-      const speed = downloaded / elapsed
-
-      progressCallback({
-        bytes: formatBytes(downloaded),
-        percent: +percent.toFixed(2),
-        eta: formatEta(remaining),
-        downSpeed: +(speed / 1024).toFixed(2),
-        folder: outputDir,
-        file: 'mock.zip'
-      })
-
-      if (elapsed >= duration) {
-        clearInterval(timer)
-        console.log('Fake download and extraction complete.')
-        resolve()
-      }
-    }, interval)
-  })
 }

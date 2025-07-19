@@ -1,8 +1,6 @@
-import { GameConfig } from 'backend/game_config'
 import {
   getAppDataDirectory,
   getProgramfilesDirectory,
-  verifyWinePrefix
 } from 'backend/launcher'
 import {
   getRunnerLogWriter,
@@ -10,20 +8,15 @@ import {
   logInfo,
   LogPrefix
 } from 'backend/logger'
-import { Winetricks } from 'backend/tools'
 import {
   checkWineBeforeLaunch,
-  getInfo,
-  getPathDiskSize,
   sendProgressUpdate
 } from 'backend/utils'
 import { GameInfo } from 'common/types'
-import { readFile } from 'fs/promises'
-import { readdir, stat } from 'fs/promises'
 import path from 'path'
 import { findAllFiles, findMainGameExecutable } from './downloader'
-import { getGameInfo, getSettings } from './games'
-import { launchGame, runSetupCommand } from '../storeManagerCommon/games'
+import { getSettings } from './games'
+import { runSetupCommand } from '../storeManagerCommon/games'
 import * as fs from 'fs'
 /**
  * Handles setup instructions like create folders, move files, run exe, create registry entry etc...
@@ -49,8 +42,6 @@ export async function setup(gameInfo: GameInfo): Promise<void> {
     return
   }
 
-  await verifyWinePrefix(gameSettings)
-
   logInfo('Setup: Finished', LogPrefix.HumbleBundle)
 }
 
@@ -74,8 +65,26 @@ export async function getGameExecutableFromProgramFiles(gameInfo: GameInfo) {
   return await findMainGameExecutable(gameInfo, programFiles, '.exe')
 }
 
-export async function checkIfInstaller(filePath: string): Promise<boolean> {
+type InstallerType =
+  | 'InnoSetup'
+  | 'InstallShield'
+  | 'Nullsoft'
+  | 'UnknownInstaller'
+
+export const silentInstallOption = {
+  InnoSetup: ['/silent'],
+  InstallShield: ['/s'],
+  Nullsoft: ['/S'],
+  UnknownInstaller: ['/s']
+}
+
+export async function checkIfInstaller(
+  filePath: string | null
+): Promise<InstallerType | null> {
   return new Promise((resolve, reject) => {
+    if (!filePath) {
+      return resolve(null)
+    }
     const signatures = ['Inno Setup', 'InstallShield', 'Nullsoft'].map((s) =>
       Buffer.from(s, 'ascii')
     )
@@ -90,18 +99,28 @@ export async function checkIfInstaller(filePath: string): Promise<boolean> {
       }
       const combined = Buffer.concat([prevChunk, chunk])
 
-      for (const sig of signatures) {
-        if (combined.includes(sig)) {
-          stream.destroy() // Stop reading early
-          return resolve(true)
-        }
+      if (combined.includes('Inno Setup')) {
+        stream.destroy()
+        return resolve('InnoSetup')
+      } else if (combined.includes('InstallShield')) {
+        stream.destroy()
+        return resolve('InstallShield')
+      } else if (combined.includes('Nullsoft')) {
+        stream.destroy()
+        return resolve('Nullsoft')
       }
 
       prevChunk = chunk.slice(-maxSigLen + 1) // keep tail for overlap
     })
 
     stream.on('error', (err) => reject(err))
-    stream.on('close', () => resolve(false))
+    stream.on('close', () => {
+      const filename = path.basename(filePath)
+      if (filename.includes('setup') || filename.includes('install')) {
+        return resolve('UnknownInstaller')
+      }
+      resolve(null)
+    })
   })
 }
 
@@ -110,7 +129,7 @@ export async function installAllMSIFiles(
   directory: string
 ) {
   const files = await findAllFiles(directory, '.msi')
-  for (let file of files) {
+  for (const file of files) {
     sendProgressUpdate({
       appName: gameInfo.app_name,
       runner: 'humble-bundle',

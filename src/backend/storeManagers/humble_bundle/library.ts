@@ -2,15 +2,13 @@ import {
   ExecResult,
   GameInfo,
   InstallInfo,
-  InstallPlatform,
   LaunchOption
 } from 'common/types'
 import { HumbleBundleUser } from './user'
-import { logInfo, LogPrefix } from 'backend/logger'
+import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { Order, OrderMap, Subproduct } from './constants'
 import { apiInfoCache, gridImageCache, libraryStore } from './electronStores'
 import { getGameInfo as getGameInfoGame } from './games'
-import { getAppDataDirectory } from 'backend/launcher'
 
 const defaultExecResult = {
   stderr: '',
@@ -26,23 +24,11 @@ export async function refresh(): Promise<ExecResult | null> {
   return defaultExecResult
 }
 
-export function getGameInfo(
-  appName: string,
-  forceReload?: boolean
-): GameInfo | undefined {
+export function getGameInfo(appName: string): GameInfo | undefined {
   return getGameInfoGame(appName)
 }
 
-export async function getInstallInfo(
-  appName: string,
-  installPlatform: InstallPlatform,
-  options: {
-    branch?: string
-    build?: string
-    lang?: string
-    retries?: number
-  }
-): Promise<InstallInfo | undefined> {
+export async function getInstallInfo(appName: string): Promise<InstallInfo | undefined> {
   const products = apiInfoCache.get('humble_api_info') || {}
   const product = products[appName]
 
@@ -50,10 +36,12 @@ export async function getInstallInfo(
     return undefined
   }
 
-  const url = product.downloads.find((url) => url.platform == 'windows')
-    ?.download_struct?.[0]?.url?.web
+  const downloadStruct = product.downloads.find(
+    (url) => url.platform == 'windows'
+  )?.download_struct?.[0]
+  const url = downloadStruct?.url?.web
 
-  if (!url) {
+  if (!url || !downloadStruct) {
     return undefined
   }
 
@@ -65,12 +53,14 @@ export async function getInstallInfo(
   return {
     manifest: {
       download_size: downloadSize,
-      disk_size: downloadSize * 2,
+      // we have no idea how much it takes on disk from the installer
+      // this data doesn't exist in humble bundle so we give 1.2x the installer
+      disk_size: downloadSize * 1.2,
       app_name: appName
     },
     game: {
       id: appName,
-      version: '0',
+      version: downloadStruct.build_version || '',
       cloud_saves_supported: false,
       external_activation: '',
       app_name: appName,
@@ -90,24 +80,20 @@ export function listUpdateableGames(): Promise<string[]> {
   return Promise.resolve([])
 }
 
-export function changeGameInstallPath(appName: string, newPath: string) {
-  return Promise.resolve()
+export function changeVersionPinnedStatus() {
+  logWarning(
+    'changeVersionPinnedStatus not implemented on Humble'
+  )
 }
 
-export function changeVersionPinnedStatus(appName: string, status: boolean) {}
+export function installState() {
+  logWarning(
+    'installState not implemented on Humble'
+  )
+}
 
-export function installState(appName: string, state: boolean) {}
-
-export function getLaunchOptions(
-  appName: string
-): LaunchOption[] | Promise<LaunchOption[]> {
-  return [
-    {
-      type: 'basic',
-      name: '',
-      parameters: ''
-    }
-  ]
+export function getLaunchOptions(): LaunchOption[] | Promise<LaunchOption[]> {
+  return []
 }
 
 async function loadGamesInAccount() {
@@ -115,7 +101,7 @@ async function loadGamesInAccount() {
     return
   }
 
-  console.log('refetching games humble')
+  refreshHumble();
 }
 
 async function refreshHumble() {

@@ -5,20 +5,19 @@ import {
   GameInfo,
   GameSettings,
   InstallArgs,
-  InstallPlatform,
   LaunchOption
 } from 'common/types'
 import { InstallResult, RemoveArgs } from 'common/types/game_manager'
-import { GOGCloudSavesLocation } from 'common/types/gog'
 import { apiInfoCache, libraryStore } from './electronStores'
 import { downloadAndExtract, findMainGameExecutable } from './downloader'
 import {
   getPathDiskSize,
   killPattern,
+  sendGameStatusUpdate,
   sendProgressUpdate,
   shutdownWine
 } from 'backend/utils'
-import { join } from 'path'
+import { dirname, join } from 'path'
 import { mkdir } from 'fs/promises'
 import { promises as fs } from 'fs'
 import {
@@ -26,12 +25,20 @@ import {
   getGameExecutableFromProgramFiles,
   getGameExecutableFromShortcuts,
   installAllMSIFiles,
-  setup
+  setup,
+  silentInstallOption
 } from './setup'
 import { GameConfig } from 'backend/game_config'
 import { launchGame, runSetupCommand } from '../storeManagerCommon/games'
-import { getRunnerLogWriter } from 'backend/logger'
-import { exec } from 'child_process'
+import { logInfo, LogPrefix, logWarning } from 'backend/logger'
+import { verifyWinePrefix } from 'backend/launcher'
+import { isWindows } from 'backend/constants/environment'
+import {
+  addShortcuts as addShortcutsUtil,
+  removeShortcuts as removeShortcutsUtil
+} from '../../shortcuts/shortcuts/shortcuts'
+import { removeRecentGame } from 'backend/recent_games/recent_games'
+import { removePrefix } from 'backend/utils/uninstaller'
 
 function getProductFromAppName(appName: string) {
   const products = apiInfoCache.get('humble_api_info') || {}
@@ -87,13 +94,8 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   }
 }
 
-export async function importGame(
-  appName: string,
-  path: string,
-  platform: InstallPlatform
-): Promise<ExecResult> {
-  console.log('importGame called with:', { appName, path, platform })
-  return {} as ExecResult
+export async function importGame(): Promise<ExecResult> {
+  return { stderr: '', stdout: '' }
 }
 
 export function onInstallOrUpdateOutput(
@@ -173,9 +175,9 @@ export async function install(
       }
     }
     await setup(gameInfo)
+    await verifyWinePrefix(await getSettings(gameInfo.app_name))
 
     const msiFiles = await installAllMSIFiles(game, install_path)
-    //
 
     let installer = false
 
@@ -183,15 +185,15 @@ export async function install(
       installer = true
     }
 
-    if (executable && (await checkIfInstaller(executable))) {
-      installer = true
+    const installerKind = await checkIfInstaller(executable)
+    if (installerKind && executable) {
       sendProgressUpdate({
         appName: gameInfo.app_name,
         runner: 'humble-bundle',
         status: 'installing'
       })
       await runSetupCommand({
-        commandParts: [executable, '/silent'],
+        commandParts: [executable, ...silentInstallOption[installerKind]],
         gameSettings: await getSettings(gameInfo.app_name),
         wait: true,
         protonVerb: 'run',
@@ -207,11 +209,11 @@ export async function install(
     }
 
     if (!gameInfo.install.executable) {
-      let exec = await getGameExecutableFromProgramFiles(gameInfo)
+      const exec = await getGameExecutableFromProgramFiles(gameInfo)
       gameInfo.install.executable = exec || undefined
     }
 
-    await saveGameInfo(gameInfo)
+    saveGameInfo(gameInfo)
 
     sendProgressUpdate({
       appName,
@@ -234,20 +236,20 @@ export async function install(
   }
 }
 
-export function isNative(appName: string): boolean {
-  console.log('isNative called with:', { appName })
-  return false
+export function isNative(): boolean {
+  // The humble integration only supports windows games at the moment
+  return isWindows
 }
 
 export async function addShortcuts(
   appName: string,
   fromMenu?: boolean
 ): Promise<void> {
-  console.log('addShortcuts called with:', { appName, fromMenu })
+  return addShortcutsUtil(getGameInfo(appName), fromMenu)
 }
 
 export async function removeShortcuts(appName: string): Promise<void> {
-  console.log('removeShortcuts called with:', { appName })
+  return removeShortcutsUtil(getGameInfo(appName))
 }
 
 export async function launch(
@@ -255,7 +257,6 @@ export async function launch(
   logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args?: string[],
-  skipVersionCheck?: boolean
 ): Promise<boolean> {
   return launchGame(
     appName,
@@ -266,63 +267,71 @@ export async function launch(
   )
 }
 
-export async function moveInstall(
-  appName: string,
-  newInstallPath: string
-): Promise<InstallResult> {
-  console.log('moveInstall called with:', { appName, newInstallPath })
-  return {} as InstallResult
+export async function moveInstall(appName: string): Promise<InstallResult> {
+  logWarning(
+    `moveInstall not implemented on Humble Bundle. called for appName = ${appName}`
+  )
+  return { status: 'error' }
 }
 
 export async function repair(appName: string): Promise<ExecResult> {
-  console.log('repair called with:', { appName })
-  return {} as ExecResult
-}
-
-export async function syncSaves(
-  appName: string,
-  arg: string,
-  path: string,
-  gogSaves?: GOGCloudSavesLocation[]
-): Promise<string> {
-  console.log('syncSaves called with:', { appName, arg, path, gogSaves })
-  return ''
-}
-
-export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
-  getProductFromAppName(appName)
   const gameInfo = getGameInfo(appName)
-  const install_path = gameInfo.install?.install_path
-  if (!install_path) {
-    throw new Error('not installed')
-  }
-  // TODO(alex-min): error management
-  //  await fs.rm(install_path, { recursive: true, force: true })
-  await saveGameInfo({ ...gameInfo, install: {}, is_installed: false })
-  sendProgressUpdate({
-    appName,
-    runner: 'humble-bundle',
-    status: 'notInstalled'
-  })
+  await verifyWinePrefix(await getSettings(gameInfo.app_name))
   return { stderr: '', stdout: '' }
 }
 
-export async function update(
-  appName: string,
-  updateOverwrites?: {
-    build?: string
-    branch?: string
-    language?: string
-    dlcs?: string[]
-    dependencies?: string[]
+export async function syncSaves(): Promise<string> {
+  // there's no online saves with humble bundle
+  return ''
+}
+
+export async function uninstall({
+  appName,
+  shouldRemovePrefix,
+  deleteFiles = false
+}: RemoveArgs): Promise<ExecResult> {
+  sendGameStatusUpdate({
+    appName,
+    runner: 'humble-bundle',
+    status: 'uninstalling'
+  })
+
+  const old = libraryStore.get('games', [])
+  const current = old.filter((a: GameInfo) => a.app_name !== appName)
+
+  const gameInfo = getGameInfo(appName)
+  const { install: { executable }} = gameInfo
+
+  if (shouldRemovePrefix) {
+    removePrefix(appName, 'humble-bundle')
   }
-): Promise<InstallResult> {
-  console.log('update called with:', { appName, updateOverwrites })
-  return {} as InstallResult
+  libraryStore.set('games', current)
+
+  if (deleteFiles && executable !== undefined) {
+    fs.rmdir(dirname(executable), { recursive: true })
+  }
+
+  removeShortcutsUtil(gameInfo)
+  removeRecentGame(appName)
+
+  sendGameStatusUpdate({
+    appName,
+    runner: 'humble-bundle',
+    status: 'done'
+  })
+
+  logInfo('finished uninstalling', LogPrefix.Backend)
+  return { stderr: '', stdout: '' }
+}
+
+export async function update(): Promise<InstallResult> {
+  return { status: 'error' }
 }
 
 export async function forceUninstall(appName: string): Promise<void> {
-  console.log('forceUninstall called with:', { appName })
+  logWarning(
+    `forceUninstall not implemented on Humble. called for appName = ${appName}`
+  )
 }
 
 export async function stop(appName: string): Promise<void> {
@@ -335,7 +344,7 @@ export async function stop(appName: string): Promise<void> {
     const exe = split[split.length - 1]
     killPattern(exe)
 
-    if (!isNative(appName)) {
+    if (!isNative()) {
       const gameSettings = await getSettings(appName)
       shutdownWine(gameSettings)
     }

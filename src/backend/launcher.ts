@@ -1904,10 +1904,10 @@ async function getPathFromEnvVariable(appName: string, envVariable: string) {
   if (isWindows) {
     return process.env[envVariable]!
   } else {
-    let gameSettings =
+    const gameSettings =
       GameConfig.get(appName).config ||
       (await GameConfig.get(appName).getSettings())
-    let result = await runWineCommand({
+    const result = await runWineCommand({
       gameSettings,
       commandParts: ['cmd', '/c', 'echo', `%${envVariable}%`],
       wait: true
