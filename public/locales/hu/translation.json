@@ -365,7 +365,9 @@
         "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Az engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken.",
         "dxfpslimit": "Képkockaszámkorlátot állít be a DXVK-s játékokhoz",
         "advertiseAvxForRosetta": "Engedélyezi az AVX utasításkészlet támogatását, ha windowsos játékokat futtat a Rosettával az Apple Silicon Maceken. Ez az olyan játékok esetén lehet szükséges, mint a Death Stranding, amelyhez AVX támogatás szükséges.",
-        "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni."
+        "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni.",
+        "wine-hdr": "A HDR javítja a színeket azáltal, hogy világosabb fényeket és mélyebb kontrasztokat biztosít. A HDR működéséhez mind a kijelzőnek, mind a játéknak támogatnia kell azt.",
+        "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat."
     },
     "info": {
         "heroic": {
@@ -410,7 +412,9 @@
         "toggleLayout": {
             "grid": "Rács elrendezés engedélyezése",
             "list": "Lista elrendezés engedélyezése"
-        }
+        },
+        "hideAlphabetFilter": "Betűrendes szűrő elrejtése",
+        "showAlphabetFilter": "Betűrendes szűrő megjelenítése"
     },
     "Library": "Könyvtár",
     "loading": {
@@ -473,6 +477,9 @@
             "started": "A frissítés elindult",
             "failed": "A frissítés sikertelen",
             "paused": "A frissítés szünetel"
+        },
+        "import": {
+            "failed": "Az importálás nem sikerült"
         }
     },
     "offline-message": {
@@ -734,7 +741,8 @@
             "missingMsg": "A gamescope nem található a PATH-on. Telepítse, vagy adja hozzá a PATH-hoz.",
             "enableLimiter": "FPS korlátozó engedélyezése",
             "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése",
-            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 24.08-as futtatókörnyezettel, és indítsa újra a Heroicot."
+            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 24.08-as futtatókörnyezettel, és indítsa újra a Heroicot.",
+            "warningFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 24.08-as futtatókörnyezettel, és indítsa újra a Heroicot."
         },
         "disablePlaytimeSync": "Játék közbeni szinkronizáció letiltása",
         "experimental_features": {
@@ -764,7 +772,14 @@
         },
         "advertiseAvxForRosetta": "AVX hirdetése a Rosetta esetén",
         "dxfpslimit": "A DirectX-es játékok FPS-ének korlátozása",
-        "download-proton-steam": "A GE-Proton letöltése a Steam könyvtárába"
+        "download-proton-steam": "A GE-Proton letöltése a Steam könyvtárába",
+        "hdr": "HDR engedélyezése",
+        "wineWayland": "Wine-Wayland engedélyezése (Kísérleti) (A Wine verziónak támogatnia kell)",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Biztos benne?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
