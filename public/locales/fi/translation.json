@@ -680,6 +680,11 @@
                 "understand": "Ymmärrän",
                 "title": "Oletko varma?"
             }
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Oletko varma?"
+            }
         }
     },
     "settings": {
