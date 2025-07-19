@@ -735,7 +735,12 @@
         },
         "before-launch-script-path": "Vyberte skript, ktorý sa má spustiť pred spustením hry",
         "disablePlaytimeSync": "Vypnúť Synchronizáciu Hrania",
-        "after-launch-script-path": "Vyberte skript, ktorý sa má spustiť po ukončení hry"
+        "after-launch-script-path": "Vyberte skript, ktorý sa má spustiť po ukončení hry",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Ste si istý?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
