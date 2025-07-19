@@ -244,3 +244,9 @@ async function searchImage(title: string) {
   }
   return null
 }
+
+export async function changeGameInstallPath(): Promise<void> {
+  logWarning(
+    `changeGameInstallPath not implemented on Humble Bundle`
+  )
+}
