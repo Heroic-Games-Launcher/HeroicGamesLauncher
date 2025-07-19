@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Hrát",
-            "stop": "Hraji (Zastavit)"
+            "stop": "Hraji (Zastavit)",
+            "start_with_logs": "Hrát nyní (s protokoly)"
         },
         "saves": {
             "syncing": "Synchronizuji uložené soubory"

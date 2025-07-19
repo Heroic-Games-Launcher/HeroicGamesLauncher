@@ -569,7 +569,12 @@
         "start-in-tray": "Pradėti minimizuotai",
         "showMetalOverlay": "Rodyti perdangos statistiką",
         "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)",
-        "disableUMU": "Išjungti/Išgalinti „UMU“"
+        "disableUMU": "Išjungti/Išgalinti „UMU“",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Ar Jūs esate tikra/-s?"
+            }
+        }
     },
     "settings": {
         "advanced": {

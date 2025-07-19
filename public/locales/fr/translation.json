@@ -474,6 +474,9 @@
             "started": "Mise à jour commencée",
             "paused": "Mise à jour suspendue",
             "failed": "Mise à jour échouée"
+        },
+        "import": {
+            "failed": "L'importation a échoué"
         }
     },
     "offline-message": {
@@ -743,7 +746,8 @@
             "enableUpscaling": "Activer la mise à l'échelle",
             "missingMsg": "Nous n'avons pas pu trouver gamescope dans ce PATH. Installez-le ou ajoutez-le au PATH.",
             "enableForceGrabCursor": "Activer « Force Grab Cursor »",
-            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 24.08 et redémarrez Heroic."
+            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 24.08 et redémarrez Heroic.",
+            "warningFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 24.08 et redémarrez Heroic."
         },
         "msync": "Activer Msync",
         "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",
@@ -765,7 +769,12 @@
         "disableUMU": "Désactiver umu",
         "download-proton-steam": "Télécharger GE-Proton dans le dossier de Steam",
         "advertiseAvxForRosetta": "Promouvoir AVX pour Rosetta",
-        "dxfpslimit": "Limiter les FPS des jeux DirectX"
+        "dxfpslimit": "Limiter les FPS des jeux DirectX",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Êtes-vous sûr(e) ?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -983,7 +992,7 @@
     },
     "emptyLibrary": {
         "noResults": "Les filtres actuels n'ont retourné aucun résultat.",
-        "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la Bibliothèque.<br /><br />Si vous souhaitez ajouter des jeux ou des applications provenant d'autres sources, cliquez sur <br />."
+        "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la Bibliothèque.<br /><br />Pour utiliser des jeux ou des applications provenant d'autres sources, cliquez pour les ajouter manuellement<br />."
     },
     "adtraction-locked": {
         "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",

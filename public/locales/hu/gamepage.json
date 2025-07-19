@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Indítás most",
-            "stop": "Játékban (leállítás)"
+            "stop": "Játékban (leállítás)",
+            "start_with_logs": "Indítás most (naplóval)"
         },
         "saves": {
             "syncing": "Mentések szinkronizálása"

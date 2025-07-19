@@ -169,7 +169,8 @@
         "steam": {
             "installing": "Đang cài đặt",
             "pleaseWait": "Please wait...",
-            "installation": "Dừng quá trình cài đặt"
+            "installation": "Dừng quá trình cài đặt",
+            "install-path": "Chọn thư mục cài đặt Steam"
         }
     },
     "launch": {

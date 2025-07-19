@@ -366,7 +366,9 @@
         "msync": "Msync 旨在减少 wineserver 在 CPU 消耗巨大的游戏中的开销。开启它可能会改善受支持的 Linux 内核上的性能。",
         "download_proton_steam": "启用后，GE-Proton 将被直接下载到 Steam 兼容性工具目录而非默认的 Heroic 路径。它会使用上方 “默认 Steam 路径”设置中设定的 Steam 路径。",
         "dxfpslimit": "设置 DirectX 游戏（9-12）的帧率上限",
-        "advertiseAvxForRosetta": "在 Apple Silicon Mac 机器上通过 Rosetta 运行 Windows 游戏时启用 AVX 指令集支持。这对于一些需要 AVX 支持的游戏如《死亡搁浅》等来说可能是必需的。"
+        "advertiseAvxForRosetta": "在 Apple Silicon Mac 机器上通过 Rosetta 运行 Windows 游戏时启用 AVX 指令集支持。这对于一些需要 AVX 支持的游戏如《死亡搁浅》等来说可能是必需的。",
+        "wine-hdr": "HDR 提供更明亮的高潮和更深的对比增强色彩。要让 HDR 工作，显示器和游戏都必须支持 HDR。",
+        "wine-wayland": "Wine-Wayland 实验性驱动允许游戏在 Wayland 显示协议下原生运行。启用可能破坏一些游戏。"
     },
     "info": {
         "heroic": {
@@ -393,7 +395,7 @@
         "wine-repfix": {
             "message": "Wine 使用所谓的 WINEPREFIX 来封装 Windows 应用程序。这个前缀包含 Wine 配置文件和 C:(Windows操作系统上的主磁盘) 文件层次结构的副本。你的游戏保存文件和通过 winetricks 安装的依赖项存储在这个复制的 C:驱动器中。"
         },
-        "wine-path-invalid": "Wine Path 无效，请选择另一个。",
+        "wine-path-invalid": "Wine 路径无效，请选择另一个。",
         "wine-path-none-found": "没有找到 Wine 版本，从 Wine Manager 下载一个"
     },
     "install": {
@@ -476,6 +478,9 @@
             "started": "更新已开始",
             "failed": "更新失败",
             "paused": "更新暂停"
+        },
+        "import": {
+            "failed": "导入失败"
         }
     },
     "offline-message": {
@@ -739,7 +744,8 @@
             "enableUpscaling": "启用分辨率提升",
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
             "enableForceGrabCursor": "启用强制抓取指针",
-            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 24.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic."
+            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 24.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
+            "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
         },
         "frameless-window": {
             "confirmation": {
@@ -768,7 +774,21 @@
         },
         "download-proton-steam": "下载 GE-Proton 到 Steam 目录",
         "dxfpslimit": "限制 DirectX 游戏的每秒帧率",
-        "advertiseAvxForRosetta": "通告 Rosetta 的 AVX 支持"
+        "advertiseAvxForRosetta": "通告 Rosetta 的 AVX 支持",
+        "hdr": "启用 HDR",
+        "wineWayland": "启用 Wine-Wayland (实验性）（Wine 版本需要支持它）",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "你确定吗？",
+                "dont_show": "不显示它们",
+                "message": "我们推荐 GE-Proton 和 Heroic 启动器一起使用，因为非 GE-Proton 构建缺少 winetricks 和 proton 修复。如果你愿意还是可以使用它们。",
+                "show": "了解，显示它们"
+            },
+            "label": "允许使用非 GE-Proton 构建运行游戏",
+            "wine_selector_warning": "非 GE 版本的 Proton 默认被忽略，在高级全局设置中启用它们",
+            "info_label": "忽略了非 GE Proton 版本"
+        },
+        "no-tray-icon": "隐藏系统托盘图标（需要重启）"
     },
     "settings": {
         "battlEyeRuntime": {

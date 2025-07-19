@@ -761,6 +761,11 @@
         },
         "verboseLogs": {
             "description": "Ayrıntılı günlükleri etkinleştir"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Emin misiniz?"
+            }
         }
     },
     "settings": {
