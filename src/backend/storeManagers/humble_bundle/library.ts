@@ -1,9 +1,4 @@
-import {
-  ExecResult,
-  GameInfo,
-  InstallInfo,
-  LaunchOption
-} from 'common/types'
+import { ExecResult, GameInfo, InstallInfo, LaunchOption } from 'common/types'
 import { HumbleBundleUser } from './user'
 import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { Order, OrderMap, Subproduct } from './constants'
@@ -28,7 +23,9 @@ export function getGameInfo(appName: string): GameInfo | undefined {
   return getGameInfoGame(appName)
 }
 
-export async function getInstallInfo(appName: string): Promise<InstallInfo | undefined> {
+export async function getInstallInfo(
+  appName: string
+): Promise<InstallInfo | undefined> {
   const products = apiInfoCache.get('humble_api_info') || {}
   const product = products[appName]
 
@@ -81,15 +78,11 @@ export function listUpdateableGames(): Promise<string[]> {
 }
 
 export function changeVersionPinnedStatus() {
-  logWarning(
-    'changeVersionPinnedStatus not implemented on Humble'
-  )
+  logWarning('changeVersionPinnedStatus not implemented on Humble')
 }
 
 export function installState() {
-  logWarning(
-    'installState not implemented on Humble'
-  )
+  logWarning('installState not implemented on Humble')
 }
 
 export function getLaunchOptions(): LaunchOption[] | Promise<LaunchOption[]> {
@@ -101,7 +94,7 @@ async function loadGamesInAccount() {
     return
   }
 
-  refreshHumble();
+  refreshHumble()
 }
 
 async function refreshHumble() {
@@ -246,7 +239,5 @@ async function searchImage(title: string) {
 }
 
 export async function changeGameInstallPath(): Promise<void> {
-  logWarning(
-    `changeGameInstallPath not implemented on Humble Bundle`
-  )
+  logWarning(`changeGameInstallPath not implemented on Humble Bundle`)
 }

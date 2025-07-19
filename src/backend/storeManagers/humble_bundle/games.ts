@@ -256,7 +256,7 @@ export async function launch(
   appName: string,
   logWriter: LogWriter,
   launchArguments?: LaunchOption,
-  args?: string[],
+  args?: string[]
 ): Promise<boolean> {
   return launchGame(
     appName,
@@ -300,7 +300,9 @@ export async function uninstall({
   const current = old.filter((a: GameInfo) => a.app_name !== appName)
 
   const gameInfo = getGameInfo(appName)
-  const { install: { executable }} = gameInfo
+  const {
+    install: { executable }
+  } = gameInfo
 
   if (shouldRemovePrefix) {
     removePrefix(appName, 'humble-bundle')

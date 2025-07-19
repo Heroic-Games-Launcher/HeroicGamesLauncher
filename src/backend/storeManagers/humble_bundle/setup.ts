@@ -1,17 +1,11 @@
-import {
-  getAppDataDirectory,
-  getProgramfilesDirectory,
-} from 'backend/launcher'
+import { getAppDataDirectory, getProgramfilesDirectory } from 'backend/launcher'
 import {
   getRunnerLogWriter,
   logError,
   logInfo,
   LogPrefix
 } from 'backend/logger'
-import {
-  checkWineBeforeLaunch,
-  sendProgressUpdate
-} from 'backend/utils'
+import { checkWineBeforeLaunch, sendProgressUpdate } from 'backend/utils'
 import { GameInfo } from 'common/types'
 import path from 'path'
 import { findAllFiles, findMainGameExecutable } from './downloader'
