@@ -366,7 +366,9 @@
         "msync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
         "dxfpslimit": "Configura un límite de cuadros por segundo para juegos con DXVK",
         "advertiseAvxForRosetta": "Activa el set de soporte de instrucciones AVX cuando se ejecutan juegos de Windows a través de Rosetta en computadoras Apple Sillicon. Esto podría ser requerido por algunos juegos como Death Stranding que necesita soporte AVX.",
-        "download_proton_steam": "Si se activa, GE-Proton se descargará directamente en el directorio de herramientas de compatibilidad de Steam en lugar de la ruta por defecto de Heroic. Se usará la ruta de Steam de la configuración 'Ruta por defecto de Steam' más arriba."
+        "download_proton_steam": "Si se activa, GE-Proton se descargará directamente en el directorio de herramientas de compatibilidad de Steam en lugar de la ruta por defecto de Heroic. Se usará la ruta de Steam de la configuración 'Ruta por defecto de Steam' más arriba.",
+        "wine-hdr": "El HDR mejora los colores proporcionando resaltes más brillantes y contrastes más profundos. Para que el HDR funcione, tanto la pantalla como el juego deben ser compatibles.",
+        "wine-wayland": "El driver experimental Wine-Wayland permite a los juegos ejecutarse nativamente usando el protocolo de Wayland. Activarlo puede causar problemas en algunos juegos."
     },
     "info": {
         "heroic": {
@@ -411,7 +413,9 @@
         "toggleLayout": {
             "grid": "Cambiar a vista de grilla",
             "list": "Cambiar a vista de lista"
-        }
+        },
+        "hideAlphabetFilter": "Ocultar Filtro del Alfabeto",
+        "showAlphabetFilter": "Mostar filtro del alfabeto"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -474,6 +478,9 @@
             "started": "Actualización iniciada",
             "failed": "Actualización fallida",
             "paused": "Actualización en pausa"
+        },
+        "import": {
+            "failed": "Fallo en la importación"
         }
     },
     "offline-message": {
@@ -743,7 +750,9 @@
             "enableLimiter": "Activar el limitador de FPS",
             "enableUpscaling": "Permite la ampliación",
             "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH.",
-            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic."
+            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic.",
+            "enableForceGrabCursor": "Activar Forzar Agarrar Cursor",
+            "warningFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic."
         },
         "msync": "Habilitar Esync",
         "allow_installation_broken_anticheat": {
@@ -764,7 +773,22 @@
         "custom_css": {
             "warning": "Advertencia: esto se aplica a todo el frontend. Eso significa que el estilo incorrecto podría provocar que Heroic no se pueda usar. De ser necesario, la configuración se puede cambiar manualmente en `~/.config/heroic/config.json`. NO COPIAR estilos de fuentes no confiables."
         },
-        "disableUMU": "Desactivar umu"
+        "disableUMU": "Desactivar umu",
+        "advertiseAvxForRosetta": "Mostrar AVX a Rosetta",
+        "hdr": "Activar HDR",
+        "wineWayland": "Activar Wine-Wayland (Experimental) (La version de Wine debe ser compatible)",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "¿Estas seguro/a?",
+                "dont_show": "No los enseñes",
+                "message": "Recomendamos usar Protón GE con Heroic, ya que las versiones de Proton que no sean GE carecen de winetricks y protofixes. Puedes usarlos si quieres.",
+                "show": "Lo entiendo, enseñalos"
+            },
+            "info_label": "Se ignoran versiones de Proton que no sean GE",
+            "label": "Permitir usar versiones de Proton que no sean GE para ejecutar juegos",
+            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuracion Avanzada Global"
+        },
+        "no-tray-icon": "Ocultar el icono de la bandeja del sistema (requiere reiniciar)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -958,7 +982,9 @@
         "openGUI": "Abrir la GUI de Winetricks",
         "search": "Buscar fuentes o componentes",
         "nothingYet": "Winetricks aún no ha instalado nada",
-        "installed": "Componentes instalados:"
+        "installed": "Componentes instalados:",
+        "loading-available": "Cargando componentes disponibles ...",
+        "no-components": "Ningún componente disponible"
     },
     "window": {
         "maximize": "Maximizar la ventana",
@@ -1009,8 +1035,42 @@
             },
             "filters": "Filtra tus juegos por tienda, plataforma, favorites, y más usando estas opciones.",
             "categories": "Organiza tus juegos en categorías para mantener las cosas ordenadas.",
-            "addGame": "Agrega tus propios juegos y apps haciendo click aquí. Pueden ser básicamente cualquier cosa, incluso URLs web."
-        }
+            "addGame": "Agrega tus propios juegos y apps haciendo click aquí. Pueden ser básicamente cualquier cosa, incluso URLs web.",
+            "gameCard": "Clic Izquierdo en la tarjeta de juego para navegar a la pagina del juego y para ver detalles y ajustar los ajustes o Clic derecho para abrir el menú de contexto.",
+            "refresh": "Refresca tu librería para revisar nuevos juegos o actualizaciones.",
+            "search": "Usa la barra de búsqueda para buscar por tus juegos.",
+            "sortInstalled": "Organiza juegos por el status de descarga.",
+            "sortOptions": "Haz clic acá para organizar juegos alfabéticamente.",
+            "steamInstall": "Usa este botón para instalar la versión de Windows de Steam y poder jugar tus juegos de windows usando Crossover, Wine o GPTK.",
+            "welcome": {
+                "intro": "Bienvenido a la librería de Heroic! Acá es donde tu puedes ver todos tus juegos atravez de diferentes tiendas digitales.",
+                "intro2": "Si la libreria esta vacia, asegurate de iniciar sesion con tus cuentas usando el boton que dice \"Manejar cuentas\" en la barra lateral o añade tus propios juegos usando el boton de Añadir Juego arriba.",
+                "title": "Bienvenido a Heroic!",
+                "title2": "Gestionando la biblioteca!"
+            },
+            "viewToggle": "Cambia entre las vistas de cuadrícula y de lista para tus juegos."
+        },
+        "next": "Siguiente",
+        "sidebar": {
+            "accessibility": "Accede a funciones de accesibilidad para customizar tu experiencia.",
+            "accounts": "Maneja tu cuenta de tiendas digitales (Epic, GOG, Amazon), termina tu sesion o inicia sesion con ellas.",
+            "community": "Unete a nuestra comunidad en Discord y ayuda el desarrollo de Heroic.",
+            "docs": "Lee la documentación para ayuda usando Heroic.",
+            "downloads": "Sigue y maneja tus descargas de juegos e instalaciones.",
+            "library": "Accede tu librería de juegos de diferentes tiendas en un solo lugar.",
+            "login": "Inicia sesión a tus cuentas de tienda de juego para acceder a tu librería.",
+            "quit": "Sal de la aplicación seguramente.",
+            "settings": "Configura los ajustes de Heroic, juegos predeterminados, comprobar registros y mas.",
+            "stores": "Navega y compra juegos en diferentes tiendas incluyendo Epic, GOG y Amazon.",
+            "version": "Revisa tu versión de Heroic, haz clic para ver su registro de cambios y accede este tour desde el botón de ayuda.",
+            "welcome": {
+                "intro": "Bienvenido a Heroic! Esta barra lateral controla toda las opciones de navegación para explorar la app.",
+                "title": "Navegacion de la barra lateral"
+            },
+            "wine": "Maneja o descarga nuevas versiones de Wine/Proton/GPTK para correr juegos de Widows en Linux o en macOS."
+        },
+        "skip": "Saltar",
+        "startTour": "Empezar tour"
     },
     "notification": {
         "steam": {
