@@ -1,0 +1,44 @@
+{
+    "accessibility": {
+        "all_tiles_in_color": "सबै गेम टाइलहरूलाई रंगमा देखाउने",
+        "fonts": "फन्ट",
+        "zoom": "जूम गर्ने",
+        "disable_smooth_scrolling": "स्मूद स्क्रोलिङ बन्द गर्नुहोस् (पुनः Heroic सुरु गर्नु पर्छ)"
+    },
+    "adtraction-locked": {
+        "description": "track.adtraction.com डोमेन लोड गर्न असफल भएको देखिन्छ। Adtraction सँग, तपाईंले GOG स्टोरमा कुनै पनि कुरा किन्नुभयो भने यसले Heroic लाई आर्थिक रूपमा सहयोग गर्छ। Heroic लाई आर्थिक रूपमा सहयोग गर्न चाहनुहुन्छ भने ब्लक हटाउनुहोस्।",
+        "dont-show-again": "यो चेतावनी फेरि नदेखाउनुहोस्",
+        "title": "Adtraction लाई ब्लक गरिएको छ"
+    },
+    "add_game": "गेम हाल्ने",
+    "Amazon Games": "अमेजन गेम्स",
+    "anticheat": {
+        "anticheats": "एन्टीचिट्स",
+        "multiplayer_may_not_work": "मल्टिप्लेयर सुविधाहरू एन्टीचिटको कारण काम नगर्न सक्छ।",
+        "reference": "सन्दर्भ",
+        "source": "स्रोत",
+        "status": "स्थिति",
+        "title": "यो गेममा एन्टीचिट छ"
+    },
+    "box": {
+        "cache-cleared": {
+            "message": "Heroic को क्यास मेटाइयो।",
+            "title": "क्यास मेटाइयो"
+        }
+    },
+    "button": {
+        "login": "लगइन गर्नुहोस्"
+    },
+    "label": {
+        "loading": "लोड हुँदैछ"
+    },
+    "loading": {
+        "default": "लोड हुँदैछ"
+    },
+    "winetricks": {
+        "loading": "लोड हुँदैछ"
+    },
+    "game": {
+        "status": "स्थिति"
+    }
+}
