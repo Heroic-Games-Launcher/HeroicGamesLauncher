@@ -744,6 +744,11 @@
         "disableUMU": "Inaktivera UMU",
         "custom_css": {
             "warning": "Varning: detta gäller hela frontenden. Detta betyder att fel stil kan göra att Heroic blir oanvändbar. Om det behövs kan inställningen ändras manuellt i `~/.config/heroic/config.json`. Kopiera INTE stiler from källor du inte litar på."
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Är du säker?"
+            }
         }
     },
     "settings": {
