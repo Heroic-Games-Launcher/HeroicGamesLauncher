@@ -748,7 +748,8 @@
             "enableUpscaling": "Activa l'escalatge",
             "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
             "enableForceGrabCursor": "Activa la captura forçada de cursor",
-            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic."
+            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic.",
+            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic."
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
@@ -770,7 +771,12 @@
         },
         "dxfpslimit": "Limita els FPS dels jocs per DirectX",
         "download-proton-steam": "Baixa el GE-Proton a la carpeta del Steam",
-        "advertiseAvxForRosetta": "Promociona l'AVX per a Rosetta"
+        "advertiseAvxForRosetta": "Promociona l'AVX per a Rosetta",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Estàs segur?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
