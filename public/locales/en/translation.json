@@ -613,13 +613,13 @@
             "label": "Allow using non-GE Proton builds to run games",
             "wine_selector_warning": "Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings"
         },
+        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
+        "alt-legendary-bin": "Choose an Alternative Legendary Binary",
+        "alt-nile-bin": "Choose an Alternative Nile Binary",
         "altExeMacAppWarning": {
             "details": "You should select the relevant executable file inside ../{{appPath}}/Contents/MacOS/<executable> instead",
             "title": "Warning! you selected a .app file"
         },
-        "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
-        "alt-legendary-bin": "Choose an Alternative Legendary Binary",
-        "alt-nile-bin": "Choose an Alternative Nile Binary",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",
