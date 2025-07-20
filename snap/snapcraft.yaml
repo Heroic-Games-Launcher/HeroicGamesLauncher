@@ -4,7 +4,7 @@ summary: An Open Source Launcher for GOG, Epic Games and Amazon Games
 description: |
   Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games
   Store using Legendary, Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.
-version: 2.16.1
+version: 2.17.2
 icon: src/frontend/assets/heroic-icon.svg
 grade: stable
 confinement: strict
@@ -55,8 +55,6 @@ layout:
     bind: $SNAP/usr/lib/x86_64-linux-gnu/alsa-lib
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
-  /usr/share/X11/xkb:
-    bind: $SNAP/usr/share/X11/xkb
   /etc/ld.so.cache:
     bind-file: $SNAP_DATA/etc/ld.so.cache
   /etc/fonts:
@@ -67,18 +65,6 @@ plugs:
     interface: content
     target: $SNAP/graphics
     default-provider: gaming-graphics-core22
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/share/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/share/icons
-    default-provider: gtk-common-themes
-  sound-themes:
-    interface: content
-    target: $SNAP/share/sounds
-    default-provider: gtk-common-themes
   dot-local-share-steam:
     interface: personal-files
     write:
@@ -208,7 +194,7 @@ parts:
   mangohud:
     after: [meson-deps]
     source: https://github.com/flightlessmango/MangoHud.git
-    source-tag: 'v0.7.2'
+    source-tag: 'v0.8.1'
     source-depth: 1
     plugin: meson
     organize:
@@ -243,7 +229,7 @@ parts:
   mangohud64:
     after: [meson-deps, mangohud]
     source: https://github.com/flightlessmango/MangoHud.git
-    source-tag: 'v0.7.2'
+    source-tag: 'v0.8.1'
     source-depth: 1
     plugin: meson
     organize:
@@ -436,8 +422,9 @@ parts:
 
 apps:
   heroic:
-    command-chain: [bin/desktop-launch]
     command: heroic --no-sandbox
+    extensions:
+      - kde-neon-6
     environment:
       HOME: $SNAP_USER_COMMON
       #LIBGL_DEBUG: verbose
@@ -471,3 +458,6 @@ apps:
       - removable-media
       - upower-observe
       - uinput
+      - gtk-3-themes
+      - icon-themes
+      - sound-themes
