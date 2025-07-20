@@ -44,7 +44,8 @@
             "title": "Igra treba ažuriranje"
         },
         "wineprefix": "Odaberite WinePrefix mapu",
-        "yes": "DA"
+        "yes": "DA",
+        "close": "Zatvori"
     },
     "button": {
         "add_to_favourites": "Dodaj u omiljene",
@@ -96,7 +97,8 @@
         },
         "builds": {
             "version": "Verzija"
-        }
+        },
+        "modify": "Promjeni instalaciju"
     },
     "gamecard": {
         "moving": "Premještanje",
@@ -238,7 +240,8 @@
         "store": "Stranica Trgovine",
         "verify": "Provjeri i popravi",
         "extraInfo": "Dodatne informacije",
-        "logs": "Dnevnici"
+        "logs": "Dnevnici",
+        "categories": "Kategorije"
     },
     "help": {
         "cloud_save_unsupported": "Ova igra ne podržava spremanje u oblak. Ove informacije pružaju programeri igre. Neke igre implementiraju vlastiti sustav spremanja u oblak"
