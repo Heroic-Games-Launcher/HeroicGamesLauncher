@@ -22,6 +22,9 @@ import { isWindows } from 'backend/constants/environment'
  * @param installInfo Allows passing install instructions directly
  */
 export async function setup(gameInfo: GameInfo): Promise<void> {
+  if (isWindows) {
+    return
+  }
   const gameSettings = await getSettings(gameInfo.app_name)
   const isWineOkToLaunch = await checkWineBeforeLaunch(
     gameInfo,

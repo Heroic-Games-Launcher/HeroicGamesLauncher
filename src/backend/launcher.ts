@@ -1692,13 +1692,24 @@ async function callRunner(
       .map((part) => part.replaceAll('\\', '\\\\'))
       .map((part) => `"\`"${part}\`""`)
       .join(',')
-    commandParts = [
-      '-NoProfile',
-      'Start-Process',
-      `"\`"${fullRunnerPath}\`""`,
-      '-Wait',
-      '-NoNewWindow'
-    ]
+    if (bin.endsWith('.lnk')) {
+      commandParts = [
+        'Start-Process',
+        'cmd.exe',
+        '-ArgumentList',
+        `'/c ""${fullRunnerPath}""'`,
+        '-Wait',
+        '-NoNewWindow'
+      ]
+    } else {
+      commandParts = [
+        '-NoProfile',
+        'Start-Process',
+        `"\`"${fullRunnerPath}\`""`,
+        '-Wait',
+        '-NoNewWindow'
+      ]
+    }
     if (argsAsString) commandParts.push('-ArgumentList', argsAsString)
 
     bin = fullRunnerPath = 'powershell'

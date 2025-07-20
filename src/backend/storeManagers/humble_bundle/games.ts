@@ -172,7 +172,9 @@ export async function install(
       }
     }
     await setup(gameInfo)
-    await verifyWinePrefix(await getSettings(gameInfo.app_name))
+    if (!isWindows) {
+      await verifyWinePrefix(await getSettings(gameInfo.app_name))
+    }
 
     const msiFiles = await installAllMSIFiles(game, install_path)
 

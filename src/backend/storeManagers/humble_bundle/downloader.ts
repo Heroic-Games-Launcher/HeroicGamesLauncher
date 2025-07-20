@@ -5,6 +5,7 @@ import unzipper from 'unzipper'
 import { readdir, stat } from 'fs/promises'
 import { URL } from 'url'
 import { GameInfo } from 'common/types'
+import { throttle } from 'backend/utils'
 
 export interface InstallProgress {
   bytes: string
@@ -44,6 +45,10 @@ export function downloadAndExtract(
   }
   const outFilePath = path.join(outputDir, 'temp.dl')
   let finalFileName = ''
+  const throttledProgressCallback = throttle((progress: InstallProgress) => {
+    progressCallback(progress)
+  }, 500)
+
   return new Promise((resolve, reject) => {
     let downloadedBytes = 0
     if (fs.existsSync(outFilePath)) {
@@ -88,7 +93,7 @@ export function downloadAndExtract(
             const remaining = total - downloaded
             const eta = speed > 0 ? remaining / speed : 0
 
-            progressCallback({
+            throttledProgressCallback({
               bytes: formatBytes(downloaded),
               percent: +((downloaded / total) * 100).toFixed(2),
               eta: formatEta(eta),
@@ -182,12 +187,12 @@ export async function findMainGameExecutable(
       ...title.split(' '),
       title.split(' ').join('')
     ].forEach((signal) => {
-      scores[exec] += exec.match(new RegExp(signal, 'gi'))?.length ?? 0
+      scores[exec] += (exec.match(new RegExp(signal, 'gi'))?.length ?? 0) * 5
     })
 
     // very positive signals
     ;['launch', 'game', 'start'].forEach((signal) => {
-      scores[exec] += (exec.match(new RegExp(signal, 'gi'))?.length ?? 0) * 10
+      scores[exec] += (exec.match(new RegExp(signal, 'gi'))?.length ?? 0) * 8
     })
 
     // very negative signals in the name
@@ -199,7 +204,8 @@ export async function findMainGameExecutable(
       'Joy2Key',
       'readme',
       'DirectX',
-      'DXSETUP'
+      'DXSETUP',
+      'HeroicGamesLauncher'
     ].forEach((signal) => {
       scores[exec] -= (exec.match(new RegExp(signal, 'gi'))?.length ?? 0) * 10
     })

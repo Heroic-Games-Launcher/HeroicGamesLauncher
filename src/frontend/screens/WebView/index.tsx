@@ -215,7 +215,12 @@ export default function WebView() {
             }
           }
         } else if (runner === 'humble-bundle') {
-          humbleBundle.login().then(() => handleSuccessfulLogin())
+          await webview.executeJavaScript(
+            'try { OneTrust.RejectAll() } catch (e) {}'
+          )
+          if (await webview.executeJavaScript('models.user_json["email"]')) {
+            humbleBundle.login().then(() => handleSuccessfulLogin())
+          }
         }
       }
 
@@ -369,7 +374,11 @@ export default function WebView() {
       <webview
         ref={webviewRef}
         className="WebView__webview"
-        partition="persist:epicstore"
+        partition={
+          runner == 'humble-bundle'
+            ? 'persist:humble-bundle'
+            : 'persist:epicstore'
+        }
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}

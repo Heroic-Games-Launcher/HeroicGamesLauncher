@@ -1509,7 +1509,7 @@ export async function downloadFile({
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: any[]) => any>(
   callback: T,
   limit: number
 ): (...args: Parameters<T>) => void {

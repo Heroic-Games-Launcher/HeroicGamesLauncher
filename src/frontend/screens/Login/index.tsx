@@ -153,12 +153,12 @@ export default React.memo(function NewLogin() {
               disabled={oldMac}
             />
             <Runner
-              class="nile"
+              class="humble-bundle"
               buttonText={t('login.humble-bundle', 'Humble Bundle Login')}
               icon={() => <HumbleBundleLogo />}
               loginUrl={humbleBundleLoginPath}
               isLoggedIn={isHumbleBundleLoggedIn}
-              user={humbleBundle.email || 'Unknown'}
+              user={humbleBundle.email}
               logoutAction={humbleBundle.logout}
               disabled={oldMac}
             />

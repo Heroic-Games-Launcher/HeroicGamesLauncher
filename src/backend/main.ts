@@ -775,6 +775,7 @@ addHandler('login', async (event, sid) => LegendaryUser.login(sid))
 addHandler('authGOG', async (event, code) => GOGUser.login(code))
 addHandler('authHumbleBundle', () => HumbleBundleUser.login())
 addHandler('logoutLegendary', LegendaryUser.logout)
+addHandler('logoutHumble', () => HumbleBundleUser.logout())
 addListener('logoutGOG', GOGUser.logout)
 
 addHandler('getAmazonLoginData', NileUser.getLoginData)

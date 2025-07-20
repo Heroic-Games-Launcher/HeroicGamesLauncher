@@ -534,6 +534,21 @@ class GlobalState extends PureComponent<Props> {
     return response.status
   }
 
+  humbleLogout = async () => {
+    this.setState({ refreshing: true })
+    await window.api.logoutHumble().finally(() => {
+      this.setState({
+        humbleBundle: {
+          library: [],
+          email: undefined
+        }
+      })
+    })
+    console.log('Logging out from Humble')
+    this.setState({ refreshing: false })
+    window.location.reload()
+  }
+
   gogLogin = async (token: string) => {
     const response = await window.api.authGOG(token)
 
@@ -1075,7 +1090,7 @@ class GlobalState extends PureComponent<Props> {
             library: humbleBundle.library,
             email: humbleBundle.email,
             login: this.humbleLogin,
-            logout: () => Promise.resolve() // TODO(alex-min): implement
+            logout: this.humbleLogout
           },
           installingEpicGame,
           setLanguage: this.setLanguage,
