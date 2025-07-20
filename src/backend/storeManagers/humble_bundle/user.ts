@@ -15,7 +15,7 @@ export class HumbleBundleUser {
       document.querySelector('.js-login-form') ||
       document.querySelector('.navbar-item-dropdown-item.js-navbar-logout').click();
     `)
-    await browser.close()
+    browser.close()
     configStore.delete('userData')
     configStore.set('isLoggedIn', false)
     const ses = session.fromPartition('persist:humble-bundle')
@@ -112,7 +112,9 @@ export class HumbleBundleUser {
           ...cookie,
           url: 'www.humblebundle.com'
         })
-      } catch (e) {}
+      } catch (e) {
+        // ignore
+      }
     })
 
     return win
