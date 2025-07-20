@@ -178,6 +178,7 @@ export default function GamesSettings() {
         <WineVersionSelector />
         <WinePrefix />
         <CrossoverBottle />
+        <DoNotUseWine />
         {!isCrossover && (
           <>
             <AutoDXVK />
@@ -197,7 +198,6 @@ export default function GamesSettings() {
             <Tools />
           </>
         )}
-        <DoNotUseWine />
       </TabPanel>
 
       <TabPanel value={value} index={'other'}>

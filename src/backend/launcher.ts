@@ -417,6 +417,14 @@ function filterGameSettingsForLog(
       if (isSteamDeck) {
         delete gameSettings.autoInstallDxvkNvapi
       }
+
+      if (gameSettings.doNotUseWine) {
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.autoInstallDxvk
+        delete gameSettings.autoInstallDxvkNvapi
+        delete gameSettings.autoInstallVkd3d
+      }
     } else {
       // remove settings that are not used on native Linux games
       delete gameSettings.wineVersion
@@ -472,6 +480,15 @@ function filterGameSettingsForLog(
           delete gameSettings.autoInstallVkd3d
           delete gameSettings.winePrefix
         }
+      }
+
+      if (gameSettings.doNotUseWine) {
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.wineCrossoverBottle
+        delete gameSettings.autoInstallDxvk
+        delete gameSettings.autoInstallDxvkNvapi
+        delete gameSettings.autoInstallVkd3d
       }
     } else {
       // remove settings that are not used on native Mac games
@@ -586,6 +603,26 @@ async function prepareLaunch(
     filterGameSettingsForLog(gameSettings, !native),
     '\n\n'
   ])
+
+  if (isMac && gameSettings.targetExe.endsWith('.app')) {
+    // Both legendary and gogdl use `subprocess.Popen` to execute the alternative exe
+    // and python can't really execute the `.app` file and fails with a permissions error
+    //
+    // This warns the user that they might need to pick the bash file inside /Contents/MacOS
+    const pathParts = gameSettings.targetExe.split('/')
+    await logWriter.logWarning([
+      'An .app file was selected as alternative exe and might fail to run.',
+      "If that's the case, try manually setting the .app's executable instead:",
+      join(
+        '..',
+        pathParts[pathParts.length - 1],
+        'Contents',
+        'MacOS',
+        '<executable>'
+      ),
+      '\n\n'
+    ])
+  }
 
   const acInfoPromise = gameAnticheatInfo(gameInfo.namespace)
   logWriter.logInfo(

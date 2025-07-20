@@ -17,6 +17,7 @@ export default function WineVersionSelector() {
     'wineVersion',
     defaultWineVersion
   )
+  const [doNotUseWine] = useSetting('doNotUseWine', false)
   const [altWine, setAltWine] = useState<WineInstallation[]>()
   const [validWine, setValidWine] = useState(true)
   const [refreshing, setRefreshing] = useState(true)
@@ -99,6 +100,7 @@ export default function WineVersionSelector() {
         )
       }
       value={wineVersion.name}
+      disabled={doNotUseWine}
       afterSelect={
         <>
           {!refreshing && !altWine.length && (

@@ -613,6 +613,10 @@
             "label": "Allow using non-GE Proton builds to run games",
             "wine_selector_warning": "Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings"
         },
+        "altExeMacAppWarning": {
+            "details": "You should select the relevant executable file inside ../{{appPath}}/Contents/MacOS/<executable> instead",
+            "title": "Warning! you selected a .app file"
+        },
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
@@ -639,7 +643,11 @@
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",
-        "doNotUseWine": "Do not use wine (Useful in combination with a native alternative exe)",
+        "doNotUseWine": {
+            "info": "This is useful for alternative native executable. This is NOT meant to be used for DosBOX games.",
+            "labelLinux": "Do not use Wine/Proton",
+            "labelMac": "Do not use Wine/Crossover/Game Porting Toolkit"
+        },
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",

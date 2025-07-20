@@ -11,6 +11,7 @@ const WinePrefix = () => {
   const { platform } = useContext(ContextProvider)
   const { getSetting } = useContext(SettingsContext)
   const wineVersion = getSetting('wineVersion', defaultWineVersion)
+  const doNotUseWine = getSetting('doNotUseWine', false)
 
   const isWin = platform === 'win32'
 
@@ -34,6 +35,7 @@ const WinePrefix = () => {
       pathDialogTitle={t('box.wineprefix')}
       pathDialogDefaultPath={winePrefix}
       noDeleteButton
+      disabled={doNotUseWine}
       afterInput={
         <InfoBox text={t('infobox.wine-prefix.title', 'Wine Prefix')}>
           {t(
