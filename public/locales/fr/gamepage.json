@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Cette action va changer l'emplacement d'installation de ce jeu, êtes-vous sûr(e) de vouloir continuer ?",
+            "message": "Cette action va modifier l'emplacement d'installation de ce jeu, êtes-vous certain(e) de vouloir continuer ?",
             "path": "Choisissez un nouveau chemin d'installation",
             "title": "Changer le chemin d'installation des jeux"
         },
@@ -18,7 +18,7 @@
             "title": "Vérifier et réparer"
         },
         "runexe": {
-            "title": "Sélectionner l'exécutable à lancer"
+            "title": "Sélectionner l'EXE à démarrer"
         },
         "select": {
             "button": "Sélectionner",
@@ -54,7 +54,7 @@
     "button": {
         "add_to_favourites": "Ajouter aux favoris",
         "cancel": "Suspendre/Annuler",
-        "continue": "Continuer le téléchargement",
+        "continue": "Poursuivre le téléchargement",
         "finish": "Terminer",
         "force_update": "Forcer la mise à jour si disponible",
         "force-innstall": "Forcer l'installation",
@@ -74,7 +74,7 @@
         },
         "unhide_game": "Dé-masquer le jeu",
         "uninstall": "Désinstaller",
-        "update": "Mise à jour",
+        "update": "Mettre à jour",
         "details": "Détails",
         "changelog": "Afficher le journal des changements",
         "browse_files": "Parcourir les fichiers",
@@ -171,8 +171,9 @@
             "not-installable-game": "Le jeu n'est PAS installable"
         },
         "playing": {
-            "start": "Y jouer maintenant",
-            "stop": "Jeu en cours d’exécution (Arrêter)"
+            "start": "Jouer",
+            "stop": "Jeu en cours d’exécution (Arrêter)",
+            "start_with_logs": "Jouer (en consignant les événements)"
         },
         "saves": {
             "syncing": "Synchronisation des sauvegardes"
@@ -183,7 +184,7 @@
         "winetricks": "Installation des paquets Winetricks",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Veuillez patienter...",
+            "pleaseWait": "Veuillez patienter",
             "installation": "Installation de Steam",
             "compatibility-layer-not-available": "Couche de compatibilité non disponible. Veuillez en installer une depuis « Options > Gestion de Wine ».",
             "abort": "Interrompre l'installation",
@@ -212,11 +213,11 @@
         "options": "Paramètres de lancement..."
     },
     "not_logged_in": {
-        "epic": "Vous n'êtes pas connecté à un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
-        "gog": "Vous n'êtes pas connecté à un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
+        "epic": "Vous n'êtes pas connecté(e) avec un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
+        "gog": "Vous n'êtes pas connecté(e) avec un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
-        "title": "Vous n'êtes PAS connecté",
-        "amazon": "Vous n'êtes pas connecté à un compte Amazon dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :"
+        "title": "Vous n'êtes PAS connecté(e)",
+        "amazon": "Vous n'êtes pas connecté(e) avec un compte Amazon dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :"
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
@@ -224,7 +225,7 @@
     },
     "setting": {
         "use-default-wine-settings": "Utiliser les paramètres de Wine par défaut",
-        "winecrossoverbottle": "Pont-Bouteille",
+        "winecrossoverbottle": "Bouteille CrossOver",
         "show-wine-settings": "Afficher les paramètres de Wine",
         "warn-use-default-wine-settings": "Utiliser cette option uniquement si vous savez ce que vous faites.<br/>Partager le même préfixe avec plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles."
     },
@@ -241,9 +242,9 @@
             "fullscreen": "Exécuter en plein écran (F11 pour quitter)"
         },
         "placeholder": {
-            "image": "Collez ici l'URL d'une image ou sélectionnez-en une provenant de votre ordinateur",
+            "image": "Coller ici l'URL d'une image ou sélectionnez-en une provenant de votre ordinateur",
             "title": "Ajouter un titre à votre Jeu/Application",
-            "url": "Collez l'URL du jeu ici",
+            "url": "Coller l'URL du jeu ici",
             "useragent": "Créer un compte utilisateur personnalisé qui sera utilisé dans ce navigateur d'application/jeu"
         },
         "import-hint": {
@@ -256,7 +257,7 @@
         "recommended": "Recommandé"
     },
     "status": {
-        "clickToUpdate": "Cliquez pour mettre à jour",
+        "clickToUpdate": "Cliquer pour mettre à jour",
         "gameNotAvailable": "Jeu indisponible",
         "hasUpdates": "Une nouvelle version est disponible !",
         "installed": "Installé",
@@ -282,7 +283,8 @@
         "goodie": "Non installable",
         "gog-goodie": "Ce jeu ne semble pas être installable. Vérifiez le contenu téléchargeable sur https://gog.com/account",
         "winetricks": "Application des modifications Winetricks",
-        "redist": "Installation du paquet redistribuable {{redist}}"
+        "redist": "Installation du paquet redistribuable {{redist}}",
+        "importing": "Importation"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",
@@ -324,7 +326,7 @@
         "header": "Ce jeu est géré par une application tierce",
         "notice1": "Ce jeu est géré par une application tierce : « {{application_name}} »"
     },
-    "Open": "Ouvrez",
+    "Open": "Ouvrir",
     "queue": {
         "label": {
             "canceled": "Annulé",
