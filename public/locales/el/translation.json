@@ -662,6 +662,11 @@
         "experimental_features": {
             "cometSupport": "Υποστήριξη Comet",
             "enableNewDesign": "Νέα σχεδίαση"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Είστε σίγουροι;"
+            }
         }
     },
     "settings": {
