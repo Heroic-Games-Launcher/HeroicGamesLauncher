@@ -188,7 +188,9 @@
         "update": "Atualização",
         "changelog": "Registro de Alterações",
         "postpone": "Adiar",
-        "launchAnyway": "Iniciar o jogo mesmo assim"
+        "launchAnyway": "Iniciar o jogo mesmo assim",
+        "shaderPreCachingDisabledMessage": "A pré-compilação de Shaders da Steam está desativada. Por favor, ative nas configurações da Steam no Modo Desktop para que o jogo funcione corretamente com o UMU.",
+        "shaderPreCachingDisabledTitle": "Pré-compilação de Shaders desativada"
     },
     "button": {
         "cancel": "Cancelar",
@@ -282,7 +284,8 @@
         "reset": "Reiniciar",
         "select_all": "Selecionar Todos",
         "show_support_offline_only": "Mostrar somente suportados offline",
-        "show_third_party_managed_only": "Mostrar somente gerenciados por terceiros"
+        "show_third_party_managed_only": "Mostrar somente gerenciados por terceiros",
+        "show_updates_only": "Apenas mostrar jogos com atualizações"
     },
     "help": {
         "amdfsr": "O FSR da AMD ajuda a aumentar a taxa de quadros aumentando as resoluções mais baixas no modo de tela cheia. A qualidade da imagem aumenta de 5 para 1 ao custo de um pequeno impacto no desempenho. A ativação pode melhorar o desempenho.",
@@ -361,7 +364,11 @@
             "settingsDefault": "Mostra todas as configurações da Heroic e padrões para jogos."
         },
         "msync": "O msync visa reduzir a sobrecarga do wineserver em jogos que demandam muito da CPU. Habilitá-lo pode melhorar a performance em kernels Linux que o suportam.",
-        "dxfpslimit": "Aplicar um limite de Quadros por Segundo para jogos em DXVK"
+        "dxfpslimit": "Aplica um limite de FPS em jogos DirectX (9-12)",
+        "advertiseAvxForRosetta": "Ativa o suporte a instruções AVX enquanto executa jogos de Windows através do Rosetta no Apple Silicon Macs. Isso pode ser necessário em alguns jogos como Death Stranding, que precisa de suporte a AVX.",
+        "download_proton_steam": "Quando ativado, o Proton-GE será baixado diretamente no diretório de camadas de compatibilidade da Steam, ao invés do diretório padrão do Heroic. Isso irá usar o diretório definido em 'Caminho padrão da Steam' acima.",
+        "wine-hdr": "O HDR melhora as cores, fornecendo uma imagem mais brilhante e contrastes profundos. Para que o HDR funcione, a tela e o jogo precisam de suporte.",
+        "wine-wayland": "O driver experimental Wine-Wayland permite que os jogos sejam executados nativamente com o protocolo de exibição Wayland. Ativar o mesmo pode quebrar alguns jogos."
     },
     "info": {
         "heroic": {
@@ -406,7 +413,9 @@
         "toggleLayout": {
             "grid": "Alternar para um layout de grade",
             "list": "Alternar para um layout de lista"
-        }
+        },
+        "hideAlphabetFilter": "Esconder filtro de alfabeto",
+        "showAlphabetFilter": "Mostrar filtro de alfabeto"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -469,6 +478,9 @@
             "started": "Atualização iniciada",
             "failed": "Atualização Falhou",
             "paused": "Atualização Pausada"
+        },
+        "import": {
+            "failed": "Falha na importação"
         }
     },
     "offline-message": {
@@ -730,7 +742,7 @@
         "frameless-window": {
             "confirmation": {
                 "message": "Este recurso ainda é experimental. Por favor, relate quaisquer problemas que você encontrar no GitHub.",
-                "title": "Este recurso é experimental!"
+                "title": "Este recurso é experimental"
             },
             "description": "Usar janela sem moldura (requer reinicialização)"
         },
@@ -738,7 +750,9 @@
             "enableLimiter": "Habilitar limitador de FPS",
             "enableUpscaling": "Permite aprimoramento de escala (Upscaling)",
             "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH.",
-            "enableForceGrabCursor": "Habilitar a captura forçada do cursor"
+            "enableForceGrabCursor": "Habilitar a captura forçada do cursor",
+            "missingMsgFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime 24.08 e reinicie o Heroic.",
+            "warningFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime 24.08 e reinicie o Heroic."
         },
         "msync": "Habilitar Msync",
         "allow_installation_broken_anticheat": {
@@ -757,12 +771,29 @@
         "disableUMU": "Desabilitar umu",
         "custom_css": {
             "warning": "Alerta: Isso é aplicado a todo o frontend. Isto significa que o estilo errado pode tornar o Heroic inutilizável. Se necessário, as configurações podem ser alteradas manualmente em `~/.config/heroic/config.json`. NÃO copie estilos de fontes que você não confie."
-        }
+        },
+        "download-proton-steam": "Baixar Proton-GE no diretório da Steam",
+        "dxfpslimit": "Limitar o FPS em jogos DirectX",
+        "hdr": "Habilitar o HDR",
+        "wineWayland": "Ativar o Wine-Wayland (Experimental) (A versão do Wine precisa o suportar)",
+        "advertiseAvxForRosetta": "Advertise AVX para Rosetta",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Você tem certeza?",
+                "dont_show": "Não os exibir",
+                "message": "Recomendamos que o GE-Proton seja usado com o Heroic, porque versões não GE não incluem o Winetricks e Protonfixes. Ainda pode usar se quiser.",
+                "show": "Eu entendo, os exiba"
+            },
+            "label": "Permitir que versões não GE do Proton executem jogos",
+            "wine_selector_warning": "Versões não GE do Proton são ignoradas por padrão, ative-as nas configurações globais avançadas",
+            "info_label": "Versões não GE do Proton ignoradas"
+        },
+        "no-tray-icon": "Esconder ícone de bandeja do sitema (Reinicialização necessária)"
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Instalando o BattlEye Runtime...",
-            "name": "BattlEye Anti-Trapaça Executor"
+            "name": "BattlEye Anti-Trapaça Runtime"
         },
         "clear-cache": "Limpar cache do Heroic",
         "copiedToClipboard": "Copiado para a área de Transferência!",
@@ -974,8 +1005,8 @@
         "noGames": "A sua biblioteca está vazia.<br /><br />Clique <4>aqui</4> para fazer login com a sua conta Epic, GOG.com ou Amazon. Após isso, seus jogos serão exibidos na biblioteca.<br /><br />Para usar jogos ou aplicativos de outras fontes, clique <br/> para adicioná-los manualmente."
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. Ela deve ser usada junto com o umu launcher ( ativado por padrão no Heroic).",
-        "wine-ge": "Wine-GE-Proton é uma variante Wine criada por Glorious Eggroll. É o Wine recomendado para ser usado fora da Steam. Ele fornece logs úteis para solução de problemas."
+        "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. Ela deve ser usada junto com o umu launcher (ativado por padrão no Heroic).",
+        "wine-ge": "Wine-GE-Proton foi uma variante Wine criada por Glorious Eggroll. O mesmo foi descontinuado em favor ao GE-Proton com o umu launcher."
     },
     "categories-manager": {
         "add-placeholder": "Adicionar nova categoria",
@@ -1000,7 +1031,7 @@
             "welcome": {
                 "title": "Bem vindo ao Heroic!",
                 "title2": "Gerenciando a biblioteca!",
-                "intro2": "Se a biblioteca estiver vazia, tenha certeza de fazer o login com as suas contas usando a função de gerenciar contas na barra lateral ou adicione os seus próprios jogos usando o botão Adicionar Jogo na parte superior.",
+                "intro2": "Se a biblioteca estiver vazia, tenha certeza de fazer o login com as suas contas usando a função de gerenciar contas na barra lateral ou adicione os seus próprios jogos usando o botão Adicionar Jogo acima.",
                 "intro": "Bem vindo a Biblioteca do Heroic! Aqui você verá todos os seus jogos em diferentes lojas."
             },
             "addGame": "Adicione os seus próprios jogos ou aplicativos à biblioteca ao clicar aqui. Eles podem ser qualquer coisa, inclusive URLS de navegador.",
@@ -1015,7 +1046,8 @@
             "search": "Use a barra de pesquisa para procurar seus jogos.",
             "sortInstalled": "Classificar jogos por status de instalação.",
             "sortOptions": "Clique aqui para classificar os jogos de maneira alfabética.",
-            "viewToggle": "Alternar entre a visualização em grade e em lista para seus jogos."
+            "viewToggle": "Alternar entre a visualização em grade e em lista para seus jogos.",
+            "steamInstall": "Use esse botão para instalar a versão de Windows com a Steam e jogue os seus jogos de Windows usando o Crossover, Wine ou GPTK."
         },
         "sidebar": {
             "stores": "Navegue e faça a compra de jogos em diferentes lojas incluindo Epic, GOG, e Amazon.",
@@ -1039,5 +1071,11 @@
         "done": "Pronto",
         "skip": "Pular",
         "startTour": "Iniciar o Tour"
+    },
+    "notification": {
+        "steam": {
+            "error": "Instalação da Steam falhou. Por favor, leia as instruções cuidadosamente e tente novamente!",
+            "success": "Steam para o Windows foi instalado com sucesso!"
+        }
     }
 }
