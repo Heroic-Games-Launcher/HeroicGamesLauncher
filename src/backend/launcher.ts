@@ -404,6 +404,7 @@ function filterGameSettingsForLog(
   if (isLinux) {
     delete gameSettings.enableMsync
     delete gameSettings.wineCrossoverBottle
+    delete gameSettings.advertiseAvxForRosetta
 
     if (notNative) {
       const wineVersion = gameSettings.wineVersion
@@ -411,6 +412,8 @@ function filterGameSettingsForLog(
         if (wineVersion.type === 'proton') {
           delete gameSettings.autoInstallDxvk
           delete gameSettings.autoInstallVkd3d
+        } else {
+          delete gameSettings.useSteamRuntime
         }
       }
 
@@ -448,8 +451,9 @@ function filterGameSettingsForLog(
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
     delete gameSettings.showMangohud
-    delete gameSettings.showFps
     delete gameSettings.disableUMU
+    delete gameSettings.useSteamRuntime
+    delete gameSettings.enableFsync
 
     if (notNative) {
       const wineType = gameSettings.wineVersion
@@ -506,6 +510,8 @@ function filterGameSettingsForLog(
     delete gameSettings.eacRuntime
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
+    delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.useSteamRuntime
   }
 
   return gameSettings
