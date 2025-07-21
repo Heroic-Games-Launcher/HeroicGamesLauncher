@@ -112,7 +112,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves, savesPath, gogSaves = [], doNotUseWine } = gameSettings
 
   const { title } = game
 
@@ -181,7 +181,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const isNative = gameManagerMap[runner].isNative(appName)
 
   // check if isNative, if not, check if wine is valid
-  if (!isNative) {
+  if (!isNative && !doNotUseWine) {
     const isWineOkToLaunch = await checkWineBeforeLaunch(
       game,
       gameSettings,
@@ -417,6 +417,14 @@ function filterGameSettingsForLog(
       if (isSteamDeck) {
         delete gameSettings.autoInstallDxvkNvapi
       }
+
+      if (gameSettings.doNotUseWine) {
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.autoInstallDxvk
+        delete gameSettings.autoInstallDxvkNvapi
+        delete gameSettings.autoInstallVkd3d
+      }
     } else {
       // remove settings that are not used on native Linux games
       delete gameSettings.wineVersion
@@ -434,6 +442,7 @@ function filterGameSettingsForLog(
       delete gameSettings.eacRuntime
       delete gameSettings.battlEyeRuntime
       delete gameSettings.useGameMode
+      delete gameSettings.doNotUseWine
     }
   }
 
@@ -472,12 +481,22 @@ function filterGameSettingsForLog(
           delete gameSettings.winePrefix
         }
       }
+
+      if (gameSettings.doNotUseWine) {
+        delete gameSettings.wineVersion
+        delete gameSettings.winePrefix
+        delete gameSettings.wineCrossoverBottle
+        delete gameSettings.autoInstallDxvk
+        delete gameSettings.autoInstallDxvkNvapi
+        delete gameSettings.autoInstallVkd3d
+      }
     } else {
       // remove settings that are not used on native Mac games
       delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.wineVersion
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
+      delete gameSettings.doNotUseWine
     }
   }
 
@@ -506,6 +525,7 @@ function filterGameSettingsForLog(
     delete gameSettings.eacRuntime
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
+    delete gameSettings.doNotUseWine
   }
 
   return gameSettings
@@ -583,6 +603,26 @@ async function prepareLaunch(
     filterGameSettingsForLog(gameSettings, !native),
     '\n\n'
   ])
+
+  if (isMac && gameSettings.targetExe.endsWith('.app')) {
+    // Both legendary and gogdl use `subprocess.Popen` to execute the alternative exe
+    // and python can't really execute the `.app` file and fails with a permissions error
+    //
+    // This warns the user that they might need to pick the bash file inside /Contents/MacOS
+    const pathParts = gameSettings.targetExe.split('/')
+    await logWriter.logWarning([
+      'An .app file was selected as alternative exe and might fail to run.',
+      "If that's the case, try manually setting the .app's executable instead:",
+      join(
+        '..',
+        pathParts[pathParts.length - 1],
+        'Contents',
+        'MacOS',
+        '<executable>'
+      ),
+      '\n\n'
+    ])
+  }
 
   const acInfoPromise = gameAnticheatInfo(gameInfo.namespace)
   logWriter.logInfo(
@@ -742,6 +782,7 @@ async function prepareLaunch(
   }
 
   if (
+    !gameSettings.doNotUseWine &&
     (await isUmuSupported(gameSettings, false)) &&
     isOnline() &&
     !(await isInstalled('umu')) &&

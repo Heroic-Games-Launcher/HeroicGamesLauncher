@@ -616,6 +616,10 @@
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
+        "altExeMacAppWarning": {
+            "details": "You should select the relevant executable file inside ../{{appPath}}/Contents/MacOS/<executable> instead",
+            "title": "Warning! you selected a .app file"
+        },
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",
@@ -639,6 +643,11 @@
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",
+        "doNotUseWine": {
+            "info": "This is useful for alternative native executable. This is NOT meant to be used for DosBOX games.",
+            "labelLinux": "Do not use Wine/Proton",
+            "labelMac": "Do not use Wine/Crossover/Game Porting Toolkit"
+        },
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
