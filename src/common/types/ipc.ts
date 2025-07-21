@@ -118,7 +118,6 @@ interface SyncIPCFunctions {
     runner: Runner,
     status: boolean
   ) => void
-  startPlausible: () => void
 }
 
 /*

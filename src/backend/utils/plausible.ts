@@ -1,3 +1,4 @@
+import { backendEvents } from 'backend/backend_events'
 import {
   isFlatpak,
   isAppImage,
@@ -108,3 +109,14 @@ export function startPlausible() {
     props
   })
 }
+
+backendEvents.on('settingChanged', ({ key, newValue }) => {
+  if (key === 'analyticsOptIn') {
+    if (newValue) {
+      logInfo('Starting Plausible Analytics', LogPrefix.Backend)
+      startPlausible()
+    } else {
+      logInfo('Stopping Plausible Analytics', LogPrefix.Backend)
+    }
+  }
+})

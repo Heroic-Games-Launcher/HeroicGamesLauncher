@@ -6,13 +6,10 @@ import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AnalyticsOptIn = () => {
   const { t } = useTranslation()
-  const [analyticsOptIn, setAnalyticsOptIn] = useSetting('analyticsOptIn', true)
-
-  React.useEffect(() => {
-    if (analyticsOptIn) {
-      window.api.startPlausible()
-    }
-  }, [analyticsOptIn])
+  const [analyticsOptIn, setAnalyticsOptIn] = useSetting(
+    'analyticsOptIn',
+    false
+  )
 
   return (
     <div className="toggleRow">
