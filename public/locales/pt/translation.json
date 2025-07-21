@@ -187,10 +187,7 @@
         "choose-nile-binary": "Selecione o binário do Nilo",
         "update": "Atualizar",
         "changelog": "Histórico de mudanças",
-        "postpone": "Adiar",
-        "launchAnyway": "Executar Jogo Mesmo Assim",
-        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Desativado",
-        "shaderPreCachingDisabledMessage": "A Pré-cache de Shader do Steam está desativada. Ativa-a nas Definições do Steam no Modo de Ambiente de Trabalho para garantir que o jogo funciona corretamente com o UMU."
+        "postpone": "Adiar"
     },
     "button": {
         "cancel": "Cancelar",

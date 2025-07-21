@@ -187,10 +187,7 @@
         "choose-nile-binary": "Selecciona el binari del Nile",
         "update": "Actualitza",
         "changelog": "Registre de canvis",
-        "postpone": "Posposa",
-        "launchAnyway": "Llança el joc de totes maneres",
-        "shaderPreCachingDisabledMessage": "La precaché del shader de l'Steam està desactivada. Activa-la des de la configuració de l'Steam en mode escriptori per a assegurar que el joc funciona adequadament amb UMU.",
-        "shaderPreCachingDisabledTitle": "Pre-caché del shader desactivada"
+        "postpone": "Posposa"
     },
     "button": {
         "cancel": "Cancel·la",
