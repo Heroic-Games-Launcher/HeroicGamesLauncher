@@ -94,8 +94,8 @@
             },
             "steam": {
                 "message": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!",
-                "error": "Steam konnte nicht ausgeführt werden. Installation wurde wahrscheinlich durch Nutzer oder Steam gestoppt.",
-                "title": "Steam Fehler"
+                "error": "Steam konnte nicht ausgeführt werden. Installation wurde wahrscheinlich durch den Nutzer gestoppt oder ist bei Steam fehlgeschlagen.",
+                "title": "Fehler bei Steam"
             }
         },
         "info": {
@@ -337,7 +337,8 @@
             "gameHeight": "Die vom Spiel verwendete Auflösung in der Höhe. Ein Seitenverhältnis von 16:9 wird von gamescope angenommen.",
             "upscaleHeight": "Die von gamescope verwendete Auflösung in der Höhe. Es wird ein Seitenverhältnis von 16:9 angenommen.",
             "fpsLimiter": "Die Anzahl der Bilder pro Sekunde, auf die Gamescope begrenzt werden soll. z.B. 60",
-            "additionalOptions": "Weitere Befehlszeilenflags zur Weiterleitung an Gamescope."
+            "additionalOptions": "Weitere Befehlszeilenflags zur Weiterleitung an Gamescope.",
+            "forceGrabCursor": "Verwende  immer den relativen Mausmodus, anstatt in Abhängigkeit von der Mauszeigersichtbarkeit zu wechseln. (Das ist sinnvoll, wenn die Anwendungen ständig den Fokus verlieren.)"
         },
         "title": {
             "accessibility": "Barrierefreiheit",
@@ -410,7 +411,9 @@
         "toggleLayout": {
             "grid": "Auf Kachelansicht umschalten",
             "list": "Auf Listenansicht umschalten"
-        }
+        },
+        "hideAlphabetFilter": "Verstecke den Alphabet-Filter",
+        "showAlphabetFilter": "Zeige den Alphabet-Filter"
     },
     "Library": "Bibliothek",
     "loading": {
@@ -473,6 +476,9 @@
             "started": "Update gestartet",
             "failed": "Aktualisierung fehlgeschlagen",
             "paused": "Aktualisierung pausiert"
+        },
+        "import": {
+            "failed": "Import fehlgeschlagen"
         }
     },
     "offline-message": {
@@ -740,7 +746,10 @@
         "gamescope": {
             "enableLimiter": "FPS-Begrenzer einschalten",
             "enableUpscaling": "Ermöglicht Hochskalierung",
-            "missingMsg": "Wir konnten gamescope nicht in der PATH-Variable finden. Installieren Sie es oder fügen Sie es der PATH-Variable hinzu."
+            "missingMsg": "Wir konnten gamescope nicht in der PATH-Variable finden. Installieren Sie es oder fügen Sie es der PATH-Variable hinzu.",
+            "enableForceGrabCursor": "Aktiviere Force Grab Cursor",
+            "missingMsgFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 24.08 und starte Heroic neu.",
+            "warningFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 24.08 und starte Heroic neu."
         },
         "after-launch-script-path": "Wähle ein Skript aus, das ausgeführt wird nachdem du das Spiel schließt",
         "before-launch-script-path": "Wähle ein Script aus, das ausgeführt wird bevor das Spiel gestartet wird",
@@ -760,7 +769,14 @@
         "verboseLogs": {
             "description": "Aktiviere ausführliche Logs"
         },
-        "download-proton-steam": "Lade GE-Proton in das Steam-Verzeichnis herunter"
+        "download-proton-steam": "Lade GE-Proton in das Steam-Verzeichnis herunter",
+        "advertiseAvxForRosetta": "Zeige AVX für Rosetta an.",
+        "dxfpslimit": "Beschränke die FPS für DirectX-Spiele",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Sind sie sicher?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1029,13 +1045,16 @@
             "wine": "Verwalte oder lade neue Version von Wine/Proton/GPTK um Windowsspiele auf Linux oder macOS spielen zu können.",
             "version": "Überprüfe deine aktuelle Heroicversion, um die letzten Änderungen einzusehen und Zugang zur dieser Tour mithilfe des Hilfesymbol.",
             "welcome": {
-                "title": "Seitenleiste Navigation"
+                "title": "Seitenleiste Navigation",
+                "intro": "Willkommen in Heroic! Diese Sidebar beinhaltet alle wichtigen Navigationspunkte um das Programm zu erkunden."
             },
             "docs": "Lese die Dokumente für Hilfe, bei der Verwendung von Heroic.",
             "quit": "Verlasse die Applikation sicher.",
             "accounts": "Verwalte deine verbundenen Accounts (Epic,GOG,Amazon), melde dich an oder ab von ihnen.",
             "community": "Betrete unserer Community auf Discord und unterstütze Heroics Weiterentwicklung.",
-            "stores": "Durchsuche und kaufe unterschiedliche Spiele in unterschiedlichen Shops unteranderem Epic,GOG und Amazon."
+            "stores": "Durchsuche und kaufe unterschiedliche Spiele in unterschiedlichen Shops unteranderem Epic,GOG und Amazon.",
+            "login": "Log dich in deine Spielevertriebsplattformkonten ein um Zugriff auf deine Bibliothek zu bekommen.",
+            "settings": "Konfiguriere die Einstellungen von Heroic, setzte Standarteinstellungen für Spiele, prüfe Logdaten und mehr."
         },
         "next": "Weiter",
         "startTour": "Tour starten",

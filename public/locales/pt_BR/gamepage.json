@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Jogar",
-            "stop": "Jogando (Parar)"
+            "stop": "Jogando (Parar)",
+            "start_with_logs": "Jogar agora (Com logs)"
         },
         "saves": {
             "syncing": "Sincronizando Saves"
@@ -183,9 +184,30 @@
         "prerequisites": "Instalando Pré-requisitos",
         "redist": "Instalando Distribuições",
         "steam": {
-            "installing": "Installing",
-            "pleaseWait": "Por favor aguarde...",
-            "installation": "Parar a Instalação"
+            "installing": "Instalando",
+            "pleaseWait": "Por favor, aguarde",
+            "installation": "Parar a Instalação",
+            "install-path": "Diretório de instalação Steam",
+            "abort": "Abortar instalação",
+            "cancel": "Cancelar instalação",
+            "compatibility": "Esteja ciente de que nem todos os jogos irão funcionar, e mesmo que funcionem, podem não funcionar como esperado.",
+            "compatibility-layer-not-available": "Camada de compatibiliade indisponível. Por favor, instale uma em \"Configurações > Versão do Wine\" primeiro.",
+            "crossover": "Se você tem o Crossover instalado, você não irá precisar dele, já que a Steam normal pode funcionar bem.",
+            "downloading": "Baixando {{percent}}%",
+            "install": "Instalar Steam",
+            "install-tooltip": "Isso irá instalar a versão de Windows da Steam e será executada com a camada de compatibilidade do Heroic. \n\n    Alguns jogos, especialmente títulos mais antigos, jogos 3D mais recentes, ou aqueles com software anti-trapaças podem não funcionar corretamente \n\n    ",
+            "launch": "Iniciar a Steam usando a camada de compatibilidade do Heroic",
+            "launching": "Iniciando a Steam...",
+            "macOS": "macOS 14.0 ou superior",
+            "notification": "O Heroic irá notificá-lo assim que a instalação estiver pronta.",
+            "patience": "Se você deseja continuar, por favor seja paciente, pois isso pode levar alguns minutos para finalizar dependendo da sua conexão a internet e configuações do sistema.",
+            "ram": "8GB de RAM",
+            "recommended": "Especificações recomendadas para a melhor experiência",
+            "select-path": "Selecione a pasta de instalação para a Steam",
+            "specificVersion-pt1": "Isso irá baixar uma versão específica da Steam para",
+            "specificVersion-pt2": "arquivo.org",
+            "specificVersion-pt3": "feito para funcionar através do Heroic, desde que as versões da Steam não irão funcionar no macOS.",
+            "hardware": "Apple Silicon M1+ (Para Macs Intel, a Steam irá funcionar com Crossover)"
         }
     },
     "launch": {
@@ -221,7 +243,7 @@
             "fullscreen": "Inicie em tela cheia (F11 para sair)"
         },
         "placeholder": {
-            "image": "Cole um link de uma imagem aqui",
+            "image": "Cole uma URL de uma imagem ou selecione uma do seu computador",
             "title": "Adicione um título ao seu Jogo/App",
             "url": "Cole o URL do jogo aqui",
             "useragent": "Escreva aqui um \"user agent\" personalizado para ser usado neste app/jogo de navegador"
@@ -263,7 +285,8 @@
         "goodie": "Não instalável",
         "prerequisites": "Instalando Pré-requisitos",
         "winetricks": "Aplicando correções do Winetricks",
-        "redist": "Instalando Distribuições {{redist}}"
+        "redist": "Instalando Distribuições {{redist}}",
+        "importing": "Importando"
     },
     "submenu": {
         "addShortcut": "Adicionar Atalho",

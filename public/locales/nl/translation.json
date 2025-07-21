@@ -679,6 +679,11 @@
         "disablePlaytimeSync": "Schakel speeltijd synchronisatie uit",
         "experimental_features": {
             "enableNewDesign": "Nieuw uiterlijk"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Weet je het zeker?"
+            }
         }
     },
     "settings": {
