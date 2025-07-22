@@ -814,5 +814,9 @@
     },
     "tour": {
         "back": "Kembali"
+    },
+    "analyticsModal": {
+        "disable": "Nonaktif",
+        "enable": "Aktif"
     }
 }
