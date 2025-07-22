@@ -1054,5 +1054,9 @@
             "success": "Steam for Windows が正常にインストールされました！",
             "error": "Steamのインストールに失敗しました！説明をよく読んで、もう一度お試しください！"
         }
+    },
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable"
     }
 }
