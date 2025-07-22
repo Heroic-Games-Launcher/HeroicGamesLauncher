@@ -187,7 +187,10 @@
         "choose-nile-binary": "Wybierz plik wykonywalny Nile",
         "update": "Aktualizuj",
         "postpone": "Odłóż",
-        "changelog": "Dziennik zmian"
+        "changelog": "Dziennik zmian",
+        "launchAnyway": "Uruchom grę mimo to",
+        "shaderPreCachingDisabledMessage": "Pamięć wstępna cieniowania Steam jest wyłączona. Aby program działał poprawnie z UMU, włącz ją w ustawieniach Steam w trybie pulpitu.",
+        "shaderPreCachingDisabledTitle": "Wstępna pamięć podręczna cieniowania wyłączona"
     },
     "button": {
         "cancel": "Anuluj",
@@ -1061,5 +1064,9 @@
             "error": "Pamiętaj, że nie wszystkie gry będą działać, a nawet jeśli tak, to mogą nie działać zgodnie z oczekiwaniami!",
             "success": "Steam dla Windows został pomyślnie zainstalowany!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Wyłącz",
+        "enable": "Włącz"
     }
 }
