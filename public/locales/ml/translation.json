@@ -822,5 +822,9 @@
     },
     "tour": {
         "back": "പുറകോട്ട്"
+    },
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable"
     }
 }
