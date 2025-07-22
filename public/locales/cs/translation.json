@@ -187,7 +187,10 @@
         "choose-nile-binary": "Vyberte binární soubor Nile",
         "update": "Aktualizovat",
         "changelog": "Seznam změn",
-        "postpone": "Odložit"
+        "postpone": "Odložit",
+        "launchAnyway": "Spustit hru i tak",
+        "shaderPreCachingDisabledMessage": "Předběžné ukládání shaderů ve Steamu je deaktivováno. Aktivujte jej v nastavení Steamu v režimu pro stolní počítače, aby hra s UMU fungovala správně.",
+        "shaderPreCachingDisabledTitle": "Předběžné ukládání do mezipaměti shaderů je zakázáno"
     },
     "button": {
         "cancel": "Zrušit",
@@ -1074,5 +1077,9 @@
             "success": "Steam pro Windows byl úspěšně nainstalován!",
             "error": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Zakázat",
+        "enable": "Povolit"
     }
 }
