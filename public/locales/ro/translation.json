@@ -744,5 +744,9 @@
     },
     "tour": {
         "back": "Negru"
+    },
+    "analyticsModal": {
+        "disable": "Dezactivat",
+        "enable": "Activat"
     }
 }
