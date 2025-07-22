@@ -414,7 +414,7 @@
         "hideAlphabetFilter": "隐藏字母表筛选器",
         "showAlphabetFilter": "显示字母表筛选器"
     },
-    "Library": "仓库",
+    "Library": "游戏库",
     "loading": {
         "default": "加载中",
         "website": "正在加载网站"
@@ -544,7 +544,7 @@
         "weblate": "帮助翻译 Heroic。",
         "nile-version": "尼罗河版本： "
     },
-    "Other": "Other",
+    "Other": "其他",
     "placeholder": {
         "alt-gogdl-bin": "使用内置的 GOGDL 二进制文件...",
         "alt-legendary-bin": "使用内置的 Legendary 二进制文件...",
