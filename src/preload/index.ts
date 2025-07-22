@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld('isSteamDeckGameMode', isSteamDeckGameMode)
 contextBridge.exposeInMainWorld('isFlatpak', isFlatpak)
 contextBridge.exposeInMainWorld('isSteamDeck', isSteamDeck)
 contextBridge.exposeInMainWorld('platform', process.platform)
+contextBridge.exposeInMainWorld('isE2ETesting', process.env.CI === 'e2e')
 contextBridge.exposeInMainWorld('flatpakRuntimeVersion', flatpakRuntimeVersion)
 
 if (navigator.userAgent.includes('Windows')) {

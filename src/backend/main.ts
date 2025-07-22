@@ -50,6 +50,7 @@ import {
   writeConfig,
   createNecessaryFolders
 } from './utils'
+import { startPlausible } from './utils/plausible'
 
 import {
   getDiskInfo,
@@ -359,6 +360,10 @@ if (!gotTheLock) {
     })
 
     const settings = GlobalConfig.get().getSettings()
+
+    if (settings && settings.analyticsOptIn === true) {
+      startPlausible()
+    }
 
     if (settings?.disableSmoothScrolling) {
       app.commandLine.appendSwitch('disable-smooth-scrolling')

@@ -163,6 +163,7 @@ declare global {
     flatpakRuntimeVersion?: string
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
+    isE2ETesting: boolean
   }
 
   interface WindowEventMap {
