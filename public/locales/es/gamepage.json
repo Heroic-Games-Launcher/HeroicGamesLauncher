@@ -197,7 +197,7 @@
             "ram": "8GB de RAM",
             "recommended": "Recomendación para una mejor experiencia",
             "select-path": "Seleccionar carpeta de instalación de Steam",
-            "specificVersion-pt1": "De descargará una versión específica de Steam desde",
+            "specificVersion-pt1": "Se descargará una versión específica de Steam desde",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "para que funcione con Heroic ya que nuevas versiones de Steam no funcionan en macOS.",
             "notification": "Heroic notificará cuando la instalación termine.",
