@@ -83,7 +83,7 @@ export function startPlausible() {
     gog: !!GOGUser.isLoggedIn(),
     epic: !!LegendaryUser.isLoggedIn(),
     amazon: !!NileUser.isLoggedIn(),
-    sideloaded: libraryStore.raw_store.games.length > 0
+    sideloaded: libraryStore.raw_store.games?.length > 0
   }
   const loggedInProviders = Object.entries(providersObject)
     .filter(([, v]) => v)
