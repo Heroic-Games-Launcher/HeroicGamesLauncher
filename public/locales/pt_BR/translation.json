@@ -368,7 +368,8 @@
         "advertiseAvxForRosetta": "Ativa o suporte a instruções AVX enquanto executa jogos de Windows através do Rosetta no Apple Silicon Macs. Isso pode ser necessário em alguns jogos como Death Stranding, que precisa de suporte a AVX.",
         "download_proton_steam": "Quando ativado, o Proton-GE será baixado diretamente no diretório de camadas de compatibilidade da Steam, ao invés do diretório padrão do Heroic. Isso irá usar o diretório definido em 'Caminho padrão da Steam' acima.",
         "wine-hdr": "O HDR melhora as cores, fornecendo uma imagem mais brilhante e contrastes profundos. Para que o HDR funcione, a tela e o jogo precisam de suporte.",
-        "wine-wayland": "O driver experimental Wine-Wayland permite que os jogos sejam executados nativamente com o protocolo de exibição Wayland. Ativar o mesmo pode quebrar alguns jogos."
+        "wine-wayland": "O driver experimental Wine-Wayland permite que os jogos sejam executados nativamente com o protocolo de exibição Wayland. Ativar o mesmo pode quebrar alguns jogos.",
+        "analytics": "Habilitar coleta 100% anônima de dados para ajudar a melhorar o app. Precisa reiniciar o app para ter efeito."
     },
     "info": {
         "heroic": {
@@ -788,7 +789,8 @@
             "wine_selector_warning": "Versões não GE do Proton são ignoradas por padrão, ative-as nas configurações globais avançadas",
             "info_label": "Versões não GE do Proton ignoradas"
         },
-        "no-tray-icon": "Esconder ícone do indicador de aplicativo (Reinicialização necessária)"
+        "no-tray-icon": "Esconder ícone do indicador de aplicativo (Reinicialização necessária)",
+        "analyticsOptIn": "Enviar dados anônimos para ajudar o desenvolvimento do Heroic"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1080,6 +1082,16 @@
     },
     "analyticsModal": {
         "disable": "Disable",
-        "enable": "Enable"
+        "enable": "Enable",
+        "info": {
+            "pt1": "Heroic coleta dados de forma 100% anônima para melhorar o app.",
+            "pt2": "Heroic usa o sistema de código aberto Plausible Analytics para coletar dados básicos: Versão do app, Sistema operacional, Lojas conectadas e País.",
+            "pt3": "Nunca coletaremos dados pessoais como nome de usuário, endereço IP ou email.",
+            "pt4": "A informação coletada nos dará uma ideia do que focar devido a nossos recursos limitados e feedback de usuários.",
+            "pt5": "Plausible Analytics é totalmente compatível com legislações como GDPR, CCPA e PECR.",
+            "pt6": "Por questões de transparência, você pode ver todos os dados coletados nos logs do Heroic.",
+            "pt7": "Você pode modificar essa configuração a qualquer momento nas configurações do App."
+        },
+        "title": "Enviar dados anônimos"
     }
 }
