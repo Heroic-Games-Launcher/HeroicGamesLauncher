@@ -861,5 +861,9 @@
     },
     "tour": {
         "back": "返回"
+    },
+    "analyticsModal": {
+        "disable": "停用",
+        "enable": "啟用"
     }
 }
