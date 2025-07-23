@@ -915,5 +915,9 @@
         "next": "Seuraava",
         "startTour": "Käynnistä tutustumiskierros",
         "skip": "Ohita"
+    },
+    "analyticsModal": {
+        "disable": "Poiskytke",
+        "enable": "Päälle"
     }
 }
