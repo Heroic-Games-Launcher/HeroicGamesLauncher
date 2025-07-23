@@ -187,7 +187,10 @@
         "choose-nile-binary": "选择 Nile 二进制文件",
         "changelog": "更改记录",
         "postpone": "延迟",
-        "update": "更新"
+        "update": "更新",
+        "launchAnyway": "仍要启动游戏",
+        "shaderPreCachingDisabledMessage": "Steam 的 Shader 预缓存被禁用。请在桌面模式下于 Steam 设置中启用它确保游戏在 UMU 启动器下正常运行。",
+        "shaderPreCachingDisabledTitle": "禁用了 Shader 预缓存"
     },
     "button": {
         "cancel": "取消",
@@ -365,7 +368,8 @@
         "dxfpslimit": "设置 DirectX 游戏（9-12）的帧率上限",
         "advertiseAvxForRosetta": "在 Apple Silicon Mac 机器上通过 Rosetta 运行 Windows 游戏时启用 AVX 指令集支持。这对于一些需要 AVX 支持的游戏如《死亡搁浅》等来说可能是必需的。",
         "wine-hdr": "HDR 提供更明亮的高潮和更深的对比增强色彩。要让 HDR 工作，显示器和游戏都必须支持 HDR。",
-        "wine-wayland": "Wine-Wayland 实验性驱动允许游戏在 Wayland 显示协议下原生运行。启用可能破坏一些游戏。"
+        "wine-wayland": "Wine-Wayland 实验性驱动允许游戏在 Wayland 显示协议下原生运行。启用可能破坏一些游戏。",
+        "analytics": "允许 Heroic 收集 100% 匿名的使用数据帮助改进应用。需要重启才能生效。"
     },
     "info": {
         "heroic": {
@@ -725,7 +729,7 @@
         "disable_logs": "禁用日志",
         "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
-        "alt-nile-bin": "选择替代尼罗河二进制",
+        "alt-nile-bin": "选择替代的 Nile 二进制文件",
         "autodxvknvapi": "在前置自动安装并更新 DXVK-NVAPI",
         "experimental_features": {
             "enableNewShinyFeature": "新功能",
@@ -785,7 +789,8 @@
             "wine_selector_warning": "非 GE 版本的 Proton 默认被忽略，在高级全局设置中启用它们",
             "info_label": "忽略了非 GE Proton 版本"
         },
-        "no-tray-icon": "隐藏系统托盘图标（需要重启）"
+        "no-tray-icon": "隐藏系统托盘图标（需要重启）",
+        "analyticsOptIn": "发送匿名数据帮助 Heroic 开发"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1074,5 +1079,19 @@
             "error": "Steam 安装失败！请仔细阅读说明并重试！",
             "success": "Windows 版 Steam 已成功安装！"
         }
+    },
+    "analyticsModal": {
+        "disable": "禁用",
+        "enable": "启用",
+        "info": {
+            "pt1": "Heroic 收集 100% 匿名的数据来改进应用。",
+            "pt2": "Heroic 使用开源的 Plausible Analytics 平台收集基本数据：应用版本、操作系统、连接的商店和国家/地区。",
+            "pt3": "Heroic 从不收集任何个人信息，包括用户名、IP 地址或电子邮箱。",
+            "pt4": "由于资源和用户反馈有限，此数据用于洞悉接下来要把主要精力放在哪里。",
+            "pt5": "Plausible Analytics 完全遵守 GDPR、CCPA 和 PECR.",
+            "pt6": "为透明起见，你可以在 Heroic 日志中查看我们收集的数据。",
+            "pt7": "你可以随时在应用设置中更改这一设置。"
+        },
+        "title": "发送匿名分析信息"
     }
 }

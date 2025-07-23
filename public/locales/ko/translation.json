@@ -971,5 +971,9 @@
     },
     "tour": {
         "back": "뒤로"
+    },
+    "analyticsModal": {
+        "disable": "비활성화",
+        "enable": "활성화"
     }
 }

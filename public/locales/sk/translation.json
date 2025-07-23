@@ -973,5 +973,9 @@
     },
     "tour": {
         "back": "Back"
+    },
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable"
     }
 }

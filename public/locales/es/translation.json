@@ -181,13 +181,16 @@
                 "title": "Rosetta no encontrado"
             }
         },
-        "wineprefix": "Seleccione la carpeta de los prefijos de Wine",
+        "wineprefix": "Seleccione la carpeta de prefijos de Wine",
         "yes": "SÍ",
         "dontShowAgain": "No volver a mostrar",
         "choose-nile-binary": "Seleccionar binario del Nile",
         "update": "Actualizar",
         "postpone": "Posponer",
-        "changelog": "Registro de cambios"
+        "changelog": "Registro de cambios",
+        "launchAnyway": "Ejecutar de todas formas",
+        "shaderPreCachingDisabledMessage": "El Shader Pre-cache de Steam está desactivado. Por favor, activalo en la configuración de Steam en Modo Escritorio para asegurar que el juego funcione correctamente con umu.",
+        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Desactivado"
     },
     "button": {
         "cancel": "Cancelar",
@@ -365,7 +368,8 @@
         "advertiseAvxForRosetta": "Activa el set de soporte de instrucciones AVX cuando se ejecutan juegos de Windows a través de Rosetta en computadoras Apple Sillicon. Esto podría ser requerido por algunos juegos como Death Stranding que necesita soporte AVX.",
         "download_proton_steam": "Si se activa, GE-Proton se descargará directamente en el directorio de herramientas de compatibilidad de Steam en lugar de la ruta por defecto de Heroic. Se usará la ruta de Steam de la configuración 'Ruta por defecto de Steam' más arriba.",
         "wine-hdr": "El HDR mejora los colores proporcionando resaltes más brillantes y contrastes más profundos. Para que el HDR funcione, tanto la pantalla como el juego deben ser compatibles.",
-        "wine-wayland": "El driver experimental Wine-Wayland permite a los juegos ejecutarse nativamente usando el protocolo de Wayland. Activarlo puede causar problemas en algunos juegos."
+        "wine-wayland": "El driver experimental Wine-Wayland permite a los juegos ejecutarse nativamente usando el protocolo de Wayland. Activarlo puede causar problemas en algunos juegos.",
+        "analytics": "Permite que Heroic recopile datos de uso 100 % anónimos para mejorar la aplicación. Es necesario reiniciar para que surta efecto."
     },
     "info": {
         "heroic": {
@@ -749,7 +753,7 @@
             "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH.",
             "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic.",
             "enableForceGrabCursor": "Activar Forzar Agarrar Cursor",
-            "warningFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic."
+            "warningFlatpak": "No se encontró una versión compatible de Gamescope. Instale el paquete de Flatpak de Gamescope con runtime {{runtimeVersion}} y reinicie Heroic."
         },
         "msync": "Habilitar Esync",
         "allow_installation_broken_anticheat": {
@@ -785,7 +789,8 @@
             "label": "Permitir usar versiones de Proton que no sean GE para ejecutar juegos",
             "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuracion Avanzada Global"
         },
-        "no-tray-icon": "Ocultar el icono de la bandeja del sistema (requiere reiniciar)"
+        "no-tray-icon": "Ocultar el icono de la bandeja del sistema (requiere reiniciar)",
+        "analyticsOptIn": "Enviar datos anónimos para ayudar al desarrollo de Heroic"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1074,5 +1079,19 @@
             "success": "Steam para Windows de instaló correctamente!",
             "error": "La instalación de Steam falló! Por favor, leer las instrucciones detenidamente y volver a intentar!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Desactivar",
+        "enable": "Activar",
+        "info": {
+            "pt1": "Para mejorar la aplicación, Heroic recopila datos 100% anónimos.",
+            "pt2": "Heroic utiliza la plataforma de código abierto Plausible Analytics para recopilar datos básicos: versión de la aplicación, sistema operativo, tiendas conectadas y país.",
+            "pt3": "Nunca recopilará ninguna información personal, incluido su nombre de usuario, dirección IP o correo electrónico.",
+            "pt4": "Estos datos se utilizan para brindarnos información sobre qué debemos abordar a continuación debido a nuestros recursos limitados y los comentarios de los usuarios.",
+            "pt5": "Plausible Analytics cumple totalmente con GDPR, CCPA y PECR.",
+            "pt6": "Para mayor transparencia, puede ver los datos que recopilamos en los registros de Heroic.",
+            "pt7": "Puede cambiar esta configuración en cualquier momento en la Configuración de la aplicación."
+        },
+        "title": "Enviar analíticas anónimas"
     }
 }

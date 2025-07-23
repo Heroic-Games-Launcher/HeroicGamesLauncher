@@ -187,7 +187,10 @@
         "choose-nile-binary": "Sélectionnez le binaire de Nile",
         "update": "Mise à jour",
         "changelog": "Journal des changements",
-        "postpone": "Différer"
+        "postpone": "Différer",
+        "launchAnyway": "Lancez le jeu quand même",
+        "shaderPreCachingDisabledMessage": "La mise en mémoire cache des shaders est désactivée. Veuillez l'activer dans les options de Steam en mode bureau afin que le jeu fonctionne normalement avec UMU.",
+        "shaderPreCachingDisabledTitle": "Mise en mémoire cache des shaders désactivée"
     },
     "button": {
         "cancel": "Annuler",
@@ -1073,5 +1076,9 @@
             "error": "L'installation de Steam a échoué ! Veuillez lire les instructions attentivement et réessayer !",
             "success": "Steam pour Windows a été installé avec succès !"
         }
+    },
+    "analyticsModal": {
+        "disable": "Désactiver",
+        "enable": "Activer"
     }
 }
