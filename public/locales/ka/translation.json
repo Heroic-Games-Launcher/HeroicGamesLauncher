@@ -242,5 +242,9 @@
         "cancel": "გაუქმება",
         "discord": "Discord",
         "quit": "გასვლა"
+    },
+    "analyticsModal": {
+        "disable": "გათიშულია",
+        "enable": "ჩართულია"
     }
 }
