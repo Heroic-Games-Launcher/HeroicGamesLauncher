@@ -995,5 +995,9 @@
             "refresh": "Uppdatera ditt bibliotek för att kolla efter nya spel eller uppdateringar.",
             "sortOptions": "Klicka här för att sortera i bokstavsordning."
         }
+    },
+    "analyticsModal": {
+        "disable": "Inaktivera",
+        "enable": "Aktivera"
     }
 }
