@@ -1055,5 +1055,9 @@
             "success": "Windows için Steam başarıyla kuruldu!",
             "error": "Steam kurulumu başarısız oldu! Lütfen talimatları dikkatlice okuyun ve tekrar deneyin!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Devre Dışı",
+        "enable": "Enable"
     }
 }

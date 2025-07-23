@@ -187,7 +187,10 @@
         "choose-nile-binary": "Selecione o binário do Nilo",
         "update": "Atualizar",
         "changelog": "Histórico de mudanças",
-        "postpone": "Adiar"
+        "postpone": "Adiar",
+        "launchAnyway": "Executar Jogo Mesmo Assim",
+        "shaderPreCachingDisabledMessage": "A Pré-cache de Shader do Steam está desativada. Ativa-a nas Definições do Steam no Modo de Ambiente de Trabalho para garantir que o jogo funciona corretamente com o UMU.",
+        "shaderPreCachingDisabledTitle": "Shader Pre-Caching Desativado"
     },
     "button": {
         "cancel": "Cancelar",
@@ -1052,5 +1055,9 @@
             "error": "Instalação da Steam falhou! Por favor leia as instruções cuidadosamente e tente de novo!",
             "success": "Steam para Windows foi instalado com sucesso!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Desativar",
+        "enable": "Ativar"
     }
 }

@@ -187,7 +187,9 @@
         "choose-nile-binary": "Wähle eine Nile-Binärdatei aus",
         "update": "Update",
         "postpone": "Später",
-        "changelog": "Änderungsprotokoll"
+        "changelog": "Änderungsprotokoll",
+        "shaderPreCachingDisabledMessage": "Der Shader-Pre-Cache von Steam ist deaktiviert. Bitte aktiviere ihn in den Steam-Einstellungen im Desktop-Modus, damit das Spiel mit UMU ordnungsgemäß funktioniert.",
+        "shaderPreCachingDisabledTitle": "Shader-Pre-Cache deaktiviert"
     },
     "button": {
         "cancel": "Abbrechen",
@@ -1062,5 +1064,9 @@
             "error": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!",
             "success": "Steam für Windows wurde erfolgreich installiert!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Deaktivieren",
+        "enable": "Aktivieren"
     }
 }

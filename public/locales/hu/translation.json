@@ -187,7 +187,10 @@
         "choose-nile-binary": "Nile bináris kiválasztása",
         "update": "Frissítés",
         "changelog": "Változásnapló",
-        "postpone": "Elhalasztás"
+        "postpone": "Elhalasztás",
+        "launchAnyway": "Játék indítása ennek ellenére",
+        "shaderPreCachingDisabledMessage": "A Steam shader előtöltése ki van kapcsolva. Kérjük, engedélyezze a Steam beállításaiban asztali módban, hogy a játék megfelelően működjön az UMU-val.",
+        "shaderPreCachingDisabledTitle": "Shader előtöltés kikapcsolva"
     },
     "button": {
         "cancel": "Mégse",
@@ -1065,5 +1068,9 @@
             "error": "A Steam telepítése sikertelen! Olvassa el figyelmesen az utasításokat, és próbálja újra!",
             "success": "A windowsos Steam sikeresen telepítve!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Letiltás",
+        "enable": "Engedélyezés"
     }
 }

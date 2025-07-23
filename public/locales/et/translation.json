@@ -187,7 +187,10 @@
         "choose-nile-binary": "Valige Nile programm",
         "update": "Uuenda",
         "changelog": "Muutuste nimekiri",
-        "postpone": "Hiljem"
+        "postpone": "Hiljem",
+        "launchAnyway": "Mängi siiski",
+        "shaderPreCachingDisabledMessage": "Steami Shader Pre-cache (shaderite ettelaadimine) on keelatud. Palun lülitage see töölauarežiimis Steami seadetest sisse, et mäng toimiks UMU-ga korralikult.",
+        "shaderPreCachingDisabledTitle": "Shaderite ettelaadimine keelatud"
     },
     "button": {
         "cancel": "Tühista",
@@ -1065,5 +1068,9 @@
             "error": "Steami paigaldamine ebaõnnestus! Palun lugege hoolikalt juhiseid ja proovige uuesti!",
             "success": "Steam Windowsi jaoks on edukalt paigaldatud!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Lülita välja",
+        "enable": "Luba"
     }
 }

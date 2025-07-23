@@ -777,5 +777,9 @@
     },
     "categories-manager": {
         "add": "Dodaj"
+    },
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable"
     }
 }

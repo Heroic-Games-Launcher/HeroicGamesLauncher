@@ -846,5 +846,9 @@
     },
     "tour": {
         "back": "Πίσω"
+    },
+    "analyticsModal": {
+        "disable": "Απενεργοποίηση",
+        "enable": "Ενεργοποίηση"
     }
 }
