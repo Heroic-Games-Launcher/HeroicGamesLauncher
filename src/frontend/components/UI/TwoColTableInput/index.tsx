@@ -78,7 +78,7 @@ export function TableInput({
     } else {
       // else, validate input
       if (validation) {
-        const [keyError, valueError] = validation(newVarValue, newVarValue)
+        const [keyError, valueError] = validation(newVarName, newVarValue)
         setKeyError(keyError)
         setValueError(valueError)
       }
