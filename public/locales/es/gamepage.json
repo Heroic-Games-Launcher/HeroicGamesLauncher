@@ -2,15 +2,15 @@
     "box": {
         "change": {
             "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
-            "path": "Selecciona una nueva carpeta para la instalación",
+            "path": "Selecciona una nueva ruta para la instalación",
             "title": "Modificar la ruta de instalación para los juegos"
         },
         "choose": "Seleccionar",
         "importpath": "Selecciona la carpeta del juego a importar",
         "move": {
             "message": "Esto puede tardar mucho tiempo, ¿estás seguro?",
-            "path": "Elige la ubicación del destino",
-            "title": "Mover carpeta del juego"
+            "path": "Elige hacia donde lo quieres mover",
+            "title": "Mover la instalación del juego"
         },
         "no": "NO",
         "repair": {
@@ -33,7 +33,7 @@
             "title": "Detener la instalación"
         },
         "uninstall": {
-            "checkbox": "Eliminar prefijo: {{prefix}}{{newLine}}Nota: Esta acción no se puede revertir y eliminará también los archivos de guardado sin copia de seguridad.",
+            "checkbox": "Eliminar prefijo: {{prefix}}{{newLine}}Nota: Esta acción no se puede deshacer y eliminará también los archivos de guardado sin copia de seguridad.",
             "message": "¿Quieres desinstalar \"{{title}}\"?",
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes se olvidarán y el registro se eliminará.",
             "title": "Desinstalar",
