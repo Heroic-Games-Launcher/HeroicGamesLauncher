@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { type ReactElement } from 'react'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import './index.css'
+import { ListItemIcon } from '@mui/material'
 
 export interface Item {
+  icon: ReactElement
   label: string
   onclick: () => void
   show: boolean
@@ -56,9 +58,10 @@ function ContextMenu({ children, items }: Props) {
         }
       >
         {items.map(
-          ({ label, onclick, show }, i) =>
+          ({ label, onclick, show, icon }, i) =>
             show && (
               <MenuItem key={i} onClick={() => handleClick(onclick)}>
+                <ListItemIcon>{icon}</ListItemIcon>
                 {label}
               </MenuItem>
             )
