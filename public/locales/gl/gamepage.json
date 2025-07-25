@@ -85,7 +85,7 @@
     "dlc": {
         "installDlcs": "Instalar todos os DLCs"
     },
-    "enabled": "Activar",
+    "enabled": "Activado",
     "game": {
         "downloadSize": "Tamaño da descarga",
         "firstPlayed": "Xogado por primeira vez",
@@ -211,11 +211,11 @@
         "options": "Opcións de arrinque..."
     },
     "not_logged_in": {
-        "epic": "Non se iniciou sesión cunha conta de Epic en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor pulsa o seguinte botón:",
-        "gog": "Non se iniciou sesión cunha conta de GOG en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor pulsa o seguinte botón:",
+        "epic": "Non se iniciou sesión cunha conta de Epic en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:",
+        "gog": "Non se iniciou sesión cunha conta de GOG en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:",
         "login": "Log in",
         "title": "NON se iniciou sesión",
-        "amazon": "Non se iniciou sesión cunha conta de Amazon en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor pulsa o seguinte botón:"
+        "amazon": "Non se iniciou sesión cunha conta de Amazon en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:"
     },
     "report_problem": "Avisar dun problema executando este xogo",
     "sdl": {
@@ -246,8 +246,8 @@
             "useragent": "Escribe aquí un axente de usuario personalizado que se usará nesta aplicación/xogo de navegador"
         },
         "import-hint": {
-            "content": "NON usar esta función para iso.<br />No seu lugar, <3>inicia sesión</3> na tenda, busca o xogo na túa biblioteca, abre o diálogo de instalación, e pulsa o botón de &quot;Importar Xogo&quot;",
-            "title": "Importante! Estás engadindo un xogo de Epic/GOG/Amazon? Pulsa aquí!"
+            "content": "NON usar esta función para iso.<br />No seu lugar, <3>inicia sesión</3> na tenda, busca o xogo na túa biblioteca, abre o diálogo de instalación, e fai clic no botón de &quot;Importar Xogo&quot;",
+            "title": "Importante! Estás engadindo un xogo de Epic/GOG/Amazon? Fai clic aquí!"
         }
     },
     "specs": {
@@ -264,7 +264,7 @@
         "notinstalled": "Este xogo non está instalado",
         "notSupported": "Non soportado",
         "notSupportedGame": "Non soportado",
-        "processing": "Procesando os arquivos, por favor, espera...",
+        "processing": "Procesando os arquivos, por favor, espera",
         "queued": "En cola",
         "reparing": "Reparando xogo, agarda",
         "this-game-uses-third-party": "Este xogo utiliza un lanzador de terceiros e aínda non está soportado",
@@ -331,7 +331,7 @@
     "third-party-managed": {
         "header": "Este xogo está administrado por unha aplicación de terceiros",
         "notice1": "Este xogo está administrado por unha aplicación de terceiros: \"{{application_name}}\"",
-        "notice2": "Ao pulsar en Instalar, Heroic executará a aplicación para poder rematar o proceso de instalación"
+        "notice2": "Ao facer clic en Instalar, Heroic executará a aplicación para poder rematar o proceso de instalación"
     },
     "wikiLink": "Información importante sobre este xogo, lee esto: &nbsp;<1>Abrir páxina</1>"
 }
