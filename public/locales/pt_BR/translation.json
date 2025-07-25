@@ -1081,8 +1081,8 @@
         }
     },
     "analyticsModal": {
-        "disable": "Disable",
-        "enable": "Enable",
+        "disable": "Desabilitar",
+        "enable": "Habilitar",
         "info": {
             "pt1": "Heroic coleta dados de forma 100% anônima para melhorar o app.",
             "pt2": "Heroic usa o sistema de código aberto Plausible Analytics para coletar dados básicos: Versão do app, Sistema operacional, Lojas conectadas e País.",
