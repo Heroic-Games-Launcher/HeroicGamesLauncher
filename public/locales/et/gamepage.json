@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Mängi",
-            "stop": "Mängib (Peata)"
+            "stop": "Mängib (Peata)",
+            "start_with_logs": "Mängi kohe (logidega)"
         },
         "saves": {
             "syncing": "Salvestuste sünkroonimine"
