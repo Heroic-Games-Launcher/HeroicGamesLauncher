@@ -16,3 +16,7 @@
   text-decoration: none;
   background-color: var(--navbar-active-background);
 }
+
+.contextMenu .MuiSvgIcon-root {
+  color: var(--text-default);
+}
