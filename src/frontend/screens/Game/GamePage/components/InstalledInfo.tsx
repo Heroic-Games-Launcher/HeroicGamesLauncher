@@ -124,7 +124,6 @@ const InstalledInfo = ({ gameInfo }: Props) => {
           )}
         </>
       )}
-      <br />
     </>
   )
 
