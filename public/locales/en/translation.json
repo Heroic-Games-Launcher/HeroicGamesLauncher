@@ -617,17 +617,6 @@
             },
             "label": "Allow installation of games with broken or denied anticheat"
         },
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "dont_show": "Don't show them",
-                "message": "We recommend GE-Proton to be used with Heroic because non-GE Proton builds lack winetricks and protofixes. You can still use then if you want.",
-                "show": "I understand, show them",
-                "title": "Are you sure?"
-            },
-            "info_label": "Non-GE Proton versions ignored",
-            "label": "Allow using non-GE Proton builds to run games",
-            "wine_selector_warning": "Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings"
-        },
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
@@ -792,6 +781,17 @@
             "warning": "Please check twice if the path is correct (click to retry)"
         },
         "select_theme": "Select Theme",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Don't show them",
+                "message": "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use then if you want.",
+                "show": "I understand, show them",
+                "title": "Are you sure?"
+            },
+            "info_label": "Valve Proton versions ignored",
+            "label": "Allow using Valve Proton builds to run games",
+            "wine_selector_warning": "Valve versions of Proton are ignored by default, enable them in the Advanced global settings"
+        },
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-tray": "Start Minimized",

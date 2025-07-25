@@ -152,10 +152,14 @@ export async function getLinuxWineSet(
 
   const protonPaths = [`${toolsPath}/proton/`]
 
+  const { showValveProton } = GlobalConfig.get().getSettings()
+
   await getSteamLibraries().then((libs) => {
     libs.forEach((path) => {
-      protonPaths.push(`${path}/steam/steamapps/common`)
-      protonPaths.push(`${path}/steamapps/common`)
+      if (showValveProton) {
+        protonPaths.push(`${path}/steam/steamapps/common`)
+        protonPaths.push(`${path}/steamapps/common`)
+      }
       protonPaths.push(`${path}/root/compatibilitytools.d`)
       protonPaths.push(`${path}/compatibilitytools.d`)
       return
