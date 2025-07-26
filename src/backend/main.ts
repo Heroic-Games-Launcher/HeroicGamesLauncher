@@ -130,7 +130,6 @@ import {
   isIntelMac,
   isLinux,
   isMac,
-  isNixPkg,
   isSnap,
   isSteamDeckGameMode,
   isWindows
@@ -492,7 +491,7 @@ addOneTimeListener('frontendReady', () => {
     }
   }
 
-  if (isNixPkg) {
+  if (process.env.NIX_PKG) {
     const nixPkgWarning: Electron.MessageBoxOptions = {
       title: i18next.t(
         'box.warning.nixpkg.title',
