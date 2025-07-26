@@ -528,11 +528,11 @@ addOneTimeListener('frontendReady', () => {
       const nixUmuWarning: Electron.MessageBoxOptions = {
         title: i18next.t(
           'box.warning.nixumu.title',
-          'UMU running from the nix package'
+          'umu running from the nix package'
         ),
         message: i18next.t('box.warning.nixumu.message', {
           defaultValue:
-            'If you experience issues launching games using UMU, please first check that it also happens with UMU managed by Heroic, after removing UMU from your system environment.'
+            'If you experience issues launching games using umu, please first check that it also happens with umu managed by Heroic, after removing umu from your system environment.'
         }),
         checkboxLabel: i18next.t('box.warning.nixumu.checkbox', {
           defaultValue: 'Do not show this message again'
