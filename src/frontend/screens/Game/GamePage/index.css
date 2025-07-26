@@ -17,6 +17,11 @@
   align-items: flex-start;
   align-content: flex-start;
 
+  &:has(.UpdateComponent) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
   /*
   ** Adding icons to the MUI tabs makes them at least 72px high
   ** min-height is guaranteed by the min height of the tab parent element itself

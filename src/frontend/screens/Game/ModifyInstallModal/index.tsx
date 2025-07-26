@@ -54,7 +54,7 @@ export default function ModifyInstallModal({
             )}
           </>
         ) : (
-          <UpdateComponent inline />
+          <UpdateComponent />
         )}
       </DialogContent>
     </Dialog>

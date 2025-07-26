@@ -200,7 +200,7 @@ export default function LogSettings() {
 
         {refreshing ? (
           <span className="setting log-box">
-            <UpdateComponent inline />
+            <UpdateComponent />
           </span>
         ) : (
           <LogBox logFileContent={logFileContent} />
