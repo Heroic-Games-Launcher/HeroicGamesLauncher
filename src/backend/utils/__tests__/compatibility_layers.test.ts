@@ -15,6 +15,7 @@ describe('getDefaultWine', () => {
     const expected = {
       bin: '',
       name: 'Default Wine - Not Found',
+      version: '',
       type: 'wine'
     }
     jest.spyOn(child_process, 'execSync').mockImplementation(() => {
