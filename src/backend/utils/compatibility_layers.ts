@@ -564,15 +564,9 @@ export const getUmuPath = async () =>
   searchForExecutableOnPath('umu-run').then((path) => path ?? defaultUmuPath)
 
 export async function usingNixUmu(): Promise<boolean> {
-  return searchForExecutableOnPath('umu-run').then((path) => {
-    if (path) {
-      return false
-    } else {
-      return realpath(path as string).then((path) =>
-        path.startsWith('/nix/store/')
-      )
-    }
-  })
+  const umuPath = await getUmuPath()
+  const realUmuPath = await realpath(umuPath)
+  return realUmuPath.startsWith('/nix/store/')
 }
 
 export async function isUmuSupported(
