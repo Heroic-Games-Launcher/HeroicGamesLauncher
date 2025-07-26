@@ -349,6 +349,7 @@ class GlobalConfigV0 extends GlobalConfig {
       wineVersion: defaultWine,
       enableEsync: true,
       enableFsync: isLinux,
+      enableNtsync: isLinux,
       enableMsync: isMac,
       enableWineWayland: false,
       enableHDR: false,

@@ -200,6 +200,7 @@ export interface GameSettings {
   enableFSR: boolean
   enableMsync: boolean
   enableFsync: boolean
+  enableNtsync: boolean
   enableWineWayland: boolean
   enableHDR: boolean
   gamescope: GameScopeSettings
