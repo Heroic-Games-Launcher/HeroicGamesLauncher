@@ -47,11 +47,6 @@ body {
   }
 }
 
-.App .content .UpdateComponent--topLevel {
-  height: 100vh;
-  position: initial;
-}
-
 .App .controller {
   grid-area: controller;
   position: sticky;
