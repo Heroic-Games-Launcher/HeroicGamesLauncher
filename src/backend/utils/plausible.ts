@@ -4,7 +4,8 @@ import {
   isAppImage,
   isSnap,
   isSteamDeckGameMode,
-  isSteamDeck
+  isSteamDeck,
+  isNixPkg
 } from 'backend/constants/environment'
 import { logInfo, LogPrefix } from 'backend/logger'
 import { GOGUser } from 'backend/storeManagers/gog/user'
@@ -99,6 +100,7 @@ export function startPlausible() {
     isFlatpak: isFlatpak,
     isAppImage: isAppImage,
     isSnap: isSnap,
+    isNixPkg: isNixPkg,
     isSteamDeckGameMode: isSteamDeckGameMode,
     isSteamDeck: !!isSteamDeck
   }
