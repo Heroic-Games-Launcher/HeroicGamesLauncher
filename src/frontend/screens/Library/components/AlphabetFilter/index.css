@@ -23,8 +23,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 24px;
-  margin-top: 16px;
+  margin: 8px var(--space-md-fixed);
 }
 
 .alphabet-filter-button {
@@ -38,10 +37,13 @@
   font-weight: 600;
   cursor: pointer;
 
-  padding: 8px 10px;
-  margin: 0 4px;
-  min-width: 36px;
+  padding: 8px 6px;
+  margin: 0 min(0.4%, 4px);
+  min-width: 24px;
+  width: 2.5%;
+  max-width: 42px;
   text-align: center;
+  vertical-align: middle;
 
   border-radius: var(--alphabet-filter-border-radius);
   transition: all var(--alphabet-filter-transition-speed);
@@ -79,6 +81,6 @@
 
 .alphabet-filter-button--disabled {
   color: var(--alphabet-filter-text-disabled);
-  cursor: not-allowed;
+  cursor: auto;
   opacity: 0.5;
 }
