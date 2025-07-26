@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react'
+import { MouseEventHandler } from 'react'
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

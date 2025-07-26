@@ -1,7 +1,5 @@
 import './index.css'
 
-import React from 'react'
-
 import { WineVersionInfo } from 'common/types'
 import DownIcon from 'frontend/assets/down-icon.svg?react'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
@@ -67,7 +65,7 @@ const WineItem = ({
   }
 
   function openInstallDir() {
-    installDir !== undefined ? window.api.showItemInFolder(installDir) : {}
+    if (installDir) window.api.showItemInFolder(installDir)
   }
 
   const renderStatus = () => {

@@ -32,9 +32,9 @@ import {
   libraryStore,
   nileConfigStore,
   nileLibraryStore,
-  wineDownloaderInfoStore
+  wineDownloaderInfoStore,
+  sideloadLibrary
 } from '../helpers/electronStores'
-import { sideloadLibrary } from 'frontend/helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
 

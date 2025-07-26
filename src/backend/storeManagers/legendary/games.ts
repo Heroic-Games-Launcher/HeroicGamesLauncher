@@ -206,6 +206,7 @@ async function getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
       return null
     }
   } catch (error) {
+    logError(['Failed to get info from Epic API:', error], LogPrefix.Legendary)
     return null
   }
 }
@@ -1032,7 +1033,10 @@ export async function forceUninstall(appName: string) {
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
     logError(
-      `Error reading ${legendaryInstalled}, could not complete operation`,
+      [
+        `Error reading ${legendaryInstalled}, could not complete operation:`,
+        error
+      ],
       LogPrefix.Legendary
     )
   }

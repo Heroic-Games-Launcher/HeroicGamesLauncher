@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 import { GameInfo, GameStatus, Runner } from 'common/types'
 

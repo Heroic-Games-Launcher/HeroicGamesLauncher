@@ -8,7 +8,7 @@ import {
 } from 'frontend/components/UI'
 import { getInstallInfo, getPreferredInstallLanguage } from 'frontend/helpers'
 import DLCDownloadListing from 'frontend/screens/Library/components/InstallModal/DownloadDialog/DLCDownloadListing'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Tabs, Tab } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import BuildSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BuildSelector'

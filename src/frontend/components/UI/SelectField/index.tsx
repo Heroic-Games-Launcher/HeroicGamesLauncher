@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react'
+import { ReactNode, useContext } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Select, MenuItem, SelectChangeEvent } from '@mui/material'
