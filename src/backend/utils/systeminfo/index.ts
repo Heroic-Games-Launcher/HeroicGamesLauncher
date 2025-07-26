@@ -17,6 +17,8 @@ import {
   getLegendaryVersion,
   getNileVersion
 } from '../helperBinaries'
+import { getUmuPath } from '../compatibility_layers'
+import { defaultUmuPath } from 'backend/constants/paths'
 
 type GPUInfo = {
   // The PCI device ID of the graphics card (hexadecimal)
@@ -55,12 +57,14 @@ interface SystemInformation {
   }
   steamDeckInfo: SteamDeckInfo
   isFlatpak: boolean
+  isNixPkg: boolean
   softwareInUse: {
     heroicVersion: string
     legendaryVersion: string
     gogdlVersion: string
     cometVersion: string
     nileVersion: string
+    umuPath: string
   }
 }
 
@@ -107,12 +111,14 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
     },
     steamDeckInfo: deckInfo,
     isFlatpak: !!process.env.FLATPAK_ID,
+    isNixPkg: Boolean(process.env.NIX_PKG),
     softwareInUse: {
       heroicVersion: getHeroicVersion(),
       legendaryVersion: legendaryVersion,
       gogdlVersion: gogdlVersion,
       cometVersion: cometVersion,
-      nileVersion: nileVersion
+      nileVersion: nileVersion,
+      umuPath: await getUmuPath()
     }
   }
   cachedSystemInfo = sysinfo
@@ -137,6 +143,8 @@ The current system is${info.steamDeckInfo.isDeck ? '' : ' not'} a Steam Deck${
       : ''
   }
 We are${info.isFlatpak ? '' : ' not'} running inside a Flatpak container
+We are${info.isNixPkg ? '' : ' not'} running the community nix package
+We are using umu-run ${info.softwareInUse.umuPath === defaultUmuPath ? 'managed by Heroic' : `found at ${info.softwareInUse.umuPath}`}
 
 Software Versions:
   Heroic: ${info.softwareInUse.heroicVersion}

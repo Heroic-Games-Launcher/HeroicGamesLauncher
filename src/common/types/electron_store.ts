@@ -49,6 +49,8 @@ export interface StoreStructure {
     settings: AppSettings
     skipVcRuntime: boolean
     showSnapWarning: boolean
+    showNixPkgWarning: boolean
+    showNixUmuWarning: boolean
   }
   wineDownloaderInfoStore: {
     'wine-releases': WineVersionInfo[]

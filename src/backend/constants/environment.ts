@@ -16,5 +16,6 @@ export const isCLIFullscreen = process.argv.includes('--fullscreen')
 export const isCLINoGui = process.argv.includes('--no-gui')
 export const isFlatpak = Boolean(env.FLATPAK_ID)
 export const isSnap = Boolean(env.SNAP)
+export const isNixPkg = Boolean(env.NIX_PKG)
 export const isAppImage = Boolean(env.APPIMAGE)
 export const flatpakRuntimeVersion = env.FLATPAK_RUNTIME_VERSION

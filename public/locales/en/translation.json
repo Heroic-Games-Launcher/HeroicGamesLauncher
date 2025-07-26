@@ -166,6 +166,16 @@
                 "install": "Epic Servers are having major outage right now, the game cannot be installed!",
                 "update": "Epic Servers are having major outage right now, the game cannot be updated!"
             },
+            "nixpkg": {
+                "checkbox": "Do not show this message again",
+                "message": "You may experience issues not present with the official package.{{newLine}}If you experience issues, please first check that it also happens with one of the official packages before requesting support from the Heroic Discord.{{newLine}}If your issue only occurs with the Nix Heroic package, raise an issue on the nixpkgs GitHub repository.",
+                "title": "Heroic is running from community nix package"
+            },
+            "nixumu": {
+                "checkbox": "Do not show this message again",
+                "message": "If you experience issues launching games using UMU, please first check that it also happens with UMU managed by Heroic, after removing UMU from your system environment.",
+                "title": "UMU running from the nix package"
+            },
             "rosetta": {
                 "message": "Heroic requires Rosetta to run correctly on macOS with Apple Silicon chips. Please install it from the macOS terminal using the following command: \"softwareupdate --install-rosetta\" and restart Heroic. ",
                 "title": "Rosetta not found"

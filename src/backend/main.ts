@@ -130,6 +130,7 @@ import {
   isIntelMac,
   isLinux,
   isMac,
+  isNixPkg,
   isSnap,
   isSteamDeckGameMode,
   isWindows
@@ -143,6 +144,7 @@ import {
   windowIcon
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
+import { usingNixUmu } from './utils/compatibility_layers'
 import MigrationSystem from './migration'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
@@ -489,6 +491,71 @@ addOneTimeListener('frontendReady', () => {
         })
     }
   }
+
+  if (isNixPkg) {
+    const nixPkgWarning: Electron.MessageBoxOptions = {
+      title: i18next.t(
+        'box.warning.nixpkg.title',
+        'Heroic is running from community nix package'
+      ),
+      message: i18next.t('box.warning.nixpkg.message', {
+        defaultValue:
+          'You may experience issues not present with the official package.{{newLine}}If you experience issues, please first check that it also happens with one of the official packages before requesting support from the Heroic Discord.{{newLine}}If your issue only occurs with the Nix Heroic package, raise an issue on the nixpkgs GitHub repository.',
+        newLine: '\n'
+      }),
+      checkboxLabel: i18next.t('box.warning.nixpkg.checkbox', {
+        defaultValue: 'Do not show this message again'
+      }),
+      checkboxChecked: false
+    }
+
+    const showNixPkgWarning = configStore.get('showNixPkgWarning', true)
+
+    if (showNixPkgWarning) {
+      dialog
+        .showMessageBox({
+          ...nixPkgWarning
+        })
+        .then((result) => {
+          if (result.checkboxChecked) {
+            configStore.set('showNixPkgWarning', false)
+          }
+        })
+    }
+  }
+
+  usingNixUmu().then((result) => {
+    if (result) {
+      const nixUmuWarning: Electron.MessageBoxOptions = {
+        title: i18next.t(
+          'box.warning.nixumu.title',
+          'UMU running from the nix package'
+        ),
+        message: i18next.t('box.warning.nixumu.message', {
+          defaultValue:
+            'If you experience issues launching games using UMU, please first check that it also happens with UMU managed by Heroic, after removing UMU from your system environment.'
+        }),
+        checkboxLabel: i18next.t('box.warning.nixumu.checkbox', {
+          defaultValue: 'Do not show this message again'
+        }),
+        checkboxChecked: false
+      }
+
+      const showNixUmuWarning = configStore.get('showNixUmuWarning', true)
+
+      if (showNixUmuWarning) {
+        dialog
+          .showMessageBox({
+            ...nixUmuWarning
+          })
+          .then((result) => {
+            if (result.checkboxChecked) {
+              configStore.set('showNixUmuWarning', false)
+            }
+          })
+      }
+    }
+  })
 
   // skip the download queue if we are running in CLI mode
   if (isCLINoGui) {
