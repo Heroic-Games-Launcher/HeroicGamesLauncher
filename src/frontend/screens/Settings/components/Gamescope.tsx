@@ -1,15 +1,13 @@
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  SelectField,
-  TextInputField,
-  ToggleSwitch,
-  UpdateComponent
-} from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { MenuItem } from '@mui/material'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
+import UpdateComponent from 'frontend/components/UI/UpdateComponent'
+import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
+import SelectField from 'frontend/components/UI/SelectField'
+import TextInputField from 'frontend/components/UI/TextInputField'
 
 const Gamescope = () => {
   const { t } = useTranslation()
@@ -37,6 +35,8 @@ const Gamescope = () => {
   )
 
   useEffect(() => {
+    if (!isLinux) return
+
     setFetching(true)
     window.api
       .hasExecutable('gamescope')
