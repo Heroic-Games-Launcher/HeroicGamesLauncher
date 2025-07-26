@@ -27,6 +27,8 @@ import {
 } from './utilities'
 import { axiosClient, calculateEta, downloadFile } from 'backend/utils'
 import type { WineManagerStatus } from 'common/types'
+import { writeFileSync } from 'fs'
+import { join } from 'path'
 
 interface getVersionsProps {
   repositorys?: Repositorys[]
@@ -350,6 +352,14 @@ async function installVersion({
     rmSync(`${installSubDir}_backup`, { recursive: true })
   }
   unlinkFile(tarFile)
+
+  // only Wine-GE don't have a version file so I create it
+  if (existsSync(installSubDir) && versionInfo.type === 'Wine-GE') {
+    writeFileSync(
+      join(installSubDir, 'version'),
+      versionInfo.download.split('/').slice(-1)[0].split('.')[0]
+    )
+  }
 
   // resolve with disksize
   versionInfo.disksize = getFolderSize(installSubDir)

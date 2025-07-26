@@ -28,6 +28,7 @@ export function getDefaultWine(): WineInstallation {
   const defaultWine: WineInstallation = {
     bin: '',
     name: 'Default Wine - Not Found',
+    version: '',
     type: 'wine'
   }
 
@@ -125,10 +126,18 @@ export async function getLinuxWineSet(
 
   readdirSync(`${toolsPath}/wine/`).forEach((version) => {
     const wineBin = join(toolsPath, 'wine', version, 'bin', 'wine')
+    const wineVersionPath: string = join(toolsPath, 'wine', version, 'version')
+    let wineVersion: string = ''
+
+    if (existsSync(wineVersionPath)) {
+      wineVersion = readFileSync(wineVersionPath, 'utf-8')
+    }
+
     altWine.add({
       bin: wineBin,
       name: `Wine - ${version}`,
       type: 'wine',
+      version: wineVersion,
       ...getWineLibs(wineBin),
       ...getWineExecs(wineBin)
     })
@@ -174,10 +183,24 @@ export async function getLinuxWineSet(
         const protonBin = join(path, version, 'proton')
         // check if bin exists to avoid false positives
         if (existsSync(protonBin)) {
+          let protonVersion = ''
+          const protonVersionPath = join(path, version, 'version')
+
+          if (existsSync(protonVersionPath)) {
+            const content = readFileSync(protonVersionPath, 'utf-8')
+
+            protonVersion = content
+              .replaceAll('\n', ' ')
+              .trim()
+              .split(' ')
+              .reverse()[0]
+          }
+
           proton.add({
             bin: protonBin,
             name: `Proton - ${version}`,
-            type: 'proton'
+            type: 'proton',
+            version: protonVersion
             // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
           })
         }
