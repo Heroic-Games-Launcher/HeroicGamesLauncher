@@ -57,6 +57,7 @@ interface SystemInformation {
   }
   steamDeckInfo: SteamDeckInfo
   isFlatpak: boolean
+  isAppImage: boolean
   softwareInUse: {
     heroicVersion: string
     legendaryVersion: string
@@ -110,6 +111,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
     },
     steamDeckInfo: deckInfo,
     isFlatpak: !!process.env.FLATPAK_ID,
+    isAppImage: !!process.env.APPIMAGE,
     softwareInUse: {
       heroicVersion: getHeroicVersion(),
       legendaryVersion: legendaryVersion,
@@ -141,6 +143,7 @@ The current system is${info.steamDeckInfo.isDeck ? '' : ' not'} a Steam Deck${
       : ''
   }
 We are${info.isFlatpak ? '' : ' not'} running inside a Flatpak container
+We are${info.isAppImage ? '' : ' not'} running inside an AppImage container
 We are using umu-run ${info.softwareInUse.umuPath === defaultUmuPath ? 'managed by Heroic' : `found at ${info.softwareInUse.umuPath}`}
 
 Software Versions:
