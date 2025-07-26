@@ -376,14 +376,16 @@ export default function WebView() {
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
-      <webview
-        ref={webviewRef}
-        className="WebView__webview"
-        partition={`persist:${store}`}
-        src={startUrl}
-        allowpopups={trueAsStr}
-        preload={webviewPreloadPath}
-      />
+      {!loading.refresh && (
+        <webview
+          ref={webviewRef}
+          className="WebView__webview"
+          partition={`persist:${store}`}
+          src={startUrl}
+          allowpopups={trueAsStr}
+          preload={webviewPreloadPath}
+        />
+      )}
       {showLoginWarningFor && (
         <LoginWarning
           warnLoginForStore={showLoginWarningFor}
