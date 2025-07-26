@@ -348,16 +348,14 @@ export default function WebView() {
         />
       )}
       {loading.refresh && <UpdateComponent message={loading.message} />}
-      {!loading.refresh && (
-        <webview
-          ref={webviewRef}
-          className="WebView__webview"
-          partition="persist:epicstore"
-          src={startUrl}
-          allowpopups={trueAsStr}
-          preload={webviewPreloadPath}
-        />
-      )}
+      <webview
+        ref={webviewRef}
+        className="WebView__webview"
+        partition="persist:epicstore"
+        src={startUrl}
+        allowpopups={trueAsStr}
+        preload={webviewPreloadPath}
+      />
       {showLoginWarningFor && (
         <LoginWarning
           warnLoginForStore={showLoginWarningFor}
