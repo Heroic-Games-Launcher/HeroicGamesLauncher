@@ -680,6 +680,11 @@
                 "understand": "Ymmärrän",
                 "title": "Oletko varma?"
             }
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Oletko varma?"
+            }
         }
     },
     "settings": {
@@ -910,5 +915,9 @@
         "next": "Seuraava",
         "startTour": "Käynnistä tutustumiskierros",
         "skip": "Ohita"
+    },
+    "analyticsModal": {
+        "disable": "Poiskytke",
+        "enable": "Päälle"
     }
 }

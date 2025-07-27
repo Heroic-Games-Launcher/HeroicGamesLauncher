@@ -739,5 +739,8 @@
     },
     "window": {
         "close": "Itxi"
+    },
+    "analyticsModal": {
+        "disable": "Desgaituta"
     }
 }

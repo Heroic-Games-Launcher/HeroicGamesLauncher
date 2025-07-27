@@ -615,7 +615,7 @@ export const Winetricks = {
       dependencies.forEach(async (dependency) => {
         try {
           await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
-        } catch (error) {
+        } catch {
           appendMessage(
             `${dependency} not installed! Winetricks might fail to install some packages or even open`
           )

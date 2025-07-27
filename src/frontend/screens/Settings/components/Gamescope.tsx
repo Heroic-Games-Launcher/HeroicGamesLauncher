@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   SelectField,
@@ -80,8 +80,9 @@ const Gamescope = () => {
       <div style={{ color: 'red' }}>
         {window.isFlatpak
           ? t(
-              'setting.gamescope.missingMsgFlatpak',
-              "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime 24.08 and restart Heroic."
+              'setting.gamescope.warningFlatpak',
+              "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic.",
+              { runtimeVersion: window.flatpakRuntimeVersion }
             )
           : t(
               'setting.gamescope.missingMsg',

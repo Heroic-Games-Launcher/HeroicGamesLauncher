@@ -530,7 +530,6 @@
 
     .gameTools .link {
       width: 100%;
-      padding: 0 0 0.5rem;
       text-align: start;
       white-space: nowrap;
       font-size: 1rem;
@@ -541,8 +540,12 @@
         color: var(--navbar-active);
       }
 
+      &:first-child {
+        margin-top: 0;
+      }
+
       &:last-child {
-        padding-bottom: 0;
+        margin-bottom: 0;
       }
     }
 

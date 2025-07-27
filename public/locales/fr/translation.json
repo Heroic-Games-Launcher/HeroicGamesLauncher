@@ -63,7 +63,7 @@
             },
             "generic": {
                 "message": "message d'erreur générique",
-                "title": "Selectionnez EXE pour lancer"
+                "title": "Selectionner l'EXE à démarrer"
             },
             "launchAborted": "Lancement interrompu",
             "title": "Erreur",
@@ -82,7 +82,7 @@
             },
             "winetricks": {
                 "message": "Winetricks a renvoyé l'erreur suivante lors de son exécution :{{newLine}}{{error}}",
-                "title": "Erreur Winetricks"
+                "title": "Erreur de Winetricks"
             },
             "moving": "Erreur lors du déplacement du jeu {{error}}",
             "ubisoft-connect": {
@@ -126,11 +126,11 @@
             }
         },
         "runexe": {
-            "title": "Sélectionner l'exécutable à lancer"
+            "title": "Sélectionner l'EXE à démarrer"
         },
         "select": {
             "button": "Sélectionner",
-            "exe": "Choisir le fichier .exe",
+            "exe": "Choisir le fichier EXE",
             "script": "Sélectionner un script..."
         },
         "shortcuts": {
@@ -150,7 +150,7 @@
                 "message": "Les liens de téléchargement de Visual C++ Runtimes ont été ouverts. Veuillez installer les versions x86 et x64."
             },
             "notfound": {
-                "message": "Les composants Microsoft Visual C++ Runtimes ne sont pas installés, mais sont nécessaires pour certains jeux",
+                "message": "Les environnements d'exécution Microsoft Visual C++ ne sont pas installés, qui sont nécessaires pour certains jeux",
                 "title": "VCRuntime n'est pas installé"
             }
         },
@@ -189,8 +189,8 @@
         "changelog": "Journal des changements",
         "postpone": "Différer",
         "launchAnyway": "Lancez le jeu quand même",
-        "shaderPreCachingDisabledTitle": "Mise en mémoire cache des shaders désactivée",
-        "shaderPreCachingDisabledMessage": "La mise en mémoire cache des shaders est désactivée. Veuillez l'activer dans les options de Steam en mode bureau afin que le jeu fonctionne normalement avec UMU."
+        "shaderPreCachingDisabledMessage": "La mise en mémoire cache des shaders est désactivée. Veuillez l'activer dans les options de Steam en mode bureau afin que le jeu fonctionne normalement avec UMU.",
+        "shaderPreCachingDisabledTitle": "Mise en mémoire cache des shaders désactivée"
     },
     "button": {
         "cancel": "Annuler",
@@ -366,7 +366,9 @@
         "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles.",
         "download_proton_steam": "Lorsqu'activé, GE-Proton sera téléchargé directement vers le dossier des outils de compatibilité de Steam, en lieu et place du chemin par défaut d'Heroic. Il utilisera le chemin vers Steam définit dans le champ 'Chemin vers Steam par défaut' ci-dessus.",
         "dxfpslimit": "Définir un plafond de fréquences d'images pour les jeux DXVK",
-        "advertiseAvxForRosetta": "Active la compatibilité avec l'ensemble d'instructions AVX lors de l'exécution de jeux Windows via Rosetta sur les Macs Apple Silicon. Cela peut être nécessaire pour certains jeux comme Death Stranding, qui requièrent une compatibilité avec AVX."
+        "advertiseAvxForRosetta": "Active la compatibilité avec l'ensemble d'instructions AVX lors de l'exécution de jeux Windows via Rosetta sur les Macs Apple Silicon. Cela peut être nécessaire pour certains jeux comme Death Stranding, qui requièrent une compatibilité avec AVX.",
+        "wine-hdr": "Le HDR améliore la colorimétrie en proposant des contours plus clairs et des contrastes plus profonds. Afin que le HDR fonctionne, l'écran et le jeu doivent être tous deux compatibles.",
+        "wine-wayland": "Le pilote expérimental Wine-Wayland permet aux jeux de s'exécuter nativement par l'entremise du protocole d'affichage Wayland. L'activer peut faire dysfonctionner certains jeux."
     },
     "info": {
         "heroic": {
@@ -411,7 +413,9 @@
         "toggleLayout": {
             "grid": "Afficher sous forme de grille",
             "list": "Afficher sous forme de liste"
-        }
+        },
+        "hideAlphabetFilter": "Ne pas afficher le filtre alphabétique",
+        "showAlphabetFilter": "Afficher le filtre alphabétique"
     },
     "Library": "Bibliothèque",
     "loading": {
@@ -474,6 +478,9 @@
             "started": "Mise à jour commencée",
             "paused": "Mise à jour suspendue",
             "failed": "Mise à jour échouée"
+        },
+        "import": {
+            "failed": "L'importation a échoué"
         }
     },
     "offline-message": {
@@ -582,7 +589,7 @@
         "autodxvk": "Installation/Mise à jour automatique de DXVK dans le prefixe",
         "autosync": "Synchroniser automatiquement les sauvegardes",
         "autovkd3d": "Installation/Mise à jour automatique de VKD3D dans le prefixe",
-        "change-target-exe": "Choisir un fichier .exe alternatif à lancer",
+        "change-target-exe": "Choisir un fichier EXE alternatif à démarrer",
         "checkForUpdatesOnStartup": "Vérifier au démarrage si une version plus récente d'Heroic est disponible",
         "crossover-version": "Version de Crossover/Wine",
         "custom_themes_path": "Chemin vers les thèmes personnalisés",
@@ -695,14 +702,14 @@
         "preferSystemLibs": "Opter de préférence pour les bibliothèques système",
         "primerun": {
             "confirmation": {
-                "message": "Une seule carte graphique a été détectée dans ce système. Veuillez noter que cette option est prévue pour les systèmes multi-GPU avec des GPUs « headless » (comme les ordinateurs portables). Avec un système comprenant un seul GPU, celui-ci est utilisé automatiquement et activer cette option peut causer des problèmes. Voulez-vous vraiment activer cette option ?",
+                "message": "Nous n'avons détecté qu'une seule carte graphique dans ce système. Veuillez noter que cette option est prévue pour les systèmes multi-GPU avec des GPUs « headless » (tels que les ordinateurs portables). Dans un système comprenant un seul GPU, ledit GPU est automatiquement utilisé & activer cette option peut causer des problèmes. Voulez-vous vraiment activer cette option ?",
                 "title": "Seulement 1 processeur graphique (GPU) a été détecté"
             },
             "description": "Utiliser une carte graphique dédiée"
         },
         "runexe": {
             "message": "Glissez et déposez les fichiers ici",
-            "title": "Utiliser un .exe sur le préfixe"
+            "title": "Utiliser un EXE sur préfixe"
         },
         "savefolder": {
             "not-found": "Dossier de sauvegarde introuvable, veuillez le sélectionner manuellement",
@@ -713,7 +720,7 @@
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
-        "winecrossoverbottle": "Pont-Bouteille",
+        "winecrossoverbottle": "Bouteille CrossOver",
         "wineprefix": "Dossier WinePrefix",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
@@ -743,7 +750,8 @@
             "enableUpscaling": "Activer la mise à l'échelle",
             "missingMsg": "Nous n'avons pas pu trouver gamescope dans ce PATH. Installez-le ou ajoutez-le au PATH.",
             "enableForceGrabCursor": "Activer « Force Grab Cursor »",
-            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 24.08 et redémarrez Heroic."
+            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 24.08 et redémarrez Heroic.",
+            "warningFlatpak": "Nous n'avons pas pu trouver une version de Gamescope compatible. Installez le paquet flatpak Gamescope avec l'environnement d'exécution {{runtimeVersion}} et redémarrez Heroic."
         },
         "msync": "Activer Msync",
         "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",
@@ -765,7 +773,21 @@
         "disableUMU": "Désactiver umu",
         "download-proton-steam": "Télécharger GE-Proton dans le dossier de Steam",
         "advertiseAvxForRosetta": "Promouvoir AVX pour Rosetta",
-        "dxfpslimit": "Limiter les FPS des jeux DirectX"
+        "dxfpslimit": "Limiter les FPS des jeux DirectX",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Êtes-vous sûr(e) ?",
+                "dont_show": "Ne pas les afficher",
+                "message": "Nous recommandons l'utilisation de GE-Proton avec Heroic parce que certains « winetricks » et proto-correctifs font défaut aux versions non-GE. Vous pouvez néanmoins les utiliser, si vous le souhaitez.",
+                "show": "J'ai compris, affichez-les"
+            },
+            "info_label": "Versions de Proton non-GE ignorées",
+            "label": "Permettre l'utilisation de versions non-GE de Proton pour lancer les jeux",
+            "wine_selector_warning": "Les versions non-GE de Proton sont ignorées par défaut, activez-les dans les paramètres globaux avancés"
+        },
+        "hdr": "Activer le HDR",
+        "no-tray-icon": "Ne pas afficher d'icône dans la barre des tâches (requiert un redémarrage)",
+        "wineWayland": "Activer Wine-Wayland (Expérimental) (La version de Wine doit être compatible)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -848,7 +870,7 @@
             "clearCache": {
                 "help8": "Jeux installés",
                 "help1": "Cette action effacera les caches suivants :",
-                "help2": "Informations de jeu tierces (scores, compatibilité Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help2": "Informations sur le jeu tierces (scores, compatibilité Steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
                 "help6": "Cela ne supprimera PAS :",
                 "help9": "Paramètres de jeux",
                 "help10": "Configuration d'Heroic",
@@ -983,7 +1005,7 @@
     },
     "emptyLibrary": {
         "noResults": "Les filtres actuels n'ont retourné aucun résultat.",
-        "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la Bibliothèque.<br /><br />Si vous souhaitez ajouter des jeux ou des applications provenant d'autres sources, cliquez sur <br />."
+        "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la Bibliothèque.<br /><br />Pour utiliser des jeux ou des applications provenant d'autres sources, cliquez pour les ajouter manuellement<br />."
     },
     "adtraction-locked": {
         "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",
@@ -1054,5 +1076,9 @@
             "error": "L'installation de Steam a échoué ! Veuillez lire les instructions attentivement et réessayer !",
             "success": "Steam pour Windows a été installé avec succès !"
         }
+    },
+    "analyticsModal": {
+        "disable": "Désactiver",
+        "enable": "Activer"
     }
 }

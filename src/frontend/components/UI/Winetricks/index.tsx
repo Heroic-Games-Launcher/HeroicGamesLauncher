@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './index.scss'
 import { ProgressDialog } from '../ProgressDialog'
 import WinetricksSearchBar from './WinetricksSearch'

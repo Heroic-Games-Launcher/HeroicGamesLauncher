@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Dialog, DialogContent, DialogFooter } from '../Dialog'
 import ContextProvider from '../../../state/ContextProvider'
 import ToggleSwitch from '../ToggleSwitch'

@@ -96,7 +96,7 @@ async function install({
   }
 
   if (installPath !== 'default') {
-    setInstallPath && setInstallPath(installPath)
+    if (setInstallPath) setInstallPath(installPath)
   }
 
   if (installPath === 'default') {

@@ -836,5 +836,9 @@
     "emptyLibrary": {
         "noResults": "De valgte filter produceret ingen resultater.",
         "noGames": "Dit Bibliotek er tomt. .<br /><br />Klik <4>her</4> for at logge ind med din Epic, GOG.com eller Amazon konto. Efter, vil dine spil blive vist her på biblioteket. <br /><br />for at bruge spil fra andre kilder, klik <br />for at tilføje dem manuelt."
+    },
+    "analyticsModal": {
+        "disable": "Slå Fra",
+        "enable": "Slået til"
     }
 }

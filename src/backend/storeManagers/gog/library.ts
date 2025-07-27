@@ -136,9 +136,7 @@ async function createMissingGogdlManifest(
       encoding: 'utf8'
     })
   } catch (e) {
-    logError(`Unable to get data of ${appName} ${e}`, {
-      prefix: LogPrefix.Gog
-    })
+    logError([`Unable to get data of ${appName}:`, e], LogPrefix.Gog)
     return
   }
 }
@@ -171,7 +169,11 @@ export async function getSaveSyncLocation(
     } catch (err) {
       clientId = undefined
       logWarning(
-        'Was not able to read clientId from manifest, falling back to info file'
+        [
+          'Was not able to read clientId from manifest, falling back to info file:',
+          err
+        ],
+        LogPrefix.Gog
       )
       clientId = readInfoFile(appName, install.install_path)?.clientId
     }
@@ -1114,7 +1116,7 @@ export function readInfoFile(
     infoFileData = JSON.parse(readFileSync(infoFilePath, 'utf-8'))
   } catch (error) {
     logError(
-      `Error reading ${infoFilePath}, could not complete operation`,
+      [`Error reading ${infoFilePath}, could not complete operation:`, error],
       LogPrefix.Gog
     )
   }
@@ -1132,7 +1134,11 @@ export function readInfoFile(
         infoFileData.buildId = buildId
       } catch (error) {
         logError(
-          `Error reading ${idFilePath}, not adding buildId to game metadata`
+          [
+            `Error reading ${idFilePath}, not adding buildId to game metadata:`,
+            error
+          ],
+          LogPrefix.Gog
         )
       }
     }

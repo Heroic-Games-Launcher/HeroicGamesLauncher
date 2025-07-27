@@ -3,7 +3,7 @@
         "change": {
             "message": "Esto cambiará la ubicación de la instalación del juego, ¿estás seguro?",
             "path": "Selecciona una nueva carpeta para la instalación",
-            "title": "Modificar la ubicación de instalación para los juegos"
+            "title": "Modificar la ruta de instalación para los juegos"
         },
         "choose": "Seleccionar",
         "importpath": "Selecciona la carpeta del juego a importar",
@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Jugar ahora",
-            "stop": "Reproduciendo"
+            "stop": "Reproduciendo",
+            "start_with_logs": "Jugar ahora (con registros)"
         },
         "saves": {
             "syncing": "Sincronizando guardados"
@@ -196,7 +197,7 @@
             "ram": "8GB de RAM",
             "recommended": "Recomendación para una mejor experiencia",
             "select-path": "Seleccionar carpeta de instalación de Steam",
-            "specificVersion-pt1": "De descargará una versión específica de Steam desde",
+            "specificVersion-pt1": "Se descargará una versión específica de Steam desde",
             "specificVersion-pt2": "archive.org",
             "specificVersion-pt3": "para que funcione con Heroic ya que nuevas versiones de Steam no funcionan en macOS.",
             "notification": "Heroic notificará cuando la instalación termine.",
@@ -204,7 +205,9 @@
             "cancel": "Cancelar Instalación",
             "compatibility": "No todos los juegos van a funcionar, y si funcionan, puede que no lo hagan correctamente.",
             "install-tooltip": "Se instalará la versión de Windows de Steam y se ejecutará usando una capa de compatibilidad de Heroic.\n\nAlgunos juegos, especialmente títulos viejos, juegos nuevos en 3D, o juegos con software anti-cheat pueden no funcionar correctamente. \n\n    ",
-            "install-path": "Ruta de Instalación de Steam"
+            "install-path": "Ruta de Instalación de Steam",
+            "compatibility-layer-not-available": "Capa de compatibilidad no disponible. Por favor descargue una desde \"Ajustes > Wine Manager\" primero.",
+            "patience": "Si desea continuar, por favor sea paciente ya que puede tomar unos minutos para terminar dependiendo de tu conexión a internet y tu configuración del sistema."
         }
     },
     "launch": {

@@ -103,7 +103,7 @@ abstract class GlobalConfig {
         version = JSON.parse(readFileSync(configPath, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${configPath}`,
+          [`Config file is corrupted, please check ${configPath}:`, error],
           LogPrefix.Backend
         )
         version = 'v0'
@@ -318,6 +318,7 @@ class GlobalConfigV0 extends GlobalConfig {
     const defaultWine: WineInstallation = isWindows ? {} : getDefaultWine()
 
     const settings: Partial<AppSettings> = {
+      analyticsOptIn: false,
       checkUpdatesInterval: 10,
       enableUpdates: false,
       addDesktopShortcuts: false,

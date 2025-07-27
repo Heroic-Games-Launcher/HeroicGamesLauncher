@@ -702,7 +702,12 @@
             }
         },
         "after-launch-script-path": "اختر سكريبتاً للتّنفيذ بعد إغلاق اللّعبة",
-        "before-launch-script-path": "إختر سكريبتاً للتّنفيذ قبل تشغيل اللّعبة"
+        "before-launch-script-path": "إختر سكريبتاً للتّنفيذ قبل تشغيل اللّعبة",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "هل أنت متأكّد؟"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -930,5 +935,9 @@
         "dont-show-again": "لا تظهر هذا التحذير مجدداً",
         "title": "Adtraction محظور",
         "description": "يبدو أن عنوان track.adtraction.com لم يتمكن من التحميل أو تم حظره. مع هذا العنوان, أي شراء تقوم به على متجر GOG يدعم هيرويك مادياً. فكر بازالة الحظر اذا كنت تريد المساهمة."
+    },
+    "analyticsModal": {
+        "disable": "عطل",
+        "enable": "مكن"
     }
 }

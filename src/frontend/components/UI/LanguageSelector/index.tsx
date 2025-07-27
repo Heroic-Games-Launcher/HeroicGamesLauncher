@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { configStore } from 'frontend/helpers/electronStores'
 import ContextProvider from 'frontend/state/ContextProvider'

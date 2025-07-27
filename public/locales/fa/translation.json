@@ -759,5 +759,9 @@
     },
     "tour": {
         "back": "بازگشت"
+    },
+    "analyticsModal": {
+        "disable": "غیرفعال سازی",
+        "enable": "فعال سازی"
     }
 }

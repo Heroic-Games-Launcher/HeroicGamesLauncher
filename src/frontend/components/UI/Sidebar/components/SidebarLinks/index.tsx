@@ -11,7 +11,7 @@ import {
   faBarsProgress
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'

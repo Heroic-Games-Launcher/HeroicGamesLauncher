@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef } from 'react'
+import { Fragment, useCallback, useEffect, useRef } from 'react'
 import './index.scss'
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

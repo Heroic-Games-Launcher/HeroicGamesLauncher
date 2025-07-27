@@ -189,8 +189,8 @@
         "changelog": "Muutuste nimekiri",
         "postpone": "Hiljem",
         "launchAnyway": "Mängi siiski",
-        "shaderPreCachingDisabledTitle": "Shaderite ettelaadimine keelatud",
-        "shaderPreCachingDisabledMessage": "Steami Shader Pre-cache (shaderite ettelaadimine) on keelatud. Palun lülitage see töölauarežiimis Steami seadetest sisse, et mäng toimiks UMU-ga korralikult."
+        "shaderPreCachingDisabledMessage": "Steami Shader Pre-cache (shaderite ettelaadimine) on keelatud. Palun lülitage see töölauarežiimis Steami seadetest sisse, et mäng toimiks UMU-ga korralikult.",
+        "shaderPreCachingDisabledTitle": "Shaderite ettelaadimine keelatud"
     },
     "button": {
         "cancel": "Tühista",
@@ -365,7 +365,9 @@
         },
         "dxfpslimit": "Kehtestab kaadrisageduse piirangu DXVK mängude jaoks",
         "download_proton_steam": "Kui lubatud, laetakse GE-Proton alla otse Steami ühilduvustööriistade kausta, mitte Heroicu vaikimisi teele. See kasutab Steami vaiketeed, mis on määratud üleval 'Steami vaiketee' valikus.",
-        "advertiseAvxForRosetta": "Lubab toe AVX käsustiku jaoks, kui mängite Windowsi mänge Apple Siliconi Mac-idel läbi Rosetta. See võib olla vajalik teatud mängude jaoks, mis vajavad AVX-i tuge, näiteks \"Death Stranding\"."
+        "advertiseAvxForRosetta": "Lubab toe AVX käsustiku jaoks, kui mängite Windowsi mänge Apple Siliconi Mac-idel läbi Rosetta. See võib olla vajalik teatud mängude jaoks, mis vajavad AVX-i tuge, näiteks \"Death Stranding\".",
+        "wine-hdr": "HDR täiustab värve võimendades eredaid kohti ja pakkudes sügavamat kontrasti. HDR-i toimimiseks peavad nii ekraan kui ka mäng seda toetama.",
+        "wine-wayland": "Wine-Waylandi eksperimentaalne draiver lubab mängudel otse käivituda läbi Waylandi kuvaprotokolli. Selle lubamine võib mõned mängud katki teha."
     },
     "info": {
         "heroic": {
@@ -410,7 +412,9 @@
         "toggleLayout": {
             "grid": "Vaheta ruudustiku paigutusele",
             "list": "Vaheta loendi paigutusele"
-        }
+        },
+        "hideAlphabetFilter": "Peida tähestiku filter",
+        "showAlphabetFilter": "Näita tähestiku filtrit"
     },
     "Library": "Varamu",
     "loading": {
@@ -473,6 +477,9 @@
             "started": "Uuendamine algas",
             "failed": "Uuendus ebaõnnestus",
             "paused": "Värskendus peatatud"
+        },
+        "import": {
+            "failed": "Importimine nurjus"
         }
     },
     "offline-message": {
@@ -727,7 +734,8 @@
             "enableUpscaling": "Lubab ülesskaleerimist",
             "enableLimiter": "Luba FPS limiit",
             "enableForceGrabCursor": "Luba sunnitud kursori haaramine",
-            "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 24.08 ja taaskäivitage Heroic."
+            "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 24.08 ja taaskäivitage Heroic.",
+            "warningFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 24.08 ja taaskäivitage Heroic."
         },
         "after-launch-script-path": "Vali skript, mida käitada pärast mängu sulgemist",
         "msync": "Luba Msync",
@@ -764,7 +772,14 @@
         },
         "advertiseAvxForRosetta": "Kuuluta Rosettale AVX-tuge",
         "download-proton-steam": "Lae alla GE-Proton Steami kausta",
-        "dxfpslimit": "Piira DirectX mängude kaadrisagedust"
+        "dxfpslimit": "Piira DirectX mängude kaadrisagedust",
+        "hdr": "Luba HDR",
+        "wineWayland": "Luba Wine-Wayland (eksperimentaalne) (Wine'i versioon peab seda toetama)",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Kas olete kindel?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1053,5 +1068,9 @@
             "error": "Steami paigaldamine ebaõnnestus! Palun lugege hoolikalt juhiseid ja proovige uuesti!",
             "success": "Steam Windowsi jaoks on edukalt paigaldatud!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Lülita välja",
+        "enable": "Luba"
     }
 }
