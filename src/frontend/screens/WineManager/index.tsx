@@ -187,6 +187,7 @@ export default function WineManager(): JSX.Element | null {
               }
               return null
             })}
+            {/* refresh button is a tab to make navigation more predictable */}
             <Tab
               title={t('generic.library.refresh', 'Refresh Library')}
               onClick={() => refreshWineVersionInfo(true)}
