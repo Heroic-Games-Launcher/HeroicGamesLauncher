@@ -181,7 +181,7 @@
         "redist": "Installerer redistributables",
         "winetricks": "Installerer Winetricks-pakker",
         "steam": {
-            "pleaseWait": "Please wait...",
+            "pleaseWait": "Please wait",
             "abort": "Avbryt installering",
             "cancel": "Avbryt installering",
             "compatibility": "Vær oppmerksom på at ikke alle spill kommer til å fungere, og til og med hvis de gjør det, er det ikke garantert at de fungerer som forventet.",
@@ -195,7 +195,16 @@
             "installing": "Installerer",
             "launch": "Start Steam med Heroics kompatibilitetslag",
             "launching": "Starter Steam...",
-            "macOS": "macOS 14.0 eller nyere"
+            "macOS": "macOS 14.0 eller nyere",
+            "install-tooltip": "Dette installerer Windows-versjonen av Steam og kjører det gjennom et Heroic-kompatibilitetslag. \n\n    Noen spill, spesielt eldre spill, nyere 3D-spill, eller de med antijukseprogramvare, kan hende at ikke fungerer riktig. \n\n    ",
+            "notification": "Heroic vil si ifra når installasjonen er ferdig.",
+            "patience": "Hvis du ønsker å fortsette, bemerk at det kan ta noen minutter å fullføre, avhengig av internetthastigheten og systemkonfigurasjonen din.",
+            "ram": "8 GB RAM",
+            "recommended": "Anbefalte spesifikasjoner for en bedre opplevelse",
+            "select-path": "Velg innstallasjonsmappe for Steam",
+            "specificVersion-pt1": "Dette vil laste den en spesifikk versjon av Steam fra",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "som har blitt modifisert for å fungere gjennom Heroic, siden nyere versjoner av Steam ikke fungerer på macOS."
         }
     },
     "launch": {
@@ -272,7 +281,8 @@
         "gog-goodie": "Dette spillet ser ikke ut til å være installerbart. Sjekk nedlastbart innhold på https://gog.com/account",
         "goodie": "Kan ikke installeres",
         "winetricks": "Aktiverer Winetricks-rettelser",
-        "redist": "Installerer Redistributables ({{redist}})"
+        "redist": "Installerer Redistributables ({{redist}})",
+        "importing": "Imporerer"
     },
     "submenu": {
         "addShortcut": "Legg til snarvei",

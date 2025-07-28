@@ -13,7 +13,12 @@ import {
   clipboard,
   session
 } from 'electron'
-import { addHandler, addListener, addOneTimeListener } from 'backend/ipc'
+import {
+  addHandler,
+  addListener,
+  addOneTimeListener,
+  sendFrontendMessage
+} from 'backend/ipc'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
@@ -50,6 +55,7 @@ import {
   writeConfig,
   createNecessaryFolders
 } from './utils'
+import { startPlausible } from './utils/plausible'
 
 import {
   getDiskInfo,
@@ -82,7 +88,6 @@ import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
-import { sendFrontendMessage } from './ipc'
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
@@ -359,6 +364,10 @@ if (!gotTheLock) {
     })
 
     const settings = GlobalConfig.get().getSettings()
+
+    if (settings && settings.analyticsOptIn === true) {
+      startPlausible()
+    }
 
     if (settings?.disableSmoothScrolling) {
       app.commandLine.appendSwitch('disable-smooth-scrolling')

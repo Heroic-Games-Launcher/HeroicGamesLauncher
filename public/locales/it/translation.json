@@ -365,7 +365,9 @@
         "msync": "Msync mira a ridurre l'overhead del wineserver nei giochi ad alta intensità di CPU. L'abilitazione può migliorare le prestazioni sui kernel Linux supportati.",
         "dxfpslimit": "Imposta un limite di frame rate per i giochi DirectX (9-12)",
         "advertiseAvxForRosetta": "Abilita il supporto del set di istruzioni AVX durante l'esecuzione di giochi Windows tramite Rosetta su Mac con Apple Silicon. Potrebbe essere necessario per alcuni giochi, come Death Stranding, che richiedono il supporto AVX.",
-        "download_proton_steam": "Se abilitato, GE-Proton verrà scaricato direttamente nella directory degli strumenti di compatibilità di Steam invece che nel percorso Heroic predefinito. Utilizzerà il percorso di Steam impostato nell'impostazione 'Percorso Steam predefinito' qui sopra."
+        "download_proton_steam": "Se abilitato, GE-Proton verrà scaricato direttamente nella directory degli strumenti di compatibilità di Steam invece che nel percorso Heroic predefinito. Utilizzerà il percorso di Steam impostato nell'impostazione 'Percorso Steam predefinito' qui sopra.",
+        "wine-hdr": "L'HDR migliora i colori offrendo alte luci più brillanti e contrasti più profondi. Affinché funzioni, sia il display che il gioco devono supportarlo.",
+        "wine-wayland": "Il driver sperimentale Wine-Wayland consente ai giochi di funzionare in modo nativo con il protocollo di visualizzazione Wayland. L'abilitazione potrebbe causare problemi ad alcuni giochi."
     },
     "info": {
         "heroic": {
@@ -755,7 +757,8 @@
             "enableUpscaling": "Abilita Upscaling",
             "missingMsg": "Non troviamo il gamescope nel PATH. Installalo o aggiungilo al PATH.",
             "enableForceGrabCursor": "Blocca il cursore alla finestra",
-            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 24.08 e riavvia Heroic."
+            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 24.08 e riavvia Heroic.",
+            "warningFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 24.08 e riavvia Heroic."
         },
         "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",
         "disablePlaytimeSync": "Disabilita la sincronizzazione del tempo di gioco",
@@ -770,7 +773,14 @@
         },
         "advertiseAvxForRosetta": "Pubblicizza AVX per Rosetta",
         "dxfpslimit": "Limita gli FPS dei giochi DirectX",
-        "download-proton-steam": "Scarica GE-Proton nella directory di Steam"
+        "download-proton-steam": "Scarica GE-Proton nella directory di Steam",
+        "hdr": "Abilita HDR",
+        "wineWayland": "Abilita Wine-Wayland (sperimentale) (la versione di Wine deve supportarlo)",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Sei sicuro?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1059,5 +1069,9 @@
             "error": "Installazione di Steam non riuscita! Leggi attentamente le istruzioni e riprova!",
             "success": "Steam per Windows è stato installato correttamente!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Disabilita",
+        "enable": "Abilita"
     }
 }

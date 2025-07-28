@@ -49,7 +49,7 @@ async function getAvailableVersions({
 }: getVersionsProps): Promise<VersionInfo[]> {
   const releases: Array<VersionInfo> = []
 
-  for await (const repo of repositorys) {
+  for (const repo of repositorys) {
     switch (repo) {
       case Repositorys.WINEGE: {
         await fetchReleases({
@@ -198,8 +198,9 @@ async function installVersion({
 
   const tarFile =
     installDir + '/' + versionInfo.download.split('/').slice(-1)[0]
-  const installSubDir =
-    versionInfo.installDir ?? installDir + '/' + versionInfo.version
+  const installSubDir = versionInfo.installDir
+    ? versionInfo.installDir
+    : installDir + '/' + versionInfo.version
   const sourceChecksum = versionInfo.checksum
     ? (
         await axiosClient.get(versionInfo.checksum, {

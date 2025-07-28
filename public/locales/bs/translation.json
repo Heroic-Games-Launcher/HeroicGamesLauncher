@@ -743,5 +743,9 @@
     "category-settings": {
         "cancel": "Cancel",
         "warning": "Warning"
+    },
+    "analyticsModal": {
+        "disable": "Onemogućeno",
+        "enable": "Omogućeno"
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader } from '../Dialog'
 import ReactMarkdown from 'react-markdown'
 import classNames from 'classnames'

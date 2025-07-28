@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
 import { SelectField } from 'frontend/components/UI'

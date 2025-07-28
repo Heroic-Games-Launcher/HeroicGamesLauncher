@@ -70,7 +70,7 @@ import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
-import { app, dialog, powerSaveBlocker } from 'electron'
+import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
 import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
@@ -92,7 +92,8 @@ import {
   isWindows,
   isIntelMac,
   isSteamDeck,
-  isFlatpak
+  isFlatpak,
+  flatpakRuntimeVersion
 } from './constants/environment'
 import { formatSystemInfo, getSystemInfo } from './utils/systeminfo'
 import { gameAnticheatInfo } from './anticheat/utils'
@@ -203,47 +204,6 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
       return { status: 'error' }
     }
-  }
-
-  const isPreCacheDisabled = await shouldToggleShaderPreCacheOn(gameSettings)
-
-  if (isPreCacheDisabled) {
-    const { response } = await dialog.showMessageBox({
-      type: 'warning',
-      title: i18next.t(
-        'box.shaderPreCachingDisabledTitle',
-        'Shader Pre-Caching Disabled'
-      ),
-      message: i18next.t(
-        'box.shaderPreCachingDisabledMessage',
-        "Steam's Shader Pre-cache is disabled. Please enable it on the Steam Settings in Desktop Mode to ensure the game works properly with UMU."
-      ),
-      buttons: [
-        i18next.t('box.launchAnyway', 'Launch Game Anyway'),
-        i18next.t('button.cancel', 'Cancel')
-      ],
-      cancelId: 1,
-      defaultId: 0
-    })
-
-    if (response === 1) {
-      sendGameStatusUpdate({
-        appName,
-        runner,
-        status: 'done'
-      })
-      logInfo(
-        `User aborted the launch of ${title} because Shader Pre-Caching is disabled`,
-        LogPrefix.Backend
-      )
-      await logWriter.close()
-      return { status: 'abort' }
-    }
-
-    logWarning(
-      `User launched ${title} with Shader Pre-Caching disabled. Issues might occur.`,
-      LogPrefix.Backend
-    )
   }
 
   await runBeforeLaunchScript(game, gameSettings, logWriter)
@@ -359,24 +319,6 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   return { status: launchResult ? 'done' : 'error' }
 }
 
-async function shouldToggleShaderPreCacheOn(
-  gameSettings: GameSettings
-): Promise<boolean> {
-  const info = await getSystemInfo()
-  if (!info) return false
-  if (!info.steamDeckInfo.isDeck) return false
-  if (info.steamDeckInfo.mode !== 'game') return false
-  if (!(await isUmuSupported(gameSettings))) return false
-
-  // check if all of the following env variables are undefined
-  return [
-    'STEAM_COMPAT_TRANSCODED_MEDIA_PATH',
-    'STEAM_COMPAT_MEDIA_PATH',
-    'STEAM_FOSSILIZE_DUMP_PATH',
-    'DXVK_STATE_CACHE_PATH'
-  ].every((envVar) => !process.env[envVar])
-}
-
 function filterGameSettingsForLog(
   originalSettings: GameSettings,
   notNative: boolean
@@ -403,6 +345,7 @@ function filterGameSettingsForLog(
   if (isLinux) {
     delete gameSettings.enableMsync
     delete gameSettings.wineCrossoverBottle
+    delete gameSettings.advertiseAvxForRosetta
 
     if (notNative) {
       const wineVersion = gameSettings.wineVersion
@@ -410,6 +353,8 @@ function filterGameSettingsForLog(
         if (wineVersion.type === 'proton') {
           delete gameSettings.autoInstallDxvk
           delete gameSettings.autoInstallVkd3d
+        } else {
+          delete gameSettings.useSteamRuntime
         }
       }
 
@@ -447,8 +392,9 @@ function filterGameSettingsForLog(
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
     delete gameSettings.showMangohud
-    delete gameSettings.showFps
     delete gameSettings.disableUMU
+    delete gameSettings.useSteamRuntime
+    delete gameSettings.enableFsync
 
     if (notNative) {
       const wineType = gameSettings.wineVersion
@@ -505,6 +451,8 @@ function filterGameSettingsForLog(
     delete gameSettings.eacRuntime
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
+    delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.useSteamRuntime
   }
 
   return gameSettings
@@ -595,14 +543,6 @@ async function prepareLaunch(
     )
   ])
 
-  logWriter.logWarning(
-    shouldToggleShaderPreCacheOn(gameSettings).then((b) =>
-      b
-        ? "Steam's Shader Pre-Caching is disabled and umu is enabled. Steam's Shader Pre-cache is required by umu to work properly on the SteamDeck's Gaming mode.\n\n"
-        : ''
-    )
-  )
-
   // If we're not on Linux, we can return here
   if (!isLinux) {
     return { success: true, rpcClient, offlineMode }
@@ -618,7 +558,7 @@ async function prepareLaunch(
       let reason =
         'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
       if (isFlatpak) {
-        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime 24.08`
+        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime ${flatpakRuntimeVersion} and restart Heroic.`
       }
       return {
         success: false,
@@ -650,7 +590,7 @@ async function prepareLaunch(
       let warningMessage =
         'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
       if (isFlatpak) {
-        warningMessage = `${warningMessage}. Make sure to install Gamescope's flatpak package with runtime 24.08`
+        warningMessage = `${warningMessage}. Make sure to install Gamescope's flatpak package with runtime ${flatpakRuntimeVersion}`
       }
 
       logWarning(warningMessage)
@@ -686,19 +626,16 @@ async function prepareLaunch(
 
         // upscale method
         if (gameSettings.gamescope.upscaleMethod === 'fsr') {
-          oldVersion
-            ? gameScopeCommand.push('-U')
-            : gameScopeCommand.push('-F', 'fsr')
+          if (oldVersion) gameScopeCommand.push('-U')
+          else gameScopeCommand.push('-F', 'fsr')
         }
         if (gameSettings.gamescope.upscaleMethod === 'nis') {
-          oldVersion
-            ? gameScopeCommand.push('-Y')
-            : gameScopeCommand.push('-F', 'nis')
+          if (oldVersion) gameScopeCommand.push('-Y')
+          else gameScopeCommand.push('-F', 'nis')
         }
         if (gameSettings.gamescope.upscaleMethod === 'integer') {
-          oldVersion
-            ? gameScopeCommand.push('-i')
-            : gameScopeCommand.push('-S', 'integer')
+          if (oldVersion) gameScopeCommand.push('-i')
+          else gameScopeCommand.push('-S', 'integer')
         }
         // didn't find stretch in old version
         if (gameSettings.gamescope.upscaleMethod === 'stretch' && !oldVersion) {
@@ -977,7 +914,10 @@ async function prepareWineLaunch(
       }
     }
   } catch (err) {
-    logError('Failed to install GalaxyCommunication dummy into the prefix')
+    logError([
+      'Failed to install GalaxyCommunication dummy into the prefix:',
+      err
+    ])
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -1197,7 +1137,8 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   }
 
   if (gameSettings.showFps) {
-    isMac ? (ret.MTL_HUD_ENABLED = '1') : (ret.DXVK_HUD = 'fps')
+    if (isMac) ret.MTL_HUD_ENABLED = '1'
+    else ret.DXVK_HUD = 'fps'
   }
   if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
@@ -1808,7 +1749,7 @@ async function callRunner(
       })
 
       if (signal && !child.killed) {
-        rej('Process terminated with signal ' + signal)
+        rej(new Error(`Process terminated with signal ${signal}`))
       }
 
       res({
@@ -2043,11 +1984,11 @@ async function runScriptForGame(
       })
     }
 
-    child.on('error', (err: Error) => {
+    child.on('error', (err) => {
       if (gameSettings.verboseLogs) {
         logWriter.logError(err)
       }
-      reject(err.message)
+      reject(err)
     })
 
     child.on('exit', () => {

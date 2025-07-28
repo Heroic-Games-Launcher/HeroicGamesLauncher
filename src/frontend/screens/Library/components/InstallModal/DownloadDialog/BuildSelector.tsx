@@ -1,4 +1,3 @@
-import React from 'react'
 import { SelectField, ToggleSwitch } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import { BuildItem } from 'common/types/gog'

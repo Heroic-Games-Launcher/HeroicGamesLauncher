@@ -9,7 +9,8 @@
         "disable_dialog_backdrop_close": "枠外をクリックしてもダイアログを閉じないようにする",
         "titles_always_visible": "ライブラリのタイトルを常に表示",
         "actions_font_family_default": "アクション用フォント （既定: {{fontFamily}}）",
-        "content_font_family_default": "コンテンツ用フォント （既定: {{fontFamily}}）"
+        "content_font_family_default": "コンテンツ用フォント （既定: {{fontFamily}}）",
+        "disable_smooth_scrolling": "スムーズスクロールを無効化（要再起動）"
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -90,6 +91,9 @@
             },
             "legendary": {
                 "generic": "エラーが発生しました! Epicアカウントをログアウトして、再度ログインしてみてください。{{newline}}  {{error}}"
+            },
+            "steam": {
+                "message": "Steamのインストールに失敗しました！説明をよく読んで、もう一度お試しください！"
             }
         },
         "info": {
@@ -395,7 +399,9 @@
         "toggleLayout": {
             "grid": "グリッドレイアウトに切り替え",
             "list": "リストレイアウトに切り替え"
-        }
+        },
+        "hideAlphabetFilter": "アルファベットフィルターを非表示",
+        "showAlphabetFilter": "アルファベットフィルターを表示"
     },
     "Library": "ライブラリ",
     "loading": {
@@ -458,6 +464,9 @@
             "started": "アップデートが開始されました",
             "failed": "アップデートに失敗しました",
             "paused": "アップデートが一時停止されました"
+        },
+        "import": {
+            "failed": "インポート失敗"
         }
     },
     "offline-message": {
@@ -585,7 +594,7 @@
             "cancelInstall": "キャンセル",
             "checkForUpdates": "アップデートを確認",
             "checkingForUpdates": "アップデートを確認中…",
-            "currentVersion": "現在のバージョン: {{version}}",
+            "currentVersion": "現在バージョン: {{version}}",
             "disable": "無効にする",
             "enable": "有効にする",
             "install": "インストール",
@@ -718,7 +727,9 @@
             "enableLimiter": "FPSリミッターを有効",
             "enableUpscaling": "アップスケーリングを有効",
             "missingMsg": "PATHにGamescopeが見つかりません。インストールするか、PATHに追加してください。",
-            "enableForceGrabCursor": "強制的にグラブカーソルを有効にする"
+            "enableForceGrabCursor": "強制的にグラブカーソルを有効にする",
+            "missingMsgFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム24.08をインストールし、Heroicを再起動してください。",
+            "warningFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム24.08をインストールし、Heroicを再起動してください。"
         },
         "disablePlaytimeSync": "プレイ時間の同期を無効",
         "experimental_features": {
@@ -745,6 +756,15 @@
         },
         "verboseLogs": {
             "description": "詳細なログを有効にする"
+        },
+        "hdr": "HDRを有効化",
+        "wineWayland": "【実験的機能】Wine-Waylandを有効にする（Wineのバージョンがサポートしている必要があります）",
+        "dxfpslimit": "DirectXゲームのFPSを制限する",
+        "download-proton-steam": "GE-ProtonをSteamディレクトリにダウンロードする",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "本当によろしいですか？"
+            }
         }
     },
     "settings": {
@@ -1004,7 +1024,8 @@
                 "title": "Heroicへようこそ！",
                 "title2": "ライブラリを管理します！"
             },
-            "refresh": "ライブラリを更新して、新しいゲームやアップデートがあるかどうかを確認します。"
+            "refresh": "ライブラリを更新して、新しいゲームやアップデートがあるかどうかを確認します。",
+            "steamInstall": "SteamのWindows版をインストールし、Crossover、Wine、またはGPTKを使用してWindowsゲームをプレイするには、このボタンを使用します。"
         },
         "next": "進む",
         "sidebar": {
@@ -1027,5 +1048,15 @@
         },
         "startTour": "ツアーを開始",
         "skip": "スキップ"
+    },
+    "notification": {
+        "steam": {
+            "success": "Steam for Windows が正常にインストールされました！",
+            "error": "Steamのインストールに失敗しました！説明をよく読んで、もう一度お試しください！"
+        }
+    },
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable"
     }
 }

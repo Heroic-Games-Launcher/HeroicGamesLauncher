@@ -731,5 +731,8 @@
     },
     "window": {
         "close": "Bağla"
+    },
+    "analyticsModal": {
+        "disable": "Qeyri-aktiv"
     }
 }

@@ -761,6 +761,11 @@
         },
         "verboseLogs": {
             "description": "Ayrıntılı günlükleri etkinleştir"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Emin misiniz?"
+            }
         }
     },
     "settings": {
@@ -1050,5 +1055,9 @@
             "success": "Windows için Steam başarıyla kuruldu!",
             "error": "Steam kurulumu başarısız oldu! Lütfen talimatları dikkatlice okuyun ve tekrar deneyin!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Devre Dışı",
+        "enable": "Enable"
     }
 }

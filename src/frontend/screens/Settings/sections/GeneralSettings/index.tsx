@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import LanguageSelector from 'frontend/components/UI/LanguageSelector'
 import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
@@ -22,7 +21,8 @@ import {
   UseDarkTrayIcon,
   UseFramelessWindow,
   WinePrefixesBasePath,
-  PlaytimeSync
+  PlaytimeSync,
+  AnalyticsOptIn
 } from '../../components'
 
 export default function GeneralSettings() {
@@ -69,6 +69,8 @@ export default function GeneralSettings() {
       <DisableController />
 
       <DownloadProtonToSteam />
+
+      <AnalyticsOptIn />
 
       <LibraryTopSection />
 

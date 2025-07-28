@@ -156,5 +156,9 @@
     "placeholder": {
         "egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है"
     },
-    "store": "यहाँ एपिक स्टोर"
+    "store": "यहाँ एपिक स्टोर",
+    "analyticsModal": {
+        "disable": "अक्षम",
+        "enable": "क्षम"
+    }
 }

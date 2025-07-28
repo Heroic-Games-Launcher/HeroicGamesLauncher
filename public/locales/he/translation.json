@@ -766,5 +766,9 @@
     },
     "tour": {
         "back": "חזור"
+    },
+    "analyticsModal": {
+        "disable": "בטל",
+        "enable": "הפעל"
     }
 }

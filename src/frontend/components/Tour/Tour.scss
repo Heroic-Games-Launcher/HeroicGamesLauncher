@@ -113,6 +113,7 @@
 .heroic-tour-highlight {
   background: rgba(29, 232, 245, 0.1) !important;
   border: 2px solid var(--brand-primary) !important;
+  box-sizing: border-box;
 }
 
 .introjs-tooltip-title {

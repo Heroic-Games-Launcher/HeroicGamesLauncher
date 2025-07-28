@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "开始游戏",
-            "stop": "游戏中（停止）"
+            "stop": "游戏中（停止）",
+            "start_with_logs": "开始游戏（带日志）"
         },
         "saves": {
             "syncing": "存档同步中"

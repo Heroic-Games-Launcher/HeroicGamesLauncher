@@ -143,7 +143,7 @@
         "sync": {
             "button": "Selecionar",
             "error": "Caminho Inválido",
-            "title": "Escolha o diretório dos jogos salvos"
+            "title": "Escolha a localização dos jogos guardados"
         },
         "vcruntime": {
             "install": {
@@ -189,6 +189,7 @@
         "changelog": "Histórico de mudanças",
         "postpone": "Adiar",
         "launchAnyway": "Executar Jogo Mesmo Assim",
+        "shaderPreCachingDisabledMessage": "A Pré-cache de Shader do Steam está desativada. Ativa-a nas Definições do Steam no Modo de Ambiente de Trabalho para garantir que o jogo funciona corretamente com o UMU.",
         "shaderPreCachingDisabledTitle": "Shader Pre-Caching Desativado"
     },
     "button": {
@@ -611,13 +612,13 @@
             "remove": "Uninstall",
             "removeConfirm": "Are you sure you want to uninstall the EOS Overlay?",
             "removeConfirmTitle": "Confirm overlay removal",
-            "updateNow": "Update",
-            "updating": "Updating..."
+            "updateNow": "Atualizar",
+            "updating": "A atualizar..."
         },
-        "esync": "Enable Esync",
-        "exit-to-tray": "Sair para a área de noticação",
+        "esync": "Ativar Esync",
+        "exit-to-tray": "Sair para a área de notificação",
         "FsrSharpnessStrenght": "Intensidade do filtro de nitidez do FSR",
-        "fsync": "Enable Fsync",
+        "fsync": "Ativar Fsync",
         "gamemode": "Usar modo Jogo (Necessita gamemode instalado)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Selecionar idioma",
@@ -726,11 +727,11 @@
             "enableHelp": "Ajuda de componente",
             "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
             "umuSupport": "Utilize umu como runtime do Proton",
-            "cometSupport": "Suporte Comet"
+            "cometSupport": "Apoiar Comet"
         },
         "frameless-window": {
             "confirmation": {
-                "message": "Este recurso ainda é experimental. Por favor, relate quaisquer problemas que encontrar no GitHub.",
+                "message": "Este recurso ainda é experimental. Por favor, comunique quaisquer problemas que encontrar no GitHub.",
                 "title": "Este recurso é experimental"
             },
             "description": "Usar janela sem moldura (requer reinicialização)"
@@ -760,7 +761,12 @@
             "warning": "Aviso: Isto afeta toda a interface do Heroic. Um estilo incorreto pode deixar o Heroic inutilizável. Se necessário, a configuração pode ser alterada manualmente no arquivo `~/.config/heroic/config.json.` NÃO copie estilos de fontes não confiáveis."
         },
         "dxfpslimit": "Limitar FPS de jogos DirectX",
-        "download-proton-steam": "Transferir GE-Proton para o diretório Steam"
+        "download-proton-steam": "Transferir GE-Proton para o diretório Steam",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Tem a certeza?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1049,5 +1055,9 @@
             "error": "Instalação da Steam falhou! Por favor leia as instruções cuidadosamente e tente de novo!",
             "success": "Steam para Windows foi instalado com sucesso!"
         }
+    },
+    "analyticsModal": {
+        "disable": "Desativar",
+        "enable": "Ativar"
     }
 }
