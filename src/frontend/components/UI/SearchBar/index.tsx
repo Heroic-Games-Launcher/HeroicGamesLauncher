@@ -1,7 +1,6 @@
-import { Search } from '@mui/icons-material'
 import { Fragment, useCallback, useEffect, useRef } from 'react'
 import './index.scss'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface Props {
@@ -46,9 +45,12 @@ export default function SearchBar({
 
   return (
     <div className="SearchBar" data-testid="searchBar">
-      <span className="searchButton" tabIndex={-1}>
-        {<Search />}
-      </span>
+      <FontAwesomeIcon
+        className="searchButton"
+        style={{ padding: 'var(--space-2xs) var(--space-sm)' }}
+        tabIndex={-1}
+        icon={faSearch}
+      />
       <input
         ref={input}
         data-testid="searchInput"
