@@ -23,7 +23,8 @@
         },
         "select": {
             "button": "Select",
-            "image": "Select Image"
+            "image": "Select Image",
+            "cover": "Select Cover"
         },
         "select-install-path": "Select Steam Installation Path",
         "sideload": {
@@ -262,11 +263,13 @@
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
             "image": "App Image",
+            "cover": "App Cover",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
         },
         "placeholder": {
             "image": "Paste an URL of an Image or select one from your computer",
+            "cover": "Paste an URL of a Cover or select one from your computer",
             "title": "Add a title to your Game/App",
             "url": "Paste the Game URL here",
             "useragent": "Write a custom user agent here to be used on this browser app/game"
