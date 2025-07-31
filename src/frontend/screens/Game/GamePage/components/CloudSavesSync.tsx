@@ -38,7 +38,8 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
       {showCloudSaveInfo && (
         <p
           style={{
-            color: autoSyncSaves ? '#07C5EF' : ''
+            color: autoSyncSaves ? '#07C5EF' : '',
+            margin: 0
           }}
           className="iconWithText"
         >
