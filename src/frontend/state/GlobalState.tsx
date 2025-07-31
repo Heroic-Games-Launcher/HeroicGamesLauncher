@@ -395,11 +395,11 @@ class GlobalState extends PureComponent<Props> {
   }
 
   addGameToCustomCategory = (category: string, appName: string) => {
-    const newCustomCategories = this.state.customCategories
+    const newCustomCategories = { ...this.state.customCategories }
+    const currentGamesInCategory = newCustomCategories[category] || []
 
-    if (!newCustomCategories[category]) newCustomCategories[category] = []
-
-    newCustomCategories[category].push(appName)
+    const newGamesInCategory = [...currentGamesInCategory, appName]
+    newCustomCategories[category] = newGamesInCategory
 
     this.setState({
       customCategories: newCustomCategories
