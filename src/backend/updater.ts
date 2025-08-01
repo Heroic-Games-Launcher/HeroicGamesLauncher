@@ -5,13 +5,13 @@ import { t } from 'i18next'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { logError, LogPrefix } from './logger'
 import { windowIcon } from './constants/paths'
-import { isLinux } from './constants/environment'
+import { autoUpdateSupported } from './constants/environment'
 
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false
 
 async function showAutoupdateDialog() {
-  if (isLinux) {
+  if (autoUpdateSupported) {
     return
   }
 
