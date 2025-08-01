@@ -136,8 +136,7 @@ import {
   isMac,
   isSnap,
   isSteamDeckGameMode,
-  isWindows,
-  autoUpdateSupported
+  isWindows
 } from './constants/environment'
 import {
   configPath,
@@ -253,7 +252,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadFile(join(publicDir, 'index.html'))
-    if (globalConf.checkForUpdatesOnStartup && autoUpdateSupported) {
+    if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
   }

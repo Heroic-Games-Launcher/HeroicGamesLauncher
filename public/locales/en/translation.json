@@ -107,6 +107,7 @@
         "info": {
             "update": {
                 "detail": "Do you want to download the update in the background?",
+                "detailNoAutoupdate": "Automatic updates are not supported for your packaging format. Please use your package manager to update.",
                 "message": "There is a new Version available!",
                 "message-finished": "Do you want to restart Heroic now?",
                 "title": "Heroic Games Launcher",
