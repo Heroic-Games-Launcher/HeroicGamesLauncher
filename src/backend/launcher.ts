@@ -822,10 +822,10 @@ async function prepareWineLaunch(
     }
   }
 
-  logWriter.writeString(
+  logWriter.logInfo(
     Winetricks.listInstalled(runner, appName).then((installedPackages) => {
       const packagesString = installedPackages.join(', ')
-      return `Winetricks packages: ${packagesString}`
+      return `Winetricks packages: ${packagesString}\n\n`
     })
   )
 
