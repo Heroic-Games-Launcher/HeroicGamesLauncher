@@ -39,6 +39,7 @@ export default function SelectField({
       <Select
         id={htmlId}
         value={value}
+        tabIndex={-1}
         onChange={onChange}
         disabled={disabled}
         sx={{
