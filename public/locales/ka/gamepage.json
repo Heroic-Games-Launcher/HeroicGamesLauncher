@@ -83,7 +83,8 @@
         "launching": "ეშვება",
         "steam": {
             "installing": "მიმდინარეობს დაყენება",
-            "specificVersion-pt2": "archive.org"
+            "specificVersion-pt2": "archive.org",
+            "installation": "დაყენების გაჩერება"
         }
     },
     "modifyInstall": {
