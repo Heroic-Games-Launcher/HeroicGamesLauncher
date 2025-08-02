@@ -75,13 +75,12 @@ export default React.memo(function NewLogin() {
     navigate('/')
   }
 
+  if (loading) {
+    return <UpdateComponent />
+  }
+
   return (
     <div className="loginPage">
-      {loading && (
-        <div>
-          <UpdateComponent />
-        </div>
-      )}
       {showSidLogin && (
         <SIDLogin
           backdropClick={() => {

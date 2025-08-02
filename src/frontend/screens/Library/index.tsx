@@ -707,7 +707,7 @@ export default React.memo(function Library(): JSX.Element {
 
         {showAlphabetFilter && <AlphabetFilter />}
 
-        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
+        {refreshing && !refreshingInTheBackground && <UpdateComponent />}
 
         {libraryToShow.length === 0 && <EmptyLibraryMessage />}
 
