@@ -200,7 +200,13 @@
             "macOS": "macOS 14.0 ou superior",
             "ram": "8GB de RAM",
             "recommended": "Especificações recomendadas para uma melhor experiência",
-            "compatibility-layer-not-available": "Compatibilidade não disponível. Por favor instala a partir de \"Definições>Wine Manager\""
+            "compatibility-layer-not-available": "Compatibilidade não disponível. Por favor instala a partir de \"Definições>Wine Manager\"",
+            "crossover": "Caso você tiver o Crossover instalado, você não vai precisar dele, pois ele pode rodar o Steam normalmente.",
+            "hardware": "Apple Silicon M1+ (para Macs com Intel, o Steam rodará com Crossover)",
+            "install-tooltip": "Isso vai instalar a versão do Steam de Windows e isso vai rodar usando uma Camada de Compatibilidade do Heroic.\n\nAlguns jogos, especialmente jogos mais antigos, jogos 3D novos, ou que usam software anti-cheat, podem não funcionar corretamente. \n\n    ",
+            "launch": "Iniciar o Steam usando Camada de Compatibilidade do Heroic",
+            "specificVersion-pt1": "Isso vai fazer o download de uma versão especifica do Steam",
+            "specificVersion-pt2": "archive.org"
         }
     },
     "launch": {

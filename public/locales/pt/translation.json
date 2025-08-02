@@ -364,7 +364,9 @@
             "open": "Abrir Ajuda"
         },
         "dxfpslimit": "Define um limite de FPS para jogos DirectX (9-12)",
-        "advertiseAvxForRosetta": "Ativa o conjunto de instruções AVX ao correr jogos Windows através da Rosetta em Macs Apple Silicon. Pode ser necessário para jogos com Death Stranding que precisam de suporte AVX."
+        "advertiseAvxForRosetta": "Ativa o conjunto de instruções AVX ao correr jogos Windows através da Rosetta em Macs Apple Silicon. Pode ser necessário para jogos com Death Stranding que precisam de suporte AVX.",
+        "analytics": "Permite que o Heroic recolha dados de utilização 100% anónimos para ajudar a melhorar a aplicação. É necessário reiniciar para entrar em vigor.",
+        "download_proton_steam": "Caso habilitado, o GE-Proton vai ser baixado diretamente para o diretório ferramentas de compatibilidade do Steam em vez do caminho padrão do Heroic. Isso vai usar o caminho do Steam definido na configuração \"Caminho padrão do Steam\" acima."
     },
     "info": {
         "heroic": {
@@ -409,7 +411,9 @@
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
             "list": "Toggle to a list layout"
-        }
+        },
+        "hideAlphabetFilter": "Ocultar filtro alfabético",
+        "showAlphabetFilter": "Exibir filtro alfabético"
     },
     "Library": "Biblioteca",
     "loading": {
@@ -472,6 +476,9 @@
             "started": "Update Started",
             "failed": "Atualização Falhou",
             "paused": "Atualização em Pausa"
+        },
+        "import": {
+            "failed": "Falha na importação"
         }
     },
     "offline-message": {
@@ -551,7 +558,7 @@
     "platforms": {
         "linux": "Linux",
         "mac": "Mac",
-        "win": "",
+        "win": "Windows",
         "browser": "Navegador"
     },
     "please-wait": "Please wait...",
@@ -764,8 +771,11 @@
         "download-proton-steam": "Transferir GE-Proton para o diretório Steam",
         "allow_non_ge_proton": {
             "confirmation": {
-                "title": "Tem a certeza?"
-            }
+                "title": "Tem a certeza?",
+                "show": "Eu compreendo, mostre-lhes"
+            },
+            "info_label": "Versões não GE do Proton ignoradas",
+            "label": "Permitir o uso de compilações não-GE do Proton para executar jogos"
         }
     },
     "settings": {
@@ -1058,6 +1068,16 @@
     },
     "analyticsModal": {
         "disable": "Desativar",
-        "enable": "Ativar"
+        "enable": "Ativar",
+        "info": {
+            "pt1": "Para melhorar a aplicação, o Heroic recolhe dados 100% anônimos.",
+            "pt2": "Heroic utiliza a plataforma Plausible Analytics de código aberto para recolher dados básicos: Versão da Aplicação, sistema operativo, lojas conectadas e país.",
+            "pt3": "Isto nunca recolherá qualquer informação pessoal, incluindo o seu nome de utilizador, endereço IP ou e-mail.",
+            "pt4": "Estes dados são utilizados para nos dar insights sobre o que devemos focar a seguir, devido aos nossos recursos limitados e ao feedback dos utilizadores.",
+            "pt5": "O Plausible Analytics está totalmente em conformidade com o GDPR, CCPA e PECR.",
+            "pt6": "Para transparência, podes visualizar os dados que recolhemos nos registros do Heroic.",
+            "pt7": "Pode alterar esta configuração a qualquer momento nas configurações da aplicação."
+        },
+        "title": "Enviar análises anónimas"
     }
 }

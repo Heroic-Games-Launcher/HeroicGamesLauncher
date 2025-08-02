@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Esegui ora",
-            "stop": "In esecuzione (Stop)"
+            "stop": "In esecuzione (Stop)",
+            "start_with_logs": "Esegui (con log)"
         },
         "saves": {
             "syncing": "Sincronizzando i salvataggi"

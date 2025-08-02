@@ -367,7 +367,8 @@
         "download_proton_steam": "Kui lubatud, laetakse GE-Proton alla otse Steami ühilduvustööriistade kausta, mitte Heroicu vaikimisi teele. See kasutab Steami vaiketeed, mis on määratud üleval 'Steami vaiketee' valikus.",
         "advertiseAvxForRosetta": "Lubab toe AVX käsustiku jaoks, kui mängite Windowsi mänge Apple Siliconi Mac-idel läbi Rosetta. See võib olla vajalik teatud mängude jaoks, mis vajavad AVX-i tuge, näiteks \"Death Stranding\".",
         "wine-hdr": "HDR täiustab värve võimendades eredaid kohti ja pakkudes sügavamat kontrasti. HDR-i toimimiseks peavad nii ekraan kui ka mäng seda toetama.",
-        "wine-wayland": "Wine-Waylandi eksperimentaalne draiver lubab mängudel otse käivituda läbi Waylandi kuvaprotokolli. Selle lubamine võib mõned mängud katki teha."
+        "wine-wayland": "Wine-Waylandi eksperimentaalne draiver lubab mängudel otse käivituda läbi Waylandi kuvaprotokolli. Selle lubamine võib mõned mängud katki teha.",
+        "analytics": "Lubab Heroicul koguda 100% anonüümseid kasutusandmeid, et rakendust paremaks teha. Nõuab restarti."
     },
     "info": {
         "heroic": {
@@ -777,9 +778,17 @@
         "wineWayland": "Luba Wine-Wayland (eksperimentaalne) (Wine'i versioon peab seda toetama)",
         "allow_non_ge_proton": {
             "confirmation": {
-                "title": "Kas olete kindel?"
-            }
-        }
+                "title": "Kas olete kindel?",
+                "dont_show": "Ära näita neid",
+                "message": "Soovitame Heroicuga kasutamiseks GE-Protonit, sest Protoni versioonidel, mis ei ole GE, puuduvad winetricks ja protonfixes. Võite neid see-eest siiski kasutada.",
+                "show": "Ma saan aru, näita neid"
+            },
+            "info_label": "Mitte-GE Protoni versioonid ignoreeritud",
+            "label": "Luba mitte-GE Protoni versioone mängude mängimiseks",
+            "wine_selector_warning": "Mitte-GE Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes"
+        },
+        "analyticsOptIn": "Saada anonüümseid andmeid, et aidata Heroicu arendamist",
+        "no-tray-icon": "Peida System Tray ikoon (nõuab restarti)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1071,6 +1080,16 @@
     },
     "analyticsModal": {
         "disable": "Lülita välja",
-        "enable": "Luba"
+        "enable": "Luba",
+        "info": {
+            "pt1": "Et äppi paremaks teha, kogub Heroic 100% anonüümseid andmeid.",
+            "pt2": "Heroic kasutab avatud allikaga Plausible Analyticsi platvormi, et koguda kõige põhilisemaid andmeid: äpi versioon, OS, ühendatud poed ja riik.",
+            "pt3": "See ei kogu kunagi isiklikku teavet, näiteks kasutajanime, IP-aadressi või e-maili.",
+            "pt4": "Need andmed annavad meile teavet sellest, millele järgmisena keskenduda, kuna meie ressursid ja kasutaja tagasiside on piiratud.",
+            "pt5": "Plausible Analytics on täielikult vastavuses GDPR-i, CCPA ja PECR-iga.",
+            "pt6": "Läbipaistvuse nimel võite meie poolt kogutud andmeid vaadata Heroicu logifailides.",
+            "pt7": "Võite seda sätet muuta iga kell äpi seadetes."
+        },
+        "title": "Saada anonüümset analüütikat"
     }
 }

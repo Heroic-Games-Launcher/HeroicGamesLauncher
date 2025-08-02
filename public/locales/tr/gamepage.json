@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Şimdi Oyna",
-            "stop": "Oynanıyor (Durdur)"
+            "stop": "Oynanıyor (Durdur)",
+            "start_with_logs": "Şimdi Oyna (loglar ile)"
         },
         "saves": {
             "syncing": "Kayıtlar Eşzamanlanıyor"
@@ -184,7 +185,7 @@
         "redist": "Dağıtılabilirler Kuruluyor",
         "steam": {
             "installing": "Kuruluyor",
-            "pleaseWait": "Please wait...",
+            "pleaseWait": "Lütfen Bekleyin",
             "cancel": "Kurulumu İptal Et",
             "abort": "Kurulumu Sonlandır",
             "compatibility": "Her oyunun sorunsuz çalışmayabileceğini ve çalışsa bile beklenen şekilde davranmayabileceğini unutmayın.",
@@ -203,7 +204,10 @@
             "patience": "Devam etmek istiyorsanız lütfen sabırlı olun, çünkü işlem internet bağlantınıza ve sistem yapılandırmanıza bağlı olarak birkaç dakika sürebilir.",
             "ram": "8 GB RAM",
             "recommended": "Daha iyi bir deneyim için önerilen sistem gereksinimleri",
-            "select-path": "Steam için kurulum klasörünü seçin"
+            "select-path": "Steam için kurulum klasörünü seçin",
+            "install-tooltip": "Bu işlem, Steam'in Windows sürümünü yükleyecek ve uygulama, bir Heroic Uyumluluk Katmanı kullanılarak çalıştırılacaktır. \n\n    Bazı oyunlar, özellikle de eski oyunlar, yeni 3D oyunlar veya hile koruma yazılımına sahip olanlar düzgün çalışmayabilir. \n\n    ",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "Steam'in yeni sürümleri macOS'ta çalışmadığı için, Heroic üzerinden çalışır hale getirdik."
         }
     },
     "launch": {
@@ -239,13 +243,14 @@
             "fullscreen": "Tam Ekran Başlat (Çıkmak için F11)"
         },
         "placeholder": {
-            "image": "Buraya bir Resim URL'si yapıştırın",
+            "image": "Bir resim URL'si yapıştırın ya da bilgisayarınızdan bir tane seçin",
             "title": "Oyununuza/Uygulamanıza bir başlık ekleyin",
             "url": "Oyun URL'sini buraya yapıştırın",
             "useragent": "Bu tarayıcı uygulamasında veya oyununda kullanılacak özel bir kullanıcı aracısını buraya yazın"
         },
         "import-hint": {
-            "title": "Önemli! Epic/GOG/Amazon mağazasından bir oyun mu ekliyorsunuz? Buraya tıklayın!"
+            "title": "Önemli! Epic/GOG/Amazon mağazasından bir oyun mu ekliyorsunuz? Buraya tıklayın!",
+            "content": "Bu özelliği bu amaç için KULLANMAYIN.<br />Bunun yerine, mağazaya <3>giriş yapın</3>, kütüphanenizde oyunu bulun, yükleme penceresini açın ve &quot;Oyunu İçe Aktar&quot; butonuna tıklayın"
         }
     },
     "specs": {
@@ -280,7 +285,8 @@
         "goodie": "Kurulamaz",
         "prerequisites": "Gereklilikler Kuruluyor",
         "winetricks": "Winetricks düzeltmeleri uygulanıyor",
-        "redist": "Yeniden Dağıtılabilir ({{redist}}) Kuruluyor"
+        "redist": "Yeniden Dağıtılabilir ({{redist}}) Kuruluyor",
+        "importing": "İçe Aktarılıyor"
     },
     "submenu": {
         "addShortcut": "Kısayol ekle",
@@ -325,10 +331,11 @@
     "Open": "Epic Store'u",
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "remove": "Remove from Downloads",
+            "canceled": "İptal Edildi",
+            "remove": "İndirilenler'den Kaldır",
             "pause": "İndirmeyi durdur",
             "resume": "İndirmeye devam et"
         }
-    }
+    },
+    "wikiLink": "Bu oyun hakkında önemli bilgiler için bunu okuyun:&nbsp;<1>Sayfayı Aç</1>"
 }

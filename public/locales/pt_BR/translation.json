@@ -256,7 +256,7 @@
     },
     "generic": {
         "error": {
-            "component": "Nenhum jogo encontrado. Tente sair e fazer login novamente ou uma das opções abaixo"
+            "component": "Jogos não encontrados. Tente reconectar-se à sua conta ou uma das opções abaixo"
         },
         "library": {
             "refresh": "Atualizar biblioteca"
@@ -782,7 +782,7 @@
             "confirmation": {
                 "title": "Tem certeza?",
                 "dont_show": "Não os exibir",
-                "message": "Recomendamos que o GE-Proton seja usado com o Heroic, porque versões não GE não incluem o Winetricks e Protonfixes. Ainda pode usar se quiser.",
+                "message": "Recomendamos o uso do GE-Proton no Heroic, pois a versão GE inclui o Winetricks e Protonfixes. Ainda pode usar se quiser.",
                 "show": "Eu entendo, os exiba"
             },
             "label": "Permitir que versões não GE do Proton executem jogos",
@@ -1081,8 +1081,8 @@
         }
     },
     "analyticsModal": {
-        "disable": "Disable",
-        "enable": "Enable",
+        "disable": "Desabilitar",
+        "enable": "Habilitar",
         "info": {
             "pt1": "Heroic coleta dados de forma 100% anônima para melhorar o app.",
             "pt2": "Heroic usa o sistema de código aberto Plausible Analytics para coletar dados básicos: Versão do app, Sistema operacional, Lojas conectadas e País.",

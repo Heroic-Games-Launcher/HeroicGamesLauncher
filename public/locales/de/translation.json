@@ -1067,6 +1067,11 @@
     },
     "analyticsModal": {
         "disable": "Deaktivieren",
-        "enable": "Aktivieren"
+        "enable": "Aktivieren",
+        "info": {
+            "pt1": "Um diese Anwendung zu verbessern, sammelt Heroic zu 100% anonyme Daten.",
+            "pt3": "Es werden niemals deine persönlichen Informationen, wie dein Nutzername, deine IP-Adresse oder deine Mail-Adresse, gesammelt.",
+            "pt4": "Diese Daten werden genutzt, um uns Einblicke zu geben, worauf wir uns trotz begrenzter Ressourcen und Nutzer*innen-Feedback fokussieren sollten."
+        }
     }
 }
