@@ -185,7 +185,7 @@
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
         "choose-nile-binary": "Sélectionnez le binaire de Nile",
-        "update": "Mise à jour",
+        "update": "Mettre à jour",
         "changelog": "Journal des changements",
         "postpone": "Différer",
         "launchAnyway": "Lancez le jeu quand même",
@@ -372,7 +372,7 @@
     },
     "info": {
         "heroic": {
-            "beta": "Beta",
+            "beta": "Bêta",
             "click-to-see-changelog": "Cliquez pour voir les changements",
             "newReleases": "Mise à jour disponible !",
             "stable": "Stable",
@@ -830,7 +830,7 @@
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Emplacement de la sauvegarde :",
-            "warning": "La sauvegarde dans le Cloud est une fonctionnalité au stade Beta, veuillez faire une autre copie de vos sauvegardes avant d'initier la synchronisation (au cas où quelque chose se passerait mal)",
+            "warning": "La sauvegarde dans les nuages est une fonctionnalité au stade bêta ; veuillez donc faire une autre copie de vos sauvegardes avant d'initier la synchronisation (au cas où quelque chose se passerait mal)",
             "gog_linux_native_warning": "Sur Linux, les jeux natifs ne sont pas compatibles avec la fonctionnalité de synchronisation des sauvegardes sur les serveurs de GOG. Utilisez plutôt la version pour Windows.",
             "not_supported": "Ce jeu n'est pas compatible avec la synchronisation des sauvegardes."
         },
@@ -1079,6 +1079,12 @@
     },
     "analyticsModal": {
         "disable": "Désactiver",
-        "enable": "Activer"
+        "enable": "Activer",
+        "info": {
+            "pt1": "Heroic collecte des données de façon 100% anonyme dans le but de l'améliorer.",
+            "pt3": "Il ne va jamais collecter des informations personnelles telles que votre nom d'utilisateur, votre addresse IP ou votre E-Mail.",
+            "pt6": "Pour des raisons de transparence, vous pouvez voir les données collectées depuis les journaux d'Heroic.",
+            "pt7": "Vous pouvez changer ce paramètre à tout moment depuis les options d'Heroic."
+        }
     }
 }
