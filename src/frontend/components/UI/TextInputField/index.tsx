@@ -45,7 +45,7 @@ const TextInputField = ({
       }
     }
     return
-  }, [input, onChange])
+  }, [onChange])
 
   return (
     <div
