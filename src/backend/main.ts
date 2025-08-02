@@ -317,7 +317,7 @@ const processZoomForScreen = (zoomFactor: number) => {
 }
 
 if (!gotTheLock) {
-  logInfo('Heroic is already running, quitting this instance')
+  console.log('Heroic is already running, quitting this instance')
   app.quit()
 } else {
   app.on('second-instance', (event, argv) => {
