@@ -365,7 +365,10 @@
         "msync": "Zadaniem Msync jest zmniejszenie narzutu wydajności spowodowanego przez wineserver w grach intensywnie wykorzystujących CPU. Włączenie może podnieść wydajność na obsługiwanych kernelach Linuksa.",
         "dxfpslimit": "Ustala limit klatek na sekundę dla gier z DXVK (9-12)",
         "advertiseAvxForRosetta": "Umożliwia obsługę zestawu instrukcji AVX podczas uruchamiania gier z systemu Windows za pomocą programu Rosetta na Macach z procesorami Apple Silicon. Może być to wymagane w przypadku niektórych gier, takich jak Death Stranding, które potrzebują obsługi AVX.",
-        "download_proton_steam": "Po włączeniu, GE-Proton zostanie pobrany bezpośrednio do katalogu narzędzi zgodności Steam, zamiast do domyślnej ścieżki programu Heroic. Będzie używana ścieżka Steam ustawiona w opcji 'Domyślna ścieżka Steam' powyżej."
+        "download_proton_steam": "Po włączeniu, GE-Proton zostanie pobrany bezpośrednio do katalogu narzędzi zgodności Steam, zamiast do domyślnej ścieżki programu Heroic. Będzie używana ścieżka Steam ustawiona w opcji 'Domyślna ścieżka Steam' powyżej.",
+        "analytics": "Umożliwia Heroic zbieranie w 100% zanonimizowanych danych o użytkowaniu w celu ulepszenia aplikacji. Wymaga ponownego uruchomienia.",
+        "wine-hdr": "HDR poprawia kolory, zapewniając jaśniejsze światła i głębsze kontrasty. Aby HDR działał, zarówno wyświetlacz, jak i gra muszą go obsługiwać.",
+        "wine-wayland": "Eksperymentalny sterownik Wine-Wayland umożliwia natywne uruchamianie gier w protokole graficznym Wayland. Włączenie może spowodować uszkodzenie niektórych gier."
     },
     "info": {
         "heroic": {
@@ -748,7 +751,7 @@
             "missingMsg": "Nie mogliśmy znaleźć gamescope w ścieżce PATH. Zainstaluj go lub dodaj do ścieżki PATH.",
             "enableForceGrabCursor": "Włącz kursor Force Grab",
             "missingMsgFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 24.08 i uruchom ponownie program Heroic.",
-            "warningFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 24.08 i uruchom ponownie program Heroic."
+            "warningFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym {{runtimeVersion}} i uruchom ponownie program Heroic."
         },
         "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
         "before-launch-script-path": "Wybierz skrypt do uruchomienia przed rozpoczęciem gry",
@@ -773,9 +776,19 @@
         "download-proton-steam": "Pobierz GE-Proton do katalogu Steam",
         "allow_non_ge_proton": {
             "confirmation": {
-                "title": "Czy na pewno?"
-            }
-        }
+                "title": "Czy na pewno?",
+                "dont_show": "Nie pokazuj ich",
+                "message": "Zalecamy używanie GE-Proton z Heroic, ponieważ wersje bez GE-Proton nie posiadają winetricków i protofixów. Jeśli chcesz, nadal możesz z nich korzystać.",
+                "show": "Zrozumiałem, pokaż im"
+            },
+            "info_label": "Wersje nie-GE Proton są ignorowane",
+            "label": "Zezwalanie na używanie kompilacji nie-GE Proton do uruchamiania gier",
+            "wine_selector_warning": "Wersje nie-GE Proton są domyślnie ignorowane, włącz je w zaawansowanych ustawieniach globalnych"
+        },
+        "analyticsOptIn": "Wysyłaj anonimowe dane, by wspomóc rozwój Heroic",
+        "hdr": "Włącz HDR",
+        "no-tray-icon": "Ukryj ikonę zasobnika systemowego (wymaga ponownego uruchomienia)",
+        "wineWayland": "Włącz Wine-Wayland (eksperymentalne) (używana wersja Wine musi to obsługiwać)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1067,6 +1080,16 @@
     },
     "analyticsModal": {
         "disable": "Wyłącz",
-        "enable": "Włącz"
+        "enable": "Włącz",
+        "info": {
+            "pt1": "Aby ulepszyć aplikację, Heroic zbiera w 100% zanonimizowane dane.",
+            "pt3": "Nigdy nie gromadzi żadnych danych osobowych, w tym nazwy użytkownika, adresu IP lub adresu e-mail.",
+            "pt4": "Dane te są wykorzystywane, aby dać nam wgląd w to, na czym powinniśmy się skupić w następnej kolejności ze względu na nasze ograniczone zasoby i opinie użytkowników.",
+            "pt5": "Plausible Analytics jest w pełni zgodny z RODO, CCPA i PECR.",
+            "pt6": "Aby zapewnić transparentność, możesz wyświetlić dane które zbieramy w dziennikach Heroic.",
+            "pt7": "Ustawienia te można zmienić w dowolnym momencie w Ustawieniach aplikacji.",
+            "pt2": "Heroic wykorzystuje platformę open-source Plausible Analytics do gromadzenia podstawowych danych: Wersja aplikacji, system operacyjny, połączone sklepy i kraj."
+        },
+        "title": "Wysyłaj anonimowe analizy"
     }
 }
