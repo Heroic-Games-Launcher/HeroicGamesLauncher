@@ -1,6 +1,6 @@
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
-import { DiskSpaceData, StatusPromise } from 'common/types'
+import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -76,7 +76,12 @@ import {
   logWarning
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
+import {
+  launchEventCallback,
+  readKnownFixes,
+  runWineCommand,
+  validWine
+} from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
@@ -1338,6 +1343,10 @@ addHandler('getKnownFixes', (e, appName, runner) =>
 
 addHandler('installSteamWindows', async (e, path) =>
   SteamWindows.installSteam(path)
+)
+
+addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
+  validWine(wineVersion)
 )
 
 /*

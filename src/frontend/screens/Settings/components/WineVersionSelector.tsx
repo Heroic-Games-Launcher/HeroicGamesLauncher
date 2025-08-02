@@ -26,7 +26,7 @@ export default function WineVersionSelector() {
   useEffect(() => {
     const getAltWine = async () => {
       setRefreshing(true)
-      const wineList: WineInstallation[] = await window.api.getAlternativeWine()
+      const wineList = await window.api.getAlternativeWine()
 
       // System Wine might change names (version strings) with updates. This
       // will then lead to it not being found in the alt wine list, as it
@@ -35,6 +35,11 @@ export default function WineVersionSelector() {
       const currentWine = wineList.find((wine) => wine.bin === wineVersion.bin)
       if (currentWine) {
         setWineVersion(currentWine)
+      } else {
+        // If the version the user selected for this game isn't in the list
+        // anymore but is still valid, add it to the list
+        const isValid = await window.api.wine.isValidVersion(wineVersion)
+        if (isValid) wineList.push(wineVersion)
       }
 
       setAltWine(wineList)
