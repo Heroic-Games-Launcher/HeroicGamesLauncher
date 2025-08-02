@@ -8,8 +8,9 @@
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Zakázať zatváranie dialógových okien kliknutím mimo",
         "titles_always_visible": "Vždy zobrazovať tituly hier v knižnici",
-        "content_font_family_default": "Obsah Fontána (Default: {{fontFamily}})",
-        "actions_font_family_default": "Akcie Font Family (Default: {{fontFamily}})"
+        "content_font_family_default": "Obsah Font Family (Default: {{fontFamily}})",
+        "actions_font_family_default": "Akcie Font Family (Default: {{fontFamily}})",
+        "disable_smooth_scrolling": "Vypnúť smooth scrolling (vyžaduje reštart)"
     },
     "add_game": "Pridať Hru",
     "All": "Všetky",
@@ -123,7 +124,7 @@
             "title": "Vybrať EXE na Spustenie"
         },
         "select": {
-            "button": "Select",
+            "button": "Vybrať",
             "exe": "Vyberte EXE",
             "script": "Vybrať skript ..."
         },
@@ -182,7 +183,7 @@
     "button": {
         "cancel": "Cancel",
         "go_to_library": "Go to Library",
-        "login": "Login",
+        "login": "Prihlásiť sa",
         "sync": "Synchronizovať",
         "syncing": "Prebieha synchronizácia",
         "unsync": "Zrušiť synchronizáciu",
