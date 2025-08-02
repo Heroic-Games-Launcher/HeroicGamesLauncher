@@ -257,7 +257,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadFile(join(publicDir, 'index.html'))
-    if (globalConf.checkForUpdatesOnStartup && !isLinux) {
+    if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
   }
