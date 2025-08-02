@@ -1,5 +1,5 @@
 export { default as AdvertiseAvxForRosetta } from './AdvertiseAvxForRosetta'
-export { default as AllowNonGEProton } from './AllowNonGEProton'
+export { default as ShowValveProton } from './ShowValveProton'
 export { default as AlternativeExe } from './AlternativeExe'
 export { default as AltGOGdlBin } from './AltGOGdlBin'
 export { default as AltLegendaryBin } from './AltLegendaryBin'
