@@ -47,8 +47,9 @@ jobs:
           pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
           arch=('x86_64')
           url="$url"
-          license=('GPL3')
+          license=('GPL-3.0-or-later')
           _filename=$_filename
+          depends=('nss' 'expat' 'cairo' 'gtk3' 'glib2' 'libxrandr' 'libxdamage' 'libcups' 'libxfixes' 'libxcomposite' 'nspr' 'libxext' 'libxkbcommon' 'mesa' 'pango' 'at-spi2-core' 'dbus' 'zlib' 'libx11' 'libxcb' 'alsa-lib' 'hicolor-icon-theme')
           source=("$source")
           noextract=("$_filename")
           sha256sums=(${sha256sums[@]})
