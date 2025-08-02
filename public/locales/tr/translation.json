@@ -363,7 +363,10 @@
         "msync": "Msync, İşlemci yoğun oyunlarda wine sunucu yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde başarımı artırabilir.",
         "dxfpslimit": "DirectX Oyunları için bir kare hızı sınırı belirler (9-12)",
         "advertiseAvxForRosetta": "Rosetta üzerinden Apple Silicon Mac'lerde Windows oyunları çalıştırırken AVX komut seti desteğini etkinleştirir. Bu, AVX desteğine ihtiyaç duyan Death Stranding gibi bazı oyunlar için gerekli olabilir.",
-        "download_proton_steam": "Etkinleştirildiğinde, GE-Proton varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilecektir. Yukarıdaki 'Varsayılan Steam yolu' ayarında ayarlanan Steam yolunu kullanacaktır."
+        "download_proton_steam": "Etkinleştirildiğinde, GE-Proton varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilecektir. Yukarıdaki 'Varsayılan Steam yolu' ayarında ayarlanan Steam yolunu kullanacaktır.",
+        "analytics": "Uygulamayı geliştirmeye yardımcı olacak %100 anonim kullanım verilerinin toplanmasını etkinleştirir. Değişikliğin etkinleşmesi için yeniden başlatma gerekir.",
+        "wine-hdr": "HDR; daha aydınlık sahneler ve daha belirgin kontrastlar sağlayarak renkleri daha canlı ve gerçekçi hale getirir. Bu özelliğin çalışabilmesi için hem ekranınızın hem de oyunun HDR'ı desteklemesi şarttır.",
+        "wine-wayland": "Wine-Wayland deneysel sürücüsü, oyunların Wayland görüntüleme protokolüyle yerel olarak çalışmasını sağlar. Bu özelliği etkinleştirmek bazı oyunlarda sorunlara yol açabilir."
     },
     "info": {
         "heroic": {
@@ -408,7 +411,9 @@
         "toggleLayout": {
             "grid": "Izgara düzenine geç",
             "list": "Liste düzenine geç"
-        }
+        },
+        "hideAlphabetFilter": "Alfabe Filtresini Gizle",
+        "showAlphabetFilter": "Alfabe Filtresini Göster"
     },
     "Library": "Kütüphane",
     "loading": {
@@ -471,6 +476,9 @@
             "started": "Güncelleme Başladı",
             "failed": "Güncelleme başarısız oldu",
             "paused": "Güncelleme Duraklatıldı"
+        },
+        "import": {
+            "failed": "İçe Aktarma Başarısız"
         }
     },
     "offline-message": {
@@ -739,7 +747,8 @@
             "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir",
             "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
             "missingMsg": "Yolda gamesscope bulamadık. Kurun veya yola ekleyin.",
-            "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir"
+            "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir",
+            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
         },
         "after-launch-script-path": "Oyun kapandıktan sonra çalıştırılacak betiği seçin",
         "before-launch-script-path": "Oyun başlatılmadan önce çalıştırılacak betiği seçin",
@@ -757,16 +766,26 @@
         "dxfpslimit": "DirectX Oyunlarında FPS Sınırla",
         "disableUMU": "Umu devre dışı bırak",
         "custom_css": {
-            "warning": "Uyarı: Bu tüm önyüz için geçerlidir. Yanlış ve hatalı stil Heroic'i kullanılamaz hale getirebilir. Gerekirse, ayar `~/.config/heroic/config.json` dosyasında el ile değiştirilebilir. Güvenmediğiniz kaynaklardan stilleri kopyalamayın."
+            "warning": "Uyarı: Bu değişiklik tüm arayüzü etkiler. Bu, yanlış bir stilin Heroic'i kullanılamaz hale getirebileceği anlamına gelir. Gerekirse, ayar `~/.config/heroic/config.json` dosyası üzerinden elle değiştirilebilir. Güvenmediğiniz kaynaklardan stil KOPYALAMAYIN."
         },
         "verboseLogs": {
             "description": "Ayrıntılı günlükleri etkinleştir"
         },
         "allow_non_ge_proton": {
             "confirmation": {
-                "title": "Emin misiniz?"
-            }
-        }
+                "title": "Emin misiniz?",
+                "dont_show": "Bunları Gösterme",
+                "message": "GE olmayan Proton sürümleri, winedevices ve protonfixes gibi önemli araçları içermediğinden, Heroic ile GE-Proton kullanmanızı öneriyoruz. Elbette, yine de istediğiniz diğer Proton sürümlerini kullanmakta serbestsiniz.",
+                "show": "Yine de Göster"
+            },
+            "info_label": "GE olmayan Proton sürümleri yoksayıldı",
+            "label": "GE olmayan Proton sürümleriyle oyun çalıştırmaya izin ver",
+            "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz"
+        },
+        "analyticsOptIn": "Heroic'in geliştirilmesine yardımcı olmak için anonim veri gönder",
+        "hdr": "HDR'ı Etkinleştir",
+        "no-tray-icon": "Sistem Tepsi Simgesini Gizle (yeniden başlatma gerektirir)",
+        "wineWayland": "Wine-Wayland'ı Etkinleştir (Deneysel) (Wine sürümünüzün bunu desteklemesi gerekir)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1058,6 +1077,16 @@
     },
     "analyticsModal": {
         "disable": "Devre Dışı",
-        "enable": "Enable"
+        "enable": "Enable",
+        "info": {
+            "pt1": "Uygulamayı geliştirmek adına Heroic, %100 anonim veri toplar.",
+            "pt3": "Heroic, kullanıcı adınız, IP adresiniz ya da e-postanız gibi kişisel bilgilerinizi asla toplamaz.",
+            "pt6": "Şeffaf olmak açısından, toplanılan verileri Heroic kayıtlarında görebilirsiniz.",
+            "pt7": "Bu ayarı dilediğiniz zaman uygulama ayarlarından değiştirebilirsiniz.",
+            "pt2": "Heroic, açık kaynaklı Plausible Analytics platformunu kullanarak şu temel verileri toplar: Uygulama Sürümü, İşletim Sistemi, Bağlı Mağazalar ve Ülke.",
+            "pt4": "Bu veriler, kısıtlı kaynaklarımız ve kullanıcı geri bildirimleri doğrultusunda, bir sonraki adımda neye odaklanmamız gerektiği konusunda bize yol göstermek için kullanılır.",
+            "pt5": "Plausible Analytics; GDPR, CCPA ve PECR ile tamamen uyumludur."
+        },
+        "title": "Anonim Kullanım Verilerini Gönder"
     }
 }
