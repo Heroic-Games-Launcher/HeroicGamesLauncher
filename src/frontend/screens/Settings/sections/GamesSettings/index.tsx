@@ -16,6 +16,7 @@ import {
   EnableFSR,
   EnableFsync,
   EnableMsync,
+  EnableNtsync,
   EnableWineWayland,
   EnvVariablesTable,
   GameMode,
@@ -188,6 +189,7 @@ export default function GamesSettings() {
             )}
             <EnableEsync />
             <EnableFsync />
+            <EnableNtsync />
             <EnableWineWayland />
             <EnableMsync />
             <AdvertiseAvxForRosetta />
