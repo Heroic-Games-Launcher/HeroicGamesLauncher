@@ -778,9 +778,14 @@
         "wineWayland": "Abilita Wine-Wayland (sperimentale) (la versione di Wine deve supportarlo)",
         "allow_non_ge_proton": {
             "confirmation": {
-                "title": "Sei sicuro?"
-            }
-        }
+                "title": "Sei sicuro?",
+                "show": "Ho capito, mostrali",
+                "dont_show": "Non mostrarli"
+            },
+            "info_label": "Versioni di Non-GE Proton ignorate"
+        },
+        "analyticsOptIn": "Invia dati anonimi per supportare lo sviluppo di Heroic",
+        "no-tray-icon": "Nascondi icona barra di sistema (riavvio richiesto)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1072,6 +1077,12 @@
     },
     "analyticsModal": {
         "disable": "Disabilita",
-        "enable": "Abilita"
+        "enable": "Abilita",
+        "info": {
+            "pt6": "Per trasparenza, puoi vedere i dati che raccogliamo nei log di Heroic.",
+            "pt1": "Per migliorare l'applicazione, Heroic raccoglie dati totalmente anonimi.",
+            "pt7": "Puoi modificare questa impostazione in qualsiasi momento nelle Impostazioni dell'app."
+        },
+        "title": "Invia Dati Analitici Anonimi"
     }
 }
