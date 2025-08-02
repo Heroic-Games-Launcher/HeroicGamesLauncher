@@ -352,6 +352,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enableMsync: isMac,
       enableWineWayland: false,
       enableHDR: false,
+      enableWoW64: false,
       eacRuntime: isLinux,
       battlEyeRuntime: isLinux,
       framelessWindow: false,

@@ -202,6 +202,7 @@ export interface GameSettings {
   enableFsync: boolean
   enableWineWayland: boolean
   enableHDR: boolean
+  enableWoW64: boolean
   gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean

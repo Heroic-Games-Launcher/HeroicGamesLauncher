@@ -373,6 +373,7 @@ function filterGameSettingsForLog(
       delete gameSettings.enableFSR
       delete gameSettings.enableWineWayland
       delete gameSettings.enableHDR
+      delete gameSettings.enableWoW64
       delete gameSettings.showFps
       delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.eacRuntime
@@ -391,6 +392,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableFSR
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
+    delete gameSettings.enableWoW64
     delete gameSettings.showMangohud
     delete gameSettings.disableUMU
     delete gameSettings.useSteamRuntime
@@ -434,6 +436,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableFsync
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
+    delete gameSettings.enableWoW64
     delete gameSettings.enableDXVKFpsLimit
     delete gameSettings.DXVKFpsCap
     delete gameSettings.autoInstallDxvk
@@ -1180,6 +1183,13 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       if (gameSettings.enableHDR) {
         ret.DXVK_HDR = '1'
       }
+    }
+  }
+  if (isLinux && gameSettings.enableWoW64) {
+    if (wineVersion.type === 'proton') {
+      ret.PROTON_USE_WOW64 = '1'
+    } else {
+      ret.WINEARCH = 'wow64'
     }
   }
   if (wineVersion.type === 'proton') {
