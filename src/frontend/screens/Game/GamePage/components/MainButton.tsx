@@ -80,7 +80,10 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
       is.installingRedist ||
       is.installingWinetricksPackages ||
       is.launching ||
-      is.playing
+      is.playing ||
+      is.moving ||
+      is.updating ||
+      is.reparing
     ) {
       return <></>
     }
@@ -158,7 +161,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
 
   return (
     <div className="playButtons">
-      {is_installed && !is.queued && (
+      {is_installed && !is.queued && !is.uninstalling && (
         <>
           <button
             disabled={
