@@ -782,7 +782,7 @@
             "confirmation": {
                 "title": "¿Estas seguro/a?",
                 "dont_show": "No los enseñes",
-                "message": "Recomendamos usar Protón GE con Heroic, ya que las versiones de Proton que no sean GE carecen de winetricks y protofixes. Puedes usarlos si quieres.",
+                "message": "Recomendamos usar Protón GE con Heroic, ya que las versiones de Proton que no sean GE carecen de winetricks y protonfixes. Puedes usarlos si quieres.",
                 "show": "Lo entiendo, enseñalos"
             },
             "info_label": "Se ignoran versiones de Proton que no sean GE",
