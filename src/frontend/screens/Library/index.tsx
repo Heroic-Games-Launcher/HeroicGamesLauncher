@@ -218,14 +218,17 @@ export default React.memo(function Library(): JSX.Element {
     const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
     const storeScrollPosition = () => {
-      storage?.setItem('scrollPosition', window.scrollY.toString() || '0')
+      storage?.setItem(
+        'scrollPosition',
+        document.body.scrollTop.toString() || '0'
+      )
     }
 
-    window.addEventListener('scroll', storeScrollPosition)
-    window.scrollTo(0, scrollPosition || 0)
+    document.body.addEventListener('scroll', storeScrollPosition)
+    document.body.scrollTo(0, scrollPosition || 0)
 
     return () => {
-      window.removeEventListener('scroll', storeScrollPosition)
+      document.body.removeEventListener('scroll', storeScrollPosition)
     }
   }, [])
 
