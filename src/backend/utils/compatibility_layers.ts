@@ -6,6 +6,7 @@ import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
+import { realpath } from 'fs/promises'
 import { PlistObject, parse as plistParse } from 'plist'
 import LaunchCommand from '../storeManagers/legendary/commands/launch'
 import { NonEmptyString } from '../storeManagers/legendary/commands/base'
@@ -565,6 +566,12 @@ export async function getWineFlagsArray(
 
 export const getUmuPath = async () =>
   searchForExecutableOnPath('umu-run').then((path) => path ?? defaultUmuPath)
+
+export async function usingNixUmu(): Promise<boolean> {
+  const umuPath = await getUmuPath()
+  const realUmuPath = await realpath(umuPath)
+  return realUmuPath.startsWith('/nix/store/')
+}
 
 export async function isUmuSupported(
   gameSettings: GameSettings,
