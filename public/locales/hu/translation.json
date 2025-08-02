@@ -367,7 +367,8 @@
         "advertiseAvxForRosetta": "Engedélyezi az AVX utasításkészlet támogatását, ha windowsos játékokat futtat a Rosettával az Apple Silicon Maceken. Ez az olyan játékok esetén lehet szükséges, mint a Death Stranding, amelyhez AVX támogatás szükséges.",
         "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni.",
         "wine-hdr": "A HDR javítja a színeket azáltal, hogy világosabb fényeket és mélyebb kontrasztokat biztosít. A HDR működéséhez mind a kijelzőnek, mind a játéknak támogatnia kell azt.",
-        "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat."
+        "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat.",
+        "analytics": "Lehetővé teszi a Heroic számára, hogy 100%-ban anonim használati adatokat gyűjtsön az alkalmazás fejlesztésének érdekében. Az újraindítás után lép életbe."
     },
     "info": {
         "heroic": {
@@ -777,9 +778,17 @@
         "wineWayland": "Wine-Wayland engedélyezése (Kísérleti) (A Wine verziónak támogatnia kell)",
         "allow_non_ge_proton": {
             "confirmation": {
-                "title": "Biztos benne?"
-            }
-        }
+                "title": "Biztos benne?",
+                "dont_show": "Ne jelenjenek meg",
+                "show": "Értem, jelenjenek meg",
+                "message": "A Heroic használatához a GE-Proton verziót ajánljuk, mivel a nem GE-Proton verziókból hiányzik a winetricks és a protonfixes. Ennek ellenére használhatod őket, ha szeretnéd."
+            },
+            "info_label": "Nem GE-Proton verziók figyelmen kívül hagyva",
+            "label": "Nem GE-Proton verziók engedélyezése játékok futtatásához",
+            "wine_selector_warning": "A nem GE-Proton verziók alapértelmezetten figyelmen kívül vannak hagyva, engedélyezd őket a Globális speciális beállításokban"
+        },
+        "analyticsOptIn": "Anonim adatok küldése a Heroic fejlesztésének támogatására",
+        "no-tray-icon": "Rendszertálca ikon elrejtése (újraindítás szükséges)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1071,6 +1080,16 @@
     },
     "analyticsModal": {
         "disable": "Letiltás",
-        "enable": "Engedélyezés"
+        "enable": "Engedélyezés",
+        "info": {
+            "pt1": "A Heroic az alkalmazás fejlesztése érdekében 100%-ban anonim adatokat gyűjt.",
+            "pt2": "A Heroic a nyílt forráskódú Plausible Analytics platformot használja alapvető adatok gyűjtésére: alkalmazásverzió, operációs rendszer, csatlakoztatott áruházak és ország.",
+            "pt3": "Soha nem gyűjt semmilyen személyes adatot, beleértve a felhasználónevet, IP-címet vagy e-mail címet.",
+            "pt4": "Ezeket az adatokat arra használjuk, hogy betekintést nyerjünk, mire érdemes fókuszálnunk a korlátozott erőforrásaink és a felhasználói visszajelzések alapján.",
+            "pt5": "A Plausible Analytics teljes mértékben megfelel a GDPR, CCPA és PECR előírásainak.",
+            "pt6": "Átláthatóság céljából megtekintheti az általunk gyűjtött adatokat a Heroic naplóiban.",
+            "pt7": "Ezt a beállítást bármikor módosíthatja az Alkalmazásbeállításokban."
+        },
+        "title": "Anonim analitika küldése"
     }
 }
