@@ -820,14 +820,14 @@ async function prepareWineLaunch(
         failureReason: `CrossOver bottle "${gameSettings.wineCrossoverBottle}" does not exist`
       }
     }
-
-    logWriter.writeString(
-      Winetricks.listInstalled(runner, appName).then((installedPackages) => {
-        const packagesString = installedPackages.join(', ')
-        return `Winetricks packages: ${packagesString}`
-      })
-    )
   }
+
+  logWriter.logInfo(
+    Winetricks.listInstalled(runner, appName).then((installedPackages) => {
+      const packagesString = installedPackages.join(', ')
+      return `Winetricks packages: ${packagesString}\n\n`
+    })
+  )
 
   await verifyWinePrefix(gameSettings)
   const experimentalFeatures =
