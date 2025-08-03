@@ -1680,7 +1680,7 @@ async function callRunner(
       await writer.logInfo(
         [prefix, safeCommand, '\n\n'].filter(Boolean).join(' ')
       )
-      await writer.logInfo('Game Output:')
+      if (appName) await writer.logInfo('Game Output:')
     }
 
     const files = options.logWriters
