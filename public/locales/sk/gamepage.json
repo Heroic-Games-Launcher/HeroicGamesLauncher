@@ -8,7 +8,7 @@
         "choose": "Vyberte si",
         "importpath": "Vyberte priečinok hry, ktorý chcete importovať",
         "move": {
-            "message": "Môže to trvať dlho, si si istý?",
+            "message": "Môže to trvať dlho, ste si istý?",
             "path": "Vyberte si, kam sa chcete presunúť",
             "title": "Presunúť Inštaláciu Hry"
         },

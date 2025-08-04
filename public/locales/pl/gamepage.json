@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Graj",
-            "stop": "Gra uruchomiona (zatrzymaj)"
+            "stop": "Gra uruchomiona (zatrzymaj)",
+            "start_with_logs": "Graj Teraz (z logami)"
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"

@@ -287,7 +287,7 @@
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "No games found - Try to logout and login again or one of the options below"
         },
         "library": {
             "refresh": "Refresh Library"
@@ -633,7 +633,7 @@
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
         "custom_css": {
-            "warning": "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changes manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
+            "warning": "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changed manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
         },
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Custom Wine/Proton Paths",
