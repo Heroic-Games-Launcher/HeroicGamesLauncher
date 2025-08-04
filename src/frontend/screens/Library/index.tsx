@@ -418,6 +418,8 @@ export default React.memo(function Library(): JSX.Element {
         favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
     } else {
+      library = library.filter((game) => !game.install.is_dlc)
+
       if (currentCustomCategories && currentCustomCategories.length > 0) {
         const gamesInSelectedCategories = new Set<string>()
 

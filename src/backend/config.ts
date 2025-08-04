@@ -352,6 +352,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enableMsync: isMac,
       enableWineWayland: false,
       enableHDR: false,
+      enableWoW64: false,
       eacRuntime: isLinux,
       battlEyeRuntime: isLinux,
       framelessWindow: false,
@@ -361,7 +362,8 @@ class GlobalConfigV0 extends GlobalConfig {
       verboseLogs: true,
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
-      noTrayIcon: false
+      noTrayIcon: false,
+      showValveProton: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

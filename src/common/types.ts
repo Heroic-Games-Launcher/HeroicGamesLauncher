@@ -122,7 +122,7 @@ export interface AppSettings extends GameSettings {
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
   verboseLogs: boolean
-  allowNonGEProton: boolean
+  showValveProton: boolean
 }
 
 export type LibraryTopSectionOptions =
@@ -202,6 +202,7 @@ export interface GameSettings {
   enableFsync: boolean
   enableWineWayland: boolean
   enableHDR: boolean
+  enableWoW64: boolean
   gamescope: GameScopeSettings
   enviromentOptions: EnviromentVariable[]
   ignoreGameUpdates: boolean

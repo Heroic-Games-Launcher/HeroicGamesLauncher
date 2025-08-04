@@ -16,3 +16,7 @@ export const winetricksListInstalled = makeHandlerInvoker('winetricksInstalled')
 export const winetricksListAvailable = makeHandlerInvoker('winetricksAvailable')
 export const winetricksInstall = makeListenerCaller('winetricksInstall')
 export const handleWinetricksInstalling = frontendListenerSlot('installing-winetricks-component')
+
+export const wine = {
+  isValidVersion: makeHandlerInvoker('wine.isValidVersion')
+}

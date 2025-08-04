@@ -1,6 +1,6 @@
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
-import { DiskSpaceData, StatusPromise } from 'common/types'
+import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -76,7 +76,12 @@ import {
   logWarning
 } from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
+import {
+  launchEventCallback,
+  readKnownFixes,
+  runWineCommand,
+  validWine
+} from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
@@ -252,7 +257,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadFile(join(publicDir, 'index.html'))
-    if (globalConf.checkForUpdatesOnStartup && !isLinux) {
+    if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
   }
@@ -312,7 +317,7 @@ const processZoomForScreen = (zoomFactor: number) => {
 }
 
 if (!gotTheLock) {
-  logInfo('Heroic is already running, quitting this instance')
+  console.log('Heroic is already running, quitting this instance')
   app.quit()
 } else {
   app.on('second-instance', (event, argv) => {
@@ -1338,6 +1343,10 @@ addHandler('getKnownFixes', (e, appName, runner) =>
 
 addHandler('installSteamWindows', async (e, path) =>
   SteamWindows.installSteam(path)
+)
+
+addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
+  validWine(wineVersion)
 )
 
 /*

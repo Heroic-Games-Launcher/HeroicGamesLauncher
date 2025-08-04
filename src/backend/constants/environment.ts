@@ -18,3 +18,4 @@ export const isFlatpak = Boolean(env.FLATPAK_ID)
 export const isSnap = Boolean(env.SNAP)
 export const isAppImage = Boolean(env.APPIMAGE)
 export const flatpakRuntimeVersion = env.FLATPAK_RUNTIME_VERSION
+export const autoUpdateSupported = isWindows || isMac || isAppImage

@@ -31,7 +31,18 @@ function Root() {
 
   const theme = createTheme({
     direction: isRTL ? 'rtl' : 'ltr',
+    typography: {
+      fontFamily: 'var(--primary-font-family)'
+    },
     components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            color: 'var(--text-default)',
+            backgroundColor: 'var(--background)'
+          }
+        }
+      },
       MuiTooltip: {
         styleOverrides: {
           tooltip: {

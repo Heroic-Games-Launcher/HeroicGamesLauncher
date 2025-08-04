@@ -29,6 +29,7 @@ import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import {
+  getRunnerLogWriter,
   logDebug,
   logError,
   logInfo,
@@ -447,6 +448,25 @@ export async function refresh(): Promise<ExecResult> {
 
   apiInfoCache.commit() // Sync cache to drive
   libraryStore.set('games', gamesObjects)
+
+  void new Promise(() => {
+    const logLines: string[] = []
+    gamesObjects.forEach((gameData) => {
+      if (gameData.title == 'Galaxy Common Redistributables') return
+
+      let line = `* ${gameData.title} (App name: ${gameData.app_name})`
+      if (gameData.install.is_dlc) line += ' - DLC'
+      logLines.push(line)
+    })
+    const sortedTitles = logLines.sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    )
+
+    const logContent = `Games List:\n${sortedTitles.join('\n')}\n\nTotal: ${logLines.length}\n`
+    const gogLogWriter = getRunnerLogWriter('gog')
+    void gogLogWriter.logInfo(logContent)
+  })
+
   logInfo('Saved games data', LogPrefix.Gog)
 
   return defaultExecResult

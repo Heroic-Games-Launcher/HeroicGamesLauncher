@@ -26,29 +26,7 @@ export default function WineVersionSelector() {
   useEffect(() => {
     const getAltWine = async () => {
       setRefreshing(true)
-      let wineList: WineInstallation[] = await window.api.getAlternativeWine()
-
-      if (isLinux) {
-        const { allowNonGEProton } = await window.api.requestAppSettings()
-
-        let protonsBeingIgnored = false
-        if (!allowNonGEProton) {
-          wineList = wineList.filter((wineItem) => {
-            // do not ignore wine/crossover/gptk/etc
-            if (!wineItem.name.match(/proton/i)) return true
-            // do not ignore wine-ge-proton, ge-proton, and proton-ge
-            if (wineItem.name.match(/wine|GE/)) return true
-
-            protonsBeingIgnored = true
-
-            // do not ignore currently selected wine, in case stock proton is already delected
-            if (wineItem.bin == wineVersion.bin) return true
-
-            return false
-          })
-        }
-        setShowHiddenProtonsMessage(protonsBeingIgnored)
-      }
+      const wineList = await window.api.getAlternativeWine()
 
       // System Wine might change names (version strings) with updates. This
       // will then lead to it not being found in the alt wine list, as it
@@ -57,6 +35,11 @@ export default function WineVersionSelector() {
       const currentWine = wineList.find((wine) => wine.bin === wineVersion.bin)
       if (currentWine) {
         setWineVersion(currentWine)
+      } else {
+        // If the version the user selected for this game isn't in the list
+        // anymore but is still valid, add it to the list
+        const isValid = await window.api.wine.isValidVersion(wineVersion)
+        if (isValid) wineList.push(wineVersion)
       }
 
       setAltWine(wineList)
@@ -69,6 +52,12 @@ export default function WineVersionSelector() {
     void getAltWine()
     return window.api.handleWineVersionsUpdated(getAltWine)
   }, [])
+
+  useEffect(() => {
+    void window.api.requestAppSettings().then(({ showValveProton }) => {
+      setShowHiddenProtonsMessage(!showValveProton)
+    })
+  }, [isLinux])
 
   useEffect(() => {
     const updateWine = async () => {
@@ -120,14 +109,14 @@ export default function WineVersionSelector() {
           {isLinux && showHiddenProtonsMessage && (
             <InfoBox
               text={t(
-                'setting.allow_non_ge_proton.info_label',
-                'Non-GE Proton versions ignored'
+                'setting.show_valve_proton.info_label',
+                'Valve Proton versions ignored'
               )}
             >
               <span>
                 {t(
-                  'setting.allow_non_ge_proton.wine_selector_warning',
-                  'Non-GE versions of Proton are ignored by default, enable them in the Advanced global settings'
+                  'setting.show_valve_proton.wine_selector_warning',
+                  'Valve versions of Proton are ignored by default, enable them in the Advanced global settings'
                 )}
               </span>
             </InfoBox>
