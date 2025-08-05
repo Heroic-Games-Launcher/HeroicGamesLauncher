@@ -238,11 +238,12 @@ export default React.memo(function Library(): JSX.Element {
   // bind back to top button
   useEffect(() => {
     if (backToTopElement.current) {
-      window.addEventListener('scroll', () => {
+      document.body.addEventListener('scroll', () => {
         const btn = document.getElementById('backToTopBtn')
         const topSpan = document.getElementById('top')
         if (btn && topSpan) {
-          btn.style.visibility = window.scrollY > 450 ? 'visible' : 'hidden'
+          btn.style.visibility =
+            document.body.scrollTop > 450 ? 'visible' : 'hidden'
         }
       })
     }
