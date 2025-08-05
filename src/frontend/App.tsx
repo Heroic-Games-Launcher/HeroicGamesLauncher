@@ -23,8 +23,14 @@ import { SettingsModalWrapper } from './screens/Settings/components/SettingsModa
 import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
 
 function Root() {
-  const { isRTL, isFullscreen, isFrameless, experimentalFeatures, help } =
-    useContext(ContextProvider)
+  const {
+    isRTL,
+    isFullscreen,
+    isFrameless,
+    experimentalFeatures,
+    help,
+    disableAnimations
+  } = useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
   const showOverlayControls = isFrameless && !hasNativeOverlayControls
@@ -64,7 +70,8 @@ function Root() {
       className={classNames('App', {
         isRTL,
         frameless: isFrameless,
-        fullscreen: isFullscreen
+        fullscreen: isFullscreen,
+        disableAnimations
       })}
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}

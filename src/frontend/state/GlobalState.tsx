@@ -104,6 +104,7 @@ interface StateProps {
   helpItems: { [key: string]: HelpItem }
   experimentalFeatures: ExperimentalFeatures
   disableDialogBackdropClose: boolean
+  disableAnimations: boolean
 }
 
 // function to load the new key or fallback to the old one
@@ -211,7 +212,8 @@ class GlobalState extends PureComponent<Props> {
     disableDialogBackdropClose: configStore.get(
       'disableDialogBackdropClose',
       false
-    )
+    ),
+    disableAnimations: configStore.get('disableAnimations', false)
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
@@ -273,6 +275,11 @@ class GlobalState extends PureComponent<Props> {
   setDisableDialogBackdropClose = (value: boolean) => {
     configStore.set('disableDialogBackdropClose', value)
     this.setState({ disableDialogBackdropClose: value })
+  }
+
+  setDisableAnimations = (value: boolean) => {
+    configStore.set('disableAnimations', value)
+    this.setState({ disableAnimations: value })
   }
 
   setSideBarCollapsed = (value: boolean) => {
@@ -1045,7 +1052,9 @@ class GlobalState extends PureComponent<Props> {
             addHelpItem: this.addHelpItem,
             removeHelpItem: this.removeHelpItem
           },
-          setDisableDialogBackdropClose: this.setDisableDialogBackdropClose
+          setDisableDialogBackdropClose: this.setDisableDialogBackdropClose,
+          disableAnimations: this.state.disableAnimations,
+          setDisableAnimations: this.setDisableAnimations
         }}
       >
         {this.props.children}

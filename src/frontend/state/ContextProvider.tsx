@@ -99,7 +99,9 @@ const initialContext: ContextType = {
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,
-  setDisableDialogBackdropClose: () => null
+  setDisableDialogBackdropClose: () => null,
+  disableAnimations: false,
+  setDisableAnimations: () => null
 }
 
 export default React.createContext(initialContext)

@@ -65,6 +65,19 @@ body {
   grid-area: offline;
 }
 
+body:has(.disableAnimations) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+    transition-duration: 0ms !important;
+  }
+  .MuiTouchRipple-root {
+    display: none !important;
+  }
+}
+
 .HelpButton {
   position: fixed;
   bottom: 0;

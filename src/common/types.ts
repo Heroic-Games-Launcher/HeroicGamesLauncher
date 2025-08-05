@@ -104,6 +104,7 @@ export interface AppSettings extends GameSettings {
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
   disableLogs: boolean
+  disableAnimations: boolean
   discordRPC: boolean
   downloadNoHttps: boolean
   downloadProtonToSteam: boolean
