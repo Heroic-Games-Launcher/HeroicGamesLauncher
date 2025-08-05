@@ -237,17 +237,19 @@ export default React.memo(function Library(): JSX.Element {
 
   // bind back to top button
   useEffect(() => {
-    if (backToTopElement.current) {
-      document.body.addEventListener('scroll', () => {
-        const btn = document.getElementById('backToTopBtn')
-        const topSpan = document.getElementById('top')
-        if (btn && topSpan) {
-          btn.style.visibility =
-            document.body.scrollTop > 450 ? 'visible' : 'hidden'
-        }
-      })
+    const btn = document.getElementById('backToTopBtn')
+    const topSpan = document.getElementById('top')
+
+    const scrollCallback = () => {
+      if (btn && topSpan) {
+        btn.style.visibility =
+          document.body.scrollTop > 450 ? 'visible' : 'hidden'
+      }
     }
-  }, [backToTopElement])
+
+    document.body.addEventListener('scroll', scrollCallback)
+    return () => document.body.removeEventListener('scroll', scrollCallback)
+  }, [])
 
   const backToTop = () => {
     const anchor = document.getElementById('top')
