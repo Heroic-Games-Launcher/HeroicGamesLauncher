@@ -48,8 +48,11 @@ async function gameAnticheatInfo(
         return false
       }
     })
-  } catch {
-    logWarning('AreWeAntiCheatYet file not present', LogPrefix.Backend)
+  } catch (err) {
+    logWarning(
+      ['Failed to read AreWeAntiCheatYet file:', err],
+      LogPrefix.Backend
+    )
     return null
   }
 }
