@@ -155,7 +155,7 @@ If you're not using the Flatpak version, make sure you have all Wine dependencie
 #### Debian, Ubuntu and Derivatives
 
 Download the file ending in .deb from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest).  
-Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Heroic-*-amd64.deb` to install it directly.
+Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Heroic*amd64.deb` to install it directly.
 
 #### Arch (AUR)
 
