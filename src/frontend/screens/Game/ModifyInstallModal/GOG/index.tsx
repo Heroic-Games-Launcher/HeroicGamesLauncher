@@ -419,6 +419,6 @@ export default function GOGModifyInstallModal({
       </button>
     </>
   ) : (
-    <UpdateComponent inline />
+    <UpdateComponent />
   )
 }
