@@ -76,6 +76,9 @@ body:has(.disableAnimations) {
   .MuiTouchRipple-root {
     display: none !important;
   }
+  .Mui-focusVisible {
+    background: color(from var(--accent-overlay) srgb r g b / 0.3);
+  }
 }
 
 .HelpButton {
