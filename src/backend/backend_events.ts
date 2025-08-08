@@ -12,6 +12,8 @@ type BackendEvents = {
     oldValue: unknown
     newValue: unknown
   }) => void
+  mainWindowFocussed: () => void
+  mainWindowUnfocussed: () => void
   [key: `progressUpdate-${string}`]: (progress: GameStatus) => void
 }
 

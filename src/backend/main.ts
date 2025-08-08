@@ -153,6 +153,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { initGamepad } from './gamepad'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -227,6 +228,8 @@ async function initializeWindow(): Promise<BrowserWindow> {
   mainWindow.on('leave-full-screen', () =>
     sendFrontendMessage('fullscreen', false)
   )
+  mainWindow.on('focus', () => backendEvents.emit('mainWindowFocussed'))
+  mainWindow.on('blur', () => backendEvents.emit('mainWindowUnfocussed'))
   mainWindow.on('close', async (e) => {
     e.preventDefault()
 
@@ -335,6 +338,7 @@ if (!gotTheLock) {
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
+    initGamepad()
 
     // Add User-Agent Client hints to behave like Windows
     if (process.argv.includes('--spoof-windows')) {
