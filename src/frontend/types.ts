@@ -14,11 +14,18 @@ import {
   WikiInfo,
   ExtraInfo,
   Status,
-  InstallInfo
+  InstallInfo,
+  CustomLibraryGameInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Category =
+  | 'all'
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'customLibrary'
 
 export interface ContextType {
   error: boolean
@@ -100,6 +107,7 @@ export interface ContextType {
   externalLinkDialogOptions: ExternalLinkDialogOptions
   handleExternalLinkDialog: (options: ExternalLinkDialogOptions) => void
   sideloadedLibrary: GameInfo[]
+  customLibrary: CustomLibraryGameInfo[]
   hideChangelogsOnStartup: boolean
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null

@@ -22,6 +22,7 @@ import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
   amazonCategories,
+  customLibraryCategories,
   epicCategories,
   gogCategories,
   sideloadedCategories
@@ -49,6 +50,7 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     sideloadedLibrary,
+    customLibrary,
     favouriteGames,
     libraryTopSection,
     platform,
@@ -83,7 +85,8 @@ export default React.memo(function Library(): JSX.Element {
       legendary: epicCategories.includes(storedCategory),
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
-      sideload: sideloadedCategories.includes(storedCategory)
+      sideload: sideloadedCategories.includes(storedCategory),
+      customLibrary: customLibraryCategories.includes(storedCategory)
     }
   }
 
@@ -541,7 +544,8 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
-    gameUpdates
+    gameUpdates,
+    customLibrary
   ])
 
   // select library

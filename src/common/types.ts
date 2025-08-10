@@ -15,7 +15,7 @@ import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'customLibrary'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -156,6 +156,7 @@ export type GameInfo =
   | LegendaryGameInfo
   | GOGGameInfo
   | NileGameInfo
+  | CustomLibraryGameInfo
 
 interface BaseGameInfo {
   store_url?: string
@@ -207,6 +208,10 @@ export interface GOGGameInfo extends BaseGameInfo {
 
 export interface NileGameInfo extends BaseGameInfo {
   runner: 'nile'
+}
+
+export interface CustomLibraryGameInfo extends BaseGameInfo {
+  runner: 'customLibrary'
 }
 
 export interface GameSettings {

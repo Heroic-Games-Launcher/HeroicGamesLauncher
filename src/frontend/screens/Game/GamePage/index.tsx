@@ -190,7 +190,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
               : 'Windows')
 
         if (
-          runner !== 'sideload' &&
+          ['sideload', 'customLibrary'].includes(runner) === false &&
           !notSupportedGame &&
           !notInstallable &&
           !thirdPartyManagedApp &&
