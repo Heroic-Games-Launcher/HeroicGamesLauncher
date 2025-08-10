@@ -1,5 +1,9 @@
 import { CustomLibraryTask } from 'backend/storeManagers/customLibraries/tasks/types'
 import { logInfo, LogPrefix, logError } from 'backend/logger'
+import { executeDownloadTask } from './tasks/downloadTask'
+import { executeExtractTask } from './tasks/extractTask'
+import { executeRunTask } from './tasks/runTask'
+import { executeMoveTask } from './tasks/moveTask'
 import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
 import i18next from 'i18next'
 
@@ -21,7 +25,22 @@ export async function executeTasks(
     )
 
     try {
-      // TODO: Implement task execution
+      switch (task.type) {
+        case 'download':
+          await executeDownloadTask(appName, task, gameFolder)
+          break
+        case 'extract':
+          await executeExtractTask(task, gameFolder)
+          break
+        case 'run':
+          await executeRunTask(appName, task, gameFolder)
+          break
+        case 'move':
+          await executeMoveTask(task, gameFolder, appName)
+          break
+        default:
+          throw new Error(`Unknown task type: ${(task as any).type}`)
+      }
 
       logInfo(`Completed ${task.type} task`, LogPrefix.CustomLibrary)
     } catch (error) {
