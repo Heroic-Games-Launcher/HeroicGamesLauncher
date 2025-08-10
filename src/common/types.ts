@@ -96,6 +96,8 @@ export interface AppSettings extends GameSettings {
   customCSS: string
   customThemesPath: string
   customWinePaths: string[]
+  customLibraryUrls: string[]
+  customLibraryConfigs: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
   defaultSteamPath: string

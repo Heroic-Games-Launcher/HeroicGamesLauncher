@@ -205,6 +205,8 @@ export interface StoresFilters {
   gog: boolean
   nile: boolean
   sideload: boolean
+  // Custom libraries will be added dynamically
+  [key: string]: boolean
 }
 
 export interface PlatformsFilters {

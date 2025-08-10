@@ -567,6 +567,14 @@
             "placeHolderKey": "New Wrapper",
             "placeHolderValue": "Wrapper Arguments",
             "title": "Wrapper command:"
+        },
+        "custom_library_urls": {
+            "info": "Configure custom game library URLs to load additional games into Heroic.",
+            "example": "Example:: https://raw.githubusercontent.com/unbelievableflavour/games-repo-test/refs/heads/main/freeware_library.json",
+            "name": "Name",
+            "url": "URL",
+            "name_placeholder": "Library Name",
+            "url_placeholder": "https://example.com/library.json"
         }
     },
     "other": {
@@ -638,6 +646,7 @@
         },
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Custom Wine/Proton Paths",
+        "custom_library_urls": "Custom Library URLs",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
         "default-steam-path": "Default Steam path",
@@ -873,7 +882,8 @@
             "log": "Log",
             "other": "Other",
             "sync": "Cloud Saves Sync",
-            "systemInformation": "System Information"
+            "systemInformation": "System Information",
+            "custom_libraries": "Custom Libraries"
         },
         "offline": {
             "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."

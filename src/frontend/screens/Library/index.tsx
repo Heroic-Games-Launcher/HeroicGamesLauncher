@@ -381,23 +381,29 @@ export default React.memo(function Library(): JSX.Element {
     return favourites.map((game) => `${game.app_name}_${game.runner}`)
   }, [favourites])
 
-  const makeLibrary = () => {
-    let displayedStores: string[] = []
-    if (storesFilters['gog'] && gog.username) {
-      displayedStores.push('gog')
-    }
-    if (storesFilters['legendary'] && epic.username) {
-      displayedStores.push('legendary')
-    }
-    if (storesFilters['nile'] && amazon.username) {
-      displayedStores.push('nile')
-    }
-    if (storesFilters['sideload']) {
-      displayedStores.push('sideload')
-    }
+  const makeLibrary = (): Array<GameInfo> => {
+    // Get all available custom library IDs from the customLibrary games
+    const customLibraryIds = new Set<string>()
+    customLibrary.forEach((game) => {
+      if (game?.customLibraryId) {
+        customLibraryIds.add(game.customLibraryId)
+      }
+    })
+
+    // Ensure storesFilters includes all custom library filters
+    const allStoreFilters = { ...storesFilters }
+    customLibraryIds.forEach((id) => {
+      if (!(id in allStoreFilters)) {
+        allStoreFilters[id] = true // Default to true for new custom libraries
+      }
+    })
+
+    let displayedStores = Object.keys(allStoreFilters).filter(
+      (store) => allStoreFilters[store]
+    )
 
     if (!displayedStores.length) {
-      displayedStores = Object.keys(storesFilters)
+      displayedStores = Object.keys(allStoreFilters)
     }
 
     const showEpic = epic.username && displayedStores.includes('legendary')
@@ -405,12 +411,23 @@ export default React.memo(function Library(): JSX.Element {
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
     const showSideloaded = displayedStores.includes('sideload')
 
+    // Filter custom games based on their library IDs
+    const customGames = customLibrary.filter((game) =>
+      displayedStores.includes(game.customLibraryId)
+    )
+
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
 
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+    return [
+      ...sideloadedApps,
+      ...epicLibrary,
+      ...gogLibrary,
+      ...amazonLibrary,
+      ...customGames
+    ]
   }
 
   const gamesForAlphabetFilter = useMemo(() => {
