@@ -14,6 +14,7 @@ import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/ut
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import { CustomLibraryTask } from 'backend/storeManagers/customLibraries/tasks/types'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'customLibrary'
 
@@ -214,6 +215,11 @@ export interface NileGameInfo extends BaseGameInfo {
 
 export interface CustomLibraryGameInfo extends BaseGameInfo {
   runner: 'customLibrary'
+  customLibraryId: string
+  customLibraryName: string
+  installSizeBytes?: number
+  installTasks: CustomLibraryTask[]
+  uninstallTasks: CustomLibraryTask[]
 }
 
 export interface GameSettings {
