@@ -634,6 +634,10 @@ addListener('showConfigFileInFolder', async (event, appName) => {
   return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
 })
 
+addListener('showGameConfigFileInFolder', (event, appName) =>
+  showItemInFolder(path.join(gamesConfigPath, `${appName}.json`))
+)
+
 addListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
 })

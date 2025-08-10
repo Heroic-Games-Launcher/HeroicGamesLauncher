@@ -410,6 +410,14 @@ export default function GamesSubmenu({
               {t('button.browse_wine_prefix', 'Browse Wine Prefix')}
             </button>
           )}
+          {isInstalled && (
+            <button
+              onClick={() => window.api.showGameConfigFileInFolder(appName)}
+              className="link button is-text is-link"
+            >
+              {t('button.showGameConfigFileInFolder', 'Show Game Config File')}
+            </button>
+          )}
         </div>
       </div>
     </>
