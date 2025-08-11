@@ -15,6 +15,7 @@ import {
   getCachedCustomLibraryEntry,
   getCustomLibraries
 } from 'backend/storeManagers/customLibraries/customLibraryManager'
+import { CustomLibraryInstallInfo } from 'common/types/customLibraries'
 
 const installedGames: Map<string, InstalledInfo> = new Map()
 
@@ -100,7 +101,7 @@ export async function refresh(): Promise<ExecResult> {
             art_square: game.art_square || '',
             install: {
               executable: game.executable,
-              platform: (game.platform?.toLowerCase() as any) || 'windows',
+              platform: (game.platform as InstallPlatform) || 'Windows',
               install_path: `/${game.app_name}`,
               install_size: game.install_size_bytes
                 ? getFileSize(game.install_size_bytes)
@@ -155,7 +156,7 @@ export async function refresh(): Promise<ExecResult> {
       }
     }
 
-    libraryStore.set('games' as any, allGames)
+    libraryStore.set('games', allGames)
     sendFrontendMessage('refreshLibrary', 'customLibrary')
 
     logInfo(
@@ -172,13 +173,15 @@ export async function refresh(): Promise<ExecResult> {
 }
 
 export function getGameInfo(appName: string): CustomLibraryGameInfo {
-  const games = libraryStore.get('games' as any, [])
+  const games = libraryStore.get('games', [])
   return games.find(
     (game) => game.app_name === appName
   ) as CustomLibraryGameInfo
 }
 
-export async function getInstallInfo(appName: string): Promise<any> {
+export async function getInstallInfo(
+  appName: string
+): Promise<CustomLibraryInstallInfo> {
   const gameInfo = getGameInfo(appName)
 
   // Default sizes
@@ -194,24 +197,16 @@ export async function getInstallInfo(appName: string): Promise<any> {
   // Return install info that satisfies the frontend requirements
   return {
     game: {
-      app_name: appName || '',
-      title: gameInfo?.title || '',
-      owned_dlc: [], // This is the critical missing property
-      version: gameInfo?.version || '1.0.0',
-      branches: [],
-      buildId: '',
-      cloud_saves_supported: false,
-      is_dlc: false,
-      external_activation: '',
-      platform_versions: {}
+      app_name: appName,
+      title: gameInfo.title,
+      version: gameInfo?.version || '1.0.0'
     },
     manifest: {
-      app_name: appName || '',
+      app_name: appName,
       disk_size: installSizeBytes,
       download_size: downloadSizeBytes,
       languages: ['en'],
-      versionEtag: '',
-      dependencies: []
+      versionEtag: ''
     }
   }
 }
@@ -259,7 +254,7 @@ export async function importGame(
   if (gameIndex !== -1) {
     games[gameIndex].is_installed = true
     games[gameIndex].install = installedData
-    libraryStore.set('games' as any, games)
+    libraryStore.set('games', games)
   }
 
   // Refresh and notify

@@ -324,7 +324,7 @@ export async function install(
     if (gameIndex !== -1) {
       games[gameIndex].is_installed = true
       games[gameIndex].install = installedData
-      libraryStore.set('games' as any, games)
+      libraryStore.set('games', games)
     }
 
     // Add shortcuts

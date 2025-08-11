@@ -39,7 +39,7 @@ export async function executeTasks(
           await executeMoveTask(task, gameFolder, appName)
           break
         default:
-          throw new Error(`Unknown task type: ${(task as any).type}`)
+          throw new Error(`Unknown task type: ${task}`)
       }
 
       logInfo(`Completed ${task.type} task`, LogPrefix.CustomLibrary)
