@@ -32,6 +32,7 @@ import {
 } from './library'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { executeTasks } from './taskExecutor'
+import { getCachedCustomLibraryEntry } from './customLibraryManager'
 
 export function getGameInfo(appName: string): CustomLibraryGameInfo {
   return getCustomLibraryGameInfo(appName)
@@ -246,7 +247,8 @@ export async function forceUninstall(appName: string): Promise<void> {
 // Updated install function that works with the task system and download manager
 export async function install(
   appName: string,
-  args: InstallArgs
+  args: InstallArgs,
+  newVersion?: string,
 ): Promise<InstallResult> {
   try {
     logInfo(`Installing custom game ${appName}`, LogPrefix.CustomLibrary)
@@ -302,7 +304,7 @@ export async function install(
         ? getFileSize(gameInfo.installSizeBytes)
         : 'Unknown',
       is_dlc: false,
-      version: gameInfo.install.version || '1.0',
+      version: newVersion || gameInfo.install.version || '1.0',
       appName: appName
     }
 
@@ -394,5 +396,52 @@ export async function importGame(
 export async function update(
   appName: string
 ): Promise<{ status: 'done' | 'error' }> {
-  return { status: 'error' }
+  try {
+    logInfo(`Updating custom game ${appName}`, LogPrefix.CustomLibrary)
+    const gameInfo = getGameInfo(appName)
+
+    const currentInstallPath = gameInfo.install.install_path
+    if (!currentInstallPath) {
+      logError(`No install path found for ${appName}`, LogPrefix.CustomLibrary)
+      return { status: 'error' }
+    }
+
+    // Get the parent directory (where we'll reinstall)
+    const installParentPath = join(currentInstallPath, '..')
+
+    const installArgs: InstallArgs = {
+      path: installParentPath,
+      platformToInstall: gameInfo.install.platform as InstallPlatform,
+      installLanguage: gameInfo.install.language,
+      build: undefined,
+      branch: undefined
+    }
+
+    logInfo(`Uninstalling ${appName} for update`, LogPrefix.CustomLibrary)
+    
+    // Uninstall the current version
+    const uninstallResult = await uninstall({ appName, shouldRemovePrefix: false })
+    if (uninstallResult.error) {
+      logError(`Failed to uninstall ${appName} during update: ${uninstallResult.error}`, LogPrefix.CustomLibrary)
+      return { status: 'error' }
+    }
+
+    logInfo(`Reinstalling ${appName} with new version`, LogPrefix.CustomLibrary)
+
+    const currentVersion = getCachedCustomLibraryEntry(appName)?.version || '1.0.0'
+
+    // Reinstall with the new version
+    const installResult = await install(appName, installArgs, currentVersion)
+    if (installResult.status === 'error') {
+      logError(`Failed to reinstall ${appName} during update: ${installResult.error}`, LogPrefix.CustomLibrary)
+      return { status: 'error' }
+    }
+
+    logInfo(`Successfully updated ${appName}`, LogPrefix.CustomLibrary)
+    return { status: 'done' }
+
+  } catch (error) {
+    logError(`Update failed for ${appName}: ${error}`, LogPrefix.CustomLibrary)
+    return { status: 'error' }
+  }
 }

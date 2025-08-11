@@ -267,8 +267,52 @@ export function installState() {
 }
 
 export async function listUpdateableGames(): Promise<string[]> {
-  logWarning(`listUpdateableGames not implemented on Sideload Library Manager`)
-  return []
+  try {
+    logInfo('Checking for custom library game updates', LogPrefix.CustomLibrary)
+    
+    const updateableGames: string[] = []
+    const libraries = await getCustomLibraries()
+    
+    for (const config of libraries) {
+      for (const game of config.games) {
+        const installedInfo = installedGames.get(game.app_name)
+        
+        // Only check installed games
+        if (!installedInfo) {
+          continue
+        }
+        
+        console.log('new versionfoo', game.version)
+        console.log('current versionfoo', installedInfo.version)
+        // Compare library config version with installed version
+        const libraryVersion = game.version || '1.0.0'
+        const installedVersion = installedInfo.version || '1.0.0'
+        
+        if (libraryVersion !== installedVersion) {
+          logInfo(
+            `Update available for ${game.app_name}: ${installedVersion} -> ${libraryVersion}`,
+            LogPrefix.CustomLibrary
+          )
+          updateableGames.push(game.app_name)
+        } else {
+          logInfo(
+            `${game.app_name} is up to date (${installedVersion})`,
+            LogPrefix.CustomLibrary
+          )
+        }
+      }
+    }
+    
+    logInfo(
+      `Found ${updateableGames.length} custom library game(s) to update`,
+      LogPrefix.CustomLibrary
+    )
+    
+    return updateableGames
+  } catch (error) {
+    logWarning(`Error checking for custom library updates: ${error}`)
+    return []
+  }
 }
 
 export async function runRunnerCommand(): Promise<ExecResult> {
