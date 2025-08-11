@@ -253,14 +253,18 @@ async function getCustomLibraries(): Promise<CustomLibraryConfig[]> {
       // Check if game is already in cache with matching version
       const cachedGame = customLibraryCache.get(uniqueAppName)
       if (cachedGame && cachedGame.version === game.version) {
-        logInfo(`Skipping metadata fetch for ${game.title} - already cached with matching version ${game.version}`)
-        
+        logInfo(
+          `Skipping metadata fetch for ${game.title} - already cached with matching version ${game.version}`
+        )
+
         Object.assign(game, cachedGame)
         continue
       }
 
       // Retrieve and apply metadata for each game that's not cached or has version mismatch
-      logInfo(`Fetching metadata for ${game.title} (version: ${game.version || 'unversioned'})`)
+      logInfo(
+        `Fetching metadata for ${game.title} (version: ${game.version || 'unversioned'})`
+      )
       const { art_cover, art_square, description, genres } =
         await retrieveGameMetadata(game)
       game.art_cover = art_cover

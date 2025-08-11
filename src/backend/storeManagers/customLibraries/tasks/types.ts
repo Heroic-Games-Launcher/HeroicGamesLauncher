@@ -1,9 +1,4 @@
-export type CustomLibraryTaskType =
-  | 'download'
-  | 'extract'
-  | 'run'
-  | 'delete'
-  | 'move'
+export type CustomLibraryTaskType = 'download' | 'extract' | 'run' | 'move'
 
 interface BaseCustomLibraryTask {
   type: CustomLibraryTaskType

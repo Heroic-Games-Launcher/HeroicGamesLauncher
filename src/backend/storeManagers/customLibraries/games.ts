@@ -248,7 +248,7 @@ export async function forceUninstall(appName: string): Promise<void> {
 export async function install(
   appName: string,
   args: InstallArgs,
-  newVersion?: string,
+  newVersion?: string
 ): Promise<InstallResult> {
   try {
     logInfo(`Installing custom game ${appName}`, LogPrefix.CustomLibrary)
@@ -418,28 +418,37 @@ export async function update(
     }
 
     logInfo(`Uninstalling ${appName} for update`, LogPrefix.CustomLibrary)
-    
+
     // Uninstall the current version
-    const uninstallResult = await uninstall({ appName, shouldRemovePrefix: false })
+    const uninstallResult = await uninstall({
+      appName,
+      shouldRemovePrefix: false
+    })
     if (uninstallResult.error) {
-      logError(`Failed to uninstall ${appName} during update: ${uninstallResult.error}`, LogPrefix.CustomLibrary)
+      logError(
+        `Failed to uninstall ${appName} during update: ${uninstallResult.error}`,
+        LogPrefix.CustomLibrary
+      )
       return { status: 'error' }
     }
 
     logInfo(`Reinstalling ${appName} with new version`, LogPrefix.CustomLibrary)
 
-    const currentVersion = getCachedCustomLibraryEntry(appName)?.version || '1.0.0'
+    const currentVersion =
+      getCachedCustomLibraryEntry(appName)?.version || '1.0.0'
 
     // Reinstall with the new version
     const installResult = await install(appName, installArgs, currentVersion)
     if (installResult.status === 'error') {
-      logError(`Failed to reinstall ${appName} during update: ${installResult.error}`, LogPrefix.CustomLibrary)
+      logError(
+        `Failed to reinstall ${appName} during update: ${installResult.error}`,
+        LogPrefix.CustomLibrary
+      )
       return { status: 'error' }
     }
 
     logInfo(`Successfully updated ${appName}`, LogPrefix.CustomLibrary)
     return { status: 'done' }
-
   } catch (error) {
     logError(`Update failed for ${appName}: ${error}`, LogPrefix.CustomLibrary)
     return { status: 'error' }

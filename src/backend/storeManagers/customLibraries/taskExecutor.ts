@@ -1,4 +1,7 @@
-import { CustomLibraryTask } from 'backend/storeManagers/customLibraries/tasks/types'
+import {
+  CustomLibraryTask,
+  CustomLibraryTaskType
+} from 'backend/storeManagers/customLibraries/tasks/types'
 import { logInfo, LogPrefix, logError } from 'backend/logger'
 import { executeDownloadTask } from './tasks/downloadTask'
 import { executeExtractTask } from './tasks/extractTask'
@@ -38,8 +41,10 @@ export async function executeTasks(
         case 'move':
           await executeMoveTask(task, gameFolder, appName)
           break
-        default:
-          throw new Error(`Unknown task type: ${task}`)
+        default: {
+          const unknownTask = task as { type: CustomLibraryTaskType }
+          throw new Error(`Unknown task type: ${unknownTask.type}`)
+        }
       }
 
       logInfo(`Completed ${task.type} task`, LogPrefix.CustomLibrary)
