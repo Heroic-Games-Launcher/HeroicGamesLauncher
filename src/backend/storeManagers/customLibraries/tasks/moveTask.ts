@@ -10,7 +10,6 @@ export async function executeMoveTask(
   gameFolder: string,
   appName?: string
 ): Promise<void> {
-  // Support variable substitution like runTask does
   const source = await substituteVariables(task.source, gameFolder, appName)
   const destination = await substituteVariables(
     task.destination,
