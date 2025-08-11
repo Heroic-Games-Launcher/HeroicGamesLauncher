@@ -13,7 +13,13 @@ jest.mock('backend/wiki_game_info/wiki_game_info')
 jest.mock('backend/storeManagers/gog/library')
 global.fetch = jest.fn()
 
-const mockGlobalConfig = GlobalConfig as jest.MockedClass<typeof GlobalConfig>
+let mockGetSettings = jest.fn()
+const mockGlobalConfigGet = jest.fn().mockReturnValue({
+  getSettings: mockGetSettings
+})
+
+;(GlobalConfig as any).get = mockGlobalConfigGet
+
 const mockGetWikiGameInfo = getWikiGameInfo as jest.MockedFunction<
   typeof getWikiGameInfo
 >
@@ -25,13 +31,10 @@ const mockLogWarning = logWarning as jest.MockedFunction<typeof logWarning>
 const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>
 
 describe('CustomLibraryManager', () => {
-  let mockGetSettings: jest.Mock
-
   beforeEach(() => {
     jest.clearAllMocks()
 
-    mockGetSettings = jest.fn()
-    mockGlobalConfig.get = jest.fn().mockReturnValue({
+    mockGlobalConfigGet.mockReturnValue({
       getSettings: mockGetSettings
     })
 
@@ -577,7 +580,7 @@ describe('CustomLibraryManager', () => {
         // Reset for next iteration
         jest.clearAllMocks()
         mockGetSettings = jest.fn()
-        mockGlobalConfig.get = jest.fn().mockReturnValue({
+        mockGlobalConfigGet.mockReturnValue({
           getSettings: mockGetSettings
         })
       }
@@ -659,7 +662,7 @@ describe('CustomLibraryManager', () => {
         customLibraryUrls: [],
         customLibraryConfigs: [JSON.stringify(libraryConfig)]
       })
-      mockGlobalConfig.get = jest.fn().mockReturnValue({
+      mockGlobalConfigGet.mockReturnValue({
         getSettings: mockGetSettings
       })
 
@@ -723,7 +726,7 @@ describe('CustomLibraryManager', () => {
         customLibraryUrls: [],
         customLibraryConfigs: [JSON.stringify(libraryConfigV2)]
       })
-      mockGlobalConfig.get = jest.fn().mockReturnValue({
+      mockGlobalConfigGet.mockReturnValue({
         getSettings: mockGetSettings
       })
 

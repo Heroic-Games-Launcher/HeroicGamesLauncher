@@ -56,8 +56,9 @@ export async function executeMoveTask(
       LogPrefix.CustomLibrary
     )
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
     throw new Error(
-      `Failed to move ${sourcePath} to ${destinationPath}: ${error.message}`
+      `Failed to move ${sourcePath} to ${destinationPath}: ${errorMessage}`
     )
   }
 }

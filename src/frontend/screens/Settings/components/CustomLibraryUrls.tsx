@@ -78,12 +78,14 @@ const CustomLibraryUrls = () => {
 
   return (
     <div className="Field">
-      <label>{t('setting.custom_library_urls', 'Custom Libraries')}</label>
+      <label>
+        {t('options.custom_library_urls.title', 'Custom Libraries')}
+      </label>
 
       {customLibraryUrlsInfo}
 
       {/* URLs Section */}
-      <h4>{t('setting.custom_library_urls', 'Library URLs')}</h4>
+      <h4>{t('options.custom_library_urls.urls', 'Library URLs')}</h4>
 
       {/* Existing URLs */}
       {customLibraryUrls.map((url: string, index: number) => (
@@ -118,7 +120,7 @@ const CustomLibraryUrls = () => {
 
       {/* JSON Configs Section */}
       <h4>
-        {t('setting.custom_library_configs', 'Direct JSON Configurations')}
+        {t('options.custom_library_urls.configs', 'Direct JSON Configurations')}
       </h4>
 
       {/* Existing JSON configs */}

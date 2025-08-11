@@ -15,6 +15,7 @@ import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 import { CustomLibraryTask } from 'backend/storeManagers/customLibraries/tasks/types'
+import { CustomLibraryInstallInfo } from './types/customLibraries'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'customLibrary'
 
@@ -800,6 +801,7 @@ export type InstallInfo =
   | LegendaryInstallInfo
   | GogInstallInfo
   | NileInstallInfo
+  | CustomLibraryInstallInfo
 
 export interface KnowFixesInfo {
   title: string

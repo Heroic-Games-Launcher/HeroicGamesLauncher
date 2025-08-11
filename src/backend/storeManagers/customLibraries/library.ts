@@ -199,7 +199,8 @@ export async function getInstallInfo(
     game: {
       app_name: appName,
       title: gameInfo.title,
-      version: gameInfo?.version || '1.0.0'
+      version: gameInfo?.version || '1.0.0',
+      owned_dlc: []
     },
     manifest: {
       app_name: appName,

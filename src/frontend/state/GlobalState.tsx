@@ -202,7 +202,10 @@ class GlobalState extends PureComponent<Props> {
       gameInfo: null
     },
     sideloadedLibrary: sideloadLibrary.get('games', []),
-    customLibrary: customLibraryStore.get('games', []),
+    customLibrary: customLibraryStore.get(
+      'games',
+      []
+    ) as CustomLibraryGameInfo[],
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,

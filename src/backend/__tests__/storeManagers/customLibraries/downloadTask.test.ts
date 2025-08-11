@@ -132,11 +132,14 @@ describe('DownloadTask - executeDownloadTask', () => {
       filename: 'file.zip'
     }
 
-    let progressCallback: (
-      bytes: number,
-      speed: number,
-      percentage: number
-    ) => void
+    let progressCallback:
+      | ((
+          bytes: number,
+          speed: number,
+          percentage: number,
+          diskWriteSpeed: number
+        ) => void)
+      | undefined
 
     mockDownloadFile.mockImplementation(({ progressCallback: cb }) => {
       progressCallback = cb
@@ -146,7 +149,7 @@ describe('DownloadTask - executeDownloadTask', () => {
     await executeDownloadTask(appName, task, gameFolder)
 
     // Simulate progress update
-    progressCallback!(50 * 1024 * 1024, 1000, 75) // 50MB, 75%
+    progressCallback!(50 * 1024 * 1024, 1000, 75, 500) // 50MB, 75%, 500 bytes/s write speed
 
     expect(mockSendProgressUpdate).toHaveBeenCalledWith({
       appName: 'test-game',

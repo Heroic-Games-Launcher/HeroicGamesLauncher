@@ -49,8 +49,10 @@ export async function executeTasks(
 
       logInfo(`Completed ${task.type} task`, LogPrefix.CustomLibrary)
     } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error)
       logError(
-        `Failed to execute ${task.type} task: ${error.message}`,
+        `Failed to execute ${task.type} task: ${errorMessage}`,
         LogPrefix.CustomLibrary
       )
 
@@ -59,7 +61,7 @@ export async function executeTasks(
           'box.error.uncaught-exception.title',
           'Uncaught Exception occured!'
         ),
-        message: `Failed to execute ${task.type} task: ${error.message}`,
+        message: `Failed to execute ${task.type} task: ${errorMessage}`,
         type: 'ERROR'
       })
       throw error

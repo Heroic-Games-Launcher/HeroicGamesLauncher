@@ -2,6 +2,7 @@ interface GameInstallInfo {
   app_name: string
   title: string
   version: string
+  owned_dlc: Array<{ app_name: string; title: string }>
 }
 
 interface GameManifest {
