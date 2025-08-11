@@ -14,31 +14,35 @@ interface GameMetadata {
 
 interface CustomLibraryConfig {
   name: string
-  games: Array<{
-    app_name: string
-    title: string
-    executable: string
-    install_path?: string
-    art_cover?: string
-    art_square?: string
-    description?: string
-    version?: string
-    install_size_bytes?: number
-    developer?: string
-    release_date?: string
-    platform?: 'Windows' | 'Mac' | 'Linux' | 'Browser'
-    launch_args?: string[]
-    is_installed?: boolean
-    install_tasks: CustomLibraryTask[]
-    uninstall_tasks: CustomLibraryTask[]
-    gamesdb_credentials?: {
-      store: string
-      id: string
-    }
-    genres?: string[]
-    launch_options?: LaunchOption[]
-  }>
+  games: Array<CustomLibraryConfigGame>
 }
+
+interface CustomLibraryConfigGame {
+  app_name: string
+  title: string
+  executable: string
+  install_path?: string
+  art_cover?: string
+  art_square?: string
+  description?: string
+  version?: string
+  install_size_bytes?: number
+  developer?: string
+  release_date?: string
+  platform?: 'Windows' | 'Mac' | 'Linux' | 'Browser'
+  launch_args?: string[]
+  is_installed?: boolean
+  install_tasks: CustomLibraryTask[]
+  uninstall_tasks: CustomLibraryTask[]
+  gamesdb_credentials?: {
+    store: string
+    id: string
+  }
+  genres?: string[]
+  launch_options?: LaunchOption[]
+}
+
+const customLibraryCache: Map<string, CustomLibraryConfigGame> = new Map()
 
 /**
  * Retrieves enhanced metadata (art, description, genres) for a custom library game
@@ -168,6 +172,7 @@ async function fetchLibraryData(
 }
 
 async function getCustomLibraries(): Promise<CustomLibraryConfig[]> {
+  customLibraryCache.clear()
   const customLibraryUrls =
     GlobalConfig.get().getSettings().customLibraryUrls || []
   const customLibraryConfigs =
@@ -253,6 +258,8 @@ async function getCustomLibraries(): Promise<CustomLibraryConfig[]> {
       game.art_square = art_square
       game.description = description
       game.genres = genres
+
+      customLibraryCache.set(game.app_name, game)
     }
 
     libraries.push(config)
@@ -261,4 +268,10 @@ async function getCustomLibraries(): Promise<CustomLibraryConfig[]> {
   return libraries
 }
 
-export { getCustomLibraries }
+function getCachedCustomLibraryEntry(
+  appName: string
+): CustomLibraryConfigGame | undefined {
+  return customLibraryCache.get(appName)
+}
+
+export { getCustomLibraries, getCachedCustomLibraryEntry }

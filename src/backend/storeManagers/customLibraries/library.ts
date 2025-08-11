@@ -11,10 +11,12 @@ import { getFileSize } from 'backend/utils'
 import { backendEvents } from 'backend/backend_events'
 import { existsSync } from 'fs'
 import type { InstallPlatform } from 'common/types'
-import { getCustomLibraries } from 'backend/storeManagers/customLibraries/customLibraryManager'
+import {
+  getCachedCustomLibraryEntry,
+  getCustomLibraries
+} from 'backend/storeManagers/customLibraries/customLibraryManager'
 
 const installedGames: Map<string, InstalledInfo> = new Map()
-const librariesCache: Map<string, any> = new Map()
 
 /**
  * Loads installed data and adds it into a Map
@@ -75,7 +77,6 @@ export async function refresh(): Promise<ExecResult> {
     let totalLoadedLibraries = 0
 
     const libraries = await getCustomLibraries()
-    librariesCache.clear()
 
     for (const config of libraries) {
       try {
@@ -83,8 +84,6 @@ export async function refresh(): Promise<ExecResult> {
 
         // Store each game's original config data for quick lookup
         for (const game of config.games) {
-          librariesCache.set(game.app_name, game) // Cache the original game config
-
           // Use unique app name for installed games lookup
           const installedInfo = installedGames.get(game.app_name)
 
@@ -289,7 +288,7 @@ export async function changeGameInstallPath(): Promise<void> {
 }
 
 export const getLaunchOptions = (appName: string): LaunchOption[] => {
-  const originalGameConfig = librariesCache.get(appName)
+  const originalGameConfig = getCachedCustomLibraryEntry(appName)
   return originalGameConfig?.launch_options || []
 }
 
