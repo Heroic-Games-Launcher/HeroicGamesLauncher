@@ -97,7 +97,7 @@ async function retrieveGameMetadata(
   }
 
   // Handle custom gamesdb_credentials if provided
-  if (game.gamesdb_credentials && (!description || !art_cover)) {
+  if (game.gamesdb_credentials) {
     try {
       const customGamesDBResult = await getGamesdbData(
         game.gamesdb_credentials.store,
