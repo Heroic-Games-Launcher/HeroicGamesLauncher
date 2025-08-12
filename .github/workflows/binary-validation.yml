@@ -6,11 +6,7 @@ on:
 
 jobs:
   validate:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-2022, ubuntu-22.04, macos-13]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-deps
@@ -30,7 +26,7 @@ jobs:
             const analysis = '${{steps.virustotal.outputs.analysis}}';
             if (!analysis) return;
             console.log('VirusTotal Report:');
-            let lines = analysis.split(',');
+            const lines = analysis.split(',');
             for (let line of lines) {
               console.log('- [' + line.replace('./public/bin/', '').replace('=https', '](https') + ')');
             }
