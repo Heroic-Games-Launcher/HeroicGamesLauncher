@@ -1559,6 +1559,7 @@ interface ExtractOptions {
 
 async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
   if (path.includes('.tar')) return extractTarFile({ path, destination, strip })
+  if (path.includes('.zip')) return extractZip({ path, destination, strip })
 
   logError(['extractFiles: Unsupported file', path], LogPrefix.Backend)
   return { status: 'error', error: 'Unsupported file type' }
@@ -1581,6 +1582,32 @@ async function extractTarFile({
     return { status: 'error', error: stderr }
   }
   return { status: 'done', installPath: destination }
+}
+
+async function extractZip({ path, destination }: ExtractOptions) {
+  if (isWindows) {
+    const { code, stderr } = await spawnAsync('powershell', [
+      '-Command',
+      `Expand-Archive -Path '${path}' -DestinationPath '${destination}' -Force`
+    ])
+    if (code !== 0) {
+      logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+    return { status: 'done', installPath: destination }
+  } else {
+    const { code, stderr } = await spawnAsync('unzip', [
+      '-o',
+      path,
+      '-d',
+      destination
+    ])
+    if (code !== 0) {
+      logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+    return { status: 'done', installPath: destination }
+  }
 }
 
 const axiosClient = axios.create({
