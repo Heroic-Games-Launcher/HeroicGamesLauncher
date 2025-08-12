@@ -1,0 +1,36 @@
+name: Binary validation
+description: Requires `VT_API_KEY` secret to be set in the repository settings.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, ubuntu-22.04, macos-13]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-deps
+
+      - name: VirusTotal Scan
+        id: virustotal
+        uses: crazy-max/ghaction-virustotal@v4
+        with:
+          vt_api_key: ${{ secrets.VT_API_KEY }}
+          request_rate: 4
+          files: ./public/bin/**/*
+
+      - name: VirusTotal Report
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const analysis = '${{steps.virustotal.outputs.analysis}}';
+            if (!analysis) return;
+            console.log('VirusTotal Report:');
+            let lines = analysis.split(',');
+            for (let line of lines) {
+              console.log('- [' + line.replace('./public/bin/', '').replace('=https', '](https') + ')');
+            }
