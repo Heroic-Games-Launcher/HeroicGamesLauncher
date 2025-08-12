@@ -114,7 +114,15 @@ export async function launch(
 
   gameInfo.install.executable = currentExecutable
 
-  return launchGame(appName, logWriter, gameInfo, 'customLibrary', finalArgs)
+  const cachedEntry = getCachedCustomLibraryEntry(appName)
+  return launchGame(
+    appName,
+    logWriter,
+    gameInfo,
+    'customLibrary',
+    finalArgs,
+    !!cachedEntry?.launch_from_cmd
+  )
 }
 
 export async function stop(appName: string): Promise<void> {

@@ -21,7 +21,6 @@ interface CustomLibraryConfigGame {
   app_name: string
   title: string
   executable: string
-  install_path?: string
   art_cover?: string
   art_square?: string
   description?: string
@@ -30,8 +29,6 @@ interface CustomLibraryConfigGame {
   developer?: string
   release_date?: string
   platform?: 'Windows' | 'Mac' | 'Linux' | 'Browser'
-  launch_args?: string[]
-  is_installed?: boolean
   install_tasks: CustomLibraryTask[]
   uninstall_tasks: CustomLibraryTask[]
   gamesdb_credentials?: {
@@ -40,6 +37,7 @@ interface CustomLibraryConfigGame {
   }
   genres?: string[]
   launch_options?: LaunchOption[]
+  launch_from_cmd?: boolean
 }
 
 const customLibraryCache: Map<string, CustomLibraryConfigGame> = new Map()
