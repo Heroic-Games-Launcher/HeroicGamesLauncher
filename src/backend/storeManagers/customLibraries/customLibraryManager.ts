@@ -2,7 +2,10 @@ import { logInfo, logWarning } from 'backend/logger'
 import { GlobalConfig } from 'backend/config'
 import { LaunchOption } from 'common/types'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
-import { getGamesdbData } from 'backend/storeManagers/gog/library'
+import {
+  getGamesdbData,
+  gogToUnifiedInfo
+} from 'backend/storeManagers/gog/library'
 import { CustomLibraryTask } from 'backend/storeManagers/customLibraries/tasks/types'
 
 interface GameMetadata {
@@ -53,6 +56,8 @@ async function retrieveGameMetadata(
   let art_square = game.art_square || game.art_cover || ''
   let description = game.description || ''
   let genres: string[] = []
+  let storeId = ''
+  let gameId = ''
 
   try {
     const fullWikiInfo = await getWikiGameInfo(
@@ -62,7 +67,6 @@ async function retrieveGameMetadata(
     )
 
     if (fullWikiInfo) {
-      // Fall back to HowLongToBeat artwork if still missing
       if (!art_cover && fullWikiInfo.howlongtobeat?.gameImageUrl) {
         art_cover = fullWikiInfo.howlongtobeat.gameImageUrl
         art_square = fullWikiInfo.howlongtobeat.gameImageUrl
@@ -70,47 +74,31 @@ async function retrieveGameMetadata(
 
       genres = fullWikiInfo.pcgamingwiki?.genres || []
 
-      // Check for Steam ID and use it for GamesDB
       if (fullWikiInfo.pcgamingwiki?.steamID) {
-        try {
-          const steamGamesDBResult = await getGamesdbData(
-            'steam',
-            fullWikiInfo.pcgamingwiki.steamID,
-            true
-          )
-          if (steamGamesDBResult.data?.game) {
-            if (!art_cover && steamGamesDBResult.data.game.cover?.url_format) {
-              art_cover = steamGamesDBResult.data.game.cover.url_format
-              art_square = steamGamesDBResult.data.game.cover.url_format
-            }
-            if (!description && steamGamesDBResult.data.game.summary?.en) {
-              description = steamGamesDBResult.data.game.summary.en
-            }
-          }
-        } catch (error) {
-          logWarning(`Failed to get GamesDB data via Steam ID: ${error}`)
-        }
+        storeId = 'steam'
+        gameId = fullWikiInfo.pcgamingwiki?.steamID
       }
     }
   } catch (error) {
     logWarning(`Error getting wiki info for ${game.title}: ${error}`)
   }
 
-  // Handle custom gamesdb_credentials if provided
   if (game.gamesdb_credentials) {
+    storeId = game.gamesdb_credentials.store
+    gameId = game.gamesdb_credentials.id
+  }
+
+  if (storeId && gameId) {
     try {
-      const customGamesDBResult = await getGamesdbData(
-        game.gamesdb_credentials.store,
-        game.gamesdb_credentials.id
-      )
-      if (customGamesDBResult.data?.game) {
-        if (!description && customGamesDBResult.data.game.summary?.en) {
-          description = customGamesDBResult.data.game.summary.en
-        }
-        if (!art_cover && customGamesDBResult.data.game.cover?.url_format) {
-          art_cover = customGamesDBResult.data.game.cover.url_format
-          art_square = customGamesDBResult.data.game.cover.url_format
-        }
+      logInfo(`Getting custom GamesDB data for ${game.title}`)
+      const customGamesDBResult = await getGamesdbData(storeId, gameId)
+      const unifiedInfo = await gogToUnifiedInfo(customGamesDBResult.data)
+
+      if (unifiedInfo) {
+        art_cover = unifiedInfo.art_cover
+        art_square = unifiedInfo.art_square
+        description = unifiedInfo.extra?.about?.description || ''
+        genres = unifiedInfo.extra?.genres || []
       }
     } catch (error) {
       logWarning(

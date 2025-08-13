@@ -4,7 +4,10 @@ import {
 } from 'backend/storeManagers/customLibraries/customLibraryManager'
 import { GlobalConfig } from 'backend/config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
-import { getGamesdbData } from 'backend/storeManagers/gog/library'
+import {
+  getGamesdbData,
+  gogToUnifiedInfo
+} from 'backend/storeManagers/gog/library'
 import { logInfo, logWarning } from 'backend/logger'
 
 jest.mock('backend/logger')
@@ -25,6 +28,9 @@ const mockGetWikiGameInfo = getWikiGameInfo as jest.MockedFunction<
 >
 const mockGetGamesdbData = getGamesdbData as jest.MockedFunction<
   typeof getGamesdbData
+>
+const mockGogToUnifiedInfo = gogToUnifiedInfo as jest.MockedFunction<
+  typeof gogToUnifiedInfo
 >
 const mockLogInfo = logInfo as jest.MockedFunction<typeof logInfo>
 const mockLogWarning = logWarning as jest.MockedFunction<typeof logWarning>
@@ -276,27 +282,21 @@ describe('CustomLibraryManager', () => {
         }
       }
 
-      const gamesdbData = {
-        isUpdated: false,
-        data: {
-          game: {
-            cover: {
-              url_format: 'https://gamesdb.com/cover.jpg'
-            },
-            summary: {
-              en: 'A great test game'
-            }
-          }
-        }
-      }
-
       mockGetSettings.mockReturnValue({
         customLibraryUrls: [],
         customLibraryConfigs: [JSON.stringify(libraryConfig)]
       })
 
       mockGetWikiGameInfo.mockResolvedValue(wikiInfo as any)
-      mockGetGamesdbData.mockResolvedValue(gamesdbData as any)
+      mockGetGamesdbData.mockResolvedValue({} as any)
+      mockGogToUnifiedInfo.mockResolvedValue({
+        art_cover: 'https://gamesdb.com/cover.jpg',
+        art_square: 'https://gamesdb.com/cover.jpg',
+        extra: {
+          about: { description: 'A great test game' },
+          genres: ['Action', 'Adventure']
+        }
+      } as any)
 
       const result = await getCustomLibraries()
 
@@ -305,10 +305,10 @@ describe('CustomLibraryManager', () => {
         'custom_test_library_metadata__test-game-metadata',
         'customLibrary'
       )
-      expect(mockGetGamesdbData).toHaveBeenCalledWith('steam', '12345', true)
+      expect(mockGetGamesdbData).toHaveBeenCalledWith('steam', '12345')
 
-      // HowLongToBeat artwork takes precedence over GamesDB
-      expect(result[0].games[0].art_cover).toBe('https://example.com/cover.jpg')
+      // GamesDB artwork takes precedence over HowLongToBeat
+      expect(result[0].games[0].art_cover).toBe('https://gamesdb.com/cover.jpg')
       expect(result[0].games[0].description).toBe('A great test game')
       expect(result[0].games[0].genres).toEqual(['Action', 'Adventure'])
     })
@@ -371,20 +371,6 @@ describe('CustomLibraryManager', () => {
         ]
       }
 
-      const gamesdbData = {
-        isUpdated: false,
-        data: {
-          game: {
-            cover: {
-              url_format: 'https://epic.com/cover.jpg'
-            },
-            summary: {
-              en: 'Epic game description'
-            }
-          }
-        }
-      }
-
       mockGetSettings.mockReturnValue({
         customLibraryUrls: [],
         customLibraryConfigs: [JSON.stringify(libraryConfig)]
@@ -392,7 +378,15 @@ describe('CustomLibraryManager', () => {
 
       // Mock getWikiGameInfo to return null so custom credentials are used
       mockGetWikiGameInfo.mockResolvedValue(null)
-      mockGetGamesdbData.mockResolvedValue(gamesdbData as any)
+      mockGetGamesdbData.mockResolvedValue({} as any)
+      mockGogToUnifiedInfo.mockResolvedValue({
+        art_cover: 'https://epic.com/cover.jpg',
+        art_square: 'https://epic.com/cover.jpg',
+        extra: {
+          about: { description: 'Epic game description' },
+          genres: ['Action']
+        }
+      } as any)
 
       const result = await getCustomLibraries()
 
