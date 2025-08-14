@@ -4,41 +4,18 @@ import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
+import { useAwaited } from 'frontend/hooks/useAwaited'
 
 const UseDGPU = () => {
   const { t } = useTranslation()
-  const { platform, showDialogModal } = useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
+  const systemInfo = useAwaited(window.api.systemInfo.get)
 
   const [useDGPU, setUseDGPU] = useSetting('nvidiaPrime', false)
 
-  if (!isLinux) {
+  if (!isLinux || !systemInfo || systemInfo.GPUs.length === 1) {
     return <></>
-  }
-
-  async function toggleUseDGPU() {
-    if (!useDGPU) {
-      const { GPUs } = await window.api.systemInfo.get()
-      if (GPUs.length === 1) {
-        showDialogModal({
-          title: t(
-            'setting.primerun.confirmation.title',
-            'Only 1 GPU detected'
-          ),
-          message: t(
-            'setting.primerun.confirmation.message',
-            'Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?'
-          ),
-          buttons: [
-            { text: t('box.yes'), onClick: () => setUseDGPU(true) },
-            { text: t('box.no') }
-          ],
-          type: 'MESSAGE'
-        })
-        return
-      }
-    }
-    setUseDGPU(!useDGPU)
   }
 
   return (
@@ -46,7 +23,7 @@ const UseDGPU = () => {
       <ToggleSwitch
         htmlId="usedgpu"
         value={useDGPU}
-        handleChange={toggleUseDGPU}
+        handleChange={() => setUseDGPU(!useDGPU)}
         title={t('setting.primerun.description', 'Use Dedicated Graphics Card')}
       />
 
