@@ -74,23 +74,6 @@ describe('DownloadTask - executeDownloadTask', () => {
     })
   })
 
-  test('uses app name as fallback filename for URLs without filename', async () => {
-    const task: DownloadTask = {
-      type: 'download',
-      url: 'https://example.com/download.php?id=123'
-    }
-
-    mockDownloadFile.mockResolvedValue()
-
-    await executeDownloadTask(appName, task, gameFolder)
-
-    expect(mockDownloadFile).toHaveBeenCalledWith({
-      url: 'https://example.com/download.php?id=123',
-      dest: join(gameFolder, 'test-game_download'),
-      progressCallback: expect.any(Function)
-    })
-  })
-
   test('extracts filename from URL parameters when path filename is a script', async () => {
     const task: DownloadTask = {
       type: 'download',
@@ -186,12 +169,8 @@ describe('DownloadTask - executeDownloadTask', () => {
 
     mockDownloadFile.mockResolvedValue()
 
-    await executeDownloadTask(appName, task, gameFolder)
-
-    expect(mockDownloadFile).toHaveBeenCalledWith({
-      url: 'invalid-url',
-      dest: join(gameFolder, 'test-game_download'),
-      progressCallback: expect.any(Function)
-    })
+    await expect(
+      executeDownloadTask(appName, task, gameFolder)
+    ).rejects.toThrow('Could not determine filename for download')
   })
 })
