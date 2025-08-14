@@ -31,7 +31,7 @@ interface CustomLibraryConfigGame {
   install_size_bytes?: number
   developer?: string
   release_date?: string
-  platform?: 'Windows' | 'Mac' | 'Linux' | 'Browser'
+  platform?: 'windows' | 'mac' | 'linux' | 'browser'
   install_tasks: CustomLibraryTask[]
   uninstall_tasks: CustomLibraryTask[]
   gamesdb_credentials?: {
