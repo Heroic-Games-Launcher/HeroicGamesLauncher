@@ -24,13 +24,16 @@ const UseDGPU = () => {
         htmlId="usedgpu"
         value={useDGPU}
         handleChange={() => setUseDGPU(!useDGPU)}
-        title={t('setting.primerun.description', 'Use Dedicated Graphics Card')}
+        title={t(
+          'setting.primerun.description',
+          'Force-use dedicated graphics card'
+        )}
       />
 
       <InfoIcon
         text={t(
           'help.primerun',
-          'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)'
+          'Sets PRIME-related environment variables to force the use of your dedicated GPU. Might cause issues with titles using DXVK/VKD3D (most Windows games)'
         )}
       />
     </div>
