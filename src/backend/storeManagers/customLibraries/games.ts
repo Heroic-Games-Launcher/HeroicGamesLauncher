@@ -33,6 +33,8 @@ import {
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { executeTasks } from './taskExecutor'
 import { getCachedCustomLibraryEntry } from './customLibraryManager'
+import { showDialogBoxModalAuto } from 'backend/dialog/dialog'
+import i18next from 'i18next'
 
 export function getGameInfo(appName: string): CustomLibraryGameInfo {
   return getCustomLibraryGameInfo(appName)
@@ -79,50 +81,72 @@ export async function launch(
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
-  // launchGame expects an absolute path to the executable. This is a hack to include the absolute path to the executable.
-  const gameInfo = getGameInfo(appName)
-  if (!gameInfo.install.install_path) {
-    throw new Error(`No install path found for game ${appName}`)
-  }
-  if (!gameInfo.install.executable) {
-    throw new Error(`No executable found for game ${appName}`)
-  }
+  try {
+    // launchGame expects an absolute path to the executable. This is a hack to include the absolute path to the executable.
+    const gameInfo = getGameInfo(appName)
+    if (!gameInfo.install.install_path) {
+      throw new Error(`No install path found for game ${appName}`)
+    }
+    if (!gameInfo.install.executable) {
+      throw new Error(`No executable found for game ${appName}`)
+    }
 
-  let currentExecutable = join(
-    gameInfo.install.install_path,
-    gameInfo.install.executable
-  )
-  const finalArgs = [...args]
-  if (launchArguments) {
-    if (launchArguments.type === 'basic') {
-      // Add parameters from basic launch option
-      if (launchArguments.parameters) {
-        finalArgs.push(
-          ...launchArguments.parameters.split(' ').filter((arg) => arg.trim())
-        )
-      }
-    } else if (launchArguments.type === 'altExe') {
-      // Override executable for alternative executable
-      if (launchArguments.executable && gameInfo.install.install_path) {
-        currentExecutable = join(
-          gameInfo.install.install_path,
-          launchArguments.executable
-        )
+    let currentExecutable = join(
+      gameInfo.install.install_path,
+      gameInfo.install.executable
+    )
+    const finalArgs = [...args]
+    if (launchArguments) {
+      if (launchArguments.type === 'basic') {
+        // Add parameters from basic launch option
+        if (launchArguments.parameters) {
+          finalArgs.push(
+            ...launchArguments.parameters.split(' ').filter((arg) => arg.trim())
+          )
+        }
+      } else if (launchArguments.type === 'altExe') {
+        // Override executable for alternative executable
+        if (launchArguments.executable && gameInfo.install.install_path) {
+          currentExecutable = join(
+            gameInfo.install.install_path,
+            launchArguments.executable
+          )
+        }
       }
     }
+
+    // if the executable does not exist, and there is no targetExe set in the game settings, throw an error
+    const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
+    if (!gameSettingsOverrides.targetExe && !existsSync(currentExecutable)) {
+      throw new Error(`Executable not found: ${currentExecutable}`)
+    }
+
+    gameInfo.install.executable = currentExecutable
+
+    const cachedEntry = getCachedCustomLibraryEntry(appName)
+    return launchGame(
+      appName,
+      logWriter,
+      gameInfo,
+      'customLibrary',
+      finalArgs,
+      !!cachedEntry?.launch_from_cmd
+    )
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    logError(errorMessage, LogPrefix.CustomLibrary)
+
+    showDialogBoxModalAuto({
+      title: i18next.t(
+        'box.error.uncaught-exception.title',
+        'Uncaught Exception occured!'
+      ),
+      message: errorMessage,
+      type: 'ERROR'
+    })
+
+    return false
   }
-
-  gameInfo.install.executable = currentExecutable
-
-  const cachedEntry = getCachedCustomLibraryEntry(appName)
-  return launchGame(
-    appName,
-    logWriter,
-    gameInfo,
-    'customLibrary',
-    finalArgs,
-    !!cachedEntry?.launch_from_cmd
-  )
 }
 
 export async function stop(appName: string): Promise<void> {

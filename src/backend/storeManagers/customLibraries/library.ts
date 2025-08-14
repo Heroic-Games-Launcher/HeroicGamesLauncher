@@ -101,7 +101,7 @@ export async function refresh(): Promise<ExecResult> {
             art_square: game.art_square || '',
             install: {
               executable: game.executable,
-              platform: (game.platform as InstallPlatform || 'windows'),
+              platform: (game.platform as InstallPlatform) || 'windows',
               install_path: `/${game.app_name}`,
               install_size: game.install_size_bytes
                 ? getFileSize(game.install_size_bytes)
