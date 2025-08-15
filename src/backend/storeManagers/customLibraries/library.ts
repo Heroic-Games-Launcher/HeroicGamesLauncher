@@ -11,10 +11,7 @@ import { getFileSize } from 'backend/utils'
 import { backendEvents } from 'backend/backend_events'
 import { existsSync } from 'fs'
 import type { InstallPlatform } from 'common/types'
-import {
-  getCachedCustomLibraryEntry,
-  getCustomLibraries
-} from 'backend/storeManagers/customLibraries/customLibraryManager'
+import { getCustomLibraries } from 'backend/storeManagers/customLibraries/customLibraryManager'
 import { CustomLibraryInstallInfo } from 'common/types/customLibraries'
 
 const installedGames: Map<string, InstalledInfo> = new Map()
@@ -128,7 +125,8 @@ export async function refresh(): Promise<ExecResult> {
             customLibraryName: config.name,
             installSizeBytes: game.install_size_bytes,
             installTasks: game.install_tasks || [],
-            uninstallTasks: game.uninstall_tasks || []
+            uninstallTasks: game.uninstall_tasks || [],
+            launchOptions: game.launch_options || []
           }
 
           // Set installation status
@@ -283,8 +281,6 @@ export async function listUpdateableGames(): Promise<string[]> {
           continue
         }
 
-        console.log('new versionfoo', game.version)
-        console.log('current versionfoo', installedInfo.version)
         // Compare library config version with installed version
         const libraryVersion = game.version || '1.0.0'
         const installedVersion = installedInfo.version || '1.0.0'
@@ -327,10 +323,8 @@ export async function changeGameInstallPath(): Promise<void> {
   )
 }
 
-export const getLaunchOptions = (appName: string): LaunchOption[] => {
-  const originalGameConfig = getCachedCustomLibraryEntry(appName)
-  return originalGameConfig?.launch_options || []
-}
+export const getLaunchOptions = (appName: string): LaunchOption[] =>
+  getGameInfo(appName).launchOptions
 
 export function changeVersionPinnedStatus() {
   logWarning(

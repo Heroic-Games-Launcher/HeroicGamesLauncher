@@ -221,6 +221,7 @@ export interface CustomLibraryGameInfo extends BaseGameInfo {
   installSizeBytes?: number
   installTasks: CustomLibraryTask[]
   uninstallTasks: CustomLibraryTask[]
+  launchOptions: LaunchOption[]
 }
 
 export interface GameSettings {
