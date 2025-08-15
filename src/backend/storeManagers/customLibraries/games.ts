@@ -98,7 +98,9 @@ export async function launch(
     const finalArgs = [...args]
 
     if (gameInfo.parameters) {
-      finalArgs.push(gameInfo.parameters)
+      finalArgs.push(
+        ...gameInfo.parameters.split(' ').filter((arg) => arg.trim())
+      )
     }
 
     if (launchArguments) {
