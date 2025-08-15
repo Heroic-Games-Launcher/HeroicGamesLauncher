@@ -222,6 +222,8 @@ export interface CustomLibraryGameInfo extends BaseGameInfo {
   installTasks: CustomLibraryTask[]
   uninstallTasks: CustomLibraryTask[]
   launchOptions: LaunchOption[]
+  parameters: string
+  launchFromCmd: boolean
 }
 
 export interface GameSettings {

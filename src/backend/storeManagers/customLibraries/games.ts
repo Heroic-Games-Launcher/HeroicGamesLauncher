@@ -96,6 +96,11 @@ export async function launch(
       gameInfo.install.executable
     )
     const finalArgs = [...args]
+
+    if (gameInfo.parameters) {
+      finalArgs.push(gameInfo.parameters)
+    }
+
     if (launchArguments) {
       if (launchArguments.type === 'basic') {
         // Add parameters from basic launch option
@@ -123,14 +128,13 @@ export async function launch(
 
     gameInfo.install.executable = currentExecutable
 
-    const cachedEntry = getCachedCustomLibraryEntry(appName)
     return launchGame(
       appName,
       logWriter,
       gameInfo,
       'customLibrary',
       finalArgs,
-      !!cachedEntry?.launch_from_cmd
+      gameInfo.launchFromCmd
     )
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)

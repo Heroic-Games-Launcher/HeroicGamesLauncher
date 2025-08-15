@@ -49,6 +49,7 @@ Custom libraries are configured through Heroic's settings interface:
 | `gamesdb_credentials` | object              | ❌       | Overwrite fetched metadata with custom info from GamesDB (see below) |
 | `genres`              | string[]            | ❌       | Array of game genres                                                 |
 | `launch_options`      | LaunchOption[]      | ❌       | Array of launch options for the game                                 |
+| `parameters`          | string              | ❌       | Command-line parameters to pass to the game when launching           |
 | `launch_from_cmd`     | boolean             | ❌       | Whether to launch the game from command line                         |
 
 ### Custom Library Tasks

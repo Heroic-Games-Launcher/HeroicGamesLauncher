@@ -126,7 +126,9 @@ export async function refresh(): Promise<ExecResult> {
             installSizeBytes: game.install_size_bytes,
             installTasks: game.install_tasks || [],
             uninstallTasks: game.uninstall_tasks || [],
-            launchOptions: game.launch_options || []
+            launchOptions: game.launch_options || [],
+            parameters: game.parameters || '',
+            launchFromCmd: game.launch_from_cmd || false
           }
 
           // Set installation status

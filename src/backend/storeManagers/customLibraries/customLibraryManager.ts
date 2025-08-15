@@ -43,6 +43,7 @@ interface CustomLibraryConfigGame {
   genres?: string[]
   launch_options?: LaunchOption[]
   launch_from_cmd?: boolean
+  parameters?: string
 }
 
 const customLibraryCache: Map<string, CustomLibraryConfigGame> = new Map()
