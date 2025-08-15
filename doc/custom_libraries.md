@@ -41,7 +41,6 @@ Custom libraries are configured through Heroic's settings interface:
 | `art_square`          | string              | ❌       | URL or file path to square icon (fallback to cover art)              |
 | `description`         | string              | ❌       | Game description                                                     |
 | `version`             | string              | ❌       | Game version                                                         |
-| `install_size_bytes`  | number              | ❌       | Installation size in bytes                                           |
 | `developer`           | string              | ❌       | Developer name                                                       |
 | `release_date`        | string              | ❌       | Release date (ISO format recommended)                                |
 | `platform`            | string              | ❌       | Platform: `"Windows"`, `"Mac"`, `"Linux"`, or `"Browser"`            |
@@ -216,7 +215,6 @@ The following (real) example demonstrates adding the freeware version of Cave St
       "executable": "CaveStory/Doukutsu.exe",
       "platform": "Windows",
       "version": "1.0.0",
-      "install_size_bytes": 0,
       "install_tasks": [
         {
           "type": "download",

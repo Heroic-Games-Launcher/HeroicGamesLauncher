@@ -419,9 +419,7 @@ describe('CustomLibraryManager', () => {
       const result = await getCustomLibraries()
 
       expect(result).toHaveLength(1)
-      expect(mockLogWarning).toHaveBeenCalledWith(
-        expect.stringContaining('Error getting wiki info for Test Game Error')
-      )
+      expect(mockLogWarning).not.toHaveBeenCalled()
     })
 
     it('should handle gamesdb fetch failures gracefully', async () => {
@@ -453,11 +451,7 @@ describe('CustomLibraryManager', () => {
       const result = await getCustomLibraries()
 
       expect(result).toHaveLength(1)
-      expect(mockLogWarning).toHaveBeenCalledWith(
-        expect.stringContaining(
-          'Failed to get custom GamesDB data for Test Game GDB Error'
-        )
-      )
+      expect(mockLogWarning).not.toHaveBeenCalled()
     })
 
     it('should preserve existing game properties', async () => {

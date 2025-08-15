@@ -7,12 +7,14 @@ import {
   gogToUnifiedInfo
 } from 'backend/storeManagers/gog/library'
 import { CustomLibraryTask } from 'backend/storeManagers/customLibraries/tasks/types'
+import { axiosClient } from 'backend/utils'
 
 interface GameMetadata {
   art_cover: string
   art_square: string
   description: string
   genres: string[]
+  install_size_bytes: number
 }
 
 interface CustomLibraryConfig {
@@ -52,6 +54,15 @@ const customLibraryCache: Map<string, CustomLibraryConfigGame> = new Map()
 async function retrieveGameMetadata(
   game: CustomLibraryConfig['games'][0]
 ): Promise<GameMetadata> {
+  const [wikiInfo, downloadSize] = await Promise.all([
+    getWikiGameInfo(
+      game.title,
+      `custom_${game.app_name}`,
+      'customLibrary'
+    ).catch(() => null),
+    calculateTotalDownloadSize(game.install_tasks).catch(() => 0)
+  ])
+
   let art_cover = game.art_cover || ''
   let art_square = game.art_square || game.art_cover || ''
   let description = game.description || ''
@@ -59,28 +70,18 @@ async function retrieveGameMetadata(
   let storeId = ''
   let gameId = ''
 
-  try {
-    const fullWikiInfo = await getWikiGameInfo(
-      game.title,
-      `custom_${game.app_name}`,
-      'customLibrary'
-    )
-
-    if (fullWikiInfo) {
-      if (!art_cover && fullWikiInfo.howlongtobeat?.gameImageUrl) {
-        art_cover = fullWikiInfo.howlongtobeat.gameImageUrl
-        art_square = fullWikiInfo.howlongtobeat.gameImageUrl
-      }
-
-      genres = fullWikiInfo.pcgamingwiki?.genres || []
-
-      if (fullWikiInfo.pcgamingwiki?.steamID) {
-        storeId = 'steam'
-        gameId = fullWikiInfo.pcgamingwiki?.steamID
-      }
+  if (wikiInfo) {
+    if (!art_cover && wikiInfo.howlongtobeat?.gameImageUrl) {
+      art_cover = wikiInfo.howlongtobeat.gameImageUrl
+      art_square = wikiInfo.howlongtobeat.gameImageUrl
     }
-  } catch (error) {
-    logWarning(`Error getting wiki info for ${game.title}: ${error}`)
+
+    genres = wikiInfo.pcgamingwiki?.genres || []
+
+    if (wikiInfo.pcgamingwiki?.steamID) {
+      storeId = 'steam'
+      gameId = wikiInfo.pcgamingwiki?.steamID
+    }
   }
 
   if (game.gamesdb_credentials) {
@@ -89,21 +90,16 @@ async function retrieveGameMetadata(
   }
 
   if (storeId && gameId) {
-    try {
-      logInfo(`Getting custom GamesDB data for ${game.title}`)
-      const customGamesDBResult = await getGamesdbData(storeId, gameId)
-      const unifiedInfo = await gogToUnifiedInfo(customGamesDBResult.data)
+    const gamesDBResult = await getGamesdbData(storeId, gameId).catch(
+      () => null
+    )
+    const unifiedInfo = await gogToUnifiedInfo(gamesDBResult?.data || undefined)
 
-      if (unifiedInfo) {
-        art_cover = unifiedInfo.art_cover
-        art_square = unifiedInfo.art_square
-        description = unifiedInfo.extra?.about?.description || ''
-        genres = unifiedInfo.extra?.genres || []
-      }
-    } catch (error) {
-      logWarning(
-        `Failed to get custom GamesDB data for ${game.title}: ${error}`
-      )
+    if (unifiedInfo) {
+      art_cover = unifiedInfo.art_cover
+      art_square = unifiedInfo.art_square
+      description = unifiedInfo.extra?.about?.description || ''
+      genres = unifiedInfo.extra?.genres || []
     }
   }
 
@@ -111,7 +107,8 @@ async function retrieveGameMetadata(
     art_cover,
     art_square,
     description,
-    genres
+    genres,
+    install_size_bytes: downloadSize
   }
 }
 
@@ -251,12 +248,13 @@ async function getCustomLibraries(): Promise<CustomLibraryConfig[]> {
       logInfo(
         `Fetching metadata for ${game.title} (version: ${game.version || 'unversioned'})`
       )
-      const { art_cover, art_square, description, genres } =
+      const { art_cover, art_square, description, genres, install_size_bytes } =
         await retrieveGameMetadata(game)
       game.art_cover = art_cover
       game.art_square = art_square
       game.description = description
       game.genres = genres
+      game.install_size_bytes = install_size_bytes
 
       customLibraryCache.set(game.app_name, game)
     }
@@ -271,6 +269,25 @@ function getCachedCustomLibraryEntry(
   appName: string
 ): CustomLibraryConfigGame | undefined {
   return customLibraryCache.get(appName)
+}
+
+async function getDownloadSize(url: string): Promise<number> {
+  try {
+    const response = await axiosClient.head(url)
+    return parseInt(response.headers['content-length'], 10) || 0
+  } catch {
+    return 0
+  }
+}
+
+async function calculateTotalDownloadSize(
+  tasks: CustomLibraryTask[]
+): Promise<number> {
+  const downloadTasks = tasks.filter((task) => task.type === 'download')
+  const sizes = await Promise.all(
+    downloadTasks.map((task) => getDownloadSize(task.url))
+  )
+  return sizes.reduce((total, size) => total + size, 0)
 }
 
 export { getCustomLibraries, getCachedCustomLibraryEntry }
