@@ -1,14 +1,5 @@
-import { ipcRenderer } from 'electron'
-import { ZoomCredentials } from 'common/types/zoom'
+import { makeHandlerInvoker, makeListenerCaller } from '../ipc'
 
-export function getZoomUserInfo(): Promise<{ username: string } | undefined> {
-  return ipcRenderer.invoke('getZoomUserInfo')
-}
-
-export function authZoom(): Promise<{ status: 'done' | 'error' }> {
-  return ipcRenderer.invoke('authZoom')
-}
-
-export function logoutZoom(): Promise<void> {
-  return ipcRenderer.invoke('logoutZoom')
-}
+export const getZoomUserInfo = makeHandlerInvoker('getZoomUserInfo')
+export const authZoom = makeHandlerInvoker('authZoom')
+export const logoutZoom = makeListenerCaller('logoutZoom')
