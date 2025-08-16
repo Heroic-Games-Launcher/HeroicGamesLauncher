@@ -8,14 +8,11 @@ import {
 } from 'common/types'
 import {
   ZoomGameInfo,
-  ZoomInstalledInfo,
   ZoomLibraryResponse,
   ZoomDownloadFile,
   ZoomFilesResponse,
-  ZoomInstallPlatform, // Added this import
   ZoomInstallInfo
 } from 'common/types/zoom'
-import { join } from 'node:path'
 import { existsSync, readFileSync, writeFileSync, unlinkSync } from 'graceful-fs'
 
 import {
@@ -34,8 +31,6 @@ import {
 } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { cachePath, apiUrl } from './constants'
-import { app } from 'electron'
-
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
@@ -268,11 +263,16 @@ export function refreshInstalled() {
   })
 }
 
-export async function getExtras(appName: string): Promise<any> {
+export async function getExtras(appName: string) {
   logDebug(`Fetching extras for Zoom ID ${appName}`, LogPrefix.Zoom)
   try {
     const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(`${apiUrl}/li/game/${appName}/files`)
-    const allExtras: any[] = []
+    const allExtras: {
+      name: string
+      url: string
+      filename: string
+      total_size: string
+    }[] = []
 
     for (const extraType of ['manual', 'misc', 'soundtrack'] as const) {
       const files = filesRequest[extraType] || []
@@ -321,7 +321,7 @@ export async function getInstallers(platform: string, appName: string): Promise<
   }
 }
 
-export function getLaunchOptions(appName: string): LaunchOption[] {
+export function getLaunchOptions(): LaunchOption[] {
   // The original zoom.py doesn't define specific launch options beyond the main executable.
   // If Zoom games have multiple executables or launch parameters, this needs to be expanded.
   return []
@@ -342,7 +342,7 @@ export async function changeGameInstallPath(appName: string, newInstallPath: str
   installedGamesStore.set('installed', installedArray)
 }
 
-export function installState(appName: string, state: boolean) {
+export function installState() {
   logWarning(`installState not implemented on Zoom Library Manager`, LogPrefix.Zoom)
 }
 

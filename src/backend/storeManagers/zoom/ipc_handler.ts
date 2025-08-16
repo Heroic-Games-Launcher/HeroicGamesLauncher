@@ -5,8 +5,6 @@ import { LogPrefix, logError } from 'backend/logger'
 import { openAuthWindow } from 'backend/utils'
 import { loginSuccessUrl } from './constants'
 
-import { IpcMainEvent } from 'electron'
-
 addHandler('authZoom', () => {
   return new Promise<{ status: 'done' | 'error' }>((resolve) => {
     openAuthWindow(ZoomUser.getLoginUrl(), loginSuccessUrl, async (url: string) => {

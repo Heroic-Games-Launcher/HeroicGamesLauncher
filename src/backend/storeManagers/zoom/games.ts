@@ -63,7 +63,7 @@ import { getInstallers, getGameInfo as getZoomLibraryGameInfo } from './library'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
+export async function getExtraInfo(): Promise<ExtraInfo> {
   // Zoom.py doesn't have direct equivalents for reqs, changelog, etc.
   // This part would need to be implemented if the Zoom API provides such data.
   const extra: ExtraInfo = {
