@@ -353,7 +353,7 @@ export default function DownloadDialog({
           (gameInstallInfo &&
             'game' in gameInstallInfo &&
             (gameInstallInfo?.game.owned_dlc || []).map(
-              (dlc: any) => dlc.app_name
+              (dlc) => dlc.app_name
             )) ||
             []
         )
@@ -414,7 +414,7 @@ export default function DownloadDialog({
         return
       }
     }
-    getInstInfo()
+    void getInstInfo()
   }, [
     appName,
     i18n.languages,
