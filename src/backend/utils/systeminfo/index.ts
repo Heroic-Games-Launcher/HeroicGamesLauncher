@@ -55,6 +55,7 @@ interface SystemInformation {
   }
   steamDeckInfo: SteamDeckInfo
   isFlatpak: boolean
+  isAppImage: boolean
   softwareInUse: {
     heroicVersion: string
     legendaryVersion: string
@@ -107,6 +108,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
     },
     steamDeckInfo: deckInfo,
     isFlatpak: !!process.env.FLATPAK_ID,
+    isAppImage: !!process.env.APPIMAGE,
     softwareInUse: {
       heroicVersion: getHeroicVersion(),
       legendaryVersion: legendaryVersion,
@@ -120,6 +122,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
 }
 
 async function formatSystemInfo(info: SystemInformation): Promise<string> {
+  const isLinux: boolean = process.platform === 'linux'
   return `CPU: ${info.CPU.cores}x ${info.CPU.model}
 Memory: ${filesize(info.memory.total)} (used: ${filesize(info.memory.used)})
 GPUs:
@@ -131,13 +134,18 @@ ${info.GPUs.map(
 ).join('\n')}
 OS: ${info.OS.name} ${info.OS.version} (${info.OS.platform})
 
-The current system is${info.steamDeckInfo.isDeck ? '' : ' not'} a Steam Deck${
-    info.steamDeckInfo.isDeck
-      ? ` (model: ${info.steamDeckInfo.model}) in ${info.steamDeckInfo.mode} mode`
-      : ''
-  }
+${
+  isLinux
+    ? `The current system is${info.steamDeckInfo.isDeck ? '' : ' not'} a Steam Deck${
+        info.steamDeckInfo.isDeck
+          ? ` (model: ${info.steamDeckInfo.model}) in ${info.steamDeckInfo.mode} mode`
+          : ''
+      }
 We are${info.isFlatpak ? '' : ' not'} running inside a Flatpak container
-
+We are${info.isAppImage ? '' : ' not'} running from an AppImage
+`
+    : ''
+}
 Software Versions:
   Heroic: ${info.softwareInUse.heroicVersion}
   Legendary: ${info.softwareInUse.legendaryVersion}
