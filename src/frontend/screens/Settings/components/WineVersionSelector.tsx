@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, SelectField } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -6,7 +6,64 @@ import { WineInstallation } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { defaultWineVersion } from '..'
 import { Link } from 'react-router-dom'
-import { MenuItem } from '@mui/material'
+import { Box, MenuItem, SvgIcon } from '@mui/material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
+import ProtonLogo from 'frontend/assets/proton_logo.svg?react'
+import CodeweaversLogo from 'frontend/assets/codeweavers_icon.svg?react'
+import { faApple } from '@fortawesome/free-brands-svg-icons'
+import Badge from '@mui/material/Badge'
+import { Autorenew as AutorenewIcon } from '@mui/icons-material'
+import GELogo from 'frontend/assets/ge-logo.svg?react'
+
+interface ListItemProps {
+  version: WineInstallation
+}
+
+export const WineVersionListItem = React.memo(function WineVersionListItem({
+  version
+}: ListItemProps) {
+  const { name, type } = version
+
+  const substitutedName = useMemo(
+    () => name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton'),
+    [name]
+  )
+
+  const primaryIcon = useMemo(() => {
+    switch (type) {
+      case 'wine':
+        return <FontAwesomeIcon icon={faWineGlass} />
+      case 'proton':
+        if (name.includes('GE')) return <GELogo />
+        return <ProtonLogo />
+      case 'crossover':
+        return <CodeweaversLogo />
+      case 'toolkit':
+        return <FontAwesomeIcon icon={faApple} />
+    }
+  }, [name, type])
+
+  const icon = useMemo(() => {
+    if (name.includes('-latest'))
+      return (
+        <Box sx={{ marginInlineEnd: 1 }}>
+          <Badge badgeContent={<AutorenewIcon sx={{ fontSize: 17.5 }} />}>
+            <SvgIcon>{primaryIcon}</SvgIcon>
+          </Badge>
+        </Box>
+      )
+
+    return <SvgIcon sx={{ marginInlineEnd: 1 }}>{primaryIcon}</SvgIcon>
+  }, [name, primaryIcon])
+
+  return (
+    <Box sx={{ display: 'flex', placeItems: 'center' }}>
+      {icon}
+      {substitutedName}
+    </Box>
+  )
+})
 
 export default function WineVersionSelector() {
   const { t } = useTranslation()
@@ -158,9 +215,9 @@ export default function WineVersionSelector() {
         </>
       }
     >
-      {altWine.map(({ name }, i) => (
-        <MenuItem key={i} value={name}>
-          {name.replace(/(Proton-GE-Proton|Proton-GE)/, 'GE-Proton')}
+      {altWine.map((version, i) => (
+        <MenuItem key={i} value={version.name}>
+          <WineVersionListItem version={version} />
         </MenuItem>
       ))}
     </SelectField>
