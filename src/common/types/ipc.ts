@@ -74,6 +74,7 @@ interface SyncIPCFunctions {
   openSidInfoPage: () => void
   openCustomThemesWiki: () => void
   showConfigFileInFolder: (appName: string) => void
+  showGameConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void
   resetHeroic: () => void

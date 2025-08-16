@@ -55,6 +55,7 @@
         "add_to_favourites": "Add To Favourites",
         "browse_files": "Browse Files",
         "browse_wine_prefix": "Browse Wine Prefix",
+        "showGameConfigFileInFolder": "Show Game Config File",
         "cancel": "Pause/Cancel",
         "changelog": "Show Changelog",
         "continue": "Continue Downloading",
