@@ -8,14 +8,15 @@ import {
   GameMetadataInner,
   LegendaryInstallInfo
 } from './types/legendary'
+import { NileInstallInfo, NileInstallPlatform } from './types/nile'
+import { ZoomInstallPlatform, ZoomInstalledInfo, ZoomInstallInfo } from './types/zoom' // Added ZoomInstallPlatform and ZoomInstalledInfo import
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
-import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -152,7 +153,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile'
+  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom' // Added 'zoom'
   store_url?: string
   app_name: string
   art_cover: string
@@ -553,6 +554,7 @@ export type InstallPlatform =
   | LegendaryInstallPlatform
   | GogInstallPlatform
   | NileInstallPlatform
+  | ZoomInstallPlatform // Added ZoomInstallPlatform
   | 'Browser'
 
 export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
@@ -766,6 +768,8 @@ export type InstallInfo =
   | LegendaryInstallInfo
   | GogInstallInfo
   | NileInstallInfo
+  | ZoomInstalledInfo // Added ZoomInstalledInfo
+  | ZoomInstallInfo
 
 export interface KnowFixesInfo {
   title: string

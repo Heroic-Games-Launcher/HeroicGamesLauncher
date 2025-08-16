@@ -5,11 +5,11 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import { useTranslation } from 'react-i18next'
-import { amazonLoginPath, epicLoginPath, gogLoginPath } from '../..'
+import { amazonLoginPath, epicLoginPath, gogLoginPath, zoomLoginPath } from '../..' // Added zoomLoginPath import
 import { NavLink } from 'react-router-dom'
 
 interface LoginWarningProps {
-  warnLoginForStore: null | 'epic' | 'gog' | 'amazon'
+  warnLoginForStore: null | 'epic' | 'gog' | 'amazon' | 'zoom' // Added 'zoom'
   onClose: () => void
 }
 
@@ -43,6 +43,12 @@ const LoginWarning = function ({
       "You are not logged in with an Amazon account in Heroic. Don't use the store page to login, click the following button instead:"
     )
     loginPath = amazonLoginPath
+  } else if (warnLoginForStore === 'zoom') { // Added Zoom login warning text
+    textContent = t(
+      'not_logged_in.zoom',
+      "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
+    )
+    loginPath = zoomLoginPath
   }
 
   return (

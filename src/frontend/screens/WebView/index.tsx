@@ -22,6 +22,8 @@ const validStoredUrl = (url: string, store: string) => {
       return url.includes('gog.com')
     case 'amazon':
       return url.includes('gaming.amazon.com')
+    case 'zoom': // Added zoom
+      return url.includes('zoom-platform.com')
     default:
       return false
   }
@@ -31,7 +33,7 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, connectivity } = useContext(ContextProvider) // Added zoom to useContext
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -60,11 +62,13 @@ export default function WebView() {
   const epicStore = `https://www.epicgames.com/store/${lang}/`
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
+  const zoomStore = `https://www.zoom-platform.com` // Added Zoom store URL
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
   const gogLoginUrl =
     'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
+  const zoomLoginUrl = 'https://www.zoom-platform.com/login?li=lutris&return_li_token=true' // Added Zoom login URL
 
   const trueAsStr = 'true' as unknown as boolean | undefined
 
@@ -72,12 +76,14 @@ export default function WebView() {
     '/store/epic': epicStore,
     '/store/gog': gogStore,
     '/store/amazon': amazonStore,
+    '/store/zoom': zoomStore, // Added Zoom store URL
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
     '/loginweb/legendary': epicLoginUrl,
     '/loginweb/gog': gogLoginUrl,
-    '/loginweb/nile': amazonLoginData ? amazonLoginData.url : ''
+    '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
+    '/loginweb/zoom': zoomLoginUrl // Added Zoom login URL
   }
   let startUrl = urls[pathname]
 
@@ -187,6 +193,16 @@ export default function WebView() {
           if (code) {
             handleAmazonLogin(code)
           }
+        } else if (runner === 'zoom') { // Handle Zoom login
+          const pageURL = webview.getURL()
+          const parsedURL = new URL(pageURL)
+          if (pageURL.includes('li_token=')) {
+            setLoading({
+              refresh: true,
+              message: t('status.logging', 'Logging In...')
+            })
+            zoom.login(pageURL).then(() => handleSuccessfulLogin())
+          }
         } else if (runner == 'legendary') {
           const pageUrl = webview.getURL()
           const parsedUrl = new URL(pageUrl)
@@ -270,7 +286,7 @@ export default function WebView() {
   }, [webviewRef.current, store])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
-    null | 'epic' | 'gog' | 'amazon'
+    null | 'epic' | 'gog' | 'amazon' | 'zoom' // Added zoom
   >(null)
 
   const [showAdtractionWarning, setShowAdtractionWarning] =
@@ -294,6 +310,8 @@ export default function WebView() {
       setShowLoginWarningFor('gog')
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
+    } else if (startUrl.match(/zoom-platform\.com/) && !zoom.username) { // Added Zoom login warning
+      setShowLoginWarningFor('zoom')
     } else {
       setShowLoginWarningFor(null)
     }
@@ -351,7 +369,7 @@ export default function WebView() {
       <webview
         ref={webviewRef}
         className="WebView__webview"
-        partition="persist:epicstore"
+        partition={`persist:${store}`}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
