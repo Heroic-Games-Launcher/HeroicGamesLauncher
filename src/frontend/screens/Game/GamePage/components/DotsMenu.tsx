@@ -75,7 +75,7 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
       {showModifyInstallModal && (
         <ModifyInstallModal
           gameInfo={gameInfo}
-          gameInstallInfo={gameInstallInfo}
+          gameInstallInfo={gameInstallInfo as any}
           onClose={() => setShowModifyInstallModal(false)}
         />
       )}

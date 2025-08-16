@@ -176,35 +176,14 @@ export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
     },
     folder_name: zoomGame.slug, // Using slug as folder_name
     install: {
-      is_dlc: false,
-      manifest: {
-        disk_size: 0,
-        download_size: 0,
-        app_name: String(zoomGame.id),
-        languages: [],
-        versionEtag: '',
-        dependencies: [],
-        perLangSize: { '*': { download_size: 0, disk_size: 0 } }
-      }
+      is_dlc: false
     },
     is_installed: false,
     save_folder: '',
     canRunOffline: true, // Assuming DRM-free as per zoom.py
     is_mac_native: zoomGame.operating_systems.includes('osx'),
     is_linux_native: zoomGame.operating_systems.includes('linux'),
-    thirdPartyManagedApp: undefined,
-    achievements: [],
-    dlcs: [],
-    eula: '',
-    features: [],
-    genres: [],
-    links: [],
-    notes: '',
-    releaseDate: undefined,
-    tags: [],
-    developer: zoomGame.developer,
-    publisher: zoomGame.publisher,
-    rating: zoomGame.rating,
+    thirdPartyManagedApp: undefined
   }
   return object
 }

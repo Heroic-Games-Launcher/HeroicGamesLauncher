@@ -275,6 +275,20 @@ export interface InstallProgress {
   file?: string
 }
 export interface InstalledInfo {
+  manifest?: {
+    disk_size: number
+    download_size: number
+    app_name: string
+    languages: string[]
+    versionEtag: string
+    dependencies: string[]
+    perLangSize: {
+      [key: string]: {
+        download_size: number
+        disk_size: number
+      }
+    }
+  }
   executable: string
   install_path: string
   install_size: string
