@@ -5,9 +5,7 @@ import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { ZoomCredentials } from 'common/types/zoom'
 import { clearCache } from 'backend/utils'
-import { app } from 'electron'
-import { tokenPath, embedUrl, apiUrl, loginSuccessUrl } from './constants'
-import { URL } from 'node:url'
+import { tokenPath, embedUrl, apiUrl } from './constants'
 
 export class ZoomUser {
   static async login(
@@ -123,7 +121,7 @@ export class ZoomUser {
     }
   }
 
-  public static async makeRequest(url: string): Promise<any> {
+  public static async makeRequest(url: string) {
     const credentials = await this.getCredentials()
     if (!credentials) {
       throw new Error('Not authenticated with Zoom')
