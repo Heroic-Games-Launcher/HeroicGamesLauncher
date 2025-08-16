@@ -16,6 +16,7 @@ import {
   EnableFSR,
   EnableFsync,
   EnableMsync,
+  EnableNtsync,
   EnableWineWayland,
   EnableWoW64,
   EnvVariablesTable,
@@ -189,6 +190,7 @@ export default function GamesSettings() {
             )}
             <EnableEsync />
             <EnableFsync />
+            <EnableNtsync />
             <EnableWineWayland />
             <EnableWoW64 />
             <EnableMsync />
