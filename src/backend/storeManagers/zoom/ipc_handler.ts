@@ -7,7 +7,7 @@ import { loginSuccessUrl } from './constants'
 
 import { IpcMainEvent } from 'electron'
 
-addHandler('authZoom', (event: IpcMainEvent) => {
+addHandler('authZoom', () => {
   return new Promise<{ status: 'done' | 'error' }>((resolve) => {
     openAuthWindow(ZoomUser.getLoginUrl(), loginSuccessUrl, async (url: string) => {
       try {

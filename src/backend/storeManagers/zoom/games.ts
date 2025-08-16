@@ -1,13 +1,11 @@
 import { GameConfig } from '../../game_config'
-import { GlobalConfig } from '../../config'
 import {
   errorHandler,
   getFileSize,
   parseSize,
   spawnAsync,
   sendProgressUpdate,
-  sendGameStatusUpdate,
-  getPathDiskSize
+  sendGameStatusUpdate
 } from '../../utils'
 import { join } from 'node:path'
 import axios, { AxiosProgressEvent } from 'axios'
@@ -37,10 +35,8 @@ import {
   logWarning,
   createGameLogWriter
 } from 'backend/logger'
-import { ZoomUser } from './user'
 import {
   prepareLaunch,
-  prepareWineLaunch,
   setupEnvVars,
   setupWrapperEnvVars,
   setupWrappers,
@@ -68,8 +64,6 @@ import { getInstallers, getGameInfo as getZoomLibraryGameInfo } from './library'
 import type LogWriter from 'backend/logger/log_writer'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
-  const gameInfo = getGameInfo(appName)
-
   // Zoom.py doesn't have direct equivalents for reqs, changelog, etc.
   // This part would need to be implemented if the Zoom API provides such data.
   const extra: ExtraInfo = {

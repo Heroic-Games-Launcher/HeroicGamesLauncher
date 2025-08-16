@@ -1,7 +1,7 @@
 import { TypeCheckedStoreBackend } from '../../electron_store'
 import CacheStore from '../../cache'
 import { GameInfo } from 'common/types'
-import { ZoomGameInfo, ZoomInstallInfo, ZoomInstalledInfo } from 'common/types/zoom'
+import { ZoomGameInfo, ZoomInstallInfo } from 'common/types/zoom'
 
 const installedGamesStore = new TypeCheckedStoreBackend(
   'zoomInstalledGamesStore',

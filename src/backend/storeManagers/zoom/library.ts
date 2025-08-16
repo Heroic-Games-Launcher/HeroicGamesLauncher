@@ -1,11 +1,9 @@
 import { sendFrontendMessage } from '../../ipc'
-import axios, { AxiosError } from 'axios'
 import { ZoomUser } from './user'
 import {
   GameInfo,
   InstalledInfo,
   ExecResult,
-  CallRunnerOptions,
   LaunchOption
 } from 'common/types'
 import {
