@@ -134,14 +134,14 @@ ${info.GPUs.map(
 ).join('\n')}
 OS: ${info.OS.name} ${info.OS.version} (${info.OS.platform})
 
+The current system is${info.steamDeckInfo.isDeck ? '' : ' not'} a Steam Deck${
+    info.steamDeckInfo.isDeck
+      ? ` (model: ${info.steamDeckInfo.model}) in ${info.steamDeckInfo.mode} mode`
+      : ''
+  }
 ${
   isLinux
-    ? `The current system is${info.steamDeckInfo.isDeck ? '' : ' not'} a Steam Deck${
-        info.steamDeckInfo.isDeck
-          ? ` (model: ${info.steamDeckInfo.model}) in ${info.steamDeckInfo.mode} mode`
-          : ''
-      }
-We are${info.isFlatpak ? '' : ' not'} running inside a Flatpak container
+    ? `We are${info.isFlatpak ? '' : ' not'} running inside a Flatpak container
 We are${info.isAppImage ? '' : ' not'} running from an AppImage
 `
     : ''
