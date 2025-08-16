@@ -244,5 +244,6 @@ export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
 export const amazonCategories = ['all', 'nile', 'amazon']
+export const zoomCategories = ['all', 'zoom'] // Added zoomCategories
 
 export { handleStopInstallation, install, launch, repair, updateGame }

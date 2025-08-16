@@ -8,6 +8,7 @@ import EpicLogo from 'frontend/assets/epic-logo.svg?react'
 import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import HeroicLogo from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
+import ZoomLogo from 'frontend/assets/zoom-logo.svg?react' // Added ZoomLogo import
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
@@ -19,9 +20,10 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
 export const amazonLoginPath = '/loginweb/nile'
+export const zoomLoginPath = '/loginweb/zoom' // Added Zoom login path
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, refreshLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, refreshLibrary } = useContext(ContextProvider) // Added zoom to useContext
   const { t } = useTranslation()
 
   hasHelp(
@@ -38,6 +40,7 @@ export default React.memo(function NewLogin() {
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
     Boolean(amazon.user_id)
   )
+  const [isZoomLoggedIn, setIsZoomLoggedIn] = useState(Boolean(zoom.username)) // Added isZoomLoggedIn state
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -68,7 +71,8 @@ export default React.memo(function NewLogin() {
     setIsEpicLoggedIn(Boolean(epic.username))
     setIsGogLoggedIn(Boolean(gog.username))
     setIsAmazonLoggedIn(Boolean(amazon.user_id))
-  }, [epic.username, gog.username, amazon.user_id, t])
+    setIsZoomLoggedIn(Boolean(zoom.username)) // Added setIsZoomLoggedIn
+  }, [epic.username, gog.username, amazon.user_id, zoom.username, t]) // Added zoom.username to dependencies
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
@@ -143,6 +147,16 @@ export default React.memo(function NewLogin() {
               isLoggedIn={isAmazonLoggedIn}
               user={amazon.username || 'Unknown'}
               logoutAction={amazon.logout}
+              disabled={oldMac}
+            />
+            <Runner // Added Zoom Runner
+              class="zoom"
+              buttonText={t('login.zoom', 'Zoom Login')}
+              icon={() => <ZoomLogo />}
+              loginAction={zoom.login}
+              isLoggedIn={isZoomLoggedIn}
+              user={zoom.username}
+              logoutAction={zoom.logout}
               disabled={oldMac}
             />
           </div>

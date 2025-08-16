@@ -356,8 +356,50 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
+export function openAuthWindow(
+  url: string,
+  successUrl: string,
+  callback: (url: string) => Promise<{ status: 'done' | 'error' }>
+): Promise<{ status: 'done' | 'error' }> {
+  return new Promise((resolve) => {
+    let resolved = false
+    const authWindow = new BrowserWindow({
+      width: 800,
+      height: 600,
+      show: false,
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true
+      }
+    })
+
+    authWindow.on('closed', () => {
+      if (!resolved) {
+        resolved = true
+        resolve({ status: 'error' })
+      }
+    })
+
+    authWindow.webContents.on('did-navigate', async (event, newUrl) => {
+      if (newUrl.startsWith(successUrl)) {
+        const result = await callback(newUrl)
+        if (result.status === 'done') {
+          if (!resolved) {
+            resolved = true
+            resolve(result)
+          }
+          authWindow.close()
+        }
+      }
+    })
+
+    authWindow.loadURL(url)
+    authWindow.show()
+  })
+}
+
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile',
+  library?: 'gog' | 'legendary' | 'nile' | 'zoom',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -1519,6 +1561,25 @@ function bytesToSize(bytes: number) {
   return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
 }
 
+function parseSize(size: string): number {
+  const units = ["bytes", "kb", "mb", "gb", "tb", "pb"];
+  let unit_index = 0;
+  size = size.trim().toLowerCase();
+  for (const unit of units) {
+    if (size.endsWith(unit)) {
+      size = size.slice(0, -unit.length).trim();
+      break;
+    }
+    unit_index += 1;
+  }
+  try {
+    return Math.round(parseFloat(size) * (1024 ** unit_index));
+  } catch (error) {
+    logWarning(`Invalid size value '${size}'`, LogPrefix.Backend);
+    return 0;
+  }
+}
+
 function formatTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds - hours * 3600) / 60)
@@ -1663,7 +1724,8 @@ export {
   sendProgressUpdate,
   calculateEta,
   extractFiles,
-  axiosClient
+  axiosClient,
+  parseSize
 }
 
 // Exported only for testing purpose
