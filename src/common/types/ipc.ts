@@ -348,6 +348,7 @@ interface FrontendMessages {
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
   progressUpdate: (progress: GameStatus) => void
+  'gamepad.setInputsEnabled': (enabled: boolean) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void
