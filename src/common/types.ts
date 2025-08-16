@@ -14,8 +14,10 @@ import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/ut
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import { CustomLibraryTask } from 'backend/storeManagers/customLibraries/tasks/types'
+import { CustomLibraryInstallInfo } from './types/customLibraries'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'customLibrary'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -96,6 +98,8 @@ export interface AppSettings extends GameSettings {
   customCSS: string
   customThemesPath: string
   customWinePaths: string[]
+  customLibraryUrls: string[]
+  customLibraryConfigs: string[]
   darkTrayIcon: boolean
   defaultInstallPath: string
   defaultSteamPath: string
@@ -151,8 +155,14 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
-export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile'
+export type GameInfo =
+  | SideloadGameInfo
+  | LegendaryGameInfo
+  | GOGGameInfo
+  | NileGameInfo
+  | CustomLibraryGameInfo
+
+interface BaseGameInfo {
   store_url?: string
   app_name: string
   art_cover: string
@@ -172,7 +182,6 @@ export interface GameInfo {
   save_folder?: string
   // ...and this is the folder with them filled in
   save_path?: string
-  gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
   thirdPartyManagedApp?: string
@@ -186,6 +195,35 @@ export interface GameInfo {
   dlcList?: GameMetadataInner[]
   customUserAgent?: string
   launchFullScreen?: boolean
+}
+
+export interface SideloadGameInfo extends BaseGameInfo {
+  runner: 'sideload'
+}
+
+export interface LegendaryGameInfo extends BaseGameInfo {
+  runner: 'legendary'
+}
+
+export interface GOGGameInfo extends BaseGameInfo {
+  runner: 'gog'
+  gog_save_location?: GOGCloudSavesLocation[]
+}
+
+export interface NileGameInfo extends BaseGameInfo {
+  runner: 'nile'
+}
+
+export interface CustomLibraryGameInfo extends BaseGameInfo {
+  runner: 'customLibrary'
+  customLibraryId: string
+  customLibraryName: string
+  installSizeBytes?: number
+  installTasks: CustomLibraryTask[]
+  uninstallTasks: CustomLibraryTask[]
+  launchOptions: LaunchOption[]
+  parameters: string
+  launchFromCmd: boolean
 }
 
 export interface GameSettings {
@@ -406,6 +444,7 @@ export interface CallRunnerOptions {
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
+  launchFromCmd?: boolean
 }
 
 export interface EnviromentVariable {
@@ -766,6 +805,7 @@ export type InstallInfo =
   | LegendaryInstallInfo
   | GogInstallInfo
   | NileInstallInfo
+  | CustomLibraryInstallInfo
 
 export interface KnowFixesInfo {
   title: string

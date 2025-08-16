@@ -1659,6 +1659,10 @@ async function callRunner(
     shouldUsePowerShell =
       isWindows && !!(await searchForExecutableOnPath('powershell'))
 
+  if (options.launchFromCmd) {
+    shouldUsePowerShell = false
+  }
+
   if (shouldUsePowerShell) {
     const argsAsString = commandParts
       .map((part) => part.replaceAll('\\', '\\\\'))
@@ -1674,6 +1678,20 @@ async function callRunner(
     if (argsAsString) commandParts.push('-ArgumentList', argsAsString)
 
     bin = fullRunnerPath = 'powershell'
+  } else if (isWindows) {
+    // Use cmd.exe on Windows when PowerShell is skipped
+    const { writeFileSync } = await import('fs')
+    const { tmpdir } = await import('os')
+    const tempBatPath = join(tmpdir(), `heroic_launch_${Date.now()}.bat`)
+    const argsString = commandParts.join(' ')
+
+    const batContent = `@echo off
+"${fullRunnerPath}" ${argsString}
+`
+
+    writeFileSync(tempBatPath, batContent)
+    commandParts = ['/c', tempBatPath]
+    bin = fullRunnerPath = 'cmd'
   }
 
   const safeCommand = getRunnerCallWithoutCredentials(

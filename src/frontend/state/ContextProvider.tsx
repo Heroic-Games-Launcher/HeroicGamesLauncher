@@ -27,6 +27,7 @@ const initialContext: ContextType = {
   },
   installingEpicGame: false,
   sideloadedLibrary: [],
+  customLibrary: [],
   error: false,
   gameUpdates: [],
   libraryStatus: [],
