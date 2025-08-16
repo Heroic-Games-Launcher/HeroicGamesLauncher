@@ -28,7 +28,7 @@ import {
 } from '../../utils'
 import {
   ExtraInfo,
-  GameInfo,
+  GOGGameInfo,
   GameSettings,
   ExecResult,
   InstallArgs,
@@ -139,7 +139,7 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   return extra
 }
 
-export function getGameInfo(appName: string): GameInfo {
+export function getGameInfo(appName: string): GOGGameInfo {
   const info = getGogLibraryGameInfo(appName)
   if (!info) {
     logError(

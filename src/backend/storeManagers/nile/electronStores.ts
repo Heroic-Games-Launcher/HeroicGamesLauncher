@@ -1,10 +1,10 @@
 import CacheStore from 'backend/cache'
 import { TypeCheckedStoreBackend } from 'backend/electron_store'
-import { GameInfo } from 'common/types'
+import { NileGameInfo } from 'common/types'
 import { NileInstallInfo } from 'common/types/nile'
 
 export const installStore = new CacheStore<NileInstallInfo>('nile_install_info')
-export const libraryStore = new CacheStore<GameInfo[], 'library'>(
+export const libraryStore = new CacheStore<NileGameInfo[], 'library'>(
   'nile_library',
   null
 )
