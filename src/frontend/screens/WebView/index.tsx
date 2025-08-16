@@ -195,7 +195,6 @@ export default function WebView() {
           }
         } else if (runner === 'zoom') { // Handle Zoom login
           const pageURL = webview.getURL()
-          const parsedURL = new URL(pageURL)
           if (pageURL.includes('li_token=')) {
             setLoading({
               refresh: true,
