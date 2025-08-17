@@ -147,6 +147,6 @@ export class ZoomUser {
   }
 
   public static getLoginUrl(): string {
-    return `${embedUrl}/login?li=lutris&return_li_token=true`
+    return `${embedUrl}/login?li=heroic&return_li_token=true`
   }
 }
