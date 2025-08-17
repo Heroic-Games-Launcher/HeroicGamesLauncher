@@ -25,7 +25,7 @@ import {
   epicCategories,
   gogCategories,
   sideloadedCategories,
-  zoomCategories // Added zoomCategories
+  zoomCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -49,7 +49,7 @@ export default React.memo(function Library(): JSX.Element {
     epic,
     gog,
     amazon,
-    zoom, // Added zoom to useContext
+    zoom,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -86,7 +86,7 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoomCategories.includes(storedCategory) // Added zoom
+      zoom: zoomCategories.includes(storedCategory)
     }
   }
 
@@ -361,7 +361,7 @@ export default React.memo(function Library(): JSX.Element {
       amazon.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
-      zoom.library.forEach((game) => { // Added zoom
+      zoom.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
     }
@@ -398,7 +398,7 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['sideload']) {
       displayedStores.push('sideload')
     }
-    if (storesFilters['zoom'] && zoom.username) { // Added zoom
+    if (storesFilters['zoom'] && zoom.username) {
       displayedStores.push('zoom')
     }
 
@@ -410,15 +410,15 @@ export default React.memo(function Library(): JSX.Element {
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
     const showSideloaded = displayedStores.includes('sideload')
-    const showZoom = zoom.username && displayedStores.includes('zoom') // Added showZoom
+    const showZoom = zoom.username && displayedStores.includes('zoom')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
-    const zoomLibrary = showZoom ? zoom.library : [] // Added zoomLibrary
+    const zoomLibrary = showZoom ? zoom.library : []
 
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary, ...zoomLibrary] // Added zoomLibrary
+    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary, ...zoomLibrary]
   }
 
   const gamesForAlphabetFilter = useMemo(() => {
@@ -538,7 +538,7 @@ export default React.memo(function Library(): JSX.Element {
     epic.library,
     gog.library,
     amazon.library,
-    zoom.library, // Added zoom.library
+    zoom.library,
     sideloadedLibrary,
     platform,
     filterText,
@@ -641,7 +641,7 @@ export default React.memo(function Library(): JSX.Element {
     }
   }, [])
 
-  if (!epic && !gog && !amazon && !zoom) { // Added zoom
+  if (!epic && !gog && !amazon && !zoom) {
     return (
       <ErrorComponent
         message={t(

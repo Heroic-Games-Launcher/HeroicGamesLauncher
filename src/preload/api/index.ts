@@ -5,7 +5,7 @@ import * as Menu from './menu'
 import * as Settings from './settings'
 import * as Wine from './wine'
 import * as DownloadManager from './downloadmanager'
-import * as Zoom from './zoom' // Added Zoom import
+import * as Zoom from './zoom'
 
 export default {
   ...Misc,
@@ -15,5 +15,5 @@ export default {
   ...Settings,
   ...Wine,
   ...DownloadManager,
-  ...Zoom // Added Zoom to export
+  ...Zoom
 }

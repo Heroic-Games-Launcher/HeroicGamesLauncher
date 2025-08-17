@@ -25,7 +25,7 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
-  zoom: { // Added Zoom to initial context
+  zoom: {
     library: [],
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()

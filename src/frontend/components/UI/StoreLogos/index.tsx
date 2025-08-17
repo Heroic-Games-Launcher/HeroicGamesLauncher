@@ -3,7 +3,7 @@ import EpicLogo from 'frontend/assets/epic-logo.svg?react'
 import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import SideLoad from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
-import ZoomLogo from 'frontend/assets/zoom-logo.svg?react' // Added ZoomLogo import
+import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
 
 type Props = { runner: Runner; className?: string }
 
@@ -18,7 +18,7 @@ export default function StoreLogos({
       return <GOGLogo className={className} />
     case 'nile':
       return <AmazonLogo className={className} />
-    case 'zoom': // Added Zoom logo
+    case 'zoom':
       return <ZoomLogo className={className} />
     default:
       return <SideLoad className={className} />

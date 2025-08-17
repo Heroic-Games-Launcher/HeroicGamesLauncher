@@ -83,7 +83,7 @@ export interface ContextType {
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
-  zoom: { // Added Zoom to ContextType
+  zoom: {
     library: GameInfo[]
     username?: string
     login: (url: string) => Promise<string>
@@ -203,7 +203,7 @@ export interface StoresFilters {
   gog: boolean
   nile: boolean
   sideload: boolean
-  zoom: boolean // Added zoom
+  zoom: boolean
 }
 
 export interface PlatformsFilters {

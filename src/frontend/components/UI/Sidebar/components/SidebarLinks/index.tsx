@@ -32,7 +32,7 @@ export default function SidebarLinks() {
     amazon,
     epic,
     gog,
-    zoom, // Added zoom
+    zoom,
     platform,
     refreshLibrary,
     handleExternalLinkDialog
@@ -44,7 +44,7 @@ export default function SidebarLinks() {
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
 
-  const loggedIn = epic.username || gog.username || amazon.user_id || zoom.username // Added zoom.username
+  const loggedIn = epic.username || gog.username || amazon.user_id || zoom.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -53,7 +53,7 @@ export default function SidebarLinks() {
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length) ||
       (amazon.user_id && !amazon.library.length) ||
-      (zoom.username && !zoom.library.length) // Added zoom.library.length
+      (zoom.username && !zoom.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -137,7 +137,7 @@ export default function SidebarLinks() {
               url="/store/amazon"
               label={t('prime-gaming', 'Prime Gaming')}
             />
-            <SidebarItem // Added Zoom Store link
+            <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/zoom"
               label={t('zoom-store', 'Zoom Store')}

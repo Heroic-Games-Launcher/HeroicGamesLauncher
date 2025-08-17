@@ -312,8 +312,8 @@ export async function getInstallers(platform: string, appName: string): Promise<
       filename: installerFile.name,
       total_size: parseSize(installerFile.size),
       id: installerFile.id,
-      name: installerFile.name, // Added missing property
-      size: installerFile.size // Added missing property
+      name: installerFile.name,
+      size: installerFile.size
     }]
   } catch (error) {
     logError(['Error fetching Zoom installers:', error], LogPrefix.Zoom)

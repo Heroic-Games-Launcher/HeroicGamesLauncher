@@ -52,7 +52,7 @@ export interface ZoomDownloadFile {
   size: string
   url?: string // This will be fetched later
   filename: string
-  total_size: number // Added this property
+  total_size: number
 }
 
 export interface ZoomLoginData {

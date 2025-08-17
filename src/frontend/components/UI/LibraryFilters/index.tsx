@@ -12,12 +12,12 @@ const RunnerToStore = {
   gog: 'GOG',
   nile: 'Amazon Games',
   sideload: 'Other',
-  zoom: 'Zoom' // Added Zoom
+  zoom: 'Zoom'
 }
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon, zoom } = useContext(ContextProvider) // Added zoom
+  const { platform, epic, gog, amazon, zoom } = useContext(ContextProvider)
   const {
     setShowFavourites,
     setShowHidden,
@@ -90,7 +90,7 @@ export default function LibraryFilters() {
       gog: false,
       nile: false,
       sideload: false,
-      zoom: false // Added zoom
+      zoom: false
     }
     newFilters = { ...newFilters, [store]: true }
     setStoresFilters(newFilters)
@@ -155,7 +155,7 @@ export default function LibraryFilters() {
       gog: true,
       nile: true,
       sideload: true,
-      zoom: true // Added zoom
+      zoom: true
     })
     setPlatformsFilters({
       win: true,
@@ -179,7 +179,7 @@ export default function LibraryFilters() {
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
         {amazon.user_id && storeToggle('nile')}
-        {zoom.username && storeToggle('zoom')} {/* Added Zoom store toggle */}
+        {zoom.username && storeToggle('zoom')} {}
         {storeToggle('sideload')}
 
         <hr />

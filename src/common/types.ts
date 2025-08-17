@@ -9,7 +9,7 @@ import {
   LegendaryInstallInfo
 } from './types/legendary'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
-import { ZoomInstallPlatform, ZoomInstalledInfo, ZoomInstallInfo } from './types/zoom' // Added ZoomInstallPlatform and ZoomInstalledInfo import
+import { ZoomInstallPlatform, ZoomInstalledInfo, ZoomInstallInfo } from './types/zoom'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
@@ -153,7 +153,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom' // Added 'zoom'
+  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
   store_url?: string
   app_name: string
   art_cover: string
@@ -568,7 +568,7 @@ export type InstallPlatform =
   | LegendaryInstallPlatform
   | GogInstallPlatform
   | NileInstallPlatform
-  | ZoomInstallPlatform // Added ZoomInstallPlatform
+  | ZoomInstallPlatform
   | 'Browser'
 
 export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
@@ -782,7 +782,7 @@ export type InstallInfo =
   | LegendaryInstallInfo
   | GogInstallInfo
   | NileInstallInfo
-  | ZoomInstalledInfo // Added ZoomInstalledInfo
+  | ZoomInstalledInfo
   | ZoomInstallInfo
 
 export interface KnowFixesInfo {

@@ -34,9 +34,9 @@ import {
   nileLibraryStore,
   wineDownloaderInfoStore,
   sideloadLibrary,
-  zoomConfigStore, // Added zoomConfigStore
-  zoomInstalledGamesStore, // Added zoomInstalledGamesStore
-  zoomLibraryStore // Added zoomLibraryStore
+  zoomConfigStore,
+  zoomInstalledGamesStore,
+  zoomLibraryStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
@@ -68,7 +68,7 @@ interface StateProps {
     user_id?: string
     username?: string
   }
-  zoom: { // Added Zoom state
+  zoom: {
     library: GameInfo[]
     username?: string
   }
@@ -151,7 +151,7 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
 
-  loadZoomLibrary = (): Array<GameInfo> => { // Added loadZoomLibrary
+  loadZoomLibrary = (): Array<GameInfo> => {
     const games = zoomLibraryStore.get('games', [])
     const installedGames = zoomInstalledGamesStore.get('installed', [])
     for (const igame in games) {
@@ -1047,7 +1047,7 @@ class GlobalState extends PureComponent<Props> {
       epic,
       gog,
       amazon,
-      zoom, // Added zoom to destructuring
+      zoom,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -1085,7 +1085,7 @@ class GlobalState extends PureComponent<Props> {
             login: this.amazonLogin,
             logout: this.amazonLogout
           },
-          zoom: { // Added Zoom to context provider
+          zoom: {
             library: zoom.library,
             username: zoom.username,
             login: this.zoomLogin,

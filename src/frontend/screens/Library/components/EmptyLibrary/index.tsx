@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import AddGameButton from '../AddGameButton'
 
 function EmptyLibraryMessage() {
-  const { epic, gog, amazon, zoom, sideloadedLibrary } = useContext(ContextProvider) // Added zoom
+  const { epic, gog, amazon, zoom, sideloadedLibrary } = useContext(ContextProvider)
   const { i18n } = useTranslation()
 
   let message = (
@@ -28,7 +28,7 @@ function EmptyLibraryMessage() {
     epic.library.length +
       gog.library.length +
       amazon.library.length +
-      zoom.library.length + // Added zoom.library.length
+      zoom.library.length +
       sideloadedLibrary.length >
     0
   ) {
