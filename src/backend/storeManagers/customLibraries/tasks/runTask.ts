@@ -52,7 +52,22 @@ export async function executeRunTask(
     }
 
     await new Promise<void>((resolve, reject) => {
-      const process = spawn(executablePath, args, { cwd: gameFolder })
+      const powershellArgs = [
+        '-Command',
+        [
+          'Start-Process',
+          '-Wait',
+          `"${executablePath}"`,
+          args.length ? `-ArgumentList '${args.join("','")}'` : '',
+          '-WorkingDirectory',
+          `"${gameFolder}"`,
+          '-Verb',
+          'RunAs'
+        ]
+          .filter(Boolean)
+          .join(' ')
+      ]
+      const process = spawn('powershell', powershellArgs, { stdio: 'inherit' })
 
       process.on('close', (code) => {
         if (code === 0) {

@@ -95,9 +95,12 @@ describe('RunTask - executeRunTask', () => {
     await executePromise
 
     expect(mockSpawnFn).toHaveBeenCalledWith(
-      join(gameFolder, 'installer.exe'),
-      ['--silent', '--accept-license'],
-      { cwd: gameFolder }
+      'powershell',
+      [
+        '-Command',
+        `Start-Process -Wait "${join(gameFolder, 'installer.exe')}" -ArgumentList '--silent','--accept-license' -WorkingDirectory "${gameFolder}" -Verb RunAs`
+      ],
+      { stdio: 'inherit' }
     )
     expect(mockLogInfo).toHaveBeenCalledWith(
       'Running: installer.exe (Started)',
@@ -129,9 +132,12 @@ describe('RunTask - executeRunTask', () => {
     await executePromise
 
     expect(mockSpawnFn).toHaveBeenCalledWith(
-      join(gameFolder, 'setup.exe'),
-      ['--install-dir', `${gameFolder}/output`],
-      { cwd: gameFolder }
+      'powershell',
+      [
+        '-Command',
+        `Start-Process -Wait "${join(gameFolder, 'setup.exe')}" -ArgumentList '--install-dir','${gameFolder}/output' -WorkingDirectory "${gameFolder}" -Verb RunAs`
+      ],
+      { stdio: 'inherit' }
     )
   })
 
@@ -153,9 +159,14 @@ describe('RunTask - executeRunTask', () => {
 
     await executePromise
 
-    expect(mockSpawnFn).toHaveBeenCalledWith(join(gameFolder, 'app.exe'), [], {
-      cwd: gameFolder
-    })
+    expect(mockSpawnFn).toHaveBeenCalledWith(
+      'powershell',
+      [
+        '-Command',
+        `Start-Process -Wait "${join(gameFolder, 'app.exe')}" -WorkingDirectory "${gameFolder}" -Verb RunAs`
+      ],
+      { stdio: 'inherit' }
+    )
   })
 
   test('runs Windows executable with Wine', async () => {
