@@ -7,7 +7,7 @@ import {
   sendProgressUpdate,
   sendGameStatusUpdate
 } from '../../utils'
-import { join, relative, dirname } from 'node:path'
+import { join, relative, dirname, basename } from 'node:path'
 import * as fs from 'fs'
 import axios, { AxiosProgressEvent } from 'axios'
 import { createWriteStream } from 'node:fs' // Use node:fs for createWriteStream
@@ -404,6 +404,20 @@ export async function install(
         } else {
           finalExecutable = 'dosbox'
           finalInstallPlatform = 'linux'
+          const sourceDir = gameDirectory
+          const destDir = join(path, gameInfo.folder_name)
+          logInfo(
+            `Copying DOSBox game files from ${sourceDir} to ${destDir}`,
+            LogPrefix.Zoom
+          )
+          const items = await fs.promises.readdir(sourceDir)
+          for (const item of items) {
+            await fs.promises.cp(join(sourceDir, item), join(destDir, item), {
+              recursive: true
+            })
+          }
+          const confFileName = basename(dosboxConf)
+          dosboxConf = join(destDir, confFileName)
         }
       }
     }

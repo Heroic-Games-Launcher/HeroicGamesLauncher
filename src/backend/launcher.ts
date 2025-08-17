@@ -1655,7 +1655,7 @@ async function callRunner(
 
   // macOS/Linux: `spawn`ing an executable in the current working directory
   // requires a "./"
-  if (!isWindows && !isAbsolute(bin)) bin = './' + bin
+  if (!isWindows && !isAbsolute(bin) && runner.dir) bin = './' + bin
 
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit, provided PowerShell is available
