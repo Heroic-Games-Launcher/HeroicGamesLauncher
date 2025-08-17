@@ -293,6 +293,8 @@ export interface InstalledInfo {
   install_path: string
   install_size: string
   is_dlc: boolean
+  isDosbox?: boolean
+  dosboxConf?: string
   version: string
   platform: InstallPlatform
   appName?: string

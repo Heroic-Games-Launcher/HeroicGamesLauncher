@@ -1,13 +1,15 @@
 import { GameConfig } from '../../game_config'
 import {
   errorHandler,
+  extractFiles,
   getFileSize,
   parseSize,
   spawnAsync,
   sendProgressUpdate,
   sendGameStatusUpdate
 } from '../../utils'
-import { join } from 'node:path'
+import { join, relative } from 'node:path'
+import * as fs from 'fs'
 import axios, { AxiosProgressEvent } from 'axios'
 import { createWriteStream } from 'node:fs' // Use node:fs for createWriteStream
 import { pipeline } from 'node:stream/promises' // Use node:stream/promises for pipeline
@@ -40,7 +42,10 @@ import {
   setupEnvVars,
   setupWrapperEnvVars,
   setupWrappers,
-  callRunner
+  callRunner,
+  getKnownFixesEnvVariables,
+  prepareWineLaunch,
+  runWineCommand
 } from '../../launcher'
 import {
   addShortcuts as addShortcutsUtil,
@@ -59,7 +64,7 @@ import { RemoveArgs } from 'common/types/game_manager'
 import {
   isLinux, isMac, isWindows
 } from 'backend/constants/environment'
-import { getInstallers, getGameInfo as getZoomLibraryGameInfo } from './library'
+import { getInstallers, getGameInfo as getZoomLibraryGameInfo, refreshInstalled, updateGameInLibrary } from './library'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -190,6 +195,7 @@ export async function install(
   error?: string
 }> {
   logInfo(`Installing ${appName} to ${path} for platform ${platformToInstall}`, LogPrefix.Zoom)
+  logInfo(`Installation path: ${path}`, LogPrefix.Zoom)
 
   const gameInfo = getGameInfo(appName)
   if (!gameInfo) {
@@ -247,23 +253,38 @@ export async function install(
   let installResult: ExecResult
 
   if (installPlatform === 'linux') {
-    // For Linux, assume the downloaded file is the executable or an archive to extract
-    // This needs more sophisticated handling based on actual Zoom Linux installers
-    // For now, we'll try to execute it directly.
-    installResult = await spawnAsync(executable, [], { cwd: path })
+    if (downloadPath.endsWith('.tar.xz')) {
+      logInfo(`Extracting ${downloadPath}...`, LogPrefix.Zoom)
+      installResult = await spawnAsync('tar', ['-xf', downloadPath, '-C', path])
+      let gamePath = path
+      const files = await fs.promises.readdir(path)
+      const gameDir = files.find(f => fs.statSync(join(path, f)).isDirectory())
+      if (gameDir) {
+        gamePath = join(path, gameDir)
+      }
+
+      const exe = join(gamePath, 'start.sh')
+      if (existsSync(exe)) {
+        executable = exe
+        await fs.promises.chmod(executable, '755')
+      }
+    } else {
+      await fs.promises.chmod(executable, '755')
+      installResult = await spawnAsync(executable, [], { cwd: path })
+    }
   } else { // windows
     // For Windows, use runWineCommand
     const gameSettings = await getSettings(appName)
-    installResult = await callRunner(
-      [executable],
-      { name: 'zoom', logPrefix: LogPrefix.Zoom, bin: executable, dir: path },
-      {
-        env: setupEnvVars(gameSettings, path),
+    installResult = await runWineCommand({
+      commandParts: [executable],
+      gameSettings,
+      wait: true,
+      options: {
         logMessagePrefix: `Installing ${appName}`,
         logWriters: [await createGameLogWriter(appName, 'zoom')],
         abortId: appName
       }
-    )
+    })
   }
 
   if (installResult.error) {
@@ -272,16 +293,72 @@ export async function install(
   }
 
   // After successful installation, we need to determine the actual executable path
-  // This is a placeholder and might need more sophisticated logic based on how Zoom installers work.
-  // For now, we'll assume the game is installed directly into the 'path' and the executable is the installer itself.
-  // In a real scenario, you might need to scan the 'path' for the main executable.
-  const finalExecutable = executable // Placeholder, needs actual detection
+  let isDosbox = false
+  let dosboxConf: string | undefined
+  let finalExecutable = ''
+
+  if (installPlatform === 'windows') {
+    logInfo(`Searching for executable in ${path} !!!!`, LogPrefix.Zoom)
+    const files = await fs.promises.readdir(path, { withFileTypes: true })
+    const confFiles = files
+      .filter(f => f.isFile() && f.name.endsWith('.conf'))
+      .map(f => f.name)
+
+    if (confFiles.length > 0) {
+      const dosboxExe = files.find(f => f.isFile() && f.name.toLowerCase() === 'dosbox.exe')
+      if (dosboxExe) {
+        finalExecutable = dosboxExe.name
+        isDosbox = true
+        dosboxConf = confFiles[0] // Assume the first .conf file is the correct one
+      }
+    }
+
+    if (!isDosbox) {
+      const files = await fs.promises.readdir(path, { withFileTypes: true })
+      const exes = files
+        .filter(f => f.isFile() && f.name.endsWith('.exe'))
+        .map(f => f.name)
+        .filter(name => !/setup|unins|redist/i.test(name))
+
+      if (exes.length === 1) {
+        finalExecutable = exes[0]
+      } else if (exes.length > 1) {
+        // Try to find an exe with the game's name in it
+        const gameInfo = getGameInfo(appName)
+        const gameName = gameInfo.title.toLowerCase().replace(/[^a-z0-9]/g, '')
+        const bestMatch = exes.find(exe => exe.toLowerCase().replace(/[^a-z0-9]/g, '').includes(gameName))
+        if (bestMatch) {
+          finalExecutable = bestMatch
+        } else {
+          // As a fallback, pick the largest exe
+          let largestSize = 0
+          for (const exe of exes) {
+            const exePath = join(path, exe)
+            const stats = fs.statSync(exePath)
+            if (stats.size > largestSize) {
+              largestSize = stats.size
+              finalExecutable = exe
+            }
+          }
+        }
+      }
+    }
+  } else {
+    finalExecutable = executable
+  }
+
+  if (!finalExecutable) {
+    logError(['Could not find executable for', appName], LogPrefix.Zoom)
+    // Don't fail the installation, let the user set it manually
+  }
 
   const installedData: InstalledInfo = {
     platform: installPlatform,
-    executable: finalExecutable,
+    executable: finalExecutable.replace('{app}', path),
     install_path: path,
-    install_size: getFileSize(installerSize), // This might need to be the actual installed size, not just installer size
+    isDosbox,
+    dosboxConf,
+    install_size: getFileSize(parseSize(installerSize)), // This might need to be the actual installed size, not just installer size
     is_dlc: false,
     version: '1.0', // Placeholder, ideally extracted from installer or API
     appName: appName,
@@ -294,10 +371,13 @@ export async function install(
   const array = installedGamesStore.get('installed', [])
   array.push(installedData)
   installedGamesStore.set('installed', array)
-  const libraryGame = libraryStore.get('games', []).find(g => g.app_name === appName)
+  refreshInstalled()
+  const libraryGame = getGameInfo(appName)
   if (libraryGame) {
     libraryGame.is_installed = true
     libraryGame.install = installedData
+    updateGameInLibrary(libraryGame)
+    libraryStore.set('games', libraryStore.get('games', []).map(g => g.app_name === appName ? libraryGame : g))
     sendFrontendMessage('pushGameToLibrary', libraryGame)
   }
 
@@ -358,76 +438,161 @@ export async function launch(
     return false
   }
 
-  const {
-    success: launchPrepSuccess,
-    failureReason: launchPrepFailReason,
-    mangoHudCommand,
-    gameScopeCommand,
-    gameModeBin,
-    steamRuntime
-  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
-  if (!launchPrepSuccess) {
-    logWriter.logError(['Launch aborted:', launchPrepFailReason])
-    showDialogBoxModalAuto({
-      title: t('box.error.launchAborted', 'Launch aborted'),
-      message: launchPrepFailReason!,
-      type: 'ERROR'
-    })
-    return false
-  }
-
-  let commandEnv = {
-    ...process.env,
-    ...setupWrapperEnvVars({ appName, appRunner: 'zoom' }),
-    ...(isWindows
-      ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path))
-  }
-
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
-
-  const launchArgumentsArgs =
-    launchArguments &&
-    (launchArguments.type === undefined || launchArguments.type === 'basic')
-      ? launchArguments.parameters
-      : ''
-
-  const commandParts = [
-    gameInfo.install.executable,
-    ...shlex.split(launchArgumentsArgs),
-    ...shlex.split(gameSettings.launcherArgs ?? ''),
-    ...args
-  ]
-
-  sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
-
-  const { error, abort } = await callRunner(
-    commandParts,
-    { name: 'zoom', logPrefix: LogPrefix.Zoom, bin: gameInfo.install.executable, dir: gameInfo.install.install_path },
-    {
-      env: commandEnv,
-      wrappers,
-      logMessagePrefix: `Launching ${gameInfo.title}`,
-      logWriters: [logWriter],
-      abortId: appName
+  if (isNative(appName)) {
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      mangoHudCommand,
+      gameScopeCommand,
+      gameModeBin,
+      steamRuntime
+    } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
+    if (!launchPrepSuccess) {
+      logWriter.logError(['Launch aborted:', launchPrepFailReason])
+      showDialogBoxModalAuto({
+        title: t('box.error.launchAborted', 'Launch aborted'),
+        message: launchPrepFailReason!,
+        type: 'ERROR'
+      })
+      return false
     }
-  )
 
-  if (abort) {
-    return true
+    const commandEnv = {
+      ...process.env,
+      ...setupWrapperEnvVars({ appName, appRunner: 'zoom' }),
+      ...(isWindows
+        ? {}
+        : setupEnvVars(gameSettings, gameInfo.install.install_path))
+    }
+
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      gameScopeCommand,
+      steamRuntime?.length ? [...steamRuntime] : undefined
+    )
+
+    const launchArgumentsArgs =
+      launchArguments &&
+      (launchArguments.type === undefined || launchArguments.type === 'basic')
+        ? launchArguments.parameters
+        : ''
+
+    const commandParts = [
+      ...shlex.split(launchArgumentsArgs),
+      ...shlex.split(gameSettings.launcherArgs ?? ''),
+      ...args
+    ]
+
+    if (gameInfo.install.isDosbox && gameInfo.install.dosboxConf) {
+      commandParts.push('-conf', gameInfo.install.dosboxConf)
+    }
+
+    sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
+
+    const { error, abort } = await callRunner(
+      commandParts,
+      { name: 'zoom', logPrefix: LogPrefix.Zoom, bin: gameInfo.install.executable, dir: gameInfo.install.install_path },
+      {
+        env: commandEnv,
+        wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`,
+        logWriters: [logWriter],
+        abortId: appName
+      }
+    )
+
+    if (abort) {
+      return true
+    }
+
+    if (error) {
+      logError(['Error launching game:', error], LogPrefix.Zoom)
+    }
+
+    return !error
+  } else {
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      envVars
+    } = await prepareWineLaunch('zoom', appName, logWriter)
+
+    if (!launchPrepSuccess) {
+      logWriter.logError(['Launch aborted:', launchPrepFailReason])
+      showDialogBoxModalAuto({
+        title: t('box.error.launchAborted', 'Launch aborted'),
+        message: launchPrepFailReason!,
+        type: 'ERROR'
+      })
+      return false
+    }
+
+    const {
+      mangoHudCommand,
+      gameScopeCommand,
+      gameModeBin,
+      steamRuntime
+    } = await prepareLaunch(gameSettings, logWriter, gameInfo, false)
+
+    const commandEnv = {
+      ...process.env,
+      ...envVars,
+      ...setupWrapperEnvVars({ appName, appRunner: 'zoom' }),
+      ...setupEnvVars(gameSettings, gameInfo.install.install_path),
+      ...getKnownFixesEnvVariables(appName, 'zoom')
+    }
+
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      gameScopeCommand,
+      steamRuntime?.length ? [...steamRuntime] : undefined
+    )
+
+    const launchArgumentsArgs =
+      launchArguments &&
+      (launchArguments.type === undefined || launchArguments.type === 'basic')
+        ? launchArguments.parameters
+        : ''
+
+    const commandParts = [
+      ...shlex.split(launchArgumentsArgs),
+      ...shlex.split(gameSettings.launcherArgs ?? ''),
+      ...args
+    ]
+
+    if (gameInfo.install.isDosbox && gameInfo.install.dosboxConf) {
+      commandParts.push('-conf', gameInfo.install.dosboxConf)
+    }
+
+    sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
+
+    const result = await runWineCommand({
+      commandParts: [gameInfo.install.executable, ...commandParts],
+      gameSettings,
+      gameInstallPath: gameInfo.install.install_path,
+      installFolderName: gameInfo.folder_name,
+      startFolder: gameInfo.install.install_path,
+      options: {
+        env: commandEnv,
+        wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`,
+        logWriters: [logWriter],
+        abortId: appName
+      }
+    })
+
+    const hasError = result.code !== 0 && result.stderr
+
+    if (hasError) {
+      logError(['Error launching game:', result.stderr], LogPrefix.Zoom)
+    }
+
+    return !hasError
   }
-
-  if (error) {
-    logError(['Error launching game:', error], LogPrefix.Zoom)
-  }
-
-  return !error
 }
 
 export async function moveInstall(

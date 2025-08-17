@@ -54,7 +54,6 @@ export async function refresh(): Promise<ExecResult> {
     return { stdout: '', stderr: 'Error loading library' }
   }
 
-  const gamesObjects: GameInfo[] = []
   library.clear()
 
   for (const zoomGame of gameApiArray) {
@@ -64,23 +63,21 @@ export async function refresh(): Promise<ExecResult> {
       if (oldData) {
         unifiedObject.folder_name = oldData.folder_name
       }
-      gamesObjects.push(unifiedObject)
     }
     const installedInfo = installedGames.get(String(zoomGame.id))
-    const copyObject = Object.assign({}, unifiedObject)
     if (installedInfo) {
-      copyObject.is_installed = true
-      copyObject.install = installedInfo
+      unifiedObject.is_installed = true
+      unifiedObject.install = installedInfo
     }
-    library.set(copyObject.app_name, copyObject)
+    library.set(unifiedObject.app_name, unifiedObject)
     sendFrontendMessage('pushGameToLibrary', unifiedObject)
   }
 
-  libraryStore.set('games', gamesObjects)
+  libraryStore.set('games', Array.from(library.values()))
 
   void new Promise(() => {
     const logLines: string[] = []
-    gamesObjects.forEach((gameData) => {
+    Array.from(library.values()).forEach((gameData) => {
       let line = `* ${gameData.title} (App name: ${gameData.app_name})`
       if (gameData.install?.is_dlc) line += ' - DLC'
       logLines.push(line)
@@ -357,4 +354,10 @@ export function changeVersionPinnedStatus(appName: string, status: boolean) {
 export async function listUpdateableGames(): Promise<string[]> {
   logWarning('listUpdateableGames not implemented for Zoom', LogPrefix.Zoom)
   return []
+}
+
+export function updateGameInLibrary(game: GameInfo) {
+  if (library.has(game.app_name)) {
+    library.set(game.app_name, game)
+  }
 }
