@@ -427,6 +427,7 @@ export interface CallRunnerOptions {
   wrappers?: string[]
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
+  cwd?: string
 }
 
 export interface EnviromentVariable {

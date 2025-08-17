@@ -244,6 +244,7 @@ export async function install(
   }
 
   const installPlatform = platformToInstall.toLowerCase() as ZoomInstallPlatform
+  let finalInstallPlatform = installPlatform
 
   // Fetch installer URL
   const installers: ZoomDownloadFile[] = await getInstallers(
@@ -397,8 +398,13 @@ export async function install(
       const gameDirectory = dirname(dosboxConf)
       const dosboxExePath = await findDosboxExecutable(gameDirectory)
       if (dosboxExePath) {
-        finalExecutable = relative(installPath, dosboxExePath)
         isDosbox = true
+        if (isWindows) {
+          finalExecutable = relative(installPath, dosboxExePath)
+        } else {
+          finalExecutable = 'dosbox'
+          finalInstallPlatform = 'linux'
+        }
       }
     }
 
@@ -462,7 +468,7 @@ export async function install(
   }
 
   const installedData: InstalledInfo = {
-    platform: installPlatform,
+    platform: finalInstallPlatform,
     executable: finalExecutable.replace(
       '{app}',
       join(path, gameInfo.folder_name)
@@ -613,20 +619,22 @@ export async function launch(
 
     sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
 
+    const isNativeDosbox = isNative(appName) && gameInfo.install.isDosbox
     const { error, abort } = await callRunner(
       commandParts,
       {
         name: 'zoom',
         logPrefix: LogPrefix.Zoom,
         bin: gameInfo.install.executable,
-        dir: gameInfo.install.install_path
+        dir: isNativeDosbox ? undefined : gameInfo.install.install_path
       },
       {
         env: commandEnv,
         wrappers,
         logMessagePrefix: `Launching ${gameInfo.title}`,
         logWriters: [logWriter],
-        abortId: appName
+        abortId: appName,
+        cwd: gameInfo.install.install_path
       }
     )
 

@@ -1585,7 +1585,7 @@ interface RunnerProps {
   name: Runner
   logPrefix: LogPrefix
   bin: string
-  dir: string
+  dir?: string
 }
 
 const commandsRunning: Record<string, Promise<ExecResult>> = {}
@@ -1651,7 +1651,7 @@ async function callRunner(
   commandParts = commandParts.filter(Boolean)
 
   let bin = runner.bin
-  let fullRunnerPath = join(runner.dir, bin)
+  let fullRunnerPath = runner.dir ? join(runner.dir, bin) : bin
 
   // macOS/Linux: `spawn`ing an executable in the current working directory
   // requires a "./"
@@ -1717,7 +1717,7 @@ async function callRunner(
 
   let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
-      cwd: runner.dir,
+      cwd: options?.cwd || runner.dir,
       env: { ...process.env, ...options?.env },
       signal: abortController.signal
     })
