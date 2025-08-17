@@ -18,7 +18,13 @@ import {
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+export type Category =
+  | 'all'
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'zoom'
 
 export interface ContextType {
   error: boolean

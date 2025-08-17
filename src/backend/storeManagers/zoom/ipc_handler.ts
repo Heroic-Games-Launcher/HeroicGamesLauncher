@@ -7,18 +7,22 @@ import { loginSuccessUrl } from './constants'
 
 addHandler('authZoom', () => {
   return new Promise<{ status: 'done' | 'error' }>((resolve) => {
-    openAuthWindow(ZoomUser.getLoginUrl(), loginSuccessUrl, async (url: string) => {
-      try {
-        const result = await ZoomUser.login(url)
-        resolve(result)
-        return result
-      } catch (error) {
-        logError(['Error during Zoom authentication:', error], LogPrefix.Zoom)
-        const result = { status: 'error' as const }
-        resolve(result)
-        return result
+    openAuthWindow(
+      ZoomUser.getLoginUrl(),
+      loginSuccessUrl,
+      async (url: string) => {
+        try {
+          const result = await ZoomUser.login(url)
+          resolve(result)
+          return result
+        } catch (error) {
+          logError(['Error during Zoom authentication:', error], LogPrefix.Zoom)
+          const result = { status: 'error' as const }
+          resolve(result)
+          return result
+        }
       }
-    })
+    )
   })
 })
 

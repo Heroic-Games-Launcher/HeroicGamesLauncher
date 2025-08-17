@@ -181,16 +181,12 @@ export default function LibraryFilters() {
         {amazon.user_id && storeToggle('nile')}
         {zoom.username && storeToggle('zoom')} {}
         {storeToggle('sideload')}
-
         <hr />
-
         {platformToggle('win')}
         {platform === 'linux' && platformToggle('linux')}
         {platform === 'darwin' && platformToggle('mac')}
         {platformToggle('browser')}
-
         <hr />
-
         <ToggleSwitch
           key="show-hidden"
           htmlId="show-hidden"

@@ -1,5 +1,10 @@
 import axios, { AxiosError } from 'axios'
-import { existsSync, unlinkSync, writeFileSync, readFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  unlinkSync,
+  writeFileSync,
+  readFileSync
+} from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
@@ -8,9 +13,7 @@ import { clearCache } from 'backend/utils'
 import { tokenPath, embedUrl, apiUrl } from './constants'
 
 export class ZoomUser {
-  static async login(
-    url: string
-  ): Promise<{
+  static async login(url: string): Promise<{
     status: 'done' | 'error'
   }> {
     logInfo('Logging in using Zoom credentials', LogPrefix.Zoom)
@@ -37,7 +40,10 @@ export class ZoomUser {
     // The Python example only checks if the user is logged in.
     // We can use the isConnected method to verify authentication.
     if (!isOnline()) {
-      logError('Unable to get login information, Heroic offline', LogPrefix.Zoom)
+      logError(
+        'Unable to get login information, Heroic offline',
+        LogPrefix.Zoom
+      )
       return
     }
     logInfo('Checking if login is valid', LogPrefix.Zoom)
@@ -131,10 +137,12 @@ export class ZoomUser {
       Accept: 'application/json'
     }
 
-    const response = await axios.get(url, { headers }).catch((error: AxiosError) => {
-      logError(['Zoom API request failed:', error.message], LogPrefix.Zoom)
-      throw error
-    })
+    const response = await axios
+      .get(url, { headers })
+      .catch((error: AxiosError) => {
+        logError(['Zoom API request failed:', error.message], LogPrefix.Zoom)
+        throw error
+      })
     return response.data
   }
 

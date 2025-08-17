@@ -418,7 +418,13 @@ export default React.memo(function Library(): JSX.Element {
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
 
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary, ...zoomLibrary]
+    return [
+      ...sideloadedApps,
+      ...epicLibrary,
+      ...gogLibrary,
+      ...amazonLibrary,
+      ...zoomLibrary
+    ]
   }
 
   const gamesForAlphabetFilter = useMemo(() => {

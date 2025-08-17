@@ -23,7 +23,8 @@ export const amazonLoginPath = '/loginweb/nile'
 export const zoomLoginPath = '/loginweb/zoom'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, refreshLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, refreshLibrary } =
+    useContext(ContextProvider)
   const { t } = useTranslation()
 
   hasHelp(

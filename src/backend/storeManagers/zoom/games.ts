@@ -24,10 +24,7 @@ import {
   InstallPlatform
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
-import {
-  installedGamesStore,
-  libraryStore
-} from './electronStores'
+import { installedGamesStore, libraryStore } from './electronStores'
 import {
   logDebug,
   logError,
@@ -52,18 +49,18 @@ import {
 } from '../../shortcuts/shortcuts/shortcuts'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
-import {
-  ZoomInstallPlatform,
-  ZoomDownloadFile
-} from 'common/types/zoom'
+import { ZoomInstallPlatform, ZoomDownloadFile } from 'common/types/zoom'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../ipc'
 import { RemoveArgs } from 'common/types/game_manager'
+import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import {
-  isLinux, isMac, isWindows
-} from 'backend/constants/environment'
-import { getInstallers, getGameInfo as getZoomLibraryGameInfo, refreshInstalled, updateGameInLibrary } from './library'
+  getInstallers,
+  getGameInfo as getZoomLibraryGameInfo,
+  refreshInstalled,
+  updateGameInLibrary
+} from './library'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -142,7 +139,10 @@ export async function importGame(
   // The original zoom.py doesn't have an explicit "import" function for installed games.
   // It relies on scanning the library. This function might need to be adapted
   // if Zoom has a way to import already installed games.
-  logWarning(`Import game not fully implemented for Zoom: ${appName}`, LogPrefix.Zoom)
+  logWarning(
+    `Import game not fully implemented for Zoom: ${appName}`,
+    LogPrefix.Zoom
+  )
   return { stdout: '', stderr: 'Import not fully implemented' }
 }
 
@@ -204,16 +204,15 @@ export function onInstallOrUpdateOutput(
 
 export async function install(
   appName: string,
-  {
-    path,
-    platformToInstall,
-    installLanguage
-  }: InstallArgs
+  { path, platformToInstall, installLanguage }: InstallArgs
 ): Promise<{
   status: 'done' | 'error' | 'abort'
   error?: string
 }> {
-  logInfo(`Installing ${appName} to ${path} for platform ${platformToInstall}`, LogPrefix.Zoom)
+  logInfo(
+    `Installing ${appName} to ${path} for platform ${platformToInstall}`,
+    LogPrefix.Zoom
+  )
   logInfo(`Installation path: ${path}`, LogPrefix.Zoom)
 
   const gameInfo = getGameInfo(appName)
@@ -225,9 +224,15 @@ export async function install(
   const installPlatform = platformToInstall.toLowerCase() as ZoomInstallPlatform
 
   // Fetch installer URL
-  const installers: ZoomDownloadFile[] = await getInstallers(installPlatform, appName)
+  const installers: ZoomDownloadFile[] = await getInstallers(
+    installPlatform,
+    appName
+  )
   if (installers.length === 0 || !installers[0].url) {
-    logError(`No installer found for ${appName} on ${installPlatform}`, LogPrefix.Zoom)
+    logError(
+      `No installer found for ${appName} on ${installPlatform}`,
+      LogPrefix.Zoom
+    )
     return { status: 'error', error: 'No installer found' }
   }
 
@@ -241,13 +246,23 @@ export async function install(
   fs.mkdirSync(join(path, gameInfo.folder_name), { recursive: true })
 
   // Download the installer
-  logInfo(`Downloading installer from ${installerUrl} to ${downloadPath}`, LogPrefix.Zoom)
+  logInfo(
+    `Downloading installer from ${installerUrl} to ${downloadPath}`,
+    LogPrefix.Zoom
+  )
   try {
     const response = await axios.get(installerUrl, {
       responseType: 'stream',
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-        const percent = progressEvent.progress ? Math.round(progressEvent.progress * 100) : undefined
-        onInstallOrUpdateOutput(appName, 'installing', `Progress: ${percent}%`, parseSize(installerSize))
+        const percent = progressEvent.progress
+          ? Math.round(progressEvent.progress * 100)
+          : undefined
+        onInstallOrUpdateOutput(
+          appName,
+          'installing',
+          `Progress: ${percent}%`,
+          parseSize(installerSize)
+        )
       }
     })
 
@@ -266,7 +281,8 @@ export async function install(
     executable = downloadPath // Placeholder
     // If it's an archive, we'd need to extract it here.
     // For now, we'll assume it's a direct executable or a self-extracting one.
-  } else { // windows
+  } else {
+    // windows
     executable = downloadPath // Assume it's a .exe installer
   }
 
@@ -277,10 +293,17 @@ export async function install(
   if (installPlatform === 'linux') {
     if (downloadPath.endsWith('.tar.xz')) {
       logInfo(`Extracting ${downloadPath}...`, LogPrefix.Zoom)
-      installResult = await spawnAsync('tar', ['-xf', downloadPath, '-C', join(path, gameInfo.folder_name)])
+      installResult = await spawnAsync('tar', [
+        '-xf',
+        downloadPath,
+        '-C',
+        join(path, gameInfo.folder_name)
+      ])
       let gamePath = join(path, gameInfo.folder_name)
       const files = await fs.promises.readdir(join(path, gameInfo.folder_name))
-      const gameDir = files.find(f => fs.statSync(join(path, gameInfo.folder_name!, f)).isDirectory())
+      const gameDir = files.find((f) =>
+        fs.statSync(join(path, gameInfo.folder_name!, f)).isDirectory()
+      )
       if (gameDir) {
         gamePath = join(path, gameInfo.folder_name, gameDir)
       }
@@ -292,9 +315,12 @@ export async function install(
       }
     } else {
       await fs.promises.chmod(executable, '755')
-      installResult = await spawnAsync(executable, [], { cwd: join(path, gameInfo.folder_name) })
+      installResult = await spawnAsync(executable, [], {
+        cwd: join(path, gameInfo.folder_name)
+      })
     }
-  } else { // windows
+  } else {
+    // windows
     // For Windows, use runWineCommand
     const gameSettings = await getSettings(appName)
     installResult = await runWineCommand({
@@ -310,8 +336,14 @@ export async function install(
   }
 
   if (installResult.error) {
-    logError(['Installer execution failed:', installResult.error], LogPrefix.Zoom)
-    return { status: 'error', error: `Installer execution failed: ${installResult.error}` }
+    logError(
+      ['Installer execution failed:', installResult.error],
+      LogPrefix.Zoom
+    )
+    return {
+      status: 'error',
+      error: `Installer execution failed: ${installResult.error}`
+    }
   }
 
   // After successful installation, we need to determine the actual executable path
@@ -322,10 +354,12 @@ export async function install(
   if (installPlatform === 'windows') {
     const installPath = join(path, gameInfo.folder_name)
     logInfo(`Searching for executable in ${installPath} !!!!`, LogPrefix.Zoom)
-    const files = await fs.promises.readdir(installPath, { withFileTypes: true })
+    const files = await fs.promises.readdir(installPath, {
+      withFileTypes: true
+    })
     const confFiles = files
-      .filter(f => f.isFile() && f.name.endsWith('.conf'))
-      .map(f => f.name)
+      .filter((f) => f.isFile() && f.name.endsWith('.conf'))
+      .map((f) => f.name)
 
     if (confFiles.length > 0) {
       const dosboxExePath = await findDosboxExecutable(installPath)
@@ -337,11 +371,13 @@ export async function install(
     }
 
     if (!isDosbox) {
-      const files = await fs.promises.readdir(installPath, { withFileTypes: true })
+      const files = await fs.promises.readdir(installPath, {
+        withFileTypes: true
+      })
       const exes = files
-        .filter(f => f.isFile() && f.name.endsWith('.exe'))
-        .map(f => f.name)
-        .filter(name => !/setup|unins|redist/i.test(name))
+        .filter((f) => f.isFile() && f.name.endsWith('.exe'))
+        .map((f) => f.name)
+        .filter((name) => !/setup|unins|redist/i.test(name))
 
       if (exes.length === 1) {
         finalExecutable = exes[0]
@@ -349,7 +385,12 @@ export async function install(
         // Try to find an exe with the game's name in it
         const gameInfo = getGameInfo(appName)
         const gameName = gameInfo.title.toLowerCase().replace(/[^a-z0-9]/g, '')
-        const bestMatch = exes.find(exe => exe.toLowerCase().replace(/[^a-z0-9]/g, '').includes(gameName))
+        const bestMatch = exes.find((exe) =>
+          exe
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, '')
+            .includes(gameName)
+        )
         if (bestMatch) {
           finalExecutable = bestMatch
         } else {
@@ -377,7 +418,10 @@ export async function install(
 
   const installedData: InstalledInfo = {
     platform: installPlatform,
-    executable: finalExecutable.replace('{app}', join(path, gameInfo.folder_name)),
+    executable: finalExecutable.replace(
+      '{app}',
+      join(path, gameInfo.folder_name)
+    ),
     install_path: join(path, gameInfo.folder_name),
     isDosbox,
     dosboxConf,
@@ -400,7 +444,12 @@ export async function install(
     libraryGame.is_installed = true
     libraryGame.install = installedData
     updateGameInLibrary(libraryGame)
-    libraryStore.set('games', libraryStore.get('games', []).map(g => g.app_name === appName ? libraryGame : g))
+    libraryStore.set(
+      'games',
+      libraryStore
+        .get('games', [])
+        .map((g) => (g.app_name === appName ? libraryGame : g))
+    )
     sendFrontendMessage('pushGameToLibrary', libraryGame)
   }
 
@@ -469,7 +518,12 @@ export async function launch(
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
+    } = await prepareLaunch(
+      gameSettings,
+      logWriter,
+      gameInfo,
+      isNative(appName)
+    )
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       showDialogBoxModalAuto({
@@ -516,7 +570,12 @@ export async function launch(
 
     const { error, abort } = await callRunner(
       commandParts,
-      { name: 'zoom', logPrefix: LogPrefix.Zoom, bin: gameInfo.install.executable, dir: gameInfo.install.install_path },
+      {
+        name: 'zoom',
+        logPrefix: LogPrefix.Zoom,
+        bin: gameInfo.install.executable,
+        dir: gameInfo.install.install_path
+      },
       {
         env: commandEnv,
         wrappers,
@@ -552,12 +611,8 @@ export async function launch(
       return false
     }
 
-    const {
-      mangoHudCommand,
-      gameScopeCommand,
-      gameModeBin,
-      steamRuntime
-    } = await prepareLaunch(gameSettings, logWriter, gameInfo, false)
+    const { mangoHudCommand, gameScopeCommand, gameModeBin, steamRuntime } =
+      await prepareLaunch(gameSettings, logWriter, gameInfo, false)
 
     const commandEnv = {
       ...process.env,
@@ -623,7 +678,10 @@ export async function moveInstall(
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   newInstallPath: string
 ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
-  logWarning(`Move install not implemented for Zoom: ${appName}`, LogPrefix.Zoom)
+  logWarning(
+    `Move install not implemented for Zoom: ${appName}`,
+    LogPrefix.Zoom
+  )
   return { status: 'error', error: 'Move install not implemented' }
 }
 
@@ -695,8 +753,10 @@ export async function forceUninstall(appName: string): Promise<void> {
   sendFrontendMessage('pushGameToLibrary', gameInfo)
 }
 
-export async function stop(appName: string, /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-stopWine = true): Promise<void> {
+export async function stop(
+  appName: string /* eslint-disable-next-line @typescript-eslint/no-unused-vars */,
+  stopWine = true
+): Promise<void> {
   logWarning(`Stop not fully implemented for Zoom: ${appName}`, LogPrefix.Zoom)
   // For now, we don't have a specific process to stop for Zoom games
   // If wine is used, it will be handled by the launcher's wine cleanup.

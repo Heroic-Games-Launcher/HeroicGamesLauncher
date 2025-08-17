@@ -1562,22 +1562,22 @@ function bytesToSize(bytes: number) {
 }
 
 function parseSize(size: string): number {
-  const units = ["bytes", "kb", "mb", "gb", "tb", "pb"];
-  let unit_index = 0;
-  size = size.trim().toLowerCase();
+  const units = ['bytes', 'kb', 'mb', 'gb', 'tb', 'pb']
+  let unit_index = 0
+  size = size.trim().toLowerCase()
   for (const unit of units) {
     if (size.endsWith(unit)) {
-      size = size.slice(0, -unit.length).trim();
-      break;
+      size = size.slice(0, -unit.length).trim()
+      break
     }
-    unit_index += 1;
+    unit_index += 1
   }
   try {
-    return Math.round(parseFloat(size) * (1024 ** unit_index));
+    return Math.round(parseFloat(size) * 1024 ** unit_index)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    logWarning(`Invalid size value '${size}'`, LogPrefix.Backend);
-    return 0;
+    logWarning(`Invalid size value '${size}'`, LogPrefix.Backend)
+    return 0
   }
 }
 

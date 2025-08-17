@@ -1,11 +1,6 @@
 import { sendFrontendMessage } from '../../ipc'
 import { ZoomUser } from './user'
-import {
-  GameInfo,
-  InstalledInfo,
-  ExecResult,
-  LaunchOption
-} from 'common/types'
+import { GameInfo, InstalledInfo, ExecResult, LaunchOption } from 'common/types'
 import {
   ZoomGameInfo,
   ZoomLibraryResponse,
@@ -39,7 +34,7 @@ export async function initZoomLibraryManager() {
 
 export async function refresh(): Promise<ExecResult> {
   refreshInstalled()
-  if (!await ZoomUser.isLoggedIn()) {
+  if (!(await ZoomUser.isLoggedIn())) {
     return { stdout: '', stderr: '' }
   }
 
@@ -51,7 +46,10 @@ export async function refresh(): Promise<ExecResult> {
   logInfo('Getting Zoom library', LogPrefix.Zoom)
   const gameApiArray: ZoomGameInfo[] = await getZoomLibrary()
   if (!gameApiArray.length) {
-    logError('There was an error loading games library from Zoom', LogPrefix.Zoom)
+    logError(
+      'There was an error loading games library from Zoom',
+      LogPrefix.Zoom
+    )
     return { stdout: '', stderr: 'Error loading library' }
   }
 
@@ -117,10 +115,11 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
     const totalPages = response.total_pages
 
     while (currentPage < totalPages - 1) {
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Avoid hitting API too fast
+      await new Promise((resolve) => setTimeout(resolve, 1000)) // Avoid hitting API too fast
       currentPage += 1
       const nextUrl = `${url}?page=${currentPage}`
-      const nextResponse: ZoomLibraryResponse = await ZoomUser.makeRequest(nextUrl)
+      const nextResponse: ZoomLibraryResponse =
+        await ZoomUser.makeRequest(nextUrl)
       allGames.push(...nextResponse.games)
     }
 
@@ -135,7 +134,6 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
     logError(['Error fetching Zoom library:', error], LogPrefix.Zoom)
     return []
   }
-
 }
 
 export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
@@ -190,7 +188,10 @@ export async function getInstallInfo(
   appName: string,
   installPlatform = 'windows'
 ): Promise<ZoomInstallInfo | undefined> {
-  logInfo(`Getting install info for ${appName} on ${installPlatform}`, LogPrefix.Zoom)
+  logInfo(
+    `Getting install info for ${appName} on ${installPlatform}`,
+    LogPrefix.Zoom
+  )
 
   const gameData = getGameInfo(appName)
   if (!gameData) {
@@ -199,11 +200,16 @@ export async function getInstallInfo(
   }
 
   try {
-    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(`${apiUrl}/li/game/${appName}/files`)
+    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
+      `${apiUrl}/li/game/${appName}/files`
+    )
     const files = filesRequest[installPlatform as keyof ZoomFilesResponse] || []
 
     if (files.length === 0) {
-      logWarning(`No installer files found for ${appName} on platform ${installPlatform}`, LogPrefix.Zoom)
+      logWarning(
+        `No installer files found for ${appName} on platform ${installPlatform}`,
+        LogPrefix.Zoom
+      )
       return
     }
 
@@ -226,7 +232,9 @@ export async function getInstallInfo(
         languages: [],
         versionEtag: '',
         dependencies: [],
-        perLangSize: { '*': { download_size: sizeInBytes, disk_size: sizeInBytes } }
+        perLangSize: {
+          '*': { download_size: sizeInBytes, disk_size: sizeInBytes }
+        }
       }
     }
     installInfoStore.set(appName, info)
@@ -251,7 +259,9 @@ export function refreshInstalled() {
 export async function getExtras(appName: string) {
   logDebug(`Fetching extras for Zoom ID ${appName}`, LogPrefix.Zoom)
   try {
-    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(`${apiUrl}/li/game/${appName}/files`)
+    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
+      `${apiUrl}/li/game/${appName}/files`
+    )
     const allExtras: {
       name: string
       url: string
@@ -262,7 +272,9 @@ export async function getExtras(appName: string) {
     for (const extraType of ['manual', 'misc', 'soundtrack'] as const) {
       const files = filesRequest[extraType] || []
       for (const file of files) {
-        const downloadRequest = await ZoomUser.makeRequest(`${apiUrl}/li/download/${file.id}`)
+        const downloadRequest = await ZoomUser.makeRequest(
+          `${apiUrl}/li/download/${file.id}`
+        )
         allExtras.push({
           name: file.name,
           url: downloadRequest.url,
@@ -278,28 +290,43 @@ export async function getExtras(appName: string) {
   }
 }
 
-export async function getInstallers(platform: string, appName: string): Promise<ZoomDownloadFile[]> {
-  logDebug(`Fetching installers for ${appName} on platform ${platform}`, LogPrefix.Zoom)
+export async function getInstallers(
+  platform: string,
+  appName: string
+): Promise<ZoomDownloadFile[]> {
+  logDebug(
+    `Fetching installers for ${appName} on platform ${platform}`,
+    LogPrefix.Zoom
+  )
   try {
-    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(`${apiUrl}/li/game/${appName}/files`)
+    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
+      `${apiUrl}/li/game/${appName}/files`
+    )
     const files = filesRequest[platform as keyof ZoomFilesResponse] || []
 
     if (files.length === 0) {
-      logWarning(`No installer files found for ${appName} on platform ${platform}`, LogPrefix.Zoom)
+      logWarning(
+        `No installer files found for ${appName} on platform ${platform}`,
+        LogPrefix.Zoom
+      )
       return []
     }
     // The Python example asserts len(files) == 1. We'll take the first one for now.
     const installerFile = files[0]
-    const downloadRequest = await ZoomUser.makeRequest(`${apiUrl}/li/download/${installerFile.id}`)
+    const downloadRequest = await ZoomUser.makeRequest(
+      `${apiUrl}/li/download/${installerFile.id}`
+    )
 
-    return [{
-      url: downloadRequest.url,
-      filename: installerFile.name,
-      total_size: parseSize(installerFile.size),
-      id: installerFile.id,
-      name: installerFile.name,
-      size: installerFile.size
-    }]
+    return [
+      {
+        url: downloadRequest.url,
+        filename: installerFile.name,
+        total_size: parseSize(installerFile.size),
+        id: installerFile.id,
+        name: installerFile.name,
+        size: installerFile.size
+      }
+    ]
   } catch (error) {
     logError(['Error fetching Zoom installers:', error], LogPrefix.Zoom)
     return []
@@ -312,15 +339,23 @@ export function getLaunchOptions(): LaunchOption[] {
   return []
 }
 
-export async function changeGameInstallPath(appName: string, newInstallPath: string): Promise<void> {
+export async function changeGameInstallPath(
+  appName: string,
+  newInstallPath: string
+): Promise<void> {
   const cachedGameData = library.get(appName)
   if (!cachedGameData || !cachedGameData.install) {
-    logError('Changing game install path failed: Game data could not be found', LogPrefix.Zoom)
+    logError(
+      'Changing game install path failed: Game data could not be found',
+      LogPrefix.Zoom
+    )
     return
   }
 
   const installedArray = installedGamesStore.get('installed', [])
-  const gameIndex = installedArray.findIndex((value) => value.appName === appName)
+  const gameIndex = installedArray.findIndex(
+    (value) => value.appName === appName
+  )
 
   installedArray[gameIndex].install_path = newInstallPath
   cachedGameData.install.install_path = newInstallPath
@@ -328,7 +363,10 @@ export async function changeGameInstallPath(appName: string, newInstallPath: str
 }
 
 export function installState() {
-  logWarning(`installState not implemented on Zoom Library Manager`, LogPrefix.Zoom)
+  logWarning(
+    `installState not implemented on Zoom Library Manager`,
+    LogPrefix.Zoom
+  )
 }
 
 export function changeVersionPinnedStatus(appName: string, status: boolean) {

@@ -50,9 +50,7 @@ export default function ModifyInstallModal({
             )}
             {gameInfo.runner === 'legendary' && (
               <LegendaryModifyInstallModal
-                dlcs={
-                  (gameInstallInfo as LegendaryInstallInfo)?.game.owned_dlc
-                }
+                dlcs={(gameInstallInfo as LegendaryInstallInfo)?.game.owned_dlc}
                 gameInfo={gameInfo}
                 onClose={onClose}
               />

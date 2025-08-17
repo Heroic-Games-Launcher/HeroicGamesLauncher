@@ -44,7 +44,8 @@ export default function SidebarLinks() {
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
 
-  const loggedIn = epic.username || gog.username || amazon.user_id || zoom.username
+  const loggedIn =
+    epic.username || gog.username || amazon.user_id || zoom.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -77,7 +78,8 @@ export default function SidebarLinks() {
 
   // By default, open Epic Store
   let defaultStore = 'epic'
-  if (!epic.username && !gog.username && !amazon.user_id && zoom.username) { // Prioritize Zoom if only Zoom is logged in
+  if (!epic.username && !gog.username && !amazon.user_id && zoom.username) {
+    // Prioritize Zoom if only Zoom is logged in
     defaultStore = 'zoom'
   } else if (!epic.username && !gog.username && amazon.user_id) {
     // If only logged in to Amazon Games, open Amazon Gaming

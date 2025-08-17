@@ -9,7 +9,11 @@ import {
   LegendaryInstallInfo
 } from './types/legendary'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
-import { ZoomInstallPlatform, ZoomInstalledInfo, ZoomInstallInfo } from './types/zoom'
+import {
+  ZoomInstallPlatform,
+  ZoomInstalledInfo,
+  ZoomInstallInfo
+} from './types/zoom'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'

@@ -80,7 +80,8 @@ export default function LogSettings() {
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
-  const { epic, gog, amazon, zoom, sideloadedLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, sideloadedLibrary } =
+    useContext(ContextProvider)
   const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
 
   useEffect(() => {

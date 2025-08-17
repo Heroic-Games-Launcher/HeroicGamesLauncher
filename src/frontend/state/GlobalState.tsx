@@ -179,7 +179,8 @@ class GlobalState extends PureComponent<Props> {
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
     },
-    zoom: { // Initialized Zoom state
+    zoom: {
+      // Initialized Zoom state
       library: this.loadZoomLibrary(),
       username: zoomConfigStore.get_nodefault('username') // Assuming 'username' is stored in zoomConfigStore
     },
@@ -888,7 +889,8 @@ class GlobalState extends PureComponent<Props> {
             username: this.state.gog.username
           }
         })
-      } else if (args.runner === 'zoom') { // Handle Zoom game push
+      } else if (args.runner === 'zoom') {
+        // Handle Zoom game push
         const library = [...this.state.zoom.library]
         const index = library.findIndex(
           (game) => game.app_name === args.app_name
@@ -934,7 +936,8 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getAmazonUserInfo()
     }
 
-    if (zoomUser) { // Get Zoom user details
+    if (zoomUser) {
+      // Get Zoom user details
       await window.api.getZoomUserInfo()
     }
 
@@ -943,7 +946,8 @@ class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    if (legendaryUser || gogUser || amazonUser || zoomUser) { // Include zoomUser in refresh condition
+    if (legendaryUser || gogUser || amazonUser || zoomUser) {
+      // Include zoomUser in refresh condition
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:

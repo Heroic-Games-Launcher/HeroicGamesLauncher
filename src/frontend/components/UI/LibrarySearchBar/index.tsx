@@ -19,7 +19,8 @@ const RUNNER_TO_STORE: Partial<Record<Runner, string>> = {
 }
 
 export default function LibrarySearchBar() {
-  const { epic, gog, sideloadedLibrary, amazon, zoom } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary, amazon, zoom } =
+    useContext(ContextProvider)
   const { handleSearch, filterText } = useContext(LibraryContext)
   const navigate = useNavigate()
   const { t } = useTranslation()

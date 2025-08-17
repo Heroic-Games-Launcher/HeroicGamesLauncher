@@ -138,7 +138,10 @@ const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
-const zoomLibraryStore = new CacheStore<GameInfo[], 'games'>('zoom_library', null)
+const zoomLibraryStore = new CacheStore<GameInfo[], 'games'>(
+  'zoom_library',
+  null
+)
 const zoomInstalledGamesStore = new TypeCheckedStoreFrontend(
   'zoomInstalledGamesStore',
   {

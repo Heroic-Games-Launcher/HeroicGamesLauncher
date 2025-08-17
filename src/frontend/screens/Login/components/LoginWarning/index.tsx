@@ -5,7 +5,12 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import { useTranslation } from 'react-i18next'
-import { amazonLoginPath, epicLoginPath, gogLoginPath, zoomLoginPath } from '../..'
+import {
+  amazonLoginPath,
+  epicLoginPath,
+  gogLoginPath,
+  zoomLoginPath
+} from '../..'
 import { NavLink } from 'react-router-dom'
 
 interface LoginWarningProps {
