@@ -35,23 +35,12 @@ const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
 export async function initZoomLibraryManager() {
-  if (process.env.HEROIC_CLEAR_CACHE) {
-    try {
-      if (existsSync(cachePath)) {
-        unlinkSync(cachePath)
-        logInfo('Cleared Zoom library cache on startup', LogPrefix.Zoom)
-      }
-    } catch (error) {
-      logError(['Error clearing Zoom library cache on startup:', error], LogPrefix.Zoom)
-    }
-  }
   await refresh()
 }
 
 export async function refresh(): Promise<ExecResult> {
   if (!await ZoomUser.isLoggedIn()) {
-    logError('User not connected to Zoom', LogPrefix.Zoom)
-    return { stdout: '', stderr: 'User not connected to Zoom' }
+    return { stdout: '', stderr: '' }
   }
 
   if (!isOnline()) {
