@@ -198,7 +198,7 @@ export async function install(
   logInfo(`Installation path: ${path}`, LogPrefix.Zoom)
 
   const gameInfo = getGameInfo(appName)
-  if (!gameInfo) {
+  if (!gameInfo || !gameInfo.folder_name) {
     logError(`Game info not found for ${appName}`, LogPrefix.Zoom)
     return { status: 'error', error: 'Game info not found' }
   }
@@ -216,7 +216,10 @@ export async function install(
   const installerFilename = installers[0].filename
   const installerSize = installers[0].size
 
-  const downloadPath = join(path, installerFilename)
+  const downloadPath = join(path, gameInfo.folder_name, installerFilename)
+
+  // Create game directory
+  fs.mkdirSync(join(path, gameInfo.folder_name), { recursive: true })
 
   // Download the installer
   logInfo(`Downloading installer from ${installerUrl} to ${downloadPath}`, LogPrefix.Zoom)
@@ -255,12 +258,12 @@ export async function install(
   if (installPlatform === 'linux') {
     if (downloadPath.endsWith('.tar.xz')) {
       logInfo(`Extracting ${downloadPath}...`, LogPrefix.Zoom)
-      installResult = await spawnAsync('tar', ['-xf', downloadPath, '-C', path])
-      let gamePath = path
-      const files = await fs.promises.readdir(path)
-      const gameDir = files.find(f => fs.statSync(join(path, f)).isDirectory())
+      installResult = await spawnAsync('tar', ['-xf', downloadPath, '-C', join(path, gameInfo.folder_name)])
+      let gamePath = join(path, gameInfo.folder_name)
+      const files = await fs.promises.readdir(join(path, gameInfo.folder_name))
+      const gameDir = files.find(f => fs.statSync(join(path, gameInfo.folder_name!, f)).isDirectory())
       if (gameDir) {
-        gamePath = join(path, gameDir)
+        gamePath = join(path, gameInfo.folder_name!, gameDir)
       }
 
       const exe = join(gamePath, 'start.sh')
@@ -270,7 +273,7 @@ export async function install(
       }
     } else {
       await fs.promises.chmod(executable, '755')
-      installResult = await spawnAsync(executable, [], { cwd: path })
+      installResult = await spawnAsync(executable, [], { cwd: join(path, gameInfo.folder_name) })
     }
   } else { // windows
     // For Windows, use runWineCommand
@@ -354,8 +357,8 @@ export async function install(
 
   const installedData: InstalledInfo = {
     platform: installPlatform,
-    executable: finalExecutable.replace('{app}', path),
-    install_path: path,
+    executable: finalExecutable.replace('{app}', join(path, gameInfo.folder_name)),
+    install_path: join(path, gameInfo.folder_name),
     isDosbox,
     dosboxConf,
     install_size: getFileSize(parseSize(installerSize)), // This might need to be the actual installed size, not just installer size

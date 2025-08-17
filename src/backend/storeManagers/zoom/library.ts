@@ -92,6 +92,7 @@ export async function refresh(): Promise<ExecResult> {
 
   logInfo('Saved games data for Zoom', LogPrefix.Zoom)
 
+  sendFrontendMessage('refreshLibrary', 'zoom')
   return { stdout: 'Library refreshed', stderr: '' }
 }
 
