@@ -55,19 +55,6 @@ export interface ZoomDownloadFile {
   total_size: number
 }
 
-export interface ZoomLoginData {
-  li_token: string
-}
-
-export interface ZoomGameDetails {
-  id: number
-  slug: string
-  name: string
-  poster_url: string
-  operating_systems: string[]
-  // Add any other relevant fields from the Zoom API game details
-}
-
 export interface ZoomLibraryResponse {
   current_page: number
   total_pages: number
@@ -82,7 +69,7 @@ export interface ZoomFilesResponse {
   linux?: ZoomDownloadFile[]
 }
 
-export interface DLCInfo {
+interface DLCInfo {
   app_name: string
   title: string
 }

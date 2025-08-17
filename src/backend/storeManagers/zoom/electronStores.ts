@@ -40,7 +40,6 @@ export {
   configStore,
   installedGamesStore,
   libraryStore,
-  syncStore,
   installInfoStore
   // privateBranchesStore,
   // playtimeSyncQueue
