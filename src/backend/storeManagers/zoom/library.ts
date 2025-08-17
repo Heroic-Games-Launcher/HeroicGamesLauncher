@@ -26,7 +26,6 @@ import { getFileSize, parseSize } from '../../utils'
 import {
   libraryStore,
   installedGamesStore,
-  apiInfoCache,
   installInfoStore
 } from './electronStores'
 import { isOnline } from '../../online_monitor'
@@ -57,7 +56,6 @@ export async function refresh(): Promise<ExecResult> {
 
   const gamesObjects: GameInfo[] = []
   library.clear()
-  apiInfoCache.use_in_memory() // Prevent blocking operations
 
   for (const zoomGame of gameApiArray) {
     const unifiedObject = zoomToUnifiedInfo(zoomGame)
@@ -78,7 +76,6 @@ export async function refresh(): Promise<ExecResult> {
     sendFrontendMessage('pushGameToLibrary', unifiedObject)
   }
 
-  apiInfoCache.commit() // Sync cache to drive
   libraryStore.set('games', gamesObjects)
 
   void new Promise(() => {

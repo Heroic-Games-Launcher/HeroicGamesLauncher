@@ -15,7 +15,6 @@ const configStore = new TypeCheckedStoreBackend('zoomConfigStore', {
   cwd: 'zoom_store'
 })
 
-const apiInfoCache = new CacheStore<ZoomGameInfo>('zoom_api_info')
 const libraryStore = new CacheStore<GameInfo[], 'games'>('zoom_library', null)
 const syncStore = new TypeCheckedStoreBackend('zoomSyncStore', {
   cwd: 'zoom_store',
@@ -40,7 +39,6 @@ const installInfoStore = new CacheStore<ZoomInstallInfo>('zoom_install_info')
 export {
   configStore,
   installedGamesStore,
-  apiInfoCache,
   libraryStore,
   syncStore,
   installInfoStore
