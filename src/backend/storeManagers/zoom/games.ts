@@ -7,7 +7,7 @@ import {
   sendProgressUpdate,
   sendGameStatusUpdate
 } from '../../utils'
-import { join, relative } from 'node:path'
+import { join, relative, dirname } from 'node:path'
 import * as fs from 'fs'
 import axios, { AxiosProgressEvent } from 'axios'
 import { createWriteStream } from 'node:fs' // Use node:fs for createWriteStream
@@ -65,23 +65,45 @@ import {
 import type LogWriter from 'backend/logger/log_writer'
 
 async function findDosboxExecutable(dir: string): Promise<string | undefined> {
+  let list: fs.Dirent[]
+  try {
+    list = await fs.promises.readdir(dir, { withFileTypes: true })
+  } catch (error) {
+    logError(`Error reading directory ${dir} for dosbox.exe: ${error}`, LogPrefix.Zoom)
+    return undefined // Cannot read dir, so stop here for this branch
+  }
+
+  for (const file of list) {
+    const fullPath = join(dir, file.name)
+    if (file.isDirectory()) {
+      const result = await findDosboxExecutable(fullPath)
+      if (result) {
+        return result
+      }
+    } else if (file.name.toLowerCase() === 'dosbox.exe') {
+      return fullPath
+    }
+  }
+
+  return undefined
+}
+
+async function findConfFiles(dir: string): Promise<string[]> {
+  let confFiles: string[] = []
   try {
     const list = await fs.promises.readdir(dir, { withFileTypes: true })
     for (const file of list) {
       const fullPath = join(dir, file.name)
       if (file.isDirectory()) {
-        const result = await findDosboxExecutable(fullPath)
-        if (result) {
-          return result
-        }
-      } else if (file.name.toLowerCase() === 'dosbox.exe') {
-        return fullPath
+        confFiles = confFiles.concat(await findConfFiles(fullPath))
+      } else if (file.name.toLowerCase().endsWith('.conf')) {
+        confFiles.push(fullPath)
       }
     }
   } catch (error) {
-    logError(`Error finding dosbox.exe in ${dir}: ${error}`, LogPrefix.Zoom)
+    logError(`Error finding .conf files in ${dir}: ${error}`, LogPrefix.Zoom)
   }
-  return undefined
+  return confFiles
 }
 
 export async function getExtraInfo(): Promise<ExtraInfo> {
@@ -289,6 +311,7 @@ export async function install(
   // Execute the installer
   logInfo(`Executing installer: ${executable}`, LogPrefix.Zoom)
   let installResult: ExecResult
+  let confFilesBefore: string[] = []
 
   if (installPlatform === 'linux') {
     if (downloadPath.endsWith('.tar.xz')) {
@@ -323,6 +346,13 @@ export async function install(
     // windows
     // For Windows, use runWineCommand
     const gameSettings = await getSettings(appName)
+    const winePrefix = gameSettings.winePrefix
+    const zoomPlatformPath = join(winePrefix, 'drive_c', 'ZOOM PLATFORM')
+    if (fs.existsSync(zoomPlatformPath)) {
+      confFilesBefore = await findConfFiles(zoomPlatformPath)
+    } else {
+      fs.mkdirSync(zoomPlatformPath, { recursive: true })
+    }
     installResult = await runWineCommand({
       commandParts: [executable],
       gameSettings,
@@ -352,31 +382,46 @@ export async function install(
   let finalExecutable = ''
 
   if (installPlatform === 'windows') {
-    const installPath = join(path, gameInfo.folder_name)
-    logInfo(`Searching for executable in ${installPath} !!!!`, LogPrefix.Zoom)
-    const files = await fs.promises.readdir(installPath, {
-      withFileTypes: true
-    })
-    const confFiles = files
-      .filter((f) => f.isFile() && f.name.endsWith('.conf'))
-      .map((f) => f.name)
+    const gameSettings = await getSettings(appName)
+    const winePrefix = gameSettings.winePrefix
+    const installPath = join(winePrefix, 'drive_c', 'ZOOM PLATFORM')
+    logInfo(`Searching for executable in ${installPath}`, LogPrefix.Zoom)
 
-    if (confFiles.length > 0) {
-      const dosboxExePath = await findDosboxExecutable(installPath)
+    const confFilesAfter = await findConfFiles(installPath)
+    const newConfFiles = confFilesAfter.filter(
+      (f) => !confFilesBefore.includes(f)
+    )
+
+    if (newConfFiles.length > 0) {
+      dosboxConf = newConfFiles[0] // Assume the first new .conf file is the correct one
+      const gameDirectory = dirname(dosboxConf)
+      const dosboxExePath = await findDosboxExecutable(gameDirectory)
       if (dosboxExePath) {
         finalExecutable = relative(installPath, dosboxExePath)
         isDosbox = true
-        dosboxConf = confFiles[0] // Assume the first .conf file is the correct one
       }
     }
 
     if (!isDosbox) {
-      const files = await fs.promises.readdir(installPath, {
-        withFileTypes: true
-      })
-      const exes = files
-        .filter((f) => f.isFile() && f.name.endsWith('.exe'))
-        .map((f) => f.name)
+      const findExes = async (dir: string): Promise<string[]> => {
+        let exes: string[] = []
+        try {
+          const list = await fs.promises.readdir(dir, { withFileTypes: true })
+          for (const file of list) {
+            const fullPath = join(dir, file.name)
+            if (file.isDirectory()) {
+              exes = exes.concat(await findExes(fullPath))
+            } else if (file.name.toLowerCase().endsWith('.exe')) {
+              exes.push(fullPath)
+            }
+          }
+        } catch (error) {
+          logError(`Error finding .exe files in ${dir}: ${error}`, LogPrefix.Zoom)
+        }
+        return exes
+      }
+      const exes = (await findExes(installPath))
+        .map((f) => relative(installPath, f))
         .filter((name) => !/setup|unins|redist/i.test(name))
 
       if (exes.length === 1) {
