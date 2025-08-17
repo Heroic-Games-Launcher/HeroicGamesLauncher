@@ -38,6 +38,7 @@ export async function initZoomLibraryManager() {
 }
 
 export async function refresh(): Promise<ExecResult> {
+  refreshInstalled()
   if (!await ZoomUser.isLoggedIn()) {
     return { stdout: '', stderr: '' }
   }

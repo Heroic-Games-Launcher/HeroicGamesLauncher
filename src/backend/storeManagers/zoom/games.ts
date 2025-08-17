@@ -68,6 +68,26 @@ import { getInstallers, getGameInfo as getZoomLibraryGameInfo, refreshInstalled,
 
 import type LogWriter from 'backend/logger/log_writer'
 
+async function findDosboxExecutable(dir: string): Promise<string | undefined> {
+  try {
+    const list = await fs.promises.readdir(dir, { withFileTypes: true })
+    for (const file of list) {
+      const fullPath = join(dir, file.name)
+      if (file.isDirectory()) {
+        const result = await findDosboxExecutable(fullPath)
+        if (result) {
+          return result
+        }
+      } else if (file.name.toLowerCase() === 'dosbox.exe') {
+        return fullPath
+      }
+    }
+  } catch (error) {
+    logError(`Error finding dosbox.exe in ${dir}: ${error}`, LogPrefix.Zoom)
+  }
+  return undefined
+}
+
 export async function getExtraInfo(): Promise<ExtraInfo> {
   // Zoom.py doesn't have direct equivalents for reqs, changelog, etc.
   // This part would need to be implemented if the Zoom API provides such data.
@@ -301,23 +321,24 @@ export async function install(
   let finalExecutable = ''
 
   if (installPlatform === 'windows') {
-    logInfo(`Searching for executable in ${path} !!!!`, LogPrefix.Zoom)
-    const files = await fs.promises.readdir(path, { withFileTypes: true })
+    const installPath = join(path, gameInfo.folder_name)
+    logInfo(`Searching for executable in ${installPath} !!!!`, LogPrefix.Zoom)
+    const files = await fs.promises.readdir(installPath, { withFileTypes: true })
     const confFiles = files
       .filter(f => f.isFile() && f.name.endsWith('.conf'))
       .map(f => f.name)
 
     if (confFiles.length > 0) {
-      const dosboxExe = files.find(f => f.isFile() && f.name.toLowerCase() === 'dosbox.exe')
-      if (dosboxExe) {
-        finalExecutable = dosboxExe.name
+      const dosboxExePath = await findDosboxExecutable(installPath)
+      if (dosboxExePath) {
+        finalExecutable = relative(installPath, dosboxExePath)
         isDosbox = true
         dosboxConf = confFiles[0] // Assume the first .conf file is the correct one
       }
     }
 
     if (!isDosbox) {
-      const files = await fs.promises.readdir(path, { withFileTypes: true })
+      const files = await fs.promises.readdir(installPath, { withFileTypes: true })
       const exes = files
         .filter(f => f.isFile() && f.name.endsWith('.exe'))
         .map(f => f.name)
@@ -336,7 +357,7 @@ export async function install(
           // As a fallback, pick the largest exe
           let largestSize = 0
           for (const exe of exes) {
-            const exePath = join(path, exe)
+            const exePath = join(installPath, exe)
             const stats = fs.statSync(exePath)
             if (stats.size > largestSize) {
               largestSize = stats.size
