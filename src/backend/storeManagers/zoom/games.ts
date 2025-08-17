@@ -1,7 +1,6 @@
 import { GameConfig } from '../../game_config'
 import {
   errorHandler,
-  extractFiles,
   getFileSize,
   parseSize,
   spawnAsync,
@@ -135,11 +134,11 @@ export async function getSettings(appName: string): Promise<GameSettings> {
 
 export async function importGame(
   appName: string,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   folderPath: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  platform: InstallPlatform
+  _platform: InstallPlatform
 ): Promise<ExecResult> {
-  platform = platform.toLowerCase() as ZoomInstallPlatform
   // The original zoom.py doesn't have an explicit "import" function for installed games.
   // It relies on scanning the library. This function might need to be adapted
   // if Zoom has a way to import already installed games.
@@ -283,7 +282,7 @@ export async function install(
       const files = await fs.promises.readdir(join(path, gameInfo.folder_name))
       const gameDir = files.find(f => fs.statSync(join(path, gameInfo.folder_name!, f)).isDirectory())
       if (gameDir) {
-        gamePath = join(path, gameInfo.folder_name!, gameDir)
+        gamePath = join(path, gameInfo.folder_name, gameDir)
       }
 
       const exe = join(gamePath, 'start.sh')
@@ -621,6 +620,7 @@ export async function launch(
 
 export async function moveInstall(
   appName: string,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   newInstallPath: string
 ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
   logWarning(`Move install not implemented for Zoom: ${appName}`, LogPrefix.Zoom)
@@ -634,7 +634,9 @@ export async function repair(appName: string): Promise<ExecResult> {
 
 export async function syncSaves(
   appName: string,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   arg: string,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   path: string
 ): Promise<string> {
   logWarning(`Sync saves not implemented for Zoom: ${appName}`, LogPrefix.Zoom)
@@ -643,6 +645,7 @@ export async function syncSaves(
 
 export async function uninstall({
   appName,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   shouldRemovePrefix
 }: RemoveArgs): Promise<ExecResult> {
   const array = installedGamesStore.get('installed', [])
@@ -669,6 +672,7 @@ export async function uninstall({
 
 export async function update(
   appName: string,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   updateOverwrites?: {
     build?: string
     branch?: string
@@ -691,7 +695,8 @@ export async function forceUninstall(appName: string): Promise<void> {
   sendFrontendMessage('pushGameToLibrary', gameInfo)
 }
 
-export async function stop(appName: string, stopWine = true): Promise<void> {
+export async function stop(appName: string, /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+stopWine = true): Promise<void> {
   logWarning(`Stop not fully implemented for Zoom: ${appName}`, LogPrefix.Zoom)
   // For now, we don't have a specific process to stop for Zoom games
   // If wine is used, it will be handled by the launcher's wine cleanup.

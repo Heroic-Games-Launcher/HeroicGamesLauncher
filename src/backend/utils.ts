@@ -1574,6 +1574,7 @@ function parseSize(size: string): number {
   }
   try {
     return Math.round(parseFloat(size) * (1024 ** unit_index));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     logWarning(`Invalid size value '${size}'`, LogPrefix.Backend);
     return 0;

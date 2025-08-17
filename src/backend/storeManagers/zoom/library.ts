@@ -13,7 +13,7 @@ import {
   ZoomFilesResponse,
   ZoomInstallInfo
 } from 'common/types/zoom'
-import { existsSync, readFileSync, writeFileSync, unlinkSync } from 'graceful-fs'
+import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 
 import {
   logDebug,
