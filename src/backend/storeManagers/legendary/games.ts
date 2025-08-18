@@ -4,7 +4,7 @@ import axios from 'axios'
 import {
   ExecResult,
   ExtraInfo,
-  GameInfo,
+  LegendaryGameInfo,
   InstallArgs,
   InstallPlatform,
   InstallProgress,
@@ -102,7 +102,7 @@ export async function checkGameUpdates() {
  *
  * @returns GameInfo
  */
-export function getGameInfo(appName: string): GameInfo {
+export function getGameInfo(appName: string): LegendaryGameInfo {
   const info = getLegLibraryGameInfo(appName)
   if (!info) {
     logError(
@@ -666,7 +666,7 @@ export async function install(
 }
 
 async function installEA(
-  gameInfo: GameInfo,
+  gameInfo: LegendaryGameInfo,
   platformToInstall: string
 ): Promise<{
   status: 'done' | 'error' | 'abort'
