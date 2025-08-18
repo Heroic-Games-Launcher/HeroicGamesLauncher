@@ -1,10 +1,10 @@
 import { join } from 'path'
 import { existsSync } from 'graceful-fs'
 import { logInfo, LogPrefix } from 'backend/logger'
-import { spawn } from 'child_process'
 import { isLinux, isMac } from 'backend/constants/environment'
 import { getSettings, isNative, getGameInfo } from '../games'
 import { runWineCommand } from 'backend/launcher'
+import { spawnAsync } from 'backend/utils'
 import { RunTask } from 'backend/storeManagers/customLibraries/tasks/types'
 
 export async function executeRunTask(
@@ -51,36 +51,29 @@ export async function executeRunTask(
       await makeExecutable(executablePath)
     }
 
-    await new Promise<void>((resolve, reject) => {
-      const powershellArgs = [
-        '-Command',
-        [
-          'Start-Process',
-          '-Wait',
-          `"${executablePath}"`,
-          args.length ? `-ArgumentList '${args.join("','")}'` : '',
-          '-WorkingDirectory',
-          `"${gameFolder}"`,
-          '-Verb',
-          'RunAs'
-        ]
-          .filter(Boolean)
-          .join(' ')
+    const powershellArgs = [
+      '-Command',
+      [
+        'Start-Process',
+        '-Wait',
+        `"${executablePath}"`,
+        args.length ? `-ArgumentList '${args.join("','")}'` : '',
+        '-WorkingDirectory',
+        `"${gameFolder}"`,
+        '-Verb',
+        'RunAs'
       ]
-      const process = spawn('powershell', powershellArgs, { stdio: 'inherit' })
+        .filter(Boolean)
+        .join(' ')
+    ]
 
-      process.on('close', (code) => {
-        if (code === 0) {
-          resolve()
-        } else {
-          reject(new Error(`Process failed with code ${code}`))
-        }
-      })
-
-      process.on('error', (error) => {
-        reject(new Error(`Process failed: ${error.message}`))
-      })
+    const { code, stderr } = await spawnAsync('powershell', powershellArgs, {
+      stdio: 'inherit'
     })
+
+    if (code !== 0) {
+      throw new Error(`Process failed with code ${code}: ${stderr}`)
+    }
   }
 
   logInfo(`Running: ${task.executable} (Done)`, LogPrefix.CustomLibrary)
@@ -92,13 +85,9 @@ function substituteVariables(args: string[], gameFolder: string): string[] {
 
 async function makeExecutable(executablePath: string): Promise<void> {
   if (isLinux || isMac) {
-    await new Promise<void>((resolve, reject) => {
-      const chmod = spawn('chmod', ['+x', executablePath])
-      chmod.on('close', (code) => {
-        if (code === 0) resolve()
-        else reject(new Error(`chmod failed with code ${code}`))
-      })
-      chmod.on('error', reject)
-    })
+    const { code, stderr } = await spawnAsync('chmod', ['+x', executablePath])
+    if (code !== 0) {
+      throw new Error(`chmod failed with code ${code}: ${stderr}`)
+    }
   }
 }

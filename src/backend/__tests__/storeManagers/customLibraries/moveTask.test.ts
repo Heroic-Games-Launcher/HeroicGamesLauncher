@@ -1,16 +1,6 @@
 const mockEnvironment = { isWindows: false }
 jest.mock('backend/constants/environment', () => mockEnvironment)
 
-// Mock child_process spawn
-const mockSpawn = {
-  on: jest.fn(),
-  stdout: { on: jest.fn() },
-  stderr: { on: jest.fn() }
-}
-jest.mock('child_process', () => ({
-  spawn: jest.fn(() => mockSpawn)
-}))
-
 import {
   getSettings,
   isNative,
@@ -18,9 +8,9 @@ import {
 } from 'backend/storeManagers/customLibraries/games'
 import { MoveTask } from 'backend/storeManagers/customLibraries/tasks/types'
 import { join, dirname, isAbsolute } from 'path'
-import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
+import { existsSync, mkdirSync, rmSync, renameSync } from 'graceful-fs'
 import { executeMoveTask } from 'backend/storeManagers/customLibraries/tasks/moveTask'
-import { spawn } from 'child_process'
+import { spawnAsync } from 'backend/utils'
 
 jest.mock('fs-extra')
 jest.mock('graceful-fs')
@@ -40,71 +30,37 @@ jest.mock('backend/storeManagers/customLibraries/games', () => ({
   getGameInfo: jest.fn()
 }))
 
+jest.mock('backend/utils', () => ({
+  spawnAsync: jest.fn()
+}))
+
 const mockJoin = join as jest.MockedFunction<typeof join>
 const mockDirname = dirname as jest.MockedFunction<typeof dirname>
 const mockIsAbsolute = isAbsolute as jest.MockedFunction<typeof isAbsolute>
 const mockExistsSync = existsSync as jest.MockedFunction<typeof existsSync>
 const mockMkdirSync = mkdirSync as jest.MockedFunction<typeof mkdirSync>
 const mockRmSync = rmSync as jest.MockedFunction<typeof rmSync>
+const mockRenameSync = renameSync as jest.MockedFunction<typeof renameSync>
 const mockGetSettings = getSettings as jest.MockedFunction<typeof getSettings>
 const mockIsNative = isNative as jest.MockedFunction<typeof isNative>
 const mockGetGameInfo = getGameInfo as jest.MockedFunction<typeof getGameInfo>
-const mockSpawnFn = spawn as jest.MockedFunction<typeof spawn>
+const mockSpawnAsync = spawnAsync as jest.MockedFunction<typeof spawnAsync>
 
 // Helper function to mock successful spawnAsync calls
-const mockSuccessfulSpawn = (
-  expectedCommand?: string,
-  expectedArgs?: string[]
-) => {
-  mockSpawnFn.mockImplementation((command, args) => {
-    if (expectedCommand && command !== expectedCommand) {
-      throw new Error(`Expected command ${expectedCommand}, got ${command}`)
-    }
-    if (expectedArgs && JSON.stringify(args) !== JSON.stringify(expectedArgs)) {
-      throw new Error(
-        `Expected args ${JSON.stringify(expectedArgs)}, got ${JSON.stringify(args)}`
-      )
-    }
-
-    const mockProcess = {
-      on: jest.fn((event, callback) => {
-        if (event === 'close') {
-          // Simulate successful exit
-          setTimeout(() => callback(0), 0)
-        }
-      }),
-      stdout: { on: jest.fn() },
-      stderr: { on: jest.fn() }
-    }
-    return mockProcess as any
+const mockSuccessfulSpawn = () => {
+  mockSpawnAsync.mockResolvedValue({
+    code: 0,
+    stdout: '',
+    stderr: ''
   })
 }
 
 // Helper function to mock failed spawnAsync calls
 const mockFailedSpawn = (exitCode = 1, stderr = 'Mock error') => {
-  mockSpawnFn.mockImplementation(() => {
-    const mockProcess = {
-      on: jest.fn((event, callback) => {
-        if (event === 'close') {
-          setTimeout(() => callback(exitCode), 0)
-        }
-      }),
-      stdout: {
-        on: jest.fn((event) => {
-          if (event === 'data') {
-            // Don't emit data for failures
-          }
-        })
-      },
-      stderr: {
-        on: jest.fn((event, callback) => {
-          if (event === 'data') {
-            setTimeout(() => callback(stderr), 0)
-          }
-        })
-      }
-    }
-    return mockProcess as any
+  mockSpawnAsync.mockResolvedValue({
+    code: exitCode,
+    stdout: '',
+    stderr
   })
 }
 
@@ -145,7 +101,7 @@ describe('MoveTask - executeMoveTask', () => {
     mockEnvironment.isWindows = false
   })
 
-  test('moves file successfully with relative paths', async () => {
+  test('moves file successfully with relative paths on Unix', async () => {
     const task: MoveTask = {
       type: 'move',
       source: 'temp/file.txt',
@@ -157,16 +113,17 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
 
-    // Mock successful rsync for Unix
-    mockSuccessfulSpawn()
-
     await executeMoveTask(task, gameFolder, appName)
 
-    // Should call spawn with rsync (since we're on Unix and rsync exists)
-    expect(mockSpawnFn).toHaveBeenCalled()
+    // On Unix, should use renameSync, not spawnAsync
+    expect(mockRenameSync).toHaveBeenCalledWith(
+      '/path/to/game/temp/file.txt',
+      '/path/to/game/final/file.txt'
+    )
+    expect(mockSpawnAsync).not.toHaveBeenCalled()
   })
 
-  test('moves file with absolute paths', async () => {
+  test('moves file with absolute paths on Unix', async () => {
     const task: MoveTask = {
       type: 'move',
       source: '/absolute/source/file.txt',
@@ -178,11 +135,13 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
 
-    mockSuccessfulSpawn()
-
     await executeMoveTask(task, gameFolder, appName)
 
-    expect(mockSpawnFn).toHaveBeenCalled()
+    expect(mockRenameSync).toHaveBeenCalledWith(
+      '/absolute/source/file.txt',
+      '/absolute/dest/file.txt'
+    )
+    expect(mockSpawnAsync).not.toHaveBeenCalled()
   })
 
   test('creates destination directory if it does not exist', async () => {
@@ -197,14 +156,12 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(false) // destination dir doesn't exist
       .mockReturnValueOnce(false) // destination file
 
-    mockSuccessfulSpawn()
-
     await executeMoveTask(task, gameFolder, appName)
 
     expect(mockMkdirSync).toHaveBeenCalledWith('/path/to/game/new/folder', {
       recursive: true
     })
-    expect(mockSpawnFn).toHaveBeenCalled()
+    expect(mockRenameSync).toHaveBeenCalled()
   })
 
   test('removes existing destination before moving', async () => {
@@ -219,15 +176,13 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(true) // destination file exists
 
-    mockSuccessfulSpawn()
-
     await executeMoveTask(task, gameFolder, appName)
 
     expect(mockRmSync).toHaveBeenCalledWith('/path/to/game/dest.txt', {
       recursive: true,
       force: true
     })
-    expect(mockSpawnFn).toHaveBeenCalled()
+    expect(mockRenameSync).toHaveBeenCalled()
   })
 
   test('substitutes {gameFolder} variable', async () => {
@@ -242,11 +197,46 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
 
+    await executeMoveTask(task, gameFolder, appName)
+
+    expect(mockRenameSync).toHaveBeenCalledWith(
+      '/path/to/game/temp/file.txt',
+      '/path/to/game/final/file.txt'
+    )
+  })
+
+  test('uses robocopy on Windows', async () => {
+    mockEnvironment.isWindows = true
+
+    const task: MoveTask = {
+      type: 'move',
+      source: 'temp/save.dat',
+      destination: 'final/save.dat'
+    }
+
+    mockExistsSync
+      .mockReturnValueOnce(true) // source exists
+      .mockReturnValueOnce(true) // destination dir
+      .mockReturnValueOnce(false) // destination file
+      .mockReturnValueOnce(false) // source doesn't exist after robocopy (cleanup check)
+
     mockSuccessfulSpawn()
 
     await executeMoveTask(task, gameFolder, appName)
 
-    expect(mockSpawnFn).toHaveBeenCalled()
+    // Should use robocopy on Windows
+    expect(mockSpawnAsync).toHaveBeenCalledWith('robocopy', [
+      '/path/to/game/temp/save.dat',
+      '/path/to/game/final/save.dat',
+      '/MOVE',
+      '/MIR',
+      '/NJH',
+      '/NJS',
+      '/NDL',
+      '/R:3',
+      '/W:10'
+    ])
+    expect(mockRenameSync).not.toHaveBeenCalled()
   })
 
   test('substitutes {C} variable on Windows', async () => {
@@ -262,27 +252,24 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // source exists
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
+      .mockReturnValueOnce(false) // source cleanup check
 
     mockSuccessfulSpawn()
 
     await executeMoveTask(task, gameFolder, appName)
 
-    // Should use robocopy on Windows
-    expect(mockSpawnFn).toHaveBeenCalledWith(
-      'robocopy',
-      [
-        '/path/to/game/temp/save.dat',
-        'C:/Users/Player/Documents/save.dat',
-        '/MOVE',
-        '/MIR',
-        '/NJH',
-        '/NJS',
-        '/NDL',
-        '/R:3',
-        '/W:10'
-      ],
-      {} // Empty options object
-    )
+    // Should use robocopy on Windows with C: substitution
+    expect(mockSpawnAsync).toHaveBeenCalledWith('robocopy', [
+      '/path/to/game/temp/save.dat',
+      'C:/Users/Player/Documents/save.dat',
+      '/MOVE',
+      '/MIR',
+      '/NJH',
+      '/NJS',
+      '/NDL',
+      '/R:3',
+      '/W:10'
+    ])
   })
 
   test('substitutes {C} variable with Wine prefix on Linux', async () => {
@@ -306,11 +293,12 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
 
-    mockSuccessfulSpawn()
-
     await executeMoveTask(task, gameFolder, appName)
 
-    expect(mockSpawnFn).toHaveBeenCalled()
+    expect(mockRenameSync).toHaveBeenCalledWith(
+      '/path/to/game/save.dat',
+      '/home/user/.wine/drive_c/users/player/Documents/save.dat'
+    )
   })
 
   test('substitutes {C} variable with Proton prefix', async () => {
@@ -334,11 +322,12 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
 
-    mockSuccessfulSpawn()
-
     await executeMoveTask(task, gameFolder, appName)
 
-    expect(mockSpawnFn).toHaveBeenCalled()
+    expect(mockRenameSync).toHaveBeenCalledWith(
+      '/path/to/game/save.dat',
+      '/steam/proton/prefix/pfx/drive_c/users/player/save.dat'
+    )
   })
 
   test('throws error when source does not exist', async () => {
@@ -354,10 +343,11 @@ describe('MoveTask - executeMoveTask', () => {
       'Source path not found: /path/to/game/nonexistent.txt'
     )
 
-    expect(mockSpawnFn).not.toHaveBeenCalled()
+    expect(mockRenameSync).not.toHaveBeenCalled()
+    expect(mockSpawnAsync).not.toHaveBeenCalled()
   })
 
-  test('handles move operation failure', async () => {
+  test('handles Unix move operation failure', async () => {
     const task: MoveTask = {
       type: 'move',
       source: 'source.txt',
@@ -369,11 +359,35 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
 
-    // Mock failed spawn
-    mockFailedSpawn(1, 'Permission denied')
+    // Mock renameSync to throw an error
+    mockRenameSync.mockImplementation(() => {
+      throw new Error('Permission denied')
+    })
 
     await expect(executeMoveTask(task, gameFolder, appName)).rejects.toThrow(
-      'Failed to move /path/to/game/source.txt to /path/to/game/dest.txt:'
+      'Failed to move /path/to/game/source.txt to /path/to/game/dest.txt: Permission denied'
+    )
+  })
+
+  test('handles Windows robocopy failure', async () => {
+    mockEnvironment.isWindows = true
+
+    const task: MoveTask = {
+      type: 'move',
+      source: 'source.txt',
+      destination: 'dest.txt'
+    }
+
+    mockExistsSync
+      .mockReturnValueOnce(true) // source exists
+      .mockReturnValueOnce(true) // destination dir
+      .mockReturnValueOnce(false) // destination file
+
+    // Mock robocopy failure (exit code >= 8)
+    mockFailedSpawn(8, 'Access denied')
+
+    await expect(executeMoveTask(task, gameFolder, appName)).rejects.toThrow(
+      'Failed to move /path/to/game/source.txt to /path/to/game/dest.txt: Move operation failed: Access denied'
     )
   })
 
@@ -389,10 +403,11 @@ describe('MoveTask - executeMoveTask', () => {
       .mockReturnValueOnce(true) // destination dir
       .mockReturnValueOnce(false) // destination file
 
-    mockSuccessfulSpawn()
-
     await executeMoveTask(task, gameFolder)
 
-    expect(mockSpawnFn).toHaveBeenCalled()
+    expect(mockRenameSync).toHaveBeenCalledWith(
+      '/path/to/game/file.txt',
+      '/path/to/game/moved.txt'
+    )
   })
 })
