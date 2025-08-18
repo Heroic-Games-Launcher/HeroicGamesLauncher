@@ -1,9 +1,10 @@
 import { join, isAbsolute, dirname } from 'path'
-import { existsSync, mkdirSync, renameSync, rmSync } from 'graceful-fs'
-import { logInfo, LogPrefix } from 'backend/logger'
+import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
+import { logInfo, logError, LogPrefix } from 'backend/logger'
 import { MoveTask } from 'backend/storeManagers/customLibraries/tasks/types'
 import { isWindows } from 'backend/constants/environment'
 import { getSettings, isNative, getGameInfo } from '../games'
+import { spawn, SpawnOptions } from 'child_process'
 
 export async function executeMoveTask(
   task: MoveTask,
@@ -48,8 +49,12 @@ export async function executeMoveTask(
       rmSync(destinationPath, { recursive: true, force: true })
     }
 
-    // Move the folder/file
-    renameSync(sourcePath, destinationPath)
+    // Use robust move operation based on platform
+    if (isWindows) {
+      await moveOnWindowsSimple(sourcePath, destinationPath)
+    } else {
+      await moveOnUnixSimple(sourcePath, destinationPath)
+    }
 
     logInfo(
       `Moving: ${sourcePath} to ${destinationPath} (Done)`,
@@ -61,6 +66,142 @@ export async function executeMoveTask(
       `Failed to move ${sourcePath} to ${destinationPath}: ${errorMessage}`
     )
   }
+}
+
+async function moveOnWindowsSimple(
+  sourcePath: string,
+  destinationPath: string
+): Promise<void> {
+  // Use robocopy like the existing moveOnWindows function
+  const { code, stderr } = await spawnAsync('robocopy', [
+    sourcePath,
+    destinationPath,
+    '/MOVE',
+    '/MIR',
+    '/NJH',
+    '/NJS',
+    '/NDL',
+    '/R:3', // Retry 3 times
+    '/W:10' // Wait 10 seconds between retries
+  ])
+
+  // Robocopy exit codes: 0-7 are success, 8+ are errors
+  if (code !== null && code >= 8) {
+    throw new Error(`Move operation failed: ${stderr}`)
+  }
+}
+
+async function moveOnUnixSimple(
+  sourcePath: string,
+  destinationPath: string
+): Promise<void> {
+  // Try rsync first (like moveOnUnix), fall back to mv
+  let rsyncExists = false
+  try {
+    await execAsync('which rsync')
+    rsyncExists = true
+  } catch {
+    // rsync not available, will fall back to mv
+  }
+
+  if (rsyncExists) {
+    const origin = sourcePath + '/'
+    const { code, stderr } = await spawnAsync('rsync', [
+      '--archive',
+      '--remove-source-files',
+      origin,
+      destinationPath
+    ])
+
+    if (code !== 0) {
+      throw new Error(`rsync failed: ${stderr}`)
+    }
+
+    // Remove the empty source directory
+    try {
+      await spawnAsync('rm', ['-rf', sourcePath])
+    } catch (error) {
+      logError(
+        `Failed to remove source directory ${sourcePath}: ${error}`,
+        LogPrefix.CustomLibrary
+      )
+    }
+  } else {
+    // Fall back to mv
+    const { code, stderr } = await spawnAsync('mv', [
+      sourcePath,
+      destinationPath
+    ])
+
+    if (code !== 0) {
+      throw new Error(`mv failed: ${stderr}`)
+    }
+  }
+}
+
+// Simplified spawnAsync (reused from utils.ts pattern)
+const spawnAsync = async (
+  command: string,
+  args: string[],
+  options: SpawnOptions = {}
+): Promise<{ code: number | null; stdout: string; stderr: string }> => {
+  const child = spawn(command, args, options)
+  const stdout: string[] = []
+  const stderr: string[] = []
+
+  if (child.stdout) {
+    child.stdout.on('data', (data) => {
+      stdout.push(data.toString())
+    })
+  }
+
+  if (child.stderr) {
+    child.stderr.on('data', (data) => {
+      stderr.push(data.toString())
+    })
+  }
+
+  return new Promise((resolve, reject) => {
+    child.on('error', reject)
+    child.on('close', (code) => {
+      resolve({
+        code,
+        stdout: stdout.join(''),
+        stderr: stderr.join('')
+      })
+    })
+  })
+}
+
+// Simplified execAsync
+const execAsync = (command: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const child = spawn('sh', ['-c', command])
+    let stdout = ''
+    let stderr = ''
+
+    if (child.stdout) {
+      child.stdout.on('data', (data) => {
+        stdout += data.toString()
+      })
+    }
+
+    if (child.stderr) {
+      child.stderr.on('data', (data) => {
+        stderr += data.toString()
+      })
+    }
+
+    child.on('close', (code) => {
+      if (code === 0) {
+        resolve(stdout.trim())
+      } else {
+        reject(new Error(stderr || `Command failed with exit code ${code}`))
+      }
+    })
+
+    child.on('error', reject)
+  })
 }
 
 async function substituteVariables(
