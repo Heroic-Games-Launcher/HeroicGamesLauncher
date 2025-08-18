@@ -1632,6 +1632,9 @@ async function extractIso({ path, destination }: ExtractOptions) {
 
     const mountPoint = `${driveLetter}:`
 
+    // Ensure destination directory exists, or it will create a file instead of a directory
+    await fs.mkdir(destination, { recursive: true })
+
     // Copy files from mounted drive to destination
     const copyResult = await spawnAsync('powershell', [
       '-Command',
