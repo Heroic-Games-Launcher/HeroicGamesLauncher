@@ -18,14 +18,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 
 import GamesList from './components/GamesList'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
-import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
-import {
-  amazonCategories,
-  epicCategories,
-  gogCategories,
-  sideloadedCategories
-} from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
@@ -35,6 +28,7 @@ import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 const storage = window.localStorage
 
@@ -45,10 +39,6 @@ export default React.memo(function Library(): JSX.Element {
     libraryStatus,
     refreshing,
     refreshingInTheBackground,
-    epic,
-    gog,
-    amazon,
-    sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
     platform,
@@ -57,6 +47,7 @@ export default React.memo(function Library(): JSX.Element {
     hiddenGames,
     gameUpdates
   } = useContext(ContextProvider)
+  const { storeConfigs } = useStoreConfigs()
 
   hasHelp(
     'library',
@@ -79,12 +70,12 @@ export default React.memo(function Library(): JSX.Element {
     // Else, use the old `category` filter
     // TODO: we can remove this eventually after a few releases and just use the code of the if
     const storedCategory = (storage.getItem('category') as Category) || 'all'
-    initialStoresfilters = {
-      legendary: epicCategories.includes(storedCategory),
-      gog: gogCategories.includes(storedCategory),
-      nile: amazonCategories.includes(storedCategory),
-      sideload: sideloadedCategories.includes(storedCategory)
-    }
+    initialStoresfilters = Object.fromEntries(
+      storeConfigs.map(({ filterKey, categories }) => [
+        filterKey,
+        categories.includes(storedCategory)
+      ])
+    )
   }
 
   const [storesFilters, setStoresFilters_] =
@@ -346,17 +337,11 @@ export default React.memo(function Library(): JSX.Element {
       const favouriteAppNames = favouriteGamesList.map(
         (favourite: FavouriteGame) => favourite.appName
       )
-      epic.library.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-      gog.library.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-      sideloadedLibrary.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-      })
-      amazon.library.forEach((game) => {
-        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+
+      storeConfigs.forEach(({ store }) => {
+        store.library.forEach((game) => {
+          if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+        })
       })
     }
     return tempArray.sort((a, b) => {
@@ -364,50 +349,23 @@ export default React.memo(function Library(): JSX.Element {
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return gameA.localeCompare(gameB)
     })
-  }, [
-    showFavourites,
-    showFavouritesLibrary,
-    favouriteGamesList,
-    epic,
-    gog,
-    amazon,
-    sideloadedLibrary
-  ])
+  }, [showFavourites, showFavouritesLibrary, favouriteGamesList, storeConfigs])
 
   const favouritesIds = useMemo(() => {
     return favourites.map((game) => `${game.app_name}_${game.runner}`)
   }, [favourites])
 
   const makeLibrary = () => {
-    let displayedStores: string[] = []
-    if (storesFilters['gog'] && gog.username) {
-      displayedStores.push('gog')
-    }
-    if (storesFilters['legendary'] && epic.username) {
-      displayedStores.push('legendary')
-    }
-    if (storesFilters['nile'] && amazon.username) {
-      displayedStores.push('nile')
-    }
-    if (storesFilters['sideload']) {
-      displayedStores.push('sideload')
-    }
+    const authenticatedStores = storeConfigs.filter(({ authCheck }) =>
+      authCheck()
+    )
+    const enabledFilters = authenticatedStores.filter(
+      ({ filterKey }) => storesFilters[filterKey]
+    )
 
-    if (!displayedStores.length) {
-      displayedStores = Object.keys(storesFilters)
-    }
-
-    const showEpic = epic.username && displayedStores.includes('legendary')
-    const showGog = gog.username && displayedStores.includes('gog')
-    const showAmazon = amazon.user_id && displayedStores.includes('nile')
-    const showSideloaded = displayedStores.includes('sideload')
-
-    const epicLibrary = showEpic ? epic.library : []
-    const gogLibrary = showGog ? gog.library : []
-    const sideloadedApps = showSideloaded ? sideloadedLibrary : []
-    const amazonLibrary = showAmazon ? amazon.library : []
-
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+    return enabledFilters.length > 0
+      ? enabledFilters.flatMap(({ store }) => store.library)
+      : authenticatedStores.flatMap(({ store }) => store.library)
   }
 
   const gamesForAlphabetFilter = useMemo(() => {
@@ -524,10 +482,7 @@ export default React.memo(function Library(): JSX.Element {
   }, [
     storesFilters,
     platformsFilters,
-    epic.library,
-    gog.library,
-    amazon.library,
-    sideloadedLibrary,
+    storeConfigs,
     platform,
     filterText,
     showHidden,

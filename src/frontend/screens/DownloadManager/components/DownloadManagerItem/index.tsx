@@ -13,6 +13,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
 import PauseIcon from 'frontend/assets/pause-icon.svg?react'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 type Props = {
   element?: DMQueueElement
@@ -42,7 +43,8 @@ const DownloadManagerItem = ({
   state,
   handleClearItem
 }: Props) => {
-  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { storeConfigs } = useStoreConfigs()
+  const { showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
@@ -57,7 +59,7 @@ const DownloadManagerItem = ({
     )
   }
 
-  const library = [...epic.library, ...gog.library, ...amazon.library]
+  const library = storeConfigs.flatMap(({ store }) => store.library)
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {

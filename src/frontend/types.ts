@@ -193,10 +193,7 @@ export interface SettingsContextType {
 }
 
 export interface StoresFilters {
-  legendary: boolean
-  gog: boolean
-  nile: boolean
-  sideload: boolean
+  [key: string]: boolean
 }
 
 export interface PlatformsFilters {
