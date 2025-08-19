@@ -629,17 +629,6 @@ export default React.memo(function Library(): JSX.Element {
     }
   }, [])
 
-  if (!epic && !gog && !amazon) {
-    return (
-      <ErrorComponent
-        message={t(
-          'generic.error.component',
-          'No Games found - Try to logout and login again or one of the options bellow'
-        )}
-      />
-    )
-  }
-
   return (
     <LibraryContext.Provider
       value={{

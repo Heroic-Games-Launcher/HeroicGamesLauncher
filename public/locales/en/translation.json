@@ -287,9 +287,6 @@
         "title": "Game Title"
     },
     "generic": {
-        "error": {
-            "component": "No games found - Try to logout and login again or one of the options below"
-        },
         "library": {
             "refresh": "Refresh Library"
         }
