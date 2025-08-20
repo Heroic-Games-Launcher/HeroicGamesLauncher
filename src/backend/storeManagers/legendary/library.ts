@@ -40,7 +40,6 @@ import {
 import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
-import { update } from './games'
 import { LegendaryCommand } from './commands'
 import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { Path } from 'backend/schemas'
@@ -384,26 +383,6 @@ export async function listUpdateableGames(): Promise<string[]> {
     LogPrefix.Legendary
   )
   return updateableGames
-}
-
-/**
- * Update all updateable games.
- * Uses `listUpdateableGames` along with `LegendaryGame.update`
- *
- * @returns Array of results of `Game.update`.
- */
-export async function updateAllGames() {
-  return (
-    await Promise.allSettled(
-      (await listUpdateableGames()).map(async (appName) => update(appName))
-    )
-  ).map((res) => {
-    if (res.status === 'fulfilled') {
-      return res.value
-    } else {
-      return null
-    }
-  })
 }
 
 /**
