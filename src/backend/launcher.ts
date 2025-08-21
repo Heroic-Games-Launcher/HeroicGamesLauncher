@@ -1090,7 +1090,7 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
       break
     case 'zoom':
       ret.HEROIC_APP_SOURCE = 'zoom'
-      ret.STORE = 'zoom'
+      ret.STORE = 'zoomplatform'
       break
   }
 

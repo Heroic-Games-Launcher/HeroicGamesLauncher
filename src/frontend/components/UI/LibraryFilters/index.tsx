@@ -12,7 +12,7 @@ const RunnerToStore = {
   gog: 'GOG',
   nile: 'Amazon Games',
   sideload: 'Other',
-  zoom: 'Zoom'
+  zoom: 'ZOOM Platform'
 }
 
 export default function LibraryFilters() {
