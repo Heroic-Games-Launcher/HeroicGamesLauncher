@@ -101,7 +101,11 @@ const initialContext: ContextType = {
   disableDialogBackdropClose: false,
   setDisableDialogBackdropClose: () => null,
   disableAnimations: false,
-  setDisableAnimations: () => null
+  setDisableAnimations: () => null,
+  storeConfigs: {
+    storeConfigs: [],
+    runnerToDisplayName: () => 'Other'
+  }
 }
 
 export default React.createContext(initialContext)

@@ -37,6 +37,7 @@ import {
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
+import { createStoreConfigs } from '../hooks/useStoreConfigs'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -51,7 +52,7 @@ interface Props {
   t: T
 }
 
-interface StateProps {
+export interface StateProps {
   epic: {
     library: GameInfo[]
     username?: string
@@ -981,6 +982,8 @@ class GlobalState extends PureComponent<Props> {
       (game) => game.status === 'installing' && game.runner === 'legendary'
     )
 
+    const storeConfigs = createStoreConfigs(this.state, this.props.t)
+
     return (
       <ContextProvider.Provider
         value={{
@@ -1054,7 +1057,8 @@ class GlobalState extends PureComponent<Props> {
           },
           setDisableDialogBackdropClose: this.setDisableDialogBackdropClose,
           disableAnimations: this.state.disableAnimations,
-          setDisableAnimations: this.setDisableAnimations
+          setDisableAnimations: this.setDisableAnimations,
+          storeConfigs
         }}
       >
         {this.props.children}

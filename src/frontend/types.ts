@@ -116,6 +116,10 @@ export interface ContextType {
   setDisableDialogBackdropClose: (value: boolean) => void
   disableAnimations: boolean
   setDisableAnimations: (value: boolean) => void
+  storeConfigs: {
+    storeConfigs: StoreConfig[]
+    runnerToDisplayName: (runner: string, customFallback?: string) => string
+  }
 }
 
 export type DialogModalOptions = {
