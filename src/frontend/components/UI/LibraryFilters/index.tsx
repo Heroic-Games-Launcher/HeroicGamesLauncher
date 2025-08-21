@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { ReactNode, useContext } from 'react'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
@@ -106,33 +106,24 @@ export default function LibraryFilters() {
   // t('platforms.mac', 'Mac')
   // t('platforms.win', 'Windows')
   const platformToggle = (plat: keyof PlatformsFilters) => {
-    const toggle = (
-      <ToggleSwitch
-        key={plat}
-        htmlId={plat}
-        handleChange={() => togglePlatformFilter(plat)}
-        value={platformsFilters[plat]}
-        title={t(`platforms.${plat}`)}
-      />
-    )
-
     const onOnlyClick = () => {
       setPlatformOnly(plat)
     }
 
-    return toggleWithOnly(toggle, onOnlyClick)
+    return (
+      <ToggleWithOnly key={plat} onOnlyClicked={onOnlyClick}>
+        <ToggleSwitch
+          key={plat}
+          htmlId={plat}
+          handleChange={() => togglePlatformFilter(plat)}
+          value={platformsFilters[plat]}
+          title={t(`platforms.${plat}`)}
+        />
+      </ToggleWithOnly>
+    )
   }
 
   const storeToggle = (storeConfig: StoreConfig) => {
-    const toggle = (
-      <ToggleSwitch
-        key={storeConfig.filterKey}
-        htmlId={storeConfig.filterKey}
-        handleChange={() => toggleStoreFilter(storeConfig.filterKey)}
-        value={storesFilters[storeConfig.filterKey]}
-        title={storeConfig.displayName}
-      />
-    )
     const onOnlyClick = () => {
       setStoreOnly(storeConfig.filterKey)
     }
