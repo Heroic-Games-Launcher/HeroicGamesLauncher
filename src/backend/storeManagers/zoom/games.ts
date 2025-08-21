@@ -379,7 +379,7 @@ export async function install(
 
   // After successful installation, we need to determine the actual executable path
   let isDosbox = false
-  let dosboxConf: string | undefined
+  let dosboxConf: string[] | undefined
   let finalExecutable = ''
 
   if (installPlatform === 'windows') {
@@ -394,8 +394,8 @@ export async function install(
     )
 
     if (newConfFiles.length > 0) {
-      dosboxConf = newConfFiles[0] // Assume the first new .conf file is the correct one
-      const gameDirectory = dirname(dosboxConf)
+      dosboxConf = newConfFiles
+      const gameDirectory = dirname(newConfFiles[0])
       const dosboxExePath = await findDosboxExecutable(gameDirectory)
       if (dosboxExePath) {
         isDosbox = true
@@ -416,8 +416,9 @@ export async function install(
               recursive: true
             })
           }
-          const confFileName = basename(dosboxConf)
-          dosboxConf = join(destDir, confFileName)
+          dosboxConf = newConfFiles.map((file) =>
+            join(destDir, basename(file))
+          )
         }
       }
     }
@@ -628,7 +629,9 @@ export async function launch(
     ]
 
     if (gameInfo.install.isDosbox && gameInfo.install.dosboxConf) {
-      commandParts.push('-conf', gameInfo.install.dosboxConf)
+      gameInfo.install.dosboxConf.forEach((conf) => {
+        commandParts.push('-conf', conf)
+      })
     }
 
     sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
@@ -710,7 +713,9 @@ export async function launch(
     ]
 
     if (gameInfo.install.isDosbox && gameInfo.install.dosboxConf) {
-      commandParts.push('-conf', gameInfo.install.dosboxConf)
+      gameInfo.install.dosboxConf.forEach((conf) => {
+        commandParts.push('-conf', conf)
+      })
     }
 
     sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
