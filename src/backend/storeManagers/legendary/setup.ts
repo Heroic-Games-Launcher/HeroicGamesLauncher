@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { gameManagerMap, libraryManagerMap } from '..'
+import { libraryManagerMap } from '..'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { enable, getStatus, isEnabled } from './eos_overlay/eos_overlay'
 import { split } from 'shlex'
@@ -11,7 +11,7 @@ import { isLinux } from 'backend/constants/environment'
 import LogWriter from 'backend/logger/log_writer'
 
 export const legendarySetup = async (appName: string, logWriter: LogWriter) => {
-  const gameInfo = gameManagerMap['legendary'].getGameInfo(appName)
+  const gameInfo = libraryManagerMap['legendary'].getGame(appName).getGameInfo()
   if (!gameInfo) {
     return
   }
