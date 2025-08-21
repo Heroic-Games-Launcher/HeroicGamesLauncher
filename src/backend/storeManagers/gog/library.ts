@@ -54,12 +54,14 @@ import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
 import { gogdlConfigPath } from './constants'
 import { userDataPath } from 'backend/constants/paths'
+import type { LibraryManager } from 'common/types/game_manager'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
-export async function initGOGLibraryManager() {
-  await refresh()
+export default class GOGLibraryManager implements LibraryManager {
+async init() {
+  await this.refresh()
 
   // Based on installed games scan for missing manifests and attempt to pull
   // them
@@ -73,13 +75,13 @@ export async function initGOGLibraryManager() {
   runOnceWhenOnline(async () => {
     const credentials = await GOGUser.getCredentials()
     for (const appName of installedGamesList) {
-      await createMissingGogdlManifest(appName, credentials)
+      await this.createMissingGogdlManifest(appName, credentials)
     }
   })
   runOnceWhenOnline(checkForRedistUpdates)
 }
 
-async function createMissingGogdlManifest(
+private async createMissingGogdlManifest(
   appName: string,
   credentials?: GOGCredentials
 ) {
@@ -91,14 +93,14 @@ async function createMissingGogdlManifest(
     return
   }
   // Pull the data, read info file from install dir if possible
-  const res = await runRunnerCommand(['import', installedData.install_path], {
+  const res = await this.runRunnerCommand(['import', installedData.install_path], {
     abortId: `${appName}-manifest-restore`,
     logMessagePrefix: `Getting data of ${appName}`
   })
 
   try {
     const importData: GOGImportData = JSON.parse(res.stdout)
-    const builds = await getBuilds(
+    const builds = await this.getBuilds(
       appName,
       installedData.platform,
       credentials?.access_token
@@ -142,7 +144,7 @@ async function createMissingGogdlManifest(
   }
 }
 
-export async function getSaveSyncLocation(
+async getSaveSyncLocation(
   appName: string,
   install: InstalledInfo
 ): Promise<GOGCloudSavesLocation[] | undefined> {
@@ -176,10 +178,10 @@ export async function getSaveSyncLocation(
         ],
         LogPrefix.Gog
       )
-      clientId = readInfoFile(appName, install.install_path)?.clientId
+      clientId = this.readInfoFile(appName, install.install_path)?.clientId
     }
   } else {
-    clientId = readInfoFile(appName, install.install_path)?.clientId
+    clientId = this.readInfoFile(appName, install.install_path)?.clientId
   }
 
   if (!clientId) {
@@ -213,12 +215,12 @@ export async function getSaveSyncLocation(
   return savesInfo.locations
 }
 
-const defaultExecResult = {
+private defaultExecResult = {
   stderr: '',
   stdout: ''
 }
 
-async function getGalaxyLibrary(
+private async getGalaxyLibrary(
   page_token?: string
 ): Promise<Array<GalaxyLibraryEntry>> {
   const credentials = await GOGUser.getCredentials()
@@ -252,7 +254,7 @@ async function getGalaxyLibrary(
   }
 
   if (data?.next_page_token) {
-    const nextPageGames = await getGalaxyLibrary(data.next_page_token)
+    const nextPageGames = await this.getGalaxyLibrary(data.next_page_token)
     if (nextPageGames.length) {
       objects.push(...nextPageGames)
     } else {
@@ -263,12 +265,12 @@ async function getGalaxyLibrary(
   return objects
 }
 
-async function loadLocalLibrary() {
+private async loadLocalLibrary() {
   for (const game of libraryStore.get('games', [])) {
     const copyObject = { ...game }
     if (installedGames.has(game.app_name)) {
       if (isOnline()) {
-        await checkForOfflineInstallerChanges(game.app_name)
+        await this.checkForOfflineInstallerChanges(game.app_name)
       }
       copyObject.install = installedGames.get(game.app_name)!
       copyObject.is_installed = true
@@ -278,7 +280,7 @@ async function loadLocalLibrary() {
   installedGamesStore.set('installed', Array.from(installedGames.values()))
 }
 
-export async function checkForOfflineInstallerChanges(appName: string) {
+async checkForOfflineInstallerChanges(appName: string) {
   // game could've been updated
   // DLC may've been installed etc..
   const installedGame = installedGames.get(appName)
@@ -292,7 +294,7 @@ export async function checkForOfflineInstallerChanges(appName: string) {
   }
 
   // Update installed DLCs
-  const installedProducts = listInstalledProducts(appName)
+  const installedProducts = this.listInstalledProducts(appName)
   const dlcs = installedProducts.filter((product) => product !== appName).sort()
   const installedDLCs = (installedGame.installedDLCs || []).sort()
   let dlcChanged = installedDLCs.length !== dlcs.length
@@ -328,7 +330,7 @@ export async function checkForOfflineInstallerChanges(appName: string) {
     installedGames.set(appName, installedGame)
   }
   // Check buildId
-  const data = readInfoFile(appName)
+  const data = this.readInfoFile(appName)
   if (!data?.buildId) {
     return
   }
@@ -341,18 +343,18 @@ export async function checkForOfflineInstallerChanges(appName: string) {
       rmSync(manifestPath)
     }
     const credentials = await GOGUser.getCredentials()
-    await createMissingGogdlManifest(appName, credentials)
+    await this.createMissingGogdlManifest(appName, credentials)
     installedGame.buildId = data.buildId
   }
   installedGames.set(appName, installedGame)
 }
 
-export async function refresh(): Promise<ExecResult> {
+async refresh(): Promise<ExecResult> {
   if (!GOGUser.isLoggedIn()) {
-    return defaultExecResult
+    return this.defaultExecResult
   }
-  refreshInstalled()
-  await loadLocalLibrary()
+  this.refreshInstalled()
+  await this.loadLocalLibrary()
   const redistGameInfo: GameInfo = {
     app_name: 'gog-redist',
     runner: 'gog',
@@ -369,20 +371,20 @@ export async function refresh(): Promise<ExecResult> {
   library.set('gog-redist', redistGameInfo)
 
   if (!isOnline()) {
-    return defaultExecResult
+    return this.defaultExecResult
   }
 
   // This gets games ibrary
   // Handles multiple pages
   const credentials = await GOGUser.getCredentials()
   if (!credentials) {
-    return defaultExecResult
+    return this.defaultExecResult
   }
   logInfo('Getting GOG library', LogPrefix.Gog)
-  const gameApiArray: GalaxyLibraryEntry[] = await getGalaxyLibrary()
+  const gameApiArray: GalaxyLibraryEntry[] = await this.getGalaxyLibrary()
   if (!gameApiArray.length) {
     logError('There was an error Loading games library', LogPrefix.Gog)
-    return defaultExecResult
+    return this.defaultExecResult
   }
 
   const filteredApiArray = gameApiArray.filter(
@@ -396,7 +398,7 @@ export async function refresh(): Promise<ExecResult> {
     while (retries > 0) {
       let gdbData
       try {
-        const { data } = await getGamesdbData(
+        const { data } = await this.getGamesdbData(
           'gog',
           game.external_id,
           false,
@@ -414,7 +416,7 @@ export async function refresh(): Promise<ExecResult> {
         continue
       }
 
-      const unifiedObject = await gogToUnifiedInfo(gdbData)
+      const unifiedObject = await this.gogToUnifiedInfo(gdbData)
       if (unifiedObject.app_name) {
         const oldData = library.get(unifiedObject.app_name)
         if (oldData) {
@@ -425,7 +427,7 @@ export async function refresh(): Promise<ExecResult> {
         const installedInfo = installedGames.get(String(game.external_id))
         // If game is installed, verify if installed game supports cloud saves
         if (installedInfo && installedInfo?.platform !== 'linux') {
-          const saveLocations = await getSaveSyncLocation(
+          const saveLocations = await this.getSaveSyncLocation(
             unifiedObject.app_name,
             installedInfo
           )
@@ -470,14 +472,14 @@ export async function refresh(): Promise<ExecResult> {
 
   logInfo('Saved games data', LogPrefix.Gog)
 
-  return defaultExecResult
+  return this.defaultExecResult
 }
 
-export function getGameInfo(slug: string): GameInfo | undefined {
-  return library.get(slug) || getInstallAndGameInfo(slug)
+getGameInfo(slug: string): GameInfo | undefined {
+  return library.get(slug) || this.getInstallAndGameInfo(slug)
 }
 
-export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
+getInstallAndGameInfo(slug: string): GameInfo | undefined {
   const lib = libraryStore.get('games', [])
   const game = lib.find((value) => value.app_name === slug)
 
@@ -503,7 +505,7 @@ export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
  * @param options object with a `branch` ('null' if undefined) and `build` properties
  * @returns InstallInfo object
  */
-export async function getInstallInfo(
+async getInstallInfo(
   appName: string,
   installPlatform = 'windows',
   options?: { branch?: string; build?: string }
@@ -547,7 +549,7 @@ export async function getInstallInfo(
     logError('No credentials, cannot get install info', LogPrefix.Gog)
     return
   }
-  const gameData = getGameInfo(appName)
+  const gameData = this.getGameInfo(appName)
 
   if (!gameData) {
     logError('Game data falsy in getInstallInfo', LogPrefix.Gog)
@@ -568,7 +570,7 @@ export async function getInstallInfo(
     commandParts.push('--password', privateBranchPassword)
   }
 
-  const res = await runRunnerCommand(commandParts, {
+  const res = await this.runRunnerCommand(commandParts, {
     abortId: appName,
     logMessagePrefix: 'Getting game metadata'
   })
@@ -631,7 +633,7 @@ export async function getInstallInfo(
   )
 
   if (gameObjectIndex === -1) {
-    await refresh()
+    await this.refresh()
     libraryArray = libraryStore.get('games', [])
     gameObjectIndex = libraryArray.findIndex(
       (value) => value.app_name === appName
@@ -650,7 +652,7 @@ export async function getInstallInfo(
     installedGames.get(appName) &&
     installedGames.get(appName)?.platform !== 'linux'
   ) {
-    gameData.gog_save_location = await getSaveSyncLocation(
+    gameData.gog_save_location = await this.getSaveSyncLocation(
       appName,
       installedGames.get(appName)!
     )
@@ -731,7 +733,7 @@ export async function getInstallInfo(
 /**
  * Loads installed data and adds it into a Map
  */
-export function refreshInstalled() {
+refreshInstalled() {
   const installedArray = installedGamesStore.get('installed', [])
   installedGames.clear()
   installedArray.forEach((value) => {
@@ -742,7 +744,7 @@ export function refreshInstalled() {
   })
 }
 
-export async function changeGameInstallPath(
+async changeGameInstallPath(
   appName: string,
   newInstallPath: string
 ) {
@@ -775,8 +777,8 @@ export async function changeGameInstallPath(
   installedGamesStore.set('installed', installedArray)
 }
 
-export async function importGame(data: GOGImportData, executablePath: string) {
-  const gameInfo = await getInstallInfo(data.appName)
+async importGame(data: GOGImportData, executablePath: string) {
+  const gameInfo = await this.getInstallInfo(data.appName)
 
   if (!gameInfo) {
     return
@@ -801,15 +803,15 @@ export async function importGame(data: GOGImportData, executablePath: string) {
   gameData.is_installed = true
   library.set(data.appName, gameData)
   installedGamesStore.set('installed', Array.from(installedGames.values()))
-  refreshInstalled()
-  await createMissingGogdlManifest(data.appName)
+  this.refreshInstalled()
+  await this.createMissingGogdlManifest(data.appName)
   await checkForRedistUpdates()
   sendFrontendMessage('pushGameToLibrary', gameData)
 }
 
 // This checks for updates of Windows and Mac titles
 // Linux installers need to be checked differently
-export async function listUpdateableGames(): Promise<string[]> {
+async listUpdateableGames(): Promise<string[]> {
   if (!isOnline() || !GOGUser.isLoggedIn()) {
     return []
   }
@@ -830,11 +832,11 @@ export async function listUpdateableGames(): Promise<string[]> {
     }
     // use different check for linux games
     if (game.platform === 'linux') {
-      if (!(await checkForLinuxInstallerUpdate(game.appName, game.version)))
+      if (!(await this.checkForLinuxInstallerUpdate(game.appName, game.version)))
         updateable.push(game.appName)
       continue
     }
-    const hasUpdate = await checkForGameUpdate(
+    const hasUpdate = await this.checkForGameUpdate(
       game.appName,
       game.platform,
       game?.versionEtag,
@@ -848,11 +850,11 @@ export async function listUpdateableGames(): Promise<string[]> {
   return updateable
 }
 
-export async function checkForLinuxInstallerUpdate(
+async checkForLinuxInstallerUpdate(
   appName: string,
   version: string
 ): Promise<boolean> {
-  const response = await getProductApi(appName, ['downloads'])
+  const response = await this.getProductApi(appName, ['downloads'])
   if (!response) return false
 
   const installers = response.data?.downloads?.installers ?? []
@@ -864,7 +866,7 @@ export async function checkForLinuxInstallerUpdate(
   return false
 }
 
-export async function getBuilds(
+async getBuilds(
   appName: string,
   platform: string,
   access_token?: string
@@ -886,13 +888,13 @@ export async function getBuilds(
   return axiosClient.get(url.toString(), { headers })
 }
 
-export async function getMetaResponse(
+async getMetaResponse(
   appName: string,
   platform: string,
   etag?: string,
   access_token?: string
 ) {
-  const buildData = await getBuilds(appName, platform, access_token)
+  const buildData = await this.getBuilds(appName, platform, access_token)
   const headers = etag
     ? {
         'If-None-Match': etag
@@ -925,13 +927,13 @@ export async function getMetaResponse(
   return { status: 304, etag: etag }
 }
 
-export async function checkForGameUpdate(
+async checkForGameUpdate(
   appName: string,
   platform: string,
   etag?: string,
   access_token?: string
 ) {
-  const metaResponse = await getMetaResponse(
+  const metaResponse = await this.getMetaResponse(
     appName,
     platform,
     etag,
@@ -945,7 +947,7 @@ export async function checkForGameUpdate(
  * Convert GamesDBData and ProductEndpointData objects to GameInfo
  * That way it will be easly accessible on frontend
  */
-export async function gogToUnifiedInfo(
+async gogToUnifiedInfo(
   info: GamesDBData | undefined
 ): Promise<GameInfo> {
   if (
@@ -1014,7 +1016,7 @@ export async function gogToUnifiedInfo(
  * @param lang optional language (falls back to english if is not supported)
  * @returns plain API response
  */
-export async function getGamesData(appName: string, lang?: string) {
+async getGamesData(appName: string, lang?: string) {
   const url = `https://api.gog.com/v2/games/${appName}?locale=${
     lang || 'en-US'
   }`
@@ -1038,14 +1040,14 @@ export async function getGamesData(appName: string, lang?: string) {
  * @param os
  * @returns parsed data used when rendering requirements on GamePage
  */
-export async function createReqsArray(
+async createReqsArray(
   appName: string,
   os: 'windows' | 'linux' | 'osx'
 ) {
   if (!isOnline()) {
     return []
   }
-  const apiData = await getGamesData(appName)
+  const apiData = await this.getGamesData(appName)
   if (!apiData) {
     return []
   }
@@ -1082,7 +1084,7 @@ export async function createReqsArray(
 
 /* Get product ids installed in for given game
  */
-export function listInstalledProducts(appName: string): string[] {
+listInstalledProducts(appName: string): string[] {
   const installedData = installedGames.get(appName)
   if (!installedData) {
     return []
@@ -1110,11 +1112,11 @@ export function listInstalledProducts(appName: string): string[] {
  * Reads goggame-appName.info file and returns JSON object of it
  * @param appName
  */
-export function readInfoFile(
+readInfoFile(
   appName: string,
   installPath?: string
 ): GOGGameDotInfoFile | undefined {
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = this.getGameInfo(appName)
   if (!gameInfo) {
     return
   }
@@ -1172,8 +1174,8 @@ export function readInfoFile(
   return infoFileData
 }
 
-export function getExecutable(appName: string): string {
-  const jsonData = readInfoFile(appName)
+getExecutable(appName: string): string {
+  const jsonData = this.readInfoFile(appName)
   if (!jsonData) {
     throw new Error('No game metadata, cannot get executable')
   }
@@ -1213,7 +1215,7 @@ export function getExecutable(appName: string): string {
  * multiple entries)
  * @returns object {isUpdated, data}, where isUpdated is true when Etags match
  */
-export async function getGamesdbData(
+async getGamesdbData(
   store: string,
   game_id: string,
   forceUpdate?: boolean,
@@ -1269,7 +1271,7 @@ export async function getGamesdbData(
  * @param expand expanded results to be returned
  * @returns raw axios response, or null if there was a error
  */
-export async function getProductApi(
+async getProductApi(
   appName: string,
   expand?: string[],
   accessToken?: string
@@ -1299,8 +1301,8 @@ export async function getProductApi(
  * Gets array of possible installer languages
  * @param appName
  */
-export async function getLinuxInstallersLanguages(appName: string) {
-  const response = await getProductApi(appName, ['downloads'])
+async getLinuxInstallersLanguages(appName: string) {
+  const response = await this.getProductApi(appName, ['downloads'])
   if (response) {
     const installers = response.data?.downloads?.installers ?? []
     const linuxInstallers = installers.filter((value) => value.os === 'linux')
@@ -1321,13 +1323,13 @@ export async function getLinuxInstallersLanguages(appName: string) {
  * @param appName
  * @returns
  */
-export async function getLinuxInstallerInfo(appName: string): Promise<
+async getLinuxInstallerInfo(appName: string): Promise<
   | {
       version: string
     }
   | undefined
 > {
-  const response = await getProductApi(appName, ['downloads'])
+  const response = await this.getProductApi(appName, ['downloads'])
   if (!response) {
     return
   }
@@ -1347,7 +1349,7 @@ export async function getLinuxInstallerInfo(appName: string): Promise<
  * Note: For more comments, see runLegendaryCommand
  * @param commandParts The command to run, e. g. 'update', 'install'...
  */
-export async function runRunnerCommand(
+async runRunnerCommand(
   commandParts: string[],
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
@@ -1375,13 +1377,13 @@ export async function runRunnerCommand(
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-export function installState(appName: string, state: boolean) {
+installState(appName: string, state: boolean) {
   logWarning(`installState not implemented on GOG Library Manager`)
 }
 
-export function getLaunchOptions(appName: string): LaunchOption[] {
+getLaunchOptions(appName: string): LaunchOption[] {
   const newLaunchOptions: LaunchOption[] = []
-  const infoFile = readInfoFile(appName)
+  const infoFile = this.readInfoFile(appName)
   infoFile?.playTasks.forEach((task, index) => {
     if (
       task.type === 'FileTask' &&
@@ -1401,7 +1403,7 @@ export function getLaunchOptions(appName: string): LaunchOption[] {
   return newLaunchOptions
 }
 
-export function changeVersionPinnedStatus(appName: string, status: boolean) {
+changeVersionPinnedStatus(appName: string, status: boolean) {
   const game = library.get(appName)
   const installed = installedGames.get(appName)
   if (!game || !installed) {
@@ -1423,7 +1425,7 @@ export function changeVersionPinnedStatus(appName: string, status: boolean) {
   sendFrontendMessage('pushGameToLibrary', game)
 }
 
-export function setCyberpunkModConfig(props: {
+setCyberpunkModConfig(props: {
   enabled: boolean
   modsToLoad: string[]
 }) {
@@ -1452,4 +1454,5 @@ export function setCyberpunkModConfig(props: {
   installedGames.set(cpId, installed)
   installedGamesStore.set('installed', installedArray)
   sendFrontendMessage('pushGameToLibrary', game)
+}
 }

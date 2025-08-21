@@ -6,8 +6,12 @@ import { logWarning } from 'backend/logger'
 import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isMac } from 'backend/constants/environment'
+import { LibraryManager } from 'common/types/game_manager'
 
-export function addNewApp({
+export default class SideloadLibraryManager implements LibraryManager {
+init = () => Promise.resolve()
+
+addNewApp({
   app_name,
   title,
   install: { executable, platform },
@@ -70,16 +74,16 @@ export function addNewApp({
   return
 }
 
-export function installState() {
+installState() {
   logWarning(`installState not implemented on Sideload Library Manager`)
 }
 
-export async function refresh() {
+async refresh() {
   logWarning(`refresh not implemented on Sideload Library Manager`)
   return null
 }
 
-export function getGameInfo(): GameInfo {
+getGameInfo(): GameInfo {
   logWarning(`getGameInfo not implemented on Sideload Library Manager`)
   return {
     app_name: '',
@@ -93,31 +97,32 @@ export function getGameInfo(): GameInfo {
   }
 }
 
-export async function listUpdateableGames(): Promise<string[]> {
+async listUpdateableGames(): Promise<string[]> {
   logWarning(`listUpdateableGames not implemented on Sideload Library Manager`)
   return []
 }
 
-export async function runRunnerCommand(): Promise<ExecResult> {
+async runRunnerCommand(): Promise<ExecResult> {
   logWarning(`runRunnerCommand not implemented on Sideload Library Manager`)
   return { stdout: '', stderr: '' }
 }
 
-export async function changeGameInstallPath(): Promise<void> {
+async changeGameInstallPath(): Promise<void> {
   logWarning(
     `changeGameInstallPath not implemented on Sideload Library Manager`
   )
 }
 
-export async function getInstallInfo(): Promise<undefined> {
+async getInstallInfo(): Promise<undefined> {
   logWarning(`getInstallInfo not implemented on Sideload Library Manager`)
   return undefined
 }
 
-export const getLaunchOptions = () => []
+getLaunchOptions = () => []
 
-export function changeVersionPinnedStatus() {
+changeVersionPinnedStatus() {
   logWarning(
     'changeVersionPinnedStatus not implemented on Sideload Library Manager'
   )
+}
 }

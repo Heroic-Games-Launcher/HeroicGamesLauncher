@@ -18,7 +18,7 @@ import { GameInfo } from 'common/types'
 import { getIcon } from '../utils'
 import { addNonSteamGame } from '../nonesteamgame/nonesteamgame'
 import sanitize from 'sanitize-filename'
-import * as GogLibraryManager from '../../storeManagers/gog/library'
+import { libraryManagerMap } from 'backend/storeManagers'
 import { isMac } from 'backend/constants/environment'
 import { userHome } from 'backend/constants/paths'
 
@@ -79,7 +79,7 @@ Categories=Game;
       }
       let executable = gameInfo.install.executable
       if (gameInfo.runner === 'gog') {
-        executable = GogLibraryManager.getExecutable(gameInfo.app_name)
+        executable = libraryManagerMap['gog'].getExecutable(gameInfo.app_name)
       }
       if (executable) {
         let icon: string
