@@ -154,7 +154,7 @@ export default React.memo(function NewLogin() {
               class="zoom"
               buttonText={t('login.zoom', 'Zoom Login')}
               icon={() => <ZoomLogo />}
-              loginAction={zoom.login}
+              loginUrl={zoomLoginPath}
               isLoggedIn={isZoomLoggedIn}
               user={zoom.username}
               logoutAction={zoom.logout}

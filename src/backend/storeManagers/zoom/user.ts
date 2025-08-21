@@ -18,12 +18,13 @@ export class ZoomUser {
   }> {
     logInfo('Logging in using Zoom credentials', LogPrefix.Zoom)
 
-    if (!url.includes('li_token=')) {
+    const { searchParams } = new URL(url)
+    const token = searchParams.get('li_token')
+
+    if (!token) {
       logError('Login callback URL does not contain "li_token"', LogPrefix.Zoom)
       return { status: 'error' }
     }
-
-    const token = url.split('li_token=')[1]
     try {
       writeFileSync(tokenPath, token, { encoding: 'utf-8' })
       logInfo('Zoom token saved successfully', LogPrefix.Zoom)

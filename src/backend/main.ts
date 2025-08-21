@@ -35,6 +35,7 @@ import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
+import { ZoomUser } from './storeManagers/zoom/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -789,6 +790,10 @@ addHandler('getAmazonLoginData', NileUser.getLoginData)
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
 addHandler('logoutAmazon', NileUser.logout)
 
+addHandler('authZoom', async (event, url) => ZoomUser.login(url))
+addListener('logoutZoom', ZoomUser.logout)
+addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
+
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
@@ -1369,5 +1374,4 @@ import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
-import './storeManagers/zoom/ipc_handler' // Import Zoom IPC handlers
 import './progress_bar'

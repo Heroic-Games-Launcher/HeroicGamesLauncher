@@ -599,9 +599,9 @@ class GlobalState extends PureComponent<Props> {
 
   getAmazonLoginData = async () => window.api.getAmazonLoginData()
 
-  zoomLogin = async () => {
+  zoomLogin = async (url: string) => {
     console.log('logging zoom')
-    const response = await window.api.authZoom('')
+    const response = await window.api.authZoom(url)
 
     if (response.status === 'done') {
       this.setState({
