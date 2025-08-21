@@ -194,18 +194,6 @@ export default function WebView() {
           if (code) {
             handleAmazonLogin(code)
           }
-        } else if (runner === 'zoom') {
-          // Handle Zoom login
-          const pageURL = webview.getURL()
-          const parsedURL = new URL(pageURL)
-          const token = parsedURL.searchParams.get('li_token')
-          if (token) {
-            setLoading({
-              refresh: true,
-              message: t('status.logging', 'Logging In...')
-            })
-            zoom.login(pageURL).then(() => handleSuccessfulLogin())
-          }
         } else if (runner == 'legendary') {
           const pageUrl = webview.getURL()
           const parsedUrl = new URL(pageUrl)
@@ -266,11 +254,28 @@ export default function WebView() {
 
   useEffect(() => {
     const webview = webviewRef.current
-    if (webview && store) {
+    if (webview) {
       const onNavigate = () => {
-        const url = webview.getURL()
-        if (validStoredUrl(url, store)) {
-          sessionStorage.setItem(`last-url-${store}`, webview.getURL())
+        if (store) {
+          const url = webview.getURL()
+          if (validStoredUrl(url, store)) {
+            sessionStorage.setItem(`last-url-${store}`, webview.getURL())
+          }
+        }
+      }
+
+      const onLoginNavigate = () => {
+        if (runner === 'zoom') {
+          const pageURL = webview.getURL()
+          const parsedURL = new URL(pageURL)
+          const token = parsedURL.searchParams.get('li_token')
+          if (token) {
+            setLoading({
+              refresh: true,
+              message: t('status.logging', 'Logging In...')
+            })
+            zoom.login(pageURL).then(() => handleSuccessfulLogin())
+          }
         }
       }
 
@@ -278,15 +283,17 @@ export default function WebView() {
       webview.addEventListener('did-navigate', onNavigate)
       // this one is needed for epic
       webview.addEventListener('did-navigate-in-page', onNavigate)
+      webview.addEventListener('did-navigate', onLoginNavigate)
 
       return () => {
         webview.removeEventListener('did-navigate', onNavigate)
         webview.removeEventListener('did-navigate-in-page', onNavigate)
+        webview.removeEventListener('did-navigate', onLoginNavigate)
       }
     }
 
     return
-  }, [webviewRef.current, store])
+  }, [webviewRef.current, store, runner])
 
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon' | 'zoom'
@@ -314,7 +321,7 @@ export default function WebView() {
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
     } else if (startUrl.match(/zoom-platform\.com/) && !zoom.username) {
-      setShowLoginWarningFor('zoom')
+      //setShowLoginWarningFor('zoom') // No sure if this is necessary
     } else {
       setShowLoginWarningFor(null)
     }
