@@ -3,8 +3,6 @@ import {
   ExtraInfo,
   GameInfo,
   GameSettings,
-  InstallArgs,
-  InstallPlatform,
   LaunchOption
 } from 'common/types'
 import { libraryStore } from './electronStores'
@@ -20,12 +18,7 @@ import {
 } from '../../shortcuts/shortcuts/shortcuts'
 import { notify } from '../../dialog/dialog'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
-import { GOGCloudSavesLocation } from 'common/types/gog'
-import {
-  GameManager,
-  InstallResult,
-  RemoveArgs
-} from 'common/types/game_manager'
+import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { removePrefix } from 'backend/utils/uninstaller'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
@@ -33,10 +26,16 @@ import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgam
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export default class SideloadGameManager implements GameManager {
-  getGameInfo(appName: string): GameInfo {
+export default class SideloadGame implements Game {
+  private readonly id: string
+
+  constructor(id: string) {
+    this.id = id
+  }
+
+  getGameInfo(): GameInfo {
     const store = libraryStore.get('games', [])
-    const info = store.find((app) => app.app_name === appName)
+    const info = store.find((app) => app.app_name === this.id)
     if (!info) {
       // @ts-expect-error TODO: As with LegendaryGame and GOGGame, handle this properly
       return {}
@@ -44,24 +43,24 @@ export default class SideloadGameManager implements GameManager {
     return info
   }
 
-  async getSettings(appName: string): Promise<GameSettings> {
+  async getSettings(): Promise<GameSettings> {
     return (
-      GameConfig.get(appName).config ||
-      (await GameConfig.get(appName).getSettings())
+      GameConfig.get(this.id).config ||
+      (await GameConfig.get(this.id).getSettings())
     )
   }
 
-  async addShortcuts(appName: string, fromMenu?: boolean): Promise<void> {
-    return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
+  async addShortcuts(fromMenu?: boolean): Promise<void> {
+    return addShortcutsUtil(this.getGameInfo(), fromMenu)
   }
 
-  async removeShortcuts(appName: string): Promise<void> {
-    return removeShortcutsUtil(this.getGameInfo(appName))
+  async removeShortcuts(): Promise<void> {
+    return removeShortcutsUtil(this.getGameInfo())
   }
 
-  async isGameAvailable(appName: string): Promise<boolean> {
+  async isGameAvailable(): Promise<boolean> {
     return new Promise((resolve) => {
-      const { install } = this.getGameInfo(appName)
+      const { install } = this.getGameInfo()
 
       if (install && install.platform === 'Browser') {
         resolve(true)
@@ -74,59 +73,51 @@ export default class SideloadGameManager implements GameManager {
   }
 
   async launch(
-    appName: string,
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args: string[] = []
   ): Promise<boolean> {
-    return launchGame(
-      appName,
-      logWriter,
-      this.getGameInfo(appName),
-      'sideload',
-      args
-    )
+    return launchGame(this.id, logWriter, this.getGameInfo(), 'sideload', args)
   }
 
-  async stop(appName: string): Promise<void> {
+  async stop(): Promise<void> {
     const {
       install: { executable = undefined }
-    } = this.getGameInfo(appName)
+    } = this.getGameInfo()
 
     if (executable) {
       const split = executable.split('/')
       const exe = split[split.length - 1]
       killPattern(exe)
 
-      if (!this.isNative(appName)) {
-        const gameSettings = await this.getSettings(appName)
+      if (!this.isNative()) {
+        const gameSettings = await this.getSettings()
         shutdownWine(gameSettings)
       }
     }
   }
 
   async uninstall({
-    appName,
     shouldRemovePrefix,
     deleteFiles = false
   }: RemoveArgs): Promise<ExecResult> {
     sendGameStatusUpdate({
-      appName,
+      appName: this.id,
       runner: 'sideload',
       status: 'uninstalling'
     })
 
     const old = libraryStore.get('games', [])
-    const current = old.filter((a: GameInfo) => a.app_name !== appName)
+    const current = old.filter((a: GameInfo) => a.app_name !== this.id)
 
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     const {
       title,
       install: { executable }
     } = gameInfo
 
     if (shouldRemovePrefix) {
-      removePrefix(appName, 'sideload')
+      removePrefix(this.id, 'sideload')
     }
     libraryStore.set('games', current)
 
@@ -137,11 +128,11 @@ export default class SideloadGameManager implements GameManager {
     notify({ title, body: i18next.t('notify.uninstalled') })
 
     removeShortcutsUtil(gameInfo)
-    removeRecentGame(appName)
+    removeRecentGame(this.id)
     removeNonSteamGame({ gameInfo })
 
     sendGameStatusUpdate({
-      appName,
+      appName: this.id,
       runner: 'sideload',
       status: 'done'
     })
@@ -150,10 +141,10 @@ export default class SideloadGameManager implements GameManager {
     return { stderr: '', stdout: '' }
   }
 
-  isNative(appName: string): boolean {
+  isNative(): boolean {
     const {
       install: { platform }
-    } = this.getGameInfo(appName)
+    } = this.getGameInfo()
     if (platform) {
       if (platform === 'Browser') {
         return true
@@ -177,9 +168,9 @@ export default class SideloadGameManager implements GameManager {
     return false
   }
 
-  async getExtraInfo(appName: string): Promise<ExtraInfo> {
+  async getExtraInfo(): Promise<ExtraInfo> {
     logWarning(
-      `getExtraInfo not implemented on Sideload Game Manager. called for appName = ${appName}`
+      `getExtraInfo not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
     return {
       about: {
@@ -191,69 +182,51 @@ export default class SideloadGameManager implements GameManager {
     }
   }
 
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  onInstallOrUpdateOutput(
-    appName: string,
-    action: 'installing' | 'updating',
-    data: string,
-    totalDownloadSize: number
-  ) {
+  onInstallOrUpdateOutput() {
     logWarning(
-      `onInstallOrUpdateOutput not implemented on Sideload Game Manager. called for appName = ${appName}`
+      `onInstallOrUpdateOutput not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
   }
 
-  async moveInstall(
-    appName: string,
-    newInstallPath: string
-  ): Promise<InstallResult> {
+  async moveInstall(): Promise<InstallResult> {
     logWarning(
-      `moveInstall not implemented on Sideload Game Manager. called for appName = ${appName}`
+      `moveInstall not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
     return { status: 'error' }
   }
 
-  async repair(appName: string): Promise<ExecResult> {
+  async repair(): Promise<ExecResult> {
     logWarning(
-      `repair not implemented on Sideload Game Manager. called for appName = ${appName}`
+      `repair not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
     return { stderr: '', stdout: '' }
   }
 
-  async syncSaves(
-    appName: string,
-    arg: string,
-    path: string,
-    gogSaves?: GOGCloudSavesLocation[]
-  ): Promise<string> {
+  async syncSaves(): Promise<string> {
     logWarning(
-      `syncSaves not implemented on Sideload Game Manager. called for appName = ${appName}`
+      `syncSaves not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
     return ''
   }
 
-  async forceUninstall(appName: string): Promise<void> {
+  async forceUninstall(): Promise<void> {
     logWarning(
-      `forceUninstall not implemented on Sideload Game Manager. called for appName = ${appName}`
+      `forceUninstall not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
   }
 
-  async install(appName: string, args: InstallArgs): Promise<InstallResult> {
+  async install(): Promise<InstallResult> {
     logWarning(
-      `install not implemented on Sideload Game Manager. called for appName = ${appName}`
+      `install not implemented on Sideload Game Manager. called for ID = ${this.id}`
     )
     return { status: 'error' }
   }
 
-  async importGame(
-    appName: string,
-    path: string,
-    platform: InstallPlatform
-  ): Promise<ExecResult> {
+  async importGame(): Promise<ExecResult> {
     return { stderr: '', stdout: '' }
   }
 
-  async update(appName: string): Promise<{ status: 'done' | 'error' }> {
+  async update(): Promise<{ status: 'done' | 'error' }> {
     return { status: 'error' }
   }
 }

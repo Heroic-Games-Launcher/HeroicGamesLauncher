@@ -97,7 +97,6 @@ import { createMainWindow, getMainWindow, isFrameless } from './main_window'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import {
   autoUpdate,
-  gameManagerMap,
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
@@ -367,7 +366,7 @@ if (!gotTheLock) {
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
     if (!settings.disablePlaytimeSync) {
-      runOnceWhenOnline(gameManagerMap['gog'].syncQueuedPlaytimeGOG)
+      runOnceWhenOnline(libraryManagerMap['gog'].syncQueuedPlaytime)
     } else {
       logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
         prefix: LogPrefix.Backend
@@ -698,7 +697,7 @@ addListener('createNewWindow', (e, url) => {
 
 addHandler('isGameAvailable', async (e, args) => {
   const { appName, runner } = args
-  return gameManagerMap[runner].isGameAvailable(appName)
+  return libraryManagerMap[runner].getGame(appName).isGameAvailable()
 })
 
 addHandler('getGameInfo', async (event, appName, runner) => {
@@ -709,7 +708,7 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   ) {
     return null
   }
-  const tempGameInfo = gameManagerMap[runner].getGameInfo(appName)
+  const tempGameInfo = libraryManagerMap[runner].getGame(appName).getGameInfo()
   // The game managers return an empty object if they couldn't fetch the game
   // info, since most of the backend assumes getting it can never fail (and
   // an empty object is a little easier to work with than `null`)
@@ -727,12 +726,12 @@ addHandler('getExtraInfo', async (event, appName, runner) => {
   ) {
     return null
   }
-  return gameManagerMap[runner].getExtraInfo(appName)
+  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
 })
 
 addHandler('getGameSettings', async (event, appName, runner) => {
   try {
-    return await gameManagerMap[runner].getSettings(appName)
+    return await libraryManagerMap[runner].getGame(appName).getSettings()
   } catch (error) {
     logError(error, LogPrefix.Backend)
     return null
@@ -905,10 +904,10 @@ addHandler('repair', async (event, appName, runner) => {
     status: 'repairing'
   })
 
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
+  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
 
   try {
-    await gameManagerMap[runner].repair(appName)
+    await libraryManagerMap[runner].getGame(appName).repair()
   } catch (error) {
     notify({
       title,
@@ -935,10 +934,12 @@ addHandler(
       status: 'moving'
     })
 
-    const { title } = gameManagerMap[runner].getGameInfo(appName)
+    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
     notify({ title, body: i18next.t('notify.moving', 'Moving Game') })
 
-    const moveRes = await gameManagerMap[runner].moveInstall(appName, path)
+    const moveRes = await libraryManagerMap[runner]
+      .getGame(appName)
+      .moveInstall(path)
     if (moveRes.status === 'error') {
       notify({
         title,
@@ -991,7 +992,7 @@ addHandler(
       }
     }
 
-    const title = gameManagerMap[runner].getGameInfo(appName).title
+    const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
     sendGameStatusUpdate({
       appName,
       runner,
@@ -1011,11 +1012,9 @@ addHandler(
     }
 
     try {
-      const { abort, error } = await gameManagerMap[runner].importGame(
-        appName,
-        path,
-        platform
-      )
+      const { abort, error } = await libraryManagerMap[runner]
+        .getGame(appName)
+        .importGame(path, platform)
       if (abort || error) {
         abortMessage()
         return { status: 'done' }
@@ -1042,7 +1041,7 @@ addHandler(
 
 addHandler('kill', async (event, appName, runner) => {
   callAbortController(appName)
-  return gameManagerMap[runner].stop(appName)
+  return libraryManagerMap[runner].getGame(appName).stop()
 })
 
 addHandler('changeInstallPath', async (event, { appName, path, runner }) => {
@@ -1058,7 +1057,7 @@ addHandler('egsSync', async (event, args) => {
 })
 
 addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
-  gameManagerMap['gog'].syncSaves(appName, arg, '', gogSaves)
+  libraryManagerMap['gog'].getGame(appName).syncSaves(arg, '', gogSaves)
 )
 
 addHandler('getLaunchOptions', async (event, appName, runner) =>
@@ -1081,7 +1080,9 @@ addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
     return 'App is offline, cannot sync saves!'
   }
 
-  const output = await gameManagerMap[runner].syncSaves(appName, arg, path)
+  const output = await libraryManagerMap[runner]
+    .getGame(appName)
+    .syncSaves(arg, path)
   logInfo(output, LogPrefix.Backend)
   return output
 })
@@ -1270,7 +1271,7 @@ addListener('addNewApp', (e, args) =>
 )
 
 addHandler('isNative', (e, { appName, runner }) => {
-  return gameManagerMap[runner].isNative(appName)
+  return libraryManagerMap[runner].getGame(appName).isNative()
 })
 
 addHandler('pathExists', async (e, path: string) => {
@@ -1315,7 +1316,7 @@ addHandler(
       return
     }
     if (runner === 'gog') {
-      return gameManagerMap['gog'].getGOGPlaytime(appName)
+      return libraryManagerMap[runner].getGame(appName).getGOGPlaytime()
     }
 
     return
@@ -1323,14 +1324,14 @@ addHandler(
 )
 
 addHandler('getPrivateBranchPassword', (e, appName) =>
-  gameManagerMap['gog'].getBranchPassword(appName)
+  libraryManagerMap['gog'].getGame(appName).getBranchPassword()
 )
 addHandler('setPrivateBranchPassword', (e, appName, password) =>
-  gameManagerMap['gog'].setBranchPassword(appName, password)
+  libraryManagerMap['gog'].getGame(appName).setBranchPassword(password)
 )
 
 addHandler('getAvailableCyberpunkMods', async () =>
-  gameManagerMap['gog'].getCyberpunkMods()
+  libraryManagerMap['gog'].getCyberpunkMods()
 )
 addHandler('setCyberpunkModConfig', async (e, props) =>
   libraryManagerMap['gog'].setCyberpunkModConfig(props)

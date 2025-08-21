@@ -3,14 +3,8 @@ import path from 'path'
 import { existsSync } from 'graceful-fs'
 
 import { Path } from 'backend/schemas'
-import { libraryManagerMap } from '../../index'
 
-export const LegendaryAppName = z
-  .string()
-  .refine((val) => libraryManagerMap['legendary'].hasGame(val), {
-    message: 'AppName was not found on account'
-  })
-  .brand('LegendaryAppName')
+export const LegendaryAppName = z.string().brand('LegendaryAppName')
 export type LegendaryAppName = z.infer<typeof LegendaryAppName>
 
 export const LegendaryPlatform = z.enum(['Win32', 'Windows', 'Mac'] as const)
