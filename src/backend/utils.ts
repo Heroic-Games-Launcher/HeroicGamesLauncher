@@ -356,48 +356,6 @@ async function openUrlOrFile(url: string): Promise<string | void> {
   return shell.openPath(url)
 }
 
-export function openAuthWindow(
-  url: string,
-  successUrl: string,
-  callback: (url: string) => Promise<{ status: 'done' | 'error' }>
-): Promise<{ status: 'done' | 'error' }> {
-  return new Promise((resolve) => {
-    let resolved = false
-    const authWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      show: false,
-      webPreferences: {
-        nodeIntegration: false,
-        contextIsolation: true
-      }
-    })
-
-    authWindow.on('closed', () => {
-      if (!resolved) {
-        resolved = true
-        resolve({ status: 'error' })
-      }
-    })
-
-    authWindow.webContents.on('did-navigate', async (event, newUrl) => {
-      if (newUrl.startsWith(successUrl)) {
-        const result = await callback(newUrl)
-        if (result.status === 'done') {
-          if (!resolved) {
-            resolved = true
-            resolve(result)
-          }
-          authWindow.close()
-        }
-      }
-    })
-
-    authWindow.loadURL(url)
-    authWindow.show()
-  })
-}
-
 function clearCache(
   library?: 'gog' | 'legendary' | 'nile' | 'zoom',
   fromVersionChange = false
