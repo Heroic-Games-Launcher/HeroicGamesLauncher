@@ -20,7 +20,7 @@ import {
 
 import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
-import { join, dirname } from 'path'
+import { join, dirname, isAbsolute } from 'path'
 
 import {
   constructAndUpdateRPC,
@@ -1088,6 +1088,10 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
     case 'sideload':
       ret.HEROIC_APP_SOURCE = 'sideload'
       break
+    case 'zoom':
+      ret.HEROIC_APP_SOURCE = 'zoom'
+      ret.STORE = 'zoomplatform'
+      break
   }
 
   return ret
@@ -1581,7 +1585,7 @@ interface RunnerProps {
   name: Runner
   logPrefix: LogPrefix
   bin: string
-  dir: string
+  dir?: string
 }
 
 const commandsRunning: Record<string, Promise<ExecResult>> = {}
@@ -1647,11 +1651,11 @@ async function callRunner(
   commandParts = commandParts.filter(Boolean)
 
   let bin = runner.bin
-  let fullRunnerPath = join(runner.dir, bin)
+  let fullRunnerPath = runner.dir ? join(runner.dir, bin) : bin
 
   // macOS/Linux: `spawn`ing an executable in the current working directory
   // requires a "./"
-  if (!isWindows) bin = './' + bin
+  if (!isWindows && !isAbsolute(bin) && runner.dir) bin = './' + bin
 
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit, provided PowerShell is available
@@ -1713,7 +1717,7 @@ async function callRunner(
 
   let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
-      cwd: runner.dir,
+      cwd: options?.cwd || runner.dir,
       env: { ...process.env, ...options?.env },
       signal: abortController.signal
     })
