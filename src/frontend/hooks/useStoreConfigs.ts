@@ -1,10 +1,10 @@
 import { useContext, useMemo } from 'react'
-import { Runner, GameInfo } from 'common/types'
+import { GameInfo } from 'common/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
 export interface StoreConfig {
-  runner: Runner
+  runner: 'legendary' | 'gog' | 'nile' | 'sideload'
   filterKey: 'legendary' | 'gog' | 'nile' | 'sideload'
   displayName: string
   store: {
