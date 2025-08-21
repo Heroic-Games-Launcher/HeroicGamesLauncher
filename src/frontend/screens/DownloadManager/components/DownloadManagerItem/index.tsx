@@ -6,7 +6,7 @@ import { DMQueueElement, DownloadManagerState } from 'common/types'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
-import { getGameInfo, getStoreName } from 'frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -48,6 +48,7 @@ const DownloadManagerItem = ({
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
+  const { runnerToDisplayName } = useStoreConfigs()
 
   const navigate = useNavigate()
 
@@ -254,7 +255,7 @@ const DownloadManagerItem = ({
         {date} {hour}
       </span>
       <span>{translatedTypes[type]}</span>
-      <span>{getStoreName(runner, t2('Other'))}</span>
+      <span>{runnerToDisplayName(runner, runner)}</span>
       <span className="icons">
         <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
           {mainActionIcon()}

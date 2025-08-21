@@ -15,7 +15,6 @@ import StopIconAlt from 'frontend/assets/stop-icon-alt.svg?react'
 import {
   getGameInfo,
   getProgress,
-  getStoreName,
   install,
   launch,
   sendKill
@@ -36,6 +35,7 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 interface Card {
   buttonClick: () => void
@@ -59,6 +59,7 @@ const GameCard = ({
   dataTour
 }: Card) => {
   const [visible, setVisible] = useState(false)
+  const { runnerToDisplayName } = useStoreConfigs()
 
   useEffect(() => {
     // render an empty div until the card enters the viewport
@@ -81,7 +82,6 @@ const GameCard = ({
   const [isLaunching, setIsLaunching] = useState(false)
 
   const { t } = useTranslation('gamepage')
-  const { t: t2 } = useTranslation()
 
   const navigate = useNavigate()
 
@@ -456,7 +456,7 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getStoreName(runner, t2('Other'))}
+              {runnerToDisplayName(runner)}
             </span>
           </Link>
           <>

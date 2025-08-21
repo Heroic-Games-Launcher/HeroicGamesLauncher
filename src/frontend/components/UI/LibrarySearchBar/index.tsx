@@ -38,8 +38,7 @@ export default function LibrarySearchBar() {
 
   const suggestions = list.map((game) => (
     <li onClick={() => handleClick(game)} key={game.app_name}>
-      {game.title}{' '}
-      <span>({runnerToDisplayName[game.runner] || game.runner})</span>
+      {game.title} <span>{runnerToDisplayName(game.runner, game.runner)}</span>
     </li>
   ))
 

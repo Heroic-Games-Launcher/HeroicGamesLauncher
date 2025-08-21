@@ -59,11 +59,13 @@ export const useStoreConfigs = () => {
     [epic, gog, amazon, sideloadedLibrary]
   )
 
-  const runnerToDisplayName = useMemo(() => {
-    return Object.fromEntries(
-      storeConfigs.map((config) => [config.runner, config.displayName])
+  const runnerToDisplayName = (runner: string, customFallback?: string) => {
+    return (
+      storeConfigs.find((config) => config.runner === runner)?.displayName ||
+      customFallback ||
+      t('Other')
     )
-  }, [storeConfigs])
+  }
 
   return { storeConfigs, runnerToDisplayName }
 }
