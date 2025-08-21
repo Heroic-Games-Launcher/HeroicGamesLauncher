@@ -1,8 +1,6 @@
 import { InstalledInfo, Runner } from 'common/types'
 import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
-import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
-import { getSaveSyncLocation, readInfoFile } from './storeManagers/gog/library'
 import { logDebug, LogPrefix, logInfo, logError, logWarning } from './logger'
 import { getShellPath } from './utils'
 import {
@@ -69,7 +67,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
   }
 
   logInfo(['Computing default save path for', appName], LogPrefix.Legendary)
-  await runLegendaryCommand(
+  await libraryManagerMap['legendary'].runRunnerCommand(
     {
       subcommand: 'sync-saves',
       appName: LegendaryAppName.parse(appName),
@@ -111,7 +109,10 @@ async function getDefaultGogSavePaths(
   const gameSettings = await gameManagerMap['gog'].getSettings(appName)
   const installInfo = gameManagerMap['gog'].getGameInfo(appName)
     .install as InstalledInfo
-  const gog_save_location = await getSaveSyncLocation(appName, installInfo)
+  const gog_save_location = await libraryManagerMap['gog'].getSaveSyncLocation(
+    appName,
+    installInfo
+  )
 
   const { platform: installed_platform, install_path } = installInfo
   if (!gog_save_location || !install_path) {
@@ -126,7 +127,7 @@ async function getDefaultGogSavePaths(
 
   // If no save locations are defined, assume the default
   if (!gog_save_location.length) {
-    const clientId = readInfoFile(appName)?.clientId
+    const clientId = libraryManagerMap['gog'].readInfoFile(appName)?.clientId
     gog_save_location.push({
       name: '__default',
       location:

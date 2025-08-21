@@ -49,6 +49,7 @@ import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
 import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
+import { LibraryManager } from 'common/types/game_manager'
 
 const fallBackImage = 'fallback'
 
@@ -56,15 +57,16 @@ const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
-export async function initLegendaryLibraryManager() {
-  loadGamesInAccount()
-  refreshInstalled()
+export default class LegendaryLibraryManager implements LibraryManager {
+async init() {
+  this.loadGamesInAccount()
+  this.refreshInstalled()
 }
 
 /**
  * Loads all of the user's games into `allGames`
  */
-export function loadGamesInAccount() {
+loadGamesInAccount() {
   if (!existsSync(legendaryMetadata)) {
     return
   }
@@ -81,7 +83,7 @@ export function loadGamesInAccount() {
 /**
  * Refresh games in the user's library.
  */
-async function refreshLegendary(): Promise<ExecResult> {
+private async refreshLegendary(): Promise<ExecResult> {
   logInfo('Refreshing Epic Games...', LogPrefix.Legendary)
   const epicOffline = await isEpicServiceOffline()
   if (epicOffline) {
@@ -92,7 +94,7 @@ async function refreshLegendary(): Promise<ExecResult> {
     return { stderr: 'Epic offline, unable to update game list', stdout: '' }
   }
 
-  const res = await runRunnerCommand(
+  const res = await this.runRunnerCommand(
     {
       subcommand: 'list',
       '--third-party': true
@@ -105,14 +107,14 @@ async function refreshLegendary(): Promise<ExecResult> {
   if (res.error) {
     logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
   }
-  refreshInstalled()
+  this.refreshInstalled()
   return res
 }
 
 /**
  * Refresh `installedGames` from file.
  */
-export function refreshInstalled() {
+refreshInstalled() {
   const installedJSON = join(legendaryConfigPath, 'installed.json')
 
   let installedCache: [string, InstalledJsonMetadata][] = []
@@ -139,7 +141,7 @@ export function refreshInstalled() {
   installedGames = new Map(installedCache)
 }
 
-const defaultExecResult = {
+private defaultExecResult = {
   stderr: '',
   stdout: ''
 }
@@ -149,18 +151,18 @@ const defaultExecResult = {
  *
  * @returns Array of objects.
  */
-export async function refresh(): Promise<ExecResult | null> {
+async refresh(): Promise<ExecResult | null> {
   logInfo('Refreshing library...', LogPrefix.Legendary)
   if (!LegendaryUser.isLoggedIn()) {
-    return defaultExecResult
+    return this.defaultExecResult
   }
 
-  await refreshLegendary()
-  loadGamesInAccount()
-  refreshInstalled()
+  await this.refreshLegendary()
+  this.loadGamesInAccount()
+  this.refreshInstalled()
 
   try {
-    await loadAll()
+    await this.loadAll()
   } catch (error) {
     logError(error, LogPrefix.Legendary)
   }
@@ -170,10 +172,10 @@ export async function refresh(): Promise<ExecResult | null> {
     ['Game list updated, got', `${arr.length}`, 'games & DLCs'],
     LogPrefix.Legendary
   )
-  return defaultExecResult
+  return this.defaultExecResult
 }
 
-export function getListOfGames() {
+getListOfGames() {
   return libraryStore.get('library', [])
 }
 
@@ -184,11 +186,11 @@ export function getListOfGames() {
  * @param forceReload Discards game info in `library` and always reads info from metadata files
  * @returns GameInfo
  */
-export function getGameInfo(
+getGameInfo(
   appName: string,
   forceReload = false
 ): GameInfo | undefined {
-  if (!hasGame(appName)) {
+  if (!this.hasGame(appName)) {
     logWarning(
       ['Requested game', appName, 'was not found in library'],
       LogPrefix.Legendary
@@ -197,7 +199,7 @@ export function getGameInfo(
   }
   // We have the game, but info wasn't loaded yet
   if (!library.has(appName) || forceReload) {
-    loadFile(appName)
+    this.loadFile(appName)
   }
   return library.get(appName)
 }
@@ -205,7 +207,7 @@ export function getGameInfo(
 /**
  * Get game info for a particular game.
  */
-export async function getInstallInfo(
+async getInstallInfo(
   appName: string,
   installPlatform: InstallPlatform,
   options?: { retries?: number }
@@ -228,7 +230,7 @@ export async function getInstallInfo(
   if (await isEpicServiceOffline()) {
     command['--offline'] = true
   }
-  const res = await runRunnerCommand(command, { abortId: appName })
+  const res = await this.runRunnerCommand(command, { abortId: appName })
 
   if (res.error) {
     logError(['Failed to get more details:', res.error], LogPrefix.Legendary)
@@ -244,7 +246,7 @@ export async function getInstallInfo(
         logWarning(
           `Install info for ${appName} does not include manifest data. Retrying.`
         )
-        const retriedInfo = await getInstallInfo(appName, installPlatform, {
+        const retriedInfo = await this.getInstallInfo(appName, installPlatform, {
           retries: nextRetry
         })
         return retriedInfo
@@ -264,7 +266,7 @@ export async function getInstallInfo(
  *
  * @returns App names of updateable games.
  */
-export async function listUpdateableGames(): Promise<string[]> {
+async listUpdateableGames(): Promise<string[]> {
   const isLoggedIn = LegendaryUser.isLoggedIn()
 
   if (!isLoggedIn || !isOnline()) {
@@ -279,7 +281,7 @@ export async function listUpdateableGames(): Promise<string[]> {
     return []
   }
 
-  const res = await runRunnerCommand(
+  const res = await this.runRunnerCommand(
     { subcommand: 'list', '--third-party': true },
     {
       abortId: 'legendary-check-updates',
@@ -393,7 +395,7 @@ export async function listUpdateableGames(): Promise<string[]> {
  * @param appName
  * @param newPath
  */
-export async function changeGameInstallPath(appName: string, newPath: string) {
+async changeGameInstallPath(appName: string, newPath: string) {
   const libraryGameInfo = library.get(appName)
   if (libraryGameInfo) libraryGameInfo.install.install_path = newPath
   else {
@@ -412,7 +414,7 @@ export async function changeGameInstallPath(appName: string, newPath: string) {
     )
   }
 
-  const { error } = await runRunnerCommand(
+  const { error } = await this.runRunnerCommand(
     {
       subcommand: 'move',
       appName: LegendaryAppName.parse(appName),
@@ -438,11 +440,11 @@ export async function changeGameInstallPath(appName: string, newPath: string) {
  * @param appName
  * @param state true if its installed, false otherwise.
  */
-export function installState(appName: string, state: boolean) {
+installState(appName: string, state: boolean) {
   if (state) {
     // This assumes that fileName and appName are same.
     // If that changes, this will break.
-    loadFile(appName)
+    this.loadFile(appName)
   } else {
     // @ts-expect-error TODO: Make sure game info is loaded & appName is valid here
     library.get(appName).is_installed = false
@@ -452,7 +454,7 @@ export function installState(appName: string, state: boolean) {
   }
 }
 
-function loadGameMetadata(appName: string): GameMetadata {
+private loadGameMetadata(appName: string): GameMetadata {
   const fullPath = join(legendaryMetadata, appName + '.json')
   return JSON.parse(readFileSync(fullPath, 'utf-8'))
 }
@@ -463,10 +465,10 @@ function loadGameMetadata(appName: string): GameMetadata {
  *
  * @returns True/False, whether or not the file was loaded
  */
-function loadFile(app_name: string): boolean {
+private loadFile(app_name: string): boolean {
   let metadata
   try {
-    const data = loadGameMetadata(app_name)
+    const data = this.loadGameMetadata(app_name)
     metadata = data.metadata
   } catch (error) {
     logError(
@@ -630,11 +632,11 @@ function loadFile(app_name: string): boolean {
  *
  * @returns App names of loaded files.
  */
-async function loadAll(): Promise<string[]> {
+private async loadAll(): Promise<string[]> {
   if (existsSync(legendaryMetadata)) {
     const loadedFiles: string[] = []
     allGames.forEach((appName) => {
-      const wasLoaded = loadFile(appName)
+      const wasLoaded = this.loadFile(appName)
       if (wasLoaded) {
         loadedFiles.push(appName)
       }
@@ -649,9 +651,9 @@ async function loadAll(): Promise<string[]> {
  * @param appName The game to search for
  * @returns True = Game is in account, False = Game is not in account
  */
-export const hasGame = (appName: string) => allGames.has(appName)
+hasGame = (appName: string) => allGames.has(appName)
 
-export async function runRunnerCommand(
+async runRunnerCommand(
   command: LegendaryCommand,
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
@@ -675,7 +677,7 @@ export async function runRunnerCommand(
     options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
   }
 
-  const commandParts = commandToArgsArray(command)
+  const commandParts = this.commandToArgsArray(command)
 
   return callRunner(
     commandParts,
@@ -684,7 +686,7 @@ export async function runRunnerCommand(
   )
 }
 
-export async function getGameOverride(): Promise<GameOverride> {
+async getGameOverride(): Promise<GameOverride> {
   const cached = gamesOverrideStore.get('gamesOverride')
   if (cached) {
     return cached
@@ -706,7 +708,7 @@ export async function getGameOverride(): Promise<GameOverride> {
   }
 }
 
-export async function getGameSdl(
+async getGameSdl(
   appName: string
 ): Promise<SelectiveDownload[]> {
   try {
@@ -750,7 +752,7 @@ export async function getGameSdl(
  * @param path_or_action On Windows: "unlink" (turn off), "windows" (turn on). On linux/mac: "unlink" (turn off), any other string (prefix path)
  * @returns string with stdout + stderr, or error message
  */
-export async function toggleGamesSync(path_or_action: string) {
+async toggleGamesSync(path_or_action: string) {
   if (isWindows) {
     const egl_manifestPath =
       'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests'
@@ -779,7 +781,7 @@ export async function toggleGamesSync(path_or_action: string) {
     }
   }
 
-  const { error, stderr, stdout } = await runRunnerCommand(command, {
+  const { error, stderr, stdout } = await this.runRunnerCommand(command, {
     abortId: 'toggle-sync'
   })
 
@@ -800,7 +802,7 @@ export async function toggleGamesSync(path_or_action: string) {
  * Converts a LegendaryCommand to a parameter list passable to Legendary
  * @param command
  */
-export function commandToArgsArray(command: LegendaryCommand): string[] {
+commandToArgsArray(command: LegendaryCommand): string[] {
   const commandParts: string[] = []
 
   if (command.subcommand) commandParts.push(command.subcommand)
@@ -855,14 +857,14 @@ export function commandToArgsArray(command: LegendaryCommand): string[] {
   return commandParts
 }
 
-export async function getLaunchOptions(
+async getLaunchOptions(
   appName: string
 ): Promise<LaunchOption[]> {
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = this.getGameInfo(appName)
   const installPlatform = gameInfo?.install.platform
   if (!installPlatform || gameInfo.thirdPartyManagedApp) return []
 
-  const installInfo = await getInstallInfo(appName, installPlatform)
+  const installInfo = await this.getInstallInfo(appName, installPlatform)
   const launchOptions: LaunchOption[] = installInfo.game.launch_options
 
   // Some DLCs are also launch-able
@@ -887,7 +889,7 @@ export async function getLaunchOptions(
     // the main game, add it as a basic launch option
     let metadata
     try {
-      metadata = loadGameMetadata(dlc.app_name)
+      metadata = this.loadGameMetadata(dlc.app_name)
     } catch (e) {
       logWarning(
         [
@@ -912,8 +914,9 @@ export async function getLaunchOptions(
 }
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-export function changeVersionPinnedStatus(appName: string, status: boolean) {
+changeVersionPinnedStatus(appName: string, status: boolean) {
   logWarning(
     'changeVersionPinnedStatus not implemented on Legendary Library Manager'
   )
+}
 }

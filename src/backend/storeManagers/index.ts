@@ -1,39 +1,32 @@
-import * as SideloadGameManager from 'backend/storeManagers/sideload/games'
-import * as GOGGameManager from 'backend/storeManagers/gog/games'
-import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
-import * as NileGameManager from 'backend/storeManagers/nile/games'
+import SideloadGameManager from 'backend/storeManagers/sideload/games'
+import GOGGameManager from 'backend/storeManagers/gog/games'
+import LegendaryGameManager from 'backend/storeManagers/legendary/games'
+import NileGameManager from 'backend/storeManagers/nile/games'
 
-import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
-import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
-import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
-import * as NileLibraryManager from 'backend/storeManagers/nile/library'
-import { GameManager, LibraryManager } from 'common/types/game_manager'
+import SideloadLibraryManager from 'backend/storeManagers/sideload/library'
+import GOGLibraryManager from 'backend/storeManagers/gog/library'
+import LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
+import NileLibraryManager from 'backend/storeManagers/nile/library'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
-
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
-import { DMQueueElement, GameInfo, Runner } from 'common/types'
-type GameManagerMap = {
-  [key in Runner]: GameManager
-}
 
-export const gameManagerMap: GameManagerMap = {
-  sideload: SideloadGameManager,
-  gog: GOGGameManager,
-  legendary: LegendaryGameManager,
-  nile: NileGameManager
-}
+import type { DMQueueElement, GameInfo, Runner } from 'common/types'
+import type { GameManager, LibraryManager } from 'common/types/game_manager'
 
-type LibraryManagerMap = {
-  [key in Runner]: LibraryManager
-}
+export const gameManagerMap = {
+  sideload: new SideloadGameManager(),
+  gog: new GOGGameManager(),
+  legendary: new LegendaryGameManager(),
+  nile: new NileGameManager()
+} satisfies Record<Runner, GameManager>
 
-export const libraryManagerMap: LibraryManagerMap = {
-  sideload: SideloadLibraryManager,
-  gog: GOGLibraryManager,
-  legendary: LegendaryLibraryManager,
-  nile: NileLibraryManager
-}
+export const libraryManagerMap = {
+  sideload: new SideloadLibraryManager(),
+  gog: new GOGLibraryManager(),
+  legendary: new LegendaryLibraryManager(),
+  nile: new NileLibraryManager()
+} satisfies Record<Runner, LibraryManager>
 
 function getDMElement(gameInfo: GameInfo, appName: string) {
   const {
@@ -78,7 +71,7 @@ export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
 }
 
 export async function initStoreManagers() {
-  await LegendaryLibraryManager.initLegendaryLibraryManager()
-  await GOGLibraryManager.initGOGLibraryManager()
-  await NileLibraryManager.initNileLibraryManager()
+  return Promise.all(
+    Object.values(libraryManagerMap).map((manager) => manager.init())
+  )
 }

@@ -5,7 +5,7 @@ import { GOGLoginData } from 'common/types'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { GOGCredentials, UserData } from 'common/types/gog'
-import { runRunnerCommand } from './library'
+import { libraryManagerMap } from '../index'
 import { clearCache } from 'backend/utils'
 import { app } from 'electron'
 import { gogdlAuthConfig } from './constants'
@@ -34,10 +34,13 @@ export class GOGUser {
     logInfo('Logging using GOG credentials', LogPrefix.Gog)
 
     // Gets token from GOG basaed on authorization code
-    const { stdout } = await runRunnerCommand(['auth', '--code', code], {
-      abortId: 'gogdl-auth',
-      logSanitizer: authLogSanitizer
-    })
+    const { stdout } = await libraryManagerMap['gog'].runRunnerCommand(
+      ['auth', '--code', code],
+      {
+        abortId: 'gogdl-auth',
+        logSanitizer: authLogSanitizer
+      }
+    )
 
     try {
       const data: GOGLoginData = JSON.parse(stdout.trim())
@@ -109,10 +112,13 @@ export class GOGUser {
       })
       return
     }
-    const { stdout } = await runRunnerCommand(['auth'], {
-      abortId: 'gogdl-get-credentials',
-      logSanitizer: authLogSanitizer
-    })
+    const { stdout } = await libraryManagerMap['gog'].runRunnerCommand(
+      ['auth'],
+      {
+        abortId: 'gogdl-get-credentials',
+        logSanitizer: authLogSanitizer
+      }
+    )
     return JSON.parse(stdout)
   }
 

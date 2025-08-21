@@ -44,14 +44,13 @@ import {
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { gameManagerMap } from '../storeManagers'
+import { gameManagerMap, libraryManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
   downloadFile as downloadFileInet
 } from '../utils/inet/downloader'
 import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
-import { addNewApp } from 'backend/storeManagers/sideload/library'
 import { GlobalConfig } from 'backend/config'
 import { toolsPath, userHome } from 'backend/constants/paths'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
@@ -959,7 +958,7 @@ export const SteamWindows = {
         throw new Error('Steam executable not found')
       }
 
-      addNewApp({
+      libraryManagerMap['sideload'].addNewApp({
         app_name: 'steam',
         runner: 'sideload',
         art_cover: steamCoverArt,

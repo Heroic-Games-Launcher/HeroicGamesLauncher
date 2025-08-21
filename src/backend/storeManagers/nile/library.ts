@@ -24,11 +24,13 @@ import { copySync } from 'fs-extra'
 import { NileUser } from './user'
 import { runNileCommandStub } from './e2eMock'
 import { nileConfigPath, nileInstalled, nileLibrary } from './constants'
+import type { LibraryManager } from 'common/types/game_manager'
 
-const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
-const library: Map<string, GameInfo> = new Map()
+export default class NileLibraryManager implements LibraryManager {
+private installedGames: Map<string, NileInstallMetadataInfo> = new Map()
+private library: Map<string, GameInfo> = new Map()
 
-export async function initNileLibraryManager() {
+async init() {
   // Migrate user data from global Nile config if necessary
   const globalNileConfig = join(app.getPath('appData'), 'nile')
   if (!existsSync(nileConfigPath) && existsSync(globalNileConfig)) {
@@ -36,13 +38,13 @@ export async function initNileLibraryManager() {
     await NileUser.getUserData()
   }
 
-  refresh()
+  this.refresh()
 }
 
 /**
  * Loads all the user's games into `library`
  */
-function loadGamesInAccount() {
+loadGamesInAccount() {
   if (!existsSync(nileLibrary)) {
     return
   }
@@ -65,10 +67,10 @@ function loadGamesInAccount() {
       iconUrl
     } = productDetail
 
-    const info = installedGames.get(product.id)
+    const info = this.installedGames.get(product.id)
     // Create save folder name like nile
     const safeFolderName = removeSpecialcharacters(title ?? '')
-    library.set(product.id, {
+    this.library.set(product.id, {
       app_name: product.id,
       art_cover: backgroundUrl2 || iconUrl,
       art_logo: logoUrl,
@@ -107,8 +109,8 @@ function loadGamesInAccount() {
  *
  * @param appName The id of the app entry to remove
  */
-export function removeFromInstalledConfig(appName: string) {
-  installedGames.clear()
+removeFromInstalledConfig(appName: string) {
+  this.installedGames.clear()
   if (existsSync(nileInstalled)) {
     try {
       const installed: NileInstallMetadataInfo[] = JSON.parse(
@@ -128,11 +130,11 @@ export function removeFromInstalledConfig(appName: string) {
 /**
  * Fetches and parses the game's `fuel.json` file
  */
-export function fetchFuelJSON(
+fetchFuelJSON(
   appName: string,
   installedPath?: string
 ): FuelSchema | null {
-  const game = getGameInfo(appName)
+  const game = this.getGameInfo(appName)
   const basePath = installedPath ?? game?.install.install_path
   if (!basePath) {
     logError(['Could not find install path for', appName], LogPrefix.Nile)
@@ -160,13 +162,13 @@ export function fetchFuelJSON(
  *
  * @returns App names of updateable games.
  */
-export async function listUpdateableGames(): Promise<string[]> {
+async listUpdateableGames(): Promise<string[]> {
   if (!NileUser.isLoggedIn()) {
     return []
   }
   logInfo('Looking for updates...', LogPrefix.Nile)
 
-  const { stdout: output } = await runRunnerCommand(
+  const { stdout: output } = await this.runRunnerCommand(
     ['list-updates', '--json'],
     { abortId: 'nile-list-updates' }
   )
@@ -189,10 +191,10 @@ export async function listUpdateableGames(): Promise<string[]> {
 /**
  * Refresh games in the user's library
  */
-async function refreshNile(): Promise<ExecResult> {
+private async refreshNile(): Promise<ExecResult> {
   logInfo('Refreshing Amazon Games...', LogPrefix.Nile)
 
-  const res = await runRunnerCommand(['library', 'sync'], {
+  const res = await this.runRunnerCommand(['library', 'sync'], {
     abortId: 'nile-refresh'
   })
 
@@ -205,7 +207,7 @@ async function refreshNile(): Promise<ExecResult> {
   }
 }
 
-export function getInstallMetadata(
+getInstallMetadata(
   appName: string
 ): NileInstallMetadataInfo | undefined {
   if (!existsSync(nileInstalled)) {
@@ -229,15 +231,15 @@ export function getInstallMetadata(
 /**
  * Refresh `installedGames` from file.
  */
-export function refreshInstalled() {
-  installedGames.clear()
+refreshInstalled() {
+  this.installedGames.clear()
   if (existsSync(nileInstalled)) {
     try {
       const installed: NileInstallMetadataInfo[] = JSON.parse(
         readFileSync(nileInstalled, 'utf-8')
       )
       installed.forEach((metadata) => {
-        installedGames.set(metadata.id, metadata)
+        this.installedGames.set(metadata.id, metadata)
       })
     } catch (error) {
       logError(
@@ -248,7 +250,7 @@ export function refreshInstalled() {
   }
 }
 
-const defaultExecResult = {
+private defaultExecResult = {
   stderr: '',
   stdout: ''
 }
@@ -258,21 +260,21 @@ const defaultExecResult = {
  *
  * @returns Array of objects.
  */
-export async function refresh(): Promise<ExecResult | null> {
+async refresh(): Promise<ExecResult | null> {
   if (!NileUser.isLoggedIn()) {
-    return defaultExecResult
+    return this.defaultExecResult
   }
   logInfo('Refreshing library...', LogPrefix.Nile)
 
-  refreshNile()
-  refreshInstalled()
-  loadGamesInAccount()
+  this.refreshNile()
+  this.refreshInstalled()
+  this.loadGamesInAccount()
 
-  const arr = Array.from(library.values())
+  const arr = Array.from(this.library.values())
   libraryStore.set('library', arr)
   logInfo(['Game list updated, got', `${arr.length}`, 'games'], LogPrefix.Nile)
 
-  return defaultExecResult
+  return this.defaultExecResult
 }
 
 /**
@@ -282,22 +284,22 @@ export async function refresh(): Promise<ExecResult | null> {
  * @param forceReload Discards game info in `library` and always reads info from metadata files
  * @returns GameInfo
  */
-export function getGameInfo(
+getGameInfo(
   appName: string,
   forceReload = false
 ): GameInfo | undefined {
   if (!forceReload) {
-    const gameInMemory = library.get(appName)
+    const gameInMemory = this.library.get(appName)
     if (gameInMemory) {
       return gameInMemory
     }
   }
 
   logInfo(['Loading', appName, 'from metadata files'], LogPrefix.Nile)
-  refreshInstalled()
-  loadGamesInAccount()
+  this.refreshInstalled()
+  this.loadGamesInAccount()
 
-  const game = library.get(appName)
+  const game = this.library.get(appName)
   if (!game) {
     logError(
       ['Could not find game with id', appName, `in user's library`],
@@ -311,7 +313,7 @@ export function getGameInfo(
 /**
  * Get game info for a particular game.
  */
-export async function getInstallInfo(
+async getInstallInfo(
   appName: string
 ): Promise<NileInstallInfo> {
   const cache = installStore.get(appName)
@@ -321,13 +323,13 @@ export async function getInstallInfo(
   }
 
   logInfo('Getting more details', LogPrefix.Nile)
-  refreshInstalled()
+  this.refreshInstalled()
 
-  const game = library.get(appName)
+  const game = this.library.get(appName)
   if (game) {
-    const metadata = installedGames.get(appName)
+    const metadata = this.installedGames.get(appName)
     // Get size info from Nile
-    const { stdout: output } = await runRunnerCommand(
+    const { stdout: output } = await this.runRunnerCommand(
       ['install', '--info', '--json', appName],
       { abortId: appName }
     )
@@ -389,11 +391,11 @@ export async function getInstallInfo(
  * @param appName
  * @param newPath
  */
-export async function changeGameInstallPath(
+async changeGameInstallPath(
   appName: string,
   newAppPath: string
 ) {
-  const libraryGameInfo = library.get(appName)
+  const libraryGameInfo = this.library.get(appName)
   if (libraryGameInfo) libraryGameInfo.install.install_path = newAppPath
   else {
     logWarning(
@@ -402,14 +404,14 @@ export async function changeGameInstallPath(
     )
   }
 
-  updateInstalledPathInJSON(appName, newAppPath)
+  this.updateInstalledPathInJSON(appName, newAppPath)
 }
 
-function updateInstalledPathInJSON(appName: string, newAppPath: string) {
+private updateInstalledPathInJSON(appName: string, newAppPath: string) {
   // Make sure we get the latest installed info
-  refreshInstalled()
+  this.refreshInstalled()
 
-  const installedGameInfo = installedGames.get(appName)
+  const installedGameInfo = this.installedGames.get(appName)
   if (installedGameInfo) installedGameInfo.path = newAppPath
   else {
     logWarning(
@@ -428,7 +430,7 @@ function updateInstalledPathInJSON(appName: string, newAppPath: string) {
 
   writeFileSync(
     nileInstalled,
-    JSON.stringify(Array.from(installedGames.values())),
+    JSON.stringify(Array.from(this.installedGames.values())),
     'utf-8'
   )
   logInfo(
@@ -443,22 +445,22 @@ function updateInstalledPathInJSON(appName: string, newAppPath: string) {
  * @param appName
  * @param state true if its installed, false otherwise.
  */
-export function installState(appName: string, state: boolean) {
+installState(appName: string, state: boolean) {
   if (!state) {
-    installedGames.delete(appName)
+    this.installedGames.delete(appName)
     installStore.delete(appName)
     return
   }
 
-  const metadata = getInstallMetadata(appName)
+  const metadata = this.getInstallMetadata(appName)
   if (!metadata) {
     logError(['Could not find install metadata for', appName], LogPrefix.Nile)
     return
   }
-  installedGames.set(appName, metadata)
+  this.installedGames.set(appName, metadata)
 }
 
-export async function runRunnerCommand(
+async runRunnerCommand(
   commandParts: string[],
   options?: CallRunnerOptions
 ): Promise<ExecResult> {
@@ -485,11 +487,12 @@ export async function runRunnerCommand(
   )
 }
 
-export const getLaunchOptions = () => []
+getLaunchOptions = () => []
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-export function changeVersionPinnedStatus(appName: string, status: boolean) {
+changeVersionPinnedStatus(appName: string, status: boolean) {
   logWarning(
     'changeVersionPinnedStatus not implemented on Nile Library Manager'
   )
+}
 }
