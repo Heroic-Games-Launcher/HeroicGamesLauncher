@@ -25,7 +25,6 @@ import {
   logDebug
 } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
-import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import {
   gameInfoStore,
   installStore,
@@ -49,7 +48,7 @@ import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
-import { gameManagerMap } from 'backend/storeManagers'
+import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import {
   installWineVersion,
   updateWineVersionInfos,
@@ -370,7 +369,7 @@ function clearCache(
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
-    runLegendaryCommand(
+    libraryManagerMap['legendary'].runRunnerCommand(
       { subcommand: 'cleanup' },
       { abortId: 'legandary-cleanup' }
     )

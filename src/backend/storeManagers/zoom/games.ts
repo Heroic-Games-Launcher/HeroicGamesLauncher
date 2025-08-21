@@ -53,18 +53,14 @@ import { ZoomInstallPlatform, ZoomDownloadFile } from 'common/types/zoom'
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../ipc'
-import { RemoveArgs } from 'common/types/game_manager'
+import { GameManager, RemoveArgs } from 'common/types/game_manager'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
-import {
-  getInstallers,
-  getGameInfo as getZoomLibraryGameInfo,
-  refresh,
-  updateGameInLibrary
-} from './library'
+import { libraryManagerMap } from '..'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-async function findDosboxExecutable(dir: string): Promise<string | undefined> {
+export default class ZoomGameManager implements GameManager {
+private async findDosboxExecutable(dir: string): Promise<string | undefined> {
   let list: fs.Dirent[]
   try {
     list = await fs.promises.readdir(dir, { withFileTypes: true })
@@ -79,7 +75,7 @@ async function findDosboxExecutable(dir: string): Promise<string | undefined> {
   for (const file of list) {
     const fullPath = join(dir, file.name)
     if (file.isDirectory()) {
-      const result = await findDosboxExecutable(fullPath)
+      const result = await this.findDosboxExecutable(fullPath)
       if (result) {
         return result
       }
@@ -91,14 +87,14 @@ async function findDosboxExecutable(dir: string): Promise<string | undefined> {
   return undefined
 }
 
-async function findConfFiles(dir: string): Promise<string[]> {
+private async findConfFiles(dir: string): Promise<string[]> {
   let confFiles: string[] = []
   try {
     const list = await fs.promises.readdir(dir, { withFileTypes: true })
     for (const file of list) {
       const fullPath = join(dir, file.name)
       if (file.isDirectory()) {
-        confFiles = confFiles.concat(await findConfFiles(fullPath))
+        confFiles = confFiles.concat(await this.findConfFiles(fullPath))
       } else if (file.name.toLowerCase().endsWith('.conf')) {
         confFiles.push(fullPath)
       }
@@ -109,7 +105,7 @@ async function findConfFiles(dir: string): Promise<string[]> {
   return confFiles
 }
 
-export async function getExtraInfo(): Promise<ExtraInfo> {
+async getExtraInfo(): Promise<ExtraInfo> {
   // Zoom.py doesn't have direct equivalents for reqs, changelog, etc.
   // This part would need to be implemented if the Zoom API provides such data.
   const extra: ExtraInfo = {
@@ -122,8 +118,8 @@ export async function getExtraInfo(): Promise<ExtraInfo> {
   return extra
 }
 
-export function getGameInfo(appName: string): GameInfo {
-  const info = getZoomLibraryGameInfo(appName)
+getGameInfo(appName: string): GameInfo {
+  const info = libraryManagerMap['zoom'].getGameInfo(appName)
   if (!info) {
     logError(
       [
@@ -147,14 +143,14 @@ export function getGameInfo(appName: string): GameInfo {
   return info
 }
 
-export async function getSettings(appName: string): Promise<GameSettings> {
+async getSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
   )
 }
 
-export async function importGame(
+async importGame(
   appName: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   folderPath: string,
@@ -171,11 +167,7 @@ export async function importGame(
   return { stdout: '', stderr: 'Import not fully implemented' }
 }
 
-interface tmpProgressMap {
-  [key: string]: InstallProgress
-}
-
-function defaultTmpProgress() {
+defaultTmpProgress() {
   return {
     bytes: '',
     eta: '',
@@ -184,19 +176,19 @@ function defaultTmpProgress() {
     downSpeed: undefined
   }
 }
-const tmpProgress: tmpProgressMap = {}
+private tmpProgress: Record<string, InstallProgress> = {}
 
-export function onInstallOrUpdateOutput(
+onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
   data: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   totalDownloadSize = -1
 ) {
-  if (!Object.hasOwn(tmpProgress, appName)) {
-    tmpProgress[appName] = defaultTmpProgress()
+  if (!Object.hasOwn(this.tmpProgress, appName)) {
+    this.tmpProgress[appName] = this.defaultTmpProgress()
   }
-  const progress = tmpProgress[appName]
+  const progress = this.tmpProgress[appName]
 
   // This part needs to be adapted to parse output from the actual installer.
   // For now, it's a placeholder.
@@ -223,11 +215,11 @@ export function onInstallOrUpdateOutput(
   })
 
   if (progress.percent === 100) {
-    tmpProgress[appName] = defaultTmpProgress()
+    this.tmpProgress[appName] = this.defaultTmpProgress()
   }
 }
 
-export async function install(
+async install(
   appName: string,
   { path, platformToInstall, installLanguage }: InstallArgs
 ): Promise<{
@@ -240,7 +232,7 @@ export async function install(
   )
   logInfo(`Installation path: ${path}`, LogPrefix.Zoom)
 
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = this.getGameInfo(appName)
   if (!gameInfo || !gameInfo.folder_name) {
     logError(`Game info not found for ${appName}`, LogPrefix.Zoom)
     return { status: 'error', error: 'Game info not found' }
@@ -250,7 +242,7 @@ export async function install(
   let finalInstallPlatform = installPlatform
 
   // Fetch installer URL
-  const installers: ZoomDownloadFile[] = await getInstallers(
+  const installers: ZoomDownloadFile[] = await libraryManagerMap['zoom'].getInstallers(
     installPlatform,
     appName
   )
@@ -283,7 +275,7 @@ export async function install(
         const percent = progressEvent.progress
           ? Math.round(progressEvent.progress * 100)
           : undefined
-        onInstallOrUpdateOutput(
+        this.onInstallOrUpdateOutput(
           appName,
           'installing',
           `Progress: ${percent}%`,
@@ -349,11 +341,11 @@ export async function install(
   } else {
     // windows
     // For Windows, use runWineCommand
-    const gameSettings = await getSettings(appName)
+    const gameSettings = await this.getSettings(appName)
     const winePrefix = gameSettings.winePrefix
     const zoomPlatformPath = join(winePrefix, 'drive_c', 'ZOOM PLATFORM')
     if (fs.existsSync(zoomPlatformPath)) {
-      confFilesBefore = await findConfFiles(zoomPlatformPath)
+      confFilesBefore = await this.findConfFiles(zoomPlatformPath)
     } else {
       fs.mkdirSync(zoomPlatformPath, { recursive: true })
     }
@@ -386,12 +378,12 @@ export async function install(
   let finalExecutable = ''
 
   if (installPlatform === 'windows') {
-    const gameSettings = await getSettings(appName)
+    const gameSettings = await this.getSettings(appName)
     const winePrefix = gameSettings.winePrefix
     const installPath = join(winePrefix, 'drive_c', 'ZOOM PLATFORM')
     logInfo(`Searching for executable in ${installPath}`, LogPrefix.Zoom)
 
-    const confFilesAfter = await findConfFiles(installPath)
+    const confFilesAfter = await this.findConfFiles(installPath)
     const newConfFiles = confFilesAfter.filter(
       (f) => !confFilesBefore.includes(f)
     )
@@ -399,7 +391,7 @@ export async function install(
     if (newConfFiles.length > 0) {
       dosboxConf = newConfFiles
       const gameDirectory = dirname(newConfFiles[0])
-      const dosboxExePath = await findDosboxExecutable(gameDirectory)
+      const dosboxExePath = await this.findDosboxExecutable(gameDirectory)
       if (dosboxExePath) {
         isDosbox = true
         if (isWindows) {
@@ -453,7 +445,7 @@ export async function install(
         finalExecutable = exes[0]
       } else if (exes.length > 1) {
         // Try to find an exe with the game's name in it
-        const gameInfo = getGameInfo(appName)
+        const gameInfo = this.getGameInfo(appName)
         const gameName = gameInfo.title.toLowerCase().replace(/[^a-z0-9]/g, '')
         const bestMatch = exes.find((exe) =>
           exe
@@ -515,12 +507,12 @@ export async function install(
   const array = installedGamesStore.get('installed', [])
   array.push(installedData)
   installedGamesStore.set('installed', array)
-  refresh()
-  const libraryGame = getGameInfo(appName)
+  libraryManagerMap['zoom'].refresh()
+  const libraryGame = this.getGameInfo(appName)
   if (libraryGame) {
     libraryGame.is_installed = true
     libraryGame.install = installedData
-    updateGameInLibrary(libraryGame)
+    libraryManagerMap['zoom'].updateGameInLibrary(libraryGame)
     libraryStore.set(
       'games',
       libraryStore
@@ -533,8 +525,8 @@ export async function install(
   return { status: 'done' }
 }
 
-export function isNative(appName: string): boolean {
-  const gameInfo = getGameInfo(appName)
+isNative(appName: string): boolean {
+  const gameInfo = this.getGameInfo(appName)
   if (isWindows) {
     return true
   }
@@ -550,22 +542,22 @@ export function isNative(appName: string): boolean {
   return false
 }
 
-export async function addShortcuts(appName: string, fromMenu?: boolean) {
-  return addShortcutsUtil(getGameInfo(appName), fromMenu)
+async addShortcuts(appName: string, fromMenu?: boolean) {
+  return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
 }
 
-export async function removeShortcuts(appName: string) {
-  return removeShortcutsUtil(getGameInfo(appName))
+async removeShortcuts(appName: string) {
+  return removeShortcutsUtil(this.getGameInfo(appName))
 }
 
-export async function launch(
+async launch(
   appName: string,
   logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
-  const gameSettings = await getSettings(appName)
-  const gameInfo = getGameInfo(appName)
+  const gameSettings = await this.getSettings(appName)
+  const gameInfo = this.getGameInfo(appName)
 
   if (
     !gameInfo.install ||
@@ -593,7 +585,7 @@ export async function launch(
     gameScopeCommand,
     gameModeBin,
     steamRuntime
-  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
+  } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative(appName))
   if (!launchPrepSuccess) {
     logWriter.logError(['Launch aborted:', launchPrepFailReason])
     showDialogBoxModalAuto({
@@ -641,8 +633,8 @@ export async function launch(
 
   sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
 
-  if (isNative(appName)) {
-    const isNativeDosbox = isNative(appName) && gameInfo.install.isDosbox
+  if (this.isNative(appName)) {
+    const isNativeDosbox = this.isNative(appName) && gameInfo.install.isDosbox
     const { error, abort } = await callRunner(
       commandParts,
       {
@@ -715,7 +707,7 @@ export async function launch(
   }
 }
 
-export async function moveInstall(
+async moveInstall(
   appName: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   newInstallPath: string
@@ -727,12 +719,12 @@ export async function moveInstall(
   return { status: 'error', error: 'Move install not implemented' }
 }
 
-export async function repair(appName: string): Promise<ExecResult> {
+async repair(appName: string): Promise<ExecResult> {
   logWarning(`Repair not implemented for Zoom: ${appName}`, LogPrefix.Zoom)
   return { stdout: '', stderr: 'Repair not implemented' }
 }
 
-export async function syncSaves(
+async syncSaves(
   appName: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   arg: string,
@@ -743,7 +735,7 @@ export async function syncSaves(
   return 'Sync saves not implemented'
 }
 
-export async function uninstall({
+async uninstall({
   appName,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   shouldRemovePrefix
@@ -761,8 +753,8 @@ export async function uninstall({
     rmSync(object.install_path, { recursive: true })
   }
   installedGamesStore.set('installed', array)
-  refresh()
-  const gameInfo = getGameInfo(appName)
+  libraryManagerMap['zoom'].refresh()
+  const gameInfo = this.getGameInfo(appName)
   gameInfo.is_installed = false
   gameInfo.install = { is_dlc: false }
   await removeShortcutsUtil(gameInfo)
@@ -771,7 +763,7 @@ export async function uninstall({
   return { stdout: 'Uninstalled', stderr: '' }
 }
 
-export async function update(
+async update(
   appName: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   updateOverwrites?: {
@@ -786,18 +778,18 @@ export async function update(
   return { status: 'error', error: 'Update not implemented' }
 }
 
-export async function forceUninstall(appName: string): Promise<void> {
+async forceUninstall(appName: string): Promise<void> {
   const installed = installedGamesStore.get('installed', [])
   const newInstalled = installed.filter((g) => g.appName !== appName)
   installedGamesStore.set('installed', newInstalled)
-  refresh()
-  const gameInfo = getGameInfo(appName)
+  libraryManagerMap['zoom'].refresh()
+  const gameInfo = this.getGameInfo(appName)
   gameInfo.is_installed = false
   gameInfo.install = { is_dlc: false }
   sendFrontendMessage('pushGameToLibrary', gameInfo)
 }
 
-export async function stop(
+async stop(
   appName: string /* eslint-disable-next-line @typescript-eslint/no-unused-vars */,
   stopWine = true
 ): Promise<void> {
@@ -806,10 +798,11 @@ export async function stop(
   // If wine is used, it will be handled by the launcher's wine cleanup.
 }
 
-export async function isGameAvailable(appName: string): Promise<boolean> {
-  const info = getGameInfo(appName)
+async isGameAvailable(appName: string): Promise<boolean> {
+  const info = this.getGameInfo(appName)
   if (!info || !info.is_installed || !info.install.install_path) {
     return false
   }
   return existsSync(info.install.install_path)
+}
 }

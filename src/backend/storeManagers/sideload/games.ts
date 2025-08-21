@@ -21,7 +21,11 @@ import {
 import { notify } from '../../dialog/dialog'
 import { launchGame } from 'backend/storeManagers/storeManagerCommon/games'
 import { GOGCloudSavesLocation } from 'common/types/gog'
-import { InstallResult, RemoveArgs } from 'common/types/game_manager'
+import {
+  GameManager,
+  InstallResult,
+  RemoveArgs
+} from 'common/types/game_manager'
 import { removePrefix } from 'backend/utils/uninstaller'
 import { removeRecentGame } from 'backend/recent_games/recent_games'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
@@ -29,7 +33,8 @@ import { removeNonSteamGame } from 'backend/shortcuts/nonesteamgame/nonesteamgam
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export function getGameInfo(appName: string): GameInfo {
+export default class SideloadGameManager implements GameManager {
+getGameInfo(appName: string): GameInfo {
   const store = libraryStore.get('games', [])
   const info = store.find((app) => app.app_name === appName)
   if (!info) {
@@ -39,27 +44,27 @@ export function getGameInfo(appName: string): GameInfo {
   return info
 }
 
-export async function getSettings(appName: string): Promise<GameSettings> {
+async getSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
   )
 }
 
-export async function addShortcuts(
+async addShortcuts(
   appName: string,
   fromMenu?: boolean
 ): Promise<void> {
-  return addShortcutsUtil(getGameInfo(appName), fromMenu)
+  return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
 }
 
-export async function removeShortcuts(appName: string): Promise<void> {
-  return removeShortcutsUtil(getGameInfo(appName))
+async removeShortcuts(appName: string): Promise<void> {
+  return removeShortcutsUtil(this.getGameInfo(appName))
 }
 
-export async function isGameAvailable(appName: string): Promise<boolean> {
+async isGameAvailable(appName: string): Promise<boolean> {
   return new Promise((resolve) => {
-    const { install } = getGameInfo(appName)
+    const { install } = this.getGameInfo(appName)
 
     if (install && install.platform === 'Browser') {
       resolve(true)
@@ -71,33 +76,33 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
   })
 }
 
-export async function launch(
+async launch(
   appName: string,
   logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
-  return launchGame(appName, logWriter, getGameInfo(appName), 'sideload', args)
+  return launchGame(appName, logWriter, this.getGameInfo(appName), 'sideload', args)
 }
 
-export async function stop(appName: string): Promise<void> {
+async stop(appName: string): Promise<void> {
   const {
     install: { executable = undefined }
-  } = getGameInfo(appName)
+  } = this.getGameInfo(appName)
 
   if (executable) {
     const split = executable.split('/')
     const exe = split[split.length - 1]
     killPattern(exe)
 
-    if (!isNative(appName)) {
-      const gameSettings = await getSettings(appName)
+    if (!this.isNative(appName)) {
+      const gameSettings = await this.getSettings(appName)
       shutdownWine(gameSettings)
     }
   }
 }
 
-export async function uninstall({
+async uninstall({
   appName,
   shouldRemovePrefix,
   deleteFiles = false
@@ -111,7 +116,7 @@ export async function uninstall({
   const old = libraryStore.get('games', [])
   const current = old.filter((a: GameInfo) => a.app_name !== appName)
 
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = this.getGameInfo(appName)
   const {
     title,
     install: { executable }
@@ -142,10 +147,10 @@ export async function uninstall({
   return { stderr: '', stdout: '' }
 }
 
-export function isNative(appName: string): boolean {
+isNative(appName: string): boolean {
   const {
     install: { platform }
-  } = getGameInfo(appName)
+  } = this.getGameInfo(appName)
   if (platform) {
     if (platform === 'Browser') {
       return true
@@ -169,7 +174,7 @@ export function isNative(appName: string): boolean {
   return false
 }
 
-export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
+async getExtraInfo(appName: string): Promise<ExtraInfo> {
   logWarning(
     `getExtraInfo not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
@@ -184,7 +189,7 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
 }
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export function onInstallOrUpdateOutput(
+onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
   data: string,
@@ -195,7 +200,7 @@ export function onInstallOrUpdateOutput(
   )
 }
 
-export async function moveInstall(
+async moveInstall(
   appName: string,
   newInstallPath: string
 ): Promise<InstallResult> {
@@ -205,14 +210,14 @@ export async function moveInstall(
   return { status: 'error' }
 }
 
-export async function repair(appName: string): Promise<ExecResult> {
+async repair(appName: string): Promise<ExecResult> {
   logWarning(
     `repair not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
   return { stderr: '', stdout: '' }
 }
 
-export async function syncSaves(
+async syncSaves(
   appName: string,
   arg: string,
   path: string,
@@ -224,13 +229,13 @@ export async function syncSaves(
   return ''
 }
 
-export async function forceUninstall(appName: string): Promise<void> {
+async forceUninstall(appName: string): Promise<void> {
   logWarning(
     `forceUninstall not implemented on Sideload Game Manager. called for appName = ${appName}`
   )
 }
 
-export async function install(
+async install(
   appName: string,
   args: InstallArgs
 ): Promise<InstallResult> {
@@ -240,7 +245,7 @@ export async function install(
   return { status: 'error' }
 }
 
-export async function importGame(
+async importGame(
   appName: string,
   path: string,
   platform: InstallPlatform
@@ -248,8 +253,9 @@ export async function importGame(
   return { stderr: '', stdout: '' }
 }
 
-export async function update(
+async update(
   appName: string
 ): Promise<{ status: 'done' | 'error' }> {
   return { status: 'error' }
+}
 }

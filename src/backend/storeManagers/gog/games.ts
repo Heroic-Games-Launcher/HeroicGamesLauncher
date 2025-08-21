@@ -1,16 +1,4 @@
-import {
-  importGame as importGogLibraryGame,
-  refreshInstalled,
-  runRunnerCommand as runGogdlCommand,
-  getInstallInfo,
-  getLinuxInstallerInfo,
-  createReqsArray,
-  getGameInfo as getGogLibraryGameInfo,
-  changeGameInstallPath,
-  getMetaResponse,
-  getProductApi,
-  getGamesData
-} from './library'
+import { libraryManagerMap } from '..'
 import { join } from 'path'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
@@ -83,7 +71,7 @@ import {
 import { t } from 'i18next'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { sendFrontendMessage } from '../../ipc'
-import { RemoveArgs } from 'common/types/game_manager'
+import { GameManager, RemoveArgs } from 'common/types/game_manager'
 import {
   getWineFlagsArray,
   isUmuSupported
@@ -101,8 +89,9 @@ import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
-  const gameInfo = getGameInfo(appName)
+export default class GOGGameManager implements GameManager {
+async getExtraInfo(appName: string): Promise<ExtraInfo> {
+  const gameInfo = this.getGameInfo(appName)
   let targetPlatform: GogInstallPlatform = 'windows'
 
   if (isMac && gameInfo.is_mac_native) {
@@ -113,10 +102,10 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
     targetPlatform = 'windows'
   }
 
-  const reqs = await createReqsArray(appName, targetPlatform)
-  const productInfo = await getProductApi(appName, ['changelog'])
+  const reqs = await libraryManagerMap['gog'].createReqsArray(appName, targetPlatform)
+  const productInfo = await libraryManagerMap['gog'].getProductApi(appName, ['changelog'])
 
-  const gamesData = await getGamesData(appName)
+  const gamesData = await libraryManagerMap['gog'].getGamesData(appName)
 
   let gogStoreUrl = gamesData?._links?.store.href
   const releaseDate =
@@ -139,8 +128,8 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   return extra
 }
 
-export function getGameInfo(appName: string): GameInfo {
-  const info = getGogLibraryGameInfo(appName)
+getGameInfo(appName: string): GameInfo {
+  const info = libraryManagerMap['gog'].getGameInfo(appName)
   if (!info) {
     logError(
       [
@@ -164,20 +153,20 @@ export function getGameInfo(appName: string): GameInfo {
   return info
 }
 
-export async function getSettings(appName: string): Promise<GameSettings> {
+async getSettings(appName: string): Promise<GameSettings> {
   return (
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
   )
 }
 
-export async function importGame(
+async importGame(
   appName: string,
   folderPath: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   platform: InstallPlatform
 ): Promise<ExecResult> {
-  const res = await runGogdlCommand(['import', folderPath], {
+  const res = await libraryManagerMap['gog'].runRunnerCommand(['import', folderPath], {
     abortId: appName,
     logMessagePrefix: `Importing ${appName}`
   })
@@ -192,8 +181,8 @@ export async function importGame(
   }
 
   try {
-    await importGogLibraryGame(JSON.parse(res.stdout), folderPath)
-    addShortcuts(appName)
+    await libraryManagerMap['gog'].importGame(JSON.parse(res.stdout), folderPath)
+    this.addShortcuts(appName)
   } catch (error) {
     logError(['Failed to import', `${appName}:`, error], LogPrefix.Gog)
   }
@@ -201,32 +190,26 @@ export async function importGame(
   return res
 }
 
-interface tmpProgressMap {
-  [key: string]: InstallProgress
-}
-
-function defaultTmpProgress() {
-  return {
+private defaultTmpProgress = () => ({
     bytes: '',
     eta: '',
     percent: undefined,
     diskSpeed: undefined,
     downSpeed: undefined
-  }
-}
-const tmpProgress: tmpProgressMap = {}
+  })
+private tmpProgress: Record<string, InstallProgress> = {}
 
-export function onInstallOrUpdateOutput(
+onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
   data: string,
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   totalDownloadSize = -1
 ) {
-  if (!Object.hasOwn(tmpProgress, appName)) {
-    tmpProgress[appName] = defaultTmpProgress()
+  if (!Object.hasOwn(this.tmpProgress, appName)) {
+    this.tmpProgress[appName] = this.defaultTmpProgress()
   }
-  const progress = tmpProgress[appName]
+  const progress = this.tmpProgress[appName]
 
   // parse log for percent
   if (!progress.percent) {
@@ -274,7 +257,7 @@ export function onInstallOrUpdateOutput(
   ) {
     logInfo(
       [
-        `Progress for ${getGameInfo(appName).title}:`,
+        `Progress for ${this.getGameInfo(appName).title}:`,
         `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
         `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
       ],
@@ -289,11 +272,11 @@ export function onInstallOrUpdateOutput(
     })
 
     // reset
-    tmpProgress[appName] = defaultTmpProgress()
+    this.tmpProgress[appName] = this.defaultTmpProgress()
   }
 }
 
-export async function install(
+async install(
   appName: string,
   {
     path,
@@ -354,11 +337,11 @@ export async function install(
   }
 
   const onOutput = (data: string) => {
-    onInstallOrUpdateOutput(appName, 'installing', data)
+    this.onInstallOrUpdateOutput(appName, 'installing', data)
   }
 
   const installLogWriter = await createGameLogWriter(appName, 'gog', 'install')
-  const res = await runGogdlCommand(commandParts, {
+  const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
     abortId: appName,
     logWriters: [installLogWriter],
     onOutput,
@@ -379,7 +362,7 @@ export async function install(
 
   // Installation succeded
   // Save new game info to installed games store
-  const installInfo = await getInstallInfo(appName, installPlatform, {
+  const installInfo = await libraryManagerMap['gog'].getInstallInfo(appName, installPlatform, {
     branch,
     build
   })
@@ -387,10 +370,10 @@ export async function install(
     logError('install info is undefined in GOG install', LogPrefix.Gog)
     return { status: 'error' }
   }
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = this.getGameInfo(appName)
   const isLinuxNative = installPlatform === 'linux'
   const additionalInfo = isLinuxNative
-    ? await getLinuxInstallerInfo(appName)
+    ? await libraryManagerMap['gog'].getLinuxInstallerInfo(appName)
     : null
 
   if (gameInfo.folder_name === undefined || gameInfo.folder_name.length === 0) {
@@ -420,7 +403,7 @@ export async function install(
   installedGamesStore.set('installed', array)
   gameInfo.is_installed = true
   gameInfo.install = installedData
-  refreshInstalled()
+  libraryManagerMap['gog'].refreshInstalled()
   if (isWindows) {
     logInfo('Windows os, running setup instructions on install', LogPrefix.Gog)
     try {
@@ -447,12 +430,12 @@ export async function install(
       )
     }
   }
-  addShortcuts(appName)
+  this.addShortcuts(appName)
   return { status: 'done' }
 }
 
-export function isNative(appName: string): boolean {
-  const gameInfo = getGameInfo(appName)
+isNative(appName: string): boolean {
+  const gameInfo = this.getGameInfo(appName)
   if (isWindows) {
     return true
   }
@@ -468,22 +451,22 @@ export function isNative(appName: string): boolean {
   return false
 }
 
-export async function addShortcuts(appName: string, fromMenu?: boolean) {
-  return addShortcutsUtil(getGameInfo(appName), fromMenu)
+async addShortcuts(appName: string, fromMenu?: boolean) {
+  return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
 }
 
-export async function removeShortcuts(appName: string) {
-  return removeShortcutsUtil(getGameInfo(appName))
+async removeShortcuts(appName: string) {
+  return removeShortcutsUtil(this.getGameInfo(appName))
 }
 
-export async function launch(
+async launch(
   appName: string,
   logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
-  const gameSettings = await getSettings(appName)
-  const gameInfo = getGameInfo(appName)
+  const gameSettings = await this.getSettings(appName)
+  const gameInfo = this.getGameInfo(appName)
 
   if (
     !gameInfo.install ||
@@ -510,7 +493,7 @@ export async function launch(
     gameScopeCommand,
     gameModeBin,
     steamRuntime
-  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
+  } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative(appName))
   if (!launchPrepSuccess) {
     logWriter.logError(['Launch aborted:', launchPrepFailReason])
     launchCleanup()
@@ -550,7 +533,7 @@ export async function launch(
     ? ['--wrapper', shlex.join(wrappers)]
     : []
 
-  if (!isNative(appName)) {
+  if (!this.isNative(appName)) {
     const {
       success: wineLaunchPrepSuccess,
       failureReason: wineLaunchPrepFailReason,
@@ -622,7 +605,7 @@ export async function launch(
             gameSettings
           })
 
-      const availableMods = await getCyberpunkMods()
+      const availableMods = await this.getCyberpunkMods()
       const modsEnabledToLoad = gameInfo.install.cyberpunk.modsToLoad
       const modsAbleToLoad: string[] = []
 
@@ -712,7 +695,7 @@ export async function launch(
     logInfo(`Launching Comet!`, LogPrefix.Gog)
   }
 
-  const { error, abort } = await runGogdlCommand(commandParts, {
+  const { error, abort } = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
     abortId: appName,
     env: commandEnv,
     wrappers,
@@ -737,11 +720,11 @@ export async function launch(
   return !error
 }
 
-export async function moveInstall(
+async moveInstall(
   appName: string,
   newInstallPath: string
 ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = this.getGameInfo(appName)
   const gameConfig = GameConfig.get(appName).config
   logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
@@ -758,7 +741,7 @@ export async function moveInstall(
     return { status: 'error', error }
   }
 
-  await changeGameInstallPath(appName, moveResult.installPath)
+  await libraryManagerMap['gog'].changeGameInstallPath(appName, moveResult.installPath)
   if (
     gameInfo.install.platform === 'windows' &&
     (isWindows || existsSync(gameConfig.winePrefix))
@@ -772,9 +755,9 @@ export async function moveInstall(
  * This proces verifies and repairs game files
  * verification step doesn't have progress, but download does
  */
-export async function repair(appName: string): Promise<ExecResult> {
+async repair(appName: string): Promise<ExecResult> {
   const { installPlatform, gameData, credentials, withDlcs, workers } =
-    await getCommandParameters(appName)
+    await this.getCommandParameters(appName)
 
   if (!credentials) {
     return { stderr: 'Unable to repair game, no credentials', stdout: '' }
@@ -803,7 +786,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   }
 
   const repairLogWriter = await createGameLogWriter(appName, 'gog', 'repair')
-  const res = await runGogdlCommand(commandParts, {
+  const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
     abortId: appName,
     logWriters: [repairLogWriter],
     logMessagePrefix: `Repairing ${appName}`
@@ -816,7 +799,7 @@ export async function repair(appName: string): Promise<ExecResult> {
   return res
 }
 
-export async function syncSaves(
+async syncSaves(
   appName: string,
   arg: string,
   path: string,
@@ -831,7 +814,7 @@ export async function syncSaves(
     return 'Unable to sync saves, no credentials'
   }
 
-  const gameInfo = getGogLibraryGameInfo(appName)
+  const gameInfo = libraryManagerMap['gog'].getGameInfo(appName)
   if (!gameInfo || !gameInfo.install.platform) {
     return 'Unable to sync saves, game info not found'
   }
@@ -854,7 +837,7 @@ export async function syncSaves(
 
     logInfo([`Syncing saves for ${gameInfo.title}`], LogPrefix.Gog)
 
-    const res = await runGogdlCommand(commandParts, {
+    const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
       abortId: appName,
       logMessagePrefix: `Syncing saves for ${gameInfo.title}`,
       onOutput: (output) => (fullOutput += output)
@@ -874,7 +857,7 @@ export async function syncSaves(
   return fullOutput
 }
 
-export async function uninstall({
+async uninstall({
   appName,
   shouldRemovePrefix
 }: RemoveArgs): Promise<ExecResult> {
@@ -949,8 +932,8 @@ export async function uninstall({
     rmSync(supportPath, { recursive: true }) // Remove unnecessary support dir
   }
   installedGamesStore.set('installed', array)
-  refreshInstalled()
-  const gameInfo = getGameInfo(appName)
+  libraryManagerMap['gog'].refreshInstalled()
+  const gameInfo = this.getGameInfo(appName)
   gameInfo.is_installed = false
   gameInfo.install = { is_dlc: false }
   await removeShortcutsUtil(gameInfo)
@@ -960,7 +943,7 @@ export async function uninstall({
   return res
 }
 
-export async function update(
+async update(
   appName: string,
   updateOverwrites?: {
     build?: string
@@ -989,7 +972,7 @@ export async function update(
     workers,
     dlcs,
     branch
-  } = await getCommandParameters(appName)
+  } = await this.getCommandParameters(appName)
   if (!installPlatform || !credentials) {
     return { status: 'error' }
   }
@@ -1107,11 +1090,11 @@ export async function update(
   }
 
   const onOutput = (data: string) => {
-    onInstallOrUpdateOutput(appName, 'updating', data)
+    this.onInstallOrUpdateOutput(appName, 'updating', data)
   }
 
   const updateLogWriter = await createGameLogWriter(appName, 'gog', 'update')
-  const res = await runGogdlCommand(commandParts, {
+  const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
     abortId: appName,
     logWriters: [updateLogWriter],
     onOutput,
@@ -1139,7 +1122,7 @@ export async function update(
   const gameObject = installedArray[gameIndex]
 
   if (gameData.install.platform !== 'linux') {
-    const installInfo = await getInstallInfo(
+    const installInfo = await libraryManagerMap['gog'].getInstallInfo(
       appName,
       gameData.install.platform ?? 'windows',
       {
@@ -1148,7 +1131,7 @@ export async function update(
       }
     )
     // TODO: use installInfo.game.builds
-    const { etag } = await getMetaResponse(
+    const { etag } = await libraryManagerMap['gog'].getMetaResponse(
       appName,
       gameData.install.platform ?? 'windows',
       installInfo?.manifest.versionEtag
@@ -1160,7 +1143,7 @@ export async function update(
     gameObject.language = overwrittenLanguage
     gameObject.versionEtag = etag
   } else {
-    const installerInfo = await getLinuxInstallerInfo(appName)
+    const installerInfo = await libraryManagerMap['gog'].getLinuxInstallerInfo(appName)
     if (!installerInfo) {
       return { status: 'error' }
     }
@@ -1172,7 +1155,7 @@ export async function update(
   const sizeOnDisk = await getPathDiskSize(join(gameObject.install_path))
   gameObject.install_size = getFileSize(sizeOnDisk)
   installedGamesStore.set('installed', installedArray)
-  refreshInstalled()
+  libraryManagerMap['gog'].refreshInstalled()
   const gameSettings = GameConfig.get(appName).config
   // Simple check if wine prefix exists and setup can be performed because of an
   // update
@@ -1207,10 +1190,10 @@ export async function update(
  * Reads game installed data and returns proper parameters
  * Useful for Update and Repair
  */
-async function getCommandParameters(appName: string) {
+private async getCommandParameters(appName: string) {
   const { maxWorkers } = GlobalConfig.get().getSettings()
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-  const gameData = getGameInfo(appName)
+  const gameData = this.getGameInfo(appName)
   const credentials = await GOGUser.getCredentials()
 
   const numberOfDLCs = gameData.install?.installedDLCs?.length || 0
@@ -1242,25 +1225,25 @@ async function getCommandParameters(appName: string) {
   }
 }
 
-export async function forceUninstall(appName: string): Promise<void> {
+async forceUninstall(appName: string): Promise<void> {
   const installed = installedGamesStore.get('installed', [])
   const newInstalled = installed.filter((g) => g.appName !== appName)
   installedGamesStore.set('installed', newInstalled)
-  refreshInstalled()
-  sendFrontendMessage('pushGameToLibrary', getGameInfo(appName))
+  libraryManagerMap['gog'].refreshInstalled()
+  sendFrontendMessage('pushGameToLibrary', this.getGameInfo(appName))
 }
 
 // GOGDL now handles the signal, this is no longer needed
-export async function stop(appName: string, stopWine = true): Promise<void> {
-  if (stopWine && !isNative(appName)) {
-    const gameSettings = await getSettings(appName)
+async stop(appName: string, stopWine = true): Promise<void> {
+  if (stopWine && !this.isNative(appName)) {
+    const gameSettings = await this.getSettings(appName)
     await shutdownWine(gameSettings)
   }
 }
 
-export async function isGameAvailable(appName: string): Promise<boolean> {
+async isGameAvailable(appName: string): Promise<boolean> {
   return new Promise((resolve) => {
-    const info = getGameInfo(appName)
+    const info = this.getGameInfo(appName)
     if (info && info.is_installed) {
       if (info.install.install_path && existsSync(info.install.install_path)) {
         resolve(true)
@@ -1272,7 +1255,7 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
   })
 }
 
-async function postPlaytimeSession({
+private async postPlaytimeSession({
   appName,
   session_date,
   time
@@ -1311,7 +1294,7 @@ async function postPlaytimeSession({
     })
 }
 
-export async function updateGOGPlaytime(
+async updateGOGPlaytime(
   appName: string,
   startPlayingDate: Date,
   finishedPlayingDate: Date
@@ -1347,11 +1330,11 @@ export async function updateGOGPlaytime(
     const alreadySetData = playtimeSyncQueue.get(userData.galaxyUserId, [])
     alreadySetData.push({ ...data, appName })
     playtimeSyncQueue.set(userData.galaxyUserId, alreadySetData)
-    runOnceWhenOnline(syncQueuedPlaytimeGOG)
+    runOnceWhenOnline(this.syncQueuedPlaytimeGOG)
     return
   }
 
-  const response = await postPlaytimeSession({ ...data, appName }).catch(
+  const response = await this.postPlaytimeSession({ ...data, appName }).catch(
     () => null
   )
 
@@ -1366,7 +1349,7 @@ export async function updateGOGPlaytime(
   logInfo('Posted session to gameplay.gog.com', { prefix: LogPrefix.Gog })
 }
 
-export async function syncQueuedPlaytimeGOG() {
+async syncQueuedPlaytimeGOG() {
   if (playtimeSyncQueue.has('lock')) {
     return
   }
@@ -1388,7 +1371,7 @@ export async function syncQueuedPlaytimeGOG() {
     if (!isOnline()) {
       failed.push(session)
     }
-    const response = await postPlaytimeSession(session)
+    const response = await this.postPlaytimeSession(session)
 
     if (!response || response.status !== 201) {
       logError('Failed to post session', { prefix: LogPrefix.Gog })
@@ -1405,7 +1388,7 @@ export async function syncQueuedPlaytimeGOG() {
   )
 }
 
-export async function getGOGPlaytime(
+async getGOGPlaytime(
   appName: string
 ): Promise<number | undefined> {
   if (!isOnline()) {
@@ -1436,16 +1419,16 @@ export async function getGOGPlaytime(
   return response?.data?.time_sum
 }
 
-export function getBranchPassword(appName: string): string {
+getBranchPassword(appName: string): string {
   return privateBranchesStore.get(appName, '')
 }
 
-export function setBranchPassword(appName: string, password: string): void {
+setBranchPassword(appName: string, password: string): void {
   privateBranchesStore.set(appName, password)
 }
 
-export async function getCyberpunkMods(): Promise<string[]> {
-  const gameInfo = getGogLibraryGameInfo('1423049311')
+async getCyberpunkMods(): Promise<string[]> {
+  const gameInfo = libraryManagerMap['gog'].getGameInfo('1423049311')
   if (!gameInfo || !gameInfo?.install?.install_path) {
     return []
   }
@@ -1468,4 +1451,5 @@ export async function getCyberpunkMods(): Promise<string[]> {
 
     return acc
   }, [] as string[])
+}
 }

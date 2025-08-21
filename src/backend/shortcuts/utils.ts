@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, unlinkSync, writeFileSync } from 'graceful-fs'
 import { GameInfo } from 'common/types'
 import { basename, dirname, extname, join } from 'path'
-import { getProductApi } from 'backend/storeManagers/gog/library'
+import { libraryManagerMap } from '../storeManagers'
 import { downloadFile } from 'backend/utils'
 import { createAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { heroicIconFolder as iconsFolder } from 'backend/constants/paths'
@@ -82,7 +82,7 @@ async function getIcon(appName: string, gameInfo: GameInfo) {
     } else if (existsSync(linuxNativePath)) {
       return linuxNativePath
     }
-    const productApiData = await getProductApi(appName)
+    const productApiData = await libraryManagerMap['gog'].getProductApi(appName)
     if (productApiData && productApiData.data.images?.icon) {
       image = 'https:' + productApiData.data.images?.icon
       icon = `${iconsFolder}/${appName}.png` // Allow transparency

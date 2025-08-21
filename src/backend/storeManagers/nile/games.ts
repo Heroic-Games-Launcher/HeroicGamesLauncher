@@ -8,15 +8,12 @@ import {
   InstallProgress,
   LaunchOption
 } from 'common/types'
-import { InstallResult, RemoveArgs } from 'common/types/game_manager'
 import {
-  runRunnerCommand as runNileCommand,
-  getGameInfo as nileLibraryGetGameInfo,
-  changeGameInstallPath,
-  installState,
-  removeFromInstalledConfig,
-  getInstallMetadata
-} from './library'
+  GameManager,
+  InstallResult,
+  RemoveArgs
+} from 'common/types/game_manager'
+import { libraryManagerMap } from '..'
 import {
   LogPrefix,
   logDebug,
@@ -63,13 +60,14 @@ import { isLinux, isWindows } from 'backend/constants/environment'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export async function getSettings(appName: string): Promise<GameSettings> {
+export default class NileGameManager implements GameManager {
+async getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)
   return gameConfig.config || (await gameConfig.getSettings())
 }
 
-export function getGameInfo(appName: string): GameInfo {
-  const info = nileLibraryGetGameInfo(appName)
+getGameInfo(appName: string): GameInfo {
+  const info = libraryManagerMap['nile'].getGameInfo(appName)
   if (!info) {
     logError(
       [
@@ -93,8 +91,8 @@ export function getGameInfo(appName: string): GameInfo {
   return info
 }
 
-export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
-  const info = nileLibraryGetGameInfo(appName)
+async getExtraInfo(appName: string): Promise<ExtraInfo> {
+  const info = libraryManagerMap['nile'].getGameInfo(appName)
   return {
     reqs: [],
     about: info?.description
@@ -107,14 +105,14 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   }
 }
 
-export async function importGame(
+async importGame(
   appName: string,
   folderPath: string,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   platform: InstallPlatform
 ): Promise<ExecResult> {
   const importLogWriter = await createGameLogWriter(appName, 'nile', 'import')
-  const res = await runNileCommand(['import', '--path', folderPath, appName], {
+  const res = await libraryManagerMap['nile'].runRunnerCommand(['import', '--path', folderPath, appName], {
     abortId: appName,
     logWriters: [importLogWriter],
     logMessagePrefix: `Importing ${appName}`
@@ -139,8 +137,8 @@ export async function importGame(
   }
 
   try {
-    addShortcuts(appName)
-    installState(appName, true)
+    this.addShortcuts(appName)
+    libraryManagerMap['nile'].installState(appName, true)
   } catch (error) {
     logError(['Failed to import', `${appName}:`, error], LogPrefix.Nile)
   }
@@ -148,32 +146,26 @@ export async function importGame(
   return res
 }
 
-interface tmpProgressMap {
-  [key: string]: InstallProgress
-}
-
-function defaultTmpProgress() {
-  return {
+private defaultTmpProgress = () => ({
     bytes: '',
     eta: '',
     percent: undefined,
     diskSpeed: undefined,
     downSpeed: undefined
-  }
-}
-const tmpProgress: tmpProgressMap = {}
+  })
+private tmpProgress: Record<string, InstallProgress> = {}
 
-export function onInstallOrUpdateOutput(
+onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
   data: string,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   totalDownloadSize = -1
 ) {
-  if (!Object.hasOwn(tmpProgress, appName)) {
-    tmpProgress[appName] = defaultTmpProgress()
+  if (!Object.hasOwn(this.tmpProgress, appName)) {
+    this.tmpProgress[appName] = this.defaultTmpProgress()
   }
-  const progress = tmpProgress[appName]
+  const progress = this.tmpProgress[appName]
 
   // parse log for percent
   if (!progress.percent) {
@@ -221,7 +213,7 @@ export function onInstallOrUpdateOutput(
   ) {
     logInfo(
       [
-        `Progress for ${getGameInfo(appName).title}:`,
+        `Progress for ${this.getGameInfo(appName).title}:`,
         `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
         `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
       ],
@@ -236,11 +228,11 @@ export function onInstallOrUpdateOutput(
     })
 
     // reset
-    tmpProgress[appName] = defaultTmpProgress()
+    this.tmpProgress[appName] = this.defaultTmpProgress()
   }
 }
 
-export async function install(
+async install(
   appName: string,
   { path }: InstallArgs
 ): Promise<InstallResult> {
@@ -250,11 +242,11 @@ export async function install(
   const commandParts = ['install', '--base-path', path, ...workers, appName]
 
   const onOutput = (data: string) => {
-    onInstallOrUpdateOutput(appName, 'installing', data)
+    this.onInstallOrUpdateOutput(appName, 'installing', data)
   }
 
   const installLogWriter = await createGameLogWriter(appName, 'nile', 'install')
-  const res = await runNileCommand(commandParts, {
+  const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
     abortId: appName,
     logWriters: [installLogWriter],
     onOutput,
@@ -271,9 +263,9 @@ export async function install(
     }
     return { status: 'error', error: res.error }
   }
-  addShortcuts(appName)
-  installState(appName, true)
-  const metadata = getInstallMetadata(appName)
+  this.addShortcuts(appName)
+  libraryManagerMap['nile'].installState(appName, true)
+  const metadata = libraryManagerMap['nile'].getInstallMetadata(appName)
 
   if (isWindows) {
     await setup(appName, metadata?.path)
@@ -282,7 +274,7 @@ export async function install(
   return { status: 'done' }
 }
 
-export function isNative(): boolean {
+isNative(): boolean {
   return isWindows
 }
 
@@ -293,8 +285,8 @@ export function isNative(): boolean {
  * @async
  * @public
  */
-export async function addShortcuts(appName: string, fromMenu?: boolean) {
-  return addShortcutsUtil(getGameInfo(appName), fromMenu)
+async addShortcuts(appName: string, fromMenu?: boolean) {
+  return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
 }
 
 /**
@@ -302,18 +294,18 @@ export async function addShortcuts(appName: string, fromMenu?: boolean) {
  * @async
  * @public
  */
-export async function removeShortcuts(appName: string) {
-  return removeShortcutsUtil(getGameInfo(appName))
+async removeShortcuts(appName: string) {
+  return removeShortcutsUtil(this.getGameInfo(appName))
 }
 
-export async function launch(
+async launch(
   appName: string,
   logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
-  const gameSettings = await getSettings(appName)
-  const gameInfo = getGameInfo(appName)
+  const gameSettings = await this.getSettings(appName)
+  const gameInfo = this.getGameInfo(appName)
 
   const {
     success: launchPrepSuccess,
@@ -323,7 +315,7 @@ export async function launch(
     gameModeBin,
     gameScopeCommand,
     steamRuntime
-  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative())
+  } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
 
   if (!launchPrepSuccess) {
     logWriter.logError(['Launch aborted:', launchPrepFailReason])
@@ -364,7 +356,7 @@ export async function launch(
     ? ['--wrapper', shlex.join(wrappers)]
     : []
 
-  if (!isNative()) {
+  if (!this.isNative()) {
     // -> We're using Wine/Proton on Linux or CX on Mac
     const {
       success: wineLaunchPrepSuccess,
@@ -420,7 +412,7 @@ export async function launch(
 
   sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
 
-  const { error } = await runNileCommand(commandParts, {
+  const { error } = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
     abortId: appName,
     env: commandEnv,
     wrappers,
@@ -437,11 +429,11 @@ export async function launch(
   return !error
 }
 
-export async function moveInstall(
+async moveInstall(
   appName: string,
   newInstallPath: string
 ): Promise<InstallResult> {
-  const gameInfo = getGameInfo(appName)
+  const gameInfo = this.getGameInfo(appName)
   logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Nile)
 
   const moveImpl = isWindows ? moveOnWindows : moveOnUnix
@@ -456,12 +448,12 @@ export async function moveInstall(
     return { status: 'error', error }
   }
 
-  await changeGameInstallPath(appName, moveResult.installPath)
+  await libraryManagerMap['nile'].changeGameInstallPath(appName, moveResult.installPath)
   return { status: 'done' }
 }
 
-export async function repair(appName: string): Promise<ExecResult> {
-  const installInfo = getGameInfo(appName)
+async repair(appName: string): Promise<ExecResult> {
+  const installInfo = this.getGameInfo(appName)
   const { install_path } = installInfo.install ?? {}
 
   if (!install_path) {
@@ -476,7 +468,7 @@ export async function repair(appName: string): Promise<ExecResult> {
 
   logDebug([appName, 'is installed at', install_path], LogPrefix.Nile)
   const repairLogWriter = await createGameLogWriter(appName, 'nile', 'repair')
-  const res = await runNileCommand(
+  const res = await libraryManagerMap['nile'].runRunnerCommand(
     ['verify', '--path', install_path, appName],
     {
       abortId: appName,
@@ -492,15 +484,15 @@ export async function repair(appName: string): Promise<ExecResult> {
   return res
 }
 
-export async function syncSaves(): Promise<string> {
+async syncSaves(): Promise<string> {
   // Amazon Games doesn't support cloud saves
   return ''
 }
 
-export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   const commandParts = ['uninstall', appName]
 
-  const res = await runNileCommand(commandParts, {
+  const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
     abortId: appName,
     logMessagePrefix: `Uninstalling ${appName}`
   })
@@ -508,27 +500,27 @@ export async function uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
   if (res.error) {
     logError(['Failed to uninstall', `${appName}:`, res.error], LogPrefix.Nile)
   } else if (!res.abort) {
-    const gameInfo = getGameInfo(appName)
+    const gameInfo = this.getGameInfo(appName)
     await removeShortcutsUtil(gameInfo)
     await removeNonSteamGame({ gameInfo })
-    installState(appName, false)
+    libraryManagerMap['nile'].installState(appName, false)
   }
   sendFrontendMessage('refreshLibrary', 'nile')
   return res
 }
 
-export async function update(appName: string): Promise<InstallResult> {
+async update(appName: string): Promise<InstallResult> {
   const { maxWorkers } = GlobalConfig.get().getSettings()
   const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
 
   const commandParts = ['update', ...workers, appName]
 
   const onOutput = (data: string) => {
-    onInstallOrUpdateOutput(appName, 'updating', data)
+    this.onInstallOrUpdateOutput(appName, 'updating', data)
   }
 
   const updateLogWriter = await createGameLogWriter(appName, 'nile', 'update')
-  const res = await runNileCommand(commandParts, {
+  const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
     abortId: appName,
     logWriters: [updateLogWriter],
     onOutput,
@@ -555,23 +547,23 @@ export async function update(appName: string): Promise<InstallResult> {
   return { status: 'done' }
 }
 
-export async function forceUninstall(appName: string) {
-  removeFromInstalledConfig(appName)
+async forceUninstall(appName: string) {
+  libraryManagerMap['nile'].removeFromInstalledConfig(appName)
 }
 
-export async function stop(appName: string, stopWine = true) {
+async stop(appName: string, stopWine = true) {
   const pattern = isLinux ? appName : 'nile'
   killPattern(pattern)
 
-  if (stopWine && !isNative()) {
-    const gameSettings = await getSettings(appName)
+  if (stopWine && !this.isNative()) {
+    const gameSettings = await this.getSettings(appName)
     await shutdownWine(gameSettings)
   }
 }
 
-export async function isGameAvailable(appName: string): Promise<boolean> {
+async isGameAvailable(appName: string): Promise<boolean> {
   return new Promise((resolve) => {
-    const info = getGameInfo(appName)
+    const info = this.getGameInfo(appName)
     resolve(
       Boolean(
         info?.is_installed &&
@@ -580,4 +572,5 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
       )
     )
   })
+}
 }
