@@ -79,42 +79,42 @@ import { fakeEpicExePath } from 'backend/constants/paths'
 import type LogWriter from 'backend/logger/log_writer'
 
 export default class LegendaryGameManager implements GameManager {
-/**
- * Alias for `LegendaryLibrary.getGameInfo(appName)`
- *
- * @returns GameInfo
- */
-getGameInfo(appName: string): GameInfo {
-  const info = libraryManagerMap['legendary'].getGameInfo(appName)
-  if (!info) {
-    logError(
-      [
-        'Could not get game info for',
-        `${appName},`,
-        'returning empty object. Something is probably gonna go wrong soon'
-      ],
-      LogPrefix.Legendary
-    )
-    return {
-      app_name: '',
-      runner: 'legendary',
-      art_cover: '',
-      art_square: '',
-      install: {},
-      is_installed: false,
-      title: '',
-      canRunOffline: false
+  /**
+   * Alias for `LegendaryLibrary.getGameInfo(appName)`
+   *
+   * @returns GameInfo
+   */
+  getGameInfo(appName: string): GameInfo {
+    const info = libraryManagerMap['legendary'].getGameInfo(appName)
+    if (!info) {
+      logError(
+        [
+          'Could not get game info for',
+          `${appName},`,
+          'returning empty object. Something is probably gonna go wrong soon'
+        ],
+        LogPrefix.Legendary
+      )
+      return {
+        app_name: '',
+        runner: 'legendary',
+        art_cover: '',
+        art_square: '',
+        install: {},
+        is_installed: false,
+        title: '',
+        canRunOffline: false
+      }
     }
+    return info
   }
-  return info
-}
 
-private async getProductSlug(namespace: string, title: string) {
-  // If you want to change this graphql query, make sure it works for these games:
-  // Rocket League
-  // Alba - A Wildlife Adventure
-  const graphql = {
-    query: `{
+  private async getProductSlug(namespace: string, title: string) {
+    // If you want to change this graphql query, make sure it works for these games:
+    // Rocket League
+    // Alba - A Wildlife Adventure
+    const graphql = {
+      query: `{
           Catalog {
             catalogNs(namespace: "${namespace}") {
               mappings (pageType: "productHome") {
@@ -124,76 +124,82 @@ private async getProductSlug(namespace: string, title: string) {
             }
           }
       }`
-  }
+    }
 
-  try {
-    const result = await axios('https://launcher.store.epicgames.com/graphql', {
-      data: graphql,
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EpicGamesLauncher'
-      },
-      method: 'POST'
-    })
+    try {
+      const result = await axios(
+        'https://launcher.store.epicgames.com/graphql',
+        {
+          data: graphql,
+          headers: {
+            'Content-Type': 'application/json',
+            'User-Agent':
+              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EpicGamesLauncher'
+          },
+          method: 'POST'
+        }
+      )
 
-    const res = result.data.data.Catalog as Catalog
-    const slugMapping = res.catalogNs.mappings.find(
-      (mapping) => mapping.pageType === 'productHome'
-    )
+      const res = result.data.data.Catalog as Catalog
+      const slugMapping = res.catalogNs.mappings.find(
+        (mapping) => mapping.pageType === 'productHome'
+      )
 
-    if (slugMapping) {
-      return slugMapping.pageSlug
-    } else {
+      if (slugMapping) {
+        return slugMapping.pageSlug
+      } else {
+        return this.slugFromTitle(title)
+      }
+    } catch (error) {
+      logError(error, LogPrefix.Legendary)
       return this.slugFromTitle(title)
     }
-  } catch (error) {
-    logError(error, LogPrefix.Legendary)
-    return this.slugFromTitle(title)
-  }
-}
-
-private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
-  let lang = configStore.get('language', '')
-  if (lang === 'pt') {
-    lang = 'pt-BR'
-  }
-  if (lang === 'zh_Hans') {
-    lang = 'zh-CN'
   }
 
-  const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${slug}`
+  private async getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
+    let lang = configStore.get('language', '')
+    if (lang === 'pt') {
+      lang = 'pt-BR'
+    }
+    if (lang === 'zh_Hans') {
+      lang = 'zh-CN'
+    }
 
-  try {
-    const { data } = await axios({ method: 'GET', url: epicUrl })
-    logInfo('Getting Info from Epic API', LogPrefix.Legendary)
+    const epicUrl = `https://store-content.ak.epicgames.com/api/${lang}/content/products/${slug}`
 
-    const about = data?.pages?.find(
-      (e: { type: string }) => e.type === 'productHome'
-    )
+    try {
+      const { data } = await axios({ method: 'GET', url: epicUrl })
+      logInfo('Getting Info from Epic API', LogPrefix.Legendary)
 
-    if (about) {
-      return {
-        about: about.data.about,
-        reqs: about.data.requirements.systems[0].details,
-        releaseDate: about.data.meta.releaseDate?.substring(0, 19),
-        storeUrl: `https://www.epicgames.com/store/product/${slug}`
+      const about = data?.pages?.find(
+        (e: { type: string }) => e.type === 'productHome'
+      )
+
+      if (about) {
+        return {
+          about: about.data.about,
+          reqs: about.data.requirements.systems[0].details,
+          releaseDate: about.data.meta.releaseDate?.substring(0, 19),
+          storeUrl: `https://www.epicgames.com/store/product/${slug}`
+        }
+      } else {
+        return null
       }
-    } else {
+    } catch (error) {
+      logError(
+        ['Failed to get info from Epic API:', error],
+        LogPrefix.Legendary
+      )
       return null
     }
-  } catch (error) {
-    logError(['Failed to get info from Epic API:', error], LogPrefix.Legendary)
-    return null
   }
-}
 
-private async getExtraFromGraphql(
-  namespace: string,
-  slug: string
-): Promise<ExtraInfo | null> {
-  const graphql = {
-    query: `{
+  private async getExtraFromGraphql(
+    namespace: string,
+    slug: string
+  ): Promise<ExtraInfo | null> {
+    const graphql = {
+      query: `{
         Product {
           sandbox(sandboxId: "${namespace}") {
             configuration {
@@ -218,848 +224,868 @@ private async getExtraFromGraphql(
           }
         }
       }`
-  }
-
-  try {
-    const result = await axios('https://launcher.store.epicgames.com/graphql', {
-      data: graphql,
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EpicGamesLauncher'
-      },
-      method: 'POST'
-    })
-
-    const res = result.data.data.Product as Product
-
-    const configuration = res.sandbox.configuration[0]
-
-    if (!configuration) {
-      return null
     }
 
-    const requirements = configuration.configs.technicalRequirements.windows
+    try {
+      const result = await axios(
+        'https://launcher.store.epicgames.com/graphql',
+        {
+          data: graphql,
+          headers: {
+            'Content-Type': 'application/json',
+            'User-Agent':
+              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) EpicGamesLauncher'
+          },
+          method: 'POST'
+        }
+      )
 
-    if (requirements) {
+      const res = result.data.data.Product as Product
+
+      const configuration = res.sandbox.configuration[0]
+
+      if (!configuration) {
+        return null
+      }
+
+      const requirements = configuration.configs.technicalRequirements.windows
+
+      if (requirements) {
+        return {
+          about: {
+            description: res.sandbox.configuration[0].configs.shortDescription,
+            shortDescription: ''
+          },
+          reqs: requirements,
+          storeUrl: `https://www.epicgames.com/store/product/${slug}`
+        }
+      } else {
+        return null
+      }
+    } catch (error) {
+      logError(error, LogPrefix.Legendary)
+      return null
+    }
+  }
+
+  private slugFromTitle(title: string): string {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z ]/g, '')
+      .replaceAll(' ', '-')
+  }
+
+  private emptyExtraInfo = {
+    about: {
+      description: '',
+      shortDescription: ''
+    },
+    reqs: [],
+    storeUrl: ''
+  }
+  /**
+   * Get extra info from Epic's API.
+   *
+   */
+  async getExtraInfo(appName: string): Promise<ExtraInfo> {
+    const { namespace, title } = this.getGameInfo(appName)
+    if (namespace === undefined) return this.emptyExtraInfo
+
+    const cachedExtraInfo = gameInfoStore.get(namespace)
+    if (cachedExtraInfo) {
+      return cachedExtraInfo
+    }
+    if (!isOnline()) {
+      return this.emptyExtraInfo
+    }
+
+    const slug = await this.getProductSlug(namespace, title)
+
+    // try the API first, it works for most games
+    let extraData = await this.getExtraFromAPI(slug)
+
+    // if the API doesn't work, try graphql
+    if (!extraData) {
+      extraData = await this.getExtraFromGraphql(namespace, slug)
+    }
+
+    // if we have data, store it and return
+    if (extraData) {
+      gameInfoStore.set(namespace, extraData)
+      return extraData
+    } else {
+      logError('Error Getting Info from Epic API', LogPrefix.Legendary)
       return {
         about: {
-          description: res.sandbox.configuration[0].configs.shortDescription,
+          description: '',
           shortDescription: ''
         },
-        reqs: requirements,
-        storeUrl: `https://www.epicgames.com/store/product/${slug}`
+        reqs: [],
+        storeUrl: ''
       }
-    } else {
-      return null
-    }
-  } catch (error) {
-    logError(error, LogPrefix.Legendary)
-    return null
-  }
-}
-
-private slugFromTitle(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z ]/g, '')
-    .replaceAll(' ', '-')
-}
-
-private emptyExtraInfo = {
-  about: {
-    description: '',
-    shortDescription: ''
-  },
-  reqs: [],
-  storeUrl: ''
-}
-/**
- * Get extra info from Epic's API.
- *
- */
-async getExtraInfo(appName: string): Promise<ExtraInfo> {
-  const { namespace, title } = this.getGameInfo(appName)
-  if (namespace === undefined) return this.emptyExtraInfo
-
-  const cachedExtraInfo = gameInfoStore.get(namespace)
-  if (cachedExtraInfo) {
-    return cachedExtraInfo
-  }
-  if (!isOnline()) {
-    return this.emptyExtraInfo
-  }
-
-  const slug = await this.getProductSlug(namespace, title)
-
-  // try the API first, it works for most games
-  let extraData = await this.getExtraFromAPI(slug)
-
-  // if the API doesn't work, try graphql
-  if (!extraData) {
-    extraData = await this.getExtraFromGraphql(namespace, slug)
-  }
-
-  // if we have data, store it and return
-  if (extraData) {
-    gameInfoStore.set(namespace, extraData)
-    return extraData
-  } else {
-    logError('Error Getting Info from Epic API', LogPrefix.Legendary)
-    return {
-      about: {
-        description: '',
-        shortDescription: ''
-      },
-      reqs: [],
-      storeUrl: ''
     }
   }
-}
 
-/**
- * Alias for `GameConfig.get(appName).config`
- * If it doesn't exist, uses getSettings() instead.
- *
- * @returns GameConfig
- */
-async getSettings(appName: string) {
-  return (
-    GameConfig.get(appName).config ||
-    (await GameConfig.get(appName).getSettings())
-  )
-}
-
-/**
- * Parent folder to move app to.
- * Amends install path by adding the appropriate folder name.
- */
-async moveInstall(
-  appName: string,
-  newInstallPath: string
-): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
-  const gameInfo = this.getGameInfo(appName)
-  logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
-
-  const moveImpl = isWindows ? moveOnWindows : moveOnUnix
-  const moveResult = await moveImpl(newInstallPath, gameInfo)
-
-  if (moveResult.status === 'error') {
-    const { error } = moveResult
-    logError(
-      ['Error moving', gameInfo.title, 'to', newInstallPath, error],
-      LogPrefix.Legendary
+  /**
+   * Alias for `GameConfig.get(appName).config`
+   * If it doesn't exist, uses getSettings() instead.
+   *
+   * @returns GameConfig
+   */
+  async getSettings(appName: string) {
+    return (
+      GameConfig.get(appName).config ||
+      (await GameConfig.get(appName).getSettings())
     )
-
-    return { status: 'error', error }
   }
 
-  await libraryManagerMap['legendary'].changeGameInstallPath(appName, moveResult.installPath)
-  return { status: 'done' }
-}
+  /**
+   * Parent folder to move app to.
+   * Amends install path by adding the appropriate folder name.
+   */
+  async moveInstall(
+    appName: string,
+    newInstallPath: string
+  ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
+    const gameInfo = this.getGameInfo(appName)
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
-// used when downloading games, store the download size read from Legendary's output
-private currentDownloadSize: Record<string, number> = {}
+    const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+    const moveResult = await moveImpl(newInstallPath, gameInfo)
 
-getCurrentDownloadSize(appName: string) {
-  return this.currentDownloadSize[appName]
-}
+    if (moveResult.status === 'error') {
+      const { error } = moveResult
+      logError(
+        ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+        LogPrefix.Legendary
+      )
 
-setCurrentDownloadSize(appName: string, size: number) {
-  return (this.currentDownloadSize[appName] = size)
-}
+      return { status: 'error', error }
+    }
 
-private defaultTmpProgres = () => ({
+    await libraryManagerMap['legendary'].changeGameInstallPath(
+      appName,
+      moveResult.installPath
+    )
+    return { status: 'done' }
+  }
+
+  // used when downloading games, store the download size read from Legendary's output
+  private currentDownloadSize: Record<string, number> = {}
+
+  getCurrentDownloadSize(appName: string) {
+    return this.currentDownloadSize[appName]
+  }
+
+  setCurrentDownloadSize(appName: string, size: number) {
+    return (this.currentDownloadSize[appName] = size)
+  }
+
+  private defaultTmpProgres = () => ({
     bytes: '',
     eta: '',
     percent: undefined,
     diskSpeed: undefined,
     downSpeed: undefined
-})
-private tmpProgress: Record<string, InstallProgress> = {}
+  })
+  private tmpProgress: Record<string, InstallProgress> = {}
 
-onInstallOrUpdateOutput(
-  appName: string,
-  action: 'installing' | 'updating',
-  data: string,
-  totalDownloadSize: number
-) {
-  const downloadSizeMatch = data.match(/Download size: ([\d.]+) MiB/)
-
-  // store the download size, needed for correct calculation
-  // when cancel/resume downloads
-  if (downloadSizeMatch) {
-    this.currentDownloadSize[appName] = parseFloat(downloadSizeMatch[1])
-  }
-
-  if (!Object.hasOwn(this.tmpProgress, appName)) {
-    this.tmpProgress[appName] = this.defaultTmpProgres()
-  }
-
-  const progress = this.tmpProgress[appName]
-
-  // parse log for eta
-  if (progress.eta === '') {
-    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-    progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
-  }
-
-  // parse log for game download progress
-  if (progress.bytes === '') {
-    const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-    progress.bytes =
-      bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
-  }
-
-  // parse log for download speed
-  if (!progress.downSpeed) {
-    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-    progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-      ? Number(downSpeedMBytes?.at(1))
-      : undefined
-  }
-
-  // parse disk write speed
-  if (!progress.diskSpeed) {
-    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-    progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-      ? Number(diskSpeedMBytes?.at(1))
-      : undefined
-  }
-
-  // original is in bytes, convert to MiB with 2 decimals
-  totalDownloadSize = Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
-
-  // calculate percentage
-  if (progress.bytes !== '') {
-    const downloaded = parseFloat(progress.bytes)
-    const downloadCache = totalDownloadSize - this.currentDownloadSize[appName]
-    const totalDownloaded = downloaded + downloadCache
-    const newPercent =
-      Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
-    progress.percent = newPercent >= 0 ? newPercent : undefined
-  }
-
-  // only send to frontend if all values are updated
-  if (
-    Object.values(progress).every(
-      (value) => !(value === undefined || value === '')
-    )
+  onInstallOrUpdateOutput(
+    appName: string,
+    action: 'installing' | 'updating',
+    data: string,
+    totalDownloadSize: number
   ) {
-    logInfo(
-      [
-        `Progress for ${this.getGameInfo(appName).title}:`,
-        `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
-        `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
-      ],
-      LogPrefix.Legendary
-    )
+    const downloadSizeMatch = data.match(/Download size: ([\d.]+) MiB/)
 
-    sendProgressUpdate({
+    // store the download size, needed for correct calculation
+    // when cancel/resume downloads
+    if (downloadSizeMatch) {
+      this.currentDownloadSize[appName] = parseFloat(downloadSizeMatch[1])
+    }
+
+    if (!Object.hasOwn(this.tmpProgress, appName)) {
+      this.tmpProgress[appName] = this.defaultTmpProgres()
+    }
+
+    const progress = this.tmpProgress[appName]
+
+    // parse log for eta
+    if (progress.eta === '') {
+      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+      progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+    }
+
+    // parse log for game download progress
+    if (progress.bytes === '') {
+      const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
+      progress.bytes =
+        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+    }
+
+    // parse log for download speed
+    if (!progress.downSpeed) {
+      const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+      progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+        ? Number(downSpeedMBytes?.at(1))
+        : undefined
+    }
+
+    // parse disk write speed
+    if (!progress.diskSpeed) {
+      const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+      progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+        ? Number(diskSpeedMBytes?.at(1))
+        : undefined
+    }
+
+    // original is in bytes, convert to MiB with 2 decimals
+    totalDownloadSize =
+      Math.round((totalDownloadSize / 1024 / 1024) * 100) / 100
+
+    // calculate percentage
+    if (progress.bytes !== '') {
+      const downloaded = parseFloat(progress.bytes)
+      const downloadCache =
+        totalDownloadSize - this.currentDownloadSize[appName]
+      const totalDownloaded = downloaded + downloadCache
+      const newPercent =
+        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
+      progress.percent = newPercent >= 0 ? newPercent : undefined
+    }
+
+    // only send to frontend if all values are updated
+    if (
+      Object.values(progress).every(
+        (value) => !(value === undefined || value === '')
+      )
+    ) {
+      logInfo(
+        [
+          `Progress for ${this.getGameInfo(appName).title}:`,
+          `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
+          `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
+        ],
+        LogPrefix.Legendary
+      )
+
+      sendProgressUpdate({
+        appName: appName,
+        runner: 'legendary',
+        status: action,
+        progress: progress
+      })
+
+      // reset
+      this.tmpProgress[appName] = this.defaultTmpProgres()
+    }
+  }
+
+  /**
+   * Update game.
+   * Does NOT check for online connectivity.
+   */
+  async update(appName: string): Promise<{ status: 'done' | 'error' }> {
+    sendGameStatusUpdate({
       appName: appName,
       runner: 'legendary',
-      status: action,
-      progress: progress
+      status: 'updating'
+    })
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
+    const installPlatform = this.getGameInfo(appName).install.platform!
+    const info = await libraryManagerMap['legendary'].getInstallInfo(
+      appName,
+      installPlatform
+    )
+
+    const command: LegendaryCommand = {
+      subcommand: 'update',
+      appName: LegendaryAppName.parse(appName),
+      '-y': true,
+      '--skip-sdl': true
+    }
+    if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+    if (downloadNoHttps) command['--no-https'] = true
+
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(
+        appName,
+        'updating',
+        data,
+        info.manifest?.download_size
+      )
+    }
+
+    const updateLogWriter = await createGameLogWriter(
+      appName,
+      'legendary',
+      'update'
+    )
+    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+      abortId: appName,
+      logWriters: [updateLogWriter],
+      onOutput,
+      logMessagePrefix: `Updating ${appName}`
     })
 
-    // reset
-    this.tmpProgress[appName] = this.defaultTmpProgres()
-  }
-}
+    sendGameStatusUpdate({
+      appName: appName,
+      runner: 'legendary',
+      status: 'done'
+    })
 
-/**
- * Update game.
- * Does NOT check for online connectivity.
- */
-async update(
-  appName: string
-): Promise<{ status: 'done' | 'error' }> {
-  sendGameStatusUpdate({
-    appName: appName,
-    runner: 'legendary',
-    status: 'updating'
-  })
-  const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
-  const installPlatform = this.getGameInfo(appName).install.platform!
-  const info = await libraryManagerMap['legendary'].getInstallInfo(appName, installPlatform)
-
-  const command: LegendaryCommand = {
-    subcommand: 'update',
-    appName: LegendaryAppName.parse(appName),
-    '-y': true,
-    '--skip-sdl': true
-  }
-  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
-  if (downloadNoHttps) command['--no-https'] = true
-
-  const onOutput = (data: string) => {
-    this.onInstallOrUpdateOutput(
-      appName,
-      'updating',
-      data,
-      info.manifest?.download_size
-    )
-  }
-
-  const updateLogWriter = await createGameLogWriter(
-    appName,
-    'legendary',
-    'update'
-  )
-  const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-    abortId: appName,
-    logWriters: [updateLogWriter],
-    onOutput,
-    logMessagePrefix: `Updating ${appName}`
-  })
-
-  sendGameStatusUpdate({
-    appName: appName,
-    runner: 'legendary',
-    status: 'done'
-  })
-
-  if (res.error) {
-    logError(
-      ['Failed to update', `${appName}:`, res.error],
-      LogPrefix.Legendary
-    )
-    return { status: 'error' }
-  }
-  return { status: 'done' }
-}
-
-/**
- * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
- * so that the game can be opened from the start menu and the desktop folder.
- * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
- * @async
- * @public
- */
-async addShortcuts(appName: string, fromMenu?: boolean) {
-  return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
-}
-
-/**
- * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
- * @async
- * @public
- */
-async removeShortcuts(appName: string) {
-  return removeShortcutsUtil(this.getGameInfo(appName))
-}
-
-/**
- * Install game.
- * Does NOT check for online connectivity.
- */
-async install(
-  appName: string,
-  { path, sdlList, platformToInstall }: InstallArgs
-): Promise<{
-  status: 'done' | 'error' | 'abort'
-  error?: string
-}> {
-  const gameInfo = this.getGameInfo(appName)
-  if (gameInfo.thirdPartyManagedApp) {
-    if (!gameInfo.isEAManaged) {
+    if (res.error) {
       logError(
-        ['Third party app', gameInfo.thirdPartyManagedApp, 'not supported'],
+        ['Failed to update', `${appName}:`, res.error],
         LogPrefix.Legendary
       )
       return { status: 'error' }
     }
-
-    return this.installEA(gameInfo, platformToInstall)
+    return { status: 'done' }
   }
-  const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
-  const info = await libraryManagerMap['legendary'].getInstallInfo(appName, platformToInstall)
 
-  const command: LegendaryCommand = {
-    subcommand: 'install',
-    appName: LegendaryAppName.parse(appName),
-    '--platform': LegendaryPlatform.parse(platformToInstall),
-    '--base-path': Path.parse(path),
-    '--skip-dlcs': true,
-    '-y': true
+  /**
+   * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
+   * so that the game can be opened from the start menu and the desktop folder.
+   * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
+   * @async
+   * @public
+   */
+  async addShortcuts(appName: string, fromMenu?: boolean) {
+    return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
   }
-  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
-  if (downloadNoHttps) command['--no-https'] = true
-  if (sdlList?.length)
-    command.sdlList = sdlList.map((tag) => NonEmptyString.parse(tag))
-  else command['--skip-sdl'] = true
 
-  const onOutput = (data: string) => {
-    this.onInstallOrUpdateOutput(
+  /**
+   * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
+   * @async
+   * @public
+   */
+  async removeShortcuts(appName: string) {
+    return removeShortcutsUtil(this.getGameInfo(appName))
+  }
+
+  /**
+   * Install game.
+   * Does NOT check for online connectivity.
+   */
+  async install(
+    appName: string,
+    { path, sdlList, platformToInstall }: InstallArgs
+  ): Promise<{
+    status: 'done' | 'error' | 'abort'
+    error?: string
+  }> {
+    const gameInfo = this.getGameInfo(appName)
+    if (gameInfo.thirdPartyManagedApp) {
+      if (!gameInfo.isEAManaged) {
+        logError(
+          ['Third party app', gameInfo.thirdPartyManagedApp, 'not supported'],
+          LogPrefix.Legendary
+        )
+        return { status: 'error' }
+      }
+
+      return this.installEA(gameInfo, platformToInstall)
+    }
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
+    const info = await libraryManagerMap['legendary'].getInstallInfo(
       appName,
-      'installing',
-      data,
-      info.manifest?.download_size
+      platformToInstall
     )
-  }
 
-  const installLogWriter = await createGameLogWriter(
-    appName,
-    'legendary',
-    'install'
-  )
-  let res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-    abortId: appName,
-    logWriters: [installLogWriter],
-    onOutput,
-    logMessagePrefix: `Installing ${appName}`
-  })
+    const command: LegendaryCommand = {
+      subcommand: 'install',
+      appName: LegendaryAppName.parse(appName),
+      '--platform': LegendaryPlatform.parse(platformToInstall),
+      '--base-path': Path.parse(path),
+      '--skip-dlcs': true,
+      '-y': true
+    }
+    if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+    if (downloadNoHttps) command['--no-https'] = true
+    if (sdlList?.length)
+      command.sdlList = sdlList.map((tag) => NonEmptyString.parse(tag))
+    else command['--skip-sdl'] = true
 
-  // try to run the install again with higher memory limit
-  if (res.stderr.includes('MemoryError:')) {
-    command['--max-shared-memory'] = PositiveInteger.parse(5000)
-    res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(
+        appName,
+        'installing',
+        data,
+        info.manifest?.download_size
+      )
+    }
+
+    const installLogWriter = await createGameLogWriter(
+      appName,
+      'legendary',
+      'install'
+    )
+    let res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: appName,
       logWriters: [installLogWriter],
-      onOutput
+      onOutput,
+      logMessagePrefix: `Installing ${appName}`
     })
+
+    // try to run the install again with higher memory limit
+    if (res.stderr.includes('MemoryError:')) {
+      command['--max-shared-memory'] = PositiveInteger.parse(5000)
+      res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+        abortId: appName,
+        logWriters: [installLogWriter],
+        onOutput
+      })
+    }
+
+    if (res.abort) {
+      return { status: 'abort' }
+    }
+
+    if (res.error) {
+      if (!res.error.includes('signal')) {
+        logError(
+          ['Failed to install', `${appName}:`, res.error],
+          LogPrefix.Legendary
+        )
+      }
+      return { status: 'error', error: res.error }
+    }
+    this.addShortcuts(appName)
+
+    return { status: 'done' }
   }
 
-  if (res.abort) {
-    return { status: 'abort' }
+  private async installEA(
+    gameInfo: GameInfo,
+    platformToInstall: string
+  ): Promise<{
+    status: 'done' | 'error' | 'abort'
+    error?: string
+  }> {
+    logInfo('Getting EA App installer', LogPrefix.Legendary)
+    const installerPath = join(epicRedistPath, 'EAappInstaller.exe')
+
+    if (!existsSync(epicRedistPath)) {
+      mkdirSync(epicRedistPath, { recursive: true })
+    }
+
+    if (!existsSync(installerPath)) {
+      try {
+        await downloadFile({
+          url: 'https://origin-a.akamaihd.net/EA-Desktop-Client-Download/installer-releases/EAappInstaller.exe',
+          dest: installerPath
+        })
+      } catch (e) {
+        return { status: 'error', error: `${e}` }
+      }
+    }
+
+    if (isWindows) {
+      const process = await spawnAsync(installerPath, [
+        'EAX_LAUNCH_CLIENT=0',
+        'IGNORE_INSTALLED=1'
+      ])
+
+      if (process.code !== null && process.code === 3) {
+        return { status: 'abort' }
+      }
+    }
+
+    await thirdParty.addInstalledGame(gameInfo.app_name, platformToInstall)
+
+    return { status: 'done' }
   }
 
-  if (res.error) {
-    if (!res.error.includes('signal')) {
+  async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+    const gameInfo = this.getGameInfo(appName)
+    if (gameInfo.thirdPartyManagedApp) {
+      await thirdParty.removeInstalledGame(appName)
+      return { stdout: '', stderr: '' }
+    }
+
+    const command: LegendaryCommand = {
+      subcommand: 'uninstall',
+      appName: LegendaryAppName.parse(appName),
+      '-y': true
+    }
+
+    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+      abortId: appName,
+      logMessagePrefix: `Uninstalling ${appName}`
+    })
+
+    if (res.error) {
       logError(
-        ['Failed to install', `${appName}:`, res.error],
+        ['Failed to uninstall', `${appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    } else if (!res.abort) {
+      libraryManagerMap['legendary'].installState(appName, false)
+      await removeShortcutsUtil(this.getGameInfo(appName))
+      const gameInfo = this.getGameInfo(appName)
+      await removeNonSteamGame({ gameInfo })
+    }
+    sendFrontendMessage('refreshLibrary', 'legendary')
+    return res
+  }
+
+  /**
+   * Repair game.
+   * Does NOT check for online connectivity.
+   */
+  async repair(appName: string): Promise<ExecResult> {
+    const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
+
+    const command: LegendaryCommand = {
+      subcommand: 'repair',
+      appName: LegendaryAppName.parse(appName),
+      '-y': true,
+      '--skip-sdl': true
+    }
+    if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
+    if (downloadNoHttps) command['--no-https'] = true
+
+    const repairLogWriter = await createGameLogWriter(
+      appName,
+      'legendary',
+      'repair'
+    )
+    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+      abortId: appName,
+      logWriters: [repairLogWriter],
+      logMessagePrefix: `Repairing ${appName}`
+    })
+
+    if (res.error) {
+      logError(
+        ['Failed to repair', `${appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
-    return { status: 'error', error: res.error }
-  }
-  this.addShortcuts(appName)
-
-  return { status: 'done' }
-}
-
-private async installEA(
-  gameInfo: GameInfo,
-  platformToInstall: string
-): Promise<{
-  status: 'done' | 'error' | 'abort'
-  error?: string
-}> {
-  logInfo('Getting EA App installer', LogPrefix.Legendary)
-  const installerPath = join(epicRedistPath, 'EAappInstaller.exe')
-
-  if (!existsSync(epicRedistPath)) {
-    mkdirSync(epicRedistPath, { recursive: true })
+    return res
   }
 
-  if (!existsSync(installerPath)) {
-    try {
-      await downloadFile({
-        url: 'https://origin-a.akamaihd.net/EA-Desktop-Client-Download/installer-releases/EAappInstaller.exe',
-        dest: installerPath
-      })
-    } catch (e) {
-      return { status: 'error', error: `${e}` }
+  async importGame(
+    appName: string,
+    folderPath: string,
+    platform: InstallPlatform
+  ): Promise<ExecResult> {
+    const command: LegendaryCommand = {
+      subcommand: 'import',
+      appName: LegendaryAppName.parse(appName),
+      installationDirectory: Path.parse(folderPath),
+      '--with-dlcs': true,
+      '--platform': LegendaryPlatform.parse(platform)
     }
-  }
 
-  if (isWindows) {
-    const process = await spawnAsync(installerPath, [
-      'EAX_LAUNCH_CLIENT=0',
-      'IGNORE_INSTALLED=1'
-    ])
+    logInfo(`Importing ${appName}.`, LogPrefix.Legendary)
 
-    if (process.code !== null && process.code === 3) {
-      return { status: 'abort' }
-    }
-  }
-
-  await thirdParty.addInstalledGame(gameInfo.app_name, platformToInstall)
-
-  return { status: 'done' }
-}
-
-async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
-  const gameInfo = this.getGameInfo(appName)
-  if (gameInfo.thirdPartyManagedApp) {
-    await thirdParty.removeInstalledGame(appName)
-    return { stdout: '', stderr: '' }
-  }
-
-  const command: LegendaryCommand = {
-    subcommand: 'uninstall',
-    appName: LegendaryAppName.parse(appName),
-    '-y': true
-  }
-
-  const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-    abortId: appName,
-    logMessagePrefix: `Uninstalling ${appName}`
-  })
-
-  if (res.error) {
-    logError(
-      ['Failed to uninstall', `${appName}:`, res.error],
-      LogPrefix.Legendary
-    )
-  } else if (!res.abort) {
-    libraryManagerMap['legendary'].installState(appName, false)
-    await removeShortcutsUtil(this.getGameInfo(appName))
-    const gameInfo = this.getGameInfo(appName)
-    await removeNonSteamGame({ gameInfo })
-  }
-  sendFrontendMessage('refreshLibrary', 'legendary')
-  return res
-}
-
-/**
- * Repair game.
- * Does NOT check for online connectivity.
- */
-async repair(appName: string): Promise<ExecResult> {
-  const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
-
-  const command: LegendaryCommand = {
-    subcommand: 'repair',
-    appName: LegendaryAppName.parse(appName),
-    '-y': true,
-    '--skip-sdl': true
-  }
-  if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
-  if (downloadNoHttps) command['--no-https'] = true
-
-  const repairLogWriter = await createGameLogWriter(
-    appName,
-    'legendary',
-    'repair'
-  )
-  const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-    abortId: appName,
-    logWriters: [repairLogWriter],
-    logMessagePrefix: `Repairing ${appName}`
-  })
-
-  if (res.error) {
-    logError(
-      ['Failed to repair', `${appName}:`, res.error],
-      LogPrefix.Legendary
-    )
-  }
-  return res
-}
-
-async importGame(
-  appName: string,
-  folderPath: string,
-  platform: InstallPlatform
-): Promise<ExecResult> {
-  const command: LegendaryCommand = {
-    subcommand: 'import',
-    appName: LegendaryAppName.parse(appName),
-    installationDirectory: Path.parse(folderPath),
-    '--with-dlcs': true,
-    '--platform': LegendaryPlatform.parse(platform)
-  }
-
-  logInfo(`Importing ${appName}.`, LogPrefix.Legendary)
-
-  const logWriter = await createGameLogWriter(appName, 'legendary', 'import')
-  const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-    abortId: appName,
-    logWriters: [logWriter]
-  })
-  this.addShortcuts(appName)
-  const errorMatch = res.stderr.match(/^.*ERROR:.*$/gm)?.join('') ?? ''
-  res.error = (res.error ?? '') + errorMatch
-  if (res.error) {
-    logError(
-      ['Failed to import', `${appName}:`, res.error],
-      LogPrefix.Legendary
-    )
-  }
-  return res
-}
-
-/**
- * Sync saves.
- * Does NOT check for online connectivity.
- */
-async syncSaves(
-  appName: string,
-  arg: string,
-  path: string
-): Promise<string> {
-  if (!path) {
-    logError(
-      'No path provided for SavesSync, check your settings!',
-      LogPrefix.Legendary
-    )
-    return 'No path provided.'
-  }
-
-  const command: LegendaryCommand = {
-    subcommand: 'sync-saves',
-    appName: LegendaryAppName.parse(appName),
-    [arg]: true,
-    '--save-path': Path.parse(path),
-    '-y': true
-  }
-
-  let fullOutput = ''
-  const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-    abortId: appName,
-    logMessagePrefix: `Syncing saves for ${this.getGameInfo(appName).title}`,
-    onOutput: (output) => (fullOutput += output)
-  })
-
-  if (res.error) {
-    logError(
-      ['Failed to sync saves for', `${appName}:`, res.error],
-      LogPrefix.Legendary
-    )
-  }
-  return fullOutput
-}
-
-async launch(
-  appName: string,
-  logWriter: LogWriter,
-  launchArguments?: LaunchOption,
-  args: string[] = [],
-  skipVersionCheck = false
-): Promise<boolean> {
-  const gameSettings = await this.getSettings(appName)
-  const gameInfo = this.getGameInfo(appName)
-
-  const {
-    success: launchPrepSuccess,
-    failureReason: launchPrepFailReason,
-    rpcClient,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime,
-    offlineMode
-  } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative(appName))
-  if (!launchPrepSuccess) {
-    logWriter.logError(['Launch aborted:', launchPrepFailReason])
-    launchCleanup()
-    showDialogBoxModalAuto({
-      title: t('box.error.launchAborted', 'Launch aborted'),
-      message: launchPrepFailReason!,
-      type: 'ERROR'
+    const logWriter = await createGameLogWriter(appName, 'legendary', 'import')
+    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+      abortId: appName,
+      logWriters: [logWriter]
     })
-    return false
-  }
-
-  const languageCode = gameSettings.language || configStore.get('language', '')
-
-  let commandEnv = {
-    ...process.env,
-    ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
-    ...setupEnvVars(gameSettings, gameInfo.install.install_path),
-    ...getKnownFixesEnvVariables(appName, 'legendary')
-  }
-
-  // We can get this env variable either from the game's settings or from known fixes
-  if (commandEnv['USE_FAKE_EPIC_EXE']) {
-    if (isWindows) {
-      commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeEpicExePath
-    } else {
-      // on linux and mac, we copy the fake exe
-      const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
-      const fakeEpicExePathInPrefix = await getWinePath({
-        path: fakeExeWinPath,
-        gameSettings,
-        variant: 'unix'
-      })
-
-      // we copy the file inside the prefix to avoid permission issues
-      if (!existsSync(fakeEpicExePathInPrefix))
-        copyFileSync(fakeEpicExePath, fakeEpicExePathInPrefix)
-      commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeExeWinPath
+    this.addShortcuts(appName)
+    const errorMatch = res.stderr.match(/^.*ERROR:.*$/gm)?.join('') ?? ''
+    res.error = (res.error ?? '') + errorMatch
+    if (res.error) {
+      logError(
+        ['Failed to import', `${appName}:`, res.error],
+        LogPrefix.Legendary
+      )
     }
+    return res
   }
 
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
+  /**
+   * Sync saves.
+   * Does NOT check for online connectivity.
+   */
+  async syncSaves(appName: string, arg: string, path: string): Promise<string> {
+    if (!path) {
+      logError(
+        'No path provided for SavesSync, check your settings!',
+        LogPrefix.Legendary
+      )
+      return 'No path provided.'
+    }
 
-  let wineFlags: AllowedWineFlags = wrappers.length
-    ? { '--wrapper': NonEmptyString.parse(shlex.join(wrappers)) }
-    : {}
+    const command: LegendaryCommand = {
+      subcommand: 'sync-saves',
+      appName: LegendaryAppName.parse(appName),
+      [arg]: true,
+      '--save-path': Path.parse(path),
+      '-y': true
+    }
 
-  if (!this.isNative(appName)) {
-    // -> We're using Wine/Proton on Linux or CX on Mac
+    let fullOutput = ''
+    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
+      abortId: appName,
+      logMessagePrefix: `Syncing saves for ${this.getGameInfo(appName).title}`,
+      onOutput: (output) => (fullOutput += output)
+    })
+
+    if (res.error) {
+      logError(
+        ['Failed to sync saves for', `${appName}:`, res.error],
+        LogPrefix.Legendary
+      )
+    }
+    return fullOutput
+  }
+
+  async launch(
+    appName: string,
+    logWriter: LogWriter,
+    launchArguments?: LaunchOption,
+    args: string[] = [],
+    skipVersionCheck = false
+  ): Promise<boolean> {
+    const gameSettings = await this.getSettings(appName)
+    const gameInfo = this.getGameInfo(appName)
+
     const {
-      success: wineLaunchPrepSuccess,
-      failureReason: wineLaunchPrepFailReason,
-      envVars: wineEnvVars
-    } = await prepareWineLaunch('legendary', appName, logWriter)
-    if (!wineLaunchPrepSuccess) {
-      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
-      if (wineLaunchPrepFailReason) {
-        showDialogBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason,
-          type: 'ERROR'
-        })
-      }
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      rpcClient,
+      mangoHudCommand,
+      gameModeBin,
+      gameScopeCommand,
+      steamRuntime,
+      offlineMode
+    } = await prepareLaunch(
+      gameSettings,
+      logWriter,
+      gameInfo,
+      this.isNative(appName)
+    )
+    if (!launchPrepSuccess) {
+      logWriter.logError(['Launch aborted:', launchPrepFailReason])
+      launchCleanup()
+      showDialogBoxModalAuto({
+        title: t('box.error.launchAborted', 'Launch aborted'),
+        message: launchPrepFailReason!,
+        type: 'ERROR'
+      })
       return false
     }
 
-    commandEnv = {
-      ...commandEnv,
-      ...wineEnvVars
+    const languageCode =
+      gameSettings.language || configStore.get('language', '')
+
+    let commandEnv = {
+      ...process.env,
+      ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
+      ...setupEnvVars(gameSettings, gameInfo.install.install_path),
+      ...getKnownFixesEnvVariables(appName, 'legendary')
     }
 
-    if (await isUmuSupported(gameSettings)) {
-      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-      if (umuId) {
-        commandEnv['GAMEID'] = umuId
-      }
-    }
-
-    wineFlags = await getWineFlags(gameSettings, shlex.join(wrappers))
-  }
-
-  const appNameToLaunch =
-    launchArguments?.type === 'dlc' ? launchArguments.dlcAppName : appName
-
-  const launchArgumentArgs =
-    launchArguments &&
-    (launchArguments.type === undefined || launchArguments.type === 'basic')
-      ? launchArguments.parameters
-      : undefined
-
-  const command: LegendaryCommand = {
-    subcommand: 'launch',
-    appName: LegendaryAppName.parse(appNameToLaunch),
-    extraArguments: [...args, launchArgumentArgs, gameSettings.launcherArgs]
-      .filter(Boolean)
-      .join(' '),
-    ...wineFlags
-  }
-  if (skipVersionCheck) command['--skip-version-check'] = true
-  if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
-  if (launchArguments?.type === 'altExe')
-    command['--override-exe'] = launchArguments.executable
-  else if (gameSettings.targetExe)
-    command['--override-exe'] = Path.parse(gameSettings.targetExe)
-  if (offlineMode) command['--offline'] = true
-  if (isCLINoGui) command['--skip-version-check'] = true
-  if (gameInfo.isEAManaged) command['--origin'] = true
-
-  sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
-
-  const { error } = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-    abortId: appName,
-    env: commandEnv,
-    wrappers: wrappers,
-    logMessagePrefix: `Launching ${gameInfo.title}`,
-    logWriters: gameSettings.verboseLogs ? [logWriter] : []
-  })
-
-  launchCleanup(rpcClient)
-
-  return !error
-}
-
-isNative(appName: string): boolean {
-  const gameInfo = this.getGameInfo(appName)
-
-  if (isWindows) {
-    return true
-  }
-
-  if (isMac && gameInfo?.install?.platform === 'Mac') {
-    return true
-  }
-
-  return false
-}
-
-async forceUninstall(appName: string) {
-  // Modify Legendary installed.json file:
-  try {
-    await libraryManagerMap['legendary'].runRunnerCommand(
-      {
-        subcommand: 'uninstall',
-        appName: LegendaryAppName.parse(appName),
-        '-y': true,
-        '--keep-files': true
-      },
-      {
-        abortId: appName
-      }
-    )
-
-    sendFrontendMessage('refreshLibrary', 'legendary')
-  } catch (error) {
-    logError(
-      [
-        `Error reading ${legendaryInstalled}, could not complete operation:`,
-        error
-      ],
-      LogPrefix.Legendary
-    )
-  }
-}
-
-// Could be removed if legendary handles SIGKILL and SIGTERM for us
-// which is send via AbortController
-async stop(appName: string, stopWine = true) {
-  // until the legendary bug gets fixed, kill legendary on mac
-  // not a perfect solution but it's the only choice for now
-
-  // @adityaruplaha: this is kinda arbitary and I don't understand it.
-  const pattern = isWindows ? 'legendary' : appName
-  killPattern(pattern)
-
-  if (stopWine && !this.isNative(appName)) {
-    const gameSettings = await this.getSettings(appName)
-    await shutdownWine(gameSettings)
-  }
-}
-
-async isGameAvailable(appName: string): Promise<boolean> {
-  return new Promise((resolve) => {
-    const info = this.getGameInfo(appName)
-    if (info && info.is_installed) {
-      if (info.install.install_path && existsSync(info.install.install_path)) {
-        resolve(true)
+    // We can get this env variable either from the game's settings or from known fixes
+    if (commandEnv['USE_FAKE_EPIC_EXE']) {
+      if (isWindows) {
+        commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeEpicExePath
       } else {
-        resolve(false)
+        // on linux and mac, we copy the fake exe
+        const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
+        const fakeEpicExePathInPrefix = await getWinePath({
+          path: fakeExeWinPath,
+          gameSettings,
+          variant: 'unix'
+        })
+
+        // we copy the file inside the prefix to avoid permission issues
+        if (!existsSync(fakeEpicExePathInPrefix))
+          copyFileSync(fakeEpicExePath, fakeEpicExePathInPrefix)
+        commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeExeWinPath
       }
     }
-    resolve(false)
-  })
-}
 
-async runWineCommandOnGame(
-  appName: string,
-  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
-): Promise<ExecResult> {
-  if (this.isNative(appName)) {
-    logError('runWineCommand called on native game!', LogPrefix.Legendary)
-    return { stdout: '', stderr: '' }
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      gameScopeCommand,
+      steamRuntime?.length ? [...steamRuntime] : undefined
+    )
+
+    let wineFlags: AllowedWineFlags = wrappers.length
+      ? { '--wrapper': NonEmptyString.parse(shlex.join(wrappers)) }
+      : {}
+
+    if (!this.isNative(appName)) {
+      // -> We're using Wine/Proton on Linux or CX on Mac
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch('legendary', appName, logWriter)
+      if (!wineLaunchPrepSuccess) {
+        logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
+        if (wineLaunchPrepFailReason) {
+          showDialogBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            message: wineLaunchPrepFailReason,
+            type: 'ERROR'
+          })
+        }
+        return false
+      }
+
+      commandEnv = {
+        ...commandEnv,
+        ...wineEnvVars
+      }
+
+      if (await isUmuSupported(gameSettings)) {
+        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+        if (umuId) {
+          commandEnv['GAMEID'] = umuId
+        }
+      }
+
+      wineFlags = await getWineFlags(gameSettings, shlex.join(wrappers))
+    }
+
+    const appNameToLaunch =
+      launchArguments?.type === 'dlc' ? launchArguments.dlcAppName : appName
+
+    const launchArgumentArgs =
+      launchArguments &&
+      (launchArguments.type === undefined || launchArguments.type === 'basic')
+        ? launchArguments.parameters
+        : undefined
+
+    const command: LegendaryCommand = {
+      subcommand: 'launch',
+      appName: LegendaryAppName.parse(appNameToLaunch),
+      extraArguments: [...args, launchArgumentArgs, gameSettings.launcherArgs]
+        .filter(Boolean)
+        .join(' '),
+      ...wineFlags
+    }
+    if (skipVersionCheck) command['--skip-version-check'] = true
+    if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
+    if (launchArguments?.type === 'altExe')
+      command['--override-exe'] = launchArguments.executable
+    else if (gameSettings.targetExe)
+      command['--override-exe'] = Path.parse(gameSettings.targetExe)
+    if (offlineMode) command['--offline'] = true
+    if (isCLINoGui) command['--skip-version-check'] = true
+    if (gameInfo.isEAManaged) command['--origin'] = true
+
+    sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
+
+    const { error } = await libraryManagerMap['legendary'].runRunnerCommand(
+      command,
+      {
+        abortId: appName,
+        env: commandEnv,
+        wrappers: wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`,
+        logWriters: gameSettings.verboseLogs ? [logWriter] : []
+      }
+    )
+
+    launchCleanup(rpcClient)
+
+    return !error
   }
 
-  const { folder_name, install } = this.getGameInfo(appName)
-  const gameSettings = await this.getSettings(appName)
+  isNative(appName: string): boolean {
+    const gameInfo = this.getGameInfo(appName)
 
-  return runWineCommandUtil({
-    gameSettings,
-    gameInstallPath: install.install_path,
-    installFolderName: folder_name,
-    commandParts,
-    wait,
-    protonVerb,
-    startFolder
-  })
-}
+    if (isWindows) {
+      return true
+    }
+
+    if (isMac && gameInfo?.install?.platform === 'Mac') {
+      return true
+    }
+
+    return false
+  }
+
+  async forceUninstall(appName: string) {
+    // Modify Legendary installed.json file:
+    try {
+      await libraryManagerMap['legendary'].runRunnerCommand(
+        {
+          subcommand: 'uninstall',
+          appName: LegendaryAppName.parse(appName),
+          '-y': true,
+          '--keep-files': true
+        },
+        {
+          abortId: appName
+        }
+      )
+
+      sendFrontendMessage('refreshLibrary', 'legendary')
+    } catch (error) {
+      logError(
+        [
+          `Error reading ${legendaryInstalled}, could not complete operation:`,
+          error
+        ],
+        LogPrefix.Legendary
+      )
+    }
+  }
+
+  // Could be removed if legendary handles SIGKILL and SIGTERM for us
+  // which is send via AbortController
+  async stop(appName: string, stopWine = true) {
+    // until the legendary bug gets fixed, kill legendary on mac
+    // not a perfect solution but it's the only choice for now
+
+    // @adityaruplaha: this is kinda arbitary and I don't understand it.
+    const pattern = isWindows ? 'legendary' : appName
+    killPattern(pattern)
+
+    if (stopWine && !this.isNative(appName)) {
+      const gameSettings = await this.getSettings(appName)
+      await shutdownWine(gameSettings)
+    }
+  }
+
+  async isGameAvailable(appName: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      const info = this.getGameInfo(appName)
+      if (info && info.is_installed) {
+        if (
+          info.install.install_path &&
+          existsSync(info.install.install_path)
+        ) {
+          resolve(true)
+        } else {
+          resolve(false)
+        }
+      }
+      resolve(false)
+    })
+  }
+
+  async runWineCommandOnGame(
+    appName: string,
+    { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
+  ): Promise<ExecResult> {
+    if (this.isNative(appName)) {
+      logError('runWineCommand called on native game!', LogPrefix.Legendary)
+      return { stdout: '', stderr: '' }
+    }
+
+    const { folder_name, install } = this.getGameInfo(appName)
+    const gameSettings = await this.getSettings(appName)
+
+    return runWineCommandUtil({
+      gameSettings,
+      gameInstallPath: install.install_path,
+      installFolderName: folder_name,
+      commandParts,
+      wait,
+      protonVerb,
+      startFolder
+    })
+  }
 }

@@ -61,516 +61,535 @@ import { isLinux, isWindows } from 'backend/constants/environment'
 import type LogWriter from 'backend/logger/log_writer'
 
 export default class NileGameManager implements GameManager {
-async getSettings(appName: string): Promise<GameSettings> {
-  const gameConfig = GameConfig.get(appName)
-  return gameConfig.config || (await gameConfig.getSettings())
-}
+  async getSettings(appName: string): Promise<GameSettings> {
+    const gameConfig = GameConfig.get(appName)
+    return gameConfig.config || (await gameConfig.getSettings())
+  }
 
-getGameInfo(appName: string): GameInfo {
-  const info = libraryManagerMap['nile'].getGameInfo(appName)
-  if (!info) {
-    logError(
-      [
-        'Could not get game info for',
-        `${appName},`,
-        'returning empty object. Something is probably gonna go wrong soon'
-      ],
-      LogPrefix.Nile
+  getGameInfo(appName: string): GameInfo {
+    const info = libraryManagerMap['nile'].getGameInfo(appName)
+    if (!info) {
+      logError(
+        [
+          'Could not get game info for',
+          `${appName},`,
+          'returning empty object. Something is probably gonna go wrong soon'
+        ],
+        LogPrefix.Nile
+      )
+      return {
+        app_name: '',
+        runner: 'nile',
+        art_cover: '',
+        art_square: '',
+        install: {},
+        is_installed: false,
+        title: '',
+        canRunOffline: false
+      }
+    }
+    return info
+  }
+
+  async getExtraInfo(appName: string): Promise<ExtraInfo> {
+    const info = libraryManagerMap['nile'].getGameInfo(appName)
+    return {
+      reqs: [],
+      about: info?.description
+        ? {
+            description: info.description,
+            shortDescription: info.description
+          }
+        : undefined,
+      releaseDate: info?.extra?.releaseDate
+    }
+  }
+
+  async importGame(
+    appName: string,
+    folderPath: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    platform: InstallPlatform
+  ): Promise<ExecResult> {
+    const importLogWriter = await createGameLogWriter(appName, 'nile', 'import')
+    const res = await libraryManagerMap['nile'].runRunnerCommand(
+      ['import', '--path', folderPath, appName],
+      {
+        abortId: appName,
+        logWriters: [importLogWriter],
+        logMessagePrefix: `Importing ${appName}`
+      }
     )
-    return {
-      app_name: '',
-      runner: 'nile',
-      art_cover: '',
-      art_square: '',
-      install: {},
-      is_installed: false,
-      title: '',
-      canRunOffline: false
+
+    if (res.abort) {
+      return res
     }
-  }
-  return info
-}
 
-async getExtraInfo(appName: string): Promise<ExtraInfo> {
-  const info = libraryManagerMap['nile'].getGameInfo(appName)
-  return {
-    reqs: [],
-    about: info?.description
-      ? {
-          description: info.description,
-          shortDescription: info.description
-        }
-      : undefined,
-    releaseDate: info?.extra?.releaseDate
-  }
-}
+    if (res.error) {
+      logError(['Failed to import', `${appName}:`, res.error], LogPrefix.Nile)
+      return res
+    }
 
-async importGame(
-  appName: string,
-  folderPath: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  platform: InstallPlatform
-): Promise<ExecResult> {
-  const importLogWriter = await createGameLogWriter(appName, 'nile', 'import')
-  const res = await libraryManagerMap['nile'].runRunnerCommand(['import', '--path', folderPath, appName], {
-    abortId: appName,
-    logWriters: [importLogWriter],
-    logMessagePrefix: `Importing ${appName}`
-  })
+    const errorMatch = res.stderr.match(/ERROR \[IMPORT]:\t(.*)/)
+    if (errorMatch) {
+      logError(
+        ['Failed to import', `${appName}:`, errorMatch[1]],
+        LogPrefix.Nile
+      )
+      return {
+        ...res,
+        error: errorMatch[1]
+      }
+    }
 
-  if (res.abort) {
+    try {
+      this.addShortcuts(appName)
+      libraryManagerMap['nile'].installState(appName, true)
+    } catch (error) {
+      logError(['Failed to import', `${appName}:`, error], LogPrefix.Nile)
+    }
+
     return res
   }
 
-  if (res.error) {
-    logError(['Failed to import', `${appName}:`, res.error], LogPrefix.Nile)
-    return res
-  }
-
-  const errorMatch = res.stderr.match(/ERROR \[IMPORT]:\t(.*)/)
-  if (errorMatch) {
-    logError(['Failed to import', `${appName}:`, errorMatch[1]], LogPrefix.Nile)
-    return {
-      ...res,
-      error: errorMatch[1]
-    }
-  }
-
-  try {
-    this.addShortcuts(appName)
-    libraryManagerMap['nile'].installState(appName, true)
-  } catch (error) {
-    logError(['Failed to import', `${appName}:`, error], LogPrefix.Nile)
-  }
-
-  return res
-}
-
-private defaultTmpProgress = () => ({
+  private defaultTmpProgress = () => ({
     bytes: '',
     eta: '',
     percent: undefined,
     diskSpeed: undefined,
     downSpeed: undefined
   })
-private tmpProgress: Record<string, InstallProgress> = {}
+  private tmpProgress: Record<string, InstallProgress> = {}
 
-onInstallOrUpdateOutput(
-  appName: string,
-  action: 'installing' | 'updating',
-  data: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  totalDownloadSize = -1
-) {
-  if (!Object.hasOwn(this.tmpProgress, appName)) {
-    this.tmpProgress[appName] = this.defaultTmpProgress()
-  }
-  const progress = this.tmpProgress[appName]
-
-  // parse log for percent
-  if (!progress.percent) {
-    const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
-
-    progress.percent = !Number.isNaN(Number(percentMatch?.at(1)))
-      ? Number(percentMatch?.at(1))
-      : undefined
-  }
-
-  // parse log for eta
-  if (progress.eta === '') {
-    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-    progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
-  }
-
-  // parse log for game download progress
-  if (progress.bytes === '') {
-    const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
-    progress.bytes =
-      bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
-  }
-
-  // parse log for download speed
-  if (!progress.downSpeed) {
-    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-    progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-      ? Number(downSpeedMBytes?.at(1))
-      : undefined
-  }
-
-  // parse disk write speed
-  if (!progress.diskSpeed) {
-    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-    progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-      ? Number(diskSpeedMBytes?.at(1))
-      : undefined
-  }
-
-  // only send to frontend if all values are updated
-  if (
-    Object.values(progress).every(
-      (value) => !(value === undefined || value === '')
-    )
+  onInstallOrUpdateOutput(
+    appName: string,
+    action: 'installing' | 'updating',
+    data: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    totalDownloadSize = -1
   ) {
-    logInfo(
-      [
-        `Progress for ${this.getGameInfo(appName).title}:`,
-        `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
-        `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
-      ],
-      LogPrefix.Nile
-    )
-
-    sendProgressUpdate({
-      appName,
-      runner: 'nile',
-      status: action,
-      progress
-    })
-
-    // reset
-    this.tmpProgress[appName] = this.defaultTmpProgress()
-  }
-}
-
-async install(
-  appName: string,
-  { path }: InstallArgs
-): Promise<InstallResult> {
-  const { maxWorkers } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-
-  const commandParts = ['install', '--base-path', path, ...workers, appName]
-
-  const onOutput = (data: string) => {
-    this.onInstallOrUpdateOutput(appName, 'installing', data)
-  }
-
-  const installLogWriter = await createGameLogWriter(appName, 'nile', 'install')
-  const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
-    abortId: appName,
-    logWriters: [installLogWriter],
-    onOutput,
-    logMessagePrefix: `Installing ${appName}`
-  })
-
-  if (res.abort) {
-    return { status: 'abort' }
-  }
-
-  if (res.error) {
-    if (!res.error.includes('signal')) {
-      logError(['Failed to install', appName, res.error], LogPrefix.Nile)
+    if (!Object.hasOwn(this.tmpProgress, appName)) {
+      this.tmpProgress[appName] = this.defaultTmpProgress()
     }
-    return { status: 'error', error: res.error }
+    const progress = this.tmpProgress[appName]
+
+    // parse log for percent
+    if (!progress.percent) {
+      const percentMatch = data.match(/Progress: (\d+\.\d+) /m)
+
+      progress.percent = !Number.isNaN(Number(percentMatch?.at(1)))
+        ? Number(percentMatch?.at(1))
+        : undefined
+    }
+
+    // parse log for eta
+    if (progress.eta === '') {
+      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+      progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+    }
+
+    // parse log for game download progress
+    if (progress.bytes === '') {
+      const bytesMatch = data.match(/Downloaded: (\S+) MiB/m)
+      progress.bytes =
+        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+    }
+
+    // parse log for download speed
+    if (!progress.downSpeed) {
+      const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+      progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
+        ? Number(downSpeedMBytes?.at(1))
+        : undefined
+    }
+
+    // parse disk write speed
+    if (!progress.diskSpeed) {
+      const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+      progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
+        ? Number(diskSpeedMBytes?.at(1))
+        : undefined
+    }
+
+    // only send to frontend if all values are updated
+    if (
+      Object.values(progress).every(
+        (value) => !(value === undefined || value === '')
+      )
+    ) {
+      logInfo(
+        [
+          `Progress for ${this.getGameInfo(appName).title}:`,
+          `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
+          `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
+        ],
+        LogPrefix.Nile
+      )
+
+      sendProgressUpdate({
+        appName,
+        runner: 'nile',
+        status: action,
+        progress
+      })
+
+      // reset
+      this.tmpProgress[appName] = this.defaultTmpProgress()
+    }
   }
-  this.addShortcuts(appName)
-  libraryManagerMap['nile'].installState(appName, true)
-  const metadata = libraryManagerMap['nile'].getInstallMetadata(appName)
 
-  if (isWindows) {
-    await setup(appName, metadata?.path)
-  }
+  async install(
+    appName: string,
+    { path }: InstallArgs
+  ): Promise<InstallResult> {
+    const { maxWorkers } = GlobalConfig.get().getSettings()
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
 
-  return { status: 'done' }
-}
+    const commandParts = ['install', '--base-path', path, ...workers, appName]
 
-isNative(): boolean {
-  return isWindows
-}
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(appName, 'installing', data)
+    }
 
-/**
- * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
- * so that the game can be opened from the start menu and the desktop folder.
- * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
- * @async
- * @public
- */
-async addShortcuts(appName: string, fromMenu?: boolean) {
-  return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
-}
-
-/**
- * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
- * @async
- * @public
- */
-async removeShortcuts(appName: string) {
-  return removeShortcutsUtil(this.getGameInfo(appName))
-}
-
-async launch(
-  appName: string,
-  logWriter: LogWriter,
-  launchArguments?: LaunchOption,
-  args: string[] = []
-): Promise<boolean> {
-  const gameSettings = await this.getSettings(appName)
-  const gameInfo = this.getGameInfo(appName)
-
-  const {
-    success: launchPrepSuccess,
-    failureReason: launchPrepFailReason,
-    rpcClient,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime
-  } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
-
-  if (!launchPrepSuccess) {
-    logWriter.logError(['Launch aborted:', launchPrepFailReason])
-    launchCleanup()
-    showDialogBoxModalAuto({
-      title: t('box.error.launchAborted', 'Launch aborted'),
-      message: launchPrepFailReason!,
-      type: 'ERROR'
+    const installLogWriter = await createGameLogWriter(
+      appName,
+      'nile',
+      'install'
+    )
+    const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
+      abortId: appName,
+      logWriters: [installLogWriter],
+      onOutput,
+      logMessagePrefix: `Installing ${appName}`
     })
-    return false
-  }
 
-  let exeOverrideFlag: string[] = []
-  if (launchArguments?.type === 'altExe') {
-    exeOverrideFlag = ['--override-exe', launchArguments.executable]
-  } else if (gameSettings.targetExe) {
-    exeOverrideFlag = ['--override-exe', gameSettings.targetExe]
-  }
+    if (res.abort) {
+      return { status: 'abort' }
+    }
 
-  let commandEnv = {
-    ...process.env,
-    ...setupWrapperEnvVars({ appName, appRunner: 'nile' }),
-    ...(isWindows
-      ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path)),
-    ...getKnownFixesEnvVariables(appName, 'nile')
-  }
-
-  const wrappers = setupWrappers(
-    gameSettings,
-    mangoHudCommand,
-    gameModeBin,
-    gameScopeCommand,
-    steamRuntime?.length ? [...steamRuntime] : undefined
-  )
-
-  let wineFlag: string[] = wrappers.length
-    ? ['--wrapper', shlex.join(wrappers)]
-    : []
-
-  if (!this.isNative()) {
-    // -> We're using Wine/Proton on Linux or CX on Mac
-    const {
-      success: wineLaunchPrepSuccess,
-      failureReason: wineLaunchPrepFailReason,
-      envVars: wineEnvVars
-    } = await prepareWineLaunch('nile', appName, logWriter)
-    if (!wineLaunchPrepSuccess) {
-      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
-      if (wineLaunchPrepFailReason) {
-        showDialogBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason,
-          type: 'ERROR'
-        })
+    if (res.error) {
+      if (!res.error.includes('signal')) {
+        logError(['Failed to install', appName, res.error], LogPrefix.Nile)
       }
+      return { status: 'error', error: res.error }
+    }
+    this.addShortcuts(appName)
+    libraryManagerMap['nile'].installState(appName, true)
+    const metadata = libraryManagerMap['nile'].getInstallMetadata(appName)
+
+    if (isWindows) {
+      await setup(appName, metadata?.path)
+    }
+
+    return { status: 'done' }
+  }
+
+  isNative(): boolean {
+    return isWindows
+  }
+
+  /**
+   * Adds a desktop shortcut to $HOME/Desktop and to /usr/share/applications
+   * so that the game can be opened from the start menu and the desktop folder.
+   * Both can be disabled with addDesktopShortcuts and addStartMenuShortcuts
+   * @async
+   * @public
+   */
+  async addShortcuts(appName: string, fromMenu?: boolean) {
+    return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
+  }
+
+  /**
+   * Removes a desktop shortcut from $HOME/Desktop and to $HOME/.local/share/applications
+   * @async
+   * @public
+   */
+  async removeShortcuts(appName: string) {
+    return removeShortcutsUtil(this.getGameInfo(appName))
+  }
+
+  async launch(
+    appName: string,
+    logWriter: LogWriter,
+    launchArguments?: LaunchOption,
+    args: string[] = []
+  ): Promise<boolean> {
+    const gameSettings = await this.getSettings(appName)
+    const gameInfo = this.getGameInfo(appName)
+
+    const {
+      success: launchPrepSuccess,
+      failureReason: launchPrepFailReason,
+      rpcClient,
+      mangoHudCommand,
+      gameModeBin,
+      gameScopeCommand,
+      steamRuntime
+    } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
+
+    if (!launchPrepSuccess) {
+      logWriter.logError(['Launch aborted:', launchPrepFailReason])
+      launchCleanup()
+      showDialogBoxModalAuto({
+        title: t('box.error.launchAborted', 'Launch aborted'),
+        message: launchPrepFailReason!,
+        type: 'ERROR'
+      })
       return false
     }
 
-    commandEnv = {
-      ...commandEnv,
-      ...wineEnvVars
+    let exeOverrideFlag: string[] = []
+    if (launchArguments?.type === 'altExe') {
+      exeOverrideFlag = ['--override-exe', launchArguments.executable]
+    } else if (gameSettings.targetExe) {
+      exeOverrideFlag = ['--override-exe', gameSettings.targetExe]
     }
 
-    if (await isUmuSupported(gameSettings)) {
-      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-      if (umuId) {
-        commandEnv['GAMEID'] = umuId
+    let commandEnv = {
+      ...process.env,
+      ...setupWrapperEnvVars({ appName, appRunner: 'nile' }),
+      ...(isWindows
+        ? {}
+        : setupEnvVars(gameSettings, gameInfo.install.install_path)),
+      ...getKnownFixesEnvVariables(appName, 'nile')
+    }
+
+    const wrappers = setupWrappers(
+      gameSettings,
+      mangoHudCommand,
+      gameModeBin,
+      gameScopeCommand,
+      steamRuntime?.length ? [...steamRuntime] : undefined
+    )
+
+    let wineFlag: string[] = wrappers.length
+      ? ['--wrapper', shlex.join(wrappers)]
+      : []
+
+    if (!this.isNative()) {
+      // -> We're using Wine/Proton on Linux or CX on Mac
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch('nile', appName, logWriter)
+      if (!wineLaunchPrepSuccess) {
+        logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
+        if (wineLaunchPrepFailReason) {
+          showDialogBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            message: wineLaunchPrepFailReason,
+            type: 'ERROR'
+          })
+        }
+        return false
+      }
+
+      commandEnv = {
+        ...commandEnv,
+        ...wineEnvVars
+      }
+
+      if (await isUmuSupported(gameSettings)) {
+        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+        if (umuId) {
+          commandEnv['GAMEID'] = umuId
+        }
+      }
+
+      wineFlag = [
+        ...(await getWineFlagsArray(gameSettings, shlex.join(wrappers))),
+        '--wine-prefix',
+        gameSettings.winePrefix
+      ]
+    }
+
+    const launchArgumentsArgs =
+      launchArguments &&
+      (launchArguments.type === undefined || launchArguments.type === 'basic')
+        ? launchArguments.parameters
+        : ''
+
+    const commandParts = [
+      'launch',
+      ...exeOverrideFlag, // Check if this works
+      ...wineFlag,
+      ...shlex.split(launchArgumentsArgs),
+      ...shlex.split(gameSettings.launcherArgs ?? ''),
+      appName,
+      ...args
+    ]
+
+    sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
+
+    const { error } = await libraryManagerMap['nile'].runRunnerCommand(
+      commandParts,
+      {
+        abortId: appName,
+        env: commandEnv,
+        wrappers,
+        logMessagePrefix: `Launching ${gameInfo.title}`,
+        logWriters: [logWriter]
+      }
+    )
+
+    if (error) {
+      logError(['Error launching game:', error], LogPrefix.Nile)
+    }
+
+    launchCleanup(rpcClient)
+
+    return !error
+  }
+
+  async moveInstall(
+    appName: string,
+    newInstallPath: string
+  ): Promise<InstallResult> {
+    const gameInfo = this.getGameInfo(appName)
+    logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Nile)
+
+    const moveImpl = isWindows ? moveOnWindows : moveOnUnix
+    const moveResult = await moveImpl(newInstallPath, gameInfo)
+
+    if (moveResult.status === 'error') {
+      const { error } = moveResult
+      logError(
+        ['Error moving', gameInfo.title, 'to', newInstallPath, error],
+        LogPrefix.Nile
+      )
+      return { status: 'error', error }
+    }
+
+    await libraryManagerMap['nile'].changeGameInstallPath(
+      appName,
+      moveResult.installPath
+    )
+    return { status: 'done' }
+  }
+
+  async repair(appName: string): Promise<ExecResult> {
+    const installInfo = this.getGameInfo(appName)
+    const { install_path } = installInfo.install ?? {}
+
+    if (!install_path) {
+      const error = `Could not find install path for ${appName}`
+      logError(error, LogPrefix.Nile)
+      return {
+        stderr: '',
+        stdout: '',
+        error
       }
     }
 
-    wineFlag = [
-      ...(await getWineFlagsArray(gameSettings, shlex.join(wrappers))),
-      '--wine-prefix',
-      gameSettings.winePrefix
-    ]
-  }
-
-  const launchArgumentsArgs =
-    launchArguments &&
-    (launchArguments.type === undefined || launchArguments.type === 'basic')
-      ? launchArguments.parameters
-      : ''
-
-  const commandParts = [
-    'launch',
-    ...exeOverrideFlag, // Check if this works
-    ...wineFlag,
-    ...shlex.split(launchArgumentsArgs),
-    ...shlex.split(gameSettings.launcherArgs ?? ''),
-    appName,
-    ...args
-  ]
-
-  sendGameStatusUpdate({ appName, runner: 'nile', status: 'playing' })
-
-  const { error } = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
-    abortId: appName,
-    env: commandEnv,
-    wrappers,
-    logMessagePrefix: `Launching ${gameInfo.title}`,
-    logWriters: [logWriter]
-  })
-
-  if (error) {
-    logError(['Error launching game:', error], LogPrefix.Nile)
-  }
-
-  launchCleanup(rpcClient)
-
-  return !error
-}
-
-async moveInstall(
-  appName: string,
-  newInstallPath: string
-): Promise<InstallResult> {
-  const gameInfo = this.getGameInfo(appName)
-  logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Nile)
-
-  const moveImpl = isWindows ? moveOnWindows : moveOnUnix
-  const moveResult = await moveImpl(newInstallPath, gameInfo)
-
-  if (moveResult.status === 'error') {
-    const { error } = moveResult
-    logError(
-      ['Error moving', gameInfo.title, 'to', newInstallPath, error],
-      LogPrefix.Nile
+    logDebug([appName, 'is installed at', install_path], LogPrefix.Nile)
+    const repairLogWriter = await createGameLogWriter(appName, 'nile', 'repair')
+    const res = await libraryManagerMap['nile'].runRunnerCommand(
+      ['verify', '--path', install_path, appName],
+      {
+        abortId: appName,
+        logWriters: [repairLogWriter],
+        logMessagePrefix: `Repairing ${appName}`
+      }
     )
-    return { status: 'error', error }
-  }
 
-  await libraryManagerMap['nile'].changeGameInstallPath(appName, moveResult.installPath)
-  return { status: 'done' }
-}
-
-async repair(appName: string): Promise<ExecResult> {
-  const installInfo = this.getGameInfo(appName)
-  const { install_path } = installInfo.install ?? {}
-
-  if (!install_path) {
-    const error = `Could not find install path for ${appName}`
-    logError(error, LogPrefix.Nile)
-    return {
-      stderr: '',
-      stdout: '',
-      error
+    if (res.error) {
+      logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Nile)
     }
+
+    return res
   }
 
-  logDebug([appName, 'is installed at', install_path], LogPrefix.Nile)
-  const repairLogWriter = await createGameLogWriter(appName, 'nile', 'repair')
-  const res = await libraryManagerMap['nile'].runRunnerCommand(
-    ['verify', '--path', install_path, appName],
-    {
+  async syncSaves(): Promise<string> {
+    // Amazon Games doesn't support cloud saves
+    return ''
+  }
+
+  async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+    const commandParts = ['uninstall', appName]
+
+    const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
       abortId: appName,
-      logWriters: [repairLogWriter],
-      logMessagePrefix: `Repairing ${appName}`
-    }
-  )
+      logMessagePrefix: `Uninstalling ${appName}`
+    })
 
-  if (res.error) {
-    logError(['Failed to repair', `${appName}:`, res.error], LogPrefix.Nile)
-  }
-
-  return res
-}
-
-async syncSaves(): Promise<string> {
-  // Amazon Games doesn't support cloud saves
-  return ''
-}
-
-async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
-  const commandParts = ['uninstall', appName]
-
-  const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
-    abortId: appName,
-    logMessagePrefix: `Uninstalling ${appName}`
-  })
-
-  if (res.error) {
-    logError(['Failed to uninstall', `${appName}:`, res.error], LogPrefix.Nile)
-  } else if (!res.abort) {
-    const gameInfo = this.getGameInfo(appName)
-    await removeShortcutsUtil(gameInfo)
-    await removeNonSteamGame({ gameInfo })
-    libraryManagerMap['nile'].installState(appName, false)
-  }
-  sendFrontendMessage('refreshLibrary', 'nile')
-  return res
-}
-
-async update(appName: string): Promise<InstallResult> {
-  const { maxWorkers } = GlobalConfig.get().getSettings()
-  const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
-
-  const commandParts = ['update', ...workers, appName]
-
-  const onOutput = (data: string) => {
-    this.onInstallOrUpdateOutput(appName, 'updating', data)
-  }
-
-  const updateLogWriter = await createGameLogWriter(appName, 'nile', 'update')
-  const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
-    abortId: appName,
-    logWriters: [updateLogWriter],
-    onOutput,
-    logMessagePrefix: `Updating ${appName}`
-  })
-
-  if (res.abort) {
-    return { status: 'abort' }
-  }
-
-  if (res.error) {
-    if (!res.error.includes('signal')) {
-      logError(['Failed to update', appName, res.error], LogPrefix.Nile)
-    }
-    return { status: 'error', error: res.error }
-  }
-
-  sendGameStatusUpdate({
-    appName,
-    runner: 'nile',
-    status: 'done'
-  })
-
-  return { status: 'done' }
-}
-
-async forceUninstall(appName: string) {
-  libraryManagerMap['nile'].removeFromInstalledConfig(appName)
-}
-
-async stop(appName: string, stopWine = true) {
-  const pattern = isLinux ? appName : 'nile'
-  killPattern(pattern)
-
-  if (stopWine && !this.isNative()) {
-    const gameSettings = await this.getSettings(appName)
-    await shutdownWine(gameSettings)
-  }
-}
-
-async isGameAvailable(appName: string): Promise<boolean> {
-  return new Promise((resolve) => {
-    const info = this.getGameInfo(appName)
-    resolve(
-      Boolean(
-        info?.is_installed &&
-          info.install.install_path &&
-          existsSync(info.install.install_path)
+    if (res.error) {
+      logError(
+        ['Failed to uninstall', `${appName}:`, res.error],
+        LogPrefix.Nile
       )
-    )
-  })
-}
+    } else if (!res.abort) {
+      const gameInfo = this.getGameInfo(appName)
+      await removeShortcutsUtil(gameInfo)
+      await removeNonSteamGame({ gameInfo })
+      libraryManagerMap['nile'].installState(appName, false)
+    }
+    sendFrontendMessage('refreshLibrary', 'nile')
+    return res
+  }
+
+  async update(appName: string): Promise<InstallResult> {
+    const { maxWorkers } = GlobalConfig.get().getSettings()
+    const workers = maxWorkers ? ['--max-workers', `${maxWorkers}`] : []
+
+    const commandParts = ['update', ...workers, appName]
+
+    const onOutput = (data: string) => {
+      this.onInstallOrUpdateOutput(appName, 'updating', data)
+    }
+
+    const updateLogWriter = await createGameLogWriter(appName, 'nile', 'update')
+    const res = await libraryManagerMap['nile'].runRunnerCommand(commandParts, {
+      abortId: appName,
+      logWriters: [updateLogWriter],
+      onOutput,
+      logMessagePrefix: `Updating ${appName}`
+    })
+
+    if (res.abort) {
+      return { status: 'abort' }
+    }
+
+    if (res.error) {
+      if (!res.error.includes('signal')) {
+        logError(['Failed to update', appName, res.error], LogPrefix.Nile)
+      }
+      return { status: 'error', error: res.error }
+    }
+
+    sendGameStatusUpdate({
+      appName,
+      runner: 'nile',
+      status: 'done'
+    })
+
+    return { status: 'done' }
+  }
+
+  async forceUninstall(appName: string) {
+    libraryManagerMap['nile'].removeFromInstalledConfig(appName)
+  }
+
+  async stop(appName: string, stopWine = true) {
+    const pattern = isLinux ? appName : 'nile'
+    killPattern(pattern)
+
+    if (stopWine && !this.isNative()) {
+      const gameSettings = await this.getSettings(appName)
+      await shutdownWine(gameSettings)
+    }
+  }
+
+  async isGameAvailable(appName: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      const info = this.getGameInfo(appName)
+      resolve(
+        Boolean(
+          info?.is_installed &&
+            info.install.install_path &&
+            existsSync(info.install.install_path)
+        )
+      )
+    })
+  }
 }
