@@ -16,7 +16,7 @@ jest.mock('../constants/paths', () => ({
 
 import { handleProtocol } from '../protocol'
 import { app, dialog } from 'electron'
-import { gameManagerMap } from '../storeManagers'
+import { libraryManagerMap } from '../storeManagers'
 import { getMainWindow } from '../main_window'
 import { sendFrontendMessage } from '../ipc'
 
@@ -40,22 +40,18 @@ jest.mock('../ipc', () => ({
 }))
 
 jest.mock('../storeManagers', () => ({
-  gameManagerMap: {
+  libraryManagerMap: {
     legendary: {
-      getGameInfo: jest.fn(),
-      getSettings: jest.fn()
+      getGame: jest.fn()
     },
     gog: {
-      getGameInfo: jest.fn(),
-      getSettings: jest.fn()
+      getGame: jest.fn()
     },
     nile: {
-      getGameInfo: jest.fn(),
-      getSettings: jest.fn()
+      getGame: jest.fn()
     },
     sideload: {
-      getGameInfo: jest.fn(),
-      getSettings: jest.fn()
+      getGame: jest.fn()
     }
   }
 }))
@@ -106,21 +102,31 @@ describe('protocol.ts --no-gui behavior', () => {
   const mockGameSettings = {
     ignoreGameUpdates: false
   }
+  const emptyGameInfoMock = { getGameInfo: () => ({}) }
 
   beforeEach(() => {
     jest.clearAllMocks()
+
+    const gameMock = {
+      getGameInfo: () => mockGameInfo,
+      getSettings: () => mockGameSettings
+    }
+
     ;(getMainWindow as jest.Mock).mockReturnValue(mockMainWindow)
-    ;(gameManagerMap.legendary.getGameInfo as jest.Mock).mockReturnValue(
-      mockGameInfo
-    )
-    ;(gameManagerMap.legendary.getSettings as jest.Mock).mockResolvedValue(
-      mockGameSettings
+    ;(libraryManagerMap.legendary.getGame as jest.Mock).mockReturnValue(
+      gameMock
     )
 
     // Mock other game managers to return empty objects
-    ;(gameManagerMap.gog.getGameInfo as jest.Mock).mockReturnValue({})
-    ;(gameManagerMap.nile.getGameInfo as jest.Mock).mockReturnValue({})
-    ;(gameManagerMap.sideload.getGameInfo as jest.Mock).mockReturnValue({})
+    ;(libraryManagerMap.gog.getGame as jest.Mock).mockReturnValue(
+      emptyGameInfoMock
+    )
+    ;(libraryManagerMap.nile.getGame as jest.Mock).mockReturnValue(
+      emptyGameInfoMock
+    )
+    ;(libraryManagerMap.sideload.getGame as jest.Mock).mockReturnValue(
+      emptyGameInfoMock
+    )
   })
 
   describe('when game is not installed', () => {
@@ -219,7 +225,9 @@ describe('protocol.ts --no-gui behavior', () => {
 
     test('should handle missing game info', async () => {
       // Mock gameManagerMap to return empty object for missing games
-      ;(gameManagerMap.legendary.getGameInfo as jest.Mock).mockReturnValue({})
+      ;(libraryManagerMap.legendary.getGame as jest.Mock).mockReturnValue(
+        emptyGameInfoMock
+      )
 
       await handleProtocol(['heroic://launch/nonexistent-game'])
 

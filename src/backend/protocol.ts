@@ -4,7 +4,7 @@ import i18next from 'i18next'
 import { GameInfo, LaunchOption, Runner } from 'common/types'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
-import { gameManagerMap } from './storeManagers'
+import { libraryManagerMap } from './storeManagers'
 import { launchEventCallback } from './launcher'
 import { z } from 'zod'
 import { windowIcon } from './constants/paths'
@@ -78,7 +78,9 @@ async function handleLaunch(url: URL) {
   }
 
   const { is_installed, title } = gameInfo
-  const settings = await gameManagerMap[gameInfo.runner].getSettings(appName)
+  const settings = await libraryManagerMap[gameInfo.runner]
+    .getGame(appName)
+    .getSettings()
 
   if (is_installed) {
     let launchOption: LaunchOption | undefined = undefined
@@ -137,11 +139,13 @@ function findGame(
   if (!appName) return
 
   // If a runner is specified, search for the game in that runner and return it (if found)
-  if (runner) return gameManagerMap[runner].getGameInfo(appName)
+  if (runner) return libraryManagerMap[runner].getGame(appName).getGameInfo()
 
   // If no runner is specified, search for the game in all runners and return the first one found
   for (const runner of RUNNERS.options) {
-    const maybeGameInfo = gameManagerMap[runner].getGameInfo(appName)
+    const maybeGameInfo = libraryManagerMap[runner]
+      .getGame(appName)
+      .getGameInfo()
     if (maybeGameInfo.app_name) return maybeGameInfo
   }
   return

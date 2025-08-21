@@ -1,4 +1,4 @@
-import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import { addListener, addHandler, sendFrontendMessage } from '../ipc'
 import { Winetricks, runWineCommandOnGame } from '.'
 import path from 'path'
@@ -23,7 +23,9 @@ addHandler(
 
 // Calls WineCFG or Winetricks. If is WineCFG, use the same binary as wine to launch it to dont update the prefix
 addHandler('callTool', async (event, { tool, exe, appName, runner }) => {
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const gameSettings = await libraryManagerMap[runner]
+    .getGame(appName)
+    .getSettings()
 
   switch (tool) {
     case 'winetricks':

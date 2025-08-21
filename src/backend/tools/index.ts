@@ -44,7 +44,7 @@ import {
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { gameManagerMap, libraryManagerMap } from '../storeManagers'
+import { libraryManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
@@ -516,7 +516,9 @@ export const Winetricks = {
     args: string[],
     returnOutput = false
   ) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+    const gameSettings = await libraryManagerMap[runner]
+      .getGame(appName)
+      .getSettings()
 
     const { wineVersion } = gameSettings
 
@@ -716,7 +718,9 @@ export const Winetricks = {
     }
   },
   listInstalled: async (runner: Runner, appName: string) => {
-    const gameSettings = await gameManagerMap[runner].getSettings(appName)
+    const gameSettings = await libraryManagerMap[runner]
+      .getGame(appName)
+      .getSettings()
     const { winePrefix } = await getWineFromProton(gameSettings)
     const winetricksLogPath = join(winePrefix, 'winetricks.log')
     try {
@@ -815,12 +819,13 @@ export async function runWineCommandOnGame(
   appName: string,
   { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
 ): Promise<ExecResult> {
-  if (gameManagerMap[runner].isNative(appName)) {
+  const game = libraryManagerMap[runner].getGame(appName)
+  if (game.isNative()) {
     logError('runWineCommand called on native game!', LogPrefix.Gog)
     return { stdout: '', stderr: '' }
   }
-  const { folder_name, install } = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const { folder_name, install } = game.getGameInfo()
+  const gameSettings = await game.getSettings()
 
   return runWineCommand({
     gameSettings,
@@ -904,7 +909,9 @@ export const SteamWindows = {
       await SteamWindows.downloadSteam()
     }
 
-    const gameSettings = await gameManagerMap['sideload'].getSettings('steam')
+    const gameSettings = await libraryManagerMap['sideload']
+      .getGame('steam')
+      .getSettings()
     const isCrossover = gameSettings.wineVersion.type === 'crossover'
     if (!gameSettings) {
       return

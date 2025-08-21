@@ -53,7 +53,7 @@ import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
-import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
 import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
@@ -107,21 +107,22 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   skipVersionCheck,
   args
 }) => {
-  const game = gameManagerMap[runner].getGameInfo(appName)
-  const gameSettings = await gameManagerMap[runner].getSettings(appName)
+  const game = libraryManagerMap[runner].getGame(appName)
+  const gameInfo = game.getGameInfo()
+  const gameSettings = await game.getSettings()
   const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
 
-  const { title } = game
+  const { title } = gameInfo
 
   const { minimizeOnLaunch, noTrayIcon } = GlobalConfig.get().getSettings()
 
   const startPlayingDate = new Date()
 
-  if (!tsStore.has(game.app_name)) {
-    tsStore.set(`${game.app_name}.firstPlayed`, startPlayingDate.toISOString())
+  if (!tsStore.has(appName)) {
+    tsStore.set(`${appName}.firstPlayed`, startPlayingDate.toISOString())
   }
 
-  logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
+  logInfo(`Launching ${title} (${appName})`, LogPrefix.Backend)
 
   if (autoSyncSaves && isOnline()) {
     sendGameStatusUpdate({
@@ -131,12 +132,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     })
     logInfo(`Downloading saves for ${title}`, LogPrefix.Backend)
     try {
-      await gameManagerMap[runner].syncSaves(
-        appName,
-        '--skip-upload',
-        savesPath,
-        gogSaves
-      )
+      await game.syncSaves('--skip-upload', savesPath, gogSaves)
       logInfo(`Saves for ${title} downloaded`, LogPrefix.Backend)
     } catch (error) {
       logError(
@@ -163,7 +159,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     powerDisplayId = powerSaveBlocker.start('prevent-display-sleep')
   }
 
-  const logWriter = await createGameLogWriter(game.app_name, game.runner)
+  const logWriter = await createGameLogWriter(appName, runner)
 
   if (!gameSettings.verboseLogs) {
     await logWriter.logWarning('IMPORTANT: Logs are disabled', {
@@ -175,12 +171,12 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     )
   }
 
-  const isNative = gameManagerMap[runner].isNative(appName)
+  const isNative = game.isNative()
 
   // check if isNative, if not, check if wine is valid
   if (!isNative) {
     const isWineOkToLaunch = await checkWineBeforeLaunch(
-      game,
+      gameInfo,
       gameSettings,
       logWriter
     )
@@ -203,7 +199,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     }
   }
 
-  await runBeforeLaunchScript(game, gameSettings, logWriter)
+  await runBeforeLaunchScript(gameInfo, gameSettings, logWriter)
 
   sendGameStatusUpdate({
     appName,
@@ -211,8 +207,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     status: 'launching'
   })
 
-  const command = gameManagerMap[runner].launch(
-    appName,
+  const command = game.launch(
     logWriter,
     launchArguments,
     args,
@@ -235,7 +230,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       return false
     })
     .finally(async () => {
-      await runAfterLaunchScript(game, gameSettings, logWriter)
+      await runAfterLaunchScript(gameInfo, gameSettings, logWriter)
       await logWriter.close()
     })
 
@@ -262,11 +257,9 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
   if (runner === 'gog') {
     if (!disablePlaytimeSync) {
-      await gameManagerMap['gog'].updateGOGPlaytime(
-        appName,
-        startPlayingDate,
-        finishedPlayingDate
-      )
+      await libraryManagerMap['gog']
+        .getGame(appName)
+        .updateGOGPlaytime(startPlayingDate, finishedPlayingDate)
     } else {
       logWarning(
         'Posting playtime session to server skipped - playtime sync disabled',
@@ -274,7 +267,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       )
     }
   }
-  await addRecentGame(game)
+  await addRecentGame(gameInfo)
 
   if (autoSyncSaves && isOnline()) {
     sendGameStatusUpdate({
@@ -291,12 +284,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
     logInfo(`Uploading saves for ${title}`, LogPrefix.Backend)
     try {
-      await gameManagerMap[runner].syncSaves(
-        appName,
-        '--skip-download',
-        savesPath,
-        gogSaves
-      )
+      await game.syncSaves('--skip-download', savesPath, gogSaves)
       logInfo(`Saves uploaded for ${title}`, LogPrefix.Backend)
     } catch (error) {
       logError(
@@ -493,7 +481,9 @@ async function prepareLaunch(
     'Launching',
     `"${gameInfo.title}" (${gameInfo.runner})`
   ])
-  const native = gameManagerMap[gameInfo.runner].isNative(gameInfo.app_name)
+  const native = libraryManagerMap[gameInfo.runner]
+    .getGame(gameInfo.app_name)
+    .isNative()
   await logWriter.logInfo(['Native?', native])
 
   const isThirdPartyManagedApp = gameInfo && !!gameInfo.thirdPartyManagedApp
@@ -953,8 +943,9 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
-  const { folder_name: installFolderName } =
-    gameManagerMap[runner].getGameInfo(appName)
+  const { folder_name: installFolderName } = libraryManagerMap[runner]
+    .getGame(appName)
+    .getGameInfo()
   const envVars = setupWineEnvVars(gameSettings, installFolderName)
 
   return { success: true, envVars: envVars }
@@ -997,7 +988,7 @@ async function installFixes(appName: string, runner: Runner) {
   }
 
   if (knownFixes.runInPrefix) {
-    const gameInfo = gameManagerMap[runner].getGameInfo(appName)
+    const gameInfo = libraryManagerMap[runner].getGame(appName).getGameInfo()
 
     sendGameStatusUpdate({
       appName,
@@ -1010,7 +1001,7 @@ async function installFixes(appName: string, runner: Runner) {
       const fullPath = join(gameInfo.install.install_path!, filePath)
       // FIXME: This doesn't seem right, shouldn't we use a generic function instead
       //        of the Legendary-specific one?
-      await gameManagerMap['legendary'].runWineCommandOnGame(appName, {
+      await runWineCommandOnGame(appName, runner, {
         commandParts: [fullPath],
         wait: true,
         protonVerb: 'run'
@@ -1577,6 +1568,31 @@ async function runWineCommand({
     child.on('error', (error) => {
       console.log(error)
     })
+  })
+}
+
+async function runWineCommandOnGame(
+  appName: string,
+  runner: Runner,
+  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
+): Promise<ExecResult> {
+  const game = libraryManagerMap[runner].getGame(appName)
+  if (game.isNative()) {
+    logError('runWineCommand called on native game!', LogPrefix.Legendary)
+    return { stdout: '', stderr: '' }
+  }
+
+  const { folder_name, install } = game.getGameInfo()
+  const gameSettings = await game.getSettings()
+
+  return runWineCommand({
+    gameSettings,
+    gameInstallPath: install.install_path,
+    installFolderName: folder_name,
+    commandParts,
+    wait,
+    protonVerb,
+    startFolder
   })
 }
 

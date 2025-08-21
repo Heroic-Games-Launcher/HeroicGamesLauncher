@@ -1,4 +1,4 @@
-import { gameManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import { logError, LogPrefix, logWarning } from 'backend/logger'
 import {
   downloadFile,
@@ -30,7 +30,7 @@ async function installQueueElement(params: InstallParams): Promise<{
     build,
     branch
   } = params
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
+  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
 
   if (!isOnline()) {
     logWarning(
@@ -84,15 +84,17 @@ async function installQueueElement(params: InstallParams): Promise<{
   try {
     downloadFixesFor(appName, runner)
 
-    const { status, error } = await gameManagerMap[runner].install(appName, {
-      path: path.replaceAll("'", ''),
-      installDlcs,
-      sdlList: sdlList.filter((el) => el !== ''),
-      platformToInstall,
-      installLanguage,
-      build,
-      branch
-    })
+    const { status, error } = await libraryManagerMap[runner]
+      .getGame(appName)
+      .install({
+        path: path.replaceAll("'", ''),
+        installDlcs,
+        sdlList: sdlList.filter((el) => el !== ''),
+        platformToInstall,
+        installLanguage,
+        build,
+        branch
+      })
 
     if (status === 'error') {
       errorMessage(error ?? '')
@@ -116,7 +118,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   error?: string | undefined
 }> {
   const { appName, runner } = params
-  const { title } = gameManagerMap[runner].getGameInfo(appName)
+  const { title } = libraryManagerMap[runner].getGame(appName).getGameInfo()
 
   if (!isOnline()) {
     logWarning(
@@ -160,7 +162,7 @@ async function updateQueueElement(params: InstallParams): Promise<{
   }
 
   try {
-    const { status } = await gameManagerMap[runner].update(appName, {
+    const { status } = await libraryManagerMap[runner].getGame(appName).update({
       build: params.build,
       branch: params.branch,
       language: params.installLanguage,

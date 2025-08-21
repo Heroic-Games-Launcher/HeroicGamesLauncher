@@ -48,7 +48,7 @@ import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
-import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import {
   installWineVersion,
   updateWineVersionInfos,
@@ -292,7 +292,8 @@ async function errorHandler({
     }
     if (error.includes(deletedFolderMsg) && appName) {
       const runner = r.toLocaleLowerCase() as Runner
-      const { title } = gameManagerMap[runner].getGameInfo(appName)
+      const game = libraryManagerMap[runner].getGame(appName)
+      const { title } = game.getGameInfo()
       const { response } = await showMessageBox({
         type: 'question',
         title,
@@ -304,7 +305,7 @@ async function errorHandler({
       })
 
       if (response === 1) {
-        return gameManagerMap[runner].forceUninstall(appName)
+        return game.forceUninstall()
       }
     }
 
@@ -819,10 +820,6 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
     )
     return null
   }
-}
-
-function getInfo(appName: string, runner: Runner): GameInfo {
-  return gameManagerMap[runner].getGameInfo(appName)
 }
 
 // can be removed if legendary and gogdl handle SIGTERM and SIGKILL
@@ -1650,7 +1647,6 @@ export {
   detectVCRedist,
   killPattern,
   shutdownWine,
-  getInfo,
   getShellPath,
   getLatestReleases,
   getWineFromProton,

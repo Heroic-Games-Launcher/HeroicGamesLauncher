@@ -10,7 +10,7 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { app } from 'electron'
-import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
+import { libraryManagerMap } from 'backend/storeManagers'
 import { LegendaryAppName } from './storeManagers/legendary/commands/base'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
 
@@ -32,8 +32,8 @@ async function getDefaultSavePath(
 }
 
 async function getDefaultLegendarySavePath(appName: string): Promise<string> {
-  const { save_folder, save_path } =
-    gameManagerMap['legendary'].getGameInfo(appName)
+  const game = libraryManagerMap['legendary'].getGame(appName)
+  const { save_folder, save_path } = game.getGameInfo()
   logInfo(
     ['Computing save path for save folder', save_folder],
     LogPrefix.Legendary
@@ -60,10 +60,8 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     }
   }
 
-  if (!gameManagerMap['legendary'].isNative(appName)) {
-    await verifyWinePrefix(
-      await gameManagerMap['legendary'].getSettings(appName)
-    )
+  if (!game.isNative()) {
+    await verifyWinePrefix(await game.getSettings())
   }
 
   logInfo(['Computing default save path for', appName], LogPrefix.Legendary)
@@ -78,11 +76,7 @@ async function getDefaultLegendarySavePath(appName: string): Promise<string> {
     {
       abortId: appName + '-savePath',
       logMessagePrefix: 'Getting default save path',
-      env: gameManagerMap['legendary'].isNative(appName)
-        ? {}
-        : setupWineEnvVars(
-            await gameManagerMap['legendary'].getSettings(appName)
-          )
+      env: game.isNative() ? {} : setupWineEnvVars(await game.getSettings())
     }
   )
 
@@ -106,9 +100,9 @@ async function getDefaultGogSavePaths(
   appName: string,
   alreadyDefinedGogSaves: GOGCloudSavesLocation[]
 ): Promise<GOGCloudSavesLocation[]> {
-  const gameSettings = await gameManagerMap['gog'].getSettings(appName)
-  const installInfo = gameManagerMap['gog'].getGameInfo(appName)
-    .install as InstalledInfo
+  const game = libraryManagerMap['gog'].getGame(appName)
+  const gameSettings = await game.getSettings()
+  const installInfo = game.getGameInfo().install as InstalledInfo
   const gog_save_location = await libraryManagerMap['gog'].getSaveSyncLocation(
     appName,
     installInfo
@@ -144,7 +138,7 @@ async function getDefaultGogSavePaths(
     APPLICATION_DATA_LOCAL_LOW: '%APPDATA%\\..\\LocalLow',
     APPLICATION_DATA_ROAMING: '%APPDATA%',
     APPLICATION_SUPPORT: '$HOME/Library/Application Support',
-    DOCUMENTS: gameManagerMap['gog'].isNative(appName)
+    DOCUMENTS: game.isNative()
       ? app.getPath('documents')
       : '%USERPROFILE%\\Documents'
   } satisfies Record<SaveFolderVariable, string>
@@ -187,7 +181,7 @@ async function getDefaultGogSavePaths(
     // Path now contains no more GOG-defined variables, but might
     // still contain Windows (%NAME%) or Unix ($NAME) ones
     let absolutePath: string
-    if (!gameManagerMap['gog'].isNative(appName)) {
+    if (!game.isNative()) {
       absolutePath = await getWinePath({
         path: locationWithVariablesRemoved,
         gameSettings

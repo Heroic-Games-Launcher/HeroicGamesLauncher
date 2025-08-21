@@ -1,8 +1,3 @@
-import SideloadGameManager from 'backend/storeManagers/sideload/games'
-import GOGGameManager from 'backend/storeManagers/gog/games'
-import LegendaryGameManager from 'backend/storeManagers/legendary/games'
-import NileGameManager from 'backend/storeManagers/nile/games'
-
 import SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import GOGLibraryManager from 'backend/storeManagers/gog/library'
 import LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
@@ -12,14 +7,7 @@ import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 
 import type { DMQueueElement, GameInfo, Runner } from 'common/types'
-import type { GameManager, LibraryManager } from 'common/types/game_manager'
-
-export const gameManagerMap = {
-  sideload: new SideloadGameManager(),
-  gog: new GOGGameManager(),
-  legendary: new LegendaryGameManager(),
-  nile: new NileGameManager()
-} satisfies Record<Runner, GameManager>
+import type { LibraryManager } from 'common/types/game_manager'
 
 export const libraryManagerMap = {
   sideload: new SideloadLibraryManager(),
@@ -52,11 +40,10 @@ function getDMElement(gameInfo: GameInfo, appName: string) {
 export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   const logPrefix = RunnerToLogPrefixMap[runner]
   gamesToUpdate.forEach(async (appName) => {
-    const { ignoreGameUpdates } =
-      await gameManagerMap[runner].getSettings(appName)
-    const gameInfo = gameManagerMap[runner].getGameInfo(appName)
-    const gameIsAvailable =
-      await gameManagerMap[runner].isGameAvailable(appName)
+    const game = libraryManagerMap[runner].getGame(appName)
+    const { ignoreGameUpdates } = await game.getSettings()
+    const gameInfo = game.getGameInfo()
+    const gameIsAvailable = await game.isGameAvailable()
     if (!ignoreGameUpdates && gameIsAvailable) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
       const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)

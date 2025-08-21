@@ -8,7 +8,6 @@ import {
   InstallArgs,
   InstallPlatform,
   InstallProgress,
-  WineCommandArgs,
   LaunchOption
 } from 'common/types'
 import { GameConfig } from '../../game_config'
@@ -37,7 +36,6 @@ import {
   setupWrapperEnvVars,
   setupWrappers,
   launchCleanup,
-  runWineCommand as runWineCommandUtil,
   getKnownFixesEnvVariables,
   getWinePath
 } from '../../launcher'
@@ -54,7 +52,7 @@ import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
-import { GameManager, RemoveArgs } from 'common/types/game_manager'
+import { Game } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
   getWineFlags,
@@ -78,19 +76,25 @@ import { fakeEpicExePath } from 'backend/constants/paths'
 
 import type LogWriter from 'backend/logger/log_writer'
 
-export default class LegendaryGameManager implements GameManager {
+export default class LegendaryGame implements Game {
+  private readonly appName: LegendaryAppName
+
+  constructor(appName: LegendaryAppName) {
+    this.appName = appName
+  }
+
   /**
    * Alias for `LegendaryLibrary.getGameInfo(appName)`
    *
    * @returns GameInfo
    */
-  getGameInfo(appName: string): GameInfo {
-    const info = libraryManagerMap['legendary'].getGameInfo(appName)
+  getGameInfo(): GameInfo {
+    const info = libraryManagerMap['legendary'].getGameInfo(this.appName)
     if (!info) {
       logError(
         [
           'Could not get game info for',
-          `${appName},`,
+          `${this.appName},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
         LogPrefix.Legendary
@@ -287,8 +291,8 @@ export default class LegendaryGameManager implements GameManager {
    * Get extra info from Epic's API.
    *
    */
-  async getExtraInfo(appName: string): Promise<ExtraInfo> {
-    const { namespace, title } = this.getGameInfo(appName)
+  async getExtraInfo(): Promise<ExtraInfo> {
+    const { namespace, title } = this.getGameInfo()
     if (namespace === undefined) return this.emptyExtraInfo
 
     const cachedExtraInfo = gameInfoStore.get(namespace)
@@ -332,10 +336,10 @@ export default class LegendaryGameManager implements GameManager {
    *
    * @returns GameConfig
    */
-  async getSettings(appName: string) {
+  async getSettings() {
     return (
-      GameConfig.get(appName).config ||
-      (await GameConfig.get(appName).getSettings())
+      GameConfig.get(this.appName).config ||
+      (await GameConfig.get(this.appName).getSettings())
     )
   }
 
@@ -344,10 +348,9 @@ export default class LegendaryGameManager implements GameManager {
    * Amends install path by adding the appropriate folder name.
    */
   async moveInstall(
-    appName: string,
     newInstallPath: string
   ): Promise<{ status: 'done' } | { status: 'error'; error: string }> {
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     logInfo(`Moving ${gameInfo.title} to ${newInstallPath}`, LogPrefix.Gog)
 
     const moveImpl = isWindows ? moveOnWindows : moveOnUnix
@@ -364,21 +367,21 @@ export default class LegendaryGameManager implements GameManager {
     }
 
     await libraryManagerMap['legendary'].changeGameInstallPath(
-      appName,
+      this.appName,
       moveResult.installPath
     )
     return { status: 'done' }
   }
 
   // used when downloading games, store the download size read from Legendary's output
-  private currentDownloadSize: Record<string, number> = {}
+  private currentDownloadSize: number | undefined
 
-  getCurrentDownloadSize(appName: string) {
-    return this.currentDownloadSize[appName]
+  getCurrentDownloadSize() {
+    return this.currentDownloadSize
   }
 
-  setCurrentDownloadSize(appName: string, size: number) {
-    return (this.currentDownloadSize[appName] = size)
+  setCurrentDownloadSize(size: number) {
+    this.currentDownloadSize = size
   }
 
   private defaultTmpProgres = () => ({
@@ -388,10 +391,9 @@ export default class LegendaryGameManager implements GameManager {
     diskSpeed: undefined,
     downSpeed: undefined
   })
-  private tmpProgress: Record<string, InstallProgress> = {}
+  private tmpProgress: InstallProgress | undefined
 
   onInstallOrUpdateOutput(
-    appName: string,
     action: 'installing' | 'updating',
     data: string,
     totalDownloadSize: number
@@ -401,14 +403,14 @@ export default class LegendaryGameManager implements GameManager {
     // store the download size, needed for correct calculation
     // when cancel/resume downloads
     if (downloadSizeMatch) {
-      this.currentDownloadSize[appName] = parseFloat(downloadSizeMatch[1])
+      this.currentDownloadSize = parseFloat(downloadSizeMatch[1])
     }
 
-    if (!Object.hasOwn(this.tmpProgress, appName)) {
-      this.tmpProgress[appName] = this.defaultTmpProgres()
+    if (!this.tmpProgress) {
+      this.tmpProgress = this.defaultTmpProgres()
     }
 
-    const progress = this.tmpProgress[appName]
+    const progress = this.tmpProgress
 
     // parse log for eta
     if (progress.eta === '') {
@@ -446,8 +448,7 @@ export default class LegendaryGameManager implements GameManager {
     // calculate percentage
     if (progress.bytes !== '') {
       const downloaded = parseFloat(progress.bytes)
-      const downloadCache =
-        totalDownloadSize - this.currentDownloadSize[appName]
+      const downloadCache = totalDownloadSize - (this.currentDownloadSize ?? 0)
       const totalDownloaded = downloaded + downloadCache
       const newPercent =
         Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
@@ -462,7 +463,7 @@ export default class LegendaryGameManager implements GameManager {
     ) {
       logInfo(
         [
-          `Progress for ${this.getGameInfo(appName).title}:`,
+          `Progress for ${this.getGameInfo().title}:`,
           `${progress.percent}%/${progress.bytes}/${progress.eta}`.trim(),
           `Down: ${progress.downSpeed}MB/s / Disk: ${progress.diskSpeed}MB/s`
         ],
@@ -470,14 +471,14 @@ export default class LegendaryGameManager implements GameManager {
       )
 
       sendProgressUpdate({
-        appName: appName,
+        appName: this.appName,
         runner: 'legendary',
         status: action,
         progress: progress
       })
 
       // reset
-      this.tmpProgress[appName] = this.defaultTmpProgres()
+      this.tmpProgress = this.defaultTmpProgres()
     }
   }
 
@@ -485,22 +486,22 @@ export default class LegendaryGameManager implements GameManager {
    * Update game.
    * Does NOT check for online connectivity.
    */
-  async update(appName: string): Promise<{ status: 'done' | 'error' }> {
+  async update(): Promise<{ status: 'done' | 'error' }> {
     sendGameStatusUpdate({
-      appName: appName,
+      appName: this.appName,
       runner: 'legendary',
       status: 'updating'
     })
     const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
-    const installPlatform = this.getGameInfo(appName).install.platform!
+    const installPlatform = this.getGameInfo().install.platform!
     const info = await libraryManagerMap['legendary'].getInstallInfo(
-      appName,
+      this.appName,
       installPlatform
     )
 
     const command: LegendaryCommand = {
       subcommand: 'update',
-      appName: LegendaryAppName.parse(appName),
+      appName: this.appName,
       '-y': true,
       '--skip-sdl': true
     }
@@ -509,7 +510,6 @@ export default class LegendaryGameManager implements GameManager {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        appName,
         'updating',
         data,
         info.manifest?.download_size
@@ -517,26 +517,26 @@ export default class LegendaryGameManager implements GameManager {
     }
 
     const updateLogWriter = await createGameLogWriter(
-      appName,
+      this.appName,
       'legendary',
       'update'
     )
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-      abortId: appName,
+      abortId: this.appName,
       logWriters: [updateLogWriter],
       onOutput,
-      logMessagePrefix: `Updating ${appName}`
+      logMessagePrefix: `Updating ${this.appName}`
     })
 
     sendGameStatusUpdate({
-      appName: appName,
+      appName: this.appName,
       runner: 'legendary',
       status: 'done'
     })
 
     if (res.error) {
       logError(
-        ['Failed to update', `${appName}:`, res.error],
+        ['Failed to update', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
       return { status: 'error' }
@@ -551,8 +551,8 @@ export default class LegendaryGameManager implements GameManager {
    * @async
    * @public
    */
-  async addShortcuts(appName: string, fromMenu?: boolean) {
-    return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
+  async addShortcuts(fromMenu?: boolean) {
+    return addShortcutsUtil(this.getGameInfo(), fromMenu)
   }
 
   /**
@@ -560,22 +560,19 @@ export default class LegendaryGameManager implements GameManager {
    * @async
    * @public
    */
-  async removeShortcuts(appName: string) {
-    return removeShortcutsUtil(this.getGameInfo(appName))
+  async removeShortcuts() {
+    return removeShortcutsUtil(this.getGameInfo())
   }
 
   /**
    * Install game.
    * Does NOT check for online connectivity.
    */
-  async install(
-    appName: string,
-    { path, sdlList, platformToInstall }: InstallArgs
-  ): Promise<{
+  async install({ path, sdlList, platformToInstall }: InstallArgs): Promise<{
     status: 'done' | 'error' | 'abort'
     error?: string
   }> {
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     if (gameInfo.thirdPartyManagedApp) {
       if (!gameInfo.isEAManaged) {
         logError(
@@ -589,13 +586,13 @@ export default class LegendaryGameManager implements GameManager {
     }
     const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
     const info = await libraryManagerMap['legendary'].getInstallInfo(
-      appName,
+      this.appName,
       platformToInstall
     )
 
     const command: LegendaryCommand = {
       subcommand: 'install',
-      appName: LegendaryAppName.parse(appName),
+      appName: this.appName,
       '--platform': LegendaryPlatform.parse(platformToInstall),
       '--base-path': Path.parse(path),
       '--skip-dlcs': true,
@@ -609,7 +606,6 @@ export default class LegendaryGameManager implements GameManager {
 
     const onOutput = (data: string) => {
       this.onInstallOrUpdateOutput(
-        appName,
         'installing',
         data,
         info.manifest?.download_size
@@ -617,22 +613,22 @@ export default class LegendaryGameManager implements GameManager {
     }
 
     const installLogWriter = await createGameLogWriter(
-      appName,
+      this.appName,
       'legendary',
       'install'
     )
     let res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-      abortId: appName,
+      abortId: this.appName,
       logWriters: [installLogWriter],
       onOutput,
-      logMessagePrefix: `Installing ${appName}`
+      logMessagePrefix: `Installing ${this.appName}`
     })
 
     // try to run the install again with higher memory limit
     if (res.stderr.includes('MemoryError:')) {
       command['--max-shared-memory'] = PositiveInteger.parse(5000)
       res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-        abortId: appName,
+        abortId: this.appName,
         logWriters: [installLogWriter],
         onOutput
       })
@@ -645,13 +641,13 @@ export default class LegendaryGameManager implements GameManager {
     if (res.error) {
       if (!res.error.includes('signal')) {
         logError(
-          ['Failed to install', `${appName}:`, res.error],
+          ['Failed to install', `${this.appName}:`, res.error],
           LogPrefix.Legendary
         )
       }
       return { status: 'error', error: res.error }
     }
-    this.addShortcuts(appName)
+    this.addShortcuts()
 
     return { status: 'done' }
   }
@@ -697,33 +693,33 @@ export default class LegendaryGameManager implements GameManager {
     return { status: 'done' }
   }
 
-  async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
-    const gameInfo = this.getGameInfo(appName)
+  async uninstall(): Promise<ExecResult> {
+    const gameInfo = this.getGameInfo()
     if (gameInfo.thirdPartyManagedApp) {
-      await thirdParty.removeInstalledGame(appName)
+      await thirdParty.removeInstalledGame(this.appName)
       return { stdout: '', stderr: '' }
     }
 
     const command: LegendaryCommand = {
       subcommand: 'uninstall',
-      appName: LegendaryAppName.parse(appName),
+      appName: this.appName,
       '-y': true
     }
 
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-      abortId: appName,
-      logMessagePrefix: `Uninstalling ${appName}`
+      abortId: this.appName,
+      logMessagePrefix: `Uninstalling ${this.appName}`
     })
 
     if (res.error) {
       logError(
-        ['Failed to uninstall', `${appName}:`, res.error],
+        ['Failed to uninstall', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     } else if (!res.abort) {
-      libraryManagerMap['legendary'].installState(appName, false)
-      await removeShortcutsUtil(this.getGameInfo(appName))
-      const gameInfo = this.getGameInfo(appName)
+      libraryManagerMap['legendary'].installState(this.appName, false)
+      const gameInfo = this.getGameInfo()
+      await removeShortcutsUtil(gameInfo)
       await removeNonSteamGame({ gameInfo })
     }
     sendFrontendMessage('refreshLibrary', 'legendary')
@@ -734,12 +730,12 @@ export default class LegendaryGameManager implements GameManager {
    * Repair game.
    * Does NOT check for online connectivity.
    */
-  async repair(appName: string): Promise<ExecResult> {
+  async repair(): Promise<ExecResult> {
     const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
 
     const command: LegendaryCommand = {
       subcommand: 'repair',
-      appName: LegendaryAppName.parse(appName),
+      appName: this.appName,
       '-y': true,
       '--skip-sdl': true
     }
@@ -747,19 +743,19 @@ export default class LegendaryGameManager implements GameManager {
     if (downloadNoHttps) command['--no-https'] = true
 
     const repairLogWriter = await createGameLogWriter(
-      appName,
+      this.appName,
       'legendary',
       'repair'
     )
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-      abortId: appName,
+      abortId: this.appName,
       logWriters: [repairLogWriter],
-      logMessagePrefix: `Repairing ${appName}`
+      logMessagePrefix: `Repairing ${this.appName}`
     })
 
     if (res.error) {
       logError(
-        ['Failed to repair', `${appName}:`, res.error],
+        ['Failed to repair', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
@@ -767,31 +763,34 @@ export default class LegendaryGameManager implements GameManager {
   }
 
   async importGame(
-    appName: string,
     folderPath: string,
     platform: InstallPlatform
   ): Promise<ExecResult> {
     const command: LegendaryCommand = {
       subcommand: 'import',
-      appName: LegendaryAppName.parse(appName),
+      appName: this.appName,
       installationDirectory: Path.parse(folderPath),
       '--with-dlcs': true,
       '--platform': LegendaryPlatform.parse(platform)
     }
 
-    logInfo(`Importing ${appName}.`, LogPrefix.Legendary)
+    logInfo(`Importing ${this.appName}.`, LogPrefix.Legendary)
 
-    const logWriter = await createGameLogWriter(appName, 'legendary', 'import')
+    const logWriter = await createGameLogWriter(
+      this.appName,
+      'legendary',
+      'import'
+    )
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-      abortId: appName,
+      abortId: this.appName,
       logWriters: [logWriter]
     })
-    this.addShortcuts(appName)
+    this.addShortcuts()
     const errorMatch = res.stderr.match(/^.*ERROR:.*$/gm)?.join('') ?? ''
     res.error = (res.error ?? '') + errorMatch
     if (res.error) {
       logError(
-        ['Failed to import', `${appName}:`, res.error],
+        ['Failed to import', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
@@ -802,7 +801,7 @@ export default class LegendaryGameManager implements GameManager {
    * Sync saves.
    * Does NOT check for online connectivity.
    */
-  async syncSaves(appName: string, arg: string, path: string): Promise<string> {
+  async syncSaves(arg: string, path: string): Promise<string> {
     if (!path) {
       logError(
         'No path provided for SavesSync, check your settings!',
@@ -813,7 +812,7 @@ export default class LegendaryGameManager implements GameManager {
 
     const command: LegendaryCommand = {
       subcommand: 'sync-saves',
-      appName: LegendaryAppName.parse(appName),
+      appName: this.appName,
       [arg]: true,
       '--save-path': Path.parse(path),
       '-y': true
@@ -821,14 +820,14 @@ export default class LegendaryGameManager implements GameManager {
 
     let fullOutput = ''
     const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
-      abortId: appName,
-      logMessagePrefix: `Syncing saves for ${this.getGameInfo(appName).title}`,
+      abortId: this.appName,
+      logMessagePrefix: `Syncing saves for ${this.getGameInfo().title}`,
       onOutput: (output) => (fullOutput += output)
     })
 
     if (res.error) {
       logError(
-        ['Failed to sync saves for', `${appName}:`, res.error],
+        ['Failed to sync saves for', `${this.appName}:`, res.error],
         LogPrefix.Legendary
       )
     }
@@ -836,14 +835,13 @@ export default class LegendaryGameManager implements GameManager {
   }
 
   async launch(
-    appName: string,
     logWriter: LogWriter,
     launchArguments?: LaunchOption,
     args: string[] = [],
     skipVersionCheck = false
   ): Promise<boolean> {
-    const gameSettings = await this.getSettings(appName)
-    const gameInfo = this.getGameInfo(appName)
+    const gameSettings = await this.getSettings()
+    const gameInfo = this.getGameInfo()
 
     const {
       success: launchPrepSuccess,
@@ -854,12 +852,7 @@ export default class LegendaryGameManager implements GameManager {
       gameScopeCommand,
       steamRuntime,
       offlineMode
-    } = await prepareLaunch(
-      gameSettings,
-      logWriter,
-      gameInfo,
-      this.isNative(appName)
-    )
+    } = await prepareLaunch(gameSettings, logWriter, gameInfo, this.isNative())
     if (!launchPrepSuccess) {
       logWriter.logError(['Launch aborted:', launchPrepFailReason])
       launchCleanup()
@@ -876,9 +869,9 @@ export default class LegendaryGameManager implements GameManager {
 
     let commandEnv = {
       ...process.env,
-      ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
+      ...setupWrapperEnvVars({ appName: this.appName, appRunner: 'legendary' }),
       ...setupEnvVars(gameSettings, gameInfo.install.install_path),
-      ...getKnownFixesEnvVariables(appName, 'legendary')
+      ...getKnownFixesEnvVariables(this.appName, 'legendary')
     }
 
     // We can get this env variable either from the game's settings or from known fixes
@@ -913,13 +906,13 @@ export default class LegendaryGameManager implements GameManager {
       ? { '--wrapper': NonEmptyString.parse(shlex.join(wrappers)) }
       : {}
 
-    if (!this.isNative(appName)) {
+    if (!this.isNative()) {
       // -> We're using Wine/Proton on Linux or CX on Mac
       const {
         success: wineLaunchPrepSuccess,
         failureReason: wineLaunchPrepFailReason,
         envVars: wineEnvVars
-      } = await prepareWineLaunch('legendary', appName, logWriter)
+      } = await prepareWineLaunch('legendary', this.appName, logWriter)
       if (!wineLaunchPrepSuccess) {
         logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
         if (wineLaunchPrepFailReason) {
@@ -948,7 +941,9 @@ export default class LegendaryGameManager implements GameManager {
     }
 
     const appNameToLaunch =
-      launchArguments?.type === 'dlc' ? launchArguments.dlcAppName : appName
+      launchArguments?.type === 'dlc'
+        ? launchArguments.dlcAppName
+        : this.appName
 
     const launchArgumentArgs =
       launchArguments &&
@@ -974,12 +969,16 @@ export default class LegendaryGameManager implements GameManager {
     if (isCLINoGui) command['--skip-version-check'] = true
     if (gameInfo.isEAManaged) command['--origin'] = true
 
-    sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
+    sendGameStatusUpdate({
+      appName: this.appName,
+      runner: 'legendary',
+      status: 'playing'
+    })
 
     const { error } = await libraryManagerMap['legendary'].runRunnerCommand(
       command,
       {
-        abortId: appName,
+        abortId: this.appName,
         env: commandEnv,
         wrappers: wrappers,
         logMessagePrefix: `Launching ${gameInfo.title}`,
@@ -992,8 +991,8 @@ export default class LegendaryGameManager implements GameManager {
     return !error
   }
 
-  isNative(appName: string): boolean {
-    const gameInfo = this.getGameInfo(appName)
+  isNative(): boolean {
+    const gameInfo = this.getGameInfo()
 
     if (isWindows) {
       return true
@@ -1006,18 +1005,18 @@ export default class LegendaryGameManager implements GameManager {
     return false
   }
 
-  async forceUninstall(appName: string) {
+  async forceUninstall() {
     // Modify Legendary installed.json file:
     try {
       await libraryManagerMap['legendary'].runRunnerCommand(
         {
           subcommand: 'uninstall',
-          appName: LegendaryAppName.parse(appName),
+          appName: this.appName,
           '-y': true,
           '--keep-files': true
         },
         {
-          abortId: appName
+          abortId: this.appName
         }
       )
 
@@ -1035,57 +1034,25 @@ export default class LegendaryGameManager implements GameManager {
 
   // Could be removed if legendary handles SIGKILL and SIGTERM for us
   // which is send via AbortController
-  async stop(appName: string, stopWine = true) {
+  async stop(stopWine = true) {
     // until the legendary bug gets fixed, kill legendary on mac
     // not a perfect solution but it's the only choice for now
 
     // @adityaruplaha: this is kinda arbitary and I don't understand it.
-    const pattern = isWindows ? 'legendary' : appName
+    const pattern = isWindows ? 'legendary' : this.appName
     killPattern(pattern)
 
-    if (stopWine && !this.isNative(appName)) {
-      const gameSettings = await this.getSettings(appName)
+    if (stopWine && !this.isNative()) {
+      const gameSettings = await this.getSettings()
       await shutdownWine(gameSettings)
     }
   }
 
-  async isGameAvailable(appName: string): Promise<boolean> {
-    return new Promise((resolve) => {
-      const info = this.getGameInfo(appName)
-      if (info && info.is_installed) {
-        if (
-          info.install.install_path &&
-          existsSync(info.install.install_path)
-        ) {
-          resolve(true)
-        } else {
-          resolve(false)
-        }
-      }
-      resolve(false)
-    })
-  }
-
-  async runWineCommandOnGame(
-    appName: string,
-    { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
-  ): Promise<ExecResult> {
-    if (this.isNative(appName)) {
-      logError('runWineCommand called on native game!', LogPrefix.Legendary)
-      return { stdout: '', stderr: '' }
-    }
-
-    const { folder_name, install } = this.getGameInfo(appName)
-    const gameSettings = await this.getSettings(appName)
-
-    return runWineCommandUtil({
-      gameSettings,
-      gameInstallPath: install.install_path,
-      installFolderName: folder_name,
-      commandParts,
-      wait,
-      protonVerb,
-      startFolder
-    })
+  async isGameAvailable(): Promise<boolean> {
+    const info = this.getGameInfo()
+    if (!info.is_installed) return false
+    if (info.install.install_path && existsSync(info.install.install_path))
+      return true
+    return false
   }
 }

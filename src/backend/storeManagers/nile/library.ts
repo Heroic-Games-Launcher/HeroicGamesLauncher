@@ -24,11 +24,13 @@ import { copySync } from 'fs-extra'
 import { NileUser } from './user'
 import { runNileCommandStub } from './e2eMock'
 import { nileConfigPath, nileInstalled, nileLibrary } from './constants'
+import NileGame from './games'
 import type { LibraryManager } from 'common/types/game_manager'
 
 export default class NileLibraryManager implements LibraryManager {
   private installedGames: Map<string, NileInstallMetadataInfo> = new Map()
   private library: Map<string, GameInfo> = new Map()
+  private readonly gameCache: Map<string, NileGame> = new Map()
 
   async init() {
     // Migrate user data from global Nile config if necessary
@@ -39,6 +41,15 @@ export default class NileLibraryManager implements LibraryManager {
     }
 
     this.refresh()
+  }
+
+  getGame(id: string): NileGame {
+    const cached = this.gameCache.get(id)
+    if (cached) return cached
+
+    const game = new NileGame(id)
+    this.gameCache.set(id, game)
+    return game
   }
 
   /**

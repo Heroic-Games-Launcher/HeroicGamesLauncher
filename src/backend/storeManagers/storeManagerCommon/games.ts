@@ -28,7 +28,7 @@ import {
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
-import { gameManagerMap } from '../index'
+import { libraryManagerMap } from '../index'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
 import { windowIcon } from 'backend/constants/paths'
@@ -158,7 +158,7 @@ export async function launchGame(
   const extraArgsJoined = extraArgs.join(' ')
 
   if (executable) {
-    const isNative = gameManagerMap[runner].isNative(appName)
+    const isNative = libraryManagerMap[runner].getGame(appName).isNative()
     const {
       success: launchPrepSuccess,
       failureReason: launchPrepFailReason,

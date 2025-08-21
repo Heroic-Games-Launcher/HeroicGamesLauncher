@@ -23,7 +23,9 @@ import {
   GOGDLInstallInfo,
   GOGCredentials,
   GOGv1Manifest,
-  GOGv2Manifest
+  GOGv2Manifest,
+  UserData,
+  GOGSessionSyncQueueItem
 } from 'common/types/gog'
 import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
@@ -42,7 +44,9 @@ import {
   installedGamesStore,
   installInfoStore,
   apiInfoCache,
-  privateBranchesStore
+  privateBranchesStore,
+  configStore,
+  playtimeSyncQueue
 } from './electronStores'
 import { callRunner } from '../../launcher'
 import { isOnline, runOnceWhenOnline } from '../../online_monitor'
@@ -54,12 +58,18 @@ import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
 import { gogdlConfigPath } from './constants'
 import { userDataPath } from 'backend/constants/paths'
+import GOGGame from './games'
 import type { LibraryManager } from 'common/types/game_manager'
+import { libraryManagerMap } from '../index'
+import { readdir } from 'fs/promises'
+import { statSync } from 'fs'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
 export default class GOGLibraryManager implements LibraryManager {
+  private readonly gameCache: Map<string, GOGGame> = new Map()
+
   async init() {
     await this.refresh()
 
@@ -79,6 +89,15 @@ export default class GOGLibraryManager implements LibraryManager {
       }
     })
     runOnceWhenOnline(checkForRedistUpdates)
+  }
+
+  getGame(id: string): GOGGame {
+    const cached = this.gameCache.get(id)
+    if (cached) return cached
+
+    const game = new GOGGame(id)
+    this.gameCache.set(id, game)
+    return game
   }
 
   private async createMissingGogdlManifest(
@@ -145,6 +164,88 @@ export default class GOGLibraryManager implements LibraryManager {
       logError([`Unable to get data of ${appName}:`, e], LogPrefix.Gog)
       return
     }
+  }
+
+  async syncQueuedPlaytime() {
+    if (playtimeSyncQueue.has('lock')) {
+      return
+    }
+    const userData: UserData | undefined = configStore.get_nodefault('userData')
+    if (!userData) {
+      logError('Unable to syncQueued playtime, userData not present', {
+        prefix: LogPrefix.Gog
+      })
+      return
+    }
+    const queue = playtimeSyncQueue.get(userData.galaxyUserId, [])
+    if (queue.length === 0) {
+      return
+    }
+    playtimeSyncQueue.set('lock', [])
+    const failed = []
+
+    for (const session of queue) {
+      if (!isOnline()) {
+        failed.push(session)
+      }
+      const response = await this.postPlaytimeSession(session)
+
+      if (!response || response.status !== 201) {
+        logError('Failed to post session', { prefix: LogPrefix.Gog })
+        failed.push(session)
+      }
+    }
+    playtimeSyncQueue.set(userData.galaxyUserId, failed)
+    playtimeSyncQueue.delete('lock')
+    logInfo(
+      [
+        'Finished posting sessions to gameplay.gog.com',
+        'failed:',
+        failed.length
+      ],
+      {
+        prefix: LogPrefix.Gog
+      }
+    )
+  }
+
+  async postPlaytimeSession({
+    session_date,
+    time,
+    appName
+  }: GOGSessionSyncQueueItem) {
+    const userData: UserData | undefined = configStore.get_nodefault('userData')
+    if (!userData) {
+      logError('No userData, unable to post new session', {
+        prefix: LogPrefix.Gog
+      })
+      return null
+    }
+    const credentials = await GOGUser.getCredentials().catch(() => null)
+
+    if (!credentials) {
+      logError("Couldn't fetch credentials, unable to post new session", {
+        prefix: LogPrefix.Gog
+      })
+      return null
+    }
+
+    return axios
+      .post(
+        `https://gameplay.gog.com/games/${appName}/users/${userData?.galaxyUserId}/sessions`,
+        { session_date, time },
+        {
+          headers: {
+            Authorization: `Bearer ${credentials.access_token}`
+          }
+        }
+      )
+      .catch((e: AxiosError) => {
+        logDebug(['Failed to post session', e.toJSON()], {
+          prefix: LogPrefix.Gog
+        })
+        return null
+      })
   }
 
   async getSaveSyncLocation(
@@ -1442,5 +1543,31 @@ export default class GOGLibraryManager implements LibraryManager {
     installedGames.set(cpId, installed)
     installedGamesStore.set('installed', installedArray)
     sendFrontendMessage('pushGameToLibrary', game)
+  }
+
+  async getCyberpunkMods(): Promise<string[]> {
+    const gameInfo = libraryManagerMap['gog'].getGameInfo('1423049311')
+    if (!gameInfo || !gameInfo?.install?.install_path) {
+      return []
+    }
+
+    const modsPath = join(gameInfo.install.install_path, 'mods')
+    if (!existsSync(modsPath)) {
+      return []
+    }
+    const modsPathContents = await readdir(modsPath)
+
+    return modsPathContents.reduce((acc, next) => {
+      const modPath = join(modsPath, next)
+      const infoFilePath = join(modPath, 'info.json')
+
+      const modStat = statSync(modPath)
+
+      if (modStat.isDirectory() && existsSync(infoFilePath)) {
+        acc.push(next)
+      }
+
+      return acc
+    }, [] as string[])
   }
 }
