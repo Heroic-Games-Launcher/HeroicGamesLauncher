@@ -69,7 +69,10 @@ async function findDosboxExecutable(dir: string): Promise<string | undefined> {
   try {
     list = await fs.promises.readdir(dir, { withFileTypes: true })
   } catch (error) {
-    logError(`Error reading directory ${dir} for dosbox.exe: ${error}`, LogPrefix.Zoom)
+    logError(
+      `Error reading directory ${dir} for dosbox.exe: ${error}`,
+      LogPrefix.Zoom
+    )
     return undefined // Cannot read dir, so stop here for this branch
   }
 
@@ -416,9 +419,7 @@ export async function install(
               recursive: true
             })
           }
-          dosboxConf = newConfFiles.map((file) =>
-            join(destDir, basename(file))
-          )
+          dosboxConf = newConfFiles.map((file) => join(destDir, basename(file)))
         }
       }
     }
@@ -437,7 +438,10 @@ export async function install(
             }
           }
         } catch (error) {
-          logError(`Error finding .exe files in ${dir}: ${error}`, LogPrefix.Zoom)
+          logError(
+            `Error finding .exe files in ${dir}: ${error}`,
+            LogPrefix.Zoom
+          )
         }
         return exes
       }
