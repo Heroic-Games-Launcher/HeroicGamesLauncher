@@ -10,8 +10,7 @@ import {
   GOGv1Manifest,
   GOGv2Manifest
 } from 'common/types/gog'
-import { getGameInfo, onInstallOrUpdateOutput } from './games'
-import { runRunnerCommand as runGogdlCommand } from './library'
+import { gameManagerMap, libraryManagerMap } from '..'
 import { GlobalConfig } from 'backend/config'
 import {
   addToQueue,
@@ -113,7 +112,7 @@ async function pushRedistUpdateToQueue() {
 }
 
 export function createRedistDMQueueElement(): DMQueueElement {
-  const gameInfo = getGameInfo('gog-redist')
+  const gameInfo = gameManagerMap['gog'].getGameInfo('gog-redist')
   const newElement: DMQueueElement = {
     params: {
       appName: 'gog-redist',
@@ -202,12 +201,16 @@ export async function updateRedist(redistToSync: string[]): Promise<{
   })
 
   const redistLogWriter = new LogWriter(logPath, false, false)
-  const res = await runGogdlCommand(commandParts, {
+  const res = await libraryManagerMap['gog'].runRunnerCommand(commandParts, {
     abortId: 'gog-redist',
     logMessagePrefix: 'GOG REDIST:',
     logWriters: [redistLogWriter],
     onOutput: (output) =>
-      onInstallOrUpdateOutput('gog-redist', 'updating', output)
+      gameManagerMap['gog'].onInstallOrUpdateOutput(
+        'gog-redist',
+        'updating',
+        output
+      )
   })
 
   if (res.error) {

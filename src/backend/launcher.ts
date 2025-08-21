@@ -53,11 +53,10 @@ import shlex from 'shlex'
 import { isOnline } from './online_monitor'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
-import { gameManagerMap } from 'backend/storeManagers'
+import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
 import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
-import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
 import {
   createAbortController,
@@ -65,14 +64,12 @@ import {
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
 import { storeMap } from 'common/utils'
-import { runWineCommandOnGame } from './storeManagers/legendary/games'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
-import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
 import {
@@ -265,7 +262,11 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
   if (runner === 'gog') {
     if (!disablePlaytimeSync) {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
+      await gameManagerMap['gog'].updateGOGPlaytime(
+        appName,
+        startPlayingDate,
+        finishedPlayingDate
+      )
     } else {
       logWarning(
         'Posting playtime session to server skipped - playtime sync disabled',
@@ -1007,7 +1008,9 @@ async function installFixes(appName: string, runner: Runner) {
 
     for (const filePath of knownFixes.runInPrefix) {
       const fullPath = join(gameInfo.install.install_path!, filePath)
-      await runWineCommandOnGame(appName, {
+      // FIXME: This doesn't seem right, shouldn't we use a generic function instead
+      //        of the Legendary-specific one?
+      await gameManagerMap['legendary'].runWineCommandOnGame(appName, {
         commandParts: [fullPath],
         wait: true,
         protonVerb: 'run'
@@ -1828,7 +1831,8 @@ function getRunnerCallWithoutCredentials(
   env: Record<string, string> | NodeJS.ProcessEnv = {},
   runnerPath: string
 ): string {
-  if (!Array.isArray(command)) command = commandToArgsArray(command)
+  if (!Array.isArray(command))
+    command = libraryManagerMap['legendary'].commandToArgsArray(command)
 
   const modifiedCommand = [...command]
   // Redact sensitive arguments (Authorization Code for Legendary, token for GOGDL)
