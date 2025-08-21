@@ -17,8 +17,9 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+import { StoreConfig } from './hooks/useStoreConfigs'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Category = StoreConfig['filterKey'] | 'all'
 
 export interface ContextType {
   error: boolean
