@@ -5,7 +5,7 @@ import { clearCache } from '../../utils'
 import { logError, LogPrefix } from 'backend/logger'
 import { userInfo as user } from 'os'
 import { session } from 'electron'
-import { runRunnerCommand as runLegendaryCommand } from './library'
+import { libraryManagerMap } from '..'
 import { LegendaryCommand } from './commands'
 import { NonEmptyString } from './commands/base'
 import { configStore } from 'backend/constants/key_value_stores'
@@ -29,10 +29,13 @@ export class LegendaryUser {
     }
 
     try {
-      const res = await runLegendaryCommand(command, {
-        abortId: 'legendary-login',
-        logMessagePrefix: 'Logging in'
-      })
+      const res = await libraryManagerMap['legendary'].runRunnerCommand(
+        command,
+        {
+          abortId: 'legendary-login',
+          logMessagePrefix: 'Logging in'
+        }
+      )
 
       if (res.stderr.includes('ERROR: Logging in ')) {
         return errorMessage(res.stderr)
@@ -52,7 +55,7 @@ export class LegendaryUser {
   public static async logout() {
     const command: LegendaryCommand = { subcommand: 'auth', '--delete': true }
 
-    const res = await runLegendaryCommand(command, {
+    const res = await libraryManagerMap['legendary'].runRunnerCommand(command, {
       abortId: 'legendary-logout',
       logMessagePrefix: 'Logging out'
     })

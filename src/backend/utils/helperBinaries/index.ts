@@ -1,12 +1,12 @@
-import { runRunnerCommand as runLegendaryCommand } from '../../storeManagers/legendary/library'
-import { runRunnerCommand as runGogdlCommand } from '../../storeManagers/gog/library'
-import { runRunnerCommand as runNileCommand } from '../../storeManagers/nile/library'
+import { libraryManagerMap } from '../../storeManagers'
 import { spawnSync } from 'node:child_process'
 import { getCometBin } from 'backend/utils'
 import { join } from 'path'
 
 async function getLegendaryVersion(): Promise<string> {
-  const { stdout, error, abort } = await runLegendaryCommand(
+  const { stdout, error, abort } = await libraryManagerMap[
+    'legendary'
+  ].runRunnerCommand(
     {
       subcommand: undefined,
       '--version': true
@@ -29,9 +29,12 @@ async function getLegendaryVersion(): Promise<string> {
 }
 
 async function getGogdlVersion(): Promise<string> {
-  const { stdout, error } = await runGogdlCommand(['--version'], {
-    abortId: 'gogdl-version'
-  })
+  const { stdout, error } = await libraryManagerMap['gog'].runRunnerCommand(
+    ['--version'],
+    {
+      abortId: 'gogdl-version'
+    }
+  )
 
   if (error) return 'invalid'
 
@@ -48,9 +51,12 @@ async function getCometVersion(): Promise<string> {
 }
 
 async function getNileVersion(): Promise<string> {
-  const { stdout, error } = await runNileCommand(['--version'], {
-    abortId: 'nile-version'
-  })
+  const { stdout, error } = await libraryManagerMap['nile'].runRunnerCommand(
+    ['--version'],
+    {
+      abortId: 'nile-version'
+    }
+  )
 
   if (error) return 'invalid'
 
