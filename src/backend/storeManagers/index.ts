@@ -79,6 +79,6 @@ export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
 
 export async function initLibraryManagers() {
   Object.values(libraryManagerMap).forEach(async (element) => {
-    await element.init?.()
+    await element.init()
   })
 }
