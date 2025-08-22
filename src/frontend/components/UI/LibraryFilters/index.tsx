@@ -5,7 +5,8 @@ import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import { Category, PlatformsFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
-import { StoreConfig, useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
+import { StoreConfig } from 'frontend/state/StoreConfigState'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 import './index.css'
 
 export default function LibraryFilters() {

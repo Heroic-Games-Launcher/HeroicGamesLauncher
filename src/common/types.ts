@@ -14,7 +14,7 @@ import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/ut
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
-import type { StoreConfig } from 'frontend/hooks/useStoreConfigs'
+import type { StoreConfig } from 'frontend/state/StoreConfigState'
 
 export type Runner = StoreConfig['runner']
 

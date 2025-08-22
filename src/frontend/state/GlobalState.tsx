@@ -37,7 +37,7 @@ import {
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
-import { createStoreConfigs } from '../hooks/useStoreConfigs'
+import { storeConfigsStore } from '../state/StoreConfigState'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -900,6 +900,8 @@ class GlobalState extends PureComponent<Props> {
     this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
 
+    storeConfigsStore.getState().updateStoreConfigs(this.state, this.props.t)
+
     window.api.frontendReady()
   }
 
@@ -982,8 +984,6 @@ class GlobalState extends PureComponent<Props> {
       (game) => game.status === 'installing' && game.runner === 'legendary'
     )
 
-    const storeConfigs = createStoreConfigs(this.state, this.props.t)
-
     return (
       <ContextProvider.Provider
         value={{
@@ -1057,8 +1057,7 @@ class GlobalState extends PureComponent<Props> {
           },
           setDisableDialogBackdropClose: this.setDisableDialogBackdropClose,
           disableAnimations: this.state.disableAnimations,
-          setDisableAnimations: this.setDisableAnimations,
-          storeConfigs
+          setDisableAnimations: this.setDisableAnimations
         }}
       >
         {this.props.children}

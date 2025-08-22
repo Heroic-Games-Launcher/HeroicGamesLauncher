@@ -17,7 +17,7 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
-import { StoreConfig } from './hooks/useStoreConfigs'
+import { StoreConfig } from './state/StoreConfigState'
 
 export type Category = StoreConfig['filterKey'] | 'all'
 
@@ -116,10 +116,6 @@ export interface ContextType {
   setDisableDialogBackdropClose: (value: boolean) => void
   disableAnimations: boolean
   setDisableAnimations: (value: boolean) => void
-  storeConfigs: {
-    storeConfigs: StoreConfig[]
-    runnerToDisplayName: (runner: string, customFallback?: string) => string
-  }
 }
 
 export type DialogModalOptions = {
