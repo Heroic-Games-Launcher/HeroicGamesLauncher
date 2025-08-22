@@ -61,7 +61,7 @@ export default React.memo(function Library(): JSX.Element {
     setLayout(layout)
   }
 
-  let initialStoresfilters
+  let initialStoresfilters: StoresFilters
   const storesFiltersString = storage.getItem('storesFilters')
   if (storesFiltersString) {
     // If we have something stored, use that
@@ -75,7 +75,7 @@ export default React.memo(function Library(): JSX.Element {
         filterKey,
         categories.includes(storedCategory)
       ])
-    )
+    ) as StoresFilters
   }
 
   const [storesFilters, setStoresFilters_] =

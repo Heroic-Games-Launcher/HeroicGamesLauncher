@@ -193,9 +193,7 @@ export interface SettingsContextType {
   isLinuxNative: boolean
 }
 
-export interface StoresFilters {
-  [key: string]: boolean
-}
+export type StoresFilters = Record<StoreConfig['filterKey'], boolean>
 
 export interface PlatformsFilters {
   win: boolean

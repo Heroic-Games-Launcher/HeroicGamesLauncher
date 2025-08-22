@@ -2,7 +2,7 @@ import { ReactNode, useContext } from 'react'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
-import { Category, PlatformsFilters } from 'frontend/types'
+import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
 import type { StoreConfig } from 'frontend/state/StoreConfigState'
@@ -84,7 +84,7 @@ export default function LibraryFilters() {
       storeConfigs.map((config) => [config.filterKey, false])
     )
     newFilters = { ...newFilters, [store]: true }
-    setStoresFilters(newFilters)
+    setStoresFilters(newFilters as StoresFilters)
   }
 
   const ToggleWithOnly = ({
@@ -147,7 +147,7 @@ export default function LibraryFilters() {
       storeConfigs.map((config) => [config.filterKey, true])
     )
 
-    setStoresFilters(newFilters)
+    setStoresFilters(newFilters as StoresFilters)
     setPlatformsFilters({
       win: true,
       linux: true,
