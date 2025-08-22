@@ -61,7 +61,7 @@ export function createStoreConfigs(
       categories: ['all', 'sideload'],
       authCheck: () => true // sideload doesn't need authentication
     }
-  ] as StoreConfig[]
+  ]
 
   const runnerToDisplayName = (runner: string, customFallback?: string) => {
     return (
@@ -77,7 +77,9 @@ export function createStoreConfigs(
   }
 }
 
-export const useStoreConfigs = () => {
-  const context = useContext(ContextProvider)
-  return context.storeConfigs // Now returns the combined object directly
+export const useStoreConfigs = (): {
+  storeConfigs: StoreConfig[]
+  runnerToDisplayName: (runner: string, customFallback?: string) => string
+} => {
+  return useContext(ContextProvider).storeConfigs
 }
