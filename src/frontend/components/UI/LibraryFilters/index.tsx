@@ -135,7 +135,7 @@ export default function LibraryFilters() {
           htmlId={storeConfig.filterKey}
           handleChange={() => toggleStoreFilter(storeConfig.filterKey)}
           value={storesFilters[storeConfig.filterKey]}
-          title={storeConfig.displayName}
+          title={storeConfig.displayName()}
         />
       </ToggleWithOnly>
     )

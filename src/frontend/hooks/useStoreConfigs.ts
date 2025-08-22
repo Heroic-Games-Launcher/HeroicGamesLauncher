@@ -6,7 +6,7 @@ import { StateProps } from 'frontend/state/GlobalState'
 export interface StoreConfig {
   runner: 'legendary' | 'gog' | 'nile' | 'sideload'
   filterKey: 'legendary' | 'gog' | 'nile' | 'sideload'
-  displayName: string
+  displayName: () => string
   store: {
     library: GameInfo[]
     username?: string
@@ -25,14 +25,14 @@ interface CreateStoreConfigsState {
 
 export function createStoreConfigs(
   state: CreateStoreConfigsState,
-  t: (key: string) => string
+  t: (key: string, fallback?: string) => string
 ) {
   const { epic, gog, amazon, sideloadedLibrary } = state
   const storeConfigs = [
     {
       runner: 'legendary',
       filterKey: 'legendary',
-      displayName: t('Epic Games'),
+      displayName: () => t('storeDisplayNames.epic', 'Epic Games'),
       store: epic,
       categories: ['all', 'legendary', 'epic'],
       authCheck: () => !!epic.username
@@ -40,7 +40,7 @@ export function createStoreConfigs(
     {
       runner: 'gog',
       filterKey: 'gog',
-      displayName: t('GOG'),
+      displayName: () => t('storeDisplayNames.gog', 'GOG'),
       store: gog,
       categories: ['all', 'gog'],
       authCheck: () => !!gog.username
@@ -48,7 +48,7 @@ export function createStoreConfigs(
     {
       runner: 'nile',
       filterKey: 'nile',
-      displayName: t('Amazon Games'),
+      displayName: () => t('storeDisplayNames.amazon', 'Amazon Games'),
       store: amazon,
       categories: ['all', 'nile', 'amazon'],
       authCheck: () => !!amazon.user_id
@@ -56,7 +56,7 @@ export function createStoreConfigs(
     {
       runner: 'sideload',
       filterKey: 'sideload',
-      displayName: t('Other'),
+      displayName: () => t('storeDisplayNames.other', 'Other'),
       store: { library: sideloadedLibrary },
       categories: ['all', 'sideload'],
       authCheck: () => true // sideload doesn't need authentication
@@ -65,7 +65,7 @@ export function createStoreConfigs(
 
   const runnerToDisplayName = (runner: string, customFallback?: string) => {
     return (
-      storeConfigs.find((config) => config.runner === runner)?.displayName ||
+      storeConfigs.find((config) => config.runner === runner)?.displayName() ||
       customFallback ||
       t('Other')
     )
