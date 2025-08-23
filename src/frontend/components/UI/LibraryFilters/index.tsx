@@ -1,22 +1,17 @@
-import { useContext } from 'react'
+import { ReactNode, useContext } from 'react'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
-import { Category, PlatformsFilters } from 'frontend/types'
+import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
-import type { Runner } from 'common/types'
+import type { StoreConfig } from 'frontend/state/StoreConfigState'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 import './index.css'
-
-const RunnerToStore = {
-  legendary: 'Epic Games',
-  gog: 'GOG',
-  nile: 'Amazon Games',
-  sideload: 'Other'
-}
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon } = useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
+  const { storeConfigs } = useStoreConfigs()
   const {
     setShowFavourites,
     setShowHidden,
@@ -66,9 +61,9 @@ export default function LibraryFilters() {
     setShowUpdatesOnly(!showUpdatesOnly)
   }
 
-  const toggleStoreFilter = (store: Runner) => {
-    const currentValue = storesFilters[store]
-    const newFilters = { ...storesFilters, [store]: !currentValue }
+  const toggleStoreFilter = (filterKey: StoreConfig['filterKey']) => {
+    const currentValue = storesFilters[filterKey]
+    const newFilters = { ...storesFilters, [filterKey]: !currentValue }
     setStoresFilters(newFilters)
   }
 
@@ -84,76 +79,74 @@ export default function LibraryFilters() {
     setPlatformsFilters(newFilters)
   }
   const setStoreOnly = (store: Category) => {
-    let newFilters = {
-      legendary: false,
-      gog: false,
-      nile: false,
-      sideload: false
-    }
+    let newFilters = Object.fromEntries(
+      storeConfigs.map((config) => [config.filterKey, false])
+    )
     newFilters = { ...newFilters, [store]: true }
-    setStoresFilters(newFilters)
+    setStoresFilters(newFilters as StoresFilters)
   }
 
-  const toggleWithOnly = (toggle: JSX.Element, onOnlyClicked: () => void) => {
-    return (
-      <div className="toggleWithOnly">
-        {toggle}
-        <button className="only" onClick={() => onOnlyClicked()}>
-          {t('header.only', 'only')}
-        </button>
-      </div>
-    )
-  }
+  const ToggleWithOnly = ({
+    onOnlyClicked,
+    children
+  }: {
+    onOnlyClicked: () => void
+    children: ReactNode
+  }) => (
+    <div className="toggleWithOnly">
+      {children}
+      <button className="only" onClick={() => onOnlyClicked()}>
+        {t('header.only', 'only')}
+      </button>
+    </div>
+  )
 
   // t('platforms.browser', 'Browser')
   // t('platforms.linux', 'Linux')
   // t('platforms.mac', 'Mac')
   // t('platforms.win', 'Windows')
   const platformToggle = (plat: keyof PlatformsFilters) => {
-    const toggle = (
-      <ToggleSwitch
-        key={plat}
-        htmlId={plat}
-        handleChange={() => togglePlatformFilter(plat)}
-        value={platformsFilters[plat]}
-        title={t(`platforms.${plat}`)}
-      />
-    )
-
     const onOnlyClick = () => {
       setPlatformOnly(plat)
     }
 
-    return toggleWithOnly(toggle, onOnlyClick)
+    return (
+      <ToggleWithOnly key={plat} onOnlyClicked={onOnlyClick}>
+        <ToggleSwitch
+          key={plat}
+          htmlId={plat}
+          handleChange={() => togglePlatformFilter(plat)}
+          value={platformsFilters[plat]}
+          title={t(`platforms.${plat}`)}
+        />
+      </ToggleWithOnly>
+    )
   }
 
-  // t('Epic Games', 'Epic Games')
-  // t('GOG', 'GOG')
-  // t('Amazon Games', 'Amazon Games')
-  // t('Other', 'Other')
-  const storeToggle = (store: Runner) => {
-    const toggle = (
-      <ToggleSwitch
-        key={store}
-        htmlId={store}
-        handleChange={() => toggleStoreFilter(store)}
-        value={storesFilters[store]}
-        title={t(RunnerToStore[store])}
-      />
-    )
+  const storeToggle = (storeConfig: StoreConfig) => {
     const onOnlyClick = () => {
-      setStoreOnly(store)
+      setStoreOnly(storeConfig.filterKey)
     }
-    return toggleWithOnly(toggle, onOnlyClick)
+
+    return (
+      <ToggleWithOnly key={storeConfig.filterKey} onOnlyClicked={onOnlyClick}>
+        <ToggleSwitch
+          key={storeConfig.filterKey}
+          htmlId={storeConfig.filterKey}
+          handleChange={() => toggleStoreFilter(storeConfig.filterKey)}
+          value={storesFilters[storeConfig.filterKey]}
+          title={storeConfig.displayName()}
+        />
+      </ToggleWithOnly>
+    )
   }
 
   const resetFilters = () => {
-    setStoresFilters({
-      legendary: true,
-      gog: true,
-      nile: true,
-      sideload: true
-    })
+    const newFilters = Object.fromEntries(
+      storeConfigs.map((config) => [config.filterKey, true])
+    )
+
+    setStoresFilters(newFilters as StoresFilters)
     setPlatformsFilters({
       win: true,
       linux: true,
@@ -173,10 +166,9 @@ export default function LibraryFilters() {
     <div className="libraryFilters" data-tour="library-filters">
       <button className="selectStyle">{t('header.filters', 'Filters')}</button>
       <div className="dropdown">
-        {epic.username && storeToggle('legendary')}
-        {gog.username && storeToggle('gog')}
-        {amazon.user_id && storeToggle('nile')}
-        {storeToggle('sideload')}
+        {storeConfigs
+          .filter((config) => config.authCheck())
+          .map((config) => storeToggle(config))}
 
         <hr />
 

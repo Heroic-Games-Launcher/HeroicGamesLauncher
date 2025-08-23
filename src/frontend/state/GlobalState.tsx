@@ -37,6 +37,7 @@ import {
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
+import { storeConfigsStore } from '../state/StoreConfigState'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -51,7 +52,7 @@ interface Props {
   t: T
 }
 
-interface StateProps {
+export interface StateProps {
   epic: {
     library: GameInfo[]
     username?: string
@@ -898,6 +899,8 @@ class GlobalState extends PureComponent<Props> {
 
     this.setPrimaryFontFamily(this.state.primaryFontFamily, false)
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
+
+    storeConfigsStore.getState().updateStoreConfigs(this.state, this.props.t)
 
     window.api.frontendReady()
   }

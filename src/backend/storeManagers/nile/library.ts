@@ -28,7 +28,7 @@ import { nileConfigPath, nileInstalled, nileLibrary } from './constants'
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
-export async function initNileLibraryManager() {
+export async function init() {
   // Migrate user data from global Nile config if necessary
   const globalNileConfig = join(app.getPath('appData'), 'nile')
   if (!existsSync(nileConfigPath) && existsSync(globalNileConfig)) {

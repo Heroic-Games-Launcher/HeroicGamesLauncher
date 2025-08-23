@@ -7,6 +7,10 @@ import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isMac } from 'backend/constants/environment'
 
+export async function init() {
+  logWarning(`init not implemented on Sideload Library Manager`)
+}
+
 export function addNewApp({
   app_name,
   title,

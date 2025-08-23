@@ -58,7 +58,7 @@ import { userDataPath } from 'backend/constants/paths'
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
-export async function initGOGLibraryManager() {
+export async function init() {
   await refresh()
 
   // Based on installed games scan for missing manifests and attempt to pull

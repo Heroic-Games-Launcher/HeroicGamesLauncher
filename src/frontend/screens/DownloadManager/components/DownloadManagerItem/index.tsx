@@ -6,13 +6,14 @@ import { DMQueueElement, DownloadManagerState } from 'common/types'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import { handleStopInstallation } from 'frontend/helpers/library'
-import { getGameInfo, getStoreName } from 'frontend/helpers'
+import { getGameInfo } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
 import PauseIcon from 'frontend/assets/pause-icon.svg?react'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 type Props = {
   element?: DMQueueElement
@@ -42,7 +43,8 @@ const DownloadManagerItem = ({
   state,
   handleClearItem
 }: Props) => {
-  const { amazon, epic, gog, showDialogModal } = useContext(ContextProvider)
+  const { storeConfigs, runnerToDisplayName } = useStoreConfigs()
+  const { showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
@@ -57,7 +59,7 @@ const DownloadManagerItem = ({
     )
   }
 
-  const library = [...epic.library, ...gog.library, ...amazon.library]
+  const library = storeConfigs.flatMap(({ store }) => store.library)
 
   const { params, addToQueueTime, endTime, type, startTime } = element
   const {
@@ -252,7 +254,7 @@ const DownloadManagerItem = ({
         {date} {hour}
       </span>
       <span>{translatedTypes[type]}</span>
-      <span>{getStoreName(runner, t2('Other'))}</span>
+      <span>{runnerToDisplayName(runner, runner)}</span>
       <span className="icons">
         <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
           {mainActionIcon()}

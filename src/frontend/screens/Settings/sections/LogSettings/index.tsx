@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UpdateComponent } from 'frontend/components/UI'
 import SettingsContext from '../../SettingsContext'
 import './index.css'
-import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo } from 'common/types'
 import { openDiscordLink } from 'frontend/helpers'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
@@ -15,6 +14,7 @@ import Cloud from '@mui/icons-material/Cloud'
 import classNames from 'classnames'
 
 import type { GetLogFileArgs } from 'backend/logger/paths'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 interface LogBoxProps {
   logFileContent: string
@@ -80,19 +80,16 @@ export default function LogSettings() {
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
-  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
+  const { storeConfigs } = useStoreConfigs()
   const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
 
   useEffect(() => {
-    let games: GameInfo[] = []
-    games = games.concat(epic.library.filter((game) => game.is_installed))
-    games = games.concat(gog.library.filter((game) => game.is_installed))
-    games = games.concat(amazon.library.filter((game) => game.is_installed))
-    games = games.concat(sideloadedLibrary.filter((game) => game.is_installed))
-    games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
+    const games = storeConfigs
+      .flatMap(({ store }) => store.library.filter((game) => game.is_installed))
+      .sort((game1, game2) => game1.title.localeCompare(game2.title))
 
     setInstalledGames(games)
-  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
+  }, [storeConfigs])
 
   const getLogContent = () => {
     void window.api.getLogContent(showLogOf).then((content: string) => {

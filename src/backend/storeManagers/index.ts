@@ -77,8 +77,8 @@ export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
   return gamesToUpdate
 }
 
-export async function initStoreManagers() {
-  await LegendaryLibraryManager.initLegendaryLibraryManager()
-  await GOGLibraryManager.initGOGLibraryManager()
-  await NileLibraryManager.initNileLibraryManager()
+export async function initLibraryManagers() {
+  return Promise.all(
+    Object.values(libraryManagerMap).map((manager) => manager.init())
+  )
 }

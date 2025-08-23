@@ -107,7 +107,7 @@ import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/librar
 import {
   autoUpdate,
   gameManagerMap,
-  initStoreManagers,
+  initLibraryManagers,
   libraryManagerMap
 } from './storeManagers'
 import { updateWineVersionInfos } from './wine/manager/utils'
@@ -333,7 +333,7 @@ if (!gotTheLock) {
     await MigrationSystem.get().applyMigrations()
 
     initOnlineMonitor()
-    initStoreManagers()
+    initLibraryManagers()
     initImagesCache()
 
     // Add User-Agent Client hints to behave like Windows

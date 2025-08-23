@@ -57,7 +57,7 @@ const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 
-export async function initLegendaryLibraryManager() {
+export async function init() {
   loadGamesInAccount()
   refreshInstalled()
 }

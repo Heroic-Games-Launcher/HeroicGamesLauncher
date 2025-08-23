@@ -3,16 +3,18 @@ import { useTranslation } from 'react-i18next'
 import Tour, { TourStep } from '../../../../components/Tour/Tour'
 import { useTour } from '../../../../state/TourContext'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 export const SIDEBAR_TOUR_ID = 'sidebar-tour'
 
 const SidebarTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
-  const { epic, gog, amazon, platform, isRTL } = useContext(ContextProvider)
+  const { platform, isRTL } = useContext(ContextProvider)
+  const { storeConfigs } = useStoreConfigs()
 
   // Check if the user is logged into any store
-  const isLoggedIn = Boolean(epic.username || gog.username || amazon.user_id)
+  const isLoggedIn = storeConfigs.some(({ authCheck }) => authCheck())
   const isWin = platform === 'win32'
 
   // Set position based on RTL
