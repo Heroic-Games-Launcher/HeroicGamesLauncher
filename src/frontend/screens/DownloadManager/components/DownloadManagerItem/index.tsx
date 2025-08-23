@@ -43,12 +43,11 @@ const DownloadManagerItem = ({
   state,
   handleClearItem
 }: Props) => {
-  const { storeConfigs } = useStoreConfigs()
+  const { storeConfigs, runnerToDisplayName } = useStoreConfigs()
   const { showDialogModal } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation('translation')
   const isPaused = state && ['idle', 'paused'].includes(state)
-  const { runnerToDisplayName } = useStoreConfigs()
 
   const navigate = useNavigate()
 
