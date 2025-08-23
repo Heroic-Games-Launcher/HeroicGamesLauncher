@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
-import type { Runner } from 'common/types'
 import type { StoreConfig } from 'frontend/state/StoreConfigState'
 import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 import './index.css'
@@ -62,9 +61,9 @@ export default function LibraryFilters() {
     setShowUpdatesOnly(!showUpdatesOnly)
   }
 
-  const toggleStoreFilter = (store: Runner) => {
-    const currentValue = storesFilters[store]
-    const newFilters = { ...storesFilters, [store]: !currentValue }
+  const toggleStoreFilter = (filterKey: StoreConfig['filterKey']) => {
+    const currentValue = storesFilters[filterKey]
+    const newFilters = { ...storesFilters, [filterKey]: !currentValue }
     setStoresFilters(newFilters)
   }
 
