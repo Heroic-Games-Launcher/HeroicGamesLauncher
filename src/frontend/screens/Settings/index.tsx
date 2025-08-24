@@ -97,7 +97,7 @@ function Settings() {
         },
         {
           label: t('settings.open-config-file', 'Open Config File'),
-          onclick: () => window.api.showConfigFileInFolder(appName),
+          onclick: () => window.api.openConfigFile(appName),
           show: !isLogSettings
         }
       ]}
