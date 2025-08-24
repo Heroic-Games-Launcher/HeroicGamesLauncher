@@ -412,10 +412,10 @@ export default function GamesSubmenu({
           )}
           {isInstalled && (
             <button
-              onClick={() => window.api.showGameConfigFileInFolder(appName)}
+              onClick={() => window.api.showConfigFileInFolder(appName)}
               className="link button is-text is-link"
             >
-              {t('button.showGameConfigFileInFolder', 'Show Game Config File')}
+              {t('button.showConfigFileInFolder', 'Show Game Config File')}
             </button>
           )}
         </div>
