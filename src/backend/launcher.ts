@@ -64,7 +64,7 @@ import {
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
-import { storeMap } from 'common/utils'
+import { runnerMap } from 'backend/runners'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
@@ -960,7 +960,7 @@ async function prepareWineLaunch(
 }
 
 export function readKnownFixes(appName: string, runner: Runner) {
-  const fixPath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
+  const fixPath = join(fixesPath, `${appName}-${runnerMap[runner].store}.json`)
 
   if (!existsSync(fixPath)) return null
 
