@@ -10,8 +10,9 @@ import { z } from 'zod'
 import { windowIcon } from './constants/paths'
 import { Path } from './schemas'
 import { isCLINoGui } from './constants/environment'
+import { runnerMap } from 'backend/runners'
 
-const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
+const RUNNERS = z.enum(Object.keys(runnerMap) as [Runner, ...Runner[]])
 
 export function handleProtocol(args: string[]) {
   const urlStr = args.find((arg) => arg.startsWith('heroic://'))

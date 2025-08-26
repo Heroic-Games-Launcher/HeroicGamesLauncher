@@ -1,28 +1,22 @@
 import axios from 'axios'
 import { Runner } from 'common/types'
 import { umuStore } from '../electronStore'
+import { runnerMap } from 'backend/runners'
 
 interface GameObject {
   title: string
   umu_id: string
-}
-const storeMapping: Record<Runner, string> = {
-  gog: 'gog',
-  legendary: 'egs',
-  nile: 'amazon',
-  sideload: 'sideload'
 }
 
 export async function getUmuId(
   appName: string,
   runner: Runner
 ): Promise<string | null> {
-  // if it's a sideload, there won't be any umu id
-  if (runner === 'sideload') {
+  if (!runnerMap[runner]?.umu.isSupported) {
     return null
   }
 
-  const store = storeMapping[runner]
+  const store = runnerMap[runner].umu.storeName
   const key = `${runner}_${appName}`
   const cachedValue = umuStore.get(key)
   if (cachedValue) {
