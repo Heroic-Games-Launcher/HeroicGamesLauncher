@@ -4,7 +4,13 @@ import { GameInfo } from 'common/types'
 import { LibraryContextType } from 'frontend/types'
 
 const initialContext: LibraryContextType = {
-  storesFilters: { legendary: true, gog: true, nile: true, sideload: true },
+  storesFilters: {
+    legendary: true,
+    gog: true,
+    nile: true,
+    sideload: true,
+    zoom: true
+  },
   platformsFilters: { win: true, linux: true, mac: true, browser: true },
   filterText: '',
   setStoresFilters: () => null,
