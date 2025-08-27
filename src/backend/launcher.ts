@@ -80,7 +80,7 @@ import {
   defaultWinePrefix,
   fixesPath,
   flatpakHome,
-  publicDir,
+  galaxyCommunicationExePath,
   runtimePath,
   userHome
 } from './constants/paths'
@@ -888,28 +888,23 @@ async function prepareWineLaunch(
 
   try {
     if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
-      const communicationSource = join(
-        publicDir,
-        'bin/x64/win32/GalaxyCommunication.exe'
-      )
-
-      const galaxyCommPath =
+      const galaxyCommWinePath =
         'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
       const communicationDest = await getWinePath({
-        path: galaxyCommPath,
+        path: galaxyCommWinePath,
         gameSettings,
         variant: 'unix'
       })
 
       if (!existsSync(communicationDest)) {
         mkdirSync(dirname(communicationDest), { recursive: true })
-        await copyFile(communicationSource, communicationDest)
+        await copyFile(galaxyCommunicationExePath, communicationDest)
         await runWineCommand({
           commandParts: [
             'sc',
             'create',
             'GalaxyCommunication',
-            `binpath=${galaxyCommPath}`
+            `binpath=${galaxyCommWinePath}`
           ],
           gameSettings,
           protonVerb: 'runinprefix'
