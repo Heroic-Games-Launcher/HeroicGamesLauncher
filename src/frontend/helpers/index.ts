@@ -124,19 +124,6 @@ function removeSpecialcharacters(text: string): string {
   return text.replaceAll(regexp, '')
 }
 
-const getStoreName = (runner: Runner, other: string) => {
-  switch (runner) {
-    case 'legendary':
-      return 'Epic Games'
-    case 'gog':
-      return 'GOG'
-    case 'nile':
-      return 'Amazon Games'
-    default:
-      return other
-  }
-}
-
 function getPreferredInstallLanguage(
   availableLanguages: string[],
   preferredLanguages: readonly string[]
@@ -175,6 +162,5 @@ export {
   updateGame,
   writeConfig,
   removeSpecialcharacters,
-  getStoreName,
   getPreferredInstallLanguage
 }

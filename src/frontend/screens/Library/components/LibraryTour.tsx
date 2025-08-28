@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Tour, { TourStep } from '../../../components/Tour/Tour'
 import { useTour } from '../../../state/TourContext'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 export const LIBRARY_TOUR_ID = 'library-tour'
 
@@ -10,17 +11,12 @@ const LibraryTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
   // Import context to check if there are any games in the library
-  const { epic, gog, amazon, sideloadedLibrary, platform } =
-    useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
+  const { storeConfigs } = useStoreConfigs()
   const isMac = platform === 'darwin'
 
   // Check if there are any games in the library
-  const hasGames = Boolean(
-    epic.library.length ||
-      gog.library.length ||
-      amazon.library.length ||
-      sideloadedLibrary.length
-  )
+  const hasGames = storeConfigs.some(({ store }) => store.library.length > 0)
 
   // Create intro steps first
   const introSteps: TourStep[] = [

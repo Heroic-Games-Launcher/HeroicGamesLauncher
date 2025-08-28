@@ -17,8 +17,9 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+import { StoreConfig } from './state/StoreConfigState'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Category = StoreConfig['filterKey'] | 'all'
 
 export interface ContextType {
   error: boolean
@@ -192,12 +193,7 @@ export interface SettingsContextType {
   isLinuxNative: boolean
 }
 
-export interface StoresFilters {
-  legendary: boolean
-  gog: boolean
-  nile: boolean
-  sideload: boolean
-}
+export type StoresFilters = Record<StoreConfig['filterKey'], boolean>
 
 export interface PlatformsFilters {
   win: boolean

@@ -17,7 +17,6 @@
         "dont-show-again": "Don't show this warning again",
         "title": "Adtraction is blocked"
     },
-    "Amazon Games": "Amazon Games",
     "analyticsModal": {
         "disable": "Disable",
         "enable": "Enable",
@@ -273,7 +272,6 @@
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "Epic Games",
     "error": "Error",
     "externalLink": {
         "dontAskAgain": "Don't ask again",
@@ -287,15 +285,11 @@
         "title": "Game Title"
     },
     "generic": {
-        "error": {
-            "component": "No games found - Try to logout and login again or one of the options below"
-        },
         "library": {
             "refresh": "Refresh Library"
         }
     },
     "globalSettings": "Global Settings",
-    "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
         "categories": "Categories",
@@ -575,7 +569,6 @@
         "nile-version": "Nile Version: ",
         "weblate": "Help translate Heroic."
     },
-    "Other": "Other",
     "placeholder": {
         "alt-gogdl-bin": "Using built-in GOGDL binary...",
         "alt-legendary-bin": "Using built-in Legendary binary...",
@@ -917,6 +910,12 @@
         "processing": "Processing files, please wait"
     },
     "store": "Epic Store",
+    "storeDisplayNames": {
+        "amazon": "Amazon Games",
+        "epic": "Epic Games",
+        "gog": "GOG",
+        "other": "Other"
+    },
     "stores": "Stores",
     "title": {
         "allGames": "All Games"

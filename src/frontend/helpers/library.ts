@@ -240,9 +240,4 @@ const updateGame = (args: UpdateParams) => {
   return window.api.updateGame(args)
 }
 
-export const epicCategories = ['all', 'legendary', 'epic']
-export const gogCategories = ['all', 'gog']
-export const sideloadedCategories = ['all', 'sideload']
-export const amazonCategories = ['all', 'nile', 'amazon']
-
 export { handleStopInstallation, install, launch, repair, updateGame }

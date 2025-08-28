@@ -4,6 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import GamesList from '../GamesList'
 import { configStore } from 'frontend/helpers/electronStores'
+import { useStoreConfigs } from 'frontend/hooks/useStoreConfigs'
 
 interface Props {
   handleModal: (appName: string, runner: Runner, gameInfo: GameInfo) => void
@@ -39,7 +40,7 @@ export default React.memo(function RecentlyPlayed({
   showHidden
 }: Props) {
   const { t } = useTranslation()
-  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
+  const { storeConfigs } = useStoreConfigs()
   const [recentGames, setRecentGames] = useState<GameInfo[]>([])
 
   const hiddenGames = useContext(ContextProvider).hiddenGames
@@ -48,12 +49,7 @@ export default React.memo(function RecentlyPlayed({
     const hiddenAppNames = hiddenGames.list.map((game) => game.appName)
     const { maxRecentGames } = await window.api.requestAppSettings()
     let newRecentGames = getRecentGames(
-      [
-        ...epic.library,
-        ...gog.library,
-        ...sideloadedLibrary,
-        ...amazon.library
-      ],
+      storeConfigs.flatMap(({ store }) => store.library),
       maxRecentGames,
       onlyInstalled
     )
@@ -78,14 +74,7 @@ export default React.memo(function RecentlyPlayed({
     return () => {
       recentGamesChangedRemoveListener()
     }
-  }, [
-    epic.library,
-    gog.library,
-    amazon.library,
-    sideloadedLibrary,
-    hiddenGames,
-    showHidden
-  ])
+  }, [storeConfigs, hiddenGames, showHidden])
 
   if (!recentGames.length) {
     return null

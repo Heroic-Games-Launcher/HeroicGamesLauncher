@@ -243,9 +243,6 @@
         "modify": "Zmeniť Inštaláciu"
     },
     "generic": {
-        "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
-        },
         "library": {
             "refresh": "Obnoviť Knižnicu"
         }
