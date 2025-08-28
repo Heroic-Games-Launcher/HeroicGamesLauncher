@@ -91,6 +91,15 @@ jest.mock('process', () => ({
   }
 }))
 
+jest.mock('../runners', () => ({
+  runnerMap: {
+    legendary: { store: 'epic' },
+    gog: { store: 'gog' },
+    nile: { store: 'amazon' },
+    sideload: { store: 'sideload' }
+  }
+}))
+
 describe('protocol.ts --no-gui behavior', () => {
   const mockMainWindow = {
     show: jest.fn()
