@@ -73,6 +73,7 @@ interface SyncIPCFunctions {
   openWikiLink: () => void
   openSidInfoPage: () => void
   openCustomThemesWiki: () => void
+  openConfigFile: (appName: string) => void
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void

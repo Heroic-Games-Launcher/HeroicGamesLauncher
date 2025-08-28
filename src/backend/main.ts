@@ -627,12 +627,16 @@ addListener('openSidInfoPage', async () => openUrlOrFile(sidInfoUrl))
 addListener('openCustomThemesWiki', async () =>
   openUrlOrFile(customThemesWikiLink)
 )
-addListener('showConfigFileInFolder', async (event, appName) => {
+addListener('openConfigFile', async (event, appName) => {
   if (appName === 'default') {
     return openUrlOrFile(configPath)
   }
   return openUrlOrFile(path.join(gamesConfigPath, `${appName}.json`))
 })
+
+addListener('showConfigFileInFolder', (event, appName) =>
+  showItemInFolder(path.join(gamesConfigPath, `${appName}.json`))
+)
 
 addListener('removeFolder', async (e, [path, folderName]) => {
   removeFolder(path, folderName)
