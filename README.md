@@ -37,7 +37,7 @@ Heroic is built with Web Technologies:
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
-      - [Nix(OS)](#nixos)
+      - [NixOS](#nixos)
       - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
     - [Windows](#windows)
     - [macOS](#macos)
@@ -177,27 +177,9 @@ Enable it with `sudo dnf copr enable atim/heroic-games-launcher`, then install H
 
 You can alternatively download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
 
-#### Nix(OS)
+#### NixOS
 
-Two community-maintained versions are available in [nixpkgs](https://search.nixos.org/packages?type=packages&query=heroic), named [heroic](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/by-name/he/heroic-unwrapped/package.nix#L110) (with an [FHS environment](https://nixos.org/manual/nixpkgs/stable/#sec-fhs-environments)) and [heroic-unwrapped](https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/he/heroic-unwrapped/package.nix) (without FHS).
-
-- Nix shell: `nix-shell -p heroic`
-- NixOS:
-
-  ```nixos
-  # /etc/nixos/configuration.nix
-  { config, pkgs, ... }:
-
-  {
-    users.users.example = {
-      isNormalUser = true;
-      description = "Example user";
-      packages = with pkgs; [
-        heroic
-      ];
-    };
-  }
-  ```
+There is an unofficial package for NixOS. Please see [the NixOS Wiki](https://wiki.nixos.org/wiki/Heroic_Games_Launcher) for details.
 
 #### Other Distributions (AppImage and TAR.XZ)
 
@@ -281,7 +263,7 @@ Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)"
 
 ### Development on Nix
 
-After cloning the repository, Nix users can use `nix-shell` to make Node.JS/pnpm available and automatically run [installation step](#development-environment) 3 and 4. See [shell.nix](shell.nix) for more information.
+After cloning the repository, Nix users can use `nix-shell` to enter a [development shell](https://wiki.nixos.org/wiki/Development_environment_with_nix-shell).
 
 ## Sponsors
 
