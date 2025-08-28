@@ -12,6 +12,7 @@ import { NileInstallInfo } from 'common/types/nile'
 import { useTranslation } from 'react-i18next'
 import LegendaryModifyInstallModal from './Legendary'
 import GOGModifyInstallModal from './GOG'
+import { CustomLibraryInstallInfo } from 'common/types/customLibraries'
 
 interface ModifyInstallProps {
   gameInfo: GameInfo
@@ -19,6 +20,7 @@ interface ModifyInstallProps {
     | LegendaryInstallInfo
     | GogInstallInfo
     | NileInstallInfo
+    | CustomLibraryInstallInfo
     | null
   onClose: () => void
 }

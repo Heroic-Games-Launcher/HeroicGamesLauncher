@@ -14,11 +14,13 @@ function fixFilter(text: string) {
 const RUNNER_TO_STORE: Partial<Record<Runner, string>> = {
   legendary: 'Epic',
   gog: 'GOG',
-  nile: 'Amazon'
+  nile: 'Amazon',
+  customLibrary: 'Custom Library'
 }
 
 export default function LibrarySearchBar() {
-  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary, amazon, customLibrary } =
+    useContext(ContextProvider)
   const { handleSearch, filterText } = useContext(LibraryContext)
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -28,7 +30,8 @@ export default function LibrarySearchBar() {
       ...(epic.library ?? []),
       ...(gog.library ?? []),
       ...(sideloadedLibrary ?? []),
-      ...(amazon.library ?? [])
+      ...(amazon.library ?? []),
+      ...(customLibrary ?? [])
     ]
       .filter(Boolean)
       .filter((el) => {

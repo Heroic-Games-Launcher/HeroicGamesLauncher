@@ -11,7 +11,8 @@ import {
   WineVersionInfo,
   LibraryTopSectionOptions,
   ExperimentalFeatures,
-  Status
+  Status,
+  CustomLibraryGameInfo
 } from 'common/types'
 import {
   DialogModalOptions,
@@ -33,7 +34,8 @@ import {
   nileConfigStore,
   nileLibraryStore,
   wineDownloaderInfoStore,
-  sideloadLibrary
+  sideloadLibrary,
+  customLibraryStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
@@ -93,6 +95,7 @@ interface StateProps {
   dialogModalOptions: DialogModalOptions
   externalLinkDialogOptions: ExternalLinkDialogOptions
   sideloadedLibrary: GameInfo[]
+  customLibrary: CustomLibraryGameInfo[]
   hideChangelogsOnStartup: boolean
   lastChangelogShown: string | null
   showInstallModal: {
@@ -199,6 +202,10 @@ class GlobalState extends PureComponent<Props> {
       gameInfo: null
     },
     sideloadedLibrary: sideloadLibrary.get('games', []),
+    customLibrary: customLibraryStore.get(
+      'games',
+      []
+    ) as CustomLibraryGameInfo[],
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
@@ -613,6 +620,7 @@ class GlobalState extends PureComponent<Props> {
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])
+    const updatedCustomLibrary = customLibraryStore.get('games', [])
 
     this.setState({
       epic: {
@@ -631,7 +639,8 @@ class GlobalState extends PureComponent<Props> {
       gameUpdates: updates,
       refreshing: false,
       refreshingInTheBackground: true,
-      sideloadedLibrary: updatedSideload
+      sideloadedLibrary: updatedSideload,
+      customLibrary: updatedCustomLibrary
     })
 
     if (currentLibraryLength !== epicLibrary.length) {

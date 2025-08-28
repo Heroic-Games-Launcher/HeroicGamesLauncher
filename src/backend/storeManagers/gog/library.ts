@@ -2,12 +2,12 @@ import { sendFrontendMessage } from '../../ipc'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { GOGUser } from './user'
 import {
-  GameInfo,
   InstalledInfo,
   GOGImportData,
   ExecResult,
   CallRunnerOptions,
-  LaunchOption
+  LaunchOption,
+  GOGGameInfo
 } from 'common/types'
 import {
   GOGCloudSavesLocation,
@@ -55,7 +55,7 @@ import { runGogdlCommandStub } from './e2eMock'
 import { gogdlConfigPath } from './constants'
 import { userDataPath } from 'backend/constants/paths'
 
-const library: Map<string, GameInfo> = new Map()
+const library: Map<string, GOGGameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
 export async function initGOGLibraryManager() {
@@ -353,7 +353,7 @@ export async function refresh(): Promise<ExecResult> {
   }
   refreshInstalled()
   await loadLocalLibrary()
-  const redistGameInfo: GameInfo = {
+  const redistGameInfo: GOGGameInfo = {
     app_name: 'gog-redist',
     runner: 'gog',
     title: 'Galaxy Common Redistributables',
@@ -389,7 +389,7 @@ export async function refresh(): Promise<ExecResult> {
     (entry) => entry.platform_id === 'gog'
   )
 
-  const gamesObjects: GameInfo[] = [redistGameInfo]
+  const gamesObjects: GOGGameInfo[] = [redistGameInfo]
   apiInfoCache.use_in_memory() // Prevent blocking operations
   for (const game of filteredApiArray) {
     let retries = 5
@@ -472,11 +472,11 @@ export async function refresh(): Promise<ExecResult> {
   return defaultExecResult
 }
 
-export function getGameInfo(slug: string): GameInfo | undefined {
+export function getGameInfo(slug: string): GOGGameInfo | undefined {
   return library.get(slug) || getInstallAndGameInfo(slug)
 }
 
-export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
+export function getInstallAndGameInfo(slug: string): GOGGameInfo | undefined {
   const lib = libraryStore.get('games', [])
   const game = lib.find((value) => value.app_name === slug)
 
@@ -946,7 +946,7 @@ export async function checkForGameUpdate(
  */
 export async function gogToUnifiedInfo(
   info: GamesDBData | undefined
-): Promise<GameInfo> {
+): Promise<GOGGameInfo> {
   if (!info || info.type !== 'game' || !info.game.visible_in_library) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
@@ -966,7 +966,7 @@ export async function gogToUnifiedInfo(
     ?.replace('{formatter}', '')
     .replace('{ext}', 'jpg')
 
-  const object: GameInfo = {
+  const object: GOGGameInfo = {
     runner: 'gog',
     developer: info.game.developers.map((dev) => dev.name).join(', '),
     app_name: String(info.external_id),
