@@ -1,11 +1,11 @@
 import CacheStore from '../../cache'
-import { ExtraInfo, GameInfo } from 'common/types'
+import { ExtraInfo, LegendaryGameInfo } from 'common/types'
 import { GameOverride, LegendaryInstallInfo } from 'common/types/legendary'
 
 export const installStore = new CacheStore<LegendaryInstallInfo>(
   'legendary_install_info'
 )
-export const libraryStore = new CacheStore<GameInfo[], 'library'>(
+export const libraryStore = new CacheStore<LegendaryGameInfo[], 'library'>(
   'legendary_library',
   null
 )
