@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
   grid-gap: 1.5rem;
-  padding: 0 var(--space-md-fixed) var(--space-3xl);
+  padding: 0 var(--space-md-fixed) var(--space-2xl);
   margin: var(--space-md) 0;
 }
 
@@ -91,5 +91,6 @@
 .listing {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: scroll;
 }

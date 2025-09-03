@@ -40,6 +40,7 @@ body {
   container: main-content / inline-size;
   display: flex;
   grid-area: content;
+  max-height: 100vh;
   flex-direction: column;
   min-height: 100%;
   &:not(:has(.gameConfigContainer img.backgroundImage)) {

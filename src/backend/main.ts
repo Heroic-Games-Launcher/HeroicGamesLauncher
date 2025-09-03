@@ -217,7 +217,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
   const globalConf = GlobalConfig.get().getSettings()
 
   mainWindow.setIcon(windowIcon)
-  app.commandLine.appendSwitch('enable-spatial-navigation')
 
   mainWindow.on('maximize', () => sendFrontendMessage('maximized'))
   mainWindow.on('unmaximize', () => sendFrontendMessage('unmaximized'))

@@ -679,34 +679,34 @@ export default React.memo(function Library(): JSX.Element {
       }}
     >
       <Header />
+      <span id="top" />
+      {showRecentGames && (
+        <RecentlyPlayed
+          handleModal={handleModal}
+          onlyInstalled={libraryTopSection.endsWith('installed')}
+          showHidden={showHidden}
+        />
+      )}
+
+      {showFavourites && !showFavouritesLibrary && (
+        <>
+          <div className="library-section-header" data-tour="library-header">
+            <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
+          </div>
+          <GamesList
+            library={favourites}
+            handleGameCardClick={handleModal}
+            isFavourite
+            isFirstLane
+          />
+        </>
+      )}
+
+      <LibraryHeader list={libraryToShow} />
+
       <LibraryTour />
 
       <div className="listing">
-        <span id="top" />
-        {showRecentGames && (
-          <RecentlyPlayed
-            handleModal={handleModal}
-            onlyInstalled={libraryTopSection.endsWith('installed')}
-            showHidden={showHidden}
-          />
-        )}
-
-        {showFavourites && !showFavouritesLibrary && (
-          <>
-            <div className="library-section-header" data-tour="library-header">
-              <h3 className="libraryHeader">{t('favourites', 'Favourites')}</h3>
-            </div>
-            <GamesList
-              library={favourites}
-              handleGameCardClick={handleModal}
-              isFavourite
-              isFirstLane
-            />
-          </>
-        )}
-
-        <LibraryHeader list={libraryToShow} />
-
         {showAlphabetFilter && <AlphabetFilter />}
 
         {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
