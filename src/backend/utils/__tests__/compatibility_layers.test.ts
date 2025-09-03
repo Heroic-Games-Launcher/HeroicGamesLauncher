@@ -37,7 +37,7 @@ describe('getDefaultWine', () => {
 
     const result = getDefaultWine()
     expect(result.bin).toBe('/usr/bin/wine')
-    expect(result.name).toBe('Wine Default - wine-6.0 (Staging)')
+    expect(result.name).toBe('wine-6.0 (Staging)')
     expect(result.type).toBe('wine')
   })
 })

@@ -10,6 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { removeSpecialcharacters } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWarning } from '@fortawesome/free-solid-svg-icons'
+import { WineVersionListItem } from 'frontend/screens/Settings/components/WineVersionSelector'
 import { MenuItem } from '@mui/material'
 
 type Props = {
@@ -149,9 +150,9 @@ export default function WineSelector({
             }
           >
             {wineVersionList &&
-              wineVersionList.map(({ name }, i) => (
-                <MenuItem value={name} key={i}>
-                  {name}
+              wineVersionList.map((version, i) => (
+                <MenuItem key={i} value={version.name}>
+                  <WineVersionListItem version={version} />
                 </MenuItem>
               ))}
           </SelectField>
