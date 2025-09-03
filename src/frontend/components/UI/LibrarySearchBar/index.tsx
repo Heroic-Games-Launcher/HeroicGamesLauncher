@@ -14,11 +14,13 @@ function fixFilter(text: string) {
 const RUNNER_TO_STORE: Partial<Record<Runner, string>> = {
   legendary: 'Epic',
   gog: 'GOG',
-  nile: 'Amazon'
+  nile: 'Amazon',
+  zoom: 'Zoom'
 }
 
 export default function LibrarySearchBar() {
-  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary, amazon, zoom } =
+    useContext(ContextProvider)
   const { handleSearch, filterText } = useContext(LibraryContext)
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -28,7 +30,8 @@ export default function LibrarySearchBar() {
       ...(epic.library ?? []),
       ...(gog.library ?? []),
       ...(sideloadedLibrary ?? []),
-      ...(amazon.library ?? [])
+      ...(amazon.library ?? []),
+      ...(zoom.library ?? [])
     ]
       .filter(Boolean)
       .filter((el) => {
@@ -38,7 +41,7 @@ export default function LibrarySearchBar() {
         )
       })
       .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
-  }, [amazon.library, epic.library, gog.library, filterText])
+  }, [amazon.library, epic.library, gog.library, zoom.library, filterText])
 
   const handleClick = (game: GameInfo) => {
     handleSearch('')
