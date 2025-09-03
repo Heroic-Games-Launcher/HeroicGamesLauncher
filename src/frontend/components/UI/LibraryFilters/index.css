@@ -9,6 +9,7 @@
     position: absolute;
     top: 100%;
     right: 0px;
+    z-index: 10;
     min-width: 250px;
     display: flex;
     flex-direction: column;
