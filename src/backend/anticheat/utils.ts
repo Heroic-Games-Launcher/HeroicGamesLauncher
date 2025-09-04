@@ -37,16 +37,24 @@ async function gameAnticheatInfo(
   if (appNamespace === undefined) return null
   if (isWindows) return null
 
-  const data = await readFile(anticheatDataPath, 'utf-8')
-  const jsonData = JSON.parse(data)
-  return jsonData.find((info: AntiCheatInfo) => {
-    const namespace = info.storeIds.epic?.namespace
-    if (namespace) {
-      return namespace.toLowerCase().includes(appNamespace)
-    } else {
-      return false
-    }
-  })
+  try {
+    const data = await readFile(anticheatDataPath, 'utf-8')
+    const jsonData = JSON.parse(data)
+    return jsonData.find((info: AntiCheatInfo) => {
+      const namespace = info.storeIds.epic?.namespace
+      if (namespace) {
+        return namespace.toLowerCase().includes(appNamespace)
+      } else {
+        return false
+      }
+    })
+  } catch (err) {
+    logWarning(
+      ['Failed to read AreWeAntiCheatYet file:', err],
+      LogPrefix.Backend
+    )
+    return null
+  }
 }
 
 export { downloadAntiCheatData, gameAnticheatInfo }
