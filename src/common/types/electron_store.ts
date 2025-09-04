@@ -57,6 +57,9 @@ export interface StoreStructure {
   gogInstalledGamesStore: {
     installed: InstalledInfo[]
   }
+  customLibraryInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
   timestampStore: {
     [K: string]: {
       firstPlayed: string
