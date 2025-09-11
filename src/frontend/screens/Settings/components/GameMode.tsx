@@ -11,6 +11,7 @@ const GameMode = () => {
   const isLinux = platform === 'linux'
   const [useGameMode, setUseGameMode] = useSetting('useGameMode', false)
   const [eacRuntime, setEacRuntime] = useSetting('eacRuntime', false)
+  const [escapeFlatpakSandbox] = useSetting('escapeFlatpakSandbox', false)
 
   if (!isLinux) {
     return <></>
@@ -40,6 +41,16 @@ const GameMode = () => {
           ]
         })
       }
+    }
+    if (!useGameMode && escapeFlatpakSandbox && window.isFlatpak) {
+      showDialogModal({
+        showDialog: true,
+        title: t('settings.EscapeFlatpakSandbox.escapeSandboxEnabled.title'),
+        message: t(
+          'settings.EscapeFlatpakSandbox.escapeSandboxEnabled.message'
+        ),
+        buttons: [{ text: t('box.ok') }]
+      })
     }
     setUseGameMode(!useGameMode)
   }
