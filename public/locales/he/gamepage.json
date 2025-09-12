@@ -244,7 +244,6 @@
         "title": "בחרו רכיבים להתקין"
     },
     "setting": {
-        "use-default-wine-settings": "השתמש בהגדרות ברירת המחדל של Wine",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "specs": {

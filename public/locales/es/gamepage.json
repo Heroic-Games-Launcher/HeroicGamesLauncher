@@ -225,10 +225,9 @@
         "title": "Elige que componentes quieres instalar"
     },
     "setting": {
-        "use-default-wine-settings": "Utilizar la configuración predeterminada de Wine",
         "winecrossoverbottle": "Botella de CrossOver",
         "show-wine-settings": "Mostrar la configuración de Wine",
-        "warn-use-default-wine-settings": "Utiliza esta opción solo si sabes lo que estás haciendo.<br/>Compartir el mismo prefijo para varios juegos puede crear problemas si sus dependencias son incompatibles."
+        "warn-use-shared-wine-config": "Utiliza esta opción solo si sabes lo que estás haciendo.<br/>Compartir el mismo prefijo para varios juegos puede crear problemas si sus dependencias son incompatibles."
     },
     "sideload": {
         "field": {

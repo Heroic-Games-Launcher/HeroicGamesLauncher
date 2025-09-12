@@ -225,10 +225,9 @@
         "title": "选择要安装的组件"
     },
     "setting": {
-        "use-default-wine-settings": "使用默认的 Wine 设置",
         "winecrossoverbottle": "CrossOver 容器",
         "show-wine-settings": "显示 Wine 设置",
-        "warn-use-default-wine-settings": "请只在你清楚选项的含义时才使用此选项。<br/>多个游戏共享相同的前缀可能带来问题，如果这些游戏的依赖项彼此不兼容的话。"
+        "warn-use-shared-wine-config": "请只在你清楚选项的含义时才使用此选项。<br/>多个游戏共享相同的前缀可能带来问题，如果这些游戏的依赖项彼此不兼容的话。"
     },
     "sideload": {
         "field": {

@@ -222,10 +222,9 @@
         "title": "Velg komponenter som skal installeres"
     },
     "setting": {
-        "use-default-wine-settings": "Bruk standard Wine-innstillinger",
         "winecrossoverbottle": "CrossOver Bottle",
         "show-wine-settings": "Vis Wine-innstillinger",
-        "warn-use-default-wine-settings": "Bruk kun dette alternativet hvis du vet hva du gjør.<br/>Å dele samme prefiks for flere spill kan skape problemer hvis avhengighetene deres er inkompatible."
+        "warn-use-shared-wine-config": "Bruk kun dette alternativet hvis du vet hva du gjør.<br/>Å dele samme prefiks for flere spill kan skape problemer hvis avhengighetene deres er inkompatible."
     },
     "sideload": {
         "field": {

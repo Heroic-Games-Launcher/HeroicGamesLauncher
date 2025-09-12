@@ -225,9 +225,8 @@
         "title": "Kurulacak bileşenleri seç"
     },
     "setting": {
-        "use-default-wine-settings": "Varsayılan Wine Ayarlarını Kullan",
         "winecrossoverbottle": "CrossOver Bottle",
-        "warn-use-default-wine-settings": "Bu seçeneği yalnızca ne yaptığınızı biliyorsanız kullanın.<br/>Birden çok oyun için aynı ön eki paylaşmak, bağımlılıkları uyumsuzsa sorun oluşturabilir.",
+        "warn-use-shared-wine-config": "Bu seçeneği yalnızca ne yaptığınızı biliyorsanız kullanın.<br/>Birden çok oyun için aynı ön eki paylaşmak, bağımlılıkları uyumsuzsa sorun oluşturabilir.",
         "show-wine-settings": "Wine ayarlarını göster"
     },
     "sideload": {

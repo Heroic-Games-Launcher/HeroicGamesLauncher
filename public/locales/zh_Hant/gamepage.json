@@ -188,7 +188,6 @@
         "title": "選擇要安裝的元件"
     },
     "setting": {
-        "use-default-wine-settings": "使用預設 Wine 設定",
         "winecrossoverbottle": "CrossOver 容器",
         "show-wine-settings": "顯示 Wine 設定"
     },
