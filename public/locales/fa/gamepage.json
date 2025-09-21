@@ -182,7 +182,6 @@
         "title": "انتخاب محتواها برای نصب"
     },
     "setting": {
-        "use-default-wine-settings": "استفاده از تنظیمات Wine پیش فرض",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {

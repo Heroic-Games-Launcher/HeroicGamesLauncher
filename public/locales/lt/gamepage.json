@@ -256,8 +256,7 @@
     },
     "setting": {
         "show-wine-settings": "Rodyti „Wine“ nustatymus",
-        "use-default-wine-settings": "Naudoti numatytus „Wine“ nustatymus",
-        "warn-use-default-wine-settings": "Naudokite šią parinktį tik, jei Jūs žinote ką darote.<br/>Naudodami tą patį prielinksnį/priešdėlį keliems žaidimams gali sukelti problemų, jeigu jų priklausomybės yra nesuderinamos.",
+        "warn-use-shared-wine-config": "Naudokite šią parinktį tik, jei Jūs žinote ką darote.<br/>Naudodami tą patį prielinksnį/priešdėlį keliems žaidimams gali sukelti problemų, jeigu jų priklausomybės yra nesuderinamos.",
         "winecrossoverbottle": "„CrossOver butelis“"
     },
     "sdl": {

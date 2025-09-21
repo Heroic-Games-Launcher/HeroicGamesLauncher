@@ -245,8 +245,8 @@
     },
     "setting": {
         "show-wine-settings": "Show Wine settings",
-        "use-default-wine-settings": "Use Default Wine Settings",
-        "warn-use-default-wine-settings": "Only use this option if you know what you are doing.<br/>Sharing the same prefix for multiple games can create problems if their dependencies are incompatible.",
+        "use-shared-wine-config": "Use shared Wine prefix",
+        "warn-use-shared-wine-config": "Only use this option if you know what you are doing.<br />Sharing the same prefix for multiple games can create problems if their dependencies are incompatible.",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {

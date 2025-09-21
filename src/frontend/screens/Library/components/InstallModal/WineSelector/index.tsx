@@ -90,10 +90,10 @@ export default function WineSelector({
         </summary>
         <>
           <ToggleSwitch
-            htmlId="use-wine-defaults"
+            htmlId="use-shared-wine-config"
             title={t(
-              'setting.use-default-wine-settings',
-              'Use Default Wine Settings'
+              'setting.use-shared-wine-config',
+              'Use shared Wine prefix'
             )}
             value={useDefaultSettings}
             handleChange={() => setUseDefaultSettings(!useDefaultSettings)}
@@ -104,7 +104,7 @@ export default function WineSelector({
               <FontAwesomeIcon icon={faWarning} />
               <Trans
                 i18n={i18n}
-                i18nKey="setting.warn-use-default-wine-settings"
+                i18nKey="setting.warn-use-shared-wine-config"
                 ns="gamepage"
               >
                 Only use this option if you know what you are doing.

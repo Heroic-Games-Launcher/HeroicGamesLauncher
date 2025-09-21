@@ -199,10 +199,9 @@
         "title": "インストールするコンポーネントを選択"
     },
     "setting": {
-        "use-default-wine-settings": "デフォルトのWine設定を使用",
         "winecrossoverbottle": "CrossOverボトル",
         "show-wine-settings": "Wineの設定を表示する",
-        "warn-use-default-wine-settings": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。"
+        "warn-use-shared-wine-config": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。"
     },
     "sideload": {
         "field": {
