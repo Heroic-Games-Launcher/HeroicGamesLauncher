@@ -214,7 +214,8 @@ body.gruvbox_dark {
   --primary-hover: #83a598;
   --danger: #9e2c28;
   --danger-hover: #f05d4d;
-  --anticheat-denied: #9e2c28 --anticheat-broken: #af3a03;
+  --anticheat-denied: #9e2c28;
+  --anticheat-broken: #af3a03;
   --anticheat-running: #076678;
   --anticheat-supported: #79740e;
   --anticheat-planned: #8f3f71;
@@ -226,6 +227,7 @@ body.gruvbox_dark {
   --icon-disabled: #928374;
   --success-button: #9bce6b;
   --secondary-button: #e2951a;
+  --osk-button-background: var(--input-background);
 }
 
 body.high-contrast {
