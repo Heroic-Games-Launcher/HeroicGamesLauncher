@@ -74,20 +74,18 @@ export async function refresh(): Promise<ExecResult> {
 
   libraryStore.set('games', Array.from(library.values()))
 
-  void new Promise(() => {
-    const logLines: string[] = []
-    Array.from(library.values()).forEach((gameData) => {
+  const logLines: string[] = []
+  Array.from(library.values()).forEach((gameData) => {
       let line = `* ${gameData.title} (App name: ${gameData.app_name})`
       if (gameData.install?.is_dlc) line += ' - DLC'
       logLines.push(line)
-    })
-    const sortedTitles = logLines.sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase())
-    )
-
-    const logContent = `Games List:\n${sortedTitles.join('\n')}\n\nTotal: ${logLines.length}\n`
-    logInfo(logContent, LogPrefix.Zoom)
   })
+  const sortedTitles = logLines.sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+  )
+
+  const logContent = `Games List:\n${sortedTitles.join('\n')}\n\nTotal: ${logLines.length}\n`
+  logInfo(logContent, LogPrefix.Zoom)
 
   logInfo('Saved games data for Zoom', LogPrefix.Zoom)
 

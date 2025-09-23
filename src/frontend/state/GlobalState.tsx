@@ -635,7 +635,7 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, gameUpdates } = this.state
+    const { epic, gog, amazon, zoom, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -660,6 +660,12 @@ class GlobalState extends PureComponent<Props> {
       window.api.logInfo('No cache found, getting data from gog...')
       await window.api.refreshLibrary('gog')
       gogLibrary = this.loadGOGLibrary()
+    }
+
+    window.api.logInfo(zoom.library.length)
+    if (!zoom.library.length) {
+      window.api.logInfo('No cache found, getting data from zoom...')
+      await window.api.refreshLibrary('zoom')
     }
 
     let amazonLibrary = nileLibraryStore.get('library', [])
