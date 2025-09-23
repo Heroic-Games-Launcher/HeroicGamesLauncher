@@ -76,12 +76,12 @@ export async function refresh(): Promise<ExecResult> {
 
   const logLines: string[] = []
   Array.from(library.values()).forEach((gameData) => {
-      let line = `* ${gameData.title} (App name: ${gameData.app_name})`
-      if (gameData.install?.is_dlc) line += ' - DLC'
-      logLines.push(line)
+    let line = `* ${gameData.title} (App name: ${gameData.app_name})`
+    if (gameData.install?.is_dlc) line += ' - DLC'
+    logLines.push(line)
   })
   const sortedTitles = logLines.sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase())
+    a.toLowerCase().localeCompare(b.toLowerCase())
   )
 
   const logContent = `Games List:\n${sortedTitles.join('\n')}\n\nTotal: ${logLines.length}\n`
