@@ -199,9 +199,8 @@
         "title": "Valitse asennettavat komponentit"
     },
     "setting": {
-        "use-default-wine-settings": "Käytä Winen oletusasetuksia",
         "winecrossoverbottle": "CrossOver Bottle",
-        "warn-use-default-wine-settings": "Käytä tätä vaihtoehtoa vain, jos tiedät, mitä olet tekemässä.<br/>Saman prefixin käyttäminen useissa peleissä voi aiheuttaa ongelmia, jos niiden riippuvuudet eivät ole yhteensopivia.",
+        "warn-use-shared-wine-config": "Käytä tätä vaihtoehtoa vain, jos tiedät, mitä olet tekemässä.<br/>Saman prefixin käyttäminen useissa peleissä voi aiheuttaa ongelmia, jos niiden riippuvuudet eivät ole yhteensopivia.",
         "show-wine-settings": "Näytä Wine-asetukset"
     },
     "sideload": {

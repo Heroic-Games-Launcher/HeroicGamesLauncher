@@ -5,31 +5,46 @@ import { t } from 'i18next'
 import { showDialogBoxModalAuto } from './dialog/dialog'
 import { logError, LogPrefix } from './logger'
 import { windowIcon } from './constants/paths'
-import { isLinux } from './constants/environment'
+import { autoUpdateSupported } from './constants/environment'
 
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false
 
 async function showAutoupdateDialog() {
-  if (isLinux) {
-    return
-  }
+  let messageDetail
+  let buttons
 
-  const { response } = await dialog.showMessageBox({
-    title: t('box.info.update.title', 'Heroic Games Launcher'),
-    message: t('box.info.update.message', 'There is a new Version available!'),
-    detail: t(
+  if (autoUpdateSupported) {
+    messageDetail = t(
       'box.info.update.detail',
       'Do you want to download the update in the background?'
-    ),
-
-    icon: nativeImage.createFromPath(windowIcon),
-    buttons: [
+    )
+    buttons = [
       t('box.update', 'Update'),
       t('box.postpone', 'Postpone'),
       t('box.changelog', 'Changelog')
     ]
+  } else {
+    messageDetail = t(
+      'box.info.update.detailNoAutoupdate',
+      'Automatic updates are not supported for your packaging format. Please use your package manager to update.'
+    )
+    buttons = [t('box.ok'), t('box.changelog', 'Changelog')]
+  }
+
+  let { response } = await dialog.showMessageBox({
+    title: t('box.info.update.title', 'Heroic Games Launcher'),
+    message: t('box.info.update.message', 'There is a new Version available!'),
+    detail: messageDetail,
+
+    icon: nativeImage.createFromPath(windowIcon),
+    buttons
   })
+
+  // "Ok" button becomes "Postpone" (to just close the dialog), "Changelog" gets
+  // the correct index (1 -> 2)
+  if (!autoUpdateSupported) response++
+
   if (response === 0) {
     autoUpdater.downloadUpdate()
   }

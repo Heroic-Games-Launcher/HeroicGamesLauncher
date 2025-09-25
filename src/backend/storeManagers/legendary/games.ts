@@ -81,12 +81,7 @@ import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
 import { configStore } from 'backend/constants/key_value_stores'
 import { epicRedistPath, legendaryInstalled } from './constants'
-import {
-  isCLINoGui,
-  isLinux,
-  isMac,
-  isWindows
-} from 'backend/constants/environment'
+import { isCLINoGui, isMac, isWindows } from 'backend/constants/environment'
 import { fakeEpicExePath } from 'backend/constants/paths'
 
 import type LogWriter from 'backend/logger/log_writer'
@@ -1049,7 +1044,7 @@ export async function stop(appName: string, stopWine = true) {
   // not a perfect solution but it's the only choice for now
 
   // @adityaruplaha: this is kinda arbitary and I don't understand it.
-  const pattern = isLinux ? appName : 'legendary'
+  const pattern = isWindows ? 'legendary' : appName
   killPattern(pattern)
 
   if (stopWine && !isNative(appName)) {

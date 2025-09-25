@@ -32,7 +32,9 @@ const Accessibility = React.memo(function Accessibility() {
     setPrimaryFontFamily,
     setSecondaryFontFamily,
     disableDialogBackdropClose,
-    setDisableDialogBackdropClose
+    setDisableDialogBackdropClose,
+    disableAnimations,
+    setDisableAnimations
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -231,6 +233,22 @@ const Accessibility = React.memo(function Accessibility() {
               title={t(
                 'accessibility.disable_smooth_scrolling',
                 'Disable smooth scrolling (requires restart)'
+              )}
+            />
+          </label>
+        </span>
+
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              htmlId="disableAnimations"
+              value={disableAnimations}
+              handleChange={() => {
+                setDisableAnimations(!disableAnimations)
+              }}
+              title={t(
+                'accessibility.disable_animations',
+                'Disable UI animations'
               )}
             />
           </label>

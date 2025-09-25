@@ -222,10 +222,9 @@
         "title": "Seleccione os compoñentes a instalar"
     },
     "setting": {
-        "use-default-wine-settings": "Utilizar a configuración predeterminada de Wine",
         "winecrossoverbottle": "Botella de CrossOver",
         "show-wine-settings": "Amosar a configuración de Wine",
-        "warn-use-default-wine-settings": "Utiliza esta opción unicamente se sabes o que estás facendo.<br/>Compartir o mesmo prefixo para varios xogos pode crear problemas se as súas dependencias son incompatibles."
+        "warn-use-shared-wine-config": "Utiliza esta opción unicamente se sabes o que estás facendo.<br/>Compartir o mesmo prefixo para varios xogos pode crear problemas se as súas dependencias son incompatibles."
     },
     "sideload": {
         "field": {

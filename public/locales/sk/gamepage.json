@@ -196,10 +196,9 @@
         "title": "Vyberte komponenty na inštaláciu"
     },
     "setting": {
-        "use-default-wine-settings": "Použiť predvolené nastavenia Winu",
         "winecrossoverbottle": "Fľaša CrossOver",
         "show-wine-settings": "Zobraziť nastavenia Winu",
-        "warn-use-default-wine-settings": "Túto možnosť použite iba vtedy, ak viete, čo robíte.<br/>Zdieľanie rovnakého prefixu pre viacero hier môže spôsobiť problémy, ak sú ich závislosti nekompatibilné."
+        "warn-use-shared-wine-config": "Túto možnosť použite iba vtedy, ak viete, čo robíte.<br/>Zdieľanie rovnakého prefixu pre viacero hier môže spôsobiť problémy, ak sú ich závislosti nekompatibilné."
     },
     "sideload": {
         "field": {

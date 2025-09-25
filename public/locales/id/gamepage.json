@@ -195,10 +195,9 @@
         "title": "Pilih komponen untuk diinstal"
     },
     "setting": {
-        "use-default-wine-settings": "Gunakan Pengaturan Wine Bawaan",
         "winecrossoverbottle": "CrossOver Bottle",
         "show-wine-settings": "Tampilkan pengaturan Wine",
-        "warn-use-default-wine-settings": "Hanya gunakan opsi ini jika Anda tahu apa yang Anda lakukan. <br/> Berbagi prefiks yang sama untuk beberapa gim dapat menimbulkan masalah jika dependensinya tidak kompatibel."
+        "warn-use-shared-wine-config": "Hanya gunakan opsi ini jika Anda tahu apa yang Anda lakukan. <br/> Berbagi prefiks yang sama untuk beberapa gim dapat menimbulkan masalah jika dependensinya tidak kompatibel."
     },
     "sideload": {
         "field": {

@@ -272,10 +272,9 @@
         }
     },
     "setting": {
-        "use-default-wine-settings": "Brug standard vinindstillinger",
         "winecrossoverbottle": "CrossOver flaske",
         "show-wine-settings": "Vis Wine indstillinger",
-        "warn-use-default-wine-settings": "Brug kun denne mulighed, hvis du ved hvad du laver. <br/>Deling af den samme prefeks over flere spil kan skabe problemer, hvis deres afhængigheder er inkompatible."
+        "warn-use-shared-wine-config": "Brug kun denne mulighed, hvis du ved hvad du laver. <br/>Deling af den samme prefeks over flere spil kan skabe problemer, hvis deres afhængigheder er inkompatible."
     },
     "hours": "Timer",
     "how-long-to-beat": {

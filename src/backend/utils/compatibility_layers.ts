@@ -37,8 +37,7 @@ export function getDefaultWine(): WineInstallation {
     defaultWine.bin = wineBin
 
     stdout = execSync(`wine --version`).toString()
-    const version = stdout.split('\n')[0]
-    defaultWine.name = `Wine Default - ${version}`
+    defaultWine.name = stdout.split('\n')[0]
 
     return {
       ...defaultWine,
@@ -127,7 +126,7 @@ export async function getLinuxWineSet(
     const wineBin = join(toolsPath, 'wine', version, 'bin', 'wine')
     altWine.add({
       bin: wineBin,
-      name: `Wine - ${version}`,
+      name: version,
       type: 'wine',
       ...getWineLibs(wineBin),
       ...getWineExecs(wineBin)
@@ -142,7 +141,7 @@ export async function getLinuxWineSet(
       const wineBin = join(lutrisCompatPath, version, 'bin', 'wine')
       altWine.add({
         bin: wineBin,
-        name: `Wine - ${version}`,
+        name: version,
         type: 'wine',
         ...getWineLibs(wineBin),
         ...getWineExecs(wineBin)
@@ -152,10 +151,14 @@ export async function getLinuxWineSet(
 
   const protonPaths = [`${toolsPath}/proton/`]
 
+  const { showValveProton } = GlobalConfig.get().getSettings()
+
   await getSteamLibraries().then((libs) => {
     libs.forEach((path) => {
-      protonPaths.push(`${path}/steam/steamapps/common`)
-      protonPaths.push(`${path}/steamapps/common`)
+      if (showValveProton) {
+        protonPaths.push(`${path}/steam/steamapps/common`)
+        protonPaths.push(`${path}/steamapps/common`)
+      }
       protonPaths.push(`${path}/root/compatibilitytools.d`)
       protonPaths.push(`${path}/compatibilitytools.d`)
       return
@@ -176,7 +179,7 @@ export async function getLinuxWineSet(
         if (existsSync(protonBin)) {
           proton.add({
             bin: protonBin,
-            name: `Proton - ${version}`,
+            name: version,
             type: 'proton'
             // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
           })

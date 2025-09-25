@@ -200,9 +200,8 @@
         "title": "Selecteer componenten om te installeren"
     },
     "setting": {
-        "use-default-wine-settings": "Gebruik \"Default Wine\" instellingen",
         "winecrossoverbottle": "CrossOver Bottle",
-        "warn-use-default-wine-settings": "Gebruik deze optie alleen als je weet wat je doet.<br/>Dezelfde prefix gebruiken voor meerdere games kan problemen veroorzaken als afhankelijkheden niet compatibel zijn.",
+        "warn-use-shared-wine-config": "Gebruik deze optie alleen als je weet wat je doet.<br/>Dezelfde prefix gebruiken voor meerdere games kan problemen veroorzaken als afhankelijkheden niet compatibel zijn.",
         "show-wine-settings": "Bekijk Wine instellingen"
     },
     "sideload": {

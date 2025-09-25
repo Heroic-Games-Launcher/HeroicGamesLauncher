@@ -205,7 +205,6 @@
         "title": "Pumili ng mga bahagi na I-install"
     },
     "setting": {
-        "use-default-wine-settings": "Gamitin ang Default na Mga Setting ng Alak",
         "winecrossoverbottle": "CrossOver Bote"
     },
     "sideload": {

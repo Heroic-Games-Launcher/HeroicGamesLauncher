@@ -177,7 +177,6 @@
         "title": "Selectați componentele de instalat"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {

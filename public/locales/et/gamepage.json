@@ -224,9 +224,8 @@
         "title": "Valige komponendid, mida paigaldada"
     },
     "setting": {
-        "use-default-wine-settings": "Kasuta vaikimisi Wine seadeid",
         "winecrossoverbottle": "CrossOveri pudel",
-        "warn-use-default-wine-settings": "Kasutage seda valikut ainult siis, kui teate, mida teete.<br/>Sama prefiksi jagamine mitme mängu puhul võib luua probleeme, kui pakid, millel need mängud sõltuvad, ei sobi kokku.",
+        "warn-use-shared-wine-config": "Kasutage seda valikut ainult siis, kui teate, mida teete.<br/>Sama prefiksi jagamine mitme mängu puhul võib luua probleeme, kui pakid, millel need mängud sõltuvad, ei sobi kokku.",
         "show-wine-settings": "Näita Wine'i seadeid"
     },
     "sideload": {

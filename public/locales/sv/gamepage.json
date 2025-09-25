@@ -201,10 +201,9 @@
         "title": "Ange komponenter att installera"
     },
     "setting": {
-        "use-default-wine-settings": "Använd standardinställningar för Wine",
         "winecrossoverbottle": "CrossOver prefix",
         "show-wine-settings": "Visa Wine inställningar",
-        "warn-use-default-wine-settings": "Använd bara det här alternativet om du vet vad du gör.<br/>Att dela samma prefix för flera spel kan skapa problem om deras beroenden är inkompatibla."
+        "warn-use-shared-wine-config": "Använd bara det här alternativet om du vet vad du gör.<br/>Att dela samma prefix för flera spel kan skapa problem om deras beroenden är inkompatibla."
     },
     "sideload": {
         "field": {

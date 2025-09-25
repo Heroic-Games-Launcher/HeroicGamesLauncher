@@ -22,6 +22,7 @@ import { UpdateComponent } from 'frontend/components/UI'
 import { SettingsContextType } from 'frontend/types'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import { ContentCopy, FileOpen } from '@mui/icons-material'
 
 export const defaultWineVersion: WineInstallation = {
   bin: '/usr/bin/wine',
@@ -93,12 +94,14 @@ function Settings() {
             window.api.clipboardWriteText(
               JSON.stringify({ appName, title, ...currentConfig })
             ),
-          show: !isLogSettings
+          show: !isLogSettings,
+          icon: <ContentCopy />
         },
         {
           label: t('settings.open-config-file', 'Open Config File'),
           onclick: () => window.api.showConfigFileInFolder(appName),
-          show: !isLogSettings
+          show: !isLogSettings,
+          icon: <FileOpen />
         }
       ]}
     >

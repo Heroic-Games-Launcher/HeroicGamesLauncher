@@ -80,7 +80,7 @@ import {
   defaultWinePrefix,
   fixesPath,
   flatpakHome,
-  publicDir,
+  galaxyCommunicationExePath,
   runtimePath,
   userHome
 } from './constants/paths'
@@ -373,6 +373,7 @@ function filterGameSettingsForLog(
       delete gameSettings.enableFSR
       delete gameSettings.enableWineWayland
       delete gameSettings.enableHDR
+      delete gameSettings.enableWoW64
       delete gameSettings.showFps
       delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.eacRuntime
@@ -391,6 +392,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableFSR
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
+    delete gameSettings.enableWoW64
     delete gameSettings.showMangohud
     delete gameSettings.disableUMU
     delete gameSettings.useSteamRuntime
@@ -434,6 +436,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableFsync
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
+    delete gameSettings.enableWoW64
     delete gameSettings.enableDXVKFpsLimit
     delete gameSettings.DXVKFpsCap
     delete gameSettings.autoInstallDxvk
@@ -885,28 +888,23 @@ async function prepareWineLaunch(
 
   try {
     if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
-      const communicationSource = join(
-        publicDir,
-        'bin/x64/win32/GalaxyCommunication.exe'
-      )
-
-      const galaxyCommPath =
+      const galaxyCommWinePath =
         'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
       const communicationDest = await getWinePath({
-        path: galaxyCommPath,
+        path: galaxyCommWinePath,
         gameSettings,
         variant: 'unix'
       })
 
       if (!existsSync(communicationDest)) {
         mkdirSync(dirname(communicationDest), { recursive: true })
-        await copyFile(communicationSource, communicationDest)
+        await copyFile(galaxyCommunicationExePath, communicationDest)
         await runWineCommand({
           commandParts: [
             'sc',
             'create',
             'GalaxyCommunication',
-            `binpath=${galaxyCommPath}`
+            `binpath=${galaxyCommWinePath}`
           ],
           gameSettings,
           protonVerb: 'runinprefix'
@@ -1180,6 +1178,13 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
       if (gameSettings.enableHDR) {
         ret.DXVK_HDR = '1'
       }
+    }
+  }
+  if (isLinux && gameSettings.enableWoW64) {
+    if (wineVersion.type === 'proton') {
+      ret.PROTON_USE_WOW64 = '1'
+    } else {
+      ret.WINEARCH = 'wow64'
     }
   }
   if (wineVersion.type === 'proton') {
@@ -1680,7 +1685,7 @@ async function callRunner(
       await writer.logInfo(
         [prefix, safeCommand, '\n\n'].filter(Boolean).join(' ')
       )
-      await writer.logInfo('Game Output:')
+      if (appName) await writer.logInfo('Game Output:')
     }
 
     const files = options.logWriters

@@ -8,11 +8,11 @@
   border-radius: 10px;
 }
 
-.contextMenu > .MuiPaper-root > .MuiMenu-list > .MuiMenuItem-root {
-  font-family: var(--primary-font-family);
-}
-
 .contextMenu > .MuiPaper-root > .MuiMenu-list > .MuiMenuItem-root:hover {
   text-decoration: none;
   background-color: var(--navbar-active-background);
+}
+
+.contextMenu .MuiSvgIcon-root {
+  color: var(--text-default);
 }

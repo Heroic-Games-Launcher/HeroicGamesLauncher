@@ -10,6 +10,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { removeSpecialcharacters } from 'frontend/helpers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWarning } from '@fortawesome/free-solid-svg-icons'
+import { WineVersionListItem } from 'frontend/screens/Settings/components/WineVersionSelector'
 import { MenuItem } from '@mui/material'
 
 type Props = {
@@ -89,10 +90,10 @@ export default function WineSelector({
         </summary>
         <>
           <ToggleSwitch
-            htmlId="use-wine-defaults"
+            htmlId="use-shared-wine-config"
             title={t(
-              'setting.use-default-wine-settings',
-              'Use Default Wine Settings'
+              'setting.use-shared-wine-config',
+              'Use shared Wine prefix'
             )}
             value={useDefaultSettings}
             handleChange={() => setUseDefaultSettings(!useDefaultSettings)}
@@ -103,7 +104,7 @@ export default function WineSelector({
               <FontAwesomeIcon icon={faWarning} />
               <Trans
                 i18n={i18n}
-                i18nKey="setting.warn-use-default-wine-settings"
+                i18nKey="setting.warn-use-shared-wine-config"
                 ns="gamepage"
               >
                 Only use this option if you know what you are doing.
@@ -149,9 +150,9 @@ export default function WineSelector({
             }
           >
             {wineVersionList &&
-              wineVersionList.map(({ name }, i) => (
-                <MenuItem value={name} key={i}>
-                  {name}
+              wineVersionList.map((version, i) => (
+                <MenuItem key={i} value={version.name}>
+                  <WineVersionListItem version={version} />
                 </MenuItem>
               ))}
           </SelectField>

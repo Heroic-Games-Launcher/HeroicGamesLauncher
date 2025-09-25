@@ -94,6 +94,7 @@ export function startPlausible() {
     gog: providersObject.gog || false,
     epic: providersObject.epic || false,
     amazon: providersObject.amazon || false,
+    sideloaded: providersObject.sideloaded || false,
     providers: loggedInProviders.join(', '),
     OS: process.platform,
     isFlatpak: isFlatpak,
@@ -103,11 +104,13 @@ export function startPlausible() {
     isSteamDeck: !!isSteamDeck
   }
 
-  logInfo('Starting Plausible Analytics', LogPrefix.Backend)
-  logInfo(`Shared Data: ${JSON.stringify(props)}`, LogPrefix.Backend)
-  plausible.trackEvent('App Loaded', {
-    props
-  })
+  if (process.platform) {
+    logInfo('Starting Plausible Analytics', LogPrefix.Backend)
+    logInfo(`Shared Data: ${JSON.stringify(props)}`, LogPrefix.Backend)
+    plausible.trackEvent('App Loaded', {
+      props
+    })
+  }
 }
 
 backendEvents.on('settingChanged', ({ key, newValue }) => {

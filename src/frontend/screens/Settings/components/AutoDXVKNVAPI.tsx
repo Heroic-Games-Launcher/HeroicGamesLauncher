@@ -8,6 +8,7 @@ import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoDXVKNVAPI = () => {
   const { t } = useTranslation()
+  const [autoInstallDxvk] = useSetting('autoInstallDxvk', false)
   const [autoInstallDXVKNVAPI, setAutoInstallDXVKNVAPI] = useSetting(
     'autoInstallDxvkNvapi',
     false
@@ -50,7 +51,7 @@ const AutoDXVKNVAPI = () => {
               )
         }
         fading={installingDxvkNvapi}
-        disabled={installingDxvkNvapi}
+        disabled={!autoInstallDxvk || installingDxvkNvapi}
       />
 
       <InfoIcon

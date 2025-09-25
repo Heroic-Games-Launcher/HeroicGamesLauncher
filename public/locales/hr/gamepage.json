@@ -176,7 +176,6 @@
         "title": "Odaberite komponente za instalaciju"
     },
     "setting": {
-        "use-default-wine-settings": "Koristi zadane Wine postavke",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "sideload": {
