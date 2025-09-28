@@ -203,7 +203,7 @@ async function setup(
             `/DIR=${gameDirectoryPath}`,
             `/Language=${language}`,
             `/LANG=${language}`,
-            `/ProductId=${language}`,
+            `/ProductId=${supportCommand.gameID}`,
             `/galaxyclient`,
             `/buildId=${manifestData.product.timestamp}`,
             `/versionName=${gameInfo.install.version}`,
