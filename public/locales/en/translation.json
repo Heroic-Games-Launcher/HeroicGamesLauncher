@@ -86,11 +86,6 @@
                 "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
             },
             "moving": "Error Moving Game {{error}}",
-            "steam": {
-                "error": "Steam executable not found. Installation was probably canceled by user or failed on Steam side.",
-                "message": "Steam installation failed! Please read the instructions carefully and try again! {{paragraph}} {{error}}",
-                "title": "Steam error"
-            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -456,12 +451,6 @@
     "message": {
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
-    },
-    "notification": {
-        "steam": {
-            "error": "Steam installation failed! Please read the instructions carefully and try again!",
-            "success": "Steam for Windows has been installed successfully!"
-        }
     },
     "notify": {
         "error": {
@@ -946,7 +935,6 @@
             "search": "Use the Search bar to search for your games.",
             "sortInstalled": "Sort games by installed status.",
             "sortOptions": "Click here to sort games alphabetically.",
-            "steamInstall": "Use this button to install the Windows version of Steam and play your Windows games using Crossover, Wine or GPTK.",
             "viewToggle": "Switch between grid and list view for your games.",
             "welcome": {
                 "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores.",
