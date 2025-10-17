@@ -24,6 +24,8 @@ protocols:
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
   icon: build/win_icon.ico
+  target:
+    - nsis
   files: build/bin/${arch}/win32/*
 
 portable:
@@ -85,3 +87,8 @@ snap:
     channels:
       - edge
     repo: heroic
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: true
