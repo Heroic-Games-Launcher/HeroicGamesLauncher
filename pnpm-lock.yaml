@@ -246,8 +246,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       electron:
-        specifier: ^36.2.1
-        version: 36.2.1
+        specifier: ^36.9.4
+        version: 36.9.4
       electron-builder:
         specifier: ^26.0.12
         version: 26.0.12(electron-builder-squirrel-windows@24.13.3)
@@ -2878,8 +2878,8 @@ packages:
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
-  electron@36.2.1:
-    resolution: {integrity: sha512-mm1Y+Ms46xcOTA69h8hpqfX392HfV4lga9aEkYkd/Syx1JBStvcACOIouCgGrnZpxNZPVS1jM8NTcMkNjuK6BQ==}
+  electron@36.9.4:
+    resolution: {integrity: sha512-BKEP5g0C34s8WcDM4LILcYtnV0NHcLFbryR9+hLEpdsD6KUW0MBJwJWi/WIeGdwTGBRBYyR/UaSohiYejO3FBw==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -6301,7 +6301,7 @@ snapshots:
 
   '@electron/get@2.0.3':
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.1
       env-paths: 2.2.1
       fs-extra: 8.1.0
       got: 11.8.6
@@ -9049,7 +9049,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@36.2.1:
+  electron@36.9.4:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.15.18(patch_hash=8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831)
@@ -9432,7 +9432,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.1
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
