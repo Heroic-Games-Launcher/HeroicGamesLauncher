@@ -171,6 +171,7 @@ export default function LibraryFilters() {
 
   return (
     <Dropdown
+      buttonClass="selectStyle"
       title={t('header.filters', 'Filters')}
       className="libraryFilters"
       data-tour="library-filters"

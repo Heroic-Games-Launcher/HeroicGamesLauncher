@@ -5,17 +5,41 @@ type Props = {
   title: ReactNode | string
   children: ReactNode
   className?: string
+  buttonClass?: string
 }
 
-export default function Dropdown({ title, children, className }: Props) {
-  const [expanded, setExpanded] = useState(false)
+export default function Dropdown({
+  title,
+  children,
+  className,
+  buttonClass
+}: Props) {
+  const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className={'dropdownContainer'}>
-      <button className={`selectStyle`} onClick={() => setExpanded(!expanded)}>
+    <div className={`dropdownContainer ${className || ''}`}>
+      <button
+        className={`${buttonClass ? buttonClass : ''}`}
+        onFocus={() => {
+          // if we're focused here, but it's expanded, user has left
+          // inner dropdown, close dropdown
+          if (isExpanded) setIsExpanded(false)
+        }}
+        onClick={() => {
+          // focus first component when expanding
+          if (!isExpanded) {
+            window.api.gamepadAction({ action: 'tab' })
+          }
+
+          setIsExpanded(!isExpanded)
+        }}
+      >
         {title}
       </button>
-      <div className={`dropdown ${expanded ? 'expanded' : 'collapsed'}`}>
+      <div
+        onFocus={() => setIsExpanded(true)}
+        className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}
+      >
         {children}
       </div>
     </div>

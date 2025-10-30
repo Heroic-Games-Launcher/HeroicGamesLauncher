@@ -71,6 +71,7 @@ export default function CategoryFilter() {
 
   return (
     <Dropdown
+      buttonClass="selectStyle"
       className="categoriesFilter"
       data-tour="library-categories"
       title={t('header.categories', 'Categories')}
