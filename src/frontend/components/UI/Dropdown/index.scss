@@ -1,10 +1,23 @@
-.libraryFilters,
-.categoriesFilter {
+.dropdownContainer {
   position: relative;
 
   .button {
     padding-inline: 2rem;
   }
+
+  &:focus-within,
+  &:hover,
+  &:has(.dropdown:hover),
+  &:has(.button:active) {
+    .expanded {
+      pointer-events: all;
+      opacity: 1;
+      max-height: 70vh;
+      overflow-y: auto;
+      box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
+    }
+  }
+
   .dropdown {
     position: absolute;
     top: 100%;
@@ -21,6 +34,30 @@
     overflow: hidden;
     gap: 0.3rem;
     padding: 1rem 0.5rem 1rem 0;
+
+    .toggleWithOnly {
+      display: flex;
+
+      & label {
+        flex-grow: 1;
+      }
+
+      .only {
+        opacity: 0.01;
+        background: none;
+        border: none;
+        color: var(--text);
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+          color: var(--accent);
+        }
+      }
+      &:hover .only,
+      &:focus-within .only {
+        opacity: 1;
+      }
+    }
 
     .toggleSwitchWrapper {
       white-space: nowrap;
@@ -40,6 +77,7 @@
     & hr {
       width: 80%;
     }
+
     & button {
       margin-inline-start: 0.5rem;
       align-self: center;
@@ -47,45 +85,9 @@
       padding: 0.3rem 0.8rem;
     }
   }
-
-  &:focus-within,
-  &:hover,
-  &:has(.dropdown:hover),
-  &:has(.button:active) {
-    .dropdown {
-      pointer-events: all;
-      opacity: 1;
-      max-height: 70vh;
-      overflow-y: auto;
-      box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  .toggleWithOnly {
-    display: flex;
-
-    & label {
-      flex-grow: 1;
-    }
-    .only {
-      opacity: 0.01;
-      background: none;
-      border: none;
-      color: var(--text);
-      text-decoration: underline;
-      cursor: pointer;
-      &:hover {
-        color: var(--accent);
-      }
-    }
-    &:hover .only,
-    &:focus-within .only {
-      opacity: 1;
-    }
-  }
 }
 
-body.isRTL .libraryFilters .dropdown {
+body.isRTL .dropdownContainer .dropdown {
   right: auto;
   left: 0px;
 }
