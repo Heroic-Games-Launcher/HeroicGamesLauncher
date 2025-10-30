@@ -13,7 +13,6 @@
       pointer-events: all;
       opacity: 1;
       max-height: 70vh;
-      overflow-y: auto;
       box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
     }
   }
@@ -24,8 +23,9 @@
     right: 0px;
     min-width: 250px;
     display: flex;
+    border-radius: var(--space-xs);
     flex-direction: column;
-    background: var(--body-background);
+    background: var(--background);
     opacity: 0;
     transition: all 200ms;
     pointer-events: none;
@@ -33,7 +33,7 @@
     max-height: 0;
     overflow: hidden;
     gap: 0.3rem;
-    padding: 1rem 0.5rem 1rem 0;
+    padding: var(--space-sm);
 
     .toggleWithOnly {
       display: flex;
