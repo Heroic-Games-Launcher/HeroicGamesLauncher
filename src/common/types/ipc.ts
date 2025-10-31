@@ -309,7 +309,6 @@ interface AsyncIPCFunctions {
   deleteUploadedLogFile: (url: string) => Promise<boolean>
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
-  installSteamWindows: (path: string) => Promise<void>
   isIntelMac: () => boolean
 }
 
