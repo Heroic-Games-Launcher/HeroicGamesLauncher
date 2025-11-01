@@ -160,7 +160,7 @@
             "title": "反作弊损坏/被拒",
             "install_anyway": "是（我了解多玩家功能不会正常工作）",
             "multiplayer_message": "反作弊支持损坏或被拒绝。可以打开游戏但多玩家功能不会正常工作。你仍要安装它吗？",
-            "ok": "是",
+            "ok": "确定",
             "disabled_installation": "此游戏使用的反作弊软件与你的操作系统不兼容，或者游戏开发者未启用支持。这意味着多人游戏功能将无法使用，你（或 Heroic 团队）对此无能为力。<br /><br />要安装此游戏并尝试运行，请前往设置、高级，并勾选允许安装反作弊损坏或被拒绝的游戏选项。<br /><br />请注意，目前没有解决方案，你可能会在游戏中面临被封禁的风险。"
         },
         "flatpak-path-not-writtable": "错误：未授予此路径沙盒访问权限，可能发生数据丢失。"
@@ -227,7 +227,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver 容器",
         "show-wine-settings": "显示 Wine 设置",
-        "warn-use-shared-wine-config": "请只在你清楚选项的含义时才使用此选项。<br/>多个游戏共享相同的前缀可能带来问题，如果这些游戏的依赖项彼此不兼容的话。"
+        "warn-use-shared-wine-config": "请只在你清楚选项的含义时才使用此选项。<br/>多个游戏共享相同的前缀可能带来问题，如果这些游戏的依赖项彼此不兼容的话。",
+        "use-shared-wine-config": "使用共享 Wine 前置"
     },
     "sideload": {
         "field": {
@@ -248,7 +249,7 @@
             "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
         },
         "import-hint": {
-            "title": "重要！你是否正添加一款来自 Epic/GOG/Amazon 商店的游戏？请单击此处！",
+            "title": "重要！你正添加一款来自 Epic/GOG/Amazon 的游戏吗？请点击此处！",
             "content": "不要用此功能来添加。<br />正确做法是， <3>登录</3> 商店账号，在你的库中寻找该游戏，打开安装对话框,，单击 &quot;导入游戏&quot; 按钮"
         }
     },
