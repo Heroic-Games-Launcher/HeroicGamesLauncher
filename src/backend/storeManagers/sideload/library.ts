@@ -1,4 +1,4 @@
-import { ExecResult, GameInfo } from 'common/types'
+import { ExecResult, SideloadGameInfo } from 'common/types'
 import { readdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
 import { libraryStore } from './electronStores'
@@ -18,8 +18,8 @@ export function addNewApp({
   description,
   customUserAgent,
   launchFullScreen
-}: GameInfo): void {
-  const game: GameInfo = {
+}: SideloadGameInfo): void {
+  const game: SideloadGameInfo = {
     runner: 'sideload',
     app_name,
     title,
@@ -79,7 +79,7 @@ export async function refresh() {
   return null
 }
 
-export function getGameInfo(): GameInfo {
+export function getGameInfo(): SideloadGameInfo {
   logWarning(`getGameInfo not implemented on Sideload Library Manager`)
   return {
     app_name: '',

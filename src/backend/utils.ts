@@ -83,6 +83,7 @@ import {
 import { parse } from '@node-steam/vdf'
 
 import type LogWriter from 'backend/logger/log_writer'
+import * as fs from 'fs/promises'
 
 const execAsync = promisify(exec)
 
@@ -1559,6 +1560,8 @@ interface ExtractOptions {
 
 async function extractFiles({ path, destination, strip = 0 }: ExtractOptions) {
   if (path.includes('.tar')) return extractTarFile({ path, destination, strip })
+  if (path.includes('.zip')) return extractZip({ path, destination, strip })
+  if (path.includes('.iso')) return extractIso({ path, destination, strip })
 
   logError(['extractFiles: Unsupported file', path], LogPrefix.Backend)
   return { status: 'error', error: 'Unsupported file type' }
@@ -1580,6 +1583,156 @@ async function extractTarFile({
     logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
     return { status: 'error', error: stderr }
   }
+  return { status: 'done', installPath: destination }
+}
+
+async function extractZip({ path, destination }: ExtractOptions) {
+  if (isWindows) {
+    const { code, stderr } = await spawnAsync('powershell', [
+      '-Command',
+      `Expand-Archive -Path '${path}' -DestinationPath '${destination}' -Force`
+    ])
+    if (code !== 0) {
+      logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+    return { status: 'done', installPath: destination }
+  } else {
+    const { code, stderr } = await spawnAsync('unzip', [
+      '-o',
+      path,
+      '-d',
+      destination
+    ])
+    if (code !== 0) {
+      logError(`Extracting Error: ${stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: stderr }
+    }
+    return { status: 'done', installPath: destination }
+  }
+}
+
+async function extractIso({ path, destination }: ExtractOptions) {
+  if (isWindows) {
+    // Windows 8+ can natively mount ISO files using PowerShell
+    const mountResult = await spawnAsync('powershell', [
+      '-Command',
+      `$mount = Mount-DiskImage -ImagePath '${path}' -PassThru; $mount | Get-Volume | Select-Object -ExpandProperty DriveLetter`
+    ])
+
+    if (mountResult.code !== 0) {
+      logError(`ISO Mount Error: ${mountResult.stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: mountResult.stderr }
+    }
+
+    const driveLetter = mountResult.stdout.trim()
+    if (!driveLetter) {
+      return { status: 'error', error: 'Failed to get drive letter' }
+    }
+
+    const mountPoint = `${driveLetter}:`
+
+    // Ensure destination directory exists, or it will create a file instead of a directory
+    await fs.mkdir(destination, { recursive: true })
+
+    // Copy files from mounted drive to destination
+    const copyResult = await spawnAsync('powershell', [
+      '-Command',
+      `Copy-Item -Path '${mountPoint}\\*' -Destination '${destination}' -Recurse -Force`
+    ])
+
+    // Always try to unmount the ISO
+    await spawnAsync('powershell', [
+      '-Command',
+      `Dismount-DiskImage -ImagePath '${path}'`
+    ])
+
+    if (copyResult.code !== 0) {
+      logError(`ISO Copy Error: ${copyResult.stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: copyResult.stderr }
+    }
+
+    // Fix permissions: Remove read-only attribute from all files
+    await spawnAsync('powershell', [
+      '-Command',
+      `Get-ChildItem -Path '${destination}' -Recurse | ForEach-Object { $_.Attributes = $_.Attributes -band -bnot [System.IO.FileAttributes]::ReadOnly }`
+    ])
+  } else if (isMac) {
+    // macOS implementation
+    const tempMount = join(destination, '.temp_mount')
+    await fs.mkdir(tempMount, { recursive: true })
+
+    const mountResult = await spawnAsync('hdiutil', [
+      'attach',
+      path,
+      '-mountpoint',
+      tempMount,
+      '-nobrowse',
+      '-readonly'
+    ])
+
+    if (mountResult.code !== 0) {
+      logError(`ISO Mount Error: ${mountResult.stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: mountResult.stderr }
+    }
+
+    // Copy files from mount point to destination using fs operations
+    const copyResult = await spawnAsync('sh', [
+      '-c',
+      `cp -R "${tempMount}"/* "${destination}"`
+    ])
+
+    // Unmount
+    await spawnAsync('hdiutil', ['detach', tempMount])
+
+    // Remove temp mount point
+    await spawnAsync('rm', ['-rf', tempMount])
+
+    if (copyResult.code !== 0) {
+      logError(`ISO Copy Error: ${copyResult.stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: copyResult.stderr }
+    }
+
+    // Fix permissions: Make all files writable
+    await spawnAsync('chmod', ['-R', 'u+w', destination])
+  } else if (isLinux) {
+    // Linux implementation
+    const tempMount = join(destination, '.temp_mount')
+    await fs.mkdir(tempMount, { recursive: true })
+
+    const mountResult = await spawnAsync('mount', [
+      '-o',
+      'loop,ro',
+      path,
+      tempMount
+    ])
+
+    if (mountResult.code !== 0) {
+      logError(`ISO Mount Error: ${mountResult.stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: mountResult.stderr }
+    }
+
+    // Copy files
+    const copyResult = await spawnAsync('sh', [
+      '-c',
+      `cp -R "${tempMount}"/* "${destination}"`
+    ])
+
+    // Unmount
+    await spawnAsync('umount', [tempMount])
+
+    // Remove temp mount point
+    await spawnAsync('rm', ['-rf', tempMount])
+
+    if (copyResult.code !== 0) {
+      logError(`ISO Copy Error: ${copyResult.stderr}`, LogPrefix.Backend)
+      return { status: 'error', error: copyResult.stderr }
+    }
+
+    // Fix permissions: Make all files writable
+    await spawnAsync('chmod', ['-R', 'u+w', destination])
+  }
+
   return { status: 'done', installPath: destination }
 }
 

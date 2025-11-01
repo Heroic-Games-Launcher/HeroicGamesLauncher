@@ -15,7 +15,8 @@ import {
   GamesSettings,
   SyncSaves,
   AdvancedSettings,
-  SystemInfo
+  SystemInfo,
+  CustomLibrariesSettings
 } from './sections'
 import { AppSettings, WineInstallation } from 'common/types'
 import { UpdateComponent } from 'frontend/components/UI'
@@ -44,6 +45,7 @@ function Settings() {
   const isLogSettings = type === 'log'
   const isAdvancedSetting = type === 'advanced'
   const isSystemInfo = type === 'systeminfo'
+  const isCustomLibrariesSettings = type === 'custom_libraries'
 
   // TODO: Adding this comment translation here for now to not lose the
   // translation. This should be removed from here when the help is added
@@ -121,6 +123,7 @@ function Settings() {
             {isAdvancedSetting && <AdvancedSettings />}
             {isLogSettings && <LogSettings />}
             {isSystemInfo && <SystemInfo />}
+            {isCustomLibrariesSettings && <CustomLibrariesSettings />}
             <FooterInfo />
           </div>
         </div>

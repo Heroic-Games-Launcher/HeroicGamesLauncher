@@ -516,6 +516,13 @@
             "title": "Environment Variables",
             "value": "Value"
         },
+        "custom_library_urls": {
+            "configs": "Direct JSON Configurations",
+            "example": "Example:: https://raw.githubusercontent.com/unbelievableflavour/games-repo-test/refs/heads/main/freeware_library.json",
+            "info": "Configure custom game library URLs to load additional games into Heroic.",
+            "title": "Custom Libraries",
+            "urls": "Library URLs"
+        },
         "env_variables": {
             "error": {
                 "empty_key": "Variable names can't be empty",
@@ -856,6 +863,7 @@
         },
         "navbar": {
             "advanced": "Advanced",
+            "custom_libraries": "Custom Libraries",
             "games_settings_defaults": "Game Defaults",
             "gamescope": "Gamescope",
             "general": "General",

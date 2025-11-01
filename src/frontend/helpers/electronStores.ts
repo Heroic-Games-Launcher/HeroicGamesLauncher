@@ -161,6 +161,11 @@ const downloadManagerStore = new TypeCheckedStoreFrontend('downloadManager', {
   name: 'download-manager'
 })
 
+const customLibraryStore = new CacheStore<GameInfo[], 'games'>(
+  'custom_library',
+  null
+)
+
 export {
   configStore,
   gogLibraryStore,
@@ -172,5 +177,6 @@ export {
   wineDownloaderInfoStore,
   downloadManagerStore,
   nileLibraryStore,
-  nileConfigStore
+  nileConfigStore,
+  customLibraryStore
 }
