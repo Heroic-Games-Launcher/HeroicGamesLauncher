@@ -26,10 +26,10 @@ export function hasStatus(
 
   const {
     thirdPartyManagedApp = undefined,
-    is_installed,
+    is_installed = false,
     runner = 'sideload',
-    isEAManaged
-  } = { ...newGameInfo }
+    isEAManaged = false
+  } = newGameInfo || {}
 
   React.useEffect(() => {
     if (newGameInfo) {
