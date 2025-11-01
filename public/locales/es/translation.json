@@ -10,7 +10,8 @@
         "titles_always_visible": "Siempre mostrar títulos en biblioteca",
         "actions_font_family_default": "Tipografía de acciones (Por Defecto: {{fontFamily}})",
         "content_font_family_default": "Tipografía de contenido (Por Defecto: {{fontFamily}})",
-        "disable_smooth_scrolling": "Desactivar scroll suave (requiere reiniciar)"
+        "disable_smooth_scrolling": "Desactivar scroll suave (requiere reiniciar)",
+        "disable_animations": "Desactivar animaciones de IU"
     },
     "add_game": "Añadir juego",
     "All": "Todos",
@@ -105,7 +106,8 @@
                 "message": "¡Hay una nueva versión disponible!",
                 "message-finished": "¿Quiere reiniciar Heroic ahora?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Actualización finalizada"
+                "title-finished": "Actualización finalizada",
+                "detailNoAutoupdate": "Las actualizaciones automáticas no son soportadas para su formato de paquete. Por favor, utilice su gestor de paquetes para actualizar."
             }
         },
         "no": "NO",
@@ -369,7 +371,8 @@
         "download_proton_steam": "Si se activa, GE-Proton se descargará directamente en el directorio de herramientas de compatibilidad de Steam en lugar de la ruta por defecto de Heroic. Se usará la ruta de Steam de la configuración 'Ruta por defecto de Steam' más arriba.",
         "wine-hdr": "El HDR mejora los colores proporcionando resaltes más brillantes y contrastes más profundos. Para que el HDR funcione, tanto la pantalla como el juego deben ser compatibles.",
         "wine-wayland": "El driver experimental Wine-Wayland permite a los juegos ejecutarse nativamente usando el protocolo de Wayland. Activarlo puede causar problemas en algunos juegos.",
-        "analytics": "Permite que Heroic recopile datos de uso 100 % anónimos para mejorar la aplicación. Es necesario reiniciar para que surta efecto."
+        "analytics": "Permite que Heroic recopile datos de uso 100 % anónimos para mejorar la aplicación. Es necesario reiniciar para que surta efecto.",
+        "WoW64": "El modo de Wine WoW64 permite que juegos 32-bits de Windows corran en el Wine de 64-bits. Activándolo puede mejorar el rendimiento, pero puede romper juegos 32-bits antiguos."
     },
     "info": {
         "heroic": {
@@ -790,7 +793,19 @@
             "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuracion Avanzada Global"
         },
         "no-tray-icon": "Ocultar el icono de la bandeja del sistema (requiere reiniciar)",
-        "analyticsOptIn": "Enviar datos anónimos para ayudar al desarrollo de Heroic"
+        "analyticsOptIn": "Enviar datos anónimos para ayudar al desarrollo de Heroic",
+        "WoW64": "Activar WoW64 (Experimental)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "No les enseñes",
+                "message": "Te recomendamos lineas customizadas de Proton (GE-Proton, Proton-CachyOS, etc.) para usar Heroic ya que las lineas de Proton hechas por Proton carece de winetricks y protofixes. Sin embargo, tu puedes usarlos si quieres.",
+                "show": "Comprendo, muestralos",
+                "title": "Seguro?"
+            },
+            "info_label": "Versiones de Valve Proton ignoradas",
+            "label": "Permitir usar versiones de Proton que no sean GE para ejecutar juegos",
+            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuracion Avanzada Global"
+        }
     },
     "settings": {
         "battlEyeRuntime": {

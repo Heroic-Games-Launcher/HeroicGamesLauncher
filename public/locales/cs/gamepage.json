@@ -227,7 +227,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver Bottle",
         "warn-use-shared-wine-config": "Tuto možnost použijte pouze pokud víte, co děláte.<br/>Sdílení stejného prefixu pro více her může způsobit problémy, pokud jsou jejich závislosti nekompatibilní.",
-        "show-wine-settings": "Zobrazit nastavení Wine"
+        "show-wine-settings": "Zobrazit nastavení Wine",
+        "use-shared-wine-config": "Použít sdílený prefix Wine"
     },
     "sideload": {
         "field": {

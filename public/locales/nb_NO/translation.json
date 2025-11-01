@@ -10,7 +10,8 @@
         "titles_always_visible": "Vis alltid titler i biblioteket",
         "content_font_family_default": "Content Font Family (Standard: {{fontFamily}})",
         "actions_font_family_default": "Actions Font Family (Standard: {{fontFamily}}",
-        "disable_smooth_scrolling": "Skru av jevn rulling (krever omstart)"
+        "disable_smooth_scrolling": "Skru av jevn rulling (krever omstart)",
+        "disable_animations": "Skru av animasjoner i brukergrensesnittet"
     },
     "add_game": "Legg til spill",
     "All": "Alle",
@@ -105,7 +106,8 @@
                 "message": "Det er en ny versjon tilgjengelig!",
                 "message-finished": "Vil du starte Heroic på nytt nå?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Oppgradering fullført"
+                "title-finished": "Oppgradering fullført",
+                "detailNoAutoupdate": "Automatiske oppdateringer støttes ikke for pakkeformatet ditt. Bruk pakkehåndteringsprogrammet ditt for å oppdatere."
             }
         },
         "no": "NEI",
@@ -367,7 +369,9 @@
         "advertiseAvxForRosetta": "Skrur på AVX-instruksjoner når Windows-spill kjøres gjennom Rosetta på Apple Silicon Mac-er. Dette kan være nødvendig for enkelte spill som Death Stranding som trenger AVX for å fungere.",
         "download_proton_steam": "Med dette skrudd på vil GE-Proton bli lastet ned direkte til mappen med Steam-kompatibilitetsverktøy fremfor den vanlige for Heroic. GE-Proton vil bruke mappen angitt i «Standard Steam-bane»-innstillingen.",
         "wine-hdr": "HDR forbedrer fargene ved å kunne vise lysere lyspunkter og mørkere kontraster. For at HDR skal fungere, må både skjermen og spillet støtte det.",
-        "wine-wayland": "Den eksperimentelle Wine-Wayland-driveren lar spill kjøre uten mellomlag med Wayland-visningsprotokollen. Noen spill fungerer ikke med denne driveren."
+        "wine-wayland": "Den eksperimentelle Wine-Wayland-driveren lar spill kjøre uten mellomlag med Wayland-visningsprotokollen. Noen spill fungerer ikke med denne driveren.",
+        "analytics": "Lar Heroic samle inn 100% anonyme brukerdata for å hjelpe oss forbedre appen. Appen må startes på nytt før innstillingen gjelder.",
+        "WoW64": "Wine WoW64-modusen lar 32-bit Windows-spill kjøre under 64-bit Wine. Å skru det på kan forbedre ytelse, men det kan også forhindre eldre 32-bit-spill i å fungere riktig."
     },
     "info": {
         "heroic": {
@@ -736,7 +740,7 @@
             "enableUpscaling": "Skru på oppskalering",
             "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker",
             "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 24.08 og start Heroic på nytt.",
-            "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 24.08 og start Heroic på nytt."
+            "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og start Heroic på nytt."
         },
         "msync": "Skru på Msync",
         "allow_installation_broken_anticheat": {
@@ -766,7 +770,7 @@
             "description": "Aktiver detaljerte logger"
         },
         "custom_css": {
-            "warning": "Advarsel: dette gjelder hele brukerflaten. Det betyr at feil stil kan gjøre Heroic ubrukelig. Om nødvendig kan innstillingen endres manuelt i `~/.config/heroic/config.json`. IKKE kopier stiler fra kilder du ikke stoler på."
+            "warning": "Advarsel: dette gjelder hele brukerflaten. Det betyr at feil stil kan gjøre Heroic ubrukelig. Om nødvendig kan innstillingen endres manuelt i «~/.config/heroic/config.json». IKKE kopier stiler fra kilder du ikke stoler på."
         },
         "advertiseAvxForRosetta": "Oppgi AVX til Rosetta",
         "download-proton-steam": "Last ned GE-Proton til Steam-mappen",
@@ -777,7 +781,21 @@
             "confirmation": {
                 "title": "Er du sikker?"
             }
-        }
+        },
+        "analyticsOptIn": "Send anonym statistikk for å hjelpe Heroics utvikling",
+        "no-tray-icon": "Skjul ikonet i systemkurven (krever omstart)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Ikke vis dem",
+                "message": "Vi anbefaler å bruke egendefinerte Proton-forks (GE-Proton, Proton-CachyOS, mm.) med Heroic fordi Valves Proton-versjoner ikke bruker Winetricks og Protofixes. Du kan fortsatt bruke dem hvis du vil.",
+                "show": "Jeg forstår, vis dem",
+                "title": "Er du sikker?"
+            },
+            "info_label": "Ignorerer Valve Proton-versjoner",
+            "label": "Tillat bruk av Valve Proton for å kjøre spill",
+            "wine_selector_warning": "Valves Proton-versjoner ignoreres som standard, aktiver dem i de avanserte innstillingene"
+        },
+        "WoW64": "Skru på WoW64 (eksperimentell)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1068,6 +1086,17 @@
         }
     },
     "analyticsModal": {
-        "disable": "Deaktivert"
+        "disable": "Deaktivert",
+        "enable": "Aktiver",
+        "info": {
+            "pt1": "For å forbedre appen samler Heroic inn 100% anonym data.",
+            "pt2": "Heroic bruker Plausible Analytics-plattformen, en plattform med åpen kildekode, for å samle inn grunnleggende data: appversjon, OS, tilkoblede markedsplasser og land.",
+            "pt3": "Det kommer aldri til å samle inn noen private data, herunder brukernavnet ditt, IP-adressen og e-posten din.",
+            "pt4": "Disse dataene brukes for å for å hjelpe oss finne ut av hvor vi skal rette fokuset og ressursene våre og til tilbakemeldinger.",
+            "pt5": "Plausible Analytics er fullstendig kompatibel med Personvernsforordningen (GDPR), CCPA og PECR.",
+            "pt6": "For åpenhets skyld, kan du se dataene vi samler inn i Heroic-loggene.",
+            "pt7": "Du kan endre denne innstillingen når som helst i appinnstillingene."
+        },
+        "title": "Send anynom statistikk"
     }
 }

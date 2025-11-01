@@ -1,1 +1,1040 @@
-{}
+{
+    "accessibility": {
+        "actions_font_family_default": "Teaghlach Cló Gníomhartha (Réamhshocrú: {{fontFamily}})",
+        "all_tiles_in_color": "Taispeáin gach tíl cluiche i ndath",
+        "content_font_family_default": "Teaghlach Clónna Ábhair (Réamhshocrú: {{fontFamily}})",
+        "disable_dialog_backdrop_close": "Díchumasaigh dialóga dúnta trí chliceáil lasmuigh",
+        "disable_smooth_scrolling": "Díchumasaigh scrollú réidh (tá atosú ag teastáil)",
+        "fonts": "Clónna",
+        "title": "Inrochtaineacht",
+        "titles_always_visible": "Taispeáin teidil i gcónaí sa leabharlann",
+        "zoom": "Zúmáil",
+        "disable_animations": "Díchumasaigh beochana an chomhéadain úsáideora"
+    },
+    "add_game": "Cuir Cluiche Leis",
+    "adtraction-locked": {
+        "description": "Is cosúil nárbh fhéidir an fearann track.adtraction.com a luchtú nó go bhfuil sé blocáilte. Le adtraction, tacaíonn aon cheannachán a dhéanann tú i siopa GOG le Heroic ó thaobh airgeadais de. Smaoinigh ar an mbac a bhaint más mian leat ranníocaíocht a dhéanamh.",
+        "dont-show-again": "Ná taispeáin an rabhadh seo arís",
+        "title": "Tá bac ar Attraction"
+    },
+    "Amazon Games": "Cluichí Amazon",
+    "analyticsModal": {
+        "disable": "Díchumasaigh",
+        "enable": "Cumasaigh",
+        "info": {
+            "pt1": "Chun an aip a fheabhsú, bailíonn Heroic sonraí 100% gan ainm.",
+            "pt2": "Úsáideann Heroic an t-ardán foinse oscailte Plausible Analytics chun sonraí bunúsacha a bhailiú: Leagan na hAipe, Córas Oibriúcháin, Siopaí Ceangailte agus Tír.",
+            "pt3": "Ní bhaileoidh sé aon fhaisnéis phearsanta choíche, lena n-áirítear d’ainm úsáideora, do sheoladh IP ná do r-phost.",
+            "pt4": "Úsáidtear an fhaisnéis seo chun léargas a thabhairt dúinn ar a bhfuil le díriú air ina dhiaidh seo mar gheall ar ár n-acmhainní teoranta agus aiseolas ó úsáideoirí.",
+            "pt5": "Tá Plausible Analytics go hiomlán i gcomhréir le GDPR, CCPA agus PECR.",
+            "pt6": "Ar mhaithe le trédhearcacht, is féidir leat na sonraí a bhailímid a fheiceáil ar logaí Heroic.",
+            "pt7": "Is féidir leat an socrú seo a athrú am ar bith i Socruithe an Aipe."
+        },
+        "title": "Seol Anailísíocht Gan Ainm"
+    },
+    "anticheat": {
+        "anticheats": "Frith-Aicearra",
+        "multiplayer_may_not_work": "B’fhéidir nach n-oibreoidh gnéithe il-imreora mar gheall ar thacaíocht frith-chealaithe atá diúltaithe nó briste.",
+        "reference": "Tagairt",
+        "source": "Foinse",
+        "status": "Stádas",
+        "title": "Tá bogearraí frith-chealaithe san áireamh sa chluiche seo"
+    },
+    "box": {
+        "cache-cleared": {
+            "message": "Glanadh an taisce Heroic.",
+            "title": "Glanadh an taisce"
+        },
+        "changelog": "Log Athruithe",
+        "choose": "Roghnaigh",
+        "choose-egs-prefix": "Roghnaigh Réimír ina bhfuil EGS suiteáilte",
+        "choose-gogdl-binary": "Roghnaigh GOGDL Dénártha (ní mór atosú a dhéanamh)",
+        "choose-legendary-binary": "Roghnaigh dénártha Finscéalach",
+        "choose-nile-binary": "Roghnaigh dénártha Níle",
+        "customWine": "Roghnaigh an dénártha Wine nó Proton",
+        "default-install-path": "Roghnaigh an Cosán Suiteála Réamhshocraithe",
+        "default-steam-path": "Cosán gaile.",
+        "dontShowAgain": "Ná taispeáin arís",
+        "downloadNow": "Íoslódáil anois",
+        "error": {
+            "add": {
+                "steam": {
+                    "body": "Theip ar {{game}} a chur le Steam leis an méid seo a leanas: {{newLine}} {{error}}",
+                    "title": "Earráid Chur Leis"
+                }
+            },
+            "credentials": {
+                "message": "Tá do chuid dintiúir imithe in éag, logáil amach agus logáil isteach arís le do thoil."
+            },
+            "cx-bottle-not-found": {
+                "message": "Níl an buidéal CrossOver \"{{bottle_name}}\" ann, ní féidir é a sheoladh!",
+                "title": "Níor aimsíodh buidéal CrossOver"
+            },
+            "dxvk": {
+                "message": "Earráid ag suiteáil DXVK/VKD3D! Seiceáil do nasc le do thoil!",
+                "title": "Earráid DXVK/VKD3D"
+            },
+            "folder-not-found": {
+                "title": "Is cosúil go bhfuil fillteán an chluiche scriosta, ar mhaith leat an cluiche a bhaint den liosta suiteáilte?"
+            },
+            "generic": {
+                "message": "teachtaireacht earráide ginearálta",
+                "title": "Roghnaigh EXE le Rith"
+            },
+            "launchAborted": "Cuireadh deireadh leis an lainseáil",
+            "legendary": {
+                "generic": "Tharla earráid! Déan iarracht logáil amach agus logáil isteach i do chuntas Epic. {{newline}}  {{error}}"
+            },
+            "moving": "Earráid ag Bogadh Cluiche {{error}}",
+            "steam": {
+                "error": "Níor aimsíodh an comhad inrite Steam. Is dócha gur chealaigh an t-úsáideoir an suiteáil nó gur theip uirthi ar thaobh Steam.",
+                "message": "Theip ar shuiteáil Steam! Léigh na treoracha go cúramach agus déan iarracht arís! {{paragraph}} {{error}}",
+                "title": "Earráid Steam"
+            },
+            "title": "Earráid",
+            "uncaught-exception": {
+                "message": "Tharla eisceacht neamhghafa:{{newLine}}{{error}}{{newLine}}{{newLine}} Tuairiscigh an eisceacht ar ár stór Github.",
+                "title": "Tharla eisceacht gan ghabháil!"
+            },
+            "update": {
+                "message": "Tharla fadhb leis an nuashonrú, seiceáil na logaí nó déan iarracht arís ar ball!",
+                "title": "Earráid Nuashonraithe"
+            },
+            "winetricks": {
+                "message": "Thug Winetricks an earráid seo a leanas ar ais le linn an fhorghníomhaithe:{{newLine}}{{error}}",
+                "title": "Earráid Winetricks"
+            }
+        },
+        "info": {
+            "update": {
+                "detail": "Ar mhaith leat an nuashonrú a íoslódáil sa chúlra?",
+                "message": "Tá Leagan nua ar fáil!",
+                "message-finished": "Ar mhaith leat Heroic a atosú anois?",
+                "title": "Tosaitheoir Cluichí Heroic",
+                "title-finished": "Nuashonrú Críochnaithe",
+                "detailNoAutoupdate": "Ní thacaítear le nuashonruithe uathoibríocha le haghaidh formáid do phacáistíochta. Bain úsáid as do bhainisteoir pacáiste le nuashonrú a dhéanamh."
+            }
+        },
+        "no": "NÍL",
+        "ok": "Ceart go leor",
+        "postpone": "Cuir siar",
+        "protocol": {
+            "install": {
+                "not_installed": "Níl sé suiteáilte faoi láthair. An bhfuil tú ag iarraidh é a shuiteáil?"
+            }
+        },
+        "quit": {
+            "message": "Tá oibríochtaí ar feitheamh ann, an bhfuil tú cinnte?",
+            "title": "Scoir"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "An bhfuil tú cinnte gur mian leat Heroic a athshocrú? Bainfidh sé seo na Socruithe agus an Taisceadh go léir ach ní bhainfidh sé do chluichí Suiteáilte ná do dhintiúir Epic. Ní mór leaganacha iniompartha (AppImage, WinPortable, ...) de Heroic a atosú de láimh ina dhiaidh sin.",
+                "title": "Athshocraigh Heroic"
+            }
+        },
+        "runexe": {
+            "title": "Roghnaigh EXE le Rith"
+        },
+        "select": {
+            "button": "Roghnaigh",
+            "exe": "Roghnaigh EXE",
+            "script": "Roghnaigh script..."
+        },
+        "shortcuts": {
+            "message": "Cruthaíodh aicearraí ar an Deasc agus ar an Roghchlár Tosaigh",
+            "message-mac": "Cruthaíodh aicearraí ar an bhfillteán Feidhmchláir",
+            "message-remove": "Baineadh aicearraí ón Deasc agus ón Roghchlár Tosaigh",
+            "message-remove-mac": "Baineadh aicearraí as an bhfillteán Feidhmchláir",
+            "title": "Aicearraí"
+        },
+        "sync": {
+            "error": "Cosán Neamhbhailí",
+            "title": "Roghnaigh an eolaire sábhála"
+        },
+        "update": "Nuashonrú",
+        "vcruntime": {
+            "install": {
+                "message": "Tá na naisc íoslódála do Visual C++ Runtimes oscailte. Suiteáil an leagan x86 agus x64 araon le do thoil."
+            },
+            "notfound": {
+                "message": "Níl na hamanna rith Microsoft Visual C++ suiteáilte, rud a theastaíonn ó roinnt cluichí",
+                "title": "Níl VCRuntime suiteáilte"
+            }
+        },
+        "warning": {
+            "epic": {
+                "import": "Tá briseadh mór ar fhreastalaithe Epic faoi láthair, ní féidir an cluiche a allmhairiú!",
+                "install": "Tá briseadh mór ar fhreastalaithe Epic faoi láthair, ní féidir an cluiche a shuiteáil!",
+                "update": "Tá briseadh mór ar fhreastalaithe Epic faoi láthair, ní féidir an cluiche a nuashonrú!"
+            },
+            "rosetta": {
+                "message": "Éilíonn Heroic Rosetta le go n-oibreoidh sé i gceart ar macOS le sceallóga Apple Silicon. Suiteáil é ón teirminéal macOS ag baint úsáide as an ordú seo a leanas: \"softwareupdate --install-rosetta\" agus atosú Heroic. ",
+                "title": "Níor aimsíodh Rosetta"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "D’fhéadfadh aon dul chun cinn neamhshábháilte a bheith caillte",
+                    "title": "An bhfuil tú cinnte gur mian leat éirí as?"
+                }
+            },
+            "snap": {
+                "checkbox": "Ná taispeáin an teachtaireacht seo arís",
+                "message": "Níl roinnt gnéithe ar fáil i leagan Snap den aip faoi láthair agus táimid ag iarraidh iad a shocrú.{{newLine}}Seo a leanas na teorainneacha reatha: {{newLine}}Ní bheidh Heroic in ann Proton a aimsiú ó Steam ná Wine ó Lutris.{{newLine}}{{newLine}}Ní oibreoidh Gamescope, GameMode ná MangoHud ach an oiread ós rud é nach féidir le Heroic rochtain a fháil orthu.{{newLine}}{{newLine}}Chun rochtain a fháil ar an ngné seo, suiteáil Heroic mar Flatpak, DEB nó ón AppImage.",
+                "title": "Tá Heroic ag rith mar Snap"
+            },
+            "title": "Rabhadh",
+            "wine-change": {
+                "message": "Ní raibh muid in ann an leagan roghnaithe den fhíon a aimsiú chun an teideal seo a sheoladh ({{selectedWine}}). {{newline}} Fuaireamar ceann eile, ar mhaith leat leanúint ar aghaidh ag seoladh ag baint úsáide as {{foundWine}}?",
+                "title": "Wine gan aimsiú!"
+            }
+        },
+        "wineprefix": "Roghnaigh Fillteán Réimír Wine",
+        "yes": "TÁ"
+    },
+    "help": {
+        "title": {
+            "accessibility": "Inrochtaineacht",
+            "downloadManager": "Bainisteoir Íoslódála",
+            "library": "Leabharlann",
+            "login": "Logáil Isteach",
+            "settings": "Socruithe",
+            "wineManager": "Bainisteoir Fíona"
+        },
+        "advertiseAvxForRosetta": "Cumasaíonn sé seo tacaíocht do shraith treoracha AVX agus cluichí Windows á reáchtáil trí Rosetta ar ríomhairí Mac Apple Silicon. D’fhéadfadh sé seo a bheith riachtanach do roinnt cluichí cosúil le Death Stranding a bhfuil tacaíocht AVX ag teastáil uathu.",
+        "amdfsr": "Cuidíonn FSR AMD le ráta fráma a threisiú trí réiteach níos ísle a uasghrádú i Mód Lánscáileáin. Méadaíonn cáilíocht íomhá ó 5 go 1 ar chostas beagán feidhmíochta. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú.",
+        "analytics": "Cumasaíonn sé Heroic chun sonraí úsáide 100% gan ainm a bhailiú chun cabhrú leis an bhfeidhmchlár a fheabhsú. Ní mór atosú a dhéanamh chun go dtiocfaidh sé i bhfeidhm.",
+        "button": {
+            "close": "Dún Cabhair",
+            "open": "Oscail Cabhair"
+        },
+        "content": {
+            "accessibility": "Taispeáin socruithe inrochtaineachta.",
+            "customThemesPath": "Seiceáil ár vicí.",
+            "defaultInstallPath": "Seo an cosán réamhshocraithe a roghnaítear agus cluichí á suiteáil.",
+            "downloadManager": "Taispeánann sé íoslódálacha reatha agus san am atá thart.",
+            "library": "Taispeánann sé na cluichí go léir atá faoi úinéireacht.",
+            "login": "Logáil isteach sna siopaí éagsúla.",
+            "settingsDefault": "Taispeánann sé gach socrú de Heroic agus réamhshocruithe do chluichí.",
+            "settingsGame": "Taispeáin gach socrú le haghaidh cluiche.",
+            "wineManager": "Suiteáil leaganacha éagsúla de Wine, Proton, Crossover, etc."
+        },
+        "custom_themes_path": "Ná húsáid comhaid CSS ó fhoinsí neamhiontaofa. Má tá amhras ort, iarr athbhreithniú ar ár gcainéal Discord.",
+        "custom_themes_wiki": "Seiceáil an Vicí le haghaidh tuilleadh sonraí maidir le téamaí saincheaptha a chur leis. Cliceáil anseo.",
+        "disable_logs": "Cuir an bosca seiceála seo AR SIÚL chun an chuid is mó de na scríobh chuig comhaid loga a dhíchumasú (logáiltear faisnéis ríthábhachtach i gcónaí). Déan cinnte an socrú seo a mhúchadh sula dtuairiscíonn tú aon fhadhb.",
+        "disablePlaytimeSync": "Díchumasaíonn sé sioncrónú ama súgartha le freastalaithe an tsiopa áirithe (ní thacaítear ach le GOG faoi láthair)",
+        "download_proton_steam": "Nuair a bheidh sé cumasaithe, déanfar GE-Proton a íoslódáil go díreach chuig eolaire uirlisí comhoiriúnachta Steam in ionad an chosáin réamhshocraithe Heroic. Úsáidfidh sé an cosán Steam atá socraithe sa socrú 'Cosán réamhshocraithe Steam' thuas.",
+        "dxfpslimit": "Socraíonn sé uasteorainn ráta fráma do Chluichí DirectX (9-12)",
+        "dxvk": "Is ciseal aistriúcháin bunaithe ar Vulkan é DXVK do chluichí DirectX 9, 10 agus 11. D’fhéadfadh sé go mbeadh feabhas ar chomhoiriúnacht má chuirtear ar chumas é. D’fhéadfadh fadhbanna a bheith mar thoradh air sin go háirithe i gcás cluichí DirectX níos sine.",
+        "dxvknvapi": "Is cur i bhfeidhm de NVAPI é DXVK-NVAPI atá tógtha ar bharr DXVK agus an NVAPI dúchasach Linux, agus ceadaíonn sé úsáid DLSS ar GPUanna Nvidia.",
+        "esync": "Tá sé mar aidhm ag Esync forchostais fíona a laghdú i gcluichí a bhfuil go leor LAP iontu. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú.",
+        "fsync": "Tá sé mar aidhm ag Fsync forchostais fíona a laghdú i gcluichí a bhfuil go leor LAP iontu. D’fhéadfadh feabhas a chur ar fheidhmíocht ar chroíthe Linux a dtacaítear leo má chuirtear ar chumas é.",
+        "game_language": {
+            "fallback": "Fág bán chun teanga Heroic a úsáid.",
+            "in_game_config": "Ní thacaíonn gach cluiche leis an gcumraíocht seo, tá socruithe teanga sa chluiche ag cuid acu.",
+            "valid_codes": "Braitheann cóid theanga bailí ar an gcluiche."
+        },
+        "gamemode": "Cuireann Feral GameMode coigeartuithe uathoibríocha agus sealadacha i bhfeidhm ar an gcóras agus cluichí á reáchtáil. D’fhéadfadh feabhas a chur ar fheidhmíocht má chuirtear ar chumas é.",
+        "gamescope": {
+            "additionalOptions": "Bratacha breise líne ordaithe le cur isteach i Gamescope.",
+            "forceGrabCursor": "Bain úsáid as modh coibhneasta na luiche i gcónaí in ionad smeach ag brath ar infheictheacht an chúrsóra. (Úsáideach nuair a bhíonn feidhmchláir ag cailleadh fócas i gcónaí)",
+            "fpsLimiter": "Ba chóir líon na bhfrámaí sa Gamescope a theorannú go. M.sh. 60",
+            "fpsLimiterNoFocus": "Ba cheart go mbeadh teorainn in aghaidh an tsoicind leis an ráta fráma ar an gamescope mura bhfuil an cluiche dírithe.",
+            "gameHeight": "An taifeach airde a úsáideann an cluiche. Glacann Gamescope le cóimheas gné 16:9.",
+            "gameWidth": "An taifeach leithead a úsáideann an cluiche. Glacann Gamescope le cóimheas gné 16:9.",
+            "upscaleHeight": "An taifeach airde a úsáideann Gamescope. Glactar leis go bhfuil cóimheas gné 16:9 ann.",
+            "upscaleMethod": "An modh uasghrádaithe ba chóir do Gamescope a úsáid.",
+            "upscaleWidth": "An taifeach leithead a úsáideann Gamescope. Glactar leis go bhfuil cóimheas gné 16:9 ann."
+        },
+        "general": "Sioncrónaigh le EGL má tá suiteáil oibre den Epic Games Launcher agat in áit eile agus más mian leat do chluichí a allmhairiú chun nach mbeidh ort iad a íoslódáil arís.",
+        "mangohud": "Is forleagan é MangoHUD a thaispeánann agus a dhéanann monatóireacht ar FPS, teochtaí, ualach LAP/GPU agus acmhainní córais eile.",
+        "msync": "Tá sé mar aidhm ag Msync forchostais fíona a laghdú i gcluichí a bhfuil go leor LAP iontu. D’fhéadfadh feabhas a chur ar fheidhmíocht ar chroíthe Linux a dtacaítear leo má chuirtear ar chumas é.",
+        "other": {
+            "part4": "Bain úsáid as an ",
+            "part5": "Argóintí Cluiche",
+            "part6": " le glaoch air i ndiaidh an ordaithe lainseála, mar shampla: ",
+            "part7": " an lainseálaí a scipeáil i roinnt cluichí, etc."
+        },
+        "preferSystemLibs": "Seoltar leaganacha saincheaptha Wine (Wine-GE, Wine-Lutris) leis na spleáchais leabharlainne atá acu. Trí an rogha seo a chumasú, déanfar neamhaird de na leabharlanna seo a sheoltar agus luchtóidh Wine leabharlanna córais ina n-ionad. Rabhadh! D’fhéadfadh fadhbanna tarlú mura gcomhlíontar na spleáchais.",
+        "primerun": "Bain úsáid as cárta grafaicí tiomnaithe chun cluiche a rindreáil ar chórais il-GPU. Ní gá ach ar ríomhairí glúine nó deisce cearrbhachais a úsáideann GPU gan cheann le haghaidh rindreála (NVIDIA Optimus, AMD CrossFire)",
+        "steam_path": {
+            "info": "Ligeann an cosán seo do Heroic a chinneadh cén leagan de Proton a úsáideann Steam, chun cluichí neamh-Steam a chur le Steam."
+        },
+        "steamruntime": "Leabharlanna saincheaptha arna soláthar ag Steam chun cabhrú le cluichí Linux agus Windows (Proton) a rith. D’fhéadfadh feabhas a chur ar chomhoiriúnacht dá gcuirfí ar chumas iad.",
+        "sync": {
+            "part1": "Déanann Heroic iarracht buille faoi thuairim a thabhairt faoin bhfillteán sábhála ceart agus oibreoidh sé seo i bhformhór na gcásanna. Sa chás go bhfuil an fillteán mícheart, bain úsáid as an mbosca sáraithe chun é a athrú.",
+            "part2": "Sa chás go n-athraíonn tú an fillteán réimír do Wine nó Proton, beidh ort an cosán a sheiceáil arís ós rud é go n-úsáideann Proton réimír (/pfx) agus ainm úsáideora (steamuser) difriúil. Mar sin, is féidir leat an cosán reatha a scriosadh go simplí, dul amach as an leathanach socruithe sioncrónaithe agus filleadh ar ais arís le go mbeidh Heroic in ann buille faoi thuairim a thabhairt faoin bhfillteán arís leis an réimír ceart.",
+            "part3": "Sioncrónú Láimhe: Roghnaigh Íoslódáil chun na cluichí atá stóráilte ar an Néal a íoslódáil. Uaslódáil chun na cinn áitiúla a uaslódáil chuig an néal. Déanfaidh Íoslódáil Fórsach agus Uaslódáil Fórsach neamhaird den leagan atá go háitiúil nó ar an néal.",
+            "part4": "Déanfaidh Sioncrónú Sábhálacha go huathoibríoch na sábhálacha a sioncrónú gach uair a thosaíonn tú Cluiche agus tar éis duit críochnú ag imirt."
+        },
+        "vkd3d": "Is ciseal aistriúcháin bunaithe ar Vulkan é VKD3D do chluichí DirectX 12. D’fhéadfadh feabhas suntasach a bheith ar chomhoiriúnacht má chuirtear ar chumas é. Níl aon éifeacht aige ar chluichí DirectX níos sine, teastaíonn DXVK uaidh.",
+        "wine": {
+            "part1": "Déanann Heroic cuardach ar leaganacha de Wine, Proton, agus CrossOver sna fillteáin seo a leanas:",
+            "part2": "I gcás áiteanna eile, bain úsáid as nasc siombalach chuig ceann de na fillteáin seo"
+        },
+        "wine-hdr": "Feabhsaíonn HDR dathanna trí bhuaicphointí níos gile agus codarsnachtaí níos doimhne a sholáthar. Chun go n-oibreoidh HDR, ní mór don taispeáint agus don chluiche tacú leis.",
+        "wine-wayland": "Ligeann an tiománaí turgnamhach Wine-Wayland do chluichí rith go dúchasach faoin bprótacal taispeána Wayland. D’fhéadfadh sé go gcuirfeadh cumasú isteach ar roinnt cluichí.",
+        "WoW64": "Ligeann mód Wine WoW64 do chluichí Windows 32-giotán a bheith á rith ar Wine 64-giotán. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú, ach d’fhéadfadh sé go gcuirfeadh sé isteach ar chluichí 32-giotán níos sine freisin."
+    },
+    "placeholder": {
+        "egs-prefix": "Roghnaigh Réimír ina bhfuil EGS suiteáilte",
+        "alt-gogdl-bin": "Ag baint úsáide as dénártha GOGDL ionsuite...",
+        "alt-legendary-bin": "Ag baint úsáide as dénártha Legendary ionsuite...",
+        "alt-nile-bin": "Ag baint úsáide as dénártha Níle ionsuite...",
+        "custom_themes_path": "Roghnaigh an cosán chun comhaid CSS saincheaptha a lorg",
+        "dxvkfpsvalue": "Luach slánuimhir dhearfach (m.sh. 30, 60, ...)",
+        "prefered_language": "Cód 2-charachtar (i.e.: \"en\" nó \"fr\")"
+    },
+    "setting": {
+        "eosOverlay": {
+            "disable": "Díchumasaigh",
+            "enable": "Cumasaigh",
+            "cancelInstall": "Cealaigh",
+            "checkForUpdates": "Seiceáil le haghaidh nuashonruithe",
+            "checkingForUpdates": "Ag seiceáil le haghaidh nuashonruithe...",
+            "currentVersion": "Leagan Reatha: {{version}}",
+            "install": "Suiteáil",
+            "installed": "Tá an Forleagan EOS suiteáilte",
+            "installing": "Tá an EOS Overlay á shuiteáil...",
+            "latestVersion": "Leagan is Déanaí: {{version}}",
+            "notInstalled": "Níl an Forleagan EOS suiteáilte",
+            "notInstalledMsg": "Níl an EOS Overlay suiteáilte. Ar mhaith leat é a shuiteáil anois?",
+            "notInstalledTitle": "Forleagan gan suiteáil",
+            "remove": "Díshuiteáil",
+            "removeConfirm": "An bhfuil tú cinnte gur mian leat an EOS Overlay a dhíshuiteáil?",
+            "removeConfirmTitle": "Deimhnigh baint an fhorleagan",
+            "updateNow": "Nuashonrú",
+            "updating": "Ag nuashonrú..."
+        },
+        "library_top_option": {
+            "disabled": "Díchumasaigh",
+            "favourites": "Cluichí is Fearr Leat",
+            "recently_played": "Cluichí a Imríodh Le Déanaí",
+            "recently_played_installed": "Cluichí a Imríodh Le Déanaí (Suiteáilte Amháin)"
+        },
+        "winecrossoverbottle": "Buidéal CrossOver",
+        "adddesktopshortcuts": "Cuir aicearraí deisce leis go huathoibríoch",
+        "addgamestoapplications": "Cuir cluichí le Feidhmchláir go huathoibríoch",
+        "addgamestostartmenu": "Cuir cluichí leis an roghchlár tosaigh go huathoibríoch",
+        "addgamestosteam": "Cuir cluichí le Steam go huathoibríoch",
+        "advertiseAvxForRosetta": "Fógraigh AVX do Rosetta",
+        "after-launch-script-path": "Roghnaigh script le rith tar éis don chluiche críochnú",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "D’fhéadfadh cluichí a bhfuil frith-cheat briste nó diúltaithe acu rith, ach ní oibreoidh gnéithe il-imreora. Ná hiarr tacaíocht má shuiteálann tú iad agus tú ar an eolas faoi seo.",
+                "title": "An bhfuil tú cinnte?",
+                "understand": "Tuigim"
+            },
+            "label": "Ceadaigh suiteáil cluichí a bhfuil frith-cheilt briste nó diúltaithe acu"
+        },
+        "alt-gogdl-bin": "Roghnaigh GOGDL Dénártha Malartach le húsáid",
+        "alt-legendary-bin": "Roghnaigh Dénártha Finscéalach Malartach",
+        "alt-nile-bin": "Roghnaigh Binary Malartach Níle",
+        "analyticsOptIn": "Seol sonraí gan ainm chun cabhrú le forbairt Heroic",
+        "autodxvk": "Suiteáil/Nuashonraigh DXVK go huathoibríoch ar réimír",
+        "autodxvknvapi": "Suiteáil/Nuashonrú Uathoibríoch DXVK-NVAPI ar Réimír",
+        "autosync": "Sábhálacha Uath-Shioncrónaithe",
+        "autoUpdateGames": "Nuashonraigh cluichí go huathoibríoch",
+        "autovkd3d": "Suiteáil/Nuashonrú Uathoibríoch VKD3D ar Réimír",
+        "before-launch-script-path": "Roghnaigh script le rith sula seoltar an cluiche",
+        "change-target-exe": "Roghnaigh EXE malartach le rith",
+        "checkForUpdatesOnStartup": "Seiceáil le haghaidh Nuashonruithe Heroic ar an Startup",
+        "crossover-version": "Leagan Trasnaithe/Wine",
+        "custom_css": {
+            "warning": "Rabhadh: baineann sé seo leis an taobh tosaigh ar fad. Ciallaíonn sé sin gur féidir le stíl mhícheart Heroic a dhéanamh neamh-inúsáidte. Más gá, is féidir an socrú a athrú de láimh i `~/.config/heroic/config.json`. NÁ cóipeáil stíleanna ó fhoinsí nach bhfuil muinín agat astu."
+        },
+        "custom_themes_path": "Cosán Téamaí Saincheaptha",
+        "customWineProton": "Cosáin Saincheaptha Wine/Proton",
+        "darktray": "Úsáid Deilbhín Tráidire Dorcha",
+        "default-install-path": "Cosán Suiteála Réamhshocraithe",
+        "default-steam-path": "Cosán réamhshocraithe Steam",
+        "defaultWinePrefix": "Socraigh Fillteán le haghaidh Réimíreanna Wine nua",
+        "disable_controller": "Díchumasaigh nascleanúint Heroic ag baint úsáide as an rialtán",
+        "disable_logs": "Díchumasaigh Logaí",
+        "disablePlaytimeSync": "Díchumasaigh sioncrónú ama súgartha",
+        "disableUMU": "Díchumasaigh umu",
+        "discordRPC": "Cumasaigh Láithreacht Shaibhir Discord",
+        "download-no-https": "Íoslódáil cluichí gan HTTPS (úsáideach do CDNanna m.sh. LanCache)",
+        "download-proton-steam": "Íoslódáil GE-Proton chuig eolaire Steam",
+        "dxfpslimit": "Teorainn a chur le FPS Cluichí DirectX",
+        "egs-sync": "Sioncrónaigh le Cluichí Epic Suiteáilte",
+        "enableFSRHack": "Cumasaigh FSR Hack (ní mór don leagan Wine tacú leis)",
+        "esync": "Cumasaigh Esync",
+        "exit-to-tray": "Scoir go Tráidire an Chórais",
+        "experimental_features": {
+            "cometSupport": "Tacaíocht Cóiméad",
+            "enableHelp": "Comhpháirt chabhrach",
+            "enableNewDesign": "Dearadh nua"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Tá an ghné seo fós turgnamhach. Déan aon fhadhbanna a bhíonn agat léi a thuairisciú ar GitHub.",
+                "title": "Gné turgnamhach romhainn"
+            },
+            "description": "Úsáid fuinneog gan fhráma (tá atosú ag teastáil)"
+        },
+        "FsrSharpnessStrenght": "Neart Géire FSR",
+        "fsync": "Cumasaigh Fsync",
+        "gamemode": "Bain úsáid as GameMode (ní mór Feral Game Mode a shuiteáil)",
+        "gamescope": {
+            "enableForceGrabCursor": "Cumasaigh Cúrsóir Greamaithe Fórsa",
+            "enableLimiter": "Cumasaigh Teorannóir FPS",
+            "enableUpscaling": "Cumasaíonn sé Uasghrádú",
+            "missingMsg": "Ní raibh muid in ann Gamescope a aimsiú ar an PATH. Suiteáil é nó cuir leis an PATH é.",
+            "warningFlatpak": "Ní bhfuaireamar leagan comhoiriúnach de Gamescope. Suiteáil pacáiste flatpak Gamescope le ham-rith {{runtimeVersion}} agus atosú Heroic."
+        },
+        "hdr": "Cumasaigh HDR",
+        "hideChangelogsOnStartup": "Ná taispeáin logaí athraithe ar an Tosaithe",
+        "ignoreGameUpdates": "Déan neamhaird de nuashonruithe cluiche",
+        "language": "Roghnaigh Teanga an Aipe",
+        "library_top_section": "An Roinn Uachtarach sa Leabharlann",
+        "log": {
+            "descriptiveNames": {
+                "game-log": "Log cluiche {{gameTitle}}",
+                "gog": "Log GOG",
+                "heroic": "Log Heroic Ginearálta",
+                "legendary": "Cluichí Epic / Logáil Finscéalta",
+                "nile": "Log Amazon / Níle"
+            },
+            "instructions": "Bí linn inár Discord agus féach ar an rannóg \"#-support\". Léigh an snáithe bioráilte \"Léigh Mé Ar dtús | Ceisteanna Coitianta\" agus lean na treoracha chun na logaí seo agus aon fhaisnéis ábhartha faoi do fhadhb a roinnt.",
+            "instructions_title": "Conas fadhb a thuairisciú?",
+            "join-heroic-discord": "Bí linn inár Discord",
+            "no-file": "Níor aimsíodh aon chomhad loga",
+            "show-in-folder": "Taispeáin comhad loga sa fhillteán",
+            "show-uploads": "Taispeáin comhaid loga uaslódáilte",
+            "upload": {
+                "actions": "Gníomhartha",
+                "button": "Uaslódáil comhad loga",
+                "confirm": {
+                    "content": "An bhfuil tú cinnte gur mhaith leat \"{{name}}\" a uaslódáil?",
+                    "title": "Uaslódáil comhad loga?"
+                },
+                "delete": "Iarr scriosadh comhaid loga",
+                "done": {
+                    "content": "Uaslódáilte chuig {{url}} (URL cóipeáilte chuig do ghearrthaisce)",
+                    "title": "Uaslódáil críochnaithe"
+                },
+                "error": {
+                    "content": "Theip ar an gcomhad loga a uaslódáil. Seiceáil log ginearálta Heroic le haghaidh sonraí",
+                    "title": "Theip ar an uaslódáil"
+                },
+                "header": "Comhaid loga uaslódáilte",
+                "hours-ago": "Uaslódáilte {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Uaslódáilte {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Níor uaslódáladh aon chomhaid loga",
+                "open": "Uaslódáil comhad loga oscailte",
+                "title": "Teideal an loga",
+                "upload-date": "Dáta uaslódála",
+                "uploading": {
+                    "content": "Ag uaslódáil comhad loga...",
+                    "title": "Ag uaslódáil"
+                }
+            }
+        },
+        "mangohud": "Cumasaigh Mangohud (Ní mór Mangohud a shuiteáil)",
+        "manualsync": {
+            "download": "Íoslódáil",
+            "forcedownload": "Íoslódáil Fórsa",
+            "forceupload": "Uaslódáil Fórsa",
+            "sync": "Sioncrónaigh",
+            "syncing": "Ag sioncrónú",
+            "title": "Sábhálacha Sioncrónaithe Láimhe",
+            "upload": "Uaslódáil"
+        },
+        "maxRecentGames": "Imríodh le déanaí le taispeáint",
+        "maxworkers": "Uasmhéid na nOibrithe agus iad á n-íoslódáil",
+        "minimize-on-launch": "Íoslaghdaigh Laochra Tar éis Seoladh Cluiche",
+        "msync": "Cumasaigh Msync",
+        "no-tray-icon": "Folaigh Deilbhín Tráidire an Chórais (tá atosú ag teastáil)",
+        "offlinemode": "Rith Cluiche As Líne",
+        "prefered_language": "Teanga is Fearr leat (Cód Teanga)",
+        "preferSystemLibs": "Is fearr leabharlanna córais",
+        "primerun": {
+            "confirmation": {
+                "title": "Níor braitheadh ach GPU amháin",
+                "message": "Níor braitheadh ach cárta grafaicí amháin sa chóras seo. Tabhair faoi deara go bhfuil an rogha seo beartaithe do chórais il-GPU le GPUanna gan cheann (cosúil le ríomhairí glúine). Ar chórais aon-GPU, úsáidtear an GPU go huathoibríoch agus d’fhéadfadh fadhbanna a bheith mar thoradh ar an rogha seo a chumasú. An bhfuil tú cinnte gur mhaith leat an rogha seo a chumasú?"
+            },
+            "description": "Úsáid Cárta Grafaicí Tiomnaithe"
+        },
+        "runexe": {
+            "title": "Rith EXE ar Réimír"
+        },
+        "savefolder": {
+            "not-found": "Níor aimsíodh an fillteán sábhála, roghnaigh é de láimh le do thoil (cliceáil chun iarracht eile a dhéanamh)",
+            "placeholder": "Roghnaigh an fillteán cluichí sábhála cruinn",
+            "warning": "Seiceáil faoi dhó le do thoil an bhfuil an cosán ceart (cliceáil chun iarracht eile a dhéanamh)"
+        },
+        "select_theme": "Roghnaigh Téama",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Ná taispeáin iad",
+                "message": "Molaimid forcanna saincheaptha Proton (GE-Proton, Proton-CachyOS, srl.) a úsáid le Heroic mar níl winetricks ná protofixes i leaganacha Proton Valve. Is féidir leat iad a úsáid fós más mian leat.",
+                "show": "Tuigim, taispeáin dóibh",
+                "title": "An bhfuil tú cinnte?"
+            },
+            "info_label": "Leaganacha Valve Proton neamhaird déanta orthu",
+            "label": "Ceadaigh úsáid a bhaint as tógálacha Valve Proton chun cluichí a rith",
+            "wine_selector_warning": "Déantar neamhaird de leaganacha comhla de Proton de réir réamhshocraithe, cumasaigh iad sna socruithe domhanda Ardleibhéil"
+        },
+        "showfps": "Taispeáin FPS (DX9, 10 agus 11)",
+        "showMetalOverlay": "Taispeáin Forleagan Staitisticí",
+        "start-in-tray": "Tosaigh Íoslaghdaithe",
+        "steamruntime": "Úsáid Am Rith Steam",
+        "verboseLogs": {
+            "description": "Cumasaigh logaí foclacha"
+        },
+        "wineprefix": "Fillteán WinePrefix",
+        "wineversion": "Leagan Wine",
+        "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
+        "WoW64": "Cumasaigh WoW64 (Turgnamhach)"
+    },
+    "button": {
+        "login": "Logáil isteach",
+        "cancel": "Cealaigh",
+        "continue": "Lean ar aghaidh",
+        "go_to_library": "Téigh go dtí an Leabharlann"
+    },
+    "categories-manager": {
+        "add": "Cuir",
+        "add-placeholder": "Cuir catagóir nua leis",
+        "cancel-remove": "Cealaigh baint \"{{name}}\"",
+        "cancel-rename": "Cealaigh athainmniú \"{{name}}\"",
+        "confirm-remove": "Deimhnigh baint \"{{name}}\"",
+        "confirm-rename": "Deimhnigh athainmniú \"{{oldName}}\" mar \"{{newName}}\"",
+        "no-categories": "Gan aon chatagóirí fós.",
+        "remove": "Bain \"{{name}}\"",
+        "rename": "Athainmnigh \"{{name}}\"",
+        "title": "Bainistigh Catagóirí"
+    },
+    "category-settings": {
+        "add-new-category": "Cuir Catagóir Nua leis",
+        "cancel": "Cealaigh",
+        "delete-question": "Bainfear an chatagóir seo go buan má leanann tú ar aghaidh agus díshannfar í ó gach cluiche. Ar mhaith leat leanúint ar aghaidh?",
+        "new-category": "Catagóir Nua",
+        "remove-category": "Bain Catagóir",
+        "warning": "Rabhadh"
+    },
+    "controller": {
+        "hints": {
+            "back": "Ar ais",
+            "backspace": "Cúlspás",
+            "close_dialog": "Dún an dialóg",
+            "close_keyboard": "Dún an méarchlár",
+            "close_options": "Dún Roghanna",
+            "game_details": "Sonraí an chluiche",
+            "game_settings": "Socruithe cluiche",
+            "install_game": "Suiteáil cluiche",
+            "move_cursor": "Bog an cúrsóir",
+            "open_virtual_keyboard": "Oscail an méarchlár fíorúil",
+            "options": "Roghanna",
+            "play_game": "Imir cluiche",
+            "scroll": "Scrollaigh",
+            "select": "Roghnaigh",
+            "space": "Spás",
+            "update_game": "Nuashonraigh an cluiche"
+        }
+    },
+    "dlc": {
+        "actions": "Gníomhartha",
+        "installDlcs": "Suiteáil gach DLC",
+        "noDlcFound": "Ní bhfuarthas aon DLCanna",
+        "size": "Méid",
+        "title": "Teideal"
+    },
+    "docs": "Doiciméadú",
+    "download-manager": {
+        "ETA": "Am measta",
+        "install-type": {
+            "install": "Suiteáil",
+            "update": "Nuashonrú"
+        },
+        "label": {
+            "disk": "Diosca",
+            "speed": "Íoslódáil"
+        },
+        "link": "Íoslódálacha",
+        "queue": {
+            "end-time": "Críochnaithe ag",
+            "queue-time": "Curtha leis ag",
+            "start-time": "Thosaigh sé ag",
+            "type": "Cineál"
+        },
+        "title": "Íoslódálacha"
+    },
+    "emptyLibrary": {
+        "noGames": "Tá do leabharlann folamh.<br /><br />Cliceáil <4>anseo</4> chun logáil isteach le do chuntais Epic, GOG.com, nó Amazon. Ansin, taispeánfar do chluichí anseo sa Leabharlann.<br /><br />Chun cluichí nó aipeanna ó fhoinsí eile a úsáid, cliceáil <br /> chun iad a chur leis de láimh.",
+        "noResults": "Níor tháirg na scagairí reatha aon torthaí."
+    },
+    "epic": {
+        "offline-notification-body": "B’fhéidir nach n-oibreoidh seirbhísí ar líne go hiomlán mar go bhfuil freastalaithe Epic Games as líne!",
+        "offline-notification-title": "as líne"
+    },
+    "Epic Games": "Epic Games",
+    "error": "Earráid",
+    "externalLink": {
+        "dontAskAgain": "Ná fiafraigh arís",
+        "warning": "Tá tú ar tí nasc seachtrach a oscailt."
+    },
+    "favourites": "Ceanáin",
+    "game": {
+        "modify": "Athraigh an Suiteáil",
+        "status": "Stádas",
+        "store": "Siopa",
+        "title": "Teideal an Chluiche"
+    },
+    "generic": {
+        "error": {
+            "component": "Ní bhfuarthas aon chluichí - Déan iarracht logáil amach agus logáil isteach arís nó ceann de na roghanna thíos a úsáid"
+        },
+        "library": {
+            "refresh": "Athnuachan Leabharlann"
+        }
+    },
+    "globalSettings": "Socruithe Domhanda",
+    "GOG": "GOG",
+    "gog-store": "Siopa GOG",
+    "header": {
+        "categories": "Catagóirí",
+        "filters": "Scagairí",
+        "no_categories": "Gan catagóirí saincheaptha. Cuir catagóirí leis ag baint úsáide as gach roghchlár cluiche.",
+        "only": "amháin",
+        "reset": "Athshocrú",
+        "select_all": "Roghnaigh Uile",
+        "show_available_games": "Taispeáin cluichí nach bhfuil ar fáil",
+        "show_favourites_only": "Taispeáin Rogha amháin",
+        "show_hidden": "Taispeáin Folaithe",
+        "show_installed_only": "Taispeáin Suiteáilte amháin",
+        "show_support_offline_only": "Taispeáin tacaíocht as líne amháin",
+        "show_third_party_managed_only": "Taispeáin bainistithe tríú páirtí amháin",
+        "show_updates_only": "Taispeáin cluichí le nuashonruithe amháin",
+        "uncategorized": "Gan catagóir"
+    },
+    "status": {
+        "installing": "Ag suiteáil",
+        "processing": "Comhaid á bpróiseáil, fan le do thoil",
+        "logging": "Ag Logáil Isteach...",
+        "preparing_login": "Logáil Isteach á Ullmhú... "
+    },
+    "info": {
+        "heroic": {
+            "beta": "Béite",
+            "click-to-see-changelog": "Cliceáil chun loga athruithe a fheiceáil",
+            "newReleases": "Nuashonrú ar Fáil!",
+            "stable": "Cobhsaí",
+            "version": "Leagan Heroic"
+        },
+        "save-sync": {
+            "searching": "Ag iarraidh an fillteán sábhála ceart a bhrath (cliceáil chun cealú)"
+        },
+        "settings": "Sábháiltear socruithe go huathoibríoch",
+        "version": "Leagan Wine"
+    },
+    "infobox": {
+        "help": "Cabhair",
+        "requirements": "Riachtanais an Chórais",
+        "warning": "Rabhadh",
+        "wine-path": "Cosán Wine",
+        "wine-path-invalid": "Tá an Cosán Wine neamhbhailí, roghnaigh ceann eile le do thoil.",
+        "wine-path-none-found": "Níor aimsíodh aon leagan de Wine, íoslódáil ceann ón mBainisteoir Wine",
+        "wine-prefix": {
+            "title": "Réimír Wine"
+        },
+        "wine-repfix": {
+            "message": "Úsáideann Wine rud ar a dtugtar WINEPREFIX chun feidhmchláir Windows a chuimsiú. Tá comhaid chumraíochta Wine agus atáirgeadh d'ordlathas comhad C: (an príomhdhiosca ar chóras oibriúcháin Windows) sa réimír seo. Sa atáirgeadh seo den tiomántán C: stóráiltear do chuid comhad sábhála cluiche agus spleáchais a suiteáilte trí winetricks."
+        }
+    },
+    "label": {
+        "loading": "Ag luchtú",
+        "releaseDate": "Dáta Eisiúna"
+    },
+    "library": {
+        "hideAlphabetFilter": "Folaigh Scagaire Aibítre",
+        "showAlphabetFilter": "Taispeáin Scagaire Aibítre",
+        "sortAscending": "Sórtáil ag dul suas",
+        "sortByStatus": "Sórtáil de réir Stádais",
+        "sortDescending": "Sórtáil ag dul in ord íslitheach",
+        "toggleLayout": {
+            "grid": "Athraigh go leagan amach eangaí",
+            "list": "Athraigh go leagan amach liosta"
+        }
+    },
+    "Library": "Leabharlann",
+    "loading": {
+        "default": "Ag luchtú",
+        "website": "Ag luchtú an láithreáin ghréasáin"
+    },
+    "login": {
+        "alternative_method": "Modh Logála Isteach Malartach",
+        "amazon": "Logáil Isteach Amazon",
+        "epic": "Logáil Isteach Cluichí Epic",
+        "gog": "Logáil Isteach GOG",
+        "message": "Logáil isteach le do ardán. Is féidir leat logáil isteach i níos mó ná ardán amháin ag an am céanna.",
+        "old-mac": "Is é {{version}} do leagan macOS. Tá macOS 12 nó níos nuaí ag teastáil le logáil isteach."
+    },
+    "message": {
+        "sync": "Sioncrónú Críochnaithe",
+        "unsync": "Díshioncrónú Críochnaithe"
+    },
+    "notification": {
+        "steam": {
+            "error": "Theip ar shuiteáil Steam! Léigh na treoracha go cúramach agus déan iarracht arís!",
+            "success": "Tá Steam do Windows suiteáilte go rathúil!"
+        }
+    },
+    "notify": {
+        "error": {
+            "move": "Earráid ag Bogadh an Chluiche",
+            "reparing": "Earráid á Deisiú"
+        },
+        "finished": {
+            "add": {
+                "steam": {
+                    "corrupt": "Níorbh fhéidir {{game}} a chur le gach úsáideoir Steam a aimsíodh. Féach na logaí le haghaidh tuilleadh eolais. Tá atosú Steam ag teastáil chun go dtiocfaidh athruithe i bhfeidhm.",
+                    "success": "Cuireadh {{game}} le Steam go rathúil. Tá atosú Steam ag teastáil chun na hathruithe a chur i bhfeidhm.",
+                    "title": "Curtha le Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "corrupt": "Níorbh fhéidir {{game}} a bhaint de na húsáideoirí Steam go léir a aimsíodh. Féach na logaí le haghaidh tuilleadh eolais. Tá atosú Steam ag teastáil chun go dtiocfaidh athruithe i bhfeidhm.",
+                    "success": "Baineadh {{game}} de Steam go rathúil. Tá atosú Steam ag teastáil chun na hathruithe a chur i bhfeidhm.",
+                    "title": "Bainte as Steam"
+                }
+            },
+            "reparing": "Deisiú críochnaithe"
+        },
+        "import": {
+            "failed": "Theip ar an iompórtáil"
+        },
+        "install": {
+            "canceled": "Suiteáil Cealaithe",
+            "error": "Theip ar an Suiteáil",
+            "failed": "Theip ar an Suiteáil",
+            "finished": "Suiteáil Críochnaithe",
+            "imported": "Cluiche Iompórtáilte",
+            "paused": "Suiteáil curtha ar sos",
+            "startInstall": "Suiteáil Tosaithe"
+        },
+        "moved": "Críochnaithe ag Bogadh",
+        "moving": "Cluiche Bogtha",
+        "new-heroic-version": "Scaoileadh leagan nua de Heroic!",
+        "refresh": {
+            "error": "Níorbh fhéidir eisiúintí a fháil ón sruth suas, b'fhéidir mar gheall ar shrianta API Github! Déan iarracht arís ar ball."
+        },
+        "uninstalled": "Díshuiteáilte",
+        "update": {
+            "canceled": "Nuashonrú Cealaithe",
+            "failed": "Theip ar an Nuashonrú",
+            "finished": "Nuashonrú Críochnaithe",
+            "paused": "Nuashonrú curtha ar sos",
+            "started": "Nuashonrú Tosaithe"
+        }
+    },
+    "offline-message": {
+        "hint": "Táimid ag seiceáil an nascachta i gcoinne: {{newline}}github.com, {{newline}}gog.com, {{newline}}store.epicgames.com agus {{newline}}cloudflare-dns.com",
+        "ignore": "Déan neamhaird de",
+        "offline": "As líne",
+        "offline-retry-in": "As líne. Ag iarraidh arís i gceann {{seconds}} soicind.",
+        "retrying": "Ag iarraidh arís"
+    },
+    "options": {
+        "advanced": {
+            "key": "Ainm Athróg",
+            "placeHolderKey": "AINM",
+            "placeHolderValue": "M.sh.: Cosán/Chuig/Comhaid Bhreise",
+            "title": "Athróga Timpeallachta",
+            "value": "Luach"
+        },
+        "env_variables": {
+            "error": {
+                "empty_key": "Ní féidir ainmneacha athróg a bheith folamh",
+                "equal_sign_in_key": "Ní féidir an comhartha \"=\" a bheith in ainmneacha athróg",
+                "space_in_key": "Ní féidir spásanna a bheith in ainmneacha athróg"
+            },
+            "example": "NÁ cuir an comhartha \"=\" san áireamh, m.sh.: i gcás socraithe cosúil le \"MY_FLAG=123\", socraigh MY_FLAG in AINM agus 123 i VALUE.",
+            "info": "Socraigh athróga comhshaoil le cur leis an ordú."
+        },
+        "gameargs": {
+            "error": {
+                "command": "Níl an comhréir %command% ó Steam bailí mar argóintí cluiche.",
+                "env": "Ní mór athróga comhshaoil a chumrú sa tábla thíos."
+            },
+            "placeholder": "Cuir na hargóintí tosaitheora anseo",
+            "title": "Argóintí Cluiche (Le rith i ndiaidh an ordaithe):"
+        },
+        "gamescope": {
+            "additionalOptions": "Roghanna Breise",
+            "borderless": "Gan teorainn",
+            "fpsLimiter": "Teorannóir FPS",
+            "fpsLimiterNoFocus": "Teorannóir FPS (Gan Fócas)",
+            "fullscreen": "Lánscáileán",
+            "gameHeight": "Airde Cluiche",
+            "gameWidth": "Leithead an Chluiche",
+            "interger": "Uasghrádú Slánuimhir",
+            "nis": "Scála Íomhá NVIDIA (NIS)",
+            "stretch": "Íomhá Sínte",
+            "upscaleHeight": "Airde Uasghrádaithe",
+            "upscaleWidth": "Leithead Uasghrádaithe",
+            "windowed": "Fuinneogach"
+        },
+        "quote-args-with-spaces": "Rabhadh: Bí cinnte spásanna a úsáid sna hargóintí! M.sh.: \"cosán/le spásanna/\"",
+        "wrapper": {
+            "args": "Argóintí",
+            "arguments_example": "Sampla argóintí: --arg; --extra-file=\"cosán-comhaid/ le/spásanna\"",
+            "exe": "Fillteán",
+            "placeHolderKey": "Fillteán Nua",
+            "placeHolderValue": "Argóintí Fillteáin",
+            "title": "Ordú fillteáin:"
+        }
+    },
+    "other": {
+        "gogdl-version": "Leagan GOGDL: ",
+        "legendary-version": "Leagan Finscéalach: ",
+        "nile-version": "Leagan na Níle: ",
+        "weblate": "Cabhraigh le Heroic a aistriú."
+    },
+    "Other": "Eile",
+    "platforms": {
+        "browser": "Brabhsálaí",
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
+    },
+    "please-wait": "Fan le do thoil...",
+    "prime-gaming": "Prime Gaming",
+    "progress": "Dul Chun Cinn",
+    "queue": {
+        "label": {
+            "clear": "Glan an Liosta",
+            "downloading": "Ag íoslódáil",
+            "empty": "Ní rud ar bith le híoslódáil",
+            "finished": "Críochnaithe",
+            "queued": "Sa scuaine"
+        }
+    },
+    "Recent": "Imríodh le Déanaí",
+    "search": "Cuardaigh Cluichí",
+    "settings": {
+        "advanced": {
+            "clearCache": {
+                "help1": "Glanfaidh an gníomh seo na taisceáin seo a leanas:",
+                "help10": "Cumraíocht laochúil",
+                "help2": "Eolas tríú páirtí faoi chluiche (scóir, comhoiriúnacht steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help3": "Eolas faoin leabharlann finscéalach (liosta cluichí, eolas faoi dhialóg suiteála, eolas faoi chluiche)",
+                "help4": "Eolas faoi leabharlann GOG (liosta cluichí, eolas faoi dhialóg suiteála, eolas faoi API -i.e.: riachtanais-)",
+                "help5": "Eolas faoi leabharlann Amazon (liosta cluichí, eolas faoi dhialóg suiteála)",
+                "help6": "NÍ scriosfaidh sé seo:",
+                "help7": "Logáil isteach siopa",
+                "help8": "Cluichí suiteáilte",
+                "help9": "Socruithe cluichí"
+            },
+            "details": "Sonraí",
+            "resetHeroic": {
+                "help": "Bainfidh sé seo na Socruithe agus an Taisceadh go léir ach ní bhainfidh sé do chluichí Suiteáilte ná do dhintiúir Epic. Ní mór leaganacha iniompartha (AppImage, WinPortable, ...) de Heroic a atosú de láimh ina dhiaidh sin."
+            },
+            "title": {
+                "clearCache": "Glan an Taisce",
+                "resetHeroic": "Athshocraigh Heroic"
+            }
+        },
+        "battlEyeRuntime": {
+            "installing": "Ag suiteáil BattlEye Runtime...",
+            "name": "Am Rith Frith-Cheat BattlEye"
+        },
+        "clear-cache": "Glan an Taisce Laochra",
+        "copiedToClipboard": "Cóipeáilte chuig an nGearrthaisce!",
+        "copyToClipboard": "Cóipeáil Gach Socrú chuig an nGearrthaisce",
+        "custom_css": {
+            "title": "Stíl CSS Saincheaptha"
+        },
+        "default_hint": "Ní bhaineann athruithe sa chuid seo ach le luachanna réamhshocraithe agus cluichí á suiteáil. Más mian leat socruithe cluiche atá suiteáilte cheana féin a athrú, bain úsáid as an gcnaipe Socruithe ar leathanach an chluiche.",
+        "eacRuntime": {
+            "gameModeRequired": {
+                "message": "Tá GameMode riachtanach chun go n-oibreoidh am rith EAC ar Flatpak. Ar mhaith leat é a chumasú anois?",
+                "title": "Mód Cluiche ag teastáil"
+            },
+            "installing": "Ag suiteáil EAC Runtime...",
+            "name": "Am Rith EasyAntiCheat"
+        },
+        "experimental_features": {
+            "title": "Gnéithe Turgnamhacha"
+        },
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "Tá an t-am rith EAC cumasaithe, rud nach bhfeidhmeoidh i gceart gan GameMode. Ar mhaith leat an t-am rith EAC agus GameMode a dhíchumasú?",
+                "title": "Am rith EAC cumasaithe"
+            }
+        },
+        "gamescope": {
+            "searchMsg": "Ag cuardach comhad inrite gamescope."
+        },
+        "log": {
+            "long-log-hint": "Log gearrtha, taispeántar na 1000 líne dheireanacha!"
+        },
+        "navbar": {
+            "advanced": "Ardleibhéil",
+            "games_settings_defaults": "Réamhshocruithe Cluiche",
+            "gamescope": "Gamescope",
+            "general": "Ginearálta",
+            "log": "Logáil",
+            "other": "Eile",
+            "sync": "Sioncrónú Sábhálacha Néil",
+            "systemInformation": "Faisnéis Córais"
+        },
+        "offline": {
+            "warning": "Ní cheadaíonn an cluiche seo mód as líne go sainráite, mar sin is ar do phriacal féin atá sé seo a chur air. Seans nach n-oibreoidh an cluiche."
+        },
+        "open-config-file": "Oscail Comhad Cumraíochta",
+        "reset-heroic": "Athshocraigh Heroic",
+        "saves": {
+            "gog_linux_native_warning": "Ní thacaíonn cluichí dúchasacha Linux le gné Cloud Saves GOG. Bain úsáid as an leagan Windows ina ionad.",
+            "not_supported": "Ní thacaíonn an cluiche seo le Sábhálacha Néal.",
+            "warning": "Tá gné na sábhálacha scamall i mbéite, déan cúltaca de do shábháilte sula ndéantar sioncrónú (ar eagla go dtéann rud éigin mícheart)"
+        },
+        "systemInformation": {
+            "cometVersion": "Cóiméad: {{cometVersion}}",
+            "copyToClipboard": "Cóipeáil chuig an ghearrthaisce",
+            "cpu": "LAP:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "gpu": "GPU:",
+            "gpuDriver": "Tiománaí: {{driverVersion}}",
+            "gpuWithNumber": "GPU {{number}}:",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "legendaryVersion": "Finscéalach: {{legendaryVersion}}",
+            "memory": "Cuimhne:",
+            "memoryStats": "{{percentUsed}}% úsáidte ({{usedGib}} / {{totalGib}}",
+            "nileVersion": "Níl: {{nileVersion}}",
+            "os": "Córas Oibriúcháin:",
+            "osNameFlatpak": "{{osName}} (taobh istigh de Flatpak)",
+            "osVersion": "Leagan {{versionNumber}}",
+            "showDetailed": "Taispeáin sonraíochtaí mionsonraithe an chórais",
+            "software": "Bogearraí:",
+            "steamDeck": "Steam Deck {{model}}",
+            "systemModel": "Samhail Chórais:",
+            "systemSpecifications": "Sonraíochtaí an Chórais:"
+        }
+    },
+    "Settings": "Socruithe",
+    "store": "Epic Store",
+    "stores": "Siopaí",
+    "title": {
+        "allGames": "Gach Cluiche"
+    },
+    "toolbox": {
+        "settings": {
+            "wineprefix": "Roghnaigh Fillteán le haghaidh Réimíreanna Fíona nua"
+        }
+    },
+    "tooltip": {
+        "addpath": "Cuir Cosán Nua leis",
+        "removepath": "Bain an Cosán"
+    },
+    "tour": {
+        "back": "Ar ais",
+        "done": "Déanta",
+        "library": {
+            "addGame": "Cuir do chluichí nó d’aipeanna féin leis an leabharlann trí chliceáil anseo. Is féidir leo a bheith rud ar bith, fiú URLanna Brabhsálaí.",
+            "categories": "Eagraigh do chluichí i gcatagóirí chun rudaí a choinneáil slachtmhar.",
+            "end": {
+                "intro": "Sin é! Bain sult as do chluichí agus bíodh spraoi agat!",
+                "title": "Bain sult as do chluichí!"
+            },
+            "filters": "Scag do chluichí de réir siopa, ardáin, rogha agus tuilleadh ag baint úsáide as na roghanna seo.",
+            "gameCard": "Cliceáil ar chlé ar chárta an chluiche chun nascleanúint a dhéanamh chuig leathanach an chluiche agus chun sonraí a fheiceáil agus socruithe a choigeartú nó cliceáil ar dheis chun an roghchlár comhthéacs a oscailt.",
+            "refresh": "Athnuaigh do leabharlann chun cluichí nó nuashonruithe nua a sheiceáil.",
+            "search": "Bain úsáid as an mbarra cuardaigh chun do chluichí a chuardach.",
+            "sortInstalled": "Sórtáil cluichí de réir stádais suiteáilte.",
+            "sortOptions": "Cliceáil anseo chun cluichí a shórtáil in ord aibítre.",
+            "steamInstall": "Úsáid an cnaipe seo chun leagan Windows de Steam a shuiteáil agus do chluichí Windows a imirt ag baint úsáide as Crossover, Wine nó GPTK.",
+            "viewToggle": "Athraigh idir radharc eangaí agus liosta le do chluichí.",
+            "welcome": {
+                "intro": "Fáilte go dtí Leabharlann Laochra! Seo an áit ar féidir leat do chluichí go léir a fheiceáil i siopaí éagsúla.",
+                "intro2": "Mura bhfuil an leabharlann folamh, déan cinnte logáil isteach le do chuntais ag baint úsáide as Bainistigh cuntais ar an mbarra taoibh nó cuir do chluichí féin leis ag baint úsáide as an gcnaipe Cuir Cluiche Leis thuas.",
+                "title": "Fáilte go dtí Heroic!",
+                "title2": "Ag bainistiú na leabharlainne!"
+            }
+        },
+        "next": "Ar Aghaidh",
+        "sidebar": {
+            "accessibility": "Rochtain a fháil ar ghnéithe inrochtaineachta chun do thaithí a shaincheapadh.",
+            "accounts": "Bainistigh do chuntais siopa nasctha (Epic, GOG, Amazon), logáil amach nó logáil isteach iontu.",
+            "community": "Bí linn inár bpobal ar Discord agus tabhair tacaíocht do fhorbairt Heroic.",
+            "docs": "Léigh an doiciméadú le haghaidh cabhrach maidir le Heroic a úsáid.",
+            "downloads": "Rianaigh agus bainistigh d’íoslódálacha agus do shuiteálacha cluichí.",
+            "library": "Rochtain a fháil ar do leabharlann cluichí ó shiopaí éagsúla in aon áit amháin.",
+            "login": "Logáil isteach i do chuntais siopa cluichí chun rochtain a fháil ar do leabharlann.",
+            "quit": "Scoir an feidhmchlár go sábháilte.",
+            "settings": "Cumraigh socruithe Heroic, réamhshocruithe cluiche, seiceáil logaí agus tuilleadh.",
+            "stores": "Brabhsáil agus siopaigh cluichí i siopaí éagsúla lena n-áirítear Epic, GOG, agus Amazon.",
+            "version": "Seiceáil do leagan reatha de Heroic, cliceáil air chun an loga athruithe is déanaí a fheiceáil, agus rochtain a fháil ar an turas seo ón deilbhín cabhrach.",
+            "welcome": {
+                "intro": "Fáilte go Heroic! Tá na roghanna nascleanúna go léir chun an aip a iniúchadh sa bharra taoibh seo.",
+                "title": "Nascleanúint Barra Taobh"
+            },
+            "wine": "Bainistigh nó íoslódáil leagan nua de Wine/Proton/GPTK le haghaidh cluichí Windows a rith ar Linux nó macOS."
+        },
+        "skip": "Scipeáil",
+        "startTour": "Tosaigh an Turas"
+    },
+    "tray": {
+        "about": "Maidir",
+        "quit": "Scoir",
+        "reload": "Athlódáil",
+        "show": "Taispeáin"
+    },
+    "two_col_table": {
+        "save_hint": "Ní shábhálfar athruithe sa tábla seo go huathoibríoch. Cliceáil an cnaipe +"
+    },
+    "Update Available!": "Nuashonrú ar Fáil!",
+    "userselector": {
+        "cancel": "Cealaigh",
+        "discord": "Discord",
+        "logging_out": "Ag logáil amach",
+        "logout": "Logáil amach",
+        "logout_confirmation": "An bhfuil tú cinnte gur mian leat logáil amach?",
+        "manageaccounts": "Bainistigh Cuntais",
+        "quit": "Scoir",
+        "quitMessage": "An bhfuil tú cinnte gur mian leat éirí as?"
+    },
+    "webview": {
+        "controls": {
+            "back": "Téigh ar ais",
+            "forward": "Téigh ar aghaidh",
+            "openInBrowser": "Oscail sa bhrabhsálaí",
+            "reload": "Athlódáil an leathanach"
+        }
+    },
+    "window": {
+        "close": "Dún",
+        "maximize": "Uasmhéadaigh an fhuinneog",
+        "minimize": "Íoslaghdaigh an fhuinneog",
+        "restore": "Fuinneog athchóirithe"
+    },
+    "wine": {
+        "actions": "Gníomh",
+        "manager": {
+            "link": "Bainisteoir Wine",
+            "not-found": "Níor aimsíodh aon leaganacha de Wine. Cliceáil ar an deilbhín athnuachana le triail eile a bhaint as.",
+            "title": "Bainisteoir Wine",
+            "unzipping": "Ag dízipeáil"
+        },
+        "release": "Dáta Eisiúna",
+        "size": "Méid"
+    },
+    "wineExplanation": {
+        "proton-ge": "Is leagan Proton é GE-Proton a chruthaigh Glorious Eggroll. Tá sé ceaptha le húsáid in éineacht leis an lainseálaí umu (réamhshocraithe i Heroic).",
+        "wine-ge": "Is leagan de Wine é Wine-GE-Proton a chruthaigh Glorious Eggroll. Tá sé curtha i léig ar mhaithe le GE-Proton leis an lainseálaí umu."
+    },
+    "winetricks": {
+        "install": "Suiteáil",
+        "installed": "Comhpháirteanna suiteáilte:",
+        "installing": "Suiteáil ar siúl: {{component}}",
+        "loading": "Ag luchtú",
+        "loading-available": "Ag lódáil comhpháirteanna atá ar fáil ...",
+        "no-components": "Gan aon chomhpháirteanna ar fáil",
+        "nothingYet": "Níl aon rud suiteáilte ag Winetricks go fóill",
+        "openGUI": "Oscail Comhéadan Úsáideora Winetricks",
+        "search": "Cuardaigh clónna nó comhpháirteanna"
+    }
+}

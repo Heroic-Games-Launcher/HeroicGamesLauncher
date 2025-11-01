@@ -10,7 +10,8 @@
         "titles_always_visible": "Mostra sempre els títols a la biblioteca",
         "actions_font_family_default": "Tipus de lletra de les accions (per defecte, {{fontFamily}})",
         "content_font_family_default": "Tipus de lletra dels continguts (per defecte, {{fontFamily}})",
-        "disable_smooth_scrolling": "Desactiva el desplaçament suau (cal reiniciar)"
+        "disable_smooth_scrolling": "Desactiva el desplaçament suau (cal reiniciar)",
+        "disable_animations": "Desactiva les animacions de la interfície"
     },
     "add_game": "Afegeix un joc",
     "All": "Tot",
@@ -105,7 +106,8 @@
                 "message": "Hi ha una versió nova disponible.",
                 "message-finished": "Vols reiniciar l'Heroic ara?",
                 "title": "Llançador de jocs Heroic",
-                "title-finished": "L'actualització s'ha completat"
+                "title-finished": "L'actualització s'ha completat",
+                "detailNoAutoupdate": "El format del paquet no és compatible amb les actualitzacions automàtiques. Utilitza el gestor de paquets per a actualitzar-lo."
             }
         },
         "no": "NO",
@@ -366,7 +368,11 @@
         "msync": "L'Msync vol reduir la sobrecàrrega del wineserver en jocs intensius de CPU. Si s'habilita, pot millorar el rendiment en nuclis Linux compatibles.",
         "dxfpslimit": "Estableix un límit als FPS per als jocs que utilitzin DirectX (9-12)",
         "download_proton_steam": "En activar-ho, el GE-Proton es baixarà directament a la carpeta d'eines de compatibilitat del Steam en compte de la ruta predefinida de l'Heroic. S'utilitzarà la ruta del Steam definida al paràmetre «Ruta predefinida del Steam» de sobre.",
-        "advertiseAvxForRosetta": "Activa la compatibilitat amb el conjunt d'instruccions AVX en executar jocs de Windows mitjançant Rosetta als Mac amb Apple Silicon. Això podria ser un requisit per a alguns jocs, com ara el Death Stranding, que necessita compatibilitat amb AVX."
+        "advertiseAvxForRosetta": "Activa la compatibilitat amb el conjunt d'instruccions AVX en executar jocs de Windows mitjançant Rosetta als Mac amb Apple Silicon. Això podria ser un requisit per a alguns jocs, com ara el Death Stranding, que necessita compatibilitat amb AVX.",
+        "analytics": "Permet a l'Heroic recopilar dades d'ús 100% anònimes per a ajudar-nos a millorar l'aplicació. Cal que reinicieu per a aplicar-ho.",
+        "wine-hdr": "L'HDR millora els colors proporcionant punts de llum més brillants i contrastos més profunds. Perquè l'HDR funcioni, cal que tant el joc com la pantalla hi siguin compatibles.",
+        "wine-wayland": "El controlador experimental Wine-Wayland permet als jocs executar-se de manera nativa sota el protocol de visualització Wayland. Activar-ho podria trencar alguns jocs.",
+        "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics."
     },
     "info": {
         "heroic": {
@@ -749,7 +755,7 @@
             "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
             "enableForceGrabCursor": "Activa la captura forçada de cursor",
             "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic.",
-            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic."
+            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime {{runtimeVersion}} i reinicia l'Heroic."
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
@@ -776,7 +782,23 @@
             "confirmation": {
                 "title": "Estàs segur?"
             }
-        }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Estàs segur?",
+                "dont_show": "Mostra'ls",
+                "message": "Recomanem utilitzar versions personalitzades del Proton (GE-Proton, Proton-CachyOS, etc.) perquè les versions del Proton de Valve no ténen winetricks ni protofixes. Però les podeu utilitzar, si voleu.",
+                "show": "Ho entenc, mostra'ls"
+            },
+            "info_label": "S'han ignorat les versions de Proton de Valve",
+            "label": "Permet utilitzar les versions de Proton de Valve per a executar jocs",
+            "wine_selector_warning": "Les versions de Proton de Valve s'ignoren de manera predefinida, activeu-les a la configuració avançada global"
+        },
+        "analyticsOptIn": "Envia dades anònimes per a ajudar al desenvolupament de l'Heroic",
+        "hdr": "Activa l'HDR",
+        "no-tray-icon": "Amaga la icona de la safata del sistema (cal reiniciar)",
+        "wineWayland": "Activa el Wine-Wayland (Experimental) (Cal que la versió del Wine hi sigui compatible)",
+        "WoW64": "Activa el WoW64 (Experimental)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1068,6 +1090,16 @@
     },
     "analyticsModal": {
         "disable": "Desactiva",
-        "enable": "Activa"
+        "enable": "Activa",
+        "info": {
+            "pt1": "Per tal de millorar l'aplicació, l'Heroic recopila dades anonimitzades al 100 %.",
+            "pt2": "L'Heroic fa servir la plataforma de codi lliure Plausible Analytics per a obtenir informació bàsica: versió de l'aplicació, sistema operatiu, botigues connectades, i país.",
+            "pt3": "No recollirà mai cap informació personal, incloent-hi el nom d'usuari, adreça IP ni adreça electrònica.",
+            "pt4": "Aquestes dades s'utilitzen per a donar-nos informació sobre en què centrar-nos a continuació, a causa dels nostres limitats recursos i comentaris d'usuaris.",
+            "pt5": "Plausible Analytics compleix totalment amb RGPD, CCPA i PECR.",
+            "pt6": "Per transparència, pots veure les dades que recollim als registres de l'Heroic.",
+            "pt7": "Pots canviar aquest paràmetre en qualsevol moment a la Configuració de l'aplicació."
+        },
+        "title": "Envia analítiques anònimes"
     }
 }

@@ -173,7 +173,7 @@
         "playing": {
             "start": "Jogar Agora",
             "stop": "Jogando (Parar)",
-            "start_with_logs": "Jogar agora (com log)"
+            "start_with_logs": "Jogar agora (com logs)"
         },
         "saves": {
             "syncing": "Sincronizando Jogos Salvos"
@@ -226,7 +226,8 @@
     "setting": {
         "winecrossoverbottle": "Garrafa do CrossOver",
         "show-wine-settings": "Mostrar configurações wine",
-        "warn-use-shared-wine-config": "Use essa opções SÓ se você sabe o que está a fazer.<br/>Partilhar o mesmo prefixo para vários jogos pode gerar problemas se as dependências forem incompatíveis."
+        "warn-use-shared-wine-config": "Use essa opções SÓ se você sabe o que está a fazer.<br/>Partilhar o mesmo prefixo para vários jogos pode gerar problemas se as dependências forem incompatíveis.",
+        "use-shared-wine-config": "Usar prefixo Wine partilhado"
     },
     "sideload": {
         "field": {

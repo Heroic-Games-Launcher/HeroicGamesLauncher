@@ -684,6 +684,11 @@
             "confirmation": {
                 "title": "Weet je het zeker?"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Weet je het zeker?"
+            }
         }
     },
     "settings": {
