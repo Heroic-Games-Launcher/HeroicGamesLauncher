@@ -749,6 +749,11 @@
             "confirmation": {
                 "title": "Är du säker?"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Är du säker?"
+            }
         }
     },
     "settings": {
