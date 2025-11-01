@@ -4,13 +4,14 @@
         "all_tiles_in_color": "Exibir todas as capas de jogos como coloridas",
         "content_font_family_no_default": "Família de Fontes Content (Padrão: ",
         "fonts": "Fontes",
-        "title": "Accessibilidade",
+        "title": "Acessibilidade",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Desative o fechamento de caixas de diálogo ao clicar fora",
         "titles_always_visible": "Sempre exibir nomes dos jogos na biblioteca",
         "actions_font_family_default": "Ações de família de fontes (padrão: {{fontFamily}})",
         "content_font_family_default": "Conteúdo de família de fontes (padrão: {{fontFamily}})",
-        "disable_smooth_scrolling": "Desativar rolagem suave (O Heroic precisará ser reiniciado)"
+        "disable_smooth_scrolling": "Desativar rolagem suave (O Heroic precisará ser reiniciado)",
+        "disable_animations": "Desativar animações da interface"
     },
     "add_game": "Adicionar jogo",
     "All": "Todos",
@@ -105,7 +106,8 @@
                 "message": "Uma nova versão está disponível!",
                 "message-finished": "Deseja reiniciar o Heroic agora?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Atualização finalizada"
+                "title-finished": "Atualização finalizada",
+                "detailNoAutoupdate": "As atualizações automáticas não são suportadas para o seu formato de pacote. Por favor, utilize o seu gestor de pacotes para atualizar."
             }
         },
         "no": "NÃO",
@@ -369,7 +371,8 @@
         "download_proton_steam": "Quando ativado, o Proton-GE será baixado diretamente no diretório de camadas de compatibilidade da Steam, ao invés do diretório padrão do Heroic. Isso irá usar o diretório definido em 'Caminho padrão da Steam' acima.",
         "wine-hdr": "O HDR melhora as cores, fornecendo uma imagem mais brilhante e contrastes profundos. Para que o HDR funcione, a tela e o jogo precisam de suporte.",
         "wine-wayland": "O driver experimental Wine-Wayland permite que os jogos sejam executados nativamente com o protocolo de exibição Wayland. Ativar o mesmo pode quebrar alguns jogos.",
-        "analytics": "Habilitar coleta 100% anônima de dados para ajudar a melhorar o app. Precisa reiniciar o app para ter efeito."
+        "analytics": "Habilitar coleta 100% anônima de dados para ajudar a melhorar o app. Precisa reiniciar o app para ter efeito.",
+        "WoW64": "O modo Wine WoW64 permite que jogos Windows de 32 bits sejam executados em Wine de 64 bits. Ativar esta opção pode melhorar o desempenho, mas também poderá causar problemas em jogos de 32 bits mais antigos."
     },
     "info": {
         "heroic": {
@@ -771,7 +774,7 @@
         },
         "disableUMU": "Desabilitar umu",
         "custom_css": {
-            "warning": "Alerta: Isso é aplicado a todo o frontend. Isto significa que o estilo errado pode tornar o Heroic inutilizável. Se necessário, as configurações podem ser alteradas manualmente em `~/.config/heroic/config.json`. NÃO copie estilos de fontes que você não confie."
+            "warning": "Alerta: Isso é aplicado a todo o frontend. Isto significa que o estilo errado pode tornar o Heroic inutilizável. Se necessário, as configurações podem ser alteradas manualmente em `~/.config/heroic/config.json`. NÃO copie estilos de fontes que você não confia."
         },
         "download-proton-steam": "Baixar Proton-GE no diretório da Steam",
         "dxfpslimit": "Limitar o FPS em jogos DirectX",
@@ -790,7 +793,19 @@
             "info_label": "Versões não GE do Proton ignoradas"
         },
         "no-tray-icon": "Esconder ícone do indicador de aplicativo (Reinicialização necessária)",
-        "analyticsOptIn": "Enviar dados anônimos para ajudar o desenvolvimento do Heroic"
+        "analyticsOptIn": "Enviar dados anônimos para ajudar o desenvolvimento do Heroic",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Não os exibir",
+                "show": "Eu entendo, os exiba",
+                "title": "Tem certeza?",
+                "message": "Recomendamos que sejam utilizados garfos personalizadas do Proton (GE-Proton, Proton-CachyOS, etc.) com o Heroic, pois as versões do Proton da Valve não incluem wintricks e protofixes. Pode continuar a usá-los se quiser."
+            },
+            "label": "Permitir uso de compilações Proton da Valve para executar jogos",
+            "wine_selector_warning": "Versões do Proton são ignoradas por padrão, ative-as nas Configurações globais avançadas",
+            "info_label": "Versões do Proton da Valve ignoradas"
+        },
+        "WoW64": "Ativar WoW64 (Experimental)"
     },
     "settings": {
         "battlEyeRuntime": {
