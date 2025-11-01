@@ -226,7 +226,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOveri pudel",
         "warn-use-shared-wine-config": "Kasutage seda valikut ainult siis, kui teate, mida teete.<br/>Sama prefiksi jagamine mitme mängu puhul võib luua probleeme, kui pakid, millel need mängud sõltuvad, ei sobi kokku.",
-        "show-wine-settings": "Näita Wine'i seadeid"
+        "show-wine-settings": "Näita Wine'i seadeid",
+        "use-shared-wine-config": "Kasuta jagatud Wine'i prefiksi"
     },
     "sideload": {
         "field": {
