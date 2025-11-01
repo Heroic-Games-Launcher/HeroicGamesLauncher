@@ -888,8 +888,8 @@ export async function launch(
     ...getKnownFixesEnvVariables(appName, 'legendary')
   }
 
-  // We can get this env variable either from the game's settings or from known fixes
-  if (commandEnv['USE_FAKE_EPIC_EXE']) {
+  // Use the wrapper EXE to launch games.
+  if (existsSync(fakeEpicExePath) && commandEnv['USE_FAKE_EPIC_EXE'] !== '0') {
     if (isWindows) {
       commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeEpicExePath
     } else {
