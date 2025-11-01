@@ -10,7 +10,8 @@
         "titles_always_visible": "Vždy zobrazovat názvy v knihovně",
         "actions_font_family_default": "Rodina písem akcí (výchozí: {{fontFamily}})",
         "content_font_family_default": "Rodina písem obsahu (výchozí: {{fontFamily}})",
-        "disable_smooth_scrolling": "Zakázat plynulé posouvání (vyžaduje restart)"
+        "disable_smooth_scrolling": "Zakázat plynulé posouvání (vyžaduje restart)",
+        "disable_animations": "Zakázat animace uživatelského rozhraní"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -105,7 +106,8 @@
                 "message": "K dispozici je nová verze!",
                 "message-finished": "Chcete restartovat Heroic nyní?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Aktualizace dokončena"
+                "title-finished": "Aktualizace dokončena",
+                "detailNoAutoupdate": "Automatické aktualizace nejsou pro váš formát balíčku podporovány. K aktualizaci použijte správce balíčků."
             }
         },
         "no": "NE",
@@ -368,7 +370,9 @@
         "dxfpslimit": "Nastavení limitu snímkové frekvence pro DXVK hry",
         "advertiseAvxForRosetta": "Povoluje podporu instrukční sady AVX při spouštění her pro Windows prostřednictvím Rosetty na počítačích Apple Silicon Mac. To může být nutné u některých her, jako je Death Stranding, které podporu AVX vyžadují.",
         "wine-hdr": "HDR vylepšuje barvy tím, že poskytuje jasnější světla a hlubší kontrasty. Aby HDR fungovalo, musí jej podporovat jak displej, tak hra.",
-        "wine-wayland": "Experimentální ovladač Wine-Wayland umožňuje spouštět hry nativně pod zobrazovacím protokolem Wayland. Jeho zapnutí může způsobit nefunkčnost některých her."
+        "wine-wayland": "Experimentální ovladač Wine-Wayland umožňuje spouštět hry nativně pod zobrazovacím protokolem Wayland. Jeho zapnutí může způsobit nefunkčnost některých her.",
+        "analytics": "Umožňuje Heroic shromažďovat 100% anonymní údaje o používání, které poskytují pomoc při vylepšování aplikace. Aby se změna projevila, je nutné restartovat zařízení.",
+        "WoW64": "Režim Wine WoW64 umožňuje spouštět 32bitové hry pro Windows na 64bitovém Wine. Jeho zapnutí může zlepšit výkon, ale také může způsobit nefunkčnost starších 32bitových her."
     },
     "info": {
         "heroic": {
@@ -767,7 +771,7 @@
         },
         "disableUMU": "Zakázat umu",
         "custom_css": {
-            "warning": "Varování: toto nastavení platí pro celé rozhraní. To znamená, že špatný styl může způsobit, že Heroic bude kompletně nepoužitelný. Pokud je potřeba, nastavení lze ručně změnit v souboru `~/.config/heroic/config.json`. NEKOPÍRUJTE styly ze zdrojů, kterým nevěříte."
+            "warning": "Upozornění: toto se vztahuje na celý frontend. To znamená, že nesprávný styl může způsobit, že Heroic nebude použitelný. V případě potřeby lze nastavení změnit ručně v souboru `~/.config/heroic/config.json`. NEKOPÍRUJTE styly ze zdrojů, kterým nedůvěřujete."
         },
         "verboseLogs": {
             "description": "Povolit zobrazení protokolů"
@@ -788,7 +792,20 @@
             "wine_selector_warning": "Verze Protonu bez GE jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
             "info_label": "Verze bez GE Protonu ignorovány"
         },
-        "no-tray-icon": "Skrýt ikonu v systémové liště (vyžaduje restart)"
+        "no-tray-icon": "Skrýt ikonu v systémové liště (vyžaduje restart)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Neukazovat",
+                "show": "Rozumím, ukázat",
+                "title": "Opravdu?",
+                "message": "Doporučujeme používat vlastní verze Proton (GE-Proton, Proton-CachyOS atd.) s Heroic, protože verze Proton od Valve neobsahují winetricks a protofixes. Pokud chcete, můžete je i tak použít."
+            },
+            "label": "Povolit používání ne-GE Proton buildů pro spouštění her",
+            "wine_selector_warning": "Verze Protonu bez GE jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
+            "info_label": "Verze Valve Proton ignorovány"
+        },
+        "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
+        "WoW64": "Povolit WoW64 (experimentální)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1080,6 +1097,16 @@
     },
     "analyticsModal": {
         "disable": "Zakázat",
-        "enable": "Povolit"
+        "enable": "Povolit",
+        "info": {
+            "pt1": "Za účelem vylepšení aplikace Heroic shromažďuje 100% anonymní data.",
+            "pt2": "Heroic využívá open-source platformu Plausible Analytics ke shromažďování základních údajů: verze aplikace, operační systém, připojené obchody a země.",
+            "pt3": "Nikdy nebude shromažďovat žádné osobní údaje, včetně vašeho uživatelského jména, IP adresy nebo e-mailu.",
+            "pt4": "Tyto údaje nám pomáhají určit, na co se máme vzhledem k omezeným zdrojům a zpětné vazbě od uživatelů dále zaměřit.",
+            "pt5": "Plausible Analytics je plně v souladu s GDPR, CCPA a PECR.",
+            "pt6": "Z důvodu transparentnosti si můžete prohlédnout data, která shromažďujeme, v protokolech Heroic.",
+            "pt7": "Toto nastavení můžete kdykoli změnit v nastavení aplikace."
+        },
+        "title": "Odeslat anonymní statistiky"
     }
 }
