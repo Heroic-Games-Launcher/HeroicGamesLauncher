@@ -667,6 +667,11 @@
             "confirmation": {
                 "title": "Είστε σίγουροι;"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Είστε σίγουροι;"
+            }
         }
     },
     "settings": {
