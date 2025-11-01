@@ -741,6 +741,11 @@
             "confirmation": {
                 "title": "Ste si istý?"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Ste si istý?"
+            }
         }
     },
     "settings": {
