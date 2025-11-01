@@ -785,7 +785,16 @@
             "description": "Activar rexistros detallados"
         },
         "wineWayland": "Activar Wine-Wayland (Experimental) (A versión de Wine debe ser compatible)",
-        "analyticsOptIn": "Enviar información anónima para axudar o desenvolvemento de Heroic"
+        "analyticsOptIn": "Enviar información anónima para axudar o desenvolvemento de Heroic",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Non amosalos",
+                "show": "Entendo, ensínaos",
+                "title": "Estás seguro/a?"
+            },
+            "label": "Permitir usar versións de Proton que non sexan de GE para executar xogos",
+            "wine_selector_warning": "As versións de Proton que non sexan de GE son ignoradas por defecto, podes activalas na configuración avanzada global"
+        }
     },
     "settings": {
         "battlEyeRuntime": {
