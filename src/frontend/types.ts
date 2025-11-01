@@ -18,7 +18,13 @@ import {
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Category =
+  | 'all'
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'zoom'
 
 export interface ContextType {
   error: boolean
@@ -81,6 +87,12 @@ export interface ContextType {
     username?: string
     getLoginData: () => Promise<NileLoginData>
     login: (data: NileRegisterData) => Promise<string>
+    logout: () => Promise<void>
+  }
+  zoom: {
+    library: GameInfo[]
+    username?: string
+    login: (url: string) => Promise<string>
     logout: () => Promise<void>
   }
   installingEpicGame: boolean
@@ -197,6 +209,7 @@ export interface StoresFilters {
   gog: boolean
   nile: boolean
   sideload: boolean
+  zoom: boolean
 }
 
 export interface PlatformsFilters {
