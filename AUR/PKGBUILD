@@ -1,0 +1,23 @@
+# Maintainer: flaviofearn <flavioislima@gmail.com>
+
+pkgname=heroic-games-launcher-bin
+pkgver=
+pkgrel=4
+pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
+arch=('x86_64')
+url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/"
+license=('GPL-3.0-only')
+_filename=Heroic-${pkgver}-linux-x64.pacman
+source=("${url}releases/download/v${pkgver}/${_filename}")
+noextract=("${_filename}")
+sha256sums=
+options=(!strip)
+depends=(which)
+provides=(heroic-games-launcher)
+conflicts=(heroic-games-launcher)
+
+package() {
+  tar -xJv -C "$pkgdir" -f "$srcdir/$_filename" usr opt
+  mkdir -p "$pkgdir/usr/bin"
+  ln -sf "/opt/Heroic/heroic" "$pkgdir/usr/bin/heroic"
+}
