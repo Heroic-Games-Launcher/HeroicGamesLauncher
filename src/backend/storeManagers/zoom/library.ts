@@ -18,13 +18,16 @@ import {
   logWarning
 } from 'backend/logger'
 import { getFileSize, parseSize } from '../../utils'
+import CacheStore from '../../cache'
 import {
   libraryStore,
   installedGamesStore,
   installInfoStore
 } from './electronStores'
 import { isOnline } from '../../online_monitor'
-import { cachePath, apiUrl } from './constants'
+import { apiUrl } from './constants'
+
+const libraryCache = new CacheStore('zoom-library')
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
@@ -33,6 +36,7 @@ export async function initZoomLibraryManager() {
 }
 
 export async function refresh(): Promise<ExecResult> {
+  await libraryCache.clear()
   refreshInstalled()
   if (!(await ZoomUser.isLoggedIn())) {
     return { stdout: '', stderr: '' }
@@ -93,15 +97,10 @@ export async function refresh(): Promise<ExecResult> {
 }
 
 async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
-  if (existsSync(cachePath)) {
+  const cachedGames = (await libraryCache.get('library')) as ZoomGameInfo[]
+  if (cachedGames) {
     logDebug('Returning cached Zoom library', LogPrefix.Zoom)
-    try {
-      const cachedData = readFileSync(cachePath, { encoding: 'utf-8' })
-      return JSON.parse(cachedData)
-    } catch (error) {
-      logError(['Error reading cached Zoom library:', error], LogPrefix.Zoom)
-      // Fall through to fetch from API if cache is corrupted
-    }
+    return cachedGames
   }
 
   const url = `${apiUrl}/li/games`
@@ -120,12 +119,7 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
       allGames.push(...nextResponse.games)
     }
 
-    try {
-      writeFileSync(cachePath, JSON.stringify(allGames), { encoding: 'utf-8' })
-    } catch (error) {
-      logError(['Error writing Zoom library cache:', error], LogPrefix.Zoom)
-    }
-
+    await libraryCache.set('library', allGames)
     return allGames
   } catch (error) {
     logError(['Error fetching Zoom library:', error], LogPrefix.Zoom)
