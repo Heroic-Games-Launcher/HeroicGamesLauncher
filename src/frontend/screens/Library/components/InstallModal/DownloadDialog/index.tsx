@@ -349,14 +349,17 @@ export default function DownloadDialog({
         ) {
           return
         }
-        setDlcsToInstall(
-          (gameInstallInfo &&
-            'game' in gameInstallInfo &&
-            (gameInstallInfo?.game.owned_dlc || []).map(
-              (dlc) => dlc.app_name
-            )) ||
-            []
-        )
+        const dlcs: string[] = []
+        if (
+          gameInstallInfo &&
+          'game' in gameInstallInfo &&
+          gameInstallInfo.game.owned_dlc
+        ) {
+          gameInstallInfo.game.owned_dlc.forEach((dlc) =>
+            dlcs.push(dlc.app_name)
+          )
+        }
+        setDlcsToInstall(dlcs)
         if (gameInstallInfo && gameInstallInfo.manifest) {
           setDiskSize(gameInstallInfo.manifest?.disk_size ?? 0)
         }
