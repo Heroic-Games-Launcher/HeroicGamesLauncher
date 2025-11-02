@@ -188,7 +188,7 @@ export {
   downloadManagerStore,
   nileLibraryStore,
   nileConfigStore,
-  zoomLibraryStore, // Exported zoomLibraryStore
-  zoomInstalledGamesStore, // Exported zoomInstalledGamesStore
-  zoomConfigStore // Exported zoomConfigStore
+  zoomLibraryStore,
+  zoomInstalledGamesStore,
+  zoomConfigStore
 }
