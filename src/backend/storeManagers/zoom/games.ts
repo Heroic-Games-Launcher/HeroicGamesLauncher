@@ -58,7 +58,7 @@ import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import {
   getInstallers,
   getGameInfo as getZoomLibraryGameInfo,
-  refreshInstalled,
+  refresh,
   updateGameInLibrary
 } from './library'
 
@@ -508,7 +508,7 @@ export async function install(
   const array = installedGamesStore.get('installed', [])
   array.push(installedData)
   installedGamesStore.set('installed', array)
-  refreshInstalled()
+  refresh()
   const libraryGame = getGameInfo(appName)
   if (libraryGame) {
     libraryGame.is_installed = true
@@ -520,7 +520,6 @@ export async function install(
         .get('games', [])
         .map((g) => (g.app_name === appName ? libraryGame : g))
     )
-    sendFrontendMessage('pushGameToLibrary', libraryGame)
   }
 
   logInfo(`Installation of ${appName} completed.`, LogPrefix.Zoom)
@@ -795,6 +794,7 @@ export async function uninstall({
     rmSync(object.install_path, { recursive: true })
   }
   installedGamesStore.set('installed', array)
+  refresh()
   const gameInfo = getGameInfo(appName)
   gameInfo.is_installed = false
   gameInfo.install = { is_dlc: false }
@@ -823,6 +823,7 @@ export async function forceUninstall(appName: string): Promise<void> {
   const installed = installedGamesStore.get('installed', [])
   const newInstalled = installed.filter((g) => g.appName !== appName)
   installedGamesStore.set('installed', newInstalled)
+  refresh()
   const gameInfo = getGameInfo(appName)
   gameInfo.is_installed = false
   gameInfo.install = { is_dlc: false }

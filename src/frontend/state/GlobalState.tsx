@@ -660,9 +660,11 @@ class GlobalState extends PureComponent<Props> {
       gogLibrary = this.loadGOGLibrary()
     }
 
-    if (!zoom.library.length) {
+    let zoomLibrary = this.loadZoomLibrary()
+    if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
       window.api.logInfo('No cache found, getting data from zoom...')
       await window.api.refreshLibrary('zoom')
+      zoomLibrary = this.loadZoomLibrary()
     }
 
     let amazonLibrary = nileLibraryStore.get('library', [])
@@ -682,6 +684,10 @@ class GlobalState extends PureComponent<Props> {
       gog: {
         library: gogLibrary,
         username: gog.username
+      },
+      zoom: {
+        library: zoomLibrary,
+        username: zoom.username
       },
       amazon: {
         library: amazonLibrary,
