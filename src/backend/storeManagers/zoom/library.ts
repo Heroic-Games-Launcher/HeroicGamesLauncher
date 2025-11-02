@@ -27,7 +27,7 @@ import {
 import { isOnline } from '../../online_monitor'
 import { apiUrl } from './constants'
 
-const libraryCache = new CacheStore('zoom-library')
+const libraryCache = new CacheStore<ZoomGameInfo[]>('zoom-library')
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
@@ -97,7 +97,7 @@ export async function refresh(): Promise<ExecResult> {
 }
 
 async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
-  const cachedGames = (await libraryCache.get('library')) as ZoomGameInfo[]
+  const cachedGames = await libraryCache.get('library')
   if (cachedGames) {
     logDebug('Returning cached Zoom library', LogPrefix.Zoom)
     return cachedGames
