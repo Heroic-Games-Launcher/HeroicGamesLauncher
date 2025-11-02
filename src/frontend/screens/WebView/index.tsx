@@ -321,7 +321,7 @@ export default function WebView() {
     } else if (startUrl.match(/gaming\.amazon\.com/) && !amazon.user_id) {
       setShowLoginWarningFor('amazon')
     } else if (startUrl.match(/zoom-platform\.com/) && !zoom.username) {
-      //setShowLoginWarningFor('zoom') // No sure if this is necessary
+      setShowLoginWarningFor('zoom')
     } else {
       setShowLoginWarningFor(null)
     }

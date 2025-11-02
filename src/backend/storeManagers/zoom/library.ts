@@ -8,7 +8,6 @@ import {
   ZoomFilesResponse,
   ZoomInstallInfo
 } from 'common/types/zoom'
-import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 
 import {
   logDebug,
@@ -36,7 +35,7 @@ export async function initZoomLibraryManager() {
 }
 
 export async function refresh(): Promise<ExecResult> {
-  await libraryCache.clear()
+  libraryCache.clear()
   refreshInstalled()
   if (!(await ZoomUser.isLoggedIn())) {
     return { stdout: '', stderr: '' }
@@ -97,7 +96,7 @@ export async function refresh(): Promise<ExecResult> {
 }
 
 async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
-  const cachedGames = await libraryCache.get('library')
+  const cachedGames = libraryCache.get('library')
   if (cachedGames) {
     logDebug('Returning cached Zoom library', LogPrefix.Zoom)
     return cachedGames
@@ -119,7 +118,7 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
       allGames.push(...nextResponse.games)
     }
 
-    await libraryCache.set('library', allGames)
+    libraryCache.set('library', allGames)
     return allGames
   } catch (error) {
     logError(['Error fetching Zoom library:', error], LogPrefix.Zoom)
