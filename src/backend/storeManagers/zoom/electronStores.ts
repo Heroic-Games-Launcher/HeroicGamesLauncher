@@ -19,23 +19,9 @@ const libraryStore = new CacheStore<GameInfo[], 'games'>('zoom_library', null)
 
 const installInfoStore = new CacheStore<ZoomInstallInfo>('zoom_install_info')
 
-// No direct equivalent for privateBranchesStore in Zoom based on the Python example
-// const privateBranchesStore = new TypeCheckedStoreBackend('zoomPrivateBranches', {
-//   cwd: 'zoom_store',
-//   name: 'privateBranches',
-//   clearInvalidConfig: true
-// })
-
-// No direct equivalent for playtimeSyncQueue in Zoom based on the Python example
-// const playtimeSyncQueue = new CacheStore<Array<ZoomSessionSyncQueueItem>>(
-//   'zoom_playtime_sync_queue'
-// )
-
 export {
   configStore,
   installedGamesStore,
   libraryStore,
   installInfoStore
-  // privateBranchesStore,
-  // playtimeSyncQueue
 }

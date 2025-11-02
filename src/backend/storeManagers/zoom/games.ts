@@ -839,15 +839,9 @@ export async function stop(
 }
 
 export async function isGameAvailable(appName: string): Promise<boolean> {
-  return new Promise((resolve) => {
-    const info = getGameInfo(appName)
-    if (info && info.is_installed) {
-      if (info.install.install_path && existsSync(info.install.install_path)) {
-        resolve(true)
-      } else {
-        resolve(false)
-      }
-    }
-    resolve(false)
-  })
+  const info = getGameInfo(appName)
+  if (!info || !info.is_installed || !info.install.install_path) {
+    return false
+  }
+  return existsSync(info.install.install_path)
 }

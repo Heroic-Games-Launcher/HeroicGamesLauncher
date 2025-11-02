@@ -154,12 +154,11 @@ class GlobalState extends PureComponent<Props> {
   loadZoomLibrary = (): Array<GameInfo> => {
     const games = zoomLibraryStore.get('games', [])
     const installedGames = zoomInstalledGamesStore.get('installed', [])
-    for (const igame in games) {
-      for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
-        }
+    for (const game of games) {
+      const igame = installedGames.find((igame) => igame.appName === game.app_name)
+      if (igame) {
+        game.install = igame
+        game.is_installed = true
       }
     }
     return games
@@ -180,9 +179,8 @@ class GlobalState extends PureComponent<Props> {
       username: nileConfigStore.get_nodefault('userData.name')
     },
     zoom: {
-      // Initialized Zoom state
       library: this.loadZoomLibrary(),
-      username: zoomConfigStore.get_nodefault('username') // Assuming 'username' is stored in zoomConfigStore
+      username: zoomConfigStore.get_nodefault('username')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -662,7 +660,6 @@ class GlobalState extends PureComponent<Props> {
       gogLibrary = this.loadGOGLibrary()
     }
 
-    window.api.logInfo(zoom.library.length)
     if (!zoom.library.length) {
       window.api.logInfo('No cache found, getting data from zoom...')
       await window.api.refreshLibrary('zoom')
@@ -932,7 +929,7 @@ class GlobalState extends PureComponent<Props> {
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
-    const zoomUser = zoomConfigStore.has('isLoggedIn') // Check if Zoom is logged in
+    const zoomUser = zoomConfigStore.has('isLoggedIn')
 
     if (legendaryUser) {
       await window.api.getUserInfo()
@@ -943,7 +940,6 @@ class GlobalState extends PureComponent<Props> {
     }
 
     if (zoomUser) {
-      // Get Zoom user details
       await window.api.getZoomUserInfo()
     }
 
@@ -953,14 +949,13 @@ class GlobalState extends PureComponent<Props> {
     }
 
     if (legendaryUser || gogUser || amazonUser || zoomUser) {
-      // Include zoomUser in refresh condition
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:
           epic.library.length !== 0 ||
           gog.library.length !== 0 ||
           amazon.library.length !== 0 ||
-          zoom.library.length !== 0 // Include Zoom library length
+          zoom.library.length !== 0
       })
     }
 

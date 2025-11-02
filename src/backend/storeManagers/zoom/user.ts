@@ -37,9 +37,6 @@ export class ZoomUser {
   }
 
   public static async getUserDetails() {
-    // Zoom API doesn't seem to have a direct "user details" endpoint like GOG.
-    // The Python example only checks if the user is logged in.
-    // We can use the isConnected method to verify authentication.
     if (!isOnline()) {
       logError(
         'Unable to get login information, Heroic offline',
@@ -99,7 +96,7 @@ export class ZoomUser {
 
   public static async isLoggedIn(): Promise<boolean> {
     const tokenExists = existsSync(tokenPath)
-    const isLoggedInStore = configStore.get_nodefault('isLoggedIn') || false
+    const isLoggedInStore = configStore.get('isLoggedIn', false)
 
     if (!tokenExists) {
       if (isLoggedInStore) {
@@ -110,7 +107,7 @@ export class ZoomUser {
 
     if (!isOnline()) {
       logWarning('App offline, cannot verify Zoom login status', LogPrefix.Zoom)
-      return isLoggedInStore // Return current store status if offline
+      return isLoggedInStore
     }
 
     try {
@@ -123,7 +120,7 @@ export class ZoomUser {
     } catch (error) {
       logError(['Zoom API login verification failed:', error], LogPrefix.Zoom)
       configStore.set('isLoggedIn', false)
-      this.logout() // Clear token if API verification fails
+      this.logout()
       return false
     }
   }
