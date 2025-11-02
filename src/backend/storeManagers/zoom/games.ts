@@ -579,66 +579,67 @@ export async function launch(
     return false
   }
 
+  const {
+    success: launchPrepSuccess,
+    failureReason: launchPrepFailReason,
+    mangoHudCommand,
+    gameScopeCommand,
+    gameModeBin,
+    steamRuntime
+  } = await prepareLaunch(
+    gameSettings,
+    logWriter,
+    gameInfo,
+    isNative(appName)
+  )
+  if (!launchPrepSuccess) {
+    logWriter.logError(['Launch aborted:', launchPrepFailReason])
+    showDialogBoxModalAuto({
+      title: t('box.error.launchAborted', 'Launch aborted'),
+      message: launchPrepFailReason!,
+      type: 'ERROR'
+    })
+    return false
+  }
+
+  const commandEnv = {
+    ...process.env,
+    ...setupWrapperEnvVars({ appName, appRunner: 'zoom' }),
+    ...(isWindows
+      ? {}
+      : setupEnvVars(gameSettings, gameInfo.install.install_path)),
+    ...getKnownFixesEnvVariables(appName, 'zoom')
+  }
+
+  const wrappers = setupWrappers(
+    gameSettings,
+    mangoHudCommand,
+    gameModeBin,
+    gameScopeCommand,
+    steamRuntime?.length ? [...steamRuntime] : undefined
+  )
+
+  const launchArgumentsArgs =
+    launchArguments &&
+    (launchArguments.type === undefined || launchArguments.type === 'basic')
+      ? launchArguments.parameters
+      : ''
+
+  const commandParts = [
+    ...shlex.split(launchArgumentsArgs),
+    ...shlex.split(gameSettings.launcherArgs ?? ''),
+    ...args
+  ]
+
+  if (gameInfo.install.isDosbox && gameInfo.install.dosboxConf) {
+    gameInfo.install.dosboxConf.forEach((conf) => {
+      commandParts.push('-conf', conf)
+    })
+  }
+
+  sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
+
   if (isNative(appName)) {
-    const {
-      success: launchPrepSuccess,
-      failureReason: launchPrepFailReason,
-      mangoHudCommand,
-      gameScopeCommand,
-      gameModeBin,
-      steamRuntime
-    } = await prepareLaunch(
-      gameSettings,
-      logWriter,
-      gameInfo,
-      isNative(appName)
-    )
-    if (!launchPrepSuccess) {
-      logWriter.logError(['Launch aborted:', launchPrepFailReason])
-      showDialogBoxModalAuto({
-        title: t('box.error.launchAborted', 'Launch aborted'),
-        message: launchPrepFailReason!,
-        type: 'ERROR'
-      })
-      return false
-    }
-
-    const commandEnv = {
-      ...process.env,
-      ...setupWrapperEnvVars({ appName, appRunner: 'zoom' }),
-      ...(isWindows
-        ? {}
-        : setupEnvVars(gameSettings, gameInfo.install.install_path))
-    }
-
-    const wrappers = setupWrappers(
-      gameSettings,
-      mangoHudCommand,
-      gameModeBin,
-      gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
-    )
-
-    const launchArgumentsArgs =
-      launchArguments &&
-      (launchArguments.type === undefined || launchArguments.type === 'basic')
-        ? launchArguments.parameters
-        : ''
-
-    const commandParts = [
-      ...shlex.split(launchArgumentsArgs),
-      ...shlex.split(gameSettings.launcherArgs ?? ''),
-      ...args
-    ]
-
-    if (gameInfo.install.isDosbox && gameInfo.install.dosboxConf) {
-      gameInfo.install.dosboxConf.forEach((conf) => {
-        commandParts.push('-conf', conf)
-      })
-    }
-
-    sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
-
     const isNativeDosbox = isNative(appName) && gameInfo.install.isDosbox
     const { error, abort } = await callRunner(
       commandParts,
@@ -669,59 +670,20 @@ export async function launch(
     return !error
   } else {
     const {
-      success: launchPrepSuccess,
-      failureReason: launchPrepFailReason,
+      success: wineLaunchPrepSuccess,
+      failureReason: wineLaunchPrepFailReason,
       envVars
     } = await prepareWineLaunch('zoom', appName, logWriter)
 
-    if (!launchPrepSuccess) {
-      logWriter.logError(['Launch aborted:', launchPrepFailReason])
+    if (!wineLaunchPrepSuccess) {
+      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
       showDialogBoxModalAuto({
         title: t('box.error.launchAborted', 'Launch aborted'),
-        message: launchPrepFailReason!,
+        message: wineLaunchPrepFailReason!,
         type: 'ERROR'
       })
       return false
     }
-
-    const { mangoHudCommand, gameScopeCommand, gameModeBin, steamRuntime } =
-      await prepareLaunch(gameSettings, logWriter, gameInfo, false)
-
-    const commandEnv = {
-      ...process.env,
-      ...envVars,
-      ...setupWrapperEnvVars({ appName, appRunner: 'zoom' }),
-      ...setupEnvVars(gameSettings, gameInfo.install.install_path),
-      ...getKnownFixesEnvVariables(appName, 'zoom')
-    }
-
-    const wrappers = setupWrappers(
-      gameSettings,
-      mangoHudCommand,
-      gameModeBin,
-      gameScopeCommand,
-      steamRuntime?.length ? [...steamRuntime] : undefined
-    )
-
-    const launchArgumentsArgs =
-      launchArguments &&
-      (launchArguments.type === undefined || launchArguments.type === 'basic')
-        ? launchArguments.parameters
-        : ''
-
-    const commandParts = [
-      ...shlex.split(launchArgumentsArgs),
-      ...shlex.split(gameSettings.launcherArgs ?? ''),
-      ...args
-    ]
-
-    if (gameInfo.install.isDosbox && gameInfo.install.dosboxConf) {
-      gameInfo.install.dosboxConf.forEach((conf) => {
-        commandParts.push('-conf', conf)
-      })
-    }
-
-    sendGameStatusUpdate({ appName, runner: 'zoom', status: 'playing' })
 
     const result = await runWineCommand({
       commandParts: [gameInfo.install.executable, ...commandParts],
@@ -730,7 +692,7 @@ export async function launch(
       installFolderName: gameInfo.folder_name,
       startFolder: gameInfo.install.install_path,
       options: {
-        env: commandEnv,
+        env: { ...commandEnv, ...envVars },
         wrappers,
         logMessagePrefix: `Launching ${gameInfo.title}`,
         logWriters: [logWriter],
