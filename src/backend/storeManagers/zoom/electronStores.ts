@@ -19,9 +19,4 @@ const libraryStore = new CacheStore<GameInfo[], 'games'>('zoom_library', null)
 
 const installInfoStore = new CacheStore<ZoomInstallInfo>('zoom_install_info')
 
-export {
-  configStore,
-  installedGamesStore,
-  libraryStore,
-  installInfoStore
-}
+export { configStore, installedGamesStore, libraryStore, installInfoStore }

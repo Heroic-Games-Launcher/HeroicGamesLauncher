@@ -155,7 +155,9 @@ class GlobalState extends PureComponent<Props> {
     const games = zoomLibraryStore.get('games', [])
     const installedGames = zoomInstalledGamesStore.get('installed', [])
     for (const game of games) {
-      const igame = installedGames.find((igame) => igame.appName === game.app_name)
+      const igame = installedGames.find(
+        (igame) => igame.appName === game.app_name
+      )
       if (igame) {
         game.install = igame
         game.is_installed = true
