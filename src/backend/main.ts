@@ -790,7 +790,13 @@ addHandler('getAmazonLoginData', NileUser.getLoginData)
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
 addHandler('logoutAmazon', NileUser.logout)
 
-addHandler('authZoom', async (event, url) => ZoomUser.login(url))
+addHandler('authZoom', async (event, url) => {
+  const login = await ZoomUser.login(url)
+  if (login.status === 'done') {
+    await ZoomUser.getUserDetails()
+  }
+  return login
+})
 addListener('logoutZoom', ZoomUser.logout)
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 

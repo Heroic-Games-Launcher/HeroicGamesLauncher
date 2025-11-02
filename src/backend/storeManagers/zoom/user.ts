@@ -50,9 +50,9 @@ export class ZoomUser {
       return
     }
     try {
-      await this.makeRequest(`${apiUrl}/li/loggedin`)
+      const response = await this.makeRequest(`${apiUrl}/li/loggedin`)
       logInfo('User is authenticated with Zoom', LogPrefix.Zoom)
-      const username = 'Zoom User' // Placeholder for now
+      const username = response.name
       configStore.set('username', username)
       return { username }
     } catch (error) {

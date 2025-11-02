@@ -602,10 +602,11 @@ class GlobalState extends PureComponent<Props> {
     const response = await window.api.authZoom(url)
 
     if (response.status === 'done') {
+      const userInfo = await window.api.getZoomUserInfo()
       this.setState({
         zoom: {
           library: [],
-          username: 'Zoom User'
+          username: userInfo?.username
         }
       })
 
