@@ -586,12 +586,7 @@ export async function launch(
     gameScopeCommand,
     gameModeBin,
     steamRuntime
-  } = await prepareLaunch(
-    gameSettings,
-    logWriter,
-    gameInfo,
-    isNative(appName)
-  )
+  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
     logWriter.logError(['Launch aborted:', launchPrepFailReason])
     showDialogBoxModalAuto({
