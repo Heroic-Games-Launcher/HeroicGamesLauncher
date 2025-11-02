@@ -10,8 +10,8 @@ import {
 import { join, relative, dirname, basename } from 'node:path'
 import * as fs from 'fs'
 import axios, { AxiosProgressEvent } from 'axios'
-import { createWriteStream } from 'node:fs' // Use node:fs for createWriteStream
-import { pipeline } from 'node:stream/promises' // Use node:stream/promises for pipeline
+import { createWriteStream } from 'node:fs'
+import { pipeline } from 'node:stream/promises'
 import {
   ExtraInfo,
   GameInfo,
@@ -363,7 +363,7 @@ export async function install(
       wait: true,
       options: {
         logMessagePrefix: `Installing ${appName}`,
-        logWriters: [await createGameLogWriter(appName, 'zoom')],
+        logWriters: [await createGameLogWriter(appName, 'zoom', 'install')],
         abortId: appName
       }
     })
