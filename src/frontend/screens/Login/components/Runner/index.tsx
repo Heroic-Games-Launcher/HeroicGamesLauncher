@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import './index.css'
 
 interface RunnerProps {
-  loginUrl?: string
-  loginAction?: (url: string) => void
+  loginUrl: string
   class: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any
@@ -39,11 +38,7 @@ export default function Runner(props: RunnerProps) {
       return
     }
 
-    if (props.loginAction) {
-      props.loginAction('')
-    } else if (props.loginUrl) {
-      navigate(props.loginUrl)
-    }
+    navigate(props.loginUrl)
   }
 
   function handleAltLogin() {
