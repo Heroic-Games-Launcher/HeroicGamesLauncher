@@ -483,7 +483,14 @@ export async function install(
 
   if (!finalExecutable) {
     logError(['Could not find executable for', appName], LogPrefix.Zoom)
-    // Don't fail the installation, let the user set it manually
+    showDialogBoxModalAuto({
+      title: t('box.error.executableNotFound', 'Executable not found'),
+      message: t(
+        'box.error.executableNotFoundMessage',
+        'Heroic could not find the executable for this game. Please set it manually in the game settings.'
+      ),
+      type: 'ERROR'
+    })
   }
 
   const installedData: InstalledInfo = {
