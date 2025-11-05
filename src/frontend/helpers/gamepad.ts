@@ -381,7 +381,7 @@ export const initGamepad = () => {
     if (!dropdown) return false
 
     const closeButton =
-      dropdown.querySelector<HTMLButtonElement>('.selectStyle')
+      dropdown.querySelector<HTMLButtonElement>('.dropdownButton')
     if (!closeButton) return false
 
     // close selection, return focus to button
