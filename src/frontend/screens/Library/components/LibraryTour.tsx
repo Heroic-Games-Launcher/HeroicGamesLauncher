@@ -10,9 +10,7 @@ const LibraryTour: React.FC = () => {
   const { t } = useTranslation()
   const { isTourActive } = useTour()
   // Import context to check if there are any games in the library
-  const { epic, gog, amazon, sideloadedLibrary, platform } =
-    useContext(ContextProvider)
-  const isMac = platform === 'darwin'
+  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
 
   // Check if there are any games in the library
   const hasGames = Boolean(
@@ -118,19 +116,6 @@ const LibraryTour: React.FC = () => {
     }
   ]
 
-  // Steam installation step only for macOS
-  const macSteps: TourStep[] = isMac
-    ? [
-        {
-          element: '[data-tour="install-steam-button"]',
-          intro: t(
-            'tour.library.steamInstall',
-            'Use this button to install the Windows version of Steam and play your Windows games using Crossover, Wine or GPTK.'
-          )
-        }
-      ]
-    : []
-
   // Final step
   const finalStep: TourStep[] = [
     {
@@ -143,13 +128,7 @@ const LibraryTour: React.FC = () => {
   ]
 
   // Combine all steps
-  const steps = [
-    ...introSteps,
-    ...gameCardStep,
-    ...uiSteps,
-    ...macSteps,
-    ...finalStep
-  ]
+  const steps = [...introSteps, ...gameCardStep, ...uiSteps, ...finalStep]
 
   return (
     <Tour

@@ -69,10 +69,10 @@ export function TableInput({
     if (
       // if there's a connector, try to split the key
       connector &&
-      newVarValue.includes(connector) &&
+      newVarName.includes(connector) &&
       !newVarValue
     ) {
-      const [key, value] = newVarValue.split(connector)
+      const [key, value] = newVarName.split(connector)
       setNewVarName(key)
       setNewVarValue(value)
     } else {

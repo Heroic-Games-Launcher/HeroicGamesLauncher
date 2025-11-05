@@ -28,7 +28,7 @@ import 'source-map-support/register'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
-import { DXVK, SteamWindows, Winetricks } from './tools'
+import { DXVK, Winetricks } from './tools'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
@@ -1339,10 +1339,6 @@ addListener('changeGameVersionPinnedStatus', (e, appName, runner, status) => {
 
 addHandler('getKnownFixes', (e, appName, runner) =>
   readKnownFixes(appName, runner)
-)
-
-addHandler('installSteamWindows', async (e, path) =>
-  SteamWindows.installSteam(path)
 )
 
 addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
