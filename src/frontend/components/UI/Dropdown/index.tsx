@@ -26,14 +26,12 @@ export default function Dropdown({
             window.api.gamepadAction({ action: 'tab' })
           }
 
-          // we'll focus both on click
           setIsExpanded(true)
         }}
       >
         {title}
       </button>
       <div
-        // comment the line below if you want to test inner container CSS
         onBlur={() => setIsExpanded(false)}
         onFocus={() => setIsExpanded(true)}
         className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}

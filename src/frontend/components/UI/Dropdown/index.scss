@@ -5,10 +5,7 @@
     padding-inline: 2rem;
   }
 
-  &:focus-within,
-  &:hover,
-  &:has(.dropdown:hover),
-  &:has(.button:active) {
+  &:focus-within {
     .expanded {
       pointer-events: all;
       opacity: 1;
@@ -53,6 +50,7 @@
           color: var(--accent);
         }
       }
+
       &:hover .only,
       &:focus-within .only {
         opacity: 1;
