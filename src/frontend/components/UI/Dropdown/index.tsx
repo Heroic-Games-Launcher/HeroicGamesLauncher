@@ -34,7 +34,7 @@ export default function Dropdown({
       </button>
       <div
         // comment the line below if you want to test inner container CSS
-        // onBlur={() => setIsExpanded(false)}
+        onBlur={() => setIsExpanded(false)}
         onFocus={() => setIsExpanded(true)}
         className={`dropdown ${isExpanded ? 'expanded' : 'collapsed'}`}
       >
