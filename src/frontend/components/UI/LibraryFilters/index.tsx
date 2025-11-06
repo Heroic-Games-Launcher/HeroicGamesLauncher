@@ -94,73 +94,48 @@ export default function LibraryFilters() {
     setStoresFilters(newFilters)
   }
 
-  const toggleWithOnly = (toggle: JSX.Element, onOnlyClicked: () => void) => {
-    return (
-      <div className="toggleWithOnly">
-        {toggle}
-        <button className="only" onClick={() => onOnlyClicked()}>
-          {t('header.only', 'only')}
-        </button>
-      </div>
-    )
-  }
-
   // t('platforms.browser', 'Browser')
   // t('platforms.linux', 'Linux')
   // t('platforms.mac', 'Mac')
   // t('platforms.win', 'Windows')
-  const platformToggle = (plat: keyof PlatformsFilters) => {
-    const toggle = (
-      <ToggleSwitch
-        key={plat}
-        htmlId={plat}
-        handleChange={() => togglePlatformFilter(plat)}
-        value={platformsFilters[plat]}
-        title={t(`platforms.${plat}`)}
-      />
-    )
-
-    const onOnlyClick = () => {
-      setPlatformOnly(plat)
-    }
-
-    return toggleWithOnly(toggle, onOnlyClick)
-  }
+  const platformToggle = (plat: keyof PlatformsFilters) => (
+    <ToggleSwitch
+      key={plat}
+      htmlId={plat}
+      handleChange={() => togglePlatformFilter(plat)}
+      value={platformsFilters[plat]}
+      title={t(`platforms.${plat}`)}
+    />
+  )
 
   // t('Epic Games', 'Epic Games')
   // t('GOG', 'GOG')
   // t('Amazon Games', 'Amazon Games')
   // t('Other', 'Other')
-  const storeToggle = (store: Runner) => {
-    const toggle = (
-      <ToggleSwitch
-        key={store}
-        htmlId={store}
-        handleChange={() => toggleStoreFilter(store)}
-        value={storesFilters[store]}
-        title={t(RunnerToStore[store])}
-      />
-    )
-    const onOnlyClick = () => {
-      setStoreOnly(store)
-    }
-    return toggleWithOnly(toggle, onOnlyClick)
-  }
+  const storeToggle = (store: Runner) => (
+    <ToggleSwitch
+      key={store}
+      htmlId={store}
+      handleChange={() => toggleStoreFilter(store)}
+      value={storesFilters[store]}
+      title={t(RunnerToStore[store])}
+    />
+  )
 
   const resetFilters = () => {
     setStoresFilters({
-      legendary: true,
-      gog: true,
-      nile: true,
-      sideload: true
+      legendary: false,
+      gog: false,
+      nile: false,
+      sideload: false
     })
     setPlatformsFilters({
-      win: true,
-      linux: true,
-      mac: true,
-      browser: true
+      win: false,
+      linux: false,
+      mac: false,
+      browser: false
     })
-    setShowHidden(true)
+    setShowHidden(false)
     setShowNonAvailable(true)
     setShowFavourites(false)
     setShowInstalledOnly(false)
