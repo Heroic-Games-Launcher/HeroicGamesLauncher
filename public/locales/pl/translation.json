@@ -10,7 +10,8 @@
         "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece",
         "actions_font_family_default": "Rodzaj czcionki akcji (domyślna: {{fontFamily}})",
         "content_font_family_default": "Rodzaj czcionki treści (domyślna: {{fontFamily}})",
-        "disable_smooth_scrolling": "Wyłącz płynne przewijanie (wymagany restart)"
+        "disable_smooth_scrolling": "Wyłącz płynne przewijanie (wymagany restart)",
+        "disable_animations": "Wyłącz animacje interfejsu"
     },
     "add_game": "Dodaj grę",
     "All": "Wszystkie",
@@ -105,7 +106,8 @@
                 "message": "Nowa wersja jest dostępna!",
                 "message-finished": "Czy chcesz teraz uruchomić ponownie Heroic?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Aktualizacja zakończona"
+                "title-finished": "Aktualizacja zakończona",
+                "detailNoAutoupdate": "Automatyczne aktualizacje nie są wspierane dla twojego formatu pakietów. Jeśli chcesz zaktualizować, użyj twojego menedżera pakietów."
             }
         },
         "no": "NIE",
@@ -368,7 +370,8 @@
         "download_proton_steam": "Po włączeniu, GE-Proton zostanie pobrany bezpośrednio do katalogu narzędzi zgodności Steam, zamiast do domyślnej ścieżki programu Heroic. Będzie używana ścieżka Steam ustawiona w opcji 'Domyślna ścieżka Steam' powyżej.",
         "analytics": "Umożliwia Heroic zbieranie w 100% zanonimizowanych danych o użytkowaniu w celu ulepszenia aplikacji. Wymaga ponownego uruchomienia.",
         "wine-hdr": "HDR poprawia kolory, zapewniając jaśniejsze światła i głębsze kontrasty. Aby HDR działał, zarówno wyświetlacz, jak i gra muszą go obsługiwać.",
-        "wine-wayland": "Eksperymentalny sterownik Wine-Wayland umożliwia natywne uruchamianie gier w protokole graficznym Wayland. Włączenie może spowodować uszkodzenie niektórych gier."
+        "wine-wayland": "Eksperymentalny sterownik Wine-Wayland umożliwia natywne uruchamianie gier w protokole graficznym Wayland. Włączenie może spowodować uszkodzenie niektórych gier.",
+        "WoW64": "Tryb Wine WoW64 pozwala 32-bitowym grom używać 64-bitowego Wine'a. Włączenie może poprawić wydajność, ale może również zepsuć niektóre starsze 32-bitowe gry."
     },
     "info": {
         "heroic": {
@@ -768,7 +771,7 @@
             "description": "Włącz szczegółowe dzienniki"
         },
         "custom_css": {
-            "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic będzie bezużyteczny. W razie potrzeby można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
+            "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic-a nie będzie dało się używać. W razie potrzeby można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
         },
         "disableUMU": "Wyłącz umu",
         "advertiseAvxForRosetta": "Promuj AVX dla Rosetty",
@@ -788,7 +791,18 @@
         "analyticsOptIn": "Wysyłaj anonimowe dane, by wspomóc rozwój Heroic",
         "hdr": "Włącz HDR",
         "no-tray-icon": "Ukryj ikonę zasobnika systemowego (wymaga ponownego uruchomienia)",
-        "wineWayland": "Włącz Wine-Wayland (eksperymentalne) (używana wersja Wine musi to obsługiwać)"
+        "wineWayland": "Włącz Wine-Wayland (eksperymentalne) (używana wersja Wine musi to obsługiwać)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Nie pokazuj ich",
+                "show": "Zrozumiałem, pokaż im",
+                "title": "Czy na pewno?"
+            },
+            "label": "Zezwalanie na używanie kompilacji nie-GE Proton do uruchamiania gier",
+            "wine_selector_warning": "Wersje nie-GE Proton są domyślnie ignorowane, włącz je w zaawansowanych ustawieniach globalnych",
+            "info_label": "Wersje Proton od Valve ignorowane"
+        },
+        "WoW64": "Włącz WoW64 (Eksperymentalne)"
     },
     "settings": {
         "battlEyeRuntime": {

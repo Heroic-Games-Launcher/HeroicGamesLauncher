@@ -227,7 +227,8 @@
     "setting": {
         "winecrossoverbottle": "Butelka CrossOver",
         "show-wine-settings": "Pokaż ustawienia Wine",
-        "warn-use-shared-wine-config": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne."
+        "warn-use-shared-wine-config": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne.",
+        "use-shared-wine-config": "Używaj dzielonego prefiksu Wine"
     },
     "sideload": {
         "field": {
