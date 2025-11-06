@@ -11,7 +11,7 @@ import { notify, showDialogBoxModalAuto } from '../dialog/dialog'
 import { isOnline } from '../online_monitor'
 import pathModule from 'path'
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
-import { storeMap } from 'common/utils'
+import { runnerMap } from 'backend/runners'
 import { gogdlConfigPath } from 'backend/storeManagers/gog/constants'
 import { fixesPath } from 'backend/constants/paths'
 
@@ -186,8 +186,11 @@ async function updateQueueElement(params: InstallParams): Promise<{
 }
 
 async function downloadFixesFor(appName: string, runner: Runner) {
-  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${storeMap[runner]}/${appName}-${storeMap[runner]}.json`
-  const dest = pathModule.join(fixesPath, `${appName}-${storeMap[runner]}.json`)
+  const url = `https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/${runnerMap[runner].store}/${appName}-${runnerMap[runner].store}.json`
+  const dest = pathModule.join(
+    fixesPath,
+    `${appName}-${runnerMap[runner].store}.json`
+  )
   if (!existsSync(fixesPath)) {
     mkdirSync(fixesPath, { recursive: true })
   }

@@ -5,7 +5,7 @@ import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { gameManagerMap } from 'backend/storeManagers'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { Runner } from 'common/types'
-import { storeMap } from 'common/utils'
+import { runnerMap } from 'backend/runners'
 import { Event } from 'electron'
 import { existsSync, readdirSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
@@ -57,7 +57,10 @@ export const removePrefix = async (appName: string, runner: Runner) => {
 }
 
 const removeFixFile = (appName: string, runner: Runner) => {
-  const fixFilePath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
+  const fixFilePath = join(
+    fixesPath,
+    `${appName}-${runnerMap[runner].store}.json`
+  )
   if (existsSync(fixFilePath)) {
     rmSync(fixFilePath)
   }
