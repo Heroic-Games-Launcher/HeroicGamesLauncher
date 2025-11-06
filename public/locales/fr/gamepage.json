@@ -226,7 +226,8 @@
     "setting": {
         "winecrossoverbottle": "Bouteille CrossOver",
         "show-wine-settings": "Afficher les paramètres de Wine",
-        "warn-use-shared-wine-config": "Utiliser cette option uniquement si vous savez ce que vous faites.<br/>Partager le même préfixe avec plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles."
+        "warn-use-shared-wine-config": "Utiliser cette option uniquement si vous savez ce que vous faites.<br/>Partager le même préfixe avec plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles.",
+        "use-shared-wine-config": "Utiliser le préfixe Wine partagé"
     },
     "sideload": {
         "field": {
