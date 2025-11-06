@@ -167,6 +167,13 @@ export default function SidebarLinks() {
             )}
 
             <SidebarItem
+              url="/settings/custom_libraries"
+              isActiveFallback={type === 'custom_libraries'}
+              className="SidebarLinks__subItem"
+              label={t('settings.navbar.custom_libraries', 'Custom Libraries')}
+            />
+
+            <SidebarItem
               url="/settings/advanced"
               isActiveFallback={type === 'advanced'}
               className="SidebarLinks__subItem"

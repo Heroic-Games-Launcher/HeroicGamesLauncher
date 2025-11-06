@@ -1,0 +1,93 @@
+import { join } from 'path'
+import { existsSync } from 'graceful-fs'
+import { logInfo, LogPrefix } from 'backend/logger'
+import { isLinux, isMac } from 'backend/constants/environment'
+import { getSettings, isNative, getGameInfo } from '../games'
+import { runWineCommand } from 'backend/launcher'
+import { spawnAsync } from 'backend/utils'
+import { RunTask } from 'backend/storeManagers/customLibraries/tasks/types'
+
+export async function executeRunTask(
+  appName: string,
+  task: RunTask,
+  gameFolder: string
+): Promise<void> {
+  const executablePath = join(gameFolder, task.executable)
+
+  if (!existsSync(executablePath)) {
+    throw new Error(`Executable not found: ${executablePath}`)
+  }
+
+  const gameInfo = getGameInfo(appName)
+  const requiresWine =
+    !isNative(appName) && gameInfo.install.platform === 'windows'
+  const args = substituteVariables(task.args || [], gameFolder)
+
+  logInfo(`Running: ${task.executable} (Started)`, LogPrefix.CustomLibrary)
+
+  if (requiresWine) {
+    logInfo(
+      `Running in Wine: ${[executablePath, ...args].join(' ')}`,
+      LogPrefix.CustomLibrary
+    )
+
+    const gameSettings = await getSettings(appName)
+    const result = await runWineCommand({
+      gameSettings,
+      commandParts: [executablePath, ...args],
+      wait: true,
+      gameInstallPath: gameFolder,
+      startFolder: gameFolder
+    })
+
+    if (result.code !== 0) {
+      throw new Error(
+        `Wine execution failed with code ${result.code}: ${result.stderr}`
+      )
+    }
+  } else {
+    // Make executable on Unix systems
+    if (isLinux || isMac) {
+      await makeExecutable(executablePath)
+    }
+
+    const powershellArgs = [
+      '-Command',
+      [
+        'Start-Process',
+        '-Wait',
+        `"${executablePath}"`,
+        args.length ? `-ArgumentList '${args.join("','")}'` : '',
+        '-WorkingDirectory',
+        `"${gameFolder}"`,
+        '-Verb',
+        'RunAs'
+      ]
+        .filter(Boolean)
+        .join(' ')
+    ]
+
+    const { code, stderr } = await spawnAsync('powershell', powershellArgs, {
+      stdio: 'inherit'
+    })
+
+    if (code !== 0) {
+      throw new Error(`Process failed with code ${code}: ${stderr}`)
+    }
+  }
+
+  logInfo(`Running: ${task.executable} (Done)`, LogPrefix.CustomLibrary)
+}
+
+function substituteVariables(args: string[], gameFolder: string): string[] {
+  return args.map((arg) => arg.replace(/{gameFolder}/g, gameFolder))
+}
+
+async function makeExecutable(executablePath: string): Promise<void> {
+  if (isLinux || isMac) {
+    const { code, stderr } = await spawnAsync('chmod', ['+x', executablePath])
+    if (code !== 0) {
+      throw new Error(`chmod failed with code ${code}: ${stderr}`)
+    }
+  }
+}

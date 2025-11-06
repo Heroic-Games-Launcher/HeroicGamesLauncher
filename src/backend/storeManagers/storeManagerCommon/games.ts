@@ -123,7 +123,8 @@ export async function launchGame(
   logWriter: LogWriter,
   gameInfo: GameInfo,
   runner: Runner,
-  args: string[] = []
+  args: string[] = [],
+  launchFromCmd: boolean = false
 ): Promise<boolean> {
   if (!gameInfo) {
     return false
@@ -242,7 +243,8 @@ export async function launchGame(
           env,
           wrappers,
           logWriters: [logFileWriter],
-          logMessagePrefix: LogPrefix.Backend
+          logMessagePrefix: LogPrefix.Backend,
+          launchFromCmd
         }
       )
 

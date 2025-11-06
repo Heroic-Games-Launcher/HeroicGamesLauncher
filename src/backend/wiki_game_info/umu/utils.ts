@@ -10,15 +10,16 @@ const storeMapping: Record<Runner, string> = {
   gog: 'gog',
   legendary: 'egs',
   nile: 'amazon',
-  sideload: 'sideload'
+  sideload: 'sideload',
+  customLibrary: 'customLibrary'
 }
 
 export async function getUmuId(
   appName: string,
   runner: Runner
 ): Promise<string | null> {
-  // if it's a sideload, there won't be any umu id
-  if (runner === 'sideload') {
+  // if it's a sideload or customLibrary, there won't be any umu id
+  if (['sideload', 'customLibrary'].includes(runner)) {
     return null
   }
 

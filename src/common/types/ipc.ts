@@ -32,6 +32,7 @@ import type {
   RuntimeName,
   RunWineCommandArgs,
   SaveSyncArgs,
+  SideloadGameInfo,
   StatusPromise,
   ToolArgs,
   Tools,
@@ -84,7 +85,7 @@ interface SyncIPCFunctions {
   showItemInFolder: (item: string) => void
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
-  addNewApp: (args: GameInfo) => void
+  addNewApp: (args: SideloadGameInfo) => void
   showLogFileInFolder: (args: GetLogFileArgs) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void

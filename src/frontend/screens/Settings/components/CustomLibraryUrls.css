@@ -1,0 +1,38 @@
+.customLibraryUrl {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  width: 100%;
+}
+
+.removeButton,
+.addButton {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: var(--space-xs);
+}
+
+.customLibraryConfig {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  width: 100%;
+}
+
+.customLibraryConfigTextarea {
+  flex: 1;
+  min-height: 200px;
+  padding: var(--space-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background);
+  color: var(--text-primary);
+  resize: vertical;
+  overflow-y: scroll;
+}

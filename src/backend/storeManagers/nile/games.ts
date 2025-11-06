@@ -1,7 +1,7 @@
 import {
   ExecResult,
   ExtraInfo,
-  GameInfo,
+  NileGameInfo,
   GameSettings,
   InstallArgs,
   InstallPlatform,
@@ -68,7 +68,7 @@ export async function getSettings(appName: string): Promise<GameSettings> {
   return gameConfig.config || (await gameConfig.getSettings())
 }
 
-export function getGameInfo(appName: string): GameInfo {
+export function getGameInfo(appName: string): NileGameInfo {
   const info = nileLibraryGetGameInfo(appName)
   if (!info) {
     logError(

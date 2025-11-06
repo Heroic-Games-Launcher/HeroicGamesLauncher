@@ -1,22 +1,33 @@
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
-import { Category, PlatformsFilters } from 'frontend/types'
+import { PlatformsFilters, StoresFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
-import type { Runner } from 'common/types'
+import type { CustomLibraryGameInfo } from 'common/types'
 import './index.css'
 
-const RunnerToStore = {
+const RunnerToStore: Record<string, string> = {
   legendary: 'Epic Games',
   gog: 'GOG',
   nile: 'Amazon Games',
   sideload: 'Other'
 }
 
+const getCustomLibraries = (customLibrary: CustomLibraryGameInfo[]) => {
+  const libraries = new Map<string, string>()
+  customLibrary.forEach((game) => {
+    if (game?.customLibraryId && game?.customLibraryName) {
+      libraries.set(game.customLibraryId, game.customLibraryName)
+    }
+  })
+  return libraries
+}
+
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon } = useContext(ContextProvider)
+  const { platform, epic, gog, amazon, customLibrary } =
+    useContext(ContextProvider)
   const {
     setShowFavourites,
     setShowHidden,
@@ -37,6 +48,22 @@ export default function LibraryFilters() {
     showUpdatesOnly,
     setShowUpdatesOnly
   } = useContext(LibraryContext)
+
+  const customLibraries = useMemo(
+    () => getCustomLibraries(customLibrary),
+    [customLibrary]
+  )
+
+  // Ensure custom library filters exist in storesFilters
+  const ensureCustomFilters = (filters: Record<string, boolean>) => {
+    const newFilters: Record<string, boolean> = { ...filters }
+    customLibraries.forEach((name, id) => {
+      if (!(id in newFilters)) {
+        newFilters[id] = true
+      }
+    })
+    return newFilters
+  }
 
   const toggleShowHidden = () => {
     setShowHidden(!showHidden)
@@ -66,10 +93,11 @@ export default function LibraryFilters() {
     setShowUpdatesOnly(!showUpdatesOnly)
   }
 
-  const toggleStoreFilter = (store: Runner) => {
-    const currentValue = storesFilters[store]
-    const newFilters = { ...storesFilters, [store]: !currentValue }
-    setStoresFilters(newFilters)
+  const toggleStoreFilter = (store: string) => {
+    const currentFilters = ensureCustomFilters(storesFilters)
+    const currentValue = currentFilters[store]
+    const newFilters = { ...currentFilters, [store]: !currentValue }
+    setStoresFilters(newFilters as StoresFilters)
   }
 
   const togglePlatformFilter = (plat: keyof PlatformsFilters) => {
@@ -83,15 +111,20 @@ export default function LibraryFilters() {
     newFilters = { ...newFilters, [plat]: true }
     setPlatformsFilters(newFilters)
   }
-  const setStoreOnly = (store: Category) => {
-    let newFilters = {
-      legendary: false,
-      gog: false,
-      nile: false,
-      sideload: false
-    }
-    newFilters = { ...newFilters, [store]: true }
-    setStoresFilters(newFilters)
+
+  const setStoreOnly = (store: string) => {
+    const currentFilters = ensureCustomFilters(storesFilters)
+    const newFilters: Record<string, boolean> = {}
+
+    // Set all filters to false
+    Object.keys(currentFilters).forEach((key) => {
+      newFilters[key] = false
+    })
+
+    // Set the selected store to true
+    newFilters[store] = true
+
+    setStoresFilters(newFilters as StoresFilters)
   }
 
   const toggleWithOnly = (toggle: JSX.Element, onOnlyClicked: () => void) => {
@@ -131,14 +164,15 @@ export default function LibraryFilters() {
   // t('GOG', 'GOG')
   // t('Amazon Games', 'Amazon Games')
   // t('Other', 'Other')
-  const storeToggle = (store: Runner) => {
+  const storeToggle = (store: string, displayName?: string) => {
+    const currentFilters = ensureCustomFilters(storesFilters)
     const toggle = (
       <ToggleSwitch
         key={store}
         htmlId={store}
         handleChange={() => toggleStoreFilter(store)}
-        value={storesFilters[store]}
-        title={t(RunnerToStore[store])}
+        value={currentFilters[store] ?? true}
+        title={displayName || t(RunnerToStore[store])}
       />
     )
     const onOnlyClick = () => {
@@ -148,12 +182,16 @@ export default function LibraryFilters() {
   }
 
   const resetFilters = () => {
-    setStoresFilters({
+    const baseFilters: Record<string, boolean> = {
       legendary: true,
       gog: true,
       nile: true,
       sideload: true
-    })
+    }
+
+    const newFilters = ensureCustomFilters(baseFilters)
+
+    setStoresFilters(newFilters as StoresFilters)
     setPlatformsFilters({
       win: true,
       linux: true,
@@ -177,6 +215,11 @@ export default function LibraryFilters() {
         {gog.username && storeToggle('gog')}
         {amazon.user_id && storeToggle('nile')}
         {storeToggle('sideload')}
+
+        {/* Custom library filters */}
+        {Array.from(customLibraries.entries()).map(([libraryId, libraryName]) =>
+          storeToggle(libraryId, libraryName)
+        )}
 
         <hr />
 
