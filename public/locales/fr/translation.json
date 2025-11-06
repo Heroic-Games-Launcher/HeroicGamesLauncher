@@ -10,18 +10,19 @@
         "titles_always_visible": "Toujours afficher les titres dans la bibliothèque",
         "content_font_family_default": "Famille de police pour les contenus (Par défaut : {{fontFamily}})",
         "actions_font_family_default": "Famille de police pour les actions (Par défaut : {{fontFamily}})",
-        "disable_smooth_scrolling": "Désactiver le défilement doux (requiert un redémarrage)"
+        "disable_smooth_scrolling": "Désactiver le défilement doux (requiert un redémarrage)",
+        "disable_animations": "Désactiver les animations de l'interface"
     },
     "add_game": "Ajouter un jeu",
     "All": "Tout",
     "anticheat": {
-        "anticheats": "Anti-triche",
+        "anticheats": "Dispositifs anti-triche",
         "may_not_work": "Cela pourrait ne pas fonctionner en raison de mesures anti-triche non-autorisées ou obsolètes.",
         "reference": "Référence",
         "source": "Source",
         "status": "État",
         "title": "Ce jeu inclut un logiciel anti-triche",
-        "multiplayer_may_not_work": "Les éléments multijoueur pourraient ne pas fonctionner en raison d'une incompatibilité avec les systèmes anti-triche."
+        "multiplayer_may_not_work": "Les éléments multijoueur pourraient ne pas fonctionner en raison d'une incompatibilité (volontaire ou accidentelle) avec un dispositif anti-triche."
     },
     "box": {
         "cache-cleared": {
@@ -105,7 +106,8 @@
                 "message": "Il y a une nouvelle version disponible !",
                 "message-finished": "Voulez-vous redémarrer Heroic maintenant ?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Mise à jour terminée"
+                "title-finished": "Mise à jour terminée",
+                "detailNoAutoupdate": "Les mises à jour automatiques ne sont pas prises en charge pour le format de votre paquet. Veuillez utiliser votre gestionnaire de paquets pour le mettre à jour."
             }
         },
         "no": "NON",
@@ -368,7 +370,9 @@
         "dxfpslimit": "Définir un plafond de fréquences d'images pour les jeux DXVK",
         "advertiseAvxForRosetta": "Active la compatibilité avec l'ensemble d'instructions AVX lors de l'exécution de jeux Windows via Rosetta sur les Macs Apple Silicon. Cela peut être nécessaire pour certains jeux comme Death Stranding, qui requièrent une compatibilité avec AVX.",
         "wine-hdr": "Le HDR améliore la colorimétrie en proposant des contours plus clairs et des contrastes plus profonds. Afin que le HDR fonctionne, l'écran et le jeu doivent être tous deux compatibles.",
-        "wine-wayland": "Le pilote expérimental Wine-Wayland permet aux jeux de s'exécuter nativement par l'entremise du protocole d'affichage Wayland. L'activer peut faire dysfonctionner certains jeux."
+        "wine-wayland": "Le pilote expérimental Wine-Wayland permet aux jeux de s'exécuter nativement par l'entremise du protocole d'affichage Wayland. L'activer peut faire dysfonctionner certains jeux.",
+        "analytics": "Autoriser Heroic à collecter des données d'usage 100% anonymes afin d'aider à l'amélioration de l'application. Un redémarrage sera nécessaire pour appliquer le changement.",
+        "WoW64": "Le mode Wine WoW64 permet aux jeux Windows 32-bit d'être exécutés depuis la version 64-bit de Wine. L'activer peut améliorer les performances, mais pourrait aussi faire dysfonctionner les jeux 32-bit très anciens."
     },
     "info": {
         "heroic": {
@@ -787,7 +791,20 @@
         },
         "hdr": "Activer le HDR",
         "no-tray-icon": "Ne pas afficher d'icône dans la barre des tâches (requiert un redémarrage)",
-        "wineWayland": "Activer Wine-Wayland (Expérimental) (La version de Wine doit être compatible)"
+        "wineWayland": "Activer Wine-Wayland (Expérimental) (La version de Wine doit être compatible)",
+        "analyticsOptIn": "Envoyer des données anonymes afin d'aider au développement d'Heroic",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Ne pas les afficher",
+                "show": "Je comprends, affichez-les",
+                "title": "Êtes-vous sûr(e) ?",
+                "message": "Nous recommandons d'utiliser des versions Proton personnalisées (GE-Proton, Proton-CachyOS, etc.) avec Heroic car les versions Proton de Valve ne possèdent ni winetricks, ni protofixes. Vous pouvez tout de même les utiliser si vous le souhaitez."
+            },
+            "info_label": "Versions de Proton proposées par Valve ignorées",
+            "label": "Permettre d'utiliser des versions de Proton proposées par Valve pour exécuter des jeux",
+            "wine_selector_warning": "Les versions de Proton distribuées par Valve sont ignorées par défaut ; activez-les dans le menu des options globales avancées"
+        },
+        "WoW64": "Activer WoW64 (expérimental)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1083,8 +1100,12 @@
         "info": {
             "pt1": "Heroic collecte des données de façon 100% anonyme dans le but de l'améliorer.",
             "pt3": "Il ne va jamais collecter des informations personnelles telles que votre nom d'utilisateur, votre addresse IP ou votre E-Mail.",
-            "pt6": "Pour des raisons de transparence, vous pouvez voir les données collectées depuis les journaux d'Heroic.",
-            "pt7": "Vous pouvez changer ce paramètre à tout moment depuis les options d'Heroic."
-        }
+            "pt6": "Pour des raisons de transparence, vous pouvez consulter les données collectées depuis les journaux d'Heroic.",
+            "pt7": "Vous pouvez changer ce paramètre à tout moment depuis les options de l'application.",
+            "pt2": "Heroic utilise la pateforme à code ouvert Plausible Analytics afin de recueillir des informations de base : la version de l'application, le système d'exploitation, les boutiques connectées, ainsi que le pays détecté.",
+            "pt4": "Nos ressources étant limitées et les retours des utilisateurs plutôt rares, ces données nous permettent de savoir sur quoi nos efforts devront être concentrés en priorité.",
+            "pt5": "Plausible Analytics respecte pleinement le RGPD, le CCPA et la PECR."
+        },
+        "title": "Envoyer des statistiques anonymes"
     }
 }

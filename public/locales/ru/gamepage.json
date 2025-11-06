@@ -139,7 +139,7 @@
         "version": "Версия",
         "apple-gaming-wiki": "Рейтинг AppleGamingWiki",
         "clickToOpen": "Нажмите, чтобы открыть",
-        "game-scores": "Game Scores",
+        "game-scores": "Результаты игры",
         "installedInfo": "Сведения об установке",
         "protondb-compatibility-info": "Уровень совместимости Proton",
         "steamdeck-compatibility-info": "Совместимость со SteamDeck",
@@ -227,7 +227,8 @@
     "setting": {
         "winecrossoverbottle": "Бутылка CrossOver",
         "show-wine-settings": "Показать настройки Wine",
-        "warn-use-shared-wine-config": "Используйте эту опцию только в том случае, если вы знаете, что делаете.<br/>Использование одного и того же префикса для нескольких игр может вызвать проблемы, если их зависимости несовместимы."
+        "warn-use-shared-wine-config": "Используйте эту опцию только в том случае, если вы знаете, что делаете.<br/>Использование одного и того же префикса для нескольких игр может вызвать проблемы, если их зависимости несовместимы.",
+        "use-shared-wine-config": "Использовать общий префикс Wine"
     },
     "sideload": {
         "field": {

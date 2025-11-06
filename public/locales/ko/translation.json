@@ -740,6 +740,11 @@
             "confirmation": {
                 "title": "확실합니까?"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "확실합니까?"
+            }
         }
     },
     "settings": {

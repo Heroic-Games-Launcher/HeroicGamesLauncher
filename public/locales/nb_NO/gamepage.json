@@ -171,7 +171,8 @@
         },
         "playing": {
             "start": "Spill nå",
-            "stop": "Spiller (Stopp)"
+            "stop": "Spiller (Stopp)",
+            "start_with_logs": "Spill nå (med logger)"
         },
         "saves": {
             "syncing": "Synkroniserer spill-lagringer"
@@ -224,7 +225,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver Bottle",
         "show-wine-settings": "Vis Wine-innstillinger",
-        "warn-use-shared-wine-config": "Bruk kun dette alternativet hvis du vet hva du gjør.<br/>Å dele samme prefiks for flere spill kan skape problemer hvis avhengighetene deres er inkompatible."
+        "warn-use-shared-wine-config": "Bruk kun dette alternativet hvis du vet hva du gjør.<br/>Å dele samme prefiks for flere spill kan skape problemer hvis avhengighetene deres er inkompatible.",
+        "use-shared-wine-config": "Bruk delt Wine-prefiks"
     },
     "sideload": {
         "field": {

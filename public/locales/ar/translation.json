@@ -707,6 +707,11 @@
             "confirmation": {
                 "title": "هل أنت متأكّد؟"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "هل أنت متأكّد؟"
+            }
         }
     },
     "settings": {

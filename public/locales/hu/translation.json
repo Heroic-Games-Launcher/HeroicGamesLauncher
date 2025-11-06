@@ -10,7 +10,8 @@
         "content_font_family_default": "Tartalom betűkészlete (Alapértelmezett: {{fontFamily}})",
         "titles_always_visible": "Címek megjelenítése mindig a könyvtárban",
         "actions_font_family_default": "Műveletek betűkészlete (Alapértelmezett: {{fontFamily}})",
-        "disable_smooth_scrolling": "Sima görgetés letiltása (újraindítást igényel)"
+        "disable_smooth_scrolling": "Sima görgetés letiltása (újraindítást igényel)",
+        "disable_animations": "A felhasználói felület animációinak letiltása"
     },
     "add_game": "Játék hozzáadása",
     "All": "Összes",
@@ -105,7 +106,8 @@
                 "message": "Új verzió érhető el.",
                 "message-finished": "Újraindítja most a Heroicot?",
                 "title": "Heroic játékindító",
-                "title-finished": "Frissítés befejezve"
+                "title-finished": "Frissítés befejezve",
+                "detailNoAutoupdate": "Az automatikus frissítések nem támogatottak a csomag formátumához. Használja a csomagkezelőt a frissítéshez."
             }
         },
         "no": "NEM",
@@ -368,7 +370,8 @@
         "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni.",
         "wine-hdr": "A HDR javítja a színeket azáltal, hogy világosabb fényeket és mélyebb kontrasztokat biztosít. A HDR működéséhez mind a kijelzőnek, mind a játéknak támogatnia kell azt.",
         "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat.",
-        "analytics": "Lehetővé teszi a Heroic számára, hogy 100%-ban anonim használati adatokat gyűjtsön az alkalmazás fejlesztésének érdekében. Az újraindítás után lép életbe."
+        "analytics": "Lehetővé teszi a Heroic számára, hogy 100%-ban anonim használati adatokat gyűjtsön az alkalmazás fejlesztésének érdekében. Az újraindítás után lép életbe.",
+        "WoW64": "A Wine WoW64 mód lehetővé teszi a 32 bites Windows játékok futtatását 64 bites Wine-on. Engedélyezése javíthatja a teljesítményt, de problémákat okozhat régebbi 32 bites játékoknál."
     },
     "info": {
         "heroic": {
@@ -788,7 +791,19 @@
             "wine_selector_warning": "A nem GE-Proton verziók alapértelmezetten figyelmen kívül vannak hagyva, engedélyezd őket a Globális speciális beállításokban"
         },
         "analyticsOptIn": "Anonim adatok küldése a Heroic fejlesztésének támogatására",
-        "no-tray-icon": "Rendszertálca ikon elrejtése (újraindítás szükséges)"
+        "no-tray-icon": "Rendszertálca ikon elrejtése (újraindítás szükséges)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Ne jelenjenek meg",
+                "show": "Értem, jelenjenek meg",
+                "title": "Biztos benne?",
+                "message": "A Heroic használatához a Proton egyedi ágait(GE-Proton, Proton-CachyOS stb.) ajánljuk, mivel a Valve Proton-verziói nem tartalmaznak winetricks és protofixes funkciókat. Ha szeretné, továbbra is használhatja őket."
+            },
+            "label": "Nem GE-Proton verziók engedélyezése játékok futtatásához",
+            "wine_selector_warning": "A nem GE-Proton verziók alapértelmezetten figyelmen kívül vannak hagyva, engedélyezd őket a Globális speciális beállításokban",
+            "info_label": "A Valve Proton-verziók figyelmen kívül hagyva"
+        },
+        "WoW64": "WoW64 engedélyezése (kísérleti)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1084,7 +1099,7 @@
         "info": {
             "pt1": "A Heroic az alkalmazás fejlesztése érdekében 100%-ban anonim adatokat gyűjt.",
             "pt2": "A Heroic a nyílt forráskódú Plausible Analytics platformot használja alapvető adatok gyűjtésére: alkalmazásverzió, operációs rendszer, csatlakoztatott áruházak és ország.",
-            "pt3": "Soha nem gyűjt semmilyen személyes adatot, beleértve a felhasználónevet, IP-címet vagy e-mail címet.",
+            "pt3": "Soha nem gyűjt semmilyen személyes adatot, beleértve a felhasználónevet, IP-címet vagy e-mail-címet.",
             "pt4": "Ezeket az adatokat arra használjuk, hogy betekintést nyerjünk, mire érdemes fókuszálnunk a korlátozott erőforrásaink és a felhasználói visszajelzések alapján.",
             "pt5": "A Plausible Analytics teljes mértékben megfelel a GDPR, CCPA és PECR előírásainak.",
             "pt6": "Átláthatóság céljából megtekintheti az általunk gyűjtött adatokat a Heroic naplóiban.",

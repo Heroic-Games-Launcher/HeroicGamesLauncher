@@ -138,7 +138,7 @@
         "syncsaves": "Sincronitza les partides desades",
         "version": "Versió",
         "apple-gaming-wiki": "Classificació AppleGamingWiki",
-        "clickToOpen": "Feu clic per a obrir",
+        "clickToOpen": "Fes clic per a obrir",
         "game-scores": "Puntuacions del joc",
         "installedInfo": "Informació de la instal·lació",
         "protondb-compatibility-info": "Nivell de compatibilitat amb el Proton",
@@ -158,7 +158,7 @@
             "message": "La compatibilitat amb el sistema antitrampes s'ha trencat o rebutjat. El joc no funcionarà. Segur que el voleu instal·lar de totes maneres?",
             "install": "Sí (entenc que no funcionarà)",
             "title": "Antitrampes trencat/rebutjat",
-            "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se però les característiques multijugador no funcionaran. Vols instal·lar-lo igualment?",
+            "multiplayer_message": "El suport antitrampes està trencat o s'ha blocat. El joc pot executar-se, però les característiques multijugador no funcionaran. Vols instal·lar-lo igualment?",
             "install_anyway": "Sí (entenc que les funcions multijugador no funcionen)",
             "ok": "D'acord",
             "disabled_installation": "Aquest joc fa servir programari antitrampes que no és compatible amb el vostre sistema operatiu o els desenvolupadors del joc no n'han activat el suport. Això significa que les funcions multijugador no funcionaran i no hi ha res que pugueu fer per a resoldre-ho ‒ni tan sols l'equip de l'Heroic.<br /><br />Per a instal·lar aquest joc i provar-lo de totes maneres, aneu a Configuració→Avançat i seleccioneu l'opció d'instal·lar jocs amb antitrampes trencat o denegat.<br /><br />Tingueu en compte que no hi ha manera de resoldre-ho i us arrisqueu a què us expulsin de les partides."
@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Juga",
-            "stop": "En execució (Atura)"
+            "stop": "En execució (Atura)",
+            "start_with_logs": "Juga (amb registres)"
         },
         "saves": {
             "syncing": "S'estan sincronitzant les partides"
@@ -200,13 +201,13 @@
             "launching": "S'està iniciant el Steam...",
             "macOS": "macOS 14.0 o superior",
             "notification": "L'Heroic et notificarà quan finalitzi la instal·lació.",
-            "patience": "Si vols continuar, tingues paciència, ja que podria trigar uns pocs minuts a finalitzar, depenent de la teua connexió a internet i la configuració del sistema.",
+            "patience": "Si vols continuar, tingues paciència, ja que podria trigar uns pocs minuts a finalitzar, depenent de la teva connexió a internet i la configuració del sistema.",
             "ram": "8 GB de RAM",
             "recommended": "Especificacions recomanades per a una millor experiència",
             "select-path": "Selecciona la carpeta d'instal·lació del Steam",
             "specificVersion-pt1": "Això baixarà una versió específica del Steam des de",
             "specificVersion-pt2": "archive.org",
-            "specificVersion-pt3": "feta perquè funcione amb l'Heroic, ja que les versions noves del Steam no funcionen en macOS."
+            "specificVersion-pt3": "feta perquè funcioni amb l'Heroic, ja que les versions noves del Steam no funcionen en macOS."
         }
     },
     "launch": {
@@ -226,7 +227,8 @@
     "setting": {
         "winecrossoverbottle": "Ampolla CrossOver",
         "warn-use-shared-wine-config": "Feu servir aquesta opció només si sabeu què feu.<br/>Si es comparteix el mateix prefix per a diversos jocs, poden produir-se alguns problemes si les seves dependències no són compatibles.",
-        "show-wine-settings": "Mostra la configuració del Wine"
+        "show-wine-settings": "Mostra la configuració del Wine",
+        "use-shared-wine-config": "Usa el prefix del Wine compartit"
     },
     "sideload": {
         "field": {
@@ -332,7 +334,7 @@
         "label": {
             "canceled": "Cancel·lat",
             "remove": "Suprimeix de les baixades",
-            "pause": "Posa la descàrrega en pausa",
+            "pause": "Posa la baixada en pausa",
             "resume": "Reprèn la descàrrega"
         }
     }
