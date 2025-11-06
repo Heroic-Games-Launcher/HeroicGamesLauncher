@@ -5,13 +5,11 @@
     padding-inline: 2rem;
   }
 
-  &:focus-within {
-    .expanded {
-      pointer-events: all;
-      opacity: 1;
-      max-height: 70vh;
-      box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
-    }
+  .dropdown.expanded {
+    pointer-events: all;
+    opacity: 1;
+    max-height: 70vh;
+    box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
   }
 
   .dropdown {
