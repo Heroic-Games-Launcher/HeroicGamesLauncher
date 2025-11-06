@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 
 import {
-  GameInfo,
+  LegendaryGameInfo,
   InstalledInfo,
   CallRunnerOptions,
   ExecResult,
@@ -55,7 +55,7 @@ const fallBackImage = 'fallback'
 
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
-const library: Map<string, GameInfo> = new Map()
+const library: Map<string, LegendaryGameInfo> = new Map()
 
 export async function initLegendaryLibraryManager() {
   loadGamesInAccount()
@@ -183,12 +183,12 @@ export function getListOfGames() {
  *
  * @param appName The AppName of the game you want the info of
  * @param forceReload Discards game info in `library` and always reads info from metadata files
- * @returns GameInfo
+ * @returns LegendaryGameInfo
  */
 export function getGameInfo(
   appName: string,
   forceReload = false
-): GameInfo | undefined {
+): LegendaryGameInfo | undefined {
   if (!hasGame(appName)) {
     logWarning(
       ['Requested game', appName, 'was not found in library'],

@@ -151,8 +151,13 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
-export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile'
+export type GameInfo =
+  | SideloadGameInfo
+  | LegendaryGameInfo
+  | GOGGameInfo
+  | NileGameInfo
+
+interface BaseGameInfo {
   store_url?: string
   app_name: string
   art_cover: string
@@ -172,7 +177,6 @@ export interface GameInfo {
   save_folder?: string
   // ...and this is the folder with them filled in
   save_path?: string
-  gog_save_location?: GOGCloudSavesLocation[]
   title: string
   canRunOffline: boolean
   thirdPartyManagedApp?: string
@@ -186,6 +190,23 @@ export interface GameInfo {
   dlcList?: GameMetadataInner[]
   customUserAgent?: string
   launchFullScreen?: boolean
+}
+
+export interface SideloadGameInfo extends BaseGameInfo {
+  runner: 'sideload'
+}
+
+export interface LegendaryGameInfo extends BaseGameInfo {
+  runner: 'legendary'
+}
+
+export interface GOGGameInfo extends BaseGameInfo {
+  runner: 'gog'
+  gog_save_location?: GOGCloudSavesLocation[]
+}
+
+export interface NileGameInfo extends BaseGameInfo {
+  runner: 'nile'
 }
 
 export interface GameSettings {

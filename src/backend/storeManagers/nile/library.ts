@@ -6,11 +6,11 @@ import {
   logInfo,
   logWarning
 } from 'backend/logger'
-import { CallRunnerOptions, ExecResult, GameInfo } from 'common/types'
+import { CallRunnerOptions, ExecResult, NileGameInfo } from 'common/types'
 import {
   FuelSchema,
   NileGameDownloadInfo,
-  NileGameInfo,
+  NileGameInfo as NileGameInfoJSON,
   NileInstallInfo,
   NileInstallMetadataInfo
 } from 'common/types/nile'
@@ -26,7 +26,7 @@ import { runNileCommandStub } from './e2eMock'
 import { nileConfigPath, nileInstalled, nileLibrary } from './constants'
 
 const installedGames: Map<string, NileInstallMetadataInfo> = new Map()
-const library: Map<string, GameInfo> = new Map()
+const library: Map<string, NileGameInfo> = new Map()
 
 export async function initNileLibraryManager() {
   // Migrate user data from global Nile config if necessary
@@ -46,7 +46,7 @@ function loadGamesInAccount() {
   if (!existsSync(nileLibrary)) {
     return
   }
-  const libraryJSON: NileGameInfo[] = JSON.parse(
+  const libraryJSON: NileGameInfoJSON[] = JSON.parse(
     readFileSync(nileLibrary, 'utf-8')
   )
   libraryJSON.forEach((game) => {
@@ -285,7 +285,7 @@ export async function refresh(): Promise<ExecResult | null> {
 export function getGameInfo(
   appName: string,
   forceReload = false
-): GameInfo | undefined {
+): NileGameInfo | undefined {
   if (!forceReload) {
     const gameInMemory = library.get(appName)
     if (gameInMemory) {
