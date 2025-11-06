@@ -10,7 +10,8 @@
         "titles_always_visible": "Alati näita pealkirjasid varamus",
         "actions_font_family_default": "Toimingute fondiperekond (Vaikimisi: {{fontFamily}})",
         "content_font_family_default": "Sisu fondiperekond (Vaikimisi: {{fontFamily}})",
-        "disable_smooth_scrolling": "Keela sujuv kerimine (nõuab restarti)"
+        "disable_smooth_scrolling": "Keela sujuv kerimine (nõuab restarti)",
+        "disable_animations": "Keela kasutajaliidese animatsioonid"
     },
     "add_game": "Lisa mäng",
     "All": "Kõik",
@@ -105,7 +106,8 @@
                 "message": "Saadaval on uus versioon!",
                 "message-finished": "Kas soovite Heroicu nüüd taaskäivitada?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Uuendus lõpetatud"
+                "title-finished": "Uuendus lõpetatud",
+                "detailNoAutoupdate": "Teie pakiformaat ei toeta automaatseid uuendusi. Palun kasutage uuendamiseks oma pakihaldurit."
             }
         },
         "no": "EI",
@@ -368,7 +370,8 @@
         "advertiseAvxForRosetta": "Lubab toe AVX käsustiku jaoks, kui mängite Windowsi mänge Apple Siliconi Mac-idel läbi Rosetta. See võib olla vajalik teatud mängude jaoks, mis vajavad AVX-i tuge, näiteks \"Death Stranding\".",
         "wine-hdr": "HDR täiustab värve võimendades eredaid kohti ja pakkudes sügavamat kontrasti. HDR-i toimimiseks peavad nii ekraan kui ka mäng seda toetama.",
         "wine-wayland": "Wine-Waylandi eksperimentaalne draiver lubab mängudel otse käivituda läbi Waylandi kuvaprotokolli. Selle lubamine võib mõned mängud katki teha.",
-        "analytics": "Lubab Heroicul koguda 100% anonüümseid kasutusandmeid, et rakendust paremaks teha. Nõuab restarti."
+        "analytics": "Lubab Heroicul koguda 100% anonüümseid kasutusandmeid, et rakendust paremaks teha. Nõuab restarti.",
+        "WoW64": "Wine'i WoW64 režiim lubab 32-bitistel Windowsi mängudel toimida 64-bitisel Wine'il. Selle lubamine võib muuta kogemuse sujuvamaks, aga võib ka vanemaid 32-bitiseid mänge katki teha."
     },
     "info": {
         "heroic": {
@@ -788,7 +791,19 @@
             "wine_selector_warning": "Mitte-GE Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes"
         },
         "analyticsOptIn": "Saada anonüümseid andmeid, et aidata Heroicu arendamist",
-        "no-tray-icon": "Peida System Tray ikoon (nõuab restarti)"
+        "no-tray-icon": "Peida System Tray ikoon (nõuab restarti)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Ära näita neid",
+                "show": "Ma saan aru, näita neid",
+                "title": "Kas olete kindel?",
+                "message": "Soovitame Heroicuga kasutada kohandatud Protoni variante (GE-Proton, Proton-CachyOS jms.), kuna Valve'i Protoni versioonidel puuduvad winetricks ja protofixes. Kui soovite, võite neid siiski kasutada."
+            },
+            "label": "Luba mitte-GE Protoni versioone mängude mängimiseks",
+            "wine_selector_warning": "Mitte-GE Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes",
+            "info_label": "Valve'i Protoni versioonid eiratud"
+        },
+        "WoW64": "Luba WoW64 (eksperimentaalne)"
     },
     "settings": {
         "battlEyeRuntime": {
