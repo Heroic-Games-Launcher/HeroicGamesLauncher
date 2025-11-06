@@ -24,47 +24,16 @@ export default function CategoryFilter() {
     }
   }
 
-  const setCategoryOnly = (category: string) => {
-    setCurrentCustomCategories([category])
-  }
+  const resetCategories = () => setCurrentCustomCategories([])
 
-  const selectAll = () => {
-    setCurrentCustomCategories(
-      ['preset_uncategorized'].concat(customCategories.listCategories())
-    )
-  }
-
-  const toggleWithOnly = (
-    toggle: JSX.Element,
-    onOnlyClicked: () => void,
-    category: string
-  ) => {
-    return (
-      <div className="toggleWithOnly" key={category}>
-        {toggle}
-        <button className="only" onClick={() => onOnlyClicked()}>
-          {t('header.only', 'only')}
-        </button>
-      </div>
-    )
-  }
-
-  const categoryToggle = (categoryName: string, categoryValue?: string) => {
-    const toggle = (
-      <ToggleSwitch
-        htmlId={categoryValue || categoryName}
-        handleChange={() => toggleCategory(categoryValue || categoryName)}
-        value={currentCustomCategories.includes(categoryValue || categoryName)}
-        title={categoryName}
-      />
-    )
-
-    const onOnlyClick = () => {
-      setCategoryOnly(categoryValue || categoryName)
-    }
-
-    return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
-  }
+  const categoryToggle = (categoryName: string, categoryValue?: string) => (
+    <ToggleSwitch
+      htmlId={categoryValue || categoryName}
+      handleChange={() => toggleCategory(categoryValue || categoryName)}
+      value={currentCustomCategories.includes(categoryValue || categoryName)}
+      title={categoryName}
+    />
+  )
 
   const categoriesList = customCategories.listCategories()
 
@@ -94,9 +63,9 @@ export default function CategoryFilter() {
         <button
           type="reset"
           className="button is-primary"
-          onClick={() => selectAll()}
+          onClick={() => resetCategories()}
         >
-          {t('header.select_all', 'Select All')}
+          {t('header.reset', 'Reset')}
         </button>
         <button
           className="button is-secondary is-small"
