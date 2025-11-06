@@ -765,6 +765,11 @@
             "confirmation": {
                 "title": "本当によろしいですか？"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "本当によろしいですか？"
+            }
         }
     },
     "settings": {
