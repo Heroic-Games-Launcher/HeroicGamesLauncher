@@ -136,7 +136,7 @@ export default function LibraryFilters() {
       browser: false
     })
     setShowHidden(false)
-    setShowNonAvailable(true)
+    setShowNonAvailable(false)
     setShowFavourites(false)
     setShowInstalledOnly(false)
     setShowSupportOfflineOnly(false)
