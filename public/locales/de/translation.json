@@ -6,16 +6,17 @@
         "fonts": "Schriftarten",
         "title": "Barrierefreiheit",
         "zoom": "Vergrößerung",
-        "disable_dialog_backdrop_close": "Deaktiviere schließen der Dialoge bei Klick außerhalb",
+        "disable_dialog_backdrop_close": "Deaktiviere \"Schließen der Dialoge\" durch einen Klick außerhalb des Dialogs",
         "titles_always_visible": "Immer Spieltitel in Bibliothek anzeigen",
         "content_font_family_default": "Schriftfamilie Inhalt (Standard: {{fontFamily}})",
         "actions_font_family_default": "Schriftfamilie Aktionen (Standard: {{fontFamily}})",
-        "disable_smooth_scrolling": "Smooth Scrolling deaktivieren (benötigt Neustart)"
+        "disable_smooth_scrolling": "Sanftes scrollen deaktivieren (benötigt Neustart)",
+        "disable_animations": "Deaktiviere die Animationen des Nutzerinterfaces"
     },
     "add_game": "Spiel hinzufügen",
     "All": "Alle",
     "anticheat": {
-        "anticheats": "Anticheat-Systeme",
+        "anticheats": "Anticheat-Software",
         "may_not_work": "Möglicherweise funktioniert es nicht wegen verweigerter oder defekter Anticheat-Unterstützung.",
         "reference": "Referenz",
         "source": "Quelle",
@@ -105,7 +106,8 @@
                 "message": "Eine neue Version ist verfügbar!",
                 "message-finished": "Möchtest du Heroic jetzt neu starten?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Aktualisierung abgeschlossen"
+                "title-finished": "Aktualisierung abgeschlossen",
+                "detailNoAutoupdate": "Automatische Updates werden für das von dir gewählte Installationsverfahren nicht unterstützt. Bitte nutze deinen Paketmanager für Updates."
             }
         },
         "no": "NEIN",
@@ -365,7 +367,11 @@
         "msync": "Msync zielt darauf ab, Winserver Overhead in CPU-intensiven Spielen zu reduzieren. Aktivieren kann die Leistung auf unterstützten Linux-Kernels verbessern.",
         "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "advertiseAvxForRosetta": "Aktiviere die Unterstützung des AVX-Befehlssatzes beim Ausführen von Windows-Spielen über Rosetta auf Apple-Silicon-Macs. Dies kann für einige Spiele wie Death Stranding erforderlich sein, die AVX-Unterstützung benötigen.",
-        "download_proton_steam": "Wenn aktiviert, wird GE-Proton direkt in das Kompatibilitätstools-Verzeichnis von Steam heruntergeladen, anstatt in den standardmäßigen Heroic-Pfad. Es wird den festgelegte Steam-Pfad aus der Einstellung „Standard-Steam-Pfad“ oben verwenden."
+        "download_proton_steam": "Wenn aktiviert, wird GE-Proton direkt in das Kompatibilitätstools-Verzeichnis von Steam heruntergeladen, anstatt in den standardmäßigen Heroic-Pfad. Es wird den festgelegte Steam-Pfad aus der Einstellung „Standard-Steam-Pfad“ oben verwenden.",
+        "analytics": "Erlaube Heroic das Sammeln von zu 100% anonyme Nutzungsdaten, um zur Verbesserung der App beizutragen. Dies benötigt einen Neustart des Programms.",
+        "wine-hdr": "HDR verstärkt die Farbintensität durch das Verstärken von Helligkeitsunterschieden und eine Erhöhung der Kontraste. Sowohl das Display, als auch das Spiel müssen HDR unterstützen damit es funktioniert.",
+        "wine-wayland": "Der experimentelle Wine-Wayland Treiber erlaubt es Spielen, nativ das Wayland Displayprotokoll zu nutzen. Dies funktioniert nicht mit allen Spielen und kann zu Abstürzen führen.",
+        "WoW64": "Der Wine WOW64-Modus erlaubt es älteren 32-Bit Windowsspielen in einer 64-Bit Wine-Instanz zu laufen. Das kann die Leistung verbessern, kann aber auch bei manchen Spielen zu Abstürzen führen."
     },
     "info": {
         "heroic": {
@@ -775,7 +781,14 @@
             "confirmation": {
                 "title": "Sind sie sicher?"
             }
-        }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Sind sie sicher?"
+            }
+        },
+        "analyticsOptIn": "Übermittle anonyme Daten um die Weiterentwicklung von Heroic zu unterstützen",
+        "hdr": "Aktiviere HDR"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1072,7 +1085,11 @@
             "pt1": "Um diese Anwendung zu verbessern, sammelt Heroic zu 100% anonyme Daten.",
             "pt3": "Es werden niemals deine persönlichen Informationen, wie dein Nutzername, deine IP-Adresse oder deine Mail-Adresse, gesammelt.",
             "pt4": "Diese Daten werden genutzt, um uns Einblicke zu geben, worauf wir uns trotz begrenzter Ressourcen und Nutzer*innen-Feedback fokussieren sollten.",
-            "pt7": "Du kannst die Einstellung jederzeit in den App Einstellungen ändern."
-        }
+            "pt7": "Du kannst die Einstellung jederzeit in den App-Optionen ändern.",
+            "pt2": "Heroic nutzt die Open-Source Plattform \"Plausible Analytics\" um folgende Daten zu erheben: App Version, Betriebssystem, verbundene Stores und dein Land.",
+            "pt5": "Die Plattform \"Plausible Analytics\" befolgt vollständig die Datenschutzregeln von DSGVO, CCPA und PECR.",
+            "pt6": "Zur Transparenz kannst du jederzeit die gesammelten Daten in den Ereignisprotokolldatei von Heroic prüfen."
+        },
+        "title": "Sende anonyme Analysedaten"
     }
 }
