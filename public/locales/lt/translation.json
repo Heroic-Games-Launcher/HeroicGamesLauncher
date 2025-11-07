@@ -132,7 +132,7 @@
             "message": "„Heroic“ talpykla/podėlis išvalyta/-s.",
             "title": "Talpykla/Podėlis išvalyta/-s"
         },
-        "changelog": "Keitinių̃ žurnãlas",
+        "changelog": "Keitinių žurnãlas",
         "choose-egs-prefix": "Pasirinkti prielinksnį/priešdėlį, kuriame „EGS“ yra įdiegtas",
         "choose-gogdl-binary": "Pasirinkti „GOGDL“ dvejetainę (reikalauja paleidimo iš naujo)",
         "choose-legendary-binary": "Pasirinkti „Legendary“ dvejetainę",
@@ -574,6 +574,11 @@
             "confirmation": {
                 "title": "Ar Jūs esate tikra/-s?"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Ar Jūs esate tikra/-s?"
+            }
         }
     },
     "settings": {
@@ -717,7 +722,8 @@
         "zoom": "Priartinimas ir atitolinimas",
         "disable_dialog_backdrop_close": "Neleisti dialogų langų uždarymą spaustėlius ne jo lange",
         "actions_font_family_default": "Veiksmšų šrifto „šeima“ (Numatyta: {{fontFamily}})",
-        "content_font_family_default": "Turinio šrifto „šeima“ (Numatyta: {{fontFamily}})"
+        "content_font_family_default": "Turinio šrifto „šeima“ (Numatyta: {{fontFamily}})",
+        "disable_smooth_scrolling": "Išjungti švelnų slinkimą (reikalauja paleidimo iš naujo)"
     },
     "add_game": "Pridėti žaidimą",
     "anticheat": {
@@ -939,6 +945,15 @@
     },
     "analyticsModal": {
         "disable": "Išjungta/Neįgalinta (-as/-i)",
-        "enable": "Įjungta/Įgalinta (-as/-i)"
+        "enable": "Įjungta/Įgalinta (-as/-i)",
+        "info": {
+            "pt1": "Siekiant patobulinti šią programą, „Heroic“ renką 100% proc. anonimiškus duomenis.",
+            "pt2": "„Heroic“ naudoja atviro kodo „Plausible Analytics“ platformą, kad surinktų šiuos duomenis: programos versiją, operacinę sistemą, prijungtas parduotuves/platformas ir šalį.",
+            "pt3": "Jis niekada nerinks jokių asmeninių duomenų, įskaitant Jūsų naudotojo/vartotojo vardą (t.y. slapyvardį), IP adresą ar el. paštą.",
+            "pt5": "„Plausible Analytics“ yra pilnai paklusnus su BDAR, „CCPA“ ir PERR.",
+            "pt4": "Šie duomenys yra naudojami suteiktiant įžvalgas į tolimesnius dėmesio sutelkimus dėl mūsų ribotų resursų ir vartotojų atsiliepimų.",
+            "pt7": "Šį nustatymą galite pakeisti bet kada Programos Nustatymuose."
+        },
+        "title": "Siūsti Anoniminę Analitiką"
     }
 }

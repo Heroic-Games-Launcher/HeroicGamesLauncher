@@ -773,6 +773,11 @@
             "confirmation": {
                 "title": "நீங்கள் உறுதியாக இருக்கிறீர்களா?"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "நீங்கள் உறுதியாக இருக்கிறீர்களா?"
+            }
         }
     },
     "settings": {

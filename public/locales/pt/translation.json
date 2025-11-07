@@ -10,7 +10,8 @@
         "titles_always_visible": "Sempre mostrar títulos na biblioteca",
         "content_font_family_default": "Conteúdo da Família de Fonte (Padrão: {{fontFamily}})",
         "actions_font_family_default": "Ações da Família de Fontes (Padrão: {{fontFamily}})",
-        "disable_smooth_scrolling": "Desativar scroll suave (requer reinicialização)"
+        "disable_smooth_scrolling": "Desativar scroll suave (requer reinicialização)",
+        "disable_animations": "Desativar animações da interface"
     },
     "add_game": "Adicionar Jogo",
     "All": "Tudo",
@@ -105,7 +106,8 @@
                 "message": "Há uma Versão nova disponível!",
                 "message-finished": "Quer reiniciar o Heroic agora?",
                 "title": "Lançador de Jogos Heroic",
-                "title-finished": "Atualização Terminada"
+                "title-finished": "Atualização Terminada",
+                "detailNoAutoupdate": "As atualizações automáticas não são suportadas para o teu formato de pacote. Por favor, utiliza o teu gestor de pacotes para atualizar."
             }
         },
         "no": "NÃO",
@@ -256,7 +258,7 @@
     },
     "generic": {
         "error": {
-            "component": "Não foram encontrados Jogos - Tente terminar a sessão e entre novamente ou tente as opções em baixo"
+            "component": "Nenhum jogo encontrado - Tenta terminar a sessão e iniciar novamente ou uma das opções abaixo"
         },
         "library": {
             "refresh": "Atualizar a Biblioteca"
@@ -366,7 +368,10 @@
         "dxfpslimit": "Define um limite de FPS para jogos DirectX (9-12)",
         "advertiseAvxForRosetta": "Ativa o conjunto de instruções AVX ao correr jogos Windows através da Rosetta em Macs Apple Silicon. Pode ser necessário para jogos com Death Stranding que precisam de suporte AVX.",
         "analytics": "Permite que o Heroic recolha dados de utilização 100% anónimos para ajudar a melhorar a aplicação. É necessário reiniciar para entrar em vigor.",
-        "download_proton_steam": "Caso habilitado, o GE-Proton vai ser baixado diretamente para o diretório ferramentas de compatibilidade do Steam em vez do caminho padrão do Heroic. Isso vai usar o caminho do Steam definido na configuração \"Caminho padrão do Steam\" acima."
+        "download_proton_steam": "Caso habilitado, o GE-Proton vai ser baixado diretamente para o diretório ferramentas de compatibilidade do Steam em vez do caminho padrão do Heroic. Isso vai usar o caminho do Steam definido na configuração \"Caminho padrão do Steam\" acima.",
+        "wine-hdr": "O HDR melhora as cores ao proporcionar realces mais brilhantes e contrastes mais profundos. Para que o HDR funcione, tanto o ecrã como o jogo devem suportá-lo.",
+        "wine-wayland": "O controlador experimental Wine-Wayland permite que os jogos corram nativamente sob o protocolo de ecrã Wayland. Ativar esta opção poderá causar problemas em alguns jogos.",
+        "WoW64": "O modo Wine WoW64 permite que jogos Windows de 32 bits sejam executados em Wine de 64 bits. Ativar esta opção pode melhorar o desempenho, mas também poderá causar problemas em jogos de 32 bits mais antigos."
     },
     "info": {
         "heroic": {
@@ -746,8 +751,9 @@
         "gamescope": {
             "enableLimiter": "Ativar limitador de FPS",
             "enableUpscaling": "Permite aprimoramento de escala (Upscalling)",
-            "missingMsg": "Não foi possível encontrar o gamescope no diretório. Instale-o ou adicione-o ao diretório.",
-            "enableForceGrabCursor": "Ativar Forçar Captura do Cursor"
+            "missingMsg": "Não foi possível encontrar o Gamescope no PATH. Instala-o ou adiciona-o ao PATH.",
+            "enableForceGrabCursor": "Ativar Forçar Captura do Cursor",
+            "warningFlatpak": "Não foi possível encontrar uma versão compatível do Gamescope. Instala o pacote flatpak do Gamescope com o runtime {{runtimeVersion}} e reinicia o Heroic."
         },
         "after-launch-script-path": "Selecione um script para rodar após o fechamento do jogo",
         "before-launch-script-path": "Selecionar um script para rodar antes do lançamento do jogo",
@@ -765,7 +771,7 @@
         },
         "disableUMU": "Desativar UMU",
         "custom_css": {
-            "warning": "Aviso: Isto afeta toda a interface do Heroic. Um estilo incorreto pode deixar o Heroic inutilizável. Se necessário, a configuração pode ser alterada manualmente no arquivo `~/.config/heroic/config.json.` NÃO copie estilos de fontes não confiáveis."
+            "warning": "Aviso: isto aplica-se a toda a interface. Isso significa que um estilo incorreto pode tornar o Heroic inutilizável. Se necessário, a definição pode ser alterada manualmente em ~/.config/heroic/config.json. NÃO copies estilos de fontes em que não confias."
         },
         "dxfpslimit": "Limitar FPS de jogos DirectX",
         "download-proton-steam": "Transferir GE-Proton para o diretório Steam",
@@ -776,7 +782,24 @@
             },
             "info_label": "Versões não GE do Proton ignoradas",
             "label": "Permitir o uso de compilações não-GE do Proton para executar jogos"
-        }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "show": "Eu compreendo, mostre-lhes",
+                "title": "Tem a certeza?",
+                "dont_show": "Não os mostrar",
+                "message": "Recomendamos que sejam utilizadas forks personalizadas do Proton (GE-Proton, Proton-CachyOS, etc.) com o Heroic, pois as versões do Proton da Valve não incluem wintricks e protofixes. Podes continuar a usá-los se quiseres."
+            },
+            "label": "Permitir o uso de compilações não-GE do Proton para executar jogos",
+            "info_label": "Versões do Proton da Valve ignoradas",
+            "wine_selector_warning": "As versões do Proton da Valve são ignoradas por omissão, ativa-as nas Definições Globais Avançadas"
+        },
+        "advertiseAvxForRosetta": "Anunciar AVX para Rosetta",
+        "analyticsOptIn": "Enviar dados anónimos para ajudar no desenvolvimento do Heroic",
+        "hdr": "Ativar HDR",
+        "no-tray-icon": "Ocultar Ícone da Bandeja do Sistema (requer reinício)",
+        "wineWayland": "Ativar Wine-Wayland (Experimental) (a versão do Wine precisa de o suportar)",
+        "WoW64": "Ativar WoW64 (Experimental)"
     },
     "settings": {
         "battlEyeRuntime": {

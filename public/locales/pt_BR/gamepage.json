@@ -186,7 +186,7 @@
         "steam": {
             "installing": "Instalando",
             "pleaseWait": "Aguarde",
-            "installation": "Parar a Instalação",
+            "installation": "Instalação da Steam",
             "install-path": "Diretório de instalação Steam",
             "abort": "Abortar instalação",
             "cancel": "Cancelar instalação",
@@ -227,7 +227,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver Bottle",
         "show-wine-settings": "Mostrar configurações do Wine",
-        "warn-use-shared-wine-config": "Somente use essa opção se souber o que está fazendo.<br/>Compartilhar o mesmo prefixo para múltiplos jogos pode gerar problemas."
+        "warn-use-shared-wine-config": "Somente use essa opção se souber o que está fazendo.<br/>Compartilhar o mesmo prefixo para múltiplos jogos pode gerar problemas.",
+        "use-shared-wine-config": "Usar prefixo Wine compartilhado"
     },
     "sideload": {
         "field": {
@@ -249,7 +250,7 @@
         },
         "import-hint": {
             "title": "Importante! Você está adicionando um jogo da Epic/GOG/Amazon? Clique aqui!",
-            "content": "NÃO utilize essa função para isso.<br />Invés disso, <3>faça o login</3> na loja, procure pelo jogo em sua biblioteca, abra o diálogo de instalação, e clique no botão &quot;Import Game&quot;"
+            "content": "NÃO utilize essa função para isso.<br />Em vez disso, <3>faça o login</3> na loja, procure pelo jogo na sua biblioteca, abra o diálogo de instalação, e clique no botão &quot;Importar Jogo&quot;"
         }
     },
     "specs": {

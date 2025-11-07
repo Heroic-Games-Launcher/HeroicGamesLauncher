@@ -226,7 +226,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver palack",
         "show-wine-settings": "Wine beállítások megjelenítése",
-        "warn-use-shared-wine-config": "Csak akkor használja ezt, ha tudja, hogy mit csinál.<br/>Ha azonos előtagot használ több játékhoz, akkor az problémákat okozhat, ha a függőségeik nem kompatibilisek."
+        "warn-use-shared-wine-config": "Csak akkor használja ezt, ha tudja, hogy mit csinál.<br/>Ha azonos előtagot használ több játékhoz, akkor az problémákat okozhat, ha a függőségeik nem kompatibilisek.",
+        "use-shared-wine-config": "Megosztott Wine előtag használata"
     },
     "sideload": {
         "field": {

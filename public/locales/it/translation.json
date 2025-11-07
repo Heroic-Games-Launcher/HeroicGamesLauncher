@@ -785,7 +785,14 @@
             "info_label": "Versioni di Non-GE Proton ignorate"
         },
         "analyticsOptIn": "Invia dati anonimi per supportare lo sviluppo di Heroic",
-        "no-tray-icon": "Nascondi icona barra di sistema (riavvio richiesto)"
+        "no-tray-icon": "Nascondi icona barra di sistema (riavvio richiesto)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Non mostrarli",
+                "show": "Ho capito, mostrali",
+                "title": "Sei sicuro?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {

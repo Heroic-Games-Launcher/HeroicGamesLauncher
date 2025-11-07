@@ -47,7 +47,8 @@
             "message": "Ar Jūs norite LAIKYTI atsisiųstus failus?",
             "title": "Stabdyti įdiegimą"
         },
-        "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką"
+        "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką",
+        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią"
     },
     "button": {
         "add_to_favourites": "Pridėti prie mėgstamiausių",
@@ -74,7 +75,8 @@
         "details": "Išsamumas",
         "no-path-selected": "Joks kelias nepažymėtas",
         "remove_from_recent": "Pašalinti iš paskiausių",
-        "run-exe-first": "Pirmiausiai vykdyti įdiegiklį"
+        "run-exe-first": "Pirmiausiai vykdyti įdiegiklį",
+        "browse_files": "Naršyti failus"
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -136,7 +138,8 @@
         "launching": "Paleidžiama",
         "playing": {
             "start": "Žaisti dabar",
-            "stop": "Žaidžia/-ma (Stabdyti)"
+            "stop": "Žaidžia/-ma (Stabdyti)",
+            "start_with_logs": "Žaisti dabar (su žurnalinimu)"
         },
         "saves": {
             "syncing": "Sinchronizuojami (žaidimo) išsaugojimai"

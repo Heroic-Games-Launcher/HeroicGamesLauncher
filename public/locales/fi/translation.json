@@ -685,6 +685,11 @@
             "confirmation": {
                 "title": "Oletko varma?"
             }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Oletko varma?"
+            }
         }
     },
     "settings": {

@@ -10,7 +10,8 @@
         "titles_always_visible": "Kütüphanede her zaman başlıkları göster",
         "content_font_family_default": "İçerik Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
         "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
-        "disable_smooth_scrolling": "Düzgün kaydırmayı devre dışı bırak (yeniden başlatılmalı)"
+        "disable_smooth_scrolling": "Düzgün kaydırmayı devre dışı bırak (yeniden başlatılmalı)",
+        "disable_animations": "Kullanıcı Arayüzü animasyonlarını kapat"
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
@@ -105,7 +106,8 @@
                 "message": "Yeni bir sürüm var!",
                 "message-finished": "Heroic'i şimdi yeniden başlatmak istiyor musunuz?",
                 "title": "Heroic Games Başlatıcısı",
-                "title-finished": "Güncelleme Tamamlandı"
+                "title-finished": "Güncelleme Tamamlandı",
+                "detailNoAutoupdate": "Otomatik güncellemeler paketleme formatınız için desteklenmiyor. Lütfen güncelleme yapmak için paket yöneticinizi kullanın."
             }
         },
         "no": "HAYIR",
@@ -366,7 +368,8 @@
         "download_proton_steam": "Etkinleştirildiğinde, GE-Proton varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilecektir. Yukarıdaki 'Varsayılan Steam yolu' ayarında ayarlanan Steam yolunu kullanacaktır.",
         "analytics": "Uygulamayı geliştirmeye yardımcı olacak %100 anonim kullanım verilerinin toplanmasını etkinleştirir. Değişikliğin etkinleşmesi için yeniden başlatma gerekir.",
         "wine-hdr": "HDR; daha aydınlık sahneler ve daha belirgin kontrastlar sağlayarak renkleri daha canlı ve gerçekçi hale getirir. Bu özelliğin çalışabilmesi için hem ekranınızın hem de oyunun HDR'ı desteklemesi şarttır.",
-        "wine-wayland": "Wine-Wayland deneysel sürücüsü, oyunların Wayland görüntüleme protokolüyle yerel olarak çalışmasını sağlar. Bu özelliği etkinleştirmek bazı oyunlarda sorunlara yol açabilir."
+        "wine-wayland": "Wine-Wayland deneysel sürücüsü, oyunların Wayland görüntüleme protokolüyle yerel olarak çalışmasını sağlar. Bu özelliği etkinleştirmek bazı oyunlarda sorunlara yol açabilir.",
+        "WoW64": "Wine WoW64 modu, 32-bit Windows oyunlarının 64-bit Wine'da çalıştırılmasını sağlar. Açmak performansı iyileştirebilir ama aynı zamanda daha eski 32-bit oyunlarda sorun çıkarabilir."
     },
     "info": {
         "heroic": {
@@ -785,7 +788,19 @@
         "analyticsOptIn": "Heroic'in geliştirilmesine yardımcı olmak için anonim veri gönder",
         "hdr": "HDR'ı Etkinleştir",
         "no-tray-icon": "Sistem Tepsi Simgesini Gizle (yeniden başlatma gerektirir)",
-        "wineWayland": "Wine-Wayland'ı Etkinleştir (Deneysel) (Wine sürümünüzün bunu desteklemesi gerekir)"
+        "wineWayland": "Wine-Wayland'ı Etkinleştir (Deneysel) (Wine sürümünüzün bunu desteklemesi gerekir)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Bunları Gösterme",
+                "show": "Yine de Göster",
+                "title": "Emin misiniz?",
+                "message": "Valve'ın Proton sürümlerinde winetrick ve protofix bulunmadığından, Heroic ile birlikte özel Proton çatallarını (GE-Proton, Proton-CachyOS vb.) kullanmanızı öneririz. Yine de isterseniz Valve'ın Proton sürümlerini kullanabilirsiniz."
+            },
+            "label": "GE olmayan Proton sürümleriyle oyun çalıştırmaya izin ver",
+            "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz",
+            "info_label": "Valve Proton sürümleri göz ardı edildi"
+        },
+        "WoW64": "WoW64'ü aç (Deneysel)"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -10,7 +10,8 @@
         "content_font_family_default": "Tipografías dos contidos (Por defecto: {{fontFamily}})",
         "titles_always_visible": "Mostrar sempre os títulos na biblioteca",
         "disable_dialog_backdrop_close": "Desactiva que as caixas de diálogo se pechen ao premer fóra delas",
-        "disable_smooth_scrolling": "Desactiva o suavizado de scroll (precisa reiniciar)"
+        "disable_smooth_scrolling": "Desactiva o suavizado de scroll (precisa reiniciar)",
+        "disable_animations": "Desactivar animacións UI"
     },
     "add_game": "Engadir xogo",
     "All": "Todos",
@@ -105,14 +106,15 @@
                 "message": "Hai unha nova versión dispoñible!",
                 "message-finished": "Queres reiniciar Heroic agora?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Actualización completada"
+                "title-finished": "Actualización completada",
+                "detailNoAutoupdate": "As actualizacións automáticas non están dispoñibles para o teu formato de paquete. Por favor, empregue o seu xestor de paquetes para actualizalo."
             }
         },
         "no": "NON",
         "ok": "Aceptar",
         "protocol": {
             "install": {
-                "not_installed": "Non está instalado, ¿desexas instalalo?"
+                "not_installed": "Non está instalado, desexas instalalo?"
             }
         },
         "quit": {
@@ -150,7 +152,7 @@
                 "message": "Abríronse os enlaces de descarga para os \"Visual C++ Runtimes\". Por favor, instala as versións de x86 e x64."
             },
             "notfound": {
-                "message": "Os \"Visual C++ Runtimes\" de Microsoft non están instalados, e algúns xogos necesítanos",
+                "message": "As bibliotecas de execución de Visual C++ de Microsoft non están instaladas, e algúns xogos as requiren.",
                 "title": "VCRuntime non está instalado"
             }
         },
@@ -178,7 +180,7 @@
             },
             "rosetta": {
                 "title": "Non se puido atopar Rosetta",
-                "message": "Heroic necesita Rosetta para poder funcionar correctamente en macOS con chips de Apple Silicon. Por favor, instálao desde a terminal empregando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicia Heroic. "
+                "message": "Heroic necesita Rosetta para poder funcionar correctamente en macOS con chips de Apple Silicon. Por favor, instáleo dende a terminal empregando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicia Heroic. "
             }
         },
         "wineprefix": "Selecciona o cartafol de prefixo de Wine",
@@ -221,11 +223,11 @@
             "update_game": "Actualizar o xogo"
         }
     },
-    "docs": "Documentation",
+    "docs": "Documentación",
     "download-manager": {
         "install-type": {
-            "install": "Install",
-            "update": "Update"
+            "install": "Instalar",
+            "update": "Actualizar"
         },
         "label": {
             "disk": "Disco",
@@ -236,7 +238,7 @@
             "end-time": "Rematado en",
             "queue-time": "Engadido en",
             "start-time": "Iniciado en",
-            "type": "Type"
+            "type": "Tipo"
         },
         "title": "Downloads",
         "ETA": "Tempo estimado"
@@ -300,7 +302,7 @@
             "valid_codes": "Os códigos de lingua válidos dependen do xogo."
         },
         "gamemode": "Feral GameMode aplica cambios automáticos e temporais ao sistema mentres se executan os xogos. Activalo pode mellorar o rendemento.",
-        "general": "Sincronizar con EGS no caso que teña unha instalación funcional de Epic Games Launcher noutro lugar e desexa importar os seus xogos para evitar descargalos novamente.",
+        "general": "Sincronizar con EGS no caso de ter unha instalación funcional de Epic Games Launcher noutro lugar e desexe importar os seus xogos para evitar descargalos novamente.",
         "mangohud": "MangoHUD é unha capa que mostra e monitoriza os FPS, a temperatura, a carga da CPU/GPU e outros recursos do sistema.",
         "other": {
             "part4": "Usar os ",
@@ -368,7 +370,8 @@
         },
         "wine-hdr": "HDR mellora as cores proporcionando resaltes máis brillantes e contrastes máis profundos. Para que HDR funcione, tanto a pantalla como o xogo deben ser compatibles.",
         "wine-wayland": "O driver experimental Wine-Wayland permite aos xogos executarse nativamente usando o protocolo de Wayland. Activalo pode causar problemas en algúns xogos.",
-        "analytics": "Permite a Heroic recoller información de uso 100% anónima para axudar a mellorar a aplicación. É necesario reiniciar para que faga efecto."
+        "analytics": "Permite a Heroic recoller información de uso 100% anónima para axudar a mellorar a aplicación. É necesario reiniciar para que faga efecto.",
+        "WoW64": "O modo WoW64 de Wine permite executar xogos de Windows de 32-bits no Wine de 64-bits. Habilitalo pode mellorar o rendemento, mais podería corromper xogos de 32-bits máis vellos."
     },
     "info": {
         "heroic": {
@@ -403,7 +406,7 @@
     },
     "label": {
         "loading": "Cargando",
-        "releaseDate": "Data de Publicación"
+        "releaseDate": "Data de publicación"
     },
     "library": {
         "refresh": "Actualizar",
@@ -458,11 +461,11 @@
         },
         "install": {
             "canceled": "Instalación cancelada",
-            "error": "Erro na instalación",
+            "error": "A instalación fallou",
             "finished": "Instalación rematada",
             "imported": "Xogo importado",
             "startInstall": "Instalación iniciada",
-            "failed": "Fallou a instalación",
+            "failed": "A instalación fallou",
             "paused": "Instalación en pausa"
         },
         "moved": "Movemento rematado",
@@ -611,7 +614,7 @@
             "currentVersion": "Versión actual: {{version}}",
             "disable": "Desactivar",
             "enable": "Activar",
-            "install": "Install",
+            "install": "Instalar",
             "installed": "A superposición de Epic (EOS Overlay) está instalada",
             "installing": "Estase instalando a superposición de Epic (EOS Overlay)...",
             "latestVersion": "Última versión: {{version}}",
@@ -694,7 +697,7 @@
             "title": "Sincronización manual de partidas gardadas",
             "upload": "Subir"
         },
-        "maxRecentGames": "Recent Games to Show",
+        "maxRecentGames": "Xogados recentemente para mostrar",
         "maxworkers": "Número máximo de descargas",
         "minimize-on-launch": "Minimizar Heroic ao lanzar un xogo",
         "offlinemode": "Executar xogo sen conexión",
@@ -785,7 +788,19 @@
             "description": "Activar rexistros detallados"
         },
         "wineWayland": "Activar Wine-Wayland (Experimental) (A versión de Wine debe ser compatible)",
-        "analyticsOptIn": "Enviar información anónima para axudar o desenvolvemento de Heroic"
+        "analyticsOptIn": "Enviar información anónima para axudar o desenvolvemento de Heroic",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Non amosalos",
+                "show": "Entendo, ensínaos",
+                "title": "Estás seguro/a?",
+                "message": "Recomendamos o uso de Heroic con forks de Proton personalizados (GE-Proton, Proton-CachyOS, etc.) dado que as builds de Proton de Valve carecen de winetricks e protofixes. Aínda así, podes empregalas se o desexas."
+            },
+            "label": "Permitir usar versións de Proton que non sexan de GE para executar xogos",
+            "wine_selector_warning": "As versións de Proton que non sexan de GE son ignoradas por defecto, podes activalas na configuración avanzada global",
+            "info_label": "Ignoráronse as versións de Valve Proton"
+        },
+        "WoW64": "Activar WoW64 (Experimental)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -794,7 +809,7 @@
         },
         "clear-cache": "Limpar caché de Heroic",
         "copiedToClipboard": "Copiado ao portapapeis!",
-        "copyToClipboard": "Copiar todas as configuracións al portapapeis",
+        "copyToClipboard": "Copiar todas as configuracións ao portapapeis",
         "default_hint": "Os cambios nesta sección só se aplican aos valores predefinidos cando se instala un xogo. Se queres cambiar a configuración de un xogo xa instalado, usa o botón de Configuración na páxina do xogo.",
         "eacRuntime": {
             "gameModeRequired": {
@@ -836,7 +851,7 @@
             "clearCache": {
                 "help8": "Xogos instalados",
                 "help9": "Configuración dos xogos",
-                "help1": "Asta acción borrará as seguintes cachés:",
+                "help1": "Esta acción borrará as seguintes cachés:",
                 "help10": "Configuración de Heroic",
                 "help2": "Información dos xogos de terceiros (puntuacións, compatibilidade con steam, howlongtobeat, pcgamingwiki, applegamingwiki)",
                 "help3": "Información da biblioteca de Legendary (lista de xogos, información do diálogo de instalación, información do xogo)",
@@ -855,7 +870,7 @@
             "details": "Detalles"
         },
         "systemInformation": {
-            "copyToClipboard": "Copiado ao portapapeis",
+            "copyToClipboard": "Copiar ao portapapeis",
             "cometVersion": "Comet: {{cometVersion}}",
             "cpu": "CPU:",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -945,14 +960,14 @@
         }
     },
     "wine": {
-        "actions": "Action",
+        "actions": "Acción",
         "manager": {
             "link": "Xestor de Wine",
             "not-found": "Non se atopou ningunha versión de Wine. Fai clic na icona de refrescar para volvelo a intentar.",
             "title": "Xestor de Wine",
             "unzipping": "Descomprimindo"
         },
-        "release": "Release Date",
+        "release": "Data de publicación",
         "size": "Tamaño"
     },
     "externalLink": {

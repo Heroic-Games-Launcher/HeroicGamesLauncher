@@ -1,7 +1,7 @@
 {
     "box": {
         "change": {
-            "message": "Isto cambiará a localización da instalación do xogo, está seguro?",
+            "message": "Isto cambiará a localización de instalación do xogo, está seguro?",
             "path": "Escolle o cartafol de instalación",
             "title": "Modificar a localización de instalación do xogo"
         },
@@ -39,7 +39,7 @@
             "title": "Desinstalar",
             "prefix_warning": "O prefixo Wine para este xogo é o prefixo predeterminado. Se realmente queres borralo, tes que facelo manualmente.",
             "dlc": "Queres desinstalar \"{{title}}\" (DLC)?",
-            "cannotUninstallEpic": "Epic games non pode ser desinstalado mentres outro xogo de Epic está sendo instalado.",
+            "cannotUninstallEpic": "Os xogos de Epic non pode ser desinstalados mentres outro xogo de Epic está sendo instalado.",
             "gameIsRunning": "{{title}} estase executando. Peche o xogo para desinstalalo."
         },
         "update": {
@@ -90,7 +90,7 @@
         "downloadSize": "Tamaño da descarga",
         "firstPlayed": "Xogado por primeira vez",
         "getting-download-size": "Geting download size",
-        "getting-install-size": "Geting install size",
+        "getting-install-size": "Obtendo tamaño da instalación",
         "installSize": "Tamaño da instalación",
         "language": "Idioma",
         "lastPlayed": "Xogado por última vez",
@@ -132,7 +132,7 @@
     "howLongToBeat": "Duración do xogo",
     "info": {
         "canRunOffline": "Require Online",
-        "installedPlatform": "Plataforma de instalación",
+        "installedPlatform": "Plataforma instalada",
         "path": "Ruta de instalación",
         "size": "Tamaño",
         "syncsaves": "Sincronizar gardados",
@@ -146,15 +146,15 @@
         "third-party-app": "Administrador de terceiros"
     },
     "install": {
-        "disk-space-left": "Espacio dispoñible",
-        "not-enough-disk-space": "Almacenamento insuficiente",
+        "disk-space-left": "Espazo dispoñible",
+        "not-enough-disk-space": "Non hai suficiente espazo no disco duro",
         "path": "Seleccionar a ruta de instalación",
         "path-not-writtable": "Advertencia: pode que non se poida escribir no directorio.",
         "space-after-install": "Despois da instalación",
         "wineprefix": "Prefixo de Wine",
         "wineversion": "Versión de Wine",
         "anticheat-warning": {
-            "ok": "Ok",
+            "ok": "De acordo",
             "cancel": "Non",
             "disabled_installation": "Este xogo utiliza software antitrampas que non é compatible co teu sistema operativo ou o soporte non foi habilitado polos desenvolvedores do xogo. Isto significa que as funcións de multixogador non van funcionar, e que non hai nada que ti (ou o equipo de Heroic) poida facer ao respecto.<br /><br />Para instalar este xogo e probalo de todos os modos, vai a Preferencias, Avanzado, e selecciona a opción para permitir a instalación de xogos con antitrampas rexeitado ou roto.<br /><br />Ten en conta que non hai ningunha solución para isto e no caso de continuar, córrese un risco de ser baneado do xogo.",
             "install_anyway": "Si (Entendo que as características multixogador non funcionarán)",
@@ -224,7 +224,8 @@
     "setting": {
         "winecrossoverbottle": "Botella de CrossOver",
         "show-wine-settings": "Amosar a configuración de Wine",
-        "warn-use-shared-wine-config": "Utiliza esta opción unicamente se sabes o que estás facendo.<br/>Compartir o mesmo prefixo para varios xogos pode crear problemas se as súas dependencias son incompatibles."
+        "warn-use-shared-wine-config": "Utiliza esta opción unicamente se sabes o que estás facendo.<br/>Compartir o mesmo prefixo para varios xogos pode crear problemas se as súas dependencias son incompatibles.",
+        "use-shared-wine-config": "Empregar prefixo compartido de Wine"
     },
     "sideload": {
         "field": {
@@ -259,7 +260,7 @@
         "hasUpdates": "Nova versión dispoñíbel!",
         "installed": "Instalado",
         "installing": "Instalando",
-        "moving": "Instalación en movemento, agarda",
+        "moving": "Instalación en movemento, agarde por favor",
         "notinstalled": "Este xogo non está instalado",
         "notSupported": "Non soportado",
         "notSupportedGame": "Non soportado",
