@@ -1282,6 +1282,23 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   ) {
     ret.ROSETTA_ADVERTISE_AVX = '1'
   }
+  // Workaround for Steam Input virtual gamepad not working for games launched through HGL from Steam
+  // using deprecated WineGE/ProtonGE releases (<= 8.x) following SDL behavior change on version >= 2.30
+  // (included with flatpak Freedesktop runtime 24.08 or newer)
+  // https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/4708
+  // https://github.com/libsdl-org/SDL/issues/14410
+  // https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/issues/1818
+  if (
+    isLinux &&
+    /(GE|Wine|Proton)-(Proton[7-8]|[4-7].*-GE|GE-4.[0-9]*)/.test(
+      wineVersion.name
+    )
+  ) {
+    ret.SteamVirtualGamepadInfo = ''
+    logWarning(
+      `Deprecated Wine-GE/Proton-GE release (<= 8.x) detected. Applying workaround for Steam Input virtual gamepad detection.`
+    )
+  }
   return ret
 }
 
