@@ -687,12 +687,20 @@ export async function launch(
       return false
     }
 
+    const executable = gameInfo.install.executable
     const result = await runWineCommand({
-      commandParts: [gameInfo.install.executable, ...commandParts],
+      commandParts: [basename(executable), ...commandParts],
       gameSettings,
       gameInstallPath: gameInfo.install.install_path,
       installFolderName: gameInfo.folder_name,
-      startFolder: gameInfo.install.install_path,
+      startFolder: dirname(
+        join(
+          gameSettings.winePrefix,
+          'drive_c',
+          'ZOOM PLATFORM',
+          executable
+        )
+      ),
       options: {
         env: { ...commandEnv, ...envVars },
         wrappers,
