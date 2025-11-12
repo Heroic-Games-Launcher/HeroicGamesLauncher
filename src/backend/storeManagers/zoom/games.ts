@@ -694,12 +694,7 @@ export async function launch(
       gameInstallPath: gameInfo.install.install_path,
       installFolderName: gameInfo.folder_name,
       startFolder: dirname(
-        join(
-          gameSettings.winePrefix,
-          'drive_c',
-          'ZOOM PLATFORM',
-          executable
-        )
+        join(gameSettings.winePrefix, 'drive_c', 'ZOOM PLATFORM', executable)
       ),
       options: {
         env: { ...commandEnv, ...envVars },
