@@ -33,7 +33,10 @@ import {
   nileConfigStore,
   nileLibraryStore,
   wineDownloaderInfoStore,
-  sideloadLibrary
+  sideloadLibrary,
+  zoomConfigStore,
+  zoomInstalledGamesStore,
+  zoomLibraryStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
@@ -63,6 +66,10 @@ interface StateProps {
   amazon: {
     library: GameInfo[]
     user_id?: string
+    username?: string
+  }
+  zoom: {
+    library: GameInfo[]
     username?: string
   }
   wineVersions: WineVersionInfo[]
@@ -143,6 +150,22 @@ class GlobalState extends PureComponent<Props> {
 
     return games
   }
+
+  loadZoomLibrary = (): Array<GameInfo> => {
+    const games = zoomLibraryStore.get('games', [])
+    const installedGames = zoomInstalledGamesStore.get('installed', [])
+    for (const game of games) {
+      const igame = installedGames.find(
+        (igame) => igame.appName === game.app_name
+      )
+      if (igame) {
+        game.install = igame
+        game.is_installed = true
+      }
+    }
+    return games
+  }
+
   state: StateProps = {
     epic: {
       library: libraryStore.get('library', []),
@@ -156,6 +179,10 @@ class GlobalState extends PureComponent<Props> {
       library: this.loadAmazonLibrary(),
       user_id: nileConfigStore.get_nodefault('userData.user_id'),
       username: nileConfigStore.get_nodefault('userData.name')
+    },
+    zoom: {
+      library: this.loadZoomLibrary(),
+      username: zoomConfigStore.get_nodefault('username')
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -572,13 +599,44 @@ class GlobalState extends PureComponent<Props> {
 
   getAmazonLoginData = async () => window.api.getAmazonLoginData()
 
+  zoomLogin = async (url: string) => {
+    console.log('logging zoom')
+    const response = await window.api.authZoom(url)
+
+    if (response.status === 'done') {
+      const userInfo = await window.api.getZoomUserInfo()
+      this.setState({
+        zoom: {
+          library: [],
+          username: userInfo?.username
+        }
+      })
+
+      this.handleSuccessfulLogin('zoom')
+    }
+
+    return response.status
+  }
+
+  zoomLogout = async () => {
+    window.api.logoutZoom()
+    this.setState({
+      zoom: {
+        library: [],
+        username: null
+      }
+    })
+    console.log('Logging out from zoom')
+    window.location.reload()
+  }
+
   refresh = async (
     library?: Runner | 'all',
     checkUpdates = false
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, gameUpdates } = this.state
+    const { epic, gog, amazon, zoom, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -605,6 +663,13 @@ class GlobalState extends PureComponent<Props> {
       gogLibrary = this.loadGOGLibrary()
     }
 
+    let zoomLibrary = this.loadZoomLibrary()
+    if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
+      window.api.logInfo('No cache found, getting data from zoom...')
+      await window.api.refreshLibrary('zoom')
+      zoomLibrary = this.loadZoomLibrary()
+    }
+
     let amazonLibrary = nileLibraryStore.get('library', [])
     if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
@@ -622,6 +687,10 @@ class GlobalState extends PureComponent<Props> {
       gog: {
         library: gogLibrary,
         username: gog.username
+      },
+      zoom: {
+        library: zoomLibrary,
+        username: zoom.username
       },
       amazon: {
         library: amazonLibrary,
@@ -776,6 +845,7 @@ class GlobalState extends PureComponent<Props> {
       epic,
       gog,
       amazon,
+      zoom,
       gameUpdates = [],
       libraryStatus,
       platform
@@ -831,6 +901,23 @@ class GlobalState extends PureComponent<Props> {
             username: this.state.gog.username
           }
         })
+      } else if (args.runner === 'zoom') {
+        // Handle Zoom game push
+        const library = [...this.state.zoom.library]
+        const index = library.findIndex(
+          (game) => game.app_name === args.app_name
+        )
+        if (index !== -1) {
+          library[index] = args
+        } else {
+          library.push(args)
+        }
+        this.setState({
+          zoom: {
+            library: [...library],
+            username: this.state.zoom.username
+          }
+        })
       }
     })
 
@@ -851,6 +938,7 @@ class GlobalState extends PureComponent<Props> {
     const legendaryUser = configStore.has('userInfo')
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
+    const zoomUser = zoomConfigStore.has('isLoggedIn')
 
     if (legendaryUser) {
       await window.api.getUserInfo()
@@ -860,18 +948,23 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getAmazonUserInfo()
     }
 
+    if (zoomUser) {
+      await window.api.getZoomUserInfo()
+    }
+
     if (!gameUpdates.length) {
       const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    if (legendaryUser || gogUser || amazonUser) {
+    if (legendaryUser || gogUser || amazonUser || zoomUser) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:
           epic.library.length !== 0 ||
           gog.library.length !== 0 ||
-          amazon.library.length !== 0
+          amazon.library.length !== 0 ||
+          zoom.library.length !== 0
       })
     }
 
@@ -968,6 +1061,7 @@ class GlobalState extends PureComponent<Props> {
       epic,
       gog,
       amazon,
+      zoom,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -1004,6 +1098,12 @@ class GlobalState extends PureComponent<Props> {
             getLoginData: this.getAmazonLoginData,
             login: this.amazonLogin,
             logout: this.amazonLogout
+          },
+          zoom: {
+            library: zoom.library,
+            username: zoom.username,
+            login: this.zoomLogin,
+            logout: this.zoomLogout
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

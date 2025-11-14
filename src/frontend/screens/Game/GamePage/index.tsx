@@ -202,6 +202,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                 throw new Error('Cannot get game info')
               }
               if (
+                info.manifest &&
                 info.manifest.disk_size === 0 &&
                 info.manifest.download_size === 0
               ) {
