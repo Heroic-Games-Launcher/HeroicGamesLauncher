@@ -10,7 +10,7 @@
 [![kofi](https://img.shields.io/badge/Ko--Fi-Donate-orange?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/heroicgames)
 
 Heroic is an Open Source Game Launcher for Linux, Windows and macOS.  
-Right now it supports launching games from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), GOG Games using our custom implementation with [gogdl](https://github.com/Heroic-Games-Launcher/heroic-gogdl) and Amazon Games using [Nile](https://github.com/imLinguin/nile).
+Right now it supports launching games from the Epic Games Store using [Legendary](https://github.com/derrod/legendary), GOG Games using our custom implementation with [gogdl](https://github.com/Heroic-Games-Launcher/heroic-gogdl), Amazon Games using [Nile](https://github.com/imLinguin/nile) and the Zoom Platform directly using their endpoints.
 
 Heroic is built with Web Technologies:  
 [![Typescript](https://img.shields.io/badge/Typescript-3178c6?style=for-the-badge&logo=typescript&labelColor=gray)](https://www.typescriptlang.org/)
@@ -53,21 +53,21 @@ Heroic is built with Web Technologies:
 
 ## Features available right now
 
-- Login with an existing Epic Games, GOG or Amazon account
+- Login with an existing Epic Games, GOG, Amazon or Zoom Platform account
 - Install, uninstall, update, repair and move Games
 - Import an already installed game
 - Play Epic games online [AntiCheat on macOS and on Linux depends on the game]
 - Play games using Wine or Proton [Linux]
 - Play games using Crossover [macOS]
 - Download custom Wine and Proton versions [Linux]
-- Access to Epic, GOG and Amazon Games stores directly from Heroic
+- Access to Epic, GOG, Amazon Games and Zoom Platform stores directly from Heroic
 - Search for the game on ProtonDB for compatibility information [Linux]
 - Show ProtonDB and Steam Deck compatibility information [Linux]
 - Sync installed games with an existing Epic Games Store installation
 - Sync saves with the cloud
 - Custom Theming Support
 - Download queue
-- Add Games and Applications outside GOG, Epic Games and Amazon Games
+- Add Games and Applications outside GOG, Epic Games, Amazon Games and Zoom Platform
 - Define your categories to organize your collection
 
 ## Planned features
