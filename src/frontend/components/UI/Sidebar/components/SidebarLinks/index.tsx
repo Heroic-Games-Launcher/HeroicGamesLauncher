@@ -137,7 +137,7 @@ export default function SidebarLinks() {
             <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/amazon"
-              label={t('prime-gaming', 'Prime Gaming')}
+              label={t('amazon-luna', 'Amazon Luna')}
             />
             <SidebarItem
               className="SidebarLinks__subItem"
