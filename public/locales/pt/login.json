@@ -4,14 +4,14 @@
         "open": "Abrir Ligação",
         "copy": "Copiar",
         "copied": "Copiado!",
-        "error": "Erro, tente um código diferente",
+        "error": "Erro, tente usar um código diferente",
         "loading": "A Carregar"
     },
     "message": {
         "part1": "Para que possa iniciar a sessão e instalar os seus jogos, é necessário seguir os seguintes passos:",
-        "part2": "Abra a",
+        "part2": "Abrir a",
         "part3": "Loja da Epic aqui",
-        "part4": ", inicie sessão na sua conta e copiar os seus",
+        "part4": ", inicie sessão na sua conta e copie os seus",
         "part5": "informação do número do código de autorização",
         "part6": "Colar o seu",
         "part7": "número do código de autorização",
@@ -21,5 +21,5 @@
         "error": "Erro",
         "loading": "Carregando lista de jogos"
     },
-    "welcome": "Bem Vindo!"
+    "welcome": "Bem-vindo!"
 }

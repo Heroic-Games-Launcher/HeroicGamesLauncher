@@ -172,7 +172,8 @@
         },
         "playing": {
             "start": "Jetzt spielen",
-            "stop": "Anhalten"
+            "stop": "Anhalten",
+            "start_with_logs": "Spielen (mit loogs)"
         },
         "saves": {
             "syncing": "Spielstände werden synchronisiert …"
