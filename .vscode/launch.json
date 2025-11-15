@@ -7,7 +7,30 @@
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "pnpm",
-      "args": ["start"]
+      "args": ["start"],
+      "env": {
+        "REMOTE_DEBUGGING_PORT": "9222"
+      }
+    },
+    {
+      "name": "Debug Frontend Process",
+      "port": 9222,
+      "request": "attach",
+      "type": "chrome",
+      "webRoot": "${workspaceFolder}/src/frontend",
+      "timeout": 60000,
+      "presentation": {
+        "hidden": true
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug All",
+      "configurations": ["Launch Heroic (HMR & HR)", "Debug Frontend Process"],
+      "presentation": {
+        "order": 1
+      }
     }
   ]
 }
