@@ -1476,7 +1476,7 @@ async function runWineCommand({
 
   const env_vars: Record<string, string> = {
     ...process.env,
-    GAMEID: 'umu-0',
+    ...options?.env,
     ...setupEnvVars(settings, gameInstallPath),
     ...setupWineEnvVars(settings, installFolderName),
     PROTON_VERB: protonVerb
