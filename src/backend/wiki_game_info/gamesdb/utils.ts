@@ -1,7 +1,7 @@
 import { GamesDBInfo, Runner } from 'common/types'
 import { logInfo, LogPrefix } from 'backend/logger'
 import { GamesDBData } from 'common/types/gog'
-import { getGamesdbData } from 'backend/storeManagers/gog/library'
+import { libraryManagerMap } from '../../storeManagers'
 import { storeMap } from 'common/utils'
 
 export async function getInfoFromGamesDB(
@@ -15,11 +15,9 @@ export async function getInfoFromGamesDB(
   if (!storeName) {
     return { steamID: '' }
   }
-  const gamesdb: { data?: GamesDBData } = await getGamesdbData(
-    storeName,
-    appName,
-    true
-  ).catch(() => ({ data: undefined }))
+  const gamesdb: { data?: GamesDBData } = await libraryManagerMap['gog']
+    .getGamesdbData(storeName, appName, true)
+    .catch(() => ({ data: undefined }))
 
   const steamID =
     gamesdb.data?.game.releases.find((entry) => entry.platform_id === 'steam')

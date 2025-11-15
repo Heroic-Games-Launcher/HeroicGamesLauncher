@@ -15,7 +15,7 @@ import {
   logWarning
 } from 'backend/logger'
 import { getWinePath, runWineCommand, verifyWinePrefix } from '../../launcher'
-import { getGameInfo as getGogLibraryGameInfo } from 'backend/storeManagers/gog/library'
+import { libraryManagerMap } from '..'
 import { readFile } from 'node:fs/promises'
 import shlex from 'shlex'
 import {
@@ -78,7 +78,7 @@ async function setup(
   installInfo?: InstalledInfo,
   installRedist = true
 ): Promise<void> {
-  const gameInfo = getGogLibraryGameInfo(appName)
+  const gameInfo = libraryManagerMap['gog'].getGameInfo(appName)
   if (installInfo && gameInfo) {
     gameInfo.install = installInfo
   }
