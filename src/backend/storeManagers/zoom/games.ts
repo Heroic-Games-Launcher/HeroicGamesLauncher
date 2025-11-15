@@ -61,6 +61,8 @@ import {
   refresh,
   updateGameInLibrary
 } from './library'
+import { isUmuSupported } from 'backend/utils/compatibility_layers'
+import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -687,12 +689,21 @@ export async function launch(
       return false
     }
 
+    if (await isUmuSupported(gameSettings)) {
+      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      console.log('Umu ID for', appName, ':', umuId)
+      if (umuId) {
+        commandEnv['GAMEID'] = umuId
+      }
+    }
+
     const executable = gameInfo.install.executable
     const result = await runWineCommand({
       commandParts: [basename(executable), ...commandParts],
       gameSettings,
       gameInstallPath: gameInfo.install.install_path,
       installFolderName: gameInfo.folder_name,
+      protonVerb: 'waitforexitandrun',
       startFolder: dirname(
         join(gameSettings.winePrefix, 'drive_c', 'ZOOM PLATFORM', executable)
       ),
