@@ -1,113 +1,93 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
 import { SmallInfo } from 'frontend/components/UI'
-import { timestampStore } from 'frontend/helpers/electronStores'
 
 import './index.css'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import { AvTimer } from '@mui/icons-material'
+import { usePlaytime } from 'frontend/state/Playtime'
 import { Runner } from 'common/types'
 
 type Props = {
+  game_id: string
   runner: Runner
-  game: string
 }
 
-function TimeContainer({ runner, game }: Props) {
-  const { t } = useTranslation('gamepage')
-  const [tsInfo, setTsInfo] = useState(timestampStore.get_nodefault(game))
+function TimeContainer({ runner, game_id }: Props) {
+  const { t, i18n } = useTranslation('gamepage')
+  const playtime = usePlaytime((state) => state[`${game_id}_${runner}`])
+
   useEffect(() => {
-    async function fetchPlaytime() {
-      const playTime = await window.api.fetchPlaytimeFromServer(runner, game)
-      if (!playTime) {
-        return
-      }
-      if (tsInfo?.totalPlayed) {
-        if (tsInfo.totalPlayed < playTime) {
-          const newObject = { ...tsInfo, totalPlayed: playTime }
-          timestampStore.set(game, newObject)
-          setTsInfo(newObject)
-        }
-      } else {
-        const newObject = {
-          firstPlayed: '',
-          lastPlayed: '',
-          totalPlayed: playTime
-        }
-        timestampStore.set(game, newObject)
-        setTsInfo(newObject)
-      }
-    }
+    if (playtime) return
+    window.api.playtime.get(game_id, runner)
+  }, [playtime, game_id, runner])
 
-    fetchPlaytime()
-  }, [])
-
-  if (!tsInfo) {
-    return (
-      <p className="timeContainerLabel">
-        <AvTimer />
-        {`${t('game.lastPlayed', 'Last Played')}:`} {` `}
-        {`${t('game.neverPlayed', 'Never')}`}
-      </p>
-    )
-  }
-
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  }
-  const firstPlayed = tsInfo.firstPlayed
-    ? new Date(tsInfo.firstPlayed)
-    : undefined
-  const firstDate = new Intl.DateTimeFormat(undefined, options).format(
-    firstPlayed
+  const dateTimeFormat = useMemo(
+    () =>
+      new Intl.DateTimeFormat(i18n.language, {
+        dateStyle: 'short',
+        timeStyle: 'short'
+      }),
+    [i18n]
   )
-  const lastPlayed = tsInfo.lastPlayed ? new Date(tsInfo.lastPlayed) : null
-  const totalPlayed = tsInfo.totalPlayed
-    ? convertMinsToHrsMins(tsInfo.totalPlayed)
-    : `${t('game.neverPlayed', 'Never')}`
-  const lastDate = new Intl.DateTimeFormat(undefined, options).format(
-    lastPlayed || new Date()
+  const durationFormat = useMemo(
+    () =>
+      new Intl.DurationFormat(i18n.language, {
+        style: 'long',
+        minutesDisplay: 'always'
+      }),
+    [i18n]
   )
+
+  const firstPlayedDateStr = useMemo(() => {
+    if (!playtime?.firstPlayed) return t('game.neverPlayed', 'Never')
+    return dateTimeFormat.format(new Date(playtime.firstPlayed))
+  }, [playtime, dateTimeFormat, t])
+
+  const lastPlayedDateStr = useMemo(() => {
+    if (!playtime?.lastPlayed) return t('game.neverPlayed', 'Never')
+    return dateTimeFormat.format(new Date(playtime.lastPlayed))
+  }, [playtime, dateTimeFormat, t])
+
+  const totalPlayed = useMemo(() => {
+    const totalPlayed = playtime?.totalPlayed ?? 0
+    const hours = Math.floor(totalPlayed / 60)
+    const minutes = Math.floor(totalPlayed % 60)
+    const seconds = Math.floor((totalPlayed % 1) * 60)
+    return durationFormat.format({
+      hours,
+      minutes,
+      seconds
+    })
+  }, [durationFormat, playtime])
 
   return (
     <PopoverComponent
       item={
         <p className="timeContainerLabel">
           <AvTimer />
-          {`${t('game.totalPlayed', 'Time Played')}:`} {` `}
-          {`${totalPlayed}`}
+          {t('game.totalPlayed', 'Time Played: {{totalPlayed}}', {
+            totalPlayed
+          })}
         </p>
       }
     >
       <div className="info">
         <SmallInfo
-          title={`${t('game.firstPlayed', 'First Played')}:`}
-          subtitle={firstPlayed ? firstDate : t('game.neverPlayed', 'Never')}
+          title={t('game.firstPlayed', 'First Played: {{firstPlayedDateStr}}', {
+            firstPlayedDateStr
+          })}
         />
-        {lastPlayed && (
-          <SmallInfo
-            title={`${t('game.lastPlayed', 'Last Played')}:`}
-            subtitle={lastDate}
-          />
-        )}
+        <SmallInfo
+          title={t('game.lastPlayed', 'Last Played: {{lastPlayedDateStr}}', {
+            lastPlayedDateStr
+          })}
+        />
       </div>
     </PopoverComponent>
   )
-}
-
-const convertMinsToHrsMins = (mins: number) => {
-  let h: string | number = Math.floor(mins / 60)
-  let m: string | number = mins % 60
-  h = h < 10 ? '0' + h : h
-  m = m < 10 ? '0' + m : m
-  return `${h}:${m}`
 }
 
 export default TimeContainer

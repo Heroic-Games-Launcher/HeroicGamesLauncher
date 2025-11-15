@@ -102,3 +102,8 @@ export const deleteUploadedLogFile = makeHandlerInvoker('deleteUploadedLogFile')
 export const logFileUploadedSlot = frontendListenerSlot('logFileUploaded')
 export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDeleted')
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
+
+export const playtime = {
+  get: makeListenerCaller('playtime.get'),
+  updateSlot: frontendListenerSlot('playtime.update')
+}

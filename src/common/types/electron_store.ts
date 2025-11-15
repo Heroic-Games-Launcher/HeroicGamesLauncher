@@ -1,7 +1,7 @@
 import Store from 'electron-store'
 import { Get } from 'type-fest'
 
-import {
+import type {
   WineVersionInfo,
   InstalledInfo,
   UserInfo,
@@ -15,7 +15,9 @@ import {
   WikiInfo,
   GameInfo,
   WindowProps,
-  UploadedLogData
+  UploadedLogData,
+  Playtime,
+  Runner
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
@@ -61,16 +63,7 @@ export interface StoreStructure {
   zoomInstalledGamesStore: {
     installed: InstalledInfo[]
   }
-  timestampStore: {
-    [K: string]: {
-      firstPlayed: string
-      lastPlayed: string
-      totalPlayed: number
-    }
-  }
-  fontsStore: {
-    fonts: string[]
-  }
+  timestampStore: Record<`${string}_${Runner}`, Playtime>
   gogConfigStore: {
     userData: UserData
     credentials?: GOGLoginData

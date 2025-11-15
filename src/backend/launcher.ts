@@ -72,9 +72,7 @@ import { getUmuPath, isUmuSupported } from './utils/compatibility_layers'
 import { copyFile } from 'fs/promises'
 import { app, powerSaveBlocker } from 'electron'
 import gogPresence from './storeManagers/gog/presence'
-import { updateGOGPlaytime } from './storeManagers/gog/games'
 import { addRecentGame } from './recent_games/recent_games'
-import { tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
   defaultWinePrefix,
@@ -100,6 +98,7 @@ import { gameAnticheatInfo } from './anticheat/utils'
 
 import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
+import { backendEvents } from './backend_events'
 
 let powerDisplayId: number | null
 
@@ -119,10 +118,6 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const { minimizeOnLaunch, noTrayIcon } = GlobalConfig.get().getSettings()
 
   const startPlayingDate = new Date()
-
-  if (!tsStore.has(game.app_name)) {
-    tsStore.set(`${game.app_name}.firstPlayed`, startPlayingDate.toISOString())
-  }
 
   logInfo(`Launching ${title} (${game.app_name})`, LogPrefix.Backend)
 
@@ -252,27 +247,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     powerSaveBlocker.stop(powerDisplayId)
   }
 
-  // Update playtime and last played date
-  const finishedPlayingDate = new Date()
-  tsStore.set(`${appName}.lastPlayed`, finishedPlayingDate.toISOString())
-  // Playtime of this session in minutes
-  const sessionPlaytime =
-    (finishedPlayingDate.getTime() - startPlayingDate.getTime()) / 1000 / 60
-  const totalPlaytime =
-    sessionPlaytime + tsStore.get(`${appName}.totalPlayed`, 0)
-  tsStore.set(`${appName}.totalPlayed`, Math.floor(totalPlaytime))
+  backendEvents.emit('playSessionEnded', appName, runner, startPlayingDate)
 
-  const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
-  if (runner === 'gog') {
-    if (!disablePlaytimeSync) {
-      await updateGOGPlaytime(appName, startPlayingDate, finishedPlayingDate)
-    } else {
-      logWarning(
-        'Posting playtime session to server skipped - playtime sync disabled',
-        { prefix: LogPrefix.Backend }
-      )
-    }
-  }
   await addRecentGame(game)
 
   if (autoSyncSaves && isOnline()) {

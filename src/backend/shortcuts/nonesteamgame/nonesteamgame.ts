@@ -23,8 +23,8 @@ import i18next from 'i18next'
 import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
-import { tsStore } from 'backend/constants/key_value_stores'
 import { isAppImage, isFlatpak, isWindows } from 'backend/constants/environment'
+import PlaytimeManager from '../../playtime'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
@@ -316,9 +316,11 @@ async function addNonSteamGame(props: {
     newEntry.Devkit = false
     newEntry.DevkitOverrideAppID = false
 
-    const lastPlayed = tsStore.get_nodefault(
-      `${props.gameInfo.app_name}.lastPlayed`
+    const playtime = PlaytimeManager.get().getPlaytime(
+      props.gameInfo.app_name,
+      props.gameInfo.runner
     )
+    const lastPlayed = playtime.lastPlayed
     if (lastPlayed) {
       newEntry.LastPlayTime = new Date(lastPlayed)
     } else {
