@@ -1,4 +1,7 @@
 .wineManager {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   .tabsWrapper {
     display: flex;
     justify-content: center;
@@ -36,6 +39,9 @@
   .wineList {
     margin-top: 48px;
     margin: 48px var(--space-xl-fixed) 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
     .gameListHeader {
       grid-template-columns: 3fr 2fr 1fr 10%;
