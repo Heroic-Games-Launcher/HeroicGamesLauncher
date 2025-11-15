@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 
 import type TypedEventEmitter from 'typed-emitter'
-import type { GameStatus, RecentGame } from 'common/types'
+import type { Runner, GameStatus, RecentGame, Playtime } from 'common/types'
 
 type BackendEvents = {
   gameStatusUpdate: (payload: GameStatus) => void
@@ -12,6 +12,17 @@ type BackendEvents = {
     oldValue: unknown
     newValue: unknown
   }) => void
+  playSessionEnded: (
+    game_id: string,
+    runner: Runner,
+    session_start_date: Date
+  ) => void
+  playtimeUpdate: (
+    game_id: string,
+    runner: Runner,
+    newPlaytime: Playtime
+  ) => void
+
   [key: `progressUpdate-${string}`]: (progress: GameStatus) => void
 }
 

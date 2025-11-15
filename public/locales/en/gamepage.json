@@ -98,18 +98,18 @@
         "changelogFor": "Changelog for {{gameTitle}}",
         "downloadSize": "Download Size",
         "extra_info": "Extra info",
-        "firstPlayed": "First Played",
+        "firstPlayed": "First Played: {{firstPlayedDateStr}}",
         "getting-download-size": "Getting download size",
         "getting-install-size": "Getting install size",
         "install_info": "Install info",
         "installSize": "Install Size",
         "language": "Language",
-        "lastPlayed": "Last Played",
+        "lastPlayed": "Last Played: {{lastPlayedDateStr}}",
         "modify": "Modify Installation",
         "neverPlayed": "Never",
         "platform": "Select Platform Version to Install",
         "requirements": "System Requirements",
-        "totalPlayed": "Time Played"
+        "totalPlayed": "Time Played: {{totalPlayed}}"
     },
     "gamecard": {
         "moving": "Moving",
