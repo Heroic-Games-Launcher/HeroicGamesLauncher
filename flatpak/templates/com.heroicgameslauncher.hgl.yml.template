@@ -199,6 +199,14 @@ modules:
       - install -Dm755 data/gamemoderun -t /app/bin
     sources: *gamemode_sources
 
+  - name: flatpak_escape
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 flatpak_escape -t /app/bin
+    sources:
+      - type: file
+        path: flatpak_escape
+
   - name: rsync
     config-opts:
       - --prefix=${FLATPAK_DEST}
