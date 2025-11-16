@@ -83,6 +83,7 @@ i18next
       'fa',
       'fi',
       'fr',
+      'ga',
       'gl',
       'he',
       'hr',

@@ -10,7 +10,8 @@ const storeMapping: Record<Runner, string> = {
   gog: 'gog',
   legendary: 'egs',
   nile: 'amazon',
-  sideload: 'sideload'
+  sideload: 'sideload',
+  zoom: 'zoom'
 }
 
 export async function getUmuId(

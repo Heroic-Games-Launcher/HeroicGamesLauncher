@@ -149,6 +149,7 @@ async function addToQueue(element: DMQueueElement) {
         element.params.runner === 'gog' &&
         element.params.platformToInstall.toLowerCase() === 'windows' &&
         installInfo &&
+        installInfo.manifest &&
         'dependencies' in installInfo.manifest
       ) {
         const newDependencies = installInfo.manifest.dependencies || []

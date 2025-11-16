@@ -20,7 +20,7 @@ import {
 
 import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
-import { join, dirname } from 'path'
+import { join, dirname, isAbsolute } from 'path'
 
 import {
   constructAndUpdateRPC,
@@ -1083,6 +1083,10 @@ function setupWrapperEnvVars(wrapperEnv: WrapperEnv) {
     case 'sideload':
       ret.HEROIC_APP_SOURCE = 'sideload'
       break
+    case 'zoom':
+      ret.HEROIC_APP_SOURCE = 'zoom'
+      ret.STORE = 'zoomplatform'
+      break
   }
 
   return ret
@@ -1281,6 +1285,23 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     wineVersion.type === 'toolkit'
   ) {
     ret.ROSETTA_ADVERTISE_AVX = '1'
+  }
+  // Workaround for Steam Input virtual gamepad not working for games launched through HGL from Steam
+  // using deprecated WineGE/ProtonGE releases (<= 8.x) following SDL behavior change on version >= 2.30
+  // (included with flatpak Freedesktop runtime 24.08 or newer)
+  // https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/issues/4708
+  // https://github.com/libsdl-org/SDL/issues/14410
+  // https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/issues/1818
+  if (
+    isLinux &&
+    /(GE|Wine|Proton)-(Proton[7-8]|[4-7].*-GE|GE-4.[0-9]*)/.test(
+      wineVersion.name
+    )
+  ) {
+    ret.SteamVirtualGamepadInfo = ''
+    logWarning(
+      `Deprecated Wine-GE/Proton-GE release (<= 8.x) detected. Applying workaround for Steam Input virtual gamepad detection.`
+    )
   }
   return ret
 }
@@ -1576,7 +1597,7 @@ interface RunnerProps {
   name: Runner
   logPrefix: LogPrefix
   bin: string
-  dir: string
+  dir?: string
 }
 
 const commandsRunning: Record<string, Promise<ExecResult>> = {}
@@ -1642,11 +1663,11 @@ async function callRunner(
   commandParts = commandParts.filter(Boolean)
 
   let bin = runner.bin
-  let fullRunnerPath = join(runner.dir, bin)
+  let fullRunnerPath = runner.dir ? join(runner.dir, bin) : bin
 
   // macOS/Linux: `spawn`ing an executable in the current working directory
   // requires a "./"
-  if (!isWindows) bin = './' + bin
+  if (!isWindows && !isAbsolute(bin) && runner.dir) bin = './' + bin
 
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit, provided PowerShell is available
@@ -1708,7 +1729,7 @@ async function callRunner(
 
   let promise = new Promise<ExecResult>((res, rej) => {
     const child = spawn(bin, commandParts, {
-      cwd: runner.dir,
+      cwd: options?.cwd || runner.dir,
       env: { ...process.env, ...options?.env },
       signal: abortController.signal
     })

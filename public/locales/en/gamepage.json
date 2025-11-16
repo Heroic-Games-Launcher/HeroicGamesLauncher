@@ -65,6 +65,7 @@
         "import": "Import Game",
         "install": "Install",
         "no-path-selected": "No path selected",
+        "play": "PLAY",
         "queue": {
             "remove": "Remove from Queue"
         },

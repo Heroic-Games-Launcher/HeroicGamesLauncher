@@ -314,6 +314,7 @@ export default function DownloadDialog({
         )
 
         if (
+          gameInstallInfo?.manifest &&
           gameInstallInfo?.manifest.disk_size === 0 &&
           gameInstallInfo.manifest.download_size === 0
         ) {
@@ -348,9 +349,17 @@ export default function DownloadDialog({
         ) {
           return
         }
-        setDlcsToInstall(
-          (gameInstallInfo?.game.owned_dlc || []).map((dlc) => dlc.app_name)
-        )
+        const dlcs: string[] = []
+        if (
+          gameInstallInfo &&
+          'game' in gameInstallInfo &&
+          gameInstallInfo.game.owned_dlc
+        ) {
+          gameInstallInfo.game.owned_dlc.forEach((dlc) =>
+            dlcs.push(dlc.app_name)
+          )
+        }
+        setDlcsToInstall(dlcs)
         if (gameInstallInfo && gameInstallInfo.manifest) {
           setDiskSize(gameInstallInfo.manifest?.disk_size ?? 0)
         }
@@ -389,7 +398,11 @@ export default function DownloadDialog({
             }
           }
 
-          if (gameInstallInfo.manifest && 'branches' in gameInstallInfo.game) {
+          if (
+            gameInstallInfo.manifest &&
+            'game' in gameInstallInfo &&
+            'branches' in gameInstallInfo.game
+          ) {
             setBranches(gameInstallInfo.game.branches || [])
           }
         }
@@ -404,7 +417,7 @@ export default function DownloadDialog({
         return
       }
     }
-    getInstInfo()
+    void getInstInfo()
   }, [
     appName,
     i18n.languages,
@@ -456,13 +469,19 @@ export default function DownloadDialog({
   }, [installPath, diskSize])
 
   const haveDLCs =
-    gameInstallInfo && gameInstallInfo?.game?.owned_dlc?.length > 0
+    gameInstallInfo &&
+    'game' in gameInstallInfo &&
+    gameInstallInfo?.game?.owned_dlc?.length > 0
   const DLCList: Array<GOGDLCInfo | LegendaryDLCInfo> =
-    gameInstallInfo?.game?.owned_dlc ?? []
+    (gameInstallInfo &&
+      'game' in gameInstallInfo &&
+      gameInstallInfo?.game?.owned_dlc) ||
+    []
 
   const downloadSize = useMemo(() => {
     if (
       gameInstallInfo &&
+      gameInstallInfo.manifest &&
       'perLangSize' in gameInstallInfo.manifest &&
       gameInstallInfo.manifest.perLangSize
     ) {
@@ -500,6 +519,7 @@ export default function DownloadDialog({
   const installSize = useMemo(() => {
     if (
       gameInstallInfo &&
+      gameInstallInfo.manifest &&
       'perLangSize' in gameInstallInfo.manifest &&
       gameInstallInfo.manifest.perLangSize
     ) {

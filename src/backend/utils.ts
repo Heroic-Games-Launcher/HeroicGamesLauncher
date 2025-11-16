@@ -357,7 +357,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 }
 
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile',
+  library?: 'gog' | 'legendary' | 'nile' | 'zoom',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -1519,6 +1519,26 @@ function bytesToSize(bytes: number) {
   return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
 }
 
+function parseSize(size: string): number {
+  const units = ['bytes', 'kb', 'mb', 'gb', 'tb', 'pb']
+  let unit_index = 0
+  size = size.trim().toLowerCase()
+  for (const unit of units) {
+    if (size.endsWith(unit)) {
+      size = size.slice(0, -unit.length).trim()
+      break
+    }
+    unit_index += 1
+  }
+  try {
+    return Math.round(parseFloat(size) * 1024 ** unit_index)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    logWarning(`Invalid size value '${size}'`, LogPrefix.Backend)
+    return 0
+  }
+}
+
 function formatTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds - hours * 3600) / 60)
@@ -1663,7 +1683,8 @@ export {
   sendProgressUpdate,
   calculateEta,
   extractFiles,
-  axiosClient
+  axiosClient,
+  parseSize
 }
 
 // Exported only for testing purpose
