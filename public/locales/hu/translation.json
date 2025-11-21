@@ -749,8 +749,8 @@
             "missingMsg": "A gamescope nem található a PATH-on. Telepítsd, vagy add hozzá a PATH-hoz.",
             "enableLimiter": "FPS korlátozó engedélyezése",
             "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése",
-            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 24.08-as futtatókörnyezettel, és indítsa újra a Heroicot.",
-            "warningFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítsd a Gamescope flatpak csomagját a 24.08-as futtatókörnyezettel és indítsd újra a Heroicot."
+            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel, és indítsa újra a Heroicot.",
+            "warningFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítsd a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel és indítsd újra a Heroicot."
         },
         "disablePlaytimeSync": "Játék közbeni szinkronizáció letiltása",
         "experimental_features": {

@@ -758,7 +758,7 @@
             "enableUpscaling": "Включва скалирането",
             "missingMsg": "Не успяхме да намерим изпълнимия файл на gamescope в PATH. Инсталирайте го или добавете пътя до него в PATH.",
             "enableForceGrabCursor": "Включване на принудителното прихващане на курсора",
-            "missingMsgFlatpak": "Не успяхме да намерим съвместима версия на Gamescope. Инсталирайте Gamescope от пакет flatpak със среда за изпълнение версия 24.08 и рестартирайте Heroic.",
+            "missingMsgFlatpak": "Не успяхме да намерим съвместима версия на Gamescope. Инсталирайте Gamescope от пакет flatpak със среда за изпълнение версия 25.08 и рестартирайте Heroic.",
             "warningFlatpak": "Не успяхме да намерим съвместима версия на Gamescope. Инсталирайте Gamescope от пакет flatpak със среда за изпълнение версия {{runtimeVersion}} и рестартирайте Heroic."
         },
         "msync": "Включване на Msync",
