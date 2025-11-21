@@ -177,17 +177,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
         const {
           install,
           thirdPartyManagedApp,
-          is_linux_native = undefined,
           is_mac_native = undefined
         } = { ...gameInfo }
 
         const installPlatform =
-          install.platform ||
-          (is_linux_native && isLinux
-            ? 'linux'
-            : is_mac_native && isMac
-              ? 'Mac'
-              : 'Windows')
+          install.platform || (is_mac_native && isMac ? 'Mac' : 'Windows')
 
         if (
           runner !== 'sideload' &&

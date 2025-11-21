@@ -89,10 +89,6 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
   )
 
   const getDefaultplatform = (): InstallPlatform => {
-    if (isLinux && gameInfo?.is_linux_native) {
-      return 'linux'
-    }
-
     if (isMac && gameInfo?.is_mac_native) {
       return 'Mac'
     }
