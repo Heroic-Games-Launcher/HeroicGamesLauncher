@@ -126,12 +126,12 @@ const GameCard = ({
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
-  const [progress, previousProgress] = hasProgress(appName)
+  const [progress, previousProgress] = hasProgress(appName, runner)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
   }
 
-  const { status, folder, label } = hasStatus(appName, gameInfo, size)
+  const { status, folder, label } = hasStatus(gameInfo, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
 

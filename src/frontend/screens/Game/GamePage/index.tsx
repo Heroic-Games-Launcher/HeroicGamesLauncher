@@ -101,10 +101,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
-  const { status, folder, statusContext } = hasStatus(appName, gameInfo)
+  const { status, folder, statusContext } = hasStatus(gameInfo)
   const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
-  const [progress, previousProgress] = hasProgress(appName)
+  const [progress, previousProgress] = hasProgress(appName, runner)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
