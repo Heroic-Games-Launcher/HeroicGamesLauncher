@@ -691,7 +691,6 @@ export async function launch(
 
     if (await isUmuSupported(gameSettings)) {
       const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-      console.log('Umu ID for', appName, ':', umuId)
       if (umuId) {
         commandEnv['GAMEID'] = umuId
       }
