@@ -159,7 +159,7 @@ Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Her
 
 #### Arch (AUR)
 
-We currently only support one AUR package: `heroic-games-launcher-bin`. Although you might find other packages there, do not ask support for them on this Github or on our Discord, ask their maintainers directly.
+We currently only support one AUR package: `heroic-games-launcher-bin`. Although you might find other packages there, do not ask support for them on this GitHub or on our Discord, ask their maintainers directly.
 
 - [![Stable version badge](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=heroic-games-launcher-bin)](https://aur.archlinux.org/packages/heroic-games-launcher-bin)  
   (stable release, recommended)
@@ -168,14 +168,9 @@ Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository
 
 #### Fedora
 
-##### COPR repo
+You can download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`.
 
-Heroic for Fedora is available on [this COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/).  
-Enable it with `sudo dnf copr enable atim/heroic-games-launcher`, then install Heroic with `sudo dnf install heroic-games-launcher-bin`
-
-##### Binary package from the releases page
-
-You can alternatively download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
+Alternatively, you can use the Flatpak package.
 
 #### Nix(OS)
 
