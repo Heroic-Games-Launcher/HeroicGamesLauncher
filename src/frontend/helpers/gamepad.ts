@@ -138,6 +138,9 @@ export const initGamepad = () => {
           } else if (insideDialog()) {
             closeDialog()
             return
+          } else if (insideDropdown()) {
+            closeDropdown()
+            return
           } else if (isSelect()) {
             // closes the select dropdown and re-focus element
             el?.blur()
@@ -185,6 +188,9 @@ export const initGamepad = () => {
                 if (isMuiSelect()) {
                   action = 'tab'
                 }
+                if (insideDropdown()) {
+                  action = 'tab'
+                }
                 if (isMuiDialogCloseButton()) {
                   action = 'tab'
                 }
@@ -193,6 +199,9 @@ export const initGamepad = () => {
               case 'leftStickUp':
                 // Same as above
                 if (isMuiSelect()) {
+                  action = 'shiftTab'
+                }
+                if (insideDropdown()) {
                   action = 'shiftTab'
                 }
                 break
@@ -360,6 +369,31 @@ export const initGamepad = () => {
     if (!closeButton) return false
 
     closeButton.click()
+
+    return true
+  }
+
+  function insideDropdown() {
+    const el = currentElement()
+    if (!el) return false
+
+    return !!el.closest('.dropdown')
+  }
+
+  function closeDropdown() {
+    const el = currentElement()
+    if (!el) return false
+
+    const dropdown = el.closest('.dropdownContainer')
+    if (!dropdown) return false
+
+    const closeButton =
+      dropdown.querySelector<HTMLButtonElement>('.dropdownButton')
+    if (!closeButton) return false
+
+    // close selection, return focus to button
+    closeButton.click()
+    closeButton.focus()
 
     return true
   }
