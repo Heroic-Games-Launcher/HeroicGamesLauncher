@@ -112,7 +112,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
-  const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
+  const { autoSyncSaves, savesPath, gogSaves = [], doNotUseWine } = gameSettings
 
   const { title } = game
 
@@ -181,7 +181,7 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   const isNative = gameManagerMap[runner].isNative(appName)
 
   // check if isNative, if not, check if wine is valid
-  if (!isNative) {
+  if (!isNative && !doNotUseWine) {
     const isWineOkToLaunch = await checkWineBeforeLaunch(
       game,
       gameSettings,
@@ -365,6 +365,7 @@ function filterGameSettingsForLog(
       // remove settings that are not used on native Linux games
       delete gameSettings.wineVersion
       delete gameSettings.winePrefix
+      delete gameSettings.doNotUseWine
       delete gameSettings.autoInstallDxvk
       delete gameSettings.autoInstallDxvkNvapi
       delete gameSettings.autoInstallVkd3d
@@ -425,6 +426,7 @@ function filterGameSettingsForLog(
       delete gameSettings.wineVersion
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
+      delete gameSettings.doNotUseWine
     }
   }
 
@@ -450,6 +452,7 @@ function filterGameSettingsForLog(
     delete gameSettings.wineCrossoverBottle
     delete gameSettings.winePrefix
     delete gameSettings.wineVersion
+    delete gameSettings.doNotUseWine
     delete gameSettings.battlEyeRuntime
     delete gameSettings.eacRuntime
     delete gameSettings.nvidiaPrime
@@ -681,6 +684,7 @@ async function prepareLaunch(
   }
 
   if (
+    !gameSettings.doNotUseWine &&
     (await isUmuSupported(gameSettings, false)) &&
     isOnline() &&
     !(await isInstalled('umu')) &&
