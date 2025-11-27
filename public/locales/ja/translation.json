@@ -728,8 +728,8 @@
             "enableUpscaling": "アップスケーリングを有効",
             "missingMsg": "PATHにGamescopeが見つかりません。インストールするか、PATHに追加してください。",
             "enableForceGrabCursor": "強制的にグラブカーソルを有効にする",
-            "missingMsgFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム24.08をインストールし、Heroicを再起動してください。",
-            "warningFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム24.08をインストールし、Heroicを再起動してください。"
+            "missingMsgFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム25.08をインストールし、Heroicを再起動してください。",
+            "warningFlatpak": "互換性のあるバージョンのGamescopeが見つかりませんでした。Gamescopeのflatpakパッケージとランタイム25.08をインストールし、Heroicを再起動してください。"
         },
         "disablePlaytimeSync": "プレイ時間の同期を無効",
         "experimental_features": {

@@ -755,8 +755,8 @@
             "enableUpscaling": "Уключыць маштабаванне",
             "missingMsg": "Нам не ўдалося знайсці gamescope у PATH. Усталюйце яго ці дадайце ў PATH.",
             "enableForceGrabCursor": "Уключыць прымусовае захопліванне курсора",
-            "missingMsgFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 24.08 і перазапусціце Heroic.",
-            "warningFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 24.08 і перазапусціце Heroic."
+            "missingMsgFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic.",
+            "warningFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic."
         },
         "msync": "Уключыць Msync",
         "after-launch-script-path": "Выберыце скрыпт для запуску пасля выхаду з гульні",
