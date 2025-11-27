@@ -19,7 +19,7 @@ type Props = {
 }
 
 export default React.memo(function CurrentDownload({ appName, runner }: Props) {
-  const [progress] = hasProgress(appName)
+  const [progress] = hasProgress(appName, runner)
   const [gameTitle, setGameTitle] = useState('')
   const { libraryStatus } = useContext(ContextProvider)
   const { t } = useTranslation()
@@ -75,7 +75,7 @@ export default React.memo(function CurrentDownload({ appName, runner }: Props) {
             />
           </Box>
           <Box sx={{ minWidth: 35 }}>
-            <Typography variant="body2">{`${Math.round(
+            <Typography variant="body2">{`${Math.ceil(
               progress.percent || 0
             )}%`}</Typography>
           </Box>
