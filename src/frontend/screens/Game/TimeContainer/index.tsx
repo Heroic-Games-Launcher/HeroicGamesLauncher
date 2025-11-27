@@ -9,6 +9,7 @@ import './index.css'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import { AvTimer } from '@mui/icons-material'
 import { Runner } from 'common/types'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 
 type Props = {
   runner: Runner
@@ -18,7 +19,11 @@ type Props = {
 function TimeContainer({ runner, game }: Props) {
   const { t } = useTranslation('gamepage')
   const [tsInfo, setTsInfo] = useState(timestampStore.get_nodefault(game))
+  const { status } = hasStatus(game)
+
   useEffect(() => {
+    // update local stored time after playing
+    setTsInfo(timestampStore.get_nodefault(game))
     async function fetchPlaytime() {
       const playTime = await window.api.fetchPlaytimeFromServer(runner, game)
       if (!playTime) {
@@ -42,7 +47,7 @@ function TimeContainer({ runner, game }: Props) {
     }
 
     fetchPlaytime()
-  }, [])
+  }, [status])
 
   if (!tsInfo) {
     return (
