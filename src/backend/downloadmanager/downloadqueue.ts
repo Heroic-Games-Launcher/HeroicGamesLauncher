@@ -319,5 +319,6 @@ export {
   getQueueInformation,
   cancelCurrentDownload,
   pauseCurrentDownload,
-  resumeCurrentDownload
+  resumeCurrentDownload,
+  isRunning
 }
