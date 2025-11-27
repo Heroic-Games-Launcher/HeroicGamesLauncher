@@ -568,6 +568,7 @@ interface GamepadActionArgsWithoutMetadata {
     | 'esc'
     | 'tab'
     | 'shiftTab'
+    | 'keyboardClick'
   metadata?: undefined
 }
 

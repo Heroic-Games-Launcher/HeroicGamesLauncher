@@ -59,7 +59,8 @@ export const initGamepad = () => {
     leftClick: { triggeredAt: {}, repeatDelay: false },
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
-    shiftTab: { triggeredAt: {}, repeatDelay: false }
+    shiftTab: { triggeredAt: {}, repeatDelay: false },
+    keyboardClick: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
@@ -122,8 +123,7 @@ export const initGamepad = () => {
           } else if (isGameCard()) {
             action = 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
-            // simulate a left click on a virtual keyboard button
-            action = 'leftClick'
+            action = 'keyboardClick'
           } else if (isTextInput()) {
             // open virtual keyboard if focusing a text input
             VirtualKeyboardController.initOrFocus()
@@ -203,6 +203,13 @@ export const initGamepad = () => {
 
       if (action === 'mainAction') {
         currentElement()?.click()
+      } else if (action === 'keyboardClick') {
+        // we have to do this for the keyboard because:
+        // simulated clicks break when zoomed in
+        // normal `.click()` calls don't work because the buttons are divs
+        const button = currentElement()
+        const buttonCode = button?.dataset.skbtn
+        if (buttonCode) VirtualKeyboardController.typeCharacter(buttonCode)
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
