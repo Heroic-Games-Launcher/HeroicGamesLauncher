@@ -11,10 +11,11 @@ export interface ZoomGameInfo {
   slug: string
   name: string
   poster_url: string
+  description: string
+  store_url: string
   operating_systems: string[]
-  developer?: string
-  publisher?: string
-  rating?: number
+  developers: string[]
+  publishers: string[]
 }
 
 export interface ZoomInstalledInfo {
