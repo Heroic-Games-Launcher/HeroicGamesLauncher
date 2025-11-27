@@ -161,11 +161,6 @@ const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
   cwd: 'nile_store'
 })
 
-const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
-  cwd: 'store',
-  name: 'timestamp'
-})
-
 const sideloadLibrary = new TypeCheckedStoreFrontend('sideloadedStore', {
   cwd: 'sideload_apps',
   name: 'library'
@@ -182,7 +177,6 @@ export {
   gogInstalledGamesStore,
   gogConfigStore,
   libraryStore,
-  timestampStore,
   sideloadLibrary,
   wineDownloaderInfoStore,
   downloadManagerStore,

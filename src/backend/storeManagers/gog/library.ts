@@ -54,6 +54,9 @@ import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
 import { gogdlConfigPath } from './constants'
 import { userDataPath } from 'backend/constants/paths'
+import { backendEvents } from 'backend/backend_events'
+import { updateGOGPlaytime } from './games'
+import { GlobalConfig } from '../../config'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
@@ -77,6 +80,24 @@ export async function initGOGLibraryManager() {
     }
   })
   runOnceWhenOnline(checkForRedistUpdates)
+
+  backendEvents.on(
+    'playSessionEnded',
+    (game_id, runner, session_start_date) => {
+      if (runner !== 'gog') return
+
+      const { disablePlaytimeSync } = GlobalConfig.get().getSettings()
+      if (disablePlaytimeSync) {
+        logWarning(
+          'Posting playtime session to server skipped - playtime sync disabled',
+          LogPrefix.Gog
+        )
+        return
+      }
+
+      void updateGOGPlaytime(game_id, session_start_date, new Date())
+    }
+  )
 }
 
 async function createMissingGogdlManifest(

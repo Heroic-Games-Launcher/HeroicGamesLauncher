@@ -154,6 +154,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import PlaytimeManager from './playtime'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -332,6 +333,7 @@ if (!gotTheLock) {
     initLogger()
 
     await MigrationSystem.get().applyMigrations()
+    PlaytimeManager.get().init()
 
     initOnlineMonitor()
     initStoreManagers()
@@ -1377,3 +1379,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './playtime/ipc_handler'
