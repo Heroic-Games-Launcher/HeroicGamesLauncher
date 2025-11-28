@@ -16,7 +16,7 @@ import { launchGame } from '../storeManagerCommon/games'
 import { RemoveArgs } from 'common/types/game_manager'
 import type LogWriter from 'backend/logger/log_writer'
 import axios, { AxiosInstance } from 'axios'
-import { getRestPluginManifest, getRestPluginConfig, setRestPluginManifest } from './config'
+import { getRestPluginManifest, getRestPluginConfig } from './config'
 import { restLibraryStore, restInstalledGamesStore } from './electronStores'
 import { existsSync, rmSync, mkdirSync, statSync, readdirSync, lstatSync } from 'graceful-fs'
 import { createWriteStream } from 'node:fs'
@@ -211,7 +211,6 @@ async function downloadAndInstall(
             const speedBytesPerSecond = bytesLoadedSinceLastUpdate / (timeElapsed / 1000) // Bytes per second
             // Convert bytes/s to MB/s (divide by 1024 * 1024)
             const speedMBPerSecond = speedBytesPerSecond / (1024 * 1024)
-            const writeSpeedMBPerSecond = speedMBPerSecond // Same as download speed since we're streaming
             
             // Update tracking
             lastProgressUpdateTime = currentTime
@@ -302,7 +301,6 @@ async function executeInstallStep(
                 const speedBytesPerSecond = bytesLoadedSinceLastUpdate / (timeElapsed / 1000) // Bytes per second
                 // Convert bytes/s to MB/s (divide by 1024 * 1024)
                 const speedMBPerSecond = speedBytesPerSecond / (1024 * 1024)
-                const writeSpeedMBPerSecond = speedMBPerSecond // Same as download speed since we're streaming
                 
                 // Update tracking
                 lastProgressUpdateTime = currentTime
