@@ -11,6 +11,7 @@ import {
   DiscordRPC,
   DownloadProtonToSteam,
   EgsSettings,
+  RestPluginsSettings,
   HideChangelogOnStartup,
   LibraryTopSection,
   MaxRecentGames,
@@ -45,6 +46,8 @@ export default function GeneralSettings() {
       <DefaultSteamPath />
 
       <EgsSettings />
+
+      <RestPluginsSettings />
 
       <CheckUpdatesOnStartup />
 
