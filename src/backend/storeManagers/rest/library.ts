@@ -186,7 +186,7 @@ export async function getInstallInfo(
         },
         is_installed: response.data.is_installed,
         canRunOffline: response.data.canRunOffline,
-        version: response.data.version
+        version: response.data.version || 'unknown'
       },
       manifest: {
         download_size: response.data.install.size || 0,
@@ -194,7 +194,8 @@ export async function getInstallInfo(
         app_name: appName,
         languages: [],
         versionEtag: '',
-        dependencies: []
+        dependencies: [],
+        perLangSize: {}
       }
     }
   } catch (error) {

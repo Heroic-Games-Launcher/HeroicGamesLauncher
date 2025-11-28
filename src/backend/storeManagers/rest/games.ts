@@ -5,9 +5,9 @@ import {
   GameSettings,
   InstallArgs,
   InstallPlatform,
-  LaunchOption,
-  InstallResult
+  LaunchOption
 } from 'common/types'
+import { InstallResult } from 'common/types/game_manager'
 import { RestPluginManifest, RestGameDetailsResponse, RestDownloadInfo } from 'common/types/rest_store'
 import { GameConfig } from '../../game_config'
 import { logInfo, logError, logWarning, LogPrefix, createGameLogWriter } from 'backend/logger'
@@ -110,7 +110,11 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
 
     return {
       about: response.data.extra?.about,
-      reqs: response.data.extra?.reqs || [],
+      reqs: (response.data.extra?.reqs || []).map((req: { name: string; minimum?: string; recommended?: string }) => ({
+        title: req.name,
+        minimum: req.minimum || '',
+        recommended: req.recommended || ''
+      })),
       releaseDate: response.data.releaseDate,
       storeUrl: response.data.store_url,
       changelog: response.data.extra?.changelog,
@@ -218,7 +222,8 @@ async function downloadAndInstall(
               runner: 'rest',
               status: 'installing',
               progress: {
-                bytes,
+                bytes: String(bytes),
+                eta: '',
                 percent,
                 downSpeed: speedMBPerSecond, // Download speed in MB/s (only during download)
                 diskSpeed: undefined // Not applicable during download
@@ -250,7 +255,7 @@ async function downloadAndInstall(
 }
 
 async function executeInstallStep(
-  step: RestDownloadInfo['steps'][0],
+  step: NonNullable<RestDownloadInfo['steps']>[0],
   installPath: string,
   appName: string,
   extractionDestination?: string
@@ -308,7 +313,8 @@ async function executeInstallStep(
                   runner: 'rest',
                   status: 'installing',
                   progress: {
-                    bytes,
+                    bytes: String(bytes),
+                    eta: '',
                     percent,
                     downSpeed: speedMBPerSecond, // Download speed in MB/s (only during download)
                     diskSpeed: undefined // Not applicable during download
@@ -358,7 +364,8 @@ async function executeInstallStep(
             runner: 'rest',
             status: 'installing',
             progress: {
-              bytes: sourceSize,
+              bytes: String(sourceSize),
+              eta: '',
               percent: 0,
               downSpeed: undefined, // Not applicable during extraction
               diskSpeed: undefined // Will be tracked if possible
@@ -384,7 +391,8 @@ async function executeInstallStep(
             runner: 'rest',
             status: 'installing',
             progress: {
-              bytes: sourceSize,
+              bytes: String(sourceSize),
+              eta: '',
               percent: 100,
               downSpeed: undefined, // Not applicable during extraction
               diskSpeed: undefined // Extraction complete
@@ -408,7 +416,8 @@ async function executeInstallStep(
             runner: 'rest',
             status: 'installing',
             progress: {
-              bytes: sourceSize,
+              bytes: String(sourceSize),
+              eta: '',
               percent: 0,
               downSpeed: undefined, // Not applicable during extraction
               diskSpeed: undefined // Will be tracked if possible
@@ -432,7 +441,8 @@ async function executeInstallStep(
             runner: 'rest',
             status: 'installing',
             progress: {
-              bytes: sourceSize,
+              bytes: String(sourceSize),
+              eta: '',
               percent: 100,
               downSpeed: undefined, // Not applicable during extraction
               diskSpeed: undefined // Extraction complete
@@ -632,10 +642,10 @@ export async function install(
       appName,
       install_path: args.path,
       platform: args.platformToInstall,
-      game_info: gameInfo,
       version: gameInfo.version || 'unknown',
-      executable: gameInfo.install.executable,
-      install_size: String(downloadInfo.size)
+      executable: gameInfo.install.executable || '',
+      install_size: String(downloadInfo.size),
+      is_dlc: false
     })
     restInstalledGamesStore.set('installed', installed)
 

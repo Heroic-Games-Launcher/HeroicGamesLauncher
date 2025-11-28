@@ -154,8 +154,8 @@ export default function RestPluginsSettings() {
                 <ToggleSwitch
                   htmlId={`plugin-${plugin.id}`}
                   value={plugin.config?.enabled ?? false}
-                  handleChange={(enabled) =>
-                    handleTogglePlugin(plugin.id, enabled)
+                  handleChange={(e) =>
+                    handleTogglePlugin(plugin.id, e.target.checked)
                   }
                   title={t('settings.rest-plugins.enable', 'Enable')}
                 />
