@@ -313,6 +313,9 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  addRestPlugin: (baseUrl: string) => Promise<{ id: string; enabled: boolean; baseUrl: string; token?: string; username?: string; lastSync?: number }>
+  getRestPlugins: () => Promise<Array<{ id: string; config?: { id: string; enabled: boolean; baseUrl: string; token?: string; username?: string; lastSync?: number } }>>
+  refreshRestLibrary: () => Promise<ExecResult | null>
 }
 
 interface FrontendMessages {
