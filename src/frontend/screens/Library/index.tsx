@@ -561,6 +561,7 @@ export default React.memo(function Library(): JSX.Element {
     gog.library,
     amazon.library,
     zoom.library,
+    steam.library,
     sideloadedLibrary,
     platform,
     filterText,

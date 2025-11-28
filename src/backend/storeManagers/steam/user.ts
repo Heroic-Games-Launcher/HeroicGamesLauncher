@@ -4,9 +4,8 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parse } from '@node-steam/vdf'
 
-import { logError, LogPrefix } from 'backend/logger/logger'
 import { GlobalConfig } from 'backend/config'
-
+import { logError } from 'backend/logger'
 
 // Supports multiple Steam accounts
 export async function loadUsers(): Promise<Array<SteamLoginUser>> {
@@ -20,7 +19,6 @@ export async function loadUsers(): Promise<Array<SteamLoginUser>> {
   }
 
   const fileData = await readFile(loginUsersConfigPath, { encoding: 'utf8' })
-
   try {
     const loginUsers = parse(fileData)
     if (!loginUsers.users) {
@@ -31,10 +29,8 @@ export async function loadUsers(): Promise<Array<SteamLoginUser>> {
       id: userId,
       ...loginUsers.users[userId]
     }))
-
   } catch (e) {
-    logError('Failed to load steam users', { prefix: LogPrefix.Steam })
+    logError('Failed to load steam users')
     return []
   }
 }
-

@@ -87,7 +87,6 @@ export async function refresh(): Promise<null> {
     }
     return acc
   }, [] as Array<SteamLoginUser>)
-
   if (!enabledSteamUsers.length) {
     return null
   }

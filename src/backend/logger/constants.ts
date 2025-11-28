@@ -20,7 +20,8 @@ const LogPrefix = {
   DownloadManager: 'DownloadManager',
   ExtraGameInfo: 'ExtraGameInfo',
   Sideload: 'Sideload',
-  LogUploader: 'LogUploader'
+  LogUploader: 'LogUploader',
+  Steam: 'Steam'
 }
 type LogPrefix = (typeof LogPrefix)[keyof typeof LogPrefix]
 
@@ -33,7 +34,8 @@ const RunnerToLogPrefixMap: Record<Runner, LogPrefix> = {
   gog: LogPrefix.Gog,
   nile: LogPrefix.Nile,
   sideload: LogPrefix.Sideload,
-  zoom: LogPrefix.Zoom
+  zoom: LogPrefix.Zoom,
+  steam: LogPrefix.Steam
 }
 
 const LogLevel = ['DEBUG', 'INFO', 'WARNING', 'ERROR'] as const
