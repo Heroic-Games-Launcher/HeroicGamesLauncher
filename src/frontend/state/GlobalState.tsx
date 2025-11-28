@@ -36,7 +36,10 @@ import {
   sideloadLibrary,
   zoomConfigStore,
   zoomInstalledGamesStore,
-  zoomLibraryStore
+  zoomLibraryStore,
+  restLibraryStore,
+  restInstalledGamesStore,
+  restConfigStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
@@ -71,6 +74,9 @@ interface StateProps {
   zoom: {
     library: GameInfo[]
     username?: string
+  }
+  rest: {
+    library: GameInfo[]
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -166,6 +172,21 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
 
+  loadRestLibrary = (): Array<GameInfo> => {
+    const games = restLibraryStore.get('games', [])
+    const installedGames = restInstalledGamesStore.get('installed', [])
+    for (const game of games) {
+      const igame = installedGames.find(
+        (igame) => igame.appName === game.app_name
+      )
+      if (igame) {
+        game.install = igame
+        game.is_installed = true
+      }
+    }
+    return games
+  }
+
   state: StateProps = {
     epic: {
       library: libraryStore.get('library', []),
@@ -183,6 +204,9 @@ class GlobalState extends PureComponent<Props> {
     zoom: {
       library: this.loadZoomLibrary(),
       username: zoomConfigStore.get_nodefault('username')
+    },
+    rest: {
+      library: this.loadRestLibrary()
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -636,7 +660,7 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, zoom, gameUpdates } = this.state
+    const { epic, gog, amazon, zoom, rest, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -677,6 +701,15 @@ class GlobalState extends PureComponent<Props> {
       amazonLibrary = this.loadAmazonLibrary()
     }
 
+    let restLibrary = this.loadRestLibrary()
+    // Always refresh REST library if we have plugins configured
+    const hasRestPlugins = restLibrary.length > 0 || (library === 'rest' || library === 'all')
+    if (hasRestPlugins && (!restLibrary.length || !rest.library.length || library === 'rest')) {
+      window.api.logInfo('Refreshing REST library...')
+      await window.api.refreshRestLibrary()
+      restLibrary = this.loadRestLibrary()
+    }
+
     const updatedSideload = sideloadLibrary.get('games', [])
 
     this.setState({
@@ -696,6 +729,9 @@ class GlobalState extends PureComponent<Props> {
         library: amazonLibrary,
         user_id: amazon.user_id,
         username: amazon.username
+      },
+      rest: {
+        library: restLibrary
       },
       gameUpdates: updates,
       refreshing: false,
@@ -1104,6 +1140,9 @@ class GlobalState extends PureComponent<Props> {
             username: zoom.username,
             login: this.zoomLogin,
             logout: this.zoomLogout
+          },
+          rest: {
+            library: this.state.rest.library
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

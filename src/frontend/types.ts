@@ -25,6 +25,7 @@ export type Category =
   | 'sideload'
   | 'nile'
   | 'zoom'
+  | 'rest'
 
 export interface ContextType {
   error: boolean
@@ -94,6 +95,9 @@ export interface ContextType {
     username?: string
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
+  }
+  rest: {
+    library: GameInfo[]
   }
   installingEpicGame: boolean
   allTilesInColor: boolean
@@ -210,6 +214,7 @@ export interface StoresFilters {
   nile: boolean
   sideload: boolean
   zoom: boolean
+  rest: boolean
 }
 
 export interface PlatformsFilters {

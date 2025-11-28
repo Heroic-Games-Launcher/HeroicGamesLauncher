@@ -161,6 +161,19 @@ const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
   cwd: 'nile_store'
 })
 
+const restLibraryStore = new CacheStore<GameInfo[], 'games'>('rest_library', null)
+const restInstalledGamesStore = new TypeCheckedStoreFrontend(
+  'restInstalledGamesStore',
+  {
+    cwd: 'rest_store',
+    name: 'installed'
+  }
+)
+const restConfigStore = new TypeCheckedStoreFrontend('restConfigStore', {
+  cwd: 'rest_store',
+  name: 'config'
+})
+
 const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
   cwd: 'store',
   name: 'timestamp'
@@ -190,5 +203,8 @@ export {
   nileConfigStore,
   zoomLibraryStore,
   zoomInstalledGamesStore,
-  zoomConfigStore
+  zoomConfigStore,
+  restLibraryStore,
+  restInstalledGamesStore,
+  restConfigStore
 }
