@@ -1,4 +1,4 @@
-import { InstallPlatform, GameInfo, InstalledInfo } from 'common/types'
+import { InstallPlatform, GameInfo, InstalledInfo, LaunchOption } from 'common/types'
 
 export interface RestPluginManifest {
   id: string

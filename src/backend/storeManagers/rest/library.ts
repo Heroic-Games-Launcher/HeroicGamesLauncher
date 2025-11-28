@@ -177,7 +177,10 @@ export async function getInstallInfo(
         title: response.data.title,
         version: response.data.version || 'unknown',
         launch_options: [],
-        owned_dlc: response.data.dlcList || [],
+        owned_dlc: (response.data.dlcList || []).map((dlc: { id: string; title: string }) => ({
+          app_name: dlc.id,
+          title: dlc.title
+        })),
         branches: [],
         buildId: ''
       },
