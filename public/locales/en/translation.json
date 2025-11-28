@@ -75,6 +75,8 @@
                 "message": "Error installing DXVK/VKD3D! Please check your connection!",
                 "title": "DXVK/VKD3D error"
             },
+            "executableNotFound": "Executable not found",
+            "executableNotFoundMessage": "Heroic could not find the executable for this game. Please set it manually in the game settings.",
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
@@ -333,7 +335,6 @@
         "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "disablePlaytimeSync": "Disables playtime synchronization with given store's servers (currently only GOG is supported)",
         "download_proton_steam": "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'Default Steam path' setting above.",
-        "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
@@ -446,7 +447,8 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in."
+        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
+        "zoom": "Zoom Login"
     },
     "message": {
         "sync": "Sync Complete",
@@ -570,7 +572,6 @@
         "alt-legendary-bin": "Using built-in Legendary binary...",
         "alt-nile-bin": "Using built-in Nile binary...",
         "custom_themes_path": "Select the path to look for custom CSS files",
-        "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
         "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
     },
@@ -637,7 +638,6 @@
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-proton-steam": "Download GE-Proton to Steam directory",
-        "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
@@ -701,7 +701,8 @@
                 "gog": "GOG log",
                 "heroic": "General Heroic log",
                 "legendary": "Epic Games / Legendary log",
-                "nile": "Amazon / Nile log"
+                "nile": "Amazon / Nile log",
+                "zoom": "Zoom log"
             },
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
@@ -1016,5 +1017,6 @@
         "nothingYet": "Nothing was installed by Winetricks yet",
         "openGUI": "Open Winetricks GUI",
         "search": "Search fonts or components"
-    }
+    },
+    "zoom-store": "Zoom Store"
 }
