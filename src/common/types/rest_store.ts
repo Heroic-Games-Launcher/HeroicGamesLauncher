@@ -84,3 +84,33 @@ export interface RestUserInfo {
   avatar?: string
 }
 
+interface RestGameInstallInfo {
+  app_name: string
+  title: string
+  version: string
+  launch_options: Array<LaunchOption>
+  owned_dlc: Array<{ app_name: string; title: string }>
+  branches: Array<string | null>
+  buildId: string
+}
+
+interface RestGameManifest {
+  app_name: string
+  disk_size: number
+  download_size: number
+  languages: string[]
+  versionEtag: string
+  dependencies: string[]
+  perLangSize: {
+    [key: string]: {
+      download_size: number
+      disk_size: number
+    }
+  }
+}
+
+export interface RestInstallInfo {
+  game: RestGameInstallInfo
+  manifest: RestGameManifest
+}
+

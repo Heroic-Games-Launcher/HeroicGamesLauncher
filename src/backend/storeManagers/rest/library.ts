@@ -1,5 +1,5 @@
 import { ExecResult, GameInfo, InstallInfo, InstallPlatform, LaunchOption } from 'common/types'
-import { RestPluginManifest, RestLibraryResponse, RestGameDetailsResponse } from 'common/types/rest_store'
+import { RestPluginManifest, RestLibraryResponse, RestGameDetailsResponse, RestInstallInfo } from 'common/types/rest_store'
 import { logInfo, logError, LogPrefix } from 'backend/logger'
 import { sendFrontendMessage } from '../../ipc'
 import { restLibraryStore } from './electronStores'
@@ -161,7 +161,7 @@ export async function getInstallInfo(
     lang?: string
     retries?: number
   }
-): Promise<InstallInfo | undefined> {
+): Promise<RestInstallInfo | undefined> {
   try {
     const pluginId = getPluginIdFromAppName(appName)
     const gameId = getGameIdFromAppName(appName)
@@ -173,20 +173,13 @@ export async function getInstallInfo(
 
     return {
       game: {
-        runner: 'rest',
         app_name: appName,
         title: response.data.title,
-        art_cover: response.data.art_cover,
-        art_square: response.data.art_square,
-        install: {
-          platform: response.data.install.platform,
-          install_path: response.data.install.install_path,
-          executable: response.data.install.executable,
-          is_dlc: false
-        },
-        is_installed: response.data.is_installed,
-        canRunOffline: response.data.canRunOffline,
-        version: response.data.version || 'unknown'
+        version: response.data.version || 'unknown',
+        launch_options: [],
+        owned_dlc: response.data.dlcList || [],
+        branches: [],
+        buildId: ''
       },
       manifest: {
         download_size: response.data.install.size || 0,

@@ -14,6 +14,7 @@ import {
   ZoomInstalledInfo,
   ZoomInstallInfo
 } from './types/zoom'
+import { RestInstallInfo } from './types/rest_store'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
 import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
@@ -792,6 +793,7 @@ export type InstallInfo =
   | NileInstallInfo
   | ZoomInstalledInfo
   | ZoomInstallInfo
+  | RestInstallInfo
 
 export interface KnowFixesInfo {
   title: string
