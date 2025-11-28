@@ -84,6 +84,19 @@ export interface StoreStructure {
   nileConfigStore: {
     userData?: NileUserData
   }
+  restConfigStore: {
+    plugins: Array<{
+      id: string
+      enabled: boolean
+      baseUrl: string
+      token?: string
+      username?: string
+      lastSync?: number
+    }>
+  }
+  restInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
   sideloadedStore: {
     games: GameInfo[]
     // FIXME: Not sure if this is correct, seems like this key is only used once

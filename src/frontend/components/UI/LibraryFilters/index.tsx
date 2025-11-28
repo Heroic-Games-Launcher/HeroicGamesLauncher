@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import ToggleSwitch from '../ToggleSwitch'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
@@ -12,12 +12,22 @@ const RunnerToStore = {
   gog: 'GOG',
   nile: 'Amazon Games',
   sideload: 'Other',
-  zoom: 'ZOOM Platform'
+  zoom: 'ZOOM Platform',
+  rest: 'REST Plugins'
 }
 
 export default function LibraryFilters() {
   const { t } = useTranslation()
-  const { platform, epic, gog, amazon, zoom } = useContext(ContextProvider)
+  const { platform, epic, gog, amazon, zoom, rest } = useContext(ContextProvider)
+  const [hasRestPlugins, setHasRestPlugins] = React.useState(false)
+
+  React.useEffect(() => {
+    // Check if any REST plugins are configured
+    window.api.getRestPlugins().then((plugins) => {
+      setHasRestPlugins(plugins.length > 0)
+    })
+  }, [])
+
   const {
     setShowFavourites,
     setShowHidden,
@@ -90,7 +100,8 @@ export default function LibraryFilters() {
       gog: false,
       nile: false,
       sideload: false,
-      zoom: false
+      zoom: false,
+      rest: false
     }
     newFilters = { ...newFilters, [store]: true }
     setStoresFilters(newFilters)
@@ -155,7 +166,8 @@ export default function LibraryFilters() {
       gog: true,
       nile: true,
       sideload: true,
-      zoom: true
+      zoom: true,
+      rest: true
     })
     setPlatformsFilters({
       win: true,
@@ -179,7 +191,8 @@ export default function LibraryFilters() {
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
         {amazon.user_id && storeToggle('nile')}
-        {zoom.username && storeToggle('zoom')} {}
+        {zoom.username && storeToggle('zoom')}
+        {hasRestPlugins && storeToggle('rest')}
         {storeToggle('sideload')}
         <hr />
         {platformToggle('win')}
