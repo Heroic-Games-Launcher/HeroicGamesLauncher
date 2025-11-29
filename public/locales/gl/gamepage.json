@@ -8,9 +8,9 @@
         "choose": "Seleccionar",
         "importpath": "Seleccione o cartafol do xogo para importar",
         "move": {
-            "message": "Isto pode levar moito tempo, ¿estás seguro?",
+            "message": "Isto pode levar moito tempo, estás seguro?",
             "path": "Selecciona a localización de destino",
-            "title": "Mover o cartafol do xogo"
+            "title": "Mover instalación do xogo"
         },
         "no": "NON",
         "repair": {
@@ -78,7 +78,8 @@
         "details": "Detalles",
         "browse_files": "Ver Arquivos",
         "browse_wine_prefix": "Abrir Prefixo de Wine",
-        "changelog": "Amosar rexistro de cambios"
+        "changelog": "Amosar rexistro de cambios",
+        "play": "XOGAR"
     },
     "cloud_save_unsupported": "Non compatible",
     "disabled": "Deshabilitar",

@@ -189,7 +189,7 @@
                 "title": "Wine gan aimsiú!"
             }
         },
-        "wineprefix": "Roghnaigh Fillteán Réimír Wine",
+        "wineprefix": "Roghnaigh Fillteán Wine Prefix",
         "yes": "TÁ"
     },
     "help": {
@@ -1036,5 +1036,6 @@
         "nothingYet": "Níl aon rud suiteáilte ag Winetricks go fóill",
         "openGUI": "Oscail Comhéadan Úsáideora Winetricks",
         "search": "Cuardaigh clónna nó comhpháirteanna"
-    }
+    },
+    "amazon-luna": "Amazon Luna"
 }

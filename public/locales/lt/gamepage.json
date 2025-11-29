@@ -248,7 +248,8 @@
         "winetricks": "Pritaikomi „Winetricks“ sutaisymai",
         "gog-goodie": "Šis žaidimas neatrodo įdiegiamas. Patikrinkite/Peržiūrėkite atsisiunčiama turinį – https://gog.com/account",
         "this-game-uses-third-party": "Šis žaidimas naudoja trečios šalies paleidiklį, o jis nėra palaikomas (kol kas)",
-        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)"
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)",
+        "importing": "Importuoti"
     },
     "not_logged_in": {
         "login": "Prisijungti",

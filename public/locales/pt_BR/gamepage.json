@@ -78,7 +78,8 @@
         "details": "Detalhes",
         "changelog": "Mostrar lista de mudanças",
         "browse_files": "Navegar pelos arquivos",
-        "browse_wine_prefix": "Navegar pelo prefixo Wine"
+        "browse_wine_prefix": "Navegar pelo prefixo Wine",
+        "play": "JOGAR"
     },
     "cloud_save_unsupported": "Não suportado",
     "disabled": "Desabilitado",

@@ -941,7 +941,8 @@
         }
     },
     "tour": {
-        "back": "Atgal"
+        "back": "Atgal",
+        "next": "S_ekantis"
     },
     "analyticsModal": {
         "disable": "Išjungta/Neįgalinta (-as/-i)",

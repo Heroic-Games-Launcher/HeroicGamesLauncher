@@ -78,7 +78,8 @@
         "details": "详细内容",
         "changelog": "显示更新日志",
         "browse_files": "浏览文件",
-        "browse_wine_prefix": "浏览 Wine Prefix"
+        "browse_wine_prefix": "浏览 Wine Prefix",
+        "play": "开始游戏"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -268,7 +269,7 @@
         "notSupported": "不支持",
         "notSupportedGame": "不支持",
         "processing": "处理文件中，请稍等",
-        "queued": "已加入队列",
+        "queued": "待下载队列",
         "reparing": "正在修复游戏，请稍等",
         "this-game-uses-third-party": "该游戏使用第三方启动器，尚不支持",
         "totalDownloaded": "下载总计",

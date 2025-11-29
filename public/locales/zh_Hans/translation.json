@@ -237,7 +237,7 @@
         "queue": {
             "end-time": "完成于",
             "queue-time": "添加于",
-            "start-time": "启动于",
+            "start-time": "开始于",
             "type": "类型"
         },
         "title": "下载",
@@ -574,7 +574,7 @@
             "canceled": "已取消",
             "clear": "清除列表",
             "downloading": "下载中",
-            "empty": "没有可下载的",
+            "empty": "暂无待下载项",
             "finished": "已完成",
             "queued": "已加入队列",
             "remove": "从下载中删除",
@@ -641,7 +641,7 @@
             "recently_played": "最近玩过的游戏",
             "recently_played_installed": "最近玩过的游戏 (仅已安装）"
         },
-        "library_top_section": "仓库顶区",
+        "library_top_section": "游戏库顶部",
         "log": {
             "copy-to-clipboard": "复制日志内容到剪贴板",
             "current-log": "当前日志",
@@ -965,7 +965,7 @@
         }
     },
     "wine": {
-        "actions": "动作",
+        "actions": "操作",
         "manager": {
             "link": "Wine 管理器",
             "not-found": "未找到 Wine 版本。请单击刷新按钮重试。",
@@ -1023,7 +1023,7 @@
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
-        "noGames": "你的仓库是空的。<br /><br />单击<4>此处</4>登录你的 Epic、GOG.com 或 Amazon 账号。登录后，你的游戏会出现在库中。<br /><br />要使用其它来源的应用或游戏，请单击手动添加。"
+        "noGames": "你的游戏库是空的。<br /><br />单击<4>此处</4>登录你的 Epic、GOG.com 或 Amazon 账号。登录后，你的游戏会出现在库中。<br /><br />要使用其它来源的应用或游戏，请单击手动添加。"
     },
     "adtraction-locked": {
         "dont-show-again": "不再显示此警告",
@@ -1108,5 +1108,6 @@
             "pt7": "你可以随时在应用设置中更改这一设置。"
         },
         "title": "发送匿名分析信息"
-    }
+    },
+    "amazon-luna": "Amazon Luna"
 }
