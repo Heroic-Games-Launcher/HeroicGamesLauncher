@@ -314,7 +314,7 @@
         "preferSystemLibs": "Des versions personnalisées de Wine (Wine-GE, Wine-Lutris) sont fournies avec les bibliothèques dont elles dépendent. En activant cette option, ces bibliothèques seront ignorées et Wine utilisera à la place celles du système. Attention ! Des problèmes peuvent apparaître si certaines dépendances sont introuvables.",
         "primerun": "Utiliser la carte graphique dédiée pour le rendu sur les systèmes à multiples processeurs graphiques. Utile seulement sur les ordinateurs ayant un processeur graphique intégré et une carte graphique dédiée (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "Ce chemin permet à Heroic de déterminer quelle version de Proton est utilisée par Steam, afin d'ajouter sur Steam des jeux non-Steam."
+            "info": "Ce chemin permet à Heroic de déterminer quelle version de Proton est utilisée par Steam, pour permettre d'ajouter sur Steam des jeux extérieurs à Steam."
         },
         "steamruntime": "Bibliothèques additionnelles fournies par Steam pour aider à exécuter des jeux Linux et Windows (avec Proton). Pourrait améliorer la compatibilité.",
         "sync": {
@@ -378,7 +378,7 @@
         "heroic": {
             "beta": "Bêta",
             "click-to-see-changelog": "Cliquez pour voir les changements",
-            "newReleases": "Mise à jour disponible !",
+            "newReleases": "Une mise à jour est disponible !",
             "stable": "Stable",
             "version": "Version d'Heroic"
         },
@@ -769,7 +769,7 @@
             "label": "Permettre l'installation de jeux dont les systèmes anti-triche seront inopérants"
         },
         "verboseLogs": {
-            "description": "Activer « verbose » dans les rapports d'événements"
+            "description": "Rendre les rapports d'événements verbeux"
         },
         "custom_css": {
             "warning": "Avertissement : ceci s'applique à toute l'interface. Cela signifie qu'un style erroné peut rendre Heroic inutilisable. Si nécessaire, ce paramètre peut être modifié depuis `~/.config/heroic/config.json`. Ne copiez PAS de styles provenant de sources auxquelles vous ne faites pas confiance."
