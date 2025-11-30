@@ -5,13 +5,10 @@ import { hasProgress } from './hasProgress'
 import { useTranslation } from 'react-i18next'
 import { getStatusLabel, handleNonAvailableGames } from './constants'
 
-export function hasStatus(
-  appName: string,
-  gameInfo?: GameInfo,
-  gameSize?: string
-) {
+export function hasStatus(gameInfo: GameInfo, gameSize?: string) {
+  const appName = gameInfo.app_name
   const { libraryStatus, epic, gog } = React.useContext(ContextProvider)
-  const [progress] = hasProgress(appName)
+  const [progress] = hasProgress(gameInfo.app_name, gameInfo.runner)
   const [newGameInfo, setNewGameInfo] = React.useState<GameInfo | undefined>(
     gameInfo
   )

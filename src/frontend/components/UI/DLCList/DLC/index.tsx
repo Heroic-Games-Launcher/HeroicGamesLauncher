@@ -29,7 +29,7 @@ const DLC = ({ dlc, runner, mainAppInfo, onClose }: Props) => {
   const [dlcInfo, setDlcInfo] = useState<GameInfo | null>(null)
   const [dlcSize, setDlcSize] = useState<number>(0)
   const [refreshing, setRefreshing] = useState(true)
-  const [progress] = hasProgress(app_name)
+  const [progress] = hasProgress(dlc.app_name, runner)
 
   const isInstalled = dlcInfo?.is_installed
 

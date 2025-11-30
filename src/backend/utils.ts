@@ -83,6 +83,7 @@ import {
 import { parse } from '@node-steam/vdf'
 
 import type LogWriter from 'backend/logger/log_writer'
+import { isRunning } from './downloadmanager/downloadqueue'
 
 const execAsync = promisify(exec)
 
@@ -238,7 +239,7 @@ async function handleExit() {
 
   await gogPresence.deletePresence()
 
-  if (isLocked && mainWindow) {
+  if ((isLocked || isRunning()) && mainWindow) {
     const { response } = await showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
@@ -252,9 +253,11 @@ async function handleExit() {
       return
     }
 
-    // This is very hacky and can be removed if gogdl
-    // and legendary handle SIGTERM and SIGKILL
-    const possibleChildren = ['legendary', 'gogdl']
+    // This is very hacky and can be removed if bineries handle SIGTERM and SIGKILL
+    // FIXME: we should keep track of what we are doing and kill just that
+    // this is really dangerous cause we can be killing other processes unrelated
+    // to what we are doing x_x
+    const possibleChildren = ['legendary', 'gogdl', 'nile']
     possibleChildren.forEach((procName) => {
       try {
         killPattern(procName)
