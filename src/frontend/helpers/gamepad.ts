@@ -188,9 +188,6 @@ export const initGamepad = () => {
                 if (isMuiSelect()) {
                   action = 'tab'
                 }
-                if (insideDropdown()) {
-                  action = 'tab'
-                }
                 if (isMuiDialogCloseButton()) {
                   action = 'tab'
                 }
@@ -199,9 +196,6 @@ export const initGamepad = () => {
               case 'leftStickUp':
                 // Same as above
                 if (isMuiSelect()) {
-                  action = 'shiftTab'
-                }
-                if (insideDropdown()) {
                   action = 'shiftTab'
                 }
                 break

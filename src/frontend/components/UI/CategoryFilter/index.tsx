@@ -75,6 +75,7 @@ export default function CategoryFilter() {
       className="categoriesFilter"
       data-tour="library-categories"
       title={t('header.categories', 'Categories')}
+      popUpOnHover
     >
       {categoriesList.length === 0 && (
         <>
@@ -96,6 +97,7 @@ export default function CategoryFilter() {
       <button
         type="reset"
         className="button is-primary"
+        style={{ marginBottom: '0.3rem' }}
         onClick={() => selectAll()}
       >
         {t('header.select_all', 'Select All')}

@@ -34,11 +34,12 @@
       display: flex;
 
       & label {
+        min-height: 30px;
         flex-grow: 1;
       }
 
       .only {
-        opacity: 0.01;
+        display: none;
         background: none;
         border: none;
         color: var(--text);
@@ -51,7 +52,7 @@
 
       &:hover .only,
       &:focus-within .only {
-        opacity: 1;
+        display: block;
       }
     }
 
