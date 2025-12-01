@@ -1,5 +1,5 @@
 .UpdateComponent {
-  height: 100%;
+  height: 100vh;
   font-size: var(--text-xl);
   color: var(--text-default);
   display: flex;
