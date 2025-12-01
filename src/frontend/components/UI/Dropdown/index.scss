@@ -1,18 +1,26 @@
-.libraryFilters,
-.categoriesFilter {
+.dropdownContainer {
   position: relative;
 
   .button {
     padding-inline: 2rem;
   }
+
+  .dropdown.expanded {
+    pointer-events: all;
+    opacity: 1;
+    max-height: 70vh;
+    box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
+  }
+
   .dropdown {
     position: absolute;
     top: 100%;
     right: 0px;
     min-width: 250px;
     display: flex;
+    border-radius: var(--space-xs);
     flex-direction: column;
-    background: var(--body-background);
+    background: var(--background);
     opacity: 0;
     transition: all 200ms;
     pointer-events: none;
@@ -20,7 +28,33 @@
     max-height: 0;
     overflow: hidden;
     gap: 0.3rem;
-    padding: 1rem 0.5rem 1rem 0;
+    padding: var(--space-sm);
+
+    .toggleWithOnly {
+      display: flex;
+
+      & label {
+        min-height: 30px;
+        flex-grow: 1;
+      }
+
+      .only {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+          color: var(--accent);
+        }
+      }
+
+      &:hover .only,
+      &:focus-within .only {
+        display: block;
+      }
+    }
 
     .toggleSwitchWrapper {
       white-space: nowrap;
@@ -40,6 +74,7 @@
     & hr {
       width: 80%;
     }
+
     & button {
       margin-inline-start: 0.5rem;
       align-self: center;
@@ -47,45 +82,9 @@
       padding: 0.3rem 0.8rem;
     }
   }
-
-  &:focus-within,
-  &:hover,
-  &:has(.dropdown:hover),
-  &:has(.button:active) {
-    .dropdown {
-      pointer-events: all;
-      opacity: 1;
-      max-height: 70vh;
-      overflow-y: auto;
-      box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  .toggleWithOnly {
-    display: flex;
-
-    & label {
-      flex-grow: 1;
-    }
-    .only {
-      opacity: 0.01;
-      background: none;
-      border: none;
-      color: var(--text);
-      text-decoration: underline;
-      cursor: pointer;
-      &:hover {
-        color: var(--accent);
-      }
-    }
-    &:hover .only,
-    &:focus-within .only {
-      opacity: 1;
-    }
-  }
 }
 
-body.isRTL .libraryFilters .dropdown {
+body.isRTL .dropdownContainer .dropdown {
   right: auto;
   left: 0px;
 }
