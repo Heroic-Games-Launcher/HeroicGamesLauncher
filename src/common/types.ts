@@ -528,8 +528,12 @@ export interface WineVersionInfo extends VersionInfo {
 export type GamepadActionStatus = Record<
   ValidGamepadAction,
   {
+    // handles basic repeat delay
     triggeredAt: { [key: number]: number }
     repeatDelay: false | number
+    // for initial post activation delay
+    activationDelay?: false | number
+    hasRepeated?: boolean
   }
 >
 
