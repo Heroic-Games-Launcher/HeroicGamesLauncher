@@ -35,8 +35,8 @@ export const initGamepad = () => {
   window.addEventListener('focus', () => (isFocused = true))
   window.addEventListener('blur', () => (isFocused = false))
 
-  // input should be clone to prevent variables from being re-used across
-  // different controllers
+  // input should be cloned to prevent variables from being re-used
+  // across different controller indexes
   const basicGamepadInputRpeat = () => {
     return JSON.parse(
       JSON.stringify({
