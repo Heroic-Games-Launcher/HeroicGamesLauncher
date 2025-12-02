@@ -37,14 +37,10 @@ export const initGamepad = () => {
 
   // input should be cloned to prevent variables from being re-used
   // across different controller indexes
-  const basicGamepadInputRpeat = () => {
-    return JSON.parse(
-      JSON.stringify({
-        triggeredAt: {},
-        repeatDelay: KEY_REPEAT_DELAY,
-        activationDelay: ACTIVATION_DELAY
-      })
-    )
+  const basicGamepadInputRepeat = {
+    triggeredAt: {},
+    repeatDelay: KEY_REPEAT_DELAY,
+    activationDelay: ACTIVATION_DELAY
   }
 
   // store the status and metadata for each action
@@ -52,14 +48,14 @@ export const initGamepad = () => {
   // this keeps track of the moment a button/trigger/stick is activated
   // we use this to know when to fire events
   const actions: GamepadActionStatus = {
-    padUp: basicGamepadInputRpeat(),
-    padDown: basicGamepadInputRpeat(),
-    padLeft: basicGamepadInputRpeat(),
-    padRight: basicGamepadInputRpeat(),
-    leftStickUp: basicGamepadInputRpeat(),
-    leftStickDown: basicGamepadInputRpeat(),
-    leftStickLeft: basicGamepadInputRpeat(),
-    leftStickRight: basicGamepadInputRpeat(),
+    padUp: structuredClone(basicGamepadInputRepeat),
+    padDown: structuredClone(basicGamepadInputRepeat),
+    padLeft: structuredClone(basicGamepadInputRepeat),
+    padRight: structuredClone(basicGamepadInputRepeat),
+    leftStickUp: structuredClone(basicGamepadInputRepeat),
+    leftStickDown: structuredClone(basicGamepadInputRepeat),
+    leftStickLeft: structuredClone(basicGamepadInputRepeat),
+    leftStickRight: structuredClone(basicGamepadInputRepeat),
     rightStickUp: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
     rightStickDown: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
     rightStickLeft: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
