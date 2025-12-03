@@ -78,7 +78,8 @@
         "details": "Részletek",
         "changelog": "Változásnapló megjelenítése",
         "browse_files": "Fájlok tallózása",
-        "browse_wine_prefix": "Wine előtag tallózása"
+        "browse_wine_prefix": "Wine előtag tallózása",
+        "play": "INDÍTÁS"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",

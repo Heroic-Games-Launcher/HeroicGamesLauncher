@@ -107,7 +107,7 @@
                 "message-finished": "Czy chcesz teraz uruchomić ponownie Heroic?",
                 "title": "Heroic Games Launcher",
                 "title-finished": "Aktualizacja zakończona",
-                "detailNoAutoupdate": "Automatyczne aktualizacje nie są wspierane dla twojego formatu pakietów. Jeśli chcesz zaktualizować, użyj twojego menedżera pakietów."
+                "detailNoAutoupdate": "Automatyczne aktualizacje nie są wspierane dla twojego formatu pakietu. Proszę użyj swojego menedżera paczek do aktualizacji."
             }
         },
         "no": "NIE",
@@ -258,7 +258,7 @@
     },
     "generic": {
         "error": {
-            "component": "Nie znaleziono żadnych gier - spróbuj wylogować i zalogować się ponownie lub wybierz jedną z opcji poniżej"
+            "component": "Nie znaleziono gier — spróbuj się wylogować i zalogować ponownie, lub wybrać jedną z opcji poniżej"
         },
         "library": {
             "refresh": "Odśwież bibliotekę"
@@ -768,10 +768,10 @@
             "label": "Zezwól na instalację gier z zepsutym lub odmawiającym anticheatem"
         },
         "verboseLogs": {
-            "description": "Włącz szczegółowe dzienniki"
+            "description": "Włącz szczegółowe logi"
         },
         "custom_css": {
-            "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic-a nie będzie dało się używać. W razie potrzeby można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
+            "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic będzie nieużywalny. W razie potrzeby, można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
         },
         "disableUMU": "Wyłącz umu",
         "advertiseAvxForRosetta": "Promuj AVX dla Rosetty",
@@ -795,11 +795,12 @@
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Nie pokazuj ich",
-                "show": "Zrozumiałem, pokaż im",
-                "title": "Czy na pewno?"
+                "show": "Zrozumiałem, pokaż je",
+                "title": "Na pewno?",
+                "message": "Rekomendujemy użycie forków Proton-a (GE-Proton, Proton-CachyOS, itp.) do używania wraz z Heroic-iem, ponieważ buildom Protona od Valve brakuje winetricks-ów i protofix-ów. Jeśli chcesz to i tak możesz ich używać."
             },
-            "label": "Zezwalanie na używanie kompilacji nie-GE Proton do uruchamiania gier",
-            "wine_selector_warning": "Wersje nie-GE Proton są domyślnie ignorowane, włącz je w zaawansowanych ustawieniach globalnych",
+            "label": "Zezwól na użycie Valve Proton do uruchamiania gier",
+            "wine_selector_warning": "Wersje Valve Protona są domyślnie ignorowane, włącz je w Globalnych Ustawieniach Zaawansowanych",
             "info_label": "Wersje Proton od Valve ignorowane"
         },
         "WoW64": "Włącz WoW64 (Eksperymentalne)"
@@ -846,8 +847,8 @@
         "saves": {
             "label": "Lokalizacja zapisów gry:",
             "warning": "Zapisy w chmurze są w fazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)",
-            "not_supported": "Ta gra nie obsługuje zapisów w chmurze.",
-            "gog_linux_native_warning": "Gry natywne dla systemu Linux nie obsługują funkcji zapisywania w chmurze GOG. Skorzystaj z wersji dla systemu Windows."
+            "not_supported": "Ta gra nie obsługuje Zapisów w Chmurze.",
+            "gog_linux_native_warning": "Gry natywne dla systemu Linux nie obsługują funkcji Zapisywania w Chmurze GOG. Skorzystaj z wersji dla systemu Windows."
         },
         "systemInformation": {
             "cpu": "Procesor:",
@@ -1105,5 +1106,6 @@
             "pt2": "Heroic wykorzystuje platformę open-source Plausible Analytics do gromadzenia podstawowych danych: Wersja aplikacji, system operacyjny, połączone sklepy i kraj."
         },
         "title": "Wysyłaj anonimowe analizy"
-    }
+    },
+    "amazon-luna": "Amazon Luna"
 }

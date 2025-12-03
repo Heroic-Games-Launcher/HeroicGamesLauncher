@@ -78,7 +78,8 @@
         "details": "Üksikasjad",
         "changelog": "Näita muutuste nimekirja",
         "browse_files": "Sirvi faile",
-        "browse_wine_prefix": "Sirvi Wine'i prefiksi"
+        "browse_wine_prefix": "Sirvi Wine'i prefiksi",
+        "play": "MÄNGI"
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",

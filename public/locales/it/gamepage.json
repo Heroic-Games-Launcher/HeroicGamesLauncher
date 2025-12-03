@@ -78,7 +78,8 @@
         "details": "Dettagli",
         "changelog": "Mostra Changelog",
         "browse_files": "Sfoglia file",
-        "browse_wine_prefix": "Sfoglia prefisso Wine"
+        "browse_wine_prefix": "Sfoglia prefisso Wine",
+        "play": "GIOCA"
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -226,7 +227,8 @@
     "setting": {
         "winecrossoverbottle": "Bottiglia di CrossOver",
         "show-wine-settings": "Mostra impostazioni Wine",
-        "warn-use-shared-wine-config": "Utilizza questa opzione solo se sai ciò che stai facendo.<br/> Condividere lo stesso prefisso per giochi differenti potrebbe creare problemi se le loro dipendenze sono incompatibili."
+        "warn-use-shared-wine-config": "Utilizza questa opzione solo se sai ciò che stai facendo.<br/> Condividere lo stesso prefisso per giochi differenti potrebbe creare problemi se le loro dipendenze sono incompatibili.",
+        "use-shared-wine-config": "Usa il prefisso Wine condiviso"
     },
     "sideload": {
         "field": {

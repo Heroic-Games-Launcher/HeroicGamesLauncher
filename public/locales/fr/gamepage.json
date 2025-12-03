@@ -78,7 +78,8 @@
         "details": "Détails",
         "changelog": "Afficher le journal des changements",
         "browse_files": "Parcourir les fichiers",
-        "browse_wine_prefix": "Parcourir le préfixe Wine"
+        "browse_wine_prefix": "Parcourir le préfixe Wine",
+        "play": "JOUER"
     },
     "cloud_save_unsupported": "Non-supporté",
     "disabled": "Désactivé",
@@ -160,7 +161,7 @@
             "title": "Système anti-triche non fonctionnel",
             "install_anyway": "Oui (je comprends que les éléments multijoueurs ne fonctionneront pas)",
             "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée. Le jeu peut être exécuté mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?",
-            "ok": "Ok",
+            "ok": "Entendu",
             "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n'est pas compatible avec votre système d'exploitation ou n'a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et il n'y a rien que vous (ni l'équipe d'Heroic) puisse faire à ce sujet. <br /><br />Pour installer ce jeu et essayer quand même, rendez-vous dans Paramètres, Avancés, et cochez l'option permettant d'autoriser l'installation de jeux comportant un anti-triche cassé ou refusé. <br /><br />Notez qu'il n'existe pas de solution à ce problème et que vous risquerez d'être banni du jeu."
         },
         "flatpak-path-not-writtable": "Erreur : le chemin n'est pas accessible en mode bac-à-sable, risque de perte de données."
