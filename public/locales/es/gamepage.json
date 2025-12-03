@@ -78,7 +78,8 @@
         "details": "Detalles",
         "changelog": "Mostrar registro de cambios",
         "browse_wine_prefix": "Abrir Prefijo de Wine",
-        "browse_files": "Ver Archivos"
+        "browse_files": "Ver Archivos",
+        "play": "JUGAR"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
