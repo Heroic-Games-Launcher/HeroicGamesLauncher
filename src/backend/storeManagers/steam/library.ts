@@ -13,7 +13,13 @@ import {
 import { libraryCache, steamEnabledUsers } from './electronStores'
 import { loadUsers } from './user'
 import { GameInfo, LaunchOption } from 'common/types'
-import { logDebug, logError, logWarning } from 'backend/logger'
+import {
+  logDebug,
+  logError,
+  logInfo,
+  LogPrefix,
+  logWarning
+} from 'backend/logger'
 import { GlobalConfig } from 'backend/config'
 import { HeroicVDFParser } from './vdf'
 import { CMsgClientLicenseList } from './steammessages'
@@ -34,7 +40,9 @@ export async function getOwnedPackages(
     userId,
     'config/licensecache'
   )
-  logDebug(['Loading licensecache data', licenseCache])
+  logDebug(['Loading licensecache data', licenseCache], {
+    prefix: LogPrefix.Steam
+  })
   try {
     const licenseCacheData = await readFile(licenseCache)
     const stream = new RandomStream()
@@ -227,6 +235,9 @@ export async function refresh(): Promise<null> {
     return acc
   }, [] as Array<SteamLoginUser>)
   if (!enabledSteamUsers.length) {
+    logWarning('No enabled steam users, skipping sync', {
+      prefix: LogPrefix.Steam
+    })
     return null
   }
 
@@ -239,7 +250,7 @@ export async function refresh(): Promise<null> {
     })
     return null
   }
-
+  logInfo('Loading app and packages infos', { prefix: LogPrefix.Steam })
   const [appInfo, packageInfo] = await Promise.all([
     loadAppInfo(defaultSteamPath),
     loadPackageInfo(defaultSteamPath)

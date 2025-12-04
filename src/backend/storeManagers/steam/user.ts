@@ -5,7 +5,7 @@ import path from 'node:path'
 import { parse } from '@node-steam/vdf'
 
 import { GlobalConfig } from 'backend/config'
-import { logError } from 'backend/logger'
+import { logDebug, logError, LogPrefix } from 'backend/logger'
 
 // Supports multiple Steam accounts
 export async function loadUsers(): Promise<Array<SteamLoginUser>> {
@@ -15,9 +15,13 @@ export async function loadUsers(): Promise<Array<SteamLoginUser>> {
   const loginUsersConfigPath = path.join(steamPath, 'config', 'loginusers.vdf')
 
   if (!existsSync(loginUsersConfigPath)) {
+    logError(
+      ['Unable to load Steam users, file doesnt exist', loginUsersConfigPath],
+      { prefix: LogPrefix.Steam }
+    )
     return []
   }
-
+  logDebug(['Loading loginusers data'], { prefix: LogPrefix.Steam })
   const fileData = await readFile(loginUsersConfigPath, { encoding: 'utf8' })
   try {
     const loginUsers = parse(fileData)
@@ -30,7 +34,7 @@ export async function loadUsers(): Promise<Array<SteamLoginUser>> {
       ...loginUsers.users[userId]
     }))
   } catch (e) {
-    logError('Failed to load steam users')
+    logError('Failed to load steam users', { prefix: LogPrefix.Steam })
     return []
   }
 }
