@@ -99,7 +99,9 @@ export interface ContextType {
   }
   steam: {
     library: GameInfo[]
-    enabledUsers: SteamLoginUser[]
+    users: SteamLoginUser[]
+    enabledUsers: string[]
+    setUser: (userId: string, value: boolean) => void
   }
   installingEpicGame: boolean
   allTilesInColor: boolean

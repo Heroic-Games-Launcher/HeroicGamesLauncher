@@ -32,7 +32,9 @@ const initialContext: ContextType = {
   },
   steam: {
     library: [],
-    enabledUsers: []
+    users: [],
+    enabledUsers: [],
+    setUser: () => {}
   },
   installingEpicGame: false,
   sideloadedLibrary: [],

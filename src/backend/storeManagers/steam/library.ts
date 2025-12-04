@@ -2,7 +2,7 @@ import path from 'node:path'
 import { parse } from '@node-steam/vdf'
 import { existsSync, readFileSync } from 'graceful-fs'
 import { readdir, readFile } from 'node:fs/promises'
-import { getSteamLibraries } from 'backend/utils'
+import { getFileSize, getSteamLibraries } from 'backend/utils'
 import { isOnline } from 'backend/online_monitor'
 import {
   AppManifest,
@@ -13,7 +13,6 @@ import {
 import { libraryCache, steamEnabledUsers } from './electronStores'
 import { loadUsers } from './user'
 import { GameInfo, LaunchOption } from 'common/types'
-import { apiInfoCache } from '../gog/electronStores'
 import { logDebug, logError, logWarning } from 'backend/logger'
 import { GlobalConfig } from 'backend/config'
 import { HeroicVDFParser } from './vdf'
@@ -231,14 +230,13 @@ export async function refresh(): Promise<null> {
     return null
   }
 
-  libraryCache.get('games', []).forEach((game) => {
-    library.set(game.app_name, game)
-  })
-
   await getInstalledGames()
   // Get all user owned games
   if (!isOnline()) {
     logDebug('App offline, skipping steam sync')
+    libraryCache.get('games', []).forEach((game) => {
+      library.set(game.app_name, game)
+    })
     return null
   }
 
@@ -271,31 +269,49 @@ export async function refresh(): Promise<null> {
         apps.push(...Object.values(packageData.appids))
     })
 
-    apiInfoCache.use_in_memory()
     for (const appid of apps) {
       const steamGame = appInfo[appid]
+
       if (
+        steamGame.appid === 480 || // Hide SpaceWar
         typeof steamGame.data !== 'object' ||
         steamGame.data === null ||
-        !('common' in steamGame.data) ||
-        typeof steamGame.data.common !== 'object' ||
-        steamGame.data.common === null ||
-        !('name' in steamGame.data.common) ||
-        typeof steamGame.data.common.name !== 'string' ||
-        !('type' in steamGame.data.common) ||
-        typeof steamGame.data.common.type !== 'string' ||
-        steamGame.data.common.type.toLowerCase() !== 'game'
+        !('appinfo' in steamGame.data) ||
+        typeof steamGame.data.appinfo !== 'object' ||
+        steamGame.data.appinfo === null ||
+        !('common' in steamGame.data.appinfo) ||
+        typeof steamGame.data.appinfo.common !== 'object' ||
+        steamGame.data.appinfo.common === null ||
+        !('name' in steamGame.data.appinfo.common) ||
+        typeof steamGame.data.appinfo.common.name !== 'string' ||
+        !('type' in steamGame.data.appinfo.common) ||
+        typeof steamGame.data.appinfo.common.type !== 'string' ||
+        steamGame.data.appinfo.common.type.toLowerCase() !== 'game'
       ) {
         continue
       }
 
+      const mtime = steamGame.data.appinfo.common.store_asset_mtime
+      const hero =
+        steamGame.data.appinfo.common.library_assets_full?.library_hero?.image
+          ?.english
+      const header = steamGame.data.appinfo.common.header_image?.english
+      const capsule =
+        steamGame.data.appinfo.common.library_assets_full?.library_capsule
+          ?.image?.english
+
       const newGameObject: GameInfo = {
         app_name: steamGame.appid.toString(),
         runner: 'steam',
-        art_square: `${steamDBBaseURL}/${steamGame.appid}/library_600x900.jpg`,
-        art_cover: `${steamDBBaseURL}/${steamGame.appid}/header.jpg`,
+        art_square:
+          capsule &&
+          `${steamDBBaseURL}/${steamGame.appid}/${capsule}?t=${mtime}`,
+        art_cover:
+          header && `${steamDBBaseURL}/${steamGame.appid}/${header}?t=${mtime}`,
+        art_background:
+          hero && `${steamDBBaseURL}/${steamGame.appid}/${hero}?t=${mtime}`,
         canRunOffline: false,
-        title: steamGame.data?.common?.name,
+        title: steamGame.data?.appinfo?.common?.name,
         is_installed: false,
         install: {
           is_dlc: false
@@ -306,11 +322,12 @@ export async function refresh(): Promise<null> {
       if (installedGame) {
         newGameObject.is_installed = true
         newGameObject.install.install_path = installedGame.install_dir
-        newGameObject.install.install_size = installedGame.SizeOnDisk
+        newGameObject.install.install_size = getFileSize(
+          installedGame.SizeOnDisk
+        )
       }
       library.set(steamGame.appid.toString(), newGameObject)
     }
-    apiInfoCache.commit()
     libraryCache.set('games', Array.from(library.values()))
     logDebug(['Loaded', Array.from(library.values()).length])
   }

@@ -9,8 +9,13 @@ import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import HeroicLogo from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
+import SteamLogo from 'frontend/assets/steam-logo.svg?react'
 
-import { LanguageSelector, UpdateComponent } from '../../components/UI'
+import {
+  LanguageSelector,
+  ToggleSwitch,
+  UpdateComponent
+} from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
@@ -23,7 +28,7 @@ export const amazonLoginPath = '/loginweb/nile'
 export const zoomLoginPath = '/loginweb/zoom'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, refreshLibrary } =
+  const { epic, gog, amazon, zoom, steam, refreshLibrary } =
     useContext(ContextProvider)
   const { t } = useTranslation()
 
@@ -159,6 +164,28 @@ export default React.memo(function NewLogin() {
               logoutAction={zoom.logout}
               disabled={oldMac}
             />
+            {...steam.users?.map((user) => (
+              <div
+                key={user.id}
+                className={`runnerWrapper ${oldMac ? 'disabled' : ''}`}
+              >
+                <div className="runnerIcon alternative">
+                  <SteamLogo />
+                </div>
+                <div className="runnerButtons">
+                  <div onClick={() => {}} className="runnerLogin">
+                    <ToggleSwitch
+                      htmlId={user.id}
+                      value={steam.enabledUsers.includes(user.id)}
+                      handleChange={(event) => {
+                        steam.setUser(user.id, event.target.checked)
+                      }}
+                      title={user.PersonaName}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         <button
