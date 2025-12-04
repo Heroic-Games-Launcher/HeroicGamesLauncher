@@ -127,6 +127,11 @@ const wineDownloaderInfoStore = new TypeCheckedStoreFrontend(
 )
 
 const gogLibraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', null)
+const steamLibraryStore = new CacheStore<GameInfo[], 'games'>(
+  'steam_library',
+  null
+)
+
 const gogInstalledGamesStore = new TypeCheckedStoreFrontend(
   'gogInstalledGamesStore',
   {
@@ -190,5 +195,6 @@ export {
   nileConfigStore,
   zoomLibraryStore,
   zoomInstalledGamesStore,
-  zoomConfigStore
+  zoomConfigStore,
+  steamLibraryStore
 }

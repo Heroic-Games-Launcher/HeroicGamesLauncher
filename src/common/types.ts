@@ -20,7 +20,13 @@ import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/ut
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+export type Runner =
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'zoom'
+  | 'steam'
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -157,7 +163,7 @@ export interface ExtraInfo {
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom' | 'steam'
   store_url?: string
   app_name: string
   art_cover: string

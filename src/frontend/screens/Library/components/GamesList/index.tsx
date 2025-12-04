@@ -155,6 +155,10 @@ const GamesList = ({
               key={`${runner}_${app_name}${isFirstLane ? '_firstlane' : ''}`}
               hasUpdate={hasUpdate}
               buttonClick={() => {
+                if (gameInfo.runner === 'steam') {
+                    window.api.openExternalUrl(`steam://install/${app_name}`)
+                    return
+                }
                 if (gameInfo.runner !== 'sideload')
                   handleGameCardClick(app_name, runner, gameInfo)
               }}

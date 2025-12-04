@@ -3,12 +3,14 @@ import * as GOGGameManager from 'backend/storeManagers/gog/games'
 import * as LegendaryGameManager from 'backend/storeManagers/legendary/games'
 import * as NileGameManager from 'backend/storeManagers/nile/games'
 import * as ZoomGameManager from 'backend/storeManagers/zoom/games'
+import * as SteamGameManager from 'backend/storeManagers/steam/games'
 
 import * as SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import * as NileLibraryManager from 'backend/storeManagers/nile/library'
 import * as ZoomLibraryManager from 'backend/storeManagers/zoom/library'
+import * as SteamLibraryManager from 'backend/storeManagers/steam/library'
 import { GameManager, LibraryManager } from 'common/types/game_manager'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
@@ -24,7 +26,8 @@ export const gameManagerMap: GameManagerMap = {
   gog: GOGGameManager,
   legendary: LegendaryGameManager,
   nile: NileGameManager,
-  zoom: ZoomGameManager
+  zoom: ZoomGameManager,
+  steam: SteamGameManager
 }
 
 type LibraryManagerMap = {
@@ -36,7 +39,8 @@ export const libraryManagerMap: LibraryManagerMap = {
   gog: GOGLibraryManager,
   legendary: LegendaryLibraryManager,
   nile: NileLibraryManager,
-  zoom: ZoomLibraryManager
+  zoom: ZoomLibraryManager,
+  steam: SteamLibraryManager
 }
 
 function getDMElement(gameInfo: GameInfo, appName: string) {
@@ -86,4 +90,5 @@ export async function initStoreManagers() {
   await GOGLibraryManager.initGOGLibraryManager()
   await NileLibraryManager.initNileLibraryManager()
   await ZoomLibraryManager.initZoomLibraryManager()
+  await SteamLibraryManager.refresh()
 }

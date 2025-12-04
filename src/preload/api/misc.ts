@@ -55,6 +55,9 @@ export const pathExists = makeHandlerInvoker('pathExists')
 export const processShortcut = makeListenerCaller('processShortcut')
 export const handleGoToScreen = frontendListenerSlot('openScreen')
 export const handleShowDialog = frontendListenerSlot('showDialog')
+export const getSteamUsers = makeHandlerInvoker('getSteamUsers') 
+export const getSteamUsersEnabled = makeHandlerInvoker('getSteamUsersEnabled') 
+export const setSteamUserStatus = makeListenerCaller('setSteamUserStatus') 
 
 import Store from 'electron-store'
 // FUTURE WORK

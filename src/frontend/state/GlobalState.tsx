@@ -36,10 +36,12 @@ import {
   sideloadLibrary,
   zoomConfigStore,
   zoomInstalledGamesStore,
-  zoomLibraryStore
+  zoomLibraryStore,
+  steamLibraryStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
+import { SteamLoginUser } from 'common/types/steam'
 
 const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
@@ -71,6 +73,11 @@ interface StateProps {
   zoom: {
     library: GameInfo[]
     username?: string
+  }
+  steam: {
+    library: GameInfo[]
+    users: SteamLoginUser[]
+    enabledUsers: string[]
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -166,6 +173,35 @@ class GlobalState extends PureComponent<Props> {
     return games
   }
 
+  loadSteamLibrary = (): Array<GameInfo> => {
+    const games = steamLibraryStore.get('games', [])
+
+    return games
+  }
+
+  toggleSteamUser = (userId: string, value: boolean): void => {
+    window.api.setSteamUserStatus(userId, value)
+    const enabledUsers = this.state.steam.enabledUsers
+
+    if (value) {
+      if (enabledUsers.includes(userId)) return
+      enabledUsers.push(userId)
+    } else {
+      if (!enabledUsers.includes(userId)) return
+      enabledUsers.splice(
+        enabledUsers.findIndex((u) => u == userId),
+        1
+      )
+    }
+
+    this.setState({
+      steam: {
+        ...this.state.steam,
+        enabledUsers
+      }
+    })
+  }
+
   state: StateProps = {
     epic: {
       library: libraryStore.get('library', []),
@@ -183,6 +219,11 @@ class GlobalState extends PureComponent<Props> {
     zoom: {
       library: this.loadZoomLibrary(),
       username: zoomConfigStore.get_nodefault('username')
+    },
+    steam: {
+      library: this.loadSteamLibrary(),
+      users: [],
+      enabledUsers: []
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -636,7 +677,7 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, zoom, gameUpdates } = this.state
+    const { epic, gog, amazon, zoom, steam, gameUpdates } = this.state
 
     let updates = gameUpdates
     if (checkUpdates) {
@@ -677,6 +718,16 @@ class GlobalState extends PureComponent<Props> {
       amazonLibrary = this.loadAmazonLibrary()
     }
 
+    let steamLibrary = this.loadSteamLibrary()
+    if (
+      steam.enabledUsers.length &&
+      (!steamLibrary.length || !steam.library.length)
+    ) {
+      window.api.logInfo('No cache found, getting data from zoom...')
+      await window.api.refreshLibrary('zoom')
+      steamLibrary = this.loadSteamLibrary()
+    }
+
     const updatedSideload = sideloadLibrary.get('games', [])
 
     this.setState({
@@ -696,6 +747,11 @@ class GlobalState extends PureComponent<Props> {
         library: amazonLibrary,
         user_id: amazon.user_id,
         username: amazon.username
+      },
+      steam: {
+        library: steamLibrary,
+        enabledUsers: steam.enabledUsers,
+        users: steam.users
       },
       gameUpdates: updates,
       refreshing: false,
@@ -846,6 +902,7 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       zoom,
+      steam,
       gameUpdates = [],
       libraryStatus,
       platform
@@ -951,6 +1008,17 @@ class GlobalState extends PureComponent<Props> {
     if (zoomUser) {
       await window.api.getZoomUserInfo()
     }
+
+    const steamUsers = await window.api.getSteamUsers()
+    const steamEnabledUsers = await window.api.getSteamUsersEnabled()
+
+    this.setState({
+      steam: {
+        ...steam,
+        users: steamUsers,
+        enabledUsers: steamEnabledUsers
+      }
+    })
 
     if (!gameUpdates.length) {
       const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
@@ -1062,6 +1130,7 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       zoom,
+      steam,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -1104,6 +1173,12 @@ class GlobalState extends PureComponent<Props> {
             username: zoom.username,
             login: this.zoomLogin,
             logout: this.zoomLogout
+          },
+          steam: {
+            library: steam.library,
+            users: steam.users,
+            enabledUsers: steam.enabledUsers,
+            setUser: this.toggleSteamUser
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

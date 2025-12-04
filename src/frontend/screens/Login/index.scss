@@ -163,13 +163,13 @@
   }
 
   /* Enable when there have been more than 5 logins added */
-  /* .runnerGroup {
+  .runnerGroup {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     overflow-y: unset;
     max-height: unset;
     padding-inline-end: 0;
-  } */
+  }
 
   .runnerWrapper:nth-child(odd):last-child {
     grid-column: 1 / -1;

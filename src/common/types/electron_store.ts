@@ -106,6 +106,9 @@ export interface StoreStructure {
   gogPrivateBranches: {
     [appName: string]: string
   }
+  steamEnabledUsersConfig: {
+    [userId: string]: boolean
+  }
   wineManagerConfigStore: {
     'wine-manager-settings': WineManagerUISettings[]
     'wine-releases': WineVersionInfo[]

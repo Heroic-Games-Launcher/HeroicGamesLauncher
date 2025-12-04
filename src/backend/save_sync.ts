@@ -28,6 +28,7 @@ async function getDefaultSavePath(
       return getDefaultGogSavePaths(appName, alreadyDefinedGogSaves)
     case 'nile':
       return ''
+    case 'steam':
     case 'sideload':
       return ''
     case 'zoom':

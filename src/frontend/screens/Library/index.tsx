@@ -25,7 +25,8 @@ import {
   epicCategories,
   gogCategories,
   sideloadedCategories,
-  zoomCategories
+  zoomCategories,
+  steamCategories
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -50,6 +51,7 @@ export default React.memo(function Library(): JSX.Element {
     gog,
     amazon,
     zoom,
+    steam,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -85,8 +87,9 @@ export default React.memo(function Library(): JSX.Element {
       legendary: epicCategories.includes(storedCategory),
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
-      sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoomCategories.includes(storedCategory)
+      zoom: zoomCategories.includes(storedCategory),
+      steam: steamCategories.includes(storedCategory),
+      sideload: sideloadedCategories.includes(storedCategory)
     }
   }
 
@@ -367,6 +370,9 @@ export default React.memo(function Library(): JSX.Element {
       zoom.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      steam.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -404,6 +410,9 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['zoom'] && zoom.username) {
       displayedStores.push('zoom')
     }
+    if (storesFilters['steam'] && steam.enabledUsers.length > 0) {
+      displayedStores.push('steam')
+    }
 
     if (!displayedStores.length) {
       displayedStores = Object.keys(storesFilters)
@@ -412,6 +421,8 @@ export default React.memo(function Library(): JSX.Element {
     const showEpic = epic.username && displayedStores.includes('legendary')
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
+    const showSteam =
+      steam.enabledUsers.length > 0 && displayedStores.includes('steam')
     const showSideloaded = displayedStores.includes('sideload')
     const showZoom = zoom.username && displayedStores.includes('zoom')
 
@@ -420,13 +431,15 @@ export default React.memo(function Library(): JSX.Element {
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
     const zoomLibrary = showZoom ? zoom.library : []
+    const steamLibrary = showSteam ? steam.library : []
 
     return [
       ...sideloadedApps,
       ...epicLibrary,
       ...gogLibrary,
       ...amazonLibrary,
-      ...zoomLibrary
+      ...zoomLibrary,
+      ...steamLibrary
     ]
   }
 
@@ -548,6 +561,7 @@ export default React.memo(function Library(): JSX.Element {
     gog.library,
     amazon.library,
     zoom.library,
+    steam.library,
     sideloadedLibrary,
     platform,
     filterText,
