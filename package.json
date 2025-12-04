@@ -53,6 +53,7 @@
     "lint-translations": "esbuild --bundle --platform=node --target=node21 meta/lintTranslations.ts | node"
   },
   "dependencies": {
+    "@bufbuild/protobuf": "^2.10.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/cabin": "^4.5.10",

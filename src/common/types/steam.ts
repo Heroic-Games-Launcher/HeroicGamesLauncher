@@ -2,23 +2,12 @@
 export interface SteamLoginUser {
   id: string
   PersonaName: string
+  AccountName: string
   RememberPassword: string
   WantsOfflineMode: string
   AllowAutoLogin: string
   MostRecent: string
   Timestamp: string
-}
-
-// Game object from IPlayerService/GetOwnedGames
-export interface OwnedGame {
-  appid: number
-  name: string
-  playtime_forever: number
-  playtime_windows_forever: number
-  playtime_mac_forever: number
-  playtime_linux_forever: number
-  rtime_last_played: number
-  playtime_disconnected: number
 }
 
 export interface AppManifest {
@@ -42,7 +31,7 @@ export interface AppManifest {
   ScheduledAutoUpdate: string
   FullValidateAfterNextUpdate: string
   InstalledDepots: {
-    [key: string]: {manifest: string, size: string}
+    [key: string]: { manifest: string; size: string }
   }
   InstallScripts?: {
     [key: string]: string
@@ -51,4 +40,13 @@ export interface AppManifest {
 
 export interface SteamInstallInfo extends AppManifest {
   install_dir: string
+}
+
+export interface SteamAppInfo {
+  appid: number
+  infoState: number
+  updateTime: number
+  token: bigint
+  changeNumber: number
+  data: unknown
 }

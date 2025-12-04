@@ -1,0 +1,27 @@
+option optimize_for = SPEED;
+
+message CMsgClientLicenseList {
+	message License {
+		optional uint32 package_id = 1;
+		optional fixed32 time_created = 2;
+		optional fixed32 time_next_process = 3;
+		optional int32 minute_limit = 4;
+		optional int32 minutes_used = 5;
+		optional uint32 payment_method = 6;
+		optional uint32 flags = 7;
+		optional string purchase_country_code = 8;
+		optional uint32 license_type = 9;
+		optional int32 territory_code = 10;
+		optional int32 change_number = 11;
+		optional uint32 owner_id = 12;
+		optional uint32 initial_period = 13;
+		optional uint32 initial_time_unit = 14;
+		optional uint32 renewal_period = 15;
+		optional uint32 renewal_time_unit = 16;
+		optional uint64 access_token = 17;
+		optional uint32 master_package_id = 18;
+	}
+
+	optional int32 eresult = 1 [default = 2];
+	repeated .CMsgClientLicenseList.License licenses = 2;
+}
