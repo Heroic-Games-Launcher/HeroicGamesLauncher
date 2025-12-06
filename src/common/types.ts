@@ -392,9 +392,7 @@ export interface LaunchPreperationResult {
 }
 
 export interface RpcClient {
-  updatePresence(d: unknown): void
-  reply(user: unknown, response: unknown): void
-  disconnect(): void
+  destroy(): void
 }
 
 export interface CallRunnerOptions {
