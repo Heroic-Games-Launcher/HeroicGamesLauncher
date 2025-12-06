@@ -607,10 +607,11 @@ function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
 
   client.on('ready', async () => {
     await client.user?.setActivity({
-      details: title,
-      instance: true,
+      name: title,
+      type: 0,
       startTimestamp: Date.now(),
       state: 'via Heroic on ' + getFormattedOsName(),
+      statusDisplayType: 0, // Use game title for name plate
       ...overrides
     })
   })
