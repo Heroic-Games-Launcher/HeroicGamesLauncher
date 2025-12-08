@@ -75,6 +75,8 @@
                 "message": "Error installing DXVK/VKD3D! Please check your connection!",
                 "title": "DXVK/VKD3D error"
             },
+            "executableNotFound": "Executable not found",
+            "executableNotFoundMessage": "Heroic could not find the executable for this game. Please set it manually in the game settings.",
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
@@ -446,7 +448,8 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in."
+        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
+        "zoom": "Zoom Login"
     },
     "message": {
         "sync": "Sync Complete",
@@ -701,7 +704,8 @@
                 "gog": "GOG log",
                 "heroic": "General Heroic log",
                 "legendary": "Epic Games / Legendary log",
-                "nile": "Amazon / Nile log"
+                "nile": "Amazon / Nile log",
+                "zoom": "Zoom log"
             },
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
@@ -1016,5 +1020,6 @@
         "nothingYet": "Nothing was installed by Winetricks yet",
         "openGUI": "Open Winetricks GUI",
         "search": "Search fonts or components"
-    }
+    },
+    "zoom-store": "Zoom Store"
 }
