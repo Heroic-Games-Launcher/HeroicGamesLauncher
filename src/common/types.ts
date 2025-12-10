@@ -817,3 +817,24 @@ export interface RunnerCommandStub {
   stdout?: string
   stderr?: string
 }
+
+interface PlaytimeBase {
+  // Total playtime in minutes
+  totalPlayed: number
+}
+
+interface PlaytimeWithoutFirstAndLastPlayed extends PlaytimeBase {
+  firstPlayed?: undefined
+  lastPlayed?: undefined
+}
+
+interface PlaytimeWithFirstAndLastPlayed extends PlaytimeBase {
+  // ISO Date string of first recorded game launch
+  firstPlayed: string
+  // ISO Date string of last recorded game launch
+  lastPlayed: string
+}
+
+export type Playtime =
+  | PlaytimeWithFirstAndLastPlayed
+  | PlaytimeWithoutFirstAndLastPlayed
