@@ -20,7 +20,7 @@ env:
 
 jobs:
   draft-releases:
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-deps
