@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2022, ubuntu-22.04, macos-13]
+        os: [windows-latest, ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -45,12 +45,12 @@ jobs:
       - name: Upload built version
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ (matrix.os == 'windows-2022'  && 'win-portable'  ) ||
-                    (matrix.os == 'macos-13'      && 'mac-x64'       ) ||
-                    (matrix.os == 'ubuntu-22.04'  && 'linux-AppImage-x64') }}
-          path: ${{ (matrix.os == 'windows-2022'  && 'dist/Heroic*.exe'      ) ||
-                    (matrix.os == 'macos-13'      && 'dist/Heroic*x64.dmg'   ) ||
-                    (matrix.os == 'ubuntu-22.04'  && 'dist/Heroic*x86_64.AppImage') }}
+          name: ${{ (matrix.os == 'windows-latest'  && 'win-portable'  ) ||
+                    (matrix.os == 'macos-latest'      && 'mac-x64'       ) ||
+                    (matrix.os == 'ubuntu-latest'  && 'linux-AppImage-x64') }}
+          path: ${{ (matrix.os == 'windows-latest'  && 'dist/Heroic*.exe'      ) ||
+                    (matrix.os == 'macos-latest'      && 'dist/Heroic*x64.dmg'   ) ||
+                    (matrix.os == 'ubuntu-latest'  && 'dist/Heroic*x86_64.AppImage') }}
           retention-days: 14
           if-no-files-found: error
           compression-level: 3
