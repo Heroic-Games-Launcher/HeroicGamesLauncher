@@ -1429,7 +1429,7 @@ export async function verifyWinePrefix(
 
 function launchCleanup(rpcClient?: RpcClient) {
   if (rpcClient) {
-    rpcClient.disconnect()
+    rpcClient.destroy()
     logInfo('Stopped Discord Rich Presence', LogPrefix.Backend)
   }
 }
