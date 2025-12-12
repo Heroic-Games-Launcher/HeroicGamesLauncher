@@ -99,3 +99,10 @@ body {
   margin-inline: var(--space-xs) 0;
   color: var(--text-secondary);
 }
+
+#root:has(> .UpdateComponent) {
+  height: 100vh;
+  & > .UpdateComponent {
+    height: 100vh;
+  }
+}
