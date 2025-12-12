@@ -14,6 +14,8 @@
   }
 
   .appImage {
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: var(--space-md);
     aspect-ratio: 3 / 4;
     object-fit: cover;
@@ -24,6 +26,22 @@
     border-radius: 10px;
 
     &.blackWhiteImage {
+      filter: grayscale(100%);
+      transition: 200ms;
+    }
+  }
+
+  .appCover {
+    margin-bottom: var(--space-md);
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    width: 330px;
+    transition: 200ms;
+    border: 3px solid var(--neutral-02);
+    border-radius: 10px;
+
+    &.blackWhiteCover {
       filter: grayscale(100%);
       transition: 200ms;
     }
