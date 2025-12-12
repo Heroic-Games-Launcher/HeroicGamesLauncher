@@ -505,6 +505,11 @@ export async function getWineFlags(
   gameSettings: GameSettings,
   wrapper: string
 ): Promise<AllowedWineFlags> {
+  if (gameSettings.doNotUseWine)
+    return {
+      '--no-wine': true
+    }
+
   let partialCommand: AllowedWineFlags = {}
   const { type: wineType, bin: wineExec } = gameSettings.wineVersion
 
@@ -570,6 +575,7 @@ export async function isUmuSupported(
   checkUmuInstalled = true
 ): Promise<boolean> {
   if (!isLinux) return false
+  if (gameSettings.doNotUseWine) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
   if (gameSettings.disableUMU === true) {
     return false
