@@ -7,11 +7,11 @@
         "title": "Acessibilidade",
         "zoom": "Zoom",
         "disable_dialog_backdrop_close": "Desative o fechamento de caixas de diálogo ao clicar fora",
-        "titles_always_visible": "Sempre exibir nomes dos jogos na biblioteca",
+        "titles_always_visible": "Sempre exibir títulos dos jogos na biblioteca",
         "actions_font_family_default": "Ações de família de fontes (padrão: {{fontFamily}})",
         "content_font_family_default": "Conteúdo de família de fontes (padrão: {{fontFamily}})",
         "disable_smooth_scrolling": "Desativar rolagem suave (O Heroic precisará ser reiniciado)",
-        "disable_animations": "Desativar animações da interface"
+        "disable_animations": "Desativar animações da interface de usuário"
     },
     "add_game": "Adicionar jogo",
     "All": "Todos",
@@ -20,8 +20,8 @@
         "may_not_work": "Pode não funcionar devido ao suporte anti-cheat negado ou quebrado.",
         "reference": "Referência",
         "source": "Source",
-        "status": "Status",
-        "title": "Este jogo inclui software anti trapaças",
+        "status": "Atividade",
+        "title": "Este jogo inclui software antitrapaças",
         "multiplayer_may_not_work": "A função multijogador pode não funcionar devido ao sistema anti trapaças ter o suporte negado ou comprometido."
     },
     "box": {
@@ -30,17 +30,17 @@
             "title": "Cache limpo"
         },
         "choose": "Selecionar",
-        "choose-egs-prefix": "Selecione o Prefixo Wine onde a EGS está instalada",
+        "choose-egs-prefix": "Escolha o Prefixo onde a EGS está instalada",
         "choose-gogdl-binary": "Selecionar binário do GOGDL (requer reinício)",
         "choose-legendary-binary": "Selecione o binário do Legendary",
         "customWine": "Selecione o binário do Wine ou Proton",
-        "default-install-path": "Selecione o local de instalação padrão",
+        "default-install-path": "Escolha o local de instalação padrão",
         "default-steam-path": "Caminho do Steam.",
         "downloadNow": "Baixe agora",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Erro ao adicionar {{game}} ao Steam:{{newLine}} {{error}}",
+                    "body": "Adicionar {{game}} ao Steam falhou com:{{newLine}} {{error}}",
                     "title": "Erro ao adicionar"
                 }
             },
@@ -48,8 +48,8 @@
                 "message": "Suas credenciais expiraram, por favor desconecte sua conta e entre novamente."
             },
             "cx-bottle-not-found": {
-                "message": "Não é possível iniciar, a garrafa CrossOver \"{{bottle_name}}\" não existe!",
-                "title": "Garrafa CrossOver não encontrada"
+                "message": "A Garrafa do CrossOver com o nome \"{{bottle_name}}\" não existe, então não poderá ser iniciado!",
+                "title": "Garrafa do CrossOver não encontrada"
             },
             "diskspace": {
                 "message": "Sem espaço suficiente disponível no disco",
@@ -57,7 +57,7 @@
             },
             "dxvk": {
                 "message": "Erro ao instalar DXVK/VKD3D! Verifique sua conexão!",
-                "title": "DXVK/VKD3D erro"
+                "title": "Erros em DXVK/VKD3D"
             },
             "folder-not-found": {
                 "title": "A pasta do jogo parece ter sido excluída, deseja remover o jogo da lista de instalados?"
@@ -66,14 +66,14 @@
                 "message": "mensagem de erro genérica",
                 "title": "Selecione o EXE para executar"
             },
-            "launchAborted": "Lançamento cancelado",
+            "launchAborted": "Inicialização abortada",
             "title": "Erro",
             "uncaught-exception": {
                 "message": "Um erro inesperado ocorreu:{{newLine}}{{error}}{{newLine}}{{newLine}} Reporte o erro no nosso repositório do Github.",
-                "title": "Ocorreu uma exceção não capturada!"
+                "title": "Houve um erro inesperado!"
             },
             "update": {
-                "message": "Algo deu errado ao atualizar, cheque os logs ou tente novamente mais tarde!",
+                "message": "Algo deu errado ao atualizar, por favor, cheque os logs ou tente novamente mais tarde!",
                 "title": "Falha na atualização"
             },
             "wine-not-found": {
@@ -91,13 +91,15 @@
                 "message": "A instalação do Ubisoft Connect no prefixo do jogo falhou. Verifique nossa página wiki em https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/How-to-install-Ubisoft-Connect-on-Linux-and-Mac para instalá-lo manualmente."
             },
             "legendary": {
-                "generic": "Ocorreu um erro! Tente sair e fazer login na sua conta Epic. {{newline}} {{error}}"
+                "generic": "Um erro ocorreu! Tente deslogar e efetuar o login novamente em sua conta Epic. {{newline}}{{error}}"
             },
             "steam": {
                 "error": "Executável do Steam não encontrado. Instalação foi provavelmente cancelada pelo usuário ou houve uma falha do Steam.",
                 "message": "Instalação do Steam falhou. Leia as instruções cuidadosamente e tente novamente! {{paragraph}} {{error}}",
                 "title": "Erro no Steam"
-            }
+            },
+            "executableNotFound": "Arquivo executável não encontrado",
+            "executableNotFoundMessage": "O Heroic não pôde encontrar o arquivo executável deste jogo. Por favor, o defina manualmente nas configurações do jogo."
         },
         "info": {
             "update": {
@@ -248,10 +250,10 @@
         "offline-notification-title": "offline"
     },
     "Epic Games": "Epic Games",
-    "error": "Error",
+    "error": "Erro",
     "favourites": "Favoritos",
     "game": {
-        "status": "Status",
+        "status": "Estado",
         "store": "Loja",
         "title": "Título do jogo",
         "modify": "Modificar instalação"
@@ -432,7 +434,8 @@
         "gog": "Login da GOG",
         "message": "Faça login com sua plataforma. Você pode acessar mais de uma plataforma ao mesmo tempo.",
         "amazon": "Login da Amazon",
-        "old-mac": "Sua versão do macOS é {{version}}. O macOS 12 ou mais recente é necessário para fazer login."
+        "old-mac": "Sua versão do macOS é {{version}}. O macOS 12 ou mais recente é necessário para fazer login.",
+        "zoom": "Login no Zoom"
     },
     "message": {
         "sync": "Sincronização completa",
@@ -524,7 +527,7 @@
         "wrapper": {
             "args": "Argumentos",
             "arguments_example": "Exemplo de argumentos: --arg; -extra-file=\"caminho-arquivo/ com/espaços\"",
-            "exe": "Wrapper",
+            "exe": "Empacotador",
             "placeHolderKey": "Novo Wrapper",
             "placeHolderValue": "Argumentos do Wrapper",
             "title": "Comando do Wrapper:"
@@ -684,7 +687,8 @@
                 "heroic": "Registro geral Heroic",
                 "legendary": "Registro Epic Games / Legendary",
                 "nile": "Registro Amazon / Nile",
-                "game-log": "Registro do jogo {{gameTitle}}"
+                "game-log": "Registro do jogo {{gameTitle}}",
+                "zoom": "Registro do Zoom"
             },
             "show-uploads": "Exibir arquivos de registro enviados"
         },
@@ -797,7 +801,7 @@
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Não os exibir",
-                "show": "Eu entendo, os exiba",
+                "show": "Eu entendo, exiba-os",
                 "title": "Tem certeza?",
                 "message": "Recomendamos que sejam utilizados garfos personalizadas do Proton (GE-Proton, Proton-CachyOS, etc.) com o Heroic, pois as versões do Proton da Valve não incluem wintricks e protofixes. Pode continuar a usá-los se quiser."
             },
@@ -1099,14 +1103,16 @@
         "disable": "Desabilitar",
         "enable": "Habilitar",
         "info": {
-            "pt1": "Heroic coleta dados de forma 100% anônima para melhorar o app.",
+            "pt1": "Como maneira de aperfeiçoar o app, o Heroic coleta dados de maneira 100% anônima.",
             "pt2": "Heroic usa o sistema de código aberto Plausible Analytics para coletar dados básicos: Versão do app, Sistema operacional, Lojas conectadas e País.",
-            "pt3": "Nunca coletaremos dados pessoais como nome de usuário, endereço IP ou email.",
-            "pt4": "A informação coletada nos dará uma ideia do que focar devido a nossos recursos limitados e feedback de usuários.",
+            "pt3": "Nunca serão coletadas informações pessoais, incluindo seu nome de usuário, endereço IP ou E-mail.",
+            "pt4": "Esses dados serão utilizados para nos dar entendimento no que deveremos focar, devido aos nossos recursos limitados e Feedback de Usuários.",
             "pt5": "Plausible Analytics é totalmente compatível com legislações como GDPR, CCPA e PECR.",
             "pt6": "Por questões de transparência, você pode ver todos os dados coletados nos logs do Heroic.",
             "pt7": "Você pode modificar essa configuração a qualquer momento nas configurações do App."
         },
         "title": "Enviar dados anônimos"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Loja Zoom"
 }
