@@ -78,7 +78,8 @@
         "details": "Üksikasjad",
         "changelog": "Näita muutuste nimekirja",
         "browse_files": "Sirvi faile",
-        "browse_wine_prefix": "Sirvi Wine'i prefiksi"
+        "browse_wine_prefix": "Sirvi Wine'i prefiksi",
+        "play": "MÄNGI"
     },
     "cloud_save_unsupported": "Mitte toetatud",
     "disabled": "Keelatud",
@@ -217,7 +218,8 @@
         "gog": "Te pole GOG kontoga Heroicusse sisse logitud. Ärge kasutage sisse logimiseks poelehte, vaid klikkige sellele nupule:",
         "login": "Log in",
         "title": "Te EI OLE sisse logitud",
-        "amazon": "Te ei ole Heroicus Amazoni kontoga sisse logitud. Ärge kasutage sisselogimiseks poelehekülge. Klikkige selle asemel seda nuppu:"
+        "amazon": "Te ei ole Heroicus Amazoni kontoga sisse logitud. Ärge kasutage sisselogimiseks poelehekülge. Klikkige selle asemel seda nuppu:",
+        "zoom": "Te ei ole Heroicus Zoomi kontoga sisse logitud. Ärge kasutage sisselogimiseks poelehekülge. Klikkige selle asemel seda nuppu:"
     },
     "report_problem": "Teatage selle mängu käivitamise probleemist",
     "sdl": {
