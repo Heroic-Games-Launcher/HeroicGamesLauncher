@@ -78,7 +78,8 @@
         "details": "详细内容",
         "changelog": "显示更新日志",
         "browse_files": "浏览文件",
-        "browse_wine_prefix": "浏览 Wine Prefix"
+        "browse_wine_prefix": "浏览 Wine Prefix",
+        "play": "开始游戏"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -218,7 +219,8 @@
         "gog": "你在 Heroic 中未登录 GOG 账号。不要使用商店页面进行登录，请单击下面的按钮：",
         "login": "登录",
         "title": "你未登录",
-        "amazon": "你在 Heroic 中未登录 Amazon 账号。不要使用商店页面进行登录，请点击下面的按钮："
+        "amazon": "你在 Heroic 中未登录 Amazon 账号。不要使用商店页面进行登录，请点击下面的按钮：",
+        "zoom": "您在 Heroic 中没有用 Zoom 账户登录。别用商店页面登录，请单击下面的按钮："
     },
     "report_problem": "报告运行此游戏时出现的问题",
     "sdl": {
