@@ -78,7 +78,8 @@
         "details": "Подробиці",
         "changelog": "Показати журнал змін",
         "browse_wine_prefix": "Переглянути префікс Wine",
-        "browse_files": "Переглянути файли"
+        "browse_files": "Переглянути файли",
+        "play": "ГРАТИ"
     },
     "cloud_save_unsupported": "Не підтримується",
     "disabled": "Вимкнено",
