@@ -21,7 +21,8 @@
             "title": "Pilih EXE untuk Dijalankan"
         },
         "select": {
-            "button": "Pilih"
+            "button": "Pilih",
+            "image": "Pilih Gambar"
         },
         "sideload": {
             "exe": "Pilih Executable"
@@ -74,7 +75,10 @@
         "uninstall": "Copot",
         "update": "Perbarui",
         "details": "Detail",
-        "changelog": "Tampilkan Log Perubahan"
+        "changelog": "Tampilkan Log Perubahan",
+        "browse_files": "Jelajahi File",
+        "browse_wine_prefix": "Jelajahi Wine Prefix",
+        "play": "MAIN"
     },
     "cloud_save_unsupported": "Tak Didukung",
     "disabled": "Dinonaktifkan",
@@ -107,7 +111,9 @@
             "toggle": "Menjaga gim pada versi tertentu"
         },
         "changelogFor": "Log perubahan untuk {{gameTitle}}",
-        "modify": "Ubah Pemasangan"
+        "modify": "Ubah Pemasangan",
+        "extra_info": "Info tambahan",
+        "install_info": "Info instalasi"
     },
     "gamecard": {
         "moving": "Memindahkan",
@@ -136,7 +142,8 @@
         "game-scores": "Skor Game",
         "installedInfo": "Informasi Instalasi",
         "protondb-compatibility-info": "Tingkat Kompatibilitas Proton",
-        "steamdeck-compatibility-info": "Kompatibilitas SteamDeck"
+        "steamdeck-compatibility-info": "Kompatibilitas SteamDeck",
+        "third-party-app": "Manajer Pihak Ketiga"
     },
     "install": {
         "disk-space-left": "Ruang Penyimpanan yang Tersedia",
@@ -153,7 +160,7 @@
             "title": "Anticheat Rusak/Ditolak",
             "ok": "Ok",
             "install_anyway": "Ya (Saya mengerti bahwa fitur multipemain tidak akan bekerja)",
-            "disabled_installation": "Dukungan anticheat rusak atau ditolak dan fitur multipemain tidak akan bekerja. Gim tidak bisa diinstal. Untuk menginstal gim ini, nonaktifkan pemeriksaan ini di pengaturan lanjutan.",
+            "disabled_installation": "Game ini menggunakan perangkat lunak anticheat yang tidak kompatibel dengan sistem operasi Anda atau dukungan untuk perangkat lunak tersebut tidak diaktifkan oleh pengembang game. Hal ini berarti fitur multiplayer tidak akan berfungsi, dan tidak ada yang dapat Anda (atau tim Heroic) lakukan untuk mengatasinya. <br /><br />Untuk menginstal game ini dan mencobanya meskipun demikian, pergi ke Pengaturan, Lanjutan, dan centang opsi untuk mengizinkan instalasi game dengan anticheat yang rusak atau ditolak.<br /><br />Perlu diingat bahwa tidak ada solusi untuk ini dan Anda berisiko diblokir dalam game.",
             "multiplayer_message": "Dukungan anticheat rusak atau ditolak. Gim mungkin bisa dibuka namun fitur multipemain tidak akan bekerja. Apakah Anda ingin menginstalnya?"
         },
         "flatpak-path-not-writtable": "Kesalahan: Akses sandbox tidak diberikan ke lokasi ini, kehilangan data mungkin bisa terjadi."
@@ -165,7 +172,8 @@
         },
         "playing": {
             "start": "Mainkan sekarang",
-            "stop": "Memainkan (Berhenti)"
+            "stop": "Memainkan (Berhenti)",
+            "start_with_logs": "Main Sekarang (dengan log)"
         },
         "saves": {
             "syncing": "Menyinkronkan Penyimpanan"
@@ -197,7 +205,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver Bottle",
         "show-wine-settings": "Tampilkan pengaturan Wine",
-        "warn-use-shared-wine-config": "Hanya gunakan opsi ini jika Anda tahu apa yang Anda lakukan. <br/> Berbagi prefiks yang sama untuk beberapa gim dapat menimbulkan masalah jika dependensinya tidak kompatibel."
+        "warn-use-shared-wine-config": "Hanya gunakan opsi ini jika Anda tahu apa yang Anda lakukan. <br/> Berbagi prefiks yang sama untuk beberapa gim dapat menimbulkan masalah jika dependensinya tidak kompatibel.",
+        "use-shared-wine-config": "Gunakan Wine prefix bersama"
     },
     "sideload": {
         "field": {
@@ -212,10 +221,14 @@
             "fullscreen": "Luncurkan Layar Penuh (F11 untuk keluar)"
         },
         "placeholder": {
-            "image": "Tempel URL Gambar di sini",
+            "image": "Tempel URL gambar atau pilih salah satu dari komputer Anda",
             "title": "Tambahkan judul ke Gim/App Anda",
             "url": "Rekatkan URL Game di sini",
             "useragent": "Tulis user agent kustom di sini untuk digunakan pada aplikasi browser/game ini"
+        },
+        "import-hint": {
+            "content": "JANGAN gunakan fitur ini untuk tujuan tersebut.<br />Sebagai gantinya, <3>masuk ke</3> toko, cari game di pustaka Anda, buka dialog instalasi, lalu klik tombol &quot;Impor Game&quot;",
+            "title": "Penting! Apakah Anda menambahkan game dari Epic/GOG/Amazon? Klik di sini!"
         }
     },
     "specs": {
@@ -249,7 +262,8 @@
         "goodie": "Tidak dapat diinstal",
         "gog-goodie": "Game ini tampaknya tidak dapat diinstal. Periksa konten yang dapat diunduh di https://gog.com/account",
         "winetricks": "Menerapkan perbaikan Winetricks",
-        "redist": "Menginstal Redistributable ({{redist}})"
+        "redist": "Menginstal Redistributable ({{redist}})",
+        "importing": "Mengimpor"
     },
     "submenu": {
         "addShortcut": "Tambahkan pintasan",
@@ -295,7 +309,10 @@
     "queue": {
         "label": {
             "canceled": "Dibatalkan",
-            "remove": "Hapus dari Unduhan"
+            "remove": "Hapus dari Unduhan",
+            "pause": "Jeda unduhan",
+            "resume": "Lanjutkan unduhan"
         }
-    }
+    },
+    "wikiLink": "Informasi penting tentang game ini, baca di sini:&nbsp;<1>Buka halaman</1>"
 }

@@ -33,7 +33,7 @@
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
-            "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
+            "checkbox": "Usuń prefiks: {{prefix}}{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować \"{{title}}\"?",
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
@@ -78,7 +78,8 @@
         "details": "Szczegóły",
         "changelog": "Pokaż dziennik zmian",
         "browse_files": "Przeglądaj pliki",
-        "browse_wine_prefix": "Przeglądaj prefiks Wine"
+        "browse_wine_prefix": "Przeglądaj prefiks Wine",
+        "play": "GRAJ"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -250,7 +251,7 @@
         },
         "import-hint": {
             "title": "Uwaga! Czy dodajesz grę od Epic/GOG/Amazon? Kliknij tutaj!",
-            "content": "NIE używaj do tego tej funkcji.<1></1>Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
+            "content": "NIE używaj do tego tej funkcjonalności.<br />. Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
         }
     },
     "specs": {
@@ -328,7 +329,7 @@
         "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
         "notice2": "Po naciśnięciu Instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
     },
-    "wikiLink": "Przeczytaj ważne informacje o tej grze:&nbsp;<1>otwórz stronę</1>",
+    "wikiLink": "Ważne informacje o tej grze można przeczytać tutaj:&nbsp;<1>Otwórz stronę</1>",
     "queue": {
         "label": {
             "remove": "Usuń z pobranych",

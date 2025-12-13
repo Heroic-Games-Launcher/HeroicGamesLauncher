@@ -78,7 +78,8 @@
         "details": "Detalls",
         "changelog": "Mostra el registre",
         "browse_files": "Explora els fitxers",
-        "browse_wine_prefix": "Explora el prefix Wine"
+        "browse_wine_prefix": "Explora el prefix Wine",
+        "play": "JUGAR"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",

@@ -78,7 +78,8 @@
         "details": "Detaylar",
         "changelog": "Değişiklik Günlüğünü Göster",
         "browse_files": "Dosyalara Gözat",
-        "browse_wine_prefix": "Wine Ön Eki'ni Gözat"
+        "browse_wine_prefix": "Wine Ön Eki'ni Gözat",
+        "play": "OYNA"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
     "disabled": "Devre dışı",

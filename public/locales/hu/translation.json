@@ -97,7 +97,9 @@
                 "message": "A Steam telepítése sikertelen! Olvassa el figyelmesen az utasításokat, és próbálja újra! {{paragraph}} {{error}}",
                 "title": "Steam hiba",
                 "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán."
-            }
+            },
+            "executableNotFound": "Az indítófájl nem található",
+            "executableNotFoundMessage": "A Heroic nem találta a játék indítófájlát. Állítsa be kézileg a játék beállításaiban."
         },
         "info": {
             "update": {
@@ -431,7 +433,8 @@
         "gog": "GOG bejelentkezés",
         "message": "Jelentkezzen be a platformjával. Egyszerre több helyre is bejelentkezhet.",
         "amazon": "Amazon bejelentkezés",
-        "old-mac": "A macOS verziója: {{version}}. macOS 12 vagy újabb szükséges a belépéshez."
+        "old-mac": "A macOS verziója: {{version}}. macOS 12 vagy újabb szükséges a belépéshez.",
+        "zoom": "Zoom bejelentkezés"
     },
     "message": {
         "sync": "Szinkronizálás befejezve",
@@ -683,7 +686,8 @@
                 "game-log": "A(z) {{gameTitle}} játéknaplója",
                 "gog": "GOG napló",
                 "heroic": "Általános Heroic napló",
-                "nile": "Amazon / Nile napló"
+                "nile": "Amazon / Nile napló",
+                "zoom": "Zoom napló"
             },
             "show-uploads": "Feltöltött naplófájlok megjelenítése"
         },
@@ -1106,5 +1110,7 @@
             "pt7": "Ezt a beállítást bármikor módosíthatja az Alkalmazásbeállításokban."
         },
         "title": "Anonim analitika küldése"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Zoom Store"
 }
