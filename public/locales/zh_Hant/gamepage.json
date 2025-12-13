@@ -74,7 +74,8 @@
         "uninstall": "解除安裝",
         "update": "更新",
         "details": "內容",
-        "changelog": "顯示更新日誌"
+        "changelog": "顯示更新日誌",
+        "play": "開始游戲"
     },
     "cloud_save_unsupported": "不支援",
     "disabled": "已關閉",
