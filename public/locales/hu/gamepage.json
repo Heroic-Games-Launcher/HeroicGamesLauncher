@@ -78,7 +78,8 @@
         "details": "Részletek",
         "changelog": "Változásnapló megjelenítése",
         "browse_files": "Fájlok tallózása",
-        "browse_wine_prefix": "Wine előtag tallózása"
+        "browse_wine_prefix": "Wine előtag tallózása",
+        "play": "INDÍTÁS"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -217,7 +218,8 @@
         "gog": "Nincs GOG-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezzen be, kattintson helyette erre a gombra:",
         "login": "Bejelentkezés",
         "title": "NINCS bejelentkezve",
-        "amazon": "Nincs Amazon-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezzen be, kattintson helyette erre a gombra:"
+        "amazon": "Nincs Amazon-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezzen be, kattintson helyette erre a gombra:",
+        "zoom": "Nincs Zoom-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezzen be, kattintson helyette erre a gombra:"
     },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
