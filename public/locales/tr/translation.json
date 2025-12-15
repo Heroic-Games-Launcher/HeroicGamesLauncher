@@ -9,7 +9,7 @@
         "disable_dialog_backdrop_close": "Dışarı tıklayarak iletişim kutucuğunu kapatmayı devre dışı bırakın",
         "titles_always_visible": "Kütüphanede her zaman başlıkları göster",
         "content_font_family_default": "İçerik Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
-        "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
+        "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}}",
         "disable_smooth_scrolling": "Düzgün kaydırmayı devre dışı bırak (yeniden başlatılmalı)",
         "disable_animations": "Kullanıcı Arayüzü animasyonlarını kapat"
     },
@@ -1103,5 +1103,6 @@
             "pt5": "Plausible Analytics; GDPR, CCPA ve PECR ile tamamen uyumludur."
         },
         "title": "Anonim Kullanım Verilerini Gönder"
-    }
+    },
+    "amazon-luna": "Amazon Luna"
 }
