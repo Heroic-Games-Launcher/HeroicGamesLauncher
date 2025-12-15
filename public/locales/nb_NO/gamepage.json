@@ -79,7 +79,8 @@
         "details": "Detaljer",
         "changelog": "Vis endringslogg",
         "browse_wine_prefix": "Bla gjennom Wine Prefix",
-        "browse_files": "Bla gjennom filer"
+        "browse_files": "Bla gjennom filer",
+        "play": "SPILL"
     },
     "cloud_save_unsupported": "Ustøttet",
     "disabled": "Deaktivert",
