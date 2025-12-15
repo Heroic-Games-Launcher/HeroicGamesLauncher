@@ -97,7 +97,9 @@
                 "error": "Steami programmi ei leitud. Paigaldamine oli ilmselt kasutaja poolt tühistatud või ebaõnnestus Steami poolel.",
                 "message": "Steami paigaldamine ebaõnnestus! Palun lugege hoolikalt juhiseid ja proovige uuesti! {{paragraph}}{{error}}",
                 "title": "Steami viga"
-            }
+            },
+            "executableNotFound": "Käivitatavat programmi ei leitud",
+            "executableNotFoundMessage": "Heroic ei leidnud selle mängu jaoks käivitatavat programmi. Palun määrake see käsitsi mängu seadetes."
         },
         "info": {
             "update": {
@@ -431,7 +433,8 @@
         "gog": "GOG-i sisselogimine",
         "message": "Logi sisse oma platvormiga. Võite samaaegselt olla sisse logitud mitmesse platvormi.",
         "amazon": "Amazoni sisselogimine",
-        "old-mac": "Teie macOS versioon on {{version}}. Sisselogimiseks on vajalik macOS 12 või uuem."
+        "old-mac": "Teie macOS versioon on {{version}}. Sisselogimiseks on vajalik macOS 12 või uuem.",
+        "zoom": "Zoomi sisselogimine"
     },
     "message": {
         "sync": "Sünkroonimine lõpetatud",
@@ -683,7 +686,8 @@
                 "legendary": "Epic Games / Legendary logi",
                 "game-log": "{{gameTitle}} mängu logi",
                 "gog": "GOG logi",
-                "nile": "Amazon / Nile logi"
+                "nile": "Amazon / Nile logi",
+                "zoom": "Zoomi logi"
             },
             "show-uploads": "Näita üles laetud logifaile"
         },
@@ -739,7 +743,7 @@
             "enableLimiter": "Luba FPS limiit",
             "enableForceGrabCursor": "Luba sunnitud kursori haaramine",
             "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 24.08 ja taaskäivitage Heroic.",
-            "warningFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 24.08 ja taaskäivitage Heroic."
+            "warningFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga {{runtimeVersion}} ja taaskäivitage Heroic."
         },
         "after-launch-script-path": "Vali skript, mida käitada pärast mängu sulgemist",
         "msync": "Luba Msync",
@@ -791,7 +795,7 @@
             "wine_selector_warning": "Mitte-GE Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes"
         },
         "analyticsOptIn": "Saada anonüümseid andmeid, et aidata Heroicu arendamist",
-        "no-tray-icon": "Peida System Tray ikoon (nõuab restarti)",
+        "no-tray-icon": "Peida süsteemisalve ikoon (nõuab restarti)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Ära näita neid",
@@ -956,7 +960,7 @@
     },
     "webview": {
         "controls": {
-            "back": "Tagasi",
+            "back": "Mine tagasi",
             "forward": "Edasi",
             "openInBrowser": "Ava veebilehitsejas",
             "reload": "Laadi leht uuesti"
@@ -1106,5 +1110,7 @@
             "pt7": "Võite seda sätet muuta iga kell äpi seadetes."
         },
         "title": "Saada anonüümset analüütikat"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Zoomi pood"
 }
