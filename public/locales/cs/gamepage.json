@@ -78,7 +78,8 @@
         "details": "Podrobnosti",
         "changelog": "Zobrazit seznam změn",
         "browse_files": "Procházet soubory",
-        "browse_wine_prefix": "Procházet předpony Wine"
+        "browse_wine_prefix": "Procházet předpony Wine",
+        "play": "HRÁT"
     },
     "cloud_save_unsupported": "Nepodporováno",
     "disabled": "Zakázáno",
@@ -218,7 +219,8 @@
         "gog": "V Heroic nejste přihlášeni pomocí účtu GOG. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
         "login": "Log in",
         "title": "Nejste přihlášeni",
-        "amazon": "V Heroic nejste přihlášeni pomocí účtu Amazon. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:"
+        "amazon": "V Heroic nejste přihlášeni pomocí účtu Amazon. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
+        "zoom": "Nejste přihlášeni k účtu Zoom v Heroic. Nepoužívejte stránku obchodu k přihlášení, místo toho klikněte na následující tlačítko:"
     },
     "report_problem": "Nahlásit problém se spouštěním této hry",
     "sdl": {
