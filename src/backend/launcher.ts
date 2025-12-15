@@ -100,6 +100,7 @@ import { gameAnticheatInfo } from './anticheat/utils'
 
 import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
+import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
 
 let powerDisplayId: number | null
 
@@ -533,6 +534,16 @@ async function prepareLaunch(
     filterGameSettingsForLog(gameSettings, !native),
     '\n\n'
   ])
+
+  if (gameInfo.runner === 'legendary') {
+    const checkEOSOverlayStatusPromise = isEnabled(gameInfo.app_name)
+
+    logWriter.logInfo(
+      checkEOSOverlayStatusPromise.then(
+        (enabled) => `EOS Overlay: ${enabled ? 'Enabled' : 'Not enabled'}`
+      )
+    )
+  }
 
   const acInfoPromise = gameAnticheatInfo(gameInfo.namespace)
   logWriter.logInfo(
