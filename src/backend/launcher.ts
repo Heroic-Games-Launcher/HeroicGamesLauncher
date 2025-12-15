@@ -535,7 +535,10 @@ async function prepareLaunch(
     '\n\n'
   ])
 
-  if (gameInfo.runner === 'legendary') {
+  // We only want to log this for legendary on Linux
+  // On windows, the overlay is installed globally
+  // On mac, the overlay doesn't work
+  if (gameInfo.runner === 'legendary' && isLinux) {
     const checkEOSOverlayStatusPromise = isEnabled(gameInfo.app_name)
 
     logWriter.logInfo(
