@@ -1,4 +1,4 @@
-import { ReactNode, useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
 import AddBoxIcon from '@mui/icons-material/AddBox'
@@ -57,33 +57,29 @@ export function TableInput({
   const [newVarValue, setNewVarValue] = useState('')
   const [originalInputs, setOriginalInputs] =
     useState<ColumnProps>(EMPTY_INPUTS)
-  const [dirtyInputs, setDirtyInputs] = useState(false)
-  const [keyError, setKeyError] = useState('')
-  const [valueError, setValueError] = useState('')
 
-  useEffect(() => {
-    setDirtyInputs(
-      newVarName !== originalInputs.key || newVarValue !== originalInputs.value
-    )
+  // Calculate derived state during render instead of using effects
+  const dirtyInputs =
+    newVarName !== originalInputs.key || newVarValue !== originalInputs.value
 
-    if (
-      // if there's a connector, try to split the key
-      connector &&
-      newVarName.includes(connector) &&
-      !newVarValue
-    ) {
-      const [key, value] = newVarName.split(connector)
+  let keyError = ''
+  let valueError = ''
+  if (validation) {
+    const errors = validation(newVarName, newVarValue)
+    keyError = errors[0]
+    valueError = errors[1]
+  }
+
+  const handleVarNameChange = (newValue: string) => {
+    // if there's a connector, try to split the key
+    if (connector && newValue.includes(connector) && !newVarValue) {
+      const [key, value] = newValue.split(connector)
       setNewVarName(key)
       setNewVarValue(value)
     } else {
-      // else, validate input
-      if (validation) {
-        const [keyError, valueError] = validation(newVarName, newVarValue)
-        setKeyError(keyError)
-        setValueError(valueError)
-      }
+      setNewVarName(newValue)
     }
-  }, [newVarName, newVarValue])
+  }
 
   function addRow(row: ColumnProps) {
     if (keyError) {
@@ -103,24 +99,24 @@ export function TableInput({
     const index = rowData.findIndex(
       (entry: ColumnProps) => entry.key === row.key
     )
-    if (index >= 0) {
-      rowData[index].value = row.value
-    } else {
-      rowData.push(row)
-    }
-    setRowData([...rowData])
-    onChange(rowData)
+    const updatedRowData =
+      index >= 0
+        ? rowData.map((entry, i) =>
+            i === index ? { ...entry, value: row.value } : entry
+          )
+        : [...rowData, row]
+
+    setRowData(updatedRowData)
+    onChange(updatedRowData)
     setNewVarName('')
     setNewVarValue('')
     setOriginalInputs(EMPTY_INPUTS)
-    setDirtyInputs(false)
   }
 
   function removeRow(row: ColumnProps) {
-    const index = rowData.findIndex((entry) => entry === row)
-    rowData.splice(index, 1)
-    setRowData([...rowData])
-    onChange(rowData)
+    const updatedRowData = rowData.filter((entry) => entry !== row)
+    setRowData(updatedRowData)
+    onChange(updatedRowData)
   }
 
   function editRow(row: ColumnProps) {
@@ -181,7 +177,7 @@ export function TableInput({
                 htmlId={`${header.key}-key`}
                 placeholder={inputPlaceHolder.key}
                 extraClass={keyError ? 'error' : ''}
-                onChange={(newValue) => setNewVarName(newValue)}
+                onChange={handleVarNameChange}
               />
             </td>
             <td>{connector}</td>

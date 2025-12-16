@@ -24,24 +24,22 @@ const UploadedLogFileItem = memo(function UploadedLogFileItem(
   const { url, name, uploadedAt } = props
   const { t } = useTranslation()
 
-  const uploadedAgoText = useMemo(() => {
-    const minutesAgo = Math.round((Date.now() - uploadedAt) / 1000 / 60)
-    const showHours = minutesAgo > 60
-    if (showHours) {
-      return t(
+  // eslint-disable-next-line react-hooks/purity -- Date.now() is intentionally used to show relative upload time
+  const minutesAgo = Math.round((Date.now() - uploadedAt) / 1000 / 60)
+  const showHours = minutesAgo > 60
+  const uploadedAgoText = showHours
+    ? t(
         'setting.log.upload.hours-ago',
         'Uploaded {{hoursAgo, relativetime(hours)}}',
         { hoursAgo: -Math.round(minutesAgo / 60) }
       )
-    }
-    return t(
-      'setting.log.upload.minutes-ago',
-      'Uploaded {{minutesAgo, relativetime(minutes)}}',
-      {
-        minutesAgo: -minutesAgo
-      }
-    )
-  }, [(Date.now() - uploadedAt) / 1000 / 60 > 60])
+    : t(
+        'setting.log.upload.minutes-ago',
+        'Uploaded {{minutesAgo, relativetime(minutes)}}',
+        {
+          minutesAgo: -minutesAgo
+        }
+      )
 
   return (
     <tr>
@@ -104,9 +102,11 @@ export default function UploadedLogFilesList() {
               </tr>
             </thead>
             <tbody>
-              {logsSortedByMostRecentlyUploaded.map((logData) => (
-                <UploadedLogFileItem key={logData.url} {...logData} />
-              ))}
+              {logsSortedByMostRecentlyUploaded.map(
+                (logData: UploadedLogFileItemProps) => (
+                  <UploadedLogFileItem key={logData.url} {...logData} />
+                )
+              )}
             </tbody>
           </table>
         ) : (

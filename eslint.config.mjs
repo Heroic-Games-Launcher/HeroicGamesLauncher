@@ -14,13 +14,15 @@ export default tseslint.config(
   importX.flatConfigs.typescript,
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
-  reactHooks.configs['recommended-latest'],
+  reactHooks.configs.flat['recommended-latest'],
   prettier,
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
       // React hooks rules
       'react-hooks/rules-of-hooks': 'warn',
+      'react-hooks/preserve-manual-memoization': 'warn',
+      'react-hooks/set-state-in-effect': 'warn',
 
       // FIXME: All of these rules should be errors instead
       '@typescript-eslint/no-base-to-string': 'warn',

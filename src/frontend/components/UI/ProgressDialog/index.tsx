@@ -33,21 +33,25 @@ export function ProgressDialog(props: {
     }
   }, [props.progress, autoScroll])
 
-  const onLogScroll = (ev: Event) => {
-    const target = ev.target as HTMLDivElement
-
-    const atTheBottom =
-      target.scrollTop + target.getBoundingClientRect().height >=
-      target.scrollHeight
-
-    setAutoScroll(atTheBottom)
-  }
-
   useEffect(() => {
-    if (logRef.current) {
-      logRef.current.addEventListener('scroll', onLogScroll)
+    const onLogScroll = (ev: Event) => {
+      const target = ev.target as HTMLDivElement
+
+      const atTheBottom =
+        target.scrollTop + target.getBoundingClientRect().height >=
+        target.scrollHeight
+
+      setAutoScroll(atTheBottom)
     }
-  }, [logRef.current])
+
+    const logElement = logRef.current
+    if (!logElement) return
+
+    logElement.addEventListener('scroll', onLogScroll)
+    return () => {
+      logElement.removeEventListener('scroll', onLogScroll)
+    }
+  }, [])
 
   return (
     <>

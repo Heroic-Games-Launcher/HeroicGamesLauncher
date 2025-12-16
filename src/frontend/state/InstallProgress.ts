@@ -4,6 +4,7 @@ import { useShallow } from 'zustand/react/shallow'
 import type { InstallProgress, Runner } from 'common/types'
 
 type StoreType = Record<`${string}_${Runner}`, InstallProgress>
+type SelectorType<T> = (state: StoreType) => T
 
 const useInstallProgressRaw = create<StoreType>()(() => ({}))
 
@@ -12,6 +13,5 @@ window.api.onProgressUpdate((e, { appName, progress, runner }) => {
   useInstallProgressRaw.setState({ [key]: progress })
 })
 
-export const useInstallProgress = <T>(
-  selector: Parameters<typeof useShallow<StoreType, T>>[0]
-) => useInstallProgressRaw(useShallow(selector))
+export const useInstallProgress = <T>(selector: SelectorType<T>) =>
+  useInstallProgressRaw(useShallow(selector))

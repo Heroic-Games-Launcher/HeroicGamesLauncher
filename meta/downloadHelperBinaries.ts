@@ -38,9 +38,13 @@ async function downloadFile(url: string, dst: string) {
   if (response.status !== 200) {
     throw Error(`Failed to download ${url}: ${response.status}`)
   }
+  if (!response.body) {
+    throw Error(`No response body for ${url}`)
+  }
   await mkdir(dirname(dst), { recursive: true })
   const fileStream = createWriteStream(dst, { flags: 'w' })
-  await finished(Readable.fromWeb(response.body).pipe(fileStream))
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await finished(Readable.fromWeb(response.body as any).pipe(fileStream))
 }
 
 async function downloadAsset(
@@ -84,17 +88,18 @@ async function downloadGithubAssets(
   const downloadPromises = Object.entries(assetNames).map(
     async ([arch, platformFilenameMap]) =>
       Promise.all(
-        Object.entries(platformFilenameMap).map(([platform, filename]) => {
-          if (!filename) return
-          return downloadAsset(
-            binaryName,
-            repo,
-            tagName,
-            arch,
-            platform as keyof typeof platformFilenameMap,
-            filename
+        Object.entries(platformFilenameMap)
+          .filter(([, filename]) => filename)
+          .map(([platform, filename]) =>
+            downloadAsset(
+              binaryName,
+              repo,
+              tagName,
+              arch,
+              platform as keyof typeof platformFilenameMap,
+              filename
+            )
           )
-        })
       )
   )
 
@@ -205,14 +210,16 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   ).catch(() => '{}')
   let storedTagsParsed: Partial<Record<DownloadedBinary, string>>
   try {
-    storedTagsParsed = JSON.parse(storedTagsText)
+    storedTagsParsed = JSON.parse(storedTagsText) as Partial<
+      Record<DownloadedBinary, string>
+    >
   } catch {
     return ['legendary', 'gogdl', 'nile', 'comet', 'epic-integration']
   }
   const binariesToDownload: DownloadedBinary[] = []
   for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {
-    if (storedTagsParsed[runner] !== currentTag)
-      binariesToDownload.push(runner as keyof typeof RELEASE_TAGS)
+    if (storedTagsParsed[runner as DownloadedBinary] !== currentTag)
+      binariesToDownload.push(runner as DownloadedBinary)
   }
   return binariesToDownload
 }

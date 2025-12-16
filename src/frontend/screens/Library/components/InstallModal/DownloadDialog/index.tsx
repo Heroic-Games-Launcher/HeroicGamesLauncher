@@ -117,8 +117,6 @@ export default function DownloadDialog({
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
-  const [diskSize, setDiskSize] = useState(0)
-
   const [gameBuilds, setBuilds] = useState<BuildItem[]>([])
   const [selectedBuild, setSelectedBuild] = useState<string | undefined>()
 
@@ -360,9 +358,6 @@ export default function DownloadDialog({
           )
         }
         setDlcsToInstall(dlcs)
-        if (gameInstallInfo && gameInstallInfo.manifest) {
-          setDiskSize(gameInstallInfo.manifest?.disk_size ?? 0)
-        }
 
         if (gameInstallInfo) {
           if (
@@ -442,6 +437,43 @@ export default function DownloadDialog({
     getGameSdl()
   }, [appName, runner])
 
+  const haveDLCs =
+    gameInstallInfo &&
+    'game' in gameInstallInfo &&
+    gameInstallInfo?.game?.owned_dlc?.length > 0
+  const DLCList: Array<GOGDLCInfo | LegendaryDLCInfo> =
+    (gameInstallInfo &&
+      'game' in gameInstallInfo &&
+      gameInstallInfo?.game?.owned_dlc) ||
+    []
+
+  const diskSize = useMemo(() => {
+    if (
+      gameInstallInfo &&
+      gameInstallInfo.manifest &&
+      'perLangSize' in gameInstallInfo.manifest &&
+      gameInstallInfo.manifest.perLangSize
+    ) {
+      const languageSize =
+        gameInstallInfo?.manifest?.perLangSize[installLanguage]?.disk_size ?? 0
+      const universalSize =
+        gameInstallInfo?.manifest?.perLangSize['*']?.disk_size ?? 0
+      const dlcSize = DLCList.reduce((acc, dlc) => {
+        if (dlcsToInstall.includes(dlc.app_name) && 'perLangSize' in dlc) {
+          const languageSize = dlc.perLangSize[installLanguage]?.disk_size ?? 0
+          const universalSize = dlc.perLangSize['*']?.disk_size ?? 0
+          acc += languageSize + universalSize
+        }
+        return acc
+      }, 0)
+      return languageSize + universalSize + dlcSize
+    }
+    if (gameInstallInfo?.manifest?.disk_size) {
+      return Number(gameInstallInfo.manifest.disk_size)
+    }
+    return 0
+  }, [gameInstallInfo, installLanguage, dlcsToInstall, DLCList])
+
   useEffect(() => {
     const getSpace = async () => {
       const { message, free, validPath, validFlatpakPath } =
@@ -467,16 +499,6 @@ export default function DownloadDialog({
     }
     getSpace()
   }, [installPath, diskSize])
-
-  const haveDLCs =
-    gameInstallInfo &&
-    'game' in gameInstallInfo &&
-    gameInstallInfo?.game?.owned_dlc?.length > 0
-  const DLCList: Array<GOGDLCInfo | LegendaryDLCInfo> =
-    (gameInstallInfo &&
-      'game' in gameInstallInfo &&
-      gameInstallInfo?.game?.owned_dlc) ||
-    []
 
   const downloadSize = useMemo(() => {
     if (
@@ -535,7 +557,6 @@ export default function DownloadDialog({
         }
         return acc
       }, 0)
-      setDiskSize(languageSize + universalSize + dlcSize)
       return size(languageSize + universalSize + dlcSize)
     }
 

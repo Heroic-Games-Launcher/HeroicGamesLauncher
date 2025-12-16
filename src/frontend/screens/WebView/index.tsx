@@ -148,6 +148,11 @@ export default function WebView() {
   }
 
   const [webviewPreloadPath, setWebviewPreloadPath] = useState('')
+  const [showAdtractionWarning, setShowAdtractionWarning] =
+    useState<boolean>(false)
+  const [dontShowAdtractionWarning, setDontShowAdtractionWarning] =
+    useState<boolean>(false)
+
   useEffect(() => {
     const fetchWebviewPreloadPath = async () => {
       const path = await window.api.getWebviewPreloadPath()
@@ -160,8 +165,8 @@ export default function WebView() {
   useLayoutEffect(() => {
     const webview = webviewRef.current
     if (webview) {
-      const loadstop = async () => {
-        setLoading({ ...loading, refresh: false })
+      const loadstop = () => {
+        setLoading((prev) => ({ ...prev, refresh: false }))
         const userAgent =
           startUrl === epicLoginUrl
             ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) EpicGamesLauncher'
@@ -250,7 +255,8 @@ export default function WebView() {
       }
     }
     return
-  }, [webviewRef.current, amazonLoginData, runner, webviewPreloadPath])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Event listeners intentionally use stable closures to avoid re-mounting on every prop change
+  }, [amazonLoginData, runner, webviewPreloadPath])
 
   useEffect(() => {
     const webview = webviewRef.current
@@ -298,12 +304,6 @@ export default function WebView() {
   const [showLoginWarningFor, setShowLoginWarningFor] = useState<
     null | 'epic' | 'gog' | 'amazon' | 'zoom'
   >(null)
-
-  const [showAdtractionWarning, setShowAdtractionWarning] =
-    useState<boolean>(false)
-
-  const [dontShowAdtractionWarning, setDontShowAdtractionWarning] =
-    useState<boolean>(false)
 
   useEffect(() => {
     if (

@@ -111,7 +111,7 @@ const GamesList = ({
     }
 
     return () => ({})
-  }, [listRef.current, activeController])
+  }, [activeController])
 
   return (
     <div

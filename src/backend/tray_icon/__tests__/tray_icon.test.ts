@@ -162,7 +162,8 @@ describe('TrayIcon', () => {
         it('reloads the menu with the new language', async () => {
           // mock some translation
           const original_t = i18next.t
-          jest.spyOn(i18next, 't').mockImplementation((key) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          jest.spyOn(i18next, 't').mockImplementation((key, ...args) => {
             if (key === 'tray.quit') {
               return i18next.language === 'es' ? 'Salir' : 'Quit'
             }
