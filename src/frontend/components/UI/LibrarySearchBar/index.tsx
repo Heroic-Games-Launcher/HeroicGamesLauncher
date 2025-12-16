@@ -5,6 +5,7 @@ import { GameInfo, Runner } from 'common/types'
 import SearchBar from '../SearchBar'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import { normalizeTitle } from 'frontend/helpers/library'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -25,6 +26,11 @@ export default function LibrarySearchBar() {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
+  const normalizedFilterText = useMemo(
+    () => normalizeTitle(fixFilter(filterText)),
+    [filterText]
+  )
+
   const list = useMemo(() => {
     return [
       ...(epic.library ?? []),
@@ -37,11 +43,18 @@ export default function LibrarySearchBar() {
       .filter((el) => {
         return (
           !el.install.is_dlc &&
-          new RegExp(fixFilter(filterText), 'i').test(el.title)
+          normalizeTitle(el.title).includes(normalizedFilterText)
         )
       })
       .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
-  }, [amazon.library, epic.library, gog.library, zoom.library, filterText])
+  }, [
+    amazon.library,
+    epic.library,
+    gog.library,
+    sideloadedLibrary,
+    zoom.library,
+    normalizedFilterText
+  ])
 
   const handleClick = (game: GameInfo) => {
     handleSearch('')

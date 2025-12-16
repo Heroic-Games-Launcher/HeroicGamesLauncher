@@ -240,6 +240,10 @@ const updateGame = (args: UpdateParams) => {
   return window.api.updateGame(args)
 }
 
+export const normalizeTitle = (title: string) => {
+  return title.replace(/[^\w\s]/g, '').toLowerCase()
+}
+
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
