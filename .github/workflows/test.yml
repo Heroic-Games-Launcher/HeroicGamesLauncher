@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
       - name: Test CI
         run: pnpm test:ci
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
       - name: Fix ownership and mode
         run: sudo chown root /home/runner/work/HeroicGamesLauncher/HeroicGamesLauncher/node_modules/electron/dist/chrome-sandbox && sudo chmod 4755 /home/runner/work/HeroicGamesLauncher/HeroicGamesLauncher/node_modules/electron/dist/chrome-sandbox

@@ -9,7 +9,7 @@ jobs:
   codecheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
       - name: Check Typescript syntax
         run: pnpm codecheck
