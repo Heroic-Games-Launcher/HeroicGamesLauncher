@@ -421,9 +421,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       />
 
                       <Description />
-                      {!notInstallable && (
-                        <TimeContainer runner={runner} game={appName} />
-                      )}
+                      {!notInstallable && <TimeContainer gameInfo={gameInfo} />}
                       <GameStatus
                         gameInfo={gameInfo}
                         progress={progress}
