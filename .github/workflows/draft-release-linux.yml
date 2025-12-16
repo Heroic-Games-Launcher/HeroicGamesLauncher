@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - run: sudo apt-get install --no-install-recommends -y libarchive-tools libopenjp2-tools rpm
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
       - run: pnpm release:linux
         env:
