@@ -1,268 +1,319 @@
 {
     "box": {
         "change": {
-            "message": "Thao tác sẽ thay đổi vị trí cài của game này, bạn chắc chứ?",
-            "path": "Chọn đường dẫn mới",
-            "title": "Đổi đường dẫn"
+            "message": "Thao tác sẽ thay đổi vị trí cài của trò chơi này, bạn chắc chứ?",
+            "path": "Chọn đường dẫn cài đặt mới",
+            "title": "Thay Đổi Đường Dẫn Cài Đặt Trò Chơi"
         },
         "choose": "Chọn",
-        "importpath": "Chọn thư mục game để import",
+        "importpath": "Chọn Thư Mục Trò Chơi để nhập",
         "move": {
-            "message": "Quá trình này có thể sẽ tốn nhiều thời gian, bạn chắc chứ?",
-            "path": "Chọn vị trí muốn chyển tới",
-            "title": "Di chuyển game"
+            "message": "Việc này có thể mất nhiều thời gian, bạn có chắc không?",
+            "path": "Chọn nơi bạn muốn di chuyển",
+            "title": "Di Chuyển Cài Đặt Trò Chơi"
         },
-        "no": "Không",
+        "no": "KHÔNG",
         "repair": {
-            "message": "Bạn có muốn thử sửa game không? Quá trình này có thể tốn nhiều thời gian.",
-            "title": "Kiểm tra và sửa chữa"
+            "message": "Bạn có muốn thử sửa chữa trò chơi này không? Điều này có thể mất một thời gian dài.",
+            "title": "Xác Minh và Sửa Chữa"
         },
         "runexe": {
-            "title": "Chọn EXE để chạy"
+            "title": "Chọn EXE để Chạy"
         },
         "select": {
             "button": "Chọn",
-            "image": "Chọn hình ảnh"
+            "image": "Chọn Hình Ảnh"
         },
         "sideload": {
-            "exe": "Chọn tập tin chạy"
+            "exe": "Chọn Có Thể Thực Thi"
         },
         "stopInstall": {
-            "keepInstalling": "Tiếp tục cài",
-            "message": "Bạn có muốn GIỮ LẠI những file đã tải không?",
-            "title": "Dừng quá trình cài đặt"
+            "keepInstalling": "Tiếp Tục Cài Đặt",
+            "message": "Bạn có muốn GIỮ các tệp đã tải xuống không?",
+            "title": "Dừng Cài Đặt"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Xóa tiền tố: {{prefix}}{{newLine}}Lưu ý: Thao tác này không thể hoàn tác và cũng sẽ xóa các tệp lưu chưa được sao lưu.",
             "message": "Bạn có chắc muốn gỡ cài đặt \"{{title}}\" không?",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
-            "title": "Gỡ cài đặt",
+            "settingcheckbox": "Xóa cài đặt và xóa nhật ký{{newLine}}Lưu ý: Thao tác này không thể hoàn tác được. Mọi cài đặt đã sửa đổi sẽ bị lãng quên và nhật ký sẽ bị xóa.",
+            "title": "Gỡ Cài Đặt",
             "prefix_warning": "Tiền tố Wine cho trò chơi này là tiền tố mặc định. Nếu bạn thực sự muốn xóa nó, bạn phải thực hiện thủ công.",
-            "dlc": "Bạn có chắc muốn gỡ cài đặt \"{{title}}\" (DLC) không?",
-            "gameIsRunning": "{{title}} đang chạy. Hãy đóng trò chơi để gỡ cài đặt nó.",
-            "cannotUninstallEpic": "Không thể gỡ cài đặt game từ Epic khi đang cài đặt game khác từ Epic."
+            "dlc": "Bạn có muốn gỡ cài đặt \"{{title}}\" (DLC) không?",
+            "gameIsRunning": "{{title}} đang chạy. Đóng trò chơi để gỡ cài đặt nó.",
+            "cannotUninstallEpic": "Không thể gỡ cài đặt trò chơi Epic trong khi một trò chơi Epic khác đang được cài đặt."
         },
         "update": {
-            "message": "Game có bản cập nhật, xác nhận cập nhật?",
-            "title": "Game cần cập nhật"
+            "message": "Trò chơi này có bản cập nhật, áp dụng bản cập nhật ngay bây giờ?",
+            "title": "Trò Chơi Cần Cập Nhật"
         },
-        "wineprefix": "Chọn thư mục WinePrefix",
-        "yes": "Có",
+        "wineprefix": "Chọn Thư Mục WinePrefix",
+        "yes": "CÓ",
         "close": "Đóng",
         "select-install-path": "Chọn thư mục cài đặt Steam"
     },
     "button": {
-        "add_to_favourites": "Thêm vào mục ưa thích",
-        "cancel": "Tạm dừng/Huỷ",
-        "continue": "Tiếp tục tải",
-        "finish": "Hoàn thành",
-        "force_update": "Bắt buộc cập nhật nếu có sẵn",
-        "force-innstall": "Cài đặt bắt buộc",
-        "hide_game": "Ẩn trò chơi",
-        "import": "Nhập trò chơi",
-        "install": "Cài đặt",
+        "add_to_favourites": "Thêm vào Ưa Thích",
+        "cancel": "Tạm Dừng/Huỷ",
+        "continue": "Tiếp Tục Tải Xuống",
+        "finish": "Hoàn Thành",
+        "force_update": "Buộc Cập Nhật nếu Có",
+        "force-innstall": "Buộc Cài Đặt",
+        "hide_game": "Ẩn Trò Chơi",
+        "import": "Nhập Trò Chơi",
+        "install": "Cài Đặt",
         "no-path-selected": "Chưa chọn thư mục",
         "queue": {
-            "remove": "Xóa khỏi hàng chờ"
+            "remove": "Xóa khỏi Hàng Chờ"
         },
-        "remove_from_favourites": "Xóa khỏi mục ưa thích",
-        "remove_from_recent": "Xóa khỏi Gần đây",
-        "run-exe-first": "Chạy cài đặt trước",
-        "running-setup": "Đang chạy cài đặt",
+        "remove_from_favourites": "Xóa Khỏi Ưa Thích",
+        "remove_from_recent": "Xóa Khỏi Gần Đây",
+        "run-exe-first": "Chạy Trình Cài Đặt Trước",
+        "running-setup": "Đang Chạy Thiết Lập",
         "sideload": {
-            "edit": "Sửa đổi App/Game"
+            "edit": "Chỉnh Sửa Ứng Dụng/Trò Chơi"
         },
-        "unhide_game": "Bỏ ẩn Game",
-        "uninstall": "Gỡ cài đặt",
-        "update": "Cập nhật",
-        "details": "Chi tiết",
-        "changelog": "Hiện nhật ký thay đổi",
-        "browse_files": "Tìm tệp tin"
+        "unhide_game": "Bỏ Ẩn Trò Chơi",
+        "uninstall": "Gỡ Cài Đặt",
+        "update": "Cập Nhật",
+        "details": "Chi Tiết",
+        "changelog": "Hiện Nhật Ký Thay Đổi",
+        "browse_files": "Duyệt Tệp",
+        "browse_wine_prefix": "Duyệt Wine Prefix",
+        "play": "CHƠI"
     },
-    "cloud_save_unsupported": "Không hỗ trợ",
+    "cloud_save_unsupported": "Không Hỗ Trợ",
     "disabled": "Tắt",
     "dlc": {
         "installDlcs": "Cài đặt tất cả bản mở rộng (DLC)"
     },
     "enabled": "Bật",
     "game": {
-        "downloadSize": "Kích thước tải",
-        "firstPlayed": "Lần chơi đầu tiên",
-        "getting-download-size": "Đang cập nhật dung lượng tải xuống",
-        "getting-install-size": "Đang cập nhật dung lượng cài đặt",
-        "installSize": "Kích thước cài",
-        "language": "Ngôn ngữ",
-        "lastPlayed": "Lần chơi trước",
-        "neverPlayed": "Không bao giờ",
-        "platform": "Chọn phiên bản nền tảng để cài đặt",
-        "requirements": "Yêu cầu hệ thống",
-        "totalPlayed": "Thời gian chơi",
+        "downloadSize": "Kích Thước Tải Xuống",
+        "firstPlayed": "Chơi Lần Đầu",
+        "getting-download-size": "Lấy kích thước tải xuống",
+        "getting-install-size": "Lấy kích thước cài đặt",
+        "installSize": "Kích Thước Cài Đặt",
+        "language": "Ngôn Ngữ",
+        "lastPlayed": "Chơi Lần Cuối",
+        "neverPlayed": "Không Bao Giờ",
+        "platform": "Chọn Phiên Bản Nền Tảng Để Cài Đặt",
+        "requirements": "Yêu Cầu Hệ Thống",
+        "totalPlayed": "Thời Gian Chơi",
         "dlcs": "Bản mở rộng",
         "branch": {
             "disabled": "Tắt",
-            "password": "Đặt mật khẩu cho kênh riêng tư",
+            "password": "Đặt mật khẩu kênh riêng",
             "select": "Chọn kênh beta",
-            "setPrivateBranchPassword": "Đặt mật khẩu cho kênh riêng tư"
+            "setPrivateBranchPassword": "Đặt mật khẩu kênh riêng"
         },
         "builds": {
-            "version": "Phiên bản",
+            "version": "Phiên Bản",
             "buildsSelector": "Chọn phiên bản trò chơi",
             "toggle": "Giữ trò chơi ở tại phiên bản nhất định"
         },
         "changelogFor": "Nhật ký thay đổi của {{gameTitle}}",
         "extra_info": "Thông tin thêm",
         "install_info": "Thông tin cài đặt",
-        "modify": "Sửa đổi cài đặt"
+        "modify": "Sửa Đổi Cài Đặt"
     },
     "gamecard": {
-        "moving": "Đang chuyển",
-        "repairing": "Đang sửa"
+        "moving": "Đang Chuyển",
+        "repairing": "Đang Sửa"
     },
     "generic": {
         "error": "Lỗi chưa xác định",
         "noDescription": "Không có mô tả nào"
     },
-    "hours": "Hours",
+    "hours": "Giờ",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Người Theo Chủ Nghĩa Hoàn Thiện",
+        "main-plus-extras": "Chính + Phụ",
+        "main-story": "Cốt Truyện Chính"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Mất Bao Lâu Để Chinh Phục",
     "info": {
-        "canRunOffline": "Cần kết nối mạng",
-        "installedPlatform": "Nền tảng đã cài đặt",
-        "path": "Đường dẫn cài đặt",
-        "size": "Kích thước",
-        "syncsaves": "Đồng bộ bản lưu",
-        "version": "Phiên bản",
-        "apple-gaming-wiki": "Xếp hạng Wiki của AppleGaming",
+        "canRunOffline": "Yêu Cầu Trực Tuyến",
+        "installedPlatform": "Nền Tảng Đã Cài Đặt",
+        "path": "Đường Dẫn Cài Đặt",
+        "size": "Kích Thước",
+        "syncsaves": "Đồng Bộ Bản Lưu",
+        "version": "Phiên Bản",
+        "apple-gaming-wiki": "Xếp Hạng Wiki của AppleGaming",
         "clickToOpen": "Bấm để mở",
-        "game-scores": "Tỷ số trận đấu",
-        "installedInfo": "Thông tin đã cài đặt",
-        "protondb-compatibility-info": "Bậc Tương thích Proton",
-        "steamdeck-compatibility-info": "Khả năng tương thích SteamDeck"
+        "game-scores": "Điểm Trò Chơi",
+        "installedInfo": "Thông Tin Đã Cài Đặt",
+        "protondb-compatibility-info": "Bậc Tương Thích Proton",
+        "steamdeck-compatibility-info": "Khả Năng Tương Thích SteamDeck",
+        "third-party-app": "Trình Quản Lý Bên Thứ Ba"
     },
     "install": {
-        "disk-space-left": "Dung lượng trống",
+        "disk-space-left": "Dung Lượng Trống Khả Dụng",
         "not-enough-disk-space": "Không đủ dung lượng trống",
-        "path": "Chọn đường dẫn cài",
-        "path-not-writtable": "Cảnh báo: Có thể không ghi được vào vị trí này.",
-        "space-after-install": "Sau khi cài",
+        "path": "Chọn Đường Dẫn Cài Đặt",
+        "path-not-writtable": "Cảnh báo: đường dẫn có thể không ghi được.",
+        "space-after-install": "Sau Khi Cài Đặt",
         "wineprefix": "WinePrefix",
-        "wineversion": "Phiên bản Wine"
+        "wineversion": "Phiên bản Wine",
+        "anticheat-warning": {
+            "cancel": "Không",
+            "disabled_installation": "Trò chơi này sử dụng chống gian lận không tương thích với hệ điều hành của bạn hoặc nhà phát triển trò chơi không kích hoạt hỗ trợ. Điều này có nghĩa là các tính năng nhiều người chơi sẽ không hoạt động và bạn (hoặc nhóm Heroic) không thể làm gì với điều đó.<br /><br />Để cài đặt trò chơi này và dùng thử, hãy đi tới Cài đặt, Nâng cao và chọn tùy chọn cho phép cài đặt các trò chơi có tính năng chống gian lận bị hỏng hoặc bị từ chối.<br /><br />Lưu ý rằng không có giải pháp nào cho vấn đề này và bạn sẽ có nguy cơ bị cấm trong trò chơi.",
+            "install_anyway": "Có (Tôi hiểu rằng tính năng nhiều người chơi sẽ không hoạt động)",
+            "multiplayer_message": "Hỗ trợ chống gian lận bị hỏng hoặc bị từ chối. Trò chơi có thể mở nhưng tính năng nhiều người chơi sẽ không hoạt động. Bạn có muốn cài đặt nó không?",
+            "ok": "Ok",
+            "title": "Chống Gian Lận Bị Hỏng/Từ Chối"
+        },
+        "flatpak-path-not-writtable": "Lỗi: Quyền truy cập sandbox không được cấp cho đường dẫn này, mất dữ liệu sẽ xảy ra."
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported",
+            "third-party-game": "Trò chơi của bên thứ ba KHÔNG được hỗ trợ",
             "not-installable-game": "Trò chơi KHÔNG thể cài đặt"
         },
         "playing": {
-            "start": "Chơi ngay",
-            "stop": "Đang chơi (Dừng)"
+            "start": "Chơi Ngay",
+            "stop": "Đang chơi (Dừng)",
+            "start_with_logs": "Chơi ngay (có nhật ký)"
         },
         "saves": {
-            "syncing": "Đang đồng bộ bản lưu"
+            "syncing": "Đang Đồng Bộ Bản Lưu"
         },
-        "launching": "ra mắt",
+        "launching": "Ra Mắt",
         "ubisoft": "Cài đặt Ubisoft Connect",
         "steam": {
             "installing": "Đang cài đặt",
             "pleaseWait": "Please wait...",
             "installation": "Dừng quá trình cài đặt",
             "install-path": "Chọn thư mục cài đặt Steam"
-        }
+        },
+        "redist": "Cài Đặt Bản Phân Phối Lại",
+        "winetricks": "Cài Đặt Gói Winetricks"
     },
     "launch": {
-        "options": "Tuỳ chọn khởi chạy..."
+        "options": "Khởi Chạy Tuỳ Chọn ..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Bạn chưa đăng nhập bằng tài khoản Epic trong Heroic. Không sử dụng trang cửa hàng để đăng nhập, thay vào đó hãy nhấp vào nút sau:",
+        "gog": "Bạn chưa đăng nhập bằng tài khoản GOG trong Heroic. Không sử dụng trang cửa hàng để đăng nhập, thay vào đó hãy nhấp vào nút sau:",
         "login": "Log in",
-        "title": "You are NOT logged in",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "title": "Bạn CHƯA đăng nhập",
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "Bạn chưa đăng nhập bằng tài khoản Zoom trong Heroic. Không sử dụng trang cửa hàng để đăng nhập, thay vào đó hãy nhấp vào nút sau:"
     },
     "report_problem": "Báo cáo sự cố khi chạy game này",
     "sdl": {
-        "title": "Chọn các thành phần cần cài"
+        "title": "Chọn các thành phần cần Cài Đặt"
     },
     "setting": {
-        "winecrossoverbottle": "Chai chéo"
+        "winecrossoverbottle": "Chai chéo",
+        "show-wine-settings": "Hiển thị cài đặt Wine",
+        "use-shared-wine-config": "Sử dụng tiền tố Wine được chia sẻ",
+        "warn-use-shared-wine-config": "Chỉ sử dụng tùy chọn này nếu bạn biết mình đang làm gì.<br />Việc chia sẻ cùng một tiền tố cho nhiều trò chơi có thể gây ra sự cố nếu phần phụ thuộc của chúng không tương thích."
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Tiêu Đề"
         },
         "info": {
-            "exe": "Select Executable",
+            "exe": "Chọn Có Thể Thực Thi",
             "image": "App Image",
-            "title": "Game/App Title",
-            "broser": "Trình duyệtURL"
+            "title": "Tiêu Đề Trò Chơi/Ứng Dụng",
+            "broser": "TrìnhDuyệtURL",
+            "fullscreen": "Khởi Chạy Toàn Màn Hình (F11 để thoát)",
+            "useragent": "Tác Nhân Người Dùng Tùy Chỉnh"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App",
-            "url": "Dán URL trò chơi vào đây"
+            "image": "Dán URL của Hình ảnh hoặc chọn một hình ảnh từ máy tính của bạn",
+            "title": "Thêm tiêu đề vào Trò Chơi/Ứng Dụng của bạn",
+            "url": "Dán URL trò chơi vào đây",
+            "useragent": "Viết tác nhân người dùng tùy chỉnh tại đây để sử dụng trên ứng dụng/trò chơi trình duyệt này"
+        },
+        "import-hint": {
+            "content": "KHÔNG sử dụng tính năng này cho mục đích đó.<br />Thay vào đó, hãy <3>đăng nhập vào</3> cửa hàng, tìm trò chơi trong thư viện của bạn, mở hộp thoại cài đặt và nhấp vào nút \"Nhập trò chơi\"",
+            "title": "Quan trọng! Bạn có đang thêm trò chơi từ Epic/GOG/Amazon không? Bấm vào đây!"
         }
     },
     "specs": {
-        "minimum": "Thu nhỏ",
-        "recommended": "Đề xuất"
+        "minimum": "Thu Nhỏ",
+        "recommended": "Đề Xuất"
     },
     "status": {
-        "clickToUpdate": "Nhấn để cập nhật",
-        "gameNotAvailable": "Game not available",
-        "hasUpdates": "Có phiên bản mới!",
-        "installed": "Đã cài",
-        "installing": "Đang cài đặt",
-        "moving": "Đang chuyển, vui lòng đợi",
-        "notinstalled": "Game chưa được cài",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "clickToUpdate": "Nhấn để Cập Nhật",
+        "gameNotAvailable": "Trò chơi không có sẵn",
+        "hasUpdates": "Đã Có Phiên Bản Mới!",
+        "installed": "Đã Cài Đặt",
+        "installing": "Đang Cài Đặt",
+        "moving": "Đang Di Chuyển Cài Đặt, vui lòng đợi",
+        "notinstalled": "Trò chơi này chưa được cài đặt",
+        "notSupported": "Không được hỗ trợ",
+        "notSupportedGame": "Không Được Hỗ Trợ",
         "processing": "Đang xử lý tệp, vui lòng đợi",
-        "queued": "Queued",
-        "reparing": "Đang sửa game, vui lòng đợi",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
-        "totalDownloaded": "Tổng số đã tải",
-        "uninstalling": "Uninstalling",
-        "updating": "Đang cập nhật Game",
+        "queued": "Đã Xếp Hàng",
+        "reparing": "Đang Sửa Chữa Trò Chơi, vui lòng đợi",
+        "this-game-uses-third-party": "Trò chơi này sử dụng trình khởi chạy của bên thứ ba và nó chưa được hỗ trợ",
+        "totalDownloaded": "Tổng Số Đã Tải",
+        "uninstalling": "Đang Gỡ Cài Đặt",
+        "updating": "Đang Cập Nhật Trò Chơi",
         "playing": "Đang chơi",
-        "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} ",
-        "syncingSaves": "Đang đồng bộ bản lưu",
-        "launching": "ra mắt",
+        "moving-files": "Đang di chuyển tệp '{{file}}': {{percent}} %",
+        "syncingSaves": "Đang Đồng Bộ Bản Lưu",
+        "launching": "Ra Mắt",
         "ubisoft": "Cài đặt Ubisoft",
-        "downloading": "Downloading",
-        "extracting": "giải nén",
+        "downloading": "Đang Tải",
+        "extracting": "Giải Nén",
         "gog-goodie": "Trò chơi này dường như không thể cài đặt được. Kiểm tra nội dung có thể tải xuống trên https://gog.com/account",
-        "goodie": "Không thể cài đặt"
+        "goodie": "Không thể cài đặt",
+        "importing": "Đang Nhập",
+        "redist": "Cài Đặt Bản Phân Phối Lại ({{redist}})",
+        "winetricks": "Áp dụng bản sửa lỗi Winetricks"
     },
     "submenu": {
-        "addShortcut": "Thêm shortcut",
-        "addToSteam": "Add to Steam",
-        "change": "Đổi đường dẫn",
-        "disableEosOverlay": "Disable EOS Overlay",
-        "enableEosOverlay": "Enable EOS Overlay",
-        "move": "Di chuyển game",
-        "protondb": "Kiểm tra độ tương thích",
-        "removeFromSteam": "Remove from Steam",
-        "removeShortcut": "Remove shortcuts",
-        "settings": "Cài đặt",
-        "store": "Cửa hàng",
-        "verify": "Kiểm tra và sửa chữa",
+        "addShortcut": "Thêm lối tắt",
+        "addToSteam": "Thêm vào Steam",
+        "change": "Thay đổi đường dẫn cài đặt",
+        "disableEosOverlay": "Tắt EOS Overlay",
+        "enableEosOverlay": "Bật EOS Overlay",
+        "move": "Di Chuyển Trò Chơi",
+        "protondb": "Kiểm Tra Mức Độ Tương Thích",
+        "removeFromSteam": "Xóa khỏi Steam",
+        "removeShortcut": "Xóa lối tắt",
+        "settings": "Cài Đặt",
+        "store": "Trang Cửa Hàng",
+        "verify": "Kiểm Tra và Sửa Chữa",
         "extraInfo": "Thông tin thêm",
-        "logs": "Nhật ký"
+        "logs": "Nhật ký",
+        "categories": "Phân Loại"
     },
     "help": {
-        "cloud_save_unsupported": "Trò chơi này không hỗ trợ tiết kiệm điện toán đám mây. Thông tin này được cung cấp bởi các nhà phát triển trò chơi. Một số trò chơi triển khai hệ thống lưu trên đám mây của riêng họ"
+        "cloud_save_unsupported": "Trò chơi này không hỗ trợ lưu vào đám mây. Thông tin này được cung cấp bởi các nhà phát triển trò chơi. Một số trò chơi triển khai hệ thống lưu trữ đám mây của riêng họ",
+        "content": {
+            "gamePage": "Hiển thị tất cả các chi tiết và hành động của trò chơi. Sử dụng menu 3 chấm để có thêm tùy chọn."
+        },
+        "title": {
+            "gamePage": "Trang Trò Chơi"
+        }
     },
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "remove": "Remove from Downloads"
+            "canceled": "Đã Hủy",
+            "remove": "Xóa khỏi Tải Xuống",
+            "pause": "Tạm dừng tải xuống",
+            "resume": "Tiếp tục tải xuống"
         }
     },
     "modifyInstall": {
-        "dlcsCollapsible": "Bản mở rộng"
-    }
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Không có DLC",
+        "redMod": {
+            "collapsible": "Tích Hợp REDmod",
+            "enable": "Bật mod"
+        },
+        "versionCollapsable": "Phiên Bản Trò Chơi"
+    },
+    "Open": "Mở",
+    "third-party-managed": {
+        "header": "Trò chơi này được quản lý bởi ứng dụng của bên thứ ba",
+        "notice1": "Trò chơi này được quản lý bởi ứng dụng của bên thứ ba: \"{{application_name}}\"",
+        "notice2": "Sau khi nhấn Cài Đặt, Heroic sẽ chạy ứng dụng để hoàn tất quá trình cài đặt"
+    },
+    "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>"
 }

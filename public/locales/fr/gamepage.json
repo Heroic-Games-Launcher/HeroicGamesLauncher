@@ -2,51 +2,51 @@
     "box": {
         "change": {
             "message": "Cette action va modifier l'emplacement d'installation de ce jeu, êtes-vous certain(e) de vouloir continuer ?",
-            "path": "Choisissez un nouveau chemin d'installation",
-            "title": "Changer le chemin d'installation des jeux"
+            "path": "Choisir un nouvel emplacement pour l'installation",
+            "title": "Changer l'emplacement d'installation des jeux"
         },
         "choose": "Choisir",
-        "importpath": "Choisir le répertoire du jeu à importer",
+        "importpath": "Sélectionner le répertoire comportant les fichiers du jeu à importer",
         "move": {
-            "message": "Cette opération peut prendre du temps. Êtes-vous certain(e) de vouloir continuer ?",
+            "message": "Cette opération peut prendre beaucoup de temps. Êtes-vous certain(e) de vouloir continuer ?",
             "path": "Choisissez où vous voulez le déplacer",
             "title": "Déplacer le dossier d'installation du jeu"
         },
         "no": "NON",
         "repair": {
-            "message": "Voulez-vous essayer de réparer ce jeu ? Ceci peut prendre un long moment.",
+            "message": "Voulez-vous essayer de réparer ce jeu ? Cette opération peut être longue.",
             "title": "Vérifier et réparer"
         },
         "runexe": {
-            "title": "Sélectionner l'EXE à démarrer"
+            "title": "Sélectionner l'EXÉcutable à démarrer"
         },
         "select": {
             "button": "Sélectionner",
             "image": "Sélectionner une image"
         },
         "sideload": {
-            "exe": "Sélectionner l'exécutable"
+            "exe": "Sélectionner un exécutable"
         },
         "stopInstall": {
-            "keepInstalling": "Continuer l'installation",
+            "keepInstalling": "Poursuivre l'installation",
             "message": "Souhaitez-vous CONSERVER les fichiers téléchargés ?",
             "title": "Arrêter l'installation"
         },
         "uninstall": {
             "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
             "message": "Voulez-vous désinstaller « {{title}} » ?",
-            "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : ceci ne peut pas être annulé. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
+            "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : cette opération ne peut pas être annulée. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
-            "prefix_warning": "Le préfixe Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, vous devez le faire manuellement.",
+            "prefix_warning": "Le préfixe utilisé par Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, il vous faudra y procéder manuellement.",
             "dlc": "Voulez-vous désinstaller l'extension « {{title}} » ?",
             "cannotUninstallEpic": "Les jeux Epic Games ne peuvent pas être désinstallés lorsqu'un autre jeu Epic Games est en cours d'installation.",
             "gameIsRunning": "{{title}} est en cours d'exécution. Fermez le jeu pour pouvoir le désinstaller."
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
-            "title": "Mise à jour du jeu nécessaire"
+            "title": "Mise à jour requise"
         },
-        "wineprefix": "Sélectionnez le dossier WinePrefix",
+        "wineprefix": "Choisissez le dossier à utiliser pour les préfixes/bouteilles de Wine",
         "yes": "OUI",
         "close": "Fermer",
         "select-install-path": "Sélectionnez le chemin d'installation de Steam"
@@ -78,9 +78,10 @@
         "details": "Détails",
         "changelog": "Afficher le journal des changements",
         "browse_files": "Parcourir les fichiers",
-        "browse_wine_prefix": "Parcourir le préfixe Wine"
+        "browse_wine_prefix": "Parcourir le préfixe utilisé par Wine",
+        "play": "JOUER"
     },
-    "cloud_save_unsupported": "Non-supporté",
+    "cloud_save_unsupported": "Non-compatible",
     "disabled": "Désactivé",
     "dlc": {
         "installDlcs": "Installer toutes les Extensions"
@@ -151,7 +152,7 @@
         "path": "Sélectionner le chemin d'installation",
         "path-not-writtable": "Attention : le chemin n'est peut-être pas accessible en écriture.",
         "space-after-install": "Après l'installation",
-        "wineprefix": "Préfixe Wine",
+        "wineprefix": "Qu'est-ce qu'un préfixe ?",
         "wineversion": "Version de Wine",
         "anticheat-warning": {
             "cancel": "Non",
@@ -160,8 +161,8 @@
             "title": "Système anti-triche non fonctionnel",
             "install_anyway": "Oui (je comprends que les éléments multijoueurs ne fonctionneront pas)",
             "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée. Le jeu peut être exécuté mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?",
-            "ok": "Ok",
-            "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n'est pas compatible avec votre système d'exploitation ou n'a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et il n'y a rien que vous (ni l'équipe d'Heroic) puisse faire à ce sujet. <br /><br />Pour installer ce jeu et essayer quand même, rendez-vous dans Paramètres, Avancés, et cochez l'option permettant d'autoriser l'installation de jeux comportant un anti-triche cassé ou refusé. <br /><br />Notez qu'il n'existe pas de solution à ce problème et que vous risquerez d'être banni du jeu."
+            "ok": "Entendu",
+            "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n'est pas compatible avec votre système d'exploitation ou n'a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et qu'il n'y a rien que vous (ni l'équipe d'Heroic) puisse faire à ce sujet. <br /><br />Pour installer ce jeu et l'essayer quand même, rendez-vous sur la page des paramètres avancés puis cochez l'option permettant d'autoriser l'installation de jeux comportant un dispositif anti-triche incompatible ou délaissé par ses développeurs. <br /><br />Veuillez noter qu'il n'existe pas de solution à ce problème et que vous risquez d'être banni du jeu."
         },
         "flatpak-path-not-writtable": "Erreur : le chemin n'est pas accessible en mode bac-à-sable, risque de perte de données."
     },
@@ -217,7 +218,8 @@
         "gog": "Vous n'êtes pas connecté(e) avec un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté(e)",
-        "amazon": "Vous n'êtes pas connecté(e) avec un compte Amazon dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :"
+        "amazon": "Vous n'êtes pas connecté(e) avec un compte Amazon dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
+        "zoom": "Aucun compte Zoom n'est connecté. N'employez pas la page de la boutique pour vous connecter, mais cliquez sur le bouton suivant :"
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
@@ -275,7 +277,7 @@
         "updating": "Mise à jour du jeu",
         "playing": "Jeu en cours d'exécution",
         "moving-files": "Déplacement du fichier \"{{file}}\" : {{percent}}",
-        "syncingSaves": "Synchronisation des sauvegardes",
+        "syncingSaves": "Synchronisation des sauvegardes en cours",
         "launching": "Lancement",
         "ubisoft": "Installation d'Ubisoft",
         "downloading": "En cours de téléchargement",
@@ -304,7 +306,7 @@
         "categories": "Catégories"
     },
     "help": {
-        "cloud_save_unsupported": "Ce jeu ne prend pas en charge les sauvegardes dans le Cloud. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde dans le Cloud",
+        "cloud_save_unsupported": "Ce jeu n'est pas compatible avec les sauvegardes distantes. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde à distance",
         "title": {
             "gamePage": "Page du jeu"
         },

@@ -78,7 +78,8 @@
         "details": "Подробности",
         "changelog": "Показать список изменений",
         "browse_files": "Просмотр файлов",
-        "browse_wine_prefix": "Просмотр префикса Wine"
+        "browse_wine_prefix": "Просмотр префикса Wine",
+        "play": "ИГРАТЬ"
     },
     "cloud_save_unsupported": "Не поддерживается",
     "disabled": "Выключено",

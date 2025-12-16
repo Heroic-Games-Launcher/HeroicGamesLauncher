@@ -78,7 +78,8 @@
         "details": "Detalles",
         "changelog": "Mostrar registro de cambios",
         "browse_wine_prefix": "Abrir Prefijo de Wine",
-        "browse_files": "Ver Archivos"
+        "browse_files": "Ver Archivos",
+        "play": "JUGAR"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -218,7 +219,8 @@
         "gog": "No has iniciado sesión con una cuenta de GOG en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:",
         "login": "Iniciar sesión",
         "title": "No has iniciado sesión",
-        "amazon": "No has iniciado sesión con una cuenta de Amazon en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:"
+        "amazon": "No has iniciado sesión con una cuenta de Amazon en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:",
+        "zoom": "No se ha conectado con una cuenta de Zoom en Heroic. No utilice la página de la tienda para iniciar sesión, en su lugar haga clic en el botón siguiente:"
     },
     "report_problem": "Reportar un problema al ejecutar este juego",
     "sdl": {

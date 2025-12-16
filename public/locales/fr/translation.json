@@ -22,26 +22,26 @@
         "source": "Source",
         "status": "État",
         "title": "Ce jeu inclut un logiciel anti-triche",
-        "multiplayer_may_not_work": "Les éléments multijoueur pourraient ne pas fonctionner en raison d'une incompatibilité (volontaire ou accidentelle) avec un dispositif anti-triche."
+        "multiplayer_may_not_work": "Les éléments multijoueur pourraient ne pas fonctionner en raison d'une incompatibilité (volontaire ou accidentelle) causée par un dispositif anti-triche."
     },
     "box": {
         "cache-cleared": {
-            "message": "Le cache d'Heroic a été nettoyé.",
-            "title": "Cache nettoyé"
+            "message": "Le cache d'Heroic a été supprimé.",
+            "title": "Cache supprimé"
         },
         "choose": "Choisir",
-        "choose-egs-prefix": "Choisir où le préfixe EGS est installé",
-        "choose-gogdl-binary": "Sélectionner le binaire GOGDL (nécessite un redémarrage)",
-        "choose-legendary-binary": "Sélectionnez le binaire Legendary",
-        "customWine": "Sélectionner le binaire Wine ou Proton",
+        "choose-egs-prefix": "Choisir un préfixe où l'EGS est installé",
+        "choose-gogdl-binary": "Sélectionner un exécutable pour GOGDL (requiert un redémarrage)",
+        "choose-legendary-binary": "Sélectionner un exécutable pour Legendary",
+        "customWine": "Sélectionner l'exécutable de Wine ou Proton",
         "default-install-path": "Choisir le chemin par défaut",
         "default-steam-path": "Chemin vers le dossier d'installation de Steam.",
         "downloadNow": "Télécharger maintenant",
         "error": {
             "add": {
                 "steam": {
-                    "body": "Ajouter {{game}} à Steam a échoué avec :{{newLine}} {{error}}",
-                    "title": "Erreur d'ajout"
+                    "body": "Ajouter {{game}} à Steam a échoué avec : {{newLine}} {{error}}",
+                    "title": "Erreur lors de la tentative d'ajout à Steam"
                 }
             },
             "credentials": {
@@ -49,22 +49,22 @@
             },
             "cx-bottle-not-found": {
                 "message": "Le Pont-Bouteille \"{{bottle_name}}\" n'existe pas, impossible de lancer !",
-                "title": "Pont-Bouteille introuvable"
+                "title": "Bouteille CrossOver non trouvée"
             },
             "diskspace": {
                 "message": "Espace disque nécessaire insuffisant",
                 "title": "Pas d'espace sur le disque"
             },
             "dxvk": {
-                "message": "Une erreur est survenue lors de l'installation de DXVK/VKD3D ! Vérifiez votre connexion ou si vous avez bien zstd/libzstd d'installé !",
-                "title": "Erreur DXVK/VKD3D"
+                "message": "Une erreur est survenue lors de l'installation de DXVK/VKD3D ! Vérifiez votre connexion à internet !",
+                "title": "DXVK/VKD3D a rencontré une erreur"
             },
             "folder-not-found": {
                 "title": "Le dossier du jeu semble avoir été supprimé. Voulez-vous supprimer ce jeu de la liste des jeux installés ?"
             },
             "generic": {
                 "message": "message d'erreur générique",
-                "title": "Selectionner l'EXE à démarrer"
+                "title": "Selectionner l'EXÉcutable à démarrer"
             },
             "launchAborted": "Lancement interrompu",
             "title": "Erreur",
@@ -73,7 +73,7 @@
                 "title": "Une exception inattendue s'est produite !"
             },
             "update": {
-                "message": "Quelque chose s'est mal passé lors de la mise à jour, veuillez vérifier les rapports d'événements ou réessayez plus tard !",
+                "message": "Quelque chose s'est mal passé durant la mise à jour. Veuillez consulter les rapports d'événements ou réessayer plus tard !",
                 "title": "Erreur durant la mise à jour"
             },
             "wine-not-found": {
@@ -82,8 +82,8 @@
                 "title": "Wine non trouvé"
             },
             "winetricks": {
-                "message": "Winetricks a renvoyé l'erreur suivante lors de son exécution :{{newLine}}{{error}}",
-                "title": "Erreur de Winetricks"
+                "message": "Winetricks a renvoyé l'erreur suivante lors de son exécution : {{newLine}}{{error}}",
+                "title": "Winetricks a rencontré une erreur"
             },
             "moving": "Erreur lors du déplacement du jeu {{error}}",
             "ubisoft-connect": {
@@ -97,7 +97,9 @@
                 "error": "Executable de Steam non trouvé. L'installation aura probablement été annulée par l'utilisateur ou aura échoué en raison de problèmes imputables à Steam.",
                 "message": "L'installation de Steam a échoué ! Veuillez lire les instructions attentivement et réessayer ! {{paragraph}} {{error}}",
                 "title": "Erreur Steam"
-            }
+            },
+            "executableNotFound": "Exécutable non trouvé",
+            "executableNotFoundMessage": "Heroic n'est pas parvenu à localiser l'exécutable de ce jeu. Veuillez le définir manuellement dans les paramètres du jeu."
         },
         "info": {
             "update": {
@@ -128,7 +130,7 @@
             }
         },
         "runexe": {
-            "title": "Sélectionner l'EXE à démarrer"
+            "title": "Sélectionner l'EXÉcutable à démarrer"
         },
         "select": {
             "button": "Sélectionner",
@@ -176,17 +178,17 @@
             "snap": {
                 "checkbox": "Ne plus afficher ce message",
                 "title": "Heroic est exécuté en tant que Snap",
-                "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
+                "message": "Certaines fonctionnalités ne sont pas disponibles pour le moment dans la version Snap de l'application et nous essayons d'y remédier.{{newLine}}Les limitations actuelles sont les suivantes : {{newLine}}Heroic ne sera pas capable de détecter Proton depuis Steam ou Wine depuis Lutris.{{newLine}}{{newLine}}Gamescope, GameMode et MangoHud ne fonctionneront pas non plus puisqu'Heroic ne peut pas y avoir accès.{{newLine}}{{newLine}}Pour accéder à ces fonctionnalités, veuillez installer la version Flatpak, DEB ou AppImage d'Heroic."
             },
             "rosetta": {
                 "title": "Rosetta non trouvé",
                 "message": "Heroic requiert Rosetta pour s'exécuter correctement sur un appareil macOS comportant des puces Apple Silicon. Veuillez l'installer depuis le terminal macOS en utilisant la commande suivante : « softwareupdate --install-rosetta » et redémarrez Heroic. "
             }
         },
-        "wineprefix": "Choisissez le dossier WinePrefix",
+        "wineprefix": "Choisissez le préfixe du dossier Wine",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
-        "choose-nile-binary": "Sélectionnez le binaire de Nile",
+        "choose-nile-binary": "Sélectionner un exécutable pour Nile",
         "update": "Mettre à jour",
         "changelog": "Journal des changements",
         "postpone": "Différer",
@@ -314,7 +316,7 @@
         "preferSystemLibs": "Des versions personnalisées de Wine (Wine-GE, Wine-Lutris) sont fournies avec les bibliothèques dont elles dépendent. En activant cette option, ces bibliothèques seront ignorées et Wine utilisera à la place celles du système. Attention ! Des problèmes peuvent apparaître si certaines dépendances sont introuvables.",
         "primerun": "Utiliser la carte graphique dédiée pour le rendu sur les systèmes à multiples processeurs graphiques. Utile seulement sur les ordinateurs ayant un processeur graphique intégré et une carte graphique dédiée (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "Ce chemin permet à Heroic de déterminer quelle version de Proton est utilisée par Steam, afin d'ajouter sur Steam des jeux non-Steam."
+            "info": "Ce chemin permet à Heroic de déterminer quelle version de Proton est utilisée par Steam, pour permettre d'ajouter sur Steam des jeux extérieurs à Steam."
         },
         "steamruntime": "Bibliothèques additionnelles fournies par Steam pour aider à exécuter des jeux Linux et Windows (avec Proton). Pourrait améliorer la compatibilité.",
         "sync": {
@@ -332,14 +334,14 @@
         "dxvknvapi": "DXVK-NVAPI est une implémentation de NVAPI construite par dessus DXVK et la version native de NVAPI. Elle permet d'utiliser le DLSS sur les cartes graphiques Nvidia.",
         "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)",
         "gamescope": {
-            "upscaleMethod": "La méthode d'amélioration que Gamescope devrait utiliser.",
-            "gameWidth": "La largeur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
-            "upscaleWidth": "La largeur de résolution utilisée par Gamescope. Un ratio d'aspect 16 :9 est présumé.",
-            "gameHeight": "La hauteur de résolution utilisée par le jeu. Un ratio d'aspect 16 :9 est présumé par Gamescope.",
-            "upscaleHeight": "La hauteur de résolution utilisée Gamescope. Un ratio d'aspect 16 :9 est présumé.",
-            "fpsLimiterNoFocus": "Le ratio d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
+            "upscaleMethod": "La méthode de mise à l'échelle que Gamescope devrait utiliser.",
+            "gameWidth": "La largeur de la résolution utilisée par le jeu. Gamescope présuppose un format d'affichage 16/9.",
+            "upscaleWidth": "La largeur de la résolution utilisée par Gamescope. Un format d'affichage 16/9 est présupposé.",
+            "gameHeight": "La hauteur de la résolution utilisée par le jeu. Gamescope présuppose un format d'affichage 16/9.",
+            "upscaleHeight": "La hauteur de la résolution utilisée par Gamescope. Un format d'affichage 16/9 est présupposé.",
+            "fpsLimiterNoFocus": "Le nombre d'images par seconde auquel gamescope doit se limiter si le jeu est en arrière-plan.",
             "fpsLimiter": "Le nombre d'images par seconde auquel gamescope devrait se limiter. Par ex : 60",
-            "additionalOptions": "Indicateurs de ligne de commande supplémentaires à transmettre à gamescope.",
+            "additionalOptions": "Spécificateurs en ligne de commande supplémentaires à transmettre à gamescope.",
             "forceGrabCursor": "Toujours utiliser le mode souris relatif au lieu de basculer en fonction de la visibilité du curseur. (Utile quand les applications ne cessent de perdre la focalisation)"
         },
         "title": {
@@ -378,7 +380,7 @@
         "heroic": {
             "beta": "Bêta",
             "click-to-see-changelog": "Cliquez pour voir les changements",
-            "newReleases": "Mise à jour disponible !",
+            "newReleases": "Une mise à jour est disponible !",
             "stable": "Stable",
             "version": "Version d'Heroic"
         },
@@ -432,7 +434,8 @@
         "gog": "Connexion à GOG",
         "message": "Connectez-vous à votre plateforme. Vous pouvez vous connecter à plus d'une plateforme à la fois.",
         "amazon": "Connexion à Amazon",
-        "old-mac": "Votre version de macOS est la {{version}}. macOS 12 ou plus récent est requis pour se connecter."
+        "old-mac": "Votre version de macOS est la {{version}}. macOS 12 ou plus récent est requis pour se connecter.",
+        "zoom": "Connexion à Zoom"
     },
     "message": {
         "sync": "Synchronisation achevée",
@@ -534,13 +537,13 @@
             "borderless": "Sans bordure",
             "fpsLimiter": "Limiteur de FPS",
             "gameHeight": "Hauteur du jeu",
-            "upscaleWidth": "Améliorer selon la largeur",
+            "upscaleWidth": "Largeur de mise à l'échelle",
             "fullscreen": "Plein-écran",
             "gameWidth": "Largeur du jeu",
-            "upscaleHeight": "Mettre à l'échelle en hauteur",
+            "upscaleHeight": "Hauteur de mise à l'échelle",
             "fpsLimiterNoFocus": "Limiteur de FPS (sans focus)",
             "stretch": "Étirer l'image",
-            "interger": "Échelle supérieure selon un nombre entier",
+            "interger": "Mise à l'échelle vers une résolution plus grande (entière)",
             "windowed": "Fenêtré",
             "additionalOptions": "Options supplémentaires"
         }
@@ -684,7 +687,8 @@
                 "heroic": "Rapport général sur Heroic",
                 "gog": "Rapport sur GOG",
                 "legendary": "Rapport sur Epic Games / Legendary",
-                "nile": "Rapport sur Amazon / Nile"
+                "nile": "Rapport sur Amazon / Nile",
+                "zoom": "Rapport d'événements de Zoom"
             },
             "show-uploads": "Afficher les rapports envoyés"
         },
@@ -733,7 +737,7 @@
         "showMetalOverlay": "Afficher l'interface des statistiques",
         "addgamestoapplications": "Ajouter automatiquement des jeux aux Applications",
         "alt-nile-bin": "Choisissez un binaire alternatif pour Nile",
-        "autodxvknvapi": "Installation/Mise à jour automatique de DXVK-NVAPI dans le prefixe",
+        "autodxvknvapi": "Installer/Mettre à jour automatiquement DXVK-NVAPI dans la bouteille",
         "disablePlaytimeSync": "Désactiver la synchronisation du temps de jeu",
         "experimental_features": {
             "enableNewDesign": "Nouveau concept",
@@ -769,7 +773,7 @@
             "label": "Permettre l'installation de jeux dont les systèmes anti-triche seront inopérants"
         },
         "verboseLogs": {
-            "description": "Activer « verbose » dans les rapports d'événements"
+            "description": "Rendre les rapports d'événements verbeux"
         },
         "custom_css": {
             "warning": "Avertissement : ceci s'applique à toute l'interface. Cela signifie qu'un style erroné peut rendre Heroic inutilisable. Si nécessaire, ce paramètre peut être modifié depuis `~/.config/heroic/config.json`. Ne copiez PAS de styles provenant de sources auxquelles vous ne faites pas confiance."
@@ -838,7 +842,7 @@
             "general": "Général",
             "log": "Rapports d'événements",
             "other": "Autre",
-            "sync": "Synchronisation des sauvegardes dans le Cloud",
+            "sync": "Synchronisation des sauvegardes",
             "wineExt": "Extensions de Wine",
             "systemInformation": "Informations Système",
             "gamescope": "Gamescope"
@@ -847,7 +851,7 @@
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Emplacement de la sauvegarde :",
-            "warning": "La sauvegarde dans les nuages est une fonctionnalité au stade bêta ; veuillez donc faire une autre copie de vos sauvegardes avant d'initier la synchronisation (au cas où quelque chose se passerait mal)",
+            "warning": "Les sauvegardes distantes est une fonctionnalité au stade bêta ; veuillez donc faire une autre copie de vos sauvegardes avant d'initier la synchronisation (au cas où quelque chose se passerait mal)",
             "gog_linux_native_warning": "Sur Linux, les jeux natifs ne sont pas compatibles avec la fonctionnalité de synchronisation des sauvegardes sur les serveurs de GOG. Utilisez plutôt la version pour Windows.",
             "not_supported": "Ce jeu n'est pas compatible avec la synchronisation des sauvegardes."
         },
@@ -1025,7 +1029,7 @@
         "noGames": "Votre bibliothèque est vide.<br /><br />Cliquez <4>ici</4> pour vous connecter à vos comptes GOG.com, Epic ou Amazon. Vos jeux apparaîtront ensuite ici, dans la Bibliothèque.<br /><br />Pour utiliser des jeux ou des applications provenant d'autres sources, cliquez pour les ajouter manuellement<br />."
     },
     "adtraction-locked": {
-        "description": "Il semble que le domaine track.adtraction.com n'ait pas pu être chargé ou soit bloqué. Avec adtraction, chaque achat fait dans la boutique GOG soutient Heroic financièrement. Songez à enlever ce blocage si vous voulez contribuer.",
+        "description": "Il semble que le domaine « track.adtraction.com » soit bloqué ou n'ait pas pu être atteint. Avec « adtraction », tous les achats que vous faites dans la boutique GOG contribuent au financement de Heroic. Si vous souhaitez nous soutenir ainsi, songez à autoriser ce domaine.",
         "dont-show-again": "Ne plus afficher cet avertissement à l'avenir",
         "title": "Adtraction a été bloqué"
     },
@@ -1098,14 +1102,16 @@
         "disable": "Désactiver",
         "enable": "Activer",
         "info": {
-            "pt1": "Heroic collecte des données de façon 100% anonyme dans le but de l'améliorer.",
-            "pt3": "Il ne va jamais collecter des informations personnelles telles que votre nom d'utilisateur, votre addresse IP ou votre E-Mail.",
+            "pt1": "Heroic collecte des données de façon 100% anonyme dans un but d'amélioration.",
+            "pt3": "Celui-ci ne collectera jamais d'informations personnelles telles que votre nom d'utilisateur, votre addresse IP ou votre adresse électronique.",
             "pt6": "Pour des raisons de transparence, vous pouvez consulter les données collectées depuis les journaux d'Heroic.",
-            "pt7": "Vous pouvez changer ce paramètre à tout moment depuis les options de l'application.",
-            "pt2": "Heroic utilise la pateforme à code ouvert Plausible Analytics afin de recueillir des informations de base : la version de l'application, le système d'exploitation, les boutiques connectées, ainsi que le pays détecté.",
+            "pt7": "Vous pouvez modifier ce paramètre à tout moment depuis les options de l'application.",
+            "pt2": "Heroic utilise la plateforme open-source Plausible Analytics pour collecter des données de base : version de l'application, système d'exploitation, boutiques connectées et pays détecté.",
             "pt4": "Nos ressources étant limitées et les retours des utilisateurs plutôt rares, ces données nous permettent de savoir sur quoi nos efforts devront être concentrés en priorité.",
             "pt5": "Plausible Analytics respecte pleinement le RGPD, le CCPA et la PECR."
         },
         "title": "Envoyer des statistiques anonymes"
-    }
+    },
+    "zoom-store": "Boutique Zoom",
+    "amazon-luna": "Amazon Luna"
 }
