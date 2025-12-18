@@ -523,9 +523,9 @@ const GameCard = ({
   )
 
   async function handlePlay(runner: Runner) {
-    if(runner === 'steam') {
-        window.api.openExternalUrl(`steam://run/${appName}`) 
-        return
+    if (runner === 'steam') {
+      window.api.openExternalUrl(`steam://launch/${appName}/dialog`)
+      return
     }
 
     if (!isInstalled && !isQueued && gameInfo.runner !== 'sideload') {
