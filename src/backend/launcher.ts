@@ -535,19 +535,6 @@ async function prepareLaunch(
     '\n\n'
   ])
 
-  // We only want to log this for legendary on Linux
-  // On windows, the overlay is installed globally
-  // On mac, the overlay doesn't work
-  if (gameInfo.runner === 'legendary' && isLinux) {
-    const checkEOSOverlayStatusPromise = isEnabled(gameInfo.app_name)
-
-    logWriter.logInfo(
-      checkEOSOverlayStatusPromise.then(
-        (enabled) => `EOS Overlay: ${enabled ? 'Enabled' : 'Not enabled'}`
-      )
-    )
-  }
-
   const acInfoPromise = gameAnticheatInfo(gameInfo.namespace)
   logWriter.logInfo(
     acInfoPromise.then((info) =>
@@ -846,6 +833,20 @@ async function prepareWineLaunch(
     })
   )
 
+  // We only want to log this for legendary on Linux
+  // On windows, the overlay is installed globally
+  // On mac, the overlay doesn't work
+  if (runner === 'legendary' && isLinux) {
+    const checkEOSOverlayStatusPromise = isEnabled(appName)
+
+    // The first time a game runs, the overlay is not enabled yet at this point
+    void logWriter.logInfo(
+      checkEOSOverlayStatusPromise.then(
+        (enabled) => `EOS Overlay: ${enabled ? 'Enabled' : 'Not enabled'}`
+      )
+    )
+  }
+
   await verifyWinePrefix(gameSettings)
   const experimentalFeatures =
     GlobalConfig.get().getSettings().experimentalFeatures
@@ -894,7 +895,7 @@ async function prepareWineLaunch(
       await nileSetup(appName)
     }
     if (runner === 'legendary') {
-      await legendarySetup(appName)
+      await legendarySetup(appName, logWriter)
     }
 
     await installFixes(appName, runner)
