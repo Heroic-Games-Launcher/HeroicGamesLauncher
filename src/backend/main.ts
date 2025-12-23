@@ -242,7 +242,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
     const { exitToTray, noTrayIcon } = GlobalConfig.get().getSettings()
 
     if (exitToTray && !noTrayIcon) {
-      logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
+      logInfo('Exiting to tray instead of quitting', LogPrefix.Backend)
       return mainWindow.hide()
     }
 
