@@ -35,8 +35,13 @@ apps:
     common-id: com.heroicgameslauncher.hgl
     environment:
       HOME: $SNAP_USER_COMMON
-    extensions: [kde-neon-6]
+      PATH: $SNAP/usr/games:$PATH
+    extensions: [gnome]
     plugs:
+      - audio-playback
+      - unity7
+      - network
+      - network-bind
       - screen-inhibit-control
       - home
       - removable-media
@@ -70,7 +75,7 @@ parts:
   base-dependencies:
     after: [heroic-app]
     plugin: nil
-    stage-packages: [curl, zenity, unzip, cabextract, 7zip, libgtk-3-0, libnss3, libxss1, libxtst6, xdg-utils, libatspi2.0-0, libsecret-1-0]
+    stage-packages: [curl, zenity, unzip, cabextract, 7zip]
 
   gamemode:
     plugin: nil
@@ -99,13 +104,14 @@ parts:
 
   mangohud:
     plugin: nil
-    stage-packages: [mangohud, libspdlog1.12]
+    stage-packages: [mangohud, libspdlog1.12, libfmt9]
     prime:
       - usr/bin/mangohud
       - usr/lib/x86_64-linux-gnu/mangohud/libMangoHud.so*
       - usr/lib/x86_64-linux-gnu/mangohud/libMangoHud_opengl.so*
       - usr/lib/x86_64-linux-gnu/mangohud/libMangoHud_shim.so*
       - usr/lib/x86_64-linux-gnu/libspdlog.so*
+      - usr/lib/x86_64-linux-gnu/libfmt.so*
       - usr/share/metainfo/io.github.flightlessmango.mangohud.metainfo.xml
       - usr/share/vulkan/implicit_layer.d/MangoHud.x86_64.json
 
@@ -120,7 +126,7 @@ parts:
     plugin: nil
     build-snaps:
       - mesa-2404
-      - kf6-core24
+      - gnome-46-2404
     override-prime: |
       set -eux
       cd /snap/mesa-2404/current/usr/lib
@@ -128,7 +134,7 @@ parts:
       cd /snap/mesa-2404/current/usr/share
       find . -type f,l -exec rm -f $CRAFT_PRIME/usr/share/{} \;
 
-      cd /snap/kf6-core24/current/usr/lib
+      cd /snap/gnome-46-2404/current/usr/lib
       find . -type f,l -exec rm -f $CRAFT_PRIME/usr/lib/{} \;
-      cd /snap/kf6-core24/current/usr/share
+      cd /snap/gnome-46-2404/current/usr/share
       find . -type f,l -exec rm -f $CRAFT_PRIME/usr/share/{} \;
