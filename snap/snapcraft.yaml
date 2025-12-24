@@ -50,6 +50,10 @@ plugs:
   shared-memory:
     private: true
 
+layout:
+  /usr/lib/x86_64-linux-gnu/mangohud:
+    symlink: $SNAP/usr/lib/x86_64-linux-gnu/mangohud
+
 parts:
   heroic-app:
     plugin: dump
@@ -68,6 +72,43 @@ parts:
     plugin: nil
     stage-packages: [curl, zenity, unzip, cabextract, 7zip, libgtk-3-0, libnss3, libxss1, libxtst6, xdg-utils, libatspi2.0-0, libsecret-1-0]
 
+  gamemode:
+    plugin: nil
+    stage-packages: [gamemode, gamemode-daemon, libgamemode0, libgamemodeauto0]
+    prime:
+      - etc/security/limits.d/10-gamemode.conf
+      - usr/bin/gamemoded
+      - usr/games/gamemodelist
+      - usr/games/gamemoderun
+      - usr/games/gamemode-simulate-game
+      - usr/lib/*/libgamemode.so*
+      - usr/lib/*/libgamemodeauto.so*
+      - usr/lib/*/libinih.so*
+      - usr/lib/systemd/user/gamemoded.service
+      - usr/lib/sysusers.d/gamemode.conf
+      - usr/libexec/cpucorectl
+      - usr/libexec/cpugovctl
+      - usr/libexec/gpuclockctl
+      - usr/libexec/procsysctl
+      - usr/share/dbus-1/services/com.feralinteractive.GameMode.service
+      - usr/share/gamemode/gamemode.ini
+      - usr/share/lintian/overrides/libgamemode0
+      - usr/share/metainfo/io.github.feralinteractive.gamemode.metainfo.xml
+      - usr/share/polkit-1/actions/com.feralinteractive.GameMode.policy
+      - usr/share/polkit-1/rules.d/gamemode.rules
+
+  mangohud:
+    plugin: nil
+    stage-packages: [mangohud, libspdlog1.12]
+    prime:
+      - usr/bin/mangohud
+      - usr/lib/x86_64-linux-gnu/mangohud/libMangoHud.so*
+      - usr/lib/x86_64-linux-gnu/mangohud/libMangoHud_opengl.so*
+      - usr/lib/x86_64-linux-gnu/mangohud/libMangoHud_shim.so*
+      - usr/lib/x86_64-linux-gnu/libspdlog.so*
+      - usr/share/metainfo/io.github.flightlessmango.mangohud.metainfo.xml
+      - usr/share/vulkan/implicit_layer.d/MangoHud.x86_64.json
+
   command-chain:
     plugin: dump
     source: $CRAFT_PROJECT_DIR/snap/command-chain/
@@ -75,7 +116,7 @@ parts:
       desktop-launch-heroic: snap/command-chain/desktop-launch-heroic
 
   cleanup:
-    after: [base-dependencies, heroic-app]
+    after: [gamemode, mangohud, base-dependencies, heroic-app]
     plugin: nil
     build-snaps:
       - mesa-2404
