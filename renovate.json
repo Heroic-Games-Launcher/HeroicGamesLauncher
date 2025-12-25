@@ -43,6 +43,12 @@
       "matchPackageNames": ["@types/node", "howlongtobeat-js"],
       "dependencyDashboardApproval": true,
       "stabilityDays": 7
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "pinDigests": true,
+      "rangeStrategy": "replace",
+      "groupName": "github-actions"
     }
   ],
   "lockFileMaintenance": {
