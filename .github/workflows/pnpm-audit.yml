@@ -1,0 +1,33 @@
+name: pnpm audit (report-only)
+
+on:
+  pull_request:
+    branches: ['main', 'stable']
+  schedule:
+    - cron: '15 4 * * 3'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node and pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.9.0
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: pnpm audit (high+ only, report-only)
+        run: |
+          pnpm audit --prod --severity-level high || true
