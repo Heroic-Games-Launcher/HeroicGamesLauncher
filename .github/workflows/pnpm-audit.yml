@@ -15,15 +15,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node and pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 10.9.0
       - name: Use Node 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.9.0
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
