@@ -10,15 +10,16 @@ on:
   # Optional branch protection trigger
   branch_protection_rule:
 
-permissions:
-  contents: read
-  security-events: write
-  id-token: write
+permissions: read-all
 
 jobs:
   analysis:
     name: Scorecard
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
