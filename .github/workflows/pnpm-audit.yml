@@ -31,4 +31,14 @@ jobs:
 
       - name: pnpm audit (high+ only, report-only)
         run: |
-          pnpm audit --prod --audit-level=high || true
+          pnpm audit --prod --audit-level=high > audit-report.txt || true
+
+      - name: Publish audit summary
+        run: |
+          echo "### pnpm audit (high+ only)" >> "$GITHUB_STEP_SUMMARY"
+          echo >> "$GITHUB_STEP_SUMMARY"
+          if [ -s audit-report.txt ]; then
+            cat audit-report.txt >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No audit output." >> "$GITHUB_STEP_SUMMARY"
+          fi
