@@ -11,8 +11,12 @@
   "prConcurrentLimit": 5,
   "stabilityDays": 3,
   "dependencyDashboardAutoclose": false,
-  "node": { "version": "20" },
-  "pnpm": { "enabled": true },
+  "node": {
+    "version": "20"
+  },
+  "pnpm": {
+    "enabled": true
+  },
   "ignorePaths": ["patches/**"],
   "packageRules": [
     {
@@ -21,9 +25,19 @@
       "dependencyDashboardApproval": true,
       "stabilityDays": 7
     },
-    { "matchDepTypes": ["dependencies"], "matchUpdateTypes": ["minor", "patch"], "groupName": "prod minor+patch" },
-    { "matchDepTypes": ["devDependencies"], "groupName": "devDependencies" },
-    { "matchPaths": ["e2e/**", "tests/**"], "groupName": "test-tooling" },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "prod minor+patch"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "groupName": "devDependencies"
+    },
+    {
+      "matchPaths": ["e2e/**", "tests/**"],
+      "groupName": "test-tooling"
+    },
     {
       "description": "Patched deps stay manual",
       "matchPackageNames": ["@types/node", "howlongtobeat-js"],
