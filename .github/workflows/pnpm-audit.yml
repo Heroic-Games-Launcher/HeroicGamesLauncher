@@ -31,4 +31,4 @@ jobs:
 
       - name: pnpm audit (high+ only, report-only)
         run: |
-          pnpm audit --prod --severity-level high || true
+          pnpm audit --prod --audit-level=high || true
