@@ -10,6 +10,7 @@
   "prHourlyLimit": 2,
   "prConcurrentLimit": 5,
   "stabilityDays": 3,
+  "dependencyDashboardAutoclose": false,
   "node": { "version": "20" },
   "pnpm": { "enabled": true },
   "ignorePaths": ["patches/**"],
@@ -26,7 +27,8 @@
     {
       "description": "Patched deps stay manual",
       "matchPackageNames": ["@types/node", "howlongtobeat-js"],
-      "enabled": false
+      "dependencyDashboardApproval": true,
+      "stabilityDays": 7
     }
   ],
   "lockFileMaintenance": {
