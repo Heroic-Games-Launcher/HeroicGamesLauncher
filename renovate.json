@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "platform": "github",
+  "dependencyDashboard": true,
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "timezone": "UTC",
+  "schedule": ["after 3am on sunday"],
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
+  "stabilityDays": 3,
+  "node": { "version": "20" },
+  "pnpm": { "enabled": true },
+  "ignorePaths": ["patches/**"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "groupName": "major releases",
+      "dependencyDashboardApproval": true,
+      "stabilityDays": 7
+    },
+    { "matchDepTypes": ["dependencies"], "matchUpdateTypes": ["minor", "patch"], "groupName": "prod minor+patch" },
+    { "matchDepTypes": ["devDependencies"], "groupName": "devDependencies" },
+    { "matchPaths": ["e2e/**", "tests/**"], "groupName": "test-tooling" },
+    {
+      "description": "Patched deps stay manual",
+      "matchPackageNames": ["@types/node", "howlongtobeat-js"],
+      "enabled": false
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["after 3am on sunday"],
+    "stabilityDays": 0
+  }
+}
