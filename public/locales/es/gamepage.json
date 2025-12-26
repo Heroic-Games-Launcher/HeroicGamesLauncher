@@ -9,7 +9,7 @@
         "importpath": "Selecciona la carpeta del juego a importar",
         "move": {
             "message": "Esto puede tardar mucho tiempo, ¿estás seguro?",
-            "path": "Elige hacia donde lo quieres mover",
+            "path": "Elige hacia dónde lo quieres mover",
             "title": "Mover la instalación del juego"
         },
         "no": "NO",
@@ -28,7 +28,7 @@
             "exe": "Seleccionar ejecutable"
         },
         "stopInstall": {
-            "keepInstalling": "Seguir instalando",
+            "keepInstalling": "Continuar con la instalación",
             "message": "¿Deseas MANTENER los archivos descargados?",
             "title": "Detener la instalación"
         },
@@ -53,10 +53,10 @@
     },
     "button": {
         "add_to_favourites": "Agregar a favoritos",
-        "cancel": "Pausar/cancelar",
+        "cancel": "Pausar / Cancelar",
         "continue": "Seguir descargando",
         "finish": "Finalizar",
-        "force_update": "Comprobar si hay una actualización e instalarla",
+        "force_update": "Forzar actualización si está disponible",
         "force-innstall": "Forzar instalación",
         "hide_game": "Ocultar juego",
         "import": "Importar juego",
@@ -67,7 +67,7 @@
         },
         "remove_from_favourites": "Eliminar de favoritos",
         "remove_from_recent": "Eliminar de recientes",
-        "run-exe-first": "Ejecutar instalador primero",
+        "run-exe-first": "Ejecutar el instalador primero",
         "running-setup": "Ejecutando configuración",
         "sideload": {
             "edit": "Editar aplicación/juego"
@@ -77,8 +77,8 @@
         "update": "Actualizar",
         "details": "Detalles",
         "changelog": "Mostrar registro de cambios",
-        "browse_wine_prefix": "Abrir Prefijo de Wine",
-        "browse_files": "Ver Archivos",
+        "browse_wine_prefix": "Abrir prefijo de Wine",
+        "browse_files": "Ver archivos",
         "play": "JUGAR"
     },
     "cloud_save_unsupported": "No compatible",
