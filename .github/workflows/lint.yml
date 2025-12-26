@@ -28,8 +28,25 @@ jobs:
             --format @microsoft/eslint-formatter-sarif \
             --output-file eslint-results.sarif \
             --no-error-on-unmatched-pattern || true
-          if [ ! -s eslint-results.sarif ]; then echo '{"version":"2.1.0","runs":[]}' > eslint-results.sarif; fi
+          if [ ! -s eslint-results.sarif ]; then cat <<'EOF' > eslint-results.sarif
+          {
+            "version": "2.1.0",
+            "runs": [
+              {
+                "tool": {
+                  "driver": {
+                    "name": "eslint",
+                    "informationUri": "https://eslint.org",
+                    "rules": []
+                  }
+                },
+                "results": []
+              }
+            ]
+          }
+          EOF
+          fi
       - name: Upload ESLint SARIF to code scanning
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: eslint-results.sarif
