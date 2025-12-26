@@ -219,7 +219,8 @@
         "gog": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
         "login": "Log in",
         "title": "Giriş yapmadınız",
-        "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:"
+        "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:",
+        "zoom": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:"
     },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
