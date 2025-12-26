@@ -21,16 +21,14 @@ jobs:
         run: pnpm prettier
       - name: Find dead code
         run: pnpm find-deadcode
-      - name: ESLint JSON (for SARIF)
+      - name: ESLint SARIF
         run: |
           pnpm exec eslint . \
             --ext .js,.jsx,.ts,.tsx \
-            --format json \
-            --output-file eslint-results.json \
+            --format @microsoft/eslint-formatter-sarif \
+            --output-file eslint-results.sarif \
             --no-error-on-unmatched-pattern || true
-          if [ ! -s eslint-results.json ]; then echo '{}' > eslint-results.json; fi
-      - name: Convert ESLint JSON to SARIF
-        run: pnpm dlx @microsoft/eslint-formatter-sarif@3.1.0 -o eslint-results.sarif eslint-results.json
+          if [ ! -s eslint-results.sarif ]; then echo '{"version":"2.1.0","runs":[]}' > eslint-results.sarif; fi
       - name: Upload ESLint SARIF to code scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
