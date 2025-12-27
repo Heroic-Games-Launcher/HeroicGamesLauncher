@@ -5,11 +5,15 @@ on:
     branches: [main, stable]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/install-deps
       - name: Lint code.
         run: pnpm lint
@@ -17,3 +21,32 @@ jobs:
         run: pnpm prettier
       - name: Find dead code
         run: pnpm find-deadcode
+      - name: ESLint SARIF
+        run: |
+          pnpm exec eslint . \
+            --ext .js,.jsx,.ts,.tsx \
+            --format @microsoft/eslint-formatter-sarif \
+            --output-file eslint-results.sarif \
+            --no-error-on-unmatched-pattern || true
+          if [ ! -s eslint-results.sarif ]; then cat <<'EOF' > eslint-results.sarif
+          {
+            "version": "2.1.0",
+            "runs": [
+              {
+                "tool": {
+                  "driver": {
+                    "name": "eslint",
+                    "informationUri": "https://eslint.org",
+                    "rules": []
+                  }
+                },
+                "results": []
+              }
+            ]
+          }
+          EOF
+          fi
+      - name: Upload ESLint SARIF to code scanning
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: eslint-results.sarif
