@@ -22,10 +22,10 @@ jobs:
   draft-releases:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.10'
+          python-version: '3.12'
       - run: python3 -m pip install castlabs-evs
       - run: pnpm release:mac

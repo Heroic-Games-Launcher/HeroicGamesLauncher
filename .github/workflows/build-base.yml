@@ -20,7 +20,7 @@ jobs:
         os: [windows-2025, ubuntu-24.04, macos-15]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
       - name: Build Windows Portable version
         run: pnpm dist:win portable
@@ -43,7 +43,7 @@ jobs:
         run: pnpm dist:linux AppImage --x64 --arm64 --publish=never
         if: runner.os == 'Linux'
       - name: Upload built version
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ (matrix.os == 'windows-2025'  && 'win-portable'  ) ||
                     (matrix.os == 'macos-15'      && 'mac-x64'       ) ||
@@ -55,7 +55,7 @@ jobs:
           if-no-files-found: error
           compression-level: 3
       - name: Upload linux ARM version
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: linux-AppImage-arm64
           path: dist/Heroic*arm64.AppImage
@@ -64,7 +64,7 @@ jobs:
           compression-level: 3
         if: runner.os == 'Linux'
       - name: Upload macOS ARM version
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: mac-arm64
           path: dist/Heroic*arm64.dmg

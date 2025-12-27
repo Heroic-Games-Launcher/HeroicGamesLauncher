@@ -37,3 +37,9 @@ flatpak-build
 .env
 
 playwright-report
+
+# AI workspace settings?
+CLAUDE.md
+.claude/
+.cursor/
+
