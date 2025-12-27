@@ -1,0 +1,17 @@
+{
+    "box": {
+        "change": {
+            "message": "To bo spremenilo mesto namestitve te igre, ste prepričani?",
+            "path": "Izberi novo mesto namestitve",
+            "title": "Spremeni mesta namestitve iger"
+        },
+        "choose": "Izberi",
+        "no": "NE",
+        "runexe": {
+            "title": "Izberi EXE"
+        },
+        "select": {
+            "button": "Izberi"
+        }
+    }
+}
