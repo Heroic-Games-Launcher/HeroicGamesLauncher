@@ -638,6 +638,7 @@
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",
+        "doNotUseWine": "Do not use wine (Useful in combination with a native alternative exe)",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
