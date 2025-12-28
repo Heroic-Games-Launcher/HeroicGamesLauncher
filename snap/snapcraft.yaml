@@ -34,7 +34,7 @@ apps:
     desktop: usr/share/applications/heroic.desktop
     common-id: com.heroicgameslauncher.hgl
     environment:
-      HOME: $SNAP_REAL_HOME
+      HOME: $SNAP_USER_COMMON
       PATH: $SNAP/usr/games:$PATH
     extensions: [gnome]
     plugs:
