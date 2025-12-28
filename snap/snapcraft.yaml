@@ -34,7 +34,7 @@ apps:
     desktop: usr/share/applications/heroic.desktop
     common-id: com.heroicgameslauncher.hgl
     environment:
-      HOME: $SNAP_USER_COMMON
+      HOME: $SNAP_REAL_HOME
       PATH: $SNAP/usr/games:$PATH
     extensions: [gnome]
     plugs:
@@ -122,7 +122,7 @@ parts:
       desktop-launch-heroic: snap/command-chain/desktop-launch-heroic
 
   cleanup:
-    after: [gamemode, mangohud, base-dependencies, heroic-app]
+    after: [heroic-app, base-dependencies, gamemode, mangohud]
     plugin: nil
     build-snaps:
       - mesa-2404
