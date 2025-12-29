@@ -1,0 +1,65 @@
+version: 2
+updates:
+  # GitHub Actions updates
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'Etc/UTC'
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+    open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+
+  # npm package updates
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'Etc/UTC'
+    commit-message:
+      prefix: 'chore'
+      prefix-development: 'chore'
+      include: 'scope'
+    labels:
+      - 'dependencies'
+      - 'npm'
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    groups:
+      npm-production:
+        dependency-type: 'production'
+        patterns:
+          - '*'
+        exclude-patterns:
+          - '@types/*'
+      npm-development:
+        dependency-type: 'development'
+        patterns:
+          - '*'
+        exclude-patterns:
+          - '@types/*'
+          - 'eslint*'
+          - '@eslint/*'
+          - 'typescript*'
+          - 'prettier'
+      npm-linting:
+        patterns:
+          - 'eslint*'
+          - '@eslint/*'
+          - 'typescript*'
+          - 'prettier'
+      npm-types:
+        patterns:
+          - '@types/*'
