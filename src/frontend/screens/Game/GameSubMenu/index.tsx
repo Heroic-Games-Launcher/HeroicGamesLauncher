@@ -19,7 +19,6 @@ import {
   ArrowUpward as ArrowUpwardIcon,
   CheckCircle as CheckCircleIcon,
   Delete as DeleteIcon,
-  DesktopAccessDisabled as DesktopAccessDisabledIcon,
   DriveFileMove as DriveFileMoveIcon,
   Edit as EditIcon,
   FindInPage as FindInPageIcon,
@@ -45,7 +44,6 @@ interface Props {
   handleUpdate: () => void
   handleChangeLog: () => void
   disableUpdate: boolean
-  onShowRequirements?: () => void
   onShowModifyInstall?: () => void
   gameInfo: GameInfo
 }
@@ -60,7 +58,6 @@ export default function GamesSubmenu({
   handleUpdate,
   handleChangeLog,
   disableUpdate,
-  onShowRequirements,
   onShowModifyInstall,
   gameInfo
 }: Props) {
