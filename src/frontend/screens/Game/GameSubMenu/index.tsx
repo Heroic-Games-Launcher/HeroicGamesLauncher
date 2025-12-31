@@ -415,15 +415,6 @@ export default function GamesSubmenu({
               {t('submenu.protondb', 'Check Compatibility')}
             </button>
           )}
-          {onShowRequirements && (
-            <button
-              onClick={async () => onShowRequirements()}
-              className="link button is-text is-link buttonWithIcon"
-            >
-              <DesktopAccessDisabledIcon />
-              {t('game.requirements', 'Requirements')}
-            </button>
-          )}
           {showModifyItem && (
             <button
               onClick={async () => onShowModifyInstall()}
