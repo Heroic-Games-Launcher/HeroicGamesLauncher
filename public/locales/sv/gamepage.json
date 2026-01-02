@@ -21,7 +21,8 @@
             "title": "Välj körbart program"
         },
         "select": {
-            "button": "Ange val"
+            "button": "Ange val",
+            "image": "Välj bild"
         },
         "sideload": {
             "exe": "Ange spelets körbara fil"
@@ -52,7 +53,7 @@
     "button": {
         "add_to_favourites": "Lägg till i Favoriter",
         "cancel": "Paus/Avbryt",
-        "continue": "Fortsätt nedladdning",
+        "continue": "Fortsätt nedladdningen",
         "finish": "Klar",
         "force_update": "Om tillgängligt, tvinga uppdatering",
         "force-innstall": "Tvinga installation",
@@ -74,7 +75,10 @@
         "uninstall": "Avinstallera",
         "update": "Uppdatera",
         "details": "Detaljer",
-        "changelog": "Visa ändringslogg"
+        "changelog": "Visa ändringslogg",
+        "browse_files": "Bläddra bland filer",
+        "browse_wine_prefix": "Bläddra i Wine Prefix",
+        "play": "SPELA"
     },
     "cloud_save_unsupported": "Stöds ej",
     "disabled": "Inaktiverad",
@@ -157,7 +161,7 @@
             "install_anyway": "Ja (Jag förstår att flerspelarfunktioner inte kommer att fungera)",
             "multiplayer_message": "Antifuskstödet är trasigt eller nekat. Spelet kan öppnas men flerspelarfunktionerna kommer inte att fungera. Vill du installera det ändå?",
             "ok": "Ok",
-            "disabled_installation": "Antifusk stödet är trasigt eller nekat och flerspelarfunktionerna kommer inte att fungera. Spelet kan inte installeras. För att installera det här spelet, inaktivera denna kontroll i de avancerade inställningarna."
+            "disabled_installation": "Det här spelet använder antifusk-programvara som inte är kompatibelt med ditt operativsystem, eller så har stödet inte aktiverats av spelutvecklarna. Det betyder att flerspelarfunktionerna inte kommer att fungera, och det finns inget du (eller Heroic-teamet) kan göra åt det.<br /><br />För att installera det här spelet och prova det ändå, gå till Inställningar, Avancerat och markera alternativet för att tillåta installation av spel med trasiga eller nekade antifusk-funktioner.<br /><br />Observera att det inte finns någon lösning för detta och du riskerar att bli avstängd i spelet."
         },
         "flatpak-path-not-writtable": "Fel: Sandlådeåtkomst har inte beviljats till den här sökvägen, dataförlust kommer att inträffa."
     },
@@ -168,7 +172,8 @@
         },
         "playing": {
             "start": "Starta spelet",
-            "stop": "Avsluta spel"
+            "stop": "Avsluta spel",
+            "start_with_logs": "Spela nu (med loggar)"
         },
         "saves": {
             "syncing": "Synkroniserar sparfiler"
@@ -194,7 +199,8 @@
         "gog": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
         "login": "Logga in",
         "title": "Du är ej inloggad!",
-        "amazon": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:"
+        "amazon": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
+        "zoom": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:"
     },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {
@@ -203,7 +209,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver prefix",
         "show-wine-settings": "Visa Wine inställningar",
-        "warn-use-shared-wine-config": "Använd bara det här alternativet om du vet vad du gör.<br/>Att dela samma prefix för flera spel kan skapa problem om deras beroenden är inkompatibla."
+        "warn-use-shared-wine-config": "Använd bara det här alternativet om du vet vad du gör.<br/>Att dela samma prefix för flera spel kan skapa problem om deras beroenden är inkompatibla.",
+        "use-shared-wine-config": "Använd delat Wine prefix"
     },
     "sideload": {
         "field": {
@@ -218,7 +225,7 @@
             "fullscreen": "Starta helskärm (F11 för att avsluta)"
         },
         "placeholder": {
-            "image": "Klistra in bildens URL här",
+            "image": "Klistra in en URL till en bild eller välj en från din dator",
             "title": "Lägg till Spel/Applikation titel",
             "url": "Klistra in spelets URL här",
             "useragent": "Skriv en anpassad user agent här som ska användas i den här webbläsarappen/spelet"
@@ -260,7 +267,8 @@
         "goodie": "Ej installationsbar",
         "prerequisites": "Installerar krav",
         "winetricks": "Verkställer Winetricks fixar",
-        "redist": "Installerar Redistributables ({{redist}})"
+        "redist": "Installerar Redistributables ({{redist}})",
+        "importing": "Importerar"
     },
     "submenu": {
         "addShortcut": "Skapa genväg",
@@ -307,7 +315,9 @@
         "label": {
             "canceled": "Avbruten",
             "remove": "Ta bort från nedladdningar",
-            "resume": "Återuppta nedladdning"
+            "resume": "Återuppta nedladdning",
+            "pause": "Pausa nedladdning"
         }
-    }
+    },
+    "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>"
 }
