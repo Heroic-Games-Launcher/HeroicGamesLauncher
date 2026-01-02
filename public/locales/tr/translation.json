@@ -97,7 +97,9 @@
                 "error": "Steam çalıştırılabilir dosyası bulunamadı. Kurulum muhtemelen kullanıcı tarafından iptal edildi veya Steam tarafında başarısız oldu.",
                 "message": "Steam kurulumu başarısız oldu! Lütfen talimatları dikkatlice okuyun ve tekrar deneyin! {{paragraph}} {{error}}",
                 "title": "Steam hata"
-            }
+            },
+            "executableNotFound": "Yürütülebilir dosya bulunamadı",
+            "executableNotFoundMessage": "Heroic, bu oyun için yürütülebilir dosya bulamadı. Lütfen oyun ayarlarından el ile seçiniz."
         },
         "info": {
             "update": {
@@ -429,7 +431,8 @@
         "gog": "GOG Giriş",
         "message": "Platformunuz ile giriş yapın. Aynı anda birden fazla platforma giriş yapabilirsiniz.",
         "amazon": "Amazon Girişi",
-        "old-mac": "MacOS sürümünüz {{version}}. Oturum açmak için macOS 12 veya daha yeni bir sürüm gereklidir."
+        "old-mac": "MacOS sürümünüz {{version}}. Oturum açmak için macOS 12 veya daha yeni bir sürüm gereklidir.",
+        "zoom": "Zoom Girişi"
     },
     "message": {
         "sync": "Eşzamanlama Tamamlandı",
@@ -681,7 +684,8 @@
                 "heroic": "Genel Heroic kaydı",
                 "game-log": "{{gameTitle}} oyun kaydı",
                 "legendary": "Epic Games / Legendary kaydı",
-                "nile": "Amazon / Nile kaydı"
+                "nile": "Amazon / Nile kaydı",
+                "zoom": "Zoom kaydı"
             },
             "show-uploads": "Yüklenmiş kayıt dosyalarını göster"
         },
@@ -1104,5 +1108,6 @@
         },
         "title": "Anonim Kullanım Verilerini Gönder"
     },
-    "amazon-luna": "Amazon Luna"
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Zoom Dükkanı"
 }
