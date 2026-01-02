@@ -11,12 +11,8 @@
   "prConcurrentLimit": 5,
   "stabilityDays": 3,
   "dependencyDashboardAutoclose": false,
-  "node": {
-    "version": "20"
-  },
-  "pnpm": {
-    "enabled": true
-  },
+  "node": { "version": "20" },
+  "pnpm": { "enabled": true },
   "ignorePaths": ["patches/**"],
   "packageRules": [
     {
@@ -32,17 +28,27 @@
     },
     {
       "matchDepTypes": ["devDependencies"],
-      "groupName": "devDependencies"
+      "groupName": "devDependencies",
+      "automerge": false
     },
     {
       "matchPaths": ["e2e/**", "tests/**"],
       "groupName": "test-tooling"
     },
     {
-      "description": "Patched deps stay manual",
-      "matchPackageNames": ["@types/node", "howlongtobeat-js"],
+      "groupName": "patched dependencies",
+      "description": "Gates packages with pnpm patches. Requires manual approval via Dashboard to prevent breaking local fixes.",
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "@types/node",
+        "howlongtobeat-js"
+      ],
+      "matchUpdateTypes": ["major", "minor", "patch"],
       "dependencyDashboardApproval": true,
-      "stabilityDays": 7
+      "stabilityDays": 7,
+      "prBodyNotes": [
+        "⚠️ **Note:** This dependency has a local pnpm patch. Please re-verify the patch still applies correctly after updating."
+      ]
     },
     {
       "matchManagers": ["github-actions"],
