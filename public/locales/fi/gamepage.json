@@ -192,7 +192,8 @@
         "gog": "Et ole kirjautunut sisään GOG-käyttäjällä. Älä käytä kauppaa sisäänkirjautumiseen, vaan paina seuraavaa nappia:",
         "login": "Log in",
         "title": "ET ole kirjautunut sisään",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Ilmoita ongelmasta tässä pelissä",
     "sdl": {
