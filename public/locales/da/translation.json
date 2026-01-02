@@ -81,7 +81,8 @@
             },
             "legendary": {
                 "generic": "Der opstod en fejl! Prøv at logge ud og logge på din Epic-konto. {{newline}} {{error}}"
-            }
+            },
+            "executableNotFoundMessage": "Heroic kunne ikke finde den eksekverbare fil til dette spil. Indstil den manuelt i spilindstillingerne."
         },
         "info": {
             "update": {
@@ -110,7 +111,7 @@
             }
         },
         "runexe": {
-            "title": "Vælg EXE til at køre"
+            "title": "Vælg EXE for at køre"
         },
         "select": {
             "button": "Vælg",
@@ -160,6 +161,10 @@
                     "title": "Er du sikker på, at du vil stoppe?",
                     "message": "Eventuelle ikke-gemte fremskridt kan gå tabt"
                 }
+            },
+            "rosetta": {
+                "message": "Heroic kræver Rosetta for at køre korrekt på macOS med Apple Silicon-chips. Installer det fra macOS-terminalen ved hjælp af følgende kommando: \"softwareupdate --install-rosetta\" og genstart Heroic. ",
+                "title": "Rosetta kunne ikke findes"
             }
         },
         "default-steam-path": "Dampvej.",
@@ -182,7 +187,9 @@
         "disable_dialog_backdrop_close": "Luk nedlukningsdialoger ved at klikke uden",
         "titles_always_visible": "Vis altid titler i biblioteket",
         "actions_font_family_default": "Actions Skrifttypefamilie (Standard: {{fontFamily}})",
-        "content_font_family_default": "Indhold Skrifttypefamilie (Standard: {{fontFamily}})"
+        "content_font_family_default": "Indhold skrifttypefamilie (Standard: {{fontFamily}})",
+        "disable_animations": "Deaktiver UI-animationer",
+        "disable_smooth_scrolling": "Deaktiver blød scrolling (kræver genstart)"
     },
     "info": {
         "version": "Wine Version",
@@ -284,7 +291,8 @@
         "button": {
             "open": "Åben Hjælp",
             "close": "Luk Hjælp"
-        }
+        },
+        "advertiseAvxForRosetta": "Aktiverer understøttelse af AVX-instruktionssæt, når Windows-spil køres via Rosetta på Apple Silicon Mac-computere. Dette kan være nødvendigt for nogle spil såsom Death Stranding, der kræver AVX-understøttelse."
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -643,7 +651,8 @@
         "select_all": "Vælg Alle",
         "no_categories": "Ingen brugerdefineret katagorier. Tilføj katagorier ved brug af spilmenuerne.",
         "show_installed_only": "Vis Kun Installeret",
-        "show_support_offline_only": "Vis Kun Offline-understøttet"
+        "show_support_offline_only": "Vis Kun Offline-understøttet",
+        "show_updates_only": "Vis kun spil med opdateringer"
     },
     "Settings": "Indstillinger",
     "sidebar": {
@@ -839,6 +848,15 @@
     },
     "analyticsModal": {
         "disable": "Slå Fra",
-        "enable": "Slået til"
-    }
+        "enable": "Slået til",
+        "info": {
+            "pt1": "For at forbedre appen, indsamler Heroic 100% anonyme data.",
+            "pt2": "Heroic bruger open source-platformen Plausible Analytics til at indsamle grundlæggende data: Appversion, operativsystem, tilknyttede butikker og land.",
+            "pt3": "Heroic vil aldrig indsamle personlige informationer, herunder dit brugernavn, IP-adresse eller e-mail.",
+            "pt4": "Disse data bruges til at give os indsigt i, hvad vi skal fokusere på, på grund af vores begrænsede ressourcer og brugerfeedback.",
+            "pt6": "For at sikre gennemsigtighed kan du se de data, vi indsamler, i Heroic-logfilerne.",
+            "pt7": "Du kan ændre denne indstilling når som helst i appindstillingerne."
+        }
+    },
+    "amazon-luna": "Amazon Luna"
 }

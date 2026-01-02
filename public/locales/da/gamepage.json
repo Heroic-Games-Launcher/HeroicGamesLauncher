@@ -2,57 +2,58 @@
     "box": {
         "change": {
             "message": "Dette vil ændre installationens placering. Er du sikker?",
-            "path": "Vælg en ny installation sti",
-            "title": "Skift Spil Installation Sti"
+            "path": "Vælg en ny installationssti",
+            "title": "Skift spilinstallationsti"
         },
         "move": {
             "path": "Vælg hvor du vil flytte til",
-            "title": "Flyt spil installation",
+            "title": "Flyt spilinstallation",
             "message": "Dette kan tage lang tid. Er du sikker?"
         },
         "no": "NEJ",
         "repair": {
-            "message": "Vil du forsøge at reparere dette spil? Det kan tage lang tid.",
-            "title": "Verificer og Reparer"
+            "message": "Vil du forsøge at reparere dette spil? Dette kan tage lang tid.",
+            "title": "Verificer og reparer"
         },
         "stopInstall": {
             "keepInstalling": "Fortsæt installationen",
-            "message": "Vil du fortsætte med at hente filerne?",
+            "message": "Vil du GEMME de downloadede filer?",
             "title": "Stop installationen"
         },
         "uninstall": {
-            "checkbox": "Vil du også fjerne prefixet? Dette kan ikke omgøres.",
+            "checkbox": "Fjern prefixet: {{prefix}}{{newLine}}Dette kan ikke omgøres og vil fjerne filer, der ikke er taget sikkerhedskopier af.",
             "checkbox_prefix": "Prefix",
-            "message": "Vil du afinstallere spillet?",
+            "message": "Vil du afinstallere \"{{title}}\"?",
             "title": "Afinstaller",
             "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
-            "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt.",
-            "dlc": "Vil du afinstallere denne DLC?",
+            "prefix_warning": "Wine-præfixet for dette spil er standardpræfikset. Hvis du vil slette det, skal du gøre det manuelt.",
+            "dlc": "Vil du afinstallere \"{{title}}\" DLC?",
             "gameIsRunning": "{{title}} kører. Luk spillet for at afinstallere det.",
-            "cannotUninstallEpic": "Epic games kan ikke blive afinstalleret imens et andet Epic spil er ved at blive installeret."
+            "cannotUninstallEpic": "Epic spil kan ikke afinstalleres, mens et andet Epic spil er ved at blive installeret."
         },
         "update": {
             "title": "Spillet skal opdateres",
-            "message": "Der findes en opdatering til spillet. Vil du updatere nu?"
+            "message": "Dette spil har en opdatering. Ønsker du at opdatere nu?"
         },
         "yes": "JA",
         "choose": "Vælg",
-        "importpath": "Vælg spil mappe til import",
+        "importpath": "Vælg spilmappe til import",
         "wineprefix": "Vælg WinePrefix mappe",
         "select": {
-            "button": "Vælg"
+            "button": "Vælg",
+            "image": "Vælg billede"
         },
         "runexe": {
-            "title": "Vælg EXE til at køre"
+            "title": "Vælg EXE for at køre"
         },
         "sideload": {
-            "exe": "Vælg Eksekverbar"
+            "exe": "Vælg eksekverbar"
         },
         "close": "Luk"
     },
     "button": {
         "cancel": "Pause/Afbryd",
-        "continue": "Fortsæt Download",
+        "continue": "Fortsæt download",
         "import": "Importer Spil",
         "install": "Installer",
         "uninstall": "Afinstaller",
@@ -75,7 +76,9 @@
             "edit": "Rediger app/spil"
         },
         "details": "detaljer",
-        "changelog": "Vis changelog"
+        "changelog": "Vis changelog",
+        "browse_files": "Gennemse filer",
+        "play": "SPIL"
     },
     "disabled": "Slå Fra",
     "dlc": {
@@ -154,7 +157,8 @@
     "label": {
         "playing": {
             "start": "Spil Nu",
-            "stop": "Spiller (Stop)"
+            "stop": "Spiller (Stop)",
+            "start_with_logs": "Spil nu (med logs)"
         },
         "saves": {
             "syncing": "Synkroniserer Saves"
@@ -209,7 +213,8 @@
         "gog-goodie": "Dette spil ser ikke ud til at kunne installeres. Tjek downloadbart indhold på https://gog.com/account",
         "goodie": "Kan ikke installeres",
         "winetricks": "Tilføjer Winetricks løsninger",
-        "redist": "Installerer Redistributables ({{redist}})"
+        "redist": "Installerer Redistributables ({{redist}})",
+        "importing": "Importerer"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -240,12 +245,15 @@
         "gog": "Du er ikke logget ind med en GOG-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
         "login": "Log ind",
         "title": "Du er ikke logget ind",
-        "amazon": "Du er ikke logget ind med en Amazon-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:"
+        "amazon": "Du er ikke logget ind med en Amazon-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
+        "zoom": "Du er ikke logget ind med en Zoom-konto på Heroic. Brug ikke butikssiden til login, klik i stedet på denne knap:"
     },
     "queue": {
         "label": {
             "canceled": "Download annulleret",
-            "remove": "Fjern fra Downloads"
+            "remove": "Fjern fra Downloads",
+            "pause": "Sæt download på pause",
+            "resume": "Genoptag download"
         }
     },
     "sideload": {
@@ -261,7 +269,7 @@
             "useragent": "Brugerdefineret User Agent"
         },
         "placeholder": {
-            "image": "Indsæt en billed-URL her",
+            "image": "Indsæt en billed-URL her, eller vælg en fra din computer",
             "title": "Tilføj en titel til dit spil/app",
             "url": "Indsæt spillets URL her",
             "useragent": "Skriv en brugerdefineret agent, der kan bruger i denne browser app/spil"
@@ -305,5 +313,6 @@
         },
         "versionCollapsable": "Spil Version",
         "dlcsCollapsible": "DLC"
-    }
+    },
+    "Open": "Åbn"
 }
