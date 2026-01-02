@@ -39,10 +39,7 @@
       "groupName": "patched dependencies",
       "description": "Gates packages with pnpm patches. Requires manual approval via Dashboard to prevent breaking local fixes.",
       "matchManagers": ["npm"],
-      "matchPackageNames": [
-        "@types/node",
-        "howlongtobeat-js"
-      ],
+      "matchPackageNames": ["@types/node", "howlongtobeat-js"],
       "matchUpdateTypes": ["major", "minor", "patch"],
       "dependencyDashboardApproval": true,
       "stabilityDays": 7,
