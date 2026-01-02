@@ -19,9 +19,9 @@
     "email": "heroicgameslauncher@protonmail.com"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">=22"
   },
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.26.2",
   "scripts": {
     "start": "electron-vite dev --watch",
     "debug:react": "pnpm start & react-devtools",
