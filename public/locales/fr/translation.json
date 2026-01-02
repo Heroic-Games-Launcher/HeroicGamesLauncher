@@ -5,11 +5,11 @@
         "content_font_family_no_default": "Police d'écriture pour les contenus (Par défaut : ",
         "fonts": "Polices d'écriture",
         "title": "Accessibilité",
-        "zoom": "Agrandir",
+        "zoom": "Échelle de l'interface",
         "disable_dialog_backdrop_close": "Désactiver la fermeture de fenêtres par un clic en dehors",
         "titles_always_visible": "Toujours afficher les titres dans la bibliothèque",
-        "content_font_family_default": "Famille de police pour les contenus (Par défaut : {{fontFamily}})",
-        "actions_font_family_default": "Famille de police pour les actions (Par défaut : {{fontFamily}})",
+        "content_font_family_default": "Famille de polices pour les contenus (par défaut : {{fontFamily}})",
+        "actions_font_family_default": "Famille de polices pour les actions (par défaut : {{fontFamily}})",
         "disable_smooth_scrolling": "Désactiver le défilement doux (requiert un redémarrage)",
         "disable_animations": "Désactiver les animations de l'interface"
     },
@@ -275,7 +275,7 @@
         "platform": "Système",
         "show_all_games": "Afficher tous les jeux",
         "show_available_games": "Afficher les jeux indisponibles",
-        "show_favourites_only": "N'afficher que les favoris",
+        "show_favourites_only": "N'afficher que les jeux favoris",
         "show_hidden": "Afficher les jeux cachés",
         "store": "Filtrer le magasin",
         "filters": "Filtres",
@@ -288,8 +288,8 @@
         "reset": "Réinitialiser",
         "no_categories": "Aucune catégorie personnalisée. Ajoutez des catégories en utilisant le menu de chaque jeu.",
         "show_support_offline_only": "N'afficher que les jeux hors-ligne",
-        "show_third_party_managed_only": "N'afficher que ceux gérés par une app tierce",
-        "show_updates_only": "N'afficher que les jeux à mettre à jour"
+        "show_third_party_managed_only": "N'afficher que les jeux dépendant d'une application tierce",
+        "show_updates_only": "N'afficher que les jeux pouvant être mis à jour"
     },
     "help": {
         "amdfsr": "Le FSR d'AMD aide à améliorer le taux de rafraîchissement en agrandissant les résolutions basses en mode plein écran. La qualité d'image augmente de 5 à 1 au prix d'une légère baisse de performance. L'activer peut améliorer les performances.",
@@ -298,7 +298,7 @@
         "dxvk": "DXVK est une interface de compatibilité basée sur Vulkan pour les jeux nécessitant DirectX 9, 10 et 11. L'activer pourrait améliorer la compatibilité. Peut causer des problèmes, en particulier pour des jeux utilisant des versions de DirectX plus anciennes.",
         "dxvkfpslimit": "Définir un plafond de fréquences d'images pour les jeux DXVK",
         "esync": "« Esync » a pour but de diminuer l'utilisation des ressources par « wineserver » dans les jeux sollicitant fortement le CPU. L'activer pourrait améliorer les performances.",
-        "fsync": "Esync a pour but de diminuer l'utilisation des ressources par wineserver dans les jeux sollicitant fortement le CPU. L'activer pourrait améliorer les performances avec les noyaux Linux supportés.",
+        "fsync": "Fsync a pour but de diminuer l'utilisation des ressources par wineserver dans les jeux sollicitant fortement le CPU. L'activer pourrait améliorer les performances avec les noyaux Linux supportés.",
         "game_language": {
             "fallback": "Laisser vide pour utiliser la langue prédéfinie dans Heroic.",
             "in_game_config": "Tous les jeux ne permettent pas cette configuration, certains ont une option intégrée pour sélectionner la langue.",
@@ -306,7 +306,7 @@
         },
         "gamemode": "Le procédé « Feral GameMode » applique des modifications automatiques et temporaires au système pendant l'exécution des jeux. L'activer pourrait améliorer les performances.",
         "general": "Synchroniser avec le lanceur EG si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux afin d'éviter de les télécharger à nouveau.",
-        "mangohud": "MangoHUD est un overlay permettant d'afficher diverses informations en jeu, telles que les températures du système, le nombre d'images par seconde et l'utilisation des ressources CPU ou GPU.",
+        "mangohud": "MangoHUD est une surcouche permettant d'afficher et de surveiller en cours de jeu le nombre d'images par seconde, la température des composants, la charge du CPU/GPU et l'utilisation d'autres ressources du système.",
         "other": {
             "part4": "Utilise les ",
             "part5": "Arguments de Jeu",
@@ -330,9 +330,9 @@
             "part1": "Heroic recherche des versions de Wine, Proton et CrossOver dans ces dossiers :",
             "part2": "Pour d'autres emplacements, utilisez un lien symbolique vers un de ces dossiers"
         },
-        "disable_logs": "Cochez cette case pour ne pas faire apparaitre la plupart des événements dans les rapports de fonctionnement (les informations critiques sont toujours enregistrées). Assurez-vous de désactiver ce paramètre avant de signaler un problème.",
+        "disable_logs": "COCHEZ cette case pour désactiver la consignation de la plupart des opérations dans les rapports d'événements (les informations critiques sont toujours enregistrées). Assurez-vous de DÉSACTIVER ce paramètre avant de signaler un problème.",
         "dxvknvapi": "DXVK-NVAPI est une implémentation de NVAPI construite par dessus DXVK et la version native de NVAPI. Elle permet d'utiliser le DLSS sur les cartes graphiques Nvidia.",
-        "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seul GOG est pris en charge actuellement)",
+        "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seuls les services proposés par GOG sont actuellement pris en charge)",
         "gamescope": {
             "upscaleMethod": "La méthode de mise à l'échelle que Gamescope devrait utiliser.",
             "gameWidth": "La largeur de la résolution utilisée par le jeu. Gamescope présuppose un format d'affichage 16/9.",
@@ -361,7 +361,7 @@
             "library": "Affiche tous les jeux possédés.",
             "customThemesPath": "Consultez notre wiki.",
             "accessibility": "Affiche les paramètres d'accessibilité.",
-            "login": "Se connecter aux différentes plateformes."
+            "login": "Se connecter aux différentes boutiques."
         },
         "button": {
             "open": "Afficher l'aide",
@@ -842,7 +842,7 @@
             "general": "Général",
             "log": "Rapports d'événements",
             "other": "Autre",
-            "sync": "Synchronisation des sauvegardes",
+            "sync": "Synchronisation des sauvegardes distantes",
             "wineExt": "Extensions de Wine",
             "systemInformation": "Informations Système",
             "gamescope": "Gamescope"
@@ -860,7 +860,7 @@
             "gpuWithNumber": "Processeur graphique {{number}} :",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
             "legendaryVersion": "Legendary : {{legendaryVersion}}",
-            "systemSpecifications": "Caractéristiques du Système :",
+            "systemSpecifications": "Caractéristiques du système :",
             "steamDeck": "Steam Deck {{model}}",
             "gpuDriver": "Pilote : {{driverVersion}}",
             "os": "Système :",
@@ -1049,7 +1049,7 @@
         "library": {
             "addGame": "Ajouter vos propres jeux ou applications à la bibliothèque en cliquant ici. Cela peut être n'importe quoi, même une adresse internet.",
             "filters": "Filtrez vos jeux par boutique, platforme, favoris et davantage en utilisant ces options.",
-            "categories": "Organisez vos jeux par catégories pour garder les choses en ordre.",
+            "categories": "Organisez vos jeux par catégories pour maintenir les choses en ordre.",
             "end": {
                 "intro": "Voilà ! Profitez de vos jeux et amusez-vous !",
                 "title": "Profitez de vos jeux !"
