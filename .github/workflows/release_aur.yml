@@ -32,7 +32,7 @@ jobs:
           latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
           pkgver=${latest_version#v}
           pkgrel=1
-          url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/"
+          url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher"
           # Updated artifact naming convention with platform and architecture
           _filename=Heroic-${pkgver}-linux-x64.pacman
           source=("$url/releases/download/$latest_version/$_filename")
@@ -47,12 +47,13 @@ jobs:
           pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
           arch=('x86_64')
           url="$url"
-          license=('GPL3')
+          license=('GPL-3.0-only')
           _filename=$_filename
           source=("$source")
           noextract=("$_filename")
           sha256sums=(${sha256sums[@]})
           options=(!strip)
+          depends=(which)
           provides=(heroic-games-launcher)
           conflicts=(heroic-games-launcher)
 
