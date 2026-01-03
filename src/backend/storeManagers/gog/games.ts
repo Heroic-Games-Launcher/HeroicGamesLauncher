@@ -100,6 +100,7 @@ import { gogdlConfigPath, gogSupportPath } from './constants'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 
 import type LogWriter from 'backend/logger/log_writer'
+import { getTargetExePath } from '..'
 
 export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   const gameInfo = getGameInfo(appName)
@@ -525,8 +526,11 @@ export async function launch(
   let exeOverrideFlag: string[] = []
   if (launchArguments?.type === 'altExe') {
     exeOverrideFlag = ['--override-exe', launchArguments.executable]
-  } else if (gameSettings.targetExe) {
-    exeOverrideFlag = ['--override-exe', gameSettings.targetExe]
+  } else {
+    const targetExe = getTargetExePath(gameSettings, logWriter)
+    if (targetExe) {
+      exeOverrideFlag = ['--override-exe', targetExe]
+    }
   }
 
   let commandEnv = {
@@ -551,36 +555,40 @@ export async function launch(
     : []
 
   if (!isNative(appName)) {
-    const {
-      success: wineLaunchPrepSuccess,
-      failureReason: wineLaunchPrepFailReason,
-      envVars: wineEnvVars
-    } = await prepareWineLaunch('gog', appName, logWriter)
-    if (!wineLaunchPrepSuccess) {
-      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
-      if (wineLaunchPrepFailReason) {
-        showDialogBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason,
-          type: 'ERROR'
-        })
+    if (gameSettings.doNotUseWine) {
+      wineFlag.push('--no-wine')
+    } else {
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch('gog', appName, logWriter)
+      if (!wineLaunchPrepSuccess) {
+        logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
+        if (wineLaunchPrepFailReason) {
+          showDialogBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            message: wineLaunchPrepFailReason,
+            type: 'ERROR'
+          })
+        }
+        return false
       }
-      return false
-    }
 
-    commandEnv = {
-      ...commandEnv,
-      ...wineEnvVars
-    }
-
-    if (await isUmuSupported(gameSettings)) {
-      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-      if (umuId) {
-        commandEnv['GAMEID'] = umuId
+      commandEnv = {
+        ...commandEnv,
+        ...wineEnvVars
       }
-    }
 
-    wineFlag = await getWineFlagsArray(gameSettings, shlex.join(wrappers))
+      if (await isUmuSupported(gameSettings)) {
+        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+        if (umuId) {
+          commandEnv['GAMEID'] = umuId
+        }
+      }
+
+      wineFlag = await getWineFlagsArray(gameSettings, shlex.join(wrappers))
+    }
   }
 
   const launchArgumentsArgs =
@@ -1254,7 +1262,7 @@ export async function forceUninstall(appName: string): Promise<void> {
 export async function stop(appName: string, stopWine = true): Promise<void> {
   if (stopWine && !isNative(appName)) {
     const gameSettings = await getSettings(appName)
-    await shutdownWine(gameSettings)
+    if (!gameSettings.doNotUseWine) await shutdownWine(gameSettings)
   }
 }
 

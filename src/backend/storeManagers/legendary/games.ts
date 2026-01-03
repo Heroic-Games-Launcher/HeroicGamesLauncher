@@ -85,6 +85,7 @@ import { isCLINoGui, isMac, isWindows } from 'backend/constants/environment'
 import { fakeEpicExePath } from 'backend/constants/paths'
 
 import type LogWriter from 'backend/logger/log_writer'
+import { getTargetExePath } from '..'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -888,6 +889,12 @@ export async function launch(
     ...getKnownFixesEnvVariables(appName, 'legendary')
   }
 
+  // Disable fake epic exe if we are not using wine, there's no
+  // prefix to copy the exe into
+  if (gameSettings.doNotUseWine) {
+    commandEnv['USE_FAKE_EPIC_EXE'] = '0'
+  }
+
   // Use the wrapper EXE to launch games.
   if (existsSync(fakeEpicExePath) && commandEnv['USE_FAKE_EPIC_EXE'] !== '0') {
     if (isWindows) {
@@ -921,37 +928,41 @@ export async function launch(
     : {}
 
   if (!isNative(appName)) {
-    // -> We're using Wine/Proton on Linux or CX on Mac
-    const {
-      success: wineLaunchPrepSuccess,
-      failureReason: wineLaunchPrepFailReason,
-      envVars: wineEnvVars
-    } = await prepareWineLaunch('legendary', appName, logWriter)
-    if (!wineLaunchPrepSuccess) {
-      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
-      if (wineLaunchPrepFailReason) {
-        showDialogBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason,
-          type: 'ERROR'
-        })
+    if (gameSettings.doNotUseWine) {
+      wineFlags['--no-wine'] = true
+    } else {
+      // -> We're using Wine/Proton on Linux or CX on Mac
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch('legendary', appName, logWriter)
+      if (!wineLaunchPrepSuccess) {
+        logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
+        if (wineLaunchPrepFailReason) {
+          showDialogBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            message: wineLaunchPrepFailReason,
+            type: 'ERROR'
+          })
+        }
+        return false
       }
-      return false
-    }
 
-    commandEnv = {
-      ...commandEnv,
-      ...wineEnvVars
-    }
-
-    if (await isUmuSupported(gameSettings)) {
-      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-      if (umuId) {
-        commandEnv['GAMEID'] = umuId
+      commandEnv = {
+        ...commandEnv,
+        ...wineEnvVars
       }
-    }
 
-    wineFlags = await getWineFlags(gameSettings, shlex.join(wrappers))
+      if (await isUmuSupported(gameSettings)) {
+        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+        if (umuId) {
+          commandEnv['GAMEID'] = umuId
+        }
+      }
+
+      wineFlags = await getWineFlags(gameSettings, shlex.join(wrappers))
+    }
   }
 
   const appNameToLaunch =
@@ -975,8 +986,10 @@ export async function launch(
   if (languageCode) command['--language'] = NonEmptyString.parse(languageCode)
   if (launchArguments?.type === 'altExe')
     command['--override-exe'] = launchArguments.executable
-  else if (gameSettings.targetExe)
-    command['--override-exe'] = Path.parse(gameSettings.targetExe)
+  else {
+    const targetExe = getTargetExePath(gameSettings, logWriter)
+    if (targetExe) command['--override-exe'] = Path.parse(targetExe)
+  }
   if (offlineMode) command['--offline'] = true
   if (isCLINoGui) command['--skip-version-check'] = true
   if (gameInfo.isEAManaged) command['--origin'] = true
@@ -1049,7 +1062,7 @@ export async function stop(appName: string, stopWine = true) {
 
   if (stopWine && !isNative(appName)) {
     const gameSettings = await getSettings(appName)
-    await shutdownWine(gameSettings)
+    if (!gameSettings.doNotUseWine) await shutdownWine(gameSettings)
   }
 }
 
@@ -1078,6 +1091,14 @@ export async function runWineCommandOnGame(
 
   const { folder_name, install } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
+
+  if (gameSettings.doNotUseWine) {
+    logError(
+      'runWineCommand called but game is configured to not use wine!',
+      LogPrefix.Legendary
+    )
+    return { stdout: '', stderr: '' }
+  }
 
   return runWineCommandUtil({
     gameSettings,

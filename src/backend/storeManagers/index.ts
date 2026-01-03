@@ -14,7 +14,10 @@ import { GameManager, LibraryManager } from 'common/types/game_manager'
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
 
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
-import { DMQueueElement, GameInfo, Runner } from 'common/types'
+import { DMQueueElement, GameInfo, GameSettings, Runner } from 'common/types'
+import { isMac } from 'backend/constants/environment'
+import { readFileSync } from 'graceful-fs'
+import LogWriter from 'backend/logger/log_writer'
 type GameManagerMap = {
   [key in Runner]: GameManager
 }
@@ -86,4 +89,38 @@ export async function initStoreManagers() {
   await GOGLibraryManager.initGOGLibraryManager()
   await NileLibraryManager.initNileLibraryManager()
   await ZoomLibraryManager.initZoomLibraryManager()
+}
+
+export function getTargetExePath(
+  gameSettings: GameSettings,
+  logWriter: LogWriter
+) {
+  const path = gameSettings.targetExe
+
+  // we can't execute a `.app` file directly as an alt exe when not using Wine
+  // we have to use the path of the script inside the .app directory
+  if (path && isMac && gameSettings.doNotUseWine && path.endsWith('.app')) {
+    try {
+      // look for the `CFBundleExecutable` key and the next value
+      const plistContent = readFileSync(
+        path + '/Contents/Info.plist'
+      ).toString()
+      const matchResult = plistContent.match(
+        /<key>CFBundleExecutable<\/key>\n\s+<string>(.*)<\/string>/m
+      )
+      if (matchResult) {
+        // this is standarized inside .app bundles
+        const newPath = path + `/Contents/MacOS/${matchResult[1]}`
+        logWriter.logInfo(
+          `Replaced ${path} alternative executable with ${newPath}`
+        )
+        return newPath
+      }
+    } catch (error) {
+      logWriter.logError('Error finding executable inside .app')
+      logWriter.logError(error)
+    }
+  }
+
+  return path
 }

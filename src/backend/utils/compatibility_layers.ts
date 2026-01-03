@@ -505,11 +505,6 @@ export async function getWineFlags(
   gameSettings: GameSettings,
   wrapper: string
 ): Promise<AllowedWineFlags> {
-  if (gameSettings.doNotUseWine)
-    return {
-      '--no-wine': true
-    }
-
   let partialCommand: AllowedWineFlags = {}
   const { type: wineType, bin: wineExec } = gameSettings.wineVersion
 

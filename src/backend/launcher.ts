@@ -685,7 +685,6 @@ async function prepareLaunch(
   }
 
   if (
-    !gameSettings.doNotUseWine &&
     (await isUmuSupported(gameSettings, false)) &&
     isOnline() &&
     !(await isInstalled('umu')) &&

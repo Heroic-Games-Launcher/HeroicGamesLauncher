@@ -52,18 +52,25 @@ const InstalledInfo = ({ gameInfo }: Props) => {
 
   const appLocation = install_path || folder_name
 
-  const { wineVersion, winePrefix, wineCrossoverBottle } = gameSettings
+  const { wineVersion, winePrefix, wineCrossoverBottle, doNotUseWine } =
+    gameSettings
 
   let wineName = ''
   let wineType = ''
 
   if (!is.win) {
-    let wine = wineVersion.name.replace('Wine - ', '').replace('Proton - ', '')
-    if (wine.includes('Default')) {
-      wine = wine.split('-')[0]
+    if (doNotUseWine) {
+      wineName = 'Not using Wine'
+    } else {
+      let wine = wineVersion.name
+        .replace('Wine - ', '')
+        .replace('Proton - ', '')
+      if (wine.includes('Default')) {
+        wine = wine.split('-')[0]
+      }
+      wineName = wine
+      wineType = wineVersion.type
     }
-    wineName = wine
-    wineType = wineVersion.type
   }
 
   const info = (
@@ -108,20 +115,21 @@ const InstalledInfo = ({ gameInfo }: Props) => {
           <div>
             <b>Wine:</b> {wineName}
           </div>
-          {wineType === 'crossover' ? (
-            <div>
-              <b>{t2('setting.winecrossoverbottle', 'Bottle')}:</b>{' '}
-              <div>{wineCrossoverBottle}</div>
-            </div>
-          ) : (
-            <div
-              className="clickable"
-              onClick={() => window.api.openFolder(winePrefix)}
-            >
-              <b>{t2('setting.wineprefix', 'WinePrefix')}:</b>{' '}
-              <div className="truncatedPath">{winePrefix}</div>
-            </div>
-          )}
+          {wineType &&
+            (wineType === 'crossover' ? (
+              <div>
+                <b>{t2('setting.winecrossoverbottle', 'Bottle')}:</b>{' '}
+                <div>{wineCrossoverBottle}</div>
+              </div>
+            ) : (
+              <div
+                className="clickable"
+                onClick={() => window.api.openFolder(winePrefix)}
+              >
+                <b>{t2('setting.wineprefix', 'WinePrefix')}:</b>{' '}
+                <div className="truncatedPath">{winePrefix}</div>
+              </div>
+            ))}
         </>
       )}
     </>
