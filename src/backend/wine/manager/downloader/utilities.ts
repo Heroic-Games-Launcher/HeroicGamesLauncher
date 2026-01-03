@@ -44,6 +44,7 @@ async function fetchReleases({
           release_data.type = type
           release_data.date = release.published_at.split('T')[0]
           release_data.disksize = 0
+          release_data.link = release.html_url
 
           for (const asset of release.assets) {
             if (asset.name.endsWith('sha512sum')) {
@@ -72,7 +73,8 @@ async function fetchReleases({
           download: latest.download,
           downsize: latest.downsize,
           disksize: latest.disksize,
-          checksum: latest.checksum
+          checksum: latest.checksum,
+          link: latest.link
         })
 
         resolve(releases)
