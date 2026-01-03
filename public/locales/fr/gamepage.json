@@ -33,7 +33,7 @@
             "title": "Arrêter l'installation"
         },
         "uninstall": {
-            "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
+            "checkbox": "Supprimer la bouteille : {{prefix}}{{newLine}}Avertissement : cette opération est irréversible et supprimera également les fichiers de sauvegarde du jeu.",
             "message": "Voulez-vous désinstaller « {{title}} » ?",
             "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : cette opération ne peut pas être annulée. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
@@ -66,7 +66,7 @@
             "remove": "Retirer de la file"
         },
         "remove_from_favourites": "Retirer des favoris",
-        "remove_from_recent": "Retirer de \"Récent\"",
+        "remove_from_recent": "Retirer de la liste des jeux récents",
         "run-exe-first": "Lancer l'installateur en premier",
         "running-setup": "Lancer la configuration",
         "sideload": {
@@ -109,7 +109,7 @@
         "builds": {
             "version": "Version",
             "buildsSelector": "Choisir la version du jeu",
-            "toggle": "garder le jeu dans une version spécifique"
+            "toggle": "Maintenir une version spécifique de ce jeu"
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l'installation",
@@ -177,7 +177,7 @@
             "start_with_logs": "Jouer (en consignant les événements)"
         },
         "saves": {
-            "syncing": "Synchronisation des sauvegardes"
+            "syncing": "Synchronisation des sauvegardes en cours"
         },
         "launching": "Lancement",
         "ubisoft": "Installation d'Ubisoft Connect",
@@ -214,11 +214,11 @@
         "options": "Paramètres de lancement..."
     },
     "not_logged_in": {
-        "epic": "Vous n'êtes pas connecté(e) avec un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
-        "gog": "Vous n'êtes pas connecté(e) avec un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
+        "epic": "Vous n'êtes pas connecté(e) avec un compte Epic dans Heroic. N'utilisez pas la page de la boutique pour vous connecter, cliquez plutôt sur ce bouton :",
+        "gog": "Vous n'êtes pas connecté(e) avec un compte GOG dans Heroic. N'utilisez pas la page de la boutique pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté(e)",
-        "amazon": "Vous n'êtes pas connecté(e) avec un compte Amazon dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
+        "amazon": "Vous n'êtes pas connecté(e) avec un compte Amazon dans Heroic. N'utilisez pas la page de la boutique pour vous connecter, cliquez plutôt sur ce bouton :",
         "zoom": "Aucun compte Zoom n'est connecté. N'employez pas la page de la boutique pour vous connecter, mais cliquez sur le bouton suivant :"
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
@@ -299,7 +299,7 @@
         "removeFromSteam": "Retirer de Steam",
         "removeShortcut": "Retirer les raccourcis",
         "settings": "Options",
-        "store": "Page du magasin",
+        "store": "Page de la boutique",
         "verify": "Vérifier et Réparer",
         "extraInfo": "Informations supplémentaires",
         "logs": "Journaux d'événements",
