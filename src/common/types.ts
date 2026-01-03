@@ -735,6 +735,7 @@ export interface VersionInfo {
   downsize: number
   disksize: number
   checksum: string
+  link: string
 }
 
 /**

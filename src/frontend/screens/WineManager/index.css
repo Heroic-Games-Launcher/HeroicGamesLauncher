@@ -44,7 +44,7 @@
     flex-grow: 1;
 
     .gameListHeader {
-      grid-template-columns: 3fr 2fr 1fr 10%;
+      grid-template-columns: 3fr 4rem 2fr 1fr 10%;
       & span:last-child {
         justify-self: center;
       }
