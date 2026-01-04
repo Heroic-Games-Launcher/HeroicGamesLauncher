@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'node:path'
 import * as util_os_processes from '../../os/processes'
 import { getDiskInfo_unix } from '../unix'
 import type { Path } from 'backend/schemas'
@@ -53,7 +54,11 @@ describe('getDiskInfo_unix', () => {
     expect(ret.totalSpace).toBe(100 * 1024)
     expect(ret.freeSpace).toBe(10 * 1024)
     expect(accessSyp).toHaveBeenCalledTimes(2)
-    expect(spawnWrapperSpy).toHaveBeenCalledWith('df', ['-P', '-k', '/foo/bar'])
+    expect(spawnWrapperSpy).toHaveBeenCalledWith('df', [
+      '-P',
+      '-k',
+      path.normalize('/foo/bar')
+    ])
     expect(spawnWrapperSpy).toHaveBeenCalledTimes(1)
   })
 })

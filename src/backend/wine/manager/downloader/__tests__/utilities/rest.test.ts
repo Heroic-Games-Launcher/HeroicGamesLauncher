@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { existsSync, writeFileSync } from 'graceful-fs'
 import { getFolderSize, unlinkFile } from '../../utilities'
 import { testSkipOnWindows } from 'backend/__tests__/skip'
@@ -26,10 +27,11 @@ describe('Utilities - Rest', () => {
   )
 
   test('unlink of folder fails', async () => {
+    const expectedPath = path.join(workDir, 'src/backend/wine/manager/downloader/__tests__/utilities')
     expect(() => {
       unlinkFile(__dirname)
     }).toThrowError(
-      `Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities!`
+      `Couldn't remove ${expectedPath}!`
     )
   })
 

@@ -1617,7 +1617,7 @@ interface RunnerProps {
 
 const commandsRunning: Record<string, Promise<ExecResult>> = {}
 
-let shouldUsePowerShell: boolean | null = null
+let powerShellPath: string | null = null
 
 function appNameFromCommandParts(commandParts: string[], runner: Runner) {
   let appNameIndex = -1
@@ -1686,11 +1686,13 @@ async function callRunner(
 
   // On Windows: Use PowerShell's `Start-Process` to wait for the process and
   // its children to exit, provided PowerShell is available
-  if (shouldUsePowerShell === null)
-    shouldUsePowerShell =
-      isWindows && !!(await searchForExecutableOnPath('powershell'))
+  if (powerShellPath === null && isWindows) {
+    powerShellPath =
+      (await searchForExecutableOnPath('powershell')) ||
+      (await searchForExecutableOnPath('pwsh'))
+  }
 
-  if (shouldUsePowerShell) {
+  if (powerShellPath) {
     const argsAsString = commandParts
       .map((part) => part.replaceAll('\\', '\\\\'))
       .map((part) => `"\`"${part}\`""`)
@@ -1704,7 +1706,7 @@ async function callRunner(
     ]
     if (argsAsString) commandParts.push('-ArgumentList', argsAsString)
 
-    bin = fullRunnerPath = 'powershell'
+    bin = fullRunnerPath = powerShellPath
   }
 
   const safeCommand = getRunnerCallWithoutCredentials(
@@ -1743,6 +1745,10 @@ async function callRunner(
   const abortController = createAbortController(abortId)
 
   let promise = new Promise<ExecResult>((res, rej) => {
+    logDebug(
+      `About to spawn: bin="${bin}", cwd="${options?.cwd || runner.dir}"`,
+      runner.logPrefix
+    )
     const child = spawn(bin, commandParts, {
       cwd: options?.cwd || runner.dir,
       env: { ...process.env, ...options?.env },

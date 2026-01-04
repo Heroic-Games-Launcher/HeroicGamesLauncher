@@ -1,6 +1,60 @@
 import { spawn } from 'child_process'
+import { constants } from 'fs'
+import { access } from 'fs/promises'
 
-const findCommand = process.platform === 'win32' ? 'where' : 'which'
+const isWindows = process.platform === 'win32'
+const findCommands = isWindows
+  ? [
+      'C:\\Windows\\System32\\where.exe',
+      // fall back to PATH lookup; may be missing inside Electron sandboxes
+      'where'
+    ]
+  : ['which']
+const windowsShellPaths = [
+  'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe',
+  'C:\\Windows\\System32\\powershell.exe',
+  'C:\\Program Files\\PowerShell\\7\\pwsh.exe',
+  'C:\\Program Files\\PowerShell\\7\\powershell.exe'
+]
+const finderCache = new Map<string, string | null>()
+
+async function pathExists(candidate: string) {
+  try {
+    await access(candidate, constants.F_OK)
+    return true
+  } catch {
+    return false
+  }
+}
+
+async function runFinder(
+  cmd: string,
+  executable: string
+): Promise<string | null> {
+  return new Promise<string | null>((resolve) => {
+    const child = spawn(cmd, [executable], {
+      shell: isWindows,
+      windowsHide: true,
+      env: { ...process.env } // ADD THIS LINE - inherit parent environment
+    })
+
+    let settled = false
+    const finish = (value: string | null) => {
+      if (!settled) {
+        settled = true
+        resolve(value)
+      }
+    }
+
+    child.stdout.on('data', (output: Buffer | string) => {
+      const first = output.toString().split(/\r?\n/)[0]?.trim()
+      if (first) finish(first)
+    })
+
+    child.on('error', () => finish(null))
+    child.on('close', () => finish(null))
+  })
+}
 
 /**
  * Finds an executable on %PATH%/$PATH
@@ -10,22 +64,30 @@ const findCommand = process.platform === 'win32' ? 'where' : 'which'
 async function searchForExecutableOnPath(
   executable: string
 ): Promise<string | null> {
-  return new Promise<string | null>((resolve) => {
-    // no need to check stderr or error
-    // if stdout returns the first path we take this
-    // if nothing is send to stdout we didn't found it
-    // this avoids problems inside steam where "which" calls
-    // throws alot of errors and still find the exectuable.
-    // We also prevent endless waiting when stderr, stdout
-    // and error are never called
-    const child = spawn(findCommand, [executable])
-    child.stdout.on('data', (output: Buffer | string) => {
-      resolve(output.toString().trim())
-    })
+  if (finderCache.has(executable)) return finderCache.get(executable) ?? null
 
-    // if we close and not got any data on stdout, we return null
-    child.on('close', () => resolve(null))
-  })
+  // Special-case PowerShell so we never depend on PATH for it
+  if (isWindows && executable.toLowerCase() === 'powershell') {
+    for (const candidate of windowsShellPaths) {
+      // stop at the first existing path
+      /* istanbul ignore next -- platform-specific */
+      if (await pathExists(candidate)) {
+        finderCache.set(executable, candidate)
+        return candidate
+      }
+    }
+  }
+
+  for (const cmd of findCommands) {
+    const found = await runFinder(cmd, executable)
+    if (found) {
+      finderCache.set(executable, found)
+      return found
+    }
+  }
+
+  finderCache.set(executable, null)
+  return null
 }
 
 /**
