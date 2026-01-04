@@ -203,9 +203,12 @@
         "cancel-rename": "Cancel rename of \"{{name}}\"",
         "confirm-remove": "Confirm removal of \"{{name}}\"",
         "confirm-rename": "Confirm rename of \"{{oldName}}\" as \"{{newName}}\"",
+        "export": "Export to file",
+        "import": "Import file",
         "no-categories": "No categories yet.",
         "remove": "Remove \"{{name}}\"",
         "rename": "Rename \"{{name}}\"",
+        "selectTitle": "Select categories file",
         "title": "Manage Categories"
     },
     "category-settings": {
@@ -460,6 +463,11 @@
             "move": "Error Moving the Game",
             "reparing": "Error Repairing"
         },
+        "exportCategories": {
+            "error": "Failed. Check logs for details",
+            "saved": "Saved in {{exportPath}}.",
+            "title": "Categories export"
+        },
         "finished": {
             "add": {
                 "steam": {
@@ -479,6 +487,11 @@
         },
         "import": {
             "failed": "Importing Failed"
+        },
+        "importCategories": {
+            "done": "Done",
+            "error": "Failed. Check logs for details",
+            "title": "Categories import"
         },
         "install": {
             "canceled": "Installation Canceled",

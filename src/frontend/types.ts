@@ -62,6 +62,7 @@ export interface ContextType {
     addCategory: (newCategory: string) => void
     removeCategory: (category: string) => void
     renameCategory: (oldName: string, newName: string) => void
+    reloadCategories: () => void
   }
   currentCustomCategories: string[]
   setCurrentCustomCategories: (newCustomCategories: string[]) => void

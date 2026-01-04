@@ -177,6 +177,25 @@ function CategoriesManager() {
 
   const categories = customCategories.listCategories()
 
+  const exportCategories = () => {
+    window.api.exportCategories()
+  }
+
+  const importCategories = () => {
+    window.api
+      .openDialog({
+        buttonLabel: t('box.choose'),
+        properties: ['openFile'],
+        title: t('categories-manager.selectTitle', 'Select categories file')
+      })
+      .then(async (selectedPath) => {
+        if (selectedPath) {
+          await window.api.importCategories(selectedPath)
+          customCategories.reloadCategories()
+        }
+      })
+  }
+
   return (
     <Dialog
       showCloseButton
@@ -217,6 +236,18 @@ function CategoriesManager() {
             </button>
           }
         />
+        <button
+          className="button is-primary"
+          onClick={() => exportCategories()}
+        >
+          {t('categories-manager.export', 'Export to file')}
+        </button>
+        <button
+          className="button is-primary"
+          onClick={() => importCategories()}
+        >
+          {t('categories-manager.import', 'Import file')}
+        </button>
       </DialogContent>
     </Dialog>
   )
