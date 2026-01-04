@@ -22,6 +22,23 @@
     "node": ">=22"
   },
   "packageManager": "pnpm@10.26.2",
+  "pnpm": {
+    "overrides": {
+      "form-data": "4.0.4",
+      "cross-spawn@<6.0.6": "6.0.6",
+      "cross-spawn@>=7.0.0 <7.0.5": "7.0.5",
+      "glob@>=10.2.0 <10.5.0": "10.5.0",
+      "got": "11.8.6",
+      "js-yaml@<3.14.2": "3.14.2",
+      "js-yaml@>=4.0.0 <4.1.1": "4.1.1",
+      "brace-expansion@1": "1.1.12",
+      "brace-expansion@2": "2.0.2",
+      "@eslint/plugin-kit": "0.3.4",
+      "tmp": "0.2.4",
+      "vite": "6.4.1",
+      "@playwright/test": "1.55.1"
+    }
+  },
   "scripts": {
     "start": "electron-vite dev --watch",
     "debug:react": "pnpm start & react-devtools",
@@ -67,7 +84,7 @@
     "@node-steam/vdf": "^2.2.0",
     "@shockpkg/icon-encoder": "^2.1.3",
     "@xhayper/discord-rpc": "1.3.0",
-    "axios": "^1.9.0",
+    "axios": "^1.12.2",
     "classnames": "^2.5.1",
     "compare-versions": "^6.1.1",
     "crc": "^4.3.2",
@@ -87,6 +104,7 @@
     "intro.js-react": "^1.0.0",
     "json5": "^2.2.3",
     "plist": "^3.1.0",
+    "pnpm": "^10.27.0",
     "react": "^18.3.1",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.3.1",
@@ -109,7 +127,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
-    "@playwright/test": "^1.52.0",
+    "@playwright/test": "^1.55.1",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.3.1",
@@ -147,7 +165,7 @@
     "prettier": "^3.5.3",
     "react-devtools": "^5.3.2",
     "sass": "^1.87.0",
-    "tmp": "^0.2.3",
+    "tmp": "^0.2.4",
     "ts-jest": "^29.3.2",
     "ts-prune": "^0.10.3",
     "type-fest": "^3.13.1",
