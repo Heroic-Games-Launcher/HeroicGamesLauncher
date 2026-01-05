@@ -27,12 +27,13 @@ describe('Utilities - Rest', () => {
   )
 
   test('unlink of folder fails', async () => {
-    const expectedPath = path.join(workDir, 'src/backend/wine/manager/downloader/__tests__/utilities')
+    const expectedPath = path.join(
+      workDir,
+      'src/backend/wine/manager/downloader/__tests__/utilities'
+    )
     expect(() => {
       unlinkFile(__dirname)
-    }).toThrowError(
-      `Couldn't remove ${expectedPath}!`
-    )
+    }).toThrowError(`Couldn't remove ${expectedPath}!`)
   })
 
   test('unlink files succeeds', () => {

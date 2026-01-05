@@ -5,17 +5,21 @@ import { access } from 'fs/promises'
 const isWindows = process.platform === 'win32'
 const findCommands = isWindows
   ? [
-      'C:\\Windows\\System32\\where.exe',
+      'C\\Windows\\System32\\where.exe',
       // fall back to PATH lookup; may be missing inside Electron sandboxes
       'where'
     ]
   : ['which']
-const windowsShellPaths = [
-  'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe',
-  'C:\\Windows\\System32\\powershell.exe',
-  'C:\\Program Files\\PowerShell\\7\\pwsh.exe',
-  'C:\\Program Files\\PowerShell\\7\\powershell.exe'
+const commonWindowsShellPaths = [
+  'C\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe',
+  'C\\Windows\\System32\\powershell.exe',
+  'C\\Program Files\\PowerShell\\7\\pwsh.exe',
+  'C\\Program Files\\PowerShell\\7\\powershell.exe'
 ]
+const windowsShellCandidates: Record<string, string[]> = {
+  powershell: commonWindowsShellPaths,
+  pwsh: commonWindowsShellPaths
+}
 const finderCache = new Map<string, string | null>()
 
 async function pathExists(candidate: string) {
@@ -35,7 +39,7 @@ async function runFinder(
     const child = spawn(cmd, [executable], {
       shell: isWindows,
       windowsHide: true,
-      env: { ...process.env } // ADD THIS LINE - inherit parent environment
+      env: { ...process.env }
     })
 
     let settled = false
@@ -64,15 +68,16 @@ async function runFinder(
 async function searchForExecutableOnPath(
   executable: string
 ): Promise<string | null> {
-  if (finderCache.has(executable)) return finderCache.get(executable) ?? null
+  const cacheKey = executable.toLowerCase()
+  if (finderCache.has(cacheKey)) return finderCache.get(cacheKey) ?? null
 
   // Special-case PowerShell so we never depend on PATH for it
-  if (isWindows && executable.toLowerCase() === 'powershell') {
-    for (const candidate of windowsShellPaths) {
+  if (isWindows && windowsShellCandidates[cacheKey]) {
+    for (const candidate of windowsShellCandidates[cacheKey]) {
       // stop at the first existing path
       /* istanbul ignore next -- platform-specific */
       if (await pathExists(candidate)) {
-        finderCache.set(executable, candidate)
+        finderCache.set(cacheKey, candidate)
         return candidate
       }
     }
@@ -81,12 +86,12 @@ async function searchForExecutableOnPath(
   for (const cmd of findCommands) {
     const found = await runFinder(cmd, executable)
     if (found) {
-      finderCache.set(executable, found)
+      finderCache.set(cacheKey, found)
       return found
     }
   }
 
-  finderCache.set(executable, null)
+  finderCache.set(cacheKey, null)
   return null
 }
 
