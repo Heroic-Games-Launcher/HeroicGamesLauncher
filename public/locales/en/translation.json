@@ -204,6 +204,7 @@
         "confirm-remove": "Confirm removal of \"{{name}}\"",
         "confirm-rename": "Confirm rename of \"{{oldName}}\" as \"{{newName}}\"",
         "export": "Export to file",
+        "export_import": "Export/Import",
         "import": "Import file",
         "no-categories": "No categories yet.",
         "remove": "Remove \"{{name}}\"",

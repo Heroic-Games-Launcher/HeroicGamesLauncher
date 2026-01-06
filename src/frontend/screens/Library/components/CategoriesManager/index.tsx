@@ -236,18 +236,25 @@ function CategoriesManager() {
             </button>
           }
         />
-        <button
-          className="button is-primary"
-          onClick={() => exportCategories()}
-        >
-          {t('categories-manager.export', 'Export to file')}
-        </button>
-        <button
-          className="button is-primary"
-          onClick={() => importCategories()}
-        >
-          {t('categories-manager.import', 'Import file')}
-        </button>
+        <details>
+          <summary>
+            {t('categories-manager.export_import', 'Export/Import')}
+          </summary>
+          <div>
+            <button
+              className="button is-primary"
+              onClick={() => exportCategories()}
+            >
+              {t('categories-manager.export', 'Export to file')}
+            </button>
+            <button
+              className="button is-primary"
+              onClick={() => importCategories()}
+            >
+              {t('categories-manager.import', 'Import file')}
+            </button>
+          </div>
+        </details>
       </DialogContent>
     </Dialog>
   )
