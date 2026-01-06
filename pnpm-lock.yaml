@@ -151,9 +151,6 @@ importers:
       steam-shortcut-editor:
         specifier: ^3.1.3
         version: 3.1.3
-      xvfb-maybe:
-        specifier: ^0.2.1
-        version: 0.2.1
       zod:
         specifier: ^3.24.3
         version: 3.25.6
@@ -308,6 +305,9 @@ importers:
       vite-plugin-svgr:
         specifier: ^4.3.0
         version: 4.3.0(rollup@4.40.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.18(patch_hash=8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831))(sass@1.89.0))
+      xvfb-maybe:
+        specifier: ^0.2.1
+        version: 0.2.1
 
 packages:
 
