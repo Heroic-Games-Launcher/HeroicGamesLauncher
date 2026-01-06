@@ -58,9 +58,6 @@ importers:
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
-      crc:
-        specifier: ^4.3.2
-        version: 4.3.2(buffer@6.0.3)
       easydl:
         specifier: ^1.2.0
         version: 1.2.0
@@ -2525,15 +2522,6 @@ packages:
 
   crc@3.8.0:
     resolution: {integrity: sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==}
-
-  crc@4.3.2:
-    resolution: {integrity: sha512-uGDHf4KLLh2zsHa8D8hIQ1H/HtFQhyHrc0uhHBcoKGol/Xnb+MPYfUMw7cvON6ze/GUESTudKayDcJC5HnJv1A==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      buffer: '>=6.0.3'
-    peerDependenciesMeta:
-      buffer:
-        optional: true
 
   create-error-class@3.0.2:
     resolution: {integrity: sha512-gYTKKexFO3kh200H1Nit76sRwRtOY32vQd3jpAQKpLtZqyNsSQNfI4N7o3eP2wUjV35pTWKRYqFUDBvUha/Pkw==}
@@ -8659,10 +8647,6 @@ snapshots:
     dependencies:
       buffer: 5.7.1
     optional: true
-
-  crc@4.3.2(buffer@6.0.3):
-    optionalDependencies:
-      buffer: 6.0.3
 
   create-error-class@3.0.2:
     dependencies:
