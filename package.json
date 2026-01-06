@@ -53,8 +53,6 @@
     "lint-translations": "esbuild --bundle --platform=node --target=node21 meta/lintTranslations.ts | node"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
     "@fontsource/cabin": "^4.5.10",
     "@fontsource/rubik": "^4.5.14",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
