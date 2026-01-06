@@ -27,7 +27,7 @@ const WineItem = ({
   hasUpdate,
   installDir,
   type,
-  link
+  release_notes_link
 }: WineVersionInfo) => {
   const { t } = useTranslation()
   const state = useWineManagerState(useShallow((state) => state[version]))
@@ -51,7 +51,7 @@ const WineItem = ({
       hasUpdate,
       type,
       installDir,
-      link
+      release_notes_link
     })
   }
 
@@ -67,7 +67,7 @@ const WineItem = ({
       hasUpdate,
       installDir,
       type,
-      link
+      release_notes_link
     })
   }
 
@@ -127,13 +127,13 @@ const WineItem = ({
   }
 
   const openReleaseNotes = () => {
-    window.api.openWebviewPage(link)
+    window.api.openWebviewPage(release_notes_link)
   }
 
   return (
     <div className="wineManagerListItem">
       <span className="wineManagerTitleList">{version}</span>
-      <div className="wineManagerLink">
+      <div className="wineManagerNotes">
         <SvgButton title={'notes'} onClick={() => openReleaseNotes()}>
           <FontAwesomeIcon icon={faExternalLink} />
         </SvgButton>

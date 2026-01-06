@@ -24,7 +24,7 @@
 .wineManagerListItem {
   display: grid;
   grid-template-columns: 3fr 4rem 2fr 1fr 10%;
-  grid-template-areas: 'name link date size action';
+  grid-template-areas: 'name notes date size action';
   width: 100%;
   align-items: center;
   justify-items: baseline;
@@ -78,8 +78,8 @@
   top: 0;
 }
 
-.wineManagerLink {
-  grid-area: link;
+.wineManagerNotes {
+  grid-area: notes;
 }
 
 .wineManagerListDate {

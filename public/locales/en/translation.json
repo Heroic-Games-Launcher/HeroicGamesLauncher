@@ -997,13 +997,13 @@
     },
     "wine": {
         "actions": "Action",
-        "link": "Notes",
         "manager": {
             "link": "Wine Manager",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },
+        "notes": "Notes",
         "release": "Release Date",
         "size": "Size"
     },
