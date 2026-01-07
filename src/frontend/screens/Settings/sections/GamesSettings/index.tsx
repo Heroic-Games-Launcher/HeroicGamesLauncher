@@ -225,7 +225,7 @@ export default function GamesSettings() {
         <AlternativeExe />
         <LauncherArgs />
         <div className="Field">
-          <label>Scripts:</label>
+          <label>{t('setting.scripts', 'Scripts:')}</label>
           <BeforeLaunchScriptPath />
           <AfterLaunchScriptPath />
         </div>
