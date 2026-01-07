@@ -135,7 +135,6 @@
     "node-gyp": "^10.3.1",
     "prettier": "^3.5.3",
     "react-devtools": "^5.3.2",
-    "sass": "^1.87.0",
     "tmp": "^0.2.3",
     "ts-jest": "^29.3.2",
     "ts-prune": "^0.10.3",
