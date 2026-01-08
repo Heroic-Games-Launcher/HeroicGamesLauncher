@@ -66,8 +66,6 @@ parts:
     override-build: |
       craftctl default
       sed -i 's|Name=Heroic Games Launcher|Name=Heroic [Snap]|' $CRAFT_PART_INSTALL/usr/share/applications/heroic.desktop
-      sed -i 's|Exec=/opt/Heroic/heroic %U|Exec=${SNAP}/opt/Heroic/heroic %U|' $CRAFT_PART_INSTALL/usr/share/applications/heroic.desktop
-      sed -i 's|Icon=heroic|Icon=${SNAP}/meta/gui/icon.svg|' $CRAFT_PART_INSTALL/usr/share/applications/heroic.desktop
     prime:
       - opt/Heroic
       - usr/share/applications/heroic.desktop
