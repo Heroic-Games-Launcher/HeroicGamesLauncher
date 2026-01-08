@@ -1,28 +1,24 @@
-@use './styles/typography';
-@use './styles/spacing';
-@use './styles/colors';
-@use './styles/buttons';
+@import './styles/typography';
+@import './styles/spacing';
+@import './styles/colors';
+@import './styles/buttons';
 :root {
-  @include typography.typeSystem;
-  @include spacing.spacingSystem;
-  @include colors.colorSystem;
-
   overflow-y: overlay;
   /* Effects */
   --blur-light: 4px;
   --blur-strong: 16px;
 }
 
-// Example breakpoint
-// @media screen and (max-width: 800px) {
-//   :root {
-//     font-size: 16px;
-//     --text-scale-ratio: 1.2;
-//   }
-// }
+/* Example breakpoint
+@media screen and (max-width: 800px) {
+  :root {
+    font-size: 16px;
+    --text-scale-ratio: 1.2;
+  }
+} */
 
-// this fixes a problem with an extra horizontal scrollbar when
-// a vertical scrollbar is displayed, don't change
+/* this fixes a problem with an extra horizontal scrollbar when
+a vertical scrollbar is displayed, don't change */
 html {
   width: 100vw;
   overflow-x: hidden;
@@ -39,9 +35,9 @@ body {
   --overlay-controls-width: calc(
     100vw - env(titlebar-area-width, calc(100vw - 120px))
   );
-  // these 2 !important fix a problem when displaying the
-  // context menu in the library, material ui sets values
-  // that create problems, don't change
+  /* these 2 !important fix a problem when displaying the
+  context menu in the library, material ui sets values
+  that create problems, don't change */
   overflow: auto !important;
   padding: 0 !important;
 }

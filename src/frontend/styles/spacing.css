@@ -1,4 +1,4 @@
-@mixin spacingSystem {
+:root {
   /* spacing values */
   --space-3xs: 0.25em;
   --space-2xs: 0.375em;

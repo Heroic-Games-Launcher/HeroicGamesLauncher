@@ -9,7 +9,7 @@
   max-width: 650px;
 }
 
-// Add the tooltip class styling
+/* Add the tooltip class styling */
 .heroic-tour-tooltip {
   background: var(--tour-popup-background, var(--neutral-02));
   color: var(--text-default);

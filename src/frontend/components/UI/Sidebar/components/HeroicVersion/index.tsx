@@ -4,7 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { ChangelogModal } from '../../../ChangelogModal'
 import TourButton from 'frontend/components/Tour/TourButton'
 import { SIDEBAR_TOUR_ID } from '../SidebarTour'
-import './index.scss'
+import './index.css'
 
 type Release = {
   html_url: string

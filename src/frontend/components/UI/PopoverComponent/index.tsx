@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import './index.scss'
+import './index.css'
 
 interface PopoverComponentProps {
   item: React.ReactElement

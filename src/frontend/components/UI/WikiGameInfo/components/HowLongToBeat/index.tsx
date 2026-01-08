@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import './index.scss'
+import './index.css'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import { createNewWindow } from 'frontend/helpers'
 

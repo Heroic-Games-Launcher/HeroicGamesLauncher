@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.css'
 
 import { useContext, useState } from 'react'
 

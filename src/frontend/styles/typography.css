@@ -13,7 +13,7 @@ xl	23.04	1.44
 6xl	57.33	3.58
 */
 
-@mixin typeSystem {
+:root {
   --default-primary-font-family: 'Rubik', sans-serif;
   --default-secondary-font-family: 'Cabin', sans-serif;
   --primary-font-family: var(--default-primary-font-family);

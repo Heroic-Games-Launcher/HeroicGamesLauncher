@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { DLCInfo } from 'common/types/legendary'
-import './index.scss'
+import './index.css'
 import { useTranslation } from 'react-i18next'
 import { getGameInfo, getInstallInfo, install, size } from 'frontend/helpers'
 import { GameInfo, Runner } from 'common/types'

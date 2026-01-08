@@ -12,7 +12,7 @@ import {
 } from 'common/types'
 import { Dialog } from 'frontend/components/UI/Dialog'
 
-import './index.scss'
+import './index.css'
 
 import DownloadDialog from './DownloadDialog'
 import SideloadDialog from './SideloadDialog'

@@ -7,7 +7,7 @@ import {
   Close as CloseIcon
 } from '@mui/icons-material'
 import RestoreIcon from './RestoreWindow'
-import './index.scss'
+import './index.css'
 
 export default function WindowControls() {
   const [maximized, setMaximized] = useState<boolean>()
