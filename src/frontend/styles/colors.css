@@ -1,4 +1,4 @@
-@mixin colorSystem {
+:root {
   /* General Colors as on Figma. Do not add new colors here */
   /* Brand */
   --brand-primary: #1de8f5;
@@ -43,9 +43,9 @@
   --status-info-hover: #0fefc7;
 
   /* Other */
-  --accent: #8bffff; // accent-01 on figma
-  --accent-02: #484daf5b; // accent-02 on figma
-  --accent-overlay: #b098e2; // accent-02 on figma
+  --accent: #8bffff; /* accent-01 on figma */
+  --accent-02: #484daf5b; /* accent-02 on figma */
+  --accent-overlay: #b098e2; /* accent-02 on figma */
   --eighty-percent-black: #000000cc;
   --sixty-percent-black: #00000099;
 
