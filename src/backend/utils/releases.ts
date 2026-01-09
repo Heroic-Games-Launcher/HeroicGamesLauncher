@@ -30,6 +30,22 @@ export interface ReleasesData {
     shaMac: string
     shaLinux: string
   }
+  dxvk: {
+    tag: string
+    published_at: string
+  }
+  'dxvk-mac': {
+    tag: string
+    published_at: string
+  }
+  dxmt: {
+    tag: string
+    published_at: string
+  }
+  vkd3d: {
+    tag: string
+    published_at: string
+  }
 }
 
 // fetch latest versions of wine/proton/gptk and anticheat data if needed
