@@ -22,23 +22,6 @@
     "node": ">=22"
   },
   "packageManager": "pnpm@10.26.2",
-  "pnpm": {
-    "overrides": {
-      "form-data": "4.0.4",
-      "cross-spawn@<6.0.6": "6.0.6",
-      "cross-spawn@>=7.0.0 <7.0.5": "7.0.5",
-      "glob@>=10.2.0 <10.5.0": "10.5.0",
-      "got": "11.8.6",
-      "js-yaml@<3.14.2": "3.14.2",
-      "js-yaml@>=4.0.0 <4.1.1": "4.1.1",
-      "brace-expansion@1": "1.1.12",
-      "brace-expansion@2": "2.0.2",
-      "@eslint/plugin-kit": "0.3.4",
-      "tmp": "0.2.4",
-      "vite": "6.4.1",
-      "@playwright/test": "1.55.1"
-    }
-  },
   "scripts": {
     "start": "electron-vite dev --watch",
     "debug:react": "pnpm start & react-devtools",
