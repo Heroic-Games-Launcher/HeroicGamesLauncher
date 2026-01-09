@@ -401,22 +401,22 @@ function filterGameSettingsForLog(
 
     if (notNative) {
       const wineType = gameSettings.wineVersion
+      delete gameSettings.preferSystemLibs
+      delete gameSettings.autoInstallVkd3d
+      delete gameSettings.autoInstallDxvkNvapi
       if (wineType) {
         if (wineType.type === 'wine') {
           delete gameSettings.wineCrossoverBottle
+          delete gameSettings.advertiseAvxForRosetta
         }
 
         if (wineType.type === 'toolkit') {
           delete gameSettings.autoInstallDxvk
-          delete gameSettings.autoInstallDxvkNvapi
-          delete gameSettings.autoInstallVkd3d
           delete gameSettings.wineCrossoverBottle
         }
 
         if (wineType.type === 'crossover') {
           delete gameSettings.autoInstallDxvk
-          delete gameSettings.autoInstallDxvkNvapi
-          delete gameSettings.autoInstallVkd3d
           delete gameSettings.winePrefix
         }
       }
@@ -426,6 +426,7 @@ function filterGameSettingsForLog(
       delete gameSettings.wineVersion
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
+      delete gameSettings.advertiseAvxForRosetta
     }
   }
 
