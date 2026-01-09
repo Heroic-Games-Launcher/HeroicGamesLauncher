@@ -2,18 +2,6 @@ patchedDependencies:
   '@types/node@22.15.18': patches/@types__node@22.15.18.patch
   howlongtobeat-js@1.0.2: patches/howlongtobeat-js@1.0.2.patch
 
-overrides:
-  brace-expansion@1: 1.1.12
-  brace-expansion@2: 2.0.2
-  cross-spawn@<6.0.6: 6.0.6
-  cross-spawn@>=7.0.0 <7.0.6: 7.0.6
-  '@eslint/plugin-kit': 0.3.4
-  glob@>=10.2.0 <10.5.0: 10.5.0
-  form-data: 4.0.4
-  js-yaml@<3.14.2: 3.14.2
-  js-yaml@>=4.0.0 <4.1.1: 4.1.1
-  ts-morph: 17.0.1
-
 onlyBuiltDependencies:
   - '@fortawesome/fontawesome-common-types'
   - '@fortawesome/fontawesome-svg-core'
