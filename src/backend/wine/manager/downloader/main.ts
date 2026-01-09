@@ -52,6 +52,7 @@ async function getAvailableVersions({
   for (const repo of repositorys) {
     switch (repo) {
       case Repositorys.WINEGE: {
+        console.log('fetching winege')
         await fetchReleases({
           url: WINEGE_URL,
           type: 'Wine-GE',
@@ -66,6 +67,7 @@ async function getAvailableVersions({
         break
       }
       case Repositorys.PROTONGE: {
+        console.log('fetching geproton')
         await fetchReleases({
           url: PROTONGE_URL,
           type: 'GE-Proton',
