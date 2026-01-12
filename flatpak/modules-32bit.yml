@@ -1,0 +1,31 @@
+x-compat-i386-opts: &compat_i386_opts
+  prepend-pkg-config-path: /app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig
+  ldflags: -L/app/lib32 -Wl,-rpath-link=/app/lib32 -Wl,-z,relro,-z,now -Wl,--as-needed
+  ldflags-override: true
+  prepend-path: /usr/lib/sdk/toolchain-i386/bin
+  env:
+    CC: i686-unknown-linux-gnu-gcc
+    CXX: i686-unknown-linux-gnu-g++
+  libdir: /app/lib32
+
+name: modules-32bit
+buildsystem: simple
+build-commands: []
+modules:
+
+    - name: gamemode-32bit
+      build-options:
+        arch:
+          x86_64: *compat_i386_opts
+      buildsystem: meson
+      config-opts:
+        - -Dwith-examples=false
+        - -Dwith-util=false
+        - -Dwith-sd-bus-provider=no-daemon
+      sources:
+        - type: git
+          url: https://github.com/FeralInteractive/gamemode.git
+          branch: master
+          commit: f0a569a5199974751a4a75ebdc41c8f0b8e4c909
+          x-checker-data:
+            type: git

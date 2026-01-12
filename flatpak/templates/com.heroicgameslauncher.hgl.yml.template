@@ -1,71 +1,61 @@
 id: com.heroicgameslauncher.hgl
-sdk: org.freedesktop.Sdk
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: &runtime-version '25.08'
+x-runtime-version-extra: &runtime-version-extra 25.08-extra
+x-gl-version: &gl-version '1.4'
+x-gl-versions: &gl-versions 25.08;25.08-extra;1.4
+x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d;vdpau
+sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
+base-version: *runtime-version
 command: heroic-run
 separate-locales: false
 
 cleanup:
-  - /share/docs
+  - /include
+  - /lib/*.a
+  - /lib/*.la
+  - /lib/cmake
+  - /lib/pkgconfig
+  - /lib32/*.a
+  - /lib32/*.la
+  - /lib32/pkgconfig
+  - /share/doc
+  - /share/gtk-doc
   - /share/man
+  - /share/pkgconfig
+  - /share/docs
 
 sdk-extensions:
   - org.freedesktop.Sdk.Compat.i386
   - org.freedesktop.Sdk.Extension.toolchain-i386
 
 finish-args:
-  - --allow=devel
-  - --allow=multiarch
-  - --allow=bluetooth
-
-  # pressure vessel
-  - --allow=per-app-dev-shm
-  - --device=all
-  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin:/usr/lib/extensions/vulkan/gamescope/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin:/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux
-  - --env=LD_LIBRARY_PATH=/usr/lib/extensions/vulkan/gamescope/lib
-  - --filesystem=~/.local/share/lutris:rw
-  - --filesystem=~/.steam/steam:rw
-  - --filesystem=~/.local/share/applications:rw
-  - --filesystem=~/.steam:rw
-  - --filesystem=~/Games/Heroic:create
-  - --filesystem=~/.var/app/com.valvesoftware.Steam:rw
-  - --filesystem=xdg-documents
-  - --filesystem=xdg-desktop
-  - --filesystem=xdg-run/gamescope-0:rw
-  # should fix access to SD card on the deck
-  - --filesystem=/run/media
-  # There are still quite a few users using /mnt/ and /media/ for external drives
-  - --filesystem=/mnt
-  - --filesystem=/media
-  # should fix steamdeck controler navigation
-  - --filesystem=/run/udev:ro
-  # should fix discord rich presence
-  - --filesystem=xdg-run/app/com.discordapp.Discord:create
-  # umu
-  - --filesystem=xdg-data/umu:create
-  - --filesystem=xdg-config/MangoHud:ro
-  - --persist=.
+# Copied from flathub's Steam: https://github.com/flathub/com.valvesoftware.Steam
   - --share=ipc
-  - --share=network
-  - --socket=x11
   - --socket=wayland
+  - --socket=x11
   - --socket=pulseaudio
-  - --talk-name=org.kde.StatusNotifierWatcher
-  - --talk-name=com.canonical.Unity
-  - --talk-name=org.freedesktop.ScreenSaver
-
-  # copied from steam (wip)
-  # wine uses this for disk drives (mountmgr.sys)
-  - --system-talk-name=org.freedesktop.UDisks2
+  - --share=network
+  - --own-name=com.steampowered.*
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
   # Wine uses UDisks2 to enumerate disk drives
   - --system-talk-name=org.freedesktop.UDisks2
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
+  - --talk-name=org.freedesktop.ScreenSaver
   - --talk-name=org.freedesktop.PowerManagement
   - --talk-name=org.freedesktop.Notifications
+  - --filesystem=xdg-music:ro
+  - --filesystem=xdg-pictures:ro
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  - --filesystem=xdg-run/pipewire-0:ro
+  - --device=all
+  - --allow=multiarch
+  - --allow=devel
+  - --allow=bluetooth
+  - --allow=per-app-dev-shm
+  - --persist=.
   - --env=TZ=
   - --unset-env=TZ
   - --env=LC_ADDRESS=C
@@ -86,136 +76,100 @@ finish-args:
   - --env=SDL_VIDEODRIVER=
   - --unset-env=SDL_VIDEODRIVER
   - --env=DBUS_FATAL_WARNINGS=0
+  - --env=SSL_CERT_DIR=/etc/ssl/certs
+  - --env=PYTHONPATH=/app/utils/lib/python3.13/site-packages
   - --env=PROTON_DEBUG_DIR=/var/tmp
   - --env=XDG_CONFIG_DIRS=/etc/xdg:/usr/lib/x86_64-linux-gnu/GL:/usr/lib/i386-linux-gnu/GL
   - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
-  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/app/lib32/gstreamer-1.0:/usr/lib/extensions/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0
+  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/app/lib32/gstreamer-1.0:/usr/lib/extensions/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/codecs-extra/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/codecs-extra/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0
+  
+# Unique to Heroic
+  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin:/usr/lib/extensions/vulkan/gamescope/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin:/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux
+  - --env=LD_LIBRARY_PATH=/usr/lib/extensions/vulkan/gamescope/lib
+  - --filesystem=~/.local/share/lutris:rw
+  - --filesystem=~/.steam/steam:rw
+  - --filesystem=~/.local/share/applications:rw
+  - --filesystem=~/.steam:rw
+  - --filesystem=~/Games/Heroic:create
+  - --filesystem=~/.var/app/com.valvesoftware.Steam:rw
+  - --filesystem=xdg-documents
+  - --filesystem=xdg-desktop
+  - --filesystem=xdg-run/gamescope-0:rw
+  # should fix access to SD card on the deck
+  - --filesystem=/run/media
+  # There are still quite a few users using /mnt/ and /media/ for external drives
+  - --filesystem=/mnt
+  - --filesystem=/media
+  # should fix steamdeck controler navigation
+  - --filesystem=/run/udev:ro
+  # umu
+  - --filesystem=xdg-data/umu:create
+  - --filesystem=xdg-config/MangoHud:ro
+  - --talk-name=com.canonical.Unity
 
 add-extensions:
+# Copied from flathub's Steam: https://github.com/flathub/com.valvesoftware.Steam
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '23.08'
+    version: *runtime-version
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '23.08'
+    version: *runtime-version
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
-    version: '1.4'
-    versions: 23.08;1.4
+    version: *gl-version
+    versions: *gl-versions
     subdirectories: true
     no-autodownload: true
     autodelete: false
     add-ld-path: lib
-    merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
+    merge-dirs: *gl-merge-dirs
     download-if: active-gl-driver
     enable-if: active-gl-driver
+    autoprune-unless: active-gl-driver
 
-  x-compat-i386-opts: &compat_i386_opts
-    prepend-pkg-config-path: /app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig
-    ldflags: -L/app/lib32
-    append-path: /usr/lib/sdk/toolchain-i386/bin
-    env:
-      CC: i686-unknown-linux-gnu-gcc
-      CXX: i686-unknown-linux-gnu-g++
-    libdir: /app/lib32
+  org.freedesktop.Platform.GL32.Debug:
+    directory: lib/debug/lib/i386-linux-gnu/GL
+    version: *gl-version
+    versions: *gl-versions
+    subdirectories: true
+    no-autodownload: true
+    merge-dirs: *gl-merge-dirs
+    enable-if: active-gl-driver
+    autoprune-unless: active-gl-driver
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '23.08'
-    versions: '23.08'
+    version: *runtime-version
+    versions: *runtime-version
     autodelete: false
     no-autodownload: true
     add-ld-path: lib
     download-if: have-intel-gpu
     autoprune-unless: have-intel-gpu
 
-  com.valvesoftware.Steam.Utility:
-    subdirectories: true
-    directory: utils
-    version: stable
-    versions: stable;beta;test
-    add-ld-path: lib
-    merge-dirs: bin
+  org.freedesktop.Platform.VAAPI.nvidia.i386:
+    directory: i386/nvidia-vaapi-driver
+    version: *runtime-version
+    versions: *runtime-version
+    autodelete: false
     no-autodownload: true
-    autodelete: true
+    add-ld-path: lib
+    download-if: have-kernel-module-nvidia
+    autoprune-unless: have-kernel-module-nvidia
+
+  org.freedesktop.Platform.codecs_extra.i386:
+    directory: lib/i386-linux-gnu/codecs-extra
+    version: *runtime-version-extra
+    autodelete: false
+    add-ld-path: lib
 
 modules:
-  # --- Tools ---
-  - name: vulkan-tools
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DGLSLANG_INSTALL_DIR=/app
-      - -DVULKAN_HEADERS_INSTALL_DIR=/app
-      - -DCMAKE_BUILD_TYPE=Release
-    sources:
-      - type: archive
-        url: https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.3.297/Vulkan-Tools-1.3.297.tar.gz
-        sha256: 95bffa39d90f3ec81d8e3a0fa6c846ac1a10442152cc0b6d0d6567ce48932f89
-    modules:
-      - name: volk
-        buildsystem: cmake-ninja
-        config-opts:
-          - -DVOLK_INSTALL=ON
-        sources:
-          - type: archive
-            url: https://github.com/zeux/volk/archive/vulkan-sdk-1.3.296.0.tar.gz
-            sha256: 8ffd0e81e29688f4abaa39e598937160b098228f37503903b10d481d4862ab85
-        modules:
-          - name: vulkan-headers
-            buildsystem: cmake-ninja
-            sources:
-              - type: archive
-                url: https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.3.297/Vulkan-Headers-v1.3.297.tar.gz
-                sha256: 1d679e2edc43cb7ad818b81dea960e374f1d6dd082325eb9b4c6113e76263c02
-
-  - name: gamemode
-    buildsystem: meson
-    config-opts: &gamemode_opts
-      - -Dwith-examples=false
-      - -Dwith-util=false
-      - -Dwith-sd-bus-provider=no-daemon
-    sources: &gamemode_sources
-      - type: git
-        url: https://github.com/FeralInteractive/gamemode.git
-        tag: 1.8.2
-        commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
-        x-checker-data:
-          type: git
-
-  - name: gamemode-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    buildsystem: meson
-    config-opts: *gamemode_opts
-    sources: *gamemode_sources
-
-  - name: gamemoderun
-    buildsystem: simple
-    build-commands:
-      - install -Dm755 data/gamemoderun -t /app/bin
-    sources: *gamemode_sources
-
-  - name: rsync
-    config-opts:
-      - --prefix=${FLATPAK_DEST}
-      - --with-included-popt
-      - --with-included-zlib
-      - --host=x86
-      - --disable-xxhash
-      - --disable-md2man
-    sources:
-      - type: archive
-        url: https://download.samba.org/pub/rsync/src/rsync-3.4.1.tar.gz
-        sha256: 2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52
-        x-checker-data:
-          type: anitya
-          project-id: 4217
-          stable-only: true
-          url-template: https://download.samba.org/pub/rsync/src/rsync-$version.tar.gz
+  - modules.yml
+  - modules-32bit.yml
 
   # --- Heroic ---
   - name: heroic
@@ -243,164 +197,41 @@ modules:
       - |
         set -e
         mkdir -p /app/bin
-        mkdir -p /app/utils
         mkdir -p /app/lib/i386-linux-gnu
-        mkdir -p /app/lib/debug/lib/i386-linux-gnu
         mkdir -p /app/lib/i386-linux-gnu/GL
         mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
+        mkdir -p /app/i386/nvidia-vaapi-driver
+        mkdir -p /app/lib/i386-linux-gnu/codecs-extra
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu/GL
+        cp /usr/bin/addr2line /app/bin/
+        cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
+        install -Dm644 -t /app/etc ld.so.conf
+        mkdir -p /app/share/steam/compatibilitytools.d
+        mkdir -p /app/utils /app/share/vulkan
+        ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
+        ln -srv /app/{utils/,}share/vulkan/implicit_layer.d
+        mkdir -p /app/links/lib
+        ln -srv /app/lib /app/links/lib/x86_64-linux-gnu
+        ln -srv /app/lib32 /app/links/lib/i386-linux-gnu
+        mkdir -p /app/utils
         install -Dm644 com.heroicgameslauncher.hgl.png /app/share/icons/hicolor/128x128/apps/com.heroicgameslauncher.hgl.png
         install -Dm644 com.heroicgameslauncher.hgl.desktop /app/share/applications/${FLATPAK_ID}.desktop
-        install -Dm644 -t /app/etc ld.so.conf
         install -Dm644 $FLATPAK_ID.metainfo.xml /app/share/metainfo/$FLATPAK_ID.appdata.xml
     sources:
       - type: inline
         dest-filename: ld.so.conf
         contents: |
+          include /run/flatpak/ld.so.conf.d/app-*-org.freedesktop.Platform.GL32.*.conf
           /app/lib32
           /app/lib/i386-linux-gnu
+          /usr/lib/i386-linux-gnu
+          /app/lib
+          /usr/lib/x86_64-linux-gnu
+          /lib64
       - type: file
         path: com.heroicgameslauncher.hgl.metainfo.xml
       - type: file
         path: com.heroicgameslauncher.hgl.png
       - type: file
         path: com.heroicgameslauncher.hgl.desktop
-
-  #START --- Winetricks Deps ---
-  - name: p7zip
-    no-autogen: true
-    build-options:
-      strip: true
-    make-args:
-      - all2
-      - OPTFLAGS=-O2 -g -std=gnu++14
-      - DEST_HOME=$(FLATPAK_DEST)
-      - DEST_BIN=$(FLATPAK_DEST)/bin
-      - DEST_SHARE=$(FLATPAK_DEST)/lib/p7zip
-      - DEST_MAN=$(FLATPAK_DEST)/share/man
-    make-install-args:
-      - DEST_HOME=$(FLATPAK_DEST)
-      - DEST_BIN=$(FLATPAK_DEST)/bin
-      - DEST_SHARE=$(FLATPAK_DEST)/lib/p7zip
-      - DEST_MAN=$(FLATPAK_DEST)/share/man
-    sources:
-      - type: archive
-        url: https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.05.tar.gz
-        sha256: d2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6
-      - type: shell
-        only-arches:
-          - x86_64
-        commands:
-          - ln -sf makefile.linux_amd64_asm makefile.machine
-      - type: shell
-        only-arches:
-          - i386
-        commands:
-          - ln -sf makefile.linux_x86_asm_gcc_4.X makefile.machine
-    modules:
-      - name: yasm
-        buildsystem: cmake-ninja
-        sources:
-          - type: archive
-            url: https://github.com/yasm/yasm/archive/v1.3.0.tar.gz
-            sha256: f708be0b7b8c59bc1dbe7134153cd2f31faeebaa8eec48676c10f972a1f13df3
-        cleanup:
-          - '*'
-
-  - name: cabextract
-    build-options:
-      strip: true
-    sources:
-      - type: archive
-        url: https://www.cabextract.org.uk/cabextract-1.11.tar.gz
-        sha256: b5546db1155e4c718ff3d4b278573604f30dd64c3c5bfd4657cd089b823a3ac6
-        x-checker-data:
-          type: anitya
-          project-id: 245
-          url-template: https://www.cabextract.org.uk/cabextract-$version.tar.gz
-
-  - name: unrar
-    no-autogen: true
-    build-options:
-      strip: true
-    make-install-args:
-      - DESTDIR=$(FLATPAK_DEST)
-    sources:
-      - type: archive
-        url: https://www.rarlab.com/rar/unrarsrc-6.2.12.tar.gz
-        sha256: a008b5f949bca9bb4ffa1bebbfc8b3c14b89df10a10354809b845232d5f582e5
-        x-checker-data:
-          type: anitya
-          project-id: 13306
-          url-template: https://www.rarlab.com/rar/unrarsrc-$version.tar.gz
-
-  - name: binutils-ar
-    buildsystem: simple
-    build-options:
-      strip: true
-    build-commands:
-      - install -Dm755 /usr/bin/ar -t ${FLATPAK_DEST}/bin/
-      - install -Dm755 /usr/lib/$(gcc -print-multiarch)/libbfd-*.so -t ${FLATPAK_DEST}/lib/
-
-  - name: aria2
-    config-opts:
-      - --disable-libaria2
-      - --disable-websocket
-      - --without-sqlite3
-    sources:
-      - type: archive
-        sha256: 60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
-        url: https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
-
-  - name: libcaca
-    config-opts: &libcaca_config_opts
-      - --disable-doc
-      - --disable-python
-      - --disable-ruby
-      - --disable-static
-    sources: &libcaca_sources
-      - type: archive
-        url: http://caca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz
-        sha256: 128b467c4ed03264c187405172a4e83049342cc8cc2f655f53a2d0ee9d3772f4
-
-  - name: libcaca-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    config-opts: *libcaca_config_opts
-    sources: *libcaca_sources
-
-  - name: libbsd
-    sources: &libbsd_sources
-      - type: archive
-        url: https://libbsd.freedesktop.org/releases/libbsd-0.10.0.tar.xz
-        sha256: 34b8adc726883d0e85b3118fa13605e179a62b31ba51f676136ecb2d0bc1a887
-
-  - name: libbsd-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    sources: *libbsd_sources
-
-  - name: libjpeg # with libjpeg.so.8
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_SKIP_RPATH:BOOL=YES
-      - -DENABLE_STATIC:BOOL=NO
-      - -DWITH_JPEG8:BOOL=YES
-      - -DCMAKE_INSTALL_LIBDIR=/app/lib # uses lib64 by default
-    sources: &libjpeg_sources
-      - type: archive
-        url: https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.3.tar.gz
-        sha256: dbda0c685942aa3ea908496592491e5ec8160d2cf1ec9d5fd5470e50768e7859
-
-  - name: libjpeg-32bit # with libjpeg.so.8
-    buildsystem: cmake-ninja
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    config-opts:
-      - -DCMAKE_SKIP_RPATH:BOOL=YES
-      - -DENABLE_STATIC:BOOL=NO
-      - -DWITH_JPEG8:BOOL=YES
-    sources: *libjpeg_sources
-  #END --- Winetricks Deps ---

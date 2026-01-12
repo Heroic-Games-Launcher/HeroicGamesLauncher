@@ -1,0 +1,239 @@
+name: modules
+buildsystem: simple
+build-commands: []
+modules:
+
+  - name: zlib-ng
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DZLIB_ENABLE_TESTS=false
+      - -DZLIB_COMPAT=true
+    sources:
+      - type: archive
+        url: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.3.2.tar.gz
+        sha256: 6a0561b50b8f5f6434a6a9e667a67026f2b2064a1ffa959c6b2dae320161c2a8
+        x-checker-data:
+          type: anitya
+          project-id: 115592
+          url-template: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/$version.tar.gz
+
+# -- controllers --
+
+  - name: hwdata
+    config-opts:
+      - --datarootdir=/app/share
+    sources:
+      - type: git
+        url: https://github.com/vcrhonek/hwdata
+        tag: v0.403
+        commit: bb56be59220b34d79160b73bd24eb36952dc8c63
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
+          tag-query: .tag_name
+
+  - name: usbutils
+    buildsystem: meson
+    sources:
+      - type: git
+        url: https://github.com/gregkh/usbutils
+        commit: d0c76b601b4b3ab9b2ab2647d604a8e3cce6d666
+        tag: v019
+        x-checker-data:
+          type: anitya
+          project-id: 5061
+          stable-only: true
+          tag-template: v$version
+
+  - name: lsof
+    buildsystem: simple
+    build-commands:
+      - ./Configure -n linux
+      - make CC="cc ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}"
+      - install -Dm755 lsof -t /app/bin
+    sources:
+      - type: git
+        url: https://github.com/lsof-org/lsof
+        commit: ed0fef9a134b64c9398075185534a76714c91179
+        tag: 4.99.5
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/lsof-org/lsof/releases/latest
+          tag-query: .tag_name
+
+# -- end controllers --
+
+  - name: xrandr
+    sources:
+      - type: archive
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.3.tar.xz
+        sha256: f8dd7566adb74147fab9964680b6bbadee87cf406a7fcff51718a5e6949b841c
+        x-checker-data:
+          type: anitya
+          project-id: 14957
+          stable-only: true
+          url-template: https://xorg.freedesktop.org/archive/individual/app/xrandr-$version.tar.xz
+
+  - name: libmd
+    sources:
+      - type: archive
+        url: https://libbsd.freedesktop.org/releases/libmd-1.1.0.tar.xz
+        sha256: 1bd6aa42275313af3141c7cf2e5b964e8b1fd488025caf2f971f43b00776b332
+        x-checker-data:
+          type: anitya
+          project-id: 15525
+          stable-only: true
+          url-template: https://libbsd.freedesktop.org/releases/libmd-$version.tar.xz
+
+  - name: libbsd
+    sources:
+      - type: archive
+        url: https://libbsd.freedesktop.org/releases/libbsd-0.12.2.tar.xz
+        sha256: b88cc9163d0c652aaf39a99991d974ddba1c3a9711db8f1b5838af2a14731014
+        x-checker-data:
+          type: anitya
+          project-id: 1567
+          stable-only: true
+          url-template: https://libbsd.freedesktop.org/releases/libbsd-$version.tar.xz
+
+#START --- Winetricks Deps ---
+  - name: 7zip
+    buildsystem: simple
+    subdir: CPP/7zip/UI/Console
+    build-commands:
+      - make -j$FLATPAK_BUILDER_N_JOBS -f makefile.gcc
+      - install -Dm755 _o/7z -t ${FLATPAK_DEST}/bin/
+    sources:
+      - type: archive
+        strip-components: 0
+        url: https://github.com/ip7z/7zip/releases/download/25.01/7z2501-src.tar.xz
+        sha256: ed087f83ee789c1ea5f39c464c55a5c9d4008deb0efe900814f2df262b82c36e
+        x-checker-data:
+          type: anitya
+          project-id: 17875
+          url-template: https://github.com/ip7z/7zip/releases/download/$version/7z*-src.tar.xz
+
+  - name: cabextract
+    build-options:
+      strip: true
+    sources:
+      - type: archive
+        url: https://www.cabextract.org.uk/cabextract-1.11.tar.gz
+        sha256: b5546db1155e4c718ff3d4b278573604f30dd64c3c5bfd4657cd089b823a3ac6
+        x-checker-data:
+          type: anitya
+          project-id: 245
+          url-template: https://www.cabextract.org.uk/cabextract-$version.tar.gz
+
+  - name: unrar
+    no-autogen: true
+    build-options:
+      strip: true
+    make-install-args:
+      - DESTDIR=$(FLATPAK_DEST)
+    sources:
+      - type: archive
+        url: https://www.rarlab.com/rar/unrarsrc-7.2.3.tar.gz
+        sha256: 3995af0aa32b1505a566da053725551a1f0698dc42b2fdf7ba7d65db0d004e33
+        x-checker-data:
+          type: anitya
+          project-id: 13306
+          url-template: https://www.rarlab.com/rar/unrarsrc-$version.tar.gz
+
+  - name: binutils-ar
+    buildsystem: simple
+    build-options:
+      strip: true
+    build-commands:
+      - install -Dm755 /usr/bin/ar -t ${FLATPAK_DEST}/bin/
+      - install -Dm755 /usr/lib/$(gcc -print-multiarch)/libbfd-*.so -t ${FLATPAK_DEST}/lib/
+
+  - name: aria2
+    config-opts:
+      - --disable-libaria2
+      - --disable-websocket
+      - --without-sqlite3
+    sources:
+      - type: archive
+        sha256: 60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
+        url: https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
+
+  - name: libjpeg # with libjpeg.so.8
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_SKIP_RPATH:BOOL=YES
+      - -DENABLE_STATIC:BOOL=NO
+      - -DWITH_JPEG8:BOOL=YES
+      - -DCMAKE_INSTALL_LIBDIR=/app/lib # uses lib64 by default
+    sources:
+      - type: archive
+        url: https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.3/libjpeg-turbo-3.1.3.tar.gz
+        sha256: 075920b826834ac4ddf97661cc73491047855859affd671d52079c6867c1c6c0
+
+#END --- Winetricks Deps ---
+
+  - name: rsync
+    config-opts:
+      - --prefix=${FLATPAK_DEST}
+      - --with-included-popt
+      - --with-included-zlib
+      - --host=x86
+      - --disable-xxhash
+      - --disable-md2man
+    sources:
+      - type: archive
+        url: https://download.samba.org/pub/rsync/src/rsync-3.4.1.tar.gz
+        sha256: 2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52
+        x-checker-data:
+          type: anitya
+          project-id: 4217
+          stable-only: true
+          url-template: https://download.samba.org/pub/rsync/src/rsync-$version.tar.gz
+
+  - name: gamemode
+    buildsystem: meson
+    config-opts:
+      - -Dwith-examples=false
+      - -Dwith-util=false
+      - -Dwith-sd-bus-provider=no-daemon
+    sources: &gamemode_sources
+      - type: git
+        url: https://github.com/FeralInteractive/gamemode.git
+        branch: master
+        commit: f0a569a5199974751a4a75ebdc41c8f0b8e4c909
+        x-checker-data:
+          type: git
+  
+  - name: gamemoderun
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 data/gamemoderun -t /app/bin
+    sources: *gamemode_sources
+
+# --- Vulkan Tools ---
+  - name: vulkan-tools
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DVULKAN_HEADERS_INSTALL_DIR=/app
+      - -DCMAKE_BUILD_TYPE=Release
+    sources:
+      - type: archive
+        url: https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.4.335/Vulkan-Tools-1.4.335.tar.gz
+        sha256: a582746935ac1bbe070072cbf5a3a44a7b860ef854d69f1b4f79b1f9cd1832f0
+    modules:
+      - name: volk
+        buildsystem: cmake-ninja
+        config-opts:
+          - -DVOLK_INSTALL=ON
+        sources:
+          - type: archive
+            url: https://github.com/zeux/volk/archive/vulkan-sdk-1.4.335.0.tar.gz
+            sha256: ca2beb1ab9bf272895bc0152ef29b437d178d837bae4a76d0022b7bbafb3c483
+        modules:
+          - name: vulkan-headers
+            buildsystem: cmake-ninja
+            sources:
+              - type: archive
+                url: https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.4.335/Vulkan-Headers-v1.4.335.tar.gz
+                sha256: 8ee39bee575bdccc1ecacd0bdb26f181841de35d7409a3eca468c6b622daa2f1
+# --- end Tools ---
