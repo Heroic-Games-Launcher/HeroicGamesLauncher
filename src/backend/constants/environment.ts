@@ -1,5 +1,24 @@
 import { env } from 'process'
 import { cpus } from 'os'
+import { readFileSync } from 'graceful-fs'
+
+interface Manifest {
+  'runtime-version': string
+}
+
+function readFlatpakRuntimeVersion() {
+  try {
+    const manifestContent = readFileSync('/app/manifest.json').toString()
+    const manifest = JSON.parse(manifestContent) as Manifest
+    return manifest['runtime-version']
+  } catch (error) {
+    console.log(
+      `Unable to read runtime version from flatpak manifest file. ${error}`
+    )
+  }
+
+  return 'unknown'
+}
 
 export const isMac = process.platform === 'darwin'
 export const isIntelMac = isMac && cpus()[0].model.includes('Intel') // so we can have different behavior for Intel Mac
@@ -17,5 +36,7 @@ export const isCLINoGui = process.argv.includes('--no-gui')
 export const isFlatpak = Boolean(env.FLATPAK_ID)
 export const isSnap = Boolean(env.SNAP)
 export const isAppImage = Boolean(env.APPIMAGE)
-export const flatpakRuntimeVersion = env.FLATPAK_RUNTIME_VERSION
+export const flatpakRuntimeVersion = isFlatpak
+  ? readFlatpakRuntimeVersion()
+  : ''
 export const autoUpdateSupported = isWindows || isMac || isAppImage
