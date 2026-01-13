@@ -8,7 +8,7 @@ interface Manifest {
 
 function readFlatpakRuntimeVersion() {
   try {
-    const manifestContent = readFileSync('/app/manifest.json').toString()
+    const manifestContent = readFileSync('/app/manifest.json', 'utf8')
     const manifest = JSON.parse(manifestContent) as Manifest
     return manifest['runtime-version']
   } catch (error) {
