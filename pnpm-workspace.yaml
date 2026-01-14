@@ -1,15 +1,17 @@
-patchedDependencies:
-  '@types/node@22.19.3': patches/@types__node@22.19.3.patch
-  howlongtobeat-js@1.0.2: patches/howlongtobeat-js@1.0.2.patch
-
 onlyBuiltDependencies:
   - '@fortawesome/fontawesome-common-types'
   - '@fortawesome/fontawesome-svg-core'
   - '@fortawesome/free-brands-svg-icons'
   - '@fortawesome/free-regular-svg-icons'
   - '@fortawesome/free-solid-svg-icons'
+  - '@parcel/watcher'
   - '@swc/core'
   - electron
+  - electron-winstaller
   - esbuild
   - register-scheme
   - unrs-resolver
+
+patchedDependencies:
+  '@types/node@22.19.7': patches/@types__node@22.19.7.patch
+  howlongtobeat-js@1.0.2: patches/howlongtobeat-js@1.0.2.patch
