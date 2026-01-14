@@ -74,7 +74,7 @@
     "crc": "^4.3.2",
     "easydl": "^1.2.0",
     "electron-store": "^8.2.0",
-    "electron-updater": "^6.6.2",
+    "electron-updater": "^6.8.0",
     "filesize": "^10.1.6",
     "fs-extra": "^11.3.0",
     "fuse.js": "^6.6.2",
@@ -127,11 +127,11 @@
     "@types/semver": "^7.7.0",
     "@types/source-map-support": "^0.5.10",
     "@types/tmp": "^0.2.6",
-    "@vitejs/plugin-react-swc": "^3.9.0",
+    "@vitejs/plugin-react-swc": "^4.2.2",
     "cross-env": "^7.0.3",
     "electron": "^39.2.7",
-    "electron-builder": "^26.0.12",
-    "electron-vite": "^3.1.0",
+    "electron-builder": "^26.4.1",
+    "electron-vite": "^5.0.0",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.3",
@@ -142,7 +142,7 @@
     "husky": "^8.0.3",
     "i18next-parser": "^9.3.0",
     "jest": "^29.7.0",
-    "node-gyp": "^10.3.1",
+    "node-gyp": "^12.1.0",
     "prettier": "^3.7.4",
     "react-devtools": "^5.3.2",
     "sass": "^1.87.0",
@@ -154,10 +154,9 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.34.1",
     "undici": "^7.8.0",
-    "unimported": "^1.31.1",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "^4.5.0"
   },
   "resolutions": {
-    "ts-morph": "17.0.1"
+    "ts-morph": "26.0.0"
   }
 }
