@@ -47,7 +47,7 @@ jobs:
           pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
           arch=('x86_64')
           url="$url"
-          license=('GPL3')
+          license=('GPL-3.0-or-later')
           _filename=$_filename
           source=("$source")
           noextract=("$_filename")
