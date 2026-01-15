@@ -815,3 +815,24 @@ export interface RunnerCommandStub {
   stdout?: string
   stderr?: string
 }
+
+export type ReleasesInfo = Record<
+  | 'ge-proton'
+  | 'wine-ge'
+  | 'game-porting-toolkit'
+  | 'wine-staging'
+  | 'wine-crossover'
+  | 'dxvk'
+  | 'dxvk-mac'
+  | 'dxmt'
+  | 'vkd3d',
+  {
+    tag: string
+    published_at: string
+  }
+> & {
+  anticheatFiles: {
+    shaMac: string
+    shaLinux: string
+  }
+}

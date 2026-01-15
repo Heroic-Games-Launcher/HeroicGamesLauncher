@@ -8,19 +8,14 @@ import { appFolder } from 'backend/constants/paths'
 import { isMac, isWindows } from 'backend/constants/environment'
 import { createHash } from 'node:crypto'
 import { createReadStream } from 'graceful-fs'
+import { finished } from 'node:stream/promises'
 
-function createMD5(filePath: string) {
-  return new Promise((res) => {
-    const hash = createHash('md5')
-
-    const rStream = createReadStream(filePath)
-    rStream.on('data', (data) => {
-      hash.update(data)
-    })
-    rStream.on('end', () => {
-      res(hash.digest('hex'))
-    })
-  })
+async function createMD5(filePath: string) {
+  const hash = createHash('md5')
+  const rStream = createReadStream(filePath)
+  rStream.pipe(hash)
+  await finished(rStream)
+  return hash.digest('hex')
 }
 
 const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
@@ -32,11 +27,17 @@ async function downloadAntiCheatData(latestFileHash?: string) {
   const localFileHash = await createMD5(anticheatDataPath)
 
   if (latestFileHash && localFileHash === latestFileHash) {
-    logDebug('AreWeAnticheatYet data did not change. Skipping.')
+    logDebug(
+      'AreWeAnticheatYet data did not change. Skipping.',
+      LogPrefix.Backend
+    )
     return
   }
 
-  logDebug('AreWeAnticheatYet data changed. Downloading latest file.')
+  logDebug(
+    'AreWeAnticheatYet data changed. Downloading latest file.',
+    LogPrefix.Backend
+  )
 
   runOnceWhenOnline(async () => {
     const url = isMac

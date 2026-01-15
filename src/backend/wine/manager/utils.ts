@@ -5,7 +5,12 @@
 
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
-import { WineVersionInfo, Repositorys, WineManagerStatus } from 'common/types'
+import {
+  WineVersionInfo,
+  Repositorys,
+  WineManagerStatus,
+  ReleasesInfo
+} from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
 import { sendFrontendMessage } from '../../ipc'
@@ -18,7 +23,6 @@ import { toolsPath } from 'backend/constants/paths'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from '../../config'
 import { join } from 'path'
-import { ReleasesData } from 'backend/utils/releases'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
@@ -28,7 +32,7 @@ export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   }
 )
 
-function getLatestLocalVersions() {
+function getLatestLocalVersions(): Record<string, string | undefined> {
   const localWines = wineDownloaderInfoStore.get('wine-releases', [])
 
   if (isLinux) {
@@ -58,12 +62,25 @@ function getLatestLocalVersions() {
   return {}
 }
 
+// compare dates only of local version is present
+function localVersionIsOlder(
+  localDate: string | undefined,
+  latestRelease: { published_at: string; tag: string }
+) {
+  if (!localDate) return false
+
+  return (
+    Date.parse(localDate) <
+    Date.parse(latestRelease.published_at.replace(/T.*/, ''))
+  )
+}
+
 // Fetch the latest releases of the different translation layers but only
 // if we don't already have the latest version locally
 //
 // Note that this updates the list of releases of a given repo if and only if
 // we already have a list for that given repo
-export function updateWineListsIfOutdated(releasesData: ReleasesData) {
+export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
   if (isWindows) return
 
   const latestLocalVersions = getLatestLocalVersions()
@@ -71,51 +88,47 @@ export function updateWineListsIfOutdated(releasesData: ReleasesData) {
 
   // compare dates to know which repositories to fetch
   if (isLinux) {
-    if (latestLocalVersions?.latestGEProton) {
-      if (
-        Date.parse(latestLocalVersions.latestGEProton) <
-        Date.parse(releasesData['ge-proton'].published_at.replace(/T.*/, ''))
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestGEProton,
+        releasesData['ge-proton']
       )
-        repositoriesToFetch.push(Repositorys.PROTONGE)
-    }
+    )
+      repositoriesToFetch.push(Repositorys.PROTONGE)
 
-    if (latestLocalVersions?.latestWineGE) {
-      if (
-        Date.parse(latestLocalVersions.latestWineGE) <
-        Date.parse(releasesData['wine-ge'].published_at.replace(/T.*/, ''))
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestWineGE,
+        releasesData['wine-ge']
       )
-        repositoriesToFetch.push(Repositorys.WINEGE)
-    }
+    )
+      repositoriesToFetch.push(Repositorys.WINEGE)
   }
 
   if (isMac) {
-    if (latestLocalVersions?.latestWineCrossover) {
-      if (
-        Date.parse(latestLocalVersions.latestWineCrossover) <
-        Date.parse(
-          releasesData['wine-crossover'].published_at.replace(/T.*/, '')
-        )
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestWineCrossover,
+        releasesData['wine-crossover']
       )
-        repositoriesToFetch.push(Repositorys.WINECROSSOVER)
-    }
+    )
+      repositoriesToFetch.push(Repositorys.WINECROSSOVER)
 
-    if (latestLocalVersions?.latestWineStaging) {
-      if (
-        Date.parse(latestLocalVersions.latestWineStaging) <
-        Date.parse(releasesData['wine-staging'].published_at.replace(/T.*/, ''))
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestWineStaging,
+        releasesData['wine-staging']
       )
-        repositoriesToFetch.push(Repositorys.WINESTAGINGMACOS)
-    }
+    )
+      repositoriesToFetch.push(Repositorys.WINESTAGINGMACOS)
 
-    if (latestLocalVersions?.latestGPTK) {
-      if (
-        Date.parse(latestLocalVersions.latestGPTK) <
-        Date.parse(
-          releasesData['game-porting-toolkit'].published_at.replace(/T.*/, '')
-        )
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestGPTK,
+        releasesData['game-porting-toolkit']
       )
-        repositoriesToFetch.push(Repositorys.GPTK)
-    }
+    )
+      repositoriesToFetch.push(Repositorys.GPTK)
   }
 
   if (repositoriesToFetch.length > 0) {
