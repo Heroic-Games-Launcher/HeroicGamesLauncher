@@ -140,8 +140,9 @@ const contextMenu = (
   ])
 }
 
-// Exported only for testing purpose
-// ts-prune-ignore-next
+/**
+ * @internal Exported only for testing purpose
+ */
 export const testingExportsTrayIcon = {
   contextMenu,
   getIcon

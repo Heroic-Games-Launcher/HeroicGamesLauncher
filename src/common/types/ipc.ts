@@ -49,7 +49,6 @@ import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
 
-// ts-prune-ignore-next
 interface SyncIPCFunctions {
   setZoomFactor: (zoomFactor: string) => void
   changeLanguage: (language: string) => void
@@ -136,7 +135,6 @@ interface TestSyncIPCFunctions {
   resetNileCommandStub: () => void
 }
 
-// ts-prune-ignore-next
 interface AsyncIPCFunctions {
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>

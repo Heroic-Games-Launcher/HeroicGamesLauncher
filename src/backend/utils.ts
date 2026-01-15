@@ -1694,8 +1694,9 @@ export {
   parseSize
 }
 
-// Exported only for testing purpose
-// ts-prune-ignore-next
+/**
+ * @internal Exported only for testing purpose
+ */
 export const testingExportsUtils = {
   semverGt
 }
