@@ -476,7 +476,7 @@ export function getGameInfo(slug: string): GameInfo | undefined {
   return library.get(slug) || getInstallAndGameInfo(slug)
 }
 
-export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
+function getInstallAndGameInfo(slug: string): GameInfo | undefined {
   const lib = libraryStore.get('games', [])
   const game = lib.find((value) => value.app_name === slug)
 
@@ -847,7 +847,7 @@ export async function listUpdateableGames(): Promise<string[]> {
   return updateable
 }
 
-export async function checkForLinuxInstallerUpdate(
+async function checkForLinuxInstallerUpdate(
   appName: string,
   version: string
 ): Promise<boolean> {
@@ -863,7 +863,7 @@ export async function checkForLinuxInstallerUpdate(
   return false
 }
 
-export async function getBuilds(
+async function getBuilds(
   appName: string,
   platform: string,
   access_token?: string
@@ -924,7 +924,7 @@ export async function getMetaResponse(
   return { status: 304, etag: etag }
 }
 
-export async function checkForGameUpdate(
+async function checkForGameUpdate(
   appName: string,
   platform: string,
   etag?: string,
@@ -944,7 +944,7 @@ export async function checkForGameUpdate(
  * Convert GamesDBData and ProductEndpointData objects to GameInfo
  * That way it will be easly accessible on frontend
  */
-export async function gogToUnifiedInfo(
+async function gogToUnifiedInfo(
   info: GamesDBData | undefined
 ): Promise<GameInfo> {
   if (!info || info.type !== 'game' || !info.game.visible_in_library) {
@@ -1077,7 +1077,7 @@ export async function createReqsArray(
 
 /* Get product ids installed in for given game
  */
-export function listInstalledProducts(appName: string): string[] {
+function listInstalledProducts(appName: string): string[] {
   const installedData = installedGames.get(appName)
   if (!installedData) {
     return []
@@ -1369,7 +1369,6 @@ export async function runRunnerCommand(
 }
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 export function installState(appName: string, state: boolean) {
   logWarning(`installState not implemented on GOG Library Manager`)
 }

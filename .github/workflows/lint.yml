@@ -16,4 +16,4 @@ jobs:
       - name: Prettier code.
         run: pnpm prettier
       - name: Find dead code
-        run: pnpm find-deadcode
+        run: pnpm find-deadcode:ci

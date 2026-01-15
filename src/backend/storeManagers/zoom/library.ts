@@ -126,7 +126,7 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
   }
 }
 
-export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
+function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
   const object: GameInfo = {
     runner: 'zoom',
     app_name: String(zoomGame.id),
@@ -158,7 +158,7 @@ export function getGameInfo(slug: string): GameInfo | undefined {
   return library.get(slug) || getInstallAndGameInfo(slug)
 }
 
-export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
+function getInstallAndGameInfo(slug: string): GameInfo | undefined {
   const lib = libraryStore.get('games', [])
   const game = lib.find((value) => value.app_name === slug)
 
