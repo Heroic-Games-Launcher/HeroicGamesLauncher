@@ -72,7 +72,7 @@ export function autoUpdate(runner: Runner, gamesToUpdate: string[]) {
     if (!ignoreGameUpdates && gameIsAvailable) {
       logInfo(`Auto-Updating ${gameInfo.title}`, logPrefix)
       const dmQueueElement: DMQueueElement = getDMElement(gameInfo, appName)
-      addToQueue(dmQueueElement)
+      void addToQueue(dmQueueElement)
       // remove from the array to avoid downloading the same game twice
       gamesToUpdate = gamesToUpdate.filter((game) => game !== appName)
     } else {
