@@ -668,7 +668,8 @@
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design"
+            "enableNewDesign": "New design",
+            "zoomPlatform": "Zoom Platform support"
         },
         "frameless-window": {
             "confirmation": {

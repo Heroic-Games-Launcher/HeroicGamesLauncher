@@ -71,6 +71,7 @@ interface StateProps {
   zoom: {
     library: GameInfo[]
     username?: string
+    enabled: boolean
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -182,7 +183,8 @@ class GlobalState extends PureComponent<Props> {
     },
     zoom: {
       library: this.loadZoomLibrary(),
-      username: zoomConfigStore.get_nodefault('username')
+      username: zoomConfigStore.get_nodefault('username'),
+      enabled: !!globalSettings?.experimentalFeatures?.zoomPlatform
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -234,6 +236,7 @@ class GlobalState extends PureComponent<Props> {
     experimentalFeatures: {
       enableHelp: false,
       cometSupport: true,
+      zoomPlatform: false,
       ...(globalSettings?.experimentalFeatures || {})
     },
     disableDialogBackdropClose: configStore.get(
@@ -491,7 +494,10 @@ class GlobalState extends PureComponent<Props> {
   }
 
   handleExperimentalFeatures = (value: ExperimentalFeatures) => {
-    this.setState({ experimentalFeatures: value })
+    this.setState({
+      experimentalFeatures: value,
+      zoom: { ...this.state.zoom, enabled: value }
+    })
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
@@ -663,11 +669,14 @@ class GlobalState extends PureComponent<Props> {
       gogLibrary = this.loadGOGLibrary()
     }
 
-    let zoomLibrary = this.loadZoomLibrary()
-    if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
-      window.api.logInfo('No cache found, getting data from zoom...')
-      await window.api.refreshLibrary('zoom')
+    let zoomLibrary: GameInfo[] = []
+    if (zoom.enabled) {
       zoomLibrary = this.loadZoomLibrary()
+      if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
+        window.api.logInfo('No cache found, getting data from zoom...')
+        await window.api.refreshLibrary('zoom')
+        zoomLibrary = this.loadZoomLibrary()
+      }
     }
 
     let amazonLibrary = nileLibraryStore.get('library', [])
@@ -948,7 +957,7 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getAmazonUserInfo()
     }
 
-    if (zoomUser) {
+    if (zoom.enabled && zoomUser) {
       await window.api.getZoomUserInfo()
     }
 
@@ -957,14 +966,14 @@ class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    if (legendaryUser || gogUser || amazonUser || zoomUser) {
+    if (legendaryUser || gogUser || amazonUser || (zoom.enabled && zoomUser)) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:
           epic.library.length !== 0 ||
           gog.library.length !== 0 ||
           amazon.library.length !== 0 ||
-          zoom.library.length !== 0
+          ((this.state.zoom.enabled && zoom.library) || []).length !== 0
       })
     }
 
@@ -1103,7 +1112,8 @@ class GlobalState extends PureComponent<Props> {
             library: zoom.library,
             username: zoom.username,
             login: this.zoomLogin,
-            logout: this.zoomLogout
+            logout: this.zoomLogout,
+            enabled: this.state.zoom.enabled
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

@@ -179,7 +179,7 @@ export default function LibraryFilters() {
         {epic.username && storeToggle('legendary')}
         {gog.username && storeToggle('gog')}
         {amazon.user_id && storeToggle('nile')}
-        {zoom.username && storeToggle('zoom')} {}
+        {zoom.enabled && zoom.username && storeToggle('zoom')} {}
         {storeToggle('sideload')}
         <hr />
         {platformToggle('win')}

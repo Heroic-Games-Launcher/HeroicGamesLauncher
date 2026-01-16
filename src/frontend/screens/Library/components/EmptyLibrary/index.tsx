@@ -29,7 +29,7 @@ function EmptyLibraryMessage() {
     epic.library.length +
       gog.library.length +
       amazon.library.length +
-      zoom.library.length +
+      ((zoom.enabled && zoom.library.length) || 0) +
       sideloadedLibrary.length >
     0
   ) {

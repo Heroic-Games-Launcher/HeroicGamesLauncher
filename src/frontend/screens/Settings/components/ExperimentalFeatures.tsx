@@ -8,7 +8,8 @@ import { ExperimentalFeatures as IExperimentalFeatures } from 'common/types'
 const ExperimentalFeatures = () => {
   const FEATURES: (keyof IExperimentalFeatures)[] = [
     'enableHelp',
-    'cometSupport'
+    'cometSupport',
+    'zoomPlatform'
   ]
 
   const { t } = useTranslation()
@@ -16,7 +17,8 @@ const ExperimentalFeatures = () => {
     'experimentalFeatures',
     {
       enableHelp: false,
-      cometSupport: true
+      cometSupport: true,
+      zoomPlatform: false
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)
@@ -35,6 +37,7 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableNewDesign', 'New design')
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.cometSupport', 'Comet support')
+    t('setting.experimental_features.zoomPlatform', 'Zoom Platform support')
   */
 
   return (
