@@ -1109,8 +1109,8 @@ class GlobalState extends PureComponent<Props> {
             logout: this.amazonLogout
           },
           zoom: {
-            library: zoom.library,
-            username: zoom.username,
+            library: this.state.zoom.enabled ? zoom.library : [],
+            username: this.state.zoom.enabled ? zoom.username : undefined,
             login: this.zoomLogin,
             logout: this.zoomLogout,
             enabled: this.state.zoom.enabled

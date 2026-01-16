@@ -54,7 +54,7 @@ export default React.memo(function RecentlyPlayed({
         ...gog.library,
         ...sideloadedLibrary,
         ...amazon.library,
-        ...((zoom.enabled && zoom.library) || [])
+        ...zoom.library
       ],
       maxRecentGames,
       onlyInstalled

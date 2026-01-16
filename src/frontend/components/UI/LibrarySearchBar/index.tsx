@@ -37,7 +37,7 @@ export default function LibrarySearchBar() {
       ...(gog.library ?? []),
       ...(sideloadedLibrary ?? []),
       ...(amazon.library ?? []),
-      ...((zoom.enabled && zoom.library) || [])
+      ...(zoom.library ?? [])
     ]
       .filter(Boolean)
       .filter((el) => {
@@ -53,7 +53,6 @@ export default function LibrarySearchBar() {
     gog.library,
     sideloadedLibrary,
     zoom.library,
-    zoom.enabled,
     normalizedFilterText
   ])
 

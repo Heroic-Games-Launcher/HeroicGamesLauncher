@@ -371,11 +371,9 @@ export default React.memo(function Library(): JSX.Element {
       amazon.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
-      if (zoom.enabled) {
-        zoom.library.forEach((game) => {
-          if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
-        })
-      }
+      zoom.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -411,7 +409,7 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['sideload']) {
       displayedStores.push('sideload')
     }
-    if (zoom.enabled && storesFilters['zoom'] && zoom.username) {
+    if (storesFilters['zoom'] && zoom.username) {
       displayedStores.push('zoom')
     }
 
@@ -423,8 +421,7 @@ export default React.memo(function Library(): JSX.Element {
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
     const showSideloaded = displayedStores.includes('sideload')
-    const showZoom =
-      zoom.enabled && zoom.username && displayedStores.includes('zoom')
+    const showZoom = zoom.username && displayedStores.includes('zoom')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
