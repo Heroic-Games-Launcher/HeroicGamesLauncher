@@ -37,7 +37,7 @@ const ExperimentalFeatures = () => {
     t('setting.experimental_features.enableNewDesign', 'New design')
     t('setting.experimental_features.enableHelp', 'Help component')
     t('setting.experimental_features.cometSupport', 'Comet support')
-    t('setting.experimental_features.zoomPlatform', 'Zoom Platform support')
+    t('setting.experimental_features.zoomPlatform', 'Zoom Platform support (only Linux)')
   */
 
   return (
