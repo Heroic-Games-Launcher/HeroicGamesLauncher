@@ -376,7 +376,6 @@ function filterGameSettingsForLog(
       delete gameSettings.enableHDR
       delete gameSettings.enableWoW64
       delete gameSettings.showFps
-      delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.eacRuntime
       delete gameSettings.battlEyeRuntime
       delete gameSettings.useGameMode
@@ -422,7 +421,6 @@ function filterGameSettingsForLog(
       }
     } else {
       // remove settings that are not used on native Mac games
-      delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.wineVersion
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
@@ -439,8 +437,6 @@ function filterGameSettingsForLog(
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
     delete gameSettings.enableWoW64
-    delete gameSettings.enableDXVKFpsLimit
-    delete gameSettings.DXVKFpsCap
     delete gameSettings.autoInstallDxvk
     delete gameSettings.autoInstallDxvkNvapi
     delete gameSettings.autoInstallVkd3d
@@ -1157,9 +1153,6 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (gameSettings.showFps) {
     if (isMac) ret.MTL_HUD_ENABLED = '1'
     else ret.DXVK_HUD = 'fps'
-  }
-  if (gameSettings.enableDXVKFpsLimit) {
-    ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
   if (gameSettings.enableFSR) {
     ret.WINE_FULLSCREEN_FSR = '1'

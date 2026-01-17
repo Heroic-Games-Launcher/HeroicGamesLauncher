@@ -30,7 +30,6 @@ import {
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
-  EnableDXVKFpsLimit,
   IgnoreGameUpdates,
   Gamescope,
   BeforeLaunchScriptPath,
@@ -193,7 +192,6 @@ export default function GamesSettings() {
             <EnableMsync />
             <AdvertiseAvxForRosetta />
             <EnableFSR />
-            <EnableDXVKFpsLimit />
             <Tools />
           </>
         )}
