@@ -12,8 +12,8 @@ import {
 } from './gamepad_layouts'
 import { VirtualKeyboardController } from './virtualKeyboard'
 
-const KEY_REPEAT_DELAY = 500
-const STICK_REPEAT_DELAY = 250
+const KEY_REPEAT_DELAY = 50
+const ACTIVATION_DELAY = 250
 const SCROLL_REPEAT_DELAY = 50
 
 /*
@@ -35,19 +35,27 @@ export const initGamepad = () => {
   window.addEventListener('focus', () => (isFocused = true))
   window.addEventListener('blur', () => (isFocused = false))
 
+  // input should be cloned to prevent variables from being re-used
+  // across different controller indexes
+  const basicGamepadInputRepeat = {
+    triggeredAt: {},
+    repeatDelay: KEY_REPEAT_DELAY,
+    activationDelay: ACTIVATION_DELAY
+  }
+
   // store the status and metadata for each action
   // triggeredAt is a hash with controllerIndex as keys and a timestamp or 0 (inactive)
   // this keeps track of the moment a button/trigger/stick is activated
   // we use this to know when to fire events
   const actions: GamepadActionStatus = {
-    padUp: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    padDown: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    padLeft: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    padRight: { triggeredAt: {}, repeatDelay: KEY_REPEAT_DELAY },
-    leftStickUp: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickDown: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickLeft: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
-    leftStickRight: { triggeredAt: {}, repeatDelay: STICK_REPEAT_DELAY },
+    padUp: structuredClone(basicGamepadInputRepeat),
+    padDown: structuredClone(basicGamepadInputRepeat),
+    padLeft: structuredClone(basicGamepadInputRepeat),
+    padRight: structuredClone(basicGamepadInputRepeat),
+    leftStickUp: structuredClone(basicGamepadInputRepeat),
+    leftStickDown: structuredClone(basicGamepadInputRepeat),
+    leftStickLeft: structuredClone(basicGamepadInputRepeat),
+    leftStickRight: structuredClone(basicGamepadInputRepeat),
     rightStickUp: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
     rightStickDown: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
     rightStickLeft: { triggeredAt: {}, repeatDelay: SCROLL_REPEAT_DELAY },
@@ -85,29 +93,33 @@ export const initGamepad = () => {
     if (!pressed) {
       // set 0 if not pressed (means inactive button)
       data.triggeredAt[controllerIndex] = 0
+      data.hasRepeated = false
       return
     }
 
     const now = new Date().getTime()
-
-    // check if the action was already active or not
     const wasActive = triggeredAt !== 0
 
     let shouldRepeat = false
-    if (wasActive) {
+    if (wasActive && data.repeatDelay) {
+      // base delay is just the repeat
+      let totalDelay = data.repeatDelay
+      // if input hasn't repeated and we want to consider activation delay,
+      // add in that time to total delay if present
+      if (!data.hasRepeated) totalDelay += data.activationDelay || 0
+
       // it it was active, check if the action should be repeated
-      if (data.repeatDelay) {
-        const lastTriggered = triggeredAt
-        if (now - lastTriggered > data.repeatDelay) {
-          shouldRepeat = true
-        }
+      if (now - triggeredAt > totalDelay) {
+        shouldRepeat = true
+        // should no longer consider activation delay
+        data.hasRepeated = true
       }
     }
 
     if (!wasActive || shouldRepeat) {
       // console.log(`Action: ${action}`)
 
-      // set last triggeredAt timestamp, used for repeater
+      // update timestamps for repeaters
       data.triggeredAt[controllerIndex] = now
 
       emitControllerEvent(controllerIndex)
