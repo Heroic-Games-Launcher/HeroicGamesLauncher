@@ -14,7 +14,7 @@
         },
         "no": "NIE",
         "repair": {
-            "message": "Chcesz spróbować naprawić tę grę? To może zająć dużo czasu.",
+            "message": "Chcesz spróbować naprawić tę grę? To może zająć dłuższą chwilę.",
             "title": "Zweryfikuj i napraw"
         },
         "runexe": {
@@ -43,7 +43,7 @@
             "gameIsRunning": "{{title}} jest uruchomiony. Zamknij grę, aby ją odinstalować."
         },
         "update": {
-            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
+            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją zaktualizować teraz?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
@@ -56,7 +56,7 @@
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
         "finish": "Zakończ",
-        "force_update": "Wymuś dostępne aktualizacje",
+        "force_update": "Wymuś aktualizację, jeśli jest dostępna",
         "force-innstall": "Wymuś instalację",
         "hide_game": "Ukryj grę",
         "import": "Importuj grę",
@@ -219,7 +219,8 @@
         "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
         "login": "Zaloguj się",
         "title": "Jesteś niezalogowany",
-        "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
+        "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:",
+        "zoom": "Nie jesteś zalogowany za pomocą konta Zoom w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
