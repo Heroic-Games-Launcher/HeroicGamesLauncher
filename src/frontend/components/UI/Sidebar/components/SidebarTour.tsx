@@ -14,7 +14,10 @@ const SidebarTour: React.FC = () => {
 
   // Check if the user is logged into any store
   const isLoggedIn = Boolean(
-    epic.username || gog.username || amazon.user_id || zoom.username
+    epic.username ||
+    gog.username ||
+    amazon.user_id ||
+    (zoom.enabled && zoom.username)
   )
   const isWin = platform === 'win32'
 
