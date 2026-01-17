@@ -579,7 +579,8 @@
             "confirmation": {
                 "title": "Ar Jūs esate tikra/-s?"
             }
-        }
+        },
+        "scripts": "&scenarijai"
     },
     "settings": {
         "advanced": {
