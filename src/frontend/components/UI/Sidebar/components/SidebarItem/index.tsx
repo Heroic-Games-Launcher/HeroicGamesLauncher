@@ -1,14 +1,16 @@
 import { MouseEventHandler } from 'react'
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
+import {
+  FontAwesomeIcon,
+  type FontAwesomeIconProps
+} from '@fortawesome/react-fontawesome'
 import './index.css'
 
 interface SidebarItemProps {
   label: string
   url?: string
-  icon?: IconProp
+  icon?: FontAwesomeIconProps['icon']
   isActiveFallback?: boolean
   onClick?: MouseEventHandler
   className?: string

@@ -1,4 +1,4 @@
-import { crc32 } from 'crc'
+import { crc32 } from 'zlib'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join } from 'path'
 import { GameInfo } from 'common/types'
