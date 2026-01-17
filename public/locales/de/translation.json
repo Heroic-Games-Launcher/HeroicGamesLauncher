@@ -756,8 +756,8 @@
             "enableUpscaling": "Ermöglicht Hochskalierung",
             "missingMsg": "Wir konnten gamescope nicht in der PATH-Variable finden. Installieren Sie es oder fügen Sie es der PATH-Variable hinzu.",
             "enableForceGrabCursor": "Aktiviere Force Grab Cursor",
-            "missingMsgFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 24.08 und starte Heroic neu.",
-            "warningFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 24.08 und starte Heroic neu."
+            "missingMsgFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 25.08 und starte Heroic neu.",
+            "warningFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 25.08 und starte Heroic neu."
         },
         "after-launch-script-path": "Wähle ein Skript aus, das ausgeführt wird nachdem du das Spiel schließt",
         "before-launch-script-path": "Wähle ein Script aus, das ausgeführt wird bevor das Spiel gestartet wird",

@@ -765,7 +765,7 @@
             "enableUpscaling": "Abilita Upscaling",
             "missingMsg": "Non troviamo il gamescope nel PATH. Installalo o aggiungilo al PATH.",
             "enableForceGrabCursor": "Blocca il cursore alla finestra",
-            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 24.08 e riavvia Heroic.",
+            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 25.08 e riavvia Heroic.",
             "warningFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime {{runtimeVersion}} e riavvia Heroic."
         },
         "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",

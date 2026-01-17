@@ -758,7 +758,7 @@
             "enableLimiter": "Activar el limitador de FPS",
             "enableUpscaling": "Permite la ampliación",
             "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH.",
-            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic.",
+            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 25.08 y reiniciar Heroic.",
             "enableForceGrabCursor": "Activar Forzar Agarrar Cursor",
             "warningFlatpak": "No se encontró una versión compatible de Gamescope. Instale el paquete de Flatpak de Gamescope con runtime {{runtimeVersion}} y reinicie Heroic."
         },
