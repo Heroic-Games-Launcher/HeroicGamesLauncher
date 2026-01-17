@@ -807,7 +807,8 @@
             "wine_selector_warning": "Mitte-GE Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes",
             "info_label": "Valve'i Protoni versioonid eiratud"
         },
-        "WoW64": "Luba WoW64 (eksperimentaalne)"
+        "WoW64": "Luba WoW64 (eksperimentaalne)",
+        "scripts": "Skriptid:"
     },
     "settings": {
         "battlEyeRuntime": {

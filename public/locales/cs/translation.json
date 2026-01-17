@@ -809,7 +809,8 @@
             "info_label": "Verze Valve Proton ignorovány"
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
-        "WoW64": "Povolit WoW64 (experimentální)"
+        "WoW64": "Povolit WoW64 (experimentální)",
+        "scripts": "Skripty:"
     },
     "settings": {
         "battlEyeRuntime": {

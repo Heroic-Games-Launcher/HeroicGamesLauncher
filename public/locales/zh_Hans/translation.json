@@ -809,7 +809,8 @@
             "label": "允许使用 Valve Proton 构建运行游戏",
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
-        "WoW64": "启用 WoW64（实验性）"
+        "WoW64": "启用 WoW64（实验性）",
+        "scripts": "脚本："
     },
     "settings": {
         "battlEyeRuntime": {

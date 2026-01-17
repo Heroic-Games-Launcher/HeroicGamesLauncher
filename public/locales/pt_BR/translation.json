@@ -809,7 +809,8 @@
             "wine_selector_warning": "Versões do Proton são ignoradas por padrão, ative-as nas Configurações globais avançadas",
             "info_label": "Versões do Proton da Valve ignoradas"
         },
-        "WoW64": "Ativar WoW64 (Experimental)"
+        "WoW64": "Ativar WoW64 (Experimental)",
+        "scripts": "Scripts:"
     },
     "settings": {
         "battlEyeRuntime": {

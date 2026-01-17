@@ -92,7 +92,9 @@
             },
             "legendary": {
                 "generic": "Sebuah kesalahan telah terjadi! Cobalah Keluar dan Masuk kembali di akun Epic Anda. {{newline}} {{error}}"
-            }
+            },
+            "executableNotFound": "File eksekusi tidak ditemukan",
+            "executableNotFoundMessage": "Heroic tidak bisa menemukan file eksekusi untuk permainan ini. Tolong ubah secara manual pada pengaturan permainan."
         },
         "info": {
             "update": {
@@ -118,7 +120,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini.",
+                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus permainan yang Terpasang atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini.",
                 "title": "Reset Heroic"
             }
         },
@@ -250,7 +252,7 @@
     },
     "generic": {
         "error": {
-            "component": "Tidak ada Gim yang ditemukan - Silakan coba keluar lalu masuk lagi atau salah satu opsi di bawah ini"
+            "component": "Tidak ada permainan yang ditemukan - Silakan coba keluar lalu masuk lagi atau salah satu opsi di bawah ini"
         },
         "library": {
             "refresh": "Segarkan Pustaka"
@@ -424,7 +426,8 @@
         "gog": "Masuk ke GOG",
         "message": "Masuk dengan platform akun anda. Anda dapat masuk ke lebih dari satu platform akun secara bersamaan.",
         "amazon": "Masuk ke Amazon",
-        "old-mac": "Versi macOS anda adalah {{version}}. macOS 12 atau lebih diperlukan untuk masuk."
+        "old-mac": "Versi macOS anda adalah {{version}}. macOS 12 atau lebih diperlukan untuk masuk.",
+        "zoom": "Masuk menggunakan Zoom"
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -675,7 +678,8 @@
                 "gog": "Log GOG",
                 "heroic": "Log umum Heroic",
                 "legendary": "Log Epic Games / Legendary",
-                "nile": "Log Amazon / Nile"
+                "nile": "Log Amazon / Nile",
+                "zoom": "Catatan aktivitas zoom"
             },
             "join-heroic-discord": "Bergabunglah dengan Discord kami",
             "show-uploads": "Tampilkan file log yang diunggah"
@@ -1079,5 +1083,6 @@
     "wineExplanation": {
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
         "wine-ge": "Wine-GE-Proton adalah varian Wine yang dibuat oleh Glorious Eggroll. Versi ini sudah tidak digunakan lagi dan digantikan oleh GE-Proton dengan peluncur umu."
-    }
+    },
+    "zoom-store": "Perbesar Toko"
 }

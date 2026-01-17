@@ -9,7 +9,7 @@
         "importpath": "Alege dosarul de joc pentru a importa",
         "move": {
             "message": "Acest lucru poate dura mult timp, ești sigur?",
-            "path": "Alegeți unde doriți să mutați",
+            "path": "Alege unde dorești să muți",
             "title": "Mutați Instalarea Jocului"
         },
         "no": "NU",
@@ -21,7 +21,8 @@
             "title": "Selectează EXE-ul pentru rulare"
         },
         "select": {
-            "button": "Selectare"
+            "button": "Selectare",
+            "image": "Selectează Imagine"
         },
         "sideload": {
             "exe": "Selectare Executabil"
@@ -39,7 +40,8 @@
             "title": "Dezinstalează",
             "prefix_warning": "Prefixul Wine pentru acest joc este prefixul implicit. Dacă vrei cu adevărat să-l ștergi, trebuie să o faci manual.",
             "dlc": "Doriți să dezinstalați acest {{title}} DLC?",
-            "cannotUninstallEpic": "Epic games nu poate fi dezinstalat în timp ce alt joc Epic este în curs de instalare."
+            "cannotUninstallEpic": "Epic games nu poate fi dezinstalat în timp ce alt joc Epic este în curs de instalare.",
+            "gameIsRunning": "{{title}} rulează. Inchide jocul pentru a-l dezinstala."
         },
         "update": {
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
@@ -52,7 +54,7 @@
     "button": {
         "add_to_favourites": "Adaugă la favorite",
         "cancel": "Pauză/Anulează",
-        "continue": "Continuați descărcarea",
+        "continue": "Continuați Descărcarea",
         "finish": "Finalizare",
         "force_update": "Forțați actualizarea dacă este disponibilă",
         "force-innstall": "Instalare Forțată",
@@ -73,7 +75,11 @@
         "unhide_game": "Afișează jocul",
         "uninstall": "Dezinstalează",
         "update": "Actualizează",
-        "details": "Detalii"
+        "details": "Detalii",
+        "browse_files": "Răsfoiește Fișierele",
+        "browse_wine_prefix": "Răsfoiește Wine Prefix",
+        "changelog": "Arată Jurnalul modificărilor",
+        "play": "JOACĂ"
     },
     "cloud_save_unsupported": "Neacceptat",
     "disabled": "Dezactivat",
@@ -95,11 +101,20 @@
         "totalPlayed": "Timp Jucat",
         "dlcs": "DLC-uri",
         "branch": {
-            "disabled": "Dezactivat"
+            "disabled": "Dezactivat",
+            "password": "Setează parola canalului privat",
+            "select": "Selectează canalul beta",
+            "setPrivateBranchPassword": "Setează parola canalului privat"
         },
         "builds": {
-            "version": "Versiune"
-        }
+            "version": "Versiune",
+            "buildsSelector": "Selectează versiunea jocului",
+            "toggle": "Pastrează jocul la o versiune specifică"
+        },
+        "changelogFor": "Jurnalul modificărilor pentru {{gameTitle}}",
+        "extra_info": "Informații extra",
+        "install_info": "Instalează info",
+        "modify": "Modifică Instalarea"
     },
     "gamecard": {
         "moving": "Mutare",
@@ -128,7 +143,8 @@
         "game-scores": "Scoruri de joc",
         "installedInfo": "Informații instalate",
         "protondb-compatibility-info": "Nivelul de compatibilitate cu protoni",
-        "steamdeck-compatibility-info": "Compatibilitate cu SteamDeck"
+        "steamdeck-compatibility-info": "Compatibilitate cu SteamDeck",
+        "third-party-app": "Manager Third-Party"
     },
     "install": {
         "disk-space-left": "Spatiu disponibil",
@@ -139,7 +155,10 @@
         "wineprefix": "WinePrefix",
         "wineversion": "Versiune Wine",
         "anticheat-warning": {
-            "ok": "Ok"
+            "ok": "Ok",
+            "cancel": "Nu",
+            "disabled_installation": "Acest joc folosește software anticheat care nu este compatibil cu sistemul tău de operare sau suportul nu a fost activat de dezvoltatorii jocului. Asta înseamnă că funcțiile multiplayer nu vor funcționa, iar tu (sau echipa Heroic) nu puteți face nimic în privința asta. <br /><br /> Pentru a instala acest joc și a-l încerca oricum, mergi la Setări, Avansat și bifează opțiunea de a permite instalarea jocurilor cu anticheat defect sau refuzat. <br /><br />Reține că nu există nicio soluție pentru asta și vei risca să fii restricționat (Ban Permanent) în joc.",
+            "install_anyway": "Da (Ințeleg că funcțiile multiplayer nu vor funcționa)"
         }
     },
     "label": {
@@ -170,7 +189,8 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Raportați o problemă la rularea acestui joc",
     "sdl": {
@@ -243,7 +263,13 @@
         "logs": "Bușteni"
     },
     "help": {
-        "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud"
+        "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud",
+        "content": {
+            "gamePage": "Arată toate detaliile și acțiunile jocului. Folosește meniul cu 3 puncte pentru mai multe opțiuni."
+        },
+        "title": {
+            "gamePage": "Pagina jocului"
+        }
     },
     "queue": {
         "label": {

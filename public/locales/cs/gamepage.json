@@ -6,15 +6,15 @@
             "title": "Změnit cestu instalace her"
         },
         "choose": "Vybrat",
-        "importpath": "Vybrerte složku hry pro importování",
+        "importpath": "Vyberte složku hry pro importování",
         "move": {
-            "message": "Toto může chvíli trvat, jste si jisti?",
-            "path": "Vyberte, kam chcete hru přesunout",
+            "message": "Toto může trvat dlouho, jste si jisti?",
+            "path": "Vyberte, kam se chcete přesunout",
             "title": "Přesunout instalaci hry"
         },
         "no": "NE",
         "repair": {
-            "message": "Chcete se pokusit opravit tuto hru? Může to chvíli trvat.",
+            "message": "Chcete se pokusit opravit tuto hru? Může to trvat dlouho.",
             "title": "Zkontrolovat a opravit"
         },
         "runexe": {
@@ -29,17 +29,17 @@
         },
         "stopInstall": {
             "keepInstalling": "Pokračovat v instalaci",
-            "message": "Chcete ponechat stažené soubory?",
+            "message": "Chcete PONECHAT stažené soubory?",
             "title": "Zastavit instalaci"
         },
         "uninstall": {
-            "checkbox": "Odebrat prefix: {{prefix}}{{newLine}}Upozornění: tato akce je nevratná a také odstraní nezálohované soubory uložení.",
+            "checkbox": "Odebrat prefix: {{prefix}}{{newLine}}Upozornění: tato akce je nevratná a také odstraní nezálohované uložené soubory.",
             "message": "Chcete odinstalovat „{{title}}“?",
             "settingcheckbox": "Vymazat nastavení a odstranit protokol{{newLine}}Poznámka: Tento krok nelze vrátit zpět. Veškerá změněná nastavení budou zapomenuta a protokol bude odstraněn.",
             "title": "Odinstalovat",
             "prefix_warning": "Předpona Wine pro tuto hru je výchozí předpona. Pokud to opravdu chcete smazat, musíte to udělat ručně.",
             "dlc": "Chcete odinstalovat „{{title}}“ (DLC)?",
-            "cannotUninstallEpic": "Hry Epic nelze odinstalovat při instalaci jiné hry Epic.",
+            "cannotUninstallEpic": "Epic games nemůže být idinstalováno, když se instaluje jiná Epic hra.",
             "gameIsRunning": "Hra {{title}} je spuštěna. Pro její odinstalaci ji zavřete."
         },
         "update": {
