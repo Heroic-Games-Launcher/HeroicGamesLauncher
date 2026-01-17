@@ -803,7 +803,8 @@
         "hdr": "Ativar o HDR",
         "no-tray-icon": "Ocultar o Ícone do Tabuleiro do Sistema (é necessário reiniciar a aplicação)",
         "wineWayland": "Ativar o Wine-Wayland (Experimental) (a versão do Wine precisa de o suportar)",
-        "WoW64": "Ativar o WoW64 (Experimental)"
+        "WoW64": "Ativar o WoW64 (Experimental)",
+        "scripts": "Scripts:"
     },
     "settings": {
         "battlEyeRuntime": {
