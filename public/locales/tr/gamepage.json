@@ -33,20 +33,20 @@
             "title": "Kurulumu Durdur"
         },
         "uninstall": {
-            "checkbox": "Ön eki kaldır: {{prefix}}{{newLine}}Not: Bu işlem geri alınamaz ve yedeklenmemiş kayıtlı dosyaları da kaldırır.",
-            "message": "{{title}} kaldırmak istiyor musunuz?",
+            "checkbox": "Prefix'i Kaldır: {{prefix}}{{newLine}}Not: Bu işlem geri alınamaz ve yedeklenmemiş kayıt dosyalarını da kaldırır.",
+            "message": "\"{{title}}\" kaldırılsın mı?",
             "settingcheckbox": "Ayarları sil ve günlüğü kaldır{{newLine}}Not: Bu işlem geri alınamaz. Değiştirilen tüm ayarlar unutulacak ve günlük silinecektir.",
             "title": "Kaldır",
-            "prefix_warning": "Bu oyun için Wine ön eki öntanımlı ön ektir. Gerçekten silmek istiyorsanız, elle yapmanız gerekir.",
-            "dlc": "{{title}} DLC'si kaldırmak istiyor musunuz?",
-            "cannotUninstallEpic": "Başka Epic oyunu kurulurken Epic oyunları kaldırılamaz.",
+            "prefix_warning": "Bu oyunun Wine prefix'i varsayılan prefix'tir. Eğer gerçekten silmek istiyorsanız, bunu el ile yapmanız gerekir.",
+            "dlc": "\"{{title}}\" (DLC) içeriğini kaldırmak istiyor musunuz?",
+            "cannotUninstallEpic": "Başka bir Epic oyunu yüklenirken Epic oyunları kaldırılamaz.",
             "gameIsRunning": "{{title}} çalışıyor. Oyunu kaldırmak için kapatmanız gerekiyor."
         },
         "update": {
-            "message": "Bu oyunun bir güncellemesi var, güncelleme şimdi uygulansın mı?",
+            "message": "Bu oyun için bir güncelleme var, şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "WinePrefix Klasörünü Seç",
+        "wineprefix": "WinePrefix Klasörünü Seçin",
         "yes": "EVET",
         "close": "Kapat",
         "select-install-path": "Steam Kurulum Yolunu Seç"
@@ -77,8 +77,8 @@
         "update": "Güncelle",
         "details": "Detaylar",
         "changelog": "Değişiklik Günlüğünü Göster",
-        "browse_files": "Dosyalara Gözat",
-        "browse_wine_prefix": "Wine Ön Eki'ni Gözat",
+        "browse_files": "Dosyalara Göz At",
+        "browse_wine_prefix": "Wine Prefix'e Göz At",
         "play": "OYNA"
     },
     "cloud_save_unsupported": "Desteklenmiyor",
@@ -160,7 +160,7 @@
             "install": "Evet (Bunun işe yaramayacağının farkındayım)",
             "title": "Anti Hile Bozuldu/Reddedildi",
             "install_anyway": "Evet (çoklu oyuncu özelliklerinin çalışmayabileceğini anlıyorum)",
-            "multiplayer_message": "Hile önleyici desteği hatalı veya red edildi. Oyun açılabilir fakat çoklu oyuncu özellikleri çalışmayabilir. Yinede yüklemek istiyor musun?",
+            "multiplayer_message": "Hile koruması desteği bozuk veya engellenmiş. Oyun açılabilir ancak çok oyunculu özellikler çalışmayacaktır. Yine de yüklemek istiyor musunuz?",
             "ok": "Tamam",
             "disabled_installation": "Bu oyun, işletim sisteminizle uyumlu olmayan veya geliştiriciler tarafından desteklenmeyen bir hile karşıtı yazılım kullanıyor. Bu nedenle çok oyunculu özellikler çalışmayacak ve ne siz ne de Heroic ekibi bu durumu değiştiremez.<br /><br />Yine de oyunu kurmayı denemek isterseniz, Ayarlar > Gelişmiş bölümüne giderek “bozuk veya desteklenmeyen anticheat'e sahip oyunların yüklenmesine izin ver” seçeneğini işaretleyin.<br /><br />Bu durumun bir çözümü olmadığını ve oyunda ban yeme riskiniz olduğunu unutmayın."
         },
@@ -219,7 +219,8 @@
         "gog": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",
         "login": "Log in",
         "title": "Giriş yapmadınız",
-        "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:"
+        "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:",
+        "zoom": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:"
     },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
@@ -227,9 +228,9 @@
     },
     "setting": {
         "winecrossoverbottle": "CrossOver Bottle",
-        "warn-use-shared-wine-config": "Bu seçeneği yalnızca ne yaptığınızı biliyorsanız kullanın.<br/>Birden çok oyun için aynı ön eki paylaşmak, bağımlılıkları uyumsuzsa sorun oluşturabilir.",
+        "warn-use-shared-wine-config": "Bu seçeneği yalnızca ne yaptığınızı biliyorsanız kullanın.<br />Birden fazla oyun için aynı prefix'i paylaşmak, bağımlılıkları uyumsuzsa sorunlara yol açabilir.",
         "show-wine-settings": "Wine ayarlarını göster",
-        "use-shared-wine-config": "Paylaşılan Wine ön ekini kullan"
+        "use-shared-wine-config": "Paylaşılan Wine prefix kullan"
     },
     "sideload": {
         "field": {
@@ -250,7 +251,7 @@
             "useragent": "Bu tarayıcı uygulamasında veya oyununda kullanılacak özel bir kullanıcı aracısını buraya yazın"
         },
         "import-hint": {
-            "title": "Önemli! Epic/GOG/Amazon mağazasından bir oyun mu ekliyorsunuz? Buraya tıklayın!",
+            "title": "Önemli! Epic/GOG/Amazon'dan bir oyun mu ekliyorsunuz? Buraya tıklayın!",
             "content": "Bu özelliği bu amaç için KULLANMAYIN.<br />Bunun yerine, mağazaya <3>giriş yapın</3>, kütüphanenizde oyunu bulun, yükleme penceresini açın ve &quot;Oyunu İçe Aktar&quot; butonuna tıklayın"
         }
     },
