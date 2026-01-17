@@ -217,7 +217,8 @@
         "gog": "Du er ikke logget inn med en GOG-konto i Heroic. Ikke bruk butikksiden for å logge inn, klikk i stedet på følgende knapp:",
         "login": "Logg inn",
         "title": "Du er IKKE logget inn",
-        "amazon": "Du er ikke logget inn med en Amazon-konto i Heroic. Ikke bruk butikksiden for å logge inn, klikk i stedet på følgende knapp:"
+        "amazon": "Du er ikke logget inn med en Amazon-konto i Heroic. Ikke bruk butikksiden for å logge inn, klikk i stedet på følgende knapp:",
+        "zoom": "Du har ikke logget inn i Zoom med Heroic. Ikke bruk butikksiden for å logge inn. Bruk heller følgende knapp istedenfor:"
     },
     "report_problem": "Rapporter et problem med å kjøre dette spillet",
     "sdl": {
