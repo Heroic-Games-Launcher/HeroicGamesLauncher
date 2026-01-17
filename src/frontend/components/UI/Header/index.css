@@ -2,11 +2,10 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  display: grid;
-  grid-template-columns: 1fr min-content;
-  grid-template-areas: 'search filters';
-  grid-gap: 8px;
+  display: flex;
+  justify-content: space-between;
   align-items: start;
+  gap: var(--space-md);
   padding: var(--space-md);
   background: var(--gradient-body-background, var(--body-background));
   color: var(--text-secondary);
@@ -21,9 +20,9 @@
 .Header__filters {
   grid-area: filters;
   display: flex;
+  gap: var(--space-md);
   align-self: center;
   justify-self: flex-end;
-  gap: 1em;
 }
 
 .Header__filters .FormControl {
@@ -31,7 +30,7 @@
 }
 
 .Header__search {
-  grid-area: search;
+  flex-grow: 1;
   max-width: 700px;
 }
 
