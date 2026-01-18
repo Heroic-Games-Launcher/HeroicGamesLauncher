@@ -1005,6 +1005,7 @@
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },
+        "notes": "Notes",
         "release": "Release Date",
         "size": "Size"
     },
