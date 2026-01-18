@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import './index.scss'
+import './index.css'
 import { ProgressDialog } from '../ProgressDialog'
 import WinetricksSearchBar from './WinetricksSearch'
 import { useTranslation } from 'react-i18next'
