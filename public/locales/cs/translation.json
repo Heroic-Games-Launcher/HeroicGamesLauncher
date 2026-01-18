@@ -744,7 +744,8 @@
             "enableHelp": "Komponenta nápovědy",
             "automaticWinetricksFixes": "Automaticky použít známé opravy",
             "umuSupport": "Použít umu jako runtime Protonu",
-            "cometSupport": "Podpora Comet"
+            "cometSupport": "Podpora Comet",
+            "zoomPlatform": "Podpora platformy Zoom (pouze Linux)"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
