@@ -1,24 +1,24 @@
 {
     "box": {
         "change": {
-            "message": "Ez megváltoztatja a játék telepítési helyét, biztos benne?",
+            "message": "Ez megváltoztatja a játék telepítési helyét, biztos vagy benne?",
             "path": "Válasszon egy új telepítési útvonalat",
             "title": "Játékok telepítési útvonalának megváltoztatása"
         },
-        "choose": "Válasszon",
+        "choose": "Válassz",
         "importpath": "Importálandó játékmappa kiválasztása",
         "move": {
-            "message": "Ez eltarthat egy ideig, biztos benne?",
-            "path": "Válassza ki az áthelyezés célját",
+            "message": "Ez eltarthat egy ideig, biztos vagy benne?",
+            "path": "Válaszd ki az áthelyezés célját",
             "title": "Játéktelepítés áthelyezése"
         },
         "no": "NEM",
         "repair": {
-            "message": "Megpróbálja javítani ezt a játékot? Ez eltarthat egy ideig.",
+            "message": "Megpróbálod javítani ezt a játékot? Ez eltarthat egy ideig.",
             "title": "Ellenőrzés és javítás"
         },
         "runexe": {
-            "title": "Válassza ki a futtatandó EXE-fájlt"
+            "title": "Válaszd ki a futtatandó EXE-fájlt"
         },
         "select": {
             "button": "Kiválasztás",
@@ -29,24 +29,24 @@
         },
         "stopInstall": {
             "keepInstalling": "Telepítés folytatása",
-            "message": "MEGTARTJA a letöltött fájlokat?",
+            "message": "MEGTARTOD a letöltött fájlokat?",
             "title": "Telepítés megállítása"
         },
         "uninstall": {
-            "checkbox": "Előtag eltávolítása: {{prefix}}{{newLine}}Megjegyzés: Ez nem vonható vissza, és a külön nem tárolt mentéseket is törli.",
-            "message": "Eltávolítja a(z) „{{title}}” játékot?",
+            "checkbox": "Környezet eltávolítása: {{prefix}}{{newLine}}Megjegyzés: Ez nem vonható vissza, és a külön nem tárolt mentéseket is törli.",
+            "message": "Eltávolítod a(z) „{{title}}” játékot?",
             "settingcheckbox": "Beállítások és a napló törlése{{newLine}}Megjegyzés: Ez nem vonható vissza. Az összes módosított beállítás el lesz felejtve, és a naplófájlok törölve lesznek.",
             "title": "Eltávolítás",
-            "prefix_warning": "A játék Wine előtagja az alapértelmezett előtag. Ha valóban törölné, akkor kézileg kell megtennie.",
-            "dlc": "Eltávolítja a(z) „{{title}}” DLC-t?",
+            "prefix_warning": "A játék Wine-környezete az alapértelmezett környezet. Ha valóban törölnéd, akkor kézileg kell azt megtenned.",
+            "dlc": "Eltávolítod a(z) „{{title}}” DLC-t?",
             "cannotUninstallEpic": "Az Epic Games nem távolítható el, amíg egy Epic játék telepítés alatt áll.",
-            "gameIsRunning": "A(z) {{title}} fut. Az eltávolításához zárja be a játékot."
+            "gameIsRunning": "A(z) {{title}} fut. Az eltávolításához zárd be a játékot."
         },
         "update": {
-            "message": "Frissítés érhető el ehhez a játékhoz, alkalmazza most?",
+            "message": "Frissítés érhető el ehhez a játékhoz, alkalmazod most?",
             "title": "A játékot frissíteni kell"
         },
-        "wineprefix": "Wine előtagmappa kiválasztása",
+        "wineprefix": "Wine-környezetmappa kiválasztása",
         "yes": "IGEN",
         "close": "Bezárás",
         "select-install-path": "Steam telepítési útvonalának kiválasztása"
@@ -78,7 +78,8 @@
         "details": "Részletek",
         "changelog": "Változásnapló megjelenítése",
         "browse_files": "Fájlok tallózása",
-        "browse_wine_prefix": "Wine előtag tallózása"
+        "browse_wine_prefix": "Wine-környezet tallózása",
+        "play": "INDÍTÁS"
     },
     "cloud_save_unsupported": "Nem támogatott",
     "disabled": "Letiltva",
@@ -138,7 +139,7 @@
         "syncsaves": "Mentések szinkronizálása",
         "version": "Verzió",
         "apple-gaming-wiki": "AppleGamingWiki értékelés",
-        "clickToOpen": "Kattintson a megnyitáshoz",
+        "clickToOpen": "Kattints a megnyitáshoz",
         "game-scores": "Játékpontszámok",
         "installedInfo": "Telepített információk",
         "protondb-compatibility-info": "Proton kompatibilitási szint",
@@ -151,7 +152,7 @@
         "path": "Telepítési útvonal kiválasztása",
         "path-not-writtable": "Figyelmeztetés: az elérési út lehet, hogy nem írható.",
         "space-after-install": "Telepítés után",
-        "wineprefix": "Wine előtag",
+        "wineprefix": "Wine-környezet",
         "wineversion": "Wine verzió",
         "anticheat-warning": {
             "cancel": "Nem",
@@ -160,8 +161,8 @@
             "title": "A csalás elleni védelem hibás vagy tiltásra került",
             "ok": "Ok",
             "install_anyway": "Igen (Megértettem, hogy a többjátékos funkciók nem fognak működni)",
-            "multiplayer_message": "A csalás elleni szoftver támogatása hibás vagy tiltásra került. A játékot lehet, hogy meg lehet nyitni, de a többjátékos funkciók nem fognak működni. Mindenképp telepíti?",
-            "disabled_installation": "A játék olyan csalás elleni szoftvert használ, amely nem kompatibilis az operációs rendszerével, vagy a támogatást a játék fejlesztői nem engedélyezték. Ez azt jelenti, hogy a többjátékos funkciók nem fognak működni, és ez ellen semmit sem tehet (ahogy a Heroic csapata sem).<br /><br />A játék telepítéséhez, és hogy mégis megpróbálja, kattintson a Beállítások, Speciális menüpontra, és kapcsolja be a hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezését.<br /><br />Vegye figyelembe, hogy erre nincs megoldás, és azt kockáztatja, hogy kitiltják a játékból."
+            "multiplayer_message": "A csalás elleni szoftver támogatása hibás vagy tiltásra került. A játékot lehet, hogy meg lehet nyitni, de a többjátékos funkciók nem fognak működni. Mindenképp telepíted?",
+            "disabled_installation": "A játék olyan csalás elleni szoftvert használ, amely nem kompatibilis az operációs rendszereddel, vagy a támogatást a játék fejlesztői nem engedélyezték. Ez azt jelenti, hogy a többjátékos funkciók nem fognak működni, és ez ellen semmit sem tehetsz (ahogy a Heroic csapata sem).<br /><br />A játék telepítéséhez, és hogy mégis megpróbáld, kattints a Beállítások, Speciális menüpontra, és kapcsold be a hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezését.<br /><br />Vedd figyelembe, hogy erre nincs megoldás, és azt kockáztatod, hogy kitiltsanak a játékból."
         },
         "flatpak-path-not-writtable": "Hiba: nem lett hozzáférés adva a homokozóhoz ennél az elérési útnál, adatvesztés fog történni."
     },
@@ -213,21 +214,22 @@
         "options": "Indítási kapcsolók…"
     },
     "not_logged_in": {
-        "epic": "Nincs Epic-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezzen be, kattintson helyette erre a gombra:",
-        "gog": "Nincs GOG-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezzen be, kattintson helyette erre a gombra:",
+        "epic": "Nem vagy Epic-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
+        "gog": "Nem vagy GOG-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
         "login": "Bejelentkezés",
-        "title": "NINCS bejelentkezve",
-        "amazon": "Nincs Amazon-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezzen be, kattintson helyette erre a gombra:"
+        "title": "NEM VAGY bejelentkezve",
+        "amazon": "Nem vagy Amazon-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
+        "zoom": "Nem vagy Zoom-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:"
     },
     "report_problem": "Játék futtatásával kapcsolatos hiba jelentése",
     "sdl": {
-        "title": "Válassza ki a telepítendő elemeket"
+        "title": "Válaszd ki a telepítendő elemeket"
     },
     "setting": {
         "winecrossoverbottle": "CrossOver palack",
         "show-wine-settings": "Wine beállítások megjelenítése",
-        "warn-use-shared-wine-config": "Csak akkor használja ezt, ha tudja, hogy mit csinál.<br/>Ha azonos előtagot használ több játékhoz, akkor az problémákat okozhat, ha a függőségeik nem kompatibilisek.",
-        "use-shared-wine-config": "Megosztott Wine előtag használata"
+        "warn-use-shared-wine-config": "Csak akkor használd ezt, ha tudod, hogy mit csinálsz.<br/>Ha azonos környezetet használsz több játékhoz, akkor az problémákat okozhat, ha a függőségeik nem kompatibilisek.",
+        "use-shared-wine-config": "Megosztott Wine-környezet használata"
     },
     "sideload": {
         "field": {
@@ -242,14 +244,14 @@
             "useragent": "Egyéni felhasználói ügynök"
         },
         "placeholder": {
-            "image": "Ide illessze be a kép webcímét, vagy válasszon egyet a számítógépéről",
-            "title": "Adjon címet a játékának/alkalmazásának",
-            "url": "Ide illessze be a játék webcímét",
-            "useragent": "Írjon ide egy egyéni felhasználói ügynököt, melyet ehhez a böngészős alkalmazáshoz/játékhoz használna"
+            "image": "Ide illeszd be a kép webcímét, vagy válassz egyet a számítógépedről",
+            "title": "Adj címet a játékának/alkalmazásának",
+            "url": "Ide illeszd be a játék webcímét",
+            "useragent": "Írj ide egy egyéni felhasználói ügynököt, melyet ehhez a böngészős alkalmazáshoz/játékhoz használna"
         },
         "import-hint": {
-            "title": "Fontos! Épp egy játékot ad hozzá az Epicről/GOG-ról/Amazonról? Kattintson ide!",
-            "content": "NE használja erre ezt a funkciót.<br />Helyette <3>jelentkezzen be</3> az áruházba, keresse meg a játékot a könyvtárában, nyissa meg a telepítési párbeszédablakot, és kattintson a „Játék importálása” gombra."
+            "title": "Fontos! Épp egy játékot adsz hozzá az Epicről/GOG-ról/Amazonról? Kattints ide!",
+            "content": "NE használd erre ezt a funkciót.<br />Helyette <3>jelentkezz be</3> az áruházba, keresd meg a játékot a könyvtárodban, nyisd meg a telepítési párbeszédablakot, és kattints a „Játék importálása” gombra."
         }
     },
     "specs": {
@@ -257,7 +259,7 @@
         "recommended": "Ajánlott"
     },
     "status": {
-        "clickToUpdate": "Kattintson a frissítéshez",
+        "clickToUpdate": "Kattints a frissítéshez",
         "gameNotAvailable": "A játék nem érhető el",
         "hasUpdates": "Új verzió érhető el!",
         "installed": "Telepítve",
@@ -280,7 +282,7 @@
         "ubisoft": "Ubisoft telepítése",
         "downloading": "Letöltés folyamatban",
         "extracting": "Kibontás",
-        "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizze a letölthető tartalmat a https://gog.com/account oldalon.",
+        "gog-goodie": "Úgy tűnik, hogy ez a játék nem telepíthető. Ellenőrizd a letölthető tartalmat a https://gog.com/account oldalon.",
         "goodie": "Nem telepíthető",
         "winetricks": "Winetricks javítások alkalmazása",
         "redist": "Terjeszhető csomagok telepítése ({{redist}})",
@@ -309,7 +311,7 @@
             "gamePage": "Játékoldal"
         },
         "content": {
-            "gamePage": "Az összes játékrészlet és -művelet megjelenítés. További lehetőségekért használja a 3 pontos menüt."
+            "gamePage": "Az összes játékrészlet és -művelet megjelenítés. További lehetőségekért használd a 3 pontos menüt."
         }
     },
     "modifyInstall": {
@@ -335,5 +337,5 @@
             "resume": "Letöltés folytatása"
         }
     },
-    "wikiLink": "Fontos információ erről a játékról, olvassa el ezt:&nbsp;<1>Oldal megnyitása</1>"
+    "wikiLink": "Fontos információ erről a játékról, olvasd el ezt:&nbsp;<1>Oldal megnyitása</1>"
 }

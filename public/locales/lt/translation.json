@@ -579,7 +579,8 @@
             "confirmation": {
                 "title": "Ar Jūs esate tikra/-s?"
             }
-        }
+        },
+        "scripts": "&scenarijai"
     },
     "settings": {
         "advanced": {
@@ -941,7 +942,8 @@
         }
     },
     "tour": {
-        "back": "Atgal"
+        "back": "Atgal",
+        "next": "S_ekantis"
     },
     "analyticsModal": {
         "disable": "Išjungta/Neįgalinta (-as/-i)",

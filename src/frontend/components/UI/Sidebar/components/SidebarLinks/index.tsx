@@ -78,7 +78,13 @@ export default function SidebarLinks() {
 
   // By default, open Epic Store
   let defaultStore = 'epic'
-  if (!epic.username && !gog.username && !amazon.user_id && zoom.username) {
+  if (
+    zoom.enabled &&
+    !epic.username &&
+    !gog.username &&
+    !amazon.user_id &&
+    zoom.username
+  ) {
     // Prioritize Zoom if only Zoom is logged in
     defaultStore = 'zoom'
   } else if (!epic.username && !gog.username && amazon.user_id) {
@@ -139,11 +145,13 @@ export default function SidebarLinks() {
               url="/store/amazon"
               label={t('amazon-luna', 'Amazon Luna')}
             />
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/store/zoom"
-              label={t('zoom-store', 'Zoom Store')}
-            />
+            {zoom.enabled && (
+              <SidebarItem
+                className="SidebarLinks__subItem"
+                url="/store/zoom"
+                label={t('zoom-store', 'Zoom Store')}
+              />
+            )}
           </div>
         )}
       </div>

@@ -1,20 +1,20 @@
 {
     "box": {
         "change": {
-            "message": "Der Installationspfad wird durch diese Aktion geändert, möchten Sie fortfahren?",
-            "path": "Wählen Sie einen neuen Installationspfad",
+            "message": "Der Installationspfad wird durch diese Aktion geändert, möchtest du fortfahren?",
+            "path": "Wähle einen neuen Installationspfad",
             "title": "Spiele-Installationspfad ändern"
         },
         "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
-            "message": "Dies kann einige Zeit in Anspruch nehmen, trotzdem fortfahren?",
+            "message": "Dies kann einige Zeit in Anspruch nehmen, bist du dir sicher?",
             "path": "Wähle, wohin du es verschieben möchtest",
-            "title": "Spielinstallation verschieben"
+            "title": "Spielinstallationsverzeichnis verschieben"
         },
         "no": "NEIN",
         "repair": {
-            "message": "Möchten Sie versuchen, dieses Spiel zu reparieren? Das kann eine lange Zeit in Anspruch nehmen.",
+            "message": "Möchtest du versuchen, dieses Spiel zu reparieren? Das kann eine lange Zeit in Anspruch nehmen.",
             "title": "Auf Fehler überprüfen und reparieren"
         },
         "runexe": {
@@ -40,7 +40,7 @@
             "prefix_warning": "Das Wine-Präfix für dieses Spiel ist das Standardpräfix. Wenn du es wirklich löschen möchtest, dann musst du das manuell tun.",
             "dlc": "Möchtest du das DLC \"{{title}}\" deinstallieren?",
             "cannotUninstallEpic": "Spiele von Epic Games können nicht deinstalliert werden, während ein anderes Epic Spiel installiert wird.",
-            "gameIsRunning": "{{title}} leuft grade. Beenden Sie das Spiel, um es zu deinstallieren."
+            "gameIsRunning": "{{title}} läuft grade. Beende das Spiel, um es zu deinstallieren."
         },
         "update": {
             "message": "Für dieses Spiel ist eine Aktualisierung verfügbar. Jetzt installieren?",
@@ -58,7 +58,7 @@
         "finish": "Abschließen",
         "force_update": "Aktualisierung erzwingen, falls verfügbar",
         "force-innstall": "Installation erzwingen",
-        "hide_game": "Spiel ausblenden",
+        "hide_game": "Spiel verstecken",
         "import": "Spiel importieren",
         "install": "Installieren",
         "no-path-selected": "Kein Pfad ausgewählt",
@@ -78,7 +78,8 @@
         "details": "Informationen",
         "changelog": "Änderungskatalog Anzeigen",
         "browse_files": "Dateien durchsuchen",
-        "browse_wine_prefix": "Wine präfix durchsuchen"
+        "browse_wine_prefix": "Wine präfix durchsuchen",
+        "play": "Spielen"
     },
     "cloud_save_unsupported": "Nicht unterstützt",
     "disabled": "Deaktiviert",
@@ -87,7 +88,7 @@
     },
     "enabled": "Aktiviert",
     "game": {
-        "downloadSize": "Downloadgröße",
+        "downloadSize": "Installationsgröße",
         "firstPlayed": "Erstmals gespielt",
         "getting-download-size": "Downloadgröße wird ermittelt",
         "getting-install-size": "Installationsgröße wird ermittelt",
@@ -172,7 +173,8 @@
         },
         "playing": {
             "start": "Jetzt spielen",
-            "stop": "Anhalten"
+            "stop": "Anhalten",
+            "start_with_logs": "Spielen (mit loogs)"
         },
         "saves": {
             "syncing": "Spielstände werden synchronisiert …"
@@ -217,7 +219,8 @@
         "gog": "Du bist mit keinem GOG-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",
         "login": "Anmelden",
         "title": "Du bist NICHT angemeldet",
-        "amazon": "Du bist nicht mit einem Amazon-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:"
+        "amazon": "Du bist nicht mit einem Amazon-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",
+        "zoom": "Du bist nicht mit einem Zoom Konto in Heroic angemeldet. Benutze nicht die Store Seite, benutze stattessen den folgenden Knopf:"
     },
     "report_problem": "Ein Problem bei der Ausführung dieses Spiels melden",
     "sdl": {
@@ -226,7 +229,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver Bottle",
         "show-wine-settings": "Wine-Einstellungen anzeigen",
-        "warn-use-shared-wine-config": "Verwenden Sie diese Einstellung nur, wenn Sie wissen, was Sie damit tun.<br/>Einen Wine-Prefix für mehrere Spiele zu verwenden kann zu Problemen führen, wenn deren Abhängigkeiten zueinander inkompatibel sind."
+        "warn-use-shared-wine-config": "Verwenden Sie diese Einstellung nur, wenn Sie wissen, was Sie damit tun.<br/>Einen Wine-Prefix für mehrere Spiele zu verwenden kann zu Problemen führen, wenn deren Abhängigkeiten zueinander inkompatibel sind.",
+        "use-shared-wine-config": "Benutze den geteilten Wine Präfix"
     },
     "sideload": {
         "field": {

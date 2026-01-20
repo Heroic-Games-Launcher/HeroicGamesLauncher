@@ -97,7 +97,9 @@
                 "error": "未找到 Steam 可执行文件。安装可能被用户取消或在 Steam 端失败。",
                 "message": "Steam 安装失败！请仔细阅读说明并重试！ {{paragraph}} {{error}}",
                 "title": "Steam 错误"
-            }
+            },
+            "executableNotFound": "未找到可执行文件",
+            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。"
         },
         "info": {
             "update": {
@@ -432,7 +434,8 @@
         "gog": "GOG 登录",
         "message": "登录你的平台。你可以同时登录多个平台。",
         "amazon": "Amazon 登录",
-        "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。"
+        "old-mac": "你的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登录。",
+        "zoom": "Zoom 登录"
     },
     "message": {
         "sync": "同步完成",
@@ -684,7 +687,8 @@
                 "gog": "GOG 日志",
                 "heroic": "常规 Heroic 日志",
                 "legendary": "Epic Games / Legendary 日志",
-                "nile": "Amazon / Nile 日志"
+                "nile": "Amazon / Nile 日志",
+                "zoom": "Zoom 日志"
             },
             "show-uploads": "显示上传的日志文件"
         },
@@ -748,7 +752,7 @@
             "enableUpscaling": "启用分辨率提升",
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
             "enableForceGrabCursor": "启用强制抓取指针",
-            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 24.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
+            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
             "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
         },
         "frameless-window": {
@@ -805,7 +809,8 @@
             "label": "允许使用 Valve Proton 构建运行游戏",
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
-        "WoW64": "启用 WoW64（实验性）"
+        "WoW64": "启用 WoW64（实验性）",
+        "scripts": "脚本："
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1108,5 +1113,7 @@
             "pt7": "你可以随时在应用设置中更改这一设置。"
         },
         "title": "发送匿名分析信息"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Zoom 商店"
 }

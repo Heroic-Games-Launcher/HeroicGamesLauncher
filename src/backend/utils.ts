@@ -42,7 +42,7 @@ import {
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
 import * as fileSize from 'filesize'
-import makeClient from 'discord-rich-presence-typescript'
+import { Client as discordClient } from '@xhayper/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
@@ -345,10 +345,7 @@ async function errorHandler({
 // If you ever modify this range of characters, please also add them to nile
 // source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp(
-    /[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/,
-    'gi'
-  )
+  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
 }
 
@@ -587,7 +584,10 @@ async function getSteamRuntime(
 }
 
 function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
-  const client = makeClient('852942976564723722')
+  const client = new discordClient({
+    clientId: '852942976564723722'
+  })
+
   const versionText = `Heroic ${app.getVersion()}`
 
   const image = gameInfo.art_icon || gameInfo.art_square
@@ -605,14 +605,18 @@ function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
         largeImageText: versionText
       }
 
-  client.updatePresence({
-    details: title,
-    instance: true,
-    large_text: title,
-    startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName(),
-    ...overrides
+  client.on('ready', async () => {
+    await client.user?.setActivity({
+      name: title,
+      type: 0,
+      startTimestamp: Date.now(),
+      state: 'via Heroic on ' + getFormattedOsName(),
+      statusDisplayType: 0, // Use game title for name plate
+      ...overrides
+    })
   })
+
+  client.login()
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
 }

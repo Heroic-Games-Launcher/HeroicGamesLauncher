@@ -97,7 +97,9 @@
                 "error": "No s'ha trobat l'executable del Steam. És probable que l'usuari hagi cancel·lat la instal·lació, o hagi fallat per la banda del Steam.",
                 "message": "Ha fallat la instal·lació del Steam. Llegeix amb compte les instruccions i torna a provar-ho. {{paragraph}} {{error}}",
                 "title": "Error del Steam"
-            }
+            },
+            "executableNotFound": "No s'ha trobat l'executable",
+            "executableNotFoundMessage": "L'Heroic no pot trobar l'executable d'aquest joc. Si us plau, configureu-lo manualment a la configuració del joc."
         },
         "info": {
             "update": {
@@ -149,10 +151,10 @@
         },
         "vcruntime": {
             "install": {
-                "message": "Els enllaços per a baixar els Visual C++ Runtimes s'han obert. Instal·la les versions x86 i x64."
+                "message": "Els enllaços per a baixar els entorns d'execució Visual C++ s'han obert. Instal·la les versions x86 i x64."
             },
             "notfound": {
-                "message": "Els Microsoft Visual C++ Runtimes no estan instal·lats i alguns jocs els necessiten",
+                "message": "Els entorns d'execució del Microsoft Visual C++ no estan instal·lats i alguns jocs els necessiten",
                 "title": "El VCRuntime no està instal·lat"
             }
         },
@@ -432,7 +434,8 @@
         "gog": "Inici de sessió al GOG",
         "message": "Inicia la sessió. Pots iniciar sessió a més d'una plataforma alhora.",
         "amazon": "Inici de sessió d'Amazon",
-        "old-mac": "La vostra versió del macOS és {{version}}. Cal el macOS 12 o posterior per a iniciar la sessió."
+        "old-mac": "La vostra versió del macOS és {{version}}. Cal el macOS 12 o posterior per a iniciar la sessió.",
+        "zoom": "Inici de sessió al Zoom"
     },
     "message": {
         "sync": "S'ha completat la sincronització",
@@ -684,7 +687,8 @@
                 "gog": "Registre del GOG",
                 "heroic": "Registre general de l'Heroic",
                 "legendary": "Registre de l'Epic Games/Legendary",
-                "nile": "Registre d'Amazon/Nile"
+                "nile": "Registre d'Amazon/Nile",
+                "zoom": "Registre del Zoom"
             },
             "show-uploads": "Mostra els fitxers de registre pujats"
         },
@@ -723,7 +727,7 @@
         "select_theme": "Tema de la interfície",
         "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "start-in-tray": "Inicia minimitzat",
-        "steamruntime": "Utilitza el Runtime del Steam",
+        "steamruntime": "Utilitza l'entorn d'execució del Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
         "wineprefix": "Directori WinePrefix",
         "wineversion": "Versió del Wine",
@@ -754,8 +758,8 @@
             "enableUpscaling": "Activa l'escalatge",
             "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
             "enableForceGrabCursor": "Activa la captura forçada de cursor",
-            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic.",
-            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime {{runtimeVersion}} i reinicia l'Heroic."
+            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 25.08 i reinicia l'Heroic.",
+            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb l'entorn d'execució {{runtimeVersion}} i reinicia l'Heroic."
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
@@ -802,8 +806,8 @@
     },
     "settings": {
         "battlEyeRuntime": {
-            "installing": "S'està instal·lant el BattlEye Runtime...",
-            "name": "Antitrampes BattlEye Runtime"
+            "installing": "S'està instal·lant l'entorn d'execució del BattlEye...",
+            "name": "Entorn d'execució anti-trampes del BattlEye"
         },
         "clear-cache": "Esborra la memòria cau de l'Heroic",
         "copiedToClipboard": "S'ha copiat al porta-retalls.",
@@ -811,16 +815,16 @@
         "default_hint": "Els canvis en aquesta secció només s'apliquen als valors predefinits quan s'instal·li un joc. Si vols canviar la configuració d'un joc que ja s'hagi instal·lat, fes servir el botó de configuració de la pàgina del joc.",
         "eacRuntime": {
             "gameModeRequired": {
-                "message": "Es necessita el GameMode per tal que l'EAC funcioni en Flatpak. Vols activar-lo?",
-                "title": "Necessita el GameMode."
+                "message": "Es necessita el GameMode per tal que l'entorn d'execució de l'EAC funcioni en Flatpak. Vols activar-lo?",
+                "title": "Es necessita el GameMode"
             },
-            "installing": "S'està instal·lant el EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "installing": "S'està instal·lant l'entorn d'execució de l'EAC...",
+            "name": "Entorn d'execució EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
-                "message": "L'EAC està activat, però no funcionarà correctament sense el GameMode. Vols desactivar l'EAC Runtime i el GameMode?",
-                "title": "S'ha activat el EAC runtime."
+                "message": "L'entorn d'execució de l'EAC està activat, però no funcionarà correctament sense el GameMode. Vols desactivar dues coses?",
+                "title": "S'ha activat l'entorn d'execució de l'EAC."
             }
         },
         "log": {
@@ -1101,5 +1105,7 @@
             "pt7": "Pots canviar aquest paràmetre en qualsevol moment a la Configuració de l'aplicació."
         },
         "title": "Envia analítiques anònimes"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Botiga del Zoom"
 }

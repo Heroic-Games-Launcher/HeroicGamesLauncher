@@ -16,7 +16,7 @@ import {
 } from './types/zoom'
 import { TitleBarOverlay } from 'electron'
 import { ChildProcess } from 'child_process'
-import type { HowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
+import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -84,6 +84,7 @@ export type ExperimentalFeatures = {
   enableHelp: boolean
   cometSupport: boolean
   umuSupport?: boolean
+  zoomPlatform?: boolean
 }
 
 export interface AppSettings extends GameSettings {
@@ -414,9 +415,7 @@ export interface LaunchPreperationResult {
 }
 
 export interface RpcClient {
-  updatePresence(d: unknown): void
-  reply(user: unknown, response: unknown): void
-  disconnect(): void
+  destroy(): void
 }
 
 export interface CallRunnerOptions {
@@ -701,7 +700,7 @@ export interface SteamInfo {
 export interface WikiInfo {
   pcgamingwiki: PCGamingWikiInfo | null
   applegamingwiki: AppleGamingWikiInfo | null
-  howlongtobeat: HowLongToBeatEntry | null
+  howlongtobeat: HeroicHowLongToBeatEntry | null
   gamesdb: GamesDBInfo | null
   steamInfo: SteamInfo | null
   umuId: string | null

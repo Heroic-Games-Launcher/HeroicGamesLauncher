@@ -78,7 +78,8 @@
         "details": "Dettagli",
         "changelog": "Mostra Changelog",
         "browse_files": "Sfoglia file",
-        "browse_wine_prefix": "Sfoglia prefisso Wine"
+        "browse_wine_prefix": "Sfoglia prefisso Wine",
+        "play": "GIOCA"
     },
     "cloud_save_unsupported": "Non supportato",
     "disabled": "Disattivato",
@@ -217,7 +218,8 @@
         "gog": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
         "login": "Accedi",
         "title": "NON hai effettuato l'accesso",
-        "amazon": "Non hai effettuato l'accesso con un account Amazon in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
+        "amazon": "Non hai effettuato l'accesso con un account Amazon in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
+        "zoom": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
     },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
@@ -226,7 +228,8 @@
     "setting": {
         "winecrossoverbottle": "Bottiglia di CrossOver",
         "show-wine-settings": "Mostra impostazioni Wine",
-        "warn-use-shared-wine-config": "Utilizza questa opzione solo se sai ciò che stai facendo.<br/> Condividere lo stesso prefisso per giochi differenti potrebbe creare problemi se le loro dipendenze sono incompatibili."
+        "warn-use-shared-wine-config": "Utilizza questa opzione solo se sai ciò che stai facendo.<br/> Condividere lo stesso prefisso per giochi differenti potrebbe creare problemi se le loro dipendenze sono incompatibili.",
+        "use-shared-wine-config": "Usa il prefisso Wine condiviso"
     },
     "sideload": {
         "field": {

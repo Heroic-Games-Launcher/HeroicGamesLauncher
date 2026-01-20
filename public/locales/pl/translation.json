@@ -97,7 +97,9 @@
                 "error": "Nie znaleziono pliku wykonywalnego Steam. Instalacja została prawdopodobnie przerwana przez użytkownika lub wystąpił błąd po stronie Steam.",
                 "message": "Błąd podczas instalacji Steam! Prosimy o dokładne zapoznanie się z instrukcją, po czym prosimy spróbować ponownie! {{paragraph}} {{error}}",
                 "title": "Błąd Steam"
-            }
+            },
+            "executableNotFound": "Nie znaleziono pliku wykonywalnego",
+            "executableNotFoundMessage": "Heroic nie mógł znaleźć pliku wykonywalnego tej gry. Wybierz go ręcznie w ustawieniach gry."
         },
         "info": {
             "update": {
@@ -107,7 +109,7 @@
                 "message-finished": "Czy chcesz teraz uruchomić ponownie Heroic?",
                 "title": "Heroic Games Launcher",
                 "title-finished": "Aktualizacja zakończona",
-                "detailNoAutoupdate": "Automatyczne aktualizacje nie są wspierane dla twojego formatu pakietów. Jeśli chcesz zaktualizować, użyj twojego menedżera pakietów."
+                "detailNoAutoupdate": "Automatyczne aktualizacje nie są wspierane dla twojego formatu pakietu. Proszę użyj swojego menedżera paczek do aktualizacji."
             }
         },
         "no": "NIE",
@@ -226,7 +228,7 @@
     "docs": "Dokumentacja",
     "download-manager": {
         "install-type": {
-            "install": "Instaluj",
+            "install": "Instalacja",
             "update": "Aktualizacja"
         },
         "label": {
@@ -258,7 +260,7 @@
     },
     "generic": {
         "error": {
-            "component": "Nie znaleziono żadnych gier - spróbuj wylogować i zalogować się ponownie lub wybierz jedną z opcji poniżej"
+            "component": "Nie znaleziono gier — spróbuj się wylogować i zalogować ponownie, lub wybrać jedną z opcji poniżej"
         },
         "library": {
             "refresh": "Odśwież bibliotekę"
@@ -285,7 +287,7 @@
         "show_support_offline_only": "Pokaż tylko obsługiwane offline",
         "uncategorized": "Nieskategoryzowane",
         "select_all": "Zaznacz wszystkie",
-        "show_third_party_managed_only": "Wyświetlaj tylko zarządzane zewnętrznie",
+        "show_third_party_managed_only": "Pokaż tylko zarządzane zewnętrznie",
         "show_updates_only": "Pokaż tylko gry z aktualizacją"
     },
     "help": {
@@ -313,7 +315,7 @@
         "preferSystemLibs": "Niestandardowe wersje Wine (Wine-GE, Wine-Lutris) są pobierane wraz z wymaganymi bibliotekami. Włączając tę opcję, biblioteki zostaną zignorowane, a zamiast nich zostaną wykorzystane biblioteki systemowe Wine. Uwaga! Może powodować problemy z kompatybilnością zależności.",
         "primerun": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "Ta ścieżka pozwala Heroic określić jakiej wersji Protonu Steam użyć do dodawania gier spoza Steam do Steama."
+            "info": "Ta ścieżka pozwala Heroic określić jakiej wersji Protona używa Steam do dodawania gier spoza Steam do Steama."
         },
         "steamruntime": "Niestandardowe biblioteki dostarczane przez Steam w celu ułatwienia uruchamiania gier Windows na Linux. Włączenie poprawi kompatybilność.",
         "sync": {
@@ -431,7 +433,8 @@
         "gog": "Zaloguj do GOG",
         "message": "Zaloguj się do swojej platformy. Możesz zalogować się do więcej niż jednej platformy w tym samym czasie.",
         "amazon": "Logowanie do Amazon",
-        "old-mac": "Twoja wersja macOS to {{version}}. macOS 12 lub nowszy jest wymagany, aby móc się zalogować."
+        "old-mac": "Twoja wersja macOS to {{version}}. macOS 12 lub nowszy jest wymagany, aby móc się zalogować.",
+        "zoom": "Logowanie do Zoom"
     },
     "message": {
         "sync": "Synchronizacja zakończona",
@@ -683,7 +686,8 @@
                 "gog": "GOG log",
                 "heroic": "General Heroic log",
                 "legendary": "Epic Games / Legendary log",
-                "nile": "Amazon / Nile log"
+                "nile": "Amazon / Nile log",
+                "zoom": "Dziennik zdarzeń Zoom"
             },
             "show-uploads": "Pokaż przesłane pliki dziennika"
         },
@@ -753,7 +757,7 @@
             "enableUpscaling": "Włącz skalowanie",
             "missingMsg": "Nie mogliśmy znaleźć gamescope w ścieżce PATH. Zainstaluj go lub dodaj do ścieżki PATH.",
             "enableForceGrabCursor": "Włącz kursor Force Grab",
-            "missingMsgFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 24.08 i uruchom ponownie program Heroic.",
+            "missingMsgFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 25.08 i uruchom ponownie program Heroic.",
             "warningFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym {{runtimeVersion}} i uruchom ponownie program Heroic."
         },
         "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
@@ -768,10 +772,10 @@
             "label": "Zezwól na instalację gier z zepsutym lub odmawiającym anticheatem"
         },
         "verboseLogs": {
-            "description": "Włącz szczegółowe dzienniki"
+            "description": "Włącz szczegółowe logi"
         },
         "custom_css": {
-            "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic-a nie będzie dało się używać. W razie potrzeby można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
+            "warning": "Ostrzeżenie: dotyczy to całego frontendu. Oznacza to, że niewłaściwy styl może sprawić, że Heroic będzie nieużywalny. W razie potrzeby, można zmienić ustawienia ręcznie w `~/.config/heroic/config.json`. NIE kopiuj stylów ze źródeł, którym nie ufasz."
         },
         "disableUMU": "Wyłącz umu",
         "advertiseAvxForRosetta": "Promuj AVX dla Rosetty",
@@ -795,14 +799,16 @@
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Nie pokazuj ich",
-                "show": "Zrozumiałem, pokaż im",
-                "title": "Czy na pewno?"
+                "show": "Zrozumiałem, pokaż je",
+                "title": "Na pewno?",
+                "message": "Rekomendujemy użycie forków Protona (GE-Proton, Proton-CachyOS, itp.) do używania wraz z Heroic, ponieważ buildom Protona od Valve brakuje winetricks-ów i protofix-ów. Jeśli chcesz to i tak możesz ich używać."
             },
-            "label": "Zezwalanie na używanie kompilacji nie-GE Proton do uruchamiania gier",
-            "wine_selector_warning": "Wersje nie-GE Proton są domyślnie ignorowane, włącz je w zaawansowanych ustawieniach globalnych",
-            "info_label": "Wersje Proton od Valve ignorowane"
+            "label": "Zezwól na użycie Valve Proton do uruchamiania gier",
+            "wine_selector_warning": "Wersje Valve Protona są domyślnie ignorowane, włącz je w globalnych ustawieniach Zaawansowanych",
+            "info_label": "Wersje Protona od Valve ignorowane"
         },
-        "WoW64": "Włącz WoW64 (Eksperymentalne)"
+        "WoW64": "Włącz WoW64 (Eksperymentalne)",
+        "scripts": "Skrypty:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -846,8 +852,8 @@
         "saves": {
             "label": "Lokalizacja zapisów gry:",
             "warning": "Zapisy w chmurze są w fazie Beta, zrób kopię swoich zapisów przed synchronizacją (na wypadek niepowodzenia)",
-            "not_supported": "Ta gra nie obsługuje zapisów w chmurze.",
-            "gog_linux_native_warning": "Gry natywne dla systemu Linux nie obsługują funkcji zapisywania w chmurze GOG. Skorzystaj z wersji dla systemu Windows."
+            "not_supported": "Ta gra nie obsługuje Zapisów w Chmurze.",
+            "gog_linux_native_warning": "Gry natywne dla systemu Linux nie obsługują funkcji Zapisywania w Chmurze GOG. Skorzystaj z wersji dla systemu Windows."
         },
         "systemInformation": {
             "cpu": "Procesor:",
@@ -1015,7 +1021,7 @@
         "new-category": "Nowa kategoria"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona razem z launcherem umu (domyślnym dla Heroic).",
+        "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użycia razem z launcherem umu (domyślnym dla Heroic).",
         "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest przestarzała i zamiast niej powinno używać się GE-Proton z launcherem umu."
     },
     "emptyLibrary": {
@@ -1105,5 +1111,7 @@
             "pt2": "Heroic wykorzystuje platformę open-source Plausible Analytics do gromadzenia podstawowych danych: Wersja aplikacji, system operacyjny, połączone sklepy i kraj."
         },
         "title": "Wysyłaj anonimowe analizy"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Sklep Zoom"
 }

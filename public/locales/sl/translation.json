@@ -1,0 +1,234 @@
+{
+    "accessibility": {
+        "all_tiles_in_color": "Pokaži vse okvirčke iger v barvi",
+        "content_font_family_default": "Pisava vsebin (Default: {{fontFamily}})",
+        "disable_animations": "Izključi animacije uporabniškega vmesnika",
+        "disable_dialog_backdrop_close": "Izključi zapiranje oken ob kliku zunaj njih",
+        "zoom": "Povečava",
+        "actions_font_family_default": "Pisava sporočil o dejanjih (Privzeto: {{fontFamily}})"
+    },
+    "add_game": "Dodaj igro",
+    "adtraction-locked": {
+        "description": "Domena track.adtraction.com je očitno nedosegljiva ali onemogočena. Z Adtraction bo tvoj vsak nakup na GOG finančno pomagal Heroic-u. Če nas želiš podpirati, omogoči dostop do te domene.",
+        "dont-show-again": "Ne prikazuj več tega opozorila",
+        "title": "Adtraction ni dosegljiv"
+    },
+    "Amazon Games": "Igre Amazon",
+    "amazon-luna": "Amazon Luna",
+    "analyticsModal": {
+        "disable": "Izključi",
+        "enable": "Vključi",
+        "info": {
+            "pt1": "Za izboljšavo programa Heroic zbira v celoti anonimne podatke.",
+            "pt2": "Za zbiranje osnovnih podatkov Heroic uporablja odprtokodno platformo Plausible Analytics. Ti podatki so: različica programa, OS, povezane trgovine in država uporabnika.",
+            "pt3": "Nikoli ne bomo zbirali osebnih podatkov, vključno z uporabniškim imenom, e-naslovom ali IP naslovom.",
+            "pt4": "Z ozirom na omejene kapacitete nam ti podatki nakazujejo, kam naj se osredotočimo.",
+            "pt5": "Plausible Analytics je v polnem skladju z GDPR, CCPA in PECR.",
+            "pt6": "Podatke, ki jih zbiramo, lahko vedno pregledaš v dnevnikih programa.",
+            "pt7": "To lahko kadarkoli spremeniš v nastavitvah aplikacije."
+        },
+        "title": "Pošlji podatke o uporabi (anonimno)"
+    },
+    "anticheat": {
+        "anticheats": "Sistemi proti goljufanju",
+        "multiplayer_may_not_work": "Večigralske funkcije mogoče ne bodo delovale zaradi onemogočenih ali nedelujočenih mehanizmov proti goljufanju (Anticheat).",
+        "reference": "Referenca",
+        "source": "Vir",
+        "status": "Stanje",
+        "title": "Ta igra vključuje sistem proti goljufanju"
+    },
+    "box": {
+        "cache-cleared": {
+            "message": "Predpomnilnik Heroic-a je izbrisan.",
+            "title": "Predpomnilnik je izbrisan"
+        },
+        "changelog": "Zapisnik sprememb",
+        "choose": "Izberi",
+        "choose-egs-prefix": "Izberi Prefix kjer je nameščen EGS",
+        "choose-gogdl-binary": "Izberi programsko datoteko GOGDL (zahteva ponovni zagon)",
+        "choose-legendary-binary": "Izberi programsko datoteko Legendary",
+        "default-install-path": "Izberi privzeto mesto za namestitev",
+        "default-steam-path": "Mesto Steam.",
+        "dontShowAgain": "Ne prikazuj več",
+        "downloadNow": "Prenesi zdaj",
+        "error": {
+            "add": {
+                "steam": {
+                    "body": "Dodajanje {{game}} v Steam ni uspelo:{{newLine}} {{error}}",
+                    "title": "Napaka pri dodajanju"
+                }
+            },
+            "credentials": {
+                "message": "Prijavni podatki so potekli, prosimo odjavi in prijavi se znova."
+            },
+            "cx-bottle-not-found": {
+                "message": "Steklenica CrossOver \"{{bottle_name}}\" ne obstaja, zagon ni možen!",
+                "title": "Nismo našli steklenice CrossOver"
+            },
+            "dxvk": {
+                "message": "Napaka pri namestitvi DXVK/VKD3D! Prosimo preveri internetno povezavo!",
+                "title": "Napaka DXVK/VKD3D"
+            },
+            "executableNotFound": "Nismo našli programske datoteke",
+            "executableNotFoundMessage": "Heroic ni našel programske datoteke te igre. Prosimo, da jo ročno izberete v nastavitvah igre.",
+            "folder-not-found": {
+                "title": "Mapa z igro je očitno bila izbrisana, želiš odstraniti igro s seznama?"
+            },
+            "generic": {
+                "message": "splošno sporočilo z napako",
+                "title": "Izberi EXE, ki ga želiš zagnati"
+            },
+            "launchAborted": "Zagon preklican",
+            "legendary": {
+                "generic": "Pojavila se je napaka! Poskusi se odjaviti in spet prijaviti v svoj račun Epic.{{newline}}  {{error}}"
+            },
+            "moving": "Napaka pri premikanju igre {{error}}",
+            "title": "Napaka",
+            "uncaught-exception": {
+                "message": "Pojavila se je neznana izjema:{{newLine}}{{error}}{{newLine}}{{newLine}} O tem nam sporoči na naši strani Github.",
+                "title": "Pojavila se je neznana izjema!"
+            },
+            "update": {
+                "message": "S posodobitvijo je šlo nekaj narobe, prosim preveri dnevniške datoteke ali poskusi znova kasneje!",
+                "title": "Napaka pri posodobitvi"
+            },
+            "winetricks": {
+                "message": "Winetricks je med izvajanjem javil napako:{{newLine}}{{error}}",
+                "title": "Napaka Winetricks"
+            }
+        },
+        "choose-nile-binary": "Izberi programsko datoteko Nile",
+        "customWine": "Izberi programsko datoteko Wine ali Protona",
+        "info": {
+            "update": {
+                "detail": "Želiš posodobitev prenesti v ozadju?",
+                "detailNoAutoupdate": "Tvoj sistem ne omogoča samodejnih posodobitev znotraj Heroica. Namesto tega uporabi sistemskega upravitelja paketov.",
+                "message": "Nova različica je na voljo!",
+                "message-finished": "Želiš takoj ponovno zagnati Heroic?",
+                "title": "Zaganjalnik iger Heroic",
+                "title-finished": "Posodobitev je zaključena"
+            }
+        },
+        "no": "NE",
+        "ok": "OK",
+        "postpone": "Preloži na kasneje",
+        "protocol": {
+            "install": {
+                "not_installed": "To trenutno ni nameščeno. Namestim?"
+            }
+        },
+        "quit": {
+            "message": "Postopki še tečejo, si prepričan?",
+            "title": "Izhod"
+        },
+        "reset-heroic": {
+            "question": {
+                "message": "Zagotovo želiš ponastaviti Heroic? To bo zbrisalo vse nastavitve in ves predpomnilnik, ne bo pa odstranilo nameščenih iger in prijavnih podatkov za Epic. Prenosljive različice Heroica (AppImage, WinPortable, itd.) bo treba ponovno zagnati ročno.",
+                "title": "Ponastavi Heroic"
+            }
+        },
+        "runexe": {
+            "title": "Izberi EXE"
+        },
+        "select": {
+            "button": "Izberi",
+            "exe": "Izberi EXE",
+            "script": "Izberi skripto ..."
+        },
+        "shortcuts": {
+            "message": "Bližnjice so narejene na namizju in v začetnem meniju",
+            "message-mac": "Bližnjice so narejene v mapi aplikacij",
+            "message-remove": "Bližnjice so odstranjene z namizja in iz začetnega menija",
+            "message-remove-mac": "Bližnjice so odstranjene iz mape aplikacij",
+            "title": "Bližnjice"
+        },
+        "sync": {
+            "error": "Neveljavno mesto",
+            "title": "Izberi mesto datotek z napredkom v igri"
+        },
+        "update": "Posodobi",
+        "vcruntime": {
+            "install": {
+                "message": "Odprti sta povezavi za Visual C++ Runtime. Prosim namesti obe različici, x86 in x64."
+            },
+            "notfound": {
+                "message": "Microsoft Visual C++ Runtimes, ki ga nekatere igre potrebujejo za delovanje, ni nameščen",
+                "title": "VCRuntime ni nameščen"
+            }
+        },
+        "warning": {
+            "epic": {
+                "import": "Strežniki Epic trenutno ne delujejo pravilno, igre ni mogoče uvoziti!",
+                "install": "Strežniki Epic trenutno ne delujejo pravilno, igre ni mogoče namestiti!",
+                "update": "Strežniki Epic trenutno ne delujejo pravilno, igre ni mogoče posodobiti!"
+            },
+            "rosetta": {
+                "message": "Za delovanje na macOS in procesorjih Apple Silicon Heroic potrebuje sistem Rosetta. Prosimo, namestite ga v terminalu s sledečim ukazom: \"softwareupdate --install-rosetta\". Nato ponovno zaženite Heroic. ",
+                "title": "Sistem Rosetta ni prisoten"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "message": "Neshranjen napredek bo mogoče izgubljen"
+                }
+            }
+        },
+        "yes": "DA"
+    },
+    "controller": {
+        "hints": {
+            "select": "Izberi"
+        }
+    },
+    "download-manager": {
+        "install-type": {
+            "update": "Posodobi",
+            "install": "Namesti"
+        }
+    },
+    "error": "Napaka",
+    "game": {
+        "status": "Stanje"
+    },
+    "notify": {
+        "update": {
+            "finished": "Posodobitev je zaključena"
+        },
+        "uninstalled": "Odstrani"
+    },
+    "placeholder": {
+        "egs-prefix": "Izberi Prefix kjer je nameščen EGS"
+    },
+    "setting": {
+        "eosOverlay": {
+            "disable": "Izključi",
+            "enable": "Vključi",
+            "updateNow": "Posodobi",
+            "install": "Namesti",
+            "remove": "Odstrani"
+        },
+        "library_top_option": {
+            "disabled": "Izključi"
+        }
+    },
+    "settings": {
+        "advanced": {
+            "resetHeroic": {
+                "help": "Zagotovo želiš ponastaviti Heroic? To bo zbrisalo vse nastavitve in ves predpomnilnik, ne bo pa odstranilo nameščenih iger in prijavnih podatkov za Epic. Prenosljive različice Heroica (AppImage, WinPortable, itd.) bo treba ponovno zagnati ročno."
+            },
+            "title": {
+                "resetHeroic": "Ponastavi Heroic"
+            },
+            "details": "Podrobnosti"
+        },
+        "reset-heroic": "Ponastavi Heroic"
+    },
+    "infobox": {
+        "requirements": "Strojne zahteve"
+    },
+    "window": {
+        "close": "Zapri"
+    },
+    "winetricks": {
+        "install": "Namesti"
+    }
+}

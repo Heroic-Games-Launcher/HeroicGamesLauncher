@@ -9,9 +9,9 @@
         "actions_font_family_default": "Tipografías das accións (Por defecto: {{fontFamily}})",
         "content_font_family_default": "Tipografías dos contidos (Por defecto: {{fontFamily}})",
         "titles_always_visible": "Mostrar sempre os títulos na biblioteca",
-        "disable_dialog_backdrop_close": "Desactiva que as caixas de diálogo se pechen ao premer fóra delas",
-        "disable_smooth_scrolling": "Desactiva o suavizado de scroll (precisa reiniciar)",
-        "disable_animations": "Desactivar animacións UI"
+        "disable_dialog_backdrop_close": "Desactivar o peche das caixas de diálogo ao premer fóra delas",
+        "disable_smooth_scrolling": "Desactivar o suavizado de scroll (precisa reiniciar)",
+        "disable_animations": "Desactivar animacións da interfaz"
     },
     "add_game": "Engadir xogo",
     "All": "Todos",
