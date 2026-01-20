@@ -587,6 +587,13 @@ export interface Tools {
   runner: Runner
 }
 
+export interface Tool {
+  name: string
+  url: string
+  os: string
+  strip?: number
+}
+
 export type DMStatus = 'done' | 'error' | 'abort' | 'paused'
 export interface DMQueueElement {
   type: 'update' | 'install'

@@ -27,6 +27,7 @@ import {
 } from './utilities'
 import { axiosClient, calculateEta, downloadFile } from 'backend/utils'
 import type { WineManagerStatus } from 'common/types'
+import { backendEvents } from 'backend/backend_events'
 
 interface getVersionsProps {
   repositorys?: Repositorys[]
@@ -354,6 +355,9 @@ async function installVersion({
 
   // resolve with disksize
   versionInfo.disksize = getFolderSize(installSubDir)
+
+  backendEvents.emit('wineVersionInstalled', versionInfo, installDir)
+
   return { versionInfo: versionInfo, installDir: installSubDir }
 }
 
