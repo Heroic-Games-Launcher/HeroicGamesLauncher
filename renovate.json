@@ -11,42 +11,128 @@
   "prConcurrentLimit": 5,
   "stabilityDays": 3,
   "dependencyDashboardAutoclose": false,
-  "node": { "version": "20" },
   "pnpm": { "enabled": true },
   "ignorePaths": ["patches/**"],
+
+  // 1. GLOBAL SAFETY: Ignore patched deps completely
+  "ignoreDeps": ["howlongtobeat-js"],
+
   "packageRules": [
+    // 2. SAFETY NET: Major Releases (Manual Approval)
     {
       "matchUpdateTypes": ["major"],
       "groupName": "major releases",
       "dependencyDashboardApproval": true,
       "stabilityDays": 7
     },
+
+    // 3. CORE LOGIC: Group "Boring" Production Updates (Minor/Patch only)
     {
       "matchDepTypes": ["dependencies"],
       "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "prod minor+patch"
+      "groupName": "prod minor+patch",
+      // Exclude everything we handle specifically below
+      "excludePackagePatterns": [
+        "^electron",
+        "^react",
+        "^vite",
+        "^@emotion",
+        "^@mui",
+        "^@fortawesome",
+        "^i18next",
+        "^intro\\.js"
+      ],
+      "excludePackageNames": ["electron-store", "electron-updater"]
     },
+
+    // 4. ELECTRON STRATEGY (Split into 3 logical groups)
+
+    // 4a. Core Framework (High Risk - Isolate & Separate Minor/Patch)
     {
+      "matchPackageNames": ["electron"],
+      "groupName": "electron-core",
+      "separateMinorPatch": true
+    },
+
+    // 4b. Build Tools (Dev-time - Group together)
+    {
+      "matchPackageNames": ["electron-builder", "electron-vite"],
+      "groupName": "electron-build-tools",
       "matchDepTypes": ["devDependencies"],
-      "groupName": "devDependencies",
+      "separateMinorPatch": false
+    },
+
+    // 4c. Runtime Helpers (Production - Group together)
+    {
+      "matchPackageNames": ["electron-store", "electron-updater"],
+      "groupName": "electron-helpers",
+      "matchUpdateTypes": ["minor", "patch"],
+      "separateMinorPatch": false
+    },
+
+    // 5. UI FRAMEWORKS (Coupled Logic)
+    {
+      "matchPackagePatterns": [
+        "^@emotion/",
+        "^@mui/",
+        "^@fortawesome/",
+        "^i18next"
+      ],
+      "groupName": "ui-frameworks",
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+
+    // 6. INTRO.JS (Coupled Wrapper)
+    {
+      "matchPackagePatterns": ["^intro\\.js"],
+      "groupName": "intro-js",
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+
+    // 7. DEV DEPENDENCIES (Split for easier review)
+    // Types (Very safe, automerge candidate)
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "groupName": "typescript-types",
       "automerge": false
     },
+    // Linting (Safe, usually just style changes)
     {
-      "matchPaths": ["e2e/**", "tests/**"],
-      "groupName": "test-tooling"
+      "matchPackagePatterns": ["eslint", "prettier", "husky", "lint-staged"],
+      "groupName": "linting-tools",
+      "automerge": false
     },
+    // Testing (Needs CI check)
     {
-      "groupName": "patched dependencies",
-      "description": "Gates packages with pnpm patches. Requires manual approval via Dashboard to prevent breaking local fixes.",
-      "matchManagers": ["npm"],
-      "matchPackageNames": ["@types/node", "howlongtobeat-js"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "dependencyDashboardApproval": true,
-      "stabilityDays": 7,
-      "prBodyNotes": [
-        "⚠️ **Note:** This dependency has a local pnpm patch. Please re-verify the patch still applies correctly after updating."
-      ]
+      "matchPackagePatterns": [
+        "jest",
+        "vitest",
+        "playwright",
+        "testing-library"
+      ],
+      "groupName": "testing-tools",
+      "automerge": false
     },
+    // The Rest (Catch-all)
+    {
+      "matchDepTypes": ["devDependencies"],
+      "excludePackagePatterns": [
+        "^@types/",
+        "eslint",
+        "prettier",
+        "husky",
+        "lint-staged",
+        "jest",
+        "vitest",
+        "playwright",
+        "testing-library",
+        "^electron" // Exclude electron tools captured above
+      ],
+      "groupName": "other-dev-deps",
+      "automerge": false
+    },
+
+    // 8. GITHUB ACTIONS (Keep pinned for security)
     {
       "matchManagers": ["github-actions"],
       "pinDigests": true,
