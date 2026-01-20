@@ -1158,7 +1158,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     if (isMac) ret.MTL_HUD_ENABLED = '1'
     else ret.DXVK_HUD = 'fps'
   }
-  if (gameSettings.enableDXVKFpsLimit) {
+  if (gameSettings.enableDXVKFpsLimit && isMac) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
   if (gameSettings.enableFSR) {
