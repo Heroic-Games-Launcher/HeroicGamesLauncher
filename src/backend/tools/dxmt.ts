@@ -1,5 +1,5 @@
 import { backendEvents } from 'backend/backend_events'
-import { isIntelMac, isMac, isWindows } from 'backend/constants/environment'
+import { isIntelMac, isMac } from 'backend/constants/environment'
 import { logDebug, logError, LogPrefix, logWarning } from 'backend/logger'
 import { isOnline } from 'backend/online_monitor'
 import { installOrUpdateTool } from '.'
@@ -17,9 +17,6 @@ import { toolsPath } from 'backend/constants/paths'
 
 const DXMT = {
   getLatest: () => {
-    if (isWindows) {
-      return
-    }
     if (!isOnline()) {
       logWarning(
         'App offline, skipping possible DXMT update.',
@@ -41,17 +38,10 @@ const DXMT = {
     installDir: string
   ) => {
     const wineFilePath = join(installDir, versionInfo.version)
-    if (!existsSync(wineFilePath)) {
-      logDebug(
-        'New wine not found, skipping DXMT copy.',
-        LogPrefix.ToolInstaller
-      )
-    }
-
-    const newFilePath = `${wineFilePath}-DXMT`
+    const wineCopyFilePath = `${wineFilePath}-DXMT`
     try {
       // copy wine
-      cpSync(wineFilePath, newFilePath, { recursive: true })
+      cpSync(wineFilePath, wineCopyFilePath, { recursive: true })
 
       // copy dxmt files inside wine
       const globalVersion = readFileSync(join(toolsPath, 'dxmt', 'latest_dxmt'))
@@ -60,7 +50,7 @@ const DXMT = {
 
       const toolPath = join(toolsPath, 'dxmt', globalVersion)
       const wineInternalPath = join(
-        newFilePath,
+        wineCopyFilePath,
         'Contents',
         'Resources',
         'wine',
@@ -91,7 +81,7 @@ const DXMT = {
       })
 
       // rename version in info.plist
-      const infoFilePath = join(newFilePath, 'Contents', 'Info.plist')
+      const infoFilePath = join(wineCopyFilePath, 'Contents', 'Info.plist')
       let content = readFileSync(infoFilePath, 'utf8')
       content = content.replace(
         /(<key>CFBundleShortVersionString<\/key>\n.*<string>)(.*)(<\/string>)/m,
@@ -108,8 +98,8 @@ const DXMT = {
         `Error copying wine staging for DXMT version ${error}`,
         LogPrefix.ToolInstaller
       )
-      if (existsSync(newFilePath)) {
-        rmSync(newFilePath, { recursive: true })
+      if (existsSync(wineCopyFilePath)) {
+        rmSync(wineCopyFilePath, { recursive: true })
       }
     }
   },
@@ -119,7 +109,7 @@ const DXMT = {
       try {
         rmSync(dxmtVersionPath, { recursive: true })
       } catch (error) {
-        logError(error, LogPrefix.WineDownloader)
+        logError(error, LogPrefix.ToolInstaller)
         logWarning(
           `Couldn't remove DXMT copy of ${versionInfo.version}!`,
           LogPrefix.ToolInstaller
@@ -130,17 +120,14 @@ const DXMT = {
 }
 
 backendEvents.on('wineVersionInstalled', async (versionInfo, installDir) => {
-  if (versionInfo.type === 'Wine-Staging-macOS') {
-    if (isMac && !isIntelMac) {
-      await DXMT.copyWineAndConfigure(versionInfo, installDir)
-    }
+  if (isMac && !isIntelMac && versionInfo.type === 'Wine-Staging-macOS') {
+    await DXMT.getLatest()
+    await DXMT.copyWineAndConfigure(versionInfo, installDir)
   }
 })
 
 backendEvents.on('wineVersionUninstalled', async (versionInfo) => {
-  if (versionInfo.type === 'Wine-Staging-macOS') {
-    if (isMac && !isIntelMac) {
-      await DXMT.deleteWineCopy(versionInfo)
-    }
+  if (isMac && !isIntelMac && versionInfo.type === 'Wine-Staging-macOS') {
+    await DXMT.deleteWineCopy(versionInfo)
   }
 })
