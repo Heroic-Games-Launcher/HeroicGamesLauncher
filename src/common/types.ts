@@ -130,6 +130,7 @@ export interface AppSettings extends GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  afterDownloadAction: 'none' | 'shutdown' | 'suspend'
 }
 
 export type LibraryTopSectionOptions =
