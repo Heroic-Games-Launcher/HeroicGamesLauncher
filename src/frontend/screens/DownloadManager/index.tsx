@@ -3,7 +3,16 @@ import './index.css'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DMQueueElement, DownloadManagerState } from 'common/types'
-import { UpdateComponent } from 'frontend/components/UI'
+import {
+  UpdateComponent,
+  ToggleSwitch,
+  SelectField
+} from 'frontend/components/UI'
+import useSetting from 'frontend/hooks/useSetting'
+import { MenuItem, SelectChangeEvent } from '@mui/material'
+import useSettingsContext from 'frontend/hooks/useSettingsContext'
+import SettingsContext from '../Settings/SettingsContext'
+
 import ProgressHeader from './components/ProgressHeader'
 import DownloadManagerHeader from './DownloadManagerHeader'
 import { downloadManagerStore } from 'frontend/helpers/electronStores'
@@ -11,13 +20,18 @@ import { DMQueue } from 'frontend/types'
 import DownloadManagerItem from './components/DownloadManagerItem'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 
-export default React.memo(function DownloadManager(): JSX.Element | null {
+const DownloadManagerContent = React.memo(function DownloadManagerContent(): JSX.Element | null {
   const { t } = useTranslation()
   const [refreshing, setRefreshing] = useState(false)
   const [state, setState] = useState<DownloadManagerState>('idle')
   const [plannendElements, setPlannendElements] = useState<DMQueueElement[]>([])
   const [currentElement, setCurrentElement] = useState<DMQueueElement>()
   const [finishedElem, setFinishedElem] = useState<DMQueueElement[]>()
+
+  const [afterDownloadAction, setAfterDownloadAction] = useSetting(
+    'afterDownloadAction',
+    'none'
+  )
 
   hasHelp(
     'downloadManager',
@@ -29,7 +43,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
 
   useEffect(() => {
     setRefreshing(true)
-    window.api.getDMQueueInformation().then(({ elements, state }: DMQueue) => {
+    void window.api.getDMQueueInformation().then(({ elements, state }: DMQueue) => {
       setCurrentElement(elements[0])
       setPlannendElements([...elements.slice(1)])
       setRefreshing(false)
@@ -56,7 +70,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
   }, [])
 
   useEffect(() => {
-    window.api.getDMQueueInformation().then(({ finished }: DMQueue) => {
+    void window.api.getDMQueueInformation().then(({ finished }: DMQueue) => {
       setFinishedElem(finished)
     })
   }, [plannendElements.length, currentElement?.params.appName])
@@ -106,6 +120,52 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
       >
         {t('download-manager.title', 'Downloads')}
       </h4>
+      <div className="downloadManagerSettings">
+        <div className="downloadManagerSettingItem">
+          <ToggleSwitch
+            htmlId="afterDownloadActionEnabled"
+            value={afterDownloadAction !== 'none'}
+            handleChange={() =>
+              setAfterDownloadAction(
+                afterDownloadAction === 'none' ? 'suspend' : 'none'
+              )
+            }
+            title={t(
+              'download-manager.post-action.enable',
+              'What to do after finishing the download'
+            )}
+          />
+          {afterDownloadAction !== 'none' && (
+            <div style={{ minWidth: '150px', marginLeft: 'var(--space-md)' }}>
+              <SelectField
+                htmlId="afterDownloadAction"
+                value={afterDownloadAction}
+                onChange={(e: SelectChangeEvent) =>
+                  setAfterDownloadAction(
+                    e.target.value as 'shutdown' | 'suspend'
+                  )
+                }
+              >
+                <MenuItem value="suspend">
+                  {t('download-manager.post-action.suspend', 'Suspend')}
+                </MenuItem>
+                <MenuItem value="shutdown">
+                  {t('download-manager.post-action.shutdown', 'Shutdown')}
+                </MenuItem>
+              </SelectField>
+            </div>
+          )}
+        </div>
+        <div className="downloadManagerSettingItem">
+          <button
+            className="button is-text"
+            onClick={() => void window.api.turnOffScreen()}
+            style={{ marginLeft: 'var(--space-md)' }}
+          >
+            {t('download-manager.screen-off', 'Turn Off Screen')}
+          </button>
+        </div>
+      </div>
       {
         <>
           <ProgressHeader
@@ -185,3 +245,17 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
     </>
   )
 })
+
+export default function DownloadManager(): JSX.Element {
+  const contextValues = useSettingsContext({ appName: 'default' })
+
+  if (!contextValues) {
+    return <UpdateComponent />
+  }
+
+  return (
+    <SettingsContext.Provider value={contextValues}>
+      <DownloadManagerContent />
+    </SettingsContext.Provider>
+  )
+}
