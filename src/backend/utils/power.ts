@@ -16,7 +16,10 @@ async function runCommand(command: string) {
   return new Promise<void>((resolve) => {
     exec(finalCommand, (error) => {
       if (error) {
-        logError([`Failed to execute power command: ${finalCommand}`, error], LogPrefix.Backend)
+        logError(
+          [`Failed to execute power command: ${finalCommand}`, error],
+          LogPrefix.Backend
+        )
       } else {
         logInfo([`Executed power command: ${finalCommand}`], LogPrefix.Backend)
       }
@@ -33,7 +36,7 @@ export async function shutdown() {
   if (process.platform === 'win32') {
     return runCommand('shutdown /s /t 0')
   } else if (process.platform === 'darwin') {
-    return runCommand("osascript -e 'tell app \"System Events\" to shut down'")
+    return runCommand('osascript -e \'tell app "System Events" to shut down\'')
   } else {
     return runCommand('systemctl poweroff')
   }
@@ -47,7 +50,7 @@ export async function suspend() {
   if (process.platform === 'win32') {
     return runCommand('rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
   } else if (process.platform === 'darwin') {
-    return runCommand("osascript -e 'tell app \"System Events\" to sleep'")
+    return runCommand('osascript -e \'tell app "System Events" to sleep\'')
   } else {
     return runCommand('systemctl suspend')
   }
@@ -76,9 +79,13 @@ export async function turnOffScreen() {
     } else if (info.displayServer === 'wayland') {
       // Try multiple Wayland methods (KDE, GNOME)
       // KDE
-      void runCommand('qdbus org.kde.kglobalaccel /component/org_kde_powerdevil invokeShortcut "Turn Off Screen"')
+      void runCommand(
+        'qdbus org.kde.kglobalaccel /component/org_kde_powerdevil invokeShortcut "Turn Off Screen"'
+      )
       // GNOME (This locks the screen as well, which is often expected)
-      void runCommand("dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'Main.screenShield.lock()'")
+      void runCommand(
+        "dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'Main.screenShield.lock()'"
+      )
     } else {
       // Fallback
       return runCommand('xset dpms force off')
