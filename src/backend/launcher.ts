@@ -347,6 +347,8 @@ function filterGameSettingsForLog(
     delete gameSettings.enableMsync
     delete gameSettings.wineCrossoverBottle
     delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.DXVKFpsCap
+    delete gameSettings.enableDXVKFpsLimit
 
     if (notNative) {
       const wineVersion = gameSettings.wineVersion
@@ -376,7 +378,6 @@ function filterGameSettingsForLog(
       delete gameSettings.enableHDR
       delete gameSettings.enableWoW64
       delete gameSettings.showFps
-      delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.eacRuntime
       delete gameSettings.battlEyeRuntime
       delete gameSettings.useGameMode
