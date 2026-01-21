@@ -255,12 +255,18 @@
             "speed": "Download"
         },
         "link": "Downloads",
+        "post-action": {
+            "enable": "What to do after finishing the download",
+            "shutdown": "Shutdown",
+            "suspend": "Suspend"
+        },
         "queue": {
             "end-time": "Finished at",
             "queue-time": "Added at",
             "start-time": "Started at",
             "type": "Type"
         },
+        "screen-off": "Turn Off Screen",
         "title": "Downloads"
     },
     "emptyLibrary": {
