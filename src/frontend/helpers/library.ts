@@ -124,7 +124,7 @@ async function install({
   })
 }
 
-async function handleStopInstallation(
+function handleStopInstallation(
   appName: string,
   path: string,
   t: TFunction<'gamepage'>,
@@ -149,7 +149,7 @@ async function handleStopInstallation(
       },
       {
         text: t('box.no'),
-        onClick: async () => {
+        onClick: () => {
           window.api.cancelDownload(true)
           storage.removeItem(appName)
         }
@@ -315,6 +315,60 @@ async function checkLaunchOptionsAndLaunch({
 
   // Show dialog to select launch option
   return new Promise((res) => {
+    let timeoutId: NodeJS.Timeout | null = null
+    let countdownInterval: NodeJS.Timeout | null = null
+    let hasSelected = false
+    let secondsRemaining = 10
+
+    // Set up auto-select timeout (10 seconds)
+    const autoSelectFirstOption = () => {
+      if (hasSelected) return
+
+      const firstOption = availableLaunchOptions[0]
+
+      // Clean up intervals
+      if (countdownInterval) {
+        clearInterval(countdownInterval)
+      }
+
+      // Close the dialog
+      showDialogModal({ showDialog: false })
+
+      // Save this choice for future launches
+      window.api.setSetting({
+        appName,
+        key: 'lastUsedLaunchOption',
+        value: firstOption
+      })
+
+      // Launch with the first option
+      res(
+        window.api.launch({
+          appName,
+          runner,
+          launchArguments: firstOption,
+          args,
+          skipVersionCheck
+        })
+      )
+    }
+
+    // Update the dialog title with countdown
+    const updateCountdown = () => {
+      showDialogModal({
+        message: t(
+          'gamepage:box.selectLaunchOption.body',
+          'Please select a launch option for this game (it can be changed later on the game settings):'
+        ),
+        title: t(
+          'gamepage:box.selectLaunchOption.title',
+          'Select Launch Option ({{seconds}}s)',
+          { seconds: secondsRemaining }
+        ),
+        buttons: optionButtons
+      })
+    }
+
     // Create button for each launch option
     const optionButtons = availableLaunchOptions.map((option) => {
       let label = ''
@@ -334,6 +388,17 @@ async function checkLaunchOptionsAndLaunch({
       return {
         text: label,
         onClick: () => {
+          hasSelected = true
+          if (timeoutId) {
+            clearTimeout(timeoutId)
+          }
+          if (countdownInterval) {
+            clearInterval(countdownInterval)
+          }
+
+          // Close the dialog
+          showDialogModal({ showDialog: false })
+
           // Save this choice for future launches
           window.api.setSetting({
             appName,
@@ -355,14 +420,19 @@ async function checkLaunchOptionsAndLaunch({
       }
     })
 
-    showDialogModal({
-      message: t(
-        'gamepage:box.selectLaunchOption.body',
-        'Please select a launch option for this game (it can be changed later on the game settings):'
-      ),
-      title: t('gamepage:box.selectLaunchOption.title', 'Select Launch Option'),
-      buttons: optionButtons
-    })
+    // Set timeout for 10 seconds
+    timeoutId = setTimeout(autoSelectFirstOption, 10000)
+
+    // Update countdown every second
+    countdownInterval = setInterval(() => {
+      secondsRemaining--
+      if (secondsRemaining > 0) {
+        updateCountdown()
+      }
+    }, 1000)
+
+    // Show initial dialog
+    updateCountdown()
   })
 }
 
