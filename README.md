@@ -37,6 +37,7 @@ Heroic is built with Web Technologies:
       - [Debian, Ubuntu and Derivatives](#debian-ubuntu-and-derivatives)
       - [Arch (AUR)](#arch-aur)
       - [Fedora](#fedora)
+      - [Nix(OS)](#nixos)
       - [Other Distributions (AppImage and TAR.XZ)](#other-distributions-appimage-and-tarxz)
     - [Windows](#windows)
     - [macOS](#macos)
@@ -45,6 +46,7 @@ Heroic is built with Web Technologies:
     - [Building with VS Code](#building-with-vs-code)
     - [Quickly testing/debugging Heroic on your own system](#quickly-testingdebugging-heroic-on-your-own-system)
     - [Testing with Docker](#testing-with-docker)
+    - [Development on nix](#development-on-nix)
   - [Sponsors](#sponsors)
   - [Screenshots](#screenshots)
   - [Credits](#credits)
@@ -153,11 +155,11 @@ If you're not using the Flatpak version, make sure you have all Wine dependencie
 #### Debian, Ubuntu and Derivatives
 
 Download the file ending in .deb from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest).  
-Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Heroic_*_amd64.deb` to install it directly.
+Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Heroic*amd64.deb` to install it directly.
 
 #### Arch (AUR)
 
-We currently only support one AUR package: `heroic-games-launcher-bin`. Although you might find other packages there, do not ask support for them on this Github or on our Discord, ask their maintainers directly.
+We currently only support one AUR package: `heroic-games-launcher-bin`. Although you might find other packages there, do not ask support for them on this GitHub or on our Discord, ask their maintainers directly.
 
 - [![Stable version badge](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=heroic-games-launcher-bin)](https://aur.archlinux.org/packages/heroic-games-launcher-bin)  
   (stable release, recommended)
@@ -166,14 +168,31 @@ Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository
 
 #### Fedora
 
-##### COPR repo
+You can download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`.
 
-Heroic for Fedora is available on [this COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/).  
-Enable it with `sudo dnf copr enable atim/heroic-games-launcher`, then install Heroic with `sudo dnf install heroic-games-launcher-bin`
+Alternatively, you can use the Flatpak package.
 
-##### Binary package from the releases page
+#### Nix(OS)
 
-You can alternatively download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
+Two community-maintained versions are available in [nixpkgs](https://search.nixos.org/packages?type=packages&query=heroic), named [heroic](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/by-name/he/heroic-unwrapped/package.nix#L110) (with an [FHS environment](https://nixos.org/manual/nixpkgs/stable/#sec-fhs-environments)) and [heroic-unwrapped](https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/he/heroic-unwrapped/package.nix) (without FHS).
+
+- Nix shell: `nix-shell -p heroic`
+- NixOS:
+
+  ```nixos
+  # /etc/nixos/configuration.nix
+  { config, pkgs, ... }:
+
+  {
+    users.users.example = {
+      isNormalUser = true;
+      description = "Example user";
+      packages = with pkgs; [
+        heroic
+      ];
+    };
+  }
+  ```
 
 #### Other Distributions (AppImage and TAR.XZ)
 
@@ -222,6 +241,7 @@ This part will walk you through setting up a development environment so you can 
    ```
 
 3. Make sure all dependencies are installed by running `pnpm install`
+4. Download all helper binaries using `pnpm download-helper-binaries`
 
 ### Building Heroic Binaries
 
@@ -253,6 +273,10 @@ To do that, open up the command palette (Ctrl + P), type in "task" and press Spa
 
 If you want to quickly test a change, or you're implementing features that require a lot of restarts, you can use Vite's development server to speed up the process:  
 Go to the "Run and Debug" tab of VSCode and start the "Launch Heroic (HMR & HR)" task (alternatively, if you're not using VSCode or just prefer the terminal, run `pnpm start`). Heroic will start up after a short while, and once you make any change to the code, it'll reload/restart.
+
+### Development on Nix
+
+After cloning the repository, Nix users can use `nix-shell` to make Node.JS/pnpm available and automatically run [installation step](#development-environment) 3 and 4. See [shell.nix](shell.nix) for more information.
 
 ## Sponsors
 

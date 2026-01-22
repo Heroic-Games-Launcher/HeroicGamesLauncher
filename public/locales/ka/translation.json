@@ -1,0 +1,250 @@
+{
+    "box": {
+        "choose": "აირჩიეთ",
+        "no": "არა",
+        "select": {
+            "button": "არჩევა"
+        },
+        "yes": "დიახ",
+        "update": "განახლება",
+        "changelog": "ცვლილებების ჟურნალი",
+        "error": {
+            "title": "შეცდომა"
+        },
+        "ok": "დიახ",
+        "postpone": "გადადება",
+        "quit": {
+            "title": "გასვლა"
+        },
+        "shortcuts": {
+            "title": "მალსახმობები"
+        },
+        "warning": {
+            "title": "გაფრთხილება"
+        },
+        "downloadNow": "გადმოწერა"
+    },
+    "controller": {
+        "hints": {
+            "select": "არჩევა",
+            "back": "უკან",
+            "backspace": "Backspace",
+            "options": "მორგება",
+            "scroll": "გადახვევა",
+            "space": "ჰარე"
+        }
+    },
+    "setting": {
+        "eosOverlay": {
+            "remove": "წაშლა",
+            "disable": "გათიშულია",
+            "enable": "ჩართულია",
+            "install": "დაყენება",
+            "updateNow": "განახლება",
+            "cancelInstall": "გაუქმება",
+            "updating": "განახლება..."
+        },
+        "library_top_option": {
+            "disabled": "გათიშულია"
+        },
+        "log": {
+            "upload": {
+                "actions": "ქმედებები",
+                "uploading": {
+                    "title": "ატვირთვა"
+                }
+            }
+        },
+        "manualsync": {
+            "download": "გადმოწერა",
+            "sync": "სინქრონიზაცია",
+            "syncing": "სინქრონიზდება",
+            "upload": "ატვირთვა"
+        },
+        "wineversion": "Wine-ის ვერსია"
+    },
+    "window": {
+        "close": "დახურვა"
+    },
+    "status": {
+        "installing": "მიმდინარეობს დაყენება"
+    },
+    "dlc": {
+        "size": "ზომა",
+        "title": "სათაური",
+        "actions": "ქმედებები"
+    },
+    "download-manager": {
+        "install-type": {
+            "install": "დაყენება",
+            "update": "განახლება"
+        },
+        "label": {
+            "disk": "დისკი",
+            "speed": "გადმოწერა"
+        },
+        "link": "გადმოწერები",
+        "queue": {
+            "type": "ტიპი"
+        },
+        "title": "გადმოწერები"
+    },
+    "header": {
+        "categories": "კატეგორიები",
+        "filters": "ფილტრები",
+        "only": "მხოლოდ",
+        "reset": "ჩამოყრა",
+        "uncategorized": "უკატეგორიო"
+    },
+    "help": {
+        "title": {
+            "settings": "პარამეტრები",
+            "accessibility": "წვდომადობა",
+            "library": "ბიბლიოთეკა",
+            "login": "შესვლა"
+        }
+    },
+    "notify": {
+        "uninstalled": "წაშლა"
+    },
+    "queue": {
+        "label": {
+            "downloading": "გადმოწერა",
+            "queued": "რიგშია",
+            "finished": "დასრულდა"
+        }
+    },
+    "settings": {
+        "advanced": {
+            "details": "დეტალები"
+        },
+        "navbar": {
+            "log": "ჟურნალი",
+            "advanced": "დამატებით",
+            "gamescope": "Gamescope",
+            "general": "ზოგადი",
+            "other": "სხვა"
+        },
+        "systemInformation": {
+            "cpu": "CPU:",
+            "gpu": "GPU:",
+            "memory": "მეხსიერება:",
+            "software": "პროგრამა:"
+        }
+    },
+    "Settings": "პარამეტრები",
+    "wine": {
+        "size": "ზომა",
+        "actions": "ქმედება",
+        "manager": {
+            "unzipping": "გაშლა"
+        }
+    },
+    "winetricks": {
+        "install": "დაყენება",
+        "loading": "იტვირთება"
+    },
+    "accessibility": {
+        "fonts": "ფონტები",
+        "title": "წვდომადობა",
+        "zoom": "მასშტაბი"
+    },
+    "anticheat": {
+        "anticheats": "ანტიჩიტები",
+        "reference": "მიმართვა",
+        "source": "წყარო",
+        "status": "სტატუსი"
+    },
+    "info": {
+        "version": "Wine-ის ვერსია",
+        "heroic": {
+            "beta": "ბეტა",
+            "stable": "სტაბილური"
+        }
+    },
+    "button": {
+        "cancel": "გაუქმება",
+        "continue": "გაგრძელება"
+    },
+    "categories-manager": {
+        "add": "დამატება"
+    },
+    "category-settings": {
+        "cancel": "გაუქმება",
+        "warning": "გაფრთხილება"
+    },
+    "docs": "დოკუმენტაცია",
+    "epic": {
+        "offline-notification-title": "ხაზგარეშე"
+    },
+    "error": "შეცდომა",
+    "favourites": "რჩეულები",
+    "game": {
+        "status": "სტატუსი",
+        "store": "მაღაზია",
+        "modify": "დაყენების შეცვლა"
+    },
+    "GOG": "GOG",
+    "infobox": {
+        "help": "დახმარება",
+        "warning": "გაფრთხილება",
+        "requirements": "სისტემური მოთხოვნები"
+    },
+    "label": {
+        "loading": "იტვირთება"
+    },
+    "Library": "ბიბლიოთეკა",
+    "loading": {
+        "default": "იტვირთება"
+    },
+    "offline-message": {
+        "ignore": "დაიგნორება",
+        "offline": "ხაზგარეშე",
+        "retrying": "თავიდან ცდა"
+    },
+    "options": {
+        "advanced": {
+            "placeHolderKey": "სახელი",
+            "value": "მნიშვნელობა"
+        },
+        "gamescope": {
+            "borderless": "უსაზღვრო",
+            "fullscreen": "სრულ ეკრანზე",
+            "windowed": "ფანჯარაში"
+        },
+        "wrapper": {
+            "args": "არგუმენტები",
+            "exe": "Wrapper"
+        }
+    },
+    "Other": "სხვა",
+    "platforms": {
+        "browser": "ბრაუზერი",
+        "linux": "Linux",
+        "mac": "Mac",
+        "win": "Windows"
+    },
+    "progress": "მიმდინარეობა",
+    "stores": "მაღაზიები",
+    "tour": {
+        "back": "უკან",
+        "done": "მზადაა",
+        "next": "შემდეგი",
+        "skip": "გამოტოვება"
+    },
+    "tray": {
+        "about": "შესახებ",
+        "quit": "გასვლა",
+        "reload": "თავიდან ჩატვირთვა",
+        "show": "ჩვენება"
+    },
+    "userselector": {
+        "cancel": "გაუქმება",
+        "discord": "Discord",
+        "quit": "გასვლა"
+    },
+    "analyticsModal": {
+        "disable": "გათიშულია",
+        "enable": "ჩართულია"
+    }
+}

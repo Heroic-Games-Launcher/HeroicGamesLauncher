@@ -353,7 +353,8 @@
             "upscaleWidth": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
             "forceGrabCursor": "Käytä aina suhteellista hiiritilaa joka toimii osoittimen sen hetkisen paikan mukaisesti. (Hyödyllinen kun ohjelmisto menettää jatkuvasti kohdistuksensa)",
             "upscaleMethod": "Ylösskaalauksen menetelmä jota Gamescope asetetaan toteuttamaan."
-        }
+        },
+        "dxfpslimit": "Asettaa ruudunpäivitykselle katon DXVK-peleissä"
     },
     "info": {
         "heroic": {
@@ -679,6 +680,16 @@
                 "understand": "Ymmärrän",
                 "title": "Oletko varma?"
             }
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Oletko varma?"
+            }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Oletko varma?"
+            }
         }
     },
     "settings": {
@@ -909,5 +920,9 @@
         "next": "Seuraava",
         "startTour": "Käynnistä tutustumiskierros",
         "skip": "Ohita"
+    },
+    "analyticsModal": {
+        "disable": "Poiskytke",
+        "enable": "Päälle"
     }
 }

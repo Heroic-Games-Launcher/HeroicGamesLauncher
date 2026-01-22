@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
 import { CloudOff, CloudQueue } from '@mui/icons-material'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { GameInfo } from 'common/types'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 interface Props {
   gameInfo: GameInfo
@@ -39,7 +38,8 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
       {showCloudSaveInfo && (
         <p
           style={{
-            color: autoSyncSaves ? '#07C5EF' : ''
+            color: autoSyncSaves ? '#07C5EF' : '',
+            margin: 0
           }}
           className="iconWithText"
         >
@@ -59,10 +59,8 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
           <b>{t('info.syncsaves')}</b>
           {': '}
           {t('cloud_save_unsupported', 'Unsupported')}
-          <FontAwesomeIcon
-            className="helpIcon"
-            icon={faCircleInfo}
-            title={t(
+          <InfoIcon
+            text={t(
               'help.cloud_save_unsupported',
               'This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system'
             )}

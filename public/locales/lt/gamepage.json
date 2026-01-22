@@ -29,7 +29,8 @@
             "message": "Šis žaidimas turi galimą atnaujinimą, pritaikyti šį atnaujinimą dabar?"
         },
         "select": {
-            "button": "Pažymėti"
+            "button": "Pažymėti",
+            "image": "Pasirinkite atvaizdžio failą"
         },
         "importpath": "Pasirinkti žaidimo aplanką, kurį importuoti",
         "repair": {
@@ -47,7 +48,8 @@
             "message": "Ar Jūs norite LAIKYTI atsisiųstus failus?",
             "title": "Stabdyti įdiegimą"
         },
-        "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką"
+        "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką",
+        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią"
     },
     "button": {
         "add_to_favourites": "Pridėti prie mėgstamiausių",
@@ -74,7 +76,8 @@
         "details": "Išsamumas",
         "no-path-selected": "Joks kelias nepažymėtas",
         "remove_from_recent": "Pašalinti iš paskiausių",
-        "run-exe-first": "Pirmiausiai vykdyti įdiegiklį"
+        "run-exe-first": "Pirmiausiai vykdyti įdiegiklį",
+        "browse_files": "Naršyti failus"
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -136,7 +139,8 @@
         "launching": "Paleidžiama",
         "playing": {
             "start": "Žaisti dabar",
-            "stop": "Žaidžia/-ma (Stabdyti)"
+            "stop": "Žaidžia/-ma (Stabdyti)",
+            "start_with_logs": "Žaisti dabar (su žurnalinimu)"
         },
         "saves": {
             "syncing": "Sinchronizuojami (žaidimo) išsaugojimai"
@@ -149,7 +153,8 @@
         "redist": "Įdiegiami įterptiniai taikomieji komponentai",
         "steam": {
             "installing": "Įdiegiama",
-            "pleaseWait": "Prašome palaukti..."
+            "pleaseWait": "Prašome palaukti...",
+            "installation": "Stabdyti įdiegimą"
         }
     },
     "modifyInstall": {
@@ -244,19 +249,20 @@
         "winetricks": "Pritaikomi „Winetricks“ sutaisymai",
         "gog-goodie": "Šis žaidimas neatrodo įdiegiamas. Patikrinkite/Peržiūrėkite atsisiunčiama turinį – https://gog.com/account",
         "this-game-uses-third-party": "Šis žaidimas naudoja trečios šalies paleidiklį, o jis nėra palaikomas (kol kas)",
-        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)"
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)",
+        "importing": "Importuoti"
     },
     "not_logged_in": {
         "login": "Prisijungti",
         "title": "Jūs nesate prisijungę",
         "amazon": "Jūs nesate prisijungę su „Amazon“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
         "epic": "Jūs nesate prisijungę su „Epic“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
-        "gog": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:"
+        "gog": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
+        "zoom": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:"
     },
     "setting": {
         "show-wine-settings": "Rodyti „Wine“ nustatymus",
-        "use-default-wine-settings": "Naudoti numatytus „Wine“ nustatymus",
-        "warn-use-default-wine-settings": "Naudokite šią parinktį tik, jei Jūs žinote ką darote.<br/>Naudodami tą patį prielinksnį/priešdėlį keliems žaidimams gali sukelti problemų, jeigu jų priklausomybės yra nesuderinamos.",
+        "warn-use-shared-wine-config": "Naudokite šią parinktį tik, jei Jūs žinote ką darote.<br/>Naudodami tą patį prielinksnį/priešdėlį keliems žaidimams gali sukelti problemų, jeigu jų priklausomybės yra nesuderinamos.",
         "winecrossoverbottle": "„CrossOver butelis“"
     },
     "sdl": {

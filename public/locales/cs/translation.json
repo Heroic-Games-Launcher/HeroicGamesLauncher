@@ -10,7 +10,8 @@
         "titles_always_visible": "Vždy zobrazovat názvy v knihovně",
         "actions_font_family_default": "Rodina písem akcí (výchozí: {{fontFamily}})",
         "content_font_family_default": "Rodina písem obsahu (výchozí: {{fontFamily}})",
-        "disable_smooth_scrolling": "Zakázat plynulé posouvání (vyžaduje restart)"
+        "disable_smooth_scrolling": "Zakázat plynulé posouvání (vyžaduje restart)",
+        "disable_animations": "Zakázat animace uživatelského rozhraní"
     },
     "add_game": "Přidat hru",
     "All": "Vše",
@@ -91,7 +92,14 @@
             },
             "legendary": {
                 "generic": "Došlo k chybě! Zkuste se odhlásit a znovu přihlásit ke svému účtu Epic. {{newline}}  {{error}}"
-            }
+            },
+            "steam": {
+                "error": "Spustitelný soubor Steamu nebyl nalezen. Instalace byla pravděpodobně zrušena uživatelem nebo selhala na straně Steamu.",
+                "message": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu! {{paragraph}} {{error}}",
+                "title": "Chyba Steamu"
+            },
+            "executableNotFound": "Spustitelný soubor nebyl nalezen",
+            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry."
         },
         "info": {
             "update": {
@@ -100,7 +108,8 @@
                 "message": "K dispozici je nová verze!",
                 "message-finished": "Chcete restartovat Heroic nyní?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Aktualizace dokončena"
+                "title-finished": "Aktualizace dokončena",
+                "detailNoAutoupdate": "Automatické aktualizace nejsou pro váš formát balíčku podporovány. K aktualizaci použijte správce balíčků."
             }
         },
         "no": "NE",
@@ -182,7 +191,10 @@
         "choose-nile-binary": "Vyberte binární soubor Nile",
         "update": "Aktualizovat",
         "changelog": "Seznam změn",
-        "postpone": "Odložit"
+        "postpone": "Odložit",
+        "launchAnyway": "Spustit hru i tak",
+        "shaderPreCachingDisabledMessage": "Předběžné ukládání shaderů ve Steamu je deaktivováno. Aktivujte jej v nastavení Steamu v režimu pro stolní počítače, aby hra s UMU fungovala správně.",
+        "shaderPreCachingDisabledTitle": "Předběžné ukládání do mezipaměti shaderů je zakázáno"
     },
     "button": {
         "cancel": "Zrušit",
@@ -356,7 +368,13 @@
             "close": "Zavřít nápovědu"
         },
         "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon.",
-        "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“."
+        "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“.",
+        "dxfpslimit": "Nastavení limitu snímkové frekvence pro DXVK hry",
+        "advertiseAvxForRosetta": "Povoluje podporu instrukční sady AVX při spouštění her pro Windows prostřednictvím Rosetty na počítačích Apple Silicon Mac. To může být nutné u některých her, jako je Death Stranding, které podporu AVX vyžadují.",
+        "wine-hdr": "HDR vylepšuje barvy tím, že poskytuje jasnější světla a hlubší kontrasty. Aby HDR fungovalo, musí jej podporovat jak displej, tak hra.",
+        "wine-wayland": "Experimentální ovladač Wine-Wayland umožňuje spouštět hry nativně pod zobrazovacím protokolem Wayland. Jeho zapnutí může způsobit nefunkčnost některých her.",
+        "analytics": "Umožňuje Heroic shromažďovat 100% anonymní údaje o používání, které poskytují pomoc při vylepšování aplikace. Aby se změna projevila, je nutné restartovat zařízení.",
+        "WoW64": "Režim Wine WoW64 umožňuje spouštět 32bitové hry pro Windows na 64bitovém Wine. Jeho zapnutí může zlepšit výkon, ale také může způsobit nefunkčnost starších 32bitových her."
     },
     "info": {
         "heroic": {
@@ -401,7 +419,9 @@
         "toggleLayout": {
             "grid": "Přepnout na rozvržení mřížky",
             "list": "Přepnout na rozvržení seznamu"
-        }
+        },
+        "hideAlphabetFilter": "Skrýt filtr abecedy",
+        "showAlphabetFilter": "Zobrazit filtr abecedy"
     },
     "Library": "Knihovna",
     "loading": {
@@ -414,7 +434,8 @@
         "gog": "Přihlášení s účtem GOG",
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
         "amazon": "Přihlášení s účtem Amazon",
-        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější."
+        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější.",
+        "zoom": "Přihlášení přes Zoom"
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -464,6 +485,9 @@
             "started": "Aktualizace zahájena",
             "failed": "Aktualizace selhala",
             "paused": "Aktualizace pozastavena"
+        },
+        "import": {
+            "failed": "Import se nezdařil"
         }
     },
     "offline-message": {
@@ -663,7 +687,8 @@
                 "heroic": "Obecný protokol Heroic",
                 "game-log": "Protokol hry {{gameTitle}}",
                 "legendary": "Protokol Epic Games / Legendary",
-                "nile": "Protokol Amazon / Nile"
+                "nile": "Protokol Amazon / Nile",
+                "zoom": "Zoom log"
             },
             "show-uploads": "Zobrazit nahrané soubory protokolů"
         },
@@ -726,7 +751,9 @@
             "enableLimiter": "Zapnout omezení FPS",
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
-            "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru"
+            "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
+            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
+            "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
         },
         "frameless-window": {
             "confirmation": {
@@ -748,12 +775,42 @@
         },
         "disableUMU": "Zakázat umu",
         "custom_css": {
-            "warning": "Varování: toto nastavení platí pro celé rozhraní. To znamená, že špatný styl může způsobit, že Heroic bude kompletně nepoužitelný. Pokud je potřeba, nastavení lze ručně změnit v souboru `~/.config/heroic/config.json`. NEKOPÍRUJTE styly ze zdrojů, kterým nevěříte."
+            "warning": "Upozornění: toto se vztahuje na celý frontend. To znamená, že nesprávný styl může způsobit, že Heroic nebude použitelný. V případě potřeby lze nastavení změnit ručně v souboru `~/.config/heroic/config.json`. NEKOPÍRUJTE styly ze zdrojů, kterým nedůvěřujete."
         },
         "verboseLogs": {
             "description": "Povolit zobrazení protokolů"
         },
-        "download-proton-steam": "Stáhnout GE-Proton do adresáře služby Steam"
+        "download-proton-steam": "Stáhnout GE-Proton do adresáře služby Steam",
+        "advertiseAvxForRosetta": "Propagovat AVX pro Rosettu",
+        "dxfpslimit": "Omezit FPS ve hrách DirectX",
+        "hdr": "Zapnout HDR",
+        "wineWayland": "Povolit Wine-Wayland (experimentální) (verze Wine to musí podporovat)",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Opravdu?",
+                "dont_show": "Neukazovat",
+                "message": "Doporučujeme používat GE-Proton společně s Heroic, protože verze bez GE Proton neobsahují winetricks a protofixes. Pokud chcete, můžete je i tak použít.",
+                "show": "Rozumím, ukázat"
+            },
+            "label": "Povolit používání ne-GE Proton buildů pro spouštění her",
+            "wine_selector_warning": "Verze Protonu bez GE jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
+            "info_label": "Verze bez GE Protonu ignorovány"
+        },
+        "no-tray-icon": "Skrýt ikonu v systémové liště (vyžaduje restart)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Neukazovat",
+                "show": "Rozumím, ukázat",
+                "title": "Opravdu?",
+                "message": "Doporučujeme používat vlastní verze Proton (GE-Proton, Proton-CachyOS atd.) s Heroic, protože verze Proton od Valve neobsahují winetricks a protofixes. Pokud chcete, můžete je i tak použít."
+            },
+            "label": "Povolit používání ne-GE Proton buildů pro spouštění her",
+            "wine_selector_warning": "Verze Protonu bez GE jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
+            "info_label": "Verze Valve Proton ignorovány"
+        },
+        "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
+        "WoW64": "Povolit WoW64 (experimentální)",
+        "scripts": "Skripty:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1004,13 +1061,14 @@
                 "title": "Vítejte v aplikaci Heroic!",
                 "title2": "Správa knihovny!",
                 "intro": "Vítejte v knihovně Heroic! Zde najdete všechny své hry napříč různými obchody.",
-                "intro2": "Pokud je knihovna prázdná, přihlaste se svými účty pomocí tlačítka Spravovat účty na postranní liště nebo přidejte své vlastní hry pomocí tlačítka Přidat hru výše."
+                "intro2": "Pokud je knihovna prázdná, nezapomeňte se přihlásit pomocí svých účtů v okně Správa účtů na bočním panelu nebo přidejte vlastní hry pomocí tlačítka Přidat hru výše."
             },
             "categories": "Organizujte své hry do kategorií a udržte tak svou knihovnu přehlednou.",
             "addGame": "Kliknutím sem do knihovny přidáte své hry nebo aplikace. Může se jednat o prakticky cokoli, včetně webových adres.",
             "sortOptions": "Klikněte sem pro abecední řazení her.",
             "search": "Použijte vyhledávací pole pro vyhledání vašich her.",
-            "gameCard": "Klikněte levým na kartu hry pro navigaci na stránku hry, zobrazení podrobností a úpravu nastavení nebo klikněte pravým pro otevření kontextové nabídky."
+            "gameCard": "Klikněte levým na kartu hry pro navigaci na stránku hry, zobrazení podrobností a úpravu nastavení nebo klikněte pravým pro otevření kontextové nabídky.",
+            "steamInstall": "Pomocí tohoto tlačítka můžete nainstalovat verzi Steamu pro systém Windows a hrát hry pro systém Windows pomocí aplikací Crossover, Wine nebo GPTK."
         },
         "next": "Další",
         "sidebar": {
@@ -1035,5 +1093,27 @@
         "startTour": "Spustit prohlídku",
         "back": "Zpět",
         "done": "Hotovo"
-    }
+    },
+    "notification": {
+        "steam": {
+            "success": "Steam pro Windows byl úspěšně nainstalován!",
+            "error": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu!"
+        }
+    },
+    "analyticsModal": {
+        "disable": "Zakázat",
+        "enable": "Povolit",
+        "info": {
+            "pt1": "Za účelem vylepšení aplikace Heroic shromažďuje 100% anonymní data.",
+            "pt2": "Heroic využívá open-source platformu Plausible Analytics ke shromažďování základních údajů: verze aplikace, operační systém, připojené obchody a země.",
+            "pt3": "Nikdy nebude shromažďovat žádné osobní údaje, včetně vašeho uživatelského jména, IP adresy nebo e-mailu.",
+            "pt4": "Tyto údaje nám pomáhají určit, na co se máme vzhledem k omezeným zdrojům a zpětné vazbě od uživatelů dále zaměřit.",
+            "pt5": "Plausible Analytics je plně v souladu s GDPR, CCPA a PECR.",
+            "pt6": "Z důvodu transparentnosti si můžete prohlédnout data, která shromažďujeme, v protokolech Heroic.",
+            "pt7": "Toto nastavení můžete kdykoli změnit v nastavení aplikace."
+        },
+        "title": "Odeslat anonymní statistiky"
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Obchod Zoom"
 }

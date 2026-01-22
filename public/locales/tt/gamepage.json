@@ -167,13 +167,13 @@
             "not-installable-game": "Уен УРНАШТЫРЫП БУЛМЫЙ"
         },
         "steam": {
-            "installing": "Урнаштырыла"
+            "installing": "Урнаштырыла",
+            "installation": "Урнаштыруны туктату"
         }
     },
     "disabled": "Cүндерелгән",
     "setting": {
-        "winecrossoverbottle": "CrossOver шешәсе",
-        "use-default-wine-settings": "Килешенгәнчә Wine көйләнмәләрен куллану"
+        "winecrossoverbottle": "CrossOver шешәсе"
     },
     "dlc": {
         "installDlcs": "Барлык DLC-ларны урнаштыру"

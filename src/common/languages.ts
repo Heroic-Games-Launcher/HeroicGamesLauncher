@@ -15,6 +15,7 @@ export const supportedLanguages = [
   'fa',
   'fi',
   'fr',
+  'ga',
   'gl',
   'he',
   'hr',

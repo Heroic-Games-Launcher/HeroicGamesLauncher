@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
 import { DownloadDone } from '@mui/icons-material'
@@ -124,7 +124,6 @@ const InstalledInfo = ({ gameInfo }: Props) => {
           )}
         </>
       )}
-      <br />
     </>
   )
 

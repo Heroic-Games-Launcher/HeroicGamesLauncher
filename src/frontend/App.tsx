@@ -11,7 +11,6 @@ import Sidebar from './components/UI/Sidebar'
 import ContextProvider from './state/ContextProvider'
 import { ControllerHints, Help, OfflineMessage } from './components/UI'
 import DialogHandler from './components/UI/DialogHandler'
-import SettingsModal from './screens/Settings/components/SettingsModal'
 import ExternalLinkDialog from './components/UI/ExternalLinkDialog'
 import WindowControls from './components/UI/WindowControls'
 import classNames from 'classnames'
@@ -19,15 +18,18 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import LogFileUploadDialog from './components/UI/LogFileUploadDialog'
 import UploadedLogFilesList from './screens/Settings/sections/LogSettings/components/UploadedLogFilesList'
 import { TourProvider } from './state/TourContext'
+import { InstallGameWrapper } from './screens/Library/components/InstallModal'
+import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
+import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
 
 function Root() {
   const {
-    isSettingsModalOpen,
     isRTL,
     isFullscreen,
     isFrameless,
     experimentalFeatures,
-    help
+    help,
+    disableAnimations
   } = useContext(ContextProvider)
 
   const hasNativeOverlayControls = navigator['windowControlsOverlay']?.visible
@@ -35,7 +37,18 @@ function Root() {
 
   const theme = createTheme({
     direction: isRTL ? 'rtl' : 'ltr',
+    typography: {
+      fontFamily: 'var(--primary-font-family)'
+    },
     components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            color: 'var(--text-default)',
+            backgroundColor: 'var(--background)'
+          }
+        }
+      },
       MuiTooltip: {
         styleOverrides: {
           tooltip: {
@@ -57,7 +70,8 @@ function Root() {
       className={classNames('App', {
         isRTL,
         frameless: isFrameless,
-        fullscreen: isFullscreen
+        fullscreen: isFullscreen,
+        disableAnimations
       })}
       // disable dragging for all elements by default
       onDragStart={(e) => e.preventDefault()}
@@ -68,20 +82,19 @@ function Root() {
           <Sidebar />
           <main className="content">
             <DialogHandler />
-            {isSettingsModalOpen.gameInfo && (
-              <SettingsModal
-                gameInfo={isSettingsModalOpen.gameInfo}
-                type={isSettingsModalOpen.type}
-              />
-            )}
+            <InstallGameWrapper />
+            <SettingsModalWrapper />
             <ExternalLinkDialog />
             <LogFileUploadDialog />
             <UploadedLogFilesList />
             <Outlet />
+            <AnalyticsDialog />
           </main>
           <div className="controller">
             <ControllerHints />
-            <div className="simple-keyboard"></div>
+            <dialog className="simple-keyboard-wrapper">
+              <div className="simple-keyboard"></div>
+            </dialog>
           </div>
           {showOverlayControls && <WindowControls />}
           {experimentalFeatures.enableHelp && <Help items={help.items} />}

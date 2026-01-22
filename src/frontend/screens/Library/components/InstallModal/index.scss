@@ -16,6 +16,10 @@
   }
 }
 
+.InstallModal__dialog button[aria-label='close'] {
+  z-index: 1;
+}
+
 .InstallModal__dialog > .anticheatInfo {
   display: flex;
   padding: var(--space-xs) var(--space-md);

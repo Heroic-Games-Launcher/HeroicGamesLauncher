@@ -347,7 +347,8 @@
             "close": "도움말 닫기"
         },
         "disablePlaytimeSync": "지정된 스토어 서버(현재는 GOG만 지원됨)의 플레이타임 동기화를 비활성화",
-        "dxvknvapi": "DXVK-NVAPI는 DXVK와 리눅스 기본 NVAPI를 기반으로 구축된 NVAPI 구현으로, 엔비디아 GPU에서 DLSS를 사용할 수 있도록 해줍니다."
+        "dxvknvapi": "DXVK-NVAPI는 DXVK와 리눅스 기본 NVAPI를 기반으로 구축된 NVAPI 구현으로, 엔비디아 GPU에서 DLSS를 사용할 수 있도록 해줍니다.",
+        "dxfpslimit": "DXVK 게임에 대한 프레임 속도 제한 설정"
     },
     "info": {
         "heroic": {
@@ -734,7 +735,17 @@
             "enableLimiter": "FPS 제한기 활성화",
             "missingMsg": "PATH에서 gamescope를 찾을 수 없습니다. 설치하거나 PATH에 추가하세요."
         },
-        "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택"
+        "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "확실합니까?"
+            }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "확실합니까?"
+            }
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -965,5 +976,9 @@
     },
     "tour": {
         "back": "뒤로"
+    },
+    "analyticsModal": {
+        "disable": "비활성화",
+        "enable": "활성화"
     }
 }

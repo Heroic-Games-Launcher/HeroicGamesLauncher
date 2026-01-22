@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
@@ -20,8 +20,7 @@ const EacRuntime = () => {
   const handleEacRuntime = async () => {
     if (!eacRuntime) {
       if (!useGameMode) {
-        const isFlatpak = await window.api.isFlatpak()
-        if (isFlatpak) {
+        if (window.isFlatpak) {
           showDialogModal({
             showDialog: true,
             message: t(

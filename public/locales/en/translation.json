@@ -3,6 +3,7 @@
         "actions_font_family_default": "Actions Font Family (Default: {{fontFamily}})",
         "all_tiles_in_color": "Show all game tiles in color",
         "content_font_family_default": "Content Font Family (Default: {{fontFamily}})",
+        "disable_animations": "Disable UI animations",
         "disable_dialog_backdrop_close": "Disable closing dialogs by clicking outside",
         "disable_smooth_scrolling": "Disable smooth scrolling (requires restart)",
         "fonts": "Fonts",
@@ -17,6 +18,21 @@
         "title": "Adtraction is blocked"
     },
     "Amazon Games": "Amazon Games",
+    "amazon-luna": "Amazon Luna",
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable",
+        "info": {
+            "pt1": "In order to improve the app, Heroic collects 100% anonymous data.",
+            "pt2": "Heroic uses the open-source Plausible Analytics platform to gather basic data: App Version, OS, Stores Connected and Country.",
+            "pt3": "It will never collect any personal information, including your username, IP address or email.",
+            "pt4": "This data is used to give us insights on what to focus on next due to our limited resources and user feedback.",
+            "pt5": "Plausible Analytics is fully compliant with GDPR, CCPA and PECR.",
+            "pt6": "For transparency, you can view the data we collect on the Heroic logs.",
+            "pt7": "You can change this setting at any time in the App Settings."
+        },
+        "title": "Send Anonymous Analytics"
+    },
     "anticheat": {
         "anticheats": "Anticheats",
         "multiplayer_may_not_work": "Multiplayer features may not work due to denied or broken anticheat support.",
@@ -55,14 +71,12 @@
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
-            "diskspace": {
-                "message": "Not enough available disk space",
-                "title": "No Space"
-            },
             "dxvk": {
                 "message": "Error installing DXVK/VKD3D! Please check your connection!",
                 "title": "DXVK/VKD3D error"
             },
+            "executableNotFound": "Executable not found",
+            "executableNotFoundMessage": "Heroic could not find the executable for this game. Please set it manually in the game settings.",
             "folder-not-found": {
                 "title": "Game folder appears to be deleted, do you want to remove the game from the installed list?"
             },
@@ -75,11 +89,6 @@
                 "generic": "An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}"
             },
             "moving": "Error Moving Game {{error}}",
-            "steam": {
-                "error": "Steam executable not found. Installation was probably canceled by user or failed on Steam side.",
-                "message": "Steam installation failed! Please read the instructions carefully and try again! {{paragraph}} {{error}}",
-                "title": "Steam error"
-            },
             "title": "Error",
             "uncaught-exception": {
                 "message": "A uncaught exception occured:{{newLine}}{{error}}{{newLine}}{{newLine}} Report the exception on our Github repository.",
@@ -97,6 +106,7 @@
         "info": {
             "update": {
                 "detail": "Do you want to download the update in the background?",
+                "detailNoAutoupdate": "Automatic updates are not supported for your packaging format. Please use your package manager to update.",
                 "message": "There is a new Version available!",
                 "message-finished": "Do you want to restart Heroic now?",
                 "title": "Heroic Games Launcher",
@@ -276,7 +286,7 @@
     },
     "generic": {
         "error": {
-            "component": "No Games found - Try to logout and login again or one of the options bellow"
+            "component": "No games found - Try to logout and login again or one of the options below"
         },
         "library": {
             "refresh": "Refresh Library"
@@ -304,6 +314,7 @@
     "help": {
         "advertiseAvxForRosetta": "Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "analytics": "Enables Heroic to collect 100% anonymous usage data to help improve the application. Needs restart to take effect.",
         "button": {
             "close": "Close Help",
             "open": "Open Help"
@@ -356,7 +367,6 @@
             "part7": " to skip the launcher in some games, etc."
         },
         "preferSystemLibs": "Custom Wine versions (Wine-GE, Wine-Lutris) are shipped with their library dependencies. By enabling this option, these shipped libraries will be ignored and Wine will load system libraries instead. Warning! Issues may occur if dependencies are not met.",
-        "primerun": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
             "info": "This path lets Heroic determine what version of Proton Steam uses, for adding non-Steam games to Steam."
         },
@@ -379,7 +389,10 @@
         "wine": {
             "part1": "Heroic searches for versions of Wine, Proton, and CrossOver in the following folders:",
             "part2": "For other places, use a symbolic link to one of these folders"
-        }
+        },
+        "wine-hdr": "HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.",
+        "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.",
+        "WoW64": "The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games."
     },
     "info": {
         "heroic": {
@@ -414,7 +427,8 @@
         "releaseDate": "Release Date"
     },
     "library": {
-        "refresh": "Refresh",
+        "hideAlphabetFilter": "Hide Alphabet Filter",
+        "showAlphabetFilter": "Show Alphabet Filter",
         "sortAscending": "Sort Ascending",
         "sortByStatus": "Sort by Status",
         "sortDescending": "Sort Descending",
@@ -434,17 +448,12 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in."
+        "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
+        "zoom": "Zoom Login"
     },
     "message": {
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
-    },
-    "notification": {
-        "steam": {
-            "error": "Steam installation failed! Please read the instructions carefully and try again!",
-            "success": "Steam for Windows has been installed successfully!"
-        }
     },
     "notify": {
         "error": {
@@ -467,6 +476,9 @@
                 }
             },
             "reparing": "Finished Repairing"
+        },
+        "import": {
+            "failed": "Importing Failed"
         },
         "install": {
             "canceled": "Installation Canceled",
@@ -572,7 +584,6 @@
         "win": "Windows"
     },
     "please-wait": "Please wait...",
-    "prime-gaming": "Prime Gaming",
     "progress": "Progress",
     "queue": {
         "label": {
@@ -603,6 +614,7 @@
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
+        "analyticsOptIn": "Send anonymous data to help Heroic development",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",
@@ -613,7 +625,7 @@
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
         "custom_css": {
-            "warning": "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changes manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
+            "warning": "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changed manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
         },
         "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Custom Wine/Proton Paths",
@@ -656,7 +668,8 @@
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design"
+            "enableNewDesign": "New design",
+            "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -672,8 +685,10 @@
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
-            "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH."
+            "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
+            "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
+        "hdr": "Enable HDR",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",
@@ -690,7 +705,8 @@
                 "gog": "GOG log",
                 "heroic": "General Heroic log",
                 "legendary": "Epic Games / Legendary log",
-                "nile": "Amazon / Nile log"
+                "nile": "Amazon / Nile log",
+                "zoom": "Zoom log"
             },
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",
             "instructions_title": "How to report a problem?",
@@ -741,16 +757,10 @@
         "maxworkers": "Maximum Number of Workers when downloading",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
         "msync": "Enable Msync",
+        "no-tray-icon": "Hide System Tray Icon (requires restart)",
         "offlinemode": "Run Game Offline",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Use Dedicated Graphics Card"
-        },
         "runexe": {
             "title": "Run EXE on Prefix"
         },
@@ -759,7 +769,19 @@
             "placeholder": "Select the exact save games folder",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
+        "scripts": "Scripts:",
         "select_theme": "Select Theme",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Don't show them",
+                "message": "We recommend custom Proton forks (GE-Proton, Proton-CachyOS, etc.) to be used with Heroic because Valve's Proton builds lack winetricks and protofixes. You can still use then if you want.",
+                "show": "I understand, show them",
+                "title": "Are you sure?"
+            },
+            "info_label": "Valve Proton versions ignored",
+            "label": "Allow using Valve Proton builds to run games",
+            "wine_selector_warning": "Valve versions of Proton are ignored by default, enable them in the Advanced global settings"
+        },
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showMetalOverlay": "Show Stats Overlay",
         "start-in-tray": "Start Minimized",
@@ -769,7 +791,9 @@
         },
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
-        "wineversion": "Wine Version"
+        "wineversion": "Wine Version",
+        "wineWayland": "Enable Wine-Wayland (Experimental) (Wine version needs to support it)",
+        "WoW64": "Enable WoW64 (Experimental)"
     },
     "settings": {
         "advanced": {
@@ -910,7 +934,6 @@
             "search": "Use the Search bar to search for your games.",
             "sortInstalled": "Sort games by installed status.",
             "sortOptions": "Click here to sort games alphabetically.",
-            "steamInstall": "Use this button to install the Windows version of Steam and play your Windows games using Crossover, Wine or GPTK.",
             "viewToggle": "Switch between grid and list view for your games.",
             "welcome": {
                 "intro": "Welcome to the Heroic Library! This is where you can see all your games across different stores.",
@@ -1000,5 +1023,6 @@
         "nothingYet": "Nothing was installed by Winetricks yet",
         "openGUI": "Open Winetricks GUI",
         "search": "Search fonts or components"
-    }
+    },
+    "zoom-store": "Zoom Store"
 }

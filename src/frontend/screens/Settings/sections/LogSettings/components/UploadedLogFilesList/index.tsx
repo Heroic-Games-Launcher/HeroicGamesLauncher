@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Launch, Delete } from '@mui/icons-material'
 
@@ -11,10 +11,7 @@ import SvgButton from 'frontend/components/UI/SvgButton'
 
 import useUploadedLogFiles from 'frontend/state/UploadedLogFiles'
 import type { UploadedLogData } from 'common/types'
-import {
-  useGlobalState,
-  useShallowGlobalState
-} from 'frontend/state/GlobalStateV2'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 import './index.css'
 
@@ -69,7 +66,7 @@ const UploadedLogFileItem = memo(function UploadedLogFileItem(
 })
 
 export default function UploadedLogFilesList() {
-  const { showUploadedLogFileList } = useShallowGlobalState(
+  const { showUploadedLogFileList } = useGlobalState.keys(
     'showUploadedLogFileList'
   )
   const uploadedLogFiles = useUploadedLogFiles()

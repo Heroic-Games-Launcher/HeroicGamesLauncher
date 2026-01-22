@@ -37,6 +37,7 @@ body {
 }
 
 .App .content {
+  container: main-content / inline-size;
   display: flex;
   grid-area: content;
   flex-direction: column;
@@ -44,11 +45,6 @@ body {
   &:not(:has(.gameConfigContainer img.backgroundImage)) {
     background: var(--gradient-body-background, var(--body-background));
   }
-}
-
-.App .content .UpdateComponent--topLevel {
-  height: 100vh;
-  position: initial;
 }
 
 .App .controller {
@@ -64,6 +60,22 @@ body {
   grid-area: offline;
 }
 
+body:has(.disableAnimations) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+    transition-duration: 0ms !important;
+  }
+  .MuiTouchRipple-root {
+    display: none !important;
+  }
+  .Mui-focusVisible {
+    background: color(from var(--accent-overlay) srgb r g b / 0.3);
+  }
+}
+
 .HelpButton {
   position: fixed;
   bottom: 0;
@@ -71,12 +83,12 @@ body {
 }
 
 /* Disable content behind an opened dialog so it cannot be clicked */
-#root:has(dialog:popover-open) {
+body:has(dialog[open]) {
   pointer-events: none;
 
   /* Make sure content of the dialog and Help can be clicked */
   .HelpButton,
-  :popover-open {
+  dialog[open] {
     pointer-events: all;
   }
 }

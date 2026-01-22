@@ -233,6 +233,7 @@ export default function SideloadDialog({
         ]
       // FIXME: Can these happen?
       case 'Android':
+      case 'iOS':
       case 'Browser':
         return []
     }
@@ -343,7 +344,7 @@ export default function SideloadDialog({
                 'sideload.placeholder.title',
                 'Add a title to your Game/App'
               )}
-              onChange={(e) => handleTitle(e.target.value)}
+              onChange={(newValue) => handleTitle(newValue)}
               onBlur={async () => searchImage()}
               htmlId="sideload-title"
               value={title}
@@ -355,7 +356,7 @@ export default function SideloadDialog({
                 'sideload.placeholder.image',
                 'Paste an URL of an Image or select one from your computer'
               )}
-              onChange={(e) => setImageUrl(e.target.value)}
+              onChange={(newValue) => setImageUrl(newValue)}
               htmlId="sideload-image"
               value={imageUrl}
               icon={<Folder />}
@@ -384,7 +385,7 @@ export default function SideloadDialog({
                     'sideload.placeholder.url',
                     'Paste the Game URL here'
                   )}
-                  onChange={(e) => handleGameUrl(e.target.value)}
+                  onChange={(newValue) => handleGameUrl(newValue)}
                   htmlId="sideload-game-url"
                   value={gameUrl}
                 />
@@ -394,7 +395,7 @@ export default function SideloadDialog({
                     'sideload.placeholder.useragent',
                     'Write a custom user agent here to be used on this browser app/game'
                   )}
-                  onChange={(e) => setCustomUserAgent(e.target.value)}
+                  onChange={(newValue) => setCustomUserAgent(newValue)}
                   htmlId="sideload-user-agent"
                   value={customUserAgent}
                 />

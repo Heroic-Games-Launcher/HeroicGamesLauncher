@@ -4,10 +4,11 @@
         "all_tiles_in_color": "Pokaži sve sličice igara u boji",
         "content_font_family_no_default": "Obitelj fontova za sadržaj (Zadano: ",
         "fonts": "Fontovi",
-        "title": "Prilagodbe",
+        "title": "Pristupačnost",
         "zoom": "Uvečaj",
         "actions_font_family_default": "Actions Font Family (Default:",
-        "content_font_family_default": "Content Font Family (Default:"
+        "content_font_family_default": "Content Font Family (Default:",
+        "titles_always_visible": "Uvijek prikazuj naslove u knjižnici"
     },
     "add_game": "Dodaj igru",
     "All": "Sve",
@@ -31,7 +32,7 @@
         "choose-legendary-binary": "Select Legendary Binary (needs restart)",
         "customWine": "Select the Wine or Proton Binary",
         "default-install-path": "Odaberi zadanu stazu instalacije",
-        "default-steam-path": "Staza Steama.",
+        "default-steam-path": "Steam putanja.",
         "downloadNow": "Preuzmi sada",
         "error": {
             "add": {
@@ -122,18 +123,19 @@
         },
         "select": {
             "button": "Odaberi",
-            "exe": "Select EXE"
+            "exe": "Select EXE",
+            "script": "Odaberi skriptu..."
         },
         "shortcuts": {
             "message": "Shortcuts were created on Desktop and Start Menu",
             "message-mac": "Shortcuts were created on the Applications folder",
             "message-remove": "Shortcuts were removed from Desktop and Start Menu",
             "message-remove-mac": "Shortcuts were removed from the Applications folder",
-            "title": "Shortcuts"
+            "title": "Prečaci"
         },
         "sync": {
             "button": "Odaberi",
-            "error": "Nevažeća staza",
+            "error": "Nevažeća putanja",
             "title": "Odaberi mapu za podatke"
         },
         "vcruntime": {
@@ -158,8 +160,11 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Jeste li sigurni da se želite odjaviti?"
+                    "title": "Jeste li sigurni da se želite odustati?"
                 }
+            },
+            "snap": {
+                "checkbox": "Ne prikazuj ovu poruku ponovno"
             }
         },
         "wineprefix": "Odaberite WinePrefix mapu",
@@ -169,13 +174,13 @@
         "update": "Update"
     },
     "button": {
-        "cancel": "Cancel",
+        "cancel": "Odustani",
         "go_to_library": "Go to Library",
         "login": "Prijava",
         "sync": "Sinkroniziraj",
         "syncing": "Sinkroniziranje",
         "unsync": "Desinkroniziraj",
-        "continue": "Continue"
+        "continue": "Nastavi"
     },
     "controller": {
         "hints": {
@@ -227,19 +232,20 @@
     "game": {
         "status": "Status",
         "store": "Trgovina",
-        "title": "Naslov igre"
+        "title": "Naslov igre",
+        "modify": "Promjeni instalaciju"
     },
     "generic": {
         "error": {
             "component": "Nije pronađena nijedna igra – odjavi se i ponovo se prijavi ili pokušaj jednu od opcija u nastavku"
         },
         "library": {
-            "refresh": "Refresh Library"
+            "refresh": "Osviježi knjižnicu"
         }
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
-    "gog-store": "GOG Store",
+    "gog-store": "GOG trgovina",
     "header": {
         "hide_non_available_games": "Sakrij nedostupne igre",
         "ignore_hidden": "Ignore Hidden",
@@ -247,9 +253,10 @@
         "show_all_games": "Pokaži sve igre",
         "show_available_games": "Pokaži nedostupne igre",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
+        "show_hidden": "Prikaži skrivene",
         "store": "Filter Store",
-        "filters": "Filter"
+        "filters": "Filter",
+        "categories": "Kategorije"
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -299,7 +306,8 @@
             "wineManager": "Wine Manager",
             "library": "Biblioteka"
         },
-        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels."
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {
@@ -685,26 +693,26 @@
         }
     },
     "tooltip": {
-        "addpath": "Dodaj novu stazu",
-        "removepath": "Ukloni stazu"
+        "addpath": "Dodaj novu putanju",
+        "removepath": "Ukloni putanju"
     },
     "tray": {
         "about": "About",
-        "quit": "Quit",
-        "reload": "Reload",
+        "quit": "Odustani",
+        "reload": "Ponovno učitaj",
         "show": "Pokaži"
     },
     "two_col_table": {
         "save_hint": "Changes in this table are not saved automatically. Click the + button"
     },
-    "Update Available!": "Update Available!",
+    "Update Available!": "Dostupno ažuriranje!",
     "userselector": {
         "discord": "Discord",
         "logging_out": "Logging out",
         "logout": "Logout",
         "logout_confirmation": "Jeste li sigurni da se želite odjaviti?",
-        "manageaccounts": "Manage Accounts",
-        "quit": "Quit",
+        "manageaccounts": "Upravljaj računima",
+        "quit": "Odustani",
         "cancel": "Odustani",
         "quitMessage": "Jesi li siguran da želiš odustati?"
     },
@@ -720,9 +728,9 @@
         "actions": "Radnje",
         "manager": {
             "link": "Wine Manager",
-            "not-found": "No Wine versions found. Please click the refresh icon to try again.",
-            "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "not-found": "Nema pronađenih Wine verzija. Molimo vas da kliknete na ikonu za osvježavanje da pokušate ponovo.",
+            "title": "Wine upravitelj",
+            "unzipping": "Raspakiravanje"
         },
         "release": "Release Date",
         "size": "Size"
@@ -753,6 +761,25 @@
         "warning": "Upozorenje"
     },
     "tour": {
-        "back": "Back"
+        "back": "Back",
+        "skip": "Preskoči"
+    },
+    "adtraction-locked": {
+        "dont-show-again": "Ne prikazuj ovo upozorenje opet",
+        "title": "Adtraction je blokiran",
+        "description": "Čini se da se track.adtraction.com domena nije mogla učitati ili je blokirana. S adtraction-om bilo koja kupnja koju obavite u GOG trgovini financijski podupire Heroic. Razmotrite uklanjanje blokade ako želite doprinijeti."
+    },
+    "window": {
+        "close": "Zatvori",
+        "maximize": "Maksimiziraj prozor",
+        "minimize": "Minimiziraj prozor",
+        "restore": "Vrati prozor"
+    },
+    "categories-manager": {
+        "add": "Dodaj"
+    },
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable"
     }
 }

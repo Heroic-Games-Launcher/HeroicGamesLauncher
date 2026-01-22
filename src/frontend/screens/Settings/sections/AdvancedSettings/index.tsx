@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   ContentCopyOutlined,
@@ -16,6 +16,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { GameStatus } from 'common/types'
 import {
   AllowInstallationBrokenAnticheat,
+  ShowValveProton,
   AltGOGdlBin,
   AltLegendaryBin,
   AltNileBin,
@@ -46,6 +47,7 @@ export default function AdvancedSetting() {
   const { libraryStatus, platform } = useContext(ContextProvider)
   const { t } = useTranslation()
   const isWindows = platform === 'win32'
+  const isLinux = platform === 'linux'
 
   useEffect(() => {
     // set copied to clipboard status to true if it's not already set to true
@@ -178,6 +180,8 @@ export default function AdvancedSetting() {
       <DisableLogs />
 
       <AllowInstallationBrokenAnticheat />
+
+      {isLinux && <ShowValveProton />}
 
       <hr />
 

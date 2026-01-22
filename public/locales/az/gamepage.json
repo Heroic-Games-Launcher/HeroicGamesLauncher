@@ -188,17 +188,17 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Bu oyunu idarə edən problemi bildirin",
     "sdl": {
         "title": "Quraşdırılacaq komponentləri seçin"
     },
     "setting": {
-        "use-default-wine-settings": "Use Default Wine Settings",
         "winecrossoverbottle": "Krossover şüşə",
         "show-wine-settings": "Vine Ayarlarını Göstər",
-        "warn-use-default-wine-settings": "Bu ayarı yalnız nə etdiyini bilirsənsə, istifadə et. <br/>Birdən çox oyun üçün eyni prefiksin paylaşılması, onların \"dependencies\"- asılılıqları ilə uyğun gəlmirsə, problemlər yarada bilər."
+        "warn-use-shared-wine-config": "Bu ayarı yalnız nə etdiyini bilirsənsə, istifadə et. <br/>Birdən çox oyun üçün eyni prefiksin paylaşılması, onların \"dependencies\"- asılılıqları ilə uyğun gəlmirsə, problemlər yarada bilər."
     },
     "sideload": {
         "field": {

@@ -59,7 +59,8 @@ export const initGamepad = () => {
     leftClick: { triggeredAt: {}, repeatDelay: false },
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
-    shiftTab: { triggeredAt: {}, repeatDelay: false }
+    shiftTab: { triggeredAt: {}, repeatDelay: false },
+    keyboardClick: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
@@ -110,6 +111,7 @@ export const initGamepad = () => {
       data.triggeredAt[controllerIndex] = now
 
       emitControllerEvent(controllerIndex)
+      const el = currentElement()
 
       // check special cases for the different actions, more details on the wiki
       switch (action) {
@@ -119,12 +121,11 @@ export const initGamepad = () => {
             // if the current element requires a simulated click, change the action to `leftClick`
             action = 'leftClick'
           } else if (isGameCard()) {
-            action === 'mainAction'
+            action = 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
-            // simulate a left click on a virtual keyboard button
-            action = 'leftClick'
-          } else if (isSearchInput()) {
-            // open virtual keyboard if focusing the search input
+            action = 'keyboardClick'
+          } else if (isTextInput()) {
+            // open virtual keyboard if focusing a text input
             VirtualKeyboardController.initOrFocus()
             return
           }
@@ -137,9 +138,11 @@ export const initGamepad = () => {
           } else if (insideDialog()) {
             closeDialog()
             return
+          } else if (insideDropdown()) {
+            closeDropdown()
+            return
           } else if (isSelect()) {
             // closes the select dropdown and re-focus element
-            const el = currentElement()
             el?.blur()
             el?.focus()
             return
@@ -165,28 +168,51 @@ export const initGamepad = () => {
             return
           }
           break
+        case 'padLeft':
+        case 'padRight':
+        case 'padUp':
         case 'padDown':
         case 'leftStickDown':
-          // MUI Selects open on arrow down, which is usually not your intention
-          // when navigating down with the stick, so we change the action to tab
-          if (isMuiSelect()) {
-            action = 'tab'
-          }
-          if (isMuiDialogCloseButton()) {
-            action = 'tab'
-          }
-          break
-        case 'padUp':
+        case 'leftStickLeft':
+        case 'leftStickRight':
         case 'leftStickUp':
-          // Same as above
-          if (isMuiSelect()) {
-            action = 'shiftTab'
+          if (!el) {
+            // if we are not focusing anything, grab focus or we are stuck unable to move around
+            document.querySelector('body')?.focus()
+          } else {
+            switch (action) {
+              case 'padDown':
+              case 'leftStickDown':
+                // MUI Selects open on arrow down, which is usually not your intention
+                // when navigating down with the stick, so we change the action to tab
+                if (isMuiSelect()) {
+                  action = 'tab'
+                }
+                if (isMuiDialogCloseButton()) {
+                  action = 'tab'
+                }
+                break
+              case 'padUp':
+              case 'leftStickUp':
+                // Same as above
+                if (isMuiSelect()) {
+                  action = 'shiftTab'
+                }
+                break
+            }
           }
           break
       }
 
       if (action === 'mainAction') {
         currentElement()?.click()
+      } else if (action === 'keyboardClick') {
+        // we have to do this for the keyboard because:
+        // simulated clicks break when zoomed in
+        // normal `.click()` calls don't work because the buttons are divs
+        const button = currentElement()
+        const buttonCode = button?.dataset.skbtn
+        if (buttonCode) VirtualKeyboardController.typeCharacter(buttonCode)
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
@@ -206,7 +232,15 @@ export const initGamepad = () => {
     }
   }
 
-  const currentElement = () => document.querySelector<HTMLElement>(':focus')
+  const currentElement = () => {
+    const el = document.querySelector<HTMLElement>(':focus')
+    if (!el) return
+
+    // we can't call `click` in svg elements, so we use its parent
+    if (el.tagName === 'svg') return el.parentElement
+
+    return el
+  }
 
   const shouldSimulateClick = () => isSelect() || isMuiSelect()
   function isSelect() {
@@ -216,13 +250,11 @@ export const initGamepad = () => {
     return el.tagName === 'SELECT'
   }
 
-  function isSearchInput() {
+  function isTextInput() {
     const el = currentElement()
     if (!el) return false
 
-    // only change this if you change the id of the input element
-    // in frontend/components/UI/SearchBar/index.tsx
-    return el.id === 'search'
+    return el.tagName === 'INPUT' && (el as HTMLInputElement).type === 'text'
   }
 
   function isGameCard() {
@@ -331,6 +363,31 @@ export const initGamepad = () => {
     if (!closeButton) return false
 
     closeButton.click()
+
+    return true
+  }
+
+  function insideDropdown() {
+    const el = currentElement()
+    if (!el) return false
+
+    return !!el.closest('.dropdown')
+  }
+
+  function closeDropdown() {
+    const el = currentElement()
+    if (!el) return false
+
+    const dropdown = el.closest('.dropdownContainer')
+    if (!dropdown) return false
+
+    const closeButton =
+      dropdown.querySelector<HTMLButtonElement>('.dropdownButton')
+    if (!closeButton) return false
+
+    // close selection, return focus to button
+    closeButton.click()
+    closeButton.focus()
 
     return true
   }

@@ -11,7 +11,7 @@
 
 // Add the tooltip class styling
 .heroic-tour-tooltip {
-  background: var(--neutral-02);
+  background: var(--tour-popup-background, var(--neutral-02));
   color: var(--text-default);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
   border: 1px solid var(--brand-primary);
@@ -71,14 +71,14 @@
 }
 
 .introjs-skipbutton {
-  color: var(--neutral-05);
+  color: var(--tour-popup-skip-color, var(--neutral-05));
   font-size: 11px; /* Reduced from default size */
   text-transform: lowercase;
   font-weight: normal;
 
   &:hover,
   &:focus {
-    color: var(--neutral-06);
+    color: var(--tour-popup-skip-color-hover, var(--neutral-06));
   }
 }
 
@@ -86,10 +86,10 @@
   ul {
     li {
       a {
-        background: var(--neutral-04);
+        background: var(--tour-bullet-inactive, var(--neutral-04));
 
         &.active {
-          background: var(--brand-primary);
+          background: var(--tour-bullet-active, var(--brand-primary));
         }
       }
     }
@@ -113,10 +113,11 @@
 .heroic-tour-highlight {
   background: rgba(29, 232, 245, 0.1) !important;
   border: 2px solid var(--brand-primary) !important;
+  box-sizing: border-box;
 }
 
 .introjs-tooltip-title {
-  color: var(--brand-primary);
+  color: var(--tour-popup-title, var(--brand-primary));
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;

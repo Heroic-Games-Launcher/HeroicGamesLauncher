@@ -29,13 +29,13 @@ import { dirname, join } from 'node:path'
 import { existsSync, readFileSync } from 'graceful-fs'
 
 import {
-  gogdlLogFile,
+  getRunnerLogWriter,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from '../../logger/logger'
+} from 'backend/logger'
 import { getGOGdlBin, getFileSize, axiosClient } from '../../utils'
 import {
   libraryStore,
@@ -137,9 +137,7 @@ async function createMissingGogdlManifest(
       encoding: 'utf8'
     })
   } catch (e) {
-    logError(`Unable to get data of ${appName} ${e}`, {
-      prefix: LogPrefix.Gog
-    })
+    logError([`Unable to get data of ${appName}:`, e], LogPrefix.Gog)
     return
   }
 }
@@ -172,7 +170,11 @@ export async function getSaveSyncLocation(
     } catch (err) {
       clientId = undefined
       logWarning(
-        'Was not able to read clientId from manifest, falling back to info file'
+        [
+          'Was not able to read clientId from manifest, falling back to info file:',
+          err
+        ],
+        LogPrefix.Gog
       )
       clientId = readInfoFile(appName, install.install_path)?.clientId
     }
@@ -446,6 +448,25 @@ export async function refresh(): Promise<ExecResult> {
 
   apiInfoCache.commit() // Sync cache to drive
   libraryStore.set('games', gamesObjects)
+
+  void new Promise(() => {
+    const logLines: string[] = []
+    gamesObjects.forEach((gameData) => {
+      if (gameData.title == 'Galaxy Common Redistributables') return
+
+      let line = `* ${gameData.title} (App name: ${gameData.app_name})`
+      if (gameData.install.is_dlc) line += ' - DLC'
+      logLines.push(line)
+    })
+    const sortedTitles = logLines.sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    )
+
+    const logContent = `Games List:\n${sortedTitles.join('\n')}\n\nTotal: ${logLines.length}\n`
+    const gogLogWriter = getRunnerLogWriter('gog')
+    void gogLogWriter.logInfo(logContent)
+  })
+
   logInfo('Saved games data', LogPrefix.Gog)
 
   return defaultExecResult
@@ -1115,7 +1136,7 @@ export function readInfoFile(
     infoFileData = JSON.parse(readFileSync(infoFilePath, 'utf-8'))
   } catch (error) {
     logError(
-      `Error reading ${infoFilePath}, could not complete operation`,
+      [`Error reading ${infoFilePath}, could not complete operation:`, error],
       LogPrefix.Gog
     )
   }
@@ -1133,7 +1154,11 @@ export function readInfoFile(
         infoFileData.buildId = buildId
       } catch (error) {
         logError(
-          `Error reading ${idFilePath}, not adding buildId to game metadata`
+          [
+            `Error reading ${idFilePath}, not adding buildId to game metadata:`,
+            error
+          ],
+          LogPrefix.Gog
         )
       }
     }
@@ -1339,10 +1364,7 @@ export async function runRunnerCommand(
   return callRunner(
     ['--auth-config-path', authConfig, ...commandParts],
     { name: 'gog', logPrefix: LogPrefix.Gog, bin, dir },
-    {
-      ...options,
-      verboseLogFile: gogdlLogFile
-    }
+    options
   )
 }
 

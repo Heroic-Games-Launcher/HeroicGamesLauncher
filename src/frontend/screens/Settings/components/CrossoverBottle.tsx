@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
@@ -21,7 +20,7 @@ export default function CrossoverBottle() {
       label={t('setting.winecrossoverbottle', 'CrossOver Bottle')}
       htmlId="crossoverBottle"
       value={wineCrossoverBottle}
-      onChange={(event) => setWineCrossoverBottle(event.target.value)}
+      onChange={(newValue) => setWineCrossoverBottle(newValue)}
     />
   )
 }

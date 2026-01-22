@@ -1,0 +1,152 @@
+{
+    "box": {
+        "change": {
+            "message": "คุณกำลังจะเปลี่ยนที่ติดตั้งของเกมนี้, คุณแน่ใจไหม?",
+            "path": "เลือกที่อยู่ใหม่",
+            "title": "เปลี่ยนที่อยู่เกม"
+        },
+        "choose": "เลือก",
+        "close": "ปิด",
+        "importpath": "เลือกโฟลเดอร์เกมที่จะนำเข้า",
+        "move": {
+            "message": "อาจจะใช้เวลานาน, คุณแน่ใจไหม?",
+            "path": "เลือกที่ที่คุณจะย้ายไป",
+            "title": "ย้ายข้อมูลไฟล์เกม"
+        },
+        "repair": {
+            "message": "คุณต้องการที่จะลองซ่อมแซมเกมนี้หรือไม่? นี่อาจจะใช้เวลานาน.",
+            "title": "ตรวจสอบและซ่อมแซม"
+        },
+        "runexe": {
+            "title": "เลือกไฟล์ EXE ที่จะรัน"
+        },
+        "select": {
+            "button": "เลิอก"
+        },
+        "sideload": {
+            "exe": "เลือกไฟล์ปฎิบัติการ (EXE)"
+        },
+        "stopInstall": {
+            "keepInstalling": "ติดตั้งต่อไป",
+            "message": "คุณต้องการที่จะเก็บไฟล์ที่ดาวน์โหลดไว้หรือไม่?",
+            "title": "หยุดการติดตั้ง"
+        },
+        "uninstall": {
+            "cannotUninstallEpic": "เกม Epic ไม่สามารถถอนการติดตั้งได้ ในขณะที่กำลังติดตั้งเกม Epic อื่นอยู่.",
+            "checkbox": "ลบ prefix: {{prefix}}{{newLine}}หมายเหตุ: เมื่อลบแล้ว จะไม่สามารถย้อนกลับได้ และจะลบไฟล์บันทึกที่ไม่ได้รับการสำรองข้อมูลไว้ด้วย.",
+            "dlc": "คุณต้องการถอนการติดตั้ง \"{{title}}\" (DLC) หรือไม่?",
+            "gameIsRunning": "{{title}} กำลังทำงานอยู่. ให้ปิดเกมเพื่อถอนการติดตั้ง.",
+            "message": "คุณต้องการถอนการติดตั้ง \"{{title}}\" หรือไม่?",
+            "title": "ถอนการติดตั้ง"
+        },
+        "yes": "ใช่"
+    },
+    "button": {
+        "add_to_favourites": "เพิ่มไปยังรายการโปรด",
+        "cancel": "หยุดชั่วคราว/ยกเลิก",
+        "continue": "ดำเนินการดาวน์โหลดต่อ",
+        "details": "รายละเอียด",
+        "finish": "เสร็จสิ้น",
+        "hide_game": "ซ่อนเกม",
+        "import": "นำเข้าเกม",
+        "install": "ติดตั้ง",
+        "queue": {
+            "remove": "ลบออกจากคิว"
+        },
+        "remove_from_favourites": "ลบออกจากรายการโปรด",
+        "remove_from_recent": "ลบออกจากล่าสุด",
+        "run-exe-first": "เรียกใช้ตัวติดตั้งก่อน",
+        "uninstall": "ถอนการติดตั้ง",
+        "update": "อัปเดต"
+    },
+    "cloud_save_unsupported": "ไม่ได้สนับสนุน",
+    "disabled": "ปิดใช้งานแล้ว",
+    "enabled": "เปิดใช้งาน",
+    "game": {
+        "branch": {
+            "disabled": "ปิดใช้งานแล้ว"
+        },
+        "builds": {
+            "buildsSelector": "เลือกเวอร์ชั่นเกม",
+            "version": "เวอร์ชั่น"
+        },
+        "downloadSize": "ขนาดดาวน์โหลด",
+        "install_info": "รายละเอียดการติดตั้ง",
+        "installSize": "ขนาดการติดตั้ง",
+        "language": "ภาษา",
+        "lastPlayed": "เล่นไปล่าสุดเมื่อ",
+        "modify": "ปรับแต่งการติดตั้ง",
+        "neverPlayed": "ไม่เคยเลย",
+        "requirements": "## ข้อกำหนดของระบบ"
+    },
+    "gamecard": {
+        "moving": "กำลังย้าย",
+        "repairing": "กำลังซ่อมแซม"
+    },
+    "help": {
+        "title": {
+            "gamePage": "หน้าเว็บเพจเกม"
+        }
+    },
+    "hours": "ชั่วโมง",
+    "how-long-to-beat": {
+        "main-plus-extras": "หลัก + เสริม",
+        "main-story": "เนื้อเรื่องหลัก"
+    },
+    "info": {
+        "canRunOffline": "จำเป็นต้องออนไลน์",
+        "clickToOpen": "คลิกเพื่อเปิด",
+        "game-scores": "คะแนนเกม",
+        "size": "ขนาด",
+        "steamdeck-compatibility-info": "ความเข้ากันได้กับ SteamDeck",
+        "version": "เวอร์ชั่น"
+    },
+    "label": {
+        "launching": "กำลังเปิด",
+        "playing": {
+            "start": "เล่นตอนนี้",
+            "stop": "กำลังเล่น (หยุด)"
+        }
+    },
+    "modifyInstall": {
+        "versionCollapsable": "เวอร์ชั่นเกม"
+    },
+    "not_logged_in": {
+        "login": "เข้าสู่ระบบ"
+    },
+    "sideload": {
+        "info": {
+            "exe": "เลือกไฟล์ปฎิบัติการ (EXE)",
+            "image": "ภาพของแอป"
+        }
+    },
+    "specs": {
+        "minimum": "ขั้นต่ำ",
+        "recommended": "แนะนำ"
+    },
+    "status": {
+        "clickToUpdate": "คลิกเพื่ออัปเดต",
+        "downloading": "กำลังดาวน์โหลด",
+        "extracting": "กำลังแยกไฟล์",
+        "gameNotAvailable": "เกมไม่พร้อมใช้งาน",
+        "hasUpdates": "เวอร์ชั่นใหม่พร้อมให้ใช้งานแล้ว!",
+        "installed": "ติดตั้งแล้ว",
+        "installing": "กำลังติดตั้ง",
+        "launching": "กำลังเปิด",
+        "moving": "กำลังย้ายข้อมูลการติดตั้ง, รอสักครู่",
+        "uninstalling": "ยกเลิกการติดตั้ง",
+        "updating": "กำลังอัปเดตเกม"
+    },
+    "submenu": {
+        "addShortcut": "เพิ่มชอร์ตคัท",
+        "addToSteam": "เพิ่มไปยัง Steam",
+        "categories": "หมวดหมู่",
+        "move": "ย้ายเกม",
+        "protondb": "ตรวจสอบความเข้ากันได้",
+        "removeFromSteam": "ลบออกจาก Steam",
+        "removeShortcut": "ลบชอร์ตคัท",
+        "settings": "การตั้งค่า",
+        "store": "หน้าร้านค้า",
+        "verify": "ตรวจสอบและซ่อมแซม"
+    }
+}

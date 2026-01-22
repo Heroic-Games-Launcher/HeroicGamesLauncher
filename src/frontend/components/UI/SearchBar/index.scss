@@ -56,7 +56,7 @@
   }
 
   .clearSearchButton {
-    padding-inline-end: var(--space-md);
+    padding-inline-end: var(--space-sm);
     transition: color 250ms;
     background: transparent;
     border: none;
@@ -72,10 +72,14 @@
     appearance: none;
     background: transparent;
     font: var(--font-secondary-bold);
-    color: var(--text-secondary);
-    padding: 0 var(--space-lg);
+    padding: 0 var(--space-2xs);
     border: none;
     outline: none;
     transition: color 250ms;
+    color: var(--text-secondary);
+
+    &::placeholder {
+      opacity: 0.8;
+    }
   }
 }

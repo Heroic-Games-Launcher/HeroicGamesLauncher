@@ -1,9 +1,4 @@
 .systeminfo {
-  hr {
-    width: 100%;
-    background-color: var(--text-default);
-  }
-
   .logo {
     height: 100%;
     zoom: 2;
@@ -17,15 +12,6 @@
     path {
       fill: var(--text-default) !important;
     }
-  }
-
-  .MuiPaper-root {
-    color: var(--text-default);
-    background-color: var(--background);
-  }
-
-  .MuiTypography-root {
-    font-family: var(--primary-font-family);
   }
 
   .MuiLinearProgress-bar {

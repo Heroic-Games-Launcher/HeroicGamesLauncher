@@ -10,7 +10,8 @@
         "titles_always_visible": "Vis alltid titler i biblioteket",
         "content_font_family_default": "Content Font Family (Standard: {{fontFamily}})",
         "actions_font_family_default": "Actions Font Family (Standard: {{fontFamily}}",
-        "disable_smooth_scrolling": "Skru av jevn rulling (krever omstart)"
+        "disable_smooth_scrolling": "Skru av jevn rulling (krever omstart)",
+        "disable_animations": "Skru av animasjoner i brukergrensesnittet"
     },
     "add_game": "Legg til spill",
     "All": "Alle",
@@ -91,7 +92,14 @@
             },
             "legendary": {
                 "generic": "Det har oppstått en feil! Prøv å logge ut og logge på Epic-kontoen din. {{newline}} {{error}}"
-            }
+            },
+            "steam": {
+                "message": "Installeringen av Steam mislyktes! Gå gjennom instruksjonene en gang til og prøv igjen! {{paragraph}} {{error}}",
+                "title": "Steam-feil",
+                "error": "Steams programfil ble ikke funnet. Installasjonen ble antagelig avbrutt eller mislyktes."
+            },
+            "executableNotFound": "Programfil ikke funnet",
+            "executableNotFoundMessage": "Heroic kunne ikke finne programfilen til spillet. Velg programfilen manuelt i spillinstillingene."
         },
         "info": {
             "update": {
@@ -100,7 +108,8 @@
                 "message": "Det er en ny versjon tilgjengelig!",
                 "message-finished": "Vil du starte Heroic på nytt nå?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Oppgradering fullført"
+                "title-finished": "Oppgradering fullført",
+                "detailNoAutoupdate": "Automatiske oppdateringer støttes ikke for pakkeformatet ditt. Bruk pakkehåndteringsprogrammet ditt for å oppdatere."
             }
         },
         "no": "NEI",
@@ -182,7 +191,10 @@
         "choose-nile-binary": "Velg Nile binær",
         "update": "Update",
         "changelog": "Endringslogg",
-        "postpone": "Utsett"
+        "postpone": "Utsett",
+        "launchAnyway": "Start spillet alikevel",
+        "shaderPreCachingDisabledMessage": "Steams forhåndsinnhenting av shaders er skrudd av. Vennligst skru det på i Steams innstillinger så spillet funker riktig med UMU.",
+        "shaderPreCachingDisabledTitle": "Forhåndslasting av shaders skrudd av"
     },
     "button": {
         "cancel": "Avbryt",
@@ -275,7 +287,8 @@
         "reset": "Tilbakestill",
         "show_support_offline_only": "Vis kun støttet uten nett",
         "uncategorized": "Ukategorisert",
-        "show_third_party_managed_only": "Vis kun tredjepartsadministrerte"
+        "show_third_party_managed_only": "Vis kun tredjepartsadministrerte",
+        "show_updates_only": "Bare vis spill med oppdateringer"
     },
     "help": {
         "amdfsr": "AMDs FSR bidrar til å øke bildefrekvensen ved å oppskalere lavere oppløsninger i fullskjermmodus. Bildekvaliteten øker fra 5 til 1 på bekostning av et lite ytelsestreff. Aktivering kan forbedre ytelsen.",
@@ -353,7 +366,14 @@
             "upscaleMethod": "Oppskaleringsmetoden gamescope burde bruke.",
             "forceGrabCursor": "Bruk alltid relativ musemodus i stedet for å veksle avhengig av markørens synlighet. (Nyttig når applikasjoner stadig mister fokus)"
         },
-        "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres."
+        "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "advertiseAvxForRosetta": "Skrur på AVX-instruksjoner når Windows-spill kjøres gjennom Rosetta på Apple Silicon Mac-er. Dette kan være nødvendig for enkelte spill som Death Stranding som trenger AVX for å fungere.",
+        "download_proton_steam": "Med dette skrudd på vil GE-Proton bli lastet ned direkte til mappen med Steam-kompatibilitetsverktøy fremfor den vanlige for Heroic. GE-Proton vil bruke mappen angitt i «Standard Steam-bane»-innstillingen.",
+        "wine-hdr": "HDR forbedrer fargene ved å kunne vise lysere lyspunkter og mørkere kontraster. For at HDR skal fungere, må både skjermen og spillet støtte det.",
+        "wine-wayland": "Den eksperimentelle Wine-Wayland-driveren lar spill kjøre uten mellomlag med Wayland-visningsprotokollen. Noen spill fungerer ikke med denne driveren.",
+        "analytics": "Lar Heroic samle inn 100% anonyme brukerdata for å hjelpe oss forbedre appen. Appen må startes på nytt før innstillingen gjelder.",
+        "WoW64": "Wine WoW64-modusen lar 32-bit Windows-spill kjøre under 64-bit Wine. Å skru det på kan forbedre ytelse, men det kan også forhindre eldre 32-bit-spill i å fungere riktig."
     },
     "info": {
         "heroic": {
@@ -398,7 +418,9 @@
         "toggleLayout": {
             "grid": "Bytt til et rutenettoppsett",
             "list": "Bytt til et listeoppsett"
-        }
+        },
+        "hideAlphabetFilter": "Gjem alfabetfilteret",
+        "showAlphabetFilter": "Vis alfabetfilteret"
     },
     "Library": "Bibliotek",
     "loading": {
@@ -411,7 +433,8 @@
         "gog": "GOG-innlogging",
         "message": "Logg inn med plattformen din. Du kan være innlogget i flere plattformer samtidig.",
         "amazon": "Amazon-pålogging",
-        "old-mac": "MacOS-versjonen din er {{version}}. macOS 12 eller nyere kreves for å logge på."
+        "old-mac": "MacOS-versjonen din er {{version}}. macOS 12 eller nyere kreves for å logge på.",
+        "zoom": "Logg inn på Zoom"
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -461,6 +484,9 @@
             "started": "Oppgradering startet",
             "failed": "Oppdatering mislyktes",
             "paused": "Oppdatering satt på pause"
+        },
+        "import": {
+            "failed": "Importering mislyktes"
         }
     },
     "offline-message": {
@@ -659,7 +685,8 @@
                 "heroic": "Generell Heroic-logg",
                 "legendary": "Epic Games- / Legendary-logg",
                 "nile": "Amazon- / Nile-logg",
-                "gog": "GOG-logg"
+                "gog": "GOG-logg",
+                "zoom": "Zoom-logg"
             },
             "show-uploads": "Vis opplastede loggfiler",
             "join-heroic-discord": "Bli med i vår discord"
@@ -715,7 +742,9 @@
             "enableLimiter": "Skru på FPS begrenser",
             "missingMsg": "Vi kunne ikke finne gamescope på STIEN. Installer den eller legg den til STIEN.",
             "enableUpscaling": "Skru på oppskalering",
-            "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker"
+            "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker",
+            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 25.08 og start Heroic på nytt.",
+            "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og start Heroic på nytt."
         },
         "msync": "Skru på Msync",
         "allow_installation_broken_anticheat": {
@@ -745,8 +774,33 @@
             "description": "Aktiver detaljerte logger"
         },
         "custom_css": {
-            "warning": "Advarsel: dette gjelder hele brukerflaten. Det betyr at feil stil kan gjøre Heroic ubrukelig. Om nødvendig kan innstillingen endres manuelt i `~/.config/heroic/config.json`. IKKE kopier stiler fra kilder du ikke stoler på."
-        }
+            "warning": "Advarsel: dette gjelder hele brukerflaten. Det betyr at feil stil kan gjøre Heroic ubrukelig. Om nødvendig kan innstillingen endres manuelt i «~/.config/heroic/config.json». IKKE kopier stiler fra kilder du ikke stoler på."
+        },
+        "advertiseAvxForRosetta": "Oppgi AVX til Rosetta",
+        "download-proton-steam": "Last ned GE-Proton til Steam-mappen",
+        "dxfpslimit": "Begrens DirectX-spills bildehastighet",
+        "hdr": "Skru på HDR",
+        "wineWayland": "Skru på Wine-Wayland (eksperimentell) (Wine-versjonen må ha støtte for det)",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Er du sikker?"
+            }
+        },
+        "analyticsOptIn": "Send anonym statistikk for å hjelpe Heroics utvikling",
+        "no-tray-icon": "Skjul ikonet i systemkurven (krever omstart)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Ikke vis dem",
+                "message": "Vi anbefaler å bruke egendefinerte Proton-forks (GE-Proton, Proton-CachyOS, mm.) med Heroic fordi Valves Proton-versjoner ikke bruker Winetricks og Protofixes. Du kan fortsatt bruke dem hvis du vil.",
+                "show": "Jeg forstår, vis dem",
+                "title": "Er du sikker?"
+            },
+            "info_label": "Ignorerer Valve Proton-versjoner",
+            "label": "Tillat bruk av Valve Proton for å kjøre spill",
+            "wine_selector_warning": "Valves Proton-versjoner ignoreres som standard, aktiver dem i de avanserte innstillingene"
+        },
+        "WoW64": "Skru på WoW64 (eksperimentell)",
+        "scripts": "Skript:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1001,11 +1055,12 @@
             "viewToggle": "Bytt mellom rutenett- og listevisning for spillene dine.",
             "welcome": {
                 "intro": "Velkommen til Heroic biblioteket! Det er her du kan se alle spillene dine på tvers av forskjellige butikker.",
-                "intro2": "Hvis biblioteket er tomt, sørg for å logge på med kontoene dine ved å bruke Administrer kontoer i sidefeltet eller legg til dine egne spill ved å bruke Legg til spill-knappen ovenfor.",
+                "intro2": "Hvis biblioteket er tomt, sørg for å logge på med kontoene dine ved å bruke «Administrer kontoer» i sidefeltet eller legg til dine egne spill ved å bruke «Legg til spill-knappen» ovenfor.",
                 "title": "Vekommen til Heroic!",
                 "title2": "Administrering av biblioteket!"
             },
-            "gameCard": "Venstreklikk på spillkortet for å navigere til spillsiden og for å se detaljer og justere innstillinger eller Høyreklikk for å åpne kontekstmenyen."
+            "gameCard": "Venstreklikk på spillkortet for å navigere til spillsiden og for å se detaljer og justere innstillinger eller Høyreklikk for å åpne kontekstmenyen.",
+            "steamInstall": "Bruk denne knappen for å installere Windows-versjonen av Steam og spill Windows-spillene dine gjennom Crossover, Wine eller GPTK."
         },
         "next": "Neste",
         "sidebar": {
@@ -1028,5 +1083,27 @@
         },
         "startTour": "Start omvisning",
         "skip": "Hopp over"
-    }
+    },
+    "notification": {
+        "steam": {
+            "error": "Steam kunne ikke installeres! Les instruksjonene en gang til og prøv igjen!",
+            "success": "Steam for Windows har blitt installert!"
+        }
+    },
+    "analyticsModal": {
+        "disable": "Deaktivert",
+        "enable": "Aktiver",
+        "info": {
+            "pt1": "For å forbedre appen samler Heroic inn 100% anonym data.",
+            "pt2": "Heroic bruker Plausible Analytics-plattformen, en plattform med åpen kildekode, for å samle inn grunnleggende data: appversjon, OS, tilkoblede markedsplasser og land.",
+            "pt3": "Det kommer aldri til å samle inn noen private data, herunder brukernavnet ditt, IP-adressen og e-posten din.",
+            "pt4": "Disse dataene brukes for å for å hjelpe oss finne ut av hvor vi skal rette fokuset og ressursene våre og til tilbakemeldinger.",
+            "pt5": "Plausible Analytics er fullstendig kompatibel med Personvernsforordningen (GDPR), CCPA og PECR.",
+            "pt6": "For åpenhets skyld, kan du se dataene vi samler inn i Heroic-loggene.",
+            "pt7": "Du kan endre denne innstillingen når som helst i appinnstillingene."
+        },
+        "title": "Send anynom statistikk"
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Zoom-butikk"
 }

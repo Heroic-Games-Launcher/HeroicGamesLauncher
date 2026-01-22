@@ -132,7 +132,7 @@
             "message": "„Heroic“ talpykla/podėlis išvalyta/-s.",
             "title": "Talpykla/Podėlis išvalyta/-s"
         },
-        "changelog": "Keitinių̃ žurnãlas",
+        "changelog": "Keitinių žurnãlas",
         "choose-egs-prefix": "Pasirinkti prielinksnį/priešdėlį, kuriame „EGS“ yra įdiegtas",
         "choose-gogdl-binary": "Pasirinkti „GOGDL“ dvejetainę (reikalauja paleidimo iš naujo)",
         "choose-legendary-binary": "Pasirinkti „Legendary“ dvejetainę",
@@ -339,7 +339,8 @@
         "vkd3d": "„VKD3D“ yra „Vulkas“ paremtas vertimo sluoksnis, skirtas „DirectX 12“ žaidimams. Įjungiant/Įgalinant gali žymiai pagerinti palaikomumą. Neturi jokio poveikio ant senesnių „DirectX“ žaidimų, jie reikalauja „DXVK“.",
         "gamemode": "„Feral“ žaidimo veiksena pritaiko automatinius ir laikinus pakoregavimus sistemai, kai veikia žaidimai. Įjungiant/Įgalinant gali pagerinti našumą.",
         "primerun": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
-        "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą."
+        "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą.",
+        "dxfpslimit": "Nustato kadrų dažnio ribą „DXVK“ žaidimams"
     },
     "info": {
         "version": "„Wine“ versija",
@@ -568,7 +569,18 @@
         "start-in-tray": "Pradėti minimizuotai",
         "showMetalOverlay": "Rodyti perdangos statistiką",
         "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)",
-        "disableUMU": "Išjungti/Išgalinti „UMU“"
+        "disableUMU": "Išjungti/Išgalinti „UMU“",
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Ar Jūs esate tikra/-s?"
+            }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Ar Jūs esate tikra/-s?"
+            }
+        },
+        "scripts": "&scenarijai"
     },
     "settings": {
         "advanced": {
@@ -711,7 +723,8 @@
         "zoom": "Priartinimas ir atitolinimas",
         "disable_dialog_backdrop_close": "Neleisti dialogų langų uždarymą spaustėlius ne jo lange",
         "actions_font_family_default": "Veiksmšų šrifto „šeima“ (Numatyta: {{fontFamily}})",
-        "content_font_family_default": "Turinio šrifto „šeima“ (Numatyta: {{fontFamily}})"
+        "content_font_family_default": "Turinio šrifto „šeima“ (Numatyta: {{fontFamily}})",
+        "disable_smooth_scrolling": "Išjungti švelnų slinkimą (reikalauja paleidimo iš naujo)"
     },
     "add_game": "Pridėti žaidimą",
     "anticheat": {
@@ -929,6 +942,20 @@
         }
     },
     "tour": {
-        "back": "Atgal"
+        "back": "Atgal",
+        "next": "S_ekantis"
+    },
+    "analyticsModal": {
+        "disable": "Išjungta/Neįgalinta (-as/-i)",
+        "enable": "Įjungta/Įgalinta (-as/-i)",
+        "info": {
+            "pt1": "Siekiant patobulinti šią programą, „Heroic“ renką 100% proc. anonimiškus duomenis.",
+            "pt2": "„Heroic“ naudoja atviro kodo „Plausible Analytics“ platformą, kad surinktų šiuos duomenis: programos versiją, operacinę sistemą, prijungtas parduotuves/platformas ir šalį.",
+            "pt3": "Jis niekada nerinks jokių asmeninių duomenų, įskaitant Jūsų naudotojo/vartotojo vardą (t.y. slapyvardį), IP adresą ar el. paštą.",
+            "pt5": "„Plausible Analytics“ yra pilnai paklusnus su BDAR, „CCPA“ ir PERR.",
+            "pt4": "Šie duomenys yra naudojami suteiktiant įžvalgas į tolimesnius dėmesio sutelkimus dėl mūsų ribotų resursų ir vartotojų atsiliepimų.",
+            "pt7": "Šį nustatymą galite pakeisti bet kada Programos Nustatymuose."
+        },
+        "title": "Siūsti Anoniminę Analitiką"
     }
 }

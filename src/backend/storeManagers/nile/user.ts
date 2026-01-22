@@ -1,4 +1,4 @@
-import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger/logger'
+import { LogPrefix, logDebug, logError, logInfo } from 'backend/logger'
 import {
   NileLoginData,
   NileRegisterData,
@@ -18,7 +18,7 @@ function authLogSanitizer(line: string) {
     output.serial = '<redacted>'
     output.client_id = '<redacted>'
     return JSON.stringify(output) + '\n'
-  } catch (error) {
+  } catch {
     return line
   }
 }
@@ -91,7 +91,7 @@ export class NileUser {
     const res = await runRunnerCommand(commandParts, { abortId: 'nile-logout' })
 
     if (res.abort) {
-      logError('Failed to logout: abort by user'), LogPrefix.Nile
+      logError('Failed to logout: abort by user', LogPrefix.Nile)
       return
     }
 

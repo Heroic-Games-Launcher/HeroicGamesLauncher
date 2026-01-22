@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'backend/config'
-import { logError, LogPrefix, logInfo } from 'backend/logger/logger'
+import { logError, LogPrefix, logInfo } from 'backend/logger'
 import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
@@ -37,8 +37,7 @@ export function getDefaultWine(): WineInstallation {
     defaultWine.bin = wineBin
 
     stdout = execSync(`wine --version`).toString()
-    const version = stdout.split('\n')[0]
-    defaultWine.name = `Wine Default - ${version}`
+    defaultWine.name = stdout.split('\n')[0]
 
     return {
       ...defaultWine,
@@ -127,7 +126,7 @@ export async function getLinuxWineSet(
     const wineBin = join(toolsPath, 'wine', version, 'bin', 'wine')
     altWine.add({
       bin: wineBin,
-      name: `Wine - ${version}`,
+      name: version,
       type: 'wine',
       ...getWineLibs(wineBin),
       ...getWineExecs(wineBin)
@@ -142,7 +141,7 @@ export async function getLinuxWineSet(
       const wineBin = join(lutrisCompatPath, version, 'bin', 'wine')
       altWine.add({
         bin: wineBin,
-        name: `Wine - ${version}`,
+        name: version,
         type: 'wine',
         ...getWineLibs(wineBin),
         ...getWineExecs(wineBin)
@@ -152,10 +151,14 @@ export async function getLinuxWineSet(
 
   const protonPaths = [`${toolsPath}/proton/`]
 
+  const { showValveProton } = GlobalConfig.get().getSettings()
+
   await getSteamLibraries().then((libs) => {
     libs.forEach((path) => {
-      protonPaths.push(`${path}/steam/steamapps/common`)
-      protonPaths.push(`${path}/steamapps/common`)
+      if (showValveProton) {
+        protonPaths.push(`${path}/steam/steamapps/common`)
+        protonPaths.push(`${path}/steamapps/common`)
+      }
       protonPaths.push(`${path}/root/compatibilitytools.d`)
       protonPaths.push(`${path}/compatibilitytools.d`)
       return
@@ -176,7 +179,7 @@ export async function getLinuxWineSet(
         if (existsSync(protonBin)) {
           proton.add({
             bin: protonBin,
-            name: `Proton - ${version}`,
+            name: version,
             type: 'proton'
             // No need to run this.getWineExecs here since Proton ships neither Wineboot nor Wineserver
           })
@@ -286,7 +289,7 @@ export async function getWineskinWine(): Promise<Set<WineInstallation>> {
             })
           } catch (error) {
             logError(
-              `Error getting wine version for ${wineBin}`,
+              [`Error getting wine version for ${wineBin}:`, error],
               LogPrefix.GlobalConfig
             )
           }
@@ -379,7 +382,7 @@ export async function getGamePortingToolkitWine(): Promise<
         }
       } catch (error) {
         logError(
-          `Error getting wine version for GPTK ${wineBin}`,
+          [`Error getting wine version for GPTK ${wineBin};`, error],
           LogPrefix.GlobalConfig
         )
       }
@@ -404,7 +407,7 @@ export async function getSystemGamePortingToolkitWine(): Promise<
   logInfo('Searching for Gaming Porting Toolkit Wine', LogPrefix.GlobalConfig)
   const { stdout } = await execAsync('mdfind wine64')
   const wineBin = stdout.split('\n').filter((p) => {
-    return p.match(/game-porting-toolkit.*\/wine64$/)
+    return p.match(/^(?!.*heroic\/tools).*game-porting-toolkit.*\/wine64$/)
   })[0]
 
   if (existsSync(wineBin)) {
@@ -426,7 +429,7 @@ export async function getSystemGamePortingToolkitWine(): Promise<
       })
     } catch (error) {
       logError(
-        `Error getting wine version for ${wineBin}`,
+        [`Error getting wine version for ${wineBin}:`, error],
         LogPrefix.GlobalConfig
       )
     }
@@ -478,7 +481,7 @@ export async function getWhisky(): Promise<Set<WineInstallation>> {
       })
     } catch (error) {
       logError(
-        `Error getting wine version for ${whiskyWineBin}`,
+        [`Error getting wine version for ${whiskyWineBin}:`, error],
         LogPrefix.GlobalConfig
       )
     }
@@ -568,10 +571,7 @@ export async function isUmuSupported(
 ): Promise<boolean> {
   if (!isLinux) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
-  if (
-    gameSettings.disableUMU === undefined ||
-    gameSettings.disableUMU === true
-  ) {
+  if (gameSettings.disableUMU === true) {
     return false
   }
   if (!checkUmuInstalled) return true

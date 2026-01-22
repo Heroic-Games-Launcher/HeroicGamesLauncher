@@ -338,7 +338,8 @@
         "gamescope": {
             "fpsLimiter": "Het aantal frames gamescope moet naar limiteren. Bijvb. 60",
             "fpsLimiterNoFocus": "De framelimiet gamescope moet aanhouden als de game niet is gefocused."
-        }
+        },
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {
@@ -678,6 +679,16 @@
         "disablePlaytimeSync": "Schakel speeltijd synchronisatie uit",
         "experimental_features": {
             "enableNewDesign": "Nieuw uiterlijk"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Weet je het zeker?"
+            }
+        },
+        "show_valve_proton": {
+            "confirmation": {
+                "title": "Weet je het zeker?"
+            }
         }
     },
     "settings": {
@@ -892,5 +903,9 @@
     },
     "tour": {
         "back": "Back"
+    },
+    "analyticsModal": {
+        "disable": "Disable",
+        "enable": "Enable"
     }
 }

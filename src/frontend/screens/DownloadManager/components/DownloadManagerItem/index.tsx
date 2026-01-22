@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { DMQueueElement, DownloadManagerState } from 'common/types'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
@@ -87,7 +87,7 @@ const DownloadManagerItem = ({
     install: { is_dlc }
   } = gameInfo || {}
 
-  const [progress] = hasProgress(appName)
+  const [progress] = hasProgress(appName, runner)
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
@@ -123,11 +123,12 @@ const DownloadManagerItem = ({
   const handleMainActionClick = () => {
     if (finished) {
       return goToGamePage()
-    } else if (canceled) {
-      handleClearItem && handleClearItem(appName)
+    } else if (canceled && handleClearItem) {
+      handleClearItem(appName)
     }
 
-    current ? stopInstallation() : window.api.removeFromDMQueue(appName)
+    if (current) stopInstallation()
+    else window.api.removeFromDMQueue(appName)
   }
 
   // using one element for the different states so it doesn't

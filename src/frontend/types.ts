@@ -18,7 +18,13 @@ import {
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
-export type Category = 'all' | 'legendary' | 'gog' | 'sideload' | 'nile'
+export type Category =
+  | 'all'
+  | 'legendary'
+  | 'gog'
+  | 'sideload'
+  | 'nile'
+  | 'zoom'
 
 export interface ContextType {
   error: boolean
@@ -83,6 +89,13 @@ export interface ContextType {
     login: (data: NileRegisterData) => Promise<string>
     logout: () => Promise<void>
   }
+  zoom: {
+    library: GameInfo[]
+    username?: string
+    login: (url: string) => Promise<string>
+    logout: () => Promise<void>
+    enabled: boolean
+  }
   installingEpicGame: boolean
   allTilesInColor: boolean
   setAllTilesInColor: (value: boolean) => void
@@ -104,16 +117,6 @@ export interface ContextType {
   setHideChangelogsOnStartup: (value: boolean) => void
   lastChangelogShown: string | null
   setLastChangelogShown: (value: string) => void
-  isSettingsModalOpen: {
-    value: boolean
-    gameInfo?: GameInfo | null
-    type: 'settings' | 'log'
-  }
-  setIsSettingsModalOpen: (
-    value: boolean,
-    type?: 'settings' | 'log' | 'category',
-    gameInfo?: GameInfo
-  ) => void
   help: {
     items: { [key: string]: HelpItem }
     addHelpItem: (helpItemId: string, helpItem: HelpItem) => void
@@ -123,6 +126,8 @@ export interface ContextType {
   handleExperimentalFeatures: (newSetting: ExperimentalFeatures) => void
   disableDialogBackdropClose: boolean
   setDisableDialogBackdropClose: (value: boolean) => void
+  disableAnimations: boolean
+  setDisableAnimations: (value: boolean) => void
 }
 
 export type DialogModalOptions = {
@@ -167,9 +172,13 @@ declare global {
       canvas_height: number
     ) => Promise<string>
     setTheme: (themeClass: string) => void
+    isSteamDeck: boolean
     isSteamDeckGameMode: boolean
+    isFlatpak: boolean
+    flatpakRuntimeVersion?: string
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
+    isE2ETesting: boolean
   }
 
   interface WindowEventMap {
@@ -201,6 +210,7 @@ export interface StoresFilters {
   gog: boolean
   nile: boolean
   sideload: boolean
+  zoom: boolean
 }
 
 export interface PlatformsFilters {
@@ -239,6 +249,11 @@ export interface LibraryContextType {
   setShowUpdatesOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
   setShowCategories: (value: boolean) => void
+  showAlphabetFilter: boolean
+  onToggleAlphabetFilter: () => void
+  alphabetFilterLetter: string | null
+  setAlphabetFilterLetter: (letter: string | null) => void
+  gamesForAlphabetFilter: GameInfo[]
 }
 
 export interface GameContextType {
@@ -250,6 +265,7 @@ export interface GameContextType {
   gameInstallInfo: InstallInfo | null
   is: {
     installing: boolean
+    importing: boolean
     installingWinetricksPackages: boolean
     installingRedist: boolean
     launching: boolean

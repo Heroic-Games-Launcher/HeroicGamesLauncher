@@ -24,7 +24,6 @@ import {
 import { LegendaryUser } from './user'
 import {
   downloadFile,
-  getLegendaryBin,
   killPattern,
   moveOnUnix,
   moveOnWindows,
@@ -34,13 +33,11 @@ import {
   spawnAsync
 } from '../../utils'
 import {
-  appendGamePlayLog,
-  appendWinetricksGamePlayLog,
   logError,
-  logFileLocation,
   logInfo,
-  LogPrefix
-} from '../../logger/logger'
+  LogPrefix,
+  createGameLogWriter
+} from 'backend/logger'
 import {
   prepareLaunch,
   prepareWineLaunch,
@@ -48,7 +45,6 @@ import {
   setupWrapperEnvVars,
   setupWrappers,
   launchCleanup,
-  getRunnerCallWithoutCredentials,
   runWineCommand as runWineCommandUtil,
   getKnownFixesEnvVariables,
   getWinePath
@@ -85,13 +81,10 @@ import { Path } from 'backend/schemas'
 import { mkdirSync } from 'fs'
 import { configStore } from 'backend/constants/key_value_stores'
 import { epicRedistPath, legendaryInstalled } from './constants'
-import {
-  isCLINoGui,
-  isLinux,
-  isMac,
-  isWindows
-} from 'backend/constants/environment'
+import { isCLINoGui, isMac, isWindows } from 'backend/constants/environment'
 import { fakeEpicExePath } from 'backend/constants/paths'
+
+import type LogWriter from 'backend/logger/log_writer'
 
 /**
  * Alias for `LegendaryLibrary.listUpdateableGames`
@@ -208,6 +201,7 @@ async function getExtraFromAPI(slug: string): Promise<ExtraInfo | null> {
       return null
     }
   } catch (error) {
+    logError(['Failed to get info from Epic API:', error], LogPrefix.Legendary)
     return null
   }
 }
@@ -534,9 +528,14 @@ export async function update(
     )
   }
 
+  const updateLogWriter = await createGameLogWriter(
+    appName,
+    'legendary',
+    'update'
+  )
   const res = await runLegendaryCommand(command, {
     abortId: appName,
-    logFile: logFileLocation(appName),
+    logWriters: [updateLogWriter],
     onOutput,
     logMessagePrefix: `Updating ${appName}`
   })
@@ -603,8 +602,6 @@ export async function install(
   const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
   const info = await getInstallInfo(appName, platformToInstall)
 
-  const logPath = logFileLocation(appName)
-
   const command: LegendaryCommand = {
     subcommand: 'install',
     appName: LegendaryAppName.parse(appName),
@@ -628,9 +625,14 @@ export async function install(
     )
   }
 
+  const installLogWriter = await createGameLogWriter(
+    appName,
+    'legendary',
+    'install'
+  )
   let res = await runLegendaryCommand(command, {
     abortId: appName,
-    logFile: logPath,
+    logWriters: [installLogWriter],
     onOutput,
     logMessagePrefix: `Installing ${appName}`
   })
@@ -640,7 +642,7 @@ export async function install(
     command['--max-shared-memory'] = PositiveInteger.parse(5000)
     res = await runLegendaryCommand(command, {
       abortId: appName,
-      logFile: logPath,
+      logWriters: [installLogWriter],
       onOutput
     })
   }
@@ -753,9 +755,14 @@ export async function repair(appName: string): Promise<ExecResult> {
   if (maxWorkers) command['--max-workers'] = PositiveInteger.parse(maxWorkers)
   if (downloadNoHttps) command['--no-https'] = true
 
+  const repairLogWriter = await createGameLogWriter(
+    appName,
+    'legendary',
+    'repair'
+  )
   const res = await runLegendaryCommand(command, {
     abortId: appName,
-    logFile: logFileLocation(appName),
+    logWriters: [repairLogWriter],
     logMessagePrefix: `Repairing ${appName}`
   })
 
@@ -783,9 +790,14 @@ export async function importGame(
 
   logInfo(`Importing ${appName}.`, LogPrefix.Legendary)
 
-  const res = await runLegendaryCommand(command, { abortId: appName })
+  const logWriter = await createGameLogWriter(appName, 'legendary', 'import')
+  const res = await runLegendaryCommand(command, {
+    abortId: appName,
+    logWriters: [logWriter]
+  })
   addShortcuts(appName)
-
+  const errorMatch = res.stderr.match(/^.*ERROR:.*$/gm)?.join('') ?? ''
+  res.error = (res.error ?? '') + errorMatch
   if (res.error) {
     logError(
       ['Failed to import', `${appName}:`, res.error],
@@ -838,6 +850,7 @@ export async function syncSaves(
 
 export async function launch(
   appName: string,
+  logWriter: LogWriter,
   launchArguments?: LaunchOption,
   args: string[] = [],
   skipVersionCheck = false
@@ -854,9 +867,9 @@ export async function launch(
     gameScopeCommand,
     steamRuntime,
     offlineMode
-  } = await prepareLaunch(gameSettings, gameInfo, isNative(appName))
+  } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
-    appendGamePlayLog(gameInfo, `Launch aborted: ${launchPrepFailReason}`)
+    logWriter.logError(['Launch aborted:', launchPrepFailReason])
     launchCleanup()
     showDialogBoxModalAuto({
       title: t('box.error.launchAborted', 'Launch aborted'),
@@ -871,26 +884,28 @@ export async function launch(
   let commandEnv = {
     ...process.env,
     ...setupWrapperEnvVars({ appName, appRunner: 'legendary' }),
-    ...(isWindows
-      ? {}
-      : setupEnvVars(gameSettings, gameInfo.install.install_path)),
+    ...setupEnvVars(gameSettings, gameInfo.install.install_path),
     ...getKnownFixesEnvVariables(appName, 'legendary')
   }
 
-  // We can get this env variable either from the game's settings or from known fixes
-  if (commandEnv['USE_FAKE_EPIC_EXE']) {
-    const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
-    const fakeEpicExePathInPrefix = await getWinePath({
-      path: fakeExeWinPath,
-      gameSettings,
-      variant: 'unix'
-    })
+  // Use the wrapper EXE to launch games.
+  if (existsSync(fakeEpicExePath) && commandEnv['USE_FAKE_EPIC_EXE'] !== '0') {
+    if (isWindows) {
+      commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeEpicExePath
+    } else {
+      // on linux and mac, we copy the fake exe
+      const fakeExeWinPath = 'C:\\windows\\command\\EpicGamesLauncher.exe'
+      const fakeEpicExePathInPrefix = await getWinePath({
+        path: fakeExeWinPath,
+        gameSettings,
+        variant: 'unix'
+      })
 
-    // we copy the file inside the prefix to avoid permission issues
-    if (!existsSync(fakeEpicExePathInPrefix))
-      copyFileSync(fakeEpicExePath, fakeEpicExePathInPrefix)
-
-    commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeExeWinPath
+      // we copy the file inside the prefix to avoid permission issues
+      if (!existsSync(fakeEpicExePathInPrefix))
+        copyFileSync(fakeEpicExePath, fakeEpicExePathInPrefix)
+      commandEnv['LEGENDARY_WRAPPER_EXE'] = fakeExeWinPath
+    }
   }
 
   const wrappers = setupWrappers(
@@ -911,9 +926,9 @@ export async function launch(
       success: wineLaunchPrepSuccess,
       failureReason: wineLaunchPrepFailReason,
       envVars: wineEnvVars
-    } = await prepareWineLaunch('legendary', appName)
+    } = await prepareWineLaunch('legendary', appName, logWriter)
     if (!wineLaunchPrepSuccess) {
-      appendGamePlayLog(gameInfo, `Launch aborted: ${wineLaunchPrepFailReason}`)
+      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
       if (wineLaunchPrepFailReason) {
         showDialogBoxModalAuto({
           title: t('box.error.launchAborted', 'Launch aborted'),
@@ -923,8 +938,6 @@ export async function launch(
       }
       return false
     }
-
-    appendWinetricksGamePlayLog(gameInfo)
 
     commandEnv = {
       ...commandEnv,
@@ -968,20 +981,6 @@ export async function launch(
   if (isCLINoGui) command['--skip-version-check'] = true
   if (gameInfo.isEAManaged) command['--origin'] = true
 
-  const fullCommand = getRunnerCallWithoutCredentials(
-    command,
-    commandEnv,
-    join(...Object.values(getLegendaryBin()))
-  )
-  appendGamePlayLog(gameInfo, `Launch Command: ${fullCommand}\n\nGame Log:\n`)
-
-  if (!gameSettings.verboseLogs) {
-    appendGamePlayLog(
-      gameInfo,
-      "IMPORTANT: Logs are disabled.\nEnable verbose logs in Game's settings > Advanced tab > 'Enable verbose logs' before reporting an issue.\n\n"
-    )
-  }
-
   sendGameStatusUpdate({ appName, runner: 'legendary', status: 'playing' })
 
   const { error } = await runLegendaryCommand(command, {
@@ -989,18 +988,8 @@ export async function launch(
     env: commandEnv,
     wrappers: wrappers,
     logMessagePrefix: `Launching ${gameInfo.title}`,
-    onOutput: (output) => {
-      if (gameSettings.verboseLogs) appendGamePlayLog(gameInfo, output)
-    }
+    logWriters: gameSettings.verboseLogs ? [logWriter] : []
   })
-
-  if (error) {
-    const showDialog = !`${error}`.includes('appears to be deleted')
-    logError(['Error launching game:', error], {
-      prefix: LogPrefix.Legendary,
-      showDialog
-    })
-  }
 
   launchCleanup(rpcClient)
 
@@ -1039,7 +1028,10 @@ export async function forceUninstall(appName: string) {
     sendFrontendMessage('refreshLibrary', 'legendary')
   } catch (error) {
     logError(
-      `Error reading ${legendaryInstalled}, could not complete operation`,
+      [
+        `Error reading ${legendaryInstalled}, could not complete operation:`,
+        error
+      ],
       LogPrefix.Legendary
     )
   }
@@ -1052,7 +1044,7 @@ export async function stop(appName: string, stopWine = true) {
   // not a perfect solution but it's the only choice for now
 
   // @adityaruplaha: this is kinda arbitary and I don't understand it.
-  const pattern = isLinux ? appName : 'legendary'
+  const pattern = isWindows ? 'legendary' : appName
   killPattern(pattern)
 
   if (stopWine && !isNative(appName)) {
@@ -1086,8 +1078,6 @@ export async function runWineCommandOnGame(
 
   const { folder_name, install } = getGameInfo(appName)
   const gameSettings = await getSettings(appName)
-
-  await prepareWineLaunch('legendary', appName)
 
   return runWineCommandUtil({
     gameSettings,

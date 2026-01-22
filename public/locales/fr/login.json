@@ -1,7 +1,7 @@
 {
     "button": {
         "login": "Se connecter",
-        "open": "Ouvrir le lien",
+        "open": "Suivre le lien",
         "copy": "Copier",
         "copied": "Copié !",
         "error": "Erreur, essayez avec un code différent",
@@ -9,13 +9,13 @@
     },
     "message": {
         "part1": "Pour vous connecter et installer vos jeux, vous devez d’abord suivre les étapes ci-dessous :",
-        "part2": "Ouvrez le",
-        "part3": "l'Epic Store ici",
+        "part2": "Accédez à la",
+        "part3": "boutique Epic en cliquant ici",
         "part4": ", connectez-vous à votre compte et copiez votre",
         "part5": "code d'autorisation",
-        "part6": "Collez votre",
-        "part7": "numéro du code d'autorisation",
-        "part8": "dans la boîte de dialogue ci-contre et cliquez sur le bouton « Connexion »."
+        "part6": "Collez ce",
+        "part7": "code",
+        "part8": "dans la boîte de dialogue ci-dessous et cliquez sur le bouton « Connexion »."
     },
     "status": {
         "error": "Erreur",

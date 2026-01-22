@@ -24,24 +24,26 @@ import {
   amazonCategories,
   epicCategories,
   gogCategories,
-  sideloadedCategories
+  sideloadedCategories,
+  zoomCategories,
+  normalizeTitle
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
-import { InstallModal } from './components'
 import LibraryContext from './LibraryContext'
 import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
+import AlphabetFilter from './components/AlphabetFilter'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 const storage = window.localStorage
 
-type ModalState = {
-  game: string
-  show: boolean
-  runner: Runner
-  gameInfo: GameInfo | null
+type SearchableGame = {
+  original: GameInfo
+  title: string
+  normalizedTitle: string
 }
 
 export default React.memo(function Library(): JSX.Element {
@@ -54,6 +56,7 @@ export default React.memo(function Library(): JSX.Element {
     epic,
     gog,
     amazon,
+    zoom,
     sideloadedLibrary,
     favouriteGames,
     libraryTopSection,
@@ -89,7 +92,8 @@ export default React.memo(function Library(): JSX.Element {
       legendary: epicCategories.includes(storedCategory),
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
-      sideload: sideloadedCategories.includes(storedCategory)
+      sideload: sideloadedCategories.includes(storedCategory),
+      zoom: zoom.enabled && zoomCategories.includes(storedCategory)
     }
   }
 
@@ -189,12 +193,18 @@ export default React.memo(function Library(): JSX.Element {
 
   const [showCategories, setShowCategories] = useState(false)
 
-  const [showModal, setShowModal] = useState<ModalState>({
-    game: '',
-    show: false,
-    runner: 'legendary',
-    gameInfo: null
-  })
+  const [showAlphabetFilter, setShowAlphabetFilter] = useState(
+    JSON.parse(storage.getItem('showAlphabetFilter') || 'true')
+  )
+  const handleToggleAlphabetFilter = () => {
+    const newValue = !showAlphabetFilter
+    storage.setItem('showAlphabetFilter', JSON.stringify(newValue))
+    setShowAlphabetFilter(newValue)
+  }
+  const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<
+    string | null
+  >(null)
+
   const [sortDescending, setSortDescending] = useState(
     JSON.parse(storage?.getItem('sortDescending') || 'false')
   )
@@ -218,29 +228,35 @@ export default React.memo(function Library(): JSX.Element {
     const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
 
     const storeScrollPosition = () => {
-      storage?.setItem('scrollPosition', window.scrollY.toString() || '0')
+      storage?.setItem(
+        'scrollPosition',
+        document.body.scrollTop.toString() || '0'
+      )
     }
 
-    window.addEventListener('scroll', storeScrollPosition)
-    window.scrollTo(0, scrollPosition || 0)
+    document.body.addEventListener('scroll', storeScrollPosition)
+    document.body.scrollTo(0, scrollPosition || 0)
 
     return () => {
-      window.removeEventListener('scroll', storeScrollPosition)
+      document.body.removeEventListener('scroll', storeScrollPosition)
     }
   }, [])
 
   // bind back to top button
   useEffect(() => {
-    if (backToTopElement.current) {
-      window.addEventListener('scroll', () => {
-        const btn = document.getElementById('backToTopBtn')
-        const topSpan = document.getElementById('top')
-        if (btn && topSpan) {
-          btn.style.visibility = window.scrollY > 450 ? 'visible' : 'hidden'
-        }
-      })
+    const btn = document.getElementById('backToTopBtn')
+    const topSpan = document.getElementById('top')
+
+    const scrollCallback = () => {
+      if (btn && topSpan) {
+        btn.style.visibility =
+          document.body.scrollTop > 450 ? 'visible' : 'hidden'
+      }
     }
-  }, [backToTopElement])
+
+    document.body.addEventListener('scroll', scrollCallback)
+    return () => document.body.removeEventListener('scroll', scrollCallback)
+  }, [])
 
   const backToTop = () => {
     const anchor = document.getElementById('top')
@@ -254,7 +270,7 @@ export default React.memo(function Library(): JSX.Element {
     runner: Runner,
     gameInfo: GameInfo | null
   ) {
-    setShowModal({ game: appName, show: true, runner, gameInfo })
+    openInstallGameModal({ appName, runner, gameInfo })
   }
 
   // cache list of games being installed
@@ -355,6 +371,9 @@ export default React.memo(function Library(): JSX.Element {
       amazon.library.forEach((game) => {
         if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
       })
+      zoom.library.forEach((game) => {
+        if (favouriteAppNames.includes(game.app_name)) tempArray.push(game)
+      })
     }
     return tempArray.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
@@ -367,7 +386,9 @@ export default React.memo(function Library(): JSX.Element {
     favouriteGamesList,
     epic,
     gog,
-    amazon
+    amazon,
+    sideloadedLibrary,
+    zoom
   ])
 
   const favouritesIds = useMemo(() => {
@@ -388,6 +409,9 @@ export default React.memo(function Library(): JSX.Element {
     if (storesFilters['sideload']) {
       displayedStores.push('sideload')
     }
+    if (storesFilters['zoom'] && zoom.username) {
+      displayedStores.push('zoom')
+    }
 
     if (!displayedStores.length) {
       displayedStores = Object.keys(storesFilters)
@@ -397,17 +421,24 @@ export default React.memo(function Library(): JSX.Element {
     const showGog = gog.username && displayedStores.includes('gog')
     const showAmazon = amazon.user_id && displayedStores.includes('nile')
     const showSideloaded = displayedStores.includes('sideload')
+    const showZoom = zoom.username && displayedStores.includes('zoom')
 
     const epicLibrary = showEpic ? epic.library : []
     const gogLibrary = showGog ? gog.library : []
     const sideloadedApps = showSideloaded ? sideloadedLibrary : []
     const amazonLibrary = showAmazon ? amazon.library : []
+    const zoomLibrary = showZoom ? zoom.library : []
 
-    return [...sideloadedApps, ...epicLibrary, ...gogLibrary, ...amazonLibrary]
+    return [
+      ...sideloadedApps,
+      ...epicLibrary,
+      ...gogLibrary,
+      ...amazonLibrary,
+      ...zoomLibrary
+    ]
   }
 
-  // select library
-  const libraryToShow = useMemo(() => {
+  const gamesForAlphabetFilter = useMemo(() => {
     let library: Array<GameInfo> = makeLibrary()
 
     if (showFavouritesLibrary) {
@@ -415,6 +446,8 @@ export default React.memo(function Library(): JSX.Element {
         favouritesIds.includes(`${game.app_name}_${game.runner}`)
       )
     } else {
+      library = library.filter((game) => !game.install.is_dlc)
+
       if (currentCustomCategories && currentCustomCategories.length > 0) {
         const gamesInSelectedCategories = new Set<string>()
 
@@ -486,16 +519,26 @@ export default React.memo(function Library(): JSX.Element {
     // filter
     try {
       const filteredLibrary = filterByPlatform(library)
+      const searchableLibrary: SearchableGame[] = filteredLibrary.map(
+        (game) => ({
+          original: game,
+          title: game.title,
+          normalizedTitle: normalizeTitle(game.title)
+        })
+      )
+
       const options = {
         minMatchCharLength: 1,
         threshold: 0.4,
         useExtendedSearch: true,
-        keys: ['title']
+        keys: ['title', 'normalizedTitle']
       }
-      const fuse = new Fuse(filteredLibrary, options)
+      const fuse = new Fuse(searchableLibrary, options)
 
       if (filterText) {
-        const fuzzySearch = fuse.search(filterText).map((game) => game?.item)
+        const fuzzySearch = fuse
+          .search(filterText)
+          .map((result) => result.item.original)
         library = fuzzySearch
       } else {
         library = filteredLibrary
@@ -513,6 +556,53 @@ export default React.memo(function Library(): JSX.Element {
       library = library.filter(
         (game) => !hiddenGamesAppNames.includes(game?.app_name)
       )
+    }
+
+    return library
+  }, [
+    storesFilters,
+    platformsFilters,
+    epic.library,
+    gog.library,
+    amazon.library,
+    zoom.library,
+    sideloadedLibrary,
+    platform,
+    filterText,
+    showHidden,
+    hiddenGames,
+    showFavouritesLibrary,
+    favouritesIds,
+    currentCustomCategories,
+    customCategories,
+    showInstalledOnly,
+    showNonAvailable,
+    showSupportOfflineOnly,
+    showThirdPartyManagedOnly,
+    showUpdatesOnly,
+    gameUpdates
+  ])
+
+  // select library
+  const libraryToShow = useMemo(() => {
+    let library = [...gamesForAlphabetFilter]
+
+    // Alphabetical filter
+    if (alphabetFilterLetter) {
+      library = library.filter((game) => {
+        if (!game.title) return false
+
+        const processedTitle = game.title.replace(/^the\s/i, '')
+        const firstCharMatch = processedTitle.match(/[a-zA-Z0-9]/)
+        if (!firstCharMatch) return false
+        const firstChar = firstCharMatch[0].toUpperCase()
+
+        if (alphabetFilterLetter === '#') {
+          return /[0-9]/.test(firstChar)
+        } else {
+          return firstChar === alphabetFilterLetter
+        }
+      })
     }
 
     // sort
@@ -537,24 +627,11 @@ export default React.memo(function Library(): JSX.Element {
 
     return [...library]
   }, [
-    storesFilters,
-    platformsFilters,
-    epic.library,
-    gog.library,
-    amazon.library,
-    filterText,
-    installing,
+    gamesForAlphabetFilter,
+    alphabetFilterLetter,
     sortDescending,
     sortInstalled,
-    showHidden,
-    hiddenGames,
-    showFavouritesLibrary,
-    showInstalledOnly,
-    showNonAvailable,
-    showSupportOfflineOnly,
-    showThirdPartyManagedOnly,
-    showUpdatesOnly,
-    gameUpdates
+    installing
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -573,7 +650,7 @@ export default React.memo(function Library(): JSX.Element {
           const headerHeight = header.getBoundingClientRect().height
           const libraryHeader =
             document.querySelector<HTMLDivElement>('.libraryHeader')
-          libraryHeader &&
+          if (libraryHeader)
             libraryHeader.style.setProperty(
               '--header-height',
               `${headerHeight}px`
@@ -591,7 +668,7 @@ export default React.memo(function Library(): JSX.Element {
     }
   }, [])
 
-  if (!epic && !gog && !amazon) {
+  if (!epic && !gog && !amazon && !zoom) {
     return (
       <ErrorComponent
         message={t(
@@ -632,7 +709,12 @@ export default React.memo(function Library(): JSX.Element {
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
-        setShowCategories
+        setShowCategories,
+        showAlphabetFilter: showAlphabetFilter,
+        onToggleAlphabetFilter: handleToggleAlphabetFilter,
+        gamesForAlphabetFilter,
+        alphabetFilterLetter,
+        setAlphabetFilterLetter
       }}
     >
       <Header />
@@ -664,7 +746,9 @@ export default React.memo(function Library(): JSX.Element {
 
         <LibraryHeader list={libraryToShow} />
 
-        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
+        {showAlphabetFilter && <AlphabetFilter />}
+
+        {refreshing && !refreshingInTheBackground && <UpdateComponent />}
 
         {libraryToShow.length === 0 && <EmptyLibraryMessage />}
 
@@ -681,22 +765,6 @@ export default React.memo(function Library(): JSX.Element {
       <button id="backToTopBtn" onClick={backToTop} ref={backToTopElement}>
         <ArrowDropUp id="backToTopArrow" className="material-icons" />
       </button>
-
-      {showModal.show && (
-        <InstallModal
-          appName={showModal.game}
-          runner={showModal.runner}
-          gameInfo={showModal.gameInfo}
-          backdropClick={() =>
-            setShowModal({
-              game: '',
-              show: false,
-              runner: 'legendary',
-              gameInfo: null
-            })
-          }
-        />
-      )}
 
       {showCategories && <CategoriesManager />}
     </LibraryContext.Provider>

@@ -8,7 +8,7 @@ import { dirname, join } from 'path'
 import { tmpdir } from 'os'
 import child_process from 'child_process'
 
-jest.mock('../../logger/logfile')
+jest.mock('../../logger')
 
 describe('getDefaultWine', () => {
   test('return wine not found', () => {
@@ -37,7 +37,7 @@ describe('getDefaultWine', () => {
 
     const result = getDefaultWine()
     expect(result.bin).toBe('/usr/bin/wine')
-    expect(result.name).toBe('Wine Default - wine-6.0 (Staging)')
+    expect(result.name).toBe('wine-6.0 (Staging)')
     expect(result.type).toBe('wine')
   })
 })

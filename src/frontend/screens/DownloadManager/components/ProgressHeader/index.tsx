@@ -1,10 +1,10 @@
 import './index.css'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AreaChart, Area, ResponsiveContainer } from 'recharts'
 import { Box, LinearProgress, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { DownloadManagerState } from 'common/types'
+import { DownloadManagerState, Runner } from 'common/types'
 
 interface Point {
   download: number
@@ -19,10 +19,11 @@ const roundToNearestHundredth = function (val: number | undefined) {
 export default function ProgressHeader(props: {
   appName: string
   state: DownloadManagerState
+  runner: Runner
 }) {
   const sampleSize = 100
   const { t } = useTranslation()
-  const [progress] = hasProgress(props.appName)
+  const [progress] = hasProgress(props.appName, props.runner)
   const [avgSpeed, setAvgDownloadSpeed] = useState<Point[]>(
     Array<Point>(sampleSize).fill({ download: 0, disk: 0 })
   )

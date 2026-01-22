@@ -1,6 +1,6 @@
 import { initImagesCache } from './images_cache'
 import { downloadAntiCheatData } from './anticheat/utils'
-import { DiskSpaceData, StatusPromise } from 'common/types'
+import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -13,7 +13,12 @@ import {
   clipboard,
   session
 } from 'electron'
-import { addHandler, addListener, addOneTimeListener } from 'backend/ipc'
+import {
+  addHandler,
+  addListener,
+  addOneTimeListener,
+  sendFrontendMessage
+} from 'backend/ipc'
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
@@ -23,13 +28,14 @@ import 'source-map-support/register'
 import Backend from 'i18next-fs-backend'
 import i18next from 'i18next'
 import { join } from 'path'
-import { DXVK, SteamWindows, Winetricks } from './tools'
+import { DXVK, Winetricks } from './tools'
 import { GameConfig } from './game_config'
 import { GlobalConfig } from './config'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { GOGUser } from './storeManagers/gog/user'
 import gogPresence from './storeManagers/gog/presence'
 import { NileUser } from './storeManagers/nile/user'
+import { ZoomUser } from './storeManagers/zoom/user'
 import {
   clearCache,
   isEpicServiceOffline,
@@ -50,6 +56,7 @@ import {
   writeConfig,
   createNecessaryFolders
 } from './utils'
+import { startPlausible } from './utils/plausible'
 
 import {
   getDiskInfo,
@@ -62,16 +69,20 @@ import { Path } from './schemas'
 import { uninstallGameCallback } from './utils/uninstaller'
 import { handleProtocol } from './protocol'
 import {
-  initLogger,
+  init as initLogger,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from './logger/logger'
+} from './logger'
 import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
-import { getFonts } from 'font-list'
-import { launchEventCallback, readKnownFixes, runWineCommand } from './launcher'
+import {
+  launchEventCallback,
+  readKnownFixes,
+  runWineCommand,
+  validWine
+} from './launcher'
 import { initQueue } from './downloadmanager/downloadqueue'
 import {
   initOnlineMonitor,
@@ -83,7 +94,6 @@ import { callAbortController } from './utils/aborthandler/aborthandler'
 import { getDefaultSavePath } from './save_sync'
 import { initTrayIcon } from './tray_icon/tray_icon'
 import { createMainWindow, getMainWindow, isFrameless } from './main_window'
-import { sendFrontendMessage } from './ipc'
 
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import {
@@ -108,7 +118,7 @@ import {
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
 import { backendEvents } from './backend_events'
-import { configStore, fontsStore } from './constants/key_value_stores'
+import { configStore } from './constants/key_value_stores'
 import {
   customThemesWikiLink,
   discordLink,
@@ -139,6 +149,7 @@ import {
   gamesConfigPath,
   publicDir,
   userHome,
+  webviewPreloadPath,
   windowIcon
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
@@ -181,6 +192,8 @@ async function initializeWindow(): Promise<BrowserWindow> {
         shouldDownloadWine = true
       }
     }
+
+    void DXVK.getLatest()
 
     Winetricks.download()
     if (shouldDownloadWine) {
@@ -226,10 +239,10 @@ async function initializeWindow(): Promise<BrowserWindow> {
       })
     }
 
-    const { exitToTray } = GlobalConfig.get().getSettings()
+    const { exitToTray, noTrayIcon } = GlobalConfig.get().getSettings()
 
-    if (exitToTray) {
-      logInfo('Exitting to tray instead of quitting', LogPrefix.Backend)
+    if (exitToTray && !noTrayIcon) {
+      logInfo('Exiting to tray instead of quitting', LogPrefix.Backend)
       return mainWindow.hide()
     }
 
@@ -245,7 +258,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
   } else {
     Menu.setApplicationMenu(null)
     mainWindow.loadFile(join(publicDir, 'index.html'))
-    if (globalConf.checkForUpdatesOnStartup && !isLinux) {
+    if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
   }
@@ -305,7 +318,7 @@ const processZoomForScreen = (zoomFactor: number) => {
 }
 
 if (!gotTheLock) {
-  logInfo('Heroic is already running, quitting this instance')
+  console.log('Heroic is already running, quitting this instance')
   app.quit()
 } else {
   app.on('second-instance', (event, argv) => {
@@ -316,9 +329,10 @@ if (!gotTheLock) {
     handleProtocol(argv)
   })
   app.whenReady().then(async () => {
+    initLogger()
+
     await MigrationSystem.get().applyMigrations()
 
-    initLogger()
     initOnlineMonitor()
     initStoreManagers()
     initImagesCache()
@@ -356,6 +370,10 @@ if (!gotTheLock) {
     })
 
     const settings = GlobalConfig.get().getSettings()
+
+    if (settings && settings.analyticsOptIn === true) {
+      startPlausible()
+    }
 
     if (settings?.disableSmoothScrolling) {
       app.commandLine.appendSwitch('disable-smooth-scrolling')
@@ -401,16 +419,24 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
-    const headless = isCLINoGui || settings.startInTray
+    const headless =
+      isCLINoGui || (settings.startInTray && !settings.noTrayIcon)
     if (!headless) {
-      mainWindow.once('ready-to-show', () => {
+      const isWayland = Boolean(process.env.WAYLAND_DISPLAY)
+      const showWindow = () => {
         const props = configStore.get_nodefault('window-props')
         mainWindow.show()
         // Apply maximize only if we show the window
         if (props?.maximized) {
           mainWindow.maximize()
         }
-      })
+      }
+      if (isWayland) {
+        // Electron + Wayland don't send ready-to-show
+        mainWindow.webContents.once('did-finish-load', showWindow)
+      } else {
+        mainWindow.once('ready-to-show', showWindow)
+      }
     }
 
     // set initial zoom level after a moment, if set in sync the value stays as 1
@@ -639,7 +665,6 @@ addHandler('getMaxCpus', () => cpus().length)
 
 addHandler('getHeroicVersion', app.getVersion)
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
-addHandler('isFlatpak', () => isFlatpak)
 addHandler('getGameOverride', async () => getGameOverride())
 addHandler('getGameSdl', async (event, appName) => getGameSdl(appName))
 
@@ -765,6 +790,16 @@ addHandler('getAmazonLoginData', NileUser.getLoginData)
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
 addHandler('logoutAmazon', NileUser.logout)
 
+addHandler('authZoom', async (event, url) => {
+  const login = await ZoomUser.login(url)
+  if (login.status === 'done') {
+    await ZoomUser.getUserDetails()
+  }
+  return login
+})
+addListener('logoutZoom', ZoomUser.logout)
+addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
+
 addHandler('getAlternativeWine', async () =>
   GlobalConfig.get().getAlternativeWine()
 )
@@ -844,10 +879,6 @@ addHandler('refreshLibrary', async (e, library?) => {
     await Promise.allSettled(allRefreshPromises)
   }
 })
-
-addListener('logError', (e, err) => logError(err, LogPrefix.Frontend))
-
-addListener('logInfo', (e, info) => logInfo(info, LogPrefix.Frontend))
 
 // get pid/tid on launch and inject
 addHandler('launch', (event, args): StatusPromise => {
@@ -976,11 +1007,14 @@ addHandler(
     sendGameStatusUpdate({
       appName,
       runner,
-      status: 'installing'
+      status: 'importing'
     })
 
     const abortMessage = () => {
-      notify({ title, body: i18next.t('notify.install.canceled') })
+      notify({
+        title,
+        body: i18next.t('notify.import.failed', 'Importing Failed')
+      })
       sendGameStatusUpdate({
         appName,
         runner,
@@ -1199,17 +1233,9 @@ addHandler('gamepadAction', async (event, args) => {
   }
 })
 
-addHandler('getFonts', async (event, reload) => {
-  let cachedFonts = fontsStore.get('fonts', [])
-  if (cachedFonts.length === 0 || reload) {
-    cachedFonts = await getFonts()
-    cachedFonts = cachedFonts.sort((a, b) => a.localeCompare(b))
-    fontsStore.set('fonts', cachedFonts)
-  }
-  return cachedFonts
-})
-
 addHandler('getShellPath', async (event, path) => getShellPath(path))
+
+addHandler('getWebviewPreloadPath', () => webviewPreloadPath)
 
 addHandler('clipboardReadText', () => clipboard.readText())
 
@@ -1326,8 +1352,8 @@ addHandler('getKnownFixes', (e, appName, runner) =>
   readKnownFixes(appName, runner)
 )
 
-addHandler('installSteamWindows', async (e, path) =>
-  SteamWindows.installSteam(path)
+addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
+  validWine(wineVersion)
 )
 
 /*

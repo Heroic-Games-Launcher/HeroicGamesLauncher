@@ -1,0 +1,690 @@
+.gameConfigContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content 1fr min-content;
+  padding: var(--space-md);
+  gap: var(--space-md);
+  border-radius: 10px;
+  height: 100%;
+  max-width: 2400px;
+  grid-template-areas:
+    'header header'
+    'main extra'
+    'report report';
+
+  overflow: hidden;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  &:has(.UpdateComponent) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  /*
+  ** Adding icons to the MUI tabs makes them at least 72px high
+  ** min-height is guaranteed by the min height of the tab parent element itself
+  ** which is 44px
+  */
+
+  .MuiTab-labelIcon {
+    min-height: unset;
+    align-items: center;
+  }
+
+  & > p {
+    margin-block-start: var(--space-xs);
+    margin-block-end: var(--space-xs);
+  }
+
+  ::-webkit-scrollbar {
+    background: none;
+  }
+
+  .backButton {
+    justify-self: flex-start;
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+    color: var(--status-default-hover);
+    background-color: var(--navbar-background);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    border: none;
+
+    svg path {
+      fill: currentColor;
+      transition: fill 0.2s;
+    }
+
+    &:hover {
+      color: var(--status-default-hover);
+    }
+  }
+
+  .topRowWrapper {
+    display: flex;
+    grid-area: header;
+    align-items: center;
+    justify-content: space-between;
+    gap: auto;
+    z-index: 1;
+
+    & > * {
+      filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
+    }
+
+    .backButton {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+  }
+
+  .topRowWapperInner {
+    display: flex;
+    grid-area: header;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1;
+  }
+
+  .mainInfoWrapper,
+  .extraInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-height: 1100px;
+    max-width: 1200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-items: flex-start;
+    justify-self: start;
+  }
+
+  .mainInfoWrapper {
+    grid-area: main;
+    container: main-info-wrapper / size;
+  }
+
+  .extraInfoWrapper {
+    grid-area: extra;
+    max-width: 850px;
+    gap: 1rem;
+  }
+
+  .mainInfo,
+  .extraInfo {
+    outline: 3px solid #8a8a8a;
+    outline-offset: -3px;
+    border-radius: 15px;
+    isolation: isolate;
+    position: relative;
+    overflow: hidden;
+    align-self: stretch;
+    justify-self: stretch;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    & > * {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+    }
+
+    & > .popover-wrapper {
+      z-index: 3;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      inset: 0px;
+      position: absolute;
+      z-index: 0;
+      background-image: linear-gradient(
+        180deg,
+        transparent,
+        var(--body-background) 70%
+      );
+    }
+  }
+
+  .mainInfoWrapper {
+    .mainInfo {
+      padding: 0px min(4vw, 70px);
+      background-color: var(--body-background);
+
+      .store-icon {
+        position: absolute;
+        left: 0.5rem;
+        top: 0.5rem;
+      }
+
+      .gamePicture {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        right: 2px;
+        z-index: -1;
+        border-radius: 10px;
+        overflow: hidden;
+
+        &::after {
+          content: '';
+          background-image: linear-gradient(
+            180deg,
+            transparent,
+            var(--body-background)
+          );
+        }
+      }
+
+      & > :last-child {
+        margin-bottom: 25px;
+      }
+
+      h1 {
+        font-size: 34px;
+        line-height: 39px;
+        padding: var(--space-xs) 0;
+        margin-bottom: 0.8rem;
+        color: var(--text-title);
+        margin-top: 16vh;
+      }
+
+      .developer {
+        margin-bottom: 0.5rem;
+        color: var(--brand-text-02);
+        font-size: var(--text-md);
+        font-style: italic;
+      }
+
+      .releaseDate {
+        margin-bottom: 0.3rem;
+        color: var(--neutral-05);
+        font-size: var(--text-xs);
+      }
+
+      .summary {
+        overflow: auto;
+        font-size: var(--text-md);
+        line-height: 1.5em;
+        text-align: left;
+        flex-grow: 1;
+        margin-top: var(--space-xs);
+        color: var(--neutral-06);
+        padding: 16px 0;
+      }
+
+      .timeContainerLabel {
+        margin-top: 0.8rem;
+        color: var(--neutral-05);
+        font-size: var(--text-md);
+      }
+
+      .genres {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        margin-bottom: 0.8rem;
+
+        .genre {
+          background: var(--accent-02);
+          color: var(--brand-text-05);
+          padding: 4px 8px;
+          border-radius: 16px;
+          border: 1px solid var(--accent-02);
+          font-size: var(--text-sm);
+          font-weight: 600;
+        }
+      }
+
+      .gameStatus {
+        text-align: left;
+      }
+
+      .MuiLinearProgress-root {
+        display: block;
+        background-color: var(--neutral-05);
+
+        .MuiLinearProgress-bar {
+          background-color: var(--success);
+        }
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 15px;
+        max-width: 250px;
+        border-radius: 8px;
+
+        .buttonWithIcon > svg {
+          display: flex;
+          justify-content: center;
+          margin-inline-end: var(--space-2xs);
+        }
+
+        & > button {
+          align-self: center;
+        }
+
+        & .playButtons {
+          display: flex;
+          justify-content: center;
+
+          .altPlay {
+            position: relative;
+            margin-inline-start: 1px;
+            padding-inline: 8px;
+
+            & > svg {
+              rotate: 90deg;
+              font-size: 0.7rem;
+            }
+
+            a {
+              display: none;
+              position: absolute;
+              bottom: 100%;
+              right: -10px;
+              white-space: nowrap;
+            }
+
+            &:focus,
+            &:hover,
+            &:focus-within {
+              a {
+                display: block;
+              }
+            }
+          }
+        }
+
+        & .mainBtn {
+          min-width: 200px;
+          font-size: var(--text-md);
+          display: flex;
+          justify-content: center;
+          white-space: nowrap;
+
+          span {
+            white-space: nowrap;
+          }
+
+          & svg {
+            transform: scale(1.2);
+            height: 16px;
+            width: 16px;
+            align-self: center;
+            color: var(--neutral-02);
+            &[data-icon='play'],
+            &[data-icon='stop'] {
+              /* For some reason Play/Stop icons are much smaller the rest */
+              transform: scale(1.6);
+            }
+          }
+        }
+
+        & .delBtn {
+          font-size: var(--text-md);
+          min-width: 150px;
+          & svg {
+            margin-inline-end: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .extraInfoWrapper {
+    .extraInfo {
+      padding: 3vh 3.5vw;
+      gap: var(--space-sm);
+
+      & > div:last-child {
+        overflow-y: auto;
+      }
+
+      & div.infoTab,
+      & div.extraTab {
+        & > div > * {
+          display: flex;
+          overflow: hidden;
+          text-align: end;
+          font-size: var(--space-unit-fixed);
+          line-height: 24px;
+          gap: var(--space-md-fixed);
+          padding: var(--space-unit-fixed);
+          align-items: center;
+          border-bottom: 1px solid var(--neutral-04);
+          background-image: linear-gradient(to right, transparent, transparent);
+          background-position: bottom;
+          background-size: 100vw;
+          background-repeat: no-repeat;
+
+          svg {
+            outline: none;
+          }
+
+          &:focus-visible,
+          &:has(:focus-visible) {
+            /* do not use :focus-within to prevent outline form appearing when using a mouse */
+            outline: 2px auto -webkit-focus-ring-color;
+          }
+
+          &:last-child {
+            border-bottom: 0px;
+          }
+
+          b {
+            text-align: start;
+            white-space: nowrap;
+            flex-grow: 1;
+            flex-basis: 140px;
+            flex-shrink: 0;
+          }
+
+          .truncatedPath {
+            z-index: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-break: break-all;
+          }
+
+          &:hover .truncatedPath,
+          &:focus .truncatedPath {
+            overflow: visible;
+            white-space: normal;
+            background: var(--body-background);
+          }
+        }
+        & > div > .hltbWrapper > .MuiAccordion-root {
+          background-color: unset;
+          box-shadow: none;
+          color: var(--text-default);
+          flex-grow: 1;
+
+          & > .MuiAccordionSummary-root:focus-visible {
+            background: unset; /* no more darker background */
+          }
+
+          & > .MuiAccordionSummary-root {
+            padding: 0;
+            min-height: unset;
+
+            & > .MuiAccordionSummary-content {
+              margin: 0;
+              display: flex;
+              gap: 10px;
+            }
+
+            & .MuiAccordionSummary-expandIconWrapper {
+              color: inherit;
+            }
+          }
+
+          .MuiAccordionDetails-root {
+            padding-bottom: 8px;
+          }
+        }
+      }
+    }
+
+    .anticheatInfo {
+      max-width: none;
+      margin: 0;
+      align-self: center;
+    }
+  }
+
+  .reportProblem {
+    display: flex;
+    grid-area: report;
+
+    svg {
+      margin-inline-end: 0.5rem;
+    }
+  }
+
+  .store-icon {
+    border-radius: 10px;
+    padding: var(--space-3xs);
+    place-content: center;
+    fill: var(--text-default);
+
+    & > svg {
+      background-color: var(--body-background);
+      width: 46px;
+      height: 46px;
+      padding: var(--space-2xs);
+      border-radius: 10px;
+
+      &.gogIcon {
+        padding: 0px var(--space-3xs) var(--space-3xs);
+      }
+    }
+  }
+
+  .settings-icon {
+    width: 44px;
+    position: relative;
+    padding: 6px;
+    color: var(--navbar-inactive);
+    background-color: var(--navbar-background);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    height: 44px;
+
+    svg path {
+      fill: currentColor;
+      transition: fill 0.2s;
+    }
+
+    &:hover {
+      color: var(--navbar-active);
+    }
+  }
+
+  .game-actions {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .toggle {
+      align-self: flex-end;
+      border: none;
+      color: var(--navbar-inactive);
+      font-size: var(--text-2xl);
+      padding: var(--space-xs-fixed);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+      display: flex;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background-color: var(--navbar-background);
+      border-radius: 10px;
+    }
+
+    &:focus-within .toggle,
+    &:hover .toggle,
+    .toggle:hover {
+      color: var(--navbar-active);
+    }
+
+    .gameTools {
+      position: absolute;
+      opacity: 1;
+      pointer-events: all;
+      transition: all 0.2s;
+      background-color: var(--navbar-background);
+      border-radius: 5px;
+      z-index: 2;
+      padding: 0;
+      max-height: 0px;
+      overflow: hidden;
+      right: 0;
+      top: 112%;
+    }
+
+    .gameTools .link {
+      width: 100%;
+      text-align: start;
+      white-space: nowrap;
+      font-size: 1rem;
+      background: none;
+      color: var(--navbar-inactive);
+
+      &:hover {
+        color: var(--navbar-active);
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &:focus-within .gameTools,
+    &:hover .gameTools {
+      opacity: 1;
+      pointer-events: all;
+      padding: var(--space-md);
+      max-height: 100vh;
+      box-shadow: 4px 5px 5px -2px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  & .backgroundImage {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    object-fit: cover;
+    filter: blur(15px);
+    opacity: 0.3;
+  }
+}
+
+.App.isRTL .gameConfigContainer .game-actions .gameTools {
+  left: 0;
+  right: unset;
+}
+
+.App.frameless:not(.fullscreen) .topRowWrapper {
+  margin-right: var(--overlay-controls-width);
+}
+
+.gameConfigContainer {
+  .wikiLink {
+    background: var(--status-warning);
+    color: black;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    & svg {
+      margin-inline-end: 0.5rem;
+    }
+    & a {
+      color: black;
+      text-decoration: underline;
+    }
+  }
+}
+
+@container main-content (max-width: 700px) {
+  .gameConfigContainer {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr 1fr min-content;
+    grid-template-areas:
+      'header'
+      'main'
+      'extra'
+      'report';
+  }
+}
+
+@container main-info-wrapper (max-height: 560px) {
+  .mainInfo {
+    .developer,
+    .releaseDate,
+    .genre {
+      display: none;
+    }
+  }
+}
+
+@container main-info-wrapper (max-height: 500px) {
+  .mainInfo {
+    .summary {
+      display: none;
+    }
+  }
+}
+
+@container main-info-wrapper (max-height: 450px) {
+  .mainInfo {
+    .gameStatus,
+    .timeContainerLabel {
+      display: none;
+    }
+  }
+}
+
+.extraInfoTabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .gameInfoTabs {
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3xs);
+    border: 1px solid var(--neutral-04);
+    @supports (
+      background-color: color-mix(in srgb, var(--neutral-02), transparent)
+    ) {
+      background-color: color-mix(in srgb, var(--neutral-02) 35%, transparent);
+    }
+    @supports not (
+      background-color: color-mix(in srgb, var(--neutral-02), transparent)
+    ) {
+      background-color: var(--neutral-02);
+      opacity: 0.35;
+    }
+    border-radius: var(--space-xs);
+
+    .MuiTabs-indicator {
+      display: none;
+    }
+
+    .MuiTabs-flexContainer {
+      border-bottom: none;
+    }
+  }
+
+  .gameInfoTabsIcon {
+    width: 1rem;
+    height: 1rem;
+  }
+}

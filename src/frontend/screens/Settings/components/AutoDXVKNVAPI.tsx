@@ -4,11 +4,11 @@ import useSetting from 'frontend/hooks/useSetting'
 import { useTranslation } from 'react-i18next'
 import { defaultWineVersion } from '..'
 import SettingsContext from '../SettingsContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AutoDXVKNVAPI = () => {
   const { t } = useTranslation()
+  const [autoInstallDxvk] = useSetting('autoInstallDxvk', false)
   const [autoInstallDXVKNVAPI, setAutoInstallDXVKNVAPI] = useSetting(
     'autoInstallDxvkNvapi',
     false
@@ -51,13 +51,11 @@ const AutoDXVKNVAPI = () => {
               )
         }
         fading={installingDxvkNvapi}
-        disabled={installingDxvkNvapi}
+        disabled={!autoInstallDxvk || installingDxvkNvapi}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.dxvknvapi',
           'DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.'
         )}

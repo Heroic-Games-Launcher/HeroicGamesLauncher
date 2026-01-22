@@ -101,21 +101,23 @@
 }
 
 .warning {
-  color: yellow;
-  font-size: var(--text-sm);
+  color: var(--status-warning);
+  font-size: var(--text-md);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
   padding-top: var(--space-3xs);
+  font-weight: bold;
 }
 
 .error {
-  color: red;
-  font-size: var(--text-sm);
+  color: var(--danger);
+  font-size: var(--text-md);
   width: 100%;
   max-width: 513px;
   white-space: break-spaces;
   padding-top: var(--space-3xs);
+  font-weight: bold;
 }
 
 .smallLink {

@@ -1,9 +1,7 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableEsync = () => {
   const { t } = useTranslation()
@@ -19,10 +17,8 @@ const EnableEsync = () => {
         title={t('setting.esync', 'Enable Esync')}
       />
 
-      <FontAwesomeIcon
-        className="helpIcon"
-        icon={faCircleInfo}
-        title={t(
+      <InfoIcon
+        text={t(
           'help.esync',
           'Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.'
         )}

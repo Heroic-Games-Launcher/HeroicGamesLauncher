@@ -12,7 +12,7 @@ async function getOsInfo(): Promise<{ name: string; version?: string }> {
       // FIXME: I'd like to return the OS's codename ("Monterey", "Ventura", and
       //        so on) here, but the only way for applications to obtain those
       //        seems to be scraping a license file (https://unix.stackexchange.com/questions/234104/get-osx-codename-from-command-line)
-      return { name: '' }
+      return { name: 'macOS' }
     default:
       return { name: '' }
   }

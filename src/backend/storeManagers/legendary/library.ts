@@ -26,13 +26,12 @@ import {
   axiosClient
 } from '../../utils'
 import {
-  legendaryLogFile,
   logDebug,
   logError,
   logInfo,
   LogPrefix,
   logWarning
-} from '../../logger/logger'
+} from 'backend/logger'
 import {
   gamesOverrideStore,
   installStore,
@@ -491,7 +490,10 @@ function loadFile(app_name: string): boolean {
     const data = loadGameMetadata(app_name)
     metadata = data.metadata
   } catch (error) {
-    logError(['Failed to parse metadata for', app_name], LogPrefix.Legendary)
+    logError(
+      [`Failed to parse metadata for ${app_name}:`, error],
+      LogPrefix.Legendary
+    )
     return false
   }
   const { namespace } = metadata
@@ -525,12 +527,10 @@ function loadFile(app_name: string): boolean {
     return false
   }
 
-  // skip games that are only available for Android, obtanied from the Epic Mobile Store app
-  // TODO: I don't own any game on PC and the mobile store so I don't know if they have to be
-  // handled differently, for now we are only skipping if it's only available for Android
+  // skip games that are only available for Android or iOS, obtanied from the Epic Mobile Store app
   if (
     releaseInfo.every((info) =>
-      info.platform?.every((plat) => plat === 'Android')
+      info.platform?.every((plat) => plat === 'Android' || plat === 'iOS')
     )
   ) {
     return false
@@ -570,9 +570,13 @@ function loadFile(app_name: string): boolean {
       : customAttributes?.CloudSaveFolder?.value) ?? ''
   const installFolder = FolderName ? FolderName.value : app_name
 
-  const gameBox = keyImages.find(({ type }) => type === 'DieselGameBox')
+  const gameBox = keyImages.find(
+    ({ type }) => type === 'DieselGameBox' || type === 'OfferImageWide'
+  )
 
-  const gameBoxTall = keyImages.find(({ type }) => type === 'DieselGameBoxTall')
+  const gameBoxTall = keyImages.find(
+    ({ type }) => type === 'DieselGameBoxTall' || type === 'OfferImageTall'
+  )
 
   const gameBoxStore = keyImages.find(
     ({ type }) => type === 'DieselStoreFrontTall'
@@ -701,10 +705,7 @@ export async function runRunnerCommand(
   return callRunner(
     commandParts,
     { name: 'legendary', logPrefix: LogPrefix.Legendary, bin, dir },
-    {
-      ...options,
-      verboseLogFile: legendaryLogFile
-    }
+    options
   )
 }
 
@@ -918,7 +919,8 @@ export async function getLaunchOptions(
           'Failed to load DLC metadata for',
           dlc.app_name,
           '(base game is',
-          `${appName})`
+          `${appName}):`,
+          e
         ],
         LogPrefix.Legendary
       )

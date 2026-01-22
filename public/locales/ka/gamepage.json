@@ -1,0 +1,128 @@
+{
+    "box": {
+        "choose": "აირჩიეთ",
+        "close": "დახურვა",
+        "no": "არა",
+        "select": {
+            "button": "არჩევა",
+            "image": "აირჩიეთ გამოსახულება"
+        },
+        "uninstall": {
+            "title": "წაშლა"
+        },
+        "yes": "დიახ",
+        "sideload": {
+            "exe": "აირჩიეთ გამშვები ფაილი"
+        },
+        "stopInstall": {
+            "keepInstalling": "დაყენების გაგრძელება",
+            "title": "დაყენების გაჩერება"
+        }
+    },
+    "button": {
+        "cancel": "შეჩერება/გაუქმება",
+        "uninstall": "წაშლა",
+        "details": "დეტალები",
+        "finish": "დასრულება",
+        "install": "დაყენება",
+        "update": "განახლება",
+        "browse_files": "ფაილების დათვალიერება",
+        "changelog": "ცვლილებების ჟურნალის ჩვენება",
+        "continue": "გადმოწერის გაგრძელება",
+        "force-innstall": "ძალით დაყენება",
+        "hide_game": "თამასის დამალვა",
+        "import": "თამაშის შემოტანა",
+        "running-setup": "დაყენების გაშვება",
+        "sideload": {
+            "edit": "აპის/თამაშის ჩასწორება"
+        },
+        "unhide_game": "თამაშის ხილულად გახდომა"
+    },
+    "cloud_save_unsupported": "მხარდაუწერელი",
+    "disabled": "გათიშულია",
+    "enabled": "ჩართულია",
+    "game": {
+        "branch": {
+            "disabled": "გათიშულია"
+        },
+        "builds": {
+            "version": "ვერსია"
+        },
+        "language": "ენა",
+        "neverPlayed": "არასდროს",
+        "downloadSize": "გადმოწერის ზომა",
+        "extra_info": "დამატ. ინფორმაცია",
+        "firstPlayed": "პირველი გაშვება",
+        "install_info": "დაყენების ინფორმაცია",
+        "installSize": "დაყენებული ზომა",
+        "lastPlayed": "ბოლო გაშვება",
+        "modify": "დაყენების შეცვლა",
+        "requirements": "სისტემური მოთხოვნები"
+    },
+    "gamecard": {
+        "moving": "გადაადგილება",
+        "repairing": "შეკეთება"
+    },
+    "hours": "საათი",
+    "how-long-to-beat": {
+        "completionist": "დასრულების დონე"
+    },
+    "info": {
+        "size": "ზომა",
+        "version": "ვერსია"
+    },
+    "install": {
+        "anticheat-warning": {
+            "cancel": "არა",
+            "ok": "დიახ"
+        },
+        "wineprefix": "Wine-ის პრეფიქსი",
+        "wineversion": "Wine-ის ვერსია"
+    },
+    "label": {
+        "launching": "ეშვება",
+        "steam": {
+            "installing": "მიმდინარეობს დაყენება",
+            "specificVersion-pt2": "archive.org",
+            "installation": "დაყენების გაჩერება"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC"
+    },
+    "Open": "გახსნა",
+    "queue": {
+        "label": {
+            "canceled": "გაუქმებულია"
+        }
+    },
+    "sideload": {
+        "field": {
+            "title": "სათაური"
+        },
+        "info": {
+            "broser": "ბრაუზერის URL",
+            "exe": "აირჩიეთ გამშვები ფაილი"
+        }
+    },
+    "specs": {
+        "minimum": "მინიმუმი",
+        "recommended": "რეკომენდებულია"
+    },
+    "status": {
+        "downloading": "გადმოწერა",
+        "extracting": "გაშლა",
+        "importing": "შემოტანა",
+        "installed": "დაყენებულია",
+        "installing": "მიმდინარეობს დაყენება",
+        "launching": "ეშვება",
+        "playing": "თამაში",
+        "queued": "რიგშია",
+        "uninstalling": "წაშლა"
+    },
+    "submenu": {
+        "categories": "კატეგორიები",
+        "logs": "ჟურნალი",
+        "settings": "პარამეტრები"
+    }
+}

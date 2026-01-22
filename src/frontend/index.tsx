@@ -1,6 +1,6 @@
 import { I18nextProvider, initReactI18next } from 'react-i18next'
 import HttpApi from 'i18next-http-backend'
-import React, { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import i18next from 'i18next'
 import { initGamepad } from './helpers/gamepad'
@@ -83,6 +83,7 @@ i18next
       'fa',
       'fi',
       'fr',
+      'ga',
       'gl',
       'he',
       'hr',
@@ -214,7 +215,7 @@ window.imageData = async (
     )
 
     img.addEventListener('error', (error) => {
-      reject(error)
+      reject(new Error(error.message, { cause: error }))
     })
 
     // set src to trigger the callback

@@ -180,7 +180,8 @@
         "redist": "再頒布可能ファイルのインストール",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "インストールを停止する"
         }
     },
     "launch": {
@@ -191,17 +192,17 @@
         "gog": "HeroicにGOGアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
         "login": "ログイン",
         "title": "ログインしていません",
-        "amazon": "HeroicのAmazonアカウントでログインしていません。 ストアページを使用してログインしないでください。代わりに次のボタンをクリックしてください:"
+        "amazon": "HeroicのAmazonアカウントでログインしていません。 ストアページを使用してログインしないでください。代わりに次のボタンをクリックしてください:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "このゲームの実行に関する問題を報告",
     "sdl": {
         "title": "インストールするコンポーネントを選択"
     },
     "setting": {
-        "use-default-wine-settings": "デフォルトのWine設定を使用",
         "winecrossoverbottle": "CrossOverボトル",
         "show-wine-settings": "Wineの設定を表示する",
-        "warn-use-default-wine-settings": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。"
+        "warn-use-shared-wine-config": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。"
     },
     "sideload": {
         "field": {

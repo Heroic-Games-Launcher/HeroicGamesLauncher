@@ -290,7 +290,8 @@
         "title": {
             "accessibility": "Erabilerraztasuna",
             "downloadManager": "Download Manager"
-        }
+        },
+        "dxfpslimit": "Sets a frame rate cap for DXVK games"
     },
     "info": {
         "heroic": {
@@ -738,5 +739,8 @@
     },
     "window": {
         "close": "Itxi"
+    },
+    "analyticsModal": {
+        "disable": "Desgaituta"
     }
 }

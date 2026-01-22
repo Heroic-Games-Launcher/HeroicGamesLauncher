@@ -1,7 +1,7 @@
 import TextInputWithIconField from '../TextInputWithIconField'
 import Backspace from '@mui/icons-material/Backspace'
 import Folder from '@mui/icons-material/Folder'
-import React, { ReactNode, useState, useEffect } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { FileFilter } from 'electron'
 
@@ -80,7 +80,7 @@ const PathSelectionBox = ({
   return (
     <TextInputWithIconField
       value={tmpPath}
-      onChange={(e) => setTmpPath(e.target.value)}
+      onChange={(newVal) => setTmpPath(newVal)}
       onBlur={(e) => onPathChange(e.target.value)}
       onIconClick={handleIconClick}
       placeholder={placeholder}

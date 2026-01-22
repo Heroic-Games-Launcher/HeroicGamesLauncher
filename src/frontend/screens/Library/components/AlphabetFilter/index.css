@@ -1,0 +1,86 @@
+:root {
+  --alphabet-filter-accent-color: var(--primary, var(--brand-primary));
+  --alphabet-filter-accent-hover: var(
+    --primary-hover,
+    var(--brand-primary-hover)
+  );
+  --alphabet-filter-text-available: var(--text-secondary);
+  --alphabet-filter-text-hover: var(--text-hover);
+  --alphabet-filter-text-disabled: var(--input-background);
+  --alphabet-filter-bg-hover: var(
+    --alphabet-filter-bg-hover,
+    rgba(255, 255, 255, 0.12)
+  );
+  --alphabet-filter-shadow-color: rgb(
+    from var(--alphabet-filter-accent-color) r g b / 0.25
+  );
+
+  --alphabet-filter-border-radius: 8px;
+  --alphabet-filter-transition-speed: 0.2s ease-in-out;
+}
+
+.alphabet-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 8px var(--space-md-fixed);
+}
+
+.alphabet-filter-button {
+  background-color: transparent;
+  border: none;
+  color: var(--alphabet-filter-accent-color);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  padding: 8px 6px;
+  margin: 0 min(0.4%, 4px);
+  min-width: 24px;
+  width: 2.5%;
+  max-width: 42px;
+  text-align: center;
+  vertical-align: middle;
+
+  border-radius: var(--alphabet-filter-border-radius);
+  transition: all var(--alphabet-filter-transition-speed);
+  user-select: none;
+  outline: none;
+}
+
+.alphabet-filter-button:not(.alphabet-filter-button--active):not(
+    .alphabet-filter-button--disabled
+  ):hover {
+  background-color: var(--alphabet-filter-bg-hover);
+  color: var(--alphabet-filter-text-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px var(--alphabet-filter-accent-color);
+}
+
+.alphabet-filter-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--alphabet-filter-accent-color);
+}
+
+.alphabet-filter-button--active {
+  background-color: var(--alphabet-filter-accent-color);
+  color: var(--text-tertiary);
+  font-weight: 700;
+  box-shadow: 0 4px 12px -2px var(--alphabet-filter-shadow-color);
+  transform: translateY(-2px);
+}
+
+.alphabet-filter-button--active:hover {
+  background-color: var(--alphabet-filter-accent-hover);
+  box-shadow:
+    0 4px 12px -2px var(--alphabet-filter-shadow-color),
+    0 0 0 2px var(--alphabet-filter-accent-hover);
+}
+
+.alphabet-filter-button--disabled {
+  color: var(--alphabet-filter-text-disabled);
+  cursor: auto;
+  opacity: 0.5;
+}

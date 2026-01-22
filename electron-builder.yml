@@ -9,6 +9,7 @@ files:
 asarUnpack:
   - build/icon.png
   - build/icon.icns
+  - build/mac-icon.icns
   - build/win_icon.ico
   - build/icon-dark.png
   - build/icon-light.png
@@ -23,6 +24,8 @@ protocols:
 win:
   artifactName: ${productName}-${version}-Setup-${arch}.${ext}
   icon: build/win_icon.ico
+  target:
+    - nsis
   files: build/bin/${arch}/win32/*
 
 portable:
@@ -31,7 +34,7 @@ portable:
 mac:
   artifactName: ${productName}-${version}-macOS-${arch}.${ext}
   category: public.app-category.games
-  icon: build/icon.icns
+  icon: build/mac-icon.icns
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
@@ -84,3 +87,8 @@ snap:
     channels:
       - edge
     repo: heroic
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: true

@@ -3,13 +3,7 @@ import { GOGCloudSavesLocation, SaveFolderVariable } from 'common/types/gog'
 import { getWinePath, setupWineEnvVars, verifyWinePrefix } from './launcher'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import { getSaveSyncLocation, readInfoFile } from './storeManagers/gog/library'
-import {
-  logDebug,
-  LogPrefix,
-  logInfo,
-  logError,
-  logWarning
-} from './logger/logger'
+import { logDebug, LogPrefix, logInfo, logError, logWarning } from './logger'
 import { getShellPath } from './utils'
 import {
   existsSync,
@@ -35,6 +29,8 @@ async function getDefaultSavePath(
     case 'nile':
       return ''
     case 'sideload':
+      return ''
+    case 'zoom':
       return ''
   }
 }

@@ -2,57 +2,58 @@
     "box": {
         "change": {
             "message": "Dette vil ændre installationens placering. Er du sikker?",
-            "path": "Vælg en ny installation sti",
-            "title": "Skift Spil Installation Sti"
+            "path": "Vælg en ny installationssti",
+            "title": "Skift installationssti for spil"
         },
         "move": {
             "path": "Vælg hvor du vil flytte til",
-            "title": "Flyt spil installation",
+            "title": "Flyt spilinstallation",
             "message": "Dette kan tage lang tid. Er du sikker?"
         },
         "no": "NEJ",
         "repair": {
-            "message": "Vil du forsøge at reparere dette spil? Det kan tage lang tid.",
-            "title": "Verificer og Reparer"
+            "message": "Vil du forsøge at reparere dette spil? Dette kan tage lang tid.",
+            "title": "Verificer og reparer"
         },
         "stopInstall": {
             "keepInstalling": "Fortsæt installationen",
-            "message": "Vil du fortsætte med at hente filerne?",
+            "message": "Vil du GEMME de downloadede filer?",
             "title": "Stop installationen"
         },
         "uninstall": {
-            "checkbox": "Vil du også fjerne prefixet? Dette kan ikke omgøres.",
+            "checkbox": "Fjern prefixet: {{prefix}}{{newLine}}Dette kan ikke omgøres og vil fjerne filer, der ikke er taget sikkerhedskopier af.",
             "checkbox_prefix": "Prefix",
-            "message": "Vil du afinstallere spillet?",
+            "message": "Vil du afinstallere \"{{title}}\"?",
             "title": "Afinstaller",
             "settingcheckbox": "Slet indstillinger og fjern log{{newLine}}Bemærk: Dette kan ikke fortrydes. Eventuelle ændrede indstillinger vil blive glemt, og log vil blive slettet.",
-            "prefix_warning": "Vinpræfikset for dette spil er standardpræfikset. Hvis du virkelig vil slette det, skal du gøre det manuelt.",
-            "dlc": "Vil du afinstallere denne DLC?",
+            "prefix_warning": "Wine-præfixet for dette spil er standardpræfikset. Hvis du vil slette det, skal du gøre det manuelt.",
+            "dlc": "Vil du afinstallere \"{{title}}\" DLC?",
             "gameIsRunning": "{{title}} kører. Luk spillet for at afinstallere det.",
-            "cannotUninstallEpic": "Epic games kan ikke blive afinstalleret imens et andet Epic spil er ved at blive installeret."
+            "cannotUninstallEpic": "Epic spil kan ikke afinstalleres, mens et andet Epic spil er ved at blive installeret."
         },
         "update": {
             "title": "Spillet skal opdateres",
-            "message": "Der findes en opdatering til spillet. Vil du updatere nu?"
+            "message": "Dette spil har en opdatering. Ønsker du at opdatere nu?"
         },
         "yes": "JA",
         "choose": "Vælg",
-        "importpath": "Vælg spil mappe til import",
+        "importpath": "Vælg spilmappe til import",
         "wineprefix": "Vælg WinePrefix mappe",
         "select": {
-            "button": "Vælg"
+            "button": "Vælg",
+            "image": "Vælg billede"
         },
         "runexe": {
-            "title": "Vælg EXE til at køre"
+            "title": "Vælg EXE for at køre"
         },
         "sideload": {
-            "exe": "Vælg Eksekverbar"
+            "exe": "Vælg eksekverbar fil"
         },
         "close": "Luk"
     },
     "button": {
         "cancel": "Pause/Afbryd",
-        "continue": "Fortsæt Download",
+        "continue": "Fortsæt download",
         "import": "Importer Spil",
         "install": "Installer",
         "uninstall": "Afinstaller",
@@ -75,7 +76,10 @@
             "edit": "Rediger app/spil"
         },
         "details": "detaljer",
-        "changelog": "Vis changelog"
+        "changelog": "Vis changelog",
+        "browse_files": "Gennemse filer",
+        "play": "SPIL",
+        "browse_wine_prefix": "Browse Wine Prefix"
     },
     "disabled": "Slå Fra",
     "dlc": {
@@ -147,14 +151,15 @@
             "multiplayer_message": "Anticheat-support virker ikke eller afvist. Spillet kan åbnes, men multiplayer-funktionerne virker ikke. Vil du installere det alligevel?",
             "cancel": "Nej",
             "title": "Anticheat Dysfunktionel/Afvist",
-            "disabled_installation": "Anticheat understøttelsen er dysfunktionel eller afvist. Multiplayer funktionaliteten vil ikke fungere. Spillet kan ikke installeres. For at installere dette spil skal denne mulighed deaktivere i de avancerede indstillinger."
+            "disabled_installation": "Dette spil bruger anticheat-software, der ikke er kompatibel med dit operativsystem, eller kompatibiliteten er ikke aktiveret af spiludviklerne. Det betyder, at multiplayer-funktionerne ikke vil fungere, og der er intet, du (eller Heroic-teamet) kan gøre ved det. <br /><br />For at installere dette spil og prøve det alligevel skal du gå til \"Indstillinger\", \"Avanceret\" og giv tilladelse til installation af spil med ødelagt eller afvist anticheat.<br /><br />Bemærk, at der ikke er nogen løsning på dette, og at du risikerer at blive udelukket fra spillet."
         },
         "flatpak-path-not-writtable": "Fejl: Sandboxens tilgang til denne sti er ikke givet. Tab af data vil forkomme."
     },
     "label": {
         "playing": {
             "start": "Spil Nu",
-            "stop": "Spiller (Stop)"
+            "stop": "Spiller (Stop)",
+            "start_with_logs": "Spil nu (med logfiler)"
         },
         "saves": {
             "syncing": "Synkroniserer Saves"
@@ -168,7 +173,8 @@
         "redist": "Installere Redistributables",
         "winetricks": "Installere Winetricks pakker",
         "steam": {
-            "installing": "Installerer"
+            "installing": "Installerer",
+            "installation": "Stop installationen"
         }
     },
     "launch": {
@@ -199,7 +205,7 @@
         "notSupportedGame": "Ikke understøttet",
         "this-game-uses-third-party": "Dette spil bruger tredjeparts launcher, og det er ikke understøttet endnu",
         "playing": "Spiller",
-        "moving-files": "Flytter fil '{{file}}': {{percent}} ",
+        "moving-files": "Flytter fil '{{file}}': {{percent}}%",
         "syncingSaves": "Synkroniserer Saves",
         "launching": "Lancering",
         "ubisoft": "Installation af Ubisoft",
@@ -208,7 +214,8 @@
         "gog-goodie": "Dette spil ser ikke ud til at kunne installeres. Tjek downloadbart indhold på https://gog.com/account",
         "goodie": "Kan ikke installeres",
         "winetricks": "Tilføjer Winetricks løsninger",
-        "redist": "Installerer Redistributables ({{redist}})"
+        "redist": "Installerer Redistributables ({{redist}})",
+        "importing": "Importerer"
     },
     "submenu": {
         "addShortcut": "Opret genvej",
@@ -239,12 +246,15 @@
         "gog": "Du er ikke logget ind med en GOG-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
         "login": "Log ind",
         "title": "Du er ikke logget ind",
-        "amazon": "Du er ikke logget ind med en Amazon-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:"
+        "amazon": "Du er ikke logget ind med en Amazon-konto i Heroic. Brug ikke butikssiden til at logge ind, klik i stedet på følgende knap:",
+        "zoom": "Du er ikke logget ind med en Zoom-konto i Heroic. Brug ikke butikssiden til at logge ind, men klik i stedet på følgende knap:"
     },
     "queue": {
         "label": {
             "canceled": "Download annulleret",
-            "remove": "Fjern fra Downloads"
+            "remove": "Fjern fra Downloads",
+            "pause": "Sæt download på pause",
+            "resume": "Genoptag download"
         }
     },
     "sideload": {
@@ -260,7 +270,7 @@
             "useragent": "Brugerdefineret User Agent"
         },
         "placeholder": {
-            "image": "Indsæt en billed-URL her",
+            "image": "Indsæt en billed-URL her, eller vælg en fra din computer",
             "title": "Tilføj en titel til dit spil/app",
             "url": "Indsæt spillets URL her",
             "useragent": "Skriv en brugerdefineret agent, der kan bruger i denne browser app/spil"
@@ -271,10 +281,10 @@
         }
     },
     "setting": {
-        "use-default-wine-settings": "Brug standard vinindstillinger",
         "winecrossoverbottle": "CrossOver flaske",
         "show-wine-settings": "Vis Wine indstillinger",
-        "warn-use-default-wine-settings": "Brug kun denne mulighed, hvis du ved hvad du laver. <br/>Deling af den samme prefeks over flere spil kan skabe problemer, hvis deres afhængigheder er inkompatible."
+        "warn-use-shared-wine-config": "Brug kun denne mulighed, hvis du ved hvad du laver. <br/>Deling af den samme prefeks over flere spil kan skabe problemer, hvis deres afhængigheder er inkompatible.",
+        "use-shared-wine-config": "Brug delt Wine Prefix"
     },
     "hours": "Timer",
     "how-long-to-beat": {
@@ -300,10 +310,12 @@
     "modifyInstall": {
         "nodlcs": "Ingen DLC tilgængelig",
         "redMod": {
-            "collapsible": "REDmod Integration",
+            "collapsible": "REDmod integration",
             "enable": "Aktiver mods"
         },
         "versionCollapsable": "Spil Version",
         "dlcsCollapsible": "DLC"
-    }
+    },
+    "Open": "Åbn",
+    "wikiLink": "Vigtig information om dette spil, læs dette:&nbsp;<1>Åbn side</1>"
 }

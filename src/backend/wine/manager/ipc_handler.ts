@@ -1,11 +1,10 @@
-import { addHandler } from 'backend/ipc'
+import { addHandler, sendFrontendMessage } from 'backend/ipc'
 import {
   installWineVersion,
   removeWineVersion,
   updateWineVersionInfos
 } from './utils'
-import { logError, LogPrefix } from '../../logger/logger'
-import { sendFrontendMessage } from '../../ipc'
+import { logError, LogPrefix } from 'backend/logger'
 import type { WineManagerStatus } from 'common/types'
 import { notify } from '../../dialog/dialog'
 import { t } from 'i18next'

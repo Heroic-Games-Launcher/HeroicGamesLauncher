@@ -1,10 +1,11 @@
-import React, { useContext, useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
 import SearchBar from '../SearchBar'
 import { useTranslation } from 'react-i18next'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import { normalizeTitle } from 'frontend/helpers/library'
 
 function fixFilter(text: string) {
   const regex = new RegExp(/([?\\|*|+|(|)|[|]|])+/, 'g')
@@ -14,31 +15,46 @@ function fixFilter(text: string) {
 const RUNNER_TO_STORE: Partial<Record<Runner, string>> = {
   legendary: 'Epic',
   gog: 'GOG',
-  nile: 'Amazon'
+  nile: 'Amazon',
+  zoom: 'Zoom'
 }
 
 export default function LibrarySearchBar() {
-  const { epic, gog, sideloadedLibrary, amazon } = useContext(ContextProvider)
+  const { epic, gog, sideloadedLibrary, amazon, zoom } =
+    useContext(ContextProvider)
   const { handleSearch, filterText } = useContext(LibraryContext)
   const navigate = useNavigate()
   const { t } = useTranslation()
+
+  const normalizedFilterText = useMemo(
+    () => normalizeTitle(fixFilter(filterText)),
+    [filterText]
+  )
 
   const list = useMemo(() => {
     return [
       ...(epic.library ?? []),
       ...(gog.library ?? []),
       ...(sideloadedLibrary ?? []),
-      ...(amazon.library ?? [])
+      ...(amazon.library ?? []),
+      ...(zoom.library ?? [])
     ]
       .filter(Boolean)
       .filter((el) => {
         return (
           !el.install.is_dlc &&
-          new RegExp(fixFilter(filterText), 'i').test(el.title)
+          normalizeTitle(el.title).includes(normalizedFilterText)
         )
       })
       .sort((g1, g2) => (g1.title < g2.title ? -1 : 1))
-  }, [amazon.library, epic.library, gog.library, filterText])
+  }, [
+    amazon.library,
+    epic.library,
+    gog.library,
+    sideloadedLibrary,
+    zoom.library,
+    normalizedFilterText
+  ])
 
   const handleClick = (game: GameInfo) => {
     handleSearch('')

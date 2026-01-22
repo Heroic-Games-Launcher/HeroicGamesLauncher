@@ -1,7 +1,8 @@
-import { logError, logInfo, LogPrefix } from '../../logger/logger'
-import { HowLongToBeat } from 'howlongtobeat-js'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
+import { HowLongToBeat, HowLongToBeatEntry } from 'howlongtobeat-js'
 
-export interface HowLongToBeatEntry {
+// this is a subset of the HowLongToBeatEntry type without some fields
+export interface HeroicHowLongToBeatEntry {
   completionist: number
   mainStory: number
   mainExtra: number
@@ -14,10 +15,20 @@ export interface HowLongToBeatEntry {
 
 export async function getHowLongToBeat(
   title: string
-): Promise<HowLongToBeatEntry | null> {
+): Promise<HeroicHowLongToBeatEntry | null> {
   logInfo(`Getting HowLongToBeat data for ${title}`, LogPrefix.ExtraGameInfo)
   const hltb = new HowLongToBeat(0.4)
-  const info = await hltb.search(title)
+  let info: HowLongToBeatEntry[] | null = null
+  try {
+    info = await hltb.search(title)
+  } catch (error) {
+    logError(
+      [`Error searching HLTB data for ${title}:`, error],
+      LogPrefix.ExtraGameInfo
+    )
+    return null
+  }
+
   if (!info || info.length === 0) {
     logError(
       `No HowLongToBeat data found for ${title}`,

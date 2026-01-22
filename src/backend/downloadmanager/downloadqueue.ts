@@ -1,6 +1,6 @@
 import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import { TypeCheckedStoreBackend } from './../electron_store'
-import { logError, logInfo, LogPrefix, logWarning } from '../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { getFileSize, removeFolder, sendGameStatusUpdate } from '../utils'
 import { DMQueueElement, DMStatus, DownloadManagerState } from 'common/types'
 import { installQueueElement, updateQueueElement } from './utils'
@@ -149,6 +149,7 @@ async function addToQueue(element: DMQueueElement) {
         element.params.runner === 'gog' &&
         element.params.platformToInstall.toLowerCase() === 'windows' &&
         installInfo &&
+        installInfo.manifest &&
         'dependencies' in installInfo.manifest
       ) {
         const newDependencies = installInfo.manifest.dependencies || []
@@ -318,5 +319,6 @@ export {
   getQueueInformation,
   cancelCurrentDownload,
   pauseCurrentDownload,
-  resumeCurrentDownload
+  resumeCurrentDownload,
+  isRunning
 }

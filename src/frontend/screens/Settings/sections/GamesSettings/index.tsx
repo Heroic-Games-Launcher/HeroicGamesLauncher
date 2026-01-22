@@ -16,6 +16,8 @@ import {
   EnableFSR,
   EnableFsync,
   EnableMsync,
+  EnableWineWayland,
+  EnableWoW64,
   EnvVariablesTable,
   GameMode,
   LauncherArgs,
@@ -26,7 +28,6 @@ import {
   PreferSystemLibs,
   ShowFPS,
   SteamRuntime,
-  UseDGPU,
   WinePrefix,
   WineVersionSelector,
   WrappersTable,
@@ -182,12 +183,14 @@ export default function GamesSettings() {
             <AutoDXVK />
             {isLinux && (
               <>
-                <AutoDXVKNVAPI />
+                {!window.isSteamDeck && <AutoDXVKNVAPI />}
                 <AutoVKD3D />
               </>
             )}
             <EnableEsync />
             <EnableFsync />
+            <EnableWineWayland />
+            <EnableWoW64 />
             <EnableMsync />
             <AdvertiseAvxForRosetta />
             <EnableFSR />
@@ -203,7 +206,6 @@ export default function GamesSettings() {
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
-        <UseDGPU />
         {!isNative && (
           <>
             <BattlEyeRuntime />
@@ -225,7 +227,7 @@ export default function GamesSettings() {
         <LaunchOptionSelector />
         <LauncherArgs />
         <div className="Field">
-          <label>Scripts:</label>
+          <label>{t('setting.scripts', 'Scripts:')}</label>
           <BeforeLaunchScriptPath />
           <AfterLaunchScriptPath />
         </div>

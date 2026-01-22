@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
 import {
+  ArrowBackIosNew,
   Cancel,
   CloudQueue,
   Download,
@@ -13,6 +14,7 @@ import {
 } from '@mui/icons-material'
 import classNames from 'classnames'
 import { GameInfo } from 'common/types'
+import useSetting from 'frontend/hooks/useSetting'
 
 interface Props {
   gameInfo: GameInfo
@@ -25,6 +27,7 @@ interface Props {
 const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
+  const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
   function getPlayLabel(): React.ReactNode {
     if (is.syncing) {
@@ -54,11 +57,51 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
       )
     }
 
+    if (verboseLogs) {
+      return (
+        <span className="buttonWithIcon">
+          <PlayArrow data-icon="play" />
+          {t('label.playing.start_with_logs', 'Play (with logs)')}
+        </span>
+      )
+    }
+
     return (
       <span className="buttonWithIcon">
         <PlayArrow data-icon="play" />
         {t('label.playing.start')}
       </span>
+    )
+  }
+
+  function altPlayAction() {
+    if (
+      is.syncing ||
+      is.installingRedist ||
+      is.installingWinetricksPackages ||
+      is.launching ||
+      is.playing ||
+      is.moving ||
+      is.updating ||
+      is.reparing
+    ) {
+      return <></>
+    }
+
+    const label = verboseLogs
+      ? t('label.playing.start')
+      : t('label.playing.start_with_logs', 'Play Now (with logs)')
+
+    return (
+      <button className="button altPlay is-success">
+        <ArrowBackIosNew />
+        <a className="button" onClick={handleAltLaunch}>
+          <span className="buttonWithIcon">
+            <PlayArrow data-icon="play" />
+            {label}
+          </span>
+        </a>
+      </button>
     )
   }
 
@@ -109,45 +152,53 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
     )
   }
 
+  const handleAltLaunch = async () => {
+    setVerboseLogs(!verboseLogs)
+    await handlePlay(gameInfo)
+  }
+
   const is_installed = gameInfo.is_installed
 
   return (
-    <>
-      {is_installed && !is.queued && (
-        <button
-          disabled={
-            is.reparing ||
-            is.moving ||
-            is.updating ||
-            is.uninstalling ||
-            is.syncing ||
-            is.launching ||
-            is.installingWinetricksPackages ||
-            is.installingRedist
-          }
-          autoFocus={true}
-          onClick={async () => handlePlay(gameInfo)}
-          className={classNames(
-            'button',
-            {
-              'is-secondary': !is_installed && !is.queued,
-              'is-success':
-                is.syncing ||
-                (!is.updating &&
-                  !is.playing &&
-                  is_installed &&
-                  !is.notAvailable),
-              'is-tertiary':
-                is.playing ||
-                (!is_installed && is.queued) ||
-                (is_installed && is.notAvailable),
-              'is-disabled': is.updating
-            },
-            'mainBtn'
-          )}
-        >
-          {getPlayLabel()}
-        </button>
+    <div className="playButtons">
+      {is_installed && !is.queued && !is.uninstalling && (
+        <>
+          <button
+            disabled={
+              is.reparing ||
+              is.moving ||
+              is.updating ||
+              is.uninstalling ||
+              is.syncing ||
+              is.launching ||
+              is.installingWinetricksPackages ||
+              is.installingRedist
+            }
+            autoFocus={true}
+            onClick={async () => handlePlay(gameInfo)}
+            className={classNames(
+              'button',
+              {
+                'is-secondary': !is_installed && !is.queued,
+                'is-success':
+                  is.syncing ||
+                  (!is.updating &&
+                    !is.playing &&
+                    is_installed &&
+                    !is.notAvailable),
+                'is-tertiary':
+                  is.playing ||
+                  (!is_installed && is.queued) ||
+                  (is_installed && is.notAvailable),
+                'is-disabled': is.updating
+              },
+              'mainBtn'
+            )}
+          >
+            {getPlayLabel()}
+          </button>
+          {altPlayAction()}
+        </>
       )}
       {(!is_installed || is.queued) && (
         <button
@@ -179,7 +230,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
           {getButtonLabel()}
         </button>
       )}
-    </>
+    </div>
   )
 }
 

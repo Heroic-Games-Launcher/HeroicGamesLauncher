@@ -8,12 +8,12 @@ import {
 } from 'frontend/components/UI'
 import { getInstallInfo, getPreferredInstallLanguage } from 'frontend/helpers'
 import DLCDownloadListing from 'frontend/screens/Library/components/InstallModal/DownloadDialog/DLCDownloadListing'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Tabs, Tab } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import BuildSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BuildSelector'
 import GameLanguageSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/GameLanguageSelector'
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripLines } from '@fortawesome/free-solid-svg-icons'
@@ -419,6 +419,6 @@ export default function GOGModifyInstallModal({
       </button>
     </>
   ) : (
-    <UpdateComponent inline />
+    <UpdateComponent />
   )
 }

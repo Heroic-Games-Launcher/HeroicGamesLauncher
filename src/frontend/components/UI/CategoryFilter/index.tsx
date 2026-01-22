@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import ToggleSwitch from '../ToggleSwitch'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
+import Dropdown from '../Dropdown'
 
 export default function CategoryFilter() {
   const {
@@ -69,42 +70,44 @@ export default function CategoryFilter() {
   const categoriesList = customCategories.listCategories()
 
   return (
-    <div className="categoriesFilter" data-tour="library-categories">
-      <button className="selectStyle">
-        {t('header.categories', 'Categories')}
+    <Dropdown
+      buttonClass="selectStyle"
+      className="categoriesFilter"
+      data-tour="library-categories"
+      title={t('header.categories', 'Categories')}
+      popUpOnHover
+    >
+      {categoriesList.length === 0 && (
+        <>
+          <span>
+            {t(
+              'header.no_categories',
+              'No custom categories. Add categories using each game menu.'
+            )}
+          </span>
+          <hr />
+        </>
+      )}
+      {categoriesList.map((category) => categoryToggle(category))}
+      {categoryToggle(
+        t('header.uncategorized', 'Uncategorized'),
+        'preset_uncategorized'
+      )}
+      <hr />
+      <button
+        type="reset"
+        className="button is-primary"
+        style={{ marginBottom: '0.3rem' }}
+        onClick={() => selectAll()}
+      >
+        {t('header.select_all', 'Select All')}
       </button>
-      <div className="dropdown">
-        {categoriesList.length === 0 && (
-          <>
-            <span>
-              {t(
-                'header.no_categories',
-                'No custom categories. Add categories using each game menu.'
-              )}
-            </span>
-            <hr />
-          </>
-        )}
-        {categoriesList.map((category) => categoryToggle(category))}
-        {categoryToggle(
-          t('header.uncategorized', 'Uncategorized'),
-          'preset_uncategorized'
-        )}
-        <hr />
-        <button
-          type="reset"
-          className="button is-primary"
-          onClick={() => selectAll()}
-        >
-          {t('header.select_all', 'Select All')}
-        </button>
-        <button
-          className="button is-secondary is-small"
-          onClick={() => setShowCategories(true)}
-        >
-          {t('categories-manager.title', 'Manage Categories')}
-        </button>
-      </div>
-    </div>
+      <button
+        className="button is-secondary is-small"
+        onClick={() => setShowCategories(true)}
+      >
+        {t('categories-manager.title', 'Manage Categories')}
+      </button>
+    </Dropdown>
   )
 }

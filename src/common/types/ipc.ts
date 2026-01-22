@@ -47,6 +47,7 @@ import type {
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
+import type { GetLogFileArgs } from 'backend/logger/paths'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -84,7 +85,7 @@ interface SyncIPCFunctions {
   clipboardWriteText: (text: string) => void
   processShortcut: (combination: string) => void
   addNewApp: (args: GameInfo) => void
-  showLogFileInFolder: (appNameOrRunner: string) => void
+  showLogFileInFolder: (args: GetLogFileArgs) => void
   addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
   removeShortcut: (appName: string, runner: Runner) => void
   removeFromDMQueue: (appName: string) => void
@@ -117,6 +118,7 @@ interface SyncIPCFunctions {
     runner: Runner,
     status: boolean
   ) => void
+  logoutZoom: () => void
 }
 
 /*
@@ -157,7 +159,6 @@ interface AsyncIPCFunctions {
   isFrameless: () => boolean
   isMaximized: () => boolean
   isMinimized: () => boolean
-  isFlatpak: () => boolean
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
@@ -177,6 +178,7 @@ interface AsyncIPCFunctions {
   ) => Promise<InstallInfo | null>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
+  getZoomUserInfo: () => Promise<{ username: string } | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'
@@ -190,6 +192,7 @@ interface AsyncIPCFunctions {
     status: 'done' | 'failed'
     user: NileUserData | undefined
   }>
+  authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>
@@ -220,22 +223,23 @@ interface AsyncIPCFunctions {
   ) => Promise<string>
   syncSaves: (args: SaveSyncArgs) => Promise<string>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
-  getFonts: (reload: boolean) => Promise<string[]>
   runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
+  getWebviewPreloadPath: () => string
   clipboardReadText: () => string
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (appNameOrRunner: string) => string
+  getLogContent: (args: GetLogFileArgs) => string
   installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<void>
+  'wine.isValidVersion': (release: WineInstallation) => Promise<boolean>
   shortcutsExists: (appName: string, runner: Runner) => boolean
   addToSteam: (appName: string, runner: Runner) => Promise<boolean>
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
-  getAnticheatInfo: (appNamespace: string) => AntiCheatInfo | null
+  getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
   getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
   getEosOverlayStatus: () => {
     isInstalled: boolean
@@ -303,12 +307,11 @@ interface AsyncIPCFunctions {
 
   uploadLogFile: (
     name: string,
-    appNameOrRunner: string
+    args: GetLogFileArgs
   ) => Promise<false | [string, UploadedLogData]>
   deleteUploadedLogFile: (url: string) => Promise<boolean>
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
-  installSteamWindows: (path: string) => Promise<void>
   isIntelMac: () => boolean
 }
 

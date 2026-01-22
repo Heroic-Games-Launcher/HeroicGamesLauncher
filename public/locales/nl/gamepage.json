@@ -181,7 +181,8 @@
         "redist": "Herverdelers installeren",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Installatie stoppen"
         }
     },
     "launch": {
@@ -192,16 +193,16 @@
         "gog": "Je bent niet ingelogd met een GOG account in Heroic. Gebruik de winkel pagina NIET om in te loggen,  Klik in plaats op de volgende knop:",
         "login": "Log in",
         "title": "Je bent NIET ingelogd",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Rapporteer een probleem met deze game",
     "sdl": {
         "title": "Selecteer componenten om te installeren"
     },
     "setting": {
-        "use-default-wine-settings": "Gebruik \"Default Wine\" instellingen",
         "winecrossoverbottle": "CrossOver Bottle",
-        "warn-use-default-wine-settings": "Gebruik deze optie alleen als je weet wat je doet.<br/>Dezelfde prefix gebruiken voor meerdere games kan problemen veroorzaken als afhankelijkheden niet compatibel zijn.",
+        "warn-use-shared-wine-config": "Gebruik deze optie alleen als je weet wat je doet.<br/>Dezelfde prefix gebruiken voor meerdere games kan problemen veroorzaken als afhankelijkheden niet compatibel zijn.",
         "show-wine-settings": "Bekijk Wine instellingen"
     },
     "sideload": {

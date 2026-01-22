@@ -11,7 +11,7 @@ import {
   faBarsProgress
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
@@ -32,6 +32,7 @@ export default function SidebarLinks() {
     amazon,
     epic,
     gog,
+    zoom,
     platform,
     refreshLibrary,
     handleExternalLinkDialog
@@ -43,7 +44,8 @@ export default function SidebarLinks() {
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
 
-  const loggedIn = epic.username || gog.username || amazon.user_id
+  const loggedIn =
+    epic.username || gog.username || amazon.user_id || zoom.username
 
   async function handleRefresh() {
     localStorage.setItem('scrollPosition', '0')
@@ -51,7 +53,8 @@ export default function SidebarLinks() {
     const shouldRefresh =
       (epic.username && !epic.library.length) ||
       (gog.username && !gog.library.length) ||
-      (amazon.user_id && !amazon.library.length)
+      (amazon.user_id && !amazon.library.length) ||
+      (zoom.username && !zoom.library.length)
     if (shouldRefresh) {
       return refreshLibrary({ runInBackground: true })
     }
@@ -75,7 +78,16 @@ export default function SidebarLinks() {
 
   // By default, open Epic Store
   let defaultStore = 'epic'
-  if (!epic.username && !gog.username && amazon.user_id) {
+  if (
+    zoom.enabled &&
+    !epic.username &&
+    !gog.username &&
+    !amazon.user_id &&
+    zoom.username
+  ) {
+    // Prioritize Zoom if only Zoom is logged in
+    defaultStore = 'zoom'
+  } else if (!epic.username && !gog.username && amazon.user_id) {
     // If only logged in to Amazon Games, open Amazon Gaming
     defaultStore = 'amazon'
   } else if (!epic.username && gog.username) {
@@ -131,8 +143,15 @@ export default function SidebarLinks() {
             <SidebarItem
               className="SidebarLinks__subItem"
               url="/store/amazon"
-              label={t('prime-gaming', 'Prime Gaming')}
+              label={t('amazon-luna', 'Amazon Luna')}
             />
+            {zoom.enabled && (
+              <SidebarItem
+                className="SidebarLinks__subItem"
+                url="/store/zoom"
+                label={t('zoom-store', 'Zoom Store')}
+              />
+            )}
           </div>
         )}
       </div>

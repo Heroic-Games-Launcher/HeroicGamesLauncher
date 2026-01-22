@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import SvgButton from '../SvgButton'
 import TextInputField from '../TextInputField'
 import AddBoxIcon from '@mui/icons-material/AddBox'
@@ -53,7 +53,8 @@ export function TableInput({
   const { isRTL } = useContext(ContextProvider)
   const { t } = useTranslation()
   const [rowData, setRowData] = useState<ColumnProps[]>(rows)
-  const [valueInputs, setValueInputs] = useState<ColumnProps>(EMPTY_INPUTS)
+  const [newVarName, setNewVarName] = useState('')
+  const [newVarValue, setNewVarValue] = useState('')
   const [originalInputs, setOriginalInputs] =
     useState<ColumnProps>(EMPTY_INPUTS)
   const [dirtyInputs, setDirtyInputs] = useState(false)
@@ -62,30 +63,27 @@ export function TableInput({
 
   useEffect(() => {
     setDirtyInputs(
-      valueInputs.key !== originalInputs.key ||
-        valueInputs.value !== originalInputs.value
+      newVarName !== originalInputs.key || newVarValue !== originalInputs.value
     )
 
     if (
       // if there's a connector, try to split the key
       connector &&
-      valueInputs.key.includes(connector) &&
-      !valueInputs.value
+      newVarName.includes(connector) &&
+      !newVarValue
     ) {
-      const [key, value] = valueInputs.key.split(connector)
-      setValueInputs({ key: key, value: value })
+      const [key, value] = newVarName.split(connector)
+      setNewVarName(key)
+      setNewVarValue(value)
     } else {
       // else, validate input
       if (validation) {
-        const [keyError, valueError] = validation(
-          valueInputs.key,
-          valueInputs.value
-        )
+        const [keyError, valueError] = validation(newVarName, newVarValue)
         setKeyError(keyError)
         setValueError(valueError)
       }
     }
-  }, [valueInputs])
+  }, [newVarName, newVarValue])
 
   function addRow(row: ColumnProps) {
     if (keyError) {
@@ -112,7 +110,8 @@ export function TableInput({
     }
     setRowData([...rowData])
     onChange(rowData)
-    setValueInputs(EMPTY_INPUTS)
+    setNewVarName('')
+    setNewVarValue('')
     setOriginalInputs(EMPTY_INPUTS)
     setDirtyInputs(false)
   }
@@ -125,7 +124,8 @@ export function TableInput({
   }
 
   function editRow(row: ColumnProps) {
-    setValueInputs({ key: row.key, value: row.value })
+    setNewVarName(row.key)
+    setNewVarValue(row.value)
     setOriginalInputs({ key: row.key, value: row.value })
   }
 
@@ -177,30 +177,26 @@ export function TableInput({
             <td>
               <TextInputField
                 label={header.key}
-                value={valueInputs.key}
+                value={newVarName}
                 htmlId={`${header.key}-key`}
                 placeholder={inputPlaceHolder.key}
                 extraClass={keyError ? 'error' : ''}
-                onChange={(event) => {
-                  setValueInputs({ ...valueInputs, key: event.target.value })
-                }}
+                onChange={(newValue) => setNewVarName(newValue)}
               />
             </td>
             <td>{connector}</td>
             <td>
               <TextInputField
                 label={header.value}
-                value={valueInputs.value}
+                value={newVarValue}
                 htmlId={`${header.value}-key`}
                 placeholder={inputPlaceHolder.value}
-                onChange={(event) => {
-                  setValueInputs({ ...valueInputs, value: event.target.value })
-                }}
+                onChange={(newValue) => setNewVarValue(newValue)}
               />
             </td>
             <td>
               <SvgButton
-                onClick={() => addRow(valueInputs)}
+                onClick={() => addRow({ key: newVarName, value: newVarValue })}
                 className={`is-primary`}
               >
                 <AddBoxIcon
@@ -215,7 +211,7 @@ export function TableInput({
           </tr>
           <tr className="dirty">
             <td colSpan={3}>
-              {dirtyInputs && !keyError && !valueError && valueInputs.key && (
+              {dirtyInputs && !keyError && !valueError && newVarName && (
                 <>
                   <span>
                     {t(
@@ -230,7 +226,7 @@ export function TableInput({
           </tr>
         </tfoot>
       </table>
-      {valueInputs.value && warning}
+      {newVarValue && warning}
       {afterInput}
     </div>
   )

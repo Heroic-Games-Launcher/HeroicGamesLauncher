@@ -1,5 +1,5 @@
-import { dialog } from 'electron'
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { dialog, app } from 'electron'
+import { logError, logInfo, LogPrefix } from './logger'
 import i18next from 'i18next'
 import { GameInfo, LaunchOption, Runner } from 'common/types'
 import { getMainWindow } from './main_window'
@@ -9,6 +9,7 @@ import { launchEventCallback } from './launcher'
 import { z } from 'zod'
 import { windowIcon } from './constants/paths'
 import { Path } from './schemas'
+import { isCLINoGui } from './constants/environment'
 
 const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
 
@@ -53,9 +54,13 @@ async function handleLaunch(url: URL) {
     // `heroic://launch?appName=Quail&runner=legendary&arg=foo&arg=bar`
     appName = url.searchParams.get('appName')
     runnerStr = url.searchParams.get('runner')
-    args = url.searchParams.getAll('arg')
-    const altExeParse = Path.safeParse(url.searchParams.get('altExe'))
-    if (altExeParse.success) altExe = altExeParse.data
+    args = url.searchParams.getAll('arg').map(decodeURIComponent)
+
+    const altExeParameter = url.searchParams.get('altExe')
+    if (altExeParameter) {
+      const altExeParse = Path.safeParse(decodeURIComponent(altExeParameter))
+      if (altExeParse.success) altExe = altExeParse.data
+    }
   }
 
   if (!appName) {
@@ -112,9 +117,20 @@ async function handleLaunch(url: URL) {
     icon: windowIcon
   })
   if (response === 0) {
+    if (isCLINoGui) {
+      logInfo(
+        '--no-gui flag detected but user wants to install, showing GUI',
+        LogPrefix.ProtocolHandler
+      )
+      mainWindow.show()
+    }
     sendFrontendMessage('installGame', appName, gameInfo.runner)
   } else if (response === 1) {
     logInfo('Not installing game', LogPrefix.ProtocolHandler)
+    if (isCLINoGui) {
+      logInfo('--no-gui flag detected, exiting app', LogPrefix.ProtocolHandler)
+      app.quit()
+    }
   }
 }
 

@@ -2,7 +2,7 @@ import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron'
 import i18next from 'i18next'
 import { addListener } from 'backend/ipc'
 import { RecentGame } from 'common/types'
-import { logInfo, LogPrefix } from '../logger/logger'
+import { logInfo, LogPrefix } from 'backend/logger'
 import { handleProtocol } from '../protocol'
 import { getRecentGames, maxRecentGames } from '../recent_games/recent_games'
 import { handleExit, showAboutWindow } from '../utils'
@@ -16,6 +16,9 @@ const iconDark = fixAsarPath(join(publicDir, 'icon-dark.png'))
 const iconLight = fixAsarPath(join(publicDir, 'icon-light.png'))
 
 export const initTrayIcon = async (mainWindow: BrowserWindow) => {
+  const { noTrayIcon } = GlobalConfig.get().getSettings()
+  if (noTrayIcon) return null
+
   // create icon
   const appIcon = new Tray(getIcon(process.platform))
 

@@ -1,7 +1,7 @@
 import { faApple, faLinux, faWindows } from '@fortawesome/free-brands-svg-icons'
 import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import {
@@ -20,11 +20,15 @@ import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import ThirdPartyDialog from './ThirdPartyDialog'
-import { MenuItem } from '@mui/material'
+import { Box, MenuItem, SvgIcon } from '@mui/material'
+import {
+  closeInstallGameModal,
+  useInstallGameModal
+} from 'frontend/state/InstallGameModal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type Props = {
   appName: string
-  backdropClick: () => void
   runner: Runner
   gameInfo?: GameInfo | null
 }
@@ -36,12 +40,7 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-export default React.memo(function InstallModal({
-  appName,
-  backdropClick,
-  runner,
-  gameInfo = null
-}: Props) {
+function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const { platform } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
 
@@ -90,10 +89,6 @@ export default React.memo(function InstallModal({
   )
 
   const getDefaultplatform = (): InstallPlatform => {
-    if (isLinux && gameInfo?.is_linux_native) {
-      return 'linux'
-    }
-
     if (isMac && gameInfo?.is_mac_native) {
       return 'Mac'
     }
@@ -145,7 +140,12 @@ export default React.memo(function InstallModal({
       >
         {availablePlatforms.map((p, i) => (
           <MenuItem value={p.value} key={i}>
-            {p.name}
+            <Box sx={{ display: 'flex', placeItems: 'center' }}>
+              <SvgIcon sx={{ marginInlineEnd: 1 }}>
+                <FontAwesomeIcon icon={p.icon} />
+              </SvgIcon>
+              {p.name}
+            </Box>
           </MenuItem>
         ))}
       </SelectField>
@@ -155,10 +155,12 @@ export default React.memo(function InstallModal({
   const showDownloadDialog = !isSideload && gameInfo
   const isThirdPartyManagedApp = gameInfo && !!gameInfo.thirdPartyManagedApp
 
+  const closeModal = () => closeInstallGameModal()
+
   return (
     <div className="InstallModal">
       <Dialog
-        onClose={backdropClick}
+        onClose={closeModal}
         showCloseButton
         className="InstallModal__dialog"
       >
@@ -169,7 +171,7 @@ export default React.memo(function InstallModal({
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
-            backdropClick={backdropClick}
+            backdropClick={closeModal}
             platformToInstall={platformToInstall}
             gameInfo={gameInfo}
             crossoverBottle={crossoverBottle}
@@ -197,7 +199,7 @@ export default React.memo(function InstallModal({
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
-            backdropClick={backdropClick}
+            backdropClick={closeModal}
             platformToInstall={platformToInstall}
             gameInfo={gameInfo}
             crossoverBottle={crossoverBottle}
@@ -223,7 +225,7 @@ export default React.memo(function InstallModal({
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
-            backdropClick={backdropClick}
+            backdropClick={closeModal}
             platformToInstall={platformToInstall}
             appName={appName}
             crossoverBottle={crossoverBottle}
@@ -246,4 +248,20 @@ export default React.memo(function InstallModal({
       </Dialog>
     </div>
   )
-})
+}
+
+export function InstallGameWrapper() {
+  const installGameModalState = useInstallGameModal()
+
+  if (!installGameModalState.isOpen) {
+    return <></>
+  }
+
+  return (
+    <InstallModal
+      appName={installGameModalState.appName!}
+      runner={installGameModalState.runner!}
+      gameInfo={installGameModalState.gameInfo}
+    />
+  )
+}

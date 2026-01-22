@@ -1,0 +1,332 @@
+{
+    "disabled": "Díchumasaigh",
+    "game": {
+        "branch": {
+            "disabled": "Díchumasaigh",
+            "password": "Socraigh pasfhocal cainéal príobháideach",
+            "select": "Roghnaigh cainéal béite",
+            "setPrivateBranchPassword": "Socraigh pasfhocal cainéal príobháideach"
+        },
+        "builds": {
+            "buildsSelector": "Roghnaigh leagan cluiche",
+            "toggle": "Coinnigh an cluiche ag an leagan sonrach",
+            "version": "Leagan"
+        },
+        "changelogFor": "Log athruithe do {{gameTitle}}",
+        "downloadSize": "Méid Íoslódála",
+        "extra_info": "Eolas breise",
+        "firstPlayed": "Imríodh ar dtús",
+        "getting-download-size": "Méid íoslódála á fháil",
+        "getting-install-size": "Méid suiteála á fháil",
+        "install_info": "Eolas suiteála",
+        "installSize": "Méid Suiteála",
+        "language": "Teanga",
+        "lastPlayed": "Imríodh go deireanach",
+        "modify": "Athraigh an Suiteáil",
+        "neverPlayed": "Choíche",
+        "platform": "Roghnaigh Leagan Ardáin le Suiteáil",
+        "requirements": "Riachtanais an Chórais",
+        "totalPlayed": "Am Imeartha"
+    },
+    "box": {
+        "change": {
+            "message": "Athróidh sé seo suíomh suiteála an chluiche seo, an bhfuil tú cinnte?",
+            "path": "Roghnaigh cosán suiteála nua",
+            "title": "Athraigh Cosán Suiteála Cluichí"
+        },
+        "choose": "Roghnaigh",
+        "close": "Dún",
+        "importpath": "Roghnaigh Fillteán Cluiche le hiompórtáil",
+        "move": {
+            "message": "D’fhéadfadh sé seo tamall fada a thógáil, an bhfuil tú cinnte?",
+            "path": "Roghnaigh cá háit ar mhaith leat bogadh",
+            "title": "Suiteáil Cluiche Bog"
+        },
+        "no": "NÍL",
+        "repair": {
+            "message": "Ar mhaith leat iarracht a dhéanamh an cluiche seo a dheisiú? Féadfaidh sé seo tamall fada a thógáil.",
+            "title": "Fíoraigh agus Deisigh"
+        },
+        "uninstall": {
+            "checkbox": "Bain an réimír: {{prefix}}{{newLine}}Nóta: Ní féidir é seo a chealú agus bainfear comhaid shábháilte nach bhfuil cúltaca déanta díobh freisin.",
+            "dlc": "Ar mhaith leat \"{{title}}\" (DLC) a dhíshuiteáil?",
+            "gameIsRunning": "Tá {{title}} ag rith. Dún an cluiche chun é a dhíshuiteáil.",
+            "message": "Ar mhaith leat \"{{title}}\" a dhíshuiteáil?",
+            "prefix_warning": "Is é an réimír Wine don chluiche seo an réimír réamhshocraithe. Más mian leat é a scriosadh i ndáiríre, caithfidh tú é sin a dhéanamh de láimh.",
+            "cannotUninstallEpic": "Ní féidir cluichí Epic a dhíshuiteáil agus cluiche Epic eile á shuiteáil.",
+            "settingcheckbox": "Scrios socruithe agus bain an loga{{newLine}}Nóta: Ní féidir é seo a chealú. Déanfar dearmad ar aon socruithe modhnaithe agus scriosfar an loga.",
+            "title": "Díshuiteáil"
+        },
+        "runexe": {
+            "title": "Roghnaigh EXE le Rith"
+        },
+        "select": {
+            "button": "Roghnaigh",
+            "image": "Roghnaigh Íomhá"
+        },
+        "select-install-path": "Roghnaigh Cosán Suiteála Steam",
+        "sideload": {
+            "exe": "Roghnaigh Inrite"
+        },
+        "stopInstall": {
+            "keepInstalling": "Lean ort ag Suiteáil",
+            "message": "Ar mhaith leat comhaid íoslódáilte a COIMÉAD?",
+            "title": "Stop a Shuiteáil"
+        },
+        "update": {
+            "message": "Tá nuashonrú ar an gcluiche seo, an bhfuil tú ag iarraidh an nuashonrú a chur i bhfeidhm anois?",
+            "title": "Nuashonrú Riachtanach don Chluiche"
+        },
+        "wineprefix": "Roghnaigh Fillteán WinePrefix",
+        "yes": "TÁ"
+    },
+    "button": {
+        "add_to_favourites": "Cuir le Rogha",
+        "browse_files": "Brabhsáil Comhaid",
+        "browse_wine_prefix": "Brabhsáil Réimír Fíona",
+        "cancel": "Sos/Cealaigh",
+        "changelog": "Taispeáin Log Athruithe",
+        "continue": "Lean ar aghaidh ag íoslódáil",
+        "details": "Sonraí",
+        "finish": "Críochnaigh",
+        "force_update": "Nuashonrú Fórsála más Féidir",
+        "force-innstall": "Suiteáil Fórsach",
+        "hide_game": "Cluiche Folaigh",
+        "import": "Cluiche Iompórtála",
+        "install": "Suiteáil",
+        "no-path-selected": "Níor roghnaíodh aon chonair",
+        "queue": {
+            "remove": "Bain den Scuaine"
+        },
+        "remove_from_favourites": "Bain De Cheanáin",
+        "remove_from_recent": "Bain as Le Déanaí",
+        "run-exe-first": "Rith an Suiteálaí Ar dtús",
+        "running-setup": "Socrú Rith",
+        "sideload": {
+            "edit": "Cuir Aip/Cluiche in Eagar"
+        },
+        "unhide_game": "Nocht Cluiche",
+        "uninstall": "Díshuiteáil",
+        "update": "Nuashonrú",
+        "play": "IMIR"
+    },
+    "cloud_save_unsupported": "Gan tacaíocht",
+    "enabled": "Cumasaithe",
+    "gamecard": {
+        "moving": "Ag Bogadh",
+        "repairing": "Ag deisiú"
+    },
+    "generic": {
+        "error": "Earráid anaithnid",
+        "noDescription": "Níl aon chur síos ar fáil"
+    },
+    "help": {
+        "cloud_save_unsupported": "Ní thacaíonn an cluiche seo le sábhálacha scamall. Cuireann forbróirí an chluiche an fhaisnéis seo ar fáil. Cuireann roinnt cluichí a gcóras sábhála scamall féin i bhfeidhm",
+        "content": {
+            "gamePage": "Taispeáin sonraí agus gníomhartha an chluiche go léir. Úsáid an roghchlár 3 phonc le haghaidh tuilleadh roghanna."
+        },
+        "title": {
+            "gamePage": "Leathanach Cluiche"
+        }
+    },
+    "hours": "Uaireanta",
+    "how-long-to-beat": {
+        "completionist": "Comhlánaitheoir",
+        "main-plus-extras": "Príomh + Breiseáin",
+        "main-story": "Príomhscéal"
+    },
+    "howLongToBeat": "Cá fhad a bhualadh",
+    "info": {
+        "apple-gaming-wiki": "Rátáil AppleGamingWiki",
+        "canRunOffline": "Ar Líne Riachtanach",
+        "clickToOpen": "Cliceáil chun oscailt",
+        "game-scores": "Scóir Cluiche",
+        "installedInfo": "Faisnéis Suiteáilte",
+        "installedPlatform": "Ardán Suiteáilte",
+        "path": "Cosán Suiteála",
+        "protondb-compatibility-info": "Sraith Chomhoiriúnachta Prótóin",
+        "size": "Méid",
+        "steamdeck-compatibility-info": "Comhoiriúnacht SteamDeck",
+        "syncsaves": "Sioncrónaigh Sábhálacha",
+        "third-party-app": "Bainisteoir Tríú Páirtí",
+        "version": "Leagan"
+    },
+    "install": {
+        "anticheat-warning": {
+            "cancel": "Níl",
+            "install_anyway": "Sea (tuigim nach n-oibreoidh na gnéithe il-imreora)",
+            "multiplayer_message": "Tá an tacaíocht frith-cheilt briste nó diúltaithe. Féadfaidh an cluiche oscailt ach ní oibreoidh na gnéithe il-imreora. Ar mhaith leat é a shuiteáil ar aon nós?",
+            "ok": "Ceart go leor",
+            "title": "Frith-aicearra Briste/Diúltaithe",
+            "disabled_installation": "Úsáideann an cluiche seo bogearraí frith-cheilt nach bhfuil comhoiriúnach le do chóras oibriúcháin nó níor chuir forbróirí an chluiche an tacaíocht ar chumas. Ciallaíonn sé seo nach n-oibreoidh na gnéithe il-imreora, agus níl aon rud is féidir leatsa (ná le foireann Heroic) a dhéanamh faoi.<br /><br />Chun an cluiche seo a shuiteáil agus triail a bhaint as ar aon nós, téigh go Socruithe, Ardleibhéil, agus seiceáil an rogha chun suiteáil cluichí a cheadú le frith-cheilt briste nó diúltaithe.<br /><br />Tabhair faoi deara nach bhfuil aon réiteach ann don fhadhb seo agus go mbeidh baol ann go gcuirfear cosc ort sa chluiche."
+        },
+        "disk-space-left": "Spás atá ar Fáil",
+        "flatpak-path-not-writtable": "Earráid: Níor deonaíodh rochtain bosca gainimh don chonair seo, caillfear sonraí.",
+        "not-enough-disk-space": "Gan dóthain spáis diosca",
+        "path": "Roghnaigh Cosán Suiteála",
+        "path-not-writtable": "Rabhadh: b'fhéidir nach féidir an cosán a scríobh.",
+        "space-after-install": "Tar éis Suiteála",
+        "wineprefix": "WinePrefix",
+        "wineversion": "Leagan Wine"
+    },
+    "label": {
+        "game": {
+            "not-installable-game": "NÍL an cluiche insuiteáilte",
+            "third-party-game": "NÍL Tacaíocht ar Chluiche Tríú Páirtí"
+        },
+        "launching": "Ag lainseáil",
+        "playing": {
+            "start": "Imir Anois",
+            "start_with_logs": "Imir Anois (le logaí)",
+            "stop": "Ag imirt (Stop)"
+        },
+        "redist": "Suiteáil In-athdháilte",
+        "saves": {
+            "syncing": "Sioncrónú Sábhálacha"
+        },
+        "steam": {
+            "abort": "Cuir Ceal ar an Suiteáil",
+            "cancel": "Cealaigh an Suiteáil",
+            "compatibility": "Bíodh a fhios agat nach n-oibreoidh gach cluiche, agus fiú má oibreoidh, b'fhéidir nach rithfidh siad mar a bhíothas ag súil leis.",
+            "crossover": "Mura bhfuil Crossover suiteáilte agat, ní bheidh gá agat leis seo ós rud é go rithfidh sé an gnáth-Steam go breá.",
+            "downloading": "Ag íoslódáil {{percent}}%",
+            "hardware": "Apple Silicon M1+ (do ríomhairí Mac Intel oibreoidh Steam le Crossover)",
+            "install": "Suiteáil Steam",
+            "install-path": "Cosán Suiteála Gaile",
+            "install-tooltip": "Suiteálfaidh sé seo leagan Windows de Steam agus rithfidh sé ag baint úsáide as Sraith Chomhoiriúnachta Heroic.\n\nB’fhéidir nach n-oibreoidh roinnt cluichí i gceart, go háirithe teidil níos sine, cluichí 3D níos nuaí, nó iad siúd a bhfuil bogearraí frith-cheat orthu. \n\n    ",
+            "installation": "Suiteáil Steam",
+            "installing": "Ag suiteáil",
+            "launch": "Seoladh Gaile ag baint úsáide as an gCiseal Comhoiriúnachta Heroic",
+            "launching": "Ag lainseáil Steam...",
+            "macOS": "macOS 14.0 nó níos airde",
+            "notification": "Cuirfidh Heroic in iúl duit nuair a bheidh an suiteáil déanta.",
+            "patience": "Más mian leat leanúint ar aghaidh, bí foighneach le do thoil mar d’fhéadfadh sé cúpla nóiméad a thógáil le críochnú ag brath ar do nasc idirlín agus ar chumraíocht an chórais.",
+            "pleaseWait": "Fan le do thoil",
+            "ram": "8GB RAM",
+            "recommended": "Sonraíochtaí molta le haghaidh eispéireas níos fearr",
+            "select-path": "Roghnaigh fillteán suiteála do Steam",
+            "specificVersion-pt1": "Íoslódálfaidh sé seo leagan sonrach de Steam ó",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "déanta chun oibriú trí Heroic ós rud é nach n-oibreoidh leaganacha nua de Steam ar macOS.",
+            "compatibility-layer-not-available": "Níl an ciseal comhoiriúnachta ar fáil. Suiteáil ceann ó \"Socruithe > Bainisteoir Fíona\" ar dtús."
+        },
+        "winetricks": "Ag Suiteáil Pacáistí Winetricks"
+    },
+    "launch": {
+        "options": "Roghanna Seolta..."
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Níl aon DLC ar fáil",
+        "redMod": {
+            "collapsible": "Comhtháthú REDmod",
+            "enable": "Cumasaigh mods"
+        },
+        "versionCollapsable": "Leagan Cluiche"
+    },
+    "not_logged_in": {
+        "amazon": "Níl tú logáilte isteach le cuntas Amazon i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:",
+        "epic": "Níl tú logáilte isteach le cuntas Epic i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:",
+        "gog": "Níl tú logáilte isteach le cuntas GOG i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:",
+        "login": "Logáil isteach",
+        "title": "Níl tú logáilte isteach",
+        "zoom": "Níl tú logáilte isteach le cuntas Zoom i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:"
+    },
+    "Open": "Oscail",
+    "queue": {
+        "label": {
+            "canceled": "Cealaithe",
+            "pause": "Sos an íoslódáil",
+            "remove": "Bain as Íoslódálacha",
+            "resume": "Íoslódáil atosú"
+        }
+    },
+    "report_problem": "Tuairiscigh fadhb agus an cluiche seo á rith",
+    "sdl": {
+        "title": "Roghnaigh comhpháirteanna le Suiteáil"
+    },
+    "setting": {
+        "show-wine-settings": "Taispeáin socruithe Wine",
+        "use-shared-wine-config": "Úsáid réimír chomhroinnte Wine",
+        "winecrossoverbottle": "Buidéal CrossOver",
+        "warn-use-shared-wine-config": "Ná húsáid an rogha seo ach amháin má tá a fhios agat cad atá á dhéanamh agat.<br />Is féidir fadhbanna a chruthú má roinntear an réimír céanna le haghaidh cluichí iolracha mura bhfuil a spleáchais comhoiriúnach."
+    },
+    "sideload": {
+        "field": {
+            "title": "Teideal"
+        },
+        "import-hint": {
+            "title": "Tábhachtach! An bhfuil cluiche ó Epic/GOG/Amazon á chur leis agat? Cliceáil anseo!",
+            "content": "NÁ húsáid an ghné seo chuige sin.<br />Ina áit sin, <3>logáil isteach</3> sa siopa, cuardaigh an cluiche i do leabharlann, oscail an dialóg suiteála, agus cliceáil an cnaipe &quot;Iompórtáil Cluiche&quot;"
+        },
+        "info": {
+            "broser": "BrabhsálaíURL",
+            "exe": "Roghnaigh Inrite",
+            "fullscreen": "Seoladh Lánscáileáin (F11 le scoir)",
+            "image": "Íomhá na hAipe",
+            "title": "Teideal Cluiche/Aipe",
+            "useragent": "Gníomhaire Úsáideora Saincheaptha"
+        },
+        "placeholder": {
+            "image": "Greamaigh URL Íomhá nó roghnaigh ceann ó do ríomhaire",
+            "title": "Cuir teideal le do Chluiche/Aip",
+            "url": "Greamaigh URL an Chluiche anseo",
+            "useragent": "Scríobh gníomhaire úsáideora saincheaptha anseo le húsáid ar an aip/cluiche brabhsálaí seo"
+        }
+    },
+    "specs": {
+        "minimum": "Íosmhéid",
+        "recommended": "Molta"
+    },
+    "status": {
+        "clickToUpdate": "Cliceáil chun Nuashonrú",
+        "downloading": "Ag íoslódáil",
+        "extracting": "Ag eastóscadh",
+        "gameNotAvailable": "Níl an cluiche ar fáil",
+        "gog-goodie": "Ní cosúil gur féidir an cluiche seo a shuiteáil. Seiceáil ábhar in-íoslódáilte ar https://gog.com/account",
+        "goodie": "Ní féidir a shuiteáil",
+        "hasUpdates": "Leagan Nua Ar Fáil!",
+        "importing": "Ag iompórtáil",
+        "installed": "Suiteáilte",
+        "installing": "Ag suiteáil",
+        "launching": "Ag lainseáil",
+        "moving": "Suiteáil ag Bogadh, fan le do thoil",
+        "moving-files": "Ag bogadh comhaid '{{file}}': {{percent}}%",
+        "notinstalled": "Níl an cluiche seo suiteáilte",
+        "notSupported": "Ní thacaítear leis",
+        "notSupportedGame": "Ní Thacaítear leis",
+        "playing": "Ag imirt",
+        "processing": "Comhaid á bpróiseáil, fan le do thoil",
+        "queued": "Sa scuaine",
+        "redist": "Suiteáil Comhaid In-athdháilte ({{redist}})",
+        "reparing": "Ag deisiú an chluiche, fan le do thoil",
+        "syncingSaves": "Sioncrónú Sábhálacha",
+        "this-game-uses-third-party": "Úsáideann an cluiche seo lainseálaí tríú páirtí agus níl tacaíocht leis fós",
+        "totalDownloaded": "Iomlán Íoslódáilte",
+        "uninstalling": "Ag Díshuiteáil",
+        "updating": "Nuashonrú Cluiche",
+        "winetricks": "Ag cur socruithe Winetricks i bhfeidhm"
+    },
+    "submenu": {
+        "addShortcut": "Cuir aicearra leis",
+        "addToSteam": "Cuir le Steam",
+        "categories": "Catagóirí",
+        "change": "Athraigh an cosán suiteála",
+        "disableEosOverlay": "Díchumasaigh Forleagan EOS",
+        "enableEosOverlay": "Cumasaigh Forleagan EOS",
+        "logs": "Logaí",
+        "move": "Cluiche Bogadh",
+        "protondb": "Seiceáil Comhoiriúnacht",
+        "removeFromSteam": "Bain de Steam",
+        "removeShortcut": "Bain na haicearraí",
+        "settings": "Socruithe",
+        "store": "Leathanach Siopa",
+        "verify": "Fíoraigh agus Deisigh"
+    },
+    "third-party-managed": {
+        "header": "Tá an cluiche seo á bhainistiú ag feidhmchlár tríú páirtí",
+        "notice1": "Tá an cluiche seo á bhainistiú ag feidhmchlár tríú páirtí: \"{{application_name}}\"",
+        "notice2": "Tar éis cliceáil ar Suiteáil, rithfidh Heroic an feidhmchlár chun an próiseas suiteála a chríochnú"
+    },
+    "wikiLink": "Eolas tábhachtach faoin gcluiche seo, léigh seo:<1>Oscail an leathanach</1>"
+}

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { existsSync, unlinkSync } from 'graceful-fs'
-import { logError, logInfo, LogPrefix, logWarning } from '../../logger/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { GOGLoginData } from 'common/types'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
@@ -18,7 +18,7 @@ function authLogSanitizer(line: string) {
     output.refresh_token = '<redacted>'
     output.user_id = '<redacted>'
     return JSON.stringify(output) + '\n'
-  } catch (error) {
+  } catch {
     return line
   }
 }
@@ -46,7 +46,7 @@ export class GOGUser {
       }
     } catch (err) {
       logError(
-        `GOG login failed to parse std output from gogdl. stdout: ${stdout.trim()}`,
+        `GOG login failed to parse std output from gogdl. stdout: ${stdout.trim()}, error ${err}`,
         LogPrefix.Gog
       )
       return { status: 'error' }

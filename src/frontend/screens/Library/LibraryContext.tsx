@@ -1,9 +1,16 @@
 import React from 'react'
 
+import { GameInfo } from 'common/types'
 import { LibraryContextType } from 'frontend/types'
 
 const initialContext: LibraryContextType = {
-  storesFilters: { legendary: true, gog: true, nile: true, sideload: true },
+  storesFilters: {
+    legendary: true,
+    gog: true,
+    nile: true,
+    sideload: true,
+    zoom: true
+  },
   platformsFilters: { win: true, linux: true, mac: true, browser: true },
   filterText: '',
   setStoresFilters: () => null,
@@ -30,7 +37,12 @@ const initialContext: LibraryContextType = {
   showUpdatesOnly: false,
   setShowUpdatesOnly: () => null,
   handleAddGameButtonClick: () => null,
-  setShowCategories: () => null
+  setShowCategories: () => null,
+  showAlphabetFilter: false,
+  onToggleAlphabetFilter: () => null,
+  alphabetFilterLetter: null,
+  setAlphabetFilterLetter: () => null,
+  gamesForAlphabetFilter: [] as GameInfo[]
 }
 
 export default React.createContext(initialContext)

@@ -8,7 +8,7 @@
         "choose": "Vyberte si",
         "importpath": "Vyberte priečinok hry, ktorý chcete importovať",
         "move": {
-            "message": "Môže to trvať dlho, si si istý?",
+            "message": "Môže to trvať dlho, ste si istý?",
             "path": "Vyberte si, kam sa chcete presunúť",
             "title": "Presunúť Inštaláciu Hry"
         },
@@ -177,7 +177,8 @@
         "winetricks": "Inštalujem Balíky Winetricks",
         "steam": {
             "installing": "Inštaluje sa",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Please wait...",
+            "installation": "Zastaviť inštaláciu"
         }
     },
     "launch": {
@@ -188,17 +189,17 @@
         "gog": "Nie ste prihlásený s účtom GOG v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:",
         "login": "Prihlásiť sa",
         "title": "NIE STE PRIHLÁSENÝ",
-        "amazon": "Nie ste prihlásený s účtom Amazon v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:"
+        "amazon": "Nie ste prihlásený s účtom Amazon v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:",
+        "zoom": "Nie ste prihlásený s účtom GOG v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:"
     },
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {
         "title": "Vyberte komponenty na inštaláciu"
     },
     "setting": {
-        "use-default-wine-settings": "Použiť predvolené nastavenia Winu",
         "winecrossoverbottle": "Fľaša CrossOver",
         "show-wine-settings": "Zobraziť nastavenia Winu",
-        "warn-use-default-wine-settings": "Túto možnosť použite iba vtedy, ak viete, čo robíte.<br/>Zdieľanie rovnakého prefixu pre viacero hier môže spôsobiť problémy, ak sú ich závislosti nekompatibilné."
+        "warn-use-shared-wine-config": "Túto možnosť použite iba vtedy, ak viete, čo robíte.<br/>Zdieľanie rovnakého prefixu pre viacero hier môže spôsobiť problémy, ak sú ich závislosti nekompatibilné."
     },
     "sideload": {
         "field": {

@@ -19,6 +19,7 @@ import {
 } from 'common/types'
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
+import { ZoomCredentials } from './zoom'
 
 export interface StoreStructure {
   configStore: {
@@ -37,6 +38,7 @@ export interface StoreStructure {
     allTilesInColor: boolean
     titlesAlwaysVisible: boolean
     disableDialogBackdropClose: boolean
+    disableAnimations: boolean
     language: string
     'general-logs': {
       currentLogFile: string
@@ -56,6 +58,9 @@ export interface StoreStructure {
   gogInstalledGamesStore: {
     installed: InstalledInfo[]
   }
+  zoomInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
   timestampStore: {
     [K: string]: {
       firstPlayed: string
@@ -71,6 +76,11 @@ export interface StoreStructure {
     credentials?: GOGLoginData
     isLoggedIn: boolean
   }
+  zoomConfigStore: {
+    credentials?: ZoomCredentials
+    isLoggedIn: boolean
+    username?: string
+  }
   nileConfigStore: {
     userData?: NileUserData
   }
@@ -84,6 +94,11 @@ export interface StoreStructure {
     finished: DMQueueElement[]
   }
   gogSyncStore: {
+    [appName: string]: {
+      [saveName: string]: string
+    }
+  }
+  zoomSyncStore: {
     [appName: string]: {
       [saveName: string]: string
     }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Trans, useTranslation } from 'react-i18next'
 import './index.css'
@@ -6,7 +6,8 @@ import { NavLink } from 'react-router-dom'
 import AddGameButton from '../AddGameButton'
 
 function EmptyLibraryMessage() {
-  const { epic, gog, amazon, sideloadedLibrary } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, sideloadedLibrary } =
+    useContext(ContextProvider)
   const { i18n } = useTranslation()
 
   let message = (
@@ -15,8 +16,8 @@ function EmptyLibraryMessage() {
       <br />
       <br />
       Click <NavLink to="/login">here</NavLink> to log in with your Epic,
-      GOG.com, or Amazon accounts. Then, your games will show up here in the
-      Library.
+      GOG.com, Amazon, or Zoom accounts. Then, your games will show up here in
+      the Library.
       <br />
       <br />
       To use games or apps from other sources, click <AddGameButton /> to add
@@ -28,6 +29,7 @@ function EmptyLibraryMessage() {
     epic.library.length +
       gog.library.length +
       amazon.library.length +
+      zoom.library.length +
       sideloadedLibrary.length >
     0
   ) {

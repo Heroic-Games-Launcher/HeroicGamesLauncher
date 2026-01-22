@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext } from 'react'
+import { MouseEvent, useContext } from 'react'
 import { AntiCheatInfo } from 'common/types'
 import { createNewWindow } from 'frontend/helpers'
 

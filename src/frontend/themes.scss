@@ -14,6 +14,20 @@ body {
   --anticheat-supported: var(--status-success);
   --anticheat-planned: var(--status-info);
   --anticheat-unknown: var(--status-denied);
+
+  --alphabet-filter-accent-color: var(--accent);
+  --alphabet-filter-accent-hover: var(--accent-overlay, var(--accent));
+}
+
+body.alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(
+    --accent,
+    var(--primary, var(--brand-primary))
+  );
+  --alphabet-filter-accent-hover: var(
+    --accent-overlay,
+    var(--primary-hover, var(--brand-primary-hover))
+  );
 }
 
 body.midnightMirage {
@@ -200,7 +214,8 @@ body.gruvbox_dark {
   --primary-hover: #83a598;
   --danger: #9e2c28;
   --danger-hover: #f05d4d;
-  --anticheat-denied: #9e2c28 --anticheat-broken: #af3a03;
+  --anticheat-denied: #9e2c28;
+  --anticheat-broken: #af3a03;
   --anticheat-running: #076678;
   --anticheat-supported: #79740e;
   --anticheat-planned: #8f3f71;
@@ -212,6 +227,7 @@ body.gruvbox_dark {
   --icon-disabled: #928374;
   --success-button: #9bce6b;
   --secondary-button: #e2951a;
+  --osk-button-background: var(--input-background);
 }
 
 body.high-contrast {
@@ -246,6 +262,7 @@ body.high-contrast {
   --secondary-button: #f364b5;
 
   --success-button: #00ddff;
+
   .heroicVersion {
     color: var(--text-default);
   }
@@ -261,6 +278,7 @@ body.dracula-classic {
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
   --navbar-background: #44475a;
+  --navbar-active: var(--accent);
   --navbar-active-background: #282a36;
   --gradient-body-background: linear-gradient(
     90deg,
@@ -294,51 +312,92 @@ body.dracula-classic {
 }
 
 body.nord-light {
-  --neutral-06: #c4cbda;
-  --neutral-03: #3687a9;
-  --accent: #80a9b5;
+  --background-light: #eceff4;
+  --body-background: var(--background-light);
   --accent-overlay: #81a1c1;
   --navbar-accent: #81a1c1;
-  --background: #3e4a63;
-  --body-background: var(--background);
   --background-darker: var(--body-background);
   --current-background: var(--body-background);
-  --navbar-background: #5c6a87;
   --navbar-active-background: #2e3440;
   --gradient-body-background: linear-gradient(
     90deg,
-    var(--background-darker) -32px,
+    var(--background-light) -32px,
     var(--body-background) 64px,
     var(--body-background) 100%
   );
-  --input-background: #415880;
   --modal-background: var(--body-background);
   --modal-border: var(--body-background);
-  --success: #5a7246;
-  --success-hover: #719d4a;
   --primary: #b48ead;
   --primary-hover: #a17399;
   --danger: #bf616a;
-  --text-log: #f7b32a;
-  --text-title: #ffffff;
-  --text-default: var(--neutral-08);
-  --text-secondary: var(--neutral-07);
   --text-tertiary: var(--brand-text-01);
-  --text-hover: #7395bf;
   --osk-background: var(--body-background);
   --osk-button-background: var(--input-background);
   --osk-button-border: var(--navbar-background);
-  --action-icon: #c1d7ed;
   --action-icon-hover: var(--accent);
   --action-icon-active: var(--text-default);
   --navbar-inactive: #ffffff;
   --navbar-active: #d0ddff;
-  --status-warning: #dcff19;
-  --gamecard-title-color: #f1f6ffcc;
   --success-button: #3687a9;
   --secondary-button: #15a3e0;
   --icons-background: #6f738f;
   --tertiary-button: #6f738f;
+
+  --brand-text-01: #e0f9ff;
+
+  --neutral-06: #2e3440;
+  --neutral-03: #429ec5;
+  --accent: #30444a;
+  --background: var(--background-light);
+  --navbar-background: #4c566a;
+  --input-background: #d8dee9;
+  --success: #3e532d;
+  --success-hover: #617550;
+  --text-title: #20242c;
+  --text-default: var(--text-title);
+  --text-secondary: #393b41;
+  --text-hover: #5e81ac;
+  --action-icon: #748aa0;
+  --status-warning: #b86901;
+  --gamecard-title-color: #ccdaf8cc;
+  --install-button: var(--primary);
+  --status-success-hover: #5e81ac;
+  --text-log: var(--status-warning);
+  --tour-popup-background: var(--input-background);
+  --tour-bullet-active: var(--accent);
+  --tour-bullet-inactive: var(--accent-overlay);
+  --tour-popup-title: var(--text-title);
+  --tour-popup-skip-color: var(--text-secondary);
+  --tour-popup-skip-color-hover: var(--text-title);
+
+  .developer,
+  .releaseDate,
+  .timeContainerLabel {
+    color: var(--text-default) !important;
+  }
+
+  .MuiDialog-paper {
+    background-color: var(--background-light);
+    color: var(--text-default);
+  }
+
+  .runnerIcon {
+    background: #88c0d0;
+  }
+
+  .genre {
+    background: #2e3440 !important;
+    color: #e5e9f0 !important;
+  }
+
+  button.is-primary {
+    color: var(--text-default);
+  }
+
+  .button.is-success {
+    color: var(--text-default);
+    background-color: #81a1c1;
+  }
 
   .playIcon circle {
     fill: var(--status-success);
@@ -359,6 +418,13 @@ body.nord-light {
 
   .selectFieldWrapper select > option {
     background: var(--background);
+  }
+
+  .searchBarInput {
+    &::placeholder {
+      color: var(--text-default);
+      opacity: 1;
+    }
   }
 
   .heroicVersion:hover {
@@ -392,10 +458,18 @@ body.nord-light {
       }
     }
   }
-}
 
-body.nord-light .alternative > svg {
-  fill: var(--accent) !important;
+  .tour-button {
+    --tour-button-color: var(--accent);
+  }
+
+  .Sidebar .tour-button {
+    --tour-button-color: var(--primary-active);
+  }
+
+  .alternative > svg {
+    fill: var(--accent) !important;
+  }
 }
 
 body.nord-dark {
@@ -504,6 +578,15 @@ body.zombie-classic {
   --icons-background: #323232;
 }
 
+body.zombie .alphabet-filter-button--active,
+body.zombie-classic .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--primary-button);
+  --alphabet-filter-accent-hover: var(
+    --primary-button-hover,
+    var(--primary-button)
+  );
+}
+
 body.old-school {
   --accent: #ffa800;
   --accent-overlay: #ffc44f;
@@ -539,6 +622,11 @@ body.old-school {
 body.classic .sid-input,
 body.old-school .sid-input {
   background: var(--background);
+}
+
+body.old-school .alphabet-filter-button--active {
+  --alphabet-filter-accent-color: var(--status-success);
+  --alphabet-filter-accent-hover: var(--status-success-hover);
 }
 
 body.classic,

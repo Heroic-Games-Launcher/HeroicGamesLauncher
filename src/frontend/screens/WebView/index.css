@@ -1,27 +1,32 @@
 .WebView {
   grid-area: content;
   position: relative;
-}
+  height: 100%;
 
-.WebView__webview {
-  height: calc(100vh - 40px);
-}
+  .login-warning {
+    position: absolute;
+    top: 40px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 1.1rem;
+    justify-content: center;
 
-.WebView .login-warning {
-  position: absolute;
-  top: 40px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  padding: 1.1rem;
-  justify-content: center;
-}
+    & > div {
+      background: black;
+      align-self: center;
+      padding: var(--space-xl);
+    }
+  }
 
-.WebView .login-warning > div {
-  background: black;
-  align-self: center;
-  padding: var(--space-xl);
+  .WebView__webview {
+    height: calc(100vh - 40px);
+  }
+
+  &:has(.UpdateComponent) .WebView__webview {
+    display: none;
+  }
 }

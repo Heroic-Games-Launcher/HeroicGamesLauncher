@@ -209,7 +209,8 @@
         },
         "steam": {
             "installing": "מתקין",
-            "pleaseWait": "נא לחכות..."
+            "pleaseWait": "נא לחכות...",
+            "installation": "הפסק התקנה"
         }
     },
     "install": {
@@ -233,7 +234,8 @@
         "title": "אתה לא מחובר",
         "epic": "אתה לא מחובר עם חשבון Epic בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",
         "gog": "אתה לא מחובר לחשבון GOG בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",
-        "login": "היכנס"
+        "login": "היכנס",
+        "zoom": "אתה לא מחובר לחשבון GOG בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:"
     },
     "report_problem": "דיווח על בעיה בהפעלת המשחק",
     "launch": {
@@ -243,7 +245,6 @@
         "title": "בחרו רכיבים להתקין"
     },
     "setting": {
-        "use-default-wine-settings": "השתמש בהגדרות ברירת המחדל של Wine",
         "winecrossoverbottle": "CrossOver Bottle"
     },
     "specs": {

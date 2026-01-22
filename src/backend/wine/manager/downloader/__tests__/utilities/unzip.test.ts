@@ -1,8 +1,7 @@
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { unzipFile } from '../../utilities'
 
-jest.mock('backend/logger/logger')
-jest.mock('backend/logger/logfile')
+jest.mock('backend/logger')
 
 describe('Utilities - Unzip', () => {
   test('unzip file fails because of invalid archive path', async () => {
@@ -13,7 +12,9 @@ describe('Utilities - Unzip', () => {
         unzipDir: __dirname,
         onProgress: progress
       })
-    ).rejects.toStrictEqual('Zip file invalid.tar.xz does not exist!')
+    ).rejects.toStrictEqual(
+      new Error('Zip file invalid.tar.xz does not exist!')
+    )
   })
 
   test('unzip file fails because of archive is not a file', async () => {
@@ -24,7 +25,9 @@ describe('Utilities - Unzip', () => {
         unzipDir: __dirname,
         onProgress: progress
       })
-    ).rejects.toStrictEqual(`Archive path ${__dirname} is not a file!`)
+    ).rejects.toStrictEqual(
+      new Error(`Archive path ${__dirname} is not a file!`)
+    )
   })
 
   test('unzip file fails because of invalid install path', async () => {
@@ -35,7 +38,7 @@ describe('Utilities - Unzip', () => {
         unzipDir: 'invalid',
         onProgress: progress
       })
-    ).rejects.toStrictEqual('Install path invalid does not exist!')
+    ).rejects.toStrictEqual(new Error('Install path invalid does not exist!'))
   })
 
   test('unzip tar.xz file succeesfully', async () => {

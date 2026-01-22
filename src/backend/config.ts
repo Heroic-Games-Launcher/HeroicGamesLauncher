@@ -7,7 +7,7 @@ import {
 } from 'common/types'
 import { currentGlobalConfigVersion } from 'backend/constants/others'
 
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from './logger'
 import {
   getCrossover,
   getDefaultWine,
@@ -20,13 +20,7 @@ import {
 } from './utils/compatibility_layers'
 import { backendEvents } from './backend_events'
 import { configStore } from './constants/key_value_stores'
-import {
-  isFlatpak,
-  isLinux,
-  isMac,
-  isIntelMac,
-  isWindows
-} from './constants/environment'
+import { isFlatpak, isLinux, isMac, isWindows } from './constants/environment'
 import {
   configPath,
   defaultWinePrefix,
@@ -103,7 +97,7 @@ abstract class GlobalConfig {
         version = JSON.parse(readFileSync(configPath, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${configPath}`,
+          [`Config file is corrupted, please check ${configPath}:`, error],
           LogPrefix.Backend
         )
         version = 'v0'
@@ -318,11 +312,12 @@ class GlobalConfigV0 extends GlobalConfig {
     const defaultWine: WineInstallation = isWindows ? {} : getDefaultWine()
 
     const settings: Partial<AppSettings> = {
+      analyticsOptIn: false,
       checkUpdatesInterval: 10,
       enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
-      autoInstallDxvk: isLinux || isIntelMac,
+      autoInstallDxvk: isLinux || isMac,
       autoInstallVkd3d: isLinux,
       autoInstallDxvkNvapi: isLinux,
       addSteamShortcuts: false,
@@ -349,15 +344,20 @@ class GlobalConfigV0 extends GlobalConfig {
       enableEsync: true,
       enableFsync: isLinux,
       enableMsync: isMac,
+      enableWineWayland: false,
+      enableHDR: false,
+      enableWoW64: false,
       eacRuntime: isLinux,
       battlEyeRuntime: isLinux,
       framelessWindow: false,
       beforeLaunchScriptPath: '',
       afterLaunchScriptPath: '',
       disableUMU: false,
-      verboseLogs: false,
+      verboseLogs: true,
       downloadProtonToSteam: false,
-      advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit'
+      advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
+      noTrayIcon: false,
+      showValveProton: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

@@ -1,20 +1,20 @@
 {
     "box": {
         "change": {
-            "message": "这将会更改此游戏的安装位置，您确定吗？",
+            "message": "这将会更改此游戏的安装位置，你确定吗？",
             "path": "选择新的安装路径",
             "title": "更改游戏安装路径"
         },
         "choose": "选择",
         "importpath": "选择要导入的游戏文件夹",
         "move": {
-            "message": "这可能需要很长的时间，您确定吗？",
+            "message": "这可能需要很长的时间，你确定吗？",
             "path": "选择要移动的位置",
             "title": "移动游戏安装"
         },
         "no": "否",
         "repair": {
-            "message": "您想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
+            "message": "你想尝试修复这个游戏的文件吗？这可能需要很长的时间。",
             "title": "验证和修复"
         },
         "runexe": {
@@ -34,16 +34,16 @@
         },
         "uninstall": {
             "checkbox": "移除前缀：{{prefix}}{{newLine}}注：此操作无法撤销，并且会删除没有备份的保存文件。",
-            "message": "您想要卸载 \"{{title}}\"吗？",
+            "message": "你想要卸载 \"{{title}}\"吗？",
             "settingcheckbox": "擦除设置并删除日志{{newLine}}注意：此操作无法撤消。 任何修改的设置都将被遗忘，日志也将被删除。",
             "title": "卸载",
             "prefix_warning": "此游戏的 Wine 前缀是默认前缀。如果你真的想删除它，你必须手动进行。",
-            "dlc": "您要卸载此 \"{{title}}\" (DLC) 吗？",
+            "dlc": "你要卸载此 \"{{title}}\" (DLC) 吗？",
             "cannotUninstallEpic": "安装 Epic 游戏时不能卸载其他 Epic 游戏。",
             "gameIsRunning": "{{title}} 运行中。关闭此游戏来卸载它。"
         },
         "update": {
-            "message": "该游戏有更新，您想要现在更新吗？",
+            "message": "该游戏有更新，你想要现在更新吗？",
             "title": "游戏需要更新"
         },
         "wineprefix": "选择 WinePrefix 文件夹",
@@ -78,7 +78,8 @@
         "details": "详细内容",
         "changelog": "显示更新日志",
         "browse_files": "浏览文件",
-        "browse_wine_prefix": "浏览 Wine Prefix"
+        "browse_wine_prefix": "浏览 Wine Prefix",
+        "play": "开始游戏"
     },
     "cloud_save_unsupported": "不支持",
     "disabled": "已禁用",
@@ -160,8 +161,8 @@
             "title": "反作弊损坏/被拒",
             "install_anyway": "是（我了解多玩家功能不会正常工作）",
             "multiplayer_message": "反作弊支持损坏或被拒绝。可以打开游戏但多玩家功能不会正常工作。你仍要安装它吗？",
-            "ok": "是",
-            "disabled_installation": "此游戏使用的反作弊软件与您的操作系统不兼容，或者游戏开发者未启用支持。这意味着多人游戏功能将无法使用，您（或 Heroic 团队）对此无能为力。<br /><br />要安装此游戏并尝试运行，请前往设置、高级，并勾选允许安装反作弊损坏或被拒绝的游戏选项。<br /><br />请注意，目前没有解决方案，您可能会在游戏中面临被封禁的风险。"
+            "ok": "确定",
+            "disabled_installation": "此游戏使用的反作弊软件与你的操作系统不兼容，或者游戏开发者未启用支持。这意味着多人游戏功能将无法使用，你（或 Heroic 团队）对此无能为力。<br /><br />要安装此游戏并尝试运行，请前往设置、高级，并勾选允许安装反作弊损坏或被拒绝的游戏选项。<br /><br />请注意，目前没有解决方案，你可能会在游戏中面临被封禁的风险。"
         },
         "flatpak-path-not-writtable": "错误：未授予此路径沙盒访问权限，可能发生数据丢失。"
     },
@@ -172,7 +173,8 @@
         },
         "playing": {
             "start": "开始游戏",
-            "stop": "游戏中（停止）"
+            "stop": "游戏中（停止）",
+            "start_with_logs": "开始游戏（带日志）"
         },
         "saves": {
             "syncing": "存档同步中"
@@ -187,7 +189,7 @@
             "cancel": "取消安装",
             "compatibility": "请注意，并非所有游戏都能运行，即使能运行，表现也可能不如预期。",
             "compatibility-layer-not-available": "兼容层不可用。请先从“设置 > Wine 管理器”安装一个兼容层。",
-            "crossover": "如果您已安装 Crossover，则不需要此项，因为它可以很好地运行普通的 Steam。",
+            "crossover": "如果你已安装 Crossover，则不需要此项，因为它可以很好地运行普通的 Steam。",
             "downloading": "下载中 {{percent}}%",
             "hardware": "Apple Silicon M1+（对于 Intel Mac，Steam 可通过 Crossover 运行）",
             "install": "安装 Steam",
@@ -197,8 +199,8 @@
             "launch": "使用 Heroic 兼容层启动 Steam",
             "launching": "正在启动 Steam...",
             "macOS": "macOS 14.0 或更高版本",
-            "notification": "安装完成后，Heroic 会通知您。",
-            "patience": "如果您希望继续，请耐心等待，完成时间取决于您的网络连接和系统配置，可能需要几分钟。",
+            "notification": "安装完成后，Heroic 会通知你。",
+            "patience": "如果你希望继续，请耐心等待，完成时间取决于你的网络连接和系统配置，可能需要几分钟。",
             "ram": "8GB 内存",
             "recommended": "推荐配置以获得更佳体验",
             "select-path": "选择 Steam 安装文件夹",
@@ -213,21 +215,22 @@
         "options": "启动选项..."
     },
     "not_logged_in": {
-        "epic": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请单击下面的按钮：",
-        "gog": "你在 Heroic 中未登录 GOG 账户。不要使用商店页面进行登录，请单击下面的按钮：",
+        "epic": "你在 Heroic 中未登录 Epic 账号。不要使用商店页面进行登录，请单击下面的按钮：",
+        "gog": "你在 Heroic 中未登录 GOG 账号。不要使用商店页面进行登录，请单击下面的按钮：",
         "login": "登录",
         "title": "你未登录",
-        "amazon": "你在 Heroic 中未登录 Epic 账户。不要使用商店页面进行登录，请点击下面的按钮："
+        "amazon": "你在 Heroic 中未登录 Amazon 账号。不要使用商店页面进行登录，请点击下面的按钮：",
+        "zoom": "您在 Heroic 中没有用 Zoom 账户登录。别用商店页面登录，请单击下面的按钮："
     },
     "report_problem": "报告运行此游戏时出现的问题",
     "sdl": {
         "title": "选择要安装的组件"
     },
     "setting": {
-        "use-default-wine-settings": "使用默认的 Wine 设置",
         "winecrossoverbottle": "CrossOver 容器",
         "show-wine-settings": "显示 Wine 设置",
-        "warn-use-default-wine-settings": "请只在你清楚选项的含义时才使用此选项。<br/>多个游戏共享相同的前缀可能带来问题，如果这些游戏的依赖项彼此不兼容的话。"
+        "warn-use-shared-wine-config": "请只在你清楚选项的含义时才使用此选项。<br/>多个游戏共享相同的前缀可能带来问题，如果这些游戏的依赖项彼此不兼容的话。",
+        "use-shared-wine-config": "使用共享 Wine 前置"
     },
     "sideload": {
         "field": {
@@ -248,8 +251,8 @@
             "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
         },
         "import-hint": {
-            "title": "重要！你是否正添加一款来自 Epic/GOG/Amazon 商店的游戏？请单击此处！",
-            "content": "不要用此功能来添加。<br />正确做法是， <3>登录</3> 商店账户，在你的库中寻找该游戏，打开安装对话框,，单击 &quot;导入游戏&quot; 按钮"
+            "title": "重要！你正添加一款来自 Epic/GOG/Amazon 的游戏吗？请点击此处！",
+            "content": "不要用此功能来添加。<br />正确做法是， <3>登录</3> 商店账号，在你的库中寻找该游戏，打开安装对话框,，单击 &quot;导入游戏&quot; 按钮"
         }
     },
     "specs": {
@@ -284,7 +287,8 @@
         "goodie": "不可安装",
         "prerequisites": "正在安装必需的库等",
         "winetricks": "正在应用 Wintricks 修复",
-        "redist": "正在安装 Redistributables 包 ({{redist}})"
+        "redist": "正在安装 Redistributables 包 ({{redist}})",
+        "importing": "导入中"
     },
     "submenu": {
         "addShortcut": "添加快捷方式",

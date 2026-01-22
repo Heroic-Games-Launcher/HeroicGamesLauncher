@@ -12,27 +12,18 @@ import {
 import axios from 'axios'
 import https from 'node:https'
 import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
-import {
-  exec,
-  ExecException,
-  spawn,
-  SpawnOptions,
-  spawnSync
-} from 'child_process'
+import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
 import {
-  appendGamePlayLog,
-  logChangedSetting,
-  logDebug,
   logError,
   logInfo,
   LogPrefix,
-  logsDisabled,
-  logWarning
-} from './logger/logger'
+  logWarning,
+  logDebug
+} from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import {
@@ -51,7 +42,7 @@ import {
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
 import * as fileSize from 'filesize'
-import makeClient from 'discord-rich-presence-typescript'
+import { Client as discordClient } from '@xhayper/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
@@ -90,6 +81,9 @@ import {
   windowIcon
 } from './constants/paths'
 import { parse } from '@node-steam/vdf'
+
+import type LogWriter from 'backend/logger/log_writer'
+import { isRunning } from './downloadmanager/downloadqueue'
 
 const execAsync = promisify(exec)
 
@@ -245,7 +239,7 @@ async function handleExit() {
 
   await gogPresence.deletePresence()
 
-  if (isLocked && mainWindow) {
+  if ((isLocked || isRunning()) && mainWindow) {
     const { response } = await showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
@@ -259,9 +253,11 @@ async function handleExit() {
       return
     }
 
-    // This is very hacky and can be removed if gogdl
-    // and legendary handle SIGTERM and SIGKILL
-    const possibleChildren = ['legendary', 'gogdl']
+    // This is very hacky and can be removed if bineries handle SIGTERM and SIGKILL
+    // FIXME: we should keep track of what we are doing and kill just that
+    // this is really dangerous cause we can be killing other processes unrelated
+    // to what we are doing x_x
+    const possibleChildren = ['legendary', 'gogdl', 'nile']
     possibleChildren.forEach((procName) => {
       try {
         killPattern(procName)
@@ -278,18 +274,15 @@ async function handleExit() {
 
 type ErrorHandlerMessage = {
   error?: string
-  logPath?: string
   appName?: string
   runner: string
 }
 
 async function errorHandler({
   error,
-  logPath,
   runner: r,
   appName
 }: ErrorHandlerMessage): Promise<void> {
-  const noSpaceMsg = 'Not enough available disk space'
   const plat = r === 'legendary' ? 'Legendary (Epic Games)' : r
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
@@ -297,26 +290,6 @@ async function errorHandler({
   // this message appears on macOS when no Crossover was found in the system but its a false alarm
   const ignoreCrossoverMessage = 'IndexError: list index out of range'
 
-  if (logPath) {
-    execAsync(`tail "${logPath}" | grep 'disk space'`)
-      .then(async ({ stdout }) => {
-        if (stdout.includes(noSpaceMsg)) {
-          logError(noSpaceMsg, LogPrefix.Backend)
-          return showDialogBoxModalAuto({
-            title: i18next.t('box.error.diskspace.title', 'No Space'),
-            message: i18next.t(
-              'box.error.diskspace.message',
-              'Not enough available disk space'
-            ),
-            type: 'ERROR'
-          })
-        }
-      })
-      .catch((err: ExecException) => {
-        // Grep returns 1 when it didn't find any text, which is fine in this case
-        if (err.code !== 1) logInfo('operation interrupted', LogPrefix.Backend)
-      })
-  }
   if (error) {
     if (error.includes(ignoreCrossoverMessage)) {
       return
@@ -372,10 +345,7 @@ async function errorHandler({
 // If you ever modify this range of characters, please also add them to nile
 // source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp(
-    /[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/,
-    'gi'
-  )
+  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
 }
 
@@ -387,7 +357,7 @@ async function openUrlOrFile(url: string): Promise<string | void> {
 }
 
 function clearCache(
-  library?: 'gog' | 'legendary' | 'nile',
+  library?: 'gog' | 'legendary' | 'nile' | 'zoom',
   fromVersionChange = false
 ) {
   wikiGameInfoStore.clear()
@@ -614,7 +584,10 @@ async function getSteamRuntime(
 }
 
 function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
-  const client = makeClient('852942976564723722')
+  const client = new discordClient({
+    clientId: '852942976564723722'
+  })
+
   const versionText = `Heroic ${app.getVersion()}`
 
   const image = gameInfo.art_icon || gameInfo.art_square
@@ -632,14 +605,18 @@ function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
         largeImageText: versionText
       }
 
-  client.updatePresence({
-    details: title,
-    instance: true,
-    large_text: title,
-    startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName(),
-    ...overrides
+  client.on('ready', async () => {
+    await client.user?.setActivity({
+      name: title,
+      type: 0,
+      startTimestamp: Date.now(),
+      state: 'via Heroic on ' + getFormattedOsName(),
+      statusDisplayType: 0, // Use game title for name plate
+      ...overrides
+    })
   })
+
+  client.login()
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
 }
@@ -845,7 +822,7 @@ const getCurrentChangelog = async (): Promise<Release | null> => {
     return release as Release
   } catch (error) {
     logError(
-      ['Error when checking for current Heroic changelog'],
+      ['Error when checking for current Heroic changelog:', error],
       LogPrefix.Backend
     )
     return null
@@ -919,13 +896,7 @@ export const spawnAsync = async (
   }
 
   return new Promise((resolve, reject) => {
-    child.on('error', (error) =>
-      reject({
-        code: 1,
-        stdout: stdout.join(''),
-        stderr: stderr.join('').concat(error.message)
-      })
-    )
+    child.on('error', reject)
     child.on('close', (code) => {
       resolve({
         code,
@@ -1007,14 +978,16 @@ export async function downloadDefaultWine() {
 
 export async function checkWineBeforeLaunch(
   gameInfo: GameInfo,
-  gameSettings: GameSettings
+  gameSettings: GameSettings,
+  logWriter: LogWriter
 ): Promise<boolean> {
   const wineIsValid = await validWine(gameSettings.wineVersion)
 
   if (wineIsValid) {
     return true
   } else {
-    if (!logsDisabled) {
+    const { disableLogs } = GlobalConfig.get().getSettings()
+    if (!disableLogs) {
       logError(
         `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.`,
         LogPrefix.Backend
@@ -1022,10 +995,11 @@ export async function checkWineBeforeLaunch(
     }
 
     if (gameSettings.verboseLogs) {
-      appendGamePlayLog(
-        gameInfo,
-        `Wine version ${gameSettings.wineVersion.name} is not valid, trying another one.\n`
-      )
+      logWriter.logWarning([
+        'Wine version',
+        gameSettings.wineVersion.name,
+        'is not valid, trying another one.\n'
+      ])
     }
 
     // check if the default wine is valid now
@@ -1040,10 +1014,11 @@ export async function checkWineBeforeLaunch(
       if (response === 0) {
         logInfo(`Changing wine version to ${defaultwine.name}`)
         if (gameSettings.verboseLogs) {
-          appendGamePlayLog(
-            gameInfo,
-            `Changing wine version to ${defaultwine.name}\n`
-          )
+          logWriter.logInfo([
+            'Changing wine version to',
+            defaultwine.name,
+            '\n'
+          ])
         }
         gameSettings.wineVersion = defaultwine
         GameConfig.get(gameInfo.app_name).setSetting('wineVersion', defaultwine)
@@ -1551,6 +1526,26 @@ function bytesToSize(bytes: number) {
   return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
 }
 
+function parseSize(size: string): number {
+  const units = ['bytes', 'kb', 'mb', 'gb', 'tb', 'pb']
+  let unit_index = 0
+  size = size.trim().toLowerCase()
+  for (const unit of units) {
+    if (size.endsWith(unit)) {
+      size = size.slice(0, -unit.length).trim()
+      break
+    }
+    unit_index += 1
+  }
+  try {
+    return Math.round(parseFloat(size) * 1024 ** unit_index)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    logWarning(`Invalid size value '${size}'`, LogPrefix.Backend)
+    return 0
+  }
+}
+
 function formatTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds - hours * 3600) / 60)
@@ -1631,7 +1626,20 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
       : GameConfig.get(appName).config
 
   // log only the changed setting
-  logChangedSetting(config, oldConfig)
+  const sharedKeys = (
+    Object.keys(oldConfig) as (keyof typeof oldConfig)[]
+  ).filter((key) => key in config)
+  const changedKeys = sharedKeys.filter(
+    (key) => JSON.stringify(oldConfig[key]) !== JSON.stringify(config[key])
+  )
+  for (const key of changedKeys) {
+    const oldValue = oldConfig[key]
+    const newValue = config[key]
+    logInfo(
+      ['Changed config:', key, 'from', oldValue, 'to', newValue],
+      LogPrefix.Backend
+    )
+  }
 
   if (appName === 'default') {
     GlobalConfig.get().set(config as AppSettings)
@@ -1682,7 +1690,8 @@ export {
   sendProgressUpdate,
   calculateEta,
   extractFiles,
-  axiosClient
+  axiosClient,
+  parseSize
 }
 
 // Exported only for testing purpose

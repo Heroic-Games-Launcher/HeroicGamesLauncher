@@ -96,7 +96,7 @@ async function install({
   }
 
   if (installPath !== 'default') {
-    setInstallPath && setInstallPath(installPath)
+    if (setInstallPath) setInstallPath(installPath)
   }
 
   if (installPath === 'default') {
@@ -370,9 +370,14 @@ const updateGame = (args: UpdateParams) => {
   return window.api.updateGame(args)
 }
 
+export const normalizeTitle = (title: string) => {
+  return title.replace(/[^\w\s]/g, '').toLowerCase()
+}
+
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']
 export const amazonCategories = ['all', 'nile', 'amazon']
+export const zoomCategories = ['all', 'zoom']
 
 export { handleStopInstallation, install, launch, repair, updateGame }

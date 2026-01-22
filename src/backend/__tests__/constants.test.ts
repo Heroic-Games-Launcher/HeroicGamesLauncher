@@ -11,7 +11,7 @@ export function overrideProcessPlatform(os: string): string {
   return original_os
 }
 
-jest.mock('../logger/logfile')
+jest.mock('../logger')
 
 describe('Constants - fixAsarPath', () => {
   test('need to fix path and replace correctly', () => {

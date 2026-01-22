@@ -1,4 +1,3 @@
-import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox } from 'frontend/components/UI'
 import {
@@ -6,22 +5,15 @@ import {
   TableInput
 } from 'frontend/components/UI/TwoColTableInput'
 import { EnviromentVariable } from 'common/types'
-import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 
 const EnvVariablesTable = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
-  const isWindows = platform === 'win32'
 
   const [environmentOptions, setEnvironmentOptions] = useSetting(
     'enviromentOptions',
     []
   )
-
-  if (isWindows) {
-    return <></>
-  }
 
   const getEnvironmentVariables = () => {
     const columns: ColumnProps[] = []

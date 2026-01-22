@@ -25,6 +25,12 @@ const initialContext: ContextType = {
     login: async () => Promise.resolve(''),
     logout: async () => Promise.resolve()
   },
+  zoom: {
+    library: [],
+    login: async () => Promise.resolve(''),
+    logout: async () => Promise.resolve(),
+    enabled: false
+  },
   installingEpicGame: false,
   sideloadedLibrary: [],
   error: false,
@@ -88,8 +94,6 @@ const initialContext: ContextType = {
   setHideChangelogsOnStartup: () => null,
   lastChangelogShown: null,
   setLastChangelogShown: () => null,
-  isSettingsModalOpen: { value: false, type: 'settings' },
-  setIsSettingsModalOpen: () => null,
   help: {
     items: {},
     addHelpItem: () => null,
@@ -97,11 +101,14 @@ const initialContext: ContextType = {
   },
   experimentalFeatures: {
     enableHelp: false,
-    cometSupport: true
+    cometSupport: true,
+    zoomPlatform: false
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,
-  setDisableDialogBackdropClose: () => null
+  setDisableDialogBackdropClose: () => null,
+  disableAnimations: false,
+  setDisableAnimations: () => null
 }
 
 export default React.createContext(initialContext)

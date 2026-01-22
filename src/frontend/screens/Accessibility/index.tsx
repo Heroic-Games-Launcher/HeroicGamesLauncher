@@ -12,8 +12,6 @@ import classNames from 'classnames'
 import { SelectField } from 'frontend/components/UI'
 import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import useSetting from '../../hooks/useSetting'
 import SettingsContext from '../Settings/SettingsContext'
 import useSettingsContext from '../../hooks/useSettingsContext'
@@ -34,7 +32,9 @@ const Accessibility = React.memo(function Accessibility() {
     setPrimaryFontFamily,
     setSecondaryFontFamily,
     disableDialogBackdropClose,
-    setDisableDialogBackdropClose
+    setDisableDialogBackdropClose,
+    disableAnimations,
+    setDisableAnimations
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -44,7 +44,6 @@ const Accessibility = React.memo(function Accessibility() {
   )
 
   const [fonts, setFonts] = useState<string[]>([])
-  const [refreshing, setRefreshing] = useState(false)
   const [contentFont, setContentFont] = useState('')
   const [actionFont, setActionFont] = useState('')
   const [smoothScrollingDisabled, setSmoothScrollingDisabled] = useSetting(
@@ -60,22 +59,13 @@ const Accessibility = React.memo(function Accessibility() {
     document.documentElement
   ).getPropertyValue('--default-secondary-font-family')
 
-  const getFonts = async (reload = false) => {
-    const systemFonts = await window.api.getFonts(reload)
+  const getFonts = async () => {
+    const systemFonts = await queryLocalFonts()
     setFonts([
       defaultSecondaryFont.trim(),
       defaultPrimaryFont.trim(),
-      ...systemFonts
+      ...new Set(systemFonts.map((font) => font.family))
     ])
-  }
-
-  const refreshFonts = () => {
-    setRefreshing(true)
-    getFonts(true)
-  }
-
-  const onRefreshingAnimationEnd = () => {
-    setRefreshing(false)
   }
 
   useEffect(() => {
@@ -153,17 +143,6 @@ const Accessibility = React.memo(function Accessibility() {
         <span className="setting">
           <span className="fonts-label">
             {t('accessibility.fonts', 'Fonts')}
-            <button
-              className={classNames('FormControl__button', { refreshing })}
-              title={t('library.refresh', 'Refresh Library')}
-              onClick={refreshFonts}
-              onAnimationEnd={onRefreshingAnimationEnd}
-            >
-              <FontAwesomeIcon
-                className="FormControl__segmentedFaIcon"
-                icon={faSyncAlt}
-              />
-            </button>
           </span>
         </span>
 
@@ -254,6 +233,22 @@ const Accessibility = React.memo(function Accessibility() {
               title={t(
                 'accessibility.disable_smooth_scrolling',
                 'Disable smooth scrolling (requires restart)'
+              )}
+            />
+          </label>
+        </span>
+
+        <span className="setting">
+          <label className={classNames('toggleWrapper', { isRTL: isRTL })}>
+            <ToggleSwitch
+              htmlId="disableAnimations"
+              value={disableAnimations}
+              handleChange={() => {
+                setDisableAnimations(!disableAnimations)
+              }}
+              title={t(
+                'accessibility.disable_animations',
+                'Disable UI animations'
               )}
             />
           </label>

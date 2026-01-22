@@ -2,9 +2,9 @@ import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
 
 import { GameConfigVersion, GameSettings } from 'common/types'
 import { GlobalConfig } from './config'
-import { currentGameConfigVersion } from 'backend/constants/others'
-import { logError, logInfo, LogPrefix } from './logger/logger'
+import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { join } from 'path'
+import { currentGameConfigVersion } from 'backend/constants/others'
 import { isMac, isWindows } from './constants/environment'
 import {
   configPath,
@@ -57,7 +57,7 @@ abstract class GameConfig {
         version = JSON.parse(readFileSync(path, 'utf-8'))['version']
       } catch (error) {
         logError(
-          `Config file is corrupted, please check ${path}`,
+          [`Config file is corrupted, please check ${path}:`, error],
           LogPrefix.Backend
         )
         version = 'v0'
@@ -208,12 +208,17 @@ class GameConfigV0 extends GameConfig {
       autoInstallDxvk,
       autoInstallDxvkNvapi,
       autoInstallVkd3d,
+      DXVKFpsCap,
       preferSystemLibs,
       autoSyncSaves,
       enableEsync,
       enableFSR,
       enableMsync,
       enableFsync,
+      enableWineWayland,
+      enableHDR,
+      enableDXVKFpsLimit,
+      enableWoW64,
       maxSharpness,
       launcherArgs,
       nvidiaPrime,
@@ -244,12 +249,17 @@ class GameConfigV0 extends GameConfig {
       autoInstallDxvk,
       autoInstallDxvkNvapi,
       autoInstallVkd3d,
+      DXVKFpsCap,
       preferSystemLibs,
       autoSyncSaves,
       enableEsync,
       enableMsync,
       enableFSR,
       enableFsync,
+      enableWineWayland,
+      enableHDR,
+      enableWoW64,
+      enableDXVKFpsLimit,
       maxSharpness,
       launcherArgs,
       nvidiaPrime,

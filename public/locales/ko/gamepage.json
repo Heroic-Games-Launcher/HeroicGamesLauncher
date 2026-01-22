@@ -178,7 +178,8 @@
         "winetricks": "와인트릭스 패키지 설치",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "잠시만 기다려 주세요...."
+            "pleaseWait": "잠시만 기다려 주세요....",
+            "installation": "설치 중지"
         }
     },
     "launch": {
@@ -189,16 +190,16 @@
         "gog": "Heroic에서 GOG 계정으로 로그인하지 않았습니다. 스토어 페이지를 사용하여 로그인하지 말고 대신 다음 버튼을 클릭하세요:",
         "login": "로그인",
         "title": "로그인하지 않았음",
-        "amazon": "Heroic에서 아마존 계정으로 로그인하지 않았습니다. 스토어 페이지를 사용하여 로그인하지 말고 대신 다음 버튼을 클릭하세요:"
+        "amazon": "Heroic에서 아마존 계정으로 로그인하지 않았습니다. 스토어 페이지를 사용하여 로그인하지 말고 대신 다음 버튼을 클릭하세요:",
+        "zoom": "Heroic에서 GOG 계정으로 로그인하지 않았습니다. 스토어 페이지를 사용하여 로그인하지 말고 대신 다음 버튼을 클릭하세요:"
     },
     "report_problem": "이 게임을 실행 중 문제 있음을 보고하기",
     "sdl": {
         "title": "설치할 구성 요소를 선택"
     },
     "setting": {
-        "use-default-wine-settings": "기본 와인 설정 사용",
         "winecrossoverbottle": "크로스오버 보틀",
-        "warn-use-default-wine-settings": "무엇을 해야 할지 아는 경우에만 이 옵션을 사용하세요. <br/>여러 게임에 동일한 설치 경로를 공유하면 종속성이 호환되지 않을 경우 문제가 발생할 수 있습니다.",
+        "warn-use-shared-wine-config": "무엇을 해야 할지 아는 경우에만 이 옵션을 사용하세요. <br/>여러 게임에 동일한 설치 경로를 공유하면 종속성이 호환되지 않을 경우 문제가 발생할 수 있습니다.",
         "show-wine-settings": "와인 설정 표시"
     },
     "sideload": {

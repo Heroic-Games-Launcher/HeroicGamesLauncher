@@ -180,7 +180,8 @@
         "redist": "Asennetaan uudelleenjaeltavat osat",
         "steam": {
             "installing": "Installing",
-            "pleaseWait": "Odota..."
+            "pleaseWait": "Odota...",
+            "installation": "Pysäytä asennus"
         }
     },
     "launch": {
@@ -191,16 +192,16 @@
         "gog": "Et ole kirjautunut sisään GOG-käyttäjällä. Älä käytä kauppaa sisäänkirjautumiseen, vaan paina seuraavaa nappia:",
         "login": "Log in",
         "title": "ET ole kirjautunut sisään",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Ilmoita ongelmasta tässä pelissä",
     "sdl": {
         "title": "Valitse asennettavat komponentit"
     },
     "setting": {
-        "use-default-wine-settings": "Käytä Winen oletusasetuksia",
         "winecrossoverbottle": "CrossOver Bottle",
-        "warn-use-default-wine-settings": "Käytä tätä vaihtoehtoa vain, jos tiedät, mitä olet tekemässä.<br/>Saman prefixin käyttäminen useissa peleissä voi aiheuttaa ongelmia, jos niiden riippuvuudet eivät ole yhteensopivia.",
+        "warn-use-shared-wine-config": "Käytä tätä vaihtoehtoa vain, jos tiedät, mitä olet tekemässä.<br/>Saman prefixin käyttäminen useissa peleissä voi aiheuttaa ongelmia, jos niiden riippuvuudet eivät ole yhteensopivia.",
         "show-wine-settings": "Näytä Wine-asetukset"
     },
     "sideload": {

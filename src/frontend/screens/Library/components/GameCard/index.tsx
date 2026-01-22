@@ -1,12 +1,6 @@
 import './index.css'
 
-import React, {
-  useContext,
-  CSSProperties,
-  useMemo,
-  useState,
-  useEffect
-} from 'react'
+import { useContext, CSSProperties, useMemo, useState, useEffect } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
@@ -41,6 +35,23 @@ import { getCardStatus, getImageFormatting } from './constants'
 import { hasStatus } from 'frontend/hooks/hasStatus'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
+import useGlobalState from 'frontend/state/GlobalStateV2'
+import {
+  Cancel,
+  DeleteForever,
+  Description,
+  Download,
+  Favorite,
+  FavoriteBorder,
+  List,
+  OpenInNew,
+  PlayArrow,
+  PlaylistRemove,
+  Settings,
+  Upgrade,
+  Visibility,
+  VisibilityOff
+} from '@mui/icons-material'
 
 interface Card {
   buttonClick: () => void
@@ -90,13 +101,14 @@ const GameCard = ({
 
   const navigate = useNavigate()
 
-  const {
-    hiddenGames,
-    favouriteGames,
-    showDialogModal,
-    setIsSettingsModalOpen,
-    activeController
-  } = useContext(ContextProvider)
+  const { hiddenGames, favouriteGames, showDialogModal, activeController } =
+    useContext(ContextProvider)
+  const { openGameSettingsModal, openGameLogsModal, openGameCategoriesModal } =
+    useGlobalState.keys(
+      'openGameSettingsModal',
+      'openGameLogsModal',
+      'openGameCategoriesModal'
+    )
 
   const { layout } = useContext(LibraryContext)
 
@@ -114,12 +126,12 @@ const GameCard = ({
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
-  const [progress, previousProgress] = hasProgress(appName)
+  const [progress, previousProgress] = hasProgress(appName, runner)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
   }
 
-  const { status, folder, label } = hasStatus(appName, gameInfo, size)
+  const { status, folder, label } = hasStatus(gameInfo, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
 
@@ -237,7 +249,7 @@ const GameCard = ({
           title={`${t('label.playing.start')} (${title})`}
           disabled={disabled}
         >
-          {justPlayed ? <span>PLAY</span> : <PlayIcon />}
+          {justPlayed ? <span>{t('button.play', 'PLAY')}</span> : <PlayIcon />}
         </SvgButton>
       )
     } else {
@@ -274,93 +286,109 @@ const GameCard = ({
       // remove from install queue
       label: t('button.queue.remove'),
       onclick: () => handleRemoveFromQueue(),
-      show: isQueued && !isInstalling
+      show: isQueued && !isInstalling,
+      icon: <Cancel />
     },
     {
       // stop if running
       label: t('label.playing.stop'),
       onclick: async () => handlePlay(runner),
-      show: isPlaying
+      show: isPlaying,
+      icon: <Cancel />
     },
     {
       // launch game
       label: t('label.playing.start'),
       onclick: async () => handlePlay(runner),
-      show: isInstalled && !isPlaying && !isUpdating && !isQueued
+      show: isInstalled && !isPlaying && !isUpdating && !isQueued,
+      icon: <PlayArrow />
     },
     {
       // update
       label: t('button.update', 'Update'),
       onclick: async () => handleUpdate(),
-      show: hasUpdate && !isUpdating && !isQueued
+      show: hasUpdate && !isUpdating && !isQueued,
+      icon: <Upgrade />
     },
     {
       // install
       label: t('button.install'),
       onclick: () => buttonClick(),
-      show: !isInstalled && !isQueued && isInstallable
+      show: !isInstalled && !isQueued && isInstallable,
+      icon: <Download />
     },
     {
       // cancel installation/update
       label: t('button.cancel'),
       onclick: async () => handlePlay(runner),
-      show: isInstalling || isUpdating
+      show: isInstalling || isUpdating,
+      icon: <Cancel />
     },
     {
       // open the game page
       label: t('button.details', 'Details'),
       onclick: () =>
         navigate(`/gamepage/${runner}/${appName}`, { state: { gameInfo } }),
-      show: true
+      show: true,
+      icon: <OpenInNew />
     },
     {
       // settings
       label: t('submenu.settings', 'Settings'),
-      onclick: () => setIsSettingsModalOpen(true, 'settings', gameInfo),
-      show: isInstalled && !isUninstalling && !isBrowserGame
+      onclick: () => openGameSettingsModal(gameInfo),
+      show: isInstalled && !isUninstalling && !isBrowserGame,
+      icon: <Settings />
     },
     {
       label: t('submenu.logs', 'Logs'),
-      onclick: () => setIsSettingsModalOpen(true, 'log', gameInfo),
-      show: isInstalled && !isUninstalling && !isBrowserGame
+      onclick: () => openGameLogsModal(gameInfo),
+      show: isInstalled && !isUninstalling && !isBrowserGame,
+      icon: <Description />
     },
     {
       // hide
       label: t('button.hide_game', 'Hide Game'),
       onclick: () => hiddenGames.add(appName, title),
-      show: !isHiddenGame
+      show: !isHiddenGame,
+      icon: <VisibilityOff />
     },
     {
       // unhide
       label: t('button.unhide_game', 'Unhide Game'),
       onclick: () => hiddenGames.remove(appName),
-      show: isHiddenGame
+      show: isHiddenGame,
+      icon: <Visibility />
     },
     {
       label: t('button.add_to_favourites', 'Add To Favourites'),
       onclick: () => favouriteGames.add(appName, title),
-      show: !isFavouriteGame
+      show: !isFavouriteGame,
+      icon: <Favorite />
     },
     {
       label: t('submenu.categories', 'Categories'),
-      onclick: () => setIsSettingsModalOpen(true, 'category', gameInfo),
-      show: true
+      onclick: () => openGameCategoriesModal(gameInfo),
+      show: true,
+      icon: <List />
     },
     {
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
       onclick: () => favouriteGames.remove(appName),
-      show: isFavouriteGame
+      show: isFavouriteGame,
+      icon: <FavoriteBorder />
     },
     {
       label: t('button.remove_from_recent', 'Remove From Recent'),
       onclick: async () => window.api.removeRecentGame(appName),
-      show: isRecent
+      show: isRecent,
+      icon: <PlaylistRemove />
     },
     {
       // uninstall
       label: t('button.uninstall'),
       onclick: onUninstallClick,
-      show: isInstalled && !isUpdating && !isPlaying
+      show: isInstalled && !isUpdating && !isPlaying,
+      icon: <DeleteForever />
     }
   ]
 
@@ -479,9 +507,7 @@ const GameCard = ({
                   <SvgButton
                     title={`${t('submenu.settings')} (${title})`}
                     className="settingsIcon"
-                    onClick={() =>
-                      setIsSettingsModalOpen(true, 'settings', gameInfo)
-                    }
+                    onClick={() => openGameSettingsModal(gameInfo)}
                   >
                     <SettingsIcon />
                   </SvgButton>

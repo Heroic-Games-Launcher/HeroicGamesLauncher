@@ -9,9 +9,9 @@ import {
 } from 'common/types/electron_store'
 import { GameInfo } from 'common/types'
 
-export class TypeCheckedStoreFrontend<Name extends ValidStoreName>
-  implements TypeCheckedStore<Name>
-{
+export class TypeCheckedStoreFrontend<
+  Name extends ValidStoreName
+> implements TypeCheckedStore<Name> {
   private storeName: ValidStoreName
 
   constructor(name: Name, options: StoreOptions<StoreStructure[Name]>) {
@@ -138,6 +138,21 @@ const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
+const zoomLibraryStore = new CacheStore<GameInfo[], 'games'>(
+  'zoom_library',
+  null
+)
+const zoomInstalledGamesStore = new TypeCheckedStoreFrontend(
+  'zoomInstalledGamesStore',
+  {
+    cwd: 'zoom_store',
+    name: 'installed'
+  }
+)
+const zoomConfigStore = new TypeCheckedStoreFrontend('zoomConfigStore', {
+  cwd: 'zoom_store'
+})
+
 const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
   'nile_library',
   null
@@ -172,5 +187,8 @@ export {
   wineDownloaderInfoStore,
   downloadManagerStore,
   nileLibraryStore,
-  nileConfigStore
+  nileConfigStore,
+  zoomLibraryStore,
+  zoomInstalledGamesStore,
+  zoomConfigStore
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
@@ -16,7 +16,7 @@ const UseFramelessWindow = () => {
     return <></>
   }
 
-  async function toggleFramelessWindow() {
+  function toggleFramelessWindow() {
     if (!framelessWindow) {
       showDialogModal({
         title: t(

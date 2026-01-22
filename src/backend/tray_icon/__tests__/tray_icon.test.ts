@@ -6,7 +6,7 @@ import { RecentGame } from 'common/types'
 import i18next from 'i18next'
 import { configStore } from 'backend/constants/key_value_stores'
 
-jest.mock('../../logger/logfile')
+jest.mock('../../logger')
 jest.mock('../../config')
 
 const wait = async (ms: number) =>
@@ -21,6 +21,18 @@ describe('TrayIcon', () => {
 
   afterEach(() => {
     configStore.get = jest.fn()
+  })
+
+  it('shows no icon if noTrayIcon setting', async () => {
+    GlobalConfig.setConfigValue('noTrayIcon', true)
+
+    const noAppIcon = await initTrayIcon(mainWindow)
+    expect(noAppIcon).toBeNull()
+
+    GlobalConfig.setConfigValue('noTrayIcon', false)
+
+    const appIcon = await initTrayIcon(mainWindow)
+    expect(appIcon).not.toBeNull()
   })
 
   describe('content', () => {
@@ -62,7 +74,9 @@ describe('TrayIcon', () => {
         it('updates the content', async () => {
           setRecentGames([{ title: 'game 1', appName: '12345' }])
 
-          const appIcon = await initTrayIcon(mainWindow)
+          const appIcon = (await initTrayIcon(
+            mainWindow
+          )) as Electron.CrossProcessExports.Tray
 
           expect(appIcon.menu[0]).toEqual({
             click: expect.any(Function),
@@ -102,7 +116,9 @@ describe('TrayIcon', () => {
 
           setRecentGames([])
 
-          const appIcon = await initTrayIcon(mainWindow)
+          const appIcon = (await initTrayIcon(
+            mainWindow
+          )) as Electron.CrossProcessExports.Tray
 
           expect(appIcon.menu[0]).toEqual({
             type: 'separator'
@@ -155,7 +171,9 @@ describe('TrayIcon', () => {
 
           // check it renders english
           i18next.language = 'en'
-          const appIcon = await initTrayIcon(mainWindow)
+          const appIcon = (await initTrayIcon(
+            mainWindow
+          )) as Electron.CrossProcessExports.Tray
           let items = appIcon.menu
           expect(items[items.length - 1].label).toEqual('Quit')
 
@@ -193,7 +211,9 @@ describe('TrayIcon', () => {
       // defaults to 5
       GlobalConfig.setConfigValue('maxRecentGames', undefined)
 
-      const appIcon = await initTrayIcon(mainWindow)
+      const appIcon = (await initTrayIcon(
+        mainWindow
+      )) as Electron.CrossProcessExports.Tray
 
       const items = appIcon.menu
 

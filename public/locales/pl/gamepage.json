@@ -14,14 +14,15 @@
         },
         "no": "NIE",
         "repair": {
-            "message": "Chcesz spróbować naprawić tę grę? To może zająć dużo czasu.",
+            "message": "Chcesz spróbować naprawić tę grę? To może zająć dłuższą chwilę.",
             "title": "Zweryfikuj i napraw"
         },
         "runexe": {
             "title": "Wybierz EXE do uruchomienia"
         },
         "select": {
-            "button": "Wybierz"
+            "button": "Wybierz",
+            "image": "Wybierz obraz"
         },
         "sideload": {
             "exe": "Wybierz plik wykonywalny"
@@ -32,7 +33,7 @@
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
-            "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
+            "checkbox": "Usuń prefiks: {{prefix}}{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować \"{{title}}\"?",
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
@@ -42,19 +43,20 @@
             "gameIsRunning": "{{title}} jest uruchomiony. Zamknij grę, aby ją odinstalować."
         },
         "update": {
-            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
+            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją zaktualizować teraz?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK",
-        "close": "Zamknij"
+        "close": "Zamknij",
+        "select-install-path": "Wybierz ścieżkę instalacji Steam"
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
         "finish": "Zakończ",
-        "force_update": "Wymuś dostępne aktualizacje",
+        "force_update": "Wymuś aktualizację, jeśli jest dostępna",
         "force-innstall": "Wymuś instalację",
         "hide_game": "Ukryj grę",
         "import": "Importuj grę",
@@ -76,7 +78,8 @@
         "details": "Szczegóły",
         "changelog": "Pokaż dziennik zmian",
         "browse_files": "Przeglądaj pliki",
-        "browse_wine_prefix": "Przeglądaj prefiks Wine"
+        "browse_wine_prefix": "Przeglądaj prefiks Wine",
+        "play": "GRAJ"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -170,7 +173,8 @@
         },
         "playing": {
             "start": "Graj",
-            "stop": "Gra uruchomiona (zatrzymaj)"
+            "stop": "Gra uruchomiona (zatrzymaj)",
+            "start_with_logs": "Graj Teraz (z logami)"
         },
         "saves": {
             "syncing": "Synchronizowanie zapisów"
@@ -182,7 +186,29 @@
         "redist": "Instalowanie pakietów redystrybucyjnych",
         "steam": {
             "installing": "Instalowanie",
-            "pleaseWait": "Please wait..."
+            "pleaseWait": "Proszę czekać",
+            "crossover": "Jeśli masz zainstalowany program Crossover, nie będzie ci to potrzebne, ponieważ potrafi on uruchamiać zwykły Steam bez problemu.",
+            "abort": "Przerwij instalację",
+            "recommended": "Zalecane specyfikacje dla lepszego komfortu",
+            "compatibility": "Instalacja Steam nie powiodła się! Przeczytaj dokładnie instrukcje i spróbuj ponownie.",
+            "install-tooltip": "To zainstaluje windowsową wersję programu Steam i będzie ona działać przy użyciu warstwy kompatybilności programu Heroic. \n\n    Niektóre gry, zwłaszcza starsze tytuły, nowsze gry 3D lub te z oprogramowaniem antycziterskim, mogą nie działać poprawnie. \n\n    ",
+            "specificVersion-pt1": "Spowoduje to pobranie określonej wersji Steam z",
+            "launching": "Uruchamianie Steam...",
+            "macOS": "macOS 14.0 lub nowszy",
+            "cancel": "Anuluj instalację",
+            "compatibility-layer-not-available": "Warstwa zgodności jest niedostępna. Zainstaluj ją najpierw z 'Ustawienia > Menedżer Wine'.",
+            "downloading": "Pobieranie {{percent}}%",
+            "hardware": "Apple Silicon M1+ (dla Maców z procesorami Intel Steam będzie działał z programem Crossover)",
+            "install": "Zainstaluj Steam",
+            "install-path": "Ścieżka instalacji Steam",
+            "installation": "Instalacja Steam",
+            "launch": "Uruchom Steam, używając warstwy zgodności programu Heroic",
+            "notification": "Heroic powiadomi cię, gdy instalacja zostanie zakończona.",
+            "patience": "Jeśli chcesz kontynuować, prosimy o cierpliwość, ponieważ może to potrwać kilka minut, w zależności od połączenia internetowego i konfiguracji systemu.",
+            "ram": "8 GB pamięci RAM",
+            "select-path": "Wybierz katalog instalacji dla Steam",
+            "specificVersion-pt2": "archive.org",
+            "specificVersion-pt3": "zoptymalizowanej do działania poprzez program Heroic, ponieważ nowe wersje Steam nie będą działać na macOS."
         }
     },
     "launch": {
@@ -191,19 +217,20 @@
     "not_logged_in": {
         "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
         "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
-        "login": "Zaloguj",
-        "title": "NIE jesteś zalogowany",
-        "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
+        "login": "Zaloguj się",
+        "title": "Jesteś niezalogowany",
+        "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:",
+        "zoom": "Nie jesteś zalogowany za pomocą konta Zoom w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
         "title": "Wybierz komponenty do instalacji"
     },
     "setting": {
-        "use-default-wine-settings": "Użyj domyślnych ustawień Wine",
         "winecrossoverbottle": "Butelka CrossOver",
         "show-wine-settings": "Pokaż ustawienia Wine",
-        "warn-use-default-wine-settings": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne."
+        "warn-use-shared-wine-config": "Używaj tylko, jeżeli wiesz co robisz.<br/>Współdzielenie tego samego prefiksu przez wiele gier może powodować problemy, jeżeli ich zależności nie są kompatybilne.",
+        "use-shared-wine-config": "Używaj dzielonego prefiksu Wine"
     },
     "sideload": {
         "field": {
@@ -215,17 +242,17 @@
             "title": "Tytuł gry/aplikacji",
             "broser": "URL przeglądarki",
             "useragent": "Niestandardowy User Agent",
-            "fullscreen": "Otwórz w trybie pełnego ekranu (naciśnij F11, aby wyjść)"
+            "fullscreen": "Otwórz w trybie pełnoekranowym (F11 aby wyjsć)"
         },
         "placeholder": {
-            "image": "Wklej adres URL obrazka tutaj",
+            "image": "Wklej adres URL obrazu lub wybierz jeden z komputera",
             "title": "Dodaj tytuł do swojej gry/aplikacji",
             "url": "Wklej tutaj adres URL gry",
             "useragent": "Wpisz niestandardowy User Agent, który będzie używany w przeglądarkowej aplikacji/grze"
         },
         "import-hint": {
             "title": "Uwaga! Czy dodajesz grę od Epic/GOG/Amazon? Kliknij tutaj!",
-            "content": "NIE używaj do tego tej funkcji.<1></1>Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
+            "content": "NIE używaj do tego tej funkcjonalności.<br />. Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
         }
     },
     "specs": {
@@ -260,7 +287,8 @@
         "goodie": "Nie do zainstalowania",
         "prerequisites": "Status instalacji wstępnych wymagań",
         "winetricks": "Zastosowywanie poprawek Winetricks",
-        "redist": "Instalowanie pakietów redystrybucyjnych ({{redist}})"
+        "redist": "Instalowanie pakietów redystrybucyjnych ({{redist}})",
+        "importing": "Importowanie"
     },
     "submenu": {
         "addShortcut": "Dodaj skrót",
@@ -302,7 +330,7 @@
         "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
         "notice2": "Po naciśnięciu Instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
     },
-    "wikiLink": "Przeczytaj ważne informacje o tej grze:&nbsp;<1>otwórz stronę</1>",
+    "wikiLink": "Ważne informacje o tej grze można przeczytać tutaj:&nbsp;<1>Otwórz stronę</1>",
     "queue": {
         "label": {
             "remove": "Usuń z pobranych",
