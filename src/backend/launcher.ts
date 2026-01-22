@@ -347,6 +347,8 @@ function filterGameSettingsForLog(
     delete gameSettings.enableMsync
     delete gameSettings.wineCrossoverBottle
     delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.DXVKFpsCap
+    delete gameSettings.enableDXVKFpsLimit
 
     if (notNative) {
       const wineVersion = gameSettings.wineVersion
@@ -376,7 +378,6 @@ function filterGameSettingsForLog(
       delete gameSettings.enableHDR
       delete gameSettings.enableWoW64
       delete gameSettings.showFps
-      delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.eacRuntime
       delete gameSettings.battlEyeRuntime
       delete gameSettings.useGameMode
@@ -401,22 +402,22 @@ function filterGameSettingsForLog(
 
     if (notNative) {
       const wineType = gameSettings.wineVersion
+      delete gameSettings.preferSystemLibs
+      delete gameSettings.autoInstallVkd3d
+      delete gameSettings.autoInstallDxvkNvapi
       if (wineType) {
         if (wineType.type === 'wine') {
           delete gameSettings.wineCrossoverBottle
+          delete gameSettings.advertiseAvxForRosetta
         }
 
         if (wineType.type === 'toolkit') {
           delete gameSettings.autoInstallDxvk
-          delete gameSettings.autoInstallDxvkNvapi
-          delete gameSettings.autoInstallVkd3d
           delete gameSettings.wineCrossoverBottle
         }
 
         if (wineType.type === 'crossover') {
           delete gameSettings.autoInstallDxvk
-          delete gameSettings.autoInstallDxvkNvapi
-          delete gameSettings.autoInstallVkd3d
           delete gameSettings.winePrefix
         }
       }
@@ -426,6 +427,7 @@ function filterGameSettingsForLog(
       delete gameSettings.wineVersion
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
+      delete gameSettings.advertiseAvxForRosetta
     }
   }
 
@@ -1157,7 +1159,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     if (isMac) ret.MTL_HUD_ENABLED = '1'
     else ret.DXVK_HUD = 'fps'
   }
-  if (gameSettings.enableDXVKFpsLimit) {
+  if (gameSettings.enableDXVKFpsLimit && isMac) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
   if (gameSettings.enableFSR) {

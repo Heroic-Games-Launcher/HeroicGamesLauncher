@@ -752,7 +752,7 @@
             "enableUpscaling": "启用分辨率提升",
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
             "enableForceGrabCursor": "启用强制抓取指针",
-            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 24.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
+            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
             "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
         },
         "frameless-window": {
@@ -809,7 +809,8 @@
             "label": "允许使用 Valve Proton 构建运行游戏",
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
-        "WoW64": "启用 WoW64（实验性）"
+        "WoW64": "启用 WoW64（实验性）",
+        "scripts": "脚本："
     },
     "settings": {
         "battlEyeRuntime": {

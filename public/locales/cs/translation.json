@@ -752,7 +752,7 @@
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
             "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
-            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 24.08 a restartujte Heroic.",
+            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
             "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
         },
         "frameless-window": {
@@ -809,7 +809,8 @@
             "info_label": "Verze Valve Proton ignorovány"
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
-        "WoW64": "Povolit WoW64 (experimentální)"
+        "WoW64": "Povolit WoW64 (experimentální)",
+        "scripts": "Skripty:"
     },
     "settings": {
         "battlEyeRuntime": {

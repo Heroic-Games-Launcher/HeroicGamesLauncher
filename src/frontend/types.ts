@@ -94,6 +94,7 @@ export interface ContextType {
     username?: string
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
+    enabled: boolean
   }
   installingEpicGame: boolean
   allTilesInColor: boolean

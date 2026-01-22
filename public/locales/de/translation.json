@@ -97,7 +97,9 @@
                 "message": "Steam-Installation fehlgeschlagen! Bitte lesen Sie die Anleitung aufmerksam und versuchen Sie es erneut!",
                 "error": "Steam konnte nicht ausgeführt werden. Installation wurde wahrscheinlich durch den Nutzer gestoppt oder ist bei Steam fehlgeschlagen.",
                 "title": "Fehler bei Steam"
-            }
+            },
+            "executableNotFound": "Ausführbare Datei nicht gefunden",
+            "executableNotFoundMessage": "Heroic konnte die Ausführdatei für dieses Spiel nicht finden. Bitte setze es manuell in den Spieleinstellungen."
         },
         "info": {
             "update": {
@@ -431,7 +433,8 @@
         "gog": "GOG-Anmeldung",
         "message": "Melde dich bei deiner Plattform an. Du kannst auch bei mehreren gleichzeitig angemeldet sein.",
         "amazon": "Amazon-Anmeldung",
-        "old-mac": "Deine macOS Version ist {{version}}. Um sich anzumelden wird mindestens macOS 12 benötigt."
+        "old-mac": "Deine macOS Version ist {{version}}. Um sich anzumelden wird mindestens macOS 12 benötigt.",
+        "zoom": "Zoom login"
     },
     "message": {
         "sync": "Synchronisation abgeschlossen",
@@ -753,8 +756,8 @@
             "enableUpscaling": "Ermöglicht Hochskalierung",
             "missingMsg": "Wir konnten gamescope nicht in der PATH-Variable finden. Installieren Sie es oder fügen Sie es der PATH-Variable hinzu.",
             "enableForceGrabCursor": "Aktiviere Force Grab Cursor",
-            "missingMsgFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 24.08 und starte Heroic neu.",
-            "warningFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 24.08 und starte Heroic neu."
+            "missingMsgFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 25.08 und starte Heroic neu.",
+            "warningFlatpak": "Wir konnten keine kompatible Version von Gamescope finden. Bitte Installiere das Gamescope Paket via Flatpak mit der Runtimeversion 25.08 und starte Heroic neu."
         },
         "after-launch-script-path": "Wähle ein Skript aus, das ausgeführt wird nachdem du das Spiel schließt",
         "before-launch-script-path": "Wähle ein Script aus, das ausgeführt wird bevor das Spiel gestartet wird",
@@ -784,11 +787,16 @@
         },
         "show_valve_proton": {
             "confirmation": {
-                "title": "Sind sie sicher?"
-            }
+                "title": "Sind sie sicher?",
+                "dont_show": "Zeig es ihnen nicht",
+                "show": "Ich verstehe, zeig es ihnen"
+            },
+            "wine_selector_warning": "Valves Protonversionen werden standardmäßig ignoriert, aktiviere sie in den erweiterten globalen Einstellungen"
         },
         "analyticsOptIn": "Übermittle anonyme Daten um die Weiterentwicklung von Heroic zu unterstützen",
-        "hdr": "Aktiviere HDR"
+        "hdr": "Aktiviere HDR",
+        "wineWayland": "Aktiviere Wine-Wayland (Experimentell) (Die Wineversion muss es unterstützen)",
+        "WoW64": "Aktiviere WoW64 (Experimentell)"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1064,9 +1072,9 @@
             "quit": "Verlasse die Applikation sicher.",
             "accounts": "Verwalte deine verbundenen Accounts (Epic,GOG,Amazon), melde dich an oder ab von ihnen.",
             "community": "Betrete unserer Community auf Discord und unterstütze Heroics Weiterentwicklung.",
-            "stores": "Durchsuche und kaufe unterschiedliche Spiele in unterschiedlichen Shops unteranderem Epic,GOG und Amazon.",
+            "stores": "Durchsuche und kaufe unterschiedliche Spiele in unterschiedlichen Shops unter anderem Epic,GOG und Amazon.",
             "login": "Log dich in deine Spielevertriebsplattformkonten ein um Zugriff auf deine Bibliothek zu bekommen.",
-            "settings": "Konfiguriere die Einstellungen von Heroic, setzte Standarteinstellungen für Spiele, prüfe Logdaten und mehr."
+            "settings": "Konfiguriere die Einstellungen von Heroic, setze Standardeinstellungen für Spiele, prüfe Logdaten und mehr."
         },
         "next": "Weiter",
         "startTour": "Tour starten",

@@ -489,7 +489,8 @@
         "wineprefix": "Fillteán WinePrefix",
         "wineversion": "Leagan Wine",
         "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
-        "WoW64": "Cumasaigh WoW64 (Turgnamhach)"
+        "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
+        "scripts": "Scripteanna:"
     },
     "button": {
         "login": "Logáil isteach",

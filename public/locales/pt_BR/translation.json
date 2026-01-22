@@ -759,7 +759,7 @@
             "enableUpscaling": "Permite aprimoramento de escala (Upscaling)",
             "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH.",
             "enableForceGrabCursor": "Habilitar a captura forçada do cursor",
-            "missingMsgFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime 24.08 e reinicie o Heroic.",
+            "missingMsgFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime 25.08 e reinicie o Heroic.",
             "warningFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime {{runtimeVersion}} e reinicie o Heroic."
         },
         "msync": "Habilitar Msync",
@@ -809,7 +809,8 @@
             "wine_selector_warning": "Versões do Proton são ignoradas por padrão, ative-as nas Configurações globais avançadas",
             "info_label": "Versões do Proton da Valve ignoradas"
         },
-        "WoW64": "Ativar WoW64 (Experimental)"
+        "WoW64": "Ativar WoW64 (Experimental)",
+        "scripts": "Scripts:"
     },
     "settings": {
         "battlEyeRuntime": {

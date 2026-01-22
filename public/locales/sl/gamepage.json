@@ -1,0 +1,145 @@
+{
+    "box": {
+        "change": {
+            "message": "To bo spremenilo mesto namestitve te igre, ste prepričani?",
+            "path": "Izberi novo mesto namestitve",
+            "title": "Spremeni mesta namestitve iger"
+        },
+        "choose": "Izberi",
+        "no": "NE",
+        "runexe": {
+            "title": "Izberi EXE"
+        },
+        "select": {
+            "button": "Izberi",
+            "image": "Izberi sliko"
+        },
+        "close": "Zapri",
+        "importpath": "Izberi mapo z igro za uvoz",
+        "move": {
+            "message": "To lahko traja, si prepričan/a?",
+            "path": "Izberi novo mesto",
+            "title": "Premakni mesto namestitve igre"
+        },
+        "repair": {
+            "message": "Želiš, da poskusimo popraviti igro? To lahko traja.",
+            "title": "Preveri in popravi"
+        },
+        "sideload": {
+            "exe": "Izberi programsko datoteko"
+        },
+        "stopInstall": {
+            "keepInstalling": "Nadaljuj z namestitvijo",
+            "message": "Želiš OHRANITI prenešene datoteke?",
+            "title": "Prekini namestitev"
+        },
+        "uninstall": {
+            "cannotUninstallEpic": "Med namestitvijo igre z Epic Games se le-tega ne more odstraniti.",
+            "checkbox": "Odstrani predpono: {{prefix}}{{newLine}}Pozor: tega ni mogoče preklicati in bo odstranilo tudi datoteke",
+            "dlc": "Želiš odstraniti DLC \"{{title}}\"?",
+            "gameIsRunning": "{{title}} teče. Da jo odstraniš, ustavi igro.",
+            "message": "Želiš odstraniti \"{{title}}\"?",
+            "prefix_warning": "Predpona Wine za to igro je osnovna predpona. Če jo res želiš odstraniti, jo boš moral/a odstraniti ročno.",
+            "settingcheckbox": "Izbriši nastavitve in odstrani zapisnik{{newLine}}Pozor: tega ni mogoče preklicati. Spremenjene nastavitve bojo pozabljene in zapisnik bo izbrisan.",
+            "title": "Odstrani"
+        },
+        "update": {
+            "message": "Za to igro je na voljo posodobitev, jo namestim zdaj?",
+            "title": "Igro je potrebno posodobiti"
+        },
+        "wineprefix": "Izberi mapo s predponami Wine",
+        "yes": "DA"
+    },
+    "button": {
+        "add_to_favourites": "Dodaj na seznam priljubljenih",
+        "browse_files": "Prebrskaj datoteke",
+        "browse_wine_prefix": "Poišči predpono Wine",
+        "cancel": "Premor/Preklic",
+        "changelog": "Pokaži zapisnik sprememb",
+        "continue": "Nadaljuj prenos",
+        "details": "Podrobnosti",
+        "finish": "Zaključi",
+        "force_update": "Vsili posodobitev, če je na voljo",
+        "force-innstall": "Vsili namestitev",
+        "hide_game": "Skrij igro",
+        "import": "Uvozi igro",
+        "install": "Namesti",
+        "no-path-selected": "Izbrana ni nobena pot",
+        "play": "IGRAJ",
+        "queue": {
+            "remove": "Odstrani iz čakalne vrste"
+        },
+        "remove_from_favourites": "Odstrani s seznama priljubljenih",
+        "remove_from_recent": "Odstrani s seznama nedavnih",
+        "run-exe-first": "Najprej zaženi namestitveni program",
+        "running-setup": "Poganjam namestitveni program",
+        "sideload": {
+            "edit": "Uredi aplikacijo/igro"
+        },
+        "unhide_game": "Ponovno prikaži igro",
+        "uninstall": "Odstrani",
+        "update": "Posodobi"
+    },
+    "cloud_save_unsupported": "Ni podprto",
+    "disabled": "Onemogočeno",
+    "enabled": "Omogočeno",
+    "game": {
+        "branch": {
+            "disabled": "Onemogočeno",
+            "password": "Nastavi geslo za zasebni kanal",
+            "select": "Izberi kanal beta",
+            "setPrivateBranchPassword": "Nastavi geslo za zasebni kanal"
+        },
+        "builds": {
+            "buildsSelector": "Izberi različico igre",
+            "toggle": "Igro zadrži na določeni različici",
+            "version": "Različica"
+        },
+        "changelogFor": "Zapisnik sprememb za {{gameTitle}}",
+        "downloadSize": "Velikost prenosa",
+        "extra_info": "Dodatne informacije",
+        "firstPlayed": "Prvič igrano",
+        "getting-download-size": "Pridobivam velikost prenosa",
+        "getting-install-size": "Pridobivam velikost namestitve",
+        "install_info": "Informacije o namestitvi",
+        "installSize": "Velikost namestitve",
+        "language": "Jezik",
+        "lastPlayed": "Nazadnje igrano",
+        "neverPlayed": "Nikoli",
+        "platform": "Izberi različico sistema za namestitev",
+        "requirements": "Strojne zahteve",
+        "totalPlayed": "Čas igranja"
+    },
+    "gamecard": {
+        "moving": "Premikam",
+        "repairing": "Popravljam"
+    },
+    "generic": {
+        "error": "Neznana napaka",
+        "noDescription": "Ni opisa"
+    },
+    "help": {
+        "cloud_save_unsupported": "Ta igra ne podpira shranjevanja v oblak. Te informacije so na voljo od razvijalcev igre. Nekatere igre vključujejo lasten sistem shranjevanja v oblak",
+        "content": {
+            "gamePage": "Prikaži vse podrobnosti in dejanja v zvezi z igro. Za več možnosti izberi meni s tremi pikami."
+        },
+        "title": {
+            "gamePage": "Stran igre"
+        }
+    },
+    "hours": "Ur",
+    "how-long-to-beat": {
+        "main-plus-extras": "Glavno + dodatki"
+    },
+    "info": {
+        "version": "Različica"
+    },
+    "sideload": {
+        "info": {
+            "exe": "Izberi programsko datoteko"
+        }
+    },
+    "submenu": {
+        "verify": "Preveri in popravi"
+    }
+}

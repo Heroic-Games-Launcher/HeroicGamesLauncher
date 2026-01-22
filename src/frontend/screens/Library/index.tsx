@@ -93,7 +93,7 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoomCategories.includes(storedCategory)
+      zoom: zoom.enabled && zoomCategories.includes(storedCategory)
     }
   }
 
@@ -387,7 +387,8 @@ export default React.memo(function Library(): JSX.Element {
     epic,
     gog,
     amazon,
-    sideloadedLibrary
+    sideloadedLibrary,
+    zoom
   ])
 
   const favouritesIds = useMemo(() => {

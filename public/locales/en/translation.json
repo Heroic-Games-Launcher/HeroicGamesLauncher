@@ -668,7 +668,8 @@
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design"
+            "enableNewDesign": "New design",
+            "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -768,6 +769,7 @@
             "placeholder": "Select the exact save games folder",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
+        "scripts": "Scripts:",
         "select_theme": "Select Theme",
         "show_valve_proton": {
             "confirmation": {
