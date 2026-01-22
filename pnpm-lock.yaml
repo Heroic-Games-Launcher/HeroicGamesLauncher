@@ -269,6 +269,9 @@ importers:
       react-devtools:
         specifier: ^5.3.2
         version: 5.3.2
+      sass:
+        specifier: ^1.87.0
+        version: 1.89.0
       tmp:
         specifier: ^0.2.4
         version: 0.2.4
@@ -8466,7 +8469,6 @@ snapshots:
   chokidar@4.0.3:
     dependencies:
       readdirp: 4.1.2
-    optional: true
 
   chownr@2.0.0: {}
 
@@ -9857,6 +9859,7 @@ snapshots:
   hoist-non-react-statics@3.3.2:
     dependencies:
       react-is: 16.13.1
+    optional: true
 
   hosted-git-info@2.8.9: {}
 
@@ -9992,8 +9995,7 @@ snapshots:
 
   ignore@7.0.5: {}
 
-  immutable@5.1.2:
-    optional: true
+  immutable@5.1.2: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -11667,8 +11669,7 @@ snapshots:
     dependencies:
       minimatch: 5.1.6
 
-  readdirp@4.1.2:
-    optional: true
+  readdirp@4.1.2: {}
 
   recharts-scale@0.4.5:
     dependencies:
@@ -11899,7 +11900,6 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.1
-    optional: true
 
   sax@1.4.1: {}
 
