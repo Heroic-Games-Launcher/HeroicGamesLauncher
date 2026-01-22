@@ -75,7 +75,7 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
     }
 
     void fetchLaunchOptions()
-  }, [gameInfo, appName, runner, gameSettings])
+  }, [gameInfo, appName, runner, gameSettings, setLaunchArguments])
 
   const labelForLaunchOption = useCallback((option: LaunchOption) => {
     switch (option.type) {
