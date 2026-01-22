@@ -80,7 +80,7 @@ export const useLaunchOptions = ({
 }
 
 // Helper function to find launch option index by matching properties
-export const findLaunchOptionIndex = (
+const findLaunchOptionIndex = (
   options: LaunchOption[],
   targetOption: LaunchOption
 ): number => {
