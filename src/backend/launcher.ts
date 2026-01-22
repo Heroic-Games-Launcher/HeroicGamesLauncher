@@ -1505,7 +1505,7 @@ async function runWineCommand({
   }
 
   if (!(await validWine(wineVersion))) {
-    return { stdout: '', stderr: '' }
+    return { stdout: '', stderr: 'Invalid wine' }
   }
 
   const env_vars: Record<string, string> = {
@@ -1568,7 +1568,7 @@ async function runWineCommand({
         options.onOutput(data, child)
       }
 
-      stdout.push(data.trim())
+      stdout.push(data)
     })
 
     child.stderr.on('data', (data: string) => {
@@ -1578,7 +1578,7 @@ async function runWineCommand({
         options.onOutput(data, child)
       }
 
-      stderr.push(data.trim())
+      stderr.push(data)
     })
 
     child.on('close', async (code) => {
@@ -1921,10 +1921,11 @@ async function getWinePath({
   gameSettings: GameSettings
   variant?: 'win' | 'unix'
 }): Promise<string> {
+  logDebug(`Getting wine path for ${path}.`, LogPrefix.Backend)
   // TODO: Proton has a special verb for getting Unix paths, and another one for Windows ones. Use those instead
   //       Note that this would involve running `proton runinprefix cmd /c echo path` first to expand env vars
   //       https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1526-L1533
-  const { stdout } = await runWineCommand({
+  const { stdout, stderr } = await runWineCommand({
     gameSettings,
     commandParts: [
       'cmd',
@@ -1937,7 +1938,16 @@ async function getWinePath({
     protonVerb: 'runinprefix',
     ignoreLogging: true
   })
-  return stdout.trim()
+
+  const result = stdout.trim()
+  if (!result) {
+    logError(
+      `Couldn't get wine path for ${path}.\n${stderr}`,
+      LogPrefix.Backend
+    )
+  }
+
+  return result
 }
 
 async function runBeforeLaunchScript(
