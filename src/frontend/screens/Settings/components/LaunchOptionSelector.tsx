@@ -1,16 +1,15 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SelectField } from 'frontend/components/UI'
 import { MenuItem, SelectChangeEvent } from '@mui/material'
 import SettingsContext from '../SettingsContext'
 import { LaunchOption } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
+import { useLaunchOptions } from 'frontend/hooks/useLaunchOptions'
 
 const LaunchOptionSelector = () => {
   const { t } = useTranslation()
   const { isDefault, appName, gameInfo } = useContext(SettingsContext)
-  const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const defaultLaunchOption: LaunchOption = {
     type: 'basic',
@@ -23,91 +22,24 @@ const LaunchOptionSelector = () => {
     defaultLaunchOption
   )
 
-  useEffect(() => {
-    if (isDefault || !appName || !gameInfo) {
-      return
-    }
-
-    const getLaunchOptions = async () => {
-      try {
-        const options = await window.api.getLaunchOptions(
-          appName,
-          gameInfo.runner
-        )
-        setLaunchOptions(options)
-
-        if (lastUsedLaunchOption && options.length > 0) {
-          const foundIndex = options.findIndex((option) => {
-            if (option.type !== lastUsedLaunchOption.type) return false
-
-            if (
-              (option.type === undefined || option.type === 'basic') &&
-              'name' in option &&
-              'name' in lastUsedLaunchOption &&
-              'parameters' in option &&
-              'parameters' in lastUsedLaunchOption
-            ) {
-              return (
-                option.name === lastUsedLaunchOption.name &&
-                option.parameters === lastUsedLaunchOption.parameters
-              )
-            }
-
-            if (
-              option.type === 'dlc' &&
-              'dlcAppName' in option &&
-              'dlcAppName' in lastUsedLaunchOption
-            ) {
-              return option.dlcAppName === lastUsedLaunchOption.dlcAppName
-            }
-
-            if (
-              option.type === 'altExe' &&
-              'executable' in option &&
-              'executable' in lastUsedLaunchOption
-            ) {
-              return option.executable === lastUsedLaunchOption.executable
-            }
-
-            return false
-          })
-
-          if (foundIndex !== -1) {
-            setSelectedIndex(foundIndex)
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching launch options:', error)
-      }
-    }
-
-    void getLaunchOptions()
-  }, [appName, gameInfo, isDefault, lastUsedLaunchOption])
-
-  const labelForLaunchOption = useCallback((option: LaunchOption) => {
-    switch (option.type) {
-      case undefined:
-      case 'basic':
-        return option.name
-      case 'dlc':
-        return option.dlcTitle
-      case 'altExe':
-        return option.executable
-    }
-  }, [])
-
-  const handleLaunchOptionChange = (event: SelectChangeEvent) => {
-    const value = event.target.value
-
-    if (value === '-1') {
-      setSelectedIndex(-1)
-      setLastUsedLaunchOption(undefined)
-    } else {
-      const index = Number(value)
-      setSelectedIndex(index)
-      const option = launchOptions[index]
+  const {
+    launchOptions,
+    selectedIndex,
+    labelForLaunchOption,
+    handleLaunchOptionChange
+  } = useLaunchOptions({
+    appName: appName || '',
+    runner: gameInfo?.runner,
+    lastUsedOption: lastUsedLaunchOption,
+    onSelectionChange: (option) => {
       setLastUsedLaunchOption(option)
     }
+  })
+
+  const handleSelectChange = (event: SelectChangeEvent) => {
+    const value = event.target.value
+    const index = Number(value)
+    handleLaunchOptionChange(index)
   }
 
   if (isDefault || launchOptions.length <= 1) {
@@ -120,7 +52,7 @@ const LaunchOptionSelector = () => {
       <div className="SettingsField">
         <SelectField
           htmlId="launch_options_settings"
-          onChange={handleLaunchOptionChange}
+          onChange={handleSelectChange}
           value={selectedIndex.toString()}
         >
           {launchOptions.map((option, index) => (
