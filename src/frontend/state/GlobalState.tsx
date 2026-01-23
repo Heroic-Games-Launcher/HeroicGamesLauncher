@@ -1022,27 +1022,22 @@ class GlobalState extends PureComponent<Props> {
     storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
     storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
 
-    const allowedPendingOps: Status[] = [
+    // Only prevent suspend when downloading/installing or playing games
+    const downloadOps: Status[] = [
       'installing',
       'updating',
-      'launching',
-      'playing',
-      'redist',
-      'winetricks',
-      'extracting',
-      'repairing',
-      'moving',
-      'syncing-saves',
-      'uninstalling'
+      'extracting'
     ]
 
-    const pendingOps = libraryStatus.filter((game) =>
-      allowedPendingOps.includes(game.status)
-    ).length
+    const downloading = libraryStatus.filter((game) =>
+      downloadOps.includes(game.status)
+    ).length > 0
+    
     const playing =
       libraryStatus.filter((game) => game.status === 'playing').length > 0
 
-    if (pendingOps) {
+    // Lock suspend only when downloading or playing
+    if (downloading || playing) {
       window.api.lock(playing)
     } else {
       window.api.unlock()
