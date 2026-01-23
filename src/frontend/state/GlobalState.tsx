@@ -1002,25 +1002,13 @@ class GlobalState extends PureComponent<Props> {
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
 
     window.api.frontendReady()
+    
+    // Handle initial suspend lock state
+    this.handleSuspendLock()
   }
 
-  componentDidUpdate() {
-    const {
-      gameUpdates,
-      libraryStatus,
-      sidebarCollapsed,
-      hideChangelogsOnStartup,
-      lastChangelogShown,
-      language
-    } = this.state
-
-    const isRTL = RTL_LANGUAGES.includes(language)
-    document.body.classList.toggle('isRTL', isRTL)
-
-    storage.setItem('updates', JSON.stringify(gameUpdates))
-    storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
-    storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
-    storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
+  handleSuspendLock = () => {
+    const { libraryStatus } = this.state
 
     // Only prevent suspend when downloading/installing or playing games
     const downloadOps: Status[] = [
@@ -1042,6 +1030,28 @@ class GlobalState extends PureComponent<Props> {
     } else {
       window.api.unlock()
     }
+  }
+
+  componentDidUpdate() {
+    const {
+      gameUpdates,
+      libraryStatus,
+      sidebarCollapsed,
+      hideChangelogsOnStartup,
+      lastChangelogShown,
+      language
+    } = this.state
+
+    const isRTL = RTL_LANGUAGES.includes(language)
+    document.body.classList.toggle('isRTL', isRTL)
+
+    storage.setItem('updates', JSON.stringify(gameUpdates))
+    storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
+    storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
+    storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
+
+    // Handle suspend lock on every state update
+    this.handleSuspendLock()
   }
 
   addHelpItem = (helpItemId: string, helpItem: HelpItem) => {
