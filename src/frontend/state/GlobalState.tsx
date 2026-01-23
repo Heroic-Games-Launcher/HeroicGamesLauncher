@@ -1002,7 +1002,7 @@ class GlobalState extends PureComponent<Props> {
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
 
     window.api.frontendReady()
-    
+
     // Handle initial suspend lock state
     this.handleSuspendLock()
   }
@@ -1020,7 +1020,7 @@ class GlobalState extends PureComponent<Props> {
     const downloading = libraryStatus.filter((game) =>
       downloadOps.includes(game.status)
     ).length > 0
-    
+
     const playing =
       libraryStatus.filter((game) => game.status === 'playing').length > 0
 
