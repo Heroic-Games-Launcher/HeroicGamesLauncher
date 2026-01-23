@@ -1010,22 +1010,30 @@ class GlobalState extends PureComponent<Props> {
   handleSuspendLock = () => {
     const { libraryStatus } = this.state
 
-    // Only prevent suspend when downloading/installing or playing games
-    const downloadOps: Status[] = [
+    // Prevent suspend when operations are in progress or games are playing
+    const allowedPendingOps: Status[] = [
       'installing',
       'updating',
-      'extracting'
+      'launching',
+      'playing',
+      'redist',
+      'winetricks',
+      'extracting',
+      'repairing',
+      'moving',
+      'syncing-saves',
+      'uninstalling'
     ]
 
-    const downloading = libraryStatus.filter((game) =>
-      downloadOps.includes(game.status)
-    ).length > 0
+    const pendingOps = libraryStatus.filter((game) =>
+      allowedPendingOps.includes(game.status)
+    ).length
 
     const playing =
       libraryStatus.filter((game) => game.status === 'playing').length > 0
 
-    // Lock suspend only when downloading or playing
-    if (downloading || playing) {
+    // Lock suspend when operations are in progress
+    if (pendingOps) {
       window.api.lock(playing)
     } else {
       window.api.unlock()
