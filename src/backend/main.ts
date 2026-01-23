@@ -539,15 +539,25 @@ let powerId: number | null
 let displaySleepId: number | null
 
 addListener('lock', (e, playing: boolean) => {
-  if (!playing && (!powerId || !powerSaveBlocker.isStarted(powerId))) {
+  // Stop any existing blockers first to prevent multiple blockers
+  if (powerId && powerSaveBlocker.isStarted(powerId)) {
+    logInfo('Stopping existing Power Saver Blocker before starting new one', LogPrefix.Backend)
+    powerSaveBlocker.stop(powerId)
+    powerId = null
+  }
+  if (displaySleepId && powerSaveBlocker.isStarted(displaySleepId)) {
+    logInfo('Stopping existing Display Sleep Blocker before starting new one', LogPrefix.Backend)
+    powerSaveBlocker.stop(displaySleepId)
+    displaySleepId = null
+  }
+
+  // Start the appropriate blocker
+  if (!playing) {
     logInfo('Preventing machine to sleep', LogPrefix.Backend)
     powerId = powerSaveBlocker.start('prevent-app-suspension')
   }
 
-  if (
-    playing &&
-    (!displaySleepId || !powerSaveBlocker.isStarted(displaySleepId))
-  ) {
+  if (playing) {
     logInfo('Preventing display to sleep', LogPrefix.Backend)
     displaySleepId = powerSaveBlocker.start('prevent-display-sleep')
   }
