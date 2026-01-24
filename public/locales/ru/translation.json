@@ -606,7 +606,7 @@
         "discordRPC": "Включить статус активности Discord",
         "download-no-https": "Скачивание игр без HTTPS (полезно для CDN, например, LanCache)",
         "dxvkfpslimit": "Ограничение FPS (DX9, 10 и 11)",
-        "egs-sync": "Синхронизировать с установленнными играми EGS",
+        "egs-sync": "Синхронизировать с установленными играми EGS",
         "enableFSRHack": "Включить FSR Hack (версия Wine должна поддерживать)",
         "eosOverlay": {
             "cancelInstall": "Отмена",
@@ -741,7 +741,8 @@
             "enableHelp": "Компонент Справки",
             "automaticWinetricksFixes": "Автоматическое применение известных исправлений",
             "cometSupport": "Поддержка Comet",
-            "umuSupport": "Использовать umu как среду Proton"
+            "umuSupport": "Использовать umu как среду Proton",
+            "zoomPlatform": "Поддержка платформы Zoom (только Linux)"
         },
         "disablePlaytimeSync": "Отключить синхронизацию времени воспроизведения",
         "frameless-window": {
