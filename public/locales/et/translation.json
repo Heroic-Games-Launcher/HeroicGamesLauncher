@@ -753,7 +753,8 @@
             "enableNewDesign": "Uus disain",
             "automaticWinetricksFixes": "Rakenda teadaolevad parandused automaatselt",
             "umuSupport": "Kasuta umu-d Protoni platvormina",
-            "cometSupport": "Comet tugi"
+            "cometSupport": "Comet tugi",
+            "zoomPlatform": "Zoomi platvormi tugi (ainult Linux)"
         },
         "before-launch-script-path": "Vali skript, mida käitada enne mängu käivitamist",
         "frameless-window": {

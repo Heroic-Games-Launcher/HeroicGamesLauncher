@@ -758,7 +758,8 @@
             "automaticWinetricksFixes": "Ismert javítások automatikus alkalmazása",
             "enableHelp": "Súgó összetevő",
             "cometSupport": "Comet támogatás",
-            "umuSupport": "Az umu használata Proton futtatókörnyezetként"
+            "umuSupport": "Az umu használata Proton futtatókörnyezetként",
+            "zoomPlatform": "Zoom Platform támogatása (csak Linux)"
         },
         "msync": "Az Msync engedélyezése",
         "allow_installation_broken_anticheat": {

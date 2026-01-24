@@ -744,7 +744,8 @@
             "enableHelp": "帮助组件",
             "automaticWinetricksFixes": "自动应用已知的修复",
             "umuSupport": "将 umu 用作 Proton 运行时",
-            "cometSupport": "Comet 支持"
+            "cometSupport": "Comet 支持",
+            "zoomPlatform": "Zoom 平台支持（仅 Linux）"
         },
         "disablePlaytimeSync": "停用游戏时间同步",
         "gamescope": {

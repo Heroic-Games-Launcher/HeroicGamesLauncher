@@ -366,7 +366,8 @@
         "experimental_features": {
             "cometSupport": "Tacaíocht Cóiméad",
             "enableHelp": "Comhpháirt chabhrach",
-            "enableNewDesign": "Dearadh nua"
+            "enableNewDesign": "Dearadh nua",
+            "zoomPlatform": "Tacaíocht Ardán Zoom (Linux amháin)"
         },
         "frameless-window": {
             "confirmation": {

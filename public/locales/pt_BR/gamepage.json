@@ -49,7 +49,11 @@
         "wineprefix": "Selecione a pasta do prefixo Wine",
         "yes": "SIM",
         "close": "Fechar",
-        "select-install-path": "Selecione o diretório de instalação da Steam"
+        "select-install-path": "Selecione o diretório de instalação da Steam",
+        "selectLaunchOption": {
+            "body": "Por favor selecione uma da opções abaixo (pode ser modificada mais tarde nas configurações):",
+            "title": "Selecione uma opção ({{seconds}}s)"
+        }
     },
     "button": {
         "add_to_favourites": "Adicionar aos favoritos",
