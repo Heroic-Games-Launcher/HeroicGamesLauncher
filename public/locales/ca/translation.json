@@ -744,7 +744,8 @@
             "automaticWinetricksFixes": "Aplica les correccions conegudes de manera automàtica",
             "enableHelp": "Component d'ajuda",
             "cometSupport": "Suport Comet",
-            "umuSupport": "Fes servir umu com a execució Proton"
+            "umuSupport": "Fes servir umu com a execució Proton",
+            "zoomPlatform": "Compatibilitat amb Zoom Platform (només Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -802,7 +803,8 @@
         "hdr": "Activa l'HDR",
         "no-tray-icon": "Amaga la icona de la safata del sistema (cal reiniciar)",
         "wineWayland": "Activa el Wine-Wayland (Experimental) (Cal que la versió del Wine hi sigui compatible)",
-        "WoW64": "Activa el WoW64 (Experimental)"
+        "WoW64": "Activa el WoW64 (Experimental)",
+        "scripts": "Scripts:"
     },
     "settings": {
         "battlEyeRuntime": {
