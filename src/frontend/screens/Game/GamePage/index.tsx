@@ -2,7 +2,13 @@ import './index.css'
 
 import React, { useContext, useEffect, useState } from 'react'
 
-import { ArrowBackIosNew, Info, Star, Monitor } from '@mui/icons-material'
+import {
+  ArrowBackIosNew,
+  Info,
+  Star,
+  Monitor,
+  EmojiEvents
+} from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
 
@@ -68,6 +74,7 @@ import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import Achievements from './components/Achievements'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -150,13 +157,23 @@ export default React.memo(function GamePage(): JSX.Element | null {
     !gameInfo.isEAManaged
   const isOffline = connectivity.status !== 'online'
 
+  const hasAchievements =
+    gameInfo.achievements && gameInfo.achievements.length > 0
+  const achievementPercentage =
+    gameInfo.achievements &&
+    Math.round(
+      (gameInfo.achievements.filter((x) => x.date_unlocked).length /
+        gameInfo.achievements.length) *
+        100
+    )
+
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
 
   const [currentTab, setCurrentTab] = useState<
-    'info' | 'extra' | 'requirements'
-  >('info')
+    'achievements' | 'info' | 'extra' | 'requirements'
+  >(hasAchievements ? 'achievements' : 'info')
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -452,6 +469,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           aria-label="gameinfo tabs"
                           selectionFollowsFocus
                         >
+                          {hasAchievements && (
+                            <Tab
+                              className="tabButton"
+                              value={'achievements'}
+                              label={
+                                t('game.achievements', 'Achievements') +
+                                ` · ${achievementPercentage}%`
+                              }
+                              iconPosition="start"
+                              icon={
+                                <EmojiEvents className="gameInfoTabsIcon" />
+                              }
+                            />
+                          )}
                           <Tab
                             className="tabButton"
                             value={'info'}
@@ -481,6 +512,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       </div>
 
                       <div>
+                        <TabPanel
+                          value={currentTab}
+                          index="achievements"
+                          className="achievementsTab"
+                        >
+                          <Achievements gameInfo={gameInfo} />
+                        </TabPanel>
                         <TabPanel
                           value={currentTab}
                           index="info"
