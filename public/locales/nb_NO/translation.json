@@ -760,7 +760,8 @@
         "experimental_features": {
             "enableHelp": "Hjelpskomponent",
             "cometSupport": "Comet støtte",
-            "enableNewDesign": "Nytt design"
+            "enableNewDesign": "Nytt design",
+            "zoomPlatform": "Støtte for Zoom-plattformen (bare for Linux)"
         },
         "frameless-window": {
             "confirmation": {
