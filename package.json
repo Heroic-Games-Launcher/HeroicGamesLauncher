@@ -1,8 +1,8 @@
 {
   "name": "heroic",
-  "version": "2.18.1",
+  "version": "2.19.0",
   "versionNames": {
-    "stable": "\"Waterfall Beard\" Jorul",
+    "stable": "Punk 01 - Shaka",
     "beta": "Caesar Clown"
   },
   "private": false,
@@ -31,7 +31,7 @@
     "test-watch": "jest --watch --maxWorkers=25%",
     "test:ci": "jest --runInBand --silent",
     "test:e2e": "electron-vite build && cross-env CI=e2e xvfb-maybe -- playwright test",
-    "release:linux": "electron-vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz",
+    "release:linux": "electron-vite build && electron-builder -p always --linux deb AppImage rpm pacman tar.xz snap",
     "release:mac": "electron-vite build && electron-builder -p always --mac --x64 --arm64",
     "release:win": "electron-vite build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
