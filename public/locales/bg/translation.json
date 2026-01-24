@@ -743,7 +743,8 @@
             "enableHelp": "Помощен компонент",
             "automaticWinetricksFixes": "Автоматично прилагане на известните поправки",
             "umuSupport": "Използване на umu като среда за изпълнение на Proton",
-            "cometSupport": "Поддръжка на Comet"
+            "cometSupport": "Поддръжка на Comet",
+            "zoomPlatform": "Поддръжка на Zoom (само за Линукс)"
         },
         "disablePlaytimeSync": "Изключване на синхронизирането на игралното време",
         "frameless-window": {
