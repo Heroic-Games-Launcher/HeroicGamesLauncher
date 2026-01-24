@@ -23,7 +23,8 @@ const EnableDXVKFpsLimit = () => {
     isWin ||
     platform === 'linux' ||
     isMacNative ||
-    wineVersion.bin.includes('toolkit')
+    wineVersion.bin.includes('toolkit') ||
+    wineVersion.name.endsWith('-DXMT')
   ) {
     return <></>
   }

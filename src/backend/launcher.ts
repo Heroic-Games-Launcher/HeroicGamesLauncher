@@ -1175,7 +1175,10 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
   if (!gameSettings.enableEsync && wineVersion.type === 'proton') {
     ret.PROTON_NO_ESYNC = '1'
   }
-  if (gameSettings.enableMsync && isMac) {
+  if (
+    isMac &&
+    (gameSettings.enableMsync || wineVersion.name.endsWith('-DXMT'))
+  ) {
     ret.WINEMSYNC = '1'
     // This is to solve a problem with d3dmetal
     if (wineVersion.type === 'toolkit') {
