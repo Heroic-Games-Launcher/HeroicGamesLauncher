@@ -1,9 +1,10 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import GameContext from '../../GameContext'
 import { GameInfo, LaunchOption } from 'common/types'
 import { SelectField } from 'frontend/components/UI'
-import { MenuItem } from '@mui/material'
+import { MenuItem, SelectChangeEvent } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import { useLaunchOptions } from 'frontend/hooks/useLaunchOptions'
 
 interface Props {
   gameInfo: GameInfo
@@ -11,26 +12,39 @@ interface Props {
 }
 
 const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
-  const { appName, runner } = useContext(GameContext)
+  const { appName, runner, gameSettings } = useContext(GameContext)
   const { t } = useTranslation('gamepage')
-  const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
-  const [selectedLaunchOptionIndex, setSelectedLaunchOptionIndex] = useState(-1)
 
-  useEffect(() => {
-    void window.api.getLaunchOptions(appName, runner).then(setLaunchOptions)
-  }, [gameInfo])
-
-  const labelForLaunchOption = useCallback((option: LaunchOption) => {
-    switch (option.type) {
-      case undefined:
-      case 'basic':
-        return option.name
-      case 'dlc':
-        return option.dlcTitle
-      case 'altExe':
-        return option.executable
+  const {
+    launchOptions,
+    selectedIndex,
+    labelForLaunchOption,
+    handleLaunchOptionChange: onLaunchOptionChange
+  } = useLaunchOptions({
+    appName,
+    runner,
+    lastUsedOption: gameSettings?.lastUsedLaunchOption,
+    onSelectionChange: (option) => {
+      setLaunchArguments(option)
+      // Save the setting
+      void window.api.setSetting({
+        appName,
+        key: 'lastUsedLaunchOption',
+        value: option
+      })
     }
-  }, [])
+  })
+
+  const handleLaunchOptionChange = (event: SelectChangeEvent) => {
+    const value = event.target.value
+
+    if (value === '') {
+      onLaunchOptionChange(-1)
+    } else {
+      const selectedIdx = Number(value)
+      onLaunchOptionChange(selectedIdx)
+    }
+  }
 
   if (!gameInfo.is_installed) {
     return null
@@ -43,17 +57,8 @@ const LaunchOptions = ({ gameInfo, setLaunchArguments }: Props) => {
   return (
     <SelectField
       htmlId="launch_options"
-      onChange={({ target: { value } }) => {
-        if (value === '') {
-          setSelectedLaunchOptionIndex(-1)
-          setLaunchArguments(undefined)
-        } else {
-          const selectedIndex = Number(value)
-          setSelectedLaunchOptionIndex(selectedIndex)
-          setLaunchArguments(launchOptions[selectedIndex])
-        }
-      }}
-      value={selectedLaunchOptionIndex.toString()}
+      onChange={handleLaunchOptionChange}
+      value={selectedIndex.toString()}
     >
       <MenuItem key={'-1'} value={'-1'}>
         {t('launch.options', 'Launch Options...')}

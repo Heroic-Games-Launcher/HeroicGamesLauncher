@@ -853,6 +853,7 @@
         "gamescope": {
             "searchMsg": "Searching for gamescope executable."
         },
+        "launchOptions": "Launch Options",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },

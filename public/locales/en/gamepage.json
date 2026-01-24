@@ -25,6 +25,10 @@
             "button": "Select",
             "image": "Select Image"
         },
+        "selectLaunchOption": {
+            "body": "Please select a launch option for this game (it can be changed later on the game settings):",
+            "title": "Select Launch Option ({{seconds}}s)"
+        },
         "sideload": {
             "exe": "Select Executable"
         },

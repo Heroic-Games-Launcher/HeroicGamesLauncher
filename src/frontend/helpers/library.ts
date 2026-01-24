@@ -124,7 +124,7 @@ async function install({
   })
 }
 
-async function handleStopInstallation(
+function handleStopInstallation(
   appName: string,
   path: string,
   t: TFunction<'gamepage'>,
@@ -149,7 +149,7 @@ async function handleStopInstallation(
       },
       {
         text: t('box.no'),
-        onClick: async () => {
+        onClick: () => {
           window.api.cancelDownload(true)
           storage.removeItem(appName)
         }
@@ -180,16 +180,21 @@ const launch = async ({
   showDialogModal,
   args
 }: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
+  // First handle update dialog if needed
   if (hasUpdate) {
     const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
 
     if (ignoreGameUpdates) {
-      return window.api.launch({
+      // If updates are ignored, proceed to check launch options
+      return checkLaunchOptionsAndLaunch({
         appName,
-        runner,
+        t,
         launchArguments,
+        runner,
+        showDialogModal,
         args,
-        skipVersionCheck: true
+        skipVersionCheck: true,
+        hasUpdate
       })
     }
 
@@ -205,7 +210,7 @@ const launch = async ({
               onClick: async () => {
                 const gameInfo = await getGameInfo(appName, runner)
                 if (gameInfo && gameInfo.runner !== 'sideload') {
-                  updateGame({ appName, runner, gameInfo })
+                  void updateGame({ appName, runner, gameInfo })
                   res({ status: 'done' })
                 }
                 res({ status: 'error' })
@@ -213,14 +218,18 @@ const launch = async ({
             },
             {
               text: t('box.no'),
-              onClick: async () => {
+              onClick: () => {
+                // User chose to skip the update, now check launch options
                 res(
-                  window.api.launch({
+                  checkLaunchOptionsAndLaunch({
                     appName,
-                    runner,
+                    t,
                     launchArguments,
+                    runner,
+                    showDialogModal,
                     args,
-                    skipVersionCheck: true
+                    skipVersionCheck: true,
+                    hasUpdate
                   })
                 )
               }
@@ -233,7 +242,198 @@ const launch = async ({
     return launchFinished
   }
 
-  return window.api.launch({ appName, launchArguments, runner, args })
+  // No update needed, proceed to check launch options
+  return checkLaunchOptionsAndLaunch({
+    appName,
+    t,
+    launchArguments,
+    runner,
+    showDialogModal,
+    args,
+    hasUpdate
+  })
+}
+
+// Helper function to check for launch options and show dialog if needed
+async function checkLaunchOptionsAndLaunch({
+  appName,
+  t,
+  launchArguments,
+  runner,
+  showDialogModal,
+  args,
+  skipVersionCheck = false
+}: LaunchOptions & { skipVersionCheck?: boolean }): Promise<{
+  status: 'done' | 'error' | 'abort'
+}> {
+  // If launch arguments already provided, launch directly
+  if (launchArguments) {
+    return window.api.launch({
+      appName,
+      runner,
+      launchArguments,
+      args,
+      skipVersionCheck
+    })
+  }
+
+  // Get available launch options
+  const availableLaunchOptions = await window.api.getLaunchOptions(
+    appName,
+    runner
+  )
+
+  // If no launch options or only one option, launch directly
+  if (!availableLaunchOptions.length || availableLaunchOptions.length === 1) {
+    // If there's exactly one option, use it
+    const singleOption =
+      availableLaunchOptions.length === 1
+        ? availableLaunchOptions[0]
+        : undefined
+
+    return window.api.launch({
+      appName,
+      runner,
+      launchArguments: singleOption,
+      args,
+      skipVersionCheck
+    })
+  }
+
+  // If we have multiple launch options and none selected, show dialog
+  // First check if there's a saved launch option
+  const gameSettings = await window.api.requestGameSettings(appName)
+  if (gameSettings.lastUsedLaunchOption) {
+    return window.api.launch({
+      appName,
+      runner,
+      launchArguments: gameSettings.lastUsedLaunchOption,
+      args,
+      skipVersionCheck
+    })
+  }
+
+  // Show dialog to select launch option
+  return new Promise((res) => {
+    let timeoutId: NodeJS.Timeout | null = null
+    let countdownInterval: NodeJS.Timeout | null = null
+    let hasSelected = false
+    let secondsRemaining = 10
+
+    // Set up auto-select timeout (10 seconds)
+    const autoSelectFirstOption = () => {
+      if (hasSelected) return
+
+      const firstOption = availableLaunchOptions[0]
+
+      // Clean up intervals
+      if (countdownInterval) {
+        clearInterval(countdownInterval)
+      }
+
+      // Close the dialog
+      showDialogModal({ showDialog: false })
+
+      // Save this choice for future launches
+      window.api.setSetting({
+        appName,
+        key: 'lastUsedLaunchOption',
+        value: firstOption
+      })
+
+      // Launch with the first option
+      res(
+        window.api.launch({
+          appName,
+          runner,
+          launchArguments: firstOption,
+          args,
+          skipVersionCheck
+        })
+      )
+    }
+
+    // Update the dialog title with countdown
+    const updateCountdown = () => {
+      showDialogModal({
+        message: t(
+          'gamepage:box.selectLaunchOption.body',
+          'Please select a launch option for this game (it can be changed later on the game settings):'
+        ),
+        title: t(
+          'gamepage:box.selectLaunchOption.title',
+          'Select Launch Option ({{seconds}}s)',
+          { seconds: secondsRemaining }
+        ),
+        buttons: optionButtons
+      })
+    }
+
+    // Create button for each launch option
+    const optionButtons = availableLaunchOptions.map((option) => {
+      let label = ''
+      switch (option.type) {
+        case undefined:
+        case 'basic':
+          label = option.name
+          break
+        case 'dlc':
+          label = option.dlcTitle
+          break
+        case 'altExe':
+          label = option.executable
+          break
+      }
+
+      return {
+        text: label,
+        onClick: () => {
+          hasSelected = true
+          if (timeoutId) {
+            clearTimeout(timeoutId)
+          }
+          if (countdownInterval) {
+            clearInterval(countdownInterval)
+          }
+
+          // Close the dialog
+          showDialogModal({ showDialog: false })
+
+          // Save this choice for future launches
+          window.api.setSetting({
+            appName,
+            key: 'lastUsedLaunchOption',
+            value: option
+          })
+
+          // Launch with the selected option
+          res(
+            window.api.launch({
+              appName,
+              runner,
+              launchArguments: option,
+              args,
+              skipVersionCheck
+            })
+          )
+        }
+      }
+    })
+
+    // Set timeout for 10 seconds
+    timeoutId = setTimeout(autoSelectFirstOption, 10000)
+
+    // Update countdown every second
+    countdownInterval = setInterval(() => {
+      secondsRemaining--
+      if (secondsRemaining > 0) {
+        updateCountdown()
+      }
+    }, 1000)
+
+    // Show initial dialog
+    updateCountdown()
+  })
 }
 
 const updateGame = (args: UpdateParams) => {
