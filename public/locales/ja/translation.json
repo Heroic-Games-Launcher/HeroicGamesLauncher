@@ -873,7 +873,8 @@
         },
         "custom_css": {
             "title": "カスタムCSSスタイル"
-        }
+        },
+        "launchOptions": "Launch Options..."
     },
     "Settings": "設定",
     "sidebar": {
