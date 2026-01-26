@@ -371,6 +371,12 @@ interface FrontendMessages {
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
   progressUpdate: (progress: GameStatus) => void
+  metadataChanged: (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    >
+  ) => void
 
   // Used inside tests, so we can be a bit lenient with the type checking here
   message: (...params: unknown[]) => void

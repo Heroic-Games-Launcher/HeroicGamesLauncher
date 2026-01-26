@@ -14,6 +14,7 @@ export const handleGameStatus = frontendListenerSlot('gameStatusUpdate')
 export const onProgressUpdate = frontendListenerSlot('progressUpdate')
 export const handleInstallGame = frontendListenerSlot('installGame')
 export const handleRefreshLibrary = frontendListenerSlot('refreshLibrary')
+export const handleMetadataChanged = frontendListenerSlot('metadataChanged')
 export const handleGamePush = frontendListenerSlot('pushGameToLibrary')
 export const removeRecentGame = makeHandlerInvoker('removeRecent')
 export const handleRecentGamesChanged =
