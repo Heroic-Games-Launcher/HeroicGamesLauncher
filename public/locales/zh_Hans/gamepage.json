@@ -49,7 +49,11 @@
         "wineprefix": "选择 WinePrefix 文件夹",
         "yes": "是",
         "close": "关闭",
-        "select-install-path": "选择 Steam 安装路径"
+        "select-install-path": "选择 Steam 安装路径",
+        "selectLaunchOption": {
+            "body": "请为该游戏选择一个启动选项（稍候可在游戏设置中更改）：",
+            "title": "选择启动选项（{{seconds}}s）"
+        }
     },
     "button": {
         "add_to_favourites": "添加到收藏",

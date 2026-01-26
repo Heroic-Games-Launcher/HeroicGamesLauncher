@@ -49,7 +49,11 @@
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK",
         "close": "Zamknij",
-        "select-install-path": "Wybierz ścieżkę instalacji Steam"
+        "select-install-path": "Wybierz ścieżkę instalacji Steam",
+        "selectLaunchOption": {
+            "body": "Proszę wybrać opcję uruchomienia tej gry (można to później zmienić w ustawieniach gry):",
+            "title": "Wybierz opcję uruchomienia ({{seconds}}s)"
+        }
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",

@@ -94,7 +94,11 @@
                 "generic": "Ett fel har uppstått! Försök att logga ut och in på ditt Epic-konto. {{newline}} {{error}}"
             },
             "executableNotFound": "Exekverbar fil hittades inte",
-            "executableNotFoundMessage": "Heroic kunde inte hitta den exekverbara filen för det här spelet. Vänligen ställ in den manuellt i spelinställningarna."
+            "executableNotFoundMessage": "Heroic kunde inte hitta den exekverbara filen för det här spelet. Vänligen ställ in den manuellt i spelinställningarna.",
+            "dxmt": {
+                "message": "Fel vid nedleddning av DXMT! Kontrollera din anslutning!",
+                "title": "DXMT nedladdningsfel"
+            }
         },
         "info": {
             "update": {
@@ -898,7 +902,8 @@
         },
         "custom_css": {
             "title": "Anpassad CSS Stil"
-        }
+        },
+        "launchOptions": "Uppstartsalternativ"
     },
     "Settings": "Inställningar",
     "sidebar": {
@@ -963,7 +968,8 @@
             "unzipping": "Packar upp"
         },
         "release": "Utgivningsdatum",
-        "size": "Storlek"
+        "size": "Storlek",
+        "notes": "Anteckningar"
     },
     "externalLink": {
         "warning": "Du är på väg att öppna en extern länk.",

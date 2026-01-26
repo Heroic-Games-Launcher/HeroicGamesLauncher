@@ -99,7 +99,11 @@
                 "error": "Non se atopou o executábel de Steam. Probablemente a instalación foi cancelada polo usuario ou fallou no lado de Steam."
             },
             "executableNotFound": "Non se atopou o executable",
-            "executableNotFoundMessage": "Heroic non puido atopar o executable deste xogo. Por favor, configúreo manualmente na configuración do xogo."
+            "executableNotFoundMessage": "Heroic non puido atopar o executable deste xogo. Por favor, configúreo manualmente na configuración do xogo.",
+            "dxmt": {
+                "title": "Erro ao descargar DXMT",
+                "message": "Erro ao descargar DXMT! Comprobe a súa conexión!"
+            }
         },
         "info": {
             "update": {
@@ -908,7 +912,8 @@
         },
         "offline": {
             "warning": "Este xogo non permite explicitamente o modo offline, activa esta opción baixo a túa propia responsabilidade. É posible que o xogo non funcione."
-        }
+        },
+        "launchOptions": "Opcións de arranque"
     },
     "Settings": "Preferencias",
     "sidebar": {
@@ -973,7 +978,8 @@
             "unzipping": "Descomprimindo"
         },
         "release": "Data de publicación",
-        "size": "Tamaño"
+        "size": "Tamaño",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "Non volver preguntar",

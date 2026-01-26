@@ -668,7 +668,8 @@
         },
         "systemInformation": {
             "copyToClipboard": "Copied to Clipboard!"
-        }
+        },
+        "launchOptions": "Opcije za pokretanje..."
     },
     "Settings": "Postavke",
     "sidebar": {

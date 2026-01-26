@@ -48,7 +48,11 @@
             "title": "Igro je potrebno posodobiti"
         },
         "wineprefix": "Izberi mapo s predponami Wine",
-        "yes": "DA"
+        "yes": "DA",
+        "selectLaunchOption": {
+            "body": "Prosim izberite možnost zagona te igre (to lahko kasneje spremenite v nastavitvah):",
+            "title": "Izberite možnost zagona ({{seconds}}s)"
+        }
     },
     "button": {
         "add_to_favourites": "Dodaj na seznam priljubljenih",
@@ -108,7 +112,8 @@
         "neverPlayed": "Nikoli",
         "platform": "Izberi različico sistema za namestitev",
         "requirements": "Strojne zahteve",
-        "totalPlayed": "Čas igranja"
+        "totalPlayed": "Čas igranja",
+        "modify": "Spremeni namestitev"
     },
     "gamecard": {
         "moving": "Premikam",
@@ -129,10 +134,22 @@
     },
     "hours": "Ur",
     "how-long-to-beat": {
-        "main-plus-extras": "Glavno + dodatki"
+        "main-plus-extras": "Glavno + dodatki",
+        "main-story": "Osrednja zgodba"
     },
     "info": {
-        "version": "Različica"
+        "version": "Različica",
+        "apple-gaming-wiki": "Ocena AppleGamingWiki",
+        "canRunOffline": "Zahteva spletno povezavo",
+        "clickToOpen": "Kliknite, da odprete",
+        "game-scores": "Rezultate",
+        "installedInfo": "Info o namestitvi",
+        "installedPlatform": "Nameščena platforma",
+        "path": "Mesto namestitve",
+        "protondb-compatibility-info": "Nivo združljivosti s Protonom",
+        "size": "Velikost",
+        "steamdeck-compatibility-info": "Združljivost s SteamDeckom",
+        "third-party-app": "Zunanji upravljalnik"
     },
     "sideload": {
         "info": {
@@ -141,5 +158,18 @@
     },
     "submenu": {
         "verify": "Preveri in popravi"
+    },
+    "howLongToBeat": "Čas za dokončanje",
+    "install": {
+        "anticheat-warning": {
+            "cancel": "Ne",
+            "disabled_installation": "Ta igra uporablja mehanizem proti goljufanju, ki ni združljiv z vašim operacijskim sistemom, ali pa razvijalci podpore zanj niso omogočili. To pomeni, da večigralske funkcije ne bodo delovale in z Vaše (ali naše) strani o tem ne moremo nič narediti.<br /><br />Da vseeno namestite to igro, pojdite v Nastavitve, odsek Napredno in tam omogočite nameščanje iger z nedelujočim ali izključenim mehanizmom proti goljufanju.<br /><br />Za to ni nobene rešitve in obstaja možnost, da Vam zaprejo račun.",
+            "install_anyway": "Da (razumem, da večigralske funkcije ne bodo delovale)",
+            "multiplayer_message": "Mehanizem proti goljufanju ne deluje ali je onemogočen. Igra bo mogoče delovala, a večigralske funkcije ne bodo. Jo vseeno želite namestiti?",
+            "ok": "Da"
+        }
+    },
+    "not_logged_in": {
+        "login": "Vpis"
     }
 }

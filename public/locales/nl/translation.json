@@ -890,7 +890,8 @@
         },
         "gamescope": {
             "searchMsg": "Zoeken naar uitvoerbaar gamescope bestand."
-        }
+        },
+        "launchOptions": "Opstartopties"
     },
     "Settings": "Instellingen",
     "sidebar": {

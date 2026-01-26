@@ -888,7 +888,8 @@
         },
         "offline": {
             "warning": "Trò chơi này không cho phép chế độ ngoại tuyến một cách rõ ràng, hãy tự chịu rủi ro khi bật chế độ này. Trò chơi có thể không hoạt động."
-        }
+        },
+        "launchOptions": "Tuỳ chọn khởi động..."
     },
     "Settings": "Cài Đặt",
     "sidebar": {
