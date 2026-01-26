@@ -831,15 +831,10 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
   const SGDB = (SteamGridDB as any).default || SteamGridDB
   const sgdb = new SGDB(steamGridDbApiKey)
   try {
-    const results = await sgdb.getGridsById(
-      args.gameId,
-      args.styles,
-      args.dimensions,
-      args.mimes,
-      args.types,
-      args.nsfw?.toString(),
-      args.humor?.toString()
-    )
+    const results = await sgdb.getGrids({
+      id: args.gameId,
+      type: 'game'
+    })
     return results.map(
       (grid: {
         id: number
@@ -851,8 +846,13 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
         thumb: grid.thumb.toString()
       })
     )
-  } catch (error) {
-    logError(['SteamGridDB getGrids failed:', error], LogPrefix.Backend)
+  } catch (error: any) {
+    const errorMessage =
+      error.response?.data?.errors?.join(', ') || error.message
+    logError(
+      [`SteamGridDB getGrids failed: ${errorMessage}`, error],
+      LogPrefix.Backend
+    )
     return []
   }
 })
