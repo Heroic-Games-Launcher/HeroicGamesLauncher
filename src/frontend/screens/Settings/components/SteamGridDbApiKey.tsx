@@ -19,7 +19,14 @@ export default function SteamGridDbApiKey() {
         value={config.steamGridDbApiKey || ''}
         htmlId="steamgriddb-api-key"
       />
-      <p className="settingDescription">
+      <p
+        className="settingDescription button is-text"
+        onClick={() =>
+          window.api.openExternalUrl(
+            'https://www.steamgriddb.com/profile/preferences/api'
+          )
+        }
+      >
         {t(
           'settings.steamgriddb.apikey.description',
           'Provide your own SteamGridDB API key to enable cover search. You can get one at www.steamgriddb.com/profile/preferences/api'
