@@ -437,6 +437,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           gameInfo={gameInfo}
                           handlePlay={handlePlay}
                           handleInstall={handleInstall}
+                          handleImport={handleImport}
                         />
                       </div>
                       {wikiLink}
@@ -566,6 +567,24 @@ export default React.memo(function GamePage(): JSX.Element | null {
       progress,
       t,
       showDialogModal: showDialogModal
+    })
+  }
+
+  function handleImport() {
+    return install({
+      gameInfo,
+      installPath: 'import',
+      isInstalling: false,
+      previousProgress: null,
+      progress: {
+        ...progress,
+        bytes: '',
+        eta: '',
+        percent: 0,
+        downSpeed: 0
+      },
+      t,
+      showDialogModal
     })
   }
 })
