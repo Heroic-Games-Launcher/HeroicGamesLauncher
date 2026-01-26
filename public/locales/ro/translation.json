@@ -694,8 +694,12 @@
                 "help8": "Jocuri instalate",
                 "help9": "Game Settings"
             },
-            "details": "Detalii"
-        }
+            "details": "Detalii",
+            "resetHeroic": {
+                "help": "Sigur doriți să resetați Heroic? Acest lucru va elimina toate setările și stocarea în cache, dar nu va elimina jocurile dvs. instalate sau acreditările Epic. Versiunile portabile (AppImage, WinPortable, ...) ale Heroic trebuiesc restartate manual după aceea."
+            }
+        },
+        "launchOptions": "Opțiuni de Lansare..."
     },
     "Settings": "Setări",
     "sidebar": {
@@ -785,7 +789,8 @@
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "add-new-category": "Adaugă o categorie nouă"
     },
     "window": {
         "close": "Închide"
