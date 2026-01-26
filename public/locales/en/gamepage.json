@@ -210,6 +210,7 @@
         "zoom": "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "Open": "Open",
+    "open-saves-folder": "Open Saves Folder",
     "queue": {
         "label": {
             "canceled": "Canceled",

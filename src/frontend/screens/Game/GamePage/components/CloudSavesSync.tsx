@@ -88,6 +88,17 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
     handleClose()
   }
 
+  const handleOpenFolder = () => {
+    if (gameInfo.runner === 'gog') {
+      gogSaves.forEach((save) => {
+        window.api.showItemInFolder(save.location)
+      })
+    } else {
+      window.api.showItemInFolder(savesPath)
+    }
+    handleClose()
+  }
+
   const syncCommands = [
     { name: tCommon('setting.manualsync.download'), value: '--skip-upload' },
     { name: tCommon('setting.manualsync.upload'), value: '--skip-download' },
@@ -155,7 +166,15 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
               </MenuItem>
             ))}
             <Divider />
-            <MenuItem>
+            <MenuItem
+              onClick={handleOpenFolder}
+              disabled={
+                gameInfo.runner === 'gog' ? !gogSaves.length : !savesPath
+              }
+            >
+              {t('open-saves-folder', 'Open Saves Folder')}
+            </MenuItem>
+            <MenuItem style={{ paddingLeft: '4px' }}>
               <ToggleSwitch
                 title={tCommon('setting.autosync')}
                 htmlId="autosync"
