@@ -914,7 +914,8 @@
         },
         "custom_css": {
             "title": "Власний стиль CSS"
-        }
+        },
+        "launchOptions": "Параметри Запуску..."
     },
     "Settings": "Налаштування",
     "sidebar": {
