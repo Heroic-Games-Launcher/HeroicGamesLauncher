@@ -918,10 +918,11 @@
     "steamgriddb": {
         "error": {
             "grids": "Failed to fetch grids",
+            "no-games": "No games found.",
+            "no-grids": "No covers found for this game.",
             "search": "Failed to search for games"
         },
         "picker": {
-            "no-results": "No games found.",
             "search": "Search Game",
             "select-game": "Select a Game:",
             "title": "SteamGridDB Covers"
