@@ -81,30 +81,6 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
     <div className="EditGameDialog">
       <DialogContent>
         <div className="editGameGrid">
-          <div className="imageIcons">
-            <div className="previewItem">
-              <span className="previewLabel">
-                {t('edit-game.cover', 'Cover Art')}
-              </span>
-              <CachedImage
-                className={classNames('appImage', {
-                  blackWhiteImage: searching
-                })}
-                src={artCover || fallbackImage}
-              />
-            </div>
-            <div className="previewItem">
-              <span className="previewLabel">
-                {t('edit-game.square', 'Square Art')}
-              </span>
-              <CachedImage
-                className={classNames('appImage square', {
-                  blackWhiteImage: searching
-                })}
-                src={artSquare || artCover || fallbackImage}
-              />
-            </div>
-          </div>
           <div className="editGameForm">
             <TextInputField
               label={t('sideload.info.title', 'Game/App Title')}
@@ -142,6 +118,30 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               icon={<Folder />}
               onIconClick={() => handleSelectLocalImage('square')}
             />
+          </div>
+          <div className="imageIcons">
+            <div className="previewItem">
+              <span className="previewLabel">
+                {t('edit-game.cover', 'Cover Art')}
+              </span>
+              <CachedImage
+                className={classNames('appImage', {
+                  blackWhiteImage: searching
+                })}
+                src={artCover || fallbackImage}
+              />
+            </div>
+            <div className="previewItem">
+              <span className="previewLabel">
+                {t('edit-game.square', 'Square Art')}
+              </span>
+              <CachedImage
+                className={classNames('appImage square', {
+                  blackWhiteImage: searching
+                })}
+                src={artSquare || artCover || fallbackImage}
+              />
+            </div>
           </div>
         </div>
       </DialogContent>

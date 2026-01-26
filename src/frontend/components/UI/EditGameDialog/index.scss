@@ -1,15 +1,17 @@
 .EditGameDialog {
+  min-width: 500px;
+
   .editGameGrid {
-    display: grid;
-    justify-content: space-around;
-    grid-template-columns: min-content 1fr;
+    display: flex;
+    flex-direction: column;
     gap: var(--space-lg);
 
     .imageIcons {
       display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
-      margin-top: var(--space-lg);
+      flex-direction: row;
+      gap: var(--space-xl);
+      justify-content: start;
+      margin-top: var(--space-md);
 
       .previewItem {
         display: flex;
@@ -25,16 +27,17 @@
     }
 
     .appImage {
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       display: block;
-      width: 150px;
+      width: 400px;
       transition: 200ms;
       border: 2px solid var(--neutral-02);
       border-radius: 8px;
 
       &.square {
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 3/4;
+        width: 200px;
       }
 
       &.blackWhiteImage {
