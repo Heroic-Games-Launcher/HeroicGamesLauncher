@@ -4,7 +4,7 @@ summary: An Open Source Launcher for GOG, Epic Games and Amazon Games
 description: |
   Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games
   Store using Legendary, Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.
-version: 2.18.1
+adopt-info: heroic-app
 icon: src/frontend/assets/heroic-icon.svg
 grade: stable
 confinement: strict
@@ -61,11 +61,22 @@ layout:
 
 parts:
   heroic-app:
-    plugin: dump
-    source: https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v$SNAPCRAFT_PROJECT_VERSION/Heroic-$SNAPCRAFT_PROJECT_VERSION-linux-amd64.deb
+    plugin: nil
+    build-packages: [wget, curl]
     override-build: |
-      craftctl default
+      if [ "$CRAFT_ARCH_TRIPLET_BUILD_FOR" = "x86_64-linux-gnu" ]; then
+        URL=$(curl -s "https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest" | grep -o 'https.*linux-amd64\.deb' | head -1)
+        wget "$URL"
+      elif [ "$CRAFT_ARCH_TRIPLET_BUILD_FOR" = "aarch64-linux-gnu" ]; then
+        URL=$(curl -s "https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest" | grep -o 'https.*linux-arm64\.deb' | head -1)
+        wget "$URL"
+      fi
+
+      DEB_FILE=$(basename "$URL")
+      dpkg-deb -x "$DEB_FILE" "$CRAFT_PART_INSTALL"
       sed -i 's|Name=Heroic Games Launcher|Name=Heroic [Snap]|' $CRAFT_PART_INSTALL/usr/share/applications/heroic.desktop
+      VERSION=$(echo "$DEB_FILE" | sed -n 's/Heroic-\([0-9.]*\)-.*/\1/p')
+      craftctl set version="$VERSION"
     prime:
       - opt/Heroic
       - usr/share/applications/heroic.desktop
