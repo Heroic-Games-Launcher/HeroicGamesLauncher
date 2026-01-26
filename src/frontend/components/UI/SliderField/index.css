@@ -1,0 +1,32 @@
+.sliderStyle {
+  text-indent: var(--space-sm);
+  padding-inline-end: 4rem;
+  white-space: nowrap;
+  margin-top: var(--space-md);
+}
+
+.sliderFieldWrapper.isRTL .MuiOutlinedInput-root {
+  background-position:
+    calc(15px) calc(50% + 1px),
+    calc(20px) calc(50% + 1px),
+    calc(40px) 50%;
+}
+
+.sliderFieldWrapper label {
+  text-align: start;
+  grid-area: label;
+  align-self: center;
+}
+
+.sliderFieldWrapper select:disabled {
+  cursor: not-allowed;
+}
+
+.sliderFieldWrapper.small label,
+.sliderFieldWrapper.smaller label {
+  margin: 0px var(--space-md);
+}
+
+.sliderFieldWrapper.isRTL option {
+  direction: rtl;
+}

@@ -22,7 +22,8 @@ import {
   UseFramelessWindow,
   WinePrefixesBasePath,
   PlaytimeSync,
-  AnalyticsOptIn
+  AnalyticsOptIn,
+  GamePadDelayRepeat
 } from '../../components'
 
 export default function GeneralSettings() {
@@ -35,6 +36,8 @@ export default function GeneralSettings() {
       <LanguageSelector />
 
       <ThemeSelector />
+
+      <GamePadDelayRepeat />
 
       <DefaultInstallPath />
 
