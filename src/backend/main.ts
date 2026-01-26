@@ -849,9 +849,11 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
         thumb: grid.thumb.toString()
       })
     )
-  } catch (error: any) {
+  } catch (error) {
     const errorMessage =
-      error.response?.data?.errors?.join(', ') || error.message
+      (
+        error as { response?: { data?: { errors?: string[] } } }
+      ).response?.data?.errors?.join(', ') || (error as Error).message
     logError(
       [`SteamGridDB getGrids failed: ${errorMessage}`, error],
       LogPrefix.Backend

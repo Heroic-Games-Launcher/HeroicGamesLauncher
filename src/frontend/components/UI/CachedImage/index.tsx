@@ -5,6 +5,8 @@ interface CachedImageProps {
   src: string
   fallback?: string
   className?: string
+  onLoad?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void
+  onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void
 }
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & CachedImageProps
