@@ -622,6 +622,7 @@
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",
+        "autosync-default": "Autosync Saves by default (can be disabled per-game)",
         "autoUpdateGames": "Automatically update games",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "before-launch-script-path": "Select a script to run before the game is launched",
