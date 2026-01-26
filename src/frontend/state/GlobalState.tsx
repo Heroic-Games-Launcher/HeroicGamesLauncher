@@ -113,6 +113,10 @@ interface StateProps {
   experimentalFeatures: ExperimentalFeatures
   disableDialogBackdropClose: boolean
   disableAnimations: boolean
+  gameOverrides: Record<
+    string,
+    { title?: string; art_cover?: string; art_square?: string }
+  >
 }
 
 // function to load the new key or fallback to the old one
@@ -131,16 +135,28 @@ const loadCurrentCategories = () => {
 }
 
 class GlobalState extends PureComponent<Props> {
-  loadGOGLibrary = (): Array<GameInfo> => {
+  loadGOGLibrary = (
+    overrides?: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    >
+  ): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', [])
 
     const installedGames = gogInstalledGamesStore.get('installed', [])
-    for (const igame in games) {
+    for (const game of games) {
       for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
+        if (installedGame.appName === game.app_name) {
+          game.install = installedGame
+          game.is_installed = true
         }
+      }
+
+      if (overrides && overrides[game.app_name]) {
+        const override = overrides[game.app_name]
+        game.title = override.title || game.title
+        game.art_cover = override.art_cover || game.art_cover
+        game.art_square = override.art_square || game.art_square
       }
     }
 
@@ -243,7 +259,8 @@ class GlobalState extends PureComponent<Props> {
       'disableDialogBackdropClose',
       false
     ),
-    disableAnimations: configStore.get('disableAnimations', false)
+    disableAnimations: configStore.get('disableAnimations', false),
+    gameOverrides: {}
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
@@ -644,6 +661,8 @@ class GlobalState extends PureComponent<Props> {
 
     const { epic, gog, amazon, zoom, gameUpdates } = this.state
 
+    const overrides = await window.api.getAllGameOverrides()
+
     let updates = gameUpdates
     if (checkUpdates) {
       try {
@@ -688,28 +707,42 @@ class GlobalState extends PureComponent<Props> {
 
     const updatedSideload = sideloadLibrary.get('games', [])
 
+    const applyOverrides = (lib: GameInfo[]) => {
+      return lib.map((game) => {
+        const override = overrides[game.app_name]
+        if (!override) return game
+        return {
+          ...game,
+          title: override.title || game.title,
+          art_cover: override.art_cover || game.art_cover,
+          art_square: override.art_square || game.art_square
+        }
+      })
+    }
+
     this.setState({
       epic: {
-        library: epicLibrary,
+        library: applyOverrides(epicLibrary),
         username: epic.username
       },
       gog: {
-        library: gogLibrary,
+        library: applyOverrides(gogLibrary),
         username: gog.username
       },
       zoom: {
-        library: zoomLibrary,
+        library: applyOverrides(zoomLibrary),
         username: zoom.username
       },
       amazon: {
-        library: amazonLibrary,
+        library: applyOverrides(amazonLibrary),
         user_id: amazon.user_id,
         username: amazon.username
       },
       gameUpdates: updates,
       refreshing: false,
       refreshingInTheBackground: true,
-      sideloadedLibrary: updatedSideload
+      sideloadedLibrary: applyOverrides(updatedSideload),
+      gameOverrides: overrides
     })
 
     if (currentLibraryLength !== epicLibrary.length) {

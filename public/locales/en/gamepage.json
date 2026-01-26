@@ -62,6 +62,7 @@
         "changelog": "Show Changelog",
         "continue": "Continue Downloading",
         "details": "Details",
+        "edit-game": "Edit Game",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
@@ -86,6 +87,15 @@
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
+    "edit-game": {
+        "cover": "Cover Art",
+        "info": {
+            "cover": "Cover Image",
+            "square": "Square Image"
+        },
+        "square": "Square Art",
+        "title": "Edit Game"
+    },
     "enabled": "Enabled",
     "game": {
         "branch": {

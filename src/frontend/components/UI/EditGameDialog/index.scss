@@ -1,0 +1,53 @@
+.EditGameDialog {
+  .editGameGrid {
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: min-content 1fr;
+    gap: var(--space-lg);
+
+    .imageIcons {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+
+      .previewItem {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xs);
+
+        .previewLabel {
+          font-size: var(--font-size-sm);
+          color: var(--neutral-06);
+          font-weight: bold;
+        }
+      }
+    }
+
+    .appImage {
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+      width: 150px;
+      transition: 200ms;
+      border: 2px solid var(--neutral-02);
+      border-radius: 8px;
+
+      &.square {
+        aspect-ratio: 1 / 1;
+      }
+
+      &.blackWhiteImage {
+        filter: grayscale(100%);
+        transition: 200ms;
+      }
+    }
+
+    .editGameForm {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      padding-top: var(--space-xs);
+    }
+  }
+}
