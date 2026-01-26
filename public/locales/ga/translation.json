@@ -105,7 +105,11 @@
                 "title": "Earráid Winetricks"
             },
             "executableNotFound": "Níor aimsíodh an comhad inrite",
-            "executableNotFoundMessage": "Níorbh fhéidir le Heroic an comhad inrite don chluiche seo a aimsiú. Socraigh de láimh é i socruithe an chluiche le do thoil."
+            "executableNotFoundMessage": "Níorbh fhéidir le Heroic an comhad inrite don chluiche seo a aimsiú. Socraigh de láimh é i socruithe an chluiche le do thoil.",
+            "dxmt": {
+                "message": "Earráid ag íoslódáil DXMT! Seiceáil do nasc!",
+                "title": "Earráid Íoslódála DXMT"
+            }
         },
         "info": {
             "update": {
@@ -919,7 +923,8 @@
             "steamDeck": "Steam Deck {{model}}",
             "systemModel": "Samhail Chórais:",
             "systemSpecifications": "Sonraíochtaí an Chórais:"
-        }
+        },
+        "launchOptions": "Roghanna Seolta"
     },
     "Settings": "Socruithe",
     "store": "Epic Store",
@@ -1026,7 +1031,8 @@
             "unzipping": "Ag dízipeáil"
         },
         "release": "Dáta Eisiúna",
-        "size": "Méid"
+        "size": "Méid",
+        "notes": "Nótaí"
     },
     "wineExplanation": {
         "proton-ge": "Is leagan Proton é GE-Proton a chruthaigh Glorious Eggroll. Tá sé ceaptha le húsáid in éineacht leis an lainseálaí umu (réamhshocraithe i Heroic).",
