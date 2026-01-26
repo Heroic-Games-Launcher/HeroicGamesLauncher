@@ -37,6 +37,10 @@
             "message": "Do you wish to KEEP downloaded files?",
             "title": "Stop Installation"
         },
+        "sync": {
+            "force_download_warning": "Local saves will be erased. Do you want to proceed?",
+            "force_upload_warning": "Cloud saves will be overwritten. Do you want to proceed?"
+        },
         "uninstall": {
             "cannotUninstallEpic": "Epic games cannot be uninstalled while another Epic game is being installed.",
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
@@ -50,6 +54,9 @@
         "update": {
             "message": "This game has an update, apply update now?",
             "title": "Game Needs Update"
+        },
+        "warning": {
+            "title": "Warning"
         },
         "wineprefix": "Select WinePrefix Folder",
         "yes": "YES"
@@ -210,6 +217,7 @@
         "zoom": "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "Open": "Open",
+    "open-saves-folder": "Open Saves Folder",
     "queue": {
         "label": {
             "canceled": "Canceled",
