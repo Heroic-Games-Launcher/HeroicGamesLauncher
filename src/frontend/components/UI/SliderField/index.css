@@ -30,3 +30,7 @@
 .sliderFieldWrapper.isRTL option {
   direction: rtl;
 }
+
+.sliderFieldWrapper .MuiSlider-markLabel {
+  color: var(--text-default);
+}

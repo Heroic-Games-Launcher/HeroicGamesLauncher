@@ -22,7 +22,7 @@ const GamePadDelayRepeat = () => {
         htmlId="gamePadDelayRepeat"
         value={activationDelay}
         step={10}
-        min={10}
+        min={50}
         max={500}
         onChange={(value) => {
           setActivationDelay(value)
@@ -32,6 +32,10 @@ const GamePadDelayRepeat = () => {
           'setting.gamepad-initial-repeat-delay',
           'Gamepad input initial repeat delay'
         )}
+        marks={[
+          { value: 50, label: '50 ms' },
+          { value: 500, label: '500 ms' }
+        ]}
       />
 
       <SliderField
@@ -39,7 +43,7 @@ const GamePadDelayRepeat = () => {
         value={repeatDelay}
         step={5}
         min={5}
-        max={100}
+        max={150}
         onChange={(value) => {
           setRepeatDelay(value)
           updateGamepadActions()
@@ -48,6 +52,10 @@ const GamePadDelayRepeat = () => {
           'setting.gamepad-repeat-frequency',
           'Gamepad input repeat frequency'
         )}
+        marks={[
+          { value: 5, label: '5 ms' },
+          { value: 150, label: '150 ms' }
+        ]}
       />
     </div>
   )

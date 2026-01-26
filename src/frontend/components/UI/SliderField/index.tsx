@@ -1,8 +1,9 @@
-import { ReactNode, useContext } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { Select, MenuItem, SelectChangeEvent, Slider } from '@mui/material'
 import './index.css'
+import { Mark } from '@mui/material/Slider/useSlider.types'
 
 interface SliderFieldProps {
   htmlId: string
@@ -13,7 +14,8 @@ interface SliderFieldProps {
   min?: number
   max?: number
   step?: number
-  marks?: boolean
+  marks?: Mark[]
+  showMinMaxMarks?: boolean
 }
 
 export default function SliderField({
@@ -25,9 +27,34 @@ export default function SliderField({
   min,
   max,
   step,
-  marks
+  marks,
+  showMinMaxMarks
 }: SliderFieldProps) {
   const { isRTL } = useContext(ContextProvider)
+
+  const [sliderMarks, setSliderMarks] = useState<Mark[]>([])
+
+  useEffect(() => {
+    if (!marks && !showMinMaxMarks) return
+
+    if (marks) {
+      setSliderMarks(marks)
+      return
+    }
+
+    if (showMinMaxMarks) {
+      setSliderMarks([
+        {
+          value: min ?? 0,
+          label: `${min ?? 0}`
+        },
+        {
+          value: max ?? 0,
+          label: `${max ?? 0}`
+        }
+      ])
+    }
+  }, [marks, showMinMaxMarks])
 
   return (
     <div
@@ -48,7 +75,7 @@ export default function SliderField({
         min={min}
         max={max}
         step={step}
-        marks={marks}
+        marks={sliderMarks}
         valueLabelDisplay="auto"
         onChange={(_event, value) => {
           if (!onChange) return
@@ -56,13 +83,6 @@ export default function SliderField({
           onChange(Array.isArray(value) ? value[0] : value)
         }}
         disabled={disabled}
-        sx={{
-          '& .MuiSelect-icon': { display: 'none' },
-          '& .MuiOutlinedInput-notchedOutline legend': { width: 0 },
-          '& .MuiSelect-select': {
-            textAlign: isRTL ? 'right' : 'left'
-          }
-        }}
       />
     </div>
   )
