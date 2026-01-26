@@ -9,6 +9,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import { syncSaves } from 'frontend/helpers'
 import { Menu, MenuItem, Divider } from '@mui/material'
 import { ToggleSwitch } from 'frontend/components/UI'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 interface Props {
   gameInfo: GameInfo
@@ -18,6 +19,8 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
   const { t } = useTranslation('gamepage')
   const { t: tCommon } = useTranslation()
   const { gameSettings, is } = useContext(GameContext)
+  const { showDialogModal } = useContext(ContextProvider)
+
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath] = useSetting('savesPath', '')
   const [gogSaves] = useSetting('gogSaves', [])
@@ -54,6 +57,41 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
   }
 
   const handleSync = async (syncType: SyncType) => {
+    if (
+      (syncType as string) === '--force-download' ||
+      (syncType as string) === '--force-upload'
+    ) {
+      showDialogModal({
+        title: t('box.warning.title', 'Warning'),
+        message:
+          (syncType as string) === '--force-upload'
+            ? t(
+                'box.sync.force_upload_warning',
+                'Cloud saves will be overwritten. Do you want to proceed?'
+              )
+            : t(
+                'box.sync.force_download_warning',
+                'Local saves will be erased. Do you want to proceed?'
+              ),
+        buttons: [
+          {
+            text: t('box.yes'),
+            onClick: () => executeSync(syncType)
+          },
+          {
+            text: t('box.no'),
+            onClick: () => null // Close handled by dialog
+          }
+        ]
+      })
+      handleClose()
+      return
+    }
+
+    await executeSync(syncType)
+  }
+
+  const executeSync = async (syncType: SyncType) => {
     setIsSyncing(true)
 
     if (gameInfo.runner === 'gog') {
