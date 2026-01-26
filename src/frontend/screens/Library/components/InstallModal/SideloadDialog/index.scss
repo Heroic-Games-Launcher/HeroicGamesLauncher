@@ -13,20 +13,58 @@
     width: auto;
   }
 
-  .appImage {
+  .appImageContainer {
+    position: relative;
+    cursor: pointer;
     margin-bottom: var(--space-md);
+    width: 210px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid var(--neutral-02);
+    transition: 200ms;
+
+    &.hasSgdbKey:hover {
+      border-color: var(--primary);
+      transform: scale(1.02);
+
+      .imageHoverOverlay {
+        opacity: 1;
+      }
+
+      .appImage {
+        filter: blur(2px) brightness(0.7);
+      }
+    }
+
+    &.searching {
+      .appImage {
+        filter: grayscale(100%);
+      }
+    }
+  }
+
+  .appImage {
     aspect-ratio: 3 / 4;
     object-fit: cover;
     display: block;
-    width: 210px;
+    width: 100%;
     transition: 200ms;
-    border: 3px solid var(--neutral-02);
-    border-radius: 10px;
+  }
 
-    &.blackWhiteImage {
-      filter: grayscale(100%);
-      transition: 200ms;
-    }
+  .imageHoverOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: 200ms;
+    color: white;
+    pointer-events: none;
   }
 
   .titleIcon {

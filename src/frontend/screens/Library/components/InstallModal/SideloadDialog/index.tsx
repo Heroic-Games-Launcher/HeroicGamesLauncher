@@ -1,6 +1,6 @@
 import './index.scss'
 import short from 'short-uuid'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { InstallPlatform, WineInstallation, GameInfo } from 'common/types'
 import {
@@ -8,7 +8,8 @@ import {
   TextInputField,
   PathSelectionBox,
   ToggleSwitch,
-  InfoBox
+  InfoBox,
+  SteamGridDBPicker
 } from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
@@ -63,6 +64,8 @@ export default function SideloadDialog({
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
+  const [showSgdbPicker, setShowSgdbPicker] = useState(false)
+  const [hasSgdbKey, setHasSgdbKey] = useState(false)
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
@@ -75,8 +78,12 @@ export default function SideloadDialog({
   const appPlatform = gameInfo.install?.platform || platformToInstall
 
   useEffect(() => {
+    window.api.requestAppSettings().then((config) => {
+      setHasSgdbKey(!!config.steamGridDbApiKey)
+    })
+
     if (appName) {
-      getGameInfo(appName, 'sideload').then((info) => {
+      void getGameInfo(appName, 'sideload').then((info) => {
         if (!info || info.runner !== 'sideload') {
           return
         }
@@ -126,6 +133,10 @@ export default function SideloadDialog({
   }, [title, editMode])
 
   async function searchImage() {
+    if (hasSgdbKey) {
+      setShowSgdbPicker(true)
+      return
+    }
     setSearching(true)
 
     try {
@@ -312,10 +323,25 @@ export default function SideloadDialog({
       <DialogContent>
         <div className="sideloadGrid">
           <div className="imageIcons">
-            <CachedImage
-              className={classNames('appImage', { blackWhiteImage: searching })}
-              src={imageUrl ? imageUrl : fallbackImage}
-            />
+            <div
+              className={classNames('appImageContainer', {
+                hasSgdbKey,
+                searching
+              })}
+              onClick={() => hasSgdbKey && setShowSgdbPicker(true)}
+            >
+              <CachedImage
+                className={classNames('appImage', {
+                  blackWhiteImage: searching
+                })}
+                src={imageUrl ? imageUrl : fallbackImage}
+              />
+              {hasSgdbKey && (
+                <div className="imageHoverOverlay">
+                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                </div>
+              )}
+            </div>
             <span className="titleIcon">
               {title}
               {platformIcon()}
@@ -356,12 +382,22 @@ export default function SideloadDialog({
                 'sideload.placeholder.image',
                 'Paste an URL of an Image or select one from your computer'
               )}
-              onChange={(newValue) => setImageUrl(newValue)}
+              onChange={(newValue: string) => setImageUrl(newValue)}
               htmlId="sideload-image"
               value={imageUrl}
               icon={<Folder />}
               onIconClick={handleSelectLocalImage}
             />
+            {showSgdbPicker && (
+              <SteamGridDBPicker
+                initialTitle={title}
+                onClose={() => setShowSgdbPicker(false)}
+                onSelect={(url: string) => {
+                  setImageUrl(url)
+                  setShowSgdbPicker(false)
+                }}
+              />
+            )}
             {!editMode && children}
             {showSideloadExe && (
               <PathSelectionBox
@@ -385,7 +421,7 @@ export default function SideloadDialog({
                     'sideload.placeholder.url',
                     'Paste the Game URL here'
                   )}
-                  onChange={(newValue) => handleGameUrl(newValue)}
+                  onChange={(newValue: string) => handleGameUrl(newValue)}
                   htmlId="sideload-game-url"
                   value={gameUrl}
                 />
@@ -395,7 +431,7 @@ export default function SideloadDialog({
                     'sideload.placeholder.useragent',
                     'Write a custom user agent here to be used on this browser app/game'
                   )}
-                  onChange={(newValue) => setCustomUserAgent(newValue)}
+                  onChange={(newValue: string) => setCustomUserAgent(newValue)}
                   htmlId="sideload-user-agent"
                   value={customUserAgent}
                 />
