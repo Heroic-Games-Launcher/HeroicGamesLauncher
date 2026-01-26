@@ -9,7 +9,7 @@
         "importpath": "Selecciona la carpeta del juego a importar",
         "move": {
             "message": "Esto puede tardar mucho tiempo, ¿estás seguro?",
-            "path": "Elige hacia donde lo quieres mover",
+            "path": "Elige hacia dónde lo quieres mover",
             "title": "Mover la instalación del juego"
         },
         "no": "NO",
@@ -28,7 +28,7 @@
             "exe": "Seleccionar ejecutable"
         },
         "stopInstall": {
-            "keepInstalling": "Seguir instalando",
+            "keepInstalling": "Continuar con la instalación",
             "message": "¿Deseas MANTENER los archivos descargados?",
             "title": "Detener la instalación"
         },
@@ -49,14 +49,17 @@
         "wineprefix": "Selecciona la carpeta de WinePrefix",
         "yes": "SÍ",
         "close": "Cerrar",
-        "select-install-path": "Seleccionar Ruta de Instalación de Steam"
+        "select-install-path": "Seleccionar Ruta de Instalación de Steam",
+        "selectLaunchOption": {
+            "body": "Por favor, selecciona una opción de arranque para este juego (se puede cambiar más tarde en la configuración del juego):"
+        }
     },
     "button": {
         "add_to_favourites": "Agregar a favoritos",
-        "cancel": "Pausar/cancelar",
+        "cancel": "Pausar / Cancelar",
         "continue": "Seguir descargando",
         "finish": "Finalizar",
-        "force_update": "Comprobar si hay una actualización e instalarla",
+        "force_update": "Forzar actualización si está disponible",
         "force-innstall": "Forzar instalación",
         "hide_game": "Ocultar juego",
         "import": "Importar juego",
@@ -67,7 +70,7 @@
         },
         "remove_from_favourites": "Eliminar de favoritos",
         "remove_from_recent": "Eliminar de recientes",
-        "run-exe-first": "Ejecutar instalador primero",
+        "run-exe-first": "Ejecutar el instalador primero",
         "running-setup": "Ejecutando configuración",
         "sideload": {
             "edit": "Editar aplicación/juego"
@@ -77,8 +80,9 @@
         "update": "Actualizar",
         "details": "Detalles",
         "changelog": "Mostrar registro de cambios",
-        "browse_wine_prefix": "Abrir Prefijo de Wine",
-        "browse_files": "Ver Archivos"
+        "browse_wine_prefix": "Abrir prefijo de Wine",
+        "browse_files": "Ver archivos",
+        "play": "JUGAR"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Deshabilitado",
@@ -218,7 +222,8 @@
         "gog": "No has iniciado sesión con una cuenta de GOG en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:",
         "login": "Iniciar sesión",
         "title": "No has iniciado sesión",
-        "amazon": "No has iniciado sesión con una cuenta de Amazon en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:"
+        "amazon": "No has iniciado sesión con una cuenta de Amazon en Heroic. No uses la página de la tienda, haz clic en el siguiente botón:",
+        "zoom": "No se ha conectado con una cuenta de Zoom en Heroic. No utilice la página de la tienda para iniciar sesión, en su lugar haga clic en el botón siguiente:"
     },
     "report_problem": "Reportar un problema al ejecutar este juego",
     "sdl": {

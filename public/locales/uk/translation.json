@@ -97,7 +97,9 @@
                 "error": "Виконуваний файл Steam не знайдено. Ймовірно, встановлення було скасоване користувачем або завершилося помилкою на стороні Steam.",
                 "message": "Встановлення Steam не вдалося! Будь ласка, уважно прочитайте інструкції та спробуйте знову! {{paragraph}} {{error}}",
                 "title": "Помилка Steam"
-            }
+            },
+            "executableNotFound": "Виконуваний файл не знайдено",
+            "executableNotFoundMessage": "Heroic не зміг знайти виконуваний файл для цієї гри. Встановіть його вручну в налаштуваннях гри."
         },
         "info": {
             "update": {
@@ -432,7 +434,8 @@
         "gog": "Вхід у GOG",
         "message": "Увійдіть за допомогою своєї платформи. Ви можете увійти на декілька платформ одночасно.",
         "amazon": "Вхід у Amazon",
-        "old-mac": "Ваша версія macOS — {{version}}. Для входу в систему потрібна macOS 12 або новіша."
+        "old-mac": "Ваша версія macOS — {{version}}. Для входу в систему потрібна macOS 12 або новіша.",
+        "zoom": "Увійти в Zoom"
     },
     "message": {
         "sync": "Синхронізація завершена",
@@ -684,7 +687,8 @@
                 "gog": "Журнал GOG",
                 "heroic": "Загальний журнал Heroic",
                 "nile": "Журнал Amazon / Nile",
-                "legendary": "Журнал Epic Games / Legendary"
+                "legendary": "Журнал Epic Games / Legendary",
+                "zoom": "Журнал Zoom"
             },
             "show-uploads": "Показати завантажені файли журналів"
         },
@@ -740,7 +744,8 @@
             "enableHelp": "Компонент допомоги",
             "automaticWinetricksFixes": "Автоматично застосовувати відомі виправлення",
             "cometSupport": "Підтримка Comet",
-            "umuSupport": "Використовувати umu як середовище виконання Proton"
+            "umuSupport": "Використовувати umu як середовище виконання Proton",
+            "zoomPlatform": "Підтримка платформи Zoom (лише Linux)"
         },
         "disablePlaytimeSync": "Вимкнути синхронізацію часу відтворення",
         "frameless-window": {
@@ -755,7 +760,7 @@
             "enableUpscaling": "Увімкнути масштабування",
             "missingMsg": "Ми не змогли знайти gamescope у PATH. Встановіть його або додайте до PATH.",
             "enableForceGrabCursor": "Увімкнути курсор примусового захоплення",
-            "missingMsgFlatpak": "Не вдалося знайти сумісну версію Gamescope. Встановіть Flatpak-пакет Gamescope з середовищем виконання 24.08 і перезапустіть Heroic.",
+            "missingMsgFlatpak": "Не вдалося знайти сумісну версію Gamescope. Встановіть Flatpak-пакет Gamescope з середовищем виконання 25.08 і перезапустіть Heroic.",
             "warningFlatpak": "Не вдалося знайти сумісну версію Gamescope. Встановіть Flatpak-пакет Gamescope з середовищем виконання {{runtimeVersion}} і перезапустіть Heroic."
         },
         "msync": "Ввімкнути Msync",
@@ -805,7 +810,8 @@
             "label": "Дозволити використання збірок Proton Valve для запуску ігор",
             "wine_selector_warning": "Версії Proton від Valve типово ігноруються, ввімкніть їх у розширених глобальних налаштуваннях"
         },
-        "WoW64": "Увімкнути WoW64 (експериментально)"
+        "WoW64": "Увімкнути WoW64 (експериментально)",
+        "scripts": "Скрипти:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -908,7 +914,8 @@
         },
         "custom_css": {
             "title": "Власний стиль CSS"
-        }
+        },
+        "launchOptions": "Параметри Запуску..."
     },
     "Settings": "Налаштування",
     "sidebar": {
@@ -1108,5 +1115,7 @@
             "pt7": "Ви можете змінити це налаштування в будь-який час у налаштуваннях застосунку."
         },
         "title": "Надіслати анонімну аналітику"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Крамниця Zoom"
 }

@@ -652,7 +652,8 @@
         },
         "systemInformation": {
             "copyToClipboard": "Kopirano u međuspremnik!"
-        }
+        },
+        "launchOptions": "Opcije za pokretanje..."
     },
     "Settings": "Postavke",
     "sidebar": {

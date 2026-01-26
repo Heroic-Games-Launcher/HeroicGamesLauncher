@@ -14,7 +14,7 @@
         },
         "no": "NIE",
         "repair": {
-            "message": "Chcesz spróbować naprawić tę grę? To może zająć dużo czasu.",
+            "message": "Chcesz spróbować naprawić tę grę? To może zająć dłuższą chwilę.",
             "title": "Zweryfikuj i napraw"
         },
         "runexe": {
@@ -33,7 +33,7 @@
             "title": "Zatrzymaj instalację"
         },
         "uninstall": {
-            "checkbox": "Usuń prefiks: {{prefix}}{{newLine}} Notka: Operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
+            "checkbox": "Usuń prefiks: {{prefix}}{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta, zostaną usunięte również zapisy gry.",
             "message": "Czy chcesz odinstalować \"{{title}}\"?",
             "settingcheckbox": "Wyczyść ustawienia i usuń dziennik zdarzeń{{newLine}}Uwaga: Ta operacja nie może zostać cofnięta. Wszystkie zmodyfikowane ustawienia zostaną zapomniane, a dziennik zdarzeń zostanie usunięty.",
             "title": "Odinstaluj",
@@ -43,20 +43,24 @@
             "gameIsRunning": "{{title}} jest uruchomiony. Zamknij grę, aby ją odinstalować."
         },
         "update": {
-            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją teraz zainstalować?",
+            "message": "Ta gra ma dostępną aktualizację, czy chcesz ją zaktualizować teraz?",
             "title": "Gra wymaga aktualizacji"
         },
         "wineprefix": "Wybierz folder z prefiksem Wine",
         "yes": "TAK",
         "close": "Zamknij",
-        "select-install-path": "Wybierz ścieżkę instalacji Steam"
+        "select-install-path": "Wybierz ścieżkę instalacji Steam",
+        "selectLaunchOption": {
+            "body": "Proszę wybrać opcję uruchomienia tej gry (można to później zmienić w ustawieniach gry):",
+            "title": "Wybierz opcję uruchomienia ({{seconds}}s)"
+        }
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
         "cancel": "Wstrzymaj/Anuluj",
         "continue": "Kontynuuj pobieranie",
         "finish": "Zakończ",
-        "force_update": "Wymuś dostępne aktualizacje",
+        "force_update": "Wymuś aktualizację, jeśli jest dostępna",
         "force-innstall": "Wymuś instalację",
         "hide_game": "Ukryj grę",
         "import": "Importuj grę",
@@ -78,7 +82,8 @@
         "details": "Szczegóły",
         "changelog": "Pokaż dziennik zmian",
         "browse_files": "Przeglądaj pliki",
-        "browse_wine_prefix": "Przeglądaj prefiks Wine"
+        "browse_wine_prefix": "Przeglądaj prefiks Wine",
+        "play": "GRAJ"
     },
     "cloud_save_unsupported": "Niewspierana",
     "disabled": "Wyłączono",
@@ -218,7 +223,8 @@
         "gog": "Nie jesteś zalogowany kontem GOG w Heroic. Nie używaj strony sklepu do logowania, zamiast tego kliknij ten przycisk:",
         "login": "Zaloguj się",
         "title": "Jesteś niezalogowany",
-        "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
+        "amazon": "Nie jesteś zalogowany za pomocą konta Amazon w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:",
+        "zoom": "Nie jesteś zalogowany za pomocą konta Zoom w Heroic. Nie używaj strony sklepu do zalogowania się, zamiast tego użyj przycisku poniżej:"
     },
     "report_problem": "Zgłoś problem z uruchamianiem tej gry",
     "sdl": {
@@ -250,7 +256,7 @@
         },
         "import-hint": {
             "title": "Uwaga! Czy dodajesz grę od Epic/GOG/Amazon? Kliknij tutaj!",
-            "content": "NIE używaj do tego tej funkcji.<1></1>Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
+            "content": "NIE używaj do tego tej funkcjonalności.<br />. Zamiast tego <3>zaloguj się</3> do sklepu, poszukaj gry w swojej bibliotece, otwórz okno dialogowe instalacji i kliknij przycisk &quot;Import Game&quot;"
         }
     },
     "specs": {
@@ -328,7 +334,7 @@
         "notice1": "Ta gra jest zarządzana poprzez aplikację zewnętrzną: \"{{application_name}}\"",
         "notice2": "Po naciśnięciu Instaluj Heroic uruchomi aplikację w celu zakończenia procesu instalacji"
     },
-    "wikiLink": "Przeczytaj ważne informacje o tej grze:&nbsp;<1>otwórz stronę</1>",
+    "wikiLink": "Ważne informacje o tej grze można przeczytać tutaj:&nbsp;<1>Otwórz stronę</1>",
     "queue": {
         "label": {
             "remove": "Usuń z pobranych",

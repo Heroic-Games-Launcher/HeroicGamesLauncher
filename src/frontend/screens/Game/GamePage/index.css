@@ -30,7 +30,7 @@
 
   .MuiTab-labelIcon {
     min-height: unset;
-    align-items: flex-start;
+    align-items: center;
   }
 
   & > p {
@@ -294,8 +294,8 @@
             a {
               display: none;
               position: absolute;
-              bottom: 100%;
-              right: -10px;
+              bottom: 106%;
+              right: 0px;
               white-space: nowrap;
             }
 
@@ -655,7 +655,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: var(--space-md);
 
   .gameInfoTabs {
     align-items: center;
@@ -681,14 +680,6 @@
 
     .MuiTabs-flexContainer {
       border-bottom: none;
-    }
-  }
-
-  .tabButton {
-    border-radius: var(--space-lg);
-
-    & .MuiTabs-indicator {
-      display: none;
     }
   }
 

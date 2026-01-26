@@ -97,7 +97,9 @@
                 "message": "Installeringen av Steam mislyktes! Gå gjennom instruksjonene en gang til og prøv igjen! {{paragraph}} {{error}}",
                 "title": "Steam-feil",
                 "error": "Steams programfil ble ikke funnet. Installasjonen ble antagelig avbrutt eller mislyktes."
-            }
+            },
+            "executableNotFound": "Programfil ikke funnet",
+            "executableNotFoundMessage": "Heroic kunne ikke finne programfilen til spillet. Velg programfilen manuelt i spillinstillingene."
         },
         "info": {
             "update": {
@@ -431,7 +433,8 @@
         "gog": "GOG-innlogging",
         "message": "Logg inn med plattformen din. Du kan være innlogget i flere plattformer samtidig.",
         "amazon": "Amazon-pålogging",
-        "old-mac": "MacOS-versjonen din er {{version}}. macOS 12 eller nyere kreves for å logge på."
+        "old-mac": "MacOS-versjonen din er {{version}}. macOS 12 eller nyere kreves for å logge på.",
+        "zoom": "Logg inn på Zoom"
     },
     "message": {
         "sync": "Synkronisering fullført",
@@ -682,7 +685,8 @@
                 "heroic": "Generell Heroic-logg",
                 "legendary": "Epic Games- / Legendary-logg",
                 "nile": "Amazon- / Nile-logg",
-                "gog": "GOG-logg"
+                "gog": "GOG-logg",
+                "zoom": "Zoom-logg"
             },
             "show-uploads": "Vis opplastede loggfiler",
             "join-heroic-discord": "Bli med i vår discord"
@@ -739,7 +743,7 @@
             "missingMsg": "Vi kunne ikke finne gamescope på STIEN. Installer den eller legg den til STIEN.",
             "enableUpscaling": "Skru på oppskalering",
             "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker",
-            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 24.08 og start Heroic på nytt.",
+            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 25.08 og start Heroic på nytt.",
             "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og start Heroic på nytt."
         },
         "msync": "Skru på Msync",
@@ -756,7 +760,8 @@
         "experimental_features": {
             "enableHelp": "Hjelpskomponent",
             "cometSupport": "Comet støtte",
-            "enableNewDesign": "Nytt design"
+            "enableNewDesign": "Nytt design",
+            "zoomPlatform": "Støtte for Zoom-plattformen (bare for Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -795,7 +800,8 @@
             "label": "Tillat bruk av Valve Proton for å kjøre spill",
             "wine_selector_warning": "Valves Proton-versjoner ignoreres som standard, aktiver dem i de avanserte innstillingene"
         },
-        "WoW64": "Skru på WoW64 (eksperimentell)"
+        "WoW64": "Skru på WoW64 (eksperimentell)",
+        "scripts": "Skript:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1098,5 +1104,7 @@
             "pt7": "Du kan endre denne innstillingen når som helst i appinnstillingene."
         },
         "title": "Send anynom statistikk"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Zoom-butikk"
 }

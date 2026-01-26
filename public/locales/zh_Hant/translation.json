@@ -512,7 +512,7 @@
             "canceled": "已取消",
             "clear": "清除列表",
             "downloading": "下載中",
-            "empty": "無可下載項目",
+            "empty": "無待下載項目",
             "finished": "已完成",
             "queued": "佇列中",
             "remove": "從下載中移除",

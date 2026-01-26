@@ -922,7 +922,8 @@
         "skip": "Ohita"
     },
     "analyticsModal": {
-        "disable": "Poiskytke",
-        "enable": "Päälle"
-    }
+        "disable": "Pois päältä",
+        "enable": "Päällä"
+    },
+    "amazon-luna": "Amazon Luna"
 }

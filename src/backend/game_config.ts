@@ -318,6 +318,11 @@ class GameConfigV0 extends GameConfig {
   }
 
   public setSetting(key: keyof GameSettings, value: unknown) {
+    // check if the key exists, if not, initialize it with a undefined value
+    if (!(key in this.config)) {
+      this.config[key] = undefined as never
+    }
+
     this.config[key] = value as never
     logInfo(`${this.appName}: Setting ${key} to ${JSON.stringify(value)}`)
     return this.flush()

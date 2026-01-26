@@ -78,7 +78,8 @@
         "details": "Detalls",
         "changelog": "Mostra el registre",
         "browse_files": "Explora els fitxers",
-        "browse_wine_prefix": "Explora el prefix Wine"
+        "browse_wine_prefix": "Explora el prefix Wine",
+        "play": "JUGAR"
     },
     "cloud_save_unsupported": "No compatible",
     "disabled": "Desactivat",
@@ -218,7 +219,8 @@
         "gog": "No has iniciat sessió amb un compte de GOG a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
         "login": "Inicia la sessió",
         "title": "No has iniciat sessió",
-        "amazon": "No has iniciat sessió amb un compte d'Amazon a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la, fes-ho millor amb aquest botó:"
+        "amazon": "No has iniciat sessió amb un compte d'Amazon a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la, fes-ho millor amb aquest botó:",
+        "zoom": "No heu iniciat sessió amb un compte Zoom a Heroic. No utilitzeu la pàgina de la botiga per iniciar la sessió, en lloc feu clic al botó següent:"
     },
     "report_problem": "Informa d'un problema quan s'executa el joc",
     "sdl": {

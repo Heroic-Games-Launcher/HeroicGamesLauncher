@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { compareVersions } from 'compare-versions'
+import compareVersions from 'semver/functions/compare'
 import { electronTest } from './helpers'
 
 declare const window: { api: typeof import('../src/preload/api').default }

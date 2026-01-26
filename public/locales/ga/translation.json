@@ -103,6 +103,12 @@
             "winetricks": {
                 "message": "Thug Winetricks an earráid seo a leanas ar ais le linn an fhorghníomhaithe:{{newLine}}{{error}}",
                 "title": "Earráid Winetricks"
+            },
+            "executableNotFound": "Níor aimsíodh an comhad inrite",
+            "executableNotFoundMessage": "Níorbh fhéidir le Heroic an comhad inrite don chluiche seo a aimsiú. Socraigh de láimh é i socruithe an chluiche le do thoil.",
+            "dxmt": {
+                "message": "Earráid ag íoslódáil DXMT! Seiceáil do nasc!",
+                "title": "Earráid Íoslódála DXMT"
             }
         },
         "info": {
@@ -189,7 +195,7 @@
                 "title": "Wine gan aimsiú!"
             }
         },
-        "wineprefix": "Roghnaigh Fillteán Réimír Wine",
+        "wineprefix": "Roghnaigh Fillteán Wine Prefix",
         "yes": "TÁ"
     },
     "help": {
@@ -364,7 +370,8 @@
         "experimental_features": {
             "cometSupport": "Tacaíocht Cóiméad",
             "enableHelp": "Comhpháirt chabhrach",
-            "enableNewDesign": "Dearadh nua"
+            "enableNewDesign": "Dearadh nua",
+            "zoomPlatform": "Tacaíocht Ardán Zoom (Linux amháin)"
         },
         "frameless-window": {
             "confirmation": {
@@ -394,7 +401,8 @@
                 "gog": "Log GOG",
                 "heroic": "Log Heroic Ginearálta",
                 "legendary": "Cluichí Epic / Logáil Finscéalta",
-                "nile": "Log Amazon / Níle"
+                "nile": "Log Amazon / Níle",
+                "zoom": "Log súmáil"
             },
             "instructions": "Bí linn inár Discord agus féach ar an rannóg \"#-support\". Léigh an snáithe bioráilte \"Léigh Mé Ar dtús | Ceisteanna Coitianta\" agus lean na treoracha chun na logaí seo agus aon fhaisnéis ábhartha faoi do fhadhb a roinnt.",
             "instructions_title": "Conas fadhb a thuairisciú?",
@@ -486,7 +494,8 @@
         "wineprefix": "Fillteán WinePrefix",
         "wineversion": "Leagan Wine",
         "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
-        "WoW64": "Cumasaigh WoW64 (Turgnamhach)"
+        "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
+        "scripts": "Scripteanna:"
     },
     "button": {
         "login": "Logáil isteach",
@@ -669,7 +678,8 @@
         "epic": "Logáil Isteach Cluichí Epic",
         "gog": "Logáil Isteach GOG",
         "message": "Logáil isteach le do ardán. Is féidir leat logáil isteach i níos mó ná ardán amháin ag an am céanna.",
-        "old-mac": "Is é {{version}} do leagan macOS. Tá macOS 12 nó níos nuaí ag teastáil le logáil isteach."
+        "old-mac": "Is é {{version}} do leagan macOS. Tá macOS 12 nó níos nuaí ag teastáil le logáil isteach.",
+        "zoom": "Logáil Isteach ar Zoom"
     },
     "message": {
         "sync": "Sioncrónú Críochnaithe",
@@ -913,7 +923,8 @@
             "steamDeck": "Steam Deck {{model}}",
             "systemModel": "Samhail Chórais:",
             "systemSpecifications": "Sonraíochtaí an Chórais:"
-        }
+        },
+        "launchOptions": "Roghanna Seolta"
     },
     "Settings": "Socruithe",
     "store": "Epic Store",
@@ -1020,7 +1031,8 @@
             "unzipping": "Ag dízipeáil"
         },
         "release": "Dáta Eisiúna",
-        "size": "Méid"
+        "size": "Méid",
+        "notes": "Nótaí"
     },
     "wineExplanation": {
         "proton-ge": "Is leagan Proton é GE-Proton a chruthaigh Glorious Eggroll. Tá sé ceaptha le húsáid in éineacht leis an lainseálaí umu (réamhshocraithe i Heroic).",
@@ -1036,5 +1048,7 @@
         "nothingYet": "Níl aon rud suiteáilte ag Winetricks go fóill",
         "openGUI": "Oscail Comhéadan Úsáideora Winetricks",
         "search": "Cuardaigh clónna nó comhpháirteanna"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Siopa Zoom"
 }

@@ -97,7 +97,9 @@
                 "error": "Spustitelný soubor Steamu nebyl nalezen. Instalace byla pravděpodobně zrušena uživatelem nebo selhala na straně Steamu.",
                 "message": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu! {{paragraph}} {{error}}",
                 "title": "Chyba Steamu"
-            }
+            },
+            "executableNotFound": "Spustitelný soubor nebyl nalezen",
+            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry."
         },
         "info": {
             "update": {
@@ -432,7 +434,8 @@
         "gog": "Přihlášení s účtem GOG",
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
         "amazon": "Přihlášení s účtem Amazon",
-        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější."
+        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější.",
+        "zoom": "Přihlášení přes Zoom"
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -684,7 +687,8 @@
                 "heroic": "Obecný protokol Heroic",
                 "game-log": "Protokol hry {{gameTitle}}",
                 "legendary": "Protokol Epic Games / Legendary",
-                "nile": "Protokol Amazon / Nile"
+                "nile": "Protokol Amazon / Nile",
+                "zoom": "Zoom log"
             },
             "show-uploads": "Zobrazit nahrané soubory protokolů"
         },
@@ -740,7 +744,8 @@
             "enableHelp": "Komponenta nápovědy",
             "automaticWinetricksFixes": "Automaticky použít známé opravy",
             "umuSupport": "Použít umu jako runtime Protonu",
-            "cometSupport": "Podpora Comet"
+            "cometSupport": "Podpora Comet",
+            "zoomPlatform": "Podpora platformy Zoom (pouze Linux)"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
@@ -748,7 +753,7 @@
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
             "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
-            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 24.08 a restartujte Heroic.",
+            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
             "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
         },
         "frameless-window": {
@@ -805,7 +810,8 @@
             "info_label": "Verze Valve Proton ignorovány"
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
-        "WoW64": "Povolit WoW64 (experimentální)"
+        "WoW64": "Povolit WoW64 (experimentální)",
+        "scripts": "Skripty:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -908,7 +914,8 @@
         },
         "custom_css": {
             "title": "Vlastní styl CSS"
-        }
+        },
+        "launchOptions": "Možnosti spuštění..."
     },
     "Settings": "Nastavení",
     "sidebar": {
@@ -1108,5 +1115,7 @@
             "pt7": "Toto nastavení můžete kdykoli změnit v nastavení aplikace."
         },
         "title": "Odeslat anonymní statistiky"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Obchod Zoom"
 }

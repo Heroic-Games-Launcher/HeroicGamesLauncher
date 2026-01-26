@@ -3,7 +3,11 @@ import './index.css'
 import { WineVersionInfo } from 'common/types'
 import DownIcon from 'frontend/assets/down-icon.svg?react'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
-import { faRepeat, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import {
+  faRepeat,
+  faFolderOpen,
+  faExternalLink
+} from '@fortawesome/free-solid-svg-icons'
 import { SvgButton } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 
@@ -22,7 +26,8 @@ const WineItem = ({
   isInstalled,
   hasUpdate,
   installDir,
-  type
+  type,
+  release_notes_link
 }: WineVersionInfo) => {
   const { t } = useTranslation()
   const state = useWineManagerState(useShallow((state) => state[version]))
@@ -45,7 +50,8 @@ const WineItem = ({
       isInstalled,
       hasUpdate,
       type,
-      installDir
+      installDir,
+      release_notes_link
     })
   }
 
@@ -60,7 +66,8 @@ const WineItem = ({
       isInstalled,
       hasUpdate,
       installDir,
-      type
+      type,
+      release_notes_link
     })
   }
 
@@ -119,9 +126,18 @@ const WineItem = ({
     }
   }
 
+  const openReleaseNotes = () => {
+    window.api.openWebviewPage(release_notes_link)
+  }
+
   return (
     <div className="wineManagerListItem">
       <span className="wineManagerTitleList">{version}</span>
+      <div className="wineManagerNotes">
+        <SvgButton title={'notes'} onClick={() => openReleaseNotes()}>
+          <FontAwesomeIcon icon={faExternalLink} />
+        </SvgButton>
+      </div>
       <div className="wineManagerListDate">{date}</div>
       <div className="wineManagerListSize">{renderStatus()}</div>
       <span className="icons">

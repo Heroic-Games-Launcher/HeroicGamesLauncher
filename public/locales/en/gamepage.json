@@ -25,6 +25,10 @@
             "button": "Select",
             "image": "Select Image"
         },
+        "selectLaunchOption": {
+            "body": "Please select a launch option for this game (it can be changed later on the game settings):",
+            "title": "Select Launch Option ({{seconds}}s)"
+        },
         "sideload": {
             "exe": "Select Executable"
         },
@@ -32,6 +36,10 @@
             "keepInstalling": "Keep Installing",
             "message": "Do you wish to KEEP downloaded files?",
             "title": "Stop Installation"
+        },
+        "sync": {
+            "force_download_warning": "Local saves will be erased. Do you want to proceed?",
+            "force_upload_warning": "Cloud saves will be overwritten. Do you want to proceed?"
         },
         "uninstall": {
             "cannotUninstallEpic": "Epic games cannot be uninstalled while another Epic game is being installed.",
@@ -46,6 +54,9 @@
         "update": {
             "message": "This game has an update, apply update now?",
             "title": "Game Needs Update"
+        },
+        "warning": {
+            "title": "Warning"
         },
         "wineprefix": "Select WinePrefix Folder",
         "yes": "YES"
@@ -202,9 +213,11 @@
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
-        "title": "You are NOT logged in"
+        "title": "You are NOT logged in",
+        "zoom": "You are not logged in with a Zoom account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "Open": "Open",
+    "open-saves-folder": "Open Saves Folder",
     "queue": {
         "label": {
             "canceled": "Canceled",

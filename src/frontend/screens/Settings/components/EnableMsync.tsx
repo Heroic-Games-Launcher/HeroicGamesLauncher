@@ -5,6 +5,7 @@ import SettingsContext from '../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
+import { defaultWineVersion } from '..'
 
 const EnableMsync = () => {
   const { t } = useTranslation()
@@ -12,8 +13,9 @@ const EnableMsync = () => {
   const { isMacNative } = useContext(SettingsContext)
   const isMac = platform === 'darwin'
   const [enableMsync, setEnableMsync] = useSetting('enableMsync', false)
+  const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 
-  if (!isMac || isMacNative) {
+  if (!isMac || isMacNative || wineVersion.name.endsWith('-DXMT')) {
     return <></>
   }
 

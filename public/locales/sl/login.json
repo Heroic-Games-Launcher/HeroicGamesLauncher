@@ -1,0 +1,21 @@
+{
+    "button": {
+        "copied": "Kopirano!",
+        "copy": "Kopiraj",
+        "error": "Napaka, poskusi z drugo kodo",
+        "loading": "Nalaganje",
+        "login": "Vpis",
+        "open": "Odpri povezavo"
+    },
+    "message": {
+        "part1": "Za vpis in namestitev vaših iger morate slediti spodnjim navodilom:",
+        "part2": "Odprite",
+        "part3": "trgovino Epic store tukaj",
+        "part4": ", vpišite se v svoj račun in kopirajte vašo",
+        "part5": "avtorizacijsko kodo",
+        "part6": "Prilepite svojo",
+        "part7": "avtorizacijsko kodo",
+        "part8": "v spodnje polje in kliknite na gumb za vpis."
+    },
+    "welcome": "Dobrodošli!"
+}

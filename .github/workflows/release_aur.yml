@@ -32,10 +32,10 @@ jobs:
           latest_version=$(curl -s https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest | jq -r .tag_name)
           pkgver=${latest_version#v}
           pkgrel=1
-          url="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/"
+          url="https://heroicgameslauncher.com/"
           # Updated artifact naming convention with platform and architecture
           _filename=Heroic-${pkgver}-linux-x64.pacman
-          source=("$url/releases/download/$latest_version/$_filename")
+          source=("https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/${latest_version}/$_filename")
           sha256sums=($(sha256sum heroic.pacman | cut -d' ' -f1))
 
           cat <<EOF > PKGBUILD
@@ -46,13 +46,14 @@ jobs:
           pkgrel=$pkgrel
           pkgdesc="An Open source Launcher for Epic, Amazon and GOG Games"
           arch=('x86_64')
-          url="$url"
-          license=('GPL3')
+          url="https://heroicgameslauncher.com/"
+          license=('GPL-3.0-only')
           _filename=$_filename
           source=("$source")
           noextract=("$_filename")
           sha256sums=(${sha256sums[@]})
           options=(!strip)
+          depends=(which)
           provides=(heroic-games-launcher)
           conflicts=(heroic-games-launcher)
 
@@ -70,7 +71,7 @@ jobs:
         if: ${{ success() }}
 
       - name: Publish AUR package
-        uses: KSXGitHub/github-actions-deploy-aur@v2.7.2
+        uses: KSXGitHub/github-actions-deploy-aur@v4.1.1
         with:
           pkgname: heroic-games-launcher-bin
           pkgbuild: ./PKGBUILD

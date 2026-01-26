@@ -193,7 +193,8 @@
         "gog": "Je bent niet ingelogd met een GOG account in Heroic. Gebruik de winkel pagina NIET om in te loggen,  Klik in plaats op de volgende knop:",
         "login": "Log in",
         "title": "Je bent NIET ingelogd",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Rapporteer een probleem met deze game",
     "sdl": {
@@ -241,7 +242,7 @@
         "notinstalled": "Dit spel is niet geïnstalleerd",
         "notSupported": "Niet ondersteund",
         "notSupportedGame": "Niet ondersteund",
-        "processing": "Processing files, please wait",
+        "processing": "Bestanden verwerken, een ogenblik geduld a.u.b.",
         "queued": "In wachtrij",
         "reparing": "Spel aan het repareren, even geduld",
         "this-game-uses-third-party": "Deze game gebruikt een launcher van een derde partij en is nog niet beschikbaar",

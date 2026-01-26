@@ -8,9 +8,9 @@
         "choose": "Seleccionar",
         "importpath": "Seleccione o cartafol do xogo para importar",
         "move": {
-            "message": "Isto pode levar moito tempo, ¿estás seguro?",
+            "message": "Isto pode levar moito tempo, estás seguro?",
             "path": "Selecciona a localización de destino",
-            "title": "Mover o cartafol do xogo"
+            "title": "Mover instalación do xogo"
         },
         "no": "NON",
         "repair": {
@@ -25,7 +25,7 @@
             "image": "Seleccionar Imaxe"
         },
         "sideload": {
-            "exe": "Seleccionar Executabel"
+            "exe": "Seleccionar Executábel"
         },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
@@ -49,7 +49,11 @@
         "wineprefix": "Seleccione o cartafol co Prefixo de Wine",
         "yes": "Sí",
         "close": "Pechar",
-        "select-install-path": "Seleccionar localización da instalación de Steam"
+        "select-install-path": "Seleccionar localización da instalación de Steam",
+        "selectLaunchOption": {
+            "title": "Seleccionar opción de arranque ({{seconds}}s)",
+            "body": "Por favor, selecciona unha opción de arranque para este xogo (pódese cambiar máis adiante na configuración do xogo):"
+        }
     },
     "button": {
         "add_to_favourites": "Engadir a favoritos",
@@ -78,7 +82,8 @@
         "details": "Detalles",
         "browse_files": "Ver Arquivos",
         "browse_wine_prefix": "Abrir Prefixo de Wine",
-        "changelog": "Amosar rexistro de cambios"
+        "changelog": "Amosar rexistro de cambios",
+        "play": "XOGAR"
     },
     "cloud_save_unsupported": "Non compatible",
     "disabled": "Deshabilitar",
@@ -215,7 +220,8 @@
         "gog": "Non se iniciou sesión cunha conta de GOG en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:",
         "login": "Log in",
         "title": "NON se iniciou sesión",
-        "amazon": "Non se iniciou sesión cunha conta de Amazon en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:"
+        "amazon": "Non se iniciou sesión cunha conta de Amazon en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:",
+        "zoom": "Non se iniciou sesión cunha conta de GOG en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:"
     },
     "report_problem": "Avisar dun problema executando este xogo",
     "sdl": {

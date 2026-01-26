@@ -97,6 +97,12 @@
                 "error": "Ejecutable de Steam no encontrado. La instalación probablemente fue cancelada por el usuario o falló.",
                 "message": "Falló instalación de Steam! Por favor, leer las instrucciones con atención e intentar otra vez! {{paragraph}}{{error}}",
                 "title": "Error de Steam"
+            },
+            "executableNotFound": "No se ha encontrado el ejecutable",
+            "executableNotFoundMessage": "Heroic no pudo encontrar el ejecutable para este juego. Por favor, configura la ruta manualmente en la configuración del juego.",
+            "dxmt": {
+                "title": "Error al descargar DXMT",
+                "message": "Error al descargar DXMT! Compruebe su conexión!"
             }
         },
         "info": {
@@ -432,7 +438,8 @@
         "gog": "Iniciar Sesión en GOG",
         "message": "Inicie sesión en sus plataformas. Puede iniciar sesión en más de una a la vez.",
         "amazon": "Inicio de sesión en Amazon",
-        "old-mac": "Tu versión de macOS es {{version}}. Se requiere macOS 12 o posterior para ingresar a su cuenta."
+        "old-mac": "Tu versión de macOS es {{version}}. Se requiere macOS 12 o posterior para ingresar a su cuenta.",
+        "zoom": "Inicio de sesión en Zoom"
     },
     "message": {
         "sync": "Sincronización completa",
@@ -684,7 +691,8 @@
                 "game-log": "Registro de juego de {{gameTitle}}",
                 "gog": "Registro de GOG",
                 "heroic": "Registro general de Heroic",
-                "legendary": "Registro de Epic Games / Legendary"
+                "legendary": "Registro de Epic Games / Legendary",
+                "zoom": "Registro de Zoom"
             },
             "show-uploads": "Mostrar los registros subidos"
         },
@@ -740,7 +748,8 @@
             "enableHelp": "Componente de ayuda",
             "automaticWinetricksFixes": "Aplicar correcciones conocidas automáticamente",
             "cometSupport": "Soporte para Comet",
-            "umuSupport": "Usar umu como entorno de ejecución de Proton"
+            "umuSupport": "Usar umu como entorno de ejecución de Proton",
+            "zoomPlatform": "Compatibilidad con Zoom Platform (solo Linux)"
         },
         "disablePlaytimeSync": "Desactivar la sincronización del tiempo de juego",
         "frameless-window": {
@@ -754,7 +763,7 @@
             "enableLimiter": "Activar el limitador de FPS",
             "enableUpscaling": "Permite la ampliación",
             "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH.",
-            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic.",
+            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 25.08 y reiniciar Heroic.",
             "enableForceGrabCursor": "Activar Forzar Agarrar Cursor",
             "warningFlatpak": "No se encontró una versión compatible de Gamescope. Instale el paquete de Flatpak de Gamescope con runtime {{runtimeVersion}} y reinicie Heroic."
         },
@@ -778,7 +787,7 @@
             "warning": "Advertencia: esto se aplica a todo el frontend. Eso significa que el estilo incorrecto podría provocar que Heroic no se pueda usar. De ser necesario, la configuración se puede cambiar manualmente en `~/.config/heroic/config.json`. NO COPIAR estilos de fuentes no confiables."
         },
         "disableUMU": "Desactivar umu",
-        "advertiseAvxForRosetta": "Mostrar AVX a Rosetta",
+        "advertiseAvxForRosetta": "Promociona AVX para Rosetta",
         "hdr": "Activar HDR",
         "wineWayland": "Activar Wine-Wayland (Experimental) (La version de Wine debe ser compatible)",
         "allow_non_ge_proton": {
@@ -908,7 +917,8 @@
         },
         "custom_css": {
             "title": "Estilo CSS personalizado"
-        }
+        },
+        "launchOptions": "Opciones de arranque"
     },
     "Settings": "Ajustes",
     "sidebar": {
@@ -973,7 +983,8 @@
             "unzipping": "Descomprimiendo"
         },
         "release": "Fecha de lanzamiento",
-        "size": "Tamaño"
+        "size": "Tamaño",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "No volver a preguntar",
@@ -1108,5 +1119,7 @@
             "pt7": "Puede cambiar esta configuración en cualquier momento en la Configuración de la aplicación."
         },
         "title": "Enviar analíticas anónimas"
-    }
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Tienda de Zoom"
 }

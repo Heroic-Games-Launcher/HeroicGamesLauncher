@@ -77,8 +77,12 @@
             "message": "Tá nuashonrú ar an gcluiche seo, an bhfuil tú ag iarraidh an nuashonrú a chur i bhfeidhm anois?",
             "title": "Nuashonrú Riachtanach don Chluiche"
         },
-        "wineprefix": "Roghnaigh Fillteán Réimír Fíona",
-        "yes": "TÁ"
+        "wineprefix": "Roghnaigh Fillteán WinePrefix",
+        "yes": "TÁ",
+        "selectLaunchOption": {
+            "body": "Roghnaigh rogha lainseála don chluiche seo le do thoil (is féidir é a athrú níos déanaí i socruithe an chluiche):",
+            "title": "Roghnaigh Rogha Seolta ({{seconds}})"
+        }
     },
     "button": {
         "add_to_favourites": "Cuir le Rogha",
@@ -107,7 +111,8 @@
         },
         "unhide_game": "Nocht Cluiche",
         "uninstall": "Díshuiteáil",
-        "update": "Nuashonrú"
+        "update": "Nuashonrú",
+        "play": "IMIR"
     },
     "cloud_save_unsupported": "Gan tacaíocht",
     "enabled": "Cumasaithe",
@@ -228,7 +233,8 @@
         "epic": "Níl tú logáilte isteach le cuntas Epic i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:",
         "gog": "Níl tú logáilte isteach le cuntas GOG i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:",
         "login": "Logáil isteach",
-        "title": "Níl tú logáilte isteach"
+        "title": "Níl tú logáilte isteach",
+        "zoom": "Níl tú logáilte isteach le cuntas Zoom i Heroic. Ná húsáid leathanach an tsiopa chun logáil isteach, cliceáil an cnaipe seo a leanas ina ionad:"
     },
     "Open": "Oscail",
     "queue": {
