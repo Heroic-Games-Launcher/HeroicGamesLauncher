@@ -154,6 +154,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import SteamGridDB from 'steamgriddb'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -798,6 +799,62 @@ addHandler('authZoom', async (event, url) => {
     await ZoomUser.getUserDetails()
   }
   return login
+})
+
+addHandler('steamgriddb.searchGame', async (event, query) => {
+  const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
+  if (!steamGridDbApiKey) {
+    return []
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const SGDB = (SteamGridDB as any).default || SteamGridDB
+  const sgdb = new SGDB(steamGridDbApiKey)
+  try {
+    const results = await sgdb.searchGame(query)
+    return results.map((game: { id: number; name: string }) => ({
+      id: game.id,
+      name: game.name
+    }))
+  } catch (error) {
+    logError(['SteamGridDB search failed:', error], LogPrefix.Backend)
+    return []
+  }
+})
+
+addHandler('steamgriddb.getGrids', async (event, args) => {
+  const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
+  if (!steamGridDbApiKey) {
+    return []
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const SGDB = (SteamGridDB as any).default || SteamGridDB
+  const sgdb = new SGDB(steamGridDbApiKey)
+  try {
+    const results = await sgdb.getGridsById(
+      args.gameId,
+      args.styles,
+      args.dimensions,
+      args.mimes,
+      args.types,
+      args.nsfw?.toString(),
+      args.humor?.toString()
+    )
+    return results.map(
+      (grid: {
+        id: number
+        url: { toString: () => string }
+        thumb: { toString: () => string }
+      }) => ({
+        id: grid.id,
+        url: grid.url.toString(),
+        thumb: grid.thumb.toString()
+      })
+    )
+  } catch (error) {
+    logError(['SteamGridDB getGrids failed:', error], LogPrefix.Backend)
+    return []
+  }
 })
 addListener('logoutZoom', ZoomUser.logout)
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
