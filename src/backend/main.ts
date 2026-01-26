@@ -807,6 +807,7 @@ addHandler('steamgriddb.searchGame', async (event, query) => {
     return []
   }
 
+  // for some reason I get an error about the default export not being a constructor so this is a workaround for that
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const SGDB = (SteamGridDB as any).default || SteamGridDB
   const sgdb = new SGDB(steamGridDbApiKey)
@@ -827,6 +828,8 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
   if (!steamGridDbApiKey) {
     return []
   }
+
+  // for some reason I get an error about the default export not being a constructor so this is a workaround for that
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const SGDB = (SteamGridDB as any).default || SteamGridDB
   const sgdb = new SGDB(steamGridDbApiKey)

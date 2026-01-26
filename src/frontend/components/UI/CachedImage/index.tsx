@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import classNames from 'classnames'
 
 interface CachedImageProps {
   src: string
@@ -15,7 +16,13 @@ const CachedImage = (props: Props) => {
   const [loaded, setLoaded] = useState(false)
   const [useFallback, setUseFallback] = useState(false)
 
-  const onError = () => {
+  useEffect(() => {
+    setLoaded(false)
+    setUseFallback(false)
+    setUseCache(props.src?.startsWith('http') || false)
+  }, [props.src])
+
+  const onError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     // if not cached, tried with the real
     if (useCache) {
       setUseCache(false)
@@ -26,6 +33,12 @@ const CachedImage = (props: Props) => {
         setUseCache(props.fallback.startsWith('http'))
       }
     }
+    props.onError?.(e)
+  }
+
+  const handleLoad = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    setLoaded(true)
+    props.onLoad?.(e)
   }
 
   let src = useFallback ? props.fallback : props.src
@@ -34,11 +47,14 @@ const CachedImage = (props: Props) => {
   return (
     <img
       loading="lazy"
-      onLoad={() => setLoaded(true)}
       {...props}
       src={src}
+      onLoad={handleLoad}
       onError={onError}
-      className={`${props.className} ${loaded ? 'loaded' : 'loading'}`}
+      className={classNames(props.className, {
+        loaded,
+        loading: !loaded
+      })}
     />
   )
 }

@@ -60,6 +60,7 @@ export default function SideloadDialog({
   const [launchFullScreen, setLaunchFullScreen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const [searching, setSearching] = useState(false)
+  const [imageLoading, setImageLoading] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
@@ -326,7 +327,8 @@ export default function SideloadDialog({
             <div
               className={classNames('appImageContainer', {
                 hasSgdbKey,
-                searching
+                searching,
+                loading: imageLoading
               })}
               onClick={() => hasSgdbKey && setShowSgdbPicker(true)}
             >
@@ -335,8 +337,14 @@ export default function SideloadDialog({
                   blackWhiteImage: searching
                 })}
                 src={imageUrl ? imageUrl : fallbackImage}
+                onLoad={() => setImageLoading(false)}
               />
-              {hasSgdbKey && (
+              {(searching || imageLoading) && (
+                <div className="imageLoadingOverlay">
+                  <FontAwesomeIcon icon={faSpinner} spin size="3x" />
+                </div>
+              )}
+              {hasSgdbKey && !searching && !imageLoading && (
                 <div className="imageHoverOverlay">
                   <FontAwesomeIcon icon={faSearch} size="3x" />
                 </div>
@@ -393,6 +401,7 @@ export default function SideloadDialog({
                 initialTitle={title}
                 onClose={() => setShowSgdbPicker(false)}
                 onSelect={(url: string) => {
+                  setImageLoading(true)
                   setImageUrl(url)
                   setShowSgdbPicker(false)
                 }}

@@ -36,9 +36,12 @@
       }
     }
 
-    &.searching {
+    &.searching,
+    &.loading {
+      cursor: default;
+
       .appImage {
-        filter: grayscale(100%);
+        filter: blur(2px) brightness(0.5) grayscale(100%);
       }
     }
   }
@@ -51,6 +54,7 @@
     transition: 200ms;
   }
 
+  .imageLoadingOverlay,
   .imageHoverOverlay {
     position: absolute;
     top: 0;
@@ -61,10 +65,17 @@
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.4);
-    opacity: 0;
     transition: 200ms;
     color: white;
     pointer-events: none;
+  }
+
+  .imageLoadingOverlay {
+    opacity: 1;
+  }
+
+  .imageHoverOverlay {
+    opacity: 0;
   }
 
   .titleIcon {
