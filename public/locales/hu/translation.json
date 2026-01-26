@@ -912,7 +912,8 @@
         },
         "custom_css": {
             "title": "Egyéni CSS stílus"
-        }
+        },
+        "launchOptions": "Indítási kapcsolók…"
     },
     "Settings": "Beállítások",
     "sidebar": {
