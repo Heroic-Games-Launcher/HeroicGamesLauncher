@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LaunchOption, Runner } from 'common/types'
 
 interface UseLaunchOptionsProps {
@@ -14,6 +15,7 @@ export const useLaunchOptions = ({
   lastUsedOption,
   onSelectionChange
 }: UseLaunchOptionsProps) => {
+  const { t } = useTranslation('gamepage')
   const [launchOptions, setLaunchOptions] = useState<LaunchOption[]>([])
   const [selectedIndex, setSelectedIndex] = useState(-1)
 
@@ -26,6 +28,13 @@ export const useLaunchOptions = ({
           appName,
           runner as Runner
         )
+        if (options.length === 1) {
+          options.unshift({
+            name: 'Default',
+            parameters: '',
+            type: 'basic'
+          })
+        }
         setLaunchOptions(options)
       } catch (error) {
         console.error('Error fetching launch options:', error)
@@ -48,21 +57,31 @@ export const useLaunchOptions = ({
   }, [launchOptions, lastUsedOption, selectedIndex])
 
   // Generate label for a launch option
-  const labelForLaunchOption = useCallback((option: LaunchOption) => {
-    switch (option.type) {
-      case undefined:
-      case 'basic':
-        return 'name' in option ? option.name : 'Launch Option'
-      case 'dlc':
-        return 'dlcTitle' in option ? option.dlcTitle : 'DLC'
-      case 'altExe':
-        return 'executable' in option
-          ? option.executable
-          : 'Alternative Executable'
-      default:
-        return 'Launch Option'
-    }
-  }, [])
+  const labelForLaunchOption = useCallback(
+    (option: LaunchOption) => {
+      if (
+        (option.type === undefined || option.type === 'basic') &&
+        option.name === 'Default' &&
+        option.parameters === ''
+      ) {
+        return t('launch.default', 'Default')
+      }
+      switch (option.type) {
+        case undefined:
+        case 'basic':
+          return 'name' in option ? option.name : 'Launch Option'
+        case 'dlc':
+          return 'dlcTitle' in option ? option.dlcTitle : 'DLC'
+        case 'altExe':
+          return 'executable' in option
+            ? option.executable
+            : 'Alternative Executable'
+        default:
+          return 'Launch Option'
+      }
+    },
+    [t]
+  )
 
   // Handle selection change
   const handleLaunchOptionChange = useCallback(
