@@ -94,7 +94,11 @@ abstract class GlobalConfig {
     else {
       // Check version field in the config.
       try {
-        version = JSON.parse(readFileSync(configPath, 'utf-8'))['version']
+        version = (
+          JSON.parse(readFileSync(configPath, 'utf-8')) as {
+            version: GlobalConfigVersion
+          }
+        ).version
       } catch (error) {
         logError(
           [`Config file is corrupted, please check ${configPath}:`, error],
@@ -290,19 +294,21 @@ class GlobalConfigV0 extends GlobalConfig {
       return this.getFactoryDefaults()
     }
 
-    let settings = JSON.parse(readFileSync(configPath, 'utf-8'))
-    const defaultSettings = settings.defaultSettings as AppSettings
+    const settingsParsed = JSON.parse(readFileSync(configPath, 'utf-8')) as {
+      defaultSettings: AppSettings
+    }
+    const defaultSettings = settingsParsed.defaultSettings
 
     // fix relative paths
     const winePrefix = !isWindows
       ? defaultSettings?.winePrefix?.replace('~', userHome)
       : ''
 
-    settings = {
+    const settings: AppSettings = {
       ...this.getFactoryDefaults(),
-      ...settings.defaultSettings,
+      ...settingsParsed.defaultSettings,
       winePrefix
-    } as AppSettings
+    }
 
     return settings
   }
@@ -357,7 +363,8 @@ class GlobalConfigV0 extends GlobalConfig {
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
-      showValveProton: false
+      showValveProton: false,
+      afterDownloadAction: 'none'
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings
