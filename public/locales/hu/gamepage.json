@@ -49,7 +49,18 @@
         "wineprefix": "Wine-környezetmappa kiválasztása",
         "yes": "IGEN",
         "close": "Bezárás",
-        "select-install-path": "Steam telepítési útvonalának kiválasztása"
+        "select-install-path": "Steam telepítési útvonalának kiválasztása",
+        "selectLaunchOption": {
+            "body": "Válassz indítási kapcsolót ehhez a játékhoz (később a játék beállításaiban módosítható):",
+            "title": "Indítási kapcsoló kiválasztása ({{seconds}} mp)"
+        },
+        "warning": {
+            "title": "Figyelmeztetés"
+        },
+        "sync": {
+            "force_download_warning": "A helyi mentések törlődnek. Folytatod?",
+            "force_upload_warning": "A felhőmentések felülíródnak. Folytatod?"
+        }
     },
     "button": {
         "add_to_favourites": "Hozzáadás a kedvencekhez",
@@ -337,5 +348,6 @@
             "resume": "Letöltés folytatása"
         }
     },
-    "wikiLink": "Fontos információ erről a játékról, olvasd el ezt:&nbsp;<1>Oldal megnyitása</1>"
+    "wikiLink": "Fontos információ erről a játékról, olvasd el ezt:&nbsp;<1>Oldal megnyitása</1>",
+    "open-saves-folder": "Mentések mappa megnyitása"
 }
