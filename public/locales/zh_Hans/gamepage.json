@@ -53,6 +53,13 @@
         "selectLaunchOption": {
             "body": "请为该游戏选择一个启动选项（稍候可在游戏设置中更改）：",
             "title": "选择启动选项（{{seconds}}s）"
+        },
+        "warning": {
+            "title": "警告"
+        },
+        "sync": {
+            "force_download_warning": "本地保存将被擦除。要继续吗？",
+            "force_upload_warning": "云保存将被覆盖。要继续吗？"
         }
     },
     "button": {
@@ -343,5 +350,6 @@
             "remove": "从下载中删除",
             "canceled": "已取消"
         }
-    }
+    },
+    "open-saves-folder": "打开保存文件夹"
 }

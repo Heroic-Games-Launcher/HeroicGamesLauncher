@@ -56,7 +56,7 @@
                 "title": "Nincs hely"
             },
             "dxvk": {
-                "message": "Hiba a DXVK/VKD3D telepítésekor. Ellenőrizd az internetkapcsolatod!",
+                "message": "Hiba a DXVK/VKD3D telepítésekor. Ellenőrizd az internetkapcsolatot!",
                 "title": "DXVK/VKD3D hiba"
             },
             "folder-not-found": {
@@ -99,7 +99,11 @@
                 "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán."
             },
             "executableNotFound": "Az indítófájl nem található",
-            "executableNotFoundMessage": "A Heroic nem találta a játék indítófájlát. Állítsd be kézileg a játék beállításaiban."
+            "executableNotFoundMessage": "A Heroic nem találta a játék indítófájlát. Állítsd be kézileg a játék beállításaiban.",
+            "dxmt": {
+                "message": "Hiba a DXMT letöltésekor. Ellenőrizd az internetkapcsolatot!",
+                "title": "DXMT letöltési hiba"
+            }
         },
         "info": {
             "update": {
@@ -556,12 +560,12 @@
     "Other": "Egyéb",
     "placeholder": {
         "alt-gogdl-bin": "Beépített GOGDL bináris használata…",
-        "alt-legendary-bin": "Beépített Legendary bináris használata...",
+        "alt-legendary-bin": "Beépített Legendary bináris használata…",
         "custom_themes_path": "Válaszd ki az egyéni CSS-fájlok keresési útvonalát",
         "dxvkfpsvalue": "Pozitív egész érték (például 30, 60, …)",
         "egs-prefix": "Környezet, ahol telepítve van az EGS",
         "prefered_language": "2 karakteres kód (tehát „en” vagy „fr”)",
-        "alt-nile-bin": "A beépített Nile bináris használata..."
+        "alt-nile-bin": "A beépített Nile bináris használata…"
     },
     "platforms": {
         "linux": "Linux",
@@ -978,7 +982,8 @@
             "unzipping": "Kibontás"
         },
         "release": "Kiadás dátuma",
-        "size": "Méret"
+        "size": "Méret",
+        "notes": "Megjegyzések"
     },
     "externalLink": {
         "dontAskAgain": "Ne kérdezze többet",
