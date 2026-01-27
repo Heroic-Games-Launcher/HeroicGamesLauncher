@@ -248,6 +248,7 @@ export interface LibraryContextType {
   showUpdatesOnly: boolean
   setShowUpdatesOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
+  handleDownloadAllExtraInfo: () => void
   setShowCategories: (value: boolean) => void
   showAlphabetFilter: boolean
   onToggleAlphabetFilter: () => void

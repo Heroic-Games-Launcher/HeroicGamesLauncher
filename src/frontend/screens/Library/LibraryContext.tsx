@@ -37,6 +37,7 @@ const initialContext: LibraryContextType = {
   showUpdatesOnly: false,
   setShowUpdatesOnly: () => null,
   handleAddGameButtonClick: () => null,
+  handleDownloadAllExtraInfo: () => null,
   setShowCategories: () => null,
   showAlphabetFilter: false,
   onToggleAlphabetFilter: () => null,
