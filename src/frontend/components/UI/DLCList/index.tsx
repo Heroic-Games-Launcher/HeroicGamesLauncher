@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { DLCInfo } from 'common/types/legendary'
 import DLC from './DLC'
-import './index.scss'
+import './index.css'
 import { GameInfo, Runner } from 'common/types'
 
 type Props = {

@@ -2,7 +2,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import './index.scss'
+import './index.css'
 
 const OfflineMessage = () => {
   const { t } = useTranslation()

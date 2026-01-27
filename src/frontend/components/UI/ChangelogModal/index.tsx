@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader } from '../Dialog'
 import ReactMarkdown from 'react-markdown'
 import classNames from 'classnames'
 import { Release } from 'common/types'
-import './index.scss'
+import './index.css'
 
 type Props = {
   onClose: () => void
