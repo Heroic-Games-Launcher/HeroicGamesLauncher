@@ -2,12 +2,12 @@ import axios from 'axios'
 
 const SGDB_API_URL = 'https://www.steamgriddb.com/api/v2'
 
-export interface SGDBGame {
+interface SGDBGame {
   id: number
   name: string
 }
 
-export interface SGDBGrid {
+interface SGDBGrid {
   id: number
   url: string
   thumb: string
