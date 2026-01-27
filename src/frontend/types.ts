@@ -254,6 +254,8 @@ export interface LibraryContextType {
   alphabetFilterLetter: string | null
   setAlphabetFilterLetter: (letter: string | null) => void
   gamesForAlphabetFilter: GameInfo[]
+  sortBy: 'title' | 'releaseDate'
+  setSortBy: (value: 'title' | 'releaseDate') => void
 }
 
 export interface GameContextType {

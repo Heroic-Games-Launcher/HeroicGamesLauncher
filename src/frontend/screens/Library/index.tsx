@@ -220,6 +220,13 @@ export default React.memo(function Library(): JSX.Element {
     storage.setItem('sortInstalled', JSON.stringify(value))
     setSortInstalled(value)
   }
+  const [sortBy, setSortBy_] = useState<'title' | 'releaseDate'>(
+    (storage?.getItem('sortBy') as 'title' | 'releaseDate') || 'title'
+  )
+  function handleSortBy(value: 'title' | 'releaseDate') {
+    storage.setItem('sortBy', value)
+    setSortBy_(value)
+  }
 
   const backToTopElement = useRef(null)
 
@@ -607,6 +614,22 @@ export default React.memo(function Library(): JSX.Element {
 
     // sort
     library = library.sort((a, b) => {
+      if (sortBy === 'releaseDate') {
+        const dateA = a.extra?.releaseDate || ''
+        const dateB = b.extra?.releaseDate || ''
+
+        if (dateA === dateB) {
+          return a.title.localeCompare(b.title)
+        }
+
+        if (!dateA) return 1
+        if (!dateB) return -1
+
+        return sortDescending
+          ? -dateA.localeCompare(dateB)
+          : dateA.localeCompare(dateB)
+      }
+
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return sortDescending
@@ -631,7 +654,8 @@ export default React.memo(function Library(): JSX.Element {
     alphabetFilterLetter,
     sortDescending,
     sortInstalled,
-    installing
+    installing,
+    sortBy
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -714,7 +738,9 @@ export default React.memo(function Library(): JSX.Element {
         onToggleAlphabetFilter: handleToggleAlphabetFilter,
         gamesForAlphabetFilter,
         alphabetFilterLetter,
-        setAlphabetFilterLetter
+        setAlphabetFilterLetter,
+        sortBy,
+        setSortBy: handleSortBy
       }}
     >
       <Header />

@@ -42,7 +42,9 @@ const initialContext: LibraryContextType = {
   onToggleAlphabetFilter: () => null,
   alphabetFilterLetter: null,
   setAlphabetFilterLetter: () => null,
-  gamesForAlphabetFilter: [] as GameInfo[]
+  gamesForAlphabetFilter: [] as GameInfo[],
+  sortBy: 'title',
+  setSortBy: () => null
 }
 
 export default React.createContext(initialContext)
