@@ -1,6 +1,10 @@
 import { GlobalConfig } from 'backend/config'
 import { logError, LogPrefix, logInfo } from 'backend/logger'
-import { execAsync, getSteamLibraries } from 'backend/utils'
+import {
+  execAsync,
+  getFlatpakProtonGeRuntimes,
+  getSteamLibraries
+} from 'backend/utils'
 import { execSync } from 'child_process'
 import { GameSettings, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
@@ -187,6 +191,11 @@ export async function getLinuxWineSet(
       })
     }
   })
+
+  const protonGeFlatpakRuntimes = await getFlatpakProtonGeRuntimes()
+  for (const runtime of protonGeFlatpakRuntimes) {
+    proton.add(runtime)
+  }
 
   const defaultWineSet = new Set<WineInstallation>()
   const defaultWine = getDefaultWine()
