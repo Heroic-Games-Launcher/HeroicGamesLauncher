@@ -19,6 +19,7 @@ export const useLaunchOptions = ({
 
   // Fetch launch options
   useEffect(() => {
+    setSelectedIndex(-1)
     const fetchOptions = async () => {
       try {
         const options = await window.api.getLaunchOptions(
@@ -26,14 +27,6 @@ export const useLaunchOptions = ({
           runner as Runner
         )
         setLaunchOptions(options)
-
-        // Find and set the previously used option
-        if (lastUsedOption && options.length > 0) {
-          const foundIndex = findLaunchOptionIndex(options, lastUsedOption)
-          if (foundIndex !== -1) {
-            setSelectedIndex(foundIndex)
-          }
-        }
       } catch (error) {
         console.error('Error fetching launch options:', error)
       }
@@ -42,7 +35,17 @@ export const useLaunchOptions = ({
     if (appName && runner) {
       void fetchOptions()
     }
-  }, [appName, runner, lastUsedOption])
+  }, [appName, runner])
+
+  // Find and set the previously used option
+  useEffect(() => {
+    if (lastUsedOption && launchOptions.length > 0) {
+      const foundIndex = findLaunchOptionIndex(launchOptions, lastUsedOption)
+      if (foundIndex !== -1 && foundIndex !== selectedIndex) {
+        setSelectedIndex(foundIndex)
+      }
+    }
+  }, [launchOptions, lastUsedOption, selectedIndex])
 
   // Generate label for a launch option
   const labelForLaunchOption = useCallback((option: LaunchOption) => {
