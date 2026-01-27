@@ -154,7 +154,6 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
-import SteamGridDB from 'steamgriddb'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -801,66 +800,6 @@ addHandler('authZoom', async (event, url) => {
   return login
 })
 
-addHandler('steamgriddb.searchGame', async (event, query) => {
-  const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
-  if (!steamGridDbApiKey) {
-    return []
-  }
-
-  // for some reason I get an error about the default export not being a constructor so this is a workaround for that
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const SGDB = (SteamGridDB as any).default || SteamGridDB
-  const sgdb = new SGDB(steamGridDbApiKey)
-  try {
-    const results = await sgdb.searchGame(query)
-    return results.map((game: { id: number; name: string }) => ({
-      id: game.id,
-      name: game.name
-    }))
-  } catch (error) {
-    logError(['SteamGridDB search failed:', error], LogPrefix.Backend)
-    return []
-  }
-})
-
-addHandler('steamgriddb.getGrids', async (event, args) => {
-  const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
-  if (!steamGridDbApiKey) {
-    return []
-  }
-
-  // for some reason I get an error about the default export not being a constructor so this is a workaround for that
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const SGDB = (SteamGridDB as any).default || SteamGridDB
-  const sgdb = new SGDB(steamGridDbApiKey)
-  try {
-    const results = await sgdb.getGrids({
-      id: args.gameId,
-      type: 'game'
-    })
-    return results.map(
-      (grid: {
-        id: number
-        url: { toString: () => string }
-        thumb: { toString: () => string }
-      }) => ({
-        id: grid.id,
-        url: grid.url.toString(),
-        thumb: grid.thumb.toString()
-      })
-    )
-  } catch (error) {
-    const errorMessage =
-      (
-        error as { response?: { data?: { errors?: string[] } } }
-      ).response?.data?.errors?.join(', ') || (error as Error).message
-    logError(
-      [`SteamGridDB getGrids failed: ${errorMessage}`, error],
-      LogPrefix.Backend
-    )
-    return []
-  }
-})
 addListener('logoutZoom', ZoomUser.logout)
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
@@ -1441,3 +1380,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './steamgrid/ipc_handler'
