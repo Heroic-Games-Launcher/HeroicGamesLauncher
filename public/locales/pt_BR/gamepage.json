@@ -53,6 +53,13 @@
         "selectLaunchOption": {
             "body": "Por favor selecione uma da opções abaixo (pode ser modificada mais tarde nas configurações):",
             "title": "Selecione uma opção ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Aviso"
+        },
+        "sync": {
+            "force_download_warning": "Saves locais serão deletados. Você deseja continuar?",
+            "force_upload_warning": "Os Saves na nuvem serão sobrescritos. Você deseja continuar?"
         }
     },
     "button": {
@@ -343,5 +350,6 @@
         }
     },
     "Open": "Abrir",
-    "wikiLink": "Informação importante sobre esse jogo, leia isto:&nbsp;<1>Open page</1>"
+    "wikiLink": "Informação importante sobre esse jogo, leia isto:&nbsp;<1>Open page</1>",
+    "open-saves-folder": "Abrir a pasta dos saves"
 }
