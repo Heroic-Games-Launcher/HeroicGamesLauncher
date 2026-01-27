@@ -403,7 +403,6 @@ export default function SideloadDialog({
                 onSelect={(url: string) => {
                   setImageLoading(true)
                   setImageUrl(url)
-                  setShowSgdbPicker(false)
                 }}
               />
             )}

@@ -65,7 +65,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 1rem;
-    overflow-y: auto;
+    overflow-y: scroll;
+    max-height: 300px;
     padding-bottom: 1rem;
   }
 

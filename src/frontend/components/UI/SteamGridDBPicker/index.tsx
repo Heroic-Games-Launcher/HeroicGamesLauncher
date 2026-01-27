@@ -50,7 +50,7 @@ export default function SteamGridDBPicker({
       try {
         const results = await window.api.getSteamGridDBGrids({
           gameId,
-          styles: ['material', 'alternate', 'blurred', 'white_border'],
+          styles: ['material', 'alternate', 'blurred'],
           dimensions: ['600x900', '342x482', '660x930']
         })
         setGrids(results)
