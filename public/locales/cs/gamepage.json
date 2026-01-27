@@ -49,7 +49,18 @@
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO",
         "close": "Zavřít",
-        "select-install-path": "Vyberte instalační cestu služby Steam"
+        "select-install-path": "Vyberte instalační cestu služby Steam",
+        "selectLaunchOption": {
+            "body": "Vyberte možnost spuštění této hry (lze ji později změnit v nastavení hry):",
+            "title": "Vyberte možnost spuštění ({{seconds}})"
+        },
+        "sync": {
+            "force_download_warning": "Místní uložená data budou smazána. Chcete pokračovat?",
+            "force_upload_warning": "Údaje uložené v cloudu budou přepsány. Chcete pokračovat?"
+        },
+        "warning": {
+            "title": "Varování"
+        }
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
@@ -339,5 +350,6 @@
             "remove": "Odstranit ze stažených",
             "pause": "Pozastavit stahování"
         }
-    }
+    },
+    "open-saves-folder": "Otevřít složku s uloženým postupem"
 }
