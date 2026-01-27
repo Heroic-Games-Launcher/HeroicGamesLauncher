@@ -1,14 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import { GlobalConfig } from 'backend/config'
 import { addHandler } from 'backend/ipc'
 import { logError, LogPrefix } from 'backend/logger'
-
-const SGDB = require('steamgriddb').default
+import * as SteamGridDB from './utils'
 
 addHandler('steamgriddb.searchGame', async (event, query) => {
   const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
@@ -16,10 +9,9 @@ addHandler('steamgriddb.searchGame', async (event, query) => {
     return []
   }
 
-  const sgdb = new SGDB(steamGridDbApiKey)
   try {
-    const results = await sgdb.searchGame(query)
-    return results.map((game: { id: number; name: string }) => ({
+    const results = await SteamGridDB.searchGame(steamGridDbApiKey, query)
+    return results.map((game) => ({
       id: game.id,
       name: game.name
     }))
@@ -35,25 +27,17 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
     return []
   }
 
-  const sgdb = new SGDB(steamGridDbApiKey)
   try {
-    const results = await sgdb.getGrids({
-      id: args.gameId,
-      type: 'game',
+    const results = await SteamGridDB.getGrids(steamGridDbApiKey, {
+      gameId: args.gameId,
       dimensions: args.dimensions,
       styles: args.styles
     })
-    return results.map(
-      (grid: {
-        id: number
-        url: { toString: () => string }
-        thumb: { toString: () => string }
-      }) => ({
-        id: grid.id,
-        url: grid.url.toString(),
-        thumb: grid.thumb.toString()
-      })
-    )
+    return results.map((grid) => ({
+      id: grid.id,
+      url: grid.url,
+      thumb: grid.thumb
+    }))
   } catch (error) {
     const errorMessage =
       (
