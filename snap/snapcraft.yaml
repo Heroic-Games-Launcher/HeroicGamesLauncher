@@ -49,7 +49,7 @@ apps:
       - joystick
       - bluez
       - udisks2
-      - steam-support
+      - umu-support
 
 plugs:
   shared-memory:
@@ -84,7 +84,7 @@ parts:
   base-dependencies:
     after: [heroic-app]
     plugin: nil
-    stage-packages: [curl, zenity, unzip, cabextract, 7zip]
+    stage-packages: [curl, zenity, unzip, cabextract, 7zip, xz-utils]
 
   gamemode:
     plugin: nil
