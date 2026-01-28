@@ -1015,7 +1015,6 @@
         "showAlphabetFilter": "Rodyti abėcėlės filtrą"
     },
     "wineExplanation": {
-        "wine-ge": "„Wine-GE-Proton“ yra „Wine“ variantas sukurtas „Glorious Eggroll“. Yra rekomenduojamas „Wine“, nenaudojant „Steam“. Jis pateikia reikšmingus žurnalus derinimui.",
         "proton-ge": "„GE-Proton“ yra „Proton“ variantas sukurtas „Glorious Eggroll“. Jis yra skirtas, naudojant „Steam“, bet kai kurie žaidimai, neveikiantys „Steam“ gali veikti geriau su šiuo variantu. Jis pateikia daugmaž nereikšmingus žurnalus derinimui.",
         "gpt": "Žaidimų perkėlimo įrankių dėžė yra sukurtas „Apple“ ir yra rekomenduojamas „Apple Silicon Mac (dgs.)“ su „M1+“ lustais ir veikia geriausiai su naujausiais žaidimais, kurie naudoja „DX12“.",
         "wine-crossover": "„Wine-Crossover“ yra paremtas ant „Crossover OpenSource Wine projektas“ ir yra rekomenduojamas su „Intel Mac“, bei „DX11“ ir senesniems žaidimams.",

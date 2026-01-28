@@ -1062,7 +1062,6 @@
     },
     "wineExplanation": {
         "proton-ge": "A GE-Proton egy olyan Proton változat, melyet GloriousEggroll készít. Steam melletti használathoz készült, de egyes nem steames játékok is jobban működhetnek ezzel a változattal. Hibakereséshez többnyire haszontalan naplófájlokat biztosít.",
-        "wine-ge": "A Wine-GE-Proton egy olyan Wine változat, melyet GloriousEggroll készít. Elavult, a GE-Proton és az umu-launcher váltja le.",
         "gpt": "A Game Porting Toolkitet az Apple fejleszti, és Apple Silicon (M1 vagy újabb) chipekkel rendelkező Maceken ajánlott. Legjobban az újabb, DX12-t használó játékokkal működik.",
         "wine-crossover": "A Wine-Crossover a Crossover nyílt forráskódú Wine-projektjén alapul, és Intel Maceken, valamint DX11 vagy régebbi játékokhoz ajánlott.",
         "wine-staging-macos": "A Wine-Staging-macOS a fő Wine-projekten alapul, és Intel Maceken, valamint DX11 vagy régebbi játékokhoz ajánlott, különösen a DXMT eszközzel együtt használva."

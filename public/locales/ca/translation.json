@@ -1053,7 +1053,6 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb el llançador umu (predefinit a l'Heroic).",
-        "wine-ge": "El Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. S'ha quedat obsolet en favor del GE-Proton i el llançador umu.",
         "gpt": "El Game Porting Toolkit el desenvolupa Apple i es recomana per a equips Mac Apple Silicon amb els xips M1+, i funciona millor per a jocs més nous que fan servir DX12.",
         "wine-crossover": "El Winde-Crossover es basa en el projecte Crossover OpenSource Wine i es recomana per a equips Mac Intel i per a jocs que fan servir DX11 o més antics.",
         "wine-staging-macos": "El Wine-Staging-macOS es basa en el projecte Wine principal i es recomana per a equips Mac Intel i per a jocs que fan serivr DX11 o més antics, especialment quan es combina amb l'eina DXMT."
