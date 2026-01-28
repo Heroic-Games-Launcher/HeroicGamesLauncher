@@ -1129,8 +1129,7 @@
         "startTour": "Start rundvisning"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton er en Proton-variant skabt af Glorious Eggroll. Den er ment til brug sammen med umu-launcheren (standard i Heroic).",
-        "wine-ge": "Wine-GE-Proton er en Wine-variant skabt af Glorious Eggroll. Den er blevet udfaset til fordel for GE-Proton med umu-launcheren."
+        "proton-ge": "GE-Proton er en Proton-variant skabt af Glorious Eggroll. Den er ment til brug sammen med umu-launcheren (standard i Heroic)."
     },
     "zoom-store": "Zoom-butik"
 }
