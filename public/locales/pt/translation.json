@@ -1039,8 +1039,7 @@
         "noGames": "A sua biblioteca está vazia. <br /><br />Clique <4>aqui</4> para iniciar sessão nas suas contas Epic, GOG.com ou Amazon. Depois os seus jogos irão aparecer aqui, na Biblioteca. <br /><br /> Para adicionar jogos ou aplicações a partir de outras fontes, clique <br /> para adicionar manualmente."
     },
     "wineExplanation": {
-        "proton-ge": "O GE-Proton é uma variante do Proton criada por Glorious Eggroll. É suposto ser usada juntamente com o lançador umu (que é a predefinição no Heroic).",
-        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada por Glorious Eggroll. Foi entretanto descontinuada em favor do GE-Proton com o lançador umu."
+        "proton-ge": "O GE-Proton é uma variante do Proton criada por Glorious Eggroll. É suposto ser usada juntamente com o lançador umu (que é a predefinição no Heroic)."
     },
     "tour": {
         "back": "Atrás",

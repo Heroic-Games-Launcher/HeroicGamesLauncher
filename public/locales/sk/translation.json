@@ -954,8 +954,7 @@
         "maximize": "Maximalizovať okno"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton je variant Proton vytvorený spoločnosťou Glorious Eggroll. Je určený na použitie v službe Steam, ale niektoré hry mimo služby Steam môžu s týmto variantom fungovať lepšie. Poskytuje väčšinou zbytočné protokoly na riešenie problémov.",
-        "wine-ge": "Wine-GE-Proton je variant Winu vytvorený spoločnosťou Glorious Eggroll. Je to odporúčaný Wine na použitie mimo služby Steam. To poskytuje užitočné protokoly pri riešení problémov."
+        "proton-ge": "GE-Proton je variant Proton vytvorený spoločnosťou Glorious Eggroll. Je určený na použitie v službe Steam, ale niektoré hry mimo služby Steam môžu s týmto variantom fungovať lepšie. Poskytuje väčšinou zbytočné protokoly na riešenie problémov."
     },
     "categories-manager": {
         "rename": "Premenovať \"{{name}}\"",

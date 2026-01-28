@@ -11,11 +11,7 @@ import {
   wineDownloaderInfoStore
 } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCheck,
-  faSyncAlt,
-  faWarning
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import classNames from 'classnames'
@@ -85,23 +81,12 @@ export default function WineManager(): JSX.Element | null {
 
   const [wineManagerSettings, setWineManagerSettings] = useState<
     WineManagerUISettings[]
-  >([
-    protonge,
-    { type: 'Wine-GE', value: 'winege', enabled: isLinux },
-    gamePortingToolkit,
-    wineCrossover,
-    wineStagingMacOS
-  ])
+  >([protonge, gamePortingToolkit, wineCrossover, wineStagingMacOS])
 
   const getWineVersions = (repo: Type) => {
-    let versions = wineDownloaderInfoStore.get('wine-releases', [])
+    const versions = wineDownloaderInfoStore.get('wine-releases', [])
 
-    if (repo.startsWith('Wine-GE')) {
-      versions = versions.filter((version) => version.type === 'Wine-GE')
-      return versions.filter((version) => !version.version.endsWith('LoL'))
-    } else {
-      return versions.filter((version) => version.type === repo)
-    }
+    return versions.filter((version) => version.type === repo)
   }
 
   const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
@@ -136,16 +121,6 @@ export default function WineManager(): JSX.Element | null {
 
   const wineVersionExplanation = useMemo(() => {
     switch (repository.type) {
-      case 'Wine-GE':
-        return (
-          <div className="infoBox">
-            <FontAwesomeIcon icon={faWarning} color={'orange'} />
-            {t(
-              'wineExplanation.wine-ge',
-              'Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.'
-            )}
-          </div>
-        )
       case 'GE-Proton':
         return (
           <div className="infoBox">
@@ -159,7 +134,7 @@ export default function WineManager(): JSX.Element | null {
       default:
         return <></>
     }
-  }, [repository])
+  }, [repository, t])
 
   return (
     <>

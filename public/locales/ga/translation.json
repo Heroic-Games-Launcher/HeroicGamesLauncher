@@ -1035,8 +1035,7 @@
         "notes": "Nótaí"
     },
     "wineExplanation": {
-        "proton-ge": "Is leagan Proton é GE-Proton a chruthaigh Glorious Eggroll. Tá sé ceaptha le húsáid in éineacht leis an lainseálaí umu (réamhshocraithe i Heroic).",
-        "wine-ge": "Is leagan de Wine é Wine-GE-Proton a chruthaigh Glorious Eggroll. Tá sé curtha i léig ar mhaithe le GE-Proton leis an lainseálaí umu."
+        "proton-ge": "Is leagan Proton é GE-Proton a chruthaigh Glorious Eggroll. Tá sé ceaptha le húsáid in éineacht leis an lainseálaí umu (réamhshocraithe i Heroic)."
     },
     "winetricks": {
         "install": "Suiteáil",

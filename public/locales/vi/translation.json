@@ -1081,8 +1081,7 @@
         "noResults": "Các bộ lọc hiện tại không cho ra kết quả nào."
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic).",
-        "wine-ge": "Wine-GE-Proton là một biến thể của Wine được tạo ra bởi Glorious Eggroll. Nó không được dùng nữa để ủng hộ GE-Proton với trình khởi chạy umu."
+        "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic)."
     },
     "zoom-store": "Cửa hàng Zoom"
 }

@@ -984,8 +984,7 @@
         "restore": "ウィンドウの復元"
     },
     "wineExplanation": {
-        "proton-ge": "GE-ProtonはGlorious Eggrollによって作成されたProtonの亜種です。Steamで使うことを想定していますが、Steam以外のゲームではこの亜種の方がうまく動くかもしれません。トラブルシューティングのためにほとんど役に立たないログを提供します。",
-        "wine-ge": "Wine-GE-ProtonはGlorious Eggrollによって作成されたWineの亜種です。Steam以外での使用を推奨するWineです。トラブルシューティング時に便利なログを提供します。"
+        "proton-ge": "GE-ProtonはGlorious Eggrollによって作成されたProtonの亜種です。Steamで使うことを想定していますが、Steam以外のゲームではこの亜種の方がうまく動くかもしれません。トラブルシューティングのためにほとんど役に立たないログを提供します。"
     },
     "categories-manager": {
         "add-placeholder": "新しいカテゴリーを追加",
