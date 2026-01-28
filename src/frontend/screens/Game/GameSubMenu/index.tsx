@@ -27,9 +27,8 @@ import {
   ShoppingCart as ShoppingCartIcon
 } from '@mui/icons-material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faWineGlass  } from '@fortawesome/free-solid-svg-icons'
 import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
-import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 import Dropdown from 'frontend/components/UI/Dropdown'
 
 interface Props {
