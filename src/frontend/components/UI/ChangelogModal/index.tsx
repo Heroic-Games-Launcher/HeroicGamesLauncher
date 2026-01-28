@@ -18,11 +18,11 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
 
   useEffect(() => {
     if (!currentChangelog) {
-      window.api.getHeroicVersion().then((version) => {
+      window.api.getHeroicVersion().then((version: string) => {
         if (dimissVersionCheck || version !== lastChangelog) {
           window.api
             .getCurrentChangelog()
-            .then((release) => setCurrentChangelog(release))
+            .then((release: Release | null) => setCurrentChangelog(release))
         }
       })
     }
