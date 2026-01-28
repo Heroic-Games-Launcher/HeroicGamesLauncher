@@ -256,6 +256,7 @@ class GlobalState extends PureComponent<Props> {
 
   setLanguage = (newLanguage: string) => {
     this.setState({ language: newLanguage })
+    document.querySelector('html')?.setAttribute('lang', newLanguage)
   }
 
   setTheme = (newThemeName: string) => {

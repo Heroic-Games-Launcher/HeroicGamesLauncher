@@ -36,6 +36,7 @@ storage.removeItem('nonAvailableGames')
 const languageCode: string =
   configStore.get_nodefault('language') ?? storage.getItem('language') ?? 'en'
 configStore.set('language', languageCode)
+document.querySelector('html')?.setAttribute('lang', languageCode)
 
 window.setCustomCSS = (cssString: string) => {
   const style = document.createElement('style')
