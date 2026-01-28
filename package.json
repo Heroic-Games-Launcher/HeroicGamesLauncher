@@ -146,7 +146,7 @@
     "typed-emitter": "^2.1.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.34.1",
-    "undici": "^7.8.0",
+    "undici": "^7.18.2",
     "unimported": "^1.31.1",
     "vite-plugin-svgr": "^4.3.0",
     "xvfb-maybe": "^0.2.1"
