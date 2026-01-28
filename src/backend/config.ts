@@ -357,7 +357,8 @@ class GlobalConfigV0 extends GlobalConfig {
       downloadProtonToSteam: false,
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
-      showValveProton: false
+      showValveProton: false,
+      steamGridDbApiKey: ''
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

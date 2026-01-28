@@ -130,6 +130,7 @@ export interface AppSettings extends GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  steamGridDbApiKey: string
 }
 
 export type LibraryTopSectionOptions =

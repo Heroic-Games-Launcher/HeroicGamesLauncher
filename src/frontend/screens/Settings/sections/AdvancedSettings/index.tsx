@@ -25,7 +25,8 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
-  ResetHeroic
+  ResetHeroic,
+  SteamGridDbApiKey
 } from '../../components'
 
 export default function AdvancedSetting() {
@@ -180,6 +181,8 @@ export default function AdvancedSetting() {
       <DisableLogs />
 
       <AllowInstallationBrokenAnticheat />
+
+      <SteamGridDbApiKey />
 
       {isLinux && <ShowValveProton />}
 
