@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import LanguageSelector from 'frontend/components/UI/LanguageSelector'
 import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
 import {
+  AutoSyncSaves,
   AutoUpdateGames,
   CheckUpdatesOnStartup,
   CustomWineProton,
@@ -47,6 +48,8 @@ export default function GeneralSettings() {
       <EgsSettings />
 
       <CheckUpdatesOnStartup />
+
+      <AutoSyncSaves />
 
       <AutoUpdateGames />
 
