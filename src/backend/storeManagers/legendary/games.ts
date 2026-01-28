@@ -890,7 +890,7 @@ export async function launch(
 
   // Use the wrapper EXE to launch games.
   if (
-    commandEnv['USE_FAKE_EPIC_EXE'] === 'true' &&
+    ![undefined, '0', 'false'].includes(commandEnv['USE_FAKE_EPIC_EXE']) &&
     existsSync(fakeEpicExePath)
   ) {
     if (isWindows) {
