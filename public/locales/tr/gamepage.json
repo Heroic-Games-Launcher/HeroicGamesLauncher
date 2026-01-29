@@ -49,7 +49,10 @@
         "wineprefix": "WinePrefix Klasörünü Seçin",
         "yes": "EVET",
         "close": "Kapat",
-        "select-install-path": "Steam Kurulum Yolunu Seç"
+        "select-install-path": "Steam Kurulum Yolunu Seç",
+        "warning": {
+            "title": "Uyarı"
+        }
     },
     "button": {
         "add_to_favourites": "Favorilere Ekle",

@@ -50,7 +50,10 @@
         "wineprefix": "Velg Wine-prefiksmappe",
         "yes": "Ja",
         "close": "Lukk",
-        "select-install-path": "Velg installasjonssti for Steam"
+        "select-install-path": "Velg installasjonssti for Steam",
+        "warning": {
+            "title": "Warning"
+        }
     },
     "button": {
         "add_to_favourites": "Legg til i favoritter",

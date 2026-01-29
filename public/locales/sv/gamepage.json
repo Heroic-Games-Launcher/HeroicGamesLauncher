@@ -52,6 +52,9 @@
         "selectLaunchOption": {
             "body": "Välj ett uppstartsalternativ för det här spelet (det kan ändras senare i spelinställningarna):",
             "title": "Välj uppstartsalternativ {{seconds}})"
+        },
+        "warning": {
+            "title": "Varning"
         }
     },
     "button": {
