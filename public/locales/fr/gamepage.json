@@ -51,7 +51,15 @@
         "close": "Fermer",
         "select-install-path": "Sélectionnez le chemin d'installation de Steam",
         "selectLaunchOption": {
-            "title": "Sélectionner une option de lancement ({{seconds}}s)"
+            "title": "Sélectionner une option de lancement ({{seconds}}s)",
+            "body": "Veuillez sélectionner une option de lancement pour ce jeu (ce paramètre est modifiable plus tard dans les paramètres du jeu) :"
+        },
+        "warning": {
+            "title": "Avertissement"
+        },
+        "sync": {
+            "force_download_warning": "Les sauvegardes locales seront effacées. Souhaitez vous continuer ?",
+            "force_upload_warning": "Les sauvegardes en ligne seront écrasées. Souhaitez-vous continuer ?"
         }
     },
     "button": {
@@ -340,5 +348,6 @@
             "resume": "Reprendre le téléchargement"
         }
     },
-    "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>"
+    "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>",
+    "open-saves-folder": "Ouvrir le dossier des sauvegardes"
 }
