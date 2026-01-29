@@ -49,7 +49,10 @@
         "wineprefix": "Вибрати теку префікса Wine",
         "yes": "ТАК",
         "close": "Закрити",
-        "select-install-path": "Виберіть шлях встановлення Steam"
+        "select-install-path": "Виберіть шлях встановлення Steam",
+        "warning": {
+            "title": "Warning"
+        }
     },
     "button": {
         "add_to_favourites": "Додати до обраного",
