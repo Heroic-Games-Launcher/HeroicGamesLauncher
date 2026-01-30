@@ -53,17 +53,17 @@
     "lint-translations": "esbuild --bundle --platform=node --target=node21 meta/lintTranslations.ts | node"
   },
   "dependencies": {
-    "@fontsource/cabin": "^4.5.10",
-    "@fontsource/rubik": "^4.5.14",
-    "@fortawesome/free-brands-svg-icons": "^6.7.2",
-    "@fortawesome/free-regular-svg-icons": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@fontsource/cabin": "^5.2.8",
+    "@fontsource/rubik": "^5.2.8",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-regular-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.1",
     "@hello-pangea/dnd": "^18.0.1",
-    "@mui/icons-material": "^5.17.1",
-    "@mui/material": "^5.17.1",
+    "@mui/icons-material": "^7.3.7",
+    "@mui/material": "^7.3.7",
     "@node-steam/vdf": "^2.2.0",
-    "@shockpkg/icon-encoder": "^2.1.3",
+    "@shockpkg/icon-encoder": "^3.2.3",
     "@xhayper/discord-rpc": "1.3.0",
     "axios": "^1.12.2",
     "classnames": "^2.5.1",
@@ -88,13 +88,13 @@
     "react-i18next": "^12.3.1",
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.30.0",
-    "recharts": "^2.15.3",
+    "recharts": "^2.15.4",
     "sanitize-filename": "^1.6.3",
     "sanitize-html": "^2.16.0",
     "semver": "^7.7.1",
     "shlex": "^2.1.2",
     "short-uuid": "^4.2.2",
-    "simple-keyboard": "^3.8.53",
+    "simple-keyboard": "^3.8.93",
     "source-map-support": "^0.5.21",
     "steam-shortcut-editor": "^3.1.3",
     "zod": "^3.24.3",
@@ -152,6 +152,7 @@
     "xvfb-maybe": "^0.2.1"
   },
   "resolutions": {
-    "ts-morph": "17.0.1"
+    "ts-morph": "^26.0.0",
+    "react-is": "^18.3.1"
   }
 }
