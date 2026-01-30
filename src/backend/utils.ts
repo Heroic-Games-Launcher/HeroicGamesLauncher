@@ -237,8 +237,6 @@ async function handleExit() {
   const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
 
-  await gogPresence.deletePresence()
-
   if ((isLocked || isRunning()) && mainWindow) {
     const { response } = await showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
@@ -269,6 +267,10 @@ async function handleExit() {
     // Kill all child processes
     callAllAbortControllers()
   }
+
+  mainWindow?.hide()
+  await gogPresence.deletePresence()
+
   app.exit()
 }
 
