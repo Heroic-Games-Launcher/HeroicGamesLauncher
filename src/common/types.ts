@@ -157,6 +157,20 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
+export type GOGAchievement = {
+  achievement_id: string
+  achievement_key: string
+  visible: boolean
+  name: string
+  description: string
+  image_url_unlocked: string
+  image_url_locked: string
+  rarity: number
+  date_unlocked: string | null
+  rarity_level_description: string
+  rarity_level_slug: string
+}
+
 export interface GameInfo {
   runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
   store_url?: string
@@ -187,6 +201,7 @@ export interface GameInfo {
   is_linux_native?: boolean
   browserUrl?: string
   description?: string
+  achievements?: GOGAchievement[]
   //used for store release versions. if remote !== local, then update
   version?: string
   dlcList?: GameMetadataInner[]

@@ -7,7 +7,8 @@ import {
   GOGImportData,
   ExecResult,
   CallRunnerOptions,
-  LaunchOption
+  LaunchOption,
+  GOGAchievement
 } from 'common/types'
 import {
   GOGCloudSavesLocation,
@@ -978,6 +979,7 @@ export async function gogToUnifiedInfo(
     art_background: background,
     cloud_save_enabled: false,
     art_icon: icon,
+    achievements: await getGamesAchievements(String(info.external_id)),
     extra: {
       about: { description: info.summary['*'], shortDescription: '' },
       reqs: [],
@@ -1024,6 +1026,38 @@ export async function getGamesData(appName: string, lang?: string) {
   }
 
   return response.data
+}
+/**
+ * Fetches achievements for game
+ * https://gogapidocs.readthedocs.io/en/latest/galaxy.html#gameplay-gog-com
+ * @param appName
+ * @param lang optional language (falls back to english if is not supported)
+ * @returns plain API response
+ */
+export async function getGamesAchievements(
+  appName: string,
+  lang?: string
+): Promise<GOGAchievement[]> {
+  if (!GOGUser.isLoggedIn()) return []
+
+  const credentials = await GOGUser.getCredentials()
+  if (!credentials) return []
+  const url = `https://gameplay.gog.com/clients/${appName}/users/${credentials?.user_id}/achievements?locale=${
+    lang || 'en-US'
+  }`
+
+  const response: AxiosResponse | null = await axiosClient
+    .get(url, {
+      headers: { Authorization: `Bearer ${credentials.access_token}` }
+    })
+    .catch(() => {
+      return null
+    })
+  if (!response) {
+    return []
+  }
+
+  return response.data.items
 }
 /**
  * Creates Array based on returned from API
