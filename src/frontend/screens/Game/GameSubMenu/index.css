@@ -18,6 +18,47 @@
   }
 }
 
+.game-submenu-container {
+  height: 39px;
+  width: 39px;
+  display: flex;
+  border-radius: var(--space-xs);
+}
+
+.game-submenu-button {
+  background: var(--input-background);
+  border: none;
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+}
+
+.game-submenu-icon {
+  color: var(--text-default);
+  padding-left: var(--space-2xs);
+  padding-right: var(--space-2xs);
+  height: 24px;
+  display: flex;
+  flex-grow: 1;
+}
+
+.dropdown.game-submenu-dropdown {
+  .button {
+    background-color: var(--background);
+    align-self: flex-start;
+    padding-left: 0;
+
+    svg {
+      margin-right: var(--space-xs);
+    }
+  }
+
+  /* store page has different setup */
+  a.button.is-link {
+    margin-left: var(--space-xs);
+  }
+}
+
 .dots {
   position: absolute;
   right: 46px;

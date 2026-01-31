@@ -71,8 +71,8 @@ export default function CategoryFilter() {
 
   return (
     <Dropdown
-      buttonClass="selectStyle"
-      className="categoriesFilter"
+      buttonClass="selectContainer"
+      containerClassName="categoriesFilter"
       data-tour="library-categories"
       title={t('header.categories', 'Categories')}
       popUpOnHover
