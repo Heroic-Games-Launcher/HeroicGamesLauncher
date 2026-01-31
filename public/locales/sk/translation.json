@@ -344,7 +344,7 @@
             "upscaleMethod": "Spôsob upscalingu, Ktorý by mal používať Gamescope.",
             "upscaleWidth": "Rozlíšenie šírky používané gamescope. Predpokladá sa pomer strán 16:9."
         },
-        "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
+        "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a Linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
         "button": {
             "close": "Zatvoriť Pomocník",
             "open": "Otvoriť Pomocník"

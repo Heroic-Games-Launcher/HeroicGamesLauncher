@@ -351,7 +351,7 @@
         },
         "disablePlaytimeSync": "Tắt đồng bộ hóa thời gian chơi với máy chủ của cửa hàng nhất định (hiện chỉ hỗ trợ GOG)",
         "download_proton_steam": "Khi được bật, GE-Proton sẽ được tải trực tiếp vào thư mục công cụ tương thích Steam thay vì đường dẫn Heroic mặc định. Nó sẽ sử dụng đường dẫn Steam được đặt trong cài đặt 'Đường dẫn Steam mặc định' ở trên.",
-        "dxvknvapi": "DXVK-NVAPI là một triển khai NVAPI được xây dựng dựa trên DXVK và NVAPI gốc linux, nó cho phép sử dụng DLSS trên GPU Nvidia.",
+        "dxvknvapi": "DXVK-NVAPI là một triển khai NVAPI được xây dựng dựa trên DXVK và NVAPI gốc Linux, nó cho phép sử dụng DLSS trên GPU Nvidia.",
         "gamescope": {
             "additionalOptions": "Cờ dòng lệnh bổ sung để chuyển vào gamescope.",
             "forceGrabCursor": "Luôn sử dụng chế độ chuột tương đối thay vì lật phụ thuộc vào khả năng hiển thị của con trỏ. (Hữu ích khi ứng dụng liên tục mất tập trung)",
@@ -556,7 +556,7 @@
         "alt-nile-bin": "Sử dụng Nile binary tích hợp sẵn..."
     },
     "platforms": {
-        "linux": "LInux",
+        "linux": "Linux",
         "mac": "Mac",
         "win": "Windows",
         "browser": "Duyệt"

@@ -347,7 +347,7 @@
             "settingsGame": "Toon alle instellingen voor een game.",
             "wineManager": "Installeer verschillende versies van Wine, Proton, Crossover, etc."
         },
-        "dxvknvapi": "DXVK-NVAPI is een implementatie van NVAPI gebouwd bovenop DXVK en het linux native NVAPI, het staat toe dat DLSS werkt met Nvidia GPUs.",
+        "dxvknvapi": "DXVK-NVAPI is een implementatie van NVAPI gebouwd bovenop DXVK en het Linux native NVAPI, het staat toe dat DLSS werkt met Nvidia GPUs.",
         "gamescope": {
             "fpsLimiter": "Het aantal frames gamescope moet naar limiteren. Bijvb. 60",
             "fpsLimiterNoFocus": "De framelimiet gamescope moet aanhouden als de game niet is gefocused.",
