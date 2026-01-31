@@ -46,7 +46,7 @@
             "message": "Trò chơi này có bản cập nhật, áp dụng bản cập nhật ngay bây giờ?",
             "title": "Trò Chơi Cần Cập Nhật"
         },
-        "wineprefix": "Chọn Thư Mục WinePrefix",
+        "wineprefix": "Chọn Thư Mục Wine Prefix",
         "yes": "CÓ",
         "close": "Đóng",
         "select-install-path": "Chọn thư mục cài đặt Steam"
@@ -152,7 +152,7 @@
         "path": "Chọn Đường Dẫn Cài Đặt",
         "path-not-writtable": "Cảnh báo: đường dẫn có thể không ghi được.",
         "space-after-install": "Sau Khi Cài Đặt",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Phiên bản Wine",
         "anticheat-warning": {
             "cancel": "Không",

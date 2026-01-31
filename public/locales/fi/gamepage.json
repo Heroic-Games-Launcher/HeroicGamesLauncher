@@ -45,7 +45,7 @@
             "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
             "title": "Peli vaatii päivityksen"
         },
-        "wineprefix": "Valitse WinePrefix-kansio",
+        "wineprefix": "Valitse Wine Prefix-kansio",
         "yes": "KYLLÄ",
         "close": "Sulje"
     },
@@ -148,7 +148,7 @@
         "path": "Valitse asennuspolku",
         "path-not-writtable": "Varoitus: polkuun ei ehkä pysty kirjoittamaan.",
         "space-after-install": "Asennuksen jälkeen",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine Version",
         "anticheat-warning": {
             "cancel": "Ei",

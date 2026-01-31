@@ -84,7 +84,7 @@
             },
             "title": "אזהרה"
         },
-        "wineprefix": "בחרו תיקיית wine prefix",
+        "wineprefix": "בחרו תיקיית Wine prefix",
         "default-steam-path": "מיקום Steam.",
         "customWine": "בחרו קובץ הרצה של Wine או Proton",
         "dontShowAgain": "אל תראה שוב",
@@ -415,7 +415,7 @@
         "start-in-tray": "התחל מצומצם",
         "steamruntime": "השתמש בSteam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "תיקיית WinePrefix",
+        "wineprefix": "תיקיית Wine Prefix",
         "experimental_features": {
             "enableNewShinyFeature": "תכונה מבריקה חדשה"
         },

@@ -47,7 +47,7 @@
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
             "title": "Jocul necesită actualizare"
         },
-        "wineprefix": "Selectați folderul WinePrefix",
+        "wineprefix": "Selectați folderul Wine Prefix",
         "yes": "DA",
         "close": "Închide"
     },
@@ -152,7 +152,7 @@
         "path": "Selectați Calea de instalare",
         "path-not-writtable": "Atenție: este posibil ca calea să nu poată fi scrisă.",
         "space-after-install": "După instalare",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Versiune Wine",
         "anticheat-warning": {
             "ok": "Ok",

@@ -45,7 +45,7 @@
             "message": "Táto hra má aktualizáciu, inštalovať aktualizáciu teraz?",
             "title": "Hra vyžaduje aktualizáciu"
         },
-        "wineprefix": "Vyberte Priečinok WinePrefix",
+        "wineprefix": "Vyberte Priečinok Wine Prefix",
         "yes": "ÁNO",
         "close": "Zatvoriť"
     },
@@ -147,7 +147,7 @@
         "path": "Vyberte Cestu Inštalácie",
         "path-not-writtable": "Upozornenie: Cesta nemusí byť zapisovateľná.",
         "space-after-install": "Po inštalácii",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Verzia Winu",
         "anticheat-warning": {
             "disabled_installation": "Podpora anticheatov je prerušená alebo odmietnutá a funkcie pre viacerých hráčov nebudú fungovať. Hru nie je možné nainštalovať. Ak chcete nainštalovať túto hru, vypnite túto kontrolu v rozšírených nastaveniach.",

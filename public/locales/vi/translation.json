@@ -720,7 +720,7 @@
         "start-in-tray": "Thu Nhỏ Khi Khởi Động",
         "steamruntime": "Sử Dụng Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Thư Mục WinePrefix",
+        "wineprefix": "Thư Mục Wine Prefix",
         "wineversion": "Phiên Bản Wine",
         "autoUpdateGames": "Tự động cập nhật trò chơi",
         "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",

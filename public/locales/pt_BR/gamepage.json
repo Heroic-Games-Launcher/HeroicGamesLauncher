@@ -163,7 +163,7 @@
         "path": "Selecione o local de instalação",
         "path-not-writtable": "Aviso: caminho pode não permitir escrita.",
         "space-after-install": "Pós-instalação",
-        "wineprefix": "Prefixo Wine (WinePrefix)",
+        "wineprefix": "Prefixo Wine (Wine Prefix)",
         "wineversion": "Versão do Wine",
         "anticheat-warning": {
             "cancel": "Não",

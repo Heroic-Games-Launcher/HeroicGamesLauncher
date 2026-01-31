@@ -655,7 +655,7 @@
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
         "steamruntime": "Käytä Steam Runtimea",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix-kansio",
+        "wineprefix": "Wine Prefix-kansio",
         "wineversion": "Wine-versio",
         "autoUpdateGames": "Päivitä pelit automaattisesti",
         "ignoreGameUpdates": "Ohita pelipäivitykset",

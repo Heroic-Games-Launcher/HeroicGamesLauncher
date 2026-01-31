@@ -189,7 +189,7 @@
                 "message": "Heroic nõuab Rosettat, et Apple Siliconi kiipidega macOS süsteemidel korralikult toimida. Palun paigaldage see macOS-i terminalist kasutades järgmist käsku: \"softwareupdate --install-rosetta\" ja taaskäivitage Heroic. "
             }
         },
-        "wineprefix": "Valige WinePrefiksi kaust",
+        "wineprefix": "Valige Wine Prefiksi kaust",
         "yes": "JAH",
         "dontShowAgain": "Ära enam näita",
         "choose-nile-binary": "Valige Nile programm",
@@ -732,7 +732,7 @@
         "start-in-tray": "Käivita minimeeritult",
         "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
-        "wineprefix": "WinePrefiksi kaust",
+        "wineprefix": "Wine Prefiksi kaust",
         "wineversion": "Wine'i versioon",
         "autoUpdateGames": "Mängude automaatne värskendamine",
         "ignoreGameUpdates": "Ignoreeri mängu värskendusi",

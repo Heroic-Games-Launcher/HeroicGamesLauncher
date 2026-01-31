@@ -732,7 +732,7 @@
         "start-in-tray": "Iniciar minimizado",
         "steamruntime": "Usar o Runtime de Steam",
         "winecrossoverbottle": "Botella de CrossOver",
-        "wineprefix": "Cartafol WinePrefix",
+        "wineprefix": "Cartafol de prefixo de Wine",
         "wineversion": "Versión de Wine",
         "ignoreGameUpdates": "Ignorar as actualizacións do xogo",
         "autoUpdateGames": "Actualiza os xogos automaticamente",

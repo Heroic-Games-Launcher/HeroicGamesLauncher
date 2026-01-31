@@ -38,7 +38,7 @@
         "yes": "JA",
         "choose": "Vælg",
         "importpath": "Vælg spilmappe til import",
-        "wineprefix": "Vælg WinePrefix mappe",
+        "wineprefix": "Vælg Wine Prefix mappe",
         "select": {
             "button": "Vælg",
             "image": "Vælg billede"
@@ -139,7 +139,7 @@
     },
     "install": {
         "path": "Vælg Installations Sti",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "not-enough-disk-space": "Ikke nok diskplads",
         "wineversion": "Wine version",
         "space-after-install": "Efter installation",

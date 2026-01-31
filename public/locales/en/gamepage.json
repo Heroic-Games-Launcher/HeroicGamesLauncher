@@ -58,7 +58,7 @@
         "warning": {
             "title": "Warning"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Select Wine Prefix Folder",
         "yes": "YES"
     },
     "button": {
@@ -176,7 +176,7 @@
         "path": "Select Install Path",
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine version"
     },
     "label": {

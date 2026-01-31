@@ -161,7 +161,7 @@
                 }
             }
         },
-        "wineprefix": "Odaberite Wine Prefix mapu",
+        "wineprefix": "Odaberite Wine prefixe mapu",
         "yes": "DA",
         "dontShowAgain": "Ne prikazuj ponovo",
         "choose-nile-binary": "Odaberite binarni Nil",
@@ -590,7 +590,7 @@
         "start-in-tray": "Pokreni minimizirano",
         "steamruntime": "Koristi Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix mapa",
+        "wineprefix": "Wine prefixe mapa",
         "wineversion": "Wine verzija",
         "ignoreGameUpdates": "Zanemari ažuriranja igre",
         "autoUpdateGames": "Automatski ažuriraj igre",
@@ -674,7 +674,7 @@
     "toolbox": {
         "settings": {
             "default-wineprefix": "Odaberite zadanu mapu prefiksa za nove konfiguracije",
-            "wineprefix": "Odaberite mapu za nove WinePrefixe"
+            "wineprefix": "Odaberite mapu za nove Wine prefixe"
         }
     },
     "tooltip": {

@@ -43,7 +43,7 @@
             "message": "Ova igra ima ažuriranje, želite li ažurirati sada?",
             "title": "Igra treba ažuriranje"
         },
-        "wineprefix": "Odaberite WinePrefix mapu",
+        "wineprefix": "Odaberite Wine Prefix mapu",
         "yes": "DA",
         "close": "Zatvori"
     },
@@ -135,7 +135,7 @@
         "path": "Odaberi stazu instalacije",
         "path-not-writtable": "Upozorenje: u stazu se možda ne može pisati.",
         "space-after-install": "Nakon Instalacije",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine verzija",
         "anticheat-warning": {
             "ok": "Ok"

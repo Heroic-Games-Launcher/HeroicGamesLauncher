@@ -696,7 +696,7 @@
         "start-in-tray": "최소화로 시작",
         "steamruntime": "스팀 런타임 사용",
         "winecrossoverbottle": "크로스오버 보틀",
-        "wineprefix": "WinePrefix 폴더",
+        "wineprefix": "Wine Prefix 폴더",
         "wineversion": "와인 버전",
         "autoUpdateGames": "게임 자동 업데이트",
         "ignoreGameUpdates": "게임 업데이트 무시",

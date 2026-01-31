@@ -46,7 +46,7 @@
             "message": "Bu oyun için bir güncelleme var, şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "WinePrefix Klasörünü Seçin",
+        "wineprefix": "Wine Prefix Klasörünü Seçin",
         "yes": "EVET",
         "close": "Kapat",
         "select-install-path": "Steam Kurulum Yolunu Seç"
@@ -152,7 +152,7 @@
         "path": "Kurulum Yolunu Seç",
         "path-not-writtable": "Uyarı: yol yazılabilir olmayabilir.",
         "space-after-install": "Kurulumdan Sonra",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine sürümü",
         "anticheat-warning": {
             "cancel": "Hayır",

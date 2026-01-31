@@ -45,7 +45,7 @@
             "message": "Joko honek eguneraketa bat du, orain eguneratu?",
             "title": "Jokoak eguneraketa behar du"
         },
-        "wineprefix": "Hautatu WinePrefix karpeta",
+        "wineprefix": "Hautatu Wine Prefix karpeta",
         "yes": "BAI",
         "close": "Itxi"
     },
@@ -144,7 +144,7 @@
         "path": "Aukeratu instalazio-ibilbidea",
         "path-not-writtable": "Ohartarazpena: sarbide-ibilbidea ezin da idatzi.",
         "space-after-install": "Instalazioaren ondoren",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Ardoaren bertsioa",
         "anticheat-warning": {
             "message": "Anticheat-a hautsita edo ukatu egiten da. Jokoak ez du funtzionatuko. Instalatu nahi duzu hala ere?",

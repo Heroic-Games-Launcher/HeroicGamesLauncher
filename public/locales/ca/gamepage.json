@@ -46,7 +46,7 @@
             "message": "Hi ha una actualització per a aquest joc, el vols actualitzar ara?",
             "title": "Cal actualitzar el joc"
         },
-        "wineprefix": "Tria la carpeta del WinePrefix",
+        "wineprefix": "Tria la carpeta del Wine Prefix",
         "yes": "SÍ",
         "close": "Tanca",
         "select-install-path": "Selecciona la ruta d'instal·lació del Steam"
@@ -152,7 +152,7 @@
         "path": "Selecciona la ruta d'instal·lació",
         "path-not-writtable": "Avís: potser no es pot escriure a la ruta indicada.",
         "space-after-install": "Després de la instal·lació",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Versió del Wine",
         "anticheat-warning": {
             "cancel": "No",

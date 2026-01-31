@@ -46,7 +46,7 @@
             "message": "Да гэтай гульні ёсць абнаўленне. Усталяваць абнаўленне?",
             "title": "Гульня патрабуе абнаўлення"
         },
-        "wineprefix": "Выберыце папку WinePrefix",
+        "wineprefix": "Выберыце папку Wine Prefix",
         "yes": "ТАК",
         "close": "Закрыць",
         "select-install-path": "Выберыце шлях усталявання Steam"
@@ -151,7 +151,7 @@
         "path": "Выберыце шлях усталявання",
         "path-not-writtable": "Увага: шлях можа быць недаступным для запісу.",
         "space-after-install": "Пасля ўсталявання",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Версія Wine",
         "anticheat-warning": {
             "cancel": "Не",

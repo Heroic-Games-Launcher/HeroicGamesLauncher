@@ -697,7 +697,7 @@
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Priečinok WinePrefix",
+        "wineprefix": "Priečinok Wine Prefix",
         "wineversion": "Wine Version",
         "autoUpdateGames": "Automaticky aktualizovať hry",
         "ignoreGameUpdates": "Ignorovať aktualizácie hry",

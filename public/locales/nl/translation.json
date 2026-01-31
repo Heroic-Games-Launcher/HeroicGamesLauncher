@@ -715,7 +715,7 @@
         "start-in-tray": "Start Geminimaliseerd",
         "steamruntime": "Gebruik Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix map",
+        "wineprefix": "Wine Prefix map",
         "wineversion": "Wine Versie",
         "autoUpdateGames": "Games automatisch bijwerken",
         "ignoreGameUpdates": "Negeer game-updates",

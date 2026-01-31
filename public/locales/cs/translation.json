@@ -189,7 +189,7 @@
                 "message": "Heroic vyžaduje Rosettu, aby správně fungoval na macOS s čipy Apple Silicon. Prosím, nainstalujte ji z terminálu macOS pomocí následujícího příkazu: \"softwareupdate --install-rosetta\" a restartujte Heroic. "
             }
         },
-        "wineprefix": "Vyberte složku WinePrefix",
+        "wineprefix": "Vyberte složku Wine Prefix",
         "yes": "ANO",
         "dontShowAgain": "Znovu nezobrazovat",
         "choose-nile-binary": "Vyberte binární soubor Nile",
@@ -733,7 +733,7 @@
         "start-in-tray": "Spustit minimalizované",
         "steamruntime": "Použít služby Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Složka WinePrefix",
+        "wineprefix": "Složka Wine Prefix",
         "wineversion": "Verze Wine",
         "autoUpdateGames": "Automaticky aktualizovat hry",
         "ignoreGameUpdates": "Ignorovat aktualizace hry",

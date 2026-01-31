@@ -726,7 +726,7 @@
         "start-in-tray": "Simge Durumunda Başlat",
         "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix klasörü",
+        "wineprefix": "Wine Prefix klasörü",
         "wineversion": "Wine Sürümü",
         "autoUpdateGames": "Oyunları otomatik olarak güncelle",
         "ignoreGameUpdates": "Oyun güncellemelerini yoksay",

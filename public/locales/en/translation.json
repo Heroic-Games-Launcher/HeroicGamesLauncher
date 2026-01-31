@@ -794,7 +794,7 @@
             "description": "Enable verbose logs"
         },
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix folder",
+        "wineprefix": "Wine Prefix folder",
         "wineversion": "Wine Version",
         "wineWayland": "Enable Wine-Wayland (Experimental) (Wine version needs to support it)",
         "WoW64": "Enable WoW64 (Experimental)"

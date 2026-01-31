@@ -733,7 +733,7 @@
         "start-in-tray": "启动时最小化",
         "steamruntime": "使用 Steam 运行时",
         "winecrossoverbottle": "CrossOver 容器",
-        "wineprefix": "WinePrefix文件夹",
+        "wineprefix": "Wine Prefix文件夹",
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自动更新游戏",
         "ignoreGameUpdates": "忽略游戏更新",

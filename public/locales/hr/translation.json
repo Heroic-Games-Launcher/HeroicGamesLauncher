@@ -167,7 +167,7 @@
                 "checkbox": "Ne prikazuj ovu poruku ponovno"
             }
         },
-        "wineprefix": "Odaberite WinePrefix mapu",
+        "wineprefix": "Odaberite Wine Prefix mapu",
         "yes": "DA",
         "dontShowAgain": "Ne prikazuj više",
         "choose-nile-binary": "Odaberite Nile binary",
@@ -601,7 +601,7 @@
         "start-in-tray": "Pokreni u programskoj traci",
         "steamruntime": "Koristi radno vrijeme Steama",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix mapa",
+        "wineprefix": "Wine Prefix mapa",
         "wineversion": "Wine verzija",
         "ignoreGameUpdates": "Ignorirajte ažuriranja igre",
         "autoUpdateGames": "Automatski ažuriraj igre",

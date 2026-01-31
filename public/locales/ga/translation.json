@@ -491,7 +491,7 @@
         "verboseLogs": {
             "description": "Cumasaigh logaí foclacha"
         },
-        "wineprefix": "Fillteán WinePrefix",
+        "wineprefix": "Fillteán Wine Prefix",
         "wineversion": "Leagan Wine",
         "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
         "WoW64": "Cumasaigh WoW64 (Turgnamhach)",

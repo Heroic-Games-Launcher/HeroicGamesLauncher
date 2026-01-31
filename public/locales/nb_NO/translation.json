@@ -728,7 +728,7 @@
         "start-in-tray": "Start Minimert",
         "steamruntime": "Bruk Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix-mappe",
+        "wineprefix": "Wine-prefiksmappe",
         "wineversion": "Wine-versjon",
         "autoUpdateGames": "Oppdater spill automatisk",
         "ignoreGameUpdates": "Ignorer spilloppdateringer",

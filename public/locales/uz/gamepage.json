@@ -90,7 +90,7 @@
             "message": "Bu oʻyinda yangilanish bor, yangilanish hozir qoʻllanilsinmi?",
             "title": "O'yin yangilanishi kerak"
         },
-        "wineprefix": "WinePrefix papkasini tanlang",
+        "wineprefix": "Wine Prefix papkasini tanlang",
         "yes": "HA"
     },
     "button": {
@@ -177,7 +177,7 @@
         "path": "O'rnatish yo'lini tanlang",
         "path-not-writtable": "Ogohlantirish: yo'l yozilmasligi mumkin.",
         "space-after-install": "O'rnatishdan keyin",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Vino versiyasi"
     },
     "label": {
