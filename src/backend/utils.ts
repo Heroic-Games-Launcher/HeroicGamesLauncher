@@ -1,28 +1,29 @@
 import { callAllAbortControllers } from './utils/aborthandler/aborthandler'
+import type { AppSettings, WineManagerStatus } from 'common/types'
 import {
-  Runner,
-  WineInstallation,
-  RpcClient,
-  SteamRuntime,
-  Release,
   GameInfo,
   GameSettings,
-  GameStatus
+  GameStatus,
+  Release,
+  RpcClient,
+  Runner,
+  SteamRuntime,
+  WineInstallation
 } from 'common/types'
 import axios from 'axios'
 import https from 'node:https'
-import { app, dialog, shell, Notification, BrowserWindow } from 'electron'
+import { app, BrowserWindow, dialog, Notification, shell } from 'electron'
 import { exec, spawn, SpawnOptions, spawnSync } from 'child_process'
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'graceful-fs'
 import { promisify } from 'util'
 import i18next, { t } from 'i18next'
 
 import {
+  logDebug,
   logError,
   logInfo,
   LogPrefix,
-  logWarning,
-  logDebug
+  logWarning
 } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
 import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
@@ -48,14 +49,14 @@ import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { validWine, runWineCommand } from './launcher'
+import { runWineCommand, validWine } from './launcher'
 import { gameManagerMap } from 'backend/storeManagers'
 import {
   installWineVersion,
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
-import { readdir, lstat } from 'fs/promises'
+import { lstat, readdir, readFile } from 'fs/promises'
 import { getHeroicVersion } from './utils/systeminfo/heroicVersion'
 import { backendEvents } from './backend_events'
 import { wikiGameInfoStore } from './wiki_game_info/electronStore'
@@ -65,12 +66,11 @@ import {
   deviceNameCache,
   vendorNameCache
 } from './utils/systeminfo/gpu/pci_ids'
-import type { AppSettings, WineManagerStatus } from 'common/types'
 import { isUmuSupported } from './utils/compatibility_layers'
 import { getSystemInfo } from './utils/systeminfo'
 import { configStore } from './constants/key_value_stores'
 import { GITHUB_API } from './constants/urls'
-import { isLinux, isMac, isIntelMac, isWindows } from './constants/environment'
+import { isIntelMac, isLinux, isMac, isWindows } from './constants/environment'
 import {
   configPath,
   fixAsarPath,
@@ -84,6 +84,7 @@ import { parse } from '@node-steam/vdf'
 
 import type LogWriter from 'backend/logger/log_writer'
 import { isRunning } from './downloadmanager/downloadqueue'
+import { homedir } from 'os'
 
 const execAsync = promisify(exec)
 
@@ -1652,6 +1653,43 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
     GameConfig.get(appName).config = config as GameSettings
     GameConfig.get(appName).flush()
   }
+}
+
+export async function getFlatpakProtonGeRuntimes(): Promise<
+  WineInstallation[]
+> {
+  const basePath =
+    'flatpak/runtime/com.valvesoftware.Steam.CompatibilityTool.Proton-GE/x86_64/stable/active/files'
+  const paths = [
+    `/var/lib/${basePath}`,
+    `${homedir()}/.local/share/${basePath}`
+  ]
+
+  const getRuntime = async (
+    path: string
+  ): Promise<WineInstallation | undefined> => {
+    try {
+      const versionFile = await readFile(`${path}/version`, {
+        encoding: 'utf-8'
+      })
+      const version = versionFile.match(/GE-Proton\d+-\d+/)?.[0] // e.g. 1767307616 GE-Proton10-28
+      if (!version) return
+
+      const bin = `${path}/proton`
+      if (!existsSync(bin)) return
+
+      return {
+        bin,
+        type: 'proton',
+        name: `${version} (Flatpak)`
+      }
+    } catch {
+      return
+    }
+  }
+
+  const runtimes = await Promise.all(paths.map(getRuntime))
+  return runtimes.filter((val) => val !== undefined)
 }
 
 export {
