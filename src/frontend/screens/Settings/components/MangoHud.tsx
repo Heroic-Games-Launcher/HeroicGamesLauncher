@@ -5,11 +5,11 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
 
-const Mangohud = () => {
+const MangoHud = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [showMangohud, setShowMangohud] = useSetting('showMangohud', false)
+  const [showMangoHud, setShowMangoHud] = useSetting('showMangoHud', false)
 
   if (!isLinux) {
     return <></>
@@ -19,19 +19,19 @@ const Mangohud = () => {
     <div className="toggleRow">
       <ToggleSwitch
         htmlId="mongohud"
-        value={showMangohud}
-        handleChange={() => setShowMangohud(!showMangohud)}
+        value={showMangoHud}
+        handleChange={() => setShowMangoHud(!showMangoHud)}
         title={t('setting.mangohud')}
       />
 
       <InfoIcon
         text={t(
           'help.mangohud',
-          'MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
+          'MangoHud is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
         )}
       />
     </div>
   )
 }
 
-export default Mangohud
+export default MangoHud

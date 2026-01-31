@@ -399,7 +399,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
     delete gameSettings.enableWoW64
-    delete gameSettings.showMangohud
+    delete gameSettings.showMangoHud
     delete gameSettings.disableUMU
     delete gameSettings.useSteamRuntime
     delete gameSettings.enableFsync
@@ -451,7 +451,7 @@ function filterGameSettingsForLog(
     delete gameSettings.autoInstallVkd3d
     delete gameSettings.gamescope
     delete gameSettings.useGameMode
-    delete gameSettings.showMangohud
+    delete gameSettings.showMangoHud
     delete gameSettings.showFps
     delete gameSettings.preferSystemLibs
     delete gameSettings.wineCrossoverBottle
@@ -562,13 +562,13 @@ async function prepareLaunch(
   let mangoHudCommand: string[] = []
   let gameModeBin: string | null = null
   const gameScopeCommand: string[] = []
-  if (gameSettings.showMangohud && !isSteamDeckGameMode) {
+  if (gameSettings.showMangoHud && !isSteamDeckGameMode) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
       let reason =
-        'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
+        'MangoHud is enabled, but `mangohud` executable could not be found on $PATH'
       if (isFlatpak) {
-        reason = `${reason}. Make sure to install Mangohud's flatpak package with runtime ${flatpakRuntimeVersion} and restart Heroic.`
+        reason = `${reason}. Make sure to install MangoHud's flatpak package with runtime ${flatpakRuntimeVersion} and restart Heroic.`
       }
       return {
         success: false,
@@ -674,7 +674,7 @@ async function prepareLaunch(
         gameScopeCommand.push('--force-grab-cursor')
       }
 
-      if (gameSettings.showMangohud) {
+      if (gameSettings.showMangoHud) {
         gameScopeCommand.push('--mangoapp')
       }
 

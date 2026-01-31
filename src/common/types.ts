@@ -222,7 +222,7 @@ export interface GameSettings {
   otherOptions?: string //deprecated
   preferSystemLibs: boolean
   showFps: boolean
-  showMangohud: boolean
+  showMangoHud: boolean
   targetExe: string
   useGameMode: boolean
   useSteamRuntime: boolean

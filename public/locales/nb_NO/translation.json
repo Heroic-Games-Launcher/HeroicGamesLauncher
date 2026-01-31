@@ -305,7 +305,7 @@
         },
         "gamemode": "Feral GameMode bruker automatiske og midlertidige justeringer på systemet når du kjører spill. Aktivering kan forbedre ytelsen.",
         "general": "Synkroniser med EGL hvis du har en fungerende installasjon av Epic Games Launcher andre steder og vil importere spillene dine for å unngå å laste dem ned igjen.",
-        "mangohud": "MangoHUD er et overlegg som viser og overvåker FPS, temperaturer, CPU/GPU-belastning og andre systemressurser.",
+        "mangohud": "MangoHud er et overlegg som viser og overvåker FPS, temperaturer, CPU/GPU-belastning og andre systemressurser.",
         "other": {
             "part4": "Bruke ",
             "part5": "Spillargumenter",
@@ -691,7 +691,7 @@
             "show-uploads": "Vis opplastede loggfiler",
             "join-heroic-discord": "Bli med i vår discord"
         },
-        "mangohud": "Aktiver Mangohud (Mangohud må installeres)",
+        "mangohud": "Aktiver MangoHud (MangoHud må installeres)",
         "manualsync": {
             "download": "Last ned",
             "forcedownload": "Tving nedlasting",

@@ -305,7 +305,7 @@
         },
         "gamemode": "O Feral GameMode faz ajustes ao sistema de forma automática e temporária quando está a executar jogos. O desempenho pode aumentar se ativar esta opção.",
         "general": "Sincronize com a EGL se tiver num outro local uma instalação a funcionar do lançador da Epic Games e pretende importar os seus jogos. Assim, evita ter que fazer novamente a transferência destes.",
-        "mangohud": "O MangoHUD é uma janela de sobreposição que mostra e monitoriza os fotogramas por segundo (FPS), temperaturas, utilização da CPU/GPU e outros recursos do sistema.",
+        "mangohud": "O MangoHud é uma janela de sobreposição que mostra e monitoriza os fotogramas por segundo (FPS), temperaturas, utilização da CPU/GPU e outros recursos do sistema.",
         "other": {
             "part4": "Use o ",
             "part5": "Argumentos do Jogo",
@@ -691,7 +691,7 @@
             },
             "show-uploads": "Mostrar ficheiros de registo de eventos enviados"
         },
-        "mangohud": "Ativar o Mangohud (é necessário ter o Mangohud instalado)",
+        "mangohud": "Ativar o MangoHud (é necessário ter o MangoHud instalado)",
         "manualsync": {
             "download": "Transferir",
             "forcedownload": "Forçar Transferência",

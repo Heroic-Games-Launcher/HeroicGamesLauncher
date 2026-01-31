@@ -292,7 +292,7 @@
         },
         "gamemode": "Feral GameModeは、ゲームの実行時にシステムに自動で一時的な調整を適用します。 有効にすると、パフォーマンスが向上する可能性があります。",
         "general": "別の場所にEpic Games Launcherが正常にインストールされており、再度ダウンロードしないようにゲームをインポートしたい場合は、EGLと同期してください。",
-        "mangohud": "MangoHUDは、FPS、温度、CPU/GPU負荷、その他のシステムリソースを表示および監視するオーバーレイです。",
+        "mangohud": "MangoHudは、FPS、温度、CPU/GPU負荷、その他のシステムリソースを表示および監視するオーバーレイです。",
         "other": {
             "part4": "起動コマンドの後に呼び出される ",
             "part5": "ゲーム引数",
@@ -670,7 +670,7 @@
             },
             "show-uploads": "アップロードされたログファイルを表示する"
         },
-        "mangohud": "Mangohudを有効にする（Mangohudがインストールされている必要があります）",
+        "mangohud": "MangoHudを有効にする（MangoHudがインストールされている必要があります）",
         "manualsync": {
             "download": "ダウンロード",
             "forcedownload": "強制ダウンロード",

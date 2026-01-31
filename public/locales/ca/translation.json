@@ -306,7 +306,7 @@
         },
         "gamemode": "Feral GameMode aplica ajustaments automàtics i temporals al sistema quan s'executen jocs. Si s'activa, podria millorar el rendiment.",
         "general": "Sincronitza amb l'EGL si ja tens instal·lat el llançador de jocs Heroic en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
-        "mangohud": "MangoHUD és una capa addicional que mostra i supervisa els FPS, la temperatura, la càrrega de CPU/GPU i altres recursos del sistema.",
+        "mangohud": "MangoHud és una capa addicional que mostra i supervisa els FPS, la temperatura, la càrrega de CPU/GPU i altres recursos del sistema.",
         "other": {
             "part4": "Utilitza els ",
             "part5": "arguments del joc",
@@ -692,7 +692,7 @@
             },
             "show-uploads": "Mostra els fitxers de registre pujats"
         },
-        "mangohud": "Activa el Mangohud (cal que el Mangohud estigui instal·lat)",
+        "mangohud": "Activa el MangoHud (cal que el MangoHud estigui instal·lat)",
         "manualsync": {
             "download": "Baixa",
             "forcedownload": "Força la baixada",

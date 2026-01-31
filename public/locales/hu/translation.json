@@ -309,7 +309,7 @@
         },
         "gamemode": "A Feral GameMode automatikus és ideiglenes finomhangolásokat végez a rendszeren a játékok futása közben. Engedélyezése javíthatja a teljesítményt.",
         "general": "Ha van máshol egy működő Epic Games Launcher telepítésed, akkor szinkronizálja az EGL-lel a játékaid importálásához, hogy elkerülje az újbóli letöltésüket.",
-        "mangohud": "A MangoHUD egy átfedés, amely megjeleníti és figyeli az FPS-t, hőmérsékleteket, CPU- és GPU-terhelést és más rendszererőforrásokat.",
+        "mangohud": "A MangoHud egy átfedés, amely megjeleníti és figyeli az FPS-t, hőmérsékleteket, CPU- és GPU-terhelést és más rendszererőforrásokat.",
         "other": {
             "part4": "Játékargumentumok ",
             "part5": "használata",
@@ -695,7 +695,7 @@
             },
             "show-uploads": "Feltöltött naplófájlok megjelenítése"
         },
-        "mangohud": "Mangohud engedélyezése (a Mangohudnak telepítve kell lennie)",
+        "mangohud": "MangoHud engedélyezése (a MangoHudnak telepítve kell lennie)",
         "manualsync": {
             "download": "Letöltés",
             "forcedownload": "Kényszerített letöltés",

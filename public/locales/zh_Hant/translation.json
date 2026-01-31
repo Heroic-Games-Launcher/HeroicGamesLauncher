@@ -284,7 +284,7 @@
         },
         "gamemode": "執行遊戲時，Feral GameMode 使用自動和臨時的系統調整。啟用可能會提高效能。",
         "general": "與 Epic Games 啟動器同步，如果您在其它地方安裝了 Epic Games 啟動器，而且想要導入您的遊戲，以免再次下載它們。",
-        "mangohud": "MangoHUD 是一個內嵌介面，顯示和監控 FPS、溫度、CPU/GPU 負載和其它系統資源。",
+        "mangohud": "MangoHud 是一個內嵌介面，顯示和監控 FPS、溫度、CPU/GPU 負載和其它系統資源。",
         "other": {
             "part4": "使用 ",
             "part5": "遊戲參數",
@@ -600,7 +600,7 @@
                 "upload-date": "上載日期"
             }
         },
-        "mangohud": "啟用 MangoHud（需要已安裝 Mangohud）",
+        "mangohud": "啟用 MangoHud（需要已安裝 MangoHud）",
         "manualsync": {
             "download": "下載",
             "forcedownload": "強制下載",

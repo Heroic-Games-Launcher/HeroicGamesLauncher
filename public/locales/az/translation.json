@@ -261,7 +261,7 @@
         },
         "gamemode": "Feral GameMode oyunları oynayarkən sistemə avtomatik və müvəqqəti çimdiklər tətbiq edir. Aktivləşdirmək performansı yaxşılaşdıra bilər.",
         "general": "Epic Games Launcher-ın başqa yerdə işlək quraşdırması varsa və onları yenidən yükləməmək üçün oyunlarınızı idxal etmək istəyirsinizsə, EGL ilə sinxronlaşdırın.",
-        "mangohud": "MangoHUD FPS, temperatur, CPU/GPU yükü və digər sistem resurslarını göstərən və izləyən bir örtükdür.",
+        "mangohud": "MangoHud FPS, temperatur, CPU/GPU yükü və digər sistem resurslarını göstərən və izləyən bir örtükdür.",
         "other": {
             "part4": "istifadə edin ",
             "part5": "Oyun Arqumentlər",
@@ -545,7 +545,7 @@
                 "actions": "Action"
             }
         },
-        "mangohud": "Mangohudu aktivləşdirin (Mangohud quraşdırılmalıdır)",
+        "mangohud": "MangoHudu aktivləşdirin (MangoHud quraşdırılmalıdır)",
         "manualsync": {
             "download": "Yüklə",
             "forcedownload": "Yükləməyə məcbur edin",

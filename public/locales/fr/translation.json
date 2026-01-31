@@ -306,7 +306,7 @@
         },
         "gamemode": "Le procédé « Feral GameMode » applique des modifications automatiques et temporaires au système pendant l'exécution des jeux. L'activer pourrait améliorer les performances.",
         "general": "Synchroniser avec le lanceur EG si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux afin d'éviter de les télécharger à nouveau.",
-        "mangohud": "MangoHUD est une surcouche permettant d'afficher et de surveiller en cours de jeu le nombre d'images par seconde, la température des composants, la charge du CPU/GPU et l'utilisation d'autres ressources du système.",
+        "mangohud": "MangoHud est une surcouche permettant d'afficher et de surveiller en cours de jeu le nombre d'images par seconde, la température des composants, la charge du CPU/GPU et l'utilisation d'autres ressources du système.",
         "other": {
             "part4": "Utilise les ",
             "part5": "Arguments de Jeu",
@@ -692,7 +692,7 @@
             },
             "show-uploads": "Afficher les rapports envoyés"
         },
-        "mangohud": "Activer Mangohud (Mangohud doit être installé)",
+        "mangohud": "Activer MangoHud (MangoHud doit être installé)",
         "manualsync": {
             "download": "Télécharger",
             "forcedownload": "Forcer le téléchargement",

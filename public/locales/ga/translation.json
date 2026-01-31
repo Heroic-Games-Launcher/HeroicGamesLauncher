@@ -253,7 +253,7 @@
             "upscaleWidth": "An taifeach leithead a úsáideann Gamescope. Glactar leis go bhfuil cóimheas gné 16:9 ann."
         },
         "general": "Sioncrónaigh le EGL má tá suiteáil oibre den Epic Games Launcher agat in áit eile agus más mian leat do chluichí a allmhairiú chun nach mbeidh ort iad a íoslódáil arís.",
-        "mangohud": "Is forleagan é MangoHUD a thaispeánann agus a dhéanann monatóireacht ar FPS, teochtaí, ualach LAP/GPU agus acmhainní córais eile.",
+        "mangohud": "Is forleagan é MangoHud a thaispeánann agus a dhéanann monatóireacht ar FPS, teochtaí, ualach LAP/GPU agus acmhainní córais eile.",
         "msync": "Tá sé mar aidhm ag Msync forchostais fíona a laghdú i gcluichí a bhfuil go leor LAP iontu. D’fhéadfadh feabhas a chur ar fheidhmíocht ar chroíthe Linux a dtacaítear leo má chuirtear ar chumas é.",
         "other": {
             "part4": "Bain úsáid as an ",
@@ -439,7 +439,7 @@
                 }
             }
         },
-        "mangohud": "Cumasaigh Mangohud (Ní mór Mangohud a shuiteáil)",
+        "mangohud": "Cumasaigh MangoHud (Ní mór MangoHud a shuiteáil)",
         "manualsync": {
             "download": "Íoslódáil",
             "forcedownload": "Íoslódáil Fórsa",

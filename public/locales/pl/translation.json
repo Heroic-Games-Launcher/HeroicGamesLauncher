@@ -309,7 +309,7 @@
         },
         "gamemode": "Feral GameMode włącza automatyczne i tymczasowe optymalizacje systemu pod kątem wydajności, gdy zostaje uruchomiona gra. Włączenie może podnieść wydajność.",
         "general": "Jeśli masz już zainstalowany Epic Games Store w innej lokalizacji, możesz zsynchronizować z nim Heroic Games Launcher, aby uniknąć ponownego pobierania zainstalowanych już gier.",
-        "mangohud": "MangoHUD to nakładka pozwalająca na monitorowanie ilości FPS, temperatur, obciążenia CPU/GPU czy innych zasobów systemu.",
+        "mangohud": "MangoHud to nakładka pozwalająca na monitorowanie ilości FPS, temperatur, obciążenia CPU/GPU czy innych zasobów systemu.",
         "other": {
             "part4": "Użyj ",
             "part5": "Argumenty gry",
@@ -695,7 +695,7 @@
             },
             "show-uploads": "Pokaż przesłane pliki dziennika"
         },
-        "mangohud": "Włącz Mangohud (wymagany zainstalowany Mangohud)",
+        "mangohud": "Włącz MangoHud (wymagany zainstalowany MangoHud)",
         "manualsync": {
             "download": "Pobierz",
             "forcedownload": "Wymuś pobieranie",

@@ -297,7 +297,7 @@
         },
         "gamemode": "Feral GameMode áp dụng các tinh chỉnh tự động và tạm thời cho hệ thống khi chạy game. Việc kích hoạt có thể cải thiện hiệu suất.",
         "general": "Đồng bộ hóa với EGL nếu bạn có bản cài đặt Epic Games Launcher đang hoạt động ở nơi khác và muốn nhập trò chơi của mình để tránh tải xuống lại.",
-        "mangohud": "MangoHUD là overlay hiển thị và giám sát FPS, nhiệt độ, tải CPU/GPU và các tài nguyên hệ thống khác.",
+        "mangohud": "MangoHud là overlay hiển thị và giám sát FPS, nhiệt độ, tải CPU/GPU và các tài nguyên hệ thống khác.",
         "other": {
             "part4": "Sử dụng ",
             "part5": "Đối Số Trò Chơi",
@@ -683,7 +683,7 @@
             "join-heroic-discord": "Tham gia Discord của chúng tôi",
             "show-uploads": "Hiển thị tệp nhật ký đã tải lên"
         },
-        "mangohud": "Bật Mangohud (Cần cài đặt mangohud)",
+        "mangohud": "Bật MangoHud (Cần cài đặt MangoHud)",
         "manualsync": {
             "download": "Tải Xuống",
             "forcedownload": "Buộc Tải Xuống",

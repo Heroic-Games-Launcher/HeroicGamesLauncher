@@ -273,7 +273,7 @@
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Sinkroniziraj s EGL-om ako negdje drugdje imaš instalaciju EpicGames Launchera koja radi i želiš uvesti igre bez ponovnog preuzimanja.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHud is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part4": "Koristi ",
             "part5": "Argumenti igre",
@@ -564,7 +564,7 @@
                 "actions": "Action"
             }
         },
-        "mangohud": "Omogući Mangohud (Mangohud mora biti instaliran)",
+        "mangohud": "Omogući MangoHud (MangoHud mora biti instaliran)",
         "manualsync": {
             "download": "Preuzmi",
             "forcedownload": "Forsiraj preuzimanje",

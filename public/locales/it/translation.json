@@ -305,7 +305,7 @@
         },
         "gamemode": "Feral GameMode applica modifiche automatiche e temporanee al sistema durante l'esecuzione dei giochi. L'abilitazione può migliorare le prestazioni.",
         "general": "Sincronizza con EGL se hai già un'installazione funzionante dell'Epic Games Launcher e vuoi importare i giochi senza doverli scaricare di nuovo.",
-        "mangohud": "MangoHUD è un overlay che visualizza e monitora FPS, temperature, carico della CPU/GPU e altre risorse di sistema.",
+        "mangohud": "MangoHud è un overlay che visualizza e monitora FPS, temperature, carico della CPU/GPU e altre risorse di sistema.",
         "other": {
             "part4": "Usa le ",
             "part5": "Opzioni di gioco",
@@ -691,7 +691,7 @@
             },
             "show-uploads": "Mostra file di log caricati"
         },
-        "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
+        "mangohud": "Abilita MangoHud (MangoHud necessita di essere installato)",
         "manualsync": {
             "download": "Download",
             "forcedownload": "Forza Download",

@@ -309,7 +309,7 @@
         },
         "gamemode": "Feral GameMode rakendab mängude käivitamisel süsteemile automaatseid ja ajutisi kohandusi. Lubamine võib parandada jõudlust.",
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
-        "mangohud": "MangoHUD on ülekate, mis kuvab ja jälgib FPS-i, temperatuure, CPU / GPU koormust ja muid süsteemiressursse.",
+        "mangohud": "MangoHud on ülekate, mis kuvab ja jälgib FPS-i, temperatuure, CPU / GPU koormust ja muid süsteemiressursse.",
         "other": {
             "part4": "Kasutage ",
             "part5": "Mängu argumendid",
@@ -695,7 +695,7 @@
             },
             "show-uploads": "Näita üles laetud logifaile"
         },
-        "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
+        "mangohud": "Luba MangoHud (MangoHud peab olema paigaldatud)",
         "manualsync": {
             "download": "Laadi alla",
             "forcedownload": "Sunni alla laadima",

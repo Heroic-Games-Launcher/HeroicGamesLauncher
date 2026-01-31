@@ -288,7 +288,7 @@
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Synchronizujte s EGL, ak máte funkčnú inštaláciu Epic Games Launcher inde a chcete importovať svoje hry, aby ste sa vyhli ich opätovnému sťahovaniu.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHud is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part4": "Použi ",
             "part5": "Argumenty hry",
@@ -660,7 +660,7 @@
             },
             "show-uploads": "Zobraziť nahrané protokolové súbory"
         },
-        "mangohud": "Povoliť Mangohud (musí byť nainštalovaný Mangohud)",
+        "mangohud": "Povoliť MangoHud (musí byť nainštalovaný MangoHud)",
         "manualsync": {
             "download": "Stiahnuť ▼",
             "forcedownload": "Vynútiť stiahnutie",

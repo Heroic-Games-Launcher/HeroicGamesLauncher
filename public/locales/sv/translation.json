@@ -302,7 +302,7 @@
         },
         "gamemode": "Feral GameMode tillämpar automatiska och tillfälliga justeringar av systemet när spel körs. Aktivering kan förbättra prestandan.",
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
-        "mangohud": "MangoHUD är en siktlinjesindikator som visar och övervakar FPS, temperaturer, CPU/GPU-belastning och andra systemresurser.",
+        "mangohud": "MangoHud är en siktlinjesindikator som visar och övervakar FPS, temperaturer, CPU/GPU-belastning och andra systemresurser.",
         "other": {
             "part4": "Använd ",
             "part5": "Spelspecifika argument",
@@ -688,7 +688,7 @@
             },
             "show-uploads": "Visa uppladdade loggfiler"
         },
-        "mangohud": "Aktivera Mangohud (Mangohud måste vara installerat)",
+        "mangohud": "Aktivera MangoHud (MangoHud måste vara installerat)",
         "manualsync": {
             "download": "Ladda ner",
             "forcedownload": "Tvinga nedladdning",

@@ -303,7 +303,7 @@
         },
         "gamemode": "Feral GameMode, oyunları çalıştırırken sisteme otomatik ve geçici ince ayarlar uygular. Etkinleştirmek performansı artırabilir.",
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşitleyin.",
-        "mangohud": "MangoHUD, FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını görüntüleyen ve izleyen bir arayüzdür.",
+        "mangohud": "MangoHud, FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını görüntüleyen ve izleyen bir arayüzdür.",
         "other": {
             "part4": "Oyunu başlatma komutuna eklenmesi için ",
             "part5": "Oyun Parametleri",
@@ -689,7 +689,7 @@
             },
             "show-uploads": "Yüklenmiş kayıt dosyalarını göster"
         },
-        "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
+        "mangohud": "MangoHud'u Etkinleştir (MangoHud kurulu olmalıdır)",
         "manualsync": {
             "download": "İndir",
             "forcedownload": "İndirmeye Zorla",

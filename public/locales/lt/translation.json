@@ -306,7 +306,7 @@
             "part2": "Kitoks vietoms, naudokite virtualųjį katalogą į vieną iš šių aplankų/-alų"
         },
         "custom_themes_path": "Nenaudoti „CSS“ failų iš nepatikimų šaltinių. Kai esate abejonėje, klauskite apžiūros mūsų „Discord“ kanale.",
-        "mangohud": "„MangoHUD“ yra perdanga, kuri rodo ir stebi kdr./sek., temperatūrą, „CPU“/„GPU“ apkrovą ir kitus sisteminius išteklius.",
+        "mangohud": "„MangoHud“ yra perdanga, kuri rodo ir stebi kdr./sek., temperatūrą, „CPU“/„GPU“ apkrovą ir kitus sisteminius išteklius.",
         "steam_path": {
             "info": "Šis kelias leidžia „Heroic“ numatyti kokią „Proton“ versiją „Steam“ naudos, skirta pridedant ne „Steam“ žaidimus į „Steam“."
         },
@@ -565,7 +565,7 @@
         "exit-to-tray": "Išeiti į sistemos užduočių juostą",
         "discordRPC": "Įjungti/Įgalinti išplėstinį „Discord“ veikimo palaikymą",
         "FsrSharpnessStrenght": "„FSR“ ryškumo stiprumas",
-        "mangohud": "Įjungti/Įgalinti „Mangohud“ („Mangohud“ turi būti įdiegtas)",
+        "mangohud": "Įjungti/Įgalinti „MangoHud“ („MangoHud“ turi būti įdiegtas)",
         "start-in-tray": "Pradėti minimizuotai",
         "showMetalOverlay": "Rodyti perdangos statistiką",
         "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)",

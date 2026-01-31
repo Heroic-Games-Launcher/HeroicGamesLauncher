@@ -310,7 +310,7 @@
         },
         "gamemode": "O Feral GameMode aplica ajustes automáticos e temporários ao sistema ao executar jogos. A ativação pode melhorar o desempenho.",
         "general": "Se você tiver uma instalação funcional da Epic Games Launcher e quiser importar seus jogos, use a sincronização para evitar baixá-los novamente.",
-        "mangohud": "MangoHUD é uma sobreposição que exibe e monitora FPS, temperaturas, carga de CPU/GPU e outros recursos do sistema.",
+        "mangohud": "MangoHud é uma sobreposição que exibe e monitora FPS, temperaturas, carga de CPU/GPU e outros recursos do sistema.",
         "other": {
             "part4": "Use os ",
             "part5": "Argumentos do jogo",
