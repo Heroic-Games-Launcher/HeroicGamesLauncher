@@ -313,6 +313,18 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  'steamgriddb.searchGame': (
+    query: string
+  ) => Promise<Array<{ id: number; name: string }>>
+  'steamgriddb.getGrids': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+    mimes?: string[]
+    types?: string[]
+    nsfw?: string
+    humor?: string
+  }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 
 interface FrontendMessages {
