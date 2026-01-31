@@ -1,4 +1,6 @@
 name: Update AUR
+permissions:
+  contents: read
 
 on:
   release:
