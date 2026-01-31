@@ -55,6 +55,8 @@ export const pathExists = makeHandlerInvoker('pathExists')
 export const processShortcut = makeListenerCaller('processShortcut')
 export const handleGoToScreen = frontendListenerSlot('openScreen')
 export const handleShowDialog = frontendListenerSlot('showDialog')
+export const exportCategories = makeHandlerInvoker('exportCategories')
+export const importCategories = makeHandlerInvoker('importCategories')
 
 import Store from 'electron-store'
 // FUTURE WORK
