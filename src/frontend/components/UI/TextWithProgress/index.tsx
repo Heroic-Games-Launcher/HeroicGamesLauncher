@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material'
-import './index.scss'
+import './index.css'
 
 interface Props {
   text: string

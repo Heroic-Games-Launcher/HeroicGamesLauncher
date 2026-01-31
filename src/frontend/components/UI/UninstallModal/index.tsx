@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.css'
 import React, { useContext, useEffect, useState } from 'react'
 import {
   Dialog,
