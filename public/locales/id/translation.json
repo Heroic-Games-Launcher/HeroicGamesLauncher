@@ -739,7 +739,7 @@
             "enableForceGrabCursor": "Aktifkan Paksa Pengambilan Kursor",
             "enableUpscaling": "Mengaktifkan Peningkatan Skala",
             "missingMsg": "Kami tidak dapat menemukan gamescope di PATH. Instal atau tambahkan ke PATH.",
-            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic."
+            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket Flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic."
         },
         "experimental_features": {
             "enableNewDesign": "Desain baru",

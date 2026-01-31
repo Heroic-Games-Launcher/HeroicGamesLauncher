@@ -757,7 +757,7 @@
             "enableUpscaling": "Ativar o Aumento de Escala de Resoluções mais Baixas (upscaling)",
             "missingMsg": "Não foi possível encontrar o gamescope no CAMINHO. Instale ou adicione-o ao CAMINHO.",
             "enableForceGrabCursor": "Ativar Forçar Captura do Cursor",
-            "warningFlatpak": "Não foi possível encontrar uma versão compatível do Gamescope. Instale o pacote flatpak do Gamescope com o tempo de execução {{runtimeVersion}} e reinicie o Heroic."
+            "warningFlatpak": "Não foi possível encontrar uma versão compatível do Gamescope. Instale o pacote Flatpak do Gamescope com o tempo de execução {{runtimeVersion}} e reinicie o Heroic."
         },
         "after-launch-script-path": "Selecione um script para executar após fechar o jogo",
         "before-launch-script-path": "Selecione um script para executar antes do jogo ser iniciado",

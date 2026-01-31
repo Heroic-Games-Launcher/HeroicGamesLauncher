@@ -755,7 +755,7 @@
             "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
             "missingMsg": "Yolda gamesscope bulamadık. Kurun veya yola ekleyin.",
             "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir",
-            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
+            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un Flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
         },
         "after-launch-script-path": "Oyun kapandıktan sonra çalıştırılacak betiği seçin",
         "before-launch-script-path": "Oyun başlatılmadan önce çalıştırılacak betiği seçin",

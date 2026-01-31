@@ -690,7 +690,7 @@
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
-            "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
+            "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's Flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",

@@ -568,7 +568,7 @@
             "enableLimiter": "Aktiver FPS-begrænser",
             "enableUpscaling": "Aktiverer opskalering",
             "missingMsg": "Vi kunne ikke finde Gamescope på STIEN. Installer det eller tilføj det til STIEN.",
-            "warningFlatpak": "Vi kunne ikke finde en kompatibel version af Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og genstart Heroic."
+            "warningFlatpak": "Vi kunne ikke finde en kompatibel version af Gamescope. Installer Gamescopes Flatpak-pakke med runtime {{runtimeVersion}} og genstart Heroic."
         },
         "hdr": "Aktiver HDR",
         "msync": "Aktiver Msync",

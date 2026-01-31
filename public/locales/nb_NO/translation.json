@@ -743,8 +743,8 @@
             "missingMsg": "Vi kunne ikke finne gamescope på STIEN. Installer den eller legg den til STIEN.",
             "enableUpscaling": "Skru på oppskalering",
             "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker",
-            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 25.08 og start Heroic på nytt.",
-            "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og start Heroic på nytt."
+            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes Flatpak-pakke med runtime 25.08 og start Heroic på nytt.",
+            "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes Flatpak-pakke med runtime {{runtimeVersion}} og start Heroic på nytt."
         },
         "msync": "Skru på Msync",
         "allow_installation_broken_anticheat": {

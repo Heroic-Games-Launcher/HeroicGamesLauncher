@@ -758,8 +758,8 @@
             "enableUpscaling": "Activer la mise à l'échelle",
             "missingMsg": "Nous n'avons pas pu trouver gamescope dans ce PATH. Installez-le ou ajoutez-le au PATH.",
             "enableForceGrabCursor": "Activer « Force Grab Cursor »",
-            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 25.08 et redémarrez Heroic.",
-            "warningFlatpak": "Nous n'avons pas pu trouver une version de Gamescope compatible. Installez le paquet flatpak Gamescope avec l'environnement d'exécution {{runtimeVersion}} et redémarrez Heroic."
+            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package Flatpak Gamescope avec la runtime 25.08 et redémarrez Heroic.",
+            "warningFlatpak": "Nous n'avons pas pu trouver une version de Gamescope compatible. Installez le paquet Flatpak Gamescope avec l'environnement d'exécution {{runtimeVersion}} et redémarrez Heroic."
         },
         "msync": "Activer Msync",
         "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",

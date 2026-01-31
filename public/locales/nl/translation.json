@@ -730,7 +730,7 @@
             "enableLimiter": "Zet FPS limiteerder aan",
             "enableForceGrabCursor": "Schakel Force Grab Cursor in",
             "missingMsg": "We konden gamescope niet vinden op het PAD. Installeer het of voeg het toe aan het PAD.",
-            "warningFlatpak": "We konden geen compatibele versie vinden van Gamescope. Installeer Gamescope's flatpak-pakketje met runtime  {{runtimeVersion}} en herstart Heroic."
+            "warningFlatpak": "We konden geen compatibele versie vinden van Gamescope. Installeer Gamescope's Flatpak-pakketje met runtime  {{runtimeVersion}} en herstart Heroic."
         },
         "before-launch-script-path": "Selecteer een script om uit te voeren voordat een game is opgestart",
         "frameless-window": {

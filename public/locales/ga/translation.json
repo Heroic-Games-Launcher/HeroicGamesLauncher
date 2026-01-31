@@ -388,7 +388,7 @@
             "enableLimiter": "Cumasaigh Teorannóir FPS",
             "enableUpscaling": "Cumasaíonn sé Uasghrádú",
             "missingMsg": "Ní raibh muid in ann Gamescope a aimsiú ar an PATH. Suiteáil é nó cuir leis an PATH é.",
-            "warningFlatpak": "Ní bhfuaireamar leagan comhoiriúnach de Gamescope. Suiteáil pacáiste flatpak Gamescope le ham-rith {{runtimeVersion}} agus atosú Heroic."
+            "warningFlatpak": "Ní bhfuaireamar leagan comhoiriúnach de Gamescope. Suiteáil pacáiste Flatpak Gamescope le ham-rith {{runtimeVersion}} agus atosú Heroic."
         },
         "hdr": "Cumasaigh HDR",
         "hideChangelogsOnStartup": "Ná taispeáin logaí athraithe ar an Tosaithe",

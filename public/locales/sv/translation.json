@@ -755,7 +755,7 @@
             "enableUpscaling": "Aktiverar uppskalning",
             "missingMsg": "Vi kunde inte hitta gamescope i PATH (sökväg). Installera eller lägg till den i PATH.",
             "enableForceGrabCursor": "Aktivera tvinga greppmarkören",
-            "warningFlatpak": "Vi kunde inte hitta en kompatibel version av Gamescope. Installera Gamescopes flatpak-paket med körtid {{runtimeVersion}} och starta om Heroic."
+            "warningFlatpak": "Vi kunde inte hitta en kompatibel version av Gamescope. Installera Gamescopes Flatpak-paket med körtid {{runtimeVersion}} och starta om Heroic."
         },
         "msync": "Aktivera Msync",
         "after-launch-script-path": "Välj ett skript att köra efter att spelet avslutats",

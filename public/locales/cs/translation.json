@@ -757,8 +757,8 @@
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
             "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
-            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
-            "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
+            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček Flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
+            "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček Flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
         },
         "frameless-window": {
             "confirmation": {
