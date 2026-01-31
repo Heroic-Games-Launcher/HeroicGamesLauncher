@@ -292,7 +292,7 @@
         },
         "gamemode": "Feral GameMode asettaa käyttöön automaattisia ja tilapäisiä säätöjä pelejä ajettaessa. Päällekytkentä voi parantaa suorituskykyä.",
         "general": "Synkronisoi EGL:n kanssa mikäli sinulla on toimiva Epic Games Launcher:in asennus toisaalla ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
-        "mangohud": "MangoHUD on päällinen joka näyttää ruudunpäivityksen, lämpötilat, suorittimen/näytönohjaimen kuormituksen ja muita resursseja.",
+        "mangohud": "MangoHud on päällinen joka näyttää ruudunpäivityksen, lämpötilat, suorittimen/näytönohjaimen kuormituksen ja muita resursseja.",
         "other": {
             "part4": "Käytä ",
             "part5": "Pelin lisävivut",
@@ -618,7 +618,7 @@
             },
             "join-heroic-discord": "Liity Discordiimme"
         },
-        "mangohud": "Ota Mangohud käyttöön (Mangohudin tulee olla asennettu)",
+        "mangohud": "Ota MangoHud käyttöön (MangoHudin tulee olla asennettu)",
         "manualsync": {
             "download": "Lataa",
             "forcedownload": "Pakota lataus",
@@ -655,7 +655,7 @@
         "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
         "steamruntime": "Käytä Steam Runtimea",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix-kansio",
+        "wineprefix": "Wine Prefix-kansio",
         "wineversion": "Wine-versio",
         "autoUpdateGames": "Päivitä pelit automaattisesti",
         "ignoreGameUpdates": "Ohita pelipäivitykset",

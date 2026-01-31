@@ -83,7 +83,8 @@ const CompatibilityInfo = ({ gameInfo }: Props) => {
         <a className="iconWithText" style={{ cursor: 'default' }}>
           <WineBar tabIndex={-1} />
           <b>
-            {t('info.steamdeck-compatibility-info', 'SteamDeck Compatibility')}:
+            {t('info.steamdeck-compatibility-info', 'Steam Deck Compatibility')}
+            :
           </b>
           {steamLevelNames[steamInfo?.steamDeckCatagory ?? 3]}
         </a>

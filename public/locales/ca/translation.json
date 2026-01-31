@@ -185,7 +185,7 @@
                 "message": "L'Heroic necessita la Rosetta per a executar jocs en el macOS amb xips d'Apple Silicon. Instal·la-la des del terminal macOS amb l'ordre: «softwareupdate --install-rosetta» i reinicia l'Heroic. "
             }
         },
-        "wineprefix": "Tria la carpeta del WinePrefix",
+        "wineprefix": "Tria la carpeta del Wine prefixo",
         "yes": "SÍ",
         "dontShowAgain": "No ho tornis a mostrar",
         "choose-nile-binary": "Selecciona el binari del Nile",
@@ -306,7 +306,7 @@
         },
         "gamemode": "Feral GameMode aplica ajustaments automàtics i temporals al sistema quan s'executen jocs. Si s'activa, podria millorar el rendiment.",
         "general": "Sincronitza amb l'EGL si ja tens instal·lat el llançador de jocs Heroic en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
-        "mangohud": "MangoHUD és una capa addicional que mostra i supervisa els FPS, la temperatura, la càrrega de CPU/GPU i altres recursos del sistema.",
+        "mangohud": "MangoHud és una capa addicional que mostra i supervisa els FPS, la temperatura, la càrrega de CPU/GPU i altres recursos del sistema.",
         "other": {
             "part4": "Utilitza els ",
             "part5": "arguments del joc",
@@ -692,7 +692,7 @@
             },
             "show-uploads": "Mostra els fitxers de registre pujats"
         },
-        "mangohud": "Activa el Mangohud (cal que el Mangohud estigui instal·lat)",
+        "mangohud": "Activa el MangoHud (cal que el MangoHud estigui instal·lat)",
         "manualsync": {
             "download": "Baixa",
             "forcedownload": "Força la baixada",
@@ -729,7 +729,7 @@
         "start-in-tray": "Inicia minimitzat",
         "steamruntime": "Utilitza l'entorn d'execució del Steam",
         "winecrossoverbottle": "Ampolla CrossOver",
-        "wineprefix": "Directori WinePrefix",
+        "wineprefix": "Directori Wine prefixo",
         "wineversion": "Versió del Wine",
         "autoUpdateGames": "Actualitza els jocs automàticament",
         "ignoreGameUpdates": "Ignora les actualitzacions del joc",
@@ -759,8 +759,8 @@
             "enableUpscaling": "Activa l'escalatge",
             "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
             "enableForceGrabCursor": "Activa la captura forçada de cursor",
-            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 25.08 i reinicia l'Heroic.",
-            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb l'entorn d'execució {{runtimeVersion}} i reinicia l'Heroic."
+            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet Flatpak del Gamescope amb Runtime 25.08 i reinicia l'Heroic.",
+            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet Flatpak del Gamescope amb l'entorn d'execució {{runtimeVersion}} i reinicia l'Heroic."
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
         "msync": "Activa l'Msync",
