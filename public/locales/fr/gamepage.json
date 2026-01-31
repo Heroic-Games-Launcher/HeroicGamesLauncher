@@ -146,7 +146,7 @@
         "game-scores": "Scores",
         "installedInfo": "Informations sur l'installation",
         "protondb-compatibility-info": "Niveau de compatibilité Proton",
-        "steamdeck-compatibility-info": "Compatibilité avec le SteamDeck",
+        "steamdeck-compatibility-info": "Compatibilité avec le Steam Deck",
         "third-party-app": "Gestionnaire tiers"
     },
     "install": {

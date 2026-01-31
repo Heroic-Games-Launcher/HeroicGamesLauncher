@@ -139,7 +139,7 @@
         "game-scores": "Pelin Pisteet",
         "installedInfo": "Asennettu tiedot",
         "protondb-compatibility-info": "Protonien yhteensopivuustaso",
-        "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus",
+        "steamdeck-compatibility-info": "Steam Deck-yhteensopivuus",
         "third-party-app": "Hallinta kolmansien osapuolten asetuksille"
     },
     "install": {

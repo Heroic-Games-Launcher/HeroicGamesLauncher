@@ -134,7 +134,7 @@
         "game-scores": "Spilscore",
         "installedInfo": "Installeret information",
         "protondb-compatibility-info": "Protonkompatibilitetsniveau",
-        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
+        "steamdeck-compatibility-info": "Steam Deck-kompatibilitet",
         "third-party-app": "Tredjeparts-manager"
     },
     "install": {

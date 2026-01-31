@@ -39,7 +39,7 @@ finish-args:
   # There are still quite a few users using /mnt/ and /media/ for external drives
   - --filesystem=/mnt
   - --filesystem=/media
-  # should fix steamdeck controler navigation
+  # should fix steam deck controler navigation
   - --filesystem=/run/udev:ro
   # should fix discord rich presence
   - --filesystem=xdg-run/app/com.discordapp.Discord:create

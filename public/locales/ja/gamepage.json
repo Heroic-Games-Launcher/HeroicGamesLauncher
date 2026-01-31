@@ -138,7 +138,7 @@
         "game-scores": "ゲームの評価",
         "installedInfo": "インストール情報",
         "protondb-compatibility-info": "Proton互換性レベル",
-        "steamdeck-compatibility-info": "SteamDeck の互換性",
+        "steamdeck-compatibility-info": "Steam Deck の互換性",
         "third-party-app": "サードパーティマネージャー"
     },
     "install": {

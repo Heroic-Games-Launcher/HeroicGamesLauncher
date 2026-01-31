@@ -154,7 +154,7 @@
         "game-scores": "游戏分数",
         "installedInfo": "已安装信息",
         "protondb-compatibility-info": "Proton 兼容性级别",
-        "steamdeck-compatibility-info": "SteamDeck 兼容性",
+        "steamdeck-compatibility-info": "Steam Deck 兼容性",
         "third-party-app": "第三方管理器"
     },
     "install": {
