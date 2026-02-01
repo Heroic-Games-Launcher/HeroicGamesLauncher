@@ -1,6 +1,6 @@
 import { LaunchOption } from 'common/types'
 
-export type ZoomInstallPlatform = 'windows' | 'linux'
+export type ZoomInstallPlatform = 'windows' | 'linux' | 'mac'
 
 export interface ZoomCredentials {
   access_token: string
