@@ -741,7 +741,8 @@
         },
         "experimental_features": {
             "title": "實驗性功能"
-        }
+        },
+        "launchOptions": "啟動選項…"
     },
     "Settings": "設定",
     "sidebar": {

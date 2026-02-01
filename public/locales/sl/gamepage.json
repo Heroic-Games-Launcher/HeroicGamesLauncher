@@ -52,6 +52,9 @@
         "selectLaunchOption": {
             "body": "Prosim izberite možnost zagona te igre (to lahko kasneje spremenite v nastavitvah):",
             "title": "Izberite možnost zagona ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Pozor"
         }
     },
     "button": {
