@@ -292,7 +292,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return <ErrorComponent message={message} />
     }
 
-    const isMacNative = ['osx', 'Mac'].includes(installPlatform ?? '')
+    const isMacNative = ['osx', 'Mac', 'mac'].includes(installPlatform ?? '')
     const isLinuxNative = ['linux', 'Linux'].includes(installPlatform ?? '')
 
     // create setting context functions
