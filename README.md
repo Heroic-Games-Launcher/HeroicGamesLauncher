@@ -319,17 +319,17 @@ Thanks [Signpath](https://signpath.io/?utm_source=foundation&utm_medium=github&u
 
 Heroic would not be possible without the work done in many other projects:
 
-Legendary: https://github.com/derrod/legendary (we use a fork https://github.com/Heroic-Games-Launcher/legendary)
-GOGdl: https://github.com/Heroic-Games-Launcher/heroic-gogdl
-Nile: https://github.com/imLinguin/nile
-Comet: https://github.com/imLinguin/comet
-GE-Proton: https://github.com/GloriousEggroll/proton-ge-custom
-DXVK: https://github.com/doitsujin/dxvk
-VKD3D: https://github.com/HansKristian-Work/vkd3d-proton"
-Game-Porting-Toolkit: https://github.com/Gcenx/game-porting-toolkit
-Wine-Staging: https://github.com/Gcenx/macOS_Wine_builds
-Wine-Crossover: https://github.com/Gcenx/winecx
-DXVK-MacOS: https://github.com/Gcenx/DXVK-macOS
-DXMT: https://github.com/3Shain/dxmt
+- Legendary: https://github.com/derrod/legendary (we use [a fork of it](https://github.com/Heroic-Games-Launcher/legendary))
+- GOGdl: https://github.com/Heroic-Games-Launcher/heroic-gogdl
+- Nile: https://github.com/imLinguin/nile
+- Comet: https://github.com/imLinguin/comet
+- GE-Proton: https://github.com/GloriousEggroll/proton-ge-custom
+- DXVK: https://github.com/doitsujin/dxvk
+- VKD3D: https://github.com/HansKristian-Work/vkd3d-proton"
+- Game-Porting-Toolkit: https://github.com/Gcenx/game-porting-toolkit
+- Wine-Staging: https://github.com/Gcenx/macOS_Wine_builds
+- Wine-Crossover: https://github.com/Gcenx/winecx
+- DXVK-MacOS: https://github.com/Gcenx/DXVK-macOS
+- DXMT: https://github.com/3Shain/dxmt
 
 So be sure to follow and support those projects too!
