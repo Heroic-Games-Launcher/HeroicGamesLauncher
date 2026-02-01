@@ -49,7 +49,10 @@
         "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA",
         "close": "Schließen",
-        "select-install-path": "Wählen Sie den Steam-Installationspfad aus"
+        "select-install-path": "Wählen Sie den Steam-Installationspfad aus",
+        "warning": {
+            "title": "Warnung"
+        }
     },
     "button": {
         "add_to_favourites": "Zu Favoriten hinzufügen",
