@@ -49,7 +49,10 @@
         "wineprefix": "Chọn Thư Mục WinePrefix",
         "yes": "CÓ",
         "close": "Đóng",
-        "select-install-path": "Chọn thư mục cài đặt Steam"
+        "select-install-path": "Chọn thư mục cài đặt Steam",
+        "warning": {
+            "title": "Warning"
+        }
     },
     "button": {
         "add_to_favourites": "Thêm vào Ưa Thích",
