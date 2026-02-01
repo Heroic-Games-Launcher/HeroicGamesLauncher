@@ -326,7 +326,7 @@ Heroic would not be possible without the work done in many other projects:
 - GE-Proton: https://github.com/GloriousEggroll/proton-ge-custom
 - umu-launcher: https://github.com/Open-Wine-Components/umu-launcher
 - DXVK: https://github.com/doitsujin/dxvk
-- VKD3D: https://github.com/HansKristian-Work/vkd3d-proton"
+- VKD3D: https://github.com/HansKristian-Work/vkd3d-proton
 - Game-Porting-Toolkit: https://github.com/Gcenx/game-porting-toolkit
 - Wine-Staging: https://github.com/Gcenx/macOS_Wine_builds
 - Wine-Crossover: https://github.com/Gcenx/winecx
