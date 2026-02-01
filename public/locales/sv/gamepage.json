@@ -52,6 +52,13 @@
         "selectLaunchOption": {
             "body": "Välj ett uppstartsalternativ för det här spelet (det kan ändras senare i spelinställningarna):",
             "title": "Välj uppstartsalternativ {{seconds}})"
+        },
+        "warning": {
+            "title": "Varning"
+        },
+        "sync": {
+            "force_download_warning": "Lokala sparningar kommer att raderas. Vill du fortsätta?",
+            "force_upload_warning": "Molnsparningar kommer att skrivas över. Vill du fortsätta?"
         }
     },
     "button": {
@@ -323,5 +330,6 @@
             "pause": "Pausa nedladdning"
         }
     },
-    "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>"
+    "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>",
+    "open-saves-folder": "Öppna mappen med sparningar"
 }
