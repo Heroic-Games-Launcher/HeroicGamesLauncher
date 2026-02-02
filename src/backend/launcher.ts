@@ -399,7 +399,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableWineWayland
     delete gameSettings.enableHDR
     delete gameSettings.enableWoW64
-    delete gameSettings.showMangoHud
+    delete gameSettings.showMangohud
     delete gameSettings.disableUMU
     delete gameSettings.useSteamRuntime
     delete gameSettings.enableFsync
@@ -451,7 +451,7 @@ function filterGameSettingsForLog(
     delete gameSettings.autoInstallVkd3d
     delete gameSettings.gamescope
     delete gameSettings.useGameMode
-    delete gameSettings.showMangoHud
+    delete gameSettings.showMangohud
     delete gameSettings.showFps
     delete gameSettings.preferSystemLibs
     delete gameSettings.wineCrossoverBottle
@@ -562,7 +562,7 @@ async function prepareLaunch(
   let mangoHudCommand: string[] = []
   let gameModeBin: string | null = null
   const gameScopeCommand: string[] = []
-  if (gameSettings.showMangoHud && !isSteamDeckGameMode) {
+  if (gameSettings.showMangohud && !isSteamDeckGameMode) {
     const mangoHudBin = await searchForExecutableOnPath('mangohud')
     if (!mangoHudBin) {
       let reason =
@@ -674,7 +674,7 @@ async function prepareLaunch(
         gameScopeCommand.push('--force-grab-cursor')
       }
 
-      if (gameSettings.showMangoHud) {
+      if (gameSettings.showMangohud) {
         gameScopeCommand.push('--mangoapp')
       }
 

@@ -9,7 +9,7 @@ const MangoHud = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
-  const [showMangoHud, setShowMangoHud] = useSetting('showMangoHud', false)
+  const [showMangohud, setShowMangohud] = useSetting('showMangohud', false)
 
   if (!isLinux) {
     return <></>
@@ -19,8 +19,8 @@ const MangoHud = () => {
     <div className="toggleRow">
       <ToggleSwitch
         htmlId="mongohud"
-        value={showMangoHud}
-        handleChange={() => setShowMangoHud(!showMangoHud)}
+        value={showMangohud}
+        handleChange={() => setShowMangohud(!showMangohud)}
         title={t('setting.mangohud')}
       />
 
