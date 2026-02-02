@@ -37,6 +37,12 @@
   -moz-appearance: none;
   min-width: 100px;
 }
+.isRTL .selectStyle {
+  background-position:
+    calc(15px) calc(50% + 1px),
+    calc(20px) calc(50% + 1px),
+    calc(40px) 50%;
+}
 
 .MuiPopover-root .MuiPaper-root {
   color: var(--text-secondary);
