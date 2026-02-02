@@ -37,12 +37,6 @@
   -moz-appearance: none;
   min-width: 100px;
 }
-.isRTL .selectStyle {
-  background-position:
-    calc(15px) calc(50% + 1px),
-    calc(20px) calc(50% + 1px),
-    calc(40px) 50%;
-}
 
 .MuiPopover-root .MuiPaper-root {
   color: var(--text-secondary);
@@ -55,11 +49,12 @@
   white-space: nowrap;
 }
 
-.selectFieldWrapper.isRTL .MuiOutlinedInput-root {
+.selectFieldWrapper.isRTL .MuiOutlinedInput-root,
+.isRTL .selectStyle {
   background-position:
-    calc(15px) calc(50% + 1px),
-    calc(20px) calc(50% + 1px),
-    calc(40px) 50%;
+    15px calc(50% + 1px),
+    20px calc(50% + 1px),
+    40px 50%;
 }
 
 .selectFieldWrapper label {
