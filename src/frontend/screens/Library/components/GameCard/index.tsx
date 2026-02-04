@@ -16,13 +16,11 @@ import {
   getGameInfo,
   getProgress,
   getStoreName,
-  install,
-  launch,
   sendKill
 } from 'frontend/helpers'
+import { install, launch, updateGame } from 'frontend/helpers/library'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../../SettingsContext'
-import { defaultWineVersion } from '../..'
+import { defaultWineVersion } from '../../constants'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
 
