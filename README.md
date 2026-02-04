@@ -332,5 +332,7 @@ Heroic would not be possible without the work done in many other projects:
 - Wine-Crossover: https://github.com/Gcenx/winecx
 - DXVK-MacOS: https://github.com/Gcenx/DXVK-macOS
 - DXMT: https://github.com/3Shain/dxmt
+- Heroic-Epic integration exe: https://github.com/Etaash-mathamsetty/heroic-epic-integration
+- vulkan helper: https://github.com/imLinguin/vulkan-helper-rs
 
 So be sure to follow and support those projects too!
