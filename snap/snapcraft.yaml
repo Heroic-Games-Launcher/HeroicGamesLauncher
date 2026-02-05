@@ -50,6 +50,7 @@ apps:
       - bluez
       - udisks2
       - umu-support
+      - system-backup
 
 plugs:
   shared-memory:
