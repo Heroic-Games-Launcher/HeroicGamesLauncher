@@ -1,0 +1,6 @@
+{
+  "something": {
+    "this": "is not an array"
+  },
+  "this one": ["is fine"]
+}
