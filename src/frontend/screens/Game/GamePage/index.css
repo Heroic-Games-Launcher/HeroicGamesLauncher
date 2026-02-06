@@ -478,7 +478,7 @@
   .settings-icon {
     width: 44px;
     position: relative;
-    padding: 6px;
+    padding: 9px;
     color: var(--navbar-inactive);
     background-color: var(--navbar-background);
     border-radius: 10px;
