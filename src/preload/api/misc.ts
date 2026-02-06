@@ -36,6 +36,9 @@ export const logoutAmazon = makeHandlerInvoker('logoutAmazon')
 export const checkGameUpdates = makeHandlerInvoker('checkGameUpdates')
 export const refreshLibrary = makeHandlerInvoker('refreshLibrary')
 export const gamepadAction = makeHandlerInvoker('gamepadAction')
+export const gamepad = {
+  setInputsEnabled: frontendListenerSlot('gamepad.setInputsEnabled')
+}
 export const logError = makeListenerCaller('logError')
 export const logInfo = makeListenerCaller('logInfo')
 export const showConfigFileInFolder = makeListenerCaller('showConfigFileInFolder')
