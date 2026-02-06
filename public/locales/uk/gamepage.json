@@ -143,7 +143,7 @@
         "game-scores": "Оцінки гри",
         "installedInfo": "Інформація про встановлення",
         "protondb-compatibility-info": "Рейтинг сумісності ProtonDB",
-        "steamdeck-compatibility-info": "Сумісність із SteamDeck",
+        "steamdeck-compatibility-info": "Сумісність із Steam Deck",
         "third-party-app": "Сторонній менеджер"
     },
     "install": {

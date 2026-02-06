@@ -58,7 +58,7 @@
         "warning": {
             "title": "Warning"
         },
-        "wineprefix": "Select WinePrefix Folder",
+        "wineprefix": "Select Wine Prefix Folder",
         "yes": "YES"
     },
     "button": {
@@ -156,7 +156,7 @@
         "path": "Install Path",
         "protondb-compatibility-info": "Proton Compatibility Tier",
         "size": "Size",
-        "steamdeck-compatibility-info": "SteamDeck Compatibility",
+        "steamdeck-compatibility-info": "Steam Deck Compatibility",
         "syncsaves": "Sync Saves",
         "third-party-app": "Third-Party Manager",
         "version": "Version"
@@ -176,7 +176,7 @@
         "path": "Select Install Path",
         "path-not-writtable": "Warning: path might not be writable.",
         "space-after-install": "After Install",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine version"
     },
     "label": {
