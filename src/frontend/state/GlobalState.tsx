@@ -19,7 +19,7 @@ import {
   HelpItem
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
-import { getGameInfo, getLegendaryConfig, notify } from '../helpers'
+import { getGameInfo, getLegendaryConfig } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -739,35 +739,6 @@ class GlobalState extends PureComponent<Props> {
     }
   }
 
-  refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
-    if (this.state.platform === 'win32') {
-      return
-    }
-    window.api.logInfo('Refreshing wine downloader releases')
-    this.setState({ refreshing: true })
-    await window.api
-      .refreshWineVersionInfo(fetch)
-      .then(() => {
-        this.setState({
-          refreshing: false
-        })
-        return
-      })
-      .catch(async () => {
-        this.setState({ refreshing: false })
-        window.api.logError('Sync with upstream releases failed')
-
-        notify({
-          title: 'Wine-Manager',
-          body: t(
-            'notify.refresh.error',
-            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
-          )
-        })
-        return
-      })
-  }
-
   handleGameStatus = async ({
     appName,
     status,
@@ -1121,7 +1092,6 @@ class GlobalState extends PureComponent<Props> {
           isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          refreshWineVersionInfo: this.refreshWineVersionInfo,
           hiddenGames: {
             list: hiddenGames,
             add: this.hideGame,
