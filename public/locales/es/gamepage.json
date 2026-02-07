@@ -52,6 +52,9 @@
         "select-install-path": "Seleccionar Ruta de Instalación de Steam",
         "selectLaunchOption": {
             "body": "Por favor, selecciona una opción de arranque para este juego (se puede cambiar más tarde en la configuración del juego):"
+        },
+        "warning": {
+            "title": "Advertencia"
         }
     },
     "button": {
