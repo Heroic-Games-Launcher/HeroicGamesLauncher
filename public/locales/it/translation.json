@@ -910,7 +910,8 @@
         },
         "custom_css": {
             "title": "Stile CSS personalizzato"
-        }
+        },
+        "launchOptions": "Opzioni di avvio..."
     },
     "Settings": "Impostazioni",
     "sidebar": {
