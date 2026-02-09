@@ -126,9 +126,9 @@ export default function GamesSettings() {
         })
         setIsNative(isNative)
       }
-      getIsNative()
+      void getIsNative()
     }
-  }, [])
+  }, [gameInfo])
 
   const showOtherTab = shouldShowSettings('other')
   const showWineTab = shouldShowSettings('wine')
@@ -172,6 +172,9 @@ export default function GamesSettings() {
             value="gamescope"
           />
         )}
+        {isLinux && (
+          <Tab label={t('settings.navbar.legacy', 'Legacy')} value="legacy" />
+        )}
       </Tabs>
 
       <TabPanel value={value} index={'wine'}>
@@ -194,7 +197,7 @@ export default function GamesSettings() {
             <EnableMsync />
             <AdvertiseAvxForRosetta />
             <EnableFSR />
-            <EnableDXVKFpsLimit />
+            {isMac && <EnableDXVKFpsLimit />}
             <Tools />
           </>
         )}
@@ -243,6 +246,19 @@ export default function GamesSettings() {
       <TabPanel value={value} index={'gamescope'}>
         <Gamescope />
       </TabPanel>
+
+      {isLinux && (
+        <TabPanel value={value} index={'legacy'}>
+          <span className="defaults-hint">
+            <FontAwesomeIcon icon={faInfoCircle} />
+            {t(
+              'settings.legacy_warning',
+              'Warning: The settings on this tab are mostly deprecated and might not work at all.'
+            )}
+          </span>
+          <EnableDXVKFpsLimit />
+        </TabPanel>
+      )}
 
       {!isDefault && <FooterInfo />}
     </>
