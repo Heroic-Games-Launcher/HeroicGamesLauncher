@@ -18,7 +18,7 @@ const Achievements = ({ achievements }: Props) => {
 
   return (
     <div className="achievement-container">
-      {[...unlocked, ...locked].map((x: any, key: any) => {
+      {[...unlocked, ...locked].map((x: GameAchievement, key: number) => {
         return (
           <div className="achievement-item" key={key}>
             <img
