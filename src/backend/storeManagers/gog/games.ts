@@ -156,7 +156,10 @@ export async function getAchievements(
 
   const response: AxiosResponse | null = await axiosClient
     .get(url, {
-      headers: { Authorization: `Bearer ${credentials.access_token}`, 'X-Gog-Lc': lang }
+      headers: {
+        Authorization: `Bearer ${credentials.access_token}`,
+        'X-Gog-Lc': lang
+      }
     })
     .catch(() => {
       return null
