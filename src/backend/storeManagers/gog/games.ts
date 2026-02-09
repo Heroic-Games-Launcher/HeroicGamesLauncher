@@ -152,11 +152,11 @@ export async function getAchievements(
   if (!GOGUser.isLoggedIn()) return []
   const credentials = await GOGUser.getCredentials()
   if (!credentials) return []
-  const url = `https://gameplay.gog.com/clients/${appName}/users/${credentials?.user_id}/achievements?locale=${lang}`
+  const url = `https://gameplay.gog.com/clients/${appName}/users/${credentials?.user_id}/achievements`
 
   const response: AxiosResponse | null = await axiosClient
     .get(url, {
-      headers: { Authorization: `Bearer ${credentials.access_token}` }
+      headers: { Authorization: `Bearer ${credentials.access_token}`, 'X-Gog-Lc': lang }
     })
     .catch(() => {
       return null
