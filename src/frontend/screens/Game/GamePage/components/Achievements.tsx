@@ -29,10 +29,10 @@ const Achievements = ({ achievements }: Props) => {
               className={`achievement-text ${x.date_unlocked ? 'unlocked' : 'locked'}`}
             >
               <span className="achievement-title">
-                {x.visible ? x.name : 'Hidden Achievement'}
+                {x.visible || x.date_unlocked ? x.name : 'Hidden Achievement'}
               </span>
               <span className="achievement-desc">
-                {x.visible ? x.description : ''}
+                {x.visible || x.date_unlocked ? x.description : ''}
               </span>
               <span className="achievement-rarity">
                 {x.rarity_level_description} · {x.rarity}%
