@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import {
   ArrowBackIosNew,
@@ -176,6 +176,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     'info' | 'achievements' | 'extra' | 'requirements'
   >('info')
 
+  const skipFirst = useRef(hasAchievements)
   useEffect(() => {
     const updateAchievements = async () => {
       window.api.clearAchievementCache(appName)
@@ -183,7 +184,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       setAchievements(updatedAchievements)
       achievementStore.set(appName, updatedAchievements)
     }
-    if (!isPlaying) updateAchievements()
+    if (!isPlaying && !skipFirst.current) updateAchievements()
+    skipFirst.current = false
   }, [isPlaying])
 
   useEffect(() => {
