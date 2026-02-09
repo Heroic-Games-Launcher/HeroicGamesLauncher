@@ -95,6 +95,15 @@
   color: #5a5e5f;
 }
 
+.appName > span {
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.appName > span:hover {
+  color: var(--text-secondary);
+}
+
 .save > .material-icons {
   font-size: var(--text-2xl);
   margin-inline-start: 6px;

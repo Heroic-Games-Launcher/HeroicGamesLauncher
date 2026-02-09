@@ -871,6 +871,7 @@
             "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."
         },
         "open-config-file": "Open Config File",
+        "open-game-settings-file-hint": "Click to open game settings file",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",
