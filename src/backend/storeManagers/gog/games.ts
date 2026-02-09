@@ -24,7 +24,8 @@ import {
   sendProgressUpdate,
   sendGameStatusUpdate,
   getPathDiskSize,
-  getCometBin
+  getCometBin,
+  axiosClient
 } from '../../utils'
 import {
   ExtraInfo,
@@ -35,10 +36,12 @@ import {
   InstalledInfo,
   InstallPlatform,
   InstallProgress,
-  LaunchOption
+  LaunchOption,
+  GOGAchievement
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
+  achievementStore,
   configStore,
   installedGamesStore,
   playtimeSyncQueue,
@@ -88,7 +91,7 @@ import {
   getWineFlagsArray,
   isUmuSupported
 } from 'backend/utils/compatibility_layers'
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { isOnline, runOnceWhenOnline } from 'backend/online_monitor'
 import { readdir, readFile } from 'fs/promises'
 import { statSync } from 'fs'
@@ -137,6 +140,36 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
     changelog: productInfo?.data.changelog
   }
   return extra
+}
+
+export async function getAchievements(
+  appName: string,
+  lang = 'en-US'
+): Promise<GOGAchievement[]> {
+  const cached = achievementStore.get(appName)
+  if (cached) return cached
+
+  if (!GOGUser.isLoggedIn()) return []
+  const credentials = await GOGUser.getCredentials()
+  if (!credentials) return []
+  const url = `https://gameplay.gog.com/clients/${appName}/users/${credentials?.user_id}/achievements?locale=${lang}`
+
+  const response: AxiosResponse | null = await axiosClient
+    .get(url, {
+      headers: { Authorization: `Bearer ${credentials.access_token}` }
+    })
+    .catch(() => {
+      return null
+    })
+
+  if (!response) {
+    return []
+  }
+
+  const achievements: GOGAchievement[] = response.data.items
+  achievementStore.set(appName, achievements)
+
+  return achievements
 }
 
 export function getGameInfo(appName: string): GameInfo {

@@ -1,6 +1,7 @@
 import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '../ipc'
 
 export const clearCache = makeListenerCaller('clearCache')
+export const clearAchievementCache = makeListenerCaller('clearAchievementCache')
 export const resetHeroic = makeListenerCaller('resetHeroic')
 export const openWeblate = makeListenerCaller('openWeblate')
 export const changeLanguage = makeListenerCaller('changeLanguage')

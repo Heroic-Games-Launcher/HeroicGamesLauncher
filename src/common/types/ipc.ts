@@ -13,6 +13,7 @@ import type {
   DownloadManagerState,
   ExecResult,
   ExtraInfo,
+  GameAchievement,
   GameInfo,
   GamepadActionArgs,
   GameSettings,
@@ -76,6 +77,7 @@ interface SyncIPCFunctions {
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void
+  clearAchievementCache: (appName: string) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
@@ -163,6 +165,10 @@ interface AsyncIPCFunctions {
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
   getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getAchievements: (
+    appName: string,
+    lang?: string
+  ) => Promise<GameAchievement[]>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,

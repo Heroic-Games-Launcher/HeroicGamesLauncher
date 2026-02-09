@@ -1,25 +1,24 @@
-import { GameInfo } from 'common/types'
+import { GameAchievement } from 'common/types'
 
 interface Props {
-  gameInfo: GameInfo
+  achievements: GameAchievement[]
 }
 
-const Achievements = ({ gameInfo }: Props) => {
-  const { achievements } = gameInfo
-
-  if (!achievements || achievements.length === 0)
-    return <div className="achievement-container" />
-
-  achievements.sort((a, b) => b.rarity - a.rarity)
-  achievements.sort(
-    (a, b) =>
-      new Date(b.date_unlocked || '').getTime() -
-      new Date(a.date_unlocked || '').getTime()
-  )
+const Achievements = ({ achievements }: Props) => {
+  const unlocked = achievements
+    .filter((x) => x.date_unlocked !== null)
+    .sort(
+      (a, b) =>
+        new Date(b.date_unlocked || '').getTime() -
+        new Date(a.date_unlocked || '').getTime()
+    )
+  const locked = achievements
+    .filter((x) => x.date_unlocked === null)
+    .sort((a, b) => b.rarity - a.rarity)
 
   return (
     <div className="achievement-container">
-      {achievements.map((x, key) => {
+      {[...unlocked, ...locked].map((x: any, key: any) => {
         return (
           <div className="achievement-item" key={key}>
             <img
@@ -29,8 +28,12 @@ const Achievements = ({ gameInfo }: Props) => {
             <div
               className={`achievement-text ${x.date_unlocked ? 'unlocked' : 'locked'}`}
             >
-              <span className="achievement-title">{x.name}</span>
-              <span className="achievement-desc">{x.description}</span>
+              <span className="achievement-title">
+                {x.visible ? x.name : 'Hidden Achievement'}
+              </span>
+              <span className="achievement-desc">
+                {x.visible ? x.description : ''}
+              </span>
               <span className="achievement-rarity">
                 {x.rarity_level_description} · {x.rarity}%
               </span>

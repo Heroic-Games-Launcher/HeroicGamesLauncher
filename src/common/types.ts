@@ -171,6 +171,8 @@ export type GOGAchievement = {
   rarity_level_slug: string
 }
 
+export type GameAchievement = GOGAchievement
+
 export interface GameInfo {
   runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
   store_url?: string
@@ -201,7 +203,6 @@ export interface GameInfo {
   is_linux_native?: boolean
   browserUrl?: string
   description?: string
-  achievements?: GOGAchievement[]
   //used for store release versions. if remote !== local, then update
   version?: string
   dlcList?: GameMetadataInner[]
