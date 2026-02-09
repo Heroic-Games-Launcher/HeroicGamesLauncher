@@ -1,5 +1,5 @@
 patchedDependencies:
-  '@types/node@22.15.18': patches/@types__node@22.15.18.patch
+  '@types/node@22.19.3': patches/@types__node@22.19.3.patch
   howlongtobeat-js@1.0.2: patches/howlongtobeat-js@1.0.2.patch
 
 onlyBuiltDependencies:
