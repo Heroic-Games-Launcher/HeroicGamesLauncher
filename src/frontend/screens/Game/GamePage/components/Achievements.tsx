@@ -19,20 +19,27 @@ const Achievements = ({ achievements }: Props) => {
   return (
     <div className="achievement-container">
       {[...unlocked, ...locked].map((x: GameAchievement, key: number) => {
+        const isHiddenAchievement = !x.visible && !x.date_unlocked
         return (
-          <div className="achievement-item" key={key}>
-            <img
-              className={`achievement-icon rarity-${x.rarity_level_slug}`}
-              src={x.date_unlocked ? x.image_url_unlocked : x.image_url_locked}
-            />
+          <div
+            className={`achievement-item ${x.date_unlocked ? 'unlocked' : 'locked'} ${isHiddenAchievement ? 'hidden-achievement' : ''}`}
+            key={key}
+          >
             <div
-              className={`achievement-text ${x.date_unlocked ? 'unlocked' : 'locked'}`}
+              className={`achievement-icon rarity-${x.rarity_level_slug} ${!x.date_unlocked}`}
             >
+              <img
+                src={
+                  x.date_unlocked ? x.image_url_unlocked : x.image_url_locked
+                }
+              />
+            </div>
+            <div className="achievement-text">
               <span className="achievement-title">
-                {x.visible || x.date_unlocked ? x.name : 'Hidden Achievement'}
+                {isHiddenAchievement ? 'Hidden Achievement' : x.name}
               </span>
               <span className="achievement-desc">
-                {x.visible || x.date_unlocked ? x.description : ''}
+                {isHiddenAchievement ? '' : x.description}
               </span>
               <span className="achievement-rarity">
                 {x.rarity_level_description} · {x.rarity}%

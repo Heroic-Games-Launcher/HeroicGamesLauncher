@@ -479,9 +479,18 @@
               font-size: var(--text-xs);
               color: var(--neutral-04);
             }
+          }
 
-            &.locked {
+          &.locked {
+            .achievement-text {
               filter: opacity(0.7) contrast(0.7);
+            }
+          }
+          &.hidden-achievement {
+            .achievement-icon {
+              img {
+                filter: blur(4px) opacity(0.7);
+              }
             }
           }
         }
