@@ -968,8 +968,7 @@
         "description": "track.adtraction.com 도메인이 로드되지 않았거나 차단된 것 같습니다. Adtraction을 사용하면 GOG 스토어에서 구매하는 모든 상품이 Heroic을 재정적으로 지원합니다. 기여하고 싶다면 차단을 해제하는 것을 고려하세요."
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton은 Glorious Eggroll이 만든 프로톤 변형입니다. 스팀에서 사용하도록 만들어졌지만 스팀 외부의 일부 게임은 이 변형에서 더 잘 작동할 수 있습니다. 문제 해결을 위해 대부분 쓸모없는 로그를 제공합니다.",
-        "wine-ge": "Wine-GE-Proton은 Glorious Eggroll이 만든 와인 변형입니다. 스팀 외부에서 사용하기에 권장되는 와인입니다. 이는 문제 해결 시 유용한 로그를 제공합니다."
+        "proton-ge": "GE-Proton은 Glorious Eggroll이 만든 프로톤 변형입니다. 스팀에서 사용하도록 만들어졌지만 스팀 외부의 일부 게임은 이 변형에서 더 잘 작동할 수 있습니다. 문제 해결을 위해 대부분 쓸모없는 로그를 제공합니다."
     },
     "emptyLibrary": {
         "noResults": "현재 필터로는 결과가 생성되지 않았습니다."
