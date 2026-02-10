@@ -160,7 +160,9 @@ export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
     is_installed: false,
     save_folder: '',
     canRunOffline: true, // Assuming DRM-free as per zoom.py
-    is_mac_native: zoomGame.operating_systems.includes('osx'),
+    is_mac_native:
+      zoomGame.operating_systems.includes('osx') ||
+      zoomGame.operating_systems.includes('mac'),
     is_linux_native: zoomGame.operating_systems.includes('linux'),
     thirdPartyManagedApp: undefined
   }
@@ -200,8 +202,11 @@ export async function getInstallInfo(
   if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
+  const normalizedInstallPlatform =
+    installPlatform === 'osx' ? 'mac' : installPlatform
+
   logInfo(
-    `Getting install info for ${appName} on ${installPlatform}`,
+    `Getting install info for ${appName} on ${normalizedInstallPlatform}`,
     LogPrefix.Zoom
   )
 
@@ -215,11 +220,12 @@ export async function getInstallInfo(
     const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
       `${apiUrl}/li/game/${appName}/files`
     )
-    const files = filesRequest[installPlatform as keyof ZoomFilesResponse] || []
+    const files =
+      filesRequest[normalizedInstallPlatform as keyof ZoomFilesResponse] || []
 
     if (files.length === 0) {
       logWarning(
-        `No installer files found for ${appName} on platform ${installPlatform}`,
+        `No installer files found for ${appName} on platform ${normalizedInstallPlatform}`,
         LogPrefix.Zoom
       )
       return
