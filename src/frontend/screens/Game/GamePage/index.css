@@ -438,6 +438,63 @@
           }
         }
       }
+
+      .achievement-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 0.2rem;
+
+        .achievement-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .achievement-icon {
+            height: 60px;
+            width: 60px;
+            border-radius: var(--space-3xs);
+
+            &.rarity-epic {
+              box-shadow: 0 0 4px gold;
+            }
+            &.rarity-legendary {
+              box-shadow: 0 0 6px orangered;
+            }
+          }
+
+          .achievement-text {
+            display: flex;
+            flex-direction: column;
+
+            .achievement-title {
+              font-size: var(--text-md);
+              color: var(--text-title);
+            }
+            .achievement-desc {
+              font-size: var(--text-xs);
+              color: var(--neutral-05);
+            }
+            .achievement-rarity {
+              font-size: var(--text-xs);
+              color: var(--neutral-04);
+            }
+          }
+
+          &.locked {
+            .achievement-text {
+              filter: opacity(0.7) contrast(0.7);
+            }
+          }
+          &.hidden-achievement {
+            .achievement-icon {
+              img {
+                filter: blur(4px) opacity(0.7);
+              }
+            }
+          }
+        }
+      }
     }
 
     .anticheatInfo {

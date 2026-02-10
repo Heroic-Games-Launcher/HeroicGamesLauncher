@@ -54,7 +54,8 @@ import {
   sendGameStatusUpdate,
   checkRosettaInstall,
   writeConfig,
-  createNecessaryFolders
+  createNecessaryFolders,
+  clearAchievementCache
 } from './utils'
 import { startPlausible } from './utils/plausible'
 
@@ -154,6 +155,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { getAchievements } from './storeManagers/gog/games'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -703,6 +705,14 @@ addListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
+addListener('clearAchievementCache', (event, appName: string) => {
+  clearAchievementCache(appName)
+  logInfo(
+    'Achievement cache was cleared for game: ' + appName,
+    LogPrefix.Backend
+  )
+})
+
 addListener('resetHeroic', () => resetHeroic())
 
 addListener('createNewWindow', (e, url) => {
@@ -727,6 +737,10 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   // we return that here instead if the game info is empty
   if (!Object.keys(tempGameInfo).length) return null
   return tempGameInfo
+})
+
+addHandler('getAchievements', async (event, appName, lang?) => {
+  return getAchievements(appName, lang)
 })
 
 addHandler('getExtraInfo', async (event, appName, runner) => {
