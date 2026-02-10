@@ -286,6 +286,7 @@ export interface GameContextType {
     uninstalling: boolean
     updating: boolean
     win: boolean
+    notPlayableOffline: boolean
   }
   statusContext?: string
   status: Status | undefined
