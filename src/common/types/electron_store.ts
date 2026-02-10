@@ -117,6 +117,16 @@ export interface StoreStructure {
   migrationsStore: {
     appliedMigrations: string[]
   }
+  gameOverridesStore: {
+    overrides: Record<
+      string,
+      {
+        title?: string
+        art_cover?: string
+        art_square?: string
+      }
+    >
+  }
 }
 
 export type StoreOptions<T extends Record<string, unknown>> = Store.Options<T>
