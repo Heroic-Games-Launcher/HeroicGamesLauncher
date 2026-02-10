@@ -7,30 +7,50 @@
     justify-content: center;
     width: 100%;
     align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
 
     .FormControl__button {
-      width: fit-content;
+      background: var(--bg-secondary);
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      color: var(--text-primary);
       cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
 
       &:hover {
         color: var(--accent);
+        background: var(--bg-hover);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
     }
+  }
 
-    .MuiTabs-root {
-      .MuiTabs-scroller {
-        .MuiTabs-indicator {
-          background-color: var(--accent);
+  .MuiTabs-root {
+    min-height: 48px;
+    .MuiTabs-scroller {
+      .MuiTabs-indicator {
+        background-color: var(--accent);
+      }
+      .MuiTabs-flexContainer {
+        .MuiTab-root {
+          padding: 8px 16px;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 4px;
         }
-
-        .MuiTabs-flexContainer {
-          .MuiTab-root {
-            color: var(--text-default);
-          }
-
-          .Mui-selected {
-            color: var(--accent);
-          }
+        .Mui-selected {
+          background: var(--bg-primary);
+          color: white;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
       }
     }
@@ -42,20 +62,131 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    background: var(--bg-surface);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
 
     .gameListHeader {
+      display: grid;
       grid-template-columns: 3fr 4rem 2fr 1fr 10%;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--bg-primary);
+      border-radius: 12px 12px 0 0;
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        text-align: left;
+        font-weight: 600;
+        color: white;
+      }
+
       & span:last-child {
         justify-self: center;
       }
+    }
+
+    .wineItem {
+      display: grid;
+      grid-template-columns: 3fr 4rem 2fr 1fr 10%;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      &:last-child {
+        border-bottom: none;
+      }
+      .version {
+        font-weight: 600;
+      }
+      .notes {
+        font-style: italic;
+        color: var(--text-secondary);
+      }
+      .release {
+        text-align: center;
+      }
+      .size {
+        text-align: right;
+      }
+      .actions {
+        text-align: right;
+        display: flex;
+        gap: 8px;
+      }
+    }
+
+    .loadingState {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .errorState {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--error);
+      font-weight: 500;
     }
   }
 
   .infoBox {
     width: 80%;
-    margin: 0 auto;
-    & svg {
+    margin: 16px auto;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    svg {
       margin-inline-end: 0.5rem;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .gameListHeader {
+    grid-template-columns: 2.5fr 3rem 1.5fr 1fr 10%;
+  }
+}
+
+@media (max-width: 768px) {
+  .gameListHeader {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+      "version notes release size actions";
+  }
+  
+  .wineList {
+    margin-top: 24px;
+    margin: 24px var(--space-xl-fixed) 0;
+  }
+  
+  .tabsWrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .gameListHeader {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "version";
+  }
+  
+  .wineItem {
+    grid-template-columns: 1fr;
+    padding: 12px 16px;
+    text-align: center;
+    .actions {
+      justify-content: center;
     }
   }
 }

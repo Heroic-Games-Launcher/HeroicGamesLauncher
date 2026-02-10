@@ -56,13 +56,11 @@ export default function WineManager(): JSX.Element | null {
     value: 'gpt',
     enabled: !isLinux
   }
-
   const wineStagingMacOS: WineManagerUISettings = {
     type: 'Wine-Staging-macOS',
     value: 'winestagingmacos',
     enabled: !isLinux
   }
-
   const wineCrossover: WineManagerUISettings = {
     type: 'Wine-Crossover',
     value: 'winecrossover',
@@ -107,6 +105,9 @@ export default function WineManager(): JSX.Element | null {
   const [wineVersions, setWineVersions] = useState<WineVersionInfo[]>(
     getWineVersions(repository.type)
   )
+
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleChangeTab = (
     e: React.SyntheticEvent,
@@ -159,7 +160,7 @@ export default function WineManager(): JSX.Element | null {
       default:
         return <></>
     }
-  }, [repository])
+  }, [repository.type, t])
 
   return (
     <>
@@ -190,7 +191,11 @@ export default function WineManager(): JSX.Element | null {
             {/* refresh button is a tab to make navigation more predictable */}
             <Tab
               title={t('generic.library.refresh', 'Refresh Library')}
-              onClick={() => refreshWineVersionInfo(true)}
+              onClick={() => {
+                setLoading(true)
+                setError(null)
+                refreshWineVersionInfo(true)
+              }}
               sx={{ minWidth: 0 }}
               icon={
                 <FontAwesomeIcon
@@ -204,13 +209,18 @@ export default function WineManager(): JSX.Element | null {
           </Tabs>
         </span>
         {wineVersionExplanation}
-        {wineVersions.length ? (
-          <div
-            style={
-              !wineVersions.length ? { backgroundColor: 'transparent' } : {}
-            }
-            className="wineList"
-          >
+        {loading ? (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faSyncAlt} color={'orange'} />
+            {t('wine.manager.loading', 'Loading wine versions...')}
+          </div>
+        ) : error ? (
+          <div className="infoBox errorState">
+            <FontAwesomeIcon icon={faWarning} color={'red'} />
+            {error}
+          </div>
+        ) : wineVersions.length ? (
+          <div className="wineList">
             <div className="gameListHeader">
               <span>{t('info.version', 'Wine Version')}</span>
               <span>{t('wine.notes', 'Notes')}</span>
@@ -226,12 +236,12 @@ export default function WineManager(): JSX.Element | null {
               })}
           </div>
         ) : (
-          <h5 className="wineList">
+          <div className="infoBox errorState">
             {t(
               'wine.manager.not-found',
               'No Wine versions found. Please click the refresh icon to try again.'
             )}
-          </h5>
+          </div>
         )}
       </div>
     </>
