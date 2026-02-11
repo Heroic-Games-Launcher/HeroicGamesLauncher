@@ -196,8 +196,7 @@ const MainButton = ({
               is.syncing ||
               is.launching ||
               is.installingWinetricksPackages ||
-              is.installingRedist ||
-              is.notPlayableOffline
+              is.installingRedist
             }
             autoFocus={true}
             onClick={async () => handlePlay(gameInfo)}

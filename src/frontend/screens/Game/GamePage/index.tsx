@@ -541,7 +541,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       launchArguments,
       runner: gameInfo.runner,
       hasUpdate,
-      showDialogModal
+      showDialogModal,
+      notPlayableOffline
     })
   }
 

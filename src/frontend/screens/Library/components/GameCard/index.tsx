@@ -101,8 +101,13 @@ const GameCard = ({
 
   const navigate = useNavigate()
 
-  const { hiddenGames, favouriteGames, showDialogModal, activeController } =
-    useContext(ContextProvider)
+  const {
+    hiddenGames,
+    favouriteGames,
+    showDialogModal,
+    activeController,
+    connectivity
+  } = useContext(ContextProvider)
   const { openGameSettingsModal, openGameLogsModal, openGameCategoriesModal } =
     useGlobalState.keys(
       'openGameSettingsModal',
@@ -545,12 +550,15 @@ const GameCard = ({
 
     if (isInstalled) {
       setIsLaunching(true)
+      const isOffline = connectivity.status !== 'online'
+      const notPlayableOffline = isOffline && !gameInfo.canRunOffline
       return launch({
         appName,
         t,
         runner,
         hasUpdate,
-        showDialogModal
+        showDialogModal,
+        notPlayableOffline
       })
     }
     return
