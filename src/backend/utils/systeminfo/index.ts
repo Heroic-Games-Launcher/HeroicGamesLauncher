@@ -56,6 +56,7 @@ interface SystemInformation {
   steamDeckInfo: SteamDeckInfo
   isFlatpak: boolean
   isAppImage: boolean
+  displayServer: 'x11' | 'wayland' | 'unknown'
   softwareInUse: {
     heroicVersion: string
     legendaryVersion: string
@@ -109,6 +110,12 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
     steamDeckInfo: deckInfo,
     isFlatpak: !!process.env.FLATPAK_ID,
     isAppImage: !!process.env.APPIMAGE,
+    displayServer:
+      process.env.XDG_SESSION_TYPE === 'wayland'
+        ? 'wayland'
+        : process.env.XDG_SESSION_TYPE === 'x11'
+          ? 'x11'
+          : 'unknown',
     softwareInUse: {
       heroicVersion: getHeroicVersion(),
       legendaryVersion: legendaryVersion,
@@ -121,7 +128,7 @@ async function getSystemInfo(cache = true): Promise<SystemInformation> {
   return sysinfo
 }
 
-async function formatSystemInfo(info: SystemInformation): Promise<string> {
+function formatSystemInfo(info: SystemInformation): string {
   const isLinux: boolean = process.platform === 'linux'
   return `CPU: ${info.CPU.cores}x ${info.CPU.model}
 Memory: ${filesize(info.memory.total)} (used: ${filesize(info.memory.used)})
