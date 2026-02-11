@@ -134,6 +134,7 @@ export type DialogModalOptions = {
   showDialog?: boolean
   title?: string
   message?: string | React.ReactElement
+  dontShowWithoutGui?: boolean
   buttons?: Array<ButtonOptions>
   type?: DialogType
 }
@@ -179,6 +180,7 @@ declare global {
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
     isE2ETesting: boolean
+    isCLINoGui: boolean
   }
 
   interface WindowEventMap {
