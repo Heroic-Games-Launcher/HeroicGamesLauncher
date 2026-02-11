@@ -123,7 +123,7 @@ export default function GOGSyncSaves({
           }}
         />
       )}
-      <div className="infoBox saves-warning">
+      <div className="defaults-hint">
         <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
         {t(
           'settings.saves.warning',
