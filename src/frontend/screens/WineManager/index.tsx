@@ -179,6 +179,10 @@ export default function WineManager(): JSX.Element | null {
     configStore.set('wine-manager-settings', settings)
     setWineManagerSettings(settings)
     setShowSettingsModal(false)
+    // Refresh wine versions after saving settings
+    setLoading(true)
+    setError(null)
+    refreshWineVersionInfo(true)
   }
 
   return (
@@ -282,6 +286,7 @@ export default function WineManager(): JSX.Element | null {
       {showSettingsModal && (
         <WineManagerSettingsModal
           settings={wineManagerSettings}
+          isLinux={isLinux}
           onSave={onSaveSettings}
           onClose={() => setShowSettingsModal(false)}
         />

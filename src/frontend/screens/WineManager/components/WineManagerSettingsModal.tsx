@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Dialog,
@@ -6,19 +6,27 @@ import {
   DialogHeader,
   DialogFooter
 } from 'frontend/components/UI/Dialog'
-import { ToggleSwitch, TextInputField, InfoIcon } from 'frontend/components/UI'
-import { WineManagerUISettings } from 'common/types'
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  ToggleSwitch,
+  TextInputField,
+  InfoIcon,
+  SelectField
+} from 'frontend/components/UI'
+import { WineManagerUISettings, Type } from 'common/types'
+import { faPlus, faTrash, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { MenuItem } from '@mui/material'
 
 interface Props {
   settings: WineManagerUISettings[]
+  isLinux: boolean
   onSave: (settings: WineManagerUISettings[]) => void
   onClose: () => void
 }
 
 export default function WineManagerSettingsModal({
   settings,
+  isLinux,
   onSave,
   onClose
 }: Props) {
@@ -27,23 +35,61 @@ export default function WineManagerSettingsModal({
     useState<WineManagerUISettings[]>(settings)
   const [customRepo, setCustomRepo] = useState('')
 
+  const availableTypes: Type[] = useMemo(() => {
+    if (isLinux) {
+      return ['GE-Proton', 'Wine-GE', 'Proton', 'Wine-Lutris', 'Wine-Kron4ek']
+    }
+    return [
+      'Wine-Crossover',
+      'Wine-Staging-macOS',
+      'Game-Porting-Toolkit',
+      'Wine-Kron4ek'
+    ]
+  }, [isLinux])
+
+  const [selectedType, setSelectedType] = useState<Type>(availableTypes[0])
+  const [isCheckingRepo, setIsCheckingRepo] = useState(false)
+  const [errorText, setErrorText] = useState('')
+
   const toggleRepo = (index: number) => {
     const newSettings = [...localSettings]
     newSettings[index].enabled = !newSettings[index].enabled
     setLocalSettings(newSettings)
   }
 
-  const addCustomRepo = () => {
+  const addCustomRepo = async () => {
+    setErrorText('')
     if (!customRepo) return
-    // Simple validation for owner/repo format
-    if (!customRepo.includes('/')) return
+
+    const parts = customRepo.trim().split('/')
+    if (parts.length !== 2 || !parts[0] || !parts[1]) {
+      setErrorText(
+        t('wine.manager.invalid_repo_format', 'Invalid format. Use owner/repo.')
+      )
+      return
+    }
+
+    setIsCheckingRepo(true)
+    try {
+      const response = await fetch(`https://api.github.com/repos/${customRepo}`)
+      if (!response.ok) {
+        setErrorText(
+          t('wine.manager.repo_not_found', 'Repository not found on GitHub.')
+        )
+        setIsCheckingRepo(false)
+        return
+      }
+    } catch (e) {
+      // If we can't check (e.g. offline), we show a warning but let them add it anyway?
+      // Or just fail. Let's show a warning.
+      console.error('Failed to verify repository', e)
+    }
+    setIsCheckingRepo(false)
 
     const newRepo: WineManagerUISettings = {
-      type: 'GE-Proton', // Default type for custom repos from GE proton like ones
+      type: selectedType,
       value: `custom-${customRepo}`,
       enabled: true
-      // Custom repos might need more metadata depending on backend support,
-      // but for UI we treat them similarly
     }
     setLocalSettings([...localSettings, newRepo])
     setCustomRepo('')
@@ -63,30 +109,47 @@ export default function WineManagerSettingsModal({
       <DialogContent className="wineManagerSettingsContent">
         <div className="repoList">
           <h4>{t('wine.manager.repositories', 'Repositories')}</h4>
-          {localSettings.map((repo, index) => (
-            <div key={repo.value} className="repoItem">
-              <div className="repoInfo">
-                <span>{repo.type}</span>
-                <small>{repo.value}</small>
+          {localSettings.map((repo, index) => {
+            // Hide platform specific repos
+            const isRepoLinux =
+              repo.type === 'GE-Proton' ||
+              repo.type === 'Wine-GE' ||
+              repo.type === 'Proton' ||
+              repo.type === 'Wine-Lutris'
+            const isRepoMac =
+              repo.type === 'Wine-Crossover' ||
+              repo.type === 'Wine-Staging-macOS' ||
+              repo.type === 'Game-Porting-Toolkit'
+
+            if ((isLinux && isRepoMac) || (!isLinux && isRepoLinux)) {
+              return null
+            }
+
+            return (
+              <div key={repo.value} className="repoItem">
+                <div className="repoInfo">
+                  <span>{repo.type}</span>
+                  <small>{repo.value}</small>
+                </div>
+                <div className="repoActions">
+                  <ToggleSwitch
+                    htmlId={`toggle-${repo.value}`}
+                    handleChange={() => toggleRepo(index)}
+                    value={repo.enabled}
+                    title={t('wine.manager.enable', 'Enable')}
+                  />
+                  {repo.value.startsWith('custom-') && (
+                    <button
+                      className="removeBtn"
+                      onClick={() => removeRepo(index)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  )}
+                </div>
               </div>
-              <div className="repoActions">
-                <ToggleSwitch
-                  htmlId={`toggle-${repo.value}`}
-                  handleChange={() => toggleRepo(index)}
-                  value={repo.enabled}
-                  title={t('wine.manager.enable', 'Enable')}
-                />
-                {repo.value.startsWith('custom-') && (
-                  <button
-                    className="removeBtn"
-                    onClick={() => removeRepo(index)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <div className="addRepo">
@@ -94,14 +157,32 @@ export default function WineManagerSettingsModal({
             {t('wine.manager.add_custom', 'Add Custom GitHub Repository')}
           </h4>
           <div className="inputWrapper">
+            <SelectField
+              htmlId="custom-repo-type"
+              value={selectedType}
+              onChange={(e) => setSelectedType(e.target.value as Type)}
+              label={t('wine.manager.type', 'Type')}
+              extraClass="typeSelect"
+            >
+              {availableTypes.map((type) => (
+                <MenuItem key={type} value={type}>
+                  {type}
+                </MenuItem>
+              ))}
+            </SelectField>
             <TextInputField
               placeholder="owner/repo (e.g., GloriousEggroll/proton-ge-custom)"
               value={customRepo}
               onChange={(val) => setCustomRepo(val)}
               htmlId="wine-manager-custom-add"
+              label={t('wine.manager.repo_path', 'Repository Path')}
             />
-            <button className="addBtn" onClick={addCustomRepo}>
-              <FontAwesomeIcon icon={faPlus} />
+            <button
+              className="addBtn"
+              onClick={addCustomRepo}
+              disabled={isCheckingRepo}
+            >
+              <FontAwesomeIcon icon={isCheckingRepo ? faSyncAlt : faPlus} className={isCheckingRepo ? 'fa-spin' : ''} />
             </button>
             <InfoIcon
               text={t(
@@ -110,6 +191,7 @@ export default function WineManagerSettingsModal({
               )}
             />
           </div>
+          {errorText && <div className="errorText" style={{ color: 'var(--error)', marginTop: '8px', fontSize: '0.9rem' }}>{errorText}</div>}
         </div>
       </DialogContent>
       <DialogFooter>

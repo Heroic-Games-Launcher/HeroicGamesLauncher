@@ -232,7 +232,7 @@
 
 .wineManagerSettingsContent {
   padding: 24px;
-  min-width: 500px;
+  min-width: 600px;
 
   h4 {
     margin-top: 0;
@@ -289,10 +289,14 @@
   .addRepo {
     .inputWrapper {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      align-items: flex-end;
+      gap: 12px;
 
-      .TextInputWithIconField {
+      .typeSelect {
+        min-width: 180px;
+      }
+
+      .Field {
         flex-grow: 1;
       }
 
