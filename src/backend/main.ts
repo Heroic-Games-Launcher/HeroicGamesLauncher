@@ -467,6 +467,10 @@ if (!gotTheLock) {
 
 addListener('notify', (event, args) => notify(args))
 
+addHandler('showMessageBox', async (event, props) => {
+  return showDialogBoxModalAuto(props)
+})
+
 addOneTimeListener('frontendReady', () => {
   logInfo('Frontend Ready', LogPrefix.Backend)
   handleProtocol([openUrlArgument, ...process.argv])
