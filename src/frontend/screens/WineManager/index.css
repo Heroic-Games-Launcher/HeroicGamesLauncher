@@ -122,7 +122,7 @@
       .release,
       .size,
       .actions {
-        text-align: center;
+        text-align: left;
       }
     }
 
@@ -134,6 +134,7 @@
       border-bottom: 1px solid var(--border-color);
       align-items: center;
       transition: background 0.2s ease;
+      text-align: start;
 
       &:last-child {
         border-bottom: none;
@@ -231,8 +232,40 @@
 }
 
 .wineManagerSettingsContent {
-  padding: 24px;
   min-width: 600px;
+
+  .wineSettingsModalWrapper {
+    margin-inline-end: auto;
+    max-width: 513px;
+    display: flex;
+    flex-direction: column;
+    place-self: center;
+    place-items: flex-start;
+    width: 100%;
+    padding-bottom: var(--space-xs);
+
+    .Field {
+      padding: var(--space-md) 0px;
+      width: 100%;
+
+      label {
+        cursor: default;
+        margin-bottom: var(--space-md);
+        font: var(--font-secondary-regular);
+        font-size: var(--text-md);
+        line-height: var(--space-lg);
+        color: var(--text-secondary);
+        display: block;
+      }
+    }
+
+    .toggleRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
 
   h4 {
     margin-top: 0;
@@ -384,7 +417,8 @@
 
 @media (max-width: 480px) {
   .wineManagerSettingsContent {
-    min-width: 100%;
+    min-width: auto;
+    width: 100%;
     padding: 16px;
   }
 

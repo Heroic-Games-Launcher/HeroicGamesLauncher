@@ -285,9 +285,6 @@ export default function WineManager(): JSX.Element | null {
 
       {showSettingsModal && (
         <WineManagerSettingsModal
-          settings={wineManagerSettings}
-          isLinux={isLinux}
-          onSave={onSaveSettings}
           onClose={() => setShowSettingsModal(false)}
         />
       )}
