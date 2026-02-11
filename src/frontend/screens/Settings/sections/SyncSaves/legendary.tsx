@@ -81,7 +81,8 @@ export default function LegendarySyncSaves({
 
   if (!featureSupported) {
     return (
-      <div style={{ color: 'red' }}>
+      <div className="defaults-hint">
+        <FontAwesomeIcon icon={faExclamationTriangle} color={'yellow'} />
         {t(
           'settings.saves.not_supported',
           'This game does not support Cloud Saves.'

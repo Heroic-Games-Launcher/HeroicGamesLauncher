@@ -172,7 +172,7 @@ export default function GamesSettings() {
             value="gamescope"
           />
         )}
-        {isLinux && (
+        {isLinux && !isNative && (
           <Tab label={t('settings.navbar.legacy', 'Legacy')} value="legacy" />
         )}
       </Tabs>
