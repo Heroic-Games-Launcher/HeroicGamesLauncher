@@ -175,16 +175,6 @@ export default function WineManager(): JSX.Element | null {
     )
   }, [wineVersions, search])
 
-  const onSaveSettings = (settings: WineManagerUISettings[]) => {
-    configStore.set('wine-manager-settings', settings)
-    setWineManagerSettings(settings)
-    setShowSettingsModal(false)
-    // Refresh wine versions after saving settings
-    setLoading(true)
-    setError(null)
-    refreshWineVersionInfo(true)
-  }
-
   return (
     <>
       <div className="wineManagerHeader">
