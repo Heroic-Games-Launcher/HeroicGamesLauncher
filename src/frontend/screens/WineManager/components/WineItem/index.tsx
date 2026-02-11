@@ -136,7 +136,10 @@ const WineItem = ({
     <div className="wineItem">
       <span className="version">{version}</span>
       <div className="notes">
-        <SvgButton title={t('wine.notes', 'Notes')} onClick={() => openReleaseNotes()}>
+        <SvgButton
+          title={t('wine.notes', 'Notes')}
+          onClick={() => openReleaseNotes()}
+        >
           <FontAwesomeIcon icon={faExternalLink} />
         </SvgButton>
       </div>

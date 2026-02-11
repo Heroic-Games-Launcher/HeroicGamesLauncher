@@ -259,9 +259,13 @@ export default function WineManager(): JSX.Element | null {
         ) : filteredWineVersions.length ? (
           <div className="wineList">
             <div className="gameListHeader">
-              <span className="version">{t('info.version', 'Wine Version')}</span>
+              <span className="version">
+                {t('info.version', 'Wine Version')}
+              </span>
               <span className="notes">{t('wine.notes', 'Notes')}</span>
-              <span className="release">{t('wine.release', 'Release Date')}</span>
+              <span className="release">
+                {t('wine.release', 'Release Date')}
+              </span>
               <span className="size">{t('wine.size', 'Size')}</span>
               <span className="actions">{t('wine.actions', 'Action')}</span>
             </div>
@@ -274,7 +278,10 @@ export default function WineManager(): JSX.Element | null {
         ) : (
           <div className="infoBox errorState">
             {search
-              ? t('wine.manager.no-results', 'No Wine versions match your search.')
+              ? t(
+                  'wine.manager.no-results',
+                  'No Wine versions match your search.'
+                )
               : t(
                   'wine.manager.not-found',
                   'No Wine versions found. Please click the refresh icon to try again.'
@@ -284,9 +291,7 @@ export default function WineManager(): JSX.Element | null {
       </div>
 
       {showSettingsModal && (
-        <WineManagerSettingsModal
-          onClose={() => setShowSettingsModal(false)}
-        />
+        <WineManagerSettingsModal onClose={() => setShowSettingsModal(false)} />
       )}
     </>
   )
