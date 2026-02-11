@@ -6,9 +6,11 @@ import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import {
   faRepeat,
   faFolderOpen,
-  faExternalLink
+  faExternalLink,
+  faEllipsisVertical,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons'
-import { SvgButton } from 'frontend/components/UI'
+import { SvgButton, Dropdown } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 
 import { size } from 'frontend/helpers'
@@ -131,46 +133,44 @@ const WineItem = ({
   }
 
   return (
-    <div className="wineManagerListItem">
-      <span className="wineManagerTitleList">{version}</span>
-      <div className="wineManagerNotes">
-        <SvgButton title={'notes'} onClick={() => openReleaseNotes()}>
+    <div className="wineItem">
+      <span className="version">{version}</span>
+      <div className="notes">
+        <SvgButton title={t('wine.notes', 'Notes')} onClick={() => openReleaseNotes()}>
           <FontAwesomeIcon icon={faExternalLink} />
         </SvgButton>
       </div>
-      <div className="wineManagerListDate">{date}</div>
-      <div className="wineManagerListSize">{renderStatus()}</div>
-      <span className="icons">
-        {isInstalled && (
-          <SvgButton
-            className="material-icons settings folder"
-            onClick={openInstallDir}
-            title={`Open containing folder for ${version}`}
+      <div className="release">{date}</div>
+      <div className="size">{renderStatus()}</div>
+      <div className="actions">
+        {isInstalled && !isDownloading && !unZipping ? (
+          <Dropdown
+            buttonClass="actionsDropdownBtn"
+            title={<FontAwesomeIcon icon={faEllipsisVertical} />}
           >
-            <FontAwesomeIcon
-              icon={faFolderOpen}
-              data-testid="setinstallpathbutton"
-            />
+            <button className="dropdownItem" onClick={openInstallDir}>
+              <FontAwesomeIcon icon={faFolderOpen} />
+              {t('wine.manager.open_folder', 'Open Folder')}
+            </button>
+
+            {hasUpdate && (
+              <button className="dropdownItem" onClick={install}>
+                <FontAwesomeIcon icon={faRepeat} />
+                {t('wine.manager.update', 'Update')}
+              </button>
+            )}
+
+            <button className="dropdownItem" onClick={handleMainActionClick}>
+              <FontAwesomeIcon icon={faTrash} />
+              {t('generic.uninstall', 'Uninstall')}
+            </button>
+          </Dropdown>
+        ) : (
+          <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
+            {mainActionIcon()}
           </SvgButton>
         )}
-
-        {hasUpdate && (
-          <SvgButton
-            className="material-icons settings folder"
-            onClick={install}
-            title={`Update ${version}`}
-          >
-            <FontAwesomeIcon
-              icon={faRepeat}
-              data-testid="setinstallpathbutton"
-            />
-          </SvgButton>
-        )}
-
-        <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
-          {mainActionIcon()}
-        </SvgButton>
-      </span>
+      </div>
     </div>
   )
 }
