@@ -169,6 +169,7 @@ type LaunchOptions = {
   hasUpdate: boolean
   showDialogModal: (options: DialogModalOptions) => void
   args?: string[]
+  notPlayableOffline?: boolean
 }
 
 const launch = async ({
@@ -178,29 +179,33 @@ const launch = async ({
   runner,
   hasUpdate,
   showDialogModal,
-  args
+  args,
+  notPlayableOffline
 }: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
-  // First handle update dialog if needed
-  if (hasUpdate) {
-    const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
+  const proceedToLaunch = async () => {
+    // First handle update dialog if needed
+    if (hasUpdate) {
+      const { ignoreGameUpdates } =
+        await window.api.requestGameSettings(appName)
 
-    if (ignoreGameUpdates) {
-      // If updates are ignored, proceed to check launch options
-      return checkLaunchOptionsAndLaunch({
-        appName,
-        t,
-        launchArguments,
-        runner,
-        showDialogModal,
-        args,
-        skipVersionCheck: true,
-        hasUpdate
-      })
-    }
+      if (ignoreGameUpdates) {
+        // If updates are ignored, proceed to check launch options
+        return checkLaunchOptionsAndLaunch({
+          appName,
+          t,
+          launchArguments,
+          runner,
+          showDialogModal,
+          args,
+          skipVersionCheck: true,
+          hasUpdate
+        })
+      }
 
-    // promisifies the showDialogModal button click callbacks
-    const launchFinished = new Promise<{ status: 'done' | 'error' | 'abort' }>(
-      (res) => {
+      // promisifies the showDialogModal button click callbacks
+      const launchFinished = new Promise<{
+        status: 'done' | 'error' | 'abort'
+      }>((res) => {
         showDialogModal({
           message: t('gamepage:box.update.message'),
           title: t('gamepage:box.update.title'),
@@ -236,25 +241,55 @@ const launch = async ({
             }
           ]
         })
-      }
-    )
+      })
 
-    return launchFinished
+      return launchFinished
+    }
+
+    // No update needed, proceed to check launch options
+    return checkLaunchOptionsAndLaunch({
+      appName,
+      t,
+      launchArguments,
+      runner,
+      showDialogModal,
+      args,
+      hasUpdate
+    })
   }
 
-  // No update needed, proceed to check launch options
-  return checkLaunchOptionsAndLaunch({
-    appName,
-    t,
-    launchArguments,
-    runner,
-    showDialogModal,
-    args,
-    hasUpdate
-  })
+  if (notPlayableOffline) {
+    return new Promise((res) => {
+      showDialogModal({
+        title: t('gamepage:box.offline_warning.title', 'Offline Warning'),
+        message: t(
+          'gamepage:box.offline_warning.message',
+          'This game might not work properly offline. Do you want to play anyway?'
+        ),
+        type: 'MESSAGE',
+        buttons: [
+          {
+            text: t('box.ok', 'OK'),
+            onClick: () => {
+              showDialogModal({ showDialog: false })
+              res({ status: 'abort' })
+            }
+          },
+          {
+            text: t('gamepage:box.offline_warning.playAnyway', 'Play Anyway'),
+            onClick: async () => {
+              showDialogModal({ showDialog: false })
+              res(await proceedToLaunch())
+            }
+          }
+        ]
+      })
+    })
+  }
+
+  return proceedToLaunch()
 }
 
-// Helper function to check for launch options and show dialog if needed
 async function checkLaunchOptionsAndLaunch({
   appName,
   t,
