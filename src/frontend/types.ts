@@ -179,6 +179,7 @@ declare global {
     platform: NodeJS.Platform
     setCustomCSS: (cssString: string) => void
     isE2ETesting: boolean
+    isCLINoGui: boolean
   }
 
   interface WindowEventMap {
