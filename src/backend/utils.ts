@@ -318,7 +318,7 @@ async function errorHandler({
         return
       }
 
-      return showDialogBoxModalAuto({
+      await showDialogBoxModalAuto({
         title: plat,
         message: i18next.t(
           'box.error.legendary.generic',
@@ -327,10 +327,11 @@ async function errorHandler({
         ),
         type: 'ERROR'
       })
+      return
     }
 
     if (error.includes(expiredCredentials)) {
-      return showDialogBoxModalAuto({
+      await showDialogBoxModalAuto({
         title: plat,
         message: i18next.t(
           'box.error.credentials.message',
@@ -338,6 +339,7 @@ async function errorHandler({
         ),
         type: 'ERROR'
       })
+      return
     }
   }
 }
