@@ -76,6 +76,7 @@ function getCustomWinePaths(): Set<WineInstallation> {
  * Checks if a Wine version has the Wineserver executable and returns the path to it if it's present
  * @param wineBin The unquoted path to the Wine binary ('wine')
  * @returns The quoted path to wineserver, if present
+ * @internal
  */
 export function getWineExecs(wineBin: string): { wineserver: string } {
   const wineDir = dirname(wineBin)
@@ -91,6 +92,7 @@ export function getWineExecs(wineBin: string): { wineserver: string } {
  * Checks if a Wine version has lib/lib32 folders and returns the path to those if they're present
  * @param wineBin The unquoted path to the Wine binary ('wine')
  * @returns The paths to lib and lib32, if present
+ * @internal
  */
 export function getWineLibs(wineBin: string): {
   lib: string
