@@ -222,6 +222,7 @@ export default function DownloadDialog({
     } else {
       showDialogModal({
         title,
+        dontShowWithoutGui: true,
         message: (
           <Trans
             key="install.anticheat-warning.disabled_installation"
@@ -320,6 +321,7 @@ export default function DownloadDialog({
         ) {
           showDialogModal({
             showDialog: true,
+            dontShowWithoutGui: true,
             title: t(
               'label.game.not-installable-game',
               'Game is NOT Installable'

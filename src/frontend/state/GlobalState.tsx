@@ -467,6 +467,22 @@ class GlobalState extends PureComponent<Props> {
     showDialog = true,
     ...options
   }: DialogModalOptions) => {
+    if (showDialog && window.isCLINoGui) {
+      if (options.dontShowWithoutGui) {
+        return
+      }
+      void window.api
+        .showMessageBox({
+          title: options.title || '',
+          message: typeof options.message === 'string' ? options.message : '',
+          type: options.type || 'MESSAGE',
+          buttons: options.buttons?.map((b) => ({ text: String(b.text) }))
+        })
+        .then((result) => {
+          options.buttons?.[result]?.onClick?.()
+        })
+      return
+    }
     this.setState({
       dialogModalOptions: { showDialog, ...options }
     })
