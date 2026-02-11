@@ -1,7 +1,7 @@
 import React from 'react'
 import { Steps, StepsProps } from 'intro.js-react'
 import 'intro.js/introjs.css'
-import './Tour.scss'
+import './Tour.css'
 import { useTranslation } from 'react-i18next'
 import { useTour } from '../../state/TourContext'
 

@@ -1,15 +1,11 @@
-@mixin buttonDefaultStyle {
+.button,
+button {
   font-family: var(--secondary-font-family);
   border-radius: var(--space-3xs);
   color: #161616;
 }
 
-button {
-  @include buttonDefaultStyle();
-}
-
 .button {
-  @include buttonDefaultStyle();
   --line-height: 17px;
   cursor: pointer;
   padding: var(--space-sm);
