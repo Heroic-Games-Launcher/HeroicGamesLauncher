@@ -28,7 +28,13 @@ export const useLaunchOptions = ({
           appName,
           runner as Runner
         )
-        if (options.length === 1) {
+        const hasDefaultOption = options.some(
+          (option) =>
+            (option.type === undefined || option.type === 'basic') &&
+            'parameters' in option &&
+            option.parameters === ''
+        )
+        if (!hasDefaultOption) {
           options.unshift({
             name: 'Default',
             parameters: '',
