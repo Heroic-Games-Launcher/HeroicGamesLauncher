@@ -304,7 +304,7 @@
         },
         "gamemode": "Feral GameMode прымяняе аўтаматычныя і часовыя налады сістэмы падчас запуску гульняў. Уключэнне можа палепшыць прадукцыйнасць.",
         "general": "Сінхранізуйце з EGL, калі ўжо маюцца ўсталяваныя файлы Epic Games Launcher у іншым месцы і вы хочаце імпартаваць свае гульні, каб пазбегнуць іх паўторнага спампоўвання.",
-        "mangohud": "MangoHUD - гэта аверлэй, які адлюстроўвае і кантралюе FPS, тэмпературу, нагрузку CPU/GPU і іншыя рэсурсы сістэмы.",
+        "mangohud": "MangoHud - гэта аверлэй, які адлюстроўвае і кантралюе FPS, тэмпературу, нагрузку CPU/GPU і іншыя рэсурсы сістэмы.",
         "other": {
             "part4": "Выкарыстоўваць ",
             "part5": "Аргументы гульні",
@@ -688,7 +688,7 @@
                 "legendary": "Журнал Epic Games / Legendary"
             }
         },
-        "mangohud": "Уключыць Mangohud (трэба ўсталяваць Mangohud)",
+        "mangohud": "Уключыць MangoHud (трэба ўсталяваць MangoHud)",
         "manualsync": {
             "download": "Спампаваць",
             "forcedownload": "Прымусовае спампоўванне",
@@ -725,7 +725,7 @@
         "start-in-tray": "Пачаць у згорнутым выглядзе",
         "steamruntime": "Выкарыстоўвайце Steam Runtime",
         "winecrossoverbottle": "Бутэлька CrossOver",
-        "wineprefix": "Папка WinePrefix",
+        "wineprefix": "Папка Wine Prefix",
         "wineversion": "Версія Wine",
         "autoUpdateGames": "Аўтаматычнае абнаўленне гульняў",
         "ignoreGameUpdates": "Ігнараваць абнаўленні гульні",
@@ -755,8 +755,8 @@
             "enableUpscaling": "Уключыць маштабаванне",
             "missingMsg": "Нам не ўдалося знайсці gamescope у PATH. Усталюйце яго ці дадайце ў PATH.",
             "enableForceGrabCursor": "Уключыць прымусовае захопліванне курсора",
-            "missingMsgFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic.",
-            "warningFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic."
+            "missingMsgFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце Flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic.",
+            "warningFlatpak": "Нам не ўдалося знайсці сумяшчальную версію Gamescope. Усталюйце Flatpak-пакет Gamescope з асяроддзем выканання версіі 25.08 і перазапусціце Heroic."
         },
         "msync": "Уключыць Msync",
         "after-launch-script-path": "Выберыце скрыпт для запуску пасля выхаду з гульні",

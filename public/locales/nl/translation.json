@@ -297,7 +297,7 @@
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Synchroniseer met EGL als u ergens anders een werkende installatie van de Epic Games Launcher heeft en u uw games wilt importeren om te vermijden ze opnieuw te downloaden.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHud is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part4": "Gebruik de ",
             "part5": "Spel Argumenten",
@@ -347,7 +347,7 @@
             "settingsGame": "Toon alle instellingen voor een game.",
             "wineManager": "Installeer verschillende versies van Wine, Proton, Crossover, etc."
         },
-        "dxvknvapi": "DXVK-NVAPI is een implementatie van NVAPI gebouwd bovenop DXVK en het linux native NVAPI, het staat toe dat DLSS werkt met Nvidia GPUs.",
+        "dxvknvapi": "DXVK-NVAPI is een implementatie van NVAPI gebouwd bovenop DXVK en het Linux native NVAPI, het staat toe dat DLSS werkt met Nvidia GPUs.",
         "gamescope": {
             "fpsLimiter": "Het aantal frames gamescope moet naar limiteren. Bijvb. 60",
             "fpsLimiterNoFocus": "De framelimiet gamescope moet aanhouden als de game niet is gefocused.",
@@ -678,7 +678,7 @@
             },
             "show-uploads": "Laat geüploade logboek-bestanden zien"
         },
-        "mangohud": "Schakel Mangohud in (Mangohud moet zijn geïnstalleerd)",
+        "mangohud": "Schakel MangoHud in (MangoHud moet zijn geïnstalleerd)",
         "manualsync": {
             "download": "Download",
             "forcedownload": "Forceer Download",
@@ -715,7 +715,7 @@
         "start-in-tray": "Start Geminimaliseerd",
         "steamruntime": "Gebruik Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix map",
+        "wineprefix": "Wine Prefix map",
         "wineversion": "Wine Versie",
         "autoUpdateGames": "Games automatisch bijwerken",
         "ignoreGameUpdates": "Negeer game-updates",
@@ -730,7 +730,7 @@
             "enableLimiter": "Zet FPS limiteerder aan",
             "enableForceGrabCursor": "Schakel Force Grab Cursor in",
             "missingMsg": "We konden gamescope niet vinden op het PAD. Installeer het of voeg het toe aan het PAD.",
-            "warningFlatpak": "We konden geen compatibele versie vinden van Gamescope. Installeer Gamescope's flatpak-pakketje met runtime  {{runtimeVersion}} en herstart Heroic."
+            "warningFlatpak": "We konden geen compatibele versie vinden van Gamescope. Installeer Gamescope's Flatpak-pakketje met runtime  {{runtimeVersion}} en herstart Heroic."
         },
         "before-launch-script-path": "Selecteer een script om uit te voeren voordat een game is opgestart",
         "frameless-window": {

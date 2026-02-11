@@ -189,7 +189,7 @@
                 "message": "Heroic vyžaduje Rosettu, aby správně fungoval na macOS s čipy Apple Silicon. Prosím, nainstalujte ji z terminálu macOS pomocí následujícího příkazu: \"softwareupdate --install-rosetta\" a restartujte Heroic. "
             }
         },
-        "wineprefix": "Vyberte složku WinePrefix",
+        "wineprefix": "Vyberte složku Wine Prefix",
         "yes": "ANO",
         "dontShowAgain": "Znovu nezobrazovat",
         "choose-nile-binary": "Vyberte binární soubor Nile",
@@ -310,7 +310,7 @@
         },
         "gamemode": "Feral GameMode aplikuje automatické a dočasné úpravy systému při spouštění her. Povolení může zlepšit výkon.",
         "general": "Synchronizujte s EGL v případě, že máte funkční instalaci Epic Games Launcher jinde a chcete své hry importovat, abyste se vyhnuli jejich opětovnému stahování.",
-        "mangohud": "MangoHUD je překryvný program, který zobrazuje a monitoruje FPS, teploty, zatížení CPU/GPU a další systémové prostředky.",
+        "mangohud": "MangoHud je překryvný program, který zobrazuje a monitoruje FPS, teploty, zatížení CPU/GPU a další systémové prostředky.",
         "other": {
             "part4": "Použijte ",
             "part5": "Herní argumenty",
@@ -696,7 +696,7 @@
             },
             "show-uploads": "Zobrazit nahrané soubory protokolů"
         },
-        "mangohud": "Použít Mangohud (Mangohud musí být nainstalován)",
+        "mangohud": "Použít MangoHud (MangoHud musí být nainstalován)",
         "manualsync": {
             "download": "Stáhnout",
             "forcedownload": "Vynutit stahování",
@@ -733,7 +733,7 @@
         "start-in-tray": "Spustit minimalizované",
         "steamruntime": "Použít služby Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Složka WinePrefix",
+        "wineprefix": "Složka Wine Prefix",
         "wineversion": "Verze Wine",
         "autoUpdateGames": "Automaticky aktualizovat hry",
         "ignoreGameUpdates": "Ignorovat aktualizace hry",
@@ -757,8 +757,8 @@
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
             "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
-            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
-            "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
+            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček Flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
+            "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček Flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
         },
         "frameless-window": {
             "confirmation": {

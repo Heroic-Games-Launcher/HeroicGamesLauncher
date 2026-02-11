@@ -189,7 +189,7 @@
                 "message": "Heroic nõuab Rosettat, et Apple Siliconi kiipidega macOS süsteemidel korralikult toimida. Palun paigaldage see macOS-i terminalist kasutades järgmist käsku: \"softwareupdate --install-rosetta\" ja taaskäivitage Heroic. "
             }
         },
-        "wineprefix": "Valige WinePrefiksi kaust",
+        "wineprefix": "Valige Wine Prefiksi kaust",
         "yes": "JAH",
         "dontShowAgain": "Ära enam näita",
         "choose-nile-binary": "Valige Nile programm",
@@ -309,7 +309,7 @@
         },
         "gamemode": "Feral GameMode rakendab mängude käivitamisel süsteemile automaatseid ja ajutisi kohandusi. Lubamine võib parandada jõudlust.",
         "general": "Sünkroonige EGS-iga, kui teil on Epic Games Store'i töötav installatsioon mujal ja soovite oma mänge importida, et vältida nende uuesti allalaadimist.",
-        "mangohud": "MangoHUD on ülekate, mis kuvab ja jälgib FPS-i, temperatuure, CPU / GPU koormust ja muid süsteemiressursse.",
+        "mangohud": "MangoHud on ülekate, mis kuvab ja jälgib FPS-i, temperatuure, CPU / GPU koormust ja muid süsteemiressursse.",
         "other": {
             "part4": "Kasutage ",
             "part5": "Mängu argumendid",
@@ -695,7 +695,7 @@
             },
             "show-uploads": "Näita üles laetud logifaile"
         },
-        "mangohud": "Luba Mangohud (Mangohud peab olema paigaldatud)",
+        "mangohud": "Luba MangoHud (MangoHud peab olema paigaldatud)",
         "manualsync": {
             "download": "Laadi alla",
             "forcedownload": "Sunni alla laadima",
@@ -732,7 +732,7 @@
         "start-in-tray": "Käivita minimeeritult",
         "steamruntime": "Kasuta Steam Runtime'i",
         "winecrossoverbottle": "CrossOveri pudel",
-        "wineprefix": "WinePrefiksi kaust",
+        "wineprefix": "Wine Prefiksi kaust",
         "wineversion": "Wine'i versioon",
         "autoUpdateGames": "Mängude automaatne värskendamine",
         "ignoreGameUpdates": "Ignoreeri mängu värskendusi",
@@ -746,8 +746,8 @@
             "enableUpscaling": "Lubab ülesskaleerimist",
             "enableLimiter": "Luba FPS limiit",
             "enableForceGrabCursor": "Luba sunnitud kursori haaramine",
-            "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 25.08 ja taaskäivitage Heroic.",
-            "warningFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga {{runtimeVersion}} ja taaskäivitage Heroic."
+            "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i Flatpak käitusaja versiooniga 25.08 ja taaskäivitage Heroic.",
+            "warningFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i Flatpak käitusaja versiooniga {{runtimeVersion}} ja taaskäivitage Heroic."
         },
         "after-launch-script-path": "Vali skript, mida käitada pärast mängu sulgemist",
         "msync": "Luba Msync",
