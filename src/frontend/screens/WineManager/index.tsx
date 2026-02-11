@@ -14,9 +14,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCheck,
   faSyncAlt,
-  faWarning
+  faWarning,
+  faCog
 } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
+import SearchBar from 'frontend/components/UI/SearchBar'
+import WineManagerSettingsModal from './components/WineManagerSettingsModal'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import classNames from 'classnames'
 
@@ -108,13 +111,16 @@ export default function WineManager(): JSX.Element | null {
 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [showSettingsModal, setShowSettingsModal] = useState(false)
 
   const handleChangeTab = (
-    e: React.SyntheticEvent,
+    _e: React.SyntheticEvent,
     repo: WineManagerUISettings
   ) => {
     setRepository(repo)
     setWineVersions(getWineVersions(repo.type))
+    setSearch('')
   }
 
   useEffect(() => {
@@ -162,13 +168,55 @@ export default function WineManager(): JSX.Element | null {
     }
   }, [repository.type, t])
 
+  const filteredWineVersions = useMemo(() => {
+    if (!search) return wineVersions
+    return wineVersions.filter((v) =>
+      v.version.toLowerCase().includes(search.toLowerCase())
+    )
+  }, [wineVersions, search])
+
+  const onSaveSettings = (settings: WineManagerUISettings[]) => {
+    configStore.set('wine-manager-settings', settings)
+    setWineManagerSettings(settings)
+    setShowSettingsModal(false)
+  }
+
   return (
     <>
-      <h4 style={{ paddingTop: 'var(--space-md)' }}>
-        {t('wine.manager.title', 'Wine Manager')}
-      </h4>
+      <div className="wineManagerHeader">
+        <h4>{t('wine.manager.title', 'Wine Manager')}</h4>
+        <div className="wineManagerToolbar">
+          <SearchBar
+            placeholder={t('wine.manager.search', 'Search versions...')}
+            value={search}
+            onInputChanged={setSearch}
+          />
+          <button
+            className="toolbarBtn"
+            title={t('generic.library.refresh', 'Refresh Library')}
+            onClick={() => {
+              setLoading(true)
+              setError(null)
+              refreshWineVersionInfo(true)
+            }}
+          >
+            <FontAwesomeIcon
+              className={classNames({ 'fa-spin': refreshing })}
+              icon={faSyncAlt}
+            />
+          </button>
+          <button
+            className="toolbarBtn"
+            title={t('wine.manager.settings', 'Settings')}
+            onClick={() => setShowSettingsModal(true)}
+          >
+            <FontAwesomeIcon icon={faCog} />
+          </button>
+        </div>
+      </div>
+
       <div className="wineManager">
-        <span className="tabsWrapper">
+        <div className="tabsWrapper">
           <Tabs
             className="tabs"
             value={repository.value}
@@ -180,7 +228,8 @@ export default function WineManager(): JSX.Element | null {
                 handleChangeTab(e, repo)
               }
             }}
-            centered={true}
+            variant="scrollable"
+            scrollButtons="auto"
           >
             {wineManagerSettings.map(({ type, value, enabled }) => {
               if (enabled) {
@@ -188,27 +237,11 @@ export default function WineManager(): JSX.Element | null {
               }
               return null
             })}
-            {/* refresh button is a tab to make navigation more predictable */}
-            <Tab
-              title={t('generic.library.refresh', 'Refresh Library')}
-              onClick={() => {
-                setLoading(true)
-                setError(null)
-                refreshWineVersionInfo(true)
-              }}
-              sx={{ minWidth: 0 }}
-              icon={
-                <FontAwesomeIcon
-                  className={classNames('FormControl__segmentedFaIcon', {
-                    'fa-spin': refreshing
-                  })}
-                  icon={faSyncAlt}
-                />
-              }
-            />
           </Tabs>
-        </span>
+        </div>
+
         {wineVersionExplanation}
+
         {loading ? (
           <div className="infoBox">
             <FontAwesomeIcon icon={faSyncAlt} color={'orange'} />
@@ -219,31 +252,40 @@ export default function WineManager(): JSX.Element | null {
             <FontAwesomeIcon icon={faWarning} color={'red'} />
             {error}
           </div>
-        ) : wineVersions.length ? (
+        ) : filteredWineVersions.length ? (
           <div className="wineList">
             <div className="gameListHeader">
-              <span>{t('info.version', 'Wine Version')}</span>
-              <span>{t('wine.notes', 'Notes')}</span>
-              <span>{t('wine.release', 'Release Date')}</span>
-              <span>{t('wine.size', 'Size')}</span>
-              <span>{t('wine.actions', 'Action')}</span>
+              <span className="version">{t('info.version', 'Wine Version')}</span>
+              <span className="notes">{t('wine.notes', 'Notes')}</span>
+              <span className="release">{t('wine.release', 'Release Date')}</span>
+              <span className="size">{t('wine.size', 'Size')}</span>
+              <span className="actions">{t('wine.actions', 'Action')}</span>
             </div>
             {refreshing && <UpdateComponent />}
             {!refreshing &&
-              !!wineVersions.length &&
-              wineVersions.map((release) => {
+              filteredWineVersions.map((release) => {
                 return <WineItem key={release.version} {...release} />
               })}
           </div>
         ) : (
           <div className="infoBox errorState">
-            {t(
-              'wine.manager.not-found',
-              'No Wine versions found. Please click the refresh icon to try again.'
-            )}
+            {search
+              ? t('wine.manager.no-results', 'No Wine versions match your search.')
+              : t(
+                  'wine.manager.not-found',
+                  'No Wine versions found. Please click the refresh icon to try again.'
+                )}
           </div>
         )}
       </div>
+
+      {showSettingsModal && (
+        <WineManagerSettingsModal
+          settings={wineManagerSettings}
+          onSave={onSaveSettings}
+          onClose={() => setShowSettingsModal(false)}
+        />
+      )}
     </>
   )
 }
