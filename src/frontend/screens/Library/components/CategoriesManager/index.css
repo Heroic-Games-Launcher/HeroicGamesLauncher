@@ -47,5 +47,16 @@
       display: flex;
       gap: 0.5rem;
     }
+
+    details {
+      summary {
+        font-size: 1rem;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+    }
   }
 }
