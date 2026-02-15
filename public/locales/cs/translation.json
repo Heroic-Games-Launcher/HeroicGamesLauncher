@@ -373,7 +373,7 @@
         },
         "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon.",
         "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“.",
-        "dxfpslimit": "Nastavení limitu snímkové frekvence pro DXVK hry",
+        "dxfpslimit": "Nastaví omezení snímkové frekvence pro hry DirectX (9–12)",
         "advertiseAvxForRosetta": "Povoluje podporu instrukční sady AVX při spouštění her pro Windows prostřednictvím Rosetty na počítačích Apple Silicon Mac. To může být nutné u některých her, jako je Death Stranding, které podporu AVX vyžadují.",
         "wine-hdr": "HDR vylepšuje barvy tím, že poskytuje jasnější světla a hlubší kontrasty. Aby HDR fungovalo, musí jej podporovat jak displej, tak hra.",
         "wine-wayland": "Experimentální ovladač Wine-Wayland umožňuje spouštět hry nativně pod zobrazovacím protokolem Wayland. Jeho zapnutí může způsobit nefunkčnost některých her.",
@@ -809,8 +809,8 @@
                 "title": "Opravdu?",
                 "message": "Doporučujeme používat vlastní verze Proton (GE-Proton, Proton-CachyOS atd.) s Heroic, protože verze Proton od Valve neobsahují winetricks a protofixes. Pokud chcete, můžete je i tak použít."
             },
-            "label": "Povolit používání ne-GE Proton buildů pro spouštění her",
-            "wine_selector_warning": "Verze Protonu bez GE jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
+            "label": "Povolit spouštění her pomocí buildů Valve Proton",
+            "wine_selector_warning": "Verze Protonu od Valve jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
             "info_label": "Verze Valve Proton ignorovány"
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
