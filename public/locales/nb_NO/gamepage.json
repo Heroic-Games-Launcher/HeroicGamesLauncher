@@ -50,7 +50,18 @@
         "wineprefix": "Velg Wine-prefiksmappe",
         "yes": "Ja",
         "close": "Lukk",
-        "select-install-path": "Velg installasjonssti for Steam"
+        "select-install-path": "Velg installasjonssti for Steam",
+        "warning": {
+            "title": "Warning"
+        },
+        "selectLaunchOption": {
+            "body": "Velg et oppstartsalternativ for dette spillet (det kan endres senere i spillinnstillingene):",
+            "title": "Velg oppstartsalternativ ({{seconds}}s)"
+        },
+        "sync": {
+            "force_download_warning": "Lokale lagringsfiler vil slettes. Vil du fortsette?",
+            "force_upload_warning": "Lagrede filer på skyen vil overskrives. Vil du fortsette?"
+        }
     },
     "button": {
         "add_to_favourites": "Legg til i favoritter",
@@ -336,5 +347,6 @@
         }
     },
     "wikiLink": "Viktig informasjon om dette spillet: les dette:&nbsp;<1>Åpne side</1>",
-    "Open": "Åpne"
+    "Open": "Åpne",
+    "open-saves-folder": "Åpne mappen med spilllageringer"
 }
