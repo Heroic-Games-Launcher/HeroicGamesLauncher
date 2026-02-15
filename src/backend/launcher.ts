@@ -116,6 +116,13 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
 
   if (game.install.install_path && !existsSync(game.install.install_path)) {
     await askForceUninstall(runner, appName)
+
+    sendGameStatusUpdate({
+      appName,
+      runner,
+      status: 'done'
+    })
+
     return { status: 'abort' }
   }
 
