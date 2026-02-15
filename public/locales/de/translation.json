@@ -99,7 +99,11 @@
                 "title": "Fehler bei Steam"
             },
             "executableNotFound": "Ausführbare Datei nicht gefunden",
-            "executableNotFoundMessage": "Heroic konnte die Ausführdatei für dieses Spiel nicht finden. Bitte setze es manuell in den Spieleinstellungen."
+            "executableNotFoundMessage": "Heroic konnte die Ausführdatei für dieses Spiel nicht finden. Bitte setze es manuell in den Spieleinstellungen.",
+            "dxmt": {
+                "message": "Es ist ein Fehler beim Download von DXMT aufgetreten. Kontrolliere deine Internetverbindung!",
+                "title": "DXMT Download Fehler"
+            }
         },
         "info": {
             "update": {
@@ -434,7 +438,7 @@
         "message": "Melde dich bei deiner Plattform an. Du kannst auch bei mehreren gleichzeitig angemeldet sein.",
         "amazon": "Amazon-Anmeldung",
         "old-mac": "Deine macOS Version ist {{version}}. Um sich anzumelden wird mindestens macOS 12 benötigt.",
-        "zoom": "Zoom login"
+        "zoom": "Login mit Zoom"
     },
     "message": {
         "sync": "Synchronisation abgeschlossen",
@@ -742,7 +746,8 @@
             "automaticWinetricksFixes": "Bekannte Winetricks Hilfsskripte automatisch anwenden",
             "enableHelp": "Hilfe aktivieren",
             "umuSupport": "umu als Proton Laufzeit verwenden",
-            "cometSupport": "Comet Support"
+            "cometSupport": "Comet Support",
+            "zoomPlatform": "Zoom Platform-Support (nur Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -778,7 +783,7 @@
             "description": "Aktiviere ausführliche Logs"
         },
         "download-proton-steam": "Lade GE-Proton in das Steam-Verzeichnis herunter",
-        "advertiseAvxForRosetta": "Zeige AVX für Rosetta an.",
+        "advertiseAvxForRosetta": "Zeige AVX für Rosetta an",
         "dxfpslimit": "Beschränke die FPS für DirectX-Spiele",
         "allow_non_ge_proton": {
             "confirmation": {
@@ -789,14 +794,19 @@
             "confirmation": {
                 "title": "Sind sie sicher?",
                 "dont_show": "Zeig es ihnen nicht",
-                "show": "Ich verstehe, zeig es ihnen"
+                "show": "Ich verstehe, zeig es ihnen",
+                "message": "Wir empfehlen die Verwendung von benutzerdefinierten Proton-Forks (GE-Proton, Proton-CachyOS usw.) mit Heroic, da Valves Proton-Versionen keine Winetricks und Protofixes enthalten. Sie können diese dennoch verwenden, wenn Sie möchten."
             },
-            "wine_selector_warning": "Valves Protonversionen werden standardmäßig ignoriert, aktiviere sie in den erweiterten globalen Einstellungen"
+            "wine_selector_warning": "Valves Protonversionen werden standardmäßig ignoriert, aktiviere sie in den erweiterten globalen Einstellungen",
+            "info_label": "Valve Proton versionen ignoriert",
+            "label": "Erlaube die Verwendung von Valve Proton Versionen für Spiele"
         },
         "analyticsOptIn": "Übermittle anonyme Daten um die Weiterentwicklung von Heroic zu unterstützen",
         "hdr": "Aktiviere HDR",
         "wineWayland": "Aktiviere Wine-Wayland (Experimentell) (Die Wineversion muss es unterstützen)",
-        "WoW64": "Aktiviere WoW64 (Experimentell)"
+        "WoW64": "Aktiviere WoW64 (Experimentell)",
+        "no-tray-icon": "Infobereich Logo ausblenden (benötigt neustart)",
+        "scripts": "Skripte:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -965,7 +975,8 @@
             "unzipping": "Entpacke"
         },
         "release": "Veröffentlicht",
-        "size": "Größe"
+        "size": "Größe",
+        "notes": "Notizen"
     },
     "externalLink": {
         "warning": "Du bist dabei, einen externen Link zu öffnen.",
@@ -1049,29 +1060,29 @@
                 "title": "Willkommen bei Heroic!",
                 "title2": "Die Bibliothek verwalten!",
                 "intro": "Willkommen zur Heroic Bibliothek! Hier kannst du all deine Spiele aus verschiedenen Stores sehen.",
-                "intro2": "Falls die Bibliothek leer ist, melde dich bitte mit deinen Accounts über \"Konten verwalten\" in der Seitenleiste an oder füge deine eigenen Spiele mit  \"Spiel hinzufügen\" oben hinzu."
+                "intro2": "Falls die Bibliothek leer ist, melde dich bitte mit deinen Accounts über „Konten verwalten“ in der Seitenleiste an oder füge deine eigenen Spiele mit „Spiel hinzufügen“ oben hinzu."
             },
             "addGame": "Klicke hier, um deine eigenen Spiele oder Apps zur Bibliothek hinzuzufügen. Diese können alles mögliche sein, sogar Browser URLs.",
             "filters": "Filtere mit diesen Optionen deine Spiele nach Store, Plattform, Favoriten und mehr.",
             "steamInstall": "Benutze diesen Button, um die Windows-Version von Steam zu installieren und spiele deine Windows-Spiele mit Crossover, Wine oder GPTK.",
             "refresh": "Aktualisiere deine Bibliothek, um nach neuen Spielen oder Updates zu suchen.",
-            "gameCard": "Links-Click auf die Spielekarte um zur Spieleseite zu kommen und um details und Einstellungen anzupassen oder Rechts-Click um das Kontext Menü zu öffnen.",
+            "gameCard": "Klicke auf die Spielekarte um zur Spieleseite zu kommen und um Details und Einstellungen anzupassen oder Rechtsklick um das Kontextmenü zu öffnen.",
             "sortInstalled": "Sortiere Spiele nach Installationsstatus."
         },
         "done": "Fertig",
         "sidebar": {
             "accessibility": "Auf Einstellungen zur Barrierefreiheit zugreifen, um deine Erfahrung anzupassen.",
             "library": "Greife von einem Ort auf deine Spielbibliothek aus verschiedenen Stores zu.",
-            "downloads": "Verfolge und verwalte deine Spieleinstallationen.",
-            "wine": "Verwalte oder lade neue Version von Wine/Proton/GPTK um Windowsspiele auf Linux oder macOS spielen zu können.",
-            "version": "Überprüfe deine aktuelle Heroicversion, um die letzten Änderungen einzusehen und Zugang zur dieser Tour mithilfe des Hilfesymbol.",
+            "downloads": "Verfolge und verwalte deine Spielinstallationen.",
+            "wine": "Verwalte oder lade neue Version von Wine/Proton/GPTK herunter, um Windowsspiele auf Linux oder macOS spielen zu können.",
+            "version": "Überprüfe deine aktuelle Heroic-Version, um die letzten Änderungen einzusehen und starte diese Tour mithilfe des Hilfesymbols.",
             "welcome": {
                 "title": "Seitenleiste Navigation",
                 "intro": "Willkommen in Heroic! Diese Sidebar beinhaltet alle wichtigen Navigationspunkte um das Programm zu erkunden."
             },
-            "docs": "Lese die Dokumente für Hilfe, bei der Verwendung von Heroic.",
+            "docs": "Lese die Dokumentation für Hilfe, bei der Verwendung von Heroic.",
             "quit": "Verlasse die Applikation sicher.",
-            "accounts": "Verwalte deine verbundenen Accounts (Epic,GOG,Amazon), melde dich an oder ab von ihnen.",
+            "accounts": "Verwalte deine verbundenen Accounts (Epic, GOG, Amazon), melde dich von ihnen an oder ab.",
             "community": "Betrete unserer Community auf Discord und unterstütze Heroics Weiterentwicklung.",
             "stores": "Durchsuche und kaufe unterschiedliche Spiele in unterschiedlichen Shops unter anderem Epic,GOG und Amazon.",
             "login": "Log dich in deine Spielevertriebsplattformkonten ein um Zugriff auf deine Bibliothek zu bekommen.",
