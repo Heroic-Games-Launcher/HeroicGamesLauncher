@@ -47,7 +47,10 @@
         },
         "wineprefix": "Vyberte Priečinok WinePrefix",
         "yes": "ÁNO",
-        "close": "Zatvoriť"
+        "close": "Zatvoriť",
+        "warning": {
+            "title": "Warning"
+        }
     },
     "button": {
         "add_to_favourites": "Pridať do obľúbených",
