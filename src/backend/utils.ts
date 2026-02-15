@@ -283,6 +283,24 @@ type ErrorHandlerMessage = {
   runner: string
 }
 
+export async function askForceUninstall(runner: Runner, appName: string) {
+  const { title } = gameManagerMap[runner].getGameInfo(appName)
+  const { response } = await showMessageBox({
+    type: 'question',
+    title,
+    message: i18next.t(
+      'box.error.folder-not-found.title',
+      'Game folder appears to be deleted, do you want to remove the game from the installed list?'
+    ),
+    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+  })
+
+  if (response === 1) {
+    await gameManagerMap[runner].forceUninstall(appName)
+  }
+  return response
+}
+
 async function errorHandler({
   error,
   runner: r,
@@ -325,6 +343,11 @@ async function errorHandler({
   if (legendaryRegex.test(error)) {
     const MemoryError = 'MemoryError: '
     if (error.includes(MemoryError)) {
+      return
+    }
+
+    if (error.includes(deletedFolderMsg) && appName) {
+      await askForceUninstall(r.toLocaleLowerCase() as Runner, appName)
       return
     }
 
