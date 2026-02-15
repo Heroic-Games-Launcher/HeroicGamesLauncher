@@ -662,7 +662,8 @@
         },
         "systemInformation": {
             "copyToClipboard": "در کليپ بورد کپی شد!"
-        }
+        },
+        "launchOptions": "گزینه های اجرا..."
     },
     "Settings": "تنظیمات",
     "sidebar": {

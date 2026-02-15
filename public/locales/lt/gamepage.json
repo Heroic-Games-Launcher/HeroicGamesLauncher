@@ -49,7 +49,10 @@
             "title": "Stabdyti įdiegimą"
         },
         "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką",
-        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią"
+        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią",
+        "warning": {
+            "title": "Įspėjimas"
+        }
     },
     "button": {
         "add_to_favourites": "Pridėti prie mėgstamiausių",

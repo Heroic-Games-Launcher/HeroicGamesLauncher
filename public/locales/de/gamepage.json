@@ -8,7 +8,7 @@
         "choose": "Auswählen",
         "importpath": "Zu importierenden Spieleordner auswählen",
         "move": {
-            "message": "Dies kann einige Zeit in Anspruch nehmen, bist du dir sicher?",
+            "message": "Dies kann einige Zeit in Anspruch nehmen, möchtest du fortfahren?",
             "path": "Wähle, wohin du es verschieben möchtest",
             "title": "Spielinstallationsverzeichnis verschieben"
         },
@@ -49,7 +49,18 @@
         "wineprefix": "Wine-Präfix-Ordner auswählen",
         "yes": "JA",
         "close": "Schließen",
-        "select-install-path": "Wählen Sie den Steam-Installationspfad aus"
+        "select-install-path": "Wählen Sie den Steam-Installationspfad aus",
+        "warning": {
+            "title": "Warnung"
+        },
+        "selectLaunchOption": {
+            "body": "Bitte wähle eine Startoption für dieses Spiel aus (die Option kann später in den Spieleinstellungen geändert werden):",
+            "title": "Wähle Startoption ({{seconds}}s)"
+        },
+        "sync": {
+            "force_download_warning": "Lokale Speicherdaten werden gelöscht. Möchtest du trotzdem fortfahren?",
+            "force_upload_warning": "Cloud-Speicherdaten werden überschrieben. Möchtest du trotzdem fortfahren?"
+        }
     },
     "button": {
         "add_to_favourites": "Zu Favoriten hinzufügen",
@@ -339,5 +350,6 @@
             "resume": "Download fortsetzen"
         }
     },
-    "wikiLink": "Wichtige Informationen über dieses Spiel, lesen Sie hier:&nbsp;<1>Öffne Seite</1>"
+    "wikiLink": "Wichtige Informationen über dieses Spiel, lesen Sie hier:&nbsp;<1>Öffne Seite</1>",
+    "open-saves-folder": "Speicherdaten-Ordner öffnen"
 }

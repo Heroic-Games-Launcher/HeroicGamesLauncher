@@ -843,7 +843,8 @@
         },
         "experimental_features": {
             "title": "실험적 기능"
-        }
+        },
+        "launchOptions": "실행 옵션..."
     },
     "Settings": "설정",
     "sidebar": {

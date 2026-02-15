@@ -53,6 +53,9 @@
         "selectLaunchOption": {
             "title": "Seleccionar opción de arranque ({{seconds}}s)",
             "body": "Por favor, selecciona unha opción de arranque para este xogo (pódese cambiar máis adiante na configuración do xogo):"
+        },
+        "warning": {
+            "title": "Advertencia"
         }
     },
     "button": {

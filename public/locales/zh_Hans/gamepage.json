@@ -259,7 +259,7 @@
             "image": "粘贴图片 URL 计算机中选择一张",
             "title": "添加标题到你的“游戏/应用”",
             "url": "在此处粘贴游戏网址",
-            "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
+            "useragent": "在这里写一个定制的 user agent，将用于此浏览器应用/游戏"
         },
         "import-hint": {
             "title": "重要！你正添加一款来自 Epic/GOG/Amazon 的游戏吗？请点击此处！",

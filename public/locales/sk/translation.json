@@ -844,7 +844,8 @@
         },
         "gamescope": {
             "searchMsg": "Hľadá sa spustiteľný súbor pre gamescope."
-        }
+        },
+        "launchOptions": "Možnosti spustenia..."
     },
     "Settings": "nastavenie",
     "sidebar": {
