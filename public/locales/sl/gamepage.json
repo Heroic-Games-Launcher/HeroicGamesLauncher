@@ -52,6 +52,12 @@
         "selectLaunchOption": {
             "body": "Prosim izberite možnost zagona te igre (to lahko kasneje spremenite v nastavitvah):",
             "title": "Izberite možnost zagona ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Pozor"
+        },
+        "sync": {
+            "force_download_warning": "Lokalna shramba igre bo zavržena. Ali želite nadaljevati?"
         }
     },
     "button": {
@@ -149,7 +155,8 @@
         "protondb-compatibility-info": "Nivo združljivosti s Protonom",
         "size": "Velikost",
         "steamdeck-compatibility-info": "Združljivost s SteamDeckom",
-        "third-party-app": "Zunanji upravljalnik"
+        "third-party-app": "Zunanji upravljalnik",
+        "syncsaves": "Sinhroniziraj podatke"
     },
     "sideload": {
         "info": {
@@ -167,9 +174,29 @@
             "install_anyway": "Da (razumem, da večigralske funkcije ne bodo delovale)",
             "multiplayer_message": "Mehanizem proti goljufanju ne deluje ali je onemogočen. Igra bo mogoče delovala, a večigralske funkcije ne bodo. Jo vseeno želite namestiti?",
             "ok": "Da"
-        }
+        },
+        "not-enough-disk-space": "Ni dovolj prostora na disku",
+        "path": "Izberite pot za namestitev",
+        "space-after-install": "Po namestitvi",
+        "wineversion": "Wine različica"
     },
     "not_logged_in": {
-        "login": "Vpis"
+        "login": "Vpis",
+        "title": "Niste vpisani"
+    },
+    "label": {
+        "game": {
+            "not-installable-game": "Igre NI MOŽNO namestiti",
+            "third-party-game": "Igra zunanjega vira NI podprta"
+        },
+        "launching": "Zaganjam",
+        "playing": {
+            "start": "Igraj zdaj"
+        },
+        "winetricks": "Nalagam Winetricks pakete"
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "versionCollapsable": "Različica Igre"
     }
 }
