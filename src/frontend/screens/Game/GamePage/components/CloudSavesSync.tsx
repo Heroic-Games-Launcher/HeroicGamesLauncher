@@ -147,6 +147,9 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
     { name: tCommon('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
 
+  const disableActions =
+    gameInfo.runner === 'gog' ? gogSaves.length === 0 : !savesPath
+
   return (
     <>
       {showCloudSaveInfo && (
@@ -155,7 +158,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
             style={{
               color: autoSyncSaves ? '#07C5EF' : '',
               margin: 0,
-              cursor: 'pointer',
+              cursor: disableActions ? 'default' : 'pointer',
               textDecoration: 'underline'
             }}
             className="iconWithText"
@@ -176,51 +179,48 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
             )}
           </p>
 
-          <Menu
-            id="mouse-over-popover"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              onMouseLeave: handleClose,
-              style: { pointerEvents: 'auto' }
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left'
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left'
-            }}
-          >
-            {syncCommands.map((command) => (
-              <MenuItem
-                key={command.value}
-                onClick={() => handleSync(command.value as SyncType)}
-                disabled={isSyncing}
-              >
-                {command.name}
-              </MenuItem>
-            ))}
-            <Divider />
-            <MenuItem
-              onClick={handleOpenFolder}
-              disabled={
-                gameInfo.runner === 'gog' ? !gogSaves.length : !savesPath
-              }
+          {!disableActions && (
+            <Menu
+              id="mouse-over-popover"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                onMouseLeave: handleClose,
+                style: { pointerEvents: 'auto' }
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left'
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left'
+              }}
             >
-              {t('open-saves-folder', 'Open Saves Folder')}
-            </MenuItem>
-            <MenuItem style={{ paddingLeft: '4px' }}>
-              <ToggleSwitch
-                title={tCommon('setting.autosync')}
-                htmlId="autosync"
-                value={autoSyncSaves}
-                handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
-              />
-            </MenuItem>
-          </Menu>
+              {syncCommands.map((command) => (
+                <MenuItem
+                  key={command.value}
+                  onClick={() => handleSync(command.value as SyncType)}
+                  disabled={disableActions}
+                >
+                  {command.name}
+                </MenuItem>
+              ))}
+              <Divider />
+              <MenuItem onClick={handleOpenFolder} disabled={disableActions}>
+                {t('open-saves-folder', 'Open Saves Folder')}
+              </MenuItem>
+              <MenuItem style={{ paddingLeft: '4px' }}>
+                <ToggleSwitch
+                  title={tCommon('setting.autosync')}
+                  htmlId="autosync"
+                  value={autoSyncSaves}
+                  handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+                />
+              </MenuItem>
+            </Menu>
+          )}
         </>
       )}
       {!showCloudSaveInfo && (
