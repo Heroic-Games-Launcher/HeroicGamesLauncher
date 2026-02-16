@@ -149,6 +149,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     !!gameInfo.thirdPartyManagedApp &&
     !gameInfo.isEAManaged
   const isOffline = connectivity.status !== 'online'
+  const notPlayableOffline = isOffline && !gameInfo.canRunOffline
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
@@ -325,7 +326,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
         syncing: isSyncing,
         uninstalling: isUninstalling,
         updating: isUpdating,
-        win: isWin
+        win: isWin,
+        notPlayableOffline: notPlayableOffline
       },
       statusContext,
       status,
@@ -539,7 +541,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
       launchArguments,
       runner: gameInfo.runner,
       hasUpdate,
-      showDialogModal
+      showDialogModal,
+      notPlayableOffline
     })
   }
 
