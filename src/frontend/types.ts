@@ -136,6 +136,7 @@ export type DialogModalOptions = {
   message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
   type?: DialogType
+  onClose?: () => void
 }
 
 export interface ExternalLinkDialogOptions {

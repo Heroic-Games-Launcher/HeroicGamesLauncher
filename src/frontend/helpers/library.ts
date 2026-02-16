@@ -299,7 +299,6 @@ async function checkLaunchOptionsAndLaunch({
   }
 
   // If no launch options or only one option, launch directly
-  console.log({ availableLaunchOptions, hasDefaultOption })
   if (!availableLaunchOptions.length || availableLaunchOptions.length === 1) {
     // If there's exactly one option, use it
     const singleOption =
@@ -335,10 +334,11 @@ async function checkLaunchOptionsAndLaunch({
     let countdownInterval: NodeJS.Timeout | null = null
     let hasSelected = false
     let secondsRemaining = 10
+    let launchCanceled = false
 
     // Set up auto-select timeout (10 seconds)
     const autoSelectFirstOption = () => {
-      if (hasSelected) return
+      if (hasSelected || launchCanceled) return
 
       const firstOption = availableLaunchOptions[0]
 
@@ -371,6 +371,9 @@ async function checkLaunchOptionsAndLaunch({
 
     // Update the dialog title with countdown
     const updateCountdown = () => {
+      if (launchCanceled) {
+        return res({ status: 'done' })
+      }
       showDialogModal({
         message: t(
           'gamepage:box.selectLaunchOption.body',
@@ -381,7 +384,18 @@ async function checkLaunchOptionsAndLaunch({
           'Select Launch Option ({{seconds}}s)',
           { seconds: secondsRemaining }
         ),
-        buttons: optionButtons
+        buttons: optionButtons,
+        onClose: () => {
+          if (timeoutId) {
+            clearTimeout(timeoutId)
+          }
+          if (countdownInterval) {
+            clearInterval(countdownInterval)
+          }
+          showDialogModal({ showDialog: false })
+          launchCanceled = true
+          return res({ status: 'done' })
+        }
       })
     }
 
@@ -422,7 +436,10 @@ async function checkLaunchOptionsAndLaunch({
             value: option
           })
 
-          // Launch with the selected option
+          if (launchCanceled) {
+            return res({ status: 'done' })
+          }
+
           res(
             window.api.launch({
               appName,
@@ -442,7 +459,7 @@ async function checkLaunchOptionsAndLaunch({
     // Update countdown every second
     countdownInterval = setInterval(() => {
       secondsRemaining--
-      if (secondsRemaining > 0) {
+      if (secondsRemaining > 0 && !launchCanceled) {
         updateCountdown()
       }
     }, 1000)

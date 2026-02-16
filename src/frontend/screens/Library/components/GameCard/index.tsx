@@ -545,13 +545,14 @@ const GameCard = ({
 
     if (isInstalled) {
       setIsLaunching(true)
-      return launch({
+      await launch({
         appName,
         t,
         runner,
         hasUpdate,
         showDialogModal
       })
+      setIsLaunching(false)
     }
     return
   }
