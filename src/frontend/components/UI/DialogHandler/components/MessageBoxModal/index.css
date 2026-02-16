@@ -25,3 +25,10 @@
   margin-bottom: 10px;
   color: red;
 }
+
+.checkboxes-wrapper {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

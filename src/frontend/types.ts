@@ -130,12 +130,23 @@ export interface ContextType {
   setDisableAnimations: (value: boolean) => void
 }
 
+export interface DialogCheckbox {
+  id: string
+  label: string
+  value: boolean
+  onChange: (value: boolean) => void
+  disabled?: boolean
+  description?: string
+}
+
 export type DialogModalOptions = {
   showDialog?: boolean
   title?: string
   message?: string | React.ReactElement
+  checkboxes?: Array<DialogCheckbox>
   buttons?: Array<ButtonOptions>
   type?: DialogType
+  onClose?: () => void
 }
 
 export interface ExternalLinkDialogOptions {

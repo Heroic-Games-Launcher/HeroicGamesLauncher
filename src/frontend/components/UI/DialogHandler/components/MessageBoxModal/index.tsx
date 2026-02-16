@@ -9,12 +9,15 @@ import {
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { DialogType, ButtonOptions } from 'common/types'
+import { DialogCheckbox } from 'frontend/types'
+import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
 interface MessageBoxModalProps {
   title: string
   message: string | ReactElement
   onClose: () => void
   buttons: Array<ButtonOptions>
   type: DialogType
+  checkboxes?: Array<DialogCheckbox>
 }
 
 // This function proper parses the message from the backend and returns HTML code with an array of spans and paragraphs
@@ -71,8 +74,26 @@ const MessageBoxModal: React.FC<MessageBoxModalProps> = function (props) {
         )
         break
       default:
-        return props.message
-        break
+        return (
+          <>
+            {message}
+            {props.checkboxes && props.checkboxes.length > 0 && (
+              <div className="checkboxes-wrapper">
+                {props.checkboxes.map((checkbox) => (
+                  <ToggleSwitch
+                    key={checkbox.id}
+                    htmlId={checkbox.id}
+                    title={checkbox.label}
+                    value={checkbox.value}
+                    handleChange={() => checkbox.onChange(!checkbox.value)}
+                    disabled={checkbox.disabled}
+                    description={checkbox.description}
+                  />
+                ))}
+              </div>
+            )}
+          </>
+        )
     }
   }
 
