@@ -52,7 +52,6 @@ import {
   GameStatus,
   HLTB,
   InstalledInfo,
-  LaunchOptions,
   MainButton,
   ReportIssue,
   Requirements,

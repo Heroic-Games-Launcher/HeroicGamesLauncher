@@ -283,7 +283,23 @@ async function checkLaunchOptionsAndLaunch({
     runner
   )
 
+  const hasDefaultOption = availableLaunchOptions.some(
+    (option) =>
+      (option.type === undefined || option.type === 'basic') &&
+      'parameters' in option &&
+      option.parameters === ''
+  )
+
+  if (availableLaunchOptions.length === 1 && !hasDefaultOption) {
+    availableLaunchOptions.unshift({
+      name: 'Default',
+      parameters: '',
+      type: 'basic'
+    })
+  }
+
   // If no launch options or only one option, launch directly
+  console.log({ availableLaunchOptions, hasDefaultOption })
   if (!availableLaunchOptions.length || availableLaunchOptions.length === 1) {
     // If there's exactly one option, use it
     const singleOption =
