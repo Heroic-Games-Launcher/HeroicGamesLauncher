@@ -28,19 +28,6 @@ export const useLaunchOptions = ({
           appName,
           runner as Runner
         )
-        const hasDefaultOption = options.some(
-          (option) =>
-            (option.type === undefined || option.type === 'basic') &&
-            'parameters' in option &&
-            option.parameters === ''
-        )
-        if (options.length === 1 && !hasDefaultOption) {
-          options.unshift({
-            name: 'Default',
-            parameters: '',
-            type: 'basic'
-          })
-        }
         setLaunchOptions(options)
       } catch (error) {
         console.error('Error fetching launch options:', error)

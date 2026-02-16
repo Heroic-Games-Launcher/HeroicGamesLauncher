@@ -318,21 +318,6 @@ async function checkLaunchOptionsAndLaunch({
     runner
   )
 
-  const hasDefaultOption = availableLaunchOptions.some(
-    (option) =>
-      (option.type === undefined || option.type === 'basic') &&
-      'parameters' in option &&
-      option.parameters === ''
-  )
-
-  if (availableLaunchOptions.length === 1 && !hasDefaultOption) {
-    availableLaunchOptions.unshift({
-      name: 'Default',
-      parameters: '',
-      type: 'basic'
-    })
-  }
-
   // If no launch options or only one option, launch directly
   if (!availableLaunchOptions.length || availableLaunchOptions.length === 1) {
     // If there's exactly one option, use it
@@ -470,10 +455,6 @@ async function checkLaunchOptionsAndLaunch({
             key: 'lastUsedLaunchOption',
             value: option
           })
-
-          if (launchCanceled) {
-            return res({ status: 'done' })
-          }
 
           res(
             window.api.launch({
