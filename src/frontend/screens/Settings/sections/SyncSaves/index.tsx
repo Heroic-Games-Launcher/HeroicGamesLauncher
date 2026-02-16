@@ -16,6 +16,10 @@ const SyncSaves = () => {
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath, setSavesPath] = useSetting('savesPath', '')
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
+  const [enableSyncSaves, setEnableSyncSaves] = useSetting(
+    'enableSyncSaves',
+    false
+  )
 
   const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
   const [winePrefix] = useSetting('winePrefix', defaultWinePrefix + '/default')
@@ -40,6 +44,8 @@ const SyncSaves = () => {
         isProton={!isWin && wineVersion.type === 'proton'}
         winePrefix={winePrefix}
         syncCommands={syncCommands}
+        enableSyncSaves={enableSyncSaves}
+        setEnableSyncSaves={setEnableSyncSaves}
       />
     )
   }
@@ -54,6 +60,8 @@ const SyncSaves = () => {
         autoSyncSaves={autoSyncSaves}
         setAutoSyncSaves={setAutoSyncSaves}
         syncCommands={syncCommands}
+        enableSyncSaves={enableSyncSaves}
+        setEnableSyncSaves={setEnableSyncSaves}
       />
     )
   }

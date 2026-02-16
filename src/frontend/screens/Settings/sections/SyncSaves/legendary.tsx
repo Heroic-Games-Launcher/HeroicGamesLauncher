@@ -25,6 +25,8 @@ interface Props {
   winePrefix?: string
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
+  enableSyncSaves: boolean
+  setEnableSyncSaves: (value: boolean) => void
 }
 
 export default function LegendarySyncSaves({
@@ -35,7 +37,9 @@ export default function LegendarySyncSaves({
   isProton,
   winePrefix,
   syncCommands,
-  featureSupported
+  featureSupported,
+  enableSyncSaves,
+  setEnableSyncSaves
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -184,6 +188,17 @@ export default function LegendarySyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
+          {savesPath.length > 0 && (
+            <ToggleSwitch
+              htmlId="enableSyncSaves"
+              value={enableSyncSaves}
+              handleChange={() => setEnableSyncSaves(!enableSyncSaves)}
+              title={t(
+                'setting.enable-quick-sync-menu',
+                'Enable Quick Save-Sync Menu on game page'
+              )}
+            />
+          )}
           <InfoBox text="infobox.help">
             <ul>
               <li>{t('help.sync.part1')}</li>

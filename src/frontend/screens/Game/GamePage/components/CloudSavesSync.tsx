@@ -24,6 +24,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath] = useSetting('savesPath', '')
   const [gogSaves] = useSetting('gogSaves', [])
+  const [enableSyncSaves] = useSetting('enableSyncSaves', false)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [isSyncing, setIsSyncing] = useState(false)
@@ -147,9 +148,6 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
     { name: tCommon('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
 
-  const disableActions =
-    gameInfo.runner === 'gog' ? gogSaves.length === 0 : !savesPath
-
   return (
     <>
       {showCloudSaveInfo && (
@@ -158,7 +156,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
             style={{
               color: autoSyncSaves ? '#07C5EF' : '',
               margin: 0,
-              cursor: disableActions ? 'default' : 'pointer',
+              cursor: enableSyncSaves ? 'pointer' : 'default',
               textDecoration: 'underline'
             }}
             className="iconWithText"
@@ -179,7 +177,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
             )}
           </p>
 
-          {!disableActions && (
+          {enableSyncSaves && (
             <Menu
               id="mouse-over-popover"
               anchorEl={anchorEl}
@@ -202,13 +200,16 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
                 <MenuItem
                   key={command.value}
                   onClick={() => handleSync(command.value as SyncType)}
-                  disabled={disableActions}
+                  disabled={
+                    (gameInfo.runner === 'legendary' && savesPath === '') ||
+                    (gameInfo.runner === 'gog' && gogSaves.length === 0)
+                  }
                 >
                   {command.name}
                 </MenuItem>
               ))}
               <Divider />
-              <MenuItem onClick={handleOpenFolder} disabled={disableActions}>
+              <MenuItem onClick={handleOpenFolder}>
                 {t('open-saves-folder', 'Open Saves Folder')}
               </MenuItem>
               <MenuItem style={{ paddingLeft: '4px' }}>
