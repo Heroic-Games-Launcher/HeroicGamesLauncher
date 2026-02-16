@@ -279,6 +279,7 @@
     "error": "Error",
     "externalLink": {
         "dontAskAgain": "Don't ask again",
+        "title": "External Link",
         "warning": "You are about to open an external link."
     },
     "favourites": "Favourites",
