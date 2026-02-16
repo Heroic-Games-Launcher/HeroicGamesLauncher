@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LaunchOption, Runner } from 'common/types'
 
@@ -34,7 +34,7 @@ export const useLaunchOptions = ({
             'parameters' in option &&
             option.parameters === ''
         )
-        if (!hasDefaultOption) {
+        if (options.length === 1 && !hasDefaultOption) {
           options.unshift({
             name: 'Default',
             parameters: '',
@@ -53,7 +53,7 @@ export const useLaunchOptions = ({
   }, [appName, runner])
 
   // Find and set the previously used option
-  useEffect(() => {
+  useMemo(() => {
     if (lastUsedOption && launchOptions.length > 0) {
       const foundIndex = findLaunchOptionIndex(launchOptions, lastUsedOption)
       if (foundIndex !== -1 && foundIndex !== selectedIndex) {

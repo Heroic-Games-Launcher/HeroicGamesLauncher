@@ -7,7 +7,7 @@ import { LaunchOption } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { useLaunchOptions } from 'frontend/hooks/useLaunchOptions'
 
-const LaunchOptionSelector = () => {
+const LaunchOptionSelector = ({ showTitle = true }: { showTitle: boolean }) => {
   const { t } = useTranslation()
   const { isDefault, appName, gameInfo } = useContext(SettingsContext)
 
@@ -48,7 +48,9 @@ const LaunchOptionSelector = () => {
 
   return (
     <div className="Field">
-      <label>{t('settings.launchOptions', 'Launch Options')}</label>
+      {showTitle && (
+        <label>{t('settings.launchOptions', 'Launch Options')}</label>
+      )}
       <div className="SettingsField">
         <SelectField
           htmlId="launch_options_settings"

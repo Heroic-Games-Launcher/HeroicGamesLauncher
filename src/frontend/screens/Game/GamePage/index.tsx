@@ -68,6 +68,7 @@ import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -428,10 +429,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         handleUpdate={handleUpdate}
                         hasUpdate={hasUpdate}
                       />
-                      <LaunchOptions
-                        gameInfo={gameInfo}
-                        setLaunchArguments={setLaunchArguments}
-                      />
+                      <LaunchOptionSelector showTitle={false} />
                       <div className="buttons">
                         <MainButton
                           gameInfo={gameInfo}
