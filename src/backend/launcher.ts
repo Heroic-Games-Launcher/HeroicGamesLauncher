@@ -1240,33 +1240,36 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     ret.PROTON_BATTLEYE_RUNTIME = join(runtimePath, 'battleye_runtime')
   }
   if (wineVersion.type === 'proton') {
-    // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
-    ret.STEAM_COMPAT_APP_ID = process.env.STEAM_COMPAT_APP_ID || '0'
-    ret.SteamAppId = process.env.SteamAppId || ret.STEAM_COMPAT_APP_ID
-    // This sets the name of the log file given when setting PROTON_LOG=1
-    ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
-    ret.PROTON_LOG_DIR = flatpakHome
-    // add back default wine/dxvk debug logging
-    if (gameSettings?.verboseLogs) {
-      if (
-        !gameSettings?.enviromentOptions.find((env) => env.key === 'WINEDEBUG')
-      )
-        ret.WINEDEBUG = '+fixme'
-      if (
-        !gameSettings?.enviromentOptions.find(
-          (env) => env.key === 'DXVK_LOG_LEVEL'
+      // If we don't set this, GE-Proton tries to guess the AppID from the prefix path, which doesn't work in our case
+      // Only set Steam AppID variables when UMU is enabled
+      if (!gameSettings.disableUMU) {
+          ret.STEAM_COMPAT_APP_ID = process.env.STEAM_COMPAT_APP_ID || '0'
+          ret.SteamAppId = process.env.SteamAppId || ret.STEAM_COMPAT_APP_ID
+          // This sets the name of the log file given when setting PROTON_LOG=1
+          ret.SteamGameId = process.env.SteamGameId || `heroic-${gameId}`
+      }
+      
+      ret.PROTON_LOG_DIR = flatpakHome
+      // add back default wine/dxvk debug logging
+      if (gameSettings?.verboseLogs) {
+        if (
+          !gameSettings?.enviromentOptions.find((env) => env.key === 'WINEDEBUG')
         )
-      )
-        ret.DXVK_LOG_LEVEL = 'info'
-      if (
-        !gameSettings?.enviromentOptions.find(
-          (env) => env.key === 'VKD3D_DEBUG'
+          ret.WINEDEBUG = '+fixme'
+        if (
+          !gameSettings?.enviromentOptions.find(
+            (env) => env.key === 'DXVK_LOG_LEVEL'
+          )
         )
-      )
-        ret.VKD3D_DEBUG = 'fixme'
-    }
-  }
-  if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
+          ret.DXVK_LOG_LEVEL = 'info'
+        if (
+          !gameSettings?.enviromentOptions.find(
+            (env) => env.key === 'VKD3D_DEBUG'
+          )
+        )
+          ret.VKD3D_DEBUG = 'fixme'
+      }
+    }  if (!gameSettings.preferSystemLibs && wineVersion.type === 'wine') {
     // https://github.com/ValveSoftware/Proton/blob/4221d9ef07cc38209ff93dbbbca9473581a38255/proton#L1091-L1093
     if (!process.env.ORIG_LD_LIBRARY_PATH) {
       ret.ORIG_LD_LIBRARY_PATH = process.env.LD_LIBRARY_PATH ?? ''
