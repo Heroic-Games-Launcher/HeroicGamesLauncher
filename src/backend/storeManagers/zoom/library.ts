@@ -32,14 +32,14 @@ const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
 
 export async function initZoomLibraryManager() {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   await refresh()
 }
 
 export async function refresh(): Promise<ExecResult> {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return { stdout: '', stderr: 'Zoom Support disabled' }
 
   libraryCache.clear()
@@ -103,7 +103,7 @@ export async function refresh(): Promise<ExecResult> {
 }
 
 async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return []
 
   const cachedGames = libraryCache.get('library')
@@ -137,7 +137,7 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
 }
 
 export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return {} as GameInfo
 
   const object: GameInfo = {
@@ -168,14 +168,14 @@ export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
 }
 
 export function getGameInfo(slug: string): GameInfo | undefined {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   return library.get(slug) || getInstallAndGameInfo(slug)
 }
 
 export function getInstallAndGameInfo(slug: string): GameInfo | undefined {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   const lib = libraryStore.get('games', [])
@@ -197,7 +197,7 @@ export async function getInstallInfo(
   appName: string,
   installPlatform = 'windows'
 ): Promise<ZoomInstallInfo | undefined> {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   logInfo(
@@ -258,7 +258,7 @@ export async function getInstallInfo(
 }
 
 export function refreshInstalled() {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   const installedArray = installedGamesStore.get('installed', [])
@@ -272,7 +272,7 @@ export function refreshInstalled() {
 }
 
 export async function getExtras(appName: string) {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return { extras: [] }
 
   logDebug(`Fetching extras for Zoom ID ${appName}`, LogPrefix.Zoom)
@@ -312,7 +312,7 @@ export async function getInstallers(
   platform: string,
   appName: string
 ): Promise<ZoomDownloadFile[]> {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return []
 
   logDebug(
@@ -364,7 +364,7 @@ export async function changeGameInstallPath(
   appName: string,
   newInstallPath: string
 ): Promise<void> {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   const cachedGameData = library.get(appName)
@@ -387,7 +387,7 @@ export async function changeGameInstallPath(
 }
 
 export function installState() {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   logWarning(
@@ -397,7 +397,7 @@ export function installState() {
 }
 
 export function changeVersionPinnedStatus(appName: string, status: boolean) {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   const game = library.get(appName)
@@ -422,7 +422,7 @@ export function changeVersionPinnedStatus(appName: string, status: boolean) {
 }
 
 export async function listUpdateableGames(): Promise<string[]> {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return []
 
   logWarning('listUpdateableGames not implemented for Zoom', LogPrefix.Zoom)
@@ -430,7 +430,7 @@ export async function listUpdateableGames(): Promise<string[]> {
 }
 
 export function updateGameInLibrary(game: GameInfo) {
-  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+  if (!GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
     return
 
   if (library.has(game.app_name)) {

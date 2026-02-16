@@ -14,6 +14,12 @@
             "title": "Move Game Installation"
         },
         "no": "NO",
+        "offline_warning": {
+            "message": "This game might not work properly offline. Do you want to play anyway?",
+            "playAnyway": "Play Anyway",
+            "title": "Offline Warning"
+        },
+        "ok": "OK",
         "repair": {
             "message": "Do you want to try to repair this game? This can take a long time.",
             "title": "Verify and Repair"
