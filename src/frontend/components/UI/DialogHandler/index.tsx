@@ -23,7 +23,7 @@ export default function DialogHandler() {
     return () => {
       removeHandleShowDialogListener()
     }
-  }, [])
+  }, [showDialogModal])
 
   return (
     <>
@@ -32,8 +32,12 @@ export default function DialogHandler() {
           type={dialogModalOptions.type ? dialogModalOptions.type : 'MESSAGE'}
           title={dialogModalOptions.title ? dialogModalOptions.title : ''}
           message={dialogModalOptions.message ? dialogModalOptions.message : ''}
+          checkboxes={dialogModalOptions.checkboxes}
           buttons={dialogModalOptions.buttons ? dialogModalOptions.buttons : []}
-          onClose={() => showDialogModal({ showDialog: false })}
+          onClose={() => {
+            showDialogModal({ showDialog: false })
+            dialogModalOptions.onClose?.()
+          }}
         />
       )}
     </>
