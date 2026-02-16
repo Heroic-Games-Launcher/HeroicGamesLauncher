@@ -19,7 +19,7 @@ const Achievements = ({ achievements }: Props) => {
   return (
     <div className="achievement-container">
       {[...unlocked, ...locked].map((x: GameAchievement, key: number) => {
-        const isHiddenAchievement = !x.visible && !x.date_unlocked
+        const isHiddenAchievement = !x.date_unlocked && !x.visible
         return (
           <div
             className={`achievement-item ${x.date_unlocked ? 'unlocked' : 'locked'} ${isHiddenAchievement ? 'hidden-achievement' : ''}`}
