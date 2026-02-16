@@ -24,8 +24,8 @@ interface Props {
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
   isLinuxNative: boolean
-  enableSyncSaves: boolean
-  setEnableSyncSaves: (value: boolean) => void
+  enableQuickSavesMenu: boolean
+  setenableQuickSavesMenu: (value: boolean) => void
 }
 
 export default function GOGSyncSaves({
@@ -36,8 +36,8 @@ export default function GOGSyncSaves({
   syncCommands,
   featureSupported,
   isLinuxNative,
-  enableSyncSaves,
-  setEnableSyncSaves
+  enableQuickSavesMenu,
+  setenableQuickSavesMenu
 }: Props) {
   const [isLoading, setIsLoading] = useState(true)
   const [isSyncing, setIsSyncing] = useState(false)
@@ -224,9 +224,11 @@ export default function GOGSyncSaves({
           />
           {gogSaves.some((save) => save.location.length > 0) && (
             <ToggleSwitch
-              htmlId="enableSyncSaves"
-              value={enableSyncSaves}
-              handleChange={() => setEnableSyncSaves(!enableSyncSaves)}
+              htmlId="enableQuickSavesMenu"
+              value={enableQuickSavesMenu}
+              handleChange={() =>
+                setenableQuickSavesMenu(!enableQuickSavesMenu)
+              }
               title={t(
                 'setting.enable-quick-sync-menu',
                 'Enable Quick Save-Sync Menu on game page'

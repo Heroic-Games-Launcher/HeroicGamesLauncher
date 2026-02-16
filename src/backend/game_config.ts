@@ -280,7 +280,7 @@ class GameConfigV0 extends GameConfig {
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,
-      enableSyncSaves: false
+      enableQuickSavesMenu: false
     } as GameSettings
 
     let gameSettings = {} as GameSettings

@@ -24,7 +24,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath] = useSetting('savesPath', '')
   const [gogSaves] = useSetting('gogSaves', [])
-  const [enableSyncSaves] = useSetting('enableSyncSaves', false)
+  const [enableQuickSavesMenu] = useSetting('enableQuickSavesMenu', false)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [isSyncing, setIsSyncing] = useState(false)
@@ -156,7 +156,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
             style={{
               color: autoSyncSaves ? '#07C5EF' : '',
               margin: 0,
-              cursor: enableSyncSaves ? 'pointer' : 'default',
+              cursor: enableQuickSavesMenu ? 'pointer' : 'default',
               textDecoration: 'underline'
             }}
             className="iconWithText"
@@ -177,7 +177,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
             )}
           </p>
 
-          {enableSyncSaves && (
+          {enableQuickSavesMenu && (
             <Menu
               id="mouse-over-popover"
               anchorEl={anchorEl}
