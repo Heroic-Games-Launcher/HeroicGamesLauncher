@@ -140,6 +140,7 @@
 
 .bulk-edit-textarea {
   width: 100%;
+  min-width: 500px;
   min-height: 300px;
   background: var(--background);
   border: 1px solid var(--accent);
@@ -154,4 +155,16 @@
   color: var(--danger);
   font-size: var(--text-xs);
   margin-bottom: var(--space-xs-fixed);
+}
+
+.bulk-edit-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.bulk-edit-actions {
+  display: flex;
+  gap: var(--space-sm-fixed);
+  margin-top: var(--space-md-fixed);
+  justify-content: flex-end;
 }

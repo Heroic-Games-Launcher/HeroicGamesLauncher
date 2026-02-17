@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField, SvgButton } from 'frontend/components/UI'
-import { EnviromentVariable } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import EditIcon from '@mui/icons-material/Edit'
@@ -13,6 +12,8 @@ import ListAltIcon from '@mui/icons-material/ListAlt'
 import CloseIcon from '@mui/icons-material/Close'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import './EnvVariablesTable.css'
+
+import BulkEditModal from './BulkEditModal'
 
 const EnvVariablesTable = () => {
   const { t } = useTranslation()
@@ -27,48 +28,65 @@ const EnvVariablesTable = () => {
   const [editValue, setEditValue] = useState('')
   const [newKey, setNewKey] = useState('')
   const [newValue, setNewValue] = useState('')
-  const [keyError, setKeyError] = useState('')
+  const [formError, setFormError] = useState('')
 
-  const validateKey = (key: string): string => {
-    if (key.match(/=/)) {
+  const validateEnv = (key: string, value: string): string => {
+    const trimmedKey = key.trim()
+    const trimmedValue = value.trim()
+
+    if (!trimmedKey) {
+      return t(
+        'options.env_variables.error.empty_key',
+        "Variable names can't be empty"
+      )
+    }
+    if (trimmedKey.match(/=/)) {
       return t(
         'options.env_variables.error.equal_sign_in_key',
         `Variable names can't contain the "=" sign`
       )
     }
-    if (key.match(/ /)) {
+    if (trimmedKey.match(/ /)) {
       return t(
         'options.env_variables.error.space_in_key',
         `Variable names can't contain spaces`
+      )
+    }
+    if (!trimmedValue) {
+      return t(
+        'options.env_variables.error.empty_value',
+        "Value can't be empty"
       )
     }
     return ''
   }
 
   const handleAdd = () => {
-    const error = validateKey(newKey)
+    const error = validateEnv(newKey, newValue)
     if (error) {
-      setKeyError(error)
-      return
-    }
-    if (!newKey.trim()) {
-      setKeyError(
-        t(
-          'options.env_variables.error.empty_key',
-          "Variable names can't be empty"
-        )
-      )
+      setFormError(error)
       return
     }
 
-    const updated = [
-      ...environmentOptions,
-      { key: newKey.trim(), value: newValue.trim() }
-    ]
+    const trimmedKey = newKey.trim()
+    const trimmedValue = newValue.trim()
+
+    // Overwrite if exists
+    const existingIndex = environmentOptions.findIndex(
+      (env) => env.key === trimmedKey
+    )
+
+    const updated = [...environmentOptions]
+    if (existingIndex >= 0) {
+      updated[existingIndex] = { key: trimmedKey, value: trimmedValue }
+    } else {
+      updated.push({ key: trimmedKey, value: trimmedValue })
+    }
+
     setEnvironmentOptions(updated)
     setNewKey('')
     setNewValue('')
-    setKeyError('')
+    setFormError('')
   }
 
   const handleRemove = (index: number) => {
@@ -89,19 +107,20 @@ const EnvVariablesTable = () => {
     setEditingIndex(index)
     setEditKey(environmentOptions[index].key)
     setEditValue(environmentOptions[index].value)
+    setFormError('')
   }
 
   const handleSaveEdit = (index: number) => {
-    const error = validateKey(editKey)
+    const error = validateEnv(editKey, editValue)
     if (error) {
-      setKeyError(error)
+      setFormError(error)
       return
     }
     const updated = [...environmentOptions]
     updated[index] = { key: editKey.trim(), value: editValue.trim() }
     setEnvironmentOptions(updated)
     setEditingIndex(null)
-    setKeyError('')
+    setFormError('')
   }
 
   const handleClearAll = () => {
@@ -129,43 +148,20 @@ const EnvVariablesTable = () => {
       .map((env) => `${env.key}=${env.value}`)
       .join('\n')
 
-    let currentText = bulkText
-
     showDialogModal({
       title: t('options.env_variables.bulk_edit', 'Bulk Edit'),
       message: (
-        <textarea
-          className="bulk-edit-textarea"
-          defaultValue={bulkText}
-          onChange={(e) => {
-            currentText = e.target.value
+        <BulkEditModal
+          initialValue={bulkText}
+          t={t}
+          onCancel={() => showDialogModal({ showDialog: false })}
+          onSave={(envs) => {
+            setEnvironmentOptions(envs)
+            showDialogModal({ showDialog: false })
           }}
-          placeholder="KEY=VALUE"
         />
       ),
-      buttons: [
-        {
-          text: t('common.cancel', 'Cancel'),
-          onClick: () => {}
-        },
-        {
-          text: t('common.save', 'Save'),
-          onClick: () => {
-            const lines = currentText.split('\n')
-            const newEnvs: EnviromentVariable[] = []
-            lines.forEach((line) => {
-              if (line.includes('=')) {
-                const [key, ...rest] = line.split('=')
-                newEnvs.push({
-                  key: key.trim(),
-                  value: rest.join('=').trim()
-                })
-              }
-            })
-            setEnvironmentOptions(newEnvs)
-          }
-        }
-      ]
+      buttons: []
     })
   }
 
@@ -217,15 +213,29 @@ const EnvVariablesTable = () => {
                   <TextInputField
                     htmlId={`edit-key-${index}`}
                     value={editKey}
-                    onChange={setEditKey}
+                    onChange={(val) => {
+                      if (val.includes('=') && !editValue) {
+                        const [key, ...rest] = val.split('=')
+                        setEditKey(key)
+                        setEditValue(rest.join('='))
+                      } else {
+                        setEditKey(val)
+                      }
+                      setFormError(validateEnv(val, editValue))
+                    }}
                     placeholder="NAME"
-                    extraClass={keyError ? 'error' : ''}
+                    extraClass={
+                      formError && editingIndex === index ? 'error' : ''
+                    }
                   />
                   <span className="env-var-connector">=</span>
                   <TextInputField
                     htmlId={`edit-value-${index}`}
                     value={editValue}
-                    onChange={setEditValue}
+                    onChange={(val) => {
+                      setEditValue(val)
+                      setFormError(validateEnv(editKey, val))
+                    }}
                     placeholder="VALUE"
                   />
                 </div>
@@ -250,7 +260,12 @@ const EnvVariablesTable = () => {
                         fontSize="large"
                       />
                     </SvgButton>
-                    <SvgButton onClick={() => setEditingIndex(null)}>
+                    <SvgButton
+                      onClick={() => {
+                        setEditingIndex(null)
+                        setFormError('')
+                      }}
+                    >
                       <CloseIcon
                         style={{ color: 'var(--danger)' }}
                         fontSize="large"
@@ -285,8 +300,6 @@ const EnvVariablesTable = () => {
         })}
       </div>
 
-      {keyError && <div className="env-var-error">{keyError}</div>}
-
       <div className="env-var-add-section">
         <span className="env-var-add-title">
           {t('options.env_variables.add_new', 'Add New Variable')}
@@ -296,22 +309,40 @@ const EnvVariablesTable = () => {
             htmlId="new-env-key"
             value={newKey}
             onChange={(val) => {
-              setNewKey(val)
-              setKeyError('')
+              if (val.includes('=') && !newValue) {
+                const [key, ...rest] = val.split('=')
+                setNewKey(key)
+                setNewValue(rest.join('='))
+                setFormError(validateEnv(key, rest.join('=')))
+              } else {
+                setNewKey(val)
+                setFormError(validateEnv(val, newValue))
+              }
             }}
             placeholder={t('options.advanced.placeHolderKey', 'NAME')}
+            extraClass={formError && editingIndex === null ? 'error' : ''}
           />
           <span className="env-var-connector">=</span>
           <TextInputField
             htmlId="new-env-value"
             value={newValue}
-            onChange={setNewValue}
+            onChange={(val) => {
+              setNewValue(val)
+              setFormError(validateEnv(newKey, val))
+            }}
             placeholder={t('options.advanced.placeHolderValue', 'VALUE')}
           />
-          <SvgButton onClick={handleAdd} className="is-primary">
+          <SvgButton
+            onClick={handleAdd}
+            className="is-primary"
+            disabled={!newKey.trim() || !newValue.trim()}
+          >
             <AddBoxIcon style={{ color: 'var(--success)' }} fontSize="large" />
           </SvgButton>
         </div>
+        {formError && editingIndex === null && (
+          <div className="env-var-error">{formError}</div>
+        )}
       </div>
 
       {envVariablesInfo}
