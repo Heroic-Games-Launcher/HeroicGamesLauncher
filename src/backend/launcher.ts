@@ -789,6 +789,8 @@ async function prepareWineLaunch(
   failureReason?: string
   envVars?: Record<string, string>
 }> {
+  const gameInfo = gameManagerMap[runner].getGameInfo(appName)
+
   const gameSettings =
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
@@ -849,6 +851,12 @@ async function prepareWineLaunch(
       checkEOSOverlayStatusPromise.then(
         (enabled) => `EOS Overlay: ${enabled ? 'Enabled' : 'Not enabled'}`
       )
+    )
+  }
+
+  if (gameSettings.offlineMode && !gameInfo.canRunOffline) {
+    void logWriter.logWarning(
+      "Warning: 'offlineMode' is turned on but the game does not support offline mode. Disable 'offlineMode' in the game's settings."
     )
   }
 
@@ -967,9 +975,7 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
-  const { folder_name: installFolderName } =
-    gameManagerMap[runner].getGameInfo(appName)
-  const envVars = setupWineEnvVars(gameSettings, installFolderName)
+  const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)
 
   return { success: true, envVars: envVars }
 }
