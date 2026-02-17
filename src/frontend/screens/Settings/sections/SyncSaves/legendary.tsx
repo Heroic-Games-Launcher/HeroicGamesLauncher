@@ -25,8 +25,7 @@ interface Props {
   winePrefix?: string
   syncCommands: { name: string; value: string }[]
   featureSupported: boolean
-  enableQuickSavesMenu: boolean
-  setenableQuickSavesMenu: (value: boolean) => void
+  quickSavesToggle: () => React.ReactNode
 }
 
 export default function LegendarySyncSaves({
@@ -38,8 +37,7 @@ export default function LegendarySyncSaves({
   winePrefix,
   syncCommands,
   featureSupported,
-  enableQuickSavesMenu,
-  setenableQuickSavesMenu
+  quickSavesToggle: QuickSavesToggle
 }: Props) {
   const [isSyncing, setIsSyncing] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -188,19 +186,7 @@ export default function LegendarySyncSaves({
             handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
             title={t('setting.autosync')}
           />
-          {savesPath.length > 0 && (
-            <ToggleSwitch
-              htmlId="enableQuickSavesMenu"
-              value={enableQuickSavesMenu}
-              handleChange={() =>
-                setenableQuickSavesMenu(!enableQuickSavesMenu)
-              }
-              title={t(
-                'setting.enable-quick-sync-menu',
-                'Enable Quick Save-Sync Menu on game page'
-              )}
-            />
-          )}
+          {savesPath.length > 0 ? <QuickSavesToggle /> : null}
           <InfoBox text="infobox.help">
             <ul>
               <li>{t('help.sync.part1')}</li>

@@ -6,6 +6,7 @@ import SettingsContext from '../../SettingsContext'
 import { defaultWineVersion } from '../..'
 import GOGSyncSaves from './gog'
 import LegendarySyncSaves from './legendary'
+import { ToggleSwitch } from 'frontend/components/UI'
 
 const SyncSaves = () => {
   const { t } = useTranslation()
@@ -16,7 +17,7 @@ const SyncSaves = () => {
   const [autoSyncSaves, setAutoSyncSaves] = useSetting('autoSyncSaves', false)
   const [savesPath, setSavesPath] = useSetting('savesPath', '')
   const [gogSavesLocations, setGogSavesLocations] = useSetting('gogSaves', [])
-  const [enableQuickSavesMenu, setenableQuickSavesMenu] = useSetting(
+  const [enableQuickSavesMenu, setEnableQuickSavesMenu] = useSetting(
     'enableQuickSavesMenu',
     false
   )
@@ -33,6 +34,20 @@ const SyncSaves = () => {
     { name: t('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
 
+  const QuickSavesToggle = () => {
+    return (
+      <ToggleSwitch
+        htmlId="enableQuickSavesMenu"
+        value={enableQuickSavesMenu}
+        handleChange={() => setEnableQuickSavesMenu(!enableQuickSavesMenu)}
+        title={t(
+          'setting.enable-quick-sync-menu',
+          'Enable Quick Save-Sync Menu on game page'
+        )}
+      />
+    )
+  }
+
   if (runner === 'legendary') {
     return (
       <LegendarySyncSaves
@@ -44,8 +59,7 @@ const SyncSaves = () => {
         isProton={!isWin && wineVersion.type === 'proton'}
         winePrefix={winePrefix}
         syncCommands={syncCommands}
-        enableQuickSavesMenu={enableQuickSavesMenu}
-        setenableQuickSavesMenu={setenableQuickSavesMenu}
+        quickSavesToggle={QuickSavesToggle}
       />
     )
   }
@@ -60,8 +74,7 @@ const SyncSaves = () => {
         autoSyncSaves={autoSyncSaves}
         setAutoSyncSaves={setAutoSyncSaves}
         syncCommands={syncCommands}
-        enableQuickSavesMenu={enableQuickSavesMenu}
-        setenableQuickSavesMenu={setenableQuickSavesMenu}
+        quickSavesToggle={QuickSavesToggle}
       />
     )
   }
