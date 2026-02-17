@@ -254,7 +254,10 @@ const EnvVariablesTable = () => {
               <div className="env-var-row-actions">
                 {isEditing ? (
                   <>
-                    <SvgButton onClick={() => handleSaveEdit(index)}>
+                    <SvgButton
+                      onClick={() => handleSaveEdit(index)}
+                      disabled={!editKey.trim() || !editValue.trim()}
+                    >
                       <SaveIcon
                         style={{ color: 'var(--success)' }}
                         fontSize="large"

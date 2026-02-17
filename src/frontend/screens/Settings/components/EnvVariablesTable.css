@@ -168,3 +168,9 @@
   margin-top: var(--space-md-fixed);
   justify-content: flex-end;
 }
+
+.env-vars-container .svg-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(1);
+}
