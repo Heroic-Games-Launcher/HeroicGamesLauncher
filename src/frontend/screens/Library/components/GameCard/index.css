@@ -54,7 +54,8 @@
   position: absolute;
   z-index: 5;
   top: 5px;
-  right: 5px;
+  right: 28%;
+  left: 5px;
   font-weight: var(--semibold);
   background: var(--status-info);
   padding: var(--space-3xs) var(--space-2xs);
