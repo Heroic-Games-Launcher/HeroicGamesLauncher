@@ -25,8 +25,7 @@ import {
   GameSettings,
   Runner,
   WikiInfo,
-  InstallInfo,
-  LaunchOption
+  InstallInfo
 } from 'common/types'
 
 import GamePicture from '../GamePicture'
@@ -52,7 +51,6 @@ import {
   GameStatus,
   HLTB,
   InstalledInfo,
-  LaunchOptions,
   MainButton,
   ReportIssue,
   Requirements,
@@ -68,6 +66,7 @@ import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -113,9 +112,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
   )
-  const [launchArguments, setLaunchArguments] = useState<
-    LaunchOption | undefined
-  >(undefined)
+
   const [hasError, setHasError] = useState<{
     error: boolean
     message: unknown
@@ -437,10 +434,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         handleUpdate={handleUpdate}
                         hasUpdate={hasUpdate}
                       />
-                      <LaunchOptions
-                        gameInfo={gameInfo}
-                        setLaunchArguments={setLaunchArguments}
-                      />
+                      <LaunchOptionSelector showTitle={false} />
                       <div className="buttons">
                         <MainButton
                           gameInfo={gameInfo}
@@ -546,7 +540,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     await launch({
       appName,
       t,
-      launchArguments,
       runner: gameInfo.runner,
       hasUpdate,
       showDialogModal,

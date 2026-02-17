@@ -203,7 +203,7 @@
         "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
-        "options": "Launch Options..."
+        "default": "Default"
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
