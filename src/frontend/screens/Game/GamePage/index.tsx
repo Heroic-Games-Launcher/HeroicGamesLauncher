@@ -120,6 +120,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     error: boolean
     message: unknown
   }>({ error: false, message: '' })
+  const [playClicked, setPlayClicked] = useState(false)
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
@@ -243,6 +244,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
     })
   }, [appName])
 
+  useEffect(() => {
+    // when the user clicks the Play button, we disable it so the user can't click it again
+    // once we receive the "launching" status update we can safely unset this state
+    if (status === 'launching') setPlayClicked(false)
+  }, [status])
+
   function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
@@ -309,7 +316,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         importing: isImporting,
         installingWinetricksPackages: isInstallingWinetricksPackages,
         installingRedist: isInstallingRedist,
-        launching: isLaunching,
+        launching: isLaunching || playClicked,
         linux: isLinux,
         linuxNative: isLinuxNative,
         mac: isMac,
@@ -535,6 +542,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return sendKill(appName, gameInfo.runner)
     }
 
+    setPlayClicked(true)
     await launch({
       appName,
       t,
@@ -544,6 +552,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       showDialogModal,
       notPlayableOffline
     })
+    setPlayClicked(false)
   }
 
   async function handleInstall(is_installed: boolean) {
