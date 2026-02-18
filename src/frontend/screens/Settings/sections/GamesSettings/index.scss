@@ -9,6 +9,7 @@
   color: var(--accent);
 }
 
+.settingsDialogContent,
 .settingsWrapper {
   .defaults-hint {
     background: var(--anticheat-denied, var(--status-danger));

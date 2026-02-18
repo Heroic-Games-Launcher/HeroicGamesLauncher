@@ -63,7 +63,7 @@
                 "title": "Dosarul jocului pare să fie șters, doriți să eliminați jocul din lista instalată?"
             },
             "generic": {
-                "message": "O Eroare Necunoscută a apărut",
+                "message": "Mesaj de eroare generic",
                 "title": "Eroare Necunoscută"
             },
             "launchAborted": "Launch aborted",
@@ -92,7 +92,9 @@
             },
             "legendary": {
                 "generic": "A avut loc o eroare! Încercați să vă deconectați și să vă autentificați pe contul dvs. Epic. {{newline}} {{error}}"
-            }
+            },
+            "executableNotFound": "Executabilul nu a fost găsit",
+            "executableNotFoundMessage": "Heroic nu a putut găsi un executabil pentru acest joc. Te rugăm să îl setezi manual în setările jocului."
         },
         "info": {
             "update": {
@@ -101,7 +103,8 @@
                 "message": "Există o nouă versiune disponibilă!",
                 "message-finished": "Doriți să reporniți Heroic acum?",
                 "title": "Lansatorul de jocuri eroice",
-                "title-finished": "Actualizare Finalizată"
+                "title-finished": "Actualizare Finalizată",
+                "detailNoAutoupdate": "Update-urile automate nu sunt suportate pentru acest format de pachet. Te rugăm să folosesti managerul tău de pachete pentru acest update."
             }
         },
         "no": "NU",
@@ -117,7 +120,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Sigur doriți să resetați Heroic? Acest lucru va elimina toate setările și stocarea în cache, dar nu va elimina jocurile dvs. instalate sau acreditările Epic",
+                "message": "Sigur doriți să resetați Heroic? Acest lucru va elimina toate setările și stocarea în cache, dar nu va elimina jocurile dvs. instalate sau acreditările Epic. Versiunile portabile (AppImage, WinPortable, ...) ale Heroic trebuiesc restartate manual după aceea.",
                 "title": "Resetează eroic"
             }
         },
@@ -126,7 +129,8 @@
         },
         "select": {
             "button": "Selectare",
-            "exe": "Selectați EXE"
+            "exe": "Selectați EXE",
+            "script": "Alege script ..."
         },
         "shortcuts": {
             "message": "Scurtăturile au fost create pe Desktop și pe meniul Start",
@@ -162,8 +166,18 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Sigur doriți să vă deconectați?"
+                    "title": "Sigur doriți să vă deconectați?",
+                    "message": "Orice progres nesalvat ar putea fi pierdut"
                 }
+            },
+            "rosetta": {
+                "message": "Heroic are nevoie de Rosetta pentru a rula corect pe macOS cu chip-urile Apple Silicon. Te rugăm să-l reinstalezi din terminalul macOS folosing următoarea comandă : \"softwareupdate --install-rosetta\"  și repornește Heroic. ",
+                "title": "Rosetta nu a fost găsit"
+            },
+            "snap": {
+                "checkbox": "Nu mai arăta acest mesaj",
+                "message": "Unele funcții nu sunt disponibile deocamdată în versiunea Snap a aplicației și încercăm sa o remediem.{{newLine}}Limitările curente sunt:{{newLine}}Heroic nu va putea localiza Proton de la Steam sau Wine de la Lutris.{{newLine}}{{newLine}}Gamescope, Gamemode și MangoHud, de asemenea, nu vor funcționa din moment ce Heroic nu are acces la acestea.{{newLine}}{{newLine}}Pentru a obține acces la această funcție vă rugăm instalați Heroic sub forma Flatpak, DEB sau din AppImage.",
+                "title": "Heroic rulează ca și Snap"
             }
         },
         "wineprefix": "Alegeți dosarul Wine Prefix",
@@ -171,7 +185,8 @@
         "dontShowAgain": "Nu mai arăta",
         "choose-nile-binary": "Selectați binarul Nil",
         "update": "Update",
-        "changelog": "Jurnalul modificărilor"
+        "changelog": "Jurnalul modificărilor",
+        "postpone": "Amânare"
     },
     "button": {
         "cancel": "Cancel",
@@ -303,7 +318,33 @@
             "downloadManager": "Download Manager",
             "library": "Bibliotecă"
         },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "advertiseAvxForRosetta": "Activează suportul de instrucțiuni AVX când rulezi jocuri Windows prin Rosetta pe chip-uri Apple Silicon. Acestea ar putea fi necesare pentru unele jocuri precum Death Stranding care necesită suport AVX.",
+        "analytics": "Acceptă ca Heroic sa colecteze date 100% anonime pentru a putea îmbunătăți calitatea aplicației. Este nevoie de o repornire pentru a intra în efect.",
+        "button": {
+            "close": "Închide Help",
+            "open": "Deschide Help"
+        },
+        "content": {
+            "accessibility": "Arată setările de accesibilitate.",
+            "customThemesPath": "Verifică wiki-ul nostru.",
+            "defaultInstallPath": "Aceasta este calea implicita selectată pentru instalat jocuri.",
+            "downloadManager": "Arată descărcările actuale și din trecut",
+            "library": "Arată toate jocurile deținute.",
+            "login": "Conectați-vă la diferitele magazine.",
+            "settingsDefault": "Arată toate setările Heroic și cele implicite pentru jocuri.",
+            "settingsGame": "Arată toate setările pentru un joc.",
+            "wineManager": "Instalează diferite versiuni pentru Wine, Proton, Crossover, etc."
+        },
+        "disablePlaytimeSync": "Dezactivează sincronizarea timpului de joc cu serverele magazinului implicit (deocamdată doar GOG este suportat)",
+        "download_proton_steam": "Atunci când este activat, GE-Proton va fi descărcat direct in directorul uneltelor de compatibilitate Steam in locul căii implicite a Heroic. Va utiliza calea Steam setată în 'Cale Steam implicită' mai sus.",
+        "dxvknvapi": "DXVK-NVAPI este o implementare a NVAPI construită peste DXVK și nativul linux NVAPI, el permite utilizarea DLSS pe plăcile video Nvidia.",
+        "gamescope": {
+            "additionalOptions": "Flag-uri din linia de comandă adiționale de pasat în gamescope.",
+            "forceGrabCursor": "Folosiți întotdeauna modul de mouse relativ în locul întoarcerii dependente de vizibilitatea cursorului. (Util atunci când aplicațiile își pierd focalizarea)",
+            "fpsLimiter": "Totalul de frame-uri la care gamescope ar trebui limitat. E.g 60",
+            "fpsLimiterNoFocus": "Limita de cadre pe secundă la care gamescope ar trebui să se limiteze dacă jocul nu este focalizat."
+        }
     },
     "info": {
         "heroic": {
@@ -653,8 +694,12 @@
                 "help8": "Jocuri instalate",
                 "help9": "Game Settings"
             },
-            "details": "Detalii"
-        }
+            "details": "Detalii",
+            "resetHeroic": {
+                "help": "Sigur doriți să resetați Heroic? Acest lucru va elimina toate setările și stocarea în cache, dar nu va elimina jocurile dvs. instalate sau acreditările Epic. Versiunile portabile (AppImage, WinPortable, ...) ale Heroic trebuiesc restartate manual după aceea."
+            }
+        },
+        "launchOptions": "Opțiuni de Lansare..."
     },
     "Settings": "Setări",
     "sidebar": {
@@ -744,7 +789,8 @@
     },
     "category-settings": {
         "cancel": "Cancel",
-        "warning": "Warning"
+        "warning": "Warning",
+        "add-new-category": "Adaugă o categorie nouă"
     },
     "window": {
         "close": "Închide"
@@ -771,5 +817,14 @@
         "dont-show-again": "Nu mai afișa acest avertisment",
         "title": "Adtraction e blocat"
     },
-    "amazon-luna": "Amazon Luna"
+    "amazon-luna": "Amazon Luna",
+    "categories-manager": {
+        "add": "Adaugă",
+        "add-placeholder": "Adaugă o categorie nouă",
+        "cancel-remove": "Anulează ștergerea lui \"{{name}}\"",
+        "cancel-rename": "Anulează redenumirea lui \"{{name}}\"",
+        "confirm-remove": "Confirmă ștergerea lui \"{{name}}\"",
+        "confirm-rename": "Confirmă redenumirea lui {{oldName}} ca {{newName}}",
+        "no-categories": "Nicio categorie."
+    }
 }

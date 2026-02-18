@@ -99,7 +99,11 @@
                 "title": "Erro no Steam"
             },
             "executableNotFound": "Arquivo executável não encontrado",
-            "executableNotFoundMessage": "O Heroic não pôde encontrar o arquivo executável deste jogo. Por favor, o defina manualmente nas configurações do jogo."
+            "executableNotFoundMessage": "O Heroic não pôde encontrar o arquivo executável deste jogo. Por favor, o defina manualmente nas configurações do jogo.",
+            "dxmt": {
+                "message": "Erro ao baixar o DXMT! Verifique sua conexão!",
+                "title": "Erro ao baixar DXMT"
+            }
         },
         "info": {
             "update": {
@@ -744,7 +748,8 @@
             "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
             "enableHelp": "Componente de ajuda",
             "umuSupport": "Usar umu como Proton runtime",
-            "cometSupport": "Suporte ao Comet"
+            "cometSupport": "Suporte ao Comet",
+            "zoomPlatform": "Suporte para a Plataforma Zoom (Apenas no Linux)"
         },
         "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo",
         "frameless-window": {
@@ -913,7 +918,8 @@
         },
         "custom_css": {
             "title": "Estilo CSS Customizado"
-        }
+        },
+        "launchOptions": "Opções de inicialização"
     },
     "Settings": "Configurações",
     "sidebar": {
@@ -978,7 +984,8 @@
             "unzipping": "Descompactando"
         },
         "release": "Data de lançamento",
-        "size": "Tamanho"
+        "size": "Tamanho",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "Não pergunte novamente",

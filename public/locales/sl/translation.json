@@ -5,7 +5,11 @@
         "disable_animations": "Izključi animacije uporabniškega vmesnika",
         "disable_dialog_backdrop_close": "Izključi zapiranje oken ob kliku zunaj njih",
         "zoom": "Povečava",
-        "actions_font_family_default": "Pisava sporočil o dejanjih (Privzeto: {{fontFamily}})"
+        "actions_font_family_default": "Pisava sporočil o dejanjih (Privzeto: {{fontFamily}})",
+        "disable_smooth_scrolling": "Izključi gladko drsanje",
+        "fonts": "Pisave",
+        "title": "Dostopnost",
+        "titles_always_visible": "V knjižnici vedno pokaži naslove"
     },
     "add_game": "Dodaj igro",
     "adtraction-locked": {
@@ -95,6 +99,10 @@
             "winetricks": {
                 "message": "Winetricks je med izvajanjem javil napako:{{newLine}}{{error}}",
                 "title": "Napaka Winetricks"
+            },
+            "dxmt": {
+                "message": "Napaka pri prenašanju DXMT! Preverite svojo spletno povezavo!",
+                "title": "Napaka pri prenašanju DXMT"
             }
         },
         "choose-nile-binary": "Izberi programsko datoteko Nile",
@@ -168,11 +176,23 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "message": "Neshranjen napredek bo mogoče izgubljen"
+                    "message": "Neshranjen napredek bo mogoče izgubljen",
+                    "title": "Ste prepričani, da želite zaključiti?"
                 }
+            },
+            "snap": {
+                "checkbox": "Tega sporočila ne pokaži več",
+                "message": "V različici 'Snap' nekatere funkcije programa trenutno niso na voljo, to poskušamo popraviti.{{newLine}}Trenutne omejitve so:{{newLine}}Heroic ne more zaznati Protona iz Steama ali Wine-a iz Lutrisa.{{newLine}}{{newLine}}Gamescope, GameMode in MangoHud tudi ne bojo delovali, ker Heroic do njih ne more dostopati.{{newLine}}{{newLine}}Za uporabo tega namestite Heroic v različici Flatpak, DEB ali AppImage.",
+                "title": "Heroic je v različici 'Snap'"
+            },
+            "title": "Pozor",
+            "wine-change": {
+                "message": "Za to igro nismo našli izbrane različice Wine ({{selectedWine}}).{{newline}}Našli smo drugo. Želite nadaljevati z različico {{foundWine}} ?",
+                "title": "Wine ni najden!"
             }
         },
-        "yes": "DA"
+        "yes": "DA",
+        "wineprefix": "Izberi mesto predpon Wine"
     },
     "controller": {
         "hints": {
@@ -187,7 +207,8 @@
     },
     "error": "Napaka",
     "game": {
-        "status": "Stanje"
+        "status": "Stanje",
+        "modify": "Spremeni namestitev"
     },
     "notify": {
         "update": {
@@ -230,5 +251,8 @@
     },
     "winetricks": {
         "install": "Namesti"
+    },
+    "button": {
+        "login": "Vpis"
     }
 }

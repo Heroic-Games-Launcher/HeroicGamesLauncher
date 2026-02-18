@@ -231,6 +231,7 @@ export interface GameSettings {
   ignoreGameUpdates: boolean
   language: string
   launcherArgs: string
+  lastUsedLaunchOption?: LaunchOption
   maxSharpness?: number
   nvidiaPrime: boolean
   offlineMode: boolean
@@ -603,6 +604,13 @@ export interface Tools {
   runner: Runner
 }
 
+export interface Tool {
+  name: string
+  url: string
+  os: string
+  strip?: number
+}
+
 export type DMStatus = 'done' | 'error' | 'abort' | 'paused'
 export interface DMQueueElement {
   type: 'update' | 'install'
@@ -752,6 +760,7 @@ export interface VersionInfo {
   downsize: number
   disksize: number
   checksum: string
+  release_notes_link: string
 }
 
 /**

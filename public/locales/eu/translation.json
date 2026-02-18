@@ -645,7 +645,8 @@
             "clearCache": {
                 "help9": "Game Settings"
             }
-        }
+        },
+        "launchOptions": "Jaurtiketa-aukerak..."
     },
     "Settings": "Ezarpenak",
     "sidebar": {

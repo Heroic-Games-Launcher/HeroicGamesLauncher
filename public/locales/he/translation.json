@@ -474,7 +474,9 @@
         "ignore_hidden": "התעלם ממוסתרים",
         "platform": "פלטפורמה",
         "show_all_games": "הצג את כל המשחקים",
-        "show_favourites_only": "הצג מועדפים בלבד"
+        "show_favourites_only": "הצג מועדפים בלבד",
+        "reset": "ערכים קבועים מראש",
+        "select_all": "בחר הכל"
     },
     "help": {
         "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
@@ -656,7 +658,8 @@
             "resetHeroic": {
                 "help": "האם אתה בטוח שברצונך לאפס את Heroic? פעולה זו תסיר את כל ההגדרות והמטמון, אך לא תסיר את המשחקים המותקנים שלך או את האישורים של Epic. גרסאות ניידות (AppImage, WinPortable,...) של Heroic צריכות להיות מופעלות מחדש באופן ידני לאחר מכן."
             }
-        }
+        },
+        "launchOptions": "פותח הגדרות..."
     },
     "Settings": "הגדרות",
     "store": "Epic Store",
@@ -765,10 +768,14 @@
         "close": "לסגור"
     },
     "tour": {
-        "back": "חזור"
+        "back": "חזור",
+        "skip": "דלג"
     },
     "analyticsModal": {
         "disable": "בטל",
         "enable": "הפעל"
+    },
+    "categories-manager": {
+        "add": "&הוסף"
     }
 }

@@ -99,7 +99,11 @@
                 "title": "Steam 错误"
             },
             "executableNotFound": "未找到可执行文件",
-            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。"
+            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。",
+            "dxmt": {
+                "message": "下载 DXMT 出错！检查你的连接！",
+                "title": "DXMT 下载错误"
+            }
         },
         "info": {
             "update": {
@@ -744,7 +748,8 @@
             "enableHelp": "帮助组件",
             "automaticWinetricksFixes": "自动应用已知的修复",
             "umuSupport": "将 umu 用作 Proton 运行时",
-            "cometSupport": "Comet 支持"
+            "cometSupport": "Comet 支持",
+            "zoomPlatform": "Zoom 平台支持（仅 Linux）"
         },
         "disablePlaytimeSync": "停用游戏时间同步",
         "gamescope": {
@@ -913,7 +918,8 @@
         },
         "custom_css": {
             "title": "自定义 CSS 样式"
-        }
+        },
+        "launchOptions": "启动选项"
     },
     "Settings": "设置",
     "sidebar": {
@@ -978,7 +984,8 @@
             "unzipping": "解压缩"
         },
         "release": "发布日期",
-        "size": "大小"
+        "size": "大小",
+        "notes": "附注"
     },
     "externalLink": {
         "warning": "你即将打开一个外部链接。",

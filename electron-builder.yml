@@ -67,6 +67,15 @@ linux:
       Name: Heroic Games Launcher
       Comment[de]: Ein OSS-Spielelauncher für GOG, Epic Games und Amazon Games
       Comment[pl]: Otwartoźródłowy launcher dla GOG, Epic Games i Amazon Games
+      Comment[fr]: Un lanceur de jeux open source pour GOG, Epic Games et Amazon Games
+      Comment[es]: Un lanzador de juegos de código abierto para GOG, Epic Games
+      Comment[it]: Un launcher open source per GOG, Epic Games e Amazon Games
+      Comment[ru]: Открытый лаунчер для GOG, Epic Games и Amazon
+      Comment[zh_CN]: 一个用于GOG、Epic Games和Amazon Games的开源游戏启动器
+      Comment[pt]: Um lançador de jogos de código aberto para GOG, Epic Games e Amazon Games
+      Comment[pt_BR]: Um lançador de jogos de código aberto para GOG, Epic Games e Amazon Games
+      Comment[ja]: GOG、Epic Games、Amazon Gamesのためのオープンソースランチャー
+      Comment: An Open Source Launcher for GOG, Epic Games and Amazon Games
   files:
     - build/bin/${arch}/linux/*
     - build/bin/x64/win32/GalaxyCommunication.exe
@@ -76,12 +85,21 @@ rpm:
   fpm: ['--rpm-rpmbuild-define', '_build_id_links none']
 
 snap:
-  base: core20
+  base: core22
   confinement: strict
   grade: stable
   category: Games
-  synopsis: An Open Source Launcher for GOG Amazon and Epic Games
-  description: Heroic is an Open Source Games Launcher. Right now it supports launching games from the Epic Games Store using Legendary Amazon Games using Nile and GOG Games using our custom implementations Nile and gogdl.
+  synopsis: An Open Source Launcher for GOG, Epic Games and Amazon Games
+  description: Heroic is an Open Source Games Launcher. It supports launching games from the Epic Games, Amazon Games and GOG.
+  plugs:
+    - default
+    - network-bind
+    - screen-inhibit-control
+    - removable-media
+    - mount-observe
+    - joystick
+    - bluez
+    - udisks2
   publish:
     provider: snapStore
     channels:

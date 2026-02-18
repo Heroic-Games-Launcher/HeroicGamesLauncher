@@ -99,7 +99,11 @@
                 "title": "Steami viga"
             },
             "executableNotFound": "Käivitatavat programmi ei leitud",
-            "executableNotFoundMessage": "Heroic ei leidnud selle mängu jaoks käivitatavat programmi. Palun määrake see käsitsi mängu seadetes."
+            "executableNotFoundMessage": "Heroic ei leidnud selle mängu jaoks käivitatavat programmi. Palun määrake see käsitsi mängu seadetes.",
+            "dxmt": {
+                "message": "Viga DXMT allalaadimisel! Kontrollige oma ühendust!",
+                "title": "Viga DXMT allalaadimisel"
+            }
         },
         "info": {
             "update": {
@@ -753,7 +757,8 @@
             "enableNewDesign": "Uus disain",
             "automaticWinetricksFixes": "Rakenda teadaolevad parandused automaatselt",
             "umuSupport": "Kasuta umu-d Protoni platvormina",
-            "cometSupport": "Comet tugi"
+            "cometSupport": "Comet tugi",
+            "zoomPlatform": "Zoomi platvormi tugi (ainult Linux)"
         },
         "before-launch-script-path": "Vali skript, mida käitada enne mängu käivitamist",
         "frameless-window": {
@@ -911,7 +916,8 @@
         },
         "custom_css": {
             "title": "Kasutajaliidese CSS stiil"
-        }
+        },
+        "launchOptions": "Käivitusvalikud"
     },
     "Settings": "Seaded",
     "sidebar": {
@@ -976,7 +982,8 @@
             "unzipping": "Lahtipakkimine"
         },
         "release": "Väljalaske kuupäev",
-        "size": "Suurus"
+        "size": "Suurus",
+        "notes": "Märkused"
     },
     "externalLink": {
         "dontAskAgain": "Ära enam küsi",

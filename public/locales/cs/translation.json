@@ -99,7 +99,11 @@
                 "title": "Chyba Steamu"
             },
             "executableNotFound": "Spustitelný soubor nebyl nalezen",
-            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry."
+            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry.",
+            "dxmt": {
+                "message": "Chyba při stahování DXMT! Zkontrolujte připojení!",
+                "title": "Chyba při stahování DXMT"
+            }
         },
         "info": {
             "update": {
@@ -744,7 +748,8 @@
             "enableHelp": "Komponenta nápovědy",
             "automaticWinetricksFixes": "Automaticky použít známé opravy",
             "umuSupport": "Použít umu jako runtime Protonu",
-            "cometSupport": "Podpora Comet"
+            "cometSupport": "Podpora Comet",
+            "zoomPlatform": "Podpora platformy Zoom (pouze Linux)"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
@@ -913,7 +918,8 @@
         },
         "custom_css": {
             "title": "Vlastní styl CSS"
-        }
+        },
+        "launchOptions": "Možnosti spuštění"
     },
     "Settings": "Nastavení",
     "sidebar": {
@@ -978,7 +984,8 @@
             "unzipping": "Rozbalování"
         },
         "release": "Release Date",
-        "size": "Velikost"
+        "size": "Velikost",
+        "notes": "Poznámky"
     },
     "externalLink": {
         "dontAskAgain": "Už se neptat",

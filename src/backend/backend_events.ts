@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 
 import type TypedEventEmitter from 'typed-emitter'
-import type { GameStatus, RecentGame } from 'common/types'
+import type { GameStatus, RecentGame, WineVersionInfo } from 'common/types'
 
 type BackendEvents = {
   gameStatusUpdate: (payload: GameStatus) => void
@@ -13,6 +13,8 @@ type BackendEvents = {
     newValue: unknown
   }) => void
   [key: `progressUpdate-${string}`]: (progress: GameStatus) => void
+  wineVersionInstalled: (versionInfo: WineVersionInfo, path: string) => void
+  wineVersionUninstalled: (versionInfo: WineVersionInfo) => void
 }
 
 // This can be used to emit/listen to events to decouple components

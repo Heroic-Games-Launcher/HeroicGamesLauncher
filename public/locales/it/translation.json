@@ -235,14 +235,14 @@
             "disk": "Disco",
             "speed": "Download"
         },
-        "link": "Downloads",
+        "link": "Download",
         "queue": {
             "end-time": "Finito alle",
             "queue-time": "Aggiunto a",
             "start-time": "Iniziato il",
             "type": "Type"
         },
-        "title": "Downloads",
+        "title": "Download",
         "ETA": "Tempo stimato"
     },
     "epic": {
@@ -685,7 +685,7 @@
                 "game-log": "Log di gioco di {{gameTitle}}",
                 "gog": "Log GOG",
                 "heroic": "Log Generico Heroic",
-                "legendary": "Epic Games / Legendary log",
+                "legendary": "Registro Epic Games / Legendary",
                 "nile": "Amazon / Nile log",
                 "zoom": "Registro di Zoom"
             },
@@ -743,7 +743,8 @@
             "automaticWinetricksFixes": "Applica correzioni note automaticamente",
             "enableHelp": "Componente aiuto",
             "cometSupport": "Supporto Comet",
-            "umuSupport": "Utilizza umu come runtime Proton"
+            "umuSupport": "Utilizza umu come runtime Proton",
+            "zoomPlatform": "Supporto Zoom Platform (solo Linux)"
         },
         "allow_installation_broken_anticheat": {
             "label": "Permetti l'installazione dei giochi con l'anticheat bloccato o non funzionante",
@@ -805,7 +806,8 @@
             "info_label": "Versioni Non-GE Proton ignorate",
             "label": "Consenti l’uso delle versioni di Proton di Valve per eseguire i giochi"
         },
-        "WoW64": "Abilita WoW64 (sperimentale)"
+        "WoW64": "Abilita WoW64 (sperimentale)",
+        "scripts": "Script:"
     },
     "settings": {
         "battlEyeRuntime": {

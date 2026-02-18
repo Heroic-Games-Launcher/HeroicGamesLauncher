@@ -537,32 +537,34 @@ process.on('uncaughtException', async (err) => {
   })
 })
 
-let powerId: number | null
-let displaySleepId: number | null
+let powerId: number | undefined
+let displaySleepId: number | undefined
 
 addListener('lock', (e, playing: boolean) => {
-  if (!playing && (!powerId || !powerSaveBlocker.isStarted(powerId))) {
+  const isSleepBlocked = powerId !== undefined
+  const isDisplaySleepBlocked = displaySleepId !== undefined
+
+  if (!playing && !isSleepBlocked) {
     logInfo('Preventing machine to sleep', LogPrefix.Backend)
     powerId = powerSaveBlocker.start('prevent-app-suspension')
   }
 
-  if (
-    playing &&
-    (!displaySleepId || !powerSaveBlocker.isStarted(displaySleepId))
-  ) {
+  if (playing && !isDisplaySleepBlocked) {
     logInfo('Preventing display to sleep', LogPrefix.Backend)
     displaySleepId = powerSaveBlocker.start('prevent-display-sleep')
   }
 })
 
 addListener('unlock', () => {
-  if (powerId && powerSaveBlocker.isStarted(powerId)) {
+  if (powerId !== undefined) {
     logInfo('Stopping Power Saver Blocker', LogPrefix.Backend)
     powerSaveBlocker.stop(powerId)
+    powerId = undefined
   }
-  if (displaySleepId && powerSaveBlocker.isStarted(displaySleepId)) {
+  if (displaySleepId !== undefined) {
     logInfo('Stopping Display Sleep Blocker', LogPrefix.Backend)
     powerSaveBlocker.stop(displaySleepId)
+    displaySleepId = undefined
   }
 })
 
@@ -1087,9 +1089,27 @@ addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
   gameManagerMap['gog'].syncSaves(appName, arg, '', gogSaves)
 )
 
-addHandler('getLaunchOptions', async (event, appName, runner) =>
-  libraryManagerMap[runner].getLaunchOptions(appName)
-)
+addHandler('getLaunchOptions', async (event, appName, runner) => {
+  const availableLaunchOptions =
+    await libraryManagerMap[runner].getLaunchOptions(appName)
+
+  const hasDefaultOption = availableLaunchOptions.some(
+    (option) =>
+      (option.type === undefined || option.type === 'basic') &&
+      'parameters' in option &&
+      option.parameters === ''
+  )
+
+  if (availableLaunchOptions.length === 1 && !hasDefaultOption) {
+    availableLaunchOptions.unshift({
+      name: 'Default',
+      parameters: '',
+      type: 'basic'
+    })
+  }
+
+  return availableLaunchOptions
+})
 
 addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
   if (runner === 'legendary') {

@@ -899,7 +899,8 @@
         },
         "custom_css": {
             "title": "Nutzerdefinierter CSS Style"
-        }
+        },
+        "launchOptions": "Startoptionen …"
     },
     "Settings": "Einstellungen",
     "sidebar": {

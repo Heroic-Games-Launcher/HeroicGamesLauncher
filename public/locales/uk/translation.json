@@ -744,7 +744,8 @@
             "enableHelp": "Компонент допомоги",
             "automaticWinetricksFixes": "Автоматично застосовувати відомі виправлення",
             "cometSupport": "Підтримка Comet",
-            "umuSupport": "Використовувати umu як середовище виконання Proton"
+            "umuSupport": "Використовувати umu як середовище виконання Proton",
+            "zoomPlatform": "Підтримка платформи Zoom (лише Linux)"
         },
         "disablePlaytimeSync": "Вимкнути синхронізацію часу відтворення",
         "frameless-window": {
@@ -809,7 +810,8 @@
             "label": "Дозволити використання збірок Proton Valve для запуску ігор",
             "wine_selector_warning": "Версії Proton від Valve типово ігноруються, ввімкніть їх у розширених глобальних налаштуваннях"
         },
-        "WoW64": "Увімкнути WoW64 (експериментально)"
+        "WoW64": "Увімкнути WoW64 (експериментально)",
+        "scripts": "Скрипти:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -912,7 +914,8 @@
         },
         "custom_css": {
             "title": "Власний стиль CSS"
-        }
+        },
+        "launchOptions": "Параметри Запуску..."
     },
     "Settings": "Налаштування",
     "sidebar": {

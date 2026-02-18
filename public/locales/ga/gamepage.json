@@ -78,7 +78,11 @@
             "title": "Nuashonrú Riachtanach don Chluiche"
         },
         "wineprefix": "Roghnaigh Fillteán WinePrefix",
-        "yes": "TÁ"
+        "yes": "TÁ",
+        "selectLaunchOption": {
+            "body": "Roghnaigh rogha lainseála don chluiche seo le do thoil (is féidir é a athrú níos déanaí i socruithe an chluiche):",
+            "title": "Roghnaigh Rogha Seolta ({{seconds}})"
+        }
     },
     "button": {
         "add_to_favourites": "Cuir le Rogha",

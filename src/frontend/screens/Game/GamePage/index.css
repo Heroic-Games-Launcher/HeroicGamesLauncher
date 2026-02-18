@@ -294,8 +294,8 @@
             a {
               display: none;
               position: absolute;
-              bottom: 100%;
-              right: -10px;
+              bottom: 106%;
+              right: 0px;
               white-space: nowrap;
             }
 

@@ -85,6 +85,7 @@ import { parse } from '@node-steam/vdf'
 
 import type LogWriter from 'backend/logger/log_writer'
 import { isRunning } from './downloadmanager/downloadqueue'
+import { isOnline } from './online_monitor'
 
 const execAsync = promisify(exec)
 
@@ -184,6 +185,8 @@ async function getWineFromProton(
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
 ) {
+  if (!isOnline()) return true
+
   const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
   const notification = new Notification({
     title: `${type} ${t('epic.offline-notification-title', 'offline')}`,
