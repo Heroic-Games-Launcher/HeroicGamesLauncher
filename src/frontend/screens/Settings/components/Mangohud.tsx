@@ -7,12 +7,27 @@ import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const Mangohud = () => {
   const { t } = useTranslation()
-  const { platform } = useContext(ContextProvider)
+  const { platform, showDialogModal } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [showMangohud, setShowMangohud] = useSetting('showMangohud', false)
+  const [escapeFlatpakSandbox] = useSetting('escapeFlatpakSandbox', false)
 
   if (!isLinux) {
     return <></>
+  }
+
+  function handleShowMangohud() {
+    if (!showMangohud && escapeFlatpakSandbox && window.isFlatpak) {
+      showDialogModal({
+        showDialog: true,
+        title: t('settings.EscapeFlatpakSandbox.escapeSandboxEnabled.title'),
+        message: t(
+          'settings.EscapeFlatpakSandbox.escapeSandboxEnabled.message'
+        ),
+        buttons: [{ text: t('box.ok') }]
+      })
+    }
+    setShowMangohud(!showMangohud)
   }
 
   return (
@@ -20,7 +35,7 @@ const Mangohud = () => {
       <ToggleSwitch
         htmlId="mongohud"
         value={showMangohud}
-        handleChange={() => setShowMangohud(!showMangohud)}
+        handleChange={handleShowMangohud}
         title={t('setting.mangohud')}
       />
 

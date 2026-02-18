@@ -464,6 +464,11 @@ function filterGameSettingsForLog(
     delete gameSettings.useSteamRuntime
   }
 
+  // remove settings that are only used in Flatpak
+  if (!isFlatpak) {
+    delete gameSettings.escapeFlatpakSandbox
+  }
+
   return gameSettings
 }
 
@@ -560,9 +565,30 @@ async function prepareLaunch(
   // Figure out where MangoHud/GameMode/Gamescope are located, if they're enabled
   let mangoHudCommand: string[] = []
   let gameModeBin: string | null = null
+  let flatpakEscapeBin: string | null = null
   const gameScopeCommand: string[] = []
+
+  if (gameSettings.escapeFlatpakSandbox) {
+    if (isFlatpak) {
+      flatpakEscapeBin = await searchForExecutableOnPath('flatpak_escape')
+      if (!flatpakEscapeBin) {
+        return {
+          success: false,
+          failureReason:
+            'Escaping the Flatpak is enabled, but `flatpak_escape` executable could not be found. Something is wrong with your installation.'
+        }
+      }
+    }
+  }
+
   if (gameSettings.showMangohud && !isSteamDeckGameMode) {
-    const mangoHudBin = await searchForExecutableOnPath('mangohud')
+    let mangoHudBin: string | null = null
+
+    if (flatpakEscapeBin) {
+      mangoHudBin = 'mangohud'
+    } else {
+      mangoHudBin = await searchForExecutableOnPath('mangohud')
+    }
     if (!mangoHudBin) {
       let reason =
         'Mangohud is enabled, but `mangohud` executable could not be found on $PATH'
@@ -579,7 +605,11 @@ async function prepareLaunch(
   }
 
   if (gameSettings.useGameMode) {
-    gameModeBin = await searchForExecutableOnPath('gamemoderun')
+    if (flatpakEscapeBin) {
+      gameModeBin = 'gamemoderun'
+    } else {
+      gameModeBin = await searchForExecutableOnPath('gamemoderun')
+    }
     if (!gameModeBin) {
       return {
         success: false,
@@ -594,7 +624,12 @@ async function prepareLaunch(
       gameSettings.gamescope?.enableUpscaling) &&
     !isSteamDeckGameMode
   ) {
-    const gameScopeBin = await searchForExecutableOnPath('gamescope')
+    let gameScopeBin: string | null = null
+    if (flatpakEscapeBin) {
+      gameScopeBin = 'gamescope'
+    } else {
+      gameScopeBin = await searchForExecutableOnPath('gamescope')
+    }
     if (!gameScopeBin) {
       let warningMessage =
         'Gamescope is enabled, but `gamescope` executable could not be found on $PATH'
@@ -748,6 +783,7 @@ async function prepareLaunch(
     rpcClient,
     mangoHudCommand,
     gameModeBin: gameModeBin ?? undefined,
+    flatpakEscapeBin: flatpakEscapeBin ?? undefined,
     gameScopeCommand,
     steamRuntime,
     offlineMode
@@ -1339,12 +1375,16 @@ function setupWrappers(
   gameSettings: GameSettings,
   mangoHudCommand?: string[],
   gameModeBin?: string,
+  flatpakEscapeBin?: string,
   gameScopeCommand?: string[],
   steamRuntime?: string[]
 ): Array<string> {
   const wrappers: string[] = []
 
-  // let gamescope be first wrapper always
+  if (flatpakEscapeBin) {
+    wrappers.push(flatpakEscapeBin)
+  }
+
   if (gameScopeCommand) {
     wrappers.push(...gameScopeCommand)
   }

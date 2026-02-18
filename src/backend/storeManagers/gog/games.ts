@@ -509,7 +509,8 @@ export async function launch(
     mangoHudCommand,
     gameScopeCommand,
     gameModeBin,
-    steamRuntime
+    steamRuntime,
+    flatpakEscapeBin
   } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative(appName))
   if (!launchPrepSuccess) {
     logWriter.logError(['Launch aborted:', launchPrepFailReason])
@@ -542,6 +543,7 @@ export async function launch(
     gameSettings,
     mangoHudCommand,
     gameModeBin,
+    flatpakEscapeBin,
     gameScopeCommand,
     steamRuntime?.length ? [...steamRuntime] : undefined
   )

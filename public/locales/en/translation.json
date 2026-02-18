@@ -342,6 +342,7 @@
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
+        "EscapeFlatpakSandbox": "Enabling this option makes Games escape the Flatpak sandbox, which mainly allows better integration with Steam, but may also cause problems. You will have to allow Heroic to talk to \"org.freedesktop.Flatpak\" on the session bus manually (in Flatseal or the KDE-Systemsettings).",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -670,6 +671,7 @@
             "updateNow": "Update",
             "updating": "Updating..."
         },
+        "escapeFlatpakSandbox": "Escape the Flatpak Sandbox",
         "esync": "Enable Esync",
         "exit-to-tray": "Exit to System Tray",
         "experimental_features": {
@@ -844,6 +846,12 @@
             "installing": "Installing EAC Runtime...",
             "name": "EasyAntiCheat Runtime"
         },
+        "EscapeFlatpakSandbox": {
+            "escapeSandboxEnabled": {
+                "message": "Escaping the Flatpak Sandbox is incompatible with the Flatpak versions of MangoHud, Gamescope and GameMode. If you want to use that combination, install them natively and add them in the $PATH or as custom wrapper.",
+                "title": "MangoHud, Gamescope and/or GameMode enabled together with Escape Flatpak Sandbox"
+            }
+        },
         "experimental_features": {
             "title": "Experimental Features"
         },
@@ -854,6 +862,7 @@
             }
         },
         "gamescope": {
+            "flatpakEscapeWarning": "Warning: Flatpak sandbox escape is enabled. If you want to use Gamscope, make sure it is installed and in the $PATH outside of the Flatpak or disable escaping the Sandox.",
             "searchMsg": "Searching for gamescope executable."
         },
         "launchOptions": "Launch Options",
