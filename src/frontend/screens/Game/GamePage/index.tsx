@@ -32,7 +32,6 @@ import {
   Runner,
   WikiInfo,
   InstallInfo,
-  LaunchOption,
   GameAchievement
 } from 'common/types'
 
