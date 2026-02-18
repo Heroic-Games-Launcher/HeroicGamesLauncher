@@ -6,7 +6,6 @@ import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import {
   faRepeat,
   faFolderOpen,
-  faExternalLink,
   faEllipsisVertical,
   faTrash
 } from '@fortawesome/free-solid-svg-icons'
@@ -134,16 +133,16 @@ const WineItem = ({
 
   return (
     <div className="wineItem">
-      <span className="version">{version}</span>
-      <div className="notes">
-        <SvgButton
-          title={t('wine.notes', 'Notes')}
-          onClick={() => openReleaseNotes()}
-        >
-          <FontAwesomeIcon icon={faExternalLink} />
-        </SvgButton>
+      <button
+        className="version"
+        title={t('wine.notes', 'Notes')}
+        onClick={() => openReleaseNotes()}
+      >
+        {version}
+      </button>
+      <div className="release" title={date}>
+        {date}
       </div>
-      <div className="release">{date}</div>
       <div className="size">{renderStatus()}</div>
       <div className="actions">
         {isInstalled && !isDownloading && !unZipping ? (

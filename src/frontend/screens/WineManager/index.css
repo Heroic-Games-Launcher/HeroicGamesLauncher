@@ -50,7 +50,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 var(--space-xl-fixed);
+  padding: 0 var(--space-xs-fixed);
 
   .tabsWrapper {
     display: flex;
@@ -98,17 +98,20 @@
     background: var(--body-background);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    overflow: hidden;
+    overflow: auto;
     margin-bottom: 32px;
 
     .gameListHeader {
       display: grid;
-      grid-template-columns: 2fr 80px 1.2fr 1fr 120px;
-      gap: 16px;
-      padding: 16px 24px;
+      gap: 0;
+      grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+      padding: 12px 24px;
       background: var(--bg-primary);
       border-bottom: 1px solid var(--border-color);
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 2;
 
       span {
         text-align: left;
@@ -117,87 +120,17 @@
         text-transform: uppercase;
         font-size: 0.75rem;
         letter-spacing: 0.05em;
-      }
-
-      .release,
-      .size,
-      .actions {
-        text-align: left;
-      }
-    }
-
-    .wineItem {
-      display: grid;
-      grid-template-columns: 2fr 80px 1.2fr 1fr 120px;
-      gap: 16px;
-      padding: 12px 24px;
-      border-bottom: 1px solid var(--border-color);
-      align-items: center;
-      transition: background 0.2s ease;
-      text-align: start;
-
-      &:last-child {
-        border-bottom: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .actions {
-        display: flex;
-        justify-content: center;
-
-        .actionsDropdownBtn {
-          background: transparent;
-          border: none;
-          color: var(--text-primary);
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background 0.2s;
-        }
-
-        .dropdown {
-          min-width: 180px;
-          background: var(--background);
-          border: 1px solid var(--border-color);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-          padding: 8px 0;
-          z-index: 10;
-
-          .dropdownItem {
-            width: 100%;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            cursor: pointer;
-            text-align: left;
-            font-size: 0.9rem;
-            transition: background 0.1s;
-
-            &:hover {
-              background: var(--navbar-active-background);
-            }
-
-            svg {
-              width: 14px;
-              color: var(--text-secondary);
-            }
-
-            img {
-              width: 14px;
-              height: 14px;
-              filter: invert(1);
-            }
-          }
-        }
+        place-self: end;
       }
     }
+
+    /* wineItem styles are now in components/WineItem/index.css */
 
     .loadingState {
       padding: 32px 16px;
@@ -353,64 +286,38 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 1024px) {
+@media (max-width: 800px) {
+  .wineManagerHeader {
+    grid-template-columns: 1.5fr 1.5fr;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    .wineManagerToolbar {
+      width: 100%;
+      .SearchBar {
+        max-width: none;
+      }
+    }
+  }
+
   .wineList {
-    .gameListHeader,
-    .wineItem {
-      grid-template-columns: 1.5fr 60px 1fr 80px 100px;
-      padding: 12px 16px;
+    overflow-x: auto;
+    .gameListHeader {
+      display: none;
     }
   }
 }
 
-@media (max-width: 768px) {
-  .wineManagerHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    .wineManagerToolbar {
-      width: 100%;
-      justify-content: flex-start;
-    }
-  }
+@media (max-width: 800px) {
+  .wineList .gameListHeader {
+    grid-template-columns: 1.5fr 1.5fr !important;
 
-  .wineList {
-    .gameListHeader {
+    .release,
+    .size {
       display: none;
     }
-    .wineItem {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        'version actions'
-        'notes release'
-        'size size';
-      gap: 8px;
-      padding: 16px;
-
-      .version {
-        grid-area: version;
-        font-weight: 700;
-      }
-      .notes {
-        grid-area: notes;
-        font-size: 0.85rem;
-      }
-      .release {
-        grid-area: release;
-        text-align: right;
-        font-size: 0.85rem;
-      }
-      .size {
-        grid-area: size;
-        text-align: left;
-        font-size: 0.85rem;
-        border-top: 1px solid var(--border-color);
-        padding-top: 8px;
-        margin-top: 4px;
-      }
-      .actions {
-        grid-area: actions;
-        justify-content: flex-end;
-      }
+    .actions {
+      grid-column: 2;
     }
   }
 }

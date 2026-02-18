@@ -1,118 +1,109 @@
-.wineManagerListItem > .icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 0 var(--space-md-fixed);
-  align-self: center;
-  flex-wrap: wrap;
-}
-
-.wineManagerListItem > .icons > .material-icons.settings.folder {
-  position: initial;
-}
-
-.wineManagerListItem > .icons > a > svg,
-.wineManagerListItem > .icons > svg {
-  width: min(calc(1vw + 9px), 36px);
-  height: min(calc(1vw + 9px), 36px);
-  min-width: 22px;
-  min-height: 22px;
-  margin-inline-start: 12px;
-}
-
-.wineManagerListItem {
+.wineItem {
   display: grid;
-  grid-template-columns: 3fr 4rem 2fr 1fr 10%;
-  grid-template-areas: 'name notes date size action';
-  width: 100%;
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+  gap: 0;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-color);
   align-items: center;
-  justify-items: baseline;
-  position: relative;
-  cursor: default;
-  place-self: center;
-  border-bottom: 1px solid gray;
-  padding: var(--space-xs-fixed) 0;
-}
-
-.wineManagerTitleList {
-  grid-area: name;
-  font-size: var(--text-md);
-  font-weight: bold;
-  text-transform: capitalize;
-}
-
-.wineManagerListItem > a {
-  grid-area: cover;
-  max-width: 15vh;
+  transition: background 0.2s ease;
+  min-height: 48px;
   width: 100%;
-  height: 100%;
+  min-width: 600px;
+  box-sizing: border-box;
 }
 
-.wineManagerListItem > .icons > button {
-  margin-inline-start: 0;
-  padding-inline-start: 4px;
+.wineItem:hover {
+  background: var(--navbar-active-background);
 }
 
-.wineManagerListItem > .progress {
-  z-index: 5;
-  grid-area: cover;
-  font-weight: var(--medium);
-  background: var(--background-gradient);
-  padding: var(--space-3xs) var(--space-2xs);
-  border-radius: 4px;
-  color: var(--success);
-  position: relative;
-  bottom: -38px;
-  left: -38px;
-  color: var(--success);
-  font-family: var(--secondary-font-family);
-  font-style: italic;
-  font-weight: normal;
-  line-height: 12px;
+.wineItem:last-child {
+  border-bottom: none;
 }
 
-.wineManagerListItem > .progress > .MuiSvgIcon-root {
-  position: relative;
-  bottom: 0;
-  top: 0;
+.wineItem > * {
+  padding: 8px 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.95rem;
 }
 
-.wineManagerNotes {
-  grid-area: notes;
-}
-
-.wineManagerListDate {
-  font-size: var(--text-md);
-  grid-area: date;
-}
-
-.wineManagerListSize {
-  font-size: var(--text-md);
-  grid-area: size;
-}
-
-.react-contextmenu--visible {
-  background-color: var(--background);
-  padding: var(--space-md) var(--space-lg);
-  border-radius: 6px;
-  z-index: 99;
-}
-
-.react-contextmenu-item {
-  color: var(--text-default);
-  font-size: var(--text-sm);
-  line-height: 26px;
-  font-family: var(--secondary-font-family);
+.wineItem .version {
+  font-weight: 500;
+  padding-right: 16px;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  text-align: left;
   cursor: pointer;
-  text-align: start;
+  transition: color 0.2s;
 }
 
-.react-contextmenu-item:hover {
-  color: var(--download-button);
+.wineItem .version:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
-.react-contextmenu-item.disabled {
-  color: var(--icon-disabled);
-  cursor: initial;
+.wineItem .release {
+  text-align: left;
+  color: var(--text-secondary);
+}
+
+.wineItem .size {
+  text-align: left;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.wineItem .actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .wineItem {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'version actions'
+      'release size';
+    gap: 0;
+    padding: 16px;
+    min-width: 0;
+    min-height: auto;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .wineItem > * {
+    padding: 4px 0;
+    white-space: normal;
+  }
+
+  .wineItem .version {
+    grid-area: version;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding-right: 0;
+  }
+
+  .wineItem .release {
+    grid-area: release;
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .wineItem .size {
+    grid-area: size;
+    text-align: right;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .wineItem .actions {
+    grid-area: actions;
+    justify-content: flex-end;
+  }
 }

@@ -252,7 +252,6 @@ export default function WineManager(): JSX.Element | null {
               <span className="version">
                 {t('info.version', 'Wine Version')}
               </span>
-              <span className="notes">{t('wine.notes', 'Notes')}</span>
               <span className="release">
                 {t('wine.release', 'Release Date')}
               </span>
