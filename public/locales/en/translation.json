@@ -289,9 +289,11 @@
         "title": "Game Title"
     },
     "generic": {
+        "abort": "Abort",
         "error": {
             "component": "No games found - Try to logout and login again or one of the options below"
         },
+        "install": "Install",
         "library": {
             "refresh": "Refresh Library"
         },
