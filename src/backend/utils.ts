@@ -770,18 +770,17 @@ const getLatestReleases = async (): Promise<Release[]> => {
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
-    const { data: releases } = await axiosClient.get(GITHUB_API)
-    const latestStable: Release = releases.filter(
-      (rel: Release) => rel.prerelease === false
-    )[0]
-    const latestBeta: Release = releases.filter(
-      (rel: Release) => rel.prerelease === true
-    )[0]
+    const { data: releases } = await axiosClient.get<Release[]>(GITHUB_API)
+    const latestStable = releases
+      .filter((rel) => rel.prerelease === false)
+      .at(0)
+    const latestBeta = releases.filter((rel) => rel.prerelease === true).at(0)
 
     const current = app.getVersion()
 
-    const thereIsNewStable = semverGt(latestStable.tag_name, current)
-    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+    const thereIsNewStable =
+      latestStable && semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = latestBeta && semverGt(latestBeta.tag_name, current)
 
     if (thereIsNewStable) {
       newReleases.push({ ...latestStable, type: 'stable' })
