@@ -130,10 +130,10 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
   const handleOpenFolder = () => {
     if (gameInfo.runner === 'gog') {
       gogSaves.forEach((save) => {
-        window.api.showItemInFolder(save.location)
+        window.api.openFolder(save.location)
       })
     } else {
-      window.api.showItemInFolder(savesPath)
+      window.api.openFolder(savesPath)
     }
     handleClose()
   }
@@ -147,6 +147,10 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
     },
     { name: tCommon('setting.manualsync.forceupload'), value: '--force-upload' }
   ]
+
+  const disableItem =
+    (gameInfo.runner === 'legendary' && savesPath === '') ||
+    (gameInfo.runner === 'gog' && !gogSaves.some((save) => save.location))
 
   return (
     <>
@@ -200,16 +204,13 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
                 <MenuItem
                   key={command.value}
                   onClick={() => handleSync(command.value as SyncType)}
-                  disabled={
-                    (gameInfo.runner === 'legendary' && savesPath === '') ||
-                    (gameInfo.runner === 'gog' && gogSaves.length === 0)
-                  }
+                  disabled={disableItem || isSyncing}
                 >
                   {command.name}
                 </MenuItem>
               ))}
               <Divider />
-              <MenuItem onClick={handleOpenFolder}>
+              <MenuItem onClick={handleOpenFolder} disabled={disableItem}>
                 {t('open-saves-folder', 'Open Saves Folder')}
               </MenuItem>
               <MenuItem style={{ paddingLeft: '4px' }}>
@@ -218,6 +219,7 @@ const CloudSavesSync = ({ gameInfo }: Props) => {
                   htmlId="autosync"
                   value={autoSyncSaves}
                   handleChange={() => setAutoSyncSaves(!autoSyncSaves)}
+                  disabled={disableItem || isSyncing}
                 />
               </MenuItem>
             </Menu>
