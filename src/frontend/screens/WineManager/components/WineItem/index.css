@@ -10,6 +10,27 @@
   width: 100%;
   min-width: 600px;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  --progress: 0%;
+}
+
+.wineItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--progress, 0%);
+  background: var(--accent, #a975ff);
+  opacity: 0.15;
+  transition: width 0.2s linear;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.wineItem.downloading::before {
+  opacity: 0.3;
 }
 
 .wineItem:hover {
@@ -27,6 +48,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.95rem;
+  position: relative;
+  z-index: 1;
 }
 
 .wineItem .version {
@@ -56,9 +79,17 @@
   color: var(--accent);
 }
 
+.wineItem .percentageText {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--success);
+  margin-inline-start: 4px;
+}
+
 .wineItem .actions {
   display: flex;
   justify-content: flex-end;
+  gap: 8px;
 }
 
 /* Responsive */
