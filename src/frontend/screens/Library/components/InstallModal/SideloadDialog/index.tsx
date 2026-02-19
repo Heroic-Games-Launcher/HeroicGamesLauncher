@@ -21,6 +21,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { AvailablePlatforms } from '..'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
+import fallbackCover from 'frontend/assets/heroic_cover.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import axios from 'axios'
@@ -58,6 +59,7 @@ export default function SideloadDialog({
   const [customUserAgent, setCustomUserAgent] = useState('')
   const [launchFullScreen, setLaunchFullScreen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
+  const [coverUrl, setCoverUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
@@ -109,7 +111,8 @@ export default function SideloadDialog({
         }
 
         setTitle(title)
-        setImageUrl(art_cover ? art_cover : art_square)
+        setImageUrl(art_square)
+        setCoverUrl(art_cover)
       })
     } else {
       setApp_name(short.generate().toString())
@@ -125,22 +128,39 @@ export default function SideloadDialog({
     })
   }, [title, editMode])
 
-  async function searchImage() {
+  async function searchImageAndCover() {
     setSearching(true)
 
     try {
-      const response = await axios.get(
-        `https://steamgrid.usebottles.com/api/search/${title}`,
+      const requestImage = axios.get(
+        `https://steamgrid.usebottles.com/api/search/${title}/grids`,
         { timeout: 3500 }
       )
+      const requestCover = axios.get(
+        `https://steamgrid.usebottles.com/api/search/${title}/hgrids`,
+        { timeout: 3500 }
+      )
+      const [responseImage, responseCover] = await Promise.all([
+        requestImage,
+        requestCover
+      ])
+      let success = true
 
-      if (response.status === 200) {
-        const steamGridImage = response.data as string
-
-        if (steamGridImage && steamGridImage.startsWith('http')) {
-          setImageUrl(steamGridImage)
-        }
+      if (responseImage.status === 200) {
+        const steamGridImage = responseImage.data as string
+        setImageUrl(steamGridImage)
       } else {
+        success = false
+      }
+
+      if (responseCover.status === 200) {
+        const steamGridCover = responseCover.data as string
+        setCoverUrl(steamGridCover)
+      } else {
+        success = false
+      }
+
+      if (!success) {
         throw new Error('Fetch failed')
       }
     } catch (error) {
@@ -166,6 +186,22 @@ export default function SideloadDialog({
     }
   }
 
+  async function handleSelectLocalCover() {
+    const path = await window.api.openDialog({
+      buttonLabel: t('box.select.button', 'Select'),
+      properties: ['openFile'],
+      title: t('box.select.cover', 'Select Cover'),
+      filters: [
+        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'] },
+        { name: 'All', extensions: ['*'] }
+      ]
+    })
+
+    if (path) {
+      setCoverUrl(`file://${path}`)
+    }
+  }
+
   async function handleInstall(): Promise<void> {
     setAddingApp(true)
     window.api.addNewApp({
@@ -176,7 +212,7 @@ export default function SideloadDialog({
         executable: selectedExe,
         platform: gameInfo.install?.platform ?? platformToInstall
       },
-      art_cover: imageUrl ? imageUrl : fallbackImage,
+      art_cover: coverUrl ? coverUrl : fallbackCover,
       is_installed: true,
       art_square: imageUrl ? imageUrl : fallbackImage,
       canRunOffline: true,
@@ -316,6 +352,10 @@ export default function SideloadDialog({
               className={classNames('appImage', { blackWhiteImage: searching })}
               src={imageUrl ? imageUrl : fallbackImage}
             />
+            <CachedImage
+              className={classNames('appCover', { blackWhiteCover: searching })}
+              src={coverUrl ? coverUrl : fallbackCover}
+            />
             <span className="titleIcon">
               {title}
               {platformIcon()}
@@ -345,7 +385,7 @@ export default function SideloadDialog({
                 'Add a title to your Game/App'
               )}
               onChange={(newValue) => handleTitle(newValue)}
-              onBlur={async () => searchImage()}
+              onBlur={async () => searchImageAndCover()}
               htmlId="sideload-title"
               value={title}
               maxLength={40}
@@ -361,6 +401,18 @@ export default function SideloadDialog({
               value={imageUrl}
               icon={<Folder />}
               onIconClick={handleSelectLocalImage}
+            />
+            <TextInputWithIconField
+              label={t('sideload.info.cover', 'App Cover')}
+              placeholder={t(
+                'sideload.placeholder.cover',
+                'Paste an URL of a Cover or select one from your computer'
+              )}
+              onChange={(newValue) => setCoverUrl(newValue)}
+              htmlId="sideload-cover"
+              value={coverUrl}
+              icon={<Folder />}
+              onIconClick={handleSelectLocalCover}
             />
             {!editMode && children}
             {showSideloadExe && (
