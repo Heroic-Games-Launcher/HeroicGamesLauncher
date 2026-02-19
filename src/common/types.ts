@@ -105,7 +105,9 @@ export interface AppSettings extends GameSettings {
   darkTrayIcon: boolean
   defaultInstallPath: string
   defaultSteamPath: string
-  defaultWinePrefix: string
+  sharedWinePrefix: string
+  defaultWinePrefix: string // only here for backwards compatibility, don't use in new code
+  defaultWinePrefixDir: string
   disableController: boolean
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean

@@ -77,7 +77,7 @@ import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
-  defaultWinePrefix,
+  sharedWinePrefix,
   fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
@@ -1413,7 +1413,7 @@ export async function validWine(
 export async function verifyWinePrefix(
   settings: GameSettings
 ): Promise<{ res: ExecResult }> {
-  const { winePrefix = defaultWinePrefix, wineVersion } = settings
+  const { winePrefix = sharedWinePrefix, wineVersion } = settings
 
   const isValidWine = await validWine(wineVersion)
 
