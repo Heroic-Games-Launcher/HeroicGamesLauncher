@@ -100,7 +100,6 @@ snap:
     - joystick
     - bluez
     - udisks2
-    - steam-support
   publish:
     provider: snapStore
     channels:

@@ -49,7 +49,11 @@
         "wineprefix": "Valige WinePrefiksi kaust",
         "yes": "JAH",
         "close": "Sulge",
-        "select-install-path": "Vali Steami paigaldusasukoht"
+        "select-install-path": "Vali Steami paigaldusasukoht",
+        "selectLaunchOption": {
+            "body": "Palun valige selle mängu jaoks käivitusvalik (seda saab mängu sätetest hiljem muuta):",
+            "title": "Valige käivitusvalik ({{seconds}}s)"
+        }
     },
     "button": {
         "add_to_favourites": "Lisa lemmikute hulka",

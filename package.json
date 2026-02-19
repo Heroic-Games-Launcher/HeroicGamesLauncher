@@ -1,8 +1,8 @@
 {
   "name": "heroic",
-  "version": "2.19.0",
+  "version": "2.20.0-beta.1",
   "versionNames": {
-    "stable": "Punk 01 - Shaka",
+    "stable": "Punk 02 - Pythagoras",
     "beta": "Caesar Clown"
   },
   "private": false,
@@ -35,7 +35,7 @@
     "release:mac": "electron-vite build && electron-builder -p always --mac --x64 --arm64",
     "release:win": "electron-vite build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
-    "sign:win": "electron-vite build && electron-builder -p never --win nsis --x64",
+    "sign:win": "electron-vite build && electron-builder -p never --win nsis portable --x64",
     "dist:linux": "electron-vite build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && electron-vite build && electron-builder --mac",
     "dist:win": "electron-vite build && electron-builder --win",
@@ -111,7 +111,7 @@
     "@types/graceful-fs": "^4.1.9",
     "@types/ini": "^1.3.34",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.15.18",
+    "@types/node": "^22.19.3",
     "@types/plist": "^3.0.5",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.7",

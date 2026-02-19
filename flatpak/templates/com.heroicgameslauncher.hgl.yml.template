@@ -1,9 +1,9 @@
 id: com.heroicgameslauncher.hgl
 sdk: org.freedesktop.Sdk
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '25.08'
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
+base-version: '25.08'
 command: heroic-run
 separate-locales: false
 
@@ -94,17 +94,17 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '23.08'
+    version: '25.08'
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '23.08'
+    version: '25.08'
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
     version: '1.4'
-    versions: 23.08;1.4
+    versions: 25.08;1.4
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -112,6 +112,7 @@ add-extensions:
     merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
     download-if: active-gl-driver
     enable-if: active-gl-driver
+    autoprune-unless: active-gl-driver
 
   x-compat-i386-opts: &compat_i386_opts
     prepend-pkg-config-path: /app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig
@@ -124,8 +125,8 @@ add-extensions:
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '23.08'
-    versions: '23.08'
+    version: '25.08'
+    versions: '25.08'
     autodelete: false
     no-autodownload: true
     add-ld-path: lib
@@ -266,45 +267,22 @@ modules:
         path: com.heroicgameslauncher.hgl.desktop
 
   #START --- Winetricks Deps ---
-  - name: p7zip
-    no-autogen: true
-    build-options:
-      strip: true
-    make-args:
-      - all2
-      - OPTFLAGS=-O2 -g -std=gnu++14
-      - DEST_HOME=$(FLATPAK_DEST)
-      - DEST_BIN=$(FLATPAK_DEST)/bin
-      - DEST_SHARE=$(FLATPAK_DEST)/lib/p7zip
-      - DEST_MAN=$(FLATPAK_DEST)/share/man
-    make-install-args:
-      - DEST_HOME=$(FLATPAK_DEST)
-      - DEST_BIN=$(FLATPAK_DEST)/bin
-      - DEST_SHARE=$(FLATPAK_DEST)/lib/p7zip
-      - DEST_MAN=$(FLATPAK_DEST)/share/man
+  - name: 7zip
+    buildsystem: simple
+    subdir: CPP/7zip/Bundles/Alone2
+    build-commands:
+      - make -j $FLATPAK_BUILDER_N_JOBS -f makefile.gcc
+      - install -Dm755 ./_o/7zz -t /app/bin
+      - ln -s /app/bin/7zz /app/bin/7za
+      - ln -s /app/bin/7zz /app/bin/7z
     sources:
       - type: archive
-        url: https://github.com/p7zip-project/p7zip/archive/refs/tags/v17.05.tar.gz
-        sha256: d2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6
-      - type: shell
-        only-arches:
-          - x86_64
-        commands:
-          - ln -sf makefile.linux_amd64_asm makefile.machine
-      - type: shell
-        only-arches:
-          - i386
-        commands:
-          - ln -sf makefile.linux_x86_asm_gcc_4.X makefile.machine
-    modules:
-      - name: yasm
-        buildsystem: cmake-ninja
-        sources:
-          - type: archive
-            url: https://github.com/yasm/yasm/archive/v1.3.0.tar.gz
-            sha256: f708be0b7b8c59bc1dbe7134153cd2f31faeebaa8eec48676c10f972a1f13df3
-        cleanup:
-          - '*'
+        url: https://github.com/ip7z/7zip/archive/refs/tags/25.01.tar.gz
+        sha256: 8772e4ef86540c98bf4c23a6d9e13b3a25794d4bb30986ef0b1b9f20075b34c9
+        x-checker-data:
+          type: anitya
+          project-id: 372314
+          url-template: https://github.com/ip7z/7zip/archive/refs/tags/$version.tar.gz
 
   - name: cabextract
     build-options:
@@ -326,8 +304,8 @@ modules:
       - DESTDIR=$(FLATPAK_DEST)
     sources:
       - type: archive
-        url: https://www.rarlab.com/rar/unrarsrc-6.2.12.tar.gz
-        sha256: a008b5f949bca9bb4ffa1bebbfc8b3c14b89df10a10354809b845232d5f582e5
+        url: https://www.rarlab.com/rar/unrarsrc-7.2.2.tar.gz
+        sha256: 41c00c8755cf5bf6b5d7f0d2d167ee889c2c5352e17e5c9470dbc354af1e71ab
         x-checker-data:
           type: anitya
           project-id: 13306
@@ -380,27 +358,4 @@ modules:
       arch:
         x86_64: *compat_i386_opts
     sources: *libbsd_sources
-
-  - name: libjpeg # with libjpeg.so.8
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DCMAKE_SKIP_RPATH:BOOL=YES
-      - -DENABLE_STATIC:BOOL=NO
-      - -DWITH_JPEG8:BOOL=YES
-      - -DCMAKE_INSTALL_LIBDIR=/app/lib # uses lib64 by default
-    sources: &libjpeg_sources
-      - type: archive
-        url: https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.3.tar.gz
-        sha256: dbda0c685942aa3ea908496592491e5ec8160d2cf1ec9d5fd5470e50768e7859
-
-  - name: libjpeg-32bit # with libjpeg.so.8
-    buildsystem: cmake-ninja
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    config-opts:
-      - -DCMAKE_SKIP_RPATH:BOOL=YES
-      - -DENABLE_STATIC:BOOL=NO
-      - -DWITH_JPEG8:BOOL=YES
-    sources: *libjpeg_sources
   #END --- Winetricks Deps ---

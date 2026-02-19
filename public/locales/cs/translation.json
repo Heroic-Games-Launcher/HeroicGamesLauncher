@@ -99,7 +99,11 @@
                 "title": "Chyba Steamu"
             },
             "executableNotFound": "Spustitelný soubor nebyl nalezen",
-            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry."
+            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry.",
+            "dxmt": {
+                "message": "Chyba při stahování DXMT! Zkontrolujte připojení!",
+                "title": "Chyba při stahování DXMT"
+            }
         },
         "info": {
             "update": {
@@ -914,7 +918,8 @@
         },
         "custom_css": {
             "title": "Vlastní styl CSS"
-        }
+        },
+        "launchOptions": "Možnosti spuštění"
     },
     "Settings": "Nastavení",
     "sidebar": {
@@ -979,7 +984,8 @@
             "unzipping": "Rozbalování"
         },
         "release": "Release Date",
-        "size": "Velikost"
+        "size": "Velikost",
+        "notes": "Poznámky"
     },
     "externalLink": {
         "dontAskAgain": "Už se neptat",

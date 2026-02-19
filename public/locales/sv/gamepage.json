@@ -48,7 +48,11 @@
         },
         "wineprefix": "Ange Wine-prefix mapp",
         "yes": "Ja",
-        "close": "Stäng"
+        "close": "Stäng",
+        "selectLaunchOption": {
+            "body": "Välj ett uppstartsalternativ för det här spelet (det kan ändras senare i spelinställningarna):",
+            "title": "Välj uppstartsalternativ {{seconds}})"
+        }
     },
     "button": {
         "add_to_favourites": "Lägg till i Favoriter",

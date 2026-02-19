@@ -907,7 +907,8 @@
         },
         "custom_css": {
             "title": "Özel CSS Stili"
-        }
+        },
+        "launchOptions": "Başlatma Seçenekleri..."
     },
     "Settings": "Ayarlar",
     "sidebar": {

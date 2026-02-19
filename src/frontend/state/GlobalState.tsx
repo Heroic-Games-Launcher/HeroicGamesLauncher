@@ -256,6 +256,7 @@ class GlobalState extends PureComponent<Props> {
 
   setLanguage = (newLanguage: string) => {
     this.setState({ language: newLanguage })
+    document.querySelector('html')?.setAttribute('lang', newLanguage)
   }
 
   setTheme = (newThemeName: string) => {
@@ -614,7 +615,8 @@ class GlobalState extends PureComponent<Props> {
       this.setState({
         zoom: {
           library: [],
-          username: userInfo?.username
+          username: userInfo?.username,
+          enabled: true
         }
       })
 
@@ -629,7 +631,8 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       zoom: {
         library: [],
-        username: null
+        username: null,
+        enabled: true
       }
     })
     console.log('Logging out from zoom')
@@ -699,7 +702,8 @@ class GlobalState extends PureComponent<Props> {
       },
       zoom: {
         library: zoomLibrary,
-        username: zoom.username
+        username: zoom.username,
+        enabled: zoom.enabled
       },
       amazon: {
         library: amazonLibrary,
@@ -924,7 +928,8 @@ class GlobalState extends PureComponent<Props> {
         this.setState({
           zoom: {
             library: [...library],
-            username: this.state.zoom.username
+            username: this.state.zoom.username,
+            enabled: true
           }
         })
       }

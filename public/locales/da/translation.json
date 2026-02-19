@@ -716,7 +716,8 @@
             "steamDeck": "Steam Deck {{model}}",
             "systemModel": "Systemmodel:",
             "systemSpecifications": "Systemspecifikationer:"
-        }
+        },
+        "launchOptions": "Opstartsinstillinger..."
     },
     "title": {
         "allUnreal": "Uvirkeligt - Alt",

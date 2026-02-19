@@ -99,7 +99,11 @@
                 "title": "Steam 错误"
             },
             "executableNotFound": "未找到可执行文件",
-            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。"
+            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。",
+            "dxmt": {
+                "message": "下载 DXMT 出错！检查你的连接！",
+                "title": "DXMT 下载错误"
+            }
         },
         "info": {
             "update": {
@@ -914,7 +918,8 @@
         },
         "custom_css": {
             "title": "自定义 CSS 样式"
-        }
+        },
+        "launchOptions": "启动选项"
     },
     "Settings": "设置",
     "sidebar": {
@@ -979,7 +984,8 @@
             "unzipping": "解压缩"
         },
         "release": "发布日期",
-        "size": "大小"
+        "size": "大小",
+        "notes": "附注"
     },
     "externalLink": {
         "warning": "你即将打开一个外部链接。",
