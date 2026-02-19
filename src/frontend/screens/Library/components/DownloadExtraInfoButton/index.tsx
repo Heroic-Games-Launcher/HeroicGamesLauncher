@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
@@ -8,7 +7,10 @@ interface DownloadExtraInfoButtonProps {
   'data-tour'?: string
 }
 
-function DownloadExtraInfoButton({ onClick, 'data-tour': dataTour }: DownloadExtraInfoButtonProps) {
+function DownloadExtraInfoButton({
+  onClick,
+  'data-tour': dataTour
+}: DownloadExtraInfoButtonProps) {
   const { t } = useTranslation()
 
   return (
