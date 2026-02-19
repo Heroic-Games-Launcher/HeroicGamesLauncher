@@ -615,7 +615,8 @@ class GlobalState extends PureComponent<Props> {
       this.setState({
         zoom: {
           library: [],
-          username: userInfo?.username
+          username: userInfo?.username,
+          enabled: true
         }
       })
 
@@ -630,7 +631,8 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       zoom: {
         library: [],
-        username: null
+        username: null,
+        enabled: true
       }
     })
     console.log('Logging out from zoom')
@@ -700,7 +702,8 @@ class GlobalState extends PureComponent<Props> {
       },
       zoom: {
         library: zoomLibrary,
-        username: zoom.username
+        username: zoom.username,
+        enabled: zoom.enabled
       },
       amazon: {
         library: amazonLibrary,
@@ -925,7 +928,8 @@ class GlobalState extends PureComponent<Props> {
         this.setState({
           zoom: {
             library: [...library],
-            username: this.state.zoom.username
+            username: this.state.zoom.username,
+            enabled: true
           }
         })
       }

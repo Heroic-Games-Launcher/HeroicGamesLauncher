@@ -136,6 +136,7 @@ export type DialogModalOptions = {
   message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
   type?: DialogType
+  onClose?: () => void
 }
 
 export interface ExternalLinkDialogOptions {
@@ -289,6 +290,7 @@ export interface GameContextType {
     uninstalling: boolean
     updating: boolean
     win: boolean
+    notPlayableOffline: boolean
   }
   statusContext?: string
   status: Status | undefined
