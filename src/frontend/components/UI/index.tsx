@@ -1,6 +1,5 @@
 export { default as Header } from './Header'
 export { default as InfoBox } from './InfoBox'
-export { default as Dropdown } from './Dropdown'
 export { default as LanguageSelector } from './LanguageSelector'
 export { default as SelectField } from './SelectField'
 export { default as SmallInfo } from './SmallInfo'
