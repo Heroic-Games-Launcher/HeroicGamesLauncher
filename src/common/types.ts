@@ -826,3 +826,14 @@ export interface RunnerCommandStub {
   stdout?: string
   stderr?: string
 }
+
+export interface SGDBGrid {
+  id: number
+  url: string
+  thumb: string
+}
+
+export interface SGDBGame {
+  id: number
+  name: string
+}

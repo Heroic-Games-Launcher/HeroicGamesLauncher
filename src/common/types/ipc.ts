@@ -320,10 +320,6 @@ interface AsyncIPCFunctions {
     gameId: number
     styles?: string[]
     dimensions?: string[]
-    mimes?: string[]
-    types?: string[]
-    nsfw?: string
-    humor?: string
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 

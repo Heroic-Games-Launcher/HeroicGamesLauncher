@@ -1,17 +1,7 @@
 import axios from 'axios'
+import { SGDBGame, SGDBGrid } from 'common/types'
 
 const SGDB_API_URL = 'https://www.steamgriddb.com/api/v2'
-
-interface SGDBGame {
-  id: number
-  name: string
-}
-
-interface SGDBGrid {
-  id: number
-  url: string
-  thumb: string
-}
 
 interface SGDBResponse<T> {
   success: boolean
@@ -33,7 +23,8 @@ export async function searchGame(
     `${SGDB_API_URL}/search/autocomplete/${encodeURIComponent(query)}`,
     {
       headers: {
-        Authorization: `Bearer ${apiKey}`
+        Authorization: `Bearer ${apiKey}`,
+        'User-Agent': 'HeroicBinaryUpdater/1.0'
       }
     }
   )
@@ -72,7 +63,8 @@ export async function getGrids(
     {
       params,
       headers: {
-        Authorization: `Bearer ${apiKey}`
+        Authorization: `Bearer ${apiKey}`,
+        'User-Agent': 'HeroicBinaryUpdater/1.0'
       }
     }
   )

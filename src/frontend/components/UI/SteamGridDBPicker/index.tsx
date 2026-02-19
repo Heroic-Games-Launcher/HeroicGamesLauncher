@@ -10,17 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { CachedImage } from 'frontend/components/UI'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-
-interface Grid {
-  id: number
-  url: string
-  thumb: string
-}
-
-interface Game {
-  id: number
-  name: string
-}
+import { SGDBGame, SGDBGrid } from 'common/types'
 
 interface Props {
   initialTitle: string
@@ -35,8 +25,8 @@ export default function SteamGridDBPicker({
 }: Props) {
   const { t } = useTranslation()
   const [query, setQuery] = useState(initialTitle)
-  const [games, setGames] = useState<Game[]>([])
-  const [grids, setGrids] = useState<Grid[]>([])
+  const [games, setGames] = useState<SGDBGame[]>([])
+  const [grids, setGrids] = useState<SGDBGrid[]>([])
   const [loading, setLoading] = useState(false)
   const [selectedGameId, setSelectedGameId] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -48,7 +38,7 @@ export default function SteamGridDBPicker({
       setError(null)
       setGrids([])
       try {
-        const results = await window.api.getSteamGridDBGrids({
+        const results = await window.api.steamgriddb.getGrids({
           gameId,
           styles: ['material', 'alternate', 'blurred'],
           dimensions: ['600x900', '342x482', '660x930']
@@ -78,7 +68,7 @@ export default function SteamGridDBPicker({
       setGames([])
       setSelectedGameId(null)
       try {
-        const results = await window.api.searchSteamGridDB(searchQuery)
+        const results = await window.api.steamgriddb.searchGame(searchQuery)
         setGames(results)
         if (results.length === 1) {
           void handleSelectGame(results[0].id)

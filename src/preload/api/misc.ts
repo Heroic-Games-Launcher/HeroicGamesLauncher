@@ -1,4 +1,8 @@
-import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '../ipc'
+import {
+  makeListenerCaller,
+  makeHandlerInvoker,
+  frontendListenerSlot
+} from '../ipc'
 
 export const clearCache = makeListenerCaller('clearCache')
 export const resetHeroic = makeListenerCaller('resetHeroic')
@@ -38,11 +42,15 @@ export const refreshLibrary = makeHandlerInvoker('refreshLibrary')
 export const gamepadAction = makeHandlerInvoker('gamepadAction')
 export const logError = makeListenerCaller('logError')
 export const logInfo = makeListenerCaller('logInfo')
-export const showConfigFileInFolder = makeListenerCaller('showConfigFileInFolder')
+export const showConfigFileInFolder = makeListenerCaller(
+  'showConfigFileInFolder'
+)
 export const openFolder = makeListenerCaller('openFolder')
 export const syncGOGSaves = makeHandlerInvoker('syncGOGSaves')
 export const checkDiskSpace = makeHandlerInvoker('checkDiskSpace')
-export const getGOGLinuxInstallersLangs = makeHandlerInvoker('getGOGLinuxInstallersLangs')
+export const getGOGLinuxInstallersLangs = makeHandlerInvoker(
+  'getGOGLinuxInstallersLangs'
+)
 export const getAlternativeWine = makeHandlerInvoker('getAlternativeWine')
 export const getShellPath = makeHandlerInvoker('getShellPath')
 export const getWebviewPreloadPath = makeHandlerInvoker('getWebviewPreloadPath')
@@ -81,26 +89,41 @@ interface StoreMap {
 }
 const stores: StoreMap = {}
 
-export const storeNew = function (storeName: string, options: Store.Options<Record<string, unknown>>) {
+export const storeNew = function (
+  storeName: string,
+  options: Store.Options<Record<string, unknown>>
+) {
   stores[storeName] = new Store(options)
 }
 
-export const storeSet = (storeName: string, key: string, value?: unknown) => stores[storeName].set(key, value)
+export const storeSet = (storeName: string, key: string, value?: unknown) =>
+  stores[storeName].set(key, value)
 
-export const storeHas = (storeName: string, key: string) => stores[storeName].has(key)
+export const storeHas = (storeName: string, key: string) =>
+  stores[storeName].has(key)
 
-export const storeGet = (storeName: string, key: string, defaultValue?: unknown) =>
-  stores[storeName].get(key, defaultValue)
+export const storeGet = (
+  storeName: string,
+  key: string,
+  defaultValue?: unknown
+) => stores[storeName].get(key, defaultValue)
 
-export const storeDelete = (storeName: string, key: string) => stores[storeName].delete(key)
+export const storeDelete = (storeName: string, key: string) =>
+  stores[storeName].delete(key)
 
 export const getWikiGameInfo = makeHandlerInvoker('getWikiGameInfo')
-export const fetchPlaytimeFromServer = makeHandlerInvoker('getPlaytimeFromRunner')
+export const fetchPlaytimeFromServer = makeHandlerInvoker(
+  'getPlaytimeFromRunner'
+)
 export const getUploadedLogFiles = makeHandlerInvoker('getUploadedLogFiles')
 export const uploadLogFile = makeHandlerInvoker('uploadLogFile')
 export const deleteUploadedLogFile = makeHandlerInvoker('deleteUploadedLogFile')
 export const logFileUploadedSlot = frontendListenerSlot('logFileUploaded')
-export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDeleted')
+export const logFileUploadDeletedSlot = frontendListenerSlot(
+  'logFileUploadDeleted'
+)
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
-export const searchSteamGridDB = makeHandlerInvoker('steamgriddb.searchGame')
-export const getSteamGridDBGrids = makeHandlerInvoker('steamgriddb.getGrids')
+export const steamgriddb = {
+  searchGame: makeHandlerInvoker('steamgriddb.searchGame'),
+  getGrids: makeHandlerInvoker('steamgriddb.getGrids')
+}

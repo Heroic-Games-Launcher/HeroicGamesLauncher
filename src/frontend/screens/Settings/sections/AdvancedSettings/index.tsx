@@ -182,8 +182,6 @@ export default function AdvancedSetting() {
 
       <AllowInstallationBrokenAnticheat />
 
-      <SteamGridDbApiKey />
-
       {isLinux && <ShowValveProton />}
 
       <hr />
@@ -301,6 +299,8 @@ export default function AdvancedSetting() {
         </div>
         <hr />
       </div>
+
+      <SteamGridDbApiKey />
 
       <div className="advancedSetting">
         <ExperimentalFeatures />
