@@ -519,7 +519,8 @@ function loadFile(app_name: string): boolean {
     releaseInfo,
     customAttributes,
     categories,
-    mainGameItem
+    mainGameItem,
+    creationDate
   } = metadata
 
   // skip mods from the library
@@ -619,7 +620,8 @@ function loadFile(app_name: string): boolean {
         shortDescription
       },
       reqs: [],
-      storeUrl: formatEpicStoreUrl(title)
+      storeUrl: formatEpicStoreUrl(title),
+      releaseDate: creationDate
     },
     dlcList: dlcItemList,
     folder_name: installFolder,

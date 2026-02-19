@@ -27,7 +27,8 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  normalizeTitle,
+  normalizeDate
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -663,8 +664,8 @@ export default React.memo(function Library(): JSX.Element {
     // sort
     library = library.sort((a, b) => {
       if (sortBy === 'releaseDate') {
-        const dateA = a.extra?.releaseDate || ''
-        const dateB = b.extra?.releaseDate || ''
+        const dateA = normalizeDate(a.extra?.releaseDate)
+        const dateB = normalizeDate(b.extra?.releaseDate)
 
         if (dateA === dateB) {
           return a.title.localeCompare(b.title)

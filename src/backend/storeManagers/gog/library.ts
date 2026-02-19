@@ -982,7 +982,8 @@ export async function gogToUnifiedInfo(
     extra: {
       about: { description: info.summary['*'], shortDescription: '' },
       reqs: [],
-      genres: info.game.genres.map((genre) => genre.name['*'])
+      genres: info.game.genres.map((genre) => genre.name['*']),
+      releaseDate: info.first_release_date
     },
     folder_name: '',
     install: {
