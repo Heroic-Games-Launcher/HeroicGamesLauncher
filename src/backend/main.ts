@@ -1075,9 +1075,27 @@ addHandler('syncGOGSaves', async (event, gogSaves, appName, arg) =>
   gameManagerMap['gog'].syncSaves(appName, arg, '', gogSaves)
 )
 
-addHandler('getLaunchOptions', async (event, appName, runner) =>
-  libraryManagerMap[runner].getLaunchOptions(appName)
-)
+addHandler('getLaunchOptions', async (event, appName, runner) => {
+  const availableLaunchOptions =
+    await libraryManagerMap[runner].getLaunchOptions(appName)
+
+  const hasDefaultOption = availableLaunchOptions.some(
+    (option) =>
+      (option.type === undefined || option.type === 'basic') &&
+      'parameters' in option &&
+      option.parameters === ''
+  )
+
+  if (availableLaunchOptions.length === 1 && !hasDefaultOption) {
+    availableLaunchOptions.unshift({
+      name: 'Default',
+      parameters: '',
+      type: 'basic'
+    })
+  }
+
+  return availableLaunchOptions
+})
 
 addHandler('syncSaves', async (event, { arg = '', path, appName, runner }) => {
   if (runner === 'legendary') {
