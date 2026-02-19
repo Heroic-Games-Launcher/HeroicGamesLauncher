@@ -879,9 +879,11 @@
         },
         "steamgriddb": {
             "apikey": {
-                "description": "Provide your own SteamGridDB API key to enable cover search. You can get one at www.steamgriddb.com/profile/preferences/api",
                 "placeholder": "Enter your SteamGridDB API Key here",
                 "title": "SteamGridDB API Key"
+            },
+            "help": {
+                "description": "Provide your own SteamGridDB API key to enable game cover search. You can get one at www.steamgriddb.com/profile/preferences/api"
             }
         },
         "systemInformation": {
