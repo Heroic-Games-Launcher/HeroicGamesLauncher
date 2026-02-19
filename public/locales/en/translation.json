@@ -689,6 +689,8 @@
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
+        "gamepad-initial-repeat-delay": "Gamepad input initial repeat delay",
+        "gamepad-repeat-frequency": "Gamepad input repeat frequency",
         "gamescope": {
             "enableForceGrabCursor": "Enable Force Grab Cursor",
             "enableLimiter": "Enable FPS Limiter",
