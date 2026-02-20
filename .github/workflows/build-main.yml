@@ -1,4 +1,6 @@
 name: Build on main/stable push
+permissions:
+  contents: read
 
 on:
   push:
@@ -14,4 +16,4 @@ jobs:
       publish-snap: false
     secrets:
       snapcraftIdEdge: ${{ secrets.SNAPCRAFT_ID_EDGE }}
-      workflowToken: ${{ secrets.WORKFLOW_TOKEN }}
+      workflowToken: ${{ secrets.GITHUB_TOKEN }}
