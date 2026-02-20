@@ -113,7 +113,6 @@ export default function WineManager(): JSX.Element | null {
     getWineVersions(repository.type)
   )
 
-  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [showSettingsModal, setShowSettingsModal] = useState(false)
@@ -193,7 +192,6 @@ export default function WineManager(): JSX.Element | null {
             className="toolbarBtn"
             title={t('generic.library.refresh', 'Refresh Library')}
             onClick={() => {
-              setLoading(true)
               setError(null)
               refreshWineVersions(true)
             }}
@@ -240,7 +238,7 @@ export default function WineManager(): JSX.Element | null {
 
         {wineVersionExplanation}
 
-        {loading ? (
+        {refreshingWineVersions ? (
           <div className="infoBox">
             <FontAwesomeIcon icon={faSyncAlt} color={'orange'} />
             {t('wine.manager.loading', 'Loading wine versions...')}
@@ -264,7 +262,7 @@ export default function WineManager(): JSX.Element | null {
             </div>
             {refreshingWineVersions && <UpdateComponent />}
             {!refreshingWineVersions &&
-              filteredWineVersions.map((release) => {
+              wineVersions.map((release) => {
                 return <WineItem key={release.version} {...release} />
               })}
           </div>
