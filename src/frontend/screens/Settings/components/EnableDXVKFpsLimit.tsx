@@ -4,7 +4,7 @@ import { ToggleSwitch, TextInputField } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import SettingsContext from '../SettingsContext'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../constants'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const EnableDXVKFpsLimit = () => {
