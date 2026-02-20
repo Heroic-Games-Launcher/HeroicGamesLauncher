@@ -32,14 +32,14 @@ function SystemSpecifications({
 }: SystemSpecificationsProps) {
   return (
     <Grid container spacing={1}>
-      <Grid item xs={6}>
+      <Grid size={6}>
         <CPUCard cpu={systemInformation.CPU} />
       </Grid>
-      <Grid item xs={6}>
+      <Grid size={6}>
         <MemoryProgress memory={systemInformation.memory} />
       </Grid>
       {...systemInformation.GPUs.map((gpu, index) => (
-        <Grid key={index} item xs={6}>
+        <Grid key={index} size={6}>
           <GPUCard
             gpu={gpu}
             gpuNumber={index}
@@ -63,10 +63,10 @@ function SteamDeckSystemSpecifications({
           {t('settings.systemInformation.systemModel', 'System Model:')}
         </Typography>
         <Grid container>
-          <Grid item xs={2}>
+          <Grid size={2}>
             <SteamDeckLogo className="logo fillWithThemeColor" />
           </Grid>
-          <Grid item xs={10}>
+          <Grid size={10}>
             {t('settings.systemInformation.steamDeck', 'Steam Deck {{model}}', {
               model: systemInformation.steamDeckInfo.model
             })}
@@ -113,13 +113,13 @@ export default function SystemInfo() {
         )}
         <hr />
         <Grid container spacing={1}>
-          <Grid item xs={6}>
+          <Grid size={6}>
             <OSInfo
               os={systemInformation.OS}
               isFlatpak={systemInformation.isFlatpak}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid size={6}>
             <SoftwareInfo software={systemInformation.softwareInUse} />
           </Grid>
         </Grid>
