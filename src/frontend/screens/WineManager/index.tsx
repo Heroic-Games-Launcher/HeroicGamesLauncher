@@ -131,7 +131,16 @@ export default function WineManager(): JSX.Element | null {
       'wine-manager-settings'
     )
     if (oldWineManagerSettings) {
-      setWineManagerSettings(oldWineManagerSettings)
+      const allowedValues = [
+        'protonge',
+        'winege',
+        'gpt',
+        'winecrossover',
+        'winestagingmacos'
+      ]
+      setWineManagerSettings(
+        oldWineManagerSettings.filter((s) => allowedValues.includes(s.value))
+      )
     }
   }, [])
 
@@ -282,7 +291,11 @@ export default function WineManager(): JSX.Element | null {
       </div>
 
       {showSettingsModal && (
-        <WineManagerSettingsModal onClose={() => setShowSettingsModal(false)} />
+        <WineManagerSettingsModal
+          onClose={() => setShowSettingsModal(false)}
+          wineManagerSettings={wineManagerSettings}
+          setWineManagerSettings={setWineManagerSettings}
+        />
       )}
     </>
   )
