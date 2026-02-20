@@ -49,7 +49,11 @@
         },
         "wineprefix": "Selectați folderul WinePrefix",
         "yes": "DA",
-        "close": "Închide"
+        "close": "Închide",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "O.K"
     },
     "button": {
         "add_to_favourites": "Adaugă la favorite",
