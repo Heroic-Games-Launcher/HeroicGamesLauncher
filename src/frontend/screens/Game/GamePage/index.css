@@ -620,7 +620,7 @@
   .gameConfigContainer {
     height: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content 1fr 1fr min-content;
+    grid-template-rows: min-content 400px 2fr min-content;
     grid-template-areas:
       'header'
       'main'
