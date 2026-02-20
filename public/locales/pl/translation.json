@@ -1028,8 +1028,7 @@
         "new-category": "Nowa kategoria"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użycia razem z launcherem umu (domyślnym dla Heroic).",
-        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest przestarzała i zamiast niej powinno używać się GE-Proton z launcherem umu."
+        "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użycia razem z launcherem umu (domyślnym dla Heroic)."
     },
     "emptyLibrary": {
         "noResults": "Wybrane filtry nie zwróciły wyników.",

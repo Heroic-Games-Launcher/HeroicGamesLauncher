@@ -1018,8 +1018,7 @@
         "add-new-category": "Afegeix una categoria nova"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb el llançador umu (predefinit a l'Heroic).",
-        "wine-ge": "El Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. S'ha quedat obsolet en favor del GE-Proton i el llançador umu."
+        "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb el llançador umu (predefinit a l'Heroic)."
     },
     "emptyLibrary": {
         "noResults": "Els filtres actuals no han produït cap resultat.",

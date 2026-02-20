@@ -1023,8 +1023,7 @@
         "restore": "Restaurer la fenêtre"
     },
     "wineExplanation": {
-        "proton-ge": "GE-Proton est une variante de Proton créée par Glorious Eggroll. Elle est destiné à être utilisé avec le lanceur umu (activé par défaut dans Heroic).",
-        "wine-ge": "Wine-GE-Proton est une variante de Wine créée par Glorious Eggroll. Elle a été abandonnée en faveur de GE-Proton avec le lanceur umu."
+        "proton-ge": "GE-Proton est une variante de Proton créée par Glorious Eggroll. Elle est destiné à être utilisé avec le lanceur umu (activé par défaut dans Heroic)."
     },
     "emptyLibrary": {
         "noResults": "Les filtres actuels n'ont retourné aucun résultat.",

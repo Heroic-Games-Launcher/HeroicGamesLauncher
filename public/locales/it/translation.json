@@ -1032,7 +1032,6 @@
         "no-categories": "Ancora nessuna categoria."
     },
     "wineExplanation": {
-        "wine-ge": "Wine-GE-Proton è una variante Wine creata da Glorious Eggroll. È stato deprecata in favore di Proton-GE con il launcher UMU.",
         "proton-ge": "GE-Proton è una variante di Proton creata da Glorious Eggroll. È pensato per essere utilizzato su Steam, ma alcuni giochi esterni a Steam potrebbero funzionare meglio con questa variante. Fornisce logs per lo più inutili per la risoluzione dei problemi."
     },
     "adtraction-locked": {

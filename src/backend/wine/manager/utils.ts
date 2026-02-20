@@ -44,7 +44,7 @@ async function updateWineVersionInfos(
           Repositorys.WINESTAGINGMACOS,
           Repositorys.GPTK
         ]
-      : [Repositorys.WINEGE, Repositorys.PROTONGE]
+      : [Repositorys.PROTONGE]
 
     await getAvailableVersions({
       repositorys,
