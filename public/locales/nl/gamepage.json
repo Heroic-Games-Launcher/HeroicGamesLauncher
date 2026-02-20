@@ -47,7 +47,11 @@
         },
         "wineprefix": "Selecteer WinePrefix Map",
         "yes": "JA",
-        "close": "sluit"
+        "close": "sluit",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Voeg toe aan favorieten",
