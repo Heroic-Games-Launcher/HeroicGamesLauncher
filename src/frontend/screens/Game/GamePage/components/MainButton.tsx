@@ -165,24 +165,6 @@ const MainButton = ({
 
   const is_installed = gameInfo.is_installed
 
-  function altInstallAction() {
-    if (is_installed || is.queued || is.installing || is.notInstallable) {
-      return <></>
-    }
-
-    return (
-      <button className="button altPlay is-secondary">
-        <ArrowBackIosNew />
-        <a className="button" onClick={handleImport}>
-          <span className="buttonWithIcon">
-            <Download />
-            {t('button.import', 'Import Game')}
-          </span>
-        </a>
-      </button>
-    )
-  }
-
   return (
     <div className="playButtons">
       {is_installed && !is.queued && !is.uninstalling && (
@@ -254,7 +236,22 @@ const MainButton = ({
           >
             {getButtonLabel()}
           </button>
-          {altInstallAction()}
+          <button
+            disabled={
+              is.playing ||
+              is.updating ||
+              is.reparing ||
+              is.moving ||
+              is.uninstalling ||
+              is.notSupportedGame ||
+              is.notInstallable
+            }
+            className={'button mainBtn outline'}
+            onClick={handleImport}
+            style={{ marginLeft: 'var(--space-sm)' }}
+          >
+            {t('button.import', 'Import Game')}
+          </button>
         </>
       )}
     </div>
