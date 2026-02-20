@@ -277,6 +277,7 @@
           align-self: center;
         }
 
+        & .installButtons,
         & .playButtons {
           display: flex;
           justify-content: center;
@@ -307,6 +308,10 @@
               }
             }
           }
+        }
+
+        .installButtons {
+          gap: var(--space-xs);
         }
 
         & .mainBtn {
@@ -648,6 +653,12 @@
     .timeContainerLabel {
       display: none;
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .installButtons {
+    flex-direction: column;
   }
 }
 

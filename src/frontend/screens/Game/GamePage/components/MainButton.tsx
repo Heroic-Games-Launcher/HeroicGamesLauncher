@@ -166,9 +166,9 @@ const MainButton = ({
   const is_installed = gameInfo.is_installed
 
   return (
-    <div className="playButtons">
+    <div className="buttonsWrapper">
       {is_installed && !is.queued && !is.uninstalling && (
-        <>
+        <div className="playButtons">
           <button
             disabled={
               is.reparing ||
@@ -204,10 +204,10 @@ const MainButton = ({
             {getPlayLabel()}
           </button>
           {altPlayAction()}
-        </>
+        </div>
       )}
       {(!is_installed || is.queued) && (
-        <>
+        <span className="installButtons">
           <button
             onClick={async () => handleInstall(is_installed)}
             disabled={
@@ -248,11 +248,10 @@ const MainButton = ({
             }
             className={'button mainBtn outline'}
             onClick={handleImport}
-            style={{ marginLeft: 'var(--space-sm)' }}
           >
             {t('button.import', 'Import Game')}
           </button>
-        </>
+        </span>
       )}
     </div>
   )
