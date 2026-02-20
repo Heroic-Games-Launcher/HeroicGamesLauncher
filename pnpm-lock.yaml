@@ -11,9 +11,6 @@ patchedDependencies:
   '@types/node@22.19.3':
     hash: 8c1b2354f08e74aa2381e5f6c314a45bb82ae9f8763bf63f0e1b6797e9232831
     path: patches/@types__node@22.19.3.patch
-  howlongtobeat-js@1.0.2:
-    hash: f0cfbc863bfb47b8e8b07f34b2fa66b4c168f4cb04433b96b71cd7a8b85a74e3
-    path: patches/howlongtobeat-js@1.0.2.patch
 
 importers:
 
@@ -82,9 +79,6 @@ importers:
       graceful-fs:
         specifier: ^4.2.11
         version: 4.2.11
-      howlongtobeat-js:
-        specifier: ^1.0.2
-        version: 1.0.2(patch_hash=f0cfbc863bfb47b8e8b07f34b2fa66b4c168f4cb04433b96b71cd7a8b85a74e3)
       i18next:
         specifier: ^22.5.1
         version: 22.5.1
@@ -3368,7 +3362,7 @@ packages:
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   global-agent@3.0.0:
     resolution: {integrity: sha512-PT6XReJ+D07JvGoxQMkT6qji/jVNfX/h364XHZOWeRzy64sSFr+xJ5OX7LI3b4MPQzdL4H8Y8M0xzPpsVMwA8Q==}
@@ -3464,9 +3458,6 @@ packages:
   hosted-git-info@4.1.0:
     resolution: {integrity: sha512-kyCuEOWjJqZuDbRHzL8V93NzQhwIB71oFWSyzVo+KPZI+pnQPPxucdkrOZvkLRnrf5URsQM+IJ09Dw29cRALIA==}
     engines: {node: '>=10'}
-
-  howlongtobeat-js@1.0.2:
-    resolution: {integrity: sha512-vdQNgRjH31eLkCOFcO+6oMrtDjkEffRf+6rM8GW9BPCJGjCD6w7Pmf4k3aYaPQyGT2xegcVpdFf5CzICYVcpLA==}
 
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
@@ -4124,9 +4115,6 @@ packages:
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
-
-  lodash.clonedeep@4.5.0:
-    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
 
   lodash.defaults@4.2.0:
     resolution: {integrity: sha512-qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==}
@@ -5772,9 +5760,6 @@ packages:
     resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  user-agents@1.1.545:
-    resolution: {integrity: sha512-/bIVCcwWwH+ZCVTxl1nvQvQ8DJWboOLBD9XeHCayhKanY/yEiEh47hVTGpO3UlfgPUQGSSRYMuDkCDDx0EJoww==}
 
   utf8-byte-length@1.0.5:
     resolution: {integrity: sha512-Xn0w3MtiQ6zoz2vFyUVruaCL53O/DwUvkEeOvj+uulMm0BkUGYWmBYVyElqZaSLhY6ZD0ulfU3aBra2aVT4xfA==}
@@ -9867,14 +9852,6 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
-  howlongtobeat-js@1.0.2(patch_hash=f0cfbc863bfb47b8e8b07f34b2fa66b4c168f4cb04433b96b71cd7a8b85a74e3):
-    dependencies:
-      axios: 1.13.2
-      cheerio: 1.0.0
-      user-agents: 1.1.545
-    transitivePeerDependencies:
-      - debug
-
   html-escaper@2.0.2: {}
 
   html-parse-stringify@3.0.1:
@@ -10707,8 +10684,6 @@ snapshots:
   locate-path@6.0.0:
     dependencies:
       p-locate: 5.0.0
-
-  lodash.clonedeep@4.5.0: {}
 
   lodash.defaults@4.2.0: {}
 
@@ -12629,10 +12604,6 @@ snapshots:
   use-sync-external-store@1.5.0(react@18.3.1):
     dependencies:
       react: 18.3.1
-
-  user-agents@1.1.545:
-    dependencies:
-      lodash.clonedeep: 4.5.0
 
   utf8-byte-length@1.0.5: {}
 
