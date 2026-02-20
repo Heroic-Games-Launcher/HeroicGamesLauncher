@@ -22,6 +22,7 @@ import SearchBar from 'frontend/components/UI/SearchBar'
 import WineManagerSettingsModal from './components/WineManagerSettingsModal'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import classNames from 'classnames'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
@@ -45,9 +46,12 @@ export default function WineManager(): JSX.Element | null {
     </p>
   )
 
-  const { refreshWineVersionInfo, refreshing, platform, isIntelMac } =
-    useContext(ContextProvider)
+  const { platform, isIntelMac } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
+  const { refreshingWineVersions, refreshWineVersions } = useGlobalState.keys(
+    'refreshingWineVersions',
+    'refreshWineVersions'
+  )
 
   const protonge: WineManagerUISettings = {
     type: 'GE-Proton',
@@ -191,11 +195,11 @@ export default function WineManager(): JSX.Element | null {
             onClick={() => {
               setLoading(true)
               setError(null)
-              refreshWineVersionInfo(true)
+              refreshWineVersions(true)
             }}
           >
             <FontAwesomeIcon
-              className={classNames({ 'fa-spin': refreshing })}
+              className={classNames({ 'fa-spin': refreshingWineVersions })}
               icon={faSyncAlt}
             />
           </button>
@@ -258,8 +262,8 @@ export default function WineManager(): JSX.Element | null {
               <span className="size">{t('wine.size', 'Size')}</span>
               <span className="actions">{t('wine.actions', 'Action')}</span>
             </div>
-            {refreshing && <UpdateComponent />}
-            {!refreshing &&
+            {refreshingWineVersions && <UpdateComponent />}
+            {!refreshingWineVersions &&
               filteredWineVersions.map((release) => {
                 return <WineItem key={release.version} {...release} />
               })}
