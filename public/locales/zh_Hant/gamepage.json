@@ -47,7 +47,11 @@
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
         "yes": "是",
-        "close": "關閉"
+        "close": "關閉",
+        "warning": {
+            "title": "警告"
+        },
+        "ok": "是"
     },
     "button": {
         "add_to_favourites": "加入我的最愛",
