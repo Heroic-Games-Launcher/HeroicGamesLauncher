@@ -42,7 +42,6 @@ const initialContext: ContextType = {
   isIntelMac: false,
   refresh: async () => Promise.resolve(),
   refreshLibrary: async () => Promise.resolve(),
-  refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
   refreshingInTheBackground: true,
   isRTL: false,
