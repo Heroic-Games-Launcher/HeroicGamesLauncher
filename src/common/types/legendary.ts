@@ -105,7 +105,15 @@ type CustomAttributeType =
   | 'extraLaunchOption_001_Args'
   | 'extraLaunchOption_001_Name'
   | 'ThirdPartyManagedApp'
+  | 'ThirdPartyManagedProvider'
   | 'AdditionalCommandLine'
+  | 'GameID'
+  | 'MainWindowProcessName'
+  | 'RegistryKey'
+  | 'RegistryPath'
+  | 'neverUpdate'
+  | 'partnerLinkId'
+  | 'partnerLinkType'
 
 interface CustomAttributeValue {
   type: 'STRING'
