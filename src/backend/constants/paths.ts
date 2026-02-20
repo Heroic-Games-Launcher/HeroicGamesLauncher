@@ -33,6 +33,7 @@ export const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
 export const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
 export const fixesPath = join(appFolder, 'fixes')
+export const exportsPath = join(userHome, 'Games', 'Heroic', 'Exports')
 
 export const publicDir = resolve(
   __dirname,
