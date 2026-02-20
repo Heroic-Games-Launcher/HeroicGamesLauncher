@@ -229,7 +229,7 @@ export function getInstallMetadata(
 /**
  * Refresh `installedGames` from file.
  */
-export function refreshInstalled() {
+function refreshInstalled() {
   installedGames.clear()
   if (existsSync(nileInstalled)) {
     try {

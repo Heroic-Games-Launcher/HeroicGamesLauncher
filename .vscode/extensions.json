@@ -1,9 +1,11 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "steoates.autoimport",
     "dsznajder.es7-react-js-snippets",
     "eamodio.gitlens",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "orta.vscode-jest",
+    "yoavbls.pretty-ts-errors",
+    "webpro.vscode-knip"
   ]
 }
