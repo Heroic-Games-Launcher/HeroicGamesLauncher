@@ -168,7 +168,7 @@
                 "install": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zainstalowana!",
                 "update": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaktualizowana!"
             },
-            "title": "Ostrzeżenie",
+            "title": "Uwaga",
             "wine-change": {
                 "title": "Nie znaleziono Wine!",
                 "message": "Nie mogliśmy znaleźć wybranej wersji Wine, aby uruchomić ten tytuł ({{selectedWine}}). {{newline}} Znaleźliśmy inny, czy chcesz kontynuować uruchamianie za pomocą {{foundWine}}?"
@@ -1120,5 +1120,8 @@
         "title": "Wysyłaj anonimowe analizy"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Sklep Zoom"
+    "zoom-store": "Sklep Zoom",
+    "launch": {
+        "options": "Opcje uruchamiania..."
+    }
 }

@@ -53,7 +53,15 @@
         "selectLaunchOption": {
             "body": "Proszę wybrać opcję uruchomienia tej gry (można to później zmienić w ustawieniach gry):",
             "title": "Wybierz opcję uruchomienia ({{seconds}}s)"
-        }
+        },
+        "warning": {
+            "title": "Uwaga"
+        },
+        "sync": {
+            "force_download_warning": "Lokalne zapisy zostaną usunięte. Chcesz kontynuować?",
+            "force_upload_warning": "Zapisy w chmurze będą nadpisane. Chcesz kontynuować?"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
@@ -343,5 +351,6 @@
             "resume": "Wznów pobieranie"
         }
     },
-    "Open": "Otwórz"
+    "Open": "Otwórz",
+    "open-saves-folder": "Otwórz folder zapisów"
 }
