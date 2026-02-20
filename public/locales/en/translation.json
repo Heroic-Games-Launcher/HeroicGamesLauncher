@@ -1019,6 +1019,7 @@
             "no-results": "No Wine versions match your search.",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "open_folder": "Open Folder",
+            "repositories": "Repositories",
             "search": "Search versions...",
             "settings": "Settings",
             "title": "Wine Manager",
