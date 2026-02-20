@@ -39,7 +39,8 @@ jobs:
           sha256sums=($(sha256sum heroic.pacman | cut -d' ' -f1))
 
           cat <<EOF > PKGBUILD
-          # Maintainer: flaviofearn <flavioislima@gmail.com>
+          # Maintainer: flaviofearn <heroicgameslauncher@protonmail.com>
+          # CommandMC <kate@commandmc.de>
 
           pkgname=heroic-games-launcher-bin
           pkgver=$pkgver
@@ -53,7 +54,10 @@ jobs:
           noextract=("$_filename")
           sha256sums=(${sha256sums[@]})
           options=(!strip)
-          depends=(which)
+          depends=(
+            which
+            gtk3
+          )
           provides=(heroic-games-launcher)
           conflicts=(heroic-games-launcher)
 
