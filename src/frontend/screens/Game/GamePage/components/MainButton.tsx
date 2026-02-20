@@ -35,6 +35,27 @@ const MainButton = ({
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
+  const is_installed = gameInfo.is_installed
+  const disabledPlayButtons =
+    is.reparing ||
+    is.moving ||
+    is.updating ||
+    is.uninstalling ||
+    is.syncing ||
+    is.launching ||
+    is.installingWinetricksPackages ||
+    is.installingRedist ||
+    is.playing
+
+  const disabledInstallButtons =
+    is.playing ||
+    is.updating ||
+    is.reparing ||
+    is.moving ||
+    is.uninstalling ||
+    is.notSupportedGame ||
+    is.notInstallable
+
   function getPlayLabel(): React.ReactNode {
     if (is.syncing) {
       return (
@@ -81,16 +102,7 @@ const MainButton = ({
   }
 
   function altPlayAction() {
-    if (
-      is.syncing ||
-      is.installingRedist ||
-      is.installingWinetricksPackages ||
-      is.launching ||
-      is.playing ||
-      is.moving ||
-      is.updating ||
-      is.reparing
-    ) {
+    if (disabledPlayButtons) {
       return <></>
     }
 
@@ -163,23 +175,12 @@ const MainButton = ({
     await handlePlay(gameInfo)
   }
 
-  const is_installed = gameInfo.is_installed
-
   return (
     <div className="buttonsWrapper">
       {is_installed && !is.queued && !is.uninstalling && (
         <div className="playButtons">
           <button
-            disabled={
-              is.reparing ||
-              is.moving ||
-              is.updating ||
-              is.uninstalling ||
-              is.syncing ||
-              is.launching ||
-              is.installingWinetricksPackages ||
-              is.installingRedist
-            }
+            disabled={disabledPlayButtons}
             autoFocus={true}
             onClick={async () => handlePlay(gameInfo)}
             className={classNames(
@@ -210,15 +211,7 @@ const MainButton = ({
         <span className="installButtons">
           <button
             onClick={async () => handleInstall(is_installed)}
-            disabled={
-              is.playing ||
-              is.updating ||
-              is.reparing ||
-              is.moving ||
-              is.uninstalling ||
-              is.notSupportedGame ||
-              is.notInstallable
-            }
+            disabled={disabledInstallButtons}
             autoFocus={true}
             className={classNames(
               'button',
@@ -237,15 +230,7 @@ const MainButton = ({
             {getButtonLabel()}
           </button>
           <button
-            disabled={
-              is.playing ||
-              is.updating ||
-              is.reparing ||
-              is.moving ||
-              is.uninstalling ||
-              is.notSupportedGame ||
-              is.notInstallable
-            }
+            disabled={disabledInstallButtons || is.installing}
             className={'button mainBtn outline'}
             onClick={handleImport}
           >
