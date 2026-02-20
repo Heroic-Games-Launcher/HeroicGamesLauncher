@@ -662,7 +662,8 @@
         },
         "systemInformation": {
             "copyToClipboard": "در کليپ بورد کپی شد!"
-        }
+        },
+        "launchOptions": "گزینه های اجرا..."
     },
     "Settings": "تنظیمات",
     "sidebar": {
@@ -763,5 +764,8 @@
     "analyticsModal": {
         "disable": "غیرفعال سازی",
         "enable": "فعال سازی"
+    },
+    "launch": {
+        "options": "گزینه های اجرا..."
     }
 }

@@ -45,7 +45,11 @@
         },
         "wineprefix": "വൈൻ പ്രിഫിക്സ് ഫോൾഡർ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി",
-        "close": "അടയ്ക്കുക"
+        "close": "അടയ്ക്കുക",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "ശരി"
     },
     "button": {
         "add_to_favourites": "Add To Favourites",

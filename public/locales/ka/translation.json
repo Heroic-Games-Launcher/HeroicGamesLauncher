@@ -9,7 +9,10 @@
         "update": "განახლება",
         "changelog": "ცვლილებების ჟურნალი",
         "error": {
-            "title": "შეცდომა"
+            "title": "შეცდომა",
+            "generic": {
+                "title": "აირჩიეთ გასაშვები EXE"
+            }
         },
         "ok": "დიახ",
         "postpone": "გადადება",
@@ -22,7 +25,10 @@
         "warning": {
             "title": "გაფრთხილება"
         },
-        "downloadNow": "გადმოწერა"
+        "downloadNow": "გადმოწერა",
+        "runexe": {
+            "title": "აირჩიეთ გასაშვები EXE"
+        }
     },
     "controller": {
         "hints": {

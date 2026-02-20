@@ -47,7 +47,11 @@
         },
         "wineprefix": "Hautatu WinePrefix karpeta",
         "yes": "BAI",
-        "close": "Itxi"
+        "close": "Itxi",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "Adoz"
     },
     "button": {
         "add_to_favourites": "Gehitu gogokoetara",

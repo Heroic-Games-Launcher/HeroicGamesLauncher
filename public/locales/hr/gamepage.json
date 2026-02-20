@@ -45,7 +45,10 @@
         },
         "wineprefix": "Odaberite WinePrefix mapu",
         "yes": "DA",
-        "close": "Zatvori"
+        "close": "Zatvori",
+        "warning": {
+            "title": "Upozorenje"
+        }
     },
     "button": {
         "add_to_favourites": "Dodaj u omiljene",

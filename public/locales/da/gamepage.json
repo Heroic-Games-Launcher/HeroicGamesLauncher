@@ -49,7 +49,11 @@
         "sideload": {
             "exe": "Vælg eksekverbar fil"
         },
-        "close": "Luk"
+        "close": "Luk",
+        "warning": {
+            "title": "Advarsel"
+        },
+        "ok": "OK"
     },
     "button": {
         "cancel": "Pause/Afbryd",

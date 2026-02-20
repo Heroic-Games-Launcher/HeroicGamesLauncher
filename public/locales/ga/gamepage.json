@@ -82,6 +82,19 @@
         "selectLaunchOption": {
             "body": "Roghnaigh rogha lainseála don chluiche seo le do thoil (is féidir é a athrú níos déanaí i socruithe an chluiche):",
             "title": "Roghnaigh Rogha Seolta ({{seconds}})"
+        },
+        "sync": {
+            "force_download_warning": "Scriosfar na sábhálacha áitiúla. Ar mhaith leat dul ar aghaidh?",
+            "force_upload_warning": "Déanfar na sábhálacha scamall a athscríobh. Ar mhaith leat dul ar aghaidh?"
+        },
+        "warning": {
+            "title": "Rabhadh"
+        },
+        "ok": "Ceart go leor",
+        "offline_warning": {
+            "message": "B’fhéidir nach n-oibreoidh an cluiche seo i gceart as líne. Ar mhaith leat imirt ar aon nós?",
+            "title": "Rabhadh As Líne",
+            "playAnyway": "Seinn ar aon nós"
         }
     },
     "button": {
@@ -217,7 +230,8 @@
         "winetricks": "Ag Suiteáil Pacáistí Winetricks"
     },
     "launch": {
-        "options": "Roghanna Seolta..."
+        "options": "Roghanna Seolta...",
+        "default": "Réamhshocrú"
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
@@ -332,5 +346,6 @@
         "notice1": "Tá an cluiche seo á bhainistiú ag feidhmchlár tríú páirtí: \"{{application_name}}\"",
         "notice2": "Tar éis cliceáil ar Suiteáil, rithfidh Heroic an feidhmchlár chun an próiseas suiteála a chríochnú"
     },
-    "wikiLink": "Eolas tábhachtach faoin gcluiche seo, léigh seo:<1>Oscail an leathanach</1>"
+    "wikiLink": "Eolas tábhachtach faoin gcluiche seo, léigh seo:<1>Oscail an leathanach</1>",
+    "open-saves-folder": "Oscail Fillteán Sábhálann"
 }
