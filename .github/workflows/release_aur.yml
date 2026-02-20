@@ -40,7 +40,7 @@ jobs:
 
           cat <<EOF > PKGBUILD
           # Maintainer: flaviofearn <heroicgameslauncher@protonmail.com>
-          # CommandMC <kate@commandmc.de>
+          # Maintainer: CommandMC <kate@commandmc.de>
 
           pkgname=heroic-games-launcher-bin
           pkgver=$pkgver
