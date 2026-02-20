@@ -1,4 +1,4 @@
-import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import { defineConfig } from 'electron-vite'
 import react from '@vitejs/plugin-react-swc'
 import svgr from 'vite-plugin-svgr'
 import path from 'path'
@@ -37,10 +37,11 @@ export default defineConfig(({ mode }) => ({
       },
       outDir: 'build/main',
       minify: true,
-      sourcemap: mode === 'development' ? 'inline' : false
+      sourcemap: mode === 'development' ? 'inline' : false,
+      externalizeDeps: { exclude: dependenciesToNotExternalize }
     },
     resolve: { alias: srcAliases },
-    plugins: [externalizeDepsPlugin({ exclude: dependenciesToNotExternalize })]
+    plugins: []
   },
   preload: {
     build: {
@@ -49,10 +50,11 @@ export default defineConfig(({ mode }) => ({
       },
       outDir: 'build/preload',
       minify: true,
-      sourcemap: mode === 'development' ? 'inline' : false
+      sourcemap: mode === 'development' ? 'inline' : false,
+      externalizeDeps: { exclude: dependenciesToNotExternalize }
     },
     resolve: { alias: srcAliases },
-    plugins: [externalizeDepsPlugin({ exclude: dependenciesToNotExternalize })]
+    plugins: []
   },
   renderer: {
     root: '.',
