@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { SGDBGame, SGDBGrid } from 'common/types'
+import { app } from 'electron'
 
 const SGDB_API_URL = 'https://www.steamgriddb.com/api/v2'
 
@@ -8,6 +9,8 @@ interface SGDBResponse<T> {
   data: T
   errors?: string[]
 }
+
+const userAgent = `'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
 
 /**
  * Search for a game using autocomplete.
@@ -24,7 +27,7 @@ export async function searchGame(
     {
       headers: {
         Authorization: `Bearer ${apiKey}`,
-        'User-Agent': 'HeroicBinaryUpdater/1.0'
+        'User-Agent': userAgent
       }
     }
   )
@@ -64,7 +67,7 @@ export async function getGrids(
       params,
       headers: {
         Authorization: `Bearer ${apiKey}`,
-        'User-Agent': 'HeroicBinaryUpdater/1.0'
+        'User-Agent': userAgent
       }
     }
   )

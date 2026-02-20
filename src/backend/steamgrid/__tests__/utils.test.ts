@@ -1,8 +1,11 @@
 import axios from 'axios'
 import { searchGame, getGrids } from '../utils'
+import { app } from 'electron'
 
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
+
+const userAgent = `'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
 
 describe('SteamGridDB Utils', () => {
   const apiKey = 'test-api-key'
@@ -29,7 +32,8 @@ describe('SteamGridDB Utils', () => {
         'https://www.steamgriddb.com/api/v2/search/autocomplete/query',
         {
           headers: {
-            Authorization: `Bearer ${apiKey}`
+            Authorization: `Bearer ${apiKey}`,
+            'User-Agent': userAgent
           }
         }
       )
@@ -76,7 +80,8 @@ describe('SteamGridDB Utils', () => {
         {
           params: {},
           headers: {
-            Authorization: `Bearer ${apiKey}`
+            Authorization: `Bearer ${apiKey}`,
+            'User-Agent': userAgent
           }
         }
       )
