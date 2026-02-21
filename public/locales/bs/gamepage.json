@@ -45,7 +45,11 @@
             "title": "Video igri je potrebno ažuriranje"
         },
         "wineprefix": "Izaberite WinePrefix mapu",
-        "yes": "DA"
+        "yes": "DA",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "U redu"
     },
     "button": {
         "add_to_favourites": "Dodaj u favorite",
@@ -165,7 +169,8 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "Log in",
         "title": "You are NOT logged in",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "Prijavi problem za ovu video igru",
     "sdl": {

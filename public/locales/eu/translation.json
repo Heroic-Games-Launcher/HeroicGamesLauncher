@@ -645,7 +645,8 @@
             "clearCache": {
                 "help9": "Game Settings"
             }
-        }
+        },
+        "launchOptions": "Jaurtiketa-aukerak..."
     },
     "Settings": "Ezarpenak",
     "sidebar": {
@@ -742,5 +743,8 @@
     },
     "analyticsModal": {
         "disable": "Desgaituta"
+    },
+    "launch": {
+        "options": "Jaurtiketa-aukerak..."
     }
 }

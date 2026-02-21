@@ -71,6 +71,10 @@
                 "message": "The CrossOver bottle \"{{bottle_name}}\" does not exist, can't launch!",
                 "title": "CrossOver bottle not found"
             },
+            "dxmt": {
+                "message": "Error downloading DXMT! Check your connection!",
+                "title": "DXMT Download Error"
+            },
             "dxvk": {
                 "message": "Error installing DXVK/VKD3D! Please check your connection!",
                 "title": "DXVK/VKD3D error"
@@ -426,6 +430,9 @@
         "loading": "Loading",
         "releaseDate": "Release Date"
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "library": {
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
@@ -642,6 +649,7 @@
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
+        "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -668,7 +676,8 @@
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
-            "enableNewDesign": "New design"
+            "enableNewDesign": "New design",
+            "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -727,6 +736,7 @@
                 },
                 "error": {
                     "content": "Failed to upload log file. Check Heroic's general log for details",
+                    "manual_upload": "Click the \"SHOW LOG FILE IN FOLDER\" button and upload the \"launch.log\" file manually to Discord or any online file sharing service.",
                     "title": "Upload failed"
                 },
                 "header": "Uploaded log files",
@@ -768,6 +778,7 @@
             "placeholder": "Select the exact save games folder",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
+        "scripts": "Scripts:",
         "select_theme": "Select Theme",
         "show_valve_proton": {
             "confirmation": {
@@ -847,6 +858,8 @@
         "gamescope": {
             "searchMsg": "Searching for gamescope executable."
         },
+        "launchOptions": "Launch Options",
+        "legacy_warning": "Warning: The settings on this tab are mostly deprecated and might not work at all.",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -855,6 +868,7 @@
             "games_settings_defaults": "Game Defaults",
             "gamescope": "Gamescope",
             "general": "General",
+            "legacy": "Legacy",
             "log": "Log",
             "other": "Other",
             "sync": "Cloud Saves Sync",
@@ -1003,6 +1017,7 @@
             "title": "Wine Manager",
             "unzipping": "Unzipping"
         },
+        "notes": "Notes",
         "release": "Release Date",
         "size": "Size"
     },

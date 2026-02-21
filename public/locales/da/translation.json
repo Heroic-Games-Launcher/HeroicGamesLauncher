@@ -26,7 +26,7 @@
                 "title": "Ingen plads"
             },
             "dxvk": {
-                "message": "Fejl ved installation af DXVK/VKD3D! Kontroller din forbindelse, eller om du har zstd/libzstd1 installeret",
+                "message": "Fejl ved installation af DXVK/VKD3D! Kontroller venligst din forbindelse!",
                 "title": "DXVK/VKD3D fejl"
             },
             "folder-not-found": {
@@ -81,7 +81,9 @@
             },
             "legendary": {
                 "generic": "Der opstod en fejl! Prøv at logge ud og logge på din Epic-konto. {{newline}} {{error}}"
-            }
+            },
+            "executableNotFoundMessage": "Heroic kunne ikke finde den eksekverbare fil til dette spil. Indstil den manuelt i spilindstillingerne.",
+            "executableNotFound": "Kørbar fil ikke fundet"
         },
         "info": {
             "update": {
@@ -90,7 +92,8 @@
                 "message": "Der er en ny version tilgængelig!",
                 "message-finished": "Vil du genstarte Heroic nu?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Opdatering Færdig"
+                "title-finished": "Opdatering Færdig",
+                "detailNoAutoupdate": "Automatiske opdateringer understøttes ikke for dit pakkeformat. Brug din pakkehåndteringsmanager til at opdatere."
             }
         },
         "ok": "OK",
@@ -106,11 +109,11 @@
         "reset-heroic": {
             "question": {
                 "title": "Nulstil Heroic",
-                "message": "Er du sikker på, at du vil nulstille Heroic? Dette fjerner alle indstillinger og cache, men vil ikke fjerne dine installerede spil eller dine Epic legitimation"
+                "message": "Er du sikker på, at du vil nulstille Heroic? Dette fjerner alle indstillinger og cache, men vil ikke fjerne dine installerede spil eller dine Epic legitimation. Portable versioner (AppImage, WinPortable, ...) af Heroic skal genstartes manuelt."
             }
         },
         "runexe": {
-            "title": "Vælg EXE til at køre"
+            "title": "Vælg EXE for at køre"
         },
         "select": {
             "button": "Vælg",
@@ -160,6 +163,10 @@
                     "title": "Er du sikker på, at du vil stoppe?",
                     "message": "Eventuelle ikke-gemte fremskridt kan gå tabt"
                 }
+            },
+            "rosetta": {
+                "message": "Heroic kræver Rosetta for at køre korrekt på macOS med Apple Silicon-chips. Installer det fra macOS-terminalen ved hjælp af følgende kommando: \"softwareupdate --install-rosetta\" og genstart Heroic. ",
+                "title": "Rosetta kunne ikke findes"
             }
         },
         "default-steam-path": "Dampvej.",
@@ -173,7 +180,7 @@
     "accessibility": {
         "zoom": "Zoom",
         "fonts": "Fonte",
-        "all_tiles_in_color": "Vis alle spil fliser i farver",
+        "all_tiles_in_color": "Vis alle spilfliser i farver",
         "title": "Tilgængelighed",
         "actions_font_family": "Actions Font Family (Standard: \"Rubik\")",
         "content_font_family": "Indholdsskrifttypefamilie (standard: \"Cabin\")",
@@ -182,10 +189,12 @@
         "disable_dialog_backdrop_close": "Luk nedlukningsdialoger ved at klikke uden",
         "titles_always_visible": "Vis altid titler i biblioteket",
         "actions_font_family_default": "Actions Skrifttypefamilie (Standard: {{fontFamily}})",
-        "content_font_family_default": "Indhold Skrifttypefamilie (Standard: {{fontFamily}})"
+        "content_font_family_default": "Indholdsskrifttypefamilie (Standard: {{fontFamily}})",
+        "disable_animations": "Deaktiver UI-animationer",
+        "disable_smooth_scrolling": "Deaktiver blød scrolling (kræver genstart)"
     },
     "info": {
-        "version": "Wine Version",
+        "version": "Wine-version",
         "heroic": {
             "version": "Heroisk version",
             "beta": "Beta",
@@ -195,7 +204,7 @@
         },
         "settings": "Indstillinger gemmes automatisk",
         "save-sync": {
-            "searching": "Forsøger at finde den korrekte gemte mappe"
+            "searching": "Forsøger at finde den korrekte save-mappe (klik for at afbryde)"
         }
     },
     "install": {
@@ -257,7 +266,7 @@
         "dxvk": "DXVK er et Vulkan-baseret translationslag til DirectX 9, 10 og 11 spil. Aktivering kan forbedre kompatibiliteten. Kan forårsage problemer især for ældre DirectX-spil.",
         "preferSystemLibs": "Tilpassede vinversioner (Wine-GE, Wine-Lutris) leveres med deres biblioteksafhængigheder. Ved at aktivere denne mulighed ignoreres disse afsendte biblioteker, og Wine indlæser systembiblioteker i stedet. Advarsel! Problemer kan opstå, hvis afhængigheder ikke opfyldes.",
         "resizablebar": "NVIDIAs Resizable Bar hjælper med at booste framerate ved at få CPU'en til at få adgang til hele grafikbufferen. Aktivering kan forbedre ydeevnen for Vulkan-baserede spil.",
-        "vkd3d": "VKD3D er et Vulkan-baseret translationslag til DirectX 12-spil. Aktivering kan forbedre kompatibiliteten betydeligt. Har ingen effekt på ældre DirectX-spil.",
+        "vkd3d": "VKD3D er et Vulkan-baseret [MANGLER] til DirectX 12-spil. Aktivering kan forbedre kompatibiliteten betydeligt. Har ingen effekt på ældre DirectX-spil, det kræver DXVK.",
         "game_language": {
             "fallback": "Lad stå tomt for at bruge Heroics sprog.",
             "in_game_config": "Ikke alle spil understøtter denne konfiguration, nogle har sprogindstilling i spillet.",
@@ -274,17 +283,48 @@
         "disable_logs": "Slå dette afkrydsningsfelt TIL for at deaktivere de fleste skrivninger til logfiler (kritisk information logges altid). Sørg for at slå denne indstilling FRA, før du rapporterer et problem.",
         "title": {
             "accessibility": "Tilgængelighed",
-            "settings": "Indstillinger"
+            "settings": "Indstillinger",
+            "downloadManager": "Download manager",
+            "library": "Bibliotek",
+            "login": "Login",
+            "wineManager": "Wine manager"
         },
         "content": {
             "customThemesPath": "Tjek vores wiki.",
             "accessibility": "Viser tilgængelighedsindstillinger.",
-            "downloadManager": "Viser"
+            "downloadManager": "Viser nuværende og tidligere downloads.",
+            "defaultInstallPath": "Dette er den standardsti, der er forudvalgt ved installation af spil.",
+            "library": "Viser alle ejede spil.",
+            "login": "Log in på de forskellige butikker.",
+            "settingsDefault": "Viser alle indstillinger for Heroic og standardindstillinger for spil.",
+            "settingsGame": "Viser alle indstillinger for et spil.",
+            "wineManager": "Installer forskellige versioner af Wine, Proton, Crossover og så videre."
         },
         "button": {
             "open": "Åben Hjælp",
             "close": "Luk Hjælp"
-        }
+        },
+        "advertiseAvxForRosetta": "Aktiverer understøttelse af AVX-instruktionssæt, når Windows-spil køres via Rosetta på Apple Silicon Mac-computere. Dette kan være nødvendigt for nogle spil såsom Death Stranding, der kræver AVX-understøttelse.",
+        "analytics": "Gør det muligt for Heroic at indsamle 100% anonyme brugerdata for at forbedre applikationen. Kræver genstart, før det træder i kraft.",
+        "disablePlaytimeSync": "Deaktiverer synkronisering af spilletid med den pågældende butiks servere (i øjeblikket understøttes kun GOG)",
+        "download_proton_steam": "Når denne funktion er aktiveret, downloades GE-Proton direkte til Steam-kompatibilitetsværktøjernes mappe i stedet for den standard Heroic-sti. Den bruger den Steam-sti, der er angivet i indstillingen 'Standard Steam-sti' ovenfor.",
+        "dxfpslimit": "Indstiller en begrænsning for billedfrekvensen for DirectX-spil (9-12)",
+        "dxvknvapi": "DXVK-NVAPI er en implementering af NVAPI, der er bygget oven på DXVK og Linux' lokale NVAPI, og som gør det muligt at bruge DLSS på Nvidia-GPU'er.",
+        "gamescope": {
+            "additionalOptions": "Yderligere kommandolinjeflag, der skal videregives til Gamescope.",
+            "forceGrabCursor": "Brug altid 'relative mouse mode' i stedet for 'flipping dependent on cursor visibility'. (Nyttigt, når programmer bliver ved med at miste fokus)",
+            "fpsLimiter": "Det antal frames, som Gamescope skal begrænses til, fx 60",
+            "fpsLimiterNoFocus": "Frame rate-begrænsning, som Gamescope bør begrænse pr. sekund, hvis spillet ikke er i fokus.",
+            "gameHeight": "Den højdeopløsning, der bruges af spillet. Gamescope antager et billedformat på 16:9.",
+            "gameWidth": "Den breddeopløsning, der bruges af spillet. Gamescope antager et billedformat på 16:9.",
+            "upscaleHeight": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages.",
+            "upscaleMethod": "Den opskaleringsmetode, som Gamescope skal bruge.",
+            "upscaleWidth": "Den breddeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
+        },
+        "msync": "Msync har til formål at reducere wineserver-overhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
+        "wine-hdr": "HDR forbedrer farverne ved at give lysere højdepunkter og dybere kontraster. For at HDR kan fungere, skal både skærmen og spillet understøtte det.",
+        "wine-wayland": "Den eksperimentelle Wine-Wayland-driver gør det muligt at køre spil direkte under Wayland-skærmprotokollen. Aktivering kan medføre, at nogle spil ikke fungerer.",
+        "WoW64": "Wine WoW64-tilstanden gør det muligt at køre 32-bit Windows-spil på 64-bit Wine. Aktivering kan forbedre ydeevnen, men kan også ødelægge ældre 32-bit spil."
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -324,13 +364,16 @@
             "error": "Kunne ikke hente udgivelser fra upstream, måske på grund af Github API-begrænsninger! Prøv igen senere."
         },
         "update": {
-            "canceled": "Opdateret annulleret",
+            "canceled": "Opdatering annulleret",
             "finished": "Opdatering Færdig",
             "started": "Opdatering startet",
             "failed": "Opdatering fejlede",
             "paused": "Opdatering sat på pause"
         },
-        "new-heroic-version": "En ny Heroic-version blev frigivet!"
+        "new-heroic-version": "En ny Heroic-version blev frigivet!",
+        "import": {
+            "failed": "Import fejlede"
+        }
     },
     "Plugins": "Plugins",
     "Projects": "Projekter",
@@ -352,7 +395,45 @@
             "no-file": "Ingen logfil fundet",
             "copy-to-clipboard": "Kopier logindhold til udklipsholder",
             "current-log": "Aktuel log",
-            "instructions": "Tilmeld dig vores Discord og se efter den kanal, der matcher dit operativsystem. Del indholdet af logfilerne, der vises her, og inkluder en klar beskrivelse af problemet med alle relevante oplysninger og detaljer."
+            "instructions": "Tilslut dig vores Discord og find kanalen \"#-support\". Læs den fastgjorte tråd \"Read Me First | Frequently Asked Questions\" og følg instruktionerne for at dele disse logfiler og alle relevante oplysninger om dit problem.",
+            "descriptiveNames": {
+                "game-log": "Spillog for {{gameTitle}}",
+                "gog": "GOG-log",
+                "heroic": "General Heroic log",
+                "legendary": "Epic Games / Legendary log",
+                "nile": "Amazon / Nile log",
+                "zoom": "Zoom log"
+            },
+            "join-heroic-discord": "Deltag på vores Discord",
+            "show-uploads": "Vis uploadede logfiler",
+            "upload": {
+                "actions": "Handlinger",
+                "button": "Upload logfiler",
+                "confirm": {
+                    "content": "Vil du virkelig uploade \"{{name}}\"?",
+                    "title": "Upload logfil?"
+                },
+                "delete": "Anmod om sletning af logfil",
+                "done": {
+                    "content": "Uploadet til {{url}} (URL kopieret til din udklipsholder)",
+                    "title": "Upload gennemført"
+                },
+                "error": {
+                    "content": "Det lykkedes ikke at uploade logfilen. Tjek Heroics generelle log for detaljer",
+                    "title": "Upload fejlede"
+                },
+                "header": "Uploadede logfiler",
+                "hours-ago": "Uploadet {{hoursAgo, relativetime(hours)}}",
+                "minutes-ago": "Uploadet {{minutesAgo, relativetime(minutes)}}",
+                "no-files": "Ingen logfiler blev uploadet",
+                "open": "Åbn logfil upload",
+                "title": "Logtitel",
+                "upload-date": "Dato for upload",
+                "uploading": {
+                    "content": "Uploader logfil...",
+                    "title": "Uploader"
+                }
+            }
         },
         "mangohud": "Aktiver Mangohud (Mangohud skal installeres)",
         "manualsync": {
@@ -370,8 +451,8 @@
         },
         "savefolder": {
             "placeholder": "Vælg den nøjagtige gemte spilmappe",
-            "not-found": "Gem mappe blev ikke fundet, vælg den manuelt",
-            "warning": "Tjek venligst to gange, om stien er korrekt"
+            "not-found": "Save-mappe blev ikke fundet, vælg den manuelt (klik for at prøve igen)",
+            "warning": "Tjek venligst to gange, om stien er korrekt (klik for at prøve igen)"
         },
         "select_theme": "Vælg tema",
         "showfps": "Vis FPS (DX9, 10 og 11)",
@@ -406,7 +487,7 @@
             "updating": "Opdaterer..."
         },
         "wineprefix": "WinePrefix mappe",
-        "crossover-version": "Crossover/Wine Version",
+        "crossover-version": "Crossover/Wine version",
         "darktray": "Brug mørkt bakkeikon",
         "default-install-path": "Standard installationssti",
         "default-steam-path": "Standard Steam-sti",
@@ -449,7 +530,65 @@
         "disable_logs": "Deaktiver logfiler",
         "addgamestoapplications": "Føj spil til applikationer automatisk",
         "showMetalOverlay": "Vis statistikoverlejring",
-        "alt-nile-bin": "Vælg en alternativ Nile Binær"
+        "alt-nile-bin": "Vælg en alternativ Nile Binær",
+        "advertiseAvxForRosetta": "Annoncér AVX for Rosetta",
+        "after-launch-script-path": "Vælg et script, der skal køres, når spillet lukkes",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Spil med ikke-fungerende anticheat kan muligvis køre, men multiplayer-funktionerne vil ikke fungere. Kontakt ikke support, hvis du installerer dem med denne viden.",
+                "title": "Er du sikker?",
+                "understand": "Jeg forstår"
+            },
+            "label": "Tillad installation af spil med ikke-fungerende anticheat"
+        },
+        "analyticsOptIn": "Send anonyme data for at hjælpe Heroic med udvikling",
+        "autodxvknvapi": "Automatisk installation/opdatering af DXVK-NVAPI på Prefix",
+        "before-launch-script-path": "Vælg et script, der skal køres, før spillet startes",
+        "custom_css": {
+            "warning": "Advarsel: Dette gælder for hele frontend. Det betyder, at den forkerte stil kan gøre Heroic ubrugelig. Hvis det er nødvendigt, kan indstillingen ændres manuelt i `~/.config/heroic/config.json`. Kopier IKKE stilarter fra kilder, du ikke stoler på."
+        },
+        "disablePlaytimeSync": "Deaktiver synkronisering af spilletid",
+        "disableUMU": "Deaktiver umu",
+        "download-proton-steam": "Download GE-Proton til Steam-mappen",
+        "dxfpslimit": "Begræns FPS på DirectX-spil",
+        "experimental_features": {
+            "cometSupport": "Comet support",
+            "enableHelp": "Hjælpekomponent",
+            "enableNewDesign": "Nyt design"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Denne funktion er stadig på et eksperimentelt stadie. Rapporter eventuelle problemer, du støder på, på GitHub.",
+                "title": "Eksperimentel funktion forude"
+            },
+            "description": "Brug rammeløst vindue (kræver genstart)"
+        },
+        "gamescope": {
+            "enableForceGrabCursor": "Aktiver 'force grab' musemarkør",
+            "enableLimiter": "Aktiver FPS-begrænser",
+            "enableUpscaling": "Aktiverer opskalering",
+            "missingMsg": "Vi kunne ikke finde Gamescope på STIEN. Installer det eller tilføj det til STIEN.",
+            "warningFlatpak": "Vi kunne ikke finde en kompatibel version af Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og genstart Heroic."
+        },
+        "hdr": "Aktiver HDR",
+        "msync": "Aktiver Msync",
+        "no-tray-icon": "Skjul ikon i systembakken (kræver genstart)",
+        "show_valve_proton": {
+            "confirmation": {
+                "dont_show": "Vis dem ikke",
+                "message": "Vi anbefaler, at du bruger tilpassede Proton-forks (GE-Proton, Proton-CachyOS og så videre) sammen med Heroic, da Valves Proton-versioner mangler winetricks og protofixes. Du kan dog stadig bruge dem, hvis du ønsker det.",
+                "show": "Jeg forstår, vis dem",
+                "title": "Er du sikker?"
+            },
+            "info_label": "Valve Proton versioner ignoreret",
+            "label": "Tillad brug af Valve Proton-builds til at køre spil",
+            "wine_selector_warning": "Valve-versioner af Proton ignoreres som standard. Aktiver dem i de avancerede globale indstillinger"
+        },
+        "verboseLogs": {
+            "description": "Aktivér detaljerede logfiler"
+        },
+        "wineWayland": "Aktivér Wine-Wayland (eksperimentelt) (Wine-versionen skal understøtte dette)",
+        "WoW64": "Aktivér WoW64 (eksperimentelt)"
     },
     "wine": {
         "manager": {
@@ -471,7 +610,9 @@
         "toggleLayout": {
             "grid": "Skift til et gitterlayout",
             "list": "Skift til et listelayout"
-        }
+        },
+        "hideAlphabetFilter": "Skjul alfabetfilter",
+        "showAlphabetFilter": "Vis alfabetfilter"
     },
     "settings": {
         "clear-cache": "Ryd heroisk cache",
@@ -495,7 +636,9 @@
         "reset-heroic": "Nulstil Heroic",
         "saves": {
             "warning": "Cloud Saves-funktionen er i beta, vær venlig at sikkerhedskopiere dine gemmer før synkronisering (i tilfælde af at noget går galt)",
-            "label": "Gem placering:"
+            "label": "Gem placering:",
+            "gog_linux_native_warning": "Linux-native spil understøtter ikke GOG's Cloud Saves-funktion. Brug i stedet Windows-versionen.",
+            "not_supported": "Dette spil understøtter ikke Cloud Saves."
         },
         "log": {
             "long-log-hint": "Log afkortet, sidste 1000 linjer vises!"
@@ -508,7 +651,9 @@
             "other": "Andet",
             "sync": "Gem-synkronisering",
             "games_settings": "Spilindstillinger",
-            "games_settings_defaults": "Spilstandarder"
+            "games_settings_defaults": "Spilstandarder",
+            "gamescope": "Gamescope",
+            "systemInformation": "Systemoplysninger"
         },
         "battlEyeRuntime": {
             "installing": "Installerer BattlEye Runtime...",
@@ -518,9 +663,61 @@
         "advanced": {
             "details": "detaljer",
             "title": {
-                "resetHeroic": "Nulstil Heroic"
+                "resetHeroic": "Nulstil Heroic",
+                "clearCache": "Ryd cache"
+            },
+            "clearCache": {
+                "help1": "Denne handling vil rydde følgende caches:",
+                "help10": "Heroic konfiguration",
+                "help2": "Information om tredjepartsspil (scorer, Steam-kompatibilitet, howlongtobeat, pcgamingwiki, applegamingwiki)",
+                "help4": "GOG-biblioteksoplysninger (liste over spil, installér dialogoplysninger, API-oplysninger – dvs. krav)",
+                "help3": "Legendary biblioteksoplysninger (liste over spil, installér dialogoplysninger, spiloplysninger)",
+                "help5": "Amazon-biblioteksoplysninger (liste over spil, installér dialogoplysninger)",
+                "help6": "Dette vil IKKE blive slettet:",
+                "help7": "Butikslogin",
+                "help8": "Installerede spil",
+                "help9": "Spilindstilinger"
+            },
+            "resetHeroic": {
+                "help": "Dette vil fjerne alle indstillinger og caching, men vil ikke fjerne dine installerede spil eller dine Epic-loginoplysninger. Bærbare versioner (AppImage, WinPortable, ...) af Heroic skal genstartes manuelt bagefter."
             }
-        }
+        },
+        "custom_css": {
+            "title": "Tilpasset CSS-stil"
+        },
+        "experimental_features": {
+            "title": "Eksperimentelle funktioner"
+        },
+        "gamescope": {
+            "searchMsg": "Søger efter Gamescope-eksekverbar fil."
+        },
+        "offline": {
+            "warning": "Dette spil tillader ikke eksplicit offline-tilstand. Aktivér denne funktion på egen risiko. Spillet fungerer muligvis ikke."
+        },
+        "systemInformation": {
+            "cometVersion": "Comet: {{cometVersion}}",
+            "copyToClipboard": "Kopiér til udklipsholder",
+            "cpu": "CPU:",
+            "cpuDescription": "{{numOfCores}}x {{modelName}}",
+            "gogdlVersion": "Gogdl: {{gogdlVersion}}",
+            "gpu": "GPU:",
+            "gpuDriver": "Driver: {{driverVersion}}",
+            "gpuWithNumber": "GPU {{number}}:",
+            "heroicVersion": "Heroic: {{heroicVersion}}",
+            "legendaryVersion": "Legendary: {{legendaryVersion}}",
+            "memory": "Hukommelse:",
+            "memoryStats": "{{percentUsed}}% brugt ({{usedGib}} / {{totalGib}}",
+            "nileVersion": "Nile: {{nileVersion}}",
+            "os": "Operativsystem:",
+            "osNameFlatpak": "{{osName}} (i Flatpak)",
+            "osVersion": "Version {{versionNumber}}",
+            "showDetailed": "Vis detaljerede systemspecifikationer",
+            "software": "Software:",
+            "steamDeck": "Steam Deck {{model}}",
+            "systemModel": "Systemmodel:",
+            "systemSpecifications": "Systemspecifikationer:"
+        },
+        "launchOptions": "Opstartsinstillinger..."
     },
     "title": {
         "allUnreal": "Uvirkeligt - Alt",
@@ -577,14 +774,18 @@
     "options": {
         "advanced": {
             "placeHolderValue": "F.eks.: Sti/Til/Ekstrafiler",
-            "title": "Avancerede indstillinger (miljøvariabler):",
+            "title": "Miljøvariable",
             "value": "Værdi",
             "key": "Variabel navn",
             "placeHolderKey": "NAVN"
         },
         "gameargs": {
             "placeholder": "Sæt Launcher-argumenterne her",
-            "title": "Spilargumenter (for at køre efter kommandoen):"
+            "title": "Spilargumenter (for at køre efter kommandoen):",
+            "error": {
+                "command": "%command%-syntaksen fra Steam er ikke gyldig som spilargumenter.",
+                "env": "Miljøvariabler skal konfigureres i tabellen nedenfor."
+            }
         },
         "quote-args-with-spaces": "Advarsel: Sørg for at citere args med mellemrum! F.eks.: \"sti/med mellemrum/\"",
         "wrapper": {
@@ -603,6 +804,21 @@
             },
             "example": "Inkluder IKKE tegnet \"=\", f.eks.: for en indstilling som \"MY_FLAG=123\", sæt MY_FLAG i NAVN og 123 i VÆRDI.",
             "info": "Indstil miljøvariabler til at føje til kommandoen."
+        },
+        "gamescope": {
+            "additionalOptions": "Yderligere muligheder",
+            "fpsLimiter": "FPS-begrænsning",
+            "fpsLimiterNoFocus": "FPS-begrænsning (Intet fokus)",
+            "fullscreen": "Fuldskærm",
+            "gameHeight": "Spilhøjde",
+            "gameWidth": "Spilbredde",
+            "interger": "Heltalsopskalering",
+            "nis": "NVIDIA Image Scale (NIS)",
+            "stretch": "Stræk billede",
+            "upscaleHeight": "Opskaler højde",
+            "upscaleWidth": "Opskaler bredde",
+            "borderless": "Uden kanter",
+            "windowed": "Vindue"
         }
     },
     "other": {
@@ -643,7 +859,8 @@
         "select_all": "Vælg Alle",
         "no_categories": "Ingen brugerdefineret katagorier. Tilføj katagorier ved brug af spilmenuerne.",
         "show_installed_only": "Vis Kun Installeret",
-        "show_support_offline_only": "Vis Kun Offline-understøttet"
+        "show_support_offline_only": "Vis Kun Offline-understøttet",
+        "show_updates_only": "Vis kun spil med opdateringer"
     },
     "Settings": "Indstillinger",
     "sidebar": {
@@ -687,10 +904,12 @@
     "login": {
         "externalLogin": "Eksternt login",
         "alternative_method": "Alternativ login-metode",
-        "epic": "Epic Games Login",
+        "epic": "Epic Games login",
         "gog": "GOG login",
         "message": "Log ind med din platform. Du kan logge ind på mere end én platform på samme tid.",
-        "amazon": "Amazon login"
+        "amazon": "Amazon login",
+        "old-mac": "Din macOS-version er {{version}}. macOS 12 eller nyere er påkrævet for at logge ind.",
+        "zoom": "Zoom-login"
     },
     "placeholder": {
         "prefered_language": "2-tegn kode (dvs.: \"en\" eller \"fr\")",
@@ -737,7 +956,7 @@
     },
     "error": "Fejl",
     "offline-message": {
-        "hint": "Vi tjekker forbindelsen mod:{{newline}}github.com,{{newline}}gog.com og{{newline}}store.epicgames.com",
+        "hint": "Vi tjekker forbindelsen til:{{newline}}github.com,{{newline}}gog.com,{{newline}}store.epicgames.com og{{newline}}cloudflare-dns.com",
         "offline": "Offline",
         "retry-in": "Prøver igen om ... {{seconds}} sekunder",
         "retrying": "Prøver igen",
@@ -780,7 +999,8 @@
     },
     "please-wait": "Vent venligst...",
     "label": {
-        "loading": "Indlæser"
+        "loading": "Indlæser",
+        "releaseDate": "Udgivelsesdato"
     },
     "externalLink": {
         "warning": "Du er ved at åbne et eksternt link.",
@@ -803,7 +1023,14 @@
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Installer",
-        "loading": "Indlæser"
+        "loading": "Indlæser",
+        "installed": "Installerede komponenter:",
+        "installing": "Installation i gang: {{component}}",
+        "loading-available": "Indlæser tilgængelige komponenter ...",
+        "no-components": "Ingen tilgængelige komponenter",
+        "nothingYet": "Der er endnu ikke installeret noget af Winetricks",
+        "openGUI": "Åbn Winetricks GUI",
+        "search": "Søg efter skrifttyper eller komponenter"
     },
     "adtraction-locked": {
         "description": "Det ser ud til, at domænet track.adtraction.com ikke kunne indlæses eller er blokeret. Med adtraction støtter ethvert køb, du foretager i GOG-butikken, Heroic økonomisk. Overvej at fjerne blokeringen, hvis du ønsker at bidrage.",
@@ -823,7 +1050,10 @@
         "remove": "Fjern \"{{name}}\""
     },
     "window": {
-        "close": "Luk"
+        "close": "Luk",
+        "maximize": "Maksimér vindue",
+        "minimize": "Minimér vindue",
+        "restore": "Gendan vindue"
     },
     "category-settings": {
         "remove-category": "Fjern Kategori",
@@ -839,6 +1069,71 @@
     },
     "analyticsModal": {
         "disable": "Slå Fra",
-        "enable": "Slået til"
+        "enable": "Slået til",
+        "info": {
+            "pt1": "For at forbedre appen, indsamler Heroic 100% anonyme data.",
+            "pt2": "Heroic bruger open source-platformen Plausible Analytics til at indsamle grundlæggende data: Appversion, operativsystem, tilknyttede butikker og land.",
+            "pt3": "Heroic vil aldrig indsamle personlige informationer, herunder dit brugernavn, IP-adresse eller e-mail.",
+            "pt4": "Disse data bruges til at give os indsigt i, hvad vi skal fokusere på, på grund af vores begrænsede ressourcer og brugerfeedback.",
+            "pt6": "For at sikre gennemsigtighed kan du se de data, vi indsamler, i Heroic-logfilerne.",
+            "pt7": "Du kan ændre denne indstilling når som helst i appindstillingerne.",
+            "pt5": "Plausible Analytics er overholder gældende regler inden for GDPR, CCPA and PECR."
+        },
+        "title": "Send anonyme data til analyse"
+    },
+    "amazon-luna": "Amazon Luna",
+    "tour": {
+        "back": "Tilbage",
+        "done": "Færdig",
+        "library": {
+            "addGame": "Føj dine egne spil eller apps til biblioteket ved at klikke her. Det kan være stort set alt, selv browser-URL'er.",
+            "categories": "Organisér dine spil i kategorier for at holde orden.",
+            "end": {
+                "intro": "Det var det! Nyd dine spil og hav det sjovt!",
+                "title": "Nyd dine spil!"
+            },
+            "filters": "Filtrér dine spil efter butik, platform, favoritter med mere ved hjælp af disse indstillinger.",
+            "gameCard": "Venstreklik på spillet for at navigere til spilsiden for at se detaljer og justere indstillinger, eller højreklik for at åbne kontekstmenuen.",
+            "refresh": "Opdatér dit bibliotek for at tjekke, om der er nye spil eller opdateringer.",
+            "search": "Brug søgefeltet til at søge efter dine spil.",
+            "sortInstalled": "Sortér spil efter installationsstatus.",
+            "sortOptions": "Klik her for at sortere spil alfabetisk.",
+            "viewToggle": "Skift mellem gitter- og listevisning for dine spil.",
+            "welcome": {
+                "intro": "Velkommen til Heroic-biblioteket! Her kan du se alle dine spil fra de forskellige butikker.",
+                "intro2": "Hvis biblioteket er tomt, skal du sørge for at logge ind med dine konti ved hjælp af \"Administrér konti\" i sidepanelet eller tilføje dine egne spil ved hjælp af knappen \"Tilføj spil\" ovenfor.",
+                "title": "Velkommen til Heroic!",
+                "title2": "Administration af biblioteket!"
+            }
+        },
+        "next": "Næste",
+        "sidebar": {
+            "accessibility": "Gå til tilgængelighedsfunktioner for at tilpasse din oplevelse.",
+            "accounts": "Administrér dine tilknyttede butikskonti (Epic, GOG, Amazon), log ud eller log ind på dem.",
+            "community": "Bliv en del af vores fællesskab på Discord og støt udviklingen af Heroic.",
+            "docs": "Læs dokumentationen for at få hjælp til at bruge Heroic.",
+            "downloads": "Spor og administrér dine spil-downloads og installationer.",
+            "library": "Få adgang til dit spilbibliotek fra forskellige butikker på ét sted.",
+            "login": "Log ind på dine spilbutikskonti for at få adgang til dit bibliotek.",
+            "quit": "Afslut programmet på en sikker måde.",
+            "settings": "Konfigurér Heroics indstillinger, standardindstillinger for spil, tjek logfiler med mere.",
+            "stores": "Gennemse og køb spil i forskellige butikker, herunder Epic, GOG og Amazon.",
+            "version": "Tjek din nuværende Heroic-version, klik på den for at se den seneste changelog, og få adgang til denne rundvisning fra hjælp-ikonet.",
+            "welcome": {
+                "intro": "Velkommen til Heroic! Dette sidepanel indeholder alle navigationsmulighederne til at udforske appen.",
+                "title": "Navigationssidepanel"
+            },
+            "wine": "Administrér eller download en ny version af Wine/Proton/GPTK for at køre Windows-spil på Linux eller macOS."
+        },
+        "skip": "Spring over",
+        "startTour": "Start rundvisning"
+    },
+    "wineExplanation": {
+        "proton-ge": "GE-Proton er en Proton-variant skabt af Glorious Eggroll. Den er ment til brug sammen med umu-launcheren (standard i Heroic).",
+        "wine-ge": "Wine-GE-Proton er en Wine-variant skabt af Glorious Eggroll. Den er blevet udfaset til fordel for GE-Proton med umu-launcheren."
+    },
+    "zoom-store": "Zoom-butik",
+    "launch": {
+        "options": "Opstartsinstillinger..."
     }
 }

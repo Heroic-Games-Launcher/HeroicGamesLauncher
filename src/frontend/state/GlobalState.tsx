@@ -19,7 +19,7 @@ import {
   HelpItem
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
-import { getGameInfo, getLegendaryConfig, notify } from '../helpers'
+import { getGameInfo, getLegendaryConfig } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -71,6 +71,7 @@ interface StateProps {
   zoom: {
     library: GameInfo[]
     username?: string
+    enabled: boolean
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -182,7 +183,8 @@ class GlobalState extends PureComponent<Props> {
     },
     zoom: {
       library: this.loadZoomLibrary(),
-      username: zoomConfigStore.get_nodefault('username')
+      username: zoomConfigStore.get_nodefault('username'),
+      enabled: !!globalSettings?.experimentalFeatures?.zoomPlatform
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -234,6 +236,7 @@ class GlobalState extends PureComponent<Props> {
     experimentalFeatures: {
       enableHelp: false,
       cometSupport: true,
+      zoomPlatform: false,
       ...(globalSettings?.experimentalFeatures || {})
     },
     disableDialogBackdropClose: configStore.get(
@@ -253,6 +256,7 @@ class GlobalState extends PureComponent<Props> {
 
   setLanguage = (newLanguage: string) => {
     this.setState({ language: newLanguage })
+    document.querySelector('html')?.setAttribute('lang', newLanguage)
   }
 
   setTheme = (newThemeName: string) => {
@@ -491,7 +495,10 @@ class GlobalState extends PureComponent<Props> {
   }
 
   handleExperimentalFeatures = (value: ExperimentalFeatures) => {
-    this.setState({ experimentalFeatures: value })
+    this.setState({
+      experimentalFeatures: value,
+      zoom: { ...this.state.zoom, enabled: value }
+    })
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
@@ -608,7 +615,8 @@ class GlobalState extends PureComponent<Props> {
       this.setState({
         zoom: {
           library: [],
-          username: userInfo?.username
+          username: userInfo?.username,
+          enabled: true
         }
       })
 
@@ -623,7 +631,8 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       zoom: {
         library: [],
-        username: null
+        username: null,
+        enabled: true
       }
     })
     console.log('Logging out from zoom')
@@ -663,11 +672,14 @@ class GlobalState extends PureComponent<Props> {
       gogLibrary = this.loadGOGLibrary()
     }
 
-    let zoomLibrary = this.loadZoomLibrary()
-    if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
-      window.api.logInfo('No cache found, getting data from zoom...')
-      await window.api.refreshLibrary('zoom')
+    let zoomLibrary: GameInfo[] = []
+    if (zoom.enabled) {
       zoomLibrary = this.loadZoomLibrary()
+      if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
+        window.api.logInfo('No cache found, getting data from zoom...')
+        await window.api.refreshLibrary('zoom')
+        zoomLibrary = this.loadZoomLibrary()
+      }
     }
 
     let amazonLibrary = nileLibraryStore.get('library', [])
@@ -690,7 +702,8 @@ class GlobalState extends PureComponent<Props> {
       },
       zoom: {
         library: zoomLibrary,
-        username: zoom.username
+        username: zoom.username,
+        enabled: zoom.enabled
       },
       amazon: {
         library: amazonLibrary,
@@ -727,35 +740,6 @@ class GlobalState extends PureComponent<Props> {
     } catch (error) {
       window.api.logError(`${error}`)
     }
-  }
-
-  refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
-    if (this.state.platform === 'win32') {
-      return
-    }
-    window.api.logInfo('Refreshing wine downloader releases')
-    this.setState({ refreshing: true })
-    await window.api
-      .refreshWineVersionInfo(fetch)
-      .then(() => {
-        this.setState({
-          refreshing: false
-        })
-        return
-      })
-      .catch(async () => {
-        this.setState({ refreshing: false })
-        window.api.logError('Sync with upstream releases failed')
-
-        notify({
-          title: 'Wine-Manager',
-          body: t(
-            'notify.refresh.error',
-            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
-          )
-        })
-        return
-      })
   }
 
   handleGameStatus = async ({
@@ -915,7 +899,8 @@ class GlobalState extends PureComponent<Props> {
         this.setState({
           zoom: {
             library: [...library],
-            username: this.state.zoom.username
+            username: this.state.zoom.username,
+            enabled: true
           }
         })
       }
@@ -948,7 +933,7 @@ class GlobalState extends PureComponent<Props> {
       await window.api.getAmazonUserInfo()
     }
 
-    if (zoomUser) {
+    if (zoom.enabled && zoomUser) {
       await window.api.getZoomUserInfo()
     }
 
@@ -957,14 +942,14 @@ class GlobalState extends PureComponent<Props> {
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
-    if (legendaryUser || gogUser || amazonUser || zoomUser) {
+    if (legendaryUser || gogUser || amazonUser || (zoom.enabled && zoomUser)) {
       this.refreshLibrary({
         checkForUpdates: true,
         runInBackground:
           epic.library.length !== 0 ||
           gog.library.length !== 0 ||
           amazon.library.length !== 0 ||
-          zoom.library.length !== 0
+          ((this.state.zoom.enabled && zoom.library) || []).length !== 0
       })
     }
 
@@ -1100,17 +1085,17 @@ class GlobalState extends PureComponent<Props> {
             logout: this.amazonLogout
           },
           zoom: {
-            library: zoom.library,
-            username: zoom.username,
+            library: this.state.zoom.enabled ? zoom.library : [],
+            username: this.state.zoom.enabled ? zoom.username : undefined,
             login: this.zoomLogin,
-            logout: this.zoomLogout
+            logout: this.zoomLogout,
+            enabled: this.state.zoom.enabled
           },
           installingEpicGame,
           setLanguage: this.setLanguage,
           isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          refreshWineVersionInfo: this.refreshWineVersionInfo,
           hiddenGames: {
             list: hiddenGames,
             add: this.hideGame,

@@ -3,8 +3,10 @@ import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
 import './index.css'
 
-interface TextInputFieldProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface TextInputFieldProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'onChange'
+> {
   htmlId: string
   inputIcon?: ReactNode
   afterInput?: ReactNode

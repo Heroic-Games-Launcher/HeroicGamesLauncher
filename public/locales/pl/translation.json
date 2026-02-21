@@ -7,7 +7,7 @@
         "title": "Ułatwienia dostępu",
         "zoom": "Przybliż",
         "disable_dialog_backdrop_close": "Nie zamykaj okienek, gdy klikniesz poza nimi",
-        "titles_always_visible": "Zawsze pokazuj tytuły gier w bibliotece",
+        "titles_always_visible": "Zawsze pokazuj tytuły w bibliotece",
         "actions_font_family_default": "Rodzaj czcionki akcji (domyślna: {{fontFamily}})",
         "content_font_family_default": "Rodzaj czcionki treści (domyślna: {{fontFamily}})",
         "disable_smooth_scrolling": "Wyłącz płynne przewijanie (wymagany restart)",
@@ -99,7 +99,11 @@
                 "title": "Błąd Steam"
             },
             "executableNotFound": "Nie znaleziono pliku wykonywalnego",
-            "executableNotFoundMessage": "Heroic nie mógł znaleźć pliku wykonywalnego tej gry. Wybierz go ręcznie w ustawieniach gry."
+            "executableNotFoundMessage": "Heroic nie mógł znaleźć pliku wykonywalnego tej gry. Wybierz go ręcznie w ustawieniach gry.",
+            "dxmt": {
+                "message": "Błąd pobierania DXMT! Sprawdź swoje połączenie!",
+                "title": "Błąd pobierania DXMT"
+            }
         },
         "info": {
             "update": {
@@ -164,7 +168,7 @@
                 "install": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zainstalowana!",
                 "update": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaktualizowana!"
             },
-            "title": "Ostrzeżenie",
+            "title": "Uwaga",
             "wine-change": {
                 "title": "Nie znaleziono Wine!",
                 "message": "Nie mogliśmy znaleźć wybranej wersji Wine, aby uruchomić ten tytuł ({{selectedWine}}). {{newline}} Znaleźliśmy inny, czy chcesz kontynuować uruchamianie za pomocą {{foundWine}}?"
@@ -228,7 +232,7 @@
     "docs": "Dokumentacja",
     "download-manager": {
         "install-type": {
-            "install": "Instaluj",
+            "install": "Instalacja",
             "update": "Aktualizacja"
         },
         "label": {
@@ -287,7 +291,7 @@
         "show_support_offline_only": "Pokaż tylko obsługiwane offline",
         "uncategorized": "Nieskategoryzowane",
         "select_all": "Zaznacz wszystkie",
-        "show_third_party_managed_only": "Wyświetlaj tylko zarządzane zewnętrznie",
+        "show_third_party_managed_only": "Pokaż tylko zarządzane zewnętrznie",
         "show_updates_only": "Pokaż tylko gry z aktualizacją"
     },
     "help": {
@@ -683,9 +687,9 @@
             },
             "descriptiveNames": {
                 "game-log": "Plik dziennika gry {{gameTitle}}",
-                "gog": "GOG log",
+                "gog": "Dziennik GOG",
                 "heroic": "General Heroic log",
-                "legendary": "Epic Games / Legendary log",
+                "legendary": "Dziennik Epic Games / Legendary",
                 "nile": "Amazon / Nile log",
                 "zoom": "Dziennik zdarzeń Zoom"
             },
@@ -743,7 +747,8 @@
             "automaticWinetricksFixes": "Zastosuj znane poprawki automatycznie",
             "enableHelp": "Element pomocy",
             "cometSupport": "Wsparcie Comet",
-            "umuSupport": "Używanie umu jako środowiska uruchomieniowego Proton"
+            "umuSupport": "Używanie umu jako środowiska uruchomieniowego Proton",
+            "zoomPlatform": "Wsparcie platformy Zoom (tylko Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -757,7 +762,7 @@
             "enableUpscaling": "Włącz skalowanie",
             "missingMsg": "Nie mogliśmy znaleźć gamescope w ścieżce PATH. Zainstaluj go lub dodaj do ścieżki PATH.",
             "enableForceGrabCursor": "Włącz kursor Force Grab",
-            "missingMsgFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 24.08 i uruchom ponownie program Heroic.",
+            "missingMsgFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym 25.08 i uruchom ponownie program Heroic.",
             "warningFlatpak": "Nie mogliśmy znaleźć zgodnej wersji Gamescope. Zainstaluj pakiet flatpak Gamescope ze środowiskiem wykonawczym {{runtimeVersion}} i uruchom ponownie program Heroic."
         },
         "after-launch-script-path": "Wybierz skrypt do uruchomienia po zakończeniu gry",
@@ -807,7 +812,8 @@
             "wine_selector_warning": "Wersje Valve Protona są domyślnie ignorowane, włącz je w globalnych ustawieniach Zaawansowanych",
             "info_label": "Wersje Protona od Valve ignorowane"
         },
-        "WoW64": "Włącz WoW64 (Eksperymentalne)"
+        "WoW64": "Włącz WoW64 (Eksperymentalne)",
+        "scripts": "Skrypty:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -910,7 +916,8 @@
         },
         "custom_css": {
             "title": "Własny styl CSS"
-        }
+        },
+        "launchOptions": "Opcje startowe"
     },
     "Settings": "Ustawienia",
     "sidebar": {
@@ -975,7 +982,8 @@
             "unzipping": "Dekompresowanie"
         },
         "release": "Data wydania",
-        "size": "Rozmiar"
+        "size": "Rozmiar",
+        "notes": "Notatki"
     },
     "externalLink": {
         "dontAskAgain": "Nie pytaj ponownie",
@@ -1101,16 +1109,19 @@
         "disable": "Wyłącz",
         "enable": "Włącz",
         "info": {
-            "pt1": "Aby ulepszyć aplikację, Heroic zbiera w 100% zanonimizowane dane.",
+            "pt1": "Aby ulepszyć aplikację, Heroic zbiera w 100% anonimowe dane.",
             "pt3": "Nigdy nie gromadzi żadnych danych osobowych, w tym nazwy użytkownika, adresu IP lub adresu e-mail.",
             "pt4": "Dane te są wykorzystywane, aby dać nam wgląd w to, na czym powinniśmy się skupić w następnej kolejności ze względu na nasze ograniczone zasoby i opinie użytkowników.",
             "pt5": "Plausible Analytics jest w pełni zgodny z RODO, CCPA i PECR.",
-            "pt6": "Aby zapewnić transparentność, możesz wyświetlić dane które zbieramy w dziennikach Heroic.",
+            "pt6": "Aby zapewnić transparentność, możesz zobaczyć dane które zbieramy w dziennikach Heroic.",
             "pt7": "Ustawienia te można zmienić w dowolnym momencie w Ustawieniach aplikacji.",
             "pt2": "Heroic wykorzystuje platformę open-source Plausible Analytics do gromadzenia podstawowych danych: Wersja aplikacji, system operacyjny, połączone sklepy i kraj."
         },
         "title": "Wysyłaj anonimowe analizy"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Sklep Zoom"
+    "zoom-store": "Sklep Zoom",
+    "launch": {
+        "options": "Opcje uruchamiania..."
+    }
 }

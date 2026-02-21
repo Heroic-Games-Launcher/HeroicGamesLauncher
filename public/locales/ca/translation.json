@@ -744,7 +744,8 @@
             "automaticWinetricksFixes": "Aplica les correccions conegudes de manera automàtica",
             "enableHelp": "Component d'ajuda",
             "cometSupport": "Suport Comet",
-            "umuSupport": "Fes servir umu com a execució Proton"
+            "umuSupport": "Fes servir umu com a execució Proton",
+            "zoomPlatform": "Compatibilitat amb Zoom Platform (només Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -758,7 +759,7 @@
             "enableUpscaling": "Activa l'escalatge",
             "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
             "enableForceGrabCursor": "Activa la captura forçada de cursor",
-            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 24.08 i reinicia l'Heroic.",
+            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 25.08 i reinicia l'Heroic.",
             "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb l'entorn d'execució {{runtimeVersion}} i reinicia l'Heroic."
         },
         "after-launch-script-path": "Seleccioneu un script que s'executarà després de sortir del joc",
@@ -802,7 +803,8 @@
         "hdr": "Activa l'HDR",
         "no-tray-icon": "Amaga la icona de la safata del sistema (cal reiniciar)",
         "wineWayland": "Activa el Wine-Wayland (Experimental) (Cal que la versió del Wine hi sigui compatible)",
-        "WoW64": "Activa el WoW64 (Experimental)"
+        "WoW64": "Activa el WoW64 (Experimental)",
+        "scripts": "Scripts:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -905,7 +907,8 @@
         },
         "custom_css": {
             "title": "Estil CSS personalitzat"
-        }
+        },
+        "launchOptions": "Opcions d'execució..."
     },
     "Settings": "Configuració",
     "sidebar": {
@@ -1107,5 +1110,8 @@
         "title": "Envia analítiques anònimes"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Botiga del Zoom"
+    "zoom-store": "Botiga del Zoom",
+    "launch": {
+        "options": "Opcions d'execució..."
+    }
 }

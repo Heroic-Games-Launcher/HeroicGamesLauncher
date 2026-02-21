@@ -25,7 +25,7 @@
             "image": "Seleccionar Imaxe"
         },
         "sideload": {
-            "exe": "Seleccionar Executabel"
+            "exe": "Seleccionar Executábel"
         },
         "stopInstall": {
             "keepInstalling": "Seguir instalando",
@@ -49,7 +49,15 @@
         "wineprefix": "Seleccione o cartafol co Prefixo de Wine",
         "yes": "Sí",
         "close": "Pechar",
-        "select-install-path": "Seleccionar localización da instalación de Steam"
+        "select-install-path": "Seleccionar localización da instalación de Steam",
+        "selectLaunchOption": {
+            "title": "Seleccionar opción de arranque ({{seconds}}s)",
+            "body": "Por favor, selecciona unha opción de arranque para este xogo (pódese cambiar máis adiante na configuración do xogo):"
+        },
+        "warning": {
+            "title": "Advertencia"
+        },
+        "ok": "Aceptar"
     },
     "button": {
         "add_to_favourites": "Engadir a favoritos",
@@ -216,7 +224,8 @@
         "gog": "Non se iniciou sesión cunha conta de GOG en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:",
         "login": "Log in",
         "title": "NON se iniciou sesión",
-        "amazon": "Non se iniciou sesión cunha conta de Amazon en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:"
+        "amazon": "Non se iniciou sesión cunha conta de Amazon en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:",
+        "zoom": "Non se iniciou sesión cunha conta de GOG en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:"
     },
     "report_problem": "Avisar dun problema executando este xogo",
     "sdl": {

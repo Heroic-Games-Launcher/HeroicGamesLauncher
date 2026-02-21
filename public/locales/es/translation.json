@@ -99,7 +99,11 @@
                 "title": "Error de Steam"
             },
             "executableNotFound": "No se ha encontrado el ejecutable",
-            "executableNotFoundMessage": "Heroic no pudo encontrar el ejecutable para este juego. Por favor, configura la ruta manualmente en la configuración del juego."
+            "executableNotFoundMessage": "Heroic no pudo encontrar el ejecutable para este juego. Por favor, configura la ruta manualmente en la configuración del juego.",
+            "dxmt": {
+                "title": "Error al descargar DXMT",
+                "message": "Error al descargar DXMT! Compruebe su conexión!"
+            }
         },
         "info": {
             "update": {
@@ -368,7 +372,7 @@
             "close": "Cerrar ayuda"
         },
         "msync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
-        "dxfpslimit": "Configura un límite de cuadros por segundo para juegos con DXVK",
+        "dxfpslimit": "Establece un límite de velocidad de fotogramas para los juegos DirectX (9-12).",
         "advertiseAvxForRosetta": "Activa el set de soporte de instrucciones AVX cuando se ejecutan juegos de Windows a través de Rosetta en computadoras Apple Sillicon. Esto podría ser requerido por algunos juegos como Death Stranding que necesita soporte AVX.",
         "download_proton_steam": "Si se activa, GE-Proton se descargará directamente en el directorio de herramientas de compatibilidad de Steam en lugar de la ruta por defecto de Heroic. Se usará la ruta de Steam de la configuración 'Ruta por defecto de Steam' más arriba.",
         "wine-hdr": "El HDR mejora los colores proporcionando resaltes más brillantes y contrastes más profundos. Para que el HDR funcione, tanto la pantalla como el juego deben ser compatibles.",
@@ -744,7 +748,8 @@
             "enableHelp": "Componente de ayuda",
             "automaticWinetricksFixes": "Aplicar correcciones conocidas automáticamente",
             "cometSupport": "Soporte para Comet",
-            "umuSupport": "Usar umu como entorno de ejecución de Proton"
+            "umuSupport": "Usar umu como entorno de ejecución de Proton",
+            "zoomPlatform": "Compatibilidad con Zoom Platform (solo Linux)"
         },
         "disablePlaytimeSync": "Desactivar la sincronización del tiempo de juego",
         "frameless-window": {
@@ -758,7 +763,7 @@
             "enableLimiter": "Activar el limitador de FPS",
             "enableUpscaling": "Permite la ampliación",
             "missingMsg": "No podemos encontrar Gamescope en PATH. Instálelo primero o agréguelo a PATH.",
-            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 24.08 y reiniciar Heroic.",
+            "missingMsgFlatpak": "No se encontró una versión compatible de Gamescope. Instalar el paquete de Flatpak de Gamescope con runtime 25.08 y reiniciar Heroic.",
             "enableForceGrabCursor": "Activar Forzar Agarrar Cursor",
             "warningFlatpak": "No se encontró una versión compatible de Gamescope. Instale el paquete de Flatpak de Gamescope con runtime {{runtimeVersion}} y reinicie Heroic."
         },
@@ -807,9 +812,11 @@
                 "title": "Seguro?"
             },
             "info_label": "Versiones de Valve Proton ignoradas",
-            "label": "Permitir usar versiones de Proton que no sean GE para ejecutar juegos",
-            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuracion Avanzada Global"
-        }
+            "label": "Permitir el uso de compilaciones de Valve Proton para ejecutar juegos",
+            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuración Avanzada Global"
+        },
+        "enable-quick-sync-menu": "Habilitar el menú Guardar y sincronizar rápidamente en la página del juego",
+        "scripts": "Secuencias de comandos:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -846,7 +853,8 @@
             "sync": "Guardar-Sincronización",
             "wineExt": "Extensiones de Wine",
             "systemInformation": "Información del sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Heredado"
         },
         "open-config-file": "Abrir archivo de configuración",
         "reset-heroic": "Restablecer Heroic",
@@ -912,7 +920,9 @@
         },
         "custom_css": {
             "title": "Estilo CSS personalizado"
-        }
+        },
+        "launchOptions": "Opciones de arranque",
+        "legacy_warning": "Advertencia: La mayoría de los ajustes de esta pestaña están obsoletos y es posible que no funcionen."
     },
     "Settings": "Ajustes",
     "sidebar": {
@@ -977,7 +987,8 @@
             "unzipping": "Descomprimiendo"
         },
         "release": "Fecha de lanzamiento",
-        "size": "Tamaño"
+        "size": "Tamaño",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "No volver a preguntar",
@@ -1114,5 +1125,8 @@
         "title": "Enviar analíticas anónimas"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Tienda de Zoom"
+    "zoom-store": "Tienda de Zoom",
+    "launch": {
+        "options": "Opciones de arranque..."
+    }
 }

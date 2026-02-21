@@ -75,7 +75,8 @@
         },
         "navbar": {
             "log": "लॉग"
-        }
+        },
+        "launchOptions": "चालू करने के विकल्प..।"
     },
     "Settings": "सेटिंग",
     "window": {
@@ -160,5 +161,8 @@
     "analyticsModal": {
         "disable": "अक्षम",
         "enable": "क्षम"
+    },
+    "launch": {
+        "options": "चालू करने के विकल्प..।"
     }
 }

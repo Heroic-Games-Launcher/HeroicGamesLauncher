@@ -99,7 +99,11 @@
                 "title": "Steami viga"
             },
             "executableNotFound": "Käivitatavat programmi ei leitud",
-            "executableNotFoundMessage": "Heroic ei leidnud selle mängu jaoks käivitatavat programmi. Palun määrake see käsitsi mängu seadetes."
+            "executableNotFoundMessage": "Heroic ei leidnud selle mängu jaoks käivitatavat programmi. Palun määrake see käsitsi mängu seadetes.",
+            "dxmt": {
+                "message": "Viga DXMT allalaadimisel! Kontrollige oma ühendust!",
+                "title": "Viga DXMT allalaadimisel"
+            }
         },
         "info": {
             "update": {
@@ -742,7 +746,7 @@
             "enableUpscaling": "Lubab ülesskaleerimist",
             "enableLimiter": "Luba FPS limiit",
             "enableForceGrabCursor": "Luba sunnitud kursori haaramine",
-            "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 24.08 ja taaskäivitage Heroic.",
+            "missingMsgFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga 25.08 ja taaskäivitage Heroic.",
             "warningFlatpak": "Me ei suutnud leida ühilduvat Gamescope'i versiooni. Paigaldage Gamescope'i flatpak käitusaja versiooniga {{runtimeVersion}} ja taaskäivitage Heroic."
         },
         "after-launch-script-path": "Vali skript, mida käitada pärast mängu sulgemist",
@@ -753,7 +757,8 @@
             "enableNewDesign": "Uus disain",
             "automaticWinetricksFixes": "Rakenda teadaolevad parandused automaatselt",
             "umuSupport": "Kasuta umu-d Protoni platvormina",
-            "cometSupport": "Comet tugi"
+            "cometSupport": "Comet tugi",
+            "zoomPlatform": "Zoomi platvormi tugi (ainult Linux)"
         },
         "before-launch-script-path": "Vali skript, mida käitada enne mängu käivitamist",
         "frameless-window": {
@@ -807,7 +812,8 @@
             "wine_selector_warning": "Mitte-GE Protoni versioone vaikimisi ignoreeritakse, luba need täpsemates globaalsetes seadetes",
             "info_label": "Valve'i Protoni versioonid eiratud"
         },
-        "WoW64": "Luba WoW64 (eksperimentaalne)"
+        "WoW64": "Luba WoW64 (eksperimentaalne)",
+        "scripts": "Skriptid:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -910,7 +916,8 @@
         },
         "custom_css": {
             "title": "Kasutajaliidese CSS stiil"
-        }
+        },
+        "launchOptions": "Käivitusvalikud"
     },
     "Settings": "Seaded",
     "sidebar": {
@@ -975,7 +982,8 @@
             "unzipping": "Lahtipakkimine"
         },
         "release": "Väljalaske kuupäev",
-        "size": "Suurus"
+        "size": "Suurus",
+        "notes": "Märkused"
     },
     "externalLink": {
         "dontAskAgain": "Ära enam küsi",
@@ -1112,5 +1120,8 @@
         "title": "Saada anonüümset analüütikat"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoomi pood"
+    "zoom-store": "Zoomi pood",
+    "launch": {
+        "options": "Käivitusvalikud..."
+    }
 }

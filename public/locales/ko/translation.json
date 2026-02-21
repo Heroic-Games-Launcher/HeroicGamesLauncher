@@ -843,7 +843,8 @@
         },
         "experimental_features": {
             "title": "실험적 기능"
-        }
+        },
+        "launchOptions": "실행 옵션..."
     },
     "Settings": "설정",
     "sidebar": {
@@ -980,5 +981,8 @@
     "analyticsModal": {
         "disable": "비활성화",
         "enable": "활성화"
+    },
+    "launch": {
+        "options": "실행 옵션..."
     }
 }

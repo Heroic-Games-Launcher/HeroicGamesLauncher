@@ -84,6 +84,7 @@ import { parse } from '@node-steam/vdf'
 
 import type LogWriter from 'backend/logger/log_writer'
 import { isRunning } from './downloadmanager/downloadqueue'
+import { isOnline } from './online_monitor'
 
 const execAsync = promisify(exec)
 
@@ -183,6 +184,8 @@ async function getWineFromProton(
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
 ) {
+  if (!isOnline()) return true
+
   const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
   const notification = new Notification({
     title: `${type} ${t('epic.offline-notification-title', 'offline')}`,
@@ -345,10 +348,7 @@ async function errorHandler({
 // If you ever modify this range of characters, please also add them to nile
 // source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp(
-    /[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/,
-    'gi'
-  )
+  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
 }
 
@@ -770,18 +770,17 @@ const getLatestReleases = async (): Promise<Release[]> => {
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
-    const { data: releases } = await axiosClient.get(GITHUB_API)
-    const latestStable: Release = releases.filter(
-      (rel: Release) => rel.prerelease === false
-    )[0]
-    const latestBeta: Release = releases.filter(
-      (rel: Release) => rel.prerelease === true
-    )[0]
+    const { data: releases } = await axiosClient.get<Release[]>(GITHUB_API)
+    const latestStable = releases
+      .filter((rel) => rel.prerelease === false)
+      .at(0)
+    const latestBeta = releases.filter((rel) => rel.prerelease === true).at(0)
 
     const current = app.getVersion()
 
-    const thereIsNewStable = semverGt(latestStable.tag_name, current)
-    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+    const thereIsNewStable =
+      latestStable && semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = latestBeta && semverGt(latestBeta.tag_name, current)
 
     if (thereIsNewStable) {
       newReleases.push({ ...latestStable, type: 'stable' })

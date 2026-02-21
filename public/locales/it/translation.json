@@ -97,7 +97,9 @@
                 "error": "Eseguibile di Steam non trovato. L'installazione è stata probabilmente annullata da un utente o ha fallito lato Steam.",
                 "message": "Installazione di Steam fallita! Leggi le istruzioni con attenzione e riprova! {{paragraph}} {{error}}",
                 "title": "Errore Steam"
-            }
+            },
+            "executableNotFound": "File eseguibile non trovato",
+            "executableNotFoundMessage": "Heroic non è riuscito a trovare l'eseguibile di questo gioco. Impostalo manualmente nelle impostazioni del gioco."
         },
         "info": {
             "update": {
@@ -233,14 +235,14 @@
             "disk": "Disco",
             "speed": "Download"
         },
-        "link": "Downloads",
+        "link": "Download",
         "queue": {
             "end-time": "Finito alle",
             "queue-time": "Aggiunto a",
             "start-time": "Iniziato il",
             "type": "Type"
         },
-        "title": "Downloads",
+        "title": "Download",
         "ETA": "Tempo stimato"
     },
     "epic": {
@@ -370,7 +372,8 @@
         "download_proton_steam": "Se abilitato, GE-Proton verrà scaricato direttamente nella directory degli strumenti di compatibilità di Steam invece che nel percorso Heroic predefinito. Utilizzerà il percorso di Steam impostato nell'impostazione 'Percorso Steam predefinito' qui sopra.",
         "wine-hdr": "L'HDR migliora i colori offrendo alte luci più brillanti e contrasti più profondi. Affinché funzioni, sia il display che il gioco devono supportarlo.",
         "wine-wayland": "Il driver sperimentale Wine-Wayland consente ai giochi di funzionare in modo nativo con il protocollo di visualizzazione Wayland. L'abilitazione potrebbe causare problemi ad alcuni giochi.",
-        "analytics": "Permette a Heroic di raccogliere dati utenti anonimi al 100% per aiutare a migliorare l'applicazione. È necessario un riavvio per applicare l'impostazione."
+        "analytics": "Permette a Heroic di raccogliere dati utenti anonimi al 100% per aiutare a migliorare l'applicazione. È necessario un riavvio per applicare l'impostazione.",
+        "WoW64": "La modalità Wine WoW64 consente di eseguire giochi Windows a 32 bit su Wine a 64 bit. L'attivazione può migliorare le prestazioni, ma potrebbe anche causare problemi con i giochi a 32 bit più vecchi."
     },
     "info": {
         "heroic": {
@@ -430,7 +433,8 @@
         "gog": "Accedi a GOG",
         "message": "Accedi con la tua piattaforma. Puoi effettuare l'accesso a più di una piattaforma contemporaneamente.",
         "amazon": "Accedi ad Amazon",
-        "old-mac": "La tua versione di macOS è {{version}}. Per accedere è necessario macOS 12 o superiore."
+        "old-mac": "La tua versione di macOS è {{version}}. Per accedere è necessario macOS 12 o superiore.",
+        "zoom": "Accesso con Zoom"
     },
     "message": {
         "sync": "Sincronizzazione completata",
@@ -681,8 +685,9 @@
                 "game-log": "Log di gioco di {{gameTitle}}",
                 "gog": "Log GOG",
                 "heroic": "Log Generico Heroic",
-                "legendary": "Epic Games / Legendary log",
-                "nile": "Amazon / Nile log"
+                "legendary": "Registro Epic Games / Legendary",
+                "nile": "Amazon / Nile log",
+                "zoom": "Registro di Zoom"
             },
             "show-uploads": "Mostra file di log caricati"
         },
@@ -738,7 +743,8 @@
             "automaticWinetricksFixes": "Applica correzioni note automaticamente",
             "enableHelp": "Componente aiuto",
             "cometSupport": "Supporto Comet",
-            "umuSupport": "Utilizza umu come runtime Proton"
+            "umuSupport": "Utilizza umu come runtime Proton",
+            "zoomPlatform": "Supporto Zoom Platform (solo Linux)"
         },
         "allow_installation_broken_anticheat": {
             "label": "Permetti l'installazione dei giochi con l'anticheat bloccato o non funzionante",
@@ -760,7 +766,7 @@
             "enableUpscaling": "Abilita Upscaling",
             "missingMsg": "Non troviamo il gamescope nel PATH. Installalo o aggiungilo al PATH.",
             "enableForceGrabCursor": "Blocca il cursore alla finestra",
-            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 24.08 e riavvia Heroic.",
+            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 25.08 e riavvia Heroic.",
             "warningFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime {{runtimeVersion}} e riavvia Heroic."
         },
         "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",
@@ -793,12 +799,15 @@
             "confirmation": {
                 "dont_show": "Non mostrarli",
                 "show": "Ho capito, mostrali",
-                "title": "Sei sicuro?"
+                "title": "Sei sicuro?",
+                "message": "Si consiglia di utilizzare fork personalizzati di Proton (GE-Proton, Proton-CachyOS, ecc.) con Heroic, poiché le versioni di Proton di Valve non includono winetricks e protofix. Puoi comunque usarle se lo desideri."
             },
             "wine_selector_warning": "Le versioni di Proton di Valve sono ignorate di default, abilitale nelle impostazioni globali avanzate",
-            "info_label": "Versioni Non-GE Proton ignorate"
+            "info_label": "Versioni Non-GE Proton ignorate",
+            "label": "Consenti l’uso delle versioni di Proton di Valve per eseguire i giochi"
         },
-        "WoW64": "Abilita WoW64 (sperimentale)"
+        "WoW64": "Abilita WoW64 (sperimentale)",
+        "scripts": "Script:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -901,7 +910,8 @@
         },
         "custom_css": {
             "title": "Stile CSS personalizzato"
-        }
+        },
+        "launchOptions": "Opzioni di avvio..."
     },
     "Settings": "Impostazioni",
     "sidebar": {
@@ -1095,9 +1105,16 @@
             "pt6": "Per trasparenza, puoi vedere i dati che raccogliamo nei log di Heroic.",
             "pt1": "Per migliorare l'applicazione, Heroic raccoglie dati totalmente anonimi.",
             "pt7": "Puoi modificare questa impostazione in qualsiasi momento nelle Impostazioni dell'app.",
-            "pt2": "Heroic utilizza la piattaforma open-source Plausible Analytics per raccogliere dati di base: versione dell’app, sistema operativo, store collegati e Paese."
+            "pt2": "Heroic utilizza la piattaforma open-source Plausible Analytics per raccogliere dati di base: versione dell’app, sistema operativo, store collegati e Paese.",
+            "pt3": "Non raccoglierà mai alcuna informazione personale, inclusi il tuo nome utente, indirizzo IP o email.",
+            "pt4": "Questi dati vengono utilizzati per fornirci indicazioni su cosa concentrarci in seguito, dato alle nostre risorse limitate e al feedback degli utenti.",
+            "pt5": "Plausible Analytics è pienamente conforme al GDPR, al CCPA e al PECR."
         },
         "title": "Invia Dati Analitici Anonimi"
     },
-    "amazon-luna": "Amazon Luna"
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Negozio Zoom",
+    "launch": {
+        "options": "Opzioni di avvio..."
+    }
 }

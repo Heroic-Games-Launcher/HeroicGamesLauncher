@@ -99,7 +99,11 @@
                 "title": "Steam 错误"
             },
             "executableNotFound": "未找到可执行文件",
-            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。"
+            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。",
+            "dxmt": {
+                "message": "下载 DXMT 出错！检查你的连接！",
+                "title": "DXMT 下载错误"
+            }
         },
         "info": {
             "update": {
@@ -744,7 +748,8 @@
             "enableHelp": "帮助组件",
             "automaticWinetricksFixes": "自动应用已知的修复",
             "umuSupport": "将 umu 用作 Proton 运行时",
-            "cometSupport": "Comet 支持"
+            "cometSupport": "Comet 支持",
+            "zoomPlatform": "Zoom 平台支持（仅 Linux）"
         },
         "disablePlaytimeSync": "停用游戏时间同步",
         "gamescope": {
@@ -752,7 +757,7 @@
             "enableUpscaling": "启用分辨率提升",
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
             "enableForceGrabCursor": "启用强制抓取指针",
-            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 24.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
+            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
             "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
         },
         "frameless-window": {
@@ -809,7 +814,9 @@
             "label": "允许使用 Valve Proton 构建运行游戏",
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
-        "WoW64": "启用 WoW64（实验性）"
+        "WoW64": "启用 WoW64（实验性）",
+        "scripts": "脚本：",
+        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -846,7 +853,8 @@
             "sync": "存档-同步",
             "wineExt": "Wine 扩展",
             "systemInformation": "系统信息",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "老古董"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -912,7 +920,9 @@
         },
         "custom_css": {
             "title": "自定义 CSS 样式"
-        }
+        },
+        "launchOptions": "启动选项",
+        "legacy_warning": "警告：此选项卡上的设置大多已废弃，可能完全无法使用。"
     },
     "Settings": "设置",
     "sidebar": {
@@ -977,7 +987,8 @@
             "unzipping": "解压缩"
         },
         "release": "发布日期",
-        "size": "大小"
+        "size": "大小",
+        "notes": "附注"
     },
     "externalLink": {
         "warning": "你即将打开一个外部链接。",
@@ -1114,5 +1125,8 @@
         "title": "发送匿名分析信息"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom 商店"
+    "zoom-store": "Zoom 商店",
+    "launch": {
+        "options": "启动选项..."
+    }
 }

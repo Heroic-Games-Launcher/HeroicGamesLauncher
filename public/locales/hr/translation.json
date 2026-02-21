@@ -668,7 +668,8 @@
         },
         "systemInformation": {
             "copyToClipboard": "Copied to Clipboard!"
-        }
+        },
+        "launchOptions": "Opcije za pokretanje..."
     },
     "Settings": "Postavke",
     "sidebar": {
@@ -781,5 +782,8 @@
     "analyticsModal": {
         "disable": "Disable",
         "enable": "Enable"
+    },
+    "launch": {
+        "options": "Opcije za pokretanje..."
     }
 }

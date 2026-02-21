@@ -48,7 +48,18 @@
         },
         "wineprefix": "Pilih Folder Prefiks Wine",
         "yes": "YA",
-        "close": "Tutup"
+        "close": "Tutup",
+        "warning": {
+            "title": "Peringatan"
+        },
+        "selectLaunchOption": {
+            "title": "Pilih Opsi Peluncuran ({{seconds}}d)"
+        },
+        "sync": {
+            "force_download_warning": "Penyimpanan lokal akan dihapus. Apakah Anda ingin melanjutkan?",
+            "force_upload_warning": "Penyimpanan cloud akan ditimpa. Apakah Anda ingin melanjutkan?"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Tambahkan Ke Favorit",
@@ -196,7 +207,8 @@
         "gog": "Anda tidak masuk dengan akun GOG di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:",
         "login": "Masuk",
         "title": "Anda TIDAK masuk",
-        "amazon": "Anda tidak masuk dengan akun Epic di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:"
+        "amazon": "Anda tidak masuk dengan akun Epic di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:",
+        "zoom": "Anda tidak masuk dengan akun GOG di Heroic. Jangan gunakan halaman toko untuk masuk, klik tombol berikut sebagai gantinya:"
     },
     "report_problem": "Laporkan masalah yang terjadi saat memainkan gim ini",
     "sdl": {
@@ -314,5 +326,6 @@
             "resume": "Lanjutkan unduhan"
         }
     },
-    "wikiLink": "Informasi penting tentang game ini, baca di sini:&nbsp;<1>Buka halaman</1>"
+    "wikiLink": "Informasi penting tentang game ini, baca di sini:&nbsp;<1>Buka halaman</1>",
+    "open-saves-folder": "Buka Folder Penyimpanan"
 }

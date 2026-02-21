@@ -575,8 +575,8 @@ export async function isGameAvailable(appName: string): Promise<boolean> {
     resolve(
       Boolean(
         info?.is_installed &&
-          info.install.install_path &&
-          existsSync(info.install.install_path)
+        info.install.install_path &&
+        existsSync(info.install.install_path)
       )
     )
   })

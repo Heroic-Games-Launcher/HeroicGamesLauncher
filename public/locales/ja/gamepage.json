@@ -47,7 +47,11 @@
         },
         "wineprefix": "Wine環境フォルダを選択",
         "yes": "はい",
-        "close": "閉じる"
+        "close": "閉じる",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "お気に入りに追加",
@@ -192,7 +196,8 @@
         "gog": "HeroicにGOGアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
         "login": "ログイン",
         "title": "ログインしていません",
-        "amazon": "HeroicのAmazonアカウントでログインしていません。 ストアページを使用してログインしないでください。代わりに次のボタンをクリックしてください:"
+        "amazon": "HeroicのAmazonアカウントでログインしていません。 ストアページを使用してログインしないでください。代わりに次のボタンをクリックしてください:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "このゲームの実行に関する問題を報告",
     "sdl": {

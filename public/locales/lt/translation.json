@@ -579,7 +579,8 @@
             "confirmation": {
                 "title": "Ar Jūs esate tikra/-s?"
             }
-        }
+        },
+        "scripts": "&scenarijai"
     },
     "settings": {
         "advanced": {
@@ -675,7 +676,8 @@
                 "message": "„EAC“ vykdantysis yra įjungtas/įgalintas, kuris tinkamai neveiks be žaidimo veiksenos. Ar Jūs norite išjungti/išgalinti „EAC“ vykdantįjį ir žaidimo veikseną?",
                 "title": "Įjungtas/Įgalintas „EAC“ vykdantysis"
             }
-        }
+        },
+        "launchOptions": "Paleidimo parinktys..."
     },
     "Settings": "Nustatymai",
     "status": {
@@ -699,7 +701,8 @@
             "not-found": "Nerasta jokia „Wine“ versija. Prašome paspausti ant atnaujinimo piktogramos, norint bandyti dar kartą.",
             "unzipping": "Išarchyvuojama/Išskleidžiama"
         },
-        "release": "Išleidimo data"
+        "release": "Išleidimo data",
+        "notes": "Lapeliai"
     },
     "winetricks": {
         "install": "Įdiegti",
@@ -956,5 +959,8 @@
             "pt7": "Šį nustatymą galite pakeisti bet kada Programos Nustatymuose."
         },
         "title": "Siūsti Anoniminę Analitiką"
+    },
+    "launch": {
+        "options": "Paleidimo parinktys..."
     }
 }

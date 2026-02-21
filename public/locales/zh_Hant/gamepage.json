@@ -47,7 +47,11 @@
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
         "yes": "是",
-        "close": "關閉"
+        "close": "關閉",
+        "warning": {
+            "title": "警告"
+        },
+        "ok": "是"
     },
     "button": {
         "add_to_favourites": "加入我的最愛",
@@ -182,7 +186,8 @@
         "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
         "login": "登入",
         "title": "您未登入",
-        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:"
+        "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
+        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
     "report_problem": "回報執行此遊戲時出現的問題",
     "sdl": {
