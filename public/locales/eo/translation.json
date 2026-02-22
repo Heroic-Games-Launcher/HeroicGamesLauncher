@@ -1,0 +1,138 @@
+{
+    "box": {
+        "choose": "Elekti",
+        "no": "NE",
+        "ok": "BONE",
+        "select": {
+            "button": "Elekti",
+            "exe": "Elekti EXE"
+        },
+        "yes": "JES",
+        "dontShowAgain": "Ne plu montri",
+        "downloadNow": "Elŝuti nun",
+        "error": {
+            "title": "Eraro",
+            "winetricks": {
+                "title": "Winetricks eraro"
+            }
+        },
+        "info": {
+            "update": {
+                "message": "Nova Versio desponeblas!",
+                "message-finished": "Ĉu vi volas restartigi Heroic nun?"
+            }
+        },
+        "quit": {
+            "title": "Eliri"
+        },
+        "vcruntime": {
+            "notfound": {
+                "title": "VCRuntime ne instalita",
+                "message": "La Microsoft Visual C++ Runtimes ne estas instalitaj, kiuj estas postulataj de iuj ludoj"
+            }
+        },
+        "warning": {
+            "rosetta": {
+                "title": "Rosetta ne trovita"
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "Ĉu vi certas ke vi volas eliri?"
+                }
+            },
+            "wine-change": {
+                "title": "Wine ne trovita!"
+            }
+        },
+        "update": "Ĝisdatigi"
+    },
+    "button": {
+        "login": "Ensaluti",
+        "continue": "Daŭrigi"
+    },
+    "add_game": "Aldoni ludon",
+    "Amazon Games": "Amazon Games",
+    "amazon-luna": "Amazon Luna",
+    "analyticsModal": {
+        "disable": "Malŝalti",
+        "enable": "Ŝalti"
+    },
+    "categories-manager": {
+        "add": "Aldoni",
+        "add-placeholder": "Aldoni novan kategorion"
+    },
+    "category-settings": {
+        "add-new-category": "Aldoni Novan Kategorion",
+        "new-category": "Nova kategorio"
+    },
+    "controller": {
+        "hints": {
+            "back": "Reen",
+            "close_keyboard": "Fermi klavaron",
+            "game_details": "Ludaj detaloj",
+            "select": "Elekti",
+            "game_settings": "Ludaj agordoj",
+            "install_game": "Instali ludon",
+            "play_game": "Ludi ludon"
+        }
+    },
+    "download-manager": {
+        "install-type": {
+            "install": "Instali",
+            "update": "Ĝisdatigi"
+        },
+        "label": {
+            "disk": "Disko",
+            "speed": "Elŝutado"
+        },
+        "queue": {
+            "end-time": "Finiĝis je",
+            "queue-time": "Aldonita je"
+        },
+        "title": "Elŝutoj"
+    },
+    "error": "Eraro",
+    "label": {
+        "loading": "Ŝarĝanta"
+    },
+    "loading": {
+        "default": "Ŝarĝanta"
+    },
+    "setting": {
+        "eosOverlay": {
+            "disable": "Malŝalti",
+            "enable": "Ŝalti",
+            "install": "Instali",
+            "remove": "Malinstali",
+            "updateNow": "Ĝisdatigi"
+        },
+        "library_top_option": {
+            "disabled": "Malŝaltita"
+        },
+        "wineversion": "Versio de Wine"
+    },
+    "settings": {
+        "advanced": {
+            "details": "Detaloj"
+        }
+    },
+    "userselector": {
+        "quitMessage": "Ĉu vi certas ke vi volas eliri?"
+    },
+    "window": {
+        "close": "Fermi"
+    },
+    "wine": {
+        "size": "Grando"
+    },
+    "winetricks": {
+        "install": "Instali",
+        "loading": "Ŝarĝanta"
+    },
+    "dlc": {
+        "actions": "Agoj",
+        "installDlcs": "Instali ĉiujn DLCojn",
+        "noDlcFound": "Neniuj DLCoj trovitaj",
+        "size": "Grando"
+    }
+}
