@@ -637,7 +637,8 @@
             "clearCache": {
                 "help9": "Game Settings"
             }
-        }
+        },
+        "launchOptions": "Başlama Seçimləri..."
     },
     "Settings": "Parametrlər",
     "sidebar": {
@@ -734,5 +735,8 @@
     },
     "analyticsModal": {
         "disable": "Qeyri-aktiv"
+    },
+    "launch": {
+        "options": "Başlama Seçimləri..."
     }
 }

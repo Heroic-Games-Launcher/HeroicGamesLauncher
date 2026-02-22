@@ -49,7 +49,24 @@
         "wineprefix": "Вибрати теку префікса Wine",
         "yes": "ТАК",
         "close": "Закрити",
-        "select-install-path": "Виберіть шлях встановлення Steam"
+        "select-install-path": "Виберіть шлях встановлення Steam",
+        "warning": {
+            "title": "Попередження"
+        },
+        "selectLaunchOption": {
+            "body": "Будь ласка виберіть варіант запуску для цієї гри (його можна змінити пізніше в налаштуваннях гри):",
+            "title": "Виберіть опцію запуску ({{seconds}}с)"
+        },
+        "sync": {
+            "force_download_warning": "Локальні збереження будуть видалені. Чи хочете ви продовжити?",
+            "force_upload_warning": "Дані, збережені в хмарі, будуть перезаписані. Чи хочете ви продовжити?"
+        },
+        "ok": "ГАРАЗД",
+        "offline_warning": {
+            "message": "Ця гра може працювати некоректно без мережі. Усе одно бажаєте грати?",
+            "playAnyway": "Усе одно грати",
+            "title": "Попередження про відсутність мережі"
+        }
     },
     "button": {
         "add_to_favourites": "Додати до обраного",
@@ -142,7 +159,7 @@
         "clickToOpen": "Натисніть, щоби відкрити",
         "game-scores": "Оцінки гри",
         "installedInfo": "Інформація про встановлення",
-        "protondb-compatibility-info": "Рейтинг сумісності ProtonDB",
+        "protondb-compatibility-info": "Рейтинг сумісності з Proton",
         "steamdeck-compatibility-info": "Сумісність із Steam Deck",
         "third-party-app": "Сторонній менеджер"
     },
@@ -339,5 +356,6 @@
             "remove": "Видалити із завантажених",
             "resume": "Відновити завантаження"
         }
-    }
+    },
+    "open-saves-folder": "Відкрити папку «Збереження»"
 }

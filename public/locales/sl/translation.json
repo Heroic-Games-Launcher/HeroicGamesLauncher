@@ -229,7 +229,8 @@
         },
         "library_top_option": {
             "disabled": "Izključi"
-        }
+        },
+        "wineversion": "Wine različica"
     },
     "settings": {
         "advanced": {
@@ -244,15 +245,43 @@
         "reset-heroic": "Ponastavi Heroic"
     },
     "infobox": {
-        "requirements": "Strojne zahteve"
+        "requirements": "Strojne zahteve",
+        "warning": "Pozor"
     },
     "window": {
         "close": "Zapri"
     },
     "winetricks": {
-        "install": "Namesti"
+        "install": "Namesti",
+        "loading": "Nalaganje"
     },
     "button": {
         "login": "Vpis"
+    },
+    "category-settings": {
+        "warning": "Pozor"
+    },
+    "dlc": {
+        "size": "Velikost"
+    },
+    "help": {
+        "title": {
+            "accessibility": "Dostopnost"
+        }
+    },
+    "label": {
+        "loading": "Nalaganje"
+    },
+    "loading": {
+        "default": "Nalaganje"
+    },
+    "userselector": {
+        "quitMessage": "Ste prepričani, da želite zaključiti?"
+    },
+    "wine": {
+        "size": "Velikost"
+    },
+    "info": {
+        "version": "Wine različica"
     }
 }

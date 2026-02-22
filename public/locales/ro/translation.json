@@ -826,5 +826,8 @@
         "confirm-remove": "Confirmă ștergerea lui \"{{name}}\"",
         "confirm-rename": "Confirmă redenumirea lui {{oldName}} ca {{newName}}",
         "no-categories": "Nicio categorie."
+    },
+    "launch": {
+        "options": "Opțiuni de Lansare..."
     }
 }

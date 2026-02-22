@@ -430,6 +430,9 @@
         "loading": "Loading",
         "releaseDate": "Release Date"
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "library": {
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
@@ -646,6 +649,7 @@
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
+        "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -732,6 +736,7 @@
                 },
                 "error": {
                     "content": "Failed to upload log file. Check Heroic's general log for details",
+                    "manual_upload": "Click the \"SHOW LOG FILE IN FOLDER\" button and upload the \"launch.log\" file manually to Discord or any online file sharing service.",
                     "title": "Upload failed"
                 },
                 "header": "Uploaded log files",
@@ -854,6 +859,7 @@
             "searchMsg": "Searching for gamescope executable."
         },
         "launchOptions": "Launch Options",
+        "legacy_warning": "Warning: The settings on this tab are mostly deprecated and might not work at all.",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -862,6 +868,7 @@
             "games_settings_defaults": "Game Defaults",
             "gamescope": "Gamescope",
             "general": "General",
+            "legacy": "Legacy",
             "log": "Log",
             "other": "Other",
             "sync": "Cloud Saves Sync",

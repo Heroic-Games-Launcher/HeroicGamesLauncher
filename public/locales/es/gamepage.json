@@ -14,7 +14,7 @@
         },
         "no": "NO",
         "repair": {
-            "message": "¿Quieres intentar reparar este juego? Esto puede llevar mucho tiempo.",
+            "message": "¿Deseas intentar reparar este juego? Esto puede llevar mucho tiempo.",
             "title": "Verificar y reparar"
         },
         "runexe": {
@@ -37,7 +37,7 @@
             "message": "¿Quieres desinstalar \"{{title}}\"?",
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes se olvidarán y el registro se eliminará.",
             "title": "Desinstalar",
-            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente deseas eliminarlo, debes hacerlo manualmente.",
+            "prefix_warning": "El prefijo de Wine para este juego es el predeterminado. Si realmente deseas eliminarlo, tienes que hacerlo manualmente.",
             "dlc": "¿Quieres desinstalar \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "Epic Games no se puede desinstalar mientras se está instalando otro juego de Epic.",
             "gameIsRunning": "{{title}} se está ejecutando. Ciérralo para desinstalarlo."
@@ -46,18 +46,32 @@
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Selecciona la carpeta del prefijo de Wine",
+        "wineprefix": "Selecciona la carpeta de Prefijo de Wine",
         "yes": "SÍ",
         "close": "Cerrar",
         "select-install-path": "Seleccionar Ruta de Instalación de Steam",
         "selectLaunchOption": {
-            "body": "Por favor, selecciona una opción de arranque para este juego (se puede cambiar más tarde en la configuración del juego):"
+            "body": "Por favor, selecciona una opción de arranque para este juego (se puede cambiar más tarde en la configuración del juego):",
+            "title": "Seleccione opción de inicio ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Advertencia"
+        },
+        "ok": "De acuerdo",
+        "offline_warning": {
+            "message": "Este juego podría no funcionar correctamente sin conexión a internet. quieres jugarlo igualmente?",
+            "playAnyway": "Jugar igualmente",
+            "title": "Aviso, Sin conexión a Internet"
+        },
+        "sync": {
+            "force_download_warning": "Los datos guardados en el dispositivo local serán borrados, deseas continuar?",
+            "force_upload_warning": "Los datos guardados actualmente en la nube serán sobrescritos. Deseas continuar?"
         }
     },
     "button": {
         "add_to_favourites": "Agregar a favoritos",
         "cancel": "Pausar / Cancelar",
-        "continue": "Seguir descargando",
+        "continue": "Continuar con la descarga",
         "finish": "Finalizar",
         "force_update": "Forzar actualización si está disponible",
         "force-innstall": "Forzar instalación",
@@ -215,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Opciones de arranque..."
+        "options": "Opciones de arranque...",
+        "default": "Por defecto"
     },
     "not_logged_in": {
         "epic": "No has iniciado sesión con una cuenta de Epic en Heroic. No uses la página de la tienda, mejor haz clic en el siguiente botón:",
@@ -342,5 +357,6 @@
             "resume": "Reanudar descarga"
         }
     },
-    "wikiLink": "Información importante sobre este juego, leer esto:&nbsp;<1>Abrir página</1>"
+    "wikiLink": "Información importante sobre este juego, leer esto:&nbsp;<1>Abrir página</1>",
+    "open-saves-folder": "Abrir carpeta de guardados"
 }

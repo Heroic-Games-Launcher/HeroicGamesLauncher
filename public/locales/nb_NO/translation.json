@@ -99,7 +99,11 @@
                 "error": "Steams programfil ble ikke funnet. Installasjonen ble antagelig avbrutt eller mislyktes."
             },
             "executableNotFound": "Programfil ikke funnet",
-            "executableNotFoundMessage": "Heroic kunne ikke finne programfilen til spillet. Velg programfilen manuelt i spillinstillingene."
+            "executableNotFoundMessage": "Heroic kunne ikke finne programfilen til spillet. Velg programfilen manuelt i spillinstillingene.",
+            "dxmt": {
+                "message": "Kunne ikke laste ned DXMT! Sjekk internettilgangen din!",
+                "title": "Kunne ikke laste ned DXMT"
+            }
         },
         "info": {
             "update": {
@@ -904,7 +908,8 @@
         },
         "custom_css": {
             "title": "Egendefinert CSS-stil"
-        }
+        },
+        "launchOptions": "Startalternativer..."
     },
     "Settings": "Innstillinger",
     "sidebar": {
@@ -969,7 +974,8 @@
             "unzipping": "Pakker ut"
         },
         "release": "Utgivelsesdato",
-        "size": "Størrelse"
+        "size": "Størrelse",
+        "notes": "Bemerkninger"
     },
     "externalLink": {
         "dontAskAgain": "Ikke spør igjen",
@@ -1106,5 +1112,8 @@
         "title": "Send anynom statistikk"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom-butikk"
+    "zoom-store": "Zoom-butikk",
+    "launch": {
+        "options": "Startalternativer..."
+    }
 }

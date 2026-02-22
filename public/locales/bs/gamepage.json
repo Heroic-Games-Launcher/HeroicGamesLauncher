@@ -45,7 +45,11 @@
             "title": "Video igri je potrebno ažuriranje"
         },
         "wineprefix": "Izaberite Wine Prefix mapu",
-        "yes": "DA"
+        "yes": "DA",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "U redu"
     },
     "button": {
         "add_to_favourites": "Dodaj u favorite",

@@ -48,7 +48,10 @@
         },
         "wineprefix": "Wine Prefiks Qovluğunu seçin",
         "yes": "HƏ",
-        "close": "Bağla"
+        "close": "Bağla",
+        "warning": {
+            "title": "Warning"
+        }
     },
     "button": {
         "add_to_favourites": "Sevimlilərə əlavə edin",

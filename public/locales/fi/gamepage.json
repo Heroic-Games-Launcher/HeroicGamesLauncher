@@ -47,7 +47,11 @@
         },
         "wineprefix": "Valitse Wine Prefix-kansio",
         "yes": "KYLLÄ",
-        "close": "Sulje"
+        "close": "Sulje",
+        "warning": {
+            "title": "Varoitus"
+        },
+        "ok": "Selvä"
     },
     "button": {
         "add_to_favourites": "Lisää suosikkeihin",

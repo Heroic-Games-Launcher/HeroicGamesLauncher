@@ -19,7 +19,7 @@ import {
   HelpItem
 } from 'frontend/types'
 import { withTranslation } from 'react-i18next'
-import { getGameInfo, getLegendaryConfig, notify } from '../helpers'
+import { getGameInfo, getLegendaryConfig } from '../helpers'
 import { i18n, t, TFunction } from 'i18next'
 
 import ContextProvider from './ContextProvider'
@@ -256,6 +256,7 @@ class GlobalState extends PureComponent<Props> {
 
   setLanguage = (newLanguage: string) => {
     this.setState({ language: newLanguage })
+    document.querySelector('html')?.setAttribute('lang', newLanguage)
   }
 
   setTheme = (newThemeName: string) => {
@@ -614,7 +615,8 @@ class GlobalState extends PureComponent<Props> {
       this.setState({
         zoom: {
           library: [],
-          username: userInfo?.username
+          username: userInfo?.username,
+          enabled: true
         }
       })
 
@@ -629,7 +631,8 @@ class GlobalState extends PureComponent<Props> {
     this.setState({
       zoom: {
         library: [],
-        username: null
+        username: null,
+        enabled: true
       }
     })
     console.log('Logging out from zoom')
@@ -699,7 +702,8 @@ class GlobalState extends PureComponent<Props> {
       },
       zoom: {
         library: zoomLibrary,
-        username: zoom.username
+        username: zoom.username,
+        enabled: zoom.enabled
       },
       amazon: {
         library: amazonLibrary,
@@ -736,35 +740,6 @@ class GlobalState extends PureComponent<Props> {
     } catch (error) {
       window.api.logError(`${error}`)
     }
-  }
-
-  refreshWineVersionInfo = async (fetch: boolean): Promise<void> => {
-    if (this.state.platform === 'win32') {
-      return
-    }
-    window.api.logInfo('Refreshing wine downloader releases')
-    this.setState({ refreshing: true })
-    await window.api
-      .refreshWineVersionInfo(fetch)
-      .then(() => {
-        this.setState({
-          refreshing: false
-        })
-        return
-      })
-      .catch(async () => {
-        this.setState({ refreshing: false })
-        window.api.logError('Sync with upstream releases failed')
-
-        notify({
-          title: 'Wine-Manager',
-          body: t(
-            'notify.refresh.error',
-            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
-          )
-        })
-        return
-      })
   }
 
   handleGameStatus = async ({
@@ -924,7 +899,8 @@ class GlobalState extends PureComponent<Props> {
         this.setState({
           zoom: {
             library: [...library],
-            username: this.state.zoom.username
+            username: this.state.zoom.username,
+            enabled: true
           }
         })
       }
@@ -1120,7 +1096,6 @@ class GlobalState extends PureComponent<Props> {
           isRTL,
           refresh: this.refresh,
           refreshLibrary: this.refreshLibrary,
-          refreshWineVersionInfo: this.refreshWineVersionInfo,
           hiddenGames: {
             list: hiddenGames,
             add: this.hideGame,

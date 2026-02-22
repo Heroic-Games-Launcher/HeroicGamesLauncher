@@ -47,7 +47,11 @@
         },
         "wineprefix": "Wine環境フォルダを選択",
         "yes": "はい",
-        "close": "閉じる"
+        "close": "閉じる",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "お気に入りに追加",

@@ -46,7 +46,11 @@
         },
         "wineprefix": "בחר תיקיית Wine Prefix",
         "yes": "כן",
-        "close": "לסגור"
+        "close": "לסגור",
+        "warning": {
+            "title": "אזהרה"
+        },
+        "ok": "אישור"
     },
     "button": {
         "install": "התקן",

@@ -1110,5 +1110,8 @@
         "title": "Envia analítiques anònimes"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Botiga del Zoom"
+    "zoom-store": "Botiga del Zoom",
+    "launch": {
+        "options": "Opcions d'execució..."
+    }
 }

@@ -161,5 +161,8 @@
     "analyticsModal": {
         "disable": "अक्षम",
         "enable": "क्षम"
+    },
+    "launch": {
+        "options": "चालू करने के विकल्प..।"
     }
 }

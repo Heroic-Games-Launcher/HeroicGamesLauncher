@@ -46,10 +46,27 @@
             "message": "Bu oyun için bir güncelleme var, şimdi uygulansın mı?",
             "title": "Oyunun Güncellenmesi Gerekiyor"
         },
-        "wineprefix": "Wine Prefix Klasörünü Seçin",
+        "wineprefix": "Wine Prefix Klasörünü Seç",
         "yes": "EVET",
         "close": "Kapat",
-        "select-install-path": "Steam Kurulum Yolunu Seç"
+        "select-install-path": "Steam Kurulum Yolunu Seç",
+        "warning": {
+            "title": "Uyarı"
+        },
+        "selectLaunchOption": {
+            "body": "Lütfen bu oyun için bir başlangıç seçeneği seçin (bu daha sonra oyun ayarlarında değiştirilebilir):",
+            "title": "Başlatma Seçeneği Seç ({{seconds}})"
+        },
+        "sync": {
+            "force_download_warning": "Yerel kayıtlar silinecek. Devam etmek istiyor musunuz?",
+            "force_upload_warning": "Buluttaki kayıt dosyalarının üstüne yazılacak. Devam etmek istiyor musunuz?"
+        },
+        "ok": "Tamam",
+        "offline_warning": {
+            "message": "Bu oyun çevrimdışı iken düzgün çalışmayabilir. Yine de oynamak ister misin?",
+            "playAnyway": "Yine De Oyna",
+            "title": "Çevrimdışılık Uyarısı"
+        }
     },
     "button": {
         "add_to_favourites": "Favorilere Ekle",
@@ -220,7 +237,7 @@
         "login": "Log in",
         "title": "Giriş yapmadınız",
         "amazon": "Heroic'te Amazon hesabıyla oturum açmadınız. Giriş yapmak için mağaza sayfasını kullanmayın. Bunun yerine aşağıdaki düğmeye tıklayın:",
-        "zoom": "Heroic'te GOG hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:"
+        "zoom": "Heroic'e Zoom hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine şu düğmeye tıklayın:"
     },
     "report_problem": "Bu oyunun çalışmasıyla ilgili bir sorun bildir",
     "sdl": {
@@ -339,5 +356,6 @@
             "resume": "İndirmeye devam et"
         }
     },
-    "wikiLink": "Bu oyun hakkında önemli bilgiler için bunu okuyun:&nbsp;<1>Sayfayı Aç</1>"
+    "wikiLink": "Bu oyun hakkında önemli bilgiler için bunu okuyun:&nbsp;<1>Sayfayı Aç</1>",
+    "open-saves-folder": "Kayıtlar Klasörünü Aç"
 }

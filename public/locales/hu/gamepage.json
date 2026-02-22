@@ -60,6 +60,12 @@
         "sync": {
             "force_download_warning": "A helyi mentések törlődnek. Folytatod?",
             "force_upload_warning": "A felhőmentések felülíródnak. Folytatod?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Ez a játék offline módban nem biztos, hogy megfelelően működik. Szeretnéd így is elindítani?",
+            "playAnyway": "Indítás így is",
+            "title": "Offline figyelmeztetés"
         }
     },
     "button": {
@@ -222,7 +228,8 @@
         }
     },
     "launch": {
-        "options": "Indítási kapcsolók…"
+        "options": "Indítási kapcsolók…",
+        "default": "Alapértelmezett"
     },
     "not_logged_in": {
         "epic": "Nem vagy Epic-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",

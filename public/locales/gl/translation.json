@@ -1116,5 +1116,8 @@
         "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu."
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Tenda de Zoom"
+    "zoom-store": "Tenda de Zoom",
+    "launch": {
+        "options": "Opcións de arrinque..."
+    }
 }

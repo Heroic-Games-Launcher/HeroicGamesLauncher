@@ -46,10 +46,22 @@
             "message": "Trò chơi này có bản cập nhật, áp dụng bản cập nhật ngay bây giờ?",
             "title": "Trò Chơi Cần Cập Nhật"
         },
-        "wineprefix": "Chọn Thư Mục Wine Prefix",
+        "wineprefix": "Chọn thư mục Wine Prefix",
         "yes": "CÓ",
         "close": "Đóng",
-        "select-install-path": "Chọn thư mục cài đặt Steam"
+        "select-install-path": "Chọn thư mục cài đặt Steam",
+        "warning": {
+            "title": "Cảnh báo"
+        },
+        "selectLaunchOption": {
+            "body": "Vui lòng chọn tùy chọn khởi chạy cho trò chơi này (có thể thay đổi sau trong cài đặt trò chơi):",
+            "title": "Chọn Tùy chọn khởi chạy ({{seconds}}s)"
+        },
+        "sync": {
+            "force_download_warning": "Các bản lưu cục bộ sẽ bị xóa. Bạn có muốn tiếp tục không?",
+            "force_upload_warning": "Lưu trữ trên đám mây sẽ bị ghi đè. Bạn có muốn tiếp tục không?"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Thêm vào Ưa Thích",
@@ -315,5 +327,6 @@
         "notice1": "Trò chơi này được quản lý bởi ứng dụng của bên thứ ba: \"{{application_name}}\"",
         "notice2": "Sau khi nhấn Cài Đặt, Heroic sẽ chạy ứng dụng để hoàn tất quá trình cài đặt"
     },
-    "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>"
+    "wikiLink": "Thông tin quan trọng về trò chơi này, hãy đọc phần này: <1>Mở trang</1>",
+    "open-saves-folder": "Mở thư mục lưu"
 }

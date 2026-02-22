@@ -108,6 +108,10 @@
   padding: 0 var(--dialog-margin-horizontal) var(--dialog-gap);
 }
 
+.log-upload-result {
+  max-width: 500px !important;
+}
+
 .Dialog__footer {
   display: flex;
   gap: 16px;

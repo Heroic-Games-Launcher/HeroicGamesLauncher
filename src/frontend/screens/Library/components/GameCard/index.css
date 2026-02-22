@@ -50,6 +50,30 @@
   height: 20px;
 }
 
+.gameCard .gameCardUpdateBadge {
+  position: absolute;
+  z-index: 5;
+  top: 5px;
+  right: 28%;
+  left: 5px;
+  font-weight: var(--semibold);
+  background: var(--status-info);
+  padding: var(--space-3xs) var(--space-2xs);
+  border-radius: var(--space-3xs);
+  color: var(--neutral-01);
+  font-size: var(--text-sm);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.gameCard:has(.gameCardStatus) .gameCardUpdateBadge {
+  top: 35px; /* Offset if status is present */
+}
+
+.gameListItem .gameCardUpdateBadge {
+  display: none;
+}
+
 .gameCard.notAvailable > .gameCardStatus {
   color: var(--text-log);
   text-align: end;

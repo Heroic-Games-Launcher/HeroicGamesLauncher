@@ -748,5 +748,8 @@
     "analyticsModal": {
         "disable": "Onemogućeno",
         "enable": "Omogućeno"
+    },
+    "launch": {
+        "options": "Opcije za pokretanje..."
     }
 }

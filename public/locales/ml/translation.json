@@ -716,7 +716,8 @@
             "resetHeroic": {
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
-        }
+        },
+        "launchOptions": "വിക്ഷേപണ ബദലുകൾ..."
     },
     "Settings": "ക്രമീകരണങ്ങള്",
     "sidebar": {
@@ -826,5 +827,8 @@
     "analyticsModal": {
         "disable": "Disable",
         "enable": "Enable"
+    },
+    "launch": {
+        "options": "വിക്ഷേപണ ബദലുകൾ..."
     }
 }

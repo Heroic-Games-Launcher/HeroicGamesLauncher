@@ -99,7 +99,11 @@
                 "title": "Ошибка Steam"
             },
             "executableNotFound": "Исполняемый файл не найден",
-            "executableNotFoundMessage": "Не удалось найти исполняемый файл для этой игры. Пожалуйста, установите его вручную в настройках игры."
+            "executableNotFoundMessage": "Не удалось найти исполняемый файл для этой игры. Пожалуйста, установите его вручную в настройках игры.",
+            "dxmt": {
+                "message": "Ошибка загрузки DXMT! Проверьте свое соединение!",
+                "title": "Ошибка загрузки DXMT"
+            }
         },
         "info": {
             "update": {
@@ -838,7 +842,8 @@
             "sync": "Синхронизация облачных сохранений",
             "wineExt": "Расширения Wine",
             "systemInformation": "Информация о системе",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Старые"
         },
         "open-config-file": "Открыть файл конфигурации",
         "reset-heroic": "Сброс Heroic",
@@ -905,7 +910,8 @@
         "custom_css": {
             "title": "Пользовательские стили CSS"
         },
-        "launchOptions": "Параметры запуска"
+        "launchOptions": "Параметры запуска",
+        "legacy_warning": "Предупреждение: настройки на этой вкладке в основном устарели и могут не работать."
     },
     "Settings": "Настройки",
     "sidebar": {
@@ -949,7 +955,7 @@
         "logout": "Выйти из аккаунта",
         "logout_confirmation": "Вы уверены, что хотите выйти?",
         "manageaccounts": "Аккаунты",
-        "quit": "Закрыть Heroic",
+        "quit": "Выйти",
         "cancel": "Отмена",
         "quitMessage": "Вы уверены, что хотите выйти?"
     },
@@ -970,7 +976,8 @@
             "unzipping": "Распаковка"
         },
         "release": "Дата выхода",
-        "size": "Размер"
+        "size": "Размер",
+        "notes": "Заметки"
     },
     "externalLink": {
         "dontAskAgain": "Больше не спрашивать",
@@ -1105,5 +1112,8 @@
         }
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Магазин Zoom"
+    "zoom-store": "Магазин Zoom",
+    "launch": {
+        "options": "Параметры запуска..."
+    }
 }

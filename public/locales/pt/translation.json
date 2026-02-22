@@ -99,7 +99,11 @@
                 "title": "Erro Steam"
             },
             "executableNotFound": "O ficheiro executável não foi encontrado",
-            "executableNotFoundMessage": "O Heroic não conseguiu encontrar o ficheiro executável deste jogo. Defina manualmente o executável nas definições do jogo."
+            "executableNotFoundMessage": "O Heroic não conseguiu encontrar o ficheiro executável deste jogo. Defina manualmente o executável nas definições do jogo.",
+            "dxmt": {
+                "message": "Erro ao transferir o DXMT! Verifique a sua ligação!",
+                "title": "Erro ao transferir o DXMT"
+            }
         },
         "info": {
             "update": {
@@ -333,13 +337,13 @@
         "dxvknvapi": "O DXVK-NVAPI é uma implementação da NVAPI construída em cima do DXVK e da NVAPI nativa do Linux, permitindo a utilização do DLSS em GPUs da Nvidia.",
         "disablePlaytimeSync": "Desativa a sincronização do tempo de jogo com os servidores da loja indicada (atualmente apenas a GOG é suportada)",
         "gamescope": {
-            "fpsLimiterNoFocus": "Os fotogramas por segundo (FPS) que o gamescope deve limitar se o jogo não estiver focado.",
+            "fpsLimiterNoFocus": "Os 'FPS' que o 'gamescope' deve limitar se o jogo não estiver focado.",
             "upscaleMethod": "O método de Aumento da Escala de Resoluções mais Baixas (upscaling) que o gamescope deve usar.",
             "gameWidth": "A resolução de largura usada pelo jogo. É assumida uma relação de aspeto 16:9 pelo gamescope.",
             "upscaleWidth": "A resolução de largura usada pelo gamescope. É assumida uma relação de aspeto 16:9 pelo mesmo.",
             "gameHeight": "A resolução de altura usada pelo jogo. É assumida uma relação de aspeto 16:9 pelo gamescope.",
             "upscaleHeight": "A resolução de altura usada pelo gamescope. É assumida uma relação de aspeto 16:9 pelo mesmo.",
-            "fpsLimiter": "A quantidade de fotogramas por segundo (FPS) que o gamescope deve limitar. Exemplo: 60",
+            "fpsLimiter": "A quantidade de 'FPS' que o 'gamescope' deve limitar. Exemplo: 60",
             "additionalOptions": "Configurações adicionais da linha de comandos a passar ao gamescope.",
             "forceGrabCursor": "Use sempre o modo de movimento relativo do rato em vez de inverter, dependendo da visibilidade do cursor. (Torna-se útil em situações em que as aplicações perdem o foco)"
         },
@@ -367,7 +371,7 @@
             "close": "Fechar Ajuda",
             "open": "Abrir Ajuda"
         },
-        "dxfpslimit": "Define um limite de fotogramas por segundo (FPS) para jogos DirectX (9-12)",
+        "dxfpslimit": "Define um limite de 'FPS' para jogos DirectX (9-12)",
         "advertiseAvxForRosetta": "Ativa o conjunto de instruções AVX ao executar jogos do Windows através da camada de compatibilidade Rosetta, em Macs com o processador da Apple Silicon. Isto pode ser necessário para jogos como o Death Stranding, que necessitam do suporte AVX.",
         "analytics": "Permite que o Heroic recolha os dados de utilização de forma 100% anónima, para ajudar a melhorar a aplicação. É necessário reiniciar a aplicação para surtir efeito.",
         "download_proton_steam": "Quando ativado, o GE-Proton vai ser transferido diretamente para o diretório de ferramentas de compatibilidade do Steam, em vez do caminho pré-definido pelo Heroic. Este vai usar o caminho do Steam que foi definido na definição em cima \"Caminho Padrão do Steam\".",
@@ -702,7 +706,7 @@
             "upload": "Enviar"
         },
         "maxRecentGames": "Jogados Recentemente para Mostrar",
-        "maxworkers": "Número Máximo de Núcleos da CPU quando estiver a fazer transferências",
+        "maxworkers": "Número máximo de núcleos da CPU quando estiver a fazer transferências",
         "minimize-on-launch": "Minimizar o Heroic Depois de Iniciar um Jogo",
         "offlinemode": "Executar o Jogo em Modo Offline",
         "prefered_language": "Idioma Preferido (Código de Idioma)",
@@ -743,7 +747,8 @@
             "enableHelp": "Componente de ajuda",
             "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
             "umuSupport": "Utilize umu como runtime do Proton",
-            "cometSupport": "Suporte para o Comet"
+            "cometSupport": "Suporte para o Comet",
+            "zoomPlatform": "Suporte da plataforma Zoom (apenas Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -804,7 +809,8 @@
         "no-tray-icon": "Ocultar o Ícone do Tabuleiro do Sistema (é necessário reiniciar a aplicação)",
         "wineWayland": "Ativar o Wine-Wayland (Experimental) (a versão do Wine precisa de o suportar)",
         "WoW64": "Ativar o WoW64 (Experimental)",
-        "scripts": "Scripts:"
+        "scripts": "Scripts:",
+        "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -841,7 +847,8 @@
             "sync": "Sincronização de Jogos Guardados (Saves) na Nuvem",
             "wineExt": "Wine Extensions",
             "systemInformation": "Informações do Sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Antigo"
         },
         "open-config-file": "Abrir Ficheiro de Configuração",
         "reset-heroic": "Restaurar o Heroic",
@@ -908,7 +915,8 @@
         "custom_css": {
             "title": "Estilo de CSS Personalizado"
         },
-        "launchOptions": "opções do launcher..."
+        "launchOptions": "Opções de execução",
+        "legacy_warning": "Aviso: A maior parte das definições neste separador estão obsoletas e podem não funcionar de todo."
     },
     "Settings": "Definições",
     "sidebar": {
@@ -973,7 +981,8 @@
             "unzipping": "A descomprimir"
         },
         "release": "Data de Lançamento",
-        "size": "Tamanho"
+        "size": "Tamanho",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "Não perguntar novamente",
@@ -1110,5 +1119,8 @@
         "title": "Enviar Dados Analíticos de forma Anónima"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Loja do Zoom"
+    "zoom-store": "Loja do Zoom",
+    "launch": {
+        "options": "Opções de Arranque..."
+    }
 }

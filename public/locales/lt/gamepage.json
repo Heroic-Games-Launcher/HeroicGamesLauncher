@@ -49,7 +49,11 @@
             "title": "Stabdyti įdiegimą"
         },
         "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką",
-        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią"
+        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią",
+        "warning": {
+            "title": "Įspėjimas"
+        },
+        "ok": "GERAI"
     },
     "button": {
         "add_to_favourites": "Pridėti prie mėgstamiausių",
@@ -285,7 +289,8 @@
         "enableEosOverlay": "Įjungti „EOS“ uždangą"
     },
     "launch": {
-        "options": "Paleidimo parinktys..."
+        "options": "Paleidimo parinktys...",
+        "default": "~Numatytasis"
     },
     "disabled": "Išjungta/Neįgalinta (-as/-i)",
     "enabled": "Įjungta/Įgalinta (-as/-i)",
