@@ -661,7 +661,8 @@
             }
         },
         "systemInformation": {
-            "copyToClipboard": "در کليپ بورد کپی شد!"
+            "copyToClipboard": "در کليپ بورد کپی شد!",
+            "software": "GL نرم‌افزاری"
         },
         "launchOptions": "گزینه های اجرا..."
     },
