@@ -25,8 +25,7 @@ import {
   GameSettings,
   Runner,
   WikiInfo,
-  InstallInfo,
-  LaunchOption
+  InstallInfo
 } from 'common/types'
 
 import GamePicture from '../GamePicture'
@@ -52,7 +51,6 @@ import {
   GameStatus,
   HLTB,
   InstalledInfo,
-  LaunchOptions,
   MainButton,
   ReportIssue,
   Requirements,
@@ -68,6 +66,7 @@ import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -113,13 +112,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
   )
-  const [launchArguments, setLaunchArguments] = useState<
-    LaunchOption | undefined
-  >(undefined)
+
   const [hasError, setHasError] = useState<{
     error: boolean
     message: unknown
   }>({ error: false, message: '' })
+  const [playClicked, setPlayClicked] = useState(false)
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
@@ -149,6 +147,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     !!gameInfo.thirdPartyManagedApp &&
     !gameInfo.isEAManaged
   const isOffline = connectivity.status !== 'online'
+  const notPlayableOffline = isOffline && !gameInfo.canRunOffline
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
@@ -242,6 +241,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
     })
   }, [appName])
 
+  useEffect(() => {
+    // when the user clicks the Play button, we disable it so the user can't click it again
+    // once we receive the "launching" status update we can safely unset this state
+    if (status === 'launching') setPlayClicked(false)
+  }, [status])
+
   function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
@@ -308,7 +313,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         importing: isImporting,
         installingWinetricksPackages: isInstallingWinetricksPackages,
         installingRedist: isInstallingRedist,
-        launching: isLaunching,
+        launching: isLaunching || playClicked,
         linux: isLinux,
         linuxNative: isLinuxNative,
         mac: isMac,
@@ -325,7 +330,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
         syncing: isSyncing,
         uninstalling: isUninstalling,
         updating: isUpdating,
-        win: isWin
+        win: isWin,
+        notPlayableOffline: notPlayableOffline
       },
       statusContext,
       status,
@@ -428,15 +434,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         handleUpdate={handleUpdate}
                         hasUpdate={hasUpdate}
                       />
-                      <LaunchOptions
-                        gameInfo={gameInfo}
-                        setLaunchArguments={setLaunchArguments}
-                      />
+                      <LaunchOptionSelector showTitle={false} />
                       <div className="buttons">
                         <MainButton
                           gameInfo={gameInfo}
                           handlePlay={handlePlay}
                           handleInstall={handleInstall}
+                          handleImport={handleImport}
                         />
                       </div>
                       {wikiLink}
@@ -532,14 +536,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return sendKill(appName, gameInfo.runner)
     }
 
+    setPlayClicked(true)
     await launch({
       appName,
       t,
-      launchArguments,
       runner: gameInfo.runner,
       hasUpdate,
-      showDialogModal
+      showDialogModal,
+      notPlayableOffline
     })
+    setPlayClicked(false)
   }
 
   async function handleInstall(is_installed: boolean) {
@@ -566,6 +572,24 @@ export default React.memo(function GamePage(): JSX.Element | null {
       progress,
       t,
       showDialogModal: showDialogModal
+    })
+  }
+
+  function handleImport() {
+    return install({
+      gameInfo,
+      installPath: 'import',
+      isInstalling: false,
+      previousProgress: null,
+      progress: {
+        ...progress,
+        bytes: '',
+        eta: '',
+        percent: 0,
+        downSpeed: 0
+      },
+      t,
+      showDialogModal
     })
   }
 })

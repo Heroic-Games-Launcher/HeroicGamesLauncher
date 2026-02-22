@@ -94,7 +94,13 @@ export default function LogSettings() {
     games = games.sort((game1, game2) => game1.title.localeCompare(game2.title))
 
     setInstalledGames(games)
-  }, [epic.library, gog.library, amazon.library, sideloadedLibrary])
+  }, [
+    epic.library,
+    gog.library,
+    amazon.library,
+    sideloadedLibrary,
+    zoom.library
+  ])
 
   const getLogContent = () => {
     void window.api.getLogContent(showLogOf).then((content: string) => {
@@ -153,9 +159,11 @@ export default function LogSettings() {
       { title: 'Heroic', args: {} },
       { title: 'Epic/Legendary', args: { runner: 'legendary' } },
       { title: 'GOG', args: { runner: 'gog' } },
-      { title: 'Amazon/Nile', args: { runner: 'nile' } },
-      { title: 'Zoom', args: { runner: 'zoom' } }
+      { title: 'Amazon/Nile', args: { runner: 'nile' } }
     ]
+    if (zoom.enabled) {
+      baseFiles.push({ title: 'Zoom', args: { runner: 'zoom' } })
+    }
     const logsForInstalledGames = installedGames.map((game) => ({
       title: game.title,
       args: {
@@ -164,7 +172,7 @@ export default function LogSettings() {
       }
     }))
     return baseFiles.concat(logsForInstalledGames)
-  }, [installedGames])
+  }, [installedGames, zoom.enabled])
 
   return (
     <>

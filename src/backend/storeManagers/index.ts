@@ -18,6 +18,8 @@ import { DMQueueElement, GameInfo, GameSettings, Runner } from 'common/types'
 import { isMac } from 'backend/constants/environment'
 import { readFileSync } from 'graceful-fs'
 import LogWriter from 'backend/logger/log_writer'
+import { GlobalConfig } from 'backend/config'
+
 type GameManagerMap = {
   [key in Runner]: GameManager
 }
@@ -88,7 +90,8 @@ export async function initStoreManagers() {
   await LegendaryLibraryManager.initLegendaryLibraryManager()
   await GOGLibraryManager.initGOGLibraryManager()
   await NileLibraryManager.initNileLibraryManager()
-  await ZoomLibraryManager.initZoomLibraryManager()
+  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+    await ZoomLibraryManager.initZoomLibraryManager()
 }
 
 export function getTargetExePath(

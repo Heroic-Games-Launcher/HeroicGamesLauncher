@@ -149,16 +149,18 @@ export default React.memo(function NewLogin() {
               logoutAction={amazon.logout}
               disabled={oldMac}
             />
-            <Runner
-              class="zoom"
-              buttonText={t('login.zoom', 'Zoom Login')}
-              icon={() => <ZoomLogo />}
-              loginUrl={zoomLoginPath}
-              isLoggedIn={isZoomLoggedIn}
-              user={zoom.username}
-              logoutAction={zoom.logout}
-              disabled={oldMac}
-            />
+            {zoom.enabled && (
+              <Runner
+                class="zoom"
+                buttonText={t('login.zoom', 'Zoom Login')}
+                icon={() => <ZoomLogo />}
+                loginUrl={zoomLoginPath}
+                isLoggedIn={isZoomLoggedIn}
+                user={zoom.username}
+                logoutAction={zoom.logout}
+                disabled={oldMac}
+              />
+            )}
           </div>
         </div>
         <button

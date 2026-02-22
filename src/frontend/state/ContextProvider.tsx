@@ -28,7 +28,8 @@ const initialContext: ContextType = {
   zoom: {
     library: [],
     login: async () => Promise.resolve(''),
-    logout: async () => Promise.resolve()
+    logout: async () => Promise.resolve(),
+    enabled: false
   },
   installingEpicGame: false,
   sideloadedLibrary: [],
@@ -41,7 +42,6 @@ const initialContext: ContextType = {
   isIntelMac: false,
   refresh: async () => Promise.resolve(),
   refreshLibrary: async () => Promise.resolve(),
-  refreshWineVersionInfo: async () => Promise.resolve(),
   refreshing: false,
   refreshingInTheBackground: true,
   isRTL: false,
@@ -100,7 +100,8 @@ const initialContext: ContextType = {
   },
   experimentalFeatures: {
     enableHelp: false,
-    cometSupport: true
+    cometSupport: true,
+    zoomPlatform: false
   },
   handleExperimentalFeatures: () => null,
   disableDialogBackdropClose: false,

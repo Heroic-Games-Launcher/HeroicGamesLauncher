@@ -105,7 +105,11 @@
                 "title": "Earráid Winetricks"
             },
             "executableNotFound": "Níor aimsíodh an comhad inrite",
-            "executableNotFoundMessage": "Níorbh fhéidir le Heroic an comhad inrite don chluiche seo a aimsiú. Socraigh de láimh é i socruithe an chluiche le do thoil."
+            "executableNotFoundMessage": "Níorbh fhéidir le Heroic an comhad inrite don chluiche seo a aimsiú. Socraigh de láimh é i socruithe an chluiche le do thoil.",
+            "dxmt": {
+                "message": "Earráid ag íoslódáil DXMT! Seiceáil do nasc!",
+                "title": "Earráid Íoslódála DXMT"
+            }
         },
         "info": {
             "update": {
@@ -366,7 +370,8 @@
         "experimental_features": {
             "cometSupport": "Tacaíocht Cóiméad",
             "enableHelp": "Comhpháirt chabhrach",
-            "enableNewDesign": "Dearadh nua"
+            "enableNewDesign": "Dearadh nua",
+            "zoomPlatform": "Tacaíocht Ardán Zoom (Linux amháin)"
         },
         "frameless-window": {
             "confirmation": {
@@ -489,7 +494,9 @@
         "wineprefix": "Fillteán WinePrefix",
         "wineversion": "Leagan Wine",
         "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
-        "WoW64": "Cumasaigh WoW64 (Turgnamhach)"
+        "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
+        "scripts": "Scripteanna:",
+        "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche"
     },
     "button": {
         "login": "Logáil isteach",
@@ -883,7 +890,8 @@
             "log": "Logáil",
             "other": "Eile",
             "sync": "Sioncrónú Sábhálacha Néil",
-            "systemInformation": "Faisnéis Córais"
+            "systemInformation": "Faisnéis Córais",
+            "legacy": "Oidhreacht"
         },
         "offline": {
             "warning": "Ní cheadaíonn an cluiche seo mód as líne go sainráite, mar sin is ar do phriacal féin atá sé seo a chur air. Seans nach n-oibreoidh an cluiche."
@@ -917,7 +925,9 @@
             "steamDeck": "Steam Deck {{model}}",
             "systemModel": "Samhail Chórais:",
             "systemSpecifications": "Sonraíochtaí an Chórais:"
-        }
+        },
+        "launchOptions": "Roghanna Seolta",
+        "legacy_warning": "Rabhadh: Tá na socruithe ar an táb seo imithe i léig den chuid is mó agus b'fhéidir nach n-oibreoidh siad ar chor ar bith."
     },
     "Settings": "Socruithe",
     "store": "Epic Store",
@@ -1024,7 +1034,8 @@
             "unzipping": "Ag dízipeáil"
         },
         "release": "Dáta Eisiúna",
-        "size": "Méid"
+        "size": "Méid",
+        "notes": "Nótaí"
     },
     "wineExplanation": {
         "proton-ge": "Is leagan Proton é GE-Proton a chruthaigh Glorious Eggroll. Tá sé ceaptha le húsáid in éineacht leis an lainseálaí umu (réamhshocraithe i Heroic).",
@@ -1042,5 +1053,8 @@
         "search": "Cuardaigh clónna nó comhpháirteanna"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Siopa Zoom"
+    "zoom-store": "Siopa Zoom",
+    "launch": {
+        "options": "Roghanna Seolta..."
+    }
 }

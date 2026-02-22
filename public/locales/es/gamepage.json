@@ -9,12 +9,12 @@
         "importpath": "Selecciona la carpeta del juego a importar",
         "move": {
             "message": "Esto puede tardar mucho tiempo, ¿estás seguro?",
-            "path": "Elige hacia donde lo quieres mover",
+            "path": "Elige hacia dónde lo quieres mover",
             "title": "Mover la instalación del juego"
         },
         "no": "NO",
         "repair": {
-            "message": "¿Quieres intentar reparar este juego? Esto puede llevar mucho tiempo.",
+            "message": "¿Deseas intentar reparar este juego? Esto puede llevar mucho tiempo.",
             "title": "Verificar y reparar"
         },
         "runexe": {
@@ -28,7 +28,7 @@
             "exe": "Seleccionar ejecutable"
         },
         "stopInstall": {
-            "keepInstalling": "Seguir instalando",
+            "keepInstalling": "Continuar con la instalación",
             "message": "¿Deseas MANTENER los archivos descargados?",
             "title": "Detener la instalación"
         },
@@ -37,7 +37,7 @@
             "message": "¿Quieres desinstalar \"{{title}}\"?",
             "settingcheckbox": "Borrar ajustes y eliminar registros{{newLine}}Nota: Este cambio no se puede deshacer. Todos los ajustes se olvidarán y el registro se eliminará.",
             "title": "Desinstalar",
-            "prefix_warning": "El prefijo Wine para este juego es el prefijo predeterminado. Si realmente deseas eliminarlo, debes hacerlo manualmente.",
+            "prefix_warning": "El prefijo de Wine para este juego es el predeterminado. Si realmente deseas eliminarlo, tienes que hacerlo manualmente.",
             "dlc": "¿Quieres desinstalar \"{{title}}\" (DLC)?",
             "cannotUninstallEpic": "Epic Games no se puede desinstalar mientras se está instalando otro juego de Epic.",
             "gameIsRunning": "{{title}} se está ejecutando. Ciérralo para desinstalarlo."
@@ -46,17 +46,34 @@
             "message": "Este juego tiene una actualización. ¿Quieres aplicarla ahora?",
             "title": "El juego necesita una actualización"
         },
-        "wineprefix": "Selecciona la carpeta de WinePrefix",
+        "wineprefix": "Selecciona la carpeta de Prefijo de Wine",
         "yes": "SÍ",
         "close": "Cerrar",
-        "select-install-path": "Seleccionar Ruta de Instalación de Steam"
+        "select-install-path": "Seleccionar Ruta de Instalación de Steam",
+        "selectLaunchOption": {
+            "body": "Por favor, selecciona una opción de arranque para este juego (se puede cambiar más tarde en la configuración del juego):",
+            "title": "Seleccione opción de inicio ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Advertencia"
+        },
+        "ok": "De acuerdo",
+        "offline_warning": {
+            "message": "Este juego podría no funcionar correctamente sin conexión a internet. quieres jugarlo igualmente?",
+            "playAnyway": "Jugar igualmente",
+            "title": "Aviso, Sin conexión a Internet"
+        },
+        "sync": {
+            "force_download_warning": "Los datos guardados en el dispositivo local serán borrados, deseas continuar?",
+            "force_upload_warning": "Los datos guardados actualmente en la nube serán sobrescritos. Deseas continuar?"
+        }
     },
     "button": {
         "add_to_favourites": "Agregar a favoritos",
-        "cancel": "Pausar/cancelar",
-        "continue": "Seguir descargando",
+        "cancel": "Pausar / Cancelar",
+        "continue": "Continuar con la descarga",
         "finish": "Finalizar",
-        "force_update": "Comprobar si hay una actualización e instalarla",
+        "force_update": "Forzar actualización si está disponible",
         "force-innstall": "Forzar instalación",
         "hide_game": "Ocultar juego",
         "import": "Importar juego",
@@ -67,7 +84,7 @@
         },
         "remove_from_favourites": "Eliminar de favoritos",
         "remove_from_recent": "Eliminar de recientes",
-        "run-exe-first": "Ejecutar instalador primero",
+        "run-exe-first": "Ejecutar el instalador primero",
         "running-setup": "Ejecutando configuración",
         "sideload": {
             "edit": "Editar aplicación/juego"
@@ -77,8 +94,8 @@
         "update": "Actualizar",
         "details": "Detalles",
         "changelog": "Mostrar registro de cambios",
-        "browse_wine_prefix": "Abrir Prefijo de Wine",
-        "browse_files": "Ver Archivos",
+        "browse_wine_prefix": "Abrir prefijo de Wine",
+        "browse_files": "Ver archivos",
         "play": "JUGAR"
     },
     "cloud_save_unsupported": "No compatible",
@@ -212,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Opciones de arranque..."
+        "options": "Opciones de arranque...",
+        "default": "Por defecto"
     },
     "not_logged_in": {
         "epic": "No has iniciado sesión con una cuenta de Epic en Heroic. No uses la página de la tienda, mejor haz clic en el siguiente botón:",
@@ -339,5 +357,6 @@
             "resume": "Reanudar descarga"
         }
     },
-    "wikiLink": "Información importante sobre este juego, leer esto:&nbsp;<1>Abrir página</1>"
+    "wikiLink": "Información importante sobre este juego, leer esto:&nbsp;<1>Abrir página</1>",
+    "open-saves-folder": "Abrir carpeta de guardados"
 }

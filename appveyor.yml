@@ -23,7 +23,7 @@ test: off
 
 artifacts:
   - path: dist\HeroicWin.zip
-    name: Heroic_setup
+    name: Heroic_Windows_Files
 
 deploy:
   - provider: Webhook

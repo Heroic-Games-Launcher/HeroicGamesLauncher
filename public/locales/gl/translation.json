@@ -97,6 +97,12 @@
                 "title": "Erro de Steam",
                 "message": "A installación de Steam fallou! Por favor, lea atentamente as instruccións e inténteo de novo! {{paragraph}} {{error}}",
                 "error": "Non se atopou o executábel de Steam. Probablemente a instalación foi cancelada polo usuario ou fallou no lado de Steam."
+            },
+            "executableNotFound": "Non se atopou o executable",
+            "executableNotFoundMessage": "Heroic non puido atopar o executable deste xogo. Por favor, configúreo manualmente na configuración do xogo.",
+            "dxmt": {
+                "title": "Erro ao descargar DXMT",
+                "message": "Erro ao descargar DXMT! Comprobe a súa conexión!"
             }
         },
         "info": {
@@ -431,7 +437,8 @@
         "gog": "Iniciar sesión en GOG",
         "message": "Inicia sesión. Podes ter a sesión iniciada en máis de unha plataforma ao mesmo tempo.",
         "amazon": "Inicio de sesión en Amazon",
-        "old-mac": "A túa versión de macOS é {{version}}. Requírese macOS 12 ou máis novo para iniciar sesión."
+        "old-mac": "A túa versión de macOS é {{version}}. Requírese macOS 12 ou máis novo para iniciar sesión.",
+        "zoom": "Inicio de sesión en Zoom"
     },
     "message": {
         "sync": "Sincronización completa",
@@ -682,7 +689,8 @@
                 "gog": "Rexistros de GOG",
                 "heroic": "Rexistros xerais de Heroic",
                 "legendary": "Rexistros de Epic Games / Legendary",
-                "nile": "Rexistros de Amazon / Nile"
+                "nile": "Rexistros de Amazon / Nile",
+                "zoom": "Rexistro de Zoom"
             },
             "join-heroic-discord": "Únete ao noso Discord",
             "show-uploads": "Amosar os rexistros subidos"
@@ -766,7 +774,8 @@
         "experimental_features": {
             "cometSupport": "Soporte para Comet",
             "enableHelp": "Compoñente de axuda",
-            "enableNewDesign": "Novo deseño"
+            "enableNewDesign": "Novo deseño",
+            "zoomPlatform": "Compatibilidade con Zoom Platform (só Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -903,7 +912,8 @@
         },
         "offline": {
             "warning": "Este xogo non permite explicitamente o modo offline, activa esta opción baixo a túa propia responsabilidade. É posible que o xogo non funcione."
-        }
+        },
+        "launchOptions": "Opcións de arranque"
     },
     "Settings": "Preferencias",
     "sidebar": {
@@ -968,7 +978,8 @@
             "unzipping": "Descomprimindo"
         },
         "release": "Data de publicación",
-        "size": "Tamaño"
+        "size": "Tamaño",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "Non volver preguntar",
@@ -1103,5 +1114,10 @@
     "wineExplanation": {
         "proton-ge": "GE-Proton é unha variante de Proton creada por Glorious Eggroll. Está deseñada para usarse xunto co lanzador umu (predeterminado en Heroic).",
         "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu."
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Tenda de Zoom",
+    "launch": {
+        "options": "Opcións de arrinque..."
     }
 }

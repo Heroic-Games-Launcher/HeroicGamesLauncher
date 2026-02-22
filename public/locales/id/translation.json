@@ -92,6 +92,12 @@
             },
             "legendary": {
                 "generic": "Sebuah kesalahan telah terjadi! Cobalah Keluar dan Masuk kembali di akun Epic Anda. {{newline}} {{error}}"
+            },
+            "executableNotFound": "File eksekusi tidak ditemukan",
+            "executableNotFoundMessage": "Heroic tidak bisa menemukan file eksekusi untuk permainan ini. Tolong ubah secara manual pada pengaturan permainan.",
+            "dxmt": {
+                "message": "Kesalahan saat mengunduh DXMT! Periksa koneksi Anda!",
+                "title": "Kesalahan Unduhan DXMT"
             }
         },
         "info": {
@@ -118,7 +124,7 @@
         },
         "reset-heroic": {
             "question": {
-                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini.",
+                "message": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus permainan yang Terpasang atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini.",
                 "title": "Reset Heroic"
             }
         },
@@ -250,7 +256,7 @@
     },
     "generic": {
         "error": {
-            "component": "Tidak ada Gim yang ditemukan - Silakan coba keluar lalu masuk lagi atau salah satu opsi di bawah ini"
+            "component": "Tidak ada permainan yang ditemukan - Silakan coba keluar lalu masuk lagi atau salah satu opsi di bawah ini"
         },
         "library": {
             "refresh": "Segarkan Pustaka"
@@ -424,7 +430,8 @@
         "gog": "Masuk ke GOG",
         "message": "Masuk dengan platform akun anda. Anda dapat masuk ke lebih dari satu platform akun secara bersamaan.",
         "amazon": "Masuk ke Amazon",
-        "old-mac": "Versi macOS anda adalah {{version}}. macOS 12 atau lebih diperlukan untuk masuk."
+        "old-mac": "Versi macOS anda adalah {{version}}. macOS 12 atau lebih diperlukan untuk masuk.",
+        "zoom": "Login Zoom"
     },
     "message": {
         "sync": "Sinkronisasi Selesai",
@@ -675,7 +682,8 @@
                 "gog": "Log GOG",
                 "heroic": "Log umum Heroic",
                 "legendary": "Log Epic Games / Legendary",
-                "nile": "Log Amazon / Nile"
+                "nile": "Log Amazon / Nile",
+                "zoom": "Log Zoom"
             },
             "join-heroic-discord": "Bergabunglah dengan Discord kami",
             "show-uploads": "Tampilkan file log yang diunggah"
@@ -736,7 +744,8 @@
         "experimental_features": {
             "enableNewDesign": "Desain baru",
             "cometSupport": "Dukungan Comet",
-            "enableHelp": "Komponen Bantuan"
+            "enableHelp": "Komponen Bantuan",
+            "zoomPlatform": "Dukungan platform Zoom (hanya Linux)"
         },
         "frameless-window": {
             "description": "Gunakan frameless window (perlu restart)",
@@ -782,7 +791,8 @@
             "description": "Aktifkan log mendetail"
         },
         "wineWayland": "Aktifkan Wine-Wayland (Eksperimental) (versi Wine harus mendukungnya)",
-        "WoW64": "Aktifkan WoW64 (Eksperimental)"
+        "WoW64": "Aktifkan WoW64 (Eksperimental)",
+        "scripts": "Skrip:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +860,7 @@
                 "clearCache": "Hapus Cache"
             },
             "resetHeroic": {
-                "help": "Anda yakin ingin menyetel ulang Heroic? Ini akan menghapus semua Pengaturan dan Tembolok tetapi tidak akan menghapus gim yang Terinstal atau kredensial Epic Anda. Versi portable (AppImage, WinPortable, ...) dari Heroic perlu dijalankan ulang secara manual setelah melakukan proses ini."
+                "help": "Ini akan menghapus semua Pengaturan dan Cache, tetapi tidak akan menghapus game yang terinstal atau kredensial Epic Anda. Versi portabel (AppImage, WinPortable, ...) dari Heroic perlu dimulai ulang secara manual setelahnya."
             },
             "details": "Detail"
         },
@@ -885,7 +895,8 @@
         },
         "offline": {
             "warning": "Game ini tidak secara eksplisit mengizinkan mode offline, aktifkan dengan risiko Anda sendiri. Game mungkin tidak berfungsi."
-        }
+        },
+        "launchOptions": "Opsi Peluncuran"
     },
     "Settings": "Pengaturan",
     "sidebar": {
@@ -950,7 +961,8 @@
             "unzipping": "Mengekstrak"
         },
         "release": "Release Date",
-        "size": "Ukuran"
+        "size": "Ukuran",
+        "notes": "Catatan"
     },
     "externalLink": {
         "dontAskAgain": "Jangan tanyakan lagi",
@@ -1079,5 +1091,9 @@
     "wineExplanation": {
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
         "wine-ge": "Wine-GE-Proton adalah varian Wine yang dibuat oleh Glorious Eggroll. Versi ini sudah tidak digunakan lagi dan digantikan oleh GE-Proton dengan peluncur umu."
+    },
+    "zoom-store": "Toko Zoom",
+    "launch": {
+        "options": "Opsi Peluncuran…"
     }
 }

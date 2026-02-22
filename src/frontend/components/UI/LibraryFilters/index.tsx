@@ -5,7 +5,7 @@ import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import { Category, PlatformsFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
-import './index.css'
+import Dropdown from '../Dropdown'
 
 const RunnerToStore = {
   legendary: 'Epic Games',
@@ -173,84 +173,87 @@ export default function LibraryFilters() {
   }
 
   return (
-    <div className="libraryFilters" data-tour="library-filters">
-      <button className="selectStyle">{t('header.filters', 'Filters')}</button>
-      <div className="dropdown">
-        {epic.username && storeToggle('legendary')}
-        {gog.username && storeToggle('gog')}
-        {amazon.user_id && storeToggle('nile')}
-        {zoom.username && storeToggle('zoom')} {}
-        {storeToggle('sideload')}
-        <hr />
-        {platformToggle('win')}
-        {platform === 'linux' && platformToggle('linux')}
-        {platform === 'darwin' && platformToggle('mac')}
-        {platformToggle('browser')}
-        <hr />
-        <ToggleSwitch
-          key="show-hidden"
-          htmlId="show-hidden"
-          handleChange={() => toggleShowHidden()}
-          value={showHidden}
-          title={t('header.show_hidden', 'Show Hidden')}
-        />
-        <ToggleSwitch
-          key="show-non-available"
-          htmlId="show-non-available"
-          handleChange={() => toggleShowNonAvailable()}
-          value={showNonAvailable}
-          title={t('header.show_available_games', 'Show non-Available games')}
-        />
-        <ToggleSwitch
-          key="only-favorites"
-          htmlId="only-favorites"
-          handleChange={() => toggleOnlyFavorites()}
-          value={showFavourites}
-          title={t('header.show_favourites_only', 'Show Favourites only')}
-        />
-        <ToggleSwitch
-          key="only-installed"
-          htmlId="only-installed"
-          handleChange={() => toggleOnlyInstalled()}
-          value={showInstalledOnly}
-          title={t('header.show_installed_only', 'Show Installed only')}
-        />
-        <ToggleSwitch
-          key="only-support-offline"
-          htmlId="only-support-offline"
-          handleChange={() => toggleOnlySupportOffline()}
-          value={showSupportOfflineOnly}
-          title={t(
-            'header.show_support_offline_only',
-            'Show offline-supported only'
-          )}
-        />
-        <ToggleSwitch
-          key="only-third-party-managed"
-          htmlId="only-third-party-managed"
-          handleChange={() => toggleThirdParty()}
-          value={showThirdPartyManagedOnly}
-          title={t(
-            'header.show_third_party_managed_only',
-            'Show third-party managed only'
-          )}
-        />
-        <ToggleSwitch
-          key="only-updates-available"
-          htmlId="only-updates-available"
-          handleChange={() => toggleUpdatesOnly()}
-          value={showUpdatesOnly}
-          title={t('header.show_updates_only', 'Show games with updates only')}
-        />
-        <hr />
-        <button
-          type="reset"
-          className="button is-primary"
-          onClick={() => resetFilters()}
-        >
-          {t('header.reset', 'Reset')}
-        </button>
-      </div>
-    </div>
+    <Dropdown
+      buttonClass="selectStyle"
+      title={t('header.filters', 'Filters')}
+      className="libraryFilters"
+      data-tour="library-filters"
+      popUpOnHover
+    >
+      {epic.username && storeToggle('legendary')}
+      {gog.username && storeToggle('gog')}
+      {amazon.user_id && storeToggle('nile')}
+      {zoom.enabled && zoom.username && storeToggle('zoom')} {}
+      {storeToggle('sideload')}
+      <hr />
+      {platformToggle('win')}
+      {platform === 'linux' && platformToggle('linux')}
+      {platform === 'darwin' && platformToggle('mac')}
+      {platformToggle('browser')}
+      <hr />
+      <ToggleSwitch
+        key="show-hidden"
+        htmlId="show-hidden"
+        handleChange={() => toggleShowHidden()}
+        value={showHidden}
+        title={t('header.show_hidden', 'Show Hidden')}
+      />
+      <ToggleSwitch
+        key="show-non-available"
+        htmlId="show-non-available"
+        handleChange={() => toggleShowNonAvailable()}
+        value={showNonAvailable}
+        title={t('header.show_available_games', 'Show non-Available games')}
+      />
+      <ToggleSwitch
+        key="only-favorites"
+        htmlId="only-favorites"
+        handleChange={() => toggleOnlyFavorites()}
+        value={showFavourites}
+        title={t('header.show_favourites_only', 'Show Favourites only')}
+      />
+      <ToggleSwitch
+        key="only-installed"
+        htmlId="only-installed"
+        handleChange={() => toggleOnlyInstalled()}
+        value={showInstalledOnly}
+        title={t('header.show_installed_only', 'Show Installed only')}
+      />
+      <ToggleSwitch
+        key="only-support-offline"
+        htmlId="only-support-offline"
+        handleChange={() => toggleOnlySupportOffline()}
+        value={showSupportOfflineOnly}
+        title={t(
+          'header.show_support_offline_only',
+          'Show offline-supported only'
+        )}
+      />
+      <ToggleSwitch
+        key="only-third-party-managed"
+        htmlId="only-third-party-managed"
+        handleChange={() => toggleThirdParty()}
+        value={showThirdPartyManagedOnly}
+        title={t(
+          'header.show_third_party_managed_only',
+          'Show third-party managed only'
+        )}
+      />
+      <ToggleSwitch
+        key="only-updates-available"
+        htmlId="only-updates-available"
+        handleChange={() => toggleUpdatesOnly()}
+        value={showUpdatesOnly}
+        title={t('header.show_updates_only', 'Show games with updates only')}
+      />
+      <hr />
+      <button
+        type="reset"
+        className="button is-primary"
+        onClick={() => resetFilters()}
+      >
+        {t('header.reset', 'Reset')}
+      </button>
+    </Dropdown>
   )
 }

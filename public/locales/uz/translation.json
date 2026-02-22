@@ -656,7 +656,8 @@
         "reset-heroic": "Qahramonlikni tiklash",
         "saves": {
             "warning": "Bulutli saqlash funksiyasi beta-versiyasida, sinxronlashdan oldin saqlangan maʼlumotlarning zaxira nusxasini yarating (agar biror narsa notoʻgʻri boʻlsa)"
-        }
+        },
+        "launchOptions": "Ishga tushirish parametrlari..."
     },
     "Settings": "Sozlamalar",
     "status": {
@@ -691,5 +692,8 @@
     },
     "amazon": "Amazon",
     "Amazon Games": "Amazon o'yinlari",
-    "prime-gaming": "Prime Gaming"
+    "prime-gaming": "Prime Gaming",
+    "launch": {
+        "options": "Ishga tushirish parametrlari..."
+    }
 }

@@ -8,9 +8,9 @@ import {
 } from 'common/types/electron_store'
 import { Get } from 'type-fest'
 
-export class TypeCheckedStoreBackend<Name extends ValidStoreName>
-  implements TypeCheckedStore<Name>
-{
+export class TypeCheckedStoreBackend<
+  Name extends ValidStoreName
+> implements TypeCheckedStore<Name> {
   private store: Store
 
   constructor(name: Name, options: Store.Options<StoreStructure[Name]>) {
