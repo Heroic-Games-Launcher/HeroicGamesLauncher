@@ -32,6 +32,7 @@ import {
   libraryStore
 } from 'backend/storeManagers/legendary/electronStores'
 import {
+  achievementStore as GOGAchievementStore,
   apiInfoCache as GOGapiInfoCache,
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
@@ -368,6 +369,7 @@ function clearCache(
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()
     GOGinstallInfoStore.clear()
+    GOGAchievementStore.clear()
   }
   if (library === 'legendary' || !library) {
     installStore.clear()
@@ -387,6 +389,10 @@ function clearCache(
     deviceNameCache.clear()
     vendorNameCache.clear()
   }
+}
+
+function clearAchievementCache(appName: string) {
+  GOGAchievementStore.delete(appName)
 }
 
 function resetHeroic() {
@@ -1667,6 +1673,7 @@ export {
   showItemInFolder,
   removeSpecialcharacters,
   clearCache,
+  clearAchievementCache,
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,

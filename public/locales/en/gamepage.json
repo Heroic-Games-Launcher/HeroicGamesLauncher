@@ -101,6 +101,7 @@
     "disabled": "Disabled",
     "enabled": "Enabled",
     "game": {
+        "achievements": "Achievements",
         "branch": {
             "disabled": "Disabled",
             "password": "Set private channel password",

@@ -157,6 +157,22 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
+export type GOGAchievement = {
+  achievement_id: string
+  achievement_key: string
+  visible: boolean
+  name: string
+  description: string
+  image_url_unlocked: string
+  image_url_locked: string
+  rarity: number
+  date_unlocked: string | null
+  rarity_level_description: string
+  rarity_level_slug: string
+}
+
+export type GameAchievement = GOGAchievement
+
 export interface GameInfo {
   runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
   store_url?: string
