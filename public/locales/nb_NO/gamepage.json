@@ -52,7 +52,7 @@
         "close": "Lukk",
         "select-install-path": "Velg installasjonssti for Steam",
         "warning": {
-            "title": "Warning"
+            "title": "Advarsel"
         },
         "selectLaunchOption": {
             "body": "Velg et oppstartsalternativ for dette spillet (det kan endres senere i spillinnstillingene):",
@@ -61,7 +61,13 @@
         "sync": {
             "force_download_warning": "Lokale lagringsfiler vil slettes. Vil du fortsette?",
             "force_upload_warning": "Lagrede filer på skyen vil overskrives. Vil du fortsette?"
-        }
+        },
+        "offline_warning": {
+            "message": "Det kan hende at dette spillet ikke fungerer uten internett. Vil du spille det allikevel?",
+            "playAnyway": "Spill likevel",
+            "title": "Offline-advarsel"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Legg til i favoritter",
@@ -221,7 +227,8 @@
         }
     },
     "launch": {
-        "options": "Startalternativer..."
+        "options": "Startalternativer...",
+        "default": "Standard"
     },
     "not_logged_in": {
         "epic": "Du er ikke logget inn med en Epic-konto i Heroic. Ikke bruk butikksiden for å logge inn, klikk i stedet på følgende knapp:",
