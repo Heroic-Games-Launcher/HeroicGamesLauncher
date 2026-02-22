@@ -1,0 +1,100 @@
+.SteamGridDBPicker {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 70vh;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  &__title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  &__error {
+    color: var(--danger);
+    padding: 1rem;
+    background: rgba(var(--danger-rgb), 0.1);
+    border-radius: 4px;
+  }
+
+  &__games {
+    overflow-y: auto;
+    max-height: 200px;
+
+    h4 {
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 0.5rem;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &:hover {
+          background: var(--background-hover);
+        }
+      }
+    }
+  }
+
+  &__grids {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    overflow-y: scroll;
+    max-height: 300px;
+    padding-bottom: 1rem;
+  }
+
+  &__grid-item {
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+    transition:
+      transform 0.2s,
+      outline 0.2s;
+    background: var(--background-darker);
+
+    &:hover {
+      transform: scale(1.05);
+      outline: 2px solid var(--primary);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__no-results {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-muted);
+  }
+}

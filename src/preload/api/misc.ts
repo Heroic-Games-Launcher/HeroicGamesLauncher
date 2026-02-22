@@ -102,3 +102,7 @@ export const deleteUploadedLogFile = makeHandlerInvoker('deleteUploadedLogFile')
 export const logFileUploadedSlot = frontendListenerSlot('logFileUploaded')
 export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDeleted')
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
+export const steamgriddb = {
+  searchGame: makeHandlerInvoker('steamgriddb.searchGame'),
+  getGrids: makeHandlerInvoker('steamgriddb.getGrids')
+}

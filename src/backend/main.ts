@@ -799,6 +799,7 @@ addHandler('authZoom', async (event, url) => {
   }
   return login
 })
+
 addListener('logoutZoom', ZoomUser.logout)
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
@@ -1397,3 +1398,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './steamgrid/ipc_handler'

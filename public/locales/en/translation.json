@@ -884,6 +884,15 @@
             "not_supported": "This game does not support Cloud Saves.",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
         },
+        "steamgriddb": {
+            "apikey": {
+                "placeholder": "Enter your SteamGridDB API Key here",
+                "title": "SteamGridDB API Key"
+            },
+            "help": {
+                "description": "Provide your own SteamGridDB API key to enable game cover search. You can get one at www.steamgriddb.com/profile/preferences/api"
+            }
+        },
         "systemInformation": {
             "cometVersion": "Comet: {{cometVersion}}",
             "copyToClipboard": "Copy to clipboard",
@@ -914,6 +923,19 @@
         "logging": "Logging In...",
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
+    },
+    "steamgriddb": {
+        "error": {
+            "grids": "Failed to fetch grids",
+            "no-games": "No games found.",
+            "no-grids": "No covers found for this game.",
+            "search": "Failed to search for games"
+        },
+        "picker": {
+            "search": "Search Game",
+            "select-game": "Select a Game:",
+            "title": "SteamGridDB Covers"
+        }
     },
     "store": "Epic Store",
     "stores": "Stores",

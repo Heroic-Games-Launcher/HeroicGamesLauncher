@@ -25,7 +25,8 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
-  ResetHeroic
+  ResetHeroic,
+  SteamGridDbApiKey
 } from '../../components'
 
 export default function AdvancedSetting() {
@@ -298,6 +299,8 @@ export default function AdvancedSetting() {
         </div>
         <hr />
       </div>
+
+      <SteamGridDbApiKey />
 
       <div className="advancedSetting">
         <ExperimentalFeatures />
