@@ -226,6 +226,7 @@ export default function SideloadDialog({
         ]
       case 'osx':
       case 'Mac':
+      case 'mac':
         return [
           { name: 'Apps', extensions: ['App'] },
           { name: 'Other Binaries', extensions: ['sh', 'py', 'bin'] },

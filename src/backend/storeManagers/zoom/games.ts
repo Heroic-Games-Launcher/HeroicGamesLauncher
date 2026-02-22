@@ -23,7 +23,7 @@ import {
   LaunchOption,
   InstallPlatform
 } from 'common/types'
-import { existsSync, rmSync } from 'graceful-fs'
+import { existsSync, readdirSync, rmSync } from 'graceful-fs'
 import { installedGamesStore, libraryStore } from './electronStores'
 import {
   logDebug,
@@ -268,10 +268,11 @@ export async function install(
   const installerFilename = installers[0].filename
   const installerSize = installers[0].size
 
-  const downloadPath = join(path, gameInfo.folder_name, installerFilename)
+  const installPath = join(path, gameInfo.folder_name)
+  const downloadPath = join(installPath, installerFilename)
 
   // Create game directory
-  fs.mkdirSync(join(path, gameInfo.folder_name), { recursive: true })
+  fs.mkdirSync(installPath, { recursive: true })
 
   // Download the installer
   logInfo(
@@ -326,15 +327,15 @@ export async function install(
         '-xf',
         downloadPath,
         '-C',
-        join(path, gameInfo.folder_name)
+        installPath
       ])
-      let gamePath = join(path, gameInfo.folder_name)
-      const files = await fs.promises.readdir(join(path, gameInfo.folder_name))
+      let gamePath = installPath
+      const files = await fs.promises.readdir(installPath)
       const gameDir = files.find((f) =>
         fs.statSync(join(path, gameInfo.folder_name!, f)).isDirectory()
       )
       if (gameDir) {
-        gamePath = join(path, gameInfo.folder_name, gameDir)
+        gamePath = join(installPath, gameDir)
       }
 
       const exe = join(gamePath, 'start.sh')
@@ -345,7 +346,26 @@ export async function install(
     } else {
       await fs.promises.chmod(executable, '755')
       installResult = await spawnAsync(executable, [], {
-        cwd: join(path, gameInfo.folder_name)
+        cwd: installPath
+      })
+    }
+  } else if (installPlatform === 'mac') {
+    if (downloadPath.endsWith('.zip')) {
+      logInfo(`Extracting ${downloadPath} ...`, LogPrefix.Zoom)
+      installResult = await spawnAsync('unzip', [
+        '-o',
+        downloadPath,
+        '-d',
+        installPath
+      ])
+      executable =
+        readdirSync(installPath).find((path) => path.endsWith('.app')) ||
+        downloadPath.replace('.zip', '.app')
+      executable = executable.replace(installPath, '')
+    } else {
+      await fs.promises.chmod(executable, '755')
+      installResult = await spawnAsync(executable, [], {
+        cwd: installPath
       })
     }
   } else {
@@ -410,7 +430,7 @@ export async function install(
           finalExecutable = 'dosbox'
           finalInstallPlatform = 'linux'
           const sourceDir = gameDirectory
-          const destDir = join(path, gameInfo.folder_name)
+          const destDir = installPath
           logInfo(
             `Copying DOSBox game files from ${sourceDir} to ${destDir}`,
             LogPrefix.Zoom
@@ -497,11 +517,8 @@ export async function install(
 
   const installedData: InstalledInfo = {
     platform: finalInstallPlatform,
-    executable: finalExecutable.replace(
-      '{app}',
-      join(path, gameInfo.folder_name)
-    ),
-    install_path: join(path, gameInfo.folder_name),
+    executable: finalExecutable.replace('{app}', installPath),
+    install_path: installPath,
     isDosbox,
     dosboxConf,
     install_size: getFileSize(parseSize(installerSize)), // This might need to be the actual installed size, not just installer size
@@ -541,7 +558,10 @@ export function isNative(appName: string): boolean {
     return true
   }
 
-  if (isMac && gameInfo.install.platform === 'osx') {
+  if (
+    isMac &&
+    (gameInfo.install.platform === 'osx' || gameInfo.install.platform === 'mac')
+  ) {
     return true
   }
 
