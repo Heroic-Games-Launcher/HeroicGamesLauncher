@@ -309,7 +309,7 @@
         },
         "gamemode": "Feral GameMode wendet automatische und temporäre Optimierungen auf das System an, wenn Spiele ausgeführt werden. Durch Aktiveren kann die Leistung verbessert werden.",
         "general": "Synchronisiere mit EGL, falls du woanders eine funktionierende Installation des „Epic-Games-Launcher“ hast und deine Spiele importieren möchtest, um sie nicht erneut herunterzuladen.",
-        "mangohud": "MangoHUD ist ein Overlay, das FPS, Temperaturen, CPU/GPU-Auslastung und andere Systemressourcen anzeigt und überwacht.",
+        "mangohud": "MangoHud ist ein Overlay, das FPS, Temperaturen, CPU/GPU-Auslastung und andere Systemressourcen anzeigt und überwacht.",
         "other": {
             "part4": "Verwende die ",
             "part5": "Spiel-Argumente",
@@ -695,7 +695,7 @@
             },
             "show-uploads": "Hochgeladene Log-Dateien anzeigen"
         },
-        "mangohud": "Mangohud aktivieren (Mangohud muss installiert sein)",
+        "mangohud": "MangoHud aktivieren (MangoHud muss installiert sein)",
         "manualsync": {
             "download": "Download",
             "forcedownload": "Download erzwingen",

@@ -46,7 +46,7 @@
             "message": "该游戏有更新，你想要现在更新吗？",
             "title": "游戏需要更新"
         },
-        "wineprefix": "选择 WinePrefix 文件夹",
+        "wineprefix": "选择 Wine Prefix 文件夹",
         "yes": "是",
         "close": "关闭",
         "select-install-path": "选择 Steam 安装路径",
@@ -160,7 +160,7 @@
         "game-scores": "游戏分数",
         "installedInfo": "已安装信息",
         "protondb-compatibility-info": "Proton 兼容性级别",
-        "steamdeck-compatibility-info": "SteamDeck 兼容性",
+        "steamdeck-compatibility-info": "Steam Deck 兼容性",
         "third-party-app": "第三方管理器"
     },
     "install": {
@@ -169,7 +169,7 @@
         "path": "选择安装路径",
         "path-not-writtable": "警告：路径可能不可写。",
         "space-after-install": "安装后",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine 版本",
         "anticheat-warning": {
             "cancel": "否",

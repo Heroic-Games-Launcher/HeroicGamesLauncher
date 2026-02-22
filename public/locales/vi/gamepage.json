@@ -46,7 +46,7 @@
             "message": "Trò chơi này có bản cập nhật, áp dụng bản cập nhật ngay bây giờ?",
             "title": "Trò Chơi Cần Cập Nhật"
         },
-        "wineprefix": "Chọn thư mục WinePrefix",
+        "wineprefix": "Chọn thư mục Wine Prefix",
         "yes": "CÓ",
         "close": "Đóng",
         "select-install-path": "Chọn thư mục cài đặt Steam",
@@ -155,7 +155,7 @@
         "game-scores": "Điểm Trò Chơi",
         "installedInfo": "Thông Tin Đã Cài Đặt",
         "protondb-compatibility-info": "Bậc Tương Thích Proton",
-        "steamdeck-compatibility-info": "Khả Năng Tương Thích SteamDeck",
+        "steamdeck-compatibility-info": "Khả Năng Tương Thích Steam Deck",
         "third-party-app": "Trình Quản Lý Bên Thứ Ba"
     },
     "install": {
@@ -164,7 +164,7 @@
         "path": "Chọn Đường Dẫn Cài Đặt",
         "path-not-writtable": "Cảnh báo: đường dẫn có thể không ghi được.",
         "space-after-install": "Sau Khi Cài Đặt",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Phiên bản Wine",
         "anticheat-warning": {
             "cancel": "Không",

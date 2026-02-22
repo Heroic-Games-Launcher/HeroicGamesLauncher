@@ -46,7 +46,7 @@
             "message": "Bu oyunun yeniləməsi var, yeniləmə indi tətbiq edilsin?",
             "title": "Oyun yeniləməyə ehtiyacı var"
         },
-        "wineprefix": "WinePrefix Qovluğunu seçin",
+        "wineprefix": "Wine Prefiks Qovluğunu seçin",
         "yes": "HƏ",
         "close": "Bağla",
         "warning": {
@@ -142,7 +142,7 @@
         "game-scores": "Oyun Xalları",
         "installedInfo": "Quraşdırılmış Məlumat",
         "protondb-compatibility-info": "Proton Uyğunluq Səviyyəsi",
-        "steamdeck-compatibility-info": "SteamDeck Uyğunluğu",
+        "steamdeck-compatibility-info": "Steam Deck Uyğunluğu",
         "third-party-app": "Üçüncü-Tərəf İdarəedici"
     },
     "install": {
@@ -151,7 +151,7 @@
         "path": "Quraşdırma yolunu seçin",
         "path-not-writtable": "Xəbərdarlıq: yol yazıla bilən olmaya bilər.",
         "space-after-install": "Quraşdırıldıqdan sonra",
-        "wineprefix": "WinePrefiks",
+        "wineprefix": "Wine Prefiks",
         "wineversion": "Şərab versiyası",
         "anticheat-warning": {
             "disabled_installation": "Antiçit dəstəyi ya işləmir, ya da danır və çoxoyunçu funksiyaları çalışmayacaq. Oyunu quraşdırmaq mümkün deyil. Bu oyunu quraşdırmaq üçün, bu kontrolu qabaqcıl ayarlardan əngəlləyin.",

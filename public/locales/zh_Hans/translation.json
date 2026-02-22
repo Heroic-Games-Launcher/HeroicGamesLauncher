@@ -310,7 +310,7 @@
         },
         "gamemode": "运行游戏时，Feral GameMode 应用自动和临时的系统调整。启用可能会提高性能。",
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
-        "mangohud": "MangoHUD 是一个覆盖，显示和监控 FPS、温度、CPU/GPU 负载和其他系统资源。",
+        "mangohud": "MangoHud 是一个覆盖，显示和监控 FPS、温度、CPU/GPU 负载和其他系统资源。",
         "other": {
             "part4": "使用 ",
             "part5": "游戏参数",
@@ -335,7 +335,7 @@
             "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         },
         "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
-        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
+        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 Linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
         "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）",
         "gamescope": {
             "fpsLimiterNoFocus": "如未聚焦游戏，Gamescope 每秒应限制的帧率。",
@@ -696,7 +696,7 @@
             },
             "show-uploads": "显示上传的日志文件"
         },
-        "mangohud": "启用 MangoHud（需要已安装 Mangohud）",
+        "mangohud": "启用 MangoHud（需要已安装 MangoHud）",
         "manualsync": {
             "download": "下载",
             "forcedownload": "强制下载",
@@ -733,7 +733,7 @@
         "start-in-tray": "启动时最小化",
         "steamruntime": "使用 Steam 运行时",
         "winecrossoverbottle": "CrossOver 容器",
-        "wineprefix": "WinePrefix文件夹",
+        "wineprefix": "Wine Prefix文件夹",
         "wineversion": "Wine 版本",
         "autoUpdateGames": "自动更新游戏",
         "ignoreGameUpdates": "忽略游戏更新",
@@ -757,8 +757,8 @@
             "enableUpscaling": "启用分辨率提升",
             "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
             "enableForceGrabCursor": "启用强制抓取指针",
-            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
-            "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
+            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope Flatpak 包 ，然后重启 Heroic.",
+            "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope Flatpak 包 ，然后重启 Heroic。"
         },
         "frameless-window": {
             "confirmation": {

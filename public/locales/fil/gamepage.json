@@ -43,7 +43,7 @@
             "message": "Ang larong ito ay may update, ilapat ang update ngayon?",
             "title": "Kailangan ng Pag-update ng Laro"
         },
-        "wineprefix": "Piliin ang WinePrefix Folder",
+        "wineprefix": "Piliin ang Wine Prefix Folder",
         "yes": "OO"
     },
     "cloud_save_unsupported": "Hindi suportado",
@@ -189,7 +189,7 @@
         "syncsaves": "Sync Saves",
         "version": "Bersyon",
         "protondb-compatibility-info": "Proton Compatibility Tier",
-        "steamdeck-compatibility-info": "SteamDeck Compatibility"
+        "steamdeck-compatibility-info": "Steam Deck Compatibility"
     },
     "install": {
         "disk-space-left": "Magagamit na espasyo",
@@ -197,7 +197,7 @@
         "path": "Piliin ang Install Path",
         "path-not-writtable": "Babala: maaaring hindi maisulat ang path.",
         "space-after-install": "Pagkatapos ng Pag-install",
-        "wineprefix": "WinePfix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Bersyon ng alak"
     },
     "report_problem": "Mag-ulat ng problema sa pagpapatakbo ng larong ito",

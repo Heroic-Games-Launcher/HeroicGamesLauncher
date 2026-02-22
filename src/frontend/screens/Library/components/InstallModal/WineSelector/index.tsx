@@ -119,8 +119,8 @@ export default function WineSelector({
               type="directory"
               onPathChange={setWinePrefix}
               path={winePrefix}
-              pathDialogTitle={t('box.wineprefix', 'Select WinePrefix Folder')}
-              label={t('install.wineprefix', 'WinePrefix')}
+              pathDialogTitle={t('box.wineprefix', 'Select Wine Prefix Folder')}
+              label={t('install.wineprefix', 'Wine Prefix')}
               htmlId="setinstallpath"
               noDeleteButton
               disabled={useDefaultSettings}

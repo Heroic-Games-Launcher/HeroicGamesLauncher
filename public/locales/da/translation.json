@@ -245,7 +245,7 @@
         "steamruntime": "Brugerdefinerede biblioteker leveret af Steam til at hjælpe med at køre Linux og Windows (Proton) spil. Aktivering kan forbedre kompatibiliteten.",
         "fsync": "Fsync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
         "gamemode": "Feral GameMode anvender automatiske og midlertidige tweaks til systemet, når du kører spil. Aktivering kan forbedre ydeevnen.",
-        "mangohud": "MangoHUD er en overlay, der viser og overvåger FPS, temperaturer, CPU/GPU-belastning og andre systemressourcer.",
+        "mangohud": "MangoHud er en overlay, der viser og overvåger FPS, temperaturer, CPU/GPU-belastning og andre systemressourcer.",
         "other": {
             "part7": " at springe startprogrammet over i nogle spil osv.",
             "part4": "Brug ",
@@ -435,7 +435,7 @@
                 }
             }
         },
-        "mangohud": "Aktiver Mangohud (Mangohud skal installeres)",
+        "mangohud": "Aktiver MangoHud (MangoHud skal installeres)",
         "manualsync": {
             "download": "Hent",
             "forcedownload": "Tving download",
@@ -486,7 +486,7 @@
             "updateNow": "Opdater",
             "updating": "Opdaterer..."
         },
-        "wineprefix": "WinePrefix mappe",
+        "wineprefix": "Wine Prefix mappe",
         "crossover-version": "Crossover/Wine version",
         "darktray": "Brug mørkt bakkeikon",
         "default-install-path": "Standard installationssti",
@@ -568,7 +568,7 @@
             "enableLimiter": "Aktiver FPS-begrænser",
             "enableUpscaling": "Aktiverer opskalering",
             "missingMsg": "Vi kunne ikke finde Gamescope på STIEN. Installer det eller tilføj det til STIEN.",
-            "warningFlatpak": "Vi kunne ikke finde en kompatibel version af Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og genstart Heroic."
+            "warningFlatpak": "Vi kunne ikke finde en kompatibel version af Gamescope. Installer Gamescopes Flatpak-pakke med runtime {{runtimeVersion}} og genstart Heroic."
         },
         "hdr": "Aktiver HDR",
         "msync": "Aktiver Msync",

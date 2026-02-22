@@ -341,7 +341,7 @@
         "download_proton_steam": "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'Default Steam path' setting above.",
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
-        "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
+        "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the Linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -362,7 +362,7 @@
             "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHud is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "other": {
             "part4": "Use the ",
@@ -694,7 +694,7 @@
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
-            "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
+            "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's Flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
@@ -752,7 +752,7 @@
                 }
             }
         },
-        "mangohud": "Enable Mangohud (Mangohud needs to be installed)",
+        "mangohud": "Enable MangoHud (MangoHud needs to be installed)",
         "manualsync": {
             "download": "Download",
             "forcedownload": "Force Download",
@@ -799,7 +799,7 @@
             "description": "Enable verbose logs"
         },
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix folder",
+        "wineprefix": "Wine Prefix folder",
         "wineversion": "Wine Version",
         "wineWayland": "Enable Wine-Wayland (Experimental) (Wine version needs to support it)",
         "WoW64": "Enable WoW64 (Experimental)"

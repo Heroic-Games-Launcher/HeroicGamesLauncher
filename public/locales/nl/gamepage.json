@@ -45,7 +45,7 @@
             "message": "Dit spel heeft een update, update nu toepassen?",
             "title": "Het spel heeft een update nodig"
         },
-        "wineprefix": "Selecteer WinePrefix Map",
+        "wineprefix": "Selecteer Wine Prefix Map",
         "yes": "JA",
         "close": "sluit",
         "warning": {
@@ -144,7 +144,7 @@
         "game-scores": "Spelscores",
         "installedInfo": "Geïnstalleerde informatie",
         "protondb-compatibility-info": "Proton-compatibiliteitslaag",
-        "steamdeck-compatibility-info": "SteamDeck-compatibiliteit",
+        "steamdeck-compatibility-info": "Steam Deck-compatibiliteit",
         "third-party-app": "Beheerder van derden"
     },
     "install": {
@@ -153,7 +153,7 @@
         "path": "Selecteer installatiepad",
         "path-not-writtable": "Waarschuwing: pad mogelijk niet schrijfbaar",
         "space-after-install": "Na installatie",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine Versie",
         "anticheat-warning": {
             "install": "Ja (Ik begrijp dat dit niet zal werken)",

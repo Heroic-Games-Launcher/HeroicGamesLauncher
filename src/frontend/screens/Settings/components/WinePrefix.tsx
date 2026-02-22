@@ -48,7 +48,7 @@ const WinePrefix = () => {
               className="winefaq"
               onClick={() => window.api.openWinePrefixFAQ()}
             >
-              WinePrefix FAQ
+              Wine Prefix FAQ
             </span>
           </a>
         </InfoBox>

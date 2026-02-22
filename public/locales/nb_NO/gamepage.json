@@ -155,7 +155,7 @@
         "game-scores": "Spillresultater",
         "installedInfo": "Installert informasjon",
         "protondb-compatibility-info": "Proton-kompatibilitetsnivå",
-        "steamdeck-compatibility-info": "SteamDeck-kompatibilitet",
+        "steamdeck-compatibility-info": "Steam Deck-kompatibilitet",
         "third-party-app": "Tredjepartsbehandler"
     },
     "install": {
@@ -164,7 +164,7 @@
         "path": "Velg installasjonssti",
         "path-not-writtable": "Advarsel: banen er kanskje ikke skrivbar.",
         "space-after-install": "Etter installasjon",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine-versjon",
         "anticheat-warning": {
             "ok": "Ok",

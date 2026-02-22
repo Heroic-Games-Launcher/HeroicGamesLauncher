@@ -305,7 +305,7 @@
         },
         "gamemode": "Feral GameMode applica modifiche automatiche e temporanee al sistema durante l'esecuzione dei giochi. L'abilitazione può migliorare le prestazioni.",
         "general": "Sincronizza con EGL se hai già un'installazione funzionante dell'Epic Games Launcher e vuoi importare i giochi senza doverli scaricare di nuovo.",
-        "mangohud": "MangoHUD è un overlay che visualizza e monitora FPS, temperature, carico della CPU/GPU e altre risorse di sistema.",
+        "mangohud": "MangoHud è un overlay che visualizza e monitora FPS, temperature, carico della CPU/GPU e altre risorse di sistema.",
         "other": {
             "part4": "Usa le ",
             "part5": "Opzioni di gioco",
@@ -330,7 +330,7 @@
             "part2": "Per altre posizioni, utilizza un link simbolico ad una di queste cartelle"
         },
         "disable_logs": "Attiva questa casella di controllo per disabilitare la maggior parte delle scritture sui file di registro (le informazioni critiche vengono sempre registrate). Assicurati di disattivare questa impostazione prima di segnalare qualsiasi problema.",
-        "dxvknvapi": "DXVK-NVAPI è un'implementazione di NVAPI che utilizza DXVK e la versione linux di NVAPI, permette l'utilizzo del DLSS sulle GPU Nvidia.",
+        "dxvknvapi": "DXVK-NVAPI è un'implementazione di NVAPI che utilizza DXVK e la versione Linux di NVAPI, permette l'utilizzo del DLSS sulle GPU Nvidia.",
         "title": {
             "accessibility": "Accessibilità",
             "login": "Login",
@@ -691,7 +691,7 @@
             },
             "show-uploads": "Mostra file di log caricati"
         },
-        "mangohud": "Abilita Mangohud (Mangohud necessita di essere installato)",
+        "mangohud": "Abilita MangoHud (MangoHud necessita di essere installato)",
         "manualsync": {
             "download": "Download",
             "forcedownload": "Forza Download",
@@ -766,8 +766,8 @@
             "enableUpscaling": "Abilita Upscaling",
             "missingMsg": "Non troviamo il gamescope nel PATH. Installalo o aggiungilo al PATH.",
             "enableForceGrabCursor": "Blocca il cursore alla finestra",
-            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime 25.08 e riavvia Heroic.",
-            "warningFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto flatpak di Gamescope con runtime {{runtimeVersion}} e riavvia Heroic."
+            "missingMsgFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto Flatpak di Gamescope con runtime 25.08 e riavvia Heroic.",
+            "warningFlatpak": "Non siamo riusciti a trovare una versione compatibile di Gamescope. Installa il pacchetto Flatpak di Gamescope con runtime {{runtimeVersion}} e riavvia Heroic."
         },
         "before-launch-script-path": "Seleziona uno script da eseguire prima che il gioco venga avviato",
         "disablePlaytimeSync": "Disabilita la sincronizzazione del tempo di gioco",

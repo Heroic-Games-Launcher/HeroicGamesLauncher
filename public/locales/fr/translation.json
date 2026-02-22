@@ -310,7 +310,7 @@
         },
         "gamemode": "Le procédé « Feral GameMode » applique des modifications automatiques et temporaires au système pendant l'exécution des jeux. L'activer pourrait améliorer les performances.",
         "general": "Synchroniser avec le lanceur EG si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux afin d'éviter de les télécharger à nouveau.",
-        "mangohud": "MangoHUD est une surcouche permettant d'afficher et de surveiller en cours de jeu le nombre d'images par seconde, la température des composants, la charge du CPU/GPU et l'utilisation d'autres ressources du système.",
+        "mangohud": "MangoHud est une surcouche permettant d'afficher et de surveiller en cours de jeu le nombre d'images par seconde, la température des composants, la charge du CPU/GPU et l'utilisation d'autres ressources du système.",
         "other": {
             "part4": "Utilise les ",
             "part5": "Arguments de Jeu",
@@ -696,7 +696,7 @@
             },
             "show-uploads": "Afficher les rapports envoyés"
         },
-        "mangohud": "Activer Mangohud (Mangohud doit être installé)",
+        "mangohud": "Activer MangoHud (MangoHud doit être installé)",
         "manualsync": {
             "download": "Télécharger",
             "forcedownload": "Forcer le téléchargement",
@@ -763,8 +763,8 @@
             "enableUpscaling": "Activer la mise à l'échelle",
             "missingMsg": "Nous n'avons pas pu trouver gamescope dans ce PATH. Installez-le ou ajoutez-le au PATH.",
             "enableForceGrabCursor": "Activer « Force Grab Cursor »",
-            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package flatpak Gamescope avec la runtime 25.08 et redémarrez Heroic.",
-            "warningFlatpak": "Nous n'avons pas pu trouver une version de Gamescope compatible. Installez le paquet flatpak Gamescope avec l'environnement d'exécution {{runtimeVersion}} et redémarrez Heroic."
+            "missingMsgFlatpak": "Impossible de trouver une version de Gamescope compatible. Installez le package Flatpak Gamescope avec la runtime 25.08 et redémarrez Heroic.",
+            "warningFlatpak": "Nous n'avons pas pu trouver une version de Gamescope compatible. Installez le paquet Flatpak Gamescope avec l'environnement d'exécution {{runtimeVersion}} et redémarrez Heroic."
         },
         "msync": "Activer Msync",
         "before-launch-script-path": "Sélectionnez un script à exécuter avant le lancement du jeu",

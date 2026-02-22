@@ -46,7 +46,7 @@
             "message": "Tato hra má aktualizaci, přejete si ji aktualizovat nyní?",
             "title": "Hra vyžaduje akualizaci"
         },
-        "wineprefix": "Vyberte složku WinePrefix",
+        "wineprefix": "Vyberte složku Wine Prefix",
         "yes": "ANO",
         "close": "Zavřít",
         "select-install-path": "Vyberte instalační cestu služby Steam",
@@ -160,7 +160,7 @@
         "game-scores": "Skóre hry",
         "installedInfo": "Instalované informace",
         "protondb-compatibility-info": "Úroveň protonové kompatibility",
-        "steamdeck-compatibility-info": "Kompatibilita se SteamDeck",
+        "steamdeck-compatibility-info": "Kompatibilita se Steam Deck",
         "third-party-app": "Správce třetí strany"
     },
     "install": {
@@ -169,7 +169,7 @@
         "path": "Vyberte cestu instalace",
         "path-not-writtable": "Varování: na cestu možná nelze zapisovat.",
         "space-after-install": "Po instalaci",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Verze Wine",
         "anticheat-warning": {
             "cancel": "Ne",

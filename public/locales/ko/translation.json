@@ -287,7 +287,7 @@
         },
         "gamemode": "Feral GameMode는 게임을 실행할 때 시스템에 자동 및 임시 조정을 적용합니다. 활성화하면 성능이 향상될 수 있습니다.",
         "general": "다른 곳에 에릭 게임즈 실행기가 정상적으로 설치되어 있고 게임을 다시 다운로드하지 않고도 가져오려면 EGL과 동기화하세요.",
-        "mangohud": "MangoHUD는 FPS, 온도, CPU/GPU 부하, 기타 시스템 리소스를 표시하고 모니터링하는 오버레이입니다.",
+        "mangohud": "MangoHud는 FPS, 온도, CPU/GPU 부하, 기타 시스템 리소스를 표시하고 모니터링하는 오버레이입니다.",
         "other": {
             "part4": "다음을 사용 ",
             "part5": "게임 인자",
@@ -659,7 +659,7 @@
             "show-uploads": "업로드된 로그 파일 표시",
             "join-heroic-discord": "우리 디스코드 참가"
         },
-        "mangohud": "Mangohud 활성화 (Mangohud가 설치 되어있어야 함)",
+        "mangohud": "MangoHud 활성화 (MangoHud가 설치 되어있어야 함)",
         "manualsync": {
             "download": "다운로드",
             "forcedownload": "강제 다운로드",
@@ -696,7 +696,7 @@
         "start-in-tray": "최소화로 시작",
         "steamruntime": "스팀 런타임 사용",
         "winecrossoverbottle": "크로스오버 보틀",
-        "wineprefix": "WinePrefix 폴더",
+        "wineprefix": "Wine Prefix 폴더",
         "wineversion": "와인 버전",
         "autoUpdateGames": "게임 자동 업데이트",
         "ignoreGameUpdates": "게임 업데이트 무시",

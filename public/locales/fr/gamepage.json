@@ -46,7 +46,7 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour requise"
         },
-        "wineprefix": "Sélectionner un dossier pour WinePrefix",
+        "wineprefix": "Sélectionner un dossier pour Wine Prefix",
         "yes": "OUI",
         "close": "Fermer",
         "select-install-path": "Sélectionnez le chemin d'installation de Steam",
@@ -160,7 +160,7 @@
         "game-scores": "Scores",
         "installedInfo": "Informations sur l'installation",
         "protondb-compatibility-info": "Niveau de compatibilité Proton",
-        "steamdeck-compatibility-info": "Compatibilité avec le SteamDeck",
+        "steamdeck-compatibility-info": "Compatibilité avec le Steam Deck",
         "third-party-app": "Gestionnaire tiers"
     },
     "install": {

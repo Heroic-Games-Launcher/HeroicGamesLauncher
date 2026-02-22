@@ -5,7 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
 
-const Mangohud = () => {
+const MangoHud = () => {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
@@ -27,11 +27,11 @@ const Mangohud = () => {
       <InfoIcon
         text={t(
           'help.mangohud',
-          'MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
+          'MangoHud is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.'
         )}
       />
     </div>
   )
 }
 
-export default Mangohud
+export default MangoHud

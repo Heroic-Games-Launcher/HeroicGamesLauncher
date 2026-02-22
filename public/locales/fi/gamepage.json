@@ -45,7 +45,7 @@
             "message": "Tälle pelille on saatavilla päivitys, haluatko asentaa sen nyt?",
             "title": "Peli vaatii päivityksen"
         },
-        "wineprefix": "Valitse WinePrefix-kansio",
+        "wineprefix": "Valitse Wine Prefix-kansio",
         "yes": "KYLLÄ",
         "close": "Sulje",
         "warning": {
@@ -143,7 +143,7 @@
         "game-scores": "Pelin Pisteet",
         "installedInfo": "Asennettu tiedot",
         "protondb-compatibility-info": "Protonien yhteensopivuustaso",
-        "steamdeck-compatibility-info": "SteamDeck-yhteensopivuus",
+        "steamdeck-compatibility-info": "Steam Deck-yhteensopivuus",
         "third-party-app": "Hallinta kolmansien osapuolten asetuksille"
     },
     "install": {
@@ -152,7 +152,7 @@
         "path": "Valitse asennuspolku",
         "path-not-writtable": "Varoitus: polkuun ei ehkä pysty kirjoittamaan.",
         "space-after-install": "Asennuksen jälkeen",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine Version",
         "anticheat-warning": {
             "cancel": "Ei",

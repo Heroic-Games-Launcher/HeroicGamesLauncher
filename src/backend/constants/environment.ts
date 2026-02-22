@@ -13,7 +13,7 @@ function readFlatpakRuntimeVersion() {
     return manifest['runtime-version']
   } catch (error) {
     console.log(
-      `Unable to read runtime version from flatpak manifest file. ${error}`
+      `Unable to read runtime version from Flatpak manifest file. ${error}`
     )
   }
 

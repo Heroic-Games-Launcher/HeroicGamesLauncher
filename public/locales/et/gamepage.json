@@ -46,7 +46,7 @@
             "message": "Sellele mängule on saadaval uuendus, rakenda uuendus kohe?",
             "title": "Mäng vajab uuendust"
         },
-        "wineprefix": "Valige WinePrefiksi kaust",
+        "wineprefix": "Valige Wine Prefiksi kaust",
         "yes": "JAH",
         "close": "Sulge",
         "select-install-path": "Vali Steami paigaldusasukoht",
@@ -155,7 +155,7 @@
         "game-scores": "Mängu skoorid",
         "installedInfo": "Paigaldatud teave",
         "protondb-compatibility-info": "Protoni ühilduvustase",
-        "steamdeck-compatibility-info": "SteamDecki ühilduvus",
+        "steamdeck-compatibility-info": "Steam Decki ühilduvus",
         "third-party-app": "Kolmanda osapoole haldur"
     },
     "install": {
@@ -164,7 +164,7 @@
         "path": "Valige paigaldustee",
         "path-not-writtable": "Hoiatus: tee ei pruugi olla kirjutatav.",
         "space-after-install": "Pärast paigaldamist",
-        "wineprefix": "WinePrefiks",
+        "wineprefix": "Wine Prefiks",
         "wineversion": "Wine'i versioon",
         "anticheat-warning": {
             "cancel": "Ei",

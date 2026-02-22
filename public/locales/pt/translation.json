@@ -309,7 +309,7 @@
         },
         "gamemode": "O Feral GameMode faz ajustes ao sistema de forma automática e temporária quando está a executar jogos. O desempenho pode aumentar se ativar esta opção.",
         "general": "Sincronize com a EGL se tiver num outro local uma instalação a funcionar do lançador da Epic Games e pretende importar os seus jogos. Assim, evita ter que fazer novamente a transferência destes.",
-        "mangohud": "O MangoHUD é uma janela de sobreposição que mostra e monitoriza os fotogramas por segundo (FPS), temperaturas, utilização da CPU/GPU e outros recursos do sistema.",
+        "mangohud": "O MangoHud é uma janela de sobreposição que mostra e monitoriza os fotogramas por segundo (FPS), temperaturas, utilização da CPU/GPU e outros recursos do sistema.",
         "other": {
             "part4": "Use o ",
             "part5": "Argumentos do Jogo",
@@ -695,7 +695,7 @@
             },
             "show-uploads": "Mostrar ficheiros de registo de eventos enviados"
         },
-        "mangohud": "Ativar o Mangohud (é necessário ter o Mangohud instalado)",
+        "mangohud": "Ativar o MangoHud (é necessário ter o MangoHud instalado)",
         "manualsync": {
             "download": "Transferir",
             "forcedownload": "Forçar Transferência",
@@ -762,7 +762,7 @@
             "enableUpscaling": "Ativar o Aumento de Escala de Resoluções mais Baixas (upscaling)",
             "missingMsg": "Não foi possível encontrar o gamescope no CAMINHO. Instale ou adicione-o ao CAMINHO.",
             "enableForceGrabCursor": "Ativar Forçar Captura do Cursor",
-            "warningFlatpak": "Não foi possível encontrar uma versão compatível do Gamescope. Instale o pacote flatpak do Gamescope com o tempo de execução {{runtimeVersion}} e reinicie o Heroic."
+            "warningFlatpak": "Não foi possível encontrar uma versão compatível do Gamescope. Instale o pacote Flatpak do Gamescope com o tempo de execução {{runtimeVersion}} e reinicie o Heroic."
         },
         "after-launch-script-path": "Selecione um script para executar após fechar o jogo",
         "before-launch-script-path": "Selecione um script para executar antes do jogo ser iniciado",

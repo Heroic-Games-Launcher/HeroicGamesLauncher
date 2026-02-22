@@ -309,7 +309,7 @@
         },
         "gamemode": "Feral GameMode bruker automatiske og midlertidige justeringer på systemet når du kjører spill. Aktivering kan forbedre ytelsen.",
         "general": "Synkroniser med EGL hvis du har en fungerende installasjon av Epic Games Launcher andre steder og vil importere spillene dine for å unngå å laste dem ned igjen.",
-        "mangohud": "MangoHUD er et overlegg som viser og overvåker FPS, temperaturer, CPU/GPU-belastning og andre systemressurser.",
+        "mangohud": "MangoHud er et overlegg som viser og overvåker FPS, temperaturer, CPU/GPU-belastning og andre systemressurser.",
         "other": {
             "part4": "Bruke ",
             "part5": "Spillargumenter",
@@ -695,7 +695,7 @@
             "show-uploads": "Vis opplastede loggfiler",
             "join-heroic-discord": "Bli med i vår discord"
         },
-        "mangohud": "Aktiver Mangohud (Mangohud må installeres)",
+        "mangohud": "Aktiver MangoHud (MangoHud må installeres)",
         "manualsync": {
             "download": "Last ned",
             "forcedownload": "Tving nedlasting",
@@ -732,7 +732,7 @@
         "start-in-tray": "Start Minimert",
         "steamruntime": "Bruk Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix-mappe",
+        "wineprefix": "Wine-prefiksmappe",
         "wineversion": "Wine-versjon",
         "autoUpdateGames": "Oppdater spill automatisk",
         "ignoreGameUpdates": "Ignorer spilloppdateringer",
@@ -747,8 +747,8 @@
             "missingMsg": "Vi kunne ikke finne gamescope på STIEN. Installer den eller legg den til STIEN.",
             "enableUpscaling": "Skru på oppskalering",
             "enableForceGrabCursor": "Aktiver Tvungen Griping Av Musepeker",
-            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime 25.08 og start Heroic på nytt.",
-            "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og start Heroic på nytt."
+            "missingMsgFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes Flatpak-pakke med runtime 25.08 og start Heroic på nytt.",
+            "warningFlatpak": "Vi kunne ikke finne en kompatibel versjon av Gamescope. Installer Gamescopes Flatpak-pakke med runtime {{runtimeVersion}} og start Heroic på nytt."
         },
         "msync": "Skru på Msync",
         "allow_installation_broken_anticheat": {

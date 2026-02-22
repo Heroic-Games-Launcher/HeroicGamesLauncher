@@ -262,7 +262,7 @@
         },
         "gamemode": "Feral GameMode-k sistemari doikuntza automatikoak eta aldi baterakoak aplikatzen dizkio jokoak exekutatzen direnean. Gaitzeak errendimendua hobe dezake.",
         "general": "Sinkronizatu EGLrekin, Epic Games Launcher-en instalazio funtzional bat beste nonbait baduzu eta bere jokoak inportatu nahi baditu berriro deskargatzea saihesteko.",
-        "mangohud": "MangoHUD FPS, tenperatura, CPU/GPU karga eta sistemaren beste baliabide batzuk bistaratzen eta kontrolatzen dituen gainjartzea da.",
+        "mangohud": "MangoHud FPS, tenperatura, CPU/GPU karga eta sistemaren beste baliabide batzuk bistaratzen eta kontrolatzen dituen gainjartzea da.",
         "other": {
             "part4": "Erabili ",
             "part5": "Jokoaren argudioak",
@@ -547,7 +547,7 @@
                 "actions": "Action"
             }
         },
-        "mangohud": "Gaitu Mangohud (Mangohud instalatu behar da)",
+        "mangohud": "Gaitu MangoHud (MangoHud instalatu behar da)",
         "manualsync": {
             "download": "Deskargatu",
             "forcedownload": "Deskargatu behartu",
@@ -584,7 +584,7 @@
         "start-in-tray": "Hasi minimizatua",
         "steamruntime": "Erabili Steam Runtime",
         "winecrossoverbottle": "CrossOver botila",
-        "wineprefix": "WinePrefix karpeta",
+        "wineprefix": "Wine Prefix karpeta",
         "wineversion": "Ardoaren Bertsioa",
         "autoUpdateGames": "Eguneratu jokoak automatikoki",
         "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak",

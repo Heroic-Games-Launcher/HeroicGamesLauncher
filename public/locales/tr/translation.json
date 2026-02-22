@@ -307,7 +307,7 @@
         },
         "gamemode": "Feral GameMode, oyunları çalıştırırken sisteme otomatik ve geçici ince ayarlar uygular. Etkinleştirmek performansı artırabilir.",
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşitleyin.",
-        "mangohud": "MangoHUD, FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını görüntüleyen ve izleyen bir arayüzdür.",
+        "mangohud": "MangoHud, FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını görüntüleyen ve izleyen bir arayüzdür.",
         "other": {
             "part4": "Oyunu başlatma komutuna eklenmesi için ",
             "part5": "Oyun Parametleri",
@@ -693,7 +693,7 @@
             },
             "show-uploads": "Yüklenmiş kayıt dosyalarını göster"
         },
-        "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
+        "mangohud": "MangoHud'u Etkinleştir (MangoHud kurulu olmalıdır)",
         "manualsync": {
             "download": "İndir",
             "forcedownload": "İndirmeye Zorla",
@@ -730,7 +730,7 @@
         "start-in-tray": "Simge Durumunda Başlat",
         "steamruntime": "Steam Çalışma Zamanını Kullan",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix klasörü",
+        "wineprefix": "Wine Prefix klasörü",
         "wineversion": "Wine Sürümü",
         "autoUpdateGames": "Oyunları otomatik olarak güncelle",
         "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
@@ -760,7 +760,7 @@
             "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
             "missingMsg": "Yolda gamesscope bulamadık. Kurun veya yola ekleyin.",
             "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir",
-            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
+            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un Flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
         },
         "after-launch-script-path": "Oyun kapandıktan sonra çalıştırılacak betiği seçin",
         "before-launch-script-path": "Oyun başlatılmadan önce çalıştırılacak betiği seçin",
