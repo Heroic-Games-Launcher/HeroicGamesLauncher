@@ -277,6 +277,7 @@
           align-self: center;
         }
 
+        & .installButtons,
         & .playButtons {
           display: flex;
           justify-content: center;
@@ -307,6 +308,10 @@
               }
             }
           }
+        }
+
+        .installButtons {
+          gap: var(--space-xs);
         }
 
         & .mainBtn {
@@ -615,7 +620,7 @@
   .gameConfigContainer {
     height: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content 1fr 1fr min-content;
+    grid-template-rows: min-content 400px 2fr min-content;
     grid-template-areas:
       'header'
       'main'
@@ -648,6 +653,12 @@
     .timeContainerLabel {
       display: none;
     }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .installButtons {
+    flex-direction: column;
   }
 }
 
