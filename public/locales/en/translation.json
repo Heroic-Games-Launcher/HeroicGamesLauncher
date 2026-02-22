@@ -289,12 +289,15 @@
         "title": "Game Title"
     },
     "generic": {
+        "abort": "Abort",
         "error": {
             "component": "No games found - Try to logout and login again or one of the options below"
         },
+        "install": "Install",
         "library": {
             "refresh": "Refresh Library"
-        }
+        },
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -1013,9 +1016,16 @@
         "actions": "Action",
         "manager": {
             "link": "Wine Manager",
+            "loading": "Loading wine versions...",
+            "no-results": "No Wine versions match your search.",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "open_folder": "Open Folder",
+            "repositories": "Repositories",
+            "search": "Search versions...",
+            "settings": "Settings",
             "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "unzipping": "Unzipping",
+            "update": "Update"
         },
         "notes": "Notes",
         "release": "Release Date",

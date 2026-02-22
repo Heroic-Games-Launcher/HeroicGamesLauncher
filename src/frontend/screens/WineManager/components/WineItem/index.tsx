@@ -3,10 +3,12 @@ import './index.css'
 import { WineVersionInfo } from 'common/types'
 import DownIcon from 'frontend/assets/down-icon.svg?react'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
+import React, { useMemo } from 'react'
+import classNames from 'classnames'
 import {
   faRepeat,
   faFolderOpen,
-  faExternalLink
+  faTrash
 } from '@fortawesome/free-solid-svg-icons'
 import { SvgButton } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
@@ -32,12 +34,24 @@ const WineItem = ({
   const { t } = useTranslation()
   const state = useWineManagerState(useShallow((state) => state[version]))
 
+  const isDownloading = state?.status === 'downloading'
+  const unZipping = state?.status === 'unzipping'
+  const percentage = state && 'percentage' in state ? state.percentage : 0
+
+  const progressStyle = useMemo(() => {
+    if ((isDownloading || unZipping) && percentage !== undefined) {
+      return { '--progress': `${percentage}%` } as React.CSSProperties
+    }
+    return {}
+  }, [isDownloading, unZipping, percentage])
+
   if (!version || !downsize) {
     return null
   }
 
-  const isDownloading = state?.status === 'downloading'
-  const unZipping = state?.status === 'unzipping'
+  async function openInstallDir() {
+    if (installDir) window.api.showItemInFolder(installDir)
+  }
 
   async function install() {
     return window.api.installWineVersion({
@@ -71,59 +85,14 @@ const WineItem = ({
     })
   }
 
-  function openInstallDir() {
-    if (installDir) window.api.showItemInFolder(installDir)
-  }
-
   const renderStatus = () => {
-    let status
-    if (isDownloading) {
-      const percentStringified = `${state.percentage.toFixed(2)}%`
-
-      status = (
-        <p className="progress">
-          {percentStringified}
-          <br />({state.eta})
-        </p>
-      )
-    } else if (unZipping) {
-      status = t('wine.manager.unzipping', 'Unzipping')
-    } else if (isInstalled) {
-      status = size(disksize)
-    } else {
-      status = size(downsize)
+    if (unZipping) {
+      return t('wine.manager.unzipping', 'Unzipping')
     }
-    return status
-  }
-
-  // using one element for the different states so it doesn't
-  // lose focus from the button when using a game controller
-  const handleMainActionClick = () => {
-    if (isDownloading || unZipping) {
-      window.api.abort(version)
-    } else if (isInstalled) {
-      remove()
-    } else {
-      install()
+    if (isInstalled) {
+      return size(disksize)
     }
-  }
-
-  const mainActionIcon = () => {
-    if (isInstalled || isDownloading || unZipping) {
-      return <StopIcon />
-    } else {
-      return <DownIcon className="downIcon" />
-    }
-  }
-
-  const mainIconTitle = () => {
-    if (isDownloading || unZipping) {
-      return `Cancel ${version} ${hasUpdate ? 'update' : 'installation'}`
-    } else if (isInstalled) {
-      return `Uninstall ${version}`
-    } else {
-      return `Install ${version}`
-    }
+    return size(downsize)
   }
 
   const openReleaseNotes = () => {
@@ -131,46 +100,68 @@ const WineItem = ({
   }
 
   return (
-    <div className="wineManagerListItem">
-      <span className="wineManagerTitleList">{version}</span>
-      <div className="wineManagerNotes">
-        <SvgButton title={'notes'} onClick={() => openReleaseNotes()}>
-          <FontAwesomeIcon icon={faExternalLink} />
-        </SvgButton>
+    <div
+      className={classNames('wineItem', {
+        downloading: isDownloading || unZipping
+      })}
+      style={progressStyle}
+    >
+      <button
+        className="version"
+        title={t('wine.notes', 'Notes')}
+        onClick={() => openReleaseNotes()}
+      >
+        {version}
+      </button>
+      <div className="release" title={date}>
+        {date}
       </div>
-      <div className="wineManagerListDate">{date}</div>
-      <div className="wineManagerListSize">{renderStatus()}</div>
-      <span className="icons">
-        {isInstalled && (
+      <div className="size">
+        {renderStatus()}
+        {(isDownloading || unZipping) && (
+          <span className="percentageText"> {percentage.toFixed(1)}%</span>
+        )}
+      </div>
+      <div className="actions">
+        {isDownloading || unZipping ? (
           <SvgButton
-            className="material-icons settings folder"
-            onClick={openInstallDir}
-            title={`Open containing folder for ${version}`}
+            onClick={() => window.api.abort(version)}
+            title={t('generic.abort', 'Abort')}
           >
-            <FontAwesomeIcon
-              icon={faFolderOpen}
-              data-testid="setinstallpathbutton"
-            />
+            <StopIcon />
+          </SvgButton>
+        ) : isInstalled ? (
+          <>
+            <SvgButton
+              title={t('wine.manager.open_folder', 'Open Folder')}
+              onClick={openInstallDir}
+            >
+              <FontAwesomeIcon icon={faFolderOpen} />
+            </SvgButton>
+
+            {hasUpdate && (
+              <SvgButton
+                title={t('wine.manager.update', 'Update')}
+                onClick={install}
+              >
+                <FontAwesomeIcon icon={faRepeat} />
+              </SvgButton>
+            )}
+
+            <SvgButton
+              title={t('generic.uninstall', 'Uninstall')}
+              onClick={remove}
+              className="uninstall"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </SvgButton>
+          </>
+        ) : (
+          <SvgButton onClick={install} title={t('generic.install', 'Install')}>
+            <DownIcon className="downIcon" />
           </SvgButton>
         )}
-
-        {hasUpdate && (
-          <SvgButton
-            className="material-icons settings folder"
-            onClick={install}
-            title={`Update ${version}`}
-          >
-            <FontAwesomeIcon
-              icon={faRepeat}
-              data-testid="setinstallpathbutton"
-            />
-          </SvgButton>
-        )}
-
-        <SvgButton onClick={handleMainActionClick} title={mainIconTitle()}>
-          {mainActionIcon()}
-        </SvgButton>
-      </span>
+      </div>
     </div>
   )
 }

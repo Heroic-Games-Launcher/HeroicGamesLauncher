@@ -1,61 +1,350 @@
+.wineManagerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-xl-fixed);
+  gap: 16px;
+  flex-wrap: wrap;
+
+  h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .wineManagerToolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+    justify-content: flex-end;
+
+    .SearchBar {
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .toolbarBtn {
+      background: var(--body-background);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+
+      &:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+    }
+  }
+}
+
 .wineManager {
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 0 var(--space-xs-fixed);
+
   .tabsWrapper {
     display: flex;
-    justify-content: center;
     width: 100%;
-    align-items: center;
-
-    .FormControl__button {
-      width: fit-content;
-      cursor: pointer;
-
-      &:hover {
-        color: var(--accent);
-      }
-    }
+    margin-bottom: 16px;
+    background: var(--body-background);
+    border-radius: 12px;
+    padding: 4px;
 
     .MuiTabs-root {
-      .MuiTabs-scroller {
-        .MuiTabs-indicator {
-          background-color: var(--accent);
+      min-height: 40px;
+      width: 100%;
+
+      .MuiTabs-indicator {
+        display: none;
+      }
+
+      .MuiTab-root {
+        min-height: 36px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        color: var(--text-secondary);
+        text-transform: none;
+        font-weight: 600;
+        transition: all 0.2s ease;
+
+        &.Mui-selected {
+          background: var(--background);
+          color: var(--text-primary);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .MuiTabs-flexContainer {
-          .MuiTab-root {
-            color: var(--text-default);
-          }
-
-          .Mui-selected {
-            color: var(--accent);
-          }
+        &:hover:not(.Mui-selected) {
+          color: var(--text-primary);
         }
       }
     }
   }
 
   .wineList {
-    margin-top: 48px;
-    margin: 48px var(--space-xl-fixed) 0;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    background: var(--body-background);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    overflow: auto;
+    margin-bottom: 32px;
 
     .gameListHeader {
-      grid-template-columns: 3fr 4rem 2fr 1fr 10%;
-      & span:last-child {
-        justify-self: center;
+      display: grid;
+      gap: 0;
+      grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+      padding: 12px 24px;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-color);
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+
+      span {
+        text-align: left;
+        font-weight: 700;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
+
+      .actions {
+        place-self: end;
+      }
+    }
+
+    /* wineItem styles are now in components/WineItem/index.css */
+
+    .loadingState {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .errorState {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--error);
+      font-weight: 500;
     }
   }
 
   .infoBox {
     width: 80%;
-    margin: 0 auto;
-    & svg {
+    margin: 16px auto;
+    background: var(--body-background);
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    svg {
       margin-inline-end: 0.5rem;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.wineManagerSettingsContent {
+  min-width: 600px;
+
+  .wineSettingsModalWrapper {
+    margin-inline-end: auto;
+    max-width: 513px;
+    display: flex;
+    flex-direction: column;
+    place-self: center;
+    place-items: flex-start;
+    width: 100%;
+    padding-bottom: var(--space-xs);
+
+    .Field {
+      padding: var(--space-md) 0px;
+      width: 100%;
+
+      label {
+        cursor: default;
+        margin-bottom: var(--space-md);
+        font: var(--font-secondary-regular);
+        font-size: var(--text-md);
+        line-height: var(--space-lg);
+        color: var(--text-secondary);
+        display: block;
+      }
+    }
+
+    .toggleRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+  }
+
+  .repoList {
+    margin-bottom: 32px;
+
+    .repoItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: var(--body-background);
+      border-radius: 8px;
+      margin-bottom: 8px;
+
+      .repoInfo {
+        display: flex;
+        flex-direction: column;
+        span {
+          font-weight: 600;
+        }
+        small {
+          color: var(--text-secondary);
+          font-size: 0.8rem;
+        }
+      }
+
+      .repoActions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .removeBtn {
+          background: transparent;
+          border: none;
+          color: var(--error);
+          cursor: pointer;
+          opacity: 0.7;
+          transition: opacity 0.2s;
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .addRepo {
+    .inputWrapper {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+
+      .typeSelect {
+        min-width: 180px;
+      }
+
+      .Field {
+        flex-grow: 1;
+      }
+
+      .addBtn {
+        background: var(--accent);
+        border: none;
+        border-radius: 4px;
+        color: white;
+        width: 40px;
+        height: 36px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          filter: brightness(1.1);
+        }
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+  .wineManagerHeader {
+    grid-template-columns: 1.5fr 1.5fr;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    .wineManagerToolbar {
+      width: 100%;
+      .SearchBar {
+        max-width: none;
+      }
+    }
+  }
+
+  .wineList {
+    overflow-x: auto;
+    .gameListHeader {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .wineList .gameListHeader {
+    grid-template-columns: 1.5fr 1.5fr !important;
+
+    .release,
+    .size {
+      display: none;
+    }
+    .actions {
+      grid-column: 2;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .wineManagerSettingsContent {
+    min-width: auto;
+    width: 100%;
+    padding: 16px;
+  }
+
+  .wineItem {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'version'
+      'notes'
+      'release'
+      'size'
+      'actions';
+    text-align: center;
+    .actions {
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .release,
+    .size {
+      text-align: center;
     }
   }
 }
