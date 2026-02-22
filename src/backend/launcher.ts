@@ -32,7 +32,8 @@ import {
   memoryLog,
   sendGameStatusUpdate,
   checkWineBeforeLaunch,
-  isMacSonomaOrHigher
+  isMacSonomaOrHigher,
+  askForceUninstall
 } from './utils'
 import {
   createGameLogWriter,
@@ -112,6 +113,19 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   args
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
+
+  if (game.install.install_path && !existsSync(game.install.install_path)) {
+    await askForceUninstall(runner, appName)
+
+    sendGameStatusUpdate({
+      appName,
+      runner,
+      status: 'done'
+    })
+
+    return { status: 'abort' }
+  }
+
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
   const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
 
