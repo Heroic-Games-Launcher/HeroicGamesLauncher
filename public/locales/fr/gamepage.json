@@ -147,7 +147,7 @@
         "main-plus-extras": "Trame principale + Extras",
         "main-story": "Histoire principale"
     },
-    "howLongToBeat": "Durée pour finir le jeu",
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Connexion à internet requise",
         "installedPlatform": "Système",
@@ -279,7 +279,7 @@
     "status": {
         "clickToUpdate": "Cliquer pour mettre à jour",
         "gameNotAvailable": "Jeu indisponible",
-        "hasUpdates": "Une nouvelle version est disponible !",
+        "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
