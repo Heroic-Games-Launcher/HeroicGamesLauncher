@@ -49,7 +49,7 @@ export default function WineSelector({
   React.useEffect(() => {
     const getAppSettings = async () => {
       const {
-        defaultWinePrefix: prefixFolder,
+        defaultWinePrefixDir,
         wineVersion,
         winePrefix: defaultPrefix,
         wineCrossoverBottle: defaultBottle
@@ -71,7 +71,7 @@ export default function WineSelector({
       } else {
         const dirName =
           removeSpecialcharacters(title) || removeSpecialcharacters(appName)
-        const suggestedWinePrefix = `${prefixFolder}/${dirName}`
+        const suggestedWinePrefix = `${defaultWinePrefixDir}/${dirName}`
         setWinePrefix(suggestedWinePrefix)
         setWineVersion(wineVersion || undefined)
       }
