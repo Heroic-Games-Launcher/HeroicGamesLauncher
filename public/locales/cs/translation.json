@@ -667,7 +667,8 @@
                 "delete": "Požádat o smazání souboru protokolu",
                 "error": {
                     "title": "Nahrání selhalo",
-                    "content": "Nepodařilo se nahrát soubor protokolu. Více podrobností viz obecný protokol Heroic"
+                    "content": "Nepodařilo se nahrát soubor protokolu. Více podrobností viz obecný protokol Heroic",
+                    "manual_upload": "Klikněte na tlačítko „ZOBRAZIT SOUBOR PROTOKOLU VE SLOŽCE“ a ručně nahrajte soubor „launch.log“ na Discord nebo jakoukoli online službu pro sdílení souborů."
                 },
                 "header": "Nahrány soubory protokolů",
                 "minutes-ago": "Nahráno {{minutesAgo, relativetime(minutes)}}",
@@ -815,7 +816,8 @@
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
         "WoW64": "Povolit WoW64 (experimentální)",
-        "scripts": "Skripty:"
+        "scripts": "Skripty:",
+        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry"
     },
     "settings": {
         "battlEyeRuntime": {

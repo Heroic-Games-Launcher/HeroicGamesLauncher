@@ -229,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Možnosti spuštění..."
+        "options": "Možnosti spuštění...",
+        "default": "Výchozí"
     },
     "not_logged_in": {
         "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
