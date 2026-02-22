@@ -12,7 +12,16 @@ export default function FooterInfo() {
       {!isDefault && (
         <span className="appName">
           AppName: &nbsp;
-          <span style={{ userSelect: 'all' }}> {appName}</span>
+          <span
+            style={{ userSelect: 'all' }}
+            title={t(
+              'settings.open-game-settings-file-hint',
+              'Click to open game settings file'
+            )}
+            onClick={() => window.api.showConfigFileInFolder(appName)}
+          >
+            {appName}
+          </span>
         </span>
       )}
     </div>

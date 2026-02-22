@@ -220,6 +220,13 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "common": {
+        "cancel": "Cancel",
+        "clear_all": "Clear All",
+        "confirm": "Confirm",
+        "save": "Save",
+        "warning": "Warning"
+    },
     "controller": {
         "hints": {
             "back": "Back",
@@ -520,15 +527,18 @@
     },
     "options": {
         "advanced": {
-            "key": "Variable Name",
             "placeHolderKey": "NAME",
             "placeHolderValue": "E.g.: Path/To/ExtraFiles",
-            "title": "Environment Variables",
-            "value": "Value"
+            "title": "Environment Variables"
         },
         "env_variables": {
+            "add_new": "Add New Variable",
+            "bulk_edit": "Bulk Edit",
+            "bulk_edit_error": "Some variables are incorrect. Please check that all lines follow the KEY=VALUE format and neither is empty.",
+            "clear_all_confirm": "Are you sure you want to clear all environment variables?",
             "error": {
                 "empty_key": "Variable names can't be empty",
+                "empty_value": "Value can't be empty",
                 "equal_sign_in_key": "Variable names can't contain the \"=\" sign",
                 "space_in_key": "Variable names can't contain spaces"
             },
@@ -878,6 +888,7 @@
             "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."
         },
         "open-config-file": "Open Config File",
+        "open-game-settings-file-hint": "Click to open game settings file",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",
