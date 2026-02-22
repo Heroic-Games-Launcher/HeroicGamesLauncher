@@ -15,6 +15,7 @@ import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
 
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
 import { DMQueueElement, GameInfo, Runner } from 'common/types'
+import { GlobalConfig } from 'backend/config'
 type GameManagerMap = {
   [key in Runner]: GameManager
 }
@@ -85,5 +86,6 @@ export async function initStoreManagers() {
   await LegendaryLibraryManager.initLegendaryLibraryManager()
   await GOGLibraryManager.initGOGLibraryManager()
   await NileLibraryManager.initNileLibraryManager()
-  await ZoomLibraryManager.initZoomLibraryManager()
+  if (GlobalConfig.get().getSettings().experimentalFeatures?.zoomPlatform)
+    await ZoomLibraryManager.initZoomLibraryManager()
 }

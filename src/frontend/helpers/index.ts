@@ -117,10 +117,7 @@ function getProgress(progress: InstallProgress): number {
 }
 
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp(
-    /[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/,
-    'gi'
-  )
+  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
 }
 

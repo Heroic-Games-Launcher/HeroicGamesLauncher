@@ -19,12 +19,18 @@ import useSetting from 'frontend/hooks/useSetting'
 interface Props {
   gameInfo: GameInfo
   handlePlay: (gameInfo: GameInfo) => Promise<void>
+  handleImport: () => void
   handleInstall: (
     is_installed: boolean
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
 }
 
-const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
+const MainButton = ({
+  gameInfo,
+  handlePlay,
+  handleInstall,
+  handleImport
+}: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
@@ -159,6 +165,24 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
 
   const is_installed = gameInfo.is_installed
 
+  function altInstallAction() {
+    if (is_installed || is.queued || is.installing || is.notInstallable) {
+      return <></>
+    }
+
+    return (
+      <button className="button altPlay is-secondary">
+        <ArrowBackIosNew />
+        <a className="button" onClick={handleImport}>
+          <span className="buttonWithIcon">
+            <Download />
+            {t('button.import', 'Import Game')}
+          </span>
+        </a>
+      </button>
+    )
+  }
+
   return (
     <div className="playButtons">
       {is_installed && !is.queued && !is.uninstalling && (
@@ -201,34 +225,37 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
         </>
       )}
       {(!is_installed || is.queued) && (
-        <button
-          onClick={async () => handleInstall(is_installed)}
-          disabled={
-            is.playing ||
-            is.updating ||
-            is.reparing ||
-            is.moving ||
-            is.uninstalling ||
-            is.notSupportedGame ||
-            is.notInstallable
-          }
-          autoFocus={true}
-          className={classNames(
-            'button',
-            {
-              'is-primary': is_installed,
-              'is-tertiary':
-                is.notAvailable ||
-                is.installing ||
-                is.queued ||
-                is.notInstallable,
-              'is-secondary': !is_installed && !is.queued
-            },
-            'mainBtn'
-          )}
-        >
-          {getButtonLabel()}
-        </button>
+        <>
+          <button
+            onClick={async () => handleInstall(is_installed)}
+            disabled={
+              is.playing ||
+              is.updating ||
+              is.reparing ||
+              is.moving ||
+              is.uninstalling ||
+              is.notSupportedGame ||
+              is.notInstallable
+            }
+            autoFocus={true}
+            className={classNames(
+              'button',
+              {
+                'is-primary': is_installed,
+                'is-tertiary':
+                  is.notAvailable ||
+                  is.installing ||
+                  is.queued ||
+                  is.notInstallable,
+                'is-secondary': !is_installed && !is.queued
+              },
+              'mainBtn'
+            )}
+          >
+            {getButtonLabel()}
+          </button>
+          {altInstallAction()}
+        </>
       )}
     </div>
   )

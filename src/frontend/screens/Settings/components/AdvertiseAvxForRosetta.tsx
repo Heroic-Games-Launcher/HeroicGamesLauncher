@@ -18,8 +18,8 @@ const AdvertiseAvxForRosetta = () => {
     false
   )
 
-  // Only show on macOS when using toolkit wine and not native games
-  if (!isMac || isMacNative || wineVersion.type !== 'toolkit') {
+  // Only show on macOS when using toolkit wine or commercial crossover, and not native games
+  if (!isMac || isMacNative || wineVersion.type === 'wine') {
     return <></>
   }
 

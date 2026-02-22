@@ -94,7 +94,11 @@
                 "generic": "Một lỗi đã xảy ra! Hãy thử Đăng Xuất và Đăng Nhập vào tài khoản Epic của bạn. {{newline}}   {{error}}"
             },
             "executableNotFound": "Tệp thực thi không được tìm thấy",
-            "executableNotFoundMessage": "Heroic không thể tìm thấy tệp thực thi cho trò chơi này. Vui lòng thiết đặt nó một cách thủ công trong cài đặt của trò chơi."
+            "executableNotFoundMessage": "Heroic không thể tìm thấy tệp thực thi cho trò chơi này. Vui lòng thiết đặt nó một cách thủ công trong cài đặt của trò chơi.",
+            "dxmt": {
+                "message": "Lỗi tải DXMT! Kiểm tra kết nối của bạn!",
+                "title": "Lỗi tải xuống DXMT"
+            }
         },
         "info": {
             "update": {
@@ -159,7 +163,7 @@
                 "install": "Máy chủ Epic hiện đang ngừng hoạt động nghiêm trọng, không thể cài đặt trò chơi!",
                 "update": "Máy chủ Epic hiện đang ngừng hoạt động nghiêm trọng, trò chơi không thể cập nhật được!"
             },
-            "title": "Cảnh Báo",
+            "title": "Cảnh báo",
             "wine-change": {
                 "message": "Chúng tôi không thể tìm thấy phiên bản wine đã chọn để ra mắt tựa game này ({{selectedWine}}). {{newline}} Chúng tôi đã tìm thấy một phiên bản khác, bạn có muốn tiếp tục khởi chạy bằng cách sử dụng {{foundWine}} không?",
                 "title": "Không tìm thấy Wine!"
@@ -752,7 +756,8 @@
         "experimental_features": {
             "cometSupport": "Hỗ trợ Comet",
             "enableHelp": "Thành phần trợ giúp",
-            "enableNewDesign": "Thiết kế mới"
+            "enableNewDesign": "Thiết kế mới",
+            "zoomPlatform": "Hỗ trợ nền tảng Zoom (chỉ Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -785,7 +790,8 @@
             "description": "Bật nhật ký chi tiết"
         },
         "wineWayland": "Kích hoạt Wine-Wayland (Thử nghiệm) (Phiên bản Wine cần hỗ trợ)",
-        "WoW64": "Kích hoạt WoW64 (Thử nghiệm)"
+        "WoW64": "Kích hoạt WoW64 (Thử nghiệm)",
+        "scripts": "Kịch bản:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -888,7 +894,8 @@
         },
         "offline": {
             "warning": "Trò chơi này không cho phép chế độ ngoại tuyến một cách rõ ràng, hãy tự chịu rủi ro khi bật chế độ này. Trò chơi có thể không hoạt động."
-        }
+        },
+        "launchOptions": "Tùy chọn khởi chạy"
     },
     "Settings": "Cài Đặt",
     "sidebar": {
@@ -953,7 +960,8 @@
             "unzipping": "Đang Giải Nén"
         },
         "release": "Ngày Phát Hành",
-        "size": "Kích Thước"
+        "size": "Kích Thước",
+        "notes": "Ghi chú"
     },
     "externalLink": {
         "dontAskAgain": "Đừng hỏi lại",
@@ -1083,5 +1091,8 @@
         "proton-ge": "GE-Proton là một biến thể Proton được tạo ra bởi Glorious Eggroll. Nó được sử dụng cùng với trình khởi chạy umu (mặc định trong Heroic).",
         "wine-ge": "Wine-GE-Proton là một biến thể của Wine được tạo ra bởi Glorious Eggroll. Nó không được dùng nữa để ủng hộ GE-Proton với trình khởi chạy umu."
     },
-    "zoom-store": "Cửa hàng Zoom"
+    "zoom-store": "Cửa hàng Zoom",
+    "launch": {
+        "options": "Khởi Chạy Tuỳ Chọn ..."
+    }
 }

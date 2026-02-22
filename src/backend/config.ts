@@ -20,13 +20,7 @@ import {
 } from './utils/compatibility_layers'
 import { backendEvents } from './backend_events'
 import { configStore } from './constants/key_value_stores'
-import {
-  isFlatpak,
-  isLinux,
-  isMac,
-  isIntelMac,
-  isWindows
-} from './constants/environment'
+import { isFlatpak, isLinux, isMac, isWindows } from './constants/environment'
 import {
   configPath,
   defaultWinePrefix,
@@ -323,7 +317,7 @@ class GlobalConfigV0 extends GlobalConfig {
       enableUpdates: false,
       addDesktopShortcuts: false,
       addStartMenuShortcuts: false,
-      autoInstallDxvk: isLinux || isIntelMac,
+      autoInstallDxvk: isLinux || isMac,
       autoInstallVkd3d: isLinux,
       autoInstallDxvkNvapi: isLinux,
       addSteamShortcuts: false,

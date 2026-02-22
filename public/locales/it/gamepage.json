@@ -49,7 +49,11 @@
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI",
         "close": "Chiudi",
-        "select-install-path": "Seleziona percorso di installazione di Steam"
+        "select-install-path": "Seleziona percorso di installazione di Steam",
+        "warning": {
+            "title": "Avviso"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Aggiungi Ai Preferiti",
@@ -218,7 +222,8 @@
         "gog": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
         "login": "Accedi",
         "title": "NON hai effettuato l'accesso",
-        "amazon": "Non hai effettuato l'accesso con un account Amazon in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
+        "amazon": "Non hai effettuato l'accesso con un account Amazon in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
+        "zoom": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
     },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {

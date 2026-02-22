@@ -33,7 +33,7 @@
             "title": "Arrêter l'installation"
         },
         "uninstall": {
-            "checkbox": "Supprimer le préfixe : {{prefix}}{{newLine}}Note : cela ne peut pas être annulé et supprimera également les fichiers de sauvegarde non sauvegardés.",
+            "checkbox": "Supprimer la bouteille : {{prefix}}{{newLine}}Avertissement : cette opération est irréversible et supprimera également les fichiers de sauvegarde du jeu.",
             "message": "Voulez-vous désinstaller « {{title}} » ?",
             "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : cette opération ne peut pas être annulée. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
@@ -46,10 +46,27 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour requise"
         },
-        "wineprefix": "Choisissez le dossier à utiliser pour les préfixes/bouteilles de Wine",
+        "wineprefix": "Sélectionner un dossier pour WinePrefix",
         "yes": "OUI",
         "close": "Fermer",
-        "select-install-path": "Sélectionnez le chemin d'installation de Steam"
+        "select-install-path": "Sélectionnez le chemin d'installation de Steam",
+        "selectLaunchOption": {
+            "title": "Sélectionner une option de lancement ({{seconds}}s)",
+            "body": "Veuillez sélectionner une option de lancement pour ce jeu (ce paramètre est modifiable plus tard dans les paramètres du jeu) :"
+        },
+        "warning": {
+            "title": "Avertissement"
+        },
+        "sync": {
+            "force_download_warning": "Les sauvegardes locales seront effacées. Souhaitez vous continuer ?",
+            "force_upload_warning": "Les sauvegardes en ligne seront écrasées. Souhaitez-vous continuer ?"
+        },
+        "offline_warning": {
+            "message": "Ce jeu pourrait ne pas bien fonctionner en mode hors-ligne. Voulez-vous continuer ?",
+            "playAnyway": "Jouer quand même",
+            "title": "Avertissement hors-ligne"
+        },
+        "ok": "Ok"
     },
     "button": {
         "add_to_favourites": "Ajouter aux favoris",
@@ -66,7 +83,7 @@
             "remove": "Retirer de la file"
         },
         "remove_from_favourites": "Retirer des favoris",
-        "remove_from_recent": "Retirer de \"Récent\"",
+        "remove_from_recent": "Retirer de la liste des jeux récents",
         "run-exe-first": "Lancer l'installateur en premier",
         "running-setup": "Lancer la configuration",
         "sideload": {
@@ -78,7 +95,7 @@
         "details": "Détails",
         "changelog": "Afficher le journal des changements",
         "browse_files": "Parcourir les fichiers",
-        "browse_wine_prefix": "Parcourir le préfixe utilisé par Wine",
+        "browse_wine_prefix": "Parcourir le préfixe Wine",
         "play": "JOUER"
     },
     "cloud_save_unsupported": "Non-compatible",
@@ -109,7 +126,7 @@
         "builds": {
             "version": "Version",
             "buildsSelector": "Choisir la version du jeu",
-            "toggle": "garder le jeu dans une version spécifique"
+            "toggle": "Maintenir une version spécifique de ce jeu"
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l'installation",
@@ -140,19 +157,19 @@
         "version": "Version",
         "apple-gaming-wiki": "Classement AppleGamingWiki",
         "clickToOpen": "Cliquez pour ouvrir",
-        "game-scores": "Scores du jeu",
+        "game-scores": "Scores",
         "installedInfo": "Informations sur l'installation",
         "protondb-compatibility-info": "Niveau de compatibilité Proton",
-        "steamdeck-compatibility-info": "Compatibilité SteamDeck",
+        "steamdeck-compatibility-info": "Compatibilité avec le SteamDeck",
         "third-party-app": "Gestionnaire tiers"
     },
     "install": {
-        "disk-space-left": "Espace Disponible",
+        "disk-space-left": "Espace disponible",
         "not-enough-disk-space": "Pas assez d'espace disque",
         "path": "Sélectionner le chemin d'installation",
         "path-not-writtable": "Attention : le chemin n'est peut-être pas accessible en écriture.",
         "space-after-install": "Après l'installation",
-        "wineprefix": "Qu'est-ce qu'un préfixe ?",
+        "wineprefix": "Préfixe",
         "wineversion": "Version de Wine",
         "anticheat-warning": {
             "cancel": "Non",
@@ -160,7 +177,7 @@
             "install": "Oui (mais cela risque de ne pas fonctionner)",
             "title": "Système anti-triche non fonctionnel",
             "install_anyway": "Oui (je comprends que les éléments multijoueurs ne fonctionneront pas)",
-            "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée. Le jeu peut être exécuté mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?",
+            "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée par les développeurs. Le jeu peut être exécuté, mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?",
             "ok": "Entendu",
             "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n'est pas compatible avec votre système d'exploitation ou n'a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et qu'il n'y a rien que vous (ni l'équipe d'Heroic) puisse faire à ce sujet. <br /><br />Pour installer ce jeu et l'essayer quand même, rendez-vous sur la page des paramètres avancés puis cochez l'option permettant d'autoriser l'installation de jeux comportant un dispositif anti-triche incompatible ou délaissé par ses développeurs. <br /><br />Veuillez noter qu'il n'existe pas de solution à ce problème et que vous risquez d'être banni du jeu."
         },
@@ -177,7 +194,7 @@
             "start_with_logs": "Jouer (en consignant les événements)"
         },
         "saves": {
-            "syncing": "Synchronisation des sauvegardes"
+            "syncing": "Synchronisation des sauvegardes en cours"
         },
         "launching": "Lancement",
         "ubisoft": "Installation d'Ubisoft Connect",
@@ -211,24 +228,25 @@
         }
     },
     "launch": {
-        "options": "Paramètres de lancement..."
+        "options": "Paramètres de lancement...",
+        "default": "Par défaut"
     },
     "not_logged_in": {
-        "epic": "Vous n'êtes pas connecté(e) avec un compte Epic dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
-        "gog": "Vous n'êtes pas connecté(e) avec un compte GOG dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
+        "epic": "Vous n'êtes pas connecté(e) avec un compte Epic dans Heroic. N'utilisez pas la page de la boutique pour vous connecter, cliquez plutôt sur ce bouton :",
+        "gog": "Vous n'êtes pas connecté(e) avec un compte GOG dans Heroic. N'utilisez pas la page de la boutique pour vous connecter, cliquez plutôt sur ce bouton :",
         "login": "Connexion",
         "title": "Vous n'êtes PAS connecté(e)",
-        "amazon": "Vous n'êtes pas connecté(e) avec un compte Amazon dans Heroic. N'utilisez pas la page du magasin pour vous connecter, cliquez plutôt sur ce bouton :",
+        "amazon": "Vous n'êtes pas connecté(e) avec un compte Amazon dans Heroic. N'utilisez pas la page de la boutique pour vous connecter, cliquez plutôt sur ce bouton :",
         "zoom": "Aucun compte Zoom n'est connecté. N'employez pas la page de la boutique pour vous connecter, mais cliquez sur le bouton suivant :"
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
-        "title": "Sélectionnez les composants à installer"
+        "title": "Sélectionner les éléments à installer"
     },
     "setting": {
         "winecrossoverbottle": "Bouteille CrossOver",
         "show-wine-settings": "Afficher les paramètres de Wine",
-        "warn-use-shared-wine-config": "Utiliser cette option uniquement si vous savez ce que vous faites.<br/>Partager le même préfixe avec plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles.",
+        "warn-use-shared-wine-config": "Utilisez cette option uniquement si vous savez ce que vous faites.<br/>Partager le même préfixe avec plusieurs jeux peut causer des problèmes si leurs dépendances sont incompatibles.",
         "use-shared-wine-config": "Utiliser le préfixe Wine partagé"
     },
     "sideload": {
@@ -284,14 +302,14 @@
         "extracting": "Extraction",
         "goodie": "Non installable",
         "gog-goodie": "Ce jeu ne semble pas être installable. Vérifiez le contenu téléchargeable sur https://gog.com/account",
-        "winetricks": "Application des modifications Winetricks",
+        "winetricks": "Mise en œuvre des correctifs Winetricks",
         "redist": "Installation du paquet redistribuable {{redist}}",
         "importing": "Importation"
     },
     "submenu": {
         "addShortcut": "Ajouter un raccourci",
         "addToSteam": "Ajouter à Steam",
-        "change": "Changer le chemin d'installation",
+        "change": "Changer le répertoire d'installation",
         "disableEosOverlay": "Désactiver l'overlay EOS",
         "enableEosOverlay": "Activer l'overlay EOS",
         "move": "Déplacer le jeu",
@@ -299,7 +317,7 @@
         "removeFromSteam": "Retirer de Steam",
         "removeShortcut": "Retirer les raccourcis",
         "settings": "Options",
-        "store": "Page du magasin",
+        "store": "Page de la boutique",
         "verify": "Vérifier et Réparer",
         "extraInfo": "Informations supplémentaires",
         "logs": "Journaux d'événements",
@@ -337,5 +355,6 @@
             "resume": "Reprendre le téléchargement"
         }
     },
-    "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>"
+    "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>",
+    "open-saves-folder": "Ouvrir le dossier des sauvegardes"
 }

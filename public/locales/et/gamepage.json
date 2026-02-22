@@ -49,7 +49,19 @@
         "wineprefix": "Valige WinePrefiksi kaust",
         "yes": "JAH",
         "close": "Sulge",
-        "select-install-path": "Vali Steami paigaldusasukoht"
+        "select-install-path": "Vali Steami paigaldusasukoht",
+        "selectLaunchOption": {
+            "body": "Palun valige selle mängu jaoks käivitusvalik (seda saab mängu sätetest hiljem muuta):",
+            "title": "Valige käivitusvalik ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Hoiatus"
+        },
+        "sync": {
+            "force_download_warning": "Kohalikud salvestused kustutatakse. Kas soovite jätkata?",
+            "force_upload_warning": "Pilvesalvestused kirjutatakse üle. Kas soovite jätkata?"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Lisa lemmikute hulka",
@@ -337,5 +349,6 @@
             "resume": "Jätka allalaadimist"
         }
     },
-    "Open": "Ava"
+    "Open": "Ava",
+    "open-saves-folder": "Ava salvestuste kaust"
 }

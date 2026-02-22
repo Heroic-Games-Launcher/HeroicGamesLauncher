@@ -49,7 +49,24 @@
         "wineprefix": "选择 WinePrefix 文件夹",
         "yes": "是",
         "close": "关闭",
-        "select-install-path": "选择 Steam 安装路径"
+        "select-install-path": "选择 Steam 安装路径",
+        "selectLaunchOption": {
+            "body": "请为该游戏选择一个启动选项（稍候可在游戏设置中更改）：",
+            "title": "选择启动选项（{{seconds}}s）"
+        },
+        "warning": {
+            "title": "警告"
+        },
+        "sync": {
+            "force_download_warning": "本地保存将被擦除。要继续吗？",
+            "force_upload_warning": "云保存将被覆盖。要继续吗？"
+        },
+        "ok": "是",
+        "offline_warning": {
+            "message": "这款游戏可能无法在离线状态下正常运行。还是要玩吗？",
+            "playAnyway": "玩",
+            "title": "离线警告"
+        }
     },
     "button": {
         "add_to_favourites": "添加到收藏",
@@ -212,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "启动选项..."
+        "options": "启动选项...",
+        "default": "默认"
     },
     "not_logged_in": {
         "epic": "你在 Heroic 中未登录 Epic 账号。不要使用商店页面进行登录，请单击下面的按钮：",
@@ -248,7 +266,7 @@
             "image": "粘贴图片 URL 计算机中选择一张",
             "title": "添加标题到你的“游戏/应用”",
             "url": "在此处粘贴游戏网址",
-            "useragent": "在这里写一个定制的 user agent，该 UA 将用于此浏览器应用/游戏"
+            "useragent": "在这里写一个定制的 user agent，将用于此浏览器应用/游戏"
         },
         "import-hint": {
             "title": "重要！你正添加一款来自 Epic/GOG/Amazon 的游戏吗？请点击此处！",
@@ -339,5 +357,6 @@
             "remove": "从下载中删除",
             "canceled": "已取消"
         }
-    }
+    },
+    "open-saves-folder": "打开保存文件夹"
 }

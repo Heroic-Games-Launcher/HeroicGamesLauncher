@@ -99,7 +99,11 @@
                 "title": "Erro no Steam"
             },
             "executableNotFound": "Arquivo executável não encontrado",
-            "executableNotFoundMessage": "O Heroic não pôde encontrar o arquivo executável deste jogo. Por favor, o defina manualmente nas configurações do jogo."
+            "executableNotFoundMessage": "O Heroic não pôde encontrar o arquivo executável deste jogo. Por favor, o defina manualmente nas configurações do jogo.",
+            "dxmt": {
+                "message": "Erro ao baixar o DXMT! Verifique sua conexão!",
+                "title": "Erro ao baixar DXMT"
+            }
         },
         "info": {
             "update": {
@@ -744,7 +748,8 @@
             "automaticWinetricksFixes": "Aplicar correções conhecidas automaticamente",
             "enableHelp": "Componente de ajuda",
             "umuSupport": "Usar umu como Proton runtime",
-            "cometSupport": "Suporte ao Comet"
+            "cometSupport": "Suporte ao Comet",
+            "zoomPlatform": "Suporte para a Plataforma Zoom (Apenas no Linux)"
         },
         "disablePlaytimeSync": "Desativar a sincronização do tempo de jogo",
         "frameless-window": {
@@ -759,7 +764,7 @@
             "enableUpscaling": "Permite aprimoramento de escala (Upscaling)",
             "missingMsg": "Não foi possível encontrar o gamescope no PATH. Instale-o ou adicione-o no PATH.",
             "enableForceGrabCursor": "Habilitar a captura forçada do cursor",
-            "missingMsgFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime 24.08 e reinicie o Heroic.",
+            "missingMsgFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime 25.08 e reinicie o Heroic.",
             "warningFlatpak": "Não conseguimos encontrar uma versão compatível do Gamescope. Instale o Gamescope pelo Flatpak com o runtime {{runtimeVersion}} e reinicie o Heroic."
         },
         "msync": "Habilitar Msync",
@@ -809,7 +814,8 @@
             "wine_selector_warning": "Versões do Proton são ignoradas por padrão, ative-as nas Configurações globais avançadas",
             "info_label": "Versões do Proton da Valve ignoradas"
         },
-        "WoW64": "Ativar WoW64 (Experimental)"
+        "WoW64": "Ativar WoW64 (Experimental)",
+        "scripts": "Scripts:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -912,7 +918,8 @@
         },
         "custom_css": {
             "title": "Estilo CSS Customizado"
-        }
+        },
+        "launchOptions": "Opções de inicialização"
     },
     "Settings": "Configurações",
     "sidebar": {
@@ -977,7 +984,8 @@
             "unzipping": "Descompactando"
         },
         "release": "Data de lançamento",
-        "size": "Tamanho"
+        "size": "Tamanho",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "Não pergunte novamente",
@@ -1114,5 +1122,8 @@
         "title": "Enviar dados anônimos"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Loja Zoom"
+    "zoom-store": "Loja Zoom",
+    "launch": {
+        "options": "Opções de inicialização..."
+    }
 }

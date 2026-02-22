@@ -18,6 +18,7 @@ import { toolsPath } from 'backend/constants/paths'
 import { isMac } from 'backend/constants/environment'
 import { GlobalConfig } from '../../config'
 import { join } from 'path'
+import { backendEvents } from 'backend/backend_events'
 
 export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   'wineDownloaderInfoStore',
@@ -221,6 +222,7 @@ async function removeWineVersion(release: WineVersionInfo): Promise<boolean> {
   if (release.installDir !== undefined && existsSync(release.installDir)) {
     try {
       rmSync(release.installDir, { recursive: true })
+      backendEvents.emit('wineVersionUninstalled', release)
     } catch (error) {
       logError(error, LogPrefix.WineDownloader)
       logWarning(
