@@ -313,6 +313,12 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  showMessageBox: (props: {
+    title: string
+    message: string
+    type: DialogType
+    buttons?: Array<{ text: string }>
+  }) => Promise<number>
 }
 
 interface FrontendMessages {
