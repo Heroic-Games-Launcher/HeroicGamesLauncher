@@ -678,7 +678,8 @@
                 },
                 "error": {
                     "content": "上传日志文件失败。详情请查看 Heroic 的常规日志",
-                    "title": "上传失败了"
+                    "title": "上传失败了",
+                    "manual_upload": "单击 “在文件夹中显示日志文件”按钮并手动上传“launch.log”文件到 Discord 或任何在线文件分享服务。"
                 },
                 "header": "已上传的日志文件",
                 "minutes-ago": "上传于 {{minutesAgo, relativetime(minutes)}} 分钟前",
