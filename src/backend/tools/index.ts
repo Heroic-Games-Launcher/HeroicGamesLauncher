@@ -54,7 +54,12 @@ import {
 } from '../utils/inet/downloader'
 import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
 import { toolsPath, userHome } from 'backend/constants/paths'
-import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import {
+  isIntelMac,
+  isLinux,
+  isMac,
+  isWindows
+} from 'backend/constants/environment'
 import './dxmt'
 
 export async function installOrUpdateTool(tool: Tool) {
@@ -609,7 +614,9 @@ export const Winetricks = {
         WINESERVER: wineServer,
         WINE: wineBin,
         WINE64: wineBin,
-        PATH: `/opt/homebrew/bin:${process.env.PATH}`
+        PATH: isIntelMac
+          ? `/opt/local/bin:/usr/local/bin:${process.env.PATH}`
+          : `/opt/local/bin:/opt/homebrew/bin:${process.env.PATH}`
       }
 
       const envs = isMac ? macEnvs : linuxEnvs
