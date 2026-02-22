@@ -36,7 +36,8 @@ import {
   sideloadLibrary,
   zoomConfigStore,
   zoomInstalledGamesStore,
-  zoomLibraryStore
+  zoomLibraryStore,
+  gameOverridesStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
@@ -113,6 +114,10 @@ interface StateProps {
   experimentalFeatures: ExperimentalFeatures
   disableDialogBackdropClose: boolean
   disableAnimations: boolean
+  gameOverrides: Record<
+    string,
+    { title?: string; art_cover?: string; art_square?: string }
+  >
 }
 
 // function to load the new key or fallback to the old one
@@ -130,29 +135,74 @@ const loadCurrentCategories = () => {
   }
 }
 
+const applyGameOverrides = (
+  lib: GameInfo[],
+  overrides: Record<
+    string,
+    { title?: string; art_cover?: string; art_square?: string }
+  > = gameOverridesStore.get('overrides', {})
+) => {
+  if (!lib) return []
+  return lib.map((game) => {
+    const override = overrides[game.app_name]
+    if (!override) return game
+    return {
+      ...game,
+      title: override.title || game.title,
+      art_cover: override.art_cover || game.art_cover,
+      art_square: override.art_square || game.art_square
+    }
+  })
+}
+
 class GlobalState extends PureComponent<Props> {
-  loadGOGLibrary = (): Array<GameInfo> => {
+  loadLegendaryLibrary = (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    > = gameOverridesStore.get('overrides', {})
+  ): Array<GameInfo> => {
+    const games = libraryStore.get('library', [])
+    return applyGameOverrides(games, overrides)
+  }
+
+  loadGOGLibrary = (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    > = gameOverridesStore.get('overrides', {})
+  ): Array<GameInfo> => {
     const games = gogLibraryStore.get('games', [])
 
     const installedGames = gogInstalledGamesStore.get('installed', [])
-    for (const igame in games) {
+    for (const game of games) {
       for (const installedGame of installedGames) {
-        if (installedGame.appName === games[igame].app_name) {
-          games[igame].install = installedGame
-          games[igame].is_installed = true
+        if (installedGame.appName === game.app_name) {
+          game.install = installedGame
+          game.is_installed = true
         }
       }
     }
 
-    return games
+    return applyGameOverrides(games, overrides)
   }
-  loadAmazonLibrary = (): Array<GameInfo> => {
+  loadAmazonLibrary = (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    > = gameOverridesStore.get('overrides', {})
+  ): Array<GameInfo> => {
     const games = nileLibraryStore.get('library', [])
 
-    return games
+    return applyGameOverrides(games, overrides)
   }
 
-  loadZoomLibrary = (): Array<GameInfo> => {
+  loadZoomLibrary = (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    > = gameOverridesStore.get('overrides', {})
+  ): Array<GameInfo> => {
     const games = zoomLibraryStore.get('games', [])
     const installedGames = zoomInstalledGamesStore.get('installed', [])
     for (const game of games) {
@@ -164,12 +214,12 @@ class GlobalState extends PureComponent<Props> {
         game.is_installed = true
       }
     }
-    return games
+    return applyGameOverrides(games, overrides)
   }
 
   state: StateProps = {
     epic: {
-      library: libraryStore.get('library', []),
+      library: this.loadLegendaryLibrary(),
       username: configStore.get_nodefault('userInfo.displayName')
     },
     gog: {
@@ -227,7 +277,7 @@ class GlobalState extends PureComponent<Props> {
       runner: 'legendary',
       gameInfo: null
     },
-    sideloadedLibrary: sideloadLibrary.get('games', []),
+    sideloadedLibrary: applyGameOverrides(sideloadLibrary.get('games', [])),
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
@@ -243,7 +293,8 @@ class GlobalState extends PureComponent<Props> {
       'disableDialogBackdropClose',
       false
     ),
-    disableAnimations: configStore.get('disableAnimations', false)
+    disableAnimations: configStore.get('disableAnimations', false),
+    gameOverrides: gameOverridesStore.get('overrides', {})
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
@@ -639,20 +690,57 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
+  updateGameOverrides = (
+    overrides: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    >
+  ) => {
+    this.setState({
+      epic: {
+        ...this.state.epic,
+        library: this.loadLegendaryLibrary(overrides)
+      },
+      gog: {
+        ...this.state.gog,
+        library: this.loadGOGLibrary(overrides)
+      },
+      zoom: {
+        ...this.state.zoom,
+        library: this.loadZoomLibrary(overrides)
+      },
+      amazon: {
+        ...this.state.amazon,
+        library: this.loadAmazonLibrary(overrides)
+      },
+      sideloadedLibrary: applyGameOverrides(
+        sideloadLibrary.get('games', []),
+        overrides
+      ),
+      gameOverrides: overrides
+    })
+  }
+
   refresh = async (
     library?: Runner | 'all',
-    checkUpdates = false
+    checkUpdates = false,
+    overridesArg?: Record<
+      string,
+      { title?: string; art_cover?: string; art_square?: string }
+    >
   ): Promise<void> => {
     console.log('refreshing')
 
     const { epic, gog, amazon, zoom, gameUpdates } = this.state
+
+    const overrides = overridesArg || gameOverridesStore.get('overrides', {})
 
     let updates = gameUpdates
     if (checkUpdates) {
       try {
         updates = await window.api.checkGameUpdates()
       } catch (error) {
-        window.api.logError(`${error}`)
+        window.api.logError(`Game update check failed: ${String(error)}`)
       }
     }
 
@@ -665,20 +753,20 @@ class GlobalState extends PureComponent<Props> {
       epicLibrary = legendaryLibrary
     }
 
-    let gogLibrary = this.loadGOGLibrary()
+    let gogLibrary = this.loadGOGLibrary(overrides)
     if (gog.username && (!gogLibrary.length || !gog.library.length)) {
       window.api.logInfo('No cache found, getting data from gog...')
       await window.api.refreshLibrary('gog')
-      gogLibrary = this.loadGOGLibrary()
+      gogLibrary = this.loadGOGLibrary(overrides)
     }
 
     let zoomLibrary: GameInfo[] = []
     if (zoom.enabled) {
-      zoomLibrary = this.loadZoomLibrary()
+      zoomLibrary = this.loadZoomLibrary(overrides)
       if (zoom.username && (!zoomLibrary.length || !zoom.library.length)) {
         window.api.logInfo('No cache found, getting data from zoom...')
         await window.api.refreshLibrary('zoom')
-        zoomLibrary = this.loadZoomLibrary()
+        zoomLibrary = this.loadZoomLibrary(overrides)
       }
     }
 
@@ -686,14 +774,14 @@ class GlobalState extends PureComponent<Props> {
     if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
       await window.api.refreshLibrary('nile')
-      amazonLibrary = this.loadAmazonLibrary()
+      amazonLibrary = this.loadAmazonLibrary(overrides)
     }
 
     const updatedSideload = sideloadLibrary.get('games', [])
 
     this.setState({
       epic: {
-        library: epicLibrary,
+        library: applyGameOverrides(epicLibrary, overrides),
         username: epic.username
       },
       gog: {
@@ -713,7 +801,8 @@ class GlobalState extends PureComponent<Props> {
       gameUpdates: updates,
       refreshing: false,
       refreshingInTheBackground: true,
-      sideloadedLibrary: updatedSideload
+      sideloadedLibrary: applyGameOverrides(updatedSideload, overrides),
+      gameOverrides: overrides || this.state.gameOverrides
     })
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -738,7 +827,7 @@ class GlobalState extends PureComponent<Props> {
       await window.api.refreshLibrary(library)
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
-      window.api.logError(`${error}`)
+      window.api.logError(`Library refresh failed: ${String(error)}`)
     }
   }
 
@@ -865,6 +954,10 @@ class GlobalState extends PureComponent<Props> {
         runInBackground: true,
         library: runner
       })
+    })
+
+    window.api.handleMetadataChanged((e, overrides) => {
+      this.updateGameOverrides(overrides)
     })
 
     window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {

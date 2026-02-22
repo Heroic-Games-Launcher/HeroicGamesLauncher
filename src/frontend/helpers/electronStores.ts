@@ -176,6 +176,11 @@ const downloadManagerStore = new TypeCheckedStoreFrontend('downloadManager', {
   name: 'download-manager'
 })
 
+const gameOverridesStore = new TypeCheckedStoreFrontend('gameOverridesStore', {
+  cwd: 'store',
+  name: 'game-overrides'
+})
+
 export {
   configStore,
   gogLibraryStore,
@@ -190,5 +195,6 @@ export {
   nileConfigStore,
   zoomLibraryStore,
   zoomInstalledGamesStore,
-  zoomConfigStore
+  zoomConfigStore,
+  gameOverridesStore
 }
