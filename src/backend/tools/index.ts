@@ -635,23 +635,7 @@ export const Winetricks = {
         }
       }, 1000)
 
-      // check if winetricks dependencies are installed
-      const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
-      dependencies.forEach(async (dependency) => {
-        try {
-          await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
-        } catch {
-          appendMessage(
-            `${dependency} not installed! Winetricks might fail to install some packages or even open`
-          )
-          logWarning(
-            [
-              `${dependency} not installed! Winetricks might fail to install some packages or even open`
-            ],
-            LogPrefix.WineTricks
-          )
-        }
-      })
+      Winetricks.checkDependencies(envs, appendMessage)
 
       logInfo(`Running ${winetricks} ${args.join(' ')}`, LogPrefix.WineTricks)
 
@@ -760,6 +744,30 @@ export const Winetricks = {
     } finally {
       installingComponent = ''
       sendFrontendMessage('installing-winetricks-component', '')
+    }
+  },
+  checkDependencies: async (
+    envs: Record<string, string>,
+    appendMessage: (message: string) => void
+  ) => {
+    // check if winetricks dependencies are installed
+    const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
+    const missingDeps: string[] = []
+    for (const dependency of dependencies) {
+      try {
+        await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
+      } catch {
+        missingDeps.push(dependency)
+        const message = `${dependency} not installed! Winetricks might fail to install some packages or even open`
+        appendMessage(message)
+        logWarning([message], LogPrefix.WineTricks)
+      }
+    }
+
+    if (missingDeps.length > 0 && isMac) {
+      const message = `Check https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Using-Heroic-on-a-Mac-computer#winetricks-setup to install the missing dependencies.`
+      appendMessage(message)
+      logWarning([message], LogPrefix.WineTricks)
     }
   }
 }
