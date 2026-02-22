@@ -493,6 +493,14 @@ export const normalizeTitle = (title: string) => {
   return title.replace(/[^\w\s]/g, '').toLowerCase()
 }
 
+export const normalizeDate = (date?: string) => {
+  if (!date) {
+    return ''
+  }
+  // Remove time if present to keep only YYYY-MM-DD
+  return date.split('T')[0]
+}
+
 export const epicCategories = ['all', 'legendary', 'epic']
 export const gogCategories = ['all', 'gog']
 export const sideloadedCategories = ['all', 'sideload']

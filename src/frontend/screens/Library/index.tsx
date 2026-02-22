@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'
 
 import ContextProvider from 'frontend/state/ContextProvider'
+import { useExtraInfoBatchProgress } from 'frontend/state/ExtraInfoBatchProgress'
 
 import GamesList from './components/GamesList'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
@@ -26,7 +27,8 @@ import {
   gogCategories,
   sideloadedCategories,
   zoomCategories,
-  normalizeTitle
+  normalizeTitle,
+  normalizeDate
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -64,7 +66,8 @@ export default React.memo(function Library(): JSX.Element {
     currentCustomCategories,
     customCategories,
     hiddenGames,
-    gameUpdates
+    gameUpdates,
+    showDialogModal
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -220,6 +223,13 @@ export default React.memo(function Library(): JSX.Element {
     storage.setItem('sortInstalled', JSON.stringify(value))
     setSortInstalled(value)
   }
+  const [sortBy, setSortBy_] = useState<'title' | 'releaseDate'>(
+    (storage?.getItem('sortBy') as 'title' | 'releaseDate') || 'title'
+  )
+  function handleSortBy(value: 'title' | 'releaseDate') {
+    storage.setItem('sortBy', value)
+    setSortBy_(value)
+  }
 
   const backToTopElement = useRef(null)
 
@@ -271,6 +281,52 @@ export default React.memo(function Library(): JSX.Element {
     gameInfo: GameInfo | null
   ) {
     openInstallGameModal({ appName, runner, gameInfo })
+  }
+
+  const { startBatch, updateProgress, finishBatch } = useExtraInfoBatchProgress(
+    ({ startBatch, updateProgress, finishBatch }) => ({
+      startBatch,
+      updateProgress,
+      finishBatch
+    })
+  )
+
+  const handleDownloadAllExtraInfo = async () => {
+    const games = makeLibrary()
+    if (games.length === 0) return
+
+    const confirmed = await new Promise<boolean>((resolve) => {
+      showDialogModal({
+        showDialog: true,
+        title: t('library.downloadAllExtraInfo', 'Download All Extra Info'),
+        message: t(
+          'library.downloadAllExtraInfoConfirm',
+          'This will download extra information for all games in your library. This might take a while depending on your internet connection and library size. Do you want to continue?'
+        ),
+        buttons: [
+          { text: t('box.yes'), onClick: () => resolve(true) },
+          { text: t('box.no'), onClick: () => resolve(false) }
+        ]
+      })
+    })
+
+    if (!confirmed) return
+
+    startBatch(games.length)
+
+    for (let i = 0; i < games.length; i++) {
+      const game = games[i]
+      updateProgress(i, game.title)
+      console.log('getting extra info for', game.title)
+      try {
+        console.log('calling getExtraInfo for', game.title)
+        await window.api.getWikiGameInfo(game.title, game.app_name, game.runner)
+      } catch (error) {
+        console.error(`Failed to get extra info for ${game.title}:`, error)
+      }
+    }
+
+    finishBatch()
   }
 
   // cache list of games being installed
@@ -607,6 +663,22 @@ export default React.memo(function Library(): JSX.Element {
 
     // sort
     library = library.sort((a, b) => {
+      if (sortBy === 'releaseDate') {
+        const dateA = normalizeDate(a.extra?.releaseDate)
+        const dateB = normalizeDate(b.extra?.releaseDate)
+
+        if (dateA === dateB) {
+          return a.title.localeCompare(b.title)
+        }
+
+        if (!dateA) return 1
+        if (!dateB) return -1
+
+        return sortDescending
+          ? -dateA.localeCompare(dateB)
+          : dateA.localeCompare(dateB)
+      }
+
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
       return sortDescending
@@ -631,7 +703,8 @@ export default React.memo(function Library(): JSX.Element {
     alphabetFilterLetter,
     sortDescending,
     sortInstalled,
-    installing
+    installing,
+    sortBy
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -709,12 +782,15 @@ export default React.memo(function Library(): JSX.Element {
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
+        handleDownloadAllExtraInfo,
         setShowCategories,
         showAlphabetFilter: showAlphabetFilter,
         onToggleAlphabetFilter: handleToggleAlphabetFilter,
         gamesForAlphabetFilter,
         alphabetFilterLetter,
-        setAlphabetFilterLetter
+        setAlphabetFilterLetter,
+        sortBy,
+        setSortBy: handleSortBy
       }}
     >
       <Header />

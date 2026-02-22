@@ -437,8 +437,12 @@
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
         "sortAscending": "Sort Ascending",
+        "sortByReleaseDate": "Sort by Release Date",
         "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title",
         "sortDescending": "Sort Descending",
+        "sortNewestFirst": "Newest First",
+        "sortOldestFirst": "Oldest First",
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
             "list": "Toggle to a list layout"

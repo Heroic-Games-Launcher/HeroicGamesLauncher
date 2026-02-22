@@ -248,12 +248,15 @@ export interface LibraryContextType {
   showUpdatesOnly: boolean
   setShowUpdatesOnly: (value: boolean) => void
   handleAddGameButtonClick: () => void
+  handleDownloadAllExtraInfo: () => void
   setShowCategories: (value: boolean) => void
   showAlphabetFilter: boolean
   onToggleAlphabetFilter: () => void
   alphabetFilterLetter: string | null
   setAlphabetFilterLetter: (letter: string | null) => void
   gamesForAlphabetFilter: GameInfo[]
+  sortBy: 'title' | 'releaseDate'
+  setSortBy: (value: 'title' | 'releaseDate') => void
 }
 
 export interface GameContextType {
