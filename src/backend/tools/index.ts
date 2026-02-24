@@ -57,14 +57,30 @@ import { toolsPath, userHome } from 'backend/constants/paths'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import './dxmt'
 
+type ReleasesResponse = {
+  assets: {
+    name: string
+    browser_download_url: string
+  }[]
+}
+
 export async function installOrUpdateTool(tool: Tool) {
   if (tool.os !== process.platform) return
 
   const {
     data: { assets }
-  } = await axiosClient.get(tool.url)
+  } = await axiosClient.get<ReleasesResponse>(tool.url)
 
-  const { name, browser_download_url: downloadUrl } = assets[0]
+  let asset = assets[0]
+  if (tool.name === 'dxvk-macOS' && asset.name.includes('-builtin')) {
+    // Do not use -builtin asset for dxvk macos
+    // TODO: implement proper use of the -builtin using the WINEDLLPATH_PREPEND
+    // env variable, check https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5342#issuecomment-3936553327
+    // for more details
+    asset = assets.find((asset) => asset.name.endsWith('repack.tar.gz'))!
+  }
+  const { name, browser_download_url: downloadUrl } = asset
+
   const latestVersion = name.replace('.tar.gz', '').replace('.tar.xz', '')
   const latestVersionArchivePath = `${toolsPath}/${tool.name}/${name}`
 
@@ -238,16 +254,11 @@ export const DXVK = {
     const toolPathx32 = `${toolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
-    const toolPathx32Alt = `${toolsPath}/${tool}/${globalVersion}/i386-windows`
-    let dlls32: string[] = []
-    if (existsSync(toolPathx32)) dlls32 = readdirSync(toolPathx32)
-    else if (existsSync(toolPathx32Alt)) dlls32 = readdirSync(toolPathx32Alt)
+
+    const dlls32 = readdirSync(toolPathx32)
 
     const toolPathx64 = `${toolsPath}/${tool}/${globalVersion}/x64`
-    const toolPathx64Alt = `${toolsPath}/${tool}/${globalVersion}/x86_64-windows`
-    let dlls64: string[] = []
-    if (existsSync(toolPathx64)) readdirSync(toolPathx64)
-    else if (existsSync(toolPathx64Alt)) dlls64 = readdirSync(toolPathx64Alt)
+    const dlls64 = readdirSync(toolPathx64)
 
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
