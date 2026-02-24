@@ -5,6 +5,7 @@ import { UpdateComponent } from 'frontend/components/UI'
 
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import Fuse from 'fuse.js'
 import { Tab, Tabs } from '@mui/material'
 import {
   TypeCheckedStoreFrontend,
@@ -182,9 +183,14 @@ export default function WineManager(): JSX.Element | null {
 
   const filteredWineVersions = useMemo(() => {
     if (!search) return wineVersions
-    return wineVersions.filter((v) =>
-      v.version.toLowerCase().includes(search.toLowerCase())
-    )
+
+    const fuse = new Fuse(wineVersions, {
+      minMatchCharLength: 1,
+      threshold: 0.4,
+      keys: ['version']
+    })
+
+    return fuse.search(search).map((result) => result.item)
   }, [wineVersions, search])
 
   return (
@@ -271,7 +277,7 @@ export default function WineManager(): JSX.Element | null {
             </div>
             {refreshingWineVersions && <UpdateComponent />}
             {!refreshingWineVersions &&
-              wineVersions.map((release) => {
+              filteredWineVersions.map((release) => {
                 return <WineItem key={release.version} {...release} />
               })}
           </div>
