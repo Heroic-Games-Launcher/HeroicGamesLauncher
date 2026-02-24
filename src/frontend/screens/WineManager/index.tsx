@@ -185,8 +185,8 @@ export default function WineManager(): JSX.Element | null {
     if (!search) return wineVersions
 
     const fuse = new Fuse(wineVersions, {
-      minMatchCharLength: 1,
-      threshold: 0.4,
+      minMatchCharLength: 2,
+      threshold: 0.1,
       keys: ['version']
     })
 

@@ -61,6 +61,7 @@
   text-align: left;
   cursor: pointer;
   transition: color 0.2s;
+  text-wrap: auto;
 }
 
 .wineItem .version:hover {

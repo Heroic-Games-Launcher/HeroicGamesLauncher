@@ -41,7 +41,7 @@ export default function SearchBar({
       input.current.value = ''
       input.current.focus()
     }
-  }, [input])
+  }, [onInputChanged])
 
   return (
     <div className="SearchBar" data-testid="searchBar">
