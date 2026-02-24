@@ -1,9 +1,9 @@
 .wineItem {
   display: grid;
-  grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+  grid-template-columns: 33% 30% 20% 17%;
   gap: 0;
   padding: 0 24px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--accent);
   align-items: center;
   transition: background 0.2s ease;
   min-height: 48px;
