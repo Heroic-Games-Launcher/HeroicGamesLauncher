@@ -33,7 +33,7 @@ export default function SearchBar({
       }
     }
     return
-  }, [input])
+  }, [input, value, onInputChanged])
 
   const onClear = useCallback(() => {
     onInputChanged('')
