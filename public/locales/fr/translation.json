@@ -99,7 +99,11 @@
                 "title": "Erreur Steam"
             },
             "executableNotFound": "Exécutable non trouvé",
-            "executableNotFoundMessage": "Heroic n'est pas parvenu à localiser l'exécutable de ce jeu. Veuillez le définir manuellement dans les paramètres du jeu."
+            "executableNotFoundMessage": "Heroic n'est pas parvenu à localiser l'exécutable de ce jeu. Veuillez le définir manuellement dans les paramètres du jeu.",
+            "dxmt": {
+                "message": "Le téléchargement de DXMT a échoué ! Vérifiez que vous êtes bien connecté(e) à internet !",
+                "title": "Erreur lors du téléchargement de DXMT"
+            }
         },
         "info": {
             "update": {
@@ -185,7 +189,7 @@
                 "message": "Heroic requiert Rosetta pour s'exécuter correctement sur un appareil macOS comportant des puces Apple Silicon. Veuillez l'installer depuis le terminal macOS en utilisant la commande suivante : « softwareupdate --install-rosetta » et redémarrez Heroic. "
             }
         },
-        "wineprefix": "Choisissez le dossier du préfixe Wine",
+        "wineprefix": "Choisir le dossier du préfixe Wine",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
         "choose-nile-binary": "Sélectionner un exécutable pour Nile",
@@ -369,7 +373,7 @@
         },
         "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles.",
         "download_proton_steam": "Lorsque ce paramètre est activé, GE-Proton sera téléchargé directement vers le dossier des outils de compatibilité de Steam, en lieu et place du chemin par défaut d'Heroic. Il utilisera le chemin vers Steam définit dans le champ 'Chemin vers Steam par défaut' ci-dessus.",
-        "dxfpslimit": "Définir un plafond de fréquences d'images pour les jeux DXVK",
+        "dxfpslimit": "Définit un plafond de fréquence d'images pour les jeux DirectX (9-12)",
         "advertiseAvxForRosetta": "Active la compatibilité avec l'ensemble d'instructions AVX lors de l'exécution de jeux Windows via Rosetta sur les Macs Apple Silicon. Cela peut être nécessaire pour certains jeux comme Death Stranding, qui requièrent une compatibilité avec AVX.",
         "wine-hdr": "Le HDR améliore la colorimétrie en proposant des contours plus clairs et des contrastes plus profonds. Afin que le HDR fonctionne, l'écran et le jeu doivent être tous deux compatibles.",
         "wine-wayland": "Le pilote expérimental Wine-Wayland permet aux jeux de s'exécuter nativement par l'entremise du protocole d'affichage Wayland. L'activer peut faire dysfonctionner certains jeux.",
@@ -744,7 +748,8 @@
             "enableHelp": "Composant d'Aide",
             "automaticWinetricksFixes": "Appliquer les corrections connues automatiquement",
             "cometSupport": "Intégration de Comet",
-            "umuSupport": "Utiliser umu comme moteur de Proton"
+            "umuSupport": "Utiliser umu comme moteur de Proton",
+            "zoomPlatform": "Prise en charge de la plateforme Zoom (disponible seulement sur Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -872,7 +877,7 @@
             "software": "Logiciel :",
             "memoryStats": "{{percentUsed}}% utilisés ({{usedGib}} / {{totalGib}}",
             "showDetailed": "Afficher les spécifications détaillées du système",
-            "memory": "RAM :",
+            "memory": "Mémoire vive :",
             "copyToClipboard": "Copier dans le presse-papier",
             "heroicVersion": "Heroic : {{heroicVersion}}",
             "nileVersion": "Nile : {{nileVersion}}",
@@ -913,7 +918,7 @@
         "custom_css": {
             "title": "Style CSS personnalisé"
         },
-        "launchOptions": "Paramètres de lancement..."
+        "launchOptions": "Options de lancement"
     },
     "Settings": "Options",
     "sidebar": {
@@ -978,7 +983,8 @@
             "unzipping": "Décompression"
         },
         "release": "Date de sortie",
-        "size": "Taille"
+        "size": "Taille",
+        "notes": "Notes"
     },
     "externalLink": {
         "dontAskAgain": "Ne plus me le demander",
@@ -989,7 +995,7 @@
     },
     "dlc": {
         "actions": "Actions",
-        "installDlcs": "Installer toutes les Extensions",
+        "installDlcs": "Installer tous les contenus additionnels",
         "noDlcFound": "Aucune Extension trouvée",
         "size": "Taille",
         "title": "Titre"
@@ -1115,5 +1121,8 @@
         "title": "Envoyer des statistiques anonymes"
     },
     "zoom-store": "Boutique Zoom",
-    "amazon-luna": "Amazon Luna"
+    "amazon-luna": "Amazon Luna",
+    "launch": {
+        "options": "Paramètres de lancement..."
+    }
 }

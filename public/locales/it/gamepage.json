@@ -49,7 +49,11 @@
         "wineprefix": "Seleziona la cartella del prefisso di Wine",
         "yes": "SI",
         "close": "Chiudi",
-        "select-install-path": "Seleziona percorso di installazione di Steam"
+        "select-install-path": "Seleziona percorso di installazione di Steam",
+        "warning": {
+            "title": "Avviso"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Aggiungi Ai Preferiti",

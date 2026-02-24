@@ -99,7 +99,11 @@
                 "title": "Steam hata"
             },
             "executableNotFound": "Yürütülebilir dosya bulunamadı",
-            "executableNotFoundMessage": "Heroic, bu oyun için yürütülebilir dosya bulamadı. Lütfen oyun ayarlarından el ile seçiniz."
+            "executableNotFoundMessage": "Heroic, bu oyun için yürütülebilir dosya bulamadı. Lütfen oyun ayarlarından el ile seçiniz.",
+            "dxmt": {
+                "message": "DXMT indirmede hata! Bağlantını kontrol et!",
+                "title": "DXMT İndirme Hatası"
+            }
         },
         "info": {
             "update": {
@@ -285,7 +289,7 @@
         "only": "sadece",
         "reset": "Sıfırla",
         "no_categories": "Özel kategori yok. Her oyuna menüsünden kategori ekleyin.",
-        "show_third_party_managed_only": "Yalnızca üçüncü taraf yönetimindekileri göster",
+        "show_third_party_managed_only": "Yalnızca üçüncü taraf tarafından yönetilenleri göster",
         "show_updates_only": "Yalnızca güncellenen oyunları göster"
     },
     "help": {
@@ -741,7 +745,8 @@
             "enableHelp": "Yardım bileşeni",
             "automaticWinetricksFixes": "Bilinen düzeltmeleri kendiliğinden uygula",
             "cometSupport": "Comet desteği",
-            "umuSupport": "Proton çalışma zamanı olarak umu kullan"
+            "umuSupport": "Proton çalışma zamanı olarak umu kullan",
+            "zoomPlatform": "Zoom Platform desteği (yalnızca Linux)"
         },
         "frameless-window": {
             "confirmation": {
@@ -800,7 +805,7 @@
                 "title": "Emin misiniz?",
                 "message": "Valve'ın Proton sürümlerinde winetrick ve protofix bulunmadığından, Heroic ile birlikte özel Proton çatallarını (GE-Proton, Proton-CachyOS vb.) kullanmanızı öneririz. Yine de isterseniz Valve'ın Proton sürümlerini kullanabilirsiniz."
             },
-            "label": "GE olmayan Proton sürümleriyle oyun çalıştırmaya izin ver",
+            "label": "Oyunları çalıştırmak için Valve'ın Proton sürümlerini kullanmaya izin ver",
             "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz",
             "info_label": "Valve Proton sürümleri göz ardı edildi"
         },
@@ -908,7 +913,8 @@
         "custom_css": {
             "title": "Özel CSS Stili"
         },
-        "launchOptions": "Başlatma Seçenekleri..."
+        "launchOptions": "Başlatma Seçenekleri",
+        "legacy_warning": "Uyarı: Bu sayfadaki ayarların çoğu kullanımdan kaldırıldı ve hiç çalışmayabilirler."
     },
     "Settings": "Ayarlar",
     "sidebar": {
@@ -973,7 +979,8 @@
             "unzipping": "Çıkartılıyor"
         },
         "release": "Yayınlanma Tarihi",
-        "size": "Boyut"
+        "size": "Boyut",
+        "notes": "Notlar"
     },
     "externalLink": {
         "warning": "Harici bir bağlantı açmak üzeresiniz.",
@@ -1110,5 +1117,8 @@
         "title": "Anonim Kullanım Verilerini Gönder"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom Dükkanı"
+    "zoom-store": "Zoom Dükkanı",
+    "launch": {
+        "options": "Başlatma Seçenekleri..."
+    }
 }

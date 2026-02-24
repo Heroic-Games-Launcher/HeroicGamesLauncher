@@ -84,28 +84,6 @@ linux:
 rpm:
   fpm: ['--rpm-rpmbuild-define', '_build_id_links none']
 
-snap:
-  base: core22
-  confinement: strict
-  grade: stable
-  category: Games
-  synopsis: An Open Source Launcher for GOG, Epic Games and Amazon Games
-  description: Heroic is an Open Source Games Launcher. It supports launching games from the Epic Games, Amazon Games and GOG.
-  plugs:
-    - default
-    - network-bind
-    - screen-inhibit-control
-    - removable-media
-    - mount-observe
-    - joystick
-    - bluez
-    - udisks2
-  publish:
-    provider: snapStore
-    channels:
-      - edge
-    repo: heroic
-
 nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true

@@ -1086,5 +1086,8 @@
         "wine-ge": "Wine-GE-Proton is een Wine variant gemaakt door Glorious Eggrol. Het is verouderd en vervangen voor GE-Proton met de umu launcher."
     },
     "zoom-store": "Zoom Winkel",
-    "amazon-luna": "Amazon Luna"
+    "amazon-luna": "Amazon Luna",
+    "launch": {
+        "options": "Opstartopties..."
+    }
 }

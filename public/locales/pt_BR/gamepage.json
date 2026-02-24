@@ -60,6 +60,12 @@
         "sync": {
             "force_download_warning": "Saves locais serão deletados. Você deseja continuar?",
             "force_upload_warning": "Os Saves na nuvem serão sobrescritos. Você deseja continuar?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Este jogo pode não funcionar adequadamente offline. Gostaria de jogar mesmo assim?",
+            "playAnyway": "Jogar mesmo assim",
+            "title": "Aviso Offline"
         }
     },
     "button": {
@@ -223,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Opções de inicialização..."
+        "options": "Opções de inicialização...",
+        "default": "Padrão"
     },
     "not_logged_in": {
         "epic": "Você não está logado em uma conta Epic no Heroic. Não use a página da loja para fazer login, clique no seguinte botão:",

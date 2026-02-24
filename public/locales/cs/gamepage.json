@@ -60,6 +60,12 @@
         },
         "warning": {
             "title": "Varování"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Tato hra nemusí v režimu offline fungovat správně. Chcete ji přesto spustit?",
+            "playAnyway": "Hrát i tak",
+            "title": "Offline varování"
         }
     },
     "button": {

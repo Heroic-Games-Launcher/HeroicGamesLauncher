@@ -777,5 +777,8 @@
     },
     "categories-manager": {
         "add": "&הוסף"
+    },
+    "launch": {
+        "options": "פותח הגדרות..."
     }
 }

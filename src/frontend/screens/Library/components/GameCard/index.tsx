@@ -441,6 +441,11 @@ const GameCard = ({
           data-tour={dataTour}
         >
           {haveStatus && <span className="gameCardStatus">{label}</span>}
+          {hasUpdate && !isUpdating && !isQueued && (
+            <span className="gameCardUpdateBadge">
+              {t('status.hasUpdates')}
+            </span>
+          )}
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}

@@ -815,7 +815,8 @@
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
         "WoW64": "启用 WoW64（实验性）",
-        "scripts": "脚本："
+        "scripts": "脚本：",
+        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -852,7 +853,8 @@
             "sync": "存档-同步",
             "wineExt": "Wine 扩展",
             "systemInformation": "系统信息",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "老古董"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -919,7 +921,8 @@
         "custom_css": {
             "title": "自定义 CSS 样式"
         },
-        "launchOptions": "启动选项"
+        "launchOptions": "启动选项",
+        "legacy_warning": "警告：此选项卡上的设置大多已废弃，可能完全无法使用。"
     },
     "Settings": "设置",
     "sidebar": {
@@ -1122,5 +1125,8 @@
         "title": "发送匿名分析信息"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom 商店"
+    "zoom-store": "Zoom 商店",
+    "launch": {
+        "options": "启动选项..."
+    }
 }

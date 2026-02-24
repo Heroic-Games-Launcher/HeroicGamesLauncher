@@ -46,13 +46,27 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour requise"
         },
-        "wineprefix": "Choisissez un dossier WinePrefix",
+        "wineprefix": "Sélectionner un dossier pour WinePrefix",
         "yes": "OUI",
         "close": "Fermer",
         "select-install-path": "Sélectionnez le chemin d'installation de Steam",
         "selectLaunchOption": {
-            "title": "Sélectionner une option de lancement ({{seconds}}s)"
-        }
+            "title": "Sélectionner une option de lancement ({{seconds}}s)",
+            "body": "Veuillez sélectionner une option de lancement pour ce jeu (ce paramètre est modifiable plus tard dans les paramètres du jeu) :"
+        },
+        "warning": {
+            "title": "Avertissement"
+        },
+        "sync": {
+            "force_download_warning": "Les sauvegardes locales seront effacées. Souhaitez vous continuer ?",
+            "force_upload_warning": "Les sauvegardes en ligne seront écrasées. Souhaitez-vous continuer ?"
+        },
+        "offline_warning": {
+            "message": "Ce jeu pourrait ne pas bien fonctionner en mode hors-ligne. Voulez-vous continuer ?",
+            "playAnyway": "Jouer quand même",
+            "title": "Avertissement hors-ligne"
+        },
+        "ok": "Ok"
     },
     "button": {
         "add_to_favourites": "Ajouter aux favoris",
@@ -81,7 +95,7 @@
         "details": "Détails",
         "changelog": "Afficher le journal des changements",
         "browse_files": "Parcourir les fichiers",
-        "browse_wine_prefix": "Parcourir le préfixe utilisé par Wine",
+        "browse_wine_prefix": "Parcourir le préfixe Wine",
         "play": "JOUER"
     },
     "cloud_save_unsupported": "Non-compatible",
@@ -155,7 +169,7 @@
         "path": "Sélectionner le chemin d'installation",
         "path-not-writtable": "Attention : le chemin n'est peut-être pas accessible en écriture.",
         "space-after-install": "Après l'installation",
-        "wineprefix": "Qu'est-ce qu'un préfixe ?",
+        "wineprefix": "Préfixe",
         "wineversion": "Version de Wine",
         "anticheat-warning": {
             "cancel": "Non",
@@ -214,7 +228,8 @@
         }
     },
     "launch": {
-        "options": "Paramètres de lancement..."
+        "options": "Paramètres de lancement...",
+        "default": "Par défaut"
     },
     "not_logged_in": {
         "epic": "Vous n'êtes pas connecté(e) avec un compte Epic dans Heroic. N'utilisez pas la page de la boutique pour vous connecter, cliquez plutôt sur ce bouton :",
@@ -226,7 +241,7 @@
     },
     "report_problem": "Signaler un problème de fonctionnement du jeu",
     "sdl": {
-        "title": "Sélectionnez les composants à installer"
+        "title": "Sélectionner les éléments à installer"
     },
     "setting": {
         "winecrossoverbottle": "Bouteille CrossOver",
@@ -294,7 +309,7 @@
     "submenu": {
         "addShortcut": "Ajouter un raccourci",
         "addToSteam": "Ajouter à Steam",
-        "change": "Changer le chemin d'installation",
+        "change": "Changer le répertoire d'installation",
         "disableEosOverlay": "Désactiver l'overlay EOS",
         "enableEosOverlay": "Activer l'overlay EOS",
         "move": "Déplacer le jeu",
@@ -340,5 +355,6 @@
             "resume": "Reprendre le téléchargement"
         }
     },
-    "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>"
+    "wikiLink": "Information importante au sujet de ce jeu, lisez ceci : &nbsp ;<1>Open page</1>",
+    "open-saves-folder": "Ouvrir le dossier des sauvegardes"
 }

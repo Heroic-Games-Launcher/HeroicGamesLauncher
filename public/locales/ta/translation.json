@@ -1072,5 +1072,8 @@
     "analyticsModal": {
         "disable": "முடக்கு",
         "enable": "இயக்கு"
+    },
+    "launch": {
+        "options": "துவக்க விருப்பங்கள்..."
     }
 }

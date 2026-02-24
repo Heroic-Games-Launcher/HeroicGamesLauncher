@@ -743,5 +743,8 @@
     },
     "analyticsModal": {
         "disable": "Desgaituta"
+    },
+    "launch": {
+        "options": "Jaurtiketa-aukerak..."
     }
 }

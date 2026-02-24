@@ -46,7 +46,11 @@
         },
         "wineprefix": "انتخاب پوشه Wine Prefix",
         "yes": "بله",
-        "close": "بستن"
+        "close": "بستن",
+        "warning": {
+            "title": "هشدار"
+        },
+        "ok": "اوکی"
     },
     "button": {
         "add_to_favourites": "افزودن به مورد علاقه ها",

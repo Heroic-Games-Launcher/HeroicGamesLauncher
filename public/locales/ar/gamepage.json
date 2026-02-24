@@ -49,7 +49,11 @@
         },
         "wineprefix": "اختر مجلَّد سابقة واين",
         "yes": "نعم",
-        "close": "أغلق"
+        "close": "أغلق",
+        "warning": {
+            "title": "تحذير"
+        },
+        "ok": "حسنًا"
     },
     "button": {
         "add_to_favourites": "أضف للمفضلة",

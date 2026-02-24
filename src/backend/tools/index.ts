@@ -238,9 +238,17 @@ export const DXVK = {
     const toolPathx32 = `${toolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
-    const dlls32 = readdirSync(toolPathx32)
+    const toolPathx32Alt = `${toolsPath}/${tool}/${globalVersion}/i386-windows`
+    let dlls32: string[] = []
+    if (existsSync(toolPathx32)) dlls32 = readdirSync(toolPathx32)
+    else if (existsSync(toolPathx32Alt)) dlls32 = readdirSync(toolPathx32Alt)
+
     const toolPathx64 = `${toolsPath}/${tool}/${globalVersion}/x64`
-    const dlls64 = readdirSync(toolPathx64)
+    const toolPathx64Alt = `${toolsPath}/${tool}/${globalVersion}/x86_64-windows`
+    let dlls64: string[] = []
+    if (existsSync(toolPathx64)) readdirSync(toolPathx64)
+    else if (existsSync(toolPathx64Alt)) dlls64 = readdirSync(toolPathx64Alt)
+
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 

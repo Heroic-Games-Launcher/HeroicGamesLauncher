@@ -49,7 +49,24 @@
         "wineprefix": "Selecione a pasta com o prefixo Wine",
         "yes": "SIM",
         "close": "Fechar",
-        "select-install-path": "Selecione o Caminho de Instalação da Steam"
+        "select-install-path": "Selecione o Caminho de Instalação da Steam",
+        "warning": {
+            "title": "Aviso"
+        },
+        "selectLaunchOption": {
+            "body": "Selecione uma opção de execução para este jogo, por favor (pode alterar mais tarde nas definições do jogo):",
+            "title": "Selecione opção de execução ({{seconds}}s)"
+        },
+        "sync": {
+            "force_download_warning": "Os jogos guardados localmente 'saves' vão ser eliminados. Pretende continuar?",
+            "force_upload_warning": "Os jogos guardados na núvem 'saves' vão ser substituídos. Pretende continuar?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Este jogo pode não funcionar corretamente em modo offline. Pretende jogar mesmo assim?",
+            "playAnyway": "Jogar mesmo assim",
+            "title": "Aviso offline"
+        }
     },
     "button": {
         "add_to_favourites": "Adicionar aos Favoritos",
@@ -211,7 +228,8 @@
         }
     },
     "launch": {
-        "options": "Opções de Arranque..."
+        "options": "Opções de Arranque...",
+        "default": "Padrão"
     },
     "not_logged_in": {
         "epic": "Não tem a sessão iniciada com uma conta da Epic no Heroic. Não use a página da loja para iniciar a sessão, em vez disso clique no botão seguinte:",
@@ -337,5 +355,6 @@
             "pause": "Pausar transferência"
         }
     },
-    "wikiLink": "Informação importante sobre este jogo, leia isto:&nbsp;<1>Abrir pagina</1>"
+    "wikiLink": "Informação importante sobre este jogo, leia isto:&nbsp;<1>Abrir pagina</1>",
+    "open-saves-folder": "Abrir pasta de jogos guardados"
 }

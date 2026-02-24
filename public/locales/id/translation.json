@@ -1092,5 +1092,8 @@
         "proton-ge": "GE-Proton adalah varian Proton yang dibuat oleh Glorious Eggroll. Versi ini dirancang untuk digunakan bersama peluncur umu (default di Heroic).",
         "wine-ge": "Wine-GE-Proton adalah varian Wine yang dibuat oleh Glorious Eggroll. Versi ini sudah tidak digunakan lagi dan digantikan oleh GE-Proton dengan peluncur umu."
     },
-    "zoom-store": "Toko Zoom"
+    "zoom-store": "Toko Zoom",
+    "launch": {
+        "options": "Opsi Peluncuran…"
+    }
 }

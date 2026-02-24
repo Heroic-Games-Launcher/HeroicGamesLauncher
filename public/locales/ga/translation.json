@@ -495,7 +495,8 @@
         "wineversion": "Leagan Wine",
         "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
         "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
-        "scripts": "Scripteanna:"
+        "scripts": "Scripteanna:",
+        "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche"
     },
     "button": {
         "login": "Logáil isteach",
@@ -889,7 +890,8 @@
             "log": "Logáil",
             "other": "Eile",
             "sync": "Sioncrónú Sábhálacha Néil",
-            "systemInformation": "Faisnéis Córais"
+            "systemInformation": "Faisnéis Córais",
+            "legacy": "Oidhreacht"
         },
         "offline": {
             "warning": "Ní cheadaíonn an cluiche seo mód as líne go sainráite, mar sin is ar do phriacal féin atá sé seo a chur air. Seans nach n-oibreoidh an cluiche."
@@ -924,7 +926,8 @@
             "systemModel": "Samhail Chórais:",
             "systemSpecifications": "Sonraíochtaí an Chórais:"
         },
-        "launchOptions": "Roghanna Seolta"
+        "launchOptions": "Roghanna Seolta",
+        "legacy_warning": "Rabhadh: Tá na socruithe ar an táb seo imithe i léig den chuid is mó agus b'fhéidir nach n-oibreoidh siad ar chor ar bith."
     },
     "Settings": "Socruithe",
     "store": "Epic Store",
@@ -1050,5 +1053,8 @@
         "search": "Cuardaigh clónna nó comhpháirteanna"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Siopa Zoom"
+    "zoom-store": "Siopa Zoom",
+    "launch": {
+        "options": "Roghanna Seolta..."
+    }
 }
