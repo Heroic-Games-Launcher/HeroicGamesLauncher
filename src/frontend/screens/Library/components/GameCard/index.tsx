@@ -441,7 +441,7 @@ const GameCard = ({
           data-tour={dataTour}
         >
           {haveStatus && <span className="gameCardStatus">{label}</span>}
-          {hasUpdate && !isUpdating && !isQueued && (
+          {hasUpdate && !isUpdating && !isQueued && activeController && (
             <span className="gameCardUpdateBadge">
               {t('status.hasUpdates')}
             </span>
