@@ -67,11 +67,14 @@ type ReleasesResponse = {
 export async function installOrUpdateTool(tool: Tool) {
   if (tool.os !== process.platform) return
 
+  console.log((await axiosClient.get<ReleasesResponse>(tool.url)).data)
   const {
     data: { assets }
   } = await axiosClient.get<ReleasesResponse>(tool.url)
 
+  console.log(assets)
   let asset = assets[0]
+  console.log(tool)
   if (tool.name === 'dxvk-macOS' && asset.name.includes('-builtin')) {
     // Do not use -builtin asset for dxvk macos
     // TODO: implement proper use of the -builtin using the WINEDLLPATH_PREPEND
@@ -186,7 +189,10 @@ export const DXVK = {
       },
       {
         name: 'dxvk-macOS',
-        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        // url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        // TODO: go back to using latest once we implement the WINEDLLPATH_PREPEND
+        // env variable for dxvk-macos and dxmt
+        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/tags/v1.10.3-20230507-repack',
         os: 'darwin'
       }
     ]
