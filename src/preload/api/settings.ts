@@ -8,7 +8,9 @@ export const getGogdlVersion = makeHandlerInvoker('getGogdlVersion')
 export const getCometVersion = makeHandlerInvoker('getCometVersion')
 export const getNileVersion = makeHandlerInvoker('getNileVersion')
 export const getEosOverlayStatus = makeHandlerInvoker('getEosOverlayStatus')
-export const getLatestEosOverlayVersion = makeHandlerInvoker('getLatestEosOverlayVersion')
+export const getLatestEosOverlayVersion = makeHandlerInvoker(
+  'getLatestEosOverlayVersion'
+)
 export const removeEosOverlay = makeHandlerInvoker('removeEosOverlay')
 export const updateEosOverlayInfo = makeHandlerInvoker('updateEosOverlayInfo')
 export const changeTrayColor = makeListenerCaller('changeTrayColor')
@@ -22,3 +24,4 @@ export const systemInfo = {
   copyToClipboard: makeListenerCaller('copySystemInfoToClipboard')
 }
 export const hasExecutable = makeHandlerInvoker('hasExecutable')
+export const updateCometComponents = makeHandlerInvoker('updateCometComponents')
