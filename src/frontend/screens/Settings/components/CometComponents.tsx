@@ -7,19 +7,22 @@ const CometComponents = () => {
 
   const [isUpdating, setUpdating] = useState(false)
 
+  async function updateCometComponents() {
+    setUpdating(true)
+    await window.api.updateCometComponents()
+    setUpdating(false)
+  }
+
   return (
     <>
       <h3>{t('setting.comet.components', 'Comet Components')}</h3>
 
       <div className="footerFlex">
-        <button className="button is-primary" onClick={() => {}}>
+        <button className="button is-primary" onClick={updateCometComponents}>
           <CachedOutlined />
           <span>
             {isUpdating
-              ? t(
-                  'setting.eosOverlay.checkingForUpdates',
-                  'Checking for updates...'
-                )
+              ? t('status.updating', 'Updating')
               : t('setting.eosOverlay.checkForUpdates', 'Check for updates')}
           </span>
         </button>
