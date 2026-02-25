@@ -47,3 +47,20 @@
   margin: var(--space-3xs) var(--space-lg);
   padding: 0 var(--space-sm-fixed);
 }
+
+.downloadManagerSettings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-md);
+  background-color: var(--input-background);
+  border-radius: 6px;
+  margin-inline: var(--space-lg);
+}
+
+.downloadManagerSettingItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
