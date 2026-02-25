@@ -25,3 +25,13 @@
   margin-bottom: 10px;
   color: red;
 }
+
+.launchOptionsDialog .Dialog__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+
+  button:hover {
+    opacity: 0.6;
+  }
+}
