@@ -290,14 +290,18 @@ async function errorHandler({
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
-  // this message appears on macOS when no Crossover was found in the system but its a false alarm
-  const ignoreCrossoverMessage = 'IndexError: list index out of range'
+  const ignoreMessages = [
+    // this message appears on macOS when no Crossover was found in the system, but it's a false alarm
+    'IndexError: list index out of range',
+    // Happens with the Zipapp build of Legendary on Linux, if the user updates
+    // dependencies requests relies on
+    'RequestsDependencyWarning'
+  ]
 
   if (!error) return
 
-  if (error.includes(ignoreCrossoverMessage)) {
-    return
-  }
+  if (ignoreMessages.some((msg) => error.includes(msg))) return
+
   if (error.includes(deletedFolderMsg) && appName) {
     const runner = r.toLocaleLowerCase() as Runner
     const { title } = gameManagerMap[runner].getGameInfo(appName)
