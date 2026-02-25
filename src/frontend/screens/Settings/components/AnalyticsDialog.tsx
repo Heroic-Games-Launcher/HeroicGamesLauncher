@@ -19,6 +19,7 @@ export default function AnalyticsDialog() {
 
       showDialogModal({
         showDialog: true,
+        dontShowWithoutGui: true,
         title: t('analyticsModal.title', 'Send Anonymous Analytics'),
         message: (
           <>
