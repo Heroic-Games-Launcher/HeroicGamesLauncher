@@ -49,24 +49,6 @@ export const useLaunchOptions = ({
     }
   }, [launchOptions, lastUsedOption, selectedIndex])
 
-  // add a default option if not present
-  useEffect(() => {
-    if (
-      launchOptions.length > 0 &&
-      !launchOptions.some(
-        (option) =>
-          (option.type === undefined || option.type === 'basic') &&
-          option.name === 'Default' &&
-          option.parameters === ''
-      )
-    ) {
-      setLaunchOptions((prevOptions) => [
-        { type: 'basic', name: 'Default', parameters: '' },
-        ...prevOptions
-      ])
-    }
-  }, [launchOptions])
-
   // Generate label for a launch option
   const labelForLaunchOption = useCallback(
     (option: LaunchOption) => {

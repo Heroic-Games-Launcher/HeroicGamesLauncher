@@ -1094,6 +1094,25 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
     })
   }
 
+  // add a default option if there are other options but no default
+  if (
+    availableLaunchOptions.length > 0 &&
+    !availableLaunchOptions.some(
+      (option) =>
+        (option.type === undefined || option.type === 'basic') &&
+        option.name === 'Default' &&
+        option.parameters === ''
+    )
+  ) {
+    availableLaunchOptions.unshift({
+      name: i18next.t('launch.default', 'Default', {
+        ns: 'gamepage'
+      }),
+      parameters: '',
+      type: 'basic'
+    })
+  }
+
   return availableLaunchOptions
 })
 
