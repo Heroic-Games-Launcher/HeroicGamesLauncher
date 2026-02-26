@@ -669,7 +669,8 @@
                 },
                 "error": {
                     "content": "Kayıt dosyası yüklenemedi. Ayrıntılar için Heroic'in genel kayıtlarını kontrol edin",
-                    "title": "Yükleme başarısız"
+                    "title": "Yükleme başarısız",
+                    "manual_upload": "\"GÜNLÜK DOSYASINI KLASÖRDE GÖSTER\"e tıklayın ve \"launch.log\" dosyasını elle Discord'a ya da herhangi bir dosya paylaşım sitesine yükleyin."
                 },
                 "header": "Kayıt dosyaları yüklendi",
                 "hours-ago": "Yüklendi {{hoursAgo, relativetime(hours)}}",
@@ -691,7 +692,7 @@
                 "nile": "Amazon / Nile kaydı",
                 "zoom": "Zoom kaydı"
             },
-            "show-uploads": "Yüklenmiş kayıt dosyalarını göster"
+            "show-uploads": "Yüklenmiş günlük dosyalarını göster"
         },
         "mangohud": "Mangohud'u Etkinleştir (Mangohud kurulu olmalıdır)",
         "manualsync": {
@@ -809,7 +810,9 @@
             "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz",
             "info_label": "Valve Proton sürümleri göz ardı edildi"
         },
-        "WoW64": "WoW64'ü aç (Deneysel)"
+        "WoW64": "WoW64'ü aç (Deneysel)",
+        "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
+        "scripts": "Betikler:"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -846,7 +849,8 @@
             "sync": "Bulut Kayıt Senkronizasyonu",
             "wineExt": "Wine Extensions",
             "systemInformation": "Sistem bilgisi",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Klasik"
         },
         "open-config-file": "Yapılandırma Dosyasını Aç",
         "reset-heroic": "Heroic'i Sıfırla",
