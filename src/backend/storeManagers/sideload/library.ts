@@ -1,11 +1,16 @@
-import { ExecResult, GameInfo } from 'common/types'
+import { ExecResult, GameInfo, LaunchOption } from 'common/types'
 import { readdirSync } from 'graceful-fs'
 import { dirname, join } from 'path'
 import { libraryStore } from './electronStores'
-import { logWarning } from 'backend/logger'
+import { logError, logWarning } from 'backend/logger'
 import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isMac } from 'backend/constants/environment'
+import { getSettings } from './games'
+import { readdir, readFile, stat } from 'node:fs/promises'
+import { parse as iniParse } from 'ini'
+import { DesktopEntry } from 'common/types/shortcuts'
+import { Path } from 'backend/schemas'
 
 export function addNewApp({
   app_name,
@@ -114,7 +119,48 @@ export async function getInstallInfo(): Promise<undefined> {
   return undefined
 }
 
-export const getLaunchOptions = () => []
+export async function getLaunchOptions(
+  appName: string
+): Promise<LaunchOption[]> {
+  const gameSettings = await getSettings(appName)
+  if (gameSettings.wineVersion.type !== 'proton') return []
+  if (!gameSettings.winePrefix) return []
+
+  const protonShortcutsPath = join(
+    gameSettings.winePrefix,
+    'drive_c/proton_shortcuts'
+  )
+  const launchOptions: LaunchOption[] = []
+  try {
+    const dir = await readdir(protonShortcutsPath, { encoding: 'utf-8' })
+    const files = dir.filter((f) => f.endsWith('.desktop'))
+    for (const file of files) {
+      const contents = await readFile(join(protonShortcutsPath, file), {
+        encoding: 'utf-8'
+      })
+      const desktopFile = iniParse(contents)
+      const desktopEntry = desktopFile['Desktop Entry'] as DesktopEntry
+
+      if (
+        desktopEntry.Path &&
+        !(await stat(desktopEntry.Path).catch(() => false))
+      )
+        continue
+
+      const execPath = desktopEntry.Exec.replace(/\\(.)/g, '$1')
+      launchOptions.push({
+        type: 'altExe',
+        name: desktopEntry.Name,
+        executable: await Path.parseAsync(execPath)
+      })
+    }
+  } catch (err) {
+    logError(['Failed to parse proton shortcuts', err])
+    return []
+  }
+
+  return launchOptions
+}
 
 export function changeVersionPinnedStatus() {
   logWarning(
