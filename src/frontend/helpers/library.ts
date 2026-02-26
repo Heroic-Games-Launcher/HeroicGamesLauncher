@@ -318,19 +318,6 @@ async function checkLaunchOptionsAndLaunch({
     runner
   )
 
-  // if no options of basic type add one
-  if (
-    !availableLaunchOptions.some(
-      (option) => option.type === undefined || option.type === 'basic'
-    )
-  ) {
-    availableLaunchOptions.unshift({
-      type: 'basic',
-      name: 'Default',
-      parameters: ''
-    })
-  }
-
   // If no launch options or only one option, launch directly
   if (!availableLaunchOptions.length || availableLaunchOptions.length === 1) {
     // If there's exactly one option, use it
