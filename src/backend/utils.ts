@@ -290,58 +290,62 @@ async function errorHandler({
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
-  // this message appears on macOS when no Crossover was found in the system but its a false alarm
-  const ignoreCrossoverMessage = 'IndexError: list index out of range'
+  const ignoreMessages = [
+    // this message appears on macOS when no Crossover was found in the system, but it's a false alarm
+    'IndexError: list index out of range',
+    // Happens with the Zipapp build of Legendary on Linux, if the user updates
+    // dependencies requests relies on
+    'RequestsDependencyWarning'
+  ]
 
-  if (error) {
-    if (error.includes(ignoreCrossoverMessage)) {
+  if (!error) return
+
+  if (ignoreMessages.some((msg) => error.includes(msg))) return
+
+  if (error.includes(deletedFolderMsg) && appName) {
+    const runner = r.toLocaleLowerCase() as Runner
+    const { title } = gameManagerMap[runner].getGameInfo(appName)
+    const { response } = await showMessageBox({
+      type: 'question',
+      title,
+      message: i18next.t(
+        'box.error.folder-not-found.title',
+        'Game folder appears to be deleted, do you want to remove the game from the installed list?'
+      ),
+      buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+    })
+
+    if (response === 1) {
+      return gameManagerMap[runner].forceUninstall(appName)
+    }
+  }
+
+  if (legendaryRegex.test(error)) {
+    const MemoryError = 'MemoryError: '
+    if (error.includes(MemoryError)) {
       return
     }
-    if (error.includes(deletedFolderMsg) && appName) {
-      const runner = r.toLocaleLowerCase() as Runner
-      const { title } = gameManagerMap[runner].getGameInfo(appName)
-      const { response } = await showMessageBox({
-        type: 'question',
-        title,
-        message: i18next.t(
-          'box.error.folder-not-found.title',
-          'Game folder appears to be deleted, do you want to remove the game from the installed list?'
-        ),
-        buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-      })
 
-      if (response === 1) {
-        return gameManagerMap[runner].forceUninstall(appName)
-      }
-    }
+    return showDialogBoxModalAuto({
+      title: plat,
+      message: i18next.t(
+        'box.error.legendary.generic',
+        'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
+        { error, newline: '\n' }
+      ),
+      type: 'ERROR'
+    })
+  }
 
-    if (legendaryRegex.test(error)) {
-      const MemoryError = 'MemoryError: '
-      if (error.includes(MemoryError)) {
-        return
-      }
-
-      return showDialogBoxModalAuto({
-        title: plat,
-        message: i18next.t(
-          'box.error.legendary.generic',
-          'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
-          { error, newline: '\n' }
-        ),
-        type: 'ERROR'
-      })
-    }
-
-    if (error.includes(expiredCredentials)) {
-      return showDialogBoxModalAuto({
-        title: plat,
-        message: i18next.t(
-          'box.error.credentials.message',
-          'Your Crendentials have expired, Logout and Login Again!'
-        ),
-        type: 'ERROR'
-      })
-    }
+  if (error.includes(expiredCredentials)) {
+    return showDialogBoxModalAuto({
+      title: plat,
+      message: i18next.t(
+        'box.error.credentials.message',
+        'Your Crendentials have expired, Logout and Login Again!'
+      ),
+      type: 'ERROR'
+    })
   }
 }
 
