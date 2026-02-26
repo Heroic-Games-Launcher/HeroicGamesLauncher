@@ -1079,21 +1079,6 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
   const availableLaunchOptions =
     await libraryManagerMap[runner].getLaunchOptions(appName)
 
-  const hasDefaultOption = availableLaunchOptions.some(
-    (option) =>
-      (option.type === undefined || option.type === 'basic') &&
-      'parameters' in option &&
-      option.parameters === ''
-  )
-
-  if (availableLaunchOptions.length === 1 && !hasDefaultOption) {
-    availableLaunchOptions.unshift({
-      name: 'Default',
-      parameters: '',
-      type: 'basic'
-    })
-  }
-
   // add a default option if there are other options but no default
   if (
     availableLaunchOptions.length > 0 &&
