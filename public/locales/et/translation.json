@@ -671,7 +671,8 @@
                 },
                 "error": {
                     "content": "Ei suutnud logifaili üles laadida. Üksikasjade jaoks kontrollige Heroicu üldist logi",
-                    "title": "Üleslaadimine ebaõnnestus"
+                    "title": "Üleslaadimine ebaõnnestus",
+                    "manual_upload": "Kliki \"Kuva logifail kaustas\" nuppu ja lae \"launch.log\" fail käsitsi Discordi või mis tahes failijagamise teenusesse."
                 },
                 "header": "Üles laetud logifailid",
                 "hours-ago": "Üles laetud {{hoursAgo, relativetime(hours)}}",
@@ -813,7 +814,8 @@
             "info_label": "Valve'i Protoni versioonid eiratud"
         },
         "WoW64": "Luba WoW64 (eksperimentaalne)",
-        "scripts": "Skriptid:"
+        "scripts": "Skriptid:",
+        "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +852,8 @@
             "sync": "Pilvesalvestuste sünkroniseerimine",
             "wineExt": "Wine'i laiendused",
             "systemInformation": "Süsteemi teave",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Igand"
         },
         "open-config-file": "Ava konfiguratsioonifail",
         "reset-heroic": "Lähtesta Heroic",
@@ -917,7 +920,8 @@
         "custom_css": {
             "title": "Kasutajaliidese CSS stiil"
         },
-        "launchOptions": "Käivitusvalikud"
+        "launchOptions": "Käivitusvalikud",
+        "legacy_warning": "Hoiatus: Sätted sellel vahelehel on enamasti aegunud ja ei pruugi üldse toimida."
     },
     "Settings": "Seaded",
     "sidebar": {
