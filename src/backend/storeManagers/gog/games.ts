@@ -165,7 +165,7 @@ export async function getAchievements(
       return null
     })
 
-  if (!response) {
+  if (!response?.data?.items) {
     return []
   }
 
