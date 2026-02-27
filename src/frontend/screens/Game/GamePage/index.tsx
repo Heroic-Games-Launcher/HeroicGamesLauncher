@@ -172,14 +172,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
     'info' | 'achievements' | 'extra' | 'requirements'
   >('info')
 
-  const skipFirst = useRef(hasAchievements)
+  const previousIsPlaying = useRef<boolean>(isPlaying)
   useEffect(() => {
     const updateAchievements = async () => {
-      window.api.clearAchievementCache(appName)
+      if (!isPlaying && previousIsPlaying.current)
+        window.api.clearAchievementCache(appName)
       setAchievements(await window.api.getAchievements(appName))
     }
-    if (!isPlaying && !skipFirst.current) updateAchievements()
-    skipFirst.current = false
+
+    updateAchievements()
+    previousIsPlaying.current = isPlaying
   }, [isPlaying])
 
   useEffect(() => {
