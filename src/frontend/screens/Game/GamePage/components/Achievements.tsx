@@ -23,12 +23,12 @@ const Achievements = ({ achievements }: Props) => {
 
   return (
     <div className="achievement-container">
-      {sortedAchievements.map((x: GameAchievement, key: number) => {
+      {sortedAchievements.map((x: GameAchievement) => {
         const isHiddenAchievement = !x.date_unlocked && !x.visible
         return (
           <div
             className={`achievement-item ${x.date_unlocked ? 'unlocked' : 'locked'} ${isHiddenAchievement ? 'hidden-achievement' : ''}`}
-            key={key}
+            key={x.achievement_id}
           >
             <div className={`achievement-icon rarity-${x.rarity_level_slug}`}>
               <img
