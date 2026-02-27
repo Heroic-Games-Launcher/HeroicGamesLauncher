@@ -35,6 +35,7 @@ const Achievements = ({ achievements }: Props) => {
                 src={
                   x.date_unlocked ? x.image_url_unlocked : x.image_url_locked
                 }
+                alt={isHiddenAchievement ? 'Hidden Achievement' : x.name}
               />
             </div>
             <div className="achievement-text">
