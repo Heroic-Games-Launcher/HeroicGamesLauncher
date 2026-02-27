@@ -118,10 +118,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
   )
   const [achievements, setAchievements] = useState<GameAchievement[]>([])
   const hasAchievements = achievements && achievements.length > 0
-  const achievementPercentage = Math.round(
-    (achievements.filter((x) => x.date_unlocked).length / achievements.length) *
-      100
-  )
+  const achievementPercentage = hasAchievements
+    ? Math.round(
+        (achievements.filter((x) => x.date_unlocked).length /
+          achievements.length) *
+          100
+      )
+    : 0
 
   const [notInstallable, setNotInstallable] = useState<boolean>(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
