@@ -54,9 +54,13 @@ async function handleLaunch(url: URL) {
     // `heroic://launch?appName=Quail&runner=legendary&arg=foo&arg=bar`
     appName = url.searchParams.get('appName')
     runnerStr = url.searchParams.get('runner')
-    args = url.searchParams.getAll('arg')
-    const altExeParse = Path.safeParse(url.searchParams.get('altExe'))
-    if (altExeParse.success) altExe = altExeParse.data
+    args = url.searchParams.getAll('arg').map(decodeURIComponent)
+
+    const altExeParameter = url.searchParams.get('altExe')
+    if (altExeParameter) {
+      const altExeParse = Path.safeParse(decodeURIComponent(altExeParameter))
+      if (altExeParse.success) altExe = altExeParse.data
+    }
   }
 
   if (!appName) {

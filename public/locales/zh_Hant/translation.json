@@ -512,7 +512,7 @@
             "canceled": "已取消",
             "clear": "清除列表",
             "downloading": "下載中",
-            "empty": "無可下載項目",
+            "empty": "無待下載項目",
             "finished": "已完成",
             "queued": "佇列中",
             "remove": "從下載中移除",
@@ -741,7 +741,8 @@
         },
         "experimental_features": {
             "title": "實驗性功能"
-        }
+        },
+        "launchOptions": "啟動選項…"
     },
     "Settings": "設定",
     "sidebar": {
@@ -865,5 +866,8 @@
     "analyticsModal": {
         "disable": "停用",
         "enable": "啟用"
+    },
+    "launch": {
+        "options": "啟動選項…"
     }
 }

@@ -42,7 +42,7 @@ import {
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
 import * as fileSize from 'filesize'
-import makeClient from 'discord-rich-presence-typescript'
+import { Client as discordClient } from '@xhayper/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
@@ -83,6 +83,8 @@ import {
 import { parse } from '@node-steam/vdf'
 
 import type LogWriter from 'backend/logger/log_writer'
+import { isRunning } from './downloadmanager/downloadqueue'
+import { isOnline } from './online_monitor'
 
 const execAsync = promisify(exec)
 
@@ -182,6 +184,8 @@ async function getWineFromProton(
 async function isEpicServiceOffline(
   type: 'Epic Games Store' | 'Fortnite' | 'Rocket League' = 'Epic Games Store'
 ) {
+  if (!isOnline()) return true
+
   const epicStatusApi = 'https://status.epicgames.com/api/v2/components.json'
   const notification = new Notification({
     title: `${type} ${t('epic.offline-notification-title', 'offline')}`,
@@ -236,9 +240,7 @@ async function handleExit() {
   const isLocked = existsSync(join(gamesConfigPath, 'lock'))
   const mainWindow = getMainWindow()
 
-  await gogPresence.deletePresence()
-
-  if (isLocked && mainWindow) {
+  if ((isLocked || isRunning()) && mainWindow) {
     const { response } = await showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
@@ -252,9 +254,11 @@ async function handleExit() {
       return
     }
 
-    // This is very hacky and can be removed if gogdl
-    // and legendary handle SIGTERM and SIGKILL
-    const possibleChildren = ['legendary', 'gogdl']
+    // This is very hacky and can be removed if bineries handle SIGTERM and SIGKILL
+    // FIXME: we should keep track of what we are doing and kill just that
+    // this is really dangerous cause we can be killing other processes unrelated
+    // to what we are doing x_x
+    const possibleChildren = ['legendary', 'gogdl', 'nile']
     possibleChildren.forEach((procName) => {
       try {
         killPattern(procName)
@@ -266,6 +270,10 @@ async function handleExit() {
     // Kill all child processes
     callAllAbortControllers()
   }
+
+  mainWindow?.hide()
+  await gogPresence.deletePresence()
+
   app.exit()
 }
 
@@ -284,68 +292,69 @@ async function errorHandler({
   const deletedFolderMsg = 'appears to be deleted'
   const expiredCredentials = 'No saved credentials'
   const legendaryRegex = /legendary.*\.py/
-  // this message appears on macOS when no Crossover was found in the system but its a false alarm
-  const ignoreCrossoverMessage = 'IndexError: list index out of range'
+  const ignoreMessages = [
+    // this message appears on macOS when no Crossover was found in the system, but it's a false alarm
+    'IndexError: list index out of range',
+    // Happens with the Zipapp build of Legendary on Linux, if the user updates
+    // dependencies requests relies on
+    'RequestsDependencyWarning'
+  ]
 
-  if (error) {
-    if (error.includes(ignoreCrossoverMessage)) {
+  if (!error) return
+
+  if (ignoreMessages.some((msg) => error.includes(msg))) return
+
+  if (error.includes(deletedFolderMsg) && appName) {
+    const runner = r.toLocaleLowerCase() as Runner
+    const { title } = gameManagerMap[runner].getGameInfo(appName)
+    const { response } = await showMessageBox({
+      type: 'question',
+      title,
+      message: i18next.t(
+        'box.error.folder-not-found.title',
+        'Game folder appears to be deleted, do you want to remove the game from the installed list?'
+      ),
+      buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+    })
+
+    if (response === 1) {
+      return gameManagerMap[runner].forceUninstall(appName)
+    }
+  }
+
+  if (legendaryRegex.test(error)) {
+    const MemoryError = 'MemoryError: '
+    if (error.includes(MemoryError)) {
       return
     }
-    if (error.includes(deletedFolderMsg) && appName) {
-      const runner = r.toLocaleLowerCase() as Runner
-      const { title } = gameManagerMap[runner].getGameInfo(appName)
-      const { response } = await showMessageBox({
-        type: 'question',
-        title,
-        message: i18next.t(
-          'box.error.folder-not-found.title',
-          'Game folder appears to be deleted, do you want to remove the game from the installed list?'
-        ),
-        buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-      })
 
-      if (response === 1) {
-        return gameManagerMap[runner].forceUninstall(appName)
-      }
-    }
+    return showDialogBoxModalAuto({
+      title: plat,
+      message: i18next.t(
+        'box.error.legendary.generic',
+        'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
+        { error, newline: '\n' }
+      ),
+      type: 'ERROR'
+    })
+  }
 
-    if (legendaryRegex.test(error)) {
-      const MemoryError = 'MemoryError: '
-      if (error.includes(MemoryError)) {
-        return
-      }
-
-      return showDialogBoxModalAuto({
-        title: plat,
-        message: i18next.t(
-          'box.error.legendary.generic',
-          'An error has occurred! Try to Logout and Login on your Epic account. {{newline}}  {{error}}',
-          { error, newline: '\n' }
-        ),
-        type: 'ERROR'
-      })
-    }
-
-    if (error.includes(expiredCredentials)) {
-      return showDialogBoxModalAuto({
-        title: plat,
-        message: i18next.t(
-          'box.error.credentials.message',
-          'Your Crendentials have expired, Logout and Login Again!'
-        ),
-        type: 'ERROR'
-      })
-    }
+  if (error.includes(expiredCredentials)) {
+    return showDialogBoxModalAuto({
+      title: plat,
+      message: i18next.t(
+        'box.error.credentials.message',
+        'Your Crendentials have expired, Logout and Login Again!'
+      ),
+      type: 'ERROR'
+    })
   }
 }
 
 // If you ever modify this range of characters, please also add them to nile
 // source as this function is used to determine how game directory will be named
 function removeSpecialcharacters(text: string): string {
-  const regexp = new RegExp(
-    /[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/,
-    'gi'
-  )
+  const regexp = new RegExp(/[:|/|*|?|<|>|\\|&|{|}|%|$|@|`|!|™|+|'|"|®]/, 'gi')
   return text.replaceAll(regexp, '')
 }
 
@@ -584,7 +593,10 @@ async function getSteamRuntime(
 }
 
 function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
-  const client = makeClient('852942976564723722')
+  const client = new discordClient({
+    clientId: '852942976564723722'
+  })
+
   const versionText = `Heroic ${app.getVersion()}`
 
   const image = gameInfo.art_icon || gameInfo.art_square
@@ -602,14 +614,18 @@ function constructAndUpdateRPC(gameInfo: GameInfo): RpcClient {
         largeImageText: versionText
       }
 
-  client.updatePresence({
-    details: title,
-    instance: true,
-    large_text: title,
-    startTimestamp: Date.now(),
-    state: 'via Heroic on ' + getFormattedOsName(),
-    ...overrides
+  client.on('ready', async () => {
+    await client.user?.setActivity({
+      name: title,
+      type: 0,
+      startTimestamp: Date.now(),
+      state: 'via Heroic on ' + getFormattedOsName(),
+      statusDisplayType: 0, // Use game title for name plate
+      ...overrides
+    })
   })
+
+  client.login()
   logInfo('Started Discord Rich Presence', LogPrefix.Backend)
   return client
 }
@@ -760,18 +776,17 @@ const getLatestReleases = async (): Promise<Release[]> => {
   logInfo('Checking for new Heroic Updates', LogPrefix.Backend)
 
   try {
-    const { data: releases } = await axiosClient.get(GITHUB_API)
-    const latestStable: Release = releases.filter(
-      (rel: Release) => rel.prerelease === false
-    )[0]
-    const latestBeta: Release = releases.filter(
-      (rel: Release) => rel.prerelease === true
-    )[0]
+    const { data: releases } = await axiosClient.get<Release[]>(GITHUB_API)
+    const latestStable = releases
+      .filter((rel) => rel.prerelease === false)
+      .at(0)
+    const latestBeta = releases.filter((rel) => rel.prerelease === true).at(0)
 
     const current = app.getVersion()
 
-    const thereIsNewStable = semverGt(latestStable.tag_name, current)
-    const thereIsNewBeta = semverGt(latestBeta.tag_name, current)
+    const thereIsNewStable =
+      latestStable && semverGt(latestStable.tag_name, current)
+    const thereIsNewBeta = latestBeta && semverGt(latestBeta.tag_name, current)
 
     if (thereIsNewStable) {
       newReleases.push({ ...latestStable, type: 'stable' })

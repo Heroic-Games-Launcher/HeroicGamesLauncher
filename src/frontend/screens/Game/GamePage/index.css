@@ -17,6 +17,11 @@
   align-items: flex-start;
   align-content: flex-start;
 
+  &:has(.UpdateComponent) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
   /*
   ** Adding icons to the MUI tabs makes them at least 72px high
   ** min-height is guaranteed by the min height of the tab parent element itself
@@ -25,7 +30,7 @@
 
   .MuiTab-labelIcon {
     min-height: unset;
-    align-items: flex-start;
+    align-items: center;
   }
 
   & > p {
@@ -289,8 +294,8 @@
             a {
               display: none;
               position: absolute;
-              bottom: 100%;
-              right: -10px;
+              bottom: 106%;
+              right: 0px;
               white-space: nowrap;
             }
 
@@ -650,7 +655,6 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: var(--space-md);
 
   .gameInfoTabs {
     align-items: center;
@@ -676,14 +680,6 @@
 
     .MuiTabs-flexContainer {
       border-bottom: none;
-    }
-  }
-
-  .tabButton {
-    border-radius: var(--space-lg);
-
-    & .MuiTabs-indicator {
-      display: none;
     }
   }
 

@@ -97,6 +97,12 @@
                 "error": "Spustitelný soubor Steamu nebyl nalezen. Instalace byla pravděpodobně zrušena uživatelem nebo selhala na straně Steamu.",
                 "message": "Instalace Steamu se nezdařila! Přečtěte si prosím pozorně pokyny a zkuste to znovu! {{paragraph}} {{error}}",
                 "title": "Chyba Steamu"
+            },
+            "executableNotFound": "Spustitelný soubor nebyl nalezen",
+            "executableNotFoundMessage": "Heroic nemohl najít spustitelný soubor pro tuto hru. Nastavte jej prosím ručně v nastavení hry.",
+            "dxmt": {
+                "message": "Chyba při stahování DXMT! Zkontrolujte připojení!",
+                "title": "Chyba při stahování DXMT"
             }
         },
         "info": {
@@ -367,7 +373,7 @@
         },
         "msync": "Msync má za cíl snížit režii wineserveru ve hrách náročných na výkon procesoru. Povolení může na podporovaných jádrech Linuxu zlepšit výkon.",
         "download_proton_steam": "Pokud je tato funkce povolena, bude GE-Proton stažen přímo do adresáře nástrojů kompatibility služby Steam namísto výchozí cesty k Heroic. Použije cestu ke službě Steam nastavenou ve výše uvedeném nastavení „Výchozí cesta ke službě Steam“.",
-        "dxfpslimit": "Nastavení limitu snímkové frekvence pro DXVK hry",
+        "dxfpslimit": "Nastaví omezení snímkové frekvence pro hry DirectX (9–12)",
         "advertiseAvxForRosetta": "Povoluje podporu instrukční sady AVX při spouštění her pro Windows prostřednictvím Rosetty na počítačích Apple Silicon Mac. To může být nutné u některých her, jako je Death Stranding, které podporu AVX vyžadují.",
         "wine-hdr": "HDR vylepšuje barvy tím, že poskytuje jasnější světla a hlubší kontrasty. Aby HDR fungovalo, musí jej podporovat jak displej, tak hra.",
         "wine-wayland": "Experimentální ovladač Wine-Wayland umožňuje spouštět hry nativně pod zobrazovacím protokolem Wayland. Jeho zapnutí může způsobit nefunkčnost některých her.",
@@ -432,7 +438,8 @@
         "gog": "Přihlášení s účtem GOG",
         "message": "Přihlaste se pomocí své platformy. Můžete se přihlásit k více platformám najednou.",
         "amazon": "Přihlášení s účtem Amazon",
-        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější."
+        "old-mac": "Verze vašeho systému macOS je {{version}}. Pro přihlášení je vyžadován macOS 12 nebo novější.",
+        "zoom": "Přihlášení přes Zoom"
     },
     "message": {
         "sync": "Synchronizace dokončena",
@@ -660,7 +667,8 @@
                 "delete": "Požádat o smazání souboru protokolu",
                 "error": {
                     "title": "Nahrání selhalo",
-                    "content": "Nepodařilo se nahrát soubor protokolu. Více podrobností viz obecný protokol Heroic"
+                    "content": "Nepodařilo se nahrát soubor protokolu. Více podrobností viz obecný protokol Heroic",
+                    "manual_upload": "Klikněte na tlačítko „ZOBRAZIT SOUBOR PROTOKOLU VE SLOŽCE“ a ručně nahrajte soubor „launch.log“ na Discord nebo jakoukoli online službu pro sdílení souborů."
                 },
                 "header": "Nahrány soubory protokolů",
                 "minutes-ago": "Nahráno {{minutesAgo, relativetime(minutes)}}",
@@ -684,7 +692,8 @@
                 "heroic": "Obecný protokol Heroic",
                 "game-log": "Protokol hry {{gameTitle}}",
                 "legendary": "Protokol Epic Games / Legendary",
-                "nile": "Protokol Amazon / Nile"
+                "nile": "Protokol Amazon / Nile",
+                "zoom": "Zoom log"
             },
             "show-uploads": "Zobrazit nahrané soubory protokolů"
         },
@@ -740,7 +749,8 @@
             "enableHelp": "Komponenta nápovědy",
             "automaticWinetricksFixes": "Automaticky použít známé opravy",
             "umuSupport": "Použít umu jako runtime Protonu",
-            "cometSupport": "Podpora Comet"
+            "cometSupport": "Podpora Comet",
+            "zoomPlatform": "Podpora platformy Zoom (pouze Linux)"
         },
         "disablePlaytimeSync": "Zakázat synchronizaci času hraní",
         "gamescope": {
@@ -748,7 +758,7 @@
             "enableUpscaling": "Povolí upscaling",
             "missingMsg": "Na PATHu jsme gamescope nenašli. Nainstalujte jej nebo jej přidejte do PATH.",
             "enableForceGrabCursor": "Povolit vynucení uchopení kurzoru",
-            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 24.08 a restartujte Heroic.",
+            "missingMsgFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime 25.08 a restartujte Heroic.",
             "warningFlatpak": "Nenašli jsme kompatibilní verzi Gamescope. Nainstalujte balíček flatpak Gamescope s runtime {{runtimeVersion}} a restartujte Heroic."
         },
         "frameless-window": {
@@ -800,12 +810,14 @@
                 "title": "Opravdu?",
                 "message": "Doporučujeme používat vlastní verze Proton (GE-Proton, Proton-CachyOS atd.) s Heroic, protože verze Proton od Valve neobsahují winetricks a protofixes. Pokud chcete, můžete je i tak použít."
             },
-            "label": "Povolit používání ne-GE Proton buildů pro spouštění her",
-            "wine_selector_warning": "Verze Protonu bez GE jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
+            "label": "Povolit spouštění her pomocí buildů Valve Proton",
+            "wine_selector_warning": "Verze Protonu od Valve jsou ve výchozím nastavení ignorovány, povolte je v pokročilých globálních nastaveních",
             "info_label": "Verze Valve Proton ignorovány"
         },
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
-        "WoW64": "Povolit WoW64 (experimentální)"
+        "WoW64": "Povolit WoW64 (experimentální)",
+        "scripts": "Skripty:",
+        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -842,7 +854,8 @@
             "sync": "Synchronizace uložených souborů",
             "wineExt": "Wine rozšíření",
             "systemInformation": "Systémové informace",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Zastaralé"
         },
         "open-config-file": "Otevřít soubor konfigurace",
         "reset-heroic": "Resetovat Heroic",
@@ -908,7 +921,9 @@
         },
         "custom_css": {
             "title": "Vlastní styl CSS"
-        }
+        },
+        "launchOptions": "Možnosti spuštění",
+        "legacy_warning": "Upozornění: Nastavení na této kartě jsou většinou zastaralá a nemusí vůbec fungovat."
     },
     "Settings": "Nastavení",
     "sidebar": {
@@ -973,7 +988,8 @@
             "unzipping": "Rozbalování"
         },
         "release": "Release Date",
-        "size": "Velikost"
+        "size": "Velikost",
+        "notes": "Poznámky"
     },
     "externalLink": {
         "dontAskAgain": "Už se neptat",
@@ -1108,5 +1124,10 @@
             "pt7": "Toto nastavení můžete kdykoli změnit v nastavení aplikace."
         },
         "title": "Odeslat anonymní statistiky"
+    },
+    "amazon-luna": "Amazon Luna",
+    "zoom-store": "Obchod Zoom",
+    "launch": {
+        "options": "Možnosti spuštění..."
     }
 }

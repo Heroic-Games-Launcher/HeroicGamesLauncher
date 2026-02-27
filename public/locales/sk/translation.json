@@ -844,7 +844,8 @@
         },
         "gamescope": {
             "searchMsg": "Hľadá sa spustiteľný súbor pre gamescope."
-        }
+        },
+        "launchOptions": "Možnosti spustenia..."
     },
     "Settings": "nastavenie",
     "sidebar": {
@@ -983,5 +984,8 @@
     "analyticsModal": {
         "disable": "Disable",
         "enable": "Enable"
+    },
+    "launch": {
+        "options": "Možnosti spustenia..."
     }
 }

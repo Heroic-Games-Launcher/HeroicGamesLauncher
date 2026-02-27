@@ -79,5 +79,8 @@ export const VirtualKeyboardController = {
   },
   space: () => {
     typeInInput(' ')
+  },
+  typeCharacter: (char: string) => {
+    typeInInput(char)
   }
 }

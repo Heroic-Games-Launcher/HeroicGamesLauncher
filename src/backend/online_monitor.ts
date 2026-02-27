@@ -126,6 +126,14 @@ export const initOnlineMonitor = () => {
   })
 }
 
+export const onConnectivityChange = (
+  callback: (status: ConnectivityStatus) => unknown
+) => {
+  connectivityEmitter.on('online', () => callback('online'))
+  connectivityEmitter.on('offline', () => callback('offline'))
+  connectivityEmitter.on('check-online', () => callback('check-online'))
+}
+
 export const runOnceWhenOnline = (callback: () => unknown) => {
   if (isOnline()) {
     callback()

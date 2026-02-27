@@ -1,4 +1,10 @@
-import { ExecResult, GameSettings, Runner, WineCommandArgs } from 'common/types'
+import {
+  ExecResult,
+  GameSettings,
+  Runner,
+  Tool,
+  WineCommandArgs
+} from 'common/types'
 
 import {
   existsSync,
@@ -48,23 +54,41 @@ import {
 } from '../utils/inet/downloader'
 import { getUmuPath, isUmuSupported } from 'backend/utils/compatibility_layers'
 import { toolsPath, userHome } from 'backend/constants/paths'
-import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import {
+  isIntelMac,
+  isLinux,
+  isMac,
+  isWindows
+} from 'backend/constants/environment'
+import './dxmt'
 
-interface Tool {
-  name: string
-  url: string
-  os: string
-  strip?: number
+type ReleasesResponse = {
+  assets: {
+    name: string
+    browser_download_url: string
+  }[]
 }
 
-async function installOrUpdateTool(tool: Tool) {
+export async function installOrUpdateTool(tool: Tool) {
   if (tool.os !== process.platform) return
 
+  console.log((await axiosClient.get<ReleasesResponse>(tool.url)).data)
   const {
     data: { assets }
-  } = await axiosClient.get(tool.url)
+  } = await axiosClient.get<ReleasesResponse>(tool.url)
 
-  const { name, browser_download_url: downloadUrl } = assets[0]
+  console.log(assets)
+  let asset = assets[0]
+  console.log(tool)
+  if (tool.name === 'dxvk-macOS' && asset.name.includes('-builtin')) {
+    // Do not use -builtin asset for dxvk macos
+    // TODO: implement proper use of the -builtin using the WINEDLLPATH_PREPEND
+    // env variable, check https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/pull/5342#issuecomment-3936553327
+    // for more details
+    asset = assets.find((asset) => asset.name.endsWith('repack.tar.gz'))!
+  }
+  const { name, browser_download_url: downloadUrl } = asset
+
   const latestVersion = name.replace('.tar.gz', '').replace('.tar.xz', '')
   const latestVersionArchivePath = `${toolsPath}/${tool.name}/${name}`
 
@@ -83,7 +107,7 @@ async function installOrUpdateTool(tool: Tool) {
 
   mkdirSync(join(toolsPath, tool.name), { recursive: true })
 
-  logInfo([`Updating ${tool.name} to:`, latestVersion], LogPrefix.DXVKInstaller)
+  logInfo([`Updating ${tool.name} to:`, latestVersion], LogPrefix.ToolInstaller)
 
   try {
     await downloadFile({
@@ -94,20 +118,34 @@ async function installOrUpdateTool(tool: Tool) {
   } catch (error) {
     logWarning(
       [`Error when downloading ${tool.name}`, error],
-      LogPrefix.DXVKInstaller
+      LogPrefix.ToolInstaller
     )
-    showDialogBoxModalAuto({
-      title: i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error'),
-      message: i18next.t(
+
+    let title = ''
+    let message = ''
+
+    if (tool.name === 'dxmt') {
+      title = i18next.t('box.error.dxmt.title', 'DXMT Download Error')
+      message = i18next.t(
+        'box.error.dxmt.message',
+        'Error downloading DXMT! Check your connection!'
+      )
+    } else {
+      title = i18next.t('box.error.dxvk.title', 'DXVK/VKD3D error')
+      message = i18next.t(
         'box.error.dxvk.message',
         'Error installing DXVK/VKD3D! Check your connection!'
-      ),
+      )
+    }
+    showDialogBoxModalAuto({
+      title,
+      message,
       type: 'ERROR'
     })
     return
   }
 
-  logInfo(`Downloaded ${tool.name}, extracting...`, LogPrefix.DXVKInstaller)
+  logInfo(`Downloaded ${tool.name}, extracting...`, LogPrefix.ToolInstaller)
 
   const extractDestination = join(toolsPath, tool.name, latestVersion)
   mkdirSync(extractDestination, { recursive: true })
@@ -120,7 +158,7 @@ async function installOrUpdateTool(tool: Tool) {
 
   if (extractResult.status === 'done') {
     writeFileSync(installedVersionStorage, latestVersion)
-    logInfo(`${tool.name} updated!`, LogPrefix.DXVKInstaller)
+    logInfo(`${tool.name} updated!`, LogPrefix.ToolInstaller)
   }
 }
 
@@ -132,7 +170,7 @@ export const DXVK = {
     if (!isOnline()) {
       logWarning(
         'App offline, skipping possible DXVK update.',
-        LogPrefix.DXVKInstaller
+        LogPrefix.ToolInstaller
       )
       return
     }
@@ -156,7 +194,10 @@ export const DXVK = {
       },
       {
         name: 'dxvk-macOS',
-        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        // url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/latest',
+        // TODO: go back to using latest once we implement the WINEDLLPATH_PREPEND
+        // env variable for dxvk-macos and dxmt
+        url: 'https://api.github.com/repos/Gcenx/DXVK-macOS/releases/tags/v1.10.3-20230507-repack',
         os: 'darwin'
       }
     ]
@@ -173,7 +214,16 @@ export const DXVK = {
       // we don't want to install dxvk on the toolkit prefix since it breaks Apple's implementation
       logWarning(
         'Skipping DXVK install on Game Porting Toolkit prefix!',
-        LogPrefix.DXVKInstaller
+        LogPrefix.ToolInstaller
+      )
+      return true
+    }
+
+    if (isMac && gameSettings.wineVersion.name.endsWith('-DXMT')) {
+      // we don't want to install dxvk if we use DXMT
+      logWarning(
+        'Skipping DXVK install on Wine Staging with DXMT!',
+        LogPrefix.ToolInstaller
       )
       return true
     }
@@ -189,7 +239,7 @@ export const DXVK = {
     if (!isValidPrefix) {
       logWarning(
         'DXVK cannot be installed on a Proton or a invalid prefix!',
-        LogPrefix.DXVKInstaller
+        LogPrefix.ToolInstaller
       )
       // will return true anyway because otherwise the toggle will be stuck and the prefix might just not be crated yet.
       return true
@@ -200,11 +250,11 @@ export const DXVK = {
     const is64bitPrefix = existsSync(`${winePrefix}/drive_c/windows/syswow64`)
 
     if (!is64bitPrefix) {
-      logWarning('32-bit prefix detected!', LogPrefix.DXVKInstaller)
+      logWarning('32-bit prefix detected!', LogPrefix.ToolInstaller)
     }
 
     if (!existsSync(`${toolsPath}/${tool}/latest_${tool}`)) {
-      logWarning('dxvk not found!', LogPrefix.DXVKInstaller)
+      logWarning('dxvk not found!', LogPrefix.ToolInstaller)
       await DXVK.getLatest()
     }
 
@@ -215,9 +265,12 @@ export const DXVK = {
     const toolPathx32 = `${toolsPath}/${tool}/${globalVersion}/${
       tool === 'vkd3d' ? 'x86' : 'x32'
     }`
+
     const dlls32 = readdirSync(toolPathx32)
+
     const toolPathx64 = `${toolsPath}/${tool}/${globalVersion}/x64`
     const dlls64 = readdirSync(toolPathx64)
+
     const currentVersionCheck = `${winePrefix}/current_${tool}`
     let currentVersion = ''
 
@@ -228,19 +281,19 @@ export const DXVK = {
     }
 
     if (action === 'restore') {
-      logInfo(`Removing ${tool} version information`, LogPrefix.DXVKInstaller)
+      logInfo(`Removing ${tool} version information`, LogPrefix.ToolInstaller)
       if (existsSync(currentVersionCheck)) {
         rm(currentVersionCheck, { force: true }, (err) => {
           if (err) {
             logError(
               [`Error removing ${tool} version information`, err],
-              LogPrefix.DXVKInstaller
+              LogPrefix.ToolInstaller
             )
           }
         })
       }
 
-      logInfo('Removing DLL overrides', LogPrefix.DXVKInstaller)
+      logInfo('Removing DLL overrides', LogPrefix.ToolInstaller)
 
       // unregister the dlls on the wine prefix
       if (is64bitPrefix) {
@@ -280,7 +333,7 @@ export const DXVK = {
         })
       })
 
-      logInfo('Removing DXVK DLLs', LogPrefix.DXVKInstaller)
+      logInfo('Removing DXVK DLLs', LogPrefix.ToolInstaller)
 
       // removing DXVK dlls
       let dllsToRemove
@@ -300,12 +353,12 @@ export const DXVK = {
         try {
           rmSync(dllFile)
         } catch (err) {
-          logError([`Error removing ${dllFile}`, err], LogPrefix.DXVKInstaller)
+          logError([`Error removing ${dllFile}`, err], LogPrefix.ToolInstaller)
         }
       })
 
       // Restore stock Wine libraries
-      logInfo('Restoring Wine stock DLLs', LogPrefix.DXVKInstaller)
+      logInfo('Restoring Wine stock DLLs', LogPrefix.ToolInstaller)
 
       await runWineCommand({
         gameSettings,
@@ -316,10 +369,10 @@ export const DXVK = {
       return true
     }
 
-    logInfo([`installing ${tool} on...`, prefix], LogPrefix.DXVKInstaller)
+    logInfo([`installing ${tool} on...`, prefix], LogPrefix.ToolInstaller)
 
     if (currentVersion === globalVersion) {
-      logInfo(`${tool} already installed!`, LogPrefix.DXVKInstaller)
+      logInfo(`${tool} already installed!`, LogPrefix.ToolInstaller)
       return true
     }
 
@@ -333,7 +386,7 @@ export const DXVK = {
             if (err) {
               logError(
                 [`Error when copying ${dll}`, err],
-                LogPrefix.DXVKInstaller
+                LogPrefix.ToolInstaller
               )
             }
           }
@@ -347,7 +400,7 @@ export const DXVK = {
             if (err) {
               logError(
                 [`Error when copying ${dll}`, err],
-                LogPrefix.DXVKInstaller
+                LogPrefix.ToolInstaller
               )
             }
           }
@@ -362,7 +415,7 @@ export const DXVK = {
             if (err) {
               logError(
                 [`Error when copying ${dll}`, err],
-                LogPrefix.DXVKInstaller
+                LogPrefix.ToolInstaller
               )
             }
           }
@@ -429,7 +482,7 @@ export const DXVK = {
                 if (err) {
                   logError(
                     [`Error when copying ${dll}`, err],
-                    LogPrefix.DXVKInstaller
+                    LogPrefix.ToolInstaller
                   )
                 }
               }
@@ -454,11 +507,11 @@ export const DXVK = {
         } else {
           logWarning(
             'Could not find nvngx.dll for DLSS!',
-            LogPrefix.DXVKInstaller
+            LogPrefix.ToolInstaller
           )
         }
       } catch (err) {
-        logError([`Error when finding nvngx.dll`, err], LogPrefix.DXVKInstaller)
+        logError([`Error when finding nvngx.dll`, err], LogPrefix.ToolInstaller)
       }
     }
 
@@ -466,7 +519,7 @@ export const DXVK = {
       if (err) {
         logError(
           [`Error when writing ${tool} version`, err],
-          LogPrefix.DXVKInstaller
+          LogPrefix.ToolInstaller
         )
       }
     })
@@ -578,7 +631,9 @@ export const Winetricks = {
         WINESERVER: wineServer,
         WINE: wineBin,
         WINE64: wineBin,
-        PATH: `/opt/homebrew/bin:${process.env.PATH}`
+        PATH: isIntelMac
+          ? `/opt/local/bin:/usr/local/bin:${process.env.PATH}`
+          : `/opt/local/bin:/opt/homebrew/bin:${process.env.PATH}`
       }
 
       const envs = isMac ? macEnvs : linuxEnvs
@@ -604,23 +659,7 @@ export const Winetricks = {
         }
       }, 1000)
 
-      // check if winetricks dependencies are installed
-      const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
-      dependencies.forEach(async (dependency) => {
-        try {
-          await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
-        } catch {
-          appendMessage(
-            `${dependency} not installed! Winetricks might fail to install some packages or even open`
-          )
-          logWarning(
-            [
-              `${dependency} not installed! Winetricks might fail to install some packages or even open`
-            ],
-            LogPrefix.WineTricks
-          )
-        }
-      })
+      Winetricks.checkDependencies(envs, appendMessage)
 
       logInfo(`Running ${winetricks} ${args.join(' ')}`, LogPrefix.WineTricks)
 
@@ -730,6 +769,30 @@ export const Winetricks = {
       installingComponent = ''
       sendFrontendMessage('installing-winetricks-component', '')
     }
+  },
+  checkDependencies: async (
+    envs: Record<string, string>,
+    appendMessage: (message: string) => void
+  ) => {
+    // check if winetricks dependencies are installed
+    const dependencies = ['7z', 'cabextract', 'zenity', 'unzip', 'curl']
+    const missingDeps: string[] = []
+    for (const dependency of dependencies) {
+      try {
+        await execAsync(`which ${dependency}`, { ...execOptions, env: envs })
+      } catch {
+        missingDeps.push(dependency)
+        const message = `${dependency} not installed! Winetricks might fail to install some packages or even open`
+        appendMessage(message)
+        logWarning([message], LogPrefix.WineTricks)
+      }
+    }
+
+    if (missingDeps.length > 0 && isMac) {
+      const message = `Check https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Using-Heroic-on-a-Mac-computer#winetricks-setup to install the missing dependencies.`
+      appendMessage(message)
+      logWarning([message], LogPrefix.WineTricks)
+    }
   }
 }
 
@@ -748,7 +811,7 @@ function getDxvkUrl(): string {
       // FIXME: How does the instance version matter? Even with 1.2, newer DXVK seems to work fine
       logWarning(
         'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
-        LogPrefix.DXVKInstaller
+        LogPrefix.ToolInstaller
       )
     }
     return 'https://api.github.com/repos/doitsujin/dxvk/releases/latest'
@@ -756,13 +819,13 @@ function getDxvkUrl(): string {
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
       'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3',
-      LogPrefix.DXVKInstaller
+      LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
   }
   logWarning(
     'No GPU with Vulkan 1.1 support found, DXVK will not work',
-    LogPrefix.DXVKInstaller
+    LogPrefix.ToolInstaller
   )
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
@@ -784,7 +847,7 @@ function getVkd3dUrl(): string {
       // FIXME: How does the instance version matter? Even with 1.2, newer VKD3D seems to work fine
       logWarning(
         'Vulkan 1.3 is supported by GPUs in this system, but instance version is outdated',
-        LogPrefix.DXVKInstaller
+        LogPrefix.ToolInstaller
       )
     }
     return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
@@ -792,13 +855,13 @@ function getVkd3dUrl(): string {
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
       'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6',
-      LogPrefix.DXVKInstaller
+      LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'
   }
   logWarning(
     'No GPU with Vulkan 1.1 support found, VKD3D will not work',
-    LogPrefix.DXVKInstaller
+    LogPrefix.ToolInstaller
   )
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend

@@ -59,6 +59,8 @@ import {
   refresh,
   updateGameInLibrary
 } from './library'
+import { isUmuSupported } from 'backend/utils/compatibility_layers'
+import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 
 import type LogWriter from 'backend/logger/log_writer'
 import { rm, writeFile } from 'node:fs/promises'
@@ -657,11 +659,20 @@ export async function launch(
     const startFolder = isAbsolute(executable)
       ? dirname(executable)
       : dirname(join(gameInfo.install.install_path, executable))
+
+    if (await isUmuSupported(gameSettings)) {
+      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+      if (umuId) {
+        commandEnv['GAMEID'] = umuId
+      }
+    }
+
     const result = await runWineCommand({
       commandParts: [basename(executable), ...commandParts],
       gameSettings,
       gameInstallPath: gameInfo.install.install_path,
       installFolderName: gameInfo.folder_name,
+      protonVerb: 'waitforexitandrun',
       startFolder,
       options: {
         env: { ...commandEnv, ...envVars },

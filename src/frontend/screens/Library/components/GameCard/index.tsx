@@ -101,8 +101,13 @@ const GameCard = ({
 
   const navigate = useNavigate()
 
-  const { hiddenGames, favouriteGames, showDialogModal, activeController } =
-    useContext(ContextProvider)
+  const {
+    hiddenGames,
+    favouriteGames,
+    showDialogModal,
+    activeController,
+    connectivity
+  } = useContext(ContextProvider)
   const { openGameSettingsModal, openGameLogsModal, openGameCategoriesModal } =
     useGlobalState.keys(
       'openGameSettingsModal',
@@ -126,12 +131,12 @@ const GameCard = ({
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
 
-  const [progress, previousProgress] = hasProgress(appName)
+  const [progress, previousProgress] = hasProgress(appName, runner)
   const { install_size: size = '0' } = {
     ...gameInstallInfo
   }
 
-  const { status, folder, label } = hasStatus(appName, gameInfo, size)
+  const { status, folder, label } = hasStatus(gameInfo, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
 
@@ -418,6 +423,8 @@ const GameCard = ({
   }
 
   const showSettingsButton = isInstalled && !isUninstalling && !isBrowserGame
+  const showUpdateBadge =
+    hasUpdate && !isUpdating && !isQueued && activeController
 
   return (
     <div>
@@ -436,6 +443,11 @@ const GameCard = ({
           data-tour={dataTour}
         >
           {haveStatus && <span className="gameCardStatus">{label}</span>}
+          {showUpdateBadge && (
+            <span className="gameCardUpdateBadge">
+              {t('status.hasUpdates')}
+            </span>
+          )}
           <Link
             to={`/gamepage/${runner}/${appName}`}
             state={{ gameInfo }}
@@ -545,13 +557,17 @@ const GameCard = ({
 
     if (isInstalled) {
       setIsLaunching(true)
-      return launch({
+      const isOffline = connectivity.status !== 'online'
+      const notPlayableOffline = isOffline && !gameInfo.canRunOffline
+      await launch({
         appName,
         t,
         runner,
         hasUpdate,
-        showDialogModal
+        showDialogModal,
+        notPlayableOffline
       })
+      setIsLaunching(false)
     }
     return
   }

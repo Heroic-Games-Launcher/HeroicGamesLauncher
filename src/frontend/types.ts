@@ -41,7 +41,6 @@ export interface ContextType {
   isIntelMac: boolean
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: {
@@ -94,6 +93,7 @@ export interface ContextType {
     username?: string
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
+    enabled: boolean
   }
   installingEpicGame: boolean
   allTilesInColor: boolean
@@ -135,6 +135,8 @@ export type DialogModalOptions = {
   message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
   type?: DialogType
+  className?: string
+  onClose?: () => void
 }
 
 export interface ExternalLinkDialogOptions {
@@ -285,6 +287,7 @@ export interface GameContextType {
     uninstalling: boolean
     updating: boolean
     win: boolean
+    notPlayableOffline: boolean
   }
   statusContext?: string
   status: Status | undefined

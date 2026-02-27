@@ -19,6 +19,7 @@
   font-size: var(--text-lg);
   padding: var(--space-xs-fixed);
   text-align: start;
+  white-space: nowrap;
 }
 
 /* using max and min width on purpose, width doesn't work as expected on these */

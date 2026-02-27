@@ -47,7 +47,11 @@
         },
         "wineprefix": "Vyberte Priečinok WinePrefix",
         "yes": "ÁNO",
-        "close": "Zatvoriť"
+        "close": "Zatvoriť",
+        "warning": {
+            "title": "Warning"
+        },
+        "ok": "Ok"
     },
     "button": {
         "add_to_favourites": "Pridať do obľúbených",
@@ -189,7 +193,8 @@
         "gog": "Nie ste prihlásený s účtom GOG v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:",
         "login": "Prihlásiť sa",
         "title": "NIE STE PRIHLÁSENÝ",
-        "amazon": "Nie ste prihlásený s účtom Amazon v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:"
+        "amazon": "Nie ste prihlásený s účtom Amazon v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:",
+        "zoom": "Nie ste prihlásený s účtom GOG v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:"
     },
     "report_problem": "Nahlásiť problém so spustením tejto hry",
     "sdl": {

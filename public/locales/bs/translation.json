@@ -652,7 +652,8 @@
         },
         "systemInformation": {
             "copyToClipboard": "Kopirano u međuspremnik!"
-        }
+        },
+        "launchOptions": "Opcije za pokretanje..."
     },
     "Settings": "Postavke",
     "sidebar": {
@@ -747,5 +748,8 @@
     "analyticsModal": {
         "disable": "Onemogućeno",
         "enable": "Omogućeno"
+    },
+    "launch": {
+        "options": "Opcije za pokretanje..."
     }
 }

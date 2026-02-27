@@ -570,9 +570,13 @@ function loadFile(app_name: string): boolean {
       : customAttributes?.CloudSaveFolder?.value) ?? ''
   const installFolder = FolderName ? FolderName.value : app_name
 
-  const gameBox = keyImages.find(({ type }) => type === 'DieselGameBox')
+  const gameBox = keyImages.find(
+    ({ type }) => type === 'DieselGameBox' || type === 'OfferImageWide'
+  )
 
-  const gameBoxTall = keyImages.find(({ type }) => type === 'DieselGameBoxTall')
+  const gameBoxTall = keyImages.find(
+    ({ type }) => type === 'DieselGameBoxTall' || type === 'OfferImageTall'
+  )
 
   const gameBoxStore = keyImages.find(
     ({ type }) => type === 'DieselStoreFrontTall'

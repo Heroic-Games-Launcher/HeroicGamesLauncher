@@ -3,12 +3,13 @@ description: 'Installs dependencies (Node itself, node_modules, node-gyp, helper
 runs:
   using: 'composite'
   steps:
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - uses: pnpm/action-setup@v3
+    - uses: pnpm/action-setup@v4
       with:
         standalone: ${{ runner.os == 'Windows' }}
+    - uses: actions/setup-node@v6
+      with:
+        node-version-file: 'package.json'
+        cache: 'pnpm'
     - name: Install node-gyp
       run: pnpm add --global node-gyp
       shell: bash

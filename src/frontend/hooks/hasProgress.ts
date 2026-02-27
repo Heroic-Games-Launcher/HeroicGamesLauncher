@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react'
-import { GameStatus, InstallProgress } from 'common/types'
+import { useCallback, useEffect, useState } from 'react'
+import { InstallProgress, Runner } from 'common/types'
+import { useInstallProgress } from 'frontend/state/InstallProgress'
 
 const storage: Storage = window.localStorage
 
-export const hasProgress = (appName: string) => {
-  const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
-  ) as InstallProgress
+export const hasProgress = (appName: string, runner: Runner) => {
+  const [previousProgress] = useState<InstallProgress>(
+    JSON.parse(
+      storage.getItem(`${appName}_${runner}_progress`) || '{}'
+    ) as InstallProgress
+  )
 
-  const [progress, setProgress] = useState<InstallProgress>(
+  const [currentProgress, setProgress] = useState<InstallProgress>(
     previousProgress ?? {
       bytes: '0.00MB',
       eta: '00:00:00',
@@ -16,38 +19,41 @@ export const hasProgress = (appName: string) => {
     }
   )
 
-  const calculatePercent = (currentProgress: InstallProgress) => {
-    // current/100 * (100-heroic_stored) + heroic_stored
-    if (currentProgress.percent && previousProgress.percent) {
-      const currentPercent = currentProgress.percent
-      const storedPercent = previousProgress.percent
-      const newPercent: number = Math.round(
-        (currentPercent / 100) * (100 - storedPercent) + storedPercent
-      )
-      return newPercent
-    }
-    return currentProgress.percent
-  }
+  const calculatePercent = useCallback(
+    (newProgress: InstallProgress) => {
+      // current/100 * (100-heroic_stored) + heroic_stored
+      if (newProgress.percent && previousProgress.percent) {
+        const currentPercent = newProgress.percent
+        const storedPercent = previousProgress.percent
+        const newPercent: number = Math.round(
+          (currentPercent / 100) * (100 - storedPercent) + storedPercent
+        )
+        return newPercent
+      }
+      return newProgress.percent
+    },
+    [previousProgress]
+  )
+
+  const installationProgress = useInstallProgress(
+    (state) => state[`${appName}_${runner}`]
+  )
 
   useEffect(() => {
-    const handleProgressUpdate = async (
-      _e: Electron.IpcRendererEvent,
-      { appName: appWithProgress, progress: currentProgress }: GameStatus
-    ) => {
-      if (appName === appWithProgress && currentProgress) {
+    if (installationProgress) {
+      if (currentProgress.percent !== installationProgress.percent)
         setProgress({
-          ...currentProgress,
-          percent: calculatePercent(currentProgress)
+          ...installationProgress,
+          percent: calculatePercent(installationProgress)
         })
-      }
     }
-    const setGameStatusRemoveListener =
-      window.api.onProgressUpdate(handleProgressUpdate)
+  }, [
+    installationProgress,
+    appName,
+    runner,
+    calculatePercent,
+    currentProgress.percent
+  ])
 
-    return () => {
-      setGameStatusRemoveListener()
-    }
-  }, [appName])
-
-  return [progress, previousProgress]
+  return [currentProgress, previousProgress]
 }

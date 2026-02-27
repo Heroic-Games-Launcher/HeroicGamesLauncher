@@ -111,6 +111,7 @@ export default React.memo(function DownloadManager(): JSX.Element | null {
           <ProgressHeader
             state={state}
             appName={currentElement?.params?.appName ?? ''}
+            runner={currentElement?.params?.runner ?? 'legendary'}
           />
           {currentElement && (
             <div className="downloadManager">

@@ -59,7 +59,8 @@ export const initGamepad = () => {
     leftClick: { triggeredAt: {}, repeatDelay: false },
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
-    shiftTab: { triggeredAt: {}, repeatDelay: false }
+    shiftTab: { triggeredAt: {}, repeatDelay: false },
+    keyboardClick: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
@@ -122,8 +123,7 @@ export const initGamepad = () => {
           } else if (isGameCard()) {
             action = 'mainAction'
           } else if (VirtualKeyboardController.isButtonFocused()) {
-            // simulate a left click on a virtual keyboard button
-            action = 'leftClick'
+            action = 'keyboardClick'
           } else if (isTextInput()) {
             // open virtual keyboard if focusing a text input
             VirtualKeyboardController.initOrFocus()
@@ -137,6 +137,9 @@ export const initGamepad = () => {
             return
           } else if (insideDialog()) {
             closeDialog()
+            return
+          } else if (insideDropdown()) {
+            closeDropdown()
             return
           } else if (isSelect()) {
             // closes the select dropdown and re-focus element
@@ -203,6 +206,13 @@ export const initGamepad = () => {
 
       if (action === 'mainAction') {
         currentElement()?.click()
+      } else if (action === 'keyboardClick') {
+        // we have to do this for the keyboard because:
+        // simulated clicks break when zoomed in
+        // normal `.click()` calls don't work because the buttons are divs
+        const button = currentElement()
+        const buttonCode = button?.dataset.skbtn
+        if (buttonCode) VirtualKeyboardController.typeCharacter(buttonCode)
       } else {
         // we have to tell Electron to simulate key presses
         // so the spatial navigation works
@@ -353,6 +363,31 @@ export const initGamepad = () => {
     if (!closeButton) return false
 
     closeButton.click()
+
+    return true
+  }
+
+  function insideDropdown() {
+    const el = currentElement()
+    if (!el) return false
+
+    return !!el.closest('.dropdown')
+  }
+
+  function closeDropdown() {
+    const el = currentElement()
+    if (!el) return false
+
+    const dropdown = el.closest('.dropdownContainer')
+    if (!dropdown) return false
+
+    const closeButton =
+      dropdown.querySelector<HTMLButtonElement>('.dropdownButton')
+    if (!closeButton) return false
+
+    // close selection, return focus to button
+    closeButton.click()
+    closeButton.focus()
 
     return true
   }

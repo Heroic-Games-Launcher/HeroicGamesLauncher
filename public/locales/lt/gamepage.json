@@ -29,7 +29,8 @@
             "message": "Šis žaidimas turi galimą atnaujinimą, pritaikyti šį atnaujinimą dabar?"
         },
         "select": {
-            "button": "Pažymėti"
+            "button": "Pažymėti",
+            "image": "Pasirinkite atvaizdžio failą"
         },
         "importpath": "Pasirinkti žaidimo aplanką, kurį importuoti",
         "repair": {
@@ -48,7 +49,11 @@
             "title": "Stabdyti įdiegimą"
         },
         "wineprefix": "Pasirinkti „Wine“ prielinksnio/priešdėlio aplanką",
-        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią"
+        "select-install-path": "Pasirinkite „Steam“ įdiegties kelią",
+        "warning": {
+            "title": "Įspėjimas"
+        },
+        "ok": "GERAI"
     },
     "button": {
         "add_to_favourites": "Pridėti prie mėgstamiausių",
@@ -248,14 +253,16 @@
         "winetricks": "Pritaikomi „Winetricks“ sutaisymai",
         "gog-goodie": "Šis žaidimas neatrodo įdiegiamas. Patikrinkite/Peržiūrėkite atsisiunčiama turinį – https://gog.com/account",
         "this-game-uses-third-party": "Šis žaidimas naudoja trečios šalies paleidiklį, o jis nėra palaikomas (kol kas)",
-        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)"
+        "redist": "Įdiegiami įterptiniai taikomieji komponentai („{{redist}}“)",
+        "importing": "Importuoti"
     },
     "not_logged_in": {
         "login": "Prisijungti",
         "title": "Jūs nesate prisijungę",
         "amazon": "Jūs nesate prisijungę su „Amazon“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
         "epic": "Jūs nesate prisijungę su „Epic“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
-        "gog": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:"
+        "gog": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:",
+        "zoom": "Jūs nesate prisijungę su „GOG“ paskyrą prie „Heroic“. Nenaudokite parduotuvės puslapio, kad prisijungtumėte, vietoj to, paspauskite šį mygtuką:"
     },
     "setting": {
         "show-wine-settings": "Rodyti „Wine“ nustatymus",
@@ -282,7 +289,8 @@
         "enableEosOverlay": "Įjungti „EOS“ uždangą"
     },
     "launch": {
-        "options": "Paleidimo parinktys..."
+        "options": "Paleidimo parinktys...",
+        "default": "~Numatytasis"
     },
     "disabled": "Išjungta/Neįgalinta (-as/-i)",
     "enabled": "Įjungta/Įgalinta (-as/-i)",

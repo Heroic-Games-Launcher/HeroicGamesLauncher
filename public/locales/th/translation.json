@@ -1,0 +1,122 @@
+{
+    "accessibility": {
+        "actions_font_family_default": "เลือกชุด Font (Default: {{fontFamily}})",
+        "all_tiles_in_color": "แสดงเกมทั้งหมดในสี",
+        "content_font_family_default": "ชุด Font Content (Default: {{fontFamily}})",
+        "disable_animations": "ปิด UI เคลื่อนไหว"
+    },
+    "analyticsModal": {
+        "disable": "ปิดใช้งานแล้ว",
+        "enable": "เปิดใช้งาน"
+    },
+    "box": {
+        "choose": "เลือก",
+        "error": {
+            "generic": {
+                "title": "เลือกไฟล์ EXE ที่จะรัน"
+            }
+        },
+        "runexe": {
+            "title": "เลือกไฟล์ EXE ที่จะรัน"
+        },
+        "select": {
+            "button": "เลิอก"
+        },
+        "update": "อัปเดต",
+        "yes": "ใช่"
+    },
+    "button": {
+        "login": "เข้าสู่ระบบ"
+    },
+    "controller": {
+        "hints": {
+            "select": "เลิอก"
+        }
+    },
+    "dlc": {
+        "size": "ขนาด"
+    },
+    "docs": "การบันทึกข้อมูล",
+    "download-manager": {
+        "install-type": {
+            "install": "ติดตั้ง",
+            "update": "อัปเดต"
+        }
+    },
+    "game": {
+        "modify": "ปรับแต่งการติดตั้ง"
+    },
+    "header": {
+        "categories": "หมวดหมู่"
+    },
+    "help": {
+        "title": {
+            "settings": "การตั้งค่า"
+        }
+    },
+    "infobox": {
+        "requirements": "## ข้อกำหนดของระบบ"
+    },
+    "label": {
+        "loading": "กำลังโหลด…"
+    },
+    "loading": {
+        "default": "กำลังโหลด…"
+    },
+    "notify": {
+        "finished": {
+            "add": {
+                "steam": {
+                    "title": "เพิ่มไปยัง Steam"
+                }
+            },
+            "remove": {
+                "steam": {
+                    "title": "ลบออกจาก Steam"
+                }
+            }
+        },
+        "uninstalled": "ถอนการติดตั้ง"
+    },
+    "queue": {
+        "label": {
+            "downloading": "กำลังดาวน์โหลด"
+        }
+    },
+    "setting": {
+        "eosOverlay": {
+            "disable": "ปิดใช้งานแล้ว",
+            "enable": "เปิดใช้งาน",
+            "install": "ติดตั้ง",
+            "remove": "ถอนการติดตั้ง",
+            "updateNow": "อัปเดต",
+            "updating": "กำลังอัปเดต"
+        },
+        "library_top_option": {
+            "disabled": "ปิดใช้งานแล้ว"
+        }
+    },
+    "settings": {
+        "advanced": {
+            "details": "รายละเอียด"
+        }
+    },
+    "Settings": "การตั้งค่า",
+    "status": {
+        "installing": "กำลังติดตั้ง"
+    },
+    "tray": {
+        "about": "เกี่ยวกับ"
+    },
+    "window": {
+        "close": "ปิด"
+    },
+    "wine": {
+        "size": "ขนาด"
+    },
+    "winetricks": {
+        "install": "ติดตั้ง",
+        "loading": "กำลังโหลด…"
+    },
+    "store": "ร้านค้า Epic ที่นี่"
+}

@@ -149,17 +149,16 @@ Heroic is available on Flathub, so you should be able to easily install it on mo
 
 #### Distribution-specific instructions
 
-If you're not using the Flatpak version, make sure you have all Wine dependencies installed:
-[Wine Dependencies](https://github.com/lutris/docs/blob/master/WineDependencies.md).
+If you're not using the Flatpak version, keep GE-Proton as your Wine runner. With umu enabled by default, no additional Wine dependencies are required.
 
 #### Debian, Ubuntu and Derivatives
 
 Download the file ending in .deb from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest).  
-Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Heroic_*_amd64.deb` to install it directly.
+Double-click it to open it up in your Software Manager, or run `sudo dpkg -i Heroic*amd64.deb` to install it directly.
 
 #### Arch (AUR)
 
-We currently only support one AUR package: `heroic-games-launcher-bin`. Although you might find other packages there, do not ask support for them on this Github or on our Discord, ask their maintainers directly.
+We currently only support one AUR package: `heroic-games-launcher-bin`. Although you might find other packages there, do not ask support for them on this GitHub or on our Discord, ask their maintainers directly.
 
 - [![Stable version badge](https://img.shields.io/aur/version/heroic-games-launcher-bin?style=flat&label=heroic-games-launcher-bin)](https://aur.archlinux.org/packages/heroic-games-launcher-bin)  
   (stable release, recommended)
@@ -168,14 +167,9 @@ Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository
 
 #### Fedora
 
-##### COPR repo
+You can download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`.
 
-Heroic for Fedora is available on [this COPR repo](https://copr.fedorainfracloud.org/coprs/atim/heroic-games-launcher/).  
-Enable it with `sudo dnf copr enable atim/heroic-games-launcher`, then install Heroic with `sudo dnf install heroic-games-launcher-bin`
-
-##### Binary package from the releases page
-
-You can alternatively download the file ending in .rpm from the [latest release](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest) and install it with `sudo dnf install ./heroic-*.x86_64.rpm`
+Alternatively, you can use the Flatpak package.
 
 #### Nix(OS)
 
@@ -319,3 +313,25 @@ Thanks [Signpath](https://signpath.io/?utm_source=foundation&utm_medium=github&u
 - URL: https://thoseawesomeguys.com/prompts/
 
 [![jump](https://img.shields.io/badge/Back%20to%20top-%20?style=flat&color=grey&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjRweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTQgMTJsMS40MSAxLjQxTDExIDcuODNWMjBoMlY3LjgzbDUuNTggNS41OUwyMCAxMmwtOC04LTggOHoiLz48L3N2Zz4=)](#heroic-games-launcher)
+
+### Tools We Use to Run Games
+
+Heroic would not be possible without the work done in many other projects:
+
+- Legendary: https://github.com/derrod/legendary (we use [a fork of it](https://github.com/Heroic-Games-Launcher/legendary))
+- GOGdl: https://github.com/Heroic-Games-Launcher/heroic-gogdl
+- Nile: https://github.com/imLinguin/nile
+- Comet: https://github.com/imLinguin/comet
+- GE-Proton: https://github.com/GloriousEggroll/proton-ge-custom
+- umu-launcher: https://github.com/Open-Wine-Components/umu-launcher
+- DXVK: https://github.com/doitsujin/dxvk
+- VKD3D: https://github.com/HansKristian-Work/vkd3d-proton
+- Game-Porting-Toolkit: https://github.com/Gcenx/game-porting-toolkit
+- Wine-Staging: https://github.com/Gcenx/macOS_Wine_builds
+- Wine-Crossover: https://github.com/Gcenx/winecx
+- DXVK-MacOS: https://github.com/Gcenx/DXVK-macOS
+- DXMT: https://github.com/3Shain/dxmt
+- Heroic-Epic integration exe: https://github.com/Etaash-mathamsetty/heroic-epic-integration
+- vulkan helper: https://github.com/imLinguin/vulkan-helper-rs
+
+So be sure to follow and support those projects too!

@@ -25,7 +25,8 @@ import {
   epicCategories,
   gogCategories,
   sideloadedCategories,
-  zoomCategories
+  zoomCategories,
+  normalizeTitle
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
@@ -38,6 +39,12 @@ import AlphabetFilter from './components/AlphabetFilter'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 const storage = window.localStorage
+
+type SearchableGame = {
+  original: GameInfo
+  title: string
+  normalizedTitle: string
+}
 
 export default React.memo(function Library(): JSX.Element {
   const { t } = useTranslation()
@@ -86,7 +93,7 @@ export default React.memo(function Library(): JSX.Element {
       gog: gogCategories.includes(storedCategory),
       nile: amazonCategories.includes(storedCategory),
       sideload: sideloadedCategories.includes(storedCategory),
-      zoom: zoomCategories.includes(storedCategory)
+      zoom: zoom.enabled && zoomCategories.includes(storedCategory)
     }
   }
 
@@ -237,16 +244,19 @@ export default React.memo(function Library(): JSX.Element {
 
   // bind back to top button
   useEffect(() => {
-    if (backToTopElement.current) {
-      window.addEventListener('scroll', () => {
-        const btn = document.getElementById('backToTopBtn')
-        const topSpan = document.getElementById('top')
-        if (btn && topSpan) {
-          btn.style.visibility = window.scrollY > 450 ? 'visible' : 'hidden'
-        }
-      })
+    const btn = document.getElementById('backToTopBtn')
+    const topSpan = document.getElementById('top')
+
+    const scrollCallback = () => {
+      if (btn && topSpan) {
+        btn.style.visibility =
+          document.body.scrollTop > 450 ? 'visible' : 'hidden'
+      }
     }
-  }, [backToTopElement])
+
+    document.body.addEventListener('scroll', scrollCallback)
+    return () => document.body.removeEventListener('scroll', scrollCallback)
+  }, [])
 
   const backToTop = () => {
     const anchor = document.getElementById('top')
@@ -377,7 +387,8 @@ export default React.memo(function Library(): JSX.Element {
     epic,
     gog,
     amazon,
-    sideloadedLibrary
+    sideloadedLibrary,
+    zoom
   ])
 
   const favouritesIds = useMemo(() => {
@@ -508,16 +519,26 @@ export default React.memo(function Library(): JSX.Element {
     // filter
     try {
       const filteredLibrary = filterByPlatform(library)
+      const searchableLibrary: SearchableGame[] = filteredLibrary.map(
+        (game) => ({
+          original: game,
+          title: game.title,
+          normalizedTitle: normalizeTitle(game.title)
+        })
+      )
+
       const options = {
         minMatchCharLength: 1,
         threshold: 0.4,
         useExtendedSearch: true,
-        keys: ['title']
+        keys: ['title', 'normalizedTitle']
       }
-      const fuse = new Fuse(filteredLibrary, options)
+      const fuse = new Fuse(searchableLibrary, options)
 
       if (filterText) {
-        const fuzzySearch = fuse.search(filterText).map((game) => game?.item)
+        const fuzzySearch = fuse
+          .search(filterText)
+          .map((result) => result.item.original)
         library = fuzzySearch
       } else {
         library = filteredLibrary
@@ -727,7 +748,7 @@ export default React.memo(function Library(): JSX.Element {
 
         {showAlphabetFilter && <AlphabetFilter />}
 
-        {refreshing && !refreshingInTheBackground && <UpdateComponent inline />}
+        {refreshing && !refreshingInTheBackground && <UpdateComponent />}
 
         {libraryToShow.length === 0 && <EmptyLibraryMessage />}
 
