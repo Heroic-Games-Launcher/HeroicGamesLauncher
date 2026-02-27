@@ -10,7 +10,7 @@ interface SGDBResponse<T> {
   errors?: string[]
 }
 
-const userAgent = `'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
+const userAgent = `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
 
 /**
  * Search for a game using autocomplete.
