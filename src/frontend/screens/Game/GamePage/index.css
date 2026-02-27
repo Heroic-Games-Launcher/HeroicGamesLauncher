@@ -456,6 +456,9 @@
 
             img {
               border-radius: var(--space-3xs);
+              height: 100%;
+              width: auto;
+              object-fit: cover;
             }
             &.rarity-epic {
               box-shadow: 0 0 4px gold;
