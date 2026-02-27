@@ -7,7 +7,7 @@ import {
   TypeCheckedStore,
   UnknownGuard
 } from 'common/types/electron_store'
-import { GameAchievement, GameInfo } from 'common/types'
+import { GameInfo } from 'common/types'
 
 export class TypeCheckedStoreFrontend<
   Name extends ValidStoreName
@@ -138,11 +138,6 @@ const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
   cwd: 'gog_store'
 })
 
-const achievementStore = new CacheStore<GameAchievement[]>(
-  'achievementStore',
-  null
-)
-
 const zoomLibraryStore = new CacheStore<GameInfo[], 'games'>(
   'zoom_library',
   null
@@ -186,7 +181,6 @@ export {
   gogLibraryStore,
   gogInstalledGamesStore,
   gogConfigStore,
-  achievementStore,
   libraryStore,
   timestampStore,
   sideloadLibrary,

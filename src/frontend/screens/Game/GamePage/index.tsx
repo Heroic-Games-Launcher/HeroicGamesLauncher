@@ -74,7 +74,6 @@ import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import Achievements from './components/Achievements'
-import { achievementStore } from 'frontend/helpers/electronStores'
 import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 
 export default React.memo(function GamePage(): JSX.Element | null {
@@ -117,10 +116,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
   )
-  const [achievements, setAchievements] = useState<GameAchievement[]>(
-    achievementStore.get(appName, [])
-  )
-  const hasAchievements = achievements.length > 0
+  const [achievements, setAchievements] = useState<GameAchievement[]>([])
+  const hasAchievements = achievements && achievements.length > 0
   const achievementPercentage = Math.round(
     (achievements.filter((x) => x.date_unlocked).length / achievements.length) *
       100
@@ -179,9 +176,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateAchievements = async () => {
       window.api.clearAchievementCache(appName)
-      const updatedAchievements = await window.api.getAchievements(appName)
-      setAchievements(updatedAchievements)
-      achievementStore.set(appName, updatedAchievements)
+      setAchievements(await window.api.getAchievements(appName))
     }
     if (!isPlaying && !skipFirst.current) updateAchievements()
     skipFirst.current = false
