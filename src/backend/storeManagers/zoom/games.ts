@@ -7,7 +7,7 @@ import {
   sendProgressUpdate,
   sendGameStatusUpdate
 } from '../../utils'
-import { join, relative, dirname, basename } from 'node:path'
+import { join, relative, dirname, basename, isAbsolute } from 'node:path'
 import * as fs from 'fs'
 import axios, { AxiosProgressEvent } from 'axios'
 import { createWriteStream } from 'node:fs'
@@ -19,14 +19,12 @@ import {
   ExecResult,
   InstallArgs,
   InstalledInfo,
-  InstallProgress,
   LaunchOption,
   InstallPlatform
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import { installedGamesStore, libraryStore } from './electronStores'
 import {
-  logDebug,
   logError,
   logInfo,
   LogPrefix,
@@ -65,6 +63,7 @@ import { isUmuSupported } from 'backend/utils/compatibility_layers'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 
 import type LogWriter from 'backend/logger/log_writer'
+import { rm, writeFile } from 'node:fs/promises'
 
 async function findDosboxExecutable(dir: string): Promise<string | undefined> {
   let list: fs.Dirent[]
@@ -173,21 +172,6 @@ export async function importGame(
   return { stdout: '', stderr: 'Import not fully implemented' }
 }
 
-interface tmpProgressMap {
-  [key: string]: InstallProgress
-}
-
-function defaultTmpProgress() {
-  return {
-    bytes: '',
-    eta: '',
-    percent: undefined,
-    diskSpeed: undefined,
-    downSpeed: undefined
-  }
-}
-const tmpProgress: tmpProgressMap = {}
-
 export function onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
@@ -195,38 +179,9 @@ export function onInstallOrUpdateOutput(
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   totalDownloadSize = -1
 ) {
-  if (!Object.hasOwn(tmpProgress, appName)) {
-    tmpProgress[appName] = defaultTmpProgress()
-  }
-  const progress = tmpProgress[appName]
-
-  // This part needs to be adapted to parse output from the actual installer.
-  // For now, it's a placeholder.
-  logDebug(`Installer output for ${appName}: ${data}`, LogPrefix.Zoom)
-
-  // Simulate progress for now
-  if (progress.percent === undefined) {
-    progress.percent = 0
-  }
-  progress.percent += 1 // Increment for testing purposes
-  if (progress.percent > 100) {
-    progress.percent = 100
-  }
-  progress.bytes = 'N/A'
-  progress.eta = 'N/A'
-  progress.downSpeed = 0
-  progress.diskSpeed = 0
-
-  sendProgressUpdate({
-    appName: appName,
-    runner: 'zoom',
-    status: action,
-    progress: progress
-  })
-
-  if (progress.percent === 100) {
-    tmpProgress[appName] = defaultTmpProgress()
-  }
+  logWarning(
+    `onInstallOrUpdateOutput not implemented on Zoom Game Manager. called for appName = ${appName}`
+  )
 }
 
 export async function install(
@@ -267,11 +222,13 @@ export async function install(
   const installerUrl = installers[0].url
   const installerFilename = installers[0].filename
   const installerSize = installers[0].size
+  const installPath = join(path, gameInfo.folder_name)
+  const downloadRoot = join(path, '.zoom-download')
+  const infFilePath = join(downloadRoot, 'zoom_installer.inf')
+  const downloadPath = join(downloadRoot, installerFilename)
 
-  const downloadPath = join(path, gameInfo.folder_name, installerFilename)
-
-  // Create game directory
-  fs.mkdirSync(join(path, gameInfo.folder_name), { recursive: true })
+  // Create temp directory
+  fs.mkdirSync(downloadRoot, { recursive: true })
 
   // Download the installer
   logInfo(
@@ -282,15 +239,17 @@ export async function install(
     const response = await axios.get(installerUrl, {
       responseType: 'stream',
       onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-        const percent = progressEvent.progress
-          ? Math.round(progressEvent.progress * 100)
-          : undefined
-        onInstallOrUpdateOutput(
+        sendProgressUpdate({
           appName,
-          'installing',
-          `Progress: ${percent}%`,
-          parseSize(installerSize)
-        )
+          progress: {
+            bytes: progressEvent.bytes.toString(),
+            eta: '',
+            downSpeed: progressEvent.rate,
+            percent: (progressEvent.progress || 0) * 100,
+            file: downloadPath
+          },
+          status: 'installing'
+        })
       }
     })
 
@@ -326,15 +285,15 @@ export async function install(
         '-xf',
         downloadPath,
         '-C',
-        join(path, gameInfo.folder_name)
+        installPath
       ])
-      let gamePath = join(path, gameInfo.folder_name)
-      const files = await fs.promises.readdir(join(path, gameInfo.folder_name))
+      let gamePath = installPath
+      const files = await fs.promises.readdir(installPath)
       const gameDir = files.find((f) =>
         fs.statSync(join(path, gameInfo.folder_name!, f)).isDirectory()
       )
       if (gameDir) {
-        gamePath = join(path, gameInfo.folder_name, gameDir)
+        gamePath = join(installPath, gameDir)
       }
 
       const exe = join(gamePath, 'start.sh')
@@ -345,23 +304,36 @@ export async function install(
     } else {
       await fs.promises.chmod(executable, '755')
       installResult = await spawnAsync(executable, [], {
-        cwd: join(path, gameInfo.folder_name)
+        cwd: installPath
       })
     }
   } else {
     // windows
     // For Windows, use runWineCommand
     const gameSettings = await getSettings(appName)
-    const winePrefix = gameSettings.winePrefix
-    const zoomPlatformPath = join(winePrefix, 'drive_c', 'ZOOM PLATFORM')
-    if (fs.existsSync(zoomPlatformPath)) {
-      confFilesBefore = await findConfFiles(zoomPlatformPath)
+    await writeFile(
+      infFilePath,
+      `[Setup]\nLang=english\nDisableWelcomePage=yes\nDisableDirPage=yes\nDisableProgramGroupPage=yes\nDisableReadyPage=yes\n`,
+      { encoding: 'utf8' }
+    )
+
+    if (fs.existsSync(installPath)) {
+      confFilesBefore = await findConfFiles(installPath)
     } else {
-      fs.mkdirSync(zoomPlatformPath, { recursive: true })
+      fs.mkdirSync(dirname(installPath), { recursive: true })
     }
     installResult = await runWineCommand({
-      commandParts: [executable],
+      commandParts: [
+        executable,
+        '/NORESTART',
+        '/NOICONS',
+        '/SP-',
+        `/DIR=Z:${installPath.replaceAll('/', '\\')}`,
+        `/LOADINF=Z:${infFilePath.replaceAll('/', '\\')}`,
+        '/LOG=C:\\zoom_installer.log'
+      ],
       gameSettings,
+      gameInstallPath: path,
       wait: true,
       options: {
         logMessagePrefix: `Installing ${appName}`,
@@ -388,9 +360,6 @@ export async function install(
   let finalExecutable = ''
 
   if (installPlatform === 'windows') {
-    const gameSettings = await getSettings(appName)
-    const winePrefix = gameSettings.winePrefix
-    const installPath = join(winePrefix, 'drive_c', 'ZOOM PLATFORM')
     logInfo(`Searching for executable in ${installPath}`, LogPrefix.Zoom)
 
     const confFilesAfter = await findConfFiles(installPath)
@@ -482,7 +451,7 @@ export async function install(
   } else {
     finalExecutable = executable
   }
-
+  await rm(downloadRoot, { recursive: true, force: true })
   if (!finalExecutable) {
     logError(['Could not find executable for', appName], LogPrefix.Zoom)
     showDialogBoxModalAuto({
@@ -497,11 +466,8 @@ export async function install(
 
   const installedData: InstalledInfo = {
     platform: finalInstallPlatform,
-    executable: finalExecutable.replace(
-      '{app}',
-      join(path, gameInfo.folder_name)
-    ),
-    install_path: join(path, gameInfo.folder_name),
+    executable: finalExecutable.replace('{app}', installPath),
+    install_path: installPath,
     isDosbox,
     dosboxConf,
     install_size: getFileSize(parseSize(installerSize)), // This might need to be the actual installed size, not just installer size
@@ -689,6 +655,11 @@ export async function launch(
       return false
     }
 
+    const executable = gameSettings.targetExe || gameInfo.install.executable
+    const startFolder = isAbsolute(executable)
+      ? dirname(executable)
+      : dirname(join(gameInfo.install.install_path, executable))
+
     if (await isUmuSupported(gameSettings)) {
       const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
       if (umuId) {
@@ -696,16 +667,13 @@ export async function launch(
       }
     }
 
-    const executable = gameInfo.install.executable
     const result = await runWineCommand({
       commandParts: [basename(executable), ...commandParts],
       gameSettings,
       gameInstallPath: gameInfo.install.install_path,
       installFolderName: gameInfo.folder_name,
       protonVerb: 'waitforexitandrun',
-      startFolder: dirname(
-        join(gameSettings.winePrefix, 'drive_c', 'ZOOM PLATFORM', executable)
-      ),
+      startFolder,
       options: {
         env: { ...commandEnv, ...envVars },
         wrappers,

@@ -175,12 +175,14 @@ async function main() {
   for (const [i, releaseComponent_i] of releaseNotesComponents.entries()) {
     if (i === 0) continue
     if (!releaseComponent_i.startsWith('*')) continue
-    if (releaseComponent_i.includes('http')) continue
 
+    // Remove URLs and "@username" from the release note text
     const li = releaseComponent_i
       .replace(/\n/g, '')
       .replace(/\r/g, '')
       .replace(/\t/g, '')
+      .replace(/https?:\/\/[^\s]+/g, '') // Remove URLs
+      .replace(/by\s+@[\w-]+/gi, '') // Remove "by @username"
       .slice(1)
       .trim()
 
@@ -196,7 +198,9 @@ async function main() {
 
   const componentsTag = heroicXmlJson[1].component
   // Locate the 'releases' element within the 'componentsTag'
-  const releasesTag = componentsTag.find((val) => val.releases !== undefined)
+  const releasesTag = componentsTag.find(
+    (val: { releases?: unknown }) => val.releases !== undefined
+  )
 
   // Proceed to find the <ul> element as before
   const releaseListTag = releasesTag?.releases[0].release[0].description[1]

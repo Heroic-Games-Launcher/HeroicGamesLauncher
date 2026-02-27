@@ -364,7 +364,7 @@
             "close": "Stäng hjälp"
         },
         "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds.",
-        "dxfpslimit": "Ställer in ett bildhastighetstak för DXVK spel",
+        "dxfpslimit": "Ställer in ett bildhastighetstak för DirectX spel (9-12)",
         "advertiseAvxForRosetta": "Aktiverar stöd för AVX-instruktionsuppsättningar när Windows-spel körs via Rosetta på Apple Silicon Macar. Detta kan krävas för vissa spel som Death Stranding som behöver AVX-stöd.",
         "analytics": "Gör det möjligt för Heroic att samla in 100 % anonym användningsdata för att förbättra programmet. Kräver omstart för att det ska träda i kraft.",
         "download_proton_steam": "När det är aktiverat kommer GE-Proton att laddas ner direkt till Steams kompatibilitetsverktygskatalog istället för standardsökvägen för Heroic. Det kommer att använda Steam-sökvägen som angetts i inställningen \"Standardsökväg för Steam\" ovan.",
@@ -771,7 +771,7 @@
         "verboseLogs": {
             "description": "Aktivera detaljerade loggar"
         },
-        "disableUMU": "Inaktivera UMU",
+        "disableUMU": "Inaktivera umu",
         "custom_css": {
             "warning": "Varning: detta gäller hela frontenden. Detta betyder att fel stil kan göra att Heroic blir oanvändbar. Om det behövs kan inställningen ändras manuellt i `~/.config/heroic/config.json`. Kopiera INTE stiler from källor du inte litar på."
         },
@@ -836,7 +836,8 @@
             "sync": "Synkronisera molnsparfiler",
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformation",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Föråldrat"
         },
         "open-config-file": "Öppna konfigurationsfil",
         "reset-heroic": "Återställ Heroic",
@@ -903,7 +904,8 @@
         "custom_css": {
             "title": "Anpassad CSS Stil"
         },
-        "launchOptions": "Uppstartsalternativ"
+        "launchOptions": "Uppstartsalternativ",
+        "legacy_warning": "Varning: Inställningarna på den här fliken är mestadels föråldrade och kanske inte fungerar alls."
     },
     "Settings": "Inställningar",
     "sidebar": {
@@ -1099,5 +1101,8 @@
         "title": "Skicka anonym analysdata"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom butik"
+    "zoom-store": "Zoom butik",
+    "launch": {
+        "options": "Startalternativ..."
+    }
 }

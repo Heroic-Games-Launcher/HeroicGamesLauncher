@@ -70,6 +70,7 @@ export class LegendaryUser {
     await ses.clearCache()
     await ses.clearAuthCache()
     await ses.clearHostResolverCache()
+    await ses.clearData()
     configStore.delete('userInfo')
     clearCache('legendary')
   }

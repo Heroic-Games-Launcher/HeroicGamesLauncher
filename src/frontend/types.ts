@@ -41,7 +41,6 @@ export interface ContextType {
   isIntelMac: boolean
   refresh: (library: Runner, checkUpdates?: boolean) => Promise<void>
   refreshLibrary: (options: RefreshOptions) => Promise<void>
-  refreshWineVersionInfo: (fetch: boolean) => void
   refreshing: boolean
   refreshingInTheBackground: boolean
   hiddenGames: {
@@ -136,6 +135,7 @@ export type DialogModalOptions = {
   message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
   type?: DialogType
+  className?: string
   onClose?: () => void
 }
 

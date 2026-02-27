@@ -60,6 +60,12 @@
         },
         "warning": {
             "title": "Varování"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Tato hra nemusí v režimu offline fungovat správně. Chcete ji přesto spustit?",
+            "playAnyway": "Hrát i tak",
+            "title": "Offline varování"
         }
     },
     "button": {
@@ -223,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Možnosti spuštění..."
+        "options": "Možnosti spuštění...",
+        "default": "Výchozí"
     },
     "not_logged_in": {
         "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",

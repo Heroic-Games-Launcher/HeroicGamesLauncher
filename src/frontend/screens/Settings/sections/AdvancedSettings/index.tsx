@@ -28,6 +28,7 @@ import {
   ResetHeroic,
   SteamGridDbApiKey
 } from '../../components'
+import DisableGOGPresence from '../../components/DisableGOGPresence'
 
 export default function AdvancedSetting() {
   const { config } = useContext(SettingsContext)
@@ -179,6 +180,8 @@ export default function AdvancedSetting() {
       <DownloadNoHTTPS />
 
       <DisableLogs />
+
+      <DisableGOGPresence />
 
       <AllowInstallationBrokenAnticheat />
 

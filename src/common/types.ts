@@ -112,6 +112,7 @@ export interface AppSettings extends GameSettings {
   disableLogs: boolean
   disableAnimations: boolean
   discordRPC: boolean
+  disableGOGPresence: boolean
   downloadNoHttps: boolean
   downloadProtonToSteam: boolean
   egsLinkedPath: string

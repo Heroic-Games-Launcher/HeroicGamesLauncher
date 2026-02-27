@@ -119,7 +119,7 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
     let currentPage = response.current_page
     const totalPages = response.total_pages
 
-    while (currentPage < totalPages - 1) {
+    while (currentPage < totalPages) {
       await new Promise((resolve) => setTimeout(resolve, 1000)) // Avoid hitting API too fast
       currentPage += 1
       const nextUrl = `${url}?page=${currentPage}`
@@ -149,14 +149,16 @@ export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
     art_background: zoomGame.poster_url, // Assuming poster_url can be used for background as well
     cloud_save_enabled: false, // Zoom.py example doesn't show cloud saves
     extra: {
-      about: { description: '', shortDescription: '' }, // No direct equivalent in zoom.py for detailed description
+      about: { description: zoomGame.description, shortDescription: '' }, // No direct equivalent in zoom.py for detailed description
       reqs: [],
       genres: []
     },
+    developer: zoomGame.developers.join(', '),
     folder_name: zoomGame.slug, // Using slug as folder_name
     install: {
       is_dlc: false
     },
+    store_url: zoomGame.store_url,
     is_installed: false,
     save_folder: '',
     canRunOffline: true, // Assuming DRM-free as per zoom.py

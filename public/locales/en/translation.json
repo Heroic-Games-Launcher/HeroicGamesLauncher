@@ -641,6 +641,7 @@
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
+        "disable_gog_presence": "Disable GOG Presence updates",
         "disable_logs": "Disable Logs",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
@@ -736,6 +737,7 @@
                 },
                 "error": {
                     "content": "Failed to upload log file. Check Heroic's general log for details",
+                    "manual_upload": "Click the \"SHOW LOG FILE IN FOLDER\" button and upload the \"launch.log\" file manually to Discord or any online file sharing service.",
                     "title": "Upload failed"
                 },
                 "header": "Uploaded log files",

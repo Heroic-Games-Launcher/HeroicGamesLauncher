@@ -33,7 +33,7 @@
             "title": "Avbryt installationen"
         },
         "uninstall": {
-            "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Denna åtgärd kan ej ångras och kommer även radera sparfiler.",
+            "checkbox": "Radera prefix: {{prefix}}{{newLine}}OBS: Detta kan inte ångras och kommer även att ta bort spar filer som inte säkerhetskopierats.",
             "message": "Vill du avinstallera \"{{title}}\"?",
             "settingcheckbox": "Radera inställningar och ta bort logg{{newLine}}OBS: Denna åtgärd kan ej ångras. Alla ändrade inställningar kommer att glömmas bort och loggen kommer att raderas.",
             "title": "Avinstallera",
@@ -52,7 +52,20 @@
         "selectLaunchOption": {
             "body": "Välj ett uppstartsalternativ för det här spelet (det kan ändras senare i spelinställningarna):",
             "title": "Välj uppstartsalternativ {{seconds}})"
-        }
+        },
+        "warning": {
+            "title": "Varning"
+        },
+        "sync": {
+            "force_download_warning": "Lokala sparningar kommer att raderas. Vill du fortsätta?",
+            "force_upload_warning": "Molnsparningar kommer att skrivas över. Vill du fortsätta?"
+        },
+        "offline_warning": {
+            "message": "Det här spelet kanske inte fungerar korrekt offline. Vill du spela ändå?",
+            "playAnyway": "Spela ändå",
+            "title": "Offline varning"
+        },
+        "ok": "OK"
     },
     "button": {
         "add_to_favourites": "Lägg till i Favoriter",
@@ -196,7 +209,8 @@
         }
     },
     "launch": {
-        "options": "Startalternativ..."
+        "options": "Startalternativ...",
+        "default": "Standard"
     },
     "not_logged_in": {
         "epic": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
@@ -204,7 +218,7 @@
         "login": "Logga in",
         "title": "Du är ej inloggad!",
         "amazon": "Du är ej inloggad med Epic-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:",
-        "zoom": "Du är ej inloggad med GOG-konto i Heroic. Använd inte Butiksidan för att logga in, klicka denna knapp istället:"
+        "zoom": "Du är inte inloggad med ett Zoom-konto i Heroic. Använd inte butiksidan för att logga in, klicka istället på följande knapp:"
     },
     "report_problem": "Rapportera problem med spelet",
     "sdl": {
@@ -323,5 +337,6 @@
             "pause": "Pausa nedladdning"
         }
     },
-    "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>"
+    "wikiLink": "Viktig information om det här spelet, läs detta:<1>Öppna sida</1>",
+    "open-saves-folder": "Öppna mappen med sparningar"
 }

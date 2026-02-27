@@ -1,0 +1,103 @@
+{
+    "box": {
+        "choose": "Elekti",
+        "close": "Fermi",
+        "no": "NE",
+        "offline_warning": {
+            "playAnyway": "Ludi ajne"
+        },
+        "ok": "BONE",
+        "select": {
+            "button": "Elekti",
+            "image": "Elekti bildon"
+        },
+        "stopInstall": {
+            "keepInstalling": "Daŭrigi instaladon",
+            "message": "Ĉu vi volas TENI elŝutitajn dosierojn?",
+            "title": "Ĉesi instaladon"
+        },
+        "uninstall": {
+            "cannotUninstallEpic": "Ludoj Epic ne povas esti malinstalitaj kiam alia ludo Epic estas instalanta.",
+            "dlc": "Ĉu vi volas malinstali \"{{title}}\" (DLC)?",
+            "message": "Ĉu vi volas malinstali \"{{title}}\"?",
+            "title": "Malinstali"
+        },
+        "update": {
+            "message": "Tiu ĉi ludo havas ĝisdatigon, ĝisdatigi nun?",
+            "title": "Ludo bezonas ĝisdatigon"
+        },
+        "yes": "JES"
+    },
+    "disabled": "Malŝaltita",
+    "enabled": "Ŝalti",
+    "game": {
+        "branch": {
+            "disabled": "Malŝaltita"
+        },
+        "builds": {
+            "buildsSelector": "Elektu version de l' ludo",
+            "version": "Versio"
+        },
+        "firstPlayed": "Unue ludita",
+        "installSize": "Instalota grando",
+        "language": "Lingvo",
+        "neverPlayed": "Neniam"
+    },
+    "not_logged_in": {
+        "login": "Ensaluti"
+    },
+    "button": {
+        "continue": "Daŭrigi elŝutadon",
+        "details": "Detaloj",
+        "finish": "Fini",
+        "hide_game": "Kaŝi ludon",
+        "install": "Instali",
+        "play": "LUDI",
+        "unhide_game": "Malkaŝi ludon",
+        "uninstall": "Malinstali",
+        "update": "Ĝisdatigi"
+    },
+    "generic": {
+        "error": "Nekonata eraro"
+    },
+    "hours": "Horoj",
+    "info": {
+        "clickToOpen": "Alklaku por malfermi",
+        "size": "Grando",
+        "version": "Versio"
+    },
+    "install": {
+        "anticheat-warning": {
+            "ok": "Bone"
+        },
+        "space-after-install": "Post instalo",
+        "wineversion": "Versio de Wine"
+    },
+    "label": {
+        "game": {
+            "not-installable-game": "Ludo NE instaleblas"
+        },
+        "playing": {
+            "start": "Ludi nun"
+        }
+    },
+    "modifyInstall": {
+        "dlcsCollapsible": "DLC",
+        "nodlcs": "Neniu DLC disponeblas",
+        "versionCollapsable": "Luda versio"
+    },
+    "Open": "Malfermi",
+    "queue": {
+        "label": {
+            "pause": "Paŭzigi elŝutadon"
+        }
+    },
+    "setting": {
+        "show-wine-settings": "Montri agordojn de Wine"
+    },
+    "sideload": {
+        "import-hint": {
+            "title": "Gravas! Ĉu vi aldonas ludon el Epic/GOG/Amazon? Alklaku ĉi tien!"
+        }
+    }
+}
