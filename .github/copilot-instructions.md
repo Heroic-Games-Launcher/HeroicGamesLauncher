@@ -17,7 +17,7 @@ The codebase has four layers — never import across boundaries except through t
 
 All frontend↔backend communication goes through a **fully type-safe IPC system**. Direct `ipcMain`/`ipcRenderer` imports are **banned by ESLint** — use the typed wrappers instead.
 
-1. **Define the channel** in `src/common/typedefs/ipcBridge.d.ts` — add to `SyncIPCFunctions` (fire-and-forget) or `AsyncIPCFunctions` (request/response) or `FrontendMessages` (backend→frontend push)
+1. **Define the channel** in `src/common/types/ipc.ts` — add to `SyncIPCFunctions` (fire-and-forget) or `AsyncIPCFunctions` (request/response) or `FrontendMessages` (backend→frontend push)
 2. **Register the handler** in `src/backend/` using helpers from `src/backend/ipc.ts`: `addHandler()`, `addListener()`, or `sendFrontendMessage()`
 3. **Expose to frontend** in `src/preload/api/` using factory functions from `src/preload/ipc.ts`: `makeHandlerInvoker()`, `makeListenerCaller()`, or `frontendListenerSlot()`
 4. **Call from frontend** via `window.api.yourFunction()`
@@ -37,7 +37,7 @@ Wine/Proton handling is a major subsystem in `src/backend/wine/` and `src/backen
 - **Wine discovery** (`src/backend/wine/manager/utils.ts`): scans the system for installed Wine/Proton/CrossOver/GPTK versions — checks `$PATH`, `~/.local/share/lutris/`, Steam `compatibilitytools.d/`, and platform-specific paths.
 - **Wine downloading** (`src/backend/wine/manager/`): downloads and installs Wine-GE, GE-Proton, Wine-Lutris, Wine-Crossover, etc. from GitHub releases. Sources defined in `downloader/constants.ts`.
 - **DXVK/VKD3D tools** (`src/backend/tools/index.ts`): manages DirectX translation layers — downloads and installs DXVK, VKD3D, DXVK-NVAPI DLLs into Wine prefixes.
-- **umu-launcher** (`src/backend/tools/umu/`): on Linux, [umu-launcher](https://github.com/Open-Wine-Components/umu-launcher) is the preferred way to run games with Proton outside Steam. Heroic resolves the `umu-run` binary (system `$PATH` first, then a bundled Lutris runtime fallback), looks up each game's `GAMEID` via the `umu.openwinecomponents.org` API, and passes it as `GAMEID` env var so umu-launcher can apply game-specific Proton fixes. The umu path is togglable per-game.
+- **umu-launcher** (`src/backend/wiki_game_info/umu/`): on Linux, [umu-launcher](https://github.com/Open-Wine-Components/umu-launcher) is the preferred way to run games with Proton outside Steam. Heroic resolves the `umu-run` binary (system `$PATH` first, then a bundled Lutris runtime fallback), looks up each game's `GAMEID` via the `umu.openwinecomponents.org` API, and passes it as `GAMEID` env var so umu-launcher can apply game-specific Proton fixes. The umu path is togglable per-game.
 
 ## Frontend Conventions
 
@@ -49,14 +49,10 @@ Wine/Proton handling is a major subsystem in `src/backend/wine/` and `src/backen
 
 ## Logging
 
-Use the logger from `src/backend/logger/logger.ts`:
+Use the logger from `backend/logger`:
 
-```ts
-import { logInfo, logWarning, logError } from 'backend/logger/logger'
-import { LogPrefix } from 'backend/logger/loggerUtils'
-
-logInfo(['Message', someVar], LogPrefix.Backend)
-```
+````ts
+import { logInfo, logWarning, logError, LogPrefix } from 'backend/logger'
 
 First arg is a string or array; second is a `LogPrefix` for categorization.
 
@@ -67,7 +63,7 @@ git clone <repo>
 pnpm install
 pnpm download-helper-binaries
 pnpm start                             # dev mode with HMR
-```
+````
 
 - **Type-check**: `pnpm codecheck` (runs `tsc --noEmit`)
 - **Lint**: `pnpm lint`
@@ -78,13 +74,13 @@ pnpm start                             # dev mode with HMR
 ## Testing Notes
 
 - Backend tests use `jest.clearAllMocks()` in `beforeEach`.
-- Frontend tests mock `window.api` calls — if you add a new `ipcRenderer.invoke` channel, also add it to `src/frontend/__mocks__/electron.js` or tests will hang on unresolved promises.
-- Use `TestType<T>` helper class from test helpers for reusable test fixtures with `.set()`, `.get()`, `.reset()`.
+- Currently only backend unit tests are configured in Jest (`projects: ['<rootDir>/src/backend']`); there are no frontend unit tests or `src/frontend/__mocks__/electron.js` in this codebase. If you later add frontend tests, ensure `window.api` calls and any `ipcRenderer.invoke` channels are properly mocked so tests do not hang on unresolved promises.
+- Prefer small, reusable test helper functions or fixture factories for common setup/teardown logic.
 - E2E tests use `CI=e2e` env to enable test-only IPC stubs (`addTestOnlyListener`).
 
 ## Key Conventions
 
 - **Runner type**: `'legendary' | 'gog' | 'nile' | 'sideload' | 'zoom'` — always use this union, never hardcode store-specific logic without the manager maps.
-- **Persistence**: `electron-store` with typed wrappers (`TypeCheckedStoreBackend`/`TypeCheckedStoreFrontend`). Schema in `src/backend/schemas.ts`.
+- **Persistence**: `electron-store` with typed wrappers (`TypeCheckedStoreBackend`/`TypeCheckedStoreFrontend`). Store schema is the `StoreStructure` interface in `src/common/types/electron_store.ts`; `src/backend/schemas.ts` only contains the Zod schema for validating file paths.
 - **i18n**: `i18next` — backend uses `i18next-fs-backend`, frontend uses `i18next-http-backend`. 50+ locales in `public/locales/`.
 - **No direct Electron imports in frontend** — everything goes through `window.api` (enforced by ESLint `no-restricted-imports`).
