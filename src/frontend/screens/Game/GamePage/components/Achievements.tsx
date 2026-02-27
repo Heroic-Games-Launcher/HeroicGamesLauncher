@@ -1,24 +1,29 @@
 import { GameAchievement } from 'common/types'
+import { useMemo } from 'react'
 
 interface Props {
   achievements: GameAchievement[]
 }
 
 const Achievements = ({ achievements }: Props) => {
-  const unlocked = achievements
-    .filter((x) => x.date_unlocked !== null)
-    .sort(
-      (a, b) =>
-        new Date(b.date_unlocked || '').getTime() -
-        new Date(a.date_unlocked || '').getTime()
-    )
-  const locked = achievements
-    .filter((x) => x.date_unlocked === null)
-    .sort((a, b) => b.rarity - a.rarity)
+  const sortedAchievements = useMemo(() => {
+    const unlocked = achievements
+      .filter((x) => x.date_unlocked !== null)
+      .sort(
+        (a, b) =>
+          new Date(b.date_unlocked || '').getTime() -
+          new Date(a.date_unlocked || '').getTime()
+      )
+    const locked = achievements
+      .filter((x) => x.date_unlocked === null)
+      .sort((a, b) => b.rarity - a.rarity)
+
+    return [...unlocked, ...locked]
+  }, [achievements])
 
   return (
     <div className="achievement-container">
-      {[...unlocked, ...locked].map((x: GameAchievement, key: number) => {
+      {sortedAchievements.map((x: GameAchievement, key: number) => {
         const isHiddenAchievement = !x.date_unlocked && !x.visible
         return (
           <div
