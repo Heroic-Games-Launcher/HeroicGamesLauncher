@@ -5,7 +5,7 @@ import { app } from 'electron'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
-const userAgent = `'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
+const userAgent = `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
 
 describe('SteamGridDB Utils', () => {
   const apiKey = 'test-api-key'
