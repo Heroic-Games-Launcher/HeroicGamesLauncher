@@ -155,7 +155,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
-import { getAchievements } from './storeManagers/gog/games'
+import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -739,9 +739,13 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   return tempGameInfo
 })
 
-addHandler('getAchievements', async (event, appName, lang?) => {
-  return getAchievements(appName, lang)
-})
+addHandler(
+  'getAchievements',
+  async (event, appName, runner, lang = 'en-US') => {
+    if (runner === 'gog') return getAchievementsGOG(appName, lang)
+    return []
+  }
+)
 
 addHandler('getExtraInfo', async (event, appName, runner) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
