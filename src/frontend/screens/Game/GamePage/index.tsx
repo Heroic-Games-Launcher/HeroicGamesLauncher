@@ -182,7 +182,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
     updateAchievements()
     previousIsPlaying.current = isPlaying
-  }, [isPlaying])
+  }, [isPlaying, appName])
 
   useEffect(() => {
     const updateGameInfo = async () => {
