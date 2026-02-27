@@ -480,6 +480,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           onChange={(e, newVal) => setCurrentTab(newVal)}
                           aria-label="gameinfo tabs"
                           selectionFollowsFocus
+                          variant="scrollable"
+                          scrollButtons="auto"
                         >
                           <Tab
                             className="tabButton"
