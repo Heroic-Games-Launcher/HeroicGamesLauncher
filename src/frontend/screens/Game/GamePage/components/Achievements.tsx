@@ -30,9 +30,7 @@ const Achievements = ({ achievements }: Props) => {
             className={`achievement-item ${x.date_unlocked ? 'unlocked' : 'locked'} ${isHiddenAchievement ? 'hidden-achievement' : ''}`}
             key={key}
           >
-            <div
-              className={`achievement-icon rarity-${x.rarity_level_slug} ${!x.date_unlocked}`}
-            >
+            <div className={`achievement-icon rarity-${x.rarity_level_slug}`}>
               <img
                 src={
                   x.date_unlocked ? x.image_url_unlocked : x.image_url_locked
