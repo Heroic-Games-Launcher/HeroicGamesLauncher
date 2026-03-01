@@ -22,7 +22,7 @@ const CometComponents = () => {
           <CachedOutlined />
           <span>
             {isUpdating
-              ? t('status.updating', 'Updating')
+              ? t('gamepage:status.updating')
               : t('setting.eosOverlay.checkForUpdates', 'Check for updates')}
           </span>
         </button>
