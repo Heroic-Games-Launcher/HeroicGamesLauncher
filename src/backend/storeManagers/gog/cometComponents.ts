@@ -5,7 +5,7 @@ import { join } from 'path'
 import { spawn } from 'child_process'
 import { logInfo, LogPrefix } from 'backend/logger'
 
-async function updateCometComponents(): Promise<string | undefined> {
+export async function updateCometComponents(): Promise<string | undefined> {
   const userData = configStore.get_nodefault('userData')
 
   const username = userData?.username || 'unknown'

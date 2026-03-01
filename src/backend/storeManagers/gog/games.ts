@@ -9,7 +9,9 @@ import {
   changeGameInstallPath,
   getMetaResponse,
   getProductApi,
-  getGamesData
+  getGamesData,
+  getRemoteConfig,
+  getClientId
 } from './library'
 import { join } from 'path'
 import { GameConfig } from '../../game_config'
@@ -482,6 +484,11 @@ export async function install(
         )
       )
     }
+  }
+  // Preload remote config
+  const clientId = await getClientId(appName, install_path)
+  if (clientId) {
+    await getRemoteConfig(clientId)
   }
   addShortcuts(appName)
   return { status: 'done' }

@@ -105,6 +105,7 @@ import { gameAnticheatInfo } from './anticheat/utils'
 import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
+import { getClientId, getRemoteConfig } from './storeManagers/gog/library'
 
 let powerDisplayId: number | null
 
@@ -986,10 +987,20 @@ async function prepareWineLaunch(
           join(galaxyOverlay, 'libgalaxyunixlib.dll.so')
         )
       }
-      extendedEnv['HEROIC_GOGDL_WRAPPER_EXE'] = join(
-        galaxyCommPath,
-        'overlay-heroic/galaxy.exe'
+      const clientId = await getClientId(
+        appName,
+        gameInfo.install.install_path!
       )
+
+      if (clientId) {
+        const remoteConfig = await getRemoteConfig(clientId)
+        if (remoteConfig?.content.Windows.overlay.supported) {
+          extendedEnv['HEROIC_GOGDL_WRAPPER_EXE'] = join(
+            galaxyCommPath,
+            'overlay-heroic/galaxy.exe'
+          )
+        }
+      }
     }
   } catch (err) {
     logError(['Failed to install galaxy components into the prefix', err])
