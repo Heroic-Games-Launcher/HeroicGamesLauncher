@@ -7,6 +7,8 @@ import { formatLogMessage } from './formatter'
 
 import type { LogOptions } from './types'
 
+import { getLogFilePath, logDebug } from './index'
+
 const LOG_LEVEL_LOGGING_FUNC: Record<LogLevel, (message: string) => unknown> = {
   DEBUG: console.log,
   INFO: console.log,
@@ -24,6 +26,8 @@ export default class LogWriter {
    * have the {@link LogOptions#forceLog} option set aren't logged
    */
   readonly #logsDisabled: boolean
+
+  readonly #isGeneralLog: boolean
 
   /**
    * Whether the log file was already written to by this writer. Used to rotate
@@ -46,6 +50,7 @@ export default class LogWriter {
     this.logFilePath = logFilePath
     this.#outputToOsStreams = outputToOsStreams
     this.#logsDisabled = logsDisabled
+    this.#isGeneralLog = logFilePath === getLogFilePath({})
     this.#wasWrittenTo = false
     this.#isClosed = false
     this.#messageWaitPromise = Promise.resolve()
@@ -89,6 +94,9 @@ export default class LogWriter {
     if (!this.#wasWrittenTo) {
       this.#archiveOldLogFile()
 
+      // print this message only once when a new log file is created and it's not the general log
+      if (!this.#isGeneralLog)
+        logDebug(`Logging to file(s) ${this.logFilePath}`, LogPrefix.Backend)
       const dirname = path.dirname(this.logFilePath)
       await fsPromises.mkdir(dirname, { recursive: true })
     }

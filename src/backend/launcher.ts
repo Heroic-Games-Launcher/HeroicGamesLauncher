@@ -1559,10 +1559,6 @@ async function runWineCommand({
     child.stderr.setEncoding('utf-8')
 
     if (options?.logWriters) {
-      const files = options.logWriters
-        .map((writer) => `"${writer.logFilePath}"`)
-        .join(', ')
-      logDebug(`Logging to file(s) ${files}`, LogPrefix.Backend)
       options.logWriters.forEach((writer) =>
         writer.writeString(
           `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
@@ -1737,11 +1733,6 @@ async function callRunner(
       )
       if (appName) await writer.logInfo('Game Output:')
     }
-
-    const files = options.logWriters
-      .map((writer) => `"${writer.logFilePath}"`)
-      .join(', ')
-    logDebug(`Logging to file(s) ${files}`, runner.logPrefix)
   }
 
   // check if the same command is currently running
