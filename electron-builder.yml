@@ -26,7 +26,9 @@ win:
   icon: build/win_icon.ico
   target:
     - nsis
-  files: build/bin/${arch}/win32/*
+  files:
+    - build/bin/${arch}/win32/*
+    - build/bin/x64/win32/*
 
 portable:
   artifactName: ${productName}-${version}-Portable-${arch}.${ext}
