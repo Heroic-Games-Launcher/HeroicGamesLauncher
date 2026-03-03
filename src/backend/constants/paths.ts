@@ -40,12 +40,16 @@ export const publicDir = resolve(
   app.isPackaged || process.env.CI === 'e2e' ? '' : '../public'
 )
 
+// On Windows the exe lives under the build's own arch; on Mac/Linux it is
+// always the x64 binary (run through Wine), matching electron-builder.yml.
+const winBinArch = process.platform === 'win32' ? process.arch : 'x64'
+
 export const fakeEpicExePath = fixAsarPath(
-  join(publicDir, 'bin', process.arch, 'win32', 'EpicGamesLauncher.exe')
+  join(publicDir, 'bin', winBinArch, 'win32', 'EpicGamesLauncher.exe')
 )
 
 export const galaxyCommunicationExePath = fixAsarPath(
-  join(publicDir, 'bin', process.arch, 'win32', 'GalaxyCommunication.exe')
+  join(publicDir, 'bin', winBinArch, 'win32', 'GalaxyCommunication.exe')
 )
 
 export const webviewPreloadPath = fixAsarPath(
