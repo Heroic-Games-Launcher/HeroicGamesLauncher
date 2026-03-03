@@ -41,11 +41,11 @@ export const publicDir = resolve(
 )
 
 export const fakeEpicExePath = fixAsarPath(
-  join(publicDir, 'bin', 'x64', 'win32', 'EpicGamesLauncher.exe')
+  join(publicDir, 'bin', process.arch, 'win32', 'EpicGamesLauncher.exe')
 )
 
 export const galaxyCommunicationExePath = fixAsarPath(
-  join(publicDir, 'bin', 'x64', 'win32', 'GalaxyCommunication.exe')
+  join(publicDir, 'bin', process.arch, 'win32', 'GalaxyCommunication.exe')
 )
 
 export const webviewPreloadPath = fixAsarPath(
