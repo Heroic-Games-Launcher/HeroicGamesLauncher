@@ -4,8 +4,8 @@ import {
   getFileSize,
   parseSize,
   spawnAsync,
-  sendProgressUpdate,
-  sendGameStatusUpdate
+  sendGameStatusUpdate,
+  sendProgressUpdate
 } from '../../utils'
 import { join, relative, dirname, basename, isAbsolute } from 'node:path'
 import * as fs from 'fs'
@@ -20,7 +20,8 @@ import {
   InstallArgs,
   InstalledInfo,
   LaunchOption,
-  InstallPlatform
+  InstallPlatform,
+  InstallProgress
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import { installedGamesStore, libraryStore } from './electronStores'
@@ -29,7 +30,8 @@ import {
   logInfo,
   LogPrefix,
   logWarning,
-  createGameLogWriter
+  createGameLogWriter,
+  logDebug
 } from 'backend/logger'
 import {
   prepareLaunch,
@@ -172,16 +174,56 @@ export async function importGame(
   return { stdout: '', stderr: 'Import not fully implemented' }
 }
 
+interface tmpProgressMap {
+  [key: string]: InstallProgress
+}
+
+function defaultTmpProgress() {
+  return {
+    bytes: '',
+    eta: '',
+    percent: undefined,
+    diskSpeed: undefined,
+    downSpeed: undefined
+  }
+}
+const tmpProgress: tmpProgressMap = {}
+
 export function onInstallOrUpdateOutput(
   appName: string,
   action: 'installing' | 'updating',
   data: string,
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  totalDownloadSize = -1
+  total: number
 ) {
-  logWarning(
-    `onInstallOrUpdateOutput not implemented on Zoom Game Manager. called for appName = ${appName}`
+  if (data.length === 0) return
+
+  if (!Object.hasOwn(tmpProgress, appName)) {
+    tmpProgress[appName] = defaultTmpProgress()
+  }
+  const progress = tmpProgress[appName]
+
+  // This part needs to be adapted to parse output from the actual installer.
+  // For now, it's a placeholder.
+  logDebug(
+    `Installer output for ${appName}: ${data}% (total: ${getFileSize(total)})`,
+    LogPrefix.Zoom
   )
+
+  progress.percent = parseInt(data)
+  if (progress.percent > 100) {
+    progress.percent = 100
+  }
+  progress.bytes = 'N/A'
+  progress.eta = 'N/A'
+  progress.downSpeed = 0
+  progress.diskSpeed = 0
+
+  sendProgressUpdate({
+    appName: appName,
+    runner: 'zoom',
+    status: action,
+    progress: progress
+  })
 }
 
 export async function install(
@@ -219,66 +261,74 @@ export async function install(
     return { status: 'error', error: 'No installer found' }
   }
 
-  const installerUrl = installers[0].url
-  const installerFilename = installers[0].filename
-  const installerSize = installers[0].size
   const installPath = join(path, gameInfo.folder_name)
   const downloadRoot = join(path, '.zoom-download')
   const infFilePath = join(downloadRoot, 'zoom_installer.inf')
-  const downloadPath = join(downloadRoot, installerFilename)
 
-  // Create temp directory
-  fs.mkdirSync(downloadRoot, { recursive: true })
+  const totalSize = installers
+    .map((file) => parseSize(file.size))
+    .reduce((acc, num) => acc + num, 0)
+  let downloaded = 0
 
-  // Download the installer
-  logInfo(
-    `Downloading installer from ${installerUrl} to ${downloadPath}`,
-    LogPrefix.Zoom
-  )
-  try {
-    const response = await axios.get(installerUrl, {
-      responseType: 'stream',
-      onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
-        sendProgressUpdate({
-          appName,
-          progress: {
-            bytes: progressEvent.bytes.toString(),
-            eta: '',
-            downSpeed: progressEvent.rate,
-            percent: (progressEvent.progress || 0) * 100,
-            file: downloadPath
-          },
-          status: 'installing'
+  for (const file of installers) {
+    const downloadPath = join(downloadRoot, file.filename)
+    let fileDownloaded = 0
+
+    // Create game directory
+    fs.mkdirSync(downloadRoot, { recursive: true })
+
+    // Download the installer
+    logInfo(
+      `Downloading installer from ${file.url} to ${downloadPath}`,
+      LogPrefix.Zoom
+    )
+
+    if (!existsSync(downloadPath)) {
+      try {
+        const response = await axios.get(file.url!, {
+          responseType: 'stream',
+          onDownloadProgress: (progressEvent: AxiosProgressEvent) => {
+            let percent: undefined | number
+            if (progressEvent.bytes) {
+              fileDownloaded = fileDownloaded + progressEvent.bytes
+              percent = Math.round(
+                ((downloaded + fileDownloaded) * 100) / totalSize
+              )
+            }
+
+            onInstallOrUpdateOutput(
+              appName,
+              'installing',
+              `${percent}`,
+              totalSize
+            )
+          }
         })
+
+        await pipeline(response.data, createWriteStream(downloadPath)) // Use pipeline for robust stream handling
+        logInfo(`Installer downloaded to ${downloadPath}`, LogPrefix.Zoom)
+
+        downloaded = downloaded + parseSize(file.size)
+      } catch (error) {
+        logError(['Failed to download installer:', error], LogPrefix.Zoom)
+        return {
+          status: 'error',
+          error: `Failed to download installer: ${error}`
+        }
       }
-    })
-
-    await pipeline(response.data, createWriteStream(downloadPath)) // Use pipeline for robust stream handling
-    logInfo(`Installer downloaded to ${downloadPath}`, LogPrefix.Zoom)
-  } catch (error) {
-    logError(['Failed to download installer:', error], LogPrefix.Zoom)
-    return { status: 'error', error: `Failed to download installer: ${error}` }
-  }
-
-  // Determine executable based on platform (similar to zoom.py's AUTO_ELF_EXE, AUTO_WIN32_EXE)
-  let executable = ''
-  if (installPlatform === 'linux') {
-    // For Linux, assume the downloaded file is the executable or an archive to extract
-    // This needs more sophisticated handling based on actual Zoom Linux installers
-    executable = downloadPath // Placeholder
-    // If it's an archive, we'd need to extract it here.
-    // For now, we'll assume it's a direct executable or a self-extracting one.
-  } else {
-    // windows
-    executable = downloadPath // Assume it's a .exe installer
+    } else {
+      logDebug(`File already exists ${downloadPath}, skipping`)
+    }
   }
 
   // Execute the installer
-  logInfo(`Executing installer: ${executable}`, LogPrefix.Zoom)
   let installResult: ExecResult
   let confFilesBefore: string[] = []
+  let executable: string = ''
 
   if (installPlatform === 'linux') {
+    const downloadPath = join(installPath, installers[0].filename)
+
     if (downloadPath.endsWith('.tar.xz')) {
       logInfo(`Extracting ${downloadPath}...`, LogPrefix.Zoom)
       installResult = await spawnAsync('tar', [
@@ -309,7 +359,15 @@ export async function install(
     }
   } else {
     // windows
-    // For Windows, use runWineCommand
+
+    // Determine executable based on platform (similar to zoom.py's AUTO_ELF_EXE, AUTO_WIN32_EXE)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    executable = installers.find((file) =>
+      file.filename.endsWith('.exe')
+    )?.filename!
+
+    logInfo(`Executing installer: ${executable}`, LogPrefix.Zoom)
+
     const gameSettings = await getSettings(appName)
     await writeFile(
       infFilePath,
@@ -320,11 +378,12 @@ export async function install(
     if (fs.existsSync(installPath)) {
       confFilesBefore = await findConfFiles(installPath)
     } else {
-      fs.mkdirSync(dirname(installPath), { recursive: true })
+      fs.mkdirSync(installPath, { recursive: true })
     }
+
     installResult = await runWineCommand({
       commandParts: [
-        executable,
+        join(downloadRoot, executable),
         '/NORESTART',
         '/NOICONS',
         '/SP-',
@@ -470,7 +529,7 @@ export async function install(
     install_path: installPath,
     isDosbox,
     dosboxConf,
-    install_size: getFileSize(parseSize(installerSize)), // This might need to be the actual installed size, not just installer size
+    install_size: getFileSize(totalSize), // This might need to be the actual installed size, not just installer size
     is_dlc: false,
     version: '1.0', // Placeholder, ideally extracted from installer or API
     appName: appName,
