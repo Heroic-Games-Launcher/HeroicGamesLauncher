@@ -28,7 +28,9 @@ win:
     - nsis
   files:
     - build/bin/${arch}/win32/*
-    - build/bin/x64/win32/*
+    - build/bin/x64/win32/nile.exe
+    - build/bin/x64/win32/GalaxyCommunication.exe
+    - build/bin/x64/win32/EpicGamesLauncher.exe
 
 portable:
   artifactName: ${productName}-${version}-Portable-${arch}.${ext}
