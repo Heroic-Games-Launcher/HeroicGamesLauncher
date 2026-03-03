@@ -114,7 +114,8 @@ async function downloadLegendary() {
       },
       arm64: {
         linux: 'legendary_linux_arm64',
-        darwin: 'legendary_macOS_arm64'
+        darwin: 'legendary_macOS_arm64',
+        win32: 'legendary_windows_arm64.exe'
       }
     }
   )
@@ -133,7 +134,8 @@ async function downloadGogdl() {
       },
       arm64: {
         linux: 'gogdl_linux_arm64',
-        darwin: 'gogdl_macOS_arm64'
+        darwin: 'gogdl_macOS_arm64',
+        win32: 'gogdl_windows_arm64.exe'
       }
     }
   )
@@ -148,7 +150,9 @@ async function downloadNile() {
     },
     arm64: {
       linux: 'nile_linux_arm64',
-      darwin: 'nile_macOS_arm64'
+      darwin: 'nile_macOS_arm64',
+      // No native ARM64 Windows build; x64 runs under Windows emulation
+      win32: 'nile_windows_x86_64.exe'
     }
   })
 }
@@ -163,7 +167,10 @@ async function downloadComet() {
         x64: {
           win32: 'GalaxyCommunication-dummy.exe'
         },
-        arm64: {}
+        arm64: {
+          // No native ARM64 build; x64 runs under Windows emulation
+          win32: 'GalaxyCommunication-dummy.exe'
+        }
       }
     ),
     downloadGithubAssets('comet', 'imLinguin/comet', RELEASE_TAGS['comet'], {
@@ -174,7 +181,8 @@ async function downloadComet() {
       },
       arm64: {
         darwin: 'comet-aarch64-apple-darwin',
-        linux: 'comet-aarch64-unknown-linux-gnu'
+        linux: 'comet-aarch64-unknown-linux-gnu',
+        win32: 'comet-aarch64-pc-windows-msvc.exe'
       }
     })
   ])
@@ -189,7 +197,10 @@ async function downloadEpicIntegration() {
       x64: {
         win32: 'EpicGamesLauncher.exe'
       },
-      arm64: {}
+      arm64: {
+        // No native ARM64 build; x64 runs under Windows emulation
+        win32: 'EpicGamesLauncher.exe'
+      }
     }
   )
 }
