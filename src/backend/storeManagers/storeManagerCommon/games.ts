@@ -28,7 +28,7 @@ import {
   deleteAbortController
 } from '../../utils/aborthandler/aborthandler'
 import { BrowserWindow, dialog, Menu } from 'electron'
-import { gameManagerMap } from '../index'
+import { gameManagerMap, getTargetExePath } from '../index'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
 import { windowIcon } from 'backend/constants/paths'
@@ -129,19 +129,7 @@ export async function launchGame(
     return false
   }
 
-  let {
-    install: { executable }
-  } = gameInfo
-
   const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
-
-  const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
-  if (
-    gameSettingsOverrides.targetExe !== undefined &&
-    gameSettingsOverrides.targetExe !== ''
-  ) {
-    executable = gameSettingsOverrides.targetExe
-  }
 
   if (browserUrl) {
     return openNewBrowserGameWindow({
@@ -153,6 +141,7 @@ export async function launchGame(
   }
 
   const gameSettings = await getAppSettings(appName)
+  let executable = getTargetExePath(gameInfo, gameSettings, logWriter)
   const { launcherArgs } = gameSettings
   const extraArgs = [...shlex.split(launcherArgs ?? ''), ...args]
   const extraArgsJoined = extraArgs.join(' ')
