@@ -590,9 +590,10 @@ async function prepareLaunch(
   }
 
   if (
-    (gameSettings.gamescope?.enableLimiter ||
+    gameSettings.gamescope?.enable ||
+    ((gameSettings.gamescope?.enableLimiter ||
       gameSettings.gamescope?.enableUpscaling) &&
-    !isSteamDeckGameMode
+      !isSteamDeckGameMode)
   ) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
     if (!gameScopeBin) {

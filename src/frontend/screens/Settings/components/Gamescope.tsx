@@ -16,6 +16,7 @@ const Gamescope = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [gamescope, setGamescope] = useSetting('gamescope', {
+    enable: false,
     enableUpscaling: false,
     enableLimiter: false,
     enableForceGrabCursor: false,
@@ -120,9 +121,32 @@ const Gamescope = () => {
     }
   ]
 
+  const renderGamescopeToggle = () => {
+    return (
+      <div className="toggleRow">
+        <ToggleSwitch
+          htmlId="gamescopeToggle"
+          value={gamescope.enable || false}
+          handleChange={() =>
+            setGamescope({
+              ...gamescope,
+              enable: !gamescope.enable
+            })
+          }
+          title={t('setting.gamescope.enableGamescope', 'Enable Gamescope')}
+        />
+      </div>
+    )
+  }
+
+  if (!gamescope.enable) {
+    return renderGamescopeToggle()
+  }
+
   return (
     <div className="gamescopeSettings">
       {/* Enable Upscale */}
+      {renderGamescopeToggle()}
       <div className="toggleRow">
         <ToggleSwitch
           htmlId="gamescopeUpscaleToggle"
