@@ -262,10 +262,12 @@ export default function SideloadDialog({
           appName: app_name,
           config: { ...gameSettings, winePrefix, wineVersion }
         })
+        const workingDir = await window.api.getDirname(exeToRun)
         await window.api.runWineCommand({
           commandParts: [exeToRun],
           wait: true,
           protonVerb: 'runinprefix',
+          startFolder: workingDir,
           gameSettings: {
             ...gameSettings,
             winePrefix,
