@@ -61,7 +61,10 @@
             "force_download_warning": "Các bản lưu cục bộ sẽ bị xóa. Bạn có muốn tiếp tục không?",
             "force_upload_warning": "Lưu trữ trên đám mây sẽ bị ghi đè. Bạn có muốn tiếp tục không?"
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Trò chơi có thể không hoạt động như ý khi ngoại tuyến. Bạn có muốn chơi không?"
+        }
     },
     "button": {
         "add_to_favourites": "Thêm vào Ưa Thích",
@@ -201,7 +204,8 @@
         "winetricks": "Cài Đặt Gói Winetricks"
     },
     "launch": {
-        "options": "Khởi Chạy Tuỳ Chọn ..."
+        "options": "Khởi Chạy Tuỳ Chọn ...",
+        "default": "Mặc định"
     },
     "not_logged_in": {
         "epic": "Bạn chưa đăng nhập bằng tài khoản Epic trong Heroic. Không sử dụng trang cửa hàng để đăng nhập, thay vào đó hãy nhấp vào nút sau:",

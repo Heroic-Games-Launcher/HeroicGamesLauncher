@@ -424,7 +424,8 @@
                 },
                 "error": {
                     "content": "Theip ar an gcomhad loga a uaslódáil. Seiceáil log ginearálta Heroic le haghaidh sonraí",
-                    "title": "Theip ar an uaslódáil"
+                    "title": "Theip ar an uaslódáil",
+                    "manual_upload": "Cliceáil an cnaipe \"TAISPEÁIN AN COMHAD LOGÁLA SA FHILLTEÁN\" agus uaslódáil an comhad \"launch.log\" de láimh chuig Discord nó aon sheirbhís comhroinnte comhad ar líne."
                 },
                 "header": "Comhaid loga uaslódáilte",
                 "hours-ago": "Uaslódáilte {{hoursAgo, relativetime(hours)}}",

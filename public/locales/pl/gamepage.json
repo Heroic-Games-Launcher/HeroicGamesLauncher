@@ -61,7 +61,12 @@
             "force_download_warning": "Lokalne zapisy zostaną usunięte. Chcesz kontynuować?",
             "force_upload_warning": "Zapisy w chmurze będą nadpisane. Chcesz kontynuować?"
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Ta gra może nie działać poprawnie bez dostępu do internetu. Czy chcesz zagrać pomimo tego?",
+            "playAnyway": "Zagraj mimo to",
+            "title": "Ostrzeżenie o braku dostępu do sieci"
+        }
     },
     "button": {
         "add_to_favourites": "Dodaj do ulubionych",
@@ -224,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Opcje uruchamiania..."
+        "options": "Opcje uruchamiania...",
+        "default": "Domyślne"
     },
     "not_logged_in": {
         "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",

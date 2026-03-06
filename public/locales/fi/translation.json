@@ -10,7 +10,8 @@
         "titles_always_visible": "Näytä nimet kirjastossa aina",
         "actions_font_family_default": "Toimintojen kirjasinperhe (vakio: {{fontFamily}})",
         "content_font_family_default": "Sisältöjen kirjasinperhe (vakio: {{fontFamily}})",
-        "disable_smooth_scrolling": "Kytke pois sulava vieritys (uudelleenkäynnistys vaaditaan)"
+        "disable_smooth_scrolling": "Kytke pois sulava vieritys (uudelleenkäynnistys vaaditaan)",
+        "disable_animations": "Poista käyttöliittymän animoinnit käytöstä"
     },
     "add_game": "Lisää peli",
     "All": "Kaikki",
@@ -55,7 +56,7 @@
                 "title": "Ei tilaa"
             },
             "dxvk": {
-                "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista yhteys!",
+                "message": "Virhe DXVK/VKD3D:n asennuksessa! Tarkista internet-yhteytesi!",
                 "title": "DXVK/VKD3D -virhe"
             },
             "folder-not-found": {
@@ -91,7 +92,13 @@
             },
             "legendary": {
                 "generic": "Tapahtui virhe! Yritä kirjautua ulos ja kirjautua sitten sisään Epic-tililläsi. {{newline}} {{error}}"
-            }
+            },
+            "dxmt": {
+                "message": "Virhe ladattaessa DXMT:tä! Tarkista internet-yhteytesi!",
+                "title": "DXMT:n latausvirhe"
+            },
+            "executableNotFound": "Sovellusta ei löytynyt",
+            "executableNotFoundMessage": "Heroic ei löytänyt tämän pelin sovellusta. Ole hyvä ja aseta se manuaalisesti peliasetuksissa."
         },
         "info": {
             "update": {
@@ -100,7 +107,8 @@
                 "message": "Uusi versio on tarjolla!",
                 "message-finished": "Haluatko uudelleenkäynnistää Heroic:in nyt?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Päivitys valmis"
+                "title-finished": "Päivitys valmis",
+                "detailNoAutoupdate": "Automaattiset päivitykset eivät ole tuettuja tässä pakettimuodossa. Ole hyvä ja käytä paketinhallintaa päivittääksesi ohjelman."
             }
         },
         "no": "EI",
@@ -248,7 +256,7 @@
     },
     "generic": {
         "error": {
-            "component": "Pelejä ei löytynyt - kirjaudu ulos- ja sitten takaisin sisään tai käytä jotakin allaolevista vaihtoehdoista"
+            "component": "Pelejä ei löytynyt - Kokeile kirjautua ulos ja sitten takaisin sisään, tai käytä jotain allaolevista vaihtoehdoista"
         },
         "library": {
             "refresh": "Virkistä kirjasto"
@@ -275,10 +283,11 @@
         "uncategorized": "Luokittelemattomat",
         "show_installed_only": "Näytä vain asennetut",
         "show_third_party_managed_only": "Näytä vain kolmansien osapuolten ylläpitämät",
-        "no_categories": "Muovattuja luokituksia ei ole. Lisää luokkia käyttäen pelivalikkoja."
+        "no_categories": "Muovattuja luokituksia ei ole. Lisää luokkia käyttäen pelivalikkoja.",
+        "show_updates_only": "Näytä vain pelit joihin on päivityksiä"
     },
     "help": {
-        "amdfsr": "AMD:n FSR auttaa tehostamaan ruudunpäivitystä skaalaamalla ylös näyttötarkkuutta kokoruututilassa. Kuvalaatu paranee 5:stä 1:een pienen suorituskykyverotuksen kustannuksella. Tämän päällekytkentä saattaa parantaa suoritusta.",
+        "amdfsr": "AMD FSR auttaa parantamaan ruudunpäivitysnopeutta skaalaamalla alemman resoluution kuvaa koko näytön tilassa. Kuvanlaatu paranee asteikolla 5–1 pienen suorituskykyvaikutuksen kustannuksella. Käyttöönotto saattaa parantaa suorituskykyä.",
         "custom_themes_path": "Älä käytä CSS-tiedostoja luottamattomista lähteistä. Jos epäröit, kysy tarkistusta Discord-kanavallamme.",
         "custom_themes_wiki": "Lue Wiki-tietokantaa saadaksesi lisätietoja räätälöityjen teemojen lisäämiseksi. Napsauta tässä.",
         "dxvk": "DXVK on Vulkan-pohjainen tulkki DirectX 9-, 10- ja 11-peleille. Päällekytkentä voi parantaa yhteensopivuutta. Tämä voi aiheuttaa ongelmia erityisesti vanhemmissa DirectX-peleissä.",
@@ -354,7 +363,10 @@
             "forceGrabCursor": "Käytä aina suhteellista hiiritilaa joka toimii osoittimen sen hetkisen paikan mukaisesti. (Hyödyllinen kun ohjelmisto menettää jatkuvasti kohdistuksensa)",
             "upscaleMethod": "Ylösskaalauksen menetelmä jota Gamescope asetetaan toteuttamaan."
         },
-        "dxfpslimit": "Asettaa ruudunpäivitykselle katon DXVK-peleissä"
+        "dxfpslimit": "Asettaa ruudunpäivitykselle katon DXVK-peleissä",
+        "advertiseAvxForRosetta": "Ottaa käyttöön AVX-käskykannan tuen ajettaessa Windows-pelejä Rosettan kautta Apple Silicon -Maceilla. Tämä saattaa olla välttämätöntä peleissä, kuten Death Stranding, jotka vaativat AVX-tukea.",
+        "analytics": "Sallii Heroicin kerätä 100% anonyymejä käyttötietoja sovelluksen parantamiseksi. Muutos vaatii ohjelman uudelleenkäynnistämisen.",
+        "download_proton_steam": "Kun asetus on käytössä, GE-Proton ladataan suoraan Steamin yhteensopivuustyökalujen hakemistoon Heroicin oletussijainnin sijasta. Latauksessa käytetään ylempänä kohdassa ”Steamin oletuspolku” määritettyä polkua."
     },
     "info": {
         "heroic": {
@@ -491,7 +503,10 @@
         },
         "gameargs": {
             "placeholder": "Laita tähän käynnistyskäskyt",
-            "title": "Lisäkäskyt pelille (jotka suoritetaan komennon jälkeen):"
+            "title": "Lisäkäskyt pelille (jotka suoritetaan komennon jälkeen):",
+            "error": {
+                "command": "Steamin %command% syntaksi ei ole kelpo pelin argumentti."
+            }
         },
         "quote-args-with-spaces": "Varoitus: varmista että lainaat käskyt välilyönneillä! Esim.: \"polku/jossa välejä/\"",
         "wrapper": {
@@ -924,7 +939,17 @@
     },
     "analyticsModal": {
         "disable": "Pois päältä",
-        "enable": "Päällä"
+        "enable": "Päällä",
+        "info": {
+            "pt1": "Sovelluksen parantamiseksi Heroic kerää 100% anonyymejä tietoja.",
+            "pt2": "Heroic käyttää avoimen lähdekoodin Plausible Analytics -alustaa kerätäkseen perustietoja: Ohjelman versio, käyttöjärjestelmä, yhdistetyt kaupat, sekä maa.",
+            "pt3": "Se ei koskaan kerää mitään henkilökohtaisia tietoja, mukaan lukien käyttäjänimesi, IP-osoitteesi tai sähköpostisi.",
+            "pt4": "Näitä tietoja käytetään antamaan meille oivalluksia siitä, mihin keskittyä seuraavaksi rajallisten resurssiemme ja käyttäjäpalautteen vuoksi.",
+            "pt5": "Plausible Analytics on täysin GDPR:n, CCPA:n ja PECR:n mukainen.",
+            "pt6": "Läpinäkyvyyden vuoksi voit tarkastella Heroic-lokeissa keräämiämme tietoja.",
+            "pt7": "Voit muuttaa tätä asetusta milloin tahansa ohjelman asetuksista."
+        },
+        "title": "Lähetä anonyymia analytiikkaa"
     },
     "amazon-luna": "Amazon Luna",
     "launch": {

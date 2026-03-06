@@ -21,7 +21,8 @@
             "title": "Valitse suoritettava EXE"
         },
         "select": {
-            "button": "Valitse"
+            "button": "Valitse",
+            "image": "Valitse kuva"
         },
         "sideload": {
             "exe": "Valitse suoritettava tiedosto"
@@ -51,12 +52,25 @@
         "warning": {
             "title": "Varoitus"
         },
-        "ok": "Selvä"
+        "ok": "Selvä",
+        "offline_warning": {
+            "message": "Tämä peli ei välttämättä toimi oikein offline-tilassa. Haluatko pelata joka tapauksessa?",
+            "playAnyway": "Pelaa joka tapauksessa",
+            "title": "Offline-varoitus"
+        },
+        "selectLaunchOption": {
+            "body": "Valitse käynnistysvaihtoehto tälle pelille (sen voi muuttaa myöhemmin peliasetuksista):",
+            "title": "Valitse käynnistysvaihtoehto ({{seconds}}s)"
+        },
+        "sync": {
+            "force_download_warning": "Paikalliset pelitallennukset poistetaan. Haluatko jatkaa?",
+            "force_upload_warning": "Pilven pelitallennukset ylikirjoitetaan. Haluatko jatkaa?"
+        }
     },
     "button": {
         "add_to_favourites": "Lisää suosikkeihin",
         "cancel": "Pysäytä/Peruuta",
-        "continue": "Jatka latausta",
+        "continue": "Jatka lataamista",
         "finish": "Viimeistele",
         "force_update": "Pakota päivitys, jos saatavilla",
         "force-innstall": "Pakota asennus",
@@ -79,7 +93,8 @@
         "update": "Päivitä",
         "details": "Yksityiskohdat",
         "changelog": "Näytä muutosloki",
-        "browse_files": "Selaa tiedostoja"
+        "browse_files": "Selaa tiedostoja",
+        "browse_wine_prefix": "Selaa Wine Prefixiä"
     },
     "cloud_save_unsupported": "Ei tuettu",
     "disabled": "Pois käytöstä",

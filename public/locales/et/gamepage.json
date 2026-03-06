@@ -61,7 +61,12 @@
             "force_download_warning": "Kohalikud salvestused kustutatakse. Kas soovite jätkata?",
             "force_upload_warning": "Pilvesalvestused kirjutatakse üle. Kas soovite jätkata?"
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "See mäng ei pruugi netiühenduseta korralikult toimida. Kas soovite ikkagi mängida?",
+            "playAnyway": "Mängi ikkagi",
+            "title": "Netiühenduse hoiatus"
+        }
     },
     "button": {
         "add_to_favourites": "Lisa lemmikute hulka",
@@ -223,7 +228,8 @@
         }
     },
     "launch": {
-        "options": "Käivitusvalikud..."
+        "options": "Käivitusvalikud...",
+        "default": "Vaikimisi"
     },
     "not_logged_in": {
         "epic": "Te pole Epic kontoga Heroicusse sisse logitud. Ärge kasutage sisse logimiseks poelehte, vaid klikkige sellele nupule:",

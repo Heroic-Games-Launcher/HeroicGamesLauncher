@@ -229,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Başlatma Seçenekleri..."
+        "options": "Başlatma Seçenekleri...",
+        "default": "Varsayılan"
     },
     "not_logged_in": {
         "epic": "Heroic'te Epic hesabıyla giriş yapmadınız. Giriş yapmak için mağaza sayfasını kullanmayın, bunun yerine aşağıdaki düğmeye tıklayın:",

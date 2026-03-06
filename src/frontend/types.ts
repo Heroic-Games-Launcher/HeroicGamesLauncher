@@ -135,6 +135,7 @@ export type DialogModalOptions = {
   message?: string | React.ReactElement
   buttons?: Array<ButtonOptions>
   type?: DialogType
+  className?: string
   onClose?: () => void
 }
 

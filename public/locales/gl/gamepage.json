@@ -14,7 +14,7 @@
         },
         "no": "NON",
         "repair": {
-            "message": "Queres tentar reparar o xogo? Isto pode levar moito tempo.",
+            "message": "Queres tentar reparar o xogo? Esto pode levar moito tempo.",
             "title": "Verificar e reparar"
         },
         "runexe": {
@@ -22,13 +22,13 @@
         },
         "select": {
             "button": "Seleccionar",
-            "image": "Seleccionar Imaxe"
+            "image": "Seleccionar imaxe"
         },
         "sideload": {
-            "exe": "Seleccionar Executábel"
+            "exe": "Seleccionar executable"
         },
         "stopInstall": {
-            "keepInstalling": "Seguir instalando",
+            "keepInstalling": "Continuar coa instalación",
             "message": "Desexa MANTER os ficheiros descargados?",
             "title": "Deter a instalación"
         },
@@ -51,13 +51,22 @@
         "close": "Pechar",
         "select-install-path": "Seleccionar localización da instalación de Steam",
         "selectLaunchOption": {
-            "title": "Seleccionar opción de arranque ({{seconds}}s)",
-            "body": "Por favor, selecciona unha opción de arranque para este xogo (pódese cambiar máis adiante na configuración do xogo):"
+            "title": "Seleccione opción de arranque ({{seconds}}s)",
+            "body": "Por favor, selecciona unha opción de arranque para este xogo (pódese modificar máis adiante na configuración do xogo):"
         },
         "warning": {
             "title": "Advertencia"
         },
-        "ok": "Aceptar"
+        "ok": "De acordo",
+        "offline_warning": {
+            "playAnyway": "Xogar de todos modos",
+            "title": "Aviso: sen conexión a internet",
+            "message": "Este xogo pode non funcionar correctamente sen conexión. Queres xogalo de todos modos?"
+        },
+        "sync": {
+            "force_download_warning": "Os datos gardados no dispositivo local serán borrados. Desexa continuar?",
+            "force_upload_warning": "Os datos gardados actualmente na nube serán sobrescritos. Desexa continuar?"
+        }
     },
     "button": {
         "add_to_favourites": "Engadir a favoritos",

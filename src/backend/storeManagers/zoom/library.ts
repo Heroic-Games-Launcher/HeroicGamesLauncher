@@ -119,7 +119,7 @@ async function getZoomLibrary(): Promise<ZoomGameInfo[]> {
     let currentPage = response.current_page
     const totalPages = response.total_pages
 
-    while (currentPage < totalPages - 1) {
+    while (currentPage < totalPages) {
       await new Promise((resolve) => setTimeout(resolve, 1000)) // Avoid hitting API too fast
       currentPage += 1
       const nextUrl = `${url}?page=${currentPage}`
@@ -149,14 +149,16 @@ export function zoomToUnifiedInfo(zoomGame: ZoomGameInfo): GameInfo {
     art_background: zoomGame.poster_url, // Assuming poster_url can be used for background as well
     cloud_save_enabled: false, // Zoom.py example doesn't show cloud saves
     extra: {
-      about: { description: '', shortDescription: '' }, // No direct equivalent in zoom.py for detailed description
+      about: { description: zoomGame.description, shortDescription: '' }, // No direct equivalent in zoom.py for detailed description
       reqs: [],
       genres: []
     },
+    developer: zoomGame.developers.join(', '),
     folder_name: zoomGame.slug, // Using slug as folder_name
     install: {
       is_dlc: false
     },
+    store_url: zoomGame.store_url,
     is_installed: false,
     save_folder: '',
     canRunOffline: true, // Assuming DRM-free as per zoom.py
@@ -212,7 +214,7 @@ export async function getInstallInfo(
   }
 
   try {
-    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
+    const filesRequest = await ZoomUser.makeRequest<ZoomFilesResponse>(
       `${apiUrl}/li/game/${appName}/files`
     )
     const files = filesRequest[installPlatform as keyof ZoomFilesResponse] || []
@@ -225,8 +227,9 @@ export async function getInstallInfo(
       return
     }
 
-    const installerFile = files[0]
-    const sizeInBytes = parseSize(installerFile.size)
+    const sizeInBytes = files
+      .map((file) => parseSize(file.size))
+      .reduce((acc, num) => acc + num, 0)
     const info: ZoomInstallInfo = {
       game: {
         app_name: appName,
@@ -277,7 +280,7 @@ export async function getExtras(appName: string) {
 
   logDebug(`Fetching extras for Zoom ID ${appName}`, LogPrefix.Zoom)
   try {
-    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
+    const filesRequest = await ZoomUser.makeRequest<ZoomFilesResponse>(
       `${apiUrl}/li/game/${appName}/files`
     )
     const allExtras: {
@@ -290,7 +293,7 @@ export async function getExtras(appName: string) {
     for (const extraType of ['manual', 'misc', 'soundtrack'] as const) {
       const files = filesRequest[extraType] || []
       for (const file of files) {
-        const downloadRequest = await ZoomUser.makeRequest(
+        const downloadRequest = await ZoomUser.makeRequest<{ url: string }>(
           `${apiUrl}/li/download/${file.id}`
         )
         allExtras.push({
@@ -332,22 +335,23 @@ export async function getInstallers(
       )
       return []
     }
-    // The Python example asserts len(files) == 1. We'll take the first one for now.
-    const installerFile = files[0]
-    const downloadRequest = await ZoomUser.makeRequest(
-      `${apiUrl}/li/download/${installerFile.id}`
-    )
 
-    return [
-      {
+    const returnValue = []
+    for (const file of files) {
+      const downloadRequest = await ZoomUser.makeRequest<{ url: string }>(
+        `${apiUrl}/li/download/${file.id}`
+      )
+
+      returnValue.push({
         url: downloadRequest.url,
-        filename: installerFile.name,
-        total_size: parseSize(installerFile.size),
-        id: installerFile.id,
-        name: installerFile.name,
-        size: installerFile.size
-      }
-    ]
+        filename: file.name,
+        total_size: parseSize(file.size),
+        id: file.id,
+        name: file.name,
+        size: file.size
+      })
+    }
+    return returnValue
   } catch (error) {
     logError(['Error fetching Zoom installers:', error], LogPrefix.Zoom)
     return []

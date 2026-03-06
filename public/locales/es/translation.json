@@ -11,7 +11,7 @@
         "actions_font_family_default": "Tipografía de acciones (Por Defecto: {{fontFamily}})",
         "content_font_family_default": "Tipografía de contenido (Por Defecto: {{fontFamily}})",
         "disable_smooth_scrolling": "Desactivar scroll suave (requiere reiniciar)",
-        "disable_animations": "Desactivar animaciones de IU"
+        "disable_animations": "Desactivar animaciones de la interfaz de usuario (IU)"
     },
     "add_game": "Añadir juego",
     "All": "Todos",
@@ -672,7 +672,8 @@
                 },
                 "error": {
                     "content": "Falló la subida del registro. Ver el registro general de Heroic para detalles",
-                    "title": "Error al subir"
+                    "title": "Error al subir",
+                    "manual_upload": "Clicar en el botón «MOSTRAR ARCHIVO DE REGISTROS EN LA CARPETA» y subir manualmente el archivo «launch.log» en Discord o en otro servicio online para compartir archivos."
                 },
                 "header": "Se subieron los registros",
                 "hours-ago": "Subido {{hoursAgo, relativetime(hours)}}",
@@ -850,11 +851,11 @@
             "general": "General",
             "log": "Registro",
             "other": "Otro",
-            "sync": "Guardar-Sincronización",
+            "sync": "Sincronización de los juegos guardados en la nube",
             "wineExt": "Extensiones de Wine",
             "systemInformation": "Información del sistema",
             "gamescope": "Gamescope",
-            "legacy": "Heredado"
+            "legacy": "Obsoleto"
         },
         "open-config-file": "Abrir archivo de configuración",
         "reset-heroic": "Restablecer Heroic",

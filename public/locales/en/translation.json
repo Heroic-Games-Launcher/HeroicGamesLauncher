@@ -641,6 +641,7 @@
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
+        "disable_gog_presence": "Disable GOG Presence updates",
         "disable_logs": "Disable Logs",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
