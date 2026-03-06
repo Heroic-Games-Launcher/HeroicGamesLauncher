@@ -16,7 +16,7 @@ const Gamescope = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [gamescope, setGamescope] = useSetting('gamescope', {
-    enable: false,
+    enable: null,
     enableUpscaling: false,
     enableLimiter: false,
     enableForceGrabCursor: false,
