@@ -4,6 +4,10 @@ import {
   faSyncAlt,
   faArrowDownAZ,
   faArrowDownZA,
+  faArrowDown19,
+  faArrowDown91,
+  faSortAlphaDown,
+  faCalendarAlt,
   faHardDrive as hardDriveSolid,
   faFilter,
   faFilterCircleXmark
@@ -39,7 +43,9 @@ export default React.memo(function ActionIcons({
     sortInstalled,
     setSortInstalled,
     showAlphabetFilter,
-    onToggleAlphabetFilter
+    onToggleAlphabetFilter,
+    sortBy,
+    setSortBy
   } = useContext(LibraryContext)
 
   return (
@@ -73,16 +79,43 @@ export default React.memo(function ActionIcons({
         <button
           className="FormControl__button"
           title={
-            sortDescending
-              ? t('library.sortDescending', 'Sort Descending')
-              : t('library.sortAscending', 'Sort Ascending')
+            sortBy === 'title'
+              ? sortDescending
+                ? t('library.sortDescending', 'Sort Descending')
+                : t('library.sortAscending', 'Sort Ascending')
+              : sortDescending
+              ? t('library.sortNewestFirst', 'Newest First')
+              : t('library.sortOldestFirst', 'Oldest First')
           }
           onClick={() => setSortDescending(!sortDescending)}
         >
           <FontAwesomeIcon
             className="FormControl__segmentedFaIcon"
-            icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
+            icon={
+              sortBy === 'title'
+                ? sortDescending
+                  ? faArrowDownZA
+                  : faArrowDownAZ
+                : sortDescending
+                ? faArrowDown91
+                : faArrowDown19
+            }
             data-tour="library-sort-az"
+          />
+        </button>
+        <button
+          className="FormControl__button"
+          title={
+            sortBy === 'title'
+              ? t('library.sortByReleaseDate', 'Sort by Release Date')
+              : t('library.sortByTitle', 'Sort by Title')
+          }
+          onClick={() => setSortBy(sortBy === 'title' ? 'releaseDate' : 'title')}
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={sortBy === 'title' ? faCalendarAlt : faSortAlphaDown}
+            data-tour="library-sort-by"
           />
         </button>
         <button
