@@ -812,7 +812,8 @@
         },
         "WoW64": "WoW64'ü aç (Deneysel)",
         "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
-        "scripts": "Betikler:"
+        "scripts": "Betikler:",
+        "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak"
     },
     "settings": {
         "battlEyeRuntime": {
