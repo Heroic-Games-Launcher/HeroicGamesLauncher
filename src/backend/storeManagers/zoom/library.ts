@@ -10,6 +10,7 @@ import {
 } from 'common/types/zoom'
 
 import {
+  getRunnerLogWriter,
   logDebug,
   logError,
   logInfo,
@@ -95,7 +96,8 @@ export async function refresh(): Promise<ExecResult> {
   )
 
   const logContent = `Games List:\n${sortedTitles.join('\n')}\n\nTotal: ${logLines.length}\n`
-  logInfo(logContent, LogPrefix.Zoom)
+  const zoomLogWriter = getRunnerLogWriter('zoom')
+  void zoomLogWriter.logInfo(logContent)
 
   logInfo('Saved games data for Zoom', LogPrefix.Zoom)
 
