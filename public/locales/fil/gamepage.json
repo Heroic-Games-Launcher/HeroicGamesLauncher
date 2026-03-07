@@ -17,7 +17,9 @@
             "settingcheckbox": "Burahin ang mga setting at alisin ang log{{newLine}}Tandaan: Hindi na ito maa-undo. Ang anumang binagong setting ay malilimutan at ang log ay tatanggalin.",
             "checkbox": "Alisin ang prefix: {{prefix}}{{newLine}}Tandaan: Hindi ito maa-undo at aalisin din ang hindi naka-back up na mga save na file.",
             "title": "I-uninstall",
-            "dlc": "Gusto mo bang i-uninstall ang DLC na ito?"
+            "dlc": "Gusto mo bang i-uninstall ang DLC na ito?",
+            "cannotUninstallEpic": "",
+            "gameIsRunning": ""
         },
         "change": {
             "message": "Papalitan nito ang lokasyon ng pag-install ng larong ito, sigurado ka ba?",
@@ -34,7 +36,8 @@
             "title": "Piliin ang EXE na Patakbuhin"
         },
         "select": {
-            "button": "Pumili"
+            "button": "Pumili",
+            "image": ""
         },
         "sideload": {
             "exe": "Piliin ang Executable"
@@ -44,7 +47,25 @@
             "title": "Kailangan ng Pag-update ng Laro"
         },
         "wineprefix": "Piliin ang WinePrefix Folder",
-        "yes": "OO"
+        "yes": "OO",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "warning": {
+            "title": ""
+        },
+        "close": "",
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        },
+        "ok": ""
     },
     "cloud_save_unsupported": "Hindi suportado",
     "disabled": "Hindi pinagana",
@@ -64,7 +85,22 @@
         "platform": "Piliin ang Bersyon ng Platform na I-install",
         "requirements": "Pangangailangan sa System",
         "totalPlayed": "Time Played",
-        "dlcs": "Mga DLC"
+        "dlcs": "Mga DLC",
+        "branch": {
+            "disabled": "",
+            "select": "",
+            "password": "",
+            "setPrivateBranchPassword": ""
+        },
+        "changelogFor": "",
+        "modify": "",
+        "builds": {
+            "buildsSelector": "",
+            "version": "",
+            "toggle": ""
+        },
+        "install_info": "",
+        "extra_info": ""
     },
     "how-long-to-beat": {
         "completionist": "Completionist",
@@ -80,21 +116,26 @@
         "launching": "Paglulunsad",
         "playing": {
             "start": "Maglaro Ngayon",
-            "stop": "Naglalaro (Stop)"
+            "stop": "Naglalaro (Stop)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Sini-sync ang mga pag-save"
-        }
+        },
+        "winetricks": "",
+        "redist": ""
     },
     "launch": {
-        "options": "Mga Pagpipilian sa Paglunsad..."
+        "options": "Mga Pagpipilian sa Paglunsad...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Hindi ka naka-log in gamit ang isang Epic account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
         "gog": "Hindi ka naka-log in gamit ang isang GOG account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
         "login": "Mag log in",
         "title": "Hindi ka naka-login",
-        "amazon": "Hindi ka naka-log in gamit ang isang Amazon account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:"
+        "amazon": "Hindi ka naka-log in gamit ang isang Amazon account sa Heroic. Huwag gamitin ang page ng store para mag-login, i-click na lang ang sumusunod na button:",
+        "zoom": ""
     },
     "status": {
         "notSupported": "Hindi suportado",
@@ -121,7 +162,10 @@
         "moving-files": "Inilipat ang file na '{{file}}': {{percent}} ",
         "notinstalled": "Ang larong ito ay hindi naka-install",
         "gog-goodie": "Mukhang hindi mai-install ang larong ito. Tingnan ang nada-download na nilalaman sa https://gog.com/account",
-        "goodie": "Hindi mai-install"
+        "goodie": "Hindi mai-install",
+        "redist": "",
+        "winetricks": "",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "Magdagdag ng shortcut",
@@ -136,7 +180,8 @@
         "removeShortcut": "Alisin ang mga shortcut",
         "settings": "Mga setting",
         "store": "Pahina ng Tindahan",
-        "verify": "I-verify at Ayusin"
+        "verify": "I-verify at Ayusin",
+        "categories": ""
     },
     "button": {
         "add_to_favourites": "Idagdag sa mga Paborito",
@@ -162,7 +207,11 @@
         },
         "unhide_game": "I-unhide ang Laro",
         "uninstall": "I-uninstall",
-        "update": "Update"
+        "update": "Update",
+        "changelog": "",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "gamecard": {
         "moving": "Gumagalaw",
@@ -173,7 +222,13 @@
         "noDescription": "Walang available na paglalarawan"
     },
     "help": {
-        "cloud_save_unsupported": "Ang larong ito ay hindi sumusuporta sa cloud save. Ang impormasyong ito ay ibinigay ng mga developer ng laro. Ang ilang mga laro ay nagpapatupad ng kanilang sariling cloud save system"
+        "cloud_save_unsupported": "Ang larong ito ay hindi sumusuporta sa cloud save. Ang impormasyong ito ay ibinigay ng mga developer ng laro. Ang ilang mga laro ay nagpapatupad ng kanilang sariling cloud save system",
+        "content": {
+            "gamePage": ""
+        },
+        "title": {
+            "gamePage": ""
+        }
     },
     "hours": "Oras",
     "howLongToBeat": "Gaano Katagal Upang Talunin",
@@ -189,7 +244,8 @@
         "syncsaves": "Sync Saves",
         "version": "Bersyon",
         "protondb-compatibility-info": "Proton Compatibility Tier",
-        "steamdeck-compatibility-info": "SteamDeck Compatibility"
+        "steamdeck-compatibility-info": "SteamDeck Compatibility",
+        "third-party-app": ""
     },
     "install": {
         "disk-space-left": "Magagamit na espasyo",
@@ -198,14 +254,26 @@
         "path-not-writtable": "Babala: maaaring hindi maisulat ang path.",
         "space-after-install": "Pagkatapos ng Pag-install",
         "wineprefix": "WinePfix",
-        "wineversion": "Bersyon ng alak"
+        "wineversion": "Bersyon ng alak",
+        "anticheat-warning": {
+            "cancel": "",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "ok": "",
+            "multiplayer_message": "",
+            "title": ""
+        },
+        "flatpak-path-not-writtable": ""
     },
     "report_problem": "Mag-ulat ng problema sa pagpapatakbo ng larong ito",
     "sdl": {
         "title": "Pumili ng mga bahagi na I-install"
     },
     "setting": {
-        "winecrossoverbottle": "CrossOver Bote"
+        "winecrossoverbottle": "CrossOver Bote",
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -215,16 +283,48 @@
             "exe": "Piliin ang Executable",
             "image": "Larawan ng App",
             "title": "Pamagat ng Laro/App",
-            "broser": "BrowserURL"
+            "broser": "BrowserURL",
+            "useragent": "",
+            "fullscreen": ""
         },
         "placeholder": {
             "image": "Mag-paste ng URL ng Larawan dito",
             "title": "Magdagdag ng pamagat sa iyong Laro/App",
-            "url": "I-paste ang URL ng Laro dito"
+            "url": "I-paste ang URL ng Laro dito",
+            "useragent": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
         "minimum": "pinakamababa",
         "recommended": "Inirerekomenda"
-    }
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "queue": {
+        "label": {
+            "resume": "",
+            "pause": "",
+            "remove": "",
+            "canceled": ""
+        }
+    },
+    "modifyInstall": {
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "dlcsCollapsible": "",
+        "versionCollapsable": ""
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }
