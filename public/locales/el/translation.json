@@ -662,7 +662,8 @@
                 },
                 "error": {
                     "content": "Αποτυχία μεταφόρτωσης αρχείου καταγραφής. Ελέγξτε το γενικό αρχείο καταγραφής του Heroic για λεπτομέρειες",
-                    "title": "Η μεταφόρτωση απέτυχε"
+                    "title": "Η μεταφόρτωση απέτυχε",
+                    "manual_upload": ""
                 },
                 "header": "Μεταφορτωμένα αρχεία καταγραφής",
                 "hours-ago": "Μεταφορτώθηκε {{hoursAgo, relativetime(hours)}}",
@@ -796,7 +797,8 @@
             "description": "Ενεργοποίηση λεπτομερών αρχείων καταγραφής"
         },
         "wineWayland": "Ενεργοποίηση του Wine-Wayland (Experimental) (η έκδοση Wine πρέπει να την υποστηρίζει)",
-        "WoW64": "Ενεργοποίηση του WoW64 (Experimental)"
+        "WoW64": "Ενεργοποίηση του WoW64 (Experimental)",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -833,7 +835,8 @@
             "sync": "Συγχρονισμός αρχείων αποθήκευσης στο cloud",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "Πληροφορίες Συστήματος"
+            "systemInformation": "Πληροφορίες Συστήματος",
+            "legacy": ""
         },
         "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
         "reset-heroic": "Επαναφορά Heroic",
@@ -900,7 +903,8 @@
         },
         "offline": {
             "warning": "Αυτό το παιχνίδι δεν επιτρέπει ρητά τη λειτουργία εκτός σύνδεσης, ενεργοποιήστε την με δική σας ευθύνη. Το παιχνίδι ενδέχεται να μην λειτουργεί."
-        }
+        },
+        "legacy_warning": ""
     },
     "Settings": "Ρυθμίσεις",
     "sidebar": {
