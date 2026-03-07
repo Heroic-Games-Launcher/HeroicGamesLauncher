@@ -99,7 +99,11 @@
                 "title": "Errore Steam"
             },
             "executableNotFound": "File eseguibile non trovato",
-            "executableNotFoundMessage": "Heroic non è riuscito a trovare l'eseguibile di questo gioco. Impostalo manualmente nelle impostazioni del gioco."
+            "executableNotFoundMessage": "Heroic non è riuscito a trovare l'eseguibile di questo gioco. Impostalo manualmente nelle impostazioni del gioco.",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            }
         },
         "info": {
             "update": {
@@ -667,7 +671,8 @@
                 },
                 "error": {
                     "content": "Caricamento log fallito. Controlla il log generale di Heroic per dettagli",
-                    "title": "Caricamento fallito"
+                    "title": "Caricamento fallito",
+                    "manual_upload": ""
                 },
                 "header": "File di log caricati",
                 "hours-ago": "Caricato {{hoursAgo, relativetime(hours)}}",
@@ -807,7 +812,8 @@
             "label": "Consenti l’uso delle versioni di Proton di Valve per eseguire i giochi"
         },
         "WoW64": "Abilita WoW64 (sperimentale)",
-        "scripts": "Script:"
+        "scripts": "Script:",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -844,7 +850,8 @@
             "sync": "Sincronizzazione salvataggi in cloud",
             "wineExt": "Estensioni di Wine",
             "systemInformation": "Informazioni di Sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Apri File di Configurazione",
         "reset-heroic": "Reset Heroic",
@@ -911,7 +918,8 @@
         "custom_css": {
             "title": "Stile CSS personalizzato"
         },
-        "launchOptions": "Opzioni di avvio..."
+        "launchOptions": "Opzioni di avvio...",
+        "legacy_warning": ""
     },
     "Settings": "Impostazioni",
     "sidebar": {
@@ -976,7 +984,8 @@
             "unzipping": "Decompressione in corso"
         },
         "release": "Release Date",
-        "size": "Dimensione"
+        "size": "Dimensione",
+        "notes": ""
     },
     "externalLink": {
         "warning": "Stai per aprire un collegamento esterno.",
