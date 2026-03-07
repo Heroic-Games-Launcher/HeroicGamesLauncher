@@ -348,6 +348,8 @@ class GlobalConfigV0 extends GlobalConfig {
       enableHDR: false,
       enableWoW64: false,
       eacRuntime: isLinux,
+      gamepadRepeatDelay: 50,
+      gamepadInitialRepeatDelay: 300,
       battlEyeRuntime: isLinux,
       framelessWindow: false,
       beforeLaunchScriptPath: '',
