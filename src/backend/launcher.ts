@@ -81,6 +81,7 @@ import {
   fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
+  gamesConfigPath,
   runtimePath,
   userHome
 } from './constants/paths'
@@ -330,6 +331,12 @@ function filterGameSettingsForLog(
 ): PartialDeep<GameSettings> {
   const gameSettings: PartialDeep<GameSettings> =
     structuredClone(originalSettings)
+
+  // this is irrelevant for support
+  delete gameSettings.enableQuickSavesMenu
+  // if this is visible, it means verboseLogs is true, no need to print it
+  delete gameSettings.verboseLogs
+
   // remove gamescope settings if it's disabled
   if (gameSettings.gamescope) {
     if (!gameSettings.gamescope.enableLimiter) {
@@ -412,6 +419,9 @@ function filterGameSettingsForLog(
         if (wineType.type === 'wine') {
           delete gameSettings.wineCrossoverBottle
           delete gameSettings.advertiseAvxForRosetta
+          if (wineType.name?.includes('DXMT')) {
+            delete gameSettings.autoInstallDxvk
+          }
         }
 
         if (wineType.type === 'toolkit') {
@@ -431,6 +441,9 @@ function filterGameSettingsForLog(
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
       delete gameSettings.advertiseAvxForRosetta
+      delete gameSettings.autoInstallDxvk
+      delete gameSettings.autoInstallDxvkNvapi
+      delete gameSettings.autoInstallVkd3d
     }
   }
 
@@ -537,6 +550,8 @@ async function prepareLaunch(
   await logWriter.logInfo([
     'Game Settings:',
     filterGameSettingsForLog(gameSettings, !native),
+    '\n',
+    `Stored at: ${join(gamesConfigPath, gameInfo.app_name + '.json')}`,
     '\n\n'
   ])
 
