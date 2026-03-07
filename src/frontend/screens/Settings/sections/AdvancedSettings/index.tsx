@@ -25,7 +25,8 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
-  ResetHeroic
+  ResetHeroic,
+  SteamGridDbApiKey
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
 
@@ -301,6 +302,8 @@ export default function AdvancedSetting() {
         </div>
         <hr />
       </div>
+
+      <SteamGridDbApiKey />
 
       <div className="advancedSetting">
         <ExperimentalFeatures />
