@@ -8,7 +8,10 @@
         "actions_font_family_no_default": "ऐक्शन्स फ़ॉन्ट फैमिली (डिफ़ॉल्ट):",
         "content_font_family_no_default": "सामग्री फ़ॉन्ट फैमिली (डिफ़ॉल्ट): ",
         "disable_dialog_backdrop_close": "बाहर क्लिक करके संवाद अक्षम करो",
-        "content_font_family_default": "सामग्री फ़ॉन्ट फैमिली (डिफ़ॉल्ट):"
+        "content_font_family_default": "सामग्री फ़ॉन्ट फैमिली (डिफ़ॉल्ट):",
+        "actions_font_family_default": "",
+        "disable_smooth_scrolling": "",
+        "disable_animations": ""
     },
     "add_game": "गेम जोड़ो",
     "adtraction-locked": {
@@ -21,10 +24,55 @@
         "choose": "चुनो",
         "error": {
             "generic": {
-                "title": "EXE चुनकर चलाओ"
+                "title": "EXE चुनकर चलाओ",
+                "message": ""
             },
             "diskspace": {
                 "message": "डिस्क पर जगह काफी नहीं है"
+            },
+            "launchAborted": "",
+            "credentials": {
+                "message": ""
+            },
+            "legendary": {
+                "generic": ""
+            },
+            "title": "",
+            "winetricks": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFound": "",
+            "dxvk": {
+                "message": "",
+                "title": ""
+            },
+            "update": {
+                "message": "",
+                "title": ""
+            },
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "moving": "",
+            "uncaught-exception": {
+                "message": "",
+                "title": ""
+            },
+            "add": {
+                "steam": {
+                    "title": "",
+                    "body": ""
+                }
+            },
+            "cx-bottle-not-found": {
+                "title": "",
+                "message": ""
+            },
+            "executableNotFoundMessage": "",
+            "folder-not-found": {
+                "title": ""
             }
         },
         "no": "नहीं",
@@ -32,28 +80,142 @@
             "title": "EXE चुनकर चलाओ"
         },
         "select": {
-            "button": "चुनो"
+            "button": "चुनो",
+            "script": "",
+            "exe": ""
         },
         "update": "अपडेट करो",
         "yes": "हाँ",
         "cache-cleared": {
-            "message": "हीरोइक कैश साफ हो गया।"
+            "message": "हीरोइक कैश साफ हो गया।",
+            "title": ""
         },
         "changelog": "बदलाव",
         "choose-egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है",
-        "choose-gogdl-binary": "GOGDL बाइनरी चुनें (पुनः आरंभ करने की आवश्यकता है)"
+        "choose-gogdl-binary": "GOGDL बाइनरी चुनें (पुनः आरंभ करने की आवश्यकता है)",
+        "warning": {
+            "epic": {
+                "install": "",
+                "import": "",
+                "update": ""
+            },
+            "wine-change": {
+                "message": "",
+                "title": ""
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
+            },
+            "title": "",
+            "snap": {
+                "checkbox": "",
+                "title": "",
+                "message": ""
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "",
+                    "message": ""
+                }
+            }
+        },
+        "info": {
+            "update": {
+                "detail": "",
+                "title-finished": "",
+                "message-finished": "",
+                "message": "",
+                "detailNoAutoupdate": "",
+                "title": ""
+            }
+        },
+        "choose-legendary-binary": "",
+        "reset-heroic": {
+            "question": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "quit": {
+            "message": "",
+            "title": ""
+        },
+        "protocol": {
+            "install": {
+                "not_installed": ""
+            }
+        },
+        "shortcuts": {
+            "title": "",
+            "message-remove": "",
+            "message": "",
+            "message-remove-mac": "",
+            "message-mac": ""
+        },
+        "vcruntime": {
+            "install": {
+                "message": ""
+            },
+            "notfound": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "default-install-path": "",
+        "wineprefix": "",
+        "default-steam-path": "",
+        "downloadNow": "",
+        "postpone": "",
+        "dontShowAgain": "",
+        "sync": {
+            "title": "",
+            "error": ""
+        },
+        "ok": "",
+        "choose-nile-binary": "",
+        "customWine": ""
     },
     "controller": {
         "hints": {
-            "select": "चुनो"
+            "select": "चुनो",
+            "play_game": "",
+            "options": "",
+            "move_cursor": "",
+            "install_game": "",
+            "space": "",
+            "backspace": "",
+            "open_virtual_keyboard": "",
+            "close_keyboard": "",
+            "game_settings": "",
+            "game_details": "",
+            "scroll": "",
+            "back": "",
+            "close_dialog": "",
+            "close_options": "",
+            "update_game": ""
         }
     },
     "dlc": {
         "size": "साइज़",
-        "title": "शीर्षक"
+        "title": "शीर्षक",
+        "installDlcs": "",
+        "actions": "",
+        "noDlcFound": ""
     },
     "info": {
-        "version": "वाइन वर्शन"
+        "version": "वाइन वर्शन",
+        "settings": "",
+        "heroic": {
+            "version": "",
+            "beta": "",
+            "newReleases": "",
+            "stable": "",
+            "click-to-see-changelog": ""
+        },
+        "save-sync": {
+            "searching": ""
+        }
     },
     "setting": {
         "eosOverlay": {
@@ -61,75 +223,501 @@
             "remove": "अनइंस्टॉल करो",
             "updateNow": "अपडेट करो",
             "disable": "अक्षम",
-            "enable": "क्षम"
+            "enable": "क्षम",
+            "installing": "",
+            "checkForUpdates": "",
+            "removeConfirm": "",
+            "notInstalledMsg": "",
+            "currentVersion": "",
+            "notInstalledTitle": "",
+            "checkingForUpdates": "",
+            "installed": "",
+            "latestVersion": "",
+            "notInstalled": "",
+            "updating": "",
+            "cancelInstall": "",
+            "removeConfirmTitle": ""
         },
         "library_top_option": {
-            "disabled": "अक्षम"
+            "disabled": "अक्षम",
+            "favourites": "",
+            "recently_played_installed": "",
+            "recently_played": ""
         },
         "winecrossoverbottle": "क्रॉसओवर बोतल",
-        "wineversion": "वाइन वर्शन"
+        "wineversion": "वाइन वर्शन",
+        "WoW64": "",
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
+        "log": {
+            "upload": {
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "actions": "",
+                "uploading": {
+                    "title": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "join-heroic-discord": "",
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "no-file": "",
+            "instructions_title": "",
+            "show-uploads": "",
+            "instructions": "",
+            "show-in-folder": ""
+        },
+        "manualsync": {
+            "title": "",
+            "sync": "",
+            "syncing": "",
+            "forceupload": "",
+            "upload": "",
+            "forcedownload": "",
+            "download": ""
+        },
+        "disable_controller": "",
+        "alt-gogdl-bin": "",
+        "alt-nile-bin": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "fsync": "",
+        "showfps": "",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "egs-sync": "",
+        "hdr": "",
+        "custom_themes_path": "",
+        "autodxvknvapi": "",
+        "library_top_section": "",
+        "savefolder": {
+            "placeholder": "",
+            "warning": "",
+            "not-found": ""
+        },
+        "autosync": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "preferSystemLibs": "",
+        "dxfpslimit": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "autodxvk": "",
+        "addgamestostartmenu": "",
+        "download-no-https": "",
+        "customWineProton": "",
+        "exit-to-tray": "",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "enable-quick-sync-menu": "",
+        "runexe": {
+            "title": ""
+        },
+        "disable_logs": "",
+        "start-in-tray": "",
+        "change-target-exe": "",
+        "offlinemode": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "addgamestoapplications": "",
+        "language": "",
+        "FsrSharpnessStrenght": "",
+        "disablePlaytimeSync": "",
+        "crossover-version": "",
+        "adddesktopshortcuts": "",
+        "esync": "",
+        "addgamestosteam": "",
+        "alt-legendary-bin": "",
+        "minimize-on-launch": "",
+        "autovkd3d": "",
+        "ignoreGameUpdates": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "mangohud": "",
+        "before-launch-script-path": "",
+        "default-steam-path": "",
+        "maxworkers": "",
+        "steamruntime": "",
+        "disableUMU": "",
+        "defaultWinePrefix": "",
+        "discordRPC": "",
+        "gamemode": "",
+        "select_theme": "",
+        "maxRecentGames": "",
+        "default-install-path": "",
+        "enableFSRHack": "",
+        "autoUpdateGames": "",
+        "msync": "",
+        "wineprefix": "",
+        "advertiseAvxForRosetta": "",
+        "darktray": "",
+        "checkForUpdatesOnStartup": "",
+        "prefered_language": "",
+        "hideChangelogsOnStartup": "",
+        "showMetalOverlay": "",
+        "custom_css": {
+            "warning": ""
+        }
     },
     "settings": {
         "advanced": {
-            "details": "विवरण"
+            "details": "विवरण",
+            "clearCache": {
+                "help9": "",
+                "help1": "",
+                "help8": "",
+                "help3": "",
+                "help10": "",
+                "help7": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
+            },
+            "title": {
+                "resetHeroic": "",
+                "clearCache": ""
+            },
+            "resetHeroic": {
+                "help": ""
+            }
         },
         "navbar": {
-            "log": "लॉग"
+            "log": "लॉग",
+            "gamescope": "",
+            "general": "",
+            "advanced": "",
+            "games_settings_defaults": "",
+            "systemInformation": "",
+            "sync": "",
+            "legacy": "",
+            "other": ""
         },
-        "launchOptions": "चालू करने के विकल्प..।"
+        "launchOptions": "चालू करने के विकल्प..।",
+        "legacy_warning": "",
+        "eacRuntime": {
+            "name": "",
+            "installing": "",
+            "gameModeRequired": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "systemInformation": {
+            "cpu": "",
+            "gpuWithNumber": "",
+            "cpuDescription": "",
+            "legendaryVersion": "",
+            "systemSpecifications": "",
+            "steamDeck": "",
+            "gpuDriver": "",
+            "os": "",
+            "gpu": "",
+            "gogdlVersion": "",
+            "osVersion": "",
+            "osNameFlatpak": "",
+            "software": "",
+            "cometVersion": "",
+            "memoryStats": "",
+            "systemModel": "",
+            "showDetailed": "",
+            "memory": "",
+            "copyToClipboard": "",
+            "heroicVersion": "",
+            "nileVersion": ""
+        },
+        "experimental_features": {
+            "title": ""
+        },
+        "reset-heroic": "",
+        "default_hint": "",
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "saves": {
+            "warning": "",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
+        },
+        "log": {
+            "long-log-hint": ""
+        },
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "battlEyeRuntime": {
+            "installing": "",
+            "name": ""
+        },
+        "clear-cache": "",
+        "copyToClipboard": "",
+        "custom_css": {
+            "title": ""
+        },
+        "copiedToClipboard": "",
+        "open-config-file": ""
     },
     "Settings": "सेटिंग",
     "window": {
-        "close": "बंद करो"
+        "close": "बंद करो",
+        "minimize": "",
+        "maximize": "",
+        "restore": ""
     },
     "wine": {
-        "size": "साइज़"
+        "size": "साइज़",
+        "manager": {
+            "link": "",
+            "title": "",
+            "unzipping": "",
+            "not-found": ""
+        },
+        "notes": "",
+        "release": "",
+        "actions": ""
     },
     "button": {
-        "login": "लॉग इन"
+        "login": "लॉग इन",
+        "go_to_library": "",
+        "continue": "",
+        "cancel": ""
     },
     "download-manager": {
         "install-type": {
             "install": "इंस्टॉल करो",
             "update": "अपडेट करो"
-        }
+        },
+        "ETA": "",
+        "queue": {
+            "type": "",
+            "end-time": "",
+            "queue-time": "",
+            "start-time": ""
+        },
+        "label": {
+            "disk": "",
+            "speed": ""
+        },
+        "title": "",
+        "link": ""
     },
     "game": {
         "modify": "इंस्टॉलेशन में बदलाव करो",
         "status": "स्थिति",
-        "title": "गेम/ऐप शीर्षक"
+        "title": "गेम/ऐप शीर्षक",
+        "store": ""
     },
     "header": {
-        "categories": "श्रेणियाँ"
+        "categories": "श्रेणियाँ",
+        "show_support_offline_only": "",
+        "select_all": "",
+        "filters": "",
+        "show_hidden": "",
+        "show_favourites_only": "",
+        "show_third_party_managed_only": "",
+        "only": "",
+        "show_updates_only": "",
+        "reset": "",
+        "show_installed_only": "",
+        "show_available_games": "",
+        "no_categories": "",
+        "uncategorized": ""
     },
     "help": {
         "title": {
             "settings": "सेटिंग",
-            "accessibility": "सुलभता"
-        }
+            "accessibility": "सुलभता",
+            "login": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": ""
+        },
+        "sync": {
+            "part2": "",
+            "part1": "",
+            "part3": "",
+            "part4": ""
+        },
+        "disable_logs": "",
+        "dxfpslimit": "",
+        "dxvk": "",
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
+        "msync": "",
+        "other": {
+            "part6": "",
+            "part4": "",
+            "part5": "",
+            "part7": ""
+        },
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "amdfsr": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "preferSystemLibs": "",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "game_language": {
+            "valid_codes": "",
+            "in_game_config": "",
+            "fallback": ""
+        },
+        "mangohud": "",
+        "wine": {
+            "part1": "",
+            "part2": ""
+        },
+        "dxvknvapi": "",
+        "disablePlaytimeSync": "",
+        "steamruntime": "",
+        "steam_path": {
+            "info": ""
+        },
+        "general": "",
+        "vkd3d": "",
+        "WoW64": "",
+        "custom_themes_path": "",
+        "custom_themes_wiki": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": "",
+        "fsync": "",
+        "gamemode": "",
+        "esync": ""
     },
     "infobox": {
-        "requirements": "सिस्टम आवश्यकताएँ"
+        "requirements": "सिस्टम आवश्यकताएँ",
+        "help": "",
+        "wine-path-none-found": "",
+        "wine-prefix": {
+            "title": ""
+        },
+        "wine-repfix": {
+            "message": ""
+        },
+        "warning": "",
+        "wine-path-invalid": "",
+        "wine-path": ""
     },
     "label": {
-        "loading": "लोड हो रहा है"
+        "loading": "लोड हो रहा है",
+        "releaseDate": ""
     },
     "loading": {
-        "default": "लोड हो रहा है"
+        "default": "लोड हो रहा है",
+        "website": ""
     },
     "queue": {
         "label": {
             "downloading": "डाउनलोड हो रहा है",
-            "queued": "कतार में"
+            "queued": "कतार में",
+            "empty": "",
+            "finished": "",
+            "clear": ""
         }
     },
     "status": {
         "installing": "इंस्टॉल हो रहा है",
-        "processing": "फाइलें जाँची जा रही हैं, प्लीज़ इंतेज़ार करो"
+        "processing": "फाइलें जाँची जा रही हैं, प्लीज़ इंतेज़ार करो",
+        "preparing_login": "",
+        "logging": ""
     },
     "winetricks": {
         "install": "इंस्टॉल करो",
-        "loading": "लोड हो रहा है"
+        "loading": "लोड हो रहा है",
+        "no-components": "",
+        "installing": "",
+        "openGUI": "",
+        "search": "",
+        "loading-available": "",
+        "nothingYet": "",
+        "installed": ""
     },
     "anticheat": {
         "anticheats": "ऐंटीचीट",
@@ -143,26 +731,315 @@
         "finished": {
             "remove": {
                 "steam": {
-                    "title": "स्टीम से हटाओ"
+                    "title": "स्टीम से हटाओ",
+                    "corrupt": "",
+                    "success": ""
                 }
             },
             "add": {
                 "steam": {
-                    "title": "स्टीम में जोड़ो"
+                    "title": "स्टीम में जोड़ो",
+                    "corrupt": "",
+                    "success": ""
                 }
-            }
+            },
+            "reparing": ""
         },
-        "uninstalled": "अनइंस्टॉल करो"
+        "uninstalled": "अनइंस्टॉल करो",
+        "update": {
+            "started": "",
+            "paused": "",
+            "failed": "",
+            "canceled": "",
+            "finished": ""
+        },
+        "import": {
+            "failed": ""
+        },
+        "error": {
+            "reparing": "",
+            "move": ""
+        },
+        "install": {
+            "canceled": "",
+            "startInstall": "",
+            "finished": "",
+            "failed": "",
+            "paused": "",
+            "error": "",
+            "imported": ""
+        },
+        "new-heroic-version": "",
+        "moved": "",
+        "refresh": {
+            "error": ""
+        },
+        "moving": ""
     },
     "placeholder": {
-        "egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है"
+        "egs-prefix": "वह उपसर्ग चुनें जहां EGS स्थापित है",
+        "alt-nile-bin": "",
+        "prefered_language": "",
+        "custom_themes_path": "",
+        "dxvkfpsvalue": "",
+        "alt-legendary-bin": "",
+        "alt-gogdl-bin": ""
     },
     "store": "यहाँ एपिक स्टोर",
     "analyticsModal": {
         "disable": "अक्षम",
-        "enable": "क्षम"
+        "enable": "क्षम",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
     },
     "launch": {
         "options": "चालू करने के विकल्प..।"
+    },
+    "tour": {
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "back": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
+    },
+    "options": {
+        "env_variables": {
+            "error": {
+                "space_in_key": "",
+                "equal_sign_in_key": "",
+                "empty_key": ""
+            },
+            "info": "",
+            "example": ""
+        },
+        "advanced": {
+            "title": "",
+            "key": "",
+            "value": "",
+            "placeHolderKey": "",
+            "placeHolderValue": ""
+        },
+        "gamescope": {
+            "nis": "",
+            "additionalOptions": "",
+            "borderless": "",
+            "windowed": "",
+            "fpsLimiter": "",
+            "gameHeight": "",
+            "upscaleWidth": "",
+            "fullscreen": "",
+            "gameWidth": "",
+            "interger": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": ""
+        },
+        "wrapper": {
+            "args": "",
+            "placeHolderValue": "",
+            "placeHolderKey": "",
+            "arguments_example": "",
+            "exe": "",
+            "title": ""
+        },
+        "gameargs": {
+            "error": {
+                "command": "",
+                "env": ""
+            },
+            "placeholder": "",
+            "title": ""
+        },
+        "quote-args-with-spaces": ""
+    },
+    "docs": "",
+    "tooltip": {
+        "removepath": "",
+        "addpath": ""
+    },
+    "title": {
+        "allGames": ""
+    },
+    "progress": "",
+    "externalLink": {
+        "dontAskAgain": "",
+        "warning": ""
+    },
+    "userselector": {
+        "logout": "",
+        "cancel": "",
+        "manageaccounts": "",
+        "logout_confirmation": "",
+        "quitMessage": "",
+        "discord": "",
+        "logging_out": "",
+        "quit": ""
+    },
+    "library": {
+        "toggleLayout": {
+            "list": "",
+            "grid": ""
+        },
+        "sortAscending": "",
+        "hideAlphabetFilter": "",
+        "sortByStatus": "",
+        "sortDescending": "",
+        "showAlphabetFilter": ""
+    },
+    "Epic Games": "",
+    "platforms": {
+        "win": "",
+        "mac": "",
+        "linux": "",
+        "browser": ""
+    },
+    "Update Available!": "",
+    "favourites": "",
+    "globalSettings": "",
+    "other": {
+        "nile-version": "",
+        "gogdl-version": "",
+        "legendary-version": "",
+        "weblate": ""
+    },
+    "categories-manager": {
+        "confirm-rename": "",
+        "cancel-remove": "",
+        "no-categories": "",
+        "confirm-remove": "",
+        "add-placeholder": "",
+        "remove": "",
+        "title": "",
+        "cancel-rename": "",
+        "add": "",
+        "rename": ""
+    },
+    "tray": {
+        "show": "",
+        "reload": "",
+        "about": "",
+        "quit": ""
+    },
+    "webview": {
+        "controls": {
+            "forward": "",
+            "back": "",
+            "reload": "",
+            "openInBrowser": ""
+        }
+    },
+    "category-settings": {
+        "remove-category": "",
+        "cancel": "",
+        "delete-question": "",
+        "new-category": "",
+        "add-new-category": "",
+        "warning": ""
+    },
+    "message": {
+        "unsync": "",
+        "sync": ""
+    },
+    "amazon-luna": "",
+    "Other": "",
+    "gog-store": "",
+    "two_col_table": {
+        "save_hint": ""
+    },
+    "login": {
+        "amazon": "",
+        "alternative_method": "",
+        "message": "",
+        "gog": "",
+        "epic": "",
+        "old-mac": "",
+        "zoom": ""
+    },
+    "stores": "",
+    "GOG": "",
+    "toolbox": {
+        "settings": {
+            "wineprefix": ""
+        }
+    },
+    "please-wait": "",
+    "offline-message": {
+        "ignore": "",
+        "offline": "",
+        "retrying": "",
+        "hint": "",
+        "offline-retry-in": ""
+    },
+    "Recent": "",
+    "Library": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "generic": {
+        "library": {
+            "refresh": ""
+        },
+        "error": {
+            "component": ""
+        }
+    },
+    "epic": {
+        "offline-notification-title": "",
+        "offline-notification-body": ""
+    },
+    "search": "",
+    "error": "",
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": ""
     }
 }

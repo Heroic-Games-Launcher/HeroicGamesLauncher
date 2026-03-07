@@ -22,7 +22,8 @@
         "choose": "चुनो",
         "close": "बंद करो",
         "select": {
-            "button": "चुनो"
+            "button": "चुनो",
+            "image": ""
         },
         "stopInstall": {
             "keepInstalling": "इंस्टॉल करते रहो",
@@ -36,7 +37,8 @@
             "settingcheckbox": "सेटिंग मिटाकर {{newLine}} लॉग हटाओ। सूचना: यह पहले की तरह नहीं किया जा सकता। कोई भी बदली गई सेटिंग भूला दी जाएगी और लॉग हटा दिया जाएगा।",
             "title": "अनइंस्टॉल करो",
             "cannotUninstallEpic": "एपिक गेम्स तब तक अनइंस्टॉल नहीं हो सकते जब तक एक दूसरा एपिक गेम इंस्टॉल हो रहा है।",
-            "message": "क्या तुम \"{{title}}\" को अनइंस्टॉल करना चाहते हो?"
+            "message": "क्या तुम \"{{title}}\" को अनइंस्टॉल करना चाहते हो?",
+            "gameIsRunning": ""
         },
         "yes": "हाँ",
         "update": {
@@ -46,7 +48,24 @@
         "sideload": {
             "exe": "एक्सेक्यूटेबल चुनो"
         },
-        "wineprefix": "वाइनप्रीफिक्स फोल्डर चुनो"
+        "wineprefix": "वाइनप्रीफिक्स फोल्डर चुनो",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "warning": {
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        },
+        "ok": ""
     },
     "button": {
         "finish": "खत्म",
@@ -73,7 +92,10 @@
             "edit": "ऐप/गेम संपादित करो"
         },
         "unhide_game": "गेम को अनछिपाओ",
-        "update": "अपडेट करो"
+        "update": "अपडेट करो",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "enabled": "क्षम",
     "game": {
@@ -162,7 +184,8 @@
         "launching": "शुरू हो रहा है",
         "playing": {
             "start": "अभी खेलो",
-            "stop": "चल रहा है (रोको)"
+            "stop": "चल रहा है (रोको)",
+            "start_with_logs": ""
         },
         "winetricks": "वाइनट्रिक पैकेजों इंस्टॉल हो रहे हैं",
         "saves": {
@@ -198,7 +221,8 @@
     "setting": {
         "show-wine-settings": "वाइन सेटिंग चुनो",
         "winecrossoverbottle": "क्रॉसओवर बोतल",
-        "warn-use-shared-wine-config": "इस विकल्प का उपयोग केवल तभी करो जब तुम्हें पता हो कि तुम क्या कर रहे हो।<br/>अगर बहुत सारे गेमों के लिए समान उपसर्ग शेयर करना असंगत हो तो इससे दिक्कत आ सकती है।"
+        "warn-use-shared-wine-config": "इस विकल्प का उपयोग केवल तभी करो जब तुम्हें पता हो कि तुम क्या कर रहे हो।<br/>अगर बहुत सारे गेमों के लिए समान उपसर्ग शेयर करना असंगत हो तो इससे दिक्कत आ सकती है।",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "info": {
@@ -217,6 +241,10 @@
         },
         "field": {
             "title": "शीर्षक"
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -249,7 +277,8 @@
         "notSupported": "असमर्थित",
         "redist": "रीडिस्ट्रिब्यूटेबल इंस्टॉल हो रहे हैं ({{redist}})",
         "syncingSaves": "सेव सिंक हो रहे हैं",
-        "this-game-uses-third-party": "यह गेम तृतीय पक्ष लॉन्चर का इस्तेमाल करता है जिसका अभी समर्थन नहीं होता"
+        "this-game-uses-third-party": "यह गेम तृतीय पक्ष लॉन्चर का इस्तेमाल करता है जिसका अभी समर्थन नहीं होता",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "शॉर्टकट जोड़ो",
@@ -278,10 +307,22 @@
     },
     "hours": "घंटे",
     "launch": {
-        "options": "चालू करने के विकल्प..।"
+        "options": "चालू करने के विकल्प..।",
+        "default": ""
     },
     "report_problem": "इस गेम को चलाते हुए आई समस्या की शिकायत दर्ज़ करो",
     "sdl": {
         "title": "इनस्टॉल करने के लिए कंपोनेंट चुनो"
-    }
+    },
+    "queue": {
+        "label": {
+            "resume": "",
+            "pause": "",
+            "remove": "",
+            "canceled": ""
+        }
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }
