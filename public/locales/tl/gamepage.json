@@ -1,1 +1,323 @@
-{}
+{
+    "game": {
+        "getting-download-size": "",
+        "branch": {
+            "disabled": "",
+            "select": "",
+            "password": "",
+            "setPrivateBranchPassword": ""
+        },
+        "installSize": "",
+        "downloadSize": "",
+        "language": "",
+        "changelogFor": "",
+        "modify": "",
+        "builds": {
+            "buildsSelector": "",
+            "version": "",
+            "toggle": ""
+        },
+        "getting-install-size": "",
+        "install_info": "",
+        "extra_info": "",
+        "totalPlayed": "",
+        "lastPlayed": "",
+        "firstPlayed": "",
+        "neverPlayed": "",
+        "requirements": "",
+        "platform": ""
+    },
+    "button": {
+        "add_to_favourites": "",
+        "unhide_game": "",
+        "details": "",
+        "sideload": {
+            "edit": ""
+        },
+        "changelog": "",
+        "force_update": "",
+        "install": "",
+        "browse_wine_prefix": "",
+        "continue": "",
+        "update": "",
+        "force-innstall": "",
+        "run-exe-first": "",
+        "hide_game": "",
+        "finish": "",
+        "remove_from_recent": "",
+        "queue": {
+            "remove": ""
+        },
+        "running-setup": "",
+        "remove_from_favourites": "",
+        "play": "",
+        "no-path-selected": "",
+        "cancel": "",
+        "browse_files": "",
+        "uninstall": "",
+        "import": ""
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "queue": {
+        "label": {
+            "resume": "",
+            "pause": "",
+            "remove": "",
+            "canceled": ""
+        }
+    },
+    "hours": "",
+    "modifyInstall": {
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "dlcsCollapsible": "",
+        "versionCollapsable": ""
+    },
+    "not_logged_in": {
+        "gog": "",
+        "login": "",
+        "amazon": "",
+        "title": "",
+        "zoom": "",
+        "epic": ""
+    },
+    "box": {
+        "runexe": {
+            "title": ""
+        },
+        "uninstall": {
+            "title": "",
+            "settingcheckbox": "",
+            "cannotUninstallEpic": "",
+            "message": "",
+            "checkbox": "",
+            "prefix_warning": "",
+            "gameIsRunning": "",
+            "dlc": ""
+        },
+        "repair": {
+            "title": "",
+            "message": ""
+        },
+        "move": {
+            "message": "",
+            "title": "",
+            "path": ""
+        },
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "no": "",
+        "warning": {
+            "title": ""
+        },
+        "wineprefix": "",
+        "stopInstall": {
+            "title": "",
+            "keepInstalling": "",
+            "message": ""
+        },
+        "change": {
+            "title": "",
+            "message": "",
+            "path": ""
+        },
+        "update": {
+            "message": "",
+            "title": ""
+        },
+        "close": "",
+        "importpath": "",
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "choose": "",
+        "select": {
+            "image": "",
+            "button": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        },
+        "yes": "",
+        "sideload": {
+            "exe": ""
+        },
+        "ok": ""
+    },
+    "cloud_save_unsupported": "",
+    "status": {
+        "installing": "",
+        "redist": "",
+        "uninstalling": "",
+        "notSupported": "",
+        "clickToUpdate": "",
+        "winetricks": "",
+        "syncingSaves": "",
+        "processing": "",
+        "importing": "",
+        "notinstalled": "",
+        "moving": "",
+        "totalDownloaded": "",
+        "gameNotAvailable": "",
+        "this-game-uses-third-party": "",
+        "moving-files": "",
+        "reparing": "",
+        "installed": "",
+        "playing": "",
+        "downloading": "",
+        "extracting": "",
+        "queued": "",
+        "gog-goodie": "",
+        "goodie": "",
+        "launching": "",
+        "notSupportedGame": "",
+        "updating": "",
+        "hasUpdates": ""
+    },
+    "sideload": {
+        "placeholder": {
+            "url": "",
+            "useragent": "",
+            "image": "",
+            "title": ""
+        },
+        "info": {
+            "broser": "",
+            "title": "",
+            "useragent": "",
+            "exe": "",
+            "fullscreen": "",
+            "image": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
+        },
+        "field": {
+            "title": ""
+        }
+    },
+    "setting": {
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": "",
+        "winecrossoverbottle": ""
+    },
+    "open-saves-folder": "",
+    "install": {
+        "disk-space-left": "",
+        "space-after-install": "",
+        "anticheat-warning": {
+            "cancel": "",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "ok": "",
+            "multiplayer_message": "",
+            "title": ""
+        },
+        "wineprefix": "",
+        "not-enough-disk-space": "",
+        "path": "",
+        "flatpak-path-not-writtable": "",
+        "path-not-writtable": "",
+        "wineversion": ""
+    },
+    "specs": {
+        "minimum": "",
+        "recommended": ""
+    },
+    "submenu": {
+        "change": "",
+        "verify": "",
+        "protondb": "",
+        "logs": "",
+        "enableEosOverlay": "",
+        "store": "",
+        "disableEosOverlay": "",
+        "settings": "",
+        "addShortcut": "",
+        "addToSteam": "",
+        "removeFromSteam": "",
+        "categories": "",
+        "removeShortcut": "",
+        "move": ""
+    },
+    "info": {
+        "canRunOffline": "",
+        "version": "",
+        "syncsaves": "",
+        "installedInfo": "",
+        "path": "",
+        "clickToOpen": "",
+        "steamdeck-compatibility-info": "",
+        "game-scores": "",
+        "protondb-compatibility-info": "",
+        "size": "",
+        "apple-gaming-wiki": "",
+        "third-party-app": "",
+        "installedPlatform": ""
+    },
+    "sdl": {
+        "title": ""
+    },
+    "launch": {
+        "default": ""
+    },
+    "enabled": "",
+    "help": {
+        "content": {
+            "gamePage": ""
+        },
+        "cloud_save_unsupported": "",
+        "title": {
+            "gamePage": ""
+        }
+    },
+    "gamecard": {
+        "repairing": "",
+        "moving": ""
+    },
+    "howLongToBeat": "",
+    "label": {
+        "winetricks": "",
+        "playing": {
+            "start": "",
+            "start_with_logs": "",
+            "stop": ""
+        },
+        "redist": "",
+        "game": {
+            "third-party-game": "",
+            "not-installable-game": ""
+        },
+        "launching": "",
+        "saves": {
+            "syncing": ""
+        }
+    },
+    "Open": "",
+    "generic": {
+        "error": "",
+        "noDescription": ""
+    },
+    "how-long-to-beat": {
+        "main-plus-extras": "",
+        "main-story": "",
+        "completionist": ""
+    },
+    "report_problem": "",
+    "wikiLink": "",
+    "disabled": ""
+}
