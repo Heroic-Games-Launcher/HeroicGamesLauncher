@@ -65,7 +65,7 @@
     "@node-steam/vdf": "^2.2.0",
     "@shockpkg/icon-encoder": "^2.1.3",
     "@xhayper/discord-rpc": "1.3.0",
-    "axios": "^1.12.2",
+    "axios": "^1.13.5",
     "classnames": "^2.5.1",
     "easydl": "^1.2.0",
     "electron-store": "^8.2.0",
