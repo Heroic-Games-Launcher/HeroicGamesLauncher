@@ -1542,18 +1542,43 @@ async function runWineCommand({
 
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
+  let finalCommandParts = commandParts
+  let finalCwd = startFolder
+
+  const shouldConvertCwd = startFolder && wineVersion.type !== 'crossover'
+  const windowsPath = shouldConvertCwd
+    ? await getWinePath({
+        path: startFolder,
+        gameSettings: settings,
+        variant: 'win'
+      }).catch(() => '')
+    : ''
+
+  if (windowsPath) {
+    finalCommandParts = [
+      'cmd',
+      '/c',
+      'cd',
+      '/d',
+      windowsPath,
+      '&&',
+      ...commandParts
+    ]
+    finalCwd = undefined
+  }
+
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     let bin = runnerBin
 
     if (wrappers.length) {
       bin = wrappers.shift()!
-      commandParts.unshift(...wrappers, runnerBin)
+      finalCommandParts.unshift(...wrappers, runnerBin)
     }
 
-    const child = spawn(bin, commandParts, {
+    const child = spawn(bin, finalCommandParts, {
       env: env_vars,
-      cwd: startFolder
+      cwd: finalCwd
     })
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
