@@ -678,7 +678,8 @@
                 "button": "Naplófájl feltöltése",
                 "error": {
                     "content": "A naplófájl feltöltése sikertelen. Ellenőrizd a Heroic általános naplóit a részletekért.",
-                    "title": "A feltöltés sikertelen"
+                    "title": "A feltöltés sikertelen",
+                    "manual_upload": "Kattints a „NAPLÓFÁJL MEGJELENÍTÉSE MAPPÁBAN” gombra, majd töltsd fel a „launch.log” fájlt Discordra vagy bármely online fájlmegosztó szolgáltatásba."
                 },
                 "header": "Feltöltött naplófájlok",
                 "hours-ago": "Feltöltve: {{hoursAgo, relativetime(hours)}}",

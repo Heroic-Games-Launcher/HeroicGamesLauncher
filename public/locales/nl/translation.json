@@ -94,7 +94,11 @@
                 "generic": "Er is een fout opgetreden! Probeer uit te loggen en in te loggen op uw Epic-account. {{newline}} {{error}}"
             },
             "executableNotFound": "Uitvoerbaar bestand niet gevonden",
-            "executableNotFoundMessage": "Heroic kon het uitvoerbare bestand voor dit spel niet vinden. Stel het a.u.b. handmatig in onder de spelinstellingen."
+            "executableNotFoundMessage": "Heroic kon het uitvoerbare bestand voor dit spel niet vinden. Stel het a.u.b. handmatig in onder de spelinstellingen.",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            }
         },
         "info": {
             "update": {
@@ -364,7 +368,8 @@
         "download_proton_steam": "Wanneer ingeschakeld, GE-Proton zal direct naar de Steam compatibilieitshulpmiddelenmap worden gedownload i.p.v. Heroic's standaard pad. Het zal Steam's pad gebruiken die vaststaat in de'Standaard Steam pad' instelling hierboven.",
         "wine-hdr": "HDR verbetert de kleuren door helderdere hoogtepunten en diepere contrasten te leveren. Om HDR te laten werken, moeten zowel het beeldscherm als het spel dit ondersteunen.",
         "wine-wayland": "Het experimentele stuurprogramma van Wine-Wayland staat toe dat spelletjes van nature werken onder het Wayland weergave protocol. Het inschakelen hiervan kan kritieke fouten veroorzaken in sommige spelletjes.",
-        "WoW64": "De Wine WoW64 modus staat toe dat 32-bit Windows spellen kunnen werken op 64-bit Wine. Het inschakelen ervan kan de prestatie verbeteren, maar kan ook kritieke fouten veroorzaken bij oudere 32-bit spelletjes."
+        "WoW64": "De Wine WoW64 modus staat toe dat 32-bit Windows spellen kunnen werken op 64-bit Wine. Het inschakelen ervan kan de prestatie verbeteren, maar kan ook kritieke fouten veroorzaken bij oudere 32-bit spelletjes.",
+        "advertiseAvxForRosetta": ""
     },
     "info": {
         "heroic": {
@@ -424,7 +429,8 @@
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "amazon": "Amazon-login",
-        "old-mac": "Uw macOS versie is {{version}}. macOS 12 of nieuwer is nodig om in te loggen."
+        "old-mac": "Uw macOS versie is {{version}}. macOS 12 of nieuwer is nodig om in te loggen.",
+        "zoom": ""
     },
     "message": {
         "sync": "Synchronisatie compleet",
@@ -531,7 +537,10 @@
             "additionalOptions": "Additionele opties",
             "fpsLimiter": "FPS limiet",
             "borderless": "Grensloos",
-            "stretch": "Afbeelding Uitrekken"
+            "stretch": "Afbeelding Uitrekken",
+            "upscaleWidth": "",
+            "upscaleHeight": "",
+            "interger": ""
         }
     },
     "other": {
@@ -593,32 +602,32 @@
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
         "discordRPC": "\"Discord Rich Presence\" inschakelen",
-        "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-no-https": "Download spelletjes zonder HTTPS (handig voor CDNs bijv. LanCache)",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synchronisatie met geïnstalleerde Epic Games",
         "enableFSRHack": "FSR Hack inschakelen (Wine versie moet dit ondersteunen)",
         "eosOverlay": {
-            "cancelInstall": "Cancel",
-            "checkForUpdates": "Check for updates",
-            "checkingForUpdates": "Checking for updates...",
-            "currentVersion": "Current Version: {{version}}",
-            "disable": "Disable",
-            "enable": "Enable",
-            "install": "Install",
-            "installed": "The EOS Overlay is installed",
+            "cancelInstall": "Annuleren",
+            "checkForUpdates": "Zoeken naar updates",
+            "checkingForUpdates": "Zoeken naar updates...",
+            "currentVersion": "Huidige Versie: {{version}}",
+            "disable": "Uitschakelen",
+            "enable": "Inschakelen",
+            "install": "Installeer",
+            "installed": "De EOS Overlay is geïnstalleerd",
             "installing": "De EOS Overlay wordt geïnstalleerd...",
             "latestVersion": "Laatste Versie: {{version}}",
             "notInstalled": "De EOS Overlay is niet geïnstalleerd",
-            "notInstalledMsg": "De EOS Overlay is niet geïnstalleerd. Wilt u die nu installeren?",
+            "notInstalledMsg": "De EOS Overlay is niet geïnstalleerd. Wil je die nu installeren?",
             "notInstalledTitle": "Overlay niet geïnstalleerd",
             "remove": "Verwijder",
-            "removeConfirm": "Weet u zeker dat u de EOS Overlay wil verwijderen?",
+            "removeConfirm": "Weet je zeker dat je de EOS Overlay wil verwijderen?",
             "removeConfirmTitle": "Bevestig verwijderen van overlay",
             "updateNow": "Updaten",
             "updating": "Bezig met updaten..."
         },
-        "esync": "Esync inschakelen",
-        "exit-to-tray": "Afsluiten naar systeemvak",
+        "esync": "Esync Inschakelen",
+        "exit-to-tray": "Afsluiten naar Systeemvak",
         "FsrSharpnessStrenght": "FSR Scherpte Sterkte",
         "fsync": "Fsync inschakelen",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
@@ -654,7 +663,8 @@
                 },
                 "error": {
                     "content": "Logboek-bestand uploaden gefaald. Bekijk Heroic's algemene logboeken voor details",
-                    "title": "Upload gefaald"
+                    "title": "Upload gefaald",
+                    "manual_upload": ""
                 },
                 "header": "Geüploadde logboek-bestanden",
                 "hours-ago": "Geüpload {{hoursAgo, relativetime(hours)}}",
@@ -719,7 +729,7 @@
         "wineversion": "Wine Versie",
         "autoUpdateGames": "Games automatisch bijwerken",
         "ignoreGameUpdates": "Negeer game-updates",
-        "disable_logs": "Logboeken uitschakelen",
+        "disable_logs": "Logboeken Uitschakelen",
         "addgamestoapplications": "Voeg automatisch games toe aan applicaties",
         "showMetalOverlay": "Statistieken-overlay Weergeven",
         "alt-nile-bin": "Kies een alternatief Nijlbinair getal",
@@ -736,7 +746,7 @@
         "frameless-window": {
             "description": "Gebruik kaderloos venster (herstart nodig)",
             "confirmation": {
-                "message": "Deze functie is nog experimenteel. Gelieve fouten die u ondervindt te rapporteren op GitHub.",
+                "message": "Deze functie is nog experimenteel. Gelieve fouten die je ondervindt te rapporteren op GitHub.",
                 "title": "Experimentele functie"
             }
         },
@@ -753,7 +763,7 @@
         "experimental_features": {
             "enableNewDesign": "Nieuw uiterlijk",
             "cometSupport": "Ondersteunt door Comet",
-            "enableHelp": "Hulp-component",
+            "enableHelp": "Hulpcomponent",
             "zoomPlatform": "Zoom Platform ondersteuning (alleen Linux)"
         },
         "allow_non_ge_proton": {
@@ -786,8 +796,10 @@
             "warning": "Waarschuwing: dit geldt voor de gehele frontend. Dit betekent dat de verkeerde stijl Heroic onbruikbaar kan maken.Zodra nodig kan deze instelling handmatig aangepast worden in `~/.config/heroic/config.json`. Kopieer GEEN stijlen van bronnen die je niet vertrouwt."
         },
         "disableUMU": "Umu uitschakelen",
-        "download-proton-steam": "Download GE-Proton naar de Steam-map",
-        "dxfpslimit": "Limiteer DirectX Games FPS"
+        "download-proton-steam": "Download GE-Proton naar de Steam map",
+        "dxfpslimit": "Limiteer DirectX Games FPS",
+        "enable-quick-sync-menu": "",
+        "disable_gog_presence": "Schakel GOG Presence updates uit"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -824,7 +836,8 @@
             "sync": "Cloud Opslag Synchronisatie",
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeeminformatie",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Open Config Bestand",
         "reset-heroic": "Reset Heroic",
@@ -891,7 +904,8 @@
         "gamescope": {
             "searchMsg": "Zoeken naar uitvoerbaar gamescope bestand."
         },
-        "launchOptions": "Opstartopties"
+        "launchOptions": "Opstartopties",
+        "legacy_warning": ""
     },
     "Settings": "Instellingen",
     "sidebar": {
@@ -956,7 +970,8 @@
             "unzipping": "Aan het uitpakken"
         },
         "release": "Datum van Uitgave",
-        "size": "Grootte"
+        "size": "Grootte",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "Vraag het niet nog een keer",

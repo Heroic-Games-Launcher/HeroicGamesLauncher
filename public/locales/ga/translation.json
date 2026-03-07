@@ -497,7 +497,8 @@
         "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
         "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
         "scripts": "Scripteanna:",
-        "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche"
+        "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche",
+        "disable_gog_presence": "Díchumasaigh nuashonruithe GOG Presence"
     },
     "button": {
         "login": "Logáil isteach",

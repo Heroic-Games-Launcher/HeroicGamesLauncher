@@ -814,10 +814,11 @@
             },
             "info_label": "Versiones de Valve Proton ignoradas",
             "label": "Permitir el uso de compilaciones de Valve Proton para ejecutar juegos",
-            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuración Avanzada Global"
+            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto. Puedes activarlas en la Configuración Avanzada Global."
         },
         "enable-quick-sync-menu": "Habilitar el menú Guardar y sincronizar rápidamente en la página del juego",
-        "scripts": "Secuencias de comandos:"
+        "scripts": "Secuencias de comandos:",
+        "disable_gog_presence": "Desactivar actualizaciones de GOG Presence"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -21,7 +21,8 @@
             "title": "実行するEXEを選択してください"
         },
         "select": {
-            "button": "選択"
+            "button": "選択",
+            "image": ""
         },
         "sideload": {
             "exe": "実行可能ファイルを選択"
@@ -51,7 +52,20 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "お気に入りに追加",
@@ -78,7 +92,10 @@
         "uninstall": "アンインストール",
         "update": "アップデート",
         "details": "詳細",
-        "changelog": "変更履歴を確認"
+        "changelog": "変更履歴を確認",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -172,7 +189,8 @@
         },
         "playing": {
             "start": "今すぐプレイ",
-            "stop": "プレイ中（中止）"
+            "stop": "プレイ中（中止）",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "セーブデータを同期中"
@@ -189,7 +207,8 @@
         }
     },
     "launch": {
-        "options": "起動オプション…"
+        "options": "起動オプション…",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "HeroicにEpicアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
@@ -206,7 +225,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOverボトル",
         "show-wine-settings": "Wineの設定を表示する",
-        "warn-use-shared-wine-config": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。"
+        "warn-use-shared-wine-config": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -263,7 +283,8 @@
         "goodie": "インストール不可",
         "prerequisites": "前提条件のインストール",
         "winetricks": "Winetricksの修正を適用する",
-        "redist": "再頒布可能ファイルのインストール ({{redist}})"
+        "redist": "再頒布可能ファイルのインストール ({{redist}})",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "ショートカットを追加",
@@ -314,5 +335,6 @@
             "resume": "ダウンロードを再開"
         }
     },
-    "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>"
+    "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>",
+    "open-saves-folder": ""
 }

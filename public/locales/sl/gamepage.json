@@ -57,9 +57,15 @@
             "title": "Pozor"
         },
         "sync": {
-            "force_download_warning": "Lokalna shramba igre bo zavržena. Ali želite nadaljevati?"
+            "force_download_warning": "Lokalna shramba igre bo zavržena. Ali želite nadaljevati?",
+            "force_upload_warning": ""
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        }
     },
     "button": {
         "add_to_favourites": "Dodaj na seznam priljubljenih",
@@ -142,7 +148,8 @@
     "hours": "Ur",
     "how-long-to-beat": {
         "main-plus-extras": "Glavno + dodatki",
-        "main-story": "Osrednja zgodba"
+        "main-story": "Osrednja zgodba",
+        "completionist": ""
     },
     "info": {
         "version": "Različica",
@@ -161,11 +168,42 @@
     },
     "sideload": {
         "info": {
-            "exe": "Izberi programsko datoteko"
+            "exe": "Izberi programsko datoteko",
+            "broser": "",
+            "title": "",
+            "useragent": "",
+            "fullscreen": "",
+            "image": ""
+        },
+        "placeholder": {
+            "url": "",
+            "useragent": "",
+            "image": "",
+            "title": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
+        },
+        "field": {
+            "title": ""
         }
     },
     "submenu": {
-        "verify": "Preveri in popravi"
+        "verify": "Preveri in popravi",
+        "change": "",
+        "protondb": "",
+        "logs": "",
+        "enableEosOverlay": "",
+        "store": "",
+        "disableEosOverlay": "",
+        "settings": "",
+        "addShortcut": "",
+        "addToSteam": "",
+        "removeFromSteam": "",
+        "categories": "",
+        "removeShortcut": "",
+        "move": ""
     },
     "howLongToBeat": "Čas za dokončanje",
     "install": {
@@ -174,16 +212,25 @@
             "disabled_installation": "Ta igra uporablja mehanizem proti goljufanju, ki ni združljiv z vašim operacijskim sistemom, ali pa razvijalci podpore zanj niso omogočili. To pomeni, da večigralske funkcije ne bodo delovale in z Vaše (ali naše) strani o tem ne moremo nič narediti.<br /><br />Da vseeno namestite to igro, pojdite v Nastavitve, odsek Napredno in tam omogočite nameščanje iger z nedelujočim ali izključenim mehanizmom proti goljufanju.<br /><br />Za to ni nobene rešitve in obstaja možnost, da Vam zaprejo račun.",
             "install_anyway": "Da (razumem, da večigralske funkcije ne bodo delovale)",
             "multiplayer_message": "Mehanizem proti goljufanju ne deluje ali je onemogočen. Igra bo mogoče delovala, a večigralske funkcije ne bodo. Jo vseeno želite namestiti?",
-            "ok": "Da"
+            "ok": "Da",
+            "title": ""
         },
         "not-enough-disk-space": "Ni dovolj prostora na disku",
         "path": "Izberite pot za namestitev",
         "space-after-install": "Po namestitvi",
-        "wineversion": "Wine različica"
+        "wineversion": "Wine različica",
+        "disk-space-left": "",
+        "wineprefix": "",
+        "flatpak-path-not-writtable": "",
+        "path-not-writtable": ""
     },
     "not_logged_in": {
         "login": "Vpis",
-        "title": "Niste vpisani"
+        "title": "Niste vpisani",
+        "gog": "",
+        "amazon": "",
+        "zoom": "",
+        "epic": ""
     },
     "label": {
         "game": {
@@ -192,15 +239,85 @@
         },
         "launching": "Zaganjam",
         "playing": {
-            "start": "Igraj zdaj"
+            "start": "Igraj zdaj",
+            "start_with_logs": "",
+            "stop": ""
         },
-        "winetricks": "Nalagam Winetricks pakete"
+        "winetricks": "Nalagam Winetricks pakete",
+        "redist": "",
+        "saves": {
+            "syncing": ""
+        }
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
-        "versionCollapsable": "Različica Igre"
+        "versionCollapsable": "Različica Igre",
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": ""
     },
     "status": {
-        "launching": "Zaganjam"
-    }
+        "launching": "Zaganjam",
+        "installing": "",
+        "redist": "",
+        "uninstalling": "",
+        "notSupported": "",
+        "clickToUpdate": "",
+        "winetricks": "",
+        "syncingSaves": "",
+        "processing": "",
+        "importing": "",
+        "notinstalled": "",
+        "moving": "",
+        "totalDownloaded": "",
+        "gameNotAvailable": "",
+        "this-game-uses-third-party": "",
+        "moving-files": "",
+        "reparing": "",
+        "installed": "",
+        "playing": "",
+        "downloading": "",
+        "extracting": "",
+        "queued": "",
+        "gog-goodie": "",
+        "goodie": "",
+        "notSupportedGame": "",
+        "updating": "",
+        "hasUpdates": ""
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "queue": {
+        "label": {
+            "resume": "",
+            "pause": "",
+            "remove": "",
+            "canceled": ""
+        }
+    },
+    "setting": {
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": "",
+        "winecrossoverbottle": ""
+    },
+    "open-saves-folder": "",
+    "specs": {
+        "minimum": "",
+        "recommended": ""
+    },
+    "sdl": {
+        "title": ""
+    },
+    "launch": {
+        "default": ""
+    },
+    "Open": "",
+    "report_problem": "",
+    "wikiLink": ""
 }

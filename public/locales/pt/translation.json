@@ -811,7 +811,8 @@
         "wineWayland": "Ativar o Wine-Wayland (Experimental) (a versão do Wine precisa de o suportar)",
         "WoW64": "Ativar o WoW64 (Experimental)",
         "scripts": "Scripts:",
-        "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo"
+        "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo",
+        "disable_gog_presence": "Desativar atualizações presentes do GOG"
     },
     "settings": {
         "battlEyeRuntime": {

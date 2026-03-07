@@ -21,7 +21,8 @@
             "title": "Hautatu exekutatzeko EXEa"
         },
         "select": {
-            "button": "Select"
+            "button": "Select",
+            "image": ""
         },
         "sideload": {
             "exe": "Select Executable"
@@ -39,7 +40,8 @@
             "title": "Desinslalatu",
             "prefix_warning": "Joko honen Wine aurrizkia lehenetsitako aurrizkia da. Benetan ezabatu nahi baduzu, eskuz egin behar duzu.",
             "dlc": "DLC hau desinstalatu nahi duzu?",
-            "cannotUninstallEpic": "Epic games ezin da desinstalatu beste Epic joku bat instalatzen ari den bitartean."
+            "cannotUninstallEpic": "Epic games ezin da desinstalatu beste Epic joku bat instalatzen ari den bitartean.",
+            "gameIsRunning": ""
         },
         "update": {
             "message": "Joko honek eguneraketa bat du, orain eguneratu?",
@@ -51,7 +53,20 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "Adoz"
+        "ok": "Adoz",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "Gehitu gogokoetara",
@@ -78,7 +93,10 @@
         "uninstall": "Desinslalatu",
         "update": "Eguneratu",
         "details": "Xehetasunak",
-        "changelog": "Aldaketak erakutsi"
+        "changelog": "Aldaketak erakutsi",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "Onartu gabe",
     "disabled": "Desgaituta",
@@ -111,7 +129,9 @@
             "password": "Ezarri kanal pribatuaren pasahitza"
         },
         "modify": "Aldatu Instalazioa",
-        "changelogFor": "{{gameTitle}}-(r)en aldaketak"
+        "changelogFor": "{{gameTitle}}-(r)en aldaketak",
+        "install_info": "",
+        "extra_info": ""
     },
     "gamecard": {
         "moving": "Mugitzen",
@@ -140,7 +160,8 @@
         "game-scores": "Joko puntuazioak",
         "installedInfo": "Instalatutako informazioa",
         "protondb-compatibility-info": "Protoien bateragarritasun maila",
-        "steamdeck-compatibility-info": "SteamDeck bateragarritasuna"
+        "steamdeck-compatibility-info": "SteamDeck bateragarritasuna",
+        "third-party-app": ""
     },
     "install": {
         "disk-space-left": "Espazio erabilgarria",
@@ -155,8 +176,12 @@
             "cancel": "Ez",
             "install": "Bai (ulertzen dut ez duela funtzionatuko)",
             "title": "Antiiruzurra hautsita/ukatua",
-            "multiplayer_message": "Anticheat-a hautsita edo ukatu egiten da. Jokoak ez du funtzionatuko. Instalatu nahi duzu hala ere?"
-        }
+            "multiplayer_message": "Anticheat-a hautsita edo ukatu egiten da. Jokoak ez du funtzionatuko. Instalatu nahi duzu hala ere?",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "ok": ""
+        },
+        "flatpak-path-not-writtable": ""
     },
     "label": {
         "game": {
@@ -165,7 +190,8 @@
         },
         "playing": {
             "start": "Jokatu orain",
-            "stop": "Ugalketa (Detener)"
+            "stop": "Ugalketa (Detener)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Zaintza-zaindegien sinkronizazioa"
@@ -174,10 +200,13 @@
         "ubisoft": "Ubisoft Connect instalatzen",
         "steam": {
             "pleaseWait": "Please wait..."
-        }
+        },
+        "winetricks": "",
+        "redist": ""
     },
     "launch": {
-        "options": "Jaurtiketa-aukerak..."
+        "options": "Jaurtiketa-aukerak...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
@@ -192,7 +221,10 @@
         "title": "Instalatzeko osagaiak hautatzea"
     },
     "setting": {
-        "winecrossoverbottle": "CrossOver botila"
+        "winecrossoverbottle": "CrossOver botila",
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -202,12 +234,19 @@
             "exe": "Select Executable",
             "image": "App Image",
             "title": "Game/App Title",
-            "broser": "ArakatzailearenURLa"
+            "broser": "ArakatzailearenURLa",
+            "useragent": "",
+            "fullscreen": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "Itsatsi jokoaren URLa hemen"
+            "url": "Itsatsi jokoaren URLa hemen",
+            "useragent": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -239,7 +278,10 @@
         "downloading": "Downloading",
         "extracting": "Erauzketa",
         "gog-goodie": "Joko hau ez dirudi instalagarria denik. Egiaztatu deskarga daitekeen edukia https://gog.com/account helbidean",
-        "goodie": "Ez da instalagarria"
+        "goodie": "Ez da instalagarria",
+        "redist": "",
+        "winetricks": "",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "Sarbide zuzena gehitu",
@@ -255,7 +297,8 @@
         "store": "Dendaren orrialdea",
         "verify": "Egiaztatzea eta konpontzea",
         "extraInfo": "Informazio gehigarria",
-        "logs": "Erregistroak"
+        "logs": "Erregistroak",
+        "categories": ""
     },
     "help": {
         "cloud_save_unsupported": "Joko honek ez du onartzen hodeian gordetzea. Informazio hau jokoen garatzaileek ematen dute. Zenbait jokok hodeian gordetzeko sistema propioa ezartzen dute",
@@ -269,7 +312,26 @@
     "queue": {
         "label": {
             "canceled": "Canceled",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "",
+            "pause": ""
         }
-    }
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "modifyInstall": {
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "dlcsCollapsible": "",
+        "versionCollapsable": ""
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }
