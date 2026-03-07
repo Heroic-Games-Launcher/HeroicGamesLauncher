@@ -99,7 +99,11 @@
                 "title": "Error del Steam"
             },
             "executableNotFound": "No s'ha trobat l'executable",
-            "executableNotFoundMessage": "L'Heroic no pot trobar l'executable d'aquest joc. Si us plau, configureu-lo manualment a la configuració del joc."
+            "executableNotFoundMessage": "L'Heroic no pot trobar l'executable d'aquest joc. Si us plau, configureu-lo manualment a la configuració del joc.",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            }
         },
         "info": {
             "update": {
@@ -668,7 +672,8 @@
                 },
                 "error": {
                     "content": "No s'ha pogut pujar el fitxer de registre. Comproveu el registre general de l'Heroic per a obtenir més detalls.",
-                    "title": "La pujada ha fallat"
+                    "title": "La pujada ha fallat",
+                    "manual_upload": ""
                 },
                 "header": "S'han pujat els fitxers de registre",
                 "hours-ago": "S'ha pujat fa {{hoursAgo, relativetime(hours)}}",
@@ -804,7 +809,8 @@
         "no-tray-icon": "Amaga la icona de la safata del sistema (cal reiniciar)",
         "wineWayland": "Activa el Wine-Wayland (Experimental) (Cal que la versió del Wine hi sigui compatible)",
         "WoW64": "Activa el WoW64 (Experimental)",
-        "scripts": "Scripts:"
+        "scripts": "Scripts:",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -841,7 +847,8 @@
             "sync": "Sincronització de desades al núvol",
             "wineExt": "Extensions del Wine",
             "systemInformation": "Informació del sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
@@ -908,7 +915,8 @@
         "custom_css": {
             "title": "Estil CSS personalitzat"
         },
-        "launchOptions": "Opcions d'execució..."
+        "launchOptions": "Opcions d'execució...",
+        "legacy_warning": ""
     },
     "Settings": "Configuració",
     "sidebar": {
@@ -973,7 +981,8 @@
             "unzipping": "S'està descomprimint"
         },
         "release": "Data de llançament",
-        "size": "Mida"
+        "size": "Mida",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "No ho tornis a preguntar",
