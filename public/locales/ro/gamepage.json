@@ -53,7 +53,20 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "O.K"
+        "ok": "O.K",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "Adaugă la favorite",
@@ -162,8 +175,11 @@
             "ok": "Ok",
             "cancel": "Nu",
             "disabled_installation": "Acest joc folosește software anticheat care nu este compatibil cu sistemul tău de operare sau suportul nu a fost activat de dezvoltatorii jocului. Asta înseamnă că funcțiile multiplayer nu vor funcționa, iar tu (sau echipa Heroic) nu puteți face nimic în privința asta. <br /><br /> Pentru a instala acest joc și a-l încerca oricum, mergi la Setări, Avansat și bifează opțiunea de a permite instalarea jocurilor cu anticheat defect sau refuzat. <br /><br />Reține că nu există nicio soluție pentru asta și vei risca să fii restricționat (Ban Permanent) în joc.",
-            "install_anyway": "Da (Ințeleg că funcțiile multiplayer nu vor funcționa)"
-        }
+            "install_anyway": "Da (Ințeleg că funcțiile multiplayer nu vor funcționa)",
+            "multiplayer_message": "",
+            "title": ""
+        },
+        "flatpak-path-not-writtable": ""
     },
     "label": {
         "game": {
@@ -172,7 +188,8 @@
         },
         "playing": {
             "start": "Joacă Acum",
-            "stop": "în joc (Stop)"
+            "stop": "în joc (Stop)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Sincronizează Salvările"
@@ -183,10 +200,13 @@
             "installing": "Se Instalează",
             "pleaseWait": "Please wait...",
             "installation": "Opriți instalarea"
-        }
+        },
+        "winetricks": "",
+        "redist": ""
     },
     "launch": {
-        "options": "Opțiuni de Lansare..."
+        "options": "Opțiuni de Lansare...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
@@ -201,7 +221,10 @@
         "title": "Selectați componentele de instalat"
     },
     "setting": {
-        "winecrossoverbottle": "CrossOver Bottle"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -211,12 +234,19 @@
             "exe": "Select Executable",
             "image": "App Image",
             "title": "Game/App Title",
-            "broser": "URL browser"
+            "broser": "URL browser",
+            "useragent": "",
+            "fullscreen": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "Lipiți adresa URL a jocului aici"
+            "url": "Lipiți adresa URL a jocului aici",
+            "useragent": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -248,7 +278,10 @@
         "downloading": "Downloading",
         "extracting": "Extragerea",
         "gog-goodie": "Acest joc nu pare a fi instalabil. Verificați conținutul descărcabil pe https://gog.com/account",
-        "goodie": "Nu se poate instala"
+        "goodie": "Nu se poate instala",
+        "redist": "",
+        "winetricks": "",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "Adaugă scurtătură",
@@ -264,7 +297,8 @@
         "store": "Pagina magazinului",
         "verify": "Verificați și Reparați",
         "extraInfo": "Informații suplimentare",
-        "logs": "Bușteni"
+        "logs": "Bușteni",
+        "categories": ""
     },
     "help": {
         "cloud_save_unsupported": "Acest joc nu acceptă salvări în cloud. Aceste informații sunt furnizate de dezvoltatorii jocului. Unele jocuri implementează propriul sistem de salvare în cloud",
@@ -278,10 +312,26 @@
     "queue": {
         "label": {
             "canceled": "Canceled",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "",
+            "pause": ""
         }
     },
     "modifyInstall": {
-        "dlcsCollapsible": "DLC-uri"
-    }
+        "dlcsCollapsible": "DLC-uri",
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "versionCollapsable": ""
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }
