@@ -817,7 +817,8 @@
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
         "WoW64": "Povolit WoW64 (experimentální)",
         "scripts": "Skripty:",
-        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry"
+        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry",
+        "disable_gog_presence": "Zakázat aktualizace GOG Presence"
     },
     "settings": {
         "battlEyeRuntime": {
