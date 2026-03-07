@@ -22,7 +22,7 @@ import {
   GameMode,
   LauncherArgs,
   LaunchOptionSelector,
-  Mangohud,
+  MangoHud,
   OfflineMode,
   PreferedLanguage,
   PreferSystemLibs,
@@ -205,7 +205,7 @@ export default function GamesSettings() {
 
       <TabPanel value={value} index={'other'}>
         {!isNative && <ShowFPS />}
-        <Mangohud />
+        <MangoHud />
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />

@@ -287,7 +287,7 @@
         },
         "gamemode": "Feral GameMode aplică ajustări automate și temporare sistemului atunci când rulează jocuri. Activarea poate îmbunătăți performanța.",
         "general": "Sincronizați cu EGS în cazul în care aveți o instalare funcțională a Epic Games Store în altă parte și doriți să vă importați jocurile pentru a evita descărcarea din nou.",
-        "mangohud": "MangoHUD este o suprapunere care afișează și monitorizează FPS, temperaturile, încărcarea CPU/GPU și alte resurse de sistem.",
+        "mangohud": "MangoHud este o suprapunere care afișează și monitorizează FPS, temperaturile, încărcarea CPU/GPU și alte resurse de sistem.",
         "other": {
             "part4": "Folosește ",
             "part5": "Argumente Joc",
@@ -338,7 +338,7 @@
         },
         "disablePlaytimeSync": "Dezactivează sincronizarea timpului de joc cu serverele magazinului implicit (deocamdată doar GOG este suportat)",
         "download_proton_steam": "Atunci când este activat, GE-Proton va fi descărcat direct in directorul uneltelor de compatibilitate Steam in locul căii implicite a Heroic. Va utiliza calea Steam setată în 'Cale Steam implicită' mai sus.",
-        "dxvknvapi": "DXVK-NVAPI este o implementare a NVAPI construită peste DXVK și nativul linux NVAPI, el permite utilizarea DLSS pe plăcile video Nvidia.",
+        "dxvknvapi": "DXVK-NVAPI este o implementare a NVAPI construită peste DXVK și nativul Linux NVAPI, el permite utilizarea DLSS pe plăcile video Nvidia.",
         "gamescope": {
             "additionalOptions": "Flag-uri din linia de comandă adiționale de pasat în gamescope.",
             "forceGrabCursor": "Folosiți întotdeauna modul de mouse relativ în locul întoarcerii dependente de vizibilitatea cursorului. (Util atunci când aplicațiile își pierd focalizarea)",
@@ -600,7 +600,7 @@
                 "actions": "Action"
             }
         },
-        "mangohud": "Activați Mangohud (Mangohud trebuie instalat)",
+        "mangohud": "Activați MangoHud (MangoHud trebuie instalat)",
         "manualsync": {
             "download": "Descarcă",
             "forcedownload": "Forțează descărcarea",
@@ -637,7 +637,7 @@
         "start-in-tray": "Pornește minimizat",
         "steamruntime": "Utilizați Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "dosar WinePrefix",
+        "wineprefix": "dosar Wine Prefix",
         "wineversion": "Versiune Wine",
         "autoUpdateGames": "Actualizați automat jocurile",
         "ignoreGameUpdates": "Ignora actualizările jocului",

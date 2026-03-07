@@ -441,7 +441,7 @@ export async function install(
       logInfo(`Running ${installer}`, LogPrefix.Gog)
       await spawnAsync(installer, []).catch((err) =>
         logError(
-          `Failed to run linux installer: ${installer} - ${err}`,
+          `Failed to run Linux installer: ${installer} - ${err}`,
           LogPrefix.Gog
         )
       )
@@ -1187,7 +1187,7 @@ export async function update(
       logInfo(`Running ${installer}`, LogPrefix.Gog)
       await spawnAsync(installer, []).catch((err) =>
         logError(
-          `Failed to run linux installer: ${installer} - ${err}`,
+          `Failed to run Linux installer: ${installer} - ${err}`,
           LogPrefix.Gog
         )
       )
