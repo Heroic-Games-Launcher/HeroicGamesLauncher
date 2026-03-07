@@ -1,8 +1,14 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
-import { ArrowBackIosNew, Info, Star, Monitor } from '@mui/icons-material'
+import {
+  ArrowBackIosNew,
+  Info,
+  Star,
+  Monitor,
+  EmojiEvents
+} from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
 
@@ -25,7 +31,8 @@ import {
   GameSettings,
   Runner,
   WikiInfo,
-  InstallInfo
+  InstallInfo,
+  GameAchievement
 } from 'common/types'
 
 import GamePicture from '../GamePicture'
@@ -66,6 +73,7 @@ import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import Achievements from './components/Achievements'
 import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 
 export default React.memo(function GamePage(): JSX.Element | null {
@@ -108,6 +116,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
   )
+  const [achievements, setAchievements] = useState<GameAchievement[]>([])
+  const hasAchievements = achievements && achievements.length > 0
+  const achievementPercentage = hasAchievements
+    ? Math.round(
+        (achievements.filter((x) => x.date_unlocked).length /
+          achievements.length) *
+          100
+      )
+    : 0
+
   const [notInstallable, setNotInstallable] = useState<boolean>(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
@@ -154,8 +172,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const storage: Storage = window.localStorage
 
   const [currentTab, setCurrentTab] = useState<
-    'info' | 'extra' | 'requirements'
+    'info' | 'achievements' | 'extra' | 'requirements'
   >('info')
+
+  const previousIsPlaying = useRef<boolean>(isPlaying)
+  useEffect(() => {
+    const updateAchievements = async () => {
+      if (!isPlaying && previousIsPlaying.current)
+        window.api.clearAchievementCache(appName)
+      setAchievements(await window.api.getAchievements(appName, runner))
+    }
+
+    updateAchievements()
+    previousIsPlaying.current = isPlaying
+  }, [isPlaying, appName])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -455,6 +485,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           onChange={(e, newVal) => setCurrentTab(newVal)}
                           aria-label="gameinfo tabs"
                           selectionFollowsFocus
+                          variant="scrollable"
+                          scrollButtons="auto"
                         >
                           <Tab
                             className="tabButton"
@@ -463,6 +495,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
                             iconPosition="start"
                             icon={<Info className="gameInfoTabsIcon" />}
                           />
+                          {hasAchievements && (
+                            <Tab
+                              className="tabButton"
+                              value={'achievements'}
+                              label={
+                                t('game.achievements', 'Achievements') +
+                                ` · ${achievementPercentage}%`
+                              }
+                              iconPosition="start"
+                              icon={
+                                <EmojiEvents className="gameInfoTabsIcon" />
+                              }
+                            />
+                          )}
                           {hasWikiInfo && (
                             <Tab
                               className="tabButton"
@@ -485,6 +531,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       </div>
 
                       <div>
+                        <TabPanel
+                          value={currentTab}
+                          index="achievements"
+                          className="achievementsTab"
+                        >
+                          <Achievements achievements={achievements} />
+                        </TabPanel>
                         <TabPanel
                           value={currentTab}
                           index="info"
