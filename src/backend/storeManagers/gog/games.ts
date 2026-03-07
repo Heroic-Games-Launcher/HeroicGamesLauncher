@@ -9,7 +9,9 @@ import {
   changeGameInstallPath,
   getMetaResponse,
   getProductApi,
-  getGamesData
+  getGamesData,
+  getRemoteConfig,
+  getClientId
 } from './library'
 import { join } from 'path'
 import { GameConfig } from '../../game_config'
@@ -447,6 +449,11 @@ export async function install(
       )
     }
   }
+  // Preload remote config
+  const clientId = await getClientId(appName, install_path)
+  if (clientId) {
+    await getRemoteConfig(clientId)
+  }
   addShortcuts(appName)
   return { status: 'done' }
 }
@@ -566,6 +573,10 @@ export async function launch(
         })
       }
       return false
+    }
+
+    if (!isOnline() && wineEnvVars) {
+      delete wineEnvVars['HEROIC_GOGDL_WRAPPER_EXE']
     }
 
     commandEnv = {
@@ -695,12 +706,16 @@ export async function launch(
       false
   ) {
     const path = getCometBin()
-    child = spawn(join(path.dir, path.bin), [
-      '--from-heroic',
-      '--username',
-      userData.username,
-      '--quit'
-    ])
+    child = spawn(
+      join(path.dir, path.bin),
+      ['--from-heroic', '--username', userData.username, '--quit'],
+      {
+        env: {
+          ...process.env,
+          ...setupWrapperEnvVars({ appName, appRunner: 'gog' })
+        }
+      }
+    )
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
     child.stdout.on('data', (data: string) => {

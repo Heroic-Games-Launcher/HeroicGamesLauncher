@@ -2,6 +2,7 @@ import { TypeCheckedStoreBackend } from '../../electron_store'
 import CacheStore from '../../cache'
 import { GameInfo } from 'common/types'
 import {
+  GOGClientsResponse,
   GOGSessionSyncQueueItem,
   GamesDBData,
   GogInstallInfo
@@ -21,6 +22,9 @@ const configStore = new TypeCheckedStoreBackend('gogConfigStore', {
 
 const apiInfoCache = new CacheStore<GamesDBData>('gog_api_info')
 const libraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', null)
+const remoteConfigStore = new CacheStore<GOGClientsResponse>(
+  'gog_remote_config'
+)
 const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
   cwd: 'gog_store',
   name: 'saveTimestamps',
@@ -47,5 +51,6 @@ export {
   syncStore,
   installInfoStore,
   playtimeSyncQueue,
-  privateBranchesStore
+  privateBranchesStore,
+  remoteConfigStore
 }
