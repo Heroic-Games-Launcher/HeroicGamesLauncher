@@ -4,7 +4,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import useSetting from 'frontend/hooks/useSetting'
 import { InfoBox, PathSelectionBox } from 'frontend/components/UI'
 import SettingsContext from '../SettingsContext'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../constants'
 
 const WinePrefix = () => {
   const { t } = useTranslation()
