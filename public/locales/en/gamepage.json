@@ -29,6 +29,7 @@
         },
         "select": {
             "button": "Select",
+            "cover": "Select Cover",
             "image": "Select Image"
         },
         "selectLaunchOption": {
@@ -252,6 +253,7 @@
         },
         "info": {
             "broser": "BrowserURL",
+            "cover": "App Cover",
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
             "image": "App Image",
@@ -259,6 +261,7 @@
             "useragent": "Custom User Agent"
         },
         "placeholder": {
+            "cover": "Paste an URL of a Cover or select one from your computer",
             "image": "Paste an URL of an Image or select one from your computer",
             "title": "Add a title to your Game/App",
             "url": "Paste the Game URL here",
