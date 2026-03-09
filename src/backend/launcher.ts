@@ -1542,29 +1542,39 @@ async function runWineCommand({
 
   logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
-  let finalCommandParts = commandParts
-  let finalCwd = startFolder
+  if (startFolder === 'workingDir') {
+    startFolder = dirname(commandParts[0] || '')
+  }
 
-  const shouldConvertCwd = startFolder && wineVersion.type !== 'crossover'
-  const windowsPath = shouldConvertCwd
-    ? await getWinePath({
+  let finalCommandParts = commandParts
+  let finalCwd: string | undefined = startFolder
+
+  if (
+    startFolder &&
+    startFolder !== 'workingDir' &&
+    wineVersion.type !== 'crossover'
+  ) {
+    try {
+      const windowsPath = await getWinePath({
         path: startFolder,
         gameSettings: settings,
         variant: 'win'
-      }).catch(() => '')
-    : ''
-
-  if (windowsPath) {
-    finalCommandParts = [
-      'cmd',
-      '/c',
-      'cd',
-      '/d',
-      windowsPath,
-      '&&',
-      ...commandParts
-    ]
-    finalCwd = undefined
+      })
+      if (windowsPath) {
+        finalCommandParts = [
+          'cmd',
+          '/c',
+          'cd',
+          '/d',
+          windowsPath,
+          '&&',
+          ...commandParts
+        ]
+        finalCwd = undefined
+      }
+    } catch {
+      // ignore - use Linux cwd
+    }
   }
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
