@@ -1528,6 +1528,11 @@ async function runWineCommand({
     PROTON_VERB: protonVerb
   }
 
+  logDebug(
+    `WINEPREFIX env: ${env_vars.WINEPREFIX || 'NOT SET'}`,
+    LogPrefix.Backend
+  )
+
   if (ignoreLogging) {
     delete env_vars['PROTON_LOG']
   }
@@ -1540,42 +1545,11 @@ async function runWineCommand({
     commandParts.unshift(protonVerb)
   }
 
-  logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
-
   if (startFolder === 'workingDir') {
     startFolder = dirname(commandParts[0] || '')
   }
 
-  let finalCommandParts = commandParts
-  let finalCwd: string | undefined = startFolder
-
-  if (
-    startFolder &&
-    startFolder !== 'workingDir' &&
-    wineVersion.type !== 'crossover'
-  ) {
-    try {
-      const windowsPath = await getWinePath({
-        path: startFolder,
-        gameSettings: settings,
-        variant: 'win'
-      })
-      if (windowsPath) {
-        finalCommandParts = [
-          'cmd',
-          '/c',
-          'cd',
-          '/d',
-          windowsPath,
-          '&&',
-          ...commandParts
-        ]
-        finalCwd = undefined
-      }
-    } catch {
-      // ignore - use Linux cwd
-    }
-  }
+  logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
@@ -1583,12 +1557,12 @@ async function runWineCommand({
 
     if (wrappers.length) {
       bin = wrappers.shift()!
-      finalCommandParts.unshift(...wrappers, runnerBin)
+      commandParts.unshift(...wrappers, runnerBin)
     }
 
-    const child = spawn(bin, finalCommandParts, {
+    const child = spawn(bin, commandParts, {
       env: env_vars,
-      cwd: finalCwd
+      cwd: startFolder
     })
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
