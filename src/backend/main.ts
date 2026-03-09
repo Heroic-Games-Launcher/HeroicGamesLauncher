@@ -1259,8 +1259,6 @@ addHandler('gamepadAction', async (event, args) => {
 
 addHandler('getShellPath', async (event, path) => getShellPath(path))
 
-addHandler('getDirname', async (event, filePath) => path.dirname(filePath))
-
 addHandler('getWebviewPreloadPath', () => webviewPreloadPath)
 
 addHandler('clipboardReadText', () => clipboard.readText())

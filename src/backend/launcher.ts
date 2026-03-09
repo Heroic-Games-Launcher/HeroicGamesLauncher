@@ -1528,11 +1528,6 @@ async function runWineCommand({
     PROTON_VERB: protonVerb
   }
 
-  logDebug(
-    `WINEPREFIX env: ${env_vars.WINEPREFIX || 'NOT SET'}`,
-    LogPrefix.Backend
-  )
-
   if (ignoreLogging) {
     delete env_vars['PROTON_LOG']
   }
@@ -1548,8 +1543,6 @@ async function runWineCommand({
   if (startFolder === 'workingDir') {
     startFolder = dirname(commandParts[0] || '')
   }
-
-  logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
 
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
