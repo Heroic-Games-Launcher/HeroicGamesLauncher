@@ -1544,6 +1544,8 @@ async function runWineCommand({
     startFolder = dirname(commandParts[0] || '')
   }
 
+  logDebug(['Running Wine command:', commandParts.join(' ')], LogPrefix.Backend)
+
   return new Promise<{ stderr: string; stdout: string }>((res) => {
     const wrappers = options?.wrappers || []
     let bin = runnerBin
