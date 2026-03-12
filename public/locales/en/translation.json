@@ -359,7 +359,8 @@
             "gameWidth": "The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
             "upscaleHeight": "The height resolution used by gamescope. A 16:9 aspect ratio is assumed.",
             "upscaleMethod": "The upscaling method gamescope should use.",
-            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
+            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed.",
+            "resolution-info": "When enabling gamescope but not enabling upscaling, game resolution is set to the dimensions of the current primary monitor."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",

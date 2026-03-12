@@ -135,6 +135,12 @@ const Gamescope = () => {
           }
           title={t('setting.gamescope.enableGamescope', 'Enable Gamescope')}
         />
+        <InfoIcon
+          text={t(
+            'help.gamescope.resolution-info',
+            'When enabling gamescope but not enabling upscaling, game resolution is set to the dimensions of the current primary monitor.'
+          )}
+        />
       </div>
     )
   }
