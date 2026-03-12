@@ -51,6 +51,7 @@ import BuildSelector from './BuildSelector'
 import GameLanguageSelector from './GameLanguageSelector'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import BranchSelector from './BranchSelector'
+import { useInstallGameModal } from 'frontend/state/InstallGameModal'
 
 interface Props {
   backdropClick: () => void
@@ -106,8 +107,11 @@ export default function DownloadDialog({
   const previousProgress = JSON.parse(
     storage.getItem(appName) || '{}'
   ) as InstallProgress
-  const { libraryStatus, platform, showDialogModal } =
+  const { libraryStatus, platform, showDialogModal, isImporting } =
     useContext(ContextProvider)
+
+  const { action = 'install' } = useInstallGameModal()
+  const isImportMode = action === 'import'
 
   const isWin = platform === 'win32'
 
@@ -295,7 +299,10 @@ export default function DownloadDialog({
       platformToInstall,
       build: selectedBuild,
       branch,
-      showDialogModal: () => backdropClick()
+      showDialogModal: () => backdropClick(),
+      winePrefix,
+      wineVersion,
+      wineCrossoverBottle: crossoverBottle
     })
   }
 
@@ -556,6 +563,9 @@ export default function DownloadDialog({
   const title = gameInfo?.title
 
   function getInstallLabel() {
+    if (isImportMode) {
+      return t('button.import', 'Import')
+    }
     if (installPath) {
       if (notEnoughDiskSpace) {
         return t('button.force-innstall', 'Force Install')
@@ -569,7 +579,8 @@ export default function DownloadDialog({
   }
 
   const readyToInstall =
-    installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath
+    (isImportMode && !!installPath) ||
+    (installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath)
 
   const showDlcSelector =
     ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
@@ -588,59 +599,61 @@ export default function DownloadDialog({
       </DialogHeader>
       <Anticheat anticheatInfo={anticheatInfo} />
       <DialogContent>
-        <div className="InstallModal__sizes">
-          <div className="InstallModal__size">
-            <FontAwesomeIcon
-              className={classNames('InstallModal__sizeIcon', {
-                'fa-spin-pulse': !downloadSize
-              })}
-              icon={downloadSize ? faDownload : faSpinner}
-            />
-            {downloadSize ? (
-              <>
-                <div className="InstallModal__sizeLabel">
-                  {t('game.downloadSize', 'Download Size')}:
-                </div>
-                <div className="InstallModal__sizeValue">{downloadSize}</div>
-              </>
-            ) : (
-              `${t('game.getting-download-size', 'Geting download size')}...`
-            )}
-          </div>
-          <div className="InstallModal__size">
-            <FontAwesomeIcon
-              className={classNames('InstallModal__sizeIcon', {
-                'fa-spin-pulse': !downloadSize
-              })}
-              icon={downloadSize ? faHardDrive : faSpinner}
-            />
-            {downloadSize ? (
-              <>
-                <div className="InstallModal__sizeLabel">
-                  {t('game.installSize', 'Install Size')}:
-                </div>
-                <div className="InstallModal__sizeValue">{installSize}</div>
-              </>
-            ) : (
-              `${t('game.getting-install-size', 'Geting install size')}...`
-            )}
-          </div>
-          {previousProgress.folder === installPath && (
+        {!isImportMode && (
+          <div className="InstallModal__sizes">
             <div className="InstallModal__size">
               <FontAwesomeIcon
-                className="InstallModal__sizeIcon"
-                icon={faSpinner}
+                className={classNames('InstallModal__sizeIcon', {
+                  'fa-spin-pulse': !downloadSize
+                })}
+                icon={downloadSize ? faDownload : faSpinner}
               />
-              <div className="InstallModal__sizeLabel">
-                {t('status.totalDownloaded', 'Total Downloaded')}:
-              </div>
-              <div className="InstallModal__sizeValue">
-                {getProgress(previousProgress)}%
-              </div>
+              {downloadSize ? (
+                <>
+                  <div className="InstallModal__sizeLabel">
+                    {t('game.downloadSize', 'Download Size')}:
+                  </div>
+                  <div className="InstallModal__sizeValue">{downloadSize}</div>
+                </>
+              ) : (
+                `${t('game.getting-download-size', 'Geting download size')}...`
+              )}
             </div>
-          )}
-        </div>
-        {installLanguages && installLanguages?.length > 1 && (
+            <div className="InstallModal__size">
+              <FontAwesomeIcon
+                className={classNames('InstallModal__sizeIcon', {
+                  'fa-spin-pulse': !downloadSize
+                })}
+                icon={downloadSize ? faHardDrive : faSpinner}
+              />
+              {downloadSize ? (
+                <>
+                  <div className="InstallModal__sizeLabel">
+                    {t('game.installSize', 'Install Size')}:
+                  </div>
+                  <div className="InstallModal__sizeValue">{installSize}</div>
+                </>
+              ) : (
+                `${t('game.getting-install-size', 'Geting install size')}...`
+              )}
+            </div>
+            {previousProgress.folder === installPath && (
+              <div className="InstallModal__size">
+                <FontAwesomeIcon
+                  className="InstallModal__sizeIcon"
+                  icon={faSpinner}
+                />
+                <div className="InstallModal__sizeLabel">
+                  {t('status.totalDownloaded', 'Total Downloaded')}:
+                </div>
+                <div className="InstallModal__sizeValue">
+                  {getProgress(previousProgress)}%
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {!isImportMode && installLanguages && installLanguages?.length > 1 && (
           <GameLanguageSelector
             installPlatform={platformToInstall}
             installLanguage={installLanguage}
@@ -649,101 +662,117 @@ export default function DownloadDialog({
           />
         )}
 
-        <PathSelectionBox
-          type="directory"
-          onPathChange={setInstallPath}
-          path={installPath}
-          placeholder={getDefaultInstallPath()}
-          pathDialogTitle={t('install.path')}
-          pathDialogDefaultPath={getDefaultInstallPath()}
-          htmlId="setinstallpath"
-          label={t('install.path', 'Select Install Path')}
-          noDeleteButton
-          afterInput={
-            downloadSize ? (
-              <span className="smallInputInfo">
-                {validPath && validFlatpakPath && (
-                  <>
-                    <span>
-                      {`${t('install.disk-space-left', 'Space Available')}: `}
+        {!isImportMode && (
+          <PathSelectionBox
+            type={
+              isImportMode && platformToInstall === 'Mac' ? 'file' : 'directory'
+            }
+            onPathChange={setInstallPath}
+            path={installPath}
+            placeholder={getDefaultInstallPath()}
+            pathDialogTitle={
+              isImportMode
+                ? t('box.importpath', 'Select Import Path')
+                : t('install.path')
+            }
+            pathDialogDefaultPath={getDefaultInstallPath()}
+            htmlId="setinstallpath"
+            label={
+              isImportMode
+                ? t('import.select_folder', 'Select the game folder to import')
+                : t('install.path', 'Select Install Path')
+            }
+            noDeleteButton
+            afterInput={
+              !isImportMode && downloadSize ? (
+                <span className="smallInputInfo">
+                  {validPath && validFlatpakPath && (
+                    <>
+                      <span>
+                        {`${t('install.disk-space-left', 'Space Available')}: `}
+                      </span>
+                      <span>
+                        <strong>{`${message}`}</strong>
+                      </span>
+                      {!notEnoughDiskSpace && (
+                        <>
+                          <span>
+                            {` - ${t(
+                              'install.space-after-install',
+                              'After Install'
+                            )}: `}
+                          </span>
+                          <span>
+                            <strong>{`${spaceLeftAfter}`}</strong>
+                          </span>
+                        </>
+                      )}
+                    </>
+                  )}
+                  {!validPath && (
+                    <span className="warning">
+                      {`${t(
+                        'install.path-not-writtable',
+                        'Warning: path might not be writable.'
+                      )}`}
                     </span>
-                    <span>
-                      <strong>{`${message}`}</strong>
+                  )}
+                  {validPath && !validFlatpakPath && (
+                    <span className="error">
+                      {`${t(
+                        'install.flatpak-path-not-writtable',
+                        'Error: Sandbox access not granted to this path, data loss will occur.'
+                      )}`}
                     </span>
-                    {!notEnoughDiskSpace && (
-                      <>
-                        <span>
-                          {` - ${t(
-                            'install.space-after-install',
-                            'After Install'
-                          )}: `}
-                        </span>
-                        <span>
-                          <strong>{`${spaceLeftAfter}`}</strong>
-                        </span>
-                      </>
-                    )}
-                  </>
-                )}
-                {!validPath && (
-                  <span className="warning">
-                    {`${t(
-                      'install.path-not-writtable',
-                      'Warning: path might not be writable.'
-                    )}`}
-                  </span>
-                )}
-                {validPath && !validFlatpakPath && (
-                  <span className="error">
-                    {`${t(
-                      'install.flatpak-path-not-writtable',
-                      'Error: Sandbox access not granted to this path, data loss will occur.'
-                    )}`}
-                  </span>
-                )}
-                {validPath && notEnoughDiskSpace && (
-                  <span className="warning">
-                    {` (${t(
-                      'install.not-enough-disk-space',
-                      'Not enough disk space'
-                    )})`}
-                  </span>
-                )}
-              </span>
-            ) : null
-          }
-        />
-
-        {platformToInstall !== 'linux' && branches.length > 1 && (
-          <div>
-            <BranchSelector
-              appName={gameInfo.app_name}
-              branches={branches}
-              branch={branch}
-              setBranch={setBranch}
-              savedBranchPassword={savedBranchPassword}
-              onPasswordChange={(newPasswd) =>
-                setSavedBranchPassword(newPasswd)
-              }
-            />
-          </div>
+                  )}
+                  {validPath && notEnoughDiskSpace && (
+                    <span className="warning">
+                      {` (${t(
+                        'install.not-enough-disk-space',
+                        'Not enough disk space'
+                      )})`}
+                    </span>
+                  )}
+                </span>
+              ) : null
+            }
+          />
         )}
 
-        {platformToInstall !== 'linux' && !!gameBuilds.length && (
-          <div>
-            <BuildSelector
-              gameBuilds={gameBuilds}
-              selectedBuild={selectedBuild}
-              setSelectedBuild={setSelectedBuild}
-            />
-          </div>
-        )}
-        {(haveDLCs || haveSDL) && (
+        {!isImportMode &&
+          platformToInstall !== 'linux' &&
+          branches.length > 1 && (
+            <div>
+              <BranchSelector
+                appName={gameInfo.app_name}
+                branches={branches}
+                branch={branch}
+                setBranch={setBranch}
+                savedBranchPassword={savedBranchPassword}
+                onPasswordChange={(newPasswd) =>
+                  setSavedBranchPassword(newPasswd)
+                }
+              />
+            </div>
+          )}
+
+        {!isImportMode &&
+          platformToInstall !== 'linux' &&
+          !!gameBuilds.length && (
+            <div>
+              <BuildSelector
+                gameBuilds={gameBuilds}
+                selectedBuild={selectedBuild}
+                setSelectedBuild={setSelectedBuild}
+              />
+            </div>
+          )}
+        {!isImportMode && (haveDLCs || haveSDL) && (
           <div className="InstallModal__sectionHeader">
             {t('sdl.title', 'Select components to Install')}:
           </div>
         )}
-        {haveSDL && (
+        {!isImportMode && haveSDL && (
           <div className="InstallModal__sdls">
             {sdls.map((sdl: SelectiveDownload, idx: number) => (
               <label
@@ -762,7 +791,7 @@ export default function DownloadDialog({
             ))}
           </div>
         )}
-        {showDlcSelector && (
+        {!isImportMode && showDlcSelector && (
           <DLCDownloadListing
             DLCList={DLCList}
             dlcsToInstall={dlcsToInstall}
@@ -773,20 +802,23 @@ export default function DownloadDialog({
       </DialogContent>
       <DialogFooter>
         <button
-          onClick={async () => handleInstall('import')}
-          className={`button is-secondary outline`}
+          onClick={async () =>
+            handleInstall(isImportMode ? 'import' : undefined)
+          }
+          className={classNames('button', {
+            'is-primary': isImportMode,
+            'is-secondary': !isImportMode
+          })}
+          disabled={
+            (isImportMode && !installPath) ||
+            (!isImportMode && (!readyToInstall || isImporting))
+          }
         >
-          {t('button.import')}
-        </button>
-        <button
-          onClick={async () => handleInstall()}
-          className={`button is-secondary`}
-          disabled={!readyToInstall}
-        >
-          {!readyToInstall && (
+          {(isImportMode && !installPath) ||
+          (!isImportMode && !readyToInstall) ? (
             <FontAwesomeIcon className="fa-spin-pulse" icon={faSpinner} />
-          )}
-          {readyToInstall && getInstallLabel()}
+          ) : null}
+          {getInstallLabel()}
         </button>
       </DialogFooter>
     </>
