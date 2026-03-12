@@ -256,36 +256,33 @@
 /* Responsive adjustments */
 @media (max-width: 800px) {
   .wineManagerHeader {
-    grid-template-columns: 1.5fr 1.5fr;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+
     .wineManagerToolbar {
       width: 100%;
+
       .SearchBar {
         max-width: none;
       }
     }
   }
 
-  .wineList {
+  .wineManager .wineList {
     overflow-x: auto;
+
     .gameListHeader {
-      display: none;
-    }
-  }
-}
+      grid-template-columns: 1.5fr 1.5fr;
 
-@media (max-width: 800px) {
-  .wineList .gameListHeader {
-    grid-template-columns: 1.5fr 1.5fr !important;
+      .release,
+      .size {
+        display: none;
+      }
 
-    .release,
-    .size {
-      display: none;
-    }
-    .actions {
-      grid-column: 2;
+      .actions {
+        grid-column: 2;
+      }
     }
   }
 }
