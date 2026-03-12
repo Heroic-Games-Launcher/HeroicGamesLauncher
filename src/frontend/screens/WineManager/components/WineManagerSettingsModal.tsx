@@ -60,11 +60,15 @@ export default function WineManagerSettingsModal({
                     return macRepos.includes(repo.value)
                   })
                   .map((repo: WineManagerUISettings) => (
-                    <div key={repo.value} className="repositoryItem">
+                    <div key={repo.value} className="repoItem">
                       <ToggleSwitch
                         htmlId={`repo-${repo.value}`}
                         title={repo.type}
                         value={repo.enabled}
+                        disabled={
+                          (repo.value === 'protonge' && platform === 'linux') ||
+                          (repo.value === 'gpt' && platform !== 'darwin')
+                        }
                         handleChange={() => {
                           const newSettings = wineManagerSettings.map(
                             (r: WineManagerUISettings) =>
