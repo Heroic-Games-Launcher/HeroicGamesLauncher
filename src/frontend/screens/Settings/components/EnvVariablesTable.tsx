@@ -52,12 +52,6 @@ const EnvVariablesTable = () => {
         `Variable names can't contain spaces`
       )
     }
-    if (!trimmedValue) {
-      return t(
-        'options.env_variables.error.empty_value',
-        "Value can't be empty"
-      )
-    }
     return ''
   }
 
@@ -338,7 +332,7 @@ const EnvVariablesTable = () => {
           <SvgButton
             onClick={handleAdd}
             className="is-primary"
-            disabled={!newKey.trim() || !newValue.trim()}
+            disabled={!newKey.trim()}
           >
             <AddBoxIcon style={{ color: 'var(--success)' }} fontSize="large" />
           </SvgButton>
