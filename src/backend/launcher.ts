@@ -2031,8 +2031,8 @@ async function runScriptForGame(
       HEROIC_GAME_RUNNER: gameInfo.runner,
       HEROIC_GAME_SCRIPT_STAGE: scriptStage,
       HEROIC_GAME_TITLE: gameInfo.title,
-      HEROIC_GAME_SETTINGS: JSON.stringify(gameSettings),
-      HEROIC_GAME_INFO: JSON.stringify(gameInfo)
+      HEROIC_GAME_SETTINGS: gameSettings,
+      HEROIC_GAME_INFO: gameInfo
     }
 
     let scriptEnv = {
@@ -2047,18 +2047,23 @@ async function runScriptForGame(
         if (gameSettings.verboseLogs) {
           logWriter.logError(err)
         }
-        throw err
+        reject(err)
+        return
       }
       const installPath = gameInfo.install.install_path
       const metadataPath = join(installPath, 'script-env.json')
 
-      writeFileSync(metadataPath, JSON.stringify(metadata, null, 2), 'utf8')
+      writeFileSync(metadataPath, JSON.stringify(metadata, null, 2))
 
       scriptEnv.HEROIC_METADATA_FILE = metadataPath
     } else {
       scriptEnv = {
         ...scriptEnv,
-        ...metadata
+        ...{
+          ...metadata,
+          HEROIC_GAME_SETTINGS: JSON.stringify(gameSettings),
+          HEROIC_GAME_INFO: JSON.stringify(gameInfo)
+        }
       }
     }
 
