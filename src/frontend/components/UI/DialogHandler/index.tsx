@@ -33,6 +33,7 @@ export default function DialogHandler() {
           title={dialogModalOptions.title ? dialogModalOptions.title : ''}
           message={dialogModalOptions.message ? dialogModalOptions.message : ''}
           buttons={dialogModalOptions.buttons ? dialogModalOptions.buttons : []}
+          className={dialogModalOptions.className}
           onClose={() =>
             dialogModalOptions.onClose
               ? dialogModalOptions.onClose()

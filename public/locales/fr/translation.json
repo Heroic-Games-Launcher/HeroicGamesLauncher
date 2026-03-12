@@ -34,7 +34,7 @@
         "choose-gogdl-binary": "Sélectionner un exécutable pour GOGDL (requiert un redémarrage)",
         "choose-legendary-binary": "Sélectionner un exécutable pour Legendary",
         "customWine": "Sélectionner l'exécutable de Wine ou Proton",
-        "default-install-path": "Choisir le chemin par défaut",
+        "default-install-path": "Choix du répertoire d'installation par défaut",
         "default-steam-path": "Répertoire d'installation de Steam.",
         "downloadNow": "Télécharger maintenant",
         "error": {
@@ -109,7 +109,7 @@
             "update": {
                 "changelog": "Afficher la description des changements",
                 "detail": "Voulez-vous télécharger la mise à jour en arrière-plan ?",
-                "message": "Une nouvelle version est disponible !",
+                "message": "Une nouvelle version de ce jeu est disponible !",
                 "message-finished": "Voulez-vous redémarrer Heroic maintenant ?",
                 "title": "Heroic Games Launcher",
                 "title-finished": "Mise à jour terminée",
@@ -117,7 +117,7 @@
             }
         },
         "no": "NON",
-        "ok": "Ok",
+        "ok": "D'accord",
         "protocol": {
             "install": {
                 "not_installed": "Ceci n'est pas installé, voulez-vous l'installer ?"
@@ -134,7 +134,7 @@
             }
         },
         "runexe": {
-            "title": "Sélectionner l'EXÉcutable à démarrer"
+            "title": "Sélectionner l’EXÉcutable à démarrer"
         },
         "select": {
             "button": "Sélectionner",
@@ -150,7 +150,7 @@
         },
         "sync": {
             "button": "Sélectionner",
-            "error": "Chemin invalide",
+            "error": "Répertoire invalide",
             "title": "Choisir le répertoire des sauvegardes"
         },
         "vcruntime": {
@@ -260,7 +260,7 @@
         "status": "État",
         "store": "Boutique",
         "title": "Titre du jeu",
-        "modify": "Modifier l'installation"
+        "modify": "Modifier l’installation"
     },
     "generic": {
         "error": {
@@ -310,7 +310,7 @@
         },
         "gamemode": "Le procédé « Feral GameMode » applique des modifications automatiques et temporaires au système pendant l'exécution des jeux. L'activer pourrait améliorer les performances.",
         "general": "Synchroniser avec le lanceur EG si vous avez un dossier d'installation de l'Epic Games Store ailleurs et que vous voulez importer vos jeux afin d'éviter de les télécharger à nouveau.",
-        "mangohud": "MangoHUD est une surcouche permettant d'afficher et de surveiller en cours de jeu le nombre d'images par seconde, la température des composants, la charge du CPU/GPU et l'utilisation d'autres ressources du système.",
+        "mangohud": "MangoHUD est une interface permettant d'afficher et de surveiller en cours de jeu le nombre d'images par seconde, la température des composants, la charge du CPU/GPU et l'utilisation d'autres ressources du système.",
         "other": {
             "part4": "Utilise les ",
             "part5": "Arguments de Jeu",
@@ -320,12 +320,12 @@
         "preferSystemLibs": "Des versions personnalisées de Wine (Wine-GE, Wine-Lutris) sont fournies avec les bibliothèques dont elles dépendent. En activant cette option, ces bibliothèques seront ignorées et Wine utilisera à la place celles du système. Attention ! Des problèmes peuvent apparaître si certaines dépendances sont introuvables.",
         "primerun": "Utiliser la carte graphique dédiée pour le rendu sur les systèmes à multiples processeurs graphiques. Utile seulement sur les ordinateurs ayant un processeur graphique intégré et une carte graphique dédiée (NVIDIA Optimus, AMD CrossFire)",
         "steam_path": {
-            "info": "Ce chemin permet à Heroic de déterminer quelle version de Proton est utilisée par Steam, pour permettre d'ajouter sur Steam des jeux extérieurs à Steam."
+            "info": "Heroic utilise ce chemin pour déterminer la version de Proton utilisée par Steam, afin d'y permettre l'ajout de jeux qui n'en proviennent pas."
         },
         "steamruntime": "Bibliothèques additionnelles fournies par Steam pour aider à exécuter des jeux Linux et Windows (avec Proton). Pourrait améliorer la compatibilité.",
         "sync": {
             "part1": "Heroic essaie de déterminer quel est le bon dossier de sauvegarde et cela fonctionne dans la plus part des cas. Si le dossier choisi n'est pas le bon, utilisez le champ ci-dessus pour le changer.",
-            "part2": "Si vous changez le dossier de préfixe pour Wine ou Proton, il vous faudra revérifier ce chemin, car Proton utilise un préfixe (/pfx) et un nom d'utilisateur (steamuser) différents. Vous pouvez simplement effacer le chemin actuel, quitter la page des options et y revenir, afin que Heroic puisse tenter une fois de plus de déterminer le dossier comportant le bon préfixe.",
+            "part2": "Fussiez-vous amené à changer le répertoire des préfixes pour Wine ou Proton, ce chemin devra être revérifié, car Proton utilise un préfixe (/pfx) et un nom d'utilisateur (steamuser) différents. Afin qu'Heroic puisse tenter une fois de plus de déterminer quel dossier comporte le bon préfixe, il vous suffira simplement d'effacer le chemin actuel, de quitter la page des options et d'y revenir.",
             "part3": "Synchronisation manuelle : Choisissez « Télécharger » pour télécharger les sauvegardes des jeux enregistrées dans le Cloud et « Téléverser » pour transférer les fichiers locaux vers le Cloud. « Forcer le téléchargement » et « Forcer le téléversement » ignoreront la version locale ou celle du Cloud.",
             "part4": "« Synchroniser automatiquement » active la synchronisation de vos sauvegardes à chaque fois que vous lancez un jeu et que vous l'arrêtez."
         },
@@ -357,7 +357,7 @@
             "library": "Bibliothèque"
         },
         "content": {
-            "defaultInstallPath": "C'est le chemin présélectionné par défaut pour l'installation des jeux.",
+            "defaultInstallPath": "C'est le répertoire présélectionné par défaut pour l'installation des jeux.",
             "settingsDefault": "Affiche tous les paramètres d'Heroic et les configurations par défaut des jeux.",
             "settingsGame": "Affiche tous les paramètres d'un jeu.",
             "downloadManager": "Affiche les téléchargement actuels et passés.",
@@ -372,12 +372,12 @@
             "close": "Fermer la fenêtre d'aide"
         },
         "msync": "Msync a pour but de réduire la charge wineserver pour les jeux qui sollicitent beaucoup le CPU. L'activer peut améliorer les performances sur les kernels Linux compatibles.",
-        "download_proton_steam": "Lorsque ce paramètre est activé, GE-Proton sera téléchargé directement vers le dossier des outils de compatibilité de Steam, en lieu et place du chemin par défaut d'Heroic. Il utilisera le chemin vers Steam définit dans le champ 'Chemin vers Steam par défaut' ci-dessus.",
+        "download_proton_steam": "Lorsque ce paramètre est activé, GE-Proton est téléchargé directement dans le dossier des outils de compatibilité de Steam et non dans le répertoire par défaut d'Heroic. Celui-ci utilisera le répertoire Steam définit dans le champ 'Répertoire Steam par défaut' ci-dessus.",
         "dxfpslimit": "Définit un plafond de fréquence d'images pour les jeux DirectX (9-12)",
         "advertiseAvxForRosetta": "Active la compatibilité avec l'ensemble d'instructions AVX lors de l'exécution de jeux Windows via Rosetta sur les Macs Apple Silicon. Cela peut être nécessaire pour certains jeux comme Death Stranding, qui requièrent une compatibilité avec AVX.",
         "wine-hdr": "Le HDR améliore la colorimétrie en proposant des contours plus clairs et des contrastes plus profonds. Afin que le HDR fonctionne, l'écran et le jeu doivent être tous deux compatibles.",
         "wine-wayland": "Le pilote expérimental Wine-Wayland permet aux jeux de s'exécuter nativement par l'entremise du protocole d'affichage Wayland. L'activer peut faire dysfonctionner certains jeux.",
-        "analytics": "Autoriser Heroic à collecter des données d'usage 100% anonymes afin d'aider à l'amélioration de l'application. Un redémarrage sera nécessaire pour appliquer le changement.",
+        "analytics": "Autorise Heroic à collecter des données d'usage 100 % anonymes afin de contribuer à l'amélioration de l'application. Nécessite un redémarrage.",
         "WoW64": "Le mode Wine WoW64 permet aux jeux Windows 32-bit d'être exécutés depuis la version 64-bit de Wine. L'activer peut améliorer les performances, mais pourrait aussi faire dysfonctionner les jeux 32-bit très anciens."
     },
     "info": {
@@ -405,7 +405,7 @@
         "wine-repfix": {
             "message": "Wine utilise ce que l'on appelle un WINEPREFIX afin d'encapsuler les programmes destinés à Windows. Ce préfixe comporte les fichiers de configuration de Wine ainsi qu'une reproduction du système de fichiers de la partition C : (la partition principale d'un système Windows). On y trouve aussi les dépendances et les fichiers de sauvegardes des jeux installés via Winetricks."
         },
-        "wine-path-invalid": "Ce chemin devrait mener au répertoire de Wine, mais il est invalide, veuillez donc en sélectionner un autre.",
+        "wine-path-invalid": "Ce répertoire devrait inclure Wine mais son chemin est invalide, veuillez donc en sélectionner un autre.",
         "wine-path-none-found": "Aucune version de Wine n'a été trouvée, téléchargez-en une depuis l'onglet Wine"
     },
     "install": {
@@ -562,7 +562,7 @@
     "placeholder": {
         "alt-gogdl-bin": "Utilisation de l'exécutable GOGDL intégré...",
         "alt-legendary-bin": "Utilisation de l'exécutable Legendary intégré...",
-        "custom_themes_path": "Sélectionner le chemin où rechercher des fichiers CSS personnalisés",
+        "custom_themes_path": "Sélectionner un répertoire dans lequel rechercher des fichiers CSS personnalisés",
         "dxvkfpsvalue": "Entier positif (i.e. 30, 60, ...)",
         "egs-prefix": "Préfixe où l'EGS est installé",
         "prefered_language": "code 2-char (exemples : « en » ou « fr »)",
@@ -592,7 +592,7 @@
     "Recent": "Lancés récemment",
     "search": "Rechercher des jeux",
     "setting": {
-        "adddesktopshortcuts": "Ajouter automatiquement des raccourcis sur le Bureau",
+        "adddesktopshortcuts": "Créer automatiquement des raccourcis sur le Bureau",
         "addgamestostartmenu": "Ajouter automatiquement les jeux au menu Démarrer",
         "addgamestosteam": "Ajouter automatiquement les jeux à Steam",
         "alt-gogdl-bin": "Choisir un exécutable GOGDL alternatif à utiliser",
@@ -601,16 +601,16 @@
         "autosync": "Synchroniser automatiquement les sauvegardes",
         "autovkd3d": "Installer/Mettre à jour VKD3D automatiquement dans le préfixe",
         "change-target-exe": "Choisir un EXEcutable alternatif à démarrer",
-        "checkForUpdatesOnStartup": "Vérifier au démarrage si une version plus récente d'Heroic est disponible",
+        "checkForUpdatesOnStartup": "Vérifier si une version plus récente d'Heroic est disponible au démarrage de l'application",
         "crossover-version": "Version de Crossover/Wine",
-        "custom_themes_path": "Chemin vers les thèmes personnalisés",
-        "customWineProton": "Chemins vers des versions personnalisées de Wine/Proton",
+        "custom_themes_path": "Répertoire des thèmes personnalisés",
+        "customWineProton": "Répertoire comportant des versions personnalisées de Wine/Proton",
         "darktray": "Utiliser une icône sombre dans la barre des tâches",
         "default-install-path": "Répertoire d'installation par défaut",
-        "default-steam-path": "Chemin par défaut vers Steam",
+        "default-steam-path": "Répertoire de Steam par défaut",
         "defaultWinePrefix": "Indiquer le dossier pour les nouveaux préfixes Wine",
         "disable_controller": "Désactiver la navigation au moyen d'une manette",
-        "discordRPC": "Activer le mode Présence Enrichie pour Discord",
+        "discordRPC": "Activer le mode « Présence Enrichie » pour Discord",
         "download-no-https": "Télécharger les jeux sans utiliser HTTPS (utile pour CDNs e.g. LanCache)",
         "dxvkfpslimit": "Limiter le nombre d'images par secondes (DX9, 10 et 11)",
         "egs-sync": "Synchroniser avec l'installation d'Epic Games",
@@ -623,15 +623,15 @@
             "disable": "Désactiver",
             "enable": "Activer",
             "install": "Installer",
-            "installed": "L'overlay Epic Online Services est installé",
-            "installing": "L'overlay Epic Online Services est en cours d'installation...",
+            "installed": "L'interface Epic Online Services (EOS) est installée",
+            "installing": "L'interface Epic Online Services (EOS) est en cours d'installation...",
             "latestVersion": "Dernière version : {{version}}",
-            "notInstalled": "L'overlay Epic Online Services n'est pas installé",
-            "notInstalledMsg": "L'overlay EOS n'est pas installé. Voudriez-vous l'installer maintenant ?",
-            "notInstalledTitle": "Overlay non installé",
+            "notInstalled": "L'interface Epic Online Services (EOS) n'est pas installée",
+            "notInstalledMsg": "L'interface Epic Online Services (EOS) n'est pas installée. Voulez-vous l'installer maintenant ?",
+            "notInstalledTitle": "Interface non installée",
             "remove": "Désinstaller",
-            "removeConfirm": "Êtes-vous certain(e) de vouloir désinstaller l'overlay EOS ?",
-            "removeConfirmTitle": "Veuillez confirmer la suppression de l'overlay",
+            "removeConfirm": "Êtes-vous certain(e) de vouloir désinstaller l'interface Epic Online Services (EOS) ?",
+            "removeConfirmTitle": "Veuillez confirmer la suppression de l'interface",
             "updateNow": "Mettre à jour",
             "updating": "Mise à jour en cours..."
         },
@@ -672,7 +672,8 @@
                 },
                 "error": {
                     "content": "L'envoi du rapport a échoué. Consultez le rapport général d'Heroic pour des détails",
-                    "title": "Envoi échoué"
+                    "title": "Envoi échoué",
+                    "manual_upload": "Cliquez sur le bouton « AFFICHER LE RAPPORT DANS LE DOSSIER » et téléversez le fichier « launch.log » manuellement sur Discord ou n'importe quel autre service de partage de fichiers."
                 },
                 "header": "Rapports envoyés",
                 "no-files": "Aucun rapport n'a été envoyé",
@@ -708,7 +709,7 @@
         },
         "maxRecentGames": "Nombre de jeux lancés récemment à afficher",
         "maxworkers": "Nombre maximum de processus pendant le téléchargement",
-        "minimize-on-launch": "Minimiser Heroic après le lancement du jeu",
+        "minimize-on-launch": "Minimiser Heroic après le lancement d'un jeu",
         "offlinemode": "Lancer le jeu hors ligne",
         "prefered_language": "Langue préférée (fr, en...)",
         "preferSystemLibs": "Opter de préférence pour les bibliothèques système",
@@ -726,9 +727,9 @@
         "savefolder": {
             "not-found": "Dossier de sauvegarde introuvable, veuillez le sélectionner manuellement",
             "placeholder": "Sélectionnez le dossier de sauvegarde exact des jeux",
-            "warning": "Veuillez vérifier deux fois si le chemin est correct"
+            "warning": "Veuillez par deux fois vous assurer que le chemin est exact (cliquez pour réessayer)"
         },
-        "select_theme": "Sélectionner le thème",
+        "select_theme": "Sélection du thème",
         "showfps": "Afficher les FPS (DX9, 10 et 11)",
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
@@ -737,7 +738,7 @@
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
-        "disable_logs": "Désactiver la génération de rapports",
+        "disable_logs": "Désactiver la génération de rapports d'événements",
         "showMetalOverlay": "Afficher l'interface des statistiques",
         "addgamestoapplications": "Ajouter automatiquement des jeux aux Applications",
         "alt-nile-bin": "Choisissez un exécutable alternatif pour Nile",
@@ -801,7 +802,7 @@
         "hdr": "Activer le HDR",
         "no-tray-icon": "Ne pas afficher d'icône dans la barre des tâches (requiert un redémarrage)",
         "wineWayland": "Activer Wine-Wayland (Expérimental) (La version de Wine doit être compatible)",
-        "analyticsOptIn": "Envoyer des données anonymes afin d'aider au développement d'Heroic",
+        "analyticsOptIn": "Envoyer des données anonymes afin de contribuer au développement d'Heroic",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Ne pas les afficher",
@@ -810,11 +811,12 @@
                 "message": "Nous recommandons d'utiliser des versions Proton personnalisées (GE-Proton, Proton-CachyOS, etc.) avec Heroic car les versions Proton de Valve ne possèdent ni winetricks, ni protofixes. Vous pouvez tout de même les utiliser si vous le souhaitez."
             },
             "info_label": "Versions de Proton proposées par Valve ignorées",
-            "label": "Permettre d'utiliser des versions de Proton proposées par Valve pour exécuter des jeux",
+            "label": "Permettre l'utilisation de versions de Proton proposées par Valve pour exécuter des jeux",
             "wine_selector_warning": "Les versions de Proton distribuées par Valve sont ignorées par défaut ; activez-les dans le menu des options globales avancées"
         },
         "WoW64": "Activer WoW64 (expérimental)",
-        "scripts": "Scripts :"
+        "scripts": "Scripts :",
+        "enable-quick-sync-menu": "Inclure le menu des sauvegardes rapides sur la page de description des jeux"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -848,10 +850,11 @@
             "general": "Général",
             "log": "Rapports d'événements",
             "other": "Autre",
-            "sync": "Synchronisation des sauvegardes distantes",
+            "sync": "Synchronisation des sauvegardes",
             "wineExt": "Extensions de Wine",
             "systemInformation": "Informations Système",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Obsolète"
         },
         "open-config-file": "Ouvrir le fichier de configuration",
         "reset-heroic": "Reset Heroic",
@@ -918,7 +921,8 @@
         "custom_css": {
             "title": "Style CSS personnalisé"
         },
-        "launchOptions": "Options de lancement"
+        "launchOptions": "Options de lancement",
+        "legacy_warning": "Avertissement : les paramètres présents dans cet onglet sont presque tous obsolètes et pourraient ne pas fonctionner du tout."
     },
     "Settings": "Options",
     "sidebar": {
@@ -943,8 +947,8 @@
         }
     },
     "tooltip": {
-        "addpath": "Ajouter un nouveau chemin",
-        "removepath": "Supprimer le chemin"
+        "addpath": "Ajouter un nouveau répertoire",
+        "removepath": "Supprimer le répertoire"
     },
     "tray": {
         "about": "À propos",
@@ -1093,7 +1097,7 @@
             },
             "stores": "Parcourez les différentes boutiques et achetez des jeux chez GOG, Epic ou Amazon.",
             "version": "Vérifiez la version actuelle d'Heroic, cliquez dessus pour consulter les dernier changements et accédez à cette visite guidée depuis le bouton d'aide.",
-            "wine": "Gérez ou téléchargez une nouvelle version de Wine/Proton/GPTK pour exécuter des jeux Windows sur Linux ou MacOS.",
+            "wine": "Supervisez ou téléchargez de nouvelles versions de Wine/Proton/GPTK pour exécuter des jeux Windows sur Linux ou macOS.",
             "quit": "Quittez l'application de manière sûre.",
             "docs": "Lisez la documentation pour en apprendre plus sur l'utilisation d'Heroic."
         },

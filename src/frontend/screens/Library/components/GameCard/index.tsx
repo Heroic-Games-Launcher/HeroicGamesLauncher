@@ -423,6 +423,8 @@ const GameCard = ({
   }
 
   const showSettingsButton = isInstalled && !isUninstalling && !isBrowserGame
+  const showUpdateBadge =
+    hasUpdate && !isUpdating && !isQueued && activeController
 
   return (
     <div>
@@ -441,7 +443,7 @@ const GameCard = ({
           data-tour={dataTour}
         >
           {haveStatus && <span className="gameCardStatus">{label}</span>}
-          {hasUpdate && !isUpdating && !isQueued && (
+          {showUpdateBadge && (
             <span className="gameCardUpdateBadge">
               {t('status.hasUpdates')}
             </span>

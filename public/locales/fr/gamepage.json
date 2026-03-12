@@ -1,24 +1,24 @@
 {
     "box": {
         "change": {
-            "message": "Cette action va modifier l'emplacement d'installation de ce jeu, êtes-vous certain(e) de vouloir continuer ?",
-            "path": "Choisir un nouvel emplacement pour l'installation",
-            "title": "Changer l'emplacement d'installation des jeux"
+            "message": "Cette action changera le répertoire d’installation de ce jeu, êtes-vous certain(e) de vouloir continuer ?",
+            "path": "Choisir un nouveau répertoire pour l’installation",
+            "title": "Changer le répertoire d’installation des jeux"
         },
         "choose": "Choisir",
         "importpath": "Sélectionner le répertoire comportant les fichiers du jeu à importer",
         "move": {
             "message": "Cette opération peut prendre beaucoup de temps. Êtes-vous certain(e) de vouloir continuer ?",
-            "path": "Choisissez où vous voulez le déplacer",
-            "title": "Déplacer le dossier d'installation du jeu"
+            "path": "Choisir où vous voulez le déplacer",
+            "title": "Déplacer le répertoire du jeu"
         },
         "no": "NON",
         "repair": {
             "message": "Voulez-vous essayer de réparer ce jeu ? Cette opération peut être longue.",
-            "title": "Vérifier et réparer"
+            "title": "Vérifier et réparer les fichiers"
         },
         "runexe": {
-            "title": "Sélectionner l'EXÉcutable à démarrer"
+            "title": "Sélectionner l’EXÉcutable à démarrer"
         },
         "select": {
             "button": "Sélectionner",
@@ -28,19 +28,19 @@
             "exe": "Sélectionner un exécutable"
         },
         "stopInstall": {
-            "keepInstalling": "Poursuivre l'installation",
+            "keepInstalling": "Poursuivre l’installation",
             "message": "Souhaitez-vous CONSERVER les fichiers téléchargés ?",
-            "title": "Arrêter l'installation"
+            "title": "Interrompre l’installation"
         },
         "uninstall": {
             "checkbox": "Supprimer la bouteille : {{prefix}}{{newLine}}Avertissement : cette opération est irréversible et supprimera également les fichiers de sauvegarde du jeu.",
             "message": "Voulez-vous désinstaller « {{title}} » ?",
-            "settingcheckbox": "Effacer les paramètres et supprimer le rapport d'événements{{newLine}}Attention : cette opération ne peut pas être annulée. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
+            "settingcheckbox": "Effacer les paramètres et supprimer le rapport d’événements{{newLine}}Attention : cette opération ne peut pas être annulée. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
             "prefix_warning": "Le préfixe utilisé par Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, il vous faudra y procéder manuellement.",
-            "dlc": "Voulez-vous désinstaller l'extension « {{title}} » ?",
-            "cannotUninstallEpic": "Les jeux Epic Games ne peuvent pas être désinstallés lorsqu'un autre jeu Epic Games est en cours d'installation.",
-            "gameIsRunning": "{{title}} est en cours d'exécution. Fermez le jeu pour pouvoir le désinstaller."
+            "dlc": "Voulez-vous désinstaller l’extension « {{title}} » ?",
+            "cannotUninstallEpic": "Les jeux Epic Games ne peuvent pas être désinstallés lorsqu’un autre jeu Epic Games est en cours d’installation.",
+            "gameIsRunning": "{{title}} est en cours d’exécution. Fermez le jeu avant de tenter de le désinstaller."
         },
         "update": {
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
@@ -58,15 +58,15 @@
             "title": "Avertissement"
         },
         "sync": {
-            "force_download_warning": "Les sauvegardes locales seront effacées. Souhaitez vous continuer ?",
-            "force_upload_warning": "Les sauvegardes en ligne seront écrasées. Souhaitez-vous continuer ?"
+            "force_download_warning": "Les sauvegardes locales seront effacées. Voulez-vous continuer ?",
+            "force_upload_warning": "Les sauvegardes présentes sur le serveur distant seront écrasées. Voulez-vous continuer ?"
         },
         "offline_warning": {
             "message": "Ce jeu pourrait ne pas bien fonctionner en mode hors-ligne. Voulez-vous continuer ?",
             "playAnyway": "Jouer quand même",
             "title": "Avertissement hors-ligne"
         },
-        "ok": "Ok"
+        "ok": "D'accord"
     },
     "button": {
         "add_to_favourites": "Ajouter aux favoris",
@@ -74,20 +74,20 @@
         "continue": "Poursuivre le téléchargement",
         "finish": "Terminer",
         "force_update": "Forcer la mise à jour si disponible",
-        "force-innstall": "Forcer l'installation",
+        "force-innstall": "Forcer l’installation",
         "hide_game": "Masquer le jeu",
         "import": "Importer le jeu",
         "install": "Installer",
-        "no-path-selected": "Aucun chemin sélectionné",
+        "no-path-selected": "Aucun répertoire n'est sélectionné",
         "queue": {
             "remove": "Retirer de la file"
         },
         "remove_from_favourites": "Retirer des favoris",
         "remove_from_recent": "Retirer de la liste des jeux récents",
-        "run-exe-first": "Lancer l'installateur en premier",
+        "run-exe-first": "Lancer l’installateur en premier",
         "running-setup": "Lancer la configuration",
         "sideload": {
-            "edit": "Modifier l'application/le jeu"
+            "edit": "Modifier l’application/le jeu"
         },
         "unhide_game": "Dé-masquer le jeu",
         "uninstall": "Désinstaller",
@@ -109,11 +109,11 @@
         "firstPlayed": "Lancé pour la première fois le",
         "getting-download-size": "Récupération de la taille du téléchargement",
         "getting-install-size": "Récupération de la taille de l'installation",
-        "installSize": "Taille de l'installation",
+        "installSize": "Taille de l’installation",
         "language": "Langue",
         "lastPlayed": "Dernière session le",
         "neverPlayed": "Jamais",
-        "platform": "Sélectionner la version de la plateforme à installer",
+        "platform": "Choisissez la version à installer",
         "requirements": "Configuration requise",
         "totalPlayed": "Temps de jeu",
         "dlcs": "DLC",
@@ -129,7 +129,7 @@
             "toggle": "Maintenir une version spécifique de ce jeu"
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
-        "modify": "Modifier l'installation",
+        "modify": "Modifier l’installation",
         "extra_info": "Informations complémentaires",
         "install_info": "Installation"
     },
@@ -139,7 +139,7 @@
     },
     "generic": {
         "error": "Erreur inconnue",
-        "noDescription": "Aucune description n'est disponible"
+        "noDescription": "Aucune description n’est disponible"
     },
     "hours": "Heures",
     "how-long-to-beat": {
@@ -147,28 +147,28 @@
         "main-plus-extras": "Trame principale + Extras",
         "main-story": "Histoire principale"
     },
-    "howLongToBeat": "Durée pour finir le jeu",
+    "howLongToBeat": "How Long To Beat",
     "info": {
         "canRunOffline": "Connexion à internet requise",
         "installedPlatform": "Système",
-        "path": "Chemin d'installation",
+        "path": "Chemin d’installation",
         "size": "Taille",
         "syncsaves": "Synchroniser les sauvegardes",
         "version": "Version",
         "apple-gaming-wiki": "Classement AppleGamingWiki",
         "clickToOpen": "Cliquez pour ouvrir",
         "game-scores": "Scores",
-        "installedInfo": "Informations sur l'installation",
+        "installedInfo": "Informations sur l’installation",
         "protondb-compatibility-info": "Niveau de compatibilité Proton",
         "steamdeck-compatibility-info": "Compatibilité avec le SteamDeck",
         "third-party-app": "Gestionnaire tiers"
     },
     "install": {
         "disk-space-left": "Espace disponible",
-        "not-enough-disk-space": "Pas assez d'espace disque",
-        "path": "Sélectionner le chemin d'installation",
-        "path-not-writtable": "Attention : le chemin n'est peut-être pas accessible en écriture.",
-        "space-after-install": "Après l'installation",
+        "not-enough-disk-space": "Pas assez d’espace disque",
+        "path": "Sélectionner le chemin d’installation",
+        "path-not-writtable": "Attention : le chemin n’est peut-être pas accessible en écriture.",
+        "space-after-install": "Après l’installation",
         "wineprefix": "Préfixe",
         "wineversion": "Version de Wine",
         "anticheat-warning": {
@@ -177,16 +177,16 @@
             "install": "Oui (mais cela risque de ne pas fonctionner)",
             "title": "Système anti-triche non fonctionnel",
             "install_anyway": "Oui (je comprends que les éléments multijoueurs ne fonctionneront pas)",
-            "multiplayer_message": "La compatibilité avec l'anti-triche est cassée ou refusée par les développeurs. Le jeu peut être exécuté, mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l'installer quand même ?",
+            "multiplayer_message": "La compatibilité avec l’anti-triche est cassée ou refusée par les développeurs. Le jeu peut être exécuté mais les éléments multijoueurs ne fonctionneront pas. Voulez-vous l’installer quand même ?",
             "ok": "Entendu",
-            "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n'est pas compatible avec votre système d'exploitation ou n'a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et qu'il n'y a rien que vous (ni l'équipe d'Heroic) puisse faire à ce sujet. <br /><br />Pour installer ce jeu et l'essayer quand même, rendez-vous sur la page des paramètres avancés puis cochez l'option permettant d'autoriser l'installation de jeux comportant un dispositif anti-triche incompatible ou délaissé par ses développeurs. <br /><br />Veuillez noter qu'il n'existe pas de solution à ce problème et que vous risquez d'être banni du jeu."
+            "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n’est pas compatible avec votre système d’exploitation ou n’a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et qu’il n'y a rien que vous puissiez faire pour y remédier (les membres de l’équipe d’Heroic non plus). <br /><br />Pour installer ce jeu et l’essayer quand même, rendez-vous sur la page des paramètres avancés puis cochez l’option permettant d’autoriser l’installation de jeux comportant un dispositif anti-triche incompatible ou délaissé par ses développeurs. <br /><br />Veuillez noter qu’il n'existe pas de solution à ce problème et que vous risquez d’être banni du jeu."
         },
-        "flatpak-path-not-writtable": "Erreur : le chemin n'est pas accessible en mode bac-à-sable, risque de perte de données."
+        "flatpak-path-not-writtable": "Erreur : ce chemin n’est pas accessible en mode bac-à-sable, risque de perte de données."
     },
     "label": {
         "game": {
             "third-party-game": "Les jeux nécessitant un lanceur tiers ne sont PAS compatibles",
-            "not-installable-game": "Le jeu n'est PAS installable"
+            "not-installable-game": "Le jeu n’est PAS installable"
         },
         "playing": {
             "start": "Jouer",
@@ -277,9 +277,9 @@
         "recommended": "Recommandé"
     },
     "status": {
-        "clickToUpdate": "Cliquer pour mettre à jour",
+        "clickToUpdate": "Cliquez ici pour mettre à jour ce jeu",
         "gameNotAvailable": "Jeu indisponible",
-        "hasUpdates": "Une nouvelle version est disponible !",
+        "hasUpdates": "Nouvelle version disponible !",
         "installed": "Installé",
         "installing": "Installation en cours",
         "moving": "Déplacement de l'installation, veuillez patienter",
@@ -324,12 +324,12 @@
         "categories": "Catégories"
     },
     "help": {
-        "cloud_save_unsupported": "Ce jeu n'est pas compatible avec les sauvegardes distantes. Cette information est fournie par les développeurs du jeu. Certains jeux implémentent leur propre système de sauvegarde à distance",
+        "cloud_save_unsupported": "Ce jeu n’est pas compatible avec la sauvegarde distante. Cette information est fournie par les développeurs du jeu. Certains jeux proposent néanmoins leur propre système de sauvegarde sur serveurs distants.",
         "title": {
             "gamePage": "Page du jeu"
         },
         "content": {
-            "gamePage": "Afficher toutes les actions possibles et détails du jeu. Ouvrez le menu à débordement pour plus d'options."
+            "gamePage": "Affiche toutes les actions possibles et les détails du jeu. Déplacez votre curseur sur les trois points pour accéder à plus d’options."
         }
     },
     "modifyInstall": {
@@ -339,7 +339,7 @@
             "collapsible": "Intégration REDmod"
         },
         "versionCollapsable": "Version du jeu",
-        "nodlcs": "Aucune extension n'est disponible"
+        "nodlcs": "Aucune extension n’est disponible"
     },
     "third-party-managed": {
         "notice2": "Après avoir cliqué sur Installer, Heroic exécutera l'application afin de terminer le processus d'installation",

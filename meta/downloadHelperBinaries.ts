@@ -15,7 +15,7 @@ type DownloadedBinary =
   | 'epic-integration'
 
 const RELEASE_TAGS = {
-  legendary: '0.20.41',
+  legendary: '0.20.42',
   gogdl: 'v1.2.1',
   nile: 'v1.1.2',
   comet: 'v0.2.0',

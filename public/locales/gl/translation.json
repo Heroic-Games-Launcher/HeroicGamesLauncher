@@ -6,12 +6,12 @@
         "fonts": "Tipografías",
         "title": "Accesibilidade",
         "zoom": "Zoom",
-        "actions_font_family_default": "Tipografías das accións (Por defecto: {{fontFamily}})",
-        "content_font_family_default": "Tipografías dos contidos (Por defecto: {{fontFamily}})",
+        "actions_font_family_default": "Tipografía das accións (Por defecto: {{fontFamily}})",
+        "content_font_family_default": "Tipografía dos contidos (Por defecto: {{fontFamily}})",
         "titles_always_visible": "Mostrar sempre os títulos na biblioteca",
         "disable_dialog_backdrop_close": "Desactivar o peche das caixas de diálogo ao premer fóra delas",
         "disable_smooth_scrolling": "Desactivar o suavizado de scroll (precisa reiniciar)",
-        "disable_animations": "Desactivar animacións da interfaz"
+        "disable_animations": "Desactivar animacións da interfaz de usuario (UI)"
     },
     "add_game": "Engadir xogo",
     "All": "Todos",
@@ -117,7 +117,7 @@
             }
         },
         "no": "NON",
-        "ok": "Aceptar",
+        "ok": "De acordo",
         "protocol": {
             "install": {
                 "not_installed": "Non está instalado, desexas instalalo?"
@@ -670,7 +670,8 @@
                 },
                 "error": {
                     "content": "Fallou a subida do arquivo de rexistros. Comproba o rexistro xeral de Heroic para os detalles",
-                    "title": "Fallou a subida"
+                    "title": "Fallou a subida",
+                    "manual_upload": "Clicar no botón «MOSTRAR FICHEIRO DE REXISTROS NO CARTAFOL» e subir manualmente o ficheiro «launch.log» no Discord ou noutro servizo online para compartir ficheiros."
                 },
                 "header": "Subiuse o arquivo de rexistros",
                 "hours-ago": "Subido {{hoursAgo, relativetime(hours)}}",
@@ -809,7 +810,9 @@
             "wine_selector_warning": "As versións de Proton que non sexan de GE son ignoradas por defecto, podes activalas na configuración avanzada global",
             "info_label": "Ignoráronse as versións de Valve Proton"
         },
-        "WoW64": "Activar WoW64 (Experimental)"
+        "WoW64": "Activar WoW64 (Experimental)",
+        "enable-quick-sync-menu": "Habilitar o menú de gardar e sincronizar rapidamente na páxina do xogo",
+        "scripts": "Secuencia de comandos (Scripts):"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -841,12 +844,13 @@
             "advanced": "Avanzado",
             "games_settings_defaults": "Valores predeterminados dos xogos",
             "general": "Xeral",
-            "log": "Log",
+            "log": "Rexistro",
             "other": "Outro",
-            "sync": "Gardar-Sincronizar",
+            "sync": "Sincronización dos xogos gardados na nube",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "Información do sistema"
+            "systemInformation": "Información do sistema",
+            "legacy": "Obsoleto"
         },
         "open-config-file": "Abrir arquivo de configuración",
         "reset-heroic": "Restabelecer Heroic",
@@ -913,7 +917,8 @@
         "offline": {
             "warning": "Este xogo non permite explicitamente o modo offline, activa esta opción baixo a túa propia responsabilidade. É posible que o xogo non funcione."
         },
-        "launchOptions": "Opcións de arranque"
+        "launchOptions": "Opcións de arranque",
+        "legacy_warning": "Advertencia: A maior parte dos axustes nesta lapela están obsoletos e é posible que non funcionen."
     },
     "Settings": "Preferencias",
     "sidebar": {
@@ -1118,6 +1123,6 @@
     "amazon-luna": "Amazon Luna",
     "zoom-store": "Tenda de Zoom",
     "launch": {
-        "options": "Opcións de arrinque..."
+        "options": "Opcións de arranque..."
     }
 }

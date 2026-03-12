@@ -59,13 +59,13 @@
         },
         "ok": "De acuerdo",
         "offline_warning": {
-            "message": "Este juego podría no funcionar correctamente sin conexión a internet. quieres jugarlo igualmente?",
+            "message": "Este juego podría no funcionar correctamente sin conexión a internet. ¿Quieres jugarlo igualmente?",
             "playAnyway": "Jugar igualmente",
-            "title": "Aviso, Sin conexión a Internet"
+            "title": "Aviso: Sin conexión a Internet"
         },
         "sync": {
-            "force_download_warning": "Los datos guardados en el dispositivo local serán borrados, deseas continuar?",
-            "force_upload_warning": "Los datos guardados actualmente en la nube serán sobrescritos. Deseas continuar?"
+            "force_download_warning": "Los datos guardados en el dispositivo local serán borrados. ¿Deseas continuar?",
+            "force_upload_warning": "Los datos guardados actualmente en la nube serán sobrescritos. ¿Desea continuar?"
         }
     },
     "button": {

@@ -668,7 +668,8 @@
                 },
                 "error": {
                     "title": "O envio falhou",
-                    "content": "Falha ao enviar o ficheiro de registo de eventos. Consulte o registo de eventos geral do Heroic para obter mais detalhes"
+                    "content": "Falha ao enviar o ficheiro de registo de eventos. Consulte o registo de eventos geral do Heroic para obter mais detalhes",
+                    "manual_upload": "Clicar no botão \"MOSTRAR FICHEIRO DE REGISTOS NA PASTA\" e fazer upload manualmente do ficheiro \"launch.log\" para o Discord ou outro serviço online de partilha de ficheiros."
                 },
                 "header": "Ficheiros de registo de eventos enviados",
                 "hours-ago": "Enviado há {{hoursAgo, relativetime(hours)}}",
