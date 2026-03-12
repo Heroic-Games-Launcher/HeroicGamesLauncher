@@ -656,7 +656,7 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@container (max-width: 470px) {
   .installButtons {
     flex-direction: column;
   }
