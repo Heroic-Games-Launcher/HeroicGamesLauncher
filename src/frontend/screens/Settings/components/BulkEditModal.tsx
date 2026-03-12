@@ -31,7 +31,7 @@ const BulkEditModal = ({
         const trimmedKey = key.trim()
         const trimmedVal = rest.join('=').trim()
 
-        if (!trimmedKey || !trimmedVal) {
+        if (!trimmedKey) {
           hasError = true
         } else {
           envMap.set(trimmedKey, trimmedVal)

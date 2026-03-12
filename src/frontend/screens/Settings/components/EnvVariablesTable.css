@@ -95,6 +95,7 @@
   align-items: center;
 }
 
+.env-var-row:focus-within,
 .env-var-row:hover .env-var-row-actions {
   opacity: 1;
 }
