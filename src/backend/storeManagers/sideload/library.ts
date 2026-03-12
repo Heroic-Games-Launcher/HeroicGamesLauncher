@@ -128,7 +128,7 @@ export async function getLaunchOptions(
 
   const protonShortcutsPath = join(
     gameSettings.winePrefix,
-    'drive_c/proton_shortcuts'
+    'pfx/drive_c/proton_shortcuts'
   )
   const launchOptions: LaunchOption[] = []
   try {
