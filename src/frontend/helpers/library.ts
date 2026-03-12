@@ -425,6 +425,7 @@ async function checkLaunchOptionsAndLaunch({
           { seconds: secondsRemaining }
         ),
         buttons: optionButtons,
+        className: 'launchOptionsDialog',
         onClose: () => {
           if (timeoutId) {
             clearTimeout(timeoutId)

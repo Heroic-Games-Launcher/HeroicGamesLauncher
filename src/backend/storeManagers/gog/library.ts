@@ -948,7 +948,11 @@ export async function checkForGameUpdate(
 export async function gogToUnifiedInfo(
   info: GamesDBData | undefined
 ): Promise<GameInfo> {
-  if (!info || info.type !== 'game' || !info.game.visible_in_library) {
+  if (
+    !info ||
+    !['game', 'mod'].includes(info.type) ||
+    !info.game.visible_in_library
+  ) {
     // @ts-expect-error TODO: Handle this somehow
     return {}
   }

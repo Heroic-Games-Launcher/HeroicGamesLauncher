@@ -959,5 +959,8 @@
             "pt7": "Šį nustatymą galite pakeisti bet kada Programos Nustatymuose."
         },
         "title": "Siūsti Anoniminę Analitiką"
+    },
+    "launch": {
+        "options": "Paleidimo parinktys..."
     }
 }

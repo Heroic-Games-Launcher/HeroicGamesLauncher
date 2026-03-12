@@ -1,4 +1,6 @@
 name: Build Heroic, upload artifacts
+permissions:
+  contents: read
 
 on:
   workflow_call:

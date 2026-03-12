@@ -1122,5 +1122,8 @@
         "title": "Enviar dados anônimos"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Loja Zoom"
+    "zoom-store": "Loja Zoom",
+    "launch": {
+        "options": "Opções de inicialização..."
+    }
 }

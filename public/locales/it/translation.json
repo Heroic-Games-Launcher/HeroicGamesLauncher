@@ -910,7 +910,8 @@
         },
         "custom_css": {
             "title": "Stile CSS personalizzato"
-        }
+        },
+        "launchOptions": "Opzioni di avvio..."
     },
     "Settings": "Impostazioni",
     "sidebar": {
@@ -1112,5 +1113,8 @@
         "title": "Invia Dati Analitici Anonimi"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Negozio Zoom"
+    "zoom-store": "Negozio Zoom",
+    "launch": {
+        "options": "Opzioni di avvio..."
+    }
 }

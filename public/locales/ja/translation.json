@@ -10,7 +10,8 @@
         "titles_always_visible": "ライブラリのタイトルを常に表示",
         "actions_font_family_default": "アクション用フォント （既定: {{fontFamily}}）",
         "content_font_family_default": "コンテンツ用フォント （既定: {{fontFamily}}）",
-        "disable_smooth_scrolling": "スムーズスクロールを無効化（要再起動）"
+        "disable_smooth_scrolling": "スムーズスクロールを無効化（要再起動）",
+        "disable_animations": "UIアニメーションを無効化"
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -1063,6 +1064,15 @@
     },
     "analyticsModal": {
         "disable": "Disable",
-        "enable": "Enable"
+        "enable": "Enable",
+        "info": {
+            "pt1": "アプリを改善するため、Heroic は 100％匿名のデータを収集します。",
+            "pt7": "この設定はアプリの設定画面からいつでも変更可能です。"
+        },
+        "title": "匿名アナリティクスを送信"
+    },
+    "amazon-luna": "Amazon Luna",
+    "launch": {
+        "options": "Launch Options..."
     }
 }

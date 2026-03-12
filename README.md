@@ -84,7 +84,7 @@ Heroic is built with Web Technologies:
     Chances are though that someone on our [Discord](https://discord.gg/rHJ2uqdquK) can help you
 - SteamOS (downloading using Discover only)
 - Windows 10 & 11
-- macOS 12 or newer
+- macOS 14 or newer
 
 ## Language Support
 
@@ -149,8 +149,7 @@ Heroic is available on Flathub, so you should be able to easily install it on mo
 
 #### Distribution-specific instructions
 
-If you're not using the Flatpak version, make sure you have all Wine dependencies installed:
-[Wine Dependencies](https://github.com/lutris/docs/blob/master/WineDependencies.md).
+If you're not using the Flatpak version, keep GE-Proton as your Wine runner. With umu enabled by default, no additional Wine dependencies are required.
 
 #### Debian, Ubuntu and Derivatives
 

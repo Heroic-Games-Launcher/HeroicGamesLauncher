@@ -18,13 +18,14 @@
             "title": "Επαλήθευση και Επιδιόρθωση"
         },
         "runexe": {
-            "title": "Select EXE to Run"
+            "title": "Επιλέξτε EXE για εκτέλεση"
         },
         "select": {
-            "button": "Select"
+            "button": "Επιλογή",
+            "image": "Επιλογή εικόνας"
         },
         "sideload": {
-            "exe": "Select Executable"
+            "exe": "Επιλογή Εκτελέσιμου"
         },
         "stopInstall": {
             "keepInstalling": "Συνέχιση εγκατάστασης",
@@ -32,9 +33,9 @@
             "title": "Διακοπή εγκατάστασης"
         },
         "uninstall": {
-            "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
+            "checkbox": "Αφαίρεση prefix: {{prefix}}{{newLine}}Σημείωση: Αυτή η ενέργεια δεν μπορεί να αναιρεθεί και θα αφαιρέσει επίσης τα αρχεία αποθήκευσης που δεν έχουν αντίγραφα ασφαλείας.",
             "message": "Θέλετε να απεγκαταστήσετε το \"{{title}}\";",
-            "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
+            "settingcheckbox": "Διαγραφή ρυθμίσεων και αρχείου καταγραφής{{newLine}}Σημείωση: Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Οποιεσδήποτε τροποποιημένες ρυθμίσεις θα ξεχαστούν και το αρχείο καταγραφής θα διαγραφεί.",
             "title": "Απεγκατάσταση",
             "prefix_warning": "Το πρόθεμα Wine για αυτό το παιχνίδι είναι το προεπιλεγμένο πρόθεμα. Εάν θέλετε πραγματικά να το διαγράψετε, πρέπει να το κάνετε χειροκίνητα.",
             "dlc": "Θέλετε να απεγκαταστήσετε το \"{{title}} \" (DLC);",
@@ -45,38 +46,53 @@
             "message": "Το παιχνίδι έχει μια ενημέρωση, εφαρμογή ενημερώσεως τώρα;",
             "title": "Το παιχνίδι χρειάζεται ενημέρωση"
         },
-        "wineprefix": "Επιλέξτε φάκελο προθεμάτων Wine",
+        "wineprefix": "Επιλέξτε φάκελο για το WinePrefix",
         "yes": "ΝΑΙ",
-        "close": "Kλείσιμο"
+        "close": "Kλείσιμο",
+        "warning": {
+            "title": "Προειδοποίηση"
+        },
+        "selectLaunchOption": {
+            "body": "Επιλέξτε μια επιλογή εκκίνησης για αυτό το παιχνίδι (μπορεί να αλλάξει αργότερα στις ρυθμίσεις του παιχνιδιού):",
+            "title": "Επιλέξτε Επιλογή Εκκίνησης ({{seconds}} δευτ.)"
+        },
+        "sync": {
+            "force_download_warning": "Τα τοπικά αρχεία αποθήκευσης θα διαγραφούν. Θέλετε να συνεχίσετε;",
+            "force_upload_warning": "Τα αρχεία αποθήκευσης στο cloud θα αντικατασταθούν. Θέλετε να συνεχίσετε;"
+        },
+        "ok": "ΟΚ"
     },
     "button": {
         "add_to_favourites": "Προσθήκη στα Αγαπημένα",
         "cancel": "Παύση/Ακύρωση",
-        "continue": "Συνέχιση λήψης",
-        "finish": "Finish",
+        "continue": "Συνέχιση Λήψης",
+        "finish": "Ολοκλήρωση",
         "force_update": "Επιβολή ενημέρωσης εαν είναι διαθέσιμη",
-        "force-innstall": "Force Install",
+        "force-innstall": "Εξαναγκασμένη Εγκατάσταση",
         "hide_game": "Απόκρυψη Παιχνιδιού",
         "import": "Εισαγωγή Παιχνιδιού",
         "install": "Εγκατάσταση",
-        "no-path-selected": "No path selected",
+        "no-path-selected": "Δεν έχει επιλεγεί διαδρομή",
         "queue": {
-            "remove": "Remove from Queue"
+            "remove": "Αφαίρεση από την Ουρά"
         },
         "remove_from_favourites": "Κατάργηση από τα Αγαπημένα",
-        "remove_from_recent": "Remove From Recent",
-        "run-exe-first": "Run Installer First",
-        "running-setup": "Running Setup",
+        "remove_from_recent": "Αφαίρεση από τα Πρόσφατα",
+        "run-exe-first": "Εκτελέστε Πρώτα το Πρόγραμμα Εγκατάστασης",
+        "running-setup": "Εκτελείτε η Εγκατάσταση",
         "sideload": {
-            "edit": "Edit App/Game"
+            "edit": "Επεξεργασία Εφαρμογής/Παιχνιδιού"
         },
         "unhide_game": "Φανέρωση Παιχνιδιού",
         "uninstall": "Απεγκατάσταση",
         "update": "Ενημέρωση",
         "details": "Λεπτομέριες",
-        "changelog": "Εμφάνιση αρχείου αλλαγών"
+        "changelog": "Εμφάνιση αρχείου αλλαγών",
+        "browse_files": "Περιήγηση Αρχείων",
+        "browse_wine_prefix": "Περιήγηση στο Wine Prefix",
+        "play": "ΠΑΙΞΤΕ"
     },
-    "cloud_save_unsupported": "Unsupported",
+    "cloud_save_unsupported": "Μη υποστηριζόμενο",
     "disabled": "Απενεργοποιημένο",
     "dlc": {
         "installDlcs": "Εγκατάσταση όλων των DLCs"
@@ -96,7 +112,7 @@
         "totalPlayed": "Συνολικός Χρόνος Παιχνιδιού",
         "dlcs": "DLCs",
         "branch": {
-            "disabled": "Disabled",
+            "disabled": "Απενεργοποιημένο",
             "password": "Ορισμός κωδικού πρόσβασης ιδιωτικού καναλιού",
             "setPrivateBranchPassword": "Ορισμός κωδικού πρόσβασης ιδιωτικού καναλιού",
             "select": "Επιλέξτε beta κανάλι"
@@ -119,13 +135,13 @@
         "error": "Άγνωστο Σφάλμα",
         "noDescription": "Δεν υπάρχει διαθέσιμη περιγραφή"
     },
-    "hours": "Hours",
+    "hours": "Ώρες",
     "how-long-to-beat": {
-        "completionist": "Completionist",
-        "main-plus-extras": "Main + Extras",
-        "main-story": "Main Story"
+        "completionist": "Ολοκληρωτής (Completionist)",
+        "main-plus-extras": "Κύρια + Έξτρα",
+        "main-story": "Κύρια Ιστορία"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Χρόνος για να Ολοκληρωθεί",
     "info": {
         "canRunOffline": "Απαιτείται Σύνδεση",
         "installedPlatform": "Εγκατεστημένη Πλατφόρμα",
@@ -138,7 +154,8 @@
         "game-scores": "Αποτελέσματα παιχνιδιού",
         "installedInfo": "Εγκατεστημένες πληροφορίες",
         "protondb-compatibility-info": "Επίπεδο συμβατότητας πρωτονίων",
-        "steamdeck-compatibility-info": "Συμβατότητα SteamDeck"
+        "steamdeck-compatibility-info": "Συμβατότητα SteamDeck",
+        "third-party-app": "Third-Party Διαχειριστής"
     },
     "install": {
         "disk-space-left": "Διαθέσιμος Αποθηκευτικός Χώρος",
@@ -153,18 +170,20 @@
             "multiplayer_message": "Η υποστήριξη anticheat είναι κατεστραμμένη ή απορριφθείσα. Το παιχνίδι μπορεί να ανοίξει, αλλά οι λειτουργίες πολλαπλών παικτών δεν θα λειτουργήσουν. Θέλετε να το εγκαταστήσετε ούτως ή άλλως;",
             "cancel": "Όχι",
             "title": "Anticheat Κατεστραμμένο/Απορριφτεί",
-            "ok": "Ok"
+            "ok": "Ok",
+            "disabled_installation": "Αυτό το παιχνίδι χρησιμοποιεί λογισμικό anticheat που δεν είναι συμβατό με το λειτουργικό σας σύστημα ή η υποστήριξη δεν έχει ενεργοποιηθεί από τους προγραμματιστές του παιχνιδιού. Αυτό σημαίνει ότι οι λειτουργίες multiplayer δεν θα λειτουργούν και δεν υπάρχει τίποτα που να μπορείτε να κάνετε εσείς (ή η ομάδα του Heroic) γι’ αυτό.<br /><br />Για να εγκαταστήσετε αυτό το παιχνίδι και να το δοκιμάσετε ούτως ή άλλως, μεταβείτε στις Ρυθμίσεις, Προχωρημένες και επιλέξτε την επιλογή να επιτρέψετε την εγκατάσταση παιχνιδιών με σπασμένο ή αποκλεισμένο anti-cheat.<br /><br />Σημειώστε ότι δεν υπάρχει λύση για αυτό και διατρέχετε τον κίνδυνο αποκλεισμού από το παιχνίδι."
         },
         "flatpak-path-not-writtable": "Σφάλμα: Δεν έχει χορηγηθεί πρόσβαση στο Sandbox, Θα προκληθεί απώλεια δεδομένων."
     },
     "label": {
         "game": {
-            "third-party-game": "Third-Party Game NOT Supported",
+            "third-party-game": "ΔΕΝ Υποστηρίζεται Παιχνίδι Τρίτου",
             "not-installable-game": "Το παιχνίδι ΔΕΝ μπορεί να εγκατασταθεί"
         },
         "playing": {
             "start": "Παίξτε τώρα",
-            "stop": "Σε παιχνίδι (Διακοπή)"
+            "stop": "Σε παιχνίδι (Διακοπή)",
+            "start_with_logs": "Παίξτε Τώρα (με αρχεία καταγραφής)"
         },
         "saves": {
             "syncing": "Συγχρονισμός save"
@@ -182,10 +201,10 @@
         "options": "Ρυθμίσεις εκκίνησης..."
     },
     "not_logged_in": {
-        "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
-        "gog": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:",
+        "epic": "Δεν έχετε συνδεθεί με λογαριασμό Epic στο Heroic. Μην χρησιμοποιείτε τη σελίδα του καταστήματος για να συνδεθείτε, κάντε κλικ στο ακόλουθο κουμπί:",
+        "gog": "Δεν έχετε συνδεθεί με λογαριασμό GOG στο Heroic. Μην χρησιμοποιείτε τη σελίδα του καταστήματος για να συνδεθείτε, κάντε κλικ στο ακόλουθο κουμπί:",
         "login": "Log in",
-        "title": "You are NOT logged in",
+        "title": "ΔΕΝ είστε συνδεδεμένοι",
         "amazon": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
         "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
     },
@@ -196,28 +215,30 @@
     "setting": {
         "winecrossoverbottle": "CrossOver Περιβάλλον",
         "show-wine-settings": "Εμφάνιση ρυθμίσεων Wine",
-        "warn-use-shared-wine-config": "Χρησιμοποιήστε αυτή την επιλογή μόνο αν ξέρετε τι κάνετε.<br/>Η κοινή χρήση του ίδιου προθέματος για πολλά παιχνίδια μπορεί να δημιουργήσει προβλήματα αν οι εξαρτήσεις τους είναι ασύμβατες."
+        "warn-use-shared-wine-config": "Χρησιμοποιήστε αυτή την επιλογή μόνο αν ξέρετε τι κάνετε.<br/>Η κοινή χρήση του ίδιου προθέματος για πολλά παιχνίδια μπορεί να δημιουργήσει προβλήματα αν οι εξαρτήσεις τους είναι ασύμβατες.",
+        "use-shared-wine-config": "Χρήση κοινόχρηστου Wine prefix"
     },
     "sideload": {
         "field": {
-            "title": "Title"
+            "title": "Τίτλος"
         },
         "info": {
-            "exe": "Select Executable",
+            "exe": "Επιλογή Εκτελέσιμου",
             "image": "App Image",
-            "title": "Game/App Title",
-            "broser": "BrowserURL",
+            "title": "Τίτλος Παιχνιδιού/Εφαρμογής",
+            "broser": "Διεύθυνση URL",
             "useragent": "Προσαρμοσμένος πράκτορας χρήστη",
             "fullscreen": "Εκκίνηση πλήρους οθόνης (F11 για έξοδο)"
         },
         "placeholder": {
-            "image": "Paste an Image URL here",
-            "title": "Add a title to your Game/App",
+            "image": "Επικολλήστε μια διεύθυνση URL μιας εικόνας ή επιλέξτε μία από τον υπολογιστή σας",
+            "title": "Προσθέστε έναν τίτλο στο Παιχνίδι/Εφαρμογή σας",
             "url": "Επικολλήστε τη διεύθυνση URL του παιχνιδιού εδώ",
             "useragent": "Γράψτε εδώ έναν προσαρμοσμένο πράκτορα χρήστη που θα χρησιμοποιείται σε αυτό το πρόγραμμα περιήγησης/παιχνίδι"
         },
         "import-hint": {
-            "title": "Σημαντικό! Προσθέτετε ένα παιχνίδι από τα Epic/GOG/Amazon; Πατήστε εδώ!"
+            "title": "Σημαντικό! Προσθέτετε ένα παιχνίδι από τα Epic/GOG/Amazon; Πατήστε εδώ!",
+            "content": "ΜΗΝ χρησιμοποιείτε αυτήν τη λειτουργία για αυτό.<br />Αντίθετα, <3>συνδεθείτε</3> στο κατάστημα, αναζητήστε το παιχνίδι στη συλλογή σας, ανοίξτε το παράθυρο διαλόγου εγκατάστασης και κάντε κλικ στο κουμπί &quot;Εισαγωγή παιχνιδιού&quot;"
         }
     },
     "specs": {
@@ -226,20 +247,20 @@
     },
     "status": {
         "clickToUpdate": "Πατήστε για Ενημέρωση",
-        "gameNotAvailable": "Game not available",
+        "gameNotAvailable": "Το παιχνίδι δεν είναι διαθέσιμο",
         "hasUpdates": "Νέα ενημέρωση διαθέσιμη!",
         "installed": "Εγκατεστημένο",
         "installing": "Εγκατάσταση",
         "moving": "Μετακίνηση εγκατάστασης, παρακαλώ περιμένετε",
         "notinstalled": "Αυτό το παιχνίδι δεν είναι εγκατεστημένο",
-        "notSupported": "Not supported",
-        "notSupportedGame": "Not Supported",
+        "notSupported": "Δεν υποστηρίζεται",
+        "notSupportedGame": "Δεν υποστηρίζεται",
         "processing": "Επεξεργασία αρχείων, παρακαλώ περιμένετε",
-        "queued": "Queued",
+        "queued": "Σε ουρά",
         "reparing": "Επιδιόρθωση παιχνιδιού, παρακαλώ περιμένετε",
-        "this-game-uses-third-party": "This game uses third party launcher and it is not supported yet",
+        "this-game-uses-third-party": "Αυτό το παιχνίδι χρησιμοποιεί πρόγραμμα εκκίνησης τρίτου και δεν υποστηρίζεται ακόμα",
         "totalDownloaded": "Σύνολο ληφθέντων",
-        "uninstalling": "Uninstalling",
+        "uninstalling": "Απεγκατάσταση",
         "updating": "Ενημέρωση παιχνιδιού",
         "playing": "Παιχνίδι",
         "moving-files": "Μετακίνηση αρχείου '{{file}}': {{percent}}%",
@@ -251,7 +272,8 @@
         "gog-goodie": "Αυτό το παιχνίδι δεν φαίνεται να μπορεί να εγκατασταθεί. Ελέγξτε το περιεχόμενο με δυνατότητα λήψης στη διεύθυνση https://gog.com/account",
         "goodie": "Δεν μπορεί να εγκατασταθεί",
         "winetricks": "Εφαρμογή των διορθώσεων του Winetricks",
-        "redist": "Εγκατάσταση Αναδιανεμητών ({{redist}})"
+        "redist": "Εγκατάσταση Αναδιανεμητών ({{redist}})",
+        "importing": "Εισαγωγή"
     },
     "submenu": {
         "addShortcut": "Προσθήκη συντόμευσης",
@@ -290,10 +312,18 @@
     },
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "remove": "Remove from Downloads"
+            "canceled": "Ακυρώθηκε",
+            "remove": "Αφαίρεση από τις Λήψεις",
+            "pause": "Παύση λήψης",
+            "resume": "Συνέχιση λήψης"
         }
     },
     "Open": "Άνοιγμα",
-    "wikiLink": "Σημαντικές πληροφορίες για αυτό το παιχνίδι, διαβάστε αυτό:&nbsp;<1>Άνοιγμα σελίδας</1>"
+    "wikiLink": "Σημαντικές πληροφορίες για αυτό το παιχνίδι, διαβάστε αυτό:&nbsp;<1>Άνοιγμα σελίδας</1>",
+    "open-saves-folder": "Άνοιγμα Φακέλου Αρχείων Αποθήκευσης",
+    "third-party-managed": {
+        "header": "Αυτό το παιχνίδι διαχειρίζεται από μια εφαρμογή τρίτου",
+        "notice1": "Αυτό το παιχνίδι διαχειρίζεται από μια εφαρμογή τρίτου: \"{{application_name}}\"",
+        "notice2": "Αφού κάνετε κλικ στην Εγκατάσταση, το Heroic θα εκτελέσει την εφαρμογή για να ολοκληρώσει τη διαδικασία εγκατάστασης"
+    }
 }

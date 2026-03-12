@@ -661,8 +661,10 @@
             }
         },
         "systemInformation": {
-            "copyToClipboard": "در کليپ بورد کپی شد!"
-        }
+            "copyToClipboard": "در کليپ بورد کپی شد!",
+            "software": "GL نرم‌افزاری"
+        },
+        "launchOptions": "گزینه های اجرا..."
     },
     "Settings": "تنظیمات",
     "sidebar": {
@@ -763,5 +765,8 @@
     "analyticsModal": {
         "disable": "غیرفعال سازی",
         "enable": "فعال سازی"
+    },
+    "launch": {
+        "options": "گزینه های اجرا..."
     }
 }

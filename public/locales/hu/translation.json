@@ -813,7 +813,8 @@
             "info_label": "A Valve Proton-verziók figyelmen kívül hagyva"
         },
         "WoW64": "WoW64 engedélyezése (kísérleti)",
-        "scripts": "Parancsfájlok:"
+        "scripts": "Parancsfájlok:",
+        "enable-quick-sync-menu": "Gyors mentés szinkronizálás menü engedélyezése a játék adatlapján"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +851,8 @@
             "sync": "Felhőmentések szinkronizálása",
             "wineExt": "Wine Extensions",
             "systemInformation": "Rendszerinformációk",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Örökölt"
         },
         "open-config-file": "Beállítófájl megnyitása",
         "reset-heroic": "A Heroic visszaállítása",
@@ -917,7 +919,8 @@
         "custom_css": {
             "title": "Egyéni CSS stílus"
         },
-        "launchOptions": "Indítási kapcsolók…"
+        "launchOptions": "Indítási kapcsolók…",
+        "legacy_warning": "Figyelmeztetés: Ezen a lapon található beállítások nagyrészt elavultak, és előfordulhat, hogy egyáltalán nem működnek."
     },
     "Settings": "Beállítások",
     "sidebar": {
@@ -1120,5 +1123,8 @@
         "title": "Anonim analitika küldése"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom Store"
+    "zoom-store": "Zoom Store",
+    "launch": {
+        "options": "Indítási kapcsolók…"
+    }
 }
