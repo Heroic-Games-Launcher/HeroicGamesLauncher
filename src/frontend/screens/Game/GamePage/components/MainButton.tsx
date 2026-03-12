@@ -26,12 +26,7 @@ interface Props {
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
 }
 
-const MainButton = ({
-  gameInfo,
-  handlePlay,
-  handleInstall,
-  handleImport
-}: Props) => {
+const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)

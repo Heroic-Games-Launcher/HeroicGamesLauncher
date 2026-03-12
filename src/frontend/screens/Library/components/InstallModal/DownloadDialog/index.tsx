@@ -670,18 +670,10 @@ export default function DownloadDialog({
             onPathChange={setInstallPath}
             path={installPath}
             placeholder={getDefaultInstallPath()}
-            pathDialogTitle={
-              isImportMode
-                ? t('box.importpath', 'Select Import Path')
-                : t('install.path')
-            }
+            pathDialogTitle={t('install.path')}
             pathDialogDefaultPath={getDefaultInstallPath()}
             htmlId="setinstallpath"
-            label={
-              isImportMode
-                ? t('import.select_folder', 'Select the game folder to import')
-                : t('install.path', 'Select Install Path')
-            }
+            label={t('install.path', 'Select Install Path')}
             noDeleteButton
             afterInput={
               !isImportMode && downloadSize ? (
