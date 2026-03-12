@@ -74,32 +74,10 @@ const BulkEditModal = ({
         </div>
       )}
       <div className="bulk-edit-actions">
-        <button
-          className="SvgButton"
-          onClick={onCancel}
-          style={{
-            padding: '8px 16px',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            background: 'var(--background-darker)',
-            color: 'var(--text-color)',
-            border: 'none'
-          }}
-        >
+        <button onClick={onCancel} className="button is-secondary">
           {t('common.cancel', 'Cancel')}
         </button>
-        <button
-          className="SvgButton"
-          onClick={handleSave}
-          style={{
-            padding: '8px 16px',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            background: 'var(--accent)',
-            color: 'white',
-            border: 'none'
-          }}
-        >
+        <button onClick={handleSave} className="button is-primary">
           {t('common.save', 'Save')}
         </button>
       </div>
