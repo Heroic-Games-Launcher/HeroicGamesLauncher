@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import GameContext from '../../GameContext'
 import {
   ArrowBackIosNew,
@@ -54,7 +55,8 @@ const MainButton = ({
     is.moving ||
     is.uninstalling ||
     is.notSupportedGame ||
-    is.notInstallable
+    is.notInstallable ||
+    is.importing
 
   function getPlayLabel(): React.ReactNode {
     if (is.syncing) {
@@ -210,7 +212,18 @@ const MainButton = ({
       {(!is_installed || is.queued) && (
         <span className="installButtons">
           <button
-            onClick={async () => handleInstall(is_installed)}
+            onClick={async () => {
+              if (!is_installed && !is.queued) {
+                openInstallGameModal({
+                  appName: gameInfo.app_name,
+                  runner: gameInfo.runner,
+                  gameInfo,
+                  action: 'install'
+                })
+                return
+              }
+              handleInstall(is_installed)
+            }}
             disabled={disabledInstallButtons}
             autoFocus={true}
             className={classNames(
@@ -230,9 +243,16 @@ const MainButton = ({
             {getButtonLabel()}
           </button>
           <button
-            disabled={disabledInstallButtons || is.installing}
+            disabled={disabledInstallButtons || is.installing || is.importing}
             className={'button mainBtn outline'}
-            onClick={handleImport}
+            onClick={() =>
+              openInstallGameModal({
+                appName: gameInfo.app_name,
+                runner: gameInfo.runner,
+                gameInfo,
+                action: 'import'
+              })
+            }
           >
             {t('button.import', 'Import Game')}
           </button>

@@ -127,6 +127,7 @@ export interface ContextType {
   setDisableDialogBackdropClose: (value: boolean) => void
   disableAnimations: boolean
   setDisableAnimations: (value: boolean) => void
+  isImporting: boolean
 }
 
 export type DialogModalOptions = {
