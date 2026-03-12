@@ -352,6 +352,7 @@ class GlobalConfigV0 extends GlobalConfig {
       framelessWindow: false,
       beforeLaunchScriptPath: '',
       afterLaunchScriptPath: '',
+      passEnvViaFile: false,
       disableUMU: false,
       verboseLogs: true,
       downloadProtonToSteam: false,

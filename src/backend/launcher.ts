@@ -2023,7 +2023,8 @@ async function runScriptForGame(
 ): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
     const scriptPath = gameSettings[`${scriptStage}LaunchScriptPath`]
-    const scriptEnv = {
+
+    const metadata = {
       HEROIC_GAME_APP_NAME: gameInfo.app_name,
       HEROIC_GAME_EXEC: gameInfo.install.executable,
       HEROIC_GAME_PREFIX: gameSettings.winePrefix,
@@ -2031,9 +2032,36 @@ async function runScriptForGame(
       HEROIC_GAME_SCRIPT_STAGE: scriptStage,
       HEROIC_GAME_TITLE: gameInfo.title,
       HEROIC_GAME_SETTINGS: JSON.stringify(gameSettings),
-      HEROIC_GAME_INFO: JSON.stringify(gameInfo),
+      HEROIC_GAME_INFO: JSON.stringify(gameInfo)
+    }
+
+    let scriptEnv = {
       ...process.env
     }
+
+    if (gameSettings.passEnvViaFile) {
+      if (!gameInfo.install?.install_path) {
+        const err = new Error(
+          `Invalid state: ${gameInfo.app_name} has no install_path`
+        )
+        if (gameSettings.verboseLogs) {
+          logWriter.logError(err)
+        }
+        throw err
+      }
+      const installPath = gameInfo.install.install_path
+      const metadataPath = join(installPath, 'script-env.json')
+
+      writeFileSync(metadataPath, JSON.stringify(metadata, null, 2), 'utf8')
+
+      scriptEnv.HEROIC_METADATA_FILE = metadataPath
+    } else {
+      scriptEnv = {
+        ...scriptEnv,
+        ...metadata
+      }
+    }
+
     const child = spawn(scriptPath, {
       cwd: gameInfo.install.install_path,
       env: scriptEnv

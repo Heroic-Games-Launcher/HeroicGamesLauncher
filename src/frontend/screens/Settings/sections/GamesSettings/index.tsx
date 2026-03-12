@@ -35,7 +35,8 @@ import {
   IgnoreGameUpdates,
   Gamescope,
   BeforeLaunchScriptPath,
-  AfterLaunchScriptPath
+  AfterLaunchScriptPath,
+  PassEnvViaFile
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -233,6 +234,7 @@ export default function GamesSettings() {
           <label>{t('setting.scripts', 'Scripts:')}</label>
           <BeforeLaunchScriptPath />
           <AfterLaunchScriptPath />
+          <PassEnvViaFile />
         </div>
         <WrappersTable />
         <EnvVariablesTable />
