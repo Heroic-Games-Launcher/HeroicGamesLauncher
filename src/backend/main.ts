@@ -1,5 +1,5 @@
 import { initImagesCache } from './images_cache'
-import { downloadAntiCheatData } from './anticheat/utils'
+import { fetchLastestReleases } from './utils/releases'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
@@ -112,7 +112,6 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
-import { updateWineVersionInfos } from './wine/manager/utils'
 import { addNewApp } from './storeManagers/sideload/library'
 import {
   getGameOverride,
@@ -206,16 +205,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
       checkRosettaInstall()
     }
   }, 2500)
-
-  if (!isWindows && !isCLINoGui) {
-    setTimeout(async () => {
-      try {
-        await updateWineVersionInfos(true)
-      } catch (error) {
-        logError(error, LogPrefix.Backend)
-      }
-    }, 5000)
-  }
 
   const globalConf = GlobalConfig.get().getSettings()
 
@@ -459,7 +448,7 @@ if (!gotTheLock) {
       backendEvents.emit('languageChanged')
     })
 
-    downloadAntiCheatData()
+    fetchLastestReleases()
 
     initTrayIcon(mainWindow)
 

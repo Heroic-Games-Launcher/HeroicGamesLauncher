@@ -5,7 +5,12 @@
 
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
-import { WineVersionInfo, Repositorys, WineManagerStatus } from 'common/types'
+import {
+  WineVersionInfo,
+  Repositorys,
+  WineManagerStatus,
+  ReleasesInfo
+} from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
 import { sendFrontendMessage } from '../../ipc'
@@ -15,7 +20,7 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import { toolsPath } from 'backend/constants/paths'
-import { isMac } from 'backend/constants/environment'
+import { isLinux, isMac, isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from '../../config'
 import { join } from 'path'
 import { backendEvents } from 'backend/backend_events'
@@ -28,8 +33,113 @@ export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
   }
 )
 
+function getLatestLocalVersions(): Record<string, string | undefined> {
+  const localWines = wineDownloaderInfoStore.get('wine-releases', [])
+
+  if (isLinux) {
+    return {
+      latestWineGE: localWines.find((wine) => wine.version === 'Wine-GE-latest')
+        ?.date,
+      latestGEProton: localWines.find(
+        (wine) => wine.version === 'GE-Proton-latest'
+      )?.date
+    }
+  }
+
+  if (isMac) {
+    return {
+      latestWineCrossover: localWines.find(
+        (wine) => wine.version === 'Wine-Crossover-latest'
+      )?.date,
+      latestWineStaging: localWines.find(
+        (wine) => wine.version === 'Wine-Staging-macOS-latest'
+      )?.date,
+      latestGPTK: localWines.find(
+        (wine) => wine.version === 'Game-Porting-Toolkit-latest'
+      )?.date
+    }
+  }
+
+  return {}
+}
+
+// compare dates only of local version is present
+function localVersionIsOlder(
+  localDate: string | undefined,
+  latestRelease: { published_at: string; tag: string }
+) {
+  if (!localDate) return false
+
+  return (
+    Date.parse(localDate) <
+    Date.parse(latestRelease.published_at.replace(/T.*/, ''))
+  )
+}
+
+// Fetch the latest releases of the different translation layers but only
+// if we don't already have the latest version locally
+//
+// Note that this updates the list of releases of a given repo if and only if
+// we already have a list for that given repo
+export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
+  if (isWindows) return
+
+  const latestLocalVersions = getLatestLocalVersions()
+  const repositoriesToFetch = []
+
+  // compare dates to know which repositories to fetch
+  if (isLinux) {
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestGEProton,
+        releasesData['ge-proton']
+      )
+    )
+      repositoriesToFetch.push(Repositorys.PROTONGE)
+
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestWineGE,
+        releasesData['wine-ge']
+      )
+    )
+      repositoriesToFetch.push(Repositorys.WINEGE)
+  }
+
+  if (isMac) {
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestWineCrossover,
+        releasesData['wine-crossover']
+      )
+    )
+      repositoriesToFetch.push(Repositorys.WINECROSSOVER)
+
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestWineStaging,
+        releasesData['wine-staging']
+      )
+    )
+      repositoriesToFetch.push(Repositorys.WINESTAGINGMACOS)
+
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestGPTK,
+        releasesData['game-porting-toolkit']
+      )
+    )
+      repositoriesToFetch.push(Repositorys.GPTK)
+  }
+
+  if (repositoriesToFetch.length > 0) {
+    void updateWineVersionInfos(true, repositoriesToFetch)
+  }
+}
+
 async function updateWineVersionInfos(
   fetch = false,
+  repositorys: Repositorys[] | null = null,
   count = 50
 ): Promise<WineVersionInfo[]> {
   let releases: WineVersionInfo[] = []
@@ -38,25 +148,31 @@ async function updateWineVersionInfos(
   if (fetch) {
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
 
-    const repositorys = isMac
-      ? [
-          Repositorys.WINECROSSOVER,
-          Repositorys.WINESTAGINGMACOS,
-          Repositorys.GPTK
-        ]
-      : [Repositorys.WINEGE, Repositorys.PROTONGE]
+    if (repositorys === null) {
+      repositorys = isMac
+        ? [
+            Repositorys.WINECROSSOVER,
+            Repositorys.WINESTAGINGMACOS,
+            Repositorys.GPTK
+          ]
+        : [Repositorys.WINEGE, Repositorys.PROTONGE]
+    }
 
     await getAvailableVersions({
       repositorys,
       count
     }).then((response) => (releases = response as WineVersionInfo[]))
 
+    let releasesToStore: WineVersionInfo[] = []
+
     if (wineDownloaderInfoStore.has('wine-releases')) {
       const old_releases = wineDownloaderInfoStore.get('wine-releases', [])
 
       old_releases.forEach((old) => {
+        releasesToStore.push(old)
+
         const index = releases.findIndex((release) => {
-          if (release.type === 'GE-Proton') {
+          if (isLinux && release.type === 'GE-Proton') {
             // The "Proton" prefix got dropped from the version string. We still
             // want to detect old versions though
             if (`Proton-${release.version}` === old.version) return true
@@ -68,7 +184,7 @@ async function updateWineVersionInfos(
             )
               return true
           }
-          return release?.version === old?.version
+          return release.version === old.version
         })
 
         if (old.installDir !== undefined && existsSync(old?.installDir)) {
@@ -85,10 +201,27 @@ async function updateWineVersionInfos(
         }
       })
 
-      wineDownloaderInfoStore.delete('wine-releases')
+      // here we are adding new elements to the list and replacing the `-latest`
+      releases.forEach((release) => {
+        const foundIndex = releasesToStore.findIndex(
+          (oldRelease) =>
+            oldRelease.version === release.version ||
+            oldRelease.version === `Proton-${release.version}`
+        )
+        if (foundIndex === -1) {
+          releasesToStore.push(release)
+        } else if (release.version.endsWith('-latest')) {
+          releasesToStore[foundIndex] = release
+        }
+      })
+    } else {
+      releasesToStore = releases
     }
 
-    wineDownloaderInfoStore.set('wine-releases', releases)
+    wineDownloaderInfoStore.set(
+      'wine-releases',
+      releasesToStore.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+    )
   } else {
     logInfo('Read local information ...', LogPrefix.WineDownloader)
     if (wineDownloaderInfoStore.has('wine-releases')) {
