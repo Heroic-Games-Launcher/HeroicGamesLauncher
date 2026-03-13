@@ -72,14 +72,11 @@ type ReleasesResponse = {
 export async function installOrUpdateTool(tool: Tool) {
   if (tool.os !== process.platform) return
 
-  console.log((await axiosClient.get<ReleasesResponse>(tool.url)).data)
   const {
     data: { assets }
   } = await axiosClient.get<ReleasesResponse>(tool.url)
 
-  console.log(assets)
   let asset = assets[0]
-  console.log(tool)
   if (tool.name === 'dxvk-macOS' && asset.name.includes('-builtin')) {
     // Do not use -builtin asset for dxvk macos
     // TODO: implement proper use of the -builtin using the WINEDLLPATH_PREPEND
