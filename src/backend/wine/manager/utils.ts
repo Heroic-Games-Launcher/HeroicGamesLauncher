@@ -5,7 +5,12 @@
 
 import { existsSync, mkdirSync, rmSync } from 'graceful-fs'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
-import { WineVersionInfo, Repositorys, WineManagerStatus } from 'common/types'
+import {
+  WineVersionInfo,
+  Repositorys,
+  WineManagerStatus,
+  WineManagerUISettings
+} from 'common/types'
 
 import { getAvailableVersions, installVersion } from './downloader/main'
 import { sendFrontendMessage } from '../../ipc'
@@ -27,6 +32,12 @@ export const wineDownloaderInfoStore = new TypeCheckedStoreBackend(
     name: 'wine-downloader-info'
   }
 )
+const wineManagerConfigStore = new TypeCheckedStoreBackend(
+  'wineManagerConfigStore',
+  {
+    cwd: 'store'
+  }
+)
 
 async function updateWineVersionInfos(
   fetch = false,
@@ -38,13 +49,34 @@ async function updateWineVersionInfos(
   if (fetch) {
     logInfo('Fetching upstream information...', LogPrefix.WineDownloader)
 
-    const repositorys = isMac
-      ? [
-          Repositorys.WINECROSSOVER,
-          Repositorys.WINESTAGINGMACOS,
-          Repositorys.GPTK
-        ]
-      : [Repositorys.WINEGE, Repositorys.PROTONGE]
+    const settings = wineManagerConfigStore.get_nodefault(
+      'wine-manager-settings'
+    )
+
+    let repositorys: Repositorys[] = []
+
+    if (settings) {
+      const repoMap: Record<string, Repositorys> = {
+        winege: Repositorys.WINEGE,
+        protonge: Repositorys.PROTONGE,
+        winecrossover: Repositorys.WINECROSSOVER,
+        winestagingmacos: Repositorys.WINESTAGINGMACOS,
+        gpt: Repositorys.GPTK
+      }
+
+      repositorys = settings
+        .filter((s: WineManagerUISettings) => s.enabled)
+        .map((s: WineManagerUISettings) => repoMap[s.value])
+        .filter((r) => r !== undefined)
+    } else {
+      repositorys = isMac
+        ? [
+            Repositorys.WINECROSSOVER,
+            Repositorys.WINESTAGINGMACOS,
+            Repositorys.GPTK
+          ]
+        : [Repositorys.WINEGE, Repositorys.PROTONGE]
+    }
 
     await getAvailableVersions({
       repositorys,
