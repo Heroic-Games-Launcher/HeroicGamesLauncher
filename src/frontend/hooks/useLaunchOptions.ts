@@ -66,9 +66,7 @@ export const useLaunchOptions = ({
         case 'dlc':
           return 'dlcTitle' in option ? option.dlcTitle : 'DLC'
         case 'altExe':
-          return 'executable' in option
-            ? option.executable
-            : 'Alternative Executable'
+          return option.name ?? option.executable
         default:
           return 'Launch Option'
       }

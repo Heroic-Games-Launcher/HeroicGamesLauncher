@@ -1,4 +1,4 @@
-import { GameInfo, GameSettings, Runner } from 'common/types'
+import { GameInfo, GameSettings, LaunchOption, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
 import {
   createGameLogWriter,
@@ -123,6 +123,7 @@ export async function launchGame(
   logWriter: LogWriter,
   gameInfo: GameInfo,
   runner: Runner,
+  launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
   if (!gameInfo) {
@@ -134,6 +135,10 @@ export async function launchGame(
   } = gameInfo
 
   const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
+
+  if (launchArguments && 'executable' in launchArguments) {
+    executable = launchArguments.executable
+  }
 
   const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
   if (
