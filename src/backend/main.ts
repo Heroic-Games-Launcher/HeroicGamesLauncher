@@ -114,6 +114,12 @@ import {
 } from './storeManagers'
 import { addNewApp } from './storeManagers/sideload/library'
 import {
+  setGameOverrides,
+  getGameOverrides,
+  getAllGameOverrides,
+  applyOverrides
+} from './game_overrides'
+import {
   getGameOverride,
   getGameSdl
 } from 'backend/storeManagers/legendary/library'
@@ -725,7 +731,7 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   // The frontend can however handle being passed an explicit `null` value, so
   // we return that here instead if the game info is empty
   if (!Object.keys(tempGameInfo).length) return null
-  return tempGameInfo
+  return applyOverrides(tempGameInfo)
 })
 
 addHandler(
@@ -1309,6 +1315,20 @@ addListener('setTitleBarOverlay', (e, args) => {
 })
 
 addListener('addNewApp', (e, args) => addNewApp(args))
+
+addListener('setGameMetadataOverride', (e, args) => {
+  const { appName, title, art_cover, art_square } = args
+  setGameOverrides(appName, { title, art_cover, art_square })
+  sendFrontendMessage('metadataChanged', getAllGameOverrides())
+})
+
+addHandler('getGameMetadataOverride', async (_e, appName) => {
+  return getGameOverrides(appName)
+})
+
+addHandler('getAllGameOverrides', async () => {
+  return getAllGameOverrides()
+})
 
 addHandler('isNative', (e, { appName, runner }) => {
   return gameManagerMap[runner].isNative(appName)
