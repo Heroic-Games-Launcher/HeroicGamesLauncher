@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.css'
 import { PCGamingWikiInfo } from 'common/types'
 import classNames from 'classnames'
 import { createNewWindow } from 'frontend/helpers'

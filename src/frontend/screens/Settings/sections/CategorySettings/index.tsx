@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.css'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import SettingsContext from '../../SettingsContext'
