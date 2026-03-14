@@ -68,7 +68,7 @@ import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import Genres from './components/Genres'
 import ReleaseDate from './components/ReleaseDate'
-import { hasKnownFixes } from 'frontend/hooks/hasKnownFixes'
+import { useKnownFixes } from 'frontend/hooks/hasKnownFixes'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
@@ -139,7 +139,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
-  const knownFixes = hasKnownFixes(appName, runner)
+  const knownFixes = useKnownFixes(appName, runner)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'

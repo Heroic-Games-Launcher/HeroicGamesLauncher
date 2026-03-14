@@ -6,17 +6,7 @@ import { axiosClient } from 'backend/utils'
 import { join } from 'node:path'
 import { appFolder } from 'backend/constants/paths'
 import { isMac, isWindows } from 'backend/constants/environment'
-import { createHash } from 'node:crypto'
-import { createReadStream } from 'graceful-fs'
-import { finished } from 'node:stream/promises'
-
-async function createMD5(filePath: string) {
-  const hash = createHash('md5')
-  const rStream = createReadStream(filePath)
-  rStream.pipe(hash)
-  await finished(rStream)
-  return hash.digest('hex')
-}
+import { createMD5 } from 'backend/utils/releases'
 
 const anticheatDataPath = join(appFolder, 'areweanticheatyet.json')
 
