@@ -32,6 +32,7 @@ import {
   libraryStore
 } from 'backend/storeManagers/legendary/electronStores'
 import {
+  achievementStore as GOGAchievementStore,
   apiInfoCache as GOGapiInfoCache,
   installInfoStore as GOGinstallInfoStore,
   libraryStore as GOGlibraryStore
@@ -283,6 +284,24 @@ type ErrorHandlerMessage = {
   runner: string
 }
 
+export async function askForceUninstall(runner: Runner, appName: string) {
+  const { title } = gameManagerMap[runner].getGameInfo(appName)
+  const { response } = await showMessageBox({
+    type: 'question',
+    title,
+    message: i18next.t(
+      'box.error.folder-not-found.title',
+      'Game folder appears to be deleted, do you want to remove the game from the installed list?'
+    ),
+    buttons: [i18next.t('box.no'), i18next.t('box.yes')]
+  })
+
+  if (response === 1) {
+    await gameManagerMap[runner].forceUninstall(appName)
+  }
+  return response
+}
+
 async function errorHandler({
   error,
   runner: r,
@@ -305,21 +324,8 @@ async function errorHandler({
   if (ignoreMessages.some((msg) => error.includes(msg))) return
 
   if (error.includes(deletedFolderMsg) && appName) {
-    const runner = r.toLocaleLowerCase() as Runner
-    const { title } = gameManagerMap[runner].getGameInfo(appName)
-    const { response } = await showMessageBox({
-      type: 'question',
-      title,
-      message: i18next.t(
-        'box.error.folder-not-found.title',
-        'Game folder appears to be deleted, do you want to remove the game from the installed list?'
-      ),
-      buttons: [i18next.t('box.no'), i18next.t('box.yes')]
-    })
-
-    if (response === 1) {
-      return gameManagerMap[runner].forceUninstall(appName)
-    }
+    await askForceUninstall(r.toLocaleLowerCase() as Runner, appName)
+    return
   }
 
   if (legendaryRegex.test(error)) {
@@ -374,6 +380,7 @@ function clearCache(
     GOGapiInfoCache.clear()
     GOGlibraryStore.clear()
     GOGinstallInfoStore.clear()
+    GOGAchievementStore.clear()
   }
   if (library === 'legendary' || !library) {
     installStore.clear()
@@ -393,6 +400,10 @@ function clearCache(
     deviceNameCache.clear()
     vendorNameCache.clear()
   }
+}
+
+function clearAchievementCache(appName: string) {
+  GOGAchievementStore.delete(appName)
 }
 
 function resetHeroic() {
@@ -1673,6 +1684,7 @@ export {
   showItemInFolder,
   removeSpecialcharacters,
   clearCache,
+  clearAchievementCache,
   resetHeroic,
   getLegendaryBin,
   getGOGdlBin,

@@ -583,7 +583,7 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char or 4-char code (i.e.: \"fr\" or \"pt-BR\")"
     },
     "platforms": {
         "browser": "Browser",

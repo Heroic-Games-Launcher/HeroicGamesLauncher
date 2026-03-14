@@ -32,7 +32,8 @@ import {
   memoryLog,
   sendGameStatusUpdate,
   checkWineBeforeLaunch,
-  isMacSonomaOrHigher
+  isMacSonomaOrHigher,
+  askForceUninstall
 } from './utils'
 import {
   createGameLogWriter,
@@ -81,6 +82,7 @@ import {
   fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
+  gamesConfigPath,
   runtimePath,
   userHome
 } from './constants/paths'
@@ -112,6 +114,19 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   args
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
+
+  if (game.install.install_path && !existsSync(game.install.install_path)) {
+    await askForceUninstall(runner, appName)
+
+    sendGameStatusUpdate({
+      appName,
+      runner,
+      status: 'done'
+    })
+
+    return { status: 'abort' }
+  }
+
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
   const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
 
@@ -330,6 +345,12 @@ function filterGameSettingsForLog(
 ): PartialDeep<GameSettings> {
   const gameSettings: PartialDeep<GameSettings> =
     structuredClone(originalSettings)
+
+  // this is irrelevant for support
+  delete gameSettings.enableQuickSavesMenu
+  // if this is visible, it means verboseLogs is true, no need to print it
+  delete gameSettings.verboseLogs
+
   // remove gamescope settings if it's disabled
   if (gameSettings.gamescope) {
     if (!gameSettings.gamescope.enableLimiter) {
@@ -412,6 +433,9 @@ function filterGameSettingsForLog(
         if (wineType.type === 'wine') {
           delete gameSettings.wineCrossoverBottle
           delete gameSettings.advertiseAvxForRosetta
+          if (wineType.name?.includes('DXMT')) {
+            delete gameSettings.autoInstallDxvk
+          }
         }
 
         if (wineType.type === 'toolkit') {
@@ -431,6 +455,9 @@ function filterGameSettingsForLog(
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
       delete gameSettings.advertiseAvxForRosetta
+      delete gameSettings.autoInstallDxvk
+      delete gameSettings.autoInstallDxvkNvapi
+      delete gameSettings.autoInstallVkd3d
     }
   }
 
@@ -537,6 +564,8 @@ async function prepareLaunch(
   await logWriter.logInfo([
     'Game Settings:',
     filterGameSettingsForLog(gameSettings, !native),
+    '\n',
+    `Stored at: ${join(gamesConfigPath, gameInfo.app_name + '.json')}`,
     '\n\n'
   ])
 
@@ -1559,10 +1588,6 @@ async function runWineCommand({
     child.stderr.setEncoding('utf-8')
 
     if (options?.logWriters) {
-      const files = options.logWriters
-        .map((writer) => `"${writer.logFilePath}"`)
-        .join(', ')
-      logDebug(`Logging to file(s) ${files}`, LogPrefix.Backend)
       options.logWriters.forEach((writer) =>
         writer.writeString(
           `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
@@ -1737,11 +1762,6 @@ async function callRunner(
       )
       if (appName) await writer.logInfo('Game Output:')
     }
-
-    const files = options.logWriters
-      .map((writer) => `"${writer.logFilePath}"`)
-      .join(', ')
-    logDebug(`Logging to file(s) ${files}`, runner.logPrefix)
   }
 
   // check if the same command is currently running
