@@ -21,6 +21,7 @@ import {
 import i18next from 'i18next'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { join, dirname, isAbsolute } from 'path'
+import { screen } from 'electron'
 
 import {
   constructAndUpdateRPC,
@@ -619,8 +620,10 @@ async function prepareLaunch(
   }
 
   if (
-    (gameSettings.gamescope?.enableLimiter ||
-      gameSettings.gamescope?.enableUpscaling) &&
+    (gameSettings.gamescope?.enable !== null
+      ? gameSettings.gamescope?.enable
+      : gameSettings.gamescope?.enableLimiter ||
+        gameSettings.gamescope?.enableUpscaling) &&
     !isSteamDeckGameMode
   ) {
     const gameScopeBin = await searchForExecutableOnPath('gamescope')
@@ -687,6 +690,10 @@ async function prepareLaunch(
         if (gameSettings.gamescope.windowType === 'borderless') {
           gameScopeCommand.push('-b')
         }
+      } else {
+        const { width, height } = screen.getPrimaryDisplay().workAreaSize
+        gameScopeCommand.push('-w', width.toString())
+        gameScopeCommand.push('-h', height.toString())
       }
 
       if (gameSettings.gamescope.enableLimiter) {

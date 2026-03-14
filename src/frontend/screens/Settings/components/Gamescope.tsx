@@ -16,6 +16,7 @@ const Gamescope = () => {
   const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
   const [gamescope, setGamescope] = useSetting('gamescope', {
+    enable: null,
     enableUpscaling: false,
     enableLimiter: false,
     enableForceGrabCursor: false,
@@ -120,9 +121,38 @@ const Gamescope = () => {
     }
   ]
 
+  const renderGamescopeToggle = () => {
+    return (
+      <div className="toggleRow">
+        <ToggleSwitch
+          htmlId="gamescopeToggle"
+          value={gamescope.enable || false}
+          handleChange={() =>
+            setGamescope({
+              ...gamescope,
+              enable: !gamescope.enable
+            })
+          }
+          title={t('setting.gamescope.enableGamescope', 'Enable Gamescope')}
+        />
+        <InfoIcon
+          text={t(
+            'help.gamescope.resolution-info',
+            'When enabling gamescope but not enabling upscaling, game resolution is set to the dimensions of the current primary monitor.'
+          )}
+        />
+      </div>
+    )
+  }
+
+  if (!gamescope.enable) {
+    return renderGamescopeToggle()
+  }
+
   return (
     <div className="gamescopeSettings">
       {/* Enable Upscale */}
+      {renderGamescopeToggle()}
       <div className="toggleRow">
         <ToggleSwitch
           htmlId="gamescopeUpscaleToggle"
