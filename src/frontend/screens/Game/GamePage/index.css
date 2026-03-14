@@ -6,6 +6,7 @@
   gap: var(--space-md);
   border-radius: 10px;
   height: 100%;
+  max-height: 100vh;
   max-width: 2400px;
   grid-template-areas:
     'header header'
