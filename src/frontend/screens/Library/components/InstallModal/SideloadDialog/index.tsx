@@ -266,6 +266,7 @@ export default function SideloadDialog({
           commandParts: [exeToRun],
           wait: true,
           protonVerb: 'runinprefix',
+          startFolder: 'workingDir',
           gameSettings: {
             ...gameSettings,
             winePrefix,
