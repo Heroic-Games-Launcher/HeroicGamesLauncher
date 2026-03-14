@@ -22,7 +22,7 @@ import type {
   InstallInfo,
   InstallParams,
   InstallPlatform,
-  KnowFixesInfo,
+  KnownFixesInfo,
   LaunchOption,
   LaunchParams,
   MoveGameArgs,
@@ -247,7 +247,7 @@ interface AsyncIPCFunctions {
   removeFromSteam: (appName: string, runner: Runner) => Promise<void>
   isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
-  getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
+  getKnownFixes: (appName: string, runner: Runner) => KnownFixesInfo | null
   getEosOverlayStatus: () => {
     isInstalled: boolean
     version?: string

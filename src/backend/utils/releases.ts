@@ -4,6 +4,9 @@ import { LogPrefix, logWarning } from 'backend/logger'
 import { runOnceWhenOnline } from 'backend/online_monitor'
 import { axiosClient } from 'backend/utils'
 import { ReleasesInfo } from 'common/types'
+import { createHash } from 'node:crypto'
+import { createReadStream, existsSync } from 'graceful-fs'
+import { finished } from 'node:stream/promises'
 
 // fetch latest versions of wine/proton/gptk and anticheat data if needed
 export const fetchLastestReleases = () => {
@@ -24,4 +27,14 @@ export const fetchLastestReleases = () => {
       )
     }
   })
+}
+
+export async function createMD5(filePath: string) {
+  if (!existsSync(filePath)) return ''
+
+  const hash = createHash('md5')
+  const rStream = createReadStream(filePath)
+  rStream.pipe(hash)
+  await finished(rStream)
+  return hash.digest('hex')
 }

@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
-import { KnowFixesInfo, Runner } from 'common/types'
+import { KnownFixesInfo, Runner } from 'common/types'
 
-export const hasKnownFixes = (appName: string, runner: Runner) => {
-  const [knownFixes, setKnownFixes] = useState<KnowFixesInfo | null>(null)
+export const useKnownFixes = (appName: string, runner: Runner) => {
+  const [knownFixes, setKnownFixes] = useState<KnownFixesInfo | null>(null)
 
   useEffect(() => {
-    window.api
+    void window.api
       .getKnownFixes(appName, runner)
-      .then((info: KnowFixesInfo | null) => {
-        console.log({ info })
+      .then((info: KnownFixesInfo | null) => {
         setKnownFixes(info)
       })
-  }, [appName])
+  }, [appName, runner])
 
   return knownFixes
 }

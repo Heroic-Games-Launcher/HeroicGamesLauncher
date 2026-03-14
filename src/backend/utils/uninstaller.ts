@@ -1,11 +1,10 @@
 import { GlobalConfig } from 'backend/config'
-import { fixesPath, gamesConfigPath } from 'backend/constants/paths'
+import { gamesConfigPath } from 'backend/constants/paths'
 import { notify } from 'backend/dialog/dialog'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { gameManagerMap } from 'backend/storeManagers'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { Runner } from 'common/types'
-import { storeMap } from 'common/utils'
 import { Event } from 'electron'
 import { existsSync, readdirSync, rmSync } from 'graceful-fs'
 import i18next from 'i18next'
@@ -54,13 +53,6 @@ export const removePrefix = async (appName: string, runner: Runner) => {
 
   // if we got here, we are safe to delete this folder
   rmSync(winePrefix, { recursive: true })
-}
-
-const removeFixFile = (appName: string, runner: Runner) => {
-  const fixFilePath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
-  if (existsSync(fixFilePath)) {
-    rmSync(fixFilePath)
-  }
 }
 
 const removeSettingsAndLogs = (appName: string) => {
@@ -112,7 +104,6 @@ export const uninstallGameCallback = async (
     if (shouldRemoveSetting) {
       removeSettingsAndLogs(appName)
     }
-    removeFixFile(appName, runner)
 
     notify({ title, body: i18next.t('notify.uninstalled') })
     logInfo('Finished uninstalling', LogPrefix.Backend)

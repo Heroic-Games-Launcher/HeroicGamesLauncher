@@ -32,7 +32,6 @@ export const heroicIconFolder = join(appFolder, 'icons')
 export const heroicInstallPath = join(userHome, 'Games', 'Heroic')
 const defaultWinePrefixDir = join(userHome, 'Games', 'Heroic', 'Prefixes')
 export const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
-export const fixesPath = join(appFolder, 'fixes')
 
 export const publicDir = resolve(
   __dirname,
