@@ -169,7 +169,7 @@ export async function launchGame(
       steamRuntime
     } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative)
 
-    if (!isNative) {
+    if (!isNative && !gameSettings.doNotUseWine) {
       await prepareWineLaunch(runner, appName, logWriter)
     }
 
