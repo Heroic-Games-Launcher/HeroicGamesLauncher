@@ -1139,7 +1139,10 @@ class GlobalState extends PureComponent<Props> {
           },
           setDisableDialogBackdropClose: this.setDisableDialogBackdropClose,
           disableAnimations: this.state.disableAnimations,
-          setDisableAnimations: this.setDisableAnimations
+          setDisableAnimations: this.setDisableAnimations,
+          isImporting: this.state.libraryStatus.some(
+            (game) => game.status === 'importing'
+          )
         }}
       >
         {this.props.children}

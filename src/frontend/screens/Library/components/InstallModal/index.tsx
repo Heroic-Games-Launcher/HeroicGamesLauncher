@@ -157,6 +157,98 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
 
   const closeModal = () => closeInstallGameModal()
 
+  const renderContent = () => {
+    if (isThirdPartyManagedApp) {
+      return (
+        <ThirdPartyDialog
+          appName={appName}
+          runner={runner}
+          winePrefix={winePrefix}
+          wineVersion={wineVersion}
+          availablePlatforms={availablePlatforms}
+          backdropClick={closeModal}
+          platformToInstall={platformToInstall}
+          gameInfo={gameInfo}
+          crossoverBottle={crossoverBottle}
+        >
+          {platformSelection()}
+          {hasWine ? (
+            <WineSelector
+              appName={appName}
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              wineVersionList={wineVersionList}
+              title={gameInfo?.title}
+              setWinePrefix={setWinePrefix}
+              setWineVersion={setWineVersion}
+              crossoverBottle={crossoverBottle}
+              setCrossoverBottle={setCrossoverBottle}
+              initiallyOpen
+            />
+          ) : null}
+        </ThirdPartyDialog>
+      )
+    }
+
+    if (showDownloadDialog) {
+      return (
+        <DownloadDialog
+          appName={appName}
+          runner={runner}
+          winePrefix={winePrefix}
+          wineVersion={wineVersion}
+          availablePlatforms={availablePlatforms}
+          backdropClick={closeModal}
+          platformToInstall={platformToInstall}
+          gameInfo={gameInfo}
+          crossoverBottle={crossoverBottle}
+        >
+          {platformSelection()}
+          {hasWine ? (
+            <WineSelector
+              appName={appName}
+              winePrefix={winePrefix}
+              wineVersion={wineVersion}
+              wineVersionList={wineVersionList}
+              title={gameInfo?.title}
+              setWinePrefix={setWinePrefix}
+              setWineVersion={setWineVersion}
+              crossoverBottle={crossoverBottle}
+              setCrossoverBottle={setCrossoverBottle}
+            />
+          ) : null}
+        </DownloadDialog>
+      )
+    }
+
+    return (
+      <SideloadDialog
+        setWinePrefix={setWinePrefix}
+        winePrefix={winePrefix}
+        wineVersion={wineVersion}
+        availablePlatforms={availablePlatforms}
+        backdropClick={closeModal}
+        platformToInstall={platformToInstall}
+        appName={appName}
+        crossoverBottle={crossoverBottle}
+      >
+        {platformSelection()}
+        {hasWine ? (
+          <WineSelector
+            appName={appName}
+            winePrefix={winePrefix}
+            wineVersion={wineVersion}
+            wineVersionList={wineVersionList}
+            setWinePrefix={setWinePrefix}
+            setWineVersion={setWineVersion}
+            crossoverBottle={crossoverBottle}
+            setCrossoverBottle={setCrossoverBottle}
+          />
+        ) : null}
+      </SideloadDialog>
+    )
+  }
+
   return (
     <div className="InstallModal">
       <Dialog
@@ -164,87 +256,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
         showCloseButton
         className="InstallModal__dialog"
       >
-        {isThirdPartyManagedApp ? (
-          <ThirdPartyDialog
-            appName={appName}
-            runner={runner}
-            winePrefix={winePrefix}
-            wineVersion={wineVersion}
-            availablePlatforms={availablePlatforms}
-            backdropClick={closeModal}
-            platformToInstall={platformToInstall}
-            gameInfo={gameInfo}
-            crossoverBottle={crossoverBottle}
-          >
-            {platformSelection()}
-            {hasWine ? (
-              <WineSelector
-                appName={appName}
-                winePrefix={winePrefix}
-                wineVersion={wineVersion}
-                wineVersionList={wineVersionList}
-                title={gameInfo?.title}
-                setWinePrefix={setWinePrefix}
-                setWineVersion={setWineVersion}
-                crossoverBottle={crossoverBottle}
-                setCrossoverBottle={setCrossoverBottle}
-                initiallyOpen
-              />
-            ) : null}
-          </ThirdPartyDialog>
-        ) : showDownloadDialog ? (
-          <DownloadDialog
-            appName={appName}
-            runner={runner}
-            winePrefix={winePrefix}
-            wineVersion={wineVersion}
-            availablePlatforms={availablePlatforms}
-            backdropClick={closeModal}
-            platformToInstall={platformToInstall}
-            gameInfo={gameInfo}
-            crossoverBottle={crossoverBottle}
-          >
-            {platformSelection()}
-            {hasWine ? (
-              <WineSelector
-                appName={appName}
-                winePrefix={winePrefix}
-                wineVersion={wineVersion}
-                wineVersionList={wineVersionList}
-                title={gameInfo?.title}
-                setWinePrefix={setWinePrefix}
-                setWineVersion={setWineVersion}
-                crossoverBottle={crossoverBottle}
-                setCrossoverBottle={setCrossoverBottle}
-              />
-            ) : null}
-          </DownloadDialog>
-        ) : (
-          <SideloadDialog
-            setWinePrefix={setWinePrefix}
-            winePrefix={winePrefix}
-            wineVersion={wineVersion}
-            availablePlatforms={availablePlatforms}
-            backdropClick={closeModal}
-            platformToInstall={platformToInstall}
-            appName={appName}
-            crossoverBottle={crossoverBottle}
-          >
-            {platformSelection()}
-            {hasWine ? (
-              <WineSelector
-                appName={appName}
-                winePrefix={winePrefix}
-                wineVersion={wineVersion}
-                wineVersionList={wineVersionList}
-                setWinePrefix={setWinePrefix}
-                setWineVersion={setWineVersion}
-                crossoverBottle={crossoverBottle}
-                setCrossoverBottle={setCrossoverBottle}
-              />
-            ) : null}
-          </SideloadDialog>
-        )}
+        {renderContent()}
       </Dialog>
     </div>
   )

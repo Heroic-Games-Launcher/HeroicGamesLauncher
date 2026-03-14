@@ -107,7 +107,8 @@ const initialContext: ContextType = {
   disableDialogBackdropClose: false,
   setDisableDialogBackdropClose: () => null,
   disableAnimations: false,
-  setDisableAnimations: () => null
+  setDisableAnimations: () => null,
+  isImporting: false
 }
 
 export default React.createContext(initialContext)

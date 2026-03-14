@@ -5,7 +5,8 @@ import {
   InstallProgress,
   Runner,
   UpdateParams,
-  LaunchOption
+  LaunchOption,
+  WineInstallation
 } from 'common/types'
 
 import { TFunction } from 'i18next'
@@ -29,6 +30,10 @@ type InstallArgs = {
   installLanguage?: string
   build?: string
   branch?: string
+  winePrefix?: string
+  wineVersion?: WineInstallation
+  wineCrossoverBottle?: string
+  selectedImportPath?: string
 }
 
 async function install({
@@ -45,7 +50,10 @@ async function install({
   platformToInstall = 'Windows',
   build,
   branch,
-  showDialogModal
+  showDialogModal,
+  winePrefix,
+  wineVersion,
+  wineCrossoverBottle
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -69,7 +77,6 @@ async function install({
   if (is_installed) {
     return
   }
-
   if (installPath === 'import') {
     const { defaultInstallPath }: AppSettings =
       await window.api.requestAppSettings()
@@ -85,6 +92,19 @@ async function install({
 
     if (!path) {
       return
+    }
+
+    if (winePrefix && wineVersion) {
+      const gameSettings = await window.api.requestGameSettings(appName)
+      window.api.writeConfig({
+        appName,
+        config: {
+          ...gameSettings,
+          winePrefix,
+          wineVersion,
+          wineCrossoverBottle
+        }
+      })
     }
 
     return window.api.importGame({
