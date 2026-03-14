@@ -77,7 +77,7 @@
             "message": "Tá nuashonrú ar an gcluiche seo, an bhfuil tú ag iarraidh an nuashonrú a chur i bhfeidhm anois?",
             "title": "Nuashonrú Riachtanach don Chluiche"
         },
-        "wineprefix": "Roghnaigh Fillteán WinePrefix",
+        "wineprefix": "Roghnaigh Fillteán Wine Prefix",
         "yes": "TÁ",
         "selectLaunchOption": {
             "body": "Roghnaigh rogha lainseála don chluiche seo le do thoil (is féidir é a athrú níos déanaí i socruithe an chluiche):",
@@ -163,7 +163,7 @@
         "path": "Cosán Suiteála",
         "protondb-compatibility-info": "Sraith Chomhoiriúnachta Prótóin",
         "size": "Méid",
-        "steamdeck-compatibility-info": "Comhoiriúnacht SteamDeck",
+        "steamdeck-compatibility-info": "Comhoiriúnacht Steam Deck",
         "syncsaves": "Sioncrónaigh Sábhálacha",
         "third-party-app": "Bainisteoir Tríú Páirtí",
         "version": "Leagan"
@@ -183,7 +183,7 @@
         "path": "Roghnaigh Cosán Suiteála",
         "path-not-writtable": "Rabhadh: b'fhéidir nach féidir an cosán a scríobh.",
         "space-after-install": "Tar éis Suiteála",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Leagan Wine"
     },
     "label": {

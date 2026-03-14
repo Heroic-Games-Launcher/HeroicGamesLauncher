@@ -44,7 +44,7 @@
             "message": "למשחק זה יש עדכון, החל עדכון עכשיו?",
             "title": "משחק זה צריך עדכון"
         },
-        "wineprefix": "בחר תיקיית WinePrefix",
+        "wineprefix": "בחר תיקיית Wine Prefix",
         "yes": "כן",
         "close": "לסגור",
         "warning": {
@@ -93,7 +93,7 @@
         "installedInfo": "מידע מותקן",
         "installedPlatform": "פלטפורמה מותקנת",
         "size": "גודל",
-        "steamdeck-compatibility-info": "התאמה לSteamDeck",
+        "steamdeck-compatibility-info": "התאמה לSteam Deck",
         "syncsaves": "סנכרון שמירות",
         "protondb-compatibility-info": "רמת תאימות Proton"
     },
@@ -221,7 +221,7 @@
         "wineversion": "גרסת Wine",
         "disk-space-left": "חלל זמין",
         "space-after-install": "לאחר ההתקנה",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "not-enough-disk-space": "לא מספיק שטח דיסק",
         "path": "בחרו מיקום התקנה",
         "path-not-writtable": "אזהרה: מיקום עלול להיות בלתי ניתן לכתיבה.",

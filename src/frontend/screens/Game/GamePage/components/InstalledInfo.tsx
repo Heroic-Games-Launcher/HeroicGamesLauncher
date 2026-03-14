@@ -118,7 +118,7 @@ const InstalledInfo = ({ gameInfo }: Props) => {
               className="clickable"
               onClick={() => window.api.openFolder(winePrefix)}
             >
-              <b>{t2('setting.wineprefix', 'WinePrefix')}:</b>{' '}
+              <b>{t2('setting.wineprefix', 'Wine Prefix')}:</b>{' '}
               <div className="truncatedPath">{winePrefix}</div>
             </div>
           )}

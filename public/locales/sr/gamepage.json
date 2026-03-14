@@ -87,7 +87,7 @@
             "message": "Ова игра има ажурирање, примените ажурирање сада?",
             "title": "Игри је потребно ажурирање"
         },
-        "wineprefix": "Изаберите WinePrefix мапу",
+        "wineprefix": "Изаберите Wine Prefix мапу",
         "yes": "ДА",
         "warning": {
             "title": "Упозорење"
@@ -152,7 +152,7 @@
         "path": "Изаберите путању за инсталирање",
         "path-not-writtable": "Упозорење: путања можда није уписива.",
         "space-after-install": "Након инсталације",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine верзија"
     },
     "label": {

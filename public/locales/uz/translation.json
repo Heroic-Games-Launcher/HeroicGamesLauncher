@@ -302,7 +302,7 @@
         },
         "gamemode": "Feral GameMode o'yinlarni ishga tushirishda tizimga avtomatik va vaqtinchalik sozlashlarni qo'llaydi. Yoqish unumdorlikni oshirishi mumkin.",
         "general": "Agar boshqa joyda Epic Games Launcher oʻrnatilgan boʻlsa va ularni qayta yuklab olmaslik uchun oʻyinlaringizni import qilmoqchi boʻlsangiz, EGL bilan sinxronlang.",
-        "mangohud": "MangoHUD - bu FPS, harorat, protsessor/GPU yuklanishi va boshqa tizim resurslarini ko'rsatadigan va kuzatuvchi qoplama.",
+        "mangohud": "MangoHud - bu FPS, harorat, protsessor/GPU yuklanishi va boshqa tizim resurslarini ko'rsatadigan va kuzatuvchi qoplama.",
         "other": {
             "part4": "dan foydalaning ",
             "part5": "O'yin argumentlari",
@@ -575,7 +575,7 @@
             "no-file": "Hech qanday jurnal fayli topilmadi",
             "show-in-folder": "Jurnal faylini papkada ko'rsatish"
         },
-        "mangohud": "Mangohudni yoqish (Mangohud o'rnatilishi kerak)",
+        "mangohud": "MangoHudni yoqish (MangoHud o'rnatilishi kerak)",
         "manualsync": {
             "download": "Yuklab olish",
             "forcedownload": "Majburiy yuklab olish",
@@ -611,7 +611,7 @@
         "start-in-tray": "Minimallashtirilgan boshlang",
         "steamruntime": "Steam Runtime dan foydalaning",
         "winecrossoverbottle": "Krossover shishasi",
-        "wineprefix": "WinePrefix papkasi",
+        "wineprefix": "Wine prefiks papkasi",
         "wineversion": "Vino versiyasi",
         "disable_logs": "Jurnallarni o'chirib qo'ying",
         "addgamestoapplications": "Ilovalarga o'yinlarni avtomatik ravishda qo'shing",

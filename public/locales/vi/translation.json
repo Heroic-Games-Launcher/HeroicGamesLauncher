@@ -301,7 +301,7 @@
         },
         "gamemode": "Feral GameMode áp dụng các tinh chỉnh tự động và tạm thời cho hệ thống khi chạy game. Việc kích hoạt có thể cải thiện hiệu suất.",
         "general": "Đồng bộ hóa với EGL nếu bạn có bản cài đặt Epic Games Launcher đang hoạt động ở nơi khác và muốn nhập trò chơi của mình để tránh tải xuống lại.",
-        "mangohud": "MangoHUD là overlay hiển thị và giám sát FPS, nhiệt độ, tải CPU/GPU và các tài nguyên hệ thống khác.",
+        "mangohud": "MangoHud là overlay hiển thị và giám sát FPS, nhiệt độ, tải CPU/GPU và các tài nguyên hệ thống khác.",
         "other": {
             "part4": "Sử dụng ",
             "part5": "Đối Số Trò Chơi",
@@ -355,7 +355,7 @@
         },
         "disablePlaytimeSync": "Tắt đồng bộ hóa thời gian chơi với máy chủ của cửa hàng nhất định (hiện chỉ hỗ trợ GOG)",
         "download_proton_steam": "Khi được bật, GE-Proton sẽ được tải trực tiếp vào thư mục công cụ tương thích Steam thay vì đường dẫn Heroic mặc định. Nó sẽ sử dụng đường dẫn Steam được đặt trong cài đặt 'Đường dẫn Steam mặc định' ở trên.",
-        "dxvknvapi": "DXVK-NVAPI là một triển khai NVAPI được xây dựng dựa trên DXVK và NVAPI gốc linux, nó cho phép sử dụng DLSS trên GPU Nvidia.",
+        "dxvknvapi": "DXVK-NVAPI là một triển khai NVAPI được xây dựng dựa trên DXVK và NVAPI gốc Linux, nó cho phép sử dụng DLSS trên GPU Nvidia.",
         "gamescope": {
             "additionalOptions": "Cờ dòng lệnh bổ sung để chuyển vào gamescope.",
             "forceGrabCursor": "Luôn sử dụng chế độ chuột tương đối thay vì lật phụ thuộc vào khả năng hiển thị của con trỏ. (Hữu ích khi ứng dụng liên tục mất tập trung)",
@@ -560,7 +560,7 @@
         "alt-nile-bin": "Sử dụng Nile binary tích hợp sẵn..."
     },
     "platforms": {
-        "linux": "LInux",
+        "linux": "Linux",
         "mac": "Mac",
         "win": "Windows",
         "browser": "Duyệt"
@@ -687,7 +687,7 @@
             "join-heroic-discord": "Tham gia Discord của chúng tôi",
             "show-uploads": "Hiển thị tệp nhật ký đã tải lên"
         },
-        "mangohud": "Bật Mangohud (Cần cài đặt mangohud)",
+        "mangohud": "Bật MangoHud (Cần cài đặt MangoHud)",
         "manualsync": {
             "download": "Tải Xuống",
             "forcedownload": "Buộc Tải Xuống",
@@ -724,7 +724,7 @@
         "start-in-tray": "Thu Nhỏ Khi Khởi Động",
         "steamruntime": "Sử Dụng Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Thư Mục WinePrefix",
+        "wineprefix": "Thư Mục Wine Prefix",
         "wineversion": "Phiên Bản Wine",
         "autoUpdateGames": "Tự động cập nhật trò chơi",
         "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",

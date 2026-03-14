@@ -302,7 +302,7 @@
         },
         "gamemode": "Feral GameMode menerapkan penyesuaian otomatis dan penyesuaian sementara ke sistem saat menjalankan gim. Mengaktifkannya dapat meningkatkan kinerja.",
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
-        "mangohud": "MangoHUD adalah hamparan yang menampilkan dan memantau FPS, suhu, beban CPU/GPU, dan sumber daya sistem lainnya.",
+        "mangohud": "MangoHud adalah hamparan yang menampilkan dan memantau FPS, suhu, beban CPU/GPU, dan sumber daya sistem lainnya.",
         "other": {
             "part4": "Gunakan ",
             "part5": "Argumen Gim",
@@ -688,7 +688,7 @@
             "join-heroic-discord": "Bergabunglah dengan Discord kami",
             "show-uploads": "Tampilkan file log yang diunggah"
         },
-        "mangohud": "Aktifkan Mangohud (Mangohud perlu diinstal)",
+        "mangohud": "Aktifkan MangoHud (MangoHud perlu diinstal)",
         "manualsync": {
             "download": "Unduh",
             "forcedownload": "Unduh Paksa",
@@ -739,7 +739,7 @@
             "enableForceGrabCursor": "Aktifkan Paksa Pengambilan Kursor",
             "enableUpscaling": "Mengaktifkan Peningkatan Skala",
             "missingMsg": "Kami tidak dapat menemukan gamescope di PATH. Instal atau tambahkan ke PATH.",
-            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic."
+            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket Flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic."
         },
         "experimental_features": {
             "enableNewDesign": "Desain baru",

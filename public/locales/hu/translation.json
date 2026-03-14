@@ -182,7 +182,7 @@
             "snap": {
                 "checkbox": "Ne mutassa újra ezt az üzenetet",
                 "title": "A Heroic Snapként fut",
-                "message": "Néhány funkció egyelőre nem elérhető az alkalmazás Snap verziójában, dolgozunk a megoldáson. {{newLine}}Jelenlegi korlátozások: {{newLine}}A Heroic nem találja meg a Protont a Steamből vagy a Wine-t a Lutrisból.{{newLine}}{{newLine}}A Gamescope, a GameMode és a MangoHud szintén nem működik, mivel a Heroicnak nincs jogosultsága az elérésükhöz.{{newLine}}{{newLine}}Hogy hozzáférésed legyen ehhez a funkcióhoz, telepítsd a Heroicot flatpakként, DEB vagy AppImage-csomagként."
+                "message": "Néhány funkció egyelőre nem elérhető az alkalmazás Snap verziójában, dolgozunk a megoldáson. {{newLine}}Jelenlegi korlátozások: {{newLine}}A Heroic nem találja meg a Protont a Steamből vagy a Wine-t a Lutrisból.{{newLine}}{{newLine}}A Gamescope, a GameMode és a MangoHud szintén nem működik, mivel a Heroicnak nincs jogosultsága az elérésükhöz.{{newLine}}{{newLine}}Hogy hozzáférésed legyen ehhez a funkcióhoz, telepítsd a Heroicot Flatpakként, DEB vagy AppImage-csomagként."
             },
             "rosetta": {
                 "title": "A Rosetta nem található",
@@ -309,7 +309,7 @@
         },
         "gamemode": "A Feral GameMode automatikus és ideiglenes finomhangolásokat végez a rendszeren a játékok futása közben. Engedélyezése javíthatja a teljesítményt.",
         "general": "Ha van máshol egy működő Epic Games Launcher telepítésed, akkor szinkronizálja az EGL-lel a játékaid importálásához, hogy elkerülje az újbóli letöltésüket.",
-        "mangohud": "A MangoHUD egy átfedés, amely megjeleníti és figyeli az FPS-t, hőmérsékleteket, CPU- és GPU-terhelést és más rendszererőforrásokat.",
+        "mangohud": "A MangoHud egy átfedés, amely megjeleníti és figyeli az FPS-t, hőmérsékleteket, CPU- és GPU-terhelést és más rendszererőforrásokat.",
         "other": {
             "part4": "Játékargumentumok ",
             "part5": "használata",
@@ -695,7 +695,7 @@
             },
             "show-uploads": "Feltöltött naplófájlok megjelenítése"
         },
-        "mangohud": "Mangohud engedélyezése (a Mangohudnak telepítve kell lennie)",
+        "mangohud": "MangoHud engedélyezése (a MangoHudnak telepítve kell lennie)",
         "manualsync": {
             "download": "Letöltés",
             "forcedownload": "Kényszerített letöltés",
@@ -753,8 +753,8 @@
             "missingMsg": "A gamescope nem található a PATH-on. Telepítsd, vagy add hozzá a PATH-hoz.",
             "enableLimiter": "FPS korlátozó engedélyezése",
             "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése",
-            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel, és indítsa újra a Heroicot.",
-            "warningFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítsd a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel és indítsd újra a Heroicot."
+            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope Flatpak csomagját a 25.08-as futtatókörnyezettel, és indítsa újra a Heroicot.",
+            "warningFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítsd a Gamescope Flatpak csomagját a 25.08-as futtatókörnyezettel és indítsd újra a Heroicot."
         },
         "disablePlaytimeSync": "Játék közbeni szinkronizáció letiltása",
         "experimental_features": {
