@@ -770,7 +770,7 @@
         "msync": "Enable Msync",
         "no-tray-icon": "Hide System Tray Icon (requires restart)",
         "offlinemode": "Run Game Offline",
-        "passEnvViaFile": "OS Max Argument Workaround (for games with long metadata)",
+        "passEnvViaFile": "OS Max Argument Workaround (may fix issues with scripts not running)",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "runexe": {

@@ -26,7 +26,7 @@ const PassEnvViaFile = () => {
         handleChange={() => setPassEnvViaFile(!passEnvViaFile)}
         title={t(
           'setting.passEnvViaFile',
-          'OS Max Argument Workaround (for games with long metadata)'
+          'OS Max Argument Workaround (may fix issues with scripts not running)'
         )}
       />
       <InfoIcon

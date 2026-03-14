@@ -2086,11 +2086,29 @@ async function runScriptForGame(
         }
       }
     }
+    let child
 
-    const child = spawn(scriptPath, {
-      cwd: gameInfo.install.install_path,
-      env: scriptEnv
-    })
+    try {
+      child = spawn(scriptPath, {
+        cwd: gameInfo.install.install_path,
+        env: scriptEnv
+      })
+    } catch (err) {
+      const e = err as NodeJS.ErrnoException
+      if (e.code === 'E2BIG') {
+        if (gameSettings.verboseLogs) {
+          logWriter.logError(
+            'OS Max Argument Limit Reached! Try enabling "OS Max Argument Workaround" in settings.'
+          )
+        }
+      }
+      if (gameSettings.verboseLogs) {
+        logWriter.logError(err)
+      }
+      reject(e)
+      return
+    }
+
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
 
