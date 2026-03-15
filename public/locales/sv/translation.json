@@ -663,7 +663,8 @@
                 },
                 "error": {
                     "title": "Uppladdning misslyckades",
-                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer"
+                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer",
+                    "manual_upload": ""
                 },
                 "header": "Uppladdade loggfiler",
                 "delete": "Begär borttagning av loggfil",
@@ -799,7 +800,8 @@
         "no-tray-icon": "Dölj ikonen i systemfältet (kräver omstart)",
         "wineWayland": "Aktivera Wine-Wayland (Experimentellt) (Wine-versionen behöver stödja det)",
         "WoW64": "Aktivera WoW64 (Experimentellt)",
-        "scripts": "Skript:"
+        "scripts": "Skript:",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
