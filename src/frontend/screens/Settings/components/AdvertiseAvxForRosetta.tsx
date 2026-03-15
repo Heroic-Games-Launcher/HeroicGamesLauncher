@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import SettingsContext from '../SettingsContext'
 import useSetting from 'frontend/hooks/useSetting'
 import { ToggleSwitch } from 'frontend/components/UI'
-import { defaultWineVersion } from '..'
+import { defaultWineVersion } from '../constants'
 import InfoIcon from 'frontend/components/UI/InfoIcon'
 
 const AdvertiseAvxForRosetta = () => {

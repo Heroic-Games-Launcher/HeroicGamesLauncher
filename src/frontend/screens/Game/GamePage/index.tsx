@@ -12,13 +12,8 @@ import {
 
 import { Tab, Tabs } from '@mui/material'
 
-import {
-  getGameInfo,
-  getInstallInfo,
-  launch,
-  sendKill,
-  updateGame
-} from 'frontend/helpers'
+import { getGameInfo, getInstallInfo, sendKill } from 'frontend/helpers'
+import { install, launch, updateGame } from 'frontend/helpers/library'
 import { Link, NavLink, useLocation, useParams } from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -38,7 +33,6 @@ import {
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
 
-import { install } from 'frontend/helpers/library'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import Anticheat from 'frontend/components/UI/Anticheat'
