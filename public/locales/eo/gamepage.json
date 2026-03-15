@@ -4,7 +4,9 @@
         "close": "Fermi",
         "no": "NE",
         "offline_warning": {
-            "playAnyway": "Ludi ajne"
+            "playAnyway": "Ludi ajne",
+            "message": "",
+            "title": ""
         },
         "ok": "BONE",
         "select": {
@@ -20,31 +22,88 @@
             "cannotUninstallEpic": "Ludoj Epic ne povas esti malinstalitaj kiam alia ludo Epic estas instalanta.",
             "dlc": "Ĉu vi volas malinstali \"{{title}}\" (DLC)?",
             "message": "Ĉu vi volas malinstali \"{{title}}\"?",
-            "title": "Malinstali"
+            "title": "Malinstali",
+            "settingcheckbox": "",
+            "checkbox": "",
+            "prefix_warning": "",
+            "gameIsRunning": ""
         },
         "update": {
             "message": "Tiu ĉi ludo havas ĝisdatigon, ĝisdatigi nun?",
             "title": "Ludo bezonas ĝisdatigon"
         },
-        "yes": "JES"
+        "yes": "JES",
+        "runexe": {
+            "title": ""
+        },
+        "repair": {
+            "title": "",
+            "message": ""
+        },
+        "move": {
+            "message": "",
+            "title": "",
+            "path": ""
+        },
+        "warning": {
+            "title": ""
+        },
+        "wineprefix": "",
+        "change": {
+            "title": "",
+            "message": "",
+            "path": ""
+        },
+        "importpath": "",
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        },
+        "sideload": {
+            "exe": ""
+        }
     },
     "disabled": "Malŝaltita",
     "enabled": "Ŝalti",
     "game": {
         "branch": {
-            "disabled": "Malŝaltita"
+            "disabled": "Malŝaltita",
+            "select": "",
+            "password": "",
+            "setPrivateBranchPassword": ""
         },
         "builds": {
             "buildsSelector": "Elektu version de l' ludo",
-            "version": "Versio"
+            "version": "Versio",
+            "toggle": ""
         },
         "firstPlayed": "Unue ludita",
         "installSize": "Instalota grando",
         "language": "Lingvo",
-        "neverPlayed": "Neniam"
+        "neverPlayed": "Neniam",
+        "getting-download-size": "",
+        "downloadSize": "",
+        "changelogFor": "",
+        "modify": "",
+        "getting-install-size": "",
+        "install_info": "",
+        "extra_info": "",
+        "totalPlayed": "",
+        "lastPlayed": "",
+        "requirements": "",
+        "platform": ""
     },
     "not_logged_in": {
-        "login": "Ensaluti"
+        "login": "Ensaluti",
+        "gog": "",
+        "amazon": "",
+        "title": "",
+        "zoom": "",
+        "epic": ""
     },
     "button": {
         "continue": "Daŭrigi elŝutadon",
@@ -55,49 +114,210 @@
         "play": "LUDI",
         "unhide_game": "Malkaŝi ludon",
         "uninstall": "Malinstali",
-        "update": "Ĝisdatigi"
+        "update": "Ĝisdatigi",
+        "add_to_favourites": "",
+        "sideload": {
+            "edit": ""
+        },
+        "changelog": "",
+        "force_update": "",
+        "browse_wine_prefix": "",
+        "force-innstall": "",
+        "run-exe-first": "",
+        "remove_from_recent": "",
+        "queue": {
+            "remove": ""
+        },
+        "running-setup": "",
+        "remove_from_favourites": "",
+        "no-path-selected": "",
+        "cancel": "",
+        "browse_files": "",
+        "import": ""
     },
     "generic": {
-        "error": "Nekonata eraro"
+        "error": "Nekonata eraro",
+        "noDescription": ""
     },
     "hours": "Horoj",
     "info": {
         "clickToOpen": "Alklaku por malfermi",
         "size": "Grando",
-        "version": "Versio"
+        "version": "Versio",
+        "canRunOffline": "",
+        "syncsaves": "",
+        "installedInfo": "",
+        "path": "",
+        "steamdeck-compatibility-info": "",
+        "game-scores": "",
+        "protondb-compatibility-info": "",
+        "apple-gaming-wiki": "",
+        "third-party-app": "",
+        "installedPlatform": ""
     },
     "install": {
         "anticheat-warning": {
-            "ok": "Bone"
+            "ok": "Bone",
+            "cancel": "",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "multiplayer_message": "",
+            "title": ""
         },
         "space-after-install": "Post instalo",
-        "wineversion": "Versio de Wine"
+        "wineversion": "Versio de Wine",
+        "disk-space-left": "",
+        "wineprefix": "",
+        "not-enough-disk-space": "",
+        "path": "",
+        "flatpak-path-not-writtable": "",
+        "path-not-writtable": ""
     },
     "label": {
         "game": {
-            "not-installable-game": "Ludo NE instaleblas"
+            "not-installable-game": "Ludo NE instaleblas",
+            "third-party-game": ""
         },
         "playing": {
-            "start": "Ludi nun"
+            "start": "Ludi nun",
+            "start_with_logs": "",
+            "stop": ""
+        },
+        "winetricks": "",
+        "redist": "",
+        "launching": "",
+        "saves": {
+            "syncing": ""
         }
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",
         "nodlcs": "Neniu DLC disponeblas",
-        "versionCollapsable": "Luda versio"
+        "versionCollapsable": "Luda versio",
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        }
     },
     "Open": "Malfermi",
     "queue": {
         "label": {
-            "pause": "Paŭzigi elŝutadon"
+            "pause": "Paŭzigi elŝutadon",
+            "resume": "",
+            "remove": "",
+            "canceled": ""
         }
     },
     "setting": {
-        "show-wine-settings": "Montri agordojn de Wine"
+        "show-wine-settings": "Montri agordojn de Wine",
+        "warn-use-shared-wine-config": "",
+        "use-shared-wine-config": "",
+        "winecrossoverbottle": ""
     },
     "sideload": {
         "import-hint": {
-            "title": "Gravas! Ĉu vi aldonas ludon el Epic/GOG/Amazon? Alklaku ĉi tien!"
+            "title": "Gravas! Ĉu vi aldonas ludon el Epic/GOG/Amazon? Alklaku ĉi tien!",
+            "content": ""
+        },
+        "placeholder": {
+            "url": "",
+            "useragent": "",
+            "image": "",
+            "title": ""
+        },
+        "info": {
+            "broser": "",
+            "title": "",
+            "useragent": "",
+            "exe": "",
+            "fullscreen": "",
+            "image": ""
+        },
+        "field": {
+            "title": ""
         }
-    }
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "cloud_save_unsupported": "",
+    "status": {
+        "installing": "",
+        "redist": "",
+        "uninstalling": "Malinstali",
+        "notSupported": "",
+        "clickToUpdate": "",
+        "winetricks": "",
+        "syncingSaves": "",
+        "processing": "",
+        "importing": "",
+        "notinstalled": "",
+        "moving": "",
+        "totalDownloaded": "",
+        "gameNotAvailable": "",
+        "this-game-uses-third-party": "",
+        "moving-files": "",
+        "reparing": "",
+        "installed": "Instali",
+        "playing": "",
+        "downloading": "Elŝutado",
+        "extracting": "",
+        "queued": "",
+        "gog-goodie": "",
+        "goodie": "",
+        "launching": "",
+        "notSupportedGame": "",
+        "updating": "",
+        "hasUpdates": ""
+    },
+    "open-saves-folder": "",
+    "specs": {
+        "minimum": "",
+        "recommended": ""
+    },
+    "submenu": {
+        "change": "",
+        "verify": "",
+        "protondb": "",
+        "logs": "",
+        "enableEosOverlay": "",
+        "store": "",
+        "disableEosOverlay": "",
+        "settings": "",
+        "addShortcut": "",
+        "addToSteam": "",
+        "removeFromSteam": "",
+        "categories": "",
+        "removeShortcut": "",
+        "move": ""
+    },
+    "sdl": {
+        "title": ""
+    },
+    "launch": {
+        "default": ""
+    },
+    "help": {
+        "content": {
+            "gamePage": ""
+        },
+        "cloud_save_unsupported": "",
+        "title": {
+            "gamePage": ""
+        }
+    },
+    "gamecard": {
+        "repairing": "",
+        "moving": ""
+    },
+    "howLongToBeat": "",
+    "how-long-to-beat": {
+        "main-plus-extras": "",
+        "main-story": "",
+        "completionist": ""
+    },
+    "report_problem": "",
+    "wikiLink": ""
 }
