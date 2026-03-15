@@ -672,7 +672,8 @@
                 },
                 "error": {
                     "title": "Falha ao enviar",
-                    "content": "Falha ao enviar arquivo de registro. Verifique o registro geral Heroic para obter detalhes"
+                    "content": "Falha ao enviar arquivo de registro. Verifique o registro geral Heroic para obter detalhes",
+                    "manual_upload": "Clique no botão \"Mostrar arquivo de log na pasta\" e envie manualmente o arquivo \"launch.log\" para o Discord ou qualquer serviço online de compartilhamento de arquivos."
                 },
                 "header": "Arquivos de registro enviados",
                 "no-files": "Nenhum arquivo de registro foi carregado",
@@ -815,7 +816,9 @@
             "info_label": "Versões do Proton da Valve ignoradas"
         },
         "WoW64": "Ativar WoW64 (Experimental)",
-        "scripts": "Scripts:"
+        "scripts": "Scripts:",
+        "enable-quick-sync-menu": "Ativar o Menu de Sincronização Rápida de Saves na página do jogo",
+        "disable_gog_presence": "Desativar atualizações do GOG Presence"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -852,7 +855,8 @@
             "sync": "Sincronização de saves na Nuvem",
             "wineExt": "Extensões do Wine",
             "systemInformation": "Informações do sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Legado"
         },
         "open-config-file": "Abrir arquivo de configuração",
         "reset-heroic": "Redefinir Heroic",
@@ -919,7 +923,8 @@
         "custom_css": {
             "title": "Estilo CSS Customizado"
         },
-        "launchOptions": "Opções de inicialização"
+        "launchOptions": "Opções de inicialização",
+        "legacy_warning": "Aviso: A maioria das configurações nesta aba estão obsoletas e podem não funcionar."
     },
     "Settings": "Configurações",
     "sidebar": {
@@ -1051,7 +1056,7 @@
     },
     "adtraction-locked": {
         "dont-show-again": "Não exibir este aviso novamente",
-        "description": "O domínio track.adtraction.com foi incapaz de carregar ou está bloqueado. Com Adtraction, qualquer compra feita na loja GOG irá apoiar Heroic financialmente. Considere remover o bloqueio se deseja contribuir.",
+        "description": "Parece Que o domínio track.adtraction.com foi incapaz de carregar ou está bloqueado. Com Adtraction, qualquer compra feita na loja GOG irá apoiar Heroic financialmente. Considere remover o bloqueio se deseja contribuir.",
         "title": "Adtraction está bloqueado"
     },
     "tour": {
