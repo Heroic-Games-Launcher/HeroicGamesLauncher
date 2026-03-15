@@ -106,12 +106,13 @@ export function getTargetExePath(
 
   // we can't execute a `.app` file directly
   // we have to use the path of the script inside the .app directory
-  if (executable && isMac && executable.endsWith('.app')) {
+  if (isMac) {
     try {
       // look for the `CFBundleExecutable` key and the next value
       const plistContent = readFileSync(
-        join(executable, 'Contents', 'Info.plist')
-      ).toString()
+        join(executable, 'Contents', 'Info.plist'),
+        'utf-8'
+      )
       const matchResult = plistContent.match(
         /<key>CFBundleExecutable<\/key>\n\s+<string>(.*)<\/string>/m
       )
