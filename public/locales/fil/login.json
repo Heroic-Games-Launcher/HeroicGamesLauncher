@@ -1,1 +1,21 @@
-{}
+{
+    "button": {
+        "copied": "",
+        "copy": "",
+        "open": "",
+        "login": "",
+        "error": "",
+        "loading": ""
+    },
+    "welcome": "",
+    "message": {
+        "part2": "",
+        "part7": "",
+        "part8": "",
+        "part1": "",
+        "part3": "",
+        "part5": "",
+        "part6": "",
+        "part4": ""
+    }
+}
