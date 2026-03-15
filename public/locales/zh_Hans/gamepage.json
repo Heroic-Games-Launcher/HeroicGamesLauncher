@@ -131,7 +131,8 @@
         "changelogFor": "{{gameTitle}} 更新记录",
         "modify": "修改安装",
         "extra_info": "附加信息",
-        "install_info": "安装信息"
+        "install_info": "安装信息",
+        "achievements": "成就"
     },
     "gamecard": {
         "moving": "移动中",

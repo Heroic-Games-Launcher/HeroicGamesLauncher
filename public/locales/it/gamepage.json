@@ -51,9 +51,22 @@
         "close": "Chiudi",
         "select-install-path": "Seleziona percorso di installazione di Steam",
         "warning": {
-            "title": "Avviso"
+            "title": "Attenzione"
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Questo gioco potrebbe non funzionare correttamente offline. Vuoi giocare comunque?",
+            "playAnyway": "Gioca comunque",
+            "title": "Avviso modalità offline"
+        },
+        "selectLaunchOption": {
+            "title": "Seleziona un'opzione di avvio ({{seconds}} s)",
+            "body": "Seleziona un'opzione di avvio per questo gioco (potrai modificarla in seguito nelle impostazioni del gioco):"
+        },
+        "sync": {
+            "force_download_warning": "I salvataggi locali verranno eliminati. Vuoi procedere?",
+            "force_upload_warning": "I salvataggi nel cloud verranno sovrascritti. Vuoi procedere?"
+        }
     },
     "button": {
         "add_to_favourites": "Aggiungi Ai Preferiti",
@@ -215,7 +228,8 @@
         }
     },
     "launch": {
-        "options": "Opzioni di avvio..."
+        "options": "Opzioni di avvio...",
+        "default": "Predefinito"
     },
     "not_logged_in": {
         "epic": "Non hai effettuato l'accesso con nessun account Epic in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
@@ -223,7 +237,7 @@
         "login": "Accedi",
         "title": "NON hai effettuato l'accesso",
         "amazon": "Non hai effettuato l'accesso con un account Amazon in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:",
-        "zoom": "Non hai effettuato l'accesso con nessun account GOG in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
+        "zoom": "Non hai effettuato l'accesso con nessun account Zoom in Heroic. Non usare la pagina dello store per accede ma clicca sul seguente pulsante:"
     },
     "report_problem": "Segnala un problema nell'esecuzione di questo gioco",
     "sdl": {
@@ -232,7 +246,7 @@
     "setting": {
         "winecrossoverbottle": "Bottiglia di CrossOver",
         "show-wine-settings": "Mostra impostazioni Wine",
-        "warn-use-shared-wine-config": "Utilizza questa opzione solo se sai ciò che stai facendo.<br/> Condividere lo stesso prefisso per giochi differenti potrebbe creare problemi se le loro dipendenze sono incompatibili.",
+        "warn-use-shared-wine-config": "Utilizza questa opzione solo se sai ciò che stai facendo.<br /> Condividere lo stesso prefisso per giochi differenti potrebbe creare problemi se le loro dipendenze sono incompatibili.",
         "use-shared-wine-config": "Usa il prefisso Wine condiviso"
     },
     "sideload": {
@@ -341,5 +355,6 @@
             "pause": "Metti in pausa il download"
         }
     },
-    "wikiLink": "Informazioni importanti su questo gioco, leggi qui:&nbsp;<1>Apri la pagina</1>"
+    "wikiLink": "Informazioni importanti su questo gioco, leggi qui:&nbsp;<1>Apri la pagina</1>",
+    "open-saves-folder": "Apri la cartella dei salvataggi"
 }

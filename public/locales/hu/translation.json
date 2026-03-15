@@ -564,7 +564,7 @@
         "custom_themes_path": "Válaszd ki az egyéni CSS-fájlok keresési útvonalát",
         "dxvkfpsvalue": "Pozitív egész érték (például 30, 60, …)",
         "egs-prefix": "Környezet, ahol telepítve van az EGS",
-        "prefered_language": "2 karakteres kód (tehát „en” vagy „fr”)",
+        "prefered_language": "2 vagy 4 karakteres kód (tehát „fr” vagy „pt-BR”)",
         "alt-nile-bin": "A beépített Nile bináris használata…"
     },
     "platforms": {
@@ -678,7 +678,8 @@
                 "button": "Naplófájl feltöltése",
                 "error": {
                     "content": "A naplófájl feltöltése sikertelen. Ellenőrizd a Heroic általános naplóit a részletekért.",
-                    "title": "A feltöltés sikertelen"
+                    "title": "A feltöltés sikertelen",
+                    "manual_upload": "Kattints a „NAPLÓFÁJL MEGJELENÍTÉSE MAPPÁBAN” gombra, majd töltsd fel a „launch.log” fájlt Discordra vagy bármely online fájlmegosztó szolgáltatásba."
                 },
                 "header": "Feltöltött naplófájlok",
                 "hours-ago": "Feltöltve: {{hoursAgo, relativetime(hours)}}",
@@ -814,7 +815,8 @@
         },
         "WoW64": "WoW64 engedélyezése (kísérleti)",
         "scripts": "Parancsfájlok:",
-        "enable-quick-sync-menu": "Gyors mentés szinkronizálás menü engedélyezése a játék adatlapján"
+        "enable-quick-sync-menu": "Gyors mentés szinkronizálás menü engedélyezése a játék adatlapján",
+        "disable_gog_presence": "GOG jelenlétfrissítések letiltása"
     },
     "settings": {
         "battlEyeRuntime": {

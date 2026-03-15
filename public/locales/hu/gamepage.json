@@ -131,7 +131,8 @@
         "changelogFor": "Változásnapló a(z) {{gameTitle}} játékhoz",
         "modify": "Telepítés módosítása",
         "extra_info": "További információk",
-        "install_info": "Telepítési információk"
+        "install_info": "Telepítési információk",
+        "achievements": "Eredmények"
     },
     "gamecard": {
         "moving": "Áthelyezés",

@@ -4,7 +4,18 @@
         "copy": "Kopii",
         "loading": "Ŝarĝanta",
         "login": "Ensaluti",
-        "open": "Malfermi ligilon"
+        "open": "Malfermi ligilon",
+        "error": ""
     },
-    "welcome": "Bonvenon!"
+    "welcome": "Bonvenon!",
+    "message": {
+        "part2": "",
+        "part7": "",
+        "part8": "",
+        "part1": "",
+        "part3": "",
+        "part5": "",
+        "part6": "",
+        "part4": ""
+    }
 }

@@ -4,15 +4,49 @@
         "finished": {
             "remove": {
                 "steam": {
-                    "title": "Steam-дан бетерү"
+                    "title": "Steam-дан бетерү",
+                    "corrupt": "",
+                    "success": ""
                 }
             },
             "add": {
                 "steam": {
-                    "title": "Steam-га өстәү"
+                    "title": "Steam-га өстәү",
+                    "corrupt": "",
+                    "success": ""
                 }
-            }
-        }
+            },
+            "reparing": ""
+        },
+        "update": {
+            "started": "",
+            "paused": "",
+            "failed": "",
+            "canceled": "",
+            "finished": ""
+        },
+        "import": {
+            "failed": ""
+        },
+        "error": {
+            "reparing": "",
+            "move": ""
+        },
+        "install": {
+            "canceled": "",
+            "startInstall": "",
+            "finished": "",
+            "failed": "",
+            "paused": "",
+            "error": "",
+            "imported": ""
+        },
+        "new-heroic-version": "",
+        "moved": "",
+        "refresh": {
+            "error": ""
+        },
+        "moving": "Уенны күчерү"
     },
     "Settings": "Көйләүләр",
     "box": {
@@ -23,32 +57,181 @@
         "choose": "Сайлау",
         "yes": "ӘЙЕ",
         "select": {
-            "button": "Сайлау"
+            "button": "Сайлау",
+            "script": "",
+            "exe": ""
         },
         "error": {
             "generic": {
-                "title": "Башкарылу өчен EXE файлын сайлау"
+                "title": "Башкарылу өчен EXE файлын сайлау",
+                "message": ""
+            },
+            "launchAborted": "",
+            "credentials": {
+                "message": ""
+            },
+            "legendary": {
+                "generic": ""
+            },
+            "title": "",
+            "winetricks": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFound": "",
+            "dxvk": {
+                "message": "",
+                "title": ""
+            },
+            "update": {
+                "message": "",
+                "title": ""
+            },
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "moving": "",
+            "uncaught-exception": {
+                "message": "",
+                "title": ""
+            },
+            "add": {
+                "steam": {
+                    "title": "",
+                    "body": ""
+                }
+            },
+            "cx-bottle-not-found": {
+                "title": "",
+                "message": ""
+            },
+            "executableNotFoundMessage": "",
+            "folder-not-found": {
+                "title": ""
             }
         },
         "default-steam-path": "Steam юлы.",
-        "update": "Яңарту"
+        "update": "Яңарту",
+        "warning": {
+            "epic": {
+                "install": "",
+                "import": "",
+                "update": ""
+            },
+            "wine-change": {
+                "message": "",
+                "title": ""
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
+            },
+            "title": "",
+            "snap": {
+                "checkbox": "",
+                "title": "",
+                "message": ""
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "",
+                    "message": ""
+                }
+            }
+        },
+        "choose-gogdl-binary": "",
+        "info": {
+            "update": {
+                "detail": "",
+                "title-finished": "",
+                "message-finished": "",
+                "message": "",
+                "detailNoAutoupdate": "",
+                "title": ""
+            }
+        },
+        "choose-legendary-binary": "",
+        "reset-heroic": {
+            "question": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "quit": {
+            "message": "",
+            "title": ""
+        },
+        "protocol": {
+            "install": {
+                "not_installed": ""
+            }
+        },
+        "changelog": "",
+        "shortcuts": {
+            "title": "",
+            "message-remove": "",
+            "message": "",
+            "message-remove-mac": "",
+            "message-mac": ""
+        },
+        "vcruntime": {
+            "install": {
+                "message": ""
+            },
+            "notfound": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "default-install-path": "",
+        "wineprefix": "",
+        "downloadNow": "",
+        "postpone": "",
+        "choose-egs-prefix": "",
+        "dontShowAgain": "",
+        "cache-cleared": {
+            "message": "",
+            "title": ""
+        },
+        "sync": {
+            "title": "",
+            "error": ""
+        },
+        "ok": "",
+        "choose-nile-binary": "",
+        "customWine": ""
     },
     "infobox": {
         "requirements": "Система таләпләре",
         "wine-prefix": {
             "title": "Wine префиксы"
-        }
+        },
+        "help": "",
+        "wine-path-none-found": "",
+        "wine-repfix": {
+            "message": ""
+        },
+        "warning": "",
+        "wine-path-invalid": "",
+        "wine-path": ""
     },
     "status": {
-        "installing": "Урнаштырыла"
+        "installing": "Урнаштырыла",
+        "preparing_login": "",
+        "logging": "",
+        "processing": ""
     },
     "dlc": {
         "installDlcs": "Барлык DLC-ларны урнаштыру",
         "size": "Үлчәм",
-        "title": "Исем"
+        "title": "Исем",
+        "actions": "",
+        "noDlcFound": ""
     },
     "loading": {
-        "default": "Йөкләнә"
+        "default": "Йөкләнә",
+        "website": ""
     },
     "setting": {
         "eosOverlay": {
@@ -56,84 +239,804 @@
             "enable": "Кабызылган",
             "remove": "Бетерү",
             "install": "Урнаштыру",
-            "updateNow": "Яңарту"
+            "updateNow": "Яңарту",
+            "installing": "",
+            "checkForUpdates": "",
+            "removeConfirm": "",
+            "notInstalledMsg": "",
+            "currentVersion": "",
+            "notInstalledTitle": "",
+            "checkingForUpdates": "",
+            "installed": "",
+            "latestVersion": "",
+            "notInstalled": "",
+            "updating": "",
+            "cancelInstall": "",
+            "removeConfirmTitle": ""
         },
         "library_top_option": {
-            "disabled": "Cүндерелгән"
+            "disabled": "Cүндерелгән",
+            "favourites": "",
+            "recently_played_installed": "",
+            "recently_played": ""
         },
         "winecrossoverbottle": "CrossOver шешәсе",
-        "wineversion": "Wine версиясе"
+        "wineversion": "Wine версиясе",
+        "WoW64": "",
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
+        "log": {
+            "upload": {
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "actions": "",
+                "uploading": {
+                    "title": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "join-heroic-discord": "",
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "no-file": "",
+            "instructions_title": "",
+            "show-uploads": "",
+            "instructions": "",
+            "show-in-folder": ""
+        },
+        "manualsync": {
+            "title": "",
+            "sync": "",
+            "syncing": "",
+            "forceupload": "",
+            "upload": "",
+            "forcedownload": "",
+            "download": "Йөкләп ала"
+        },
+        "disable_controller": "",
+        "alt-gogdl-bin": "",
+        "alt-nile-bin": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "fsync": "",
+        "showfps": "",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "egs-sync": "",
+        "hdr": "",
+        "custom_themes_path": "",
+        "autodxvknvapi": "",
+        "library_top_section": "",
+        "savefolder": {
+            "placeholder": "",
+            "warning": "",
+            "not-found": ""
+        },
+        "autosync": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "preferSystemLibs": "",
+        "dxfpslimit": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "autodxvk": "",
+        "addgamestostartmenu": "",
+        "download-no-https": "",
+        "customWineProton": "",
+        "exit-to-tray": "",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "enable-quick-sync-menu": "",
+        "runexe": {
+            "title": ""
+        },
+        "disable_logs": "",
+        "start-in-tray": "",
+        "change-target-exe": "",
+        "offlinemode": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "addgamestoapplications": "",
+        "language": "",
+        "FsrSharpnessStrenght": "",
+        "disablePlaytimeSync": "",
+        "crossover-version": "",
+        "adddesktopshortcuts": "",
+        "esync": "",
+        "addgamestosteam": "",
+        "alt-legendary-bin": "",
+        "minimize-on-launch": "",
+        "autovkd3d": "",
+        "ignoreGameUpdates": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "mangohud": "",
+        "before-launch-script-path": "",
+        "default-steam-path": "",
+        "maxworkers": "",
+        "steamruntime": "",
+        "disableUMU": "",
+        "defaultWinePrefix": "",
+        "discordRPC": "",
+        "gamemode": "",
+        "select_theme": "",
+        "maxRecentGames": "",
+        "default-install-path": "",
+        "enableFSRHack": "",
+        "autoUpdateGames": "",
+        "msync": "",
+        "wineprefix": "",
+        "advertiseAvxForRosetta": "",
+        "darktray": "",
+        "checkForUpdatesOnStartup": "",
+        "prefered_language": "",
+        "hideChangelogsOnStartup": "",
+        "showMetalOverlay": "",
+        "custom_css": {
+            "warning": ""
+        }
     },
     "queue": {
         "label": {
             "queued": "Чиратта",
-            "downloading": "Йөкләп ала"
+            "downloading": "Йөкләп ала",
+            "empty": "",
+            "finished": "",
+            "clear": ""
         }
     },
     "info": {
-        "version": "Wine версиясе"
+        "version": "Wine версиясе",
+        "settings": "",
+        "heroic": {
+            "version": "",
+            "beta": "",
+            "newReleases": "",
+            "stable": "",
+            "click-to-see-changelog": ""
+        },
+        "save-sync": {
+            "searching": ""
+        }
     },
     "download-manager": {
         "install-type": {
             "update": "Яңарту",
             "install": "Урнаштыру"
-        }
+        },
+        "ETA": "",
+        "queue": {
+            "type": "",
+            "end-time": "",
+            "queue-time": "",
+            "start-time": ""
+        },
+        "label": {
+            "disk": "",
+            "speed": "Йөкләп ала"
+        },
+        "title": "Йөкләп ала",
+        "link": "Йөкләп ала"
     },
     "controller": {
         "hints": {
-            "select": "Сайлау"
+            "select": "Сайлау",
+            "play_game": "",
+            "options": "",
+            "move_cursor": "",
+            "install_game": "",
+            "space": "",
+            "backspace": "",
+            "open_virtual_keyboard": "",
+            "close_keyboard": "",
+            "game_settings": "",
+            "game_details": "",
+            "scroll": "",
+            "back": "",
+            "close_dialog": "",
+            "close_options": "",
+            "update_game": ""
         }
     },
     "label": {
-        "loading": "Йөкләнә"
+        "loading": "Йөкләнә",
+        "releaseDate": ""
     },
     "button": {
-        "login": "Керү"
+        "login": "Керү",
+        "go_to_library": "",
+        "continue": "",
+        "cancel": ""
     },
     "wine": {
-        "size": "Үлчәм"
+        "size": "Үлчәм",
+        "manager": {
+            "link": "",
+            "title": "",
+            "unzipping": "",
+            "not-found": ""
+        },
+        "notes": "",
+        "release": "",
+        "actions": ""
     },
     "accessibility": {
         "fonts": "Шрифтлар",
         "title": "Махсус мөмкинлекләр",
-        "zoom": "Масштаб"
+        "zoom": "Масштаб",
+        "actions_font_family_default": "",
+        "all_tiles_in_color": "",
+        "content_font_family_default": "",
+        "disable_smooth_scrolling": "",
+        "titles_always_visible": "",
+        "disable_animations": "",
+        "disable_dialog_backdrop_close": ""
     },
     "anticheat": {
         "status": "Халәт",
         "reference": "Сылтама",
-        "source": "Чыганак"
+        "source": "Чыганак",
+        "anticheats": "",
+        "title": "",
+        "multiplayer_may_not_work": ""
     },
     "All": "Барлык",
     "amazon": "Amazon",
     "Amazon Games": "Amazon Уеннары",
     "game": {
         "status": "Халәт",
-        "title": "Уен/Кушымта Исеме"
+        "title": "Уен/Кушымта Исеме",
+        "modify": "",
+        "store": ""
     },
     "winetricks": {
         "install": "Урнаштыру",
-        "loading": "Йөкләнә"
+        "loading": "Йөкләнә",
+        "no-components": "",
+        "installing": "",
+        "openGUI": "",
+        "search": "",
+        "loading-available": "",
+        "nothingYet": "",
+        "installed": ""
     },
     "help": {
         "title": {
             "accessibility": "Махсус мөмкинлекләр",
-            "settings": "Көйләүләр"
-        }
+            "settings": "Көйләүләр",
+            "login": "Керү",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": ""
+        },
+        "sync": {
+            "part2": "",
+            "part1": "",
+            "part3": "",
+            "part4": ""
+        },
+        "disable_logs": "",
+        "dxfpslimit": "",
+        "dxvk": "",
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
+        "msync": "",
+        "other": {
+            "part6": "",
+            "part4": "",
+            "part5": "",
+            "part7": ""
+        },
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "amdfsr": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "preferSystemLibs": "",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "game_language": {
+            "valid_codes": "",
+            "in_game_config": "",
+            "fallback": ""
+        },
+        "mangohud": "",
+        "wine": {
+            "part1": "",
+            "part2": ""
+        },
+        "dxvknvapi": "",
+        "disablePlaytimeSync": "",
+        "steamruntime": "",
+        "steam_path": {
+            "info": ""
+        },
+        "general": "",
+        "vkd3d": "",
+        "WoW64": "",
+        "custom_themes_path": "",
+        "custom_themes_wiki": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": "",
+        "fsync": "",
+        "gamemode": "",
+        "esync": ""
     },
     "settings": {
         "advanced": {
-            "details": "Нечкәлекләр"
+            "details": "Нечкәлекләр",
+            "clearCache": {
+                "help9": "",
+                "help1": "",
+                "help8": "",
+                "help3": "",
+                "help10": "",
+                "help7": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
+            },
+            "title": {
+                "resetHeroic": "",
+                "clearCache": ""
+            },
+            "resetHeroic": {
+                "help": ""
+            }
         },
         "navbar": {
-            "log": "Журналлар"
-        }
+            "log": "Журналлар",
+            "gamescope": "",
+            "general": "",
+            "advanced": "",
+            "games_settings_defaults": "",
+            "systemInformation": "",
+            "sync": "",
+            "legacy": "",
+            "other": ""
+        },
+        "legacy_warning": "",
+        "eacRuntime": {
+            "name": "",
+            "installing": "",
+            "gameModeRequired": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "systemInformation": {
+            "cpu": "",
+            "gpuWithNumber": "",
+            "cpuDescription": "",
+            "legendaryVersion": "",
+            "systemSpecifications": "",
+            "steamDeck": "",
+            "gpuDriver": "",
+            "os": "",
+            "gpu": "",
+            "gogdlVersion": "",
+            "osVersion": "",
+            "osNameFlatpak": "",
+            "software": "",
+            "cometVersion": "",
+            "memoryStats": "",
+            "systemModel": "",
+            "showDetailed": "",
+            "memory": "",
+            "copyToClipboard": "",
+            "heroicVersion": "",
+            "nileVersion": ""
+        },
+        "experimental_features": {
+            "title": ""
+        },
+        "reset-heroic": "",
+        "default_hint": "",
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "saves": {
+            "warning": "",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
+        },
+        "log": {
+            "long-log-hint": ""
+        },
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "battlEyeRuntime": {
+            "installing": "",
+            "name": ""
+        },
+        "clear-cache": "",
+        "copyToClipboard": "",
+        "custom_css": {
+            "title": ""
+        },
+        "launchOptions": "",
+        "copiedToClipboard": "",
+        "open-config-file": ""
     },
     "store": "Epic Store монда",
     "window": {
-        "close": "Lukk"
+        "close": "Lukk",
+        "minimize": "",
+        "maximize": "",
+        "restore": ""
     },
     "analyticsModal": {
         "disable": "Cүндерелгән",
-        "enable": "Кабызылган"
+        "enable": "Кабызылган",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
+    },
+    "tour": {
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "back": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
+    },
+    "header": {
+        "show_support_offline_only": "",
+        "select_all": "",
+        "filters": "",
+        "show_hidden": "",
+        "categories": "",
+        "show_favourites_only": "",
+        "show_third_party_managed_only": "",
+        "only": "",
+        "show_updates_only": "",
+        "reset": "",
+        "show_installed_only": "",
+        "show_available_games": "",
+        "no_categories": "",
+        "uncategorized": ""
+    },
+    "placeholder": {
+        "alt-nile-bin": "",
+        "prefered_language": "",
+        "custom_themes_path": "",
+        "dxvkfpsvalue": "",
+        "alt-legendary-bin": "",
+        "alt-gogdl-bin": "",
+        "egs-prefix": ""
+    },
+    "options": {
+        "env_variables": {
+            "error": {
+                "space_in_key": "",
+                "equal_sign_in_key": "",
+                "empty_key": ""
+            },
+            "info": "",
+            "example": ""
+        },
+        "advanced": {
+            "title": "",
+            "key": "",
+            "value": "",
+            "placeHolderKey": "",
+            "placeHolderValue": ""
+        },
+        "gamescope": {
+            "nis": "",
+            "additionalOptions": "",
+            "borderless": "",
+            "windowed": "",
+            "fpsLimiter": "",
+            "gameHeight": "",
+            "upscaleWidth": "",
+            "fullscreen": "",
+            "gameWidth": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": "",
+            "interger": ""
+        },
+        "wrapper": {
+            "args": "",
+            "placeHolderValue": "",
+            "placeHolderKey": "",
+            "arguments_example": "",
+            "exe": "",
+            "title": ""
+        },
+        "gameargs": {
+            "error": {
+                "command": "",
+                "env": ""
+            },
+            "placeholder": "",
+            "title": ""
+        },
+        "quote-args-with-spaces": ""
+    },
+    "docs": "",
+    "tooltip": {
+        "removepath": "",
+        "addpath": ""
+    },
+    "adtraction-locked": {
+        "description": "",
+        "dont-show-again": "",
+        "title": ""
+    },
+    "title": {
+        "allGames": ""
+    },
+    "progress": "",
+    "externalLink": {
+        "dontAskAgain": "",
+        "warning": ""
+    },
+    "userselector": {
+        "logout": "",
+        "cancel": "",
+        "manageaccounts": "",
+        "logout_confirmation": "",
+        "quitMessage": "",
+        "discord": "",
+        "logging_out": "",
+        "quit": ""
+    },
+    "library": {
+        "toggleLayout": {
+            "list": "",
+            "grid": ""
+        },
+        "sortAscending": "",
+        "hideAlphabetFilter": "",
+        "sortByStatus": "",
+        "sortDescending": "",
+        "showAlphabetFilter": ""
+    },
+    "Epic Games": "",
+    "platforms": {
+        "win": "",
+        "mac": "",
+        "linux": "",
+        "browser": ""
+    },
+    "Update Available!": "",
+    "favourites": "",
+    "globalSettings": "",
+    "other": {
+        "nile-version": "",
+        "gogdl-version": "",
+        "legendary-version": "",
+        "weblate": ""
+    },
+    "add_game": "",
+    "categories-manager": {
+        "confirm-rename": "",
+        "cancel-remove": "",
+        "no-categories": "",
+        "confirm-remove": "",
+        "add-placeholder": "",
+        "remove": "",
+        "title": "",
+        "cancel-rename": "",
+        "add": "",
+        "rename": ""
+    },
+    "tray": {
+        "show": "",
+        "reload": "",
+        "about": "",
+        "quit": ""
+    },
+    "webview": {
+        "controls": {
+            "forward": "",
+            "back": "",
+            "reload": "",
+            "openInBrowser": ""
+        }
+    },
+    "category-settings": {
+        "remove-category": "",
+        "cancel": "",
+        "delete-question": "",
+        "new-category": "",
+        "add-new-category": "",
+        "warning": ""
+    },
+    "launch": {
+        "options": ""
+    },
+    "message": {
+        "unsync": "",
+        "sync": ""
+    },
+    "amazon-luna": "",
+    "Other": "",
+    "gog-store": "",
+    "two_col_table": {
+        "save_hint": ""
+    },
+    "login": {
+        "amazon": "",
+        "alternative_method": "",
+        "message": "",
+        "gog": "",
+        "epic": "",
+        "old-mac": "",
+        "zoom": ""
+    },
+    "stores": "",
+    "GOG": "",
+    "toolbox": {
+        "settings": {
+            "wineprefix": ""
+        }
+    },
+    "please-wait": "",
+    "offline-message": {
+        "ignore": "",
+        "offline": "",
+        "retrying": "",
+        "hint": "",
+        "offline-retry-in": ""
+    },
+    "Recent": "",
+    "Library": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "generic": {
+        "library": {
+            "refresh": ""
+        },
+        "error": {
+            "component": ""
+        }
+    },
+    "epic": {
+        "offline-notification-title": "",
+        "offline-notification-body": ""
+    },
+    "search": "",
+    "error": "",
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": ""
     }
 }

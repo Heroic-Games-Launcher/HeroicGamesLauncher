@@ -671,7 +671,8 @@
                 },
                 "error": {
                     "content": "Hochladen der Log-Datei fehlgeschlagen. Sieh dir Heroic's allgemeine Log-Datei an für mehr Infos",
-                    "title": "Hochladen fehlgeschlagen"
+                    "title": "Hochladen fehlgeschlagen",
+                    "manual_upload": ""
                 },
                 "header": "Log-Datein hochgeladen",
                 "hours-ago": "Hochgeladen vor {{hoursAgo, relativetime(hours)}} Stunden",
@@ -807,7 +808,8 @@
         "wineWayland": "Aktiviere Wine-Wayland (Experimentell) (Die Wineversion muss es unterstützen)",
         "WoW64": "Aktiviere WoW64 (Experimentell)",
         "no-tray-icon": "Infobereich Logo ausblenden (benötigt neustart)",
-        "scripts": "Skripte:"
+        "scripts": "Skripte:",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
