@@ -565,7 +565,7 @@
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
         "dxvkfpsvalue": "正整数值 (如30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
-        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")",
+        "prefered_language": "双字符或四字符代码 (如: \"fr\" 或 \"pt-BR\")",
         "alt-nile-bin": "使用内置 Nile 二进制文件..."
     },
     "platforms": {
@@ -817,7 +817,8 @@
         },
         "WoW64": "启用 WoW64（实验性）",
         "scripts": "脚本：",
-        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单"
+        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单",
+        "disable_gog_presence": "禁用 GOG Presence 更新"
     },
     "settings": {
         "battlEyeRuntime": {
