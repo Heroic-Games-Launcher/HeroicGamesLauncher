@@ -131,7 +131,8 @@
         "changelogFor": "{{gameTitle}} değişiklik günlükleri",
         "modify": "Kurulumu Düzenle",
         "install_info": "Kurulum bilgisi",
-        "extra_info": "Ek bilgi"
+        "extra_info": "Ek bilgi",
+        "achievements": "Başarımlar"
     },
     "gamecard": {
         "moving": "Taşınıyor",
