@@ -26,7 +26,8 @@
         "neverPlayed": "Choíche",
         "platform": "Roghnaigh Leagan Ardáin le Suiteáil",
         "requirements": "Riachtanais an Chórais",
-        "totalPlayed": "Am Imeartha"
+        "totalPlayed": "Am Imeartha",
+        "achievements": "Éachtaí"
     },
     "box": {
         "change": {
