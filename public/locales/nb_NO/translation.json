@@ -660,7 +660,8 @@
                 "actions": "Action",
                 "error": {
                     "content": "Klarte ikke å laste opp loggfilen. Sjekk Heroic sin generelle logg for detaljer",
-                    "title": "Opplasting feilet"
+                    "title": "Opplasting feilet",
+                    "manual_upload": ""
                 },
                 "header": "Lastet opp loggfiler",
                 "uploading": {
@@ -805,7 +806,9 @@
             "wine_selector_warning": "Valves Proton-versjoner ignoreres som standard, aktiver dem i de avanserte innstillingene"
         },
         "WoW64": "Skru på WoW64 (eksperimentell)",
-        "scripts": "Skript:"
+        "scripts": "Skript:",
+        "enable-quick-sync-menu": "Aktiver hurtiglagrings-synkroniseringsmenyen på spillsiden",
+        "disable_gog_presence": "Deaktiver GOG Presence-oppdateringer"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -842,7 +845,8 @@
             "sync": "Skylagring-synkronisering",
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformasjon",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Foreldret"
         },
         "open-config-file": "Åpne konfigurasjonsfil",
         "reset-heroic": "Tilbakestill Heroic",
@@ -909,7 +913,8 @@
         "custom_css": {
             "title": "Egendefinert CSS-stil"
         },
-        "launchOptions": "Startalternativer..."
+        "launchOptions": "Startalternativer...",
+        "legacy_warning": ""
     },
     "Settings": "Innstillinger",
     "sidebar": {
