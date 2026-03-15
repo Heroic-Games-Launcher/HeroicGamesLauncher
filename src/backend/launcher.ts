@@ -33,7 +33,8 @@ import {
   sendGameStatusUpdate,
   checkWineBeforeLaunch,
   isMacSonomaOrHigher,
-  askForceUninstall
+  askForceUninstall,
+  isErrnoException
 } from './utils'
 import {
   createGameLogWriter,
@@ -225,8 +226,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       return { status: 'error' }
     }
   }
-
-  await runBeforeLaunchScript(game, gameSettings, logWriter)
+  try {
+    await runBeforeLaunchScript(game, gameSettings, logWriter)
+  } catch (error) {
+    if (isErrnoException(error)) {
+      sendGameStatusUpdate({
+        appName,
+        runner,
+        status: 'done'
+      })
+      return { status: 'abort' }
+    }
+  }
 
   sendGameStatusUpdate({
     appName,
@@ -2093,19 +2104,15 @@ async function runScriptForGame(
         cwd: gameInfo.install.install_path,
         env: scriptEnv
       })
-    } catch (err) {
-      const e = err as NodeJS.ErrnoException
-      if (e.code === 'E2BIG') {
-        if (gameSettings.verboseLogs) {
-          logWriter.logError(
-            'OS Max Argument Limit Reached! Try enabling "OS Max Argument Workaround" in settings.'
-          )
-        }
-      }
-      if (gameSettings.verboseLogs) {
+    } catch (e) {
+      const err = e as NodeJS.ErrnoException
+      if (gameSettings.verboseLogs && err.code === 'E2BIG') {
+        logWriter.logError(
+          'OS Max Argument Limit Reached! Try enabling "OS Max Argument Workaround" in settings.'
+        )
         logWriter.logError(err)
       }
-      reject(e)
+      reject(err)
       return
     }
 
@@ -2124,6 +2131,16 @@ async function runScriptForGame(
 
     child.on('error', (err) => {
       if (gameSettings.verboseLogs) {
+        if (isErrnoException(err) && err.code === 'ENOENT') {
+          let message = `The script ${scriptPath} could not be found.`
+
+          if (isFlatpak) {
+            message +=
+              ' Make sure Heroic has permission to view that directory.'
+          }
+
+          logWriter.logError(message)
+        }
         logWriter.logError(err)
       }
       reject(err)
