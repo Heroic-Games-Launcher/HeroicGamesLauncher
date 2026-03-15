@@ -251,6 +251,7 @@ export interface GameSettings {
   gogSaves?: GOGCloudSavesLocation[]
   beforeLaunchScriptPath: string
   afterLaunchScriptPath: string
+  passEnvViaFile: boolean
   disableUMU: boolean
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
