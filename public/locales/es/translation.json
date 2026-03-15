@@ -565,7 +565,7 @@
         "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
         "dxvkfpsvalue": "Valor entero positivo (por ejemplo, 30, 60, ...)",
         "egs-prefix": "Prefijo donde está instalado EGS",
-        "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")",
+        "prefered_language": "Código de 2 o 4 caracteres (ej: \"fr\" o \"pt-BR\")",
         "alt-nile-bin": "Usando el binario integrado Nile..."
     },
     "platforms": {
@@ -814,10 +814,11 @@
             },
             "info_label": "Versiones de Valve Proton ignoradas",
             "label": "Permitir el uso de compilaciones de Valve Proton para ejecutar juegos",
-            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuración Avanzada Global"
+            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto. Puedes activarlas en la Configuración Avanzada Global."
         },
         "enable-quick-sync-menu": "Habilitar el menú Guardar y sincronizar rápidamente en la página del juego",
-        "scripts": "Secuencias de comandos:"
+        "scripts": "Secuencias de comandos:",
+        "disable_gog_presence": "Desactivar actualizaciones de GOG Presence"
     },
     "settings": {
         "battlEyeRuntime": {

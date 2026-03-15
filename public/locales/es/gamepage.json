@@ -5,7 +5,7 @@
             "path": "Selecciona una nueva ruta para la instalación",
             "title": "Modificar la ruta de instalación para los juegos"
         },
-        "choose": "Seleccionar",
+        "choose": "Escoge",
         "importpath": "Selecciona la carpeta del juego a importar",
         "move": {
             "message": "Esto puede tardar mucho tiempo, ¿estás seguro?",
@@ -131,7 +131,8 @@
         "modify": "Modificar instalación",
         "changelogFor": "Registro de cambios de {{gameTitle}}",
         "extra_info": "Información adicional",
-        "install_info": "Información sobre la instalación"
+        "install_info": "Información sobre la instalación",
+        "achievements": "Logros"
     },
     "gamecard": {
         "moving": "Moviendo",
