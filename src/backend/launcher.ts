@@ -46,7 +46,7 @@ import {
 } from './logger'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
-import { DXVK, Winetricks } from './tools'
+import { DXVK, runWineCommandOnGame, Winetricks } from './tools'
 import gogSetup from './storeManagers/gog/setup'
 import nileSetup from './storeManagers/nile/setup'
 import { spawn, spawnSync } from 'child_process'
@@ -1058,9 +1058,7 @@ async function installFixes(appName: string, runner: Runner) {
 
     for (const filePath of knownFixes.runInPrefix) {
       const fullPath = join(gameInfo.install.install_path!, filePath)
-      // FIXME: This doesn't seem right, shouldn't we use a generic function instead
-      //        of the Legendary-specific one?
-      await gameManagerMap['legendary'].runWineCommandOnGame(appName, {
+      await runWineCommandOnGame(runner, appName, {
         commandParts: [fullPath],
         wait: true,
         protonVerb: 'run'
