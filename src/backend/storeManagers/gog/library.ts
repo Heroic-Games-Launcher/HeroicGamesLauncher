@@ -1291,7 +1291,7 @@ export async function getClientId(
   appName: string,
   install_path: string
 ): Promise<string | undefined> {
-  let clientId
+  let clientId = readInfoFile(appName, install_path)?.clientId
 
   const manifestPath = join(gogdlConfigPath, 'manifests', appName)
   if (existsSync(manifestPath)) {
@@ -1310,10 +1310,7 @@ export async function getClientId(
         ],
         LogPrefix.Gog
       )
-      clientId = readInfoFile(appName, install_path)?.clientId
     }
-  } else {
-    clientId = readInfoFile(appName, install_path)?.clientId
   }
   return clientId
 }

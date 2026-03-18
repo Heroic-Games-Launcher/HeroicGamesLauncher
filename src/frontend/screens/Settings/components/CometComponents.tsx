@@ -8,21 +8,22 @@ const CometComponents = () => {
   const [isUpdating, setUpdating] = useState(false)
 
   async function updateCometComponents() {
+    if (isUpdating) return
+
     setUpdating(true)
-    await window.api.updateCometComponents()
-    setUpdating(false)
+    await window.api.updateCometComponents().finally(() => setUpdating(false))
   }
 
   return (
     <>
-      <h3>{t('setting.comet.components', 'Comet Components')}</h3>
+      <h3>{t('setting.gog.overlay', 'GOG Overlay')}</h3>
 
       <div className="footerFlex">
         <button className="button is-primary" onClick={updateCometComponents}>
           <CachedOutlined />
           <span>
             {isUpdating
-              ? t('gamepage:status.updating')
+              ? t('setting.eosOverlay.updating', 'Updating...')
               : t('setting.eosOverlay.checkForUpdates', 'Check for updates')}
           </span>
         </button>

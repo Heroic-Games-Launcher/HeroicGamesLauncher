@@ -992,9 +992,12 @@ async function prepareWineLaunch(
         gameInfo.install.install_path!
       )
 
-      if (clientId) {
+      if (!gameSettings.forceDisableOverlay && isOnline() && clientId) {
         const remoteConfig = await getRemoteConfig(clientId)
-        if (remoteConfig?.content.Windows.overlay.supported) {
+        if (
+          remoteConfig?.content.Windows.overlay.supported ||
+          gameSettings.forceEnableOverlay
+        ) {
           extendedEnv['HEROIC_GOGDL_WRAPPER_EXE'] = join(
             galaxyCommPath,
             'overlay-heroic/galaxy.exe'

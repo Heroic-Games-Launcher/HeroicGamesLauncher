@@ -611,10 +611,6 @@ export async function launch(
       return false
     }
 
-    if (!isOnline() && wineEnvVars) {
-      delete wineEnvVars['HEROIC_GOGDL_WRAPPER_EXE']
-    }
-
     commandEnv = {
       ...commandEnv,
       ...wineEnvVars

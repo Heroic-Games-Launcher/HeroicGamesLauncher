@@ -255,6 +255,8 @@ export interface GameSettings {
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
   enableQuickSavesMenu: boolean
+  forceDisableOverlay: boolean
+  forceEnableOverlay: boolean
 }
 
 export type Status =
