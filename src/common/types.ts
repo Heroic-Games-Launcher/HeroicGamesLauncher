@@ -739,6 +739,7 @@ export type Type =
   | 'Wine-GE'
   | 'GE-Proton'
   | 'Proton'
+  | 'Proton-Sarek'
   | 'Wine-Lutris'
   | 'Wine-Kron4ek'
   | 'Wine-Crossover'
@@ -775,7 +776,8 @@ export enum Repositorys {
   WINELUTRIS,
   WINECROSSOVER,
   WINESTAGINGMACOS,
-  GPTK
+  GPTK,
+  PROTONSAREK
 }
 
 export type WineManagerStatus =
@@ -850,6 +852,7 @@ export type ReleasesInfo = Record<
   | 'game-porting-toolkit'
   | 'wine-staging'
   | 'wine-crossover'
+  | 'proton-sarek'
   | 'dxvk'
   | 'dxvk-mac'
   | 'dxmt'

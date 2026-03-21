@@ -16,7 +16,8 @@ import {
   WINELUTRIS_URL,
   WINECROSSOVER_URL,
   WINESTAGINGMACOS_URL,
-  GPTK_URL
+  GPTK_URL,
+  PROTON_SAREK_URL
 } from './constants'
 import { VersionInfo, Repositorys, WineVersionInfo } from 'common/types'
 import {
@@ -143,6 +144,21 @@ async function getAvailableVersions({
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            logError(error, LogPrefix.WineDownloader)
+          })
+        break
+      }
+      case Repositorys.PROTONSAREK: {
+        await fetchReleases({
+          url: PROTON_SAREK_URL,
+          type: 'Proton-Sarek',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            console.log(fetchedReleases)
             releases.push(...fetchedReleases)
           })
           .catch((error: Error) => {

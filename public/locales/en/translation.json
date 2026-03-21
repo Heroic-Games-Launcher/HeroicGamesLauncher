@@ -1024,6 +1024,7 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
+        "proton-sarek": "Proton-Sarek is a Proton variant created by pythonlover02. It is meant to be used with GPUs that do not support Vulkan 1.3+.",
         "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher."
     },
     "winetricks": {

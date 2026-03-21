@@ -25,3 +25,7 @@ export const WINESTAGINGMACOS_URL =
 /// Url to Game Porting Toolkit from Gcenx github release page
 export const GPTK_URL =
   'https://api.github.com/repos/Gcenx/game-porting-toolkit/releases'
+
+/// Url for Proton Sarek github release page
+export const PROTON_SAREK_URL =
+  'https://api.github.com/repos/pythonlover02/Proton-Sarek/releases'
