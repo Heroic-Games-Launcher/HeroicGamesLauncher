@@ -773,7 +773,7 @@
         "msync": "Enable Msync",
         "no-tray-icon": "Hide System Tray Icon (requires restart)",
         "nvidiaprime": {
-            "description": "Force use of NVIDIA Optimus or AMD CrossFire dGPU. ONLY use this for OpenGL games."
+            "description": "Force use of NVIDIA Optimus or AMD CrossFire dGPU. ONLY use this for OpenGL and Vulkan games."
         },
         "offlinemode": "Run Game Offline",
         "prefered_language": "Prefered Language (Language Code)",
