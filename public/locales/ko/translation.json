@@ -675,13 +675,6 @@
         "offlinemode": "게임 오프라인으로 실행",
         "prefered_language": "선호 언어 (언어 코드)",
         "preferSystemLibs": "시스템 라이브러리를 선호",
-        "primerun": {
-            "confirmation": {
-                "message": "이 시스템에서는 그래픽 카드가 하나만 감지되었습니다. 이 옵션은 헤드리스 GPU (노트북 등)가 있는 다중 GPU 시스템을 위한 것입니다. 단일 GPU 시스템에서는 GPU가 자동으로 사용되며 이 옵션을 활성화하면 문제가 발생할 수 있습니다. 이 옵션을 정말 활성화하겠습니까?",
-                "title": "GPU가 1개만 감지됨"
-            },
-            "description": "전용 그래픽 카드 사용"
-        },
         "runexe": {
             "message": "여기에 파일을 끌어다 놓기",
             "title": "설치 경로에서 EXE 실행"

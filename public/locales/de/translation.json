@@ -711,13 +711,6 @@
         "offlinemode": "Spiel offline ausführen",
         "prefered_language": "Bevorzugte Sprache (Sprachcode)",
         "preferSystemLibs": "Systembibliotheken bevorzugen",
-        "primerun": {
-            "confirmation": {
-                "message": "In diesem System wurde nur eine Grafikkarte erkannt. Beachte, dass diese Einstellung für Systeme mit mehreren Grafikeinheiten gedacht ist, wie Laptops. Auf Systemen mit nur einer GPU wird diese automatisch verwendet und diese Einstellung kann Probleme verursachen. Die Option trotzdem aktivieren?",
-                "title": "Nur eine GPU gefunden"
-            },
-            "description": "Dedizierte Grafikkarte verwenden"
-        },
         "runexe": {
             "message": "Dateien hierher ziehen und ablegen",
             "title": "EXE in Präfix starten"

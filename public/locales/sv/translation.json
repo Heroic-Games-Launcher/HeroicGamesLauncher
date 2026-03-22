@@ -704,13 +704,6 @@
         "offlinemode": "Kör spelet offline",
         "prefered_language": "Föredraget språk (Språkkod)",
         "preferSystemLibs": "Föredra systemets bibliotek",
-        "primerun": {
-            "confirmation": {
-                "message": "Endast ett grafikkort upptäcktes i detta system. Observera att det här alternativet är avsett för multi-GPU system med headless GPU:er (som bärbara datorer). På system med en GPU används GPU:n automatiskt och om du aktiverar det här alternativet kan det orsaka problem. Vill du verkligen aktivera det här alternativet?",
-                "title": "Endast 1 GPU upptäcktes"
-            },
-            "description": "Använd dedikerat grafikkort"
-        },
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"

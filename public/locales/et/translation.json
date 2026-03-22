@@ -712,13 +712,6 @@
         "offlinemode": "Käivita mäng võrguühenduseta",
         "prefered_language": "Eelistatud keel (keelekood)",
         "preferSystemLibs": "Eelista süsteemiteeke",
-        "primerun": {
-            "confirmation": {
-                "message": "Süsteemis tuvastati ainult üks graafikakaart. Pange tähele, et see valik on mõeldud ainult mitme GPU-ga süsteemide jaoks, millel on 'headless' GPU-d (näiteks sülearvutid). Ühe GPU-ga süsteemidel on GPU automaatselt kasutuses, ning see valik võib tekitada probleeme. Kas soovite tõesti seda valikut lubada?",
-                "title": "Ainult 1 graafikaprotsessor tuvastatud"
-            },
-            "description": "Kasuta pühendatud graafikakaarti"
-        },
         "runexe": {
             "message": "Lohistage failid siia",
             "title": "Käivita EXE prefiksil"

@@ -703,13 +703,6 @@
         "offlinemode": "Chạy Trò Chơi Ngoại Tuyến",
         "prefered_language": "Ngôn Ngữ Ưa Thích (Mã Ngôn Ngữ)",
         "preferSystemLibs": "Ưu tiên thư viện hệ thống",
-        "primerun": {
-            "confirmation": {
-                "message": "Chỉ có một card đồ họa được phát hiện trong hệ thống này. Xin lưu ý rằng tùy chọn này dành cho các hệ thống nhiều GPU có GPU không đầu (như máy tính xách tay). Trên các hệ thống GPU đơn, GPU được sử dụng tự động và việc bật tùy chọn này có thể gây ra sự cố. Bạn có thực sự muốn kích hoạt tùy chọn này?",
-                "title": "Chỉ phát hiện được 1 GPU"
-            },
-            "description": "Sử Dụng Card Đồ Họa Chuyên Dụng"
-        },
         "runexe": {
             "message": "Kéo thả file vào đây",
             "title": "Chạy EXE trên Tiền Tố"

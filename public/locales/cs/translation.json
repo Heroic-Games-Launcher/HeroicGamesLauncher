@@ -713,13 +713,6 @@
         "offlinemode": "Spustit hru offline",
         "prefered_language": "Preferovaný jazyk (kód jazyka)",
         "preferSystemLibs": "Preferovat systémové knihovny",
-        "primerun": {
-            "confirmation": {
-                "message": "V tomto systému byla zjištěna pouze jedna grafická karta. Vezměte prosím na vědomí, že tato možnost je určena pro systémy s více grafickými kartami s headless GPU (např. notebooky). V systémech s jednou grafickou kartou je grafická karta použita automaticky a zapnutí této možnosti může způsobit problémy. Opravdu chcete tuto možnost povolit?",
-                "title": "Nalezeno pouze 1 GPU"
-            },
-            "description": "Použít dedikovanou grafickou kartu"
-        },
         "runexe": {
             "message": "Přetáhněte soubory sem",
             "title": "Spustit EXE na prefixu"

@@ -713,13 +713,6 @@
         "offlinemode": "Lancer le jeu hors ligne",
         "prefered_language": "Langue préférée (fr, en...)",
         "preferSystemLibs": "Opter de préférence pour les bibliothèques système",
-        "primerun": {
-            "confirmation": {
-                "message": "Nous n'avons détecté qu'une seule carte graphique dans ce système. Veuillez noter que cette option est prévue pour les systèmes multi-GPU avec des GPUs « headless » (tels que les ordinateurs portables). Dans un système comprenant un seul GPU, ledit GPU est automatiquement utilisé & activer cette option peut causer des problèmes. Voulez-vous vraiment activer cette option ?",
-                "title": "Seulement 1 processeur graphique (GPU) a été détecté"
-            },
-            "description": "Utiliser une carte graphique dédiée"
-        },
         "runexe": {
             "message": "Glissez et déposez les fichiers ici",
             "title": "Utiliser un EXE sur préfixe"

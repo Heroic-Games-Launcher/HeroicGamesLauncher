@@ -458,13 +458,6 @@
         "offlinemode": "Rith Cluiche As Líne",
         "prefered_language": "Teanga is Fearr leat (Cód Teanga)",
         "preferSystemLibs": "Is fearr leabharlanna córais",
-        "primerun": {
-            "confirmation": {
-                "title": "Níor braitheadh ach GPU amháin",
-                "message": "Níor braitheadh ach cárta grafaicí amháin sa chóras seo. Tabhair faoi deara go bhfuil an rogha seo beartaithe do chórais il-GPU le GPUanna gan cheann (cosúil le ríomhairí glúine). Ar chórais aon-GPU, úsáidtear an GPU go huathoibríoch agus d’fhéadfadh fadhbanna a bheith mar thoradh ar an rogha seo a chumasú. An bhfuil tú cinnte gur mhaith leat an rogha seo a chumasú?"
-            },
-            "description": "Úsáid Cárta Grafaicí Tiomnaithe"
-        },
         "runexe": {
             "title": "Rith EXE ar Réimír"
         },

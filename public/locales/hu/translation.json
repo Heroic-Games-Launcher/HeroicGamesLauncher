@@ -711,13 +711,6 @@
         "offlinemode": "Játék futtatása offline",
         "prefered_language": "Előnyben részesített nyelv (nyelvkód)",
         "preferSystemLibs": "Rendszer programkönyvtárainak előnyben részesítése",
-        "primerun": {
-            "confirmation": {
-                "message": "Csak egy grafikus kártya észlelhető a rendszeren. Vegye figyelembe, hogy ez a beállítás csak több GPU-s rendszerekhez van szánva (mint a laptopok). Egy GPU-s rendszerek esetén automatikusan azt a GPU-t használja, a beállítás bekapcsolása pedig problémát okozhat. Biztos, hogy engedélyezi a beállítást?",
-                "title": "Csak 1 GPU észlelve"
-            },
-            "description": "Dedikált grafikus kártya használata"
-        },
         "runexe": {
             "message": "Húzza és ejtse ide ide a fájlokat",
             "title": "EXE-fájl futtatása a környezeten"

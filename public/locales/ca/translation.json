@@ -708,13 +708,6 @@
         "offlinemode": "Executa el joc sense connexió",
         "prefered_language": "Idioma preferit (codi de l'idioma)",
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
-        "primerun": {
-            "confirmation": {
-                "message": "Només s'ha detectat una targeta gràfica al sistema. Tingues en compte que aquesta opció està pensada per a sistemes de diverses GPU amb GPU headless (com ara els portàtils). En sistemes d'una sola GPU, ja es fa servir aquesta de manera automàtica i si s'activa aquesta opció es poden produir problemes. Segur que vols activar l'opció?",
-                "title": "Només s'ha detectat 1 GPU"
-            },
-            "description": "Utilitza la targeta gràfica dedicada"
-        },
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
             "title": "Executa l'EXE al prefix"

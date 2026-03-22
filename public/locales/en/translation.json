@@ -773,10 +773,6 @@
         "msync": "Enable Msync",
         "no-tray-icon": "Hide System Tray Icon (requires restart)",
         "nvidiaprime": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
             "description": "Force use of NVIDIA Optimus or AMD CrossFire dGPU. ONLY use this for OpenGL games."
         },
         "offlinemode": "Run Game Offline",
