@@ -715,7 +715,7 @@
         "minimize-on-launch": "Minimiser Heroic après le lancement d'un jeu",
         "offlinemode": "Lancer le jeu hors ligne",
         "prefered_language": "Langue préférée (fr, en...)",
-        "preferSystemLibs": "Opter de préférence pour les bibliothèques du système",
+        "preferSystemLibs": "Opter de préférence pour les bibliothèques système",
         "primerun": {
             "confirmation": {
                 "message": "Nous n'avons détecté qu'une seule carte graphique dans ce système. Veuillez noter que cette option est prévue pour les systèmes multi-GPU avec des GPUs « headless » (tels que les ordinateurs portables). Dans un système comprenant un seul GPU, ledit GPU est automatiquement utilisé & activer cette option peut causer des problèmes. Voulez-vous vraiment activer cette option ?",

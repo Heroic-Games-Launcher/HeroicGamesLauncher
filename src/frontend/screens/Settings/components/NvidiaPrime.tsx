@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { InfoBox, ToggleSwitch } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
@@ -9,38 +9,20 @@ const WIKI_URL =
 
 const NvidiaPrime = () => {
   const { t } = useTranslation()
-  const { platform, showDialogModal } = useContext(ContextProvider)
+  const { platform } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
 
   const [nvidiaPrime, setNvidiaPrime] = useSetting('nvidiaPrime', false)
+  const [numberOfGPUs, setNumberOfGPUs] = useState<number>(0)
 
-  if (!isLinux) {
+  useEffect(() => {
+    void window.api.systemInfo
+      .get()
+      .then((result) => setNumberOfGPUs(result.GPUs.length))
+  }, [])
+
+  if (!isLinux || numberOfGPUs < 2) {
     return <></>
-  }
-
-  async function toggleNvidiaPrime() {
-    if (!nvidiaPrime) {
-      const { GPUs } = await window.api.systemInfo.get()
-      if (GPUs.length === 1) {
-        showDialogModal({
-          title: t(
-            'setting.nvidiaprime.confirmation.title',
-            'Only 1 GPU detected'
-          ),
-          message: t(
-            'setting.nvidiaprime.confirmation.message',
-            'Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?'
-          ),
-          buttons: [
-            { text: t('box.yes'), onClick: () => setNvidiaPrime(true) },
-            { text: t('box.no') }
-          ],
-          type: 'MESSAGE'
-        })
-        return
-      }
-    }
-    setNvidiaPrime(!nvidiaPrime)
   }
 
   return (
@@ -48,7 +30,7 @@ const NvidiaPrime = () => {
       <ToggleSwitch
         htmlId="nvidiaPrime"
         value={nvidiaPrime}
-        handleChange={toggleNvidiaPrime}
+        handleChange={() => setNvidiaPrime(!nvidiaPrime)}
         title={t(
           'setting.nvidiaprime.description',
           'Force use of NVIDIA Optimus or AMD CrossFire dGPU. ONLY use this for OpenGL games.'
