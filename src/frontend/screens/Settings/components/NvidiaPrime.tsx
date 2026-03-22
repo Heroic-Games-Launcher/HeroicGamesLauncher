@@ -33,7 +33,7 @@ const NvidiaPrime = () => {
         handleChange={() => setNvidiaPrime(!nvidiaPrime)}
         title={t(
           'setting.nvidiaprime.description',
-          'Force use of NVIDIA Optimus or AMD CrossFire dGPU. ONLY use this for OpenGL games.'
+          'Force use of NVIDIA Optimus or AMD CrossFire dGPU. ONLY use this for OpenGL and Vulkan games.'
         )}
       />
 
