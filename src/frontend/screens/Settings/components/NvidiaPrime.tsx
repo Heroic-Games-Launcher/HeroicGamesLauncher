@@ -21,7 +21,10 @@ const NvidiaPrime = () => {
       .then((result) => setNumberOfGPUs(result.GPUs.length))
   }, [])
 
-  if (!isLinux || numberOfGPUs < 2) {
+  // if not linux, hide this setting
+  // if only 1 GPU is detected, hide it, but only if this was unset
+  // we want to still show it if less than 1 GPU and is set so users can disable it
+  if (!isLinux || (numberOfGPUs < 2 && !nvidiaPrime)) {
     return <></>
   }
 
@@ -53,10 +56,7 @@ const NvidiaPrime = () => {
             window.api.openExternalUrl(WIKI_URL)
           }}
         >
-          {t(
-            'help.nvidiaprime.link',
-            'Check the list of GPUs and more information in our wiki'
-          )}
+          {t('help.nvidiaprime.link', 'Check more details in our wiki')}
         </a>
       </InfoBox>
     </div>
