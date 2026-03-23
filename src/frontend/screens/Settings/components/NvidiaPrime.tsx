@@ -5,7 +5,7 @@ import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 const WIKI_URL =
-  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/NVIDIA-Optimus-and-AMD-CrossFire-GPUs'
+  'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Hybrid-GPUs:-NVIDIA-Optimus-and-AMD-Dynamic-Switchable-Graphics'
 
 const NvidiaPrime = () => {
   const { t } = useTranslation()
@@ -36,14 +36,14 @@ const NvidiaPrime = () => {
         handleChange={() => setNvidiaPrime(!nvidiaPrime)}
         title={t(
           'setting.nvidiaprime.description',
-          'Force use of NVIDIA Optimus or AMD CrossFire dGPU. ONLY use this for OpenGL and Vulkan games.'
+          'Force use of NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. ONLY use this for OpenGL and Vulkan games.'
         )}
       />
 
       <InfoBox text={t('infobox.help')}>
         {t(
           'help.nvidiaprime.details',
-          'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)'
+          'Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD Dynamic Switchable Graphics)'
         )}
 
         <br />
