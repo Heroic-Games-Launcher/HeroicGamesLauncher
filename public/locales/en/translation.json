@@ -366,7 +366,7 @@
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "nvidiaprime": {
             "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
-            "link": "Check the list of GPUs and more information in our wiki"
+            "link": "Check more details in our wiki"
         },
         "other": {
             "part4": "Use the ",
