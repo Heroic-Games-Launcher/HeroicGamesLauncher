@@ -1,13 +1,13 @@
 import { KnownFixesFile, Runner } from 'common/types'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { createWriteStream, existsSync, readFileSync } from 'graceful-fs'
 import { storeMap } from 'common/utils'
 import { appFolder } from 'backend/constants/paths'
 import { logDebug, logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { createMD5 } from 'backend/utils/releases'
 import { runOnceWhenOnline } from 'backend/online_monitor'
 import { axiosClient } from 'backend/utils'
-import { writeFile } from 'fs/promises'
 import { join } from 'path'
+import { pipeline } from 'stream/promises'
 
 const fixesPath = join(appFolder, 'known_fixes.json')
 
@@ -17,10 +17,10 @@ export function getKnownFixesFor(appName: string, runner: Runner) {
 
   try {
     const fixesContent = JSON.parse(
-      readFileSync(fixesPath).toString()
+      readFileSync(fixesPath, 'utf-8')
     ) as KnownFixesFile
 
-    return fixesContent[storeMap[runner] as keyof KnownFixesFile][appName]
+    return fixesContent[storeMap[runner]][appName]
   } catch (error) {
     // if we fail to download the json file, it can be malformed causing
     // JSON.parse to throw an exception
@@ -49,12 +49,9 @@ export async function downloadFileIfNeeded(latestFileHash: string) {
       'https://raw.githubusercontent.com/Heroic-Games-Launcher/known-fixes/main/known_fixes.json'
 
     try {
-      const { data } = await axiosClient.get<string>(url, {
-        responseType: 'text',
-        transformResponse: [(d) => d] // disable JSON parsing
-      })
-
-      await writeFile(fixesPath, data)
+      const response = await axiosClient.get(url, { responseType: 'stream' })
+      const fileStream = createWriteStream(fixesPath)
+      await pipeline(response.data, fileStream)
       logInfo(`Known Fixes data downloaded`, LogPrefix.Backend)
     } catch (error) {
       logWarning(
