@@ -9,6 +9,9 @@ import GOGLogo from 'frontend/assets/gog-logo.svg?react'
 import HeroicLogo from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
+import EALogo from 'frontend/assets/ea-logo.svg?react'
+import UbisoftLogo from 'frontend/assets/ubisoft-logo.svg?react'
+import BattlenetLogo from 'frontend/assets/battlenet-logo.svg?react'
 
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
@@ -16,6 +19,10 @@ import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
 import { hasHelp } from 'frontend/hooks/hasHelp'
+import ThirdPartyLauncherInstaller from './components/ThirdPartyLauncherInstaller'
+import ThirdPartyLauncherInstallerDialog from './components/ThirdPartyLauncherInstallerDialog'
+import { Dialog } from 'frontend/components/UI/Dialog'
+import { ThirdPartyLaunchers, WineInstallation } from 'common/types'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
@@ -42,6 +49,10 @@ export default React.memo(function NewLogin() {
     Boolean(amazon.user_id)
   )
   const [isZoomLoggedIn, setIsZoomLoggedIn] = useState(Boolean(zoom.username))
+  const [showInstallerDialog, setShowInstallerDialog] = useState<{
+    id: string
+    name: string
+  } | null>(null)
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -78,6 +89,25 @@ export default React.memo(function NewLogin() {
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
     navigate('/')
+  }
+
+  async function handleInstallLauncher(
+    launcherId: ThirdPartyLaunchers,
+    options: {
+      winePrefix: string
+      wineVersion: WineInstallation
+      crossoverBottle?: string
+    }
+  ) {
+    const result = await window.api.installThirdPartyLauncher({
+      launcherId,
+      options
+    })
+    if (result.success) {
+      await refreshLibrary({ library: 'sideload', runInBackground: true })
+    } else {
+      window.api.logError(`Failed to install ${launcherId}: ${result.error}`)
+    }
   }
 
   if (loading) {
@@ -162,6 +192,45 @@ export default React.memo(function NewLogin() {
               />
             )}
           </div>
+
+          <h3 className="runnerGroupTitle">
+            {t('login.install_launchers', 'Install Other Launchers')}
+          </h3>
+          <div className="runnerGroup">
+            <ThirdPartyLauncherInstaller
+              id="ea"
+              name="EA App"
+              buttonText={t('login.install_ea', 'Install EA App')}
+              icon={() => <EALogo />}
+              onInstall={() =>
+                setShowInstallerDialog({ id: 'ea', name: 'EA App' })
+              }
+              disabled={oldMac}
+            />
+            <ThirdPartyLauncherInstaller
+              id="ubisoft"
+              name="Ubisoft Connect"
+              buttonText={t('login.install_ubisoft', 'Install Ubisoft Connect')}
+              icon={() => <UbisoftLogo />}
+              onInstall={() =>
+                setShowInstallerDialog({
+                  id: 'ubisoft',
+                  name: 'Ubisoft Connect'
+                })
+              }
+              disabled={oldMac}
+            />
+            <ThirdPartyLauncherInstaller
+              id="battlenet"
+              name="Battle.net"
+              buttonText={t('login.install_battlenet', 'Install Battle.net')}
+              icon={() => <BattlenetLogo />}
+              onInstall={() =>
+                setShowInstallerDialog({ id: 'battlenet', name: 'Battle.net' })
+              }
+              disabled={oldMac}
+            />
+          </div>
         </div>
         <button
           onClick={async () => handleLibraryClick()}
@@ -170,6 +239,19 @@ export default React.memo(function NewLogin() {
           {t('button.go_to_library', 'Go to Library')}
         </button>
       </div>
+
+      {showInstallerDialog && (
+        <Dialog onClose={() => setShowInstallerDialog(null)} showCloseButton>
+          <ThirdPartyLauncherInstallerDialog
+            launcherId={showInstallerDialog.id}
+            launcherName={showInstallerDialog.name}
+            onClose={() => setShowInstallerDialog(null)}
+            onInstall={(options) =>
+              handleInstallLauncher(showInstallerDialog.id, options)
+            }
+          />
+        </Dialog>
+      )}
     </div>
   )
 })
