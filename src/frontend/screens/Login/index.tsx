@@ -53,7 +53,9 @@ export default React.memo(function NewLogin() {
     id: string
     name: string
   } | null>(null)
-  const [launcherStatuses, setLauncherStatuses] = useState<Record<string, GameStatus>>({})
+  const [launcherStatuses, setLauncherStatuses] = useState<
+    Record<string, GameStatus>
+  >({})
 
   useEffect(() => {
     const unsubscribe = window.api.handleGameStatus((_, status) => {

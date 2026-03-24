@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThirdPartyLaunchers, WineInstallation } from 'common/types'
-import { DialogContent, DialogFooter, DialogHeader } from 'frontend/components/UI/Dialog'
+import {
+  DialogContent,
+  DialogFooter,
+  DialogHeader
+} from 'frontend/components/UI/Dialog'
 import WineSelector from '../../../Library/components/InstallModal/WineSelector'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'

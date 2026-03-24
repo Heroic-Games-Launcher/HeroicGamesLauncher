@@ -34,7 +34,11 @@ export default function ThirdPartyLauncherInstaller({
           <div
             className="runnerLogin installing"
             onClick={() => !disabled && onCancel?.(id)}
-            style={{ position: 'relative', overflow: 'hidden', display: 'flex' }}
+            style={{
+              position: 'relative',
+              overflow: 'hidden',
+              display: 'flex'
+            }}
           >
             <div
               className="progress-bar"
@@ -49,13 +53,32 @@ export default function ThirdPartyLauncherInstaller({
                 pointerEvents: 'none'
               }}
             />
-            <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', fontSize: '1rem' }}>
-              {status?.context || 'Installing...'} {percentage > 0 && `${Math.round(percentage)}%`}
-              <FontAwesomeIcon icon={faTimes} title="Cancel" className="cancel-icon" />
+            <span
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                width: '100%',
+                fontSize: '1rem'
+              }}
+            >
+              {status?.context || 'Installing...'}{' '}
+              {percentage > 0 && `${Math.round(percentage)}%`}
+              <FontAwesomeIcon
+                icon={faTimes}
+                title="Cancel"
+                className="cancel-icon"
+              />
             </span>
           </div>
         ) : (
-          <div className="runnerLogin" onClick={() => !disabled && onInstall(id)}>
+          <div
+            className="runnerLogin"
+            onClick={() => !disabled && onInstall(id)}
+          >
             {buttonText}
           </div>
         )}

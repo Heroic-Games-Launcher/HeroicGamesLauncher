@@ -27,12 +27,12 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
     installerUrl:
       'https://origin-a.akamaihd.net/EA-Desktop-Client-Download/installer-releases/EAappInstaller.exe',
     installerName: 'EAappInstaller.exe',
-    windowsInstallPath: [
+    windowsInstallPath:
       'Program Files/Electronic Arts/EA Desktop/EA Desktop/EALauncher.exe',
-      'Program Files/Electronic Arts/EA Desktop/EA Desktop/EADesktop.exe'
-    ],
-    art_cover: 'https://cdn2.steamgriddb.com/thumb/67fce8ab05c7c0a28fa66b353e813cbd.jpg',
-    art_square: 'https://cdn2.steamgriddb.com/thumb/67fce8ab05c7c0a28fa66b353e813cbd.jpg'
+    art_cover:
+      'https://cdn2.steamgriddb.com/thumb/67fce8ab05c7c0a28fa66b353e813cbd.jpg',
+    art_square:
+      'https://cdn2.steamgriddb.com/thumb/67fce8ab05c7c0a28fa66b353e813cbd.jpg'
   },
   ubisoft: {
     id: 'ubisoft',
@@ -42,8 +42,10 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
     installerName: 'UbisoftConnectInstaller.exe',
     windowsInstallPath:
       'Program Files (x86)/Ubisoft/Ubisoft Game Launcher/UbisoftConnect.exe',
-    art_cover: 'https://cdn2.steamgriddb.com/thumb/2c6863132637ca56cee2ee5d4c7b0923.jpg',
-    art_square: 'https://cdn2.steamgriddb.com/thumb/2c6863132637ca56cee2ee5d4c7b0923.jpg'
+    art_cover:
+      'https://cdn2.steamgriddb.com/thumb/2c6863132637ca56cee2ee5d4c7b0923.jpg',
+    art_square:
+      'https://cdn2.steamgriddb.com/thumb/2c6863132637ca56cee2ee5d4c7b0923.jpg'
   },
   battlenet: {
     id: 'battlenet',
@@ -52,8 +54,10 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
       'https://www.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe',
     installerName: 'Battle.net-Setup.exe',
     windowsInstallPath: 'Program Files (x86)/Battle.net/Battle.net.exe',
-    art_cover: 'https://cdn2.steamgriddb.com/thumb/356c41d28e278e936b46739712043616.jpg',
-    art_square: 'https://cdn2.steamgriddb.com/thumb/356c41d28e278e936b46739712043616.jpg'
+    art_cover:
+      'https://cdn2.steamgriddb.com/thumb/356c41d28e278e936b46739712043616.jpg',
+    art_square:
+      'https://cdn2.steamgriddb.com/thumb/356c41d28e278e936b46739712043616.jpg'
   }
 }
 
@@ -90,7 +94,7 @@ export async function installThirdPartyLauncher(
             context: 'Downloading',
             progress: {
               bytes: bytes.toString(),
-              eta: '0s', 
+              eta: '0s',
               percent: percentage,
               downSpeed: speed
             }
@@ -150,7 +154,7 @@ export async function installThirdPartyLauncher(
         is_installed: true,
         canRunOffline: false
       })
-      
+
       sendGameStatusUpdate({
         appName: `sideload-${launcherId}`,
         status: 'done'
