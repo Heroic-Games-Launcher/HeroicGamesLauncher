@@ -1,29 +1,64 @@
-import { ThirdPartyLaunchers } from 'common/types'
+import { ThirdPartyLaunchers, GameStatus } from 'common/types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './index.scss'
 
 interface Props {
   id: ThirdPartyLaunchers
   name: string
   icon: () => JSX.Element
-  onInstall: (id: string) => void
+  onInstall: (id: ThirdPartyLaunchers) => void
+  onCancel?: (id: ThirdPartyLaunchers) => void
   buttonText: string
   disabled?: boolean
+  status?: GameStatus
 }
 
 export default function ThirdPartyLauncherInstaller({
   id,
   icon,
   onInstall,
+  onCancel,
   buttonText,
-  disabled
+  disabled,
+  status
 }: Props) {
+  const isInstalling = status?.status === 'installing'
+  const percentage = status?.progress?.percent ?? 0
+
   return (
     <div className={`runnerWrapper ${id} ${disabled ? 'disabled' : ''}`}>
       <div className={`runnerIcon ${id}`}>{icon()}</div>
       <div className="runnerButtons">
-        <div className="runnerLogin" onClick={() => !disabled && onInstall(id)}>
-          {buttonText}
-        </div>
+        {isInstalling ? (
+          <div
+            className="runnerLogin installing"
+            onClick={() => !disabled && onCancel?.(id)}
+            style={{ position: 'relative', overflow: 'hidden', display: 'flex' }}
+          >
+            <div
+              className="progress-bar"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                width: `${percentage}%`,
+                background: 'rgba(255, 255, 255, 0.2)',
+                transition: 'width 0.2s',
+                pointerEvents: 'none'
+              }}
+            />
+            <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', fontSize: '1rem' }}>
+              {status?.context || 'Installing...'} {percentage > 0 && `${Math.round(percentage)}%`}
+              <FontAwesomeIcon icon={faTimes} title="Cancel" className="cancel-icon" />
+            </span>
+          </div>
+        ) : (
+          <div className="runnerLogin" onClick={() => !disabled && onInstall(id)}>
+            {buttonText}
+          </div>
+        )}
       </div>
     </div>
   )

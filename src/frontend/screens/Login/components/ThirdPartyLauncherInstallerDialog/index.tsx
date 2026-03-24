@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThirdPartyLaunchers, WineInstallation } from 'common/types'
-import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
+import { DialogContent, DialogFooter, DialogHeader } from 'frontend/components/UI/Dialog'
 import WineSelector from '../../../Library/components/InstallModal/WineSelector'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -57,13 +57,13 @@ export default function ThirdPartyLauncherInstallerDialog({
 
   return (
     <>
+      <DialogHeader onClose={onClose}>
+        {t('install.third-party-launcher', 'Install {{launcher}}', {
+          launcher: launcherName
+        })}
+      </DialogHeader>
       <DialogContent>
-        <div style={{ padding: '20px' }}>
-          <h2>
-            {t('install.third-party-launcher', 'Install {{launcher}}', {
-              launcher: launcherName
-            })}
-          </h2>
+        <div className="setup-info" style={{ marginTop: '20px' }}>
           <WineSelector
             appName={launcherId}
             winePrefix={winePrefix}
