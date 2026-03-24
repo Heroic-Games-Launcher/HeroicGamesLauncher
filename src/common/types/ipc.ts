@@ -34,6 +34,7 @@ import type {
   RunWineCommandArgs,
   SaveSyncArgs,
   StatusPromise,
+  ThirdPartyLaunchers,
   ToolArgs,
   Tools,
   UpdateParams,
@@ -320,6 +321,14 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  installThirdPartyLauncher: (args: {
+    launcherId: ThirdPartyLaunchers
+    options: {
+      winePrefix: string
+      wineVersion: WineInstallation
+      crossoverBottle?: string
+    }
+  }) => Promise<{ success: boolean; error?: string }>
 }
 
 interface FrontendMessages {

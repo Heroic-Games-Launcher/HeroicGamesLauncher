@@ -864,3 +864,4 @@ export type ReleasesInfo = Record<
     shaLinux: string
   }
 }
+export type ThirdPartyLaunchers = 'ea' | 'ubisoft' | 'battlenet'
