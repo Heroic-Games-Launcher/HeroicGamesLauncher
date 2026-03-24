@@ -1,10 +1,10 @@
 import { join } from 'path'
-import { downloadFile } from '../utils'
+import { downloadFile, sendGameStatusUpdate } from '../utils'
 import { runWineCommand } from '../launcher'
 import { addNewApp } from '../storeManagers/sideload/library'
 import { logInfo, LogPrefix, logError } from 'backend/logger'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { userHome } from 'backend/constants/paths'
+import { toolsPath, userHome } from 'backend/constants/paths'
 import { ThirdPartyLaunchers, WineInstallation } from 'common/types'
 import { existsSync, mkdirSync } from 'graceful-fs'
 import { GlobalConfig } from 'backend/config'
@@ -16,6 +16,8 @@ export interface ThirdPartyLauncher {
   installerName: string
   windowsInstallPath: string // relative to wineprefix drive_c
   logo?: string
+  art_cover: string
+  art_square: string
 }
 
 export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
@@ -25,8 +27,12 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
     installerUrl:
       'https://origin-a.akamaihd.net/EA-Desktop-Client-Download/installer-releases/EAappInstaller.exe',
     installerName: 'EAappInstaller.exe',
-    windowsInstallPath:
+    windowsInstallPath: [
+      'Program Files/Electronic Arts/EA Desktop/EA Desktop/EALauncher.exe',
       'Program Files/Electronic Arts/EA Desktop/EA Desktop/EADesktop.exe'
+    ],
+    art_cover: 'https://cdn2.steamgriddb.com/thumb/67fce8ab05c7c0a28fa66b353e813cbd.jpg',
+    art_square: 'https://cdn2.steamgriddb.com/thumb/67fce8ab05c7c0a28fa66b353e813cbd.jpg'
   },
   ubisoft: {
     id: 'ubisoft',
@@ -35,7 +41,9 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
       'https://static3.cdn.ubi.com/orbit/launcher_installer/UbisoftConnectInstaller.exe',
     installerName: 'UbisoftConnectInstaller.exe',
     windowsInstallPath:
-      'Program Files (x86)/Ubisoft/Ubisoft Game Launcher/UbisoftConnect.exe'
+      'Program Files (x86)/Ubisoft/Ubisoft Game Launcher/UbisoftConnect.exe',
+    art_cover: 'https://cdn2.steamgriddb.com/thumb/2c6863132637ca56cee2ee5d4c7b0923.jpg',
+    art_square: 'https://cdn2.steamgriddb.com/thumb/2c6863132637ca56cee2ee5d4c7b0923.jpg'
   },
   battlenet: {
     id: 'battlenet',
@@ -43,7 +51,9 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
     installerUrl:
       'https://www.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe',
     installerName: 'Battle.net-Setup.exe',
-    windowsInstallPath: 'Program Files (x86)/Battle.net/Battle.net.exe'
+    windowsInstallPath: 'Program Files (x86)/Battle.net/Battle.net.exe',
+    art_cover: 'https://cdn2.steamgriddb.com/thumb/356c41d28e278e936b46739712043616.jpg',
+    art_square: 'https://cdn2.steamgriddb.com/thumb/356c41d28e278e936b46739712043616.jpg'
   }
 }
 
@@ -60,7 +70,7 @@ export async function installThirdPartyLauncher(
     throw new Error(`Launcher ${launcherId} not found`)
   }
 
-  const downloadDest = join(userHome, 'Downloads', launcher.installerName)
+  const downloadDest = join(toolsPath, launcher.installerName)
   logInfo(
     `Downloading ${launcher.name} installer to ${downloadDest}`,
     LogPrefix.Backend
@@ -68,10 +78,24 @@ export async function installThirdPartyLauncher(
 
   try {
     if (!existsSync(downloadDest)) {
+      const abortSignal = createAbortController(`install-${launcherId}`).signal
       await downloadFile({
         url: launcher.installerUrl,
         dest: downloadDest,
-        abortSignal: createAbortController(`install-${launcherId}`).signal
+        abortSignal,
+        progressCallback: (bytes, speed, percentage) => {
+          sendGameStatusUpdate({
+            appName: `sideload-${launcherId}`,
+            status: 'installing',
+            context: 'Downloading',
+            progress: {
+              bytes: bytes.toString(),
+              eta: '0s', 
+              percent: percentage,
+              downSpeed: speed
+            }
+          })
+        }
       })
     }
 
@@ -83,6 +107,12 @@ export async function installThirdPartyLauncher(
     logInfo(`Running ${launcher.name} installer via Wine`, LogPrefix.Backend)
 
     const gameSettings = GlobalConfig.get().getSettings()
+
+    sendGameStatusUpdate({
+      appName: `sideload-${launcherId}`,
+      status: 'installing',
+      context: 'Installing'
+    })
 
     await runWineCommand({
       gameSettings: {
@@ -115,11 +145,17 @@ export async function installThirdPartyLauncher(
           executable: finalExecutable,
           platform: 'Windows'
         },
-        art_cover: '',
-        art_square: '',
+        art_cover: launcher.art_cover,
+        art_square: launcher.art_square,
         is_installed: true,
         canRunOffline: false
       })
+      
+      sendGameStatusUpdate({
+        appName: `sideload-${launcherId}`,
+        status: 'done'
+      })
+
       logInfo(
         `${launcher.name} installed and added to library`,
         LogPrefix.Backend
@@ -137,6 +173,11 @@ export async function installThirdPartyLauncher(
       `Error installing ${launcher.name}: ${String(error)}`,
       LogPrefix.Backend
     )
+    sendGameStatusUpdate({
+      appName: `sideload-${launcherId}`,
+      status: 'error',
+      context: String(error)
+    })
     return { success: false, error: String(error) }
   }
 }

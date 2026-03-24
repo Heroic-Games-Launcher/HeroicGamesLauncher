@@ -22,7 +22,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import ThirdPartyLauncherInstaller from './components/ThirdPartyLauncherInstaller'
 import ThirdPartyLauncherInstallerDialog from './components/ThirdPartyLauncherInstallerDialog'
 import { Dialog } from 'frontend/components/UI/Dialog'
-import { ThirdPartyLaunchers, WineInstallation } from 'common/types'
+import { ThirdPartyLaunchers, WineInstallation, GameStatus } from 'common/types'
 
 export const epicLoginPath = '/loginweb/legendary'
 export const gogLoginPath = '/loginweb/gog'
@@ -30,7 +30,7 @@ export const amazonLoginPath = '/loginweb/nile'
 export const zoomLoginPath = '/loginweb/zoom'
 
 export default React.memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, refreshLibrary } =
+  const { epic, gog, amazon, zoom, refreshLibrary, showDialogModal } =
     useContext(ContextProvider)
   const { t } = useTranslation()
 
@@ -53,6 +53,28 @@ export default React.memo(function NewLogin() {
     id: string
     name: string
   } | null>(null)
+  const [launcherStatuses, setLauncherStatuses] = useState<Record<string, GameStatus>>({})
+
+  useEffect(() => {
+    const unsubscribe = window.api.handleGameStatus((_, status) => {
+      if (status.appName.startsWith('sideload-')) {
+        const id = status.appName.split('-')[1]
+        setLauncherStatuses((prev) => ({ ...prev, [id]: status }))
+
+        if (status.status === 'error') {
+          showDialogModal({
+            showDialog: true,
+            title: t('install.failed', 'Installation failed'),
+            message: status.context || 'Unknown error',
+            type: 'ERROR'
+          })
+        }
+      }
+    })
+    return () => {
+      unsubscribe()
+    }
+  }, [t, showDialogModal])
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -205,6 +227,8 @@ export default React.memo(function NewLogin() {
               onInstall={() =>
                 setShowInstallerDialog({ id: 'ea', name: 'EA App' })
               }
+              onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
+              status={launcherStatuses['ea']}
               disabled={oldMac}
             />
             <ThirdPartyLauncherInstaller
@@ -218,6 +242,8 @@ export default React.memo(function NewLogin() {
                   name: 'Ubisoft Connect'
                 })
               }
+              onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
+              status={launcherStatuses['ubisoft']}
               disabled={oldMac}
             />
             <ThirdPartyLauncherInstaller
@@ -228,6 +254,8 @@ export default React.memo(function NewLogin() {
               onInstall={() =>
                 setShowInstallerDialog({ id: 'battlenet', name: 'Battle.net' })
               }
+              onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
+              status={launcherStatuses['battlenet']}
               disabled={oldMac}
             />
           </div>
@@ -241,16 +269,25 @@ export default React.memo(function NewLogin() {
       </div>
 
       {showInstallerDialog && (
-        <Dialog onClose={() => setShowInstallerDialog(null)} showCloseButton>
-          <ThirdPartyLauncherInstallerDialog
-            launcherId={showInstallerDialog.id}
-            launcherName={showInstallerDialog.name}
+        <div className="InstallModal">
+          <Dialog
             onClose={() => setShowInstallerDialog(null)}
-            onInstall={(options) =>
-              handleInstallLauncher(showInstallerDialog.id, options)
-            }
-          />
-        </Dialog>
+            showCloseButton
+            className="InstallModal__dialog"
+          >
+            <ThirdPartyLauncherInstallerDialog
+              launcherId={showInstallerDialog.id as ThirdPartyLaunchers}
+              launcherName={showInstallerDialog.name}
+              onClose={() => setShowInstallerDialog(null)}
+              onInstall={(options) =>
+                handleInstallLauncher(
+                  showInstallerDialog.id as ThirdPartyLaunchers,
+                  options
+                )
+              }
+            />
+          </Dialog>
+        </div>
       )}
     </div>
   )
