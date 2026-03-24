@@ -7,6 +7,7 @@ import { execAsync, sendGameStatusUpdate } from 'backend/utils'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import { isWindows } from 'backend/constants/environment'
 import { ThirdPartyLaunchers, WineInstallation } from 'common/types'
+import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 
 addHandler(
   'runWineCommandForGame',
@@ -92,4 +93,8 @@ addHandler('installThirdPartyLauncher', async (event, args) => {
     }
   }
   return installThirdPartyLauncher(launcherId, options)
+})
+
+addHandler('cancelThirdPartyLauncherInstall', (event, launcherId: ThirdPartyLaunchers) => {
+  callAbortController(`install-${launcherId}`)
 })

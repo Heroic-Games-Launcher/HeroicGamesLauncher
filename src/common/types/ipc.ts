@@ -326,9 +326,9 @@ interface AsyncIPCFunctions {
     options: {
       winePrefix: string
       wineVersion: WineInstallation
-      crossoverBottle?: string
     }
   }) => Promise<{ success: boolean; error?: string }>
+  cancelThirdPartyLauncherInstall: (launcherId: ThirdPartyLaunchers) => Promise<void>
 }
 
 interface FrontendMessages {
