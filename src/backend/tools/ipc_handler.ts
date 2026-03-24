@@ -1,10 +1,12 @@
 import { gameManagerMap } from 'backend/storeManagers'
 import { addListener, addHandler, sendFrontendMessage } from '../ipc'
 import { Winetricks, runWineCommandOnGame } from '.'
+import { installThirdPartyLauncher } from './thirdPartyLaunchers'
 import path from 'path'
 import { execAsync, sendGameStatusUpdate } from 'backend/utils'
 import * as GOGLibraryManager from 'backend/storeManagers/gog/library'
 import { isWindows } from 'backend/constants/environment'
+import { ThirdPartyLaunchers, WineInstallation } from 'common/types'
 
 addHandler(
   'runWineCommandForGame',
@@ -78,4 +80,16 @@ addHandler('winetricksInstalled', async (event, runner, appName) => {
   } catch {
     return []
   }
+})
+
+addHandler('installThirdPartyLauncher', async (event, args) => {
+  const { launcherId, options } = args as {
+    launcherId: ThirdPartyLaunchers
+    options: {
+      winePrefix: string
+      wineVersion: WineInstallation
+      crossoverBottle?: string
+    }
+  }
+  return installThirdPartyLauncher(launcherId, options)
 })
