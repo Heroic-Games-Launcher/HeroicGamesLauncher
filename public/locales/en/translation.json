@@ -426,6 +426,9 @@
             "message": "Wine uses what is called a WINEPREFIX to encapsulate Windows applications. This prefix contains the Wine configuration files and a reproduction of the file hierarchy of C: (the main disk on a Windows OS). In this reproduction of the C: drive, your game save files and dependencies installed via winetricks are stored."
         }
     },
+    "install": {
+        "failed": "Installation failed"
+    },
     "label": {
         "loading": "Loading",
         "releaseDate": "Release Date"
@@ -454,6 +457,10 @@
         "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
+        "install_battlenet": "Install Battle.net",
+        "install_ea": "Install EA App",
+        "install_launchers": "Install Other Launchers",
+        "install_ubisoft": "Install Ubisoft Connect",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
         "zoom": "Zoom Login"
