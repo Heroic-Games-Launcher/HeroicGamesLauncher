@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { memo, useContext, useEffect, useState } from 'react'
 import './index.scss'
 import Runner from './components/Runner'
 import { useTranslation } from 'react-i18next'
@@ -30,10 +30,11 @@ export const gogLoginPath = '/loginweb/gog'
 export const amazonLoginPath = '/loginweb/nile'
 export const zoomLoginPath = '/loginweb/zoom'
 
-export default React.memo(function NewLogin() {
+export default memo(function NewLogin() {
   const { epic, gog, amazon, zoom, refreshLibrary, showDialogModal } =
     useContext(ContextProvider)
-  const { t } = useTranslation()
+  const { t } = useTranslation('translation')
+  const { t: t2 } = useTranslation('gamepage')
 
   hasHelp(
     'login',
@@ -314,8 +315,8 @@ export default React.memo(function NewLogin() {
               name="EA App"
               buttonText={
                 installedLaunchers.ea
-                  ? t('button.uninstall', 'Uninstall')
-                  : t('login.install_ea', 'Install EA App')
+                  ? `${t2('button.uninstall', 'Uninstall')} - EA App`
+                  : `${t2('button.install', 'Install')} - EA App`
               }
               icon={() => <EALogo />}
               onInstall={() =>
@@ -331,8 +332,8 @@ export default React.memo(function NewLogin() {
               name="Ubisoft Connect"
               buttonText={
                 installedLaunchers.ubisoft
-                  ? t('button.uninstall', 'Uninstall')
-                  : t('login.install_ubisoft', 'Install Ubisoft Connect')
+                  ? `${t2('button.uninstall', 'Uninstall')} - Ubisoft Connect`
+                  : `${t2('button.install', 'Install')} - Ubisoft Connect`
               }
               icon={() => <UbisoftLogo />}
               onInstall={() =>
@@ -351,8 +352,8 @@ export default React.memo(function NewLogin() {
               name="Battle.net"
               buttonText={
                 installedLaunchers.battlenet
-                  ? t('button.uninstall', 'Uninstall')
-                  : t('login.install_battlenet', 'Install Battle.net')
+                  ? `${t2('button.uninstall', 'Uninstall')} - Battle.net`
+                  : `${t2('button.install', 'Install')} - Battle.net`
               }
               icon={() => <BattlenetLogo />}
               onInstall={() =>

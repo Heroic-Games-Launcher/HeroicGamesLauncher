@@ -427,7 +427,8 @@
         }
     },
     "install": {
-        "failed": "Installation failed"
+        "failed": "Installation failed",
+        "unknown_error": "Unknown error occurred"
     },
     "label": {
         "loading": "Loading",
@@ -457,10 +458,7 @@
         "amazon": "Amazon Login",
         "epic": "Epic Games Login",
         "gog": "GOG Login",
-        "install_battlenet": "Install Battle.net",
-        "install_ea": "Install EA App",
         "install_launchers": "Install Other Launchers",
-        "install_ubisoft": "Install Ubisoft Connect",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
         "zoom": "Zoom Login"
