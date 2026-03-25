@@ -59,7 +59,7 @@ export default function ThirdPartyDialog({
       const gameSettings = await window.api.requestGameSettings(appName)
 
       if (wineVersion) {
-        writeConfig({
+        await writeConfig({
           appName,
           config: {
             ...gameSettings,
@@ -73,7 +73,7 @@ export default function ThirdPartyDialog({
 
     backdropClick()
 
-    return install({
+    await install({
       gameInfo,
       previousProgress: progress,
       progress,
@@ -83,7 +83,18 @@ export default function ThirdPartyDialog({
       platformToInstall,
       showDialogModal: () => backdropClick()
     })
-  }, [appName, t, winePrefix, wineVersion, crossoverBottle, platformToInstall])
+    return
+  }, [
+    isWin,
+    backdropClick,
+    gameInfo,
+    t,
+    platformToInstall,
+    appName,
+    wineVersion,
+    winePrefix,
+    crossoverBottle
+  ])
 
   return (
     <>

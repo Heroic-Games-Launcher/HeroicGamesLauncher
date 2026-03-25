@@ -28,7 +28,7 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
       'https://origin-a.akamaihd.net/EA-Desktop-Client-Download/installer-releases/EAappInstaller.exe',
     installerName: 'EAappInstaller.exe',
     windowsInstallPath:
-      'Program Files/Electronic Arts/EA Desktop/EA Desktop/EALauncher.exe',
+      'Program Files/Electronic Arts/EA Desktop/13.667.1.6173/EA Desktop/EALauncher.exe',
     art_cover:
       'https://cdn2.steamgriddb.com/thumb/67fce8ab05c7c0a28fa66b353e813cbd.jpg',
     art_square:
@@ -51,7 +51,7 @@ export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
     id: 'battlenet',
     name: 'Battle.net',
     installerUrl:
-      'https://www.battle.net/download/getInstaller?os=win&installer=Battle.net-Setup.exe',
+      'https://downloader.battle.net/download/installer/win/1.0.63/Battle.net-Setup.exe',
     installerName: 'Battle.net-Setup.exe',
     windowsInstallPath: 'Program Files (x86)/Battle.net/Battle.net.exe',
     art_cover:
@@ -72,6 +72,44 @@ export async function installThirdPartyLauncher(
   const launcher = THIRD_PARTY_LAUNCHERS[launcherId]
   if (!launcher) {
     throw new Error(`Launcher ${launcherId} not found`)
+  }
+
+  const winePrefix = options.winePrefix.replace('~', userHome)
+  console.log({ options })
+  const finalExecutable = join(
+    winePrefix,
+    'drive_c',
+    launcher.windowsInstallPath
+  )
+
+  const addLauncherToLibrary = () => {
+    addNewApp({
+      app_name: `sideload-${launcherId}`,
+      title: launcher.name,
+      runner: 'sideload',
+      install: {
+        executable: finalExecutable,
+        platform: 'Windows'
+      },
+      art_cover: launcher.art_cover,
+      art_square: launcher.art_square,
+      is_installed: true,
+      canRunOffline: false
+    })
+
+    sendGameStatusUpdate({
+      appName: `sideload-${launcherId}`,
+      status: 'done'
+    })
+  }
+
+  if (existsSync(finalExecutable)) {
+    logInfo(
+      `${launcher.name} is already installed at ${finalExecutable}, skipping installer run`,
+      LogPrefix.Backend
+    )
+    addLauncherToLibrary()
+    return { success: true }
   }
 
   const downloadDest = join(toolsPath, launcher.installerName)
@@ -103,7 +141,6 @@ export async function installThirdPartyLauncher(
       })
     }
 
-    const winePrefix = options.winePrefix.replace('~', userHome)
     if (!existsSync(winePrefix)) {
       mkdirSync(winePrefix, { recursive: true })
     }
@@ -130,35 +167,13 @@ export async function installThirdPartyLauncher(
       protonVerb: 'runinprefix'
     })
 
-    const finalExecutable = join(
-      winePrefix,
-      'drive_c',
-      launcher.windowsInstallPath
-    )
     logInfo(
       `Checking if launcher was installed at ${finalExecutable}`,
       LogPrefix.Backend
     )
 
     if (existsSync(finalExecutable)) {
-      addNewApp({
-        app_name: `sideload-${launcherId}`,
-        title: launcher.name,
-        runner: 'sideload',
-        install: {
-          executable: finalExecutable,
-          platform: 'Windows'
-        },
-        art_cover: launcher.art_cover,
-        art_square: launcher.art_square,
-        is_installed: true,
-        canRunOffline: false
-      })
-
-      sendGameStatusUpdate({
-        appName: `sideload-${launcherId}`,
-        status: 'done'
-      })
+      addLauncherToLibrary()
 
       logInfo(
         `${launcher.name} installed and added to library`,
