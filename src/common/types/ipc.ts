@@ -328,9 +328,6 @@ interface AsyncIPCFunctions {
       wineVersion: WineInstallation
     }
   }) => Promise<{ success: boolean; error?: string }>
-  cancelThirdPartyLauncherInstall: (
-    launcherId: ThirdPartyLaunchers
-  ) => Promise<void>
 }
 
 interface FrontendMessages {

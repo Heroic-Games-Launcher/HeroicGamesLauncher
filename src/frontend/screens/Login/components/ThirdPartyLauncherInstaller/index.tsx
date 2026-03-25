@@ -71,11 +71,6 @@ export default function ThirdPartyLauncherInstaller({
             >
               {status?.context || 'Installing...'}{' '}
               {percentage > 0 && `${Math.round(percentage)}%`}
-              <FontAwesomeIcon
-                icon={faTimes}
-                title="Cancel"
-                className="cancel-icon"
-              />
             </span>
           </div>
         ) : (

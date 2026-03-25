@@ -94,10 +94,3 @@ addHandler('installThirdPartyLauncher', async (event, args) => {
   }
   return installThirdPartyLauncher(launcherId, options)
 })
-
-addHandler(
-  'cancelThirdPartyLauncherInstall',
-  (event, launcherId: ThirdPartyLaunchers) => {
-    callAbortController(`install-${launcherId}`)
-  }
-)

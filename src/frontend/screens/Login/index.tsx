@@ -300,7 +300,6 @@ export default React.memo(function NewLogin() {
                 setShowInstallerDialog({ id: 'ea', name: 'EA App' })
               }
               onUninstall={() => handleUninstallLauncher('ea')}
-              onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['ea']}
               isInstalled={installedLaunchers.ea}
               disabled={oldMac}
@@ -321,7 +320,6 @@ export default React.memo(function NewLogin() {
                 })
               }
               onUninstall={() => handleUninstallLauncher('ubisoft')}
-              onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['ubisoft']}
               isInstalled={installedLaunchers.ubisoft}
               disabled={oldMac}
@@ -339,7 +337,6 @@ export default React.memo(function NewLogin() {
                 setShowInstallerDialog({ id: 'battlenet', name: 'Battle.net' })
               }
               onUninstall={() => handleUninstallLauncher('battlenet')}
-              onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['battlenet']}
               isInstalled={installedLaunchers.battlenet}
               disabled={oldMac}
