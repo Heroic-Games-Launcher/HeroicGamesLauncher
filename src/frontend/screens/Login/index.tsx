@@ -158,10 +158,15 @@ export default React.memo(function NewLogin() {
       crossoverBottle?: string
     }
   ) {
-    const { success, error } = await window.api.installThirdPartyLauncher({
+    const result = await window.api.installThirdPartyLauncher({
       launcherId,
       options
     })
+    const { success, error } = (result as {
+      success: boolean
+      error?: string
+    }) || { success: false, error: 'Unknown Error' }
+
     if (success) {
       await refreshLibrary({ library: 'sideload', runInBackground: true })
       await refreshInstalledThirdPartyLaunchers()
