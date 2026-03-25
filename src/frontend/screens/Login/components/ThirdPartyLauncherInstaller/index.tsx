@@ -8,20 +8,24 @@ interface Props {
   name: string
   icon: () => JSX.Element
   onInstall: (id: ThirdPartyLaunchers) => void
+  onUninstall?: (id: ThirdPartyLaunchers) => void
   onCancel?: (id: ThirdPartyLaunchers) => void
   buttonText: string
   disabled?: boolean
   status?: GameStatus
+  isInstalled?: boolean
 }
 
 export default function ThirdPartyLauncherInstaller({
   id,
   icon,
   onInstall,
+  onUninstall,
   onCancel,
   buttonText,
   disabled,
-  status
+  status,
+  isInstalled
 }: Props) {
   const isInstalling = status?.status === 'installing'
   const percentage = status?.progress?.percent ?? 0
@@ -77,7 +81,18 @@ export default function ThirdPartyLauncherInstaller({
         ) : (
           <div
             className="runnerLogin"
-            onClick={() => !disabled && onInstall(id)}
+            onClick={() => {
+              if (disabled) {
+                return
+              }
+
+              if (isInstalled) {
+                onUninstall?.(id)
+                return
+              }
+
+              onInstall(id)
+            }}
           >
             {buttonText}
           </div>

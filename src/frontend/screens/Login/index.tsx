@@ -22,6 +22,7 @@ import { hasHelp } from 'frontend/hooks/hasHelp'
 import ThirdPartyLauncherInstaller from './components/ThirdPartyLauncherInstaller'
 import ThirdPartyLauncherInstallerDialog from './components/ThirdPartyLauncherInstallerDialog'
 import { Dialog } from 'frontend/components/UI/Dialog'
+import UninstallModal from 'frontend/components/UI/UninstallModal'
 import { ThirdPartyLaunchers, WineInstallation, GameStatus } from 'common/types'
 
 export const epicLoginPath = '/loginweb/legendary'
@@ -51,6 +52,10 @@ export default React.memo(function NewLogin() {
   const [isZoomLoggedIn, setIsZoomLoggedIn] = useState(Boolean(zoom.username))
   const [showInstallerDialog, setShowInstallerDialog] = useState<{
     id: string
+    name: string
+  } | null>(null)
+  const [showUninstallDialog, setShowUninstallDialog] = useState<{
+    id: ThirdPartyLaunchers
     name: string
   } | null>(null)
   const [launcherStatuses, setLauncherStatuses] = useState<
@@ -88,6 +93,10 @@ export default React.memo(function NewLogin() {
       if (status.appName.startsWith('sideload-')) {
         const id = status.appName.split('-')[1]
         setLauncherStatuses((prev) => ({ ...prev, [id]: status }))
+
+        if (status.status === 'done') {
+          void refreshInstalledThirdPartyLaunchers()
+        }
 
         if (status.status === 'error') {
           showDialogModal({
@@ -161,6 +170,26 @@ export default React.memo(function NewLogin() {
     }
   }
 
+  function handleUninstallLauncher(launcherId: ThirdPartyLaunchers) {
+    let launcherName = 'Launcher'
+    switch (launcherId) {
+      case 'ea':
+        launcherName = 'EA App'
+        break
+      case 'ubisoft':
+        launcherName = 'Ubisoft Connect'
+        break
+      case 'battlenet':
+        launcherName = 'Battle.net'
+        break
+    }
+
+    setShowUninstallDialog({
+      id: launcherId,
+      name: launcherName
+    })
+  }
+
   if (loading) {
     return <UpdateComponent />
   }
@@ -171,6 +200,16 @@ export default React.memo(function NewLogin() {
         <SIDLogin
           backdropClick={() => {
             setShowSidLogin(false)
+          }}
+        />
+      )}
+      {showUninstallDialog && (
+        <UninstallModal
+          appName={`sideload-${showUninstallDialog.id}`}
+          runner="sideload"
+          isDlc={false}
+          onClose={() => {
+            setShowUninstallDialog(null)
           }}
         />
       )}
@@ -253,23 +292,25 @@ export default React.memo(function NewLogin() {
               name="EA App"
               buttonText={
                 installedLaunchers.ea
-                  ? t('gamepage.status.installed', 'Installed')
+                  ? t('button.uninstall', 'Uninstall')
                   : t('login.install_ea', 'Install EA App')
               }
               icon={() => <EALogo />}
               onInstall={() =>
                 setShowInstallerDialog({ id: 'ea', name: 'EA App' })
               }
+              onUninstall={() => handleUninstallLauncher('ea')}
               onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['ea']}
-              disabled={oldMac || installedLaunchers.ea}
+              isInstalled={installedLaunchers.ea}
+              disabled={oldMac}
             />
             <ThirdPartyLauncherInstaller
               id="ubisoft"
               name="Ubisoft Connect"
               buttonText={
                 installedLaunchers.ubisoft
-                  ? t('gamepage.status.installed', 'Installed')
+                  ? t('button.uninstall', 'Uninstall')
                   : t('login.install_ubisoft', 'Install Ubisoft Connect')
               }
               icon={() => <UbisoftLogo />}
@@ -279,25 +320,29 @@ export default React.memo(function NewLogin() {
                   name: 'Ubisoft Connect'
                 })
               }
+              onUninstall={() => handleUninstallLauncher('ubisoft')}
               onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['ubisoft']}
-              disabled={oldMac || installedLaunchers.ubisoft}
+              isInstalled={installedLaunchers.ubisoft}
+              disabled={oldMac}
             />
             <ThirdPartyLauncherInstaller
               id="battlenet"
               name="Battle.net"
               buttonText={
                 installedLaunchers.battlenet
-                  ? t('gamepage.status.installed', 'Installed')
+                  ? t('button.uninstall', 'Uninstall')
                   : t('login.install_battlenet', 'Install Battle.net')
               }
               icon={() => <BattlenetLogo />}
               onInstall={() =>
                 setShowInstallerDialog({ id: 'battlenet', name: 'Battle.net' })
               }
+              onUninstall={() => handleUninstallLauncher('battlenet')}
               onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['battlenet']}
-              disabled={oldMac || installedLaunchers.battlenet}
+              isInstalled={installedLaunchers.battlenet}
+              disabled={oldMac}
             />
           </div>
         </div>
