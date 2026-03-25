@@ -158,15 +158,32 @@ export default React.memo(function NewLogin() {
       crossoverBottle?: string
     }
   ) {
-    const result = await window.api.installThirdPartyLauncher({
+    const { success, error } = await window.api.installThirdPartyLauncher({
       launcherId,
       options
     })
-    if (result.success) {
+    if (success) {
       await refreshLibrary({ library: 'sideload', runInBackground: true })
       await refreshInstalledThirdPartyLaunchers()
     } else {
-      window.api.logError(`Failed to install ${launcherId}: ${result.error}`)
+      let launcherName = 'Launcher'
+      switch (launcherId) {
+        case 'ea':
+          launcherName = 'EA App'
+          break
+        case 'ubisoft':
+          launcherName = 'Ubisoft Connect'
+          break
+        case 'battlenet':
+          launcherName = 'Battle.net'
+          break
+      }
+      showDialogModal({
+        showDialog: true,
+        title: t('install.failed', 'Installation failed'),
+        message: `${launcherName}\n\n${error || t('install.unknown_error', 'Unknown error occurred')}`,
+        type: 'ERROR'
+      })
     }
   }
 
