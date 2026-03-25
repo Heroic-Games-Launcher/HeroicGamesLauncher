@@ -31,10 +31,11 @@ export const amazonLoginPath = '/loginweb/nile'
 export const zoomLoginPath = '/loginweb/zoom'
 
 export default memo(function NewLogin() {
-  const { epic, gog, amazon, zoom, refreshLibrary, showDialogModal } =
+  const { epic, gog, amazon, zoom, refreshLibrary, showDialogModal, platform } =
     useContext(ContextProvider)
   const { t } = useTranslation('translation')
   const { t: t2 } = useTranslation('gamepage')
+  const isLinux = platform === 'linux'
 
   hasHelp(
     'login',
@@ -306,65 +307,72 @@ export default memo(function NewLogin() {
             )}
           </div>
 
-          <h3 className="runnerGroupTitle">
-            {t('login.install_launchers', 'Install Other Launchers')}
-          </h3>
-          <div className="runnerGroup">
-            <ThirdPartyLauncherInstaller
-              id="ea"
-              name="EA App"
-              buttonText={
-                installedLaunchers.ea
-                  ? `${t2('button.uninstall', 'Uninstall')} - EA App`
-                  : `${t2('button.install', 'Install')} - EA App`
-              }
-              icon={() => <EALogo />}
-              onInstall={() =>
-                setShowInstallerDialog({ id: 'ea', name: 'EA App' })
-              }
-              onUninstall={() => handleUninstallLauncher('ea')}
-              status={launcherStatuses['ea']}
-              isInstalled={installedLaunchers.ea}
-              disabled={oldMac}
-            />
-            <ThirdPartyLauncherInstaller
-              id="ubisoft"
-              name="Ubisoft Connect"
-              buttonText={
-                installedLaunchers.ubisoft
-                  ? `${t2('button.uninstall', 'Uninstall')} - Ubisoft Connect`
-                  : `${t2('button.install', 'Install')} - Ubisoft Connect`
-              }
-              icon={() => <UbisoftLogo />}
-              onInstall={() =>
-                setShowInstallerDialog({
-                  id: 'ubisoft',
-                  name: 'Ubisoft Connect'
-                })
-              }
-              onUninstall={() => handleUninstallLauncher('ubisoft')}
-              status={launcherStatuses['ubisoft']}
-              isInstalled={installedLaunchers.ubisoft}
-              disabled={oldMac}
-            />
-            <ThirdPartyLauncherInstaller
-              id="battlenet"
-              name="Battle.net"
-              buttonText={
-                installedLaunchers.battlenet
-                  ? `${t2('button.uninstall', 'Uninstall')} - Battle.net`
-                  : `${t2('button.install', 'Install')} - Battle.net`
-              }
-              icon={() => <BattlenetLogo />}
-              onInstall={() =>
-                setShowInstallerDialog({ id: 'battlenet', name: 'Battle.net' })
-              }
-              onUninstall={() => handleUninstallLauncher('battlenet')}
-              status={launcherStatuses['battlenet']}
-              isInstalled={installedLaunchers.battlenet}
-              disabled={oldMac}
-            />
-          </div>
+          {isLinux ? (
+            <>
+              <h3 className="runnerGroupTitle">
+                {t('login.install_launchers', 'Install Other Launchers')}
+              </h3>
+              <div className="runnerGroup">
+                <ThirdPartyLauncherInstaller
+                  id="ea"
+                  name="EA App"
+                  buttonText={
+                    installedLaunchers.ea
+                      ? `${t2('button.uninstall', 'Uninstall')} - EA App`
+                      : `${t2('button.install', 'Install')} - EA App`
+                  }
+                  icon={() => <EALogo />}
+                  onInstall={() =>
+                    setShowInstallerDialog({ id: 'ea', name: 'EA App' })
+                  }
+                  onUninstall={() => handleUninstallLauncher('ea')}
+                  status={launcherStatuses['ea']}
+                  isInstalled={installedLaunchers.ea}
+                  disabled={oldMac}
+                />
+                <ThirdPartyLauncherInstaller
+                  id="ubisoft"
+                  name="Ubisoft Connect"
+                  buttonText={
+                    installedLaunchers.ubisoft
+                      ? `${t2('button.uninstall', 'Uninstall')} - Ubisoft Connect`
+                      : `${t2('button.install', 'Install')} - Ubisoft Connect`
+                  }
+                  icon={() => <UbisoftLogo />}
+                  onInstall={() =>
+                    setShowInstallerDialog({
+                      id: 'ubisoft',
+                      name: 'Ubisoft Connect'
+                    })
+                  }
+                  onUninstall={() => handleUninstallLauncher('ubisoft')}
+                  status={launcherStatuses['ubisoft']}
+                  isInstalled={installedLaunchers.ubisoft}
+                  disabled={oldMac}
+                />
+                <ThirdPartyLauncherInstaller
+                  id="battlenet"
+                  name="Battle.net"
+                  buttonText={
+                    installedLaunchers.battlenet
+                      ? `${t2('button.uninstall', 'Uninstall')} - Battle.net`
+                      : `${t2('button.install', 'Install')} - Battle.net`
+                  }
+                  icon={() => <BattlenetLogo />}
+                  onInstall={() =>
+                    setShowInstallerDialog({
+                      id: 'battlenet',
+                      name: 'Battle.net'
+                    })
+                  }
+                  onUninstall={() => handleUninstallLauncher('battlenet')}
+                  status={launcherStatuses['battlenet']}
+                  isInstalled={installedLaunchers.battlenet}
+                  disabled={oldMac}
+                />
+              </div>
+            </>
+          ) : null}
         </div>
         <button
           onClick={async () => handleLibraryClick()}
