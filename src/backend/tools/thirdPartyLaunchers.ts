@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { downloadFile, sendGameStatusUpdate } from '../utils'
+import { downloadFile, sendGameStatusUpdate, writeConfig } from '../utils'
 import { runWineCommand } from '../launcher'
 import { addNewApp } from '../storeManagers/sideload/library'
 import { logInfo, LogPrefix, logError } from 'backend/logger'
@@ -74,7 +74,9 @@ export async function installThirdPartyLauncher(
     throw new Error(`Launcher ${launcherId} not found`)
   }
 
-  const winePrefix = options.winePrefix.replace('~', userHome)
+  const winePrefix = options.winePrefix
+  const gameSettings = GlobalConfig.get().getSettings()
+
   console.log({ options })
   const finalExecutable = join(
     winePrefix,
@@ -83,6 +85,13 @@ export async function installThirdPartyLauncher(
   )
 
   const addLauncherToLibrary = () => {
+    writeConfig(`sideload-${launcherId}`, {
+      ...gameSettings,
+      winePrefix: options.winePrefix,
+      wineVersion: options.wineVersion,
+      wineCrossoverBottle: options.crossoverBottle ?? ''
+    })
+
     addNewApp({
       app_name: `sideload-${launcherId}`,
       title: launcher.name,
@@ -146,8 +155,6 @@ export async function installThirdPartyLauncher(
     }
 
     logInfo(`Running ${launcher.name} installer via Wine`, LogPrefix.Backend)
-
-    const gameSettings = GlobalConfig.get().getSettings()
 
     sendGameStatusUpdate({
       appName: `sideload-${launcherId}`,
