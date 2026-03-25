@@ -1,6 +1,4 @@
 import { ThirdPartyLaunchers, GameStatus } from 'common/types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './index.scss'
 
 interface Props {

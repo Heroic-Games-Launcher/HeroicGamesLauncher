@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, readdirSync } from 'graceful-fs'
 import { GlobalConfig } from 'backend/config'
 import { GameConfig } from 'backend/game_config'
 
-export interface ThirdPartyLauncher {
+interface ThirdPartyLauncher {
   id: string
   name: string
   installerUrl: string
@@ -22,7 +22,7 @@ export interface ThirdPartyLauncher {
   art_square: string
 }
 
-export const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
+const THIRD_PARTY_LAUNCHERS: Record<string, ThirdPartyLauncher> = {
   ea: {
     id: 'ea',
     name: 'EA App',
