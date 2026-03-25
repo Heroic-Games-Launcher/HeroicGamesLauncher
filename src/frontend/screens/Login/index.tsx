@@ -56,6 +56,32 @@ export default React.memo(function NewLogin() {
   const [launcherStatuses, setLauncherStatuses] = useState<
     Record<string, GameStatus>
   >({})
+  const [installedLaunchers, setInstalledLaunchers] = useState<
+    Record<ThirdPartyLaunchers, boolean>
+  >({
+    ea: false,
+    ubisoft: false,
+    battlenet: false
+  })
+
+  async function refreshInstalledThirdPartyLaunchers() {
+    const launcherIds: ThirdPartyLaunchers[] = ['ea', 'ubisoft', 'battlenet']
+    const results = await Promise.all(
+      launcherIds.map((id) =>
+        window.api.getGameInfo(`sideload-${id}`, 'sideload')
+      )
+    )
+
+    setInstalledLaunchers({
+      ea: Boolean(results[0]?.is_installed),
+      ubisoft: Boolean(results[1]?.is_installed),
+      battlenet: Boolean(results[2]?.is_installed)
+    })
+  }
+
+  useEffect(() => {
+    void refreshInstalledThirdPartyLaunchers()
+  }, [])
 
   useEffect(() => {
     const unsubscribe = window.api.handleGameStatus((_, status) => {
@@ -129,6 +155,7 @@ export default React.memo(function NewLogin() {
     })
     if (result.success) {
       await refreshLibrary({ library: 'sideload', runInBackground: true })
+      await refreshInstalledThirdPartyLaunchers()
     } else {
       window.api.logError(`Failed to install ${launcherId}: ${result.error}`)
     }
@@ -224,19 +251,27 @@ export default React.memo(function NewLogin() {
             <ThirdPartyLauncherInstaller
               id="ea"
               name="EA App"
-              buttonText={t('login.install_ea', 'Install EA App')}
+              buttonText={
+                installedLaunchers.ea
+                  ? t('gamepage.status.installed', 'Installed')
+                  : t('login.install_ea', 'Install EA App')
+              }
               icon={() => <EALogo />}
               onInstall={() =>
                 setShowInstallerDialog({ id: 'ea', name: 'EA App' })
               }
               onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['ea']}
-              disabled={oldMac}
+              disabled={oldMac || installedLaunchers.ea}
             />
             <ThirdPartyLauncherInstaller
               id="ubisoft"
               name="Ubisoft Connect"
-              buttonText={t('login.install_ubisoft', 'Install Ubisoft Connect')}
+              buttonText={
+                installedLaunchers.ubisoft
+                  ? t('gamepage.status.installed', 'Installed')
+                  : t('login.install_ubisoft', 'Install Ubisoft Connect')
+              }
               icon={() => <UbisoftLogo />}
               onInstall={() =>
                 setShowInstallerDialog({
@@ -246,19 +281,23 @@ export default React.memo(function NewLogin() {
               }
               onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['ubisoft']}
-              disabled={oldMac}
+              disabled={oldMac || installedLaunchers.ubisoft}
             />
             <ThirdPartyLauncherInstaller
               id="battlenet"
               name="Battle.net"
-              buttonText={t('login.install_battlenet', 'Install Battle.net')}
+              buttonText={
+                installedLaunchers.battlenet
+                  ? t('gamepage.status.installed', 'Installed')
+                  : t('login.install_battlenet', 'Install Battle.net')
+              }
               icon={() => <BattlenetLogo />}
               onInstall={() =>
                 setShowInstallerDialog({ id: 'battlenet', name: 'Battle.net' })
               }
               onCancel={(id) => window.api.cancelThirdPartyLauncherInstall(id)}
               status={launcherStatuses['battlenet']}
-              disabled={oldMac}
+              disabled={oldMac || installedLaunchers.battlenet}
             />
           </div>
         </div>
