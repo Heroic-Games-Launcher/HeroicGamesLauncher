@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   position: relative;
+  container-type: inline-size;
 }
 
 .loginBackground {
@@ -154,7 +155,90 @@
   padding: 1rem;
 }
 
-@media screen and (min-width: 850px) {
+.runnerSections {
+  width: 100%;
+}
+
+.runnerSection {
+  width: 100%;
+}
+
+.launcherSection {
+  margin-top: 12px;
+}
+
+.launcherSection .runnerGroupTitle {
+  margin-top: 0;
+}
+
+@container (max-width: 1024px) and (min-width: 700px) {
+  .loginContentWrapper {
+    width: min(98%, 980px);
+    max-width: 980px;
+  }
+
+  .runnerList {
+    min-width: 0;
+  }
+
+  .runnerSections {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .runnerSection {
+    min-width: 0;
+  }
+
+  .runnerSection .runnerGroup {
+    min-width: 0;
+  }
+
+  .runnerSection .runnerWrapper {
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .loginSection .runnerButtons,
+  .loginSection .userData {
+    min-width: 0;
+  }
+
+  .loginSection .userData {
+    font-size: var(--text-default);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .loginSection .runnerLogin {
+    padding: 10px 12px;
+    font-size: var(--text-sm);
+    white-space: nowrap;
+  }
+
+  .launcherSection {
+    margin-top: 0;
+  }
+
+  .launcherSection .runnerGroupTitle {
+    display: none;
+  }
+
+  .launcherSection .runnerLogin {
+    padding: 10px 12px;
+    font-size: var(--text-sm);
+  }
+
+  .runnerMessage {
+    width: 100%;
+  }
+}
+
+@container (min-width: 850px) {
   .loginContentWrapper {
     width: max(500px, 75%);
     height: auto;

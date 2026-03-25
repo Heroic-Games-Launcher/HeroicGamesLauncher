@@ -259,120 +259,124 @@ export default memo(function NewLogin() {
           <p className="runnerMessage">{loginMessage}</p>
           {oldMac && <p className="disabledMessage">{oldMacMessage}</p>}
 
-          <div className="runnerGroup">
-            <Runner
-              class="epic"
-              buttonText={t('login.epic', 'Epic Games Login')}
-              loginUrl={epicLoginPath}
-              icon={() => <EpicLogo />}
-              isLoggedIn={isEpicLoggedIn}
-              user={epic.username}
-              logoutAction={epic.logout}
-              alternativeLoginAction={() => {
-                setShowSidLogin(true)
-              }}
-              disabled={oldMac}
-            />
-            <Runner
-              class="gog"
-              buttonText={t('login.gog', 'GOG Login')}
-              icon={() => <GOGLogo />}
-              loginUrl={gogLoginPath}
-              isLoggedIn={isGogLoggedIn}
-              user={gog.username}
-              logoutAction={gog.logout}
-              disabled={oldMac}
-            />
-            <Runner
-              class="nile"
-              buttonText={t('login.amazon', 'Amazon Login')}
-              icon={() => <AmazonLogo />}
-              loginUrl={amazonLoginPath}
-              isLoggedIn={isAmazonLoggedIn}
-              user={amazon.username || 'Unknown'}
-              logoutAction={amazon.logout}
-              disabled={oldMac}
-            />
-            {zoom.enabled && (
-              <Runner
-                class="zoom"
-                buttonText={t('login.zoom', 'Zoom Login')}
-                icon={() => <ZoomLogo />}
-                loginUrl={zoomLoginPath}
-                isLoggedIn={isZoomLoggedIn}
-                user={zoom.username}
-                logoutAction={zoom.logout}
-                disabled={oldMac}
-              />
-            )}
-          </div>
-
-          {isLinux ? (
-            <>
-              <h3 className="runnerGroupTitle">
-                {t('login.install_launchers', 'Install Other Launchers')}
-              </h3>
+          <div className="runnerSections">
+            <div className="runnerSection loginSection">
               <div className="runnerGroup">
-                <ThirdPartyLauncherInstaller
-                  id="ea"
-                  name="EA App"
-                  buttonText={
-                    installedLaunchers.ea
-                      ? `${t2('button.uninstall', 'Uninstall')} - EA App`
-                      : `${t2('button.install', 'Install')} - EA App`
-                  }
-                  icon={() => <EALogo />}
-                  onInstall={() =>
-                    setShowInstallerDialog({ id: 'ea', name: 'EA App' })
-                  }
-                  onUninstall={() => handleUninstallLauncher('ea')}
-                  status={launcherStatuses['ea']}
-                  isInstalled={installedLaunchers.ea}
+                <Runner
+                  class="epic"
+                  buttonText={t('login.epic', 'Epic Games Login')}
+                  loginUrl={epicLoginPath}
+                  icon={() => <EpicLogo />}
+                  isLoggedIn={isEpicLoggedIn}
+                  user={epic.username}
+                  logoutAction={epic.logout}
+                  alternativeLoginAction={() => {
+                    setShowSidLogin(true)
+                  }}
                   disabled={oldMac}
                 />
-                <ThirdPartyLauncherInstaller
-                  id="ubisoft"
-                  name="Ubisoft Connect"
-                  buttonText={
-                    installedLaunchers.ubisoft
-                      ? `${t2('button.uninstall', 'Uninstall')} - Ubisoft Connect`
-                      : `${t2('button.install', 'Install')} - Ubisoft Connect`
-                  }
-                  icon={() => <UbisoftLogo />}
-                  onInstall={() =>
-                    setShowInstallerDialog({
-                      id: 'ubisoft',
-                      name: 'Ubisoft Connect'
-                    })
-                  }
-                  onUninstall={() => handleUninstallLauncher('ubisoft')}
-                  status={launcherStatuses['ubisoft']}
-                  isInstalled={installedLaunchers.ubisoft}
+                <Runner
+                  class="gog"
+                  buttonText={t('login.gog', 'GOG Login')}
+                  icon={() => <GOGLogo />}
+                  loginUrl={gogLoginPath}
+                  isLoggedIn={isGogLoggedIn}
+                  user={gog.username}
+                  logoutAction={gog.logout}
                   disabled={oldMac}
                 />
-                <ThirdPartyLauncherInstaller
-                  id="battlenet"
-                  name="Battle.net"
-                  buttonText={
-                    installedLaunchers.battlenet
-                      ? `${t2('button.uninstall', 'Uninstall')} - Battle.net`
-                      : `${t2('button.install', 'Install')} - Battle.net`
-                  }
-                  icon={() => <BattlenetLogo />}
-                  onInstall={() =>
-                    setShowInstallerDialog({
-                      id: 'battlenet',
-                      name: 'Battle.net'
-                    })
-                  }
-                  onUninstall={() => handleUninstallLauncher('battlenet')}
-                  status={launcherStatuses['battlenet']}
-                  isInstalled={installedLaunchers.battlenet}
+                <Runner
+                  class="nile"
+                  buttonText={t('login.amazon', 'Amazon Login')}
+                  icon={() => <AmazonLogo />}
+                  loginUrl={amazonLoginPath}
+                  isLoggedIn={isAmazonLoggedIn}
+                  user={amazon.username || 'Unknown'}
+                  logoutAction={amazon.logout}
                   disabled={oldMac}
                 />
+                {zoom.enabled && (
+                  <Runner
+                    class="zoom"
+                    buttonText={t('login.zoom', 'Zoom Login')}
+                    icon={() => <ZoomLogo />}
+                    loginUrl={zoomLoginPath}
+                    isLoggedIn={isZoomLoggedIn}
+                    user={zoom.username}
+                    logoutAction={zoom.logout}
+                    disabled={oldMac}
+                  />
+                )}
               </div>
-            </>
-          ) : null}
+            </div>
+
+            {isLinux ? (
+              <div className="runnerSection launcherSection">
+                <h3 className="runnerGroupTitle">
+                  {t('login.install_launchers', 'Install Other Launchers')}
+                </h3>
+                <div className="runnerGroup">
+                  <ThirdPartyLauncherInstaller
+                    id="ea"
+                    name="EA App"
+                    buttonText={
+                      installedLaunchers.ea
+                        ? `${t2('button.uninstall', 'Uninstall')} - EA App`
+                        : `${t2('button.install', 'Install')} - EA App`
+                    }
+                    icon={() => <EALogo />}
+                    onInstall={() =>
+                      setShowInstallerDialog({ id: 'ea', name: 'EA App' })
+                    }
+                    onUninstall={() => handleUninstallLauncher('ea')}
+                    status={launcherStatuses['ea']}
+                    isInstalled={installedLaunchers.ea}
+                    disabled={oldMac}
+                  />
+                  <ThirdPartyLauncherInstaller
+                    id="ubisoft"
+                    name="Ubisoft Connect"
+                    buttonText={
+                      installedLaunchers.ubisoft
+                        ? `${t2('button.uninstall', 'Uninstall')} - Ubisoft Connect`
+                        : `${t2('button.install', 'Install')} - Ubisoft Connect`
+                    }
+                    icon={() => <UbisoftLogo />}
+                    onInstall={() =>
+                      setShowInstallerDialog({
+                        id: 'ubisoft',
+                        name: 'Ubisoft Connect'
+                      })
+                    }
+                    onUninstall={() => handleUninstallLauncher('ubisoft')}
+                    status={launcherStatuses['ubisoft']}
+                    isInstalled={installedLaunchers.ubisoft}
+                    disabled={oldMac}
+                  />
+                  <ThirdPartyLauncherInstaller
+                    id="battlenet"
+                    name="Battle.net"
+                    buttonText={
+                      installedLaunchers.battlenet
+                        ? `${t2('button.uninstall', 'Uninstall')} - Battle.net`
+                        : `${t2('button.install', 'Install')} - Battle.net`
+                    }
+                    icon={() => <BattlenetLogo />}
+                    onInstall={() =>
+                      setShowInstallerDialog({
+                        id: 'battlenet',
+                        name: 'Battle.net'
+                      })
+                    }
+                    onUninstall={() => handleUninstallLauncher('battlenet')}
+                    status={launcherStatuses['battlenet']}
+                    isInstalled={installedLaunchers.battlenet}
+                    disabled={oldMac}
+                  />
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
         <button
           onClick={async () => handleLibraryClick()}
