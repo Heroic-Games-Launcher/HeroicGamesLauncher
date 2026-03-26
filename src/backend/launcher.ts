@@ -661,7 +661,7 @@ async function prepareLaunch(
         if (gameSettings.gamescope.windowType === 'borderless') {
           gameScopeCommand.push('-b')
         }
-      } else {
+      } else if (gameSettings.gamescope.enableAutoRes) {
         const { width, height } = screen.getPrimaryDisplay().workAreaSize
         gameScopeCommand.push('-w', width.toString())
         gameScopeCommand.push('-h', height.toString())
