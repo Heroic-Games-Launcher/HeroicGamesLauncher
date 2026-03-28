@@ -21,13 +21,10 @@ export default function CategoryFilter() {
 
   const toggleCategory = useCallback(
     (category: string) => {
-      if (currentCustomCategories.includes(category)) {
-        setCurrentCustomCategories(
-          currentCustomCategories.filter((cat) => cat !== category)
-        )
-      } else {
-        setCurrentCustomCategories([...currentCustomCategories, category])
-      }
+      const newCategories = currentCustomCategories.includes(category) 
+        ? currentCustomCategories.filter((cat) => cat !== category)
+        : [...currentCustomCategories, category]
+      setCurrentCustomCategories(newCategories);
     },
     [currentCustomCategories, setCurrentCustomCategories]
   )
@@ -48,11 +45,10 @@ export default function CategoryFilter() {
 
   const toggleGenre = useCallback(
     (genre: string) => {
-      if (selectedGenres.includes(genre)) {
-        setSelectedGenres(selectedGenres.filter((g) => g !== genre))
-      } else {
-        setSelectedGenres([...selectedGenres, genre])
-      }
+      const newGenres = selectedGenres.includes(genre)
+        ? selectedGenres.filter((g) => g !== genre)
+        : [...selectedGenres, genre];
+      setSelectedGenres(newGenres)
     },
     [selectedGenres, setSelectedGenres]
   )

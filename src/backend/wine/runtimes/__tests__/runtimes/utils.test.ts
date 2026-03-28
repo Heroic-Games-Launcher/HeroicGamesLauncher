@@ -1,5 +1,6 @@
 import { join } from 'path'
-import graceful_fs, { readFileSync } from 'graceful-fs'
+import { readFileSync } from 'graceful-fs'
+import graceful_fs from 'graceful-fs'
 import { axiosClient } from 'backend/utils'
 import { getAssetDataFromDownload, downloadFile } from '../../util'
 import { test_data } from './test_data/github-api-heroic-test-data.json'

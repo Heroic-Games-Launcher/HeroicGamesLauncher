@@ -46,39 +46,13 @@ export function getCache(): GenresCache {
 }
 
 function getAllGames(): GameInfo[] {
-  const allGames: GameInfo[] = []
-
-  try {
-    allGames.push(...legendaryLibraryStore.get('library', []))
-  } catch {
-    // store not available
-  }
-
-  try {
-    allGames.push(...gogLibraryStore.get('games', []))
-  } catch {
-    // store not available
-  }
-
-  try {
-    allGames.push(...nileLibraryStore.get('library', []))
-  } catch {
-    // store not available
-  }
-
-  try {
-    allGames.push(...zoomLibraryStore.get('games', []))
-  } catch {
-    // store not available
-  }
-
-  try {
-    allGames.push(...sideloadLibraryStore.get('games', []))
-  } catch {
-    // store not available
-  }
-
-  return allGames
+  return [
+    ...legendaryLibraryStore.get('library', []),
+    ...gogLibraryStore.get('games', []),
+    ...nileLibraryStore.get('library', []),
+    ...zoomLibraryStore.get('games', []),
+    ...sideloadLibraryStore.get('games', [])
+  ]
 }
 
 /**

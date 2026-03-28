@@ -102,8 +102,7 @@ import {
   getBranchPassword,
   setBranchPassword,
   getGOGPlaytime,
-  syncQueuedPlaytimeGOG,
-  getAchievements as getAchievementsGOG
+  syncQueuedPlaytimeGOG
 } from 'backend/storeManagers/gog/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
@@ -155,6 +154,7 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -1407,5 +1407,4 @@ import './utils/ipc_handler'
 import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
-import './genres/ipc_handler'
 import './progress_bar'
