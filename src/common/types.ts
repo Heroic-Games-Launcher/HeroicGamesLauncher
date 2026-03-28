@@ -139,6 +139,7 @@ export interface AppSettings extends GameSettings {
   verboseLogs: boolean
   showValveProton: boolean
   steamGridDbApiKey: string
+  legendaryTimeout: number
 }
 
 export type LibraryTopSectionOptions =
