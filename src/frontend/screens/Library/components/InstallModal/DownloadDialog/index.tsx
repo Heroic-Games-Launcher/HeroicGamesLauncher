@@ -73,8 +73,6 @@ type DiskSpaceInfo = {
   spaceLeftAfter: string
 }
 
-const storage: Storage = window.localStorage
-
 function getUniqueKey(sdl: SelectiveDownload) {
   if (sdl.tags) {
     return sdl.tags.join(',')
@@ -104,7 +102,7 @@ export default function DownloadDialog({
   crossoverBottle
 }: Props) {
   const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
+    window.storage.getItem(appName) || '{}'
   ) as InstallProgress
   const { libraryStatus, platform, showDialogModal } =
     useContext(ContextProvider)

@@ -105,7 +105,8 @@ export default function GamesSettings() {
     ? `${gameInfo.app_name}-setting_tab`
     : 'default'
   const latestTabIndex =
-    localStorage.getItem(localStorageKey) || getStartingTab(platform, gameInfo)
+    window.storage.getItem(localStorageKey) ||
+    getStartingTab(platform, gameInfo)
   const [value, setValue] = useState(latestTabIndex)
 
   const handleChange = (
@@ -114,7 +115,7 @@ export default function GamesSettings() {
   ) => {
     setValue(newValue)
     // Store the latest used tab index for the current game
-    localStorage.setItem(localStorageKey, newValue.toString())
+    window.storage.setItem(localStorageKey, newValue.toString())
   }
 
   useEffect(() => {

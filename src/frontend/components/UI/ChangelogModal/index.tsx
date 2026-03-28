@@ -10,8 +10,9 @@ type Props = {
   dimissVersionCheck?: boolean
 }
 
-const storage = window.localStorage
-const lastChangelog = storage.getItem('last_changelog')?.replaceAll('"', '')
+const lastChangelog = window.storage
+  .getItem('last_changelog')
+  ?.replaceAll('"', '')
 
 export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
   const [currentChangelog, setCurrentChangelog] = useState<Release | null>(null)

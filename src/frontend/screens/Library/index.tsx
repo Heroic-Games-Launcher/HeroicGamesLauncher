@@ -38,8 +38,6 @@ import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
-const storage = window.localStorage
-
 type SearchableGame = {
   original: GameInfo
   title: string
@@ -73,21 +71,24 @@ export default React.memo(function Library(): JSX.Element {
     <p>{t('help.content.library', 'Shows all owned games.')}</p>
   )
 
-  const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
+  const [layout, setLayout] = useState(
+    window.storage.getItem('layout') || 'grid'
+  )
   const handleLayout = (layout: string) => {
-    storage.setItem('layout', layout)
+    window.storage.setItem('layout', layout)
     setLayout(layout)
   }
 
   let initialStoresfilters
-  const storesFiltersString = storage.getItem('storesFilters')
+  const storesFiltersString = window.storage.getItem('storesFilters')
   if (storesFiltersString) {
     // If we have something stored, use that
     initialStoresfilters = JSON.parse(storesFiltersString) as StoresFilters
   } else {
     // Else, use the old `category` filter
     // TODO: we can remove this eventually after a few releases and just use the code of the if
-    const storedCategory = (storage.getItem('category') as Category) || 'all'
+    const storedCategory =
+      (window.storage.getItem('category') as Category) || 'all'
     initialStoresfilters = {
       legendary: epicCategories.includes(storedCategory),
       gog: gogCategories.includes(storedCategory),
@@ -101,12 +102,12 @@ export default React.memo(function Library(): JSX.Element {
     useState<StoresFilters>(initialStoresfilters)
 
   const setStoresFilters = (newFilters: StoresFilters) => {
-    storage.setItem('storesFilters', JSON.stringify(newFilters))
+    window.storage.setItem('storesFilters', JSON.stringify(newFilters))
     setStoresFilters_(newFilters)
   }
 
   let initialPlatformsfilters
-  const plaformsFiltersString = storage.getItem('platformsFilters')
+  const plaformsFiltersString = window.storage.getItem('platformsFilters')
   if (plaformsFiltersString) {
     // If we have something stored, use that
     initialPlatformsfilters = JSON.parse(
@@ -115,7 +116,7 @@ export default React.memo(function Library(): JSX.Element {
   } else {
     // Else, use the old `category` filter
     // TODO: we can remove this eventually after a few releases and just use the code of the if
-    const storedCategory = storage.getItem('filterPlatform') || 'all'
+    const storedCategory = window.storage.getItem('filterPlatform') || 'all'
     initialPlatformsfilters = {
       win: ['all', 'win'].includes(storedCategory),
       linux: ['all', 'linux'].includes(storedCategory),
@@ -129,76 +130,81 @@ export default React.memo(function Library(): JSX.Element {
   )
 
   const setPlatformsFilters = (newFilters: PlatformsFilters) => {
-    storage.setItem('platformsFilters', JSON.stringify(newFilters))
+    window.storage.setItem('platformsFilters', JSON.stringify(newFilters))
     setPlatformsFilters_(newFilters)
   }
 
   const [filterText, setFilterText] = useState('')
 
   const [showHidden, setShowHidden] = useState(
-    JSON.parse(storage.getItem('show_hidden') || 'false')
+    JSON.parse(window.storage.getItem('show_hidden') || 'false')
   )
   const handleShowHidden = (value: boolean) => {
-    storage.setItem('show_hidden', JSON.stringify(value))
+    window.storage.setItem('show_hidden', JSON.stringify(value))
     setShowHidden(value)
   }
 
   const [showFavouritesLibrary, setShowFavourites] = useState(
-    JSON.parse(storage.getItem('show_favorites') || 'false')
+    JSON.parse(window.storage.getItem('show_favorites') || 'false')
   )
   const handleShowFavourites = (value: boolean) => {
-    storage.setItem('show_favorites', JSON.stringify(value))
+    window.storage.setItem('show_favorites', JSON.stringify(value))
     setShowFavourites(value)
   }
 
   const [showInstalledOnly, setShowInstalledOnly] = useState(
-    JSON.parse(storage.getItem('show_installed_only') || 'false')
+    JSON.parse(window.storage.getItem('show_installed_only') || 'false')
   )
   const handleShowInstalledOnly = (value: boolean) => {
-    storage.setItem('show_installed_only', JSON.stringify(value))
+    window.storage.setItem('show_installed_only', JSON.stringify(value))
     setShowInstalledOnly(value)
   }
 
   const [showNonAvailable, setShowNonAvailable] = useState(
-    JSON.parse(storage.getItem('show_non_available') || 'true')
+    JSON.parse(window.storage.getItem('show_non_available') || 'true')
   )
   const handleShowNonAvailable = (value: boolean) => {
-    storage.setItem('show_non_available', JSON.stringify(value))
+    window.storage.setItem('show_non_available', JSON.stringify(value))
     setShowNonAvailable(value)
   }
 
   const [showSupportOfflineOnly, setSupportOfflineOnly] = useState(
-    JSON.parse(storage.getItem('show_support_offline_only') || 'false')
+    JSON.parse(window.storage.getItem('show_support_offline_only') || 'false')
   )
   const handleShowSupportOfflineOnly = (value: boolean) => {
-    storage.setItem('show_support_offline_only', JSON.stringify(value))
+    window.storage.setItem('show_support_offline_only', JSON.stringify(value))
     setSupportOfflineOnly(value)
   }
 
   const [showThirdPartyManagedOnly, setShowThirdPartyManagedOnly] = useState(
-    JSON.parse(storage.getItem('show_third_party_managed_only') || 'false')
+    JSON.parse(
+      window.storage.getItem('show_third_party_managed_only') || 'false'
+    )
   )
   const handleShowThirdPartyOnly = (value: boolean) => {
-    storage.setItem('show_third_party_managed_only', JSON.stringify(value))
+    window.storage.setItem(
+      'show_third_party_managed_only',
+      JSON.stringify(value)
+    )
     setShowThirdPartyManagedOnly(value)
   }
 
   const [showUpdatesOnly, setShowUpdatesOnly] = useState(
-    JSON.parse(storage.getItem('show_updates_only') || 'false')
+    JSON.parse(window.storage.getItem('show_updates_only') || 'false')
   )
   const handleShowUpdatesOnly = (value: boolean) => {
-    storage.setItem('show_updates_only', JSON.stringify(value))
+    window.storage.setItem('show_updates_only', JSON.stringify(value))
     setShowUpdatesOnly(value)
   }
 
   const [showCategories, setShowCategories] = useState(false)
 
   const [showAlphabetFilter, setShowAlphabetFilter] = useState(
-    JSON.parse(storage.getItem('showAlphabetFilter') || 'true')
+    JSON.parse(window.storage.getItem('showAlphabetFilter') || 'true')
   )
   const handleToggleAlphabetFilter = () => {
     const newValue = !showAlphabetFilter
-    storage.setItem('showAlphabetFilter', JSON.stringify(newValue))
+    window.storage.setItem('showAlphabetFilter', JSON.stringify(newValue))
     setShowAlphabetFilter(newValue)
   }
   const [alphabetFilterLetter, setAlphabetFilterLetter] = useState<
@@ -206,18 +212,18 @@ export default React.memo(function Library(): JSX.Element {
   >(null)
 
   const [sortDescending, setSortDescending] = useState(
-    JSON.parse(storage?.getItem('sortDescending') || 'false')
+    JSON.parse(window.storage?.getItem('sortDescending') || 'false')
   )
   function handleSortDescending(value: boolean) {
-    storage.setItem('sortDescending', JSON.stringify(value))
+    window.storage.setItem('sortDescending', JSON.stringify(value))
     setSortDescending(value)
   }
 
   const [sortInstalled, setSortInstalled] = useState(
-    JSON.parse(storage?.getItem('sortInstalled') || 'true')
+    JSON.parse(window.storage?.getItem('sortInstalled') || 'true')
   )
   function handleSortInstalled(value: boolean) {
-    storage.setItem('sortInstalled', JSON.stringify(value))
+    window.storage.setItem('sortInstalled', JSON.stringify(value))
     setSortInstalled(value)
   }
 
@@ -225,10 +231,12 @@ export default React.memo(function Library(): JSX.Element {
 
   //Remember scroll position
   useLayoutEffect(() => {
-    const scrollPosition = parseInt(storage?.getItem('scrollPosition') || '0')
+    const scrollPosition = parseInt(
+      window.storage?.getItem('scrollPosition') || '0'
+    )
 
     const storeScrollPosition = () => {
-      storage?.setItem(
+      window.storage?.setItem(
         'scrollPosition',
         document.body.scrollTop.toString() || '0'
       )
@@ -496,7 +504,8 @@ export default React.memo(function Library(): JSX.Element {
       }
 
       if (!showNonAvailable) {
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGames =
+          window.storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
         library = library.filter(
           (game) => !nonAvailbleGamesArray.includes(game.app_name)
@@ -508,7 +517,8 @@ export default React.memo(function Library(): JSX.Element {
       }
 
       if (!showNonAvailable) {
-        const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
+        const nonAvailbleGames =
+          window.storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
         library = library.filter(
           (game) => !nonAvailbleGamesArray.includes(game.app_name)

@@ -20,13 +20,14 @@ import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import classNames from 'classnames'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import { storesPath } from 'backend/constants/key_value_stores'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
 )
 
 const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
-  cwd: 'store'
+  cwd: storesPath
 })
 
 export default function WineManager(): JSX.Element | null {

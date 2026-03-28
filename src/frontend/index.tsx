@@ -13,6 +13,7 @@ import { configStore } from './helpers/electronStores'
 import { initOnlineMonitor } from './helpers/onlineMonitor'
 import { defaultThemes } from './components/UI/ThemeSelector'
 import Loading from './screens/Loading'
+import { ProfileLocalStorage } from './helpers/profile_local_storage'
 
 initOnlineMonitor()
 
@@ -30,11 +31,13 @@ const Backend = new HttpApi(null, {
 initGamepad()
 initShortcuts()
 
-const storage: Storage = window.localStorage
-storage.removeItem('nonAvailableGames')
+window.storage = new ProfileLocalStorage(window.heroicProfile)
+window.storage.removeItem('nonAvailableGames')
 
 const languageCode: string =
-  configStore.get_nodefault('language') ?? storage.getItem('language') ?? 'en'
+  configStore.get_nodefault('language') ??
+  window.storage.getItem('language') ??
+  'en'
 configStore.set('language', languageCode)
 document.querySelector('html')?.setAttribute('lang', languageCode)
 

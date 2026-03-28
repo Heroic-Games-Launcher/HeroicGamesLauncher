@@ -6,17 +6,18 @@ import {
   GamesDBData,
   GogInstallInfo
 } from 'common/types/gog'
+import { gogStorePath } from 'backend/constants/key_value_stores'
 
 const installedGamesStore = new TypeCheckedStoreBackend(
   'gogInstalledGamesStore',
   {
-    cwd: 'gog_store',
+    cwd: gogStorePath,
     name: 'installed'
   }
 )
 
 const configStore = new TypeCheckedStoreBackend('gogConfigStore', {
-  cwd: 'gog_store'
+  cwd: gogStorePath
 })
 
 const apiInfoCache = new CacheStore<GamesDBData>('gog_api_info')
@@ -26,7 +27,7 @@ const achievementStore = new CacheStore<GOGAchievement[]>(
   null
 )
 const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
-  cwd: 'gog_store',
+  cwd: gogStorePath,
   name: 'saveTimestamps',
   clearInvalidConfig: true
 })
@@ -34,7 +35,7 @@ const syncStore = new TypeCheckedStoreBackend('gogSyncStore', {
 const installInfoStore = new CacheStore<GogInstallInfo>('gog_install_info')
 
 const privateBranchesStore = new TypeCheckedStoreBackend('gogPrivateBranches', {
-  cwd: 'gog_store',
+  cwd: gogStorePath,
   name: 'privateBranches',
   clearInvalidConfig: true
 })

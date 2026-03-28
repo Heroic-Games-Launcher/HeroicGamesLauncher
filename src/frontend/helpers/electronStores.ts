@@ -9,6 +9,31 @@ import {
 } from 'common/types/electron_store'
 import { GameInfo } from 'common/types'
 
+const profilePrefix =
+  window.heroicProfile === 'default' ? '' : `${window.heroicProfile}/`
+
+const storesPath = window.heroicProfile ? `${profilePrefix}stores` : 'stores'
+
+const cacheStoresPath = window.heroicProfile
+  ? `${profilePrefix}store_cache`
+  : 'store_cache'
+
+const gogStorePath = window.heroicProfile
+  ? `${profilePrefix}gog_store`
+  : 'gog_store'
+
+const nileStorePath = window.heroicProfile
+  ? `${profilePrefix}nile_store`
+  : 'nile_store'
+
+const sideloadAppsStorePath = window.heroicProfile
+  ? `${profilePrefix}sideload_apps`
+  : 'sideload_apps'
+
+const zoomStorePath = window.heroicProfile
+  ? `${profilePrefix}zoom_store`
+  : 'zoom_store'
+
 export class TypeCheckedStoreFrontend<
   Name extends ValidStoreName
 > implements TypeCheckedStore<Name> {
@@ -70,7 +95,7 @@ class CacheStore<ValueType, KeyType extends string = string> {
   constructor(filename: string, max_value_lifespan: number | null = 60 * 6) {
     this.storeName = filename
     window.api.storeNew(filename, {
-      cwd: 'store_cache',
+      cwd: cacheStoresPath,
       name: filename,
       clearInvalidConfig: true
     })
@@ -110,7 +135,7 @@ class CacheStore<ValueType, KeyType extends string = string> {
 }
 
 const configStore = new TypeCheckedStoreFrontend('configStore', {
-  cwd: 'store'
+  cwd: storesPath
 })
 
 const libraryStore = new CacheStore<GameInfo[], 'library'>(
@@ -121,7 +146,7 @@ const libraryStore = new CacheStore<GameInfo[], 'library'>(
 const wineDownloaderInfoStore = new TypeCheckedStoreFrontend(
   'wineDownloaderInfoStore',
   {
-    cwd: 'store',
+    cwd: storesPath,
     name: 'wine-downloader-info'
   }
 )
@@ -130,12 +155,12 @@ const gogLibraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', null)
 const gogInstalledGamesStore = new TypeCheckedStoreFrontend(
   'gogInstalledGamesStore',
   {
-    cwd: 'gog_store',
+    cwd: gogStorePath,
     name: 'installed'
   }
 )
 const gogConfigStore = new TypeCheckedStoreFrontend('gogConfigStore', {
-  cwd: 'gog_store'
+  cwd: gogStorePath
 })
 
 const zoomLibraryStore = new CacheStore<GameInfo[], 'games'>(
@@ -145,12 +170,12 @@ const zoomLibraryStore = new CacheStore<GameInfo[], 'games'>(
 const zoomInstalledGamesStore = new TypeCheckedStoreFrontend(
   'zoomInstalledGamesStore',
   {
-    cwd: 'zoom_store',
+    cwd: zoomStorePath,
     name: 'installed'
   }
 )
 const zoomConfigStore = new TypeCheckedStoreFrontend('zoomConfigStore', {
-  cwd: 'zoom_store'
+  cwd: zoomStorePath
 })
 
 const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
@@ -158,21 +183,21 @@ const nileLibraryStore = new CacheStore<GameInfo[], 'library'>(
   null
 )
 const nileConfigStore = new TypeCheckedStoreFrontend('nileConfigStore', {
-  cwd: 'nile_store'
+  cwd: nileStorePath
 })
 
 const timestampStore = new TypeCheckedStoreFrontend('timestampStore', {
-  cwd: 'store',
+  cwd: storesPath,
   name: 'timestamp'
 })
 
 const sideloadLibrary = new TypeCheckedStoreFrontend('sideloadedStore', {
-  cwd: 'sideload_apps',
+  cwd: sideloadAppsStorePath,
   name: 'library'
 })
 
 const downloadManagerStore = new TypeCheckedStoreFrontend('downloadManager', {
-  cwd: 'store',
+  cwd: storesPath,
   name: 'download-manager'
 })
 

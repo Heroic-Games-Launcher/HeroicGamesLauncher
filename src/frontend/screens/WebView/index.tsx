@@ -226,7 +226,7 @@ export default function WebView() {
           // - imLinguin - 01/07/24
           url.port = ''
           webview.loadURL(url.toString())
-          if (!localStorage.getItem('adtraction-warning')) {
+          if (!window.storage.getItem('adtraction-warning')) {
             setShowAdtractionWarning(true)
           }
         }
@@ -366,6 +366,10 @@ export default function WebView() {
     return <></>
   }
 
+  let partition = `persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`
+  if (window.heroicProfile !== 'default')
+    partition = `persist:${window.heroicProfile}-${startUrl === epicLoginUrl ? 'epicstore' : store}`
+
   return (
     <div className="WebView">
       {webviewRef.current && (
@@ -380,7 +384,7 @@ export default function WebView() {
         key={store}
         ref={webviewRef}
         className="WebView__webview"
-        partition={`persist:${startUrl === epicLoginUrl ? 'epicstore' : store}`}
+        partition={partition}
         src={startUrl}
         allowpopups={trueAsStr}
         preload={webviewPreloadPath}
@@ -397,14 +401,14 @@ export default function WebView() {
           onClose={() => {
             setShowAdtractionWarning(false)
             if (dontShowAdtractionWarning)
-              localStorage.setItem('adtraction-warning', 'true')
+              window.storage.setItem('adtraction-warning', 'true')
           }}
         >
           <DialogHeader
             onClose={() => {
               setShowAdtractionWarning(false)
               if (dontShowAdtractionWarning)
-                localStorage.setItem('adtraction-warning', 'true')
+                window.storage.setItem('adtraction-warning', 'true')
             }}
           >
             {t('adtraction-locked.title', 'Adtraction is blocked')}

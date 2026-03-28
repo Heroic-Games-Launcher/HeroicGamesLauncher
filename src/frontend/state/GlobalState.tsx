@@ -41,7 +41,6 @@ import {
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
 
-const storage: Storage = window.localStorage
 const globalSettings = configStore.get_nodefault('settings')
 
 const RTL_LANGUAGES = ['fa', 'ar']
@@ -117,9 +116,11 @@ interface StateProps {
 
 // function to load the new key or fallback to the old one
 const loadCurrentCategories = () => {
-  const currentCategories = storage.getItem('current_custom_categories') || null
+  const currentCategories =
+    window.storage.getItem('current_custom_categories') || null
   if (!currentCategories) {
-    const currentCategory = storage.getItem('current_custom_category') || null
+    const currentCategory =
+      window.storage.getItem('current_custom_category') || null
     if (!currentCategory) {
       return []
     } else {
@@ -199,7 +200,7 @@ class GlobalState extends PureComponent<Props> {
     hiddenGames: configStore.get('games.hidden', []),
     currentCustomCategories: loadCurrentCategories(),
     sidebarCollapsed: JSON.parse(
-      storage.getItem('sidebar_collapsed') || 'false'
+      window.storage.getItem('sidebar_collapsed') || 'false'
     ),
     favouriteGames: configStore.get('games.favourites', []),
     customCategories: configStore.get('games.customCategories', {}),
@@ -231,7 +232,9 @@ class GlobalState extends PureComponent<Props> {
     dialogModalOptions: { showDialog: false },
     externalLinkDialogOptions: { showDialog: false },
     hideChangelogsOnStartup: globalSettings?.hideChangelogsOnStartup || false,
-    lastChangelogShown: JSON.parse(storage.getItem('last_changelog') || 'null'),
+    lastChangelogShown: JSON.parse(
+      window.storage.getItem('last_changelog') || 'null'
+    ),
     helpItems: {},
     experimentalFeatures: {
       enableHelp: false,
@@ -247,7 +250,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   setCurrentCustomCategories = (newCustomCategories: string[]) => {
-    storage.setItem(
+    window.storage.setItem(
       'current_custom_categories',
       JSON.stringify(newCustomCategories)
     )
@@ -502,7 +505,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
-    storage.setItem('category', 'all')
+    window.storage.setItem('category', 'all')
     this.refreshLibrary({
       runInBackground: false,
       library: runner
@@ -811,7 +814,7 @@ class GlobalState extends PureComponent<Props> {
           library: runner
         })
 
-        storage.setItem('updates', JSON.stringify(updatedGamesUpdates))
+        window.storage.setItem('updates', JSON.stringify(updatedGamesUpdates))
         return this.setState({
           gameUpdates: updatedGamesUpdates,
           libraryStatus: newLibraryStatus
@@ -938,7 +941,9 @@ class GlobalState extends PureComponent<Props> {
     }
 
     if (!gameUpdates.length) {
-      const storedGameUpdates = JSON.parse(storage.getItem('updates') || '[]')
+      const storedGameUpdates = JSON.parse(
+        window.storage.getItem('updates') || '[]'
+      )
       this.setState({ gameUpdates: storedGameUpdates })
     }
 
@@ -993,10 +998,16 @@ class GlobalState extends PureComponent<Props> {
     const isRTL = RTL_LANGUAGES.includes(language)
     document.body.classList.toggle('isRTL', isRTL)
 
-    storage.setItem('updates', JSON.stringify(gameUpdates))
-    storage.setItem('sidebar_collapsed', JSON.stringify(sidebarCollapsed))
-    storage.setItem('hide_changelogs', JSON.stringify(hideChangelogsOnStartup))
-    storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
+    window.storage.setItem('updates', JSON.stringify(gameUpdates))
+    window.storage.setItem(
+      'sidebar_collapsed',
+      JSON.stringify(sidebarCollapsed)
+    )
+    window.storage.setItem(
+      'hide_changelogs',
+      JSON.stringify(hideChangelogsOnStartup)
+    )
+    window.storage.setItem('last_changelog', JSON.stringify(lastChangelogShown))
 
     const allowedPendingOps: Status[] = [
       'installing',
