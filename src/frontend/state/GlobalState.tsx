@@ -87,6 +87,8 @@ interface StateProps {
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
+  autoCategoriesCache: Record<string, string[]>
+  selectedAutoCategories: string[]
   theme: string
   isFullscreen: boolean
   isFrameless: boolean
@@ -198,6 +200,10 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
     currentCustomCategories: loadCurrentCategories(),
+    autoCategoriesCache: {},
+    selectedAutoCategories: JSON.parse(
+      storage.getItem('selected_auto_categories') || '[]'
+    ),
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
@@ -252,6 +258,19 @@ class GlobalState extends PureComponent<Props> {
       JSON.stringify(newCustomCategories)
     )
     this.setState({ currentCustomCategories: newCustomCategories })
+  }
+
+  setSelectedAutoCategories = (newCategories: string[]) => {
+    storage.setItem(
+      'selected_auto_categories',
+      JSON.stringify(newCategories)
+    )
+    this.setState({ selectedAutoCategories: newCategories })
+  }
+
+  refreshAutoCategories = async () => {
+    const cache = await window.api.refreshAutoCategories()
+    this.setState({ autoCategoriesCache: cache })
   }
 
   setLanguage = (newLanguage: string) => {
@@ -716,6 +735,12 @@ class GlobalState extends PureComponent<Props> {
       sideloadedLibrary: updatedSideload
     })
 
+    // Update auto-categories for any newly added games
+    window.api
+      .getAutoCategories()
+      .then((cache) => this.setState({ autoCategoriesCache: cache }))
+      .catch(() => {})
+
     if (currentLibraryLength !== epicLibrary.length) {
       window.api.logInfo('Force Update')
       this.forceUpdate()
@@ -978,6 +1003,12 @@ class GlobalState extends PureComponent<Props> {
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
 
     window.api.frontendReady()
+
+    // Load auto-categories cache
+    window.api
+      .getAutoCategories()
+      .then((cache) => this.setState({ autoCategoriesCache: cache }))
+      .catch((err) => window.api.logError(`Failed to load auto-categories: ${err}`))
   }
 
   componentDidUpdate() {
@@ -1132,6 +1163,8 @@ class GlobalState extends PureComponent<Props> {
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           setCurrentCustomCategories: this.setCurrentCustomCategories,
+          setSelectedAutoCategories: this.setSelectedAutoCategories,
+          refreshAutoCategories: this.refreshAutoCategories,
           help: {
             items: this.state.helpItems,
             addHelpItem: this.addHelpItem,

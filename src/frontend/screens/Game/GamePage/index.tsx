@@ -444,6 +444,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
                       <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>
                       <Genres
+                        gameId={`${appName}_${runner}`}
                         genres={
                           gameInfo.extra?.genres ||
                           wikiInfo?.pcgamingwiki?.genres ||

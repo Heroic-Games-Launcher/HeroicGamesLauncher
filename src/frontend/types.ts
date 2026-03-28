@@ -64,6 +64,10 @@ export interface ContextType {
   }
   currentCustomCategories: string[]
   setCurrentCustomCategories: (newCustomCategories: string[]) => void
+  autoCategoriesCache: Record<string, string[]>
+  selectedAutoCategories: string[]
+  setSelectedAutoCategories: (categories: string[]) => void
+  refreshAutoCategories: () => Promise<void>
   theme: string
   setTheme: (themeName: string) => void
   zoomPercent: number

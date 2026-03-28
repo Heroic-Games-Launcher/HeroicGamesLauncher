@@ -56,6 +56,10 @@ const initialContext: ContextType = {
   },
   currentCustomCategories: [],
   setCurrentCustomCategories: () => null,
+  autoCategoriesCache: {},
+  selectedAutoCategories: [],
+  setSelectedAutoCategories: () => null,
+  refreshAutoCategories: async () => Promise.resolve(),
   favouriteGames: {
     list: [],
     add: () => null,
