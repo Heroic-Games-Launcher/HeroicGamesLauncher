@@ -131,6 +131,7 @@ export interface AppSettings extends GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  legendaryTimeout: number
 }
 
 export type LibraryTopSectionOptions =

@@ -42,7 +42,11 @@ import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
 import { LegendaryCommand } from './commands'
-import { LegendaryAppName, LegendaryPlatform } from './commands/base'
+import {
+  LegendaryAppName,
+  LegendaryPlatform,
+  PositiveInteger
+} from './commands/base'
 import { Path } from 'backend/schemas'
 import shlex from 'shlex'
 import thirdParty from './thirdParty'
@@ -50,6 +54,8 @@ import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
 import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
+import { GlobalConfig } from 'backend/config'
+import InstallCommand from './commands/install'
 
 const fallBackImage = 'fallback'
 
@@ -698,6 +704,18 @@ export async function runRunnerCommand(
   // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
   if (!process.env.SNAP) {
     options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
+  }
+
+  if (command.subcommand) {
+    const { legendaryTimeout } = GlobalConfig.get().getSettings()
+    if (
+      ['install', 'download', 'update', 'repair'].includes(command.subcommand)
+    ) {
+      ;(command as InstallCommand)['--dl-timeout'] =
+        PositiveInteger.parse(legendaryTimeout)
+    } else {
+      command['-A'] = PositiveInteger.parse(legendaryTimeout)
+    }
   }
 
   const commandParts = commandToArgsArray(command)

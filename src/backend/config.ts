@@ -358,7 +358,8 @@ class GlobalConfigV0 extends GlobalConfig {
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
       showValveProton: false,
-      disableGOGPresence: false
+      disableGOGPresence: false,
+      legendaryTimeout: 10
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings

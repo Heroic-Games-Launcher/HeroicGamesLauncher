@@ -701,6 +701,7 @@
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",
+        "legendaryTimeout": "Legendary/Epic Timeout (default is 10 seconds)",
         "library_top_option": {
             "disabled": "Disabled",
             "favourites": "Favourite Games",
