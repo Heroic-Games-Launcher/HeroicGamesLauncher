@@ -1,12 +1,12 @@
 import type { Path } from 'backend/schemas'
 import type {
-  PositiveInteger,
   LegendaryAppName,
   NonEmptyString,
   URL,
   URI,
   LegendaryPlatform
 } from './base'
+import type { PositiveInteger } from 'common/schemas'
 
 interface InstallCommand {
   subcommand: 'install' | 'download' | 'update' | 'repair'

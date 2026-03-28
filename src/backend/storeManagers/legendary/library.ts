@@ -51,6 +51,7 @@ import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
 import { LibraryManager } from 'common/types/game_manager'
 import LegendaryGame from './games'
+import { GlobalConfig } from 'backend/config'
 
 const fallBackImage = 'fallback'
 
@@ -698,6 +699,19 @@ export default class LegendaryLibraryManager implements LibraryManager {
     }
     if (!options.env) {
       options.env = {}
+    }
+
+    if (command.subcommand) {
+      const { legendaryTimeout } = GlobalConfig.get().getSettings()
+      command['--api-timeout'] = legendaryTimeout
+
+      switch (command.subcommand) {
+        case 'install':
+        case 'download':
+        case 'update':
+        case 'repair':
+          command['--dl-timeout'] = legendaryTimeout
+      }
     }
 
     const commandParts = this.commandToArgsArray(command)

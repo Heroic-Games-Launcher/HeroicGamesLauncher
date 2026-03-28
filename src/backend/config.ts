@@ -35,6 +35,7 @@ import {
   updateWineVersionInfos,
   wineDownloaderInfoStore
 } from './wine/manager/utils'
+import { PositiveInteger } from 'common/schemas'
 
 function getSteamCompatFolder() {
   // Paths are from https://savelocation.net/steam-game-folder
@@ -376,7 +377,8 @@ class GlobalConfigV0 extends GlobalConfig {
       noTrayIcon: false,
       showValveProton: false,
       steamGridDbApiKey: '',
-      disableGOGPresence: false
+      disableGOGPresence: false,
+      legendaryTimeout: PositiveInteger.parse(10)
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults
     return settings
