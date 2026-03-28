@@ -738,10 +738,11 @@ class GlobalState extends PureComponent<Props> {
     })
 
     // Update genres for any newly added games
+    this.setState({ genresLoading: true })
     window.api
       .getGenres()
-      .then((cache) => this.setState({ genresCache: cache }))
-      .catch(() => {})
+      .then((cache) => this.setState({ genresCache: cache, genresLoading: false }))
+      .catch(() => this.setState({ genresLoading: false }))
 
     if (currentLibraryLength !== epicLibrary.length) {
       window.api.logInfo('Force Update')
