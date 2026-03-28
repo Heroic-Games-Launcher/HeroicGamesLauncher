@@ -321,8 +321,8 @@ interface AsyncIPCFunctions {
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
 
-  getAutoCategories: () => Promise<Record<string, string[]>>
-  refreshAutoCategories: () => Promise<Record<string, string[]>>
+  getGenres: () => Promise<Record<string, string[]>>
+  refreshGenres: () => Promise<Record<string, string[]>>
 }
 
 interface FrontendMessages {

@@ -4,7 +4,7 @@ import { getCache, loadCache, updateCache, forceRefreshCache } from './cache'
 // Load cache from disk on startup
 loadCache()
 
-addHandler('getAutoCategories', async () => {
+addHandler('getGenres', async () => {
   const cache = getCache()
   // If cache is empty, do an initial update
   if (Object.keys(cache).length === 0) {
@@ -13,6 +13,6 @@ addHandler('getAutoCategories', async () => {
   return cache
 })
 
-addHandler('refreshAutoCategories', async () => {
+addHandler('refreshGenres', async () => {
   return forceRefreshCache()
 })

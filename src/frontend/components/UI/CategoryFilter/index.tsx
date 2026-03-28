@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import ToggleSwitch from '../ToggleSwitch'
@@ -10,65 +10,74 @@ export default function CategoryFilter() {
     customCategories,
     currentCustomCategories,
     setCurrentCustomCategories,
-    autoCategoriesCache,
-    selectedAutoCategories,
-    setSelectedAutoCategories,
-    refreshAutoCategories
+    genresCache,
+    genresLoading,
+    selectedGenres,
+    setSelectedGenres,
+    refreshGenres
   } = useContext(ContextProvider)
   const { setShowCategories } = useContext(LibraryContext)
   const { t } = useTranslation()
 
-  const toggleCategory = (category: string) => {
-    if (currentCustomCategories.includes(category)) {
-      const newCategories = currentCustomCategories.filter(
-        (cat) => cat !== category
-      )
-      setCurrentCustomCategories(newCategories)
-    } else {
-      setCurrentCustomCategories([...currentCustomCategories, category])
-    }
-  }
+  const toggleCategory = useCallback(
+    (category: string) => {
+      if (currentCustomCategories.includes(category)) {
+        setCurrentCustomCategories(
+          currentCustomCategories.filter((cat) => cat !== category)
+        )
+      } else {
+        setCurrentCustomCategories([...currentCustomCategories, category])
+      }
+    },
+    [currentCustomCategories, setCurrentCustomCategories]
+  )
 
-  const setCategoryOnly = (category: string) => {
-    setCurrentCustomCategories([category])
-    setSelectedAutoCategories([])
-  }
+  const setCategoryOnly = useCallback(
+    (category: string) => {
+      setCurrentCustomCategories([category])
+      setSelectedGenres([])
+    },
+    [setCurrentCustomCategories, setSelectedGenres]
+  )
 
-  const selectAll = () => {
+  const selectAll = useCallback(() => {
     setCurrentCustomCategories(
       ['preset_uncategorized'].concat(customCategories.listCategories())
     )
-  }
+  }, [customCategories, setCurrentCustomCategories])
 
-  const toggleGenre = (genre: string) => {
-    if (selectedAutoCategories.includes(genre)) {
-      setSelectedAutoCategories(
-        selectedAutoCategories.filter((g) => g !== genre)
-      )
-    } else {
-      setSelectedAutoCategories([...selectedAutoCategories, genre])
-    }
-  }
+  const toggleGenre = useCallback(
+    (genre: string) => {
+      if (selectedGenres.includes(genre)) {
+        setSelectedGenres(selectedGenres.filter((g) => g !== genre))
+      } else {
+        setSelectedGenres([...selectedGenres, genre])
+      }
+    },
+    [selectedGenres, setSelectedGenres]
+  )
 
-  const setGenreOnly = (genre: string) => {
-    setSelectedAutoCategories([genre])
-    setCurrentCustomCategories([])
-  }
+  const setGenreOnly = useCallback(
+    (genre: string) => {
+      setSelectedGenres([genre])
+      setCurrentCustomCategories([])
+    },
+    [setSelectedGenres, setCurrentCustomCategories]
+  )
 
-  // Collect all unique genres from the cache
   const availableGenres = useMemo(() => {
     const genreSet = new Set<string>()
-    for (const genres of Object.values(autoCategoriesCache)) {
+    for (const genres of Object.values(genresCache)) {
       for (const genre of genres) {
         genreSet.add(genre)
       }
     }
     return Array.from(genreSet).sort()
-  }, [autoCategoriesCache])
+  }, [genresCache])
 
-  const selectAllGenres = () => {
-    setSelectedAutoCategories([...availableGenres])
-  }
+  const selectAllGenres = useCallback(() => {
+    setSelectedGenres([...availableGenres])
+  }, [availableGenres, setSelectedGenres])
 
   const toggleWithOnly = (
     toggle: JSX.Element,
@@ -102,20 +111,28 @@ export default function CategoryFilter() {
     return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
   }
 
-  const genreToggle = (genre: string) => {
-    const toggle = (
-      <ToggleSwitch
-        htmlId={`genre_${genre}`}
-        handleChange={() => toggleGenre(genre)}
-        value={selectedAutoCategories.includes(genre)}
-        title={genre}
-      />
-    )
+  const genreToggle = useCallback(
+    (genre: string) => {
+      const toggle = (
+        <ToggleSwitch
+          htmlId={`genre_${genre}`}
+          handleChange={() => toggleGenre(genre)}
+          value={selectedGenres.includes(genre)}
+          title={genre}
+        />
+      )
 
-    return toggleWithOnly(toggle, () => setGenreOnly(genre), `genre_${genre}`)
-  }
+      return toggleWithOnly(toggle, () => setGenreOnly(genre), `genre_${genre}`)
+    },
+    [selectedGenres, toggleGenre, setGenreOnly]
+  )
 
   const categoriesList = customCategories.listCategories()
+
+  const genreToggles = useMemo(
+    () => availableGenres.map((genre) => genreToggle(genre)),
+    [availableGenres, genreToggle]
+  )
 
   return (
     <Dropdown
@@ -161,15 +178,19 @@ export default function CategoryFilter() {
       <span style={{ fontWeight: 'bold' }}>
         {t('header.genre_categories', 'Genres')}
       </span>
-      {availableGenres.length === 0 && (
-        <span>
-          {t(
-            'header.no_genres',
-            'No games with genre data available'
-          )}
+      {genresLoading && (
+        <span style={{ fontStyle: 'italic' }}>
+          {t('header.loading_genres', 'Loading genres...')}
         </span>
       )}
-      {availableGenres.map((genre) => genreToggle(genre))}
+      {!genresLoading && availableGenres.length === 0 && (
+        <span>
+          {t('header.no_genres', 'No games with genre data available')}
+        </span>
+      )}
+      <div style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+        {genreToggles}
+      </div>
       {availableGenres.length > 0 && (
         <>
           <hr />
@@ -185,7 +206,7 @@ export default function CategoryFilter() {
       )}
       <button
         className="button is-secondary is-small"
-        onClick={() => refreshAutoCategories()}
+        onClick={() => refreshGenres()}
       >
         {t('header.refresh_genres', 'Refresh Genres')}
       </button>

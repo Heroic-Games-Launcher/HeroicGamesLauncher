@@ -11,24 +11,24 @@ import { libraryStore as zoomLibraryStore } from 'backend/storeManagers/zoom/ele
 import { libraryStore as sideloadLibraryStore } from 'backend/storeManagers/sideload/electronStores'
 import { GameInfo } from 'common/types'
 
-const AUTO_CATEGORIES_PATH = join(appFolder, 'auto_categories.json')
+const GENRES_PATH = join(appFolder, 'genres.json')
 const PCGW_API = 'https://www.pcgamingwiki.com/w/api.php'
 const BATCH_SIZE = 50
 
 // gameId (appName_runner) -> genres[]
-export type AutoCategoriesCache = Record<string, string[]>
+export type GenresCache = Record<string, string[]>
 
-let cache: AutoCategoriesCache = {}
+let cache: GenresCache = {}
 
-export function loadCache(): AutoCategoriesCache {
+export function loadCache(): GenresCache {
   try {
-    if (existsSync(AUTO_CATEGORIES_PATH)) {
-      const raw = readFileSync(AUTO_CATEGORIES_PATH, 'utf-8')
+    if (existsSync(GENRES_PATH)) {
+      const raw = readFileSync(GENRES_PATH, 'utf-8')
       cache = JSON.parse(raw)
     }
   } catch (error) {
     logError(
-      ['Failed to load auto-categories cache', error],
+      ['Failed to load genres cache', error],
       LogPrefix.ExtraGameInfo
     )
     cache = {}
@@ -38,16 +38,16 @@ export function loadCache(): AutoCategoriesCache {
 
 function saveCache() {
   try {
-    writeFileSync(AUTO_CATEGORIES_PATH, JSON.stringify(cache, null, 2))
+    writeFileSync(GENRES_PATH, JSON.stringify(cache, null, 2))
   } catch (error) {
     logError(
-      ['Failed to save auto-categories cache', error],
+      ['Failed to save genres cache', error],
       LogPrefix.ExtraGameInfo
     )
   }
 }
 
-export function getCache(): AutoCategoriesCache {
+export function getCache(): GenresCache {
   return cache
 }
 
@@ -111,8 +111,6 @@ async function fetchGenresFromPCGW(
           prop: 'categories',
           titles: titlesParam,
           cllimit: 'max',
-          // clcategories:
-          //   'Category:Action games|Category:Adventure games|Category:Arcade games|Category:Board games|Category:Card games|Category:Casino games|Category:Comedy games|Category:Dating simulation games|Category:Educational games|Category:Fighting games|Category:FPS games|Category:Hack and slash games|Category:Horror games|Category:Idle games|Category:Immersive sim games|Category:Interactive fiction games|Category:MMORPG games|Category:MOBA games|Category:Music games|Category:Open world games|Category:Party games|Category:Pinball games|Category:Platform games|Category:Puzzle games|Category:Racing games|Category:Real-time strategy games|Category:Roguelike games|Category:Role-playing games|Category:Sandbox games|Category:Shooter games|Category:Simulation games|Category:Sports games|Category:Stealth games|Category:Strategy games|Category:Survival games|Category:Tactical shooter games|Category:Tower defense games|Category:Turn-based strategy games|Category:Turn-based tactics games|Category:Visual novel games',
           format: 'json'
         },
         timeout: 30000
@@ -240,8 +238,8 @@ async function resolveGenresForGames(
  * Update the cache for all games in the library.
  * Only fetches genres for games not already in the cache.
  */
-export async function updateCache(): Promise<AutoCategoriesCache> {
-  logInfo('Updating auto-categories cache', LogPrefix.ExtraGameInfo)
+export async function updateCache(): Promise<GenresCache> {
+  logInfo('Updating genres cache', LogPrefix.ExtraGameInfo)
 
   loadCache()
   const allGames = getAllGames()
@@ -265,7 +263,7 @@ export async function updateCache(): Promise<AutoCategoriesCache> {
   saveCache()
 
   logInfo(
-    `Auto-categories cache updated. ${Object.keys(cache).length} games cached.`,
+    `Genres cache updated. ${Object.keys(cache).length} games cached.`,
     LogPrefix.ExtraGameInfo
   )
 
@@ -275,8 +273,8 @@ export async function updateCache(): Promise<AutoCategoriesCache> {
 /**
  * Force refresh the entire cache - re-fetches genres for all games.
  */
-export async function forceRefreshCache(): Promise<AutoCategoriesCache> {
-  logInfo('Force refreshing auto-categories cache', LogPrefix.ExtraGameInfo)
+export async function forceRefreshCache(): Promise<GenresCache> {
+  logInfo('Force refreshing genres cache', LogPrefix.ExtraGameInfo)
 
   cache = {}
   const allGames = getAllGames()
@@ -285,7 +283,7 @@ export async function forceRefreshCache(): Promise<AutoCategoriesCache> {
   saveCache()
 
   logInfo(
-    `Auto-categories cache rebuilt. ${Object.keys(cache).length} games cached.`,
+    `Genres cache rebuilt. ${Object.keys(cache).length} games cached.`,
     LogPrefix.ExtraGameInfo
   )
 

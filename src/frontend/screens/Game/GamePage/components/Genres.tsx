@@ -7,11 +7,11 @@ type GenresProps = {
 }
 
 const Genres: React.FC<GenresProps> = ({ gameId, genres }) => {
-  const { autoCategoriesCache } = useContext(ContextProvider)
+  const { genresCache } = useContext(ContextProvider)
 
-  // Use auto-categories cache as primary source, fall back to passed genres
-  const displayGenres = autoCategoriesCache[gameId]?.length
-    ? autoCategoriesCache[gameId]
+  // Use genres cache as primary source, fall back to passed genres
+  const displayGenres = genresCache[gameId]?.length
+    ? genresCache[gameId]
     : genres
 
   if (!displayGenres || displayGenres.length === 0 || displayGenres[0] === '') {

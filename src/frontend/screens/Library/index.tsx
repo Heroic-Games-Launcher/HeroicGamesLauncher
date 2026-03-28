@@ -65,8 +65,8 @@ export default React.memo(function Library(): JSX.Element {
     customCategories,
     hiddenGames,
     gameUpdates,
-    autoCategoriesCache,
-    selectedAutoCategories
+    genresCache,
+    selectedGenres
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -453,7 +453,7 @@ export default React.memo(function Library(): JSX.Element {
       const hasCustomFilter =
         currentCustomCategories && currentCustomCategories.length > 0
       const hasGenreFilter =
-        selectedAutoCategories && selectedAutoCategories.length > 0
+        selectedGenres && selectedGenres.length > 0
 
       if (hasCustomFilter || hasGenreFilter) {
         const gamesInSelectedCategories = new Set<string>()
@@ -489,13 +489,13 @@ export default React.memo(function Library(): JSX.Element {
           })
         }
 
-        // Genre auto-categories (OR logic, unioned with custom categories)
+        // Genre filter (OR logic, unioned with custom categories)
         if (hasGenreFilter) {
           library.forEach((game) => {
             const gameId = `${game.app_name}_${game.runner}`
-            const gameGenres = autoCategoriesCache[gameId]
+            const gameGenres = genresCache[gameId]
             if (gameGenres) {
-              const matchesAnyGenre = selectedAutoCategories.some((genre) =>
+              const matchesAnyGenre = selectedGenres.some((genre) =>
                 gameGenres.includes(genre)
               )
               if (matchesAnyGenre) {
@@ -602,8 +602,8 @@ export default React.memo(function Library(): JSX.Element {
     favouritesIds,
     currentCustomCategories,
     customCategories,
-    selectedAutoCategories,
-    autoCategoriesCache,
+    selectedGenres,
+    genresCache,
     showInstalledOnly,
     showNonAvailable,
     showSupportOfflineOnly,

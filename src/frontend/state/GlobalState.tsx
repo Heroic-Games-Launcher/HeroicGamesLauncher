@@ -87,8 +87,9 @@ interface StateProps {
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
-  autoCategoriesCache: Record<string, string[]>
-  selectedAutoCategories: string[]
+  genresCache: Record<string, string[]>
+  genresLoading: boolean
+  selectedGenres: string[]
   theme: string
   isFullscreen: boolean
   isFrameless: boolean
@@ -200,9 +201,10 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
     currentCustomCategories: loadCurrentCategories(),
-    autoCategoriesCache: {},
-    selectedAutoCategories: JSON.parse(
-      storage.getItem('selected_auto_categories') || '[]'
+    genresCache: {},
+    genresLoading: false,
+    selectedGenres: JSON.parse(
+      storage.getItem('selected_genres') || '[]'
     ),
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
@@ -260,17 +262,22 @@ class GlobalState extends PureComponent<Props> {
     this.setState({ currentCustomCategories: newCustomCategories })
   }
 
-  setSelectedAutoCategories = (newCategories: string[]) => {
+  setSelectedGenres = (newCategories: string[]) => {
     storage.setItem(
-      'selected_auto_categories',
+      'selected_genres',
       JSON.stringify(newCategories)
     )
-    this.setState({ selectedAutoCategories: newCategories })
+    this.setState({ selectedGenres: newCategories })
   }
 
-  refreshAutoCategories = async () => {
-    const cache = await window.api.refreshAutoCategories()
-    this.setState({ autoCategoriesCache: cache })
+  refreshGenres = async () => {
+    this.setState({ genresLoading: true })
+    try {
+      const cache = await window.api.refreshGenres()
+      this.setState({ genresCache: cache, genresLoading: false })
+    } catch {
+      this.setState({ genresLoading: false })
+    }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -735,10 +742,10 @@ class GlobalState extends PureComponent<Props> {
       sideloadedLibrary: updatedSideload
     })
 
-    // Update auto-categories for any newly added games
+    // Update genres for any newly added games
     window.api
-      .getAutoCategories()
-      .then((cache) => this.setState({ autoCategoriesCache: cache }))
+      .getGenres()
+      .then((cache) => this.setState({ genresCache: cache }))
       .catch(() => {})
 
     if (currentLibraryLength !== epicLibrary.length) {
@@ -1004,11 +1011,15 @@ class GlobalState extends PureComponent<Props> {
 
     window.api.frontendReady()
 
-    // Load auto-categories cache
+    // Load genres cache
+    this.setState({ genresLoading: true })
     window.api
-      .getAutoCategories()
-      .then((cache) => this.setState({ autoCategoriesCache: cache }))
-      .catch((err) => window.api.logError(`Failed to load auto-categories: ${err}`))
+      .getGenres()
+      .then((cache) => this.setState({ genresCache: cache, genresLoading: false }))
+      .catch((err) => {
+        this.setState({ genresLoading: false })
+        window.api.logError(`Failed to load genres: ${err}`)
+      })
   }
 
   componentDidUpdate() {
@@ -1163,8 +1174,8 @@ class GlobalState extends PureComponent<Props> {
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           setCurrentCustomCategories: this.setCurrentCustomCategories,
-          setSelectedAutoCategories: this.setSelectedAutoCategories,
-          refreshAutoCategories: this.refreshAutoCategories,
+          setSelectedGenres: this.setSelectedGenres,
+          refreshGenres: this.refreshGenres,
           help: {
             items: this.state.helpItems,
             addHelpItem: this.addHelpItem,
