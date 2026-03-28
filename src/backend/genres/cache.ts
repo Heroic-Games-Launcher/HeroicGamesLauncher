@@ -16,7 +16,7 @@ const PCGW_API = 'https://www.pcgamingwiki.com/w/api.php'
 const BATCH_SIZE = 50
 
 // gameId (appName_runner) -> genres[]
-export type GenresCache = Record<string, string[]>
+type GenresCache = Record<string, string[]>
 
 let cache: GenresCache = {}
 
