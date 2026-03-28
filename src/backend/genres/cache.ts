@@ -94,50 +94,54 @@ async function fetchGenresFromPCGW(
   const result: Record<string, string[]> = {}
 
   // Process in batches of BATCH_SIZE (MediaWiki API limit for titles param)
-  const batches: string[][] = [];
+  const batches: string[][] = []
   for (let i = 0; i < titles.length; i += BATCH_SIZE) {
-    batches.push(titles.slice(i, i + BATCH_SIZE));
+    batches.push(titles.slice(i, i + BATCH_SIZE))
   }
-  await Promise.all(batches.map(async (batch: string[], index: number) => {
-    const titlesParam = batch.map((t) => t.replace(/ -/g, ':')).join('|')
+  await Promise.all(
+    batches.map(async (batch: string[], index: number) => {
+      const titlesParam = batch.map((t) => t.replace(/ -/g, ':')).join('|')
 
-    try {
-      const { data } = await axiosClient.get(PCGW_API, {
-        params: {
-          action: 'query',
-          prop: 'categories',
-          titles: titlesParam,
-          cllimit: 'max',
-          format: 'json'
-        },
-        timeout: 30000
-      })
+      try {
+        const { data } = await axiosClient.get(PCGW_API, {
+          params: {
+            action: 'query',
+            prop: 'categories',
+            titles: titlesParam,
+            cllimit: 'max',
+            format: 'json'
+          },
+          timeout: 30000
+        })
 
-      if (data?.query?.pages) {
-        const pages: Record<
-          string,
-          { title: string; categories?: Array<{ title: string }> }
+        if (data?.query?.pages) {
+          const pages: Record<
+            string,
+            { title: string; categories?: Array<{ title: string }> }
           > = data.query.pages
-        Object.values(pages).forEach(page => {
-          if (!page.categories?.length) return;
-          const genres = page.categories
-          .map((cat) => cat.title.replace('Category:', '').replace(/ games$/i, ''))
-          .filter((g) => g.length > 0);
-          if (genres.length > 0) {
-            result[page.title] = genres
-          }
-        });
+          Object.values(pages).forEach((page) => {
+            if (!page.categories?.length) return
+            const genres = page.categories
+              .map((cat) =>
+                cat.title.replace('Category:', '').replace(/ games$/i, '')
+              )
+              .filter((g) => g.length > 0)
+            if (genres.length > 0) {
+              result[page.title] = genres
+            }
+          })
+        }
+      } catch (error) {
+        logWarning(
+          [
+            `Failed to fetch PCGamingWiki genres for batch starting at index ${index}`,
+            error
+          ],
+          LogPrefix.ExtraGameInfo
+        )
       }
-    } catch (error) {
-      logWarning(
-        [
-          `Failed to fetch PCGamingWiki genres for batch starting at index ${index}`,
-          error
-        ],
-        LogPrefix.ExtraGameInfo
-      )
-    }
-  }));
+    })
+  )
 
   return result
 }
@@ -184,8 +188,8 @@ async function resolveGenresForGames(
         )
         if (
           extraInfo?.genres &&
-            extraInfo.genres.length > 0 &&
-            extraInfo.genres[0] !== ''
+          extraInfo.genres.length > 0 &&
+          extraInfo.genres[0] !== ''
         ) {
           cache[gameId] = extraInfo.genres
           return
@@ -220,7 +224,7 @@ async function resolveGenresForGames(
     const normalizedTitle = game.title.replace(/ -/g, ':').toLowerCase()
     const genres =
       pcgwTitleMap.get(normalizedTitle) ||
-        pcgwTitleMap.get(game.title.toLowerCase())
+      pcgwTitleMap.get(game.title.toLowerCase())
 
     if (genres && genres.length > 0) {
       cache[gameId] = genres

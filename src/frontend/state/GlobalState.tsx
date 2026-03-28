@@ -741,7 +741,9 @@ class GlobalState extends PureComponent<Props> {
     this.setState({ genresLoading: true })
     window.api
       .getGenres()
-      .then((cache) => this.setState({ genresCache: cache, genresLoading: false }))
+      .then((cache) =>
+        this.setState({ genresCache: cache, genresLoading: false })
+      )
       .catch(() => this.setState({ genresLoading: false }))
 
     if (currentLibraryLength !== epicLibrary.length) {

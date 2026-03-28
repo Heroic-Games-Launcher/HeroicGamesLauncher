@@ -174,9 +174,11 @@ describe('genres/cache.ts', () => {
 
     test('falls back to getExtraInfo for GOG games without inline genres', async () => {
       jest.mocked(existsSync).mockReturnValue(false)
-      jest.mocked(gogLibraryStore.get).mockReturnValue([
-        makeGame('gog_game', 'Some GOG Game', 'gog', { genres: [] })
-      ])
+      jest
+        .mocked(gogLibraryStore.get)
+        .mockReturnValue([
+          makeGame('gog_game', 'Some GOG Game', 'gog', { genres: [] })
+        ])
 
       const mockGameManager = {
         getExtraInfo: jest
@@ -191,9 +193,11 @@ describe('genres/cache.ts', () => {
 
     test('falls back to PCGW when GOG getExtraInfo has no genres', async () => {
       jest.mocked(existsSync).mockReturnValue(false)
-      jest.mocked(gogLibraryStore.get).mockReturnValue([
-        makeGame('gog_game', 'Unknown GOG Game', 'gog', { genres: [] })
-      ])
+      jest
+        .mocked(gogLibraryStore.get)
+        .mockReturnValue([
+          makeGame('gog_game', 'Unknown GOG Game', 'gog', { genres: [] })
+        ])
 
       const mockGameManager = {
         getExtraInfo: jest.fn().mockResolvedValue({ genres: [] })
@@ -247,9 +251,7 @@ describe('genres/cache.ts', () => {
       jest.mocked(existsSync).mockReturnValue(true)
       jest
         .mocked(readFileSync)
-        .mockReturnValue(
-          JSON.stringify({ old_game_legendary: ['Old Genre'] })
-        )
+        .mockReturnValue(JSON.stringify({ old_game_legendary: ['Old Genre'] }))
       loadCache()
       expect(getCache()).toHaveProperty('old_game_legendary')
 
