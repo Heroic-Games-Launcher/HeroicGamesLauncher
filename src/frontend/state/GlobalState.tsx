@@ -203,9 +203,7 @@ class GlobalState extends PureComponent<Props> {
     currentCustomCategories: loadCurrentCategories(),
     genresCache: {},
     genresLoading: false,
-    selectedGenres: JSON.parse(
-      storage.getItem('selected_genres') || '[]'
-    ),
+    selectedGenres: JSON.parse(storage.getItem('selected_genres') || '[]'),
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
@@ -263,10 +261,7 @@ class GlobalState extends PureComponent<Props> {
   }
 
   setSelectedGenres = (newCategories: string[]) => {
-    storage.setItem(
-      'selected_genres',
-      JSON.stringify(newCategories)
-    )
+    storage.setItem('selected_genres', JSON.stringify(newCategories))
     this.setState({ selectedGenres: newCategories })
   }
 
@@ -1015,7 +1010,9 @@ class GlobalState extends PureComponent<Props> {
     this.setState({ genresLoading: true })
     window.api
       .getGenres()
-      .then((cache) => this.setState({ genresCache: cache, genresLoading: false }))
+      .then((cache) =>
+        this.setState({ genresCache: cache, genresLoading: false })
+      )
       .catch((err) => {
         this.setState({ genresLoading: false })
         window.api.logError(`Failed to load genres: ${err}`)

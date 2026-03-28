@@ -188,9 +188,7 @@ export default function CategoryFilter() {
           {t('header.no_genres', 'No games with genre data available')}
         </span>
       )}
-      <div style={{ maxHeight: '40vh', overflowY: 'auto' }}>
-        {genreToggles}
-      </div>
+      <div style={{ maxHeight: '40vh', overflowY: 'auto' }}>{genreToggles}</div>
       {availableGenres.length > 0 && (
         <>
           <hr />

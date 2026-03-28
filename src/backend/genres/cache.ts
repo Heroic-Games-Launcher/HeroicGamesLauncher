@@ -27,10 +27,7 @@ export function loadCache(): GenresCache {
       cache = JSON.parse(raw)
     }
   } catch (error) {
-    logError(
-      ['Failed to load genres cache', error],
-      LogPrefix.ExtraGameInfo
-    )
+    logError(['Failed to load genres cache', error], LogPrefix.ExtraGameInfo)
     cache = {}
   }
   return cache
@@ -40,10 +37,7 @@ function saveCache() {
   try {
     writeFileSync(GENRES_PATH, JSON.stringify(cache, null, 2))
   } catch (error) {
-    logError(
-      ['Failed to save genres cache', error],
-      LogPrefix.ExtraGameInfo
-    )
+    logError(['Failed to save genres cache', error], LogPrefix.ExtraGameInfo)
   }
 }
 
@@ -125,9 +119,7 @@ async function fetchGenresFromPCGW(
           if (page.categories && page.categories.length > 0) {
             const genres = page.categories
               .map((cat) =>
-                cat.title
-                  .replace('Category:', '')
-                  .replace(/ games$/i, '')
+                cat.title.replace('Category:', '').replace(/ games$/i, '')
               )
               .filter((g) => g.length > 0)
             if (genres.length > 0) {
@@ -162,46 +154,48 @@ async function resolveGenresForGames(
 ): Promise<void> {
   const needsPcgw: GameInfo[] = []
 
-  await Promise.all(games.map(async game => {
-    const gameId = `${game.app_name}_${game.runner}`
+  await Promise.all(
+    games.map(async (game) => {
+      const gameId = `${game.app_name}_${game.runner}`
 
-    if (!forceRefresh && cache[gameId] && cache[gameId].length > 0) {
-      return;
-    }
-
-    if (!['gog', 'nile'].includes(game.runner)) {
-      needsPcgw.push(game);
-      return;
-    };
-
-    // Try to get genres from the game's extra info
-    let genres: string[] = []
-    if (game.extra?.genres && game.extra.genres.length > 0) {
-      genres = game.extra.genres.filter((g) => g && g.trim() !== '')
-    }
-
-    if (genres.length > 0) {
-      cache[gameId] = genres
-      return;
-    }
-    // Try getting extra info from the runner
-    try {
-      const extraInfo = await gameManagerMap[game.runner].getExtraInfo(
-        game.app_name
-      )
-      if (
-        extraInfo?.genres &&
-        extraInfo.genres.length > 0 &&
-        extraInfo.genres[0] !== ''
-      ) {
-        cache[gameId] = extraInfo.genres
-        return;
+      if (!forceRefresh && cache[gameId] && cache[gameId].length > 0) {
+        return
       }
-    } catch {
-      // getExtraInfo not available for this runner
-    }
-    needsPcgw.push(game)
-  }));
+
+      if (!['gog', 'nile'].includes(game.runner)) {
+        needsPcgw.push(game)
+        return
+      }
+
+      // Try to get genres from the game's extra info
+      let genres: string[] = []
+      if (game.extra?.genres && game.extra.genres.length > 0) {
+        genres = game.extra.genres.filter((g) => g && g.trim() !== '')
+      }
+
+      if (genres.length > 0) {
+        cache[gameId] = genres
+        return
+      }
+      // Try getting extra info from the runner
+      try {
+        const extraInfo = await gameManagerMap[game.runner].getExtraInfo(
+          game.app_name
+        )
+        if (
+          extraInfo?.genres &&
+          extraInfo.genres.length > 0 &&
+          extraInfo.genres[0] !== ''
+        ) {
+          cache[gameId] = extraInfo.genres
+          return
+        }
+      } catch {
+        // getExtraInfo not available for this runner
+      }
+      needsPcgw.push(game)
+    })
+  )
 
   if (needsPcgw.length === 0) {
     return

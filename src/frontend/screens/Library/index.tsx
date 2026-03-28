@@ -452,8 +452,7 @@ export default React.memo(function Library(): JSX.Element {
 
       const hasCustomFilter =
         currentCustomCategories && currentCustomCategories.length > 0
-      const hasGenreFilter =
-        selectedGenres && selectedGenres.length > 0
+      const hasGenreFilter = selectedGenres && selectedGenres.length > 0
 
       if (hasCustomFilter || hasGenreFilter) {
         const gamesInSelectedCategories = new Set<string>()
@@ -468,9 +467,7 @@ export default React.memo(function Library(): JSX.Element {
 
               library.forEach((game) => {
                 if (
-                  !categorizedGames.includes(
-                    `${game.app_name}_${game.runner}`
-                  )
+                  !categorizedGames.includes(`${game.app_name}_${game.runner}`)
                 ) {
                   gamesInSelectedCategories.add(
                     `${game.app_name}_${game.runner}`
