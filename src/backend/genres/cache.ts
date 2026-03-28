@@ -99,7 +99,7 @@ async function fetchGenresFromPCGW(
     batches.push(titles.slice(i, i + BATCH_SIZE));
   }
   await Promise.all(batches.map(async (batch: string[], index: number) => {
-    const titlesParam = batch.map((t) => encodeURI(t)).join('|')
+    const titlesParam = batch.map((t) => t.replace(/ -/g, ':')).join('|')
 
     try {
       const { data } = await axiosClient.get(PCGW_API, {
