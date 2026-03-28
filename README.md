@@ -69,6 +69,7 @@ Heroic is built with Web Technologies:
 - Download queue
 - Add Games and Applications outside GOG, Epic Games and Amazon Games
 - Define your categories to organize your collection
+- Automatic genre detection and filtering for your library
 
 ## Planned features
 
