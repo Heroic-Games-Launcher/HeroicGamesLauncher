@@ -1,14 +1,30 @@
-import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
-import { axiosClient } from 'backend/utils'
 import { gameManagerMap } from 'backend/storeManagers/index'
 import { libraryStore as legendaryLibraryStore } from 'backend/storeManagers/legendary/electronStores'
 import { libraryStore as gogLibraryStore } from 'backend/storeManagers/gog/electronStores'
-import { loadCache, getCache, updateCache, forceRefreshCache } from '../cache'
+import {
+  getPageID,
+  fetchGenresByTitles,
+  fetchGenresByPageIds
+} from 'backend/wiki_game_info/pcgamingwiki/utils'
+import { getCache, updateCache, forceRefreshCache } from '../cache'
 import { GameInfo } from 'common/types'
 
-jest.mock('graceful-fs')
-jest.mock('backend/constants/paths', () => ({
-  appFolder: '/mock/app'
+// In-memory mock for TypeCheckedStoreBackend
+let mockStoreData: Record<string, string[]> = {}
+jest.mock('backend/electron_store', () => ({
+  TypeCheckedStoreBackend: jest.fn().mockImplementation(() => ({
+    get: (key: string, defaultValue: string[]) =>
+      mockStoreData[key] ?? defaultValue,
+    set: (key: string, value: string[]) => {
+      mockStoreData[key] = value
+    },
+    clear: () => {
+      mockStoreData = {}
+    },
+    get raw_store() {
+      return { ...mockStoreData }
+    }
+  }))
 }))
 jest.mock('backend/logger', () => ({
   logError: jest.fn(),
@@ -16,8 +32,10 @@ jest.mock('backend/logger', () => ({
   logWarning: jest.fn(),
   LogPrefix: { ExtraGameInfo: 'ExtraGameInfo' }
 }))
-jest.mock('backend/utils', () => ({
-  axiosClient: { get: jest.fn() }
+jest.mock('backend/wiki_game_info/pcgamingwiki/utils', () => ({
+  getPageID: jest.fn(),
+  fetchGenresByTitles: jest.fn(),
+  fetchGenresByPageIds: jest.fn()
 }))
 jest.mock('backend/storeManagers/index', () => ({
   gameManagerMap: {}
@@ -55,70 +73,30 @@ function makeGame(
 describe('genres/cache.ts', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-
-    // Reset internal cache state by loading an empty cache from "disk"
-    jest.mocked(existsSync).mockReturnValue(true)
-    jest.mocked(readFileSync).mockReturnValue('{}')
-    loadCache()
+    mockStoreData = {}
 
     // Default: stores return empty arrays
-    jest.mocked(existsSync).mockReset()
-    jest.mocked(readFileSync).mockReset()
     jest.mocked(legendaryLibraryStore.get).mockReturnValue([])
     jest.mocked(gogLibraryStore.get).mockReturnValue([])
-  })
-
-  describe('loadCache', () => {
-    test('returns empty object when cache file does not exist', () => {
-      jest.mocked(existsSync).mockReturnValue(false)
-      const result = loadCache()
-      expect(result).toEqual({})
-    })
-
-    test('loads cache from disk when file exists', () => {
-      const cached = { game1_legendary: ['Action', 'RPG'] }
-      jest.mocked(existsSync).mockReturnValue(true)
-      jest.mocked(readFileSync).mockReturnValue(JSON.stringify(cached))
-
-      const result = loadCache()
-      expect(result).toEqual(cached)
-      expect(readFileSync).toHaveBeenCalledWith(
-        expect.stringContaining('genres.json'),
-        'utf-8'
-      )
-    })
-
-    test('returns empty object on parse error', () => {
-      jest.mocked(existsSync).mockReturnValue(true)
-      jest.mocked(readFileSync).mockReturnValue('invalid json{{{')
-
-      const result = loadCache()
-      expect(result).toEqual({})
-    })
+    jest.mocked(getPageID).mockResolvedValue(null)
+    jest.mocked(fetchGenresByTitles).mockResolvedValue({})
+    jest.mocked(fetchGenresByPageIds).mockResolvedValue({})
   })
 
   describe('getCache', () => {
-    test('returns current cache state', () => {
+    test('returns empty object when store is empty', () => {
       expect(getCache()).toEqual({})
     })
 
-    test('returns loaded cache after loadCache', () => {
-      const cached = { game1_legendary: ['Shooter'] }
-      jest.mocked(existsSync).mockReturnValue(true)
-      jest.mocked(readFileSync).mockReturnValue(JSON.stringify(cached))
-
-      loadCache()
-      expect(getCache()).toEqual(cached)
+    test('returns current store state', () => {
+      mockStoreData = { game1_legendary: ['Shooter'] }
+      expect(getCache()).toEqual({ game1_legendary: ['Shooter'] })
     })
   })
 
   describe('updateCache', () => {
     test('returns early when all games are already cached', async () => {
-      // Pre-populate cache
-      jest.mocked(existsSync).mockReturnValue(true)
-      jest
-        .mocked(readFileSync)
-        .mockReturnValue(JSON.stringify({ game1_legendary: ['Action'] }))
+      mockStoreData = { game1_legendary: ['Action'] }
 
       jest
         .mocked(legendaryLibraryStore.get)
@@ -126,41 +104,25 @@ describe('genres/cache.ts', () => {
 
       const result = await updateCache()
       expect(result).toEqual({ game1_legendary: ['Action'] })
-      expect(axiosClient.get).not.toHaveBeenCalled()
+      expect(fetchGenresByTitles).not.toHaveBeenCalled()
     })
 
-    test('fetches genres from PCGW for Epic games', async () => {
-      jest.mocked(existsSync).mockReturnValue(false)
+    test('fetches genres from PCGW by title for non-GOG games', async () => {
       jest
         .mocked(legendaryLibraryStore.get)
         .mockReturnValue([makeGame('game1', 'Half-Life 2', 'legendary')])
 
-      jest.mocked(axiosClient.get).mockResolvedValue({
-        data: {
-          query: {
-            pages: {
-              '1': {
-                title: 'Half-Life 2',
-                categories: [
-                  { title: 'Category:FPS games' },
-                  { title: 'Category:Action games' }
-                ]
-              }
-            }
-          }
-        }
+      jest.mocked(fetchGenresByTitles).mockResolvedValue({
+        'Half-Life 2': ['FPS', 'Action']
       })
 
       const result = await updateCache()
       expect(result['game1_legendary']).toEqual(['FPS', 'Action'])
-      expect(writeFileSync).toHaveBeenCalledWith(
-        expect.stringContaining('genres.json'),
-        expect.any(String)
-      )
+      expect(fetchGenresByTitles).toHaveBeenCalledWith(['Half-Life 2'])
+      expect(getPageID).not.toHaveBeenCalled()
     })
 
     test('uses GOG extra genres when available', async () => {
-      jest.mocked(existsSync).mockReturnValue(false)
       jest.mocked(gogLibraryStore.get).mockReturnValue([
         makeGame('gog_game', 'Witcher 3', 'gog', {
           genres: ['RPG', 'Adventure']
@@ -169,11 +131,11 @@ describe('genres/cache.ts', () => {
 
       const result = await updateCache()
       expect(result['gog_game_gog']).toEqual(['RPG', 'Adventure'])
-      expect(axiosClient.get).not.toHaveBeenCalled()
+      expect(fetchGenresByTitles).not.toHaveBeenCalled()
+      expect(getPageID).not.toHaveBeenCalled()
     })
 
     test('falls back to getExtraInfo for GOG games without inline genres', async () => {
-      jest.mocked(existsSync).mockReturnValue(false)
       jest
         .mocked(gogLibraryStore.get)
         .mockReturnValue([
@@ -191,8 +153,7 @@ describe('genres/cache.ts', () => {
       expect(result['gog_game_gog']).toEqual(['Strategy', 'Puzzle'])
     })
 
-    test('falls back to PCGW when GOG getExtraInfo has no genres', async () => {
-      jest.mocked(existsSync).mockReturnValue(false)
+    test('falls back to PCGW by page ID for GOG games without genres', async () => {
       jest
         .mocked(gogLibraryStore.get)
         .mockReturnValue([
@@ -204,38 +165,29 @@ describe('genres/cache.ts', () => {
       }
       ;(gameManagerMap as Record<string, unknown>)['gog'] = mockGameManager
 
-      jest.mocked(axiosClient.get).mockResolvedValue({
-        data: {
-          query: {
-            pages: {
-              '1': {
-                title: 'Unknown GOG Game',
-                categories: [{ title: 'Category:Puzzle games' }]
-              }
-            }
-          }
-        }
+      jest.mocked(getPageID).mockResolvedValue('99')
+      jest.mocked(fetchGenresByPageIds).mockResolvedValue({
+        '99': ['Puzzle']
       })
 
       const result = await updateCache()
       expect(result['gog_game_gog']).toEqual(['Puzzle'])
+      expect(getPageID).toHaveBeenCalledWith('Unknown GOG Game', 'gog_game')
+      expect(fetchGenresByTitles).not.toHaveBeenCalled()
     })
 
-    test('handles PCGW API failure gracefully', async () => {
-      jest.mocked(existsSync).mockReturnValue(false)
+    test('handles PCGW page ID resolution failure gracefully', async () => {
       jest
         .mocked(legendaryLibraryStore.get)
         .mockReturnValue([makeGame('game1', 'Some Game', 'legendary')])
 
-      jest.mocked(axiosClient.get).mockRejectedValue(new Error('Network error'))
+      jest.mocked(fetchGenresByTitles).mockResolvedValue({})
 
       const result = await updateCache()
       expect(result['game1_legendary']).toBeUndefined()
-      expect(writeFileSync).toHaveBeenCalled()
     })
 
     test('handles store read errors gracefully', async () => {
-      jest.mocked(existsSync).mockReturnValue(false)
       jest.mocked(legendaryLibraryStore.get).mockImplementation(() => {
         throw new Error('Store not available')
       })
@@ -247,47 +199,20 @@ describe('genres/cache.ts', () => {
 
   describe('forceRefreshCache', () => {
     test('clears existing cache and re-fetches all genres', async () => {
-      // Pre-populate cache
-      jest.mocked(existsSync).mockReturnValue(true)
-      jest
-        .mocked(readFileSync)
-        .mockReturnValue(JSON.stringify({ old_game_legendary: ['Old Genre'] }))
-      loadCache()
+      mockStoreData = { old_game_legendary: ['Old Genre'] }
       expect(getCache()).toHaveProperty('old_game_legendary')
 
-      // Set up library with a different game
-      jest.mocked(existsSync).mockReturnValue(false)
       jest
         .mocked(legendaryLibraryStore.get)
         .mockReturnValue([makeGame('game1', 'New Game', 'legendary')])
 
-      jest.mocked(axiosClient.get).mockResolvedValue({
-        data: {
-          query: {
-            pages: {
-              '1': {
-                title: 'New Game',
-                categories: [{ title: 'Category:Simulation games' }]
-              }
-            }
-          }
-        }
+      jest.mocked(fetchGenresByTitles).mockResolvedValue({
+        'New Game': ['Simulation']
       })
 
       const result = await forceRefreshCache()
       expect(result['old_game_legendary']).toBeUndefined()
       expect(result['game1_legendary']).toEqual(['Simulation'])
-    })
-
-    test('saves cache to disk after refresh', async () => {
-      jest.mocked(existsSync).mockReturnValue(false)
-      jest.mocked(legendaryLibraryStore.get).mockReturnValue([])
-
-      await forceRefreshCache()
-      expect(writeFileSync).toHaveBeenCalledWith(
-        expect.stringContaining('genres.json'),
-        expect.any(String)
-      )
     })
   })
 })

@@ -1,8 +1,5 @@
 import { addHandler } from 'backend/ipc'
-import { loadCache, updateCache, forceRefreshCache } from './cache'
-
-// Load cache from disk on startup
-loadCache()
+import { updateCache, forceRefreshCache } from './cache'
 
 addHandler('getGenres', async () => {
   return updateCache()

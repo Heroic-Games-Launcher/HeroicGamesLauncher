@@ -1,48 +1,29 @@
-import { existsSync, readFileSync, writeFileSync } from 'graceful-fs'
-import { join } from 'path'
-import { appFolder } from 'backend/constants/paths'
-import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
-import { axiosClient } from 'backend/utils'
+import { TypeCheckedStoreBackend } from 'backend/electron_store'
+import { logInfo, LogPrefix } from 'backend/logger'
 import { gameManagerMap } from 'backend/storeManagers/index'
 import { libraryStore as legendaryLibraryStore } from 'backend/storeManagers/legendary/electronStores'
 import { libraryStore as gogLibraryStore } from 'backend/storeManagers/gog/electronStores'
 import { libraryStore as nileLibraryStore } from 'backend/storeManagers/nile/electronStores'
 import { libraryStore as zoomLibraryStore } from 'backend/storeManagers/zoom/electronStores'
 import { libraryStore as sideloadLibraryStore } from 'backend/storeManagers/sideload/electronStores'
+import {
+  getPageID,
+  fetchGenresByTitles,
+  fetchGenresByPageIds
+} from 'backend/wiki_game_info/pcgamingwiki/utils'
 import { GameInfo } from 'common/types'
-
-const GENRES_PATH = join(appFolder, 'genres.json')
-const PCGW_API = 'https://www.pcgamingwiki.com/w/api.php'
-const BATCH_SIZE = 50
 
 // gameId (appName_runner) -> genres[]
 type GenresCache = Record<string, string[]>
 
-let cache: GenresCache = {}
-
-export function loadCache(): GenresCache {
-  try {
-    if (existsSync(GENRES_PATH)) {
-      const raw = readFileSync(GENRES_PATH, 'utf-8')
-      cache = JSON.parse(raw)
-    }
-  } catch (error) {
-    logError(['Failed to load genres cache', error], LogPrefix.ExtraGameInfo)
-    cache = {}
-  }
-  return cache
-}
-
-function saveCache() {
-  try {
-    writeFileSync(GENRES_PATH, JSON.stringify(cache, null, 2))
-  } catch (error) {
-    logError(['Failed to save genres cache', error], LogPrefix.ExtraGameInfo)
-  }
-}
+const genresStore = new TypeCheckedStoreBackend('genresStore', {
+  cwd: 'genres_store',
+  name: 'cache',
+  clearInvalidConfig: true
+})
 
 export function getCache(): GenresCache {
-  return cache
+  return genresStore.raw_store
 }
 
 function getAllGames(): GameInfo[] {
@@ -82,71 +63,6 @@ function getAllGames(): GameInfo[] {
 }
 
 /**
- * Fetch genres from PCGamingWiki for a batch of game titles using the
- * MediaWiki categories API.
- *
- * The API returns categories like "Category:Action games" - we strip the
- * "Category:" prefix and " games" suffix to get clean genre names.
- */
-async function fetchGenresFromPCGW(
-  titles: string[]
-): Promise<Record<string, string[]>> {
-  const result: Record<string, string[]> = {}
-
-  // Process in batches of BATCH_SIZE (MediaWiki API limit for titles param)
-  const batches: string[][] = []
-  for (let i = 0; i < titles.length; i += BATCH_SIZE) {
-    batches.push(titles.slice(i, i + BATCH_SIZE))
-  }
-  await Promise.all(
-    batches.map(async (batch: string[], index: number) => {
-      const titlesParam = batch.map((t) => t.replace(/ -/g, ':')).join('|')
-
-      try {
-        const { data } = await axiosClient.get(PCGW_API, {
-          params: {
-            action: 'query',
-            prop: 'categories',
-            titles: titlesParam,
-            cllimit: 'max',
-            format: 'json'
-          },
-          timeout: 30000
-        })
-
-        if (data?.query?.pages) {
-          const pages: Record<
-            string,
-            { title: string; categories?: Array<{ title: string }> }
-          > = data.query.pages
-          Object.values(pages).forEach((page) => {
-            if (!page.categories?.length) return
-            const genres = page.categories
-              .map((cat) =>
-                cat.title.replace('Category:', '').replace(/ games$/i, '')
-              )
-              .filter((g) => g.length > 0)
-            if (genres.length > 0) {
-              result[page.title] = genres
-            }
-          })
-        }
-      } catch (error) {
-        logWarning(
-          [
-            `Failed to fetch PCGamingWiki genres for batch starting at index ${index}`,
-            error
-          ],
-          LogPrefix.ExtraGameInfo
-        )
-      }
-    })
-  )
-
-  return result
-}
-
-/**
  * For a game, try to resolve genres from:
  * 1. GameInfo.extra.genres (GOG, Amazon/Nile provide these)
  * 2. Runner's getExtraInfo
@@ -162,7 +78,7 @@ async function resolveGenresForGames(
     games.map(async (game) => {
       const gameId = `${game.app_name}_${game.runner}`
 
-      if (!forceRefresh && cache[gameId] && cache[gameId].length > 0) {
+      if (!forceRefresh && genresStore.get(gameId, []).length > 0) {
         return
       }
 
@@ -178,7 +94,7 @@ async function resolveGenresForGames(
       }
 
       if (genres.length > 0) {
-        cache[gameId] = genres
+        genresStore.set(gameId, genres)
         return
       }
       // Try getting extra info from the runner
@@ -191,7 +107,7 @@ async function resolveGenresForGames(
           extraInfo.genres.length > 0 &&
           extraInfo.genres[0] !== ''
         ) {
-          cache[gameId] = extraInfo.genres
+          genresStore.set(gameId, extraInfo.genres)
           return
         }
       } catch {
@@ -210,24 +126,59 @@ async function resolveGenresForGames(
     LogPrefix.ExtraGameInfo
   )
 
-  const titles = needsPcgw.map((g) => g.title)
-  const pcgwGenres = await fetchGenresFromPCGW(titles)
+  // Non-GOG games: batch-fetch genres by title
+  const otherGames = needsPcgw.filter((g) => g.runner !== 'gog')
+  if (otherGames.length > 0) {
+    const titles = otherGames.map((g) => g.title)
+    const pcgwGenres = await fetchGenresByTitles(titles)
 
-  // Map PCGW results back to game IDs via case-insensitive title matching
-  const pcgwTitleMap = new Map<string, string[]>()
-  for (const [title, genres] of Object.entries(pcgwGenres)) {
-    pcgwTitleMap.set(title.toLowerCase(), genres)
+    const pcgwTitleMap = new Map<string, string[]>()
+    for (const [title, genres] of Object.entries(pcgwGenres)) {
+      pcgwTitleMap.set(title.toLowerCase(), genres)
+    }
+
+    for (const game of otherGames) {
+      const gameId = `${game.app_name}_${game.runner}`
+      const normalizedTitle = game.title.replace(/ -/g, ':').toLowerCase()
+      const genres =
+        pcgwTitleMap.get(normalizedTitle) ||
+        pcgwTitleMap.get(game.title.toLowerCase())
+      if (genres && genres.length > 0) {
+        genresStore.set(gameId, genres)
+      }
+    }
   }
 
-  for (const game of needsPcgw) {
-    const gameId = `${game.app_name}_${game.runner}`
-    const normalizedTitle = game.title.replace(/ -/g, ':').toLowerCase()
-    const genres =
-      pcgwTitleMap.get(normalizedTitle) ||
-      pcgwTitleMap.get(game.title.toLowerCase())
+  // GOG games: resolve page IDs via GOG ID, then batch-fetch genres
+  const gogGames = needsPcgw.filter((g) => g.runner === 'gog')
+  if (gogGames.length > 0) {
+    const gameIdToPageId = new Map<string, string>()
 
-    if (genres && genres.length > 0) {
-      cache[gameId] = genres
+    for (const game of gogGames) {
+      const gameId = `${game.app_name}_${game.runner}`
+      try {
+        const pageId = await getPageID(
+          game.title.replace(/ -/g, ':'),
+          game.app_name
+        )
+        if (pageId) {
+          gameIdToPageId.set(gameId, String(pageId))
+        }
+      } catch {
+        // Failed to resolve page ID for this game
+      }
+    }
+
+    if (gameIdToPageId.size > 0) {
+      const uniquePageIds = [...new Set(gameIdToPageId.values())]
+      const genresByPageId = await fetchGenresByPageIds(uniquePageIds)
+
+      for (const [gameId, pageId] of gameIdToPageId) {
+        const genres = genresByPageId[pageId]
+        if (genres && genres.length > 0) {
+          genresStore.set(gameId, genres)
+        }
+      }
     }
   }
 }
@@ -239,17 +190,16 @@ async function resolveGenresForGames(
 export async function updateCache(): Promise<GenresCache> {
   logInfo('Updating genres cache', LogPrefix.ExtraGameInfo)
 
-  loadCache()
   const allGames = getAllGames()
 
   const uncachedGames = allGames.filter((game) => {
     const gameId = `${game.app_name}_${game.runner}`
-    return !cache[gameId] || cache[gameId].length === 0
+    return genresStore.get(gameId, []).length === 0
   })
 
   if (uncachedGames.length === 0) {
     logInfo('All games already have genres cached', LogPrefix.ExtraGameInfo)
-    return cache
+    return genresStore.raw_store
   }
 
   logInfo(
@@ -258,14 +208,13 @@ export async function updateCache(): Promise<GenresCache> {
   )
 
   await resolveGenresForGames(uncachedGames, false)
-  saveCache()
 
   logInfo(
-    `Genres cache updated. ${Object.keys(cache).length} games cached.`,
+    `Genres cache updated. ${Object.keys(genresStore.raw_store).length} games cached.`,
     LogPrefix.ExtraGameInfo
   )
 
-  return cache
+  return genresStore.raw_store
 }
 
 /**
@@ -274,16 +223,15 @@ export async function updateCache(): Promise<GenresCache> {
 export async function forceRefreshCache(): Promise<GenresCache> {
   logInfo('Force refreshing genres cache', LogPrefix.ExtraGameInfo)
 
-  cache = {}
+  genresStore.clear()
   const allGames = getAllGames()
 
   await resolveGenresForGames(allGames, true)
-  saveCache()
 
   logInfo(
-    `Genres cache rebuilt. ${Object.keys(cache).length} games cached.`,
+    `Genres cache rebuilt. ${Object.keys(genresStore.raw_store).length} games cached.`,
     LogPrefix.ExtraGameInfo
   )
 
-  return cache
+  return genresStore.raw_store
 }
