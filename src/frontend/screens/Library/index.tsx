@@ -488,9 +488,21 @@ export default React.memo(function Library(): JSX.Element {
 
         // Genre filter (OR logic, unioned with custom categories)
         if (hasGenreFilter) {
+          const withoutGenreSelected =
+            selectedGenres.includes('preset_without_genre')
+
           library.forEach((game) => {
             const gameId = `${game.app_name}_${game.runner}`
             const gameGenres = genresCache[gameId]
+
+            if (
+              withoutGenreSelected &&
+              (!gameGenres || gameGenres.length === 0)
+            ) {
+              gamesInSelectedCategories.add(gameId)
+              return
+            }
+
             if (gameGenres) {
               const matchesAnyGenre = selectedGenres.some((genre) =>
                 gameGenres.includes(genre)

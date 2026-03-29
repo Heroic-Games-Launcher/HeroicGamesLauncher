@@ -72,7 +72,7 @@ export default function CategoryFilter() {
   }, [genresCache])
 
   const selectAllGenres = useCallback(() => {
-    setSelectedGenres([...availableGenres])
+    setSelectedGenres([...availableGenres, 'preset_without_genre'])
   }, [availableGenres, setSelectedGenres])
 
   const toggleWithOnly = (
@@ -184,7 +184,20 @@ export default function CategoryFilter() {
           {t('header.no_genres', 'No games with genre data available')}
         </span>
       )}
-      <div style={{ maxHeight: '40vh', overflowY: 'auto' }}>{genreToggles}</div>
+      <div style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+        {genreToggles}
+        {availableGenres.length > 0 &&
+          toggleWithOnly(
+            <ToggleSwitch
+              htmlId="genre_without_genre"
+              handleChange={() => toggleGenre('preset_without_genre')}
+              value={selectedGenres.includes('preset_without_genre')}
+              title={t('header.without_genre', 'Without Genre')}
+            />,
+            () => setGenreOnly('preset_without_genre'),
+            'genre_without_genre'
+          )}
+      </div>
       {availableGenres.length > 0 && (
         <>
           <hr />
