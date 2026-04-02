@@ -41,11 +41,7 @@ import { callRunner } from '../../launcher'
 import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { LegendaryCommand } from './commands'
-import {
-  LegendaryAppName,
-  LegendaryPlatform,
-  PositiveInteger
-} from './commands/base'
+import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { Path } from 'backend/schemas'
 import shlex from 'shlex'
 import thirdParty from './thirdParty'
@@ -56,6 +52,7 @@ import { isWindows } from 'backend/constants/environment'
 import { LibraryManager } from 'common/types/game_manager'
 import LegendaryGame from './games'
 import { GlobalConfig } from 'backend/config'
+import { PositiveInteger } from 'common/schemas'
 
 const fallBackImage = 'fallback'
 
