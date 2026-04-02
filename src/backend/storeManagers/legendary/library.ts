@@ -51,7 +51,6 @@ import { runLegendaryCommandStub } from './e2eMock'
 import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from 'backend/config'
-import { PositiveInteger } from 'common/schemas'
 
 const fallBackImage = 'fallback'
 
@@ -704,14 +703,14 @@ export async function runRunnerCommand(
 
   if (command.subcommand) {
     const { legendaryTimeout } = GlobalConfig.get().getSettings()
-    command['--api-timeout'] = PositiveInteger.parse(legendaryTimeout)
+    command['--api-timeout'] = legendaryTimeout
 
     switch (command.subcommand) {
       case 'install':
       case 'download':
       case 'update':
       case 'repair':
-        command['--dl-timeout'] = command['--api-timeout']
+        command['--dl-timeout'] = legendaryTimeout
     }
   }
 
