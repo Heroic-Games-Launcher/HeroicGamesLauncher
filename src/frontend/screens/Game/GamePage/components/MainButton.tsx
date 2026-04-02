@@ -7,6 +7,7 @@ import {
   CloudQueue,
   Download,
   Error,
+  Info,
   Pause,
   PlayArrow,
   Stop,
@@ -15,6 +16,7 @@ import {
 import classNames from 'classnames'
 import { GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
+import { timestampStore } from 'frontend/helpers/electronStores'
 
 interface Props {
   gameInfo: GameInfo
@@ -34,6 +36,7 @@ const MainButton = ({
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
+  const playedTime = timestampStore.get_nodefault(gameInfo.app_name)
 
   function getPlayLabel(): React.ReactNode {
     if (is.syncing) {
@@ -183,81 +186,96 @@ const MainButton = ({
     )
   }
 
+  // Show hint to disable logs if the game is installed and was player for more than 5 minutes
+  const showDisableLogsHint =
+    is_installed && verboseLogs && playedTime && playedTime.totalPlayed > 60 * 5
+
   return (
-    <div className="playButtons">
-      {is_installed && !is.queued && !is.uninstalling && (
-        <>
-          <button
-            disabled={
-              is.reparing ||
-              is.moving ||
-              is.updating ||
-              is.uninstalling ||
-              is.syncing ||
-              is.launching ||
-              is.installingWinetricksPackages ||
-              is.installingRedist
-            }
-            autoFocus={true}
-            onClick={async () => handlePlay(gameInfo)}
-            className={classNames(
-              'button',
-              {
-                'is-secondary': !is_installed && !is.queued,
-                'is-success':
-                  is.syncing ||
-                  (!is.updating &&
-                    !is.playing &&
-                    is_installed &&
-                    !is.notAvailable),
-                'is-tertiary':
-                  is.playing ||
-                  (!is_installed && is.queued) ||
-                  (is_installed && is.notAvailable),
-                'is-disabled': is.updating
-              },
-              'mainBtn'
-            )}
-          >
-            {getPlayLabel()}
-          </button>
-          {altPlayAction()}
-        </>
+    <>
+      {showDisableLogsHint && (
+        <span className="disableLogsHint">
+          <Info />
+          {t(
+            'disableLogsHint',
+            'Looks like the game is working. You might want to disable verbose logs for better performance. Click the ^ icon and use the "Play Now" button without logs'
+          )}
+        </span>
       )}
-      {(!is_installed || is.queued) && (
-        <>
-          <button
-            onClick={async () => handleInstall(is_installed)}
-            disabled={
-              is.playing ||
-              is.updating ||
-              is.reparing ||
-              is.moving ||
-              is.uninstalling ||
-              is.notSupportedGame ||
-              is.notInstallable
-            }
-            autoFocus={true}
-            className={classNames(
-              'button',
-              {
-                'is-primary': is_installed,
-                'is-tertiary':
-                  is.notAvailable ||
-                  is.installing ||
-                  is.queued ||
-                  is.notInstallable,
-                'is-secondary': !is_installed && !is.queued
-              },
-              'mainBtn'
-            )}
-          >
-            {getButtonLabel()}
-          </button>
-          {altInstallAction()}
-        </>
-      )}
-    </div>
+      <div className="playButtons">
+        {is_installed && !is.queued && !is.uninstalling && (
+          <>
+            <button
+              disabled={
+                is.reparing ||
+                is.moving ||
+                is.updating ||
+                is.uninstalling ||
+                is.syncing ||
+                is.launching ||
+                is.installingWinetricksPackages ||
+                is.installingRedist
+              }
+              autoFocus={true}
+              onClick={async () => handlePlay(gameInfo)}
+              className={classNames(
+                'button',
+                {
+                  'is-secondary': !is_installed && !is.queued,
+                  'is-success':
+                    is.syncing ||
+                    (!is.updating &&
+                      !is.playing &&
+                      is_installed &&
+                      !is.notAvailable),
+                  'is-tertiary':
+                    is.playing ||
+                    (!is_installed && is.queued) ||
+                    (is_installed && is.notAvailable),
+                  'is-disabled': is.updating
+                },
+                'mainBtn'
+              )}
+            >
+              {getPlayLabel()}
+            </button>
+            {altPlayAction()}
+          </>
+        )}
+        {(!is_installed || is.queued) && (
+          <>
+            <button
+              onClick={async () => handleInstall(is_installed)}
+              disabled={
+                is.playing ||
+                is.updating ||
+                is.reparing ||
+                is.moving ||
+                is.uninstalling ||
+                is.notSupportedGame ||
+                is.notInstallable
+              }
+              autoFocus={true}
+              className={classNames(
+                'button',
+                {
+                  'is-primary': is_installed,
+                  'is-tertiary':
+                    is.notAvailable ||
+                    is.installing ||
+                    is.queued ||
+                    is.notInstallable,
+                  'is-secondary': !is_installed && !is.queued
+                },
+                'mainBtn'
+              )}
+            >
+              {getButtonLabel()}
+            </button>
+            {altInstallAction()}
+          </>
+        )}
+      </div>
+    </>
   )
 }
 

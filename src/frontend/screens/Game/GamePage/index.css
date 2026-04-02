@@ -262,11 +262,24 @@
       .buttons {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         justify-content: flex-start;
         align-items: center;
         margin-top: 15px;
-        max-width: 250px;
         border-radius: 8px;
+
+        .disableLogsHint {
+          flex-basis: 100%;
+          flex-shrink: 0;
+          background: var(--status-warning);
+          color: black;
+          padding: 0.5rem 1rem;
+          & svg {
+            margin-inline-end: 0.2rem;
+            height: 1rem;
+            width: 1rem;
+          }
+        }
 
         .buttonWithIcon > svg {
           display: flex;
