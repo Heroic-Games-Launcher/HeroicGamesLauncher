@@ -42,11 +42,7 @@ import { dirname, join } from 'path'
 import { isOnline } from 'backend/online_monitor'
 import { update } from './games'
 import { LegendaryCommand } from './commands'
-import {
-  LegendaryAppName,
-  LegendaryPlatform,
-  PositiveInteger
-} from './commands/base'
+import { LegendaryAppName, LegendaryPlatform } from './commands/base'
 import { Path } from 'backend/schemas'
 import shlex from 'shlex'
 import thirdParty from './thirdParty'
@@ -55,6 +51,7 @@ import { runLegendaryCommandStub } from './e2eMock'
 import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from 'backend/config'
+import { PositiveInteger } from 'common/schemas'
 
 const fallBackImage = 'fallback'
 
