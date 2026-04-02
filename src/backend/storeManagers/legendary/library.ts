@@ -56,7 +56,6 @@ import { isWindows } from 'backend/constants/environment'
 import { LibraryManager } from 'common/types/game_manager'
 import LegendaryGame from './games'
 import { GlobalConfig } from 'backend/config'
-import InstallCommand from './commands/install'
 
 const fallBackImage = 'fallback'
 
