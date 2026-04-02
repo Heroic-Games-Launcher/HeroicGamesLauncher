@@ -192,8 +192,15 @@ async function initializeWindow(): Promise<BrowserWindow> {
       const toolkitDownloaded = availableWine.some(
         (wine) => wine.type === 'toolkit'
       )
+      const crossoverDownloaded = availableWine.some(
+        (wine) => wine.type === 'crossover'
+      )
 
-      if (!toolkitDownloaded && installedWines.length === 0) {
+      if (
+        !toolkitDownloaded &&
+        !crossoverDownloaded &&
+        installedWines.length === 0
+      ) {
         shouldDownloadWine = true
       }
     }
