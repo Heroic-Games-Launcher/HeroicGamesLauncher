@@ -20,6 +20,7 @@ import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtob
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
 import type { SteamRuntimeName } from './types/umu'
+import type { PositiveInteger } from './schemas'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
@@ -139,7 +140,7 @@ export interface AppSettings extends GameSettings {
   verboseLogs: boolean
   showValveProton: boolean
   steamGridDbApiKey: string
-  legendaryTimeout: number
+  legendaryTimeout: PositiveInteger
 }
 
 export type LibraryTopSectionOptions =
