@@ -182,6 +182,10 @@ async function initializeWindow(): Promise<BrowserWindow> {
   setTimeout(async () => {
     // Will download Wine/GPTK if none was found
     const availableWine = await GlobalConfig.get().getAlternativeWine()
+    const installedWines = wineDownloaderInfoStore
+      .get('wine-releases', [])
+      .filter((wineInfo) => wineInfo.isInstalled)
+
     let shouldDownloadWine = !availableWine.length
 
     if (isMac && !isIntelMac) {
@@ -189,7 +193,7 @@ async function initializeWindow(): Promise<BrowserWindow> {
         (wine) => wine.type === 'toolkit'
       )
 
-      if (!toolkitDownloaded) {
+      if (!toolkitDownloaded && installedWines.length === 0) {
         shouldDownloadWine = true
       }
     }
@@ -1408,3 +1412,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import { wineDownloaderInfoStore } from './wine/manager/utils'
