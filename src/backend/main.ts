@@ -155,6 +155,7 @@ import {
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
 import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
+import { wineDownloaderInfoStore } from './wine/manager/utils'
 
 app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
@@ -1419,4 +1420,3 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
-import { wineDownloaderInfoStore } from './wine/manager/utils'
