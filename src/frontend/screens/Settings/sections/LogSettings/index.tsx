@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -102,8 +102,13 @@ export default function LogSettings() {
     zoom.library
   ])
 
+  const isFetching = useRef<boolean>(false)
+
   const getLogContent = () => {
+    if (isFetching.current) return
+    isFetching.current = true
     void window.api.getLogContent(showLogOf).then((content: string) => {
+      isFetching.current = false
       if (!content) {
         setLogFileContent(t('setting.log.no-file', 'No log file found.'))
         setLogFileExist(false)

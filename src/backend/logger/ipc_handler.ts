@@ -1,5 +1,5 @@
 import { addListener, addHandler } from 'backend/ipc'
-import { existsSync, readFileSync } from 'graceful-fs'
+import { existsSync } from 'graceful-fs'
 
 import { showItemInFolder } from '../utils'
 
@@ -10,13 +10,15 @@ import {
   deleteUploadedLogFile,
   getUploadedLogFiles
 } from './uploader'
+import { readLastBytes } from 'backend/utils/filesystem/read_last_bytes'
 
 addListener('logInfo', (e, message) => logInfo(message, LogPrefix.Frontend))
 addListener('logError', (e, message) => logError(message, LogPrefix.Frontend))
 
-addHandler('getLogContent', (event, appNameOrRunner) => {
+addHandler('getLogContent', async (event, appNameOrRunner) => {
   const logPath = getLogFilePath(appNameOrRunner)
-  return existsSync(logPath) ? readFileSync(logPath, 'utf-8') : ''
+  const MAX_LOG_BYTES = 1024 * 1024  // 1 MB
+  return existsSync(logPath) ? await readLastBytes(logPath, MAX_LOG_BYTES) : ''
 })
 
 addListener('showLogFileInFolder', (e, args) =>
