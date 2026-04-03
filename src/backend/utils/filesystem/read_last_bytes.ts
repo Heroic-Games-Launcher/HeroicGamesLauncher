@@ -26,9 +26,11 @@ export async function readLastBytes(path: string, n: number): Promise<string> {
     // If not at the start of the file, ensure we start at a valid UTF-8 boundary.
     let skip = 0
     if (position > 0) {
-      while (skip < 4 &&
-             skip < buffer.length &&
-             (buffer[skip] & 0xc0) === 0x80) {
+      while (
+        skip < 4 &&
+        skip < buffer.length &&
+        (buffer[skip] & 0xc0) === 0x80
+      ) {
         skip++
       }
     }

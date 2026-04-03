@@ -42,7 +42,11 @@ describe('readLastBytes', () => {
     // '🚀' is 4 bytes: 0xF0 0x9F 0x9A 0x80
     const emoji = '🚀'
     const abc = 'abc'
-    const content = Buffer.concat([Buffer.from(abc), Buffer.from(emoji), Buffer.from(abc)])
+    const content = Buffer.concat([
+      Buffer.from(abc),
+      Buffer.from(emoji),
+      Buffer.from(abc)
+    ])
     fs.writeFileSync(testFile, content)
 
     let result = await readLastBytes(testFile, 6)
