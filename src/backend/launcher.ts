@@ -1730,10 +1730,7 @@ async function callRunner(
       isWindows && !!(await searchForExecutableOnPath('powershell'))
 
   if (shouldUsePowerShell) {
-    const argsAsString = commandParts
-      .map((part) => part.replaceAll('\\', '\\\\'))
-      .map((part) => `"\`"${part}\`""`)
-      .join(',')
+    const argsAsString = toPowerShellArgumentList(commandParts)
     commandParts = [
       '-NoProfile',
       'Start-Process',
@@ -1877,6 +1874,10 @@ async function callRunner(
   commandsRunning[key] = promise
 
   return promise
+}
+
+function toPowerShellArgumentList(commandParts: string[]): string {
+  return commandParts.map((part) => `"\`"${part}\`""`).join(',')
 }
 
 /**
@@ -2094,6 +2095,7 @@ export {
   setupWrappers,
   runWineCommand,
   callRunner,
+  toPowerShellArgumentList,
   getWinePath,
   launchEventCallback,
   getKnownFixesEnvVariables
