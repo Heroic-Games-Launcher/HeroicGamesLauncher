@@ -63,8 +63,6 @@ interface Card {
   dataTour?: string
 }
 
-const storage: Storage = window.localStorage
-
 const GameCard = ({
   hasUpdate,
   buttonClick,
@@ -551,7 +549,7 @@ const GameCard = ({
     }
 
     if (isQueued) {
-      storage.removeItem(appName)
+      window.storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }
 

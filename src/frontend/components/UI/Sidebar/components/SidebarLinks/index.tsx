@@ -48,7 +48,7 @@ export default function SidebarLinks() {
     epic.username || gog.username || amazon.user_id || zoom.username
 
   async function handleRefresh() {
-    localStorage.setItem('scrollPosition', '0')
+    window.storage.setItem('scrollPosition', '0')
 
     const shouldRefresh =
       (epic.username && !epic.library.length) ||
@@ -62,7 +62,7 @@ export default function SidebarLinks() {
   }
 
   function handleExternalLink(linkCallback: () => void) {
-    const showDialogSetting = localStorage.getItem(
+    const showDialogSetting = window.storage.getItem(
       SHOW_EXTERNAL_LINK_DIALOG_STORAGE_KEY
     )
     const showExternalLinkDialog = showDialogSetting

@@ -57,13 +57,17 @@ const openNewBrowserGameWindow = async ({
 }: BrowserGameOptions): Promise<boolean> => {
   const hostname = new URL(browserUrl).hostname
 
+  let partition = `persist:${hostname}`
+  if (window.heroicProfile !== 'default')
+    partition = `persist:${window.heroicProfile}-${hostname}`
+
   return new Promise((res) => {
     const browserGame = new BrowserWindow({
       icon: windowIcon,
       fullscreen: launchFullScreen ?? false,
       autoHideMenuBar: true,
       webPreferences: {
-        partition: `persist:${hostname}`
+        partition: partition
       }
     })
 

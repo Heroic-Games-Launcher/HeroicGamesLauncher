@@ -1,3 +1,4 @@
+import { storesPath } from 'backend/constants/key_value_stores'
 import { TypeCheckedStoreBackend } from '../electron_store'
 import { logError, logInfo } from '../logger'
 
@@ -15,7 +16,7 @@ export default class MigrationSystem {
 
   constructor() {
     this.migrationsStore = new TypeCheckedStoreBackend('migrationsStore', {
-      cwd: 'store',
+      cwd: storesPath,
       name: 'migrations'
     })
   }

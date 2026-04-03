@@ -5,8 +5,6 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField } from '..'
 import { MenuItem } from '@mui/material'
 
-const storage: Storage = window.localStorage
-
 export enum FlagPosition {
   NONE = 'none',
   PREPEND = 'prepend',
@@ -120,7 +118,7 @@ export default function LanguageSelector({
 
   const handleChangeLanguage = (newLanguage: string) => {
     window.api.changeLanguage(newLanguage)
-    storage.setItem('language', newLanguage)
+    window.storage.setItem('language', newLanguage)
     configStore.set('language', newLanguage)
     i18n.changeLanguage(newLanguage)
     setLanguage(newLanguage)

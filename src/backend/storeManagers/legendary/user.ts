@@ -10,6 +10,7 @@ import { LegendaryCommand } from './commands'
 import { NonEmptyString } from './commands/base'
 import { configStore } from 'backend/constants/key_value_stores'
 import { legendaryUserInfo } from './constants'
+import { env } from 'process'
 
 export class LegendaryUser {
   public static async login(
@@ -65,7 +66,10 @@ export class LegendaryUser {
       return
     }
 
-    const ses = session.fromPartition('persist:epicstore')
+    let partition = 'persist:epicstore'
+    if (env.HEROIC_PROFILE) partition = `persist:${env.HEROIC_PROFILE}-epictore`
+
+    const ses = session.fromPartition(partition)
     await ses.clearStorageData()
     await ses.clearCache()
     await ses.clearAuthCache()

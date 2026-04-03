@@ -57,9 +57,12 @@ const DXMT = {
     }
   },
   getCurrentDXMTVersion: () => {
-    return readFileSync(join(toolsPath, 'dxmt', 'latest_dxmt'))
-      .toString()
-      .split('\n')[0]
+    const versionFilePath = join(toolsPath, 'dxmt', 'latest_dxmt')
+    if (existsSync(versionFilePath)) {
+      return readFileSync(versionFilePath).toString().split('\n')[0]
+    } else {
+      return ''
+    }
   },
   deleteWineCopy: async (versionInfo: WineVersionInfo) => {
     const dxmtVersionPath = `${versionInfo.installDir}-DXMT`
@@ -143,6 +146,8 @@ backendEvents.on('wineVersionUninstalled', async (versionInfo) => {
 
 // Update DXMT version in `*-DXMT` wines if new version available
 backendEvents.on('releasesInfoReady', async (releasesInfo) => {
+  if (!isMac) return
+
   // TODO: should we store just the version instead of the file name?
   const currentDXMTVersion = DXMT.getCurrentDXMTVersion()
     .replace(/.*dxmt-/, '')

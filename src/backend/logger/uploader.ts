@@ -8,9 +8,10 @@ import { getLogFilePath, logError, logInfo, LogPrefix } from '../logger'
 import { sendFrontendMessage } from '../ipc'
 
 import type { UploadedLogData } from 'common/types'
+import { storesPath } from 'backend/constants/key_value_stores'
 
 const uploadedLogFileStore = new TypeCheckedStoreBackend('uploadedLogs', {
-  cwd: 'store',
+  cwd: storesPath,
   name: 'uploadedLogs',
   accessPropertiesByDotNotation: false
 })

@@ -169,8 +169,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
-  const storage: Storage = window.localStorage
-
   const [currentTab, setCurrentTab] = useState<
     'info' | 'achievements' | 'extra' | 'requirements'
   >('info')
@@ -603,7 +601,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   async function handleInstall(is_installed: boolean) {
     if (isQueued) {
-      storage.removeItem(appName)
+      window.storage.removeItem(appName)
       return window.api.removeFromDMQueue(appName)
     }
 
