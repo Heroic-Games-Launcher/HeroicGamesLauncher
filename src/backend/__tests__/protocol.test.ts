@@ -19,6 +19,8 @@ import { app, dialog } from 'electron'
 import { gameManagerMap } from '../storeManagers'
 import { getMainWindow } from '../main_window'
 import { sendFrontendMessage } from '../ipc'
+import { addToQueue } from '../downloadmanager/downloadqueue'
+import { uninstallGameCallback } from '../utils/uninstaller'
 
 // Mock electron modules
 jest.mock('electron', () => ({
@@ -37,6 +39,28 @@ jest.mock('../main_window', () => ({
 
 jest.mock('../ipc', () => ({
   sendFrontendMessage: jest.fn()
+}))
+
+jest.mock('../downloadmanager/downloadqueue', () => ({
+  addToQueue: jest.fn()
+}))
+
+jest.mock('../config', () => ({
+  GlobalConfig: {
+    get: () => ({
+      getSettings: () => ({
+        defaultInstallPath: '/default/install/path'
+      })
+    })
+  }
+}))
+
+jest.mock('../utils/uninstaller', () => ({
+  uninstallGameCallback: jest.fn()
+}))
+
+jest.mock('../dialog/dialog', () => ({
+  notify: jest.fn()
 }))
 
 jest.mock('../storeManagers', () => ({
@@ -121,6 +145,79 @@ describe('protocol.ts --no-gui behavior', () => {
     ;(gameManagerMap.gog.getGameInfo as jest.Mock).mockReturnValue({})
     ;(gameManagerMap.nile.getGameInfo as jest.Mock).mockReturnValue({})
     ;(gameManagerMap.sideload.getGameInfo as jest.Mock).mockReturnValue({})
+  })
+
+  describe('extended actions', () => {
+    beforeEach(() => {
+      mockIsCLINoGui.mockReturnValue(false)
+      mockGameInfo.is_installed = true
+    })
+
+    test('should queue install when direct install parameters are provided', async () => {
+      mockGameInfo.is_installed = false
+
+      await handleProtocol([
+        'heroic://install/legendary/test-game?path=C%3A%5CGames&platform=Windows'
+      ])
+
+      expect(addToQueue).toHaveBeenCalledTimes(1)
+      expect(sendFrontendMessage).not.toHaveBeenCalledWith(
+        'installGame',
+        'test-game',
+        'legendary'
+      )
+    })
+
+    test('should queue install using default settings when install details are omitted', async () => {
+      mockGameInfo.is_installed = false
+
+      await handleProtocol(['heroic://install/legendary/test-game'])
+
+      expect(addToQueue).toHaveBeenCalledTimes(1)
+      expect(dialog.showMessageBox).not.toHaveBeenCalled()
+    })
+
+    test('should call uninstall callback for uninstall action', async () => {
+      await handleProtocol(['heroic://uninstall/legendary/test-game'])
+
+      expect(uninstallGameCallback).toHaveBeenCalledTimes(1)
+      expect(uninstallGameCallback).toHaveBeenCalledWith(
+        expect.anything(),
+        'test-game',
+        'legendary',
+        false,
+        false
+      )
+    })
+
+    test('should call runner repair for repair action', async () => {
+      ;(gameManagerMap.legendary as any).repair = jest.fn().mockResolvedValue({})
+
+      await handleProtocol(['heroic://repair/legendary/test-game'])
+
+      expect(gameManagerMap.legendary.repair).toHaveBeenCalledWith('test-game')
+    })
+
+    test('should route verify action to repair implementation', async () => {
+      ;(gameManagerMap.legendary as any).repair = jest.fn().mockResolvedValue({})
+
+      await handleProtocol(['heroic://verify/legendary/test-game'])
+
+      expect(gameManagerMap.legendary.repair).toHaveBeenCalledWith('test-game')
+    })
+
+    test('should show status information for status action', async () => {
+      ;(dialog.showMessageBox as jest.Mock).mockResolvedValue({ response: 0 })
+
+      await handleProtocol(['heroic://status/legendary/test-game'])
+
+      expect(dialog.showMessageBox).toHaveBeenCalledWith(
+        mockMainWindow,
+        expect.objectContaining({
+          title: 'Heroic Protocol Status'
+        })
+      )
+    })
   })
 
   describe('when game is not installed', () => {
