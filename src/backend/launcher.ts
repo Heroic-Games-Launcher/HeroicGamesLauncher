@@ -12,7 +12,6 @@ import {
   WineCommandArgs,
   SteamRuntime,
   GameSettings,
-  KnowFixesInfo,
   LaunchParams,
   StatusPromise
 } from 'common/types'
@@ -65,7 +64,6 @@ import {
   deleteAbortController
 } from './utils/aborthandler/aborthandler'
 import { download, isInstalled } from './wine/runtimes/runtimes'
-import { storeMap } from 'common/utils'
 import { runWineCommandOnGame } from './storeManagers/legendary/games'
 import { getMainWindow } from './main_window'
 import { sendFrontendMessage } from './ipc'
@@ -79,7 +77,6 @@ import { tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
   defaultWinePrefix,
-  fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
   gamesConfigPath,
@@ -103,6 +100,7 @@ import { gameAnticheatInfo } from './anticheat/utils'
 import type { PartialDeep } from 'type-fest'
 import type LogWriter from './logger/log_writer'
 import { isEnabled } from './storeManagers/legendary/eos_overlay/eos_overlay'
+import { getKnownFixesFor } from './known_fixes/utils'
 
 let powerDisplayId: number | null
 
@@ -1009,27 +1007,8 @@ async function prepareWineLaunch(
   return { success: true, envVars: envVars }
 }
 
-export function readKnownFixes(appName: string, runner: Runner) {
-  const fixPath = join(fixesPath, `${appName}-${storeMap[runner]}.json`)
-
-  if (!existsSync(fixPath)) return null
-
-  try {
-    const fixesContent = JSON.parse(
-      readFileSync(fixPath).toString()
-    ) as KnowFixesInfo
-
-    return fixesContent
-  } catch (error) {
-    // if we fail to download the json file, it can be malformed causing
-    // JSON.parse to throw an exception
-    logWarning(`Known fixes could not be applied, ignoring.\n${error}`)
-    return null
-  }
-}
-
 async function installFixes(appName: string, runner: Runner) {
-  const knownFixes = readKnownFixes(appName, runner)
+  const knownFixes = getKnownFixesFor(appName, runner)
 
   if (!knownFixes) return
 
@@ -1067,7 +1046,7 @@ async function installFixes(appName: string, runner: Runner) {
 }
 
 function getKnownFixesEnvVariables(appName: string, runner: Runner) {
-  const knownFixes = readKnownFixes(appName, runner)
+  const knownFixes = getKnownFixesFor(appName, runner)
 
   return knownFixes?.envVariables || {}
 }

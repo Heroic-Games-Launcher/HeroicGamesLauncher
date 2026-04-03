@@ -819,13 +819,20 @@ export type InstallInfo =
   | ZoomInstalledInfo
   | ZoomInstallInfo
 
-export interface KnowFixesInfo {
+export interface KnownFixesInfo {
   title: string
   notes?: Record<string, string>
   winetricks?: string[]
   runInPrefix?: string[]
   envVariables?: Record<string, string>
   wikiLink?: string
+}
+
+export interface KnownFixesFile {
+  amazon: Record<string, KnownFixesInfo>
+  epic: Record<string, KnownFixesInfo>
+  gog: Record<string, KnownFixesInfo>
+  zoom: Record<string, KnownFixesInfo>
 }
 
 export interface UploadedLogData {
@@ -863,4 +870,5 @@ export type ReleasesInfo = Record<
     shaMac: string
     shaLinux: string
   }
+  knownFixesSha: string
 }

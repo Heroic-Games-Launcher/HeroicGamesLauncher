@@ -1,17 +1,6 @@
-import { useEffect, useState } from 'react'
-import { KnowFixesInfo, Runner } from 'common/types'
+import { useAwaited } from './useAwaited'
+import { Runner } from 'common/types'
 
-export const hasKnownFixes = (appName: string, runner: Runner) => {
-  const [knownFixes, setKnownFixes] = useState<KnowFixesInfo | null>(null)
-
-  useEffect(() => {
-    window.api
-      .getKnownFixes(appName, runner)
-      .then((info: KnowFixesInfo | null) => {
-        console.log({ info })
-        setKnownFixes(info)
-      })
-  }, [appName])
-
-  return knownFixes
+export const useKnownFixes = (appName: string, runner: Runner) => {
+  return useAwaited(window.api.getKnownFixes, appName, runner)
 }
