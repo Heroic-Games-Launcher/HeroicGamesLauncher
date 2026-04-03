@@ -15,7 +15,7 @@ describe('readLastBytes', () => {
     if (fs.existsSync(testFile)) {
       try {
         fs.unlinkSync(testFile)
-      } catch (e) {
+      } catch {
         // Ignore if file was already removed
       }
     }
