@@ -24,6 +24,10 @@ const LegendaryTimeout = () => {
     [setLegendaryTimeout]
   )
 
+  const setDefaultIfInvalid = () => {
+    if (invalidInput) validateAndSetTimeout('10')
+  }
+
   return (
     <TextInputField
       htmlId="legendary_timeout"
@@ -32,6 +36,13 @@ const LegendaryTimeout = () => {
         'Legendary/Epic Timeout (default is 10 seconds)'
       )}
       onChange={validateAndSetTimeout}
+      onKeyDown={(ev) =>
+        ev.key.length === 1 &&
+        ev.key.match(/\D/) &&
+        ev.preventDefault() &&
+        ev.stopPropagation()
+      }
+      onBlur={setDefaultIfInvalid}
       value={tempValue}
       warning={
         invalidInput ? (
