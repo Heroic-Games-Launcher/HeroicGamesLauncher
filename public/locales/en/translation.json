@@ -700,6 +700,7 @@
         "hdr": "Enable HDR",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
+        "invalidInputError": "Invalid input provided",
         "language": "Choose App Language",
         "legendaryTimeout": "Legendary/Epic Timeout (default is 10 seconds)",
         "library_top_option": {
