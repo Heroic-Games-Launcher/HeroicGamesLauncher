@@ -559,23 +559,6 @@
     }
   }
 
-  .store-page-icon {
-    width: 44px;
-    position: relative;
-    padding: 6px;
-    color: var(--navbar-inactive);
-    background-color: var(--navbar-background);
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    height: 44px;
-    text-decoration: none;
-
-    &:hover {
-      color: var(--navbar-active);
-    }
-  }
-
   .game-actions {
     position: relative;
     display: flex;

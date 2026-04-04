@@ -7,8 +7,7 @@ import {
   Info,
   Star,
   Monitor,
-  EmojiEvents,
-  ShoppingCart
+  EmojiEvents
 } from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
@@ -426,15 +425,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
                     </NavLink>
                     <div className="topRowWapperInner">
                       {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
-                      {!isSideloaded && gameInfo.store_url && (
-                        <NavLink
-                          className="store-page-icon"
-                          to={`/store-page?store-url=${gameInfo.store_url}`}
-                          title={t('submenu.store')}
-                        >
-                          <ShoppingCart />
-                        </NavLink>
-                      )}
                       <DotsMenu
                         gameInfo={gameInfo}
                         handleUpdate={handleUpdate}
