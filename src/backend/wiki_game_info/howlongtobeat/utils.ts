@@ -1,12 +1,10 @@
 import axios from 'axios'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 
-// this is a subset of the HowLongToBeatEntry type without some fields
 export interface HeroicHowLongToBeatEntry {
   completionist: number
   mainStory: number
   mainExtra: number
-  // Optional additional data from HowLongToBeat
   gameId?: number
   gameName?: string
   gameImageUrl?: string
@@ -15,18 +13,22 @@ export interface HeroicHowLongToBeatEntry {
 
 const HLTB_BASE_URL = 'https://howlongtobeat.com'
 
-async function getGameDataById(gameId: string): Promise<HeroicHowLongToBeatEntry | null> {
+async function getGameDataById(
+  gameId: string
+): Promise<HeroicHowLongToBeatEntry | null> {
   try {
     const gameUrl = `${HLTB_BASE_URL}/game/${gameId}`
 
     const response = await axios.get(gameUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
-        'Referer': HLTB_BASE_URL,
+        Referer: HLTB_BASE_URL,
         'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
+        Connection: 'keep-alive',
         'Upgrade-Insecure-Requests': '1'
       },
       timeout: 10000,
@@ -39,7 +41,9 @@ async function getGameDataById(gameId: string): Promise<HeroicHowLongToBeatEntry
 
     // Extract game data from Next.js props
     const html = response.data
-    const nextDataMatch = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/)
+    const nextDataMatch = html.match(
+      /<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/
+    )
 
     if (!nextDataMatch) {
       return null
@@ -53,9 +57,15 @@ async function getGameDataById(gameId: string): Promise<HeroicHowLongToBeatEntry
     }
 
     // Values are in seconds, converting to hours
-    const mainStory = gameData.comp_main ? Math.round(gameData.comp_main / 3600) : 0
-    const mainExtra = gameData.comp_plus ? Math.round(gameData.comp_plus / 3600) : 0
-    const completionist = gameData.comp_100 ? Math.round(gameData.comp_100 / 3600) : 0
+    const mainStory = gameData.comp_main
+      ? Math.round(gameData.comp_main / 3600)
+      : 0
+    const mainExtra = gameData.comp_plus
+      ? Math.round(gameData.comp_plus / 3600)
+      : 0
+    const completionist = gameData.comp_100
+      ? Math.round(gameData.comp_100 / 3600)
+      : 0
 
     return {
       mainStory,
@@ -79,14 +89,15 @@ async function getGameDataById(gameId: string): Promise<HeroicHowLongToBeatEntry
   }
 }
 
-
 export async function getHowLongToBeat(
   title: string,
   hltbId?: string
 ): Promise<HeroicHowLongToBeatEntry | null> {
-  logInfo(`Getting HowLongToBeat data for ${title}${hltbId ? ` (ID: ${hltbId})` : ''}`, LogPrefix.ExtraGameInfo)
+  logInfo(
+    `Getting HowLongToBeat data for ${title}${hltbId ? ` (ID: ${hltbId})` : ''}`,
+    LogPrefix.ExtraGameInfo
+  )
 
-  // If we have an HLTB ID, try to fetch the game page directly
   if (hltbId) {
     const gameData = await getGameDataById(hltbId)
     if (gameData) {
@@ -95,7 +106,9 @@ export async function getHowLongToBeat(
     logInfo(`HLTB ID ${hltbId} not found for ${title}`, LogPrefix.ExtraGameInfo)
   }
 
-  // Without an HLTB ID, we cannot fetch data because HLTB search requires JavaScript
-  logInfo(`No HLTB ID available for ${title}, cannot fetch data`, LogPrefix.ExtraGameInfo)
+  logInfo(
+    `No HLTB ID available for ${title}, cannot fetch data`,
+    LogPrefix.ExtraGameInfo
+  )
   return null
 }
