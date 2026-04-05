@@ -31,14 +31,16 @@ export async function getWikiGameInfo(
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
-    const [pcgamingwiki, howlongtobeat, gamesdb, applegamingwiki, umuId] =
+    const [pcgamingwiki, gamesdb, applegamingwiki, umuId] =
       await Promise.all([
         getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
-        getHowLongToBeat(title),
         getInfoFromGamesDB(title, appName, runner),
         isMac ? getInfoFromAppleGamingWiki(title) : null,
         isLinux ? getUmuId(appName, runner) : null
       ])
+
+    // Get HowLongToBeat data, using HLTB ID from PCGamingWiki if available
+    const howlongtobeat = await getHowLongToBeat(title, pcgamingwiki?.howLongToBeatID)
 
     let steamInfo = null
     if (isLinux) {

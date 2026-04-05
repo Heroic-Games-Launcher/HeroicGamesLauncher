@@ -13,118 +13,89 @@ export interface HeroicHowLongToBeatEntry {
   gameWebLink?: string
 }
 
-interface HltbGameData {
-  game_id: number
-  game_name: string
-  game_image: string
-  comp_main: number
-  comp_plus: number
-  comp_100: number
-}
-
-interface HltbSearchResponse {
-  data: HltbGameData[]
-}
-
 const HLTB_BASE_URL = 'https://howlongtobeat.com'
 
-async function getHltbToken(): Promise<string | null> {
-  const url = `${HLTB_BASE_URL}/api/finder/init?t=${Date.now()}`
+async function getGameDataById(gameId: string): Promise<HeroicHowLongToBeatEntry | null> {
   try {
-    const response = await axios.get(url, {
+    const gameUrl = `${HLTB_BASE_URL}/game/${gameId}`
+
+    const response = await axios.get(gameUrl, {
       headers: {
-        referer: HLTB_BASE_URL,
-        'User-Agent':
-          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
-    })
-    return response.data?.token || null
-  } catch (error) {
-    logError(['Error fetching HLTB token:', error], LogPrefix.ExtraGameInfo)
-    return null
-  }
-}
-
-export async function getHowLongToBeat(
-  title: string
-): Promise<HeroicHowLongToBeatEntry | null> {
-  logInfo(`Getting HowLongToBeat data for ${title}`, LogPrefix.ExtraGameInfo)
-
-  const token = await getHltbToken()
-  if (!token) {
-    return null
-  }
-
-  const searchUrl = `${HLTB_BASE_URL}/api/finder`
-  const payload = {
-    searchType: 'games',
-    searchTerms: title.split(' '),
-    searchPage: 1,
-    size: 20,
-    searchOptions: {
-      games: {
-        userId: 0,
-        platform: '',
-        sortCategory: 'popular',
-        rangeCategory: 'main',
-        rangeTime: { min: 0, max: 0 },
-        gameplay: { perspective: '', flow: '', genre: '', difficulty: '' },
-        rangeYear: { min: '', max: '' },
-        modifier: ''
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': HLTB_BASE_URL,
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
       },
-      users: { sortCategory: 'postcount' },
-      lists: { sortCategory: 'follows' },
-      filter: '',
-      sort: 0,
-      randomizer: 0
-    }
-  }
-
-  try {
-    const response = await axios.post<HltbSearchResponse>(searchUrl, payload, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': token,
-        referer: HLTB_BASE_URL,
-        'User-Agent':
-          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
+      timeout: 10000,
+      validateStatus: (status) => status < 500
     })
 
-    const info = response.data?.data
-    if (!info || info.length === 0) {
-      logError(
-        `No HowLongToBeat data found for ${title}`,
-        LogPrefix.ExtraGameInfo
-      )
+    if (response.status !== 200) {
       return null
     }
 
-    const game: HltbGameData = info[0]
+    // Extract game data from Next.js props
+    const html = response.data
+    const nextDataMatch = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/)
 
-    // New API returns values in seconds, converting to hours
-    const mainStory = game.comp_main ? Math.round(game.comp_main / 3600) : 0
-    const mainExtra = game.comp_plus ? Math.round(game.comp_plus / 3600) : 0
-    const completionist = game.comp_100 ? Math.round(game.comp_100 / 3600) : 0
+    if (!nextDataMatch) {
+      return null
+    }
+
+    const nextData = JSON.parse(nextDataMatch[1])
+    const gameData = nextData.props?.pageProps?.game?.data?.game?.[0]
+
+    if (!gameData || !gameData.game_id) {
+      return null
+    }
+
+    // Values are in seconds, converting to hours
+    const mainStory = gameData.comp_main ? Math.round(gameData.comp_main / 3600) : 0
+    const mainExtra = gameData.comp_plus ? Math.round(gameData.comp_plus / 3600) : 0
+    const completionist = gameData.comp_100 ? Math.round(gameData.comp_100 / 3600) : 0
 
     return {
       mainStory,
       mainExtra,
       completionist,
-      gameId: game.game_id,
-      gameName: game.game_name || undefined,
-      gameImageUrl: game.game_image
-        ? `${HLTB_BASE_URL}/games/${game.game_image}`
+      gameId: gameData.game_id,
+      gameName: gameData.game_name || undefined,
+      gameImageUrl: gameData.game_image
+        ? `${HLTB_BASE_URL}/games/${gameData.game_image}`
         : undefined,
-      gameWebLink: game.game_id
-        ? `${HLTB_BASE_URL}/game/${game.game_id}`
+      gameWebLink: gameData.game_id
+        ? `${HLTB_BASE_URL}/game/${gameData.game_id}`
         : undefined
     }
   } catch (error) {
     logError(
-      [`Error searching HLTB data for ${title}:`, error],
+      [`Error fetching HLTB game data for ID ${gameId}:`, error],
       LogPrefix.ExtraGameInfo
     )
     return null
   }
+}
+
+
+export async function getHowLongToBeat(
+  title: string,
+  hltbId?: string
+): Promise<HeroicHowLongToBeatEntry | null> {
+  logInfo(`Getting HowLongToBeat data for ${title}${hltbId ? ` (ID: ${hltbId})` : ''}`, LogPrefix.ExtraGameInfo)
+
+  // If we have an HLTB ID, try to fetch the game page directly
+  if (hltbId) {
+    const gameData = await getGameDataById(hltbId)
+    if (gameData) {
+      return gameData
+    }
+    logInfo(`HLTB ID ${hltbId} not found for ${title}`, LogPrefix.ExtraGameInfo)
+  }
+
+  // Without an HLTB ID, we cannot fetch data because HLTB search requires JavaScript
+  logInfo(`No HLTB ID available for ${title}, cannot fetch data`, LogPrefix.ExtraGameInfo)
+  return null
 }
