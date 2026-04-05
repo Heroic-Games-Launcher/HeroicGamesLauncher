@@ -124,7 +124,8 @@ describe('protocol.ts --no-gui behavior', () => {
     app_name: 'test-game',
     title: 'Test Game',
     runner: 'legendary' as const,
-    is_installed: false
+    is_installed: false,
+    install: {}
   }
 
   const mockGameSettings = {
@@ -238,7 +239,7 @@ describe('protocol.ts --no-gui behavior', () => {
       expect(dialog.showMessageBox).toHaveBeenCalledWith(
         mockMainWindow,
         expect.objectContaining({
-          title: 'Heroic Protocol Status'
+          message: expect.stringContaining('Runner: legendary')
         })
       )
     })

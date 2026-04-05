@@ -1,6 +1,7 @@
 import { existsSync, writeFileSync } from 'graceful-fs'
 import { getFolderSize, unlinkFile } from '../../utilities'
 import { testSkipOnWindows } from 'backend/__tests__/skip'
+import { join } from 'path'
 
 jest.mock('backend/logger')
 
@@ -29,7 +30,16 @@ describe('Utilities - Rest', () => {
     expect(() => {
       unlinkFile(__dirname)
     }).toThrowError(
-      `Couldn't remove ${workDir}/src/backend/wine/manager/downloader/__tests__/utilities!`
+      `Couldn't remove ${join(
+        workDir,
+        'src',
+        'backend',
+        'wine',
+        'manager',
+        'downloader',
+        '__tests__',
+        'utilities'
+      )}!`
     )
   })
 

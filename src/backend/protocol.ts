@@ -346,7 +346,7 @@ function buildInstallArgs(
   const path = install.path || GlobalConfig.get().getSettings().defaultInstallPath
   const platformToInstall =
     install.platformToInstall ||
-    (gameInfo.install.platform as InstallPlatform | undefined) ||
+    gameInfo.install.platform ||
     getDefaultInstallPlatform(gameInfo.runner)
 
   if (!path || !platformToInstall) {

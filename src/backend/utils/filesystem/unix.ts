@@ -1,6 +1,6 @@
 import { genericSpawnWrapper } from '../os/processes'
 import { access } from 'fs/promises'
-import { join } from 'path'
+import { posix } from 'path'
 
 import type { Path } from 'backend/schemas'
 import type { DiskInfo } from './index'
@@ -26,7 +26,7 @@ async function getDiskInfo_unix(path: Path): Promise<DiskInfo> {
 async function findFirstExistingPath(path: Path): Promise<Path> {
   let maybeExistingPath = path
   while (!(await isWritable_unix(maybeExistingPath))) {
-    maybeExistingPath = join(maybeExistingPath, '..') as Path
+    maybeExistingPath = posix.dirname(maybeExistingPath) as Path
   }
   return maybeExistingPath
 }
