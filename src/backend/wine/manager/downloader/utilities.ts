@@ -19,6 +19,19 @@ function getVersionName(type: string, tag_name: string): string {
   }
 }
 
+interface ReleasesData {
+  data: {
+    tag_name: string
+    published_at: string
+    html_url: string
+    assets: {
+      name: string
+      browser_download_url: string
+      size: number
+    }[]
+  }[]
+}
+
 /**
  * Helper to fetch releases from given url.
  *
@@ -37,7 +50,7 @@ async function fetchReleases({
   return new Promise((resolve, reject) => {
     axiosClient
       .get(url + '?per_page=' + count)
-      .then((data) => {
+      .then((data: ReleasesData) => {
         for (const release of data.data) {
           const release_data = {} as VersionInfo
           release_data.version = getVersionName(type, release.tag_name)
@@ -46,15 +59,31 @@ async function fetchReleases({
           release_data.disksize = 0
           release_data.release_notes_link = release.html_url
 
-          for (const asset of release.assets) {
-            if (asset.name.endsWith('sha512sum')) {
-              release_data.checksum = asset.browser_download_url
-            } else if (
-              asset.name.endsWith('tar.gz') ||
-              asset.name.endsWith('tar.xz')
-            ) {
-              release_data.download = asset.browser_download_url
-              release_data.downsize = asset.size
+          // for proton-cachyos we want to always get the main x86 asset,
+          // the other logic sometimes gets the V3, V4 or arm asset incorrectly
+          if (type === 'Proton-Cachyos') {
+            const shaAsset = release.assets.find((asset) =>
+              asset.browser_download_url.endsWith('x86_64.sha512sum')
+            )
+            if (shaAsset) release_data.checksum = shaAsset.browser_download_url
+            const tarAsset = release.assets.find((asset) =>
+              asset.browser_download_url.endsWith('x86_64.tar.xz')
+            )
+            if (tarAsset) {
+              release_data.download = tarAsset.browser_download_url
+              release_data.downsize = tarAsset.size
+            }
+          } else {
+            for (const asset of release.assets) {
+              if (asset.name.endsWith('sha512sum')) {
+                release_data.checksum = asset.browser_download_url
+              } else if (
+                asset.name.endsWith('tar.gz') ||
+                asset.name.endsWith('tar.xz')
+              ) {
+                release_data.download = asset.browser_download_url
+                release_data.downsize = asset.size
+              }
             }
           }
 
