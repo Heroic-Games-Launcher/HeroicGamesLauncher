@@ -42,6 +42,9 @@ function getLatestLocalVersions(): Record<string, string | undefined> {
         ?.date,
       latestGEProton: localWines.find(
         (wine) => wine.version === 'GE-Proton-latest'
+      )?.date,
+      latestProtonCachyos: localWines.find(
+        (wine) => wine.version === 'Proton-Cachyos-latest'
       )?.date
     }
   }
@@ -104,6 +107,14 @@ export function updateWineListsIfOutdated(releasesData: ReleasesInfo) {
       )
     )
       repositoriesToFetch.push(Repositorys.WINEGE)
+
+    if (
+      localVersionIsOlder(
+        latestLocalVersions.latestProtonCachyos,
+        releasesData['proton-cachyos']
+      )
+    )
+      repositoriesToFetch.push(Repositorys.PROTONCACHYOS)
   }
 
   if (isMac) {
@@ -155,7 +166,7 @@ async function updateWineVersionInfos(
             Repositorys.WINESTAGINGMACOS,
             Repositorys.GPTK
           ]
-        : [Repositorys.WINEGE, Repositorys.PROTONGE]
+        : [Repositorys.WINEGE, Repositorys.PROTONGE, Repositorys.PROTONCACHYOS]
     }
 
     await getAvailableVersions({

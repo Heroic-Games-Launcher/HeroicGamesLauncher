@@ -759,6 +759,7 @@ export type Type =
   | 'Wine-Crossover'
   | 'Wine-Staging-macOS'
   | 'Game-Porting-Toolkit'
+  | 'Proton-Cachyos'
 
 /**
  * Interface contains information about a version
@@ -790,7 +791,8 @@ export enum Repositorys {
   WINELUTRIS,
   WINECROSSOVER,
   WINESTAGINGMACOS,
-  GPTK
+  GPTK,
+  PROTONCACHYOS
 }
 
 export type WineManagerStatus =
@@ -873,6 +875,7 @@ export type ReleasesInfo = Record<
   | 'ge-proton'
   | 'wine-ge'
   | 'game-porting-toolkit'
+  | 'proton-cachyos'
   | 'wine-staging'
   | 'wine-crossover'
   | 'dxvk'

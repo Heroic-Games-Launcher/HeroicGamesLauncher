@@ -16,7 +16,8 @@ import {
   WINELUTRIS_URL,
   WINECROSSOVER_URL,
   WINESTAGINGMACOS_URL,
-  GPTK_URL
+  GPTK_URL,
+  PROTON_CACHYOS_URL
 } from './constants'
 import { VersionInfo, Repositorys, WineVersionInfo } from 'common/types'
 import {
@@ -140,6 +141,20 @@ async function getAvailableVersions({
         await fetchReleases({
           url: GPTK_URL,
           type: 'Game-Porting-Toolkit',
+          count: count
+        })
+          .then((fetchedReleases: VersionInfo[]) => {
+            releases.push(...fetchedReleases)
+          })
+          .catch((error: Error) => {
+            logError(error, LogPrefix.WineDownloader)
+          })
+        break
+      }
+      case Repositorys.PROTONCACHYOS: {
+        await fetchReleases({
+          url: PROTON_CACHYOS_URL,
+          type: 'Proton-Cachyos',
           count: count
         })
           .then((fetchedReleases: VersionInfo[]) => {

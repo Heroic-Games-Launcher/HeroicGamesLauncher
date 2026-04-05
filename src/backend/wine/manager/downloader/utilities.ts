@@ -68,6 +68,18 @@ async function fetchReleases({
               release_data.download = stagingAsset.browser_download_url
               release_data.downsize = stagingAsset.size
             }
+          } else if (type === 'Proton-Cachyos') {
+            const shaAsset = release.assets.find((asset) =>
+              asset.browser_download_url.endsWith('x86_64.sha512sum')
+            )
+            if (shaAsset) release_data.checksum = shaAsset.browser_download_url
+            const tarAsset = release.assets.find((asset) =>
+              asset.browser_download_url.endsWith('x86_64.tar.xz')
+            )
+            if (tarAsset) {
+              release_data.download = tarAsset.browser_download_url
+              release_data.downsize = tarAsset.size
+            }
           } else {
             for (const asset of release.assets) {
               if (asset.name.endsWith('sha512sum')) {
