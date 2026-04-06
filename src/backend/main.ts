@@ -156,7 +156,6 @@ import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
 import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
-app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
 const { showOpenDialog } = dialog
