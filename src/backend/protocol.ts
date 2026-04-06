@@ -62,7 +62,10 @@ export function handleProtocol(args: string[]) {
 function parseProtocolRequest(url: URL): ProtocolRequest | undefined {
   const actionParse = PROTOCOL_ACTIONS.safeParse(url.hostname)
   if (!actionParse.success) {
-    logError(`Unsupported protocol action: ${url.hostname}`, LogPrefix.ProtocolHandler)
+    logError(
+      `Unsupported protocol action: ${url.hostname}`,
+      LogPrefix.ProtocolHandler
+    )
     return
   }
 
@@ -162,7 +165,12 @@ function handlePing(url: URL) {
   logInfo(['Received ping! Args:', url.searchParams], LogPrefix.ProtocolHandler)
 }
 
-async function handleLaunch({ appName, runner, args, altExe }: ProtocolRequest) {
+async function handleLaunch({
+  appName,
+  runner,
+  args,
+  altExe
+}: ProtocolRequest) {
   if (!appName) {
     logError('No appName in protocol URL', LogPrefix.ProtocolHandler)
     return
@@ -217,7 +225,10 @@ async function handleInstall(request: ProtocolRequest) {
   }
 
   if (gameInfo.is_installed) {
-    logInfo(`"${gameInfo.title}" is already installed.`, LogPrefix.ProtocolHandler)
+    logInfo(
+      `"${gameInfo.title}" is already installed.`,
+      LogPrefix.ProtocolHandler
+    )
     notify({
       title: gameInfo.title,
       body: i18next.t('notify.install.finished', 'Installation Finished')
@@ -343,7 +354,8 @@ function buildInstallArgs(
   gameInfo: GameInfo,
   install: Partial<InstallArgs>
 ): InstallArgs | undefined {
-  const path = install.path || GlobalConfig.get().getSettings().defaultInstallPath
+  const path =
+    install.path || GlobalConfig.get().getSettings().defaultInstallPath
   const platformToInstall =
     install.platformToInstall ||
     gameInfo.install.platform ||
@@ -365,7 +377,9 @@ function buildInstallArgs(
   }
 }
 
-function getDefaultInstallPlatform(runner: Runner): InstallPlatform | undefined {
+function getDefaultInstallPlatform(
+  runner: Runner
+): InstallPlatform | undefined {
   switch (runner) {
     case 'legendary':
       return 'Windows'

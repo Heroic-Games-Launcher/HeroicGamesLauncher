@@ -212,7 +212,9 @@ describe('protocol.ts --no-gui behavior', () => {
     })
 
     test('should call runner repair for repair action', async () => {
-      ;(gameManagerMap.legendary as any).repair = jest.fn().mockResolvedValue({})
+      ;(gameManagerMap.legendary as any).repair = jest
+        .fn()
+        .mockResolvedValue({})
 
       await handleProtocol([
         'heroic://repair/legendary/test-game?path=C%3A%5COtherPath'
@@ -222,7 +224,9 @@ describe('protocol.ts --no-gui behavior', () => {
     })
 
     test('should route verify action to repair implementation', async () => {
-      ;(gameManagerMap.legendary as any).repair = jest.fn().mockResolvedValue({})
+      ;(gameManagerMap.legendary as any).repair = jest
+        .fn()
+        .mockResolvedValue({})
 
       await handleProtocol([
         'heroic://verify/legendary/test-game?path=C%3A%5COtherPath'
@@ -314,7 +318,9 @@ describe('protocol.ts --no-gui behavior', () => {
     })
 
     test('should not repair a game that is not installed', async () => {
-      ;(gameManagerMap.legendary as any).repair = jest.fn().mockResolvedValue({})
+      ;(gameManagerMap.legendary as any).repair = jest
+        .fn()
+        .mockResolvedValue({})
 
       await handleProtocol(['heroic://repair/legendary/test-game'])
 
@@ -322,7 +328,9 @@ describe('protocol.ts --no-gui behavior', () => {
     })
 
     test('should not verify a game that is not installed', async () => {
-      ;(gameManagerMap.legendary as any).repair = jest.fn().mockResolvedValue({})
+      ;(gameManagerMap.legendary as any).repair = jest
+        .fn()
+        .mockResolvedValue({})
 
       await handleProtocol(['heroic://verify/legendary/test-game'])
 
