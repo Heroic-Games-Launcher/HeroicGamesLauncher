@@ -440,6 +440,9 @@ function splitPathAndName(fullPath: string): { dir: string; bin: string } {
 }
 
 function archSpecificBinary(binaryName: string) {
+  // On Windows the helper binaries have .exe extension
+  if (process.platform === 'win32') binaryName += '.exe'
+
   // Try to use the arch-native binary first, if that doesn't exist fall back to
   // the x64 version (assume a compatibility layer like box64 is installed)
   const archSpecificPath = join(
