@@ -20,7 +20,7 @@ import {
   getGameInfo as getLegLibraryGameInfo,
   changeGameInstallPath,
   installState,
-  refresh
+  refreshInstalled
 } from './library'
 import { LegendaryUser } from './user'
 import {
@@ -663,7 +663,7 @@ export async function install(
   }
   addShortcuts(appName)
 
-  refresh()
+  refreshInstalled()
 
   return { status: 'done' }
 }
