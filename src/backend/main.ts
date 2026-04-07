@@ -22,7 +22,7 @@ import {
 import 'backend/updater'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
-import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
+import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
 import 'source-map-support/register'
 
 import Backend from 'i18next-fs-backend'
@@ -132,7 +132,6 @@ import {
   wikiLink,
   wineprefixFAQ
 } from './constants/urls'
-import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
   isCLIFullscreen,
   isCLINoGui,
@@ -863,19 +862,6 @@ addListener('setSetting', (event, { appName, key, value }) => {
     GameConfig.get(appName).setSetting(key, value)
   }
 })
-
-// Watch the installed games file and trigger a refresh on the installed games if something changes
-if (existsSync(legendaryInstalled)) {
-  let watchTimeout: NodeJS.Timeout | undefined
-  watch(legendaryInstalled, () => {
-    logInfo('installed.json updated, refreshing library', LogPrefix.Legendary)
-    // `watch` might fire twice (while Legendary/we are still writing chunks of the file), which would in turn make LegendaryLibrary fail to
-    // decode the JSON data. So instead of immediately calling LegendaryLibrary.get().refreshInstalled(), call it only after no writes happen
-    // in a 500ms timespan
-    if (watchTimeout) clearTimeout(watchTimeout)
-    watchTimeout = setTimeout(LegendaryLibraryManager.refreshInstalled, 500)
-  })
-}
 
 addHandler('refreshLibrary', async (e, library?) => {
   if (library !== undefined && library !== 'all') {

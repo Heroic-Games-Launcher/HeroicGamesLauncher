@@ -19,7 +19,8 @@ import {
   listUpdateableGames,
   getGameInfo as getLegLibraryGameInfo,
   changeGameInstallPath,
-  installState
+  installState,
+  refresh
 } from './library'
 import { LegendaryUser } from './user'
 import {
@@ -661,6 +662,8 @@ export async function install(
     return { status: 'error', error: res.error }
   }
   addShortcuts(appName)
+
+  refresh()
 
   return { status: 'done' }
 }
