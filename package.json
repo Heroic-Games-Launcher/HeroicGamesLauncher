@@ -21,7 +21,7 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "start": "electron-vite dev --watch",
     "debug:react": "pnpm start & react-devtools",
@@ -46,7 +46,7 @@
     "flatpak:prepare": "node ./flatpak/prepareFlatpak.js",
     "flatpak:prepare-release": "node ./flatpak/prepareFlatpak.js release",
     "i18n": "i18next --silent",
-    "prepare": "husky install",
+    "prepare": "husky",
     "prettier": "prettier --check .",
     "prettier-fix": "prettier --write .",
     "download-helper-binaries": "esbuild --bundle --platform=node --target=node21 meta/downloadHelperBinaries.ts | node",
@@ -131,7 +131,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "fast-xml-parser": "^5.5.7",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "i18next-parser": "^9.3.0",
     "jest": "^29.7.0",
     "node-gyp": "^10.3.1",
