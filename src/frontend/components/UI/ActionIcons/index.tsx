@@ -72,21 +72,21 @@ export default React.memo(function ActionIcons({
             />
           </button>
         )}
-        {currentSort === SortOptions.alphaAsc ? (
+        {currentSort === SortOptions.random ? (
           <button
             className="FormControl__button"
-            title={t('library.sortDescending', 'Sort Descending')}
-            onClick={() => setCurrentSort(SortOptions.alphaDesc)}
+            title={t('library.sortRandom', 'Sort Randomly')}
+            onClick={() => setCurrentSort(SortOptions.alphaAsc)}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
-              icon={faArrowDownAZ}
+              icon={faShuffle}
             />
           </button>
         ) : currentSort === SortOptions.alphaDesc ? (
           <button
             className="FormControl__button"
-            title={t('library.sortAscending', 'Sort Ascending')}
+            title={t('library.sortDescending', 'Sort Descending')}
             onClick={() => setCurrentSort(SortOptions.random)}
           >
             <FontAwesomeIcon
@@ -97,12 +97,12 @@ export default React.memo(function ActionIcons({
         ) : (
           <button
             className="FormControl__button"
-            title={t('library.sortRandom', 'Sort Randomly')}
-            onClick={() => setCurrentSort(SortOptions.alphaAsc)}
+            title={t('library.sortAscending', 'Sort Ascending')}
+            onClick={() => setCurrentSort(SortOptions.alphaDesc)}
           >
             <FontAwesomeIcon
               className="FormControl__segmentedFaIcon"
-              icon={faShuffle}
+              icon={faArrowDownAZ}
             />
           </button>
         )}

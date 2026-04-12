@@ -617,7 +617,7 @@ export default React.memo(function Library(): JSX.Element {
       }
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
-      return currentSort === SortOptions.alphaAsc
+      return currentSort === SortOptions.alphaDesc
         ? -gameA.localeCompare(gameB)
         : gameA.localeCompare(gameB)
     })
