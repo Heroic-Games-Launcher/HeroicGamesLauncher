@@ -6,7 +6,8 @@ import {
   faArrowDownZA,
   faHardDrive as hardDriveSolid,
   faFilter,
-  faFilterCircleXmark
+  faFilterCircleXmark,
+  faShuffle
 } from '@fortawesome/free-solid-svg-icons'
 import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
 
@@ -20,6 +21,7 @@ import classNames from 'classnames'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import TourButton from 'frontend/components/Tour/TourButton'
 import { LIBRARY_TOUR_ID } from 'frontend/screens/Library/components/LibraryTour'
+import { SortOptions } from 'frontend/types'
 
 interface ActionIconsProps {
   'data-tour'?: string
@@ -34,8 +36,8 @@ export default React.memo(function ActionIcons({
   const {
     handleLayout,
     layout,
-    sortDescending,
-    setSortDescending,
+    currentSort,
+    setCurrentSort,
     sortInstalled,
     setSortInstalled,
     showAlphabetFilter,
@@ -70,21 +72,40 @@ export default React.memo(function ActionIcons({
             />
           </button>
         )}
-        <button
-          className="FormControl__button"
-          title={
-            sortDescending
-              ? t('library.sortDescending', 'Sort Descending')
-              : t('library.sortAscending', 'Sort Ascending')
-          }
-          onClick={() => setSortDescending(!sortDescending)}
-        >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
-            data-tour="library-sort-az"
-          />
-        </button>
+        {currentSort === SortOptions.alphaAsc ? (
+          <button
+            className="FormControl__button"
+            title={t('library.sortDescending', 'Sort Descending')}
+            onClick={() => setCurrentSort(SortOptions.alphaDesc)}
+          >
+            <FontAwesomeIcon
+              className="FormControl__segmentedFaIcon"
+              icon={faArrowDownAZ}
+            />
+          </button>
+        ) : currentSort === SortOptions.alphaDesc ? (
+          <button
+            className="FormControl__button"
+            title={t('library.sortAscending', 'Sort Ascending')}
+            onClick={() => setCurrentSort(SortOptions.random)}
+          >
+            <FontAwesomeIcon
+              className="FormControl__segmentedFaIcon"
+              icon={faArrowDownZA}
+            />
+          </button>
+        ) : (
+          <button
+            className="FormControl__button"
+            title={t('library.sortRandom', 'Sort Randomly')}
+            onClick={() => setCurrentSort(SortOptions.alphaAsc)}
+          >
+            <FontAwesomeIcon
+              className="FormControl__segmentedFaIcon"
+              icon={faShuffle}
+            />
+          </button>
+        )}
         <button
           className="FormControl__button"
           title={t('library.sortByStatus', 'Sort by Status')}
