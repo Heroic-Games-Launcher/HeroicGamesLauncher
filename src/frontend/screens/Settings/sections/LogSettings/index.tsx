@@ -107,17 +107,27 @@ export default function LogSettings() {
   const getLogContent = () => {
     if (isFetching.current) return
     isFetching.current = true
-    void window.api.getLogContent(showLogOf).then((content: string) => {
-      isFetching.current = false
-      if (!content) {
-        setLogFileContent(t('setting.log.no-file', 'No log file found.'))
+    void window.api
+      .getLogContent(showLogOf)
+      .then((content: string) => {
+        if (!content) {
+          setLogFileContent(t('setting.log.no-file', 'No log file found'))
+          setLogFileExist(false)
+          return
+        }
+        setLogFileContent(content)
+        setLogFileExist(true)
+      })
+      .catch(() => {
+        setLogFileContent(
+          t('setting.log.error', 'Internal error reading log file')
+        )
         setLogFileExist(false)
-        return setRefreshing(false)
-      }
-      setLogFileContent(content)
-      setLogFileExist(true)
-      setRefreshing(false)
-    })
+      })
+      .finally(() => {
+        isFetching.current = false
+        setRefreshing(false)
+      })
   }
 
   useEffect(() => {

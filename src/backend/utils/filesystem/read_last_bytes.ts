@@ -30,7 +30,7 @@ export async function readLastBytes(path: string, n: number): Promise<string> {
     return buffer.subarray(skip).toString('utf-8')
   } catch (error) {
     logError(`Error reading last bytes of ${path}: ${error}`)
-    return ''
+    throw error
   } finally {
     if (fileHandle !== undefined) {
       await fileHandle.close()

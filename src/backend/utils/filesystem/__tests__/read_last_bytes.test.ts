@@ -56,9 +56,8 @@ describe('readLastBytes', () => {
     expect(result).toBe('🚀abc')
   })
 
-  it('handles non-existent files gracefully', async () => {
-    const result = await readLastBytes('non_existent_file.log', 100)
-    expect(result).toBe('')
+  it('throws error for non-existent files', async () => {
+    await expect(readLastBytes('non_existent_file.log', 100)).rejects.toThrow()
     expect(logError).toHaveBeenCalled()
   })
 })
