@@ -97,9 +97,9 @@ async function deletePresence(force = false) {
 backendEvents.on('settingChanged', ({ key, newValue }) => {
   if (key === 'disableGOGPresence') {
     if (newValue) {
-      deletePresence(true)
+      void deletePresence(true)
     } else {
-      setPresence()
+      void setPresence()
     }
   }
 })
