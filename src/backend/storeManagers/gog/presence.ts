@@ -92,7 +92,6 @@ async function deletePresence(force = false) {
   }
 }
 
-
 // React immediately when the user toggles GOG presence on/off in settings
 backendEvents.on('settingChanged', ({ key, newValue }) => {
   if (key === 'disableGOGPresence') {
