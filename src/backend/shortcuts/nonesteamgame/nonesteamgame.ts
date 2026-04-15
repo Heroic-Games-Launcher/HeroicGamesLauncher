@@ -24,7 +24,12 @@ import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 import { tsStore } from 'backend/constants/key_value_stores'
-import { isAppImage, isFlatpak, isWindows, isSteamFlatpak } from 'backend/constants/environment'
+import {
+  isAppImage,
+  isFlatpak,
+  isWindows,
+  isSteamFlatpak
+} from 'backend/constants/environment'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
@@ -266,6 +271,7 @@ async function addNonSteamGame(props: {
     newEntry.Exe = `"${app.getPath('exe')}"`
     newEntry.StartDir = `"${process.cwd()}"`
 
+    // use xdg-open if Steam installed as flatpak
     if (isFlatpak && isSteamFlatpak) {
       newEntry.Exe = `"xdg-open"`
     } else if (isFlatpak) {
@@ -275,7 +281,7 @@ async function addNonSteamGame(props: {
     } else if (isWindows && process.env.PORTABLE_EXECUTABLE_FILE) {
       newEntry.Exe = `"${process.env.PORTABLE_EXECUTABLE_FILE}"`
       newEntry.StartDir = `"${process.env.PORTABLE_EXECUTABLE_DIR}"`
-    } // use xdg-open if Steam installed as flatpak
+    }
 
     newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
 
@@ -298,21 +304,23 @@ async function addNonSteamGame(props: {
       steamID: steamID
     })
 
+    // no args when using xdg-open..
     const args = []
     if (!isSteamFlatpak) {
       args.push('--no-gui')
       if (!isWindows) {
         args.push('--no-sandbox')
       }
-    } // no args when using xdg-open..
+    }
 
     const { runner, app_name } = props.gameInfo
 
+    // no run option for flatpak when using xdg-open
     args.push(`"heroic://launch?appName=${app_name}&runner=${runner}"`)
     newEntry.LaunchOptions = args.join(' ')
     if (isFlatpak && !isSteamFlatpak) {
       newEntry.LaunchOptions = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
-    } // fefomod - no run option for flatpak when using xdg-open..
+    }
     newEntry.IsHidden = false
     newEntry.AllowDesktopConfig = true
     newEntry.AllowOverlay = true

@@ -31,10 +31,8 @@ const isSteamDeckDesktopMode =
   env.SESSION_MANAGER?.includes('unix/steamdeck') &&
   env.HOME === '/home/deck' &&
   env.DESKTOP_SESSION?.includes('steamos')
-export const isSteamFlatpak = spawnSync('flatpak', [
-    'info',
-    'com.valvesoftware.Steam'
-  ]).status === 0 // check if steam is installed as flatpak
+export const isSteamFlatpak =
+  spawnSync('flatpak', ['info', 'com.valvesoftware.Steam']).status === 0 // check if steam is installed as flatpak
 export const isSteamDeck = isSteamDeckGameMode || isSteamDeckDesktopMode
 export const isCLIFullscreen = process.argv.includes('--fullscreen')
 export const isCLINoGui = process.argv.includes('--no-gui')
