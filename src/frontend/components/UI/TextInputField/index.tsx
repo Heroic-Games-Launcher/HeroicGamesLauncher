@@ -67,7 +67,7 @@ const TextInputField = ({
         // we are handling the change with the eventListener above
         onChange={() => {}}
       />
-      {value && warning}
+      {warning}
       {afterInput}
     </div>
   )

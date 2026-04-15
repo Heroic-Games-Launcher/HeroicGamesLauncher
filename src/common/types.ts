@@ -19,6 +19,7 @@ import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import type { PositiveInteger } from './schemas'
 
 export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
 
@@ -131,6 +132,7 @@ export interface AppSettings extends GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  legendaryTimeout: PositiveInteger
 }
 
 export type LibraryTopSectionOptions =

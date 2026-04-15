@@ -25,7 +25,8 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
-  ResetHeroic
+  ResetHeroic,
+  LegendaryTimeout
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
 
@@ -185,6 +186,8 @@ export default function AdvancedSetting() {
       <AllowInstallationBrokenAnticheat />
 
       {isLinux && <ShowValveProton />}
+
+      <LegendaryTimeout />
 
       <hr />
 

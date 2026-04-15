@@ -71,8 +71,7 @@ import {
 import {
   LegendaryAppName,
   LegendaryPlatform,
-  NonEmptyString,
-  PositiveInteger
+  NonEmptyString
 } from './commands/base'
 import { LegendaryCommand } from './commands'
 import { getUmuId } from 'backend/wiki_game_info/umu/utils'
@@ -83,6 +82,7 @@ import { configStore } from 'backend/constants/key_value_stores'
 import { epicRedistPath, legendaryInstalled } from './constants'
 import { isCLINoGui, isMac, isWindows } from 'backend/constants/environment'
 import { fakeEpicExePath } from 'backend/constants/paths'
+import { PositiveInteger } from 'common/schemas'
 
 import type LogWriter from 'backend/logger/log_writer'
 

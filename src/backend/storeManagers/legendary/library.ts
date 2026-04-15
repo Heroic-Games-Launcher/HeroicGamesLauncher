@@ -50,6 +50,7 @@ import { Entries } from 'type-fest'
 import { runLegendaryCommandStub } from './e2eMock'
 import { legendaryConfigPath, legendaryMetadata } from './constants'
 import { isWindows } from 'backend/constants/environment'
+import { GlobalConfig } from 'backend/config'
 
 const fallBackImage = 'fallback'
 
@@ -698,6 +699,19 @@ export async function runRunnerCommand(
   // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
   if (!process.env.SNAP) {
     options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
+  }
+
+  if (command.subcommand) {
+    const { legendaryTimeout } = GlobalConfig.get().getSettings()
+    command['--api-timeout'] = legendaryTimeout
+
+    switch (command.subcommand) {
+      case 'install':
+      case 'download':
+      case 'update':
+      case 'repair':
+        command['--dl-timeout'] = legendaryTimeout
+    }
   }
 
   const commandParts = commandToArgsArray(command)
