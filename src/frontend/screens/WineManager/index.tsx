@@ -5,7 +5,6 @@ import { UpdateComponent } from 'frontend/components/UI'
 
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Fuse from 'fuse.js'
 import { Tab, Tabs } from '@mui/material'
 import {
   TypeCheckedStoreFrontend,
@@ -114,7 +113,6 @@ export default function WineManager(): JSX.Element | null {
     getWineVersions(repository.type)
   )
 
-  const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [showSettingsModal, setShowSettingsModal] = useState(false)
 
@@ -132,18 +130,36 @@ export default function WineManager(): JSX.Element | null {
       'wine-manager-settings'
     )
     if (oldWineManagerSettings) {
-      const allowedValues = [
-        'protonge',
-        'winege',
-        'gpt',
-        'winecrossover',
-        'winestagingmacos'
-      ]
-      setWineManagerSettings(
-        oldWineManagerSettings.filter((s) => allowedValues.includes(s.value))
+      setWineManagerSettings((prevSettings) =>
+        prevSettings.map((defaultSetting) => {
+          const stored = oldWineManagerSettings.find(
+            (s) => s.value === defaultSetting.value
+          )
+          if (!stored) {
+            return defaultSetting
+          }
+          return {
+            ...defaultSetting,
+            enabled: stored.enabled
+          }
+        })
       )
     }
   }, [])
+
+  useEffect(() => {
+    const selected = wineManagerSettings.find(
+      (s) => s.value === repository.value
+    )
+    if (selected && !selected.enabled) {
+      const firstEnabled = wineManagerSettings.find((s) => s.enabled)
+      if (firstEnabled) {
+        setRepository(firstEnabled)
+        setWineVersions(getWineVersions(firstEnabled.type))
+        setSearch('')
+      }
+    }
+  }, [wineManagerSettings, repository.value])
 
   useEffect(() => {
     const removeListener = window.api.handleWineVersionsUpdated(() => {
@@ -184,13 +200,8 @@ export default function WineManager(): JSX.Element | null {
   const filteredWineVersions = useMemo(() => {
     if (!search) return wineVersions
 
-    const fuse = new Fuse(wineVersions, {
-      minMatchCharLength: 2,
-      threshold: 0.1,
-      keys: ['version']
-    })
-
-    return fuse.search(search).map((result) => result.item)
+    const query = search.toLowerCase()
+    return wineVersions.filter((v) => v.version.toLowerCase().includes(query))
   }, [wineVersions, search])
 
   return (
@@ -207,7 +218,6 @@ export default function WineManager(): JSX.Element | null {
             className="toolbarBtn"
             title={t('generic.library.refresh', 'Refresh Library')}
             onClick={() => {
-              setError(null)
               refreshWineVersions(true)
             }}
           >
@@ -257,11 +267,6 @@ export default function WineManager(): JSX.Element | null {
           <div className="infoBox">
             <FontAwesomeIcon icon={faSyncAlt} color={'orange'} />
             {t('wine.manager.loading', 'Loading wine versions...')}
-          </div>
-        ) : error ? (
-          <div className="infoBox errorState">
-            <FontAwesomeIcon icon={faWarning} color={'red'} />
-            {error}
           </div>
         ) : filteredWineVersions.length ? (
           <div className="wineList">

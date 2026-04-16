@@ -116,7 +116,7 @@
       z-index: 2;
 
       span {
-        text-align: left;
+        text-align: start;
         font-weight: 700;
         color: white;
         text-transform: uppercase;
@@ -137,13 +137,6 @@
       text-align: center;
       color: var(--text-secondary);
     }
-
-    .errorState {
-      padding: 32px 16px;
-      text-align: center;
-      color: var(--error);
-      font-weight: 500;
-    }
   }
 
   .infoBox {
@@ -160,6 +153,12 @@
       margin-inline-end: 0.5rem;
       width: 16px;
       height: 16px;
+    }
+
+    &.errorState {
+      justify-content: center;
+      color: var(--error);
+      font-weight: 500;
     }
   }
 }

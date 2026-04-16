@@ -19,7 +19,7 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   bottom: 0;
   width: var(--progress, 0%);
   background: var(--accent, #a975ff);
@@ -54,11 +54,11 @@
 
 .wineItem .version {
   font-weight: 500;
-  padding-right: 16px;
+  padding-inline-end: 16px;
   color: var(--text-primary);
   background: transparent;
   border: none;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   transition: color 0.2s;
   text-wrap: auto;
@@ -70,12 +70,12 @@
 }
 
 .wineItem .release {
-  text-align: left;
+  text-align: start;
   color: var(--text-secondary);
 }
 
 .wineItem .size {
-  text-align: left;
+  text-align: start;
   font-weight: 500;
   color: var(--accent);
 }
@@ -117,19 +117,19 @@
     grid-area: version;
     font-size: 1.1rem;
     font-weight: 700;
-    padding-right: 0;
+    padding-inline-end: 0;
   }
 
   .wineItem .release {
     grid-area: release;
-    text-align: left;
+    text-align: start;
     font-size: 0.9rem;
     color: var(--text-secondary);
   }
 
   .wineItem .size {
     grid-area: size;
-    text-align: right;
+    text-align: end;
     font-weight: 600;
     font-size: 0.9rem;
   }
