@@ -10,6 +10,7 @@ import {
 } from 'common/types/zoom'
 
 import {
+  getRunnerLogWriter,
   logDebug,
   logError,
   logInfo,
@@ -95,7 +96,8 @@ export async function refresh(): Promise<ExecResult> {
   )
 
   const logContent = `Games List:\n${sortedTitles.join('\n')}\n\nTotal: ${logLines.length}\n`
-  logInfo(logContent, LogPrefix.Zoom)
+  const zoomLogWriter = getRunnerLogWriter('zoom')
+  void zoomLogWriter.logInfo(logContent)
 
   logInfo('Saved games data for Zoom', LogPrefix.Zoom)
 
@@ -214,7 +216,7 @@ export async function getInstallInfo(
   }
 
   try {
-    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
+    const filesRequest = await ZoomUser.makeRequest<ZoomFilesResponse>(
       `${apiUrl}/li/game/${appName}/files`
     )
     const files = filesRequest[installPlatform as keyof ZoomFilesResponse] || []
@@ -227,8 +229,9 @@ export async function getInstallInfo(
       return
     }
 
-    const installerFile = files[0]
-    const sizeInBytes = parseSize(installerFile.size)
+    const sizeInBytes = files
+      .map((file) => parseSize(file.size))
+      .reduce((acc, num) => acc + num, 0)
     const info: ZoomInstallInfo = {
       game: {
         app_name: appName,
@@ -279,7 +282,7 @@ export async function getExtras(appName: string) {
 
   logDebug(`Fetching extras for Zoom ID ${appName}`, LogPrefix.Zoom)
   try {
-    const filesRequest: ZoomFilesResponse = await ZoomUser.makeRequest(
+    const filesRequest = await ZoomUser.makeRequest<ZoomFilesResponse>(
       `${apiUrl}/li/game/${appName}/files`
     )
     const allExtras: {
@@ -292,7 +295,7 @@ export async function getExtras(appName: string) {
     for (const extraType of ['manual', 'misc', 'soundtrack'] as const) {
       const files = filesRequest[extraType] || []
       for (const file of files) {
-        const downloadRequest = await ZoomUser.makeRequest(
+        const downloadRequest = await ZoomUser.makeRequest<{ url: string }>(
           `${apiUrl}/li/download/${file.id}`
         )
         allExtras.push({
@@ -334,22 +337,23 @@ export async function getInstallers(
       )
       return []
     }
-    // The Python example asserts len(files) == 1. We'll take the first one for now.
-    const installerFile = files[0]
-    const downloadRequest = await ZoomUser.makeRequest(
-      `${apiUrl}/li/download/${installerFile.id}`
-    )
 
-    return [
-      {
+    const returnValue = []
+    for (const file of files) {
+      const downloadRequest = await ZoomUser.makeRequest<{ url: string }>(
+        `${apiUrl}/li/download/${file.id}`
+      )
+
+      returnValue.push({
         url: downloadRequest.url,
-        filename: installerFile.name,
-        total_size: parseSize(installerFile.size),
-        id: installerFile.id,
-        name: installerFile.name,
-        size: installerFile.size
-      }
-    ]
+        filename: file.name,
+        total_size: parseSize(file.size),
+        id: file.id,
+        name: file.name,
+        size: file.size
+      })
+    }
+    return returnValue
   } catch (error) {
     logError(['Error fetching Zoom installers:', error], LogPrefix.Zoom)
     return []

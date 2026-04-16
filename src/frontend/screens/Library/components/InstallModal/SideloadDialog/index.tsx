@@ -168,7 +168,10 @@ export default function SideloadDialog({
       properties: ['openFile'],
       title: t('box.select.image', 'Select Image'),
       filters: [
-        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'] },
+        {
+          name: 'Images',
+          extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
+        },
         { name: 'All', extensions: ['*'] }
       ]
     })

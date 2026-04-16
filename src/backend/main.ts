@@ -1,5 +1,5 @@
 import { initImagesCache } from './images_cache'
-import { downloadAntiCheatData } from './anticheat/utils'
+import { fetchLastestReleases } from './utils/releases'
 import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
 import * as path from 'path'
 import {
@@ -54,7 +54,8 @@ import {
   sendGameStatusUpdate,
   checkRosettaInstall,
   writeConfig,
-  createNecessaryFolders
+  createNecessaryFolders,
+  clearAchievementCache
 } from './utils'
 import { startPlausible } from './utils/plausible'
 
@@ -111,7 +112,6 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
-import { updateWineVersionInfos } from './wine/manager/utils'
 import { addNewApp } from './storeManagers/sideload/library'
 import {
   getGameOverride,
@@ -154,8 +154,8 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
+import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
-app.commandLine?.appendSwitch('ozone-platform-hint', 'auto')
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
 const { showOpenDialog } = dialog
@@ -204,16 +204,6 @@ async function initializeWindow(): Promise<BrowserWindow> {
       checkRosettaInstall()
     }
   }, 2500)
-
-  if (!isWindows && !isCLINoGui) {
-    setTimeout(async () => {
-      try {
-        await updateWineVersionInfos(true)
-      } catch (error) {
-        logError(error, LogPrefix.Backend)
-      }
-    }, 5000)
-  }
 
   const globalConf = GlobalConfig.get().getSettings()
 
@@ -457,7 +447,7 @@ if (!gotTheLock) {
       backendEvents.emit('languageChanged')
     })
 
-    downloadAntiCheatData()
+    fetchLastestReleases()
 
     initTrayIcon(mainWindow)
 
@@ -703,6 +693,14 @@ addListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
+addListener('clearAchievementCache', (event, appName: string) => {
+  clearAchievementCache(appName)
+  logInfo(
+    'Achievement cache was cleared for game: ' + appName,
+    LogPrefix.Backend
+  )
+})
+
 addListener('resetHeroic', () => resetHeroic())
 
 addListener('createNewWindow', (e, url) => {
@@ -728,6 +726,14 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   if (!Object.keys(tempGameInfo).length) return null
   return tempGameInfo
 })
+
+addHandler(
+  'getAchievements',
+  async (event, appName, runner, lang = 'en-US') => {
+    if (runner === 'gog') return getAchievementsGOG(appName, lang)
+    return []
+  }
+)
 
 addHandler('getExtraInfo', async (event, appName, runner) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
