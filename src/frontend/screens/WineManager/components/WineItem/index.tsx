@@ -36,14 +36,17 @@ const WineItem = ({
 
   const isDownloading = state?.status === 'downloading'
   const unZipping = state?.status === 'unzipping'
-  const percentage = state && 'percentage' in state ? state.percentage : 0
+  const downloadPercentage =
+    state && 'percentage' in state ? state.percentage : 0
+  // Keep the progress bar full while unzipping so it doesn't reset to 0%.
+  const barPercentage = unZipping ? 100 : downloadPercentage
 
   const progressStyle = useMemo(() => {
-    if ((isDownloading || unZipping) && percentage !== undefined) {
-      return { '--progress': `${percentage}%` } as React.CSSProperties
+    if (isDownloading || unZipping) {
+      return { '--progress': `${barPercentage}%` } as React.CSSProperties
     }
     return {}
-  }, [isDownloading, unZipping, percentage])
+  }, [isDownloading, unZipping, barPercentage])
 
   if (!version || !downsize) {
     return null
@@ -118,8 +121,11 @@ const WineItem = ({
       </div>
       <div className="size">
         {renderStatus()}
-        {(isDownloading || unZipping) && (
-          <span className="percentageText"> {percentage.toFixed(1)}%</span>
+        {isDownloading && (
+          <span className="percentageText">
+            {' '}
+            {downloadPercentage.toFixed(1)}%
+          </span>
         )}
       </div>
       <div className="actions">
