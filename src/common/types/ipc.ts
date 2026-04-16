@@ -1,4 +1,4 @@
-import type { OpenDialogOptions, TitleBarOverlay } from 'electron'
+import type { OpenDialogOptions, SaveDialogOptions, TitleBarOverlay } from 'electron'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
 
@@ -210,6 +210,7 @@ interface AsyncIPCFunctions {
   refreshLibrary: (library?: Runner | 'all') => Promise<void>
   launch: (args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
+  saveDialog: (args: SaveDialogOptions) => Promise<string | false>
   install: (args: InstallParams) => Promise<void>
   uninstall: (
     appName: string,
@@ -320,6 +321,10 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  exportLibrary: (args: {
+    filePath: string
+    games: GameInfo[]
+  }) => Promise<{ success: boolean; filePath?: string; error?: string }>
 }
 
 interface FrontendMessages {

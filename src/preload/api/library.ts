@@ -2,6 +2,7 @@ import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '..
 
 export const removeFolder = makeListenerCaller('removeFolder')
 export const openDialog = makeHandlerInvoker('openDialog')
+export const saveDialog = makeHandlerInvoker('saveDialog')
 export const uninstall = makeHandlerInvoker('uninstall')
 export const repair = makeHandlerInvoker('repair')
 export const launch = makeHandlerInvoker('launch')
