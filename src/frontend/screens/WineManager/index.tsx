@@ -132,6 +132,36 @@ export default function WineManager(): JSX.Element | null {
             )}
           </div>
         )
+      case 'Game-Porting-Toolkit':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.gpt',
+              'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.'
+            )}
+          </div>
+        )
+      case 'Wine-Crossover':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.wine-crossover',
+              'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.'
+            )}
+          </div>
+        )
+      case 'Wine-Staging-macOS':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.wine-staging-macos',
+              'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
+            )}
+          </div>
+        )
       default:
         return <></>
     }
@@ -239,9 +269,7 @@ export default function WineManager(): JSX.Element | null {
       </div>
 
       {showSettingsModal && (
-        <WineManagerSettingsModal
-          onClose={() => setShowSettingsModal(false)}
-        />
+        <WineManagerSettingsModal onClose={() => setShowSettingsModal(false)} />
       )}
     </>
   )
