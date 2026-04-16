@@ -206,50 +206,6 @@
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 8px;
   }
-
-  .repoList {
-    margin-bottom: 32px;
-
-    .repoItem {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px;
-      background: var(--body-background);
-      border-radius: 8px;
-      margin-bottom: 8px;
-
-      .repoInfo {
-        display: flex;
-        flex-direction: column;
-        span {
-          font-weight: 600;
-        }
-        small {
-          color: var(--text-secondary);
-          font-size: 0.8rem;
-        }
-      }
-
-      .repoActions {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-
-        .removeBtn {
-          background: transparent;
-          border: none;
-          color: var(--error);
-          cursor: pointer;
-          opacity: 0.7;
-          transition: opacity 0.2s;
-          &:hover {
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
 }
 
 /* Responsive adjustments */

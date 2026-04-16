@@ -769,7 +769,6 @@ export type WineManagerStatus =
 export interface WineManagerUISettings {
   value: string
   type: Type
-  enabled: boolean
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'

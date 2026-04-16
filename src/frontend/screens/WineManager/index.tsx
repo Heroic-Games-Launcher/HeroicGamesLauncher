@@ -6,10 +6,7 @@ import { UpdateComponent } from 'frontend/components/UI'
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
-import {
-  TypeCheckedStoreFrontend,
-  wineDownloaderInfoStore
-} from 'frontend/helpers/electronStores'
+import { wineDownloaderInfoStore } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCheck,
@@ -27,10 +24,6 @@ import useGlobalState from 'frontend/state/GlobalStateV2'
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
 )
-
-const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
-  cwd: 'store'
-})
 
 export default function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -53,50 +46,33 @@ export default function WineManager(): JSX.Element | null {
     'refreshWineVersions'
   )
 
-  const protonge: WineManagerUISettings = {
-    type: 'GE-Proton',
-    value: 'protonge',
-    enabled: isLinux
-  }
-  const gamePortingToolkit: WineManagerUISettings = {
-    type: 'Game-Porting-Toolkit',
-    value: 'gpt',
-    enabled: !isLinux
-  }
-  const wineStagingMacOS: WineManagerUISettings = {
-    type: 'Wine-Staging-macOS',
-    value: 'winestagingmacos',
-    enabled: !isLinux
-  }
-  const wineCrossover: WineManagerUISettings = {
-    type: 'Wine-Crossover',
-    value: 'winecrossover',
-    enabled: !isLinux
-  }
+  const repositories: WineManagerUISettings[] = useMemo(() => {
+    if (isLinux) {
+      return [
+        { type: 'GE-Proton', value: 'protonge' },
+        { type: 'Wine-GE', value: 'winege' }
+      ]
+    }
+    return [
+      { type: 'Game-Porting-Toolkit', value: 'gpt' },
+      { type: 'Wine-Crossover', value: 'winecrossover' },
+      { type: 'Wine-Staging-macOS', value: 'winestagingmacos' }
+    ]
+  }, [isLinux])
 
   const getDefaultRepository = (): WineManagerUISettings => {
     if (isLinux) {
-      return protonge
+      return repositories[0]
     } else if (isIntelMac) {
-      return wineCrossover
+      return repositories[1]
     } else {
-      return gamePortingToolkit
+      return repositories[0]
     }
   }
 
   const [repository, setRepository] = useState<WineManagerUISettings>(
     getDefaultRepository()
   )
-
-  const [wineManagerSettings, setWineManagerSettings] = useState<
-    WineManagerUISettings[]
-  >([
-    protonge,
-    { type: 'Wine-GE', value: 'winege', enabled: isLinux },
-    gamePortingToolkit,
-    wineCrossover,
-    wineStagingMacOS
-  ])
 
   const getWineVersions = (repo: Type) => {
     let versions = wineDownloaderInfoStore.get('wine-releases', [])
@@ -124,42 +100,6 @@ export default function WineManager(): JSX.Element | null {
     setWineVersions(getWineVersions(repo.type))
     setSearch('')
   }
-
-  useEffect(() => {
-    const oldWineManagerSettings = configStore.get_nodefault(
-      'wine-manager-settings'
-    )
-    if (oldWineManagerSettings) {
-      setWineManagerSettings((prevSettings) =>
-        prevSettings.map((defaultSetting) => {
-          const stored = oldWineManagerSettings.find(
-            (s) => s.value === defaultSetting.value
-          )
-          if (!stored) {
-            return defaultSetting
-          }
-          return {
-            ...defaultSetting,
-            enabled: stored.enabled
-          }
-        })
-      )
-    }
-  }, [])
-
-  useEffect(() => {
-    const selected = wineManagerSettings.find(
-      (s) => s.value === repository.value
-    )
-    if (selected && !selected.enabled) {
-      const firstEnabled = wineManagerSettings.find((s) => s.enabled)
-      if (firstEnabled) {
-        setRepository(firstEnabled)
-        setWineVersions(getWineVersions(firstEnabled.type))
-        setSearch('')
-      }
-    }
-  }, [wineManagerSettings, repository.value])
 
   useEffect(() => {
     const removeListener = window.api.handleWineVersionsUpdated(() => {
@@ -242,7 +182,7 @@ export default function WineManager(): JSX.Element | null {
             className="tabs"
             value={repository.value}
             onChange={(e, value) => {
-              const repo = wineManagerSettings.find(
+              const repo = repositories.find(
                 (setting) => setting.value === value
               )
               if (repo) {
@@ -252,12 +192,9 @@ export default function WineManager(): JSX.Element | null {
             variant="scrollable"
             scrollButtons="auto"
           >
-            {wineManagerSettings.map(({ type, value, enabled }) => {
-              if (enabled) {
-                return <Tab value={value} label={type} key={value} />
-              }
-              return null
-            })}
+            {repositories.map(({ type, value }) => (
+              <Tab value={value} label={type} key={value} />
+            ))}
           </Tabs>
         </div>
 
@@ -304,8 +241,6 @@ export default function WineManager(): JSX.Element | null {
       {showSettingsModal && (
         <WineManagerSettingsModal
           onClose={() => setShowSettingsModal(false)}
-          wineManagerSettings={wineManagerSettings}
-          setWineManagerSettings={setWineManagerSettings}
         />
       )}
     </>
