@@ -121,13 +121,6 @@ export default function SidebarLinks() {
         dataTour="sidebar-library"
       />
 
-      <SidebarItem
-        url="/console"
-        icon={faTv}
-        label={t('sidebar.console', 'Console Mode')}
-        dataTour="sidebar-console"
-      />
-
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
           isActiveFallback={location.pathname.includes('store')}
@@ -219,6 +212,13 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
+      <SidebarItem
+        url="/console"
+        icon={faTv}
+        label={t('sidebar.console', 'Console Mode')}
+        dataTour="sidebar-console"
+      />
+
       <SidebarItem
         url="/download-manager"
         icon={faBarsProgress}
