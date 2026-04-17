@@ -374,9 +374,7 @@ export default function ConsoleMode() {
   }, [])
 
   return (
-    <div
-      className={classNames('ConsoleMode', { launching: !!launchingGame })}
-    >
+    <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
       <div className="consoleTopBar">
         <HeroicIcon className="consoleLogo" />
         <div className="consoleFilters">
@@ -456,34 +454,36 @@ export default function ConsoleMode() {
             onKeyDown={onGridKeyDown}
           >
             <div className="consoleGrid">
-            {visibleGames.map((game, i) => {
-              const isFocused = i === focusedIndex
-              return (
-                <button
-                  key={`${game.runner}-${game.app_name}`}
-                  ref={(el) => {
-                    cardRefs.current[i] = el
-                  }}
-                  className={classNames('consoleCard', { focused: isFocused })}
-                  tabIndex={isFocused ? 0 : -1}
-                  onClick={() => {
-                    if (isFocused) void launchGame(game)
-                    else setFocusedIndex(i)
-                  }}
-                  onMouseEnter={() => setFocusedIndex(i)}
-                  onFocus={() => setFocusedIndex(i)}
-                >
-                  <CachedImage
-                    src={
-                      getImageFormatting(game.art_square, game.runner) ||
-                      fallBackImage
-                    }
-                    alt={game.title}
-                    className="consoleCardArt"
-                  />
-                </button>
-              )
-            })}
+              {visibleGames.map((game, i) => {
+                const isFocused = i === focusedIndex
+                return (
+                  <button
+                    key={`${game.runner}-${game.app_name}`}
+                    ref={(el) => {
+                      cardRefs.current[i] = el
+                    }}
+                    className={classNames('consoleCard', {
+                      focused: isFocused
+                    })}
+                    tabIndex={isFocused ? 0 : -1}
+                    onClick={() => {
+                      if (isFocused) void launchGame(game)
+                      else setFocusedIndex(i)
+                    }}
+                    onMouseEnter={() => setFocusedIndex(i)}
+                    onFocus={() => setFocusedIndex(i)}
+                  >
+                    <CachedImage
+                      src={
+                        getImageFormatting(game.art_square, game.runner) ||
+                        fallBackImage
+                      }
+                      alt={game.title}
+                      className="consoleCardArt"
+                    />
+                  </button>
+                )
+              })}
             </div>
           </div>
         )}
