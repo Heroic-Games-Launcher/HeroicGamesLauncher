@@ -95,7 +95,6 @@ export default function SearchBar({
           </button>
         </>
       )}
-      {value.length === 0 && <kbd className="searchKbd">/</kbd>}
     </div>
   )
 }
