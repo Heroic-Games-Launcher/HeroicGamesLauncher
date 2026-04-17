@@ -7,16 +7,27 @@ import { logError } from 'backend/logger'
  */
 export async function readLastBytes(path: string, n: number): Promise<string> {
   let fileHandle: fsp.FileHandle | undefined
+  let buffer = undefined
+  let position = 0
   try {
     fileHandle = await fsp.open(path, 'r')
     const { size: fileSize } = await fileHandle.stat()
     const bytesToRead = Math.min(fileSize, n)
-    const position = fileSize - bytesToRead
+    position = fileSize - bytesToRead
 
-    const buffer = Buffer.alloc(bytesToRead)
+    buffer = Buffer.alloc(bytesToRead)
     await fileHandle.read(buffer, 0, bytesToRead, position)
+  } catch (error) {
+    logError(`Error reading last bytes of ${path}: ${error}`)
+    throw error
+  } finally {
+    if (fileHandle !== undefined) {
+      await fileHandle.close()
+    }
+  }
 
-    // If not at the start of the file, ensure we start at a valid UTF-8 boundary.
+  // If not at the start of the file, ensure we start at a valid UTF-8 boundary.
+  try {
     let skip = 0
     if (position > 0) {
       while (
@@ -29,11 +40,8 @@ export async function readLastBytes(path: string, n: number): Promise<string> {
     }
     return buffer.subarray(skip).toString('utf-8')
   } catch (error) {
-    logError(`Error reading last bytes of ${path}: ${error}`)
+    // toString is pretty permissive, but let's have this path as a fallback
+    logError(`Error decoding ${path} as UTF-8: ${error}`)
     throw error
-  } finally {
-    if (fileHandle !== undefined) {
-      await fileHandle.close()
-    }
   }
 }
