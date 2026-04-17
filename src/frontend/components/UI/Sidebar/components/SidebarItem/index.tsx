@@ -7,6 +7,7 @@ interface SidebarItemProps {
   label: string
   url?: string
   icon?: ReactNode
+  badge?: ReactNode
   isActiveFallback?: boolean
   onClick?: MouseEventHandler
   className?: string
@@ -17,6 +18,7 @@ interface SidebarItemProps {
 export default function SidebarItem({
   icon,
   label,
+  badge,
   url = '',
   isActiveFallback = false,
   onClick,
@@ -28,6 +30,9 @@ export default function SidebarItem({
     <>
       {icon && <div className="Sidebar__itemIcon">{icon}</div>}
       <span>{label}</span>
+      {badge !== undefined && badge !== null && (
+        <span className="Sidebar__itemBadge">{badge}</span>
+      )}
     </>
   )
 

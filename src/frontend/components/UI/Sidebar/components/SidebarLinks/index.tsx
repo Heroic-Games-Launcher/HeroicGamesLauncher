@@ -38,8 +38,13 @@ export default function SidebarLinks() {
     zoom,
     platform,
     refreshLibrary,
+    libraryStatus,
     handleExternalLinkDialog
   } = useContext(ContextProvider)
+
+  const activeDownloads = libraryStatus.filter(
+    (st) => st.status === 'installing' || st.status === 'queued'
+  ).length
 
   const inWebviewScreen =
     location.pathname.includes('store') ||
@@ -163,6 +168,7 @@ export default function SidebarLinks() {
         url="/download-manager"
         icon={<Download {...ICON} aria-hidden />}
         label={t('download-manager.link', 'Downloads')}
+        badge={activeDownloads > 0 ? activeDownloads : undefined}
         dataTour="sidebar-downloads"
       />
 

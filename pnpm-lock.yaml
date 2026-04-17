@@ -19,6 +19,9 @@ importers:
       '@fontsource/outfit':
         specifier: ^5.2.8
         version: 5.2.8
+      '@fontsource/zen-dots':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fortawesome/free-brands-svg-icons':
         specifier: ^6.7.2
         version: 6.7.2
@@ -1005,6 +1008,9 @@ packages:
 
   '@fontsource/outfit@5.2.8':
     resolution: {integrity: sha512-rXC6g0MqD7cOBjht0bMqc43qM6lRqDLML9KXsmg9uykz0wLQhy8Z/ajrMG6iyoT3NJR+MYgU+OEHp7uHoTb+Yw==}
+
+  '@fontsource/zen-dots@5.2.8':
+    resolution: {integrity: sha512-UxMn/kKdA0vPFnaYC9FYpCVqrrVFXU2S9ga0m+d+VTFTPBfOZT4WI47Ws4EMIkp9KUr9jk9YEiL7hIHpk3PSow==}
 
   '@fortawesome/fontawesome-common-types@6.7.2':
     resolution: {integrity: sha512-Zs+YeHUC5fkt7Mg1l6XTniei3k4bwG/yo3iFUtZWd/pMx9g3fdvkSK9E0FOC+++phXOka78uJcYb8JaFkW52Xg==}
@@ -7124,6 +7130,8 @@ snapshots:
   '@fiahfy/packbits@0.0.6': {}
 
   '@fontsource/outfit@5.2.8': {}
+
+  '@fontsource/zen-dots@5.2.8': {}
 
   '@fortawesome/fontawesome-common-types@6.7.2': {}
 

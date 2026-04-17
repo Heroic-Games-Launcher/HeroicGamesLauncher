@@ -20,12 +20,58 @@
   overflow-x: hidden;
   -webkit-app-region: drag;
 
-  .heroicIcon {
+  .Sidebar__brand {
     grid-area: icon;
-    width: 50px;
-    height: 68px;
-    margin-top: var(--space-xs);
-    justify-self: center;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-sm);
+    -webkit-app-region: drag;
+  }
+
+  .heroicIcon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .Sidebar__brandText {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .Sidebar__brandName {
+    font-family: 'Zen Dots', var(--primary-font-family), sans-serif;
+    font-size: var(--text-lg);
+    font-weight: 400;
+    color: var(--text-default);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .Sidebar__brandTag {
+    font-family: var(--primary-font-family);
+    font-size: 10px;
+    font-weight: var(--medium);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-tertiary, var(--navbar-inactive));
+    margin-top: 4px;
+  }
+
+  &.collapsed {
+    .Sidebar__brand {
+      justify-content: center;
+      padding: var(--space-md) 0 var(--space-sm);
+    }
+
+    .Sidebar__brandText {
+      display: none;
+    }
   }
 
   .SidebarLinks {

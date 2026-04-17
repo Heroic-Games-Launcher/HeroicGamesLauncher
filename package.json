@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@fontsource/outfit": "^5.2.8",
+    "@fontsource/zen-dots": "^5.2.8",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
