@@ -5,8 +5,7 @@ import {
   InstallProgress,
   Runner,
   UpdateParams,
-  LaunchOption,
-  WineInstallation
+  LaunchOption
 } from 'common/types'
 
 import { TFunction } from 'i18next'
@@ -30,10 +29,6 @@ type InstallArgs = {
   installLanguage?: string
   build?: string
   branch?: string
-  winePrefix?: string
-  wineVersion?: WineInstallation
-  wineCrossoverBottle?: string
-  selectedImportPath?: string
 }
 
 async function install({
@@ -50,10 +45,7 @@ async function install({
   platformToInstall = 'Windows',
   build,
   branch,
-  showDialogModal,
-  winePrefix,
-  wineVersion,
-  wineCrossoverBottle
+  showDialogModal
 }: InstallArgs) {
   if (!installPath) {
     return
@@ -76,43 +68,6 @@ async function install({
 
   if (is_installed) {
     return
-  }
-  if (installPath === 'import') {
-    const { defaultInstallPath }: AppSettings =
-      await window.api.requestAppSettings()
-    const args: Electron.OpenDialogOptions = {
-      buttonLabel: t('gamepage:box.choose'),
-      properties:
-        platformToInstall === 'Mac' ? ['openFile'] : ['openDirectory'],
-      title: t('gamepage:box.importpath'),
-      defaultPath: defaultInstallPath
-      //TODO: add file filters
-    }
-    const path = await window.api.openDialog(args)
-
-    if (!path) {
-      return
-    }
-
-    if (winePrefix && wineVersion) {
-      const gameSettings = await window.api.requestGameSettings(appName)
-      window.api.writeConfig({
-        appName,
-        config: {
-          ...gameSettings,
-          winePrefix,
-          wineVersion,
-          wineCrossoverBottle
-        }
-      })
-    }
-
-    return window.api.importGame({
-      appName,
-      path,
-      runner,
-      platform: platformToInstall
-    })
   }
 
   if (installPath !== 'default') {
