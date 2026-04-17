@@ -114,13 +114,21 @@ export const initGamepad = () => {
       emitControllerEvent(controllerIndex)
       const el = currentElement()
 
-      // Xbox Guide / PS button: toggle Console Mode without going through
-      // the backend gamepadAction IPC. Note: many OSes (Steam, Game Bar)
-      // intercept this button before the browser sees it, so the sidebar
-      // button remains the reliable entry point.
+      // Guide / PS button toggles Console Mode. Many OSes (Steam, Game Bar)
+      // intercept it, so the sidebar entry is the reliable fallback.
       if (action === 'guide') {
+        if (document.body.classList.contains('console-launching')) return
         const inConsole = window.location.hash.startsWith('#/console')
         window.location.hash = inConsole ? '#/' : '#/console'
+        return
+      }
+
+      // `back` hits webContents.goBack() on the backend, which would pop
+      // out of /console during a launch and hide the overlay.
+      if (
+        action === 'back' &&
+        document.body.classList.contains('console-launching')
+      ) {
         return
       }
 
