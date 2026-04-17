@@ -7,7 +7,7 @@
   background: var(--search-bar-background, var(--input-background));
   border: 1px solid var(--search-bar-border, transparent);
   border-radius: 999px;
-  padding: 8px 14px;
+  padding: 10px 16px;
   transition:
     border-color 150ms ease,
     box-shadow 150ms ease;
@@ -119,16 +119,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 22px;
-    height: 22px;
-    padding: 0 6px;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 8px;
     margin-inline-end: 2px;
-    border-radius: 6px;
+    border-radius: 7px;
     background: var(--input-background);
     border: 1px solid var(--divider);
     color: var(--text-tertiary, var(--text-secondary));
     font-family: var(--primary-font-family);
-    font-size: 11px;
+    font-size: var(--text-xs);
     font-weight: var(--medium);
     line-height: 1;
     pointer-events: none;

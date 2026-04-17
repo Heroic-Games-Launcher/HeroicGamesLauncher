@@ -1,7 +1,7 @@
 .Sidebar {
-  --sidebar-horizontal-padding: var(--space-md);
+  --sidebar-horizontal-padding: var(--space-lg);
   --sidebar-vertical-padding: var(--space-lg);
-  --sidebar-width: 240px;
+  --sidebar-width: 268px;
   --sidebar-background: var(--navbar-background);
   --sidebar-divider-color: var(--divider);
 
@@ -26,15 +26,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: var(--space-lg) var(--sidebar-horizontal-padding) var(--space-md);
+    gap: 14px;
+    padding: var(--space-xl) var(--sidebar-horizontal-padding) var(--space-lg);
     text-align: center;
     -webkit-app-region: drag;
   }
 
   .heroicIcon {
-    width: 68px;
-    height: 68px;
+    width: 76px;
+    height: 76px;
     flex-shrink: 0;
   }
 
@@ -59,12 +59,12 @@
 
   .Sidebar__brandTag {
     font-family: var(--primary-font-family);
-    font-size: 12px;
+    font-size: var(--text-xs);
     font-weight: var(--medium);
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--text-tertiary, var(--navbar-inactive));
-    margin-top: 8px;
+    margin-top: 10px;
   }
 
   &.collapsed {

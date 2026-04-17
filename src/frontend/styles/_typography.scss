@@ -25,40 +25,26 @@ xl	23.04	1.44
   --bold: 700;
   --extrabold: 900;
 
-  /* set base values */
-  --text-scale-ratio: 1.2;
+  /* base — root font size kept at 16px for rem-based code */
   font-size: 16px;
 
-  /* type scale */
-  --text-xs: calc(1rem / (var(--text-scale-ratio) * var(--text-scale-ratio)));
-  --text-sm: calc(1rem / var(--text-scale-ratio));
-  --text-md: calc(1rem);
-  --text-lg: calc(1rem * var(--text-scale-ratio));
-  --text-xl: calc(1rem * var(--text-scale-ratio) * var(--text-scale-ratio));
-  --text-2xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio)
-  );
-  --text-3xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio)
-  );
-  --text-4xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio)
-  );
-  --text-5xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio)
-  );
-  --text-6xl: calc(
-    1rem * var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio) * var(--text-scale-ratio) *
-      var(--text-scale-ratio)
-  );
+  /* pixel-perfect type scale (Outfit reads smaller than avg, so we
+     size up explicitly rather than rely on a ratio). Each step is a
+     fixed px value; use these everywhere instead of hardcoded pixels. */
+  --text-2xs: 11px;
+  --text-xs: 13px;
+  --text-sm: 15px;
+  --text-md: 17px;
+  --text-lg: 21px;
+  --text-xl: 26px;
+  --text-2xl: 32px;
+  --text-3xl: 40px;
+  --text-4xl: 48px;
+  --text-5xl: 60px;
+  --text-6xl: 72px;
+
+  /* legacy fallback — kept for rare places that still do rem math */
+  --text-scale-ratio: 1.2;
 }
 
 body {

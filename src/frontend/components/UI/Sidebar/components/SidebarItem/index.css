@@ -1,12 +1,12 @@
 .Sidebar {
   .Sidebar__sectionLabel {
-    padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-3xs);
-    font-size: 11px;
+    padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-2xs);
+    font-size: var(--text-xs);
     font-weight: var(--semibold);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--text-tertiary, var(--navbar-inactive));
-    opacity: 0.85;
+    opacity: 0.9;
     user-select: none;
   }
 
@@ -28,17 +28,17 @@
 
     display: flex;
     align-items: center;
-    gap: 12px;
-    width: calc(100% - var(--space-xs) * 2);
-    margin: 2px var(--space-xs);
-    padding: 10px var(--space-sm);
+    gap: 14px;
+    width: calc(100% - var(--space-sm) * 2);
+    margin: 2px var(--space-sm);
+    padding: 12px var(--space-md);
     border: none;
     background: none;
     cursor: pointer;
     font-size: var(--text-md);
     font-weight: var(--medium);
     color: var(--sidebar-item-inactive-text-color);
-    border-radius: 8px;
+    border-radius: 10px;
     transition:
       color 150ms ease,
       background-color 150ms ease;
@@ -46,8 +46,8 @@
     font-family: var(--primary-font-family);
 
     .Sidebar__itemIcon {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -55,8 +55,8 @@
       flex-shrink: 0;
 
       svg {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
       }
     }
 
@@ -65,14 +65,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      padding: 0 8px;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 9px;
       border-radius: 999px;
       background: var(--navbar-accent, var(--accent));
       color: var(--background-darker, #000);
       font-family: var(--primary-font-family);
-      font-size: 11px;
+      font-size: var(--text-xs);
       font-weight: var(--bold);
       line-height: 1;
     }
