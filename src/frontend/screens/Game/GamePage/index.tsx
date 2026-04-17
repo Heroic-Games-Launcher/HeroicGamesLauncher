@@ -573,5 +573,4 @@ export default React.memo(function GamePage(): JSX.Element | null {
       showDialogModal: showDialogModal
     })
   }
-
 })

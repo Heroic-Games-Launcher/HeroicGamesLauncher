@@ -733,7 +733,9 @@ export default function DownloadDialog({
               branch={branch}
               setBranch={setBranch}
               savedBranchPassword={savedBranchPassword}
-              onPasswordChange={(newPasswd) => setSavedBranchPassword(newPasswd)}
+              onPasswordChange={(newPasswd) =>
+                setSavedBranchPassword(newPasswd)
+              }
             />
           </div>
         )}
@@ -781,10 +783,7 @@ export default function DownloadDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button
-          onClick={handleSwitchToImport}
-          className="button is-secondary"
-        >
+        <button onClick={handleSwitchToImport} className="button is-secondary">
           {t('button.import', 'Import Game')}
         </button>
         <button
