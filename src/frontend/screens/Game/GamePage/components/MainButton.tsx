@@ -20,7 +20,6 @@ import useSetting from 'frontend/hooks/useSetting'
 interface Props {
   gameInfo: GameInfo
   handlePlay: (gameInfo: GameInfo) => Promise<void>
-  handleImport: () => void
   handleInstall: (
     is_installed: boolean
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
