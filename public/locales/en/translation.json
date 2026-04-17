@@ -220,6 +220,30 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "console": {
+        "cancel": {
+            "hintPrefix": "Hold",
+            "hintSuffix": "for 3s to cancel"
+        },
+        "empty": "No installed games to show. Install something first.",
+        "filter": {
+            "all": "All",
+            "amazon": "Amazon",
+            "epic": "Epic",
+            "gog": "GOG",
+            "sideload": "Other",
+            "zoom": "ZOOM"
+        },
+        "games": "Installed games",
+        "hint": {
+            "cycleStoreNext": "Next store",
+            "cycleStorePrev": "Previous store"
+        },
+        "launching": "Launching",
+        "loading": "Loading your library…",
+        "quit": "Quit Console",
+        "sort": "Sort"
+    },
     "controller": {
         "hints": {
             "back": "Back",
@@ -910,6 +934,9 @@
         }
     },
     "Settings": "Settings",
+    "sidebar": {
+        "console": "Console Mode"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
