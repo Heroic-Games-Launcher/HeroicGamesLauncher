@@ -8,7 +8,8 @@ import {
   faCoffee,
   faUserAlt,
   faWineGlass,
-  faBarsProgress
+  faBarsProgress,
+  faTv
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
@@ -118,6 +119,13 @@ export default function SidebarLinks() {
         label={t('Library')}
         onClick={async () => handleRefresh()}
         dataTour="sidebar-library"
+      />
+
+      <SidebarItem
+        url="/console"
+        icon={faTv}
+        label={t('sidebar.console', 'Console Mode')}
+        dataTour="sidebar-console"
       />
 
       <div className="SidebarItemWithSubmenu">
