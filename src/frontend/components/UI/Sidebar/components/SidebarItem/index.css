@@ -1,12 +1,12 @@
 .Sidebar {
   .Sidebar__sectionLabel {
-    padding: var(--space-sm) var(--sidebar-horizontal-padding) var(--space-3xs);
-    font-size: 10px;
+    padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-3xs);
+    font-size: 11px;
     font-weight: var(--semibold);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--navbar-inactive, var(--text-tertiary));
-    opacity: 0.7;
+    color: var(--text-tertiary, var(--navbar-inactive));
+    opacity: 0.85;
     user-select: none;
   }
 
@@ -30,12 +30,12 @@
     align-items: center;
     gap: 12px;
     width: calc(100% - var(--space-xs) * 2);
-    margin: 1px var(--space-xs);
-    padding: var(--space-xs) var(--space-sm);
+    margin: 2px var(--space-xs);
+    padding: 10px var(--space-sm);
     border: none;
     background: none;
     cursor: pointer;
-    font-size: var(--text-sm);
+    font-size: var(--text-md);
     font-weight: var(--medium);
     color: var(--sidebar-item-inactive-text-color);
     border-radius: 8px;
@@ -46,13 +46,18 @@
     font-family: var(--primary-font-family);
 
     .Sidebar__itemIcon {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       color: currentColor;
       flex-shrink: 0;
+
+      svg {
+        width: 22px;
+        height: 22px;
+      }
     }
 
     &:focus-visible {

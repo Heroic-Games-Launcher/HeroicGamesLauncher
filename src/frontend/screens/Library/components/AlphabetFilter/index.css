@@ -30,17 +30,17 @@
 .alphabet-filter-button {
   background-color: transparent;
   border: none;
-  color: var(--text-tertiary, var(--alphabet-filter-accent-color));
+  color: var(--text-secondary, var(--alphabet-filter-accent-color));
   font-family: var(--primary-font-family);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: var(--medium);
   letter-spacing: 0.05em;
   cursor: pointer;
 
-  padding: 4px 6px;
+  padding: 5px 7px;
   margin: 0 1px;
-  min-width: 22px;
-  max-width: 32px;
+  min-width: 26px;
+  max-width: 36px;
   text-align: center;
   vertical-align: middle;
 

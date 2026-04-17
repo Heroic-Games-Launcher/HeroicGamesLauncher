@@ -120,7 +120,7 @@
   position: absolute;
   width: 100%;
   bottom: 0px;
-  padding: var(--space-sm) var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
   color: var(--text-default, var(--text-secondary));
   background: linear-gradient(
     180deg,
@@ -132,9 +132,9 @@
     transform 240ms cubic-bezier(0.22, 0.61, 0.36, 1),
     opacity 240ms ease;
   font-family: var(--primary-font-family);
-  font-size: var(--text-md);
+  font-size: var(--text-lg);
   font-weight: var(--semibold);
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   cursor: pointer;
   z-index: 3;

@@ -23,7 +23,7 @@ interface ActionIconsProps {
   'data-tour'?: string
 }
 
-const ICON_SIZE = 18
+const ICON_SIZE = 20
 const STROKE = 1.75
 
 export default React.memo(function ActionIcons({

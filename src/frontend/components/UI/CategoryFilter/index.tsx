@@ -77,9 +77,9 @@ export default function CategoryFilter() {
       data-tour="library-categories"
       title={
         <>
-          <LayoutGrid size={16} strokeWidth={1.75} aria-hidden />
+          <LayoutGrid size={18} strokeWidth={1.75} aria-hidden />
           <span>{t('header.categories', 'Categories')}</span>
-          <ChevronDown size={14} strokeWidth={1.75} aria-hidden />
+          <ChevronDown size={16} strokeWidth={1.75} aria-hidden />
         </>
       }
       popUpOnHover

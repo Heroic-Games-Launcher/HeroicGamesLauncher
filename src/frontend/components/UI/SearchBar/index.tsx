@@ -66,7 +66,7 @@ export default function SearchBar({
     <div className="SearchBar" data-testid="searchBar">
       <Search
         className="searchButton"
-        size={18}
+        size={20}
         strokeWidth={1.75}
         aria-hidden
       />

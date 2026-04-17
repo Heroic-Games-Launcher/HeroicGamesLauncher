@@ -17,7 +17,7 @@ import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { openDiscordLink } from 'frontend/helpers'
 
-const ICON = { size: 18, strokeWidth: 1.75 } as const
+const ICON = { size: 20, strokeWidth: 1.75 } as const
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import QuitButton from '../QuitButton'

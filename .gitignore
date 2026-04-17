@@ -37,4 +37,3 @@ flatpak-build
 .env
 
 playwright-report
-.claude/

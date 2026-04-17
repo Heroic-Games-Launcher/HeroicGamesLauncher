@@ -17,7 +17,7 @@ function AddGameButton({ 'data-tour': dataTour }: AddGameButtonProps = {}) {
       onClick={handleAddGameButtonClick}
       data-tour={dataTour || 'library-add-game'}
     >
-      <Plus size={14} strokeWidth={2} aria-hidden />
+      <Plus size={16} strokeWidth={2} aria-hidden />
       <span>{t('add_game', 'Add Game')}</span>
     </button>
   )

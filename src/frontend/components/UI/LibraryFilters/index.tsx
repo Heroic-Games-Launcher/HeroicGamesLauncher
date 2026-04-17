@@ -178,7 +178,7 @@ export default function LibraryFilters() {
       buttonClass="pill"
       title={
         <>
-          <SlidersHorizontal size={16} strokeWidth={1.75} aria-hidden />
+          <SlidersHorizontal size={18} strokeWidth={1.75} aria-hidden />
           <span>{t('header.filters', 'Filters')}</span>
         </>
       }

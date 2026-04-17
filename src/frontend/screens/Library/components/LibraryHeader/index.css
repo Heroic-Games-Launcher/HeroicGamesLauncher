@@ -5,16 +5,16 @@
 .sideloadGameButton {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--primary-font-family);
   border-radius: 999px;
   color: var(--text-secondary);
   background: transparent;
-  padding: 6px 12px;
+  padding: 8px 14px;
   border: 1px solid var(--divider);
   margin: 0 var(--space-md);
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: var(--medium);
   transition:
     background-color 150ms ease,
@@ -42,11 +42,11 @@
 }
 
 .numberOfgames {
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: var(--medium);
   color: var(--text-secondary);
   background: var(--input-background);
-  padding: 2px 10px;
+  padding: 3px 12px;
   margin-inline-start: var(--space-sm, 4px);
   border-radius: 999px;
   vertical-align: middle;
