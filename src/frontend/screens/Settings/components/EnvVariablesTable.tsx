@@ -215,7 +215,7 @@ const EnvVariablesTable = () => {
             onChange={(val) => {
               setNewValue(val)
             }}
-            placeholder={t('options.advanced.placeHolderValue', 'VALUE')}
+            placeholder={t('options.advanced.placeHolderV', 'VALUE')}
           />
           <SvgButton
             onClick={handleAdd}

@@ -122,7 +122,7 @@ const EnvVariableRow = ({ env, onSave, onRemove, onDuplicate }: Props) => {
             onChange={(val) => {
               setEditValue(val)
             }}
-            placeholder={t('options.advanced.placeHolderValue', 'VALUE')}
+            placeholder={t('options.advanced.placeHolderV', 'VALUE')}
           />
         </div>
       ) : (

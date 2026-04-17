@@ -529,7 +529,7 @@
     "options": {
         "advanced": {
             "placeHolderKey": "NAME",
-            "placeHolderValue": "VALUE",
+            "placeHolderV": "VALUE",
             "title": "Environment Variables"
         },
         "env_variables": {
