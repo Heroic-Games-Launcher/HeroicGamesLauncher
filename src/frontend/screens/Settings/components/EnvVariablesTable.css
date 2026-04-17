@@ -15,7 +15,6 @@
 
 .env-vars-title {
   font-size: var(--text-lg);
-  color: var(--accent);
   margin: 0;
 }
 
@@ -57,19 +56,19 @@
 
 .env-var-key {
   font-weight: bold;
-  color: var(--accent);
+  color: var(--text-default);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .env-var-connector {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-weight: bold;
 }
 
 .env-var-value {
-  color: var(--text-color);
+  color: var(--text-default);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -80,11 +79,6 @@
   flex-grow: 1;
   gap: var(--space-xs-fixed);
   align-items: center;
-}
-
-.env-var-edit-fields .Field {
-  margin: 0;
-  flex-grow: 1;
 }
 
 .env-var-row-actions {
@@ -103,16 +97,13 @@
 .env-var-add-section {
   margin-top: var(--space-sm-fixed);
   padding: var(--space-md-fixed);
-  border: 1px dashed var(--accent);
+  border: 1px dashed var(--divider, var(--text-secondary));
   border-radius: var(--border-radius-sm);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm-fixed);
 }
 
 .env-var-add-title {
   font-weight: bold;
-  color: var(--accent);
+  color: var(--text-default);
   font-size: var(--text-md);
 }
 
@@ -122,30 +113,17 @@
   align-items: center;
 }
 
-.env-var-add-inputs .Field {
-  flex-grow: 1;
-  margin: 0;
-}
-
 .env-var-add-inputs .env-var-connector {
   flex-shrink: 0;
 }
 
-.env-var-save-hint {
-  font-size: var(--text-sm);
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs-fixed);
-}
-
 .bulk-edit-textarea {
   width: 100%;
-  min-width: 500px;
+  max-width: 100%;
   min-height: 300px;
   background: var(--background);
-  border: 1px solid var(--accent);
-  color: var(--text-color);
+  border: 1px solid var(--divider, var(--text-secondary));
+  color: var(--text-default);
   padding: var(--space-sm-fixed);
   font-family: monospace;
   border-radius: var(--border-radius-sm);
@@ -154,8 +132,6 @@
 
 .env-var-error {
   color: var(--danger);
-  font-size: var(--text-xs);
-  margin-bottom: var(--space-xs-fixed);
 }
 
 .bulk-edit-wrapper {
@@ -168,10 +144,4 @@
   gap: var(--space-sm-fixed);
   margin-top: var(--space-md-fixed);
   justify-content: flex-end;
-}
-
-.env-vars-container .svg-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-  filter: grayscale(1);
 }

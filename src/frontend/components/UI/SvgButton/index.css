@@ -6,3 +6,9 @@
   margin: 0;
   color: var(--text-default);
 }
+
+.svg-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(1);
+}

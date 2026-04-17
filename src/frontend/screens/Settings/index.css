@@ -95,12 +95,19 @@
   color: #5a5e5f;
 }
 
-.appName > span {
+.appNameButton {
   cursor: pointer;
   transition: 300ms;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  user-select: all;
 }
 
-.appName > span:hover {
+.appNameButton:hover,
+.appNameButton:focus-visible {
   color: var(--text-secondary);
 }
 
