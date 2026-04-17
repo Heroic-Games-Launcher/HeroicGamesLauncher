@@ -14,13 +14,16 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { launch } from 'frontend/helpers'
+import { launch, sendKill } from 'frontend/helpers'
+import { hasStatus } from 'frontend/hooks/hasStatus'
 import { getImageFormatting } from '../Library/components/GameCard/constants'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import type { GameInfo, Runner } from 'common/types'
+
+const CANCEL_HOLD_MS = 3000
 
 type StoreKey = 'all' | 'legendary' | 'gog' | 'nile' | 'sideload' | 'zoom'
 
@@ -30,6 +33,27 @@ const runnerToStore: Record<string, StoreKey> = {
   nile: 'nile',
   sideload: 'sideload',
   zoom: 'zoom'
+}
+
+type ControllerLayout = 'ps' | 'xbox' | 'nintendo' | 'steam-deck'
+
+function detectControllerLayout(id: string): ControllerLayout {
+  if (/sony|054c|PS3|PLAYSTATION|0268|2563.*0523/i.test(id)) return 'ps'
+  if (/28de.*11ff/.test(id)) return 'steam-deck'
+  if (/microsoft|xbox/i.test(id)) return 'xbox'
+  if (/nintendo|057e|switch|joy.?con|pro.?controller/i.test(id))
+    return 'nintendo'
+  return 'steam-deck'
+}
+
+const BUTTON_LABELS: Record<
+  ControllerLayout,
+  { shoulderL: string; shoulderR: string; triggerR: string; back: string }
+> = {
+  ps: { shoulderL: 'L1', shoulderR: 'R1', triggerR: 'R2', back: '◯' },
+  xbox: { shoulderL: 'LB', shoulderR: 'RB', triggerR: 'RT', back: 'B' },
+  nintendo: { shoulderL: 'L', shoulderR: 'R', triggerR: 'ZR', back: 'B' },
+  'steam-deck': { shoulderL: 'L1', shoulderR: 'R1', triggerR: 'R2', back: 'B' }
 }
 
 export default function ConsoleMode() {
@@ -51,14 +75,16 @@ export default function ConsoleMode() {
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
   const [columns, setColumns] = useState(6)
+  const [gamepadConnected, setGamepadConnected] = useState(false)
+  const [controllerLayout, setControllerLayout] =
+    useState<ControllerLayout>('steam-deck')
+  const [cancelHoldStart, setCancelHoldStart] = useState<number | null>(null)
+
+  const buttons = BUTTON_LABELS[controllerLayout]
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
 
-  // enter fullscreen on mount, leave on unmount. Also make sure library data
-  // is available — on a cold start the user may reach /console before the
-  // initial refresh has populated epic/gog/amazon. refreshLibrary is idempotent
-  // (guards internally against re-entry).
   useEffect(() => {
     window.api.setFullscreen(true)
     if (
@@ -73,7 +99,6 @@ export default function ConsoleMode() {
     return () => {
       window.api.setFullscreen(false)
     }
-    // run once on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -108,15 +133,12 @@ export default function ConsoleMode() {
     return list
   }, [installedGames, activeStore, ascending])
 
-  // keep focus index in bounds when filters change
   useEffect(() => {
     if (focusedIndex >= visibleGames.length) {
       setFocusedIndex(Math.max(0, visibleGames.length - 1))
     }
   }, [visibleGames.length, focusedIndex])
 
-  // detect columns per row by measuring which cards share the same offsetTop.
-  // Re-runs whenever the grid or visibleGames change and on window resize.
   useLayoutEffect(() => {
     const compute = () => {
       const cards = cardRefs.current.filter(
@@ -139,9 +161,6 @@ export default function ConsoleMode() {
     return () => window.removeEventListener('resize', compute)
   }, [visibleGames.length])
 
-  // move real DOM focus onto the focused card so gamepad/keyboard Enter
-  // activates the right button and arrow keys read the correct element.
-  // Also scrolls it into view so rows above/below are reachable.
   useEffect(() => {
     const btn = cardRefs.current[focusedIndex]
     if (!btn) return
@@ -179,6 +198,23 @@ export default function ConsoleMode() {
       enabled: !!zoom.username
     }
   ]
+
+  const enabledStoreKeys = useMemo(
+    () => storeFilters.filter((f) => f.enabled).map((f) => f.key),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [epic.username, gog.username, amazon.user_id, zoom.username]
+  )
+
+  const cycleStore = useCallback(
+    (direction: 1 | -1) => {
+      if (enabledStoreKeys.length === 0) return
+      const idx = enabledStoreKeys.indexOf(activeStore)
+      const next =
+        (idx + direction + enabledStoreKeys.length) % enabledStoreKeys.length
+      setActiveStore(enabledStoreKeys[next])
+    },
+    [enabledStoreKeys, activeStore]
+  )
 
   const quit = useCallback(() => navigate('/'), [navigate])
 
@@ -227,17 +263,115 @@ export default function ConsoleMode() {
     }
   }
 
-  // Escape exits console mode (ignored while launching so the overlay stays)
+  // Escape quits when idle; hold it while launching to cancel.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !launchingGame) {
-        e.preventDefault()
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.preventDefault()
+      if (!launchingGame) {
         quit()
+      } else if (!e.repeat && cancelHoldStart == null) {
+        setCancelHoldStart(Date.now())
       }
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [quit, launchingGame])
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setCancelHoldStart(null)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('keyup', onKeyUp)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
+    }
+  }, [quit, launchingGame, cancelHoldStart])
+
+  useEffect(() => {
+    if (cancelHoldStart == null || !launchingGame) return
+    const t = window.setTimeout(() => {
+      void sendKill(launchingGame.app_name, launchingGame.runner)
+      setCancelHoldStart(null)
+    }, CANCEL_HOLD_MS)
+    return () => window.clearTimeout(t)
+  }, [cancelHoldStart, launchingGame])
+
+  useEffect(() => {
+    if (!launchingGame) setCancelHoldStart(null)
+  }, [launchingGame])
+
+  // Read by gamepad.ts to block the Guide/back buttons during launch.
+  useEffect(() => {
+    if (launchingGame) {
+      document.body.classList.add('console-launching')
+      return () => document.body.classList.remove('console-launching')
+    }
+    return undefined
+  }, [launchingGame])
+
+  // Refs so the RAF poll below never re-subscribes — otherwise a changing
+  // `cycleStore` identity would reset rising-edge state mid-press.
+  const cycleStoreRef = useRef(cycleStore)
+  cycleStoreRef.current = cycleStore
+  const launchingRef = useRef(!!launchingGame)
+  launchingRef.current = !!launchingGame
+
+  useEffect(() => {
+    const refreshConnection = () => {
+      const gamepads = Array.from(navigator.getGamepads())
+      const first = gamepads.find((gp): gp is Gamepad => !!gp)
+      setGamepadConnected(!!first)
+      if (first) setControllerLayout(detectControllerLayout(first.id))
+    }
+    refreshConnection()
+    window.addEventListener('gamepadconnected', refreshConnection)
+    window.addEventListener('gamepaddisconnected', refreshConnection)
+
+    const prevPressed = new Map<string, boolean>()
+    let anyBackHeld = false
+    let raf = 0
+    const tick = () => {
+      const gamepads = navigator.getGamepads()
+      let backHeldThisFrame = false
+      for (const gp of gamepads) {
+        if (!gp) continue
+
+        const press = (idx: number, handler: () => void) => {
+          const btn = gp.buttons[idx]
+          const pressed = !!btn && (btn.pressed || btn.value > 0.5)
+          const key = `${gp.index}:${idx}`
+          if (pressed && !prevPressed.get(key)) handler()
+          prevPressed.set(key, pressed)
+        }
+
+        if (!launchingRef.current) {
+          press(4, () => cycleStoreRef.current(-1)) // L1
+          press(5, () => cycleStoreRef.current(1)) // R1
+          press(7, () => setAscending((v) => !v)) // R2
+          press(10, () => cycleStoreRef.current(-1)) // L3
+          press(11, () => cycleStoreRef.current(1)) // R3
+        } else {
+          const back = gp.buttons[1]
+          if (back && (back.pressed || back.value > 0.5)) {
+            backHeldThisFrame = true
+          }
+        }
+      }
+
+      if (backHeldThisFrame && !anyBackHeld && launchingRef.current) {
+        setCancelHoldStart(Date.now())
+      } else if (!backHeldThisFrame && anyBackHeld) {
+        setCancelHoldStart(null)
+      }
+      anyBackHeld = backHeldThisFrame
+
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('gamepadconnected', refreshConnection)
+      window.removeEventListener('gamepaddisconnected', refreshConnection)
+    }
+  }, [])
 
   return (
     <div
@@ -246,6 +380,15 @@ export default function ConsoleMode() {
       <div className="consoleTopBar">
         <HeroicIcon className="consoleLogo" />
         <div className="consoleFilters">
+          {gamepadConnected && (
+            <span
+              className="consoleHint consoleHintLeft"
+              aria-hidden="true"
+              title={t('console.hint.cycleStorePrev', 'Previous store')}
+            >
+              <kbd>{buttons.shoulderL}</kbd>
+            </span>
+          )}
           {storeFilters
             .filter((f) => f.enabled)
             .map((f) => (
@@ -260,15 +403,29 @@ export default function ConsoleMode() {
                 {f.label}
               </button>
             ))}
+          {gamepadConnected && (
+            <span
+              className="consoleHint consoleHintRight"
+              aria-hidden="true"
+              title={t('console.hint.cycleStoreNext', 'Next store')}
+            >
+              <kbd>{buttons.shoulderR}</kbd>
+            </span>
+          )}
         </div>
         <div className="consoleTopRight">
           <button
-            className="consoleChip"
+            className="consoleChip consoleSortChip"
             onClick={() => setAscending((v) => !v)}
             aria-label={t('console.sort', 'Sort')}
             disabled={!!launchingGame}
           >
             {ascending ? 'A → Z' : 'Z → A'}
+            {gamepadConnected && (
+              <span className="consoleChipHint" aria-hidden="true">
+                <kbd>{buttons.triggerR}</kbd>
+              </span>
+            )}
           </button>
           <button
             className="consoleQuitButton"
@@ -292,12 +449,13 @@ export default function ConsoleMode() {
           </div>
         ) : (
           <div
-            className="consoleGrid"
+            className="consoleGridScroller"
             ref={gridRef}
             role="listbox"
             aria-label={t('console.games', 'Installed games')}
             onKeyDown={onGridKeyDown}
           >
+            <div className="consoleGrid">
             {visibleGames.map((game, i) => {
               const isFocused = i === focusedIndex
               return (
@@ -326,6 +484,7 @@ export default function ConsoleMode() {
                 </button>
               )
             })}
+            </div>
           </div>
         )}
       </div>
@@ -339,14 +498,50 @@ export default function ConsoleMode() {
       </div>
 
       {launchingGame && (
-        <div className="consoleLaunchOverlay" role="status" aria-live="polite">
-          <div className="consoleLaunchSpinner" />
-          <div className="consoleLaunchText">
-            {t('console.launching', 'Launching')}
-          </div>
-          <div className="consoleLaunchGameTitle">{launchingGame.title}</div>
-        </div>
+        <LaunchOverlay
+          game={launchingGame}
+          holdStart={cancelHoldStart}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={buttons.back}
+        />
       )}
+    </div>
+  )
+}
+
+function LaunchOverlay({
+  game,
+  holdStart,
+  gamepadConnected,
+  backButtonLabel
+}: {
+  game: GameInfo
+  holdStart: number | null
+  gamepadConnected: boolean
+  backButtonLabel: string
+}) {
+  const { t } = useTranslation()
+  const { label, status } = hasStatus(game)
+  return (
+    <div className="consoleLaunchOverlay" role="status" aria-live="polite">
+      <div
+        className={classNames('consoleLaunchSpinner', {
+          idle: status === 'playing'
+        })}
+      />
+      <div className="consoleLaunchText">
+        {label || t('console.launching', 'Launching')}
+      </div>
+      <div className="consoleLaunchGameTitle">{game.title}</div>
+      <div
+        className={classNames('consoleLaunchHint', {
+          active: holdStart != null
+        })}
+      >
+        {t('console.cancel.hintPrefix', 'Hold')}{' '}
+        <kbd>{gamepadConnected ? backButtonLabel : 'Esc'}</kbd>{' '}
+        {t('console.cancel.hintSuffix', 'for 3s to cancel')}
+      </div>
     </div>
   )
 }

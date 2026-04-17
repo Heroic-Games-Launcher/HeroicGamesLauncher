@@ -69,7 +69,54 @@
   gap: 8px;
   flex: 1;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+}
+
+.consoleHint {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-secondary, #b1b1b1);
+  opacity: 0.75;
+
+  kbd {
+    font-family: var(--primary-font-family);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 3px 7px;
+    border-radius: 6px;
+    border: 1px solid
+      color-mix(in srgb, var(--text-default, #eae8e5) 25%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--background, #1a1a20) 70%,
+      transparent
+    );
+  }
+}
+
+.consoleSortChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.consoleChipHint {
+  display: inline-flex;
+  opacity: 0.75;
+
+  kbd {
+    font-family: var(--primary-font-family);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 5px;
+    border: 1px solid
+      color-mix(in srgb, currentColor 40%, transparent);
+    background: color-mix(in srgb, currentColor 10%, transparent);
+  }
 }
 
 .consoleTopRight {
@@ -147,9 +194,8 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-  overflow: hidden;
   min-height: 0;
-  padding: 8px 32px 8px;
+  overflow: hidden;
 }
 
 .consoleEmpty {
@@ -161,32 +207,17 @@
   margin: auto;
 }
 
-.consoleGrid {
-  width: 100%;
-  height: 100%;
+.consoleGridScroller {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(var(--console-card-width), 1fr)
-  );
-  gap: var(--console-card-gap);
-  padding: 16px 8px 24px;
   outline: none;
-  scroll-padding-block: 24px;
-
-  // fade top/bottom edges to hint scrolling
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 3%,
-    black 97%,
-    transparent 100%
-  );
+  scroll-padding-block: 40px;
+  padding: 8px 32px 16px;
 
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
@@ -197,8 +228,20 @@
       var(--text-default, #eae8e5) 25%,
       transparent
     );
-    border-radius: 4px;
+    border-radius: 5px;
   }
+}
+
+.consoleGrid {
+  display: grid;
+  // fixed-width cells so spacing stays uniform even with lots of games
+  grid-template-columns: repeat(
+    auto-fill,
+    var(--console-card-width)
+  );
+  justify-content: center;
+  gap: var(--console-card-gap);
+  padding-block: 16px;
 }
 
 .consoleCard {
@@ -296,13 +339,19 @@
 }
 
 .consoleLaunchSpinner {
-  width: 64px;
-  height: 64px;
+  position: relative;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   border: 4px solid
     color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
   border-top-color: var(--accent, #0080ff);
   animation: spin 900ms linear infinite;
+
+  &.idle {
+    border-top-color: var(--status-success, #2bbd60);
+    animation-duration: 2.4s;
+  }
 }
 
 @keyframes spin {
@@ -326,6 +375,34 @@
   max-width: 80vw;
   text-align: center;
 }
+
+.consoleLaunchHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary, #b1b1b1);
+  opacity: 0.75;
+  transition: opacity 180ms ease, color 180ms ease;
+
+  kbd {
+    font-family: var(--primary-font-family);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid
+      color-mix(in srgb, currentColor 40%, transparent);
+    background: color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  &.active {
+    opacity: 1;
+    color: var(--cancel-button, #b94a3a);
+  }
+}
+
 
 // App-level: when console mode is active, strip scrollbars and chrome
 .App.consoleMode {
