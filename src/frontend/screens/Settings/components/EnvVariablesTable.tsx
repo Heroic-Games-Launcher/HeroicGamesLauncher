@@ -3,17 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { InfoBox, TextInputField, SvgButton } from 'frontend/components/UI'
 import useSetting from 'frontend/hooks/useSetting'
 import ContextProvider from 'frontend/state/ContextProvider'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import SaveIcon from '@mui/icons-material/Save'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
 import ListAltIcon from '@mui/icons-material/ListAlt'
-import CloseIcon from '@mui/icons-material/Close'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import './EnvVariablesTable.css'
 
 import BulkEditModal from './BulkEditModal'
+import EnvVariableRow, { validateEnvKey } from './EnvVariableRow'
 
 const EnvVariablesTable = () => {
   const { t } = useTranslation()
@@ -23,40 +19,12 @@ const EnvVariablesTable = () => {
     []
   )
 
-  const [editingIndex, setEditingIndex] = useState<number | null>(null)
-  const [editKey, setEditKey] = useState('')
-  const [editValue, setEditValue] = useState('')
   const [newKey, setNewKey] = useState('')
   const [newValue, setNewValue] = useState('')
   const [formError, setFormError] = useState('')
 
-  const validateEnv = (key: string, value: string): string => {
-    const trimmedKey = key.trim()
-    const trimmedValue = value.trim()
-
-    if (!trimmedKey) {
-      return t(
-        'options.env_variables.error.empty_key',
-        "Variable names can't be empty"
-      )
-    }
-    if (trimmedKey.match(/=/)) {
-      return t(
-        'options.env_variables.error.equal_sign_in_key',
-        `Variable names can't contain the "=" sign`
-      )
-    }
-    if (trimmedKey.match(/ /)) {
-      return t(
-        'options.env_variables.error.space_in_key',
-        `Variable names can't contain spaces`
-      )
-    }
-    return ''
-  }
-
   const handleAdd = () => {
-    const error = validateEnv(newKey, newValue)
+    const error = validateEnvKey(newKey, t)
     if (error) {
       setFormError(error)
       return
@@ -65,7 +33,6 @@ const EnvVariablesTable = () => {
     const trimmedKey = newKey.trim()
     const trimmedValue = newValue.trim()
 
-    // Overwrite if exists
     const existingIndex = environmentOptions.findIndex(
       (env) => env.key === trimmedKey
     )
@@ -84,37 +51,48 @@ const EnvVariablesTable = () => {
   }
 
   const handleRemove = (index: number) => {
-    const updated = environmentOptions.filter((_, i) => i !== index)
-    setEnvironmentOptions(updated)
+    setEnvironmentOptions(environmentOptions.filter((_, i) => i !== index))
+  }
+
+  const generateUniqueCopyKey = (baseKey: string): string => {
+    const existingKeys = new Set(environmentOptions.map((env) => env.key))
+    const baseCopyKey = `${baseKey}_COPY`
+    if (!existingKeys.has(baseCopyKey)) return baseCopyKey
+
+    let counter = 2
+    while (existingKeys.has(`${baseKey}_COPY${counter}`)) {
+      counter += 1
+    }
+    return `${baseKey}_COPY${counter}`
   }
 
   const handleDuplicate = (index: number) => {
     const item = environmentOptions[index]
-    const updated = [
+    const newCopyKey = generateUniqueCopyKey(item.key)
+    setEnvironmentOptions([
       ...environmentOptions,
-      { key: `${item.key}_COPY`, value: item.value }
-    ]
-    setEnvironmentOptions(updated)
+      { key: newCopyKey, value: item.value }
+    ])
   }
 
-  const handleEdit = (index: number) => {
-    setEditingIndex(index)
-    setEditKey(environmentOptions[index].key)
-    setEditValue(environmentOptions[index].value)
-    setFormError('')
-  }
-
-  const handleSaveEdit = (index: number) => {
-    const error = validateEnv(editKey, editValue)
-    if (error) {
-      setFormError(error)
-      return
+  const handleSaveEdit = (
+    index: number,
+    newKey: string,
+    newValue: string
+  ): string | null => {
+    const duplicateIndex = environmentOptions.findIndex(
+      (env, i) => i !== index && env.key === newKey
+    )
+    if (duplicateIndex >= 0) {
+      return t(
+        'options.env_variables.error.duplicate_key',
+        'A variable with this name already exists'
+      )
     }
     const updated = [...environmentOptions]
-    updated[index] = { key: editKey.trim(), value: editValue.trim() }
+    updated[index] = { key: newKey, value: newValue }
     setEnvironmentOptions(updated)
-    setEditingIndex(null)
-    setFormError('')
+    return null
   }
 
   const handleClearAll = () => {
@@ -138,16 +116,11 @@ const EnvVariablesTable = () => {
   }
 
   const openBulkEdit = () => {
-    const bulkText = environmentOptions
-      .map((env) => `${env.key}=${env.value}`)
-      .join('\n')
-
     showDialogModal({
       title: t('options.env_variables.bulk_edit', 'Bulk Edit'),
       message: (
         <BulkEditModal
-          initialValue={bulkText}
-          t={t}
+          initialEnvs={environmentOptions}
           onCancel={() => showDialogModal({ showDialog: false })}
           onSave={(envs) => {
             setEnvironmentOptions(envs)
@@ -176,19 +149,23 @@ const EnvVariablesTable = () => {
   return (
     <div className="env-vars-container">
       <div className="env-vars-header">
-        <h3 className="env-vars-title">
+        <label className="env-vars-title">
           {t('options.advanced.title', 'Environment Variables')}
-        </h3>
+        </label>
         <div className="env-vars-actions">
           <SvgButton
             onClick={openBulkEdit}
             title={t('options.env_variables.bulk_edit', 'Bulk Edit')}
           >
-            <ListAltIcon style={{ color: 'var(--accent)' }} fontSize="large" />
+            <ListAltIcon
+              style={{ color: 'var(--text-default)' }}
+              fontSize="large"
+            />
           </SvgButton>
           <SvgButton
             onClick={handleClearAll}
             title={t('common.clear_all', 'Clear All')}
+            disabled={environmentOptions.length === 0}
           >
             <ClearAllIcon style={{ color: 'var(--danger)' }} fontSize="large" />
           </SvgButton>
@@ -196,105 +173,17 @@ const EnvVariablesTable = () => {
       </div>
 
       <div className="env-vars-list">
-        {environmentOptions.map((env) => {
-          const index = environmentOptions.findIndex((e) => e === env)
-          const isEditing = editingIndex === index
-
-          return (
-            <div key={`${env.key}-${index}`} className="env-var-row">
-              {isEditing ? (
-                <div className="env-var-edit-fields">
-                  <TextInputField
-                    htmlId={`edit-key-${index}`}
-                    value={editKey}
-                    onChange={(val) => {
-                      if (val.includes('=') && !editValue) {
-                        const [key, ...rest] = val.split('=')
-                        setEditKey(key)
-                        setEditValue(rest.join('='))
-                      } else {
-                        setEditKey(val)
-                      }
-                      setFormError(validateEnv(val, editValue))
-                    }}
-                    placeholder="NAME"
-                    extraClass={
-                      formError && editingIndex === index ? 'error' : ''
-                    }
-                  />
-                  <span className="env-var-connector">=</span>
-                  <TextInputField
-                    htmlId={`edit-value-${index}`}
-                    value={editValue}
-                    onChange={(val) => {
-                      setEditValue(val)
-                      setFormError(validateEnv(editKey, val))
-                    }}
-                    placeholder="VALUE"
-                  />
-                </div>
-              ) : (
-                <div className="env-var-info">
-                  <span className="env-var-key" title={env.key}>
-                    {env.key}
-                  </span>
-                  <span className="env-var-connector">=</span>
-                  <span className="env-var-value" title={env.value}>
-                    {env.value}
-                  </span>
-                </div>
-              )}
-
-              <div className="env-var-row-actions">
-                {isEditing ? (
-                  <>
-                    <SvgButton
-                      onClick={() => handleSaveEdit(index)}
-                      disabled={!editKey.trim() || !editValue.trim()}
-                    >
-                      <SaveIcon
-                        style={{ color: 'var(--success)' }}
-                        fontSize="large"
-                      />
-                    </SvgButton>
-                    <SvgButton
-                      onClick={() => {
-                        setEditingIndex(null)
-                        setFormError('')
-                      }}
-                    >
-                      <CloseIcon
-                        style={{ color: 'var(--danger)' }}
-                        fontSize="large"
-                      />
-                    </SvgButton>
-                  </>
-                ) : (
-                  <>
-                    <SvgButton onClick={() => handleEdit(index)}>
-                      <EditIcon
-                        style={{ color: 'var(--accent)' }}
-                        fontSize="large"
-                      />
-                    </SvgButton>
-                    <SvgButton onClick={() => handleDuplicate(index)}>
-                      <ContentCopyIcon
-                        style={{ color: 'var(--accent)' }}
-                        fontSize="large"
-                      />
-                    </SvgButton>
-                    <SvgButton onClick={() => handleRemove(index)}>
-                      <DeleteIcon
-                        style={{ color: 'var(--danger)' }}
-                        fontSize="large"
-                      />
-                    </SvgButton>
-                  </>
-                )}
-              </div>
-            </div>
-          )
-        })}
+        {environmentOptions.map((env, index) => (
+          <EnvVariableRow
+            key={`${env.key}-${index}`}
+            env={env}
+            onSave={(newKey, newValue) =>
+              handleSaveEdit(index, newKey, newValue)
+            }
+            onRemove={() => handleRemove(index)}
+            onDuplicate={() => handleDuplicate(index)}
+          />
+        ))}
       </div>
 
       <div className="env-var-add-section">
@@ -306,18 +195,18 @@ const EnvVariablesTable = () => {
             htmlId="new-env-key"
             value={newKey}
             onChange={(val) => {
+              let nextKey = val
+              let nextValue = newValue
               if (val.includes('=') && !newValue) {
                 const [key, ...rest] = val.split('=')
-                setNewKey(key)
-                setNewValue(rest.join('='))
-                setFormError(validateEnv(key, rest.join('=')))
-              } else {
-                setNewKey(val)
-                setFormError(validateEnv(val, newValue))
+                nextKey = key
+                nextValue = rest.join('=')
+                setNewValue(nextValue)
               }
+              setNewKey(nextKey)
+              setFormError(validateEnvKey(nextKey, t))
             }}
             placeholder={t('options.advanced.placeHolderKey', 'NAME')}
-            extraClass={formError && editingIndex === null ? 'error' : ''}
           />
           <span className="env-var-connector">=</span>
           <TextInputField
@@ -325,7 +214,6 @@ const EnvVariablesTable = () => {
             value={newValue}
             onChange={(val) => {
               setNewValue(val)
-              setFormError(validateEnv(newKey, val))
             }}
             placeholder={t('options.advanced.placeHolderValue', 'VALUE')}
           />
@@ -333,13 +221,12 @@ const EnvVariablesTable = () => {
             onClick={handleAdd}
             className="is-primary"
             disabled={!newKey.trim()}
+            title={t('common.add', 'Add')}
           >
             <AddBoxIcon style={{ color: 'var(--success)' }} fontSize="large" />
           </SvgButton>
         </div>
-        {formError && editingIndex === null && (
-          <div className="env-var-error">{formError}</div>
-        )}
+        {formError && <div className="env-var-error">{formError}</div>}
       </div>
 
       {envVariablesInfo}
