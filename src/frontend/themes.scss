@@ -107,6 +107,86 @@ body.midnightMirage {
   --secondary: var(--brand-secondary);
 }
 
+body.heroicTheme {
+  /* Heroic Theme — dark minimal, cyan accent */
+
+  --background: #141a24;
+  --background-darker: #0a0e13;
+  --background-darker-80: #0a0e13e0;
+  --background-lighter: #1a2030;
+  --background-secondary: #222a3c;
+
+  --body-background: var(--background-darker);
+  --current-background: var(--body-background);
+  --input-background: var(--background-lighter);
+  --modal-background: var(--background);
+  --modal-backdrop: var(--background-darker-80);
+  --modal-border: #242c3e;
+  --osk-background: var(--body-background);
+  --osk-button-background: var(--input-background);
+  --osk-button-border: #242c3e;
+  --search-bar-background: var(--background);
+  --search-bar-border: #242c3e;
+
+  /* Text */
+  --text-default: #e8edf5;
+  --text-secondary: #a6b1c5;
+  --text-tertiary: #6e7a90;
+  --text-quartenary: #4a5468;
+  --text-hover: #ffffff;
+
+  /* Accent / primary */
+  --accent: #22d3ee;
+  --accent-overlay: #67e8f9;
+  --primary: #22d3ee;
+  --primary-hover: #67e8f9;
+  --secondary: #a78bfa;
+  --link-highlight: #22d3ee;
+
+  /* Action icons */
+  --action-icon: #a6b1c5;
+  --action-icon-hover: #ffffff;
+  --action-icon-active: #22d3ee;
+  --icon-disabled: #2e374d;
+  --icon-disabled-overlay: #4a5468;
+  --icons-background: var(--background);
+
+  /* Buttons */
+  --primary-button: #22d3ee;
+  --primary-button-overlay: #67e8f9;
+  --secondary-button: #a78bfa;
+  --secondary-button-overlay: #c4b5fd;
+  --tertiary-button: #f59e0b;
+  --tertiary-button-overlay: #fbbf24;
+  --button-stroke: #22d3ee;
+  --success-button: #10b981;
+  --disabled-button: #2e374d;
+  --disabled-button-overlay: #4a5468;
+  --play-button: var(--primary-button);
+  --install-button: var(--secondary-button);
+  --cancel-button: #ef4444;
+  --cancel-button-overlay: #f87171;
+
+  /* Sidebar */
+  --navbar-background: var(--background-darker);
+  --navbar-active: #e8edf5;
+  --navbar-inactive: #6e7a90;
+  --navbar-active-background: var(--background-lighter);
+  --navbar-accent: #22d3ee;
+  --divider: #242c3e;
+
+  /* Status */
+  --success: #10b981;
+  --success-hover: #34d399;
+  --danger: #ef4444;
+  --danger-hover: #f87171;
+  --status-warning: #f59e0b;
+  --status-warning-hover: #fbbf24;
+
+  --alphabet-filter-accent-color: var(--accent);
+  --alphabet-filter-accent-hover: var(--accent-overlay);
+}
+
 body.classic,
 body.cyberSpaceOasis,
 body.cyberSpaceOasisAlt {
@@ -312,6 +392,7 @@ body.dracula-classic {
 }
 
 body.nord-light {
+  --card-overlay-bg: rgba(46, 52, 64, 0.75);
   --background-light: #eceff4;
   --body-background: var(--background-light);
   --accent-overlay: #81a1c1;

@@ -16,12 +16,9 @@ importers:
 
   .:
     dependencies:
-      '@fontsource/cabin':
-        specifier: ^4.5.10
-        version: 4.5.10
-      '@fontsource/rubik':
-        specifier: ^4.5.14
-        version: 4.5.14
+      '@fontsource/outfit':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fortawesome/free-brands-svg-icons':
         specifier: ^6.7.2
         version: 6.7.2
@@ -1003,11 +1000,8 @@ packages:
     resolution: {integrity: sha512-XuhF/edg+iIvXjkCWgfj6fWtRi/KrEPg2ILXj1l86EN4EssuOiPcLKgkMDr9cL8jTGtVd/MKUWW6Y0/ZVf1PGA==}
     engines: {node: '>=8'}
 
-  '@fontsource/cabin@4.5.10':
-    resolution: {integrity: sha512-nZWikOWwI6ONqDJco+pplHKqKCQlGdLo90eTT/Yp2lDAG1cKgXsRXEmU0KTsH3AUHO8lxXRHBPONoHSqyt8HmQ==}
-
-  '@fontsource/rubik@4.5.14':
-    resolution: {integrity: sha512-EvMK3kkeAgKkk8qAeT4PjpyAYyu72pIlJm+SXJ5vR/xhCX2yj2xoq3+YS38rPmPcCAnrAVONoQ3ezLxVm6jhBA==}
+  '@fontsource/outfit@5.2.8':
+    resolution: {integrity: sha512-rXC6g0MqD7cOBjht0bMqc43qM6lRqDLML9KXsmg9uykz0wLQhy8Z/ajrMG6iyoT3NJR+MYgU+OEHp7uHoTb+Yw==}
 
   '@fortawesome/fontawesome-common-types@6.7.2':
     resolution: {integrity: sha512-Zs+YeHUC5fkt7Mg1l6XTniei3k4bwG/yo3iFUtZWd/pMx9g3fdvkSK9E0FOC+++phXOka78uJcYb8JaFkW52Xg==}
@@ -7121,9 +7115,7 @@ snapshots:
 
   '@fiahfy/packbits@0.0.6': {}
 
-  '@fontsource/cabin@4.5.10': {}
-
-  '@fontsource/rubik@4.5.14': {}
+  '@fontsource/outfit@5.2.8': {}
 
   '@fortawesome/fontawesome-common-types@6.7.2': {}
 

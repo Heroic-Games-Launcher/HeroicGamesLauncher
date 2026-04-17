@@ -26,7 +26,7 @@ import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircleOutlined'
 
 import classNames from 'classnames'
 import StoreLogos from 'frontend/components/UI/StoreLogos'
@@ -37,20 +37,20 @@ import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import LibraryContext from '../../LibraryContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import {
-  Cancel,
-  DeleteForever,
-  Description,
-  Download,
-  Favorite,
-  FavoriteBorder,
-  List,
-  OpenInNew,
-  PlayArrow,
-  PlaylistRemove,
-  Settings,
-  Upgrade,
-  Visibility,
-  VisibilityOff
+  CancelOutlined,
+  DeleteForeverOutlined,
+  DescriptionOutlined,
+  DownloadOutlined,
+  FavoriteBorderOutlined,
+  FavoriteOutlined,
+  ListOutlined,
+  OpenInNewOutlined,
+  PlayArrowOutlined,
+  PlaylistRemoveOutlined,
+  SettingsOutlined,
+  UpgradeOutlined,
+  VisibilityOffOutlined,
+  VisibilityOutlined
 } from '@mui/icons-material'
 
 interface Card {
@@ -292,42 +292,42 @@ const GameCard = ({
       label: t('button.queue.remove'),
       onclick: () => handleRemoveFromQueue(),
       show: isQueued && !isInstalling,
-      icon: <Cancel />
+      icon: <CancelOutlined />
     },
     {
       // stop if running
       label: t('label.playing.stop'),
       onclick: async () => handlePlay(runner),
       show: isPlaying,
-      icon: <Cancel />
+      icon: <CancelOutlined />
     },
     {
       // launch game
       label: t('label.playing.start'),
       onclick: async () => handlePlay(runner),
       show: isInstalled && !isPlaying && !isUpdating && !isQueued,
-      icon: <PlayArrow />
+      icon: <PlayArrowOutlined />
     },
     {
       // update
       label: t('button.update', 'Update'),
       onclick: async () => handleUpdate(),
       show: hasUpdate && !isUpdating && !isQueued,
-      icon: <Upgrade />
+      icon: <UpgradeOutlined />
     },
     {
       // install
       label: t('button.install'),
       onclick: () => buttonClick(),
       show: !isInstalled && !isQueued && isInstallable,
-      icon: <Download />
+      icon: <DownloadOutlined />
     },
     {
       // cancel installation/update
       label: t('button.cancel'),
       onclick: async () => handlePlay(runner),
       show: isInstalling || isUpdating,
-      icon: <Cancel />
+      icon: <CancelOutlined />
     },
     {
       // open the game page
@@ -335,65 +335,65 @@ const GameCard = ({
       onclick: () =>
         navigate(`/gamepage/${runner}/${appName}`, { state: { gameInfo } }),
       show: true,
-      icon: <OpenInNew />
+      icon: <OpenInNewOutlined />
     },
     {
       // settings
       label: t('submenu.settings', 'Settings'),
       onclick: () => openGameSettingsModal(gameInfo),
       show: isInstalled && !isUninstalling && !isBrowserGame,
-      icon: <Settings />
+      icon: <SettingsOutlined />
     },
     {
       label: t('submenu.logs', 'Logs'),
       onclick: () => openGameLogsModal(gameInfo),
       show: isInstalled && !isUninstalling && !isBrowserGame,
-      icon: <Description />
+      icon: <DescriptionOutlined />
     },
     {
       // hide
       label: t('button.hide_game', 'Hide Game'),
       onclick: () => hiddenGames.add(appName, title),
       show: !isHiddenGame,
-      icon: <VisibilityOff />
+      icon: <VisibilityOffOutlined />
     },
     {
       // unhide
       label: t('button.unhide_game', 'Unhide Game'),
       onclick: () => hiddenGames.remove(appName),
       show: isHiddenGame,
-      icon: <Visibility />
+      icon: <VisibilityOutlined />
     },
     {
       label: t('button.add_to_favourites', 'Add To Favourites'),
       onclick: () => favouriteGames.add(appName, title),
       show: !isFavouriteGame,
-      icon: <Favorite />
+      icon: <FavoriteOutlined />
     },
     {
       label: t('submenu.categories', 'Categories'),
       onclick: () => openGameCategoriesModal(gameInfo),
       show: true,
-      icon: <List />
+      icon: <ListOutlined />
     },
     {
       label: t('button.remove_from_favourites', 'Remove From Favourites'),
       onclick: () => favouriteGames.remove(appName),
       show: isFavouriteGame,
-      icon: <FavoriteBorder />
+      icon: <FavoriteBorderOutlined />
     },
     {
       label: t('button.remove_from_recent', 'Remove From Recent'),
       onclick: async () => window.api.removeRecentGame(appName),
       show: isRecent,
-      icon: <PlaylistRemove />
+      icon: <PlaylistRemoveOutlined />
     },
     {
       // uninstall
       label: t('button.uninstall'),
       onclick: onUninstallClick,
       show: isInstalled && !isUpdating && !isPlaying,
-      icon: <DeleteForever />
+      icon: <DeleteForeverOutlined />
     }
   ]
 

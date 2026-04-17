@@ -9,7 +9,7 @@ import React, {
   useLayoutEffect
 } from 'react'
 
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUpOutlined'
 import { Header, UpdateComponent } from 'frontend/components/UI'
 import { useTranslation } from 'react-i18next'
 import Fuse from 'fuse.js'

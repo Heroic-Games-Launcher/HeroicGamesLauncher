@@ -14,8 +14,8 @@ xl	23.04	1.44
 */
 
 @mixin typeSystem {
-  --default-primary-font-family: 'Rubik', sans-serif;
-  --default-secondary-font-family: 'Cabin', sans-serif;
+  --default-primary-font-family: 'Outfit', sans-serif;
+  --default-secondary-font-family: 'Outfit', sans-serif;
   --primary-font-family: var(--default-primary-font-family);
   --secondary-font-family: var(--default-secondary-font-family);
   --light: 300;
