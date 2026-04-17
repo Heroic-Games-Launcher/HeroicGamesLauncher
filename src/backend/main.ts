@@ -988,7 +988,18 @@ addHandler(
 
 addHandler(
   'importGame',
-  async (event, { appName, path, runner, platform }): StatusPromise => {
+  async (
+    event,
+    {
+      appName,
+      path,
+      runner,
+      platform,
+      winePrefix,
+      wineVersion,
+      wineCrossoverBottle
+    }
+  ): StatusPromise => {
     if (runner === 'legendary') {
       const epicOffline = await isEpicServiceOffline()
       if (epicOffline) {
@@ -1038,6 +1049,16 @@ addHandler(
       abortMessage()
       logError(error, LogPrefix.Backend)
       return { status: 'error' }
+    }
+
+    if (winePrefix && wineVersion) {
+      const gameSettings = await gameManagerMap[runner].getSettings(appName)
+      writeConfig(appName, {
+        ...gameSettings,
+        winePrefix,
+        wineVersion,
+        wineCrossoverBottle
+      })
     }
 
     notify({

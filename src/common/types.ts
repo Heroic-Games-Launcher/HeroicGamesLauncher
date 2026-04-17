@@ -646,6 +646,9 @@ export interface ImportGameArgs {
   path: string
   runner: Runner
   platform: InstallPlatform
+  winePrefix?: string
+  wineVersion?: WineInstallation
+  wineCrossoverBottle?: string
 }
 
 export interface MoveGameArgs {
