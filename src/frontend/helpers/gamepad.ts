@@ -60,7 +60,8 @@ export const initGamepad = () => {
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
     shiftTab: { triggeredAt: {}, repeatDelay: false },
-    keyboardClick: { triggeredAt: {}, repeatDelay: false }
+    keyboardClick: { triggeredAt: {}, repeatDelay: false },
+    guide: { triggeredAt: {}, repeatDelay: false }
   }
 
   // check if an action should be triggered
@@ -112,6 +113,16 @@ export const initGamepad = () => {
 
       emitControllerEvent(controllerIndex)
       const el = currentElement()
+
+      // Xbox Guide / PS button: toggle Console Mode without going through
+      // the backend gamepadAction IPC. Note: many OSes (Steam, Game Bar)
+      // intercept this button before the browser sees it, so the sidebar
+      // button remains the reliable entry point.
+      if (action === 'guide') {
+        const inConsole = window.location.hash.startsWith('#/console')
+        window.location.hash = inConsole ? '#/' : '#/console'
+        return
+      }
 
       // check special cases for the different actions, more details on the wiki
       switch (action) {
