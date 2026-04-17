@@ -1,4 +1,19 @@
 .Sidebar {
+  .Sidebar__sectionLabel {
+    padding: var(--space-sm) var(--sidebar-horizontal-padding) var(--space-3xs);
+    font-size: 10px;
+    font-weight: var(--semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navbar-inactive, var(--text-tertiary));
+    opacity: 0.7;
+    user-select: none;
+  }
+
+  &.collapsed .Sidebar__sectionLabel {
+    display: none;
+  }
+
   .Sidebar__item {
     --sidebar-item-inactive-text-color: var(
       --navbar-inactive,
@@ -12,22 +27,32 @@
     --sidebar-active-item-background: var(--navbar-active-background);
 
     display: flex;
-    gap: 10px;
-    width: 100%;
-    padding: var(--space-xs) var(--sidebar-horizontal-padding);
+    align-items: center;
+    gap: 12px;
+    width: calc(100% - var(--space-xs) * 2);
+    margin: 1px var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
     border: none;
     background: none;
     cursor: pointer;
-    font-size: var(--text-md);
+    font-size: var(--text-sm);
+    font-weight: var(--medium);
     color: var(--sidebar-item-inactive-text-color);
-    transition: color 250ms;
+    border-radius: 8px;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease;
     text-align: start;
     font-family: var(--primary-font-family);
 
     .Sidebar__itemIcon {
-      width: 24px;
+      width: 20px;
+      height: 20px;
       display: inline-flex;
+      align-items: center;
       justify-content: center;
+      color: currentColor;
+      flex-shrink: 0;
     }
 
     &:focus-visible {
@@ -69,8 +94,7 @@
 
     &:hover {
       background-color: var(--navbar-active-background);
-      transition: 0.1s;
-      padding-inline-start: 12px;
+      color: var(--sidebar-hover-text-color, var(--text-default));
     }
 
     @media screen and (max-width: 730px) {

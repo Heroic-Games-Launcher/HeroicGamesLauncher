@@ -1,16 +1,14 @@
 import {
-  faBorderAll,
-  faList,
-  faSyncAlt,
-  faArrowDownAZ,
-  faArrowDownZA,
-  faHardDrive as hardDriveSolid,
-  faFilter,
-  faFilterCircleXmark
-} from '@fortawesome/free-solid-svg-icons'
-import { faHardDrive as hardDriveLight } from '@fortawesome/free-regular-svg-icons'
+  ArrowDownAZ,
+  ArrowDownZA,
+  HardDrive,
+  LayoutGrid,
+  List,
+  ListFilter,
+  FilterX,
+  RefreshCw
+} from 'lucide-react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -24,6 +22,9 @@ import { LIBRARY_TOUR_ID } from 'frontend/screens/Library/components/LibraryTour
 interface ActionIconsProps {
   'data-tour'?: string
 }
+
+const ICON_SIZE = 18
+const STROKE = 1.75
 
 export default React.memo(function ActionIcons({
   'data-tour': dataTour
@@ -51,10 +52,12 @@ export default React.memo(function ActionIcons({
             title={t('library.toggleLayout.list', 'Toggle to a list layout')}
             onClick={() => handleLayout('list')}
           >
-            <FontAwesomeIcon
-              className="FormControl__segmentedFaIcon"
-              icon={faList}
+            <List
+              className="FormControl__segmentedLucideIcon"
+              size={ICON_SIZE}
+              strokeWidth={STROKE}
               data-tour="library-view-toggle"
+              aria-hidden
             />
           </button>
         ) : (
@@ -63,10 +66,12 @@ export default React.memo(function ActionIcons({
             title={t('library.toggleLayout.grid', 'Toggle to a grid layout')}
             onClick={() => handleLayout('grid')}
           >
-            <FontAwesomeIcon
-              className="FormControl__segmentedFaIcon"
-              icon={faBorderAll}
+            <LayoutGrid
+              className="FormControl__segmentedLucideIcon"
+              size={ICON_SIZE}
+              strokeWidth={STROKE}
               data-tour="library-view-toggle"
+              aria-hidden
             />
           </button>
         )}
@@ -79,21 +84,37 @@ export default React.memo(function ActionIcons({
           }
           onClick={() => setSortDescending(!sortDescending)}
         >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={sortDescending ? faArrowDownZA : faArrowDownAZ}
-            data-tour="library-sort-az"
-          />
+          {sortDescending ? (
+            <ArrowDownZA
+              className="FormControl__segmentedLucideIcon"
+              size={ICON_SIZE}
+              strokeWidth={STROKE}
+              data-tour="library-sort-az"
+              aria-hidden
+            />
+          ) : (
+            <ArrowDownAZ
+              className="FormControl__segmentedLucideIcon"
+              size={ICON_SIZE}
+              strokeWidth={STROKE}
+              data-tour="library-sort-az"
+              aria-hidden
+            />
+          )}
         </button>
         <button
           className="FormControl__button"
           title={t('library.sortByStatus', 'Sort by Status')}
           onClick={() => setSortInstalled(!sortInstalled)}
         >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={sortInstalled ? hardDriveSolid : hardDriveLight}
+          <HardDrive
+            className="FormControl__segmentedLucideIcon"
+            size={ICON_SIZE}
+            strokeWidth={sortInstalled ? 2.25 : STROKE}
+            fill={sortInstalled ? 'currentColor' : 'none'}
+            fillOpacity={sortInstalled ? 0.15 : 0}
             data-tour="library-sort-installed"
+            aria-hidden
           />
         </button>
         <button
@@ -105,10 +126,21 @@ export default React.memo(function ActionIcons({
           }
           onClick={onToggleAlphabetFilter}
         >
-          <FontAwesomeIcon
-            className="FormControl__segmentedFaIcon"
-            icon={showAlphabetFilter ? faFilterCircleXmark : faFilter}
-          />
+          {showAlphabetFilter ? (
+            <FilterX
+              className="FormControl__segmentedLucideIcon"
+              size={ICON_SIZE}
+              strokeWidth={STROKE}
+              aria-hidden
+            />
+          ) : (
+            <ListFilter
+              className="FormControl__segmentedLucideIcon"
+              size={ICON_SIZE}
+              strokeWidth={STROKE}
+              aria-hidden
+            />
+          )}
         </button>
         <button
           className={classNames('FormControl__button', {
@@ -121,12 +153,14 @@ export default React.memo(function ActionIcons({
             })
           }
         >
-          <FontAwesomeIcon
-            className={classNames('FormControl__segmentedFaIcon', {
-              ['fa-spin']: refreshing
+          <RefreshCw
+            className={classNames('FormControl__segmentedLucideIcon', {
+              ['lucide-spin']: refreshing
             })}
+            size={ICON_SIZE}
+            strokeWidth={STROKE}
             data-tour="library-refresh"
-            icon={faSyncAlt}
+            aria-hidden
           />
         </button>
         <TourButton tourId={LIBRARY_TOUR_ID} className="library-tour-button" />

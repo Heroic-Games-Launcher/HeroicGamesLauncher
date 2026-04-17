@@ -80,6 +80,7 @@
     "intro.js": "^7.2.0",
     "intro.js-react": "^1.0.0",
     "json5": "^2.2.3",
+    "lucide-react": "^1.8.0",
     "plist": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

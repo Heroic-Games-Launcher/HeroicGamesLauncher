@@ -5,6 +5,40 @@
     padding-inline: 2rem;
   }
 
+  .dropdownButton.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--input-background);
+    color: var(--text-default, var(--text-secondary));
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-family: var(--primary-font-family);
+    font-size: var(--text-sm);
+    font-weight: var(--medium);
+    cursor: pointer;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      color 150ms ease;
+
+    &:hover {
+      border-color: var(--divider);
+      color: var(--text-default);
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
   .dropdown.expanded {
     pointer-events: all;
     opacity: 1;

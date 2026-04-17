@@ -37,7 +37,7 @@
   position: absolute;
   z-index: 5;
   top: 8px;
-  left: 8px;
+  left: 44px;
   max-width: 120px;
   font-weight: var(--semibold);
   background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
@@ -151,12 +151,49 @@
 }
 
 .gameCard > .icons {
-  background: var(--icons-background);
-  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  justify-content: end;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 'update settings play';
-  padding: var(--space-xs-fixed);
+  padding: var(--space-xs);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.gameCard:hover > .icons,
+.gameCard:focus-within > .icons {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.gameCard > .icons > .svg-button {
+  background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.gameCard > .icons > .svg-button > svg {
+  height: 22px;
+  width: 22px;
 }
 
 .gameCard.justPlayed > .icons {
@@ -180,12 +217,12 @@
 .gameCard .store-icon {
   border-radius: 999px;
   position: absolute;
-  right: 8px;
+  left: 8px;
   top: 8px;
   z-index: 2;
   padding: var(--space-3xs);
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   place-content: center;
   background: var(--card-overlay-bg, rgba(10, 14, 19, 0.72));
   backdrop-filter: blur(8px);

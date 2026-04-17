@@ -47,6 +47,9 @@
   position: sticky;
   top: var(--header-height, 82px);
   z-index: 9;
+  font-size: var(--text-xl);
+  font-weight: var(--semibold);
+  letter-spacing: -0.01em;
 }
 
 .libraryHeaderWrapper {

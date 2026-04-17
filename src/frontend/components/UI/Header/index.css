@@ -4,9 +4,9 @@
   z-index: 10;
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   gap: var(--space-md);
-  padding: var(--space-md);
+  padding: var(--space-md) var(--space-md-fixed);
   background: var(--gradient-body-background, var(--body-background));
   color: var(--text-secondary);
 }

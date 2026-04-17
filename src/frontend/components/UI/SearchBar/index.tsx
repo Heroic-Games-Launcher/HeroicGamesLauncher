@@ -1,7 +1,6 @@
 import { Fragment, useCallback, useEffect, useRef } from 'react'
 import './index.scss'
-import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Search, X } from 'lucide-react'
 
 interface Props {
   suggestionsListItems?: JSX.Element[]
@@ -65,11 +64,11 @@ export default function SearchBar({
 
   return (
     <div className="SearchBar" data-testid="searchBar">
-      <FontAwesomeIcon
+      <Search
         className="searchButton"
-        style={{ padding: 'var(--space-2xs) var(--space-sm)' }}
-        tabIndex={-1}
-        icon={faSearch}
+        size={18}
+        strokeWidth={1.75}
+        aria-hidden
       />
       <input
         ref={input}
@@ -92,7 +91,7 @@ export default function SearchBar({
           </ul>
 
           <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
-            <FontAwesomeIcon icon={faXmark} />
+            <X size={16} strokeWidth={2} aria-hidden />
           </button>
         </>
       )}

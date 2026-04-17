@@ -1,5 +1,4 @@
-import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Power } from 'lucide-react'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { handleQuit } from 'frontend/helpers'
@@ -37,10 +36,7 @@ const QuitButton: React.FC<QuitButtonProps> = ({ dataTour }) => {
       data-tour={dataTour}
     >
       <div className="Sidebar__itemIcon">
-        <FontAwesomeIcon
-          icon={faPowerOff}
-          title={t('userselector.quit', 'Quit')}
-        />
+        <Power size={18} strokeWidth={1.75} aria-hidden />
       </div>
       <span>{t('userselector.quit', 'Quit')}</span>
     </button>

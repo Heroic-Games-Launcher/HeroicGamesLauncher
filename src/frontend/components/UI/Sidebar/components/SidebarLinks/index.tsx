@@ -1,20 +1,23 @@
 import {
-  faBookOpen,
-  faGamepad,
-  faSlidersH,
-  faStore,
-  faUser,
-  faUniversalAccess,
-  faCoffee,
-  faUserAlt,
-  faWineGlass,
-  faBarsProgress
-} from '@fortawesome/free-solid-svg-icons'
+  BookOpen,
+  Gamepad2,
+  SlidersHorizontal,
+  Store,
+  LogIn,
+  Accessibility,
+  Coffee,
+  UserCircle,
+  Wine,
+  Download
+} from 'lucide-react'
+import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
+
+const ICON = { size: 18, strokeWidth: 1.75 } as const
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import QuitButton from '../QuitButton'
@@ -103,9 +106,10 @@ export default function SidebarLinks() {
 
   return (
     <div className="SidebarLinks Sidebar__section" data-tour="sidebar-menu">
+      <div className="Sidebar__sectionLabel">{t('Library', 'Library')}</div>
       {!loggedIn && (
         <SidebarItem
-          icon={faUser}
+          icon={<LogIn {...ICON} aria-hidden />}
           label={t('button.login', 'Login')}
           url="/login"
           dataTour="sidebar-login"
@@ -114,7 +118,7 @@ export default function SidebarLinks() {
       <SidebarItem
         isActiveFallback={location.pathname.includes('gamepage')}
         url="/"
-        icon={faGamepad}
+        icon={<Gamepad2 {...ICON} aria-hidden />}
         label={t('Library')}
         onClick={async () => handleRefresh()}
         dataTour="sidebar-library"
@@ -124,7 +128,7 @@ export default function SidebarLinks() {
         <SidebarItem
           isActiveFallback={location.pathname.includes('store')}
           url={`/store/${defaultStore}`}
-          icon={faStore}
+          icon={<Store {...ICON} aria-hidden />}
           label={t('stores', 'Stores')}
           dataTour="sidebar-stores"
         />
@@ -155,11 +159,44 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
-      <div className="divider" />
+      <SidebarItem
+        url="/download-manager"
+        icon={<Download {...ICON} aria-hidden />}
+        label={t('download-manager.link', 'Downloads')}
+        dataTour="sidebar-downloads"
+      />
+
+      {!isWin && (
+        <SidebarItem
+          url="/wine-manager"
+          icon={<Wine {...ICON} aria-hidden />}
+          label={t('wine.manager.link', 'Wine Manager')}
+          dataTour="sidebar-wine"
+        />
+      )}
+
+      <div className="Sidebar__sectionLabel">{t('Account', 'Account')}</div>
+
+      {loggedIn && (
+        <SidebarItem
+          url="/login"
+          icon={<UserCircle {...ICON} aria-hidden />}
+          label={t('userselector.manageaccounts', 'Manage Accounts')}
+          dataTour="sidebar-manage-accounts"
+        />
+      )}
+
+      <SidebarItem
+        url="/accessibility"
+        icon={<Accessibility {...ICON} aria-hidden />}
+        label={t('accessibility.title', 'Accessibility')}
+        dataTour="sidebar-accessibility"
+      />
+
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
           isActiveFallback={location.pathname.includes('settings')}
-          icon={faSlidersH}
+          icon={<SlidersHorizontal {...ICON} aria-hidden />}
           label={t('Settings', 'Settings')}
           url="/settings/general"
           dataTour="sidebar-settings"
@@ -211,43 +248,11 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
-      <SidebarItem
-        url="/download-manager"
-        icon={faBarsProgress}
-        label={t('download-manager.link', 'Downloads')}
-        dataTour="sidebar-downloads"
-      />
-
-      {!isWin && (
-        <SidebarItem
-          url="/wine-manager"
-          icon={faWineGlass}
-          label={t('wine.manager.link', 'Wine Manager')}
-          dataTour="sidebar-wine"
-        />
-      )}
-
-      {loggedIn && (
-        <SidebarItem
-          url="/login"
-          icon={faUserAlt}
-          label={t('userselector.manageaccounts', 'Manage Accounts')}
-          dataTour="sidebar-manage-accounts"
-        />
-      )}
-
-      <SidebarItem
-        url="/accessibility"
-        icon={faUniversalAccess}
-        label={t('accessibility.title', 'Accessibility')}
-        dataTour="sidebar-accessibility"
-      />
-
-      <div className="divider" />
+      <div className="Sidebar__sectionLabel">{t('Community', 'Community')}</div>
 
       <SidebarItem
         url="/wiki"
-        icon={faBookOpen}
+        icon={<BookOpen {...ICON} aria-hidden />}
         label={t('docs', 'Documentation')}
         dataTour="sidebar-docs"
       />
@@ -256,21 +261,21 @@ export default function SidebarLinks() {
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(openDiscordLink)}
-          icon={faDiscord}
+          icon={<FontAwesomeIcon icon={faDiscord} />}
           label={t('userselector.discord', 'Discord')}
         />
 
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(window.api.openPatreonPage)}
-          icon={faPatreon}
+          icon={<FontAwesomeIcon icon={faPatreon} />}
           label="Patreon"
         />
 
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(window.api.openKofiPage)}
-          icon={faCoffee}
+          icon={<Coffee {...ICON} aria-hidden />}
           label="Ko-fi"
         />
       </div>

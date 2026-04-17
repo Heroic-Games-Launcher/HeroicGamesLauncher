@@ -6,6 +6,7 @@ import { Category, PlatformsFilters } from 'frontend/types'
 import ContextProvider from 'frontend/state/ContextProvider'
 import type { Runner } from 'common/types'
 import Dropdown from '../Dropdown'
+import { SlidersHorizontal } from 'lucide-react'
 
 const RunnerToStore = {
   legendary: 'Epic Games',
@@ -174,8 +175,13 @@ export default function LibraryFilters() {
 
   return (
     <Dropdown
-      buttonClass="selectStyle"
-      title={t('header.filters', 'Filters')}
+      buttonClass="pill"
+      title={
+        <>
+          <SlidersHorizontal size={16} strokeWidth={1.75} aria-hidden />
+          <span>{t('header.filters', 'Filters')}</span>
+        </>
+      }
       className="libraryFilters"
       data-tour="library-filters"
       popUpOnHover
