@@ -35,6 +35,26 @@ export default function SearchBar({
     return
   }, [input])
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null
+      const tag = target?.tagName
+      const typing =
+        tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable
+      if (e.key === '/' && !typing) {
+        e.preventDefault()
+        input.current?.focus()
+      } else if (
+        e.key === 'Escape' &&
+        document.activeElement === input.current
+      ) {
+        input.current?.blur()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
+
   const onClear = useCallback(() => {
     onInputChanged('')
     if (input.current) {
@@ -76,6 +96,7 @@ export default function SearchBar({
           </button>
         </>
       )}
+      {value.length === 0 && <kbd className="searchKbd">/</kbd>}
     </div>
   )
 }
