@@ -228,11 +228,7 @@
         "empty": "No installed games to show. Install something first.",
         "filter": {
             "all": "All",
-            "amazon": "Amazon",
-            "epic": "Epic",
-            "gog": "GOG",
-            "sideload": "Other",
-            "zoom": "ZOOM"
+            "sideload": "Other"
         },
         "games": "Installed games",
         "hint": {

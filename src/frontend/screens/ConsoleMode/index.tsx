@@ -172,31 +172,15 @@ export default function ConsoleMode() {
 
   const storeFilters: { key: StoreKey; label: string; enabled: boolean }[] = [
     { key: 'all', label: t('console.filter.all', 'All'), enabled: true },
-    {
-      key: 'legendary',
-      label: t('console.filter.epic', 'Epic'),
-      enabled: !!epic.username
-    },
-    {
-      key: 'gog',
-      label: t('console.filter.gog', 'GOG'),
-      enabled: !!gog.username
-    },
-    {
-      key: 'nile',
-      label: t('console.filter.amazon', 'Amazon'),
-      enabled: !!amazon.user_id
-    },
+    { key: 'legendary', label: 'Epic', enabled: !!epic.username },
+    { key: 'gog', label: 'GOG', enabled: !!gog.username },
+    { key: 'nile', label: 'Amazon', enabled: !!amazon.user_id },
     {
       key: 'sideload',
       label: t('console.filter.sideload', 'Other'),
       enabled: true
     },
-    {
-      key: 'zoom',
-      label: t('console.filter.zoom', 'ZOOM'),
-      enabled: !!zoom.username
-    }
+    { key: 'zoom', label: 'ZOOM', enabled: !!zoom.username }
   ]
 
   const enabledStoreKeys = useMemo(
