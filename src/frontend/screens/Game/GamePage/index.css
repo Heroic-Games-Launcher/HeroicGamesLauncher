@@ -264,7 +264,6 @@
         justify-content: flex-start;
         align-items: center;
         margin-top: 15px;
-        max-width: 250px;
         border-radius: 8px;
 
         .buttonWithIcon > svg {
@@ -280,7 +279,7 @@
         & .installButtons,
         & .playButtons {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
 
           .altPlay {
             position: relative;
@@ -312,6 +311,7 @@
 
         .installButtons {
           gap: var(--space-xs);
+          flex-wrap: wrap;
         }
 
         & .mainBtn {
@@ -653,12 +653,6 @@
     .timeContainerLabel {
       display: none;
     }
-  }
-}
-
-@container (max-width: 470px) {
-  .installButtons {
-    flex-direction: column;
   }
 }
 
