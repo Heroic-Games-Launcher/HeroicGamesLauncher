@@ -73,24 +73,37 @@
   }
 
   .searchButton {
-    padding: 0 var(--space-2xs);
-    color: var(--text-tertiary, var(--text-secondary));
+    padding: 0 var(--space-xs);
+    color: var(--text-secondary);
     flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
   }
 
   .clearSearchButton {
-    padding-inline: var(--space-2xs);
+    padding-inline: var(--space-xs);
     transition: color 250ms;
     background: transparent;
     border: none;
     color: var(--text-secondary);
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       color: var(--text-default);
     }
 
     svg {
+      width: 20px;
+      height: 20px;
       cursor: pointer;
     }
   }

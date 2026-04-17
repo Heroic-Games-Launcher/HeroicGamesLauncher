@@ -66,7 +66,7 @@ export default function SearchBar({
     <div className="SearchBar" data-testid="searchBar">
       <Search
         className="searchButton"
-        size={22}
+        size={24}
         strokeWidth={1.75}
         aria-hidden
       />
@@ -91,7 +91,7 @@ export default function SearchBar({
           </ul>
 
           <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
-            <X size={18} strokeWidth={2} aria-hidden />
+            <X size={20} strokeWidth={2} aria-hidden />
           </button>
         </>
       )}
