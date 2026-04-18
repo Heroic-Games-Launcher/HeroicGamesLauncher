@@ -246,6 +246,22 @@
   object-fit: cover;
 }
 
+.consoleCardBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--warning, #f0a03a);
+  color: #111;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
 .consoleFooter {
   display: flex;
   flex-direction: column;
@@ -492,6 +508,14 @@
     opacity: 1;
     color: var(--cancel-button, #b94a3a);
   }
+}
+
+.consoleUpdateNoticeBody {
+  max-width: 560px;
+  text-align: center;
+  color: var(--text-secondary, #b1b1b1);
+  line-height: 1.5;
+  margin: 0;
 }
 
 // App-level: when console mode is active, strip scrollbars and chrome

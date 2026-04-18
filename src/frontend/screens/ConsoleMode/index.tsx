@@ -22,6 +22,7 @@ import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
+import UpdateNotice from './components/UpdateNotice'
 import {
   BACK_BUTTON_LABELS,
   detectControllerLayout,
@@ -53,13 +54,17 @@ export default function ConsoleMode() {
     sideloadedLibrary,
     showDialogModal,
     refreshLibrary,
-    refreshing
+    refreshing,
+    gameUpdates
   } = useContext(ContextProvider)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [ascending, setAscending] = useState(true)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
+  const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
+    null
+  )
   const [columns, setColumns] = useState(6)
   const [gamepadConnected, setGamepadConnected] = useState(false)
   const [controllerLayout, setControllerLayout] =
@@ -213,7 +218,11 @@ export default function ConsoleMode() {
 
   const launchGame = useCallback(
     async (game: GameInfo) => {
-      if (launchingGame) return
+      if (launchingGame || updateNoticeGame) return
+      if (gameUpdates.includes(game.app_name)) {
+        setUpdateNoticeGame(game)
+        return
+      }
       setLaunchingGame(game)
       try {
         await launch({
@@ -227,11 +236,11 @@ export default function ConsoleMode() {
         setLaunchingGame(null)
       }
     },
-    [launchingGame, showDialogModal, t]
+    [launchingGame, updateNoticeGame, gameUpdates, showDialogModal, t]
   )
 
   const onGridKeyDown = (e: React.KeyboardEvent) => {
-    if (visibleGames.length === 0 || launchingGame) return
+    if (visibleGames.length === 0 || launchingGame || updateNoticeGame) return
     const last = visibleGames.length - 1
     if (e.key === 'ArrowRight') {
       e.preventDefault()
@@ -434,6 +443,7 @@ export default function ConsoleMode() {
             <div className="consoleGrid">
               {visibleGames.map((game, i) => {
                 const isFocused = i === focusedIndex
+                const needsUpdate = gameUpdates.includes(game.app_name)
                 return (
                   <button
                     key={`${game.runner}-${game.app_name}`}
@@ -441,7 +451,8 @@ export default function ConsoleMode() {
                       cardRefs.current[i] = el
                     }}
                     className={classNames('consoleCard', {
-                      focused: isFocused
+                      focused: isFocused,
+                      needsUpdate
                     })}
                     tabIndex={isFocused ? 0 : -1}
                     onClick={() => {
@@ -459,6 +470,11 @@ export default function ConsoleMode() {
                       alt={game.title}
                       className="consoleCardArt"
                     />
+                    {needsUpdate && (
+                      <span className="consoleCardBadge">
+                        {t('console.card.needsUpdate', 'Needs update')}
+                      </span>
+                    )}
                   </button>
                 )
               })}
@@ -477,6 +493,15 @@ export default function ConsoleMode() {
         <LaunchOverlay
           game={launchingGame}
           holdStart={cancelHoldStart}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+        />
+      )}
+
+      {updateNoticeGame && (
+        <UpdateNotice
+          game={updateNoticeGame}
+          onDismiss={() => setUpdateNoticeGame(null)}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
         />

@@ -124,10 +124,11 @@ export const initGamepad = () => {
       }
 
       // `back` hits webContents.goBack() on the backend, which would pop
-      // out of /console during a launch and hide the overlay.
+      // out of /console during a launch or while a console modal is open.
       if (
         action === 'back' &&
-        document.body.classList.contains('console-launching')
+        (document.body.classList.contains('console-launching') ||
+          document.body.classList.contains('console-modal-open'))
       ) {
         return
       }
