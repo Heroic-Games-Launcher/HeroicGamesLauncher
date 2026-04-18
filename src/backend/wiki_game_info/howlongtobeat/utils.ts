@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
+import { gameManagerMap } from 'backend/storeManagers'
+import { ExtraInfo, GameInfo } from 'common/types'
 
 export interface HeroicHowLongToBeatEntry {
   completionist: number
@@ -89,16 +91,101 @@ async function getGameDataById(
   }
 }
 
+async function getGogHLTBGameData(
+  gameInfo: GameInfo,
+  gameExtraInfo: ExtraInfo
+): Promise<HeroicHowLongToBeatEntry | null> {
+  try {
+    const response = await axios.get(gameExtraInfo.storeUrl!, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        Connection: 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
+      },
+      timeout: 10000,
+      validateStatus: (status) => status < 500
+    })
+
+    if (response.status !== 200) {
+      return null
+    }
+
+    const html = response.data as string
+    const mainStory = Math.round(
+      parseFloat(
+        html.match(
+          /<span class="howlongtobeat-box__time"> ?([\d.]+) h ?<\/span><span class="howlongtobeat-box__name">Main<\/span>/
+        )![1]
+      )
+    )
+    const mainExtra = Math.round(
+      parseFloat(
+        html.match(
+          /<span class="howlongtobeat-box__time"> ?([\d.]+) h ?<\/span><span class="howlongtobeat-box__name">Main \+ Sides<\/span>/
+        )![1]
+      )
+    )
+    const completionist = Math.round(
+      parseFloat(
+        html.match(
+          /<span class="howlongtobeat-box__time"> ?([\d.]+) h ?<\/span><span class="howlongtobeat-box__name">Completionist<\/span>/
+        )![1]
+      )
+    )
+
+    const hltbId = parseInt(
+      html.match(
+        /<a target="_blank" href="https:\/\/howlongtobeat.com\/game\/(\d+)">HowLongToBeat<\/a>/
+      )![1]
+    )
+
+    return {
+      mainStory,
+      mainExtra,
+      completionist,
+      gameId: hltbId,
+      gameName: gameInfo.title,
+      gameWebLink: `${HLTB_BASE_URL}/game/${hltbId}`
+    }
+  } catch (error) {
+    logError(
+      [`Error fetching HLTB game data for ID ${gameInfo.app_name}:`, error],
+      LogPrefix.ExtraGameInfo
+    )
+    return null
+  }
+}
+
 export async function getHowLongToBeat(
   title: string,
+  gameInfo: GameInfo,
   hltbId?: string
 ): Promise<HeroicHowLongToBeatEntry | null> {
-  logInfo(
-    `Getting HowLongToBeat data for ${title}${hltbId ? ` (ID: ${hltbId})` : ''}`,
-    LogPrefix.ExtraGameInfo
+  const gameExtraInfo = await gameManagerMap[gameInfo.runner].getExtraInfo(
+    gameInfo.app_name
   )
+  if (gameInfo.runner == 'gog' && gameExtraInfo.storeUrl) {
+    logInfo(
+      `Getting HowLongToBeat data for ${title} ${gameInfo.app_name} - ${gameInfo.runner}`,
+      LogPrefix.ExtraGameInfo
+    )
 
-  if (hltbId) {
+    const gameData = await getGogHLTBGameData(gameInfo, gameExtraInfo)
+    if (gameData) {
+      return gameData
+    }
+    logInfo(`HLTB ID ${hltbId} not found for ${title}`, LogPrefix.ExtraGameInfo)
+  } else if (hltbId) {
+    logInfo(
+      `Getting HowLongToBeat data for ${title}${hltbId ? ` (ID: ${hltbId})` : ''} - ${gameInfo.runner}`,
+      LogPrefix.ExtraGameInfo
+    )
+
     const gameData = await getGameDataById(hltbId)
     if (gameData) {
       return gameData
