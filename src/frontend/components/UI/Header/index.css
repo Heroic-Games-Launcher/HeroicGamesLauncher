@@ -3,9 +3,9 @@
   top: 0;
   z-index: 10;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   padding: var(--space-md) var(--space-md-fixed);
   background: var(--gradient-body-background, var(--body-background));
   color: var(--text-secondary);
@@ -20,18 +20,19 @@
 .Header__filters {
   grid-area: filters;
   display: flex;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   align-self: center;
-  justify-self: flex-end;
+  flex-shrink: 0;
 }
 
 .Header__filters .FormControl {
-  margin-inline-end: 8px;
+  margin-inline-end: 0;
 }
 
 .Header__search {
-  flex-grow: 1;
-  max-width: 700px;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 720px;
 }
 
 .Header__search .FormControl {

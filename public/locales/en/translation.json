@@ -18,7 +18,6 @@
         "dont-show-again": "Don't show this warning again",
         "title": "Adtraction is blocked"
     },
-    "Amazon Games": "Amazon Games",
     "amazon-luna": "Amazon Luna",
     "analyticsModal": {
         "disable": "Disable",
@@ -277,7 +276,6 @@
         "offline-notification-body": "Online services may not work fully as Epic Games servers are offline!",
         "offline-notification-title": "offline"
     },
-    "Epic Games": "Epic Games",
     "error": "Error",
     "externalLink": {
         "dontAskAgain": "Don't ask again",
@@ -299,13 +297,14 @@
         }
     },
     "globalSettings": "Global Settings",
-    "GOG": "GOG",
     "gog-store": "GOG Store",
     "header": {
         "categories": "Categories",
+        "display": "Display",
         "filters": "Filters",
         "no_categories": "No custom categories. Add categories using each game menu.",
         "only": "only",
+        "platforms": "Platforms",
         "reset": "Reset",
         "select_all": "Select All",
         "show_available_games": "Show non-Available games",
@@ -315,6 +314,7 @@
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
         "show_updates_only": "Show games with updates only",
+        "stores": "Stores",
         "uncategorized": "Uncategorized"
     },
     "help": {

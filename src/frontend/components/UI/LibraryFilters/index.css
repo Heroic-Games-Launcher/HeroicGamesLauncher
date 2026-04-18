@@ -1,0 +1,137 @@
+.libraryFilters .dropdown {
+  min-width: 380px;
+  max-width: 440px;
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.filterSection + .filterSection {
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--divider);
+}
+
+.filterSectionLabel {
+  font-family: var(--primary-font-family);
+  font-size: var(--text-xs);
+  font-weight: var(--semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary, var(--text-secondary));
+  margin-bottom: var(--space-2xs);
+}
+
+.filterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--input-background);
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-sm);
+  font-weight: var(--medium);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+  white-space: nowrap;
+}
+
+.filterChip:hover {
+  border-color: var(--divider);
+  color: var(--text-default);
+}
+
+.filterChip.on {
+  background: color-mix(in oklab, var(--accent) 18%, var(--input-background));
+  border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  color: var(--text-default);
+}
+
+.filterChip svg {
+  flex-shrink: 0;
+}
+
+.filterChipIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.filterChipIcon .filterChipLogo {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.filterPlatformTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  font-family: var(--primary-font-family);
+  font-size: 10px;
+  font-weight: var(--bold);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.filterPlatformTag--win {
+  background: #3b82f6;
+}
+.filterPlatformTag--mac {
+  background: #9ca3af;
+}
+.filterPlatformTag--linux {
+  background: #f59e0b;
+}
+.filterPlatformTag--browser {
+  background: #8b5cf6;
+}
+
+.filterActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--divider);
+}
+
+.filterReset {
+  background: transparent;
+  border: 1px solid var(--divider);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: var(--primary-font-family);
+  font-size: var(--text-sm);
+  font-weight: var(--medium);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.filterReset:hover {
+  background: var(--input-background);
+  color: var(--text-default);
+  border-color: var(--line-strong, var(--divider));
+}

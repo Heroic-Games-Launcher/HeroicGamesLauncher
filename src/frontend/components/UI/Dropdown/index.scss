@@ -42,28 +42,29 @@
   .dropdown.expanded {
     pointer-events: all;
     opacity: 1;
-    max-height: 70vh;
-    box-shadow: 4px 5px 5px 7px rgba(0, 0, 0, 0.2);
+    max-height: 80vh;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
     overflow-y: auto;
   }
 
   .dropdown {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);
     right: 0px;
-    min-width: 250px;
+    min-width: 320px;
     display: flex;
-    border-radius: var(--space-xs);
+    border-radius: 14px;
     flex-direction: column;
-    background: var(--background);
+    background: var(--modal-background, var(--background));
+    border: 1px solid var(--divider);
     opacity: 0;
     transition: all 200ms;
     pointer-events: none;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    gap: 0.3rem;
-    padding: var(--space-sm);
+    gap: var(--space-sm);
+    padding: var(--space-md);
 
     .toggleWithOnly {
       display: flex;
