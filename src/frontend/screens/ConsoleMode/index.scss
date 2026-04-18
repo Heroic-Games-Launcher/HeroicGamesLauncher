@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 .ConsoleMode {
   --console-card-width: clamp(160px, 13vw, 220px);
   --console-card-gap: clamp(14px, 1.4vw, 28px);
@@ -87,7 +89,7 @@
     color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
   background: color-mix(
     in srgb,
-    var(---background-darker, #1a1a20) 60%,
+    var(--background-darker, #1a1a20) 60%,
     transparent
   );
   color: var(--text-default, #eae8e5);
@@ -309,99 +311,47 @@
     flex-shrink: 0;
   }
 
-  &.xbox {
-    .buttonImage.main-action {
-      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_A.png);
-    }
-    .buttonImage.back {
-      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_B.png);
-    }
-    .buttonImage.shoulder-l {
-      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_LB.png);
-    }
-    .buttonImage.shoulder-r {
-      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_RB.png);
-    }
-    .buttonImage.trigger-r {
-      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_RT.png);
-    }
-    .buttonImage.d-pad {
-      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_Dpad.png);
-    }
-    .buttonImage.left-stick {
-      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_Left_Stick.png);
-    }
-  }
+  $layouts: (
+    xbox: (
+      xbox-series,
+      XboxSeriesX,
+      (A, B, LB, RB, RT)
+    ),
+    ps: (
+      ps,
+      PS5,
+      (Cross, Circle, L1, R1, R2)
+    ),
+    steam-deck: (
+      steam-deck,
+      SteamDeck,
+      (A, B, L1, R1, R2)
+    ),
+    nintendo: (
+      switch,
+      Switch,
+      (A, B, LB, RB, RT)
+    )
+  );
+  $button-classes: main-action, back, shoulder-l, shoulder-r, trigger-r;
 
-  &.ps {
-    .buttonImage.main-action {
-      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Cross.png);
-    }
-    .buttonImage.back {
-      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Circle.png);
-    }
-    .buttonImage.shoulder-l {
-      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_L1.png);
-    }
-    .buttonImage.shoulder-r {
-      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_R1.png);
-    }
-    .buttonImage.trigger-r {
-      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_R2.png);
-    }
-    .buttonImage.d-pad {
-      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Dpad.png);
-    }
-    .buttonImage.left-stick {
-      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Left_Stick.png);
-    }
-  }
+  @each $layout, $config in $layouts {
+    $folder: list.nth($config, 1);
+    $prefix: list.nth($config, 2);
+    $suffixes: list.nth($config, 3);
 
-  &.steam-deck {
-    .buttonImage.main-action {
-      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_A.png);
-    }
-    .buttonImage.back {
-      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_B.png);
-    }
-    .buttonImage.shoulder-l {
-      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_L1.png);
-    }
-    .buttonImage.shoulder-r {
-      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_R1.png);
-    }
-    .buttonImage.trigger-r {
-      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_R2.png);
-    }
-    .buttonImage.d-pad {
-      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_Dpad.png);
-    }
-    .buttonImage.left-stick {
-      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_Left_Stick.png);
-    }
-  }
-
-  &.nintendo {
-    .buttonImage.main-action {
-      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_A.png);
-    }
-    .buttonImage.back {
-      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_B.png);
-    }
-    .buttonImage.shoulder-l {
-      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_LB.png);
-    }
-    .buttonImage.shoulder-r {
-      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_RB.png);
-    }
-    .buttonImage.trigger-r {
-      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_RT.png);
-    }
-    .buttonImage.d-pad {
-      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_Dpad.png);
-    }
-    .buttonImage.left-stick {
-      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_Left_Stick.png);
+    &.#{$layout} {
+      @for $i from 1 through list.length($button-classes) {
+        .buttonImage.#{list.nth($button-classes, $i)} {
+          --imageUrl: url(/src/frontend/assets/controllers/#{$folder}/#{$prefix}_#{list.nth($suffixes, $i)}.png);
+        }
+      }
+      .buttonImage.d-pad {
+        --imageUrl: url(/src/frontend/assets/controllers/#{$folder}/#{$prefix}_Dpad.png);
+      }
+      .buttonImage.left-stick {
+        --imageUrl: url(/src/frontend/assets/controllers/#{$folder}/#{$prefix}_Left_Stick.png);
+      }
     }
   }
 }
