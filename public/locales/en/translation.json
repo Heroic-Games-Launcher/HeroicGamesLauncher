@@ -220,6 +220,34 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "console": {
+        "card": {
+            "needsUpdate": "Needs update"
+        },
+        "empty": "No installed games to show. Install something first.",
+        "filter": {
+            "all": "All",
+            "sideload": "Other"
+        },
+        "games": "Installed games",
+        "hints": {
+            "change_store": "Change store",
+            "launch": "Launch",
+            "navigate": "Navigate",
+            "quit": "Quit",
+            "sort": "Sort"
+        },
+        "loading": "Loading your library…",
+        "quit": "Quit Console",
+        "quitApp": "Quit App",
+        "sort": "Sort",
+        "update": {
+            "body": "This game has an update available. Please leave Console Mode and update the game before launching.",
+            "hintPrefix": "Press",
+            "hintSuffix": "to go back",
+            "title": "Update required"
+        }
+    },
     "controller": {
         "hints": {
             "back": "Back",

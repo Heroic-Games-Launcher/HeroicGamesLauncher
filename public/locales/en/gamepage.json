@@ -103,23 +103,7 @@
             "hintPrefix": "Hold",
             "hintSuffix": "for 3s to cancel"
         },
-        "empty": "No installed games to show. Install something first.",
-        "filter": {
-            "all": "All",
-            "sideload": "Other"
-        },
-        "games": "Installed games",
-        "hints": {
-            "change_store": "Change store",
-            "launch": "Launch",
-            "navigate": "Navigate",
-            "quit": "Quit",
-            "sort": "Sort"
-        },
-        "launching": "Launching",
-        "loading": "Loading your library…",
-        "quit": "Quit Console",
-        "sort": "Sort"
+        "launching": "Launching"
     },
     "disabled": "Disabled",
     "enabled": "Enabled",
