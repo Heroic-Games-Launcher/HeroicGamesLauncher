@@ -111,7 +111,7 @@ export default function SidebarLinks() {
 
   return (
     <div className="SidebarLinks Sidebar__section" data-tour="sidebar-menu">
-      <div className="Sidebar__sectionLabel">{t('Launcher', 'Launcher')}</div>
+      <div className="Sidebar__sectionLabel">{t('General', 'General')}</div>
       {!loggedIn && (
         <SidebarItem
           icon={<LogIn {...ICON} aria-hidden />}

@@ -141,7 +141,6 @@ export default React.memo(function Sidebar() {
         <HeroicIcon className="heroicIcon" />
         <div className="Sidebar__brandText">
           <span className="Sidebar__brandName">Heroic</span>
-          <span className="Sidebar__brandTag">Games Launcher</span>
         </div>
       </div>
       <SidebarLinks />

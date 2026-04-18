@@ -288,6 +288,7 @@
         "store": "Store",
         "title": "Game Title"
     },
+    "General": "General",
     "generic": {
         "error": {
             "component": "No games found - Try to logout and login again or one of the options below"
@@ -435,7 +436,6 @@
     "launch": {
         "options": "Launch Options..."
     },
-    "Launcher": "Launcher",
     "library": {
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
