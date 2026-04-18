@@ -17,7 +17,7 @@ describe('Main - GetAvailableVersions', () => {
     })
 
     expect(axiosClient.get).toBeCalledWith(
-      'https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases?per_page=100'
+      'https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases?per_page=100'
     )
     expect(logError).not.toBeCalled()
   })
@@ -25,7 +25,8 @@ describe('Main - GetAvailableVersions', () => {
   test('fetch releases succesfully independent', async () => {
     axiosClient.get = jest.fn().mockResolvedValue(test_data_release_list)
 
-    for (let key = 0; key < Object.keys(Repositorys).length / 2; key++) {
+    // start from 1 to ignore WINEGE
+    for (let key = 1; key < Object.keys(Repositorys).length / 2; key++) {
       await getAvailableVersions({
         repositorys: [key]
       }).then((releases: VersionInfo[]) => {
@@ -35,16 +36,17 @@ describe('Main - GetAvailableVersions', () => {
       })
 
       expect(axiosClient.get).toBeCalledWith(
-        'https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases?per_page=100'
+        'https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases?per_page=100'
       )
       expect(logError).not.toBeCalled()
     }
   })
 
+  // start from 1 to ignore WINEGE
   test('fetch releases failed because of 404', async () => {
     axiosClient.get = jest.fn().mockRejectedValue('Could not fetch tag 404')
 
-    for (let key = 0; key < Object.keys(Repositorys).length / 2; key++) {
+    for (let key = 1; key < Object.keys(Repositorys).length / 2; key++) {
       await expect(
         getAvailableVersions({ repositorys: [key] })
       ).resolves.toStrictEqual([])
@@ -54,7 +56,7 @@ describe('Main - GetAvailableVersions', () => {
       )
       expect(logError).toBeCalledWith(
         Error(
-          'Could not fetch available releases from https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases with error:\n ' +
+          'Could not fetch available releases from https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases with error:\n ' +
             'Could not fetch tag 404'
         ),
         'WineDownloader'
