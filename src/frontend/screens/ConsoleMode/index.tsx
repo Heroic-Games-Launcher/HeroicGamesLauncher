@@ -156,24 +156,47 @@ export default function ConsoleMode() {
     btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [focusedIndex, visibleGames.length])
 
+  const storesWithGames = useMemo(() => {
+    const set = new Set<StoreKey>()
+    for (const g of installedGames) {
+      const key = runnerToStore[g.runner]
+      if (key) set.add(key)
+    }
+    return set
+  }, [installedGames])
+
   const storeFilters: { key: StoreKey; label: string; enabled: boolean }[] = [
-    { key: 'all', label: t('console.filter.all', 'All'), enabled: true },
-    { key: 'legendary', label: 'Epic', enabled: !!epic.username },
-    { key: 'gog', label: 'GOG', enabled: !!gog.username },
-    { key: 'nile', label: 'Amazon', enabled: !!amazon.user_id },
+    {
+      key: 'all',
+      label: t('console.filter.all', 'All'),
+      enabled: installedGames.length > 0
+    },
+    {
+      key: 'legendary',
+      label: 'Epic',
+      enabled: storesWithGames.has('legendary')
+    },
+    { key: 'gog', label: 'GOG', enabled: storesWithGames.has('gog') },
+    { key: 'nile', label: 'Amazon', enabled: storesWithGames.has('nile') },
     {
       key: 'sideload',
       label: t('console.filter.sideload', 'Other'),
-      enabled: true
+      enabled: storesWithGames.has('sideload')
     },
-    { key: 'zoom', label: 'ZOOM', enabled: !!zoom.username }
+    { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
   ]
 
   const enabledStoreKeys = useMemo(
     () => storeFilters.filter((f) => f.enabled).map((f) => f.key),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [epic.username, gog.username, amazon.user_id, zoom.username]
+    [storesWithGames, installedGames.length]
   )
+
+  useEffect(() => {
+    if (activeStore !== 'all' && !enabledStoreKeys.includes(activeStore)) {
+      setActiveStore('all')
+    }
+  }, [enabledStoreKeys, activeStore])
 
   const cycleStore = useCallback(
     (direction: 1 | -1) => {
