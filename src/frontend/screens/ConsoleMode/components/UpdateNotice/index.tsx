@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useGamepadButtonPress } from '../../hooks'
+
 import type { GameInfo } from 'common/types'
 
 const DISMISS_BUTTON_INDEX = 1 // B / Circle
@@ -35,29 +37,10 @@ export default function UpdateNotice({
       }
     }
     window.addEventListener('keydown', onKeyDown, true)
-
-    const prevPressed = new Map<number, boolean>()
-    let raf = 0
-    const tick = () => {
-      for (const gp of navigator.getGamepads()) {
-        if (!gp) continue
-        const btn = gp.buttons[DISMISS_BUTTON_INDEX]
-        const pressed = !!btn && (btn.pressed || btn.value > 0.5)
-        if (pressed && !prevPressed.get(gp.index)) {
-          onDismiss()
-          return
-        }
-        prevPressed.set(gp.index, pressed)
-      }
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-
-    return () => {
-      window.removeEventListener('keydown', onKeyDown, true)
-      cancelAnimationFrame(raf)
-    }
+    return () => window.removeEventListener('keydown', onKeyDown, true)
   }, [onDismiss])
+
+  useGamepadButtonPress(DISMISS_BUTTON_INDEX, onDismiss)
 
   return (
     <div

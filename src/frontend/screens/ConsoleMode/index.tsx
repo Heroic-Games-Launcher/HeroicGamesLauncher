@@ -1,13 +1,12 @@
 import './index.scss'
 
 import {
+  useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
-  useState,
-  useCallback
+  useState
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -23,11 +22,14 @@ import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
 import UpdateNotice from './components/UpdateNotice'
+import { getBackButtonLabel } from './controller'
 import {
-  BACK_BUTTON_LABELS,
-  detectControllerLayout,
-  type ControllerLayout
-} from './controller'
+  useCancelOnHold,
+  useColumnCount,
+  useGamepadButtonHold,
+  useGamepadButtonPress,
+  useGamepadInfo
+} from './hooks'
 
 import type { GameInfo, Runner } from 'common/types'
 
@@ -42,6 +44,14 @@ const runnerToStore: Record<string, StoreKey> = {
   sideload: 'sideload',
   zoom: 'zoom'
 }
+
+// Standard gamepad button indices.
+const BTN_BACK = 1
+const BTN_L1 = 4
+const BTN_R1 = 5
+const BTN_R2 = 7
+const BTN_L3 = 10
+const BTN_R3 = 11
 
 export default function ConsoleMode() {
   const { t } = useTranslation()
@@ -65,35 +75,14 @@ export default function ConsoleMode() {
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
     null
   )
-  const [columns, setColumns] = useState(6)
-  const [gamepadConnected, setGamepadConnected] = useState(false)
-  const [controllerLayout, setControllerLayout] =
-    useState<ControllerLayout>('xbox')
-  const [cancelHoldStart, setCancelHoldStart] = useState<number | null>(null)
 
-  const backButtonLabel = BACK_BUTTON_LABELS[controllerLayout]
+  const { connected: gamepadConnected, layout: controllerLayout } =
+    useGamepadInfo()
+  const backButtonLabel = getBackButtonLabel(controllerLayout)
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
   const topBarRef = useRef<HTMLDivElement | null>(null)
-
-  const topBarButtons = () => {
-    const root = topBarRef.current
-    if (!root) return []
-    return Array.from(
-      root.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')
-    )
-  }
-
-  const focusTopBar = () => {
-    const btns = topBarButtons()
-    if (btns.length > 0) btns[0].focus()
-  }
-
-  const focusCurrentCard = () => {
-    const btn = cardRefs.current[focusedIndex]
-    if (btn) btn.focus()
-  }
 
   useEffect(() => {
     window.api.setFullscreen(true)
@@ -136,49 +125,11 @@ export default function ConsoleMode() {
     if (activeStore !== 'all') {
       list = list.filter((g) => runnerToStore[g.runner] === activeStore)
     }
-    list = [...list].sort((a, b) => {
+    return [...list].sort((a, b) => {
       const cmp = a.title.localeCompare(b.title)
       return ascending ? cmp : -cmp
     })
-    return list
   }, [installedGames, activeStore, ascending])
-
-  useEffect(() => {
-    if (focusedIndex >= visibleGames.length) {
-      setFocusedIndex(Math.max(0, visibleGames.length - 1))
-    }
-  }, [visibleGames.length, focusedIndex])
-
-  useLayoutEffect(() => {
-    const compute = () => {
-      const cards = cardRefs.current.filter(
-        (el): el is HTMLButtonElement => !!el
-      )
-      if (cards.length < 2) {
-        setColumns(1)
-        return
-      }
-      const firstTop = cards[0].offsetTop
-      let count = 1
-      for (let i = 1; i < cards.length; i++) {
-        if (cards[i].offsetTop !== firstTop) break
-        count++
-      }
-      setColumns(Math.max(1, count))
-    }
-    compute()
-    window.addEventListener('resize', compute)
-    return () => window.removeEventListener('resize', compute)
-  }, [visibleGames.length])
-
-  useEffect(() => {
-    const btn = cardRefs.current[focusedIndex]
-    if (!btn) return
-    if (document.activeElement !== btn) {
-      btn.focus({ preventScroll: true })
-    }
-    btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-  }, [focusedIndex, visibleGames.length])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<StoreKey>()
@@ -189,31 +140,35 @@ export default function ConsoleMode() {
     return set
   }, [installedGames])
 
-  const storeFilters: { key: StoreKey; label: string; enabled: boolean }[] = [
-    {
-      key: 'all',
-      label: t('console.filter.all', 'All'),
-      enabled: installedGames.length > 0
-    },
-    {
-      key: 'legendary',
-      label: 'Epic',
-      enabled: storesWithGames.has('legendary')
-    },
-    { key: 'gog', label: 'GOG', enabled: storesWithGames.has('gog') },
-    { key: 'nile', label: 'Amazon', enabled: storesWithGames.has('nile') },
-    {
-      key: 'sideload',
-      label: t('console.filter.sideload', 'Other'),
-      enabled: storesWithGames.has('sideload')
-    },
-    { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
-  ]
+  const storeFilters = useMemo<
+    { key: StoreKey; label: string; enabled: boolean }[]
+  >(
+    () => [
+      {
+        key: 'all',
+        label: t('console.filter.all', 'All'),
+        enabled: installedGames.length > 0
+      },
+      {
+        key: 'legendary',
+        label: 'Epic',
+        enabled: storesWithGames.has('legendary')
+      },
+      { key: 'gog', label: 'GOG', enabled: storesWithGames.has('gog') },
+      { key: 'nile', label: 'Amazon', enabled: storesWithGames.has('nile') },
+      {
+        key: 'sideload',
+        label: t('console.filter.sideload', 'Other'),
+        enabled: storesWithGames.has('sideload')
+      },
+      { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
+    ],
+    [t, storesWithGames, installedGames.length]
+  )
 
   const enabledStoreKeys = useMemo(
     () => storeFilters.filter((f) => f.enabled).map((f) => f.key),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [storesWithGames, installedGames.length]
+    [storeFilters]
   )
 
   useEffect(() => {
@@ -221,6 +176,23 @@ export default function ConsoleMode() {
       setActiveStore('all')
     }
   }, [enabledStoreKeys, activeStore])
+
+  const columns = useColumnCount(cardRefs, visibleGames.length)
+
+  useEffect(() => {
+    if (focusedIndex >= visibleGames.length) {
+      setFocusedIndex(Math.max(0, visibleGames.length - 1))
+    }
+  }, [visibleGames.length, focusedIndex])
+
+  useEffect(() => {
+    const btn = cardRefs.current[focusedIndex]
+    if (!btn) return
+    if (document.activeElement !== btn) {
+      btn.focus({ preventScroll: true })
+    }
+    btn.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [focusedIndex, visibleGames.length])
 
   const cycleStore = useCallback(
     (direction: 1 | -1) => {
@@ -258,16 +230,32 @@ export default function ConsoleMode() {
     [launchingGame, updateNoticeGame, gameUpdates, showDialogModal, t]
   )
 
+  // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
+  // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
+  const { holdStart, startHold, stopHold } = useCancelOnHold({
+    active: !!launchingGame,
+    holdMs: CANCEL_HOLD_MS,
+    onCancel: () => {
+      if (launchingGame)
+        void sendKill(launchingGame.app_name, launchingGame.runner)
+    }
+  })
+
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
     if (launchingGame || updateNoticeGame) return
+    const root = topBarRef.current
+    if (!root) return
+
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       e.stopPropagation()
-      focusCurrentCard()
+      cardRefs.current[focusedIndex]?.focus()
       return
     }
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      const btns = topBarButtons()
+      const btns = Array.from(
+        root.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')
+      )
       const active = document.activeElement as HTMLButtonElement | null
       const idx = active ? btns.indexOf(active) : -1
       if (idx === -1 || btns.length === 0) return
@@ -298,7 +286,10 @@ export default function ConsoleMode() {
       e.preventDefault()
       e.stopPropagation()
       if (focusedIndex < columns) {
-        focusTopBar()
+        const first = topBarRef.current?.querySelector<HTMLButtonElement>(
+          'button:not(:disabled)'
+        )
+        first?.focus()
       } else {
         setFocusedIndex((i) => Math.max(i - columns, 0))
       }
@@ -314,14 +305,11 @@ export default function ConsoleMode() {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       e.preventDefault()
-      if (!launchingGame) {
-        quit()
-      } else if (!e.repeat && cancelHoldStart == null) {
-        setCancelHoldStart(Date.now())
-      }
+      if (!launchingGame) quit()
+      else if (!e.repeat) startHold()
     }
     const onKeyUp = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setCancelHoldStart(null)
+      if (e.key === 'Escape') stopHold()
     }
     window.addEventListener('keydown', onKeyDown)
     window.addEventListener('keyup', onKeyUp)
@@ -329,95 +317,28 @@ export default function ConsoleMode() {
       window.removeEventListener('keydown', onKeyDown)
       window.removeEventListener('keyup', onKeyUp)
     }
-  }, [quit, launchingGame, cancelHoldStart])
-
-  useEffect(() => {
-    if (cancelHoldStart == null || !launchingGame) return
-    const t = window.setTimeout(() => {
-      void sendKill(launchingGame.app_name, launchingGame.runner)
-      setCancelHoldStart(null)
-    }, CANCEL_HOLD_MS)
-    return () => window.clearTimeout(t)
-  }, [cancelHoldStart, launchingGame])
-
-  useEffect(() => {
-    if (!launchingGame) setCancelHoldStart(null)
-  }, [launchingGame])
+  }, [quit, launchingGame, startHold, stopHold])
 
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
-    if (launchingGame) {
-      document.body.classList.add('console-launching')
-      return () => document.body.classList.remove('console-launching')
-    }
-    return undefined
+    if (!launchingGame) return
+    document.body.classList.add('console-launching')
+    return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  // Refs so the RAF poll below never re-subscribes — otherwise a changing
-  // `cycleStore` identity would reset rising-edge state mid-press.
-  const cycleStoreRef = useRef(cycleStore)
-  cycleStoreRef.current = cycleStore
-  const launchingRef = useRef(!!launchingGame)
-  launchingRef.current = !!launchingGame
+  const idle = !launchingGame && !updateNoticeGame
+  const toggleSort = useCallback(() => setAscending((v) => !v), [])
 
-  useEffect(() => {
-    const refreshConnection = () => {
-      const gamepads = Array.from(navigator.getGamepads())
-      const first = gamepads.find((gp): gp is Gamepad => !!gp)
-      setGamepadConnected(!!first)
-      if (first) setControllerLayout(detectControllerLayout(first.id))
-    }
-    refreshConnection()
-    window.addEventListener('gamepadconnected', refreshConnection)
-    window.addEventListener('gamepaddisconnected', refreshConnection)
-
-    const prevPressed = new Map<string, boolean>()
-    let anyBackHeld = false
-    let raf = 0
-    const tick = () => {
-      const gamepads = navigator.getGamepads()
-      let backHeldThisFrame = false
-      for (const gp of gamepads) {
-        if (!gp) continue
-
-        const press = (idx: number, handler: () => void) => {
-          const btn = gp.buttons[idx]
-          const pressed = !!btn && (btn.pressed || btn.value > 0.5)
-          const key = `${gp.index}:${idx}`
-          if (pressed && !prevPressed.get(key)) handler()
-          prevPressed.set(key, pressed)
-        }
-
-        if (!launchingRef.current) {
-          press(4, () => cycleStoreRef.current(-1)) // L1
-          press(5, () => cycleStoreRef.current(1)) // R1
-          press(7, () => setAscending((v) => !v)) // R2
-          press(10, () => cycleStoreRef.current(-1)) // L3
-          press(11, () => cycleStoreRef.current(1)) // R3
-        } else {
-          const back = gp.buttons[1]
-          if (back && (back.pressed || back.value > 0.5)) {
-            backHeldThisFrame = true
-          }
-        }
-      }
-
-      if (backHeldThisFrame && !anyBackHeld && launchingRef.current) {
-        setCancelHoldStart(Date.now())
-      } else if (!backHeldThisFrame && anyBackHeld) {
-        setCancelHoldStart(null)
-      }
-      anyBackHeld = backHeldThisFrame
-
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('gamepadconnected', refreshConnection)
-      window.removeEventListener('gamepaddisconnected', refreshConnection)
-    }
-  }, [])
+  useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
+  useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
+  useGamepadButtonPress(BTN_L3, () => cycleStore(-1), idle)
+  useGamepadButtonPress(BTN_R3, () => cycleStore(1), idle)
+  useGamepadButtonPress(BTN_R2, toggleSort, idle)
+  useGamepadButtonHold(
+    BTN_BACK,
+    (held) => (held ? startHold() : stopHold()),
+    !!launchingGame
+  )
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -446,7 +367,7 @@ export default function ConsoleMode() {
         <div className="consoleTopRight">
           <button
             className="consoleChip"
-            onClick={() => setAscending((v) => !v)}
+            onClick={toggleSort}
             aria-label={t('console.sort', 'Sort')}
             disabled={!!launchingGame}
           >
@@ -506,8 +427,7 @@ export default function ConsoleMode() {
                       cardRefs.current[i] = el
                     }}
                     className={classNames('consoleCard', {
-                      focused: isFocused,
-                      needsUpdate
+                      focused: isFocused
                     })}
                     tabIndex={isFocused ? 0 : -1}
                     onClick={() => {
@@ -547,7 +467,7 @@ export default function ConsoleMode() {
       {launchingGame && (
         <LaunchOverlay
           game={launchingGame}
-          holdStart={cancelHoldStart}
+          holdStart={holdStart}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
         />
