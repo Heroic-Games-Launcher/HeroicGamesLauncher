@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react'
-import './index.scss'
+import './index.css'
 
 type Props = {
   title?: ReactNode | string

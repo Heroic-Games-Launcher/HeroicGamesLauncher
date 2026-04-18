@@ -19,7 +19,7 @@ import GPUCard from './gpu'
 import OSInfo from './os'
 import SoftwareInfo from './software'
 
-import './index.scss'
+import './index.css'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
 

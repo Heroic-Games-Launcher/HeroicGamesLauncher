@@ -6,7 +6,7 @@ import InfoIcon from 'frontend/assets/info_icon.svg?react'
 import DeniedIcon from 'frontend/assets/denied_icon.svg?react'
 import AllowedIcon from 'frontend/assets/rounded_checkmark_icon.svg?react'
 
-import './index.scss'
+import './index.css'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 
