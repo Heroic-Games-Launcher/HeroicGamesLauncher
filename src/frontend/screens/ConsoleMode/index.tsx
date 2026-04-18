@@ -35,15 +35,7 @@ import type { GameInfo, Runner } from 'common/types'
 
 const CANCEL_HOLD_MS = 3000
 
-type StoreKey = 'all' | 'legendary' | 'gog' | 'nile' | 'sideload' | 'zoom'
-
-const runnerToStore: Record<string, StoreKey> = {
-  legendary: 'legendary',
-  gog: 'gog',
-  nile: 'nile',
-  sideload: 'sideload',
-  zoom: 'zoom'
-}
+type StoreKey = Runner | 'all'
 
 // Standard gamepad button indices.
 const BTN_BACK = 1
@@ -123,7 +115,7 @@ export default function ConsoleMode() {
   const visibleGames = useMemo(() => {
     let list = installedGames
     if (activeStore !== 'all') {
-      list = list.filter((g) => runnerToStore[g.runner] === activeStore)
+      list = list.filter((g) => g.runner === activeStore)
     }
     return [...list].sort((a, b) => {
       const cmp = a.title.localeCompare(b.title)
@@ -132,11 +124,8 @@ export default function ConsoleMode() {
   }, [installedGames, activeStore, ascending])
 
   const storesWithGames = useMemo(() => {
-    const set = new Set<StoreKey>()
-    for (const g of installedGames) {
-      const key = runnerToStore[g.runner]
-      if (key) set.add(key)
-    }
+    const set = new Set<Runner>()
+    for (const g of installedGames) set.add(g.runner)
     return set
   }, [installedGames])
 
