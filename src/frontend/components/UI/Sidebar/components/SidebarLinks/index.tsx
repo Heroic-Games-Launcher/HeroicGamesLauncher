@@ -1,7 +1,7 @@
 import {
   BookOpen,
   Gamepad2,
-  SlidersHorizontal,
+  Settings as SettingsIcon,
   Store,
   LogIn,
   Accessibility,
@@ -111,7 +111,7 @@ export default function SidebarLinks() {
 
   return (
     <div className="SidebarLinks Sidebar__section" data-tour="sidebar-menu">
-      <div className="Sidebar__sectionLabel">{t('Library', 'Library')}</div>
+      <div className="Sidebar__sectionLabel">{t('Launcher', 'Launcher')}</div>
       {!loggedIn && (
         <SidebarItem
           icon={<LogIn {...ICON} aria-hidden />}
@@ -181,19 +181,6 @@ export default function SidebarLinks() {
         />
       )}
 
-      <div className="Sidebar__sectionLabel">{t('Accounts', 'Accounts')}</div>
-
-      {loggedIn && (
-        <SidebarItem
-          url="/login"
-          icon={<UserCircle {...ICON} aria-hidden />}
-          label={t('userselector.manage', 'Manage')}
-          dataTour="sidebar-manage-accounts"
-        />
-      )}
-
-      <div className="Sidebar__sectionLabel">{t('Launcher', 'Launcher')}</div>
-
       <SidebarItem
         url="/accessibility"
         icon={<Accessibility {...ICON} aria-hidden />}
@@ -204,7 +191,7 @@ export default function SidebarLinks() {
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
           isActiveFallback={location.pathname.includes('settings')}
-          icon={<SlidersHorizontal {...ICON} aria-hidden />}
+          icon={<SettingsIcon {...ICON} aria-hidden />}
           label={t('Settings', 'Settings')}
           url="/settings/general"
           dataTour="sidebar-settings"
@@ -258,6 +245,20 @@ export default function SidebarLinks() {
       </div>
 
       <QuitButton dataTour="sidebar-quit" />
+
+      {loggedIn && (
+        <>
+          <div className="Sidebar__sectionLabel">
+            {t('Accounts', 'Accounts')}
+          </div>
+          <SidebarItem
+            url="/login"
+            icon={<UserCircle {...ICON} aria-hidden />}
+            label={t('userselector.manage', 'Manage')}
+            dataTour="sidebar-manage-accounts"
+          />
+        </>
+      )}
 
       <div className="Sidebar__sectionLabel">{t('Community', 'Community')}</div>
 
