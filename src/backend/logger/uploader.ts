@@ -1,6 +1,5 @@
 import { app } from 'electron'
 import { open } from 'fs/promises'
-import path from 'path'
 import { z } from 'zod'
 
 import { TypeCheckedStoreBackend } from '../electron_store'
@@ -15,15 +14,19 @@ const uploadedLogFileStore = new TypeCheckedStoreBackend('uploadedLogs', {
   accessPropertiesByDotNotation: false
 })
 
-async function sendRequestToApi(formData: FormData, url = 'https://0x0.st') {
+async function sendRequestToApi(
+  formData: FormData | string,
+  url = 'https://dpaste.com/api/v2/'
+) {
   return fetch(url, {
     body: formData,
     method: 'post',
     headers: {
-      'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
+      'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
   }).catch((err) => {
-    logError([`Failed to send data to 0x0.st:`, err], LogPrefix.LogUploader)
+    logError([`Failed to send data to dpaste.com:`, err], LogPrefix.LogUploader)
     return null
   })
 }
@@ -49,7 +52,7 @@ async function readPartOfFile(file: string, size: number) {
 }
 
 /**
- * Uploads the log file of a game / runner / Heroic to https://0x0.st
+ * Uploads the log file of a game / runner / Heroic to https://dpaste.com/api/v2/
  * @param name See {@link UploadedLogData.name}
  * @param getLogFileArgs Used to get the log file path. See {@link getLogFilePath}
  * @returns `false` if an error occurred, otherwise the URL to the uploaded file and {@link UploadedLogData}
@@ -59,19 +62,24 @@ async function uploadLogFile(
   getLogFileArgs: Parameters<typeof getLogFilePath>[0]
 ): Promise<false | [string, UploadedLogData]> {
   const fileLocation = getLogFilePath(getLogFileArgs)
-  const filename = path.basename(fileLocation)
-
   const fileContents = await readPartOfFile(fileLocation, 10 * MiB)
-  const fileBlob = new Blob([fileContents])
 
-  const formData = new FormData()
-  formData.set('file', fileBlob, filename)
-  formData.set('expires', '24')
+  // const filename = path.basename(fileLocation)
+  // const fileBlob = new Blob([fileContents])
+
+  // const formData = new FormData()
+  // formData.set('file', fileBlob, filename)
+  // formData.set('expires', '24')
+
+  const formData = `content=${fileContents.toString()}&expiry_days=2`
 
   const response = await sendRequestToApi(formData)
   if (!response) return false
 
-  const token = response.headers.get('X-Token')
+  // TODO: dpaste.com does not support deleting files, there's not token
+  // Setting 1 here so I don't have to remove all the code, in case 0x0.st
+  // starts working in the future. I'll hide the delete option.
+  const token = '1' // response.headers.get('X-Token')
   const responseText = (await response.text()).trim()
   const maybeUrl = z.string().url().safeParse(responseText)
   if (!response.ok || !token || !maybeUrl.success) {
