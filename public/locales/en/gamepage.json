@@ -99,6 +99,7 @@
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
+    "disableLogsHint": "Looks like the game is working. You might want to disable verbose logs for better performance. Click the ^ icon and use the \"Play Now\" button without logs",
     "enabled": "Enabled",
     "game": {
         "achievements": "Achievements",
