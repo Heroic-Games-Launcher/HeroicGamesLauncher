@@ -141,11 +141,24 @@
 
   &.collapsed {
     .Sidebar__item {
-      padding: var(--space-xs) 0;
+      padding: 10px 0;
+      justify-content: center;
 
-      & > span {
+      & > span:not(.Sidebar__itemIcon):not(.Sidebar__itemBadge) {
         display: none;
       }
+
+      .Sidebar__itemBadge {
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        font-size: 10px;
+      }
+
+      position: relative;
 
       &.SidebarLinks__subItem {
         padding: var(--space-xs) var(--sidebar-horizontal-padding);
@@ -154,14 +167,15 @@
         }
       }
 
-      &.active svg,
-      & svg {
-        transform: scale(1.2);
-        padding: var(--space-2xs) 0;
-      }
-
       .Sidebar__itemIcon {
         margin: 0 auto;
+        width: 22px;
+        height: 22px;
+
+        svg {
+          width: 22px;
+          height: 22px;
+        }
       }
     }
   }

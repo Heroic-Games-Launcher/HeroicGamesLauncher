@@ -70,7 +70,12 @@
   &.collapsed {
     .Sidebar__brand {
       justify-content: center;
-      padding: var(--space-md) 0 var(--space-sm);
+      padding: var(--space-sm) 0;
+    }
+
+    .heroicIcon {
+      width: 32px;
+      height: 32px;
     }
 
     .Sidebar__brandText {
