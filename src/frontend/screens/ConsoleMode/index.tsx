@@ -393,6 +393,14 @@ export default function ConsoleMode() {
         </div>
       </div>
 
+      <div className="consoleTitleBar">
+        {visibleGames[focusedIndex] && (
+          <h1 className="consoleFocusTitle">
+            {visibleGames[focusedIndex].title}
+          </h1>
+        )}
+      </div>
+
       <div className="consoleStage">
         {visibleGames.length === 0 ? (
           <div className="consoleEmpty">
@@ -448,11 +456,6 @@ export default function ConsoleMode() {
       </div>
 
       <div className="consoleFooter">
-        {visibleGames[focusedIndex] && (
-          <h1 className="consoleFocusTitle">
-            {visibleGames[focusedIndex].title}
-          </h1>
-        )}
         {gamepadConnected && !launchingGame && (
           <ConsoleControllerHints layout={controllerLayout} />
         )}

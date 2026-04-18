@@ -5,7 +5,7 @@
   position: fixed;
   inset: 0;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   background:
     radial-gradient(
       ellipse at top,
@@ -20,6 +20,7 @@
 
   // dim everything while a game is launching — the overlay stays fully opaque
   > .consoleTopBar,
+  > .consoleTitleBar,
   > .consoleStage,
   > .consoleFooter {
     transition:
@@ -29,6 +30,7 @@
 
   &.launching {
     > .consoleTopBar,
+    > .consoleTitleBar,
     > .consoleStage,
     > .consoleFooter {
       opacity: 0.2;
@@ -137,6 +139,15 @@
     cursor: default;
     opacity: 0.5;
   }
+}
+
+.consoleTitleBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 32px 4px;
+  min-height: 48px;
+  text-align: center;
 }
 
 .consoleStage {
