@@ -10,10 +10,8 @@ import {
   Wine,
   Download
 } from 'lucide-react'
-import {
-  DiscordOutline,
-  PatreonOutline
-} from 'frontend/components/UI/BrandIcons'
+import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -275,14 +273,14 @@ export default function SidebarLinks() {
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(openDiscordLink)}
-          icon={<DiscordOutline {...ICON} aria-hidden />}
+          icon={<FontAwesomeIcon icon={faDiscord} />}
           label={t('userselector.discord', 'Discord')}
         />
 
         <SidebarItem
           elementType="button"
           onClick={() => handleExternalLink(window.api.openPatreonPage)}
-          icon={<PatreonOutline {...ICON} aria-hidden />}
+          icon={<FontAwesomeIcon icon={faPatreon} />}
           label="Patreon"
         />
 
