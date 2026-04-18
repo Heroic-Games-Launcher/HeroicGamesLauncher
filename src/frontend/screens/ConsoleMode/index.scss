@@ -20,14 +20,13 @@
   animation: consoleEnter 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
   font-family: var(--primary-font-family);
 
-  // dim everything while a game is launching — the overlay stays fully opaque
+  // dim everything while a game is launching — the overlay's own backdrop
+  // blur handles the rest, so plain opacity is enough here
   > .consoleTopBar,
   > .consoleTitleBar,
   > .consoleStage,
   > .consoleFooter {
-    transition:
-      opacity 220ms ease,
-      filter 220ms ease;
+    transition: opacity 220ms ease;
   }
 
   &.launching {
@@ -36,7 +35,6 @@
     > .consoleStage,
     > .consoleFooter {
       opacity: 0.2;
-      filter: blur(3px) saturate(0.6);
       pointer-events: none;
     }
   }
