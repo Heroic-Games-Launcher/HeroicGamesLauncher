@@ -75,6 +75,25 @@ export default function ConsoleMode() {
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
+  const topBarRef = useRef<HTMLDivElement | null>(null)
+
+  const topBarButtons = () => {
+    const root = topBarRef.current
+    if (!root) return []
+    return Array.from(
+      root.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')
+    )
+  }
+
+  const focusTopBar = () => {
+    const btns = topBarButtons()
+    if (btns.length > 0) btns[0].focus()
+  }
+
+  const focusCurrentCard = () => {
+    const btn = cardRefs.current[focusedIndex]
+    if (btn) btn.focus()
+  }
 
   useEffect(() => {
     window.api.setFullscreen(true)
@@ -239,6 +258,27 @@ export default function ConsoleMode() {
     [launchingGame, updateNoticeGame, gameUpdates, showDialogModal, t]
   )
 
+  const onTopBarKeyDown = (e: React.KeyboardEvent) => {
+    if (launchingGame || updateNoticeGame) return
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      e.stopPropagation()
+      focusCurrentCard()
+      return
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      const btns = topBarButtons()
+      const active = document.activeElement as HTMLButtonElement | null
+      const idx = active ? btns.indexOf(active) : -1
+      if (idx === -1 || btns.length === 0) return
+      e.preventDefault()
+      e.stopPropagation()
+      const delta = e.key === 'ArrowRight' ? 1 : -1
+      const next = (idx + delta + btns.length) % btns.length
+      btns[next].focus()
+    }
+  }
+
   const onGridKeyDown = (e: React.KeyboardEvent) => {
     if (visibleGames.length === 0 || launchingGame || updateNoticeGame) return
     const last = visibleGames.length - 1
@@ -257,7 +297,11 @@ export default function ConsoleMode() {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       e.stopPropagation()
-      setFocusedIndex((i) => Math.max(i - columns, 0))
+      if (focusedIndex < columns) {
+        focusTopBar()
+      } else {
+        setFocusedIndex((i) => Math.max(i - columns, 0))
+      }
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       const g = visibleGames[focusedIndex]
@@ -377,7 +421,11 @@ export default function ConsoleMode() {
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
-      <div className="consoleTopBar">
+      <div
+        className="consoleTopBar"
+        ref={topBarRef}
+        onKeyDown={onTopBarKeyDown}
+      >
         <HeroicIcon className="consoleLogo" />
         <div className="consoleFilters">
           {storeFilters
