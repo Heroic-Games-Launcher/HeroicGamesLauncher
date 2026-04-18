@@ -3,6 +3,8 @@ import classNames from 'classnames'
 
 import { hasStatus } from 'frontend/hooks/hasStatus'
 
+import BackHint from '../BackHint'
+
 import type { GameInfo } from 'common/types'
 
 export default function LaunchOverlay({
@@ -54,15 +56,13 @@ export default function LaunchOverlay({
         {label || t('console.launching', 'Launching')}
       </div>
       <div className="consoleLaunchGameTitle">{game.title}</div>
-      <div
-        className={classNames('consoleLaunchHint', {
-          active: holdStart != null
-        })}
-      >
-        {t('console.cancel.hintPrefix', 'Hold')}{' '}
-        <kbd>{gamepadConnected ? backButtonLabel : 'Esc'}</kbd>{' '}
-        {t('console.cancel.hintSuffix', 'for 3s to cancel')}
-      </div>
+      <BackHint
+        prefix={t('console.cancel.hintPrefix', 'Hold')}
+        suffix={t('console.cancel.hintSuffix', 'for 3s to cancel')}
+        gamepadConnected={gamepadConnected}
+        backButtonLabel={backButtonLabel}
+        active={holdStart != null}
+      />
     </div>
   )
 }

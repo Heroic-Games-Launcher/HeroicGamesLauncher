@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { BTN_BACK } from '../../controller'
 import { useGamepadButtonPress } from '../../hooks'
+import BackHint from '../BackHint'
 
 import type { GameInfo } from 'common/types'
 
@@ -58,11 +59,12 @@ export default function UpdateNotice({
           'This game has an update available. Please leave Console Mode and update the game before launching.'
         )}
       </p>
-      <div className="consoleLaunchHint">
-        {t('console.update.hintPrefix', 'Press')}{' '}
-        <kbd>{gamepadConnected ? backButtonLabel : 'Esc'}</kbd>{' '}
-        {t('console.update.hintSuffix', 'to go back')}
-      </div>
+      <BackHint
+        prefix={t('console.update.hintPrefix', 'Press')}
+        suffix={t('console.update.hintSuffix', 'to go back')}
+        gamepadConnected={gamepadConnected}
+        backButtonLabel={backButtonLabel}
+      />
     </div>
   )
 }
