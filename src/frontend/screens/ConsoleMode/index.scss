@@ -83,7 +83,15 @@
   align-items: center;
 }
 
+%consoleButtonDisabled {
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
 .consoleChip {
+  @extend %consoleButtonDisabled;
   appearance: none;
   border: 1px solid
     color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
@@ -115,14 +123,10 @@
     background: color-mix(in srgb, var(--accent, #1a1a20) 30%, transparent);
     color: var(--text-title, #fff);
   }
-
-  &:disabled {
-    cursor: default;
-    opacity: 0.5;
-  }
 }
 
 .consoleQuitButton {
+  @extend %consoleButtonDisabled;
   appearance: none;
   border: 1px solid var(--cancel-button, #b94a3a);
   background: transparent;
@@ -151,11 +155,6 @@
       background: var(--danger-hover, var(--danger));
       color: var(--text-title, #fff);
     }
-  }
-
-  &:disabled {
-    cursor: default;
-    opacity: 0.5;
   }
 }
 
