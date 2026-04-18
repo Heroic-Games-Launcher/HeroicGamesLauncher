@@ -231,10 +231,6 @@
             "sideload": "Other"
         },
         "games": "Installed games",
-        "hint": {
-            "cycleStoreNext": "Next store",
-            "cycleStorePrev": "Previous store"
-        },
         "hints": {
             "change_store": "Change store",
             "launch": "Launch",
