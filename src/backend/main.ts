@@ -134,6 +134,7 @@ import {
 } from './constants/urls'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
+  isCLIConsoleMode,
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
@@ -241,7 +242,8 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   detectVCRedist(mainWindow)
 
-  const startHash = globalConf.startInConsoleMode ? '/console' : undefined
+  const startHash =
+    isCLIConsoleMode || globalConf.startInConsoleMode ? '/console' : undefined
 
   if (process.env.ELECTRON_RENDERER_URL) {
     const devUrl = startHash
