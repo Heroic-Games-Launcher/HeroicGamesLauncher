@@ -713,13 +713,6 @@
         "offlinemode": "离线运行游戏",
         "prefered_language": "首选语言 (语言代码)",
         "preferSystemLibs": "首选系统库",
-        "primerun": {
-            "confirmation": {
-                "message": "此系统中已检测到一张显卡。请注意，这个选项是针对带无头 GPU 的多 GPU 系统（如笔记本电脑）。在单 GPU 系统中，自动使用唯一的 GPU，启用这个选项会导致问题。你真的要启用此选项吗?",
-                "title": "只检测到 1 个 GPU"
-            },
-            "description": "使用独立显卡"
-        },
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"

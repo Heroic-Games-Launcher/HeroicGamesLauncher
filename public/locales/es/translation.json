@@ -713,13 +713,6 @@
         "offlinemode": "Ejecutar juego sin conexión",
         "prefered_language": "Lenguaje preferido (Código de Lenguaje)",
         "preferSystemLibs": "Preferir librerías del sistema",
-        "primerun": {
-            "confirmation": {
-                "message": "Se detectó sólo una tarjeta gráfica en el sistema. Note que está opción está pensada para sistemas con múltiples GPU con tarjetas \"headless\" (como laptops para juegos). En sistemas de GPU única, la GPU usada automáticamente y activar esta opción puede generar problemas. Seguro que quiere activar esta opción?",
-                "title": "Sólo 1 GPU detectada"
-            },
-            "description": "Utilizar tarjeta de video dedicada"
-        },
         "runexe": {
             "message": "Arrastra y suelta archivos aquí",
             "title": "Ejecutar EXE en Prefijo"

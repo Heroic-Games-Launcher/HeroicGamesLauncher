@@ -649,13 +649,6 @@
         "offlinemode": "Käynnistä peli offline-tilassa",
         "prefered_language": "Mitä kieltä suositaan (kielikoodi)",
         "preferSystemLibs": "Suosi järjestelmäkirjastoja",
-        "primerun": {
-            "confirmation": {
-                "message": "Järjestelmässä havaittiin vain yksi näytönohjain. Huomaathan, että tämä toiminto on tarkoitettu moninäytönohjaimelliseen tilanteeseen jossa on lennossa vaihdettava näytönohjainten asetelma (kuten usein läppäreissä). Yhden näytönohjaimen järjestelmissä varsinainen näytönohjain otetaan käyttöön automaattisesti ja tämän ominaisuuden päälle kytkeminen saattaa aiheuttaa ongelmia. Haluatko varmasti kytkeä sen päälle?",
-                "title": "Vain 1 näytönohjain havaittu"
-            },
-            "description": "Käytä omistautunutta näytönohjainta"
-        },
         "runexe": {
             "message": "Raahaa ja pudota tiedostoja tänne",
             "title": "Aja EXE etusasteessa"

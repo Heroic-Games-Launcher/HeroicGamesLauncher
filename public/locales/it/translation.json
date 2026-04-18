@@ -707,13 +707,6 @@
         "offlinemode": "Avvia il gioco in modalità offline",
         "prefered_language": "Lingua Preferita (Codice Lingua)",
         "preferSystemLibs": "Preferisci librerie di sistema",
-        "primerun": {
-            "confirmation": {
-                "message": "È stata rilevata una sola scheda video in questo apparecchio. Nota che questa opzione è solo per apparecchi multi-GPU con headless GPU (come i portatili). Su apparecchi con una sola GPU la GPU è utilizzata automaticamente e abilitare questa opzione può causare problemi. Vuoi veramente abilitare questa opzione?",
-                "title": "È stata rilevata 1 GPU"
-            },
-            "description": "Utilizza la scheda grafica dedicata"
-        },
         "runexe": {
             "message": "Trascina e rilascia i files qui",
             "title": "Avvia l'EXE nel prefix"

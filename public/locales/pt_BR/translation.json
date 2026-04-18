@@ -712,13 +712,6 @@
         "offlinemode": "Iniciar o jogo offline",
         "prefered_language": "Idioma preferido (código do idioma)",
         "preferSystemLibs": "Preferir as bibliotecas do sistema",
-        "primerun": {
-            "confirmation": {
-                "message": "Somente uma placa de vídeo foi detectada nesse sistema. Note que essa opção é orientada para sistemas multi-GPU com GPUs headless (como laptops). Em sistemas com uma única GPU, a GPU é automaticamente usada & habilitar essa opção pode causar problemas. Realmente quer habilitar essa opção?",
-                "title": "Somente 1 GPU detectada"
-            },
-            "description": "Usar placa gráfica dedicada"
-        },
         "runexe": {
             "message": "Arraste e solte arquivos aqui",
             "title": "Executar EXE no prefixo"

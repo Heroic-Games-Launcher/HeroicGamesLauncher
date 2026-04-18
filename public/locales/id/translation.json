@@ -704,13 +704,6 @@
         "offlinemode": "Jalankan Game Secara Luring",
         "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "preferSystemLibs": "Lebih memilih pustaka sistem",
-        "primerun": {
-            "confirmation": {
-                "message": "Hanya satu kartu grafis yang terdeteksi di sistem ini. Harap perhatikan bahwa opsi ini ditujukan untuk sistem multi-GPU dengan GPU tanpa kepala (seperti laptop). Pada sistem GPU tunggal, GPU digunakan secara otomatis & mengaktifkan opsi ini dapat menyebabkan masalah. Apakah Anda benar-benar ingin mengaktifkan opsi ini?",
-                "title": "Hanya 1 GPU yang terdeteksi"
-            },
-            "description": "Gunakan Kartu Grafis untuk Rendering"
-        },
         "runexe": {
             "message": "Seret dan Jatuhkan Berkas di sini",
             "title": "Jalankan EXE di Prefiks"

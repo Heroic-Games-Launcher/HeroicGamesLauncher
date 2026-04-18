@@ -710,13 +710,6 @@
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
         "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitaplıklarını tercih et",
-        "primerun": {
-            "confirmation": {
-                "message": "Bu sistemde yalnızca bir grafik kartı algılandı. Lütfen bu seçeneğin başsız GPU'lara (dizüstü bilgisayarlar gibi) sahip çoklu GPU sistemleri için tasarlandığını unutmayın. Tek GPU'lu sistemlerde GPU otomatik olarak kullanılır ve bu seçeneğin etkinleştirilmesi sorunlara neden olabilir. Bu seçeneği gerçekten etkinleştirmek istiyor musunuz?",
-                "title": "Yalnızca 1 GPU algılandı"
-            },
-            "description": "Harici Grafik Kartı Kullan"
-        },
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Prefix'te EXE Çalıştır"
