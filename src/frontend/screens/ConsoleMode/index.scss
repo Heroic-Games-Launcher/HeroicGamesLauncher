@@ -140,6 +140,17 @@
     outline: none;
   }
 
+  &.danger {
+    border-color: var(--danger);
+    color: var(--danger);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--danger-hover, var(--danger));
+      color: var(--text-title, #fff);
+    }
+  }
+
   &:disabled {
     cursor: default;
     opacity: 0.5;

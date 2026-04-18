@@ -411,6 +411,13 @@ export default function ConsoleMode() {
           >
             {t('console.quit', 'Quit Console')}
           </button>
+          <button
+            className="consoleQuitButton danger"
+            onClick={() => window.api.quit()}
+            disabled={!!launchingGame}
+          >
+            {t('console.quitApp', 'Quit App')}
+          </button>
         </div>
       </div>
 
