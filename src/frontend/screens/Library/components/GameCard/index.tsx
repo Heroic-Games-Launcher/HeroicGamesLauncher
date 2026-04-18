@@ -9,7 +9,7 @@ import DownIcon from 'frontend/assets/down-icon.svg?react'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
-import SettingsIcon from 'frontend/assets/settings_icon_alt.svg?react'
+import { Settings as GearIcon } from 'lucide-react'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
 import StopIconAlt from 'frontend/assets/stop-icon-alt.svg?react'
 import {
@@ -486,6 +486,8 @@ const GameCard = ({
                 {label}
               </span>
             )}
+          </Link>
+          <div className="gameCardCaption">
             <span
               className={classNames('gameTitle', {
                 active: haveStatus,
@@ -502,7 +504,7 @@ const GameCard = ({
             >
               {getStoreName(runner, t2('Other'))}
             </span>
-          </Link>
+          </div>
           <>
             <span className="icons">
               {showUpdateButton && (
@@ -521,7 +523,7 @@ const GameCard = ({
                     className="settingsIcon"
                     onClick={() => openGameSettingsModal(gameInfo)}
                   >
-                    <SettingsIcon />
+                    <GearIcon size={18} strokeWidth={1.75} aria-hidden />
                   </SvgButton>
                 </>
               )}
