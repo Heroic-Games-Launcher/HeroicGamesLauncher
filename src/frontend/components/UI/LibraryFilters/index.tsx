@@ -255,7 +255,7 @@ export default function LibraryFilters() {
             ) : (
               <EyeOff size={14} strokeWidth={1.75} aria-hidden />
             )}
-            <span>{t('header.show_hidden', 'Show hidden')}</span>
+            <span>{t('header.hidden', 'Hidden')}</span>
           </button>
           <button
             type="button"
@@ -263,9 +263,7 @@ export default function LibraryFilters() {
             onClick={() => setShowNonAvailable(!showNonAvailable)}
           >
             <Eye size={14} strokeWidth={1.75} aria-hidden />
-            <span>
-              {t('header.show_available_games', 'Show non-available')}
-            </span>
+            <span>{t('header.non_available', 'Non-available')}</span>
           </button>
         </div>
       </div>

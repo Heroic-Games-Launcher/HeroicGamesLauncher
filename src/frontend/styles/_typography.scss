@@ -31,17 +31,17 @@ xl	23.04	1.44
   /* pixel-perfect type scale (Outfit reads smaller than avg, so we
      size up explicitly rather than rely on a ratio). Each step is a
      fixed px value; use these everywhere instead of hardcoded pixels. */
-  --text-2xs: 11px;
-  --text-xs: 12px;
-  --text-sm: 14px;
-  --text-md: 15px;
-  --text-lg: 18px;
-  --text-xl: 22px;
-  --text-2xl: 26px;
-  --text-3xl: 32px;
-  --text-4xl: 40px;
-  --text-5xl: 52px;
-  --text-6xl: 64px;
+  --text-2xs: 10px;
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-md: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 46px;
+  --text-6xl: 58px;
 
   /* legacy fallback — kept for rare places that still do rem math */
   --text-scale-ratio: 1.2;

@@ -11,7 +11,7 @@
         "titles_always_visible": "Always show titles in library",
         "zoom": "Zoom"
     },
-    "Account": "Account",
+    "Accounts": "Accounts",
     "add_game": "Add Game",
     "adtraction-locked": {
         "description": "It seems the track.adtraction.com domain was unable to load or is blocked. With adtraction, any purchase you make in the GOG store supports Heroic financially. Consider removing the block if you wish to contribute.",
@@ -302,14 +302,14 @@
         "categories": "Categories",
         "display": "Display",
         "filters": "Filters",
+        "hidden": "Hidden",
         "no_categories": "No custom categories. Add categories using each game menu.",
+        "non_available": "Non-available",
         "only": "only",
         "platforms": "Platforms",
         "reset": "Reset",
         "select_all": "Select All",
-        "show_available_games": "Show non-Available games",
         "show_favourites_only": "Show Favourites only",
-        "show_hidden": "Show Hidden",
         "show_installed_only": "Show Installed only",
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
@@ -435,6 +435,7 @@
     "launch": {
         "options": "Launch Options..."
     },
+    "Launcher": "Launcher",
     "library": {
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
@@ -994,7 +995,7 @@
         "logging_out": "Logging out",
         "logout": "Log out",
         "logout_confirmation": "Are you sure you want to log out?",
-        "manageaccounts": "Manage Accounts",
+        "manage": "Manage",
         "quit": "Quit",
         "quitMessage": "Are you sure you want to quit?"
     },

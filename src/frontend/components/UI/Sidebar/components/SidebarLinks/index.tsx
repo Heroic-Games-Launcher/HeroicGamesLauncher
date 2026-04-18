@@ -181,16 +181,18 @@ export default function SidebarLinks() {
         />
       )}
 
-      <div className="Sidebar__sectionLabel">{t('Account', 'Account')}</div>
+      <div className="Sidebar__sectionLabel">{t('Accounts', 'Accounts')}</div>
 
       {loggedIn && (
         <SidebarItem
           url="/login"
           icon={<UserCircle {...ICON} aria-hidden />}
-          label={t('userselector.manageaccounts', 'Manage Accounts')}
+          label={t('userselector.manage', 'Manage')}
           dataTour="sidebar-manage-accounts"
         />
       )}
+
+      <div className="Sidebar__sectionLabel">{t('Launcher', 'Launcher')}</div>
 
       <SidebarItem
         url="/accessibility"
@@ -254,6 +256,9 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
+
+      <QuitButton dataTour="sidebar-quit" />
+
       <div className="Sidebar__sectionLabel">{t('Community', 'Community')}</div>
 
       <SidebarItem
@@ -285,8 +290,6 @@ export default function SidebarLinks() {
           label="Ko-fi"
         />
       </div>
-
-      <QuitButton dataTour="sidebar-quit" />
     </div>
   )
 }
