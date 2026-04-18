@@ -235,6 +235,13 @@
             "cycleStoreNext": "Next store",
             "cycleStorePrev": "Previous store"
         },
+        "hints": {
+            "change_store": "Change store",
+            "launch": "Launch",
+            "navigate": "Navigate",
+            "quit": "Quit",
+            "sort": "Sort"
+        },
         "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit Console",

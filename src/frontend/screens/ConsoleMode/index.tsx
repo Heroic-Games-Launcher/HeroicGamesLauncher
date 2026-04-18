@@ -46,14 +46,11 @@ function detectControllerLayout(id: string): ControllerLayout {
   return 'steam-deck'
 }
 
-const BUTTON_LABELS: Record<
-  ControllerLayout,
-  { shoulderL: string; shoulderR: string; triggerR: string; back: string }
-> = {
-  ps: { shoulderL: 'L1', shoulderR: 'R1', triggerR: 'R2', back: '◯' },
-  xbox: { shoulderL: 'LB', shoulderR: 'RB', triggerR: 'RT', back: 'B' },
-  nintendo: { shoulderL: 'L', shoulderR: 'R', triggerR: 'ZR', back: 'B' },
-  'steam-deck': { shoulderL: 'L1', shoulderR: 'R1', triggerR: 'R2', back: 'B' }
+const BACK_BUTTON_LABELS: Record<ControllerLayout, string> = {
+  ps: '◯',
+  xbox: 'B',
+  nintendo: 'B',
+  'steam-deck': 'B'
 }
 
 export default function ConsoleMode() {
@@ -80,7 +77,7 @@ export default function ConsoleMode() {
     useState<ControllerLayout>('steam-deck')
   const [cancelHoldStart, setCancelHoldStart] = useState<number | null>(null)
 
-  const buttons = BUTTON_LABELS[controllerLayout]
+  const backButtonLabel = BACK_BUTTON_LABELS[controllerLayout]
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
@@ -362,15 +359,6 @@ export default function ConsoleMode() {
       <div className="consoleTopBar">
         <HeroicIcon className="consoleLogo" />
         <div className="consoleFilters">
-          {gamepadConnected && (
-            <span
-              className="consoleHint consoleHintLeft"
-              aria-hidden="true"
-              title={t('console.hint.cycleStorePrev', 'Previous store')}
-            >
-              <kbd>{buttons.shoulderL}</kbd>
-            </span>
-          )}
           {storeFilters
             .filter((f) => f.enabled)
             .map((f) => (
@@ -385,29 +373,15 @@ export default function ConsoleMode() {
                 {f.label}
               </button>
             ))}
-          {gamepadConnected && (
-            <span
-              className="consoleHint consoleHintRight"
-              aria-hidden="true"
-              title={t('console.hint.cycleStoreNext', 'Next store')}
-            >
-              <kbd>{buttons.shoulderR}</kbd>
-            </span>
-          )}
         </div>
         <div className="consoleTopRight">
           <button
-            className="consoleChip consoleSortChip"
+            className="consoleChip"
             onClick={() => setAscending((v) => !v)}
             aria-label={t('console.sort', 'Sort')}
             disabled={!!launchingGame}
           >
             {ascending ? 'A → Z' : 'Z → A'}
-            {gamepadConnected && (
-              <span className="consoleChipHint" aria-hidden="true">
-                <kbd>{buttons.triggerR}</kbd>
-              </span>
-            )}
           </button>
           <button
             className="consoleQuitButton"
@@ -479,6 +453,9 @@ export default function ConsoleMode() {
             {visibleGames[focusedIndex].title}
           </h1>
         )}
+        {gamepadConnected && !launchingGame && (
+          <ConsoleControllerHints layout={controllerLayout} />
+        )}
       </div>
 
       {launchingGame && (
@@ -486,9 +463,39 @@ export default function ConsoleMode() {
           game={launchingGame}
           holdStart={cancelHoldStart}
           gamepadConnected={gamepadConnected}
-          backButtonLabel={buttons.back}
+          backButtonLabel={backButtonLabel}
         />
       )}
+    </div>
+  )
+}
+
+function ConsoleControllerHints({ layout }: { layout: ControllerLayout }) {
+  const { t } = useTranslation()
+  return (
+    <div className={`consoleControllerHints ${layout}`}>
+      <div className="hint">
+        <i className="buttonImage main-action" />
+        {t('console.hints.launch', 'Launch')}
+      </div>
+      <div className="hint">
+        <i className="buttonImage back" />
+        {t('console.hints.quit', 'Quit')}
+      </div>
+      <div className="hint">
+        <i className="buttonImage shoulder-l" />
+        <i className="buttonImage shoulder-r" />
+        {t('console.hints.change_store', 'Change store')}
+      </div>
+      <div className="hint">
+        <i className="buttonImage trigger-r" />
+        {t('console.hints.sort', 'Sort')}
+      </div>
+      <div className="hint">
+        <i className="buttonImage d-pad" />
+        <i className="buttonImage left-stick" />
+        {t('console.hints.navigate', 'Navigate')}
+      </div>
     </div>
   )
 }

@@ -73,47 +73,6 @@
   flex-wrap: wrap;
 }
 
-.consoleHint {
-  display: inline-flex;
-  align-items: center;
-  color: var(--text-secondary, #b1b1b1);
-  opacity: 0.75;
-
-  kbd {
-    font-family: var(--primary-font-family);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    padding: 3px 7px;
-    border-radius: 6px;
-    border: 1px solid
-      color-mix(in srgb, var(--text-default, #eae8e5) 25%, transparent);
-    background: color-mix(in srgb, var(--background, #1a1a20) 70%, transparent);
-  }
-}
-
-.consoleSortChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.consoleChipHint {
-  display: inline-flex;
-  opacity: 0.75;
-
-  kbd {
-    font-family: var(--primary-font-family);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    padding: 2px 6px;
-    border-radius: 5px;
-    border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
-    background: color-mix(in srgb, currentColor 10%, transparent);
-  }
-}
-
 .consoleTopRight {
   display: flex;
   gap: 8px;
@@ -272,9 +231,136 @@
 }
 
 .consoleFooter {
-  padding: 12px 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 32px 16px;
   min-height: 60px;
   text-align: center;
+}
+
+.consoleControllerHints {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 22px;
+  padding-top: 4px;
+  color: var(--text-secondary, #b1b1b1);
+  font-size: 0.85rem;
+  opacity: 0.85;
+
+  .hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .buttonImage {
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    background-image: var(--imageUrl);
+    background-size: 100% 100%;
+    flex-shrink: 0;
+  }
+
+  &.xbox {
+    .buttonImage.main-action {
+      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_A.png);
+    }
+    .buttonImage.back {
+      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_B.png);
+    }
+    .buttonImage.shoulder-l {
+      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_LB.png);
+    }
+    .buttonImage.shoulder-r {
+      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_RB.png);
+    }
+    .buttonImage.trigger-r {
+      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_RT.png);
+    }
+    .buttonImage.d-pad {
+      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_Dpad.png);
+    }
+    .buttonImage.left-stick {
+      --imageUrl: url(/src/frontend/assets/controllers/xbox-series/XboxSeriesX_Left_Stick.png);
+    }
+  }
+
+  &.ps {
+    .buttonImage.main-action {
+      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Cross.png);
+    }
+    .buttonImage.back {
+      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Circle.png);
+    }
+    .buttonImage.shoulder-l {
+      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_L1.png);
+    }
+    .buttonImage.shoulder-r {
+      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_R1.png);
+    }
+    .buttonImage.trigger-r {
+      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_R2.png);
+    }
+    .buttonImage.d-pad {
+      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Dpad.png);
+    }
+    .buttonImage.left-stick {
+      --imageUrl: url(/src/frontend/assets/controllers/ps/PS5_Left_Stick.png);
+    }
+  }
+
+  &.steam-deck {
+    .buttonImage.main-action {
+      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_A.png);
+    }
+    .buttonImage.back {
+      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_B.png);
+    }
+    .buttonImage.shoulder-l {
+      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_L1.png);
+    }
+    .buttonImage.shoulder-r {
+      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_R1.png);
+    }
+    .buttonImage.trigger-r {
+      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_R2.png);
+    }
+    .buttonImage.d-pad {
+      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_Dpad.png);
+    }
+    .buttonImage.left-stick {
+      --imageUrl: url(/src/frontend/assets/controllers/steam-deck/SteamDeck_Left_Stick.png);
+    }
+  }
+
+  &.nintendo {
+    .buttonImage.main-action {
+      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_A.png);
+    }
+    .buttonImage.back {
+      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_B.png);
+    }
+    .buttonImage.shoulder-l {
+      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_LB.png);
+    }
+    .buttonImage.shoulder-r {
+      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_RB.png);
+    }
+    .buttonImage.trigger-r {
+      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_RT.png);
+    }
+    .buttonImage.d-pad {
+      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_Dpad.png);
+    }
+    .buttonImage.left-stick {
+      --imageUrl: url(/src/frontend/assets/controllers/switch/Switch_Left_Stick.png);
+    }
+  }
 }
 
 .consoleFocusTitle {
