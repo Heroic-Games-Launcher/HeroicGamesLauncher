@@ -5,8 +5,6 @@ export const BTN_BACK = 1
 export const BTN_L1 = 4
 export const BTN_R1 = 5
 export const BTN_R2 = 7
-export const BTN_L3 = 10
-export const BTN_R3 = 11
 
 export function detectControllerLayout(id: string): ControllerLayout {
   if (/sony|054c|PS3|PLAYSTATION|0268|2563.*0523/i.test(id)) return 'ps'

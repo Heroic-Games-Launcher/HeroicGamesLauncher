@@ -25,10 +25,8 @@ import UpdateNotice from './components/UpdateNotice'
 import {
   BTN_BACK,
   BTN_L1,
-  BTN_L3,
   BTN_R1,
   BTN_R2,
-  BTN_R3,
   getBackButtonLabel
 } from './controller'
 import {
@@ -320,8 +318,6 @@ export default function ConsoleMode() {
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
-  useGamepadButtonPress(BTN_L3, () => cycleStore(-1), idle)
-  useGamepadButtonPress(BTN_R3, () => cycleStore(1), idle)
   useGamepadButtonPress(BTN_R2, toggleSort, idle)
   useGamepadButtonHold(
     BTN_BACK,
