@@ -9,9 +9,5 @@ export function detectControllerLayout(id: string): ControllerLayout {
   return 'xbox'
 }
 
-export const BACK_BUTTON_LABELS: Record<ControllerLayout, string> = {
-  ps: '◯',
-  xbox: 'B',
-  nintendo: 'B',
-  'steam-deck': 'B'
-}
+export const getBackButtonLabel = (layout: ControllerLayout) =>
+  layout === 'ps' ? '◯' : 'B'
