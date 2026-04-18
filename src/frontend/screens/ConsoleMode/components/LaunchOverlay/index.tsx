@@ -19,29 +19,28 @@ export default function LaunchOverlay({
   backButtonLabel: string
 }) {
   const { t } = useTranslation()
-  const { t: tGame } = useTranslation('gamepage')
   const { status, statusContext } = hasStatus(game)
 
   let label: string | null = null
   switch (status) {
     case 'syncing-saves':
-      label = tGame('status.syncingSaves', 'Syncing Saves')
+      label = t('gamepage:status.syncingSaves', 'Syncing Saves')
       break
     case 'redist':
-      label = tGame(
-        'status.redist',
+      label = t(
+        'gamepage:status.redist',
         'Installing Redistributables ({{redist}})',
         { redist: statusContext || '' }
       )
       break
     case 'winetricks':
-      label = tGame('status.winetricks', 'Applying Winetricks fixes')
+      label = t('gamepage:status.winetricks', 'Applying Winetricks fixes')
       break
     case 'launching':
-      label = tGame('status.launching', 'Launching')
+      label = t('gamepage:status.launching', 'Launching')
       break
     case 'playing':
-      label = tGame('status.playing', 'Playing')
+      label = t('gamepage:status.playing', 'Playing')
       break
   }
 
