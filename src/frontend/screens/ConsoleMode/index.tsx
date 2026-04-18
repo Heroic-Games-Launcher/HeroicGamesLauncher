@@ -15,11 +15,18 @@ import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { launch, sendKill } from 'frontend/helpers'
-import { hasStatus } from 'frontend/hooks/hasStatus'
 import { getImageFormatting } from '../Library/components/GameCard/constants'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
+
+import ControllerHints from './components/ControllerHints'
+import LaunchOverlay from './components/LaunchOverlay'
+import {
+  BACK_BUTTON_LABELS,
+  detectControllerLayout,
+  type ControllerLayout
+} from './controller'
 
 import type { GameInfo, Runner } from 'common/types'
 
@@ -33,24 +40,6 @@ const runnerToStore: Record<string, StoreKey> = {
   nile: 'nile',
   sideload: 'sideload',
   zoom: 'zoom'
-}
-
-type ControllerLayout = 'ps' | 'xbox' | 'nintendo' | 'steam-deck'
-
-function detectControllerLayout(id: string): ControllerLayout {
-  if (/sony|054c|PS3|PLAYSTATION|0268|2563.*0523/i.test(id)) return 'ps'
-  if (/28de.*11ff/.test(id)) return 'steam-deck'
-  if (/microsoft|xbox/i.test(id)) return 'xbox'
-  if (/nintendo|057e|switch|joy.?con|pro.?controller/i.test(id))
-    return 'nintendo'
-  return 'xbox'
-}
-
-const BACK_BUTTON_LABELS: Record<ControllerLayout, string> = {
-  ps: '◯',
-  xbox: 'B',
-  nintendo: 'B',
-  'steam-deck': 'B'
 }
 
 export default function ConsoleMode() {
@@ -457,7 +446,7 @@ export default function ConsoleMode() {
 
       <div className="consoleFooter">
         {gamepadConnected && !launchingGame && (
-          <ConsoleControllerHints layout={controllerLayout} />
+          <ControllerHints layout={controllerLayout} />
         )}
       </div>
 
@@ -469,98 +458,6 @@ export default function ConsoleMode() {
           backButtonLabel={backButtonLabel}
         />
       )}
-    </div>
-  )
-}
-
-function ConsoleControllerHints({ layout }: { layout: ControllerLayout }) {
-  const { t } = useTranslation()
-  return (
-    <div className={`consoleControllerHints ${layout}`}>
-      <div className="hint">
-        <i className="buttonImage main-action" />
-        {t('console.hints.launch', 'Launch')}
-      </div>
-      <div className="hint">
-        <i className="buttonImage back" />
-        {t('console.hints.quit', 'Quit')}
-      </div>
-      <div className="hint">
-        <i className="buttonImage shoulder-l" />
-        <i className="buttonImage shoulder-r" />
-        {t('console.hints.change_store', 'Change store')}
-      </div>
-      <div className="hint">
-        <i className="buttonImage trigger-r" />
-        {t('console.hints.sort', 'Sort')}
-      </div>
-      <div className="hint">
-        <i className="buttonImage d-pad" />
-        <i className="buttonImage left-stick" />
-        {t('console.hints.navigate', 'Navigate')}
-      </div>
-    </div>
-  )
-}
-
-function LaunchOverlay({
-  game,
-  holdStart,
-  gamepadConnected,
-  backButtonLabel
-}: {
-  game: GameInfo
-  holdStart: number | null
-  gamepadConnected: boolean
-  backButtonLabel: string
-}) {
-  const { t } = useTranslation()
-  const { t: tGame } = useTranslation('gamepage')
-  const { status, statusContext } = hasStatus(game)
-
-  let label: string | null = null
-  switch (status) {
-    case 'syncing-saves':
-      label = tGame('status.syncingSaves', 'Syncing Saves')
-      break
-    case 'redist':
-      label = tGame(
-        'status.redist',
-        'Installing Redistributables ({{redist}})',
-        { redist: statusContext || '' }
-      )
-      break
-    case 'winetricks':
-      label = tGame('status.winetricks', 'Applying Winetricks fixes')
-      break
-    case 'launching':
-      label = tGame('status.launching', 'Launching')
-      break
-    case 'playing':
-      label = tGame('status.playing', 'Playing')
-      break
-  }
-
-  return (
-    <div className="consoleLaunchOverlay" role="status" aria-live="polite">
-      <div
-        className={classNames('consoleLaunchSpinner', {
-          idle: status === 'playing'
-        })}
-      />
-      <div className="consoleLaunchText">
-        {label || t('console.launching', 'Launching')}
-      </div>
-      <div className="consoleLaunchGameTitle">{game.title}</div>
-      <div
-        className={classNames('consoleLaunchHint', {
-          active: holdStart != null
-        })}
-      >
-        {t('console.cancel.hintPrefix', 'Hold')}{' '}
-        <kbd>{gamepadConnected ? backButtonLabel : 'Esc'}</kbd>{' '}
-        {t('console.cancel.hintSuffix', 'for 3s to cancel')}
-      </div>
     </div>
   )
 }
