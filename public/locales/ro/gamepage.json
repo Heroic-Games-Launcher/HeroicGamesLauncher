@@ -47,7 +47,7 @@
             "message": "Acest joc are o actualizare, vrei să actualizezi acum?",
             "title": "Jocul necesită actualizare"
         },
-        "wineprefix": "Selectați folderul WinePrefix",
+        "wineprefix": "Selectați folderul Wine Prefix",
         "yes": "DA",
         "close": "Închide",
         "warning": {
@@ -147,7 +147,7 @@
         "game-scores": "Scoruri de joc",
         "installedInfo": "Informații instalate",
         "protondb-compatibility-info": "Nivelul de compatibilitate cu protoni",
-        "steamdeck-compatibility-info": "Compatibilitate cu SteamDeck",
+        "steamdeck-compatibility-info": "Compatibilitate cu Steam Deck",
         "third-party-app": "Manager Third-Party"
     },
     "install": {
@@ -156,7 +156,7 @@
         "path": "Selectați Calea de instalare",
         "path-not-writtable": "Atenție: este posibil ca calea să nu poată fi scrisă.",
         "space-after-install": "După instalare",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Versiune Wine",
         "anticheat-warning": {
             "ok": "Ok",

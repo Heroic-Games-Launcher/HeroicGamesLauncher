@@ -160,7 +160,7 @@
         "game-scores": "Результаты игры",
         "installedInfo": "Сведения об установке",
         "protondb-compatibility-info": "Уровень совместимости Proton",
-        "steamdeck-compatibility-info": "Совместимость со SteamDeck",
+        "steamdeck-compatibility-info": "Совместимость со Steam Deck",
         "third-party-app": "Сторонний менеджер"
     },
     "install": {
