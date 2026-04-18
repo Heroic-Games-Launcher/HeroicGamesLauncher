@@ -98,13 +98,6 @@
         "update": "Update"
     },
     "cloud_save_unsupported": "Unsupported",
-    "console": {
-        "cancel": {
-            "hintPrefix": "Hold",
-            "hintSuffix": "for 3s to cancel"
-        },
-        "launching": "Launching"
-    },
     "disabled": "Disabled",
     "enabled": "Enabled",
     "game": {

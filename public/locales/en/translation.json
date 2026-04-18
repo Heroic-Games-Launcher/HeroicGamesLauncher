@@ -221,6 +221,10 @@
         "warning": "Warning"
     },
     "console": {
+        "cancel": {
+            "hintPrefix": "Hold",
+            "hintSuffix": "for 3s to cancel"
+        },
         "card": {
             "needsUpdate": "Needs update"
         },
@@ -237,6 +241,7 @@
             "quit": "Quit",
             "sort": "Sort"
         },
+        "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit Console",
         "quitApp": "Quit App",
