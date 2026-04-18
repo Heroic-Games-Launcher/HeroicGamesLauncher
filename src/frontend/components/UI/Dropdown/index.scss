@@ -13,7 +13,8 @@
     color: var(--text-default, var(--text-secondary));
     border: 1px solid transparent;
     border-radius: 999px;
-    padding: 10px 16px;
+    padding: 0 18px;
+    height: 44px;
     font-family: var(--primary-font-family);
     font-size: var(--text-md);
     font-weight: var(--medium);

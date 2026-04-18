@@ -7,7 +7,8 @@
   background: var(--search-bar-background, var(--input-background));
   border: 1px solid var(--search-bar-border, transparent);
   border-radius: 999px;
-  padding: 10px 16px;
+  padding: 0 16px;
+  height: 44px;
   transition:
     border-color 150ms ease,
     box-shadow 150ms ease;
