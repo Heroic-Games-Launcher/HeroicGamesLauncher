@@ -7,10 +7,6 @@ const TraySettings = () => {
   const [exitToTray, setExitToTray] = useSetting('exitToTray', false)
   const [startInTray, setStartInTray] = useSetting('startInTray', false)
   const [noTrayIcon, setNoTrayIcon] = useSetting('noTrayIcon', false)
-  const [startInConsoleMode, setStartInConsoleMode] = useSetting(
-    'startInConsoleMode',
-    false
-  )
 
   return (
     <>
@@ -30,13 +26,6 @@ const TraySettings = () => {
         handleChange={() => setExitToTray(!exitToTray)}
         title={t('setting.exit-to-tray', 'Exit to System Tray')}
         disabled={noTrayIcon}
-      />
-
-      <ToggleSwitch
-        htmlId="startInConsoleMode"
-        value={startInConsoleMode}
-        handleChange={() => setStartInConsoleMode(!startInConsoleMode)}
-        title={t('setting.start-in-console-mode', 'Start in Console Mode')}
       />
 
       <ToggleSwitch

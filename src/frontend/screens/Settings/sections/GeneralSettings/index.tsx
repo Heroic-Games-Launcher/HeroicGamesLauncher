@@ -17,6 +17,7 @@ import {
   MaxWorkers,
   MinimizeOnGameLaunch,
   Shortcuts,
+  StartInConsoleMode,
   TraySettings,
   UseDarkTrayIcon,
   UseFramelessWindow,
@@ -51,6 +52,8 @@ export default function GeneralSettings() {
       <AutoUpdateGames />
 
       <HideChangelogOnStartup />
+
+      <StartInConsoleMode />
 
       <TraySettings />
 
