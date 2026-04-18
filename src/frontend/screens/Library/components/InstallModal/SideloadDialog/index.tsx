@@ -119,8 +119,8 @@ export default function SideloadDialog({
   // Suggest default Wine prefix if we're adding a new app
   useEffect(() => {
     if (editMode) return
-    window.api.requestAppSettings().then(({ defaultWinePrefix }) => {
-      const suggestedWinePrefix = `${defaultWinePrefix}/${title}`
+    window.api.requestAppSettings().then(({ defaultWinePrefixDir }) => {
+      const suggestedWinePrefix = `${defaultWinePrefixDir}/${title}`
       setWinePrefix(suggestedWinePrefix)
     })
   }, [title, editMode])
