@@ -85,7 +85,11 @@
   appearance: none;
   border: 1px solid
     color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
-  background: color-mix(in srgb, var(--background, #1a1a20) 60%, transparent);
+  background: color-mix(
+    in srgb,
+    var(---background-darker, #1a1a20) 60%,
+    transparent
+  );
   color: var(--text-default, #eae8e5);
   padding: 8px 16px;
   border-radius: 999px;
@@ -104,8 +108,9 @@
   }
 
   &.active {
-    background: var(--accent, #0080ff);
-    border-color: var(--accent, #0080ff);
+    border: 1px solid
+      color-mix(in srgb, var(--text-title, #eae8e5) 70%, transparent);
+    background: color-mix(in srgb, var(--accent, #1a1a20) 30%, transparent);
     color: var(--text-title, #fff);
   }
 
@@ -204,7 +209,7 @@
 
 .consoleCard {
   position: relative;
-  aspect-ratio: 173 / 275;
+  aspect-ratio: 3 / 4;
   border: none;
   background: transparent;
   padding: 0;
