@@ -43,7 +43,7 @@ function detectControllerLayout(id: string): ControllerLayout {
   if (/microsoft|xbox/i.test(id)) return 'xbox'
   if (/nintendo|057e|switch|joy.?con|pro.?controller/i.test(id))
     return 'nintendo'
-  return 'steam-deck'
+  return 'xbox'
 }
 
 const BACK_BUTTON_LABELS: Record<ControllerLayout, string> = {
@@ -74,7 +74,7 @@ export default function ConsoleMode() {
   const [columns, setColumns] = useState(6)
   const [gamepadConnected, setGamepadConnected] = useState(false)
   const [controllerLayout, setControllerLayout] =
-    useState<ControllerLayout>('steam-deck')
+    useState<ControllerLayout>('xbox')
   const [cancelHoldStart, setCancelHoldStart] = useState<number | null>(null)
 
   const backButtonLabel = BACK_BUTTON_LABELS[controllerLayout]
