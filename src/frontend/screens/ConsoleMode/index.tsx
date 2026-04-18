@@ -22,7 +22,15 @@ import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
 import UpdateNotice from './components/UpdateNotice'
-import { getBackButtonLabel } from './controller'
+import {
+  BTN_BACK,
+  BTN_L1,
+  BTN_L3,
+  BTN_R1,
+  BTN_R2,
+  BTN_R3,
+  getBackButtonLabel
+} from './controller'
 import {
   useCancelOnHold,
   useColumnCount,
@@ -36,14 +44,6 @@ import type { GameInfo, Runner } from 'common/types'
 const CANCEL_HOLD_MS = 3000
 
 type StoreKey = Runner | 'all'
-
-// Standard gamepad button indices.
-const BTN_BACK = 1
-const BTN_L1 = 4
-const BTN_R1 = 5
-const BTN_R2 = 7
-const BTN_L3 = 10
-const BTN_R3 = 11
 
 export default function ConsoleMode() {
   const { t } = useTranslation()

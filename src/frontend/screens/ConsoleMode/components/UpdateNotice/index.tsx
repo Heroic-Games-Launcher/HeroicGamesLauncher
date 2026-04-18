@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { BTN_BACK } from '../../controller'
 import { useGamepadButtonPress } from '../../hooks'
 
 import type { GameInfo } from 'common/types'
-
-const DISMISS_BUTTON_INDEX = 1 // B / Circle
 
 export default function UpdateNotice({
   game,
@@ -40,7 +39,7 @@ export default function UpdateNotice({
     return () => window.removeEventListener('keydown', onKeyDown, true)
   }, [onDismiss])
 
-  useGamepadButtonPress(DISMISS_BUTTON_INDEX, onDismiss)
+  useGamepadButtonPress(BTN_BACK, onDismiss)
 
   return (
     <div
