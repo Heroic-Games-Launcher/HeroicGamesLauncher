@@ -18,14 +18,7 @@ import {
 } from 'lucide-react'
 import './index.css'
 
-const RunnerToStore: Record<Exclude<Runner, 'sideload'>, string> = {
-  legendary: 'Epic Games',
-  gog: 'GOG',
-  nile: 'Amazon Games',
-  zoom: 'ZOOM Platform'
-}
-
-type StoreKey = keyof typeof RunnerToStore | 'sideload'
+type StoreKey = 'legendary' | 'gog' | 'nile' | 'zoom' | 'sideload'
 
 export default function LibraryFilters() {
   const { t } = useTranslation()

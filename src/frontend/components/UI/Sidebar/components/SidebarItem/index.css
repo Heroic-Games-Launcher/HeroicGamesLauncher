@@ -28,10 +28,10 @@
 
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     width: calc(100% - var(--space-sm) * 2);
     margin: 2px var(--space-sm);
-    padding: 12px var(--space-md);
+    padding: 9px var(--space-sm);
     border: none;
     background: none;
     cursor: pointer;
@@ -46,8 +46,8 @@
     font-family: var(--primary-font-family);
 
     .Sidebar__itemIcon {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -55,8 +55,8 @@
       flex-shrink: 0;
 
       svg {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
       }
     }
 

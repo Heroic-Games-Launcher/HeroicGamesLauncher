@@ -26,15 +26,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    padding: var(--space-xl) var(--sidebar-horizontal-padding) var(--space-lg);
+    gap: 10px;
+    padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-md);
     text-align: center;
     -webkit-app-region: drag;
   }
 
   .heroicIcon {
-    width: 76px;
-    height: 76px;
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
   }
 
@@ -49,7 +49,7 @@
 
   .Sidebar__brandName {
     font-family: 'Zen Dots', var(--primary-font-family), sans-serif;
-    font-size: var(--text-2xl);
+    font-size: var(--text-lg);
     font-weight: 400;
     color: var(--text-default);
     letter-spacing: 0.02em;
@@ -59,12 +59,12 @@
 
   .Sidebar__brandTag {
     font-family: var(--primary-font-family);
-    font-size: var(--text-xs);
+    font-size: 10px;
     font-weight: var(--medium);
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--text-tertiary, var(--navbar-inactive));
-    margin-top: 10px;
+    margin-top: 6px;
   }
 
   &.collapsed {

@@ -36,7 +36,7 @@ const QuitButton: React.FC<QuitButtonProps> = ({ dataTour }) => {
       data-tour={dataTour}
     >
       <div className="Sidebar__itemIcon">
-        <Power size={22} strokeWidth={1.75} aria-hidden />
+        <Power size={20} strokeWidth={1.75} aria-hidden />
       </div>
       <span>{t('userselector.quit', 'Quit')}</span>
     </button>

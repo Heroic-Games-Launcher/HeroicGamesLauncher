@@ -32,16 +32,16 @@ xl	23.04	1.44
      size up explicitly rather than rely on a ratio). Each step is a
      fixed px value; use these everywhere instead of hardcoded pixels. */
   --text-2xs: 11px;
-  --text-xs: 13px;
-  --text-sm: 15px;
-  --text-md: 17px;
-  --text-lg: 21px;
-  --text-xl: 26px;
-  --text-2xl: 32px;
-  --text-3xl: 40px;
-  --text-4xl: 48px;
-  --text-5xl: 60px;
-  --text-6xl: 72px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 15px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 26px;
+  --text-3xl: 32px;
+  --text-4xl: 40px;
+  --text-5xl: 52px;
+  --text-6xl: 64px;
 
   /* legacy fallback — kept for rare places that still do rem math */
   --text-scale-ratio: 1.2;
