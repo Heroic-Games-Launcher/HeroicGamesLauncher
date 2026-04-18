@@ -241,13 +241,21 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   detectVCRedist(mainWindow)
 
+  const startHash = globalConf.startInConsoleMode ? '/console' : undefined
+
   if (process.env.ELECTRON_RENDERER_URL) {
-    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
+    const devUrl = startHash
+      ? `${process.env.ELECTRON_RENDERER_URL}#${startHash}`
+      : process.env.ELECTRON_RENDERER_URL
+    mainWindow.loadURL(devUrl)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
     Menu.setApplicationMenu(null)
-    mainWindow.loadFile(join(publicDir, 'index.html'))
+    mainWindow.loadFile(
+      join(publicDir, 'index.html'),
+      startHash ? { hash: startHash } : undefined
+    )
     if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
