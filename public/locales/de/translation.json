@@ -22,7 +22,7 @@
         "source": "Quelle",
         "status": "Status",
         "title": "Dieses Spiel enthält Anticheat-Software",
-        "multiplayer_may_not_work": "Wegen des nicht vorhandenen oder kaputten Anticheatsupports funktionieren Multiplayerfunktionen eventuell nicht."
+        "multiplayer_may_not_work": "Die Multiplayer-Funktionen funktionieren möglicherweise nicht, weil der Anti-Cheat-Schutz verweigert oder fehlerhaft ist.."
     },
     "box": {
         "cache-cleared": {
@@ -134,7 +134,7 @@
             }
         },
         "runexe": {
-            "title": "Wähle auszuführende EXE"
+            "title": "Wähle die auszuführende EXE"
         },
         "select": {
             "button": "Auswählen",
@@ -671,7 +671,8 @@
                 },
                 "error": {
                     "content": "Hochladen der Log-Datei fehlgeschlagen. Sieh dir Heroic's allgemeine Log-Datei an für mehr Infos",
-                    "title": "Hochladen fehlgeschlagen"
+                    "title": "Hochladen fehlgeschlagen",
+                    "manual_upload": "Klicken Sie auf die Schaltfläche „LOGDATEI IM ORDNER ANZEIGEN“ und laden Sie die Datei „launch.log“ manuell auf Discord oder einen anderen Online-Dateiaustauschdienst hoch."
                 },
                 "header": "Log-Datein hochgeladen",
                 "hours-ago": "Hochgeladen vor {{hoursAgo, relativetime(hours)}} Stunden",
@@ -807,7 +808,9 @@
         "wineWayland": "Aktiviere Wine-Wayland (Experimentell) (Die Wineversion muss es unterstützen)",
         "WoW64": "Aktiviere WoW64 (Experimentell)",
         "no-tray-icon": "Infobereich Logo ausblenden (benötigt neustart)",
-        "scripts": "Skripte:"
+        "scripts": "Skripte:",
+        "enable-quick-sync-menu": "Schnellspeicher-Synchronisierungsmenü auf der Spielseite aktivieren",
+        "disable_gog_presence": "Deaktiviere GOG Presence aktualisierungen"
     },
     "settings": {
         "battlEyeRuntime": {

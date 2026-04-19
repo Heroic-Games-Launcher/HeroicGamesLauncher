@@ -97,7 +97,13 @@
                 "error": "Выконвальны файл Steam не знойдзены. Магчыма ўсталяванне было скасавана карыстальнікам або адбыўся збой на баку Steam.",
                 "message": "Не ўдалося выканаць ўсталяванне Steam! Уважліва прачытайце інструкцыі і паспрабуйце яшчэ раз! {{paragraph}} {{error}}",
                 "title": "Памылка Steam"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "info": {
             "update": {
@@ -432,7 +438,8 @@
         "gog": "Уваход у GOG",
         "message": "Увайдзіце са сваёй платформы. Вы можаце ўвайсці на больш чым адну платформу адначасова.",
         "amazon": "Уваход у Amazon",
-        "old-mac": "Ваша версія macOS: {{version}}. Для ўваходу патрабуецца macOS 12 або навей."
+        "old-mac": "Ваша версія macOS: {{version}}. Для ўваходу патрабуецца macOS 12 або навей.",
+        "zoom": ""
     },
     "message": {
         "sync": "Сінхранізацыя завершана",
@@ -672,7 +679,8 @@
                 "button": "Адправіць файл журнала",
                 "error": {
                     "title": "Не ўдалося адправіць",
-                    "content": "Не ўдалося адправіць файл журнала. Падрабязнасці знаходзяцца ў агульным журнале Heroic"
+                    "content": "Не ўдалося адправіць файл журнала. Падрабязнасці знаходзяцца ў агульным журнале Heroic",
+                    "manual_upload": ""
                 },
                 "no-files": "Файлы журналаў не адпраўляліся",
                 "minutes-ago": "Адпраўлена {{minutesAgo, relativetime(minutes)}}",
@@ -685,7 +693,8 @@
                 "nile": "Журнал Amazon / Nile",
                 "game-log": "Журнал гульні {{gameTitle}}",
                 "gog": "Журнал GOG",
-                "legendary": "Журнал Epic Games / Legendary"
+                "legendary": "Журнал Epic Games / Legendary",
+                "zoom": ""
             }
         },
         "mangohud": "Уключыць Mangohud (трэба ўсталяваць Mangohud)",
@@ -740,7 +749,8 @@
             "enableHelp": "Кампанент даведкі",
             "umuSupport": "Выкарыстоўваць umu у якасці асяроддзя выканання Proton",
             "enableNewDesign": "Новы дызайн",
-            "cometSupport": "Падтрымка Comet"
+            "cometSupport": "Падтрымка Comet",
+            "zoomPlatform": ""
         },
         "disablePlaytimeSync": "Адключыць сінхранізацыю часу гульні",
         "frameless-window": {
@@ -799,7 +809,9 @@
         "hdr": "Уключыць HDR",
         "no-tray-icon": "Схаваць значок у сістэмным трэі (патрабуецца перазапуск)",
         "wineWayland": "Уключыць Wine-Wayland (эксперыментальная версія) (версія Wine павінна падтрымліваць гэтую функцыю)",
-        "WoW64": "Уключыць WoW64 (эксперыментальная версія)"
+        "WoW64": "Уключыць WoW64 (эксперыментальная версія)",
+        "scripts": "",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -836,7 +848,8 @@
             "sync": "Сінхранізацыя захаванняў з воблакам",
             "wineExt": "Wine Extensions",
             "systemInformation": "Інфармацыя аб сістэме",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Адкрыйце файл канфігурацыі",
         "reset-heroic": "Скінуць Heroic",
@@ -903,7 +916,8 @@
         "custom_css": {
             "title": "Уласны стыль CSS"
         },
-        "launchOptions": "Параметры запуску..."
+        "launchOptions": "Параметры запуску...",
+        "legacy_warning": ""
     },
     "Settings": "Налады",
     "sidebar": {
@@ -968,7 +982,8 @@
             "unzipping": "Распакоўка"
         },
         "release": "Дата выпуску",
-        "size": "Памер"
+        "size": "Памер",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "Больш не пытаць",
@@ -1106,5 +1121,7 @@
     },
     "launch": {
         "options": "Параметры запуску..."
-    }
+    },
+    "amazon-luna": "",
+    "zoom-store": ""
 }

@@ -564,7 +564,7 @@
         "custom_themes_path": "Valige asukoht, kust otsida kohandatud CSS faile",
         "dxvkfpsvalue": "Positiivne täisarvuline väärtus (nt. 30, 60, ...)",
         "egs-prefix": "Prefiks, kuhu EGS on paigaldatud",
-        "prefered_language": "2-täheline kood (st: \"en\" või \"fr\")",
+        "prefered_language": "2-täheline või 4-täheline kood (nt: \"fr\" või \"pt-BR\")",
         "alt-nile-bin": "Sisseehitatud Nile programmi kasutamine..."
     },
     "platforms": {
@@ -815,7 +815,8 @@
         },
         "WoW64": "Luba WoW64 (eksperimentaalne)",
         "scripts": "Skriptid:",
-        "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel"
+        "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel",
+        "disable_gog_presence": "Keela GOG Presence'i uuendused"
     },
     "settings": {
         "battlEyeRuntime": {

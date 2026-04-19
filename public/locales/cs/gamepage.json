@@ -131,7 +131,8 @@
         "changelogFor": "Seznam změn hry {{gameTitle}}",
         "modify": "Upravit instalaci",
         "extra_info": "Další informace",
-        "install_info": "Informace o instalaci"
+        "install_info": "Informace o instalaci",
+        "achievements": "Úspěchy"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -326,7 +327,7 @@
         "categories": "Kategorie"
     },
     "help": {
-        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání",
+        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání.",
         "content": {
             "gamePage": "Zobrazit všechny herní podrobnosti a akce. Pro více možností použijte 3-tečkovou nabídku."
         },

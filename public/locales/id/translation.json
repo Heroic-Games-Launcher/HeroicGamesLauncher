@@ -663,7 +663,8 @@
                 },
                 "error": {
                     "content": "Gagal mengunggah file log. Periksa log umum Heroic untuk detailnya.",
-                    "title": "Unggahan gagal"
+                    "title": "Unggahan gagal",
+                    "manual_upload": ""
                 },
                 "header": "File log yang diunggah",
                 "hours-ago": "Diunggah {{hoursAgo, relativetime(hours)}} yang lalu",
@@ -792,7 +793,8 @@
         },
         "wineWayland": "Aktifkan Wine-Wayland (Eksperimental) (versi Wine harus mendukungnya)",
         "WoW64": "Aktifkan WoW64 (Eksperimental)",
-        "scripts": "Skrip:"
+        "scripts": "Skrip:",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -829,7 +831,8 @@
             "sync": "Sinkronisasi Penyimpanan",
             "wineExt": "Ekstensi Wine",
             "gamescope": "Gamescope",
-            "systemInformation": "Informasi Sistem"
+            "systemInformation": "Informasi Sistem",
+            "legacy": ""
         },
         "open-config-file": "Buka Berkas Pengaturan",
         "reset-heroic": "Reset Heroic",
@@ -896,7 +899,8 @@
         "offline": {
             "warning": "Game ini tidak secara eksplisit mengizinkan mode offline, aktifkan dengan risiko Anda sendiri. Game mungkin tidak berfungsi."
         },
-        "launchOptions": "Opsi Peluncuran"
+        "launchOptions": "Opsi Peluncuran",
+        "legacy_warning": ""
     },
     "Settings": "Pengaturan",
     "sidebar": {

@@ -99,7 +99,11 @@
                 "title": "Errore Steam"
             },
             "executableNotFound": "File eseguibile non trovato",
-            "executableNotFoundMessage": "Heroic non è riuscito a trovare l'eseguibile di questo gioco. Impostalo manualmente nelle impostazioni del gioco."
+            "executableNotFoundMessage": "Heroic non è riuscito a trovare l'eseguibile di questo gioco. Impostalo manualmente nelle impostazioni del gioco.",
+            "dxmt": {
+                "message": "Errore durante il download di DXMT! Controlla la connessione!",
+                "title": "Errore di download DXMT"
+            }
         },
         "info": {
             "update": {
@@ -650,8 +654,8 @@
             "instructions": "Unisciti al nostro Discord e cerca la sezione \"#-support\". Leggi il messaggio fissato \"Read Me First | Frequently Asked Questions\" e segui le istruzioni per condividere il contenuto dei log e una chiara descrizione dei problemi che stai riscontrando.",
             "instructions_title": "Come segnalare un problema?",
             "last-log": "Ultimo accesso",
-            "no-file": "Nessun log file trovato",
-            "show-in-folder": "Mostra il log file nella cartella",
+            "no-file": "Nessun file di log trovato",
+            "show-in-folder": "Mostra il file di log nella cartella",
             "join-heroic-discord": "Unisciti al nostro Discord",
             "upload": {
                 "actions": "Action",
@@ -667,7 +671,8 @@
                 },
                 "error": {
                     "content": "Caricamento log fallito. Controlla il log generale di Heroic per dettagli",
-                    "title": "Caricamento fallito"
+                    "title": "Caricamento fallito",
+                    "manual_upload": "Fai clic sul pulsante \"MOSTRA IL FILE DI LOG NELLA CARTELLA\" e carica manualmente il file \"launch.log\" su Discord o su un servizio di condivisione file online."
                 },
                 "header": "File di log caricati",
                 "hours-ago": "Caricato {{hoursAgo, relativetime(hours)}}",
@@ -807,7 +812,9 @@
             "label": "Consenti l’uso delle versioni di Proton di Valve per eseguire i giochi"
         },
         "WoW64": "Abilita WoW64 (sperimentale)",
-        "scripts": "Script:"
+        "scripts": "Script:",
+        "enable-quick-sync-menu": "Abilita il menu rapido di sincronizzazione dei salvataggi nella pagina del gioco",
+        "disable_gog_presence": "Disattiva gli aggiornamenti di GOG Presence"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -844,7 +851,8 @@
             "sync": "Sincronizzazione salvataggi in cloud",
             "wineExt": "Estensioni di Wine",
             "systemInformation": "Informazioni di Sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Legacy"
         },
         "open-config-file": "Apri File di Configurazione",
         "reset-heroic": "Reset Heroic",
@@ -903,7 +911,7 @@
             }
         },
         "gamescope": {
-            "searchMsg": "Ricerca dell'eseguibile di Gamescope."
+            "searchMsg": "Ricerca dell'eseguibile di gamescope."
         },
         "offline": {
             "warning": "Questo gioco non consente esplicitamente la modalità offline, attivala a tuo rischio e pericolo. Il gioco potrebbe non funzionare."
@@ -911,7 +919,8 @@
         "custom_css": {
             "title": "Stile CSS personalizzato"
         },
-        "launchOptions": "Opzioni di avvio..."
+        "launchOptions": "Opzioni di avvio",
+        "legacy_warning": "Avviso: la maggior parte delle impostazioni in questa scheda sono obsolete e potrebbero non funzionare."
     },
     "Settings": "Impostazioni",
     "sidebar": {
@@ -976,7 +985,8 @@
             "unzipping": "Decompressione in corso"
         },
         "release": "Release Date",
-        "size": "Dimensione"
+        "size": "Dimensione",
+        "notes": "Note"
     },
     "externalLink": {
         "warning": "Stai per aprire un collegamento esterno.",
