@@ -191,7 +191,7 @@
                 "title": "Wine not found!"
             }
         },
-        "wineprefix": "Choose Wine Prefix Folder",
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "YES"
     },
     "button": {
