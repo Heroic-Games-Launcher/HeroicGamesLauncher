@@ -189,7 +189,7 @@
                 "message": "Heroic necesita Rosetta para poder funcionar correctamente en macOS con chips de Apple Silicon. Por favor, instáleo dende a terminal empregando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicia Heroic. "
             }
         },
-        "wineprefix": "Selecciona o cartafol de prefixo de Wine",
+        "wineprefix": "Seleccione o cartafol co Prefixo de Wine",
         "yes": "Sí",
         "dontShowAgain": "Non volver a amosar",
         "choose-nile-binary": "Seleccione o binario de Nile",
@@ -244,7 +244,7 @@
             "end-time": "Rematado en",
             "queue-time": "Engadido en",
             "start-time": "Iniciado en",
-            "type": "Tipo"
+            "type": "Type"
         },
         "title": "Downloads",
         "ETA": "Tempo estimado"
