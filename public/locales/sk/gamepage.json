@@ -21,7 +21,8 @@
             "title": "Vybrať EXE na Spustenie"
         },
         "select": {
-            "button": "Vybrať"
+            "button": "Vybrať",
+            "image": ""
         },
         "sideload": {
             "exe": "Vyberte Spustiteľný Súbor"
@@ -51,7 +52,20 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "Ok"
+        "ok": "Ok",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "Pridať do obľúbených",
@@ -78,7 +92,10 @@
         "uninstall": "Odinštalovať",
         "update": "Aktualizovať",
         "details": "Podrobnosti",
-        "changelog": "Zobraziť Changelog"
+        "changelog": "Zobraziť Changelog",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "Nepodporované",
     "disabled": "Zakázané",
@@ -170,7 +187,8 @@
         },
         "playing": {
             "start": "Hrať teraz",
-            "stop": "Hráš (Stop)"
+            "stop": "Hráš (Stop)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Synchronizácia uloženia"
@@ -186,7 +204,8 @@
         }
     },
     "launch": {
-        "options": "Možnosti spustenia..."
+        "options": "Možnosti spustenia...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Nie ste prihlásený s účtom Epic v Heroic. Na prihlásenie nepoužívajte stránku obchodu, namiesto toho kliknite na nasledujúce tlačidlo:",
@@ -203,7 +222,8 @@
     "setting": {
         "winecrossoverbottle": "Fľaša CrossOver",
         "show-wine-settings": "Zobraziť nastavenia Winu",
-        "warn-use-shared-wine-config": "Túto možnosť použite iba vtedy, ak viete, čo robíte.<br/>Zdieľanie rovnakého prefixu pre viacero hier môže spôsobiť problémy, ak sú ich závislosti nekompatibilné."
+        "warn-use-shared-wine-config": "Túto možnosť použite iba vtedy, ak viete, čo robíte.<br/>Zdieľanie rovnakého prefixu pre viacero hier môže spôsobiť problémy, ak sú ich závislosti nekompatibilné.",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -259,7 +279,8 @@
         "gog-goodie": "Zdá sa, že túto hru nie je možné nainštalovať. Skontrolujte obsah na stiahnutie na https://gog.com/account",
         "goodie": "Nedá sa nainštalovať",
         "redist": "Inštalujem Redistributables ({{redist}})",
-        "winetricks": "Aplikujem opravy Winetricks"
+        "winetricks": "Aplikujem opravy Winetricks",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "Pridať skratku",
@@ -304,7 +325,12 @@
     "queue": {
         "label": {
             "canceled": "Canceled",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "",
+            "pause": ""
         }
-    }
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }
