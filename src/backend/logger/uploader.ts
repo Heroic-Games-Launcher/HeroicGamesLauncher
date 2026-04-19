@@ -33,6 +33,7 @@ async function sendRequestToApi(
 
 const KiB = 1024
 const MiB = KiB * 1024
+const EXPIRY_DAYS = 2
 
 /**
  * Reads the first `size` bytes of a file
@@ -69,9 +70,9 @@ async function uploadLogFile(
 
   // const formData = new FormData()
   // formData.set('file', fileBlob, filename)
-  // formData.set('expires', '24')
+  // formData.set('expires', (EXPIRY_DAYS * 24).toString())
 
-  const formData = `content=${fileContents.toString()}&expiry_days=2`
+  const formData = `content=${fileContents.toString()}&expiry_days=${EXPIRY_DAYS}`
 
   const response = await sendRequestToApi(formData)
   if (!response) return false
@@ -149,8 +150,8 @@ async function getUploadedLogFiles(): Promise<Record<string, UploadedLogData>> {
   // Filter and delete expired logs
   for (const [key, value] of Object.entries(allStoredLogs)) {
     const timeDifferenceMs = Date.now() - value.uploadedAt
-    const timeDifferenceHours = timeDifferenceMs / 1000 / 60 / 60
-    if (timeDifferenceHours >= 24) {
+    const timeDifferenceDays = timeDifferenceMs / 1000 / 60 / 60 / 24
+    if (timeDifferenceDays >= EXPIRY_DAYS) {
       uploadedLogFileStore.delete(key)
     } else {
       validUploadedLogs[key] = value
