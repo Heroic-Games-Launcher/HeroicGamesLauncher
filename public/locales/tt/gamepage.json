@@ -9,7 +9,10 @@
             "message": "Бу уенны бетерергә телисезме?",
             "dlc": "Бу DLC-ны бетерергә телисезме?",
             "checkbox": "Fjern prefix: {{prefix}}{{newLine}}OBS: Dette kan ikke reverseres og vil også fjerne lagringsfiler som ikke er sikkerhetskopiert.",
-            "cannotUninstallEpic": "Epic-spill kan ikke avinstalleres samtidig som andre Epic-spill installeres."
+            "cannotUninstallEpic": "Epic-spill kan ikke avinstalleres samtidig som andre Epic-spill installeres.",
+            "settingcheckbox": "",
+            "prefix_warning": "",
+            "gameIsRunning": ""
         },
         "no": "ЮК",
         "stopInstall": {
@@ -23,7 +26,8 @@
             "exe": "Башкарыла торган файлны сайлау"
         },
         "select": {
-            "button": "Сайлау"
+            "button": "Сайлау",
+            "image": ""
         },
         "change": {
             "message": "Dette vil endre spillets installasjonssted, er du sikker?",
@@ -40,7 +44,29 @@
             "path": "Velg hvor du vil flytte",
             "message": "Dette kan ta litt tid, er du sikker?"
         },
-        "close": "Lukk"
+        "close": "Lukk",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "warning": {
+            "title": ""
+        },
+        "wineprefix": "",
+        "update": {
+            "message": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        },
+        "ok": ""
     },
     "game": {
         "dlcs": "DLC-лар",
@@ -52,15 +78,32 @@
         "requirements": "Система таләпләре",
         "platform": "Урнаштыру өчен платформа версиясен сайлагыз",
         "branch": {
-            "disabled": "Cүндерелгән"
+            "disabled": "Cүндерелгән",
+            "select": "",
+            "password": "",
+            "setPrivateBranchPassword": ""
         },
         "builds": {
-            "version": "Версия"
-        }
+            "version": "Версия",
+            "buildsSelector": "",
+            "toggle": ""
+        },
+        "getting-download-size": "",
+        "installSize": "",
+        "changelogFor": "",
+        "modify": "",
+        "getting-install-size": "",
+        "install_info": "",
+        "extra_info": "",
+        "lastPlayed": ""
     },
     "not_logged_in": {
         "login": "Керү",
-        "title": "Сез кермәгәнсез"
+        "title": "Сез кермәгәнсез",
+        "gog": "",
+        "amazon": "",
+        "zoom": "",
+        "epic": ""
     },
     "button": {
         "unhide_game": "Уенны күрсәтү",
@@ -82,10 +125,19 @@
             "remove": "Чираттан чыгару"
         },
         "remove_from_favourites": "Сайланмалардан бетерү",
-        "no-path-selected": "Сайланган юл юк"
+        "no-path-selected": "Сайланган юл юк",
+        "changelog": "",
+        "force_update": "",
+        "browse_wine_prefix": "",
+        "run-exe-first": "",
+        "remove_from_recent": "",
+        "running-setup": "",
+        "play": "",
+        "browse_files": ""
     },
     "specs": {
-        "recommended": "Киңәш ителгән"
+        "recommended": "Киңәш ителгән",
+        "minimum": ""
     },
     "status": {
         "notSupported": "Тәэмин ителми",
@@ -103,7 +155,19 @@
         "totalDownloaded": "Барлыгы йөкләнген",
         "queued": "Чиратта",
         "updating": "Уенны яңартала",
-        "launching": "Эшләтеп җибәрелә"
+        "launching": "Эшләтеп җибәрелә",
+        "redist": "",
+        "uninstalling": "Бетерү",
+        "winetricks": "",
+        "syncingSaves": "Саклау язмаларын синхронлау",
+        "processing": "",
+        "importing": "",
+        "moving": "",
+        "this-game-uses-third-party": "",
+        "reparing": "",
+        "playing": "",
+        "gog-goodie": "",
+        "goodie": ""
     },
     "info": {
         "version": "Версия",
@@ -117,7 +181,8 @@
         "canRunOffline": "Онлайн кирәк",
         "installedInfo": "Урнаштырылган мәгълүмат",
         "game-scores": "Уен баллары",
-        "installedPlatform": "Урнаштырылган платформа"
+        "installedPlatform": "Урнаштырылган платформа",
+        "third-party-app": ""
     },
     "enabled": "Кабызылган",
     "submenu": {
@@ -131,49 +196,85 @@
         "removeShortcut": "Ярлыкларны бетерү",
         "move": "Уенны күчерү",
         "change": "Урнаштыру юлын үзгәртү",
-        "verify": "Bekreft og reparer"
+        "verify": "Bekreft og reparer",
+        "enableEosOverlay": "",
+        "disableEosOverlay": "",
+        "categories": ""
     },
     "install": {
         "anticheat-warning": {
             "cancel": "Юк",
-            "install": "Әйе (Мин аның эшләмәячәген аңлыйм)"
+            "install": "Әйе (Мин аның эшләмәячәген аңлыйм)",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "ok": "",
+            "multiplayer_message": "",
+            "title": ""
         },
         "wineprefix": "Wine префиксы",
         "path": "Урнаштыру юлын сайлагыз",
         "wineversion": "Wine версиясе",
-        "space-after-install": "Урнаштырганнан соң"
+        "space-after-install": "Урнаштырганнан соң",
+        "disk-space-left": "",
+        "not-enough-disk-space": "",
+        "flatpak-path-not-writtable": "",
+        "path-not-writtable": ""
     },
     "sideload": {
         "info": {
             "title": "Уен/Кушымта Исеме",
             "image": "Кушымта үрнәге",
-            "exe": "Башкарыла торган файлны сайлау"
+            "exe": "Башкарыла торган файлны сайлау",
+            "broser": "",
+            "useragent": "",
+            "fullscreen": ""
         },
         "field": {
             "title": "Исем"
+        },
+        "placeholder": {
+            "url": "",
+            "useragent": "",
+            "image": "",
+            "title": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "generic": {
-        "error": "Билгесез хата"
+        "error": "Билгесез хата",
+        "noDescription": ""
     },
     "label": {
         "playing": {
             "start": "Хәзер уйнау",
-            "stop": "Уйнатыла (Туктату)"
+            "stop": "Уйнатыла (Туктату)",
+            "start_with_logs": ""
         },
         "ubisoft": "Ubisoft Connect урнаштырала",
         "launching": "Эшләтеп җибәрелә",
         "game": {
-            "not-installable-game": "Уен УРНАШТЫРЫП БУЛМЫЙ"
+            "not-installable-game": "Уен УРНАШТЫРЫП БУЛМЫЙ",
+            "third-party-game": ""
         },
         "steam": {
             "installing": "Урнаштырыла",
             "installation": "Урнаштыруны туктату"
+        },
+        "winetricks": "",
+        "redist": "",
+        "saves": {
+            "syncing": "Саклау язмаларын синхронлау"
         }
     },
     "disabled": "Cүндерелгән",
     "setting": {
-        "winecrossoverbottle": "CrossOver шешәсе"
+        "winecrossoverbottle": "CrossOver шешәсе",
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": ""
     },
     "dlc": {
         "installDlcs": "Барлык DLC-ларны урнаштыру"
@@ -184,6 +285,50 @@
         "completionist": "Тәмамланчы"
     },
     "modifyInstall": {
-        "dlcsCollapsible": "DLC-лар"
-    }
+        "dlcsCollapsible": "DLC-лар",
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "versionCollapsable": ""
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "queue": {
+        "label": {
+            "resume": "",
+            "pause": "",
+            "remove": "",
+            "canceled": ""
+        }
+    },
+    "cloud_save_unsupported": "",
+    "open-saves-folder": "",
+    "sdl": {
+        "title": ""
+    },
+    "launch": {
+        "default": ""
+    },
+    "help": {
+        "content": {
+            "gamePage": ""
+        },
+        "cloud_save_unsupported": "",
+        "title": {
+            "gamePage": ""
+        }
+    },
+    "gamecard": {
+        "repairing": "",
+        "moving": ""
+    },
+    "howLongToBeat": "",
+    "Open": "",
+    "report_problem": "",
+    "wikiLink": ""
 }
