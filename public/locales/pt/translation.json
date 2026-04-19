@@ -564,7 +564,7 @@
         "custom_themes_path": "Selecione o caminho para procurar ficheiros CSS personalizados",
         "dxvkfpsvalue": "Valor de um número inteiro positivo (exemplo: 30, 60, ...)",
         "egs-prefix": "O prefixo onde a Epic Games está instalada",
-        "prefered_language": "Código de 2 caracteres (exemplo: \"en\" or \"fr\")",
+        "prefered_language": "Código de 2 ou 4 caracteres (exemplo: \"pt\" ou \"pt-BR\")",
         "alt-nile-bin": "A usar binário Nile incorporado..."
     },
     "platforms": {
@@ -811,7 +811,8 @@
         "wineWayland": "Ativar o Wine-Wayland (Experimental) (a versão do Wine precisa de o suportar)",
         "WoW64": "Ativar o WoW64 (Experimental)",
         "scripts": "Scripts:",
-        "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo"
+        "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo",
+        "disable_gog_presence": "Desativar atualizações presentes do GOG"
     },
     "settings": {
         "battlEyeRuntime": {
