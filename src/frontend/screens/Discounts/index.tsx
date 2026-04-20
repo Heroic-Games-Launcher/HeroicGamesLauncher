@@ -239,8 +239,7 @@ export default function Discounts() {
     ratingRange[0] !== 0 ||
     ratingRange[1] !== RATING_SCALE_MAX ||
     searchQuery.trim() !== '' ||
-    (priceRange !== null &&
-      (priceRange[0] !== 0 || priceRange[1] !== priceMax))
+    (priceRange !== null && (priceRange[0] !== 0 || priceRange[1] !== priceMax))
 
   const handleReset = () => {
     setSortBy('trending')
@@ -261,7 +260,7 @@ export default function Discounts() {
     <div className="discountsScreen">
       <div className="discountsScreen__topbar">
         <h2 className="discountsScreen__header">
-          {t('discounts.title', 'GOG Discounts')}
+          {t('discounts.title', 'Games Discounts')}
           {!loading && products.length > 0 && (
             <span className="discountsScreen__count">
               {t('discounts.countFiltered', '{{shown}} of {{total}} games', {
@@ -322,9 +321,7 @@ export default function Discounts() {
         />
       )}
 
-      {!loading && error && (
-        <p className="discountsScreen__message">{error}</p>
-      )}
+      {!loading && error && <p className="discountsScreen__message">{error}</p>}
 
       {!loading && !error && products.length === 0 && (
         <p className="discountsScreen__message">
@@ -359,10 +356,7 @@ export default function Discounts() {
 
           {paginated.length === 0 ? (
             <p className="discountsScreen__message">
-              {t(
-                'discounts.noMatches',
-                'No games match the current filters.'
-              )}
+              {t('discounts.noMatches', 'No games match the current filters.')}
             </p>
           ) : (
             <div className="discountsScreen__grid">

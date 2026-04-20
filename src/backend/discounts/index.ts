@@ -83,10 +83,7 @@ addHandler('getGogDiscounts', async (_event, locale) => {
     )
     return await fetchAllDiscounts(FALLBACK_LOCALE)
   } catch (err) {
-    logError(
-      `Failed to fetch GOG discounts: ${String(err)}`,
-      LogPrefix.Backend
-    )
+    logError(`Failed to fetch GOG discounts: ${String(err)}`, LogPrefix.Backend)
     throw err
   }
 })

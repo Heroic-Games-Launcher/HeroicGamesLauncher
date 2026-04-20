@@ -8,7 +8,8 @@ import {
   faCoffee,
   faUserAlt,
   faWineGlass,
-  faBarsProgress
+  faBarsProgress,
+  faTags
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
@@ -40,8 +41,7 @@ export default function SidebarLinks() {
 
   const inWebviewScreen =
     location.pathname.includes('store') ||
-    location.pathname.includes('last-url') ||
-    location.pathname.includes('discounts')
+    location.pathname.includes('last-url')
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
 
@@ -123,10 +123,7 @@ export default function SidebarLinks() {
 
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
-          isActiveFallback={
-            location.pathname.includes('store') ||
-            location.pathname.includes('discounts')
-          }
+          isActiveFallback={location.pathname.includes('store')}
           url={`/store/${defaultStore}`}
           icon={faStore}
           label={t('stores', 'Stores')}
@@ -156,14 +153,15 @@ export default function SidebarLinks() {
                 label={t('zoom-store', 'Zoom Store')}
               />
             )}
-            <SidebarItem
-              className="SidebarLinks__subItem"
-              url="/discounts"
-              label={t('discounts.sidebar', 'Discounts')}
-            />
           </div>
         )}
       </div>
+      <SidebarItem
+        url="/discounts"
+        icon={faTags}
+        label={t('discounts.sidebar', 'Discounts')}
+        dataTour="sidebar-discounts"
+      />
       <div className="divider" />
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
