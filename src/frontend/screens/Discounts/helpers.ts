@@ -65,3 +65,13 @@ export const parseDiscountPercent = (discount: string): number => {
   const match = /(\d+)/.exec(discount)
   return match ? parseInt(match[1], 10) : 0
 }
+
+export const parsePriceAmount = (amount?: string): number => {
+  if (!amount) return 0
+  const parsed = parseFloat(amount)
+  return Number.isFinite(parsed) ? parsed : 0
+}
+
+export type DiscountSort = 'trending' | 'discount' | 'price-asc' | 'price-desc'
+
+export const PAGE_SIZE = 25
