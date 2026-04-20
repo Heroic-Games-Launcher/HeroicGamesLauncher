@@ -1,0 +1,52 @@
+import { useNavigate } from 'react-router-dom'
+import { CachedImage } from 'frontend/components/UI'
+import fallBackImage from 'frontend/assets/heroic_card.jpg'
+import type { CatalogProduct } from 'common/types/discounts'
+import { parseDiscountPercent, withAffiliate } from '../../helpers'
+import './index.css'
+
+interface Props {
+  product: CatalogProduct
+}
+
+const DiscountCard = ({ product }: Props) => {
+  const navigate = useNavigate()
+  const cover =
+    product.coverVertical || product.coverHorizontal || fallBackImage
+  const discountPercent = parseDiscountPercent(product.price.discount)
+
+  const handleClick = () => {
+    const target = withAffiliate(product.storeLink)
+    navigate(`/store-page?store-url=${encodeURIComponent(target)}`)
+  }
+
+  return (
+    <button
+      type="button"
+      className="discountCard"
+      onClick={handleClick}
+      title={product.title}
+    >
+      {discountPercent > 0 && (
+        <span className="discountCard__badge">-{discountPercent}%</span>
+      )}
+      <CachedImage
+        className="discountCard__image"
+        src={cover}
+        fallback={fallBackImage}
+        alt={product.title}
+      />
+      <div className="discountCard__info">
+        <span className="discountCard__title">{product.title}</span>
+        <div className="discountCard__priceRow">
+          <span className="discountCard__basePrice">{product.price.base}</span>
+          <span className="discountCard__finalPrice">
+            {product.price.final}
+          </span>
+        </div>
+      </div>
+    </button>
+  )
+}
+
+export default DiscountCard

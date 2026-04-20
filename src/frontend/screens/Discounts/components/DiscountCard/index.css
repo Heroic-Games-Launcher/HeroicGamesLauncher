@@ -1,0 +1,80 @@
+.discountCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background-color: var(--gradient-gamecard);
+  color: var(--text-secondary);
+  text-align: start;
+  border-radius: var(--space-3xs);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0px 0px 12px 4px #00000055;
+  transition: transform 0.1s ease-in;
+  animation: fade-in 0.1s ease-in;
+}
+
+.discountCard:hover,
+.discountCard:focus-visible {
+  transform: scale(1.05);
+  outline: none;
+}
+
+.discountCard__image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+.discountCard__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: var(--success, #18ad57);
+  color: var(--text-tertiary, #ffffff);
+  font-weight: var(--bold);
+  font-size: var(--text-md);
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--space-3xs);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.discountCard__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  padding: var(--space-2xs) var(--space-xs);
+}
+
+.discountCard__title {
+  font-size: var(--text-md);
+  font-weight: var(--bold);
+  color: var(--text-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.discountCard__priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  font-size: var(--text-sm);
+}
+
+.discountCard__basePrice {
+  text-decoration: line-through;
+  color: var(--text-log, var(--text-secondary));
+  opacity: 0.7;
+}
+
+.discountCard__finalPrice {
+  color: var(--success, #18ad57);
+  font-weight: var(--bold);
+  font-size: var(--text-md);
+}
