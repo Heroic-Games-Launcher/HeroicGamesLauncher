@@ -5,11 +5,11 @@ import {
   MenuItem,
   Select,
   Slider,
-  TextField
+  TextField,
+  Tooltip
 } from '@mui/material'
 import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
-  MAX_GENRE_SELECTIONS,
   OS_OPTIONS,
   RATING_SCALE_MAX,
   type DiscountSort,
@@ -119,42 +119,72 @@ const DiscountFilters = ({
         <div className="discountFilters__field">
           <label className="discountFilters__label">
             <span>{t('discounts.filters.genres', 'Genres')}</span>
-            <span className="discountFilters__labelMeta">
-              {selectedGenres.length}/{MAX_GENRE_SELECTIONS}
-            </span>
-          </label>
-          <Autocomplete
-            multiple
-            size="small"
-            options={genreOptions}
-            value={genreOptions.filter((g) => selectedGenres.includes(g.slug))}
-            onChange={(_, value) => onGenresChange(value.map((g) => g.slug))}
-            getOptionLabel={(g) => g.name}
-            isOptionEqualToValue={(a, b) => a.slug === b.slug}
-            getOptionDisabled={(option) =>
-              selectedGenres.length >= MAX_GENRE_SELECTIONS &&
-              !selectedGenres.includes(option.slug)
-            }
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => {
-                const { key, ...rest } = getTagProps({ index })
-                return (
-                  <Chip key={key} size="small" label={option.name} {...rest} />
-                )
-              })
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder={
-                  selectedGenres.length === 0
-                    ? t('discounts.filters.genresPlaceholder', 'Any genre')
-                    : ''
-                }
-              />
+            {selectedGenres.length > 0 && (
+              <span className="discountFilters__labelMeta">
+                {selectedGenres.length}
+              </span>
             )}
-            className="discountFilters__autocomplete"
-          />
+          </label>
+          <Tooltip
+            arrow
+            placement="bottom-start"
+            disableHoverListener={selectedGenres.length === 0}
+            title={
+              selectedGenres.length > 0 ? (
+                <div className="discountFilters__tooltipChips">
+                  {genreOptions
+                    .filter((g) => selectedGenres.includes(g.slug))
+                    .map((g) => (
+                      <span
+                        key={g.slug}
+                        className="discountFilters__tooltipChip"
+                      >
+                        {g.name}
+                      </span>
+                    ))}
+                </div>
+              ) : (
+                ''
+              )
+            }
+          >
+            <Autocomplete
+              multiple
+              size="small"
+              limitTags={2}
+              options={genreOptions}
+              value={genreOptions.filter((g) =>
+                selectedGenres.includes(g.slug)
+              )}
+              onChange={(_, value) => onGenresChange(value.map((g) => g.slug))}
+              getOptionLabel={(g) => g.name}
+              isOptionEqualToValue={(a, b) => a.slug === b.slug}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => {
+                  const { key, ...rest } = getTagProps({ index })
+                  return (
+                    <Chip
+                      key={key}
+                      size="small"
+                      label={option.name}
+                      {...rest}
+                    />
+                  )
+                })
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder={
+                    selectedGenres.length === 0
+                      ? t('discounts.filters.genresPlaceholder', 'Any genre')
+                      : ''
+                  }
+                />
+              )}
+              className="discountFilters__autocomplete"
+            />
+          </Tooltip>
         </div>
 
         <div className="discountFilters__field">
@@ -166,36 +196,71 @@ const DiscountFilters = ({
               </span>
             )}
           </label>
-          <Autocomplete
-            multiple
-            size="small"
-            options={featureOptions}
-            value={featureOptions.filter((f) =>
-              selectedFeatures.includes(f.slug)
-            )}
-            onChange={(_, value) => onFeaturesChange(value.map((f) => f.slug))}
-            getOptionLabel={(f) => f.name}
-            isOptionEqualToValue={(a, b) => a.slug === b.slug}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => {
-                const { key, ...rest } = getTagProps({ index })
-                return (
-                  <Chip key={key} size="small" label={option.name} {...rest} />
-                )
-              })
+          <Tooltip
+            arrow
+            placement="bottom-start"
+            disableHoverListener={selectedFeatures.length === 0}
+            title={
+              selectedFeatures.length > 0 ? (
+                <div className="discountFilters__tooltipChips">
+                  {featureOptions
+                    .filter((f) => selectedFeatures.includes(f.slug))
+                    .map((f) => (
+                      <span
+                        key={f.slug}
+                        className="discountFilters__tooltipChip"
+                      >
+                        {f.name}
+                      </span>
+                    ))}
+                </div>
+              ) : (
+                ''
+              )
             }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder={
-                  selectedFeatures.length === 0
-                    ? t('discounts.filters.featuresPlaceholder', 'Any feature')
-                    : ''
-                }
-              />
-            )}
-            className="discountFilters__autocomplete"
-          />
+          >
+            <Autocomplete
+              multiple
+              size="small"
+              limitTags={2}
+              options={featureOptions}
+              value={featureOptions.filter((f) =>
+                selectedFeatures.includes(f.slug)
+              )}
+              onChange={(_, value) =>
+                onFeaturesChange(value.map((f) => f.slug))
+              }
+              getOptionLabel={(f) => f.name}
+              isOptionEqualToValue={(a, b) => a.slug === b.slug}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => {
+                  const { key, ...rest } = getTagProps({ index })
+                  return (
+                    <Chip
+                      key={key}
+                      size="small"
+                      label={option.name}
+                      {...rest}
+                    />
+                  )
+                })
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder={
+                    selectedFeatures.length === 0
+                      ? t(
+                          'discounts.filters.featuresPlaceholder',
+                          'Any feature'
+                        )
+                      : ''
+                  }
+                />
+              )}
+              className="discountFilters__autocomplete"
+            />
+          </Tooltip>
         </div>
 
         <div className="discountFilters__field">

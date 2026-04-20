@@ -55,7 +55,11 @@
 }
 
 .discountFilters__row--inputs {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns:
+    minmax(140px, 180px)
+    minmax(0, 2fr)
+    minmax(0, 1.4fr)
+    minmax(0, 1fr);
   align-items: start;
 }
 
@@ -147,11 +151,15 @@
 }
 
 .discountFilters__autocomplete .MuiInputBase-root {
-  max-height: 84px;
-  overflow-y: auto;
+  height: 40px;
+  overflow: hidden;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding-block: var(--space-3xs);
+}
+
+.discountFilters__autocomplete .MuiAutocomplete-input {
+  min-width: 30px;
 }
 
 .discountFilters__autocomplete .MuiChip-root {
@@ -174,6 +182,23 @@
 .discountFilters__autocomplete .MuiChip-deleteIcon:hover {
   opacity: 1;
   color: var(--text-tertiary);
+}
+
+.discountFilters__tooltipChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs);
+  max-width: 280px;
+}
+
+.discountFilters__tooltipChip {
+  padding: 2px var(--space-2xs);
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--text-tertiary);
+  font-size: calc(var(--text-sm) * 0.9);
+  font-weight: var(--semibold);
+  white-space: nowrap;
 }
 
 /* Segmented control for OS */
