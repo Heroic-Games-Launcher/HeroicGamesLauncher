@@ -12,10 +12,10 @@ import DiscountCard from './components/DiscountCard'
 import DiscountFilters from './components/DiscountFilters'
 import DiscountPagination from './components/DiscountPagination'
 import {
+  DEFAULT_PAGE_SIZE,
   getLocaleSettings,
   getStoredRegionOverride,
   normalizeRating,
-  PAGE_SIZE,
   parseDiscountPercent,
   parsePriceAmount,
   RATING_SCALE_MAX,
@@ -64,6 +64,7 @@ export default function Discounts() {
   ])
   const [searchQuery, setSearchQuery] = useState('')
   const [hideDlcs, setHideDlcs] = useState(false)
+  const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE)
   const [page, setPage] = useState(1)
 
   useEffect(() => {
@@ -217,7 +218,7 @@ export default function Discounts() {
     sortBy
   ])
 
-  const totalPages = Math.max(1, Math.ceil(filteredSorted.length / PAGE_SIZE))
+  const totalPages = Math.max(1, Math.ceil(filteredSorted.length / pageSize))
 
   // Reset to page 1 when filters/sort/data change
   useEffect(() => {
@@ -231,6 +232,7 @@ export default function Discounts() {
     ratingRange,
     searchQuery,
     hideDlcs,
+    pageSize,
     products
   ])
 
@@ -238,10 +240,10 @@ export default function Discounts() {
   const paginated = useMemo(
     () =>
       filteredSorted.slice(
-        (clampedPage - 1) * PAGE_SIZE,
-        clampedPage * PAGE_SIZE
+        (clampedPage - 1) * pageSize,
+        clampedPage * pageSize
       ),
-    [filteredSorted, clampedPage]
+    [filteredSorted, clampedPage, pageSize]
   )
 
   const hasActiveFilters =
@@ -367,6 +369,8 @@ export default function Discounts() {
             onSearchChange={setSearchQuery}
             hideDlcs={hideDlcs}
             onHideDlcsChange={setHideDlcs}
+            pageSize={pageSize}
+            onPageSizeChange={setPageSize}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
           />

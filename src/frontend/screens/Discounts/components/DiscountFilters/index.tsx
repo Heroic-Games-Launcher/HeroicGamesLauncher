@@ -17,6 +17,7 @@ import { Clear, ExpandMore, Search } from '@mui/icons-material'
 import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
   OS_OPTIONS,
+  PAGE_SIZE_OPTIONS,
   RATING_SCALE_MAX,
   type DiscountSort,
   type OsOption
@@ -44,6 +45,8 @@ interface Props {
   onSearchChange: (query: string) => void
   hideDlcs: boolean
   onHideDlcsChange: (value: boolean) => void
+  pageSize: number
+  onPageSizeChange: (value: number) => void
   onReset: () => void
   hasActiveFilters: boolean
 }
@@ -75,6 +78,8 @@ const DiscountFilters = ({
   onSearchChange,
   hideDlcs,
   onHideDlcsChange,
+  pageSize,
+  onPageSizeChange,
   onReset,
   hasActiveFilters
 }: Props) => {
@@ -412,26 +417,46 @@ const DiscountFilters = ({
           </div>
         </div>
 
-        <div className="discountFilters__field discountFilters__field--slider">
-          <label className="discountFilters__label">
-            <span>{t('discounts.filters.rating', 'Rating')}</span>
-            <span className="discountFilters__labelValue">
-              {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
-            </span>
-          </label>
-          <Slider
-            size="small"
-            value={ratingRange}
-            onChange={(_, value) => onRatingChange(value as [number, number])}
-            min={0}
-            max={RATING_SCALE_MAX}
-            step={0.5}
-            valueLabelDisplay="auto"
-            className="discountFilters__slider"
-          />
-          <div className="discountFilters__sliderBounds">
-            <span>0.0</span>
-            <span>{RATING_SCALE_MAX.toFixed(1)}</span>
+        <div className="discountFilters__ratingGroup">
+          <div className="discountFilters__field discountFilters__field--slider">
+            <label className="discountFilters__label">
+              <span>{t('discounts.filters.rating', 'Rating')}</span>
+              <span className="discountFilters__labelValue">
+                {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
+              </span>
+            </label>
+            <Slider
+              size="small"
+              value={ratingRange}
+              onChange={(_, value) => onRatingChange(value as [number, number])}
+              min={0}
+              max={RATING_SCALE_MAX}
+              step={0.5}
+              valueLabelDisplay="auto"
+              className="discountFilters__slider"
+            />
+            <div className="discountFilters__sliderBounds">
+              <span>0.0</span>
+              <span>{RATING_SCALE_MAX.toFixed(1)}</span>
+            </div>
+          </div>
+
+          <div className="discountFilters__field discountFilters__field--pageSize">
+            <label className="discountFilters__label">
+              {t('discounts.filters.pageSize', 'Per page')}
+            </label>
+            <Select
+              size="small"
+              value={pageSize}
+              onChange={(e) => onPageSizeChange(Number(e.target.value))}
+              className="discountFilters__select"
+            >
+              {PAGE_SIZE_OPTIONS.map((n) => (
+                <MenuItem key={n} value={n}>
+                  {n}
+                </MenuItem>
+              ))}
+            </Select>
           </div>
         </div>
       </div>

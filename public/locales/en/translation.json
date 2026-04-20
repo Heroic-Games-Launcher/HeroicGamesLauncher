@@ -254,6 +254,7 @@
             "lessFilters": "Less filters",
             "moreFilters": "More filters",
             "os": "Operating system",
+            "pageSize": "Per page",
             "price": "Price",
             "rating": "Rating",
             "reset": "Reset",

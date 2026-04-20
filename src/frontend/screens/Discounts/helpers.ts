@@ -147,7 +147,8 @@ export const parsePriceAmount = (amount?: string): number => {
 
 export type DiscountSort = 'trending' | 'discount' | 'price-asc' | 'price-desc'
 
-export const PAGE_SIZE = 25
+export const PAGE_SIZE_OPTIONS = [20, 50, 100] as const
+export const DEFAULT_PAGE_SIZE: (typeof PAGE_SIZE_OPTIONS)[number] = 50
 export const RATING_SCALE_MAX = 10
 export const OS_OPTIONS = ['windows', 'linux', 'osx'] as const
 export type OsOption = (typeof OS_OPTIONS)[number]
