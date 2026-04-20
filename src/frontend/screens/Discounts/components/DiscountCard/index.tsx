@@ -2,7 +2,11 @@ import { useNavigate } from 'react-router-dom'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import type { CatalogProduct } from 'common/types/discounts'
-import { parseDiscountPercent, withAffiliate } from '../../helpers'
+import {
+  normalizeRating,
+  parseDiscountPercent,
+  withAffiliate
+} from '../../helpers'
 import './index.css'
 
 interface Props {
@@ -14,6 +18,7 @@ const DiscountCard = ({ product }: Props) => {
   const cover =
     product.coverVertical || product.coverHorizontal || fallBackImage
   const discountPercent = parseDiscountPercent(product.price.discount)
+  const rating = normalizeRating(product.reviewsRating)
 
   const handleClick = () => {
     const target = withAffiliate(product.storeLink)
@@ -27,6 +32,12 @@ const DiscountCard = ({ product }: Props) => {
       onClick={handleClick}
       title={product.title}
     >
+      {rating > 0 && (
+        <span className="discountCard__score" aria-label={`Rating ${rating.toFixed(1)} out of 10`}>
+          <span className="discountCard__scoreStar" aria-hidden="true">★</span>
+          {rating.toFixed(1)}
+        </span>
+      )}
       {discountPercent > 0 && (
         <span className="discountCard__badge">-{discountPercent}%</span>
       )}

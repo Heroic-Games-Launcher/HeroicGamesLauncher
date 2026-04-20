@@ -44,6 +44,30 @@
   pointer-events: none;
 }
 
+.discountCard__score {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  font-weight: var(--bold);
+  font-size: var(--text-sm);
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--space-3xs);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.discountCard__scoreStar {
+  color: #ffc107;
+  font-size: var(--text-md);
+  line-height: 1;
+}
+
 .discountCard__info {
   display: flex;
   flex-direction: column;
