@@ -1,12 +1,22 @@
 .discountFilters {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(220px, 2fr) minmax(220px, 2fr) auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: end;
   gap: var(--space-md);
   margin-bottom: var(--space-md);
   padding: var(--space-md);
   background: var(--gradient-gamecard, var(--background-darker));
   border-radius: var(--space-3xs);
+}
+
+.discountFilters__field--slider {
+  grid-column: span 2;
+}
+
+@media (max-width: 1100px) {
+  .discountFilters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .discountFilters__field {
@@ -27,12 +37,73 @@
   color: var(--text-default);
 }
 
+.discountFilters__autocomplete .MuiInputBase-root,
+.discountFilters__autocomplete .MuiInputBase-input {
+  color: var(--text-default);
+}
+
+.discountFilters__autocomplete .MuiInputBase-root {
+  max-height: 80px;
+  overflow-y: auto;
+  align-items: flex-start;
+}
+
+.discountFilters__autocomplete .MuiChip-root {
+  background-color: var(--accent);
+  color: var(--text-tertiary);
+  border: none;
+}
+
+.discountFilters__autocomplete .MuiChip-label {
+  color: var(--text-tertiary);
+  font-weight: var(--semibold);
+}
+
+.discountFilters__autocomplete .MuiChip-deleteIcon {
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
+.discountFilters__autocomplete .MuiChip-deleteIcon:hover {
+  opacity: 1;
+  color: var(--text-tertiary);
+}
+
 .discountFilters__slider {
   margin-inline: var(--space-2xs);
   width: calc(100% - var(--space-md));
 }
 
+.discountFilters__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs);
+}
+
+.discountFilters__osChip.MuiChip-root {
+  background-color: transparent;
+  color: var(--text-default);
+  border: 1px solid var(--accent);
+  cursor: pointer;
+}
+
+.discountFilters__osChip.MuiChip-root .MuiChip-label {
+  color: inherit;
+}
+
+.discountFilters__osChip.MuiChip-root:hover {
+  background-color: var(--accent);
+  color: var(--text-tertiary);
+}
+
+.discountFilters__osChip--active.MuiChip-root,
+.discountFilters__osChip--active.MuiChip-root:hover {
+  background-color: var(--accent);
+  color: var(--text-tertiary);
+}
+
 .discountFilters__reset {
+  align-self: end;
   height: 40px;
   padding: 0 var(--space-md);
   border: 1px solid var(--accent);
@@ -41,6 +112,8 @@
   color: var(--accent);
   cursor: pointer;
   font-size: var(--text-md);
+  grid-column: -2 / -1;
+  justify-self: end;
 }
 
 .discountFilters__reset:hover {

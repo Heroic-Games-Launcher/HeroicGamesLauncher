@@ -253,14 +253,23 @@
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
         "filters": {
+            "features": "Features",
+            "featuresPlaceholder": "Any feature",
             "genres": "Genres",
             "genresPlaceholder": "Any genre",
+            "os": "Operating system",
             "price": "Price",
+            "rating": "Rating",
             "reset": "Reset",
             "sort": "Sort by"
         },
         "loading": "Loading discounted games...",
         "noMatches": "No games match the current filters.",
+        "os": {
+            "linux": "Linux",
+            "osx": "macOS",
+            "windows": "Windows"
+        },
         "pagination": {
             "next": "Next",
             "prev": "Previous"

@@ -11,6 +11,11 @@ export interface CatalogGenre {
   slug: string
 }
 
+export interface CatalogFeature {
+  name: string
+  slug: string
+}
+
 export interface CatalogProduct {
   id: string
   title: string
@@ -24,6 +29,8 @@ export interface CatalogProduct {
   publishers?: string[]
   operatingSystems?: string[]
   genres?: CatalogGenre[]
+  features?: CatalogFeature[]
+  reviewsRating?: number
 }
 
 export interface CatalogLocaleSettings {

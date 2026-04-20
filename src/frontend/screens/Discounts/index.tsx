@@ -2,16 +2,23 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { UpdateComponent } from 'frontend/components/UI'
-import type { CatalogGenre, CatalogProduct } from 'common/types/discounts'
+import type {
+  CatalogFeature,
+  CatalogGenre,
+  CatalogProduct
+} from 'common/types/discounts'
 import DiscountCard from './components/DiscountCard'
 import DiscountFilters from './components/DiscountFilters'
 import DiscountPagination from './components/DiscountPagination'
 import {
   getLocaleSettings,
+  normalizeRating,
   PAGE_SIZE,
   parseDiscountPercent,
   parsePriceAmount,
-  type DiscountSort
+  RATING_SCALE_MAX,
+  type DiscountSort,
+  type OsOption
 } from './helpers'
 import './index.css'
 
@@ -28,7 +35,13 @@ export default function Discounts() {
 
   const [sortBy, setSortBy] = useState<DiscountSort>('trending')
   const [selectedGenres, setSelectedGenres] = useState<string[]>([])
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
+  const [selectedOS, setSelectedOS] = useState<OsOption[]>([])
   const [priceRange, setPriceRange] = useState<[number, number] | null>(null)
+  const [ratingRange, setRatingRange] = useState<[number, number]>([
+    0,
+    RATING_SCALE_MAX
+  ])
   const [page, setPage] = useState(1)
 
   useEffect(() => {
@@ -83,6 +96,18 @@ export default function Discounts() {
     )
   }, [products])
 
+  const featureOptions = useMemo<CatalogFeature[]>(() => {
+    const seen = new Map<string, CatalogFeature>()
+    for (const p of products) {
+      for (const f of p.features ?? []) {
+        if (!seen.has(f.slug)) seen.set(f.slug, f)
+      }
+    }
+    return Array.from(seen.values()).sort((a, b) =>
+      a.name.localeCompare(b.name)
+    )
+  }, [products])
+
   // Initialize price range once we know the max
   useEffect(() => {
     if (products.length > 0 && priceRange === null) {
@@ -92,14 +117,34 @@ export default function Discounts() {
 
   const filteredSorted = useMemo(() => {
     const [minPrice, maxPrice] = priceRange ?? [0, priceMax]
+    const [minRating, maxRating] = ratingRange
+    const ratingFilterActive = minRating > 0 || maxRating < RATING_SCALE_MAX
+
     const filtered = products.filter((p) => {
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
+
+      if (ratingFilterActive) {
+        const rating = normalizeRating(p.reviewsRating)
+        if (rating < minRating || rating > maxRating) return false
+      }
+
       if (selectedGenres.length > 0) {
         const productGenres = p.genres?.map((g) => g.slug) ?? []
-        const hasMatch = selectedGenres.some((s) => productGenres.includes(s))
-        if (!hasMatch) return false
+        if (!selectedGenres.some((s) => productGenres.includes(s))) return false
       }
+
+      if (selectedFeatures.length > 0) {
+        const productFeatures = p.features?.map((f) => f.slug) ?? []
+        if (!selectedFeatures.every((s) => productFeatures.includes(s)))
+          return false
+      }
+
+      if (selectedOS.length > 0) {
+        const productOS = p.operatingSystems ?? []
+        if (!selectedOS.some((os) => productOS.includes(os))) return false
+      }
+
       return true
     })
 
@@ -132,14 +177,31 @@ export default function Discounts() {
         break
     }
     return sorted
-  }, [products, priceRange, priceMax, selectedGenres, sortBy])
+  }, [
+    products,
+    priceRange,
+    priceMax,
+    ratingRange,
+    selectedGenres,
+    selectedFeatures,
+    selectedOS,
+    sortBy
+  ])
 
   const totalPages = Math.max(1, Math.ceil(filteredSorted.length / PAGE_SIZE))
 
   // Reset to page 1 when filters/sort/data change
   useEffect(() => {
     setPage(1)
-  }, [sortBy, selectedGenres, priceRange, products])
+  }, [
+    sortBy,
+    selectedGenres,
+    selectedFeatures,
+    selectedOS,
+    priceRange,
+    ratingRange,
+    products
+  ])
 
   const clampedPage = Math.min(page, totalPages)
   const paginated = useMemo(
@@ -153,14 +215,21 @@ export default function Discounts() {
 
   const hasActiveFilters =
     selectedGenres.length > 0 ||
+    selectedFeatures.length > 0 ||
+    selectedOS.length > 0 ||
     sortBy !== 'trending' ||
+    ratingRange[0] !== 0 ||
+    ratingRange[1] !== RATING_SCALE_MAX ||
     (priceRange !== null &&
       (priceRange[0] !== 0 || priceRange[1] !== priceMax))
 
   const handleReset = () => {
     setSortBy('trending')
     setSelectedGenres([])
+    setSelectedFeatures([])
+    setSelectedOS([])
     setPriceRange([0, priceMax])
+    setRatingRange([0, RATING_SCALE_MAX])
   }
 
   const handlePageChange = (newPage: number) => {
@@ -207,9 +276,16 @@ export default function Discounts() {
             priceRange={priceRange ?? [0, priceMax]}
             onPriceChange={setPriceRange}
             currencyCode={localeSettings.currencyCode}
+            ratingRange={ratingRange}
+            onRatingChange={setRatingRange}
             genreOptions={genreOptions}
             selectedGenres={selectedGenres}
             onGenresChange={setSelectedGenres}
+            featureOptions={featureOptions}
+            selectedFeatures={selectedFeatures}
+            onFeaturesChange={setSelectedFeatures}
+            selectedOS={selectedOS}
+            onOSChange={setSelectedOS}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
           />

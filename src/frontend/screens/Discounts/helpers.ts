@@ -75,3 +75,13 @@ export const parsePriceAmount = (amount?: string): number => {
 export type DiscountSort = 'trending' | 'discount' | 'price-asc' | 'price-desc'
 
 export const PAGE_SIZE = 25
+export const MAX_GENRE_SELECTIONS = 3
+export const RATING_SCALE_MAX = 10
+export const OS_OPTIONS = ['windows', 'linux', 'osx'] as const
+export type OsOption = (typeof OS_OPTIONS)[number]
+
+// GOG's reviewsRating is on a 0-50 scale; we display it as 0-10.
+export const normalizeRating = (rating?: number): number => {
+  if (!rating || rating <= 0) return 0
+  return rating / 5
+}
