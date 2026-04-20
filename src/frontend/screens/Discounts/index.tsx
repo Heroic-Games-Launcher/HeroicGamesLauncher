@@ -46,6 +46,7 @@ export default function Discounts() {
     setPriceRange(null)
     setRatingRange([0, RATING_SCALE_MAX])
     setSearchQuery('')
+    setHideDlcs(false)
   }
 
   const [products, setProducts] = useState<CatalogProduct[]>([])
@@ -62,6 +63,7 @@ export default function Discounts() {
     RATING_SCALE_MAX
   ])
   const [searchQuery, setSearchQuery] = useState('')
+  const [hideDlcs, setHideDlcs] = useState(false)
   const [page, setPage] = useState(1)
 
   useEffect(() => {
@@ -144,6 +146,8 @@ export default function Discounts() {
     const filtered = products.filter((p) => {
       if (search && !p.title.toLowerCase().includes(search)) return false
 
+      if (hideDlcs && p.productType === 'dlc') return false
+
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
 
@@ -209,6 +213,7 @@ export default function Discounts() {
     selectedFeatures,
     selectedOS,
     searchQuery,
+    hideDlcs,
     sortBy
   ])
 
@@ -225,6 +230,7 @@ export default function Discounts() {
     priceRange,
     ratingRange,
     searchQuery,
+    hideDlcs,
     products
   ])
 
@@ -246,6 +252,7 @@ export default function Discounts() {
     ratingRange[0] !== 0 ||
     ratingRange[1] !== RATING_SCALE_MAX ||
     searchQuery.trim() !== '' ||
+    hideDlcs ||
     (priceRange !== null && (priceRange[0] !== 0 || priceRange[1] !== priceMax))
 
   const handleReset = () => {
@@ -256,6 +263,7 @@ export default function Discounts() {
     setPriceRange([0, priceMax])
     setRatingRange([0, RATING_SCALE_MAX])
     setSearchQuery('')
+    setHideDlcs(false)
   }
 
   const handlePageChange = (newPage: number) => {
@@ -357,6 +365,8 @@ export default function Discounts() {
             onOSChange={setSelectedOS}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            hideDlcs={hideDlcs}
+            onHideDlcsChange={setHideDlcs}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
           />

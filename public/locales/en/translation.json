@@ -250,6 +250,7 @@
             "featuresPlaceholder": "Any feature",
             "genres": "Genres",
             "genresPlaceholder": "Any genre",
+            "hideDlcs": "Hide DLCs",
             "lessFilters": "Less filters",
             "moreFilters": "More filters",
             "os": "Operating system",

@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Autocomplete,
+  Checkbox,
   Chip,
+  FormControlLabel,
   IconButton,
   InputAdornment,
   MenuItem,
@@ -40,6 +42,8 @@ interface Props {
   onOSChange: (slugs: OsOption[]) => void
   searchQuery: string
   onSearchChange: (query: string) => void
+  hideDlcs: boolean
+  onHideDlcsChange: (value: boolean) => void
   onReset: () => void
   hasActiveFilters: boolean
 }
@@ -69,6 +73,8 @@ const DiscountFilters = ({
   onOSChange,
   searchQuery,
   onSearchChange,
+  hideDlcs,
+  onHideDlcsChange,
   onReset,
   hasActiveFilters
 }: Props) => {
@@ -153,6 +159,17 @@ const DiscountFilters = ({
               </InputAdornment>
             ) : undefined
           }}
+        />
+        <FormControlLabel
+          className="discountFilters__hideDlcs"
+          control={
+            <Checkbox
+              size="small"
+              checked={hideDlcs}
+              onChange={(e) => onHideDlcsChange(e.target.checked)}
+            />
+          }
+          label={t('discounts.filters.hideDlcs', 'Hide DLCs')}
         />
       </div>
 
