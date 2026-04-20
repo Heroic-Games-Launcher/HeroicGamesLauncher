@@ -6,6 +6,11 @@ export interface CatalogPrice {
   baseMoney?: { amount: string; currency: string }
 }
 
+export interface CatalogGenre {
+  name: string
+  slug: string
+}
+
 export interface CatalogProduct {
   id: string
   title: string
@@ -18,6 +23,7 @@ export interface CatalogProduct {
   developers?: string[]
   publishers?: string[]
   operatingSystems?: string[]
+  genres?: CatalogGenre[]
 }
 
 export interface CatalogLocaleSettings {

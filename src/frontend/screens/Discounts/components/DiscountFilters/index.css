@@ -1,0 +1,55 @@
+.discountFilters {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(220px, 2fr) minmax(220px, 2fr) auto;
+  align-items: end;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: var(--gradient-gamecard, var(--background-darker));
+  border-radius: var(--space-3xs);
+}
+
+.discountFilters__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  min-width: 0;
+}
+
+.discountFilters__label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.discountFilters__select,
+.discountFilters__autocomplete {
+  background-color: var(--input-background, var(--background));
+  color: var(--text-default);
+}
+
+.discountFilters__slider {
+  margin-inline: var(--space-2xs);
+  width: calc(100% - var(--space-md));
+}
+
+.discountFilters__reset {
+  height: 40px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--accent);
+  border-radius: var(--space-3xs);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: var(--text-md);
+}
+
+.discountFilters__reset:hover {
+  background: var(--accent);
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 900px) {
+  .discountFilters {
+    grid-template-columns: 1fr;
+  }
+}
