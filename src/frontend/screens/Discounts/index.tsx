@@ -39,6 +39,13 @@ export default function Discounts() {
   const handleRegionChange = (countryCode: string | null) => {
     setRegionOverride(countryCode)
     setStoredRegionOverride(countryCode)
+    setSortBy('trending')
+    setSelectedGenres([])
+    setSelectedFeatures([])
+    setSelectedOS([])
+    setPriceRange(null)
+    setRatingRange([0, RATING_SCALE_MAX])
+    setSearchQuery('')
   }
 
   const [products, setProducts] = useState<CatalogProduct[]>([])
