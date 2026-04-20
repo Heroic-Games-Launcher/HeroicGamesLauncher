@@ -2,47 +2,52 @@ import type { CatalogLocaleSettings } from 'common/types/discounts'
 
 const GOG_AFFILIATE_ID = '1838482841'
 
-const LANGUAGE_LOCALE_MAP: Record<string, CatalogLocaleSettings> = {
-  en: { countryCode: 'US', locale: 'en-US', currencyCode: 'USD' },
-  pt: { countryCode: 'BR', locale: 'pt-BR', currencyCode: 'BRL' },
-  pt_BR: { countryCode: 'BR', locale: 'pt-BR', currencyCode: 'BRL' },
-  de: { countryCode: 'DE', locale: 'de-DE', currencyCode: 'EUR' },
-  es: { countryCode: 'ES', locale: 'es-ES', currencyCode: 'EUR' },
-  fr: { countryCode: 'FR', locale: 'fr-FR', currencyCode: 'EUR' },
-  it: { countryCode: 'IT', locale: 'it-IT', currencyCode: 'EUR' },
-  nl: { countryCode: 'NL', locale: 'nl-NL', currencyCode: 'EUR' },
-  pl: { countryCode: 'PL', locale: 'pl-PL', currencyCode: 'PLN' },
-  ru: { countryCode: 'RU', locale: 'ru-RU', currencyCode: 'RUB' },
-  uk: { countryCode: 'UA', locale: 'uk-UA', currencyCode: 'UAH' },
-  ja: { countryCode: 'JP', locale: 'ja-JP', currencyCode: 'JPY' },
-  ko: { countryCode: 'KR', locale: 'ko-KR', currencyCode: 'KRW' },
-  zh_Hans: { countryCode: 'CN', locale: 'zh-Hans', currencyCode: 'CNY' },
-  zh_Hant: { countryCode: 'TW', locale: 'zh-Hant', currencyCode: 'TWD' },
-  tr: { countryCode: 'TR', locale: 'tr-TR', currencyCode: 'TRY' },
-  cs: { countryCode: 'CZ', locale: 'cs-CZ', currencyCode: 'CZK' },
-  hu: { countryCode: 'HU', locale: 'hu-HU', currencyCode: 'HUF' },
-  sv: { countryCode: 'SE', locale: 'sv-SE', currencyCode: 'SEK' },
-  da: { countryCode: 'DK', locale: 'da-DK', currencyCode: 'DKK' },
-  nb_NO: { countryCode: 'NO', locale: 'nb-NO', currencyCode: 'NOK' },
-  fi: { countryCode: 'FI', locale: 'fi-FI', currencyCode: 'EUR' },
-  el: { countryCode: 'GR', locale: 'el-GR', currencyCode: 'EUR' },
-  ro: { countryCode: 'RO', locale: 'ro-RO', currencyCode: 'RON' },
-  ar: { countryCode: 'SA', locale: 'ar-SA', currencyCode: 'USD' },
-  he: { countryCode: 'IL', locale: 'he-IL', currencyCode: 'ILS' }
+// Only country and currency vary by language. GOG's catalog API rejects
+// most locale values, so we always send en-US — the locale doesn't affect
+// the discount listings, only the storeLink language path.
+const COUNTRY_CURRENCY_MAP: Record<
+  string,
+  { countryCode: string; currencyCode: string }
+> = {
+  en: { countryCode: 'US', currencyCode: 'USD' },
+  pt: { countryCode: 'BR', currencyCode: 'BRL' },
+  pt_BR: { countryCode: 'BR', currencyCode: 'BRL' },
+  pt: { countryCode: 'PT', currencyCode: 'EUR' },
+  de: { countryCode: 'DE', currencyCode: 'EUR' },
+  es: { countryCode: 'ES', currencyCode: 'EUR' },
+  fr: { countryCode: 'FR', currencyCode: 'EUR' },
+  it: { countryCode: 'IT', currencyCode: 'EUR' },
+  nl: { countryCode: 'NL', currencyCode: 'EUR' },
+  pl: { countryCode: 'PL', currencyCode: 'PLN' },
+  ru: { countryCode: 'RU', currencyCode: 'RUB' },
+  uk: { countryCode: 'UA', currencyCode: 'UAH' },
+  ja: { countryCode: 'JP', currencyCode: 'JPY' },
+  ko: { countryCode: 'KR', currencyCode: 'KRW' },
+  zh_Hans: { countryCode: 'CN', currencyCode: 'CNY' },
+  zh_Hant: { countryCode: 'TW', currencyCode: 'TWD' },
+  tr: { countryCode: 'TR', currencyCode: 'TRY' },
+  cs: { countryCode: 'CZ', currencyCode: 'CZK' },
+  hu: { countryCode: 'HU', currencyCode: 'HUF' },
+  sv: { countryCode: 'SE', currencyCode: 'SEK' },
+  da: { countryCode: 'DK', currencyCode: 'DKK' },
+  nb_NO: { countryCode: 'NO', currencyCode: 'NOK' },
+  fi: { countryCode: 'FI', currencyCode: 'EUR' },
+  el: { countryCode: 'GR', currencyCode: 'EUR' },
+  ro: { countryCode: 'RO', currencyCode: 'RON' },
+  ar: { countryCode: 'SA', currencyCode: 'USD' },
+  he: { countryCode: 'IL', currencyCode: 'ILS' }
 }
 
-const DEFAULT_LOCALE: CatalogLocaleSettings = {
-  countryCode: 'US',
-  locale: 'en-US',
-  currencyCode: 'USD'
-}
+const DEFAULT_COUNTRY_CURRENCY = { countryCode: 'US', currencyCode: 'USD' }
 
-export const getLocaleSettings = (
-  language: string
-): CatalogLocaleSettings => {
-  if (LANGUAGE_LOCALE_MAP[language]) return LANGUAGE_LOCALE_MAP[language]
+export const getLocaleSettings = (language: string): CatalogLocaleSettings => {
   const baseLang = language.split(/[-_]/)[0]
-  return LANGUAGE_LOCALE_MAP[baseLang] ?? DEFAULT_LOCALE
+  const { countryCode, currencyCode } =
+    COUNTRY_CURRENCY_MAP[language] ??
+    COUNTRY_CURRENCY_MAP[baseLang] ??
+    DEFAULT_COUNTRY_CURRENCY
+
+  return { countryCode, currencyCode, locale: 'en-US' }
 }
 
 export const withAffiliate = (storeLink: string): string => {
