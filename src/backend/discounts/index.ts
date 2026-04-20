@@ -67,7 +67,16 @@ const fetchAllDiscounts = async (locale: CatalogLocaleSettings) => {
     )
   )
 
-  return [...first.products, ...rest.flat()]
+  const all = [...first.products, ...rest.flat()]
+  // GOG's catalog is ordered by dynamic trending, so the same product can
+  // appear on multiple pages if ranking shifts mid-fetch. Dedupe by id to
+  // avoid duplicate React keys in the grid.
+  const seen = new Set<string>()
+  return all.filter((p) => {
+    if (seen.has(p.id)) return false
+    seen.add(p.id)
+    return true
+  })
 }
 
 addHandler('getGogDiscounts', async (_event, locale) => {
