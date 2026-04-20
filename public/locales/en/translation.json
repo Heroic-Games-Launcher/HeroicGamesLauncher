@@ -240,15 +240,7 @@
             "update_game": "Update game"
         }
     },
-    "dlc": {
-        "actions": "Actions",
-        "installDlcs": "Install all DLCs",
-        "noDlcFound": "No DLCs found",
-        "size": "Size",
-        "title": "Title"
-    },
     "discounts": {
-        "count": "{{count}} games on sale",
         "countFiltered": "{{shown}} of {{total}} games",
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
@@ -258,6 +250,8 @@
             "featuresPlaceholder": "Any feature",
             "genres": "Genres",
             "genresPlaceholder": "Any genre",
+            "lessFilters": "Less filters",
+            "moreFilters": "More filters",
             "os": "Operating system",
             "price": "Price",
             "rating": "Rating",
@@ -269,14 +263,13 @@
         },
         "loading": "Loading discounted games...",
         "noMatches": "No games match the current filters.",
-        "os": {
-            "linux": "Linux",
-            "osx": "macOS",
-            "windows": "Windows"
-        },
         "pagination": {
             "next": "Next",
             "prev": "Previous"
+        },
+        "region": {
+            "auto": "Auto ({{code}})",
+            "label": "Store region"
         },
         "sidebar": "Discounts",
         "sort": {
@@ -286,6 +279,13 @@
             "trending": "Trending"
         },
         "title": "Games Discounts"
+    },
+    "dlc": {
+        "actions": "Actions",
+        "installDlcs": "Install all DLCs",
+        "noDlcFound": "No DLCs found",
+        "size": "Size",
+        "title": "Title"
     },
     "docs": "Documentation",
     "download-manager": {
