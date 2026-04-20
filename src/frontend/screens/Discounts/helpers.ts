@@ -10,7 +10,6 @@ const COUNTRY_CURRENCY_MAP: Record<
   { countryCode: string; currencyCode: string }
 > = {
   en: { countryCode: 'US', currencyCode: 'USD' },
-  pt: { countryCode: 'BR', currencyCode: 'BRL' },
   pt_BR: { countryCode: 'BR', currencyCode: 'BRL' },
   pt: { countryCode: 'PT', currencyCode: 'EUR' },
   de: { countryCode: 'DE', currencyCode: 'EUR' },
