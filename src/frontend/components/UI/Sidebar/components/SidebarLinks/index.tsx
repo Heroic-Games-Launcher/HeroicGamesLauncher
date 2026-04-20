@@ -40,7 +40,8 @@ export default function SidebarLinks() {
 
   const inWebviewScreen =
     location.pathname.includes('store') ||
-    location.pathname.includes('last-url')
+    location.pathname.includes('last-url') ||
+    location.pathname.includes('discounts')
   const isSettings = location.pathname.includes('settings')
   const isWin = platform === 'win32'
 
@@ -122,7 +123,10 @@ export default function SidebarLinks() {
 
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
-          isActiveFallback={location.pathname.includes('store')}
+          isActiveFallback={
+            location.pathname.includes('store') ||
+            location.pathname.includes('discounts')
+          }
           url={`/store/${defaultStore}`}
           icon={faStore}
           label={t('stores', 'Stores')}
@@ -152,6 +156,11 @@ export default function SidebarLinks() {
                 label={t('zoom-store', 'Zoom Store')}
               />
             )}
+            <SidebarItem
+              className="SidebarLinks__subItem"
+              url="/discounts"
+              label={t('discounts.sidebar', 'Discounts')}
+            />
           </div>
         )}
       </div>
