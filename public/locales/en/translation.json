@@ -261,7 +261,8 @@
             "price": "Price",
             "rating": "Rating",
             "reset": "Reset",
-            "sort": "Sort by"
+            "sort": "Sort by",
+            "title": "Filters"
         },
         "loading": "Loading discounted games...",
         "noMatches": "No games match the current filters.",
