@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { MenuItem, Select } from '@mui/material'
 
 import { UpdateComponent } from 'frontend/components/UI'
 import type {
@@ -12,11 +13,14 @@ import DiscountFilters from './components/DiscountFilters'
 import DiscountPagination from './components/DiscountPagination'
 import {
   getLocaleSettings,
+  getStoredRegionOverride,
   normalizeRating,
   PAGE_SIZE,
   parseDiscountPercent,
   parsePriceAmount,
   RATING_SCALE_MAX,
+  REGION_OPTIONS,
+  setStoredRegionOverride,
   type DiscountSort,
   type OsOption
 } from './helpers'
@@ -24,10 +28,18 @@ import './index.css'
 
 export default function Discounts() {
   const { t, i18n } = useTranslation()
-  const localeSettings = useMemo(
-    () => getLocaleSettings(i18n.language),
-    [i18n.language]
+  const [regionOverride, setRegionOverride] = useState<string | null>(() =>
+    getStoredRegionOverride()
   )
+  const localeSettings = useMemo(
+    () => getLocaleSettings(i18n.language, regionOverride),
+    [i18n.language, regionOverride]
+  )
+
+  const handleRegionChange = (countryCode: string | null) => {
+    setRegionOverride(countryCode)
+    setStoredRegionOverride(countryCode)
+  }
 
   const [products, setProducts] = useState<CatalogProduct[]>([])
   const [loading, setLoading] = useState(true)
@@ -239,17 +251,62 @@ export default function Discounts() {
 
   return (
     <div className="discountsScreen">
-      <h2 className="discountsScreen__header">
-        {t('discounts.title', 'GOG Discounts')}
-        {!loading && products.length > 0 && (
-          <span className="discountsScreen__count">
-            {t('discounts.countFiltered', '{{shown}} of {{total}} games', {
-              shown: filteredSorted.length,
-              total: products.length
-            })}
-          </span>
-        )}
-      </h2>
+      <div className="discountsScreen__topbar">
+        <h2 className="discountsScreen__header">
+          {t('discounts.title', 'GOG Discounts')}
+          {!loading && products.length > 0 && (
+            <span className="discountsScreen__count">
+              {t('discounts.countFiltered', '{{shown}} of {{total}} games', {
+                shown: filteredSorted.length,
+                total: products.length
+              })}
+            </span>
+          )}
+        </h2>
+
+        <div className="discountsScreen__region">
+          <label
+            className="discountsScreen__regionLabel"
+            htmlFor="discountsScreen__regionSelect"
+          >
+            {t('discounts.region.label', 'Store region')}
+          </label>
+          <Select
+            id="discountsScreen__regionSelect"
+            size="small"
+            value={regionOverride ?? ''}
+            onChange={(e) => {
+              const value = e.target.value
+              handleRegionChange(value === '' ? null : value)
+            }}
+            className="discountsScreen__regionSelect"
+            renderValue={(value) => {
+              if (!value) {
+                return t('discounts.region.auto', 'Auto ({{code}})', {
+                  code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
+                })
+              }
+              const match = REGION_OPTIONS.find((r) => r.countryCode === value)
+              if (!match) return value
+              return `${t(`discounts.region.${match.countryCode}`, match.labelFallback)} · ${match.currencyCode}`
+            }}
+          >
+            <MenuItem value="">
+              {t('discounts.region.auto', 'Auto ({{code}})', {
+                code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
+              })}
+            </MenuItem>
+            {REGION_OPTIONS.map((r) => (
+              <MenuItem key={r.countryCode} value={r.countryCode}>
+                {t(`discounts.region.${r.countryCode}`, r.labelFallback)}
+                <span className="discountsScreen__regionCurrency">
+                  {r.currencyCode}
+                </span>
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+      </div>
 
       {loading && (
         <UpdateComponent
