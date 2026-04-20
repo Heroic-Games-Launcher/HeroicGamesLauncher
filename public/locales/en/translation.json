@@ -247,6 +247,14 @@
         "size": "Size",
         "title": "Title"
     },
+    "discounts": {
+        "count": "{{count}} games on sale",
+        "empty": "No discounted games available right now.",
+        "error": "Could not load discounts. Please try again later.",
+        "loading": "Loading discounted games...",
+        "sidebar": "Discounts",
+        "title": "GOG Discounts"
+    },
     "docs": "Documentation",
     "download-manager": {
         "ETA": "Estimated time",
