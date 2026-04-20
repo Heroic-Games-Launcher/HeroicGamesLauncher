@@ -2,12 +2,15 @@ import { useTranslation } from 'react-i18next'
 import {
   Autocomplete,
   Chip,
+  IconButton,
+  InputAdornment,
   MenuItem,
   Select,
   Slider,
   TextField,
   Tooltip
 } from '@mui/material'
+import { Clear, Search } from '@mui/icons-material'
 import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
   OS_OPTIONS,
@@ -34,6 +37,8 @@ interface Props {
   onFeaturesChange: (slugs: string[]) => void
   selectedOS: OsOption[]
   onOSChange: (slugs: OsOption[]) => void
+  searchQuery: string
+  onSearchChange: (query: string) => void
   onReset: () => void
   hasActiveFilters: boolean
 }
@@ -61,6 +66,8 @@ const DiscountFilters = ({
   onFeaturesChange,
   selectedOS,
   onOSChange,
+  searchQuery,
+  onSearchChange,
   onReset,
   hasActiveFilters
 }: Props) => {
@@ -89,6 +96,42 @@ const DiscountFilters = ({
           {t('discounts.filters.reset', 'Reset')}
         </button>
       </header>
+
+      <div className="discountFilters__row discountFilters__row--search">
+        <TextField
+          size="small"
+          fullWidth
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder={t(
+            'discounts.filters.searchPlaceholder',
+            'Search games by title...'
+          )}
+          aria-label={t('discounts.filters.search', 'Search')}
+          className="discountFilters__search"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search fontSize="small" />
+              </InputAdornment>
+            ),
+            endAdornment: searchQuery ? (
+              <InputAdornment position="end">
+                <IconButton
+                  size="small"
+                  aria-label={t(
+                    'discounts.filters.clearSearch',
+                    'Clear search'
+                  )}
+                  onClick={() => onSearchChange('')}
+                >
+                  <Clear fontSize="small" />
+                </IconButton>
+              </InputAdornment>
+            ) : undefined
+          }}
+        />
+      </div>
 
       <div className="discountFilters__row discountFilters__row--inputs">
         <div className="discountFilters__field">

@@ -54,6 +54,7 @@ export default function Discounts() {
     0,
     RATING_SCALE_MAX
   ])
+  const [searchQuery, setSearchQuery] = useState('')
   const [page, setPage] = useState(1)
 
   useEffect(() => {
@@ -131,8 +132,11 @@ export default function Discounts() {
     const [minPrice, maxPrice] = priceRange ?? [0, priceMax]
     const [minRating, maxRating] = ratingRange
     const ratingFilterActive = minRating > 0 || maxRating < RATING_SCALE_MAX
+    const search = searchQuery.trim().toLowerCase()
 
     const filtered = products.filter((p) => {
+      if (search && !p.title.toLowerCase().includes(search)) return false
+
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
 
@@ -197,6 +201,7 @@ export default function Discounts() {
     selectedGenres,
     selectedFeatures,
     selectedOS,
+    searchQuery,
     sortBy
   ])
 
@@ -212,6 +217,7 @@ export default function Discounts() {
     selectedOS,
     priceRange,
     ratingRange,
+    searchQuery,
     products
   ])
 
@@ -232,6 +238,7 @@ export default function Discounts() {
     sortBy !== 'trending' ||
     ratingRange[0] !== 0 ||
     ratingRange[1] !== RATING_SCALE_MAX ||
+    searchQuery.trim() !== '' ||
     (priceRange !== null &&
       (priceRange[0] !== 0 || priceRange[1] !== priceMax))
 
@@ -242,6 +249,7 @@ export default function Discounts() {
     setSelectedOS([])
     setPriceRange([0, priceMax])
     setRatingRange([0, RATING_SCALE_MAX])
+    setSearchQuery('')
   }
 
   const handlePageChange = (newPage: number) => {
@@ -343,6 +351,8 @@ export default function Discounts() {
             onFeaturesChange={setSelectedFeatures}
             selectedOS={selectedOS}
             onOSChange={setSelectedOS}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
             onReset={handleReset}
             hasActiveFilters={hasActiveFilters}
           />

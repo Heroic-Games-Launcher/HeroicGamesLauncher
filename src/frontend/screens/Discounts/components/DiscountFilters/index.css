@@ -54,6 +54,36 @@
   gap: var(--space-md);
 }
 
+.discountFilters__row--search {
+  grid-template-columns: 1fr;
+}
+
+.discountFilters__search.MuiFormControl-root .MuiInputBase-root {
+  min-height: 40px;
+  background-color: var(--input-background, var(--background));
+  color: var(--text-default);
+  border-radius: var(--space-3xs);
+}
+
+.discountFilters__search .MuiInputBase-input {
+  color: var(--text-default);
+}
+
+.discountFilters__search .MuiOutlinedInput-notchedOutline {
+  border-color: var(--divider, rgba(255, 255, 255, 0.12));
+  transition: border-color 150ms ease;
+}
+
+.discountFilters__search:hover .MuiOutlinedInput-notchedOutline,
+.discountFilters__search .Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--accent);
+  border-width: 1px;
+}
+
+.discountFilters__search .MuiSvgIcon-root {
+  color: var(--text-secondary);
+}
+
 .discountFilters__row--inputs {
   grid-template-columns:
     minmax(140px, 180px)
