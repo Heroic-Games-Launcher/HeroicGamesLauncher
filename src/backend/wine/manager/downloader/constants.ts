@@ -16,7 +16,7 @@ export const WINELUTRIS_URL =
 
 /// Url to Wine Crossover github release page
 export const WINECROSSOVER_URL =
-  'https://api.github.com/repos/Gcenx/winecx/releases'
+  'https://api.github.com/repos/Heroic-Games-Launcher/wine-crossover/releases'
 
 /// Url to Wine Staging for macOS github release page
 export const WINESTAGINGMACOS_URL =
