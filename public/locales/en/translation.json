@@ -249,10 +249,29 @@
     },
     "discounts": {
         "count": "{{count}} games on sale",
+        "countFiltered": "{{shown}} of {{total}} games",
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
+        "filters": {
+            "genres": "Genres",
+            "genresPlaceholder": "Any genre",
+            "price": "Price",
+            "reset": "Reset",
+            "sort": "Sort by"
+        },
         "loading": "Loading discounted games...",
+        "noMatches": "No games match the current filters.",
+        "pagination": {
+            "next": "Next",
+            "prev": "Previous"
+        },
         "sidebar": "Discounts",
+        "sort": {
+            "discount": "Biggest discount",
+            "priceAsc": "Price: low to high",
+            "priceDesc": "Price: high to low",
+            "trending": "Trending"
+        },
         "title": "GOG Discounts"
     },
     "docs": "Documentation",
