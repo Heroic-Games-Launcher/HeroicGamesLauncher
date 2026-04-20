@@ -202,9 +202,9 @@ const DiscountFilters = ({
           <Tooltip
             arrow
             placement="bottom-start"
-            disableHoverListener={selectedGenres.length === 0}
+            disableHoverListener={selectedGenres.length <= 3}
             title={
-              selectedGenres.length > 0 ? (
+              selectedGenres.length > 3 ? (
                 <div className="discountFilters__tooltipChips">
                   {genreOptions
                     .filter((g) => selectedGenres.includes(g.slug))
