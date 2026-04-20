@@ -463,6 +463,12 @@ class GlobalState extends PureComponent<Props> {
     configStore.set('games.customCategories', newCustomCategories)
   }
 
+  reloadCategories = () => {
+    this.setState({
+      customCategories: configStore.get('games.customCategories', {})
+    })
+  }
+
   handleShowDialogModal = ({
     showDialog = true,
     ...options
@@ -1113,7 +1119,8 @@ class GlobalState extends PureComponent<Props> {
             removeFromGame: this.removeGameFromCustomCategory,
             addCategory: this.setCustomCategory,
             removeCategory: this.removeCustomCategory,
-            renameCategory: this.renameCustomCategory
+            renameCategory: this.renameCustomCategory,
+            reloadCategories: this.reloadCategories
           },
           handleLibraryTopSection: this.handleLibraryTopSection,
           handleExperimentalFeatures: this.handleExperimentalFeatures,

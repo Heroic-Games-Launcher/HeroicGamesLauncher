@@ -39,6 +39,7 @@ export const defaultWinePrefixDir = join(
 export const sharedWinePrefix = join(defaultWinePrefixDir, 'shared')
 export const defaultWinePrefix = join(defaultWinePrefixDir, 'default')
 export const fixesPath = join(appFolder, 'fixes')
+export const exportsPath = join(userHome, 'Games', 'Heroic', 'Exports')
 
 export const publicDir = resolve(
   __dirname,
