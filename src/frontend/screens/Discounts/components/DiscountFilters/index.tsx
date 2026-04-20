@@ -273,9 +273,9 @@ const DiscountFilters = ({
           <Tooltip
             arrow
             placement="bottom-start"
-            disableHoverListener={selectedFeatures.length === 0}
+            disableHoverListener={selectedFeatures.length <= 3}
             title={
-              selectedFeatures.length > 0 ? (
+              selectedFeatures.length > 3 ? (
                 <div className="discountFilters__tooltipChips">
                   {featureOptions
                     .filter((f) => selectedFeatures.includes(f.slug))
