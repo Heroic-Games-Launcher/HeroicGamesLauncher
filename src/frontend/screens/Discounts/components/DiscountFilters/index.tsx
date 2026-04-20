@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Autocomplete,
@@ -10,7 +11,7 @@ import {
   TextField,
   Tooltip
 } from '@mui/material'
-import { Clear, Search } from '@mui/icons-material'
+import { Clear, ExpandMore, Search } from '@mui/icons-material'
 import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
   OS_OPTIONS,
@@ -72,6 +73,7 @@ const DiscountFilters = ({
   hasActiveFilters
 }: Props) => {
   const { t } = useTranslation()
+  const [expanded, setExpanded] = useState(false)
 
   const toggleOS = (os: OsOption) => {
     onOSChange(
@@ -87,14 +89,35 @@ const DiscountFilters = ({
         <h3 className="discountFilters__title">
           {t('discounts.filters.title', 'Filters')}
         </h3>
-        <button
-          type="button"
-          className="discountFilters__reset"
-          onClick={onReset}
-          disabled={!hasActiveFilters}
-        >
-          {t('discounts.filters.reset', 'Reset')}
-        </button>
+        <div className="discountFilters__headerActions">
+          <button
+            type="button"
+            className="discountFilters__toggle"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            aria-controls="discountFilters__collapsible"
+          >
+            <span>
+              {expanded
+                ? t('discounts.filters.lessFilters', 'Less filters')
+                : t('discounts.filters.moreFilters', 'More filters')}
+            </span>
+            <ExpandMore
+              fontSize="small"
+              className={`discountFilters__toggleIcon${
+                expanded ? ' discountFilters__toggleIcon--open' : ''
+              }`}
+            />
+          </button>
+          <button
+            type="button"
+            className="discountFilters__reset"
+            onClick={onReset}
+            disabled={!hasActiveFilters}
+          >
+            {t('discounts.filters.reset', 'Reset')}
+          </button>
+        </div>
       </header>
 
       <div className="discountFilters__row discountFilters__row--search">
@@ -133,6 +156,14 @@ const DiscountFilters = ({
         />
       </div>
 
+      <div
+        id="discountFilters__collapsible"
+        className={`discountFilters__collapsible${
+          expanded ? ' discountFilters__collapsible--open' : ''
+        }`}
+        aria-hidden={!expanded}
+      >
+        <div className="discountFilters__collapsibleInner">
       <div className="discountFilters__row discountFilters__row--inputs">
         <div className="discountFilters__field">
           <label className="discountFilters__label">
@@ -385,6 +416,8 @@ const DiscountFilters = ({
             <span>0.0</span>
             <span>{RATING_SCALE_MAX.toFixed(1)}</span>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </section>

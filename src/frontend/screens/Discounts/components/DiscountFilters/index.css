@@ -16,6 +16,68 @@
   gap: var(--space-sm);
 }
 
+.discountFilters__headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.discountFilters__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  height: 32px;
+  padding: 0 var(--space-sm);
+  border: 1px solid var(--divider, rgba(255, 255, 255, 0.12));
+  border-radius: var(--space-3xs);
+  background: transparent;
+  color: var(--text-default);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--semibold);
+  transition: background-color 150ms ease, border-color 150ms ease,
+    color 150ms ease;
+}
+
+.discountFilters__toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.discountFilters__toggleIcon {
+  transition: transform 250ms ease;
+}
+
+.discountFilters__toggleIcon--open {
+  transform: rotate(180deg);
+}
+
+.discountFilters__collapsible {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease, opacity 250ms ease,
+    margin-top 300ms ease;
+  opacity: 0;
+  margin-top: calc(-1 * var(--space-md));
+  pointer-events: none;
+}
+
+.discountFilters__collapsible--open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 0;
+  pointer-events: auto;
+}
+
+.discountFilters__collapsibleInner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-height: 0;
+}
+
 .discountFilters__title {
   margin: 0;
   font-size: var(--text-md);
