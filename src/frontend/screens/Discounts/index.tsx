@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, Select } from '@mui/material'
 
@@ -16,12 +16,14 @@ import {
   getLocaleSettings,
   getPegiAge,
   getStoredRegionOverride,
+  loadStoredFilters,
   normalizeRating,
   parseDiscountPercent,
   parsePriceAmount,
   parseReleaseTimestamp,
   RATING_SCALE_MAX,
   REGION_OPTIONS,
+  saveStoredFilters,
   setStoredRegionOverride,
   type DiscountSort,
   type OsOption,
@@ -56,23 +58,75 @@ export default function Discounts() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const [sortBy, setSortBy] = useState<DiscountSort>('trending')
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([])
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
-  const [selectedOS, setSelectedOS] = useState<OsOption[]>([])
-  const [priceRange, setPriceRange] = useState<[number, number] | null>(null)
-  const [ratingRange, setRatingRange] = useState<[number, number]>([
-    0,
-    RATING_SCALE_MAX
-  ])
+  // Rehydrate filter state from localStorage once on mount.
+  const storedFilters = useMemo(loadStoredFilters, [])
+
+  const [sortBy, setSortBy] = useState<DiscountSort>(
+    storedFilters.sortBy ?? 'trending'
+  )
+  const [selectedGenres, setSelectedGenres] = useState<string[]>(
+    storedFilters.selectedGenres ?? []
+  )
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>(
+    storedFilters.selectedFeatures ?? []
+  )
+  const [selectedOS, setSelectedOS] = useState<OsOption[]>(
+    storedFilters.selectedOS ?? []
+  )
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(
+    storedFilters.priceRange ?? null
+  )
+  const [ratingRange, setRatingRange] = useState<[number, number]>(
+    storedFilters.ratingRange ?? [0, RATING_SCALE_MAX]
+  )
   const [releaseYearRange, setReleaseYearRange] = useState<
     [number, number] | null
-  >(null)
-  const [maxPegiAge, setMaxPegiAge] = useState<PegiAge | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [hideDlcs, setHideDlcs] = useState(false)
-  const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE)
+  >(storedFilters.releaseYearRange ?? null)
+  const [maxPegiAge, setMaxPegiAge] = useState<PegiAge | null>(
+    storedFilters.maxPegiAge ?? null
+  )
+  const [searchQuery, setSearchQuery] = useState(
+    storedFilters.searchQuery ?? ''
+  )
+  const [hideDlcs, setHideDlcs] = useState(storedFilters.hideDlcs ?? false)
+  const [pageSize, setPageSize] = useState<number>(
+    storedFilters.pageSize ?? DEFAULT_PAGE_SIZE
+  )
   const [page, setPage] = useState(1)
+
+  // Track whether we've already completed a load, so locale-change reloads
+  // know to clear the data-bound ranges (price/releaseYear), but the very
+  // first load preserves whatever was restored from localStorage.
+  const hasLoadedOnceRef = useRef(false)
+
+  // Persist filter state so it survives navigation and page reloads.
+  useEffect(() => {
+    saveStoredFilters({
+      sortBy,
+      selectedGenres,
+      selectedFeatures,
+      selectedOS,
+      priceRange,
+      ratingRange,
+      releaseYearRange,
+      maxPegiAge,
+      searchQuery,
+      hideDlcs,
+      pageSize
+    })
+  }, [
+    sortBy,
+    selectedGenres,
+    selectedFeatures,
+    selectedOS,
+    priceRange,
+    ratingRange,
+    releaseYearRange,
+    maxPegiAge,
+    searchQuery,
+    hideDlcs,
+    pageSize
+  ])
 
   useEffect(() => {
     let cancelled = false
@@ -86,8 +140,14 @@ export default function Discounts() {
         const result = await window.api.getGogDiscounts(localeSettings)
         if (!cancelled) {
           setProducts(result)
-          setPriceRange(null)
-          setReleaseYearRange(null)
+          // Only clear data-bound ranges when this is a reload caused by a
+          // locale change. On the very first load after mount we keep the
+          // values restored from localStorage so persisted filters survive.
+          if (hasLoadedOnceRef.current) {
+            setPriceRange(null)
+            setReleaseYearRange(null)
+          }
+          hasLoadedOnceRef.current = true
         }
       } catch (err) {
         if (!cancelled) {

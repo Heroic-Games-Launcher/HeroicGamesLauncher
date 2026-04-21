@@ -186,3 +186,41 @@ export const getPegiAge = (ratings?: CatalogRating[]): number | null => {
   const n = parseInt(pegi.ageRating, 10)
   return Number.isFinite(n) ? n : null
 }
+
+// Persisted filter state (excluding regionOverride, which has its own key).
+// Stored in localStorage so filters survive navigation and page reloads.
+export interface StoredDiscountFilters {
+  sortBy?: DiscountSort
+  selectedGenres?: string[]
+  selectedFeatures?: string[]
+  selectedOS?: OsOption[]
+  priceRange?: [number, number] | null
+  ratingRange?: [number, number]
+  releaseYearRange?: [number, number] | null
+  maxPegiAge?: PegiAge | null
+  searchQuery?: string
+  hideDlcs?: boolean
+  pageSize?: number
+}
+
+const FILTERS_STORAGE_KEY = 'discounts.filters'
+
+export const loadStoredFilters = (): StoredDiscountFilters => {
+  try {
+    const raw = localStorage.getItem(FILTERS_STORAGE_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw) as unknown
+    if (typeof parsed !== 'object' || parsed === null) return {}
+    return parsed as StoredDiscountFilters
+  } catch {
+    return {}
+  }
+}
+
+export const saveStoredFilters = (filters: StoredDiscountFilters) => {
+  try {
+    localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(filters))
+  } catch {
+    // ignore (private mode, quota, etc.)
+  }
+}

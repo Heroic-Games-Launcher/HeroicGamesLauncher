@@ -45,6 +45,26 @@
   color: var(--accent);
 }
 
+.discountFilters__toggle--hasActive {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.discountFilters__toggleBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--space-3xs);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--text-tertiary);
+  font-size: calc(var(--text-sm) * 0.8);
+  font-weight: var(--bold);
+  line-height: 1;
+}
+
 .discountFilters__toggleIcon {
   transition: transform 250ms ease;
 }

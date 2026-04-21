@@ -194,6 +194,26 @@ const DiscountFilters = ({
 
   const osLabel = t('discounts.filters.os', 'Operating system')
 
+  // Count of filters hidden inside the collapsible that are currently narrowing
+  // results. Surfaces on the "More filters" toggle so a user returning with
+  // persisted filters can see there's non-default state before expanding.
+  const priceActive =
+    priceRange[0] !== 0 || priceRange[1] !== priceMax
+  const ratingActive =
+    ratingRange[0] !== 0 || ratingRange[1] !== RATING_SCALE_MAX
+  const releaseYearActive =
+    releaseYearRange[0] !== releaseYearBounds[0] ||
+    releaseYearRange[1] !== releaseYearBounds[1]
+  const collapsedActiveCount =
+    (sortBy !== 'trending' ? 1 : 0) +
+    (selectedGenres.length > 0 ? 1 : 0) +
+    (selectedFeatures.length > 0 ? 1 : 0) +
+    (selectedOS.length > 0 ? 1 : 0) +
+    (maxPegiAge !== null ? 1 : 0) +
+    (priceActive ? 1 : 0) +
+    (ratingActive ? 1 : 0) +
+    (releaseYearActive ? 1 : 0)
+
   return (
     <section
       className="discountFilters"
@@ -206,7 +226,11 @@ const DiscountFilters = ({
         <div className="discountFilters__headerActions">
           <button
             type="button"
-            className="discountFilters__toggle"
+            className={`discountFilters__toggle${
+              collapsedActiveCount > 0
+                ? ' discountFilters__toggle--hasActive'
+                : ''
+            }`}
             onClick={() => setExpanded((v) => !v)}
             aria-expanded={expanded}
             aria-controls="discountFilters__collapsible"
@@ -216,6 +240,18 @@ const DiscountFilters = ({
                 ? t('discounts.filters.lessFilters', 'Less filters')
                 : t('discounts.filters.moreFilters', 'More filters')}
             </span>
+            {collapsedActiveCount > 0 && (
+              <span
+                className="discountFilters__toggleBadge"
+                aria-label={t(
+                  'discounts.filters.activeCount',
+                  '{{count}} active',
+                  { count: collapsedActiveCount }
+                )}
+              >
+                {collapsedActiveCount}
+              </span>
+            )}
             <ExpandMore
               fontSize="small"
               className={`discountFilters__toggleIcon${
