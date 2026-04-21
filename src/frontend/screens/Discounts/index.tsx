@@ -340,6 +340,23 @@ export default function Discounts() {
         })
         break
       }
+      case 'rating-asc':
+      case 'rating-desc': {
+        // Unrated games (missing or zero) sink to the bottom regardless of
+        // direction, so low-end sort doesn't get flooded by unrated entries.
+        const dir = sortBy === 'rating-asc' ? 1 : -1
+        sorted.sort((a, b) => {
+          const ra = a.reviewsRating ?? 0
+          const rb = b.reviewsRating ?? 0
+          const aMissing = ra <= 0
+          const bMissing = rb <= 0
+          if (aMissing && bMissing) return 0
+          if (aMissing) return 1
+          if (bMissing) return -1
+          return (ra - rb) * dir
+        })
+        break
+      }
       case 'trending':
       default:
         // server already returns by trending, preserve order

@@ -281,6 +281,8 @@
             "discount": "Biggest discount",
             "priceAsc": "Price: low to high",
             "priceDesc": "Price: high to low",
+            "ratingAsc": "Rating: low to high",
+            "ratingDesc": "Rating: high to low",
             "releaseAsc": "Release date: old to new",
             "releaseDesc": "Release date: new to old",
             "trending": "Trending"

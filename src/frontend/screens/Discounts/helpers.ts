@@ -155,6 +155,8 @@ export type DiscountSort =
   | 'price-desc'
   | 'release-asc'
   | 'release-desc'
+  | 'rating-asc'
+  | 'rating-desc'
 
 export const parseReleaseTimestamp = (releaseDate?: string): number => {
   if (!releaseDate) return NaN
