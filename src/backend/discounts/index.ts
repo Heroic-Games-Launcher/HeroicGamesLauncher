@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { app } from 'electron'
 import { addHandler } from 'backend/ipc'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import type {
@@ -43,7 +44,10 @@ const buildUrl = (page: number, locale: CatalogLocaleSettings) => {
 
 const fetchPage = async (page: number, locale: CatalogLocaleSettings) => {
   const { data } = await axios.get<CatalogResponse>(buildUrl(page, locale), {
-    timeout: 15000
+    timeout: 15000,
+    headers: {
+      'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
+    }
   })
   return data
 }
