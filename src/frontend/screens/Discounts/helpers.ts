@@ -148,7 +148,19 @@ export const parsePriceAmount = (amount?: string): number => {
   return Number.isFinite(parsed) ? parsed : 0
 }
 
-export type DiscountSort = 'trending' | 'discount' | 'price-asc' | 'price-desc'
+export type DiscountSort =
+  | 'trending'
+  | 'discount'
+  | 'price-asc'
+  | 'price-desc'
+  | 'release-asc'
+  | 'release-desc'
+
+export const parseReleaseTimestamp = (releaseDate?: string): number => {
+  if (!releaseDate) return NaN
+  const t = new Date(releaseDate).getTime()
+  return Number.isFinite(t) ? t : NaN
+}
 
 export const PAGE_SIZE_OPTIONS = [20, 50, 100] as const
 export const DEFAULT_PAGE_SIZE: (typeof PAGE_SIZE_OPTIONS)[number] = 50

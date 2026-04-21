@@ -284,6 +284,12 @@ const DiscountFilters = ({
                 <MenuItem value="price-desc">
                   {t('discounts.sort.priceDesc', 'Price: high to low')}
                 </MenuItem>
+                <MenuItem value="release-desc">
+                  {t('discounts.sort.releaseDesc', 'Release date: new to old')}
+                </MenuItem>
+                <MenuItem value="release-asc">
+                  {t('discounts.sort.releaseAsc', 'Release date: old to new')}
+                </MenuItem>
               </Select>
             </div>
 

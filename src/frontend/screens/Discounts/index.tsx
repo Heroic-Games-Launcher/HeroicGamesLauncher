@@ -19,6 +19,7 @@ import {
   normalizeRating,
   parseDiscountPercent,
   parsePriceAmount,
+  parseReleaseTimestamp,
   RATING_SCALE_MAX,
   REGION_OPTIONS,
   setStoredRegionOverride,
@@ -262,6 +263,23 @@ export default function Discounts() {
             parsePriceAmount(a.price.finalMoney?.amount)
         )
         break
+      case 'release-asc':
+      case 'release-desc': {
+        // Games without a release date sink to the bottom of either sort
+        // direction so they don't unexpectedly lead the list.
+        const dir = sortBy === 'release-asc' ? 1 : -1
+        sorted.sort((a, b) => {
+          const ta = parseReleaseTimestamp(a.releaseDate)
+          const tb = parseReleaseTimestamp(b.releaseDate)
+          const aMissing = Number.isNaN(ta)
+          const bMissing = Number.isNaN(tb)
+          if (aMissing && bMissing) return 0
+          if (aMissing) return 1
+          if (bMissing) return -1
+          return (ta - tb) * dir
+        })
+        break
+      }
       case 'trending':
       default:
         // server already returns by trending, preserve order
