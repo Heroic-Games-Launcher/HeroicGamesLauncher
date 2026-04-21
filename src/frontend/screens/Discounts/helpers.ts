@@ -8,6 +8,9 @@ const GOG_AFFILIATE_ID = '1838482841'
 // Only country and currency vary by language. GOG's catalog API rejects
 // most locale values, so we always send en-US — the locale doesn't affect
 // the discount listings, only the storeLink language path.
+// GOG supports: AUD, BRL, CAD, CHF, CNY, DKK, EUR, GBP, NOK, PLN, SEK (in
+// their respective regions) and USD everywhere. Unsupported native
+// currencies fall back to USD.
 const COUNTRY_CURRENCY_MAP: Record<
   string,
   { countryCode: string; currencyCode: string }
@@ -21,23 +24,23 @@ const COUNTRY_CURRENCY_MAP: Record<
   it: { countryCode: 'IT', currencyCode: 'EUR' },
   nl: { countryCode: 'NL', currencyCode: 'EUR' },
   pl: { countryCode: 'PL', currencyCode: 'PLN' },
-  ru: { countryCode: 'RU', currencyCode: 'RUB' },
-  uk: { countryCode: 'UA', currencyCode: 'UAH' },
-  ja: { countryCode: 'JP', currencyCode: 'JPY' },
-  ko: { countryCode: 'KR', currencyCode: 'KRW' },
+  ru: { countryCode: 'RU', currencyCode: 'USD' },
+  uk: { countryCode: 'UA', currencyCode: 'USD' },
+  ja: { countryCode: 'JP', currencyCode: 'USD' },
+  ko: { countryCode: 'KR', currencyCode: 'USD' },
   zh_Hans: { countryCode: 'CN', currencyCode: 'CNY' },
-  zh_Hant: { countryCode: 'TW', currencyCode: 'TWD' },
-  tr: { countryCode: 'TR', currencyCode: 'TRY' },
-  cs: { countryCode: 'CZ', currencyCode: 'CZK' },
-  hu: { countryCode: 'HU', currencyCode: 'HUF' },
+  zh_Hant: { countryCode: 'TW', currencyCode: 'USD' },
+  tr: { countryCode: 'TR', currencyCode: 'USD' },
+  cs: { countryCode: 'CZ', currencyCode: 'USD' },
+  hu: { countryCode: 'HU', currencyCode: 'USD' },
   sv: { countryCode: 'SE', currencyCode: 'SEK' },
   da: { countryCode: 'DK', currencyCode: 'DKK' },
   nb_NO: { countryCode: 'NO', currencyCode: 'NOK' },
   fi: { countryCode: 'FI', currencyCode: 'EUR' },
   el: { countryCode: 'GR', currencyCode: 'EUR' },
-  ro: { countryCode: 'RO', currencyCode: 'RON' },
+  ro: { countryCode: 'RO', currencyCode: 'USD' },
   ar: { countryCode: 'SA', currencyCode: 'USD' },
-  he: { countryCode: 'IL', currencyCode: 'ILS' }
+  he: { countryCode: 'IL', currencyCode: 'USD' }
 }
 
 const DEFAULT_COUNTRY_CURRENCY = { countryCode: 'US', currencyCode: 'USD' }
@@ -49,32 +52,39 @@ interface RegionOption {
 }
 
 // Deduplicated (countryCode+currencyCode) list for the Store override picker.
+// Currencies are restricted to those GOG supports (AUD, BRL, CAD, CHF, CNY,
+// DKK, EUR, GBP, NOK, PLN, SEK, USD); regions without a supported native
+// currency use USD, which GOG accepts everywhere.
 export const REGION_OPTIONS: RegionOption[] = [
   { countryCode: 'US', currencyCode: 'USD', label: 'United States' },
+  { countryCode: 'AU', currencyCode: 'AUD', label: 'Australia' },
   { countryCode: 'BR', currencyCode: 'BRL', label: 'Brazil' },
-  { countryCode: 'CZ', currencyCode: 'CZK', label: 'Czechia' },
+  { countryCode: 'CA', currencyCode: 'CAD', label: 'Canada' },
+  { countryCode: 'CN', currencyCode: 'CNY', label: 'China' },
+  { countryCode: 'CZ', currencyCode: 'USD', label: 'Czechia' },
   { countryCode: 'DK', currencyCode: 'DKK', label: 'Denmark' },
   { countryCode: 'FI', currencyCode: 'EUR', label: 'Finland' },
   { countryCode: 'FR', currencyCode: 'EUR', label: 'France' },
   { countryCode: 'DE', currencyCode: 'EUR', label: 'Germany' },
   { countryCode: 'GR', currencyCode: 'EUR', label: 'Greece' },
-  { countryCode: 'HU', currencyCode: 'HUF', label: 'Hungary' },
-  { countryCode: 'IL', currencyCode: 'ILS', label: 'Israel' },
+  { countryCode: 'HU', currencyCode: 'USD', label: 'Hungary' },
+  { countryCode: 'IL', currencyCode: 'USD', label: 'Israel' },
   { countryCode: 'IT', currencyCode: 'EUR', label: 'Italy' },
-  { countryCode: 'JP', currencyCode: 'JPY', label: 'Japan' },
+  { countryCode: 'JP', currencyCode: 'USD', label: 'Japan' },
   { countryCode: 'NL', currencyCode: 'EUR', label: 'Netherlands' },
   { countryCode: 'NO', currencyCode: 'NOK', label: 'Norway' },
   { countryCode: 'PL', currencyCode: 'PLN', label: 'Poland' },
   { countryCode: 'PT', currencyCode: 'EUR', label: 'Portugal' },
-  { countryCode: 'RO', currencyCode: 'RON', label: 'Romania' },
-  { countryCode: 'RU', currencyCode: 'RUB', label: 'Russia' },
-  { countryCode: 'CN', currencyCode: 'CNY', label: 'China' },
-  { countryCode: 'KR', currencyCode: 'KRW', label: 'South Korea' },
+  { countryCode: 'RO', currencyCode: 'USD', label: 'Romania' },
+  { countryCode: 'RU', currencyCode: 'USD', label: 'Russia' },
+  { countryCode: 'KR', currencyCode: 'USD', label: 'South Korea' },
   { countryCode: 'ES', currencyCode: 'EUR', label: 'Spain' },
   { countryCode: 'SE', currencyCode: 'SEK', label: 'Sweden' },
-  { countryCode: 'TW', currencyCode: 'TWD', label: 'Taiwan' },
-  { countryCode: 'TR', currencyCode: 'TRY', label: 'Turkey' },
-  { countryCode: 'UA', currencyCode: 'UAH', label: 'Ukraine' }
+  { countryCode: 'CH', currencyCode: 'CHF', label: 'Switzerland' },
+  { countryCode: 'TW', currencyCode: 'USD', label: 'Taiwan' },
+  { countryCode: 'TR', currencyCode: 'USD', label: 'Turkey' },
+  { countryCode: 'UA', currencyCode: 'USD', label: 'Ukraine' },
+  { countryCode: 'GB', currencyCode: 'GBP', label: 'United Kingdom' }
 ]
 
 const LOCALE_OVERRIDE_KEY = 'discounts.regionOverride'
