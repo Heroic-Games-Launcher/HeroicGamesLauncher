@@ -249,7 +249,8 @@
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
         "filters": {
-            "activeCount": "{{count}} active",
+            "activeCount_one": "{{count}} active",
+            "activeCount_other": "{{count}} active",
             "ageRating": "Suitable for age",
             "ageRatingAll": "All",
             "ageRatingOption": "Show games rated PEGI {{age}} or lower",
@@ -277,7 +278,6 @@
             "label": "Store region"
         },
         "sidebar": "Deals",
-        "storeHint": "GOG only for now",
         "sort": {
             "discount": "Biggest discount",
             "priceAsc": "Price: low to high",

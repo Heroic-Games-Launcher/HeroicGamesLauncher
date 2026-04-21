@@ -35,7 +35,9 @@
   cursor: pointer;
   font-size: var(--text-sm);
   font-weight: var(--semibold);
-  transition: background-color 150ms ease, border-color 150ms ease,
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
     color 150ms ease;
 }
 
@@ -76,7 +78,9 @@
 .discountFilters__collapsible {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 300ms ease, opacity 250ms ease,
+  transition:
+    grid-template-rows 300ms ease,
+    opacity 250ms ease,
     margin-top 300ms ease;
   opacity: 0;
   margin-top: calc(-1 * var(--space-md));
@@ -117,7 +121,9 @@
   cursor: pointer;
   font-size: var(--text-sm);
   font-weight: var(--semibold);
-  transition: background-color 150ms ease, color 150ms ease,
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
     border-color 150ms ease;
 }
 
@@ -292,7 +298,9 @@
   font-size: var(--text-sm);
   font-weight: var(--semibold);
   cursor: pointer;
-  transition: background-color 150ms ease, color 150ms ease;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

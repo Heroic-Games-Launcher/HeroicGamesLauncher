@@ -37,11 +37,17 @@ const DiscountCard = ({ product }: Props) => {
       {rating > 0 && (
         <span
           className="discountCard__score"
-          aria-label={t('discounts.aria.rating', 'Rating {{rating}} out of 10', {
-            rating: rating.toFixed(1)
-          })}
+          aria-label={t(
+            'discounts.aria.rating',
+            'Rating {{rating}} out of 10',
+            {
+              rating: rating.toFixed(1)
+            }
+          )}
         >
-          <span className="discountCard__scoreStar" aria-hidden="true">★</span>
+          <span className="discountCard__scoreStar" aria-hidden="true">
+            ★
+          </span>
           {rating.toFixed(1)}
         </span>
       )}

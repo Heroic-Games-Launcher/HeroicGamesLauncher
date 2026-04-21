@@ -197,8 +197,7 @@ const DiscountFilters = ({
   // Count of filters hidden inside the collapsible that are currently narrowing
   // results. Surfaces on the "More filters" toggle so a user returning with
   // persisted filters can see there's non-default state before expanding.
-  const priceActive =
-    priceRange[0] !== 0 || priceRange[1] !== priceMax
+  const priceActive = priceRange[0] !== 0 || priceRange[1] !== priceMax
   const ratingActive =
     ratingRange[0] !== 0 || ratingRange[1] !== RATING_SCALE_MAX
   const releaseYearActive =
@@ -337,7 +336,10 @@ const DiscountFilters = ({
 
             <MultiSelectChips
               label={t('discounts.filters.genres', 'Genres')}
-              placeholder={t('discounts.filters.genresPlaceholder', 'Any genre')}
+              placeholder={t(
+                'discounts.filters.genresPlaceholder',
+                'Any genre'
+              )}
               options={genreOptions}
               selected={selectedGenres}
               onChange={onGenresChange}
@@ -466,7 +468,9 @@ const DiscountFilters = ({
               <Slider
                 size="small"
                 value={priceRange}
-                onChange={(_, value) => onPriceChange(value as [number, number])}
+                onChange={(_, value) =>
+                  onPriceChange(value as [number, number])
+                }
                 min={0}
                 max={priceMax}
                 step={1}
@@ -508,7 +512,9 @@ const DiscountFilters = ({
 
             <div className="discountFilters__field discountFilters__field--slider">
               <label className="discountFilters__label">
-                <span>{t('discounts.filters.releaseYear', 'Release year')}</span>
+                <span>
+                  {t('discounts.filters.releaseYear', 'Release year')}
+                </span>
                 <span className="discountFilters__labelValue">
                   {releaseYearRange[0]} – {releaseYearRange[1]}
                 </span>

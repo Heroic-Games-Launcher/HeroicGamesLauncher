@@ -321,9 +321,7 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
-  getGogDiscounts: (
-    locale: CatalogLocaleSettings
-  ) => Promise<CatalogProduct[]>
+  getGogDiscounts: (locale: CatalogLocaleSettings) => Promise<CatalogProduct[]>
 }
 
 interface FrontendMessages {
