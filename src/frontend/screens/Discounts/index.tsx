@@ -61,6 +61,9 @@ export default function Discounts() {
     0,
     RATING_SCALE_MAX
   ])
+  const [releaseYearRange, setReleaseYearRange] = useState<
+    [number, number] | null
+  >(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [hideDlcs, setHideDlcs] = useState(false)
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE)
@@ -79,6 +82,7 @@ export default function Discounts() {
         if (!cancelled) {
           setProducts(result)
           setPriceRange(null)
+          setReleaseYearRange(null)
         }
       } catch (err) {
         if (!cancelled) {
@@ -109,11 +113,38 @@ export default function Discounts() {
     return Math.max(1, Math.ceil(max))
   }, [products])
 
+  const releaseYearBounds = useMemo<[number, number]>(() => {
+    const currentYear = new Date().getFullYear()
+    let min = currentYear
+    let max = currentYear
+    let found = false
+    for (const p of products) {
+      if (!p.releaseDate) continue
+      const y = new Date(p.releaseDate).getFullYear()
+      if (!Number.isFinite(y)) continue
+      if (!found) {
+        min = y
+        max = y
+        found = true
+      } else {
+        if (y < min) min = y
+        if (y > max) max = y
+      }
+    }
+    return [min, max]
+  }, [products])
+
+  // GOG sometimes returns multiple slugs for the same display name (e.g.
+  // "Multi-player"). Dedup by normalized name so the picker shows each label
+  // once, and treat that normalized name as the canonical key used for
+  // filtering.
   const genreOptions = useMemo<CatalogGenre[]>(() => {
     const seen = new Map<string, CatalogGenre>()
     for (const p of products) {
       for (const g of p.genres ?? []) {
-        if (!seen.has(g.slug)) seen.set(g.slug, g)
+        const key = g.name.trim().toLowerCase()
+        if (!key || seen.has(key)) continue
+        seen.set(key, { name: g.name, slug: key })
       }
     }
     return Array.from(seen.values()).sort((a, b) =>
@@ -125,7 +156,9 @@ export default function Discounts() {
     const seen = new Map<string, CatalogFeature>()
     for (const p of products) {
       for (const f of p.features ?? []) {
-        if (!seen.has(f.slug)) seen.set(f.slug, f)
+        const key = f.name.trim().toLowerCase()
+        if (!key || seen.has(key)) continue
+        seen.set(key, { name: f.name, slug: key })
       }
     }
     return Array.from(seen.values()).sort((a, b) =>
@@ -140,10 +173,21 @@ export default function Discounts() {
     }
   }, [products.length, priceMax, priceRange])
 
+  // Initialize release-year range once we know the bounds
+  useEffect(() => {
+    if (products.length > 0 && releaseYearRange === null) {
+      setReleaseYearRange(releaseYearBounds)
+    }
+  }, [products.length, releaseYearBounds, releaseYearRange])
+
   const filteredSorted = useMemo(() => {
     const [minPrice, maxPrice] = priceRange ?? [0, priceMax]
     const [minRating, maxRating] = ratingRange
     const ratingFilterActive = minRating > 0 || maxRating < RATING_SCALE_MAX
+    const [minYear, maxYear] = releaseYearRange ?? releaseYearBounds
+    const yearFilterActive =
+      releaseYearRange !== null &&
+      (minYear > releaseYearBounds[0] || maxYear < releaseYearBounds[1])
     const search = searchQuery.trim().toLowerCase()
 
     const filtered = products.filter((p) => {
@@ -159,13 +203,21 @@ export default function Discounts() {
         if (rating < minRating || rating > maxRating) return false
       }
 
+      if (yearFilterActive) {
+        const y = p.releaseDate ? new Date(p.releaseDate).getFullYear() : NaN
+        if (!Number.isFinite(y)) return false
+        if (y < minYear || y > maxYear) return false
+      }
+
       if (selectedGenres.length > 0) {
-        const productGenres = p.genres?.map((g) => g.slug) ?? []
+        const productGenres =
+          p.genres?.map((g) => g.name.trim().toLowerCase()) ?? []
         if (!selectedGenres.some((s) => productGenres.includes(s))) return false
       }
 
       if (selectedFeatures.length > 0) {
-        const productFeatures = p.features?.map((f) => f.slug) ?? []
+        const productFeatures =
+          p.features?.map((f) => f.name.trim().toLowerCase()) ?? []
         if (!selectedFeatures.every((s) => productFeatures.includes(s)))
           return false
       }
@@ -212,6 +264,8 @@ export default function Discounts() {
     priceRange,
     priceMax,
     ratingRange,
+    releaseYearRange,
+    releaseYearBounds,
     selectedGenres,
     selectedFeatures,
     selectedOS,
@@ -232,6 +286,7 @@ export default function Discounts() {
     selectedOS,
     priceRange,
     ratingRange,
+    releaseYearRange,
     searchQuery,
     hideDlcs,
     pageSize,
@@ -257,7 +312,11 @@ export default function Discounts() {
     ratingRange[1] !== RATING_SCALE_MAX ||
     searchQuery.trim() !== '' ||
     hideDlcs ||
-    (priceRange !== null && (priceRange[0] !== 0 || priceRange[1] !== priceMax))
+    (priceRange !== null &&
+      (priceRange[0] !== 0 || priceRange[1] !== priceMax)) ||
+    (releaseYearRange !== null &&
+      (releaseYearRange[0] !== releaseYearBounds[0] ||
+        releaseYearRange[1] !== releaseYearBounds[1]))
 
   const handleReset = () => {
     setSortBy('trending')
@@ -266,6 +325,7 @@ export default function Discounts() {
     setSelectedOS([])
     setPriceRange([0, priceMax])
     setRatingRange([0, RATING_SCALE_MAX])
+    setReleaseYearRange(releaseYearBounds)
     setSearchQuery('')
     setHideDlcs(false)
   }
@@ -359,6 +419,9 @@ export default function Discounts() {
             currencyCode={localeSettings.currencyCode}
             ratingRange={ratingRange}
             onRatingChange={setRatingRange}
+            releaseYearBounds={releaseYearBounds}
+            releaseYearRange={releaseYearRange ?? releaseYearBounds}
+            onReleaseYearChange={setReleaseYearRange}
             genreOptions={genreOptions}
             selectedGenres={selectedGenres}
             onGenresChange={setSelectedGenres}

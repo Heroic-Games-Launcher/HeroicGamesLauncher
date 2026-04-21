@@ -32,6 +32,9 @@ interface Props {
   currencyCode: string
   ratingRange: [number, number]
   onRatingChange: (range: [number, number]) => void
+  releaseYearBounds: [number, number]
+  releaseYearRange: [number, number]
+  onReleaseYearChange: (range: [number, number]) => void
   genreOptions: CatalogGenre[]
   selectedGenres: string[]
   onGenresChange: (slugs: string[]) => void
@@ -152,6 +155,9 @@ const DiscountFilters = ({
   currencyCode,
   ratingRange,
   onRatingChange,
+  releaseYearBounds,
+  releaseYearRange,
+  onReleaseYearChange,
   genreOptions,
   selectedGenres,
   onGenresChange,
@@ -319,6 +325,24 @@ const DiscountFilters = ({
                 })}
               </div>
             </div>
+
+            <div className="discountFilters__field discountFilters__field--pageSize">
+              <label className="discountFilters__label">
+                {t('discounts.filters.pageSize', 'Per page')}
+              </label>
+              <Select
+                size="small"
+                value={pageSize}
+                onChange={(e) => onPageSizeChange(Number(e.target.value))}
+                className="discountFilters__select"
+              >
+                {PAGE_SIZE_OPTIONS.map((n) => (
+                  <MenuItem key={n} value={n}>
+                    {n}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
           </div>
 
           <div className="discountFilters__row discountFilters__row--sliders">
@@ -348,48 +372,54 @@ const DiscountFilters = ({
               </div>
             </div>
 
-            <div className="discountFilters__ratingGroup">
-              <div className="discountFilters__field discountFilters__field--slider">
-                <label className="discountFilters__label">
-                  <span>{t('discounts.filters.rating', 'Rating')}</span>
-                  <span className="discountFilters__labelValue">
-                    {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
-                  </span>
-                </label>
-                <Slider
-                  size="small"
-                  value={ratingRange}
-                  onChange={(_, value) =>
-                    onRatingChange(value as [number, number])
-                  }
-                  min={0}
-                  max={RATING_SCALE_MAX}
-                  step={0.5}
-                  valueLabelDisplay="auto"
-                  className="discountFilters__slider"
-                />
-                <div className="discountFilters__sliderBounds">
-                  <span>0.0</span>
-                  <span>{RATING_SCALE_MAX.toFixed(1)}</span>
-                </div>
+            <div className="discountFilters__field discountFilters__field--slider">
+              <label className="discountFilters__label">
+                <span>{t('discounts.filters.rating', 'Rating')}</span>
+                <span className="discountFilters__labelValue">
+                  {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
+                </span>
+              </label>
+              <Slider
+                size="small"
+                value={ratingRange}
+                onChange={(_, value) =>
+                  onRatingChange(value as [number, number])
+                }
+                min={0}
+                max={RATING_SCALE_MAX}
+                step={0.5}
+                valueLabelDisplay="auto"
+                className="discountFilters__slider"
+              />
+              <div className="discountFilters__sliderBounds">
+                <span>0.0</span>
+                <span>{RATING_SCALE_MAX.toFixed(1)}</span>
               </div>
+            </div>
 
-              <div className="discountFilters__field discountFilters__field--pageSize">
-                <label className="discountFilters__label">
-                  {t('discounts.filters.pageSize', 'Per page')}
-                </label>
-                <Select
-                  size="small"
-                  value={pageSize}
-                  onChange={(e) => onPageSizeChange(Number(e.target.value))}
-                  className="discountFilters__select"
-                >
-                  {PAGE_SIZE_OPTIONS.map((n) => (
-                    <MenuItem key={n} value={n}>
-                      {n}
-                    </MenuItem>
-                  ))}
-                </Select>
+            <div className="discountFilters__field discountFilters__field--slider">
+              <label className="discountFilters__label">
+                <span>{t('discounts.filters.releaseYear', 'Release year')}</span>
+                <span className="discountFilters__labelValue">
+                  {releaseYearRange[0]} – {releaseYearRange[1]}
+                </span>
+              </label>
+              <Slider
+                size="small"
+                value={releaseYearRange}
+                onChange={(_, value) =>
+                  onReleaseYearChange(value as [number, number])
+                }
+                min={releaseYearBounds[0]}
+                max={releaseYearBounds[1]}
+                step={1}
+                valueLabelDisplay="auto"
+                disabled={releaseYearBounds[0] === releaseYearBounds[1]}
+                className="discountFilters__slider"
+              />
+              <div className="discountFilters__sliderBounds">
+                <span>{releaseYearBounds[0]}</span>
+                <span>{releaseYearBounds[1]}</span>
               </div>
             </div>
           </div>
