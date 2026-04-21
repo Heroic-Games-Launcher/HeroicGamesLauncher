@@ -280,9 +280,7 @@ export default function SidebarLinks() {
 
         <SidebarItem
           elementType="button"
-          onClick={() =>
-            handleExternalLink(window.api.openGithubSponsorsPage)
-          }
+          onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
           icon={faGithub}
           label="GitHub Sponsors"
         />

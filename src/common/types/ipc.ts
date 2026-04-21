@@ -69,6 +69,7 @@ interface SyncIPCFunctions {
   openDiscordLink: () => void
   openPatreonPage: () => void
   openKofiPage: () => void
+  openGithubSponsorsPage: () => void
   openWinePrefixFAQ: () => void
   openWebviewPage: (url: string) => void
   openWikiLink: () => void
