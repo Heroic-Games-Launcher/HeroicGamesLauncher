@@ -815,7 +815,7 @@ function getDxvkUrl(): string {
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
-      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3',
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to DXVK 1.10.3 for Wine, or use DXVK-Sarek with proton-cachyos',
       LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/doitsujin/dxvk/releases/tags/v1.10.3'
@@ -851,7 +851,7 @@ function getVkd3dUrl(): string {
   }
   if (any_gpu_supports_version([1, 1, 0])) {
     logInfo(
-      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6',
+      'The GPU(s) in this system only support Vulkan 1.1/1.2, falling back to VKD3D 2.6 for Wine, or use DXVK-Sarek with proton-cachyos',
       LogPrefix.ToolInstaller
     )
     return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/tags/v2.6'

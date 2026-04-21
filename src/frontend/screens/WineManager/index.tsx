@@ -6,10 +6,7 @@ import { UpdateComponent } from 'frontend/components/UI'
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
-import {
-  TypeCheckedStoreFrontend,
-  wineDownloaderInfoStore
-} from 'frontend/helpers/electronStores'
+import { wineDownloaderInfoStore } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCheck,
@@ -24,10 +21,6 @@ import useGlobalState from 'frontend/state/GlobalStateV2'
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
 )
-
-const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
-  cwd: 'store'
-})
 
 export default function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -87,15 +80,14 @@ export default function WineManager(): JSX.Element | null {
     getDefaultRepository()
   )
 
-  const [wineManagerSettings, setWineManagerSettings] = useState<
-    WineManagerUISettings[]
-  >([
+  const wineManagerSettings: WineManagerUISettings[] = [
     protonge,
+    { type: 'Proton-Cachyos', value: 'protoncachyos', enabled: isLinux },
     { type: 'Wine-GE', value: 'winege', enabled: isLinux },
     gamePortingToolkit,
     wineCrossover,
     wineStagingMacOS
-  ])
+  ]
 
   const getWineVersions = (repo: Type) => {
     let versions = wineDownloaderInfoStore.get('wine-releases', [])
@@ -119,15 +111,6 @@ export default function WineManager(): JSX.Element | null {
     setRepository(repo)
     setWineVersions(getWineVersions(repo.type))
   }
-
-  useEffect(() => {
-    const oldWineManagerSettings = configStore.get_nodefault(
-      'wine-manager-settings'
-    )
-    if (oldWineManagerSettings) {
-      setWineManagerSettings(oldWineManagerSettings)
-    }
-  }, [])
 
   useEffect(() => {
     const removeListener = window.api.handleWineVersionsUpdated(() => {
@@ -160,10 +143,20 @@ export default function WineManager(): JSX.Element | null {
             )}
           </div>
         )
+      case 'Proton-Cachyos':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.proton-cachyos',
+              'Proton-cachyos is a Proton variant maintaned by the CachyOS team. It includes extra tools like DXVK-Sarek and D7VK.'
+            )}
+          </div>
+        )
       default:
         return <></>
     }
-  }, [repository])
+  }, [repository, t])
 
   return (
     <>
