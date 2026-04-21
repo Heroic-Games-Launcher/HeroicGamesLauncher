@@ -680,6 +680,12 @@
             "enableNewDesign": "New design",
             "zoomPlatform": "Zoom Platform support (only Linux)"
         },
+        "forceGalaxyOverlay": {
+            "default": "Default",
+            "disable": "Disable",
+            "enable": "Force enable",
+            "label": "Overlay"
+        },
         "frameless-window": {
             "confirmation": {
                 "message": "This feature is still experimental. Please report any issues you encounter with it on GitHub.",
@@ -696,6 +702,9 @@
             "enableUpscaling": "Enables Upscaling",
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
             "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
+        },
+        "gog": {
+            "overlay": "GOG Overlay"
         },
         "hdr": "Enable HDR",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",

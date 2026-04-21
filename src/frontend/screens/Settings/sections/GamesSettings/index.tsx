@@ -35,7 +35,8 @@ import {
   IgnoreGameUpdates,
   Gamescope,
   BeforeLaunchScriptPath,
-  AfterLaunchScriptPath
+  AfterLaunchScriptPath,
+  Overlay
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -85,6 +86,7 @@ export default function GamesSettings() {
     gameInfo?.runner === 'gog' || gameInfo?.runner === 'legendary'
   const isBrowserGame = gameInfo?.install.platform === 'Browser'
   const isSideloaded = gameInfo?.runner === 'sideload'
+  const isGog = gameInfo?.runner === 'gog'
 
   function shouldShowSettings(tab: 'wine' | 'other'): boolean {
     if (tab === 'wine') {
@@ -226,6 +228,7 @@ export default function GamesSettings() {
         )}
         <VerboseLogs />
         <DisableUMU />
+        {isGog && <Overlay />}
         <AlternativeExe />
         <LaunchOptionSelector />
         <LauncherArgs />

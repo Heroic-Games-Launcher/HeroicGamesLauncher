@@ -13,13 +13,15 @@ type DownloadedBinary =
   | 'nile'
   | 'comet'
   | 'epic-integration'
+  | 'galaxy-helper'
 
 const RELEASE_TAGS = {
   legendary: '0.20.42',
   gogdl: 'v1.2.1',
   nile: 'v1.1.2',
-  comet: 'v0.2.0',
-  'epic-integration': 'v0.4'
+  comet: 'v0.3.2',
+  'epic-integration': 'v0.4',
+  'galaxy-helper': 'v0.1.0'
 } as const satisfies Record<DownloadedBinary, string>
 
 const pathExists = async (path: string): Promise<boolean> =>
@@ -197,6 +199,33 @@ async function downloadEpicIntegration() {
   )
 }
 
+async function downloadGalaxyHelper() {
+  return Promise.all([
+    downloadGithubAssets(
+      'galaxy.exe',
+      'imLinguin/galaxy-helper',
+      RELEASE_TAGS['galaxy-helper'],
+      {
+        x64: {
+          linux: 'galaxy.exe'
+        },
+        arm64: {}
+      }
+    ),
+    downloadGithubAssets(
+      'libgalaxyunixlib.dll.so',
+      'imLinguin/galaxy-helper',
+      RELEASE_TAGS['galaxy-helper'],
+      {
+        x64: {
+          linux: 'libgalaxyunixlib.dll.so'
+        },
+        arm64: {}
+      }
+    )
+  ])
+}
+
 /**
  * Finds out which binaries need to be downloaded by comparing
  * `public/bin/.release_tags` to RELEASE_TAGS
@@ -255,6 +284,8 @@ async function main() {
     promisesToAwait.push(downloadComet())
   if (binariesToDownload.includes('epic-integration'))
     promisesToAwait.push(downloadEpicIntegration())
+  if (binariesToDownload.includes('galaxy-helper'))
+    promisesToAwait.push(downloadGalaxyHelper())
 
   await Promise.all(promisesToAwait)
 
