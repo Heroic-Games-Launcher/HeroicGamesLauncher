@@ -5,15 +5,14 @@ import {
   Checkbox,
   Chip,
   FormControlLabel,
-  IconButton,
-  InputAdornment,
   MenuItem,
   Select,
   Slider,
   TextField,
   Tooltip
 } from '@mui/material'
-import { Clear, ExpandMore, Search } from '@mui/icons-material'
+import { ExpandMore } from '@mui/icons-material'
+import SearchBar from 'frontend/components/UI/SearchBar'
 import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
   OS_OPTIONS,
@@ -57,6 +56,93 @@ const OS_PLATFORM_KEY: Record<OsOption, 'win' | 'linux' | 'mac'> = {
   osx: 'mac'
 }
 
+interface SlugOption {
+  slug: string
+  name: string
+}
+
+interface MultiSelectChipsProps<T extends SlugOption> {
+  label: string
+  placeholder: string
+  options: T[]
+  selected: string[]
+  onChange: (slugs: string[]) => void
+}
+
+const MultiSelectChips = <T extends SlugOption>({
+  label,
+  placeholder,
+  options,
+  selected,
+  onChange
+}: MultiSelectChipsProps<T>) => {
+  const selectedOptions = options.filter((o) => selected.includes(o.slug))
+
+  return (
+    <div className="discountFilters__field">
+      <label className="discountFilters__label">
+        <span>{label}</span>
+        {selected.length > 0 && (
+          <span className="discountFilters__labelMeta">{selected.length}</span>
+        )}
+      </label>
+      <Tooltip
+        arrow
+        placement="bottom-start"
+        disableHoverListener={selected.length <= 3}
+        title={
+          selected.length > 3 ? (
+            <div className="discountFilters__tooltipChips">
+              {selectedOptions.map((o) => (
+                <Chip
+                  key={o.slug}
+                  size="small"
+                  label={o.name}
+                  className="discountFilters__chip"
+                />
+              ))}
+            </div>
+          ) : (
+            ''
+          )
+        }
+      >
+        <Autocomplete
+          multiple
+          size="small"
+          limitTags={2}
+          options={options}
+          value={selectedOptions}
+          onChange={(_, value) => onChange(value.map((o) => o.slug))}
+          getOptionLabel={(o) => o.name}
+          isOptionEqualToValue={(a, b) => a.slug === b.slug}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => {
+              const { key, ...rest } = getTagProps({ index })
+              return (
+                <Chip
+                  key={key}
+                  size="small"
+                  label={option.name}
+                  {...rest}
+                  className="discountFilters__chip"
+                />
+              )
+            })
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              placeholder={selected.length === 0 ? placeholder : ''}
+            />
+          )}
+          className="discountFilters__autocomplete"
+        />
+      </Tooltip>
+    </div>
+  )
+}
+
 const DiscountFilters = ({
   sortBy,
   onSortChange,
@@ -94,8 +180,13 @@ const DiscountFilters = ({
     )
   }
 
+  const osLabel = t('discounts.filters.os', 'Operating system')
+
   return (
-    <section className="discountFilters" aria-label={t('header.filters', 'Filters')}>
+    <section
+      className="discountFilters"
+      aria-label={t('header.filters', 'Filters')}
+    >
       <header className="discountFilters__header">
         <h3 className="discountFilters__title">
           {t('header.filters', 'Filters')}
@@ -132,38 +223,10 @@ const DiscountFilters = ({
       </header>
 
       <div className="discountFilters__row discountFilters__row--search">
-        <TextField
-          size="small"
-          fullWidth
+        <SearchBar
           value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder={t(
-            'discounts.filters.searchPlaceholder',
-            'Search games by title...'
-          )}
-          aria-label={t('discounts.filters.search', 'Search')}
-          className="discountFilters__search"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search fontSize="small" />
-              </InputAdornment>
-            ),
-            endAdornment: searchQuery ? (
-              <InputAdornment position="end">
-                <IconButton
-                  size="small"
-                  aria-label={t(
-                    'discounts.filters.clearSearch',
-                    'Clear search'
-                  )}
-                  onClick={() => onSearchChange('')}
-                >
-                  <Clear fontSize="small" />
-                </IconButton>
-              </InputAdornment>
-            ) : undefined
-          }}
+          onInputChanged={onSearchChange}
+          placeholder={t('search', 'Search for Games')}
         />
         <FormControlLabel
           className="discountFilters__hideDlcs"
@@ -186,280 +249,150 @@ const DiscountFilters = ({
         aria-hidden={!expanded}
       >
         <div className="discountFilters__collapsibleInner">
-      <div className="discountFilters__row discountFilters__row--inputs">
-        <div className="discountFilters__field">
-          <label className="discountFilters__label">
-            {t('discounts.filters.sort', 'Sort by')}
-          </label>
-          <Select
-            size="small"
-            value={sortBy}
-            onChange={(e) => onSortChange(e.target.value as DiscountSort)}
-            className="discountFilters__select"
-          >
-            <MenuItem value="trending">
-              {t('discounts.sort.trending', 'Trending')}
-            </MenuItem>
-            <MenuItem value="discount">
-              {t('discounts.sort.discount', 'Biggest discount')}
-            </MenuItem>
-            <MenuItem value="price-asc">
-              {t('discounts.sort.priceAsc', 'Price: low to high')}
-            </MenuItem>
-            <MenuItem value="price-desc">
-              {t('discounts.sort.priceDesc', 'Price: high to low')}
-            </MenuItem>
-          </Select>
-        </div>
+          <div className="discountFilters__row discountFilters__row--inputs">
+            <div className="discountFilters__field">
+              <label className="discountFilters__label">
+                {t('discounts.filters.sort', 'Sort by')}
+              </label>
+              <Select
+                size="small"
+                value={sortBy}
+                onChange={(e) => onSortChange(e.target.value as DiscountSort)}
+                className="discountFilters__select"
+              >
+                <MenuItem value="trending">
+                  {t('discounts.sort.trending', 'Trending')}
+                </MenuItem>
+                <MenuItem value="discount">
+                  {t('discounts.sort.discount', 'Biggest discount')}
+                </MenuItem>
+                <MenuItem value="price-asc">
+                  {t('discounts.sort.priceAsc', 'Price: low to high')}
+                </MenuItem>
+                <MenuItem value="price-desc">
+                  {t('discounts.sort.priceDesc', 'Price: high to low')}
+                </MenuItem>
+              </Select>
+            </div>
 
-        <div className="discountFilters__field">
-          <label className="discountFilters__label">
-            <span>{t('discounts.filters.genres', 'Genres')}</span>
-            {selectedGenres.length > 0 && (
-              <span className="discountFilters__labelMeta">
-                {selectedGenres.length}
-              </span>
-            )}
-          </label>
-          <Tooltip
-            arrow
-            placement="bottom-start"
-            disableHoverListener={selectedGenres.length <= 3}
-            title={
-              selectedGenres.length > 3 ? (
-                <div className="discountFilters__tooltipChips">
-                  {genreOptions
-                    .filter((g) => selectedGenres.includes(g.slug))
-                    .map((g) => (
-                      <span
-                        key={g.slug}
-                        className="discountFilters__tooltipChip"
-                      >
-                        {g.name}
-                      </span>
-                    ))}
-                </div>
-              ) : (
-                ''
-              )
-            }
-          >
-            <Autocomplete
-              multiple
-              size="small"
-              limitTags={2}
+            <MultiSelectChips
+              label={t('discounts.filters.genres', 'Genres')}
+              placeholder={t('discounts.filters.genresPlaceholder', 'Any genre')}
               options={genreOptions}
-              value={genreOptions.filter((g) =>
-                selectedGenres.includes(g.slug)
-              )}
-              onChange={(_, value) => onGenresChange(value.map((g) => g.slug))}
-              getOptionLabel={(g) => g.name}
-              isOptionEqualToValue={(a, b) => a.slug === b.slug}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => {
-                  const { key, ...rest } = getTagProps({ index })
-                  return (
-                    <Chip
-                      key={key}
-                      size="small"
-                      label={option.name}
-                      {...rest}
-                    />
-                  )
-                })
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder={
-                    selectedGenres.length === 0
-                      ? t('discounts.filters.genresPlaceholder', 'Any genre')
-                      : ''
-                  }
-                />
-              )}
-              className="discountFilters__autocomplete"
+              selected={selectedGenres}
+              onChange={onGenresChange}
             />
-          </Tooltip>
-        </div>
 
-        <div className="discountFilters__field">
-          <label className="discountFilters__label">
-            <span>{t('discounts.filters.features', 'Features')}</span>
-            {selectedFeatures.length > 0 && (
-              <span className="discountFilters__labelMeta">
-                {selectedFeatures.length}
-              </span>
-            )}
-          </label>
-          <Tooltip
-            arrow
-            placement="bottom-start"
-            disableHoverListener={selectedFeatures.length <= 3}
-            title={
-              selectedFeatures.length > 3 ? (
-                <div className="discountFilters__tooltipChips">
-                  {featureOptions
-                    .filter((f) => selectedFeatures.includes(f.slug))
-                    .map((f) => (
-                      <span
-                        key={f.slug}
-                        className="discountFilters__tooltipChip"
-                      >
-                        {f.name}
-                      </span>
-                    ))}
-                </div>
-              ) : (
-                ''
-              )
-            }
-          >
-            <Autocomplete
-              multiple
-              size="small"
-              limitTags={2}
+            <MultiSelectChips
+              label={t('discounts.filters.features', 'Features')}
+              placeholder={t(
+                'discounts.filters.featuresPlaceholder',
+                'Any feature'
+              )}
               options={featureOptions}
-              value={featureOptions.filter((f) =>
-                selectedFeatures.includes(f.slug)
-              )}
-              onChange={(_, value) =>
-                onFeaturesChange(value.map((f) => f.slug))
-              }
-              getOptionLabel={(f) => f.name}
-              isOptionEqualToValue={(a, b) => a.slug === b.slug}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => {
-                  const { key, ...rest } = getTagProps({ index })
+              selected={selectedFeatures}
+              onChange={onFeaturesChange}
+            />
+
+            <div className="discountFilters__field">
+              <label className="discountFilters__label">{osLabel}</label>
+              <div
+                className="discountFilters__segmented"
+                role="group"
+                aria-label={osLabel}
+              >
+                {OS_OPTIONS.map((os) => {
+                  const active = selectedOS.includes(os)
                   return (
-                    <Chip
-                      key={key}
-                      size="small"
-                      label={option.name}
-                      {...rest}
-                    />
+                    <button
+                      key={os}
+                      type="button"
+                      className={`discountFilters__segment${
+                        active ? ' discountFilters__segment--active' : ''
+                      }`}
+                      aria-pressed={active}
+                      onClick={() => toggleOS(os)}
+                    >
+                      {t(`platforms.${OS_PLATFORM_KEY[os]}`)}
+                    </button>
                   )
-                })
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder={
-                    selectedFeatures.length === 0
-                      ? t(
-                          'discounts.filters.featuresPlaceholder',
-                          'Any feature'
-                        )
-                      : ''
-                  }
-                />
-              )}
-              className="discountFilters__autocomplete"
-            />
-          </Tooltip>
-        </div>
-
-        <div className="discountFilters__field">
-          <label className="discountFilters__label">
-            {t('discounts.filters.os', 'Operating system')}
-          </label>
-          <div
-            className="discountFilters__segmented"
-            role="group"
-            aria-label={t('discounts.filters.os', 'Operating system')}
-          >
-            {OS_OPTIONS.map((os) => {
-              const active = selectedOS.includes(os)
-              return (
-                <button
-                  key={os}
-                  type="button"
-                  className={`discountFilters__segment${
-                    active ? ' discountFilters__segment--active' : ''
-                  }`}
-                  aria-pressed={active}
-                  onClick={() => toggleOS(os)}
-                >
-                  {t(`platforms.${OS_PLATFORM_KEY[os]}`)}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-
-      <div className="discountFilters__row discountFilters__row--sliders">
-        <div className="discountFilters__field discountFilters__field--slider">
-          <label className="discountFilters__label">
-            <span>{t('discounts.filters.price', 'Price')}</span>
-            <span className="discountFilters__labelValue">
-              {currencyCode} {priceRange[0].toFixed(0)} –{' '}
-              {priceRange[1].toFixed(0)}
-            </span>
-          </label>
-          <Slider
-            size="small"
-            value={priceRange}
-            onChange={(_, value) => onPriceChange(value as [number, number])}
-            min={0}
-            max={priceMax}
-            step={1}
-            valueLabelDisplay="auto"
-            className="discountFilters__slider"
-          />
-          <div className="discountFilters__sliderBounds">
-            <span>
-              {currencyCode} 0
-            </span>
-            <span>
-              {currencyCode} {priceMax}
-            </span>
-          </div>
-        </div>
-
-        <div className="discountFilters__ratingGroup">
-          <div className="discountFilters__field discountFilters__field--slider">
-            <label className="discountFilters__label">
-              <span>{t('discounts.filters.rating', 'Rating')}</span>
-              <span className="discountFilters__labelValue">
-                {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
-              </span>
-            </label>
-            <Slider
-              size="small"
-              value={ratingRange}
-              onChange={(_, value) => onRatingChange(value as [number, number])}
-              min={0}
-              max={RATING_SCALE_MAX}
-              step={0.5}
-              valueLabelDisplay="auto"
-              className="discountFilters__slider"
-            />
-            <div className="discountFilters__sliderBounds">
-              <span>0.0</span>
-              <span>{RATING_SCALE_MAX.toFixed(1)}</span>
+                })}
+              </div>
             </div>
           </div>
 
-          <div className="discountFilters__field discountFilters__field--pageSize">
-            <label className="discountFilters__label">
-              {t('discounts.filters.pageSize', 'Per page')}
-            </label>
-            <Select
-              size="small"
-              value={pageSize}
-              onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="discountFilters__select"
-            >
-              {PAGE_SIZE_OPTIONS.map((n) => (
-                <MenuItem key={n} value={n}>
-                  {n}
-                </MenuItem>
-              ))}
-            </Select>
+          <div className="discountFilters__row discountFilters__row--sliders">
+            <div className="discountFilters__field discountFilters__field--slider">
+              <label className="discountFilters__label">
+                <span>{t('discounts.filters.price', 'Price')}</span>
+                <span className="discountFilters__labelValue">
+                  {currencyCode} {priceRange[0].toFixed(0)} –{' '}
+                  {priceRange[1].toFixed(0)}
+                </span>
+              </label>
+              <Slider
+                size="small"
+                value={priceRange}
+                onChange={(_, value) => onPriceChange(value as [number, number])}
+                min={0}
+                max={priceMax}
+                step={1}
+                valueLabelDisplay="auto"
+                className="discountFilters__slider"
+              />
+              <div className="discountFilters__sliderBounds">
+                <span>{currencyCode} 0</span>
+                <span>
+                  {currencyCode} {priceMax}
+                </span>
+              </div>
+            </div>
+
+            <div className="discountFilters__ratingGroup">
+              <div className="discountFilters__field discountFilters__field--slider">
+                <label className="discountFilters__label">
+                  <span>{t('discounts.filters.rating', 'Rating')}</span>
+                  <span className="discountFilters__labelValue">
+                    {ratingRange[0].toFixed(1)} – {ratingRange[1].toFixed(1)}
+                  </span>
+                </label>
+                <Slider
+                  size="small"
+                  value={ratingRange}
+                  onChange={(_, value) =>
+                    onRatingChange(value as [number, number])
+                  }
+                  min={0}
+                  max={RATING_SCALE_MAX}
+                  step={0.5}
+                  valueLabelDisplay="auto"
+                  className="discountFilters__slider"
+                />
+                <div className="discountFilters__sliderBounds">
+                  <span>0.0</span>
+                  <span>{RATING_SCALE_MAX.toFixed(1)}</span>
+                </div>
+              </div>
+
+              <div className="discountFilters__field discountFilters__field--pageSize">
+                <label className="discountFilters__label">
+                  {t('discounts.filters.pageSize', 'Per page')}
+                </label>
+                <Select
+                  size="small"
+                  value={pageSize}
+                  onChange={(e) => onPageSizeChange(Number(e.target.value))}
+                  className="discountFilters__select"
+                >
+                  {PAGE_SIZE_OPTIONS.map((n) => (
+                    <MenuItem key={n} value={n}>
+                      {n}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
         </div>
       </div>
     </section>

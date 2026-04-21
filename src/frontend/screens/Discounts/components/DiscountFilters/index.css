@@ -117,8 +117,14 @@
 }
 
 .discountFilters__row--search {
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: center;
+  gap: var(--space-md);
+}
+
+.discountFilters__row--search .SearchBar {
+  flex: 1;
+  min-width: 0;
 }
 
 .discountFilters__hideDlcs.MuiFormControlLabel-root {
@@ -133,32 +139,6 @@
 
 .discountFilters__hideDlcs .MuiCheckbox-root.Mui-checked {
   color: var(--accent);
-}
-
-.discountFilters__search.MuiFormControl-root .MuiInputBase-root {
-  min-height: 40px;
-  background-color: var(--input-background, var(--background));
-  color: var(--text-default);
-  border-radius: var(--space-3xs);
-}
-
-.discountFilters__search .MuiInputBase-input {
-  color: var(--text-default);
-}
-
-.discountFilters__search .MuiOutlinedInput-notchedOutline {
-  border-color: var(--divider, rgba(255, 255, 255, 0.12));
-  transition: border-color 150ms ease;
-}
-
-.discountFilters__search:hover .MuiOutlinedInput-notchedOutline,
-.discountFilters__search .Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: var(--accent);
-  border-width: 1px;
-}
-
-.discountFilters__search .MuiSvgIcon-root {
-  color: var(--text-secondary);
 }
 
 .discountFilters__row--inputs {
@@ -235,40 +215,6 @@
   text-transform: none;
 }
 
-/* Uniform control heights */
-.discountFilters__select.MuiInputBase-root,
-.discountFilters__autocomplete .MuiInputBase-root {
-  min-height: 40px;
-  background-color: var(--input-background, var(--background));
-  color: var(--text-default);
-  border-radius: var(--space-3xs);
-}
-
-.discountFilters__select.MuiInputBase-root .MuiOutlinedInput-notchedOutline,
-.discountFilters__autocomplete .MuiOutlinedInput-notchedOutline {
-  border-color: var(--divider, rgba(255, 255, 255, 0.12));
-  transition: border-color 150ms ease;
-}
-
-.discountFilters__select.MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline,
-.discountFilters__autocomplete:hover .MuiOutlinedInput-notchedOutline {
-  border-color: var(--accent);
-}
-
-.discountFilters__select.MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline,
-.discountFilters__autocomplete .Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: var(--accent);
-  border-width: 1px;
-}
-
-.discountFilters__select .MuiSelect-select {
-  color: var(--text-default);
-}
-
-.discountFilters__autocomplete .MuiInputBase-input {
-  color: var(--text-default);
-}
-
 .discountFilters__autocomplete .MuiInputBase-root {
   height: 40px;
   overflow: hidden;
@@ -281,26 +227,21 @@
   min-width: 30px;
 }
 
-.discountFilters__autocomplete .MuiChip-root {
+.discountFilters__chip.MuiChip-root {
   height: 24px;
   background-color: var(--accent);
   color: var(--text-tertiary);
   border: none;
-}
-
-.discountFilters__autocomplete .MuiChip-label {
-  color: var(--text-tertiary);
   font-weight: var(--semibold);
 }
 
-.discountFilters__autocomplete .MuiChip-deleteIcon {
+.discountFilters__chip .MuiChip-deleteIcon {
   color: var(--text-tertiary);
   opacity: 0.7;
 }
 
-.discountFilters__autocomplete .MuiChip-deleteIcon:hover {
+.discountFilters__chip .MuiChip-deleteIcon:hover {
   opacity: 1;
-  color: var(--text-tertiary);
 }
 
 .discountFilters__tooltipChips {
@@ -308,16 +249,6 @@
   flex-wrap: wrap;
   gap: var(--space-3xs);
   max-width: 280px;
-}
-
-.discountFilters__tooltipChip {
-  padding: 2px var(--space-2xs);
-  border-radius: 999px;
-  background-color: var(--accent);
-  color: var(--text-tertiary);
-  font-size: calc(var(--text-sm) * 0.9);
-  font-weight: var(--semibold);
-  white-space: nowrap;
 }
 
 /* Segmented control for OS */

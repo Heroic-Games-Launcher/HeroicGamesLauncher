@@ -249,7 +249,6 @@
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
         "filters": {
-            "clearSearch": "Clear search",
             "features": "Features",
             "featuresPlaceholder": "Any feature",
             "genres": "Genres",
@@ -261,8 +260,6 @@
             "pageSize": "Per page",
             "price": "Price",
             "rating": "Rating",
-            "search": "Search",
-            "searchPlaceholder": "Search games by title...",
             "sort": "Sort by"
         },
         "loading": "Loading discounted games...",

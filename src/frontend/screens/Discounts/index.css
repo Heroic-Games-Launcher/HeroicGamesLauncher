@@ -48,28 +48,32 @@
 
 .discountsScreen__regionSelect.MuiInputBase-root {
   min-width: 220px;
+}
+
+.discountsScreen__regionSelect .MuiSelect-select {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+/* Shared MUI outlined-input appearance for all inputs in the Discounts screen.
+   Keeps per-component styles from each re-declaring the same overrides. */
+.discountsScreen .MuiOutlinedInput-root {
   min-height: 40px;
   background-color: var(--input-background, var(--background));
   color: var(--text-default);
   border-radius: var(--space-3xs);
 }
 
-.discountsScreen__regionSelect .MuiOutlinedInput-notchedOutline {
+.discountsScreen .MuiOutlinedInput-notchedOutline {
   border-color: var(--divider, rgba(255, 255, 255, 0.12));
   transition: border-color 150ms ease;
 }
 
-.discountsScreen__regionSelect:hover .MuiOutlinedInput-notchedOutline,
-.discountsScreen__regionSelect.Mui-focused .MuiOutlinedInput-notchedOutline {
+.discountsScreen .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+.discountsScreen .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: var(--accent);
   border-width: 1px;
-}
-
-.discountsScreen__regionSelect .MuiSelect-select {
-  color: var(--text-default);
-  display: flex;
-  align-items: center;
-  gap: var(--space-2xs);
 }
 
 .discountsScreen__regionCurrency {
