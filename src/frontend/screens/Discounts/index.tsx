@@ -482,7 +482,11 @@ export default function Discounts() {
               }
               const match = REGION_OPTIONS.find((r) => r.countryCode === value)
               if (!match) return value
-              return `${match.label} · ${match.currencyCode}`
+              const label = t(
+                `discounts.region.countries.${match.countryCode}`,
+                match.label
+              )
+              return `${label} · ${match.currencyCode}`
             }}
           >
             <MenuItem value="">
@@ -490,14 +494,27 @@ export default function Discounts() {
                 code: `${localeSettings.countryCode} · ${localeSettings.currencyCode}`
               })}
             </MenuItem>
-            {REGION_OPTIONS.map((r) => (
-              <MenuItem key={r.countryCode} value={r.countryCode}>
-                {r.label}
-                <span className="discountsScreen__regionCurrency">
-                  {r.currencyCode}
-                </span>
-              </MenuItem>
-            ))}
+            {REGION_OPTIONS.map((r) => ({
+              ...r,
+              localizedLabel: t(
+                `discounts.region.countries.${r.countryCode}`,
+                r.label
+              )
+            }))
+              .sort((a, b) =>
+                a.localizedLabel.localeCompare(
+                  b.localizedLabel,
+                  i18n.language.replace('_', '-')
+                )
+              )
+              .map((r) => (
+                <MenuItem key={r.countryCode} value={r.countryCode}>
+                  {r.localizedLabel}
+                  <span className="discountsScreen__regionCurrency">
+                    {r.currencyCode}
+                  </span>
+                </MenuItem>
+              ))}
           </Select>
         </div>
       </div>
