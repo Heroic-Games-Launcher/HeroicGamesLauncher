@@ -10,14 +10,42 @@ import { z } from 'zod'
 import { windowIcon } from './constants/paths'
 import { Path } from './schemas'
 import { isCLINoGui } from './constants/environment'
+import { GlobalConfig } from './config'
 
 const RUNNERS = z.enum(['legendary', 'gog', 'nile', 'sideload'])
 
-export function handleProtocol(args: string[]) {
+function parseHeroicUrl(args: string[]): URL | undefined {
   const urlStr = args.find((arg) => arg.startsWith('heroic://'))
   if (!urlStr) return
+  try {
+    return new URL(urlStr)
+  } catch {
+    return
+  }
+}
 
-  const url = new URL(urlStr)
+function urlRequestsNoGui(url: URL): boolean {
+  const guiParam = url.searchParams.get('gui')
+  return guiParam === 'false' || guiParam === '0' || guiParam === 'no'
+}
+
+// Returns true when a `heroic://launch/...` URL in `args` should suppress
+// the main window: either the URL carries `gui=false` (or `0`/`no`), or the
+// user enabled the `hideWindowOnProtocolLaunch` setting.
+export function shouldHideWindowForProtocolArgs(args: string[]): boolean {
+  const url = parseHeroicUrl(args)
+  if (!url || url.hostname !== 'launch') return false
+  if (urlRequestsNoGui(url)) return true
+  try {
+    return GlobalConfig.get().getSettings().hideWindowOnProtocolLaunch === true
+  } catch {
+    return false
+  }
+}
+
+export function handleProtocol(args: string[]) {
+  const url = parseHeroicUrl(args)
+  if (!url) return
 
   logInfo(['Received', url.href], LogPrefix.ProtocolHandler)
 
@@ -83,6 +111,9 @@ async function handleLaunch(url: URL) {
 
   const { is_installed, title } = gameInfo
   const settings = await gameManagerMap[gameInfo.runner].getSettings(appName)
+  const hideForThisLaunch =
+    urlRequestsNoGui(url) ||
+    GlobalConfig.get().getSettings().hideWindowOnProtocolLaunch === true
 
   if (is_installed) {
     let launchOption: LaunchOption | undefined = undefined
@@ -91,6 +122,17 @@ async function handleLaunch(url: URL) {
         type: 'altExe',
         executable: altExe
       }
+
+    if (hideForThisLaunch) {
+      const mainWindow = getMainWindow()
+      if (mainWindow?.isVisible()) {
+        logInfo(
+          'Hiding main window for protocol launch',
+          LogPrefix.ProtocolHandler
+        )
+        mainWindow.hide()
+      }
+    }
 
     return launchEventCallback({
       appName: appName,
@@ -117,9 +159,9 @@ async function handleLaunch(url: URL) {
     icon: windowIcon
   })
   if (response === 0) {
-    if (isCLINoGui) {
+    if (isCLINoGui || hideForThisLaunch) {
       logInfo(
-        '--no-gui flag detected but user wants to install, showing GUI',
+        'Window was hidden but user wants to install, showing GUI',
         LogPrefix.ProtocolHandler
       )
       mainWindow.show()
