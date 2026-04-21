@@ -42,7 +42,7 @@ const COUNTRY_CURRENCY_MAP: Record<
 
 const DEFAULT_COUNTRY_CURRENCY = { countryCode: 'US', currencyCode: 'USD' }
 
-export interface RegionOption {
+interface RegionOption {
   countryCode: string
   currencyCode: string
   label: string
@@ -191,7 +191,7 @@ export const getPegiAge = (ratings?: CatalogRating[]): number | null => {
 
 // Persisted filter state (excluding regionOverride, which has its own key).
 // Stored in localStorage so filters survive navigation and page reloads.
-export interface StoredDiscountFilters {
+interface StoredDiscountFilters {
   sortBy?: DiscountSort
   selectedGenres?: string[]
   selectedFeatures?: string[]

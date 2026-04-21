@@ -1,4 +1,4 @@
-export interface CatalogPrice {
+interface CatalogPrice {
   final: string
   base: string
   discount: string
