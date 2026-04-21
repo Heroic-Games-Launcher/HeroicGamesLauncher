@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  margin: var(--space-lg) 0 var(--space-3xl);
+  margin: var(--space-md) 0 var(--space-3xl);
 }
 
 .discountPagination__list {
