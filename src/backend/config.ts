@@ -364,6 +364,7 @@ class GlobalConfigV0 extends GlobalConfig {
       eacRuntime: isLinux,
       battlEyeRuntime: isLinux,
       framelessWindow: false,
+      hideWindowOnProtocolLaunch: false,
       beforeLaunchScriptPath: '',
       afterLaunchScriptPath: '',
       disableUMU: false,
