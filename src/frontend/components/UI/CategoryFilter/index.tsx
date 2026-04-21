@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ToggleSwitch from '../ToggleSwitch'
 import LibraryContext from 'frontend/screens/Library/LibraryContext'
 import Dropdown from '../Dropdown'
+import { LayoutGrid, ChevronDown } from 'lucide-react'
 
 export default function CategoryFilter() {
   const {
@@ -71,10 +72,16 @@ export default function CategoryFilter() {
 
   return (
     <Dropdown
-      buttonClass="selectStyle"
+      buttonClass="pill"
       className="categoriesFilter"
       data-tour="library-categories"
-      title={t('header.categories', 'Categories')}
+      title={
+        <>
+          <LayoutGrid size={18} strokeWidth={1.75} aria-hidden />
+          <span>{t('header.categories', 'Categories')}</span>
+          <ChevronDown size={16} strokeWidth={1.75} aria-hidden />
+        </>
+      }
       popUpOnHover
     >
       {categoriesList.length === 0 && (

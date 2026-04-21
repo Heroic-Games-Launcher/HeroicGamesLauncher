@@ -1,7 +1,6 @@
 import { Fragment, useCallback, useEffect, useRef } from 'react'
 import './index.scss'
-import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Search, X } from 'lucide-react'
 
 interface Props {
   suggestionsListItems?: JSX.Element[]
@@ -35,6 +34,26 @@ export default function SearchBar({
     return
   }, [input])
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null
+      const tag = target?.tagName
+      const typing =
+        tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable
+      if (e.key === '/' && !typing) {
+        e.preventDefault()
+        input.current?.focus()
+      } else if (
+        e.key === 'Escape' &&
+        document.activeElement === input.current
+      ) {
+        input.current?.blur()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
+
   const onClear = useCallback(() => {
     onInputChanged('')
     if (input.current) {
@@ -45,11 +64,11 @@ export default function SearchBar({
 
   return (
     <div className="SearchBar" data-testid="searchBar">
-      <FontAwesomeIcon
+      <Search
         className="searchButton"
-        style={{ padding: 'var(--space-2xs) var(--space-sm)' }}
-        tabIndex={-1}
-        icon={faSearch}
+        size={22}
+        strokeWidth={1.75}
+        aria-hidden
       />
       <input
         ref={input}
@@ -72,7 +91,7 @@ export default function SearchBar({
           </ul>
 
           <button className="clearSearchButton" onClick={onClear} tabIndex={-1}>
-            <FontAwesomeIcon icon={faXmark} />
+            <X size={18} strokeWidth={2} aria-hidden />
           </button>
         </>
       )}

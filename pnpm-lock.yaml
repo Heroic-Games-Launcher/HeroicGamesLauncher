@@ -16,12 +16,12 @@ importers:
 
   .:
     dependencies:
-      '@fontsource/cabin':
-        specifier: ^4.5.10
-        version: 4.5.10
-      '@fontsource/rubik':
-        specifier: ^4.5.14
-        version: 4.5.14
+      '@fontsource/outfit':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/zen-dots':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fortawesome/free-brands-svg-icons':
         specifier: ^6.7.2
         version: 6.7.2
@@ -100,6 +100,9 @@ importers:
       json5:
         specifier: ^2.2.3
         version: 2.2.3
+      lucide-react:
+        specifier: ^1.8.0
+        version: 1.8.0(react@18.3.1)
       plist:
         specifier: ^3.1.0
         version: 3.1.0
@@ -1003,11 +1006,11 @@ packages:
     resolution: {integrity: sha512-XuhF/edg+iIvXjkCWgfj6fWtRi/KrEPg2ILXj1l86EN4EssuOiPcLKgkMDr9cL8jTGtVd/MKUWW6Y0/ZVf1PGA==}
     engines: {node: '>=8'}
 
-  '@fontsource/cabin@4.5.10':
-    resolution: {integrity: sha512-nZWikOWwI6ONqDJco+pplHKqKCQlGdLo90eTT/Yp2lDAG1cKgXsRXEmU0KTsH3AUHO8lxXRHBPONoHSqyt8HmQ==}
+  '@fontsource/outfit@5.2.8':
+    resolution: {integrity: sha512-rXC6g0MqD7cOBjht0bMqc43qM6lRqDLML9KXsmg9uykz0wLQhy8Z/ajrMG6iyoT3NJR+MYgU+OEHp7uHoTb+Yw==}
 
-  '@fontsource/rubik@4.5.14':
-    resolution: {integrity: sha512-EvMK3kkeAgKkk8qAeT4PjpyAYyu72pIlJm+SXJ5vR/xhCX2yj2xoq3+YS38rPmPcCAnrAVONoQ3ezLxVm6jhBA==}
+  '@fontsource/zen-dots@5.2.8':
+    resolution: {integrity: sha512-UxMn/kKdA0vPFnaYC9FYpCVqrrVFXU2S9ga0m+d+VTFTPBfOZT4WI47Ws4EMIkp9KUr9jk9YEiL7hIHpk3PSow==}
 
   '@fortawesome/fontawesome-common-types@6.7.2':
     resolution: {integrity: sha512-Zs+YeHUC5fkt7Mg1l6XTniei3k4bwG/yo3iFUtZWd/pMx9g3fdvkSK9E0FOC+++phXOka78uJcYb8JaFkW52Xg==}
@@ -4461,6 +4464,11 @@ packages:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
 
+  lucide-react@1.8.0:
+    resolution: {integrity: sha512-WuvlsjngSk7TnTBJ1hsCy3ql9V9VOdcPkd3PKcSmM34vJD8KG6molxz7m7zbYFgICwsanQWmJ13JlYs4Zp7Arw==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -7121,9 +7129,9 @@ snapshots:
 
   '@fiahfy/packbits@0.0.6': {}
 
-  '@fontsource/cabin@4.5.10': {}
+  '@fontsource/outfit@5.2.8': {}
 
-  '@fontsource/rubik@4.5.14': {}
+  '@fontsource/zen-dots@5.2.8': {}
 
   '@fortawesome/fontawesome-common-types@6.7.2': {}
 
@@ -11302,6 +11310,10 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
+
+  lucide-react@1.8.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   lz-string@1.5.0: {}
 

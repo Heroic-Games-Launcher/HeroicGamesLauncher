@@ -3,16 +3,36 @@
 }
 
 .sideloadGameButton {
-  font-family: var(--secondary-font-family);
-  border-radius: var(--space-md);
-  color: var(--text-tertiary);
-  background: var(--primary-button, var(--accent));
-  padding: var(--space-xs) var(--space-md);
-  border: none;
-  margin: 0 var(--space-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--primary-font-family);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  background: transparent;
+  padding: 8px 14px;
+  border: 1px solid var(--divider);
+  margin: 0 var(--space-md);
   cursor: pointer;
-  text-transform: uppercase;
-  transition: 300ms;
+  font-size: var(--text-md);
+  font-weight: var(--medium);
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+  vertical-align: middle;
+}
+
+.sideloadGameButton:hover,
+.sideloadGameButton:focus-within {
+  background: var(--input-background);
+  border-color: var(--line-strong, var(--divider));
+  color: var(--text-default);
+  box-shadow: none;
+}
+
+.sideloadGameButton svg {
+  flex-shrink: 0;
 }
 
 .sideloadGameButton:hover,
@@ -23,9 +43,12 @@
 
 .numberOfgames {
   font-size: var(--text-md);
-  font-weight: var(--regular);
+  font-weight: var(--medium);
+  color: var(--text-secondary);
   background: var(--input-background);
-  padding: var(--space-xs);
+  padding: 3px 12px;
   margin-inline-start: var(--space-sm, 4px);
-  border-radius: var(--space-3xs);
+  border-radius: 999px;
+  vertical-align: middle;
+  line-height: 1.6;
 }

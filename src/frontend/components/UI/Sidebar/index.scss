@@ -1,7 +1,7 @@
 .Sidebar {
-  --sidebar-horizontal-padding: var(--space-md);
+  --sidebar-horizontal-padding: var(--space-lg);
   --sidebar-vertical-padding: var(--space-lg);
-  --sidebar-width: 350px;
+  --sidebar-width: 268px;
   --sidebar-background: var(--navbar-background);
   --sidebar-divider-color: var(--divider);
 
@@ -20,12 +20,67 @@
   overflow-x: hidden;
   -webkit-app-region: drag;
 
-  .heroicIcon {
+  .Sidebar__brand {
     grid-area: icon;
-    width: 50px;
-    height: 68px;
-    margin-top: var(--space-xs);
-    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: var(--space-md) var(--sidebar-horizontal-padding) var(--space-md);
+    text-align: center;
+    -webkit-app-region: drag;
+  }
+
+  .heroicIcon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .Sidebar__brandText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .Sidebar__brandName {
+    font-family: 'Zen Dots', var(--primary-font-family), sans-serif;
+    font-size: var(--text-lg);
+    font-weight: 400;
+    color: var(--text-default);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .Sidebar__brandTag {
+    font-family: var(--primary-font-family);
+    font-size: 10px;
+    font-weight: var(--medium);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-tertiary, var(--navbar-inactive));
+    margin-top: 6px;
+  }
+
+  &.collapsed {
+    .Sidebar__brand {
+      justify-content: center;
+      padding: var(--space-sm) 0;
+    }
+
+    .heroicIcon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .Sidebar__brandText {
+      display: none;
+    }
   }
 
   .SidebarLinks {

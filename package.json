@@ -53,8 +53,8 @@
     "lint-translations": "esbuild --bundle --platform=node --target=node21 meta/lintTranslations.ts | node"
   },
   "dependencies": {
-    "@fontsource/cabin": "^4.5.10",
-    "@fontsource/rubik": "^4.5.14",
+    "@fontsource/outfit": "^5.2.8",
+    "@fontsource/zen-dots": "^5.2.8",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
@@ -81,6 +81,7 @@
     "intro.js": "^7.2.0",
     "intro.js-react": "^1.0.0",
     "json5": "^2.2.3",
+    "lucide-react": "^1.8.0",
     "plist": "^3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

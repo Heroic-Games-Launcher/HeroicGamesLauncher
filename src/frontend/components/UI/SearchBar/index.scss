@@ -3,42 +3,64 @@
   width: 100%;
   position: relative;
   display: inline-flex;
+  align-items: center;
   background: var(--search-bar-background, var(--input-background));
-  border-radius: var(--space-md);
-  padding: var(--space-xs);
+  border: 1px solid var(--search-bar-border, transparent);
+  border-radius: 999px;
+  padding: 0 16px;
+  height: 44px;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+
+  &:hover {
+    border-color: var(--line-strong, var(--divider));
+  }
 
   &:focus-within {
-    box-shadow: 0px 0px 0px 3px
-      var(--search-bar-border, var(--input-backgroundd));
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 20%, transparent);
   }
 
   .autoComplete {
     position: absolute;
-    top: 75%;
-    max-height: 200px;
-    width: 100%;
-    background-color: var(--input-background);
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    max-height: 280px;
+    background-color: var(--modal-background, var(--input-background));
+    border: 1px solid var(--divider);
     overflow: auto;
     list-style: none;
-    margin: -2px -8px;
+    margin: 0;
     display: none;
-    padding: var(--space-xs) var(--space-md);
+    padding: var(--space-2xs) 0;
     text-align: start;
     overflow-x: hidden;
-    z-index: 1;
-    border-bottom-left-radius: var(--space-md);
-    border-bottom-right-radius: var(--space-md);
+    z-index: 5;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 
     li {
-      padding: 2px 0px;
+      padding: var(--space-2xs) var(--space-md);
+      cursor: pointer;
+      border-radius: 8px;
+      margin: 0 var(--space-2xs);
+      transition: background-color 120ms ease;
 
       span {
-        opacity: 0.3;
+        opacity: 0.5;
+        font-size: var(--text-sm);
+        margin-inline-start: 4px;
       }
 
       &:hover {
         background-color: var(--accent);
-        color: var(--background);
+        color: var(--text-tertiary, var(--background));
+
+        span {
+          opacity: 0.8;
+        }
       }
     }
   }
@@ -51,19 +73,47 @@
     display: none;
   }
 
-  .searchButton {
-    padding: var(--space-2xs) var(--space-2xs) 0 var(--space-2xs);
+  .searchButton,
+  .SearchBar > .searchButton,
+  .SearchBar .searchButton {
+    padding: 0 var(--space-sm);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+
+    svg,
+    & > svg {
+      width: 22px !important;
+      height: 22px !important;
+      display: block;
+    }
   }
 
   .clearSearchButton {
-    padding-inline-end: var(--space-sm);
+    padding-inline: var(--space-sm);
     transition: color 250ms;
     background: transparent;
     border: none;
     color: var(--text-secondary);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    svg {
+    &:hover {
+      color: var(--text-default);
+    }
+
+    svg,
+    & > svg {
+      width: 18px !important;
+      height: 18px !important;
       cursor: pointer;
+      display: block;
     }
   }
 
@@ -71,15 +121,42 @@
     width: 100%;
     appearance: none;
     background: transparent;
-    font: var(--font-secondary-bold);
-    padding: 0 var(--space-2xs);
+    font-family: var(--primary-font-family);
+    font-size: var(--text-md);
+    font-weight: var(--regular);
+    padding: var(--space-2xs) var(--space-sm);
     border: none;
     outline: none;
     transition: color 250ms;
-    color: var(--text-secondary);
+    color: var(--text-default, var(--text-secondary));
 
     &::placeholder {
-      opacity: 0.8;
+      opacity: 0.6;
+      color: var(--text-tertiary, var(--text-secondary));
     }
+  }
+
+  .searchKbd {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    margin-inline-end: 4px;
+    border-radius: 8px;
+    background: var(--input-background);
+    border: 1px solid var(--divider);
+    color: var(--text-secondary);
+    font-family: var(--primary-font-family);
+    font-size: var(--text-sm);
+    font-weight: var(--semibold);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  &:focus-within .searchKbd {
+    display: none;
   }
 }

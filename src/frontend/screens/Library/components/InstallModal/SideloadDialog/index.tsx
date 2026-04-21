@@ -26,7 +26,7 @@ import classNames from 'classnames'
 import axios from 'axios'
 import { NavLink } from 'react-router-dom'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
-import Folder from '@mui/icons-material/Folder'
+import Folder from '@mui/icons-material/FolderOutlined'
 
 type Props = {
   availablePlatforms: AvailablePlatforms
