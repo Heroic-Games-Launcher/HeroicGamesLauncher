@@ -362,6 +362,7 @@
             "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
+        "hide-window-on-protocol-launch": "Keeps the Heroic window hidden when a game is launched from an external shortcut, like the 'Add to Steam' feature.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "other": {
@@ -698,6 +699,7 @@
             "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
         "hdr": "Enable HDR",
+        "hide-window-on-protocol-launch": "Hide Heroic window when launching games from heroic:// links",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "ignoreGameUpdates": "Ignore game updates",
         "language": "Choose App Language",

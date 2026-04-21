@@ -68,7 +68,7 @@ import {
 import { Path } from './schemas'
 
 import { uninstallGameCallback } from './utils/uninstaller'
-import { handleProtocol } from './protocol'
+import { handleProtocol, shouldHideWindowForProtocolArgs } from './protocol'
 import {
   init as initLogger,
   logDebug,
@@ -314,7 +314,9 @@ if (!gotTheLock) {
   app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
     const mainWindow = getMainWindow()
-    mainWindow?.show()
+    if (!shouldHideWindowForProtocolArgs(argv)) {
+      mainWindow?.show()
+    }
 
     handleProtocol(argv)
   })
@@ -409,8 +411,14 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
+    const hideForProtocol = shouldHideWindowForProtocolArgs([
+      openUrlArgument,
+      ...process.argv
+    ])
     const headless =
-      isCLINoGui || (settings.startInTray && !settings.noTrayIcon)
+      isCLINoGui ||
+      hideForProtocol ||
+      (settings.startInTray && !settings.noTrayIcon)
     if (!headless) {
       const isWayland = Boolean(process.env.WAYLAND_DISPLAY)
       const showWindow = () => {

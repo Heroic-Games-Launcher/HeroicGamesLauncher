@@ -14,7 +14,19 @@ jest.mock('../constants/paths', () => ({
   userHome: '/mock/home'
 }))
 
-import { handleProtocol } from '../protocol'
+// Mock GlobalConfig so we can toggle hideWindowOnProtocolLaunch per test
+const mockHideWindowOnProtocolLaunch = jest.fn(() => false)
+jest.mock('../config', () => ({
+  GlobalConfig: {
+    get: () => ({
+      getSettings: () => ({
+        hideWindowOnProtocolLaunch: mockHideWindowOnProtocolLaunch()
+      })
+    })
+  }
+}))
+
+import { handleProtocol, shouldHideWindowForProtocolArgs } from '../protocol'
 import { app, dialog } from 'electron'
 import { gameManagerMap } from '../storeManagers'
 import { getMainWindow } from '../main_window'
@@ -93,7 +105,9 @@ jest.mock('process', () => ({
 
 describe('protocol.ts --no-gui behavior', () => {
   const mockMainWindow = {
-    show: jest.fn()
+    show: jest.fn(),
+    hide: jest.fn(),
+    isVisible: jest.fn(() => true)
   }
 
   const mockGameInfo = {
@@ -109,6 +123,8 @@ describe('protocol.ts --no-gui behavior', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+    mockHideWindowOnProtocolLaunch.mockReturnValue(false)
+    mockMainWindow.isVisible.mockReturnValue(true)
     ;(getMainWindow as jest.Mock).mockReturnValue(mockMainWindow)
     ;(gameManagerMap.legendary.getGameInfo as jest.Mock).mockReturnValue(
       mockGameInfo
@@ -237,6 +253,107 @@ describe('protocol.ts --no-gui behavior', () => {
       // Should return early if no main window available
       expect(dialog.showMessageBox).not.toHaveBeenCalled()
       expect(app.quit).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('hide window on protocol launch', () => {
+    beforeEach(() => {
+      mockIsCLINoGui.mockReturnValue(false)
+      mockGameInfo.is_installed = true
+    })
+
+    test('hides window when URL carries gui=false', async () => {
+      await handleProtocol([
+        'heroic://launch?appName=test-game&runner=legendary&gui=false'
+      ])
+
+      expect(mockMainWindow.hide).toHaveBeenCalled()
+    })
+
+    test('hides window when hideWindowOnProtocolLaunch setting is enabled', async () => {
+      mockHideWindowOnProtocolLaunch.mockReturnValue(true)
+
+      await handleProtocol(['heroic://launch/test-game'])
+
+      expect(mockMainWindow.hide).toHaveBeenCalled()
+    })
+
+    test('does not hide window when neither setting nor URL param is set', async () => {
+      await handleProtocol(['heroic://launch/test-game'])
+
+      expect(mockMainWindow.hide).not.toHaveBeenCalled()
+    })
+
+    test('does not hide window that is not visible', async () => {
+      mockMainWindow.isVisible.mockReturnValue(false)
+      mockHideWindowOnProtocolLaunch.mockReturnValue(true)
+
+      await handleProtocol(['heroic://launch/test-game'])
+
+      expect(mockMainWindow.hide).not.toHaveBeenCalled()
+    })
+
+    test('shows window when not-installed game needs install dialog, regardless of hide setting', async () => {
+      mockGameInfo.is_installed = false
+      mockHideWindowOnProtocolLaunch.mockReturnValue(true)
+      ;(dialog.showMessageBox as jest.Mock).mockResolvedValue({ response: 0 })
+
+      await handleProtocol(['heroic://launch/test-game'])
+
+      expect(mockMainWindow.show).toHaveBeenCalled()
+      expect(sendFrontendMessage).toHaveBeenCalledWith(
+        'installGame',
+        'test-game',
+        'legendary'
+      )
+    })
+  })
+
+  describe('shouldHideWindowForProtocolArgs', () => {
+    beforeEach(() => {
+      mockHideWindowOnProtocolLaunch.mockReturnValue(false)
+    })
+
+    test('returns true when URL has gui=false', () => {
+      expect(
+        shouldHideWindowForProtocolArgs([
+          'heroic://launch?appName=foo&gui=false'
+        ])
+      ).toBe(true)
+    })
+
+    test('accepts gui=0 and gui=no as equivalent to false', () => {
+      expect(
+        shouldHideWindowForProtocolArgs(['heroic://launch?appName=foo&gui=0'])
+      ).toBe(true)
+      expect(
+        shouldHideWindowForProtocolArgs(['heroic://launch?appName=foo&gui=no'])
+      ).toBe(true)
+    })
+
+    test('returns true when setting is enabled', () => {
+      mockHideWindowOnProtocolLaunch.mockReturnValue(true)
+      expect(
+        shouldHideWindowForProtocolArgs(['heroic://launch/test-game'])
+      ).toBe(true)
+    })
+
+    test('returns false when setting is off and URL has no gui param', () => {
+      expect(
+        shouldHideWindowForProtocolArgs(['heroic://launch/test-game'])
+      ).toBe(false)
+    })
+
+    test('returns false for non-launch protocol URLs even with setting on', () => {
+      mockHideWindowOnProtocolLaunch.mockReturnValue(true)
+      expect(shouldHideWindowForProtocolArgs(['heroic://ping'])).toBe(false)
+    })
+
+    test('returns false when no heroic URL is present', () => {
+      mockHideWindowOnProtocolLaunch.mockReturnValue(true)
+      expect(
+        shouldHideWindowForProtocolArgs(['/path/to/heroic', '--some-flag'])
+      ).toBe(false)
     })
   })
 })
