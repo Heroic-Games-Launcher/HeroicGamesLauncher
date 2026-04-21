@@ -13,7 +13,11 @@ import {
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import {
+  faDiscord,
+  faGithub,
+  faPatreon
+} from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -264,6 +268,13 @@ export default function SidebarLinks() {
           onClick={() => handleExternalLink(window.api.openKofiPage)}
           icon={faCoffee}
           label="Ko-fi"
+        />
+
+        <SidebarItem
+          elementType="button"
+          onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
+          icon={faGithub}
+          label="GitHub Sponsors"
         />
       </div>
 

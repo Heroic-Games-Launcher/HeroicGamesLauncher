@@ -10,6 +10,9 @@ export const getLatestReleases = makeHandlerInvoker('getLatestReleases')
 export const getCurrentChangelog = makeHandlerInvoker('getCurrentChangelog')
 export const openPatreonPage = makeListenerCaller('openPatreonPage')
 export const openKofiPage = makeListenerCaller('openKofiPage')
+export const openGithubSponsorsPage = makeListenerCaller(
+  'openGithubSponsorsPage'
+)
 export const isFullscreen = makeHandlerInvoker('isFullscreen')
 export const isFrameless = makeHandlerInvoker('isFrameless')
 export const isMinimized = makeHandlerInvoker('isMinimized')
