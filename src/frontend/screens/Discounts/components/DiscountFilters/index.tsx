@@ -51,10 +51,10 @@ interface Props {
   hasActiveFilters: boolean
 }
 
-const OS_LABEL_FALLBACK: Record<OsOption, string> = {
-  windows: 'Windows',
-  linux: 'Linux',
-  osx: 'macOS'
+const OS_PLATFORM_KEY: Record<OsOption, 'win' | 'linux' | 'mac'> = {
+  windows: 'win',
+  linux: 'linux',
+  osx: 'mac'
 }
 
 const DiscountFilters = ({
@@ -95,10 +95,10 @@ const DiscountFilters = ({
   }
 
   return (
-    <section className="discountFilters" aria-label={t('discounts.filters.title', 'Filters')}>
+    <section className="discountFilters" aria-label={t('header.filters', 'Filters')}>
       <header className="discountFilters__header">
         <h3 className="discountFilters__title">
-          {t('discounts.filters.title', 'Filters')}
+          {t('header.filters', 'Filters')}
         </h3>
         <div className="discountFilters__headerActions">
           <button
@@ -126,7 +126,7 @@ const DiscountFilters = ({
             onClick={onReset}
             disabled={!hasActiveFilters}
           >
-            {t('discounts.filters.reset', 'Reset')}
+            {t('header.reset', 'Reset')}
           </button>
         </div>
       </header>
@@ -380,7 +380,7 @@ const DiscountFilters = ({
                   aria-pressed={active}
                   onClick={() => toggleOS(os)}
                 >
-                  {t(`discounts.os.${os}`, OS_LABEL_FALLBACK[os])}
+                  {t(`platforms.${OS_PLATFORM_KEY[os]}`)}
                 </button>
               )
             })}

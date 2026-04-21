@@ -312,7 +312,7 @@ export default function Discounts() {
               }
               const match = REGION_OPTIONS.find((r) => r.countryCode === value)
               if (!match) return value
-              return `${t(`discounts.region.${match.countryCode}`, match.labelFallback)} · ${match.currencyCode}`
+              return `${match.label} · ${match.currencyCode}`
             }}
           >
             <MenuItem value="">
@@ -322,7 +322,7 @@ export default function Discounts() {
             </MenuItem>
             {REGION_OPTIONS.map((r) => (
               <MenuItem key={r.countryCode} value={r.countryCode}>
-                {t(`discounts.region.${r.countryCode}`, r.labelFallback)}
+                {r.label}
                 <span className="discountsScreen__regionCurrency">
                   {r.currencyCode}
                 </span>

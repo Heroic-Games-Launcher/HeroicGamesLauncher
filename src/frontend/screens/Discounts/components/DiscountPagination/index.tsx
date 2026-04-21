@@ -28,7 +28,10 @@ const DiscountPagination = ({ page, totalPages, onChange }: Props) => {
   const pages = buildPageList(page, totalPages)
 
   return (
-    <nav className="discountPagination" aria-label="Pagination">
+    <nav
+      className="discountPagination"
+      aria-label={t('discounts.aria.pagination', 'Pagination')}
+    >
       <button
         type="button"
         className="discountPagination__btn"
@@ -69,7 +72,7 @@ const DiscountPagination = ({ page, totalPages, onChange }: Props) => {
         disabled={page >= totalPages}
         onClick={() => onChange(page + 1)}
       >
-        {t('discounts.pagination.next', 'Next')}
+        {t('next', 'Next')}
       </button>
     </nav>
   )

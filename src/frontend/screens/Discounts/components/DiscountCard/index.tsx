@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import type { CatalogProduct } from 'common/types/discounts'
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const DiscountCard = ({ product }: Props) => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const cover =
     product.coverVertical || product.coverHorizontal || fallBackImage
@@ -33,7 +35,12 @@ const DiscountCard = ({ product }: Props) => {
       title={product.title}
     >
       {rating > 0 && (
-        <span className="discountCard__score" aria-label={`Rating ${rating.toFixed(1)} out of 10`}>
+        <span
+          className="discountCard__score"
+          aria-label={t('discounts.aria.rating', 'Rating {{rating}} out of 10', {
+            rating: rating.toFixed(1)
+          })}
+        >
           <span className="discountCard__scoreStar" aria-hidden="true">★</span>
           {rating.toFixed(1)}
         </span>

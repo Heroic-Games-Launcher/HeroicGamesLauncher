@@ -241,6 +241,10 @@
         }
     },
     "discounts": {
+        "aria": {
+            "pagination": "Pagination",
+            "rating": "Rating {{rating}} out of 10"
+        },
         "countFiltered": "{{shown}} of {{total}} games",
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
@@ -257,16 +261,13 @@
             "pageSize": "Per page",
             "price": "Price",
             "rating": "Rating",
-            "reset": "Reset",
             "search": "Search",
             "searchPlaceholder": "Search games by title...",
-            "sort": "Sort by",
-            "title": "Filters"
+            "sort": "Sort by"
         },
         "loading": "Loading discounted games...",
         "noMatches": "No games match the current filters.",
         "pagination": {
-            "next": "Next",
             "prev": "Previous"
         },
         "region": {
@@ -504,6 +505,7 @@
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
     },
+    "next": "Next",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
