@@ -16,6 +16,11 @@ export interface CatalogFeature {
   slug: string
 }
 
+export interface CatalogRating {
+  name: string
+  ageRating: string
+}
+
 export interface CatalogProduct {
   id: string
   title: string
@@ -31,6 +36,7 @@ export interface CatalogProduct {
   genres?: CatalogGenre[]
   features?: CatalogFeature[]
   reviewsRating?: number
+  ratings?: CatalogRating[]
 }
 
 export interface CatalogLocaleSettings {

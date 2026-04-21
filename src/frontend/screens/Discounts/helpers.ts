@@ -1,4 +1,7 @@
-import type { CatalogLocaleSettings } from 'common/types/discounts'
+import type {
+  CatalogLocaleSettings,
+  CatalogRating
+} from 'common/types/discounts'
 
 const GOG_AFFILIATE_ID = '1838482841'
 
@@ -157,4 +160,17 @@ export type OsOption = (typeof OS_OPTIONS)[number]
 export const normalizeRating = (rating?: number): number => {
   if (!rating || rating <= 0) return 0
   return rating / 5
+}
+
+// PEGI is the most granular of the rating systems GOG returns and covers most
+// of its catalog. We key the age-rating filter off PEGI for simplicity.
+export const PEGI_AGE_OPTIONS = [3, 7, 12, 16, 18] as const
+export type PegiAge = (typeof PEGI_AGE_OPTIONS)[number]
+
+export const getPegiAge = (ratings?: CatalogRating[]): number | null => {
+  if (!ratings) return null
+  const pegi = ratings.find((r) => r.name === 'pegiRating')
+  if (!pegi) return null
+  const n = parseInt(pegi.ageRating, 10)
+  return Number.isFinite(n) ? n : null
 }

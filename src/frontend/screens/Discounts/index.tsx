@@ -14,6 +14,7 @@ import DiscountPagination from './components/DiscountPagination'
 import {
   DEFAULT_PAGE_SIZE,
   getLocaleSettings,
+  getPegiAge,
   getStoredRegionOverride,
   normalizeRating,
   parseDiscountPercent,
@@ -22,7 +23,8 @@ import {
   REGION_OPTIONS,
   setStoredRegionOverride,
   type DiscountSort,
-  type OsOption
+  type OsOption,
+  type PegiAge
 } from './helpers'
 import './index.css'
 
@@ -44,6 +46,7 @@ export default function Discounts() {
     setSelectedFeatures([])
     setSelectedOS([])
     setRatingRange([0, RATING_SCALE_MAX])
+    setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
   }
@@ -64,6 +67,7 @@ export default function Discounts() {
   const [releaseYearRange, setReleaseYearRange] = useState<
     [number, number] | null
   >(null)
+  const [maxPegiAge, setMaxPegiAge] = useState<PegiAge | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [hideDlcs, setHideDlcs] = useState(false)
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE)
@@ -209,6 +213,11 @@ export default function Discounts() {
         if (y < minYear || y > maxYear) return false
       }
 
+      if (maxPegiAge !== null) {
+        const age = getPegiAge(p.ratings)
+        if (age === null || age > maxPegiAge) return false
+      }
+
       if (selectedGenres.length > 0) {
         const productGenres =
           p.genres?.map((g) => g.name.trim().toLowerCase()) ?? []
@@ -266,6 +275,7 @@ export default function Discounts() {
     ratingRange,
     releaseYearRange,
     releaseYearBounds,
+    maxPegiAge,
     selectedGenres,
     selectedFeatures,
     selectedOS,
@@ -287,6 +297,7 @@ export default function Discounts() {
     priceRange,
     ratingRange,
     releaseYearRange,
+    maxPegiAge,
     searchQuery,
     hideDlcs,
     pageSize,
@@ -310,6 +321,7 @@ export default function Discounts() {
     sortBy !== 'trending' ||
     ratingRange[0] !== 0 ||
     ratingRange[1] !== RATING_SCALE_MAX ||
+    maxPegiAge !== null ||
     searchQuery.trim() !== '' ||
     hideDlcs ||
     (priceRange !== null &&
@@ -326,6 +338,7 @@ export default function Discounts() {
     setPriceRange([0, priceMax])
     setRatingRange([0, RATING_SCALE_MAX])
     setReleaseYearRange(releaseYearBounds)
+    setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
   }
@@ -422,6 +435,8 @@ export default function Discounts() {
             releaseYearBounds={releaseYearBounds}
             releaseYearRange={releaseYearRange ?? releaseYearBounds}
             onReleaseYearChange={setReleaseYearRange}
+            maxPegiAge={maxPegiAge}
+            onMaxPegiAgeChange={setMaxPegiAge}
             genreOptions={genreOptions}
             selectedGenres={selectedGenres}
             onGenresChange={setSelectedGenres}

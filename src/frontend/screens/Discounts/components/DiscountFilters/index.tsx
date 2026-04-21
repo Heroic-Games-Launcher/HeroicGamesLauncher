@@ -17,9 +17,11 @@ import type { CatalogFeature, CatalogGenre } from 'common/types/discounts'
 import {
   OS_OPTIONS,
   PAGE_SIZE_OPTIONS,
+  PEGI_AGE_OPTIONS,
   RATING_SCALE_MAX,
   type DiscountSort,
-  type OsOption
+  type OsOption,
+  type PegiAge
 } from '../../helpers'
 import './index.css'
 
@@ -35,6 +37,8 @@ interface Props {
   releaseYearBounds: [number, number]
   releaseYearRange: [number, number]
   onReleaseYearChange: (range: [number, number]) => void
+  maxPegiAge: PegiAge | null
+  onMaxPegiAgeChange: (age: PegiAge | null) => void
   genreOptions: CatalogGenre[]
   selectedGenres: string[]
   onGenresChange: (slugs: string[]) => void
@@ -158,6 +162,8 @@ const DiscountFilters = ({
   releaseYearBounds,
   releaseYearRange,
   onReleaseYearChange,
+  maxPegiAge,
+  onMaxPegiAgeChange,
   genreOptions,
   selectedGenres,
   onGenresChange,
@@ -320,6 +326,61 @@ const DiscountFilters = ({
                       onClick={() => toggleOS(os)}
                     >
                       {t(`platforms.${OS_PLATFORM_KEY[os]}`)}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="discountFilters__field">
+              <label className="discountFilters__label">
+                <span>
+                  {t('discounts.filters.ageRating', 'Suitable for age')}
+                </span>
+                {maxPegiAge !== null && (
+                  <span className="discountFilters__labelValue">
+                    PEGI ≤ {maxPegiAge}
+                  </span>
+                )}
+              </label>
+              <div
+                className="discountFilters__segmented"
+                role="group"
+                aria-label={t(
+                  'discounts.filters.ageRating',
+                  'Suitable for age'
+                )}
+              >
+                <button
+                  type="button"
+                  className={`discountFilters__segment${
+                    maxPegiAge === null
+                      ? ' discountFilters__segment--active'
+                      : ''
+                  }`}
+                  aria-pressed={maxPegiAge === null}
+                  onClick={() => onMaxPegiAgeChange(null)}
+                >
+                  {t('discounts.filters.ageRatingAll', 'All')}
+                </button>
+                {PEGI_AGE_OPTIONS.map((age) => {
+                  const active = maxPegiAge === age
+                  return (
+                    <button
+                      key={age}
+                      type="button"
+                      className={`discountFilters__segment${
+                        active ? ' discountFilters__segment--active' : ''
+                      }`}
+                      aria-pressed={active}
+                      title={t(
+                        'discounts.filters.ageRatingOption',
+                        'Show games rated PEGI {{age}} or lower',
+                        { age }
+                      )}
+                      onClick={() => onMaxPegiAgeChange(age)}
+                    >
+                      {age}
                     </button>
                   )
                 })}

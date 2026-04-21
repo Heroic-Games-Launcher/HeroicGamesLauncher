@@ -147,6 +147,7 @@
     minmax(0, 2fr)
     minmax(0, 1.4fr)
     minmax(0, 1fr)
+    minmax(0, 1.4fr)
     minmax(90px, 110px);
   align-items: start;
 }

@@ -249,6 +249,9 @@
         "empty": "No discounted games available right now.",
         "error": "Could not load discounts. Please try again later.",
         "filters": {
+            "ageRating": "Suitable for age",
+            "ageRatingAll": "All",
+            "ageRatingOption": "Show games rated PEGI {{age}} or lower",
             "features": "Features",
             "featuresPlaceholder": "Any feature",
             "genres": "Genres",
