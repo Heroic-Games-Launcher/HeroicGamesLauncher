@@ -71,7 +71,9 @@
 }
 
 .discountsScreen .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
-.discountsScreen .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+.discountsScreen
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
   border-color: var(--accent);
   border-width: 1px;
 }

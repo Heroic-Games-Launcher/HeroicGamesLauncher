@@ -447,7 +447,7 @@ export default function Discounts() {
     <div className="discountsScreen">
       <div className="discountsScreen__topbar">
         <h2 className="discountsScreen__header">
-          {t('discounts.title', 'Games Discounts')}
+          {t('discounts.title', 'GOG Deals')}
           {!loading && products.length > 0 && (
             <span className="discountsScreen__count">
               {t('discounts.countFiltered', '{{shown}} of {{total}} games', {

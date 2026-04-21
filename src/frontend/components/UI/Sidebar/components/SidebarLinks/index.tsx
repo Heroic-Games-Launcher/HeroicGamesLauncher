@@ -159,7 +159,7 @@ export default function SidebarLinks() {
       <SidebarItem
         url="/discounts"
         icon={faTags}
-        label={t('discounts.sidebar', 'Discounts')}
+        label={t('discounts.sidebar', 'Deals')}
         dataTour="sidebar-discounts"
       />
       <div className="divider" />
