@@ -55,6 +55,37 @@ interface RegionOption {
 // Currencies are restricted to those GOG supports (AUD, BRL, CAD, CHF, CNY,
 // DKK, EUR, GBP, NOK, PLN, SEK, USD); regions without a supported native
 // currency use USD, which GOG accepts everywhere.
+// Translation keys below are referenced via template literals, so list them
+// here explicitly for i18next-parser to extract.
+// t('discounts.region.countries.AU', 'Australia')
+// t('discounts.region.countries.BR', 'Brazil')
+// t('discounts.region.countries.CA', 'Canada')
+// t('discounts.region.countries.CH', 'Switzerland')
+// t('discounts.region.countries.CN', 'China')
+// t('discounts.region.countries.CZ', 'Czechia')
+// t('discounts.region.countries.DE', 'Germany')
+// t('discounts.region.countries.DK', 'Denmark')
+// t('discounts.region.countries.ES', 'Spain')
+// t('discounts.region.countries.FI', 'Finland')
+// t('discounts.region.countries.FR', 'France')
+// t('discounts.region.countries.GB', 'United Kingdom')
+// t('discounts.region.countries.GR', 'Greece')
+// t('discounts.region.countries.HU', 'Hungary')
+// t('discounts.region.countries.IL', 'Israel')
+// t('discounts.region.countries.IT', 'Italy')
+// t('discounts.region.countries.JP', 'Japan')
+// t('discounts.region.countries.KR', 'South Korea')
+// t('discounts.region.countries.NL', 'Netherlands')
+// t('discounts.region.countries.NO', 'Norway')
+// t('discounts.region.countries.PL', 'Poland')
+// t('discounts.region.countries.PT', 'Portugal')
+// t('discounts.region.countries.RO', 'Romania')
+// t('discounts.region.countries.RU', 'Russia')
+// t('discounts.region.countries.SE', 'Sweden')
+// t('discounts.region.countries.TR', 'Turkey')
+// t('discounts.region.countries.TW', 'Taiwan')
+// t('discounts.region.countries.UA', 'Ukraine')
+// t('discounts.region.countries.US', 'United States')
 export const REGION_OPTIONS: RegionOption[] = [
   { countryCode: 'US', currencyCode: 'USD', label: 'United States' },
   { countryCode: 'AU', currencyCode: 'AUD', label: 'Australia' },
