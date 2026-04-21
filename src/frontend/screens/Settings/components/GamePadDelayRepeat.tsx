@@ -1,8 +1,6 @@
-import { Slider } from '@mui/material'
 import SliderField from 'frontend/components/UI/SliderField'
 import { updateGamepadActions } from 'frontend/helpers/gamepad'
 import useSetting from 'frontend/hooks/useSetting'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const GamePadDelayRepeat = () => {

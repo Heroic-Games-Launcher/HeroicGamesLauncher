@@ -1,7 +1,7 @@
-import { ReactNode, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import classnames from 'classnames'
 import ContextProvider from 'frontend/state/ContextProvider'
-import { Select, MenuItem, SelectChangeEvent, Slider } from '@mui/material'
+import { Slider } from '@mui/material'
 import './index.css'
 import { Mark } from '@mui/material/Slider/useSlider.types'
 
