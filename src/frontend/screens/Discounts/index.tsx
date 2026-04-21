@@ -43,7 +43,6 @@ export default function Discounts() {
     setSelectedGenres([])
     setSelectedFeatures([])
     setSelectedOS([])
-    setPriceRange(null)
     setRatingRange([0, RATING_SCALE_MAX])
     setSearchQuery('')
     setHideDlcs(false)
@@ -77,7 +76,10 @@ export default function Discounts() {
 
       try {
         const result = await window.api.getGogDiscounts(localeSettings)
-        if (!cancelled) setProducts(result)
+        if (!cancelled) {
+          setProducts(result)
+          setPriceRange(null)
+        }
       } catch (err) {
         if (!cancelled) {
           window.api.logError(String(err))
