@@ -32,7 +32,7 @@ const buildUrl = (page: number, locale: CatalogLocaleSettings) => {
     limit: String(PAGE_LIMIT),
     order: 'desc:trending',
     discounted: 'eq:true',
-    productType: 'in:game,pack,dlc,extras',
+    productType: 'in:game,pack,dlc',
     page: String(page),
     countryCode: locale.countryCode,
     locale: locale.locale,

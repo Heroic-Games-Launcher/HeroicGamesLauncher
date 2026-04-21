@@ -42,36 +42,36 @@ const DEFAULT_COUNTRY_CURRENCY = { countryCode: 'US', currencyCode: 'USD' }
 export interface RegionOption {
   countryCode: string
   currencyCode: string
-  labelFallback: string
+  label: string
 }
 
 // Deduplicated (countryCode+currencyCode) list for the Store override picker.
 export const REGION_OPTIONS: RegionOption[] = [
-  { countryCode: 'US', currencyCode: 'USD', labelFallback: 'United States' },
-  { countryCode: 'BR', currencyCode: 'BRL', labelFallback: 'Brazil' },
-  { countryCode: 'CZ', currencyCode: 'CZK', labelFallback: 'Czechia' },
-  { countryCode: 'DK', currencyCode: 'DKK', labelFallback: 'Denmark' },
-  { countryCode: 'FI', currencyCode: 'EUR', labelFallback: 'Finland' },
-  { countryCode: 'FR', currencyCode: 'EUR', labelFallback: 'France' },
-  { countryCode: 'DE', currencyCode: 'EUR', labelFallback: 'Germany' },
-  { countryCode: 'GR', currencyCode: 'EUR', labelFallback: 'Greece' },
-  { countryCode: 'HU', currencyCode: 'HUF', labelFallback: 'Hungary' },
-  { countryCode: 'IL', currencyCode: 'ILS', labelFallback: 'Israel' },
-  { countryCode: 'IT', currencyCode: 'EUR', labelFallback: 'Italy' },
-  { countryCode: 'JP', currencyCode: 'JPY', labelFallback: 'Japan' },
-  { countryCode: 'NL', currencyCode: 'EUR', labelFallback: 'Netherlands' },
-  { countryCode: 'NO', currencyCode: 'NOK', labelFallback: 'Norway' },
-  { countryCode: 'PL', currencyCode: 'PLN', labelFallback: 'Poland' },
-  { countryCode: 'PT', currencyCode: 'EUR', labelFallback: 'Portugal' },
-  { countryCode: 'RO', currencyCode: 'RON', labelFallback: 'Romania' },
-  { countryCode: 'RU', currencyCode: 'RUB', labelFallback: 'Russia' },
-  { countryCode: 'CN', currencyCode: 'CNY', labelFallback: 'China' },
-  { countryCode: 'KR', currencyCode: 'KRW', labelFallback: 'South Korea' },
-  { countryCode: 'ES', currencyCode: 'EUR', labelFallback: 'Spain' },
-  { countryCode: 'SE', currencyCode: 'SEK', labelFallback: 'Sweden' },
-  { countryCode: 'TW', currencyCode: 'TWD', labelFallback: 'Taiwan' },
-  { countryCode: 'TR', currencyCode: 'TRY', labelFallback: 'Turkey' },
-  { countryCode: 'UA', currencyCode: 'UAH', labelFallback: 'Ukraine' }
+  { countryCode: 'US', currencyCode: 'USD', label: 'United States' },
+  { countryCode: 'BR', currencyCode: 'BRL', label: 'Brazil' },
+  { countryCode: 'CZ', currencyCode: 'CZK', label: 'Czechia' },
+  { countryCode: 'DK', currencyCode: 'DKK', label: 'Denmark' },
+  { countryCode: 'FI', currencyCode: 'EUR', label: 'Finland' },
+  { countryCode: 'FR', currencyCode: 'EUR', label: 'France' },
+  { countryCode: 'DE', currencyCode: 'EUR', label: 'Germany' },
+  { countryCode: 'GR', currencyCode: 'EUR', label: 'Greece' },
+  { countryCode: 'HU', currencyCode: 'HUF', label: 'Hungary' },
+  { countryCode: 'IL', currencyCode: 'ILS', label: 'Israel' },
+  { countryCode: 'IT', currencyCode: 'EUR', label: 'Italy' },
+  { countryCode: 'JP', currencyCode: 'JPY', label: 'Japan' },
+  { countryCode: 'NL', currencyCode: 'EUR', label: 'Netherlands' },
+  { countryCode: 'NO', currencyCode: 'NOK', label: 'Norway' },
+  { countryCode: 'PL', currencyCode: 'PLN', label: 'Poland' },
+  { countryCode: 'PT', currencyCode: 'EUR', label: 'Portugal' },
+  { countryCode: 'RO', currencyCode: 'RON', label: 'Romania' },
+  { countryCode: 'RU', currencyCode: 'RUB', label: 'Russia' },
+  { countryCode: 'CN', currencyCode: 'CNY', label: 'China' },
+  { countryCode: 'KR', currencyCode: 'KRW', label: 'South Korea' },
+  { countryCode: 'ES', currencyCode: 'EUR', label: 'Spain' },
+  { countryCode: 'SE', currencyCode: 'SEK', label: 'Sweden' },
+  { countryCode: 'TW', currencyCode: 'TWD', label: 'Taiwan' },
+  { countryCode: 'TR', currencyCode: 'TRY', label: 'Turkey' },
+  { countryCode: 'UA', currencyCode: 'UAH', label: 'Ukraine' }
 ]
 
 const LOCALE_OVERRIDE_KEY = 'discounts.regionOverride'
