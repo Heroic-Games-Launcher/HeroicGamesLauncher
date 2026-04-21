@@ -24,12 +24,6 @@
   font-size: var(--text-2xl);
 }
 
-.discountsScreen__count {
-  font-size: var(--text-md);
-  font-weight: var(--regular);
-  color: var(--text-secondary);
-}
-
 .discountsScreen__region {
   display: flex;
   align-items: center;

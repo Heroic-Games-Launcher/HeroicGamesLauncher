@@ -448,14 +448,6 @@ export default function Discounts() {
       <div className="discountsScreen__topbar">
         <h2 className="discountsScreen__header">
           {t('discounts.title', 'GOG Deals')}
-          {!loading && products.length > 0 && (
-            <span className="discountsScreen__count">
-              {t('discounts.countFiltered', '{{shown}} of {{total}} games', {
-                shown: filteredSorted.length,
-                total: products.length
-              })}
-            </span>
-          )}
         </h2>
 
         <div className="discountsScreen__region">
