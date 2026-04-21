@@ -25,6 +25,7 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
+  HideWindowOnProtocolLaunch,
   ResetHeroic
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
@@ -183,6 +184,8 @@ export default function AdvancedSetting() {
       <DisableGOGPresence />
 
       <AllowInstallationBrokenAnticheat />
+
+      <HideWindowOnProtocolLaunch />
 
       {isLinux && <ShowValveProton />}
 
