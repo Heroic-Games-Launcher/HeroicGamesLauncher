@@ -6,6 +6,7 @@ import * as Settings from './settings'
 import * as Wine from './wine'
 import * as DownloadManager from './downloadmanager'
 import * as Zoom from './zoom'
+import * as Genres from './genres'
 
 export default {
   ...Misc,
@@ -15,5 +16,6 @@ export default {
   ...Settings,
   ...Wine,
   ...DownloadManager,
-  ...Zoom
+  ...Zoom,
+  ...Genres
 }

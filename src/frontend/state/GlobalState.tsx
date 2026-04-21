@@ -87,6 +87,9 @@ interface StateProps {
   favouriteGames: FavouriteGame[]
   customCategories: Record<string, string[]>
   currentCustomCategories: string[]
+  genresCache: Record<string, string[]>
+  genresLoading: boolean
+  selectedGenres: string[]
   theme: string
   isFullscreen: boolean
   isFrameless: boolean
@@ -198,6 +201,9 @@ class GlobalState extends PureComponent<Props> {
     refreshingInTheBackground: true,
     hiddenGames: configStore.get('games.hidden', []),
     currentCustomCategories: loadCurrentCategories(),
+    genresCache: {},
+    genresLoading: false,
+    selectedGenres: JSON.parse(storage.getItem('selected_genres') || '[]'),
     sidebarCollapsed: JSON.parse(
       storage.getItem('sidebar_collapsed') || 'false'
     ),
@@ -252,6 +258,21 @@ class GlobalState extends PureComponent<Props> {
       JSON.stringify(newCustomCategories)
     )
     this.setState({ currentCustomCategories: newCustomCategories })
+  }
+
+  setSelectedGenres = (newCategories: string[]) => {
+    storage.setItem('selected_genres', JSON.stringify(newCategories))
+    this.setState({ selectedGenres: newCategories })
+  }
+
+  refreshGenres = async () => {
+    this.setState({ genresLoading: true })
+    try {
+      const cache = await window.api.refreshGenres()
+      this.setState({ genresCache: cache, genresLoading: false })
+    } catch {
+      this.setState({ genresLoading: false })
+    }
   }
 
   setLanguage = (newLanguage: string) => {
@@ -716,6 +737,15 @@ class GlobalState extends PureComponent<Props> {
       sideloadedLibrary: updatedSideload
     })
 
+    // Update genres for any newly added games
+    this.setState({ genresLoading: true })
+    window.api
+      .getGenres()
+      .then((cache) =>
+        this.setState({ genresCache: cache, genresLoading: false })
+      )
+      .catch(() => this.setState({ genresLoading: false }))
+
     if (currentLibraryLength !== epicLibrary.length) {
       window.api.logInfo('Force Update')
       this.forceUpdate()
@@ -978,6 +1008,18 @@ class GlobalState extends PureComponent<Props> {
     this.setSecondaryFontFamily(this.state.secondaryFontFamily, false)
 
     window.api.frontendReady()
+
+    // Load genres cache
+    this.setState({ genresLoading: true })
+    window.api
+      .getGenres()
+      .then((cache) =>
+        this.setState({ genresCache: cache, genresLoading: false })
+      )
+      .catch((err) => {
+        this.setState({ genresLoading: false })
+        window.api.logError(`Failed to load genres: ${err}`)
+      })
   }
 
   componentDidUpdate() {
@@ -1132,6 +1174,8 @@ class GlobalState extends PureComponent<Props> {
           lastChangelogShown: lastChangelogShown,
           setLastChangelogShown: this.setLastChangelogShown,
           setCurrentCustomCategories: this.setCurrentCustomCategories,
+          setSelectedGenres: this.setSelectedGenres,
+          refreshGenres: this.refreshGenres,
           help: {
             items: this.state.helpItems,
             addHelpItem: this.addHelpItem,

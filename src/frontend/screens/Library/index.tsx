@@ -64,7 +64,9 @@ export default React.memo(function Library(): JSX.Element {
     currentCustomCategories,
     customCategories,
     hiddenGames,
-    gameUpdates
+    gameUpdates,
+    genresCache,
+    selectedGenres
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -448,35 +450,69 @@ export default React.memo(function Library(): JSX.Element {
     } else {
       library = library.filter((game) => !game.install.is_dlc)
 
-      if (currentCustomCategories && currentCustomCategories.length > 0) {
+      const hasCustomFilter =
+        currentCustomCategories && currentCustomCategories.length > 0
+      const hasGenreFilter = selectedGenres && selectedGenres.length > 0
+
+      if (hasCustomFilter || hasGenreFilter) {
         const gamesInSelectedCategories = new Set<string>()
 
-        // loop through selected categories and add all games in all those categories
-        currentCustomCategories.forEach((category) => {
-          if (category === 'preset_uncategorized') {
-            // in the case of the special "uncategorized" category, we read all
-            // the categorized games and add the others to the list to show
-            const categorizedGames = Array.from(
-              new Set(Object.values(customCategories.list).flat())
-            )
+        // Custom categories (OR logic)
+        if (hasCustomFilter) {
+          currentCustomCategories.forEach((category) => {
+            if (category === 'preset_uncategorized') {
+              const categorizedGames = Array.from(
+                new Set(Object.values(customCategories.list).flat())
+              )
 
-            library.forEach((game) => {
-              if (
-                !categorizedGames.includes(`${game.app_name}_${game.runner}`)
-              ) {
-                gamesInSelectedCategories.add(`${game.app_name}_${game.runner}`)
-              }
-            })
-          } else {
-            const gamesInCustomCategory = customCategories.list[category]
-
-            if (gamesInCustomCategory) {
-              gamesInCustomCategory.forEach((game) => {
-                gamesInSelectedCategories.add(game)
+              library.forEach((game) => {
+                if (
+                  !categorizedGames.includes(`${game.app_name}_${game.runner}`)
+                ) {
+                  gamesInSelectedCategories.add(
+                    `${game.app_name}_${game.runner}`
+                  )
+                }
               })
+            } else {
+              const gamesInCustomCategory = customCategories.list[category]
+
+              if (gamesInCustomCategory) {
+                gamesInCustomCategory.forEach((game) => {
+                  gamesInSelectedCategories.add(game)
+                })
+              }
             }
-          }
-        })
+          })
+        }
+
+        // Genre filter (OR logic, unioned with custom categories)
+        if (hasGenreFilter) {
+          const withoutGenreSelected =
+            selectedGenres.includes('preset_without_genre')
+
+          library.forEach((game) => {
+            const gameId = `${game.app_name}_${game.runner}`
+            const gameGenres = genresCache[gameId]
+
+            if (
+              withoutGenreSelected &&
+              (!gameGenres || gameGenres.length === 0)
+            ) {
+              gamesInSelectedCategories.add(gameId)
+              return
+            }
+
+            if (gameGenres) {
+              const matchesAnyGenre = selectedGenres.some((genre) =>
+                gameGenres.includes(genre)
+              )
+              if (matchesAnyGenre) {
+                gamesInSelectedCategories.add(gameId)
+              }
+            }
+          })
+        }
 
         library = library.filter((game) =>
           gamesInSelectedCategories.has(`${game.app_name}_${game.runner}`)
@@ -575,6 +611,8 @@ export default React.memo(function Library(): JSX.Element {
     favouritesIds,
     currentCustomCategories,
     customCategories,
+    selectedGenres,
+    genresCache,
     showInstalledOnly,
     showNonAvailable,
     showSupportOfflineOnly,

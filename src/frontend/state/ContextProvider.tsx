@@ -56,6 +56,11 @@ const initialContext: ContextType = {
   },
   currentCustomCategories: [],
   setCurrentCustomCategories: () => null,
+  genresCache: {},
+  genresLoading: false,
+  selectedGenres: [],
+  setSelectedGenres: () => null,
+  refreshGenres: async () => Promise.resolve(),
   favouriteGames: {
     list: [],
     add: () => null,

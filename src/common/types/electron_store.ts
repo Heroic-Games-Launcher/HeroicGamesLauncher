@@ -117,6 +117,9 @@ export interface StoreStructure {
   migrationsStore: {
     appliedMigrations: string[]
   }
+  genresStore: {
+    [gameId: string]: string[]
+  }
 }
 
 export type StoreOptions<T extends Record<string, unknown>> = Store.Options<T>

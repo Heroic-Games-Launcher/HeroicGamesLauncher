@@ -320,6 +320,9 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+
+  getGenres: () => Promise<Record<string, string[]>>
+  refreshGenres: () => Promise<Record<string, string[]>>
 }
 
 interface FrontendMessages {

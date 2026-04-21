@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useCallback, useContext, useMemo } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 import ToggleSwitch from '../ToggleSwitch'
@@ -9,31 +9,71 @@ export default function CategoryFilter() {
   const {
     customCategories,
     currentCustomCategories,
-    setCurrentCustomCategories
+    setCurrentCustomCategories,
+    genresCache,
+    genresLoading,
+    selectedGenres,
+    setSelectedGenres,
+    refreshGenres
   } = useContext(ContextProvider)
   const { setShowCategories } = useContext(LibraryContext)
   const { t } = useTranslation()
 
-  const toggleCategory = (category: string) => {
-    if (currentCustomCategories.includes(category)) {
-      const newCategories = currentCustomCategories.filter(
-        (cat) => cat !== category
-      )
+  const toggleCategory = useCallback(
+    (category: string) => {
+      const newCategories = currentCustomCategories.includes(category)
+        ? currentCustomCategories.filter((cat) => cat !== category)
+        : [...currentCustomCategories, category]
       setCurrentCustomCategories(newCategories)
-    } else {
-      setCurrentCustomCategories([...currentCustomCategories, category])
-    }
-  }
+    },
+    [currentCustomCategories, setCurrentCustomCategories]
+  )
 
-  const setCategoryOnly = (category: string) => {
-    setCurrentCustomCategories([category])
-  }
+  const setCategoryOnly = useCallback(
+    (category: string) => {
+      setCurrentCustomCategories([category])
+      setSelectedGenres([])
+    },
+    [setCurrentCustomCategories, setSelectedGenres]
+  )
 
-  const selectAll = () => {
+  const selectAll = useCallback(() => {
     setCurrentCustomCategories(
       ['preset_uncategorized'].concat(customCategories.listCategories())
     )
-  }
+  }, [customCategories, setCurrentCustomCategories])
+
+  const toggleGenre = useCallback(
+    (genre: string) => {
+      const newGenres = selectedGenres.includes(genre)
+        ? selectedGenres.filter((g) => g !== genre)
+        : [...selectedGenres, genre]
+      setSelectedGenres(newGenres)
+    },
+    [selectedGenres, setSelectedGenres]
+  )
+
+  const setGenreOnly = useCallback(
+    (genre: string) => {
+      setSelectedGenres([genre])
+      setCurrentCustomCategories([])
+    },
+    [setSelectedGenres, setCurrentCustomCategories]
+  )
+
+  const availableGenres = useMemo(() => {
+    const genreSet = new Set<string>()
+    for (const genres of Object.values(genresCache)) {
+      for (const genre of genres) {
+        genreSet.add(genre)
+      }
+    }
+    return Array.from(genreSet).sort()
+  }, [genresCache])
+
+  const selectAllGenres = useCallback(() => {
+    setSelectedGenres([...availableGenres, 'preset_without_genre'])
+  }, [availableGenres, setSelectedGenres])
 
   const toggleWithOnly = (
     toggle: JSX.Element,
@@ -67,7 +107,28 @@ export default function CategoryFilter() {
     return toggleWithOnly(toggle, onOnlyClick, categoryValue || categoryName)
   }
 
+  const genreToggle = useCallback(
+    (genre: string) => {
+      const toggle = (
+        <ToggleSwitch
+          htmlId={`genre_${genre}`}
+          handleChange={() => toggleGenre(genre)}
+          value={selectedGenres.includes(genre)}
+          title={genre}
+        />
+      )
+
+      return toggleWithOnly(toggle, () => setGenreOnly(genre), `genre_${genre}`)
+    },
+    [selectedGenres, toggleGenre, setGenreOnly]
+  )
+
   const categoriesList = customCategories.listCategories()
+
+  const genreToggles = useMemo(
+    () => availableGenres.map((genre) => genreToggle(genre)),
+    [availableGenres, genreToggle]
+  )
 
   return (
     <Dropdown
@@ -107,6 +168,54 @@ export default function CategoryFilter() {
         onClick={() => setShowCategories(true)}
       >
         {t('categories-manager.title', 'Manage Categories')}
+      </button>
+
+      <hr />
+      <span style={{ fontWeight: 'bold' }}>
+        {t('header.genre_categories', 'Genres')}
+      </span>
+      {genresLoading && (
+        <span style={{ fontStyle: 'italic' }}>
+          {t('header.loading_genres', 'Loading genres...')}
+        </span>
+      )}
+      {!genresLoading && availableGenres.length === 0 && (
+        <span>
+          {t('header.no_genres', 'No games with genre data available')}
+        </span>
+      )}
+      <div style={{ maxHeight: '40vh', overflowY: 'auto' }}>
+        {genreToggles}
+        {availableGenres.length > 0 &&
+          toggleWithOnly(
+            <ToggleSwitch
+              htmlId="genre_without_genre"
+              handleChange={() => toggleGenre('preset_without_genre')}
+              value={selectedGenres.includes('preset_without_genre')}
+              title={t('header.without_genre', 'Without Genre')}
+            />,
+            () => setGenreOnly('preset_without_genre'),
+            'genre_without_genre'
+          )}
+      </div>
+      {availableGenres.length > 0 && (
+        <>
+          <hr />
+          <button
+            type="reset"
+            className="button is-primary"
+            style={{ marginBottom: '0.3rem' }}
+            onClick={() => selectAllGenres()}
+          >
+            {t('header.select_all_genres', 'Select All Genres')}
+          </button>
+        </>
+      )}
+      <button
+        className="button is-secondary is-small"
+        onClick={() => refreshGenres()}
+      >
+        {t('header.refresh_genres', 'Refresh Genres')}
       </button>
     </Dropdown>
   )
