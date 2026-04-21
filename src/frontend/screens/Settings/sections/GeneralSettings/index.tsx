@@ -12,6 +12,7 @@ import {
   DownloadProtonToSteam,
   EgsSettings,
   HideChangelogOnStartup,
+  HideWindowOnProtocolLaunch,
   LibraryTopSection,
   MaxRecentGames,
   MaxWorkers,
@@ -55,6 +56,8 @@ export default function GeneralSettings() {
       <TraySettings />
 
       <MinimizeOnGameLaunch />
+
+      <HideWindowOnProtocolLaunch />
 
       <UseDarkTrayIcon />
 
