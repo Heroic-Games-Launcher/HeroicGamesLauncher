@@ -364,7 +364,7 @@
             "close": "Stäng hjälp"
         },
         "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds.",
-        "dxfpslimit": "Ställer in ett bildhastighetstak för DXVK spel",
+        "dxfpslimit": "Ställer in ett bildhastighetstak för DirectX spel (9-12)",
         "advertiseAvxForRosetta": "Aktiverar stöd för AVX-instruktionsuppsättningar när Windows-spel körs via Rosetta på Apple Silicon Macar. Detta kan krävas för vissa spel som Death Stranding som behöver AVX-stöd.",
         "analytics": "Gör det möjligt för Heroic att samla in 100 % anonym användningsdata för att förbättra programmet. Kräver omstart för att det ska träda i kraft.",
         "download_proton_steam": "När det är aktiverat kommer GE-Proton att laddas ner direkt till Steams kompatibilitetsverktygskatalog istället för standardsökvägen för Heroic. Det kommer att använda Steam-sökvägen som angetts i inställningen \"Standardsökväg för Steam\" ovan.",
@@ -557,7 +557,7 @@
         "custom_themes_path": "Välj sökvägen för att leta efter anpassade CSS-filer",
         "dxvkfpsvalue": "Positivt heltalsvärde (t.ex. 30, 60, ...)",
         "egs-prefix": "Prefix för befintlig EGS installation",
-        "prefered_language": "Tvåställig bokstavskod (t.ex: \"en\" eller \"fr\")",
+        "prefered_language": "Tvåställig eller fyrställig bokstavskod (t.ex: \"fr\" eller \"pt-BR\")",
         "alt-nile-bin": "Använder inbyggd Nile binär..."
     },
     "platforms": {
@@ -663,7 +663,8 @@
                 },
                 "error": {
                     "title": "Uppladdning misslyckades",
-                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer"
+                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer",
+                    "manual_upload": "Klicka på knappen \"VISA LOGGFIL I MAPP\" och ladda upp filen \"launch.log\" manuellt till Discord eller någon annan online fildelningstjänst."
                 },
                 "header": "Uppladdade loggfiler",
                 "delete": "Begär borttagning av loggfil",
@@ -771,7 +772,7 @@
         "verboseLogs": {
             "description": "Aktivera detaljerade loggar"
         },
-        "disableUMU": "Inaktivera UMU",
+        "disableUMU": "Inaktivera umu",
         "custom_css": {
             "warning": "Varning: detta gäller hela frontenden. Detta betyder att fel stil kan göra att Heroic blir oanvändbar. Om det behövs kan inställningen ändras manuellt i `~/.config/heroic/config.json`. Kopiera INTE stiler from källor du inte litar på."
         },
@@ -799,7 +800,9 @@
         "no-tray-icon": "Dölj ikonen i systemfältet (kräver omstart)",
         "wineWayland": "Aktivera Wine-Wayland (Experimentellt) (Wine-versionen behöver stödja det)",
         "WoW64": "Aktivera WoW64 (Experimentellt)",
-        "scripts": "Skript:"
+        "scripts": "Skript:",
+        "enable-quick-sync-menu": "Aktivera snabbspara synkronisera meny på spelsidan",
+        "disable_gog_presence": "Inaktivera GOG-närvarouppdateringar"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -836,7 +839,8 @@
             "sync": "Synkronisera molnsparfiler",
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformation",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Föråldrat"
         },
         "open-config-file": "Öppna konfigurationsfil",
         "reset-heroic": "Återställ Heroic",
@@ -903,7 +907,8 @@
         "custom_css": {
             "title": "Anpassad CSS Stil"
         },
-        "launchOptions": "Uppstartsalternativ"
+        "launchOptions": "Uppstartsalternativ",
+        "legacy_warning": "Varning: Inställningarna på den här fliken är mestadels föråldrade och kanske inte fungerar alls."
     },
     "Settings": "Inställningar",
     "sidebar": {
@@ -1099,5 +1104,8 @@
         "title": "Skicka anonym analysdata"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom butik"
+    "zoom-store": "Zoom butik",
+    "launch": {
+        "options": "Startalternativ..."
+    }
 }

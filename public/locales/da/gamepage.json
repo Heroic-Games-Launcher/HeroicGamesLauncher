@@ -49,7 +49,24 @@
         "sideload": {
             "exe": "Vælg eksekverbar fil"
         },
-        "close": "Luk"
+        "close": "Luk",
+        "warning": {
+            "title": "Advarsel"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "cancel": "Pause/Afbryd",
@@ -178,7 +195,8 @@
         }
     },
     "launch": {
-        "options": "Opstartsinstillinger..."
+        "options": "Opstartsinstillinger...",
+        "default": ""
     },
     "sdl": {
         "title": "Vælg komponent der skal installeres"
@@ -317,5 +335,6 @@
         "dlcsCollapsible": "DLC"
     },
     "Open": "Åbn",
-    "wikiLink": "Vigtig information om dette spil, læs dette:&nbsp;<1>Åbn side</1>"
+    "wikiLink": "Vigtig information om dette spil, læs dette:&nbsp;<1>Åbn side</1>",
+    "open-saves-folder": ""
 }

@@ -23,7 +23,11 @@
         "remove_from_recent": "Уклони из недавног",
         "run-exe-first": "Прво покрени инсталацију",
         "running-setup": "Покретање подешавања",
-        "details": "Детаљи"
+        "details": "Детаљи",
+        "changelog": "",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "Неподржано",
     "submenu": {
@@ -40,7 +44,8 @@
         "removeFromSteam": "Уклони из Steam-а",
         "verify": "Провери и поправи",
         "extraInfo": "Ектра Инфо",
-        "logs": "Дневници"
+        "logs": "Дневници",
+        "categories": "Категорије"
     },
     "box": {
         "change": {
@@ -64,7 +69,8 @@
             "title": "Изабери EXE за покретање"
         },
         "select": {
-            "button": "Изабери"
+            "button": "Изабери",
+            "image": ""
         },
         "sideload": {
             "exe": "Изаберите извршну датотеку"
@@ -80,14 +86,34 @@
             "settingcheckbox": "Обришите подешавања и уклоните евиденцију{{newLine}}Напомена: Ово се не може опозвати. Све измењене поставке ће бити заборављене и евиденција ће бити избрисана.",
             "title": "Деинсталирај",
             "prefix_warning": "Вине префикс за ову игру је подразумевани префикс. Ако заиста желите да га избришете, морате то учинити ручно.",
-            "dlc": "Да ли желите да деинсталирате овај ДЛЦ?"
+            "dlc": "Да ли желите да деинсталирате овај ДЛЦ?",
+            "cannotUninstallEpic": "",
+            "gameIsRunning": ""
         },
         "update": {
             "message": "Ова игра има ажурирање, примените ажурирање сада?",
             "title": "Игри је потребно ажурирање"
         },
         "wineprefix": "Изаберите WinePrefix мапу",
-        "yes": "ДА"
+        "yes": "ДА",
+        "warning": {
+            "title": "Упозорење"
+        },
+        "ok": "У реду",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "close": "",
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "disabled": "Онемогућено",
     "dlc": {
@@ -106,7 +132,22 @@
         "platform": "Изаберите верзију платформе за инсталирање",
         "requirements": "Системски захтеви",
         "totalPlayed": "Време одиграно",
-        "dlcs": "ДЛЦ"
+        "dlcs": "ДЛЦ",
+        "branch": {
+            "disabled": "Онемогући",
+            "select": "",
+            "password": "",
+            "setPrivateBranchPassword": ""
+        },
+        "modify": "Измена инсталације",
+        "changelogFor": "",
+        "builds": {
+            "buildsSelector": "",
+            "version": "",
+            "toggle": ""
+        },
+        "install_info": "",
+        "extra_info": ""
     },
     "gamecard": {
         "moving": "Кретање",
@@ -135,7 +176,8 @@
         "clickToOpen": "Кликните да отворите",
         "installedInfo": "Инсталиране информације",
         "protondb-compatibility-info": "Протонски ниво компатибилности",
-        "steamdeck-compatibility-info": "СтеамДецк компатибилност"
+        "steamdeck-compatibility-info": "СтеамДецк компатибилност",
+        "third-party-app": ""
     },
     "install": {
         "disk-space-left": "Доступан простор",
@@ -144,7 +186,16 @@
         "path-not-writtable": "Упозорење: путања можда није уписива.",
         "space-after-install": "Након инсталације",
         "wineprefix": "WinePrefix",
-        "wineversion": "Wine верзија"
+        "wineversion": "Wine верзија",
+        "anticheat-warning": {
+            "cancel": "",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "ok": "",
+            "multiplayer_message": "",
+            "title": ""
+        },
+        "flatpak-path-not-writtable": ""
     },
     "label": {
         "game": {
@@ -153,16 +204,20 @@
         },
         "playing": {
             "start": "Играј сад",
-            "stop": "Игра се (заустави)"
+            "stop": "Игра се (заустави)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Синхронизовање чувања"
         },
         "launching": "Лансирање",
-        "ubisoft": "Инсталирање Убисофт Цоннецт-а"
+        "ubisoft": "Инсталирање Убисофт Цоннецт-а",
+        "winetricks": "",
+        "redist": ""
     },
     "launch": {
-        "options": "Опције покретања..."
+        "options": "Опције покретања...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Нисте пријављени са Epic налогом у Heroic-у. Немојте користити страницу продавнице за пријављивање, уместо тога кликните на следеће дугме:",
@@ -177,7 +232,10 @@
         "title": "Изаберите компоненте за инсталирање"
     },
     "setting": {
-        "winecrossoverbottle": "ЦроссОвер Боттле"
+        "winecrossoverbottle": "ЦроссОвер Боттле",
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -187,12 +245,19 @@
             "exe": "Изаберите Извршни",
             "image": "Слика апликације",
             "title": "Игра/Наслов апликације",
-            "broser": "БровсерУРЛ"
+            "broser": "БровсерУРЛ",
+            "useragent": "",
+            "fullscreen": ""
         },
         "placeholder": {
             "image": "Налепите URL слике овде",
             "title": "Додајте наслов својој игрици/апликацији",
-            "url": "Овде налепите УРЛ игре"
+            "url": "Овде налепите УРЛ игре",
+            "useragent": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -224,9 +289,43 @@
         "downloading": "Преузимање",
         "extracting": "Екстракција",
         "gog-goodie": "Чини се да се ова игра не може инсталирати. Проверите садржај за преузимање на хттпс://гог.цом/аццоунт",
-        "goodie": "Није могуће инсталирати"
+        "goodie": "Није могуће инсталирати",
+        "redist": "",
+        "winetricks": "",
+        "importing": ""
     },
     "help": {
-        "cloud_save_unsupported": "Ова игра не подржава чување у облаку. Ове информације пружају програмери игре. Неке игре имплементирају сопствени систем чувања у облаку"
-    }
+        "cloud_save_unsupported": "Ова игра не подржава чување у облаку. Ове информације пружају програмери игре. Неке игре имплементирају сопствени систем чувања у облаку",
+        "content": {
+            "gamePage": ""
+        },
+        "title": {
+            "gamePage": ""
+        }
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "queue": {
+        "label": {
+            "resume": "",
+            "pause": "",
+            "remove": "",
+            "canceled": "Откажи"
+        }
+    },
+    "modifyInstall": {
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "dlcsCollapsible": "",
+        "versionCollapsable": ""
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }

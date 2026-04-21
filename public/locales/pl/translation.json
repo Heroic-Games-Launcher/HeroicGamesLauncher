@@ -168,7 +168,7 @@
                 "install": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zainstalowana!",
                 "update": "Serwery Epic mają teraz poważną awarię, gra nie może zostać zaktualizowana!"
             },
-            "title": "Ostrzeżenie",
+            "title": "Uwaga",
             "wine-change": {
                 "title": "Nie znaleziono Wine!",
                 "message": "Nie mogliśmy znaleźć wybranej wersji Wine, aby uruchomić ten tytuł ({{selectedWine}}). {{newline}} Znaleźliśmy inny, czy chcesz kontynuować uruchamianie za pomocą {{foundWine}}?"
@@ -671,7 +671,8 @@
                 },
                 "error": {
                     "title": "Przesyłanie nie powiodło się",
-                    "content": "Nie udało się przesłać pliku dziennika. Sprawdź ogólny dziennik Heroic, aby uzyskać szczegółowe informacje"
+                    "content": "Nie udało się przesłać pliku dziennika. Sprawdź ogólny dziennik Heroic, aby uzyskać szczegółowe informacje",
+                    "manual_upload": ""
                 },
                 "header": "Przesłane pliki dziennika",
                 "no-files": "Nie przesłano żadnych plików dziennika",
@@ -813,7 +814,8 @@
             "info_label": "Wersje Protona od Valve ignorowane"
         },
         "WoW64": "Włącz WoW64 (Eksperymentalne)",
-        "scripts": "Skrypty:"
+        "scripts": "Skrypty:",
+        "enable-quick-sync-menu": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +852,8 @@
             "sync": "Synchronizuj zapisy w chmurze",
             "wineExt": "Rozszerzenia Wine",
             "systemInformation": "Informacje o systemie",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
@@ -917,7 +920,8 @@
         "custom_css": {
             "title": "Własny styl CSS"
         },
-        "launchOptions": "Opcje startowe"
+        "launchOptions": "Opcje startowe",
+        "legacy_warning": ""
     },
     "Settings": "Ustawienia",
     "sidebar": {
@@ -1120,5 +1124,8 @@
         "title": "Wysyłaj anonimowe analizy"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Sklep Zoom"
+    "zoom-store": "Sklep Zoom",
+    "launch": {
+        "options": "Opcje uruchamiania..."
+    }
 }

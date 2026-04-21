@@ -50,7 +50,9 @@ export class ZoomUser {
       return
     }
     try {
-      const response = await this.makeRequest(`${apiUrl}/li/loggedin`)
+      const response = await this.makeRequest<{ name: string }>(
+        `${apiUrl}/li/loggedin`
+      )
       logInfo('User is authenticated with Zoom', LogPrefix.Zoom)
       const username = response.name
       configStore.set('username', username)
@@ -125,7 +127,7 @@ export class ZoomUser {
     }
   }
 
-  public static async makeRequest(url: string) {
+  public static async makeRequest<T>(url: string) {
     const credentials = await this.getCredentials()
     if (!credentials) {
       throw new Error('Not authenticated with Zoom')
@@ -136,7 +138,7 @@ export class ZoomUser {
     }
 
     const response = await axios
-      .get(url, { headers })
+      .get<T>(url, { headers })
       .catch((error: AxiosError) => {
         logError(['Zoom API request failed:', error.message], LogPrefix.Zoom)
         throw error

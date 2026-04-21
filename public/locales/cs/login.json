@@ -2,8 +2,8 @@
     "button": {
         "login": "Login",
         "copied": "Zkopírováno!",
-        "open": "Otevřít odkaz",
-        "copy": "kopírovat",
+        "open": "Otevřít Odkaz",
+        "copy": "Kopírovat",
         "error": "Chyba, zkuste jiný kód",
         "loading": "Načítání"
     },
@@ -12,7 +12,7 @@
         "part2": "Otevřete",
         "part3": "obchod Epic Games",
         "part4": ", přihlaste se s vaším účtem a zkopírujte vaše",
-        "part5": "číslo authorization code",
+        "part5": "číslo ověřovacího kódu",
         "part6": "Vložte",
         "part7": "číslo authorization code",
         "part8": "do pole níže a klikněte na tlačítko přihlásit."

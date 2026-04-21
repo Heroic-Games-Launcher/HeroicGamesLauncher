@@ -21,7 +21,8 @@
             "title": "Select EXE to Run"
         },
         "select": {
-            "button": "Select"
+            "button": "Select",
+            "image": ""
         },
         "sideload": {
             "exe": "Select Executable"
@@ -48,7 +49,24 @@
         },
         "wineprefix": "WinePrefix Qovluğunu seçin",
         "yes": "HƏ",
-        "close": "Bağla"
+        "close": "Bağla",
+        "warning": {
+            "title": "Warning"
+        },
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        },
+        "ok": ""
     },
     "button": {
         "add_to_favourites": "Sevimlilərə əlavə edin",
@@ -75,7 +93,10 @@
         "uninstall": "Silin",
         "update": "Yeniləyin",
         "details": "Təfərrüatlar",
-        "changelog": "Dəyişikliklər jurnalını göstərin"
+        "changelog": "Dəyişikliklər jurnalını göstərin",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "Dəstəklənmir",
     "disabled": "Əlil",
@@ -167,7 +188,8 @@
         },
         "playing": {
             "start": "İndi oyna",
-            "stop": "Oynanır (Dayandır)"
+            "stop": "Oynanır (Dayandır)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Sinxronizasiya Saxlamalar"
@@ -181,7 +203,8 @@
         }
     },
     "launch": {
-        "options": "Başlama Seçimləri..."
+        "options": "Başlama Seçimləri...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
@@ -198,7 +221,8 @@
     "setting": {
         "winecrossoverbottle": "Krossover şüşə",
         "show-wine-settings": "Vine Ayarlarını Göstər",
-        "warn-use-shared-wine-config": "Bu ayarı yalnız nə etdiyini bilirsənsə, istifadə et. <br/>Birdən çox oyun üçün eyni prefiksin paylaşılması, onların \"dependencies\"- asılılıqları ilə uyğun gəlmirsə, problemlər yarada bilər."
+        "warn-use-shared-wine-config": "Bu ayarı yalnız nə etdiyini bilirsənsə, istifadə et. <br/>Birdən çox oyun üçün eyni prefiksin paylaşılması, onların \"dependencies\"- asılılıqları ilə uyğun gəlmirsə, problemlər yarada bilər.",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -217,6 +241,10 @@
             "title": "Add a title to your Game/App",
             "url": "Oyun URL-ni bura yerləşdirin",
             "useragent": "Bu brauzer proqramında/oyununda istifadə etmək üçün özəl istifadəçi agenti yazın"
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -250,7 +278,8 @@
         "gog-goodie": "Bu oyun quraşdırmaq mümkün deyil. Yüklənə bilən məzmunu https://gog.com/account saytında yoxlayın",
         "goodie": "Quraşdırıla bilməz",
         "winetricks": "Vayntriks Problem Həlletmə Ayarları Tətbiq olunur",
-        "redist": "\"Redistributables\"-Lazımi Fayllar Quraşdırılır {{redist}}"
+        "redist": "\"Redistributables\"-Lazımi Fayllar Quraşdırılır {{redist}}",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "Qısayol əlavə edin",
@@ -295,7 +324,12 @@
     "queue": {
         "label": {
             "canceled": "Canceled",
-            "remove": "Remove from Downloads"
+            "remove": "Remove from Downloads",
+            "resume": "",
+            "pause": ""
         }
-    }
+    },
+    "open-saves-folder": "",
+    "Open": "",
+    "wikiLink": ""
 }

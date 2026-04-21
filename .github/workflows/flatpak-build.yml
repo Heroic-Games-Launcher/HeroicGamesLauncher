@@ -9,6 +9,8 @@ on:
         description: 'Build Flatpak Files'
         required: false
 name: Flatpak-CI
+permissions:
+  contents: read
 jobs:
   flatpak:
     name: 'Flatpak Build'
@@ -23,13 +25,13 @@ jobs:
       - name: Build artifacts.
         run: pnpm dist:linux appimage --publish=never
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare Flatpak
         run: pnpm flatpak:prepare
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:

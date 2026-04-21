@@ -7,7 +7,8 @@
             "checkbox": "הסר prefix:{{prefix}}{{newLine}}שימו לב: פעולה זאת אינה ניתנת לביטול והיא גם תסיר קבצי שמירה שלא גובו.",
             "message": "אתם רוצים להסיר את {{title}}?",
             "settingcheckbox": "מחק הגדרות ומחק לוג{{newLine}}שימו לב: פעולה זאת לא ניתנת לביטול. כל הגדרות ששונו יישכחו והלוג יימחק.",
-            "gameIsRunning": "{{title}} עדיין רץ. צריך לסגור אותו קודם לפני שניתן יהיה להסירו."
+            "gameIsRunning": "{{title}} עדיין רץ. צריך לסגור אותו קודם לפני שניתן יהיה להסירו.",
+            "cannotUninstallEpic": ""
         },
         "change": {
             "message": "‌זה ישנה את מיקום ההתקנה של המשחק הזה, אתם בטוחים?",
@@ -32,7 +33,8 @@
             "title": "הפסק התקנה"
         },
         "select": {
-            "button": "בחרו"
+            "button": "בחרו",
+            "image": ""
         },
         "runexe": {
             "title": "בחרו קובץ EXE להפעיל"
@@ -46,7 +48,24 @@
         },
         "wineprefix": "בחר תיקיית WinePrefix",
         "yes": "כן",
-        "close": "לסגור"
+        "close": "לסגור",
+        "warning": {
+            "title": "אזהרה"
+        },
+        "ok": "אישור",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "install": "התקן",
@@ -73,7 +92,10 @@
         "unhide_game": "הסר משחק מרשימת המוסתרים",
         "uninstall": "הסר התקנה",
         "running-setup": "מפעיל הגדרה",
-        "changelog": "הצג שינויים"
+        "changelog": "הצג שינויים",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "gamecard": {
         "repairing": "מתקן",
@@ -91,22 +113,30 @@
         "size": "גודל",
         "steamdeck-compatibility-info": "התאמה לSteamDeck",
         "syncsaves": "סנכרון שמירות",
-        "protondb-compatibility-info": "רמת תאימות Proton"
+        "protondb-compatibility-info": "רמת תאימות Proton",
+        "third-party-app": ""
     },
     "sideload": {
         "info": {
             "broser": "קישור דפדפן",
             "exe": "בחרו קובץ הרצה",
             "image": "תמונת אפליקציה",
-            "title": "כותרת אפליקציה/משחק"
+            "title": "כותרת אפליקציה/משחק",
+            "useragent": "",
+            "fullscreen": ""
         },
         "placeholder": {
             "title": "הוסיפו כותרת למשחק/אפליקציה שלכם",
             "image": "הדבק קישור תמונה לפה",
-            "url": "הדביקו את קישור המשחק פה"
+            "url": "הדביקו את קישור המשחק פה",
+            "useragent": ""
         },
         "field": {
             "title": "כותרת"
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "status": {
@@ -134,7 +164,10 @@
         "queued": "בתור",
         "ubisoft": "מתקין Ubisoft",
         "updating": "מעדכן משחק",
-        "uninstalling": "מסיר התקנה"
+        "uninstalling": "מסיר התקנה",
+        "redist": "",
+        "winetricks": "",
+        "importing": "ייבא"
     },
     "submenu": {
         "settings": "הגדרות",
@@ -149,7 +182,8 @@
         "move": "הזז משחק",
         "addShortcut": "הוסף קיצור דרך",
         "addToSteam": "הוסף ל-Steam",
-        "verify": "אמת קבצים ותקן"
+        "verify": "אמת קבצים ותקן",
+        "categories": ""
     },
     "cloud_save_unsupported": "לא נתמך",
     "enabled": "מופעל",
@@ -169,12 +203,19 @@
         "totalPlayed": "זמן במשחק",
         "branch": {
             "disabled": "מושבת",
-            "select": "תבחר ערוץ בטא"
+            "select": "תבחר ערוץ בטא",
+            "password": "",
+            "setPrivateBranchPassword": ""
         },
         "builds": {
             "version": "גרסה",
-            "buildsSelector": "תבחר גרסת משחק"
-        }
+            "buildsSelector": "תבחר גרסת משחק",
+            "toggle": ""
+        },
+        "changelogFor": "",
+        "modify": "",
+        "install_info": "",
+        "extra_info": ""
     },
     "dlc": {
         "installDlcs": "התקן את כל הDLCים"
@@ -189,7 +230,13 @@
         "error": "שגיאה לא ידועה"
     },
     "help": {
-        "cloud_save_unsupported": "המשחק הזה לא תומך בשמירה בענן. מידע זה מסופק על ידי מפתחי המשחק. לחלק מהמשחקים יש מערכת שמירת ענן משלהם"
+        "cloud_save_unsupported": "המשחק הזה לא תומך בשמירה בענן. מידע זה מסופק על ידי מפתחי המשחק. לחלק מהמשחקים יש מערכת שמירת ענן משלהם",
+        "content": {
+            "gamePage": ""
+        },
+        "title": {
+            "gamePage": ""
+        }
     },
     "hours": "שעות",
     "howLongToBeat": "כמה זמן יש לנצח",
@@ -201,7 +248,8 @@
         },
         "playing": {
             "stop": "משחק (עצור)",
-            "start": "שחקו עכשיו"
+            "start": "שחקו עכשיו",
+            "start_with_logs": ""
         },
         "ubisoft": "מתקין Ubisoft Connect",
         "saves": {
@@ -211,7 +259,9 @@
             "installing": "מתקין",
             "pleaseWait": "נא לחכות...",
             "installation": "הפסק התקנה"
-        }
+        },
+        "winetricks": "",
+        "redist": ""
     },
     "install": {
         "wineversion": "גרסת Wine",
@@ -226,8 +276,12 @@
             "message": "התמיכה במערכת נגד רמאות מקולקלת או לא מתאפשרת. המשחק לא יעבוד. האם אתה עדיין רוצה להתקין אותו?",
             "install": "כן (אני מבין שהמשחק לא יעבוד)",
             "title": "מערכת נגד רמאות מקולקלת/לא מתאפשרת",
-            "multiplayer_message": "התמיכה במערכת נגד רמאות מקולקלת או לא מתאפשרת. המשחק לא יעבוד. האם אתה עדיין רוצה להתקין אותו?"
-        }
+            "multiplayer_message": "התמיכה במערכת נגד רמאות מקולקלת או לא מתאפשרת. המשחק לא יעבוד. האם אתה עדיין רוצה להתקין אותו?",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "ok": ""
+        },
+        "flatpak-path-not-writtable": ""
     },
     "not_logged_in": {
         "amazon": "אתה לא מחובר לחשבון אמזון בHeroic. אל תשתמש בדף החנות כדי להתחבר, לחץ על הכפתור הבא במקום:",
@@ -239,13 +293,17 @@
     },
     "report_problem": "דיווח על בעיה בהפעלת המשחק",
     "launch": {
-        "options": "פותח הגדרות..."
+        "options": "פותח הגדרות...",
+        "default": ""
     },
     "sdl": {
         "title": "בחרו רכיבים להתקין"
     },
     "setting": {
-        "winecrossoverbottle": "CrossOver Bottle"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": ""
     },
     "specs": {
         "minimum": "מינימום",
@@ -261,6 +319,19 @@
         }
     },
     "modifyInstall": {
-        "dlcsCollapsible": "DLCים"
-    }
+        "dlcsCollapsible": "DLCים",
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "versionCollapsable": ""
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "open-saves-folder": "",
+    "wikiLink": ""
 }

@@ -565,7 +565,7 @@
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
         "dxvkfpsvalue": "正整数值 (如30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
-        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")",
+        "prefered_language": "双字符或四字符代码 (如: \"fr\" 或 \"pt-BR\")",
         "alt-nile-bin": "使用内置 Nile 二进制文件..."
     },
     "platforms": {
@@ -678,7 +678,8 @@
                 },
                 "error": {
                     "content": "上传日志文件失败。详情请查看 Heroic 的常规日志",
-                    "title": "上传失败了"
+                    "title": "上传失败了",
+                    "manual_upload": "单击 “在文件夹中显示日志文件”按钮并手动上传“launch.log”文件到 Discord 或任何在线文件分享服务。"
                 },
                 "header": "已上传的日志文件",
                 "minutes-ago": "上传于 {{minutesAgo, relativetime(minutes)}} 分钟前",
@@ -815,7 +816,9 @@
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
         "WoW64": "启用 WoW64（实验性）",
-        "scripts": "脚本："
+        "scripts": "脚本：",
+        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单",
+        "disable_gog_presence": "禁用 GOG Presence 更新"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -852,7 +855,8 @@
             "sync": "存档-同步",
             "wineExt": "Wine 扩展",
             "systemInformation": "系统信息",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "老古董"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -919,7 +923,8 @@
         "custom_css": {
             "title": "自定义 CSS 样式"
         },
-        "launchOptions": "启动选项"
+        "launchOptions": "启动选项",
+        "legacy_warning": "警告：此选项卡上的设置大多已废弃，可能完全无法使用。"
     },
     "Settings": "设置",
     "sidebar": {
@@ -1122,5 +1127,8 @@
         "title": "发送匿名分析信息"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom 商店"
+    "zoom-store": "Zoom 商店",
+    "launch": {
+        "options": "启动选项..."
+    }
 }

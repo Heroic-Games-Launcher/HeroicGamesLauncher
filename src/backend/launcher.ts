@@ -32,7 +32,8 @@ import {
   memoryLog,
   sendGameStatusUpdate,
   checkWineBeforeLaunch,
-  isMacSonomaOrHigher
+  isMacSonomaOrHigher,
+  askForceUninstall
 } from './utils'
 import {
   createGameLogWriter,
@@ -77,10 +78,11 @@ import { addRecentGame } from './recent_games/recent_games'
 import { tsStore } from './constants/key_value_stores'
 import {
   defaultUmuPath,
-  defaultWinePrefix,
+  sharedWinePrefix,
   fixesPath,
   flatpakHome,
   galaxyCommunicationExePath,
+  gamesConfigPath,
   runtimePath,
   userHome
 } from './constants/paths'
@@ -112,6 +114,19 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   args
 }) => {
   const game = gameManagerMap[runner].getGameInfo(appName)
+
+  if (game.install.install_path && !existsSync(game.install.install_path)) {
+    await askForceUninstall(runner, appName)
+
+    sendGameStatusUpdate({
+      appName,
+      runner,
+      status: 'done'
+    })
+
+    return { status: 'abort' }
+  }
+
   const gameSettings = await gameManagerMap[runner].getSettings(appName)
   const { autoSyncSaves, savesPath, gogSaves = [] } = gameSettings
 
@@ -330,6 +345,12 @@ function filterGameSettingsForLog(
 ): PartialDeep<GameSettings> {
   const gameSettings: PartialDeep<GameSettings> =
     structuredClone(originalSettings)
+
+  // this is irrelevant for support
+  delete gameSettings.enableQuickSavesMenu
+  // if this is visible, it means verboseLogs is true, no need to print it
+  delete gameSettings.verboseLogs
+
   // remove gamescope settings if it's disabled
   if (gameSettings.gamescope) {
     if (!gameSettings.gamescope.enableLimiter) {
@@ -351,8 +372,6 @@ function filterGameSettingsForLog(
     delete gameSettings.enableMsync
     delete gameSettings.wineCrossoverBottle
     delete gameSettings.advertiseAvxForRosetta
-    delete gameSettings.DXVKFpsCap
-    delete gameSettings.enableDXVKFpsLimit
 
     if (notNative) {
       const wineVersion = gameSettings.wineVersion
@@ -382,6 +401,7 @@ function filterGameSettingsForLog(
       delete gameSettings.enableHDR
       delete gameSettings.enableWoW64
       delete gameSettings.showFps
+      delete gameSettings.enableDXVKFpsLimit
       delete gameSettings.eacRuntime
       delete gameSettings.battlEyeRuntime
       delete gameSettings.useGameMode
@@ -413,6 +433,9 @@ function filterGameSettingsForLog(
         if (wineType.type === 'wine') {
           delete gameSettings.wineCrossoverBottle
           delete gameSettings.advertiseAvxForRosetta
+          if (wineType.name?.includes('DXMT')) {
+            delete gameSettings.autoInstallDxvk
+          }
         }
 
         if (wineType.type === 'toolkit') {
@@ -432,6 +455,9 @@ function filterGameSettingsForLog(
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
       delete gameSettings.advertiseAvxForRosetta
+      delete gameSettings.autoInstallDxvk
+      delete gameSettings.autoInstallDxvkNvapi
+      delete gameSettings.autoInstallVkd3d
     }
   }
 
@@ -538,6 +564,8 @@ async function prepareLaunch(
   await logWriter.logInfo([
     'Game Settings:',
     filterGameSettingsForLog(gameSettings, !native),
+    '\n',
+    `Stored at: ${join(gamesConfigPath, gameInfo.app_name + '.json')}`,
     '\n\n'
   ])
 
@@ -790,6 +818,8 @@ async function prepareWineLaunch(
   failureReason?: string
   envVars?: Record<string, string>
 }> {
+  const gameInfo = gameManagerMap[runner].getGameInfo(appName)
+
   const gameSettings =
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
@@ -850,6 +880,12 @@ async function prepareWineLaunch(
       checkEOSOverlayStatusPromise.then(
         (enabled) => `EOS Overlay: ${enabled ? 'Enabled' : 'Not enabled'}`
       )
+    )
+  }
+
+  if (gameSettings.offlineMode && !gameInfo.canRunOffline) {
+    void logWriter.logWarning(
+      "Warning: 'offlineMode' is turned on but the game does not support offline mode. Disable 'offlineMode' in the game's settings."
     )
   }
 
@@ -968,9 +1004,7 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
-  const { folder_name: installFolderName } =
-    gameManagerMap[runner].getGameInfo(appName)
-  const envVars = setupWineEnvVars(gameSettings, installFolderName)
+  const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)
 
   return { success: true, envVars: envVars }
 }
@@ -1163,7 +1197,7 @@ function setupWineEnvVars(gameSettings: GameSettings, gameId = '0') {
     if (isMac) ret.MTL_HUD_ENABLED = '1'
     else ret.DXVK_HUD = 'fps'
   }
-  if (gameSettings.enableDXVKFpsLimit && isMac) {
+  if (gameSettings.enableDXVKFpsLimit) {
     ret.DXVK_FRAME_RATE = gameSettings.DXVKFpsCap
   }
   if (gameSettings.enableFSR) {
@@ -1408,7 +1442,7 @@ export async function validWine(
 export async function verifyWinePrefix(
   settings: GameSettings
 ): Promise<{ res: ExecResult }> {
-  const { winePrefix = defaultWinePrefix, wineVersion } = settings
+  const { winePrefix = sharedWinePrefix, wineVersion } = settings
 
   const isValidWine = await validWine(wineVersion)
 
@@ -1554,10 +1588,6 @@ async function runWineCommand({
     child.stderr.setEncoding('utf-8')
 
     if (options?.logWriters) {
-      const files = options.logWriters
-        .map((writer) => `"${writer.logFilePath}"`)
-        .join(', ')
-      logDebug(`Logging to file(s) ${files}`, LogPrefix.Backend)
       options.logWriters.forEach((writer) =>
         writer.writeString(
           `Wine Command: ${bin} ${commandParts.join(' ')}\n\nGame Log:\n`
@@ -1732,11 +1762,6 @@ async function callRunner(
       )
       if (appName) await writer.logInfo('Game Output:')
     }
-
-    const files = options.logWriters
-      .map((writer) => `"${writer.logFilePath}"`)
-      .join(', ')
-    logDebug(`Logging to file(s) ${files}`, runner.logPrefix)
   }
 
   // check if the same command is currently running

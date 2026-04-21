@@ -10,7 +10,8 @@
         "titles_always_visible": "ライブラリのタイトルを常に表示",
         "actions_font_family_default": "アクション用フォント （既定: {{fontFamily}}）",
         "content_font_family_default": "コンテンツ用フォント （既定: {{fontFamily}}）",
-        "disable_smooth_scrolling": "スムーズスクロールを無効化（要再起動）"
+        "disable_smooth_scrolling": "スムーズスクロールを無効化（要再起動）",
+        "disable_animations": "UIアニメーションを無効化"
     },
     "add_game": "ゲームを追加",
     "All": "すべて",
@@ -94,7 +95,13 @@
             },
             "steam": {
                 "message": "Steamのインストールに失敗しました！説明をよく読んで、もう一度お試しください！"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "info": {
             "update": {
@@ -103,7 +110,8 @@
                 "message": "新しいバージョンが利用可能になりました!",
                 "message-finished": "今すぐHeroicを再起動しますか?",
                 "title": "Heroicゲームランチャー",
-                "title-finished": "アップデート完了"
+                "title-finished": "アップデート完了",
+                "detailNoAutoupdate": ""
             }
         },
         "no": "いいえ",
@@ -173,6 +181,10 @@
                 "checkbox": "このメッセージを二度と表示しない",
                 "title": "Heroicはスナップとして実行されます",
                 "message": "一部の機能は現在Snapバージョンのアプリで利用できません。 {{newLine}}現在の制限事項：{{newLine}}HeroicはSteamのProtonやLutrisのWineを見つけることができません。{{newLine}}{{newLine}}Gamescope、GameMode、MangoHudもアクセス権限がないため正常に動作しません。 {{newLine}}{{newLine}}この機能にアクセスするには、HeroicをFlakpak、DEBフォーマットパッケージ、またはAppImageからインストールしてください。"
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
             }
         },
         "wineprefix": "Wine環境フォルダを選択",
@@ -275,7 +287,8 @@
         "only": "単独表示",
         "no_categories": "カスタムカテゴリーがありません。各ゲームメニューからカテゴリーを追加してください。",
         "show_support_offline_only": "オフライン対応のゲームのみ表示する",
-        "show_third_party_managed_only": "サードパーティで管理しているゲームのみ表示"
+        "show_third_party_managed_only": "サードパーティで管理しているゲームのみ表示",
+        "show_updates_only": ""
     },
     "help": {
         "amdfsr": "AMDのFSRは、フルスクリーンモードで低い解像度をアップスケーリングすることでフレームレートを向上させます。パフォーマンスに若干の影響を及ぼしますが、画質は5から1に向上します。有効にするとパフォーマンスが向上する可能性があります。",
@@ -354,7 +367,13 @@
             "wineManager": "各バージョンのWine、Proton、Crossoverなどをインストールします。"
         },
         "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "heroic": {
@@ -414,7 +433,8 @@
         "gog": "GOGログイン",
         "message": "お使いのプラットフォームにログインします。同時に複数のプラットフォームにログインすることができます。",
         "amazon": "Amazonログイン",
-        "old-mac": "このmacOSのバージョンは {{version}} です。 ログインするにはmacOS 12以降が必要です。"
+        "old-mac": "このmacOSのバージョンは {{version}} です。 ログインするにはmacOS 12以降が必要です。",
+        "zoom": ""
     },
     "message": {
         "sync": "同期を完了しました",
@@ -540,7 +560,7 @@
         "custom_themes_path": "カスタムCSSファイルを探索するパスを選択してください",
         "dxvkfpsvalue": "正の整数値（例: 30、60、…）",
         "egs-prefix": "EGSがインストールされている環境",
-        "prefered_language": "2文字のコード（“en”や“fr”など）",
+        "prefered_language": "2文字または4文字のコード（“fr”や“fr”など）",
         "alt-nile-bin": "組み込みのNileバイナリを使用しています..."
     },
     "platforms": {
@@ -648,7 +668,8 @@
                 "upload-date": "アップロード日",
                 "error": {
                     "title": "アップロードに失敗しました",
-                    "content": "ログファイルのアップロードに失敗しました。詳細については、Heroic の一般ログを確認してください。"
+                    "content": "ログファイルのアップロードに失敗しました。詳細については、Heroic の一般ログを確認してください。",
+                    "manual_upload": ""
                 },
                 "header": "アップロード済みのログファイル",
                 "no-files": "ログファイルはアップロードされませんでした",
@@ -666,7 +687,8 @@
                 "heroic": "一般のHeroicログ",
                 "gog": "GOGログ",
                 "legendary": "Epic Games / Legendaryログ",
-                "nile": "Amazon / Nileログ"
+                "nile": "Amazon / Nileログ",
+                "zoom": ""
             },
             "show-uploads": "アップロードされたログファイルを表示する"
         },
@@ -737,7 +759,8 @@
             "enableHelp": "ヘルプコンポーネント",
             "automaticWinetricksFixes": "既存の修正を自動的に適用",
             "cometSupport": "Cometサポート",
-            "umuSupport": "umuをProtonのランタイムとして使用"
+            "umuSupport": "umuをProtonのランタイムとして使用",
+            "zoomPlatform": ""
         },
         "msync": "Esyncを有効にする",
         "allow_installation_broken_anticheat": {
@@ -768,9 +791,21 @@
         },
         "show_valve_proton": {
             "confirmation": {
-                "title": "本当によろしいですか？"
-            }
-        }
+                "title": "本当によろしいですか？",
+                "show": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "wine_selector_warning": "",
+            "label": "",
+            "info_label": ""
+        },
+        "WoW64": "",
+        "scripts": "",
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "advertiseAvxForRosetta": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -807,7 +842,8 @@
             "sync": "クラウドセーブ同期",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "システム情報"
+            "systemInformation": "システム情報",
+            "legacy": ""
         },
         "open-config-file": "構成ファイルを開く",
         "reset-heroic": "Heroicをリセット",
@@ -874,7 +910,8 @@
         "custom_css": {
             "title": "カスタムCSSスタイル"
         },
-        "launchOptions": "Launch Options..."
+        "launchOptions": "Launch Options...",
+        "legacy_warning": ""
     },
     "Settings": "設定",
     "sidebar": {
@@ -939,7 +976,8 @@
             "unzipping": "展開中"
         },
         "release": "リリース日",
-        "size": "サイズ"
+        "size": "サイズ",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "次回から確認しない",
@@ -1063,6 +1101,21 @@
     },
     "analyticsModal": {
         "disable": "Disable",
-        "enable": "Enable"
-    }
+        "enable": "Enable",
+        "info": {
+            "pt1": "アプリを改善するため、Heroic は 100％匿名のデータを収集します。",
+            "pt7": "この設定はアプリの設定画面からいつでも変更可能です。",
+            "pt3": "",
+            "pt5": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": "匿名アナリティクスを送信"
+    },
+    "amazon-luna": "Amazon Luna",
+    "launch": {
+        "options": "Launch Options..."
+    },
+    "zoom-store": ""
 }

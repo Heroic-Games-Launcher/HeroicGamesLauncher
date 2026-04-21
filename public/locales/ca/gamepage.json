@@ -49,7 +49,24 @@
         "wineprefix": "Tria la carpeta del WinePrefix",
         "yes": "SÍ",
         "close": "Tanca",
-        "select-install-path": "Selecciona la ruta d'instal·lació del Steam"
+        "select-install-path": "Selecciona la ruta d'instal·lació del Steam",
+        "warning": {
+            "title": "Avís"
+        },
+        "ok": "D'acord",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "Afegeix a preferits",
@@ -212,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Opcions d'execució..."
+        "options": "Opcions d'execució...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "No has iniciat sessió amb un compte d'Epic a l'Heroic. No facis servir la pàgina de la botiga per a iniciar-la. Fes-ho després de prémer el botó següent:",
@@ -339,5 +357,6 @@
             "pause": "Posa la baixada en pausa",
             "resume": "Reprèn la descàrrega"
         }
-    }
+    },
+    "open-saves-folder": ""
 }

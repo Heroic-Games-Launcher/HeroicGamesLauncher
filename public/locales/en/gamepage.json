@@ -14,6 +14,12 @@
             "title": "Move Game Installation"
         },
         "no": "NO",
+        "offline_warning": {
+            "message": "This game might not work properly offline. Do you want to play anyway?",
+            "playAnyway": "Play Anyway",
+            "title": "Offline Warning"
+        },
+        "ok": "OK",
         "repair": {
             "message": "Do you want to try to repair this game? This can take a long time.",
             "title": "Verify and Repair"
@@ -95,6 +101,7 @@
     "disabled": "Disabled",
     "enabled": "Enabled",
     "game": {
+        "achievements": "Achievements",
         "branch": {
             "disabled": "Disabled",
             "password": "Set private channel password",
@@ -131,7 +138,7 @@
         "noDescription": "No description available"
     },
     "help": {
-        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system",
+        "cloud_save_unsupported": "This game does not support cloud saves. This information is provided by the game developers. Some games do implement their own cloud save system.",
         "content": {
             "gamePage": "Show all game details and actions. Use the 3 dots menu for more options."
         },
@@ -197,7 +204,7 @@
         "winetricks": "Installing Winetricks Packages"
     },
     "launch": {
-        "options": "Launch Options..."
+        "default": "Default"
     },
     "modifyInstall": {
         "dlcsCollapsible": "DLC",

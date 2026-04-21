@@ -119,8 +119,8 @@ export default function SideloadDialog({
   // Suggest default Wine prefix if we're adding a new app
   useEffect(() => {
     if (editMode) return
-    window.api.requestAppSettings().then(({ defaultWinePrefix }) => {
-      const suggestedWinePrefix = `${defaultWinePrefix}/${title}`
+    window.api.requestAppSettings().then(({ defaultWinePrefixDir }) => {
+      const suggestedWinePrefix = `${defaultWinePrefixDir}/${title}`
       setWinePrefix(suggestedWinePrefix)
     })
   }, [title, editMode])
@@ -156,7 +156,10 @@ export default function SideloadDialog({
       properties: ['openFile'],
       title: t('box.select.image', 'Select Image'),
       filters: [
-        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'] },
+        {
+          name: 'Images',
+          extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
+        },
         { name: 'All', extensions: ['*'] }
       ]
     })

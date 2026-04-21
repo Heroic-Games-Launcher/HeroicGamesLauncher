@@ -49,7 +49,24 @@
         "wineprefix": "Vyberte složku WinePrefix",
         "yes": "ANO",
         "close": "Zavřít",
-        "select-install-path": "Vyberte instalační cestu služby Steam"
+        "select-install-path": "Vyberte instalační cestu služby Steam",
+        "selectLaunchOption": {
+            "body": "Vyberte možnost spuštění této hry (lze ji později změnit v nastavení hry):",
+            "title": "Vyberte možnost spuštění ({{seconds}})"
+        },
+        "sync": {
+            "force_download_warning": "Místní uložená data budou smazána. Chcete pokračovat?",
+            "force_upload_warning": "Údaje uložené v cloudu budou přepsány. Chcete pokračovat?"
+        },
+        "warning": {
+            "title": "Varování"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Tato hra nemusí v režimu offline fungovat správně. Chcete ji přesto spustit?",
+            "playAnyway": "Hrát i tak",
+            "title": "Offline varování"
+        }
     },
     "button": {
         "add_to_favourites": "Přidat do oblíbených",
@@ -114,7 +131,8 @@
         "changelogFor": "Seznam změn hry {{gameTitle}}",
         "modify": "Upravit instalaci",
         "extra_info": "Další informace",
-        "install_info": "Informace o instalaci"
+        "install_info": "Informace o instalaci",
+        "achievements": "Úspěchy"
     },
     "gamecard": {
         "moving": "Přesouvám",
@@ -212,7 +230,8 @@
         }
     },
     "launch": {
-        "options": "Možnosti spuštění..."
+        "options": "Možnosti spuštění...",
+        "default": "Výchozí"
     },
     "not_logged_in": {
         "epic": "V Heroic nejste přihlášeni pomocí účtu Epic. K přihlášení nepoužívejte stránku obchodu, ale klikněte na následující tlačítko:",
@@ -308,7 +327,7 @@
         "categories": "Kategorie"
     },
     "help": {
-        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání",
+        "cloud_save_unsupported": "Tato hra nepodporuje ukládání do cloudu. Tyto informace poskytují vývojáři hry. Některé hry implementují svůj vlastní cloudový systém ukládání.",
         "content": {
             "gamePage": "Zobrazit všechny herní podrobnosti a akce. Pro více možností použijte 3-tečkovou nabídku."
         },
@@ -339,5 +358,6 @@
             "remove": "Odstranit ze stažených",
             "pause": "Pozastavit stahování"
         }
-    }
+    },
+    "open-saves-folder": "Otevřít složku s uloženým postupem"
 }

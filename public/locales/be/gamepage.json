@@ -49,7 +49,24 @@
         "wineprefix": "Выберыце папку WinePrefix",
         "yes": "ТАК",
         "close": "Закрыць",
-        "select-install-path": "Выберыце шлях усталявання Steam"
+        "select-install-path": "Выберыце шлях усталявання Steam",
+        "warning": {
+            "title": "Папярэджанне"
+        },
+        "ok": "ОК",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "Дадаць у абранае",
@@ -78,7 +95,8 @@
         "details": "Падрабязнасці",
         "changelog": "Паказаць спіс змен",
         "browse_files": "Прагляд файлаў",
-        "browse_wine_prefix": "Праглядзець Wine прэфікс"
+        "browse_wine_prefix": "Праглядзець Wine прэфікс",
+        "play": ""
     },
     "cloud_save_unsupported": "Не падтрымліваецца",
     "disabled": "Адключана",
@@ -211,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Параметры запуску..."
+        "options": "Параметры запуску...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Вы не ўвайшлі ва ўліковы запіс Epic праз Heroic. Не выкарыстоўвайце старонку крамы для ўваходу, націсніце замест гэтага наступную кнопку:",
@@ -338,5 +357,6 @@
             "pause": "Прыпыніць спампоўванне"
         }
     },
-    "wikiLink": "Азнаёмцеся з важная інфармацыя пра гульню:&nbsp;<1>Адкрыць старонку</1>"
+    "wikiLink": "Азнаёмцеся з важная інфармацыя пра гульню:&nbsp;<1>Адкрыць старонку</1>",
+    "open-saves-folder": ""
 }

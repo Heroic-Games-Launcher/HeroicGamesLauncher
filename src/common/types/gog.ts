@@ -216,7 +216,7 @@ interface GamesDBDataBase {
   first_release_date: string
   title: LanguageMapper<string>
   sorting_title: LanguageMapper<string>
-  type: 'game' | 'dlc' | 'spam'
+  type: 'game' | 'dlc' | 'spam' | 'mod'
   summary: LanguageMapper<string>
   videos: {
     provider: 'youtube'

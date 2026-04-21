@@ -9,7 +9,9 @@
         "disable_dialog_backdrop_close": "قم بتعطيل مربعات الحوار الختامية من خلال النقر بالخارج",
         "titles_always_visible": "أظهر العنواين في المكتبة دائماً",
         "disable_animations": "عطّل تأثيرات الواجهة",
-        "disable_smooth_scrolling": "عطّل السحب السلس(يتطلب اعادة التشغيل)"
+        "disable_smooth_scrolling": "عطّل السحب السلس(يتطلب اعادة التشغيل)",
+        "actions_font_family_default": "",
+        "content_font_family_default": ""
     },
     "add_game": "أضف لعبة",
     "All": "الكل",
@@ -92,7 +94,11 @@
                 "generic": "حدث خطأ! حاول تسجيل الخروج وتسجيل الدخول في حسابك لدى أبِك. {{newline}}  {{error}}"
             },
             "executableNotFound": "لم يُعثر على الملف التنفيذي",
-            "executableNotFoundMessage": "لم يعثر هيرويك على الملف التفيذي للعبة، رجاء عيّنه من اعدادات اللعبة."
+            "executableNotFoundMessage": "لم يعثر هيرويك على الملف التفيذي للعبة، رجاء عيّنه من اعدادات اللعبة.",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            }
         },
         "info": {
             "update": {
@@ -172,6 +178,10 @@
                 "checkbox": "لا تظهر هذا مجدَّدًا",
                 "title": "هذه نسخة سناب من هروك",
                 "message": "تنقص من نسخة سناب بعض الأشياء، ونحن نشتغل بإصلاح هذا النقص.{{newLine}}ومن النقص: {{newLine}}لن يجد هروك بروتون من ستيم ولا واين من لوترس.{{newLine}}{{newLine}}ولن يعمل Gamescope ولا GameMode ولا MangoHud لأن هروك لا يصل لهم.{{newLine}}{{newLine}}فإن أردت أن تستخدم هذه الأشياء ثبِّت نسخة فلاتباك أو deb أو AppImage."
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
             }
         },
         "wineprefix": "اختر مجلَّد سابقة واين",
@@ -327,7 +337,8 @@
             "gameHeight": "طول نافذة اللعبة، ويفترض gamescope أن نسبة الطولَين ٩:١٦.",
             "upscaleHeight": "طول النافذة عند gamescope، ويُفتَرض أن نسبة الطولَين ٩:١٦.",
             "fpsLimiter": "غاية عدد إطارات gamescope، فمثًلا حدها ٦٠",
-            "additionalOptions": "أعلام سطر الأوامر الأضافية المُمَرّرة إلى gamescope."
+            "additionalOptions": "أعلام سطر الأوامر الأضافية المُمَرّرة إلى gamescope.",
+            "forceGrabCursor": ""
         },
         "title": {
             "accessibility": "إمكانية الوصول",
@@ -353,7 +364,13 @@
             "open": "افتح التعليمات"
         },
         "msync": "يهدف إف.سنك إلى تقليل الحمل على خادم واين في الألعاب كثيفة الاستخدام لوحدة المعالجة المركزية. قد يؤدي التمكين إلى تحسين الأداء على أنوية لينكس المدعومة.",
-        "dxfpslimit": "يضبط حدًّا لمعدل الإطارات لألعاب DXVK"
+        "dxfpslimit": "يضبط حدًّا لمعدل الإطارات لألعاب DXVK",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "heroic": {
@@ -398,7 +415,9 @@
         "toggleLayout": {
             "grid": "بدّل لتمكين التخطيط الشبكي",
             "list": "بدّل لتمكين تخطيط القوائم"
-        }
+        },
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "Library": "المكتبة",
     "loading": {
@@ -411,7 +430,8 @@
         "gog": "تسجيل الدخول لـ جي.أو.جي",
         "message": "سجل الدخول باستخدام منصة من اختيارك. يمكنك تسجيل الدخول بأكثر من منصة في نفس الوقت.",
         "amazon": "الولوج في أمازون",
-        "old-mac": "إصدار ماك عندك هو {{version}}، والإصدارات من بعد ١٢ تتطلَّب الولوج."
+        "old-mac": "إصدار ماك عندك هو {{version}}، والإصدارات من بعد ١٢ تتطلَّب الولوج.",
+        "zoom": ""
     },
     "message": {
         "sync": "اكتملت عملية المزامنة",
@@ -461,6 +481,9 @@
             "started": "بدأ التحديث",
             "failed": "فشل التحديث",
             "paused": "أُوقف التحديث مؤقَّتًا"
+        },
+        "import": {
+            "failed": ""
         }
     },
     "offline-message": {
@@ -628,8 +651,43 @@
             "show-in-folder": "إظهار ملف السجل في المجلد",
             "join-heroic-discord": "انضم إلى Discord",
             "upload": {
-                "actions": "إجراءات"
-            }
+                "actions": "إجراءات",
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "uploading": {
+                    "title": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "show-uploads": ""
         },
         "mangohud": "مكِّن مانجو.هَد (يجب تثبيت مانجو.هَد)",
         "manualsync": {
@@ -683,13 +741,16 @@
             "automaticWinetricksFixes": "قم بتطبيق الإصلاحات المعروفة تلقائيًا",
             "enableHelp": "مكون المساعدة",
             "cometSupport": "دعم كوميت",
-            "umuSupport": "استخدم يو.إم.يو. كمشغّل بروتون"
+            "umuSupport": "استخدم يو.إم.يو. كمشغّل بروتون",
+            "zoomPlatform": ""
         },
         "disablePlaytimeSync": "يعطِّل مزامنة وقت اللعب",
         "gamescope": {
             "enableLimiter": "مكِّن حدَّ معدَّل الإطارات",
             "enableUpscaling": "يمكِّن التجويد",
-            "missingMsg": "لم أجد gamescope في المسار، فثبِّته أو أضفه إليه."
+            "missingMsg": "لم أجد gamescope في المسار، فثبِّته أو أضفه إليه.",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
         },
         "frameless-window": {
             "confirmation": {
@@ -716,8 +777,31 @@
         },
         "show_valve_proton": {
             "confirmation": {
-                "title": "هل أنت متأكّد؟"
-            }
+                "title": "هل أنت متأكّد؟",
+                "show": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "wine_selector_warning": "",
+            "label": "",
+            "info_label": ""
+        },
+        "WoW64": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "hdr": "",
+        "dxfpslimit": "",
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "disableUMU": "",
+        "advertiseAvxForRosetta": "",
+        "custom_css": {
+            "warning": ""
         }
     },
     "settings": {
@@ -755,13 +839,16 @@
             "sync": "مزامنة ملفَّات التخزين من السحابة",
             "wineExt": "إضافات واين",
             "systemInformation": "معلومات النظام",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "افتح ملف التكوين",
         "reset-heroic": "إعادة تعيين هِرُوِك",
         "saves": {
             "label": "موقع حفظ ملفات التخزين:",
-            "warning": "ميزة حفظ ملفات التخزين عبر السحابة متوفرة في النسخة التجريبية، يرجى الاحتفاظ بنسخة احتياطية من ملفات التخزين قبل المزامنة (في حالة حدوث خطأ ما)"
+            "warning": "ميزة حفظ ملفات التخزين عبر السحابة متوفرة في النسخة التجريبية، يرجى الاحتفاظ بنسخة احتياطية من ملفات التخزين قبل المزامنة (في حالة حدوث خطأ ما)",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "experimental_features": {
             "title": "مزايا تجريبية"
@@ -816,6 +903,11 @@
         },
         "offline": {
             "warning": "هذه اللعبة لا تسمح بشكل صريح بوضع عدم الاتصال بالإنترنت، قم بتشغيل هذا على مسؤوليتك الخاصة. قد لا تعمل اللعبة."
+        },
+        "launchOptions": "خيارات التشغيل...",
+        "legacy_warning": "",
+        "custom_css": {
+            "title": ""
         }
     },
     "Settings": "الإعدادات",
@@ -881,7 +973,8 @@
             "unzipping": "جارٍ فك الضغط"
         },
         "release": "تاريخ الإصدار",
-        "size": "الحجم"
+        "size": "الحجم",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "لا تسأل مرةً أخرى",
@@ -907,7 +1000,9 @@
         "openGUI": "افتح واجهة واين.تركس",
         "search": "ابحث عن خطوط أو مكونات",
         "nothingYet": "لم يثبِّت واين.تركس شيئًا بعد",
-        "installed": "المكونات المثبَّتة:"
+        "installed": "المكونات المثبَّتة:",
+        "no-components": "",
+        "loading-available": ""
     },
     "window": {
         "minimize": "صغِّر النافذة",
@@ -924,7 +1019,8 @@
         "add-new-category": "أضف فئةً"
     },
     "emptyLibrary": {
-        "noResults": "لم تسفر التصنيفات الحالية عن أية نتائج."
+        "noResults": "لم تسفر التصنيفات الحالية عن أية نتائج.",
+        "noGames": ""
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
@@ -961,5 +1057,55 @@
         },
         "title": "أرسل التحليلات مجهولة الهوية"
     },
-    "amazon-luna": "أمازون لونا"
+    "amazon-luna": "أمازون لونا",
+    "launch": {
+        "options": "خيارات التشغيل..."
+    },
+    "tour": {
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "back": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
+    },
+    "zoom-store": ""
 }

@@ -49,7 +49,24 @@
         "wineprefix": "Wine-környezetmappa kiválasztása",
         "yes": "IGEN",
         "close": "Bezárás",
-        "select-install-path": "Steam telepítési útvonalának kiválasztása"
+        "select-install-path": "Steam telepítési útvonalának kiválasztása",
+        "selectLaunchOption": {
+            "body": "Válassz indítási kapcsolót ehhez a játékhoz (később a játék beállításaiban módosítható):",
+            "title": "Indítási kapcsoló kiválasztása ({{seconds}} mp)"
+        },
+        "warning": {
+            "title": "Figyelmeztetés"
+        },
+        "sync": {
+            "force_download_warning": "A helyi mentések törlődnek. Folytatod?",
+            "force_upload_warning": "A felhőmentések felülíródnak. Folytatod?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Ez a játék offline módban nem biztos, hogy megfelelően működik. Szeretnéd így is elindítani?",
+            "playAnyway": "Indítás így is",
+            "title": "Offline figyelmeztetés"
+        }
     },
     "button": {
         "add_to_favourites": "Hozzáadás a kedvencekhez",
@@ -114,7 +131,8 @@
         "changelogFor": "Változásnapló a(z) {{gameTitle}} játékhoz",
         "modify": "Telepítés módosítása",
         "extra_info": "További információk",
-        "install_info": "Telepítési információk"
+        "install_info": "Telepítési információk",
+        "achievements": "Eredmények"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -211,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Indítási kapcsolók…"
+        "options": "Indítási kapcsolók…",
+        "default": "Alapértelmezett"
     },
     "not_logged_in": {
         "epic": "Nem vagy Epic-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
@@ -306,7 +325,7 @@
         "categories": "Kategóriák"
     },
     "help": {
-        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak",
+        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak.",
         "title": {
             "gamePage": "Játékoldal"
         },
@@ -337,5 +356,6 @@
             "resume": "Letöltés folytatása"
         }
     },
-    "wikiLink": "Fontos információ erről a játékról, olvasd el ezt:&nbsp;<1>Oldal megnyitása</1>"
+    "wikiLink": "Fontos információ erről a játékról, olvasd el ezt:&nbsp;<1>Oldal megnyitása</1>",
+    "open-saves-folder": "Mentések mappa megnyitása"
 }

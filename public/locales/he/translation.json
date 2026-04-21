@@ -3,7 +3,8 @@
         "no": "לא",
         "select": {
             "button": "בחרו",
-            "exe": "בחרו EXE"
+            "exe": "בחרו EXE",
+            "script": ""
         },
         "choose": "בחרו",
         "error": {
@@ -56,7 +57,13 @@
             },
             "credentials": {
                 "message": "האישורים שלכם בתוכנה פגו, אנא התנתקו וכנסו שוב."
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "runexe": {
             "title": "בחרו קובץ EXE להפעיל"
@@ -82,7 +89,16 @@
                     "title": "אתה בטוח שאתה רוצה לסגור את התוכנה?"
                 }
             },
-            "title": "אזהרה"
+            "title": "אזהרה",
+            "rosetta": {
+                "title": "",
+                "message": ""
+            },
+            "snap": {
+                "checkbox": "",
+                "title": "",
+                "message": ""
+            }
         },
         "wineprefix": "בחרו תיקיית wine prefix",
         "default-steam-path": "מיקום Steam.",
@@ -121,7 +137,8 @@
                 "message": "יש גרסה חדשה זמינה!",
                 "changelog": "פתח רשימת שינויים",
                 "detail": "אתם רוצים להוריד את האפדייט ברקע?",
-                "message-finished": "רוצים לפתוח מחדש את Heroic עכשיו?"
+                "message-finished": "רוצים לפתוח מחדש את Heroic עכשיו?",
+                "detailNoAutoupdate": ""
             }
         },
         "ok": "בסדר",
@@ -140,7 +157,9 @@
             "error": "נתיב לא חוקי",
             "title": "בחרו מיקום עבור שמירות במשחק"
         },
-        "update": "עדכן"
+        "update": "עדכן",
+        "changelog": "",
+        "postpone": ""
     },
     "wine": {
         "size": "גודל",
@@ -151,7 +170,8 @@
             "unzipping": "מחלץ",
             "title": "מנהל גרסאות Wine"
         },
-        "release": "תאריך יציאה"
+        "release": "תאריך יציאה",
+        "notes": ""
     },
     "button": {
         "login": "היכנס",
@@ -285,6 +305,9 @@
         "new-heroic-version": "גרסה חדשה של Heroic הושקה!",
         "refresh": {
             "error": "לא ניתן היה למצוא את רשימת הגרסאות ממעלה הזרם, אולי בגלל הגבלות של ה- Github API! נסו שוב מאוחר יותר."
+        },
+        "import": {
+            "failed": ""
         }
     },
     "queue": {
@@ -359,8 +382,44 @@
             "no-file": "לא נמצא קובץ לוג",
             "show-in-folder": "הצגת קובץ הלוג בתוך התיקייה שלה",
             "upload": {
-                "actions": "פעולות"
-            }
+                "actions": "פעולות",
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "uploading": {
+                    "title": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "join-heroic-discord": "",
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "show-uploads": ""
         },
         "mangohud": "הפעל Mangohud (צריכה להיות התקנה של Mangohud)",
         "manualsync": {
@@ -417,13 +476,65 @@
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "תיקיית WinePrefix",
         "experimental_features": {
-            "enableNewShinyFeature": "תכונה מבריקה חדשה"
+            "enableNewShinyFeature": "תכונה מבריקה חדשה",
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
         },
         "msync": "הפעל Esync",
         "frameless-window": {
             "confirmation": {
-                "title": "תכונות ניסיוניות"
-            }
+                "title": "תכונות ניסיוניות",
+                "message": ""
+            },
+            "description": ""
+        },
+        "WoW64": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "hdr": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "dxfpslimit": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "disablePlaytimeSync": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "before-launch-script-path": "",
+        "disableUMU": "",
+        "advertiseAvxForRosetta": "",
+        "custom_css": {
+            "warning": ""
         }
     },
     "status": {
@@ -440,7 +551,11 @@
         "fonts": "גופנים",
         "title": "נגישות",
         "actions_font_family_default": "משפחת גופני פעולות (ברירת מחדל:",
-        "content_font_family_default": "משפחת גופני תוכן (ברירת מחדל:"
+        "content_font_family_default": "משפחת גופני תוכן (ברירת מחדל:",
+        "disable_smooth_scrolling": "",
+        "titles_always_visible": "",
+        "disable_animations": "",
+        "disable_dialog_backdrop_close": ""
     },
     "docs": "תיעוד",
     "epic": {
@@ -456,7 +571,8 @@
     "game": {
         "status": "סטטוס",
         "store": "חנות",
-        "title": "כותרת משחק"
+        "title": "כותרת משחק",
+        "modify": ""
     },
     "generic": {
         "library": {
@@ -476,7 +592,16 @@
         "show_all_games": "הצג את כל המשחקים",
         "show_favourites_only": "הצג מועדפים בלבד",
         "reset": "ערכים קבועים מראש",
-        "select_all": "בחר הכל"
+        "select_all": "בחר הכל",
+        "show_support_offline_only": "",
+        "filters": "",
+        "categories": "",
+        "show_third_party_managed_only": "",
+        "only": "",
+        "show_updates_only": "",
+        "show_installed_only": "",
+        "no_categories": "",
+        "uncategorized": ""
     },
     "help": {
         "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
@@ -523,10 +648,45 @@
             "accessibility": "נגישות",
             "settings": "הגדרות",
             "wineManager": "מנהל גרסאות Wine",
-            "library": "ספריה"
+            "library": "ספריה",
+            "login": "",
+            "downloadManager": ""
         },
         "msync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
-        "dxfpslimit": "קובע את גבול קצב הפריימים עבור משחקי DXVK"
+        "dxfpslimit": "קובע את גבול קצב הפריימים עבור משחקי DXVK",
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "disablePlaytimeSync": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "Library": "ספריה",
     "message": {
@@ -553,7 +713,11 @@
         },
         "gameargs": {
             "placeholder": "שימו פה ארגומנטים של הלאוונצר",
-            "title": "ארגומנטי משחק (להפעיל לאחר הפקודה):"
+            "title": "ארגומנטי משחק (להפעיל לאחר הפקודה):",
+            "error": {
+                "command": "",
+                "env": ""
+            }
         },
         "quote-args-with-spaces": "אזהרה: הקפידו לצטט ארגומנטים עם רווחים! למשל \"path/with spaces/\"",
         "wrapper": {
@@ -563,6 +727,21 @@
             "placeHolderValue": "ארגומנטים לעטיפה/ממסגר",
             "title": "פקודת הממסגר/עטיפה:",
             "arguments_example": "דוגמה לארגומנטים: --arg; --extra-file=\"file-path/ with/spaces\""
+        },
+        "gamescope": {
+            "nis": "",
+            "additionalOptions": "",
+            "borderless": "",
+            "windowed": "",
+            "fpsLimiter": "",
+            "gameHeight": "",
+            "upscaleWidth": "",
+            "fullscreen": "",
+            "gameWidth": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": "",
+            "interger": ""
         }
     },
     "other": {
@@ -610,7 +789,9 @@
             "log": "לוג",
             "other": "אחר",
             "sync": "סנכרן שמירות בענן",
-            "systemInformation": "מידע מערכת"
+            "systemInformation": "מידע מערכת",
+            "gamescope": "",
+            "legacy": ""
         },
         "open-config-file": "פתח את קובץ התצורה",
         "reset-heroic": "אפס את Heroic",
@@ -620,7 +801,9 @@
         },
         "copiedToClipboard": "הועתק!",
         "saves": {
-            "warning": "תכונת שמירת ענן נמצאת בגרסת בטה, נא לגבות את השמירה שלכם לפני הסנכרון (למקרה שמשהו ישתבש)"
+            "warning": "תכונת שמירת ענן נמצאת בגרסת בטה, נא לגבות את השמירה שלכם לפני הסנכרון (למקרה שמשהו ישתבש)",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "systemInformation": {
             "cpu": "מעבד:",
@@ -642,24 +825,45 @@
             "memory": "זיכרון:",
             "copyToClipboard": "העתק ללוח הגזירים",
             "heroicVersion": "Heroic: {{heroicVersion}}",
-            "nileVersion": "Nile: {{nileVersion}}"
+            "nileVersion": "Nile: {{nileVersion}}",
+            "cometVersion": ""
         },
         "experimental_features": {
             "title": "תכונות ניסיוניות"
         },
         "advanced": {
             "title": {
-                "resetHeroic": "אפס את Heroic"
+                "resetHeroic": "אפס את Heroic",
+                "clearCache": ""
             },
             "details": "פרטים",
             "clearCache": {
-                "help9": "הגדרות משחק"
+                "help9": "הגדרות משחק",
+                "help1": "",
+                "help8": "",
+                "help3": "",
+                "help10": "",
+                "help7": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
             },
             "resetHeroic": {
                 "help": "האם אתה בטוח שברצונך לאפס את Heroic? פעולה זו תסיר את כל ההגדרות והמטמון, אך לא תסיר את המשחקים המותקנים שלך או את האישורים של Epic. גרסאות ניידות (AppImage, WinPortable,...) של Heroic צריכות להיות מופעלות מחדש באופן ידני לאחר מכן."
             }
         },
-        "launchOptions": "פותח הגדרות..."
+        "launchOptions": "פותח הגדרות...",
+        "legacy_warning": "",
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "custom_css": {
+            "title": ""
+        }
     },
     "Settings": "הגדרות",
     "store": "Epic Store",
@@ -726,7 +930,8 @@
         "amazon": "כניסת אמזון",
         "epic": "כניסה עם Epic Games",
         "message": "הכנס עם הפלטפורמה שלך. אתה יכול להתחבר ליותר מפלטפורמה אחת בו זמנית.",
-        "old-mac": "גרסת ה-macOS שלך היא {{version}}. macOS 12 או יותר נדרשת כדי להיכנס."
+        "old-mac": "גרסת ה-macOS שלך היא {{version}}. macOS 12 או יותר נדרשת כדי להיכנס.",
+        "zoom": ""
     },
     "library": {
         "refresh": "רענן",
@@ -736,7 +941,9 @@
         "toggleLayout": {
             "grid": "בחרו אם להיות בפריסת רשת",
             "list": "בחרו אם להיות בפריסת רשימה"
-        }
+        },
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "offline-message": {
         "offline": "לא מחובר לרשת",
@@ -758,24 +965,117 @@
     "gog-store": "חנות GOG",
     "winetricks": {
         "install": "התקן",
-        "loading": "טוען"
+        "loading": "טוען",
+        "no-components": "",
+        "installing": "",
+        "openGUI": "",
+        "search": "",
+        "loading-available": "",
+        "nothingYet": "",
+        "installed": ""
     },
     "category-settings": {
         "cancel": "בטל",
-        "warning": "אזהרה"
+        "warning": "אזהרה",
+        "remove-category": "",
+        "delete-question": "",
+        "new-category": "",
+        "add-new-category": ""
     },
     "window": {
-        "close": "לסגור"
+        "close": "לסגור",
+        "minimize": "",
+        "maximize": "",
+        "restore": ""
     },
     "tour": {
         "back": "חזור",
-        "skip": "דלג"
+        "skip": "דלג",
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "startTour": "",
+        "done": ""
     },
     "analyticsModal": {
         "disable": "בטל",
-        "enable": "הפעל"
+        "enable": "הפעל",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
     },
     "categories-manager": {
-        "add": "&הוסף"
+        "add": "&הוסף",
+        "confirm-rename": "",
+        "cancel-remove": "",
+        "no-categories": "",
+        "confirm-remove": "",
+        "add-placeholder": "",
+        "remove": "",
+        "title": "",
+        "cancel-rename": "",
+        "rename": ""
+    },
+    "launch": {
+        "options": "פותח הגדרות..."
+    },
+    "adtraction-locked": {
+        "description": "",
+        "dont-show-again": "",
+        "title": ""
+    },
+    "amazon-luna": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": ""
     }
 }

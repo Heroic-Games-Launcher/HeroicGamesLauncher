@@ -56,7 +56,7 @@
                 "title": "Nincs hely"
             },
             "dxvk": {
-                "message": "Hiba a DXVK/VKD3D telepítésekor. Ellenőrizd az internetkapcsolatod!",
+                "message": "Hiba a DXVK/VKD3D telepítésekor. Ellenőrizd az internetkapcsolatot!",
                 "title": "DXVK/VKD3D hiba"
             },
             "folder-not-found": {
@@ -99,7 +99,11 @@
                 "error": "A Steam indítófájlja nem található. Lehet, hogy egy felhasználó megszakította a telepítést, vagy hiba történt a Steam oldalán."
             },
             "executableNotFound": "Az indítófájl nem található",
-            "executableNotFoundMessage": "A Heroic nem találta a játék indítófájlát. Állítsd be kézileg a játék beállításaiban."
+            "executableNotFoundMessage": "A Heroic nem találta a játék indítófájlát. Állítsd be kézileg a játék beállításaiban.",
+            "dxmt": {
+                "message": "Hiba a DXMT letöltésekor. Ellenőrizd az internetkapcsolatot!",
+                "title": "DXMT letöltési hiba"
+            }
         },
         "info": {
             "update": {
@@ -556,12 +560,12 @@
     "Other": "Egyéb",
     "placeholder": {
         "alt-gogdl-bin": "Beépített GOGDL bináris használata…",
-        "alt-legendary-bin": "Beépített Legendary bináris használata...",
+        "alt-legendary-bin": "Beépített Legendary bináris használata…",
         "custom_themes_path": "Válaszd ki az egyéni CSS-fájlok keresési útvonalát",
         "dxvkfpsvalue": "Pozitív egész érték (például 30, 60, …)",
         "egs-prefix": "Környezet, ahol telepítve van az EGS",
-        "prefered_language": "2 karakteres kód (tehát „en” vagy „fr”)",
-        "alt-nile-bin": "A beépített Nile bináris használata..."
+        "prefered_language": "2 vagy 4 karakteres kód (tehát „fr” vagy „pt-BR”)",
+        "alt-nile-bin": "A beépített Nile bináris használata…"
     },
     "platforms": {
         "linux": "Linux",
@@ -674,7 +678,8 @@
                 "button": "Naplófájl feltöltése",
                 "error": {
                     "content": "A naplófájl feltöltése sikertelen. Ellenőrizd a Heroic általános naplóit a részletekért.",
-                    "title": "A feltöltés sikertelen"
+                    "title": "A feltöltés sikertelen",
+                    "manual_upload": "Kattints a „NAPLÓFÁJL MEGJELENÍTÉSE MAPPÁBAN” gombra, majd töltsd fel a „launch.log” fájlt Discordra vagy bármely online fájlmegosztó szolgáltatásba."
                 },
                 "header": "Feltöltött naplófájlok",
                 "hours-ago": "Feltöltve: {{hoursAgo, relativetime(hours)}}",
@@ -809,7 +814,9 @@
             "info_label": "A Valve Proton-verziók figyelmen kívül hagyva"
         },
         "WoW64": "WoW64 engedélyezése (kísérleti)",
-        "scripts": "Parancsfájlok:"
+        "scripts": "Parancsfájlok:",
+        "enable-quick-sync-menu": "Gyors mentés szinkronizálás menü engedélyezése a játék adatlapján",
+        "disable_gog_presence": "GOG jelenlétfrissítések letiltása"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -846,7 +853,8 @@
             "sync": "Felhőmentések szinkronizálása",
             "wineExt": "Wine Extensions",
             "systemInformation": "Rendszerinformációk",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Örökölt"
         },
         "open-config-file": "Beállítófájl megnyitása",
         "reset-heroic": "A Heroic visszaállítása",
@@ -913,7 +921,8 @@
         "custom_css": {
             "title": "Egyéni CSS stílus"
         },
-        "launchOptions": "Indítási kapcsolók…"
+        "launchOptions": "Indítási kapcsolók…",
+        "legacy_warning": "Figyelmeztetés: Ezen a lapon található beállítások nagyrészt elavultak, és előfordulhat, hogy egyáltalán nem működnek."
     },
     "Settings": "Beállítások",
     "sidebar": {
@@ -978,7 +987,8 @@
             "unzipping": "Kibontás"
         },
         "release": "Kiadás dátuma",
-        "size": "Méret"
+        "size": "Méret",
+        "notes": "Megjegyzések"
     },
     "externalLink": {
         "dontAskAgain": "Ne kérdezze többet",
@@ -1115,5 +1125,8 @@
         "title": "Anonim analitika küldése"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom Store"
+    "zoom-store": "Zoom Store",
+    "launch": {
+        "options": "Indítási kapcsolók…"
+    }
 }

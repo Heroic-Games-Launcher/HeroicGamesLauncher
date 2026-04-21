@@ -53,6 +53,19 @@
         "selectLaunchOption": {
             "body": "Proszę wybrać opcję uruchomienia tej gry (można to później zmienić w ustawieniach gry):",
             "title": "Wybierz opcję uruchomienia ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Uwaga"
+        },
+        "sync": {
+            "force_download_warning": "Lokalne zapisy zostaną usunięte. Chcesz kontynuować?",
+            "force_upload_warning": "Zapisy w chmurze będą nadpisane. Chcesz kontynuować?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "Ta gra może nie działać poprawnie bez dostępu do internetu. Czy chcesz zagrać pomimo tego?",
+            "playAnyway": "Zagraj mimo to",
+            "title": "Ostrzeżenie o braku dostępu do sieci"
         }
     },
     "button": {
@@ -216,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Opcje uruchamiania..."
+        "options": "Opcje uruchamiania...",
+        "default": "Domyślne"
     },
     "not_logged_in": {
         "epic": "Nie jesteś zalogowany kontem Epic w Heroic. Nie używaj strony sklepu do zalogowania, zamiast tego kliknij ten przycisk:",
@@ -343,5 +357,6 @@
             "resume": "Wznów pobieranie"
         }
     },
-    "Open": "Otwórz"
+    "Open": "Otwórz",
+    "open-saves-folder": "Otwórz folder zapisów"
 }
