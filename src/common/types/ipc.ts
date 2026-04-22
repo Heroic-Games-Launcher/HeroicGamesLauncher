@@ -321,6 +321,7 @@ interface AsyncIPCFunctions {
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
   'steamgriddb.hasApiKey': () => Promise<boolean>
+  'steamgriddb.setApiKey': (key: string) => Promise<void>
   'steamgriddb.searchGame': (
     query: string
   ) => Promise<Array<{ id: number; name: string }>>

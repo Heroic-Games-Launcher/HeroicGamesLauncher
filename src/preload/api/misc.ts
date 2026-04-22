@@ -105,6 +105,7 @@ export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDelet
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
 export const steamgriddb = {
   hasApiKey: makeHandlerInvoker('steamgriddb.hasApiKey'),
+  setApiKey: makeHandlerInvoker('steamgriddb.setApiKey'),
   searchGame: makeHandlerInvoker('steamgriddb.searchGame'),
   getGrids: makeHandlerInvoker('steamgriddb.getGrids')
 }
