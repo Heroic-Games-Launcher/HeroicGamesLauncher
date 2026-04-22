@@ -131,7 +131,8 @@
         "changelogFor": "Log de alterações para {{gameTitle}}",
         "modify": "Modificar instalação",
         "extra_info": "Informações extras",
-        "install_info": "Dados da instalação"
+        "install_info": "Dados da instalação",
+        "achievements": "Conquistas"
     },
     "gamecard": {
         "moving": "Movendo",
@@ -179,7 +180,7 @@
             "ok": "Ok",
             "install_anyway": "Sim (Entendo que a função multijogador não funcionará)",
             "multiplayer_message": "Suporte ao sistema anti trapaça foi negado ou comprometido. Talvez o jogo funcione, mas a função multijogador não funcionará. Instalar mesmo assim?",
-            "disabled_installation": "Suporte ao sistema antitrapaça foi negado ou comprometido, portanto a função multijogador não funcionará, e não há nada que você (ou a equipe do Heroic) possa fazer sobre isso.<br /><br /> Para instalar o jogo mesmo assim, vá em Configurações, Avançado, e marque a opção para permitir a instalação de jogos com o sistema antitrapaça negado ou comprometido.<br /><br /> Mantenha em mente que não há nenhuma solução para isso, e você corre o risco de ser banido no jogo."
+            "disabled_installation": "Este jogo utiliza sistema anti-trapaça que não é compatível com seu sistema operacional ou o suporte não esta disponível pelos desenvolvedores. Isto significa que recursos multijogador não funcionarão e não há nada que você (ou o Time Heroic) possa fazer sobre isso. <br /><br /> Para instalar este jogo ou tentar de alguma forma, vá para Configurações, Avançado e marque a opção para permitir a instalação de jogos com anti-trapaça quebrado ou negado.<br /><br /> Note que não há solução para isso e você terá risco de ser banido do jogo."
         },
         "flatpak-path-not-writtable": "Erro: Acesso ao sandbox não concedido a este caminho, ocorrerá perda de dados."
     },

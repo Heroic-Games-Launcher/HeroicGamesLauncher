@@ -4,12 +4,10 @@ import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
 import {
   AutoUpdateGames,
   CheckUpdatesOnStartup,
-  CustomWineProton,
   DefaultInstallPath,
   DefaultSteamPath,
   DisableController,
   DiscordRPC,
-  DownloadProtonToSteam,
   EgsSettings,
   HideChangelogOnStartup,
   LibraryTopSection,
@@ -41,8 +39,6 @@ export default function GeneralSettings() {
 
       <WinePrefixesBasePath />
 
-      <CustomWineProton />
-
       <DefaultSteamPath />
 
       <EgsSettings />
@@ -70,8 +66,6 @@ export default function GeneralSettings() {
       <DiscordRPC />
 
       <DisableController />
-
-      <DownloadProtonToSteam />
 
       <AnalyticsOptIn />
 

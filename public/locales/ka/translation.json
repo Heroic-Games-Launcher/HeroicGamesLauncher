@@ -3,7 +3,9 @@
         "choose": "აირჩიეთ",
         "no": "არა",
         "select": {
-            "button": "არჩევა"
+            "button": "არჩევა",
+            "script": "",
+            "exe": ""
         },
         "yes": "დიახ",
         "update": "განახლება",
@@ -11,24 +13,144 @@
         "error": {
             "title": "შეცდომა",
             "generic": {
-                "title": "აირჩიეთ გასაშვები EXE"
+                "title": "აირჩიეთ გასაშვები EXE",
+                "message": ""
+            },
+            "launchAborted": "",
+            "credentials": {
+                "message": ""
+            },
+            "legendary": {
+                "generic": ""
+            },
+            "winetricks": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFound": "",
+            "dxvk": {
+                "message": "",
+                "title": ""
+            },
+            "update": {
+                "message": "",
+                "title": ""
+            },
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "moving": "",
+            "uncaught-exception": {
+                "message": "",
+                "title": ""
+            },
+            "add": {
+                "steam": {
+                    "title": "",
+                    "body": ""
+                }
+            },
+            "cx-bottle-not-found": {
+                "title": "",
+                "message": ""
+            },
+            "executableNotFoundMessage": "",
+            "folder-not-found": {
+                "title": ""
             }
         },
         "ok": "დიახ",
         "postpone": "გადადება",
         "quit": {
-            "title": "გასვლა"
+            "title": "გასვლა",
+            "message": ""
         },
         "shortcuts": {
-            "title": "მალსახმობები"
+            "title": "მალსახმობები",
+            "message-remove": "",
+            "message": "",
+            "message-remove-mac": "",
+            "message-mac": ""
         },
         "warning": {
-            "title": "გაფრთხილება"
+            "title": "გაფრთხილება",
+            "epic": {
+                "install": "",
+                "import": "",
+                "update": ""
+            },
+            "wine-change": {
+                "message": "",
+                "title": ""
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
+            },
+            "snap": {
+                "checkbox": "",
+                "title": "",
+                "message": ""
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "",
+                    "message": ""
+                }
+            }
         },
         "downloadNow": "გადმოწერა",
         "runexe": {
             "title": "აირჩიეთ გასაშვები EXE"
-        }
+        },
+        "choose-gogdl-binary": "",
+        "info": {
+            "update": {
+                "detail": "",
+                "title-finished": "",
+                "message-finished": "",
+                "message": "",
+                "detailNoAutoupdate": "",
+                "title": ""
+            }
+        },
+        "choose-legendary-binary": "",
+        "reset-heroic": {
+            "question": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "protocol": {
+            "install": {
+                "not_installed": ""
+            }
+        },
+        "vcruntime": {
+            "install": {
+                "message": ""
+            },
+            "notfound": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "default-install-path": "",
+        "wineprefix": "",
+        "default-steam-path": "",
+        "choose-egs-prefix": "",
+        "dontShowAgain": "",
+        "cache-cleared": {
+            "message": "",
+            "title": ""
+        },
+        "sync": {
+            "title": "",
+            "error": ""
+        },
+        "choose-nile-binary": "",
+        "customWine": ""
     },
     "controller": {
         "hints": {
@@ -37,7 +159,17 @@
             "backspace": "Backspace",
             "options": "მორგება",
             "scroll": "გადახვევა",
-            "space": "ჰარე"
+            "space": "ჰარე",
+            "play_game": "",
+            "move_cursor": "",
+            "install_game": "",
+            "open_virtual_keyboard": "",
+            "close_keyboard": "",
+            "game_settings": "",
+            "game_details": "",
+            "close_dialog": "",
+            "close_options": "",
+            "update_game": ""
         }
     },
     "setting": {
@@ -48,37 +180,217 @@
             "install": "დაყენება",
             "updateNow": "განახლება",
             "cancelInstall": "გაუქმება",
-            "updating": "განახლება..."
+            "updating": "განახლება...",
+            "installing": "",
+            "checkForUpdates": "",
+            "removeConfirm": "",
+            "notInstalledMsg": "",
+            "currentVersion": "",
+            "notInstalledTitle": "",
+            "checkingForUpdates": "",
+            "installed": "",
+            "latestVersion": "",
+            "notInstalled": "",
+            "removeConfirmTitle": ""
         },
         "library_top_option": {
-            "disabled": "გათიშულია"
+            "disabled": "გათიშულია",
+            "favourites": "",
+            "recently_played_installed": "",
+            "recently_played": ""
         },
         "log": {
             "upload": {
                 "actions": "ქმედებები",
                 "uploading": {
-                    "title": "ატვირთვა"
-                }
-            }
+                    "title": "ატვირთვა",
+                    "content": ""
+                },
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "join-heroic-discord": "",
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "no-file": "",
+            "instructions_title": "",
+            "show-uploads": "",
+            "instructions": "",
+            "show-in-folder": ""
         },
         "manualsync": {
             "download": "გადმოწერა",
             "sync": "სინქრონიზაცია",
             "syncing": "სინქრონიზდება",
-            "upload": "ატვირთვა"
+            "upload": "ატვირთვა",
+            "title": "",
+            "forceupload": "",
+            "forcedownload": ""
         },
-        "wineversion": "Wine-ის ვერსია"
+        "wineversion": "Wine-ის ვერსია",
+        "WoW64": "",
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
+        "disable_controller": "",
+        "alt-gogdl-bin": "",
+        "alt-nile-bin": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "fsync": "",
+        "showfps": "",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "egs-sync": "",
+        "hdr": "",
+        "custom_themes_path": "",
+        "autodxvknvapi": "",
+        "library_top_section": "",
+        "savefolder": {
+            "placeholder": "",
+            "warning": "",
+            "not-found": ""
+        },
+        "autosync": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "preferSystemLibs": "",
+        "dxfpslimit": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "autodxvk": "",
+        "addgamestostartmenu": "",
+        "download-no-https": "",
+        "customWineProton": "",
+        "exit-to-tray": "",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "missingMsg": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
+        },
+        "enable-quick-sync-menu": "",
+        "runexe": {
+            "title": ""
+        },
+        "disable_logs": "",
+        "start-in-tray": "",
+        "change-target-exe": "",
+        "offlinemode": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "addgamestoapplications": "",
+        "language": "",
+        "FsrSharpnessStrenght": "",
+        "disablePlaytimeSync": "",
+        "crossover-version": "",
+        "adddesktopshortcuts": "",
+        "esync": "",
+        "addgamestosteam": "",
+        "winecrossoverbottle": "",
+        "alt-legendary-bin": "",
+        "minimize-on-launch": "",
+        "autovkd3d": "",
+        "ignoreGameUpdates": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "mangohud": "",
+        "before-launch-script-path": "",
+        "default-steam-path": "",
+        "maxworkers": "",
+        "steamruntime": "",
+        "disableUMU": "",
+        "defaultWinePrefix": "",
+        "discordRPC": "",
+        "gamemode": "",
+        "select_theme": "",
+        "maxRecentGames": "",
+        "default-install-path": "",
+        "enableFSRHack": "",
+        "autoUpdateGames": "",
+        "msync": "",
+        "wineprefix": "",
+        "advertiseAvxForRosetta": "",
+        "darktray": "",
+        "checkForUpdatesOnStartup": "",
+        "prefered_language": "",
+        "hideChangelogsOnStartup": "",
+        "showMetalOverlay": "",
+        "custom_css": {
+            "warning": ""
+        }
     },
     "window": {
-        "close": "დახურვა"
+        "close": "დახურვა",
+        "minimize": "",
+        "maximize": "",
+        "restore": ""
     },
     "status": {
-        "installing": "მიმდინარეობს დაყენება"
+        "installing": "მიმდინარეობს დაყენება",
+        "preparing_login": "",
+        "logging": "",
+        "processing": ""
     },
     "dlc": {
         "size": "ზომა",
         "title": "სათაური",
-        "actions": "ქმედებები"
+        "actions": "ქმედებები",
+        "installDlcs": "",
+        "noDlcFound": ""
     },
     "download-manager": {
         "install-type": {
@@ -91,137 +403,452 @@
         },
         "link": "გადმოწერები",
         "queue": {
-            "type": "ტიპი"
+            "type": "ტიპი",
+            "end-time": "",
+            "queue-time": "",
+            "start-time": ""
         },
-        "title": "გადმოწერები"
+        "title": "გადმოწერები",
+        "ETA": ""
     },
     "header": {
         "categories": "კატეგორიები",
         "filters": "ფილტრები",
         "only": "მხოლოდ",
         "reset": "ჩამოყრა",
-        "uncategorized": "უკატეგორიო"
+        "uncategorized": "უკატეგორიო",
+        "show_support_offline_only": "",
+        "select_all": "",
+        "show_hidden": "",
+        "show_favourites_only": "",
+        "show_third_party_managed_only": "",
+        "show_updates_only": "",
+        "show_installed_only": "",
+        "show_available_games": "",
+        "no_categories": ""
     },
     "help": {
         "title": {
             "settings": "პარამეტრები",
             "accessibility": "წვდომადობა",
             "library": "ბიბლიოთეკა",
-            "login": "შესვლა"
-        }
+            "login": "შესვლა",
+            "downloadManager": "",
+            "wineManager": ""
+        },
+        "sync": {
+            "part2": "",
+            "part1": "",
+            "part3": "",
+            "part4": ""
+        },
+        "disable_logs": "",
+        "dxfpslimit": "",
+        "dxvk": "",
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
+        "msync": "",
+        "other": {
+            "part6": "",
+            "part4": "",
+            "part5": "",
+            "part7": ""
+        },
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "amdfsr": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "preferSystemLibs": "",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "game_language": {
+            "valid_codes": "",
+            "in_game_config": "",
+            "fallback": ""
+        },
+        "mangohud": "",
+        "wine": {
+            "part1": "",
+            "part2": ""
+        },
+        "dxvknvapi": "",
+        "disablePlaytimeSync": "",
+        "steamruntime": "",
+        "steam_path": {
+            "info": ""
+        },
+        "general": "",
+        "vkd3d": "",
+        "WoW64": "",
+        "custom_themes_path": "",
+        "custom_themes_wiki": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": "",
+        "fsync": "",
+        "gamemode": "",
+        "esync": ""
     },
     "notify": {
-        "uninstalled": "წაშლა"
+        "uninstalled": "წაშლა",
+        "finished": {
+            "remove": {
+                "steam": {
+                    "title": "",
+                    "corrupt": "",
+                    "success": ""
+                }
+            },
+            "reparing": "",
+            "add": {
+                "steam": {
+                    "corrupt": "",
+                    "title": "",
+                    "success": ""
+                }
+            }
+        },
+        "update": {
+            "started": "",
+            "paused": "",
+            "failed": "",
+            "canceled": "",
+            "finished": ""
+        },
+        "import": {
+            "failed": ""
+        },
+        "error": {
+            "reparing": "",
+            "move": ""
+        },
+        "install": {
+            "canceled": "",
+            "startInstall": "",
+            "finished": "",
+            "failed": "",
+            "paused": "",
+            "error": "",
+            "imported": ""
+        },
+        "new-heroic-version": "",
+        "moved": "",
+        "refresh": {
+            "error": ""
+        },
+        "moving": ""
     },
     "queue": {
         "label": {
             "downloading": "გადმოწერა",
             "queued": "რიგშია",
-            "finished": "დასრულდა"
+            "finished": "დასრულდა",
+            "empty": "",
+            "clear": ""
         }
     },
     "settings": {
         "advanced": {
-            "details": "დეტალები"
+            "details": "დეტალები",
+            "clearCache": {
+                "help9": "",
+                "help1": "",
+                "help8": "",
+                "help3": "",
+                "help10": "",
+                "help7": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
+            },
+            "title": {
+                "resetHeroic": "",
+                "clearCache": ""
+            },
+            "resetHeroic": {
+                "help": ""
+            }
         },
         "navbar": {
             "log": "ჟურნალი",
             "advanced": "დამატებით",
             "gamescope": "Gamescope",
             "general": "ზოგადი",
-            "other": "სხვა"
+            "other": "სხვა",
+            "games_settings_defaults": "",
+            "systemInformation": "",
+            "sync": "",
+            "legacy": ""
         },
         "systemInformation": {
             "cpu": "CPU:",
             "gpu": "GPU:",
             "memory": "მეხსიერება:",
-            "software": "პროგრამა:"
-        }
+            "software": "პროგრამა:",
+            "gpuWithNumber": "",
+            "cpuDescription": "",
+            "legendaryVersion": "",
+            "systemSpecifications": "",
+            "steamDeck": "",
+            "gpuDriver": "",
+            "os": "",
+            "gogdlVersion": "",
+            "osVersion": "",
+            "osNameFlatpak": "",
+            "cometVersion": "",
+            "memoryStats": "",
+            "systemModel": "",
+            "showDetailed": "",
+            "copyToClipboard": "",
+            "heroicVersion": "",
+            "nileVersion": ""
+        },
+        "legacy_warning": "",
+        "eacRuntime": {
+            "name": "",
+            "installing": "",
+            "gameModeRequired": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "experimental_features": {
+            "title": ""
+        },
+        "reset-heroic": "",
+        "default_hint": "",
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "saves": {
+            "warning": "",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
+        },
+        "log": {
+            "long-log-hint": ""
+        },
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "battlEyeRuntime": {
+            "installing": "",
+            "name": ""
+        },
+        "clear-cache": "",
+        "copyToClipboard": "",
+        "custom_css": {
+            "title": ""
+        },
+        "launchOptions": "",
+        "copiedToClipboard": "",
+        "open-config-file": ""
     },
     "Settings": "პარამეტრები",
     "wine": {
         "size": "ზომა",
         "actions": "ქმედება",
         "manager": {
-            "unzipping": "გაშლა"
-        }
+            "unzipping": "გაშლა",
+            "link": "",
+            "title": "",
+            "not-found": ""
+        },
+        "notes": "",
+        "release": ""
     },
     "winetricks": {
         "install": "დაყენება",
-        "loading": "იტვირთება"
+        "loading": "იტვირთება",
+        "no-components": "",
+        "installing": "",
+        "openGUI": "",
+        "search": "",
+        "loading-available": "",
+        "nothingYet": "",
+        "installed": ""
     },
     "accessibility": {
         "fonts": "ფონტები",
         "title": "წვდომადობა",
-        "zoom": "მასშტაბი"
+        "zoom": "მასშტაბი",
+        "actions_font_family_default": "",
+        "all_tiles_in_color": "",
+        "content_font_family_default": "",
+        "disable_smooth_scrolling": "",
+        "titles_always_visible": "",
+        "disable_animations": "",
+        "disable_dialog_backdrop_close": ""
     },
     "anticheat": {
         "anticheats": "ანტიჩიტები",
         "reference": "მიმართვა",
         "source": "წყარო",
-        "status": "სტატუსი"
+        "status": "სტატუსი",
+        "title": "",
+        "multiplayer_may_not_work": ""
     },
     "info": {
         "version": "Wine-ის ვერსია",
         "heroic": {
             "beta": "ბეტა",
-            "stable": "სტაბილური"
+            "stable": "სტაბილური",
+            "version": "",
+            "newReleases": "",
+            "click-to-see-changelog": ""
+        },
+        "settings": "",
+        "save-sync": {
+            "searching": ""
         }
     },
     "button": {
         "cancel": "გაუქმება",
-        "continue": "გაგრძელება"
+        "continue": "გაგრძელება",
+        "go_to_library": "",
+        "login": ""
     },
     "categories-manager": {
-        "add": "დამატება"
+        "add": "დამატება",
+        "confirm-rename": "",
+        "cancel-remove": "",
+        "no-categories": "",
+        "confirm-remove": "",
+        "add-placeholder": "",
+        "remove": "",
+        "title": "",
+        "cancel-rename": "",
+        "rename": ""
     },
     "category-settings": {
         "cancel": "გაუქმება",
-        "warning": "გაფრთხილება"
+        "warning": "გაფრთხილება",
+        "remove-category": "",
+        "delete-question": "",
+        "new-category": "",
+        "add-new-category": ""
     },
     "docs": "დოკუმენტაცია",
     "epic": {
-        "offline-notification-title": "ხაზგარეშე"
+        "offline-notification-title": "ხაზგარეშე",
+        "offline-notification-body": ""
     },
     "error": "შეცდომა",
     "favourites": "რჩეულები",
     "game": {
         "status": "სტატუსი",
         "store": "მაღაზია",
-        "modify": "დაყენების შეცვლა"
+        "modify": "დაყენების შეცვლა",
+        "title": ""
     },
     "GOG": "GOG",
     "infobox": {
         "help": "დახმარება",
         "warning": "გაფრთხილება",
-        "requirements": "სისტემური მოთხოვნები"
+        "requirements": "სისტემური მოთხოვნები",
+        "wine-path-none-found": "",
+        "wine-prefix": {
+            "title": ""
+        },
+        "wine-repfix": {
+            "message": ""
+        },
+        "wine-path-invalid": "",
+        "wine-path": ""
     },
     "label": {
-        "loading": "იტვირთება"
+        "loading": "იტვირთება",
+        "releaseDate": ""
     },
     "Library": "ბიბლიოთეკა",
     "loading": {
-        "default": "იტვირთება"
+        "default": "იტვირთება",
+        "website": ""
     },
     "offline-message": {
         "ignore": "დაიგნორება",
         "offline": "ხაზგარეშე",
-        "retrying": "თავიდან ცდა"
+        "retrying": "თავიდან ცდა",
+        "hint": "",
+        "offline-retry-in": ""
     },
     "options": {
         "advanced": {
             "placeHolderKey": "სახელი",
-            "value": "მნიშვნელობა"
+            "value": "მნიშვნელობა",
+            "title": "",
+            "key": "",
+            "placeHolderValue": ""
         },
         "gamescope": {
             "borderless": "უსაზღვრო",
             "fullscreen": "სრულ ეკრანზე",
-            "windowed": "ფანჯარაში"
+            "windowed": "ფანჯარაში",
+            "nis": "",
+            "additionalOptions": "",
+            "fpsLimiter": "",
+            "gameHeight": "",
+            "upscaleWidth": "",
+            "gameWidth": "",
+            "interger": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": ""
         },
         "wrapper": {
             "args": "არგუმენტები",
-            "exe": "Wrapper"
-        }
+            "exe": "Wrapper",
+            "placeHolderValue": "",
+            "placeHolderKey": "",
+            "arguments_example": "",
+            "title": ""
+        },
+        "env_variables": {
+            "error": {
+                "space_in_key": "",
+                "equal_sign_in_key": "",
+                "empty_key": ""
+            },
+            "info": "",
+            "example": ""
+        },
+        "gameargs": {
+            "error": {
+                "command": "",
+                "env": ""
+            },
+            "placeholder": "",
+            "title": ""
+        },
+        "quote-args-with-spaces": ""
     },
     "Other": "სხვა",
     "platforms": {
@@ -236,7 +863,47 @@
         "back": "უკან",
         "done": "მზადაა",
         "next": "შემდეგი",
-        "skip": "გამოტოვება"
+        "skip": "გამოტოვება",
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "startTour": ""
     },
     "tray": {
         "about": "შესახებ",
@@ -247,10 +914,127 @@
     "userselector": {
         "cancel": "გაუქმება",
         "discord": "Discord",
-        "quit": "გასვლა"
+        "quit": "გასვლა",
+        "logout": "",
+        "manageaccounts": "",
+        "logout_confirmation": "",
+        "quitMessage": "",
+        "logging_out": ""
     },
     "analyticsModal": {
         "disable": "გათიშულია",
-        "enable": "ჩართულია"
-    }
+        "enable": "ჩართულია",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
+    },
+    "placeholder": {
+        "alt-nile-bin": "",
+        "prefered_language": "",
+        "custom_themes_path": "",
+        "dxvkfpsvalue": "",
+        "alt-legendary-bin": "",
+        "alt-gogdl-bin": "",
+        "egs-prefix": ""
+    },
+    "tooltip": {
+        "removepath": "",
+        "addpath": ""
+    },
+    "adtraction-locked": {
+        "description": "",
+        "dont-show-again": "",
+        "title": ""
+    },
+    "title": {
+        "allGames": ""
+    },
+    "externalLink": {
+        "dontAskAgain": "",
+        "warning": ""
+    },
+    "library": {
+        "toggleLayout": {
+            "list": "",
+            "grid": ""
+        },
+        "sortAscending": "",
+        "hideAlphabetFilter": "",
+        "sortByStatus": "",
+        "sortDescending": "",
+        "showAlphabetFilter": ""
+    },
+    "Epic Games": "",
+    "Update Available!": "",
+    "globalSettings": "",
+    "other": {
+        "nile-version": "",
+        "gogdl-version": "",
+        "legendary-version": "",
+        "weblate": ""
+    },
+    "add_game": "",
+    "webview": {
+        "controls": {
+            "forward": "",
+            "back": "",
+            "reload": "",
+            "openInBrowser": ""
+        }
+    },
+    "launch": {
+        "options": ""
+    },
+    "message": {
+        "unsync": "",
+        "sync": ""
+    },
+    "amazon-luna": "",
+    "gog-store": "",
+    "two_col_table": {
+        "save_hint": ""
+    },
+    "login": {
+        "amazon": "",
+        "alternative_method": "",
+        "message": "",
+        "gog": "",
+        "epic": "",
+        "old-mac": "",
+        "zoom": ""
+    },
+    "toolbox": {
+        "settings": {
+            "wineprefix": ""
+        }
+    },
+    "please-wait": "",
+    "Recent": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "generic": {
+        "library": {
+            "refresh": ""
+        },
+        "error": {
+            "component": ""
+        }
+    },
+    "search": "",
+    "store": "",
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": ""
+    },
+    "Amazon Games": ""
 }

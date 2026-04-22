@@ -29,7 +29,7 @@
             "message": "Η προσωρινή μνήμη Heroic καθαρίστηκε.",
             "title": "Προσωρινή Μνήμη Καθαρίστηκε"
         },
-        "choose": "Επιλογή",
+        "choose": "Επιλέξτε",
         "choose-egs-prefix": "Επιλέξτε πρόθημα στη διαδρομή εγκατάστασης EGS",
         "choose-gogdl-binary": "Επιλογή δυαδικού αρχείου GOGDL (χρειάζεται επανεκκίνηση)",
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
@@ -184,7 +184,7 @@
                 "title": "Το Rosetta δεν βρέθηκε"
             }
         },
-        "wineprefix": "Διαλέξτε τον φάκελο του Wine Prefix",
+        "wineprefix": "Διαλέξτε τον φάκελο ου προθέματος Wine",
         "yes": "ΝΑΙ",
         "dontShowAgain": "Μην εμφανιστεί ξανά",
         "choose-nile-binary": "Επιλέξτε Nile binary",
@@ -391,7 +391,7 @@
         "warning": "Προειδοποίηση",
         "wine-path": "Διαδρομή Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Πρόθεμα Wine"
         },
         "wine-repfix": {
             "message": "Το Wine χρησιμοποιεί αυτό που ονομάζεται WINEPREFIX για να ενσωματώσει εφαρμογές των Windows. Αυτό το prefix περιέχει τα αρχεία ρύθμισης παραμέτρων του Wine και μια αναπαράσταση των αρχείων του C: (του κύριου δίσκου των Windows). Σε αυτήν την αναπαράσταση του δίσκου C:, αποθηκεύονται τα αρχεία αποθήκευσης του παιχνιδιού σας και άλλα απαιτούμενα που έχουν εγκατασταθεί μέσω του winetricks."
@@ -556,7 +556,7 @@
         "custom_themes_path": "Επιλέξτε τη διαδρομή για την αναζήτηση προσαρμοσμένων αρχείων CSS",
         "dxvkfpsvalue": "Θετική ακέραια τιμή (π.χ. 30, 60, ...)",
         "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
-        "prefered_language": "Κωδικός 2 χαρακτήρων (π.χ.: \"en\" ή \"fr\")",
+        "prefered_language": "Κωδικός 2 ή 4 χαρακτήρων (π.χ.: \"en\" ή \" en-US\")",
         "alt-nile-bin": "Χρησιμοποιώντας το ενσωματωμένο δυαδικό σύστημα Nile..."
     },
     "platforms": {
@@ -662,7 +662,8 @@
                 },
                 "error": {
                     "content": "Αποτυχία μεταφόρτωσης αρχείου καταγραφής. Ελέγξτε το γενικό αρχείο καταγραφής του Heroic για λεπτομέρειες",
-                    "title": "Η μεταφόρτωση απέτυχε"
+                    "title": "Η μεταφόρτωση απέτυχε",
+                    "manual_upload": "Πατήστε το κουμπί \"SHOW LOG FILE IN FOLDER\" και υποβάλετε το αρχείο \"launch.log\" στο Discord ή οποιαδήποτε υπηρεσία ανταλλαγής αρχείων."
                 },
                 "header": "Μεταφορτωμένα αρχεία καταγραφής",
                 "hours-ago": "Μεταφορτώθηκε {{hoursAgo, relativetime(hours)}}",
@@ -796,12 +797,14 @@
             "description": "Ενεργοποίηση λεπτομερών αρχείων καταγραφής"
         },
         "wineWayland": "Ενεργοποίηση του Wine-Wayland (Experimental) (η έκδοση Wine πρέπει να την υποστηρίζει)",
-        "WoW64": "Ενεργοποίηση του WoW64 (Experimental)"
+        "WoW64": "Ενεργοποίηση του WoW64 (Experimental)",
+        "enable-quick-sync-menu": "Ενεργοποίηση Quick Save-Sync Menu στο game page",
+        "disable_gog_presence": "Απενεργοποίηση ενημερώσεων GOG Presence"
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Εγκατάσταση του BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "Χώρος Εκτέλεσης BattlEye AntiCheat"
         },
         "clear-cache": "Εκκαθάριση κρυφής μνήμης Heroic",
         "copiedToClipboard": "Αντιγράφηκε στο πρόχειρο!",
@@ -813,7 +816,7 @@
                 "title": "Απαιτείται το GameMode"
             },
             "installing": "Εγκατάσταση του EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "Χώρος Εκτέλεσης  EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -833,7 +836,8 @@
             "sync": "Συγχρονισμός αρχείων αποθήκευσης στο cloud",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "Πληροφορίες Συστήματος"
+            "systemInformation": "Πληροφορίες Συστήματος",
+            "legacy": "Legacy"
         },
         "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
         "reset-heroic": "Επαναφορά Heroic",
@@ -900,7 +904,8 @@
         },
         "offline": {
             "warning": "Αυτό το παιχνίδι δεν επιτρέπει ρητά τη λειτουργία εκτός σύνδεσης, ενεργοποιήστε την με δική σας ευθύνη. Το παιχνίδι ενδέχεται να μην λειτουργεί."
-        }
+        },
+        "legacy_warning": "Προειδοποίηση: Οι ρυθμίσεις σε αυτή την καρτέλα είναι παραχωρημένες και μπορεί να μην δουλέψουν."
     },
     "Settings": "Ρυθμίσεις",
     "sidebar": {

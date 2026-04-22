@@ -11,6 +11,7 @@ export const getLatestReleases = makeHandlerInvoker('getLatestReleases')
 export const getCurrentChangelog = makeHandlerInvoker('getCurrentChangelog')
 export const openPatreonPage = makeListenerCaller('openPatreonPage')
 export const openKofiPage = makeListenerCaller('openKofiPage')
+export const openGithubSponsorsPage = makeListenerCaller('openGithubSponsorsPage')
 export const isFullscreen = makeHandlerInvoker('isFullscreen')
 export const isFrameless = makeHandlerInvoker('isFrameless')
 export const isMinimized = makeHandlerInvoker('isMinimized')
@@ -104,3 +105,9 @@ export const deleteUploadedLogFile = makeHandlerInvoker('deleteUploadedLogFile')
 export const logFileUploadedSlot = frontendListenerSlot('logFileUploaded')
 export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDeleted')
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
+export const steamgriddb = {
+  hasApiKey: makeHandlerInvoker('steamgriddb.hasApiKey'),
+  setApiKey: makeHandlerInvoker('steamgriddb.setApiKey'),
+  searchGame: makeHandlerInvoker('steamgriddb.searchGame'),
+  getGrids: makeHandlerInvoker('steamgriddb.getGrids')
+}

@@ -23,10 +23,11 @@ import { configStore } from './constants/key_value_stores'
 import { isFlatpak, isLinux, isMac, isWindows } from './constants/environment'
 import {
   configPath,
-  defaultWinePrefix,
+  sharedWinePrefix,
   gamesConfigPath,
   heroicInstallPath,
-  userHome
+  userHome,
+  defaultWinePrefixDir
 } from './constants/paths'
 import { join } from 'path'
 import { spawnSync } from 'child_process'
@@ -301,6 +302,10 @@ class GlobalConfigV0 extends GlobalConfig {
     let settings = JSON.parse(readFileSync(configPath, 'utf-8'))
     const defaultSettings = settings.defaultSettings as AppSettings
 
+    // keep old setting value for backwards compatibility, always use defaultWinePrefixDir in new code
+    if (!defaultSettings.defaultWinePrefixDir)
+      defaultSettings.defaultWinePrefixDir = defaultSettings.defaultWinePrefix
+
     // fix relative paths
     const winePrefix = !isWindows
       ? defaultSettings?.winePrefix?.replace('~', userHome)
@@ -308,7 +313,7 @@ class GlobalConfigV0 extends GlobalConfig {
 
     settings = {
       ...this.getFactoryDefaults(),
-      ...settings.defaultSettings,
+      ...defaultSettings,
       winePrefix
     } as AppSettings
 
@@ -336,7 +341,8 @@ class GlobalConfigV0 extends GlobalConfig {
       defaultInstallPath: heroicInstallPath,
       libraryTopSection: 'disabled',
       defaultSteamPath: getSteamCompatFolder(),
-      defaultWinePrefix: defaultWinePrefix,
+      defaultWinePrefix: defaultWinePrefixDir,
+      defaultWinePrefixDir: defaultWinePrefixDir,
       hideChangelogsOnStartup: false,
       language: 'en',
       maxWorkers: 0,
@@ -347,7 +353,7 @@ class GlobalConfigV0 extends GlobalConfig {
       showFps: false,
       useGameMode: isFlatpak,
       wineCrossoverBottle: 'Heroic',
-      winePrefix: isWindows ? '' : defaultWinePrefix,
+      winePrefix: isWindows ? '' : sharedWinePrefix,
       wineVersion: defaultWine,
       enableEsync: true,
       enableFsync: isLinux,
@@ -366,6 +372,7 @@ class GlobalConfigV0 extends GlobalConfig {
       advertiseAvxForRosetta: isMac && defaultWine.type === 'toolkit',
       noTrayIcon: false,
       showValveProton: false,
+      steamGridDbApiKey: '',
       disableGOGPresence: false
     }
     // @ts-expect-error TODO: We need to settle on *one* place to define settings defaults

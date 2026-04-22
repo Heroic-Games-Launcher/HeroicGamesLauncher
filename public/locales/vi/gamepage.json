@@ -63,7 +63,9 @@
         },
         "ok": "OK",
         "offline_warning": {
-            "message": "Trò chơi có thể không hoạt động như ý khi ngoại tuyến. Bạn có muốn chơi không?"
+            "message": "Trò chơi có thể không hoạt động như ý khi ngoại tuyến. Bạn có muốn chơi không?",
+            "playAnyway": "",
+            "title": ""
         }
     },
     "button": {

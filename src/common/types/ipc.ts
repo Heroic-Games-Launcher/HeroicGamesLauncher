@@ -45,6 +45,7 @@ import type {
   WineManagerStatus,
   WineVersionInfo
 } from '../types'
+import type { CatalogLocaleSettings, CatalogProduct } from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
@@ -69,6 +70,7 @@ interface SyncIPCFunctions {
   openDiscordLink: () => void
   openPatreonPage: () => void
   openKofiPage: () => void
+  openGithubSponsorsPage: () => void
   openWinePrefixFAQ: () => void
   openWebviewPage: (url: string) => void
   openWikiLink: () => void
@@ -321,6 +323,17 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  getGogDiscounts: (locale: CatalogLocaleSettings) => Promise<CatalogProduct[]>
+  'steamgriddb.hasApiKey': () => Promise<boolean>
+  'steamgriddb.setApiKey': (key: string) => Promise<void>
+  'steamgriddb.searchGame': (
+    query: string
+  ) => Promise<Array<{ id: number; name: string }>>
+  'steamgriddb.getGrids': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+  }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 
 interface FrontendMessages {

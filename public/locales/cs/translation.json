@@ -565,7 +565,7 @@
         "custom_themes_path": "Vyberte cestu k vyhledávání vlastních souborů CSS",
         "dxvkfpsvalue": "Kladná celočíselná hodnota (např. 30, 60, ...)",
         "egs-prefix": "Prefix kde je nainstalován EGS",
-        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")",
+        "prefered_language": "2místný nebo 4místný kód (např. „fr“ nebo „pt-BR“)",
         "alt-nile-bin": "Používání vestavěného binárního souboru Nile..."
     },
     "platforms": {
@@ -817,7 +817,8 @@
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
         "WoW64": "Povolit WoW64 (experimentální)",
         "scripts": "Skripty:",
-        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry"
+        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry",
+        "disable_gog_presence": "Zakázat aktualizace GOG Presence"
     },
     "settings": {
         "battlEyeRuntime": {
