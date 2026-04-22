@@ -79,9 +79,7 @@ export default function SideloadDialog({
   const appPlatform = gameInfo.install?.platform || platformToInstall
 
   useEffect(() => {
-    window.api.requestAppSettings().then((config) => {
-      setHasSgdbKey(!!config.steamGridDbApiKey)
-    })
+    window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
 
     if (appName) {
       void getGameInfo(appName, 'sideload').then((info) => {

@@ -320,6 +320,7 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  'steamgriddb.hasApiKey': () => Promise<boolean>
   'steamgriddb.searchGame': (
     query: string
   ) => Promise<Array<{ id: number; name: string }>>

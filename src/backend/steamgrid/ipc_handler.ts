@@ -3,6 +3,11 @@ import { addHandler } from 'backend/ipc'
 import { logError, LogPrefix } from 'backend/logger'
 import * as SteamGridDB from './utils'
 
+addHandler('steamgriddb.hasApiKey', async () => {
+  const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
+  return !!steamGridDbApiKey
+})
+
 addHandler('steamgriddb.searchGame', async (event, query) => {
   const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
   if (!steamGridDbApiKey) {
