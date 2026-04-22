@@ -131,7 +131,8 @@
         "changelogFor": "Änderungsprotokoll für {{gameTitle}}",
         "modify": "Installation modifizieren",
         "extra_info": "Zusatzinfo",
-        "install_info": "Installationsinfo"
+        "install_info": "Installationsinfo",
+        "achievements": "Erfolge"
     },
     "gamecard": {
         "moving": "Wird verschoben …",
