@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Абнавіць бібліятэку"
-        }
+        },
+        "abort": "",
+        "install": "Усталяванне",
+        "uninstall": "Выдаліць"
     },
     "globalSettings": "Глабальныя налады",
     "GOG": "GOG",
@@ -811,7 +814,9 @@
         "wineWayland": "Уключыць Wine-Wayland (эксперыментальная версія) (версія Wine павінна падтрымліваць гэтую функцыю)",
         "WoW64": "Уключыць WoW64 (эксперыментальная версія)",
         "scripts": "",
-        "enable-quick-sync-menu": ""
+        "enable-quick-sync-menu": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -917,12 +922,23 @@
             "title": "Уласны стыль CSS"
         },
         "launchOptions": "Параметры запуску...",
-        "legacy_warning": ""
+        "legacy_warning": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Налады",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "Усталяванне",
@@ -979,7 +995,13 @@
             "link": "Менеджар Wine",
             "not-found": "Версіі Wine не знойдзены. Націсніце на значок абнаўлення, каб паўтарыць спробу.",
             "title": "Менеджар Wine",
-            "unzipping": "Распакоўка"
+            "unzipping": "Распакоўка",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Абнаўленне",
+            "settings": "Налады",
+            "no-results": ""
         },
         "release": "Дата выпуску",
         "size": "Памер",
@@ -1029,7 +1051,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton - гэта варыянт Proton, створаны Glorious Eggroll. Ён прызначаны для выкарыстання ў Steam, але некаторыя гульні па-за Steam могуць працаваць лепш з гэтым варыянтам. Ён дае ў асноўным бескарысныя часопісы для выпраўлення непаладак.",
-        "wine-ge": "Wine-GE-Proton - гэта варыянт Wine, створаны Glorious Eggroll. Яго адмянілі на карысць GE-Proton з пускавой устаноўкай umu."
+        "wine-ge": "Wine-GE-Proton - гэта варыянт Wine, створаны Glorious Eggroll. Яго адмянілі на карысць GE-Proton з пускавой устаноўкай umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "Бягучыя фільтры не далі вынікаў.",
@@ -1123,5 +1148,132 @@
         "options": "Параметры запуску..."
     },
     "amazon-luna": "",
-    "zoom-store": ""
+    "zoom-store": "",
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Аперацыйная сістэма:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "Выйсці",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": ""
+        },
+        "empty": "",
+        "games": "Усталяваныя гульні",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Далей"
 }
