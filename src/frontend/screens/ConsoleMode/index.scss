@@ -54,7 +54,8 @@
 }
 
 .consoleTopBar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
   align-items: center;
   gap: var(--space-md, 12px);
   padding: 24px 32px 12px;
@@ -79,6 +80,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  justify-self: end;
 }
 
 %consoleButtonDisabled {
