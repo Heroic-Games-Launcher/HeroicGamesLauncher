@@ -2,11 +2,7 @@ import { GlobalConfig } from 'backend/config'
 import { addHandler } from 'backend/ipc'
 import { logError, LogPrefix } from 'backend/logger'
 import * as SteamGridDB from './utils'
-import {
-  encryptApiKey,
-  decryptApiKey,
-  isEncryptedValue
-} from './secureKey'
+import { encryptApiKey, decryptApiKey, isEncryptedValue } from './secureKey'
 
 function getDecryptedApiKey(): string {
   const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
