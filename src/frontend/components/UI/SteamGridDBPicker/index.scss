@@ -62,9 +62,9 @@
   }
 
   &__grids {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
     overflow-y: scroll;
     max-height: 300px;
     padding-bottom: 1rem;
@@ -72,6 +72,7 @@
 
   &__grid-item {
     cursor: pointer;
+    height: 150px;
     border-radius: 8px;
     overflow: hidden;
     aspect-ratio: 2/3;
