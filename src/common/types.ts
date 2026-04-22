@@ -133,6 +133,7 @@ export interface AppSettings extends GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  steamGridDbApiKey: string
 }
 
 export type LibraryTopSectionOptions =
@@ -844,6 +845,17 @@ export interface RunnerCommandStub {
   response?: Promise<ExecResult>
   stdout?: string
   stderr?: string
+}
+
+export interface SGDBGrid {
+  id: number
+  url: string
+  thumb: string
+}
+
+export interface SGDBGame {
+  id: number
+  name: string
 }
 
 export type ReleasesInfo = Record<
