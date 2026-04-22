@@ -8,7 +8,8 @@ import {
   faCoffee,
   faUserAlt,
   faWineGlass,
-  faBarsProgress
+  faBarsProgress,
+  faTags
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
@@ -159,6 +160,12 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
+      <SidebarItem
+        url="/discounts"
+        icon={faTags}
+        label={t('discounts.sidebar', 'Deals')}
+        dataTour="sidebar-discounts"
+      />
       <div className="divider" />
       <div className="SidebarItemWithSubmenu">
         <SidebarItem

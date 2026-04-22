@@ -240,6 +240,86 @@
             "update_game": "Update game"
         }
     },
+    "discounts": {
+        "aria": {
+            "pagination": "Pagination",
+            "rating": "Rating {{rating}} out of 10"
+        },
+        "empty": "No discounted games available right now.",
+        "error": "Could not load discounts. Please try again later.",
+        "filters": {
+            "activeCount_one": "{{count}} active",
+            "activeCount_other": "{{count}} active",
+            "ageRating": "Suitable for age",
+            "ageRatingAll": "All",
+            "ageRatingOption": "Show games rated PEGI {{age}} or lower",
+            "features": "Features",
+            "featuresPlaceholder": "Any feature",
+            "genres": "Genres",
+            "genresPlaceholder": "Any genre",
+            "hideDlcs": "Hide DLCs",
+            "lessFilters": "Less filters",
+            "moreFilters": "More filters",
+            "os": "Operating system",
+            "pageSize": "Per page",
+            "price": "Price",
+            "rating": "Rating",
+            "releaseYear": "Release year",
+            "sort": "Sort by"
+        },
+        "loading": "Loading discounted games...",
+        "noMatches": "No games match the current filters.",
+        "pagination": {
+            "prev": "Previous"
+        },
+        "region": {
+            "auto": "Auto ({{code}})",
+            "countries": {
+                "AU": "Australia",
+                "BR": "Brazil",
+                "CA": "Canada",
+                "CH": "Switzerland",
+                "CN": "China",
+                "CZ": "Czechia",
+                "DE": "Germany",
+                "DK": "Denmark",
+                "ES": "Spain",
+                "FI": "Finland",
+                "FR": "France",
+                "GB": "United Kingdom",
+                "GR": "Greece",
+                "HU": "Hungary",
+                "IL": "Israel",
+                "IT": "Italy",
+                "JP": "Japan",
+                "KR": "South Korea",
+                "NL": "Netherlands",
+                "NO": "Norway",
+                "PL": "Poland",
+                "PT": "Portugal",
+                "RO": "Romania",
+                "RU": "Russia",
+                "SE": "Sweden",
+                "TR": "Turkey",
+                "TW": "Taiwan",
+                "UA": "Ukraine",
+                "US": "United States"
+            },
+            "label": "Store region"
+        },
+        "sidebar": "Deals",
+        "sort": {
+            "discount": "Biggest discount",
+            "priceAsc": "Price: low to high",
+            "priceDesc": "Price: high to low",
+            "ratingAsc": "Rating: low to high",
+            "ratingDesc": "Rating: high to low",
+            "releaseAsc": "Release date: old to new",
+            "releaseDesc": "Release date: new to old",
+            "trending": "Trending"
+        },
+        "title": "GOG Deals"
+    },
     "dlc": {
         "actions": "Actions",
         "installDlcs": "Install all DLCs",
@@ -465,6 +545,7 @@
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
     },
+    "next": "Next",
     "notify": {
         "error": {
             "move": "Error Moving the Game",

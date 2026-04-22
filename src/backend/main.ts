@@ -20,6 +20,7 @@ import {
   sendFrontendMessage
 } from 'backend/ipc'
 import 'backend/updater'
+import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
 import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
