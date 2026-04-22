@@ -70,7 +70,7 @@
     "button": {
         "add_to_favourites": "Voeg toe aan favorieten",
         "cancel": "Pauzeren/Annuleren",
-        "continue": "Doorgaan met Download",
+        "continue": "Hervat downloaden",
         "finish": "Gereed",
         "force_update": "Forceer update indien beschikbaar",
         "force-innstall": "Forceer installeren",
@@ -130,7 +130,8 @@
         "modify": "Pas installatie aan",
         "changelogFor": "Changelog van {{gameTitle}}",
         "extra_info": "Extra info",
-        "install_info": "Installatie-info"
+        "install_info": "Installatie-info",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",

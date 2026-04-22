@@ -70,7 +70,7 @@
     "button": {
         "add_to_favourites": "افزودن به مورد علاقه ها",
         "cancel": "توقف/انصراف",
-        "continue": "ادامه بارگیری",
+        "continue": "ادامه دانلود",
         "finish": "اتمام",
         "force_update": "اعمال اجباری به روز رسانی در صورت موجود بودن",
         "force-innstall": "نصب اجباری",
@@ -130,7 +130,8 @@
         "changelogFor": "",
         "modify": "",
         "install_info": "",
-        "extra_info": ""
+        "extra_info": "",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "در حال انتقال",
@@ -272,7 +273,7 @@
         "uninstalling": "در حال حذف",
         "updating": "در حال به روزرسانی بازی",
         "playing": "در حال بازی کردن",
-        "moving-files": "در حال انتقال فایل '{{file}}': {{percent}} ",
+        "moving-files": "در حال انتقال فایل '{{file}}': {{percent}}",
         "syncingSaves": "در حال همگام سازی ذخیره ها",
         "launching": "در حال راه اندازی",
         "ubisoft": "نصب Ubisoft",

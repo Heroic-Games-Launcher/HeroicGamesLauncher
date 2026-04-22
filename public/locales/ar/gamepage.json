@@ -131,7 +131,8 @@
         "changelogFor": "سجل التغيير لـ {{gameTitle}}",
         "modify": "تعديل التثبيت",
         "extra_info": "معلومات إضافية",
-        "install_info": "معلومات التثبيت"
+        "install_info": "معلومات التثبيت",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "قيد النقل",

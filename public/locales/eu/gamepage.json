@@ -131,7 +131,8 @@
         "modify": "Aldatu Instalazioa",
         "changelogFor": "{{gameTitle}}-(r)en aldaketak",
         "install_info": "",
-        "extra_info": ""
+        "extra_info": "",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Mugitzen",

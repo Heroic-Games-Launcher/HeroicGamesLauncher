@@ -189,7 +189,7 @@
                 "message": "O Heroic necessita do Rosetta para funcionar corretamente no MacOS com chips Apple Silicon. Instale-o através do terminal macOS usando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicie o Heroic. "
             }
         },
-        "wineprefix": "Selecione a pasta do prefixo Wine",
+        "wineprefix": "Selecione a pasta do WINE Prefix",
         "yes": "SIM",
         "dontShowAgain": "Não mostrar novamente",
         "choose-nile-binary": "Selecione o binário do Nile",
@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Atualizar biblioteca"
-        }
+        },
+        "abort": "",
+        "install": "Instalar",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Configurações globais",
     "GOG": "GOG",
@@ -818,7 +821,8 @@
         "WoW64": "Ativar WoW64 (Experimental)",
         "scripts": "Scripts:",
         "enable-quick-sync-menu": "Ativar o Menu de Sincronização Rápida de Saves na página do jogo",
-        "disable_gog_presence": "Desativar atualizações do GOG Presence"
+        "disable_gog_presence": "Desativar atualizações do GOG Presence",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -924,12 +928,23 @@
             "title": "Estilo CSS Customizado"
         },
         "launchOptions": "Opções de inicialização",
-        "legacy_warning": "Aviso: A maioria das configurações nesta aba estão obsoletas e podem não funcionar."
+        "legacy_warning": "Aviso: A maioria das configurações nesta aba estão obsoletas e podem não funcionar.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Configurações",
     "sidebar": {
         "collapse": "Recolher barra lateral",
-        "uncollapse": "Mostrar barra lateral"
+        "uncollapse": "Mostrar barra lateral",
+        "console": ""
     },
     "status": {
         "installing": "Instalando",
@@ -986,7 +1001,13 @@
             "link": "Versões do Wine",
             "not-found": "Nenhuma versão do Wine encontrada. Clique no ícone de recarregar para tentar novamente.",
             "title": "Versões do Wine",
-            "unzipping": "Descompactando"
+            "unzipping": "Descompactando",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Atualizar",
+            "settings": "Configurações",
+            "no-results": ""
         },
         "release": "Data de lançamento",
         "size": "Tamanho",
@@ -1040,7 +1061,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton é uma variante Proton criada por Glorious Eggroll. Deve ser usada com o umu launcher (ativado por padrão no Heroic).",
-        "wine-ge": "Wine-GE-Proton foi uma variante Wine criada por Glorious Eggroll. O mesmo foi descontinuado em favor ao GE-Proton com o umu launcher."
+        "wine-ge": "Wine-GE-Proton foi uma variante Wine criada por Glorious Eggroll. O mesmo foi descontinuado em favor ao GE-Proton com o umu launcher.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "add-placeholder": "Adicionar nova categoria",
@@ -1130,5 +1154,132 @@
     "zoom-store": "Loja Zoom",
     "launch": {
         "options": "Opções de inicialização..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "Itália",
+                "ES": "Espanha",
+                "FI": "Finlândia",
+                "GR": "Grécia",
+                "RO": "Romenia",
+                "NO": "Noruega",
+                "KR": "Coreia do Sul",
+                "US": "Estados Unidos",
+                "HU": "Hungria",
+                "PT": "Portugal",
+                "NL": "Holanda",
+                "AU": "Australia",
+                "TW": "Taiwan",
+                "IL": "Israel",
+                "JP": "Japão",
+                "DK": "Dinamarca",
+                "DE": "Alemanha",
+                "CZ": "Rep. Tcheca",
+                "FR": "França",
+                "UA": "Ucrânia",
+                "GB": "Reino Unido",
+                "SE": "Suécia",
+                "CN": "China",
+                "RU": "Russia",
+                "CA": "Canadá",
+                "PL": "Polônia",
+                "BR": "Brasil",
+                "CH": "Suíça",
+                "TR": "Turquia"
+            },
+            "auto": "Auto ({{code}})",
+            "label": "Região da Loja"
+        },
+        "filters": {
+            "moreFilters": "Mais filtros",
+            "ageRating": "Idade recomendada",
+            "os": "Sistema operacional:",
+            "price": "Preço",
+            "activeCount_other": "{{count}} ativos",
+            "hideDlcs": "Esconder DLCs",
+            "ageRatingOption": "Mostrar jogos com classificação {{age}} ou menor",
+            "genres": "Gêneros",
+            "activeCount_one": "{{count}} ativos",
+            "lessFilters": "Menos filtros",
+            "rating": "Nota",
+            "sort": "Ordernar por",
+            "genresPlaceholder": "Qualquer gênero",
+            "features": "Recursos",
+            "featuresPlaceholder": "Qualquer recurso",
+            "ageRatingAll": "Todos",
+            "pageSize": "Por página",
+            "releaseYear": "Ano de lançamento"
+        },
+        "sidebar": "Descontos",
+        "sort": {
+            "priceDesc": "Preço: descrescente",
+            "trending": "Populares",
+            "priceAsc": "Preço: crescente",
+            "releaseDesc": "Lançamento: decrescente",
+            "ratingAsc": "Nota: crescente",
+            "releaseAsc": "Lançamento: crescente",
+            "ratingDesc": "Nota: decrescente",
+            "discount": "Maiores descontos"
+        },
+        "noMatches": "Nenhum jogo encontrado com os filtros atuais.",
+        "aria": {
+            "pagination": "Paginação",
+            "rating": "Nota {{rating}} de 10"
+        },
+        "error": "Não foi possível carregar os descontos. Tente novamente mais tarde.",
+        "empty": "Sem descontos disponíveis agora.",
+        "loading": "Carregando descontos...",
+        "title": "Descontos GOG",
+        "pagination": {
+            "prev": "Anterior"
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Nenhum Jogo Encontrado",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "Aperte",
+            "body": "Este jogo tem uma atualização disponível. Por favor saia do Modo Console e atualize o jogo antes de jogar.",
+            "title": "Atualização necessária",
+            "hintSuffix": "para voltar"
+        },
+        "sort": "Ordenar",
+        "cancel": {
+            "hintSuffix": "Por 3s para cancelar",
+            "hintPrefix": "Pressione"
+        },
+        "quit": "Sair do Console",
+        "hints": {
+            "launch": "Jogar",
+            "sort": "Ordenar",
+            "navigate": "Navegar",
+            "quit": "Sair do Heroic",
+            "change_store": "Mudar de loja"
+        },
+        "launching": "Lançamento",
+        "card": {
+            "needsUpdate": "Precisa atualizar"
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Todos"
+        },
+        "empty": "Não há nenhumn jogo instalado. Instale algum primeiro.",
+        "games": "Jogos instalados",
+        "quitApp": "Fechar o App",
+        "loading": "Carregando sua biblioteca…"
+    },
+    "next": "Próximo"
 }

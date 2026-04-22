@@ -46,11 +46,11 @@
             "message": "このゲームにはアップデートがありますが、今すぐアップデートしますか？",
             "title": "ゲームのアップデート"
         },
-        "wineprefix": "Wine環境フォルダを選択",
+        "wineprefix": "WinePrefixフォルダを選択",
         "yes": "はい",
         "close": "閉じる",
         "warning": {
-            "title": "Warning"
+            "title": "警告"
         },
         "ok": "OK",
         "offline_warning": {
@@ -217,7 +217,7 @@
         "login": "ログイン",
         "title": "ログインしていません",
         "amazon": "HeroicのAmazonアカウントでログインしていません。 ストアページを使用してログインしないでください。代わりに次のボタンをクリックしてください:",
-        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
+        "zoom": "Heroicでは、Zoomアカウントでログインしていません。ストアページからログインせず、代わりに以下のボタンをクリックしてください："
     },
     "report_problem": "このゲームの実行に関する問題を報告",
     "sdl": {
@@ -305,7 +305,7 @@
         "categories": "カテゴリー"
     },
     "help": {
-        "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブシステムを実装しているものもあります",
+        "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブ機能を実装しているものもあります。",
         "content": {
             "gamePage": "すべてのゲームの詳細とアクションを表示します。より多くのオプションを表示するには、3つのドットメニューを使用します。"
         },
@@ -330,8 +330,8 @@
     "Open": "開く",
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "remove": "Remove from Downloads",
+            "canceled": "キャンセルされました",
+            "remove": "ダウンロードキューから削除",
             "pause": "ダウンロードを一時停止",
             "resume": "ダウンロードを再開"
         }

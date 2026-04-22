@@ -130,7 +130,8 @@
         "changelogFor": "{{gameTitle}} 변경로그",
         "modify": "설치 수정",
         "install_info": "설치 정보",
-        "extra_info": "추가 정보"
+        "extra_info": "추가 정보",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "이동하는 중",
