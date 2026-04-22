@@ -76,7 +76,12 @@ export default function SteamGridDBPicker({
           setError(t('steamgriddb.error.no-games', 'No games found.'))
         }
       } catch (err) {
-        setError(t('steamgriddb.error.search', 'Failed to search for games'))
+        setError(
+          t(
+            'steamgriddb.error.search',
+            'Failed to search for games, please check your SteamGridDB API key and try again'
+          )
+        )
         console.error(err)
       } finally {
         setLoading(false)

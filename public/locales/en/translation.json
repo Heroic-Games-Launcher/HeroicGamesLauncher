@@ -931,7 +931,7 @@
             "grids": "Failed to fetch grids",
             "no-games": "No games found.",
             "no-grids": "No covers found for this game.",
-            "search": "Failed to search for games"
+            "search": "Failed to search for games, please check your SteamGridDB API key and try again"
         },
         "picker": {
             "search": "Search Game",
