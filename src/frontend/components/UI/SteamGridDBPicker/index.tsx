@@ -8,7 +8,7 @@ import {
   faTimes,
   faArrowLeft
 } from '@fortawesome/free-solid-svg-icons'
-import { CachedImage } from 'frontend/components/UI'
+import CachedImage from 'frontend/components/UI/CachedImage'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { SGDBGame, SGDBGrid } from 'common/types'
 
