@@ -303,7 +303,10 @@ export default function AdvancedSetting() {
         <hr />
       </div>
 
-      <SteamGridDbApiKey />
+      <div className="advancedSetting">
+        <SteamGridDbApiKey />
+        <hr />
+      </div>
 
       <div className="advancedSetting">
         <ExperimentalFeatures />
