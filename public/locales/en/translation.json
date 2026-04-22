@@ -220,6 +220,39 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "console": {
+        "cancel": {
+            "hintPrefix": "Hold",
+            "hintSuffix": "for 3s to cancel"
+        },
+        "card": {
+            "needsUpdate": "Needs update"
+        },
+        "empty": "No installed games to show. Install something first.",
+        "filter": {
+            "all": "All",
+            "sideload": "Other"
+        },
+        "games": "Installed games",
+        "hints": {
+            "change_store": "Change store",
+            "launch": "Launch",
+            "navigate": "Navigate",
+            "quit": "Quit",
+            "sort": "Sort"
+        },
+        "launching": "Launching",
+        "loading": "Loading your library…",
+        "quit": "Quit Console",
+        "quitApp": "Quit App",
+        "sort": "Sort",
+        "update": {
+            "body": "This game has an update available. Please leave Console Mode and update the game before launching.",
+            "hintPrefix": "Press",
+            "hintSuffix": "to go back",
+            "title": "Update required"
+        }
+    },
     "controller": {
         "hints": {
             "back": "Back",
@@ -878,6 +911,7 @@
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showMetalOverlay": "Show Stats Overlay",
+        "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "verboseLogs": {
@@ -1004,6 +1038,9 @@
         }
     },
     "Settings": "Settings",
+    "sidebar": {
+        "console": "Console Mode"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",

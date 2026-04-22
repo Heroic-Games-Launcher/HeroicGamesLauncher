@@ -9,6 +9,7 @@ import {
   faUserAlt,
   faWineGlass,
   faBarsProgress,
+  faTv,
   faTags
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
@@ -222,6 +223,13 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
+      <SidebarItem
+        url="/console"
+        icon={faTv}
+        label={t('sidebar.console', 'Console Mode')}
+        dataTour="sidebar-console"
+      />
+
       <SidebarItem
         url="/download-manager"
         icon={faBarsProgress}

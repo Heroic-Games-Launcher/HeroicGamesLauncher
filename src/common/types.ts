@@ -128,6 +128,7 @@ export interface AppSettings extends GameSettings {
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
+  startInConsoleMode: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
@@ -590,6 +591,7 @@ interface GamepadActionArgsWithoutMetadata {
     | 'tab'
     | 'shiftTab'
     | 'keyboardClick'
+    | 'guide'
   metadata?: undefined
 }
 

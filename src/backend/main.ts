@@ -136,6 +136,7 @@ import {
 } from './constants/urls'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
+  isCLIConsoleMode,
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
@@ -243,13 +244,22 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   detectVCRedist(mainWindow)
 
+  const startHash =
+    isCLIConsoleMode || globalConf.startInConsoleMode ? '/console' : undefined
+
   if (process.env.ELECTRON_RENDERER_URL) {
-    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
+    const devUrl = startHash
+      ? `${process.env.ELECTRON_RENDERER_URL}#${startHash}`
+      : process.env.ELECTRON_RENDERER_URL
+    mainWindow.loadURL(devUrl)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
     Menu.setApplicationMenu(null)
-    mainWindow.loadFile(join(publicDir, 'index.html'))
+    mainWindow.loadFile(
+      join(publicDir, 'index.html'),
+      startHash ? { hash: startHash } : undefined
+    )
     if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
@@ -583,6 +593,9 @@ addListener('minimizeWindow', () => getMainWindow()?.minimize())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
+addListener('setFullscreen', (_e, enabled) =>
+  getMainWindow()?.setFullScreen(enabled)
+)
 addListener('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
