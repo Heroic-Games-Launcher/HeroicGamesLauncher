@@ -123,6 +123,7 @@ import {
   customThemesWikiLink,
   discordLink,
   epicLoginUrl,
+  githubSponsorsPage,
   heroicGithubURL,
   kofiPage,
   patreonPage,
@@ -613,6 +614,9 @@ addListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 addListener('openDiscordLink', async () => openUrlOrFile(discordLink))
 addListener('openPatreonPage', async () => openUrlOrFile(patreonPage))
 addListener('openKofiPage', async () => openUrlOrFile(kofiPage))
+addListener('openGithubSponsorsPage', async () =>
+  openUrlOrFile(githubSponsorsPage)
+)
 addListener('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
 addListener('openWebviewPage', async (event, url) => openUrlOrFile(url))
 addListener('openWikiLink', async () => openUrlOrFile(wikiLink))
