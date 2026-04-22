@@ -4,28 +4,30 @@ import { logError, LogPrefix } from 'backend/logger'
 import * as SteamGridDB from './utils'
 import { encryptApiKey, decryptApiKey, isEncryptedValue } from './secureKey'
 
+function readStoredApiKey(): string {
+  const stored: string = GlobalConfig.get().getSettings().steamGridDbApiKey
+  return stored ?? ''
+}
+
 function getDecryptedApiKey(): string {
-  const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
-  if (!steamGridDbApiKey) return ''
+  const stored = readStoredApiKey()
+  if (!stored) return ''
 
   // Migrate legacy plaintext values on first read.
-  if (!isEncryptedValue(steamGridDbApiKey)) {
-    const reEncrypted = encryptApiKey(steamGridDbApiKey)
+  if (!isEncryptedValue(stored)) {
+    const reEncrypted = encryptApiKey(stored)
     if (isEncryptedValue(reEncrypted)) {
       GlobalConfig.get().setSetting('steamGridDbApiKey', reEncrypted)
     }
-    return steamGridDbApiKey
+    return stored
   }
 
-  return decryptApiKey(steamGridDbApiKey)
+  return decryptApiKey(stored)
 }
 
-addHandler('steamgriddb.hasApiKey', async () => {
-  const { steamGridDbApiKey } = GlobalConfig.get().getSettings()
-  return !!steamGridDbApiKey
-})
+addHandler('steamgriddb.hasApiKey', () => !!readStoredApiKey())
 
-addHandler('steamgriddb.setApiKey', async (event, key) => {
+addHandler('steamgriddb.setApiKey', (event, key) => {
   const trimmed = key.trim()
   const stored = trimmed ? encryptApiKey(trimmed) : ''
   GlobalConfig.get().setSetting('steamGridDbApiKey', stored)
