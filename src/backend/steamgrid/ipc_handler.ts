@@ -17,7 +17,7 @@ addHandler('steamgriddb.searchGame', async (event, query) => {
     }))
   } catch (error) {
     logError(['SteamGridDB search failed:', error], LogPrefix.Backend)
-    return []
+    throw error
   }
 })
 
@@ -40,6 +40,6 @@ addHandler('steamgriddb.getGrids', async (event, args) => {
     }))
   } catch (error) {
     logError([`SteamGridDB getGrids failed:`, error], LogPrefix.Backend)
-    return []
+    throw error
   }
 })
