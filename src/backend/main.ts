@@ -102,7 +102,8 @@ import {
   getBranchPassword,
   setBranchPassword,
   getGOGPlaytime,
-  syncQueuedPlaytimeGOG, getAchievements as getAchievementsGOG 
+  syncQueuedPlaytimeGOG,
+  getAchievements as getAchievementsGOG
 } from 'backend/storeManagers/gog/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
