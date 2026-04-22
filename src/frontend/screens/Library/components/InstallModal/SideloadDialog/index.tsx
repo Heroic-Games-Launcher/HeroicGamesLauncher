@@ -339,6 +339,7 @@ export default function SideloadDialog({
                 })}
                 src={imageUrl ? imageUrl : fallbackImage}
                 onLoad={() => setImageLoading(false)}
+                onError={() => setImageLoading(false)}
               />
               {(searching || imageLoading) && (
                 <div className="imageLoadingOverlay">
@@ -402,8 +403,10 @@ export default function SideloadDialog({
                 initialTitle={title}
                 onClose={() => setShowSgdbPicker(false)}
                 onSelect={(url: string) => {
-                  setImageLoading(true)
-                  setImageUrl(url)
+                  if (url !== imageUrl) {
+                    setImageLoading(true)
+                    setImageUrl(url)
+                  }
                 }}
               />
             )}
