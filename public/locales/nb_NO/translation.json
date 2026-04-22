@@ -371,7 +371,7 @@
             "forceGrabCursor": "Bruk alltid relativ musemodus i stedet for å veksle avhengig av markørens synlighet. (Nyttig når applikasjoner stadig mister fokus)"
         },
         "msync": "Msync har som mål å reduserer wineserver-overhead i CPU-intensive spill. Ved å skru på dette kan ytelse på støttede Linux-kjerner forbedres.",
-        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxfpslimit": "Setter en maksgrense for bildehastighet for DirectX-spill (9-12)",
         "advertiseAvxForRosetta": "Skrur på AVX-instruksjoner når Windows-spill kjøres gjennom Rosetta på Apple Silicon Mac-er. Dette kan være nødvendig for enkelte spill som Death Stranding som trenger AVX for å fungere.",
         "download_proton_steam": "Med dette skrudd på vil GE-Proton bli lastet ned direkte til mappen med Steam-kompatibilitetsverktøy fremfor den vanlige for Heroic. GE-Proton vil bruke mappen angitt i «Standard Steam-bane»-innstillingen.",
         "wine-hdr": "HDR forbedrer fargene ved å kunne vise lysere lyspunkter og mørkere kontraster. For at HDR skal fungere, må både skjermen og spillet støtte det.",
@@ -564,7 +564,7 @@
         "custom_themes_path": "Velg stien for å søke etter egendefinerte CSS-filer",
         "dxvkfpsvalue": "Positive heltallsverdier (30, 60, ...)",
         "egs-prefix": "Prefiks der EGS er installert",
-        "prefered_language": "2-tegnskode (dvs.: \"en\" eller \"fr\")",
+        "prefered_language": "2-tegns- eller 4-tegnskode (dvs.: «fr» eller «pt-BR»)",
         "alt-nile-bin": "Bruker innebygd Nile binær..."
     },
     "platforms": {
@@ -660,7 +660,8 @@
                 "actions": "Action",
                 "error": {
                     "content": "Klarte ikke å laste opp loggfilen. Sjekk Heroic sin generelle logg for detaljer",
-                    "title": "Opplasting feilet"
+                    "title": "Opplasting feilet",
+                    "manual_upload": "Klikk «VIS LOGGFIL I MAPPE»-knappen og last opp «launch.log»-filen manuelt til Discord eller en annen fildelingstjeneste."
                 },
                 "header": "Lastet opp loggfiler",
                 "uploading": {
@@ -805,7 +806,9 @@
             "wine_selector_warning": "Valves Proton-versjoner ignoreres som standard, aktiver dem i de avanserte innstillingene"
         },
         "WoW64": "Skru på WoW64 (eksperimentell)",
-        "scripts": "Skript:"
+        "scripts": "Skript:",
+        "enable-quick-sync-menu": "Aktiver hurtiglagrings-synkroniseringsmenyen på spillsiden",
+        "disable_gog_presence": "Deaktiver GOG Presence-oppdateringer"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -842,7 +845,8 @@
             "sync": "Skylagring-synkronisering",
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformasjon",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Foreldret"
         },
         "open-config-file": "Åpne konfigurasjonsfil",
         "reset-heroic": "Tilbakestill Heroic",
@@ -909,7 +913,8 @@
         "custom_css": {
             "title": "Egendefinert CSS-stil"
         },
-        "launchOptions": "Startalternativer..."
+        "launchOptions": "Startalternativer",
+        "legacy_warning": "Advarsel: Innstilingene på denne siden er stort sett foreldret og fungerer muligens ikke."
     },
     "Settings": "Innstillinger",
     "sidebar": {

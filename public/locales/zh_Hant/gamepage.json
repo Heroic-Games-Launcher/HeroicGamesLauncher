@@ -21,7 +21,8 @@
             "title": "選擇要執行的 EXE 檔案"
         },
         "select": {
-            "button": "選擇"
+            "button": "選擇",
+            "image": ""
         },
         "sideload": {
             "exe": "選擇可執行檔"
@@ -51,7 +52,20 @@
         "warning": {
             "title": "警告"
         },
-        "ok": "是"
+        "ok": "是",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "加入我的最愛",
@@ -79,7 +93,9 @@
         "update": "更新",
         "details": "內容",
         "changelog": "顯示更新日誌",
-        "play": "開始游戲"
+        "play": "開始游戲",
+        "browse_wine_prefix": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "不支援",
     "disabled": "已關閉",
@@ -113,7 +129,8 @@
         },
         "install_info": "安裝訊息",
         "modify": "修改安裝",
-        "changelogFor": "{{gameTitle}} 更新日誌"
+        "changelogFor": "{{gameTitle}} 更新日誌",
+        "extra_info": ""
     },
     "gamecard": {
         "moving": "移動中",
@@ -156,8 +173,12 @@
         "anticheat-warning": {
             "ok": "Ok",
             "install_anyway": "是（我理解多人遊戲功能不會正常工作）",
-            "cancel": "否"
-        }
+            "cancel": "否",
+            "disabled_installation": "",
+            "multiplayer_message": "",
+            "title": ""
+        },
+        "flatpak-path-not-writtable": ""
     },
     "label": {
         "game": {
@@ -166,7 +187,8 @@
         },
         "playing": {
             "start": "開始遊戲",
-            "stop": "停止遊戲"
+            "stop": "停止遊戲",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "存檔同步中"
@@ -176,10 +198,13 @@
         "steam": {
             "pleaseWait": "Please wait...",
             "installing": "正在安裝"
-        }
+        },
+        "winetricks": "",
+        "redist": ""
     },
     "launch": {
-        "options": "啟動選項…"
+        "options": "啟動選項…",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "You are not logged in with an Epic account in Heroic. Don't use the store page to login, click the following button instead:",
@@ -195,7 +220,9 @@
     },
     "setting": {
         "winecrossoverbottle": "CrossOver 容器",
-        "show-wine-settings": "顯示 Wine 設定"
+        "show-wine-settings": "顯示 Wine 設定",
+        "warn-use-shared-wine-config": "",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -205,12 +232,19 @@
             "exe": "選擇可執行檔",
             "image": "App Image",
             "title": "Game/App Title",
-            "broser": "瀏覽器網址"
+            "broser": "瀏覽器網址",
+            "useragent": "",
+            "fullscreen": ""
         },
         "placeholder": {
             "image": "Paste an Image URL here",
             "title": "Add a title to your Game/App",
-            "url": "在此處貼上遊戲網址"
+            "url": "在此處貼上遊戲網址",
+            "useragent": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -242,7 +276,10 @@
         "downloading": "下載中",
         "extracting": "提取",
         "goodie": "不可安裝",
-        "gog-goodie": "該遊戲似乎無法安裝。在 https://gog.com/account 上查看可下載內容"
+        "gog-goodie": "該遊戲似乎無法安裝。在 https://gog.com/account 上查看可下載內容",
+        "redist": "",
+        "winetricks": "",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "新增捷徑",
@@ -265,6 +302,9 @@
         "cloud_save_unsupported": "本遊戲不支援雲端存檔。此訊息由遊戲開發商提供。有些遊戲確實實現了自己的雲端存檔系統",
         "title": {
             "gamePage": "遊戲頁面"
+        },
+        "content": {
+            "gamePage": ""
         }
     },
     "modifyInstall": {
@@ -273,13 +313,23 @@
             "enable": "啟用模組",
             "collapsible": "REDmod 整合"
         },
-        "dlcsCollapsible": "DLC"
+        "dlcsCollapsible": "DLC",
+        "nodlcs": ""
     },
     "Open": "開啟",
     "queue": {
         "label": {
             "canceled": "已取消",
-            "remove": "從下載中移除"
+            "remove": "從下載中移除",
+            "resume": "",
+            "pause": ""
         }
-    }
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "open-saves-folder": "",
+    "wikiLink": ""
 }

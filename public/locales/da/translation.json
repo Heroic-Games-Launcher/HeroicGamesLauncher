@@ -83,7 +83,11 @@
                 "generic": "Der opstod en fejl! Prøv at logge ud og logge på din Epic-konto. {{newline}} {{error}}"
             },
             "executableNotFoundMessage": "Heroic kunne ikke finde den eksekverbare fil til dette spil. Indstil den manuelt i spilindstillingerne.",
-            "executableNotFound": "Kørbar fil ikke fundet"
+            "executableNotFound": "Kørbar fil ikke fundet",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            }
         },
         "info": {
             "update": {
@@ -420,7 +424,8 @@
                 },
                 "error": {
                     "content": "Det lykkedes ikke at uploade logfilen. Tjek Heroics generelle log for detaljer",
-                    "title": "Upload fejlede"
+                    "title": "Upload fejlede",
+                    "manual_upload": ""
                 },
                 "header": "Uploadede logfiler",
                 "hours-ago": "Uploadet {{hoursAgo, relativetime(hours)}}",
@@ -554,7 +559,8 @@
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Hjælpekomponent",
-            "enableNewDesign": "Nyt design"
+            "enableNewDesign": "Nyt design",
+            "zoomPlatform": ""
         },
         "frameless-window": {
             "confirmation": {
@@ -588,7 +594,9 @@
             "description": "Aktivér detaljerede logfiler"
         },
         "wineWayland": "Aktivér Wine-Wayland (eksperimentelt) (Wine-versionen skal understøtte dette)",
-        "WoW64": "Aktivér WoW64 (eksperimentelt)"
+        "WoW64": "Aktivér WoW64 (eksperimentelt)",
+        "scripts": "",
+        "enable-quick-sync-menu": ""
     },
     "wine": {
         "manager": {
@@ -600,7 +608,8 @@
         },
         "release": "Udgivelses dato",
         "size": "Størrelse",
-        "actions": "Handling"
+        "actions": "Handling",
+        "notes": ""
     },
     "library": {
         "refresh": "Opdater",
@@ -653,7 +662,8 @@
             "games_settings": "Spilindstillinger",
             "games_settings_defaults": "Spilstandarder",
             "gamescope": "Gamescope",
-            "systemInformation": "Systemoplysninger"
+            "systemInformation": "Systemoplysninger",
+            "legacy": ""
         },
         "battlEyeRuntime": {
             "installing": "Installerer BattlEye Runtime...",
@@ -717,7 +727,8 @@
             "systemModel": "Systemmodel:",
             "systemSpecifications": "Systemspecifikationer:"
         },
-        "launchOptions": "Opstartsinstillinger..."
+        "launchOptions": "Opstartsinstillinger...",
+        "legacy_warning": ""
     },
     "title": {
         "allUnreal": "Uvirkeligt - Alt",

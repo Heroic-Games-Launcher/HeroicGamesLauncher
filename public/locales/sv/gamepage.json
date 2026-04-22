@@ -130,7 +130,8 @@
         "changelogFor": "Ändringslogg för {{gameTitle}}",
         "modify": "Modifiera installation",
         "extra_info": "Extra information",
-        "install_info": "Installationsinformation"
+        "install_info": "Installationsinformation",
+        "achievements": "Achievements"
     },
     "gamecard": {
         "moving": "Flyttar",

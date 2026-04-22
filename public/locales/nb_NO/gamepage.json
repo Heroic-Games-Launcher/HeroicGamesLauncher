@@ -132,7 +132,8 @@
         "modify": "Endre installasjonen",
         "changelogFor": "Endringslogg for {{gameTitle}}",
         "extra_info": "Ekstra info",
-        "install_info": "Installasjonsinfo"
+        "install_info": "Installasjonsinfo",
+        "achievements": "Prestasjoner"
     },
     "gamecard": {
         "moving": "Flytter",

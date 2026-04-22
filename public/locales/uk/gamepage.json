@@ -131,7 +131,8 @@
         "changelogFor": "Журнал змін для {{gameTitle}}",
         "modify": "Змінити встановлення",
         "extra_info": "Додаткова інформація",
-        "install_info": "Інформація про встановлення"
+        "install_info": "Інформація про встановлення",
+        "achievements": "Досягнення"
     },
     "gamecard": {
         "moving": "Переміщення",

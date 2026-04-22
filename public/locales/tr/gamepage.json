@@ -2,13 +2,13 @@
     "box": {
         "change": {
             "message": "Bu, oyunun kurulum konumunu değiştirecek, emin misiniz?",
-            "path": "Yeni kurulum yolu seç",
-            "title": "Oyun Kurulum Yolunu Değiştir"
+            "path": "Yeni kurulum konumu seçin",
+            "title": "Oyunların kurulum konumunu değiştir"
         },
         "choose": "Seç",
         "importpath": "İçe Aktarılacak Oyun Klasörünü Seç",
         "move": {
-            "message": "Bu uzun sürebilir, emin misin?",
+            "message": "Bu biraz uzun sürebilir, emin misin?",
             "path": "Nereye taşımak istediğinizi seçin",
             "title": "Oyun Kurulumunu Taşı"
         },
@@ -65,7 +65,7 @@
         "offline_warning": {
             "message": "Bu oyun çevrimdışı iken düzgün çalışmayabilir. Yine de oynamak ister misin?",
             "playAnyway": "Yine De Oyna",
-            "title": "Çevrimdışılık Uyarısı"
+            "title": "İnternet Bağlantısı Yok"
         }
     },
     "button": {
@@ -131,7 +131,8 @@
         "changelogFor": "{{gameTitle}} değişiklik günlükleri",
         "modify": "Kurulumu Düzenle",
         "install_info": "Kurulum bilgisi",
-        "extra_info": "Ek bilgi"
+        "extra_info": "Ek bilgi",
+        "achievements": "Başarımlar"
     },
     "gamecard": {
         "moving": "Taşınıyor",
