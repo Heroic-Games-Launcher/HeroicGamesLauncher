@@ -124,6 +124,7 @@ import {
   customThemesWikiLink,
   discordLink,
   epicLoginUrl,
+  githubSponsorsPage,
   heroicGithubURL,
   kofiPage,
   patreonPage,
@@ -614,6 +615,9 @@ addListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 addListener('openDiscordLink', async () => openUrlOrFile(discordLink))
 addListener('openPatreonPage', async () => openUrlOrFile(patreonPage))
 addListener('openKofiPage', async () => openUrlOrFile(kofiPage))
+addListener('openGithubSponsorsPage', async () =>
+  openUrlOrFile(githubSponsorsPage)
+)
 addListener('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
 addListener('openWebviewPage', async (event, url) => openUrlOrFile(url))
 addListener('openWikiLink', async () => openUrlOrFile(wikiLink))
@@ -806,6 +810,7 @@ addHandler('authZoom', async (event, url) => {
   }
   return login
 })
+
 addListener('logoutZoom', ZoomUser.logout)
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
@@ -1408,3 +1413,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './steamgrid/ipc_handler'

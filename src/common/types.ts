@@ -133,6 +133,7 @@ export interface AppSettings extends GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  steamGridDbApiKey: string
 }
 
 export type LibraryTopSectionOptions =
@@ -787,7 +788,6 @@ export type WineManagerStatus =
 export interface WineManagerUISettings {
   value: string
   type: Type
-  enabled: boolean
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
@@ -844,6 +844,17 @@ export interface RunnerCommandStub {
   response?: Promise<ExecResult>
   stdout?: string
   stderr?: string
+}
+
+export interface SGDBGrid {
+  id: number
+  url: string
+  thumb: string
+}
+
+export interface SGDBGame {
+  id: number
+  name: string
 }
 
 export type ReleasesInfo = Record<
