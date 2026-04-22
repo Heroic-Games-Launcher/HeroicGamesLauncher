@@ -15,6 +15,7 @@ import { Dialog } from 'frontend/components/UI/Dialog'
 import './index.scss'
 
 import DownloadDialog from './DownloadDialog'
+import ImportDialog from './ImportDialog'
 import SideloadDialog from './SideloadDialog'
 import WineSelector from './WineSelector'
 import { SelectField } from 'frontend/components/UI'
@@ -43,6 +44,7 @@ export type AvailablePlatforms = {
 function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const { platform } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
+  const { action = 'install' } = useInstallGameModal()
 
   const [winePrefix, setWinePrefix] = useState('...')
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
@@ -154,6 +156,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
 
   const showDownloadDialog = !isSideload && gameInfo
   const isThirdPartyManagedApp = gameInfo && !!gameInfo.thirdPartyManagedApp
+  const isImportMode = action === 'import'
 
   const closeModal = () => closeInstallGameModal()
 
@@ -192,6 +195,33 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
               />
             ) : null}
           </ThirdPartyDialog>
+        ) : isImportMode && showDownloadDialog ? (
+          <ImportDialog
+            appName={appName}
+            runner={runner}
+            winePrefix={winePrefix}
+            wineVersion={wineVersion}
+            availablePlatforms={availablePlatforms}
+            backdropClick={closeModal}
+            platformToInstall={platformToInstall}
+            gameInfo={gameInfo}
+            crossoverBottle={crossoverBottle}
+          >
+            {platformSelection()}
+            {hasWine ? (
+              <WineSelector
+                appName={appName}
+                winePrefix={winePrefix}
+                wineVersion={wineVersion}
+                wineVersionList={wineVersionList}
+                title={gameInfo?.title}
+                setWinePrefix={setWinePrefix}
+                setWineVersion={setWineVersion}
+                crossoverBottle={crossoverBottle}
+                setCrossoverBottle={setCrossoverBottle}
+              />
+            ) : null}
+          </ImportDialog>
         ) : showDownloadDialog ? (
           <DownloadDialog
             appName={appName}
