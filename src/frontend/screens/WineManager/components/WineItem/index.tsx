@@ -120,7 +120,7 @@ const WineItem = ({
         {date}
       </div>
       <div className="size">
-        {renderStatus()}
+        <span className="sizeValue">{renderStatus()}</span>
         {isDownloading && (
           <span className="percentageText">
             {' '}

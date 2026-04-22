@@ -80,6 +80,11 @@
   color: var(--accent);
 }
 
+.wineItem .sizeValue {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 .wineItem .percentageText {
   font-size: 0.8rem;
   font-weight: 700;
