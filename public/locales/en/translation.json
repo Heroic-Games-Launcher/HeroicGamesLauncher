@@ -289,12 +289,15 @@
         "title": "Game Title"
     },
     "generic": {
+        "abort": "Abort",
         "error": {
             "component": "No games found - Try to logout and login again or one of the options below"
         },
+        "install": "Install",
         "library": {
             "refresh": "Refresh Library"
-        }
+        },
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -1037,17 +1040,26 @@
         "actions": "Action",
         "manager": {
             "link": "Wine Manager",
+            "loading": "Loading wine versions...",
+            "no-results": "No Wine versions match your search.",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "open_folder": "Open Folder",
+            "search": "Search versions...",
+            "settings": "Settings",
             "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "unzipping": "Unzipping",
+            "update": "Update"
         },
         "notes": "Notes",
         "release": "Release Date",
         "size": "Size"
     },
     "wineExplanation": {
+        "gpt": "Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.",
         "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher."
+        "wine-crossover": "Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.",
+        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.",
+        "wine-staging-macos": "Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool."
     },
     "winetricks": {
         "install": "Install",

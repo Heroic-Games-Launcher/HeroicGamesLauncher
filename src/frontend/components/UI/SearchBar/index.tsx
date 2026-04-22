@@ -33,7 +33,7 @@ export default function SearchBar({
       }
     }
     return
-  }, [input])
+  }, [input, value, onInputChanged])
 
   const onClear = useCallback(() => {
     onInputChanged('')
@@ -41,7 +41,7 @@ export default function SearchBar({
       input.current.value = ''
       input.current.focus()
     }
-  }, [input])
+  }, [onInputChanged])
 
   return (
     <div className="SearchBar" data-testid="searchBar">
