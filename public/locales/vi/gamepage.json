@@ -131,7 +131,8 @@
         "changelogFor": "Nhật ký thay đổi của {{gameTitle}}",
         "extra_info": "Thông tin thêm",
         "install_info": "Thông tin cài đặt",
-        "modify": "Sửa Đổi Cài Đặt"
+        "modify": "Sửa Đổi Cài Đặt",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Đang Chuyển",
