@@ -100,7 +100,9 @@ const ExperimentalFeatures = () => {
       }
     } catch (err: unknown) {
       setExportStatus('error')
-      setExportMessage((err as Error).message || 'An error occurred during export')
+      setExportMessage(
+        (err as Error).message || 'An error occurred during export'
+      )
     }
 
     setTimeout(() => {

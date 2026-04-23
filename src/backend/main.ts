@@ -1,6 +1,11 @@
 import { initImagesCache } from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
-import { DiskSpaceData, StatusPromise, WineInstallation, GameInfo } from 'common/types'
+import {
+  DiskSpaceData,
+  StatusPromise,
+  WineInstallation,
+  GameInfo
+} from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -1510,7 +1515,9 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
     // Enrich games with cached metadata before flattening
     const enrichedEntries = games.map((gameBase) => {
       // Make a shallow copy to avoid mutating the original (though we are in a handler)
-      const game = { ...gameBase } as Omit<GameInfo, 'extra'> & { extra?: Record<string, unknown> }
+      const game = { ...gameBase } as Omit<GameInfo, 'extra'> & {
+        extra?: Record<string, unknown>
+      }
 
       // 1. Store-specific enrichment
       if (game.runner === 'legendary') {
