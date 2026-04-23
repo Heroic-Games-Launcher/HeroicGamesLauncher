@@ -131,7 +131,8 @@
             "toggle": "Oyunu xüsusi versiyada saxlayın",
             "version": "Versiya"
         },
-        "changelogFor": "{{gameTitle}} üçün dəyişiklik jurnalı"
+        "changelogFor": "{{gameTitle}} üçün dəyişiklik jurnalı",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Hərəkət edir",

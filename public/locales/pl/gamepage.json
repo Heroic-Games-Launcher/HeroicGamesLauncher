@@ -131,7 +131,8 @@
         "changelogFor": "Dziennik zmian dla {{gameTitle}}",
         "modify": "Modyfikuj instalację",
         "extra_info": "Dodatkowe Informacje",
-        "install_info": "Informacje o instalacji"
+        "install_info": "Informacje o instalacji",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Przenoszenie",

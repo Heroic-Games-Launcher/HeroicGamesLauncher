@@ -125,7 +125,8 @@
         "getting-download-size": "Gaunamas atsisiuntimo dydis",
         "getting-install-size": "Gaunamas įdiegimo dydis",
         "modify": "Redaguoti įdiegimą",
-        "platform": "Pasirinkti platformos versiją, kurią įdiegti"
+        "platform": "Pasirinkti platformos versiją, kurią įdiegti",
+        "achievements": ""
     },
     "gamecard": {
         "repairing": "Taisoma/-s",

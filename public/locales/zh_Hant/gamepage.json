@@ -130,7 +130,8 @@
         "install_info": "安裝訊息",
         "modify": "修改安裝",
         "changelogFor": "{{gameTitle}} 更新日誌",
-        "extra_info": ""
+        "extra_info": "",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "移動中",

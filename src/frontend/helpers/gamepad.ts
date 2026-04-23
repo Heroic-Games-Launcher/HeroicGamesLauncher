@@ -60,7 +60,8 @@ export const updateGamepadActions = async () => {
     esc: { triggeredAt: {}, repeatDelay: false },
     tab: { triggeredAt: {}, repeatDelay: false },
     shiftTab: { triggeredAt: {}, repeatDelay: false },
-    keyboardClick: { triggeredAt: {}, repeatDelay: false }
+    keyboardClick: { triggeredAt: {}, repeatDelay: false },
+    guide: { triggeredAt: {}, repeatDelay: false }
   }
 }
 
@@ -131,6 +132,25 @@ export const initGamepad = () => {
 
       emitControllerEvent(controllerIndex)
       const el = currentElement()
+
+      // Guide / PS button toggles Console Mode. Many OSes (Steam, Game Bar)
+      // intercept it, so the sidebar entry is the reliable fallback.
+      if (action === 'guide') {
+        if (document.body.classList.contains('console-launching')) return
+        const inConsole = window.location.hash.startsWith('#/console')
+        window.location.hash = inConsole ? '#/' : '#/console'
+        return
+      }
+
+      // `back` hits webContents.goBack() on the backend, which would pop
+      // out of /console during a launch or while a console modal is open.
+      if (
+        action === 'back' &&
+        (document.body.classList.contains('console-launching') ||
+          document.body.classList.contains('console-modal-open'))
+      ) {
+        return
+      }
 
       // check special cases for the different actions, more details on the wiki
       switch (action) {

@@ -189,7 +189,7 @@
                 "title": "Rosetta не был найден"
             }
         },
-        "wineprefix": "Выбрать папку префикса Wine",
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "ДА",
         "dontShowAgain": "Больше не показывать",
         "choose-nile-binary": "Выберите двоичный файл Нила",
@@ -265,7 +265,10 @@
         },
         "library": {
             "refresh": "Обновить библиотеку"
-        }
+        },
+        "abort": "",
+        "install": "Установка",
+        "uninstall": "Удалить"
     },
     "globalSettings": "Глобальные настройки",
     "GOG": "GOG",
@@ -808,7 +811,8 @@
         "WoW64": "Включить WoW64 (экспериментально)",
         "scripts": "Скрипты:",
         "enable-quick-sync-menu": "Включить быструю синхронизацию сохранений на странице игры",
-        "disable_gog_presence": "Отключить обновление статуса в GOG"
+        "disable_gog_presence": "Отключить обновление статуса в GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -914,12 +918,23 @@
             "title": "Пользовательские стили CSS"
         },
         "launchOptions": "Параметры запуска",
-        "legacy_warning": "Предупреждение: настройки на этой вкладке в основном устарели и могут не работать."
+        "legacy_warning": "Предупреждение: настройки на этой вкладке в основном устарели и могут не работать.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Настройки",
     "sidebar": {
         "collapse": "Свернуть боковую панель",
-        "uncollapse": "Развернуть боковую панель"
+        "uncollapse": "Развернуть боковую панель",
+        "console": ""
     },
     "status": {
         "installing": "Установка",
@@ -976,7 +991,13 @@
             "link": "Менеджер Wine",
             "not-found": "Версии Wine не найдены. Пожалуйста, нажмите на значок обновления, чтобы повторить попытку.",
             "title": "Менеджер Wine",
-            "unzipping": "Распаковка"
+            "unzipping": "Распаковка",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Обновление",
+            "settings": "Настройки",
+            "no-results": ""
         },
         "release": "Дата выхода",
         "size": "Размер",
@@ -1047,7 +1068,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton - это вариант Proton, созданный Glorious Eggroll. Он предназначен для использования в Steam, но некоторые игры за пределами Steam могут работать лучше с этим вариантом. Он предоставляет в основном бесполезные для устранения неполадок логи.",
-        "wine-ge": "Wine-GE-Proton - это вариант Wine, созданный Glorious Eggroll. Он был объявлен устаревшим в пользу GE-Proton с лаунчером umu."
+        "wine-ge": "Wine-GE-Proton - это вариант Wine, созданный Glorious Eggroll. Он был объявлен устаревшим в пользу GE-Proton с лаунчером umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "tour": {
         "back": "Назад",
@@ -1118,5 +1142,132 @@
     "zoom-store": "Магазин Zoom",
     "launch": {
         "options": "Параметры запуска..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Операционная система:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Все",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Игры не найдены",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "Закрыть Heroic",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Другое",
+            "all": "Все"
+        },
+        "empty": "",
+        "games": "Установленные игры",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Следующий"
 }

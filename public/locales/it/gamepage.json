@@ -131,7 +131,8 @@
         "changelogFor": "Changelog di {{gameTitle}}",
         "modify": "Modifica Installazione",
         "extra_info": "Informazioni aggiuntive",
-        "install_info": "Informazioni d'installazione"
+        "install_info": "Informazioni d'installazione",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Spostamento in corso",

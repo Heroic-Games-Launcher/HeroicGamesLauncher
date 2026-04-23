@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Опресняване на библиотеката"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Глобални настройки",
     "GOG": "GOG",
@@ -817,7 +820,8 @@
         "WoW64": "Включване на WoW64 (експериментално)",
         "scripts": "Скриптове:",
         "enable-quick-sync-menu": "Включете менюто за бързо синхронизиране на запазените игри, в страницата на играта",
-        "disable_gog_presence": "Изключване на актуализациите за присъствие в GOG"
+        "disable_gog_presence": "Изключване на актуализациите за присъствие в GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -923,12 +927,23 @@
             "title": "Персонализиран CSS стил"
         },
         "launchOptions": "Пускови опции",
-        "legacy_warning": "Внимание: повечето от настройките в този раздел са стари и може изобщо да не работят."
+        "legacy_warning": "Внимание: повечето от настройките в този раздел са стари и може изобщо да не работят.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Настройки",
     "sidebar": {
         "collapse": "Свиване на страничната лента",
-        "uncollapse": "Разпъване на страничната лента"
+        "uncollapse": "Разпъване на страничната лента",
+        "console": ""
     },
     "status": {
         "installing": "Инсталира се",
@@ -985,7 +1000,13 @@
             "link": "Управление на Wine",
             "not-found": "Няма намерени версии на Wine. Натиснете иконката за опресняване, за да опитате отново.",
             "title": "Управление на Wine",
-            "unzipping": "Разархивиране"
+            "unzipping": "Разархивиране",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Дата на изданието",
         "size": "Размер",
@@ -1044,7 +1065,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton е вариант на Proton разработен от Glorious Eggroll. Той има за цел да бъде ползван в Steam, но някои игри извън Steam може да работят по-добре с този вариант. Журналите за отстраняване на грешки, които предоставя, са в голяма част неизползваеми.",
-        "wine-ge": "Wine-GE-Proton е вариант на Wine разработен от Glorious Eggroll. Това е препоръчителният вариант на Wine, който да се ползва извън Steam. Той предоставя полезни журнали за отстраняване на грешки."
+        "wine-ge": "Wine-GE-Proton е вариант на Wine разработен от Glorious Eggroll. Това е препоръчителният вариант на Wine, който да се ползва извън Steam. Той предоставя полезни журнали за отстраняване на грешки.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "add-placeholder": "Добавяне на нова категория",
@@ -1129,5 +1153,132 @@
     "zoom-store": "Магазин на Zoom",
     "launch": {
         "options": "Параметри за стартиране…"
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

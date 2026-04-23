@@ -26,7 +26,8 @@ import {
   DownloadNoHTTPS,
   ExperimentalFeatures,
   ResetHeroic,
-  GamePadDelayRepeat
+  GamePadDelayRepeat,
+  SteamGridDbApiKey
 } from '../../components'
 import DisableGOGPresence from '../../components/DisableGOGPresence'
 
@@ -302,6 +303,11 @@ export default function AdvancedSetting() {
             </button>
           )}
         </div>
+        <hr />
+      </div>
+
+      <div className="advancedSetting">
+        <SteamGridDbApiKey />
         <hr />
       </div>
 
