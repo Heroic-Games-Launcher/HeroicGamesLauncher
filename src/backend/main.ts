@@ -1,6 +1,11 @@
 import { initImagesCache } from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
-import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
+import {
+  DiskSpaceData,
+  StatusPromise,
+  WineInstallation,
+  GameInfo
+} from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -23,7 +28,13 @@ import 'backend/updater'
 import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
-import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  watch,
+  readdirSync,
+  readFileSync,
+  writeFileSync
+} from 'graceful-fs'
 import 'source-map-support/register'
 
 import Backend from 'i18next-fs-backend'
@@ -78,7 +89,10 @@ import {
   LogPrefix,
   logWarning
 } from './logger'
-import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
+import {
+  gameInfoStore,
+  gameInfoStore as legendaryExtraInfoStore
+} from 'backend/storeManagers/legendary/electronStores'
 import {
   launchEventCallback,
   readKnownFixes,
@@ -103,9 +117,14 @@ import {
   getBranchPassword,
   setBranchPassword,
   getGOGPlaytime,
-  syncQueuedPlaytimeGOG
+  syncQueuedPlaytimeGOG,
+  getAchievements as getAchievementsGOG
 } from 'backend/storeManagers/gog/games'
-import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
+import {
+  apiInfoCache as gogExtraInfoStore,
+  playtimeSyncQueue
+} from './storeManagers/gog/electronStores'
+import { wikiGameInfoStore } from 'backend/wiki_game_info/electronStore'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
   autoUpdate,
@@ -157,11 +176,8 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
-import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
-
-const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
@@ -912,17 +928,28 @@ addHandler('launch', (event, args): StatusPromise => {
   return launchEventCallback(args)
 })
 
-addHandler('openDialog', async (e, args) => {
-  const mainWindow = getMainWindow()
-  if (!mainWindow) {
+addHandler('openDialog', async (e, args): Promise<string | false> => {
+  const window = getMainWindow()
+  if (!window) {
     return false
   }
-
-  const { filePaths, canceled } = await showOpenDialog(mainWindow, args)
-  if (!canceled) {
-    return filePaths[0]
+  const result = await dialog.showOpenDialog(window, args)
+  if (result.canceled || result.filePaths.length === 0) {
+    return false
   }
-  return false
+  return result.filePaths[0]
+})
+
+addHandler('saveDialog', async (e, args): Promise<string | false> => {
+  const window = getMainWindow()
+  if (!window) {
+    return false
+  }
+  const result = await dialog.showSaveDialog(window, args)
+  if (result.canceled || !result.filePath) {
+    return false
+  }
+  return result.filePath
 })
 
 addListener('showItemInFolder', async (e, item) => showItemInFolder(item))
@@ -1425,6 +1452,167 @@ addHandler('getKnownFixes', (e, appName, runner) =>
 addHandler('wine.isValidVersion', async (e, wineVersion: WineInstallation) =>
   validWine(wineVersion)
 )
+
+addHandler('exportLibrary', async (_e, { filePath, games }) => {
+  try {
+    if (!filePath || !games) {
+      logError('exportLibrary: Invalid arguments', LogPrefix.Backend)
+      return { success: false, error: 'Invalid arguments' }
+    }
+
+    /**
+     * Recursively flatten a nested object to a flat key->value map.
+     */
+    function flattenObject(
+      obj: Record<string, unknown>,
+      prefix = ''
+    ): Record<string, string> {
+      const result: Record<string, string> = {}
+      for (const [key, value] of Object.entries(obj)) {
+        const fullKey = prefix ? `${prefix}.${key}` : key
+        if (value === null || value === undefined) {
+          continue
+        } else if (Array.isArray(value)) {
+          if (value.length === 0) continue
+          // Try to extract useful strings from objects or primitives
+          const extracted = value
+            .map((v) => {
+              if (typeof v === 'string') return v
+              if (v && typeof v === 'object') {
+                // Handle GOG-style multi-language names or simple name fields
+                return (
+                  v.name?.['en-US'] ||
+                  v.name?.['*'] ||
+                  v.name ||
+                  v.title ||
+                  JSON.stringify(v)
+                )
+              }
+              return String(v)
+            })
+            .filter((v) => !!v && typeof v === 'string')
+
+          if (extracted.length > 0) {
+            result[fullKey] = extracted
+              .map((v) => String(v).replace(/"/g, '""'))
+              .join(', ')
+          }
+        } else if (typeof value === 'object') {
+          const nested = flattenObject(
+            value as Record<string, unknown>,
+            fullKey
+          )
+          if (Object.keys(nested).length > 0) {
+            Object.assign(result, nested)
+          }
+        } else {
+          result[fullKey] = String(value).replace(/"/g, '""')
+        }
+      }
+      return result
+    }
+
+    // Enrich games with cached metadata before flattening
+    const enrichedEntries = games.map((gameBase) => {
+      // Make a shallow copy to avoid mutating the original (though we are in a handler)
+      const game = { ...gameBase } as Omit<GameInfo, 'extra'> & {
+        extra?: Record<string, unknown>
+      }
+
+      // 1. Store-specific enrichment
+      if (game.runner === 'legendary') {
+        const extra = legendaryExtraInfoStore.get(game.app_name)
+        if (extra) {
+          game.extra = { ...game.extra, ...extra }
+        }
+      } else if (game.runner === 'gog') {
+        const gogExtra = gogExtraInfoStore.get(game.app_name)
+        if (gogExtra && gogExtra.game) {
+          if (!game.extra) game.extra = {}
+          // Map GOG GamesDB fields to ExtraInfo pattern
+          if (gogExtra.game.genres) {
+            game.extra.genres = gogExtra.game.genres.map(
+              (g) => g.name?.['en-US'] || g.name?.['*'] || g.slug
+            )
+          }
+          if (gogExtra.game.first_release_date) {
+            game.extra.releaseDate = gogExtra.game.first_release_date
+          }
+          if (gogExtra.game.summary) {
+            game.description =
+              gogExtra.game.summary?.['en-US'] ||
+              gogExtra.game.summary?.['*'] ||
+              game.description
+          }
+        }
+      }
+
+      // 2. Wiki enrichment (Common)
+      const wiki = wikiGameInfoStore.get(game.app_name)
+      if (wiki) {
+        if (!game.extra) game.extra = {}
+        if (wiki.pcgamingwiki) {
+          if (wiki.pcgamingwiki.genres && !game.extra.genres) {
+            game.extra.genres = wiki.pcgamingwiki.genres
+          }
+          if (wiki.pcgamingwiki.releaseDate && !game.extra.releaseDate) {
+            game.extra.releaseDate = wiki.pcgamingwiki.releaseDate[0]
+          }
+        }
+      }
+
+      return flattenObject(game as Record<string, unknown>)
+    })
+
+    // Sort entries alphabetically by title
+    enrichedEntries.sort((a, b) => (a.title || '').localeCompare(b.title || ''))
+
+    if (enrichedEntries.length === 0) {
+      return { success: false, error: 'No library entries to export' }
+    }
+
+    const allColumnsSet = new Set(
+      enrichedEntries.flatMap((e) => Object.keys(e))
+    )
+    const priorityColumns = [
+      'title',
+      'developer',
+      'extra.about.description',
+      'runner',
+      'store_url',
+      'art_cover'
+    ]
+    const otherColumns = Array.from(allColumnsSet)
+      .filter((col) => !priorityColumns.includes(col))
+      .sort()
+    const allColumns = [
+      ...priorityColumns.filter((col) => allColumnsSet.has(col)),
+      ...otherColumns
+    ]
+    const csvHeader = allColumns.map((c) => `"${c}"`).join(',')
+    const csvRows = enrichedEntries.map((entry) =>
+      allColumns
+        .map((col) => (entry[col] !== undefined ? `"${entry[col]}"` : ''))
+        .join(',')
+    )
+    const csvContent = [csvHeader, ...csvRows].join('\n')
+
+    logInfo(
+      `exportLibrary: attempting to write to ${filePath}`,
+      LogPrefix.Backend
+    )
+    writeFileSync(filePath, csvContent, 'utf-8')
+
+    logInfo(`Library exported to ${filePath}`, LogPrefix.Backend)
+    return { success: true, filePath }
+  } catch (err) {
+    logError(['exportLibrary error:', err], LogPrefix.Backend)
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : String(err)
+    }
+  }
+})
 
 /*
   Other Keys that should go into translation files:
