@@ -1502,11 +1502,17 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
       return flattenObject(game)
     })
 
+    // Sort entries alphabetically by title
+    enrichedEntries.sort((a, b) => (a.title || '').localeCompare(b.title || ''))
+
     if (enrichedEntries.length === 0) {
       return { success: false, error: 'No library entries to export' }
     }
 
-    const allColumns = Array.from(new Set(enrichedEntries.flatMap((e) => Object.keys(e))))
+    const allColumnsSet = new Set(enrichedEntries.flatMap((e) => Object.keys(e)))
+    const priorityColumns = ['title', 'developer', 'extra.about.description', 'runner', 'store_url', 'art_cover']
+    const otherColumns = Array.from(allColumnsSet).filter(col => !priorityColumns.includes(col)).sort()
+    const allColumns = [...priorityColumns.filter(col => allColumnsSet.has(col)), ...otherColumns]
     const csvHeader = allColumns.map((c) => `"${c}"`).join(',')
     const csvRows = enrichedEntries.map((entry) =>
       allColumns

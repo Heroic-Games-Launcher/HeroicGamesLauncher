@@ -192,7 +192,7 @@ export default React.memo(function ActionIcons({
         </button>
         <button
           className="FormControl__button"
-          title={t('library.export', 'Export Library to CSV')}
+          title={t('library.export', 'Export Library')}
           onClick={handleExport}
         >
           <FontAwesomeIcon
