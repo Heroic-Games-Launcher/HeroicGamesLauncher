@@ -38,6 +38,7 @@ import {
 } from './hooks'
 
 import type { GameInfo, Runner } from 'common/types'
+import BackgroundImage from './components/BackgroundImage'
 
 const CANCEL_HOLD_MS = 3000
 
@@ -374,6 +375,18 @@ export default function ConsoleMode() {
           </button>
         </div>
       </div>
+
+      <BackgroundImage
+        url={
+          visibleGames[focusedIndex]
+            ? getImageFormatting(
+                visibleGames[focusedIndex].art_background ??
+                  visibleGames[focusedIndex].art_cover,
+                visibleGames[focusedIndex].runner
+              ) || fallBackImage
+            : fallBackImage
+        }
+      />
 
       <div className="consoleTitleBar">
         {visibleGames[focusedIndex] && (
