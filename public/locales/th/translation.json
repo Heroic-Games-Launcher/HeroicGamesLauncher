@@ -3,84 +3,417 @@
         "actions_font_family_default": "เลือกชุด Font (Default: {{fontFamily}})",
         "all_tiles_in_color": "แสดงเกมทั้งหมดในสี",
         "content_font_family_default": "ชุด Font Content (Default: {{fontFamily}})",
-        "disable_animations": "ปิด UI เคลื่อนไหว"
+        "disable_animations": "ปิด UI เคลื่อนไหว",
+        "fonts": "",
+        "title": "",
+        "disable_smooth_scrolling": "",
+        "titles_always_visible": "",
+        "disable_dialog_backdrop_close": "",
+        "zoom": ""
     },
     "analyticsModal": {
         "disable": "ปิดใช้งานแล้ว",
-        "enable": "เปิดใช้งาน"
+        "enable": "เปิดใช้งาน",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
     },
     "box": {
         "choose": "เลือก",
         "error": {
             "generic": {
-                "title": "เลือกไฟล์ EXE ที่จะรัน"
+                "title": "เลือกไฟล์ EXE ที่จะรัน",
+                "message": ""
+            },
+            "launchAborted": "",
+            "credentials": {
+                "message": ""
+            },
+            "legendary": {
+                "generic": ""
+            },
+            "title": "",
+            "winetricks": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFound": "",
+            "dxvk": {
+                "message": "",
+                "title": ""
+            },
+            "update": {
+                "message": "",
+                "title": ""
+            },
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "moving": "",
+            "uncaught-exception": {
+                "message": "",
+                "title": ""
+            },
+            "add": {
+                "steam": {
+                    "title": "",
+                    "body": ""
+                }
+            },
+            "cx-bottle-not-found": {
+                "title": "",
+                "message": ""
+            },
+            "executableNotFoundMessage": "",
+            "folder-not-found": {
+                "title": ""
             }
         },
         "runexe": {
             "title": "เลือกไฟล์ EXE ที่จะรัน"
         },
         "select": {
-            "button": "เลิอก"
+            "button": "เลิอก",
+            "script": "",
+            "exe": ""
         },
         "update": "อัปเดต",
-        "yes": "ใช่"
+        "yes": "ใช่",
+        "warning": {
+            "epic": {
+                "install": "",
+                "import": "",
+                "update": ""
+            },
+            "wine-change": {
+                "message": "",
+                "title": ""
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
+            },
+            "title": "",
+            "snap": {
+                "checkbox": "",
+                "title": "",
+                "message": ""
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "",
+                    "message": ""
+                }
+            }
+        },
+        "choose-gogdl-binary": "",
+        "info": {
+            "update": {
+                "detail": "",
+                "title-finished": "",
+                "message-finished": "",
+                "message": "",
+                "detailNoAutoupdate": "",
+                "title": ""
+            }
+        },
+        "choose-legendary-binary": "",
+        "reset-heroic": {
+            "question": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "quit": {
+            "message": "",
+            "title": ""
+        },
+        "protocol": {
+            "install": {
+                "not_installed": ""
+            }
+        },
+        "changelog": "",
+        "shortcuts": {
+            "title": "",
+            "message-remove": "",
+            "message": "",
+            "message-remove-mac": "",
+            "message-mac": ""
+        },
+        "vcruntime": {
+            "install": {
+                "message": ""
+            },
+            "notfound": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "default-install-path": "",
+        "no": "ไม่",
+        "wineprefix": "",
+        "default-steam-path": "",
+        "downloadNow": "",
+        "postpone": "",
+        "choose-egs-prefix": "",
+        "dontShowAgain": "",
+        "cache-cleared": {
+            "message": "",
+            "title": ""
+        },
+        "sync": {
+            "title": "",
+            "error": ""
+        },
+        "ok": "",
+        "choose-nile-binary": "",
+        "customWine": ""
     },
     "button": {
-        "login": "เข้าสู่ระบบ"
+        "login": "เข้าสู่ระบบ",
+        "go_to_library": "",
+        "continue": "",
+        "cancel": ""
     },
     "controller": {
         "hints": {
-            "select": "เลิอก"
+            "select": "เลิอก",
+            "play_game": "",
+            "options": "",
+            "move_cursor": "",
+            "install_game": "",
+            "space": "",
+            "backspace": "",
+            "open_virtual_keyboard": "",
+            "close_keyboard": "",
+            "game_settings": "",
+            "game_details": "",
+            "scroll": "",
+            "back": "",
+            "close_dialog": "",
+            "close_options": "",
+            "update_game": ""
         }
     },
     "dlc": {
-        "size": "ขนาด"
+        "size": "ขนาด",
+        "installDlcs": "",
+        "actions": "",
+        "title": "",
+        "noDlcFound": ""
     },
     "docs": "การบันทึกข้อมูล",
     "download-manager": {
         "install-type": {
             "install": "ติดตั้ง",
             "update": "อัปเดต"
-        }
+        },
+        "ETA": "",
+        "queue": {
+            "type": "",
+            "end-time": "",
+            "queue-time": "",
+            "start-time": ""
+        },
+        "label": {
+            "disk": "",
+            "speed": ""
+        },
+        "title": "",
+        "link": ""
     },
     "game": {
-        "modify": "ปรับแต่งการติดตั้ง"
+        "modify": "ปรับแต่งการติดตั้ง",
+        "title": "",
+        "status": "",
+        "store": ""
     },
     "header": {
-        "categories": "หมวดหมู่"
+        "categories": "หมวดหมู่",
+        "show_support_offline_only": "",
+        "select_all": "",
+        "filters": "",
+        "show_hidden": "",
+        "show_favourites_only": "",
+        "show_third_party_managed_only": "",
+        "only": "",
+        "show_updates_only": "",
+        "reset": "",
+        "show_installed_only": "",
+        "show_available_games": "",
+        "no_categories": "",
+        "uncategorized": ""
     },
     "help": {
         "title": {
-            "settings": "การตั้งค่า"
-        }
+            "settings": "การตั้งค่า",
+            "accessibility": "",
+            "login": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": ""
+        },
+        "sync": {
+            "part2": "",
+            "part1": "",
+            "part3": "",
+            "part4": ""
+        },
+        "disable_logs": "",
+        "dxfpslimit": "",
+        "dxvk": "",
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
+        "msync": "",
+        "other": {
+            "part6": "",
+            "part4": "",
+            "part5": "",
+            "part7": ""
+        },
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "amdfsr": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "preferSystemLibs": "",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "game_language": {
+            "valid_codes": "",
+            "in_game_config": "",
+            "fallback": ""
+        },
+        "mangohud": "",
+        "wine": {
+            "part1": "",
+            "part2": ""
+        },
+        "dxvknvapi": "",
+        "disablePlaytimeSync": "",
+        "steamruntime": "",
+        "steam_path": {
+            "info": ""
+        },
+        "general": "",
+        "vkd3d": "",
+        "WoW64": "",
+        "custom_themes_path": "",
+        "custom_themes_wiki": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": "",
+        "fsync": "",
+        "gamemode": "",
+        "esync": ""
     },
     "infobox": {
-        "requirements": "## ข้อกำหนดของระบบ"
+        "requirements": "## ข้อกำหนดของระบบ",
+        "help": "",
+        "wine-path-none-found": "",
+        "wine-prefix": {
+            "title": ""
+        },
+        "wine-repfix": {
+            "message": ""
+        },
+        "warning": "",
+        "wine-path-invalid": "",
+        "wine-path": ""
     },
     "label": {
-        "loading": "กำลังโหลด…"
+        "loading": "กำลังโหลด…",
+        "releaseDate": ""
     },
     "loading": {
-        "default": "กำลังโหลด…"
+        "default": "กำลังโหลด…",
+        "website": ""
     },
     "notify": {
         "finished": {
             "add": {
                 "steam": {
-                    "title": "เพิ่มไปยัง Steam"
+                    "title": "เพิ่มไปยัง Steam",
+                    "corrupt": "",
+                    "success": ""
                 }
             },
             "remove": {
                 "steam": {
-                    "title": "ลบออกจาก Steam"
+                    "title": "ลบออกจาก Steam",
+                    "corrupt": "",
+                    "success": ""
                 }
-            }
+            },
+            "reparing": ""
         },
-        "uninstalled": "ถอนการติดตั้ง"
+        "uninstalled": "ถอนการติดตั้ง",
+        "update": {
+            "started": "",
+            "paused": "",
+            "failed": "",
+            "canceled": "",
+            "finished": ""
+        },
+        "import": {
+            "failed": ""
+        },
+        "error": {
+            "reparing": "",
+            "move": ""
+        },
+        "install": {
+            "canceled": "",
+            "startInstall": "",
+            "finished": "",
+            "failed": "",
+            "paused": "",
+            "error": "",
+            "imported": ""
+        },
+        "new-heroic-version": "",
+        "moved": "",
+        "refresh": {
+            "error": ""
+        },
+        "moving": ""
     },
     "queue": {
         "label": {
-            "downloading": "กำลังดาวน์โหลด"
+            "downloading": "กำลังดาวน์โหลด",
+            "queued": "",
+            "empty": "",
+            "finished": "",
+            "clear": ""
         }
     },
     "setting": {
@@ -90,33 +423,772 @@
             "install": "ติดตั้ง",
             "remove": "ถอนการติดตั้ง",
             "updateNow": "อัปเดต",
-            "updating": "กำลังอัปเดต"
+            "updating": "กำลังอัปเดต",
+            "installing": "",
+            "checkForUpdates": "",
+            "removeConfirm": "",
+            "notInstalledMsg": "",
+            "currentVersion": "",
+            "notInstalledTitle": "",
+            "checkingForUpdates": "",
+            "installed": "",
+            "latestVersion": "",
+            "notInstalled": "",
+            "cancelInstall": "",
+            "removeConfirmTitle": ""
         },
         "library_top_option": {
-            "disabled": "ปิดใช้งานแล้ว"
-        }
+            "disabled": "ปิดใช้งานแล้ว",
+            "favourites": "",
+            "recently_played_installed": "",
+            "recently_played": ""
+        },
+        "WoW64": "",
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
+        "log": {
+            "upload": {
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "actions": "",
+                "uploading": {
+                    "title": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "join-heroic-discord": "",
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "no-file": "",
+            "instructions_title": "",
+            "show-uploads": "",
+            "instructions": "",
+            "show-in-folder": ""
+        },
+        "manualsync": {
+            "title": "",
+            "sync": "",
+            "syncing": "",
+            "forceupload": "",
+            "upload": "",
+            "forcedownload": "",
+            "download": ""
+        },
+        "disable_controller": "",
+        "alt-gogdl-bin": "",
+        "alt-nile-bin": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "fsync": "",
+        "showfps": "",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "egs-sync": "",
+        "hdr": "",
+        "custom_themes_path": "",
+        "autodxvknvapi": "",
+        "library_top_section": "",
+        "savefolder": {
+            "placeholder": "",
+            "warning": "",
+            "not-found": ""
+        },
+        "autosync": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "preferSystemLibs": "",
+        "dxfpslimit": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "autodxvk": "",
+        "addgamestostartmenu": "",
+        "download-no-https": "",
+        "customWineProton": "",
+        "exit-to-tray": "",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "missingMsg": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
+        },
+        "enable-quick-sync-menu": "",
+        "runexe": {
+            "title": ""
+        },
+        "disable_logs": "",
+        "start-in-tray": "",
+        "change-target-exe": "",
+        "offlinemode": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "addgamestoapplications": "",
+        "language": "",
+        "FsrSharpnessStrenght": "",
+        "disablePlaytimeSync": "",
+        "crossover-version": "",
+        "adddesktopshortcuts": "",
+        "esync": "",
+        "addgamestosteam": "",
+        "winecrossoverbottle": "",
+        "alt-legendary-bin": "",
+        "minimize-on-launch": "",
+        "autovkd3d": "",
+        "ignoreGameUpdates": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "mangohud": "",
+        "before-launch-script-path": "",
+        "wineversion": "",
+        "default-steam-path": "",
+        "maxworkers": "",
+        "steamruntime": "",
+        "disableUMU": "",
+        "defaultWinePrefix": "",
+        "discordRPC": "",
+        "gamemode": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "select_theme": "",
+        "maxRecentGames": "",
+        "default-install-path": "",
+        "enableFSRHack": "",
+        "autoUpdateGames": "",
+        "msync": "",
+        "wineprefix": "",
+        "advertiseAvxForRosetta": "",
+        "darktray": "",
+        "checkForUpdatesOnStartup": "",
+        "prefered_language": "",
+        "hideChangelogsOnStartup": "",
+        "showMetalOverlay": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "advanced": {
-            "details": "รายละเอียด"
+            "details": "รายละเอียด",
+            "clearCache": {
+                "help9": "",
+                "help1": "",
+                "help8": "",
+                "help3": "",
+                "help10": "",
+                "help7": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
+            },
+            "title": {
+                "resetHeroic": "",
+                "clearCache": ""
+            },
+            "resetHeroic": {
+                "help": ""
+            }
+        },
+        "navbar": {
+            "log": "",
+            "gamescope": "",
+            "general": "",
+            "advanced": "",
+            "games_settings_defaults": "",
+            "systemInformation": "",
+            "sync": "",
+            "legacy": "",
+            "other": ""
+        },
+        "legacy_warning": "",
+        "eacRuntime": {
+            "name": "",
+            "installing": "",
+            "gameModeRequired": {
+                "title": "",
+                "message": ""
+            }
+        },
+        "systemInformation": {
+            "cpu": "",
+            "gpuWithNumber": "",
+            "cpuDescription": "",
+            "legendaryVersion": "",
+            "systemSpecifications": "",
+            "steamDeck": "",
+            "gpuDriver": "",
+            "os": "",
+            "gpu": "",
+            "gogdlVersion": "",
+            "osVersion": "",
+            "osNameFlatpak": "",
+            "software": "",
+            "cometVersion": "",
+            "memoryStats": "",
+            "systemModel": "",
+            "showDetailed": "",
+            "memory": "",
+            "copyToClipboard": "",
+            "heroicVersion": "",
+            "nileVersion": ""
+        },
+        "experimental_features": {
+            "title": ""
+        },
+        "reset-heroic": "",
+        "default_hint": "",
+        "gameMode": {
+            "eacRuntimeEnabled": {
+                "message": "",
+                "title": ""
+            }
+        },
+        "saves": {
+            "warning": "",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
+        },
+        "log": {
+            "long-log-hint": ""
+        },
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "battlEyeRuntime": {
+            "installing": "",
+            "name": ""
+        },
+        "clear-cache": "",
+        "copyToClipboard": "",
+        "custom_css": {
+            "title": ""
+        },
+        "launchOptions": "",
+        "copiedToClipboard": "",
+        "open-config-file": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "การตั้งค่า",
     "status": {
-        "installing": "กำลังติดตั้ง"
+        "installing": "กำลังติดตั้ง",
+        "preparing_login": "",
+        "logging": "",
+        "processing": ""
     },
     "tray": {
-        "about": "เกี่ยวกับ"
+        "about": "เกี่ยวกับ",
+        "show": "",
+        "reload": "",
+        "quit": ""
     },
     "window": {
-        "close": "ปิด"
+        "close": "ปิด",
+        "minimize": "",
+        "maximize": "",
+        "restore": ""
     },
     "wine": {
-        "size": "ขนาด"
+        "size": "ขนาด",
+        "manager": {
+            "link": "",
+            "title": "",
+            "unzipping": "",
+            "not-found": "",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "อัปเดต",
+            "settings": "การตั้งค่า",
+            "no-results": ""
+        },
+        "notes": "",
+        "release": "",
+        "actions": ""
     },
     "winetricks": {
         "install": "ติดตั้ง",
-        "loading": "กำลังโหลด…"
+        "loading": "กำลังโหลด…",
+        "no-components": "",
+        "installing": "",
+        "openGUI": "",
+        "search": "",
+        "loading-available": "",
+        "nothingYet": "",
+        "installed": ""
     },
-    "store": "ร้านค้า Epic ที่นี่"
+    "store": "ร้านค้า Epic ที่นี่",
+    "tour": {
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "back": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
+    },
+    "placeholder": {
+        "alt-nile-bin": "",
+        "prefered_language": "",
+        "custom_themes_path": "",
+        "dxvkfpsvalue": "",
+        "alt-legendary-bin": "",
+        "alt-gogdl-bin": "",
+        "egs-prefix": ""
+    },
+    "options": {
+        "env_variables": {
+            "error": {
+                "space_in_key": "",
+                "equal_sign_in_key": "",
+                "empty_key": ""
+            },
+            "info": "",
+            "example": ""
+        },
+        "advanced": {
+            "title": "",
+            "key": "",
+            "value": "",
+            "placeHolderKey": "",
+            "placeHolderValue": ""
+        },
+        "gamescope": {
+            "nis": "",
+            "additionalOptions": "",
+            "borderless": "",
+            "windowed": "",
+            "fpsLimiter": "",
+            "gameHeight": "",
+            "upscaleWidth": "",
+            "fullscreen": "",
+            "gameWidth": "",
+            "interger": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": ""
+        },
+        "wrapper": {
+            "args": "",
+            "placeHolderValue": "",
+            "placeHolderKey": "",
+            "arguments_example": "",
+            "exe": "",
+            "title": ""
+        },
+        "gameargs": {
+            "error": {
+                "command": "",
+                "env": ""
+            },
+            "placeholder": "",
+            "title": ""
+        },
+        "quote-args-with-spaces": ""
+    },
+    "tooltip": {
+        "removepath": "",
+        "addpath": ""
+    },
+    "adtraction-locked": {
+        "description": "",
+        "dont-show-again": "",
+        "title": ""
+    },
+    "title": {
+        "allGames": ""
+    },
+    "progress": "",
+    "externalLink": {
+        "dontAskAgain": "",
+        "warning": ""
+    },
+    "info": {
+        "settings": "",
+        "version": "",
+        "heroic": {
+            "version": "",
+            "beta": "",
+            "newReleases": "",
+            "stable": "",
+            "click-to-see-changelog": ""
+        },
+        "save-sync": {
+            "searching": ""
+        }
+    },
+    "userselector": {
+        "logout": "",
+        "cancel": "",
+        "manageaccounts": "",
+        "logout_confirmation": "",
+        "quitMessage": "",
+        "discord": "",
+        "logging_out": "",
+        "quit": ""
+    },
+    "library": {
+        "toggleLayout": {
+            "list": "",
+            "grid": ""
+        },
+        "sortAscending": "",
+        "hideAlphabetFilter": "",
+        "sortByStatus": "",
+        "sortDescending": "",
+        "showAlphabetFilter": ""
+    },
+    "Epic Games": "",
+    "platforms": {
+        "win": "",
+        "mac": "",
+        "linux": "",
+        "browser": ""
+    },
+    "Update Available!": "",
+    "favourites": "",
+    "globalSettings": "",
+    "other": {
+        "nile-version": "",
+        "gogdl-version": "",
+        "legendary-version": "",
+        "weblate": ""
+    },
+    "add_game": "",
+    "anticheat": {
+        "status": "",
+        "anticheats": "",
+        "title": "",
+        "reference": "",
+        "source": "",
+        "multiplayer_may_not_work": ""
+    },
+    "generic": {
+        "error": {
+            "component": ""
+        },
+        "library": {
+            "refresh": ""
+        },
+        "abort": "",
+        "install": "ติดตั้ง",
+        "uninstall": "ถอนการติดตั้ง"
+    },
+    "categories-manager": {
+        "confirm-rename": "",
+        "cancel-remove": "",
+        "no-categories": "",
+        "confirm-remove": "",
+        "add-placeholder": "",
+        "remove": "",
+        "title": "",
+        "cancel-rename": "",
+        "add": "",
+        "rename": ""
+    },
+    "webview": {
+        "controls": {
+            "forward": "",
+            "back": "",
+            "reload": "",
+            "openInBrowser": ""
+        }
+    },
+    "category-settings": {
+        "remove-category": "",
+        "cancel": "",
+        "delete-question": "",
+        "new-category": "",
+        "add-new-category": "",
+        "warning": ""
+    },
+    "launch": {
+        "options": ""
+    },
+    "message": {
+        "unsync": "",
+        "sync": ""
+    },
+    "amazon-luna": "",
+    "Other": "",
+    "gog-store": "",
+    "two_col_table": {
+        "save_hint": ""
+    },
+    "login": {
+        "amazon": "",
+        "alternative_method": "",
+        "message": "",
+        "gog": "",
+        "epic": "",
+        "old-mac": "",
+        "zoom": ""
+    },
+    "stores": "",
+    "GOG": "",
+    "toolbox": {
+        "settings": {
+            "wineprefix": ""
+        }
+    },
+    "please-wait": "",
+    "offline-message": {
+        "ignore": "",
+        "offline": "",
+        "retrying": "",
+        "hint": "",
+        "offline-retry-in": ""
+    },
+    "Recent": "",
+    "Library": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "epic": {
+        "offline-notification-title": "",
+        "offline-notification-body": ""
+    },
+    "search": "",
+    "error": "",
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": "",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
+    },
+    "Amazon Games": "",
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "กำลังเปิด",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "",
+    "sidebar": {
+        "console": ""
+    }
 }

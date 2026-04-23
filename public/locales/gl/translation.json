@@ -189,7 +189,7 @@
                 "message": "Heroic necesita Rosetta para poder funcionar correctamente en macOS con chips de Apple Silicon. Por favor, instáleo dende a terminal empregando o seguinte comando: \"softwareupdate --install-rosetta\" e reinicia Heroic. "
             }
         },
-        "wineprefix": "Selecciona o cartafol de prefixo de Wine",
+        "wineprefix": "Seleccione o cartafol co Prefixo de Wine",
         "yes": "Sí",
         "dontShowAgain": "Non volver a amosar",
         "choose-nile-binary": "Seleccione o binario de Nile",
@@ -244,7 +244,7 @@
             "end-time": "Rematado en",
             "queue-time": "Engadido en",
             "start-time": "Iniciado en",
-            "type": "Tipo"
+            "type": "Type"
         },
         "title": "Downloads",
         "ETA": "Tempo estimado"
@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Actualizar a biblioteca"
-        }
+        },
+        "install": "Instalar",
+        "uninstall": "Desinstalar",
+        "abort": ""
     },
     "globalSettings": "Preferencias globais",
     "GOG": "GOG",
@@ -812,7 +815,9 @@
         },
         "WoW64": "Activar WoW64 (Experimental)",
         "enable-quick-sync-menu": "Habilitar o menú de gardar e sincronizar rapidamente na páxina do xogo",
-        "scripts": "Secuencia de comandos (Scripts):"
+        "scripts": "Secuencia de comandos (Scripts):",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -918,12 +923,23 @@
             "warning": "Este xogo non permite explicitamente o modo offline, activa esta opción baixo a túa propia responsabilidade. É posible que o xogo non funcione."
         },
         "launchOptions": "Opcións de arranque",
-        "legacy_warning": "Advertencia: A maior parte dos axustes nesta lapela están obsoletos e é posible que non funcionen."
+        "legacy_warning": "Advertencia: A maior parte dos axustes nesta lapela están obsoletos e é posible que non funcionen.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Preferencias",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "Instalando",
@@ -980,7 +996,13 @@
             "link": "Xestor de Wine",
             "not-found": "Non se atopou ningunha versión de Wine. Fai clic na icona de refrescar para volvelo a intentar.",
             "title": "Xestor de Wine",
-            "unzipping": "Descomprimindo"
+            "unzipping": "Descomprimindo",
+            "settings": "Preferencias",
+            "update": "Actualizar",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "no-results": ""
         },
         "release": "Data de publicación",
         "size": "Tamaño",
@@ -1118,11 +1140,141 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton é unha variante de Proton creada por Glorious Eggroll. Está deseñada para usarse xunto co lanzador umu (predeterminado en Heroic).",
-        "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu."
+        "wine-ge": "Wine-GE-Proton é unha variante de Wine creada por Glorious Eggroll. Quedou obsoleta en favor de GE-Proton co lanzador umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "amazon-luna": "Amazon Luna",
     "zoom-store": "Tenda de Zoom",
     "launch": {
         "options": "Opcións de arranque..."
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Non se atoparon xogos",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "discounts": {
+        "filters": {
+            "ageRatingAll": "Todos",
+            "os": "Sistema operativo:",
+            "moreFilters": "",
+            "ageRating": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "next": "Seguinte",
+    "console": {
+        "filter": {
+            "all": "Todos",
+            "sideload": "Outros"
+        },
+        "games": "Xogos instalados",
+        "hints": {
+            "quit": "Saír",
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "change_store": ""
+        },
+        "launching": "Lanzando",
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "empty": "",
+        "quitApp": "",
+        "loading": ""
     }
 }

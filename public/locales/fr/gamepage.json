@@ -2,7 +2,7 @@
     "box": {
         "change": {
             "message": "Cette action changera le répertoire d’installation de ce jeu, êtes-vous certain(e) de vouloir continuer ?",
-            "path": "Choisir un nouveau répertoire pour l’installation",
+            "path": "Choisir un nouveau répertoire d’installation",
             "title": "Changer le répertoire d’installation des jeux"
         },
         "choose": "Choisir",
@@ -15,7 +15,7 @@
         "no": "NON",
         "repair": {
             "message": "Voulez-vous essayer de réparer ce jeu ? Cette opération peut être longue.",
-            "title": "Vérifier et réparer les fichiers"
+            "title": "Vérifier et réparer la structure des fichiers"
         },
         "runexe": {
             "title": "Sélectionner l’EXÉcutable à démarrer"
@@ -38,7 +38,7 @@
             "settingcheckbox": "Effacer les paramètres et supprimer le rapport d’événements{{newLine}}Attention : cette opération ne peut pas être annulée. Tout paramètre modifié sera réinitialisé et le rapport d'événements sera définitivement supprimé .",
             "title": "Désinstaller",
             "prefix_warning": "Le préfixe utilisé par Wine pour ce jeu est le préfixe par défaut. Si vous voulez vraiment le supprimer, il vous faudra y procéder manuellement.",
-            "dlc": "Voulez-vous désinstaller l’extension « {{title}} » ?",
+            "dlc": "Voulez-vous désinstaller « {{title}} » (extension) ?",
             "cannotUninstallEpic": "Les jeux Epic Games ne peuvent pas être désinstallés lorsqu’un autre jeu Epic Games est en cours d’installation.",
             "gameIsRunning": "{{title}} est en cours d’exécution. Fermez le jeu avant de tenter de le désinstaller."
         },
@@ -46,13 +46,13 @@
             "message": "Une mise à jour est disponible pour ce jeu. Souhaitez-vous le mettre à jour maintenant ?",
             "title": "Mise à jour requise"
         },
-        "wineprefix": "Sélectionner un dossier pour WinePrefix",
+        "wineprefix": "Sélectionner le dossier du préfixe Wine",
         "yes": "OUI",
         "close": "Fermer",
         "select-install-path": "Sélectionnez le chemin d'installation de Steam",
         "selectLaunchOption": {
             "title": "Sélectionner une option de lancement ({{seconds}}s)",
-            "body": "Veuillez sélectionner une option de lancement pour ce jeu (ce paramètre est modifiable plus tard dans les paramètres du jeu) :"
+            "body": "Veuillez sélectionner une option de lancement pour ce jeu (cela pourra être modifié plus tard dans les réglages du jeu) :"
         },
         "warning": {
             "title": "Avertissement"
@@ -126,12 +126,13 @@
         "builds": {
             "version": "Version",
             "buildsSelector": "Choisir la version du jeu",
-            "toggle": "Maintenir une version spécifique de ce jeu"
+            "toggle": "Conserver une version spécifique de ce jeu"
         },
         "changelogFor": "Changements effectués dans {{gameTitle}}",
         "modify": "Modifier l’installation",
         "extra_info": "Informations complémentaires",
-        "install_info": "Installation"
+        "install_info": "Installation",
+        "achievements": "Accomplissements"
     },
     "gamecard": {
         "moving": "Déplacement",
@@ -147,11 +148,11 @@
         "main-plus-extras": "Trame principale + Extras",
         "main-story": "Histoire principale"
     },
-    "howLongToBeat": "How Long To Beat",
+    "howLongToBeat": "Durée pour finir le jeu",
     "info": {
         "canRunOffline": "Connexion à internet requise",
-        "installedPlatform": "Système",
-        "path": "Chemin d’installation",
+        "installedPlatform": "Plateforme",
+        "path": "Répertoire d’installation",
         "size": "Taille",
         "syncsaves": "Synchroniser les sauvegardes",
         "version": "Version",
@@ -166,8 +167,8 @@
     "install": {
         "disk-space-left": "Espace disponible",
         "not-enough-disk-space": "Pas assez d’espace disque",
-        "path": "Sélectionner le chemin d’installation",
-        "path-not-writtable": "Attention : le chemin n’est peut-être pas accessible en écriture.",
+        "path": "Sélectionner un répertoire pour l’installation",
+        "path-not-writtable": "Attention : ce répertoire n’est peut-être pas accessible en écriture.",
         "space-after-install": "Après l’installation",
         "wineprefix": "Préfixe",
         "wineversion": "Version de Wine",
@@ -181,7 +182,7 @@
             "ok": "Entendu",
             "disabled_installation": "Ce jeu utilise un logiciel anti-triche qui n’est pas compatible avec votre système d’exploitation ou n’a pas été activé par ses développeurs. Cela signifie que les éléments multijoueurs ne fonctionneront pas et qu’il n'y a rien que vous puissiez faire pour y remédier (les membres de l’équipe d’Heroic non plus). <br /><br />Pour installer ce jeu et l’essayer quand même, rendez-vous sur la page des paramètres avancés puis cochez l’option permettant d’autoriser l’installation de jeux comportant un dispositif anti-triche incompatible ou délaissé par ses développeurs. <br /><br />Veuillez noter qu’il n'existe pas de solution à ce problème et que vous risquez d’être banni du jeu."
         },
-        "flatpak-path-not-writtable": "Erreur : ce chemin n’est pas accessible en mode bac-à-sable, risque de perte de données."
+        "flatpak-path-not-writtable": "Erreur : ce répertoire n’est pas accessible en mode bac-à-sable en raison d'un risque de perte de données."
     },
     "label": {
         "game": {
@@ -301,7 +302,7 @@
         "downloading": "En cours de téléchargement",
         "extracting": "Extraction",
         "goodie": "Non installable",
-        "gog-goodie": "Ce jeu ne semble pas être installable. Vérifiez le contenu téléchargeable sur https://gog.com/account",
+        "gog-goodie": "Ce jeu ne semble pas être installable. Consultez les contenus téléchargeable sur https://gog.com/account",
         "winetricks": "Mise en œuvre des correctifs Winetricks",
         "redist": "Installation du paquet redistribuable {{redist}}",
         "importing": "Importation"
@@ -313,18 +314,18 @@
         "disableEosOverlay": "Désactiver l'overlay EOS",
         "enableEosOverlay": "Activer l'overlay EOS",
         "move": "Déplacer le jeu",
-        "protondb": "Vérifier la compatibilité",
+        "protondb": "Consulter l'état de la compatibilité",
         "removeFromSteam": "Retirer de Steam",
         "removeShortcut": "Retirer les raccourcis",
         "settings": "Options",
         "store": "Page de la boutique",
-        "verify": "Vérifier et Réparer",
+        "verify": "Vérifier et réparer la structure des fichiers",
         "extraInfo": "Informations supplémentaires",
         "logs": "Journaux d'événements",
         "categories": "Catégories"
     },
     "help": {
-        "cloud_save_unsupported": "Ce jeu n’est pas compatible avec la sauvegarde distante. Cette information est fournie par les développeurs du jeu. Certains jeux proposent néanmoins leur propre système de sauvegarde sur serveurs distants.",
+        "cloud_save_unsupported": "Ce jeu ne supporte pas la sauvegarde à distance. Cette information est fournie par les développeurs du jeu. Certains jeux proposent néanmoins leur propre système de sauvegarde sur serveurs distants.",
         "title": {
             "gamePage": "Page du jeu"
         },
@@ -333,7 +334,7 @@
         }
     },
     "modifyInstall": {
-        "dlcsCollapsible": "Extension",
+        "dlcsCollapsible": "Extensions",
         "redMod": {
             "enable": "Activer les mods",
             "collapsible": "Intégration REDmod"

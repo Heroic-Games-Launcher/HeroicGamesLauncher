@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Obnovit knihovnu"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Globální nastavení",
     "GOG": "GOG",
@@ -565,7 +568,7 @@
         "custom_themes_path": "Vyberte cestu k vyhledávání vlastních souborů CSS",
         "dxvkfpsvalue": "Kladná celočíselná hodnota (např. 30, 60, ...)",
         "egs-prefix": "Prefix kde je nainstalován EGS",
-        "prefered_language": "2znakový kód (tj.: \"en\" nebo \"fr\")",
+        "prefered_language": "2místný nebo 4místný kód (např. „fr“ nebo „pt-BR“)",
         "alt-nile-bin": "Používání vestavěného binárního souboru Nile..."
     },
     "platforms": {
@@ -817,7 +820,9 @@
         "analyticsOptIn": "Odesílejte anonymní data k pomoci vývoji Heroic",
         "WoW64": "Povolit WoW64 (experimentální)",
         "scripts": "Skripty:",
-        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry"
+        "enable-quick-sync-menu": "Povolit nabídku Rychlé uložení a synchronizace na stránce hry",
+        "disable_gog_presence": "Zakázat aktualizace GOG Presence",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -923,12 +928,23 @@
             "title": "Vlastní styl CSS"
         },
         "launchOptions": "Možnosti spuštění",
-        "legacy_warning": "Upozornění: Nastavení na této kartě jsou většinou zastaralá a nemusí vůbec fungovat."
+        "legacy_warning": "Upozornění: Nastavení na této kartě jsou většinou zastaralá a nemusí vůbec fungovat.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Nastavení",
     "sidebar": {
         "collapse": "Sbalit postranní panel",
-        "uncollapse": "Rozbalit postranní panel"
+        "uncollapse": "Rozbalit postranní panel",
+        "console": ""
     },
     "status": {
         "installing": "Instaluji",
@@ -985,7 +1001,13 @@
             "link": "Správce Wine",
             "not-found": "Nebyly nalezeny žádné verze Wine. Klikněte na ikonu obnovení a zkuste to znovu.",
             "title": "Správce Wine",
-            "unzipping": "Rozbalování"
+            "unzipping": "Rozbalování",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Release Date",
         "size": "Velikost",
@@ -1035,7 +1057,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Je vytvořena k použití ve službě Steam, některé hry mimo síť služby Steam ale mohou s touto verzí lépe fungovat. Poskytuje převážně zbytečné protokoly pro ladění chyb.",
-        "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb."
+        "wine-ge": "Wine-GE-Proton je verze Protonu od vývojáře Glorious Eggroll. Jedná se o doporučenou verzi Wine k použití mimo službu Steam. Poskytuje užitečné protokoly pro ladění chyb.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noGames": "Vaše knihovna je prázdná.<br /><br />Klikněte <4>zde</4> a přihlaste se pomocí účtu Epic, GOG.com nebo Amazon. Poté se vaše hry zobrazí zde v knihovně.<br /><br />Chcete-li používat hry nebo aplikace z jiných zdrojů, klikněte na <br /> a přidejte je ručně.",
@@ -1129,5 +1154,132 @@
     "zoom-store": "Obchod Zoom",
     "launch": {
         "options": "Možnosti spuštění..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

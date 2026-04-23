@@ -131,7 +131,8 @@
         "changelogFor": "Änderungsprotokoll für {{gameTitle}}",
         "modify": "Installation modifizieren",
         "extra_info": "Zusatzinfo",
-        "install_info": "Installationsinfo"
+        "install_info": "Installationsinfo",
+        "achievements": "Erfolge"
     },
     "gamecard": {
         "moving": "Wird verschoben …",
@@ -229,7 +230,8 @@
         }
     },
     "launch": {
-        "options": "Startoptionen …"
+        "options": "Startoptionen …",
+        "default": "Standard"
     },
     "not_logged_in": {
         "epic": "Du bist mit keinem Epic-Konto in Heroic angemeldet. Verwende zum Anmelden nicht die Store-Seite, sondern klicke stattdessen auf die folgende Schaltfläche:",

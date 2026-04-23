@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Recargar biblioteca"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
@@ -565,7 +568,7 @@
         "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
         "dxvkfpsvalue": "Valor entero positivo (por ejemplo, 30, 60, ...)",
         "egs-prefix": "Prefijo donde está instalado EGS",
-        "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")",
+        "prefered_language": "Código de 2 o 4 caracteres (ej: \"fr\" o \"pt-BR\")",
         "alt-nile-bin": "Usando el binario integrado Nile..."
     },
     "platforms": {
@@ -814,10 +817,12 @@
             },
             "info_label": "Versiones de Valve Proton ignoradas",
             "label": "Permitir el uso de compilaciones de Valve Proton para ejecutar juegos",
-            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuración Avanzada Global"
+            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto. Puedes activarlas en la Configuración Avanzada Global."
         },
         "enable-quick-sync-menu": "Habilitar el menú Guardar y sincronizar rápidamente en la página del juego",
-        "scripts": "Secuencias de comandos:"
+        "scripts": "Secuencias de comandos:",
+        "disable_gog_presence": "Desactivar actualizaciones de GOG Presence",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -923,12 +928,23 @@
             "title": "Estilo CSS personalizado"
         },
         "launchOptions": "Opciones de arranque",
-        "legacy_warning": "Advertencia: La mayoría de los ajustes de esta pestaña están obsoletos y es posible que no funcionen."
+        "legacy_warning": "Advertencia: La mayoría de los ajustes de esta pestaña están obsoletos y es posible que no funcionen.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Ajustes",
     "sidebar": {
         "collapse": "Colapsar barra lateral",
-        "uncollapse": "Expandir barra lateral"
+        "uncollapse": "Expandir barra lateral",
+        "console": ""
     },
     "status": {
         "installing": "Instalando",
@@ -985,7 +1001,13 @@
             "link": "Gestor de Wine",
             "not-found": "No se encontraron version de Wine. Por favor, presiona el botón de refrescar para volver a intentar.",
             "title": "Gestor de Wine",
-            "unzipping": "Descomprimiendo"
+            "unzipping": "Descomprimiendo",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Fecha de lanzamiento",
         "size": "Tamaño",
@@ -1056,7 +1078,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton es una variante de Proton creada por Glorious Eggroll. Está diseñada para usarse en Steam, pero algunos juegos fuera de Steam podrían funcionar mejor con esta variante. Genera registros casi siempre inútiles para solucionar problemas.",
-        "wine-ge": "Wine-GE-Proton es una variante de Wine creada por Glorious Eggroll. Es la versión de Wine para ser usada fuera de Steam. Genera registros útiles para solucionar problemas."
+        "wine-ge": "Wine-GE-Proton es una variante de Wine creada por Glorious Eggroll. Es la versión de Wine para ser usada fuera de Steam. Genera registros útiles para solucionar problemas.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "tour": {
         "back": "Volver",
@@ -1129,5 +1154,132 @@
     "zoom-store": "Tienda de Zoom",
     "launch": {
         "options": "Opciones de arranque..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

@@ -105,7 +105,9 @@ export interface AppSettings extends GameSettings {
   darkTrayIcon: boolean
   defaultInstallPath: string
   defaultSteamPath: string
-  defaultWinePrefix: string
+  sharedWinePrefix: string
+  defaultWinePrefix: string // only here for backwards compatibility, don't use in new code
+  defaultWinePrefixDir: string
   disableController: boolean
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
@@ -126,11 +128,13 @@ export interface AppSettings extends GameSettings {
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
+  startInConsoleMode: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  steamGridDbApiKey: string
 }
 
 export type LibraryTopSectionOptions =
@@ -587,6 +591,7 @@ interface GamepadActionArgsWithoutMetadata {
     | 'tab'
     | 'shiftTab'
     | 'keyboardClick'
+    | 'guide'
   metadata?: undefined
 }
 
@@ -662,6 +667,9 @@ export interface ImportGameArgs {
   path: string
   runner: Runner
   platform: InstallPlatform
+  winePrefix?: string
+  wineVersion?: WineInstallation
+  wineCrossoverBottle?: string
 }
 
 export interface MoveGameArgs {
@@ -785,7 +793,6 @@ export type WineManagerStatus =
 export interface WineManagerUISettings {
   value: string
   type: Type
-  enabled: boolean
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
@@ -842,6 +849,17 @@ export interface RunnerCommandStub {
   response?: Promise<ExecResult>
   stdout?: string
   stderr?: string
+}
+
+export interface SGDBGrid {
+  id: number
+  url: string
+  thumb: string
+}
+
+export interface SGDBGame {
+  id: number
+  name: string
 }
 
 export type ReleasesInfo = Record<

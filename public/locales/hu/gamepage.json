@@ -131,7 +131,8 @@
         "changelogFor": "Változásnapló a(z) {{gameTitle}} játékhoz",
         "modify": "Telepítés módosítása",
         "extra_info": "További információk",
-        "install_info": "Telepítési információk"
+        "install_info": "Telepítési információk",
+        "achievements": "Eredmények"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -324,7 +325,7 @@
         "categories": "Kategóriák"
     },
     "help": {
-        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak",
+        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak.",
         "title": {
             "gamePage": "Játékoldal"
         },

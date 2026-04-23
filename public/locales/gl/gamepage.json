@@ -131,7 +131,8 @@
         "modify": "Modificar instalación",
         "changelogFor": "Rexistro de cambios para {{gameTitle}}",
         "extra_info": "Información adicional",
-        "install_info": "Información sobre a instación"
+        "install_info": "Información sobre a instación",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Movendo",
@@ -226,7 +227,8 @@
         "winetricks": "Instalando paquetes de Winetricks"
     },
     "launch": {
-        "options": "Opcións de arrinque..."
+        "options": "Opcións de arrinque...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Non se iniciou sesión cunha conta de Epic en Heroic. Non uses a páxina da tenda para iniciar sesión, mellor fai clic no seguinte botón:",
@@ -352,5 +354,6 @@
         "notice1": "Este xogo está administrado por unha aplicación de terceiros: \"{{application_name}}\"",
         "notice2": "Ao facer clic en Instalar, Heroic executará a aplicación para poder rematar o proceso de instalación"
     },
-    "wikiLink": "Información importante sobre este xogo, lee esto: &nbsp;<1>Abrir páxina</1>"
+    "wikiLink": "Información importante sobre este xogo, lee esto: &nbsp;<1>Abrir páxina</1>",
+    "open-saves-folder": ""
 }

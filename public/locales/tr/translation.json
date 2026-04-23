@@ -6,12 +6,12 @@
         "fonts": "Yazı Tipleri",
         "title": "Erişilebilirlik",
         "zoom": "Yakınlaştır",
-        "disable_dialog_backdrop_close": "Dışarı tıklayarak iletişim kutucuğunu kapatmayı devre dışı bırakın",
+        "disable_dialog_backdrop_close": "Dışarı tıklayarak diyalog penceresini kapatmayı devre dışı bırakın",
         "titles_always_visible": "Kütüphanede her zaman başlıkları göster",
         "content_font_family_default": "İçerik Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
-        "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}}",
-        "disable_smooth_scrolling": "Düzgün kaydırmayı devre dışı bırak (yeniden başlatılmalı)",
-        "disable_animations": "Kullanıcı Arayüzü animasyonlarını kapat"
+        "actions_font_family_default": "Eylemler Yazı Tipi Ailesi (Varsayılan: {{fontFamily}})",
+        "disable_smooth_scrolling": "Düzgün kaydırmayı devre dışı bırak (yeniden başlatma gerekir)",
+        "disable_animations": "Arayüz animasyonu devredışı bırak"
     },
     "add_game": "Oyun Ekle",
     "All": "Tümü",
@@ -21,8 +21,8 @@
         "reference": "Referans",
         "source": "Kaynak",
         "status": "Durum",
-        "title": "Bu oyun hile engelleyici yazılım içerir",
-        "multiplayer_may_not_work": "Hile engelleme desteği bozuk olduğu veya reddedildiği için çoklu oyuncu özellikleri çalışmayabilir."
+        "title": "Bu oyun hile önleyici yazılım içerir",
+        "multiplayer_may_not_work": "Hile önleme desteği bozuk olduğu veya reddedildiği için çoklu-oyuncu özellikleri çalışmayabilir."
     },
     "box": {
         "cache-cleared": {
@@ -32,8 +32,8 @@
         "choose": "Seç",
         "choose-egs-prefix": "EGS'nin kurulu olduğu Prefix'i seçin",
         "choose-gogdl-binary": "GOGDL İkili Dosyasını Seçin (yeniden başlatma gerektirir)",
-        "choose-legendary-binary": "Legendary ikili dosyasını seçin",
-        "customWine": "Wine veya Proton ikili dosyasını seçin",
+        "choose-legendary-binary": "Legendary binary dosyasını seçin",
+        "customWine": "Wine veya Proton binary dosyasını seçin",
         "default-install-path": "Öntanımlı Kurulum Yolunu Seç",
         "default-steam-path": "Steam yolu.",
         "downloadNow": "Şimdi indir",
@@ -48,7 +48,7 @@
                 "message": "Kimlik bilgilerinizin süresi doldu, lütfen oturumunuzu kapatın ve tekrar oturum açın."
             },
             "cx-bottle-not-found": {
-                "message": "\"{{bottle_name}}\" CrossOver bottle mevcut değil, başlatılamıyor!",
+                "message": "\"{{bottle_name}}\" adlı CrossOver bottle'ı mevcut değil, başlatılamıyor!",
                 "title": "CrossOver bottle bulunamadı"
             },
             "diskspace": {
@@ -64,7 +64,7 @@
             },
             "generic": {
                 "message": "genel hata mesajı",
-                "title": "Çalıştırılacak EXE dosyasını seçin"
+                "title": "Çalıştırılacak EXE (yürütülebilir) dosyasını seçin"
             },
             "launchAborted": "Başlatma iptal edildi",
             "title": "Hata",
@@ -91,7 +91,7 @@
                 "title": "Ubisoft Connect"
             },
             "legendary": {
-                "generic": "Bir hata oluştu! Epic hesabınızın oturumunu kapatıp tekrar açmayı deneyiniz. {{newline}}  {{error}}"
+                "generic": "Bir hata oluştu! Epic hesabınızdan çıkış yapıp tekrar giriş yapmayı deneyin. {{newline}}  {{error}}"
             },
             "steam": {
                 "error": "Steam çalıştırılabilir dosyası bulunamadı. Kurulum muhtemelen kullanıcı tarafından iptal edildi veya Steam tarafında başarısız oldu.",
@@ -101,7 +101,7 @@
             "executableNotFound": "Yürütülebilir dosya bulunamadı",
             "executableNotFoundMessage": "Heroic, bu oyun için yürütülebilir dosya bulamadı. Lütfen oyun ayarlarından el ile seçiniz.",
             "dxmt": {
-                "message": "DXMT indirmede hata! Bağlantını kontrol et!",
+                "message": "DXMT indirmede hata! Bağlantınızı kontrol edin!",
                 "title": "DXMT İndirme Hatası"
             }
         },
@@ -189,10 +189,10 @@
                 "title": "Rosetta bulunamadı"
             }
         },
-        "wineprefix": "Wine Prefix Klasörünü Seç",
+        "wineprefix": "WinePrefix Klasörünü Seç",
         "yes": "EVET",
         "dontShowAgain": "Tekrar gösterme",
-        "choose-nile-binary": "Nile ikili dosyasını seçin",
+        "choose-nile-binary": "Nile binary dosyasını seçin",
         "update": "Güncelle",
         "postpone": "Ertele",
         "changelog": "Değişiklikler"
@@ -265,7 +265,10 @@
         },
         "library": {
             "refresh": "Kütüphaneyi Yenile"
-        }
+        },
+        "install": "Kur",
+        "uninstall": "Uninstall",
+        "abort": ""
     },
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
@@ -562,7 +565,7 @@
         "custom_themes_path": "Özel CSS dosyalarının aranacağı yolu seçin",
         "dxvkfpsvalue": "Pozitif tamsayı değeri (ör. 30, 60, ...)",
         "egs-prefix": "EGS'nin kurulu olduğu prefix",
-        "prefered_language": "2 karakterli kod (örneğin: \"en\" veya \"tr\")",
+        "prefered_language": "2 karakterli veya 4 karakterli kod (örneğin: \"fr\" veya \"pt-BR\")",
         "alt-nile-bin": "Yerleşik Nile binary dosyası kullanılıyor..."
     },
     "platforms": {
@@ -812,7 +815,9 @@
         },
         "WoW64": "WoW64'ü aç (Deneysel)",
         "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
-        "scripts": "Betikler:"
+        "scripts": "Betikler:",
+        "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -918,12 +923,23 @@
             "title": "Özel CSS Stili"
         },
         "launchOptions": "Başlatma Seçenekleri",
-        "legacy_warning": "Uyarı: Bu sayfadaki ayarların çoğu kullanımdan kaldırıldı ve hiç çalışmayabilirler."
+        "legacy_warning": "Uyarı: Bu sayfadaki ayarların çoğu kullanımdan kaldırıldı ve hiç çalışmayabilirler.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Ayarlar",
     "sidebar": {
         "collapse": "Kenar çubuğunu daralt",
-        "uncollapse": "Kenar çubuğunu genişlet"
+        "uncollapse": "Kenar çubuğunu genişlet",
+        "console": ""
     },
     "status": {
         "installing": "Kuruluyor",
@@ -980,7 +996,13 @@
             "link": "Wine Yöneticisi",
             "not-found": "Wine sürümü bulunamadı. Tekrar denemek için lütfen yenile simgesini tıklayın.",
             "title": "Wine Yöneticisi",
-            "unzipping": "Çıkartılıyor"
+            "unzipping": "Çıkartılıyor",
+            "settings": "Ayarlar",
+            "update": "Update",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "no-results": ""
         },
         "release": "Yayınlanma Tarihi",
         "size": "Boyut",
@@ -1033,13 +1055,16 @@
         "noGames": "Kütüphaneniz boş.<br /><br />Epic, GOG.com veya Amazon hesaplarınızla giriş yapmak için <4>buraya</4> tıklayın. Oyunlarınız kütüphanede burada görünecektir.<br /><br />Diğer kaynaklardan oyun veya uygulama kullanmak için, bunları el ile eklemek üzere <br /> öğesine tıklayın."
     },
     "adtraction-locked": {
-        "description": "track.adtraction.com alan adı yüklenememiş veya engellenmiş gibi görünüyor. Adtraction ile GOG mağazasında yaptığınız her satın alma, Heroic'i maddi olarak destekliyor. Katkıda bulunmak istiyorsanız engeli kaldırmayı düşünebilirsiniz.",
+        "description": "track.adtraction.com alan adı yüklenememiş veya engellenmiş gibi görünüyor. Adtraction sayesinde, GOG mağazasında yaptığınız her satın alma işlemi Heroic'e maddi destek sağlar. Katkıda bulunmak istiyorsanız, engellemeyi kaldırmayı düşünebilirsiniz.",
         "dont-show-again": "Bu uyarıyı bir daha gösterme",
         "title": "Adtraction engellendi"
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton, Glorious Eggroll tarafından geliştirilen bir Wine çeşididir. Umu başlatıcısı ile GE-Proton lehine kullanımdan kaldırılmıştır.",
-        "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
+        "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "add-placeholder": "Yeni kategori ekle",
@@ -1110,8 +1135,8 @@
         "disable": "Devre Dışı",
         "enable": "Etkinleştir",
         "info": {
-            "pt1": "Uygulamayı geliştirmek adına Heroic, %100 anonim veri toplar.",
-            "pt3": "Heroic, kullanıcı adınız, IP adresiniz ya da e-postanız gibi kişisel bilgilerinizi asla toplamaz.",
+            "pt1": "Heroic, uygulamayı geliştirmek adına %100 anonim veri toplar.",
+            "pt3": "Heroic; kullanıcı adınız, IP adresiniz ya da e-postanız gibi kişisel bilgilerinizi asla toplamaz.",
             "pt6": "Şeffaf olmak açısından, toplanılan verileri Heroic kayıtlarında görebilirsiniz.",
             "pt7": "Bu ayarı dilediğiniz zaman uygulama ayarlarından değiştirebilirsiniz.",
             "pt2": "Heroic, açık kaynaklı Plausible Analytics platformunu kullanarak şu temel verileri toplar: Uygulama Sürümü, İşletim Sistemi, Bağlı Mağazalar ve Ülke.",
@@ -1124,5 +1149,132 @@
     "zoom-store": "Zoom Dükkanı",
     "launch": {
         "options": "Başlatma Seçenekleri..."
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Oyun Bulunamadı",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "discounts": {
+        "filters": {
+            "ageRatingAll": "Tümü",
+            "os": "İşletim sistemi:",
+            "moreFilters": "",
+            "ageRating": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "next": "Sonraki",
+    "console": {
+        "filter": {
+            "all": "Tümü",
+            "sideload": "Other"
+        },
+        "games": "Kurulu oyunlar",
+        "hints": {
+            "quit": "Çık",
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "change_store": ""
+        },
+        "launching": "Başlatılıyor",
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "empty": "",
+        "quitApp": "",
+        "loading": ""
     }
 }

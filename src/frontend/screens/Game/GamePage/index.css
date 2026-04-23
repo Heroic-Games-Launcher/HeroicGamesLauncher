@@ -265,7 +265,6 @@
         justify-content: flex-start;
         align-items: center;
         margin-top: 15px;
-        max-width: 250px;
         border-radius: 8px;
 
         .buttonWithIcon > svg {
@@ -278,9 +277,10 @@
           align-self: center;
         }
 
+        & .installButtons,
         & .playButtons {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
 
           .altPlay {
             position: relative;
@@ -308,6 +308,11 @@
               }
             }
           }
+        }
+
+        .installButtons {
+          gap: var(--space-xs);
+          flex-wrap: wrap;
         }
 
         & .mainBtn {
@@ -678,7 +683,7 @@
   .gameConfigContainer {
     height: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content 1fr 1fr min-content;
+    grid-template-rows: min-content 400px 2fr min-content;
     grid-template-areas:
       'header'
       'main'

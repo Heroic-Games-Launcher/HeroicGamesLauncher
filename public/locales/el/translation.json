@@ -29,7 +29,7 @@
             "message": "Η προσωρινή μνήμη Heroic καθαρίστηκε.",
             "title": "Προσωρινή Μνήμη Καθαρίστηκε"
         },
-        "choose": "Επιλογή",
+        "choose": "Επιλέξτε",
         "choose-egs-prefix": "Επιλέξτε πρόθημα στη διαδρομή εγκατάστασης EGS",
         "choose-gogdl-binary": "Επιλογή δυαδικού αρχείου GOGDL (χρειάζεται επανεκκίνηση)",
         "choose-legendary-binary": "Επιλέξτε το δυαδικό αρχείο του Legendary",
@@ -184,7 +184,7 @@
                 "title": "Το Rosetta δεν βρέθηκε"
             }
         },
-        "wineprefix": "Διαλέξτε τον φάκελο του Wine Prefix",
+        "wineprefix": "Επιλέξτε φάκελο για το πρόθεμα Wine",
         "yes": "ΝΑΙ",
         "dontShowAgain": "Μην εμφανιστεί ξανά",
         "choose-nile-binary": "Επιλέξτε Nile binary",
@@ -260,7 +260,10 @@
         },
         "library": {
             "refresh": "Ανανέωση συλλογής"
-        }
+        },
+        "abort": "",
+        "install": "Εγκατάσταση",
+        "uninstall": "Απεγκατάσταση"
     },
     "globalSettings": "Καθολικές Ρυθμίσεις",
     "GOG": "GOG",
@@ -391,7 +394,7 @@
         "warning": "Προειδοποίηση",
         "wine-path": "Διαδρομή Wine",
         "wine-prefix": {
-            "title": "Wine Prefix"
+            "title": "Πρόθεμα Wine"
         },
         "wine-repfix": {
             "message": "Το Wine χρησιμοποιεί αυτό που ονομάζεται WINEPREFIX για να ενσωματώσει εφαρμογές των Windows. Αυτό το prefix περιέχει τα αρχεία ρύθμισης παραμέτρων του Wine και μια αναπαράσταση των αρχείων του C: (του κύριου δίσκου των Windows). Σε αυτήν την αναπαράσταση του δίσκου C:, αποθηκεύονται τα αρχεία αποθήκευσης του παιχνιδιού σας και άλλα απαιτούμενα που έχουν εγκατασταθεί μέσω του winetricks."
@@ -556,7 +559,7 @@
         "custom_themes_path": "Επιλέξτε τη διαδρομή για την αναζήτηση προσαρμοσμένων αρχείων CSS",
         "dxvkfpsvalue": "Θετική ακέραια τιμή (π.χ. 30, 60, ...)",
         "egs-prefix": "Πρόθημα διαδρομής εγκατάστασης EGS",
-        "prefered_language": "Κωδικός 2 χαρακτήρων (π.χ.: \"en\" ή \"fr\")",
+        "prefered_language": "Κωδικός 2 ή 4 χαρακτήρων (π.χ.: \"en\" ή \" en-US\")",
         "alt-nile-bin": "Χρησιμοποιώντας το ενσωματωμένο δυαδικό σύστημα Nile..."
     },
     "platforms": {
@@ -662,7 +665,8 @@
                 },
                 "error": {
                     "content": "Αποτυχία μεταφόρτωσης αρχείου καταγραφής. Ελέγξτε το γενικό αρχείο καταγραφής του Heroic για λεπτομέρειες",
-                    "title": "Η μεταφόρτωση απέτυχε"
+                    "title": "Η μεταφόρτωση απέτυχε",
+                    "manual_upload": "Πατήστε το κουμπί \"SHOW LOG FILE IN FOLDER\" και υποβάλετε το αρχείο \"launch.log\" στο Discord ή οποιαδήποτε υπηρεσία ανταλλαγής αρχείων."
                 },
                 "header": "Μεταφορτωμένα αρχεία καταγραφής",
                 "hours-ago": "Μεταφορτώθηκε {{hoursAgo, relativetime(hours)}}",
@@ -796,12 +800,15 @@
             "description": "Ενεργοποίηση λεπτομερών αρχείων καταγραφής"
         },
         "wineWayland": "Ενεργοποίηση του Wine-Wayland (Experimental) (η έκδοση Wine πρέπει να την υποστηρίζει)",
-        "WoW64": "Ενεργοποίηση του WoW64 (Experimental)"
+        "WoW64": "Ενεργοποίηση του WoW64 (Experimental)",
+        "enable-quick-sync-menu": "Ενεργοποίηση Quick Save-Sync Menu στο game page",
+        "disable_gog_presence": "Απενεργοποίηση ενημερώσεων GOG Presence",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
             "installing": "Εγκατάσταση του BattlEye Runtime...",
-            "name": "BattlEye AntiCheat Runtime"
+            "name": "Χώρος Εκτέλεσης BattlEye AntiCheat"
         },
         "clear-cache": "Εκκαθάριση κρυφής μνήμης Heroic",
         "copiedToClipboard": "Αντιγράφηκε στο πρόχειρο!",
@@ -813,7 +820,7 @@
                 "title": "Απαιτείται το GameMode"
             },
             "installing": "Εγκατάσταση του EAC Runtime...",
-            "name": "EasyAntiCheat Runtime"
+            "name": "Χώρος Εκτέλεσης  EasyAntiCheat"
         },
         "gameMode": {
             "eacRuntimeEnabled": {
@@ -833,7 +840,8 @@
             "sync": "Συγχρονισμός αρχείων αποθήκευσης στο cloud",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "Πληροφορίες Συστήματος"
+            "systemInformation": "Πληροφορίες Συστήματος",
+            "legacy": "Legacy"
         },
         "open-config-file": "Άνοιγμα αρχείου παραμετροποίησης",
         "reset-heroic": "Επαναφορά Heroic",
@@ -900,12 +908,24 @@
         },
         "offline": {
             "warning": "Αυτό το παιχνίδι δεν επιτρέπει ρητά τη λειτουργία εκτός σύνδεσης, ενεργοποιήστε την με δική σας ευθύνη. Το παιχνίδι ενδέχεται να μην λειτουργεί."
+        },
+        "legacy_warning": "Προειδοποίηση: Οι ρυθμίσεις σε αυτή την καρτέλα είναι παραχωρημένες και μπορεί να μην δουλέψουν.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Ρυθμίσεις",
     "sidebar": {
         "collapse": "Σύμπτυξη πλαϊνής γραμμής",
-        "uncollapse": "Κατάργηση σύμπτυξης πλαϊνής γραμμής"
+        "uncollapse": "Κατάργηση σύμπτυξης πλαϊνής γραμμής",
+        "console": ""
     },
     "status": {
         "installing": "Εγκατάσταση",
@@ -962,7 +982,13 @@
             "link": "Διαχειριστής Wine",
             "not-found": "Δεν βρέθηκαν εκδόσεις Wine. Κάντε κλικ στο εικονίδιο ανανέωσης για να προσπαθήσετε ξανά.",
             "title": "Διαχειριστής Wine",
-            "unzipping": "Αποσυμπίεση"
+            "unzipping": "Αποσυμπίεση",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Ενημέρωση",
+            "settings": "Ρυθμίσεις",
+            "no-results": ""
         },
         "release": "Ημερομηνία κυκλοφορίας",
         "size": "Μέγεθος",
@@ -1094,10 +1120,140 @@
     "amazon-luna": "Amazon Luna",
     "wineExplanation": {
         "proton-ge": "Το GE-Proton είναι μια παραλλαγή του Proton που δημιουργήθηκε από το Glorious Eggroll. Προορίζεται για χρήση μαζί με τον umu launcher (προεπιλογή στο Heroic).",
-        "wine-ge": "Το Wine-GE-Proton είναι μια παραλλαγή του Wine που δημιουργήθηκε από την Glorious Eggroll. Έχει καταργηθεί υπέρ του GE-Proton με τον umu launcher."
+        "wine-ge": "Το Wine-GE-Proton είναι μια παραλλαγή του Wine που δημιουργήθηκε από την Glorious Eggroll. Έχει καταργηθεί υπέρ του GE-Proton με τον umu launcher.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "zoom-store": "Κατάστημα Zoom",
     "launch": {
         "options": "Ρυθμίσεις εκκίνησης..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Λειτουργικό σύστημα:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": ""
+        },
+        "empty": "",
+        "games": "Εγκατεστημένα Παιχνίδια",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Επόμενο"
 }

@@ -260,7 +260,10 @@
         },
         "library": {
             "refresh": "Uppdatera bibliotek"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
@@ -557,7 +560,7 @@
         "custom_themes_path": "Välj sökvägen för att leta efter anpassade CSS-filer",
         "dxvkfpsvalue": "Positivt heltalsvärde (t.ex. 30, 60, ...)",
         "egs-prefix": "Prefix för befintlig EGS installation",
-        "prefered_language": "Tvåställig bokstavskod (t.ex: \"en\" eller \"fr\")",
+        "prefered_language": "Tvåställig eller fyrställig bokstavskod (t.ex: \"fr\" eller \"pt-BR\")",
         "alt-nile-bin": "Använder inbyggd Nile binär..."
     },
     "platforms": {
@@ -663,7 +666,8 @@
                 },
                 "error": {
                     "title": "Uppladdning misslyckades",
-                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer"
+                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer",
+                    "manual_upload": "Klicka på knappen \"VISA LOGGFIL I MAPP\" och ladda upp filen \"launch.log\" manuellt till Discord eller någon annan online fildelningstjänst."
                 },
                 "header": "Uppladdade loggfiler",
                 "delete": "Begär borttagning av loggfil",
@@ -799,7 +803,10 @@
         "no-tray-icon": "Dölj ikonen i systemfältet (kräver omstart)",
         "wineWayland": "Aktivera Wine-Wayland (Experimentellt) (Wine-versionen behöver stödja det)",
         "WoW64": "Aktivera WoW64 (Experimentellt)",
-        "scripts": "Skript:"
+        "scripts": "Skript:",
+        "enable-quick-sync-menu": "Aktivera snabbspara synkronisera meny på spelsidan",
+        "disable_gog_presence": "Inaktivera GOG-närvarouppdateringar",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -905,12 +912,23 @@
             "title": "Anpassad CSS Stil"
         },
         "launchOptions": "Uppstartsalternativ",
-        "legacy_warning": "Varning: Inställningarna på den här fliken är mestadels föråldrade och kanske inte fungerar alls."
+        "legacy_warning": "Varning: Inställningarna på den här fliken är mestadels föråldrade och kanske inte fungerar alls.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Inställningar",
     "sidebar": {
         "collapse": "Dölj sidofältet",
-        "uncollapse": "Visa sidofältet"
+        "uncollapse": "Visa sidofältet",
+        "console": ""
     },
     "status": {
         "installing": "Installerar",
@@ -967,7 +985,13 @@
             "link": "Winehanterare",
             "not-found": "Inga Wineversioner hittades. Klicka på uppdateringsikonen för att försöka igen.",
             "title": "Winehanterare",
-            "unzipping": "Packar upp"
+            "unzipping": "Packar upp",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Utgivningsdatum",
         "size": "Storlek",
@@ -1017,7 +1041,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är tänkt att användas för Steam, men vissa spel utanför Steam kan fungera bättre med denna variant. Den ger mestadels värdelösa loggar för felsökning.",
-        "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning."
+        "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "De nuvarande filtren gav inga resultat.",
@@ -1104,5 +1131,132 @@
     "zoom-store": "Zoom butik",
     "launch": {
         "options": "Startalternativ..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

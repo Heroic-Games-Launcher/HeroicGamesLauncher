@@ -21,7 +21,8 @@
             "title": "Selecteer EXE om uit te voeren"
         },
         "select": {
-            "button": "Selecteer"
+            "button": "Selecteer",
+            "image": ""
         },
         "sideload": {
             "exe": "Selecteer uitvoerbaar bestand"
@@ -51,12 +52,25 @@
         "warning": {
             "title": "Warning"
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "Voeg toe aan favorieten",
         "cancel": "Pauzeren/Annuleren",
-        "continue": "Doorgaan met Download",
+        "continue": "Hervat downloaden",
         "finish": "Gereed",
         "force_update": "Forceer update indien beschikbaar",
         "force-innstall": "Forceer installeren",
@@ -80,7 +94,8 @@
         "details": "Details",
         "changelog": "Toon Changelog",
         "browse_files": "Blader door Bestanden",
-        "browse_wine_prefix": "Blader Wineprefix"
+        "browse_wine_prefix": "Blader Wineprefix",
+        "play": ""
     },
     "cloud_save_unsupported": "Niet ondersteund",
     "disabled": "Uitgeschakeld",
@@ -115,7 +130,8 @@
         "modify": "Pas installatie aan",
         "changelogFor": "Changelog van {{gameTitle}}",
         "extra_info": "Extra info",
-        "install_info": "Installatie-info"
+        "install_info": "Installatie-info",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Aan het verplaatsen",
@@ -174,7 +190,8 @@
         },
         "playing": {
             "start": "Nu spelen",
-            "stop": "Aan het spelen (Stoppen)"
+            "stop": "Aan het spelen (Stoppen)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "Saves synchroniseren"
@@ -190,7 +207,8 @@
         }
     },
     "launch": {
-        "options": "Opstartopties..."
+        "options": "Opstartopties...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Je bent niet ingelogd met een Epic account in Heroic. Gebruik de winkel pagina NIET om in te loggen,  Klik in plaats op de volgende knop:",
@@ -207,7 +225,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOver Bottle",
         "warn-use-shared-wine-config": "Gebruik deze optie alleen als je weet wat je doet.<br/>Dezelfde prefix gebruiken voor meerdere games kan problemen veroorzaken als afhankelijkheden niet compatibel zijn.",
-        "show-wine-settings": "Bekijk Wine instellingen"
+        "show-wine-settings": "Bekijk Wine instellingen",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -263,7 +282,8 @@
         "gog-goodie": "Deze game lijkt niet te kunnen worden geïnstalleerd. Controleer downloadbare inhoud op https://gog.com/account",
         "goodie": "Niet installeerbaar",
         "redist": "Herverdelers installeren {{redist}}",
-        "winetricks": "Winetricks verbeteringen toepassen"
+        "winetricks": "Winetricks verbeteringen toepassen",
+        "importing": ""
     },
     "submenu": {
         "addShortcut": "Snelkoppeling toevoegen",
@@ -314,5 +334,6 @@
             "resume": "Downloaden hervatten"
         }
     },
-    "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>"
+    "wikiLink": "Belangrijke informatie over dit spel, lees dit:&nbsp;<1>Open pagina</1>",
+    "open-saves-folder": ""
 }

@@ -53,7 +53,20 @@
         "warning": {
             "title": "Įspėjimas"
         },
-        "ok": "GERAI"
+        "ok": "GERAI",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "Pridėti prie mėgstamiausių",
@@ -81,7 +94,9 @@
         "no-path-selected": "Joks kelias nepažymėtas",
         "remove_from_recent": "Pašalinti iš paskiausių",
         "run-exe-first": "Pirmiausiai vykdyti įdiegiklį",
-        "browse_files": "Naršyti failus"
+        "browse_files": "Naršyti failus",
+        "browse_wine_prefix": "",
+        "play": ""
     },
     "cloud_save_unsupported": "Nepalaikoma/-s",
     "game": {
@@ -110,7 +125,8 @@
         "getting-download-size": "Gaunamas atsisiuntimo dydis",
         "getting-install-size": "Gaunamas įdiegimo dydis",
         "modify": "Redaguoti įdiegimą",
-        "platform": "Pasirinkti platformos versiją, kurią įdiegti"
+        "platform": "Pasirinkti platformos versiją, kurią įdiegti",
+        "achievements": ""
     },
     "gamecard": {
         "repairing": "Taisoma/-s",
@@ -267,7 +283,8 @@
     "setting": {
         "show-wine-settings": "Rodyti „Wine“ nustatymus",
         "warn-use-shared-wine-config": "Naudokite šią parinktį tik, jei Jūs žinote ką darote.<br/>Naudodami tą patį prielinksnį/priešdėlį keliems žaidimams gali sukelti problemų, jeigu jų priklausomybės yra nesuderinamos.",
-        "winecrossoverbottle": "„CrossOver butelis“"
+        "winecrossoverbottle": "„CrossOver butelis“",
+        "use-shared-wine-config": ""
     },
     "sdl": {
         "title": "Pasirinkti komponentus, kurios įdiegti"
@@ -309,5 +326,6 @@
             "remove": "Pašalinti iš atsisiuntimų",
             "resume": "Pratęsti atsisiuntimą"
         }
-    }
+    },
+    "open-saves-folder": ""
 }

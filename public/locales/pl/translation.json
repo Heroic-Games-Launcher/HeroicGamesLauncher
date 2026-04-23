@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Odśwież bibliotekę"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Ustawienia globalne",
     "GOG": "GOG",
@@ -671,7 +674,8 @@
                 },
                 "error": {
                     "title": "Przesyłanie nie powiodło się",
-                    "content": "Nie udało się przesłać pliku dziennika. Sprawdź ogólny dziennik Heroic, aby uzyskać szczegółowe informacje"
+                    "content": "Nie udało się przesłać pliku dziennika. Sprawdź ogólny dziennik Heroic, aby uzyskać szczegółowe informacje",
+                    "manual_upload": ""
                 },
                 "header": "Przesłane pliki dziennika",
                 "no-files": "Nie przesłano żadnych plików dziennika",
@@ -813,7 +817,10 @@
             "info_label": "Wersje Protona od Valve ignorowane"
         },
         "WoW64": "Włącz WoW64 (Eksperymentalne)",
-        "scripts": "Skrypty:"
+        "scripts": "Skrypty:",
+        "enable-quick-sync-menu": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +857,8 @@
             "sync": "Synchronizuj zapisy w chmurze",
             "wineExt": "Rozszerzenia Wine",
             "systemInformation": "Informacje o systemie",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
@@ -917,12 +925,24 @@
         "custom_css": {
             "title": "Własny styl CSS"
         },
-        "launchOptions": "Opcje startowe"
+        "launchOptions": "Opcje startowe",
+        "legacy_warning": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Ustawienia",
     "sidebar": {
         "collapse": "Zwiń pasek boczny",
-        "uncollapse": "Pokaż pasek boczny"
+        "uncollapse": "Pokaż pasek boczny",
+        "console": ""
     },
     "status": {
         "installing": "Instalowanie",
@@ -979,7 +999,13 @@
             "link": "Menedżer Wine",
             "not-found": "Nie znaleziono żadnych wersji Wine. Kliknij ikonę odświeżania, by spróbować ponownie.",
             "title": "Menedżer Wine",
-            "unzipping": "Dekompresowanie"
+            "unzipping": "Dekompresowanie",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Data wydania",
         "size": "Rozmiar",
@@ -1029,7 +1055,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użycia razem z launcherem umu (domyślnym dla Heroic).",
-        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest przestarzała i zamiast niej powinno używać się GE-Proton z launcherem umu."
+        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest przestarzała i zamiast niej powinno używać się GE-Proton z launcherem umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "Wybrane filtry nie zwróciły wyników.",
@@ -1123,5 +1152,132 @@
     "zoom-store": "Sklep Zoom",
     "launch": {
         "options": "Opcje uruchamiania..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

@@ -9,7 +9,9 @@
         "disable_dialog_backdrop_close": "안내창 바깥을 클릭하여 종료하지 않기",
         "titles_always_visible": "라이브러리에 항상 제목 표시",
         "content_font_family_default": "콘텐츠 글꼴 패밀리 (기본값:",
-        "actions_font_family_default": "Actions Font Family (Default:"
+        "actions_font_family_default": "Actions Font Family (Default:",
+        "disable_smooth_scrolling": "",
+        "disable_animations": ""
     },
     "add_game": "게임 추가",
     "All": "모두",
@@ -90,7 +92,13 @@
             },
             "legendary": {
                 "generic": "오류가 발생했습니다! 에픽 계정에서 로그아웃하고 로그인해 보세요. {{newline}}  {{error}}"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "info": {
             "update": {
@@ -99,7 +107,8 @@
                 "message": "사용 가능한 새 버전이 있습니다!",
                 "message-finished": "지금 Heroic을 다시 시작하겠습니까?",
                 "title": "Heroic 게임 실행기",
-                "title-finished": "업데이트 완료"
+                "title-finished": "업데이트 완료",
+                "detailNoAutoupdate": ""
             }
         },
         "no": "아니오",
@@ -169,6 +178,10 @@
                 "checkbox": "이 메세지를 다시 표시 안 함",
                 "message": "일부 기능은 현재 앱의 스냅 버전에서 사용할 수 없고 이를 수정하려고 노력하고 있습니다.{{newLine}}현재 제한 사항은 다음과 같습니다:{{newLine}}Heroic은 스팀의 프로톤이나 루트리스의 와인을 찾을 수 없습니다.{{newLine}}{{newLine}}Gamescope, GameMode, MangoHud도 Heroic이 접속할 수 없으므로 작동하지 않습니다.{{newLine}}{{newLine}}이 기능에 접속하려면 Heroic을 Flatpak, DEB 또는 AppImage에서 설치하세요.",
                 "title": "Heroic은 스냅으로 실행됨"
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
             }
         },
         "wineprefix": "와인 설치 경로 폴더 선택",
@@ -247,7 +260,10 @@
         },
         "library": {
             "refresh": "라이브러리 새로 고침"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "글로벌 설정",
     "GOG": "GOG",
@@ -270,7 +286,8 @@
         "uncategorized": "분류되지 않음",
         "only": "전용",
         "show_third_party_managed_only": "타사 관리만 표시",
-        "show_support_offline_only": "오프라인 지원만 표시"
+        "show_support_offline_only": "오프라인 지원만 표시",
+        "show_updates_only": ""
     },
     "help": {
         "amdfsr": "AMD의 FSR 기술은 전체화면 모드에서 저해상도를 업스케일링하여 프레임 향상에 도움을 줍니다. 약간의 성능을 잃으며 이미지 품질은 5에서 1로 갈수록 증가합니다. 사용하면 성능이 향상될 수도 있습니다.",
@@ -329,7 +346,8 @@
             "gameWidth": "게임에서 사용하는 너비 해상도입니다. gamescope는 16:9 화면비를 가정합니다.",
             "gameHeight": "게임에서 사용하는 높이 해상도입니다. gamescope는 16:9 화면비를 가정합니다.",
             "upscaleMethod": "gamescope가 사용해야 하는 업스케일링 방법입니다.",
-            "upscaleWidth": "gamescope에서 사용하는 폭 해상도입니다. 16:9 화면비가 가정됩니다."
+            "upscaleWidth": "gamescope에서 사용하는 폭 해상도입니다. 16:9 화면비가 가정됩니다.",
+            "forceGrabCursor": ""
         },
         "content": {
             "accessibility": "접근성 설정을 표시합니다.",
@@ -348,7 +366,13 @@
         },
         "disablePlaytimeSync": "지정된 스토어 서버(현재는 GOG만 지원됨)의 플레이타임 동기화를 비활성화",
         "dxvknvapi": "DXVK-NVAPI는 DXVK와 리눅스 기본 NVAPI를 기반으로 구축된 NVAPI 구현으로, 엔비디아 GPU에서 DLSS를 사용할 수 있도록 해줍니다.",
-        "dxfpslimit": "DXVK 게임에 대한 프레임 속도 제한 설정"
+        "dxfpslimit": "DXVK 게임에 대한 프레임 속도 제한 설정",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "heroic": {
@@ -393,7 +417,9 @@
         "toggleLayout": {
             "grid": "격자 레이아웃으로 전환",
             "list": "목록 레이아웃으로 전환"
-        }
+        },
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "Library": "라이브러리",
     "loading": {
@@ -406,7 +432,8 @@
         "gog": "GOG 로그인",
         "message": "플랫폼으로 로그인하세요. 동시에 여러 플랫폼에 로그인할 수 있습니다.",
         "amazon": "아마존 로그인",
-        "old-mac": "macOS 버전은 {{version}}입니다. 로그인하려면 macOS 12 이상이 필요합니다."
+        "old-mac": "macOS 버전은 {{version}}입니다. 로그인하려면 macOS 12 이상이 필요합니다.",
+        "zoom": ""
     },
     "message": {
         "sync": "동기화 완료",
@@ -456,6 +483,9 @@
             "started": "업데이트 시작됨",
             "failed": "업데이트가 실패함",
             "paused": "업데이트 일시 정지됨"
+        },
+        "import": {
+            "failed": ""
         }
     },
     "offline-message": {
@@ -635,7 +665,8 @@
                 },
                 "error": {
                     "content": "로그 파일을 업로드 실패하였습니다. 자세한 내용은 Heroic의 일반 로그를 확인",
-                    "title": "업로드 실패함"
+                    "title": "업로드 실패함",
+                    "manual_upload": ""
                 },
                 "header": "업로드된 로그 파일",
                 "hours-ago": "{{hoursAgo, relativetime(hours)}} 업로드됨",
@@ -654,7 +685,8 @@
                 "gog": "GOG 로그",
                 "heroic": "일반 Heroic 기록",
                 "legendary": "에픽 게임즈 / 레전더리 로그",
-                "nile": "아마존 / 나일 로그"
+                "nile": "아마존 / 나일 로그",
+                "zoom": ""
             },
             "show-uploads": "업로드된 로그 파일 표시",
             "join-heroic-discord": "우리 디스코드 참가"
@@ -728,12 +760,15 @@
             "enableHelp": "도움말 구성 요소",
             "automaticWinetricksFixes": "알려진 수정 사항을 자동으로 적용",
             "cometSupport": "코멧 지원",
-            "umuSupport": "umu를 프로톤 런타임으로 사용"
+            "umuSupport": "umu를 프로톤 런타임으로 사용",
+            "zoomPlatform": ""
         },
         "gamescope": {
             "enableUpscaling": "업스케일링 가능",
             "enableLimiter": "FPS 제한기 활성화",
-            "missingMsg": "PATH에서 gamescope를 찾을 수 없습니다. 설치하거나 PATH에 추가하세요."
+            "missingMsg": "PATH에서 gamescope를 찾을 수 없습니다. 설치하거나 PATH에 추가하세요.",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
         },
         "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택",
         "allow_non_ge_proton": {
@@ -743,9 +778,34 @@
         },
         "show_valve_proton": {
             "confirmation": {
-                "title": "확실합니까?"
-            }
-        }
+                "title": "확실합니까?",
+                "show": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "wine_selector_warning": "",
+            "label": "",
+            "info_label": ""
+        },
+        "WoW64": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "hdr": "",
+        "dxfpslimit": "",
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "disableUMU": "",
+        "advertiseAvxForRosetta": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -782,13 +842,16 @@
             "sync": "클라우드 저장 동기화",
             "wineExt": "Wine Extensions",
             "systemInformation": "시스템 정보",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "구성 파일 열기",
         "reset-heroic": "Heroic 재설정",
         "saves": {
             "label": "Save Location:",
-            "warning": "클라우드 저장 기능은 베타 상태이므로, (문제가 발생할 경우를 대비해서) 동기화하기 전에 저장 데이터를 백업"
+            "warning": "클라우드 저장 기능은 베타 상태이므로, (문제가 발생할 경우를 대비해서) 동기화하기 전에 저장 데이터를 백업",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "advanced": {
             "clearCache": {
@@ -844,12 +907,27 @@
         "experimental_features": {
             "title": "실험적 기능"
         },
-        "launchOptions": "실행 옵션..."
+        "launchOptions": "실행 옵션...",
+        "legacy_warning": "",
+        "custom_css": {
+            "title": ""
+        },
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "설정",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "설치 중",
@@ -906,10 +984,17 @@
             "link": "와인 관리자",
             "not-found": "와인 버전을 찾을 수 없습니다. 새로 고침 아이콘을 클릭하여 다시 시도하세요.",
             "title": "와인 관리자",
-            "unzipping": "압축 풀기"
+            "unzipping": "압축 풀기",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "출시일",
-        "size": "크기"
+        "size": "크기",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "다시 묻지 않음",
@@ -935,7 +1020,9 @@
         "search": "글꼴 또는 구성 요소 검색",
         "nothingYet": "아직 와인트릭스에서 아무것도 설치되지 않았음",
         "installing": "설치 진행 중: {{component}}",
-        "installed": "설치된 구성 요소:"
+        "installed": "설치된 구성 요소:",
+        "no-components": "",
+        "loading-available": ""
     },
     "category-settings": {
         "cancel": "취소",
@@ -970,19 +1057,205 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton은 Glorious Eggroll이 만든 프로톤 변형입니다. 스팀에서 사용하도록 만들어졌지만 스팀 외부의 일부 게임은 이 변형에서 더 잘 작동할 수 있습니다. 문제 해결을 위해 대부분 쓸모없는 로그를 제공합니다.",
-        "wine-ge": "Wine-GE-Proton은 Glorious Eggroll이 만든 와인 변형입니다. 스팀 외부에서 사용하기에 권장되는 와인입니다. 이는 문제 해결 시 유용한 로그를 제공합니다."
+        "wine-ge": "Wine-GE-Proton은 Glorious Eggroll이 만든 와인 변형입니다. 스팀 외부에서 사용하기에 권장되는 와인입니다. 이는 문제 해결 시 유용한 로그를 제공합니다.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
-        "noResults": "현재 필터로는 결과가 생성되지 않았습니다."
+        "noResults": "현재 필터로는 결과가 생성되지 않았습니다.",
+        "noGames": ""
     },
     "tour": {
-        "back": "뒤로"
+        "back": "뒤로",
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
     },
     "analyticsModal": {
         "disable": "비활성화",
-        "enable": "활성화"
+        "enable": "활성화",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
     },
     "launch": {
         "options": "실행 옵션..."
-    }
+    },
+    "amazon-luna": "",
+    "zoom-store": "",
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

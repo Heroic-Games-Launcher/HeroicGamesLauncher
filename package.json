@@ -1,8 +1,8 @@
 {
   "name": "heroic",
-  "version": "2.20.1",
+  "version": "2.21.0",
   "versionNames": {
-    "stable": "Punk 02 - Pythagoras",
+    "stable": "Loki",
     "beta": "Caesar Clown"
   },
   "private": false,
@@ -35,7 +35,7 @@
     "release:mac": "electron-vite build && electron-builder -p always --mac --x64 --arm64",
     "release:win": "electron-vite build && electron-builder -p always --win portable --x64",
     "release:updateFlathub:ci": "tsc flathub/update-flathub.ts --skipLibCheck --target es2015 --moduleResolution node --module commonjs && node flathub/update-flathub.js",
-    "sign:win": "electron-vite build && electron-builder -p never --win nsis portable --x64",
+    "sign:win": "electron-vite build && electron-builder -p never --win nsis portable --x64 --arm64",
     "dist:linux": "electron-vite build && electron-builder --linux",
     "dist:mac": "export CSC_IDENTITY_AUTO_DISCOVERY=false && electron-vite build && electron-builder --mac",
     "dist:win": "electron-vite build && electron-builder --win",
@@ -121,7 +121,7 @@
     "@types/tmp": "^0.2.6",
     "@vitejs/plugin-react-swc": "^3.9.0",
     "cross-env": "^7.0.3",
-    "electron": "^39.2.7",
+    "electron": "^41.1.1",
     "electron-builder": "^26.8.1",
     "electron-vite": "^3.1.0",
     "eslint": "^9.29.0",

@@ -7,7 +7,11 @@
         "title": "Erabilerraztasuna",
         "zoom": "Zoom",
         "content_font_family_default": "Content Font Family (Default:",
-        "actions_font_family_default": "Actions Font Family (Default:"
+        "actions_font_family_default": "Actions Font Family (Default:",
+        "disable_smooth_scrolling": "",
+        "titles_always_visible": "",
+        "disable_animations": "",
+        "disable_dialog_backdrop_close": ""
     },
     "add_game": "Gehitu jokoa",
     "All": "Dena",
@@ -88,7 +92,13 @@
             },
             "legendary": {
                 "generic": "Akats bat gertatu da! Saiatu saioa amaitzen eta saioa hasten zure Epic kontuan. {{newline}} {{error}}"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "info": {
             "update": {
@@ -97,7 +107,8 @@
                 "message": "Bertsio berri bat eskuragarri dago!",
                 "message-finished": "Heroic berrabiarazi nahi duzu?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Eguneraketa bukatu da"
+                "title-finished": "Eguneraketa bukatu da",
+                "detailNoAutoupdate": ""
             }
         },
         "no": "EZ",
@@ -122,7 +133,8 @@
         },
         "select": {
             "button": "Hautatu",
-            "exe": "Hautatu EXE"
+            "exe": "Hautatu EXE",
+            "script": ""
         },
         "shortcuts": {
             "message": "Lasterbideak sortu dira Mahaigainean eta Hasierako Menuan",
@@ -155,13 +167,30 @@
             "wine-change": {
                 "message": "Ezin izan dugu hautatutako ardoaren bertsioa aurkitu izenburu hau abiarazteko ({{selectedWine}}). {{newline}} Beste bat aurkitu dugu, {{foundWine}} erabiliz abiarazten jarraitu nahi duzu?",
                 "title": "Ez da ardorik aurkitu!"
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
+            },
+            "snap": {
+                "checkbox": "",
+                "title": "",
+                "message": ""
+            },
+            "sideload": {
+                "confirmExit": {
+                    "title": "",
+                    "message": ""
+                }
             }
         },
-        "wineprefix": "Aukeratu Wine Prefix karpeta",
+        "wineprefix": "Hautatu WinePrefix karpeta",
         "yes": "BAI",
         "dontShowAgain": "Ez erakutsi berriro",
         "choose-nile-binary": "Hautatu Nile bitarra",
-        "update": "Update"
+        "update": "Update",
+        "changelog": "",
+        "postpone": ""
     },
     "button": {
         "cancel": "Ezeztatu",
@@ -231,7 +260,10 @@
         },
         "library": {
             "refresh": "Freskatu liburutegia"
-        }
+        },
+        "abort": "",
+        "install": "Install",
+        "uninstall": ""
     },
     "globalSettings": "Ezarpen globalak",
     "GOG": "GOG",
@@ -245,7 +277,17 @@
         "show_favourites_only": "Erakutsi gogokoenak soilik",
         "show_hidden": "Erakutsi ezkutatutakoak",
         "store": "Iragazi denda",
-        "filters": "Iragazkiarekin"
+        "filters": "Iragazkiarekin",
+        "show_support_offline_only": "",
+        "select_all": "",
+        "categories": "",
+        "show_third_party_managed_only": "",
+        "only": "",
+        "show_updates_only": "",
+        "reset": "",
+        "show_installed_only": "",
+        "no_categories": "",
+        "uncategorized": ""
     },
     "help": {
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
@@ -289,9 +331,48 @@
         "disable_logs": "Aktibatu kontrol-lauki hau erregistro-fitxategietako idazketa gehienak desgaitzeko (informazio kritikoa beti erregistratzen da). Ziurtatu ezarpen hau desaktibatu duzula edozein arazoren berri eman aurretik.",
         "title": {
             "accessibility": "Erabilerraztasuna",
-            "downloadManager": "Download Manager"
+            "downloadManager": "Download Manager",
+            "login": "",
+            "settings": "",
+            "wineManager": "",
+            "library": ""
         },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
+        "msync": "",
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "dxvknvapi": "",
+        "disablePlaytimeSync": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "heroic": {
@@ -325,7 +406,8 @@
         "path": "Hautatu Instalatu bidea"
     },
     "label": {
-        "loading": "Loading"
+        "loading": "Loading",
+        "releaseDate": ""
     },
     "library": {
         "refresh": "Freskatu",
@@ -335,7 +417,9 @@
         "toggleLayout": {
             "grid": "Aldatu sareta-diseinu batera",
             "list": "Aldatu zerrenda-diseinu batera"
-        }
+        },
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "Library": "Liburutegia",
     "loading": {
@@ -347,7 +431,9 @@
         "epic": "Hasi Epic Games saioa",
         "gog": "Hasi GOG saioa",
         "message": "Hasi saioa zure plataformetan. Saioa behin baino gehiagotan batera has dezakezu.",
-        "amazon": "Amazon-en saioa"
+        "amazon": "Amazon-en saioa",
+        "old-mac": "",
+        "zoom": ""
     },
     "message": {
         "sync": "Sinkronizazioa amaituta",
@@ -397,6 +483,9 @@
             "started": "Eguneratzea hasi da",
             "failed": "Eguneratzea huts egin du",
             "paused": "Eguneratzea pausatu da"
+        },
+        "import": {
+            "failed": ""
         }
     },
     "offline-message": {
@@ -426,7 +515,11 @@
         },
         "gameargs": {
             "placeholder": "Jarri hemen abiarazlearen argudioak",
-            "title": "Jokoaren argudioak (komandoaren ondoren exekutatzeko):"
+            "title": "Jokoaren argudioak (komandoaren ondoren exekutatzeko):",
+            "error": {
+                "command": "",
+                "env": ""
+            }
         },
         "quote-args-with-spaces": "Abisua: ziurtatu argudioak zuriuneekin aipatzea! Adib.: \"bidea/espazioekin/\"",
         "wrapper": {
@@ -436,6 +529,21 @@
             "placeHolderKey": "Bilgarri berria",
             "placeHolderValue": "Biltzeko argudioak",
             "title": "Wrapper komandoa:"
+        },
+        "gamescope": {
+            "nis": "",
+            "additionalOptions": "",
+            "borderless": "",
+            "windowed": "",
+            "fpsLimiter": "",
+            "gameHeight": "",
+            "upscaleWidth": "",
+            "fullscreen": "",
+            "gameWidth": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": "",
+            "interger": ""
         }
     },
     "other": {
@@ -544,8 +652,44 @@
             "no-file": "Ez da aurkitu erregistro-fitxategirik",
             "show-in-folder": "Erakutsi erregistro-fitxategia karpetan",
             "upload": {
-                "actions": "Action"
-            }
+                "actions": "Action",
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "uploading": {
+                    "title": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "join-heroic-discord": "",
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "show-uploads": ""
         },
         "mangohud": "Gaitu Mangohud (Mangohud instalatu behar da)",
         "manualsync": {
@@ -591,7 +735,70 @@
         "disable_logs": "Desgaitu erregistroak",
         "addgamestoapplications": "Gehitu automatikoki jokoak aplikazioetan",
         "showMetalOverlay": "Erakutsi estatistikak gainjartzea",
-        "alt-nile-bin": "Aukeratu Nile Binary alternatibo bat"
+        "alt-nile-bin": "Aukeratu Nile Binary alternatibo bat",
+        "WoW64": "",
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "hdr": "",
+        "autodxvknvapi": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "dxfpslimit": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "disablePlaytimeSync": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "before-launch-script-path": "",
+        "disableUMU": "",
+        "msync": "",
+        "advertiseAvxForRosetta": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -626,32 +833,94 @@
             "log": "Erregistroa",
             "other": "Bestela",
             "sync": "Hodeiko gordetzeen sinkronizazioa",
-            "wineExt": "Ardoaren luzapenak"
+            "wineExt": "Ardoaren luzapenak",
+            "gamescope": "",
+            "systemInformation": "",
+            "legacy": ""
         },
         "open-config-file": "Ireki Konfigurazio fitxategia",
         "reset-heroic": "Berrezarri Heroic",
         "saves": {
             "label": "Gorde kokapena:",
-            "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)"
+            "warning": "Hodeiko Gordeen eginbidea beta-n dago. Sinkronizatu aurretik gordetako babeskopiak egin behar dira (zerbait gaizki gertatzen bada)",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "advanced": {
             "details": "Xehetasunak",
             "title": {
-                "resetHeroic": "Berrezarri Heroic"
+                "resetHeroic": "Berrezarri Heroic",
+                "clearCache": ""
             },
             "resetHeroic": {
                 "help": "Ziur zaude Heroic berrabiarazi nahi duzula? Horrek ezarpen guztiak eta cacheko biltegiratzea ezabatuko ditu, baina ez ditu zure instalatutako jokoak edo Epic-eko kredentzialak ezabatuko. Heroic-en bertsio eramangarriak (AppImage, WinPortable, ...) berrabiarazi egin behar dira."
             },
             "clearCache": {
-                "help9": "Game Settings"
+                "help9": "Game Settings",
+                "help1": "",
+                "help8": "",
+                "help3": "",
+                "help10": "",
+                "help7": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
             }
         },
-        "launchOptions": "Jaurtiketa-aukerak..."
+        "launchOptions": "Jaurtiketa-aukerak...",
+        "legacy_warning": "",
+        "systemInformation": {
+            "cpu": "",
+            "gpuWithNumber": "",
+            "cpuDescription": "",
+            "legendaryVersion": "",
+            "systemSpecifications": "",
+            "steamDeck": "",
+            "gpuDriver": "",
+            "os": "",
+            "gpu": "",
+            "gogdlVersion": "",
+            "osVersion": "",
+            "osNameFlatpak": "",
+            "software": "",
+            "cometVersion": "",
+            "memoryStats": "",
+            "systemModel": "",
+            "showDetailed": "",
+            "memory": "",
+            "copyToClipboard": "",
+            "heroicVersion": "",
+            "nileVersion": ""
+        },
+        "experimental_features": {
+            "title": ""
+        },
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "custom_css": {
+            "title": ""
+        },
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Ezarpenak",
     "sidebar": {
         "collapse": "Tolestu alboko barra",
-        "uncollapse": "Tolestu alboko barra"
+        "uncollapse": "Tolestu alboko barra",
+        "console": ""
     },
     "status": {
         "installing": "Instalatzen",
@@ -708,10 +977,17 @@
             "link": "Ardo kudeatzailea",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Ardo kudeatzailea",
-            "unzipping": "Deskonprimitzea"
+            "unzipping": "Deskonprimitzea",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Update",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Argitaratze data",
-        "size": "Tamaina"
+        "size": "Tamaina",
+        "notes": ""
     },
     "externalLink": {
         "warning": "Kanpoko esteka bat irekitzera zoaz.",
@@ -732,19 +1008,247 @@
     "prime-gaming": "Prime Gaming",
     "winetricks": {
         "install": "Install",
-        "loading": "Kargatzen"
+        "loading": "Kargatzen",
+        "no-components": "",
+        "installing": "",
+        "openGUI": "",
+        "search": "",
+        "loading-available": "",
+        "nothingYet": "",
+        "installed": ""
     },
     "category-settings": {
         "cancel": "Ezeztatu",
-        "warning": "Warning"
+        "warning": "Warning",
+        "remove-category": "",
+        "delete-question": "",
+        "new-category": "",
+        "add-new-category": ""
     },
     "window": {
-        "close": "Itxi"
+        "close": "Itxi",
+        "minimize": "",
+        "maximize": "",
+        "restore": ""
     },
     "analyticsModal": {
-        "disable": "Desgaituta"
+        "disable": "Desgaituta",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "enable": "",
+        "title": ""
     },
     "launch": {
         "options": "Jaurtiketa-aukerak..."
-    }
+    },
+    "tour": {
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "back": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
+    },
+    "adtraction-locked": {
+        "description": "",
+        "dont-show-again": "",
+        "title": ""
+    },
+    "categories-manager": {
+        "confirm-rename": "",
+        "cancel-remove": "",
+        "no-categories": "",
+        "confirm-remove": "",
+        "add-placeholder": "",
+        "remove": "",
+        "title": "",
+        "cancel-rename": "",
+        "add": "",
+        "rename": ""
+    },
+    "amazon-luna": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": "",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Dena",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Dena"
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Оновити бібліотеку"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
@@ -565,7 +568,7 @@
         "custom_themes_path": "Виберіть шлях до користувальницьких файлів CSS",
         "dxvkfpsvalue": "Цілочисельне позитивне значення (наприклад: 30, 60, ...)",
         "egs-prefix": "Префікс де встановлено EGS",
-        "prefered_language": "2-значний код (приклад: \"en\" або \"uk\")",
+        "prefered_language": "Код із 2 або 4 символів (наприклад: «fr» або «pt-BR»)",
         "alt-nile-bin": "Використовується вбудований двійковий файл Nile..."
     },
     "platforms": {
@@ -817,7 +820,9 @@
         },
         "WoW64": "Увімкнути WoW64 (експериментально)",
         "scripts": "Скрипти:",
-        "enable-quick-sync-menu": "Увімкнути меню швидкого збереження та синхронізації на сторінці гри"
+        "enable-quick-sync-menu": "Увімкнути меню швидкого збереження та синхронізації на сторінці гри",
+        "disable_gog_presence": "Вимкни оновлення статусу GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -923,12 +928,23 @@
             "title": "Власний стиль CSS"
         },
         "launchOptions": "Параметри запуску",
-        "legacy_warning": "Попередження: налаштування на цій вкладці здебільшого застаріли і можуть взагалі не працювати."
+        "legacy_warning": "Попередження: налаштування на цій вкладці здебільшого застаріли і можуть взагалі не працювати.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Налаштування",
     "sidebar": {
         "collapse": "Згорнути бічну панель",
-        "uncollapse": "Розгорнути бічну панель"
+        "uncollapse": "Розгорнути бічну панель",
+        "console": ""
     },
     "status": {
         "installing": "Встановлення",
@@ -985,7 +1001,13 @@
             "link": "Менеджер Wine",
             "not-found": "Версій Wine не знайдено. Натисніть на піктограму оновлення, щоб спробувати ще раз.",
             "title": "Менеджер Wine",
-            "unzipping": "Розпаковування"
+            "unzipping": "Розпаковування",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Дата випуску",
         "size": "Розмір",
@@ -1039,7 +1061,10 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton – це варіант Wine, створений Glorious Eggroll. Це рекомендований варіант Wine для використання поза Steam. Це забезпечить корисними журналами помилок під час усунення несправностей.",
-        "proton-ge": "GE-Proton – це варіант Proton, створений Glorious Eggroll. Він призначений для використання у Steam, але деякі ігри за межами Steam можуть працювати краще з цим варіантом. Він надає переважно марні журнали для пошуку та усунення несправностей."
+        "proton-ge": "GE-Proton – це варіант Proton, створений Glorious Eggroll. Він призначений для використання у Steam, але деякі ігри за межами Steam можуть працювати краще з цим варіантом. Він надає переважно марні журнали для пошуку та усунення несправностей.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "adtraction-locked": {
         "description": "Схоже, що домен track.adtraction.com не може бути завантажений або він заблокований. Завдяки застосунку, будь-яка покупка, яку ви робите в магазині GOG, підтримує команду Heroic фінансово. Розгляньте можливість зняття блокування, якщо ви хочете зробити свій внесок.",
@@ -1129,5 +1154,132 @@
     "zoom-store": "Крамниця Zoom",
     "launch": {
         "options": "Параметри Запуску..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }
