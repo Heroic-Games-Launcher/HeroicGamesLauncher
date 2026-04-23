@@ -479,6 +479,9 @@
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "max_workers": {
+            "info": "Limits download speed. This sets the maximum number of parallel download chunks. High numbers can lead to high CPU usage."
+        },
         "msync": "Msync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "other": {
             "part4": "Use the ",
