@@ -30,13 +30,14 @@ const MaxWorkers = () => {
     <p>{helpContent}</p>
   )
 
-
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+      }}
+    >
       <SelectField
         htmlId="max_workers"
         label={t('setting.maxworkers')}
@@ -53,7 +54,7 @@ const MaxWorkers = () => {
           Max
         </MenuItem>
       </SelectField>
-      <InfoIcon text={helpContent}/>
+      <InfoIcon text={helpContent} />
     </div>
   )
 }
