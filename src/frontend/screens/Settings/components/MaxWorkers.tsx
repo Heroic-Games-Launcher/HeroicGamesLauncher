@@ -34,8 +34,9 @@ const MaxWorkers = () => {
     <div
       style={{
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start'
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
       }}
     >
       <SelectField
