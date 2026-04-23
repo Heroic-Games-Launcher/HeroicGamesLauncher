@@ -95,10 +95,10 @@ export default React.memo(function ActionIcons({
           body: `Export failed: ${result.error}`
         })
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       notify({
         title: 'Export',
-        body: err.message || 'An error occurred during export'
+        body: (err as Error).message || 'An error occurred during export'
       })
     }
   }

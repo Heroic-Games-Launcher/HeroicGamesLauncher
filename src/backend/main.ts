@@ -1,6 +1,6 @@
 import { initImagesCache } from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
-import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
+import { DiskSpaceData, StatusPromise, WineInstallation, GameInfo } from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -23,7 +23,13 @@ import 'backend/updater'
 import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
-import { existsSync, watch, readdirSync, readFileSync, writeFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  watch,
+  readdirSync,
+  readFileSync,
+  writeFileSync
+} from 'graceful-fs'
 import 'source-map-support/register'
 
 import Backend from 'i18next-fs-backend'
@@ -78,7 +84,10 @@ import {
   LogPrefix,
   logWarning
 } from './logger'
-import { gameInfoStore } from 'backend/storeManagers/legendary/electronStores'
+import {
+  gameInfoStore,
+  gameInfoStore as legendaryExtraInfoStore
+} from 'backend/storeManagers/legendary/electronStores'
 import {
   launchEventCallback,
   readKnownFixes,
@@ -103,13 +112,13 @@ import {
   getBranchPassword,
   setBranchPassword,
   getGOGPlaytime,
-  syncQueuedPlaytimeGOG
+  syncQueuedPlaytimeGOG,
+  getAchievements as getAchievementsGOG
 } from 'backend/storeManagers/gog/games'
 import {
   apiInfoCache as gogExtraInfoStore,
   playtimeSyncQueue
 } from './storeManagers/gog/electronStores'
-import { gameInfoStore as legendaryExtraInfoStore } from 'backend/storeManagers/legendary/electronStores'
 import { wikiGameInfoStore } from 'backend/wiki_game_info/electronStore'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
@@ -153,7 +162,6 @@ import {
   isWindows
 } from './constants/environment'
 import {
-  appFolder,
   configPath,
   gamesConfigPath,
   publicDir,
@@ -163,11 +171,8 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
-import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
-
-const { showOpenDialog } = dialog
 
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
@@ -1470,12 +1475,18 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
               if (typeof v === 'string') return v
               if (v && typeof v === 'object') {
                 // Handle GOG-style multi-language names or simple name fields
-                return (v.name?.['en-US'] || v.name?.['*'] || v.name || v.title || JSON.stringify(v))
+                return (
+                  v.name?.['en-US'] ||
+                  v.name?.['*'] ||
+                  v.name ||
+                  v.title ||
+                  JSON.stringify(v)
+                )
               }
               return String(v)
             })
             .filter((v) => !!v && typeof v === 'string')
-          
+
           if (extracted.length > 0) {
             result[fullKey] = extracted
               .map((v) => String(v).replace(/"/g, '""'))
@@ -1499,8 +1510,8 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
     // Enrich games with cached metadata before flattening
     const enrichedEntries = games.map((gameBase) => {
       // Make a shallow copy to avoid mutating the original (though we are in a handler)
-      const game = { ...gameBase } as any
-      
+      const game = { ...gameBase } as Omit<GameInfo, 'extra'> & { extra?: Record<string, unknown> }
+
       // 1. Store-specific enrichment
       if (game.runner === 'legendary') {
         const extra = legendaryExtraInfoStore.get(game.app_name)
@@ -1513,13 +1524,18 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
           if (!game.extra) game.extra = {}
           // Map GOG GamesDB fields to ExtraInfo pattern
           if (gogExtra.game.genres) {
-            game.extra.genres = gogExtra.game.genres.map(g => g.name?.['en-US'] || g.name?.['*'] || g.slug)
+            game.extra.genres = gogExtra.game.genres.map(
+              (g) => g.name?.['en-US'] || g.name?.['*'] || g.slug
+            )
           }
           if (gogExtra.game.first_release_date) {
             game.extra.releaseDate = gogExtra.game.first_release_date
           }
           if (gogExtra.game.summary) {
-            game.description = gogExtra.game.summary?.['en-US'] || gogExtra.game.summary?.['*'] || game.description
+            game.description =
+              gogExtra.game.summary?.['en-US'] ||
+              gogExtra.game.summary?.['*'] ||
+              game.description
           }
         }
       }
@@ -1538,7 +1554,7 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
         }
       }
 
-      return flattenObject(game)
+      return flattenObject(game as Record<string, unknown>)
     })
 
     // Sort entries alphabetically by title
@@ -1548,10 +1564,24 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
       return { success: false, error: 'No library entries to export' }
     }
 
-    const allColumnsSet = new Set(enrichedEntries.flatMap((e) => Object.keys(e)))
-    const priorityColumns = ['title', 'developer', 'extra.about.description', 'runner', 'store_url', 'art_cover']
-    const otherColumns = Array.from(allColumnsSet).filter(col => !priorityColumns.includes(col)).sort()
-    const allColumns = [...priorityColumns.filter(col => allColumnsSet.has(col)), ...otherColumns]
+    const allColumnsSet = new Set(
+      enrichedEntries.flatMap((e) => Object.keys(e))
+    )
+    const priorityColumns = [
+      'title',
+      'developer',
+      'extra.about.description',
+      'runner',
+      'store_url',
+      'art_cover'
+    ]
+    const otherColumns = Array.from(allColumnsSet)
+      .filter((col) => !priorityColumns.includes(col))
+      .sort()
+    const allColumns = [
+      ...priorityColumns.filter((col) => allColumnsSet.has(col)),
+      ...otherColumns
+    ]
     const csvHeader = allColumns.map((c) => `"${c}"`).join(',')
     const csvRows = enrichedEntries.map((entry) =>
       allColumns
@@ -1560,7 +1590,10 @@ addHandler('exportLibrary', async (_e, { filePath, games }) => {
     )
     const csvContent = [csvHeader, ...csvRows].join('\n')
 
-    logInfo(`exportLibrary: attempting to write to ${filePath}`, LogPrefix.Backend)
+    logInfo(
+      `exportLibrary: attempting to write to ${filePath}`,
+      LogPrefix.Backend
+    )
     writeFileSync(filePath, csvContent, 'utf-8')
 
     logInfo(`Library exported to ${filePath}`, LogPrefix.Backend)

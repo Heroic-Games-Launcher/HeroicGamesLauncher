@@ -1,4 +1,8 @@
-import type { OpenDialogOptions, SaveDialogOptions, TitleBarOverlay } from 'electron'
+import type {
+  OpenDialogOptions,
+  SaveDialogOptions,
+  TitleBarOverlay
+} from 'electron'
 
 import type { SystemInformation } from 'backend/utils/systeminfo'
 
