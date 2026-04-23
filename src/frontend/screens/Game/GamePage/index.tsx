@@ -28,6 +28,7 @@ import UninstallModal from 'frontend/components/UI/UninstallModal'
 import {
   ExtraInfo,
   GameInfo,
+  GameGroup,
   GameSettings,
   Runner,
   WikiInfo,
@@ -79,7 +80,7 @@ import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
   const location = useLocation() as {
-    state: { fromDM: boolean; gameInfo: GameInfo }
+    state: { fromDM: boolean; gameInfo: GameInfo | GameGroup }
   }
   const { t, i18n } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
@@ -105,7 +106,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
     </p>
   )
 
-  const [gameInfo, setGameInfo] = useState(locationGameInfo)
+  const [gameInfo, setGameInfo] = useState<GameInfo>('games' in locationGameInfo ? locationGameInfo.representative : locationGameInfo)
+  const [gameGroup, setGameGroup] = useState<GameGroup | null>('games' in locationGameInfo ? locationGameInfo : null)
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
   const { status, folder, statusContext } = hasStatus(gameInfo)
@@ -439,7 +441,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         store={runner}
                       />
                       <div className="store-icon">
-                        <StoreLogos runner={runner} />
+                        <StoreLogos runner={gameGroup ? undefined : runner} runners={gameGroup ? gameGroup.games.map(g => g.runner) : undefined} />
                       </div>
 
                       <h1 style={{ opacity: art_logo ? 0 : 1 }}>{title}</h1>

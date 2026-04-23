@@ -9,7 +9,8 @@ const ExperimentalFeatures = () => {
   const FEATURES: (keyof IExperimentalFeatures)[] = [
     'enableHelp',
     'cometSupport',
-    'zoomPlatform'
+    'zoomPlatform',
+    'hideDuplicateGames'
   ]
 
   const { t } = useTranslation()
@@ -18,7 +19,8 @@ const ExperimentalFeatures = () => {
     {
       enableHelp: false,
       cometSupport: true,
-      zoomPlatform: false
+      zoomPlatform: false,
+      hideDuplicateGames: false
     }
   )
   const { handleExperimentalFeatures } = useContext(ContextProvider)

@@ -17,7 +17,7 @@ import Fuse from 'fuse.js'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import GamesList from './components/GamesList'
-import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
+import { FavouriteGame, GameInfo, GameGroup, HiddenGame, Runner } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
@@ -64,7 +64,8 @@ export default React.memo(function Library(): JSX.Element {
     currentCustomCategories,
     customCategories,
     hiddenGames,
-    gameUpdates
+    gameUpdates,
+    experimentalFeatures
   } = useContext(ContextProvider)
 
   hasHelp(
@@ -72,6 +73,34 @@ export default React.memo(function Library(): JSX.Element {
     t('help.title.library', 'Library'),
     <p>{t('help.content.library', 'Shows all owned games.')}</p>
   )
+
+  function getDedupeKey(game: GameInfo): string {
+    let title = game.title.toLowerCase()
+
+    // 1. Remove common store-specific tags and noise
+    // Handles things like "(Legacy)", "[EGS]", "TM", "(R)"
+    title = title.replace(/(\(.*\)|\[.*\]|™|®)/g, '')
+
+    // 2. Normalize punctuation and spacing
+    // Converts "Game: Subtitle" and "Game - Subtitle" to "game subtitle"
+    title = title.replace(/[:\-_]/g, ' ')
+    title = title.replace(/[^a-z0-9 ]/g, '')
+    title = title.trim().replace(/\s+/g, ' ')
+
+    // 3. Handle specific version suffixes (Optional)
+    // If you want "Game X" and "Game X: Enhanced Edition" to be duplicates,
+    // you would strip these. Otherwise, leave them to keep versions distinct.
+    const versionTags = ['enhanced edition', 'directors cut', 'goty', 'gold edition']
+    versionTags.forEach(tag => {
+      // title = title.replace(tag, '').trim(); 
+    })
+
+    // 4. DLC handling
+    // Ensure a DLC is never deduped with a base game
+    const dlcPrefix = game.install.is_dlc ? 'dlc_' : 'game_'
+
+    return `${dlcPrefix}${title}`
+  }
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
   const handleLayout = (layout: string) => {
@@ -585,7 +614,7 @@ export default React.memo(function Library(): JSX.Element {
 
   // select library
   const libraryToShow = useMemo(() => {
-    let library = [...gamesForAlphabetFilter]
+    let library: (GameInfo | GameGroup)[] = [...gamesForAlphabetFilter]
 
     // Alphabetical filter
     if (alphabetFilterLetter) {
@@ -605,21 +634,73 @@ export default React.memo(function Library(): JSX.Element {
       })
     }
 
+    // Group duplicate games if feature is enabled
+    if (experimentalFeatures?.hideDuplicateGames) {
+      const groups = new Map<string, GameInfo[]>()
+      library.forEach(game => {
+        if ('games' in game) return // Skip if already grouped
+        const key = getDedupeKey(game)
+        if (!groups.has(key)) {
+          groups.set(key, [])
+        }
+        groups.get(key)!.push(game)
+      })
+
+      // Convert groups to GameGroup objects
+      const groupedLibrary: GameGroup[] = []
+      groups.forEach((games, key) => {
+        if (games.length > 1) {
+          // Find representative game (prefer installed, then first)
+          const representative = games.find(g => g.is_installed) || games[0]
+          groupedLibrary.push({
+            title: representative.title,
+            games,
+            representative
+          })
+        } else {
+          // Single game, still wrap in group for consistency
+          groupedLibrary.push({
+            title: games[0].title,
+            games,
+            representative: games[0]
+          })
+        }
+      })
+
+      library = groupedLibrary
+    }
+
     // sort
     library = library.sort((a, b) => {
-      const gameA = a.title.toUpperCase().replace('THE ', '')
-      const gameB = b.title.toUpperCase().replace('THE ', '')
+      const titleA = 'title' in a ? a.title : (a as GameGroup).representative.title
+      const titleB = 'title' in b ? b.title : (b as GameGroup).representative.title
+      const gameA = titleA.toUpperCase().replace('THE ', '')
+      const gameB = titleB.toUpperCase().replace('THE ', '')
       return sortDescending
         ? -gameA.localeCompare(gameB)
         : gameA.localeCompare(gameB)
     })
-    const installed = library.filter((game) => game?.is_installed)
-    const notInstalled = library.filter(
-      (game) => !game?.is_installed && !installing.includes(game?.app_name)
-    )
-    const installingGames = library.filter(
-      (g) => !g.is_installed && installing.includes(g.app_name)
-    )
+    const installed = library.filter((item) => {
+      if ('is_installed' in item) {
+        return item.is_installed
+      } else {
+        return (item).games.some(g => g.is_installed)
+      }
+    })
+    const notInstalled = library.filter((item) => {
+      if ('is_installed' in item) {
+        return !item.is_installed && !installing.includes(item.app_name)
+      } else {
+        return !(item).games.some(g => g.is_installed) && !(item).games.some(g => installing.includes(g.app_name))
+      }
+    })
+    const installingGames = library.filter((item) => {
+      if ('is_installed' in item) {
+        return !item.is_installed && installing.includes(item.app_name)
+      } else {
+        return !(item).games.some(g => g.is_installed) && (item).games.some(g => installing.includes(g.app_name))
+      }
+    })
 
     library = sortInstalled
       ? [...installed, ...installingGames, ...notInstalled]
@@ -631,7 +712,8 @@ export default React.memo(function Library(): JSX.Element {
     alphabetFilterLetter,
     sortDescending,
     sortInstalled,
-    installing
+    installing,
+    experimentalFeatures
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area

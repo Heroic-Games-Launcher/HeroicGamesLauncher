@@ -795,6 +795,7 @@
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
             "enableNewDesign": "New design",
+            "hideDuplicateGames": "Hide duplicate games",
             "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "frameless-window": {

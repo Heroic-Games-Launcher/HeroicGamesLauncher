@@ -5,22 +5,31 @@ import SideLoad from 'frontend/assets/heroic-icon.svg?react'
 import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
 
-type Props = { runner: Runner; className?: string }
+type Props = { runner?: Runner; runners?: Runner[]; className?: string }
 
 export default function StoreLogos({
   runner,
+  runners,
   className = 'store-icon'
 }: Props) {
-  switch (runner) {
-    case 'legendary':
-      return <EpicLogo className={className} />
-    case 'gog':
-      return <GOGLogo className={className} />
-    case 'nile':
-      return <AmazonLogo className={className} />
-    case 'zoom':
-      return <ZoomLogo className={className} />
-    default:
-      return <SideLoad className={className} />
-  }
+  const runnersToShow = runners || (runner ? [runner] : [])
+
+  return (
+    <div className="store-logos-container">
+      {runnersToShow.map((r, index) => {
+        switch (r) {
+          case 'legendary':
+            return <EpicLogo key={index} className={className} />
+          case 'gog':
+            return <GOGLogo key={index} className={className} />
+          case 'nile':
+            return <AmazonLogo key={index} className={className} />
+          case 'zoom':
+            return <ZoomLogo key={index} className={className} />
+          default:
+            return <SideLoad key={index} className={className} />
+        }
+      })}
+    </div>
+  )
 }
