@@ -316,7 +316,6 @@ export default function ImportExportWizard({ open, onClose }: Props) {
             <StepDone
               applyResult={applyResult}
               applying={applying}
-              onClose={onClose}
               rollbackHintPath={applyResult?.rollbackPath}
             />
           )}

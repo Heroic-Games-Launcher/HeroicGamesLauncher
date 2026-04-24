@@ -45,13 +45,11 @@ export default function StepCredentials({
                 )}
               </div>
             </div>
-            <div className="ImportExportWizard__credMiddle">
-              <StatusPill status={cred.present ? 'info' : 'missing'}>
-                {cred.present
-                  ? t('import-export.step5.found', 'Found in backup')
-                  : t('import-export.step5.missing', 'Not in backup')}
-              </StatusPill>
-            </div>
+            <StatusPill status={cred.present ? 'info' : 'missing'}>
+              {cred.present
+                ? t('import-export.step5.found', 'Found in backup')
+                : t('import-export.step5.missing', 'Not in backup')}
+            </StatusPill>
             <ToggleSwitch
               htmlId={`ie-cred-${cred.runner}`}
               title={t('import-export.step5.include', 'Include')}

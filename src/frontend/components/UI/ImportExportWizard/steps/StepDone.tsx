@@ -11,18 +11,15 @@ import { stageFriendlyLabel } from '../shared'
 interface Props {
   applyResult: HeroicApplyResult | null
   applying: boolean
-  onClose: () => void
   rollbackHintPath?: string
 }
 
 export default function StepDone({
   applyResult,
   applying,
-  onClose,
   rollbackHintPath
 }: Props) {
   const { t } = useTranslation()
-  void onClose
 
   async function restart() {
     await window.api.restartHeroic()

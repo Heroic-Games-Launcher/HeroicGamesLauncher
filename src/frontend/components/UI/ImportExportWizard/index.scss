@@ -1,6 +1,5 @@
 .ImportExportWizard {
-  width: 820px;
-  max-width: 95vw;
+  width: min(820px, 95vw);
 
   .MuiDialog-paper {
     background-color: var(--modal-background);
@@ -54,7 +53,7 @@
     }
     &.is-active .ImportExportWizard__stepperNumber {
       background: var(--accent);
-      color: var(--background, #000);
+      color: var(--background);
     }
 
     &.is-done {
@@ -62,7 +61,7 @@
     }
     &.is-done .ImportExportWizard__stepperNumber {
       background: var(--status-success);
-      color: var(--background, #000);
+      color: var(--background);
     }
 
     &.is-disabled {
@@ -95,9 +94,8 @@
   }
 
   &__body {
-    min-height: 520px;
-    width: 760px;
-    max-width: 100%;
+    min-height: 32em;
+    width: 100%;
     padding: var(--space-md);
   }
 
@@ -119,14 +117,6 @@
     max-width: 65ch;
   }
 
-  &__pickRow {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-sm);
-    align-items: end;
-    margin-top: var(--space-md);
-  }
-
   &__filePicker {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -138,6 +128,10 @@
     border: 1px solid transparent;
     border-radius: 6px;
 
+    &:focus-within {
+      border-color: var(--accent);
+    }
+
     input {
       background: transparent;
       border: none;
@@ -146,13 +140,10 @@
       padding: var(--space-2xs) 0;
       width: 100%;
       cursor: default;
+      outline: none;
 
       &::placeholder {
         color: var(--text-secondary);
-      }
-
-      &:focus-visible {
-        outline: none;
       }
     }
   }
@@ -295,7 +286,6 @@
 
   &__appList,
   &__credList,
-  &__wineList,
   &__issueList,
   &__stageList {
     list-style: none;
@@ -307,7 +297,7 @@
   }
 
   &__appList {
-    max-height: 360px;
+    max-height: 22em;
     overflow-y: auto;
     padding-right: var(--space-2xs);
   }
@@ -391,7 +381,7 @@
   }
 
   &__pill {
-    padding: 2px var(--space-sm);
+    padding: var(--space-3xs) var(--space-sm);
     border-radius: 999px;
     font-size: var(--text-xs);
     font-weight: 600;
@@ -422,17 +412,6 @@
       font-weight: var(--bold);
       cursor: pointer;
       padding: var(--space-2xs) 0;
-    }
-  }
-
-  &__wineList li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-2xs) 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--text-default) 6%, transparent);
-    &:last-child {
-      border-bottom: none;
     }
   }
 
@@ -505,7 +484,7 @@
 
       &.is-selected {
         background: var(--accent);
-        color: var(--background, #000);
+        color: var(--background);
       }
     }
   }
