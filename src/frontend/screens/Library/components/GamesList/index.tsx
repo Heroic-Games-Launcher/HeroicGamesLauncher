@@ -161,7 +161,7 @@ const GamesList = ({
               }}
               forceCard={layout === 'grid'}
               isRecent={isRecent}
-              gameInfo={gameInfo}
+              gameInfo={item}
               justPlayed={isJustPlayed}
               dataTour={index === 0 ? 'library-game-card' : undefined}
             />

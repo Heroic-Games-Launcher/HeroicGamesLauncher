@@ -31,6 +31,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
   const actualGameInfo = 'games' in gameInfo ? gameInfo.representative : gameInfo
+
   const is_installed = actualGameInfo.is_installed
   const disabledPlayButtons =
     is.reparing ||
@@ -219,7 +220,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
               }
               handleInstall(is_installed)
             }}
-            disabled={disabledInstallButtons}
+            disabled={disabledInstallButtons || is.installing || is.importing}
             autoFocus={true}
             className={classNames(
               'button',

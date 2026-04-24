@@ -502,7 +502,13 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getStoreName(runner, t2('Other'))}
+              {'games' in gameInfoFromProps
+                ? Array.from(
+                    new Set(
+                      gameInfoFromProps.games.map((g) => getStoreName(g.runner, t2('Other')))
+                    )
+                  ).join(', ')
+                : getStoreName(runner, t2('Other'))}
             </span>
           </Link>
           <>

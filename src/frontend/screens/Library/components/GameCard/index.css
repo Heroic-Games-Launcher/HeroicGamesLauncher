@@ -169,12 +169,10 @@
   right: 5px;
   top: 4px;
   z-index: 2;
-  padding: var(--space-3xs);
-  width: 35px;
-  height: 35px;
-  place-content: center;
-  background: var(--background-darker);
-  fill: var(--text-default);
+  padding: 0;
+  width: fit-content;
+  height: fit-content;
+  background: transparent;
 }
 
 .gameCard:hover,

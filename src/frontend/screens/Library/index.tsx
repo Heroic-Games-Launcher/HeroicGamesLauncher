@@ -46,6 +46,29 @@ type SearchableGame = {
   normalizedTitle: string
 }
 
+function getDedupeKey(game: GameInfo): string {
+  let title = game.title.toLowerCase()
+
+  // 1. Remove common store-specific tags and noise
+  title = title.replace(/(\(.*\)|\[.*\]|™|®)/g, '')
+
+  // 2. Normalize punctuation and spacing
+  title = title.replace(/[:\-_]/g, ' ')
+  title = title.replace(/[^a-z0-9 ]/g, '')
+  title = title.trim().replace(/\s+/g, ' ')
+
+  // 3. Handle specific version suffixes (Optional)
+  // const versionTags = ['enhanced edition', 'directors cut', 'goty', 'gold edition']
+  // versionTags.forEach(tag => {
+  //   title = title.replace(tag, '').trim(); 
+  // })
+
+  // 4. DLC handling
+  const dlcPrefix = game.install.is_dlc ? 'dlc_' : 'game_'
+
+  return `${dlcPrefix}${title}`
+}
+
 export default React.memo(function Library(): JSX.Element {
   const { t } = useTranslation()
 
@@ -73,34 +96,6 @@ export default React.memo(function Library(): JSX.Element {
     t('help.title.library', 'Library'),
     <p>{t('help.content.library', 'Shows all owned games.')}</p>
   )
-
-  function getDedupeKey(game: GameInfo): string {
-    let title = game.title.toLowerCase()
-
-    // 1. Remove common store-specific tags and noise
-    // Handles things like "(Legacy)", "[EGS]", "TM", "(R)"
-    title = title.replace(/(\(.*\)|\[.*\]|™|®)/g, '')
-
-    // 2. Normalize punctuation and spacing
-    // Converts "Game: Subtitle" and "Game - Subtitle" to "game subtitle"
-    title = title.replace(/[:\-_]/g, ' ')
-    title = title.replace(/[^a-z0-9 ]/g, '')
-    title = title.trim().replace(/\s+/g, ' ')
-
-    // 3. Handle specific version suffixes (Optional)
-    // If you want "Game X" and "Game X: Enhanced Edition" to be duplicates,
-    // you would strip these. Otherwise, leave them to keep versions distinct.
-    const versionTags = ['enhanced edition', 'directors cut', 'goty', 'gold edition']
-    versionTags.forEach(tag => {
-      // title = title.replace(tag, '').trim(); 
-    })
-
-    // 4. DLC handling
-    // Ensure a DLC is never deduped with a base game
-    const dlcPrefix = game.install.is_dlc ? 'dlc_' : 'game_'
-
-    return `${dlcPrefix}${title}`
-  }
 
   const [layout, setLayout] = useState(storage.getItem('layout') || 'grid')
   const handleLayout = (layout: string) => {
@@ -644,11 +639,12 @@ export default React.memo(function Library(): JSX.Element {
           groups.set(key, [])
         }
         groups.get(key)!.push(game)
+        console.log(key, groups.get(key));
       })
 
       // Convert groups to GameGroup objects
       const groupedLibrary: GameGroup[] = []
-      groups.forEach((games, key) => {
+      groups.forEach((games) => {
         if (games.length > 1) {
           // Find representative game (prefer installed, then first)
           const representative = games.find(g => g.is_installed) || games[0]
