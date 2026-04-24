@@ -3,19 +3,15 @@ import { addHandler } from 'backend/ipc'
 import { importExportRollbackStore } from 'backend/constants/key_value_stores'
 import { app } from 'electron'
 
-import type {
-  HeroicApplyResult,
-  HeroicBackupValidationReport
-} from 'common/types/importExport'
+import type { HeroicApplyResult } from 'common/types/importExport'
 
 import { exportHeroicBackup } from './export'
+import { validateHeroicBackup } from './validate'
 
 addHandler('exportHeroicBackup', (_e, options) => exportHeroicBackup(options))
 
-addHandler(
-  'validateHeroicBackup',
-  (): Promise<HeroicBackupValidationReport> =>
-    Promise.reject(new Error('validateHeroicBackup not implemented yet'))
+addHandler('validateHeroicBackup', (_e, sourcePath) =>
+  Promise.resolve(validateHeroicBackup(sourcePath))
 )
 
 addHandler('applyHeroicBackup', (): Promise<HeroicApplyResult> => {

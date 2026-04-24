@@ -1,5 +1,10 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'fs'
-import { mkdtempSync, rmSync } from 'fs'
+import {
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync
+} from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
 import AdmZip from 'adm-zip'
@@ -189,7 +194,20 @@ describe('exportHeroicBackup', () => {
     // Manifest
     const manifestEntry = zip.getEntry(BACKUP_PATHS.manifest)
     expect(manifestEntry).toBeTruthy()
-    const manifest = JSON.parse(manifestEntry!.getData().toString('utf-8'))
+    const manifest = JSON.parse(
+      manifestEntry!.getData().toString('utf-8')
+    ) as {
+      formatVersion: number
+      heroicVersion: string
+      counts: {
+        perGameSettings: number
+        installedGames: Record<string, number>
+        credentials: Record<string, boolean>
+        fixesIncluded: boolean
+        wineVersions: number
+        sideloadGames: number
+      }
+    }
     expect(manifest.formatVersion).toBe(1)
     expect(manifest.heroicVersion).toBe('9.9.9-test')
     expect(manifest.counts.perGameSettings).toBe(2)
