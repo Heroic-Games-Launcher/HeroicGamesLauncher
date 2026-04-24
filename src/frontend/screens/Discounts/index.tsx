@@ -438,7 +438,8 @@ export default function Discounts() {
     ratingRange[1] !== RATING_SCALE_MAX ||
     maxPegiAge !== null ||
     searchQuery.trim() !== '' ||
-    hideDlcs || hideOwned ||
+    hideDlcs ||
+    hideOwned ||
     (priceRange !== null &&
       (priceRange[0] !== 0 || priceRange[1] !== priceMax)) ||
     (releaseYearRange !== null &&
