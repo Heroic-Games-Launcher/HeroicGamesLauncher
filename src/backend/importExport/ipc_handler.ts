@@ -5,9 +5,17 @@ import { app } from 'electron'
 
 import { exportHeroicBackup } from './export'
 import { validateHeroicBackup } from './validate'
-import { applyHeroicBackup, rollbackLastImport } from './apply'
+import {
+  applyHeroicBackup,
+  getWineImportProgressSnapshot,
+  rollbackLastImport
+} from './apply'
 
 addHandler('getHomeDir', () => Promise.resolve(app.getPath('home')))
+
+addHandler('getWineImportProgress', () =>
+  Promise.resolve(getWineImportProgressSnapshot())
+)
 
 addHandler('exportHeroicBackup', (_e, options) => exportHeroicBackup(options))
 

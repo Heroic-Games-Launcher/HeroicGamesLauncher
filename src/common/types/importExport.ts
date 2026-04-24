@@ -125,6 +125,7 @@ export interface HeroicApplyResult {
   stages: HeroicApplyStageResult[]
   rollbackPath?: string
   gamesQueuedForDownload: string[]
+  wineVersionsQueuedForDownload: string[]
   warnings: string[]
   errors: string[]
 }

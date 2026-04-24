@@ -343,6 +343,11 @@ interface AsyncIPCFunctions {
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
   getHomeDir: () => Promise<string>
+  getWineImportProgress: () => Promise<{
+    completed: number
+    total: number
+    pending: string[]
+  }>
   exportHeroicBackup: (
     options: HeroicExportOptions
   ) => Promise<HeroicExportResult>
@@ -386,6 +391,11 @@ interface FrontendMessages {
     installingComponent: string
   }) => void
   progressOfWineManager: (version: string, progress: WineManagerStatus) => void
+  wineImportProgress: (state: {
+    completed: number
+    total: number
+    pending: string[]
+  }) => void
   'installing-winetricks-component': (component: string) => void
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void

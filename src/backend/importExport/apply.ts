@@ -591,10 +591,33 @@ function applySideloadLibrary(
   }
 }
 
+interface WineImportTracker {
+  total: number
+  pending: Set<string>
+}
+
+const wineImportTracker: WineImportTracker = {
+  total: 0,
+  pending: new Set<string>()
+}
+
+export function getWineImportProgressSnapshot() {
+  return {
+    completed: wineImportTracker.total - wineImportTracker.pending.size,
+    total: wineImportTracker.total,
+    pending: Array.from(wineImportTracker.pending)
+  }
+}
+
+function emitWineImportProgress() {
+  sendFrontendMessage('wineImportProgress', getWineImportProgressSnapshot())
+}
+
 async function applyWineMetadata(
   zip: AdmZip,
   options: HeroicApplyOptions,
-  warnings: string[]
+  warnings: string[],
+  wineVersionsQueuedForDownload: string[]
 ): Promise<HeroicApplyStageResult> {
   // Refresh local wine info so we can match versions against what's currently
   // available for download (spec requirement).
@@ -640,18 +663,35 @@ async function applyWineMetadata(
     .map((v) => knownLocal.get(v.version))
     .filter((v): v is WineVersionInfo => !!v)
 
-  // Fire downloads in parallel; progress flows through the existing
-  // progressOfWineManager channel.
+  for (const r of toInstall) {
+    wineVersionsQueuedForDownload.push(r.version)
+    wineImportTracker.pending.add(r.version)
+  }
+  wineImportTracker.total += toInstall.length
+  emitWineImportProgress()
+
+  // Fire downloads in parallel. Progress ticks reuse the existing
+  // progressOfWineManager channel; aggregate completion is broadcast on the
+  // wineImportProgress channel so the import wizard's Done step can show
+  // "X of Y" and gate its Close + Restart buttons until all installs settle.
   for (const release of toInstall) {
     const onProgress = (state: WineManagerStatus) => {
       sendFrontendMessage('progressOfWineManager', release.version, state)
     }
-    void installWineVersion(release, onProgress).catch((err) => {
-      logError(
-        [`Background wine install failed for ${release.version}:`, err],
-        LogPrefix.ImportExport
-      )
-    })
+    void installWineVersion(release, onProgress)
+      .catch((err) => {
+        logError(
+          [`Background wine install failed for ${release.version}:`, err],
+          LogPrefix.ImportExport
+        )
+      })
+      .finally(() => {
+        sendFrontendMessage('progressOfWineManager', release.version, {
+          status: 'idle'
+        })
+        wineImportTracker.pending.delete(release.version)
+        emitWineImportProgress()
+      })
   }
 
   return {
@@ -665,6 +705,7 @@ export async function applyHeroicBackup(
   options: HeroicApplyOptions
 ): Promise<HeroicApplyResult> {
   const gamesQueuedForDownload: string[] = []
+  const wineVersionsQueuedForDownload: string[] = []
   const warnings: string[] = []
   const errors: string[] = []
 
@@ -676,6 +717,7 @@ export async function applyHeroicBackup(
       ok: false,
       stages: [],
       gamesQueuedForDownload: [],
+      wineVersionsQueuedForDownload: [],
       warnings: [],
       errors: [`Could not open archive: ${String(err)}`]
     }
@@ -690,6 +732,7 @@ export async function applyHeroicBackup(
       ok: false,
       stages: [],
       gamesQueuedForDownload: [],
+      wineVersionsQueuedForDownload: [],
       warnings: [],
       errors: [
         'Archive manifest missing or uses an unsupported format version.'
@@ -721,7 +764,14 @@ export async function applyHeroicBackup(
       stages.push(applySideloadLibrary(zip, options, gamesQueuedForDownload))
     }
     if (options.stages.includes('wineMetadata')) {
-      stages.push(await applyWineMetadata(zip, options, warnings))
+      stages.push(
+        await applyWineMetadata(
+          zip,
+          options,
+          warnings,
+          wineVersionsQueuedForDownload
+        )
+      )
     }
   } catch (err) {
     logError(['Apply failed:', err], LogPrefix.ImportExport)
@@ -731,6 +781,7 @@ export async function applyHeroicBackup(
       stages,
       rollbackPath: snapshot?.archivePath,
       gamesQueuedForDownload,
+      wineVersionsQueuedForDownload,
       warnings,
       errors
     }
@@ -750,6 +801,7 @@ export async function applyHeroicBackup(
     stages,
     rollbackPath: snapshot?.archivePath,
     gamesQueuedForDownload,
+    wineVersionsQueuedForDownload,
     warnings,
     errors
   }
@@ -763,6 +815,7 @@ export async function rollbackLastImport(): Promise<HeroicApplyResult> {
       ok: false,
       stages: [],
       gamesQueuedForDownload: [],
+      wineVersionsQueuedForDownload: [],
       warnings: [],
       errors: ['No rollback snapshot available.']
     }
