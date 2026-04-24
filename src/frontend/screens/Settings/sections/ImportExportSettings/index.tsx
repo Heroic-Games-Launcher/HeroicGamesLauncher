@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import RestoreIcon from '@mui/icons-material/Restore'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
@@ -21,8 +22,16 @@ import type {
   HeroicRollbackSnapshot
 } from 'common/types/importExport'
 
+interface ImportExportNavState {
+  openImport?: boolean
+}
+
 export default function ImportExportSettings() {
   const { t } = useTranslation()
+  const location = useLocation()
+  const openImportFromNav = Boolean(
+    (location.state as ImportExportNavState | null)?.openImport
+  )
 
   const [selectedStages, setSelectedStages] = useState<
     Set<HeroicBackupStageId>
@@ -34,7 +43,7 @@ export default function ImportExportSettings() {
     null
   )
 
-  const [wizardOpen, setWizardOpen] = useState(false)
+  const [wizardOpen, setWizardOpen] = useState(openImportFromNav)
 
   const [rollbackSnapshot, setRollbackSnapshot] =
     useState<HeroicRollbackSnapshot | null>(null)
@@ -115,7 +124,10 @@ export default function ImportExportSettings() {
         {t('settings.navbar.importExport', 'Import / Export')}
       </h3>
 
-      <details className="ImportExportSettings__card" open>
+      <details
+        className="ImportExportSettings__card"
+        open={!openImportFromNav}
+      >
         <summary>
           <span className="ImportExportSettings__cardTitle">
             <DownloadIcon />
@@ -207,7 +219,10 @@ export default function ImportExportSettings() {
         )}
       </details>
 
-      <details className="ImportExportSettings__card">
+      <details
+        className="ImportExportSettings__card"
+        open={openImportFromNav}
+      >
         <summary>
           <span className="ImportExportSettings__cardTitle">
             <UploadFileIcon />

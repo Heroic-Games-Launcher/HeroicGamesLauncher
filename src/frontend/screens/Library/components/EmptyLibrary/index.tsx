@@ -27,7 +27,10 @@ function EmptyLibraryMessage() {
       <span className="noResultsMessage__backupHint">
         <Trans i18n={i18n} i18nKey="emptyLibrary.backupHint">
           Have a Heroic backup?{' '}
-          <NavLink to="/settings/importexport">
+          <NavLink
+            to="/settings/importexport"
+            state={{ openImport: true }}
+          >
             Restore from it to pick up where you left off
           </NavLink>
           .
