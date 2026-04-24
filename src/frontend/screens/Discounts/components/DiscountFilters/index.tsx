@@ -280,7 +280,7 @@ const DiscountFilters = ({
           placeholder={t('search', 'Search for Games')}
         />
         <FormControlLabel
-          className="discountFilters__hideDlcs" // I can use the same class as hideDlcs
+          className="discountFilters__hideOwned"
           control={
             <Checkbox
               size="small"
@@ -291,7 +291,7 @@ const DiscountFilters = ({
           label={t('discounts.filters.hideOwned', 'Hide Owned')}
         />
         <FormControlLabel
-          className="discountFilters__hideOwned"
+          className="discountFilters__hideDlcs"
           control={
             <Checkbox
               size="small"
