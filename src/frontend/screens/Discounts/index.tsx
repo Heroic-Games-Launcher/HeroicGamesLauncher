@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, Select } from '@mui/material'
 
@@ -11,7 +11,6 @@ import type {
 import DiscountCard from './components/DiscountCard'
 import DiscountFilters from './components/DiscountFilters'
 import DiscountPagination from './components/DiscountPagination'
-import ContextProvider from 'frontend/state/ContextProvider'
 import {
   DEFAULT_PAGE_SIZE,
   getLocaleSettings,
@@ -34,7 +33,6 @@ import './index.css'
 
 export default function Discounts() {
   const { t, i18n } = useTranslation()
-  const { gog } = useContext(ContextProvider)
   const [regionOverride, setRegionOverride] = useState<string | null>(() =>
     getStoredRegionOverride()
   )
@@ -56,11 +54,6 @@ export default function Discounts() {
     setHideDlcs(false)
     setHideOwned(false)
   }
-
-  const ownedGogGameIds = useMemo(() => {
-    if (!gog?.library) return []
-    return gog.library.map((game) => game.app_name)
-  }, [gog])
 
   const [products, setProducts] = useState<CatalogProduct[]>([])
   const [loading, setLoading] = useState(true)
@@ -148,7 +141,10 @@ export default function Discounts() {
       setProducts([])
 
       try {
-        const result = await window.api.getGogDiscounts(localeSettings)
+        const result = await window.api.getGogDiscounts(
+          localeSettings,
+          hideOwned
+        )
         if (!cancelled) {
           setProducts(result)
           // Only clear data-bound ranges when this is a reload caused by a
@@ -179,7 +175,7 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [localeSettings, t])
+  }, [localeSettings, hideOwned, t])
 
   const priceMax = useMemo(() => {
     const max = products.reduce((acc, p) => {
@@ -270,12 +266,6 @@ export default function Discounts() {
       if (search && !p.title.toLowerCase().includes(search)) return false
 
       if (hideDlcs && p.productType === 'dlc') return false
-
-      if (hideOwned) {
-        if (ownedGogGameIds.includes(String(p.id))) {
-          return false
-        }
-      }
 
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
@@ -393,8 +383,6 @@ export default function Discounts() {
     selectedOS,
     searchQuery,
     hideDlcs,
-    hideOwned,
-    ownedGogGameIds,
     sortBy
   ])
 

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { app } from 'electron'
 import { addHandler } from 'backend/ipc'
-import { logError, logInfo, LogPrefix } from 'backend/logger'
+import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
+import { GOGUser } from 'backend/storeManagers/gog/user'
 import type {
   CatalogLocaleSettings,
   CatalogProduct
@@ -28,7 +29,11 @@ const isFallbackLocale = (locale: CatalogLocaleSettings) =>
   locale.currencyCode === FALLBACK_LOCALE.currencyCode &&
   locale.locale === FALLBACK_LOCALE.locale
 
-const buildUrl = (page: number, locale: CatalogLocaleSettings) => {
+const buildUrl = (
+  page: number,
+  locale: CatalogLocaleSettings,
+  hideOwned: boolean
+) => {
   const params = new URLSearchParams({
     limit: String(PAGE_LIMIT),
     order: 'desc:trending',
@@ -39,27 +44,50 @@ const buildUrl = (page: number, locale: CatalogLocaleSettings) => {
     locale: locale.locale,
     currencyCode: locale.currencyCode
   })
+
+  if (hideOwned) {
+    params.append('hideOwned', 'true')
+  }
+
   return `${CATALOG_URL}?${params.toString()}`
 }
 
-const fetchPage = async (page: number, locale: CatalogLocaleSettings) => {
-  const { data } = await axios.get<CatalogResponse>(buildUrl(page, locale), {
-    timeout: 15000,
-    headers: {
-      'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
+const fetchPage = async (
+  page: number,
+  locale: CatalogLocaleSettings,
+  hideOwned: boolean,
+  token: string | undefined
+) => {
+  const headers: Record<string, string> = {
+    'User-Agent': `HeroicGamesLauncher/${app.getVersion()}`
+  }
+
+  if (hideOwned && token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
+  const { data } = await axios.get<CatalogResponse>(
+    buildUrl(page, locale, hideOwned),
+    {
+      timeout: 15000,
+      headers
     }
-  })
+  )
   return data
 }
 
-const fetchAllDiscounts = async (locale: CatalogLocaleSettings) => {
-  const first = await fetchPage(1, locale)
+const fetchAllDiscounts = async (
+  locale: CatalogLocaleSettings,
+  hideOwned: boolean,
+  token: string | undefined
+) => {
+  const first = await fetchPage(1, locale, hideOwned, token)
   const totalPages = Math.min(first.pages, MAX_PAGES)
   if (totalPages <= 1) return first.products
 
   const rest = await Promise.all(
     Array.from({ length: totalPages - 1 }, (_, i) =>
-      fetchPage(i + 2, locale)
+      fetchPage(i + 2, locale, hideOwned, token)
         .then((d) => d.products)
         .catch((err: unknown) => {
           logError(
@@ -83,20 +111,41 @@ const fetchAllDiscounts = async (locale: CatalogLocaleSettings) => {
   })
 }
 
-addHandler('getGogDiscounts', async (_event, locale) => {
-  try {
-    const products = await fetchAllDiscounts(locale)
-    if (products.length > 0 || isFallbackLocale(locale)) {
-      return products
-    }
+addHandler(
+  'getGogDiscounts',
+  async (_event, locale, hideOwned: boolean = false) => {
+    try {
+      let token: string | undefined = undefined
 
-    logInfo(
-      `No discounts for ${locale.countryCode}/${locale.currencyCode}, retrying with US/USD`,
-      LogPrefix.Backend
-    )
-    return await fetchAllDiscounts(FALLBACK_LOCALE)
-  } catch (err) {
-    logError(`Failed to fetch GOG discounts: ${String(err)}`, LogPrefix.Backend)
-    throw err
+      if (hideOwned) {
+        const credentials = await GOGUser.getCredentials()
+        if (credentials) {
+          token = credentials.access_token
+        } else {
+          hideOwned = false
+          logWarning(
+            'Failed to get user credentials: User maybe is not looged in',
+            LogPrefix.Backend
+          )
+        }
+      }
+
+      const products = await fetchAllDiscounts(locale, hideOwned, token)
+      if (products.length > 0 || isFallbackLocale(locale)) {
+        return products
+      }
+
+      logInfo(
+        `No discounts for ${locale.countryCode}/${locale.currencyCode}, retrying with US/USD`,
+        LogPrefix.Backend
+      )
+      return await fetchAllDiscounts(FALLBACK_LOCALE, hideOwned, token)
+    } catch (err) {
+      logError(
+        `Failed to fetch GOG discounts: ${String(err)}`,
+        LogPrefix.Backend
+      )
+      throw err
+    }
   }
-})
+)
