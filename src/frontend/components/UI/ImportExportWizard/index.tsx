@@ -1044,6 +1044,45 @@ function StepLibrarySystem({
         </details>
       )}
 
+      {validation.installedOK.length > 0 && (
+        <details className="ImportExportWizard__details">
+          <summary>
+            {t(
+              'import-export.step6.installedOKSummary',
+              'Games found and ready ({{count}})',
+              { count: validation.installedOK.length }
+            )}
+          </summary>
+          <p className="ImportExportWizard__hint">
+            {t(
+              'import-export.step6.installedOKHint',
+              'These games were installed on the source system and their folders still exist on this machine — they will be re-registered as-is.'
+            )}
+          </p>
+          <ul className="ImportExportWizard__appList">
+            {validation.installedOK.map((game) => (
+              <li key={game.appName} className="ImportExportWizard__appRow">
+                <div className="ImportExportWizard__okRow">
+                  <CheckCircleOutlineIcon
+                    className="ImportExportWizard__okIcon"
+                    fontSize="small"
+                  />
+                  <span className="ImportExportWizard__appTitle">
+                    {game.title}{' '}
+                    <span className="ImportExportWizard__appStore">
+                      ({runnerLabel(game.runner)})
+                    </span>
+                    <span className="ImportExportWizard__appBrokenPath">
+                      {game.installPath}
+                    </span>
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+
       {missingWineVersions.length === 0 && pathIssues.length === 0 && (
         <div className="ImportExportWizard__successBox">
           <CheckCircleOutlineIcon />

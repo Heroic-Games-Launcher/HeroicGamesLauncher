@@ -8,6 +8,7 @@ import type {
   CredentialValidation,
   HeroicBackupManifest,
   HeroicBackupValidationReport,
+  InstalledGameSummary,
   PerGamePathIssue,
   WineVersionIssue
 } from 'common/types/importExport'
@@ -256,6 +257,25 @@ function credentialDisplayName(
   return undefined
 }
 
+function buildInstalledOK(
+  installMap: Record<string, InstallInfo>,
+  titleMap: Record<string, { title: string; runner: Runner }>
+): InstalledGameSummary[] {
+  const out: InstalledGameSummary[] = []
+  for (const [appName, install] of Object.entries(installMap)) {
+    if (!install?.installPath) continue
+    if (!existsSync(install.installPath)) continue
+    out.push({
+      appName,
+      installPath: install.installPath,
+      runner: titleMap[appName]?.runner ?? install.runner,
+      title: titleMap[appName]?.title ?? appName
+    })
+  }
+  out.sort((a, b) => a.title.localeCompare(b.title))
+  return out
+}
+
 function buildPathIssues(
   zip: AdmZip,
   appNames: string[],
@@ -369,6 +389,7 @@ export function validateHeroicBackup(
     installMap,
     titleMap
   )
+  const installedOK = buildInstalledOK(installMap, titleMap)
   const missingWineVersions = buildWineVersionIssues(zip)
 
   return {
@@ -380,6 +401,7 @@ export function validateHeroicBackup(
     formatSupported,
     credentials,
     pathIssues,
+    installedOK,
     missingWineVersions,
     errors,
     warnings
@@ -425,6 +447,7 @@ function emptyReport(
     formatSupported: false,
     credentials: [],
     pathIssues: [],
+    installedOK: [],
     missingWineVersions: [],
     errors,
     warnings

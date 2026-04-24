@@ -73,6 +73,13 @@ export interface WineVersionIssue {
   downloadable: boolean
 }
 
+export interface InstalledGameSummary {
+  appName: string
+  title: string
+  runner: Runner
+  installPath: string
+}
+
 export interface HeroicBackupValidationReport {
   ok: boolean
   manifest: HeroicBackupManifest
@@ -82,6 +89,7 @@ export interface HeroicBackupValidationReport {
   formatSupported: boolean
   credentials: CredentialValidation[]
   pathIssues: PerGamePathIssue[]
+  installedOK: InstalledGameSummary[]
   missingWineVersions: WineVersionIssue[]
   errors: string[]
   warnings: string[]

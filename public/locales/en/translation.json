@@ -597,6 +597,9 @@
         "step6": {
             "allGood": "All install paths and wine versions are present on this system.",
             "downloadMissing": "Re-download selected missing games after import",
+            "installedOKHint": "These games were installed on the source system and their folders still exist on this machine — they will be re-registered as-is.",
+            "installedOKSummary_one": "Games found and ready ({{count}})",
+            "installedOKSummary_other": "Games found and ready ({{count}})",
             "installPathsHint": "The install folders these games used are not on this system. Re-download the ones you want back; unchecked games stay listed with their original (broken) path.",
             "installPathsSummary_one": "Games with missing install paths ({{count}})",
             "installPathsSummary_other": "Games with missing install paths ({{count}})",

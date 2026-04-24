@@ -307,6 +307,19 @@
     word-break: break-all;
     overflow-wrap: anywhere;
     margin-top: var(--space-3xs);
+    width: 100%;
+  }
+
+  &__okRow {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-sm);
+    align-items: center;
+    padding: var(--space-2xs) var(--space-sm);
+  }
+
+  &__okIcon {
+    color: var(--status-success);
   }
 
   &__credRow {
