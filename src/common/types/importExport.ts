@@ -103,7 +103,7 @@ export interface HeroicApplyOptions {
   includedAppNames: string[]
   includedCredentials: Partial<Record<Runner, boolean>>
   perGameOverrides: PerGamePathOverride[]
-  downloadMissingWine: boolean
+  includedWineVersions: string[]
 }
 
 export interface HeroicApplyStageResult {

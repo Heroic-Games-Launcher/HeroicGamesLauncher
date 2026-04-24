@@ -80,7 +80,10 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   const [pathChoices, setPathChoices] = useState<Record<string, PathChoice>>(
     {}
   )
-  const [downloadMissingWine, setDownloadMissingWine] = useState(true)
+  const [includedWineVersions, setIncludedWineVersions] = useState<Set<string>>(
+    new Set()
+  )
+  const [downloadMissingGames, setDownloadMissingGames] = useState(true)
 
   const [applying, setApplying] = useState(false)
   const [applyResult, setApplyResult] = useState<HeroicApplyResult | null>(null)
@@ -105,11 +108,19 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     const initial: Record<string, PathChoice> = {}
     for (const issue of validation.pathIssues) {
       initial[issue.appName] = {
-        installAction: issue.installPathIssue ? 'ignore' : 'ignore',
-        prefixAction: issue.prefixPathIssue ? 'ignore' : 'ignore'
+        installAction: issue.installPathIssue ? 'download' : 'ignore',
+        prefixAction: 'ignore'
       }
     }
     setPathChoices(initial)
+
+    setIncludedWineVersions(
+      new Set(
+        validation.missingWineVersions
+          .filter((v) => v.downloadable)
+          .map((v) => v.version ?? v.displayName)
+      )
+    )
   }, [validation])
 
   const includedStages: HeroicBackupStageId[] = useMemo(() => {
@@ -198,7 +209,8 @@ export default function ImportExportWizard({ open, onClose }: Props) {
         if (choice.installAction === 'browse' && choice.installOverride)
           o.installPath = choice.installOverride
         if (choice.installAction === 'skip') o.skipInstallPath = true
-        if (choice.installAction === 'download') o.installAfterImport = true
+        if (choice.installAction === 'download' && downloadMissingGames)
+          o.installAfterImport = true
         if (choice.prefixAction === 'browse' && choice.prefixOverride)
           o.prefixPath = choice.prefixOverride
         if (choice.prefixAction === 'default-prefix') o.useDefaultPrefix = true
@@ -212,7 +224,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
         includedAppNames: Array.from(includedApps),
         includedCredentials,
         perGameOverrides: overrides,
-        downloadMissingWine
+        includedWineVersions: Array.from(includedWineVersions)
       })
       setApplyResult(result)
       setStep(6)
@@ -312,8 +324,10 @@ export default function ImportExportWizard({ open, onClose }: Props) {
               validation={validation}
               pathChoices={pathChoices}
               setPathChoices={setPathChoices}
-              downloadMissingWine={downloadMissingWine}
-              setDownloadMissingWine={setDownloadMissingWine}
+              includedWineVersions={includedWineVersions}
+              setIncludedWineVersions={setIncludedWineVersions}
+              downloadMissingGames={downloadMissingGames}
+              setDownloadMissingGames={setDownloadMissingGames}
             />
           )}
           {step === 6 && (
@@ -757,14 +771,18 @@ function StepLibrarySystem({
   validation,
   pathChoices,
   setPathChoices,
-  downloadMissingWine,
-  setDownloadMissingWine
+  includedWineVersions,
+  setIncludedWineVersions,
+  downloadMissingGames,
+  setDownloadMissingGames
 }: {
   validation: HeroicBackupValidationReport
   pathChoices: Record<string, PathChoice>
   setPathChoices: (v: Record<string, PathChoice>) => void
-  downloadMissingWine: boolean
-  setDownloadMissingWine: (v: boolean) => void
+  includedWineVersions: Set<string>
+  setIncludedWineVersions: (v: Set<string>) => void
+  downloadMissingGames: boolean
+  setDownloadMissingGames: (v: boolean) => void
 }) {
   const { t } = useTranslation()
   const updateChoice = (appName: string, patch: Partial<PathChoice>) => {
@@ -781,6 +799,43 @@ function StepLibrarySystem({
   }
 
   const { missingWineVersions, pathIssues } = validation
+  const installIssues = pathIssues.filter((i) => i.installPathIssue)
+  const prefixIssues = pathIssues.filter((i) => i.prefixPathIssue)
+
+  const selectAllInstall = (include: boolean) => {
+    const next = { ...pathChoices }
+    for (const issue of installIssues) {
+      next[issue.appName] = {
+        ...(next[issue.appName] ?? {
+          installAction: 'ignore',
+          prefixAction: 'ignore'
+        }),
+        installAction: include ? 'download' : 'ignore'
+      }
+    }
+    setPathChoices(next)
+  }
+
+  const toggleWineVersion = (version: string) => {
+    const next = new Set(includedWineVersions)
+    if (next.has(version)) next.delete(version)
+    else next.add(version)
+    setIncludedWineVersions(next)
+  }
+
+  const selectAllWine = (include: boolean) => {
+    if (!include) {
+      setIncludedWineVersions(new Set())
+      return
+    }
+    setIncludedWineVersions(
+      new Set(
+        missingWineVersions
+          .filter((v) => v.downloadable)
+          .map((v) => v.version ?? v.displayName)
+      )
+    )
+  }
 
   return (
     <section>
@@ -800,58 +855,158 @@ function StepLibrarySystem({
           <p className="ImportExportWizard__hint">
             {t(
               'import-export.step6.wineHint',
-              'These versions were installed on the source system but are missing locally. Downloadable ones will be queued automatically.'
+              'These versions were installed on the source system but are missing locally. Pick which ones to download — versions that are no longer available are disabled.'
             )}
           </p>
-          <ToggleSwitch
-            htmlId="ie-download-wine"
-            title={t(
-              'import-export.step6.download-wine',
-              'Download missing Wine / Proton versions when available'
-            )}
-            value={downloadMissingWine}
-            handleChange={() => setDownloadMissingWine(!downloadMissingWine)}
-          />
-          <ul className="ImportExportWizard__wineList">
-            {missingWineVersions.map((v) => (
-              <li key={v.displayName}>
-                <span>{v.displayName}</span>
-                <StatusPill
-                  status={v.downloadable ? 'info' : 'warning'}
+          <div className="ImportExportWizard__toolbar">
+            <button
+              type="button"
+              className="button is-tertiary"
+              onClick={() => selectAllWine(true)}
+            >
+              {t('import-export.step4.selectAll', 'Select all')}
+            </button>
+            <button
+              type="button"
+              className="button is-tertiary"
+              onClick={() => selectAllWine(false)}
+            >
+              {t('import-export.step4.deselectAll', 'Deselect all')}
+            </button>
+          </div>
+          <ul className="ImportExportWizard__appList">
+            {missingWineVersions.map((v) => {
+              const versionKey = v.version ?? v.displayName
+              const checked = includedWineVersions.has(versionKey)
+              return (
+                <li
+                  key={v.displayName}
+                  className="ImportExportWizard__appRow"
                 >
-                  {v.downloadable
-                    ? t(
-                        'import-export.step6.wine-downloadable',
-                        'Downloadable'
-                      )
-                    : t(
-                        'import-export.step6.wine-unavailable',
-                        'Not available'
-                      )}
-                </StatusPill>
-              </li>
-            ))}
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      disabled={!v.downloadable}
+                      onChange={() => toggleWineVersion(versionKey)}
+                    />
+                    <span className="ImportExportWizard__appTitle">
+                      {v.displayName}
+                      <StatusPill
+                        status={v.downloadable ? 'info' : 'warning'}
+                      >
+                        {v.downloadable
+                          ? t(
+                              'import-export.step6.wine-downloadable',
+                              'Downloadable'
+                            )
+                          : t(
+                              'import-export.step6.wine-unavailable',
+                              'Not available'
+                            )}
+                      </StatusPill>
+                    </span>
+                  </label>
+                </li>
+              )
+            })}
           </ul>
         </details>
       )}
 
-      {pathIssues.length > 0 && (
+      {installIssues.length > 0 && (
         <details open className="ImportExportWizard__details">
           <summary>
             {t(
-              'import-export.step6.pathsSummary',
-              'Paths that need attention ({{count}})',
-              { count: pathIssues.length }
+              'import-export.step6.installPathsSummary',
+              'Games with missing install paths ({{count}})',
+              { count: installIssues.length }
             )}
           </summary>
           <p className="ImportExportWizard__hint">
             {t(
-              'import-export.step6.pathsHint',
-              'For each game, decide what to do about missing install paths or prefixes.'
+              'import-export.step6.installPathsHint',
+              'The install folders these games used are not on this system. Re-download the ones you want back; unchecked games stay listed with their original (broken) path.'
+            )}
+          </p>
+          <ToggleSwitch
+            htmlId="ie-download-missing"
+            title={t(
+              'import-export.step6.downloadMissing',
+              'Re-download selected missing games after import'
+            )}
+            value={downloadMissingGames}
+            handleChange={() => setDownloadMissingGames(!downloadMissingGames)}
+          />
+          <div className="ImportExportWizard__toolbar">
+            <button
+              type="button"
+              className="button is-tertiary"
+              onClick={() => selectAllInstall(true)}
+              disabled={!downloadMissingGames}
+            >
+              {t('import-export.step4.selectAll', 'Select all')}
+            </button>
+            <button
+              type="button"
+              className="button is-tertiary"
+              onClick={() => selectAllInstall(false)}
+              disabled={!downloadMissingGames}
+            >
+              {t('import-export.step4.deselectAll', 'Deselect all')}
+            </button>
+          </div>
+          <ul className="ImportExportWizard__appList">
+            {installIssues.map((issue) => {
+              const checked = pathChoices[issue.appName]?.installAction ===
+                'download'
+              return (
+                <li key={issue.appName} className="ImportExportWizard__appRow">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      disabled={!downloadMissingGames}
+                      onChange={() =>
+                        updateChoice(issue.appName, {
+                          installAction: checked ? 'ignore' : 'download'
+                        })
+                      }
+                    />
+                    <span className="ImportExportWizard__appTitle">
+                      {issue.title}{' '}
+                      <span className="ImportExportWizard__appStore">
+                        ({runnerLabel(issue.runner)})
+                      </span>
+                      <span className="ImportExportWizard__appBrokenPath">
+                        {issue.installPath}
+                      </span>
+                    </span>
+                  </label>
+                </li>
+              )
+            })}
+          </ul>
+        </details>
+      )}
+
+      {prefixIssues.length > 0 && (
+        <details open className="ImportExportWizard__details">
+          <summary>
+            {t(
+              'import-export.step6.prefixPathsSummary',
+              'Games with missing Wine prefixes ({{count}})',
+              { count: prefixIssues.length }
+            )}
+          </summary>
+          <p className="ImportExportWizard__hint">
+            {t(
+              'import-export.step6.prefixPathsHint',
+              'Choose what to do with each prefix individually — switching to the default prefix is usually the simplest fix.'
             )}
           </p>
           <ul className="ImportExportWizard__issueList">
-            {pathIssues.map((issue) => (
+            {prefixIssues.map((issue) => (
               <li
                 key={issue.appName}
                 className="ImportExportWizard__issueCard"
@@ -865,43 +1020,24 @@ function StepLibrarySystem({
                   </div>
                   <WarningAmberIcon className="ImportExportWizard__issueWarn" />
                 </div>
-                {issue.installPathIssue && (
-                  <PathActionRow
-                    label={t('import-export.step6.installPath', 'Install path')}
-                    currentPath={issue.installPath ?? ''}
-                    action={
-                      pathChoices[issue.appName]?.installAction ?? 'ignore'
-                    }
-                    override={pathChoices[issue.appName]?.installOverride}
-                    actions={['browse', 'ignore', 'skip', 'download']}
-                    onAction={(a, path) =>
-                      updateChoice(issue.appName, {
-                        installAction: a,
-                        installOverride: path
-                      })
-                    }
-                  />
-                )}
-                {issue.prefixPathIssue && (
-                  <PathActionRow
-                    label={t(
-                      'import-export.step6.prefixPath',
-                      'Wine prefix'
-                    )}
-                    currentPath={issue.prefixPath ?? ''}
-                    action={
-                      pathChoices[issue.appName]?.prefixAction ?? 'ignore'
-                    }
-                    override={pathChoices[issue.appName]?.prefixOverride}
-                    actions={['browse', 'ignore', 'default-prefix']}
-                    onAction={(a, path) =>
-                      updateChoice(issue.appName, {
-                        prefixAction: a,
-                        prefixOverride: path
-                      })
-                    }
-                  />
-                )}
+                <PathActionRow
+                  label={t(
+                    'import-export.step6.prefixPath',
+                    'Wine prefix'
+                  )}
+                  currentPath={issue.prefixPath ?? ''}
+                  action={
+                    pathChoices[issue.appName]?.prefixAction ?? 'ignore'
+                  }
+                  override={pathChoices[issue.appName]?.prefixOverride}
+                  actions={['browse', 'ignore', 'default-prefix']}
+                  onAction={(a, path) =>
+                    updateChoice(issue.appName, {
+                      prefixAction: a,
+                      prefixOverride: path
+                    })
+                  }
+                />
               </li>
             ))}
           </ul>

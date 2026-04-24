@@ -287,12 +287,26 @@
   &__appTitle {
     font-weight: 500;
     word-break: break-word;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
   }
 
   &__appStore {
     color: var(--text-secondary);
     font-size: var(--text-sm);
     font-weight: 400;
+  }
+
+  &__appBrokenPath {
+    display: block;
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    margin-top: var(--space-3xs);
   }
 
   &__credRow {

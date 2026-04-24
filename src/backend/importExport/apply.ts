@@ -529,17 +529,23 @@ async function applyWineMetadata(
     localList.filter((v) => v.isInstalled).map((v) => v.version)
   )
   const knownLocal = new Map(localList.map((v) => [v.version, v]))
+  const requested = new Set(options.includedWineVersions)
 
-  if (!options.downloadMissingWine) {
+  if (requested.size === 0) {
     return {
       stage: 'wineMetadata',
       ok: true,
-      message: 'Skipped: user opted out of wine downloads'
+      message: 'No wine versions selected for download'
     }
   }
 
   const toInstall = backupList
-    .filter((v) => v?.isInstalled && !installedLocal.has(v.version))
+    .filter(
+      (v) =>
+        v?.isInstalled &&
+        !installedLocal.has(v.version) &&
+        requested.has(v.version)
+    )
     .map((v) => knownLocal.get(v.version))
     .filter((v): v is WineVersionInfo => !!v)
 
@@ -683,7 +689,7 @@ export async function rollbackLastImport(): Promise<HeroicApplyResult> {
       zoom: true
     },
     perGameOverrides: [],
-    downloadMissingWine: false
+    includedWineVersions: []
   })
 
   if (result.ok) {

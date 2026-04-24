@@ -130,7 +130,7 @@ describe('applyHeroicBackup patch semantics', () => {
       perGameOverrides: [
         { appName: 'game1', prefixPath: '/new/prefix' }
       ],
-      downloadMissingWine: false
+      includedWineVersions: []
     })
 
     expect(result.ok).toBe(true)
@@ -166,7 +166,7 @@ describe('applyHeroicBackup patch semantics', () => {
       includedAppNames: ['game2'],
       includedCredentials: {},
       perGameOverrides: [{ appName: 'game2', useDefaultPrefix: true }],
-      downloadMissingWine: false
+      includedWineVersions: []
     })
 
     expect(result.ok).toBe(true)
@@ -201,7 +201,7 @@ describe('applyHeroicBackup patch semantics', () => {
         { appName: 'queueMe', installAfterImport: true },
         { appName: 'patchMe', installPath: '/games/new' }
       ],
-      downloadMissingWine: false
+      includedWineVersions: []
     })
 
     expect(result.ok).toBe(true)
@@ -248,7 +248,7 @@ describe('applyHeroicBackup patch semantics', () => {
       includedAppNames: ['game3'],
       includedCredentials: {},
       perGameOverrides: [],
-      downloadMissingWine: false
+      includedWineVersions: []
     })
 
     expect(result.ok).toBe(true)
