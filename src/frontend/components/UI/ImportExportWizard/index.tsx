@@ -129,19 +129,9 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     })
   }, [validation, includeGlobal, includedApps, includedCredentials])
 
-  async function pickBackupFile() {
-    const selected = await window.api.openDialog({
-      title: t(
-        'import-export.pick-backup',
-        'Choose a Heroic backup archive'
-      ),
-      properties: ['openFile'],
-      filters: [{ name: 'Heroic backup', extensions: ['zip'] }]
-    })
-    if (typeof selected === 'string') {
-      setFilePath(selected)
-      await runValidation(selected)
-    }
+  async function pickBackupFile(path: string) {
+    setFilePath(path)
+    await runValidation(path)
   }
 
   async function runValidation(path: string) {
@@ -275,7 +265,9 @@ export default function ImportExportWizard({ open, onClose }: Props) {
           {step === 0 && (
             <StepPickFile
               filePath={filePath}
-              onPick={pickBackupFile}
+              onPick={(path) => {
+                void pickBackupFile(path)
+              }}
               validating={validating}
               error={validateError}
             />
@@ -345,7 +337,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
             <button
               type="button"
               className="button is-primary"
-              disabled={!validation || validating || step === 0}
+              disabled={!validation || validating}
               onClick={nextStep}
             >
               {t('import-export.next', 'Next')}

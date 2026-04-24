@@ -5,7 +5,7 @@ import PathSelectionBox from 'frontend/components/UI/PathSelectionBox'
 
 interface Props {
   filePath: string
-  onPick: () => void
+  onPick: (path: string) => void
   validating: boolean
   error: string | null
 }
@@ -25,36 +25,30 @@ export default function StepPickFile({
       <p className="ImportExportWizard__hint">
         {t(
           'import-export.step1.hint',
-          'Pick a Heroic backup archive (.zip) previously exported from Heroic.'
+          'Pick a Heroic backup archive (.zip) previously exported from Heroic. Click the folder icon to browse.'
         )}
       </p>
-      <div className="ImportExportWizard__pickRow">
-        <PathSelectionBox
-          htmlId="heroic-import-file"
-          type="file"
-          path={filePath}
-          onPathChange={() => {
-            /* no-op — picker handles the selection via onPick */
-          }}
-          pathDialogTitle={t(
-            'import-export.pick-backup',
-            'Choose a Heroic backup archive'
-          )}
-          pathDialogFilters={[{ name: 'Heroic backup', extensions: ['zip'] }]}
-          canEditPath={false}
-          noDeleteButton
-        />
-        <button
-          type="button"
-          className="button is-primary"
-          onClick={onPick}
-          disabled={validating}
-        >
-          {validating
-            ? t('import-export.validating', 'Validating...')
-            : t('import-export.choose-file', 'Choose file')}
-        </button>
-      </div>
+      <PathSelectionBox
+        htmlId="heroic-import-file"
+        type="file"
+        path={filePath}
+        onPathChange={(path) => {
+          if (path) onPick(path)
+        }}
+        pathDialogTitle={t(
+          'import-export.pick-backup',
+          'Choose a Heroic backup archive'
+        )}
+        pathDialogFilters={[{ name: 'Heroic backup', extensions: ['zip'] }]}
+        canEditPath={false}
+        noDeleteButton
+        disabled={validating}
+      />
+      {validating && (
+        <p className="ImportExportWizard__hint">
+          {t('import-export.validating', 'Validating...')}
+        </p>
+      )}
       {error && (
         <div className="ImportExportWizard__errorBox" role="alert">
           <WarningAmberIcon />

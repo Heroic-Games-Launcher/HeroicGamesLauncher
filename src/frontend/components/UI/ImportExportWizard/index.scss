@@ -229,9 +229,14 @@
 
   &__toolbar {
     display: flex;
-    gap: var(--space-sm);
+    gap: var(--space-2xs);
     align-items: center;
     margin: var(--space-sm) 0;
+
+    .button.is-tertiary {
+      font-size: var(--text-sm);
+      padding: var(--space-3xs) var(--space-sm);
+    }
   }
 
   &__filter {
