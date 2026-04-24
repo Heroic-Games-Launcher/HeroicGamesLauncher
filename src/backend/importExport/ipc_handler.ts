@@ -1,19 +1,16 @@
 import { addHandler } from 'backend/ipc'
-import { logError, LogPrefix } from 'backend/logger'
 
 import { importExportRollbackStore } from 'backend/constants/key_value_stores'
 import { app } from 'electron'
 
 import type {
   HeroicApplyResult,
-  HeroicBackupValidationReport,
-  HeroicExportResult
+  HeroicBackupValidationReport
 } from 'common/types/importExport'
 
-addHandler('exportHeroicBackup', (): Promise<HeroicExportResult> => {
-  logError('exportHeroicBackup not implemented yet', LogPrefix.ImportExport)
-  return Promise.resolve({ success: false, error: 'not implemented' })
-})
+import { exportHeroicBackup } from './export'
+
+addHandler('exportHeroicBackup', (_e, options) => exportHeroicBackup(options))
 
 addHandler(
   'validateHeroicBackup',
