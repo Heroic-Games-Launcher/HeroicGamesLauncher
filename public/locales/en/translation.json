@@ -623,7 +623,10 @@
             "restart-btn": "Restart now",
             "restart-title": "Restart Heroic to apply all changes",
             "rollback-hint": "A rollback snapshot was saved. You can undo this import later from Settings > Import/Export.",
-            "success": "Backup applied"
+            "success": "Backup applied",
+            "wine-busy-hint": "Wait until Wine / Proton finishes installing",
+            "wine-progress-body": "Please wait — Restart and Close are disabled until all selected versions finish installing.",
+            "wine-progress-title": "Installing Wine / Proton version ({{current}}/{{total}})"
         },
         "unsupported-format": "This backup uses a newer format than this build of Heroic supports.",
         "validating": "Validating...",
