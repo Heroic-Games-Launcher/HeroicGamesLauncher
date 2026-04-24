@@ -342,6 +342,7 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  getHomeDir: () => Promise<string>
   exportHeroicBackup: (
     options: HeroicExportOptions
   ) => Promise<HeroicExportResult>

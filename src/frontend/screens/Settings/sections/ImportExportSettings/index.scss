@@ -133,4 +133,13 @@
     border-left: 3px solid var(--status-danger);
     border-radius: 6px;
   }
+
+  &__hint {
+    margin: 0 0 var(--space-sm);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    max-width: 65ch;
+  }
 }
+

@@ -7,6 +7,8 @@ import { exportHeroicBackup } from './export'
 import { validateHeroicBackup } from './validate'
 import { applyHeroicBackup, rollbackLastImport } from './apply'
 
+addHandler('getHomeDir', () => Promise.resolve(app.getPath('home')))
+
 addHandler('exportHeroicBackup', (_e, options) => exportHeroicBackup(options))
 
 addHandler('validateHeroicBackup', (_e, sourcePath) =>

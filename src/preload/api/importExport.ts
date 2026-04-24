@@ -1,5 +1,6 @@
 import { makeHandlerInvoker } from '../ipc'
 
+export const getHomeDir = makeHandlerInvoker('getHomeDir')
 export const exportHeroicBackup = makeHandlerInvoker('exportHeroicBackup')
 export const validateHeroicBackup = makeHandlerInvoker('validateHeroicBackup')
 export const applyHeroicBackup = makeHandlerInvoker('applyHeroicBackup')

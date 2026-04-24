@@ -111,6 +111,14 @@
     margin: 0 0 var(--space-sm);
   }
 
+  &__hint {
+    margin: 0 0 var(--space-md);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    max-width: 65ch;
+  }
+
   &__pickRow {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -263,7 +271,7 @@
   &__appRow {
     label {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr;
       gap: var(--space-sm);
       align-items: center;
       padding: var(--space-2xs) var(--space-sm);
@@ -282,16 +290,9 @@
   }
 
   &__appStore {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3xs);
     color: var(--text-secondary);
     font-size: var(--text-sm);
-
-    svg {
-      width: 1.2em;
-      height: 1.2em;
-    }
+    font-weight: 400;
   }
 
   &__credRow {
@@ -308,11 +309,6 @@
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-
-    svg {
-      width: 1.5em;
-      height: 1.5em;
-    }
   }
 
   &__credName {

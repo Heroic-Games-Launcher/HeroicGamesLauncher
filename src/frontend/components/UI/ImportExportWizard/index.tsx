@@ -14,8 +14,6 @@ import {
   DialogHeader
 } from 'frontend/components/UI/Dialog'
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
-import StoreLogos from 'frontend/components/UI/StoreLogos'
 import PathSelectionBox from 'frontend/components/UI/PathSelectionBox'
 import ContextProvider from 'frontend/state/ContextProvider'
 
@@ -393,12 +391,12 @@ function StepPickFile({
       <h3 className="ImportExportWizard__heading">
         {t('import-export.step1.title', 'Select a backup file to import')}
       </h3>
-      <InfoIcon
-        text={t(
+      <p className="ImportExportWizard__hint">
+        {t(
           'import-export.step1.hint',
           'Pick a Heroic backup archive (.zip) previously exported from Heroic.'
         )}
-      />
+      </p>
       <div className="ImportExportWizard__pickRow">
         <PathSelectionBox
           htmlId="heroic-import-file"
@@ -483,7 +481,10 @@ function StepSummary({
           <dt>{t('import-export.installed-games', 'Installed games')}</dt>
           <dd>
             {Object.entries(manifest.counts.installedGames)
-              .map(([runner, count]) => `${runner}: ${count}`)
+              .map(
+                ([runner, count]) =>
+                  `${runnerLabel(runner as Runner)}: ${count}`
+              )
               .join(', ') || '0'}
           </dd>
         </div>
@@ -541,12 +542,12 @@ function StepGlobalSettings({
         {t('import-export.step3.title', 'Global settings, themes and fixes')}
       </h3>
       {!hasGlobal ? (
-        <InfoIcon
-          text={t(
+        <p className="ImportExportWizard__hint">
+          {t(
             'import-export.step3.none',
             'This backup does not contain global settings.'
           )}
-        />
+        </p>
       ) : (
         <>
           <ToggleSwitch
@@ -670,10 +671,11 @@ function StepPerGame({
                   checked={includedApps.has(appName)}
                   onChange={() => toggleApp(appName)}
                 />
-                <span className="ImportExportWizard__appTitle">{title}</span>
-                <span className="ImportExportWizard__appStore">
-                  <StoreLogos runner={runner} />
-                  <span>{runnerLabel(runner)}</span>
+                <span className="ImportExportWizard__appTitle">
+                  {title}{' '}
+                  <span className="ImportExportWizard__appStore">
+                    ({runnerLabel(runner)})
+                  </span>
                 </span>
               </label>
             </li>
@@ -704,17 +706,16 @@ function StepCredentials({
       <h3 className="ImportExportWizard__heading">
         {t('import-export.step5.title', 'Store logins')}
       </h3>
-      <InfoIcon
-        text={t(
+      <p className="ImportExportWizard__hint">
+        {t(
           'import-export.step5.hint',
           'Credentials are imported as-is. If a token has expired, you will be asked to log in again next time you open the store.'
         )}
-      />
+      </p>
       <ul className="ImportExportWizard__credList">
         {validation.credentials.map((cred) => (
           <li key={cred.runner} className="ImportExportWizard__credRow">
             <div className="ImportExportWizard__credLeft">
-              <StoreLogos runner={cred.runner} />
               <div>
                 <div className="ImportExportWizard__credName">
                   {runnerLabel(cred.runner)}
@@ -796,12 +797,12 @@ function StepLibrarySystem({
               { count: missingWineVersions.length }
             )}
           </summary>
-          <InfoIcon
-            text={t(
+          <p className="ImportExportWizard__hint">
+            {t(
               'import-export.step6.wineHint',
               'These versions were installed on the source system but are missing locally. Downloadable ones will be queued automatically.'
             )}
-          />
+          </p>
           <ToggleSwitch
             htmlId="ie-download-wine"
             title={t(
@@ -843,12 +844,12 @@ function StepLibrarySystem({
               { count: pathIssues.length }
             )}
           </summary>
-          <InfoIcon
-            text={t(
+          <p className="ImportExportWizard__hint">
+            {t(
               'import-export.step6.pathsHint',
               'For each game, decide what to do about missing install paths or prefixes.'
             )}
-          />
+          </p>
           <ul className="ImportExportWizard__issueList">
             {pathIssues.map((issue) => (
               <li
@@ -1091,12 +1092,12 @@ function StepDone({
       )}
 
       {rollbackHintPath && (
-        <InfoIcon
-          text={t(
+        <p className="ImportExportWizard__hint">
+          {t(
             'import-export.step7.rollback-hint',
             'A rollback snapshot was saved. You can undo this import later from Settings > Import/Export.'
           )}
-        />
+        </p>
       )}
 
       {applyResult.ok && (

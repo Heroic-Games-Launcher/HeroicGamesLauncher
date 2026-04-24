@@ -7,7 +7,6 @@ import UploadFileIcon from '@mui/icons-material/UploadFile'
 import DownloadIcon from '@mui/icons-material/Download'
 
 import ToggleSwitch from 'frontend/components/UI/ToggleSwitch'
-import InfoIcon from 'frontend/components/UI/InfoIcon'
 import ImportExportWizard from 'frontend/components/UI/ImportExportWizard'
 import {
   ALL_STAGES,
@@ -45,12 +44,10 @@ export default function ImportExportSettings() {
 
   useEffect(() => {
     void refreshRollback()
-  }, [])
-
-  useEffect(() => {
-    // Refresh the shown filename every time the card is opened
-    const refreshName = () => setOutputName(timestampedBackupName())
-    refreshName()
+    void (async () => {
+      const home = await window.api.getHomeDir()
+      setOutputDir(home)
+    })()
   }, [])
 
   async function refreshRollback() {
@@ -132,12 +129,12 @@ export default function ImportExportSettings() {
           </span>
         </summary>
 
-        <InfoIcon
-          text={t(
+        <p className="ImportExportSettings__hint">
+          {t(
             'import-export.export.hint',
             'Bundle Heroic settings, logins and library into a single zip file you can restore later or move to another machine.'
           )}
-        />
+        </p>
 
         <ul className="ImportExportSettings__stageList">
           {ALL_STAGES.map((stage) => (
@@ -217,12 +214,12 @@ export default function ImportExportSettings() {
             {t('import-export.import.title', 'Import a Heroic backup')}
           </span>
         </summary>
-        <InfoIcon
-          text={t(
+        <p className="ImportExportSettings__hint">
+          {t(
             'import-export.import.hint',
             'Start a step-by-step wizard to preview and apply a previously exported Heroic backup.'
           )}
-        />
+        </p>
         <div className="ImportExportSettings__importRow">
           <button
             type="button"
@@ -234,12 +231,12 @@ export default function ImportExportSettings() {
 
           {rollbackSnapshot && (
             <div className="ImportExportSettings__rollback">
-              <InfoIcon
-                text={t(
+              <p className="ImportExportSettings__hint">
+                {t(
                   'import-export.rollback.hint',
                   'A rollback snapshot was saved during the last import. Use this button to revert to that state.'
                 )}
-              />
+              </p>
               <button
                 type="button"
                 className="button is-tertiary"
