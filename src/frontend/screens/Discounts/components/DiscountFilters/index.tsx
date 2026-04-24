@@ -51,6 +51,8 @@ interface Props {
   onSearchChange: (query: string) => void
   hideDlcs: boolean
   onHideDlcsChange: (value: boolean) => void
+  hideOwned: boolean
+  onHideOwnedChange: (value: boolean) => void
   pageSize: number
   onPageSizeChange: (value: number) => void
   onReset: () => void
@@ -176,6 +178,8 @@ const DiscountFilters = ({
   onSearchChange,
   hideDlcs,
   onHideDlcsChange,
+  hideOwned,
+  onHideOwnedChange,
   pageSize,
   onPageSizeChange,
   onReset,
@@ -276,7 +280,18 @@ const DiscountFilters = ({
           placeholder={t('search', 'Search for Games')}
         />
         <FormControlLabel
-          className="discountFilters__hideDlcs"
+          className="discountFilters__hideDlcs" // I can use the same class as hideDlcs
+          control={
+            <Checkbox
+              size="small"
+              checked={hideOwned}
+              onChange={(e) => onHideOwnedChange(e.target.checked)}
+            />
+          }
+          label={t('discounts.filters.hideOwned', 'Hide Owned')}
+        />
+        <FormControlLabel
+          className="discountFilters__hideOwned"
           control={
             <Checkbox
               size="small"

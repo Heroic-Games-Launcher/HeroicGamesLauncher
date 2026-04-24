@@ -243,6 +243,7 @@ interface StoredDiscountFilters {
   maxPegiAge?: PegiAge | null
   searchQuery?: string
   hideDlcs?: boolean
+  hideOwned?: boolean
   pageSize?: number
 }
 

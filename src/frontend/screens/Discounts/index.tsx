@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, Select } from '@mui/material'
 
@@ -11,6 +11,7 @@ import type {
 import DiscountCard from './components/DiscountCard'
 import DiscountFilters from './components/DiscountFilters'
 import DiscountPagination from './components/DiscountPagination'
+import ContextProvider from 'frontend/state/ContextProvider'
 import {
   DEFAULT_PAGE_SIZE,
   getLocaleSettings,
@@ -33,6 +34,7 @@ import './index.css'
 
 export default function Discounts() {
   const { t, i18n } = useTranslation()
+  const { gog } = useContext(ContextProvider)
   const [regionOverride, setRegionOverride] = useState<string | null>(() =>
     getStoredRegionOverride()
   )
@@ -52,7 +54,13 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setHideOwned(false)
   }
+
+  const ownedGogGameIds = useMemo(() => {
+    if (!gog?.library) return []
+    return gog.library.map((game) => game.app_name)
+  }, [gog])
 
   const [products, setProducts] = useState<CatalogProduct[]>([])
   const [loading, setLoading] = useState(true)
@@ -89,6 +97,7 @@ export default function Discounts() {
     storedFilters.searchQuery ?? ''
   )
   const [hideDlcs, setHideDlcs] = useState(storedFilters.hideDlcs ?? false)
+  const [hideOwned, setHideOwned] = useState(storedFilters.hideOwned ?? false)
   const [pageSize, setPageSize] = useState<number>(
     storedFilters.pageSize ?? DEFAULT_PAGE_SIZE
   )
@@ -112,6 +121,7 @@ export default function Discounts() {
       maxPegiAge,
       searchQuery,
       hideDlcs,
+      hideOwned,
       pageSize
     })
   }, [
@@ -125,6 +135,7 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    hideOwned,
     pageSize
   ])
 
@@ -260,6 +271,12 @@ export default function Discounts() {
 
       if (hideDlcs && p.productType === 'dlc') return false
 
+      if (hideOwned) {
+        if (ownedGogGameIds.includes(String(p.id))) {
+          return false
+        }
+      }
+
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
 
@@ -376,6 +393,8 @@ export default function Discounts() {
     selectedOS,
     searchQuery,
     hideDlcs,
+    hideOwned,
+    ownedGogGameIds,
     sortBy
   ])
 
@@ -395,6 +414,7 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    hideOwned,
     pageSize,
     products
   ])
@@ -418,7 +438,7 @@ export default function Discounts() {
     ratingRange[1] !== RATING_SCALE_MAX ||
     maxPegiAge !== null ||
     searchQuery.trim() !== '' ||
-    hideDlcs ||
+    hideDlcs || hideOwned ||
     (priceRange !== null &&
       (priceRange[0] !== 0 || priceRange[1] !== priceMax)) ||
     (releaseYearRange !== null &&
@@ -436,6 +456,7 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setHideOwned(false)
   }
 
   const handlePageChange = (newPage: number) => {
@@ -553,6 +574,8 @@ export default function Discounts() {
             onSearchChange={setSearchQuery}
             hideDlcs={hideDlcs}
             onHideDlcsChange={setHideDlcs}
+            hideOwned={hideOwned}
+            onHideOwnedChange={setHideOwned}
             pageSize={pageSize}
             onPageSizeChange={setPageSize}
             onReset={handleReset}
