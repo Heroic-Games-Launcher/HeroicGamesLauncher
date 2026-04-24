@@ -58,10 +58,12 @@ export const sourcePaths = {
   },
   gog: {
     configFile: () => join(gogStoreDir(), 'config.json'),
+    authFile: () => join(gogStoreDir(), 'auth.json'),
     installedFile: () => join(gogStoreDir(), 'installed.json')
   },
   zoom: {
-    configFile: () => join(zoomStoreDir(), 'config.json')
+    configFile: () => join(zoomStoreDir(), 'config.json'),
+    tokenFile: () => join(zoomStoreDir(), '.zoom.token')
   },
   libraryCache: {
     legendary: () => join(storeCacheDir(), 'legendary_library.json'),

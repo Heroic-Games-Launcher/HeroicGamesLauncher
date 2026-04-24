@@ -1,5 +1,11 @@
 import AdmZip from 'adm-zip'
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync
+} from 'graceful-fs'
 import { app } from 'electron'
 import { join } from 'path'
 
@@ -17,6 +23,8 @@ import type {
 import type { WineManagerStatus, WineVersionInfo } from 'common/types'
 import { LegendaryUser } from 'backend/storeManagers/legendary/user'
 import { NileUser } from 'backend/storeManagers/nile/user'
+import { configStore as gogConfigStore } from 'backend/storeManagers/gog/electronStores'
+import { configStore as zoomConfigStore } from 'backend/storeManagers/zoom/electronStores'
 import {
   installWineVersion,
   updateWineVersionInfos,
@@ -66,6 +74,35 @@ function writeFolder(zip: AdmZip, zipPrefix: string, destDir: string): number {
     written++
   }
   return written
+}
+
+interface InMemoryStoreShim {
+  set(key: string, value: unknown): void
+  clear(): void
+}
+
+function syncElectronStoreFromDisk(
+  store: InMemoryStoreShim,
+  filePath: string,
+  warnings: string[],
+  label: string
+): void {
+  if (!existsSync(filePath)) return
+  try {
+    const raw = readFileSync(filePath, 'utf-8')
+    const parsed = JSON.parse(raw) as Record<string, unknown>
+    // electron-store keeps an in-memory copy that doesn't see external file
+    // writes. Re-push every key so live code sees the restored state without
+    // waiting for a Heroic restart.
+    store.clear()
+    for (const [key, value] of Object.entries(parsed)) {
+      store.set(key, value)
+    }
+  } catch (err) {
+    warnings.push(
+      `Could not refresh ${label} credentials in memory: ${String(err)}`
+    )
+  }
 }
 
 function safeJsonFromEntry<T>(zip: AdmZip, entryPath: string): T | null {
@@ -262,6 +299,17 @@ function applyCredentials(
       )
     )
       wrote++
+    // gogdl reads tokens directly from auth.json via `gogdl auth`. Without it,
+    // the restored config.json says isLoggedIn=true but every call fails with
+    // "invalid credentials" because gogdl has no access/refresh token to use.
+    if (
+      writeEntry(
+        zip,
+        BACKUP_PATHS.credentials.gogAuth,
+        sourcePaths.gog.authFile()
+      )
+    )
+      wrote++
   }
   if (includeRunner('zoom')) {
     ensureDir(dirOf(sourcePaths.zoom.configFile()))
@@ -273,10 +321,18 @@ function applyCredentials(
       )
     )
       wrote++
+    if (
+      writeEntry(
+        zip,
+        BACKUP_PATHS.credentials.zoomToken,
+        sourcePaths.zoom.tokenFile()
+      )
+    )
+      wrote++
   }
 
-  // Mirror Legendary + Nile into configStore so the frontend login UI reflects
-  // the restored user immediately. GOG and Zoom keep their own kv stores.
+  // Mirror runtime in-memory state so live code sees the restored login
+  // without needing a full Heroic restart.
   try {
     if (includeRunner('legendary')) LegendaryUser.getUserInfo()
   } catch (err) {
@@ -286,6 +342,22 @@ function applyCredentials(
     if (includeRunner('nile')) void NileUser.getUserData()
   } catch (err) {
     warnings.push(`Could not mirror Nile credentials: ${String(err)}`)
+  }
+  if (includeRunner('gog')) {
+    syncElectronStoreFromDisk(
+      gogConfigStore,
+      sourcePaths.gog.configFile(),
+      warnings,
+      'GOG'
+    )
+  }
+  if (includeRunner('zoom')) {
+    syncElectronStoreFromDisk(
+      zoomConfigStore,
+      sourcePaths.zoom.configFile(),
+      warnings,
+      'Zoom'
+    )
   }
 
   return {

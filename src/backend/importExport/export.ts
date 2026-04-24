@@ -185,16 +185,28 @@ export async function exportHeroicBackup(
         sourcePaths.nile.user(),
         BACKUP_PATHS.credentials.nileUser
       )
-      manifest.counts.credentials.gog = addFileIfExists(
+      const gogConfigPresent = addFileIfExists(
         zip,
         sourcePaths.gog.configFile(),
         BACKUP_PATHS.credentials.gogConfig
       )
-      manifest.counts.credentials.zoom = addFileIfExists(
+      const gogAuthPresent = addFileIfExists(
+        zip,
+        sourcePaths.gog.authFile(),
+        BACKUP_PATHS.credentials.gogAuth
+      )
+      manifest.counts.credentials.gog = gogConfigPresent || gogAuthPresent
+      const zoomConfigPresent = addFileIfExists(
         zip,
         sourcePaths.zoom.configFile(),
         BACKUP_PATHS.credentials.zoomConfig
       )
+      addFileIfExists(
+        zip,
+        sourcePaths.zoom.tokenFile(),
+        BACKUP_PATHS.credentials.zoomToken
+      )
+      manifest.counts.credentials.zoom = zoomConfigPresent
     }
 
     if (stages.includes('libraryCache')) {

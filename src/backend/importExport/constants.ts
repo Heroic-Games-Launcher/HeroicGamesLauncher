@@ -27,7 +27,9 @@ export const BACKUP_PATHS = {
     legendaryUser: 'credentials/legendary/user.json',
     nileUser: 'credentials/nile/user.json',
     gogConfig: 'credentials/gog/config.json',
-    zoomConfig: 'credentials/zoom/config.json'
+    gogAuth: 'credentials/gog/auth.json',
+    zoomConfig: 'credentials/zoom/config.json',
+    zoomToken: 'credentials/zoom/.zoom.token'
   },
   libraryCache: {
     legendaryLibrary: 'libraryCache/legendary_library.json',
