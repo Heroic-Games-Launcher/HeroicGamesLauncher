@@ -3,10 +3,9 @@ import { addHandler } from 'backend/ipc'
 import { importExportRollbackStore } from 'backend/constants/key_value_stores'
 import { app } from 'electron'
 
-import type { HeroicApplyResult } from 'common/types/importExport'
-
 import { exportHeroicBackup } from './export'
 import { validateHeroicBackup } from './validate'
+import { applyHeroicBackup, rollbackLastImport } from './apply'
 
 addHandler('exportHeroicBackup', (_e, options) => exportHeroicBackup(options))
 
@@ -14,31 +13,15 @@ addHandler('validateHeroicBackup', (_e, sourcePath) =>
   Promise.resolve(validateHeroicBackup(sourcePath))
 )
 
-addHandler('applyHeroicBackup', (): Promise<HeroicApplyResult> => {
-  return Promise.resolve({
-    ok: false,
-    stages: [],
-    gamesQueuedForDownload: [],
-    warnings: [],
-    errors: ['applyHeroicBackup not implemented yet']
-  })
-})
+addHandler('applyHeroicBackup', (_e, options) => applyHeroicBackup(options))
 
-addHandler('getRollbackSnapshot', () => {
-  return Promise.resolve(
+addHandler('getRollbackSnapshot', () =>
+  Promise.resolve(
     importExportRollbackStore.get_nodefault('lastSnapshot') ?? null
   )
-})
+)
 
-addHandler('rollbackHeroicBackup', (): Promise<HeroicApplyResult> => {
-  return Promise.resolve({
-    ok: false,
-    stages: [],
-    gamesQueuedForDownload: [],
-    warnings: [],
-    errors: ['rollbackHeroicBackup not implemented yet']
-  })
-})
+addHandler('rollbackHeroicBackup', () => rollbackLastImport())
 
 addHandler('restartHeroic', () => {
   app.relaunch()
