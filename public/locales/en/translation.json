@@ -514,6 +514,117 @@
         "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.",
         "WoW64": "The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games."
     },
+    "import-export": {
+        "action": {
+            "browse": "Browse",
+            "defaultPrefix": "Use default prefix",
+            "download": "Download missing",
+            "ignore": "Keep",
+            "skip": "Skip game"
+        },
+        "apply": "Apply backup",
+        "applying": "Applying...",
+        "back": "Back",
+        "browse": "Browse",
+        "choose-file": "Choose file",
+        "close": "Close",
+        "created": "Created",
+        "different-platform": "different from current ({{current}})",
+        "export": {
+            "done": "Saved to",
+            "failed": "Export failed",
+            "filename": "Filename",
+            "hint": "Bundle Heroic settings, logins and library into a single zip file you can restore later or move to another machine.",
+            "output": "Output folder",
+            "output-placeholder": "Pick a folder...",
+            "pickDir": "Choose where to save the backup",
+            "run": "Export",
+            "running": "Exporting...",
+            "summary_one": "{{count}} of {{total}} included",
+            "summary_other": "{{count}} of {{total}} included",
+            "title": "Export Heroic"
+        },
+        "import": {
+            "hint": "Start a step-by-step wizard to preview and apply a previously exported Heroic backup.",
+            "open": "Open import wizard",
+            "title": "Import a Heroic backup"
+        },
+        "installed-games": "Installed games",
+        "next": "Next",
+        "per-game": "Per-game settings",
+        "pick-backup": "Choose a Heroic backup archive",
+        "platform": "Platform",
+        "rollback": {
+            "done": "Rollback applied. Restart Heroic to apply all changes.",
+            "failed": "Rollback failed",
+            "hint": "A rollback snapshot was saved during the last import. Use this button to revert to that state.",
+            "run": "Rollback last import",
+            "running": "Rolling back...",
+            "saved": "Saved"
+        },
+        "step-counter": "Step {{current}} of {{total}}",
+        "step1": {
+            "hint": "Pick a Heroic backup archive (.zip) previously exported from Heroic.",
+            "title": "Select a backup file to import"
+        },
+        "step2": {
+            "title": "Backup summary"
+        },
+        "step3": {
+            "counts": "Includes {{fixes}}, {{themes}}.",
+            "none": "This backup does not contain global settings.",
+            "overwrite": "Overwrite current global settings",
+            "overwriteBody": "Off by default. Turn this on to replace your current Heroic settings with the ones in the backup.",
+            "overwriteTitle": "Overwrite my current global settings",
+            "title": "Global settings, themes and fixes",
+            "toggle": "Import global settings (includes custom themes and compatibility fixes)"
+        },
+        "step4": {
+            "deselectAll": "Deselect all",
+            "filter": "Filter games",
+            "none": "No games match the filter.",
+            "selectAll": "Select all",
+            "title": "Per-game settings to import"
+        },
+        "step5": {
+            "found": "Found in backup",
+            "hint": "Credentials are imported as-is. If a token has expired, you will be asked to log in again next time you open the store.",
+            "include": "Include",
+            "missing": "Not in backup",
+            "title": "Store logins"
+        },
+        "step6": {
+            "allGood": "All install paths and wine versions are present on this system.",
+            "download-wine": "Download missing Wine / Proton versions when available",
+            "installPath": "Install path",
+            "pathsHint": "For each game, decide what to do about missing install paths or prefixes.",
+            "pathsSummary_one": "Paths that need attention ({{count}})",
+            "pathsSummary_other": "Paths that need attention ({{count}})",
+            "prefixPath": "Wine prefix",
+            "title": "Library and system",
+            "wine-downloadable": "Downloadable",
+            "wine-unavailable": "Not available",
+            "wineHint": "These versions were installed on the source system but are missing locally. Downloadable ones will be queued automatically.",
+            "wineSummary_one": "Missing Wine / Proton versions ({{count}})",
+            "wineSummary_other": "Missing Wine / Proton versions ({{count}})"
+        },
+        "step7": {
+            "applying": "Applying backup...",
+            "failure": "Some steps could not finish",
+            "queued_one": "{{count}} game(s) were queued to re-download.",
+            "queued_other": "{{count}} game(s) were queued to re-download.",
+            "restart-body": "Some settings are cached in memory and only take effect after a restart.",
+            "restart-btn": "Restart now",
+            "restart-title": "Restart Heroic to apply all changes",
+            "rollback-hint": "A rollback snapshot was saved. You can undo this import later from Settings > Import/Export.",
+            "success": "Backup applied"
+        },
+        "unsupported-format": "This backup uses a newer format than this build of Heroic supports.",
+        "validating": "Validating...",
+        "version": "Heroic version",
+        "wine-versions": "Wine versions",
+        "wizard-title": "Import Heroic backup"
+    },
     "info": {
         "heroic": {
             "beta": "Beta",
@@ -987,6 +1098,7 @@
             "games_settings_defaults": "Game Defaults",
             "gamescope": "Gamescope",
             "general": "General",
+            "importExport": "Import / Export",
             "legacy": "Legacy",
             "log": "Log",
             "other": "Other",
