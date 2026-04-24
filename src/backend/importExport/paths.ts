@@ -25,12 +25,11 @@ import { GlobalConfig } from 'backend/config'
 
 const userData = () => app.getPath('userData')
 
-export const storeCacheDir = () => join(userData(), 'store_cache')
-export const storeDir = () => join(userData(), 'store')
-export const gogStoreDir = () => join(userData(), 'gog_store')
-export const nileStoreDir = () => join(userData(), 'nile_store')
-export const zoomStoreDir = () => join(userData(), 'zoom_store')
-export const sideloadStoreDir = () => join(userData(), 'sideload_apps')
+const storeCacheDir = () => join(userData(), 'store_cache')
+const storeDir = () => join(userData(), 'store')
+const gogStoreDir = () => join(userData(), 'gog_store')
+const zoomStoreDir = () => join(userData(), 'zoom_store')
+const sideloadStoreDir = () => join(userData(), 'sideload_apps')
 
 export const sourcePaths = {
   appFolder: () => appFolder,

@@ -124,20 +124,21 @@ export default function ImportExportSettings() {
         {t('settings.navbar.importExport', 'Import / Export')}
       </h3>
 
-      <details
-        className="ImportExportSettings__card"
-        open={!openImportFromNav}
-      >
+      <details className="ImportExportSettings__card" open={!openImportFromNav}>
         <summary>
           <span className="ImportExportSettings__cardTitle">
             <DownloadIcon />
             {t('import-export.export.title', 'Export Heroic')}
           </span>
           <span className="ImportExportSettings__summaryMeta">
-            {t('import-export.export.summary', '{{count}} of {{total}} included', {
-              count: selectedStages.size,
-              total: ALL_STAGES.length
-            })}
+            {t(
+              'import-export.export.summary',
+              '{{count}} of {{total}} included',
+              {
+                count: selectedStages.size,
+                total: ALL_STAGES.length
+              }
+            )}
           </span>
         </summary>
 
@@ -188,15 +189,14 @@ export default function ImportExportSettings() {
               </div>
             </div>
             <div className="ImportExportSettings__filename">
-              {t('import-export.export.filename', 'Filename')}: <code>{outputName}</code>
+              {t('import-export.export.filename', 'Filename')}:{' '}
+              <code>{outputName}</code>
             </div>
           </div>
           <button
             type="button"
             className="button is-primary"
-            disabled={
-              exportInFlight || selectedStages.size === 0 || !outputDir
-            }
+            disabled={exportInFlight || selectedStages.size === 0 || !outputDir}
             onClick={runExport}
           >
             {exportInFlight
@@ -219,10 +219,7 @@ export default function ImportExportSettings() {
         )}
       </details>
 
-      <details
-        className="ImportExportSettings__card"
-        open={openImportFromNav}
-      >
+      <details className="ImportExportSettings__card" open={openImportFromNav}>
         <summary>
           <span className="ImportExportSettings__cardTitle">
             <UploadFileIcon />

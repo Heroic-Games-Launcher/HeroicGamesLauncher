@@ -111,9 +111,9 @@ interface InstallInfo {
 function buildInstallMap(zip: AdmZip): Record<string, InstallInfo> {
   const out: Record<string, InstallInfo> = {}
 
-  const legInstalled = safeJsonParse<
-    Record<string, { install_path?: string }>
-  >(zip.getEntry(BACKUP_PATHS.libraryCache.legendaryInstalled)?.getData())
+  const legInstalled = safeJsonParse<Record<string, { install_path?: string }>>(
+    zip.getEntry(BACKUP_PATHS.libraryCache.legendaryInstalled)?.getData()
+  )
   if (legInstalled) {
     for (const [appName, info] of Object.entries(legInstalled)) {
       if (info?.install_path) {
@@ -172,10 +172,7 @@ function buildInstallMap(zip: AdmZip): Record<string, InstallInfo> {
   return out
 }
 
-function readPerGamePrefix(
-  zip: AdmZip,
-  appName: string
-): string | undefined {
+function readPerGamePrefix(zip: AdmZip, appName: string): string | undefined {
   const entry = zip.getEntry(`${PER_GAME_DIR}${appName}.json`)
   if (!entry) return undefined
   const parsed = safeJsonParse<Record<string, unknown>>(entry.getData())
@@ -208,8 +205,16 @@ function buildCredentialsReport(
     nile: false,
     zoom: false
   }
-  const entries: Array<{ runner: Runner; key: keyof CredentialPresence; path: string }> = [
-    { runner: 'legendary', key: 'legendary', path: BACKUP_PATHS.credentials.legendaryUser },
+  const entries: Array<{
+    runner: Runner
+    key: keyof CredentialPresence
+    path: string
+  }> = [
+    {
+      runner: 'legendary',
+      key: 'legendary',
+      path: BACKUP_PATHS.credentials.legendaryUser
+    },
     { runner: 'nile', key: 'nile', path: BACKUP_PATHS.credentials.nileUser },
     { runner: 'gog', key: 'gog', path: BACKUP_PATHS.credentials.gogConfig },
     { runner: 'zoom', key: 'zoom', path: BACKUP_PATHS.credentials.zoomConfig }
@@ -241,7 +246,9 @@ function credentialDisplayName(
   }
   if (runner === 'nile') {
     const ext = data['extensions'] as Record<string, unknown> | undefined
-    const customer = ext?.['customer_info'] as Record<string, unknown> | undefined
+    const customer = ext?.['customer_info'] as
+      | Record<string, unknown>
+      | undefined
     const name = customer?.['name']
     return typeof name === 'string' ? name : undefined
   }
@@ -293,10 +300,10 @@ function buildPathIssues(
     const install = installMap[appName]
     const prefix = readPerGamePrefix(zip, appName)
     const title = titleMap[appName]?.title ?? appName
-    const runner =
-      titleMap[appName]?.runner ?? install?.runner ?? 'sideload'
+    const runner = titleMap[appName]?.runner ?? install?.runner ?? 'sideload'
 
-    const installBroken = install?.installPath && !existsSync(install.installPath)
+    const installBroken =
+      install?.installPath && !existsSync(install.installPath)
     const prefixBroken = prefix && !existsSync(prefix)
     if (!installBroken && !prefixBroken) continue
 
@@ -383,12 +390,7 @@ export function validateHeroicBackup(
   const titleMap = buildGameTitleMap(zip)
   const installMap = buildInstallMap(zip)
   const credentials = buildCredentialsReport(manifest, zip)
-  const pathIssues = buildPathIssues(
-    zip,
-    perGameAppNames,
-    installMap,
-    titleMap
-  )
+  const pathIssues = buildPathIssues(zip, perGameAppNames, installMap, titleMap)
   const installedOK = buildInstalledOK(installMap, titleMap)
   const missingWineVersions = buildWineVersionIssues(zip)
 

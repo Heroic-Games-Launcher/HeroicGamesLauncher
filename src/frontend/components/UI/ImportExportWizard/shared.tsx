@@ -6,12 +6,7 @@ import type { Runner } from 'common/types'
 
 import { STAGE_LABELS } from './labels'
 
-export type PathAction =
-  | 'browse'
-  | 'ignore'
-  | 'skip'
-  | 'download'
-  | 'default-prefix'
+type PathAction = 'browse' | 'ignore' | 'skip' | 'download' | 'default-prefix'
 
 export interface PathChoice {
   installAction: PathAction

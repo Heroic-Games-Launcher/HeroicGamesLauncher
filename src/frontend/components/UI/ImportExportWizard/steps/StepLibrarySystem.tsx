@@ -122,10 +122,7 @@ export default function StepLibrarySystem({
               const versionKey = v.version ?? v.displayName
               const checked = includedWineVersions.has(versionKey)
               return (
-                <li
-                  key={v.displayName}
-                  className="ImportExportWizard__appRow"
-                >
+                <li key={v.displayName} className="ImportExportWizard__appRow">
                   <label>
                     <input
                       type="checkbox"
@@ -135,9 +132,7 @@ export default function StepLibrarySystem({
                     />
                     <span className="ImportExportWizard__appTitle">
                       {v.displayName}
-                      <StatusPill
-                        status={v.downloadable ? 'info' : 'warning'}
-                      >
+                      <StatusPill status={v.downloadable ? 'info' : 'warning'}>
                         {v.downloadable
                           ? t(
                               'import-export.step6.wine-downloadable',
@@ -250,10 +245,7 @@ export default function StepLibrarySystem({
           </p>
           <ul className="ImportExportWizard__issueList">
             {prefixIssues.map((issue) => (
-              <li
-                key={issue.appName}
-                className="ImportExportWizard__issueCard"
-              >
+              <li key={issue.appName} className="ImportExportWizard__issueCard">
                 <div className="ImportExportWizard__issueHeader">
                   <div>
                     <strong>{issue.title}</strong>
@@ -266,9 +258,7 @@ export default function StepLibrarySystem({
                 <PathActionRow
                   label={t('import-export.step6.prefixPath', 'Wine prefix')}
                   currentPath={issue.prefixPath ?? ''}
-                  action={
-                    pathChoices[issue.appName]?.prefixAction ?? 'ignore'
-                  }
+                  action={pathChoices[issue.appName]?.prefixAction ?? 'ignore'}
                   override={pathChoices[issue.appName]?.prefixOverride}
                   actions={['browse', 'ignore', 'default-prefix']}
                   onAction={(a, path) =>

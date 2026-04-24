@@ -27,14 +27,28 @@ const addJson = (zip: AdmZip, path: string, data: unknown) => {
   zip.addFile(path, Buffer.from(JSON.stringify(data, null, 2), 'utf-8'))
 }
 
-const writeBackupZip = (outputPath: string, overrides?: Partial<Record<string, unknown>>) => {
+const writeBackupZip = (
+  outputPath: string,
+  overrides?: Partial<Record<string, unknown>>
+) => {
   const zip = new AdmZip()
   addJson(zip, BACKUP_PATHS.manifest, {
     formatVersion: BACKUP_FORMAT_VERSION,
     createdAt: '2026-04-24T10:00:00.000Z',
     heroicVersion: '9.9.9',
-    platform: process.platform === 'win32' ? 'win32' : process.platform === 'darwin' ? 'darwin' : 'linux',
-    stages: ['globalSettings', 'perGameSettings', 'credentials', 'libraryCache', 'wineMetadata'],
+    platform:
+      process.platform === 'win32'
+        ? 'win32'
+        : process.platform === 'darwin'
+          ? 'darwin'
+          : 'linux',
+    stages: [
+      'globalSettings',
+      'perGameSettings',
+      'credentials',
+      'libraryCache',
+      'wineMetadata'
+    ],
     counts: {
       perGameSettings: 1,
       installedGames: { legendary: 1 },

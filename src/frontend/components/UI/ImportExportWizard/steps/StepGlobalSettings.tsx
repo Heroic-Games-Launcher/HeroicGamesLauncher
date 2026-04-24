@@ -39,10 +39,7 @@ export default function StepGlobalSettings({
         <>
           <ToggleSwitch
             htmlId="ie-include-global"
-            title={t(
-              'import-export.step3.toggle',
-              'Import global settings'
-            )}
+            title={t('import-export.step3.toggle', 'Import global settings')}
             value={includeGlobal}
             handleChange={() => setIncludeGlobal(!includeGlobal)}
           />

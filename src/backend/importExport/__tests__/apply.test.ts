@@ -1,11 +1,5 @@
 import AdmZip from 'adm-zip'
-import {
-  mkdirSync,
-  mkdtempSync,
-  readFileSync,
-  rmSync,
-  writeFileSync
-} from 'fs'
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
 
@@ -127,9 +121,7 @@ describe('applyHeroicBackup patch semantics', () => {
       overwriteGlobalSettings: false,
       includedAppNames: ['game1'],
       includedCredentials: {},
-      perGameOverrides: [
-        { appName: 'game1', prefixPath: '/new/prefix' }
-      ],
+      perGameOverrides: [{ appName: 'game1', prefixPath: '/new/prefix' }],
       includedWineVersions: []
     })
 

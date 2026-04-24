@@ -17,8 +17,8 @@ function EmptyLibraryMessage() {
         <br />
         <br />
         Click <NavLink to="/login">here</NavLink> to log in with your Epic,
-        GOG.com, Amazon, or Zoom accounts. Then, your games will show up here
-        in the Library.
+        GOG.com, Amazon, or Zoom accounts. Then, your games will show up here in
+        the Library.
         <br />
         <br />
         To use games or apps from other sources, click <AddGameButton /> to add
@@ -27,10 +27,7 @@ function EmptyLibraryMessage() {
       <span className="noResultsMessage__backupHint">
         <Trans i18n={i18n} i18nKey="emptyLibrary.backupHint">
           Have a Heroic backup?{' '}
-          <NavLink
-            to="/settings/importexport"
-            state={{ openImport: true }}
-          >
+          <NavLink to="/settings/importexport" state={{ openImport: true }}>
             Restore from it to pick up where you left off
           </NavLink>
           .

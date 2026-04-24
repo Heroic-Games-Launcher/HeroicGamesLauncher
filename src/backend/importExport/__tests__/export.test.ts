@@ -1,10 +1,4 @@
-import {
-  mkdirSync,
-  mkdtempSync,
-  readFileSync,
-  rmSync,
-  writeFileSync
-} from 'fs'
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
 import AdmZip from 'adm-zip'
@@ -182,7 +176,9 @@ describe('exportHeroicBackup', () => {
     expect(
       zip.getEntry(BACKUP_PATHS.libraryCache.legendaryLibrary)
     ).toBeTruthy()
-    expect(zip.getEntry(BACKUP_PATHS.libraryCache.legendaryInstalled)).toBeTruthy()
+    expect(
+      zip.getEntry(BACKUP_PATHS.libraryCache.legendaryInstalled)
+    ).toBeTruthy()
     expect(zip.getEntry(BACKUP_PATHS.libraryCache.gogInstalled)).toBeTruthy()
 
     // Sideload
@@ -194,9 +190,7 @@ describe('exportHeroicBackup', () => {
     // Manifest
     const manifestEntry = zip.getEntry(BACKUP_PATHS.manifest)
     expect(manifestEntry).toBeTruthy()
-    const manifest = JSON.parse(
-      manifestEntry!.getData().toString('utf-8')
-    ) as {
+    const manifest = JSON.parse(manifestEntry!.getData().toString('utf-8')) as {
       formatVersion: number
       heroicVersion: string
       counts: {

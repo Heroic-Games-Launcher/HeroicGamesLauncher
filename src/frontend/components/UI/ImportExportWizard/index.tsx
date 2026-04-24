@@ -72,9 +72,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     zoom: true,
     sideload: true
   })
-  const [pathChoices, setPathChoices] = useState<Record<string, PathChoice>>(
-    {}
-  )
+  const [pathChoices, setPathChoices] = useState<Record<string, PathChoice>>({})
   const [includedWineVersions, setIncludedWineVersions] = useState<Set<string>>(
     new Set()
   )
@@ -175,11 +173,11 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   }
 
   function nextStep() {
-    setStep((s) => (Math.min(6, s + 1) as WizardStep))
+    setStep((s) => Math.min(6, s + 1) as WizardStep)
   }
 
   function prevStep() {
-    setStep((s) => (Math.max(0, s - 1) as WizardStep))
+    setStep((s) => Math.max(0, s - 1) as WizardStep)
   }
 
   async function applyBackup() {
@@ -229,18 +227,12 @@ export default function ImportExportWizard({ open, onClose }: Props) {
     >
       <DialogHeader onClose={onClose}>
         <div className="ImportExportWizard__titleRow">
-          <span>
-            {t('import-export.wizard-title', 'Import Heroic backup')}
-          </span>
+          <span>{t('import-export.wizard-title', 'Import Heroic backup')}</span>
           <span className="ImportExportWizard__stepCounter">
-            {t(
-              'import-export.step-counter',
-              'Step {{current}} of {{total}}',
-              {
-                current: step + 1,
-                total: STEP_TITLES.length
-              }
-            )}
+            {t('import-export.step-counter', 'Step {{current}} of {{total}}', {
+              current: step + 1,
+              total: STEP_TITLES.length
+            })}
           </span>
         </div>
       </DialogHeader>

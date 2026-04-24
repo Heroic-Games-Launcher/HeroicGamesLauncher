@@ -21,10 +21,7 @@ export default function StepPickFile({
 
   async function chooseFile() {
     const selected = await window.api.openDialog({
-      title: t(
-        'import-export.pick-backup',
-        'Choose a Heroic backup archive'
-      ),
+      title: t('import-export.pick-backup', 'Choose a Heroic backup archive'),
       properties: ['openFile'],
       filters: [{ name: 'Heroic backup', extensions: ['zip'] }]
     })
@@ -58,10 +55,7 @@ export default function StepPickFile({
         <SvgButton
           onClick={chooseFile}
           disabled={validating}
-          title={t(
-            'import-export.step1.browse',
-            'Browse for a backup file'
-          )}
+          title={t('import-export.step1.browse', 'Browse for a backup file')}
           className="ImportExportWizard__filePickerIcon"
         >
           <FolderIcon />

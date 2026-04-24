@@ -1,9 +1,7 @@
 import { frontendListenerSlot, makeHandlerInvoker } from '../ipc'
 
 export const getHomeDir = makeHandlerInvoker('getHomeDir')
-export const getWineImportProgress = makeHandlerInvoker(
-  'getWineImportProgress'
-)
+export const getWineImportProgress = makeHandlerInvoker('getWineImportProgress')
 export const exportHeroicBackup = makeHandlerInvoker('exportHeroicBackup')
 export const validateHeroicBackup = makeHandlerInvoker('validateHeroicBackup')
 export const applyHeroicBackup = makeHandlerInvoker('applyHeroicBackup')
