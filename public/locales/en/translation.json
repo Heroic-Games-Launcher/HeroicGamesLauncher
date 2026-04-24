@@ -381,6 +381,7 @@
         "title": "Downloads"
     },
     "emptyLibrary": {
+        "backupHint": "Have a Heroic backup? <2>Restore from it to pick up where you left off</2>.",
         "noGames": "Your library is empty.<br /><br />Click <4>here</4> to log in with your Epic, GOG.com, or Amazon accounts. Then, your games will show up here in the Library.<br /><br />To use games or apps from other sources, click <br /> to add them manually.",
         "noResults": "The current filters produced no results."
     },
@@ -513,6 +514,125 @@
         "wine-hdr": "HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.",
         "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.",
         "WoW64": "The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games."
+    },
+    "import-export": {
+        "action": {
+            "browse": "Browse",
+            "defaultPrefix": "Use default prefix",
+            "download": "Download missing",
+            "ignore": "Keep",
+            "skip": "Skip game"
+        },
+        "apply": "Apply backup",
+        "applying": "Applying...",
+        "back": "Back",
+        "browse": "Browse",
+        "close": "Close",
+        "created": "Created",
+        "different-platform": "different from current ({{current}})",
+        "export": {
+            "done": "Saved to",
+            "failed": "Export failed",
+            "filename": "Filename",
+            "hint": "Bundle Heroic settings, logins and library into a single zip file you can restore later or move to another machine.",
+            "output": "Output folder",
+            "output-placeholder": "Pick a folder...",
+            "pickDir": "Choose where to save the backup",
+            "run": "Export",
+            "running": "Exporting...",
+            "summary_one": "{{count}} of {{total}} included",
+            "summary_other": "{{count}} of {{total}} included",
+            "title": "Export Heroic"
+        },
+        "import": {
+            "hint": "Start a step-by-step wizard to preview and apply a previously exported Heroic backup.",
+            "open": "Open import wizard",
+            "title": "Import a Heroic backup"
+        },
+        "installed-games": "Installed games",
+        "next": "Next",
+        "per-game": "Per-game settings",
+        "pick-backup": "Choose a Heroic backup archive",
+        "platform": "Platform",
+        "rollback": {
+            "done": "Rollback applied. Restart Heroic to apply all changes.",
+            "failed": "Rollback failed",
+            "hint": "A rollback snapshot was saved during the last import. Use this button to revert to that state.",
+            "run": "Rollback last import",
+            "running": "Rolling back...",
+            "saved": "Saved"
+        },
+        "step-counter": "Step {{current}} of {{total}}",
+        "step1": {
+            "browse": "Browse for a backup file",
+            "hint": "Pick a Heroic backup archive (.zip) previously exported from Heroic.",
+            "placeholder": "No backup file selected",
+            "title": "Select a backup file to import"
+        },
+        "step2": {
+            "title": "Backup summary"
+        },
+        "step3": {
+            "none": "This backup does not contain global settings.",
+            "overwrite": "Overwrite current global settings",
+            "overwriteBody": "Off by default. Turn this on to replace your current Heroic settings with the ones in the backup.",
+            "overwriteTitle": "Overwrite my current global settings",
+            "title": "Global settings",
+            "toggle": "Import global settings"
+        },
+        "step4": {
+            "deselectAll": "Deselect all",
+            "filter": "Filter games",
+            "none": "No games match the filter.",
+            "selectAll": "Select all",
+            "title": "Per-game settings to import"
+        },
+        "step5": {
+            "found": "Found in backup",
+            "hint": "Credentials are imported as-is. If a token has expired, you will be asked to log in again next time you open the store.",
+            "include": "Include",
+            "missing": "Not in backup",
+            "title": "Store logins"
+        },
+        "step6": {
+            "allGood": "All install paths and wine versions are present on this system.",
+            "downloadMissing": "Re-download selected missing games after import",
+            "installedOKHint": "These games were installed on the source system and their folders still exist on this machine — they will be re-registered as-is.",
+            "installedOKSummary_one": "Games found and ready ({{count}})",
+            "installedOKSummary_other": "Games found and ready ({{count}})",
+            "installPathsHint": "The install folders these games used are not on this system. Re-download the ones you want back; unchecked games stay listed with their original (broken) path.",
+            "installPathsSummary_one": "Games with missing install paths ({{count}})",
+            "installPathsSummary_other": "Games with missing install paths ({{count}})",
+            "prefixPath": "Wine prefix",
+            "prefixPathsHint": "Choose what to do with each prefix individually — switching to the default prefix is usually the simplest fix.",
+            "prefixPathsSummary_one": "Games with missing Wine prefixes ({{count}})",
+            "prefixPathsSummary_other": "Games with missing Wine prefixes ({{count}})",
+            "title": "Library and system",
+            "wine-downloadable": "Downloadable",
+            "wine-unavailable": "Not available",
+            "wineHint": "These versions were installed on the source system but are missing locally. Downloadable ones will be queued automatically.",
+            "wineSummary_one": "Missing Wine / Proton versions ({{count}})",
+            "wineSummary_other": "Missing Wine / Proton versions ({{count}})"
+        },
+        "step7": {
+            "applying": "Applying backup...",
+            "failure": "Some steps could not finish",
+            "queued_one": "{{count}} game(s) were queued to re-download.",
+            "queued_other": "{{count}} game(s) were queued to re-download.",
+            "restart-body": "Some settings are cached in memory and only take effect after a restart.",
+            "restart-btn": "Restart now",
+            "restart-title": "Restart Heroic to apply all changes",
+            "rollback-hint": "A rollback snapshot was saved. You can undo this import later from Settings > Import/Export.",
+            "success": "Backup applied",
+            "wine-busy-hint": "Wait until Wine / Proton finishes installing",
+            "wine-progress-body": "Please wait — Restart and Close are disabled until all selected versions finish installing.",
+            "wine-progress-title": "Installing Wine / Proton version ({{current}}/{{total}})"
+        },
+        "unsupported-format": "This backup uses a newer format than this build of Heroic supports.",
+        "validating": "Validating...",
+        "version": "Heroic version",
+        "wine-versions": "Wine versions",
+        "wizard-title": "Import Heroic backup"
     },
     "info": {
         "heroic": {
@@ -987,6 +1107,7 @@
             "games_settings_defaults": "Game Defaults",
             "gamescope": "Gamescope",
             "general": "General",
+            "importExport": "Import / Export",
             "legacy": "Legacy",
             "log": "Log",
             "other": "Other",
