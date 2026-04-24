@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
+  width: 513px;
 
   &__card {
     border: 1px solid color-mix(in srgb, var(--text-default) 8%, transparent);
@@ -96,6 +97,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     gap: var(--space-md);
     margin-top: var(--space-sm);
   }

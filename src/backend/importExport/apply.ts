@@ -52,11 +52,7 @@ function dirOf(path: string): string {
   return idx >= 0 ? path.slice(0, idx) : path
 }
 
-function writeFolder(
-  zip: AdmZip,
-  zipPrefix: string,
-  destDir: string
-): number {
+function writeFolder(zip: AdmZip, zipPrefix: string, destDir: string): number {
   ensureDir(destDir)
   let written = 0
   for (const entry of zip.getEntries()) {
@@ -141,7 +137,9 @@ function applyGlobalSettings(
   } else {
     const entries = zip
       .getEntries()
-      .filter((e) => e.entryName.startsWith(BACKUP_PATHS.globalSettings.themesDir))
+      .filter((e) =>
+        e.entryName.startsWith(BACKUP_PATHS.globalSettings.themesDir)
+      )
     if (entries.length > 0) {
       warnings.push(
         'Backup includes themes but no customThemesPath is configured; themes were skipped.'
@@ -246,7 +244,11 @@ function applyCredentials(
   if (includeRunner('nile')) {
     ensureDir(dirOf(sourcePaths.nile.user()))
     if (
-      writeEntry(zip, BACKUP_PATHS.credentials.nileUser, sourcePaths.nile.user())
+      writeEntry(
+        zip,
+        BACKUP_PATHS.credentials.nileUser,
+        sourcePaths.nile.user()
+      )
     )
       wrote++
   }
@@ -384,7 +386,10 @@ function applyLibraryCache(
       overrides,
       gamesQueuedForDownload
     )
-    writeFileSync(sourcePaths.legendary.installed(), JSON.stringify(patched, null, 2))
+    writeFileSync(
+      sourcePaths.legendary.installed(),
+      JSON.stringify(patched, null, 2)
+    )
   }
 
   writeEntry(
@@ -404,12 +409,11 @@ function applyLibraryCache(
   }>(zip, BACKUP_PATHS.libraryCache.gogInstalled)
   if (gogRaw) {
     ensureDir(dirOf(sourcePaths.gog.installedFile()))
-    const patched = patchGogInstalled(
-      gogRaw,
-      overrides,
-      gamesQueuedForDownload
+    const patched = patchGogInstalled(gogRaw, overrides, gamesQueuedForDownload)
+    writeFileSync(
+      sourcePaths.gog.installedFile(),
+      JSON.stringify(patched, null, 2)
     )
-    writeFileSync(sourcePaths.gog.installedFile(), JSON.stringify(patched, null, 2))
   }
 
   const nileRaw = safeJsonFromEntry<Array<Record<string, unknown>>>(
@@ -423,7 +427,10 @@ function applyLibraryCache(
       overrides,
       gamesQueuedForDownload
     )
-    writeFileSync(sourcePaths.nile.installed(), JSON.stringify(patched, null, 2))
+    writeFileSync(
+      sourcePaths.nile.installed(),
+      JSON.stringify(patched, null, 2)
+    )
   }
 
   writeEntry(
@@ -433,7 +440,9 @@ function applyLibraryCache(
   )
 
   // Library caches are verbatim copies — they're just title lookups.
-  ensureDir(sourcePaths.libraryCache.legendary().replace(/legendary_library\.json$/, ''))
+  ensureDir(
+    sourcePaths.libraryCache.legendary().replace(/legendary_library\.json$/, '')
+  )
   writeEntry(
     zip,
     BACKUP_PATHS.libraryCache.legendaryLibrary,
@@ -464,9 +473,15 @@ function applySideloadLibrary(
   gamesQueuedForDownload: string[]
 ): HeroicApplyStageResult {
   const raw = safeJsonFromEntry<{
-    games?: Array<{ app_name?: string; install?: { install_path?: string } } & Record<string, unknown>>
+    games?: Array<
+      { app_name?: string; install?: { install_path?: string } } & Record<
+        string,
+        unknown
+      >
+    >
   }>(zip, BACKUP_PATHS.sideloadLibrary.library)
-  if (!raw) return { stage: 'sideloadLibrary', ok: true, message: 'Not in backup' }
+  if (!raw)
+    return { stage: 'sideloadLibrary', ok: true, message: 'Not in backup' }
 
   const overrides = new Map<string, PerGamePathOverride>()
   for (const o of options.perGameOverrides) overrides.set(o.appName, o)
@@ -497,7 +512,11 @@ function applySideloadLibrary(
     JSON.stringify({ ...raw, games: patched }, null, 2)
   )
 
-  return { stage: 'sideloadLibrary', ok: true, message: `${patched.length} game(s)` }
+  return {
+    stage: 'sideloadLibrary',
+    ok: true,
+    message: `${patched.length} game(s)`
+  }
 }
 
 async function applyWineMetadata(
@@ -566,7 +585,7 @@ async function applyWineMetadata(
   return {
     stage: 'wineMetadata',
     ok: true,
-    message: `${toInstall.length} wine version(s) queued for download`
+    message: `${toInstall.length} wine version(s) will be installled`
   }
 }
 
@@ -706,4 +725,3 @@ export async function rollbackLastImport(): Promise<HeroicApplyResult> {
 
   return result
 }
-

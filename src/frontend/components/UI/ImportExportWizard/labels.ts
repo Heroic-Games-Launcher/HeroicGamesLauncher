@@ -1,7 +1,7 @@
 import type { HeroicBackupStageId } from 'common/types/importExport'
 
 export const STAGE_LABELS: Record<HeroicBackupStageId, string> = {
-  globalSettings: 'Global settings, themes and fixes',
+  globalSettings: 'Global settings',
   perGameSettings: 'Per-game settings',
   credentials: 'Store logins',
   libraryCache: 'Installed games and library',

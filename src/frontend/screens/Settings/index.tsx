@@ -124,7 +124,7 @@ function Settings() {
             {isLogSettings && <LogSettings />}
             {isSystemInfo && <SystemInfo />}
             {isImportExport && <ImportExportSettings />}
-            <FooterInfo />
+            {!isImportExport && <FooterInfo />}
           </div>
         </div>
       </SettingsContext.Provider>

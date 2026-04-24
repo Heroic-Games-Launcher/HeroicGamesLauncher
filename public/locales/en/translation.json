@@ -573,13 +573,12 @@
             "title": "Backup summary"
         },
         "step3": {
-            "counts": "Includes {{fixes}}, {{themes}}.",
             "none": "This backup does not contain global settings.",
             "overwrite": "Overwrite current global settings",
             "overwriteBody": "Off by default. Turn this on to replace your current Heroic settings with the ones in the backup.",
             "overwriteTitle": "Overwrite my current global settings",
-            "title": "Global settings, themes and fixes",
-            "toggle": "Import global settings (includes custom themes and compatibility fixes)"
+            "title": "Global settings",
+            "toggle": "Import global settings"
         },
         "step4": {
             "deselectAll": "Deselect all",

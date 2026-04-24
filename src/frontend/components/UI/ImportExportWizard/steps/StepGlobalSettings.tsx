@@ -26,7 +26,7 @@ export default function StepGlobalSettings({
   return (
     <section>
       <h3 className="ImportExportWizard__heading">
-        {t('import-export.step3.title', 'Global settings, themes and fixes')}
+        {t('import-export.step3.title', 'Global settings')}
       </h3>
       {!hasGlobal ? (
         <p className="ImportExportWizard__hint">
@@ -41,7 +41,7 @@ export default function StepGlobalSettings({
             htmlId="ie-include-global"
             title={t(
               'import-export.step3.toggle',
-              'Import global settings (includes custom themes and compatibility fixes)'
+              'Import global settings'
             )}
             value={includeGlobal}
             handleChange={() => setIncludeGlobal(!includeGlobal)}
@@ -73,17 +73,6 @@ export default function StepGlobalSettings({
               />
             </div>
           </div>
-          <p className="ImportExportWizard__meta">
-            {t('import-export.step3.counts', {
-              defaultValue: 'Includes {{fixes}}, {{themes}}.',
-              fixes: manifest.counts.fixesIncluded
-                ? t('import-export.step3.fixes-yes', 'compatibility fixes')
-                : t('import-export.step3.fixes-no', 'no compatibility fixes'),
-              themes: manifest.counts.themesIncluded
-                ? t('import-export.step3.themes-yes', 'custom themes')
-                : t('import-export.step3.themes-no', 'no custom themes')
-            })}
-          </p>
         </>
       )}
     </section>
