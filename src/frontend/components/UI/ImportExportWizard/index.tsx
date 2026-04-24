@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.css'
 
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
