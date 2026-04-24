@@ -127,6 +127,45 @@
     margin-top: var(--space-md);
   }
 
+  &__filePicker {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-sm);
+    align-items: center;
+    margin-top: var(--space-md);
+    padding: var(--space-2xs) var(--space-2xs) var(--space-2xs) var(--space-sm);
+    background: var(--input-background);
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    input {
+      background: transparent;
+      border: none;
+      color: var(--text-default);
+      font: inherit;
+      padding: var(--space-2xs) 0;
+      width: 100%;
+      cursor: default;
+
+      &::placeholder {
+        color: var(--text-secondary);
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+
+  &__filePickerIcon {
+    color: var(--text-default);
+
+    svg {
+      width: 1.4em;
+      height: 1.4em;
+    }
+  }
+
   &__summary {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

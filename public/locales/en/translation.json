@@ -564,7 +564,9 @@
         },
         "step-counter": "Step {{current}} of {{total}}",
         "step1": {
+            "browse": "Browse for a backup file",
             "hint": "Pick a Heroic backup archive (.zip) previously exported from Heroic.",
+            "placeholder": "No backup file selected",
             "title": "Select a backup file to import"
         },
         "step2": {
