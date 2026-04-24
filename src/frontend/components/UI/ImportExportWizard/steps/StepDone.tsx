@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
+import DownloadingIcon from '@mui/icons-material/Downloading'
 
 import type { HeroicApplyResult } from 'common/types/importExport'
 
@@ -12,14 +14,51 @@ interface Props {
   applyResult: HeroicApplyResult | null
   applying: boolean
   rollbackHintPath?: string
+  onWineBusyChange?: (busy: boolean) => void
 }
 
 export default function StepDone({
   applyResult,
   applying,
-  rollbackHintPath
+  rollbackHintPath,
+  onWineBusyChange
 }: Props) {
   const { t } = useTranslation()
+
+  const queued = applyResult?.wineVersionsQueuedForDownload ?? []
+  const queuedTotal = queued.length
+
+  const [wineProgress, setWineProgress] = useState({
+    total: queuedTotal,
+    completed: 0
+  })
+
+  useEffect(() => {
+    if (queuedTotal === 0) return undefined
+
+    let cancelled = false
+
+    void window.api.getWineImportProgress().then((snap) => {
+      if (cancelled) return
+      setWineProgress({ total: snap.total, completed: snap.completed })
+    })
+
+    const off = window.api.onWineImportProgress((_e, snap) => {
+      setWineProgress({ total: snap.total, completed: snap.completed })
+    })
+
+    return () => {
+      cancelled = true
+      off()
+    }
+  }, [queuedTotal])
+
+  const wineBusy =
+    wineProgress.total > 0 && wineProgress.completed < wineProgress.total
+
+  useEffect(() => {
+    onWineBusyChange?.(wineBusy)
+  }, [wineBusy, onWineBusyChange])
 
   async function restart() {
     await window.api.restartHeroic()
@@ -54,6 +93,30 @@ export default function StepDone({
             : t('import-export.step7.failure', 'Some steps could not finish')}
         </h3>
       </div>
+
+      {wineBusy && (
+        <div className="ImportExportWizard__wineProgress" role="status">
+          <DownloadingIcon className="ImportExportWizard__wineProgressIcon" />
+          <div>
+            <strong>
+              {t(
+                'import-export.step7.wine-progress-title',
+                'Installing Wine / Proton version ({{current}}/{{total}})',
+                {
+                  current: wineProgress.completed + 1,
+                  total: wineProgress.total
+                }
+              )}
+            </strong>
+            <p>
+              {t(
+                'import-export.step7.wine-progress-body',
+                'Please wait — Restart and Close are disabled until all selected versions finish installing.'
+              )}
+            </p>
+          </div>
+        </div>
+      )}
 
       <ul className="ImportExportWizard__stageList">
         {applyResult.stages.map((s) => (
@@ -113,6 +176,7 @@ export default function StepDone({
               type="button"
               className="button is-primary"
               onClick={restart}
+              disabled={wineBusy}
             >
               {t('import-export.step7.restart-btn', 'Restart now')}
             </button>

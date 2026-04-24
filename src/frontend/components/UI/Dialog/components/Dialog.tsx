@@ -21,6 +21,7 @@ interface DialogProps {
   children: ReactNode
   showCloseButton: boolean
   onClose: () => void
+  disableBackdropClose?: boolean
 }
 
 const StyledPaper = styled(Paper)(() => ({
@@ -38,7 +39,8 @@ export const Dialog: React.FC<DialogProps> = ({
   children,
   className,
   showCloseButton = false,
-  onClose
+  onClose,
+  disableBackdropClose = false
 }) => {
   const [open, setOpen] = useState(true)
   const { disableDialogBackdropClose } = useContext(ContextProvider)
@@ -61,6 +63,7 @@ export const Dialog: React.FC<DialogProps> = ({
     <MuiDialog
       open={open}
       onClose={(e, reason) => {
+        if (disableBackdropClose) return
         if (disableDialogBackdropClose && reason === 'backdropClick') return
         close()
       }}

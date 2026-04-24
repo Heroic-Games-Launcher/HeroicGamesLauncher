@@ -555,6 +555,34 @@
     font-size: var(--text-sm);
   }
 
+  &__wineProgress {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--status-warning) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--status-warning) 35%, transparent);
+    align-items: center;
+
+    strong {
+      display: block;
+      margin-bottom: var(--space-3xs);
+    }
+
+    p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+    }
+  }
+
+  &__wineProgressIcon {
+    color: var(--status-warning);
+    font-size: 2em;
+    animation: ImportExportWizard__pulse 1.4s ease-in-out infinite;
+  }
+
   &__restartBanner {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -593,8 +621,14 @@
   }
 }
 
+@keyframes ImportExportWizard__pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ImportExportWizard__stepContent.fadeIn {
+  .ImportExportWizard__stepContent.fadeIn,
+  .ImportExportWizard__wineProgressIcon {
     animation: none;
   }
 }

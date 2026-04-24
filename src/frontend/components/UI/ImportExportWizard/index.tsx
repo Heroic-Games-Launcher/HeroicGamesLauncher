@@ -82,6 +82,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
 
   const [applying, setApplying] = useState(false)
   const [applyResult, setApplyResult] = useState<HeroicApplyResult | null>(null)
+  const [wineBusy, setWineBusy] = useState(false)
 
   useEffect(() => {
     if (!open) {
@@ -220,7 +221,12 @@ export default function ImportExportWizard({ open, onClose }: Props) {
   if (!open) return null
 
   return (
-    <Dialog className="ImportExportWizard" onClose={onClose} showCloseButton>
+    <Dialog
+      className="ImportExportWizard"
+      onClose={onClose}
+      showCloseButton={!wineBusy}
+      disableBackdropClose
+    >
       <DialogHeader onClose={onClose}>
         <div className="ImportExportWizard__titleRow">
           <span>
@@ -317,6 +323,7 @@ export default function ImportExportWizard({ open, onClose }: Props) {
               applyResult={applyResult}
               applying={applying}
               rollbackHintPath={applyResult?.rollbackPath}
+              onWineBusyChange={setWineBusy}
             />
           )}
         </div>
@@ -359,6 +366,15 @@ export default function ImportExportWizard({ open, onClose }: Props) {
               type="button"
               className="button is-primary"
               onClick={onClose}
+              disabled={wineBusy}
+              title={
+                wineBusy
+                  ? t(
+                      'import-export.step7.wine-busy-hint',
+                      'Wait until Wine / Proton finishes installing'
+                    )
+                  : undefined
+              }
             >
               {t('import-export.close', 'Close')}
             </button>
