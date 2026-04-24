@@ -25,9 +25,7 @@ export default function StoreLogos({
   selectedRunner,
   onGameClick
 }: Props) {
-  const runnersToShow = Array.from(
-    new Set(runners || (runner ? [runner] : []))
-  )
+  const runnersToShow = Array.from(new Set(runners || (runner ? [runner] : [])))
 
   const selectableGames =
     onGameClick && games && games.length > 1 ? games : undefined

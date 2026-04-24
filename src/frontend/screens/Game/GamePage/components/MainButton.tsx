@@ -30,7 +30,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
-  const actualGameInfo = 'games' in gameInfo ? gameInfo.representative : gameInfo
+  const actualGameInfo =
+    'games' in gameInfo ? gameInfo.representative : gameInfo
 
   const is_installed = actualGameInfo.is_installed
   const disabledPlayButtons =

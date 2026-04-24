@@ -19,7 +19,13 @@ import {
   sendKill,
   updateGame
 } from 'frontend/helpers'
-import { Link, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom'
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useNavigate,
+  useParams
+} from 'react-router-dom'
 import { Trans, useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { CachedImage, UpdateComponent, TabPanel } from 'frontend/components/UI'
@@ -108,7 +114,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
   )
 
   const [gameInfo, setGameInfo] = useState<GameInfo>(
-    'games' in locationGameInfo ? locationGameInfo.representative : locationGameInfo
+    'games' in locationGameInfo
+      ? locationGameInfo.representative
+      : locationGameInfo
   )
   const [gameGroup, setGameGroup] = useState<GameGroup | null>(
     'games' in locationGameInfo ? locationGameInfo : null

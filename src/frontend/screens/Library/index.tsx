@@ -17,7 +17,13 @@ import Fuse from 'fuse.js'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import GamesList from './components/GamesList'
-import { FavouriteGame, GameInfo, GameGroup, HiddenGame, Runner } from 'common/types'
+import {
+  FavouriteGame,
+  GameInfo,
+  GameGroup,
+  HiddenGame,
+  Runner
+} from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
@@ -60,7 +66,7 @@ function getDedupeKey(game: GameInfo): string {
   // 3. Handle specific version suffixes (Optional)
   // const versionTags = ['enhanced edition', 'directors cut', 'goty', 'gold edition']
   // versionTags.forEach(tag => {
-  //   title = title.replace(tag, '').trim(); 
+  //   title = title.replace(tag, '').trim();
   // })
 
   // 4. DLC handling
@@ -632,14 +638,14 @@ export default React.memo(function Library(): JSX.Element {
     // Group duplicate games if feature is enabled
     if (experimentalFeatures?.hideDuplicateGames) {
       const groups = new Map<string, GameInfo[]>()
-      library.forEach(game => {
+      library.forEach((game) => {
         if ('games' in game) return // Skip if already grouped
         const key = getDedupeKey(game)
         if (!groups.has(key)) {
           groups.set(key, [])
         }
         groups.get(key)!.push(game)
-        console.log(key, groups.get(key));
+        console.log(key, groups.get(key))
       })
 
       // Convert groups to GameGroup objects
@@ -647,7 +653,7 @@ export default React.memo(function Library(): JSX.Element {
       groups.forEach((games) => {
         if (games.length > 1) {
           // Find representative game (prefer installed, then first)
-          const representative = games.find(g => g.is_installed) || games[0]
+          const representative = games.find((g) => g.is_installed) || games[0]
           groupedLibrary.push({
             title: representative.title,
             games,
@@ -668,8 +674,10 @@ export default React.memo(function Library(): JSX.Element {
 
     // sort
     library = library.sort((a, b) => {
-      const titleA = 'title' in a ? a.title : (a as GameGroup).representative.title
-      const titleB = 'title' in b ? b.title : (b as GameGroup).representative.title
+      const titleA =
+        'title' in a ? a.title : (a as GameGroup).representative.title
+      const titleB =
+        'title' in b ? b.title : (b as GameGroup).representative.title
       const gameA = titleA.toUpperCase().replace('THE ', '')
       const gameB = titleB.toUpperCase().replace('THE ', '')
       return sortDescending
@@ -680,21 +688,27 @@ export default React.memo(function Library(): JSX.Element {
       if ('is_installed' in item) {
         return item.is_installed
       } else {
-        return (item).games.some(g => g.is_installed)
+        return item.games.some((g) => g.is_installed)
       }
     })
     const notInstalled = library.filter((item) => {
       if ('is_installed' in item) {
         return !item.is_installed && !installing.includes(item.app_name)
       } else {
-        return !(item).games.some(g => g.is_installed) && !(item).games.some(g => installing.includes(g.app_name))
+        return (
+          !item.games.some((g) => g.is_installed) &&
+          !item.games.some((g) => installing.includes(g.app_name))
+        )
       }
     })
     const installingGames = library.filter((item) => {
       if ('is_installed' in item) {
         return !item.is_installed && installing.includes(item.app_name)
       } else {
-        return !(item).games.some(g => g.is_installed) && (item).games.some(g => installing.includes(g.app_name))
+        return (
+          !item.games.some((g) => g.is_installed) &&
+          item.games.some((g) => installing.includes(g.app_name))
+        )
       }
     })
 
