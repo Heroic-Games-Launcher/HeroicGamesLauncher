@@ -165,6 +165,11 @@
         position: absolute;
         left: 0.5rem;
         top: 0.5rem;
+        display: inline-flex;
+        width: fit-content;
+        height: fit-content;
+        padding: 0;
+        background: transparent;
       }
 
       .gamePicture {
@@ -313,6 +318,54 @@
         .installButtons {
           gap: var(--space-xs);
           flex-wrap: wrap;
+
+          .installSplitGroup {
+            display: inline-flex;
+            align-items: stretch;
+          }
+
+          .installPrimaryButton {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+
+          .installSplitArrowButton {
+            min-width: 46px;
+            padding-inline: var(--space-xs);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            margin-inline-start: 1px;
+
+            svg {
+              margin-inline-end: 0;
+            }
+          }
+
+          .installDropdown {
+            .dropdown {
+              min-width: 280px;
+              padding: var(--space-xs);
+              gap: var(--space-3xs);
+            }
+
+            .installStoreButton {
+              width: 100%;
+              margin: 0;
+              align-self: stretch;
+              justify-content: flex-start;
+              white-space: normal;
+              text-align: left;
+              min-width: 0;
+              padding-block: 12px;
+              padding-inline: var(--space-sm);
+            }
+
+            .installStoreButton .buttonWithIcon {
+              width: 100%;
+              gap: var(--space-2xs);
+              justify-content: flex-start;
+            }
+          }
         }
 
         & .mainBtn {

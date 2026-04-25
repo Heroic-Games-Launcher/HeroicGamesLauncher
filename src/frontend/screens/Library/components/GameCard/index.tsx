@@ -6,7 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
 
 import DownIcon from 'frontend/assets/down-icon.svg?react'
-import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
+import {
+  FavouriteGame,
+  GameInfo,
+  GameGroup,
+  HiddenGame,
+  Runner
+} from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
 import SettingsIcon from 'frontend/assets/settings_icon_alt.svg?react'
@@ -58,7 +64,7 @@ interface Card {
   hasUpdate: boolean
   isRecent: boolean
   justPlayed: boolean
-  gameInfo: GameInfo
+  gameInfo: GameInfo | GameGroup
   forceCard?: boolean
   dataTour?: string
 }
@@ -80,7 +86,11 @@ const GameCard = ({
     // render an empty div until the card enters the viewport
     // check GameList for the other side of this detection
     const callback = (e: CustomEvent<{ appNames: string[] }>) => {
-      if (e.detail.appNames.includes(gameInfoFromProps.app_name)) {
+      const appName =
+        'games' in gameInfoFromProps
+          ? gameInfoFromProps.representative.app_name
+          : gameInfoFromProps.app_name
+      if (e.detail.appNames.includes(appName)) {
         setVisible(true)
       }
     }
@@ -92,7 +102,11 @@ const GameCard = ({
     }
   }, [])
 
-  const [gameInfo, setGameInfo] = useState<GameInfo>(gameInfoFromProps)
+  const [gameInfo, setGameInfo] = useState<GameInfo>(
+    'games' in gameInfoFromProps
+      ? gameInfoFromProps.representative
+      : gameInfoFromProps
+  )
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
 
@@ -117,6 +131,10 @@ const GameCard = ({
 
   const { layout } = useContext(LibraryContext)
 
+  const actualGameInfo =
+    'games' in gameInfoFromProps
+      ? gameInfoFromProps.representative
+      : gameInfoFromProps
   const {
     title,
     art_cover,
@@ -126,7 +144,7 @@ const GameCard = ({
     runner,
     is_installed: isInstalled,
     install: gameInstallInfo
-  } = { ...gameInfoFromProps }
+  } = { ...actualGameInfo }
 
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
@@ -450,12 +468,19 @@ const GameCard = ({
           )}
           <Link
             to={`/gamepage/${runner}/${appName}`}
-            state={{ gameInfo }}
+            state={{ gameInfo: gameInfoFromProps }}
             style={
               { '--installing-effect': installingGrayscale } as CSSProperties
             }
           >
-            <StoreLogos runner={runner} />
+            <StoreLogos
+              runner={'games' in gameInfoFromProps ? undefined : runner}
+              runners={
+                'games' in gameInfoFromProps
+                  ? gameInfoFromProps.games.map((g) => g.runner)
+                  : undefined
+              }
+            />
             {justPlayed ? (
               <CachedImage
                 src={art_cover || fallBackImage}
@@ -500,7 +525,15 @@ const GameCard = ({
                 installed: isInstalled
               })}
             >
-              {getStoreName(runner, t2('Other'))}
+              {'games' in gameInfoFromProps
+                ? Array.from(
+                    new Set(
+                      gameInfoFromProps.games.map((g) =>
+                        getStoreName(g.runner, t2('Other'))
+                      )
+                    )
+                  ).join(', ')
+                : getStoreName(runner, t2('Other'))}
             </span>
           </Link>
           <>

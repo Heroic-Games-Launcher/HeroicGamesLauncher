@@ -85,6 +85,14 @@ export type ExperimentalFeatures = {
   cometSupport: boolean
   umuSupport?: boolean
   zoomPlatform?: boolean
+  hideDuplicateGames: boolean
+}
+
+export interface GameGroup {
+  title: string
+  games: GameInfo[]
+  // Representative game for display (first installed, or first in list)
+  representative: GameInfo
 }
 
 export interface AppSettings extends GameSettings {

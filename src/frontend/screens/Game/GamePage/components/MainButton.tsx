@@ -14,11 +14,11 @@ import {
   Warning
 } from '@mui/icons-material'
 import classNames from 'classnames'
-import { GameInfo } from 'common/types'
+import { GameInfo, GameGroup } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 
 interface Props {
-  gameInfo: GameInfo
+  gameInfo: GameInfo | GameGroup
   handlePlay: (gameInfo: GameInfo) => Promise<void>
   handleInstall: (
     is_installed: boolean
@@ -30,7 +30,10 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
-  const is_installed = gameInfo.is_installed
+  const actualGameInfo =
+    'games' in gameInfo ? gameInfo.representative : gameInfo
+
+  const is_installed = actualGameInfo.is_installed
   const disabledPlayButtons =
     is.reparing ||
     is.moving ||
@@ -168,7 +171,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
 
   const handleAltLaunch = async () => {
     setVerboseLogs(!verboseLogs)
-    await handlePlay(gameInfo)
+    await handlePlay(actualGameInfo)
   }
 
   return (
@@ -178,7 +181,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
           <button
             disabled={disabledPlayButtons}
             autoFocus={true}
-            onClick={async () => handlePlay(gameInfo)}
+            onClick={async () => handlePlay(actualGameInfo)}
             className={classNames(
               'button',
               {
@@ -209,16 +212,16 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             onClick={async () => {
               if (!is_installed && !is.queued) {
                 openInstallGameModal({
-                  appName: gameInfo.app_name,
-                  runner: gameInfo.runner,
-                  gameInfo,
+                  appName: actualGameInfo.app_name,
+                  runner: actualGameInfo.runner,
+                  gameInfo: actualGameInfo,
                   action: 'install'
                 })
                 return
               }
               handleInstall(is_installed)
             }}
-            disabled={disabledInstallButtons}
+            disabled={disabledInstallButtons || is.installing || is.importing}
             autoFocus={true}
             className={classNames(
               'button',
@@ -241,9 +244,9 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             className={'button mainBtn outline'}
             onClick={() =>
               openInstallGameModal({
-                appName: gameInfo.app_name,
-                runner: gameInfo.runner,
-                gameInfo,
+                appName: actualGameInfo.app_name,
+                runner: actualGameInfo.runner,
+                gameInfo: actualGameInfo,
                 action: 'import'
               })
             }

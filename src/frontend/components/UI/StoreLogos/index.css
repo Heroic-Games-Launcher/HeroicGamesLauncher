@@ -1,0 +1,45 @@
+.store-logos-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-3xs);
+  flex-wrap: nowrap;
+}
+
+.store-logos-container .store-logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.store-logos-container .store-logo-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.store-logos-container .store-logo-button.selected > svg {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+.store-logos-container .store-logo-button:focus-visible > svg {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+.store-logos-container .store-logo-badge > svg {
+  width: 46px;
+  height: 46px;
+  padding: var(--space-2xs);
+  border-radius: 10px;
+  background-color: var(--body-background);
+  fill: var(--text-default);
+  box-sizing: border-box;
+}
+
+.store-logos-container .store-logo-badge > svg.gogIcon {
+  padding: 0px var(--space-3xs) var(--space-3xs);
+}
