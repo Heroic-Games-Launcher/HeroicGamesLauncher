@@ -51,6 +51,9 @@ interface Props {
   onSearchChange: (query: string) => void
   hideDlcs: boolean
   onHideDlcsChange: (value: boolean) => void
+  hideOwned: boolean
+  onHideOwnedChange: (value: boolean) => void
+  isGogLoggedIn: boolean
   pageSize: number
   onPageSizeChange: (value: number) => void
   onReset: () => void
@@ -176,6 +179,9 @@ const DiscountFilters = ({
   onSearchChange,
   hideDlcs,
   onHideDlcsChange,
+  hideOwned,
+  onHideOwnedChange,
+  isGogLoggedIn,
   pageSize,
   onPageSizeChange,
   onReset,
@@ -275,6 +281,19 @@ const DiscountFilters = ({
           onInputChanged={onSearchChange}
           placeholder={t('search', 'Search for Games')}
         />
+        {isGogLoggedIn && (
+          <FormControlLabel
+            className="discountFilters__hideOwned"
+            control={
+              <Checkbox
+                size="small"
+                checked={hideOwned}
+                onChange={(e) => onHideOwnedChange(e.target.checked)}
+              />
+            }
+            label={t('discounts.filters.hideOwned', 'Hide Owned')}
+          />
+        )}
         <FormControlLabel
           className="discountFilters__hideDlcs"
           control={

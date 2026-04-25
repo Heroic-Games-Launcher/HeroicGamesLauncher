@@ -323,7 +323,10 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
-  getGogDiscounts: (locale: CatalogLocaleSettings) => Promise<CatalogProduct[]>
+  getGogDiscounts: (
+    locale: CatalogLocaleSettings,
+    hideOwned?: boolean
+  ) => Promise<CatalogProduct[]>
   'steamgriddb.hasApiKey': () => Promise<boolean>
   'steamgriddb.setApiKey': (key: string) => Promise<void>
   'steamgriddb.searchGame': (
