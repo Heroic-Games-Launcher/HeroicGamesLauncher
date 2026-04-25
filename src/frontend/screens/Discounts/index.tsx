@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, Select } from '@mui/material'
 
@@ -30,6 +30,7 @@ import {
   type PegiAge
 } from './helpers'
 import './index.css'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function Discounts() {
   const { t, i18n } = useTranslation()
@@ -40,6 +41,8 @@ export default function Discounts() {
     () => getLocaleSettings(i18n.language, regionOverride),
     [i18n.language, regionOverride]
   )
+  const { gog } = useContext(ContextProvider)
+  const isGogLoggedIn: boolean = !!gog?.username
 
   const handleRegionChange = (countryCode: string | null) => {
     setRegionOverride(countryCode)
@@ -565,6 +568,7 @@ export default function Discounts() {
             onHideDlcsChange={setHideDlcs}
             hideOwned={hideOwned}
             onHideOwnedChange={setHideOwned}
+            isGogLoggedIn={isGogLoggedIn}
             pageSize={pageSize}
             onPageSizeChange={setPageSize}
             onReset={handleReset}
