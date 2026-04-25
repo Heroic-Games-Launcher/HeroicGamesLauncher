@@ -30,7 +30,12 @@ import {
 } from 'frontend/helpers/library'
 import RecentlyPlayed from './components/RecentlyPlayed'
 import LibraryContext from './LibraryContext'
-import { Category, PlatformsFilters, StoresFilters } from 'frontend/types'
+import {
+  Category,
+  PlatformsFilters,
+  SortOptions,
+  StoresFilters
+} from 'frontend/types'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import EmptyLibraryMessage from './components/EmptyLibrary'
 import CategoriesManager from './components/CategoriesManager'
@@ -205,12 +210,12 @@ export default React.memo(function Library(): JSX.Element {
     string | null
   >(null)
 
-  const [sortDescending, setSortDescending] = useState(
-    JSON.parse(storage?.getItem('sortDescending') || 'false')
+  const [currentSort, setCurrentSort] = useState<SortOptions>(
+    (storage?.getItem('currentSort') as SortOptions) || SortOptions.alphaAsc
   )
-  function handleSortDescending(value: boolean) {
-    storage.setItem('sortDescending', JSON.stringify(value))
-    setSortDescending(value)
+  function handleCurrentSort(value: SortOptions) {
+    storage.setItem('currentSort', JSON.stringify(value))
+    setCurrentSort(value)
   }
 
   const [sortInstalled, setSortInstalled] = useState(
@@ -607,9 +612,12 @@ export default React.memo(function Library(): JSX.Element {
 
     // sort
     library = library.sort((a, b) => {
+      if (currentSort === SortOptions.random) {
+        return 0.5 - Math.random()
+      }
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
-      return sortDescending
+      return currentSort === SortOptions.alphaDesc
         ? -gameA.localeCompare(gameB)
         : gameA.localeCompare(gameB)
     })
@@ -629,7 +637,7 @@ export default React.memo(function Library(): JSX.Element {
   }, [
     gamesForAlphabetFilter,
     alphabetFilterLetter,
-    sortDescending,
+    currentSort,
     sortInstalled,
     installing
   ])
@@ -698,7 +706,7 @@ export default React.memo(function Library(): JSX.Element {
         setShowFavourites: handleShowFavourites,
         setShowInstalledOnly: handleShowInstalledOnly,
         setShowNonAvailable: handleShowNonAvailable,
-        setSortDescending: handleSortDescending,
+        setCurrentSort: handleCurrentSort,
         setSortInstalled: handleSortInstalled,
         showSupportOfflineOnly,
         setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
@@ -706,7 +714,7 @@ export default React.memo(function Library(): JSX.Element {
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         showUpdatesOnly,
         setShowUpdatesOnly: handleShowUpdatesOnly,
-        sortDescending,
+        currentSort,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),
         setShowCategories,
