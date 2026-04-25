@@ -244,6 +244,7 @@ interface StoredDiscountFilters {
   searchQuery?: string
   hideDlcs?: boolean
   hideOwned?: boolean
+  wishlistOnly?: boolean
   pageSize?: number
 }
 
