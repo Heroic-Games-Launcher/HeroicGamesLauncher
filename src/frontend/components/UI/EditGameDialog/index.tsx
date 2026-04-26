@@ -54,6 +54,19 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
     backdropClick()
   }
 
+  const handleReset = () => {
+    // Backend deletes the override entry when all three fields are empty.
+    window.api.setGameMetadataOverride({
+      appName: gameInfo.app_name,
+      title: '',
+      art_cover: '',
+      art_square: ''
+    })
+    backdropClick()
+  }
+
+  const hasOverride = Boolean(gameInfo.overrides)
+
   async function handleSelectLocalImage(target: 'cover' | 'square') {
     const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
@@ -199,6 +212,16 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
         </div>
       </DialogContent>
       <DialogFooter>
+        {hasOverride && (
+          <button
+            type="button"
+            onClick={handleReset}
+            className="button is-secondary"
+            disabled={saving}
+          >
+            {t('edit-game.reset', 'Reset to default')}
+          </button>
+        )}
         <button
           onClick={handleSave}
           className="button is-success"

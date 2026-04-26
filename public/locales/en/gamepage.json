@@ -106,6 +106,7 @@
             "cover": "Cover Image",
             "square": "Square Image"
         },
+        "reset": "Reset to default",
         "sgdb": {
             "cover": "Find cover on SteamGridDB",
             "no-key": "To search SteamGridDB for cover art, add an API key in <link>Settings → Advanced</link>.",
