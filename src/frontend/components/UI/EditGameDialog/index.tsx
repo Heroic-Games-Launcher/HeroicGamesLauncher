@@ -44,25 +44,25 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
 
   const handleSave = () => {
     setSaving(true)
+    // Drop fields that match the original game info — the backend deletes
+    // the override entry when all three are empty, which is what we want
+    // after the user resets.
     window.api.setGameMetadataOverride({
       appName: gameInfo.app_name,
-      title,
-      art_cover: artCover,
-      art_square: artSquare
+      title: title === gameInfo.title ? '' : title,
+      art_cover: artCover === gameInfo.art_cover ? '' : artCover,
+      art_square: artSquare === gameInfo.art_square ? '' : artSquare
     })
     setSaving(false)
     backdropClick()
   }
 
   const handleReset = () => {
-    // Backend deletes the override entry when all three fields are empty.
-    window.api.setGameMetadataOverride({
-      appName: gameInfo.app_name,
-      title: '',
-      art_cover: '',
-      art_square: ''
-    })
-    backdropClick()
+    // Restore the form to the game's original values. Saving from this state
+    // sends empty fields to the backend, which removes the override entry.
+    setTitle(gameInfo.title)
+    setArtCover('')
+    setArtSquare('')
   }
 
   const hasOverride = Boolean(gameInfo.overrides)
@@ -177,7 +177,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               >
                 <CachedImage
                   className={classNames('appImage')}
-                  src={artCover || fallbackImage}
+                  src={artCover || gameInfo.art_cover || fallbackImage}
                 />
                 {hasSgdbKey && (
                   <div className="imageHoverOverlay">
@@ -196,7 +196,13 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               >
                 <CachedImage
                   className={classNames('appImage square')}
-                  src={artSquare || artCover || fallbackImage}
+                  src={
+                    artSquare ||
+                    artCover ||
+                    gameInfo.art_square ||
+                    gameInfo.art_cover ||
+                    fallbackImage
+                  }
                 />
                 {hasSgdbKey && (
                   <div className="imageHoverOverlay">
