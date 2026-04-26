@@ -109,7 +109,8 @@
         },
         "reset": "Reset to default",
         "sgdb": {
-            "no-key": "To search SteamGridDB for cover art, add an API key in <link>Settings → Advanced</link>."
+            "no-key-link": "Settings → Advanced",
+            "no-key-prefix": "To search SteamGridDB for cover art, add an API key in"
         },
         "square": "Square Art",
         "title": "Edit Game"

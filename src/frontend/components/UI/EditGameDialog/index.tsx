@@ -11,8 +11,8 @@ import {
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import { useEffect, useState } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import classNames from 'classnames'
 import Folder from '@mui/icons-material/Folder'
@@ -26,6 +26,11 @@ type SgdbTarget = 'cover' | 'square' | null
 
 export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const { t } = useTranslation('gamepage')
+  const navigate = useNavigate()
+  const goToAdvancedSettings = () => {
+    backdropClick()
+    navigate('/settings/advanced')
+  }
   const [title, setTitle] = useState(
     gameInfo.overrides?.title || gameInfo.title
   )
@@ -144,14 +149,22 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
             </details>
             {!hasSgdbKey && (
               <WarningMessage>
-                <Trans
-                  i18nKey="edit-game.sgdb.no-key"
-                  ns="gamepage"
-                  defaults="To search SteamGridDB for cover art, add an API key in <link>Settings → Advanced</link>."
-                  components={{
-                    link: <NavLink to="/settings/app/advanced" />
-                  }}
-                />
+                {t(
+                  'edit-game.sgdb.no-key-prefix',
+                  'To search SteamGridDB for cover art, add an API key in'
+                )}{' '}
+                <a
+                  role="button"
+                  tabIndex={0}
+                  onClick={goToAdvancedSettings}
+                  className="sgdbWarningLink"
+                >
+                  {t(
+                    'edit-game.sgdb.no-key-link',
+                    'Settings → Advanced'
+                  )}
+                </a>
+                .
               </WarningMessage>
             )}
             {sgdbTarget && (

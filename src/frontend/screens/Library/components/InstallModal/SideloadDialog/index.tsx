@@ -26,7 +26,7 @@ import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import ContextProvider from 'frontend/state/ContextProvider'
 import classNames from 'classnames'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import Folder from '@mui/icons-material/Folder'
 
@@ -71,6 +71,11 @@ export default function SideloadDialog({
   const editMode = Boolean(appName)
 
   const { refreshLibrary, platform } = useContext(ContextProvider)
+  const navigate = useNavigate()
+  const goToAdvancedSettings = () => {
+    backdropClick()
+    navigate('/settings/advanced')
+  }
 
   function handleTitle(value: string) {
     value = removeSpecialcharacters(value)
@@ -401,14 +406,22 @@ export default function SideloadDialog({
             />
             {!hasSgdbKey && (
               <WarningMessage>
-                <Trans
-                  i18nKey="edit-game.sgdb.no-key"
-                  ns="gamepage"
-                  defaults="To search SteamGridDB for cover art, add an API key in <link>Settings → Advanced</link>."
-                  components={{
-                    link: <NavLink to="/settings/app/advanced" />
-                  }}
-                />
+                {t(
+                  'edit-game.sgdb.no-key-prefix',
+                  'To search SteamGridDB for cover art, add an API key in'
+                )}{' '}
+                <a
+                  role="button"
+                  tabIndex={0}
+                  onClick={goToAdvancedSettings}
+                  className="sgdbWarningLink"
+                >
+                  {t(
+                    'edit-game.sgdb.no-key-link',
+                    'Settings → Advanced'
+                  )}
+                </a>
+                .
               </WarningMessage>
             )}
             {showSgdbPicker && (
