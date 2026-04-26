@@ -109,14 +109,5 @@
       }
     }
 
-    .sgdbWarning {
-      font-size: var(--font-size-sm);
-      color: var(--neutral-06);
-      line-height: 1.4;
-
-      a {
-        color: var(--accent);
-      }
-    }
   }
 }

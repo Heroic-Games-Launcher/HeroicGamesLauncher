@@ -9,7 +9,8 @@ import {
   PathSelectionBox,
   ToggleSwitch,
   InfoBox,
-  SteamGridDBPicker
+  SteamGridDBPicker,
+  WarningMessage
 } from 'frontend/components/UI'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
 import {
@@ -398,6 +399,18 @@ export default function SideloadDialog({
               icon={<Folder />}
               onIconClick={handleSelectLocalImage}
             />
+            {!hasSgdbKey && (
+              <WarningMessage>
+                <Trans
+                  i18nKey="edit-game.sgdb.no-key"
+                  ns="gamepage"
+                  defaults="To search SteamGridDB for cover art, add an API key in <link>Settings → Advanced</link>."
+                  components={{
+                    link: <NavLink to="/settings/app/advanced" />
+                  }}
+                />
+              </WarningMessage>
+            )}
             {showSgdbPicker && (
               <SteamGridDBPicker
                 initialTitle={title}

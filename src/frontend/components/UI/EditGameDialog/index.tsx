@@ -5,7 +5,8 @@ import { GameInfo } from 'common/types'
 import {
   CachedImage,
   TextInputField,
-  SteamGridDBPicker
+  SteamGridDBPicker,
+  WarningMessage
 } from 'frontend/components/UI'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
@@ -142,7 +143,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               />
             </details>
             {!hasSgdbKey && (
-              <div className="sgdbWarning">
+              <WarningMessage>
                 <Trans
                   i18nKey="edit-game.sgdb.no-key"
                   ns="gamepage"
@@ -151,7 +152,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                     link: <NavLink to="/settings/app/advanced" />
                   }}
                 />
-              </div>
+              </WarningMessage>
             )}
             {sgdbTarget && (
               <SteamGridDBPicker
