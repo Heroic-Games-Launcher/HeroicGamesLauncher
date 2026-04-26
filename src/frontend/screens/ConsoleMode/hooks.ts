@@ -109,13 +109,24 @@ export function useColumnCount(
         setColumns(1)
         return
       }
-      const firstTop = cards[0].offsetTop
-      let count = 1
+
+      // go through all cards, make sure we're reaching the total maximum
+      // of columns depending on whether we're checking for installed
+      // or uninstalled games
+      let previousTop = cards[0].offsetTop
+      let maxCount = 1
+      let currCount = 0
       for (let i = 1; i < cards.length; i++) {
-        if (cards[i].offsetTop !== firstTop) break
-        count++
+        // we've hit a new line, check again for the next line
+        if (cards[i].offsetTop !== previousTop) {
+          previousTop = cards[i].offsetTop
+          maxCount = Math.max(maxCount, currCount)
+          currCount = 0
+        }
+
+        currCount++
       }
-      setColumns(Math.max(1, count))
+      setColumns(maxCount)
     }
     compute()
     window.addEventListener('resize', compute)
