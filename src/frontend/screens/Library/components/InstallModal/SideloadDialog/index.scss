@@ -52,6 +52,15 @@
     display: block;
     width: 100%;
     transition: 200ms;
+
+    &.heroImage {
+      aspect-ratio: 1600 / 650;
+    }
+  }
+
+  .heroImageContainer {
+    width: 100%;
+    margin-bottom: var(--space-md);
   }
 
   .imageLoadingOverlay,

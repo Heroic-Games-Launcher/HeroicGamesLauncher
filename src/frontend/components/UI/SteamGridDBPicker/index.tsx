@@ -23,7 +23,6 @@ interface Props {
 
 const DEFAULT_GRID_DIMENSIONS = ['600x900', '342x482', '660x930']
 const DEFAULT_GRID_STYLES = ['material', 'alternate', 'blurred']
-const DEFAULT_HERO_DIMENSIONS = ['1600x650']
 
 export default function SteamGridDBPicker({
   initialTitle,
@@ -53,11 +52,9 @@ export default function SteamGridDBPicker({
             ? window.api.steamgriddb.getHeroes
             : window.api.steamgriddb.getGrids
         const fetchDims =
-          dimensions ??
-          (mode === 'heroes'
-            ? DEFAULT_HERO_DIMENSIONS
-            : DEFAULT_GRID_DIMENSIONS)
-        const fetchStyles = styles ?? (mode === 'heroes' ? [] : DEFAULT_GRID_STYLES)
+          dimensions ?? (mode === 'heroes' ? [] : DEFAULT_GRID_DIMENSIONS)
+        const fetchStyles =
+          styles ?? (mode === 'heroes' ? [] : DEFAULT_GRID_STYLES)
         const results = await fetcher({
           gameId,
           styles: fetchStyles,

@@ -60,13 +60,14 @@ export default function SideloadDialog({
   const [customUserAgent, setCustomUserAgent] = useState('')
   const [launchFullScreen, setLaunchFullScreen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
+  const [heroUrl, setHeroUrl] = useState('')
   const [searching, setSearching] = useState(false)
   const [imageLoading, setImageLoading] = useState(false)
   const [app_name, setApp_name] = useState(appName ?? '')
   const [runningSetup, setRunningSetup] = useState(false)
   const [gameInfo, setGameInfo] = useState<Partial<GameInfo>>({})
   const [addingApp, setAddingApp] = useState(false)
-  const [showSgdbPicker, setShowSgdbPicker] = useState(false)
+  const [sgdbTarget, setSgdbTarget] = useState<'cover' | 'square' | null>(null)
   const [hasSgdbKey, setHasSgdbKey] = useState(false)
   const editMode = Boolean(appName)
 
@@ -121,7 +122,8 @@ export default function SideloadDialog({
         }
 
         setTitle(title)
-        setImageUrl(art_cover ? art_cover : art_square)
+        setImageUrl(art_square || '')
+        setHeroUrl(art_cover && art_cover !== art_square ? art_cover : '')
       })
     } else {
       setApp_name(short.generate().toString())
@@ -139,7 +141,7 @@ export default function SideloadDialog({
 
   async function searchImage() {
     if (hasSgdbKey) {
-      setShowSgdbPicker(true)
+      setSgdbTarget('square')
       return
     }
     setSearching(true)
@@ -166,7 +168,7 @@ export default function SideloadDialog({
     }
   }
 
-  async function handleSelectLocalImage() {
+  async function handleSelectLocalImage(target: 'cover' | 'square') {
     const path = await window.api.openDialog({
       buttonLabel: t('box.select.button', 'Select'),
       properties: ['openFile'],
@@ -180,9 +182,9 @@ export default function SideloadDialog({
       ]
     })
 
-    if (path) {
-      setImageUrl(`file://${path}`)
-    }
+    if (!path) return
+    if (target === 'cover') setHeroUrl(`file://${path}`)
+    else setImageUrl(`file://${path}`)
   }
 
   async function handleInstall(): Promise<void> {
@@ -195,9 +197,9 @@ export default function SideloadDialog({
         executable: selectedExe,
         platform: gameInfo.install?.platform ?? platformToInstall
       },
-      art_cover: imageUrl ? imageUrl : fallbackImage,
+      art_cover: heroUrl || imageUrl || fallbackImage,
       is_installed: true,
-      art_square: imageUrl ? imageUrl : fallbackImage,
+      art_square: imageUrl || heroUrl || fallbackImage,
       canRunOffline: true,
       browserUrl: gameUrl,
       customUserAgent,
@@ -337,7 +339,7 @@ export default function SideloadDialog({
                 searching,
                 loading: imageLoading
               })}
-              onClick={() => hasSgdbKey && setShowSgdbPicker(true)}
+              onClick={() => hasSgdbKey && setSgdbTarget('square')}
             >
               <CachedImage
                 className={classNames('appImage', {
@@ -353,6 +355,22 @@ export default function SideloadDialog({
                 </div>
               )}
               {hasSgdbKey && !searching && !imageLoading && (
+                <div className="imageHoverOverlay">
+                  <FontAwesomeIcon icon={faSearch} size="3x" />
+                </div>
+              )}
+            </div>
+            <div
+              className={classNames('appImageContainer heroImageContainer', {
+                hasSgdbKey
+              })}
+              onClick={() => hasSgdbKey && setSgdbTarget('cover')}
+            >
+              <CachedImage
+                className="appImage heroImage"
+                src={heroUrl || imageUrl || fallbackImage}
+              />
+              {hasSgdbKey && (
                 <div className="imageHoverOverlay">
                   <FontAwesomeIcon icon={faSearch} size="3x" />
                 </div>
@@ -395,7 +413,7 @@ export default function SideloadDialog({
             <TextInputWithIconField
               label={t(
                 'sideload.info.image-hint',
-                'App Image (click on the image to search on SteamGridDB)'
+                'Square Art (click on the image to search on SteamGridDB)'
               )}
               placeholder={t(
                 'sideload.placeholder.image',
@@ -405,7 +423,22 @@ export default function SideloadDialog({
               htmlId="sideload-image"
               value={imageUrl}
               icon={<Folder />}
-              onIconClick={handleSelectLocalImage}
+              onIconClick={() => handleSelectLocalImage('square')}
+            />
+            <TextInputWithIconField
+              label={t(
+                'sideload.info.cover-hint',
+                'Cover/Hero Art (click on the image to search on SteamGridDB)'
+              )}
+              placeholder={t(
+                'sideload.placeholder.image',
+                'Paste an URL of an Image or select one from your computer'
+              )}
+              onChange={(newValue: string) => setHeroUrl(newValue)}
+              htmlId="sideload-cover"
+              value={heroUrl}
+              icon={<Folder />}
+              onIconClick={() => handleSelectLocalImage('cover')}
             />
             {!hasSgdbKey && (
               <WarningMessage>
@@ -427,15 +460,19 @@ export default function SideloadDialog({
                 .
               </WarningMessage>
             )}
-            {showSgdbPicker && (
+            {sgdbTarget && (
               <SteamGridDBPicker
                 initialTitle={title}
-                onClose={() => setShowSgdbPicker(false)}
+                mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
+                onClose={() => setSgdbTarget(null)}
                 onSelect={(url: string) => {
-                  if (url !== imageUrl) {
+                  if (sgdbTarget === 'cover') {
+                    setHeroUrl(url)
+                  } else if (url !== imageUrl) {
                     setImageLoading(true)
                     setImageUrl(url)
                   }
+                  setSgdbTarget(null)
                 }}
               />
             )}

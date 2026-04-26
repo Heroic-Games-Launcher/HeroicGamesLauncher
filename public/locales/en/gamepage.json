@@ -269,9 +269,10 @@
         },
         "info": {
             "broser": "BrowserURL",
+            "cover-hint": "Cover/Hero Art (click on the image to search on SteamGridDB)",
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
-            "image-hint": "App Image (click on the image to search on SteamGridDB)",
+            "image-hint": "Square Art (click on the image to search on SteamGridDB)",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
         },
