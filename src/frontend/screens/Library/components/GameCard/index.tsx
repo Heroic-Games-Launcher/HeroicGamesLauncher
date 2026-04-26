@@ -41,6 +41,7 @@ import {
   DeleteForever,
   Description,
   Download,
+  Edit,
   Favorite,
   FavoriteBorder,
   List,
@@ -52,6 +53,8 @@ import {
   Visibility,
   VisibilityOff
 } from '@mui/icons-material'
+import EditGameDialog from 'frontend/components/UI/EditGameDialog'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 
 interface Card {
   buttonClick: () => void
@@ -288,6 +291,26 @@ const GameCard = ({
     setShowUninstallModal(true)
   }
 
+  const isSideloaded = runner === 'sideload'
+
+  const handleEdit = () => {
+    if (isSideloaded) {
+      openInstallGameModal({ appName, runner, gameInfo })
+      return
+    }
+
+    showDialogModal({
+      showDialog: true,
+      title: t('edit-game.title', 'Edit Game'),
+      message: (
+        <EditGameDialog
+          gameInfo={gameInfo}
+          backdropClick={() => showDialogModal({ showDialog: false })}
+        />
+      )
+    })
+  }
+
   const items: Item[] = [
     {
       // remove from install queue
@@ -351,6 +374,14 @@ const GameCard = ({
       onclick: () => openGameLogsModal(gameInfo),
       show: isInstalled && !isUninstalling && !isBrowserGame,
       icon: <Description />
+    },
+    {
+      label: isSideloaded
+        ? t('button.sideload.edit', 'Edit App/Game')
+        : t('edit-game.title', 'Edit Game'),
+      onclick: handleEdit,
+      show: true,
+      icon: <Edit />
     },
     {
       // hide
