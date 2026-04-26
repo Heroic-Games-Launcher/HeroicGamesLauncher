@@ -118,15 +118,17 @@ const GameCard = ({
   const { layout } = useContext(LibraryContext)
 
   const {
-    title,
-    art_cover,
-    art_square: cover,
     art_logo: logo = undefined,
     app_name: appName,
     runner,
     is_installed: isInstalled,
     install: gameInstallInfo
   } = { ...gameInfoFromProps }
+  const title = gameInfoFromProps.overrides?.title || gameInfoFromProps.title
+  const art_cover =
+    gameInfoFromProps.overrides?.art_cover || gameInfoFromProps.art_cover
+  const cover =
+    gameInfoFromProps.overrides?.art_square || gameInfoFromProps.art_square
 
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable

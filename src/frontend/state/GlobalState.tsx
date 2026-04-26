@@ -135,25 +135,15 @@ const loadCurrentCategories = () => {
   }
 }
 
+import { attachGameOverrides } from '../helpers/gameOverrides'
+
 const applyGameOverrides = (
   lib: GameInfo[],
   overrides: Record<
     string,
     { title?: string; art_cover?: string; art_square?: string }
   > = gameOverridesStore.get('overrides', {})
-) => {
-  if (!lib) return []
-  return lib.map((game) => {
-    const override = overrides[game.app_name]
-    if (!override) return game
-    return {
-      ...game,
-      title: override.title || game.title,
-      art_cover: override.art_cover || game.art_cover,
-      art_square: override.art_square || game.art_square
-    }
-  })
-}
+) => attachGameOverrides(lib, overrides)
 
 class GlobalState extends PureComponent<Props> {
   loadLegendaryLibrary = (

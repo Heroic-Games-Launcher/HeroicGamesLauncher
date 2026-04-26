@@ -19,9 +19,15 @@ type Props = {
 
 export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const { t } = useTranslation('gamepage')
-  const [title, setTitle] = useState(gameInfo.title)
-  const [artCover, setArtCover] = useState(gameInfo.art_cover)
-  const [artSquare, setArtSquare] = useState(gameInfo.art_square)
+  const [title, setTitle] = useState(
+    gameInfo.overrides?.title || gameInfo.title
+  )
+  const [artCover, setArtCover] = useState(
+    gameInfo.overrides?.art_cover || gameInfo.art_cover
+  )
+  const [artSquare, setArtSquare] = useState(
+    gameInfo.overrides?.art_square || gameInfo.art_square
+  )
   const [searching, setSearching] = useState(false)
   const [saving, setSaving] = useState(false)
 

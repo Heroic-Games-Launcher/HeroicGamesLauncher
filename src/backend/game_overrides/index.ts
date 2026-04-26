@@ -84,19 +84,14 @@ export function removeGameOverrides(appName: string): boolean {
 }
 
 /**
- * Apply stored overrides to a GameInfo object
- * Returns a new object with overrides merged in
+ * Attach stored overrides to a GameInfo object as the `overrides` property.
+ * Original fields (title, art_cover, art_square) are left untouched so callers
+ * can choose between the canonical value and the user-edited one.
  */
-export function applyOverrides(gameInfo: GameInfo): GameInfo {
+export function attachOverrides(gameInfo: GameInfo): GameInfo {
   const overrides = getGameOverrides(gameInfo.app_name)
   if (!overrides) {
     return gameInfo
   }
-
-  return {
-    ...gameInfo,
-    title: overrides.title || gameInfo.title,
-    art_cover: overrides.art_cover || gameInfo.art_cover,
-    art_square: overrides.art_square || gameInfo.art_square
-  }
+  return { ...gameInfo, overrides }
 }

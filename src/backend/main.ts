@@ -118,7 +118,7 @@ import {
   setGameOverrides,
   getGameOverrides,
   getAllGameOverrides,
-  applyOverrides
+  attachOverrides
 } from './game_overrides'
 import {
   getGameOverride,
@@ -748,7 +748,7 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   // The frontend can however handle being passed an explicit `null` value, so
   // we return that here instead if the game info is empty
   if (!Object.keys(tempGameInfo).length) return null
-  return applyOverrides(tempGameInfo)
+  return attachOverrides(tempGameInfo)
 })
 
 addHandler(

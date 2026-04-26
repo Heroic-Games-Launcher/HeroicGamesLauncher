@@ -424,10 +424,12 @@ export default function ConsoleMode() {
                   >
                     <CachedImage
                       src={
-                        getImageFormatting(game.art_square, game.runner) ||
-                        fallBackImage
+                        getImageFormatting(
+                          game.overrides?.art_square || game.art_square,
+                          game.runner
+                        ) || fallBackImage
                       }
-                      alt={game.title}
+                      alt={game.overrides?.title || game.title}
                       className="consoleCardArt"
                     />
                     {needsUpdate && (

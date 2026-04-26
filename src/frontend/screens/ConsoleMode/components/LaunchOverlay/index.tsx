@@ -54,7 +54,9 @@ export default function LaunchOverlay({
       <div className="consoleLaunchText">
         {label || t('console.launching', 'Launching')}
       </div>
-      <div className="consoleLaunchGameTitle">{game.title}</div>
+      <div className="consoleLaunchGameTitle">
+        {game.overrides?.title || game.title}
+      </div>
       <BackHint
         prefix={t('console.cancel.hintPrefix', 'Hold')}
         suffix={t('console.cancel.hintSuffix', 'for 3s to cancel')}
