@@ -1,5 +1,6 @@
 .EditGameDialog {
-  min-width: 500px;
+  width: 700px;
+  max-width: 100%;
 
   .editGameGrid {
     display: flex;
