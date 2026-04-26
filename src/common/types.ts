@@ -54,6 +54,7 @@ interface BaseLaunchOption {
 // Option to launch an alternative executable instead
 interface AltExeLaunchOption {
   type: 'altExe'
+  name?: string
   executable: Path
 }
 
