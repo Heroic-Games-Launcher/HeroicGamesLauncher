@@ -271,7 +271,7 @@
             "broser": "BrowserURL",
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
-            "image": "App Image",
+            "image-hint": "App Image (click on the image to search on SteamGridDB)",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
         },

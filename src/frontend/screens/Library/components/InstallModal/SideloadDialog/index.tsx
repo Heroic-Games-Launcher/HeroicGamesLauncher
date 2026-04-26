@@ -393,7 +393,10 @@ export default function SideloadDialog({
               maxLength={40}
             />
             <TextInputWithIconField
-              label={t('sideload.info.image', 'App Image')}
+              label={t(
+                'sideload.info.image-hint',
+                'App Image (click on the image to search on SteamGridDB)'
+              )}
               placeholder={t(
                 'sideload.placeholder.image',
                 'Paste an URL of an Image or select one from your computer'
