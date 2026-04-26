@@ -647,6 +647,7 @@
         "log": {
             "copy-to-clipboard": "Kopiera loggen till urklipp/klippbord",
             "current-log": "Aktuell logg",
+            "error": "Internt fel vid läsning av loggfil",
             "instructions": "Gå med i vår Discord och leta efter kanalen \"#-support\". Läs den fästa \"Read Me First | Frequently Asked Questions\" tråden och följ instruktionerna för att dela dessa loggar och all relevant information om ditt problem.",
             "instructions_title": "Hur rapporterar jag problem?",
             "last-log": "Senaste logg",

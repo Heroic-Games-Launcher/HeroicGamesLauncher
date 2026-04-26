@@ -240,7 +240,7 @@ interface AsyncIPCFunctions {
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
   isNative: (args: { appName: string; runner: Runner }) => boolean
-  getLogContent: (args: GetLogFileArgs) => string
+  getLogContent: (args: GetLogFileArgs) => Promise<string>
   installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<void>
