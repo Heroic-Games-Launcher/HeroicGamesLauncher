@@ -106,6 +106,11 @@
             "cover": "Cover Image",
             "square": "Square Image"
         },
+        "sgdb": {
+            "cover": "Find cover on SteamGridDB",
+            "no-key": "To search SteamGridDB for cover art, add an API key in <link>Settings → Advanced</link>.",
+            "square": "Find square art on SteamGridDB"
+        },
         "square": "Square Art",
         "title": "Edit Game"
     },

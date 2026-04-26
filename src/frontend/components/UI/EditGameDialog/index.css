@@ -39,11 +39,6 @@
         aspect-ratio: 3/4;
         width: 200px;
       }
-
-      &.blackWhiteImage {
-        filter: grayscale(100%);
-        transition: 200ms;
-      }
     }
 
     .editGameForm {
@@ -51,6 +46,22 @@
       flex-direction: column;
       gap: var(--space-md);
       padding-top: var(--space-xs);
+    }
+
+    .sgdbButtons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .sgdbWarning {
+      font-size: var(--font-size-sm);
+      color: var(--neutral-06);
+      line-height: 1.4;
+
+      a {
+        color: var(--accent);
+      }
     }
   }
 }

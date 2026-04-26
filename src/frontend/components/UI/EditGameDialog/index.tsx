@@ -1,21 +1,27 @@
 import './index.css'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GameInfo } from 'common/types'
-import { CachedImage, TextInputField } from 'frontend/components/UI'
+import {
+  CachedImage,
+  TextInputField,
+  SteamGridDBPicker
+} from 'frontend/components/UI'
 import TextInputWithIconField from 'frontend/components/UI/TextInputWithIconField'
 import { DialogContent, DialogFooter } from 'frontend/components/UI/Dialog'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
+import { NavLink } from 'react-router-dom'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import classNames from 'classnames'
-import axios from 'axios'
 import Folder from '@mui/icons-material/Folder'
 
 type Props = {
   gameInfo: GameInfo
   backdropClick: () => void
 }
+
+type SgdbTarget = 'cover' | 'square' | null
 
 export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const { t } = useTranslation('gamepage')
@@ -28,12 +34,16 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const [artSquare, setArtSquare] = useState(
     gameInfo.overrides?.art_square || gameInfo.art_square
   )
-  const [searching, setSearching] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [hasSgdbKey, setHasSgdbKey] = useState(false)
+  const [sgdbTarget, setSgdbTarget] = useState<SgdbTarget>(null)
+
+  useEffect(() => {
+    window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
+  }, [])
 
   const handleSave = () => {
     setSaving(true)
-    // For non-sideloaded games, we use the overrides API
     window.api.setGameMetadataOverride({
       appName: gameInfo.app_name,
       title,
@@ -42,28 +52,6 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
     })
     setSaving(false)
     backdropClick()
-  }
-
-  async function searchImage() {
-    if (!title) return
-    setSearching(true)
-    try {
-      const response = await axios.get(
-        `https://steamgrid.usebottles.com/api/search/${title}`,
-        { timeout: 3500 }
-      )
-      if (response.status === 200) {
-        const steamGridImage = response.data as string
-        if (steamGridImage && steamGridImage.startsWith('http')) {
-          setArtCover(steamGridImage)
-          setArtSquare(steamGridImage)
-        }
-      }
-    } catch (error) {
-      window.api.logError(`SteamGrid search failed: ${String(error)}`)
-    } finally {
-      setSearching(false)
-    }
   }
 
   async function handleSelectLocalImage(target: 'cover' | 'square') {
@@ -92,6 +80,11 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
     else setArtSquare(finalUrl)
   }
 
+  const openSgdbPicker = (target: 'cover' | 'square') => {
+    if (!hasSgdbKey) return
+    setSgdbTarget(target)
+  }
+
   return (
     <div className="EditGameDialog">
       <DialogContent>
@@ -104,7 +97,6 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                 'Add a title to your Game/App'
               )}
               onChange={setTitle}
-              onBlur={async () => searchImage()}
               htmlId="edit-game-title"
               value={title}
               maxLength={40}
@@ -133,6 +125,56 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               icon={<Folder />}
               onIconClick={() => handleSelectLocalImage('square')}
             />
+            {hasSgdbKey ? (
+              <div className="sgdbButtons">
+                <button
+                  type="button"
+                  className="button is-secondary"
+                  onClick={() => openSgdbPicker('cover')}
+                  disabled={!title}
+                >
+                  <FontAwesomeIcon icon={faSearch} />{' '}
+                  {t(
+                    'edit-game.sgdb.cover',
+                    'Find cover on SteamGridDB'
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className="button is-secondary"
+                  onClick={() => openSgdbPicker('square')}
+                  disabled={!title}
+                >
+                  <FontAwesomeIcon icon={faSearch} />{' '}
+                  {t(
+                    'edit-game.sgdb.square',
+                    'Find square art on SteamGridDB'
+                  )}
+                </button>
+              </div>
+            ) : (
+              <div className="sgdbWarning">
+                <Trans
+                  i18nKey="edit-game.sgdb.no-key"
+                  ns="gamepage"
+                  defaults="To search SteamGridDB for cover art, add an API key in <link>Settings → Advanced</link>."
+                  components={{
+                    link: <NavLink to="/settings/app/advanced" />
+                  }}
+                />
+              </div>
+            )}
+            {sgdbTarget && (
+              <SteamGridDBPicker
+                initialTitle={title}
+                onClose={() => setSgdbTarget(null)}
+                onSelect={(url: string) => {
+                  if (sgdbTarget === 'cover') setArtCover(url)
+                  else setArtSquare(url)
+                  setSgdbTarget(null)
+                }}
+              />
+            )}
           </div>
           <div className="imageIcons">
             <div className="previewItem">
@@ -140,9 +182,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                 {t('edit-game.cover', 'Cover Art')}
               </span>
               <CachedImage
-                className={classNames('appImage', {
-                  blackWhiteImage: searching
-                })}
+                className={classNames('appImage')}
                 src={artCover || fallbackImage}
               />
             </div>
@@ -151,9 +191,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                 {t('edit-game.square', 'Square Art')}
               </span>
               <CachedImage
-                className={classNames('appImage square', {
-                  blackWhiteImage: searching
-                })}
+                className={classNames('appImage square')}
                 src={artSquare || artCover || fallbackImage}
               />
             </div>
@@ -164,7 +202,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
         <button
           onClick={handleSave}
           className="button is-success"
-          disabled={saving || searching}
+          disabled={saving}
         >
           {saving && <FontAwesomeIcon icon={faSpinner} spin />}
           {!saving && t('button.finish', 'Finish')}
