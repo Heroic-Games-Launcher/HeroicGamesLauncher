@@ -409,12 +409,10 @@ export default function SideloadDialog({
                     <Trans i18n={i18n} key="sideload.import-hint.content">
                       Do NOT use this feature for that.
                       <br />
-                      Instead, <NavLink to={'/login'}>
-                        log into
-                      </NavLink>{' '}
-                      the store, look for the game in your library, open the
-                      installation dialog, and click the &quot;Import
-                      Game&quot; button
+                      Instead, <NavLink to={'/login'}>log into</NavLink> the
+                      store, look for the game in your library, open the
+                      installation dialog, and click the &quot;Import Game&quot;
+                      button
                     </Trans>
                   </div>
                 </InfoBox>
@@ -431,9 +429,7 @@ export default function SideloadDialog({
                   maxLength={40}
                 />
                 <details className="advancedFields">
-                  <summary>
-                    {t('sideload.images.summary', 'Images')}
-                  </summary>
+                  <summary>{t('sideload.images.summary', 'Images')}</summary>
                   <TextInputWithIconField
                     label={t(
                       'sideload.info.image-hint',
@@ -477,10 +473,7 @@ export default function SideloadDialog({
                       onClick={goToAdvancedSettings}
                       className="sgdbWarningLink"
                     >
-                      {t(
-                        'edit-game.sgdb.no-key-link',
-                        'Settings → Advanced'
-                      )}
+                      {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
                     </a>
                     .
                   </WarningMessage>
@@ -492,10 +485,7 @@ export default function SideloadDialog({
                     onPathChange={setSelectedExe}
                     path={selectedExe}
                     placeholder={t('sideload.info.exe', 'Select Executable')}
-                    pathDialogTitle={t(
-                      'box.sideload.exe',
-                      'Select Executable'
-                    )}
+                    pathDialogTitle={t('box.sideload.exe', 'Select Executable')}
                     pathDialogDefaultPath={winePrefix}
                     pathDialogFilters={fileFilters(platformToInstall)}
                     htmlId="sideload-exe"
@@ -516,10 +506,7 @@ export default function SideloadDialog({
                       value={gameUrl}
                     />
                     <TextInputField
-                      label={t(
-                        'sideload.info.useragent',
-                        'Custom User Agent'
-                      )}
+                      label={t('sideload.info.useragent', 'Custom User Agent')}
                       placeholder={t(
                         'sideload.placeholder.useragent',
                         'Write a custom user agent here to be used on this browser app/game'

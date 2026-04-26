@@ -12,8 +12,6 @@ export interface GameMetadataOverride {
   art_square?: string
 }
 
-export type GameOverridesStore = Record<string, GameMetadataOverride>
-
 export const gameOverridesStore = new TypeCheckedStoreBackend(
   'gameOverridesStore',
   {

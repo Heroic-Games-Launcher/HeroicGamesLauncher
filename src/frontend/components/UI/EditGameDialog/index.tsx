@@ -159,10 +159,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                   onClick={goToAdvancedSettings}
                   className="sgdbWarningLink"
                 >
-                  {t(
-                    'edit-game.sgdb.no-key-link',
-                    'Settings → Advanced'
-                  )}
+                  {t('edit-game.sgdb.no-key-link', 'Settings → Advanced')}
                 </a>
                 .
               </WarningMessage>

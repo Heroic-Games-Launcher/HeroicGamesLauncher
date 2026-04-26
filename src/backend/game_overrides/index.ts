@@ -132,26 +132,6 @@ export function setGameOverrides(
 }
 
 /**
- * Remove overrides for a game (reset to default)
- */
-export function removeGameOverrides(appName: string): boolean {
-  try {
-    const currentOverrides = gameOverridesStore.get('overrides', {}) as Record<
-      string,
-      GameMetadataOverride
-    >
-    delete currentOverrides[appName]
-    gameOverridesStore.set('overrides', currentOverrides)
-    removeImagesForApp(appName)
-    logInfo(`Removed overrides for ${appName}`, logPrefix)
-    return true
-  } catch {
-    logError(`Failed to remove overrides for ${appName}`, logPrefix)
-    return false
-  }
-}
-
-/**
  * Attach stored overrides to a GameInfo object as the `overrides` property.
  * Original fields (title, art_cover, art_square) are left untouched so callers
  * can choose between the canonical value and the user-edited one.

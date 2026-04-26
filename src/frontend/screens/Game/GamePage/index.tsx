@@ -303,8 +303,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
       is_installed
     } = gameInfo
     const title = gameInfo.overrides?.title || gameInfo.title
-    const art_cover =
-      gameInfo.overrides?.art_cover || gameInfo.art_cover
+    const art_cover = gameInfo.overrides?.art_cover || gameInfo.art_cover
 
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 
