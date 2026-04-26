@@ -9,6 +9,7 @@ import { logError } from 'backend/logger'
 export function decodeUTF8(buffer: Buffer): string {
   try {
     let skip = 0
+    // If bit 7 is set and bit 6 is cleared, this is a continuation byte.
     while (skip < 4 && skip < buffer.length && (buffer[skip] & 0xc0) === 0x80) {
       skip++
     }
