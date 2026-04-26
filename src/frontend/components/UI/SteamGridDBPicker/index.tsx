@@ -16,12 +16,22 @@ interface Props {
   initialTitle: string
   onSelect: (url: string) => void
   onClose: () => void
+  mode?: 'grids' | 'heroes'
+  dimensions?: string[]
+  styles?: string[]
 }
+
+const DEFAULT_GRID_DIMENSIONS = ['600x900', '342x482', '660x930']
+const DEFAULT_GRID_STYLES = ['material', 'alternate', 'blurred']
+const DEFAULT_HERO_DIMENSIONS = ['1600x650']
 
 export default function SteamGridDBPicker({
   initialTitle,
   onSelect,
-  onClose
+  onClose,
+  mode = 'grids',
+  dimensions,
+  styles
 }: Props) {
   const { t } = useTranslation()
   const [query, setQuery] = useState(initialTitle)
@@ -38,10 +48,20 @@ export default function SteamGridDBPicker({
       setError(null)
       setGrids([])
       try {
-        const results = await window.api.steamgriddb.getGrids({
+        const fetcher =
+          mode === 'heroes'
+            ? window.api.steamgriddb.getHeroes
+            : window.api.steamgriddb.getGrids
+        const fetchDims =
+          dimensions ??
+          (mode === 'heroes'
+            ? DEFAULT_HERO_DIMENSIONS
+            : DEFAULT_GRID_DIMENSIONS)
+        const fetchStyles = styles ?? (mode === 'heroes' ? [] : DEFAULT_GRID_STYLES)
+        const results = await fetcher({
           gameId,
-          styles: ['material', 'alternate', 'blurred'],
-          dimensions: ['600x900', '342x482', '660x930']
+          styles: fetchStyles,
+          dimensions: fetchDims
         })
         setGrids(results)
         if (results.length === 0) {
@@ -56,7 +76,7 @@ export default function SteamGridDBPicker({
         setLoading(false)
       }
     },
-    [t]
+    [t, mode, dimensions, styles]
   )
 
   const searchGames = useCallback(
@@ -103,7 +123,7 @@ export default function SteamGridDBPicker({
   }, [initialTitle, searchGames])
 
   return (
-    <div className="SteamGridDBPicker">
+    <div className={`SteamGridDBPicker SteamGridDBPicker--${mode}`}>
       <div className="SteamGridDBPicker__header">
         <div className="SteamGridDBPicker__title-group">
           {selectedGameId && (

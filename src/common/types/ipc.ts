@@ -363,6 +363,11 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  'steamgriddb.getHeroes': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+  }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 
 interface FrontendMessages {

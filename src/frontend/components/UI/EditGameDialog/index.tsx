@@ -138,34 +138,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               icon={<Folder />}
               onIconClick={() => handleSelectLocalImage('square')}
             />
-            {hasSgdbKey ? (
-              <div className="sgdbButtons">
-                <button
-                  type="button"
-                  className="button is-secondary"
-                  onClick={() => openSgdbPicker('cover')}
-                  disabled={!title}
-                >
-                  <FontAwesomeIcon icon={faSearch} />{' '}
-                  {t(
-                    'edit-game.sgdb.cover',
-                    'Find cover on SteamGridDB'
-                  )}
-                </button>
-                <button
-                  type="button"
-                  className="button is-secondary"
-                  onClick={() => openSgdbPicker('square')}
-                  disabled={!title}
-                >
-                  <FontAwesomeIcon icon={faSearch} />{' '}
-                  {t(
-                    'edit-game.sgdb.square',
-                    'Find square art on SteamGridDB'
-                  )}
-                </button>
-              </div>
-            ) : (
+            {!hasSgdbKey && (
               <div className="sgdbWarning">
                 <Trans
                   i18nKey="edit-game.sgdb.no-key"
@@ -180,6 +153,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
             {sgdbTarget && (
               <SteamGridDBPicker
                 initialTitle={title}
+                mode={sgdbTarget === 'cover' ? 'heroes' : 'grids'}
                 onClose={() => setSgdbTarget(null)}
                 onSelect={(url: string) => {
                   if (sgdbTarget === 'cover') setArtCover(url)
@@ -194,19 +168,39 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               <span className="previewLabel">
                 {t('edit-game.cover', 'Cover Art')}
               </span>
-              <CachedImage
-                className={classNames('appImage')}
-                src={artCover || fallbackImage}
-              />
+              <div
+                className={classNames('appImageContainer', { hasSgdbKey })}
+                onClick={() => openSgdbPicker('cover')}
+              >
+                <CachedImage
+                  className={classNames('appImage')}
+                  src={artCover || fallbackImage}
+                />
+                {hasSgdbKey && (
+                  <div className="imageHoverOverlay">
+                    <FontAwesomeIcon icon={faSearch} size="3x" />
+                  </div>
+                )}
+              </div>
             </div>
             <div className="previewItem">
               <span className="previewLabel">
                 {t('edit-game.square', 'Square Art')}
               </span>
-              <CachedImage
-                className={classNames('appImage square')}
-                src={artSquare || artCover || fallbackImage}
-              />
+              <div
+                className={classNames('appImageContainer', { hasSgdbKey })}
+                onClick={() => openSgdbPicker('square')}
+              >
+                <CachedImage
+                  className={classNames('appImage square')}
+                  src={artSquare || artCover || fallbackImage}
+                />
+                {hasSgdbKey && (
+                  <div className="imageHoverOverlay">
+                    <FontAwesomeIcon icon={faSearch} size="3x" />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
