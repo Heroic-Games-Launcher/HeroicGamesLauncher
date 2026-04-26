@@ -9,7 +9,9 @@
         "titles_always_visible": "總是在遊戲庫中顯示標題",
         "disable_dialog_backdrop_close": "停用在對話框外點擊關閉",
         "actions_font_family_default": "Actions Font Family (Default:",
-        "content_font_family_default": "內容字型家族（預設："
+        "content_font_family_default": "內容字型家族（預設：",
+        "disable_smooth_scrolling": "",
+        "disable_animations": ""
     },
     "add_game": "新增遊戲",
     "All": "全部",
@@ -90,7 +92,13 @@
             },
             "legendary": {
                 "generic": "發生錯誤！嘗試登出並登入您的 Epic 帳戶。{{newline}} {{error}}"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "info": {
             "update": {
@@ -99,7 +107,8 @@
                 "message": "目前有新版本可用！",
                 "message-finished": "您想立即重啟 Heroic 嗎？",
                 "title": "Heroic Games Launcher",
-                "title-finished": "更新完成"
+                "title-finished": "更新完成",
+                "detailNoAutoupdate": ""
             }
         },
         "no": "否",
@@ -166,7 +175,13 @@
                 }
             },
             "snap": {
-                "checkbox": "不要再顯示此訊息"
+                "checkbox": "不要再顯示此訊息",
+                "title": "",
+                "message": ""
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
             }
         },
         "wineprefix": "選擇 WinePrefix 資料夾",
@@ -245,7 +260,10 @@
         },
         "library": {
             "refresh": "重新整理遊戲庫"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "全域設定",
     "GOG": "GOG",
@@ -267,7 +285,9 @@
         "select_all": "全選",
         "reset": "重置",
         "uncategorized": "未分類",
-        "only": "僅"
+        "only": "僅",
+        "show_updates_only": "",
+        "no_categories": ""
     },
     "help": {
         "amdfsr": "AMD FSR 通過在全螢幕模式下提高較低解析度來提高畫面幀率。影像品質從 5 提高到 1，但代價是效能稍有下降。啟用可能會提高效能。",
@@ -319,13 +339,40 @@
         },
         "msync": "Fsync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支援的 Linux 內核的效能。",
         "content": {
-            "settingsGame": "顯示遊戲的全部設定。"
+            "settingsGame": "顯示遊戲的全部設定。",
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
         },
         "button": {
             "open": "開啟幫助",
             "close": "關閉幫助"
         },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "dxvknvapi": "",
+        "disablePlaytimeSync": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "heroic": {
@@ -370,7 +417,9 @@
         "toggleLayout": {
             "grid": "切換到網格排版",
             "list": "切換到清單排版"
-        }
+        },
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "Library": "遊戲庫",
     "loading": {
@@ -383,7 +432,8 @@
         "gog": "GOG 登入",
         "message": "登入您的平台。您可以同時登入多個平台。",
         "amazon": "Amazon 登入",
-        "old-mac": "您的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登入。"
+        "old-mac": "您的 macOS 版本是 {{version}}。需要 macOS 12 或以上版本才能登入。",
+        "zoom": ""
     },
     "message": {
         "sync": "同步完成",
@@ -433,6 +483,9 @@
             "started": "更新開始",
             "failed": "更新失敗",
             "paused": "更新暫停"
+        },
+        "import": {
+            "failed": ""
         }
     },
     "offline-message": {
@@ -462,7 +515,11 @@
         },
         "gameargs": {
             "placeholder": "將啟動參數放在這裡",
-            "title": "遊戲參數（在命令後執行）："
+            "title": "遊戲參數（在命令後執行）：",
+            "error": {
+                "command": "",
+                "env": ""
+            }
         },
         "quote-args-with-spaces": "警告：請確保引用參數時使用空格！例：\"path/with spaces/\"",
         "wrapper": {
@@ -480,7 +537,13 @@
             "gameHeight": "遊戲高度",
             "windowed": "視窗化",
             "gameWidth": "遊戲寬度",
-            "additionalOptions": "額外選項"
+            "additionalOptions": "額外選項",
+            "nis": "",
+            "upscaleWidth": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": "",
+            "interger": ""
         }
     },
     "other": {
@@ -592,13 +655,41 @@
             "upload": {
                 "actions": "操作",
                 "done": {
-                    "title": "上載完成"
+                    "title": "上載完成",
+                    "content": ""
                 },
                 "uploading": {
-                    "title": "上載中"
+                    "title": "上載中",
+                    "content": ""
                 },
-                "upload-date": "上載日期"
-            }
+                "upload-date": "上載日期",
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "button": ""
+            },
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "show-uploads": ""
         },
         "mangohud": "啟用 MangoHud（需要已安裝 Mangohud）",
         "manualsync": {
@@ -650,22 +741,64 @@
         "before-launch-script-path": "選擇遊戲啟動前要執行的指令碼",
         "disablePlaytimeSync": "停用遊戲時數同步",
         "gamescope": {
-            "enableLimiter": "啟用 FPS 限制器"
+            "enableLimiter": "啟用 FPS 限制器",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
         },
         "experimental_features": {
             "enableHelp": "幫助元件",
-            "enableNewDesign": "新設計"
+            "enableNewDesign": "新設計",
+            "cometSupport": "",
+            "zoomPlatform": ""
         },
         "allow_installation_broken_anticheat": {
             "confirmation": {
-                "understand": "我理解"
-            }
+                "understand": "我理解",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
         },
         "frameless-window": {
             "confirmation": {
-                "title": "實驗性功能"
-            }
-        }
+                "title": "實驗性功能",
+                "message": ""
+            },
+            "description": ""
+        },
+        "WoW64": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "hdr": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "dxfpslimit": "",
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "disableUMU": "",
+        "advertiseAvxForRosetta": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -701,19 +834,30 @@
             "other": "其它",
             "sync": "同步雲端存檔",
             "wineExt": "Wine 擴充元件",
-            "systemInformation": "系統資訊"
+            "systemInformation": "系統資訊",
+            "gamescope": "",
+            "legacy": ""
         },
         "open-config-file": "開啟配置檔案",
         "reset-heroic": "重置 Heroic",
         "saves": {
             "label": "Save Location:",
-            "warning": "雲端存檔功能處於測試階段，請在同步前備份您的存檔（以防出現問題）"
+            "warning": "雲端存檔功能處於測試階段，請在同步前備份您的存檔（以防出現問題）",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "advanced": {
             "clearCache": {
                 "help8": "已安裝的遊戲",
                 "help9": "遊戲設定",
-                "help7": "儲存登入訊息"
+                "help7": "儲存登入訊息",
+                "help1": "",
+                "help3": "",
+                "help10": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
             },
             "details": "內容",
             "title": {
@@ -737,16 +881,46 @@
             "memory": "記憶體：",
             "systemModel": "系統型號：",
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
-            "gpuWithNumber": "GPU {{number}}："
+            "gpuWithNumber": "GPU {{number}}：",
+            "legendaryVersion": "",
+            "steamDeck": "",
+            "gogdlVersion": "",
+            "osNameFlatpak": "",
+            "cometVersion": "",
+            "memoryStats": "",
+            "heroicVersion": "",
+            "nileVersion": ""
         },
         "experimental_features": {
             "title": "實驗性功能"
+        },
+        "launchOptions": "啟動選項…",
+        "legacy_warning": "",
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "custom_css": {
+            "title": ""
+        },
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "設定",
     "sidebar": {
         "collapse": "收起側邊欄",
-        "uncollapse": "展開側邊欄"
+        "uncollapse": "展開側邊欄",
+        "console": ""
     },
     "status": {
         "installing": "正在安裝",
@@ -803,10 +977,17 @@
             "link": "Wine 管理員",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine 管理員",
-            "unzipping": "解壓縮"
+            "unzipping": "解壓縮",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "發行日期",
-        "size": "大小"
+        "size": "大小",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "不再詢問",
@@ -830,19 +1011,25 @@
         "loading": "載入中",
         "installing": "正在安裝： {{component}}",
         "installed": "已安裝元件：",
-        "search": "搜尋字型或元件"
+        "search": "搜尋字型或元件",
+        "no-components": "",
+        "openGUI": "",
+        "loading-available": "",
+        "nothingYet": ""
     },
     "category-settings": {
         "cancel": "取消",
         "warning": "警告",
         "remove-category": "移除分類",
         "add-new-category": "新增分類",
-        "new-category": "新分類"
+        "new-category": "新分類",
+        "delete-question": ""
     },
     "window": {
         "close": "關閉",
         "maximize": "最大化視窗",
-        "minimize": "最小化視窗"
+        "minimize": "最小化視窗",
+        "restore": ""
     },
     "categories-manager": {
         "title": "管理分類",
@@ -857,13 +1044,211 @@
         "remove": "移除\"{{name}}\""
     },
     "adtraction-locked": {
-        "dont-show-again": "不再顯示警告"
+        "dont-show-again": "不再顯示警告",
+        "description": "",
+        "title": ""
     },
     "tour": {
-        "back": "返回"
+        "back": "返回",
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
     },
     "analyticsModal": {
         "disable": "停用",
-        "enable": "啟用"
-    }
+        "enable": "啟用",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
+    },
+    "launch": {
+        "options": "啟動選項…"
+    },
+    "amazon-luna": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": "",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

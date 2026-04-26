@@ -94,7 +94,11 @@
                 "generic": "Ett fel har uppstått! Försök att logga ut och in på ditt Epic-konto. {{newline}} {{error}}"
             },
             "executableNotFound": "Exekverbar fil hittades inte",
-            "executableNotFoundMessage": "Heroic kunde inte hitta den exekverbara filen för det här spelet. Vänligen ställ in den manuellt i spelinställningarna."
+            "executableNotFoundMessage": "Heroic kunde inte hitta den exekverbara filen för det här spelet. Vänligen ställ in den manuellt i spelinställningarna.",
+            "dxmt": {
+                "message": "Fel vid nedleddning av DXMT! Kontrollera din anslutning!",
+                "title": "DXMT nedladdningsfel"
+            }
         },
         "info": {
             "update": {
@@ -256,7 +260,10 @@
         },
         "library": {
             "refresh": "Uppdatera bibliotek"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Globala inställningar",
     "GOG": "GOG",
@@ -360,7 +367,7 @@
             "close": "Stäng hjälp"
         },
         "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds.",
-        "dxfpslimit": "Ställer in ett bildhastighetstak för DXVK spel",
+        "dxfpslimit": "Ställer in ett bildhastighetstak för DirectX spel (9-12)",
         "advertiseAvxForRosetta": "Aktiverar stöd för AVX-instruktionsuppsättningar när Windows-spel körs via Rosetta på Apple Silicon Macar. Detta kan krävas för vissa spel som Death Stranding som behöver AVX-stöd.",
         "analytics": "Gör det möjligt för Heroic att samla in 100 % anonym användningsdata för att förbättra programmet. Kräver omstart för att det ska träda i kraft.",
         "download_proton_steam": "När det är aktiverat kommer GE-Proton att laddas ner direkt till Steams kompatibilitetsverktygskatalog istället för standardsökvägen för Heroic. Det kommer att använda Steam-sökvägen som angetts i inställningen \"Standardsökväg för Steam\" ovan.",
@@ -553,7 +560,7 @@
         "custom_themes_path": "Välj sökvägen för att leta efter anpassade CSS-filer",
         "dxvkfpsvalue": "Positivt heltalsvärde (t.ex. 30, 60, ...)",
         "egs-prefix": "Prefix för befintlig EGS installation",
-        "prefered_language": "Tvåställig bokstavskod (t.ex: \"en\" eller \"fr\")",
+        "prefered_language": "Tvåställig eller fyrställig bokstavskod (t.ex: \"fr\" eller \"pt-BR\")",
         "alt-nile-bin": "Använder inbyggd Nile binär..."
     },
     "platforms": {
@@ -659,7 +666,8 @@
                 },
                 "error": {
                     "title": "Uppladdning misslyckades",
-                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer"
+                    "content": "Misslyckades att ladda upp loggfil. Kontrollera Heroics allmänna logg för detaljer",
+                    "manual_upload": "Klicka på knappen \"VISA LOGGFIL I MAPP\" och ladda upp filen \"launch.log\" manuellt till Discord eller någon annan online fildelningstjänst."
                 },
                 "header": "Uppladdade loggfiler",
                 "delete": "Begär borttagning av loggfil",
@@ -767,7 +775,7 @@
         "verboseLogs": {
             "description": "Aktivera detaljerade loggar"
         },
-        "disableUMU": "Inaktivera UMU",
+        "disableUMU": "Inaktivera umu",
         "custom_css": {
             "warning": "Varning: detta gäller hela frontenden. Detta betyder att fel stil kan göra att Heroic blir oanvändbar. Om det behövs kan inställningen ändras manuellt i `~/.config/heroic/config.json`. Kopiera INTE stiler from källor du inte litar på."
         },
@@ -795,7 +803,10 @@
         "no-tray-icon": "Dölj ikonen i systemfältet (kräver omstart)",
         "wineWayland": "Aktivera Wine-Wayland (Experimentellt) (Wine-versionen behöver stödja det)",
         "WoW64": "Aktivera WoW64 (Experimentellt)",
-        "scripts": "Skript:"
+        "scripts": "Skript:",
+        "enable-quick-sync-menu": "Aktivera snabbspara synkronisera meny på spelsidan",
+        "disable_gog_presence": "Inaktivera GOG-närvarouppdateringar",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -832,7 +843,8 @@
             "sync": "Synkronisera molnsparfiler",
             "wineExt": "Wine Extensions",
             "systemInformation": "Systeminformation",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Föråldrat"
         },
         "open-config-file": "Öppna konfigurationsfil",
         "reset-heroic": "Återställ Heroic",
@@ -898,12 +910,25 @@
         },
         "custom_css": {
             "title": "Anpassad CSS Stil"
+        },
+        "launchOptions": "Uppstartsalternativ",
+        "legacy_warning": "Varning: Inställningarna på den här fliken är mestadels föråldrade och kanske inte fungerar alls.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Inställningar",
     "sidebar": {
         "collapse": "Dölj sidofältet",
-        "uncollapse": "Visa sidofältet"
+        "uncollapse": "Visa sidofältet",
+        "console": ""
     },
     "status": {
         "installing": "Installerar",
@@ -960,10 +985,17 @@
             "link": "Winehanterare",
             "not-found": "Inga Wineversioner hittades. Klicka på uppdateringsikonen för att försöka igen.",
             "title": "Winehanterare",
-            "unzipping": "Packar upp"
+            "unzipping": "Packar upp",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Utgivningsdatum",
-        "size": "Storlek"
+        "size": "Storlek",
+        "notes": "Anteckningar"
     },
     "externalLink": {
         "warning": "Du är på väg att öppna en extern länk.",
@@ -1009,7 +1041,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton är en Proton-variant skapad av Glorious Eggroll. Den är tänkt att användas för Steam, men vissa spel utanför Steam kan fungera bättre med denna variant. Den ger mestadels värdelösa loggar för felsökning.",
-        "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning."
+        "wine-ge": "Wine-GE-Proton är en Wine variant skapad av Glorious Eggroll. Det är den rekommenderade wine som ska användas utanför Steam. Detta ger användbara loggar vid felsökning.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "De nuvarande filtren gav inga resultat.",
@@ -1093,5 +1128,135 @@
         "title": "Skicka anonym analysdata"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom butik"
+    "zoom-store": "Zoom butik",
+    "launch": {
+        "options": "Startalternativ..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

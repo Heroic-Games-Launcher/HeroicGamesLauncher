@@ -6,27 +6,24 @@ import { UpdateComponent } from 'frontend/components/UI'
 import React, { lazy, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tab, Tabs } from '@mui/material'
-import {
-  TypeCheckedStoreFrontend,
-  wineDownloaderInfoStore
-} from 'frontend/helpers/electronStores'
+import { wineDownloaderInfoStore } from 'frontend/helpers/electronStores'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCheck,
   faSyncAlt,
-  faWarning
+  faWarning,
+  faCog
 } from '@fortawesome/free-solid-svg-icons'
 import { WineVersionInfo, Type, WineManagerUISettings } from 'common/types'
+import SearchBar from 'frontend/components/UI/SearchBar'
+import WineManagerSettingsModal from './components/WineManagerSettingsModal'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import classNames from 'classnames'
+import useGlobalState from 'frontend/state/GlobalStateV2'
 
 const WineItem = lazy(
   async () => import('frontend/screens/WineManager/components/WineItem')
 )
-
-const configStore = new TypeCheckedStoreFrontend('wineManagerConfigStore', {
-  cwd: 'store'
-})
 
 export default function WineManager(): JSX.Element | null {
   const { t } = useTranslation()
@@ -42,56 +39,40 @@ export default function WineManager(): JSX.Element | null {
     </p>
   )
 
-  const { refreshWineVersionInfo, refreshing, platform, isIntelMac } =
-    useContext(ContextProvider)
+  const { platform, isIntelMac } = useContext(ContextProvider)
   const isLinux = platform === 'linux'
+  const { refreshingWineVersions, refreshWineVersions } = useGlobalState.keys(
+    'refreshingWineVersions',
+    'refreshWineVersions'
+  )
 
-  const protonge: WineManagerUISettings = {
-    type: 'GE-Proton',
-    value: 'protonge',
-    enabled: isLinux
-  }
-  const gamePortingToolkit: WineManagerUISettings = {
-    type: 'Game-Porting-Toolkit',
-    value: 'gpt',
-    enabled: !isLinux
-  }
-
-  const wineStagingMacOS: WineManagerUISettings = {
-    type: 'Wine-Staging-macOS',
-    value: 'winestagingmacos',
-    enabled: !isLinux
-  }
-
-  const wineCrossover: WineManagerUISettings = {
-    type: 'Wine-Crossover',
-    value: 'winecrossover',
-    enabled: !isLinux
-  }
+  const repositories: WineManagerUISettings[] = useMemo(() => {
+    if (isLinux) {
+      return [
+        { type: 'GE-Proton', value: 'protonge' },
+        { type: 'Wine-GE', value: 'winege' }
+      ]
+    }
+    return [
+      { type: 'Game-Porting-Toolkit', value: 'gpt' },
+      { type: 'Wine-Crossover', value: 'winecrossover' },
+      { type: 'Wine-Staging-macOS', value: 'winestagingmacos' }
+    ]
+  }, [isLinux])
 
   const getDefaultRepository = (): WineManagerUISettings => {
     if (isLinux) {
-      return protonge
+      return repositories[0]
     } else if (isIntelMac) {
-      return wineCrossover
+      return repositories[1]
     } else {
-      return gamePortingToolkit
+      return repositories[0]
     }
   }
 
   const [repository, setRepository] = useState<WineManagerUISettings>(
     getDefaultRepository()
   )
-
-  const [wineManagerSettings, setWineManagerSettings] = useState<
-    WineManagerUISettings[]
-  >([
-    protonge,
-    { type: 'Wine-GE', value: 'winege', enabled: isLinux },
-    gamePortingToolkit,
-    wineCrossover,
-    wineStagingMacOS
-  ])
 
   const getWineVersions = (repo: Type) => {
     let versions = wineDownloaderInfoStore.get('wine-releases', [])
@@ -108,22 +89,17 @@ export default function WineManager(): JSX.Element | null {
     getWineVersions(repository.type)
   )
 
+  const [search, setSearch] = useState('')
+  const [showSettingsModal, setShowSettingsModal] = useState(false)
+
   const handleChangeTab = (
-    e: React.SyntheticEvent,
+    _e: React.SyntheticEvent,
     repo: WineManagerUISettings
   ) => {
     setRepository(repo)
     setWineVersions(getWineVersions(repo.type))
+    setSearch('')
   }
-
-  useEffect(() => {
-    const oldWineManagerSettings = configStore.get_nodefault(
-      'wine-manager-settings'
-    )
-    if (oldWineManagerSettings) {
-      setWineManagerSettings(oldWineManagerSettings)
-    }
-  }, [])
 
   useEffect(() => {
     const removeListener = window.api.handleWineVersionsUpdated(() => {
@@ -156,84 +132,145 @@ export default function WineManager(): JSX.Element | null {
             )}
           </div>
         )
+      case 'Game-Porting-Toolkit':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.gpt',
+              'Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.'
+            )}
+          </div>
+        )
+      case 'Wine-Crossover':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.wine-crossover',
+              'Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.'
+            )}
+          </div>
+        )
+      case 'Wine-Staging-macOS':
+        return (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faCheck} color={'green'} />
+            {t(
+              'wineExplanation.wine-staging-macos',
+              'Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool.'
+            )}
+          </div>
+        )
       default:
         return <></>
     }
-  }, [repository])
+  }, [repository.type, t])
+
+  const filteredWineVersions = useMemo(() => {
+    if (!search) return wineVersions
+
+    const query = search.toLowerCase()
+    return wineVersions.filter((v) => v.version.toLowerCase().includes(query))
+  }, [wineVersions, search])
 
   return (
     <>
-      <h4 style={{ paddingTop: 'var(--space-md)' }}>
-        {t('wine.manager.title', 'Wine Manager')}
-      </h4>
+      <div className="wineManagerHeader">
+        <h4>{t('wine.manager.title', 'Wine Manager')}</h4>
+        <div className="wineManagerToolbar">
+          <SearchBar
+            placeholder={t('wine.manager.search', 'Search versions...')}
+            value={search}
+            onInputChanged={setSearch}
+          />
+          <button
+            className="toolbarBtn"
+            title={t('generic.library.refresh', 'Refresh Library')}
+            onClick={() => {
+              refreshWineVersions(true)
+            }}
+          >
+            <FontAwesomeIcon
+              className={classNames({ 'fa-spin': refreshingWineVersions })}
+              icon={faSyncAlt}
+            />
+          </button>
+          <button
+            className="toolbarBtn"
+            title={t('wine.manager.settings', 'Settings')}
+            onClick={() => setShowSettingsModal(true)}
+          >
+            <FontAwesomeIcon icon={faCog} />
+          </button>
+        </div>
+      </div>
+
       <div className="wineManager">
-        <span className="tabsWrapper">
+        <div className="tabsWrapper">
           <Tabs
             className="tabs"
             value={repository.value}
             onChange={(e, value) => {
-              const repo = wineManagerSettings.find(
+              const repo = repositories.find(
                 (setting) => setting.value === value
               )
               if (repo) {
                 handleChangeTab(e, repo)
               }
             }}
-            centered={true}
+            variant="scrollable"
+            scrollButtons="auto"
           >
-            {wineManagerSettings.map(({ type, value, enabled }) => {
-              if (enabled) {
-                return <Tab value={value} label={type} key={value} />
-              }
-              return null
-            })}
-            {/* refresh button is a tab to make navigation more predictable */}
-            <Tab
-              title={t('generic.library.refresh', 'Refresh Library')}
-              onClick={() => refreshWineVersionInfo(true)}
-              sx={{ minWidth: 0 }}
-              icon={
-                <FontAwesomeIcon
-                  className={classNames('FormControl__segmentedFaIcon', {
-                    'fa-spin': refreshing
-                  })}
-                  icon={faSyncAlt}
-                />
-              }
-            />
+            {repositories.map(({ type, value }) => (
+              <Tab value={value} label={type} key={value} />
+            ))}
           </Tabs>
-        </span>
+        </div>
+
         {wineVersionExplanation}
-        {wineVersions.length ? (
-          <div
-            style={
-              !wineVersions.length ? { backgroundColor: 'transparent' } : {}
-            }
-            className="wineList"
-          >
+
+        {refreshingWineVersions ? (
+          <div className="infoBox">
+            <FontAwesomeIcon icon={faSyncAlt} color={'orange'} />
+            {t('wine.manager.loading', 'Loading wine versions...')}
+          </div>
+        ) : filteredWineVersions.length ? (
+          <div className="wineList">
             <div className="gameListHeader">
-              <span>{t('info.version', 'Wine Version')}</span>
-              <span>{t('wine.notes', 'Notes')}</span>
-              <span>{t('wine.release', 'Release Date')}</span>
-              <span>{t('wine.size', 'Size')}</span>
-              <span>{t('wine.actions', 'Action')}</span>
+              <span className="version">
+                {t('info.version', 'Wine Version')}
+              </span>
+              <span className="release">
+                {t('wine.release', 'Release Date')}
+              </span>
+              <span className="size">{t('wine.size', 'Size')}</span>
+              <span className="actions">{t('wine.actions', 'Action')}</span>
             </div>
-            {refreshing && <UpdateComponent />}
-            {!refreshing &&
-              !!wineVersions.length &&
-              wineVersions.map((release) => {
+            {refreshingWineVersions && <UpdateComponent />}
+            {!refreshingWineVersions &&
+              filteredWineVersions.map((release) => {
                 return <WineItem key={release.version} {...release} />
               })}
           </div>
         ) : (
-          <h5 className="wineList">
-            {t(
-              'wine.manager.not-found',
-              'No Wine versions found. Please click the refresh icon to try again.'
-            )}
-          </h5>
+          <div className="infoBox errorState">
+            {search
+              ? t(
+                  'wine.manager.no-results',
+                  'No Wine versions match your search.'
+                )
+              : t(
+                  'wine.manager.not-found',
+                  'No Wine versions found. Please click the refresh icon to try again.'
+                )}
+          </div>
         )}
       </div>
+
+      {showSettingsModal && (
+        <WineManagerSettingsModal onClose={() => setShowSettingsModal(false)} />
+      )}
     </>
   )
 }

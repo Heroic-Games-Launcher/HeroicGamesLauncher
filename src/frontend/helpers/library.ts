@@ -70,31 +70,6 @@ async function install({
     return
   }
 
-  if (installPath === 'import') {
-    const { defaultInstallPath }: AppSettings =
-      await window.api.requestAppSettings()
-    const args: Electron.OpenDialogOptions = {
-      buttonLabel: t('gamepage:box.choose'),
-      properties:
-        platformToInstall === 'Mac' ? ['openFile'] : ['openDirectory'],
-      title: t('gamepage:box.importpath'),
-      defaultPath: defaultInstallPath
-      //TODO: add file filters
-    }
-    const path = await window.api.openDialog(args)
-
-    if (!path) {
-      return
-    }
-
-    return window.api.importGame({
-      appName,
-      path,
-      runner,
-      platform: platformToInstall
-    })
-  }
-
   if (installPath !== 'default') {
     if (setInstallPath) setInstallPath(installPath)
   }
@@ -169,6 +144,7 @@ type LaunchOptions = {
   hasUpdate: boolean
   showDialogModal: (options: DialogModalOptions) => void
   args?: string[]
+  notPlayableOffline?: boolean
 }
 
 const launch = async ({
@@ -178,29 +154,33 @@ const launch = async ({
   runner,
   hasUpdate,
   showDialogModal,
-  args
+  args,
+  notPlayableOffline
 }: LaunchOptions): Promise<{ status: 'done' | 'error' | 'abort' }> => {
-  // First handle update dialog if needed
-  if (hasUpdate) {
-    const { ignoreGameUpdates } = await window.api.requestGameSettings(appName)
+  const proceedToLaunch = async () => {
+    // First handle update dialog if needed
+    if (hasUpdate) {
+      const { ignoreGameUpdates } =
+        await window.api.requestGameSettings(appName)
 
-    if (ignoreGameUpdates) {
-      // If updates are ignored, proceed to check launch options
-      return checkLaunchOptionsAndLaunch({
-        appName,
-        t,
-        launchArguments,
-        runner,
-        showDialogModal,
-        args,
-        skipVersionCheck: true,
-        hasUpdate
-      })
-    }
+      if (ignoreGameUpdates) {
+        // If updates are ignored, proceed to check launch options
+        return checkLaunchOptionsAndLaunch({
+          appName,
+          t,
+          launchArguments,
+          runner,
+          showDialogModal,
+          args,
+          skipVersionCheck: true,
+          hasUpdate
+        })
+      }
 
-    // promisifies the showDialogModal button click callbacks
-    const launchFinished = new Promise<{ status: 'done' | 'error' | 'abort' }>(
-      (res) => {
+      // promisifies the showDialogModal button click callbacks
+      const launchFinished = new Promise<{
+        status: 'done' | 'error' | 'abort'
+      }>((res) => {
         showDialogModal({
           message: t('gamepage:box.update.message'),
           title: t('gamepage:box.update.title'),
@@ -236,25 +216,55 @@ const launch = async ({
             }
           ]
         })
-      }
-    )
+      })
 
-    return launchFinished
+      return launchFinished
+    }
+
+    // No update needed, proceed to check launch options
+    return checkLaunchOptionsAndLaunch({
+      appName,
+      t,
+      launchArguments,
+      runner,
+      showDialogModal,
+      args,
+      hasUpdate
+    })
   }
 
-  // No update needed, proceed to check launch options
-  return checkLaunchOptionsAndLaunch({
-    appName,
-    t,
-    launchArguments,
-    runner,
-    showDialogModal,
-    args,
-    hasUpdate
-  })
+  if (notPlayableOffline) {
+    return new Promise((res) => {
+      showDialogModal({
+        title: t('gamepage:box.offline_warning.title', 'Offline Warning'),
+        message: t(
+          'gamepage:box.offline_warning.message',
+          'This game might not work properly offline. Do you want to play anyway?'
+        ),
+        type: 'MESSAGE',
+        buttons: [
+          {
+            text: t('box.ok', 'OK'),
+            onClick: () => {
+              showDialogModal({ showDialog: false })
+              res({ status: 'abort' })
+            }
+          },
+          {
+            text: t('gamepage:box.offline_warning.playAnyway', 'Play Anyway'),
+            onClick: async () => {
+              showDialogModal({ showDialog: false })
+              res(await proceedToLaunch())
+            }
+          }
+        ]
+      })
+    })
+  }
+
+  return proceedToLaunch()
 }
 
-// Helper function to check for launch options and show dialog if needed
 async function checkLaunchOptionsAndLaunch({
   appName,
   t,
@@ -319,10 +329,11 @@ async function checkLaunchOptionsAndLaunch({
     let countdownInterval: NodeJS.Timeout | null = null
     let hasSelected = false
     let secondsRemaining = 10
+    let launchCanceled = false
 
     // Set up auto-select timeout (10 seconds)
     const autoSelectFirstOption = () => {
-      if (hasSelected) return
+      if (hasSelected || launchCanceled) return
 
       const firstOption = availableLaunchOptions[0]
 
@@ -355,6 +366,9 @@ async function checkLaunchOptionsAndLaunch({
 
     // Update the dialog title with countdown
     const updateCountdown = () => {
+      if (launchCanceled) {
+        return res({ status: 'done' })
+      }
       showDialogModal({
         message: t(
           'gamepage:box.selectLaunchOption.body',
@@ -365,7 +379,19 @@ async function checkLaunchOptionsAndLaunch({
           'Select Launch Option ({{seconds}}s)',
           { seconds: secondsRemaining }
         ),
-        buttons: optionButtons
+        buttons: optionButtons,
+        className: 'launchOptionsDialog',
+        onClose: () => {
+          if (timeoutId) {
+            clearTimeout(timeoutId)
+          }
+          if (countdownInterval) {
+            clearInterval(countdownInterval)
+          }
+          showDialogModal({ showDialog: false })
+          launchCanceled = true
+          return res({ status: 'done' })
+        }
       })
     }
 
@@ -406,7 +432,6 @@ async function checkLaunchOptionsAndLaunch({
             value: option
           })
 
-          // Launch with the selected option
           res(
             window.api.launch({
               appName,
@@ -426,7 +451,7 @@ async function checkLaunchOptionsAndLaunch({
     // Update countdown every second
     countdownInterval = setInterval(() => {
       secondsRemaining--
-      if (secondsRemaining > 0) {
+      if (secondsRemaining > 0 && !launchCanceled) {
         updateCountdown()
       }
     }, 1000)

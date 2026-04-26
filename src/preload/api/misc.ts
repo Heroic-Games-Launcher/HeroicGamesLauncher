@@ -1,6 +1,7 @@
 import { makeListenerCaller, makeHandlerInvoker, frontendListenerSlot } from '../ipc'
 
 export const clearCache = makeListenerCaller('clearCache')
+export const clearAchievementCache = makeListenerCaller('clearAchievementCache')
 export const resetHeroic = makeListenerCaller('resetHeroic')
 export const openWeblate = makeListenerCaller('openWeblate')
 export const changeLanguage = makeListenerCaller('changeLanguage')
@@ -10,6 +11,7 @@ export const getLatestReleases = makeHandlerInvoker('getLatestReleases')
 export const getCurrentChangelog = makeHandlerInvoker('getCurrentChangelog')
 export const openPatreonPage = makeListenerCaller('openPatreonPage')
 export const openKofiPage = makeListenerCaller('openKofiPage')
+export const openGithubSponsorsPage = makeListenerCaller('openGithubSponsorsPage')
 export const isFullscreen = makeHandlerInvoker('isFullscreen')
 export const isFrameless = makeHandlerInvoker('isFrameless')
 export const isMinimized = makeHandlerInvoker('isMinimized')
@@ -18,6 +20,7 @@ export const minimizeWindow = makeListenerCaller('minimizeWindow')
 export const maximizeWindow = makeListenerCaller('maximizeWindow')
 export const unmaximizeWindow = makeListenerCaller('unmaximizeWindow')
 export const closeWindow = makeListenerCaller('closeWindow')
+export const setFullscreen = makeListenerCaller('setFullscreen')
 export const handleMaximized = frontendListenerSlot('maximized')
 export const handleUnmaximized = frontendListenerSlot('unmaximized')
 export const handleFullscreen = frontendListenerSlot('fullscreen')
@@ -102,3 +105,9 @@ export const deleteUploadedLogFile = makeHandlerInvoker('deleteUploadedLogFile')
 export const logFileUploadedSlot = frontendListenerSlot('logFileUploaded')
 export const logFileUploadDeletedSlot = frontendListenerSlot('logFileUploadDeleted')
 export const isIntelMac = makeHandlerInvoker('isIntelMac')
+export const steamgriddb = {
+  hasApiKey: makeHandlerInvoker('steamgriddb.hasApiKey'),
+  setApiKey: makeHandlerInvoker('steamgriddb.setApiKey'),
+  searchGame: makeHandlerInvoker('steamgriddb.searchGame'),
+  getGrids: makeHandlerInvoker('steamgriddb.getGrids')
+}

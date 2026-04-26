@@ -113,7 +113,12 @@ export class GOGUser {
       abortId: 'gogdl-get-credentials',
       logSanitizer: authLogSanitizer
     })
-    return JSON.parse(stdout)
+    try {
+      return JSON.parse(stdout) as GOGCredentials | undefined
+    } catch (error) {
+      logError(['Error getting GOG credentials:', error])
+      return undefined
+    }
   }
 
   public static logout() {

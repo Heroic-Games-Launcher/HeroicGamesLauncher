@@ -9,7 +9,7 @@ import {
 } from 'common/types/electron_store'
 import { GameInfo } from 'common/types'
 
-export class TypeCheckedStoreFrontend<
+class TypeCheckedStoreFrontend<
   Name extends ValidStoreName
 > implements TypeCheckedStore<Name> {
   private storeName: ValidStoreName

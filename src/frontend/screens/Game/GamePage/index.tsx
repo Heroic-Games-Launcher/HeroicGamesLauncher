@@ -1,8 +1,14 @@
 import './index.css'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
-import { ArrowBackIosNew, Info, Star, Monitor } from '@mui/icons-material'
+import {
+  ArrowBackIosNew,
+  Info,
+  Star,
+  Monitor,
+  EmojiEvents
+} from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
 
@@ -26,7 +32,7 @@ import {
   Runner,
   WikiInfo,
   InstallInfo,
-  LaunchOption
+  GameAchievement
 } from 'common/types'
 
 import GamePicture from '../GamePicture'
@@ -52,7 +58,6 @@ import {
   GameStatus,
   HLTB,
   InstalledInfo,
-  LaunchOptions,
   MainButton,
   ReportIssue,
   Requirements,
@@ -68,6 +73,8 @@ import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useSettingsContext from 'frontend/hooks/useSettingsContext'
 import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import Achievements from './components/Achievements'
+import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -109,17 +116,26 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
   )
+  const [achievements, setAchievements] = useState<GameAchievement[]>([])
+  const hasAchievements = achievements && achievements.length > 0
+  const achievementPercentage = hasAchievements
+    ? Math.round(
+        (achievements.filter((x) => x.date_unlocked).length /
+          achievements.length) *
+          100
+      )
+    : 0
+
   const [notInstallable, setNotInstallable] = useState<boolean>(false)
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
   )
-  const [launchArguments, setLaunchArguments] = useState<
-    LaunchOption | undefined
-  >(undefined)
+
   const [hasError, setHasError] = useState<{
     error: boolean
     message: unknown
   }>({ error: false, message: '' })
+  const [playClicked, setPlayClicked] = useState(false)
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
@@ -149,14 +165,27 @@ export default React.memo(function GamePage(): JSX.Element | null {
     !!gameInfo.thirdPartyManagedApp &&
     !gameInfo.isEAManaged
   const isOffline = connectivity.status !== 'online'
+  const notPlayableOffline = isOffline && !gameInfo.canRunOffline
 
   const backRoute = location.state?.fromDM ? '/download-manager' : '/library'
 
   const storage: Storage = window.localStorage
 
   const [currentTab, setCurrentTab] = useState<
-    'info' | 'extra' | 'requirements'
+    'info' | 'achievements' | 'extra' | 'requirements'
   >('info')
+
+  const previousIsPlaying = useRef<boolean>(isPlaying)
+  useEffect(() => {
+    const updateAchievements = async () => {
+      if (!isPlaying && previousIsPlaying.current)
+        window.api.clearAchievementCache(appName)
+      setAchievements(await window.api.getAchievements(appName, runner))
+    }
+
+    updateAchievements()
+    previousIsPlaying.current = isPlaying
+  }, [isPlaying, appName])
 
   useEffect(() => {
     const updateGameInfo = async () => {
@@ -242,6 +271,12 @@ export default React.memo(function GamePage(): JSX.Element | null {
     })
   }, [appName])
 
+  useEffect(() => {
+    // when the user clicks the Play button, we disable it so the user can't click it again
+    // once we receive the "launching" status update we can safely unset this state
+    if (status === 'launching') setPlayClicked(false)
+  }, [status])
+
   function handleUpdate() {
     if (gameInfo.runner !== 'sideload')
       updateGame({ appName, runner, gameInfo })
@@ -308,7 +343,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         importing: isImporting,
         installingWinetricksPackages: isInstallingWinetricksPackages,
         installingRedist: isInstallingRedist,
-        launching: isLaunching,
+        launching: isLaunching || playClicked,
         linux: isLinux,
         linuxNative: isLinuxNative,
         mac: isMac,
@@ -325,7 +360,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
         syncing: isSyncing,
         uninstalling: isUninstalling,
         updating: isUpdating,
-        win: isWin
+        win: isWin,
+        notPlayableOffline: notPlayableOffline
       },
       statusContext,
       status,
@@ -428,10 +464,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         handleUpdate={handleUpdate}
                         hasUpdate={hasUpdate}
                       />
-                      <LaunchOptions
-                        gameInfo={gameInfo}
-                        setLaunchArguments={setLaunchArguments}
-                      />
+                      <LaunchOptionSelector showTitle={false} />
                       <div className="buttons">
                         <MainButton
                           gameInfo={gameInfo}
@@ -451,6 +484,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           onChange={(e, newVal) => setCurrentTab(newVal)}
                           aria-label="gameinfo tabs"
                           selectionFollowsFocus
+                          variant="scrollable"
+                          scrollButtons="auto"
                         >
                           <Tab
                             className="tabButton"
@@ -459,6 +494,20 @@ export default React.memo(function GamePage(): JSX.Element | null {
                             iconPosition="start"
                             icon={<Info className="gameInfoTabsIcon" />}
                           />
+                          {hasAchievements && (
+                            <Tab
+                              className="tabButton"
+                              value={'achievements'}
+                              label={
+                                t('game.achievements', 'Achievements') +
+                                ` · ${achievementPercentage}%`
+                              }
+                              iconPosition="start"
+                              icon={
+                                <EmojiEvents className="gameInfoTabsIcon" />
+                              }
+                            />
+                          )}
                           {hasWikiInfo && (
                             <Tab
                               className="tabButton"
@@ -481,6 +530,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       </div>
 
                       <div>
+                        <TabPanel
+                          value={currentTab}
+                          index="achievements"
+                          className="achievementsTab"
+                        >
+                          <Achievements achievements={achievements} />
+                        </TabPanel>
                         <TabPanel
                           value={currentTab}
                           index="info"
@@ -532,14 +588,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
       return sendKill(appName, gameInfo.runner)
     }
 
+    setPlayClicked(true)
     await launch({
       appName,
       t,
-      launchArguments,
       runner: gameInfo.runner,
       hasUpdate,
-      showDialogModal
+      showDialogModal,
+      notPlayableOffline
     })
+    setPlayClicked(false)
   }
 
   async function handleInstall(is_installed: boolean) {

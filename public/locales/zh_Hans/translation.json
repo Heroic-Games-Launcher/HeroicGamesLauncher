@@ -99,7 +99,11 @@
                 "title": "Steam 错误"
             },
             "executableNotFound": "未找到可执行文件",
-            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。"
+            "executableNotFoundMessage": "Heroic 找不到这个游戏的可执行文件。请在游戏设置中手动指定。",
+            "dxmt": {
+                "message": "下载 DXMT 出错！检查你的连接！",
+                "title": "DXMT 下载错误"
+            }
         },
         "info": {
             "update": {
@@ -264,7 +268,10 @@
         },
         "library": {
             "refresh": "刷新游戏库"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "全局设置",
     "GOG": "GOG",
@@ -561,7 +568,7 @@
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
         "dxvkfpsvalue": "正整数值 (如30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
-        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")",
+        "prefered_language": "双字符或四字符代码 (如: \"fr\" 或 \"pt-BR\")",
         "alt-nile-bin": "使用内置 Nile 二进制文件..."
     },
     "platforms": {
@@ -674,7 +681,8 @@
                 },
                 "error": {
                     "content": "上传日志文件失败。详情请查看 Heroic 的常规日志",
-                    "title": "上传失败了"
+                    "title": "上传失败了",
+                    "manual_upload": "单击 “在文件夹中显示日志文件”按钮并手动上传“launch.log”文件到 Discord 或任何在线文件分享服务。"
                 },
                 "header": "已上传的日志文件",
                 "minutes-ago": "上传于 {{minutesAgo, relativetime(minutes)}} 分钟前",
@@ -811,7 +819,10 @@
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
         "WoW64": "启用 WoW64（实验性）",
-        "scripts": "脚本："
+        "scripts": "脚本：",
+        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单",
+        "disable_gog_presence": "禁用 GOG Presence 更新",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -848,7 +859,8 @@
             "sync": "存档-同步",
             "wineExt": "Wine 扩展",
             "systemInformation": "系统信息",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "老古董"
         },
         "open-config-file": "打开配置文件",
         "reset-heroic": "重置 Heroic",
@@ -914,12 +926,25 @@
         },
         "custom_css": {
             "title": "自定义 CSS 样式"
+        },
+        "launchOptions": "启动选项",
+        "legacy_warning": "警告：此选项卡上的设置大多已废弃，可能完全无法使用。",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "设置",
     "sidebar": {
         "collapse": "收起侧栏",
-        "uncollapse": "展开侧栏"
+        "uncollapse": "展开侧栏",
+        "console": ""
     },
     "status": {
         "installing": "安装中",
@@ -976,10 +1001,17 @@
             "link": "Wine 管理器",
             "not-found": "未找到 Wine 版本。请单击刷新按钮重试。",
             "title": "Wine 管理器",
-            "unzipping": "解压缩"
+            "unzipping": "解压缩",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "发布日期",
-        "size": "大小"
+        "size": "大小",
+        "notes": "附注"
     },
     "externalLink": {
         "warning": "你即将打开一个外部链接。",
@@ -1025,7 +1057,10 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Protonis 是 Glorious Eggroll 创建的 Wine 变体。它是建议用于 Steam 之外的 Wine 版本，提供对故障排除有用的日志。",
-        "proton-ge": "GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。"
+        "proton-ge": "GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
@@ -1116,5 +1151,135 @@
         "title": "发送匿名分析信息"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Zoom 商店"
+    "zoom-store": "Zoom 商店",
+    "launch": {
+        "options": "启动选项..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

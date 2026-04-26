@@ -11,7 +11,7 @@
         "actions_font_family_default": "Tipografía de acciones (Por Defecto: {{fontFamily}})",
         "content_font_family_default": "Tipografía de contenido (Por Defecto: {{fontFamily}})",
         "disable_smooth_scrolling": "Desactivar scroll suave (requiere reiniciar)",
-        "disable_animations": "Desactivar animaciones de IU"
+        "disable_animations": "Desactivar animaciones de la interfaz de usuario (IU)"
     },
     "add_game": "Añadir juego",
     "All": "Todos",
@@ -99,7 +99,11 @@
                 "title": "Error de Steam"
             },
             "executableNotFound": "No se ha encontrado el ejecutable",
-            "executableNotFoundMessage": "Heroic no pudo encontrar el ejecutable para este juego. Por favor, configura la ruta manualmente en la configuración del juego."
+            "executableNotFoundMessage": "Heroic no pudo encontrar el ejecutable para este juego. Por favor, configura la ruta manualmente en la configuración del juego.",
+            "dxmt": {
+                "title": "Error al descargar DXMT",
+                "message": "Error al descargar DXMT! Compruebe su conexión!"
+            }
         },
         "info": {
             "update": {
@@ -264,7 +268,10 @@
         },
         "library": {
             "refresh": "Recargar biblioteca"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Ajustes globales",
     "GOG": "GOG",
@@ -368,7 +375,7 @@
             "close": "Cerrar ayuda"
         },
         "msync": "Fsync intenta reducir la sobrecarga de wineserver en juegos con uso intensivo de CPU. Activarlo puede mejorar el rendimiento en kernels de Linux que lo soporten.",
-        "dxfpslimit": "Configura un límite de cuadros por segundo para juegos con DXVK",
+        "dxfpslimit": "Establece un límite de velocidad de fotogramas para los juegos DirectX (9-12).",
         "advertiseAvxForRosetta": "Activa el set de soporte de instrucciones AVX cuando se ejecutan juegos de Windows a través de Rosetta en computadoras Apple Sillicon. Esto podría ser requerido por algunos juegos como Death Stranding que necesita soporte AVX.",
         "download_proton_steam": "Si se activa, GE-Proton se descargará directamente en el directorio de herramientas de compatibilidad de Steam en lugar de la ruta por defecto de Heroic. Se usará la ruta de Steam de la configuración 'Ruta por defecto de Steam' más arriba.",
         "wine-hdr": "El HDR mejora los colores proporcionando resaltes más brillantes y contrastes más profundos. Para que el HDR funcione, tanto la pantalla como el juego deben ser compatibles.",
@@ -561,7 +568,7 @@
         "custom_themes_path": "Seleccione la ubicación de donde buscar los archivos CSS",
         "dxvkfpsvalue": "Valor entero positivo (por ejemplo, 30, 60, ...)",
         "egs-prefix": "Prefijo donde está instalado EGS",
-        "prefered_language": "Código de 2 caracteres (ej: \"en\" o \"fr\")",
+        "prefered_language": "Código de 2 o 4 caracteres (ej: \"fr\" o \"pt-BR\")",
         "alt-nile-bin": "Usando el binario integrado Nile..."
     },
     "platforms": {
@@ -668,7 +675,8 @@
                 },
                 "error": {
                     "content": "Falló la subida del registro. Ver el registro general de Heroic para detalles",
-                    "title": "Error al subir"
+                    "title": "Error al subir",
+                    "manual_upload": "Clicar en el botón «MOSTRAR ARCHIVO DE REGISTROS EN LA CARPETA» y subir manualmente el archivo «launch.log» en Discord o en otro servicio online para compartir archivos."
                 },
                 "header": "Se subieron los registros",
                 "hours-ago": "Subido {{hoursAgo, relativetime(hours)}}",
@@ -808,9 +816,13 @@
                 "title": "Seguro?"
             },
             "info_label": "Versiones de Valve Proton ignoradas",
-            "label": "Permitir usar versiones de Proton que no sean GE para ejecutar juegos",
-            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto, puedes activarlas en la Configuracion Avanzada Global"
-        }
+            "label": "Permitir el uso de compilaciones de Valve Proton para ejecutar juegos",
+            "wine_selector_warning": "Las versiones de Proton que no sean GE son ignoradas por defecto. Puedes activarlas en la Configuración Avanzada Global."
+        },
+        "enable-quick-sync-menu": "Habilitar el menú Guardar y sincronizar rápidamente en la página del juego",
+        "scripts": "Secuencias de comandos:",
+        "disable_gog_presence": "Desactivar actualizaciones de GOG Presence",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -844,10 +856,11 @@
             "general": "General",
             "log": "Registro",
             "other": "Otro",
-            "sync": "Guardar-Sincronización",
+            "sync": "Sincronización de los juegos guardados en la nube",
             "wineExt": "Extensiones de Wine",
             "systemInformation": "Información del sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Obsoleto"
         },
         "open-config-file": "Abrir archivo de configuración",
         "reset-heroic": "Restablecer Heroic",
@@ -913,12 +926,25 @@
         },
         "custom_css": {
             "title": "Estilo CSS personalizado"
+        },
+        "launchOptions": "Opciones de arranque",
+        "legacy_warning": "Advertencia: La mayoría de los ajustes de esta pestaña están obsoletos y es posible que no funcionen.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Ajustes",
     "sidebar": {
         "collapse": "Colapsar barra lateral",
-        "uncollapse": "Expandir barra lateral"
+        "uncollapse": "Expandir barra lateral",
+        "console": ""
     },
     "status": {
         "installing": "Instalando",
@@ -975,10 +1001,17 @@
             "link": "Gestor de Wine",
             "not-found": "No se encontraron version de Wine. Por favor, presiona el botón de refrescar para volver a intentar.",
             "title": "Gestor de Wine",
-            "unzipping": "Descomprimiendo"
+            "unzipping": "Descomprimiendo",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Fecha de lanzamiento",
-        "size": "Tamaño"
+        "size": "Tamaño",
+        "notes": "Notas"
     },
     "externalLink": {
         "dontAskAgain": "No volver a preguntar",
@@ -1045,7 +1078,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton es una variante de Proton creada por Glorious Eggroll. Está diseñada para usarse en Steam, pero algunos juegos fuera de Steam podrían funcionar mejor con esta variante. Genera registros casi siempre inútiles para solucionar problemas.",
-        "wine-ge": "Wine-GE-Proton es una variante de Wine creada por Glorious Eggroll. Es la versión de Wine para ser usada fuera de Steam. Genera registros útiles para solucionar problemas."
+        "wine-ge": "Wine-GE-Proton es una variante de Wine creada por Glorious Eggroll. Es la versión de Wine para ser usada fuera de Steam. Genera registros útiles para solucionar problemas.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "tour": {
         "back": "Volver",
@@ -1115,5 +1151,135 @@
         "title": "Enviar analíticas anónimas"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Tienda de Zoom"
+    "zoom-store": "Tienda de Zoom",
+    "launch": {
+        "options": "Opciones de arranque..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

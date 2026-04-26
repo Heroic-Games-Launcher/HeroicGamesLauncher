@@ -99,7 +99,11 @@
                 "error": "Изпълнимият файл на Steam не може да бъде намерен. Възможно е инсталацията да е била прекъсната от потребителя, или да е била неуспешна в Steam."
             },
             "executableNotFound": "Изпълнимият файл не може да бъде намерен",
-            "executableNotFoundMessage": "Heroic не успя да намери изпълнимия файл за тази игра. Моля, задайте го ръчно в настройките на играта."
+            "executableNotFoundMessage": "Heroic не успя да намери изпълнимия файл за тази игра. Моля, задайте го ръчно в настройките на играта.",
+            "dxmt": {
+                "message": "Грешка при свалянето на DXMT! Проверете връзката с Интернет!",
+                "title": "Грешка при свалянето на DXMT"
+            }
         },
         "info": {
             "update": {
@@ -217,9 +221,9 @@
             "install_game": "Инсталиране на играта",
             "move_cursor": "Преместване на курсора",
             "open_virtual_keyboard": "Отваряне на виртуалната клавиатура",
-            "options": "Options",
+            "options": "Настройки",
             "play_game": "Пускане на играта",
-            "scroll": "Scroll",
+            "scroll": "Превъртане",
             "select": "Избиране",
             "space": "Интервал",
             "update_game": "Обновяване на играта"
@@ -264,7 +268,10 @@
         },
         "library": {
             "refresh": "Опресняване на библиотеката"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Глобални настройки",
     "GOG": "GOG",
@@ -560,7 +567,7 @@
         "custom_themes_path": "Изберете път за търсене на персонализирани файлове CSS",
         "dxvkfpsvalue": "Положително цяло число (например: 30, 60, …)",
         "egs-prefix": "Префикс, където е инсталиран EGS",
-        "prefered_language": "Код съставен от 2 знака (например: „en“ или „fr“)",
+        "prefered_language": "Код съставен от 2 или 4 знака (например: „fr“ или „pt-BR“)",
         "alt-nile-bin": "Използване на вградения изпълним файл на Nile…"
     },
     "platforms": {
@@ -679,7 +686,8 @@
                 "delete": "Заявка за изтриване на файла с журнала",
                 "error": {
                     "title": "Качването беше неуспешно",
-                    "content": "Качването на файла с журнала беше неуспешно. Прегледайте общия журнал на Heroic за подробности."
+                    "content": "Качването на файла с журнала беше неуспешно. Прегледайте общия журнал на Heroic за подробности.",
+                    "manual_upload": "Натиснете бутона „ПОКАЗВАНЕ НА ФАЙЛА С ЖУРНАЛА В ПАПКАТА МУ“ и качете ръчно файла „launch.log“ в Discord или друга услуга за споделяне на файлове."
                 },
                 "header": "Качени файлове с журнали",
                 "minutes-ago": "Качено {{minutesAgo, relativetime(minutes)}}",
@@ -810,7 +818,10 @@
             "info_label": "Версиите на Proton от Valve се игнорират"
         },
         "WoW64": "Включване на WoW64 (експериментално)",
-        "scripts": "Скриптове:"
+        "scripts": "Скриптове:",
+        "enable-quick-sync-menu": "Включете менюто за бързо синхронизиране на запазените игри, в страницата на играта",
+        "disable_gog_presence": "Изключване на актуализациите за присъствие в GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -847,7 +858,8 @@
             "sync": "Синхронизиране на запазените файлове",
             "wineExt": "Wine Extensions",
             "systemInformation": "Системна информация",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Стари"
         },
         "open-config-file": "Отваряне на конфигурационния файл",
         "reset-heroic": "Зачистване на Heroic",
@@ -913,12 +925,25 @@
         },
         "custom_css": {
             "title": "Персонализиран CSS стил"
+        },
+        "launchOptions": "Пускови опции",
+        "legacy_warning": "Внимание: повечето от настройките в този раздел са стари и може изобщо да не работят.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Настройки",
     "sidebar": {
         "collapse": "Свиване на страничната лента",
-        "uncollapse": "Разпъване на страничната лента"
+        "uncollapse": "Разпъване на страничната лента",
+        "console": ""
     },
     "status": {
         "installing": "Инсталира се",
@@ -975,10 +1000,17 @@
             "link": "Управление на Wine",
             "not-found": "Няма намерени версии на Wine. Натиснете иконката за опресняване, за да опитате отново.",
             "title": "Управление на Wine",
-            "unzipping": "Разархивиране"
+            "unzipping": "Разархивиране",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Дата на изданието",
-        "size": "Размер"
+        "size": "Размер",
+        "notes": "Бележки"
     },
     "externalLink": {
         "dontAskAgain": "Не ме питайте повече",
@@ -1033,7 +1065,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton е вариант на Proton разработен от Glorious Eggroll. Той има за цел да бъде ползван в Steam, но някои игри извън Steam може да работят по-добре с този вариант. Журналите за отстраняване на грешки, които предоставя, са в голяма част неизползваеми.",
-        "wine-ge": "Wine-GE-Proton е вариант на Wine разработен от Glorious Eggroll. Това е препоръчителният вариант на Wine, който да се ползва извън Steam. Той предоставя полезни журнали за отстраняване на грешки."
+        "wine-ge": "Wine-GE-Proton е вариант на Wine разработен от Glorious Eggroll. Това е препоръчителният вариант на Wine, който да се ползва извън Steam. Той предоставя полезни журнали за отстраняване на грешки.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "add-placeholder": "Добавяне на нова категория",
@@ -1053,7 +1088,7 @@
         "next": "Следващо",
         "library": {
             "filters": "Филтрирайте игрите си според магазин, система, любими и още, с помощта на тези настройки.",
-            "gameCard": "Щракнете с ляв бутон върху картата на играта, за да отворите страницата на играта, да видите подробности и да нагласите настройките. Щракнете с десен бутон, за да се покаже контекстното меню.",
+            "gameCard": "Щракнете с ляв бутон върху картата на играта, за да отворите страницата на играта, където можете да видите подробности и да нагласите настройките. Щракнете с десен бутон, за да се покаже контекстното меню.",
             "welcome": {
                 "intro2": "Ако библиотеката е празна, уверете се, че сте се вписали с акаунтите си в „Управление на акаунтите“ в страничната лента, или добавете свои собствени игри чрез бутона за „Добавяне на игра“ в горната част.",
                 "intro": "Добре дошли в библиотеката! Тук ще намерите всичките си игри от различните магазини.",
@@ -1115,5 +1150,135 @@
         "title": "Изпращане на анонимни аналитични данни"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Магазин на Zoom"
+    "zoom-store": "Магазин на Zoom",
+    "launch": {
+        "options": "Параметри за стартиране…"
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

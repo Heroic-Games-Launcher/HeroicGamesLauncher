@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useContext } from 'react'
 import ContextProvider from 'frontend/state/ContextProvider'
 
+import useGlobalState from 'frontend/state/GlobalStateV2'
+
 type Props = {
   appName: string
   gameInfo?: GameInfo
@@ -14,6 +16,7 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
   const [currentConfig, setCurrentConfig] = useState<Partial<AppSettings>>({})
   const { i18n } = useTranslation()
   const { platform } = useContext(ContextProvider)
+  const { settingsModalProps } = useGlobalState.keys('settingsModalProps')
 
   const isDefault = appName === 'default'
   const isLinux = platform === 'linux'
@@ -32,8 +35,8 @@ const useSettingsContext = ({ appName, gameInfo, runner }: Props) => {
         : await window.api.requestGameSettings(appName)
       setCurrentConfig(config)
     }
-    getSettings()
-  }, [appName, isDefault, i18n.language])
+    void getSettings()
+  }, [appName, isDefault, i18n.language, settingsModalProps.isOpen])
 
   const contextValues: SettingsContextType = {
     getSetting: (key, fallback) => currentConfig[key] ?? fallback,

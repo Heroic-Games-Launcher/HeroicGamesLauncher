@@ -4,6 +4,8 @@ import { useShallow } from 'zustand/react/shallow'
 import type { GetLogFileArgs } from 'backend/logger/paths'
 import type { GameInfo } from 'common/types'
 import type { GameSettingsModalType } from '../screens/Settings/components/SettingsModal'
+import { notify } from 'frontend/helpers'
+import { t } from 'i18next'
 
 interface GlobalStateV2 {
   uploadLogFileProps:
@@ -27,6 +29,9 @@ interface GlobalStateV2 {
   closeSettingsModal: () => void
 
   showUploadedLogFileList: boolean
+
+  refreshingWineVersions: boolean
+  refreshWineVersions: (fetch: boolean) => void
 }
 
 const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
@@ -67,7 +72,27 @@ const useGlobalStateRaw = create<GlobalStateV2>()((set) => ({
     set({ settingsModalProps: { isOpen: false } })
   },
 
-  showUploadedLogFileList: false
+  showUploadedLogFileList: false,
+
+  refreshingWineVersions: false,
+  refreshWineVersions: (fetch) => {
+    window.api.logInfo('Refreshing wine downloader releases')
+    set({ refreshingWineVersions: true })
+    window.api
+      .refreshWineVersionInfo(fetch)
+      .catch(() => {
+        window.api.logError('Sync with upstream releases failed')
+
+        notify({
+          title: 'Wine-Manager',
+          body: t(
+            'notify.refresh.error',
+            "Couldn't fetch releases from upstream, maybe because of Github API restrictions! Try again later."
+          )
+        })
+      })
+      .finally(() => set({ refreshingWineVersions: false }))
+  }
 }))
 
 /**

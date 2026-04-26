@@ -49,7 +49,24 @@
         "wineprefix": "Valige WinePrefiksi kaust",
         "yes": "JAH",
         "close": "Sulge",
-        "select-install-path": "Vali Steami paigaldusasukoht"
+        "select-install-path": "Vali Steami paigaldusasukoht",
+        "selectLaunchOption": {
+            "body": "Palun valige selle mängu jaoks käivitusvalik (seda saab mängu sätetest hiljem muuta):",
+            "title": "Valige käivitusvalik ({{seconds}}s)"
+        },
+        "warning": {
+            "title": "Hoiatus"
+        },
+        "sync": {
+            "force_download_warning": "Kohalikud salvestused kustutatakse. Kas soovite jätkata?",
+            "force_upload_warning": "Pilvesalvestused kirjutatakse üle. Kas soovite jätkata?"
+        },
+        "ok": "OK",
+        "offline_warning": {
+            "message": "See mäng ei pruugi netiühenduseta korralikult toimida. Kas soovite ikkagi mängida?",
+            "playAnyway": "Mängi ikkagi",
+            "title": "Netiühenduse hoiatus"
+        }
     },
     "button": {
         "add_to_favourites": "Lisa lemmikute hulka",
@@ -114,7 +131,8 @@
         "changelogFor": "Muutuste nimekiri mängule {{gameTitle}}",
         "modify": "Muuda paigaldust",
         "extra_info": "Lisainfo",
-        "install_info": "Paigaldamise info"
+        "install_info": "Paigaldamise info",
+        "achievements": "Saavutused"
     },
     "gamecard": {
         "moving": "Liigutamine",
@@ -211,7 +229,8 @@
         }
     },
     "launch": {
-        "options": "Käivitusvalikud..."
+        "options": "Käivitusvalikud...",
+        "default": "Vaikimisi"
     },
     "not_logged_in": {
         "epic": "Te pole Epic kontoga Heroicusse sisse logitud. Ärge kasutage sisse logimiseks poelehte, vaid klikkige sellele nupule:",
@@ -337,5 +356,6 @@
             "resume": "Jätka allalaadimist"
         }
     },
-    "Open": "Ava"
+    "Open": "Ava",
+    "open-saves-folder": "Ava salvestuste kaust"
 }

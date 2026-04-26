@@ -25,8 +25,10 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
-  ResetHeroic
+  ResetHeroic,
+  SteamGridDbApiKey
 } from '../../components'
+import DisableGOGPresence from '../../components/DisableGOGPresence'
 
 export default function AdvancedSetting() {
   const { config } = useContext(SettingsContext)
@@ -179,6 +181,8 @@ export default function AdvancedSetting() {
 
       <DisableLogs />
 
+      <DisableGOGPresence />
+
       <AllowInstallationBrokenAnticheat />
 
       {isLinux && <ShowValveProton />}
@@ -296,6 +300,11 @@ export default function AdvancedSetting() {
             </button>
           )}
         </div>
+        <hr />
+      </div>
+
+      <div className="advancedSetting">
+        <SteamGridDbApiKey />
         <hr />
       </div>
 

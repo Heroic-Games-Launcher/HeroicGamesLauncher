@@ -13,6 +13,7 @@ import type {
   DownloadManagerState,
   ExecResult,
   ExtraInfo,
+  GameAchievement,
   GameInfo,
   GamepadActionArgs,
   GameSettings,
@@ -44,6 +45,7 @@ import type {
   WineManagerStatus,
   WineVersionInfo
 } from '../types'
+import type { CatalogLocaleSettings, CatalogProduct } from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
@@ -68,6 +70,7 @@ interface SyncIPCFunctions {
   openDiscordLink: () => void
   openPatreonPage: () => void
   openKofiPage: () => void
+  openGithubSponsorsPage: () => void
   openWinePrefixFAQ: () => void
   openWebviewPage: (url: string) => void
   openWikiLink: () => void
@@ -76,6 +79,7 @@ interface SyncIPCFunctions {
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void
+  clearAchievementCache: (appName: string) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
@@ -107,6 +111,7 @@ interface SyncIPCFunctions {
   maximizeWindow: () => void
   unmaximizeWindow: () => void
   closeWindow: () => void
+  setFullscreen: (enabled: boolean) => void
   setTitleBarOverlay: (options: TitleBarOverlay) => void
   winetricksInstall: (
     runner: Runner,
@@ -169,6 +174,11 @@ interface AsyncIPCFunctions {
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
   getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
+  getAchievements: (
+    appName: string,
+    runner: Runner,
+    lang?: string
+  ) => Promise<GameAchievement[]>
   getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
@@ -334,6 +344,20 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  getGogDiscounts: (
+    locale: CatalogLocaleSettings,
+    hideOwned?: boolean
+  ) => Promise<CatalogProduct[]>
+  'steamgriddb.hasApiKey': () => Promise<boolean>
+  'steamgriddb.setApiKey': (key: string) => Promise<void>
+  'steamgriddb.searchGame': (
+    query: string
+  ) => Promise<Array<{ id: number; name: string }>>
+  'steamgriddb.getGrids': (args: {
+    gameId: number
+    styles?: string[]
+    dimensions?: string[]
+  }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 
 interface FrontendMessages {

@@ -99,7 +99,11 @@
                 "title": "Error del Steam"
             },
             "executableNotFound": "No s'ha trobat l'executable",
-            "executableNotFoundMessage": "L'Heroic no pot trobar l'executable d'aquest joc. Si us plau, configureu-lo manualment a la configuració del joc."
+            "executableNotFoundMessage": "L'Heroic no pot trobar l'executable d'aquest joc. Si us plau, configureu-lo manualment a la configuració del joc.",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            }
         },
         "info": {
             "update": {
@@ -264,7 +268,10 @@
         },
         "library": {
             "refresh": "Actualitza la biblioteca"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Configuració global",
     "GOG": "GOG",
@@ -668,7 +675,8 @@
                 },
                 "error": {
                     "content": "No s'ha pogut pujar el fitxer de registre. Comproveu el registre general de l'Heroic per a obtenir més detalls.",
-                    "title": "La pujada ha fallat"
+                    "title": "La pujada ha fallat",
+                    "manual_upload": ""
                 },
                 "header": "S'han pujat els fitxers de registre",
                 "hours-ago": "S'ha pujat fa {{hoursAgo, relativetime(hours)}}",
@@ -804,7 +812,10 @@
         "no-tray-icon": "Amaga la icona de la safata del sistema (cal reiniciar)",
         "wineWayland": "Activa el Wine-Wayland (Experimental) (Cal que la versió del Wine hi sigui compatible)",
         "WoW64": "Activa el WoW64 (Experimental)",
-        "scripts": "Scripts:"
+        "scripts": "Scripts:",
+        "enable-quick-sync-menu": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -841,7 +852,8 @@
             "sync": "Sincronització de desades al núvol",
             "wineExt": "Extensions del Wine",
             "systemInformation": "Informació del sistema",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Obre el fitxer de configuració",
         "reset-heroic": "Restableix l'Heroic",
@@ -907,12 +919,25 @@
         },
         "custom_css": {
             "title": "Estil CSS personalitzat"
+        },
+        "launchOptions": "Opcions d'execució...",
+        "legacy_warning": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Configuració",
     "sidebar": {
         "collapse": "Col·lapsa la barra lateral",
-        "uncollapse": "Expandeix la barra lateral"
+        "uncollapse": "Expandeix la barra lateral",
+        "console": ""
     },
     "status": {
         "installing": "S'està instal·lant",
@@ -969,10 +994,17 @@
             "link": "Gestor del Wine",
             "not-found": "No s'han trobat versions del Wine. Fes clic a la icona d'actualització per a provar-ho de nou.",
             "title": "Gestor del Wine",
-            "unzipping": "S'està descomprimint"
+            "unzipping": "S'està descomprimint",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Data de llançament",
-        "size": "Mida"
+        "size": "Mida",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "No ho tornis a preguntar",
@@ -1018,7 +1050,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton és una variant del Proton creada per Glorious Eggroll. S'ha de fer servir amb el llançador umu (predefinit a l'Heroic).",
-        "wine-ge": "El Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. S'ha quedat obsolet en favor del GE-Proton i el llançador umu."
+        "wine-ge": "El Wine-GE-Proton és una variant del Wine creada per Glorious Eggroll. S'ha quedat obsolet en favor del GE-Proton i el llançador umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "Els filtres actuals no han produït cap resultat.",
@@ -1109,5 +1144,135 @@
         "title": "Envia analítiques anònimes"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Botiga del Zoom"
+    "zoom-store": "Botiga del Zoom",
+    "launch": {
+        "options": "Opcions d'execució..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

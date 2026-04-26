@@ -8,7 +8,10 @@
         "zoom": "Uvečaj",
         "actions_font_family_default": "Actions Font Family (Default:",
         "content_font_family_default": "Content Font Family (Default:",
-        "titles_always_visible": "Uvijek prikazuj naslove u knjižnici"
+        "titles_always_visible": "Uvijek prikazuj naslove u knjižnici",
+        "disable_smooth_scrolling": "",
+        "disable_animations": "",
+        "disable_dialog_backdrop_close": ""
     },
     "add_game": "Dodaj igru",
     "All": "Sve",
@@ -89,7 +92,13 @@
             },
             "legendary": {
                 "generic": "Došlo je do pogreške! Pokušajte se odjaviti i prijaviti na svoj Epic račun. {{newline}} {{error}}"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "info": {
             "update": {
@@ -98,7 +107,8 @@
                 "message": "There is a new Version available!",
                 "message-finished": "Do you want to restart Heroic now?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Update Finished",
+                "detailNoAutoupdate": ""
             }
         },
         "no": "NE",
@@ -160,18 +170,27 @@
             },
             "sideload": {
                 "confirmExit": {
-                    "title": "Jeste li sigurni da se želite odustati?"
+                    "title": "Jeste li sigurni da se želite odustati?",
+                    "message": ""
                 }
             },
             "snap": {
-                "checkbox": "Ne prikazuj ovu poruku ponovno"
+                "checkbox": "Ne prikazuj ovu poruku ponovno",
+                "title": "",
+                "message": ""
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
             }
         },
         "wineprefix": "Odaberite WinePrefix mapu",
         "yes": "DA",
         "dontShowAgain": "Ne prikazuj više",
         "choose-nile-binary": "Odaberite Nile binary",
-        "update": "Update"
+        "update": "Update",
+        "changelog": "",
+        "postpone": ""
     },
     "button": {
         "cancel": "Odustani",
@@ -241,7 +260,10 @@
         },
         "library": {
             "refresh": "Osviježi knjižnicu"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -256,7 +278,16 @@
         "show_hidden": "Prikaži skrivene",
         "store": "Filter Store",
         "filters": "Filter",
-        "categories": "Kategorije"
+        "categories": "Kategorije",
+        "show_support_offline_only": "",
+        "select_all": "",
+        "show_third_party_managed_only": "",
+        "only": "",
+        "show_updates_only": "",
+        "reset": "",
+        "show_installed_only": "",
+        "no_categories": "",
+        "uncategorized": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -307,7 +338,41 @@
             "library": "Biblioteka"
         },
         "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "dxvknvapi": "",
+        "disablePlaytimeSync": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "heroic": {
@@ -352,7 +417,9 @@
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
             "list": "Toggle to a list layout"
-        }
+        },
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "Library": "Biblioteka",
     "loading": {
@@ -364,7 +431,9 @@
         "epic": "Epic Games Login",
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
-        "amazon": "Prijava na Amazon"
+        "amazon": "Prijava na Amazon",
+        "old-mac": "",
+        "zoom": ""
     },
     "message": {
         "sync": "Sinkroniziranje završeno",
@@ -414,6 +483,9 @@
             "started": "Update Started",
             "failed": "Ažuriranje nije uspjelo",
             "paused": "Ažuriranje pauzirano"
+        },
+        "import": {
+            "failed": ""
         }
     },
     "offline-message": {
@@ -443,7 +515,11 @@
         },
         "gameargs": {
             "placeholder": "Ovjde upiši argumente launchera",
-            "title": "Argumenti igre (Za pokretanje nakon naredbe):"
+            "title": "Argumenti igre (Za pokretanje nakon naredbe):",
+            "error": {
+                "command": "",
+                "env": ""
+            }
         },
         "quote-args-with-spaces": "Upozorenje: obavezno navedi argumente s razmacima! Npr.: \"staza/s razmacima/\"",
         "wrapper": {
@@ -453,6 +529,21 @@
             "placeHolderKey": "New Wrapper",
             "placeHolderValue": "Wrapper Arguments",
             "title": "Wrapper command:"
+        },
+        "gamescope": {
+            "nis": "",
+            "additionalOptions": "",
+            "borderless": "",
+            "windowed": "",
+            "fpsLimiter": "",
+            "gameHeight": "",
+            "upscaleWidth": "",
+            "fullscreen": "",
+            "gameWidth": "",
+            "upscaleHeight": "",
+            "fpsLimiterNoFocus": "",
+            "stretch": "",
+            "interger": ""
         }
     },
     "other": {
@@ -561,8 +652,44 @@
             "no-file": "Nije pronađena nijedna datoteka dnevnika",
             "show-in-folder": "Show log file in folder",
             "upload": {
-                "actions": "Action"
-            }
+                "actions": "Action",
+                "delete": "",
+                "hours-ago": "",
+                "title": "",
+                "upload-date": "",
+                "error": {
+                    "title": "",
+                    "manual_upload": "",
+                    "content": ""
+                },
+                "uploading": {
+                    "title": "",
+                    "content": ""
+                },
+                "open": "",
+                "header": "",
+                "no-files": "",
+                "confirm": {
+                    "content": "",
+                    "title": ""
+                },
+                "minutes-ago": "",
+                "done": {
+                    "content": "",
+                    "title": ""
+                },
+                "button": ""
+            },
+            "join-heroic-discord": "",
+            "descriptiveNames": {
+                "legendary": "",
+                "nile": "",
+                "gog": "",
+                "zoom": "",
+                "game-log": "",
+                "heroic": ""
+            },
+            "show-uploads": ""
         },
         "mangohud": "Omogući Mangohud (Mangohud mora biti instaliran)",
         "manualsync": {
@@ -610,7 +737,68 @@
         "showMetalOverlay": "Prikaži preklapanje statistike",
         "alt-nile-bin": "Odaberite alternativni Nile Binary",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
-        "msync": "Omoguči Esync"
+        "msync": "Omoguči Esync",
+        "WoW64": "",
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "after-launch-script-path": "",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "hdr": "",
+        "show_valve_proton": {
+            "wine_selector_warning": "",
+            "confirmation": {
+                "show": "",
+                "title": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "label": "",
+            "info_label": ""
+        },
+        "dxfpslimit": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "disablePlaytimeSync": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "before-launch-script-path": "",
+        "disableUMU": "",
+        "advertiseAvxForRosetta": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -645,35 +833,94 @@
             "log": "Log",
             "other": "Ostalo",
             "sync": "Sinkronizacija spremljenih podataka u oblaku",
-            "wineExt": "Wine Extensions"
+            "wineExt": "Wine Extensions",
+            "gamescope": "",
+            "systemInformation": "",
+            "legacy": ""
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
-            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "advanced": {
             "clearCache": {
                 "help8": "Installed Games",
-                "help9": "Game settings"
+                "help9": "Game settings",
+                "help1": "",
+                "help3": "",
+                "help10": "",
+                "help7": "",
+                "help5": "",
+                "help6": "",
+                "help2": "",
+                "help4": ""
             },
             "details": "Pojedinosti",
             "title": {
-                "resetHeroic": "Reset Heroic"
+                "resetHeroic": "Reset Heroic",
+                "clearCache": ""
             },
             "resetHeroic": {
                 "help": "Are you sure you want to reset Heroic? This will remove all Settings and Caching but won't remove your Installed games or your Epic credentials. Portable versions (AppImage, WinPortable, ...) of heroic needs to be restarted manually afterwards."
             }
         },
         "systemInformation": {
-            "copyToClipboard": "Copied to Clipboard!"
+            "copyToClipboard": "Copied to Clipboard!",
+            "cpu": "",
+            "gpuWithNumber": "",
+            "cpuDescription": "",
+            "legendaryVersion": "",
+            "systemSpecifications": "",
+            "steamDeck": "",
+            "gpuDriver": "",
+            "os": "",
+            "gpu": "",
+            "gogdlVersion": "",
+            "osVersion": "",
+            "osNameFlatpak": "",
+            "software": "",
+            "cometVersion": "",
+            "memoryStats": "",
+            "systemModel": "",
+            "showDetailed": "",
+            "memory": "",
+            "heroicVersion": "",
+            "nileVersion": ""
+        },
+        "launchOptions": "Opcije za pokretanje...",
+        "legacy_warning": "",
+        "experimental_features": {
+            "title": ""
+        },
+        "offline": {
+            "warning": ""
+        },
+        "gamescope": {
+            "searchMsg": ""
+        },
+        "custom_css": {
+            "title": ""
+        },
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Postavke",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "Instaliranje u tijeku",
@@ -730,10 +977,17 @@
             "link": "Wine Manager",
             "not-found": "Nema pronađenih Wine verzija. Molimo vas da kliknete na ikonu za osvježavanje da pokušate ponovo.",
             "title": "Wine upravitelj",
-            "unzipping": "Raspakiravanje"
+            "unzipping": "Raspakiravanje",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Size",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "Ne pitaj više",
@@ -754,15 +1008,68 @@
     "Amazon Games": "Amazonove igre",
     "winetricks": {
         "install": "Install",
-        "loading": "Loading"
+        "loading": "Loading",
+        "no-components": "",
+        "installing": "",
+        "openGUI": "",
+        "search": "",
+        "loading-available": "",
+        "nothingYet": "",
+        "installed": ""
     },
     "category-settings": {
         "cancel": "Odustani",
-        "warning": "Upozorenje"
+        "warning": "Upozorenje",
+        "remove-category": "",
+        "delete-question": "",
+        "new-category": "",
+        "add-new-category": ""
     },
     "tour": {
         "back": "Back",
-        "skip": "Preskoči"
+        "skip": "Preskoči",
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "startTour": "",
+        "done": ""
     },
     "adtraction-locked": {
         "dont-show-again": "Ne prikazuj ovo upozorenje opet",
@@ -776,10 +1083,172 @@
         "restore": "Vrati prozor"
     },
     "categories-manager": {
-        "add": "Dodaj"
+        "add": "Dodaj",
+        "confirm-rename": "",
+        "cancel-remove": "",
+        "no-categories": "",
+        "confirm-remove": "",
+        "add-placeholder": "",
+        "remove": "",
+        "title": "",
+        "cancel-rename": "",
+        "rename": ""
     },
     "analyticsModal": {
         "disable": "Disable",
-        "enable": "Enable"
-    }
+        "enable": "Enable",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
+    },
+    "launch": {
+        "options": "Opcije za pokretanje..."
+    },
+    "amazon-luna": "",
+    "emptyLibrary": {
+        "noGames": "",
+        "noResults": ""
+    },
+    "zoom-store": "",
+    "wineExplanation": {
+        "wine-ge": "",
+        "proton-ge": "",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

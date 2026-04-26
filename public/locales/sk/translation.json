@@ -10,7 +10,8 @@
         "titles_always_visible": "Vždy zobrazovať tituly hier v knižnici",
         "content_font_family_default": "Obsah Font Family (Default: {{fontFamily}})",
         "actions_font_family_default": "Akcie Font Family (Default: {{fontFamily}})",
-        "disable_smooth_scrolling": "Vypnúť smooth scrolling (vyžaduje reštart)"
+        "disable_smooth_scrolling": "Vypnúť smooth scrolling (vyžaduje reštart)",
+        "disable_animations": ""
     },
     "add_game": "Pridať Hru",
     "All": "Všetky",
@@ -91,7 +92,13 @@
             },
             "legendary": {
                 "generic": "Došlo k chybe! Skúste sa odhlásiť a prihlásiť na svojom účte Epic. {{newline}} {{error}}"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "info": {
             "update": {
@@ -100,7 +107,8 @@
                 "message": "There is a new Version available!",
                 "message-finished": "Do you want to restart Heroic now?",
                 "title": "Heroic Games Launcher",
-                "title-finished": "Update Finished"
+                "title-finished": "Update Finished",
+                "detailNoAutoupdate": ""
             }
         },
         "no": "NIE",
@@ -170,6 +178,10 @@
                 "checkbox": "Už nikdy nezobrazovať túto správu",
                 "title": "Heroic beží ako Snap",
                 "message": "Niektoré funkcie nie sú momentálne dostupné vo verzii aplikácie Snap a snažíme sa to napraviť.{{newLine}}Aktuálne obmedzenia sú: {{newLine}}Heroic nebude môcť nájsť Proton zo Steamu alebo Wine z Lutris .{{newLine}}{{newLine}}Gamescope, GameMode a MangoHud tiež nebudú fungovať, pretože Heroic k nim nemá prístup.{{newLine}}{{newLine}}Ak chcete získať prístup k tejto funkcii, nainštalujte si Heroic ako Flatpak , DEB alebo z AppImage."
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
             }
         },
         "wineprefix": "Vyberte Wine Prefix Folder",
@@ -248,7 +260,10 @@
         },
         "library": {
             "refresh": "Obnoviť Knižnicu"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -271,7 +286,8 @@
         "show_installed_only": "Zobraziť iba nainštalované",
         "show_support_offline_only": "Zobraziť iba podporované offline",
         "categories": "Kategórie",
-        "show_third_party_managed_only": "Zobraziť iba spravované tretími stranami"
+        "show_third_party_managed_only": "Zobraziť iba spravované tretími stranami",
+        "show_updates_only": ""
     },
     "help": {
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
@@ -342,14 +358,21 @@
             "fpsLimiter": "Počet FPS gamescope by mal limitovať na. napr. 60",
             "gameWidth": "Rozlíšenie šírky používané hrou. Gamescope predpokladá pomer strán 16:9.",
             "upscaleMethod": "Spôsob upscalingu, Ktorý by mal používať Gamescope.",
-            "upscaleWidth": "Rozlíšenie šírky používané gamescope. Predpokladá sa pomer strán 16:9."
+            "upscaleWidth": "Rozlíšenie šírky používané gamescope. Predpokladá sa pomer strán 16:9.",
+            "forceGrabCursor": ""
         },
         "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
         "button": {
             "close": "Zatvoriť Pomocník",
             "open": "Otvoriť Pomocník"
         },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games"
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "heroic": {
@@ -394,7 +417,9 @@
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
             "list": "Toggle to a list layout"
-        }
+        },
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "Library": "Knižnica",
     "loading": {
@@ -407,7 +432,8 @@
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "amazon": "Prihlásenie na Amazon",
-        "old-mac": "Vaša verzia systému macOS je {{version}}. Na prihlásenie je potrebný macOS 12 alebo novší."
+        "old-mac": "Vaša verzia systému macOS je {{version}}. Na prihlásenie je potrebný macOS 12 alebo novší.",
+        "zoom": ""
     },
     "message": {
         "sync": "Synchronizácia dokončená",
@@ -457,6 +483,9 @@
             "started": "Update Started",
             "failed": "Aktualizacia neuspešná",
             "paused": "Aktualizácia pozastavená"
+        },
+        "import": {
+            "failed": ""
         }
     },
     "offline-message": {
@@ -637,7 +666,8 @@
                 },
                 "error": {
                     "content": "Nahrať súbor denníka. Skontrolujte všeobecné logo Heroic pre podrobnosti",
-                    "title": "Nahrať zlyhal"
+                    "title": "Nahrať zlyhal",
+                    "manual_upload": ""
                 },
                 "header": "Nahrané protokolové súbory",
                 "hours-ago": "Nahrané {{hoursAgo, relativetime(hours)}}",
@@ -656,7 +686,8 @@
                 "gog": "GOG protokol",
                 "heroic": "Všeobecný hrdina denník",
                 "legendary": "Epic hry / Legendárny denník",
-                "nile": "Amazon / Nile log"
+                "nile": "Amazon / Nile log",
+                "zoom": ""
             },
             "show-uploads": "Zobraziť nahrané protokolové súbory"
         },
@@ -710,14 +741,17 @@
         "gamescope": {
             "missingMsg": "Na PATH sa nám nepodarilo nájsť gamescope. Nainštalujte ho alebo pridajte do PATH.",
             "enableUpscaling": "Zapne Upscalovanie",
-            "enableLimiter": "Zapnúť Limiter FPS"
+            "enableLimiter": "Zapnúť Limiter FPS",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
         },
         "experimental_features": {
             "enableHelp": "Komponent pomoci",
             "enableNewDesign": "Nový Dizajn",
             "automaticWinetricksFixes": "Automaticky použiť známe opravy",
             "cometSupport": "Podpora",
-            "umuSupport": "Použite umu ako Proton runtime"
+            "umuSupport": "Použite umu ako Proton runtime",
+            "zoomPlatform": ""
         },
         "frameless-window": {
             "confirmation": {
@@ -744,9 +778,34 @@
         },
         "show_valve_proton": {
             "confirmation": {
-                "title": "Ste si istý?"
-            }
-        }
+                "title": "Ste si istý?",
+                "show": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "wine_selector_warning": "",
+            "label": "",
+            "info_label": ""
+        },
+        "WoW64": "",
+        "download-proton-steam": "",
+        "scripts": "",
+        "wineWayland": "",
+        "hdr": "",
+        "dxfpslimit": "",
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "verboseLogs": {
+            "description": ""
+        },
+        "advertiseAvxForRosetta": "",
+        "disableUMU": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -783,13 +842,16 @@
             "sync": "Cloud Saves Sync",
             "wineExt": "Wine Extensions",
             "gamescope": "Gamescope",
-            "systemInformation": "Informácie o Systéme"
+            "systemInformation": "Informácie o Systéme",
+            "legacy": ""
         },
         "open-config-file": "Open Config File",
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
-            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "advanced": {
             "details": "Podrobnosti",
@@ -844,12 +906,28 @@
         },
         "gamescope": {
             "searchMsg": "Hľadá sa spustiteľný súbor pre gamescope."
+        },
+        "launchOptions": "Možnosti spustenia...",
+        "legacy_warning": "",
+        "custom_css": {
+            "title": ""
+        },
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "nastavenie",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "Inštaluje sa",
@@ -906,10 +984,17 @@
             "link": "Wine Manager",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
             "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "unzipping": "Unzipping",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Release Date",
-        "size": "Size"
+        "size": "Size",
+        "notes": ""
     },
     "externalLink": {
         "dontAskAgain": "Už sa nepýtaj",
@@ -955,7 +1040,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton je variant Proton vytvorený spoločnosťou Glorious Eggroll. Je určený na použitie v službe Steam, ale niektoré hry mimo služby Steam môžu s týmto variantom fungovať lepšie. Poskytuje väčšinou zbytočné protokoly na riešenie problémov.",
-        "wine-ge": "Wine-GE-Proton je variant Winu vytvorený spoločnosťou Glorious Eggroll. Je to odporúčaný Wine na použitie mimo služby Steam. To poskytuje užitočné protokoly pri riešení problémov."
+        "wine-ge": "Wine-GE-Proton je variant Winu vytvorený spoločnosťou Glorious Eggroll. Je to odporúčaný Wine na použitie mimo služby Steam. To poskytuje užitočné protokoly pri riešení problémov.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "rename": "Premenovať \"{{name}}\"",
@@ -975,13 +1063,199 @@
         "title": "Adtraction je blokovaný"
     },
     "emptyLibrary": {
-        "noResults": "Tieto filtre nemajú žiadne výsledky."
+        "noResults": "Tieto filtre nemajú žiadne výsledky.",
+        "noGames": ""
     },
     "tour": {
-        "back": "Back"
+        "back": "Back",
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "next": "",
+        "startTour": "",
+        "skip": "",
+        "done": ""
     },
     "analyticsModal": {
         "disable": "Disable",
-        "enable": "Enable"
-    }
+        "enable": "Enable",
+        "info": {
+            "pt3": "",
+            "pt5": "",
+            "pt1": "",
+            "pt7": "",
+            "pt6": "",
+            "pt4": "",
+            "pt2": ""
+        },
+        "title": ""
+    },
+    "launch": {
+        "options": "Možnosti spustenia..."
+    },
+    "amazon-luna": "",
+    "zoom-store": "",
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

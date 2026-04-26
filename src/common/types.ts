@@ -105,13 +105,16 @@ export interface AppSettings extends GameSettings {
   darkTrayIcon: boolean
   defaultInstallPath: string
   defaultSteamPath: string
-  defaultWinePrefix: string
+  sharedWinePrefix: string
+  defaultWinePrefix: string // only here for backwards compatibility, don't use in new code
+  defaultWinePrefixDir: string
   disableController: boolean
   disablePlaytimeSync: boolean
   disableSmoothScrolling: boolean
   disableLogs: boolean
   disableAnimations: boolean
   discordRPC: boolean
+  disableGOGPresence: boolean
   downloadNoHttps: boolean
   downloadProtonToSteam: boolean
   egsLinkedPath: string
@@ -125,11 +128,13 @@ export interface AppSettings extends GameSettings {
   maxRecentGames: number
   maxWorkers: number
   minimizeOnLaunch: boolean
+  startInConsoleMode: boolean
   startInTray: boolean
   allowInstallationBrokenAnticheat: boolean
   disableUMU: boolean
   verboseLogs: boolean
   showValveProton: boolean
+  steamGridDbApiKey: string
 }
 
 export type LibraryTopSectionOptions =
@@ -156,6 +161,22 @@ export interface ExtraInfo {
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
+
+export type GOGAchievement = {
+  achievement_id: string
+  achievement_key: string
+  visible: boolean
+  name: string
+  description: string
+  image_url_unlocked: string
+  image_url_locked: string
+  rarity: number
+  date_unlocked: string | null
+  rarity_level_description: string
+  rarity_level_slug: string
+}
+
+export type GameAchievement = GOGAchievement
 
 export interface GameInfo {
   runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
@@ -237,6 +258,7 @@ export interface GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
+  enableQuickSavesMenu: boolean
 }
 
 export type Status =
@@ -569,6 +591,7 @@ interface GamepadActionArgsWithoutMetadata {
     | 'tab'
     | 'shiftTab'
     | 'keyboardClick'
+    | 'guide'
   metadata?: undefined
 }
 
@@ -644,6 +667,9 @@ export interface ImportGameArgs {
   path: string
   runner: Runner
   platform: InstallPlatform
+  winePrefix?: string
+  wineVersion?: WineInstallation
+  wineCrossoverBottle?: string
 }
 
 export interface MoveGameArgs {
@@ -767,7 +793,6 @@ export type WineManagerStatus =
 export interface WineManagerUISettings {
   value: string
   type: Type
-  enabled: boolean
 }
 
 export type DownloadManagerState = 'idle' | 'running' | 'paused' | 'stopped'
@@ -824,4 +849,36 @@ export interface RunnerCommandStub {
   response?: Promise<ExecResult>
   stdout?: string
   stderr?: string
+}
+
+export interface SGDBGrid {
+  id: number
+  url: string
+  thumb: string
+}
+
+export interface SGDBGame {
+  id: number
+  name: string
+}
+
+export type ReleasesInfo = Record<
+  | 'ge-proton'
+  | 'wine-ge'
+  | 'game-porting-toolkit'
+  | 'wine-staging'
+  | 'wine-crossover'
+  | 'dxvk'
+  | 'dxvk-mac'
+  | 'dxmt'
+  | 'vkd3d',
+  {
+    tag: string
+    published_at: string
+  }
+> & {
+  anticheatFiles: {
+    shaMac: string
+    shaLinux: string
+  }
 }

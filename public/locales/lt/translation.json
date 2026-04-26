@@ -48,7 +48,13 @@
             "uncaught-exception": {
                 "message": "Įvyko nepagauta išimtis:{{newLine}}{{error}}{{newLine}}{{newLine}} Pranešti apie šią išimtį mūsų „Github“ saugykloje.",
                 "title": "Įvyko nepagauta išimtis!"
-            }
+            },
+            "executableNotFound": "",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            },
+            "executableNotFoundMessage": ""
         },
         "no": "NE",
         "runexe": {
@@ -100,6 +106,10 @@
                 "import": "„Epic“ serveriai šiuo metu turi įtakingą prastovą, žaidimas negali būti importuotas!",
                 "install": "„Epic“ serveriai šiuo metu turi įtakingą prastovą, žaidimas negali būti įdiegtas!",
                 "update": "„Epic“ serveriai šiuo metu turi įtakingą prastovą, žaidimas negali būti atnaujintas!"
+            },
+            "rosetta": {
+                "title": "",
+                "message": ""
             }
         },
         "downloadNow": "Atsisiųsti dabar",
@@ -109,7 +119,8 @@
                 "detail": "Ar Jūs norite atsisiųsti atnaujinimą fone?",
                 "message": "Yra nauja pasiekiama versija!",
                 "message-finished": "Ar norite perleisti „Heroic“ dabar?",
-                "title": "„Heroic“ žaidimų paleidiklis/-ė"
+                "title": "„Heroic“ žaidimų paleidiklis/-ė",
+                "detailNoAutoupdate": ""
             }
         },
         "dontShowAgain": "Neberodyti daugiau",
@@ -189,6 +200,9 @@
         "new-heroic-version": "Nauja „Heroic“ versija buvo išleista!",
         "refresh": {
             "error": "Nepavyko gauti leidinių iš išsiunčiamo srauto, galbūt dėl „Github API“ ribojimų! Pabandykite dar kartą vėlesniu laiku."
+        },
+        "import": {
+            "failed": ""
         }
     },
     "button": {
@@ -262,7 +276,8 @@
         "show_support_offline_only": "Rodyti tik palaikančius veikti neprisijungus",
         "show_favourites_only": "Rodyti tik mėgstamiausius",
         "show_third_party_managed_only": "Rodyti tik valdomus trečios partijos",
-        "select_all": "Pažymėti visus"
+        "select_all": "Pažymėti visus",
+        "show_updates_only": ""
     },
     "help": {
         "title": {
@@ -318,7 +333,8 @@
             "upscaleHeight": "Aukščio skiriamoji geba, kuri yra naudojama „Gamescope“. Numatoma 16:9 proporcija.",
             "upscaleWidth": "Pločio skiriamoji geba, kuri yra naudojama „Gamescope“. Numatoma 16:9 proporcija.",
             "upscaleMethod": "Išplėstai padidintos gebos būdas, kurį „gamescope“ turėtų naudoti.",
-            "additionalOptions": "Papildomos komandinės eilutės „vėliavos“, kurias pravesti į „gamescope“."
+            "additionalOptions": "Papildomos komandinės eilutės „vėliavos“, kurias pravesti į „gamescope“.",
+            "forceGrabCursor": ""
         },
         "dxvk": "„DXVK“ yra „Vulkan“ pagrindo vertimo sluoksnis „DirectX 9/10/11“ žaidimams. Įjungus/Įgalinant gali pagerinti palaikomumą. Gali sukelti problemų, ypatingai senesniems „DirectX“ žaidimams.",
         "sync": {
@@ -340,7 +356,13 @@
         "gamemode": "„Feral“ žaidimo veiksena pritaiko automatinius ir laikinus pakoregavimus sistemai, kai veikia žaidimai. Įjungiant/Įgalinant gali pagerinti našumą.",
         "primerun": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
         "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą.",
-        "dxfpslimit": "Nustato kadrų dažnio ribą „DXVK“ žaidimams"
+        "dxfpslimit": "Nustato kadrų dažnio ribą „DXVK“ žaidimams",
+        "download_proton_steam": "",
+        "wine-hdr": "",
+        "WoW64": "",
+        "wine-wayland": "",
+        "advertiseAvxForRosetta": "",
+        "analytics": ""
     },
     "info": {
         "version": "„Wine“ versija",
@@ -442,7 +464,8 @@
             "enableHelp": "Pagalbos komponentas",
             "automaticWinetricksFixes": "Automatiškai pritaikyti žinomus sutaisymus",
             "cometSupport": "„Comet“ palaikymas",
-            "umuSupport": "Naudoti „umu“ kaip „Pronton“ vykdantįjį"
+            "umuSupport": "Naudoti „umu“ kaip „Pronton“ vykdantįjį",
+            "zoomPlatform": ""
         },
         "crossover-version": "„Crossover“/„Wine“ versija",
         "default-install-path": "Numatytas įdiegimo kelias",
@@ -470,7 +493,8 @@
                 },
                 "error": {
                     "content": "Nepavyko įkelti žurnalo failo. Patikrinkite bendrąjį „Heroic“ žurnalą dėl išsamumo",
-                    "title": "Įkėlimas nepavyko"
+                    "title": "Įkėlimas nepavyko",
+                    "manual_upload": ""
                 },
                 "header": "Įkelti žurnalo failai",
                 "hours-ago": "Įkelta {{hoursAgo, relativetime(hours)}}",
@@ -490,7 +514,8 @@
                 "gog": "„GOG“ žurnalas",
                 "heroic": "Bendras „Heroic“ žurnalas",
                 "legendary": "„Epic Games“ / „Legendary“ žurnalas",
-                "nile": "„Amazon“ / „Nile“ žurnalas"
+                "nile": "„Amazon“ / „Nile“ žurnalas",
+                "zoom": ""
             },
             "join-heroic-discord": "Prisijunkite prie mūsų „Discord“",
             "show-in-folder": "Rodyti žurnalo failą aplanke/-ale",
@@ -532,7 +557,9 @@
         "gamescope": {
             "missingMsg": "Mes negalėjome surasti „Gamescope“ kelio vietoje. Įdiekite jį arba pridėkite prie kelio.",
             "enableLimiter": "Įjungti/Įgalinti kadrų per sekundę ribotuvą/-ę",
-            "enableUpscaling": "Įjungia/Įgalina išplečiama gebą"
+            "enableUpscaling": "Įjungia/Įgalina išplečiama gebą",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
         },
         "hideChangelogsOnStartup": "Nerodyti keitinių žurnalo paleidime",
         "maxRecentGames": "Rodyti neseniai žaistus",
@@ -577,10 +604,33 @@
         },
         "show_valve_proton": {
             "confirmation": {
-                "title": "Ar Jūs esate tikra/-s?"
-            }
+                "title": "Ar Jūs esate tikra/-s?",
+                "show": "",
+                "dont_show": "",
+                "message": ""
+            },
+            "wine_selector_warning": "",
+            "label": "",
+            "info_label": ""
         },
-        "scripts": "&scenarijai"
+        "scripts": "&scenarijai",
+        "WoW64": "",
+        "download-proton-steam": "",
+        "wineWayland": "",
+        "hdr": "",
+        "dxfpslimit": "",
+        "enable-quick-sync-menu": "",
+        "no-tray-icon": "",
+        "analyticsOptIn": "",
+        "verboseLogs": {
+            "description": "Įjungti derinimo veikseną"
+        },
+        "advertiseAvxForRosetta": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "advanced": {
@@ -613,7 +663,8 @@
             "systemInformation": "Sistemos informacija",
             "sync": "Sinchronizavimas debesijos išsaugojimų",
             "advanced": "Pažangūs",
-            "general": "Bendri"
+            "general": "Bendri",
+            "legacy": ""
         },
         "systemInformation": {
             "cpuDescription": "{{numOfCores}}x {{modelName}}",
@@ -669,12 +720,29 @@
         },
         "reset-heroic": "Atstatyti „Heroic“",
         "saves": {
-            "warning": "Debesijos išsaugojimo funkcija yra „Beta“ stadijoje, prašome atlikti atsargines kopijas savo išsaugojimų prieš sinchronizuojant (tuo atveju, jeigu įvyktu kažkas blogai)"
+            "warning": "Debesijos išsaugojimo funkcija yra „Beta“ stadijoje, prašome atlikti atsargines kopijas savo išsaugojimų prieš sinchronizuojant (tuo atveju, jeigu įvyktu kažkas blogai)",
+            "not_supported": "",
+            "gog_linux_native_warning": ""
         },
         "gameMode": {
             "eacRuntimeEnabled": {
                 "message": "„EAC“ vykdantysis yra įjungtas/įgalintas, kuris tinkamai neveiks be žaidimo veiksenos. Ar Jūs norite išjungti/išgalinti „EAC“ vykdantįjį ir žaidimo veikseną?",
                 "title": "Įjungtas/Įgalintas „EAC“ vykdantysis"
+            }
+        },
+        "launchOptions": "Paleidimo parinktys...",
+        "legacy_warning": "",
+        "custom_css": {
+            "title": ""
+        },
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
             }
         }
     },
@@ -698,9 +766,16 @@
             "link": "„Wine“ tvarkytuvė/-as",
             "title": "„Wine“ tvarkytuvė/-as",
             "not-found": "Nerasta jokia „Wine“ versija. Prašome paspausti ant atnaujinimo piktogramos, norint bandyti dar kartą.",
-            "unzipping": "Išarchyvuojama/Išskleidžiama"
+            "unzipping": "Išarchyvuojama/Išskleidžiama",
+            "settings": "Nustatymai",
+            "update": "Atnaujinti",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "no-results": ""
         },
-        "release": "Išleidimo data"
+        "release": "Išleidimo data",
+        "notes": "Lapeliai"
     },
     "winetricks": {
         "install": "Įdiegti",
@@ -724,7 +799,8 @@
         "disable_dialog_backdrop_close": "Neleisti dialogų langų uždarymą spaustėlius ne jo lange",
         "actions_font_family_default": "Veiksmšų šrifto „šeima“ (Numatyta: {{fontFamily}})",
         "content_font_family_default": "Turinio šrifto „šeima“ (Numatyta: {{fontFamily}})",
-        "disable_smooth_scrolling": "Išjungti švelnų slinkimą (reikalauja paleidimo iš naujo)"
+        "disable_smooth_scrolling": "Išjungti švelnų slinkimą (reikalauja paleidimo iš naujo)",
+        "disable_animations": ""
     },
     "add_game": "Pridėti žaidimą",
     "anticheat": {
@@ -770,7 +846,8 @@
         "alternative_method": "Alternatyvus prisijungimo būdas",
         "epic": "„Epic Games“ prisijungimas",
         "message": "Prisijunkite su savo platforma. Jūs galite prisijungti prie daugiau nei vieną platformą vienu metu.",
-        "old-mac": "Jūsų „macOS“ versija yra – {{version}}. „macOS 12“ ar naujesnė yra reikalinga, norint prisijungti."
+        "old-mac": "Jūsų „macOS“ versija yra – {{version}}. „macOS 12“ ar naujesnė yra reikalinga, norint prisijungti.",
+        "zoom": ""
     },
     "offline-message": {
         "ignore": "Ignoruoti",
@@ -908,7 +985,8 @@
     },
     "Recent": "Neseniai žaista",
     "emptyLibrary": {
-        "noResults": "Dabartiniai filtrai nedavė jokių rezultatų."
+        "noResults": "Dabartiniai filtrai nedavė jokių rezultatų.",
+        "noGames": ""
     },
     "generic": {
         "error": {
@@ -916,7 +994,10 @@
         },
         "library": {
             "refresh": "Atnaujinti biblioteką"
-        }
+        },
+        "install": "Įdiegti",
+        "uninstall": "Išdiegti",
+        "abort": ""
     },
     "library": {
         "sortAscending": "Rikiuoti didėjančia tvarka",
@@ -926,11 +1007,16 @@
             "grid": "Perjungti į tinklelinį išdėstymą",
             "list": "Perjungti į sąrašo išdėstymą"
         },
-        "refresh": "Įkelti iš naujo"
+        "refresh": "Įkelti iš naujo",
+        "hideAlphabetFilter": "",
+        "showAlphabetFilter": ""
     },
     "wineExplanation": {
         "wine-ge": "„Wine-GE-Proton“ yra „Wine“ variantas sukurtas „Glorious Eggroll“. Yra rekomenduojamas „Wine“, nenaudojant „Steam“. Jis pateikia reikšmingus žurnalus derinimui.",
-        "proton-ge": "„GE-Proton“ yra „Proton“ variantas sukurtas „Glorious Eggroll“. Jis yra skirtas, naudojant „Steam“, bet kai kurie žaidimai, neveikiantys „Steam“ gali veikti geriau su šiuo variantu. Jis pateikia daugmaž nereikšmingus žurnalus derinimui."
+        "proton-ge": "„GE-Proton“ yra „Proton“ variantas sukurtas „Glorious Eggroll“. Jis yra skirtas, naudojant „Steam“, bet kai kurie žaidimai, neveikiantys „Steam“ gali veikti geriau su šiuo variantu. Jis pateikia daugmaž nereikšmingus žurnalus derinimui.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "message": {
         "sync": "Sinchronizavimas baigtas",
@@ -943,7 +1029,49 @@
     },
     "tour": {
         "back": "Atgal",
-        "next": "S_ekantis"
+        "next": "S_ekantis",
+        "sidebar": {
+            "welcome": {
+                "title": "",
+                "intro": ""
+            },
+            "quit": "",
+            "docs": "",
+            "library": "",
+            "community": "",
+            "accessibility": "",
+            "wine": "",
+            "login": "",
+            "settings": "",
+            "downloads": "",
+            "accounts": "",
+            "stores": "",
+            "version": ""
+        },
+        "library": {
+            "gameCard": "",
+            "welcome": {
+                "title": "",
+                "intro2": "",
+                "intro": "",
+                "title2": ""
+            },
+            "filters": "",
+            "search": "",
+            "refresh": "",
+            "end": {
+                "intro": "",
+                "title": ""
+            },
+            "viewToggle": "",
+            "categories": "",
+            "sortInstalled": "",
+            "sortOptions": "",
+            "addGame": ""
+        },
+        "startTour": "",
+        "skip": "",
+        "done": ""
     },
     "analyticsModal": {
         "disable": "Išjungta/Neįgalinta (-as/-i)",
@@ -954,8 +1082,144 @@
             "pt3": "Jis niekada nerinks jokių asmeninių duomenų, įskaitant Jūsų naudotojo/vartotojo vardą (t.y. slapyvardį), IP adresą ar el. paštą.",
             "pt5": "„Plausible Analytics“ yra pilnai paklusnus su BDAR, „CCPA“ ir PERR.",
             "pt4": "Šie duomenys yra naudojami suteiktiant įžvalgas į tolimesnius dėmesio sutelkimus dėl mūsų ribotų resursų ir vartotojų atsiliepimų.",
-            "pt7": "Šį nustatymą galite pakeisti bet kada Programos Nustatymuose."
+            "pt7": "Šį nustatymą galite pakeisti bet kada Programos Nustatymuose.",
+            "pt6": ""
         },
         "title": "Siūsti Anoniminę Analitiką"
+    },
+    "launch": {
+        "options": "Paleidimo parinktys..."
+    },
+    "amazon-luna": "",
+    "zoom-store": "",
+    "discounts": {
+        "filters": {
+            "os": "Operacinė sistema:",
+            "moreFilters": "",
+            "ageRating": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "console": {
+        "filter": {
+            "sideload": "Kita/-s/-i",
+            "all": ""
+        },
+        "games": "Įdiegti žaidimai",
+        "hints": {
+            "quit": "Išeiti",
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "change_store": ""
+        },
+        "launching": "Paleidžiama",
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "empty": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "next": "",
+    "sidebar": {
+        "console": ""
     }
 }

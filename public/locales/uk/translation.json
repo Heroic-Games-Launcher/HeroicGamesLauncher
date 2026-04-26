@@ -99,7 +99,11 @@
                 "title": "Помилка Steam"
             },
             "executableNotFound": "Виконуваний файл не знайдено",
-            "executableNotFoundMessage": "Heroic не зміг знайти виконуваний файл для цієї гри. Встановіть його вручну в налаштуваннях гри."
+            "executableNotFoundMessage": "Heroic не зміг знайти виконуваний файл для цієї гри. Встановіть його вручну в налаштуваннях гри.",
+            "dxmt": {
+                "message": "Помилка завантаження DXMT! Перевірте з'єднання!",
+                "title": "Помилка завантаження DXMT"
+            }
         },
         "info": {
             "update": {
@@ -164,7 +168,7 @@
                 "install": "На серверах Epic сталася значна аварія, неможливо імпортувати гру!",
                 "update": "На серверах Epic сталася значна аварія, неможливо імпортувати гру!"
             },
-            "title": "Увага",
+            "title": "Попередження",
             "wine-change": {
                 "message": "Нам не вдалося знайти вибрану версію Wine ({{selectedWine}}) для запуску цієї гри. {{newline}} Ми знайшли іншу версію, чи бажаєте ви продовжити запуск із використанням {{foundWine}}?",
                 "title": "Wine не знайдено!"
@@ -185,7 +189,7 @@
                 "message": "Для коректної роботи Heroic потрібно, щоб Rosetta працювала на macOS з чіпами Apple Silicon. Встановіть її з терміналу macOS за допомогою наступної команди: «softwareupdate --install-rosetta» і перезапустіть Heroic. "
             }
         },
-        "wineprefix": "Вибрати папку префікса Wine",
+        "wineprefix": "Вибрати теку префікса Wine",
         "yes": "ТАК",
         "dontShowAgain": "Не показувати більше",
         "choose-nile-binary": "Вибрати двійковий файл Nile",
@@ -264,7 +268,10 @@
         },
         "library": {
             "refresh": "Оновити бібліотеку"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Глобальні налаштування",
     "GOG": "GOG",
@@ -369,7 +376,7 @@
         },
         "msync": "Msync має на меті зменшити навантаження на wine сервер у ресурсоємних іграх. Увімкнення цього параметра може покращити продуктивність на підтримуваних ядрах Linux.",
         "download_proton_steam": "Якщо ввімкнено, GE-Proton буде завантажено безпосередньо до каталогу інструментів сумісності Steam, а не до каталогу Heroic по стандарту. Буде використано шлях до Steam, вказаний у параметрі «Типовий шлях до Steam» вище.",
-        "dxfpslimit": "Встановіть обмеження кадрів на сек. у DXVK іграх",
+        "dxfpslimit": "Встановіть обмеження кадрів / с у DXVK іграх",
         "advertiseAvxForRosetta": "Увімкнення підтримки набору інструкцій AVX при запуску Windows-ігор через Rosetta на Mac з Apple Silicon. Це може бути необхідним для деяких ігор, наприклад, Death Stranding, які потребують підтримки AVX.",
         "wine-hdr": "HDR покращує кольори, забезпечуючи яскравіші світлі ділянки та глибші контрасти. Щоб HDR працював, його повинні підтримувати як дисплей, так і гра.",
         "wine-wayland": "Експериментальний драйвер Wine-Wayland дозволяє запускати ігри в нативному режимі під протоколом показу Wayland. Увімкнення може призвести до порушення роботи деяких ігор.",
@@ -561,7 +568,7 @@
         "custom_themes_path": "Виберіть шлях до користувальницьких файлів CSS",
         "dxvkfpsvalue": "Цілочисельне позитивне значення (наприклад: 30, 60, ...)",
         "egs-prefix": "Префікс де встановлено EGS",
-        "prefered_language": "2-значний код (приклад: \"en\" або \"uk\")",
+        "prefered_language": "Код із 2 або 4 символів (наприклад: «fr» або «pt-BR»)",
         "alt-nile-bin": "Використовується вбудований двійковий файл Nile..."
     },
     "platforms": {
@@ -668,7 +675,8 @@
                 },
                 "error": {
                     "title": "Завантаження не вдалося",
-                    "content": "Не вдалося завантажити файл журналу. Перевірте загальний журнал Heroic для отримання деталей"
+                    "content": "Не вдалося завантажити файл журналу. Перевірте загальний журнал Heroic для отримання деталей",
+                    "manual_upload": "Натисніть кнопку «ПОКАЗАТИ ФАЙЛ ЖУРНАЛУ В ТЕЦІ» та завантажте файл «launch.log» вручну в Discord або будь-який сервіс обміну файлами."
                 },
                 "button": "Завантажити файл журналу",
                 "confirm": {
@@ -811,7 +819,10 @@
             "wine_selector_warning": "Версії Proton від Valve типово ігноруються, ввімкніть їх у розширених глобальних налаштуваннях"
         },
         "WoW64": "Увімкнути WoW64 (експериментально)",
-        "scripts": "Скрипти:"
+        "scripts": "Скрипти:",
+        "enable-quick-sync-menu": "Увімкнути меню швидкого збереження та синхронізації на сторінці гри",
+        "disable_gog_presence": "Вимкни оновлення статусу GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -848,7 +859,8 @@
             "sync": "Хмарна синхронізація збережень",
             "wineExt": "Wine Extensions",
             "systemInformation": "Інформація про систему",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": "Старий"
         },
         "open-config-file": "Відкрити файл налаштування",
         "reset-heroic": "Скинути Heroic",
@@ -914,12 +926,25 @@
         },
         "custom_css": {
             "title": "Власний стиль CSS"
+        },
+        "launchOptions": "Параметри запуску",
+        "legacy_warning": "Попередження: налаштування на цій вкладці здебільшого застаріли і можуть взагалі не працювати.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "Налаштування",
     "sidebar": {
         "collapse": "Згорнути бічну панель",
-        "uncollapse": "Розгорнути бічну панель"
+        "uncollapse": "Розгорнути бічну панель",
+        "console": ""
     },
     "status": {
         "installing": "Встановлення",
@@ -976,10 +1001,17 @@
             "link": "Менеджер Wine",
             "not-found": "Версій Wine не знайдено. Натисніть на піктограму оновлення, щоб спробувати ще раз.",
             "title": "Менеджер Wine",
-            "unzipping": "Розпаковування"
+            "unzipping": "Розпаковування",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Дата випуску",
-        "size": "Розмір"
+        "size": "Розмір",
+        "notes": "Примітки"
     },
     "externalLink": {
         "dontAskAgain": "Не запитувати більше",
@@ -1029,7 +1061,10 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton – це варіант Wine, створений Glorious Eggroll. Це рекомендований варіант Wine для використання поза Steam. Це забезпечить корисними журналами помилок під час усунення несправностей.",
-        "proton-ge": "GE-Proton – це варіант Proton, створений Glorious Eggroll. Він призначений для використання у Steam, але деякі ігри за межами Steam можуть працювати краще з цим варіантом. Він надає переважно марні журнали для пошуку та усунення несправностей."
+        "proton-ge": "GE-Proton – це варіант Proton, створений Glorious Eggroll. Він призначений для використання у Steam, але деякі ігри за межами Steam можуть працювати краще з цим варіантом. Він надає переважно марні журнали для пошуку та усунення несправностей.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "adtraction-locked": {
         "description": "Схоже, що домен track.adtraction.com не може бути завантажений або він заблокований. Завдяки застосунку, будь-яка покупка, яку ви робите в магазині GOG, підтримує команду Heroic фінансово. Розгляньте можливість зняття блокування, якщо ви хочете зробити свій внесок.",
@@ -1116,5 +1151,135 @@
         "title": "Надіслати анонімну аналітику"
     },
     "amazon-luna": "Amazon Luna",
-    "zoom-store": "Крамниця Zoom"
+    "zoom-store": "Крамниця Zoom",
+    "launch": {
+        "options": "Параметри Запуску..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

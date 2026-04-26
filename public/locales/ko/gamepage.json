@@ -21,7 +21,8 @@
             "title": "실행할 EXE 선택"
         },
         "select": {
-            "button": "선택"
+            "button": "선택",
+            "image": ""
         },
         "sideload": {
             "exe": "실행 파일 선택"
@@ -47,7 +48,24 @@
         },
         "wineprefix": "WinePrefix 폴더 선택",
         "yes": "예",
-        "close": "닫기"
+        "close": "닫기",
+        "warning": {
+            "title": "경고"
+        },
+        "ok": "확인",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "즐겨찾기에 추가",
@@ -74,7 +92,10 @@
         "uninstall": "설치 제거",
         "update": "업데이트",
         "details": "세부 정보",
-        "changelog": "변경로그 표시"
+        "changelog": "변경로그 표시",
+        "browse_wine_prefix": "",
+        "play": "",
+        "browse_files": ""
     },
     "cloud_save_unsupported": "지원되지 않음",
     "disabled": "비활성화됨",
@@ -109,7 +130,8 @@
         "changelogFor": "{{gameTitle}} 변경로그",
         "modify": "설치 수정",
         "install_info": "설치 정보",
-        "extra_info": "추가 정보"
+        "extra_info": "추가 정보",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "이동하는 중",
@@ -167,7 +189,8 @@
         },
         "playing": {
             "start": "지금 실행하기",
-            "stop": "플레이 중 (중지)"
+            "stop": "플레이 중 (중지)",
+            "start_with_logs": ""
         },
         "saves": {
             "syncing": "저장 동기화 중"
@@ -183,7 +206,8 @@
         }
     },
     "launch": {
-        "options": "실행 옵션..."
+        "options": "실행 옵션...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "Heroic에서 에픽 계정으로 로그인하지 않았습니다. 스토어 페이지를 사용하여 로그인하지 말고 대신 다음 버튼을 클릭하세요:",
@@ -200,7 +224,8 @@
     "setting": {
         "winecrossoverbottle": "크로스오버 보틀",
         "warn-use-shared-wine-config": "무엇을 해야 할지 아는 경우에만 이 옵션을 사용하세요. <br/>여러 게임에 동일한 설치 경로를 공유하면 종속성이 호환되지 않을 경우 문제가 발생할 수 있습니다.",
-        "show-wine-settings": "와인 설정 표시"
+        "show-wine-settings": "와인 설정 표시",
+        "use-shared-wine-config": ""
     },
     "sideload": {
         "field": {
@@ -219,6 +244,10 @@
             "title": "게임/앱에 제목 추가",
             "url": "여기에 게임 URL 붙여넣기",
             "useragent": "이 브라우저 앱/게임에서 사용할 커스텀 사용자 에이전트를 여기에 작성"
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -252,7 +281,8 @@
         "gog-goodie": "이 게임은 설치할 수 없는 것 같습니다. https://gog.com/account에서 다운로드 가능한 콘텐츠를 확인",
         "goodie": "설치할 수 없음",
         "redist": "재배포 가능 패키지 설치 ({{redist}})",
-        "winetricks": "와인트릭스 수정 사항 적용"
+        "winetricks": "와인트릭스 수정 사항 적용",
+        "importing": "들여오기"
     },
     "submenu": {
         "addShortcut": "바로가기 추가",
@@ -299,7 +329,10 @@
         "label": {
             "canceled": "취소됨",
             "pause": "다운로드 일시 정지",
-            "remove": "다운로드에서 제거"
+            "remove": "다운로드에서 제거",
+            "resume": ""
         }
-    }
+    },
+    "open-saves-folder": "",
+    "wikiLink": ""
 }

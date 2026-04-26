@@ -2,7 +2,7 @@
     "box": {
         "yes": "JA",
         "choose": "Vælg",
-        "wineprefix": "Vælg Wine Prefix mappe",
+        "wineprefix": "Vælg WinePrefix mappe",
         "no": "NEJ",
         "cache-cleared": {
             "message": "Heroic cache ryddet.",
@@ -83,7 +83,11 @@
                 "generic": "Der opstod en fejl! Prøv at logge ud og logge på din Epic-konto. {{newline}} {{error}}"
             },
             "executableNotFoundMessage": "Heroic kunne ikke finde den eksekverbare fil til dette spil. Indstil den manuelt i spilindstillingerne.",
-            "executableNotFound": "Kørbar fil ikke fundet"
+            "executableNotFound": "Kørbar fil ikke fundet",
+            "dxmt": {
+                "message": "",
+                "title": ""
+            }
         },
         "info": {
             "update": {
@@ -315,7 +319,7 @@
             "forceGrabCursor": "Brug altid 'relative mouse mode' i stedet for 'flipping dependent on cursor visibility'. (Nyttigt, når programmer bliver ved med at miste fokus)",
             "fpsLimiter": "Det antal frames, som Gamescope skal begrænses til, fx 60",
             "fpsLimiterNoFocus": "Frame rate-begrænsning, som Gamescope bør begrænse pr. sekund, hvis spillet ikke er i fokus.",
-            "gameHeight": "Den højdeopløsning, der bruges af spillet. Gamescope antager et billedformat på 16:9.",
+            "gameHeight": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages.",
             "gameWidth": "Den breddeopløsning, der bruges af spillet. Gamescope antager et billedformat på 16:9.",
             "upscaleHeight": "Den højdeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages.",
             "upscaleMethod": "Den opskaleringsmetode, som Gamescope skal bruge.",
@@ -420,7 +424,8 @@
                 },
                 "error": {
                     "content": "Det lykkedes ikke at uploade logfilen. Tjek Heroics generelle log for detaljer",
-                    "title": "Upload fejlede"
+                    "title": "Upload fejlede",
+                    "manual_upload": ""
                 },
                 "header": "Uploadede logfiler",
                 "hours-ago": "Uploadet {{hoursAgo, relativetime(hours)}}",
@@ -554,7 +559,8 @@
         "experimental_features": {
             "cometSupport": "Comet support",
             "enableHelp": "Hjælpekomponent",
-            "enableNewDesign": "Nyt design"
+            "enableNewDesign": "Nyt design",
+            "zoomPlatform": ""
         },
         "frameless-window": {
             "confirmation": {
@@ -588,7 +594,11 @@
             "description": "Aktivér detaljerede logfiler"
         },
         "wineWayland": "Aktivér Wine-Wayland (eksperimentelt) (Wine-versionen skal understøtte dette)",
-        "WoW64": "Aktivér WoW64 (eksperimentelt)"
+        "WoW64": "Aktivér WoW64 (eksperimentelt)",
+        "scripts": "",
+        "enable-quick-sync-menu": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "wine": {
         "manager": {
@@ -596,11 +606,18 @@
             "error": "Kunne ikke hente Wine/Proton-versioner denne gang.",
             "title": "Vinchef",
             "unzipping": "Udpakker",
-            "not-found": "Ingen vinversioner fundet. Klik på opdateringsikonet for at prøve igen."
+            "not-found": "Ingen vinversioner fundet. Klik på opdateringsikonet for at prøve igen.",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Opdater",
+            "settings": "Indstillinger",
+            "no-results": ""
         },
         "release": "Udgivelses dato",
         "size": "Størrelse",
-        "actions": "Handling"
+        "actions": "Handling",
+        "notes": ""
     },
     "library": {
         "refresh": "Opdater",
@@ -653,7 +670,8 @@
             "games_settings": "Spilindstillinger",
             "games_settings_defaults": "Spilstandarder",
             "gamescope": "Gamescope",
-            "systemInformation": "Systemoplysninger"
+            "systemInformation": "Systemoplysninger",
+            "legacy": ""
         },
         "battlEyeRuntime": {
             "installing": "Installerer BattlEye Runtime...",
@@ -716,6 +734,18 @@
             "steamDeck": "Steam Deck {{model}}",
             "systemModel": "Systemmodel:",
             "systemSpecifications": "Systemspecifikationer:"
+        },
+        "launchOptions": "Opstartsinstillinger...",
+        "legacy_warning": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "title": {
@@ -864,7 +894,8 @@
     "Settings": "Indstillinger",
     "sidebar": {
         "collapse": "Skjul sidebjælken",
-        "uncollapse": "Luk sidebjælken ud"
+        "uncollapse": "Luk sidebjælken ud",
+        "console": ""
     },
     "userselector": {
         "discord": "Uenighed",
@@ -896,7 +927,10 @@
         },
         "library": {
             "refresh": "Opdater biblioteket"
-        }
+        },
+        "abort": "",
+        "install": "Installer",
+        "uninstall": "Afinstaller"
     },
     "globalSettings": "Globale indstillinger",
     "GOG": "GOG",
@@ -1129,7 +1163,140 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton er en Proton-variant skabt af Glorious Eggroll. Den er ment til brug sammen med umu-launcheren (standard i Heroic).",
-        "wine-ge": "Wine-GE-Proton er en Wine-variant skabt af Glorious Eggroll. Den er blevet udfaset til fordel for GE-Proton med umu-launcheren."
+        "wine-ge": "Wine-GE-Proton er en Wine-variant skabt af Glorious Eggroll. Den er blevet udfaset til fordel for GE-Proton med umu-launcheren.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
-    "zoom-store": "Zoom-butik"
+    "zoom-store": "Zoom-butik",
+    "launch": {
+        "options": "Opstartsinstillinger..."
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Operativsystem:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Alle",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": "Alle"
+        },
+        "empty": "",
+        "games": "Installerede spil",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Næste"
 }

@@ -191,7 +191,7 @@
                 "title": "Wine not found!"
             }
         },
-        "wineprefix": "Choose Wine Prefix Folder",
+        "wineprefix": "Select WinePrefix Folder",
         "yes": "YES"
     },
     "button": {
@@ -220,6 +220,39 @@
         "remove-category": "Remove Category",
         "warning": "Warning"
     },
+    "console": {
+        "cancel": {
+            "hintPrefix": "Hold",
+            "hintSuffix": "for 3s to cancel"
+        },
+        "card": {
+            "needsUpdate": "Needs update"
+        },
+        "empty": "No installed games to show. Install something first.",
+        "filter": {
+            "all": "All",
+            "sideload": "Other"
+        },
+        "games": "Installed games",
+        "hints": {
+            "change_store": "Change store",
+            "launch": "Launch",
+            "navigate": "Navigate",
+            "quit": "Quit",
+            "sort": "Sort"
+        },
+        "launching": "Launching",
+        "loading": "Loading your library…",
+        "quit": "Quit Console",
+        "quitApp": "Quit App",
+        "sort": "Sort",
+        "update": {
+            "body": "This game has an update available. Please leave Console Mode and update the game before launching.",
+            "hintPrefix": "Press",
+            "hintSuffix": "to go back",
+            "title": "Update required"
+        }
+    },
     "controller": {
         "hints": {
             "back": "Back",
@@ -239,6 +272,87 @@
             "space": "Space",
             "update_game": "Update game"
         }
+    },
+    "discounts": {
+        "aria": {
+            "pagination": "Pagination",
+            "rating": "Rating {{rating}} out of 10"
+        },
+        "empty": "No discounted games available right now.",
+        "error": "Could not load discounts. Please try again later.",
+        "filters": {
+            "activeCount_one": "{{count}} active",
+            "activeCount_other": "{{count}} active",
+            "ageRating": "Suitable for age",
+            "ageRatingAll": "All",
+            "ageRatingOption": "Show games rated PEGI {{age}} or lower",
+            "features": "Features",
+            "featuresPlaceholder": "Any feature",
+            "genres": "Genres",
+            "genresPlaceholder": "Any genre",
+            "hideDlcs": "Hide DLCs",
+            "hideOwned": "Hide Owned",
+            "lessFilters": "Less filters",
+            "moreFilters": "More filters",
+            "os": "Operating system",
+            "pageSize": "Per page",
+            "price": "Price",
+            "rating": "Rating",
+            "releaseYear": "Release year",
+            "sort": "Sort by"
+        },
+        "loading": "Loading discounted games...",
+        "noMatches": "No games match the current filters.",
+        "pagination": {
+            "prev": "Previous"
+        },
+        "region": {
+            "auto": "Auto ({{code}})",
+            "countries": {
+                "AU": "Australia",
+                "BR": "Brazil",
+                "CA": "Canada",
+                "CH": "Switzerland",
+                "CN": "China",
+                "CZ": "Czechia",
+                "DE": "Germany",
+                "DK": "Denmark",
+                "ES": "Spain",
+                "FI": "Finland",
+                "FR": "France",
+                "GB": "United Kingdom",
+                "GR": "Greece",
+                "HU": "Hungary",
+                "IL": "Israel",
+                "IT": "Italy",
+                "JP": "Japan",
+                "KR": "South Korea",
+                "NL": "Netherlands",
+                "NO": "Norway",
+                "PL": "Poland",
+                "PT": "Portugal",
+                "RO": "Romania",
+                "RU": "Russia",
+                "SE": "Sweden",
+                "TR": "Turkey",
+                "TW": "Taiwan",
+                "UA": "Ukraine",
+                "US": "United States"
+            },
+            "label": "Store region"
+        },
+        "sidebar": "Deals",
+        "sort": {
+            "discount": "Biggest discount",
+            "priceAsc": "Price: low to high",
+            "priceDesc": "Price: high to low",
+            "ratingAsc": "Rating: low to high",
+            "ratingDesc": "Rating: high to low",
+            "releaseAsc": "Release date: old to new",
+            "releaseDesc": "Release date: new to old",
+            "trending": "Trending"
+        },
+        "title": "GOG Deals"
     },
     "dlc": {
         "actions": "Actions",
@@ -289,12 +403,15 @@
         "title": "Game Title"
     },
     "generic": {
+        "abort": "Abort",
         "error": {
             "component": "No games found - Try to logout and login again or one of the options below"
         },
+        "install": "Install",
         "library": {
             "refresh": "Refresh Library"
-        }
+        },
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -430,6 +547,9 @@
         "loading": "Loading",
         "releaseDate": "Release Date"
     },
+    "launch": {
+        "options": "Launch Options..."
+    },
     "library": {
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
@@ -459,6 +579,7 @@
         "sync": "Sync Complete",
         "unsync": "Unsync Complete"
     },
+    "next": "Next",
     "notify": {
         "error": {
             "move": "Error Moving the Game",
@@ -579,7 +700,7 @@
         "custom_themes_path": "Select the path to look for custom CSS files",
         "dxvkfpsvalue": "Positive integer value (e.g. 30, 60, ...)",
         "egs-prefix": "Prefix where EGS is installed",
-        "prefered_language": "2-char code (i.e.: \"en\" or \"fr\")"
+        "prefered_language": "2-char or 4-char code (i.e.: \"fr\" or \"pt-BR\")"
     },
     "platforms": {
         "browser": "Browser",
@@ -638,6 +759,7 @@
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
         "disable_controller": "Disable Heroic navigation using controller",
+        "disable_gog_presence": "Disable GOG Presence updates",
         "disable_logs": "Disable Logs",
         "disablePlaytimeSync": "Disable playtime synchronization",
         "disableUMU": "Disable umu",
@@ -646,6 +768,7 @@
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
+        "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -732,6 +855,7 @@
                 },
                 "error": {
                     "content": "Failed to upload log file. Check Heroic's general log for details",
+                    "manual_upload": "Click the \"SHOW LOG FILE IN FOLDER\" button and upload the \"launch.log\" file manually to Discord or any online file sharing service.",
                     "title": "Upload failed"
                 },
                 "header": "Uploaded log files",
@@ -788,6 +912,7 @@
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
         "showMetalOverlay": "Show Stats Overlay",
+        "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "verboseLogs": {
@@ -854,6 +979,7 @@
             "searchMsg": "Searching for gamescope executable."
         },
         "launchOptions": "Launch Options",
+        "legacy_warning": "Warning: The settings on this tab are mostly deprecated and might not work at all.",
         "log": {
             "long-log-hint": "Log truncated, last 1000 lines are shown!"
         },
@@ -862,6 +988,7 @@
             "games_settings_defaults": "Game Defaults",
             "gamescope": "Gamescope",
             "general": "General",
+            "legacy": "Legacy",
             "log": "Log",
             "other": "Other",
             "sync": "Cloud Saves Sync",
@@ -876,6 +1003,16 @@
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",
             "not_supported": "This game does not support Cloud Saves.",
             "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)"
+        },
+        "steamgriddb": {
+            "apikey": {
+                "placeholder": "Enter your SteamGridDB API Key here",
+                "placeholder_saved": "Key saved — type to replace, clear to remove",
+                "title": "SteamGridDB API Key"
+            },
+            "help": {
+                "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at www.steamgriddb.com/profile/preferences/api"
+            }
         },
         "systemInformation": {
             "cometVersion": "Comet: {{cometVersion}}",
@@ -902,11 +1039,27 @@
         }
     },
     "Settings": "Settings",
+    "sidebar": {
+        "console": "Console Mode"
+    },
     "status": {
         "installing": "Installing",
         "logging": "Logging In...",
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
+    },
+    "steamgriddb": {
+        "error": {
+            "grids": "Failed to fetch grids",
+            "no-games": "No games found.",
+            "no-grids": "No covers found for this game.",
+            "search": "Failed to search for games, please check your SteamGridDB API key and try again"
+        },
+        "picker": {
+            "search": "Search Game",
+            "select-game": "Select a Game:",
+            "title": "SteamGridDB Covers"
+        }
     },
     "store": "Epic Store",
     "stores": "Stores",
@@ -1006,17 +1159,26 @@
         "actions": "Action",
         "manager": {
             "link": "Wine Manager",
+            "loading": "Loading wine versions...",
+            "no-results": "No Wine versions match your search.",
             "not-found": "No Wine versions found. Please click the refresh icon to try again.",
+            "open_folder": "Open Folder",
+            "search": "Search versions...",
+            "settings": "Settings",
             "title": "Wine Manager",
-            "unzipping": "Unzipping"
+            "unzipping": "Unzipping",
+            "update": "Update"
         },
         "notes": "Notes",
         "release": "Release Date",
         "size": "Size"
     },
     "wineExplanation": {
+        "gpt": "Game Porting Toolkit is developed by Apple and it is recommended for Apple Silicon Macs with the M1+ chips and works best for newer games that use DX12.",
         "proton-ge": "GE-Proton is a Proton variant created by Glorious Eggroll. It is meant to be used along with the umu launcher (default in Heroic).",
-        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher."
+        "wine-crossover": "Wine-Crossover is based on the Crossover OpenSource Wine project and is recommended for Intel Macs and for DX11 or older games.",
+        "wine-ge": "Wine-GE-Proton is a Wine variant created by Glorious Eggroll. It has been deprecated in favor of GE-Proton with the umu launcher.",
+        "wine-staging-macos": "Wine-Staging-macOS is based on the mainline Wine project and is recommended for Intel Macs and for DX11 or older games, especially when paired with the DXMT tool."
     },
     "winetricks": {
         "install": "Install",

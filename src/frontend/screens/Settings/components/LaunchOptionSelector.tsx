@@ -7,7 +7,11 @@ import { LaunchOption } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 import { useLaunchOptions } from 'frontend/hooks/useLaunchOptions'
 
-const LaunchOptionSelector = () => {
+const LaunchOptionSelector = ({
+  showTitle = true
+}: {
+  showTitle?: boolean
+}) => {
   const { t } = useTranslation()
   const { isDefault, appName, gameInfo } = useContext(SettingsContext)
 
@@ -48,13 +52,20 @@ const LaunchOptionSelector = () => {
 
   return (
     <div className="Field">
-      <label>{t('settings.launchOptions', 'Launch Options')}</label>
+      {showTitle && (
+        <label>{t('settings.launchOptions', 'Launch Options')}</label>
+      )}
       <div className="SettingsField">
         <SelectField
           htmlId="launch_options_settings"
           onChange={handleSelectChange}
           value={selectedIndex.toString()}
         >
+          {selectedIndex === -1 ? (
+            <MenuItem key={'-1'} value={-1}>
+              {t('launch.options', 'Launch Options...')}
+            </MenuItem>
+          ) : null}
           {launchOptions.map((option, index) => (
             <MenuItem key={index} value={index.toString()}>
               {labelForLaunchOption(option)}

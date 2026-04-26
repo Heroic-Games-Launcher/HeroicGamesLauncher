@@ -1,10 +1,9 @@
 import { ConnectivityStatus } from 'common/types'
 import { net } from 'electron'
-import { addListener, addHandler } from 'backend/ipc'
+import { addListener, addHandler, sendFrontendMessage } from 'backend/ipc'
 import { logInfo, LogPrefix } from './logger'
 import axios from 'axios'
 import EventEmitter from 'node:events'
-import { sendFrontendMessage } from './ipc'
 
 let status: ConnectivityStatus
 let abortController: AbortController
@@ -124,6 +123,14 @@ export const initOnlineMonitor = () => {
   addListener('set-connectivity-online', () => {
     setStatus('online')
   })
+}
+
+export const onConnectivityChange = (
+  callback: (status: ConnectivityStatus) => unknown
+) => {
+  connectivityEmitter.on('online', () => callback('online'))
+  connectivityEmitter.on('offline', () => callback('offline'))
+  connectivityEmitter.on('check-online', () => callback('check-online'))
 }
 
 export const runOnceWhenOnline = (callback: () => unknown) => {
