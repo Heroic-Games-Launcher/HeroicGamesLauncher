@@ -91,7 +91,7 @@ export default function ConsoleMode() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const installedGames = useMemo<GameInfo[]>(() => {
+  const allGames = useMemo<GameInfo[]>(() => {
     const all: GameInfo[] = [
       ...epic.library,
       ...gog.library,
@@ -99,9 +99,7 @@ export default function ConsoleMode() {
       ...zoom.library,
       ...sideloadedLibrary
     ]
-    return all.filter(
-      (g) => g?.is_installed && !g.install?.is_dlc && !g.thirdPartyManagedApp
-    )
+    return all.filter((g) => !g.install?.is_dlc && !g.thirdPartyManagedApp)
   }, [
     epic.library,
     gog.library,
@@ -179,8 +177,17 @@ export default function ConsoleMode() {
   const columns = useColumnCount(cardRefs, visibleGames.length)
 
   useEffect(() => {
-    // always make sane focused index
-    if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
+    // if index is in between installed and uninstalled,
+    // move to installed games
+    if (
+      focusedIndex >= installedGames.length &&
+      focusedIndex <
+        installedGames.length + columns - (installedGames.length % columns)
+    ) {
+      setFocusedIndex(installedGames.length - 1)
+    }
+    // otherwise, always make sane focused index
+    else if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
       setFocusedIndex(
         Math.max(0, Math.min(focusedIndex, visibleGames.length - 1))
       )
@@ -278,7 +285,13 @@ export default function ConsoleMode() {
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       e.stopPropagation()
-      setFocusedIndex((i) => Math.min(i + 1, last))
+      // check if we're the last installed game, skip to next row
+      if (focusedIndex === installedGames.length - 1) {
+        const diff = columns - (installedGames.length % columns) + 1
+        setFocusedIndex((i) => Math.min(i + diff, last))
+      } else {
+        setFocusedIndex((i) => Math.min(i + 1, last))
+      }
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault()
       e.stopPropagation()
@@ -419,43 +432,92 @@ export default function ConsoleMode() {
             aria-label={t('console.games', 'Installed games')}
             onKeyDown={onGridKeyDown}
           >
+            <h3>{t('console.games', 'Installed Games')}</h3>
             <div className="consoleGrid">
-              {visibleGames.map((game, i) => {
-                const isFocused = i === focusedIndex
-                const needsUpdate = gameUpdates.includes(game.app_name)
-                return (
-                  <button
-                    key={`${game.runner}-${game.app_name}`}
-                    ref={(el) => {
-                      cardRefs.current[i] = el
-                    }}
-                    className={classNames('consoleCard', {
-                      focused: isFocused
-                    })}
-                    tabIndex={isFocused ? 0 : -1}
-                    onClick={() => {
-                      if (isFocused) void launchGame(game)
-                      else setFocusedIndex(i)
-                    }}
-                    onMouseEnter={() => setFocusedIndex(i)}
-                    onFocus={() => setFocusedIndex(i)}
-                  >
-                    <CachedImage
-                      src={
-                        getImageFormatting(game.art_square, game.runner) ||
-                        fallBackImage
-                      }
-                      alt={game.title}
-                      className="consoleCardArt"
-                    />
-                    {needsUpdate && (
-                      <span className="consoleCardBadge">
-                        {t('console.card.needsUpdate', 'Needs update')}
-                      </span>
-                    )}
-                  </button>
-                )
-              })}
+              {visibleGames
+                .filter((game) => game.is_installed)
+                .map((game, i) => {
+                  const isFocused = i === focusedIndex
+                  const needsUpdate = gameUpdates.includes(game.app_name)
+                  return (
+                    <button
+                      key={`${game.runner}-${game.app_name}`}
+                      ref={(el) => {
+                        cardRefs.current[i] = el
+                      }}
+                      className={classNames('consoleCard', {
+                        focused: isFocused
+                      })}
+                      tabIndex={isFocused ? 0 : -1}
+                      onClick={() => {
+                        if (isFocused) void launchGame(game)
+                        else setFocusedIndex(i)
+                      }}
+                      onMouseEnter={() => setFocusedIndex(i)}
+                      onFocus={() => setFocusedIndex(i)}
+                    >
+                      <CachedImage
+                        src={
+                          getImageFormatting(game.art_square, game.runner) ||
+                          fallBackImage
+                        }
+                        alt={game.title}
+                        className="consoleCardArt"
+                      />
+                      {needsUpdate && (
+                        <span className="consoleCardBadge">
+                          {t('console.card.needsUpdate', 'Needs update')}
+                        </span>
+                      )}
+                    </button>
+                  )
+                })}
+            </div>
+
+            <h3>{t('title.allGames', 'All Games')}</h3>
+            <div className="consoleGrid">
+              {visibleGames
+                .filter((game) => !game.is_installed)
+                .map((game, i) => {
+                  // start at the next clean interval of columns to simplify math
+                  const offset = columns - (installedGames.length % columns)
+                  const cardIndex = installedGames.length + offset + i
+                  const isFocused = cardIndex === focusedIndex
+                  const needsUpdate = gameUpdates.includes(game.app_name)
+
+                  return (
+                    <button
+                      key={`${game.runner}-${game.app_name}`}
+                      ref={(el) => {
+                        cardRefs.current[cardIndex] = el
+                      }}
+                      className={classNames('consoleCard', {
+                        focused: isFocused
+                      })}
+                      tabIndex={isFocused ? 0 : -1}
+                      onClick={() => {
+                        if (isFocused) void installGame(game)
+                        else setFocusedIndex(cardIndex)
+                      }}
+                      onMouseEnter={() => setFocusedIndex(cardIndex)}
+                      onFocus={() => setFocusedIndex(cardIndex)}
+                    >
+                      <CachedImage
+                        src={
+                          getImageFormatting(game.art_square, game.runner) ||
+                          fallBackImage
+                        }
+                        alt={game.title}
+                        className="consoleCardArt"
+                      />
+                      {needsUpdate && (
+                        <span className="consoleCardBadge">
+                          {t('console.card.needsUpdate', 'Needs update')}
+                        </span>
+                      )}
+                    </button>
+                  )
+                })}
             </div>
           </div>
         )}
