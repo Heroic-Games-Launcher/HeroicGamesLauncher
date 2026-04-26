@@ -459,6 +459,7 @@
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
+        "envfile": "The environment variable HEROIC_METADATA_FILE is set to the path to a file containing metadata about the game, and no other environment variables are set.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -887,6 +888,7 @@
         "msync": "Enable Msync",
         "no-tray-icon": "Hide System Tray Icon (requires restart)",
         "offlinemode": "Run Game Offline",
+        "passEnvViaFile": "OS Max Argument Workaround (may fix issues with scripts not running)",
         "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
         "runexe": {
