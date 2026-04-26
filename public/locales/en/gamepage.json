@@ -75,6 +75,7 @@
         "changelog": "Show Changelog",
         "continue": "Continue Downloading",
         "details": "Details",
+        "edit-game": "Edit Game",
         "finish": "Finish",
         "force_update": "Force Update if Available",
         "force-innstall": "Force Install",
@@ -99,6 +100,21 @@
     },
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
+    "edit-game": {
+        "advanced": "Advanced",
+        "cover": "Cover Art",
+        "info": {
+            "cover": "Cover Image",
+            "square": "Square Image"
+        },
+        "reset": "Reset to default",
+        "sgdb": {
+            "no-key-link": "Settings → Advanced",
+            "no-key-prefix": "To search SteamGridDB for cover art, add an API key in"
+        },
+        "square": "Square Art",
+        "title": "Edit Game"
+    },
     "enabled": "Enabled",
     "game": {
         "achievements": "Achievements",
@@ -247,15 +263,19 @@
         "field": {
             "title": "Title"
         },
+        "images": {
+            "summary": "Images"
+        },
         "import-hint": {
             "content": "Do NOT use this feature for that.<br />Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
             "title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
         },
         "info": {
             "broser": "BrowserURL",
+            "cover-hint": "Cover/Hero Art (click on the image to search on SteamGridDB)",
             "exe": "Select Executable",
             "fullscreen": "Launch Fullscreen (F11 to exit)",
-            "image": "App Image",
+            "image-hint": "Square Art (click on the image to search on SteamGridDB)",
             "title": "Game/App Title",
             "useragent": "Custom User Agent"
         },

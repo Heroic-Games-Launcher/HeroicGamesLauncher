@@ -1,0 +1,17 @@
+.WarningMessage {
+  background: var(--anticheat-denied, var(--status-danger));
+  color: var(--brand-text-01);
+  text-align: start;
+  padding: var(--space-md);
+  display: flex;
+  gap: var(--space-md);
+  border-radius: var(--space-3xs);
+  align-items: center;
+  line-height: 1.4;
+}
+
+.WarningMessage a {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -14,6 +14,7 @@ import UninstallModal from 'frontend/components/UI/UninstallModal'
 import GameContext from '../GameContext'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import useGlobalState from 'frontend/state/GlobalStateV2'
+import EditGameDialog from 'frontend/components/UI/EditGameDialog'
 
 import {
   ArrowUpward as ArrowUpwardIcon,
@@ -165,7 +166,21 @@ export default function GamesSubmenu({
   }
 
   function handleEdit() {
-    openInstallGameModal({ appName, runner, gameInfo })
+    if (isSideloaded) {
+      openInstallGameModal({ appName, runner, gameInfo })
+      return
+    }
+
+    showDialogModal({
+      showDialog: true,
+      title: t('edit-game.title', 'Edit Game'),
+      message: (
+        <EditGameDialog
+          gameInfo={gameInfo}
+          backdropClick={() => showDialogModal({ showDialog: false })}
+        />
+      )
+    })
   }
 
   async function handleEosOverlay() {
@@ -284,15 +299,15 @@ export default function GamesSubmenu({
         <div className={`submenu`}>
           {isInstalled && (
             <>
-              {isSideloaded && (
-                <button
-                  onClick={async () => handleEdit()}
-                  className="link button is-text is-link buttonWithIcon"
-                >
-                  <EditIcon />
-                  {t('button.sideload.edit', 'Edit App/Game')}
-                </button>
-              )}{' '}
+              <button
+                onClick={async () => handleEdit()}
+                className="link button is-text is-link buttonWithIcon"
+              >
+                <EditIcon />
+                {isSideloaded
+                  ? t('button.sideload.edit', 'Edit App/Game')
+                  : t('button.edit-game', 'Edit Game')}
+              </button>{' '}
               <button
                 onClick={() => handleShortcuts()}
                 className="link button is-text is-link buttonWithIcon"

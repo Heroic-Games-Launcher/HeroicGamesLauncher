@@ -103,7 +103,8 @@ import {
   getBranchPassword,
   setBranchPassword,
   getGOGPlaytime,
-  syncQueuedPlaytimeGOG
+  syncQueuedPlaytimeGOG,
+  getAchievements as getAchievementsGOG
 } from 'backend/storeManagers/gog/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
@@ -114,6 +115,13 @@ import {
   libraryManagerMap
 } from './storeManagers'
 import { addNewApp } from './storeManagers/sideload/library'
+import {
+  setGameOverrides,
+  getGameOverrides,
+  getAllGameOverrides,
+  attachOverrides,
+  copyImageToOverrides
+} from './game_overrides'
 import {
   getGameOverride,
   getGameSdl
@@ -157,7 +165,6 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
-import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
@@ -742,7 +749,7 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   // The frontend can however handle being passed an explicit `null` value, so
   // we return that here instead if the game info is empty
   if (!Object.keys(tempGameInfo).length) return null
-  return tempGameInfo
+  return attachOverrides(tempGameInfo)
 })
 
 addHandler(
@@ -1348,6 +1355,24 @@ addListener('setTitleBarOverlay', (e, args) => {
 })
 
 addListener('addNewApp', (e, args) => addNewApp(args))
+
+addListener('setGameMetadataOverride', (e, args) => {
+  const { appName, title, art_cover, art_square } = args
+  setGameOverrides(appName, { title, art_cover, art_square })
+  sendFrontendMessage('metadataChanged', getAllGameOverrides())
+})
+
+addHandler('getGameMetadataOverride', async (_e, appName) => {
+  return getGameOverrides(appName)
+})
+
+addHandler('getAllGameOverrides', async () => {
+  return getAllGameOverrides()
+})
+
+addHandler('copyImageToOverrides', async (_e, { srcPath, appName, kind }) => {
+  return copyImageToOverrides(srcPath, appName, kind)
+})
 
 addHandler('isNative', (e, { appName, runner }) => {
   return gameManagerMap[runner].isNative(appName)

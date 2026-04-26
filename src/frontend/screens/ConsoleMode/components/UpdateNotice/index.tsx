@@ -52,7 +52,9 @@ export default function UpdateNotice({
       <div className="consoleLaunchText">
         {t('console.update.title', 'Update required')}
       </div>
-      <div className="consoleLaunchGameTitle">{game.title}</div>
+      <div className="consoleLaunchGameTitle">
+        {game.overrides?.title || game.title}
+      </div>
       <p className="consoleUpdateNoticeBody">
         {t(
           'console.update.body',
