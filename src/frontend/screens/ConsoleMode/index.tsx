@@ -110,22 +110,34 @@ export default function ConsoleMode() {
     sideloadedLibrary
   ])
 
-  const visibleGames = useMemo(() => {
-    let list = installedGames
+  const installedGames = allGames.filter((game) => game.is_installed)
+  const uninstalledGames = allGames.filter((game) => !game.is_installed)
+
+  const filterAndSortGames = (games: GameInfo[]) => {
+    let filteredGames = games
+
     if (activeStore !== 'all') {
-      list = list.filter((g) => g.runner === activeStore)
+      filteredGames = filteredGames.filter((g) => g.runner === activeStore)
     }
-    return [...list].sort((a, b) => {
+
+    return filteredGames.sort((a, b) => {
       const cmp = a.title.localeCompare(b.title)
       return ascending ? cmp : -cmp
     })
-  }, [installedGames, activeStore, ascending])
+  }
+
+  const visibleGames = useMemo(() => {
+    let filteredInstalledGames = filterAndSortGames(installedGames)
+    let filteredUninstalledGames = filterAndSortGames(uninstalledGames)
+
+    return [...filteredInstalledGames, ...filteredUninstalledGames]
+  }, [allGames, activeStore, ascending])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
-    for (const g of installedGames) set.add(g.runner)
+    for (const g of allGames) set.add(g.runner)
     return set
-  }, [installedGames])
+  }, [allGames])
 
   const storeFilters = useMemo<
     { key: StoreKey; label: string; enabled: boolean }[]
@@ -134,7 +146,7 @@ export default function ConsoleMode() {
       {
         key: 'all',
         label: t('console.filter.all', 'All'),
-        enabled: installedGames.length > 0
+        enabled: allGames.length > 0
       },
       {
         key: 'legendary',
@@ -150,7 +162,7 @@ export default function ConsoleMode() {
       },
       { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
     ],
-    [t, storesWithGames, installedGames.length]
+    [t, storesWithGames, allGames.length]
   )
 
   const enabledStoreKeys = useMemo(
@@ -167,8 +179,11 @@ export default function ConsoleMode() {
   const columns = useColumnCount(cardRefs, visibleGames.length)
 
   useEffect(() => {
-    if (focusedIndex >= visibleGames.length) {
-      setFocusedIndex(Math.max(0, visibleGames.length - 1))
+    // always make sane focused index
+    if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
+      setFocusedIndex(
+        Math.max(0, Math.min(focusedIndex, visibleGames.length - 1))
+      )
     }
   }, [visibleGames.length, focusedIndex])
 
@@ -225,6 +240,9 @@ export default function ConsoleMode() {
     onCancel: () => {
       if (launchingGame)
         void sendKill(launchingGame.app_name, launchingGame.runner)
+
+      // prevent UX from hanging in "Launching" mode
+      setLaunchingGame(null)
     }
   })
 
@@ -292,8 +310,8 @@ export default function ConsoleMode() {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       e.preventDefault()
-      if (!launchingGame) quit()
-      else if (!e.repeat) startHold()
+
+      if (!e.repeat) startHold()
     }
     const onKeyUp = (e: KeyboardEvent) => {
       if (e.key === 'Escape') stopHold()
