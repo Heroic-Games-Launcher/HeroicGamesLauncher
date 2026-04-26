@@ -476,7 +476,8 @@
             "gameWidth": "The width resolution used by the game. A 16:9 aspect ratio is assumed by gamescope.",
             "upscaleHeight": "The height resolution used by gamescope. A 16:9 aspect ratio is assumed.",
             "upscaleMethod": "The upscaling method gamescope should use.",
-            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed."
+            "upscaleWidth": "The width resolution used by gamescope. A 16:9 aspect ratio is assumed.",
+            "autores-info": "Game resolution is set to the dimensions of the current primary monitor."
         },
         "general": "Sync with EGL if you have a working installation of the Epic Games Launcher elsewhere and want to import your games to avoid downloading them again.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
@@ -810,8 +811,10 @@
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "gamescope": {
             "enableForceGrabCursor": "Enable Force Grab Cursor",
+            "enableGamescope": "Enable Gamescope",
             "enableLimiter": "Enable FPS Limiter",
             "enableUpscaling": "Enables Upscaling",
+            "enableAutoRes": "Enable Automatic Resolution",
             "missingMsg": "We could not find gamescope on the PATH. Install it or add it to the PATH.",
             "warningFlatpak": "We could not find a compatible version of Gamescope. Install Gamescope's flatpak package with runtime {{runtimeVersion}} and restart Heroic."
         },
