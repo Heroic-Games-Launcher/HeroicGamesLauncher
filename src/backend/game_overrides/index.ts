@@ -2,12 +2,39 @@ import { GameInfo } from 'common/types'
 import { gameOverridesStore, GameMetadataOverride } from './electronStores'
 import { logInfo, logError, LogPrefix } from 'backend/logger'
 import { userDataPath } from 'backend/constants/paths'
-import { existsSync, mkdirSync, copyFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  copyFileSync,
+  readdirSync,
+  unlinkSync
+} from 'graceful-fs'
 import { extname, join } from 'node:path'
 
 const logPrefix: LogPrefix = 'GameOverrides'
 
 const overridesImagesDir = join(userDataPath, 'game_overrides_images')
+
+const removeImagesMatching = (predicate: (file: string) => boolean) => {
+  if (!existsSync(overridesImagesDir)) return
+  for (const file of readdirSync(overridesImagesDir)) {
+    if (!predicate(file)) continue
+    try {
+      unlinkSync(join(overridesImagesDir, file))
+    } catch (error) {
+      logError(
+        `Failed to delete override image ${file}: ${String(error)}`,
+        logPrefix
+      )
+    }
+  }
+}
+
+const removeImagesForKind = (appName: string, kind: 'cover' | 'square') =>
+  removeImagesMatching((file) => file.startsWith(`${appName}-${kind}.`))
+
+const removeImagesForApp = (appName: string) =>
+  removeImagesMatching((file) => file.startsWith(`${appName}-`))
 
 /**
  * Copies a user-picked image into the app's data directory and returns the
@@ -27,6 +54,9 @@ export function copyImageToOverrides(
     if (!existsSync(overridesImagesDir)) {
       mkdirSync(overridesImagesDir, { recursive: true })
     }
+    // Drop any prior file for this kind so changing extensions doesn't
+    // leave stale orphans behind.
+    removeImagesForKind(appName, kind)
     const ext = extname(srcPath) || '.png'
     const destPath = join(overridesImagesDir, `${appName}-${kind}${ext}`)
     copyFileSync(srcPath, destPath)
@@ -84,9 +114,10 @@ export function setGameOverrides(
       GameMetadataOverride
     >
 
-    // If override is empty, remove it
+    // If override is empty, remove it and drop any stored image files.
     if (!override.title && !override.art_cover && !override.art_square) {
       delete currentOverrides[appName]
+      removeImagesForApp(appName)
     } else {
       currentOverrides[appName] = override
     }
@@ -111,6 +142,7 @@ export function removeGameOverrides(appName: string): boolean {
     >
     delete currentOverrides[appName]
     gameOverridesStore.set('overrides', currentOverrides)
+    removeImagesForApp(appName)
     logInfo(`Removed overrides for ${appName}`, logPrefix)
     return true
   } catch {
