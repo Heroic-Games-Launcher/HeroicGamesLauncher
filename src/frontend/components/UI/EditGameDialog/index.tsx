@@ -114,30 +114,33 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               value={title}
               maxLength={40}
             />
-            <TextInputWithIconField
-              label={t('edit-game.info.cover', 'Cover Image')}
-              placeholder={t(
-                'sideload.placeholder.image',
-                'Paste an URL of an Image or select one from your computer'
-              )}
-              onChange={setArtCover}
-              htmlId="edit-game-cover"
-              value={artCover}
-              icon={<Folder />}
-              onIconClick={() => handleSelectLocalImage('cover')}
-            />
-            <TextInputWithIconField
-              label={t('edit-game.info.square', 'Square Image')}
-              placeholder={t(
-                'sideload.placeholder.image',
-                'Paste an URL of an Image or select one from your computer'
-              )}
-              onChange={setArtSquare}
-              htmlId="edit-game-square"
-              value={artSquare}
-              icon={<Folder />}
-              onIconClick={() => handleSelectLocalImage('square')}
-            />
+            <details className="advancedFields">
+              <summary>{t('edit-game.advanced', 'Advanced')}</summary>
+              <TextInputWithIconField
+                label={t('edit-game.info.cover', 'Cover Image')}
+                placeholder={t(
+                  'sideload.placeholder.image',
+                  'Paste an URL of an Image or select one from your computer'
+                )}
+                onChange={setArtCover}
+                htmlId="edit-game-cover"
+                value={artCover}
+                icon={<Folder />}
+                onIconClick={() => handleSelectLocalImage('cover')}
+              />
+              <TextInputWithIconField
+                label={t('edit-game.info.square', 'Square Image')}
+                placeholder={t(
+                  'sideload.placeholder.image',
+                  'Paste an URL of an Image or select one from your computer'
+                )}
+                onChange={setArtSquare}
+                htmlId="edit-game-square"
+                value={artSquare}
+                icon={<Folder />}
+                onIconClick={() => handleSelectLocalImage('square')}
+              />
+            </details>
             {!hasSgdbKey && (
               <div className="sgdbWarning">
                 <Trans

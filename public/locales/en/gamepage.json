@@ -101,6 +101,7 @@
     "cloud_save_unsupported": "Unsupported",
     "disabled": "Disabled",
     "edit-game": {
+        "advanced": "Advanced",
         "cover": "Cover Art",
         "info": {
             "cover": "Cover Image",

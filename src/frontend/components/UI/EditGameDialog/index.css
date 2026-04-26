@@ -92,6 +92,23 @@
       padding-top: var(--space-xs);
     }
 
+    .advancedFields {
+      summary {
+        cursor: pointer;
+        font-size: var(--font-size-sm);
+        color: var(--neutral-06);
+        font-weight: bold;
+        padding: var(--space-xs) 0;
+        user-select: none;
+      }
+
+      &[open] {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+    }
+
     .sgdbWarning {
       font-size: var(--font-size-sm);
       color: var(--neutral-06);
