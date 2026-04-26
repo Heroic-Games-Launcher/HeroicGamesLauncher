@@ -1,8 +1,44 @@
 import { GameInfo } from 'common/types'
 import { gameOverridesStore, GameMetadataOverride } from './electronStores'
 import { logInfo, logError, LogPrefix } from 'backend/logger'
+import { userDataPath } from 'backend/constants/paths'
+import { existsSync, mkdirSync, copyFileSync } from 'graceful-fs'
+import { extname, join } from 'node:path'
 
 const logPrefix: LogPrefix = 'GameOverrides'
+
+const overridesImagesDir = join(userDataPath, 'game_overrides_images')
+
+/**
+ * Copies a user-picked image into the app's data directory and returns the
+ * destination path. Used so overrides survive the original file being moved or
+ * deleted (and so Flatpak portal-mounted paths don't leak into persistent state).
+ */
+export function copyImageToOverrides(
+  srcPath: string,
+  appName: string,
+  kind: 'cover' | 'square'
+): string | null {
+  try {
+    if (!existsSync(srcPath)) {
+      logError(`Source image does not exist: ${srcPath}`, logPrefix)
+      return null
+    }
+    if (!existsSync(overridesImagesDir)) {
+      mkdirSync(overridesImagesDir, { recursive: true })
+    }
+    const ext = extname(srcPath) || '.png'
+    const destPath = join(overridesImagesDir, `${appName}-${kind}${ext}`)
+    copyFileSync(srcPath, destPath)
+    return destPath
+  } catch (error) {
+    logError(
+      `Failed to copy image override for ${appName}: ${String(error)}`,
+      logPrefix
+    )
+    return null
+  }
+}
 
 /**
  * Get stored overrides for a specific game

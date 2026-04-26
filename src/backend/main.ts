@@ -118,7 +118,8 @@ import {
   setGameOverrides,
   getGameOverrides,
   getAllGameOverrides,
-  attachOverrides
+  attachOverrides,
+  copyImageToOverrides
 } from './game_overrides'
 import {
   getGameOverride,
@@ -1367,6 +1368,10 @@ addHandler('getGameMetadataOverride', async (_e, appName) => {
 
 addHandler('getAllGameOverrides', async () => {
   return getAllGameOverrides()
+})
+
+addHandler('copyImageToOverrides', async (_e, { srcPath, appName, kind }) => {
+  return copyImageToOverrides(srcPath, appName, kind)
 })
 
 addHandler('isNative', (e, { appName, runner }) => {

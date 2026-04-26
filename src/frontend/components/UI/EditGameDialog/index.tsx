@@ -77,10 +77,19 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
       ]
     })
 
-    if (path) {
-      if (target === 'cover') setArtCover(`file://${path}`)
-      else setArtSquare(`file://${path}`)
-    }
+    if (!path) return
+
+    // Copy into our data dir so the override survives the original being moved
+    // or deleted, and so Flatpak portal-mounted paths don't leak into state.
+    const localPath = await window.api.copyImageToOverrides({
+      srcPath: path,
+      appName: gameInfo.app_name,
+      kind: target
+    })
+    const finalUrl = localPath ? `file://${localPath}` : `file://${path}`
+
+    if (target === 'cover') setArtCover(finalUrl)
+    else setArtSquare(finalUrl)
   }
 
   return (
