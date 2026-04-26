@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.css'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GameInfo } from 'common/types'
