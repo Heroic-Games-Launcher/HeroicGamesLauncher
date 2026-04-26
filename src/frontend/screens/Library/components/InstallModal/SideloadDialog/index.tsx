@@ -410,36 +410,39 @@ export default function SideloadDialog({
               value={title}
               maxLength={40}
             />
-            <TextInputWithIconField
-              label={t(
-                'sideload.info.image-hint',
-                'Square Art (click on the image to search on SteamGridDB)'
-              )}
-              placeholder={t(
-                'sideload.placeholder.image',
-                'Paste an URL of an Image or select one from your computer'
-              )}
-              onChange={(newValue: string) => setImageUrl(newValue)}
-              htmlId="sideload-image"
-              value={imageUrl}
-              icon={<Folder />}
-              onIconClick={() => handleSelectLocalImage('square')}
-            />
-            <TextInputWithIconField
-              label={t(
-                'sideload.info.cover-hint',
-                'Cover/Hero Art (click on the image to search on SteamGridDB)'
-              )}
-              placeholder={t(
-                'sideload.placeholder.image',
-                'Paste an URL of an Image or select one from your computer'
-              )}
-              onChange={(newValue: string) => setHeroUrl(newValue)}
-              htmlId="sideload-cover"
-              value={heroUrl}
-              icon={<Folder />}
-              onIconClick={() => handleSelectLocalImage('cover')}
-            />
+            <details className="advancedFields">
+              <summary>{t('sideload.images.summary', 'Images')}</summary>
+              <TextInputWithIconField
+                label={t(
+                  'sideload.info.image-hint',
+                  'Square Art (click on the image to search on SteamGridDB)'
+                )}
+                placeholder={t(
+                  'sideload.placeholder.image',
+                  'Paste an URL of an Image or select one from your computer'
+                )}
+                onChange={(newValue: string) => setImageUrl(newValue)}
+                htmlId="sideload-image"
+                value={imageUrl}
+                icon={<Folder />}
+                onIconClick={() => handleSelectLocalImage('square')}
+              />
+              <TextInputWithIconField
+                label={t(
+                  'sideload.info.cover-hint',
+                  'Cover/Hero Art (click on the image to search on SteamGridDB)'
+                )}
+                placeholder={t(
+                  'sideload.placeholder.image',
+                  'Paste an URL of an Image or select one from your computer'
+                )}
+                onChange={(newValue: string) => setHeroUrl(newValue)}
+                htmlId="sideload-cover"
+                value={heroUrl}
+                icon={<Folder />}
+                onIconClick={() => handleSelectLocalImage('cover')}
+              />
+            </details>
             {!hasSgdbKey && (
               <WarningMessage>
                 {t(

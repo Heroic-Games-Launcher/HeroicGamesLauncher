@@ -263,6 +263,9 @@
         "field": {
             "title": "Title"
         },
+        "images": {
+            "summary": "Images"
+        },
         "import-hint": {
             "content": "Do NOT use this feature for that.<br />Instead, <3>log into</3> the store, look for the game in your library, open the installation dialog, and click the &quot;Import Game&quot; button",
             "title": "Important! Are you adding a game from Epic/GOG/Amazon? Click here!"
