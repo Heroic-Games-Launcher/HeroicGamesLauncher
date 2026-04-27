@@ -822,7 +822,8 @@
         "scripts": "Scripts:",
         "enable-quick-sync-menu": "Ativar o Menu de Sincronização Rápida de Saves na página do jogo",
         "disable_gog_presence": "Desativar atualizações do GOG Presence",
-        "start-in-console-mode": ""
+        "start-in-console-mode": "Iniciar no Modo Console",
+        "console-mode-sounds": "Sons no Modo Console"
     },
     "settings": {
         "battlEyeRuntime": {

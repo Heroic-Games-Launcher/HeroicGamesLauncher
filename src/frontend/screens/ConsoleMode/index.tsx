@@ -11,6 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
+import { useSound } from 'use-sound'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { launch, sendKill } from 'frontend/helpers'
@@ -18,6 +19,10 @@ import { getImageFormatting } from '../Library/components/GameCard/constants'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
+import focusSound from 'frontend/assets/console-mode-game-focus.mp3'
+import startSound from 'frontend/assets/console-mode-game-start.mp3'
+import sortSound from 'frontend/assets/console-mode-sort.mp3'
+import tabChangeSound from 'frontend/assets/console-mode-tab-change.mp3'
 
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
@@ -55,7 +60,8 @@ export default function ConsoleMode() {
     showDialogModal,
     refreshLibrary,
     refreshing,
-    gameUpdates
+    gameUpdates,
+    consoleModeSounds
   } = useContext(ContextProvider)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
@@ -64,6 +70,34 @@ export default function ConsoleMode() {
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
     null
+  )
+  const [playStartSound] = useSound(startSound, {
+    soundEnabled: consoleModeSounds
+  })
+  const [playFocusSound] = useSound(focusSound, {
+    soundEnabled: consoleModeSounds
+  })
+  const [playSortSound] = useSound(sortSound, {
+    soundEnabled: consoleModeSounds
+  })
+  const [playTabChangeSound] = useSound(tabChangeSound, {
+    soundEnabled: consoleModeSounds
+  })
+
+  const setFocusedIndexWithSound = (newIndex: number) => {
+    // prevents playing sound twice
+    if (newIndex !== focusedIndex) {
+      playFocusSound()
+    }
+    setFocusedIndex(newIndex)
+  }
+
+  const setActiveStoreWithSound = useCallback(
+    (key: StoreKey) => {
+      playTabChangeSound()
+      setActiveStore(key)
+    },
+    [playTabChangeSound]
   )
 
   const { connected: gamepadConnected, layout: controllerLayout } =
@@ -187,9 +221,9 @@ export default function ConsoleMode() {
       const idx = enabledStoreKeys.indexOf(activeStore)
       const next =
         (idx + direction + enabledStoreKeys.length) % enabledStoreKeys.length
-      setActiveStore(enabledStoreKeys[next])
+      setActiveStoreWithSound(enabledStoreKeys[next])
     },
-    [enabledStoreKeys, activeStore]
+    [enabledStoreKeys, activeStore, setActiveStoreWithSound]
   )
 
   const quit = useCallback(() => navigate('/'), [navigate])
@@ -201,6 +235,7 @@ export default function ConsoleMode() {
         setUpdateNoticeGame(game)
         return
       }
+      playStartSound()
       setLaunchingGame(game)
       try {
         await launch({
@@ -214,7 +249,14 @@ export default function ConsoleMode() {
         setLaunchingGame(null)
       }
     },
-    [launchingGame, updateNoticeGame, gameUpdates, showDialogModal, t]
+    [
+      launchingGame,
+      updateNoticeGame,
+      gameUpdates,
+      showDialogModal,
+      t,
+      playStartSound
+    ]
   )
 
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
@@ -260,15 +302,15 @@ export default function ConsoleMode() {
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       e.stopPropagation()
-      setFocusedIndex((i) => Math.min(i + 1, last))
+      setFocusedIndexWithSound(Math.min(focusedIndex + 1, last))
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault()
       e.stopPropagation()
-      setFocusedIndex((i) => Math.max(i - 1, 0))
+      setFocusedIndexWithSound(Math.max(focusedIndex - 1, 0))
     } else if (e.key === 'ArrowDown') {
       e.preventDefault()
       e.stopPropagation()
-      setFocusedIndex((i) => Math.min(i + columns, last))
+      setFocusedIndexWithSound(Math.min(focusedIndex + columns, last))
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       e.stopPropagation()
@@ -278,7 +320,7 @@ export default function ConsoleMode() {
         )
         first?.focus()
       } else {
-        setFocusedIndex((i) => Math.max(i - columns, 0))
+        setFocusedIndexWithSound(Math.max(focusedIndex - columns, 0))
       }
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
@@ -314,7 +356,10 @@ export default function ConsoleMode() {
   }, [launchingGame])
 
   const idle = !launchingGame && !updateNoticeGame
-  const toggleSort = useCallback(() => setAscending((v) => !v), [])
+  const toggleSort = useCallback(() => {
+    playSortSound()
+    setAscending((v) => !v)
+  }, [playSortSound])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
@@ -342,7 +387,7 @@ export default function ConsoleMode() {
                 className={classNames('consoleChip', {
                   active: activeStore === f.key
                 })}
-                onClick={() => setActiveStore(f.key)}
+                onClick={() => setActiveStoreWithSound(f.key)}
                 disabled={!!launchingGame}
               >
                 {f.label}
@@ -416,10 +461,13 @@ export default function ConsoleMode() {
                     })}
                     tabIndex={isFocused ? 0 : -1}
                     onClick={() => {
-                      if (isFocused) void launchGame(game)
-                      else setFocusedIndex(i)
+                      if (isFocused) {
+                        void launchGame(game)
+                      } else {
+                        setFocusedIndexWithSound(i)
+                      }
                     }}
-                    onMouseEnter={() => setFocusedIndex(i)}
+                    onMouseEnter={() => setFocusedIndexWithSound(i)}
                     onFocus={() => setFocusedIndex(i)}
                   >
                     <CachedImage
