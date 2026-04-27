@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
+import { useSound } from 'use-sound'
 
 import './index.scss'
 
@@ -13,6 +14,7 @@ import { useCancelOnHold, useGamepadButtonHold } from '../../hooks'
 import { BTN_BACK } from '../../controller'
 import { launch, sendKill } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
+import startSound from 'frontend/assets/console-mode-game-start.mp3'
 
 const CANCEL_HOLD_MS = 3000
 
@@ -27,7 +29,7 @@ export default function LaunchOverlay({
   const { status, statusContext } = hasStatus(game)
   let label: string | null = null
 
-  const { showDialogModal } = useContext(ContextProvider)
+  const { showDialogModal, consoleModeSounds } = useContext(ContextProvider)
 
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
   // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
@@ -40,6 +42,10 @@ export default function LaunchOverlay({
       // prevent UX from hanging in "Launching" mode
       onDismiss()
     }
+  })
+
+  const [playStartSound] = useSound(startSound, {
+    soundEnabled: consoleModeSounds
   })
 
   // Escape quits when idle; hold it while launching to cancel.
@@ -64,6 +70,8 @@ export default function LaunchOverlay({
   // Fire the launch exactly once on mount; the overlay closes via onDismiss
   // in the finally block. Intentionally not depending on the launch inputs.
   useEffect(() => {
+    playStartSound()
+
     void launch({
       appName: game.app_name,
       t,
@@ -74,7 +82,7 @@ export default function LaunchOverlay({
       onDismiss()
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [playStartSound])
 
   useGamepadButtonHold(
     BTN_BACK,

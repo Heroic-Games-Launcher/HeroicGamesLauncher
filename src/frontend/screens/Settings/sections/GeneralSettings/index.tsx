@@ -4,6 +4,7 @@ import { ThemeSelector } from 'frontend/components/UI/ThemeSelector'
 import {
   AutoUpdateGames,
   CheckUpdatesOnStartup,
+  ConsoleModeSounds,
   DefaultInstallPath,
   DefaultSteamPath,
   DisableController,
@@ -50,6 +51,8 @@ export default function GeneralSettings() {
       <HideChangelogOnStartup />
 
       <StartInConsoleMode />
+
+      <ConsoleModeSounds />
 
       <TraySettings />
 
