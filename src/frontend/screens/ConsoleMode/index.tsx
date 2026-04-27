@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { launch, sendKill } from 'frontend/helpers'
 import { getImageFormatting } from '../Library/components/GameCard/constants'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
@@ -21,25 +20,12 @@ import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
+import InstallOverlay from './InstallOverlay'
 import UpdateNotice from './components/UpdateNotice'
-import {
-  BTN_BACK,
-  BTN_L1,
-  BTN_R1,
-  BTN_R2,
-  getBackButtonLabel
-} from './controller'
-import {
-  useCancelOnHold,
-  useColumnCount,
-  useGamepadButtonHold,
-  useGamepadButtonPress,
-  useGamepadInfo
-} from './hooks'
+import { BTN_L1, BTN_R1, BTN_R2, getBackButtonLabel } from './controller'
+import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { GameInfo, Runner } from 'common/types'
-
-const CANCEL_HOLD_MS = 3000
 
 type StoreKey = Runner | 'all'
 
@@ -52,7 +38,6 @@ export default function ConsoleMode() {
     amazon,
     zoom,
     sideloadedLibrary,
-    showDialogModal,
     refreshLibrary,
     refreshing,
     gameUpdates
@@ -60,8 +45,10 @@ export default function ConsoleMode() {
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [ascending, setAscending] = useState(true)
+  const [filteringByInstalled, setFilteringByInstalled] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
+  const [installingGame, setInstallingGame] = useState<GameInfo | null>(null)
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
     null
   )
@@ -75,7 +62,7 @@ export default function ConsoleMode() {
   const topBarRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    window.api.setFullscreen(true)
+    // window.api.setFullscreen(true)
     if (
       !refreshing &&
       epic.library.length === 0 &&
@@ -111,8 +98,15 @@ export default function ConsoleMode() {
   const installedGames = allGames.filter((game) => game.is_installed)
   const uninstalledGames = allGames.filter((game) => !game.is_installed)
 
-  const filterAndSortGames = (games: GameInfo[]) => {
-    let filteredGames = games
+  const visibleGames = useMemo(() => {
+    // reset card refs to rebuild them
+    cardRefs.current = []
+
+    let filteredGames = allGames
+
+    if (filteringByInstalled) {
+      filteredGames = filteredGames.filter((g) => g.is_installed)
+    }
 
     if (activeStore !== 'all') {
       filteredGames = filteredGames.filter((g) => g.runner === activeStore)
@@ -122,14 +116,7 @@ export default function ConsoleMode() {
       const cmp = a.title.localeCompare(b.title)
       return ascending ? cmp : -cmp
     })
-  }
-
-  const visibleGames = useMemo(() => {
-    let filteredInstalledGames = filterAndSortGames(installedGames)
-    let filteredUninstalledGames = filterAndSortGames(uninstalledGames)
-
-    return [...filteredInstalledGames, ...filteredUninstalledGames]
-  }, [allGames, activeStore, ascending])
+  }, [allGames, filteringByInstalled, activeStore, ascending])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
@@ -216,43 +203,6 @@ export default function ConsoleMode() {
 
   const quit = useCallback(() => navigate('/'), [navigate])
 
-  const launchGame = useCallback(
-    async (game: GameInfo) => {
-      if (launchingGame || updateNoticeGame) return
-      if (gameUpdates.includes(game.app_name)) {
-        setUpdateNoticeGame(game)
-        return
-      }
-      setLaunchingGame(game)
-      try {
-        await launch({
-          appName: game.app_name,
-          t,
-          runner: game.runner as Runner,
-          hasUpdate: false,
-          showDialogModal
-        })
-      } finally {
-        setLaunchingGame(null)
-      }
-    },
-    [launchingGame, updateNoticeGame, gameUpdates, showDialogModal, t]
-  )
-
-  // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
-  // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
-  const { holdStart, startHold, stopHold } = useCancelOnHold({
-    active: !!launchingGame,
-    holdMs: CANCEL_HOLD_MS,
-    onCancel: () => {
-      if (launchingGame)
-        void sendKill(launchingGame.app_name, launchingGame.runner)
-
-      // prevent UX from hanging in "Launching" mode
-      setLaunchingGame(null)
-    }
-  })
-
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
     if (launchingGame || updateNoticeGame) return
     const root = topBarRef.current
@@ -282,16 +232,11 @@ export default function ConsoleMode() {
   const onGridKeyDown = (e: React.KeyboardEvent) => {
     if (visibleGames.length === 0 || launchingGame || updateNoticeGame) return
     const last = visibleGames.length - 1
+
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       e.stopPropagation()
-      // check if we're the last installed game, skip to next row
-      if (focusedIndex === installedGames.length - 1) {
-        const diff = columns - (installedGames.length % columns) + 1
-        setFocusedIndex((i) => Math.min(i + diff, last))
-      } else {
-        setFocusedIndex((i) => Math.min(i + 1, last))
-      }
+      setFocusedIndex((i) => Math.min(i + 1, last))
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault()
       e.stopPropagation()
@@ -311,31 +256,8 @@ export default function ConsoleMode() {
       } else {
         setFocusedIndex((i) => Math.max(i - columns, 0))
       }
-    } else if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      const g = visibleGames[focusedIndex]
-      if (g) void launchGame(g)
     }
   }
-
-  // Escape quits when idle; hold it while launching to cancel.
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
-      e.preventDefault()
-
-      if (!e.repeat) startHold()
-    }
-    const onKeyUp = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') stopHold()
-    }
-    window.addEventListener('keydown', onKeyDown)
-    window.addEventListener('keyup', onKeyUp)
-    return () => {
-      window.removeEventListener('keydown', onKeyDown)
-      window.removeEventListener('keyup', onKeyUp)
-    }
-  }, [quit, launchingGame, startHold, stopHold])
 
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
@@ -350,11 +272,6 @@ export default function ConsoleMode() {
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
   useGamepadButtonPress(BTN_R2, toggleSort, idle)
-  useGamepadButtonHold(
-    BTN_BACK,
-    (held) => (held ? startHold() : stopHold()),
-    !!launchingGame
-  )
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -365,6 +282,16 @@ export default function ConsoleMode() {
       >
         <HeroicIcon className="consoleLogo" />
         <div className="consoleFilters">
+          <button
+            key={'installedGames'}
+            className={classNames('consoleChip', {
+              active: filteringByInstalled
+            })}
+            onClick={() => setFilteringByInstalled(!filteringByInstalled)}
+          >
+            {t('status.installed', 'Installed')}
+          </button>
+          <div className="consoleDividerVertical" />
           {storeFilters
             .filter((f) => f.enabled)
             .map((f) => (
@@ -432,92 +359,48 @@ export default function ConsoleMode() {
             aria-label={t('console.games', 'Installed games')}
             onKeyDown={onGridKeyDown}
           >
-            <h3>{t('console.games', 'Installed Games')}</h3>
             <div className="consoleGrid">
-              {visibleGames
-                .filter((game) => game.is_installed)
-                .map((game, i) => {
-                  const isFocused = i === focusedIndex
-                  const needsUpdate = gameUpdates.includes(game.app_name)
-                  return (
-                    <button
-                      key={`${game.runner}-${game.app_name}`}
-                      ref={(el) => {
-                        cardRefs.current[i] = el
-                      }}
-                      className={classNames('consoleCard', {
-                        focused: isFocused
-                      })}
-                      tabIndex={isFocused ? 0 : -1}
-                      onClick={() => {
-                        if (isFocused) void launchGame(game)
-                        else setFocusedIndex(i)
-                      }}
-                      onMouseEnter={() => setFocusedIndex(i)}
-                      onFocus={() => setFocusedIndex(i)}
-                    >
-                      <CachedImage
-                        src={
-                          getImageFormatting(game.art_square, game.runner) ||
-                          fallBackImage
-                        }
-                        alt={game.title}
-                        className="consoleCardArt"
-                      />
-                      {needsUpdate && (
-                        <span className="consoleCardBadge">
-                          {t('console.card.needsUpdate', 'Needs update')}
-                        </span>
-                      )}
-                    </button>
-                  )
-                })}
-            </div>
+              {visibleGames.map((game, i) => {
+                const isFocused = i === focusedIndex
+                const needsUpdate = gameUpdates.includes(game.app_name)
 
-            <h3>{t('title.allGames', 'All Games')}</h3>
-            <div className="consoleGrid">
-              {visibleGames
-                .filter((game) => !game.is_installed)
-                .map((game, i) => {
-                  // start at the next clean interval of columns to simplify math
-                  const offset = columns - (installedGames.length % columns)
-                  const cardIndex = installedGames.length + offset + i
-                  const isFocused = cardIndex === focusedIndex
-                  const needsUpdate = gameUpdates.includes(game.app_name)
-
-                  return (
-                    <button
-                      key={`${game.runner}-${game.app_name}`}
-                      ref={(el) => {
-                        cardRefs.current[cardIndex] = el
-                      }}
-                      className={classNames('consoleCard', {
-                        focused: isFocused
-                      })}
-                      tabIndex={isFocused ? 0 : -1}
-                      onClick={() => {
-                        if (isFocused) void installGame(game)
-                        else setFocusedIndex(cardIndex)
-                      }}
-                      onMouseEnter={() => setFocusedIndex(cardIndex)}
-                      onFocus={() => setFocusedIndex(cardIndex)}
-                    >
-                      <CachedImage
-                        src={
-                          getImageFormatting(game.art_square, game.runner) ||
-                          fallBackImage
-                        }
-                        alt={game.title}
-                        className="consoleCardArt"
-                      />
-                      {needsUpdate && (
-                        <span className="consoleCardBadge">
-                          {t('console.card.needsUpdate', 'Needs update')}
-                        </span>
-                      )}
-                    </button>
-                  )
-                })}
+                return (
+                  <button
+                    key={`${game.runner}-${game.app_name}`}
+                    ref={(el) => {
+                      cardRefs.current[i] = el
+                    }}
+                    className={classNames('consoleCard', {
+                      focused: isFocused
+                    })}
+                    tabIndex={isFocused ? 0 : -1}
+                    onClick={() => {
+                      if (isFocused) {
+                        if (gameUpdates.includes(game.app_name)) {
+                          setUpdateNoticeGame(game)
+                        } else if (game.is_installed) setLaunchingGame(game)
+                        else setInstallingGame(game)
+                      } else setFocusedIndex(i)
+                    }}
+                    onMouseEnter={() => setFocusedIndex(i)}
+                    onFocus={() => setFocusedIndex(i)}
+                  >
+                    <CachedImage
+                      src={
+                        getImageFormatting(game.art_square, game.runner) ||
+                        fallBackImage
+                      }
+                      alt={game.title}
+                      className="consoleCardArt"
+                    />
+                    {needsUpdate && (
+                      <span className="consoleCardBadge">
+                        {t('console.card.needsUpdate', 'Needs update')}
+                      </span>
+                    )}
+                  </button>
+                )
+              })}
             </div>
           </div>
         )}
@@ -532,9 +415,14 @@ export default function ConsoleMode() {
       {launchingGame && (
         <LaunchOverlay
           game={launchingGame}
-          holdStart={holdStart}
-          gamepadConnected={gamepadConnected}
-          backButtonLabel={backButtonLabel}
+          onDismiss={() => setLaunchingGame(null)}
+        />
+      )}
+
+      {installingGame && (
+        <InstallOverlay
+          game={installingGame}
+          onDismiss={() => setInstallingGame(null)}
         />
       )}
 
@@ -542,8 +430,6 @@ export default function ConsoleMode() {
         <UpdateNotice
           game={updateNoticeGame}
           onDismiss={() => setUpdateNoticeGame(null)}
-          gamepadConnected={gamepadConnected}
-          backButtonLabel={backButtonLabel}
         />
       )}
     </div>
