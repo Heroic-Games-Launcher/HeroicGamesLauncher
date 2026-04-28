@@ -120,12 +120,7 @@ const fetchAllDiscounts = async (
 
 addHandler(
   'getGogDiscounts',
-  async (
-    _event,
-    locale,
-    hideOwned: boolean = false,
-    wishlistOnly: boolean = false
-  ) => {
+  async (_event, locale, hideOwned = false, wishlistOnly = false) => {
     try {
       let token: string | undefined = undefined
 
