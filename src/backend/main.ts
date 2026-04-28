@@ -146,8 +146,6 @@ import MigrationSystem from './migration'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
-const { showOpenDialog } = dialog
-
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
   configStore.set('userHome', userHome)
@@ -369,7 +367,7 @@ if (!gotTheLock) {
     // Make sure lock is not present when starting up
     playtimeSyncQueue.delete('lock')
     if (!settings.disablePlaytimeSync) {
-      runOnceWhenOnline(gameManagerMap['gog'].syncQueuedPlaytimeGOG)
+      runOnceWhenOnline(() => gameManagerMap['gog'].syncQueuedPlaytimeGOG())
     } else {
       logDebug('Skipping playtime sync queue upload - playtime sync disabled', {
         prefix: LogPrefix.Backend
@@ -658,7 +656,7 @@ addHandler('getEpicGamesStatus', async () => isEpicServiceOffline())
 
 addHandler('getMaxCpus', () => cpus().length)
 
-addHandler('getHeroicVersion', app.getVersion)
+addHandler('getHeroicVersion', () => app.getVersion())
 addHandler('isFullscreen', () => isSteamDeckGameMode || isCLIFullscreen)
 addHandler('getGameOverride', async () =>
   libraryManagerMap['legendary'].getGameOverride()
@@ -801,16 +799,16 @@ addHandler('getUserInfo', async () => {
 addHandler('getAmazonUserInfo', async () => NileUser.getUserData())
 
 // Checks if the user have logged in with Legendary already
-addHandler('isLoggedIn', LegendaryUser.isLoggedIn)
+addHandler('isLoggedIn', () => LegendaryUser.isLoggedIn())
 
 addHandler('login', async (event, sid) => LegendaryUser.login(sid))
 addHandler('authGOG', async (event, code) => GOGUser.login(code))
-addHandler('logoutLegendary', LegendaryUser.logout)
-addListener('logoutGOG', GOGUser.logout)
+addHandler('logoutLegendary', () => LegendaryUser.logout())
+addListener('logoutGOG', () => GOGUser.logout())
 
-addHandler('getAmazonLoginData', NileUser.getLoginData)
+addHandler('getAmazonLoginData', () => NileUser.getLoginData())
 addHandler('authAmazon', async (event, data) => NileUser.login(data))
-addHandler('logoutAmazon', NileUser.logout)
+addHandler('logoutAmazon', () => NileUser.logout())
 
 addHandler('authZoom', async (event, url) => {
   const login = await ZoomUser.login(url)
@@ -820,7 +818,7 @@ addHandler('authZoom', async (event, url) => {
   return login
 })
 
-addListener('logoutZoom', ZoomUser.logout)
+addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
 addHandler('getAlternativeWine', async () =>
@@ -888,7 +886,7 @@ if (existsSync(legendaryInstalled)) {
     // in a 500ms timespan
     if (watchTimeout) clearTimeout(watchTimeout)
     watchTimeout = setTimeout(
-      libraryManagerMap['legendary'].refreshInstalled,
+      () => libraryManagerMap['legendary'].refreshInstalled(),
       500
     )
   })
@@ -917,7 +915,7 @@ addHandler('openDialog', async (e, args) => {
     return false
   }
 
-  const { filePaths, canceled } = await showOpenDialog(mainWindow, args)
+  const { filePaths, canceled } = await dialog.showOpenDialog(mainWindow, args)
   if (!canceled) {
     return filePaths[0]
   }

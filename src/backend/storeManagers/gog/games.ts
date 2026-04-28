@@ -1413,7 +1413,7 @@ export default class GOGGameManager implements GameManager {
       const alreadySetData = playtimeSyncQueue.get(userData.galaxyUserId, [])
       alreadySetData.push({ ...data, appName })
       playtimeSyncQueue.set(userData.galaxyUserId, alreadySetData)
-      runOnceWhenOnline(this.syncQueuedPlaytimeGOG)
+      runOnceWhenOnline(() => this.syncQueuedPlaytimeGOG())
       return
     }
 
