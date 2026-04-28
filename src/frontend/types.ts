@@ -127,6 +127,8 @@ export interface ContextType {
   setDisableDialogBackdropClose: (value: boolean) => void
   disableAnimations: boolean
   setDisableAnimations: (value: boolean) => void
+  consoleModeSounds: boolean
+  setConsoleModeSounds: (value: boolean) => void
 }
 
 export type DialogModalOptions = {
