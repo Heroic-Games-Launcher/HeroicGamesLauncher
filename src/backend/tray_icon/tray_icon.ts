@@ -35,6 +35,15 @@ export const initTrayIcon = async (mainWindow: BrowserWindow) => {
 
   // event listeners
   appIcon.on('click', () => {
+    const { exitToTray } = GlobalConfig.get().getSettings()
+
+    if (!exitToTray) return
+
+    if (mainWindow.isVisible()) {
+      mainWindow.hide()
+      return
+    }
+
     mainWindow.show()
   })
 
