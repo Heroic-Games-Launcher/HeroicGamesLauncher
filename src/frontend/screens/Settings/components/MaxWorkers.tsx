@@ -21,7 +21,7 @@ const MaxWorkers = () => {
 
   const helpContent = t(
     'help.max_workers.info',
-    'Limits download speed. This sets the maximum number of parallel download chunks. High numbers can lead to high CPU usage.'
+    'Sets the maximum number of parallel download chunks. Lower numbers limit download speed. High numbers can lead to high CPU usage.'
   )
 
   hasHelp(
