@@ -299,7 +299,8 @@
             "price": "Price",
             "rating": "Rating",
             "releaseYear": "Release year",
-            "sort": "Sort by"
+            "sort": "Sort by",
+            "wishlistOnly": "Wishlist Only"
         },
         "loading": "Loading discounted games...",
         "noMatches": "No games match the current filters.",
