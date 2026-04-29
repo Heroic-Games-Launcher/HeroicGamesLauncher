@@ -60,7 +60,7 @@
                 "title": "DXVK/VKD3D a rencontré une erreur"
             },
             "folder-not-found": {
-                "title": "Le dossier du jeu semble avoir été supprimé. Voulez-vous supprimer ce jeu de la liste des jeux installés ?"
+                "title": "Le répertoire du jeu semble avoir été supprimé. Voulez-vous supprimer ce jeu de la liste des jeux installés ?"
             },
             "generic": {
                 "message": "message d'erreur générique",
@@ -145,7 +145,7 @@
             "message": "Des raccourcis ont été créés sur le Bureau et dans le menu Démarrer",
             "message-mac": "Des raccourcis ont été créés dans le dossier des Applications",
             "message-remove": "Les raccourcis ont été supprimés du Bureau et du menu Démarrer",
-            "message-remove-mac": "Des raccourcis ont été supprimés du dossier Applications",
+            "message-remove-mac": "Des raccourcis ont été supprimés du dossier « Applications »",
             "title": "Raccourcis"
         },
         "sync": {
@@ -189,7 +189,7 @@
                 "message": "Heroic requiert Rosetta pour s'exécuter correctement sur un appareil macOS comportant des puces Apple Silicon. Veuillez l'installer depuis le terminal macOS en utilisant la commande suivante : « softwareupdate --install-rosetta » et redémarrez Heroic. "
             }
         },
-        "wineprefix": "Sélectionner le dossier du préfixe Wine",
+        "wineprefix": "Sélectionner le répertoire du préfixe Wine",
         "yes": "OUI",
         "dontShowAgain": "Ne plus afficher",
         "choose-nile-binary": "Sélectionner un exécutable pour Nile",
@@ -270,8 +270,8 @@
             "refresh": "Actualiser la bibliothèque"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Installation",
+        "uninstall": "Désinstaller"
     },
     "globalSettings": "Paramètres globaux",
     "GOG": "GOG",
@@ -392,7 +392,7 @@
             "version": "Version d'Heroic"
         },
         "save-sync": {
-            "searching": "Tentative de détection du dossier de sauvegarde adéquat (cliquer ici pour annuler)"
+            "searching": "Tentative de détection du répertoire de sauvegarde adéquat (cliquer ici pour annuler)"
         },
         "settings": "Les options sont sauvegardées automatiquement",
         "version": "Version de Wine"
@@ -737,7 +737,7 @@
         "start-in-tray": "Réduire au démarrage",
         "steamruntime": "Utiliser le runtime Steam",
         "winecrossoverbottle": "Bouteille CrossOver",
-        "wineprefix": "Dossier du préfixe",
+        "wineprefix": "Répertoire du préfixe",
         "wineversion": "Version de Wine",
         "autoUpdateGames": "Mettre les jeux à jour automatiquement",
         "ignoreGameUpdates": "Ignorer les mises à jour du jeu",
@@ -946,7 +946,7 @@
         "console": ""
     },
     "status": {
-        "installing": "Installation en cours",
+        "installing": "Installation",
         "logging": "Connexion en cours...",
         "processing": "Préparation des fichiers, veuillez patienter",
         "preparing_login": "Préparation de la connexion.... "
@@ -1004,8 +1004,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Mettre à jour",
+            "settings": "Paramètres",
             "no-results": ""
         },
         "release": "Date de sortie",
@@ -1193,7 +1193,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Système :",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1206,7 +1206,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Tout",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1236,7 +1236,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "Aucun jeu trouvé",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1264,21 +1264,21 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Quitter",
             "change_store": ""
         },
         "launching": "",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Requiert une mise à jour"
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Tout"
         },
         "empty": "",
-        "games": "",
+        "games": "Jeux installés",
         "quitApp": "",
         "loading": ""
     },
-    "next": ""
+    "next": "Suivant"
 }
