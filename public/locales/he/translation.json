@@ -100,7 +100,7 @@
                 "message": ""
             }
         },
-        "wineprefix": "בחרו תיקיית wine prefix",
+        "wineprefix": "בחר תיקיית WinePrefix",
         "default-steam-path": "מיקום Steam.",
         "customWine": "בחרו קובץ הרצה של Wine או Proton",
         "dontShowAgain": "אל תראה שוב",
@@ -172,8 +172,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "עדכן",
+            "settings": "הגדרות",
             "no-results": ""
         },
         "release": "תאריך יציאה",
@@ -590,8 +590,8 @@
             "component": "לא נמצאו משחקים - נסו לצאת ולהיכנס שוב או את אחד מהאפשרויות הבאות"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "התקן",
+        "uninstall": "הסר התקנה"
     },
     "header": {
         "hide_non_available_games": "הסתר משחקים שאינם זמינים",
@@ -1141,7 +1141,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "מערכת הפעלה:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1212,15 +1212,15 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "יציאה",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "מפעיל",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
+            "sideload": "אחר",
             "all": ""
         },
         "empty": "",
