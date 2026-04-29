@@ -256,14 +256,14 @@
     },
     "generic": {
         "error": {
-            "component": "Nije pronađena nijedna igra – odjavi se i ponovo se prijavi ili pokušaj jednu od opcija u nastavku"
+            "component": "No Games found - Try to logout and login again or one of the options bellow"
         },
         "library": {
             "refresh": "Osviježi knjižnicu"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -981,8 +981,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Postavke",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1176,7 +1176,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Sve",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1206,7 +1206,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "Igrice nisu pronađene",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1234,7 +1234,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Odustani",
             "change_store": ""
         },
         "launching": "",
@@ -1242,11 +1242,11 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Sve"
         },
         "empty": "",
-        "games": "",
+        "games": "Installed Games",
         "quitApp": "",
         "loading": ""
     },
