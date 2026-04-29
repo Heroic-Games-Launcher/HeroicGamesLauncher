@@ -189,7 +189,7 @@
                 "title": "Rosetta не знойдзена"
             }
         },
-        "wineprefix": "Выберыце папку з прэфіксам Wine",
+        "wineprefix": "Аберыце папку WinePrefix",
         "yes": "ТАК",
         "dontShowAgain": "Больш не паказваць",
         "choose-nile-binary": "Выберыце выконвальны файл Nile",
