@@ -184,7 +184,7 @@
                 "title": "Heroic đang chạy như Snap"
             }
         },
-        "wineprefix": "Chọn thư mục Wine Prefix",
+        "wineprefix": "Chọn thư mục WinePrefix",
         "yes": "CÓ",
         "dontShowAgain": "Không hiển thị lại",
         "choose-nile-binary": "Chọn Nile binary",
@@ -262,8 +262,8 @@
             "refresh": "Làm Mới Thư Viện"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Cài Đặt Chung",
     "GOG": "GOG",
@@ -981,8 +981,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Cài đặt",
             "no-results": ""
         },
         "release": "Ngày Phát Hành",
@@ -1163,7 +1163,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Hệ Điều Hành:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1176,7 +1176,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Tất cả",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1206,7 +1206,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "Không tìm thấy game nào",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1234,21 +1234,21 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Thoát",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "Ra Mắt",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Tất cả"
         },
         "empty": "",
-        "games": "",
+        "games": "Game đã cài",
         "quitApp": "",
         "loading": ""
     },
-    "next": ""
+    "next": "Tiếp"
 }
