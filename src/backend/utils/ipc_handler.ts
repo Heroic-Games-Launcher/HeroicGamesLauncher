@@ -20,9 +20,11 @@ addHandler('getGogdlVersion', getGogdlVersion)
 addHandler('getCometVersion', getCometVersion)
 addHandler('getNileVersion', getNileVersion)
 addHandler('getSystemInfo', async (e, cache) => getSystemInfo(cache))
-addListener('copySystemInfoToClipboard', async () =>
-  getSystemInfo().then(formatSystemInfo).then(clipboard.writeText)
-)
+addListener('copySystemInfoToClipboard', async () => {
+  const info = await getSystemInfo()
+  const formatted = await formatSystemInfo(info)
+  clipboard.writeText(formatted)
+})
 addHandler('hasExecutable', async (event, executable) => {
   return hasExecutable(executable)
 })
