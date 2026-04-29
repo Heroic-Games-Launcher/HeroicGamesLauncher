@@ -265,8 +265,8 @@
             "refresh": "ライブラリを更新"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "グローバル設定",
     "GOG": "GOG",
@@ -993,8 +993,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "設定",
             "no-results": ""
         },
         "release": "リリース日",
@@ -1215,7 +1215,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "オペレーティングシステム:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1228,7 +1228,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "すべて",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1258,7 +1258,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "ゲームが見つかりません",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1269,5 +1269,5 @@
             "select-game": ""
         }
     },
-    "next": ""
+    "next": "進む"
 }
