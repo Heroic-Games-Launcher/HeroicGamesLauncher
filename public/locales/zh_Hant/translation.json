@@ -262,8 +262,8 @@
             "refresh": "重新整理遊戲庫"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "解除安裝"
     },
     "globalSettings": "全域設定",
     "GOG": "GOG",
@@ -981,8 +981,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "設定",
             "no-results": ""
         },
         "release": "發行日期",
@@ -1163,7 +1163,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "作業系統：",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1237,16 +1237,16 @@
             "quit": "",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "啟動中",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
+            "sideload": "其它",
             "all": ""
         },
         "empty": "",
-        "games": "",
+        "games": "已安裝的遊戲",
         "quitApp": "",
         "loading": ""
     },
