@@ -184,7 +184,7 @@
                 "title": "Rosetta niet gevonden"
             }
         },
-        "wineprefix": "Selecteer een Wine Prefix Folder",
+        "wineprefix": "Selecteer WinePrefix Map",
         "yes": "JA",
         "dontShowAgain": "Niet meer laten zien",
         "choose-nile-binary": "Selecteer Nijl binair",
@@ -262,8 +262,8 @@
             "refresh": "Refresh Library"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Algemene instellingen",
     "GOG": "GOG",
@@ -573,7 +573,7 @@
     "queue": {
         "label": {
             "canceled": "Canceled",
-            "clear": "Lijst Opschonen",
+            "clear": "Clear List",
             "downloading": "Aan het Downloaden",
             "empty": "Niets om te downloaden",
             "finished": "Afgerond",
@@ -705,7 +705,7 @@
         "maxworkers": "Maximale Hoeveelheid van Werkers tijdens het downloaden",
         "minimize-on-launch": "Heroic minimaliseren Na Opstarten Spel",
         "offlinemode": "Spel Offline Draaien",
-        "prefered_language": "Taal Voorkeur (Taal Code)",
+        "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Systeem-bibliotheken verkiezen",
         "primerun": {
             "confirmation": {
@@ -847,7 +847,7 @@
         "reset-heroic": "Reset Heroic",
         "saves": {
             "label": "Save Location:",
-            "warning": "Cloudopslag functie is in Beta, maak een back-up van je opgeslagen spellen voordat je synchroniseerd (voor het geval er iets mis gaat)",
+            "warning": "Cloud Saves feature is in Beta, please backup your saves before syncing (in case something goes wrong)",
             "gog_linux_native_warning": "Linux-inheemse spellen ondersteunen GOG's Cloudopslag functie niet. Gebruik de Windows versie in plaats daarvan.",
             "not_supported": "Dit spel ondersteunt Cloudopslag niet."
         },
@@ -966,7 +966,7 @@
         "manageaccounts": "Accounts Beheren",
         "quit": "Sluiten",
         "cancel": "Annuleer",
-        "quitMessage": "Weet je zeker dat je wilt stoppen?"
+        "quitMessage": "weet u zeker dat u wil uitloggen?"
     },
     "webview": {
         "controls": {
@@ -986,8 +986,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Instellingen",
             "no-results": ""
         },
         "release": "Datum van Uitgave",
@@ -1168,7 +1168,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Besturingssysteem:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1181,7 +1181,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Allemaal",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1211,7 +1211,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "Geen spellen gevonden",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1239,7 +1239,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Stop",
             "change_store": ""
         },
         "launching": "",
@@ -1247,13 +1247,13 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Allemaal"
         },
         "empty": "",
-        "games": "",
+        "games": "Installed Games",
         "quitApp": "",
         "loading": ""
     },
-    "next": ""
+    "next": "Volgende"
 }
