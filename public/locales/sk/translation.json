@@ -184,7 +184,7 @@
                 "message": ""
             }
         },
-        "wineprefix": "Vyberte Wine Prefix Folder",
+        "wineprefix": "Vyberte Priečinok WinePrefix",
         "yes": "ÁNO",
         "dontShowAgain": "Už nezobrazovať",
         "choose-nile-binary": "Vyberte binárny Níl",
@@ -262,8 +262,8 @@
             "refresh": "Obnoviť Knižnicu"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Inštalácia",
+        "uninstall": "Odinštalovať"
     },
     "globalSettings": "Global Settings",
     "GOG": "GOG",
@@ -988,8 +988,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Aktualizovať",
+            "settings": "Nastavenia",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1170,7 +1170,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Operačný Systém:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1183,7 +1183,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Všetky",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1241,19 +1241,19 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Quit",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "Spúšťam",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Všetky"
         },
         "empty": "",
-        "games": "",
+        "games": "Nainštalované hry",
         "quitApp": "",
         "loading": ""
     },
