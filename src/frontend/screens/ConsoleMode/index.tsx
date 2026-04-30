@@ -25,7 +25,7 @@ import UpdateNotice from './components/UpdateNotice'
 import { BTN_L1, BTN_R1, BTN_R2, getBackButtonLabel } from './controller'
 import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
-import type { GameInfo, Runner } from 'common/types'
+import type { GameInfo, Runner, Status } from 'common/types'
 
 type StoreKey = Runner | 'all'
 
@@ -37,6 +37,7 @@ export default function ConsoleMode() {
     gog,
     amazon,
     zoom,
+    libraryStatus,
     sideloadedLibrary,
     refreshLibrary,
     refreshing,
@@ -164,17 +165,8 @@ export default function ConsoleMode() {
   const columns = useColumnCount(cardRefs, visibleGames.length)
 
   useEffect(() => {
-    // if index is in between installed and uninstalled,
-    // move to installed games
-    if (
-      focusedIndex >= installedGames.length &&
-      focusedIndex <
-        installedGames.length + columns - (installedGames.length % columns)
-    ) {
-      setFocusedIndex(installedGames.length - 1)
-    }
     // otherwise, always make sane focused index
-    else if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
+    if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
       setFocusedIndex(
         Math.max(0, Math.min(focusedIndex, visibleGames.length - 1))
       )
@@ -363,6 +355,18 @@ export default function ConsoleMode() {
               {visibleGames.map((game, i) => {
                 const isFocused = i === focusedIndex
                 const needsUpdate = gameUpdates.includes(game.app_name)
+                // badges we want to show status updates on
+                const badgeStates: Status[] = [
+                  'installing',
+                  'redist',
+                  'queued',
+                  'updating',
+                  'uninstalling'
+                ]
+
+                const gameStatus = libraryStatus.find(
+                  (st) => st.appName === game.app_name
+                )
 
                 return (
                   <button
@@ -398,6 +402,15 @@ export default function ConsoleMode() {
                         {t('console.card.needsUpdate', 'Needs update')}
                       </span>
                     )}
+                    {gameStatus?.status &&
+                      badgeStates.includes(gameStatus?.status) && (
+                        <span className="consoleCardBadge">
+                          {t(
+                            `gamepage:status.${gameStatus?.status}`,
+                            'Installing'
+                          )}
+                        </span>
+                      )}
                   </button>
                 )
               })}

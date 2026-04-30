@@ -2,28 +2,24 @@
 .consoleInstallOverlay {
   position: fixed;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 16px;
-  background: color-mix(
-    in srgb,
-    var(--body-background, #101014) 70%,
-    transparent
-  );
   backdrop-filter: blur(10px);
   z-index: 10;
+  align-items: center;
   animation: overlayFade 220ms ease;
+  display: flex;
+  justify-content: center;
 }
 
 .consoleModal {
   background: color-mix(
     in srgb,
-    var(--body-background, #101014) 100%,
+    var(--body-background, #101014) 80%,
     transparent
   );
   z-index: 20;
+  gap: 16px;
+  flex-direction: column;
 }
 
 @keyframes overlayFade {
@@ -99,4 +95,8 @@
     opacity: 1;
     color: var(--cancel-button, #b94a3a);
   }
+}
+
+.consoleInstallButtons {
+  gap: 1rem;
 }

@@ -7,6 +7,8 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 
 import type { GameInfo } from 'common/types'
 import { useEffect } from 'react'
+import { install } from 'frontend/helpers'
+import { hasProgress } from 'frontend/hooks/hasProgress'
 
 export default function InstallOverlay({
   game,
@@ -17,6 +19,7 @@ export default function InstallOverlay({
 }) {
   const { t } = useTranslation()
   const { status, statusContext } = hasStatus(game)
+  const [progress] = hasProgress(game.app_name, game.runner)
 
   let label: string | null = null
 
@@ -34,19 +37,40 @@ export default function InstallOverlay({
     }
   }, [])
 
+  const installGame = () => {
+    try {
+      install({
+        gameInfo: game,
+        previousProgress: null,
+        progress: progress,
+        installPath: 'default',
+        isInstalling: false,
+        t,
+        showDialogModal: () => <div>Dialog Modal</div>
+      })
+
+      // we're now installing, close modal
+      onDismiss()
+    } catch {}
+  }
+
   return (
     <div className="consoleInstallOverlay" role="status" aria-live="polite">
       {/* set modal */}
       <div className="consoleModal">
         {/* list game info to install */}
-
-        {/* list runner to be used */}
-
-        {/* Confirm or Cancel buttons */}
         <div className="consoleLaunchText">
-          {label || t('console.launching', 'Launching')}
+          {label || t('status.installing', 'Installing')}
         </div>
         <div className="consoleLaunchGameTitle">{game.title}</div>
+        {/* list runner to be used */}
+
+        <div>{t('status.installing', 'Installing')}</div>
+        {/* Confirm or Cancel buttons */}
+        <div className="consoleInstallButtons">
+          <button onClick={onDismiss}>Cancel</button>
+          <button onClick={installGame}>Install</button>
+        </div>
       </div>
     </div>
   )
