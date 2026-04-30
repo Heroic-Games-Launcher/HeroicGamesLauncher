@@ -56,7 +56,6 @@ export default function ConsoleMode() {
 
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
-  const backButtonLabel = getBackButtonLabel(controllerLayout)
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
@@ -95,9 +94,6 @@ export default function ConsoleMode() {
     zoom.library,
     sideloadedLibrary
   ])
-
-  const installedGames = allGames.filter((game) => game.is_installed)
-  const uninstalledGames = allGames.filter((game) => !game.is_installed)
 
   const visibleGames = useMemo(() => {
     // reset card refs to rebuild them
@@ -358,7 +354,6 @@ export default function ConsoleMode() {
                 // badges we want to show status updates on
                 const badgeStates: Status[] = [
                   'installing',
-                  'redist',
                   'queued',
                   'updating',
                   'uninstalling'

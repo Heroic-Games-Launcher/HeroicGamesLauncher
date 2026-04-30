@@ -3,10 +3,8 @@ import classNames from 'classnames'
 
 import './index.scss'
 
-import { hasStatus } from 'frontend/hooks/hasStatus'
-
 import type { GameInfo } from 'common/types'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { install } from 'frontend/helpers'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 
@@ -18,8 +16,8 @@ export default function InstallOverlay({
   onDismiss: () => void
 }) {
   const { t } = useTranslation()
-  const { status, statusContext } = hasStatus(game)
   const [progress] = hasProgress(game.app_name, game.runner)
+  const installButtonRef = useRef<HTMLButtonElement | null>(null)
 
   let label: string | null = null
 
@@ -31,6 +29,9 @@ export default function InstallOverlay({
   }
 
   useEffect(() => {
+    // focus action button
+    installButtonRef?.current?.focus()
+
     window.addEventListener('keydown', onOverlayKeyDown)
     return () => {
       window.removeEventListener('keydown', onOverlayKeyDown)
@@ -59,17 +60,24 @@ export default function InstallOverlay({
       {/* set modal */}
       <div className="consoleModal">
         {/* list game info to install */}
-        <div className="consoleLaunchText">
+        <div className="consoleModalTitle">
           {label || t('status.installing', 'Installing')}
         </div>
-        <div className="consoleLaunchGameTitle">{game.title}</div>
+        <div className="consoleModalGameTitle">{game.title}</div>
         {/* list runner to be used */}
 
-        <div>{t('status.installing', 'Installing')}</div>
         {/* Confirm or Cancel buttons */}
         <div className="consoleInstallButtons">
-          <button onClick={onDismiss}>Cancel</button>
-          <button onClick={installGame}>Install</button>
+          <button className="consoleChip" onClick={onDismiss}>
+            Cancel
+          </button>
+          <button
+            ref={installButtonRef}
+            className="consoleChip"
+            onClick={installGame}
+          >
+            Install
+          </button>
         </div>
       </div>
     </div>
