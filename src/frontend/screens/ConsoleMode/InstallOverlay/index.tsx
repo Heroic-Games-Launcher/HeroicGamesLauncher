@@ -47,7 +47,7 @@ export default function InstallOverlay({
         installPath: 'default',
         isInstalling: false,
         t,
-        showDialogModal: () => <div>Dialog Modal</div>
+        showDialogModal: () => {}
       })
 
       // we're now installing, close modal
@@ -57,26 +57,25 @@ export default function InstallOverlay({
 
   return (
     <div className="consoleInstallOverlay" role="status" aria-live="polite">
-      {/* set modal */}
       <div className="consoleModal">
-        {/* list game info to install */}
         <div className="consoleModalTitle">
           {label || t('status.installing', 'Installing')}
         </div>
         <div className="consoleModalGameTitle">{game.title}</div>
-        {/* list runner to be used */}
+
+        {/* list runner to be used, use InstallModal in the future */}
 
         {/* Confirm or Cancel buttons */}
         <div className="consoleInstallButtons">
           <button className="consoleChip" onClick={onDismiss}>
-            Cancel
+            {t('button.cancel', 'Cancel')}
           </button>
           <button
             ref={installButtonRef}
             className="consoleChip"
             onClick={installGame}
           >
-            Install
+            {t('generic.install', 'Install')}
           </button>
         </div>
       </div>

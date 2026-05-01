@@ -110,14 +110,14 @@ export function useColumnCount(
         setColumns(1)
         return
       }
+      const firstTop = cards[0].offsetTop
 
       let count = 1
       for (let i = 1; i < cards.length; i++) {
-        if (cards[i].offsetTop !== cards[i - 1].offsetTop) break
+        if (cards[i].offsetTop !== firstTop) break
         count++
       }
-
-      setColumns(count)
+      setColumns(Math.max(1, count))
     }
     compute()
     window.addEventListener('resize', compute)

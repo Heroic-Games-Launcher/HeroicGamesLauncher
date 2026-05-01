@@ -62,7 +62,7 @@ export default function ConsoleMode() {
   const topBarRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    // window.api.setFullscreen(true)
+    window.api.setFullscreen(true)
     if (
       !refreshing &&
       epic.library.length === 0 &&
@@ -161,7 +161,7 @@ export default function ConsoleMode() {
   const columns = useColumnCount(cardRefs, visibleGames.length)
 
   useEffect(() => {
-    // otherwise, always make sane focused index
+    // always make sane focused index
     if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
       setFocusedIndex(
         Math.max(0, Math.min(focusedIndex, visibleGames.length - 1))
