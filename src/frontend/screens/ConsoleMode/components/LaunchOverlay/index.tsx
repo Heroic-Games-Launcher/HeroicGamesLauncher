@@ -9,12 +9,8 @@ import BackHint from '../BackHint'
 
 import type { GameInfo, Runner } from 'common/types'
 import { useContext, useEffect } from 'react'
-import {
-  useCancelOnHold,
-  useGamepadButtonHold,
-  useGamepadInfo
-} from '../../hooks'
-import { BTN_BACK, getBackButtonLabel } from '../../controller'
+import { useCancelOnHold, useGamepadButtonHold } from '../../hooks'
+import { BTN_BACK } from '../../controller'
 import { launch, sendKill } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
 
@@ -31,9 +27,6 @@ export default function LaunchOverlay({
   const { status, statusContext } = hasStatus(game)
   let label: string | null = null
 
-  const { connected: gamepadConnected, layout: controllerLayout } =
-    useGamepadInfo()
-  const backButtonLabel = getBackButtonLabel(controllerLayout)
   const { showDialogModal } = useContext(ContextProvider)
 
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or

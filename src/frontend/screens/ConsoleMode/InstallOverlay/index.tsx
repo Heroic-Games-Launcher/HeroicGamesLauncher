@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import classNames from 'classnames'
 
 import './index.scss'
 
@@ -19,7 +18,7 @@ export default function InstallOverlay({
   const [progress] = hasProgress(game.app_name, game.runner)
   const installButtonRef = useRef<HTMLButtonElement | null>(null)
 
-  let label: string | null = null
+  const label: string | null = null
 
   const onOverlayKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -47,7 +46,7 @@ export default function InstallOverlay({
         installPath: 'default',
         isInstalling: false,
         t,
-        showDialogModal: () => {}
+        showDialogModal: () => null
       })
 
       // we're now installing, close modal

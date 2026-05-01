@@ -22,7 +22,7 @@ import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
 import InstallOverlay from './InstallOverlay'
 import UpdateNotice from './components/UpdateNotice'
-import { BTN_L1, BTN_R1, BTN_R2, getBackButtonLabel } from './controller'
+import { BTN_L1, BTN_R1, BTN_R2 } from './controller'
 import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { GameInfo, Runner, Status } from 'common/types'
