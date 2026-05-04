@@ -135,6 +135,8 @@ export interface AppSettings extends GameSettings {
   verboseLogs: boolean
   showValveProton: boolean
   steamGridDbApiKey: string
+  rawgApiKey: string
+  ratingProvider: 'none' | 'rawg'
 }
 
 export type LibraryTopSectionOptions =
@@ -697,6 +699,20 @@ export interface GameScoreInfo {
   score: string
   urlid: string
 }
+
+export interface RatingEntry {
+  status: 'ok' | 'not_found' | 'error'
+  staleAt: string
+  score?: number
+  url?: string
+}
+
+export interface RatingKey {
+  appName: string
+  runner: Runner
+  title: string
+}
+
 export interface PCGamingWikiInfo {
   steamID: string
   howLongToBeatID: string

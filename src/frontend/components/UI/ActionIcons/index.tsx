@@ -4,6 +4,7 @@ import {
   faSyncAlt,
   faArrowDownAZ,
   faArrowDownZA,
+  faStar,
   faHardDrive as hardDriveSolid,
   faFilter,
   faFilterCircleXmark
@@ -36,6 +37,8 @@ export default React.memo(function ActionIcons({
     layout,
     sortDescending,
     setSortDescending,
+    sortField,
+    setSortField,
     sortInstalled,
     setSortInstalled,
     showAlphabetFilter,
@@ -70,6 +73,23 @@ export default React.memo(function ActionIcons({
             />
           </button>
         )}
+        <button
+          className="FormControl__button"
+          title={
+            sortField === 'rating'
+              ? t('library.sortByRating', 'Sort by Rating')
+              : t('library.sortByTitle', 'Sort by Title')
+          }
+          onClick={() =>
+            setSortField(sortField === 'rating' ? 'title' : 'rating')
+          }
+        >
+          <FontAwesomeIcon
+            className="FormControl__segmentedFaIcon"
+            icon={sortField === 'rating' ? faStar : faArrowDownAZ}
+            data-tour="library-sort-field"
+          />
+        </button>
         <button
           className="FormControl__button"
           title={

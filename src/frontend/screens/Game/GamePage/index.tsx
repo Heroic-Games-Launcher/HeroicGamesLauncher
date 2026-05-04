@@ -32,7 +32,8 @@ import {
   Runner,
   WikiInfo,
   InstallInfo,
-  GameAchievement
+  GameAchievement,
+  RatingEntry
 } from 'common/types'
 
 import GamePicture from '../GamePicture'
@@ -130,6 +131,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
   )
+  const [externalRating, setExternalRating] = useState<RatingEntry | null>(null)
 
   const [hasError, setHasError] = useState<{
     error: boolean
@@ -261,6 +263,31 @@ export default React.memo(function GamePage(): JSX.Element | null {
   ])
 
   useEffect(() => {
+    let isCancelled = false
+
+    void window.api.ratings
+      .getGameRatings({
+        appName: gameInfo.app_name,
+        runner: gameInfo.runner,
+        title: gameInfo.title
+      })
+      .then((rating) => {
+        if (!isCancelled) {
+          setExternalRating(rating)
+        }
+      })
+      .catch(() => {
+        if (!isCancelled) {
+          setExternalRating(null)
+        }
+      })
+
+    return () => {
+      isCancelled = true
+    }
+  }, [gameInfo.app_name, gameInfo.runner, gameInfo.title])
+
+  useEffect(() => {
     window.api.getWikiGameInfo(gameInfo.title, appName, runner).then((info) => {
       if (
         info &&
@@ -373,7 +400,9 @@ export default React.memo(function GamePage(): JSX.Element | null {
       wikiInfo?.howlongtobeat ||
       wikiInfo?.pcgamingwiki?.metacritic.score ||
       wikiInfo?.pcgamingwiki?.opencritic.score ||
-      wikiInfo?.steamInfo
+      wikiInfo?.steamInfo ||
+      (externalRating?.status === 'ok' &&
+        typeof externalRating.score === 'number')
 
     const hasRequirements = extraInfo ? extraInfo.reqs.length > 0 : false
 
@@ -552,7 +581,10 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           index="extra"
                           className="extraTab"
                         >
-                          <Scores gameInfo={gameInfo} />
+                          <Scores
+                            gameInfo={gameInfo}
+                            externalRating={externalRating}
+                          />
                           <HLTB />
                           <CompatibilityInfo gameInfo={gameInfo} />
                           <AppleWikiInfo gameInfo={gameInfo} />

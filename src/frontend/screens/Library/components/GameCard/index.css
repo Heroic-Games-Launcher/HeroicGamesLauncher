@@ -74,6 +74,31 @@
   display: none;
 }
 
+.gameCard .gameCardRatingBadge {
+  position: absolute;
+  z-index: 5;
+  top: 6px;
+  right: 6px;
+  background: var(--icons-background);
+  color: var(--text-default);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-weight: var(--semibold);
+  font-size: var(--text-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.gameCard .gameCardRatingBadge__star {
+  color: #f8c145;
+}
+
+.gameListItem .gameCardRatingBadge {
+  display: none;
+}
+
 .gameCard.notAvailable > .gameCardStatus {
   color: var(--text-log);
   text-align: end;

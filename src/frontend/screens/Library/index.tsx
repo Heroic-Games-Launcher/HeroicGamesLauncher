@@ -1,6 +1,7 @@
 import './index.css'
 
 import React, {
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -17,7 +18,13 @@ import Fuse from 'fuse.js'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import GamesList from './components/GamesList'
-import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
+import {
+  FavouriteGame,
+  GameInfo,
+  HiddenGame,
+  Runner,
+  RatingEntry
+} from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
@@ -213,6 +220,14 @@ export default React.memo(function Library(): JSX.Element {
     setSortDescending(value)
   }
 
+  const [sortField, setSortField] = useState<'title' | 'rating'>(
+    storage?.getItem('sortField') === 'rating' ? 'rating' : 'title'
+  )
+  function handleSortField(value: 'title' | 'rating') {
+    storage.setItem('sortField', value)
+    setSortField(value)
+  }
+
   const [sortInstalled, setSortInstalled] = useState(
     JSON.parse(storage?.getItem('sortInstalled') || 'true')
   )
@@ -220,6 +235,10 @@ export default React.memo(function Library(): JSX.Element {
     storage.setItem('sortInstalled', JSON.stringify(value))
     setSortInstalled(value)
   }
+
+  const [libraryRatings, setLibraryRatings] = useState<
+    Record<string, RatingEntry | null>
+  >({})
 
   const backToTopElement = useRef(null)
 
@@ -394,6 +413,60 @@ export default React.memo(function Library(): JSX.Element {
   const favouritesIds = useMemo(() => {
     return favourites.map((game) => `${game.app_name}_${game.runner}`)
   }, [favourites])
+
+  const allLibraryGames = useMemo(
+    () => [
+      ...sideloadedLibrary,
+      ...epic.library,
+      ...gog.library,
+      ...amazon.library,
+      ...zoom.library
+    ],
+    [sideloadedLibrary, epic.library, gog.library, amazon.library, zoom.library]
+  )
+
+  const getScoreForGame = useCallback(
+    (game: GameInfo) => {
+      const entry = libraryRatings[`${game.runner}:${game.app_name}`]
+      return entry?.status === 'ok' && typeof entry.score === 'number'
+        ? entry.score
+        : null
+    },
+    [libraryRatings]
+  )
+
+  useEffect(() => {
+    let isCancelled = false
+
+    const gameRequests = allLibraryGames.map((game) => ({
+      appName: game.app_name,
+      runner: game.runner,
+      title: game.title
+    }))
+
+    const fetchRatingsState = async () => {
+      try {
+        const ratings = gameRequests.length
+          ? await window.api.ratings.getLibraryRatings(gameRequests)
+          : {}
+        if (!isCancelled) setLibraryRatings(ratings)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    void fetchRatingsState()
+
+    if (gameRequests.length)
+      void window.api.ratings.refreshLibraryRatings(gameRequests)
+
+    const poll = setInterval(() => void fetchRatingsState(), 30000)
+
+    return () => {
+      isCancelled = true
+      clearInterval(poll)
+    }
+  }, [allLibraryGames])
 
   const makeLibrary = () => {
     let displayedStores: string[] = []
@@ -609,6 +682,23 @@ export default React.memo(function Library(): JSX.Element {
     library = library.sort((a, b) => {
       const gameA = a.title.toUpperCase().replace('THE ', '')
       const gameB = b.title.toUpperCase().replace('THE ', '')
+
+      if (sortField === 'rating') {
+        const ratingA = getScoreForGame(a)
+        const ratingB = getScoreForGame(b)
+        const aMissing = ratingA === null
+        const bMissing = ratingB === null
+
+        if (aMissing && bMissing) return gameA.localeCompare(gameB)
+        if (aMissing) return 1
+        if (bMissing) return -1
+
+        const dir = sortDescending ? -1 : 1
+        const diff = (ratingA - ratingB) * dir
+        if (diff !== 0) return diff
+        return gameA.localeCompare(gameB)
+      }
+
       return sortDescending
         ? -gameA.localeCompare(gameB)
         : gameA.localeCompare(gameB)
@@ -629,9 +719,11 @@ export default React.memo(function Library(): JSX.Element {
   }, [
     gamesForAlphabetFilter,
     alphabetFilterLetter,
+    sortField,
     sortDescending,
     sortInstalled,
-    installing
+    installing,
+    getScoreForGame
   ])
 
   // we need this to do proper `position: sticky` of the Add Game area
@@ -699,7 +791,10 @@ export default React.memo(function Library(): JSX.Element {
         setShowInstalledOnly: handleShowInstalledOnly,
         setShowNonAvailable: handleShowNonAvailable,
         setSortDescending: handleSortDescending,
+        sortField,
+        setSortField: handleSortField,
         setSortInstalled: handleSortInstalled,
+        libraryRatings,
         showSupportOfflineOnly,
         setShowSupportOfflineOnly: handleShowSupportOfflineOnly,
         showThirdPartyManagedOnly,

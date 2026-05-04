@@ -555,7 +555,9 @@
         "hideAlphabetFilter": "Hide Alphabet Filter",
         "showAlphabetFilter": "Show Alphabet Filter",
         "sortAscending": "Sort Ascending",
+        "sortByRating": "Sort by Rating",
         "sortByStatus": "Sort by Status",
+        "sortByTitle": "Sort by Title",
         "sortDescending": "Sort Descending",
         "toggleLayout": {
             "grid": "Toggle to a grid layout",
@@ -999,6 +1001,17 @@
             "warning": "This game does not explicitly allow offline mode, turn this on at your own risk. The game may not work."
         },
         "open-config-file": "Open Config File",
+        "ratings": {
+            "apikey": {
+                "placeholder": "Enter your RAWG API key",
+                "title": "RAWG API Key"
+            },
+            "provider": {
+                "none": "None",
+                "rawg_metacritic": "RAWG (Metacritic Score)",
+                "title": "Ratings Provider"
+            }
+        },
         "reset-heroic": "Reset Heroic",
         "saves": {
             "gog_linux_native_warning": "Linux native games do not support GOG's Cloud Saves feature. Use the Windows version instead.",

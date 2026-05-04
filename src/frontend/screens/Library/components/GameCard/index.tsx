@@ -115,7 +115,7 @@ const GameCard = ({
       'openGameCategoriesModal'
     )
 
-  const { layout } = useContext(LibraryContext)
+  const { layout, libraryRatings } = useContext(LibraryContext)
 
   const {
     title,
@@ -411,6 +411,13 @@ const GameCard = ({
   const showUpdateButton =
     hasUpdate && !isUpdating && !isQueued && !notAvailable
 
+  const ratingEntry =
+    libraryRatings[`${gameInfoFromProps.runner}:${gameInfoFromProps.app_name}`]
+  const ratingValue =
+    ratingEntry?.status === 'ok' && typeof ratingEntry.score === 'number'
+      ? ratingEntry.score
+      : null
+
   if (!visible) {
     return (
       <div
@@ -442,6 +449,17 @@ const GameCard = ({
           data-app-name={appName}
           data-tour={dataTour}
         >
+          {ratingValue !== null && (
+            <span
+              className="gameCardRatingBadge"
+              title={`Metacritic: ${ratingValue}/100`}
+            >
+              <span className="gameCardRatingBadge__star" aria-hidden="true">
+                ★
+              </span>
+              {ratingValue}
+            </span>
+          )}
           {haveStatus && <span className="gameCardStatus">{label}</span>}
           {showUpdateBadge && (
             <span className="gameCardUpdateBadge">
