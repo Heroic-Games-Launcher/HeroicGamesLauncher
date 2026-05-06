@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import GameContext from '../../GameContext'
 import {
   ArrowBackIosNew,
@@ -19,21 +20,37 @@ import useSetting from 'frontend/hooks/useSetting'
 interface Props {
   gameInfo: GameInfo
   handlePlay: (gameInfo: GameInfo) => Promise<void>
-  handleImport: () => void
   handleInstall: (
     is_installed: boolean
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
 }
 
-const MainButton = ({
-  gameInfo,
-  handlePlay,
-  handleInstall,
-  handleImport
-}: Props) => {
+const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
+
+  const is_installed = gameInfo.is_installed
+  const disabledPlayButtons =
+    is.reparing ||
+    is.moving ||
+    is.updating ||
+    is.uninstalling ||
+    is.syncing ||
+    is.launching ||
+    is.installingWinetricksPackages ||
+    is.installingRedist ||
+    is.playing
+
+  const disabledInstallButtons =
+    is.playing ||
+    is.updating ||
+    is.reparing ||
+    is.moving ||
+    is.uninstalling ||
+    is.notSupportedGame ||
+    is.notInstallable ||
+    is.importing
 
   function getPlayLabel(): React.ReactNode {
     if (is.syncing) {
@@ -81,16 +98,7 @@ const MainButton = ({
   }
 
   function altPlayAction() {
-    if (
-      is.syncing ||
-      is.installingRedist ||
-      is.installingWinetricksPackages ||
-      is.launching ||
-      is.playing ||
-      is.moving ||
-      is.updating ||
-      is.reparing
-    ) {
+    if (disabledPlayButtons) {
       return <></>
     }
 
@@ -163,41 +171,12 @@ const MainButton = ({
     await handlePlay(gameInfo)
   }
 
-  const is_installed = gameInfo.is_installed
-
-  function altInstallAction() {
-    if (is_installed || is.queued || is.installing || is.notInstallable) {
-      return <></>
-    }
-
-    return (
-      <button className="button altPlay is-secondary">
-        <ArrowBackIosNew />
-        <a className="button" onClick={handleImport}>
-          <span className="buttonWithIcon">
-            <Download />
-            {t('button.import', 'Import Game')}
-          </span>
-        </a>
-      </button>
-    )
-  }
-
   return (
-    <div className="playButtons">
+    <div className="buttonsWrapper">
       {is_installed && !is.queued && !is.uninstalling && (
-        <>
+        <div className="playButtons">
           <button
-            disabled={
-              is.reparing ||
-              is.moving ||
-              is.updating ||
-              is.uninstalling ||
-              is.syncing ||
-              is.launching ||
-              is.installingWinetricksPackages ||
-              is.installingRedist
-            }
+            disabled={disabledPlayButtons}
             autoFocus={true}
             onClick={async () => handlePlay(gameInfo)}
             className={classNames(
@@ -222,21 +201,24 @@ const MainButton = ({
             {getPlayLabel()}
           </button>
           {altPlayAction()}
-        </>
+        </div>
       )}
       {(!is_installed || is.queued) && (
-        <>
+        <span className="installButtons">
           <button
-            onClick={async () => handleInstall(is_installed)}
-            disabled={
-              is.playing ||
-              is.updating ||
-              is.reparing ||
-              is.moving ||
-              is.uninstalling ||
-              is.notSupportedGame ||
-              is.notInstallable
-            }
+            onClick={async () => {
+              if (!is_installed && !is.queued) {
+                openInstallGameModal({
+                  appName: gameInfo.app_name,
+                  runner: gameInfo.runner,
+                  gameInfo,
+                  action: 'install'
+                })
+                return
+              }
+              handleInstall(is_installed)
+            }}
+            disabled={disabledInstallButtons}
             autoFocus={true}
             className={classNames(
               'button',
@@ -254,8 +236,21 @@ const MainButton = ({
           >
             {getButtonLabel()}
           </button>
-          {altInstallAction()}
-        </>
+          <button
+            disabled={disabledInstallButtons || is.installing || is.importing}
+            className={'button mainBtn outline'}
+            onClick={() =>
+              openInstallGameModal({
+                appName: gameInfo.app_name,
+                runner: gameInfo.runner,
+                gameInfo,
+                action: 'import'
+              })
+            }
+          >
+            {t('button.import', 'Import Game')}
+          </button>
+        </span>
       )}
     </div>
   )

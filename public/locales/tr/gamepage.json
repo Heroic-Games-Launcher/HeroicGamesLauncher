@@ -327,7 +327,7 @@
         "categories": "Kategoriler"
     },
     "help": {
-        "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendi bulut kaydetme sistemlerini uygular",
+        "cloud_save_unsupported": "Bu oyun bulutta kaydetmeyi desteklemiyor. Bu bilgiler oyun geliştiricileri tarafından sağlanmaktadır. Bazı oyunlar kendine ait buluta kaydetme sistemini uygular.",
         "content": {
             "gamePage": "Tüm oyun ayrıntılarını ve eylemleri göster. Daha fazla seçenek için 3 nokta menüsünü kullanın."
         },

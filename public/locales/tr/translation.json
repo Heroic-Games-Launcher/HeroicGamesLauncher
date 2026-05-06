@@ -189,7 +189,7 @@
                 "title": "Rosetta bulunamadı"
             }
         },
-        "wineprefix": "Wine Prefix Klasörünü Seç",
+        "wineprefix": "WinePrefix Klasörünü Seç",
         "yes": "EVET",
         "dontShowAgain": "Tekrar gösterme",
         "choose-nile-binary": "Nile binary dosyasını seçin",
@@ -265,7 +265,10 @@
         },
         "library": {
             "refresh": "Kütüphaneyi Yenile"
-        }
+        },
+        "install": "Kur",
+        "uninstall": "Uninstall",
+        "abort": ""
     },
     "globalSettings": "Genel Ayarlar",
     "GOG": "GOG",
@@ -813,7 +816,8 @@
         "WoW64": "WoW64'ü aç (Deneysel)",
         "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
         "scripts": "Betikler:",
-        "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak"
+        "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -919,12 +923,23 @@
             "title": "Özel CSS Stili"
         },
         "launchOptions": "Başlatma Seçenekleri",
-        "legacy_warning": "Uyarı: Bu sayfadaki ayarların çoğu kullanımdan kaldırıldı ve hiç çalışmayabilirler."
+        "legacy_warning": "Uyarı: Bu sayfadaki ayarların çoğu kullanımdan kaldırıldı ve hiç çalışmayabilirler.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Ayarlar",
     "sidebar": {
         "collapse": "Kenar çubuğunu daralt",
-        "uncollapse": "Kenar çubuğunu genişlet"
+        "uncollapse": "Kenar çubuğunu genişlet",
+        "console": ""
     },
     "status": {
         "installing": "Kuruluyor",
@@ -981,7 +996,13 @@
             "link": "Wine Yöneticisi",
             "not-found": "Wine sürümü bulunamadı. Tekrar denemek için lütfen yenile simgesini tıklayın.",
             "title": "Wine Yöneticisi",
-            "unzipping": "Çıkartılıyor"
+            "unzipping": "Çıkartılıyor",
+            "settings": "Ayarlar",
+            "update": "Update",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "no-results": ""
         },
         "release": "Yayınlanma Tarihi",
         "size": "Boyut",
@@ -1040,7 +1061,10 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton, Glorious Eggroll tarafından geliştirilen bir Wine çeşididir. Umu başlatıcısı ile GE-Proton lehine kullanımdan kaldırılmıştır.",
-        "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar."
+        "proton-ge": "GE-Proton Glorious Eggroll tarafından yapılmış bir Proton varyasyonudur. Steam'de kullanılmak üzere tasarlanmış olsa da, bazı Steam dışı oyunlar bu varyant ile daha iyi çalışabilir. Sorun giderme için genellikle işe yaramaz hata günlükleri sağlar.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "add-placeholder": "Yeni kategori ekle",
@@ -1125,5 +1149,132 @@
     "zoom-store": "Zoom Dükkanı",
     "launch": {
         "options": "Başlatma Seçenekleri..."
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Oyun Bulunamadı",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "discounts": {
+        "filters": {
+            "ageRatingAll": "Tümü",
+            "os": "İşletim sistemi:",
+            "moreFilters": "",
+            "ageRating": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "next": "Sonraki",
+    "console": {
+        "filter": {
+            "all": "Tümü",
+            "sideload": "Other"
+        },
+        "games": "Kurulu oyunlar",
+        "hints": {
+            "quit": "Çık",
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "change_store": ""
+        },
+        "launching": "Başlatılıyor",
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "empty": "",
+        "quitApp": "",
+        "loading": ""
     }
 }

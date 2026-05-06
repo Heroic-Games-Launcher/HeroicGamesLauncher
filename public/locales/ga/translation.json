@@ -498,7 +498,8 @@
         "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
         "scripts": "Scripteanna:",
         "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche",
-        "disable_gog_presence": "Díchumasaigh nuashonruithe GOG Presence"
+        "disable_gog_presence": "Díchumasaigh nuashonruithe GOG Presence",
+        "start-in-console-mode": ""
     },
     "button": {
         "login": "Logáil isteach",
@@ -600,7 +601,10 @@
         },
         "library": {
             "refresh": "Athnuachan Leabharlann"
-        }
+        },
+        "install": "Suiteáil",
+        "uninstall": "Díshuiteáil",
+        "abort": ""
     },
     "globalSettings": "Socruithe Domhanda",
     "GOG": "GOG",
@@ -929,7 +933,17 @@
             "systemSpecifications": "Sonraíochtaí an Chórais:"
         },
         "launchOptions": "Roghanna Seolta",
-        "legacy_warning": "Rabhadh: Tá na socruithe ar an táb seo imithe i léig den chuid is mó agus b'fhéidir nach n-oibreoidh siad ar chor ar bith."
+        "legacy_warning": "Rabhadh: Tá na socruithe ar an táb seo imithe i léig den chuid is mó agus b'fhéidir nach n-oibreoidh siad ar chor ar bith.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Socruithe",
     "store": "Epic Store",
@@ -1033,7 +1047,13 @@
             "link": "Bainisteoir Wine",
             "not-found": "Níor aimsíodh aon leaganacha de Wine. Cliceáil ar an deilbhín athnuachana le triail eile a bhaint as.",
             "title": "Bainisteoir Wine",
-            "unzipping": "Ag dízipeáil"
+            "unzipping": "Ag dízipeáil",
+            "settings": "Socruithe",
+            "update": "Nuashonrú",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "no-results": ""
         },
         "release": "Dáta Eisiúna",
         "size": "Méid",
@@ -1041,7 +1061,10 @@
     },
     "wineExplanation": {
         "proton-ge": "Is leagan Proton é GE-Proton a chruthaigh Glorious Eggroll. Tá sé ceaptha le húsáid in éineacht leis an lainseálaí umu (réamhshocraithe i Heroic).",
-        "wine-ge": "Is leagan de Wine é Wine-GE-Proton a chruthaigh Glorious Eggroll. Tá sé curtha i léig ar mhaithe le GE-Proton leis an lainseálaí umu."
+        "wine-ge": "Is leagan de Wine é Wine-GE-Proton a chruthaigh Glorious Eggroll. Tá sé curtha i léig ar mhaithe le GE-Proton leis an lainseálaí umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "winetricks": {
         "install": "Suiteáil",
@@ -1058,5 +1081,135 @@
     "zoom-store": "Siopa Zoom",
     "launch": {
         "options": "Roghanna Seolta..."
+    },
+    "discounts": {
+        "filters": {
+            "os": "Córas Oibriúcháin:",
+            "moreFilters": "",
+            "ageRating": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "next": "Ar Aghaidh",
+    "console": {
+        "filter": {
+            "sideload": "Eile",
+            "all": ""
+        },
+        "games": "Cluichí suiteáilte",
+        "hints": {
+            "quit": "Scoir",
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "change_store": ""
+        },
+        "launching": "Ag lainseáil",
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "empty": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "sidebar": {
+        "console": ""
     }
 }

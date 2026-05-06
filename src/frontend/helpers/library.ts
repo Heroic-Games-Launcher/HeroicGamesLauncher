@@ -70,31 +70,6 @@ async function install({
     return
   }
 
-  if (installPath === 'import') {
-    const { defaultInstallPath }: AppSettings =
-      await window.api.requestAppSettings()
-    const args: Electron.OpenDialogOptions = {
-      buttonLabel: t('gamepage:box.choose'),
-      properties:
-        platformToInstall === 'Mac' ? ['openFile'] : ['openDirectory'],
-      title: t('gamepage:box.importpath'),
-      defaultPath: defaultInstallPath
-      //TODO: add file filters
-    }
-    const path = await window.api.openDialog(args)
-
-    if (!path) {
-      return
-    }
-
-    return window.api.importGame({
-      appName,
-      path,
-      runner,
-      platform: platformToInstall
-    })
-  }
-
   if (installPath !== 'default') {
     if (setInstallPath) setInstallPath(installPath)
   }

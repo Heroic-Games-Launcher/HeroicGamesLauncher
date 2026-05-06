@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Recarregar a Biblioteca"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "Definições Globais",
     "GOG": "GOG",
@@ -812,7 +815,8 @@
         "WoW64": "Ativar o WoW64 (Experimental)",
         "scripts": "Scripts:",
         "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo",
-        "disable_gog_presence": "Desativar atualizações presentes do GOG"
+        "disable_gog_presence": "Desativar atualizações presentes do GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -918,12 +922,23 @@
             "title": "Estilo de CSS Personalizado"
         },
         "launchOptions": "Opções de execução",
-        "legacy_warning": "Aviso: A maior parte das definições neste separador estão obsoletas e podem não funcionar de todo."
+        "legacy_warning": "Aviso: A maior parte das definições neste separador estão obsoletas e podem não funcionar de todo.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Definições",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "A Instalar",
@@ -980,7 +995,13 @@
             "link": "Gestor do Wine",
             "not-found": "Não foi encontrada nenhuma versão do Wine. Clique, por favor, no ícone de recarregar para tentar novamente.",
             "title": "Gestor do Wine",
-            "unzipping": "A descomprimir"
+            "unzipping": "A descomprimir",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "Data de Lançamento",
         "size": "Tamanho",
@@ -1051,7 +1072,10 @@
     },
     "wineExplanation": {
         "proton-ge": "O GE-Proton é uma variante do Proton criada por Glorious Eggroll. É suposto ser usada juntamente com o lançador umu (que é a predefinição no Heroic).",
-        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada por Glorious Eggroll. Foi entretanto descontinuada em favor do GE-Proton com o lançador umu."
+        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada por Glorious Eggroll. Foi entretanto descontinuada em favor do GE-Proton com o lançador umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "tour": {
         "back": "Atrás",
@@ -1124,5 +1148,132 @@
     "zoom-store": "Loja do Zoom",
     "launch": {
         "options": "Opções de Arranque..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

@@ -130,7 +130,8 @@
         "changelogFor": "Log perubahan untuk {{gameTitle}}",
         "modify": "Ubah Pemasangan",
         "extra_info": "Info tambahan",
-        "install_info": "Info instalasi"
+        "install_info": "Info instalasi",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Memindahkan",

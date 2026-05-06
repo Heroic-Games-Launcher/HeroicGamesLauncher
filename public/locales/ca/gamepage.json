@@ -131,7 +131,8 @@
         "changelogFor": "Registre de {{gameTitle}}",
         "modify": "Modifica la instal·lació",
         "extra_info": "Informació addicional",
-        "install_info": "Informació de la instal·lació"
+        "install_info": "Informació de la instal·lació",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "S'està movent",
@@ -326,7 +327,7 @@
         "categories": "Categories"
     },
     "help": {
-        "cloud_save_unsupported": "Aquest joc no permet desar partides al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol",
+        "cloud_save_unsupported": "Aquest joc no admet desacions al núvol. Aquesta informació la proporcionen els desenvolupadors del joc. Alguns jocs implementen el seu propi sistema de desat al núvol",
         "content": {
             "gamePage": "Mostra tots els detalls i accions del joc. Utilitza el menú dels 3 punts per a més opcions."
         },

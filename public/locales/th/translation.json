@@ -159,7 +159,7 @@
             }
         },
         "default-install-path": "",
-        "no": "",
+        "no": "ไม่",
         "wineprefix": "",
         "default-steam-path": "",
         "downloadNow": "",
@@ -615,7 +615,9 @@
         "checkForUpdatesOnStartup": "",
         "prefered_language": "",
         "hideChangelogsOnStartup": "",
-        "showMetalOverlay": ""
+        "showMetalOverlay": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "advanced": {
@@ -719,7 +721,17 @@
         },
         "launchOptions": "",
         "copiedToClipboard": "",
-        "open-config-file": ""
+        "open-config-file": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "การตั้งค่า",
     "status": {
@@ -746,7 +758,13 @@
             "link": "",
             "title": "",
             "unzipping": "",
-            "not-found": ""
+            "not-found": "",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "อัปเดต",
+            "settings": "การตั้งค่า",
+            "no-results": ""
         },
         "notes": "",
         "release": "",
@@ -952,7 +970,10 @@
         },
         "library": {
             "refresh": ""
-        }
+        },
+        "abort": "",
+        "install": "ติดตั้ง",
+        "uninstall": "ถอนการติดตั้ง"
     },
     "categories-manager": {
         "confirm-rename": "",
@@ -1034,7 +1055,140 @@
     "zoom-store": "",
     "wineExplanation": {
         "wine-ge": "",
-        "proton-ge": ""
+        "proton-ge": "",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
-    "Amazon Games": ""
+    "Amazon Games": "",
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "กำลังเปิด",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "",
+    "sidebar": {
+        "console": ""
+    }
 }

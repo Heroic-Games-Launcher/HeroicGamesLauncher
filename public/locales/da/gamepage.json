@@ -133,7 +133,8 @@
         "extra_info": "Ekstra info",
         "install_info": "Installations infomation",
         "modify": "Ændre installation",
-        "changelogFor": "Ændringslog for {{gameTitle}}"
+        "changelogFor": "Ændringslog for {{gameTitle}}",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Flytter",

@@ -6,7 +6,7 @@
         "fonts": "Schriftarten",
         "title": "Barrierefreiheit",
         "zoom": "Vergrößerung",
-        "disable_dialog_backdrop_close": "Deaktiviere \"Schließen der Dialoge\" durch einen Klick außerhalb des Dialogs",
+        "disable_dialog_backdrop_close": "Deaktiviere schließen der Dialoge bei Klick außerhalb",
         "titles_always_visible": "Immer Spieltitel in Bibliothek anzeigen",
         "content_font_family_default": "Schriftfamilie-Inhalt (Standard: {{fontFamily}})",
         "actions_font_family_default": "Schriftfamilie-Aktionen (Standard: {{fontFamily}})",
@@ -22,7 +22,7 @@
         "source": "Quelle",
         "status": "Status",
         "title": "Dieses Spiel enthält Anticheat-Software",
-        "multiplayer_may_not_work": "Die Multiplayer-Funktionen funktionieren möglicherweise nicht, weil der Anti-Cheat-Schutz verweigert oder fehlerhaft ist.."
+        "multiplayer_may_not_work": "Wegen des nicht vorhandenen oder kaputten Anticheatsupports funktionieren Multiplayerfunktionen eventuell nicht."
     },
     "box": {
         "cache-cleared": {
@@ -189,7 +189,7 @@
                 "message": "Heroic benötigt Rosetta, um auf macOS mit Apple-Silicon-Chips korrekt zu funktionieren. Bitte installiere Rosetta über das Terminal mit folgendem Befehl: „softwareupdate --install-rosetta“ und starte Heroic anschließend neu. "
             }
         },
-        "wineprefix": "Wine-Präfix-Ordner auswählen",
+        "wineprefix": "Wine-Prefix-Ordner auswählen",
         "yes": "JA",
         "dontShowAgain": "Nicht erneut anzeigen",
         "choose-nile-binary": "Nile-Binärdatei auswählen",
@@ -267,7 +267,10 @@
         },
         "library": {
             "refresh": "Bibliothek aktualisieren"
-        }
+        },
+        "abort": "",
+        "install": "Installieren",
+        "uninstall": "Deinstallieren"
     },
     "globalSettings": "Globale Einstellungen",
     "GOG": "GOG",
@@ -810,7 +813,8 @@
         "no-tray-icon": "Infobereich Logo ausblenden (benötigt neustart)",
         "scripts": "Skripte:",
         "enable-quick-sync-menu": "Schnellspeicher-Synchronisierungsmenü auf der Spielseite aktivieren",
-        "disable_gog_presence": "Deaktiviere GOG Presence aktualisierungen"
+        "disable_gog_presence": "Deaktiviere GOG Presence aktualisierungen",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -916,12 +920,23 @@
             "title": "Nutzerdefinierter CSS Style"
         },
         "launchOptions": "Startoptionen",
-        "legacy_warning": "Warnung: Die Einstellungen auf dieser Seite sind größtenteils veraltet und funktionieren möglicherweise überhaupt nicht mehr."
+        "legacy_warning": "Warnung: Die Einstellungen auf dieser Seite sind größtenteils veraltet und funktionieren möglicherweise überhaupt nicht mehr.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Einstellungen",
     "sidebar": {
         "collapse": "Seitenleiste einklappen",
-        "uncollapse": "Seitenleiste ausklappen"
+        "uncollapse": "Seitenleiste ausklappen",
+        "console": ""
     },
     "status": {
         "installing": "Wird installiert …",
@@ -978,7 +993,13 @@
             "link": "Wine-Manager",
             "not-found": "Keine Wine-Versionen gefunden. Bitte klicke auf „Aktualisieren“, um es erneut zu versuchen.",
             "title": "Wine-Manager",
-            "unzipping": "Entpacke"
+            "unzipping": "Entpacke",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Update",
+            "settings": "Einstellungen",
+            "no-results": ""
         },
         "release": "Veröffentlicht",
         "size": "Größe",
@@ -1028,7 +1049,10 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Proton ist eine von Glorious Eggroll entwickelte Wine-Variante. Sie wurde zugunsten von GE-Proton mit dem umu-Launcher eingestellt.",
-        "proton-ge": "GE-Proton ist eine von Glorious Eggroll entwickelte Variante von Proton. Es ist für die Verwendung mit dem umu-Launcher vorgesehen (Standard in Heroic)."
+        "proton-ge": "GE-Proton ist eine von Glorious Eggroll entwickelte Variante von Proton. Es ist für die Verwendung mit dem umu-Launcher vorgesehen (Standard in Heroic).",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "Die aktuellen Filter haben keine Suchergebnisse hervorgebracht.",
@@ -1122,5 +1146,132 @@
     "zoom-store": "Zoom Store",
     "launch": {
         "options": "Startoptionen …"
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Betriebssystem:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Alle",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Keine Spiele gefunden",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "Beenden",
+            "change_store": ""
+        },
+        "launching": "Wird gestartet …",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Alle"
+        },
+        "empty": "",
+        "games": "Installierte Spiele",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Weiter"
 }

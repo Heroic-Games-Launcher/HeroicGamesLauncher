@@ -20,6 +20,7 @@ import {
   sendFrontendMessage
 } from 'backend/ipc'
 import 'backend/updater'
+import 'backend/discounts'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
 import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
@@ -123,6 +124,7 @@ import {
   customThemesWikiLink,
   discordLink,
   epicLoginUrl,
+  githubSponsorsPage,
   heroicGithubURL,
   kofiPage,
   patreonPage,
@@ -134,6 +136,7 @@ import {
 } from './constants/urls'
 import { legendaryInstalled } from './storeManagers/legendary/constants'
 import {
+  isCLIConsoleMode,
   isCLIFullscreen,
   isCLINoGui,
   isFlatpak,
@@ -241,13 +244,22 @@ async function initializeWindow(): Promise<BrowserWindow> {
 
   detectVCRedist(mainWindow)
 
+  const startHash =
+    isCLIConsoleMode || globalConf.startInConsoleMode ? '/console' : undefined
+
   if (process.env.ELECTRON_RENDERER_URL) {
-    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
+    const devUrl = startHash
+      ? `${process.env.ELECTRON_RENDERER_URL}#${startHash}`
+      : process.env.ELECTRON_RENDERER_URL
+    mainWindow.loadURL(devUrl)
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
   } else {
     Menu.setApplicationMenu(null)
-    mainWindow.loadFile(join(publicDir, 'index.html'))
+    mainWindow.loadFile(
+      join(publicDir, 'index.html'),
+      startHash ? { hash: startHash } : undefined
+    )
     if (globalConf.checkForUpdatesOnStartup) {
       autoUpdater.checkForUpdates()
     }
@@ -589,6 +601,9 @@ addListener('minimizeWindow', () => getMainWindow()?.minimize())
 addListener('maximizeWindow', () => getMainWindow()?.maximize())
 addListener('unmaximizeWindow', () => getMainWindow()?.unmaximize())
 addListener('closeWindow', () => getMainWindow()?.close())
+addListener('setFullscreen', (_e, enabled) =>
+  getMainWindow()?.setFullScreen(enabled)
+)
 addListener('quit', async () => handleExit())
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -621,6 +636,9 @@ addListener('openLoginPage', async () => openUrlOrFile(epicLoginUrl))
 addListener('openDiscordLink', async () => openUrlOrFile(discordLink))
 addListener('openPatreonPage', async () => openUrlOrFile(patreonPage))
 addListener('openKofiPage', async () => openUrlOrFile(kofiPage))
+addListener('openGithubSponsorsPage', async () =>
+  openUrlOrFile(githubSponsorsPage)
+)
 addListener('openWinePrefixFAQ', async () => openUrlOrFile(wineprefixFAQ))
 addListener('openWebviewPage', async (event, url) => openUrlOrFile(url))
 addListener('openWikiLink', async () => openUrlOrFile(wikiLink))
@@ -813,6 +831,7 @@ addHandler('authZoom', async (event, url) => {
   }
   return login
 })
+
 addListener('logoutZoom', ZoomUser.logout)
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
@@ -1002,7 +1021,18 @@ addHandler(
 
 addHandler(
   'importGame',
-  async (event, { appName, path, runner, platform }): StatusPromise => {
+  async (
+    event,
+    {
+      appName,
+      path,
+      runner,
+      platform,
+      winePrefix,
+      wineVersion,
+      wineCrossoverBottle
+    }
+  ): StatusPromise => {
     if (runner === 'legendary') {
       const epicOffline = await isEpicServiceOffline()
       if (epicOffline) {
@@ -1052,6 +1082,16 @@ addHandler(
       abortMessage()
       logError(error, LogPrefix.Backend)
       return { status: 'error' }
+    }
+
+    if (winePrefix && wineVersion) {
+      const gameSettings = await gameManagerMap[runner].getSettings(appName)
+      writeConfig(appName, {
+        ...gameSettings,
+        winePrefix,
+        wineVersion,
+        wineCrossoverBottle
+      })
     }
 
     notify({
@@ -1415,3 +1455,4 @@ import './wiki_game_info/ipc_handler'
 import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
+import './steamgrid/ipc_handler'

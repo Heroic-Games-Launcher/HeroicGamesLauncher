@@ -96,12 +96,12 @@
             "steam": {
                 "message": "Steamのインストールに失敗しました！説明をよく読んで、もう一度お試しください！"
             },
-            "executableNotFound": "",
+            "executableNotFound": "実行ファイルが見つかりません",
             "dxmt": {
-                "message": "",
-                "title": ""
+                "message": "DXMTのダウンロードに失敗しました！接続状態を確認してください！",
+                "title": "DXMT ダウンロードエラー"
             },
-            "executableNotFoundMessage": ""
+            "executableNotFoundMessage": "Heroicはこのゲームの実行ファイルを見つけられませんでした。ゲームの設定で手動で設定してください。"
         },
         "info": {
             "update": {
@@ -111,7 +111,7 @@
                 "message-finished": "今すぐHeroicを再起動しますか?",
                 "title": "Heroicゲームランチャー",
                 "title-finished": "アップデート完了",
-                "detailNoAutoupdate": ""
+                "detailNoAutoupdate": "お使いのパッケージ形式では、自動更新はサポートされていません。パッケージマネージャーを使用して更新してください。"
             }
         },
         "no": "いいえ",
@@ -183,11 +183,11 @@
                 "message": "一部の機能は現在Snapバージョンのアプリで利用できません。 {{newLine}}現在の制限事項：{{newLine}}HeroicはSteamのProtonやLutrisのWineを見つけることができません。{{newLine}}{{newLine}}Gamescope、GameMode、MangoHudもアクセス権限がないため正常に動作しません。 {{newLine}}{{newLine}}この機能にアクセスするには、HeroicをFlakpak、DEBフォーマットパッケージ、またはAppImageからインストールしてください。"
             },
             "rosetta": {
-                "title": "",
-                "message": ""
+                "title": "Rosettaが見つかりません",
+                "message": "Apple Siliconチップ搭載のmacOSでHeroicを正常に動作させるには、Rosettaが必要です。macOSのターミナルで次のコマンド「softwareupdate --install-rosetta」を実行してインストールし、Heroicを再起動してください。 "
             }
         },
-        "wineprefix": "Wine環境フォルダを選択",
+        "wineprefix": "WinePrefixフォルダを選択",
         "yes": "はい",
         "dontShowAgain": "次回から確認しない",
         "choose-nile-binary": "Nileバイナリを選択",
@@ -263,7 +263,10 @@
         },
         "library": {
             "refresh": "ライブラリを更新"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "グローバル設定",
     "GOG": "GOG",
@@ -805,7 +808,9 @@
         "enable-quick-sync-menu": "",
         "no-tray-icon": "",
         "analyticsOptIn": "",
-        "advertiseAvxForRosetta": ""
+        "advertiseAvxForRosetta": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -911,12 +916,23 @@
             "title": "カスタムCSSスタイル"
         },
         "launchOptions": "Launch Options...",
-        "legacy_warning": ""
+        "legacy_warning": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "設定",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "インストール中",
@@ -973,7 +989,13 @@
             "link": "Wineマネージャー",
             "not-found": "Wineバージョンが見つかりません。再試行するには、更新アイコンをクリックしてください。",
             "title": "Wineマネージャー",
-            "unzipping": "展開中"
+            "unzipping": "展開中",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "リリース日",
         "size": "サイズ",
@@ -1023,7 +1045,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-ProtonはGlorious Eggrollによって作成されたProtonの亜種です。Steamで使うことを想定していますが、Steam以外のゲームではこの亜種の方がうまく動くかもしれません。トラブルシューティングのためにほとんど役に立たないログを提供します。",
-        "wine-ge": "Wine-GE-ProtonはGlorious Eggrollによって作成されたWineの亜種です。Steam以外での使用を推奨するWineです。トラブルシューティング時に便利なログを提供します。"
+        "wine-ge": "Wine-GE-ProtonはGlorious Eggrollによって作成されたWineの亜種です。Steam以外での使用を推奨するWineです。トラブルシューティング時に便利なログを提供します。",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "add-placeholder": "新しいカテゴリーを追加",
@@ -1105,11 +1130,11 @@
         "info": {
             "pt1": "アプリを改善するため、Heroic は 100％匿名のデータを収集します。",
             "pt7": "この設定はアプリの設定画面からいつでも変更可能です。",
-            "pt3": "",
-            "pt5": "",
-            "pt6": "",
-            "pt4": "",
-            "pt2": ""
+            "pt3": "ユーザー名、IPアドレス、メールアドレスなどの個人情報は一切収集いたしません。",
+            "pt5": "Plausible Analyticsは、GDPR、CCPA、およびPECRに完全に準拠しています。",
+            "pt6": "透明性を確保するため、当サービスが収集したデータはHeroicのログでご確認いただけます。",
+            "pt4": "このデータは、限られたリソースとユーザーからのフィードバックを踏まえ、次に何に注力すべきかについて洞察を得るために活用されます。",
+            "pt2": "Heroicは、オープンソースのPlausible Analyticsプラットフォームを利用して、アプリバージョン、OS、接続されているストア、国といった基本データを収集しています。"
         },
         "title": "匿名アナリティクスを送信"
     },
@@ -1117,5 +1142,132 @@
     "launch": {
         "options": "Launch Options..."
     },
-    "zoom-store": ""
+    "zoom-store": "",
+    "console": {
+        "cancel": {
+            "hintSuffix": "3秒間押すとキャンセルされます",
+            "hintPrefix": "長押し"
+        },
+        "card": {
+            "needsUpdate": "更新が必要です"
+        },
+        "empty": "表示するインストール済みのゲームがありません。まず何かをインストールしてください。",
+        "filter": {
+            "all": "すべて",
+            "sideload": "その他"
+        },
+        "games": "インストール済みゲーム",
+        "hints": {
+            "change_store": "ストアを変更する",
+            "launch": "起動",
+            "navigate": "ナビゲート",
+            "quit": "終了",
+            "sort": "並び替え"
+        },
+        "launching": "開始",
+        "loading": "ライブラリを読み込んでいます…",
+        "quit": "コンソールを終了する",
+        "quitApp": "アプリを終了する",
+        "sort": "並び替え",
+        "update": {
+            "body": "This game has an update available. Please leave Console Mode and update the game before launching.",
+            "hintPrefix": "押す",
+            "hintSuffix": "戻る",
+            "title": ""
+        }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "next": ""
 }

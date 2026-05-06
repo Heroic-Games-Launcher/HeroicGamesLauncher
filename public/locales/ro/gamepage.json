@@ -131,7 +131,8 @@
         "changelogFor": "Jurnalul modificărilor pentru {{gameTitle}}",
         "extra_info": "Informații extra",
         "install_info": "Instalează info",
-        "modify": "Modifică Instalarea"
+        "modify": "Modifică Instalarea",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Mutare",

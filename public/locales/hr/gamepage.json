@@ -34,7 +34,7 @@
         },
         "uninstall": {
             "checkbox": "Remove prefix: {{prefix}}{{newLine}}Note: This can't be undone and will also remove not backed up save files.",
-            "message": "Želite li deinstalirati igru?",
+            "message": "Želite li deinstalirati igricu?",
             "settingcheckbox": "Erase settings and remove log{{newLine}}Note: This can't be undone. Any modified settings will be forgotten and log will be deleted.",
             "title": "Deinstaliraj",
             "prefix_warning": "Wine prefiks za ovu igru je zadani prefiks. Ako ga stvarno želite izbrisati, morate to učiniti ručno.",
@@ -130,7 +130,8 @@
         "modify": "Promjeni instalaciju",
         "changelogFor": "",
         "install_info": "",
-        "extra_info": ""
+        "extra_info": "",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Premještanje",

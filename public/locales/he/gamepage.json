@@ -154,7 +154,7 @@
         "hasUpdates": "גרסה חדשה זמינה!",
         "processing": "מעבד קבצים, נא לחכות",
         "reparing": "מתקן את המשחק, נא לחכות",
-        "moving-files": "מזיז קובץ '{{file}}': {{percent}} ",
+        "moving-files": "מזיז קובץ '{{file}}': {{percent}}",
         "notinstalled": "המשחק הזה לא מותקן",
         "notSupported": "לא נתמך",
         "this-game-uses-third-party": "המשחק הזה משתמש בלאונצ'ר חיצוני ועוד לא נתמך",
@@ -215,7 +215,8 @@
         "changelogFor": "",
         "modify": "",
         "install_info": "",
-        "extra_info": ""
+        "extra_info": "",
+        "achievements": ""
     },
     "dlc": {
         "installDlcs": "התקן את כל הDLCים"

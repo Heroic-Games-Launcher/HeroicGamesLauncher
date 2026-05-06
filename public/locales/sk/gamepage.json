@@ -130,7 +130,8 @@
         "changelogFor": "Zoznam zmien pre {{gameTitle}}",
         "modify": "Zmeniť Inštaláciu",
         "extra_info": "Extra Informácie",
-        "install_info": "Informácie o inštalácii"
+        "install_info": "Informácie o inštalácii",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Presúvanie",

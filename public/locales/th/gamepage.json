@@ -48,7 +48,7 @@
             "playAnyway": "",
             "title": ""
         },
-        "no": "",
+        "no": "ไม่",
         "warning": {
             "title": ""
         },
@@ -126,7 +126,8 @@
         "extra_info": "",
         "totalPlayed": "",
         "firstPlayed": "",
-        "platform": ""
+        "platform": "",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "กำลังย้าย",
@@ -292,7 +293,7 @@
         "disk-space-left": "",
         "space-after-install": "",
         "anticheat-warning": {
-            "cancel": "",
+            "cancel": "ไม่",
             "disabled_installation": "",
             "install_anyway": "",
             "ok": "",

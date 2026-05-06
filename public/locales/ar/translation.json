@@ -260,7 +260,10 @@
         },
         "library": {
             "refresh": "أعد تحميل المكتبة"
-        }
+        },
+        "abort": "",
+        "install": "",
+        "uninstall": ""
     },
     "globalSettings": "الإعدادات العامة",
     "GOG": "جي.أو.جي",
@@ -802,7 +805,9 @@
         "advertiseAvxForRosetta": "",
         "custom_css": {
             "warning": ""
-        }
+        },
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -908,12 +913,23 @@
         "legacy_warning": "",
         "custom_css": {
             "title": ""
+        },
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
         }
     },
     "Settings": "الإعدادات",
     "sidebar": {
         "collapse": "اطوِ الشريط الجانبي",
-        "uncollapse": "اكشف الشريط الجانبي"
+        "uncollapse": "اكشف الشريط الجانبي",
+        "console": ""
     },
     "status": {
         "installing": "قيد التثبيت",
@@ -970,7 +986,13 @@
             "link": "مدير واين",
             "not-found": "لم يُعثر على إصدارات واين. انقر على رمز التحديث للمحاولة مرةً أخرى.",
             "title": "مدير واين",
-            "unzipping": "جارٍ فك الضغط"
+            "unzipping": "جارٍ فك الضغط",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "",
+            "settings": "",
+            "no-results": ""
         },
         "release": "تاريخ الإصدار",
         "size": "الحجم",
@@ -1024,7 +1046,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton هو نوع Proton تم إنشاؤه بواسطة Glorious Eggroll. من المفترض استخدامه في Steam، لكن بعض الألعاب خارج Steam قد تعمل بشكل أفضل مع هذا المتغير. ويوفر سجلات غير مجدية في الغالب لاستكشاف الأخطاء وإصلاحها.",
-        "wine-ge": "Wine-GE-Proton هو نوع من Wine تم إنشاؤه بواسطة Glorious Eggroll. إنه Wine الموصى باستخدامه خارج Steam. يوفر هذا سجلات مفيدة عند استكشاف الأخطاء وإصلاحها."
+        "wine-ge": "Wine-GE-Proton هو نوع من Wine تم إنشاؤه بواسطة Glorious Eggroll. إنه Wine الموصى باستخدامه خارج Steam. يوفر هذا سجلات مفيدة عند استكشاف الأخطاء وإصلاحها.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "categories-manager": {
         "add-placeholder": "أضف فئةً",
@@ -1107,5 +1132,132 @@
         "skip": "",
         "done": ""
     },
-    "zoom-store": ""
+    "zoom-store": "",
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "",
+            "all": ""
+        },
+        "empty": "",
+        "games": "",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": ""
 }

@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Värskenda varamut"
-        }
+        },
+        "abort": "",
+        "install": "Paigaldus",
+        "uninstall": "Eemalda"
     },
     "globalSettings": "Globaalsed seaded",
     "GOG": "GOG",
@@ -816,7 +819,8 @@
         "WoW64": "Luba WoW64 (eksperimentaalne)",
         "scripts": "Skriptid:",
         "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel",
-        "disable_gog_presence": "Keela GOG Presence'i uuendused"
+        "disable_gog_presence": "Keela GOG Presence'i uuendused",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -922,12 +926,23 @@
             "title": "Kasutajaliidese CSS stiil"
         },
         "launchOptions": "Käivitusvalikud",
-        "legacy_warning": "Hoiatus: Sätted sellel vahelehel on enamasti aegunud ja ei pruugi üldse toimida."
+        "legacy_warning": "Hoiatus: Sätted sellel vahelehel on enamasti aegunud ja ei pruugi üldse toimida.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Seaded",
     "sidebar": {
         "collapse": "Ahenda külgriba",
-        "uncollapse": "Lahtista külgriba"
+        "uncollapse": "Lahtista külgriba",
+        "console": ""
     },
     "status": {
         "installing": "Paigaldamine",
@@ -984,7 +999,13 @@
             "link": "Wine'i haldur",
             "not-found": "Wine'i versioone ei leitud. Palun klikkige.",
             "title": "Wine'i haldur",
-            "unzipping": "Lahtipakkimine"
+            "unzipping": "Lahtipakkimine",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Uuendus",
+            "settings": "Seaded",
+            "no-results": ""
         },
         "release": "Väljalaske kuupäev",
         "size": "Suurus",
@@ -1040,7 +1061,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton on Protoni variant, mille lõi Glorious Eggroll. See on mõeldud Steami jaoks kasutamiseks, aga mõned Steami-välised mängud võivad sellega paremini töötada. Selle tõrkeotsingu logid on enamasti kasutud.",
-        "wine-ge": "Wine-GE-Proton on Wine'i variant, mille lõi Glorious Eggroll. See on soovitatav Wine'i versioon, mida kasutada väljaspool Steami. Selle tõrkeotsingu logid on kasulikud ja asjakohased."
+        "wine-ge": "Wine-GE-Proton on Wine'i variant, mille lõi Glorious Eggroll. See on soovitatav Wine'i versioon, mida kasutada väljaspool Steami. Selle tõrkeotsingu logid on kasulikud ja asjakohased.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "adtraction-locked": {
         "description": "Näib, et track.adtraction.com domeeni ei olnud võimalik laadida või on keelatud. Tänu adtractionile, iga ost, mida GOG poes teete, toetab rahaliselt Heroicut. Kui soovite aidata, palun eemaldage keeld.",
@@ -1128,5 +1152,132 @@
     "zoom-store": "Zoomi pood",
     "launch": {
         "options": "Käivitusvalikud..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Operatsioonisüsteem:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Kõik",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Mänge ei leitud",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "Lahku",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Kõik"
+        },
+        "empty": "",
+        "games": "Paigaldatud mängud",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Järgmine"
 }

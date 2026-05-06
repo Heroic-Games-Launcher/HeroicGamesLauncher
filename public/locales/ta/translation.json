@@ -189,7 +189,7 @@
                 "title": "ரொசெட்டா கண்டுபிடிக்கப்படவில்லை"
             }
         },
-        "wineprefix": "ஒயின் முன்னொட்டு கோப்புறையை தேர்வுசெய்",
+        "wineprefix": "ஒயின்முன்னொட்டு கோப்புறையைத் தேர்ந்தெடு",
         "yes": "ஆம்",
         "dontShowAgain": "மீண்டும் காட்டாதே",
         "choose-nile-binary": "நைல் பைனரியைத் தேர்ந்தெடுக்கவும்",
@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "நூலகத்தைப் புதுப்பிக்கவும்"
-        }
+        },
+        "abort": "",
+        "install": "நிறுவவும்",
+        "uninstall": "நிறுவல் நீக்கவும்"
     },
     "globalSettings": "உலகளாவிய விருப்பத்தேர்வுகள்",
     "GOG": "GOG",
@@ -808,7 +811,8 @@
         "enable-quick-sync-menu": "கேம் பக்கத்தில் விரைவான சேமி-ஒத்திசைவு மெனுவை இயக்கவும்",
         "no-tray-icon": "கணினி தட்டு ஐகானை மறை (மறுதொடக்கம் தேவை)",
         "analyticsOptIn": "வீர வளர்ச்சிக்கு உதவ அநாமதேய தரவை அனுப்பவும்",
-        "disable_gog_presence": "GOG இருப்பு புதுப்பிப்புகளை முடக்கு"
+        "disable_gog_presence": "GOG இருப்பு புதுப்பிப்புகளை முடக்கு",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -914,12 +918,23 @@
             "title": "தனிப்பயன் சிஎச்எச் நடை"
         },
         "launchOptions": "துவக்க விருப்பங்கள்",
-        "legacy_warning": "எச்சரிக்கை: இந்த தாவலில் உள்ள அமைப்புகள் பெரும்பாலும் நிராகரிக்கப்பட்டுள்ளன, மேலும் அவை வேலை செய்யாமல் போகலாம்."
+        "legacy_warning": "எச்சரிக்கை: இந்த தாவலில் உள்ள அமைப்புகள் பெரும்பாலும் நிராகரிக்கப்பட்டுள்ளன, மேலும் அவை வேலை செய்யாமல் போகலாம்.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "அமைப்புகள்",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "நிறுவப்படுகிறது",
@@ -976,7 +991,13 @@
             "link": "ஒயின் மேலாளர்",
             "not-found": "ஒயின் பதிப்புகள் எதுவும் இல்லை. மீண்டும் முயற்சிக்க, புதுப்பிப்பு ஐகானைக் கிளிக் செய்யவும்.",
             "title": "ஒயின் மேலாளர்",
-            "unzipping": "திறக்கிறது(அன்ஜிப்)"
+            "unzipping": "திறக்கிறது(அன்ஜிப்)",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "புதுப்பிப்பு",
+            "settings": "அமைப்புகள்",
+            "no-results": ""
         },
         "release": "வெளியிட்டு தேதி",
         "size": "அளவு",
@@ -1038,7 +1059,10 @@
     },
     "wineExplanation": {
         "proton-ge": "புரோட்டான்-சி.இ-புரோட்டான் என்பது புகழுடைய முட்டைஉருளையால் உருவாக்கப்பட்ட ஒரு புரோட்டான் வகையாகும். இது யுஎம்யு லாஞ்சருடன் (ஈரோயிக்கில் இயல்புநிலை) இணைந்து பயன்படுத்தப்பட வேண்டும்.",
-        "wine-ge": "ஒயின்-சி.இ-புரோட்டான் என்பது புகழ்பெற்ற முட்டைஉருளை உருவாக்கிய ஒரு மது மாறுபாடு ஆகும். சரிசெய்தல் போது இது பயனுள்ள பதிவுகளை வழங்குகிறது. இது யுஎம்யு லாஞ்சருடன் புரோட்டான்-சிஇக்கு ஆதரவாக நிராகரிக்கப்பட்டது."
+        "wine-ge": "ஒயின்-சி.இ-புரோட்டான் என்பது புகழ்பெற்ற முட்டைஉருளை உருவாக்கிய ஒரு மது மாறுபாடு ஆகும். சரிசெய்தல் போது இது பயனுள்ள பதிவுகளை வழங்குகிறது. இது யுஎம்யு லாஞ்சருடன் புரோட்டான்-சிஇக்கு ஆதரவாக நிராகரிக்கப்பட்டது.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "adtraction-locked": {
         "description": "டிராக்.அட்ராக்சன்.காம் டொமைன் ஏற்ற முடியவில்லை அல்லது தடுக்கப்பட்டதாகத் தெரிகிறது. சுருக்கத்துடன், GOG கடையில் நீங்கள் செய்யும் எந்தவொரு கொள்முதலும் வீர பொருள் ரீதியாக ஆதரிக்கிறது. நீங்கள் பங்களிக்க விரும்பினால் தொகுதியை அகற்றுவதைக் கவனியுங்கள்.",
@@ -1120,5 +1144,132 @@
         "options": "துவக்க விருப்பங்கள்..."
     },
     "amazon-luna": "அமேசான் லூனா",
-    "zoom-store": "சூம் கடை"
+    "zoom-store": "சூம் கடை",
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "இயக்க முறைமை:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "அனைத்தும்",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "விளையாட்டுகள் எதுவும் காணப்படவில்லை",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "வெளியேறு",
+            "change_store": ""
+        },
+        "launching": "",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "அனைத்தும்"
+        },
+        "empty": "",
+        "games": "Installed Games",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "அடுத்தது"
 }

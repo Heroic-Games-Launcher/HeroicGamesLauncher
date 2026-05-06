@@ -130,7 +130,8 @@
         "modify": "Muokkaa Asennusta",
         "changelogFor": "{{gameTitle}} muutosloki",
         "extra_info": "Lisätiedot",
-        "install_info": "Asennustiedot"
+        "install_info": "Asennustiedot",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Siirretään",
