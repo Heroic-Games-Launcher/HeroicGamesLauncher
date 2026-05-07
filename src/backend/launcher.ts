@@ -33,7 +33,8 @@ import {
   sendGameStatusUpdate,
   checkWineBeforeLaunch,
   isMacSonomaOrHigher,
-  askForceUninstall
+  askForceUninstall,
+  isErrnoException
 } from './utils'
 import {
   createGameLogWriter,
@@ -225,8 +226,18 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
       return { status: 'error' }
     }
   }
-
-  await runBeforeLaunchScript(game, gameSettings, logWriter)
+  try {
+    await runBeforeLaunchScript(game, gameSettings, logWriter)
+  } catch (error) {
+    if (isErrnoException(error)) {
+      sendGameStatusUpdate({
+        appName,
+        runner,
+        status: 'done'
+      })
+      return { status: 'abort' }
+    }
+  }
 
   sendGameStatusUpdate({
     appName,
@@ -2043,21 +2054,68 @@ async function runScriptForGame(
 ): Promise<boolean | string> {
   return new Promise((resolve, reject) => {
     const scriptPath = gameSettings[`${scriptStage}LaunchScriptPath`]
-    const scriptEnv = {
+
+    const metadata = {
       HEROIC_GAME_APP_NAME: gameInfo.app_name,
       HEROIC_GAME_EXEC: gameInfo.install.executable,
       HEROIC_GAME_PREFIX: gameSettings.winePrefix,
       HEROIC_GAME_RUNNER: gameInfo.runner,
       HEROIC_GAME_SCRIPT_STAGE: scriptStage,
       HEROIC_GAME_TITLE: gameInfo.title,
-      HEROIC_GAME_SETTINGS: JSON.stringify(gameSettings),
-      HEROIC_GAME_INFO: JSON.stringify(gameInfo),
+      HEROIC_GAME_SETTINGS: gameSettings,
+      HEROIC_GAME_INFO: gameInfo
+    }
+
+    let scriptEnv = {
       ...process.env
     }
-    const child = spawn(scriptPath, {
-      cwd: gameInfo.install.install_path,
-      env: scriptEnv
-    })
+
+    if (gameSettings.passEnvViaFile) {
+      if (!gameInfo.install?.install_path) {
+        const err = new Error(
+          `Invalid state: ${gameInfo.app_name} has no install_path`
+        )
+        if (gameSettings.verboseLogs) {
+          logWriter.logError(err)
+        }
+        reject(err)
+        return
+      }
+      const installPath = gameInfo.install.install_path
+      const metadataPath = join(installPath, 'script-env.json')
+
+      writeFileSync(metadataPath, JSON.stringify(metadata, null, 2))
+
+      scriptEnv.HEROIC_METADATA_FILE = metadataPath
+    } else {
+      scriptEnv = {
+        ...scriptEnv,
+        ...{
+          ...metadata,
+          HEROIC_GAME_SETTINGS: JSON.stringify(gameSettings),
+          HEROIC_GAME_INFO: JSON.stringify(gameInfo)
+        }
+      }
+    }
+    let child
+
+    try {
+      child = spawn(scriptPath, {
+        cwd: gameInfo.install.install_path,
+        env: scriptEnv
+      })
+    } catch (e) {
+      const err = e as NodeJS.ErrnoException
+      if (gameSettings.verboseLogs && err.code === 'E2BIG') {
+        logWriter.logError(
+          'OS Max Argument Limit Reached! Try enabling "OS Max Argument Workaround" in settings.'
+        )
+        logWriter.logError(err)
+      }
+      reject(err)
+      return
+    }
+
     child.stdout.setEncoding('utf-8')
     child.stderr.setEncoding('utf-8')
 
@@ -2073,6 +2131,16 @@ async function runScriptForGame(
 
     child.on('error', (err) => {
       if (gameSettings.verboseLogs) {
+        if (isErrnoException(err) && err.code === 'ENOENT') {
+          let message = `The script ${scriptPath} could not be found.`
+
+          if (isFlatpak) {
+            message +=
+              ' Make sure Heroic has permission to view that directory.'
+          }
+
+          logWriter.logError(message)
+        }
         logWriter.logError(err)
       }
       reject(err)

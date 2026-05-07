@@ -1676,6 +1676,12 @@ export const writeConfig = (appName: string, config: Partial<AppSettings>) => {
   }
 }
 
+function isErrnoException(err: unknown): err is NodeJS.ErrnoException {
+  return (
+    typeof err === 'object' && err !== null && 'code' in err && 'syscall' in err
+  )
+}
+
 export {
   errorHandler,
   execAsync,
@@ -1714,7 +1720,8 @@ export {
   calculateEta,
   extractFiles,
   axiosClient,
-  parseSize
+  parseSize,
+  isErrnoException
 }
 
 // Exported only for testing purpose
