@@ -189,7 +189,7 @@
                 "title": "Não foi encontrado o Rosetta"
             }
         },
-        "wineprefix": "Escolha a pasta para o prefixo Wine",
+        "wineprefix": "Selecione a pasta com o prefixo Wine",
         "yes": "SIM",
         "dontShowAgain": "Não mostrar novamente",
         "choose-nile-binary": "Selecione o binário do Nile",
@@ -270,8 +270,8 @@
             "refresh": "Recarregar a Biblioteca"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Instalar",
+        "uninstall": "Desinstalar"
     },
     "globalSettings": "Definições Globais",
     "GOG": "GOG",
@@ -999,8 +999,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Atualização",
+            "settings": "Configurações",
             "no-results": ""
         },
         "release": "Data de Lançamento",
@@ -1188,7 +1188,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Sistema Operacional:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1201,7 +1201,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Tudo",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1231,7 +1231,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "Nenhum Jogo Encontrado",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1259,21 +1259,21 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Fechar",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "Iniciando",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Tudo"
         },
         "empty": "",
-        "games": "",
+        "games": "Jogos Instalados",
         "quitApp": "",
         "loading": ""
     },
-    "next": ""
+    "next": "Próximo"
 }

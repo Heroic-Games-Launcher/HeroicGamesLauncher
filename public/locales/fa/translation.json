@@ -184,7 +184,7 @@
                 "message": ""
             }
         },
-        "wineprefix": "انتخاب پوشه Wine Prefix",
+        "wineprefix": "انتخاب پوشه WinePrefix",
         "yes": "بله",
         "dontShowAgain": "عدم نمایش",
         "choose-nile-binary": "باینری Nile را انتخاب کنید",
@@ -262,8 +262,8 @@
             "refresh": "تازه سازی کتابخانه"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "نصب کردن",
+        "uninstall": "حذف"
     },
     "globalSettings": "تنظیمات عمومی",
     "GOG": "GOG",
@@ -981,8 +981,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "تنظیمات",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1176,7 +1176,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "همه",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1206,7 +1206,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "بازی یافت نشد",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1234,19 +1234,19 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "خروج",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "در حال راه اندازی",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "همه"
         },
         "empty": "",
-        "games": "",
+        "games": "بازی‌های نصب شده",
         "quitApp": "",
         "loading": ""
     },

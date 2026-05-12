@@ -262,8 +262,8 @@
             "refresh": "라이브러리 새로 고침"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "설치",
+        "uninstall": "설치 제거"
     },
     "globalSettings": "글로벌 설정",
     "GOG": "GOG",
@@ -988,8 +988,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "업데이트",
+            "settings": "설정",
             "no-results": ""
         },
         "release": "출시일",
@@ -1170,7 +1170,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "운영체제:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1183,7 +1183,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "모두",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1213,7 +1213,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "게임이 발견되지 않았습니다",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1241,19 +1241,19 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "나가기",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "실행 중",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "모두"
         },
         "empty": "",
-        "games": "",
+        "games": "설치된 게임",
         "quitApp": "",
         "loading": ""
     },
