@@ -1,24 +1,31 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 
-import { BTN_BACK } from '../../controller'
+import { BTN_ACTION, BTN_BACK } from '../../controller'
 import { useGamepadButtonPress } from '../../hooks'
-import BackHint from '../BackHint'
 
 import type { GameInfo } from 'common/types'
 
 export default function UpdateNotice({
   game,
-  onDismiss,
+  onUpdate,
+  onLaunchWithoutUpdate,
   gamepadConnected,
-  backButtonLabel
+  backButtonLabel,
+  actionButtonLabel
 }: {
   game: GameInfo
-  onDismiss: () => void
+  onUpdate: () => void
+  onLaunchWithoutUpdate: () => void
   gamepadConnected: boolean
   backButtonLabel: string
+  actionButtonLabel: string
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('gamepage')
+  const [focused, setFocused] = useState<'yes' | 'no'>('yes')
+  const yesRef = useRef<HTMLButtonElement | null>(null)
+  const noRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
     // Read by gamepad.ts to block the global `back` action from navigating
@@ -28,43 +35,70 @@ export default function UpdateNotice({
   }, [])
 
   useEffect(() => {
+    const btn = focused === 'yes' ? yesRef.current : noRef.current
+    btn?.focus({ preventScroll: true })
+  }, [focused])
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.repeat) return
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault()
+        e.stopPropagation()
+        setFocused((f) => (f === 'yes' ? 'no' : 'yes'))
+        return
+      }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        e.stopPropagation()
+        if (focused === 'yes') onUpdate()
+        else onLaunchWithoutUpdate()
+        return
+      }
       if (e.key === 'Escape' || e.key === 'Backspace') {
         e.preventDefault()
         e.stopPropagation()
-        onDismiss()
+        onLaunchWithoutUpdate()
       }
     }
     window.addEventListener('keydown', onKeyDown, true)
     return () => window.removeEventListener('keydown', onKeyDown, true)
-  }, [onDismiss])
+  }, [focused, onUpdate, onLaunchWithoutUpdate])
 
-  useGamepadButtonPress(BTN_BACK, onDismiss)
+  useGamepadButtonPress(BTN_ACTION, () => {
+    if (focused === 'yes') onUpdate()
+    else onLaunchWithoutUpdate()
+  })
+  useGamepadButtonPress(BTN_BACK, onLaunchWithoutUpdate)
+
+  const confirmLabel = gamepadConnected ? actionButtonLabel : 'Enter'
+  const dismissLabel = gamepadConnected ? backButtonLabel : 'Esc'
 
   return (
-    <div
-      className="consoleLaunchOverlay"
-      role="alertdialog"
-      aria-live="assertive"
-      onClick={onDismiss}
-    >
-      <div className="consoleLaunchText">
-        {t('console.update.title', 'Update required')}
-      </div>
+    <div className="consoleLaunchOverlay" role="alertdialog" aria-live="assertive">
+      <div className="consoleLaunchText">{t('box.update.title')}</div>
       <div className="consoleLaunchGameTitle">{game.title}</div>
-      <p className="consoleUpdateNoticeBody">
-        {t(
-          'console.update.body',
-          'This game has an update available. Please leave Console Mode and update the game before launching.'
-        )}
-      </p>
-      <BackHint
-        prefix={t('console.update.hintPrefix', 'Press')}
-        suffix={t('console.update.hintSuffix', 'to go back')}
-        gamepadConnected={gamepadConnected}
-        backButtonLabel={backButtonLabel}
-      />
+      <p className="consoleUpdateNoticeBody">{t('box.update.message')}</p>
+      <div className="consoleUpdateNoticeButtons">
+        <button
+          ref={yesRef}
+          className={classNames('consoleChip', { active: focused === 'yes' })}
+          onClick={onUpdate}
+          onMouseEnter={() => setFocused('yes')}
+          onFocus={() => setFocused('yes')}
+        >
+          <kbd>{confirmLabel}</kbd> {t('box.yes')}
+        </button>
+        <button
+          ref={noRef}
+          className={classNames('consoleChip', { active: focused === 'no' })}
+          onClick={onLaunchWithoutUpdate}
+          onMouseEnter={() => setFocused('no')}
+          onFocus={() => setFocused('no')}
+        >
+          <kbd>{dismissLabel}</kbd> {t('box.no')}
+        </button>
+      </div>
     </div>
   )
 }

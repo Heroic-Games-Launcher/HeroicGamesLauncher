@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { launch, sendKill } from 'frontend/helpers'
+import { launch, sendKill, updateGame } from 'frontend/helpers'
 import { getImageFormatting } from '../Library/components/GameCard/constants'
 import { CachedImage } from 'frontend/components/UI'
 import fallBackImage from 'frontend/assets/heroic_card.jpg'
@@ -27,6 +27,7 @@ import {
   BTN_L1,
   BTN_R1,
   BTN_R2,
+  getActionButtonLabel,
   getBackButtonLabel
 } from './controller'
 import {
@@ -69,6 +70,7 @@ export default function ConsoleMode() {
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
   const backButtonLabel = getBackButtonLabel(controllerLayout)
+  const actionButtonLabel = getActionButtonLabel(controllerLayout)
 
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([])
   const gridRef = useRef<HTMLDivElement | null>(null)
@@ -194,13 +196,8 @@ export default function ConsoleMode() {
 
   const quit = useCallback(() => navigate('/'), [navigate])
 
-  const launchGame = useCallback(
+  const doLaunch = useCallback(
     async (game: GameInfo) => {
-      if (launchingGame || updateNoticeGame) return
-      if (gameUpdates.includes(game.app_name)) {
-        setUpdateNoticeGame(game)
-        return
-      }
       setLaunchingGame(game)
       try {
         await launch({
@@ -214,8 +211,40 @@ export default function ConsoleMode() {
         setLaunchingGame(null)
       }
     },
-    [launchingGame, updateNoticeGame, gameUpdates, showDialogModal, t]
+    [showDialogModal, t]
   )
+
+  const launchGame = useCallback(
+    async (game: GameInfo) => {
+      if (launchingGame || updateNoticeGame) return
+      if (gameUpdates.includes(game.app_name)) {
+        setUpdateNoticeGame(game)
+        return
+      }
+      await doLaunch(game)
+    },
+    [launchingGame, updateNoticeGame, gameUpdates, doLaunch]
+  )
+
+  const handleUpdateFromNotice = useCallback(() => {
+    if (!updateNoticeGame) return
+    const game = updateNoticeGame
+    setUpdateNoticeGame(null)
+    if (game.runner !== 'sideload') {
+      void updateGame({
+        appName: game.app_name,
+        runner: game.runner as Runner,
+        gameInfo: game
+      })
+    }
+  }, [updateNoticeGame])
+
+  const handleLaunchWithoutUpdate = useCallback(() => {
+    if (!updateNoticeGame) return
+    const game = updateNoticeGame
+    setUpdateNoticeGame(null)
+    void doLaunch(game)
+  }, [updateNoticeGame, doLaunch])
 
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
   // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
@@ -461,9 +490,11 @@ export default function ConsoleMode() {
       {updateNoticeGame && (
         <UpdateNotice
           game={updateNoticeGame}
-          onDismiss={() => setUpdateNoticeGame(null)}
+          onUpdate={handleUpdateFromNotice}
+          onLaunchWithoutUpdate={handleLaunchWithoutUpdate}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
         />
       )}
     </div>

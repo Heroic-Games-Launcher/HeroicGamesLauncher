@@ -479,6 +479,30 @@
   margin: 0;
 }
 
+.consoleUpdateNoticeButtons {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+
+  .consoleChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-size: 1rem;
+
+    kbd {
+      font-family: var(--primary-font-family);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+      background: color-mix(in srgb, currentColor 10%, transparent);
+    }
+  }
+}
+
 // App-level: when console mode is active, strip scrollbars and chrome
 .App.consoleMode {
   overflow: hidden;
