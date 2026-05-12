@@ -159,7 +159,7 @@
                 }
             }
         },
-        "wineprefix": "Изаберите Wine префикс фасциклу",
+        "wineprefix": "Изаберите WinePrefix мапу",
         "yes": "ДА",
         "dontShowAgain": "Не приказуј поново",
         "choose-nile-binary": "Изаберите бинарни Нил",
@@ -262,7 +262,7 @@
             "refresh": "Освежи библиотеку"
         },
         "abort": "",
-        "install": "",
+        "install": "Инсталирај",
         "uninstall": ""
     },
     "globalSettings": "Глобална подешавања",
@@ -871,7 +871,7 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
+            "update": "Ажурирај",
             "settings": "",
             "no-results": ""
         },
@@ -1178,7 +1178,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Све",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1245,7 +1245,7 @@
         },
         "filter": {
             "sideload": "",
-            "all": ""
+            "all": "Све"
         },
         "empty": "",
         "games": "",
