@@ -8,11 +8,7 @@ import { install, writeConfig } from 'frontend/helpers'
 import { hasProgress } from 'frontend/hooks/hasProgress'
 import ContextProvider from 'frontend/state/ContextProvider'
 
-import type {
-  GameInfo,
-  InstallPlatform,
-  WineInstallation
-} from 'common/types'
+import type { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 
 import { BTN_ACTION, BTN_BACK } from '../controller'
 import { useGamepadButtonPress } from '../hooks'
@@ -121,7 +117,8 @@ export default function InstallOverlay({
     btn?.focus({ preventScroll: true })
   }, [focused])
 
-  const cycle = (length: number, setIndex: (fn: (i: number) => number) => void) =>
+  const cycle =
+    (length: number, setIndex: (fn: (i: number) => number) => void) =>
     (delta: 1 | -1) => {
       if (length === 0) return
       setIndex((i) => (i + delta + length) % length)
@@ -191,8 +188,7 @@ export default function InstallOverlay({
         const idx = h.visibleRows.indexOf(h.focused)
         if (idx === -1) return
         const delta = e.key === 'ArrowDown' ? 1 : -1
-        const next =
-          (idx + delta + h.visibleRows.length) % h.visibleRows.length
+        const next = (idx + delta + h.visibleRows.length) % h.visibleRows.length
         setFocused(h.visibleRows[next])
         return
       }
