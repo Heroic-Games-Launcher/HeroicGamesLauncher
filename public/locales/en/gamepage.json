@@ -107,6 +107,9 @@
             "cover": "Cover Image",
             "square": "Square Image"
         },
+        "placeholder": {
+            "image": "Paste an image URL"
+        },
         "reset": "Reset to default",
         "sgdb": {
             "no-key-link": "Settings → Advanced",
