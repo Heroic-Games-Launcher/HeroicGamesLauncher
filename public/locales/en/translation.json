@@ -225,6 +225,10 @@
             "hintPrefix": "Hold",
             "hintSuffix": "for 3s to cancel"
         },
+        "cancelUpdate": {
+            "message": "This game is currently downloading. Cancel the ongoing update?",
+            "title": "Cancel update?"
+        },
         "card": {
             "needsUpdate": "Needs update"
         },
@@ -245,6 +249,9 @@
         "loading": "Loading your library…",
         "quit": "Quit Console",
         "quitApp": "Quit App",
+        "removeFromQueue": {
+            "message": "This game is queued for download. Remove it from the queue?"
+        },
         "sort": "Sort"
     },
     "controller": {
