@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader } from '../Dialog'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 import classNames from 'classnames'
 import { Release } from 'common/types'
 import './index.scss'
@@ -44,6 +45,7 @@ export function ChangelogModal({ onClose, dimissVersionCheck }: Props) {
               <ReactMarkdown
                 className="changelogModalContent"
                 linkTarget={'_blank'}
+                rehypePlugins={[rehypeRaw]}
               >
                 {currentChangelog.body}
               </ReactMarkdown>
