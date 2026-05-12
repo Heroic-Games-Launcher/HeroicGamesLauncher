@@ -2,14 +2,8 @@ import { GameInfo } from 'common/types'
 import { gameOverridesStore, GameMetadataOverride } from './electronStores'
 import { logInfo, logError, LogPrefix } from 'backend/logger'
 import { userDataPath } from 'backend/constants/paths'
-import {
-  existsSync,
-  mkdirSync,
-  copyFileSync,
-  readdirSync,
-  unlinkSync
-} from 'graceful-fs'
-import { extname, join } from 'node:path'
+import { existsSync, readdirSync, unlinkSync } from 'graceful-fs'
+import { join } from 'node:path'
 
 const logPrefix: LogPrefix = 'GameOverrides'
 
@@ -30,45 +24,8 @@ const removeImagesMatching = (predicate: (file: string) => boolean) => {
   }
 }
 
-const removeImagesForKind = (appName: string, kind: 'cover' | 'square') =>
-  removeImagesMatching((file) => file.startsWith(`${appName}-${kind}.`))
-
 const removeImagesForApp = (appName: string) =>
   removeImagesMatching((file) => file.startsWith(`${appName}-`))
-
-/**
- * Copies a user-picked image into the app's data directory and returns the
- * destination path. Used so overrides survive the original file being moved or
- * deleted (and so Flatpak portal-mounted paths don't leak into persistent state).
- */
-export function copyImageToOverrides(
-  srcPath: string,
-  appName: string,
-  kind: 'cover' | 'square'
-): string | null {
-  try {
-    if (!existsSync(srcPath)) {
-      logError(`Source image does not exist: ${srcPath}`, logPrefix)
-      return null
-    }
-    if (!existsSync(overridesImagesDir)) {
-      mkdirSync(overridesImagesDir, { recursive: true })
-    }
-    // Drop any prior file for this kind so changing extensions doesn't
-    // leave stale orphans behind.
-    removeImagesForKind(appName, kind)
-    const ext = extname(srcPath) || '.png'
-    const destPath = join(overridesImagesDir, `${appName}-${kind}${ext}`)
-    copyFileSync(srcPath, destPath)
-    return destPath
-  } catch (error) {
-    logError(
-      `Failed to copy image override for ${appName}: ${String(error)}`,
-      logPrefix
-    )
-    return null
-  }
-}
 
 /**
  * Get stored overrides for a specific game

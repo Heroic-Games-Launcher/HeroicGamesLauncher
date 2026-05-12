@@ -272,11 +272,6 @@ interface AsyncIPCFunctions {
       }
     >
   >
-  copyImageToOverrides: (args: {
-    srcPath: string
-    appName: string
-    kind: 'cover' | 'square'
-  }) => Promise<string | null>
   getEosOverlayStatus: () => {
     isInstalled: boolean
     version?: string

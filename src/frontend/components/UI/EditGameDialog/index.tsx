@@ -1,5 +1,5 @@
 import './index.css'
-import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GameInfo } from 'common/types'
 import {
@@ -41,7 +41,6 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const [artSquare, setArtSquare] = useState(
     gameInfo.overrides?.art_square || gameInfo.art_square
   )
-  const [saving, setSaving] = useState(false)
   const [hasSgdbKey, setHasSgdbKey] = useState(false)
   const [sgdbTarget, setSgdbTarget] = useState<SgdbTarget>(null)
 
@@ -50,7 +49,6 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   }, [])
 
   const handleSave = () => {
-    setSaving(true)
     // Drop fields that match the original game info — the backend deletes
     // the override entry when all three are empty, which is what we want
     // after the user resets.
@@ -60,7 +58,6 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
       art_cover: artCover === gameInfo.art_cover ? '' : artCover,
       art_square: artSquare === gameInfo.art_square ? '' : artSquare
     })
-    setSaving(false)
     backdropClick()
   }
 
@@ -218,18 +215,12 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
             type="button"
             onClick={handleReset}
             className="button is-secondary"
-            disabled={saving}
           >
             {t('edit-game.reset', 'Reset to default')}
           </button>
         )}
-        <button
-          onClick={handleSave}
-          className="button is-success"
-          disabled={saving}
-        >
-          {saving && <FontAwesomeIcon icon={faSpinner} spin />}
-          {!saving && t('button.finish', 'Finish')}
+        <button onClick={handleSave} className="button is-success">
+          {t('button.finish', 'Finish')}
         </button>
       </DialogFooter>
     </div>
