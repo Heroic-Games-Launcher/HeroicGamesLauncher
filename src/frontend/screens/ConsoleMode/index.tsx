@@ -14,11 +14,9 @@ import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
 import { launch, sendKill, updateGame } from 'frontend/helpers'
-import { getImageFormatting } from '../Library/components/GameCard/constants'
-import { CachedImage } from 'frontend/components/UI'
-import fallBackImage from 'frontend/assets/heroic_card.jpg'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
+import ConsoleCard from './components/ConsoleCard'
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
 import UpdateNotice from './components/UpdateNotice'
@@ -433,38 +431,22 @@ export default function ConsoleMode() {
             <div className="consoleGrid">
               {visibleGames.map((game, i) => {
                 const isFocused = i === focusedIndex
-                const needsUpdate = gameUpdates.includes(game.app_name)
                 return (
-                  <button
+                  <ConsoleCard
                     key={`${game.runner}-${game.app_name}`}
                     ref={(el) => {
                       cardRefs.current[i] = el
                     }}
-                    className={classNames('consoleCard', {
-                      focused: isFocused
-                    })}
-                    tabIndex={isFocused ? 0 : -1}
+                    game={game}
+                    focused={isFocused}
+                    needsUpdate={gameUpdates.includes(game.app_name)}
                     onClick={() => {
                       if (isFocused) void launchGame(game)
                       else setFocusedIndex(i)
                     }}
                     onMouseEnter={() => setFocusedIndex(i)}
                     onFocus={() => setFocusedIndex(i)}
-                  >
-                    <CachedImage
-                      src={
-                        getImageFormatting(game.art_square, game.runner) ||
-                        fallBackImage
-                      }
-                      alt={game.title}
-                      className="consoleCardArt"
-                    />
-                    {needsUpdate && (
-                      <span className="consoleCardBadge">
-                        {t('console.card.needsUpdate', 'Needs update')}
-                      </span>
-                    )}
-                  </button>
+                  />
                 )
               })}
             </div>
