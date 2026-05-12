@@ -18,31 +18,23 @@ export default function InstallOverlay({
   const [progress] = hasProgress(game.app_name, game.runner)
   const installButtonRef = useRef<HTMLButtonElement | null>(null)
 
-  const label: string | null = null
-
-  const onOverlayKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onDismiss()
-      return
-    }
-  }
-
   useEffect(() => {
     // focus action button
-    installButtonRef?.current?.focus()
+    installButtonRef.current?.focus()
 
-    window.addEventListener('keydown', onOverlayKeyDown)
-    return () => {
-      window.removeEventListener('keydown', onOverlayKeyDown)
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onDismiss()
     }
-  }, [])
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [onDismiss])
 
   const installGame = () => {
     try {
-      install({
+      void install({
         gameInfo: game,
         previousProgress: null,
-        progress: progress,
+        progress,
         installPath: 'default',
         isInstalling: false,
         t,
@@ -51,14 +43,16 @@ export default function InstallOverlay({
 
       // we're now installing, close modal
       onDismiss()
-    } catch {}
+    } catch (err) {
+      window.api.logError(`Console Mode install failed: ${String(err)}`)
+    }
   }
 
   return (
     <div className="consoleInstallOverlay" role="status" aria-live="polite">
       <div className="consoleModal">
         <div className="consoleModalTitle">
-          {label || t('status.installing', 'Installing')}
+          {t('status.installing', 'Installing')}
         </div>
         <div className="consoleModalGameTitle">{game.title}</div>
 
