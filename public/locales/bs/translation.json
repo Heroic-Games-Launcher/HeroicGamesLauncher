@@ -184,7 +184,7 @@
                 "message": ""
             }
         },
-        "wineprefix": "Odaberite Wine Prefix mapu",
+        "wineprefix": "Izaberite WinePrefix mapu",
         "yes": "DA",
         "dontShowAgain": "Ne prikazuj ponovo",
         "choose-nile-binary": "Odaberite binarni Nil",
@@ -262,8 +262,8 @@
             "refresh": "Osvježi biblioteku"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Deinstaliraj"
     },
     "globalSettings": "Globalne postavke",
     "GOG": "GOG",
@@ -981,8 +981,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Postavke",
             "no-results": ""
         },
         "release": "Datum izlaska",
@@ -1176,7 +1176,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Sve",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1234,7 +1234,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Odustani",
             "change_store": ""
         },
         "launching": "",
@@ -1242,8 +1242,8 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Sve"
         },
         "empty": "",
         "games": "",
