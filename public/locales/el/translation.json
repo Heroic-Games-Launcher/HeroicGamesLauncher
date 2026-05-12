@@ -925,7 +925,7 @@
     "sidebar": {
         "collapse": "Σύμπτυξη πλαϊνής γραμμής",
         "uncollapse": "Κατάργηση σύμπτυξης πλαϊνής γραμμής",
-        "console": ""
+        "console": "Λειτουργία κονσόλας"
     },
     "status": {
         "installing": "Εγκατάσταση",
@@ -1185,7 +1185,7 @@
             "pageSize": "",
             "releaseYear": ""
         },
-        "sidebar": "",
+        "sidebar": "Προσφορές",
         "sort": {
             "priceDesc": "",
             "trending": "",
@@ -1201,10 +1201,10 @@
             "pagination": "",
             "rating": ""
         },
-        "error": "",
+        "error": "Δεν ήταν δυνατή η φόρτωση των προσφορών. Παρακαλώ δοκιμάστε αργότερα.",
         "empty": "",
         "loading": "",
-        "title": "",
+        "title": "Προσφορές GOG",
         "pagination": {
             "prev": ""
         }
@@ -1244,11 +1244,11 @@
         },
         "launching": "",
         "card": {
-            "needsUpdate": ""
+            "needsUpdate": "Απαιτείται ενημέρωση"
         },
         "filter": {
-            "sideload": "Other",
-            "all": ""
+            "sideload": "Άλλο",
+            "all": "Όλα"
         },
         "empty": "",
         "games": "Εγκατεστημένα Παιχνίδια",
