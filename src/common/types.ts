@@ -9,6 +9,7 @@ import {
   LegendaryInstallInfo
 } from './types/legendary'
 import { NileInstallInfo, NileInstallPlatform } from './types/nile'
+import { ItchioInstallInfo } from './types/itchio'
 import {
   ZoomInstallPlatform,
   ZoomInstalledInfo,
@@ -833,6 +834,7 @@ export type InstallInfo =
   | NileInstallInfo
   | ZoomInstalledInfo
   | ZoomInstallInfo
+  | ItchioInstallInfo
 
 export interface KnowFixesInfo {
   title: string
