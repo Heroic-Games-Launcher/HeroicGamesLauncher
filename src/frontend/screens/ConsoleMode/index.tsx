@@ -16,10 +16,10 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { launch, sendKill, updateGame } from 'frontend/helpers'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
+import ConfirmDialog from './components/ConfirmDialog'
 import ConsoleCard from './components/ConsoleCard'
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
-import UpdateNotice from './components/UpdateNotice'
 import {
   BTN_BACK,
   BTN_L1,
@@ -54,14 +54,19 @@ export default function ConsoleMode() {
     showDialogModal,
     refreshLibrary,
     refreshing,
-    gameUpdates
+    gameUpdates,
+    libraryStatus
   } = useContext(ContextProvider)
+  const { t: tGamepage } = useTranslation('gamepage')
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [ascending, setAscending] = useState(true)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
+    null
+  )
+  const [cancelUpdateGame, setCancelUpdateGame] = useState<GameInfo | null>(
     null
   )
 
@@ -214,14 +219,28 @@ export default function ConsoleMode() {
 
   const launchGame = useCallback(
     async (game: GameInfo) => {
-      if (launchingGame || updateNoticeGame) return
+      if (launchingGame || updateNoticeGame || cancelUpdateGame) return
+      const status = libraryStatus.find(
+        (g) => g.appName === game.app_name
+      )?.status
+      if (status === 'updating' || status === 'installing') {
+        setCancelUpdateGame(game)
+        return
+      }
       if (gameUpdates.includes(game.app_name)) {
         setUpdateNoticeGame(game)
         return
       }
       await doLaunch(game)
     },
-    [launchingGame, updateNoticeGame, gameUpdates, doLaunch]
+    [
+      launchingGame,
+      updateNoticeGame,
+      cancelUpdateGame,
+      libraryStatus,
+      gameUpdates,
+      doLaunch
+    ]
   )
 
   const handleUpdateFromNotice = useCallback(() => {
@@ -244,6 +263,18 @@ export default function ConsoleMode() {
     void doLaunch(game)
   }, [updateNoticeGame, doLaunch])
 
+  const handleCancelUpdate = useCallback(() => {
+    if (!cancelUpdateGame) return
+    const game = cancelUpdateGame
+    setCancelUpdateGame(null)
+    void sendKill(game.app_name, game.runner)
+  }, [cancelUpdateGame])
+
+  const dismissCancelUpdate = useCallback(
+    () => setCancelUpdateGame(null),
+    []
+  )
+
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
   // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
   const { holdStart, startHold, stopHold } = useCancelOnHold({
@@ -256,7 +287,7 @@ export default function ConsoleMode() {
   })
 
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
-    if (launchingGame || updateNoticeGame) return
+    if (launchingGame || updateNoticeGame || cancelUpdateGame) return
     const root = topBarRef.current
     if (!root) return
 
@@ -282,7 +313,13 @@ export default function ConsoleMode() {
   }
 
   const onGridKeyDown = (e: React.KeyboardEvent) => {
-    if (visibleGames.length === 0 || launchingGame || updateNoticeGame) return
+    if (
+      visibleGames.length === 0 ||
+      launchingGame ||
+      updateNoticeGame ||
+      cancelUpdateGame
+    )
+      return
     const last = visibleGames.length - 1
     if (e.key === 'ArrowRight') {
       e.preventDefault()
@@ -340,7 +377,7 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const idle = !launchingGame && !updateNoticeGame
+  const idle = !launchingGame && !updateNoticeGame && !cancelUpdateGame
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
@@ -470,10 +507,32 @@ export default function ConsoleMode() {
       )}
 
       {updateNoticeGame && (
-        <UpdateNotice
-          game={updateNoticeGame}
-          onUpdate={handleUpdateFromNotice}
-          onLaunchWithoutUpdate={handleLaunchWithoutUpdate}
+        <ConfirmDialog
+          title={tGamepage('box.update.title')}
+          message={tGamepage('box.update.message')}
+          gameTitle={updateNoticeGame.title}
+          confirmLabel={tGamepage('box.yes')}
+          cancelLabel={tGamepage('box.no')}
+          onConfirm={handleUpdateFromNotice}
+          onCancel={handleLaunchWithoutUpdate}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
+        />
+      )}
+
+      {cancelUpdateGame && (
+        <ConfirmDialog
+          title={t('console.cancelUpdate.title', 'Cancel update?')}
+          message={t(
+            'console.cancelUpdate.message',
+            'This game is currently downloading. Cancel the ongoing update?'
+          )}
+          gameTitle={cancelUpdateGame.title}
+          confirmLabel={tGamepage('box.yes')}
+          cancelLabel={tGamepage('box.no')}
+          onConfirm={handleCancelUpdate}
+          onCancel={dismissCancelUpdate}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
           actionButtonLabel={actionButtonLabel}
