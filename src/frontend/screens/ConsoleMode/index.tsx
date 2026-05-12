@@ -57,7 +57,6 @@ export default function ConsoleMode() {
     gameUpdates,
     libraryStatus
   } = useContext(ContextProvider)
-  const { t: tGamepage } = useTranslation('gamepage')
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [ascending, setAscending] = useState(true)
@@ -539,11 +538,11 @@ export default function ConsoleMode() {
 
       {updateNoticeGame && (
         <ConfirmDialog
-          title={tGamepage('box.update.title')}
-          message={tGamepage('box.update.message')}
+          title={t('gamepage:box.update.title')}
+          message={t('gamepage:box.update.message')}
           gameTitle={updateNoticeGame.title}
-          confirmLabel={tGamepage('box.yes')}
-          cancelLabel={tGamepage('box.no')}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
           onConfirm={handleUpdateFromNotice}
           onCancel={handleLaunchWithoutUpdate}
           gamepadConnected={gamepadConnected}
@@ -560,8 +559,8 @@ export default function ConsoleMode() {
             'This game is currently downloading. Cancel the ongoing update?'
           )}
           gameTitle={cancelUpdateGame.title}
-          confirmLabel={tGamepage('box.yes')}
-          cancelLabel={tGamepage('box.no')}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
           onConfirm={handleCancelUpdate}
           onCancel={dismissCancelUpdate}
           gamepadConnected={gamepadConnected}
@@ -572,14 +571,14 @@ export default function ConsoleMode() {
 
       {queuedNoticeGame && (
         <ConfirmDialog
-          title={tGamepage('button.queue.remove')}
+          title={t('gamepage:button.queue.remove')}
           message={t(
             'console.removeFromQueue.message',
             'This game is queued for download. Remove it from the queue?'
           )}
           gameTitle={queuedNoticeGame.title}
-          confirmLabel={tGamepage('box.yes')}
-          cancelLabel={tGamepage('box.no')}
+          confirmLabel={t('gamepage:box.yes')}
+          cancelLabel={t('gamepage:box.no')}
           onConfirm={handleRemoveFromQueue}
           onCancel={dismissQueuedNotice}
           gamepadConnected={gamepadConnected}
