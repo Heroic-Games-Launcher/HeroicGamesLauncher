@@ -284,6 +284,8 @@ export default function ConsoleMode() {
     setLaunchingGame(game)
   }, [updateNoticeGame])
 
+  const dismissUpdateNotice = useCallback(() => setUpdateNoticeGame(null), [])
+
   const handleCancelDownload = useCallback(() => {
     if (!cancelDownloadGame) return
     const { game } = cancelDownloadGame
@@ -531,8 +533,10 @@ export default function ConsoleMode() {
           gameTitle={updateNoticeGame.title}
           confirmLabel={t('gamepage:box.yes')}
           cancelLabel={t('gamepage:box.no')}
+          dismissLabel={t('button.cancel', 'Cancel')}
           onConfirm={handleUpdateFromNotice}
           onCancel={handleLaunchWithoutUpdate}
+          onDismiss={dismissUpdateNotice}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
           actionButtonLabel={actionButtonLabel}
