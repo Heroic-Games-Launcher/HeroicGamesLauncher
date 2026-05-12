@@ -283,10 +283,7 @@ export default function ConsoleMode() {
     void sendKill(game.app_name, game.runner)
   }, [cancelUpdateGame])
 
-  const dismissCancelUpdate = useCallback(
-    () => setCancelUpdateGame(null),
-    []
-  )
+  const dismissCancelUpdate = useCallback(() => setCancelUpdateGame(null), [])
 
   const handleRemoveFromQueue = useCallback(() => {
     if (!queuedNoticeGame) return
@@ -296,10 +293,7 @@ export default function ConsoleMode() {
     void window.api.removeFromDMQueue(game.app_name)
   }, [queuedNoticeGame])
 
-  const dismissQueuedNotice = useCallback(
-    () => setQueuedNoticeGame(null),
-    []
-  )
+  const dismissQueuedNotice = useCallback(() => setQueuedNoticeGame(null), [])
 
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
   // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
@@ -313,7 +307,13 @@ export default function ConsoleMode() {
   })
 
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
-    if (launchingGame || updateNoticeGame || cancelUpdateGame || queuedNoticeGame) return
+    if (
+      launchingGame ||
+      updateNoticeGame ||
+      cancelUpdateGame ||
+      queuedNoticeGame
+    )
+      return
     const root = topBarRef.current
     if (!root) return
 
