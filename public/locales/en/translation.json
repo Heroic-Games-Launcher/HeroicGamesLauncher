@@ -225,6 +225,10 @@
             "hintPrefix": "Hold",
             "hintSuffix": "for 3s to cancel"
         },
+        "cancelInstall": {
+            "message": "This game is currently installing. Cancel the installation?",
+            "title": "Cancel installation?"
+        },
         "cancelUpdate": {
             "message": "This game is currently downloading. Cancel the ongoing update?",
             "title": "Cancel update?"
@@ -1052,6 +1056,7 @@
         "console": "Console Mode"
     },
     "status": {
+        "installed": "Installed",
         "installing": "Installing",
         "logging": "Logging In...",
         "preparing_login": "Preparing Login... ",
