@@ -15,7 +15,8 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import fallbackImage from 'frontend/assets/heroic_card.jpg'
 import classNames from 'classnames'
-import Folder from '@mui/icons-material/Folder'
+import ContentPaste from '@mui/icons-material/ContentPaste'
+import Clear from '@mui/icons-material/Clear'
 
 type Props = {
   gameInfo: GameInfo
@@ -45,7 +46,7 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
   const [sgdbTarget, setSgdbTarget] = useState<SgdbTarget>(null)
 
   useEffect(() => {
-    window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
+    void window.api.steamgriddb.hasApiKey().then(setHasSgdbKey)
   }, [])
 
   const handleSave = () => {
@@ -73,30 +74,11 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
 
   const hasOverride = Boolean(gameInfo.overrides)
 
-  async function handleSelectLocalImage(target: 'cover' | 'square') {
-    const path = await window.api.openDialog({
-      buttonLabel: t('box.select.button', 'Select'),
-      properties: ['openFile'],
-      title: t('box.select.image', 'Select Image'),
-      filters: [
-        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif'] },
-        { name: 'All', extensions: ['*'] }
-      ]
-    })
-
-    if (!path) return
-
-    // Copy into our data dir so the override survives the original being moved
-    // or deleted, and so Flatpak portal-mounted paths don't leak into state.
-    const localPath = await window.api.copyImageToOverrides({
-      srcPath: path,
-      appName: gameInfo.app_name,
-      kind: target
-    })
-    const finalUrl = localPath ? `file://${localPath}` : `file://${path}`
-
-    if (target === 'cover') setArtCover(finalUrl)
-    else setArtSquare(finalUrl)
+  async function handlePasteFromClipboard(target: 'cover' | 'square') {
+    const text = (await navigator.clipboard.readText()).trim()
+    if (!text) return
+    if (target === 'cover') setArtCover(text)
+    else setArtSquare(text)
   }
 
   const openSgdbPicker = (target: 'cover' | 'square') => {
@@ -125,26 +107,32 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
               <TextInputWithIconField
                 label={t('edit-game.info.cover', 'Cover Image')}
                 placeholder={t(
-                  'sideload.placeholder.image',
-                  'Paste an URL of an Image or select one from your computer'
+                  'edit-game.placeholder.image',
+                  'Paste an image URL'
                 )}
                 onChange={setArtCover}
                 htmlId="edit-game-cover"
                 value={artCover}
-                icon={<Folder />}
-                onIconClick={() => handleSelectLocalImage('cover')}
+                icon={artCover ? <Clear /> : <ContentPaste />}
+                onIconClick={() =>
+                  artCover ? setArtCover('') : handlePasteFromClipboard('cover')
+                }
               />
               <TextInputWithIconField
                 label={t('edit-game.info.square', 'Square Image')}
                 placeholder={t(
-                  'sideload.placeholder.image',
-                  'Paste an URL of an Image or select one from your computer'
+                  'edit-game.placeholder.image',
+                  'Paste an image URL'
                 )}
                 onChange={setArtSquare}
                 htmlId="edit-game-square"
                 value={artSquare}
-                icon={<Folder />}
-                onIconClick={() => handleSelectLocalImage('square')}
+                icon={artSquare ? <Clear /> : <ContentPaste />}
+                onIconClick={() =>
+                  artSquare
+                    ? setArtSquare('')
+                    : handlePasteFromClipboard('square')
+                }
               />
             </details>
             {!hasSgdbKey && (
@@ -209,7 +197,6 @@ export default function EditGameDialog({ gameInfo, backdropClick }: Props) {
                   className={classNames('appImage square')}
                   src={
                     artSquare ||
-                    artCover ||
                     gameInfo.art_square ||
                     gameInfo.art_cover ||
                     fallbackImage
