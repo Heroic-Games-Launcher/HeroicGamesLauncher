@@ -249,6 +249,14 @@
             "quit": "Quit",
             "sort": "Sort"
         },
+        "install": {
+            "path": "Install to",
+            "platform": "Platform",
+            "title": "Install game",
+            "wine": "Wine",
+            "wineLoading": "Loading…",
+            "wineMissing": "Not selected"
+        },
         "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit Console",
