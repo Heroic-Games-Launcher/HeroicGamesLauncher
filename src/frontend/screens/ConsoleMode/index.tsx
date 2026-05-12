@@ -58,9 +58,10 @@ export default function ConsoleMode() {
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
     null
   )
-  const [cancelUpdateGame, setCancelUpdateGame] = useState<GameInfo | null>(
-    null
-  )
+  const [cancelDownloadGame, setCancelDownloadGame] = useState<{
+    game: GameInfo
+    kind: 'install' | 'update'
+  } | null>(null)
   const [queuedNoticeGame, setQueuedNoticeGame] = useState<GameInfo | null>(
     null
   )
@@ -208,7 +209,7 @@ export default function ConsoleMode() {
     !launchingGame &&
     !installingGame &&
     !updateNoticeGame &&
-    !cancelUpdateGame &&
+    !cancelDownloadGame &&
     !queuedNoticeGame
 
   const activateGame = useCallback(
@@ -225,8 +226,12 @@ export default function ConsoleMode() {
         setQueuedNoticeGame(game)
         return
       }
-      if (status === 'updating' || status === 'installing') {
-        setCancelUpdateGame(game)
+      if (status === 'updating') {
+        setCancelDownloadGame({ game, kind: 'update' })
+        return
+      }
+      if (status === 'installing') {
+        setCancelDownloadGame({ game, kind: 'install' })
         return
       }
       if (gameUpdates.includes(game.app_name)) {
@@ -258,14 +263,17 @@ export default function ConsoleMode() {
     setLaunchingGame(game)
   }, [updateNoticeGame])
 
-  const handleCancelUpdate = useCallback(() => {
-    if (!cancelUpdateGame) return
-    const game = cancelUpdateGame
-    setCancelUpdateGame(null)
+  const handleCancelDownload = useCallback(() => {
+    if (!cancelDownloadGame) return
+    const { game } = cancelDownloadGame
+    setCancelDownloadGame(null)
     void sendKill(game.app_name, game.runner)
-  }, [cancelUpdateGame])
+  }, [cancelDownloadGame])
 
-  const dismissCancelUpdate = useCallback(() => setCancelUpdateGame(null), [])
+  const dismissCancelDownload = useCallback(
+    () => setCancelDownloadGame(null),
+    []
+  )
 
   const handleRemoveFromQueue = useCallback(() => {
     if (!queuedNoticeGame) return
@@ -510,18 +518,29 @@ export default function ConsoleMode() {
         />
       )}
 
-      {cancelUpdateGame && (
+      {cancelDownloadGame && (
         <ConfirmDialog
-          title={t('console.cancelUpdate.title', 'Cancel update?')}
-          message={t(
-            'console.cancelUpdate.message',
-            'This game is currently downloading. Cancel the ongoing update?'
-          )}
-          gameTitle={cancelUpdateGame.title}
+          title={
+            cancelDownloadGame.kind === 'update'
+              ? t('console.cancelUpdate.title', 'Cancel update?')
+              : t('console.cancelInstall.title', 'Cancel installation?')
+          }
+          message={
+            cancelDownloadGame.kind === 'update'
+              ? t(
+                  'console.cancelUpdate.message',
+                  'This game is currently downloading. Cancel the ongoing update?'
+                )
+              : t(
+                  'console.cancelInstall.message',
+                  'This game is currently installing. Cancel the installation?'
+                )
+          }
+          gameTitle={cancelDownloadGame.game.title}
           confirmLabel={t('gamepage:box.yes')}
           cancelLabel={t('gamepage:box.no')}
-          onConfirm={handleCancelUpdate}
-          onCancel={dismissCancelUpdate}
+          onConfirm={handleCancelDownload}
+          onCancel={dismissCancelDownload}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
           actionButtonLabel={actionButtonLabel}
