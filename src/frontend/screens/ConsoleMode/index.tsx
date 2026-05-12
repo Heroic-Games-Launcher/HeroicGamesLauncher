@@ -30,9 +30,30 @@ import {
 } from './controller'
 import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
+import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
 
 type StoreKey = Runner | 'all'
+
+const CANCEL_DOWNLOAD_COPY = {
+  update: {
+    title: (t: TFunction) => t('console.cancelUpdate.title', 'Cancel update?'),
+    message: (t: TFunction) =>
+      t(
+        'console.cancelUpdate.message',
+        'This game is currently downloading. Cancel the ongoing update?'
+      )
+  },
+  install: {
+    title: (t: TFunction) =>
+      t('console.cancelInstall.title', 'Cancel installation?'),
+    message: (t: TFunction) =>
+      t(
+        'console.cancelInstall.message',
+        'This game is currently installing. Cancel the installation?'
+      )
+  }
+} as const
 
 export default function ConsoleMode() {
   const { t } = useTranslation()
@@ -520,22 +541,8 @@ export default function ConsoleMode() {
 
       {cancelDownloadGame && (
         <ConfirmDialog
-          title={
-            cancelDownloadGame.kind === 'update'
-              ? t('console.cancelUpdate.title', 'Cancel update?')
-              : t('console.cancelInstall.title', 'Cancel installation?')
-          }
-          message={
-            cancelDownloadGame.kind === 'update'
-              ? t(
-                  'console.cancelUpdate.message',
-                  'This game is currently downloading. Cancel the ongoing update?'
-                )
-              : t(
-                  'console.cancelInstall.message',
-                  'This game is currently installing. Cancel the installation?'
-                )
-          }
+          title={CANCEL_DOWNLOAD_COPY[cancelDownloadGame.kind].title(t)}
+          message={CANCEL_DOWNLOAD_COPY[cancelDownloadGame.kind].message(t)}
           gameTitle={cancelDownloadGame.game.title}
           confirmLabel={t('gamepage:box.yes')}
           cancelLabel={t('gamepage:box.no')}

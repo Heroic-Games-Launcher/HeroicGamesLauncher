@@ -72,8 +72,6 @@ export default function InstallOverlay({
 
   const [installPath, setInstallPath] = useState<string>('')
 
-  // The currently focused row. Up/Down cycle through visible rows; Left/Right
-  // cycle the focused selector value or switch between the two action buttons.
   const [focused, setFocused] = useState<FocusKey>('install')
   const installButtonRef = useRef<HTMLButtonElement | null>(null)
   const cancelButtonRef = useRef<HTMLButtonElement | null>(null)
@@ -89,11 +87,7 @@ export default function InstallOverlay({
   }, [])
 
   useEffect(() => {
-    if (!hasWine) {
-      setWineList([])
-      setWineIndex(0)
-      return
-    }
+    if (!hasWine) return
     let cancelled = false
     void window.api.getAlternativeWine().then((list) => {
       if (cancelled) return
@@ -113,8 +107,6 @@ export default function InstallOverlay({
     return rows
   }, [availablePlatforms.length, hasWine])
 
-  // Drop focus back onto a visible row if the previously focused one is gone
-  // (e.g. switching platform away from Windows hides the wine row).
   useEffect(() => {
     if (!visibleRows.includes(focused)) setFocused('install')
   }, [visibleRows, focused])
@@ -129,17 +121,14 @@ export default function InstallOverlay({
     btn?.focus({ preventScroll: true })
   }, [focused])
 
-  const cyclePlatform = (delta: 1 | -1) => {
-    setPlatformIndex(
-      (i) =>
-        (i + delta + availablePlatforms.length) % availablePlatforms.length
-    )
-  }
+  const cycle = (length: number, setIndex: (fn: (i: number) => number) => void) =>
+    (delta: 1 | -1) => {
+      if (length === 0) return
+      setIndex((i) => (i + delta + length) % length)
+    }
 
-  const cycleWine = (delta: 1 | -1) => {
-    if (wineList.length === 0) return
-    setWineIndex((i) => (i + delta + wineList.length) % wineList.length)
-  }
+  const cyclePlatform = cycle(availablePlatforms.length, setPlatformIndex)
+  const cycleWine = cycle(wineList.length, setWineIndex)
 
   const installGame = async () => {
     try {
@@ -166,61 +155,81 @@ export default function InstallOverlay({
     }
   }
 
+  // Stash live values in a ref so the keydown listener can stay attached for
+  // the lifetime of the overlay; otherwise it'd detach/reattach on every
+  // focus change.
+  const handlersRef = useRef({
+    focused,
+    visibleRows,
+    cyclePlatform,
+    cycleWine,
+    installGame,
+    onDismiss
+  })
+  handlersRef.current = {
+    focused,
+    visibleRows,
+    cyclePlatform,
+    cycleWine,
+    installGame,
+    onDismiss
+  }
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.repeat) return
+      const h = handlersRef.current
       if (e.key === 'Escape' || e.key === 'Backspace') {
         e.preventDefault()
         e.stopPropagation()
-        onDismiss()
+        h.onDismiss()
         return
       }
       if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
         e.preventDefault()
         e.stopPropagation()
-        const idx = visibleRows.indexOf(focused)
+        const idx = h.visibleRows.indexOf(h.focused)
         if (idx === -1) return
         const delta = e.key === 'ArrowDown' ? 1 : -1
         const next =
-          (idx + delta + visibleRows.length) % visibleRows.length
-        setFocused(visibleRows[next])
+          (idx + delta + h.visibleRows.length) % h.visibleRows.length
+        setFocused(h.visibleRows[next])
         return
       }
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         const delta = e.key === 'ArrowRight' ? 1 : -1
-        if (focused === 'platform') {
+        if (h.focused === 'platform') {
           e.preventDefault()
           e.stopPropagation()
-          cyclePlatform(delta)
+          h.cyclePlatform(delta)
           return
         }
-        if (focused === 'wine') {
+        if (h.focused === 'wine') {
           e.preventDefault()
           e.stopPropagation()
-          cycleWine(delta)
+          h.cycleWine(delta)
           return
         }
-        if (focused === 'cancel' || focused === 'install') {
+        if (h.focused === 'cancel' || h.focused === 'install') {
           e.preventDefault()
           e.stopPropagation()
-          setFocused(focused === 'install' ? 'cancel' : 'install')
+          setFocused(h.focused === 'install' ? 'cancel' : 'install')
         }
         return
       }
       if (e.key === 'Enter' || e.key === ' ') {
-        if (focused === 'install') {
+        if (h.focused === 'install') {
           e.preventDefault()
-          void installGame()
-        } else if (focused === 'cancel') {
+          void h.installGame()
+        } else if (h.focused === 'cancel') {
           e.preventDefault()
-          onDismiss()
+          h.onDismiss()
         }
       }
     }
     window.addEventListener('keydown', onKeyDown, true)
     return () => window.removeEventListener('keydown', onKeyDown, true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focused, visibleRows, availablePlatforms.length, wineList.length])
+  }, [])
 
   useGamepadButtonPress(BTN_ACTION, () => {
     if (focused === 'install') void installGame()
