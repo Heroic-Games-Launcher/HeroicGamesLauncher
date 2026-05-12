@@ -184,7 +184,7 @@
                 "message": ""
             }
         },
-        "wineprefix": "വൈനിരിക്കുന്ന അറ തിരഞ്ഞെടുക്കൂ",
+        "wineprefix": "വൈൻ പ്രിഫിക്സ് ഫോൾഡർ തിരഞ്ഞെടുക്കൂ",
         "yes": "ശരി",
         "dontShowAgain": "വീണ്ടും കാണിക്കരുത്",
         "choose-nile-binary": "നൈൽ ബൈനറി തിരഞ്ഞെടുക്കുക",
@@ -262,8 +262,8 @@
             "refresh": "Refresh Library"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "ആഗോള ക്രമീകരണങ്ങള്",
     "GOG": "GOG",
@@ -981,8 +981,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "ക്രമീകരണങ്ങള്",
             "no-results": ""
         },
         "release": "Release Date",
@@ -1176,7 +1176,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "എല്ലാം",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1206,7 +1206,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "കളികളൊന്നും കണ്ടെത്തിയില്ല",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1234,7 +1234,7 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "പുറത്തുകടക്കൂ",
             "change_store": ""
         },
         "launching": "",
@@ -1242,11 +1242,11 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "എല്ലാം"
         },
         "empty": "",
-        "games": "",
+        "games": "നട്ട കളികള്‍",
         "quitApp": "",
         "loading": ""
     },
