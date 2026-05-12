@@ -245,13 +245,7 @@
         "loading": "Loading your library…",
         "quit": "Quit Console",
         "quitApp": "Quit App",
-        "sort": "Sort",
-        "update": {
-            "body": "This game has an update available. Please leave Console Mode and update the game before launching.",
-            "hintPrefix": "Press",
-            "hintSuffix": "to go back",
-            "title": "Update required"
-        }
+        "sort": "Sort"
     },
     "controller": {
         "hints": {
