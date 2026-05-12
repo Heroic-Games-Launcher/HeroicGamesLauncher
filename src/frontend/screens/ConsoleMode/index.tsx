@@ -13,32 +13,24 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import { launch, sendKill, updateGame } from 'frontend/helpers'
+import { sendKill, updateGame } from 'frontend/helpers'
 import HeroicIcon from 'frontend/assets/heroic-icon.svg?react'
 
 import ConfirmDialog from './components/ConfirmDialog'
 import ConsoleCard from './components/ConsoleCard'
 import ControllerHints from './components/ControllerHints'
 import LaunchOverlay from './components/LaunchOverlay'
+import InstallOverlay from './InstallOverlay'
 import {
-  BTN_BACK,
   BTN_L1,
   BTN_R1,
   BTN_R2,
   getActionButtonLabel,
   getBackButtonLabel
 } from './controller'
-import {
-  useCancelOnHold,
-  useColumnCount,
-  useGamepadButtonHold,
-  useGamepadButtonPress,
-  useGamepadInfo
-} from './hooks'
+import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { GameInfo, Runner } from 'common/types'
-
-const CANCEL_HOLD_MS = 3000
 
 type StoreKey = Runner | 'all'
 
@@ -50,18 +42,19 @@ export default function ConsoleMode() {
     gog,
     amazon,
     zoom,
+    libraryStatus,
     sideloadedLibrary,
-    showDialogModal,
     refreshLibrary,
     refreshing,
-    gameUpdates,
-    libraryStatus
+    gameUpdates
   } = useContext(ContextProvider)
 
   const [activeStore, setActiveStore] = useState<StoreKey>('all')
   const [ascending, setAscending] = useState(true)
+  const [filteringByInstalled, setFilteringByInstalled] = useState(false)
   const [focusedIndex, setFocusedIndex] = useState(0)
   const [launchingGame, setLaunchingGame] = useState<GameInfo | null>(null)
+  const [installingGame, setInstallingGame] = useState<GameInfo | null>(null)
   const [updateNoticeGame, setUpdateNoticeGame] = useState<GameInfo | null>(
     null
   )
@@ -98,7 +91,7 @@ export default function ConsoleMode() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const installedGames = useMemo<GameInfo[]>(() => {
+  const allGames = useMemo<GameInfo[]>(() => {
     const all: GameInfo[] = [
       ...epic.library,
       ...gog.library,
@@ -106,9 +99,7 @@ export default function ConsoleMode() {
       ...zoom.library,
       ...sideloadedLibrary
     ]
-    return all.filter(
-      (g) => g?.is_installed && !g.install?.is_dlc && !g.thirdPartyManagedApp
-    )
+    return all.filter((g) => !g.install?.is_dlc && !g.thirdPartyManagedApp)
   }, [
     epic.library,
     gog.library,
@@ -118,21 +109,30 @@ export default function ConsoleMode() {
   ])
 
   const visibleGames = useMemo(() => {
-    let list = installedGames
-    if (activeStore !== 'all') {
-      list = list.filter((g) => g.runner === activeStore)
+    // reset card refs to rebuild them
+    cardRefs.current = []
+
+    let filteredGames = allGames
+
+    if (filteringByInstalled) {
+      filteredGames = filteredGames.filter((g) => g.is_installed)
     }
-    return [...list].sort((a, b) => {
+
+    if (activeStore !== 'all') {
+      filteredGames = filteredGames.filter((g) => g.runner === activeStore)
+    }
+
+    return filteredGames.sort((a, b) => {
       const cmp = a.title.localeCompare(b.title)
       return ascending ? cmp : -cmp
     })
-  }, [installedGames, activeStore, ascending])
+  }, [allGames, filteringByInstalled, activeStore, ascending])
 
   const storesWithGames = useMemo(() => {
     const set = new Set<Runner>()
-    for (const g of installedGames) set.add(g.runner)
+    for (const g of allGames) set.add(g.runner)
     return set
-  }, [installedGames])
+  }, [allGames])
 
   const storeFilters = useMemo<
     { key: StoreKey; label: string; enabled: boolean }[]
@@ -141,7 +141,7 @@ export default function ConsoleMode() {
       {
         key: 'all',
         label: t('console.filter.all', 'All'),
-        enabled: installedGames.length > 0
+        enabled: allGames.length > 0
       },
       {
         key: 'legendary',
@@ -157,7 +157,7 @@ export default function ConsoleMode() {
       },
       { key: 'zoom', label: 'ZOOM', enabled: storesWithGames.has('zoom') }
     ],
-    [t, storesWithGames, installedGames.length]
+    [t, storesWithGames, allGames.length]
   )
 
   const enabledStoreKeys = useMemo(
@@ -174,8 +174,11 @@ export default function ConsoleMode() {
   const columns = useColumnCount(cardRefs, visibleGames.length)
 
   useEffect(() => {
-    if (focusedIndex >= visibleGames.length) {
-      setFocusedIndex(Math.max(0, visibleGames.length - 1))
+    // always make sane focused index
+    if (focusedIndex >= visibleGames.length || focusedIndex < 0) {
+      setFocusedIndex(
+        Math.max(0, Math.min(focusedIndex, visibleGames.length - 1))
+      )
     }
   }, [visibleGames.length, focusedIndex])
 
@@ -201,33 +204,20 @@ export default function ConsoleMode() {
 
   const quit = useCallback(() => navigate('/'), [navigate])
 
-  const doLaunch = useCallback(
-    async (game: GameInfo) => {
-      setLaunchingGame(game)
-      try {
-        await launch({
-          appName: game.app_name,
-          t,
-          runner: game.runner as Runner,
-          hasUpdate: false,
-          showDialogModal
-        })
-      } finally {
-        setLaunchingGame(null)
-      }
-    },
-    [showDialogModal, t]
-  )
+  const idle =
+    !launchingGame &&
+    !installingGame &&
+    !updateNoticeGame &&
+    !cancelUpdateGame &&
+    !queuedNoticeGame
 
-  const launchGame = useCallback(
-    async (game: GameInfo) => {
-      if (
-        launchingGame ||
-        updateNoticeGame ||
-        cancelUpdateGame ||
-        queuedNoticeGame
-      )
+  const activateGame = useCallback(
+    (game: GameInfo) => {
+      if (!idle) return
+      if (!game.is_installed) {
+        setInstallingGame(game)
         return
+      }
       const status = libraryStatus.find(
         (g) => g.appName === game.app_name
       )?.status
@@ -243,17 +233,9 @@ export default function ConsoleMode() {
         setUpdateNoticeGame(game)
         return
       }
-      await doLaunch(game)
+      setLaunchingGame(game)
     },
-    [
-      launchingGame,
-      updateNoticeGame,
-      cancelUpdateGame,
-      queuedNoticeGame,
-      libraryStatus,
-      gameUpdates,
-      doLaunch
-    ]
+    [idle, libraryStatus, gameUpdates]
   )
 
   const handleUpdateFromNotice = useCallback(() => {
@@ -273,8 +255,8 @@ export default function ConsoleMode() {
     if (!updateNoticeGame) return
     const game = updateNoticeGame
     setUpdateNoticeGame(null)
-    void doLaunch(game)
-  }, [updateNoticeGame, doLaunch])
+    setLaunchingGame(game)
+  }, [updateNoticeGame])
 
   const handleCancelUpdate = useCallback(() => {
     if (!cancelUpdateGame) return
@@ -295,25 +277,8 @@ export default function ConsoleMode() {
 
   const dismissQueuedNotice = useCallback(() => setQueuedNoticeGame(null), [])
 
-  // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
-  // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
-  const { holdStart, startHold, stopHold } = useCancelOnHold({
-    active: !!launchingGame,
-    holdMs: CANCEL_HOLD_MS,
-    onCancel: () => {
-      if (launchingGame)
-        void sendKill(launchingGame.app_name, launchingGame.runner)
-    }
-  })
-
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
-    if (
-      launchingGame ||
-      updateNoticeGame ||
-      cancelUpdateGame ||
-      queuedNoticeGame
-    )
-      return
+    if (!idle) return
     const root = topBarRef.current
     if (!root) return
 
@@ -339,14 +304,9 @@ export default function ConsoleMode() {
   }
 
   const onGridKeyDown = (e: React.KeyboardEvent) => {
-    if (
-      visibleGames.length === 0 ||
-      launchingGame ||
-      updateNoticeGame ||
-      cancelUpdateGame
-    )
-      return
+    if (visibleGames.length === 0 || !idle) return
     const last = visibleGames.length - 1
+
     if (e.key === 'ArrowRight') {
       e.preventDefault()
       e.stopPropagation()
@@ -373,28 +333,22 @@ export default function ConsoleMode() {
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       const g = visibleGames[focusedIndex]
-      if (g) void launchGame(g)
+      if (g) activateGame(g)
     }
   }
 
-  // Escape quits when idle; hold it while launching to cancel.
+  // Esc quits when idle. While a game is launching or a dialog is open,
+  // the overlay/dialog handles Esc itself.
   useEffect(() => {
+    if (!idle) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       e.preventDefault()
-      if (!launchingGame) quit()
-      else if (!e.repeat) startHold()
-    }
-    const onKeyUp = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') stopHold()
+      quit()
     }
     window.addEventListener('keydown', onKeyDown)
-    window.addEventListener('keyup', onKeyUp)
-    return () => {
-      window.removeEventListener('keydown', onKeyDown)
-      window.removeEventListener('keyup', onKeyUp)
-    }
-  }, [quit, launchingGame, startHold, stopHold])
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [quit, idle])
 
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
@@ -403,21 +357,11 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const idle =
-    !launchingGame &&
-    !updateNoticeGame &&
-    !cancelUpdateGame &&
-    !queuedNoticeGame
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
   useGamepadButtonPress(BTN_R1, () => cycleStore(1), idle)
   useGamepadButtonPress(BTN_R2, toggleSort, idle)
-  useGamepadButtonHold(
-    BTN_BACK,
-    (held) => (held ? startHold() : stopHold()),
-    !!launchingGame
-  )
 
   return (
     <div className={classNames('ConsoleMode', { launching: !!launchingGame })}>
@@ -428,6 +372,16 @@ export default function ConsoleMode() {
       >
         <HeroicIcon className="consoleLogo" />
         <div className="consoleFilters">
+          <button
+            key={'installedGames'}
+            className={classNames('consoleChip', {
+              active: filteringByInstalled
+            })}
+            onClick={() => setFilteringByInstalled(!filteringByInstalled)}
+          >
+            {t('status.installed', 'Installed')}
+          </button>
+          <div className="consoleDividerVertical" />
           {storeFilters
             .filter((f) => f.enabled)
             .map((f) => (
@@ -508,7 +462,7 @@ export default function ConsoleMode() {
                     focused={isFocused}
                     needsUpdate={gameUpdates.includes(game.app_name)}
                     onClick={() => {
-                      if (isFocused) void launchGame(game)
+                      if (isFocused) activateGame(game)
                       else setFocusedIndex(i)
                     }}
                     onMouseEnter={() => setFocusedIndex(i)}
@@ -530,9 +484,14 @@ export default function ConsoleMode() {
       {launchingGame && (
         <LaunchOverlay
           game={launchingGame}
-          holdStart={holdStart}
-          gamepadConnected={gamepadConnected}
-          backButtonLabel={backButtonLabel}
+          onDismiss={() => setLaunchingGame(null)}
+        />
+      )}
+
+      {installingGame && (
+        <InstallOverlay
+          game={installingGame}
+          onDismiss={() => setInstallingGame(null)}
         />
       )}
 
