@@ -262,7 +262,7 @@
             "refresh": "Kitabxananı yeniləyin"
         },
         "abort": "",
-        "install": "",
+        "install": "Install",
         "uninstall": ""
     },
     "globalSettings": "Qlobal Parametrlər",
@@ -981,7 +981,7 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
+            "update": "Update",
             "settings": "",
             "no-results": ""
         },
@@ -1242,7 +1242,7 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
+            "sideload": "Other",
             "all": ""
         },
         "empty": "",
