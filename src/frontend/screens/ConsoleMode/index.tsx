@@ -236,10 +236,6 @@ export default function ConsoleMode() {
   const activateGame = useCallback(
     (game: GameInfo) => {
       if (!idle) return
-      if (!game.is_installed) {
-        setInstallingGame(game)
-        return
-      }
       const status = libraryStatus.find(
         (g) => g.appName === game.app_name
       )?.status
@@ -247,12 +243,16 @@ export default function ConsoleMode() {
         setQueuedNoticeGame(game)
         return
       }
+      if (status === 'installing') {
+        setCancelDownloadGame({ game, kind: 'install' })
+        return
+      }
       if (status === 'updating') {
         setCancelDownloadGame({ game, kind: 'update' })
         return
       }
-      if (status === 'installing') {
-        setCancelDownloadGame({ game, kind: 'install' })
+      if (!game.is_installed) {
+        setInstallingGame(game)
         return
       }
       if (gameUpdates.includes(game.app_name)) {
