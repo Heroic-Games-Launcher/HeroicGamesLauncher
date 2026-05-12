@@ -69,6 +69,9 @@ export default function ConsoleMode() {
   const [cancelUpdateGame, setCancelUpdateGame] = useState<GameInfo | null>(
     null
   )
+  const [queuedNoticeGame, setQueuedNoticeGame] = useState<GameInfo | null>(
+    null
+  )
 
   const { connected: gamepadConnected, layout: controllerLayout } =
     useGamepadInfo()
@@ -219,10 +222,20 @@ export default function ConsoleMode() {
 
   const launchGame = useCallback(
     async (game: GameInfo) => {
-      if (launchingGame || updateNoticeGame || cancelUpdateGame) return
+      if (
+        launchingGame ||
+        updateNoticeGame ||
+        cancelUpdateGame ||
+        queuedNoticeGame
+      )
+        return
       const status = libraryStatus.find(
         (g) => g.appName === game.app_name
       )?.status
+      if (status === 'queued') {
+        setQueuedNoticeGame(game)
+        return
+      }
       if (status === 'updating' || status === 'installing') {
         setCancelUpdateGame(game)
         return
@@ -237,6 +250,7 @@ export default function ConsoleMode() {
       launchingGame,
       updateNoticeGame,
       cancelUpdateGame,
+      queuedNoticeGame,
       libraryStatus,
       gameUpdates,
       doLaunch
@@ -275,6 +289,19 @@ export default function ConsoleMode() {
     []
   )
 
+  const handleRemoveFromQueue = useCallback(() => {
+    if (!queuedNoticeGame) return
+    const game = queuedNoticeGame
+    setQueuedNoticeGame(null)
+    window.localStorage.removeItem(game.app_name)
+    void window.api.removeFromDMQueue(game.app_name)
+  }, [queuedNoticeGame])
+
+  const dismissQueuedNotice = useCallback(
+    () => setQueuedNoticeGame(null),
+    []
+  )
+
   // Hold-to-cancel for in-flight launches. Triggered by Escape (keyboard) or
   // the back button (gamepad); fires `sendKill` after CANCEL_HOLD_MS.
   const { holdStart, startHold, stopHold } = useCancelOnHold({
@@ -287,7 +314,7 @@ export default function ConsoleMode() {
   })
 
   const onTopBarKeyDown = (e: React.KeyboardEvent) => {
-    if (launchingGame || updateNoticeGame || cancelUpdateGame) return
+    if (launchingGame || updateNoticeGame || cancelUpdateGame || queuedNoticeGame) return
     const root = topBarRef.current
     if (!root) return
 
@@ -377,7 +404,11 @@ export default function ConsoleMode() {
     return () => document.body.classList.remove('console-launching')
   }, [launchingGame])
 
-  const idle = !launchingGame && !updateNoticeGame && !cancelUpdateGame
+  const idle =
+    !launchingGame &&
+    !updateNoticeGame &&
+    !cancelUpdateGame &&
+    !queuedNoticeGame
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
 
   useGamepadButtonPress(BTN_L1, () => cycleStore(-1), idle)
@@ -533,6 +564,24 @@ export default function ConsoleMode() {
           cancelLabel={tGamepage('box.no')}
           onConfirm={handleCancelUpdate}
           onCancel={dismissCancelUpdate}
+          gamepadConnected={gamepadConnected}
+          backButtonLabel={backButtonLabel}
+          actionButtonLabel={actionButtonLabel}
+        />
+      )}
+
+      {queuedNoticeGame && (
+        <ConfirmDialog
+          title={tGamepage('button.queue.remove')}
+          message={t(
+            'console.removeFromQueue.message',
+            'This game is queued for download. Remove it from the queue?'
+          )}
+          gameTitle={queuedNoticeGame.title}
+          confirmLabel={tGamepage('box.yes')}
+          cancelLabel={tGamepage('box.no')}
+          onConfirm={handleRemoveFromQueue}
+          onCancel={dismissQueuedNotice}
           gamepadConnected={gamepadConnected}
           backButtonLabel={backButtonLabel}
           actionButtonLabel={actionButtonLabel}
