@@ -21,6 +21,7 @@ import {
 } from 'backend/ipc'
 import 'backend/updater'
 import 'backend/discounts'
+import 'backend/importExport'
 import { autoUpdater } from 'electron-updater'
 import { cpus } from 'os'
 import { existsSync, watch, readdirSync, readFileSync } from 'graceful-fs'
@@ -103,7 +104,8 @@ import {
   getBranchPassword,
   setBranchPassword,
   getGOGPlaytime,
-  syncQueuedPlaytimeGOG
+  syncQueuedPlaytimeGOG,
+  getAchievements as getAchievementsGOG
 } from 'backend/storeManagers/gog/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
@@ -157,7 +159,6 @@ import {
 } from './constants/paths'
 import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
-import { getAchievements as getAchievementsGOG } from './storeManagers/gog/games'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
 
