@@ -380,7 +380,10 @@
         "wine-hdr": "A HDR javítja a színeket azáltal, hogy világosabb fényeket és mélyebb kontrasztokat biztosít. A HDR működéséhez mind a kijelzőnek, mind a játéknak támogatnia kell azt.",
         "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat.",
         "analytics": "Lehetővé teszi a Heroic számára, hogy 100%-ban anonim használati adatokat gyűjtsön az alkalmazás fejlesztésének érdekében. Újraindítás után lép életbe.",
-        "WoW64": "A Wine WoW64 mód lehetővé teszi a 32 bites Windows játékok futtatását 64 bites Wine-on. Engedélyezése javíthatja a teljesítményt, de problémákat okozhat régebbi 32 bites játékoknál."
+        "WoW64": "A Wine WoW64 mód lehetővé teszi a 32 bites Windows játékok futtatását 64 bites Wine-on. Engedélyezése javíthatja a teljesítményt, de problémákat okozhat régebbi 32 bites játékoknál.",
+        "nvidiaprime": {
+            "details": "Dedikált grafikus kártya használata a játék megjelenítéséhez a több GPU-s rendszereken. Csak olyan játékra szánt laptopokon és asztali számítógépeken van rá szükség, amelyek kimenet nélküli GPU-t használnak a megjelenítéshez (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
