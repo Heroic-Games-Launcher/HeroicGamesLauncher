@@ -380,7 +380,10 @@
         "analytics": "Erlaube Heroic das Sammeln von zu 100 % anonymen Nutzungsdaten, um zur Verbesserung der Anwendung beizutragen. Dies benötigt einen Neustart des Programms.",
         "wine-hdr": "HDR verstärkt die Farbintensität durch das Verstärken von Helligkeitsunterschieden und eine Erhöhung der Kontraste. Sowohl das Display, als auch das Spiel müssen HDR unterstützen damit es funktioniert.",
         "wine-wayland": "Der experimentelle Wine-Wayland Treiber erlaubt es Spielen, nativ das Wayland Displayprotokoll zu nutzen. Dies funktioniert nicht mit allen Spielen und kann zu Abstürzen führen.",
-        "WoW64": "Der Wine WOW64-Modus erlaubt es älteren 32-Bit Windowsspielen in einer 64-Bit Wine-Instanz zu laufen. Das kann die Leistung verbessern, kann aber auch bei manchen Spielen zu Abstürzen führen."
+        "WoW64": "Der Wine WOW64-Modus erlaubt es älteren 32-Bit Windowsspielen in einer 64-Bit Wine-Instanz zu laufen. Das kann die Leistung verbessern, kann aber auch bei manchen Spielen zu Abstürzen führen.",
+        "nvidiaprime": {
+            "details": "Verwende dedizierte Grafikkarte zum Rendern von Spielen auf Multi-GPU-Systemen. Nur auf Gaming-Laptops oder -Desktops erforderlich, die eine Headless-GPU zum Rendern verwenden (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
