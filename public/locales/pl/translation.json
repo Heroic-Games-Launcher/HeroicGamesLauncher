@@ -380,7 +380,10 @@
         "analytics": "Umożliwia Heroic zbieranie w 100% zanonimizowanych danych o użytkowaniu w celu ulepszenia aplikacji. Wymaga ponownego uruchomienia.",
         "wine-hdr": "HDR poprawia kolory, zapewniając jaśniejsze światła i głębsze kontrasty. Aby HDR działał, zarówno wyświetlacz, jak i gra muszą go obsługiwać.",
         "wine-wayland": "Eksperymentalny sterownik Wine-Wayland umożliwia natywne uruchamianie gier w protokole graficznym Wayland. Włączenie może spowodować uszkodzenie niektórych gier.",
-        "WoW64": "Tryb Wine WoW64 pozwala 32-bitowym grom używać 64-bitowego Wine'a. Włączenie może poprawić wydajność, ale może również zepsuć niektóre starsze 32-bitowe gry."
+        "WoW64": "Tryb Wine WoW64 pozwala 32-bitowym grom używać 64-bitowego Wine'a. Włączenie może poprawić wydajność, ale może również zepsuć niektóre starsze 32-bitowe gry.",
+        "nvidiaprime": {
+            "details": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
