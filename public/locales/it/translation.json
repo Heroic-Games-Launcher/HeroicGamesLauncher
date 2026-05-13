@@ -380,7 +380,10 @@
         "wine-hdr": "L'HDR migliora i colori offrendo alte luci più brillanti e contrasti più profondi. Affinché funzioni, sia il display che il gioco devono supportarlo.",
         "wine-wayland": "Il driver sperimentale Wine-Wayland consente ai giochi di funzionare in modo nativo con il protocollo di visualizzazione Wayland. L'abilitazione potrebbe causare problemi ad alcuni giochi.",
         "analytics": "Permette a Heroic di raccogliere dati utenti anonimi al 100% per aiutare a migliorare l'applicazione. È necessario un riavvio per applicare l'impostazione.",
-        "WoW64": "La modalità Wine WoW64 consente di eseguire giochi Windows a 32 bit su Wine a 64 bit. L'attivazione può migliorare le prestazioni, ma potrebbe anche causare problemi con i giochi a 32 bit più vecchi."
+        "WoW64": "La modalità Wine WoW64 consente di eseguire giochi Windows a 32 bit su Wine a 64 bit. L'attivazione può migliorare le prestazioni, ma potrebbe anche causare problemi con i giochi a 32 bit più vecchi.",
+        "nvidiaprime": {
+            "details": "Usa la scheda video dedicata per renderizzare il gioco su un sistema munito di multiple GPU (schede video). Necessario solo su Computer portatili o desktop da Gaming che utilizzano headless GPU rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
