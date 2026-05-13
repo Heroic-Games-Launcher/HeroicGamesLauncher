@@ -380,7 +380,10 @@
         "download_proton_steam": "Quando ativado, o GE-Proton vai ser transferido diretamente para o diretório de ferramentas de compatibilidade do Steam, em vez do caminho pré-definido pelo Heroic. Este vai usar o caminho do Steam que foi definido na definição em cima \"Caminho Padrão do Steam\".",
         "wine-hdr": "O HDR melhora as cores ao proporcionar realces mais brilhantes e contrastes mais profundos. Para que o HDR funcione, tanto o ecrã como o jogo devem suportá-lo.",
         "wine-wayland": "O controlador experimental Wine-Wayland permite que os jogos executem de forma nativa sob o protocolo de janelas de ecrã Wayland. Poderão ocorrer problemas em alguns jogos se ativar esta opção.",
-        "WoW64": "O modo Wine WoW64 permite que os jogos do Windows, na versão 32 bits, sejam executados no Wine de 64 bits. O desempenho pode aumentar se ativar esta opção mas também poderá causar problemas em jogos de 32 bits mais antigos."
+        "WoW64": "O modo Wine WoW64 permite que os jogos do Windows, na versão 32 bits, sejam executados no Wine de 64 bits. O desempenho pode aumentar se ativar esta opção mas também poderá causar problemas em jogos de 32 bits mais antigos.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
