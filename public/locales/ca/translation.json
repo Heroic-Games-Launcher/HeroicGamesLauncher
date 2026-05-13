@@ -381,7 +381,10 @@
         "analytics": "Permet a l'Heroic recopilar dades d'ús 100% anònimes per a ajudar-nos a millorar l'aplicació. Cal que reiniciïs per a aplicar-ho.",
         "wine-hdr": "L'HDR millora els colors proporcionant punts de llum més brillants i contrastos més profunds. Perquè l'HDR funcioni, cal que tant el joc com la pantalla hi siguin compatibles.",
         "wine-wayland": "El controlador experimental Wine-Wayland permet als jocs executar-se de manera nativa sota el protocol de visualització Wayland. Activar-ho podria trencar alguns jocs.",
-        "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics."
+        "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics.",
+        "nvidiaprime": {
+            "details": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU «headless» per a renderitzar, com ara NVIDIA Optimus o AMD Crossfire."
+        }
     },
     "info": {
         "heroic": {

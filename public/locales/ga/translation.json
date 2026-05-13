@@ -280,7 +280,10 @@
         },
         "wine-hdr": "Feabhsaíonn HDR dathanna trí bhuaicphointí níos gile agus codarsnachtaí níos doimhne a sholáthar. Chun go n-oibreoidh HDR, ní mór don taispeáint agus don chluiche tacú leis.",
         "wine-wayland": "Ligeann an tiománaí turgnamhach Wine-Wayland do chluichí rith go dúchasach faoin bprótacal taispeána Wayland. D’fhéadfadh sé go gcuirfeadh cumasú isteach ar roinnt cluichí.",
-        "WoW64": "Ligeann mód Wine WoW64 do chluichí Windows 32-giotán a bheith á rith ar Wine 64-giotán. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú, ach d’fhéadfadh sé go gcuirfeadh sé isteach ar chluichí 32-giotán níos sine freisin."
+        "WoW64": "Ligeann mód Wine WoW64 do chluichí Windows 32-giotán a bheith á rith ar Wine 64-giotán. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú, ach d’fhéadfadh sé go gcuirfeadh sé isteach ar chluichí 32-giotán níos sine freisin.",
+        "nvidiaprime": {
+            "details": "Bain úsáid as cárta grafaicí tiomnaithe chun cluiche a rindreáil ar chórais il-GPU. Ní gá ach ar ríomhairí glúine nó deisce cearrbhachais a úsáideann GPU gan cheann le haghaidh rindreála (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "placeholder": {
         "egs-prefix": "Roghnaigh Réimír ina bhfuil EGS suiteáilte",

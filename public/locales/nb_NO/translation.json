@@ -380,7 +380,10 @@
         "wine-hdr": "HDR forbedrer fargene ved å kunne vise lysere lyspunkter og mørkere kontraster. For at HDR skal fungere, må både skjermen og spillet støtte det.",
         "wine-wayland": "Den eksperimentelle Wine-Wayland-driveren lar spill kjøre uten mellomlag med Wayland-visningsprotokollen. Noen spill fungerer ikke med denne driveren.",
         "analytics": "Lar Heroic samle inn 100% anonyme brukerdata for å hjelpe oss forbedre appen. Appen må startes på nytt før innstillingen gjelder.",
-        "WoW64": "Wine WoW64-modusen lar 32-bit Windows-spill kjøre under 64-bit Wine. Å skru det på kan forbedre ytelse, men det kan også forhindre eldre 32-bit-spill i å fungere riktig."
+        "WoW64": "Wine WoW64-modusen lar 32-bit Windows-spill kjøre under 64-bit Wine. Å skru det på kan forbedre ytelse, men det kan også forhindre eldre 32-bit-spill i å fungere riktig.",
+        "nvidiaprime": {
+            "details": "Bruk dedikert grafikkort til å gjengi spill på multi-GPU-systemer. Bare nødvendig på bærbare eller stasjonære gaming-maskiner som bruker en hodeløs GPU for gjengivelse (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
