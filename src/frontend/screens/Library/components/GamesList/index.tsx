@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo, GameGroup, Runner } from 'common/types'
 import cx from 'classnames'
 import GameCard from '../GameCard'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  library: GameInfo[]
+  library: (GameInfo | GameGroup)[]
   layout?: string
   isFirstLane?: boolean
   handleGameCardClick: (
@@ -134,7 +134,8 @@ const GamesList = ({
         </div>
       )}
       {!!library.length &&
-        library.map((gameInfo, index) => {
+        library.map((item, index) => {
+          const gameInfo = 'games' in item ? item.representative : item
           const { app_name, is_installed, runner } = gameInfo
           const isJustPlayed = (isFavourite || isRecent) && index === 0
           let is_dlc = false
@@ -160,7 +161,7 @@ const GamesList = ({
               }}
               forceCard={layout === 'grid'}
               isRecent={isRecent}
-              gameInfo={gameInfo}
+              gameInfo={item}
               justPlayed={isJustPlayed}
               dataTour={index === 0 ? 'library-game-card' : undefined}
             />
