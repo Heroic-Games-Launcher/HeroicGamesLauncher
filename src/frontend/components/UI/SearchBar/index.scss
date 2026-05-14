@@ -9,7 +9,7 @@
 
   &:focus-within {
     box-shadow: 0px 0px 0px 3px
-      var(--search-bar-border, var(--input-backgroundd));
+      var(--search-bar-border, var(--input-background));
   }
 
   .autoComplete {

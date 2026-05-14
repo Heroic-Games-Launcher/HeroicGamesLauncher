@@ -1,8 +1,6 @@
 import { useContext, useState } from 'react'
 import GameContext from '../../GameContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GameSubMenu from '../../GameSubMenu'
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { GameInfo } from 'common/types'
 import {
   Dialog,
@@ -33,33 +31,27 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
 
   return (
     <>
-      <div className="game-actions">
-        <button className="toggle">
-          <FontAwesomeIcon icon={faEllipsisV} />
-        </button>
-
-        <GameSubMenu
-          appName={appName}
-          isInstalled={is_installed}
-          title={title}
-          storeUrl={
-            gameExtraInfo?.storeUrl ||
-            ('store_url' in gameInfo && gameInfo.store_url !== undefined
-              ? gameInfo.store_url
-              : '')
-          }
-          changelog={gameExtraInfo?.changelog}
-          runner={gameInfo.runner}
-          handleUpdate={handleUpdate}
-          handleChangeLog={() => setShowChangelog(true)}
-          disableUpdate={is.installing || is.updating}
-          onShowRequirements={
-            hasRequirements ? () => setShowRequirements(true) : undefined
-          }
-          onShowModifyInstall={() => setShowModifyInstallModal(true)}
-          gameInfo={gameInfo}
-        />
-      </div>
+      <GameSubMenu
+        appName={appName}
+        isInstalled={is_installed}
+        title={title}
+        storeUrl={
+          gameExtraInfo?.storeUrl ||
+          ('store_url' in gameInfo && gameInfo.store_url !== undefined
+            ? gameInfo.store_url
+            : '')
+        }
+        changelog={gameExtraInfo?.changelog}
+        runner={gameInfo.runner}
+        handleUpdate={handleUpdate}
+        handleChangeLog={() => setShowChangelog(true)}
+        disableUpdate={is.installing || is.updating}
+        onShowRequirements={
+          hasRequirements ? () => setShowRequirements(true) : undefined
+        }
+        onShowModifyInstall={() => setShowModifyInstallModal(true)}
+        gameInfo={gameInfo}
+      />
 
       {showRequirements && (
         <Dialog showCloseButton onClose={() => setShowRequirements(false)}>
