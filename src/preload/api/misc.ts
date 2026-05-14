@@ -111,3 +111,10 @@ export const steamgriddb = {
   searchGame: makeHandlerInvoker('steamgriddb.searchGame'),
   getGrids: makeHandlerInvoker('steamgriddb.getGrids')
 }
+
+export const ratings = {
+  setApiKey: makeHandlerInvoker('ratings.setApiKey'),
+  getLibraryRatings: makeHandlerInvoker('ratings.getLibraryRatings'),
+  refreshLibraryRatings: makeHandlerInvoker('ratings.refreshLibraryRatings'),
+  getGameRatings: makeHandlerInvoker('ratings.getGameRatings')
+}

@@ -113,6 +113,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
+import { refreshLibraryRatings } from './ratings/service'
 import { addNewApp } from './storeManagers/sideload/library'
 import {
   getGameOverride,
@@ -877,6 +878,9 @@ addHandler('writeConfig', (event, { appName, config }) =>
 addListener('setSetting', (event, { appName, key, value }) => {
   if (appName === 'default') {
     GlobalConfig.get().setSetting(key, value)
+    if (key === 'ratingProvider') {
+      refreshLibraryRatings('all')
+    }
   } else {
     GameConfig.get(appName).setSetting(key, value)
   }
@@ -905,6 +909,8 @@ addHandler('refreshLibrary', async (e, library?) => {
     }
     await Promise.allSettled(allRefreshPromises)
   }
+
+  refreshLibraryRatings(library)
 })
 
 // get pid/tid on launch and inject
@@ -1448,3 +1454,4 @@ import './recent_games/ipc_handler'
 import './tools/ipc_handler'
 import './progress_bar'
 import './steamgrid/ipc_handler'
+import './ratings/ipc_handler'

@@ -14,7 +14,8 @@ import {
   WikiInfo,
   ExtraInfo,
   Status,
-  InstallInfo
+  InstallInfo,
+  RatingEntry
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
 
@@ -240,8 +241,11 @@ export interface LibraryContextType {
   setShowNonAvailable: (value: boolean) => void
   sortDescending: boolean
   setSortDescending: (value: boolean) => void
+  sortField: 'title' | 'rating'
+  setSortField: (value: 'title' | 'rating') => void
   sortInstalled: boolean
   setSortInstalled: (value: boolean) => void
+  libraryRatings: Record<string, RatingEntry | null>
   showSupportOfflineOnly: boolean
   setShowSupportOfflineOnly: (value: boolean) => void
   showThirdPartyManagedOnly: boolean

@@ -31,6 +31,8 @@ import type {
   Runner,
   RunnerCommandStub,
   RuntimeName,
+  RatingKey,
+  RatingEntry,
   RunWineCommandArgs,
   SaveSyncArgs,
   StatusPromise,
@@ -338,6 +340,12 @@ interface AsyncIPCFunctions {
     styles?: string[]
     dimensions?: string[]
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
+  'ratings.setApiKey': (key: string) => Promise<void>
+  'ratings.getLibraryRatings': (
+    games: RatingKey[]
+  ) => Promise<Record<string, RatingEntry | null>>
+  'ratings.refreshLibraryRatings': (games?: RatingKey[]) => Promise<void>
+  'ratings.getGameRatings': (game: RatingKey) => Promise<RatingEntry | null>
 }
 
 interface FrontendMessages {

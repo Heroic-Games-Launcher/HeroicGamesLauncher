@@ -1,58 +1,62 @@
 import { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
 import GameContext from '../../GameContext'
-import { Star } from '@mui/icons-material'
-import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import GameScore from 'frontend/components/UI/WikiGameInfo/components/GameScore'
-import { GameInfo } from 'common/types'
+import { createNewWindow } from 'frontend/helpers'
+import { RatingEntry, GameInfo } from 'common/types'
+import classNames from 'classnames'
 
 interface Props {
   gameInfo: GameInfo
+  externalRating: RatingEntry | null
 }
 
-const Scores = ({ gameInfo }: Props) => {
-  const { t } = useTranslation('gamepage')
+const Scores = ({ gameInfo, externalRating }: Props) => {
   const { wikiInfo } = useContext(GameContext)
 
-  if (!wikiInfo) {
-    return null
-  }
-
-  const pcgamingwiki = wikiInfo.pcgamingwiki
-
-  if (!pcgamingwiki) {
-    return null
-  }
+  const pcgamingwiki = wikiInfo?.pcgamingwiki
 
   const hasScores =
     pcgamingwiki?.metacritic.score ||
     pcgamingwiki?.igdb.score ||
     pcgamingwiki?.opencritic.score
 
-  if (!hasScores) {
+  const externalScore =
+    externalRating?.status === 'ok' && typeof externalRating.score === 'number'
+      ? externalRating.score
+      : null
+
+  if (!hasScores && externalScore === null) {
     return null
   }
 
-  if (hasScores) {
-    return <GameScore info={pcgamingwiki} title={gameInfo.title} />
-  }
-
   return (
-    <PopoverComponent
-      item={
-        <div
-          className="iconWithText"
-          title={t('info.clickToOpen', 'Click to open')}
-        >
-          <Star />
-          {t('info.game-scores', 'Game Scores')}
-        </div>
-      }
-    >
-      <div className="poppedElement">
+    <>
+      {hasScores && pcgamingwiki && (
         <GameScore info={pcgamingwiki} title={gameInfo.title} />
-      </div>
-    </PopoverComponent>
+      )}
+      {externalScore !== null && (
+        <div className="gamescore">
+          <button
+            type="button"
+            className={classNames(
+              'circle',
+              externalScore > 66
+                ? 'green'
+                : externalScore < 33
+                  ? 'red'
+                  : 'yellow'
+            )}
+            onClick={() => {
+              if (externalRating?.url) createNewWindow(externalRating.url)
+            }}
+            aria-label={`Open RAWG rating for ${gameInfo.title}`}
+          >
+            <div className="circle__title">MetaCritic</div>
+            <div className="circle__value">{externalScore}</div>
+          </button>
+        </div>
+      )}
+    </>
   )
 }
 
