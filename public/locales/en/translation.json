@@ -225,6 +225,14 @@
             "hintPrefix": "Hold",
             "hintSuffix": "for 3s to cancel"
         },
+        "cancelInstall": {
+            "message": "This game is currently installing. Cancel the installation?",
+            "title": "Cancel installation?"
+        },
+        "cancelUpdate": {
+            "message": "This game is currently downloading. Cancel the ongoing update?",
+            "title": "Cancel update?"
+        },
         "card": {
             "needsUpdate": "Needs update"
         },
@@ -241,17 +249,22 @@
             "quit": "Quit",
             "sort": "Sort"
         },
+        "install": {
+            "path": "Install to",
+            "platform": "Platform",
+            "title": "Install game",
+            "wine": "Wine",
+            "wineLoading": "Loading…",
+            "wineMissing": "Not selected"
+        },
         "launching": "Launching",
         "loading": "Loading your library…",
         "quit": "Quit Console",
         "quitApp": "Quit App",
-        "sort": "Sort",
-        "update": {
-            "body": "This game has an update available. Please leave Console Mode and update the game before launching.",
-            "hintPrefix": "Press",
-            "hintSuffix": "to go back",
-            "title": "Update required"
-        }
+        "removeFromQueue": {
+            "message": "This game is queued for download. Remove it from the queue?"
+        },
+        "sort": "Sort"
     },
     "controller": {
         "hints": {
@@ -1051,6 +1064,7 @@
         "console": "Console Mode"
     },
     "status": {
+        "installed": "Installed",
         "installing": "Installing",
         "logging": "Logging In...",
         "preparing_login": "Preparing Login... ",

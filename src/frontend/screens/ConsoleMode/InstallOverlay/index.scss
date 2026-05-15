@@ -56,6 +56,98 @@
   text-align: center;
 }
 
+.consoleInstallFields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm, 8px);
+  margin-top: var(--space-md);
+  min-width: min(460px, 80vw);
+}
+
+.consoleInstallRow {
+  display: grid;
+  grid-template-columns: minmax(120px, max-content) 1fr;
+  align-items: center;
+  gap: var(--space-md, 12px);
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: color-mix(
+    in srgb,
+    var(--background-darker, #1a1a20) 50%,
+    transparent
+  );
+}
+
+.consoleInstallLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary, #b1b1b1);
+}
+
+.consoleInstallPath {
+  font-size: 0.9rem;
+  color: var(--text-default, #eae8e5);
+  word-break: break-all;
+  text-align: right;
+}
+
+.consoleInstallSelector {
+  &.focused {
+    outline: 2px solid var(--accent, #0080ff);
+    outline-offset: -2px;
+  }
+
+  .consoleInstallSelectorControl {
+    display: grid;
+    grid-template-columns: 28px 1fr 28px;
+    align-items: center;
+    justify-items: center;
+    gap: 8px;
+  }
+
+  .consoleInstallValue {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-title, #fff);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .consoleInstallArrow {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary, #b1b1b1);
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition:
+      color 120ms ease,
+      background 120ms ease;
+
+    &:hover:not(:disabled) {
+      color: var(--text-title, #fff);
+      background: color-mix(in srgb, var(--accent, #0080ff) 25%, transparent);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  &.focused .consoleInstallArrow:not(:disabled) {
+    color: var(--accent, #0080ff);
+  }
+}
+
 .consoleInstallButtons {
   display: flex;
   flex-direction: row;
