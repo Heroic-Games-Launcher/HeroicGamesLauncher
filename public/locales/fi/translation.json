@@ -372,7 +372,10 @@
         "download_proton_steam": "Kun asetus on käytössä, GE-Proton ladataan suoraan Steamin yhteensopivuustyökalujen hakemistoon Heroicin oletussijainnin sijasta. Latauksessa käytetään ylempänä kohdassa ”Steamin oletuspolku” määritettyä polkua.",
         "wine-hdr": "HDR parantaa värejä tarjoamalla kirkkaampia kohokohtia ja syvempiä kontrasteja. Jotta HDR toimisi, sekä näytön että pelin on tuettava sitä.",
         "WoW64": "Wine WoW64 -tila mahdollistaa 32-bittisten Windows-pelien käytön 64-bittisessä Winessä. Tämä voi parantaa suorituskykyä, mutta voi myös rikkoa 32-bittisiä pelejä.",
-        "wine-wayland": "Wine-Wayland-kokeellinen ajuri sallii pelien toimia natiivisti Wayland-näyttöprotokollan alla. Tämä ajuri saattaa rikkoa joitakin pelejä."
+        "wine-wayland": "Wine-Wayland-kokeellinen ajuri sallii pelien toimia natiivisti Wayland-näyttöprotokollan alla. Tämä ajuri saattaa rikkoa joitakin pelejä.",
+        "nvidiaprime": {
+            "details": "Käytä omistautunutta tehokkaampaa grafiikkakorttia pelin hahmontamiseen moninäytönohjaimisissa järjestelmissä. Tarvitaan vain kannettavissa tietokoneissa tai työpöytäkonessa, jotka käyttävät vaihtelevaa näytönohjainmallia (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {

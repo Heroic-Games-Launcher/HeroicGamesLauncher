@@ -6,10 +6,14 @@ export type ControllerLayout =
   | 'steam-deck'
 
 // Standard gamepad button indices (Chromium "standard" mapping).
+export const BTN_ACTION = 0
 export const BTN_BACK = 1
 export const BTN_L1 = 4
 export const BTN_R1 = 5
 export const BTN_R2 = 7
+
+export const getActionButtonLabel = (layout: ControllerLayout) =>
+  layout.startsWith('ps') ? '✕' : 'A'
 
 export function detectControllerLayout(id: string): ControllerLayout {
   if (/054c|PS3|054c.*09cc|0268|'2563.*0523/i.test(id)) return 'ps4'
