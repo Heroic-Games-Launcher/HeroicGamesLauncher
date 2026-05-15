@@ -382,7 +382,8 @@
         "analytics": "Lubab Heroicul koguda 100% anonüümseid kasutusandmeid, et rakendust paremaks teha. Nõuab restarti.",
         "WoW64": "Wine'i WoW64 režiim lubab 32-bitistel Windowsi mängudel toimida 64-bitisel Wine'il. Selle lubamine võib muuta kogemuse sujuvamaks, aga võib ka vanemaid 32-bitiseid mänge katki teha.",
         "nvidiaprime": {
-            "details": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)"
+            "details": "Mitme GPU-süsteemides mängu renderdamiseks kasutage spetsiaalset graafikakaarti. Vajalik ainult mängusülearvutites või lauaarvutites, mis kasutavad renderdamiseks peata GPU-d (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Vaata rohkem üksikasju meie vikis"
         }
     },
     "info": {
@@ -816,7 +817,10 @@
         "scripts": "Skriptid:",
         "enable-quick-sync-menu": "Luba kiire salvestuste sünkroonimine mängu lehel",
         "disable_gog_presence": "Keela GOG Presence'i uuendused",
-        "start-in-console-mode": "Alusta Konsoolirežiimis"
+        "start-in-console-mode": "Alusta Konsoolirežiimis",
+        "nvidiaprime": {
+            "description": "Sunni NVIDIA Optimuse või AMD Dynamic Switchable Graphics dGPU kasutamist. Kasutage seda AINULT OpenGL-i ja Vulkani mängude puhul."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
