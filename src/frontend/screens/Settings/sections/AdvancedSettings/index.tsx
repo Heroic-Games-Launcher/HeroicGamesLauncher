@@ -25,6 +25,7 @@ import {
   DisableLogs,
   DownloadNoHTTPS,
   ExperimentalFeatures,
+  HideWindowOnProtocolLaunch,
   ResetHeroic,
   SteamGridDbApiKey
 } from '../../components'
@@ -184,6 +185,8 @@ export default function AdvancedSetting() {
       <DisableGOGPresence />
 
       <AllowInstallationBrokenAnticheat />
+
+      <HideWindowOnProtocolLaunch />
 
       {isLinux && <ShowValveProton />}
 
