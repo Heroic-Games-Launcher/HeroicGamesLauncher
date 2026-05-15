@@ -383,7 +383,8 @@
         "wine-wayland": "El controlador experimental Wine-Wayland permet als jocs executar-se de manera nativa sota el protocol de visualització Wayland. Activar-ho podria trencar alguns jocs.",
         "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics.",
         "nvidiaprime": {
-            "details": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes de diverses GPU. Només cal en portàtils o ordinadors de sobretaula que tenen una GPU «headless» per a renderitzar, com ara NVIDIA Optimus o AMD Crossfire."
+            "details": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes amb diverses GPU. Només cal en portàtils o ordinadors que tinguin una GPU «headless» per al renderitzat (NVIDIA Optimus, AMD Crossfire)",
+            "link": "Obtén més informació en la nostra wiki"
         }
     },
     "info": {
@@ -811,7 +812,10 @@
         "scripts": "Scripts:",
         "enable-quick-sync-menu": "Activa el menú de sincronització de desades ràpides en la pàgina del joc",
         "start-in-console-mode": "Inicia en mode consola",
-        "disable_gog_presence": "Desactiva les actualitzacions del GOG Presence"
+        "disable_gog_presence": "Desactiva les actualitzacions del GOG Presence",
+        "nvidiaprime": {
+            "description": "Força l'ús de les GPU NVIDIA Optimus o AMD Dynamic Switchable Graphics. Usa-ho NOMÉS per a jocs OpenGL i Vulkan."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -1199,7 +1203,8 @@
             "ageRatingAll": "Tots",
             "pageSize": "Per pàgina",
             "releaseYear": "Any de publicació",
-            "hideOwned": "Amaga els que tens"
+            "hideOwned": "Amaga els que tens",
+            "wishlistOnly": "Només en la llista de desitjats"
         },
         "sidebar": "Ofertes",
         "sort": {
