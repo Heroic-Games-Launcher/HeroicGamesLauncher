@@ -1,8 +1,8 @@
 {
   "name": "heroic",
-  "version": "2.21.0",
+  "version": "2.22.0",
   "versionNames": {
-    "stable": "Loki",
+    "stable": "Hajrudin",
     "beta": "Caesar Clown"
   },
   "private": false,
