@@ -83,6 +83,13 @@ export default function InstallOverlay({
   }, [])
 
   useEffect(() => {
+    // Read by gamepad.ts to block the global `back` action (which would
+    // pop out of /console via webContents.goBack()) while this modal is open.
+    document.body.classList.add('console-modal-open')
+    return () => document.body.classList.remove('console-modal-open')
+  }, [])
+
+  useEffect(() => {
     if (!hasWine) return
     let cancelled = false
     void window.api.getAlternativeWine().then((list) => {
