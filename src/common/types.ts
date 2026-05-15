@@ -215,6 +215,11 @@ export interface GameInfo {
   dlcList?: GameMetadataInner[]
   customUserAgent?: string
   launchFullScreen?: boolean
+  overrides?: {
+    title?: string
+    art_cover?: string
+    art_square?: string
+  }
 }
 
 export interface GameSettings {

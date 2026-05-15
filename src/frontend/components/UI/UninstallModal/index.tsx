@@ -64,7 +64,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       return
     }
 
-    setGameTitle(gameInfo.title)
+    setGameTitle(gameInfo.overrides?.title || gameInfo.title)
 
     const { install } = gameInfo
     if (install.platform?.toLowerCase() !== 'windows') {
