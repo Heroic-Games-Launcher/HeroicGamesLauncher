@@ -71,6 +71,7 @@
   display: flex;
   gap: 8px;
   flex: 1;
+  height: 100%;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -117,12 +118,28 @@
     outline: none;
   }
 
+  &:hover.active,
+  &:focus-visible.active {
+    border: 1px solid
+      color-mix(in srgb, var(--text-title, #eae8e5) 90%, transparent);
+    background: color-mix(in srgb, var(--accent, #1a1a20) 60%, transparent);
+    outline: none;
+  }
+
   &.active {
     border: 1px solid
       color-mix(in srgb, var(--text-title, #eae8e5) 70%, transparent);
     background: color-mix(in srgb, var(--accent, #1a1a20) 30%, transparent);
     color: var(--text-title, #fff);
   }
+}
+
+.consoleDividerVertical {
+  height: 60%;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  border: 1px solid
+    color-mix(in srgb, var(--text-title, #eae8e5) 30%, transparent);
 }
 
 .consoleQuitButton {
@@ -273,6 +290,47 @@
   pointer-events: none;
 }
 
+.consoleCardStatus {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px 12px;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, #000 90%, transparent) 30%,
+    transparent 100%
+  );
+  color: var(--text-title, #fff);
+  pointer-events: none;
+}
+
+.consoleCardStatusText {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.consoleCardProgress {
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
+  overflow: hidden;
+}
+
+.consoleCardProgressFill {
+  height: 100%;
+  background: var(--accent, #0080ff);
+  border-radius: inherit;
+  transition: width 220ms ease;
+}
+
 .consoleFooter {
   display: flex;
   justify-content: center;
@@ -312,8 +370,13 @@
       XboxSeriesX,
       (A, B, LB, RB, RT)
     ),
-    ps: (
-      ps,
+    ps4: (
+      ps4,
+      PS4,
+      (Cross, Circle, L1, R1, R2)
+    ),
+    ps5: (
+      ps5,
       PS5,
       (Cross, Circle, L1, R1, R2)
     ),
@@ -372,106 +435,36 @@
   }
 }
 
-// Launch overlay
-.consoleLaunchOverlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  background: color-mix(
-    in srgb,
-    var(--body-background, #101014) 70%,
-    transparent
-  );
-  backdrop-filter: blur(10px);
-  z-index: 10;
-  animation: overlayFade 220ms ease;
-}
-
-@keyframes overlayFade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.consoleLaunchSpinner {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid
-    color-mix(in srgb, var(--text-default, #eae8e5) 20%, transparent);
-  border-top-color: var(--accent, #0080ff);
-  animation: spin 900ms linear infinite;
-
-  &.idle {
-    border-top-color: var(--status-success, #2bbd60);
-    animation-duration: 2.4s;
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.consoleLaunchText {
-  font-size: 1rem;
-  color: var(--text-secondary, #b1b1b1);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-.consoleLaunchGameTitle {
-  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
-  font-weight: 700;
-  color: var(--text-title, var(--text-default, #eae8e5));
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  max-width: 80vw;
-  text-align: center;
-}
-
-.consoleLaunchHint {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 12px;
-  font-size: 0.85rem;
-  color: var(--text-secondary, #b1b1b1);
-  opacity: 0.75;
-  transition:
-    opacity 180ms ease,
-    color 180ms ease;
-
-  kbd {
-    font-family: var(--primary-font-family);
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 6px;
-    border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
-    background: color-mix(in srgb, currentColor 10%, transparent);
-  }
-
-  &.active {
-    opacity: 1;
-    color: var(--cancel-button, #b94a3a);
-  }
-}
-
 .consoleUpdateNoticeBody {
   max-width: 560px;
   text-align: center;
   color: var(--text-secondary, #b1b1b1);
   line-height: 1.5;
   margin: 0;
+}
+
+.consoleUpdateNoticeButtons {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+
+  .consoleChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-size: 1rem;
+
+    kbd {
+      font-family: var(--primary-font-family);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+      background: color-mix(in srgb, currentColor 10%, transparent);
+    }
+  }
 }
 
 // App-level: when console mode is active, strip scrollbars and chrome

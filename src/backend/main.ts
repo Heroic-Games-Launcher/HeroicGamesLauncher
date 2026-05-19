@@ -69,7 +69,7 @@ import {
 import { Path } from './schemas'
 
 import { uninstallGameCallback } from './utils/uninstaller'
-import { handleProtocol } from './protocol'
+import { handleProtocol, shouldHideWindowForProtocolArgs } from './protocol'
 import {
   init as initLogger,
   logDebug,
@@ -115,6 +115,12 @@ import {
   libraryManagerMap
 } from './storeManagers'
 import { addNewApp } from './storeManagers/sideload/library'
+import {
+  setGameOverrides,
+  getGameOverrides,
+  getAllGameOverrides,
+  attachOverrides
+} from './game_overrides'
 import {
   getGameOverride,
   getGameSdl
@@ -326,7 +332,9 @@ if (!gotTheLock) {
   app.on('second-instance', (event, argv) => {
     // Someone tried to run a second instance, we should focus our window.
     const mainWindow = getMainWindow()
-    mainWindow?.show()
+    if (!shouldHideWindowForProtocolArgs(argv)) {
+      mainWindow?.show()
+    }
 
     handleProtocol(argv)
   })
@@ -421,8 +429,14 @@ if (!gotTheLock) {
       logWarning('Protocol already registered.', LogPrefix.Backend)
     }
 
+    const hideForProtocol = shouldHideWindowForProtocolArgs([
+      openUrlArgument,
+      ...process.argv
+    ])
     const headless =
-      isCLINoGui || (settings.startInTray && !settings.noTrayIcon)
+      isCLINoGui ||
+      hideForProtocol ||
+      (settings.startInTray && !settings.noTrayIcon)
     if (!headless) {
       const isWayland = Boolean(process.env.WAYLAND_DISPLAY)
       const showWindow = () => {
@@ -742,7 +756,7 @@ addHandler('getGameInfo', async (event, appName, runner) => {
   // The frontend can however handle being passed an explicit `null` value, so
   // we return that here instead if the game info is empty
   if (!Object.keys(tempGameInfo).length) return null
-  return tempGameInfo
+  return attachOverrides(tempGameInfo)
 })
 
 addHandler(
@@ -1348,6 +1362,20 @@ addListener('setTitleBarOverlay', (e, args) => {
 })
 
 addListener('addNewApp', (e, args) => addNewApp(args))
+
+addListener('setGameMetadataOverride', (e, args) => {
+  const { appName, title, art_cover, art_square } = args
+  setGameOverrides(appName, { title, art_cover, art_square })
+  sendFrontendMessage('metadataChanged', getAllGameOverrides())
+})
+
+addHandler('getGameMetadataOverride', async (_e, appName) => {
+  return getGameOverrides(appName)
+})
+
+addHandler('getAllGameOverrides', async () => {
+  return getAllGameOverrides()
+})
 
 addHandler('isNative', (e, { appName, runner }) => {
   return gameManagerMap[runner].isNative(appName)

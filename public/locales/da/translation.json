@@ -328,7 +328,10 @@
         "msync": "Msync har til formål at reducere wineserver-overhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
         "wine-hdr": "HDR forbedrer farverne ved at give lysere højdepunkter og dybere kontraster. For at HDR kan fungere, skal både skærmen og spillet understøtte det.",
         "wine-wayland": "Den eksperimentelle Wine-Wayland-driver gør det muligt at køre spil direkte under Wayland-skærmprotokollen. Aktivering kan medføre, at nogle spil ikke fungerer.",
-        "WoW64": "Wine WoW64-tilstanden gør det muligt at køre 32-bit Windows-spil på 64-bit Wine. Aktivering kan forbedre ydeevnen, men kan også ødelægge ældre 32-bit spil."
+        "WoW64": "Wine WoW64-tilstanden gør det muligt at køre 32-bit Windows-spil på 64-bit Wine. Aktivering kan forbedre ydeevnen, men kan også ødelægge ældre 32-bit spil.",
+        "nvidiaprime": {
+            "details": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -500,13 +503,6 @@
         "exit-to-tray": "Afslut til systembakken",
         "FsrSharpnessStrenght": "FSR Skarphed Styrke",
         "preferSystemLibs": "Foretrækker systembiblioteker",
-        "primerun": {
-            "confirmation": {
-                "message": "Kun ét grafikkort blev fundet i dette system. Bemærk venligst, at denne mulighed er beregnet til multi-GPU-systemer med hovedløse GPU'er (som bærbare computere). På enkelt-GPU-systemer bruges GPU'en automatisk, og aktivering af denne mulighed kan forårsage problemer. Vil du virkelig aktivere denne mulighed?",
-                "title": "Kun 1 GPU fundet"
-            },
-            "description": "Brug dedikeret grafikkort"
-        },
         "resizableBar": "Aktiver BAR, der kan ændres størrelse (kun NVIDIA RTX 30xx)",
         "wineversion": "Wine Version",
         "autosync": "Autosync gemmer",

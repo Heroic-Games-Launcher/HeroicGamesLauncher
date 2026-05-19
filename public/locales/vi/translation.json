@@ -184,7 +184,7 @@
                 "title": "Heroic đang chạy như Snap"
             }
         },
-        "wineprefix": "Chọn thư mục Wine Prefix",
+        "wineprefix": "Chọn thư mục WinePrefix",
         "yes": "CÓ",
         "dontShowAgain": "Không hiển thị lại",
         "choose-nile-binary": "Chọn Nile binary",
@@ -262,8 +262,8 @@
             "refresh": "Làm Mới Thư Viện"
         },
         "abort": "",
-        "install": "",
-        "uninstall": ""
+        "install": "Install",
+        "uninstall": "Uninstall"
     },
     "globalSettings": "Cài Đặt Chung",
     "GOG": "GOG",
@@ -372,7 +372,10 @@
         },
         "wine-hdr": "HDR tăng cường màu sắc bằng cách mang lại những highlight sáng hơn và độ tương phản sâu hơn. Để HDR hoạt động, cả màn hình và trò chơi đều phải hỗ trợ nó.",
         "wine-wayland": "Trình điều khiển thử nghiệm Wine-Wayland cho phép trò chơi chạy nguyên bản theo giao thức hiển thị Wayland. Việc kích hoạt có thể làm hỏng một số trò chơi.",
-        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn."
+        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -707,13 +710,6 @@
         "offlinemode": "Chạy Trò Chơi Ngoại Tuyến",
         "prefered_language": "Ngôn Ngữ Ưa Thích (Mã Ngôn Ngữ)",
         "preferSystemLibs": "Ưu tiên thư viện hệ thống",
-        "primerun": {
-            "confirmation": {
-                "message": "Chỉ có một card đồ họa được phát hiện trong hệ thống này. Xin lưu ý rằng tùy chọn này dành cho các hệ thống nhiều GPU có GPU không đầu (như máy tính xách tay). Trên các hệ thống GPU đơn, GPU được sử dụng tự động và việc bật tùy chọn này có thể gây ra sự cố. Bạn có thực sự muốn kích hoạt tùy chọn này?",
-                "title": "Chỉ phát hiện được 1 GPU"
-            },
-            "description": "Sử Dụng Card Đồ Họa Chuyên Dụng"
-        },
         "runexe": {
             "message": "Kéo thả file vào đây",
             "title": "Chạy EXE trên Tiền Tố"
@@ -981,8 +977,8 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
-            "settings": "",
+            "update": "Update",
+            "settings": "Cài đặt",
             "no-results": ""
         },
         "release": "Ngày Phát Hành",
@@ -1163,7 +1159,7 @@
         "filters": {
             "moreFilters": "",
             "ageRating": "",
-            "os": "",
+            "os": "Hệ Điều Hành:",
             "price": "",
             "activeCount_other": "",
             "hideDlcs": "",
@@ -1176,7 +1172,7 @@
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
-            "ageRatingAll": "",
+            "ageRatingAll": "Tất cả",
             "pageSize": "",
             "releaseYear": ""
         },
@@ -1206,7 +1202,7 @@
     },
     "steamgriddb": {
         "error": {
-            "no-games": "",
+            "no-games": "Không tìm thấy game nào",
             "no-grids": "",
             "search": "",
             "grids": ""
@@ -1234,21 +1230,21 @@
             "launch": "",
             "sort": "",
             "navigate": "",
-            "quit": "",
+            "quit": "Thoát",
             "change_store": ""
         },
-        "launching": "",
+        "launching": "Ra Mắt",
         "card": {
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
-            "all": ""
+            "sideload": "Other",
+            "all": "Tất cả"
         },
         "empty": "",
-        "games": "",
+        "games": "Game đã cài",
         "quitApp": "",
         "loading": ""
     },
-    "next": ""
+    "next": "Tiếp"
 }

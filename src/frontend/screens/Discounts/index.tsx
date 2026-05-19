@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MenuItem, Select } from '@mui/material'
 
@@ -30,6 +30,7 @@ import {
   type PegiAge
 } from './helpers'
 import './index.css'
+import ContextProvider from 'frontend/state/ContextProvider'
 
 export default function Discounts() {
   const { t, i18n } = useTranslation()
@@ -40,6 +41,8 @@ export default function Discounts() {
     () => getLocaleSettings(i18n.language, regionOverride),
     [i18n.language, regionOverride]
   )
+  const { gog } = useContext(ContextProvider)
+  const isGogLoggedIn: boolean = !!gog?.username
 
   const handleRegionChange = (countryCode: string | null) => {
     setRegionOverride(countryCode)
@@ -52,6 +55,8 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setHideOwned(false)
+    setWishlistOnly(false)
   }
 
   const [products, setProducts] = useState<CatalogProduct[]>([])
@@ -89,6 +94,10 @@ export default function Discounts() {
     storedFilters.searchQuery ?? ''
   )
   const [hideDlcs, setHideDlcs] = useState(storedFilters.hideDlcs ?? false)
+  const [hideOwned, setHideOwned] = useState(storedFilters.hideOwned ?? false)
+  const [wishlistOnly, setWishlistOnly] = useState(
+    storedFilters.wishlistOnly ?? false
+  )
   const [pageSize, setPageSize] = useState<number>(
     storedFilters.pageSize ?? DEFAULT_PAGE_SIZE
   )
@@ -112,6 +121,8 @@ export default function Discounts() {
       maxPegiAge,
       searchQuery,
       hideDlcs,
+      hideOwned,
+      wishlistOnly,
       pageSize
     })
   }, [
@@ -125,6 +136,8 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    hideOwned,
+    wishlistOnly,
     pageSize
   ])
 
@@ -137,7 +150,11 @@ export default function Discounts() {
       setProducts([])
 
       try {
-        const result = await window.api.getGogDiscounts(localeSettings)
+        const result = await window.api.getGogDiscounts(
+          localeSettings,
+          hideOwned,
+          wishlistOnly
+        )
         if (!cancelled) {
           setProducts(result)
           // Only clear data-bound ranges when this is a reload caused by a
@@ -168,7 +185,7 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [localeSettings, t])
+  }, [localeSettings, hideOwned, wishlistOnly, t])
 
   const priceMax = useMemo(() => {
     const max = products.reduce((acc, p) => {
@@ -395,6 +412,8 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
+    hideOwned,
+    wishlistOnly,
     pageSize,
     products
   ])
@@ -419,6 +438,8 @@ export default function Discounts() {
     maxPegiAge !== null ||
     searchQuery.trim() !== '' ||
     hideDlcs ||
+    hideOwned ||
+    wishlistOnly ||
     (priceRange !== null &&
       (priceRange[0] !== 0 || priceRange[1] !== priceMax)) ||
     (releaseYearRange !== null &&
@@ -436,6 +457,8 @@ export default function Discounts() {
     setMaxPegiAge(null)
     setSearchQuery('')
     setHideDlcs(false)
+    setHideOwned(false)
+    setWishlistOnly(false)
   }
 
   const handlePageChange = (newPage: number) => {
@@ -553,6 +576,11 @@ export default function Discounts() {
             onSearchChange={setSearchQuery}
             hideDlcs={hideDlcs}
             onHideDlcsChange={setHideDlcs}
+            hideOwned={hideOwned}
+            onHideOwnedChange={setHideOwned}
+            wishlistOnly={wishlistOnly}
+            onWishlistOnlyChange={setWishlistOnly}
+            isGogLoggedIn={isGogLoggedIn}
             pageSize={pageSize}
             onPageSizeChange={setPageSize}
             onReset={handleReset}

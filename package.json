@@ -1,8 +1,8 @@
 {
   "name": "heroic",
-  "version": "2.21.0",
+  "version": "2.22.0",
   "versionNames": {
-    "stable": "Loki",
+    "stable": "Hajrudin",
     "beta": "Caesar Clown"
   },
   "private": false,
@@ -88,6 +88,7 @@
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.30.0",
     "recharts": "^2.15.3",
+    "rehype-raw": "^6.1.1",
     "sanitize-filename": "^1.6.3",
     "sanitize-html": "^2.16.0",
     "semver": "^7.7.1",

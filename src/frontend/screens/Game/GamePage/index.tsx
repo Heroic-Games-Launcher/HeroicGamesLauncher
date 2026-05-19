@@ -163,7 +163,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   const notSupportedGame =
     gameInfo.runner !== 'sideload' &&
     !!gameInfo.thirdPartyManagedApp &&
-    !gameInfo.isEAManaged
+    !gameInfo.isEAManaged &&
+    !gameInfo.isUbisoftManaged
   const isOffline = connectivity.status !== 'online'
   const notPlayableOffline = isOffline && !gameInfo.canRunOffline
 
@@ -297,13 +298,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
   if (gameInfo && gameInfo.install && settingsContextValues) {
     const {
       runner,
-      title,
-      art_cover,
       art_background,
       art_logo,
       install: { platform: installPlatform },
       is_installed
     } = gameInfo
+    const title = gameInfo.overrides?.title || gameInfo.title
+    const art_cover = gameInfo.overrides?.art_cover || gameInfo.art_cover
 
     hasUpdate = is_installed && gameUpdates?.includes(appName)
 

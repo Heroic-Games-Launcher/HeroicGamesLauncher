@@ -262,7 +262,7 @@
             "refresh": "Kitabxananı yeniləyin"
         },
         "abort": "",
-        "install": "",
+        "install": "Install",
         "uninstall": ""
     },
     "globalSettings": "Qlobal Parametrlər",
@@ -372,7 +372,10 @@
         "WoW64": "",
         "wine-wayland": "",
         "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "analytics": "",
+        "nvidiaprime": {
+            "details": "Multi-GPU sistemlərində oyunu göstərmək üçün xüsusi qrafik kartdan istifadə edin. Yalnız göstərmə üçün başsız GPU istifadə edən oyun noutbukları və ya stolüstü kompüterlərdə lazımdır (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -707,13 +710,6 @@
         "offlinemode": "Oyunu Oflayn Çalışın",
         "prefered_language": "Üstünlük Verilən Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitabxanalarına üstünlük verin",
-        "primerun": {
-            "confirmation": {
-                "message": "Only one graphics card was detected in this system. Please note that this option is intended for multi-GPU systems with headless GPUs (like laptops). On single-GPU systems, the GPU is automatically used & enabling this option can cause issues. Do you really want to enable this option?",
-                "title": "Only 1 GPU detected"
-            },
-            "description": "Xüsusi Qrafik Kartdan istifadə edin"
-        },
         "runexe": {
             "message": "Faylları buraya sürükləyin və buraxın",
             "title": "Prefiksdə EXE-ni işə salın"
@@ -981,7 +977,7 @@
             "search": "",
             "loading": "",
             "open_folder": "",
-            "update": "",
+            "update": "Update",
             "settings": "",
             "no-results": ""
         },
@@ -1242,7 +1238,7 @@
             "needsUpdate": ""
         },
         "filter": {
-            "sideload": "",
+            "sideload": "Other",
             "all": ""
         },
         "empty": "",
