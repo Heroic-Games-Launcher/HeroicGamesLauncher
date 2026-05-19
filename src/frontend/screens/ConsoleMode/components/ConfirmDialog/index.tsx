@@ -63,12 +63,8 @@ export default function ConfirmDialog({
   useEffect(() => {
     // Read by gamepad.ts to block the global `back` action from navigating
     // away from /console while this modal is open.
-    document.body.classList.add('console-modal-open', 'console-ignore-back')
-    return () =>
-      document.body.classList.remove(
-        'console-modal-open',
-        'console-ignore-back'
-      )
+    document.body.classList.add('console-ignore-back')
+    return () => document.body.classList.remove('console-ignore-back')
   }, [])
 
   useEffect(() => {
