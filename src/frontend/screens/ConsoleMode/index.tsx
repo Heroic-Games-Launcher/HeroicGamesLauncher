@@ -321,8 +321,12 @@ export default function ConsoleMode() {
       e.stopPropagation()
       // we should be between [-columns and -1] at this point,
       // make the focused index be somewhere in the middle
-      setFocusedIndex(Math.floor(columns / 2))
-      cardRefs.current[Math.floor(columns / 2)]?.focus()
+      const returnFocusButton = Math.min(
+        focusedIndex + columns,
+        visibleGames.length - 1
+      )
+      cardRefs.current[returnFocusButton]?.focus()
+      setFocusedIndex(returnFocusButton)
       return
     }
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
@@ -392,8 +396,9 @@ export default function ConsoleMode() {
   // Read by gamepad.ts to block the Guide/back buttons during launch.
   useEffect(() => {
     if (!launchingGame) return
-    document.body.classList.add('console-launching')
-    return () => document.body.classList.remove('console-launching')
+    document.body.classList.add('console-launching', 'console-ignore-back')
+    return () =>
+      document.body.classList.remove('console-launching', 'console-ignore-back')
   }, [launchingGame])
 
   const toggleSort = useCallback(() => setAscending((v) => !v), [])
