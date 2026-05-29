@@ -909,7 +909,7 @@
                 "placeholder_saved": "Kunci tersimpan — ketik untuk mengganti, kosongkan untuk menghapus"
             },
             "help": {
-                "description": "Berikan kunci API SteamGridDB Anda sendiri untuk mengaktifkan pencarian sampul game. Kunci disimpan dalam bentuk terenkripsi jika sistem Anda mendukungnya. Anda bisa mendapatkannya di [www.steamgriddb.com/profile/preferences/api](https://www.steamgriddb.com/profile/preferences/api)"
+                "description": "Berikan kunci API SteamGridDB Anda sendiri untuk mengaktifkan pencarian sampul game. Kunci disimpan dalam bentuk terenkripsi jika sistem Anda mendukungnya. Anda bisa mendapatkannya di [{{url}}](https://{{url}})"
             }
         }
     },

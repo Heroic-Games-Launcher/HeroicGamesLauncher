@@ -924,7 +924,7 @@
                 "placeholder_saved": "Schlüssel gespeichert - tippe zum ersetzen, lösche zum entfernen"
             },
             "help": {
-                "description": "Gebe Deinen eigenen SteamGridDB API-Schlüssel ein, um die Spiele-Cover Suche zu aktivieren. Der Schlüssel wird verschlüsselt gespeichert, wenn Dein System es unterstützt. Du kannst einen API-Schlüssel unter www.steamgridb.com/profile/preferences/api erhalten"
+                "description": "Gebe Deinen eigenen SteamGridDB API-Schlüssel ein, um die Spiele-Cover Suche zu aktivieren. Der Schlüssel wird verschlüsselt gespeichert, wenn Dein System es unterstützt. Du kannst einen API-Schlüssel unter {{url}} erhalten"
             }
         }
     },

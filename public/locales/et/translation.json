@@ -934,7 +934,7 @@
                 "placeholder_saved": "Võti salvestatud — kirjutage siia, et asendada; tühjendage, et eemaldada"
             },
             "help": {
-                "description": "Varustage oma SteamGridDB API võti, et lubada mängude kaanepiltide otsing. Võti talletatakse krüpteeritult, kui teie süsteem seda toetab. Võite leida võtme aadressil www.steamgriddb.com/profile/preferences/api"
+                "description": "Varustage oma SteamGridDB API võti, et lubada mängude kaanepiltide otsing. Võti talletatakse krüpteeritult, kui teie süsteem seda toetab. Võite leida võtme aadressil {{url}}"
             }
         }
     },

@@ -932,7 +932,7 @@
                 "placeholder_saved": "Chave salva — digite para substituí-la, apague para removê-la"
             },
             "help": {
-                "description": "Forneça sua própria chave de API do SteamGridDB para habilitar a busca por capas de jogos. A chave é armazenada criptografada se seu sistema suportar. Você pode obter uma em www.steamgriddb.com/profile/preferences/api"
+                "description": "Forneça sua própria chave de API do SteamGridDB para habilitar a busca por capas de jogos. A chave é armazenada criptografada se seu sistema suportar. Você pode obter uma em {{url}}"
             }
         }
     },

@@ -933,7 +933,7 @@
                 "placeholder_saved": "Clave guardada — escriba para reemplazar, borre para eliminar"
             },
             "help": {
-                "description": "Proporciona tu propia clave API de SteamGridDB para habilitar la búsqueda de carátulas de juegos. La clave se almacena cifrada si tu sistema lo admite. Puedes obtener una en www.steamgriddb.com/profile/preferences/api"
+                "description": "Proporciona tu propia clave API de SteamGridDB para habilitar la búsqueda de carátulas de juegos. La clave se almacena cifrada si tu sistema lo admite. Puedes obtener una en {{url}}"
             }
         }
     },

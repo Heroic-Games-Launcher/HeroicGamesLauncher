@@ -934,7 +934,7 @@
                 "placeholder_saved": "Kulcs mentve — gépelj a cseréhez, töröld az eltávolításhoz"
             },
             "help": {
-                "description": "Add meg a saját SteamGridDB API-kulcsodat a játékborítók keresésének engedélyezéséhez. A kulcs titkosítva kerül tárolásra, ha a rendszered támogatja. Itt szerezhetsz egyet: www.steamgriddb.com/profile/preferences/api"
+                "description": "Add meg a saját SteamGridDB API-kulcsodat a játékborítók keresésének engedélyezéséhez. A kulcs titkosítva kerül tárolásra, ha a rendszered támogatja. Itt szerezhetsz egyet: {{url}}"
             }
         }
     },

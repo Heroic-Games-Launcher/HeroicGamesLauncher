@@ -936,7 +936,7 @@
                 "placeholder_saved": "Klíč uložen — pište pro jeho změnu, vymažte pro odstranění"
             },
             "help": {
-                "description": "Poskytněte SteamGridDB API pro zapnutí vyhledávaní náhledu her. Tento klíč je šifrován při uložení když to podporuje systém. Můžete ho získat na www.steamgriddb.com/profile/preferences/api"
+                "description": "Poskytněte SteamGridDB API pro zapnutí vyhledávaní náhledu her. Tento klíč je šifrován při uložení když to podporuje systém. Můžete ho získat na {{url}}"
             }
         }
     },
