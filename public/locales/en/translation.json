@@ -1034,7 +1034,7 @@
                 "title": "SteamGridDB API Key"
             },
             "help": {
-                "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at www.steamgriddb.com/profile/preferences/api"
+                "description": "Provide your own SteamGridDB API key to enable game cover search. The key is stored encrypted when your system supports it. You can get one at {{url}}"
             }
         },
         "systemInformation": {

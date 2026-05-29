@@ -937,7 +937,7 @@
                 "placeholder_saved": "Eochair shábháilte — clóscríobh le hathsholáthar, glan le baint"
             },
             "help": {
-                "description": "Cuir d’eochair SteamGridDB API féin ar fáil chun cuardach clúdach cluiche a chumasú. Stóráiltear an eochair criptithe nuair a thacaíonn do chóras leis. Is féidir leat ceann a fháil ag www.steamgriddb.com/profile/preferences/api"
+                "description": "Cuir d’eochair SteamGridDB API féin ar fáil chun cuardach clúdach cluiche a chumasú. Stóráiltear an eochair criptithe nuair a thacaíonn do chóras leis. Is féidir leat ceann a fháil ag {{url}}"
             }
         }
     },

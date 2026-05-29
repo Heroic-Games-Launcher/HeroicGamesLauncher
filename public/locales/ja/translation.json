@@ -920,7 +920,7 @@
                 "placeholder_saved": "キーが保存されています — 入力して上書き、クリアして削除"
             },
             "help": {
-                "description": "ゲームのカバー画像の検索を有効にするには、ご自身のSteamGridDB APIキーを入力してください。お使いのシステムが対応している場合、このキーは暗号化されて保存されます。APIキーは www.steamgriddb.com/profile/preferences/api から取得できます。"
+                "description": "ゲームのカバー画像の検索を有効にするには、ご自身のSteamGridDB APIキーを入力してください。お使いのシステムが対応している場合、このキーは暗号化されて保存されます。APIキーは {{url}} から取得できます。"
             }
         }
     },

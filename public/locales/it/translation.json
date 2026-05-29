@@ -928,7 +928,7 @@
                 "placeholder_saved": "Chiave salvata - scrivi per sostituirla, cancella per rimuovere"
             },
             "help": {
-                "description": "Fornisci la tua chiave API SteamGridDB per abilitare la ricerca delle copertine dei giochi. La chiave viene memorizzata in forma crittografata se il tuo sistema lo supporta. Puoi ottenerne una su www.steamgriddb.com/profile/preferences/api"
+                "description": "Fornisci la tua chiave API SteamGridDB per abilitare la ricerca delle copertine dei giochi. La chiave viene memorizzata in forma crittografata se il tuo sistema lo supporta. Puoi ottenerne una su {{url}}"
             }
         }
     },

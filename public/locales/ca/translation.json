@@ -929,7 +929,7 @@
                 "placeholder_saved": "S'ha desat la clau. Escriu-hi per a reemplaçar-la, esborra-la per a eliminar-la"
             },
             "help": {
-                "description": "Aporta la teva clau de l'API del SteamGridDB per a poder cercar caràtules dels jocs. La clau s'emmagatzema de manera xifrada si el teu sistema ho permet. Pots obtenir-ne una a www.steamgriddb.com/profile/preferences/api"
+                "description": "Aporta la teva clau de l'API del SteamGridDB per a poder cercar caràtules dels jocs. La clau s'emmagatzema de manera xifrada si el teu sistema ho permet. Pots obtenir-ne una a {{url}}"
             }
         }
     },
