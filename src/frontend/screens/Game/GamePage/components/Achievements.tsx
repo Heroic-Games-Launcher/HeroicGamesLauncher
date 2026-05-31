@@ -24,16 +24,23 @@ const Achievements = ({ achievements }: Props) => {
   return (
     <div className="achievement-container">
       {sortedAchievements.map((x: GameAchievement) => {
-        const isHiddenAchievement = !x.date_unlocked && !x.visible
+        const isHiddenAchievement = !x.date_unlocked && x.hidden
         return (
           <div
             className={`achievement-item ${x.date_unlocked ? 'unlocked' : 'locked'} ${isHiddenAchievement ? 'hidden-achievement' : ''}`}
-            key={x.achievement_id}
+            key={x.id}
           >
-            <div className={`achievement-icon rarity-${x.rarity_level_slug}`}>
+            <div
+              className="achievement-icon"
+              style={{
+                boxShadow: x.rarity_color && `0 0 4px ${x.rarity_color}`
+              }}
+            >
               <img
                 src={
-                  x.date_unlocked ? x.image_url_unlocked : x.image_url_locked
+                  x.date_unlocked
+                    ? x.image_url_unlocked
+                    : (x.image_url_locked ?? x.image_url_unlocked)
                 }
                 alt={isHiddenAchievement ? 'Hidden Achievement' : x.name}
               />
@@ -46,7 +53,7 @@ const Achievements = ({ achievements }: Props) => {
                 {isHiddenAchievement ? '' : x.description}
               </span>
               <span className="achievement-rarity">
-                {x.rarity_level_description} · {x.rarity}%
+                {x.rarity_name} · {x.rarity}%
               </span>
             </div>
           </div>

@@ -9,7 +9,9 @@ import {
   InstallPlatform,
   InstallProgress,
   WineCommandArgs,
-  LaunchOption
+  LaunchOption,
+  GameAchievement,
+  EpicAchievement
 } from 'common/types'
 import { GameConfig } from '../../game_config'
 import { GlobalConfig } from '../../config'
@@ -54,7 +56,7 @@ import {
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
 import { join } from 'path'
-import { gameInfoStore } from './electronStores'
+import { achievementStore, gameInfoStore } from './electronStores'
 import { removeNonSteamGame } from '../../shortcuts/nonesteamgame/nonesteamgame'
 import shlex from 'shlex'
 import { t } from 'i18next'
@@ -333,6 +335,61 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
       storeUrl: ''
     }
   }
+}
+
+function mapEpicAchievement(achievement: EpicAchievement): GameAchievement {
+  return {
+    id: achievement.name,
+    name: achievement.display_name,
+    hidden: achievement.hidden,
+    description: achievement.description,
+    date_unlocked: achievement.unlock_date,
+    rarity: achievement.rarity.percent,
+    rarity_name:
+      achievement.tier.name.charAt(0).toUpperCase() +
+      achievement.tier.name.slice(1),
+    rarity_color: achievement.tier.hexColor,
+    image_url_unlocked: achievement.icon_link
+  }
+}
+
+export async function getAchievements(
+  appName: string
+  // lang: string
+): Promise<GameAchievement[]> {
+  const cached = achievementStore.get(appName)
+  if (cached) return cached.map((ach) => mapEpicAchievement(ach))
+
+  const command: LegendaryCommand = {
+    subcommand: 'achievements',
+    appName: LegendaryAppName.parse(appName),
+    '--hidden': true,
+    '--json': true
+  }
+
+  try {
+    const output = await runLegendaryCommand(command, { abortId: appName })
+    const json = JSON.parse(output.stdout) as {
+      completed: EpicAchievement[]
+      in_progress: EpicAchievement[]
+      uninitiated: EpicAchievement[]
+      hidden: EpicAchievement[]
+    }
+    const allAchievements = [
+      json.completed,
+      json.in_progress,
+      json.uninitiated,
+      json.hidden
+    ].flat()
+    achievementStore.set(appName, allAchievements)
+    return allAchievements.map((ach) => mapEpicAchievement(ach))
+  } catch (err) {
+    logError(['Failed to get achievements', err], {
+      prefix: LogPrefix.Legendary
+    })
+  }
+
+  return []
 }
 
 /**

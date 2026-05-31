@@ -1,5 +1,5 @@
 import CacheStore from '../../cache'
-import { ExtraInfo, GameInfo } from 'common/types'
+import { EpicAchievement, ExtraInfo, GameInfo } from 'common/types'
 import { GameOverride, LegendaryInstallInfo } from 'common/types/legendary'
 
 export const installStore = new CacheStore<LegendaryInstallInfo>(
@@ -25,3 +25,7 @@ export const gamesOverrideStore: CacheStore<GameOverride, 'gamesOverride'> =
   )
 
 export const gameInfoStore = new CacheStore<ExtraInfo>('legendary_gameinfo')
+export const achievementStore = new CacheStore<EpicAchievement[]>(
+  'legendary_achievements',
+  null
+)

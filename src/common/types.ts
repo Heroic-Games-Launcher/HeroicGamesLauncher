@@ -163,7 +163,7 @@ export interface ExtraInfo {
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
 
-export type GOGAchievement = {
+export interface GOGAchievement {
   achievement_id: string
   achievement_key: string
   visible: boolean
@@ -177,7 +177,40 @@ export type GOGAchievement = {
   rarity_level_slug: string
 }
 
-export type GameAchievement = GOGAchievement
+export interface EpicAchievement {
+  name: string
+  hidden: boolean
+  xp: number
+  progress: number
+  unlock_date: string | null
+  display_name: string
+  description: string
+  icon_link: string
+  icon_id: string
+  tier: {
+    name: string
+    hexColor: string
+    min: number
+    max: number
+  }
+  rarity: {
+    percent: number
+  }
+}
+
+export interface GameAchievement {
+  id: string
+  hidden: boolean // spoilery achievement
+  name: string
+  description: string
+  progress?: number // 0 to 1 float maning percent
+  image_url_unlocked: string
+  image_url_locked?: string
+  date_unlocked: string | null
+  rarity: number // 0 - 100 %
+  rarity_name: string
+  rarity_color?: string // mapping of a color for given rarity
+}
 
 export interface GameInfo {
   runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'

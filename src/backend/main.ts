@@ -106,6 +106,8 @@ import {
   syncQueuedPlaytimeGOG,
   getAchievements as getAchievementsGOG
 } from 'backend/storeManagers/gog/games'
+
+import { getAchievements as getAchievementsEpic } from 'backend/storeManagers/legendary/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
@@ -763,6 +765,7 @@ addHandler(
   'getAchievements',
   async (event, appName, runner, lang = 'en-US') => {
     if (runner === 'gog') return getAchievementsGOG(appName, lang)
+    if (runner === 'legendary') return getAchievementsEpic(appName)
     return []
   }
 )
