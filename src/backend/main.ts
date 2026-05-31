@@ -1,6 +1,11 @@
 import { initImagesCache } from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
-import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
+import {
+  DiskSpaceData,
+  Runner,
+  StatusPromise,
+  WineInstallation
+} from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -727,13 +732,16 @@ addListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
-addListener('clearAchievementCache', (event, appName: string) => {
-  clearAchievementCache(appName)
-  logInfo(
-    'Achievement cache was cleared for game: ' + appName,
-    LogPrefix.Backend
-  )
-})
+addListener(
+  'clearAchievementCache',
+  (event, appName: string, runner: Runner) => {
+    clearAchievementCache(appName, runner)
+    logInfo(
+      'Achievement cache was cleared for game: ' + appName,
+      LogPrefix.Backend
+    )
+  }
+)
 
 addListener('resetHeroic', () => resetHeroic())
 

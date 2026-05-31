@@ -29,7 +29,8 @@ import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/l
 import {
   gameInfoStore,
   installStore,
-  libraryStore
+  libraryStore,
+  achievementStore as EpicAchievementStore
 } from 'backend/storeManagers/legendary/electronStores'
 import {
   achievementStore as GOGAchievementStore,
@@ -386,6 +387,7 @@ function clearCache(
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
+    EpicAchievementStore.clear()
     runLegendaryCommand(
       { subcommand: 'cleanup' },
       { abortId: 'legandary-cleanup' }
@@ -402,8 +404,9 @@ function clearCache(
   }
 }
 
-function clearAchievementCache(appName: string) {
-  GOGAchievementStore.delete(appName)
+function clearAchievementCache(appName: string, runner: Runner) {
+  if (runner === 'gog') GOGAchievementStore.delete(appName)
+  if (runner === 'legendary') EpicAchievementStore.delete(appName)
 }
 
 function resetHeroic() {
