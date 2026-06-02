@@ -27,7 +27,7 @@ export function checkStandard(
     down = buttons[13],
     left = buttons[14],
     right = buttons[15],
-    // XBOX = buttons[16],
+    guideButton = buttons[16], // Xbox "Guide" / PS button
     leftAxisX = axes[0],
     leftAxisY = axes[1],
     rightAxisX = axes[2],
@@ -51,4 +51,5 @@ export function checkStandard(
   checkAction('padLeft', left?.pressed, controllerIndex)
   checkAction('padRight', right?.pressed, controllerIndex)
   checkAction('rightClick', contextMenuButton?.pressed, controllerIndex)
+  checkAction('guide', guideButton?.pressed, controllerIndex)
 }

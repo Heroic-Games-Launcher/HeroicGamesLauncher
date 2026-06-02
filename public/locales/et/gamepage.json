@@ -131,7 +131,8 @@
         "changelogFor": "Muutuste nimekiri mängule {{gameTitle}}",
         "modify": "Muuda paigaldust",
         "extra_info": "Lisainfo",
-        "install_info": "Paigaldamise info"
+        "install_info": "Paigaldamise info",
+        "achievements": "Saavutused"
     },
     "gamecard": {
         "moving": "Liigutamine",

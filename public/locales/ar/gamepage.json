@@ -53,7 +53,20 @@
         "warning": {
             "title": "تحذير"
         },
-        "ok": "حسنًا"
+        "ok": "حسنًا",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "selectLaunchOption": {
+            "title": "",
+            "body": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "add_to_favourites": "أضف للمفضلة",
@@ -118,7 +131,8 @@
         "changelogFor": "سجل التغيير لـ {{gameTitle}}",
         "modify": "تعديل التثبيت",
         "extra_info": "معلومات إضافية",
-        "install_info": "معلومات التثبيت"
+        "install_info": "معلومات التثبيت",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "قيد النقل",
@@ -194,7 +208,8 @@
         }
     },
     "launch": {
-        "options": "خيارات التشغيل..."
+        "options": "خيارات التشغيل...",
+        "default": ""
     },
     "not_logged_in": {
         "epic": "لم تقم بتسجيل الدخول بحساب أَبِك في هِرُوِك. لا تستخدم صفحة المتجر لتسجيل الدخول، انقر الزر التالي بدلًا عن ذلك:",
@@ -320,5 +335,6 @@
             "remove": "أزل من التنزيلات"
         }
     },
-    "wikiLink": "معلومات مهمة حول هذه اللعبة, اقرأ هذا: &nbsp;<1>افتح الصفحة</1>"
+    "wikiLink": "معلومات مهمة حول هذه اللعبة, اقرأ هذا: &nbsp;<1>افتح الصفحة</1>",
+    "open-saves-folder": ""
 }

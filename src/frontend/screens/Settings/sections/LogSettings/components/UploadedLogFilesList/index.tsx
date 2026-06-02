@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Launch, Delete } from '@mui/icons-material'
+import { Launch } from '@mui/icons-material'
 
 import {
   Dialog,
@@ -43,6 +43,8 @@ const UploadedLogFileItem = memo(function UploadedLogFileItem(
     )
   }, [(Date.now() - uploadedAt) / 1000 / 60 > 60])
 
+  // TODO: Added here so we don't lose the translation for when we add this back
+  // t('setting.log.upload.delete', 'Request log file deletion')
   return (
     <tr>
       <td>{name}</td>
@@ -54,12 +56,12 @@ const UploadedLogFileItem = memo(function UploadedLogFileItem(
         >
           <Launch color="primary" />
         </SvgButton>
-        <SvgButton
+        {/* <SvgButton
           onClick={async () => window.api.deleteUploadedLogFile(url)}
           title={t('setting.log.upload.delete', 'Request log file deletion')}
         >
           <Delete color="error" />
-        </SvgButton>
+        </SvgButton> */}
       </td>
     </tr>
   )

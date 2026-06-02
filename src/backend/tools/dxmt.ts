@@ -14,6 +14,7 @@ import {
   writeFileSync
 } from 'graceful-fs'
 import { toolsPath } from 'backend/constants/paths'
+import { wineDownloaderInfoStore } from 'backend/wine/manager/utils'
 
 const DXMT = {
   getLatest: () => {
@@ -40,59 +41,11 @@ const DXMT = {
     const wineFilePath = join(installDir, versionInfo.version)
     const wineCopyFilePath = `${wineFilePath}-DXMT`
     try {
-      // copy wine
       cpSync(wineFilePath, wineCopyFilePath, { recursive: true })
 
-      // copy dxmt files inside wine
-      const globalVersion = readFileSync(join(toolsPath, 'dxmt', 'latest_dxmt'))
-        .toString()
-        .split('\n')[0]
+      DXMT.copyLatestDXMTFiles(wineCopyFilePath)
 
-      const toolPath = join(toolsPath, 'dxmt', globalVersion)
-      const wineInternalPath = join(
-        wineCopyFilePath,
-        'Contents',
-        'Resources',
-        'wine',
-        'lib',
-        'wine'
-      )
-
-      const filesToCopy = [
-        'x86_64-windows/d3d10core.dll',
-        'x86_64-windows/d3d11.dll',
-        'x86_64-windows/dxgi.dll',
-        'x86_64-windows/nvapi64.dll',
-        'x86_64-windows/nvngx.dll',
-        'x86_64-windows/winemetal.dll',
-        'x86_64-unix/winemetal.so',
-        'i386-windows/d3d10core.dll',
-        'i386-windows/d3d11.dll',
-        'i386-windows/dxgi.dll',
-        'i386-windows/winemetal.dll'
-      ]
-
-      filesToCopy.forEach((file) => {
-        logDebug(
-          `Copying ${join(toolPath, file)} in ${join(wineInternalPath, file)}`,
-          LogPrefix.ToolInstaller
-        )
-        copyFileSync(join(toolPath, file), join(wineInternalPath, file))
-      })
-
-      // rename version in info.plist
-      const infoFilePath = join(wineCopyFilePath, 'Contents', 'Info.plist')
-      let content = readFileSync(infoFilePath, 'utf8')
-      content = content.replace(
-        /(<key>CFBundleShortVersionString<\/key>\n.*<string>)(.*)(<\/string>)/m,
-        '$1$2-DXMT$3'
-      )
-      content = content.replace(
-        /(<key>CFBundleVersion<\/key>\n.*<string>)(.*)(<\/string>)/m,
-        '$1$2-DXMT$3'
-      )
-
-      writeFileSync(infoFilePath, content)
+      DXMT.addDXMTSuffixInPlist(wineCopyFilePath)
     } catch (error) {
       logError(
         `Error copying wine staging for DXMT version ${error}`,
@@ -101,6 +54,14 @@ const DXMT = {
       if (existsSync(wineCopyFilePath)) {
         rmSync(wineCopyFilePath, { recursive: true })
       }
+    }
+  },
+  getCurrentDXMTVersion: () => {
+    const versionFilePath = join(toolsPath, 'dxmt', 'latest_dxmt')
+    if (existsSync(versionFilePath)) {
+      return readFileSync(versionFilePath).toString().split('\n')[0]
+    } else {
+      return ''
     }
   },
   deleteWineCopy: async (versionInfo: WineVersionInfo) => {
@@ -116,6 +77,57 @@ const DXMT = {
         )
       }
     }
+  },
+
+  copyLatestDXMTFiles: (pathToWine: string) => {
+    const dxmtVersion = DXMT.getCurrentDXMTVersion()
+
+    const pathToDXMT = join(toolsPath, 'dxmt', dxmtVersion)
+
+    const wineInternalPath = join(
+      pathToWine,
+      'Contents',
+      'Resources',
+      'wine',
+      'lib',
+      'wine'
+    )
+
+    const filesToCopy = [
+      'x86_64-windows/d3d10core.dll',
+      'x86_64-windows/d3d11.dll',
+      'x86_64-windows/dxgi.dll',
+      'x86_64-windows/nvapi64.dll',
+      'x86_64-windows/nvngx.dll',
+      'x86_64-windows/winemetal.dll',
+      'x86_64-unix/winemetal.so',
+      'i386-windows/d3d10core.dll',
+      'i386-windows/d3d11.dll',
+      'i386-windows/dxgi.dll',
+      'i386-windows/winemetal.dll'
+    ]
+
+    filesToCopy.forEach((file) => {
+      logDebug(
+        `Copying ${join(pathToDXMT, file)} in ${join(wineInternalPath, file)}`,
+        LogPrefix.ToolInstaller
+      )
+      copyFileSync(join(pathToDXMT, file), join(wineInternalPath, file))
+    })
+  },
+  addDXMTSuffixInPlist: (pathToWine: string) => {
+    const infoFilePath = join(pathToWine, 'Contents', 'Info.plist')
+    let content = readFileSync(infoFilePath, 'utf8')
+    content = content.replace(
+      /(<key>CFBundleShortVersionString<\/key>\n.*<string>)(.*)(<\/string>)/m,
+      '$1$2-DXMT$3'
+    )
+    content = content.replace(
+      /(<key>CFBundleVersion<\/key>\n.*<string>)(.*)(<\/string>)/m,
+      '$1$2-DXMT$3'
+    )
+
+    writeFileSync(infoFilePath, content)
   }
 }
 
@@ -130,4 +142,30 @@ backendEvents.on('wineVersionUninstalled', async (versionInfo) => {
   if (isMac && !isIntelMac && versionInfo.type === 'Wine-Staging-macOS') {
     await DXMT.deleteWineCopy(versionInfo)
   }
+})
+
+// Update DXMT version in `*-DXMT` wines if new version available
+backendEvents.on('releasesInfoReady', async (releasesInfo) => {
+  if (!isMac || isIntelMac) return
+
+  // TODO: should we store just the version instead of the file name?
+  const currentDXMTVersion = DXMT.getCurrentDXMTVersion()
+    .replace(/.*dxmt-/, '')
+    .replace(/-builtin.*/, '')
+
+  if (releasesInfo['dxmt'].tag === currentDXMTVersion) return
+
+  await DXMT.getLatest()
+
+  const availableWines = wineDownloaderInfoStore.get('wine-releases', [])
+  const installedWineStagingVersions = availableWines.filter(
+    (wine) => wine.type === 'Wine-Staging-macOS' && wine.isInstalled
+  )
+
+  installedWineStagingVersions.forEach((wine) => {
+    const wineWithDXMTFilePath = `${wine.installDir}-DXMT`
+
+    if (existsSync(wineWithDXMTFilePath))
+      DXMT.copyLatestDXMTFiles(wineWithDXMTFilePath)
+  })
 })

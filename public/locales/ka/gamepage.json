@@ -8,7 +8,14 @@
             "image": "აირჩიეთ გამოსახულება"
         },
         "uninstall": {
-            "title": "წაშლა"
+            "title": "წაშლა",
+            "settingcheckbox": "",
+            "cannotUninstallEpic": "",
+            "message": "",
+            "checkbox": "",
+            "prefix_warning": "",
+            "gameIsRunning": "",
+            "dlc": ""
         },
         "yes": "დიახ",
         "sideload": {
@@ -16,7 +23,8 @@
         },
         "stopInstall": {
             "keepInstalling": "დაყენების გაგრძელება",
-            "title": "დაყენების გაჩერება"
+            "title": "დაყენების გაჩერება",
+            "message": ""
         },
         "warning": {
             "title": "გაფრთხილება"
@@ -40,9 +48,24 @@
             "title": "აირჩიეთ გასაშვები EXE"
         },
         "selectLaunchOption": {
-            "body": "გთხოვთ, აირჩიოთ ამ თამაშის გაშვების ბრძანება (მისი შეცვლა მოგვიანებით შესაძლებელია თამაშის პარამეტრებში):"
+            "body": "გთხოვთ, აირჩიოთ ამ თამაშის გაშვების ბრძანება (მისი შეცვლა მოგვიანებით შესაძლებელია თამაშის პარამეტრებში):",
+            "title": ""
         },
-        "ok": "დიახ"
+        "ok": "დიახ",
+        "offline_warning": {
+            "message": "",
+            "playAnyway": "",
+            "title": ""
+        },
+        "wineprefix": "",
+        "update": {
+            "message": "",
+            "title": ""
+        },
+        "sync": {
+            "force_download_warning": "",
+            "force_upload_warning": ""
+        }
     },
     "button": {
         "cancel": "შეჩერება/გაუქმება",
@@ -61,17 +84,33 @@
         "sideload": {
             "edit": "აპის/თამაშის ჩასწორება"
         },
-        "unhide_game": "თამაშის ხილულად გახდომა"
+        "unhide_game": "თამაშის ხილულად გახდომა",
+        "add_to_favourites": "",
+        "force_update": "",
+        "browse_wine_prefix": "",
+        "run-exe-first": "",
+        "remove_from_recent": "",
+        "queue": {
+            "remove": ""
+        },
+        "remove_from_favourites": "",
+        "play": "",
+        "no-path-selected": ""
     },
     "cloud_save_unsupported": "მხარდაუწერელი",
     "disabled": "გათიშულია",
     "enabled": "ჩართულია",
     "game": {
         "branch": {
-            "disabled": "გათიშულია"
+            "disabled": "გათიშულია",
+            "select": "",
+            "password": "",
+            "setPrivateBranchPassword": ""
         },
         "builds": {
-            "version": "ვერსია"
+            "version": "ვერსია",
+            "buildsSelector": "",
+            "toggle": ""
         },
         "language": "ენა",
         "neverPlayed": "არასდროს",
@@ -82,7 +121,13 @@
         "installSize": "დაყენებული ზომა",
         "lastPlayed": "ბოლო გაშვება",
         "modify": "დაყენების შეცვლა",
-        "requirements": "სისტემური მოთხოვნები"
+        "requirements": "სისტემური მოთხოვნები",
+        "getting-download-size": "",
+        "changelogFor": "",
+        "getting-install-size": "",
+        "totalPlayed": "",
+        "platform": "",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "გადაადგილება",
@@ -90,19 +135,42 @@
     },
     "hours": "საათი",
     "how-long-to-beat": {
-        "completionist": "დასრულების დონე"
+        "completionist": "დასრულების დონე",
+        "main-plus-extras": "",
+        "main-story": ""
     },
     "info": {
         "size": "ზომა",
-        "version": "ვერსია"
+        "version": "ვერსია",
+        "canRunOffline": "",
+        "syncsaves": "",
+        "installedInfo": "",
+        "path": "",
+        "clickToOpen": "",
+        "steamdeck-compatibility-info": "",
+        "game-scores": "",
+        "protondb-compatibility-info": "",
+        "apple-gaming-wiki": "",
+        "third-party-app": "",
+        "installedPlatform": ""
     },
     "install": {
         "anticheat-warning": {
             "cancel": "არა",
-            "ok": "დიახ"
+            "ok": "დიახ",
+            "disabled_installation": "",
+            "install_anyway": "",
+            "multiplayer_message": "",
+            "title": ""
         },
         "wineprefix": "Wine-ის პრეფიქსი",
-        "wineversion": "Wine-ის ვერსია"
+        "wineversion": "Wine-ის ვერსია",
+        "disk-space-left": "",
+        "space-after-install": "",
+        "not-enough-disk-space": "",
+        "path": "",
+        "flatpak-path-not-writtable": "",
+        "path-not-writtable": ""
     },
     "label": {
         "launching": "ეშვება",
@@ -110,15 +178,38 @@
             "installing": "მიმდინარეობს დაყენება",
             "specificVersion-pt2": "archive.org",
             "installation": "დაყენების გაჩერება"
+        },
+        "winetricks": "",
+        "playing": {
+            "start": "",
+            "start_with_logs": "",
+            "stop": ""
+        },
+        "redist": "",
+        "game": {
+            "third-party-game": "",
+            "not-installable-game": ""
+        },
+        "saves": {
+            "syncing": ""
         }
     },
     "modifyInstall": {
-        "dlcsCollapsible": "DLC"
+        "dlcsCollapsible": "DLC",
+        "redMod": {
+            "collapsible": "",
+            "enable": ""
+        },
+        "nodlcs": "",
+        "versionCollapsable": ""
     },
     "Open": "გახსნა",
     "queue": {
         "label": {
-            "canceled": "გაუქმებულია"
+            "canceled": "გაუქმებულია",
+            "resume": "",
+            "pause": "",
+            "remove": ""
         }
     },
     "sideload": {
@@ -127,7 +218,21 @@
         },
         "info": {
             "broser": "ბრაუზერის URL",
-            "exe": "აირჩიეთ გამშვები ფაილი"
+            "exe": "აირჩიეთ გამშვები ფაილი",
+            "title": "",
+            "useragent": "",
+            "fullscreen": "",
+            "image": ""
+        },
+        "placeholder": {
+            "url": "",
+            "useragent": "",
+            "image": "",
+            "title": ""
+        },
+        "import-hint": {
+            "content": "",
+            "title": ""
         }
     },
     "specs": {
@@ -143,12 +248,82 @@
         "launching": "ეშვება",
         "playing": "თამაში",
         "queued": "რიგშია",
-        "uninstalling": "წაშლა"
+        "uninstalling": "წაშლა",
+        "redist": "",
+        "notSupported": "",
+        "clickToUpdate": "",
+        "winetricks": "",
+        "syncingSaves": "",
+        "processing": "",
+        "notinstalled": "",
+        "moving": "",
+        "totalDownloaded": "",
+        "gameNotAvailable": "",
+        "this-game-uses-third-party": "",
+        "moving-files": "",
+        "reparing": "",
+        "gog-goodie": "",
+        "goodie": "",
+        "notSupportedGame": "",
+        "updating": "",
+        "hasUpdates": ""
     },
     "submenu": {
         "categories": "კატეგორიები",
         "logs": "ჟურნალი",
         "settings": "პარამეტრები",
-        "verify": "თამაშის შემოწმება და შეკეთება"
-    }
+        "verify": "თამაშის შემოწმება და შეკეთება",
+        "change": "",
+        "protondb": "",
+        "enableEosOverlay": "",
+        "store": "",
+        "disableEosOverlay": "",
+        "addShortcut": "",
+        "addToSteam": "",
+        "removeFromSteam": "",
+        "removeShortcut": "",
+        "move": ""
+    },
+    "third-party-managed": {
+        "header": "",
+        "notice2": "",
+        "notice1": ""
+    },
+    "not_logged_in": {
+        "gog": "",
+        "login": "შესვლა",
+        "amazon": "",
+        "title": "",
+        "zoom": "",
+        "epic": ""
+    },
+    "setting": {
+        "warn-use-shared-wine-config": "",
+        "show-wine-settings": "",
+        "use-shared-wine-config": "",
+        "winecrossoverbottle": ""
+    },
+    "open-saves-folder": "",
+    "sdl": {
+        "title": ""
+    },
+    "launch": {
+        "default": ""
+    },
+    "help": {
+        "content": {
+            "gamePage": ""
+        },
+        "cloud_save_unsupported": "",
+        "title": {
+            "gamePage": ""
+        }
+    },
+    "howLongToBeat": "",
+    "generic": {
+        "error": "",
+        "noDescription": ""
+    },
+    "report_problem": "",
+    "wikiLink": ""
 }

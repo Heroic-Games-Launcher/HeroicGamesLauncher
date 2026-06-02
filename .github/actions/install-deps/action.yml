@@ -5,7 +5,7 @@ runs:
   steps:
     - uses: pnpm/action-setup@v4
       with:
-        standalone: ${{ runner.os == 'Windows' }}
+        standalone: ${{ runner.os == 'Windows' && runner.arch != 'ARM64' }}
     - uses: actions/setup-node@v6
       with:
         node-version-file: 'package.json'

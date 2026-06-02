@@ -131,7 +131,8 @@
         "changelogFor": "Változásnapló a(z) {{gameTitle}} játékhoz",
         "modify": "Telepítés módosítása",
         "extra_info": "További információk",
-        "install_info": "Telepítési információk"
+        "install_info": "Telepítési információk",
+        "achievements": "Eredmények"
     },
     "gamecard": {
         "moving": "Áthelyezés",
@@ -235,7 +236,7 @@
         "epic": "Nem vagy Epic-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
         "gog": "Nem vagy GOG-fiókkal bejelentkezve a Heroicba. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
         "login": "Bejelentkezés",
-        "title": "NEM VAGY bejelentkezve",
+        "title": "Nem vagy bejelentkezve",
         "amazon": "Nem vagy Amazon-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:",
         "zoom": "Nem vagy Zoom-fiókkal bejelentkezve a Heroicban. Ne az áruházi oldalon jelentkezz be, kattints helyette erre a gombra:"
     },
@@ -324,7 +325,7 @@
         "categories": "Kategóriák"
     },
     "help": {
-        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak",
+        "cloud_save_unsupported": "Ez a játék nem támogatja a felhőalapú mentést. Ezt az információt a játékfejlesztők biztosítják. Egyes játékok saját felhőalapú mentési rendszert alkalmaznak.",
         "title": {
             "gamePage": "Játékoldal"
         },

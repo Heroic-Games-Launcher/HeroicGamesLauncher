@@ -2,7 +2,20 @@
     "button": {
         "copied": "დაკოპირდა!",
         "copy": "კოპირება",
-        "loading": "იტვირთება"
+        "loading": "იტვირთება",
+        "open": "",
+        "login": "შესვლა",
+        "error": ""
     },
-    "welcome": "მოგესალმებით!"
+    "welcome": "მოგესალმებით!",
+    "message": {
+        "part2": "",
+        "part7": "",
+        "part8": "",
+        "part1": "",
+        "part3": "",
+        "part5": "",
+        "part6": "",
+        "part4": ""
+    }
 }

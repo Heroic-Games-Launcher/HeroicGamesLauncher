@@ -189,7 +189,7 @@
                 "title": "Não foi encontrado o Rosetta"
             }
         },
-        "wineprefix": "Escolha a pasta para o prefixo Wine",
+        "wineprefix": "Selecione a pasta com o prefixo Wine",
         "yes": "SIM",
         "dontShowAgain": "Não mostrar novamente",
         "choose-nile-binary": "Selecione o binário do Nile",
@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Recarregar a Biblioteca"
-        }
+        },
+        "abort": "",
+        "install": "Instalar",
+        "uninstall": "Desinstalar"
     },
     "globalSettings": "Definições Globais",
     "GOG": "GOG",
@@ -377,7 +380,10 @@
         "download_proton_steam": "Quando ativado, o GE-Proton vai ser transferido diretamente para o diretório de ferramentas de compatibilidade do Steam, em vez do caminho pré-definido pelo Heroic. Este vai usar o caminho do Steam que foi definido na definição em cima \"Caminho Padrão do Steam\".",
         "wine-hdr": "O HDR melhora as cores ao proporcionar realces mais brilhantes e contrastes mais profundos. Para que o HDR funcione, tanto o ecrã como o jogo devem suportá-lo.",
         "wine-wayland": "O controlador experimental Wine-Wayland permite que os jogos executem de forma nativa sob o protocolo de janelas de ecrã Wayland. Poderão ocorrer problemas em alguns jogos se ativar esta opção.",
-        "WoW64": "O modo Wine WoW64 permite que os jogos do Windows, na versão 32 bits, sejam executados no Wine de 64 bits. O desempenho pode aumentar se ativar esta opção mas também poderá causar problemas em jogos de 32 bits mais antigos."
+        "WoW64": "O modo Wine WoW64 permite que os jogos do Windows, na versão 32 bits, sejam executados no Wine de 64 bits. O desempenho pode aumentar se ativar esta opção mas também poderá causar problemas em jogos de 32 bits mais antigos.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -564,7 +570,7 @@
         "custom_themes_path": "Selecione o caminho para procurar ficheiros CSS personalizados",
         "dxvkfpsvalue": "Valor de um número inteiro positivo (exemplo: 30, 60, ...)",
         "egs-prefix": "O prefixo onde a Epic Games está instalada",
-        "prefered_language": "Código de 2 caracteres (exemplo: \"en\" or \"fr\")",
+        "prefered_language": "Código de 2 ou 4 caracteres (exemplo: \"pt\" ou \"pt-BR\")",
         "alt-nile-bin": "A usar binário Nile incorporado..."
     },
     "platforms": {
@@ -712,13 +718,6 @@
         "offlinemode": "Executar o Jogo em Modo Offline",
         "prefered_language": "Idioma Preferido (Código de Idioma)",
         "preferSystemLibs": "Preferir as bibliotecas do sistema",
-        "primerun": {
-            "confirmation": {
-                "message": "Só foi detetada uma placa gráfica neste sistema. Tenha atenção que esta opção é destinada a sistemas com múltiplos GPUs (como computadores portáteis). Em sistemas que só possuam uma GPU, esta vai ser usada automaticamente. Esta opção pode causar problemas, tem a certeza de que a pretende ativar?",
-                "title": "Só foi detetada 1 GPU"
-            },
-            "description": "Usar a Placa Gráfica Dedicada"
-        },
         "runexe": {
             "message": "Arraste e Solte arquivos aqui",
             "title": "Executar o EXE no Prefixo"
@@ -811,7 +810,9 @@
         "wineWayland": "Ativar o Wine-Wayland (Experimental) (a versão do Wine precisa de o suportar)",
         "WoW64": "Ativar o WoW64 (Experimental)",
         "scripts": "Scripts:",
-        "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo"
+        "enable-quick-sync-menu": "Ativar o menu de guardar e sincronizar rapidamente na página do jogo",
+        "disable_gog_presence": "Desativar atualizações presentes do GOG",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -917,12 +918,23 @@
             "title": "Estilo de CSS Personalizado"
         },
         "launchOptions": "Opções de execução",
-        "legacy_warning": "Aviso: A maior parte das definições neste separador estão obsoletas e podem não funcionar de todo."
+        "legacy_warning": "Aviso: A maior parte das definições neste separador estão obsoletas e podem não funcionar de todo.",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Definições",
     "sidebar": {
         "collapse": "Collapse sidebar",
-        "uncollapse": "Uncollapse sidebar"
+        "uncollapse": "Uncollapse sidebar",
+        "console": ""
     },
     "status": {
         "installing": "A Instalar",
@@ -979,7 +991,13 @@
             "link": "Gestor do Wine",
             "not-found": "Não foi encontrada nenhuma versão do Wine. Clique, por favor, no ícone de recarregar para tentar novamente.",
             "title": "Gestor do Wine",
-            "unzipping": "A descomprimir"
+            "unzipping": "A descomprimir",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Atualização",
+            "settings": "Configurações",
+            "no-results": ""
         },
         "release": "Data de Lançamento",
         "size": "Tamanho",
@@ -1050,7 +1068,10 @@
     },
     "wineExplanation": {
         "proton-ge": "O GE-Proton é uma variante do Proton criada por Glorious Eggroll. É suposto ser usada juntamente com o lançador umu (que é a predefinição no Heroic).",
-        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada por Glorious Eggroll. Foi entretanto descontinuada em favor do GE-Proton com o lançador umu."
+        "wine-ge": "O Wine-GE-Proton é uma variante do Wine criada por Glorious Eggroll. Foi entretanto descontinuada em favor do GE-Proton com o lançador umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "tour": {
         "back": "Atrás",
@@ -1123,5 +1144,132 @@
     "zoom-store": "Loja do Zoom",
     "launch": {
         "options": "Opções de Arranque..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "Sistema Operacional:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Tudo",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Nenhum Jogo Encontrado",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "Fechar",
+            "change_store": ""
+        },
+        "launching": "Iniciando",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Tudo"
+        },
+        "empty": "",
+        "games": "Jogos Instalados",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Próximo"
 }

@@ -131,7 +131,8 @@
         "changelogFor": "{{gameTitle}} 更新记录",
         "modify": "修改安装",
         "extra_info": "附加信息",
-        "install_info": "安装信息"
+        "install_info": "安装信息",
+        "achievements": "成就"
     },
     "gamecard": {
         "moving": "移动中",
@@ -326,7 +327,7 @@
         "categories": "分类"
     },
     "help": {
-        "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云保存系统",
+        "cloud_save_unsupported": "本游戏不支持云存档。此信息由游戏开发商提供。有些游戏部署了自己的云存档系统。",
         "content": {
             "gamePage": "显示所有游戏详情和操作。使用三点菜单查看更多选项。"
         },
