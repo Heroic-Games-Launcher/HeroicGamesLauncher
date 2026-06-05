@@ -190,24 +190,24 @@
     <p xml:lang="zh">Flatpak 的当前限制：</p>
     <p xml:lang="ja">Flatpak の現在の制限：</p>
     <ul>
-      <li>Due to issues with controller on SteamDeck Gaming Mode Heroic uses Flatpak Runtime 23.08
+      <li>Due to issues with controller on Steam Deck Gaming Mode Heroic uses Flatpak Runtime 23.08
         on stable branch. If you need runtime 24.08 to have HDR support and more please use the beta
         branch of flathub.</li>
-      <li xml:lang="de">Aufgrund von Problemen mit Controllern im SteamDeck Gaming Mode verwendet
+      <li xml:lang="de">Aufgrund von Problemen mit Controllern im Steam Deck Gaming Mode verwendet
         Heroic auf dem Stable Branch Flatpak Runtime 23.08. Wenn du Runtime 24.08 für HDR Support
         und mehr benötigst, nutze bitte den Beta Branch von Flathub.</li>
-      <li xml:lang="pt">Devido a problemas com o controle no modo de jogo SteamDeck, o Heroic usa o
+      <li xml:lang="pt">Devido a problemas com o controle no modo de jogo Steam Deck, o Heroic usa o
         Flatpak Runtime 23.08 no branch estável. Se você precisar do runtime 24.08 para ter suporte
         a HDR e mais, use o branch beta do Flathub.</li>
-      <li xml:lang="es">Debido a problemas con el controlador en el modo de juego SteamDeck, Heroic
+      <li xml:lang="es">Debido a problemas con el controlador en el modo de juego Steam Deck, Heroic
         utiliza Flatpak Runtime 23.08 en la rama estable. Si necesitas runtime 24.08 para tener
         soporte HDR y más, utiliza la rama beta de Flathub.</li>
-      <li xml:lang="fr">En raison de problèmes de contrôleur en mode jeu SteamDeck, Heroic utilise
+      <li xml:lang="fr">En raison de problèmes de contrôleur en mode jeu Steam Deck, Heroic utilise
         Flatpak Runtime 23.08 sur la branche stable. Si vous avez besoin de la runtime 24.08 pour
         bénéficier du support HDR et plus encore, veuillez utiliser la branche bêta de Flathub.</li>
-      <li xml:lang="zh">由于 SteamDeck 游戏模式下控制器的问题，Heroic 在稳定分支上使用 Flatpak Runtime 23.08。如果您需要运行时
+      <li xml:lang="zh">由于 Steam Deck 游戏模式下控制器的问题，Heroic 在稳定分支上使用 Flatpak Runtime 23.08。如果您需要运行时
         24.08 来支持 HDR 等功能，请使用 Flathub 的 beta 分支。</li>
-      <li xml:lang="ja">SteamDeck ゲーミングモードでのコントローラーの問題により、Heroic は安定ブランチで Flatpak Runtime 23.08
+      <li xml:lang="ja">Steam Deck ゲーミングモードでのコントローラーの問題により、Heroic は安定ブランチで Flatpak Runtime 23.08
         を使用しています。HDR サポートなどのために Runtime 24.08 が必要な場合は、Flathub のベータブランチを使用してください。</li>
       <li>Heroic will not find or use Wine and Proton Flatpak versions. At least for now.</li>
       <li xml:lang="de">Heroic findet aktuell keine Wine oder Proton Versionen, die per Flatpak
@@ -291,7 +291,7 @@
         <ul>
           <li>This version uses Flatpak Runtime 23.08. If you need 24.08 install Heroic from the
             beta branch</li>
-          <li>Add warning dialog for disabled Shader Pre-caching on SteamDeck</li>
+          <li>Add warning dialog for disabled Shader Pre-caching on Steam Deck</li>
           <li>Fixed app Icon</li>
           <li>Some UMU fixes</li>
           <li>Improved logs</li>

@@ -47,7 +47,7 @@
             "message": "Ova video igra ima ažuriranje. Želite li ažurirati sada?",
             "title": "Video igri je potrebno ažuriranje"
         },
-        "wineprefix": "Izaberite WinePrefix mapu",
+        "wineprefix": "Izaberite Wine Prefix mapu",
         "yes": "DA",
         "warning": {
             "title": "Warning"
@@ -161,7 +161,7 @@
         "game-scores": "Rezultati igre",
         "installedInfo": "Instalirane informacije",
         "protondb-compatibility-info": "Proton Compatibility Tier",
-        "steamdeck-compatibility-info": "SteamDeck kompatibilnost",
+        "steamdeck-compatibility-info": "Steam Deck kompatibilnost",
         "third-party-app": ""
     },
     "install": {
@@ -170,7 +170,7 @@
         "path": "Izaberi put instalacije",
         "path-not-writtable": "Upozorenje: put možda nije upisiv.",
         "space-after-install": "Nakon instalacije",
-        "wineprefix": "WinePrefix",
+        "wineprefix": "Wine Prefix",
         "wineversion": "Wine verzija",
         "anticheat-warning": {
             "cancel": "",

@@ -304,7 +304,7 @@
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
         "general": "Synchronizujte s EGL, ak máte funkčnú inštaláciu Epic Games Launcher inde a chcete importovať svoje hry, aby ste sa vyhli ich opätovnému sťahovaniu.",
-        "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "mangohud": "MangoHud is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
         "other": {
             "part4": "Použi ",
             "part5": "Argumenty hry",
@@ -361,7 +361,7 @@
             "upscaleWidth": "Rozlíšenie šírky používané gamescope. Predpokladá sa pomer strán 16:9.",
             "forceGrabCursor": ""
         },
-        "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
+        "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a Linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
         "button": {
             "close": "Zatvoriť Pomocník",
             "open": "Otvoriť Pomocník"
@@ -694,7 +694,7 @@
             },
             "show-uploads": "Zobraziť nahrané protokolové súbory"
         },
-        "mangohud": "Povoliť Mangohud (musí byť nainštalovaný Mangohud)",
+        "mangohud": "Povoliť MangoHud (musí byť nainštalovaný MangoHud)",
         "manualsync": {
             "download": "Stiahnuť ▼",
             "forcedownload": "Vynútiť stiahnutie",
@@ -724,7 +724,7 @@
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Priečinok WinePrefix",
+        "wineprefix": "Priečinok Wine Prefix",
         "wineversion": "Wine Version",
         "autoUpdateGames": "Automaticky aktualizovať hry",
         "ignoreGameUpdates": "Ignorovať aktualizácie hry",
