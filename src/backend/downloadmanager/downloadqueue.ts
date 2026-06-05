@@ -25,6 +25,7 @@ const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
 let queueState: DownloadManagerState = 'idle'
 let currentElement: DMQueueElement | null = null
 let autoPaused = false
+let processingLock = false
 
 onConnectivityChange((status) => {
   if (status === 'offline' && isRunning()) {
@@ -79,43 +80,128 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 #### Public ####
 */
 
-async function initQueue() {
-  let element = getFirstQueueElement()
+async function enrichElement(element: DMQueueElement): Promise<DMQueueElement[]> {
+  const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
+    element.params.appName
+  )
 
-  while (element) {
-    const queuedElements = downloadManager.get('queue', [])
-    element.startTime = Date.now()
-    queuedElements[0] = element
-    downloadManager.set('queue', queuedElements)
-
-    currentElement = element
-
-    queueState = 'running'
-    sendFrontendMessage('changedDMQueueInformation', queuedElements, queueState)
-
-    const { status } =
-      element.type === 'install'
-        ? await installQueueElement(element.params)
-        : await updateQueueElement(element.params)
-    element.endTime = Date.now()
-
-    processNotification(element, status)
-
-    if (!isPaused()) {
-      addToFinished(element, status)
-      removeFromQueue(element.params.appName)
-      element = getFirstQueueElement()
-    } else {
-      element = null
-    }
+  if (
+    gameInfo?.isEAManaged ||
+    gameInfo?.isUbisoftManaged ||
+    element.params.appName === 'gog-redist'
+  ) {
+    element.params.size = '?? MB'
+    return []
   }
 
-  if (queueState !== 'paused') {
-    queueState = 'idle'
+  try {
+    const installInfo = await libraryManagerMap[
+      element.params.runner
+    ].getInstallInfo(
+      element.params.appName,
+      element.params.platformToInstall,
+      {
+        branch: element.params.branch,
+        build: element.params.build
+      }
+    )
+
+    element.params.size = installInfo?.manifest?.download_size
+      ? getFileSize(installInfo?.manifest?.download_size)
+      : '?? MB'
+
+    if (
+      element.params.runner === 'gog' &&
+      element.params.platformToInstall.toLowerCase() === 'windows' &&
+      installInfo &&
+      installInfo.manifest &&
+      'dependencies' in installInfo.manifest
+    ) {
+      const newDependencies = installInfo.manifest.dependencies || []
+      if (newDependencies?.length || !existsSync(gogRedistPath)) {
+        const redistElement = createRedistDMQueueElement()
+        redistElement.params.dependencies = newDependencies
+        return [redistElement]
+      }
+    }
+  } catch (error) {
+    logWarning(
+      [`Error enriching install info for ${element.params.appName}:`, error],
+      LogPrefix.DownloadManager
+    )
+  }
+
+  return []
+}
+
+async function initQueue() {
+  if (processingLock) return
+  processingLock = true
+
+  try {
+    let element = getFirstQueueElement()
+
+    while (element) {
+      let status: DMStatus = 'error'
+
+      try {
+        const extraElements = await enrichElement(element)
+        const currentQueue = downloadManager.get('queue', [])
+        const currentIndex = currentQueue.findIndex(
+          (el) => el.params.appName === element.params.appName
+        )
+
+        if (currentIndex < 0) {
+          element = getFirstQueueElement()
+          continue
+        }
+
+        if (extraElements.length > 0) {
+          currentQueue.splice(currentIndex + 1, 0, ...extraElements)
+        }
+
+        element.startTime = Date.now()
+        currentQueue[currentIndex] = element
+        downloadManager.set('queue', currentQueue)
+
+        currentElement = element
+        queueState = 'running'
+        sendFrontendMessage('changedDMQueueInformation', currentQueue, queueState)
+
+        const result =
+          element.type === 'install'
+            ? await installQueueElement(element.params)
+            : await updateQueueElement(element.params)
+        status = result.status
+      } catch (error) {
+        logError(
+          [`Error processing ${element.params.appName}:`, error],
+          LogPrefix.DownloadManager
+        )
+        status = 'error'
+      }
+
+      element.endTime = Date.now()
+      processNotification(element, status)
+
+      if (!isPaused()) {
+        addToFinished(element, status)
+        removeFromQueue(element.params.appName)
+        element = getFirstQueueElement()
+      } else {
+        element = null
+      }
+    }
+  } finally {
+    currentElement = null
+    if (queueState !== 'paused') {
+      queueState = 'idle'
+    }
+    processingLock = false
   }
 }
 
-async function addToQueue(element: DMQueueElement) {
+function addToQueue(element: DMQueueElement) {
   if (!element) {
     logError(
       'Can not add undefined element to queue!',
@@ -142,43 +228,7 @@ async function addToQueue(element: DMQueueElement) {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
-    const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
-      element.params.appName
-    )
-    if (!gameInfo?.isEAManaged && !gameInfo?.isUbisoftManaged) {
-      const installInfo = await libraryManagerMap[
-        element.params.runner
-      ].getInstallInfo(
-        element.params.appName,
-        element.params.platformToInstall,
-        {
-          branch: element.params.branch,
-          build: element.params.build
-        }
-      )
-
-      element.params.size = installInfo?.manifest?.download_size
-        ? getFileSize(installInfo?.manifest?.download_size)
-        : '?? MB'
-
-      if (
-        element.params.runner === 'gog' &&
-        element.params.platformToInstall.toLowerCase() === 'windows' &&
-        installInfo &&
-        installInfo.manifest &&
-        'dependencies' in installInfo.manifest
-      ) {
-        const newDependencies = installInfo.manifest.dependencies || []
-        if (newDependencies?.length || !existsSync(gogRedistPath)) {
-          // create redist element
-          const redistElement = createRedistDMQueueElement()
-          redistElement.params.dependencies = newDependencies
-          elements.push(redistElement)
-        }
-      }
-    } else {
-      element.params.size = '?? MB'
-    }
+    element.params.size = element.params.size ?? '?? MB'
     elements.push(element)
   }
 
@@ -187,7 +237,6 @@ async function addToQueue(element: DMQueueElement) {
     [element.params.gameInfo.title, ' was added to the download queue.'],
     LogPrefix.DownloadManager
   )
-
   sendFrontendMessage('changedDMQueueInformation', elements, queueState)
 
   if (isIdle()) {
@@ -203,7 +252,6 @@ function removeFromQueue(appName: string) {
     )
     if (index !== -1) {
       elements.splice(index, 1)
-      downloadManager.delete('queue')
       downloadManager.set('queue', elements)
     }
 
@@ -267,11 +315,18 @@ function pauseCurrentDownload() {
 
 function resumeCurrentDownload() {
   autoPaused = false
+  queueState = 'idle'
+  sendFrontendMessage(
+    'changedDMQueueInformation',
+    downloadManager.get('queue', []),
+    queueState
+  )
   void initQueue()
 }
 
 function stopCurrentDownload() {
-  const { appName, runner } = currentElement!.params
+  if (!currentElement) return
+  const { appName, runner } = currentElement.params
   callAbortController(appName)
   gameManagerMap[runner].stop(appName, false)
 }
