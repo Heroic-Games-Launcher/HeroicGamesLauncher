@@ -72,9 +72,13 @@ jest.mock('backend/electron_store', () => {
   return {
     TypeCheckedStoreBackend: jest.fn().mockImplementation(() => ({
       get: (key: string, def: unknown) => store[key] ?? def,
-      set: (key: string, val: unknown) => { store[key] = val },
+      set: (key: string, val: unknown) => {
+        store[key] = val
+      },
       has: (key: string) => key in store,
-      delete: (key: string) => { delete store[key] }
+      delete: (key: string) => {
+        delete store[key]
+      }
     }))
   }
 })
@@ -86,7 +90,8 @@ jest.mock('backend/downloadmanager/utils', () => ({
 
 // ---- Helpers ----
 
-const flushPromises = () => new Promise<void>(resolve => setImmediate(resolve))
+const flushPromises = () =>
+  new Promise<void>((resolve) => setImmediate(resolve))
 
 function makeElement(
   appName: string,
@@ -148,14 +153,19 @@ beforeEach(async () => {
     mockLibraryManager = storeManagers.libraryManagerMap
     mockGameManager = storeManagers.gameManagerMap
 
-    mockSendFrontendMessage = (await import('backend/ipc')).sendFrontendMessage as jest.Mock
-    mockSendGameStatusUpdate = (await import('backend/utils')).sendGameStatusUpdate as jest.Mock
-    mockCallAbortController = (await import('backend/utils/aborthandler/aborthandler')).callAbortController as jest.Mock
+    mockSendFrontendMessage = (await import('backend/ipc'))
+      .sendFrontendMessage as jest.Mock
+    mockSendGameStatusUpdate = (await import('backend/utils'))
+      .sendGameStatusUpdate as jest.Mock
+    mockCallAbortController = (
+      await import('backend/utils/aborthandler/aborthandler')
+    ).callAbortController as jest.Mock
     mockLogError = (await import('backend/logger')).logError as jest.Mock
     mockExistsSync = (await import('fs')).existsSync as jest.Mock
 
     const onlineMonitor = await import('backend/online_monitor')
-    onConnectivityCallback = (onlineMonitor.onConnectivityChange as jest.Mock).mock.calls[0]?.[0]
+    onConnectivityCallback = (onlineMonitor.onConnectivityChange as jest.Mock)
+      .mock.calls[0]?.[0]
   })
 
   // Default implementations
@@ -254,7 +264,9 @@ describe('initQueue', () => {
     dm.addToQueue(makeElement('game1'))
     await flushPromises()
     expect(mockInstall).toHaveBeenCalledTimes(1)
-    expect(mockInstall).toHaveBeenCalledWith(expect.objectContaining({ appName: 'game1' }))
+    expect(mockInstall).toHaveBeenCalledWith(
+      expect.objectContaining({ appName: 'game1' })
+    )
   })
 
   it('calls enrichElement before processing and updates size', async () => {
@@ -327,7 +339,12 @@ describe('pause and resume', () => {
   it('pausing mid-queue stops after current element', async () => {
     let resolveInstall: (val: { status: string }) => void
     mockInstall
-      .mockImplementationOnce(() => new Promise(resolve => { resolveInstall = resolve }))
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            resolveInstall = resolve
+          })
+      )
       .mockResolvedValue({ status: 'done' })
 
     dm.addToQueue(makeElement('game1'))
@@ -347,7 +364,12 @@ describe('pause and resume', () => {
   it('resuming processes the remaining queue', async () => {
     let resolveInstall: (val: { status: string }) => void
     mockInstall
-      .mockImplementationOnce(() => new Promise(resolve => { resolveInstall = resolve }))
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            resolveInstall = resolve
+          })
+      )
       .mockResolvedValue({ status: 'done' })
 
     dm.addToQueue(makeElement('game1'))
@@ -390,7 +412,12 @@ describe('pause and resume', () => {
 describe('cancelCurrentDownload', () => {
   it('removes the current element from the queue', async () => {
     let resolveInstall: (val: any) => void
-    mockInstall.mockImplementation(() => new Promise(resolve => { resolveInstall = resolve }))
+    mockInstall.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveInstall = resolve
+        })
+    )
 
     dm.addToQueue(makeElement('game1'))
     await flushPromises() // past enrichment, install hanging
@@ -398,7 +425,9 @@ describe('cancelCurrentDownload', () => {
     dm.cancelCurrentDownload({ removeDownloaded: false })
 
     const { elements } = dm.getQueueInformation()
-    expect(elements.find((e: any) => e.params.appName === 'game1')).toBeUndefined()
+    expect(
+      elements.find((e: any) => e.params.appName === 'game1')
+    ).toBeUndefined()
 
     resolveInstall!({ status: 'abort' })
     await flushPromises()
@@ -406,7 +435,12 @@ describe('cancelCurrentDownload', () => {
 
   it('calls callAbortController with the correct appName', async () => {
     let resolveInstall: (val: any) => void
-    mockInstall.mockImplementation(() => new Promise(resolve => { resolveInstall = resolve }))
+    mockInstall.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveInstall = resolve
+        })
+    )
 
     dm.addToQueue(makeElement('game1'))
     await flushPromises()
@@ -420,7 +454,12 @@ describe('cancelCurrentDownload', () => {
 
   it('cancelling also removes DLC entries from queue', async () => {
     let resolveInstall: (val: any) => void
-    mockInstall.mockImplementation(() => new Promise(resolve => { resolveInstall = resolve }))
+    mockInstall.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveInstall = resolve
+        })
+    )
 
     const parent = makeElement('parent-game')
     parent.params.installDlcs = ['dlc-one']
@@ -433,8 +472,12 @@ describe('cancelCurrentDownload', () => {
     dm.cancelCurrentDownload({ removeDownloaded: false })
 
     const { elements } = dm.getQueueInformation()
-    expect(elements.find((e: any) => e.params.appName === 'parent-game')).toBeUndefined()
-    expect(elements.find((e: any) => e.params.appName === 'dlc-one')).toBeUndefined()
+    expect(
+      elements.find((e: any) => e.params.appName === 'parent-game')
+    ).toBeUndefined()
+    expect(
+      elements.find((e: any) => e.params.appName === 'dlc-one')
+    ).toBeUndefined()
 
     resolveInstall!({ status: 'abort' })
     await flushPromises()
@@ -449,7 +492,10 @@ describe('enrichment', () => {
   it('element cancelled during enrichment is skipped', async () => {
     let resolveInstallInfo: (val: any) => void
     mockLibraryManager.legendary.getInstallInfo.mockImplementation(
-      () => new Promise(resolve => { resolveInstallInfo = resolve })
+      () =>
+        new Promise((resolve) => {
+          resolveInstallInfo = resolve
+        })
     )
 
     dm.addToQueue(makeElement('game1'))
@@ -472,7 +518,12 @@ describe('enrichment', () => {
     })
 
     let resolveInstall: (val: any) => void
-    mockInstall.mockImplementation(() => new Promise(resolve => { resolveInstall = resolve }))
+    mockInstall.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveInstall = resolve
+        })
+    )
 
     const gogEl = makeElement('gog-game', 'install', 'gog')
     gogEl.params.platformToInstall = 'Windows'
@@ -492,7 +543,9 @@ describe('enrichment', () => {
   })
 
   it('EA-managed games skip getInstallInfo', async () => {
-    mockLibraryManager.legendary.getGameInfo.mockReturnValue({ isEAManaged: true })
+    mockLibraryManager.legendary.getGameInfo.mockReturnValue({
+      isEAManaged: true
+    })
 
     dm.addToQueue(makeElement('ea-game'))
     await flushPromises()
@@ -501,7 +554,9 @@ describe('enrichment', () => {
   })
 
   it('Ubisoft-managed games skip getInstallInfo', async () => {
-    mockLibraryManager.legendary.getGameInfo.mockReturnValue({ isUbisoftManaged: true })
+    mockLibraryManager.legendary.getGameInfo.mockReturnValue({
+      isUbisoftManaged: true
+    })
 
     dm.addToQueue(makeElement('ubi-game'))
     await flushPromises()
@@ -568,7 +623,12 @@ describe('removeFromQueue', () => {
 describe('connectivity', () => {
   it('going offline while running pauses the queue', async () => {
     let resolveInstall: (val: any) => void
-    mockInstall.mockImplementation(() => new Promise(resolve => { resolveInstall = resolve }))
+    mockInstall.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveInstall = resolve
+        })
+    )
 
     dm.addToQueue(makeElement('game1'))
     await flushPromises() // past enrichment, install hanging
@@ -587,7 +647,12 @@ describe('connectivity', () => {
   it('coming back online after auto-pause resumes the queue', async () => {
     let resolveInstall: (val: any) => void
     mockInstall
-      .mockImplementationOnce(() => new Promise(resolve => { resolveInstall = resolve }))
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            resolveInstall = resolve
+          })
+      )
       .mockResolvedValue({ status: 'done' })
 
     dm.addToQueue(makeElement('game1'))

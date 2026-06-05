@@ -80,7 +80,9 @@ function addToFinished(element: DMQueueElement, status: DMStatus) {
 #### Public ####
 */
 
-async function enrichElement(element: DMQueueElement): Promise<DMQueueElement[]> {
+async function enrichElement(
+  element: DMQueueElement
+): Promise<DMQueueElement[]> {
   const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
     element.params.appName
   )
@@ -97,14 +99,10 @@ async function enrichElement(element: DMQueueElement): Promise<DMQueueElement[]>
   try {
     const installInfo = await libraryManagerMap[
       element.params.runner
-    ].getInstallInfo(
-      element.params.appName,
-      element.params.platformToInstall,
-      {
-        branch: element.params.branch,
-        build: element.params.build
-      }
-    )
+    ].getInstallInfo(element.params.appName, element.params.platformToInstall, {
+      branch: element.params.branch,
+      build: element.params.build
+    })
 
     element.params.size = installInfo?.manifest?.download_size
       ? getFileSize(installInfo?.manifest?.download_size)
