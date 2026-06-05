@@ -26,7 +26,10 @@ const GodotDepthPrepassFix = () => {
         htmlId="godotDepthPrepassFixToggle"
         value={godotDepthPrepassFix || false}
         handleChange={() => setGodotDepthPrepassFix(!godotDepthPrepassFix)}
-        title={t('setting.godotDepthPrepassFix', 'Enable Godot depth pre-pass fix')}
+        title={t(
+          'setting.godotDepthPrepassFix',
+          'Enable Godot depth pre-pass fix'
+        )}
       />
 
       <InfoIcon

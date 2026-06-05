@@ -1,9 +1,17 @@
-import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'graceful-fs'
+import {
+  existsSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync
+} from 'graceful-fs'
 import { join } from 'path'
 
 type CfgFile = Map<string, Map<string, string>>
 
-function splitComments(lines: string[]): { comments: string[], dataLines: string[] } {
+function splitComments(lines: string[]): {
+  comments: string[]
+  dataLines: string[]
+} {
   const comments: string[] = []
   const dataLines: string[] = []
 
@@ -85,7 +93,8 @@ export function applyDepthPrepassFix(installPath: string, enable: boolean) {
   }
 
   const data = serializeCfg(cfg)
-  const output = comments.length > 0 ? `${data}\n\n${comments.join('\n')}` : data
+  const output =
+    comments.length > 0 ? `${data}\n\n${comments.join('\n')}` : data
 
   if (!output.trim()) {
     if (existsSync(filePath)) unlinkSync(filePath)
