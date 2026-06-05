@@ -50,6 +50,9 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const [wineVersion, setWineVersion] = useState<WineInstallation>()
   const [wineVersionList, setWineVersionList] = useState<WineInstallation[]>([])
   const [crossoverBottle, setCrossoverBottle] = useState('')
+  const [sideloadTitle, setSideloadTitle] = useState(
+    t('sideload.field.title', 'Title')
+  )
 
   const isLinuxNative = Boolean(gameInfo?.is_linux_native)
   const isMacNative = Boolean(gameInfo?.is_mac_native)
@@ -251,14 +254,14 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
           </DownloadDialog>
         ) : (
           <SideloadDialog
-            setWinePrefix={setWinePrefix}
+            title={sideloadTitle}
+            setTitle={setSideloadTitle}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
             backdropClick={closeModal}
             platformToInstall={platformToInstall}
             appName={appName}
-            crossoverBottle={crossoverBottle}
           >
             {platformSelection()}
             {hasWine ? (
@@ -271,6 +274,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
                 setWineVersion={setWineVersion}
                 crossoverBottle={crossoverBottle}
                 setCrossoverBottle={setCrossoverBottle}
+                title={sideloadTitle}
               />
             ) : null}
           </SideloadDialog>
