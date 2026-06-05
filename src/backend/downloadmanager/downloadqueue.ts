@@ -206,7 +206,7 @@ async function initQueue() {
   }
 }
 
-function addToQueue(element: DMQueueElement) {
+async function addToQueue(element: DMQueueElement): Promise<void> {
   if (!element) {
     logError(
       'Can not add undefined element to queue!',
