@@ -407,7 +407,7 @@ async function checkLaunchOptionsAndLaunch({
           label = option.dlcTitle
           break
         case 'altExe':
-          label = option.executable
+          label = option.name ?? option.executable
           break
       }
 

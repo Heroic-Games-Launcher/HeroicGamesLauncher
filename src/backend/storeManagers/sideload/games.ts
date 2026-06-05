@@ -77,7 +77,14 @@ export async function launch(
   launchArguments?: LaunchOption,
   args: string[] = []
 ): Promise<boolean> {
-  return launchGame(appName, logWriter, getGameInfo(appName), 'sideload', args)
+  return launchGame(
+    appName,
+    logWriter,
+    getGameInfo(appName),
+    'sideload',
+    launchArguments,
+    args
+  )
 }
 
 export async function stop(appName: string): Promise<void> {
