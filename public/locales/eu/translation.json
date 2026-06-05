@@ -290,11 +290,35 @@
         "uncategorized": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "AMD-ren FSR-k fotograma-tasa areagotzen laguntzen du pantaila osoko moduan bereizmen baxuagoak igoz. Irudiaren kalitatea 5etik 1era igotzen da errendimendu txiki baten truke. Gaitzeak errendimendua hobetu dezake.",
+        "analytics": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
         "custom_themes_path": "Ez erabili iturri ez-fidagarrien CSS fitxategiak. Zalantza izanez gero, eskatu azterketa bat gure Discord zerbitzarian.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "disablePlaytimeSync": "",
+        "disable_logs": "Aktibatu kontrol-lauki hau erregistro-fitxategietako idazketa gehienak desgaitzeko (informazio kritikoa beti erregistratzen da). Ziurtatu ezarpen hau desaktibatu duzula edozein arazoren berri eman aurretik.",
+        "download_proton_steam": "",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvk": "DXVK DirectX 9, 10 eta 11 jokoetarako Vulkan-en oinarritutako translazio-geruza da. Gaitzeak bateragarritasuna hobetu dezake. Arazoak sor ditzake bereziki DirectX joko zaharretan.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobe dezake.",
         "fsync": "Fsync-ek ardo-zerbitzariaren gainkostua murriztea du helburu PUZa duten jokoetan. Gaitzeak errendimendua hobetu dezake onartzen diren Linux nukleoetan.",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "Baliozko hizkuntza-kodeak jokoaren araberakoak dira."
         },
         "gamemode": "Feral GameMode-k sistemari doikuntza automatikoak eta aldi baterakoak aplikatzen dizkio jokoak exekutatzen direnean. Gaitzeak errendimendua hobe dezake.",
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
         "general": "Sinkronizatu EGLrekin, Epic Games Launcher-en instalazio funtzional bat beste nonbait baduzu eta bere jokoak inportatu nahi baditu berriro deskargatzea saihesteko.",
         "mangohud": "MangoHUD FPS, tenperatura, CPU/GPU karga eta sistemaren beste baliabide batzuk bistaratzen eta kontrolatzen dituen gainjartzea da.",
+        "msync": "",
+        "nvidiaprime": {
+            "details": "Erabili txartel grafiko dedikatua jokoa errendatzeko GPU anitzeko sistemetan. Errendatzeko bururik gabeko GPU bat erabiltzen duten joko-ordenagailu eramangarrietan edo mahaigainetan bakarrik behar da (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Erabili ",
             "part5": "Jokoaren argudioak",
@@ -323,12 +362,6 @@
             "part3": "Eskuzko sinkronizazioa: Aukeratu «Deskargatu» hodeian gordetako jokoak deskargatzeko. «Igo» Igo lokalak hodeira igotzeko. «Behartu deskarga» eta «Karga behartua» ez dute kontuan hartuko tokiko bertsioa edo hodeiko bertsioa.",
             "part4": "Automatikoki gordetako sinkronizatzeak gordeak sinkronizatuko ditu joko bat hasten den bakoitzean eta jolasten amaitu ondoren."
         },
-        "vkd3d": "VKD3D DirectX 12 jokoetarako Vulkan-en oinarritutako translazio-geruza bat da. Gaitzeak bateragarritasuna nabarmen hobetu dezake. Ez du eraginik DirectX joko zaharretan.",
-        "wine": {
-            "part1": "Heroikoek Wine, Proton eta CrossOver-en bertsioak bilatzen ditu karpeta hauetan:",
-            "part2": "Beste leku batzuetarako, erabili karpeta horietako batera esteka sinboliko bat"
-        },
-        "disable_logs": "Aktibatu kontrol-lauki hau erregistro-fitxategietako idazketa gehienak desgaitzeko (informazio kritikoa beti erregistratzen da). Ziurtatu ezarpen hau desaktibatu duzula edozein arazoren berri eman aurretik.",
         "title": {
             "accessibility": "Erabilerraztasuna",
             "downloadManager": "Download Manager",
@@ -337,45 +370,13 @@
             "wineManager": "",
             "library": ""
         },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games",
-        "content": {
-            "defaultInstallPath": "",
-            "settingsDefault": "",
-            "settingsGame": "",
-            "downloadManager": "",
-            "wineManager": "",
-            "library": "",
-            "customThemesPath": "",
-            "accessibility": "",
-            "login": ""
+        "vkd3d": "VKD3D DirectX 12 jokoetarako Vulkan-en oinarritutako translazio-geruza bat da. Gaitzeak bateragarritasuna nabarmen hobetu dezake. Ez du eraginik DirectX joko zaharretan.",
+        "wine": {
+            "part1": "Heroikoek Wine, Proton eta CrossOver-en bertsioak bilatzen ditu karpeta hauetan:",
+            "part2": "Beste leku batzuetarako, erabili karpeta horietako batera esteka sinboliko bat"
         },
-        "msync": "",
-        "gamescope": {
-            "fpsLimiterNoFocus": "",
-            "upscaleMethod": "",
-            "gameWidth": "",
-            "upscaleWidth": "",
-            "gameHeight": "",
-            "additionalOptions": "",
-            "forceGrabCursor": "",
-            "upscaleHeight": "",
-            "fpsLimiter": ""
-        },
-        "button": {
-            "open": "",
-            "close": ""
-        },
-        "download_proton_steam": "",
         "wine-hdr": "",
-        "dxvknvapi": "",
-        "disablePlaytimeSync": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "nvidiaprime": {
-            "details": "Erabili txartel grafiko dedikatua jokoa errendatzeko GPU anitzeko sistemetan. Errendatzeko bururik gabeko GPU bat erabiltzen duten joko-ordenagailu eramangarrietan edo mahaigainetan bakarrik behar da (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -589,28 +590,57 @@
     "Recent": "Duela gutxi jokatuta",
     "search": "Bilatu jokoak",
     "setting": {
+        "FsrSharpnessStrenght": "FSR zorroztasunaren indarra",
+        "WoW64": "",
         "adddesktopshortcuts": "Gehitu mahaigaineko lasterbideak automatikoki",
+        "addgamestoapplications": "Gehitu automatikoki jokoak aplikazioetan",
         "addgamestostartmenu": "Gehitu jokoak menua automatikoki hasteko",
         "addgamestosteam": "Add games to Steam automatically",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
         "alt-gogdl-bin": "Aukeratu GOGDL Binario alternatibo bat erabiltzeko",
         "alt-legendary-bin": "Aukeratu kondairazko bitar alternatibo bat",
+        "alt-nile-bin": "Aukeratu Nile Binary alternatibo bat",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "Eguneratu jokoak automatikoki",
         "autodxvk": "Instalatu/Eguneratu automatikoki DXVK aurrizkian",
+        "autodxvknvapi": "",
         "autosync": "Sinkronizazio automatikoa gordetzen du",
         "autovkd3d": "Instalatu/Eguneratu automatikoki VKD3D aurrizkian",
+        "before-launch-script-path": "",
         "change-target-exe": "Hautatu exekutatzeko EXE alternatibo bat",
         "checkForUpdatesOnStartup": "Hasieran eguneraketak bilatu",
         "crossover-version": "Crossover/Wine bertsioa",
-        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Ardo/Protoien bideak pertsonalizatuak",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "Custom Themes Path",
         "darktray": "Erabili erretilu iluna ikonoa",
         "default-install-path": "Instalazio-bide lehenetsia",
         "default-steam-path": "Steam bide lehenetsia",
         "defaultWinePrefix": "Ezarri Karpeta Ardo-aurrizki berrietarako",
+        "disablePlaytimeSync": "",
+        "disableUMU": "",
         "disable_controller": "Desgaitu nabigazio heroikoa kontrolagailua erabiliz",
+        "disable_gog_presence": "",
+        "disable_logs": "Desgaitu erregistroak",
         "discordRPC": "Gaitu Discord presentzia aberatsa",
         "download-no-https": "Deskargatu jokoak HTTPS gabe (CDNetarako erabilgarria, adibidez, LanCache)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sinkronizatu instalatutako Epic Games-ekin",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Gaitu FSR Hack (Wine bertsioak onartu behar du)",
         "eosOverlay": {
             "cancelInstall": "Utzi",
@@ -634,10 +664,31 @@
         },
         "esync": "Gaitu Esync",
         "exit-to-tray": "Irten sistemaren erretilura",
-        "FsrSharpnessStrenght": "FSR zorroztasunaren indarra",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
         "fsync": "Gaitu Fsync",
         "gamemode": "Erabili GameMode (Feral Game Mode instalatu behar da)",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak",
         "language": "Aukeratu aplikazioaren hizkuntza",
         "library_top_option": {
             "disabled": "Desgaituta",
@@ -707,9 +758,11 @@
         "maxRecentGames": "Duela gutxi erreproduzitu da erakusteko",
         "maxworkers": "Gehienezko Langile kopurua deskargatzerakoan",
         "minimize-on-launch": "Minimizatu Heroikoa Jokoa abiarazi ondoren",
+        "msync": "",
+        "no-tray-icon": "",
         "offlinemode": "Exekutatu jokoa lineaz kanpo",
-        "prefered_language": "Lehenetsitako hizkuntza (Hizkuntza-kodea)",
         "preferSystemLibs": "Sistemaren liburutegiak hobetsi",
+        "prefered_language": "Lehenetsitako hizkuntza (Hizkuntza-kodea)",
         "runexe": {
             "message": "Arrastatu eta Jaregin Fitxategiak hemen",
             "title": "Exekutatu EXE aurrizkian"
@@ -719,39 +772,9 @@
             "placeholder": "Hautatu partidak gordetzeko karpeta zehatza",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
-        "select_theme": "Hautatu Gaia",
-        "showfps": "Erakutsi FPS (DX9, 10 eta 11)",
-        "start-in-tray": "Hasi minimizatua",
-        "steamruntime": "Erabili Steam Runtime",
-        "winecrossoverbottle": "CrossOver botila",
-        "wineprefix": "WinePrefix karpeta",
-        "wineversion": "Ardoaren Bertsioa",
-        "autoUpdateGames": "Eguneratu jokoak automatikoki",
-        "ignoreGameUpdates": "Ez ikusi jokoaren eguneraketak",
-        "disable_logs": "Desgaitu erregistroak",
-        "addgamestoapplications": "Gehitu automatikoki jokoak aplikazioetan",
-        "showMetalOverlay": "Erakutsi estatistikak gainjartzea",
-        "alt-nile-bin": "Aukeratu Nile Binary alternatibo bat",
-        "WoW64": "",
-        "frameless-window": {
-            "confirmation": {
-                "message": "",
-                "title": ""
-            },
-            "description": ""
-        },
-        "download-proton-steam": "",
         "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "experimental_features": {
-            "cometSupport": "",
-            "enableNewDesign": "",
-            "enableHelp": "",
-            "zoomPlatform": ""
-        },
-        "hdr": "",
-        "autodxvknvapi": "",
+        "select_theme": "Hautatu Gaia",
+        "showMetalOverlay": "Erakutsi estatistikak gainjartzea",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -763,38 +786,17 @@
             "label": "",
             "info_label": ""
         },
-        "dxfpslimit": "",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "gamescope": {
-            "enableLimiter": "",
-            "enableUpscaling": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": "",
-            "missingMsg": ""
-        },
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
-        "disablePlaytimeSync": "",
+        "showfps": "Erakutsi FPS (DX9, 10 eta 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Hasi minimizatua",
+        "steamruntime": "Erabili Steam Runtime",
         "verboseLogs": {
             "description": ""
         },
-        "before-launch-script-path": "",
-        "disableUMU": "",
-        "msync": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "CrossOver botila",
+        "wineprefix": "WinePrefix karpeta",
+        "wineversion": "Ardoaren Bertsioa"
     },
     "settings": {
         "battlEyeRuntime": {

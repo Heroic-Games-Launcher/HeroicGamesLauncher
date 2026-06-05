@@ -290,11 +290,35 @@
         "uncategorized": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "AMD's FSR با ارتقاء مقیاس وضوح پایینتر در حالت تمام صفحه به افزایش فریم ریت کمک می کند. کیفیت تصویر در ازای کاهش جزئی عملکرد از ۵ به ۱ افزایش می یابد. فعال کردن ممکن است باعث بهبود کارایی شود.",
+        "analytics": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
         "custom_themes_path": "از فایل های CSS منابع نامعتبر استفاده نکنید. در صورت بروز شک، در کانال دیسکورد درخواست بازبینی کنید.",
         "custom_themes_wiki": "برای اطلاعات بیشتر در مورد افزودن تم های شخصی سازی شده ویکی را برسی نمایید. اینجا کیک کنید.",
+        "disablePlaytimeSync": "همگام سازی میزان زمان بازی با سروهای استور ارائه شده را غیر فعال می کند(فعلا فقط از GOG پشتیبانی می شود)",
+        "disable_logs": "این چک باکس را روشن کنید تا بسیاری از نوشتن‌ها در فایل‌های گزارش غیرفعال شود (اطلاعات مهم همیشه ثبت می‌شوند). قبل از گزارش هر مشکلی حتماً این تنظیم را خاموش کنید.",
+        "download_proton_steam": "",
+        "dxfpslimit": "انتخاب فریم ریت کپ برای بازی های DXVK",
         "dxvk": "DXVK لایه ترجمهcای بر پایه Vulkan برای بازی های DirectX 9، 10، 11 می باشد. فعال کردن ممکن است سبب افزایش سازگاری شود. ممکن است باعث ایجاد مشکلات خصوصا برای بازی های DirectX قدیمی شود.",
         "dxvkfpslimit": "انتخاب فریم ریت کپ برای بازی های DXVK",
+        "dxvknvapi": "",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است باعث افزایش کارایی شود.",
         "fsync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "کدهای معتبر زبان وابسته به بازی هستند."
         },
         "gamemode": "Feral GameMode هنگام اجرای بازی ها تغییرات خودکار و موقت را در سیستم به وجود می آورد. فعال کردن ممکن است باعث افزایش کارایی شود.",
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
         "general": "در صورتی که در جایی لانچر اپیک گیمز را به صورت فعال نصب کردهاید و میخواهید بازیهای خود را وارد کنید با EGL همگامسازی کنید تا از دانلود مجدد آنها جلوگیری کنید.",
         "mangohud": "MangoHUD پوششی است که FPS، دماها،c لود CPU/GPU و دیگر منابع سیستم را نظارت و نمایش می دهد.",
+        "msync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
+        "nvidiaprime": {
+            "details": "استفاده از کارت گرافیک اختصاصی برای رندر بازی در سیستم های حاوی چندین کارت گرافیک. فقط برای سیستم ها و لب تاپ هایی که از headless GPU برای رندر کردن استفاده می کنند (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "استفاده کنید ",
             "part5": "آرگومانهای بازی",
@@ -323,13 +362,6 @@
             "part3": "همگام سازی دستی: برای بارگیری ذخیره بازیهای ذخیره شده در Cloud ، بارگیری را انتخاب کنید. آپلود تا موارد محلی را روی ابر آپلود کنید. دانلود اجباری و آپلود اجباری نسخه ای را که بصورت محلی یا روی ابر است نادیده می گیرند.",
             "part4": "همگامسازی ذخیرهها به طور خودکار هر زمان که یک بازی را شروع می کنید و پس از اتمام بازی ، ذخیره ها را همگامسازی می کند."
         },
-        "vkd3d": "VKD3D یک لایه ترجمه ای برا پایه Vulkan برای بازی های DirectX 12 است. فعال کردن ممکن است سبب افزایش چشمگیر سازگاری شود. بر روی بازی های قدیمی تر DirectX تاثیری ندارد.",
-        "wine": {
-            "part1": "Heroic در این پوشهها برای نسخههای Wine، Proton و CrossOver جستوجو میکند:",
-            "part2": "برای دیگر مکانها،از یک symbolic link به یکی از این پوشهها استفاده کنید"
-        },
-        "disable_logs": "این چک باکس را روشن کنید تا بسیاری از نوشتن‌ها در فایل‌های گزارش غیرفعال شود (اطلاعات مهم همیشه ثبت می‌شوند). قبل از گزارش هر مشکلی حتماً این تنظیم را خاموش کنید.",
-        "disablePlaytimeSync": "همگام سازی میزان زمان بازی با سروهای استور ارائه شده را غیر فعال می کند(فعلا فقط از GOG پشتیبانی می شود)",
         "title": {
             "accessibility": "دسترسی ها",
             "login": "Login",
@@ -338,44 +370,13 @@
             "wineManager": "مدیریت کننده Wine",
             "library": "کتابخانه"
         },
-        "msync": "Fsync در بازی های متمرکز بر CPU سبب کاهش سربار wineserver میشود. فعال کردن ممکن است در لینوکس کرنل های پشتیبانی شده باعث افزایش کارایی شود.",
-        "dxfpslimit": "انتخاب فریم ریت کپ برای بازی های DXVK",
-        "content": {
-            "defaultInstallPath": "",
-            "settingsDefault": "",
-            "settingsGame": "",
-            "downloadManager": "",
-            "wineManager": "",
-            "library": "",
-            "customThemesPath": "",
-            "accessibility": "",
-            "login": ""
+        "vkd3d": "VKD3D یک لایه ترجمه ای برا پایه Vulkan برای بازی های DirectX 12 است. فعال کردن ممکن است سبب افزایش چشمگیر سازگاری شود. بر روی بازی های قدیمی تر DirectX تاثیری ندارد.",
+        "wine": {
+            "part1": "Heroic در این پوشهها برای نسخههای Wine، Proton و CrossOver جستوجو میکند:",
+            "part2": "برای دیگر مکانها،از یک symbolic link به یکی از این پوشهها استفاده کنید"
         },
-        "gamescope": {
-            "fpsLimiterNoFocus": "",
-            "upscaleMethod": "",
-            "gameWidth": "",
-            "upscaleWidth": "",
-            "gameHeight": "",
-            "additionalOptions": "",
-            "forceGrabCursor": "",
-            "upscaleHeight": "",
-            "fpsLimiter": ""
-        },
-        "button": {
-            "open": "",
-            "close": ""
-        },
-        "download_proton_steam": "",
         "wine-hdr": "",
-        "dxvknvapi": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "nvidiaprime": {
-            "details": "استفاده از کارت گرافیک اختصاصی برای رندر بازی در سیستم های حاوی چندین کارت گرافیک. فقط برای سیستم ها و لب تاپ هایی که از headless GPU برای رندر کردن استفاده می کنند (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -589,28 +590,57 @@
     "Recent": "اخیرا بازی شده",
     "search": "جست و جو برای بازی ها",
     "setting": {
+        "FsrSharpnessStrenght": "قدرت تیزی FSR",
+        "WoW64": "",
         "adddesktopshortcuts": "افزودن خودکار میانبرهای دسکتاپ",
+        "addgamestoapplications": "بازی ها را به طور خودکار به برنامه ها اضافه کنید",
         "addgamestostartmenu": "افزودن خودکار میانبرهای منوی استارت",
         "addgamestosteam": "افزودن خودکار بازی ها به استیم",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
         "alt-gogdl-bin": "انتخاب باینری GOGDL جایگزین برای استفاده",
         "alt-legendary-bin": "انتخاب باینری Legendary جایگزین",
+        "alt-nile-bin": "یک باینری جایگزین نیل را انتخاب کنید",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "به روز رسانی خودکار بازی ها",
         "autodxvk": "نصب/بهروزرسانی خودکار DXVK در Prefix",
+        "autodxvknvapi": "نصب/بهروزرسانی خودکار DXVK-NVAPI در Prefix",
         "autosync": "همگامسازی خودکار ذخیرهها",
         "autovkd3d": "نصب/بهروزرسانی خودکار VKD3D در مسیر",
+        "before-launch-script-path": "",
         "change-target-exe": "انتخاب EXE جایگزین برای اجرا",
         "checkForUpdatesOnStartup": "بررسی برای به روزرسانی های Heroic در آغاز به کار",
         "crossover-version": "نسخه Crossover/Wine",
-        "custom_themes_path": "مسیر تم های شخصی سازی شده",
         "customWineProton": "مسیرهای سفارشی Wine/Proton",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "مسیر تم های شخصی سازی شده",
         "darktray": "استفاده از آیکون میزکار تاریک",
         "default-install-path": "محل پیشفرض نصب",
         "default-steam-path": "مسیر پیش فرض استیم",
         "defaultWinePrefix": "تنظیم پوشه برای Wine Prefix جدید",
+        "disablePlaytimeSync": "",
+        "disableUMU": "",
         "disable_controller": "غیر فعال کردن کنترل Heroic با استفاده از دسته",
+        "disable_gog_presence": "",
+        "disable_logs": "غیرفعال کردن گزارش‌ها",
         "discordRPC": "فعالسازی Discord Rich Presence",
         "download-no-https": "دانلود بازی ها بدون HTTPS (مفید برای CDNs مانند LanCache)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "محدودیت فریم ریت (DX9, 10 & 11)",
         "egs-sync": "همگامسازی با بازیهای اپیک نصب شده",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "فعالسازی FSR Hack (نسخه Wine باید از آن پشتیبانی کند)",
         "eosOverlay": {
             "cancelInstall": "لغو",
@@ -634,10 +664,31 @@
         },
         "esync": "فعالسازی Esync",
         "exit-to-tray": "خروج به میزکار سیستم",
-        "FsrSharpnessStrenght": "قدرت تیزی FSR",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
         "fsync": "فعالسازی Fsync",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "عدم نمایش تغییرات در هنگام اجرا",
+        "ignoreGameUpdates": "نادیده گرفتن به‌روزرسانی‌های بازی",
         "language": "انتخاب زبان نرم افزار",
         "library_top_option": {
             "disabled": "غیر فعال",
@@ -707,9 +758,11 @@
         "maxRecentGames": "اخیرا بازی شده برای نمایش",
         "maxworkers": "بیسترین تعداد ورکر هنگام دانلود",
         "minimize-on-launch": "کوچک کردن Heroic بعد از اجرای بازی",
+        "msync": "فعالسازی Esync",
+        "no-tray-icon": "",
         "offlinemode": "اجرای آفلاین بازی",
-        "prefered_language": "زبان ترجیحی (کد زبان)",
         "preferSystemLibs": "ارجحیت کتابخانه های سیستم",
+        "prefered_language": "زبان ترجیحی (کد زبان)",
         "runexe": {
             "message": "فایلها را اینجا درج کنید",
             "title": "اجرای EXE در محل"
@@ -719,40 +772,9 @@
             "placeholder": "پوشه ی دقیق سیو بازی ها را انتخاب کنید",
             "warning": "لطفا برای درست بودن مسیر مجددا آن را چک کنید (برای تلاش مجدد کلیک کنید)"
         },
-        "select_theme": "انتخاب تم",
-        "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
-        "start-in-tray": "شروع در حالت پسزمینه",
-        "steamruntime": "استفاده از Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "پوشه محل Wine",
-        "wineversion": "نسخه Wine",
-        "ignoreGameUpdates": "نادیده گرفتن به‌روزرسانی‌های بازی",
-        "autoUpdateGames": "به روز رسانی خودکار بازی ها",
-        "disable_logs": "غیرفعال کردن گزارش‌ها",
-        "addgamestoapplications": "بازی ها را به طور خودکار به برنامه ها اضافه کنید",
-        "showMetalOverlay": "نمایش همپوشانی آمار",
-        "alt-nile-bin": "یک باینری جایگزین نیل را انتخاب کنید",
-        "autodxvknvapi": "نصب/بهروزرسانی خودکار DXVK-NVAPI در Prefix",
-        "msync": "فعالسازی Esync",
-        "WoW64": "",
-        "frameless-window": {
-            "confirmation": {
-                "message": "",
-                "title": ""
-            },
-            "description": ""
-        },
-        "download-proton-steam": "",
         "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "experimental_features": {
-            "cometSupport": "",
-            "enableNewDesign": "",
-            "enableHelp": "",
-            "zoomPlatform": ""
-        },
-        "hdr": "",
+        "select_theme": "انتخاب تم",
+        "showMetalOverlay": "نمایش همپوشانی آمار",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -764,37 +786,17 @@
             "label": "",
             "info_label": ""
         },
-        "dxfpslimit": "",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "gamescope": {
-            "enableLimiter": "",
-            "enableUpscaling": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": "",
-            "missingMsg": ""
-        },
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
-        "disablePlaytimeSync": "",
+        "showfps": "نمایش تعداد فریم (11 و DX9, 10)",
+        "start-in-console-mode": "",
+        "start-in-tray": "شروع در حالت پسزمینه",
+        "steamruntime": "استفاده از Steam Runtime",
         "verboseLogs": {
             "description": ""
         },
-        "before-launch-script-path": "",
-        "disableUMU": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "پوشه محل Wine",
+        "wineversion": "نسخه Wine"
     },
     "settings": {
         "battlEyeRuntime": {

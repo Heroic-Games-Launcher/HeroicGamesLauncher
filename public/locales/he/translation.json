@@ -330,6 +330,58 @@
         }
     },
     "setting": {
+        "FsrSharpnessStrenght": "עוצמת חידוד FSR",
+        "WoW64": "",
+        "adddesktopshortcuts": "הוסף קיצורי דרך בשולחן העבודה באופן אוטומטי",
+        "addgamestoapplications": "הוסף משחקים לאפליקציות באופן אוטומטי",
+        "addgamestostartmenu": "הוסף משחקים לתפריט הראשי באופן אוטומטי",
+        "addgamestosteam": "הוסף משחקים לSteam באופן אוטומטי",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "alt-gogdl-bin": "בחרו GOGDL Binary אלטרנטיבית לשימוש",
+        "alt-legendary-bin": "בחרו Legendary Binary אלטרנטיבי",
+        "alt-nile-bin": "בחרו Nile Binary אלטרנטיבי",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "עדכן משחקים אוטומטית",
+        "autodxvk": "התקן או עדכן DXVK בprefix אוטומטית",
+        "autodxvknvapi": "התקן או עדכן DXVK-NVAPI בprefix אוטומטית",
+        "autosync": "שמירות של Autosync",
+        "autovkd3d": "התקן או עדכן VKD3D בprefix באופן אוטומטי",
+        "before-launch-script-path": "",
+        "change-target-exe": "בחרו EXE חלופי להרצה",
+        "checkForUpdatesOnStartup": "בדוק לעדכונים לHeroic בעת פתיחת התוכנה",
+        "crossover-version": "גרסת Crossover/Wine",
+        "customWineProton": "מיקומי Wine/Proton מותאמים אישית",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "מיקום ערכות נושא מותאם אישית",
+        "darktray": "השתמש בtray icon כהה",
+        "default-install-path": "נתיב התקנה ברירת מחדל",
+        "default-steam-path": "נתיב Steam ברירת מחדל",
+        "defaultWinePrefix": "הגדירו תיקיה עבור prefixים של Wine חדשים",
+        "disablePlaytimeSync": "",
+        "disableUMU": "",
+        "disable_controller": "בטל ניווט של Heroic באמצעות קונטרולר",
+        "disable_gog_presence": "",
+        "disable_logs": "בטל לוגים",
+        "discordRPC": "הפעל Discord Rich Presence",
+        "download-no-https": "הורד משחקים ללא HTTPS (שימושי עבור CDNים למשל LanCache)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
+        "dxvkfpslimit": "הגבל קצב פריימים (FPS) (DX9, 10, ו-11)",
+        "egs-sync": "סנכרן עם הEpic Games המותקן",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
+        "enableFSRHack": "הפעל FSR hack (גרסת הWine צריכה לתמוך בה)",
         "eosOverlay": {
             "disable": "בטל",
             "enable": "הפעל",
@@ -350,34 +402,41 @@
             "removeConfirmTitle": "אשר הורדת שכבת העל",
             "updating": "מעדכן..."
         },
+        "esync": "הפעל Esync",
+        "exit-to-tray": "סגור תוכנה לתוך System tray",
+        "experimental_features": {
+            "enableNewShinyFeature": "תכונה מבריקה חדשה",
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "title": "תכונות ניסיוניות",
+                "message": ""
+            },
+            "description": ""
+        },
+        "fsync": "הפעל Fsync",
+        "gamemode": "להשתמש בGameMode (צריכה להיות התקנה של Feral Game Mode)",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "hdr": "",
+        "hideChangelogsOnStartup": "אל תציג שינויים בסטארט-אפ",
+        "ignoreGameUpdates": "התעלם מעדכוני המשחק",
+        "language": "בחירת שפה",
         "library_top_option": {
             "disabled": "מושבת",
             "favourites": "משחקים מועדפים",
             "recently_played": "משחקים שהופעלו לאחרונה",
             "recently_played_installed": "משחקים שהופעלו לאחרונה (רק כאלה שעוד מותקנים)"
         },
-        "wineversion": "גרסת Wine",
-        "adddesktopshortcuts": "הוסף קיצורי דרך בשולחן העבודה באופן אוטומטי",
-        "addgamestoapplications": "הוסף משחקים לאפליקציות באופן אוטומטי",
-        "addgamestostartmenu": "הוסף משחקים לתפריט הראשי באופן אוטומטי",
-        "addgamestosteam": "הוסף משחקים לSteam באופן אוטומטי",
-        "custom_themes_path": "מיקום ערכות נושא מותאם אישית",
-        "customWineProton": "מיקומי Wine/Proton מותאמים אישית",
-        "darktray": "השתמש בtray icon כהה",
-        "defaultWinePrefix": "הגדירו תיקיה עבור prefixים של Wine חדשים",
-        "disable_controller": "בטל ניווט של Heroic באמצעות קונטרולר",
-        "discordRPC": "הפעל Discord Rich Presence",
-        "download-no-https": "הורד משחקים ללא HTTPS (שימושי עבור CDNים למשל LanCache)",
-        "dxvkfpslimit": "הגבל קצב פריימים (FPS) (DX9, 10, ו-11)",
-        "egs-sync": "סנכרן עם הEpic Games המותקן",
-        "enableFSRHack": "הפעל FSR hack (גרסת הWine צריכה לתמוך בה)",
-        "esync": "הפעל Esync",
-        "exit-to-tray": "סגור תוכנה לתוך System tray",
-        "FsrSharpnessStrenght": "עוצמת חידוד FSR",
-        "fsync": "הפעל Fsync",
-        "hideChangelogsOnStartup": "אל תציג שינויים בסטארט-אפ",
-        "ignoreGameUpdates": "התעלם מעדכוני המשחק",
-        "language": "בחירת שפה",
         "library_top_section": "החלק העליון של הספרייה",
         "log": {
             "copy-to-clipboard": "העתק תוכן לוג",
@@ -439,9 +498,12 @@
         },
         "maxRecentGames": "משחקים ששוחקו לאחרונה כדי להראות ש",
         "maxworkers": "מספר מקסימלי של עובדים(בתוכנה) בזמן ההורדה",
+        "minimize-on-launch": "צמצם את Heroic לאחר הפעלת המשחק",
+        "msync": "הפעל Esync",
+        "no-tray-icon": "",
         "offlinemode": "הפעל משחק ללא חיבור לרשת",
-        "prefered_language": "שפה מועדפת (Language Code)",
         "preferSystemLibs": "העדף ספריות מערכת",
+        "prefered_language": "שפה מועדפת (Language Code)",
         "runexe": {
             "title": "הפעל EXE על Prefix",
             "message": "גררו קבצים לפה"
@@ -451,50 +513,9 @@
             "placeholder": "בחרו את תיקיית המשחקים המדויקת",
             "warning": "נא לבדוק שוב אם הנתיב נכון (לחצו כדי לנסות שוב)"
         },
+        "scripts": "",
         "select_theme": "בחרו ערכת נושא",
         "showMetalOverlay": "הצג סטטיסטיקות מעל המסך",
-        "alt-gogdl-bin": "בחרו GOGDL Binary אלטרנטיבית לשימוש",
-        "alt-legendary-bin": "בחרו Legendary Binary אלטרנטיבי",
-        "alt-nile-bin": "בחרו Nile Binary אלטרנטיבי",
-        "autodxvk": "התקן או עדכן DXVK בprefix אוטומטית",
-        "autosync": "שמירות של Autosync",
-        "autovkd3d": "התקן או עדכן VKD3D בprefix באופן אוטומטי",
-        "autodxvknvapi": "התקן או עדכן DXVK-NVAPI בprefix אוטומטית",
-        "change-target-exe": "בחרו EXE חלופי להרצה",
-        "autoUpdateGames": "עדכן משחקים אוטומטית",
-        "checkForUpdatesOnStartup": "בדוק לעדכונים לHeroic בעת פתיחת התוכנה",
-        "crossover-version": "גרסת Crossover/Wine",
-        "default-install-path": "נתיב התקנה ברירת מחדל",
-        "default-steam-path": "נתיב Steam ברירת מחדל",
-        "disable_logs": "בטל לוגים",
-        "gamemode": "להשתמש בGameMode (צריכה להיות התקנה של Feral Game Mode)",
-        "minimize-on-launch": "צמצם את Heroic לאחר הפעלת המשחק",
-        "showfps": "הצג FPS (קצב פריימים) (DX9, 10, ו-11)",
-        "start-in-tray": "התחל מצומצם",
-        "steamruntime": "השתמש בSteam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "תיקיית WinePrefix",
-        "experimental_features": {
-            "enableNewShinyFeature": "תכונה מבריקה חדשה",
-            "cometSupport": "",
-            "enableNewDesign": "",
-            "enableHelp": "",
-            "zoomPlatform": ""
-        },
-        "msync": "הפעל Esync",
-        "frameless-window": {
-            "confirmation": {
-                "title": "תכונות ניסיוניות",
-                "message": ""
-            },
-            "description": ""
-        },
-        "WoW64": "",
-        "download-proton-steam": "",
-        "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "hdr": "",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -506,37 +527,17 @@
             "label": "",
             "info_label": ""
         },
-        "dxfpslimit": "",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "gamescope": {
-            "enableLimiter": "",
-            "enableUpscaling": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": "",
-            "missingMsg": ""
-        },
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
-        "disablePlaytimeSync": "",
+        "showfps": "הצג FPS (קצב פריימים) (DX9, 10, ו-11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "התחל מצומצם",
+        "steamruntime": "השתמש בSteam Runtime",
         "verboseLogs": {
             "description": ""
         },
-        "before-launch-script-path": "",
-        "disableUMU": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "תיקיית WinePrefix",
+        "wineversion": "גרסת Wine"
     },
     "status": {
         "processing": "מעבד קבצים, נא לחכות",
@@ -608,56 +609,14 @@
         "uncategorized": ""
     },
     "help": {
-        "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
-        "disable_logs": "הדליקו תיבת סימון זו על מנת לבטל את רוב הכתיבה לקבצי לוג (מידע קריטי תמיד נכתב). וודאו לכבות הגדרה הזאת לפני דיווח על בעיה.",
-        "dxvkfpslimit": "קובע את גבול קצב הפריימים עבור משחקי DXVK",
-        "dxvknvapi": "DXVK-NVAPI הוא יישום של NVAPI שנבנה על גבי DXVK וה-NVAPI של לינוקס, הוא מאפשר שימוש בDLSS על כרטיסים גרפיים מחברת Nvidia.",
-        "other": {
-            "part4": "השתמש ב ",
-            "part7": " כדי לדלג על הלאונצר במשחקים מסוימים, וכו'.",
-            "part5": "ארגומנטי המשחק",
-            "part6": " יקרא לאחר פקודת ההפעלה לתוכנה/משחק, למשל "
-        },
-        "sync": {
-            "part3": "סנכרון ידני: בחרו \"הורד\" כדי להוריד את השמירות של המשחקים שנשמרים בענן. בחרו \"העלה\" על מנת להעלות את האלה הלוקאליים לענן. \"אלץ הורדה\" ו\"אלץ העלאה\" יתעלמו מהגרסה הלוקאלית או זאת שבענן בהתאמה.",
-            "part4": "\"סנכרן שמירות\" אוטומטית יסנכרן את השמירות כל פעם שתתחילו ותסגרו משחק.",
-            "part1": "Heroic מנסה לנחש את תיקיית השמירה הנכונה, זה יעבוד ברוב המקרים. במקרים שבהם התיקייה שגויה, השתמשו בתיבת הoverride כדי לשנות אותה.",
-            "part2": "במקרה שתשנו את תיקיית הprefix עבור Wine או Proton, תצטרכו לבדוק שוב את הנתיב מכיוון ש-Proton משתמש בprefix שונה (/pfx) ובשם משתמש (steamuser) שונה. אז אתם יכולים פשוט למחוק את הנתיב הנוכחי לצאת מדף הגדרות הסנכרון ולחזור שוב כדי ש-Heroic ינחש את התיקייה פעם נוספת עם הprefix הנכונה."
-        },
-        "wine": {
-            "part1": "Heroic מחפש גרסאות של Wine, Proton, ו-CrossOver בתיקיות הבאות:",
-            "part2": "בשביל מקומות אחרים, השתמשו בsymbolic link לאחד מהתיקיות האלה"
-        },
-        "custom_themes_wiki": "בדקו את הויקי לפרטים נוספים על הוספת ערכות נושא מותאמים אישית. לחצו כאן.",
-        "dxvk": "DXVK הוא שכבת תרגום מבוססת Vulkan עבור משחקים עם DirectX מגרסה 9, 10 ו-11. הדלקה יכולה לשפר תאימות. עשוי לגרום לבעיות במיוחד עבור משחקי DirectX ישנים יותר.",
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "ה-FSR של AMD מסייע להגביר את קצב הפריימים (framerate/fps) על ידי הגדלת רזולוציות נמוכות יותר במצב מסך מלא. איכות התמונה היא בין 5 ל1 במחיר של פגיעה קלה בביצועים. הדלקה יכולה לשפר את הביצועים.",
-        "esync": "מטרת Esync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים.",
-        "fsync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
-        "game_language": {
-            "fallback": "השאירו ריק להשתמש בשפה של Heroic.",
-            "in_game_config": "לא כל המשחקים תומכים בתצורה זו, לחלקם יש הגדרת שפה בתוך המשחק.",
-            "valid_codes": "קודי שפה חוקיים תלויים במשחק."
+        "analytics": "",
+        "button": {
+            "open": "",
+            "close": ""
         },
-        "gamemode": "Feral GameMode מחיל שינויים אוטומטיים וזמניים על המערכת בעת הפעלת משחקים. הפעלה עשויה לשפר את הביצועים.",
-        "general": "סנכרנו עם EGL אם יש לכם התקנה תקינה של Epic Games Launcher במקום אחר ואתם רוצים לייבא את המשחקים שלכם כדי להימנע מהורדתם שוב.",
-        "mangohud": "MangoHUD הוא שכבת-על שמציגה ועוקבת אחרי FPS, טמפרטורות, עומס CPU/GPU ומשאבי מערכת אחרים.",
-        "preferSystemLibs": "גרסאות Wine מותאמות אישית (Wine-GE, Wine-Lutris) באות עם הספריות שלהן. על ידי הפעלת אפשרות זו, wine יתעלם מהספריות הנשלחות הללו, ויטען ספריות מערכת במקום זאת. אזהרה! בעיות עלולות להתרחש אם הספריות שיש בהן תלות לא קיימות.",
-        "primerun": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)",
-        "steam_path": {
-            "info": "המיקום הזה נותן לHeroic לקבוע באיזה גרסת Proton משתמשת Steam, על מנת להוסיף משחקים שאינם מSteam לSteam."
-        },
-        "steamruntime": "ספריות מותאמות אישית המסופקות על ידי Steam כדי לסייע בהפעלת משחקי Linux ו-Windows (Proton). הפעלה עשויה לשפר את התאימות.",
-        "vkd3d": "VKD3D הוא שכבת תרגום מבוססת Vulkan עבור משחקי DirectX 12. הפעלה יכולה לשפר תאימות באופן משמעותי. אין השפעה על משחקי DirectX ישנים יותר.",
-        "title": {
-            "accessibility": "נגישות",
-            "settings": "הגדרות",
-            "wineManager": "מנהל גרסאות Wine",
-            "library": "ספריה",
-            "login": "",
-            "downloadManager": ""
-        },
-        "msync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
-        "dxfpslimit": "קובע את גבול קצב הפריימים עבור משחקי DXVK",
         "content": {
             "defaultInstallPath": "",
             "settingsDefault": "",
@@ -669,6 +628,24 @@
             "accessibility": "",
             "login": ""
         },
+        "custom_themes_path": "אל תשתמשו בקבצי CSS ממקורות שאינם מהימנים. כאשר יש ספק, בקש סקירה בערוץ הדיסקורד שלנו.",
+        "custom_themes_wiki": "בדקו את הויקי לפרטים נוספים על הוספת ערכות נושא מותאמים אישית. לחצו כאן.",
+        "disablePlaytimeSync": "",
+        "disable_logs": "הדליקו תיבת סימון זו על מנת לבטל את רוב הכתיבה לקבצי לוג (מידע קריטי תמיד נכתב). וודאו לכבות הגדרה הזאת לפני דיווח על בעיה.",
+        "download_proton_steam": "",
+        "dxfpslimit": "קובע את גבול קצב הפריימים עבור משחקי DXVK",
+        "dxvk": "DXVK הוא שכבת תרגום מבוססת Vulkan עבור משחקים עם DirectX מגרסה 9, 10 ו-11. הדלקה יכולה לשפר תאימות. עשוי לגרום לבעיות במיוחד עבור משחקי DirectX ישנים יותר.",
+        "dxvkfpslimit": "קובע את גבול קצב הפריימים עבור משחקי DXVK",
+        "dxvknvapi": "DXVK-NVAPI הוא יישום של NVAPI שנבנה על גבי DXVK וה-NVAPI של לינוקס, הוא מאפשר שימוש בDLSS על כרטיסים גרפיים מחברת Nvidia.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
+        "esync": "מטרת Esync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים.",
+        "fsync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
+        "game_language": {
+            "fallback": "השאירו ריק להשתמש בשפה של Heroic.",
+            "in_game_config": "לא כל המשחקים תומכים בתצורה זו, לחלקם יש הגדרת שפה בתוך המשחק.",
+            "valid_codes": "קודי שפה חוקיים תלויים במשחק."
+        },
+        "gamemode": "Feral GameMode מחיל שינויים אוטומטיים וזמניים על המערכת בעת הפעלת משחקים. הפעלה עשויה לשפר את הביצועים.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -680,20 +657,45 @@
             "upscaleHeight": "",
             "fpsLimiter": ""
         },
-        "button": {
-            "open": "",
-            "close": ""
-        },
-        "download_proton_steam": "",
-        "wine-hdr": "",
-        "disablePlaytimeSync": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
+        "general": "סנכרנו עם EGL אם יש לכם התקנה תקינה של Epic Games Launcher במקום אחר ואתם רוצים לייבא את המשחקים שלכם כדי להימנע מהורדתם שוב.",
+        "mangohud": "MangoHUD הוא שכבת-על שמציגה ועוקבת אחרי FPS, טמפרטורות, עומס CPU/GPU ומשאבי מערכת אחרים.",
+        "msync": "מטרת Fsync היא להפחית את השימוש במעבד של winesever במשחקים הקשים על המעבד. הדלקה יכולה לשפר את הביצועים על הקרנלים של לינוקס הנתמכים.",
         "nvidiaprime": {
             "details": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)"
-        }
+        },
+        "other": {
+            "part4": "השתמש ב ",
+            "part7": " כדי לדלג על הלאונצר במשחקים מסוימים, וכו'.",
+            "part5": "ארגומנטי המשחק",
+            "part6": " יקרא לאחר פקודת ההפעלה לתוכנה/משחק, למשל "
+        },
+        "preferSystemLibs": "גרסאות Wine מותאמות אישית (Wine-GE, Wine-Lutris) באות עם הספריות שלהן. על ידי הפעלת אפשרות זו, wine יתעלם מהספריות הנשלחות הללו, ויטען ספריות מערכת במקום זאת. אזהרה! בעיות עלולות להתרחש אם הספריות שיש בהן תלות לא קיימות.",
+        "primerun": "השתמשו בכרטיס גרפי (מאיץ גרפי) ייעודי כדי לרנדר את המשחק במערכות עם כמה כרטיסים גרפיים. נחוץ רק במחשבים ניידים למשחקים או במחשבים שולחניים המשתמשים ב-GPU ללא ראש לעיבוד (NVIDIA Optimus, AMD CrossFire)",
+        "steam_path": {
+            "info": "המיקום הזה נותן לHeroic לקבוע באיזה גרסת Proton משתמשת Steam, על מנת להוסיף משחקים שאינם מSteam לSteam."
+        },
+        "steamruntime": "ספריות מותאמות אישית המסופקות על ידי Steam כדי לסייע בהפעלת משחקי Linux ו-Windows (Proton). הפעלה עשויה לשפר את התאימות.",
+        "sync": {
+            "part3": "סנכרון ידני: בחרו \"הורד\" כדי להוריד את השמירות של המשחקים שנשמרים בענן. בחרו \"העלה\" על מנת להעלות את האלה הלוקאליים לענן. \"אלץ הורדה\" ו\"אלץ העלאה\" יתעלמו מהגרסה הלוקאלית או זאת שבענן בהתאמה.",
+            "part4": "\"סנכרן שמירות\" אוטומטית יסנכרן את השמירות כל פעם שתתחילו ותסגרו משחק.",
+            "part1": "Heroic מנסה לנחש את תיקיית השמירה הנכונה, זה יעבוד ברוב המקרים. במקרים שבהם התיקייה שגויה, השתמשו בתיבת הoverride כדי לשנות אותה.",
+            "part2": "במקרה שתשנו את תיקיית הprefix עבור Wine או Proton, תצטרכו לבדוק שוב את הנתיב מכיוון ש-Proton משתמש בprefix שונה (/pfx) ובשם משתמש (steamuser) שונה. אז אתם יכולים פשוט למחוק את הנתיב הנוכחי לצאת מדף הגדרות הסנכרון ולחזור שוב כדי ש-Heroic ינחש את התיקייה פעם נוספת עם הprefix הנכונה."
+        },
+        "title": {
+            "accessibility": "נגישות",
+            "settings": "הגדרות",
+            "wineManager": "מנהל גרסאות Wine",
+            "library": "ספריה",
+            "login": "",
+            "downloadManager": ""
+        },
+        "vkd3d": "VKD3D הוא שכבת תרגום מבוססת Vulkan עבור משחקי DirectX 12. הפעלה יכולה לשפר תאימות באופן משמעותי. אין השפעה על משחקי DirectX ישנים יותר.",
+        "wine": {
+            "part1": "Heroic מחפש גרסאות של Wine, Proton, ו-CrossOver בתיקיות הבאות:",
+            "part2": "בשביל מקומות אחרים, השתמשו בsymbolic link לאחד מהתיקיות האלה"
+        },
+        "wine-hdr": "",
+        "wine-wayland": ""
     },
     "Library": "ספריה",
     "message": {

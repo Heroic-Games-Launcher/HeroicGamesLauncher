@@ -290,11 +290,35 @@
         "uncategorized": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "Activează suportul de instrucțiuni AVX când rulezi jocuri Windows prin Rosetta pe chip-uri Apple Silicon. Acestea ar putea fi necesare pentru unele jocuri precum Death Stranding care necesită suport AVX.",
         "amdfsr": "FSR de la AMD ajută la creșterea ratei de cadre prin creșterea rezoluțiilor mai mici în modul Ecran complet. Calitatea imaginii crește de la 5 la 1 cu prețul unei ușoare atingeri de performanță. Activarea poate îmbunătăți performanța.",
+        "analytics": "Acceptă ca Heroic sa colecteze date 100% anonime pentru a putea îmbunătăți calitatea aplicației. Este nevoie de o repornire pentru a intra în efect.",
+        "button": {
+            "close": "Închide Help",
+            "open": "Deschide Help"
+        },
+        "content": {
+            "accessibility": "Arată setările de accesibilitate.",
+            "customThemesPath": "Verifică wiki-ul nostru.",
+            "defaultInstallPath": "Aceasta este calea implicita selectată pentru instalat jocuri.",
+            "downloadManager": "Arată descărcările actuale și din trecut",
+            "library": "Arată toate jocurile deținute.",
+            "login": "Conectați-vă la diferitele magazine.",
+            "settingsDefault": "Arată toate setările Heroic și cele implicite pentru jocuri.",
+            "settingsGame": "Arată toate setările pentru un joc.",
+            "wineManager": "Instalează diferite versiuni pentru Wine, Proton, Crossover, etc."
+        },
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "disablePlaytimeSync": "Dezactivează sincronizarea timpului de joc cu serverele magazinului implicit (deocamdată doar GOG este suportat)",
+        "disable_logs": "Activați această casetă de selectare pentru a dezactiva majoritatea scrierilor în fișierele jurnal (informațiile critice sunt întotdeauna înregistrate). Asigurați-vă că dezactivați această setare înainte de a raporta orice problemă.",
+        "download_proton_steam": "Atunci când este activat, GE-Proton va fi descărcat direct in directorul uneltelor de compatibilitate Steam in locul căii implicite a Heroic. Va utiliza calea Steam setată în 'Cale Steam implicită' mai sus.",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvk": "DXVK este un strat translațional bazat pe Vulkan pentru jocurile DirectX 9, 10 și 11. Activarea poate îmbunătăți compatibilitatea. Poate cauza probleme în special pentru jocurile DirectX mai vechi.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "DXVK-NVAPI este o implementare a NVAPI construită peste DXVK și nativul linux NVAPI, el permite utilizarea DLSS pe plăcile video Nvidia.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța.",
         "fsync": "Fsync își propune să reducă supraîncărcarea serverului de vin în jocurile care necesită un proces intensiv. Activarea poate îmbunătăți performanța pe nucleele Linux acceptate.",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "Codurile de limbă valide depind de joc."
         },
         "gamemode": "Feral GameMode aplică ajustări automate și temporare sistemului atunci când rulează jocuri. Activarea poate îmbunătăți performanța.",
+        "gamescope": {
+            "additionalOptions": "Flag-uri din linia de comandă adiționale de pasat în gamescope.",
+            "forceGrabCursor": "Folosiți întotdeauna modul de mouse relativ în locul întoarcerii dependente de vizibilitatea cursorului. (Util atunci când aplicațiile își pierd focalizarea)",
+            "fpsLimiter": "Totalul de frame-uri la care gamescope ar trebui limitat. E.g 60",
+            "fpsLimiterNoFocus": "Limita de cadre pe secundă la care gamescope ar trebui să se limiteze dacă jocul nu este focalizat.",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "upscaleHeight": ""
+        },
         "general": "Sincronizați cu EGS în cazul în care aveți o instalare funcțională a Epic Games Store în altă parte și doriți să vă importați jocurile pentru a evita descărcarea din nou.",
         "mangohud": "MangoHUD este o suprapunere care afișează și monitorizează FPS, temperaturile, încărcarea CPU/GPU și alte resurse de sistem.",
+        "msync": "",
+        "nvidiaprime": {
+            "details": "Utilizați placa grafică dedicată pentru a reda jocul pe sisteme multi-GPU. Este necesar doar pe laptop-uri sau desktop-uri de jocuri care utilizează un GPU fără cap pentru randare (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Folosește ",
             "part5": "Argumente Joc",
@@ -323,12 +362,6 @@
             "part3": "Sincronizare manuală: alegeți Descărcare pentru a descărca salvările de jocuri stocate pe Cloud. Încărcați pentru a încărca cele locale în cloud. Descărcarea forțată și încărcarea forțată vor ignora versiunea locală sau în cloud.",
             "part4": "Sincronizarea salvărilor automat va sincroniza salvările de fiecare dată când începeți un joc și după ce terminați jocul."
         },
-        "vkd3d": "VKD3D este un strat translațional bazat pe Vulkan pentru jocurile DirectX 12. Activarea poate îmbunătăți semnificativ compatibilitatea. Nu are niciun efect asupra jocurilor DirectX mai vechi.",
-        "wine": {
-            "part1": "Heroic caută pentru versiuni de Wine, Proton și CrossOver în următoarele foldere:",
-            "part2": "Pentru alte locuri, utilizați un link simbolic către unul dintre aceste dosare"
-        },
-        "disable_logs": "Activați această casetă de selectare pentru a dezactiva majoritatea scrierilor în fișierele jurnal (informațiile critice sunt întotdeauna înregistrate). Asigurați-vă că dezactivați această setare înainte de a raporta orice problemă.",
         "title": {
             "login": "Autentificare",
             "settings": "Setări",
@@ -337,45 +370,13 @@
             "accessibility": "",
             "wineManager": ""
         },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games",
-        "advertiseAvxForRosetta": "Activează suportul de instrucțiuni AVX când rulezi jocuri Windows prin Rosetta pe chip-uri Apple Silicon. Acestea ar putea fi necesare pentru unele jocuri precum Death Stranding care necesită suport AVX.",
-        "analytics": "Acceptă ca Heroic sa colecteze date 100% anonime pentru a putea îmbunătăți calitatea aplicației. Este nevoie de o repornire pentru a intra în efect.",
-        "button": {
-            "close": "Închide Help",
-            "open": "Deschide Help"
+        "vkd3d": "VKD3D este un strat translațional bazat pe Vulkan pentru jocurile DirectX 12. Activarea poate îmbunătăți semnificativ compatibilitatea. Nu are niciun efect asupra jocurilor DirectX mai vechi.",
+        "wine": {
+            "part1": "Heroic caută pentru versiuni de Wine, Proton și CrossOver în următoarele foldere:",
+            "part2": "Pentru alte locuri, utilizați un link simbolic către unul dintre aceste dosare"
         },
-        "content": {
-            "accessibility": "Arată setările de accesibilitate.",
-            "customThemesPath": "Verifică wiki-ul nostru.",
-            "defaultInstallPath": "Aceasta este calea implicita selectată pentru instalat jocuri.",
-            "downloadManager": "Arată descărcările actuale și din trecut",
-            "library": "Arată toate jocurile deținute.",
-            "login": "Conectați-vă la diferitele magazine.",
-            "settingsDefault": "Arată toate setările Heroic și cele implicite pentru jocuri.",
-            "settingsGame": "Arată toate setările pentru un joc.",
-            "wineManager": "Instalează diferite versiuni pentru Wine, Proton, Crossover, etc."
-        },
-        "disablePlaytimeSync": "Dezactivează sincronizarea timpului de joc cu serverele magazinului implicit (deocamdată doar GOG este suportat)",
-        "download_proton_steam": "Atunci când este activat, GE-Proton va fi descărcat direct in directorul uneltelor de compatibilitate Steam in locul căii implicite a Heroic. Va utiliza calea Steam setată în 'Cale Steam implicită' mai sus.",
-        "dxvknvapi": "DXVK-NVAPI este o implementare a NVAPI construită peste DXVK și nativul linux NVAPI, el permite utilizarea DLSS pe plăcile video Nvidia.",
-        "gamescope": {
-            "additionalOptions": "Flag-uri din linia de comandă adiționale de pasat în gamescope.",
-            "forceGrabCursor": "Folosiți întotdeauna modul de mouse relativ în locul întoarcerii dependente de vizibilitatea cursorului. (Util atunci când aplicațiile își pierd focalizarea)",
-            "fpsLimiter": "Totalul de frame-uri la care gamescope ar trebui limitat. E.g 60",
-            "fpsLimiterNoFocus": "Limita de cadre pe secundă la care gamescope ar trebui să se limiteze dacă jocul nu este focalizat.",
-            "upscaleMethod": "",
-            "gameWidth": "",
-            "upscaleWidth": "",
-            "gameHeight": "",
-            "upscaleHeight": ""
-        },
-        "msync": "",
         "wine-hdr": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "nvidiaprime": {
-            "details": "Utilizați placa grafică dedicată pentru a reda jocul pe sisteme multi-GPU. Este necesar doar pe laptop-uri sau desktop-uri de jocuri care utilizează un GPU fără cap pentru randare (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -589,28 +590,57 @@
     "Recent": "Jocuri Recente",
     "search": "Introdu numele jocului aici...",
     "setting": {
+        "FsrSharpnessStrenght": "Forța de claritate FSR",
+        "WoW64": "",
         "adddesktopshortcuts": "Adăugați automat comenzi rapide pe desktop",
+        "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
         "addgamestostartmenu": "Adăugați jocuri în meniul Start automat",
         "addgamestosteam": "Add games to Steam automatically",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
         "alt-gogdl-bin": "Alegeți un binar GOGDL alternativ pe care să îl utilizați",
         "alt-legendary-bin": "Alegeți un Legendary Binary alternativ pe care să îl utilizați",
+        "alt-nile-bin": "Alegeți un binar alternativ pentru Nil",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "Actualizați automat jocurile",
         "autodxvk": "Instalare/Actualizare automată DXVK în Prefix",
+        "autodxvknvapi": "Instalare/Actualizare automată DXVK-NVAPI în Prefix",
         "autosync": "Salvări de sincronizare automată",
         "autovkd3d": "Instalare/Actualizare automată VKD3D pe Prefix",
+        "before-launch-script-path": "",
         "change-target-exe": "Selectați un EXE alternativ pentru a rula",
         "checkForUpdatesOnStartup": "Verificare pentru actualizări la pornire",
         "crossover-version": "Versiune crossover",
-        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Căi personalizate pentru Wine/Proton",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "Custom Themes Path",
         "darktray": "Utilizați Tray Icon întunecat",
         "default-install-path": "Calea de instalare implicită",
         "default-steam-path": "Calea Steam implicită",
         "defaultWinePrefix": "Setați folderul pentru noile prefixe de vin",
+        "disablePlaytimeSync": "",
+        "disableUMU": "",
         "disable_controller": "Dezactivați navigarea eroică folosind controlerul",
+        "disable_gog_presence": "",
+        "disable_logs": "Dezactivați jurnalele",
         "discordRPC": "Activați Discord Rich Presence",
         "download-no-https": "Descărcați jocuri fără HTTPS (util pentru CDN-uri, de exemplu, LanCache)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sincronizare cu Epic Games instalat",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Activați FSR Hack (versiunea Wine trebuie să o accepte)",
         "eosOverlay": {
             "cancelInstall": "Anulare",
@@ -634,10 +664,31 @@
         },
         "esync": "Activați Esync",
         "exit-to-tray": "Ieșiți în System Tray",
-        "FsrSharpnessStrenght": "Forța de claritate FSR",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
         "fsync": "Activați Fsync",
         "gamemode": "Utilizați GameMode (Feral GameMode trebuie instalat)",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "ignoreGameUpdates": "Ignora actualizările jocului",
         "language": "Alegeți Limba aplicației",
         "library_top_option": {
             "disabled": "Dezactivat",
@@ -707,9 +758,11 @@
         "maxRecentGames": "Jocuri recente de afișat",
         "maxworkers": "Numărul maxim de lucrători la descărcare",
         "minimize-on-launch": "Minimizați eroicul după lansarea jocului",
+        "msync": "Activați Esync",
+        "no-tray-icon": "",
         "offlinemode": "Rulați jocul offline",
-        "prefered_language": "Limba preferată (Codul de limbă)",
         "preferSystemLibs": "Preferați bibliotecile de sistem",
+        "prefered_language": "Limba preferată (Codul de limbă)",
         "runexe": {
             "message": "Trageți și plasați fișiere aici",
             "title": "Rulați EXE pe Prefix"
@@ -719,40 +772,9 @@
             "placeholder": "Selectați folderul exact de salvare a jocurilor",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
-        "select_theme": "Selectează tema",
-        "showfps": "Afișați FPS (DX9, 10 și 11)",
-        "start-in-tray": "Pornește minimizat",
-        "steamruntime": "Utilizați Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "dosar WinePrefix",
-        "wineversion": "Versiune Wine",
-        "autoUpdateGames": "Actualizați automat jocurile",
-        "ignoreGameUpdates": "Ignora actualizările jocului",
-        "disable_logs": "Dezactivați jurnalele",
-        "addgamestoapplications": "Adăugați automat jocuri la Aplicații",
-        "showMetalOverlay": "Afișați statistici suprapuse",
-        "alt-nile-bin": "Alegeți un binar alternativ pentru Nil",
-        "autodxvknvapi": "Instalare/Actualizare automată DXVK-NVAPI în Prefix",
-        "msync": "Activați Esync",
-        "WoW64": "",
-        "frameless-window": {
-            "confirmation": {
-                "message": "",
-                "title": ""
-            },
-            "description": ""
-        },
-        "download-proton-steam": "",
         "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "experimental_features": {
-            "cometSupport": "",
-            "enableNewDesign": "",
-            "enableHelp": "",
-            "zoomPlatform": ""
-        },
-        "hdr": "",
+        "select_theme": "Selectează tema",
+        "showMetalOverlay": "Afișați statistici suprapuse",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -764,37 +786,17 @@
             "label": "",
             "info_label": ""
         },
-        "dxfpslimit": "",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "gamescope": {
-            "enableLimiter": "",
-            "enableUpscaling": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": "",
-            "missingMsg": ""
-        },
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
-        "disablePlaytimeSync": "",
+        "showfps": "Afișați FPS (DX9, 10 și 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Pornește minimizat",
+        "steamruntime": "Utilizați Steam Runtime",
         "verboseLogs": {
             "description": ""
         },
-        "before-launch-script-path": "",
-        "disableUMU": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "dosar WinePrefix",
+        "wineversion": "Versiune Wine"
     },
     "settings": {
         "battlEyeRuntime": {

@@ -290,11 +290,35 @@
         "uncategorized": "Chưa được phân loại"
     },
     "help": {
+        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn.",
+        "advertiseAvxForRosetta": "Bật hỗ trợ tập lệnh AVX khi chạy trò chơi Windows thông qua Rosetta trên máy Mac Apple Silicon. Điều này có thể được yêu cầu đối với một số trò chơi như Death Stranding cần hỗ trợ AVX.",
         "amdfsr": "FSR của AMD giúp tăng tốc độ khung hình bằng cách nâng cấp độ phân giải thấp hơn ở Chế độ toàn màn hình. Chất lượng hình ảnh tăng từ 5 lên 1 với cái giá phải trả là hiệu suất bị giảm nhẹ. Việc kích hoạt có thể cải thiện hiệu suất.",
+        "analytics": "Cho phép Heroic thu thập dữ liệu sử dụng ẩn danh 100% để giúp cải thiện ứng dụng. Cần khởi động lại để có hiệu lực.",
+        "button": {
+            "close": "Đóng Trợ Giúp",
+            "open": "Mở Trợ Giúp"
+        },
+        "content": {
+            "accessibility": "Hiển thị cài đặt trợ năng.",
+            "customThemesPath": "Kiểm tra wiki của chúng tôi.",
+            "defaultInstallPath": "Đây là đường dẫn mặc định được chọn sẵn khi cài đặt game.",
+            "downloadManager": "Hiển thị các lượt tải xuống hiện tại và trước đây.",
+            "library": "Hiển thị tất cả các trò chơi thuộc sở hữu.",
+            "login": "Đăng nhập vào các cửa hàng khác nhau.",
+            "settingsDefault": "Hiển thị tất cả các cài đặt của Heroic và mặc định cho trò chơi.",
+            "settingsGame": "Hiển thị tất cả các cài đặt cho một trò chơi.",
+            "wineManager": "Cài đặt các phiên bản khác nhau của Wine, Proton, Crossover, v.v."
+        },
         "custom_themes_path": "Không sử dụng các tệp CSS từ các nguồn không đáng tin cậy. Khi nghi ngờ, hãy yêu cầu đánh giá trên kênh Discord của chúng tôi.",
         "custom_themes_wiki": "Kiểm tra Wiki để biết thêm chi tiết về cách thêm chủ đề tùy chỉnh. Bấm vào đây.",
+        "disablePlaytimeSync": "Tắt đồng bộ hóa thời gian chơi với máy chủ của cửa hàng nhất định (hiện chỉ hỗ trợ GOG)",
+        "disable_logs": "BẬT hộp kiểm này để vô hiệu hóa hầu hết việc ghi vào tệp nhật ký (thông tin quan trọng luôn được ghi lại). Đảm bảo TẮT cài đặt này trước khi báo cáo bất kỳ sự cố nào.",
+        "download_proton_steam": "Khi được bật, GE-Proton sẽ được tải trực tiếp vào thư mục công cụ tương thích Steam thay vì đường dẫn Heroic mặc định. Nó sẽ sử dụng đường dẫn Steam được đặt trong cài đặt 'Đường dẫn Steam mặc định' ở trên.",
+        "dxfpslimit": "Đặt giới hạn tốc độ khung hình cho Trò chơi DirectX (12-9)",
         "dxvk": "DXVK là lớp dịch thuật dựa trên Vulkan dành cho các trò chơi DirectX 9, 10 và 11. Việc kích hoạt có thể cải thiện khả năng tương thích. Có thể gây ra sự cố đặc biệt đối với các trò chơi DirectX cũ hơn.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "DXVK-NVAPI là một triển khai NVAPI được xây dựng dựa trên DXVK và NVAPI gốc linux, nó cho phép sử dụng DLSS trên GPU Nvidia.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync nhằm mục đích giảm chi phí sử dụng wineserver trong các trò chơi sử dụng nhiều CPU. Việc kích hoạt có thể cải thiện hiệu suất.",
         "fsync": "Fsync nhằm mục đích giảm chi phí sử dụng máy chủ rượu trong các trò chơi sử dụng nhiều CPU. Việc kích hoạt có thể cải thiện hiệu suất trên các nhân Linux được hỗ trợ.",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "Mã ngôn ngữ hợp lệ phụ thuộc vào trò chơi."
         },
         "gamemode": "Feral GameMode áp dụng các tinh chỉnh tự động và tạm thời cho hệ thống khi chạy game. Việc kích hoạt có thể cải thiện hiệu suất.",
+        "gamescope": {
+            "additionalOptions": "Cờ dòng lệnh bổ sung để chuyển vào gamescope.",
+            "forceGrabCursor": "Luôn sử dụng chế độ chuột tương đối thay vì lật phụ thuộc vào khả năng hiển thị của con trỏ. (Hữu ích khi ứng dụng liên tục mất tập trung)",
+            "fpsLimiter": "Số lượng khung hình gamescope nên giới hạn ở mức. Ví dụ. 60",
+            "fpsLimiterNoFocus": "Gamescope giới hạn tốc độ khung hình sẽ giới hạn mỗi giây nếu trò chơi không được tập trung.",
+            "gameHeight": "Độ phân giải chiều cao được trò chơi sử dụng. Tỷ lệ khung hình 16:9 được giả định bởi gamescope.",
+            "gameWidth": "Độ phân giải chiều rộng được trò chơi sử dụng. Tỷ lệ khung hình 16:9 được giả định bởi gamescope.",
+            "upscaleHeight": "Độ phân giải chiều cao được sử dụng bởi gamescope. Tỷ lệ khung hình 16:9 được giả định.",
+            "upscaleMethod": "Phương pháp nâng cấp gamescope nên sử dụng.",
+            "upscaleWidth": "Độ phân giải chiều rộng được sử dụng bởi gamescope. Tỷ lệ khung hình 16:9 được giả định."
+        },
         "general": "Đồng bộ hóa với EGL nếu bạn có bản cài đặt Epic Games Launcher đang hoạt động ở nơi khác và muốn nhập trò chơi của mình để tránh tải xuống lại.",
         "mangohud": "MangoHUD là overlay hiển thị và giám sát FPS, nhiệt độ, tải CPU/GPU và các tài nguyên hệ thống khác.",
+        "msync": "Msync nhằm mục đích giảm chi phí sử dụng wineserver trong các trò chơi sử dụng nhiều CPU. Việc kích hoạt có thể cải thiện hiệu suất trên các nhân Linux được hỗ trợ.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Sử dụng ",
             "part5": "Đối Số Trò Chơi",
@@ -323,12 +362,6 @@
             "part3": "Đồng Bộ Hóa Thủ Công: Chọn Tải Xuống để tải xuống các trò chơi đã lưu được lưu trữ trên Đám Mây. Tải lên để tải những cái cục bộ lên đám mây. Buộc Tải Xuống và Buộc Tải Lên sẽ bỏ qua phiên bản cục bộ hoặc trên đám mây.",
             "part4": "Đồng Bộ Hóa Tự Động Lưu sẽ đồng bộ các bản sao lưu mỗi lần bạn bắt đầu và kết thúc chơi game."
         },
-        "vkd3d": "VKD3D là lớp dịch dựa trên Vulkan dành cho trò chơi DirectX 12. Việc kích hoạt có thể cải thiện đáng kể khả năng tương thích. Không có tác dụng với các game DirectX cũ hơn, nó yêu cầu DXVK.",
-        "wine": {
-            "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
-            "part2": "Đối với những nơi khác, hãy sử dụng liên kết tượng trưng đến một trong các thư mục này"
-        },
-        "disable_logs": "BẬT hộp kiểm này để vô hiệu hóa hầu hết việc ghi vào tệp nhật ký (thông tin quan trọng luôn được ghi lại). Đảm bảo TẮT cài đặt này trước khi báo cáo bất kỳ sự cố nào.",
         "title": {
             "accessibility": "Khả Năng Tiếp Cận",
             "settings": "Cài Đặt",
@@ -337,45 +370,13 @@
             "library": "Thư Viện",
             "login": "Đăng Nhập"
         },
-        "msync": "Msync nhằm mục đích giảm chi phí sử dụng wineserver trong các trò chơi sử dụng nhiều CPU. Việc kích hoạt có thể cải thiện hiệu suất trên các nhân Linux được hỗ trợ.",
-        "dxfpslimit": "Đặt giới hạn tốc độ khung hình cho Trò chơi DirectX (12-9)",
-        "advertiseAvxForRosetta": "Bật hỗ trợ tập lệnh AVX khi chạy trò chơi Windows thông qua Rosetta trên máy Mac Apple Silicon. Điều này có thể được yêu cầu đối với một số trò chơi như Death Stranding cần hỗ trợ AVX.",
-        "analytics": "Cho phép Heroic thu thập dữ liệu sử dụng ẩn danh 100% để giúp cải thiện ứng dụng. Cần khởi động lại để có hiệu lực.",
-        "button": {
-            "close": "Đóng Trợ Giúp",
-            "open": "Mở Trợ Giúp"
-        },
-        "content": {
-            "accessibility": "Hiển thị cài đặt trợ năng.",
-            "customThemesPath": "Kiểm tra wiki của chúng tôi.",
-            "defaultInstallPath": "Đây là đường dẫn mặc định được chọn sẵn khi cài đặt game.",
-            "downloadManager": "Hiển thị các lượt tải xuống hiện tại và trước đây.",
-            "library": "Hiển thị tất cả các trò chơi thuộc sở hữu.",
-            "login": "Đăng nhập vào các cửa hàng khác nhau.",
-            "settingsDefault": "Hiển thị tất cả các cài đặt của Heroic và mặc định cho trò chơi.",
-            "settingsGame": "Hiển thị tất cả các cài đặt cho một trò chơi.",
-            "wineManager": "Cài đặt các phiên bản khác nhau của Wine, Proton, Crossover, v.v."
-        },
-        "disablePlaytimeSync": "Tắt đồng bộ hóa thời gian chơi với máy chủ của cửa hàng nhất định (hiện chỉ hỗ trợ GOG)",
-        "download_proton_steam": "Khi được bật, GE-Proton sẽ được tải trực tiếp vào thư mục công cụ tương thích Steam thay vì đường dẫn Heroic mặc định. Nó sẽ sử dụng đường dẫn Steam được đặt trong cài đặt 'Đường dẫn Steam mặc định' ở trên.",
-        "dxvknvapi": "DXVK-NVAPI là một triển khai NVAPI được xây dựng dựa trên DXVK và NVAPI gốc linux, nó cho phép sử dụng DLSS trên GPU Nvidia.",
-        "gamescope": {
-            "additionalOptions": "Cờ dòng lệnh bổ sung để chuyển vào gamescope.",
-            "forceGrabCursor": "Luôn sử dụng chế độ chuột tương đối thay vì lật phụ thuộc vào khả năng hiển thị của con trỏ. (Hữu ích khi ứng dụng liên tục mất tập trung)",
-            "fpsLimiter": "Số lượng khung hình gamescope nên giới hạn ở mức. Ví dụ. 60",
-            "fpsLimiterNoFocus": "Gamescope giới hạn tốc độ khung hình sẽ giới hạn mỗi giây nếu trò chơi không được tập trung.",
-            "gameHeight": "Độ phân giải chiều cao được trò chơi sử dụng. Tỷ lệ khung hình 16:9 được giả định bởi gamescope.",
-            "gameWidth": "Độ phân giải chiều rộng được trò chơi sử dụng. Tỷ lệ khung hình 16:9 được giả định bởi gamescope.",
-            "upscaleHeight": "Độ phân giải chiều cao được sử dụng bởi gamescope. Tỷ lệ khung hình 16:9 được giả định.",
-            "upscaleMethod": "Phương pháp nâng cấp gamescope nên sử dụng.",
-            "upscaleWidth": "Độ phân giải chiều rộng được sử dụng bởi gamescope. Tỷ lệ khung hình 16:9 được giả định."
+        "vkd3d": "VKD3D là lớp dịch dựa trên Vulkan dành cho trò chơi DirectX 12. Việc kích hoạt có thể cải thiện đáng kể khả năng tương thích. Không có tác dụng với các game DirectX cũ hơn, nó yêu cầu DXVK.",
+        "wine": {
+            "part1": "Heroic tìm kiếm các phiên bản Wine, Proton và CrossOver trong các thư mục sau:",
+            "part2": "Đối với những nơi khác, hãy sử dụng liên kết tượng trưng đến một trong các thư mục này"
         },
         "wine-hdr": "HDR tăng cường màu sắc bằng cách mang lại những highlight sáng hơn và độ tương phản sâu hơn. Để HDR hoạt động, cả màn hình và trò chơi đều phải hỗ trợ nó.",
-        "wine-wayland": "Trình điều khiển thử nghiệm Wine-Wayland cho phép trò chơi chạy nguyên bản theo giao thức hiển thị Wayland. Việc kích hoạt có thể làm hỏng một số trò chơi.",
-        "WoW64": "Chế độ Wine WoW64 cho phép các trò chơi Windows 32 bit chạy trên Wine 64 bit. Việc kích hoạt có thể cải thiện hiệu suất nhưng cũng có thể làm hỏng các trò chơi 32 bit cũ hơn.",
-        "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": "Trình điều khiển thử nghiệm Wine-Wayland cho phép trò chơi chạy nguyên bản theo giao thức hiển thị Wayland. Việc kích hoạt có thể làm hỏng một số trò chơi."
     },
     "info": {
         "heroic": {
@@ -589,28 +590,57 @@
     "Recent": "Đã Chơi Gần Đây",
     "search": "Tìm Kiếm Trò Chơi",
     "setting": {
+        "FsrSharpnessStrenght": "Độ Sắc Nét Của FSR",
+        "WoW64": "Kích hoạt WoW64 (Thử nghiệm)",
         "adddesktopshortcuts": "Tự động thêm lối tắt trên màn hình",
+        "addgamestoapplications": "Tự động thêm trò chơi vào Ứng Dụng",
         "addgamestostartmenu": "Thêm trò chơi vào start menu tự động",
         "addgamestosteam": "Thêm trò chơi vào Steam tự động",
+        "advertiseAvxForRosetta": "Quảng cáo AVX cho Rosetta",
+        "after-launch-script-path": "Chọn kịch bản để chạy sau khi thoát trò chơi",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Các trò chơi có hệ thống chống gian lận bị hỏng hoặc bị từ chối có thể chạy nhưng tính năng nhiều người chơi sẽ không hoạt động. Đừng yêu cầu hỗ trợ nếu bạn cài đặt chúng khi biết điều này.",
+                "title": "Bạn có chắc không?",
+                "understand": "Tôi hiểu"
+            },
+            "label": "Cho phép cài đặt các trò chơi có chống gian lận bị hỏng hoặc bị từ chối"
+        },
         "alt-gogdl-bin": "Chọn một GOGDL Binary thay thế để sử dụng",
         "alt-legendary-bin": "Chọn một Legendary Binary thay thế",
+        "alt-nile-bin": "Chọn một Nile Binary Thay Thế",
+        "analyticsOptIn": "Gửi dữ liệu ẩn danh để giúp phát triển Heroic",
+        "autoUpdateGames": "Tự động cập nhật trò chơi",
         "autodxvk": "Tự Động Cài Đặt/Cập Nhật DXVK trên Tiền Tố",
+        "autodxvknvapi": "Tự Động Cài Đặt/Cập Nhật DXVK-NVAPI trên Tiền Tố",
         "autosync": "Tự Động Lưu",
         "autovkd3d": "Tự Động Cài Đặt/Cập Nhật VKD3D trên Tiền Tố",
+        "before-launch-script-path": "Chọn tập lệnh để chạy trước khi trò chơi được khởi chạy",
         "change-target-exe": "Chọn một EXE thay thế để chạy",
         "checkForUpdatesOnStartup": "Kiểm tra Heroic Updates khi Khởi Động",
         "crossover-version": "Phiên Bản Crossover/Wine",
-        "custom_themes_path": "Đường Dẫn Chủ Đề Tùy Chỉnh",
         "customWineProton": "Đường Dẫn Wine/Proton Tùy Chọn",
+        "custom_css": {
+            "warning": "Cảnh báo: điều này áp dụng cho toàn bộ giao diện người dùng. Điều đó có nghĩa là kiểu dáng sai có thể khiến Heroic không thể sử dụng được. Nếu cần, bạn có thể thay đổi cài đặt theo cách thủ công trong `~/.config/heroic/config.json`. KHÔNG sao chép kiểu từ các nguồn mà bạn không tin tưởng."
+        },
+        "custom_themes_path": "Đường Dẫn Chủ Đề Tùy Chỉnh",
         "darktray": "Sử Dụng Biểu Tượng Khay Tối",
         "default-install-path": "Đường Dẫn Cài Đặt Mặc Định",
         "default-steam-path": "Đường dẫn Steam mặc định",
         "defaultWinePrefix": "Đặt Thư Mục cho Tiền Tố Wine mới",
+        "disablePlaytimeSync": "Vô hiệu hóa đồng bộ hóa thời gian chơi",
+        "disableUMU": "Tắt umu",
         "disable_controller": "Tắt điều hướng Heroic bằng bộ điều khiển",
+        "disable_gog_presence": "",
+        "disable_logs": "Tắt Nhật Ký",
         "discordRPC": "Bật Discord Rich Presence",
         "download-no-https": "Tải xuống trò chơi không có HTTPS (hữu ích cho CDN, ví dụ: LanCache)",
+        "download-proton-steam": "Tải GE-Proton về thư mục Steam",
+        "dxfpslimit": "Giới Hạn FPS Của Trò Chơi DirectX",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Đồng bộ hóa với Epic Games đã cài đặt",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Bật FSR Hack (Phiên bản Wine cần hỗ trợ)",
         "eosOverlay": {
             "cancelInstall": "Hủy",
@@ -634,10 +664,31 @@
         },
         "esync": "Bật Esync",
         "exit-to-tray": "Thoát vào Khay Hệ Thống",
-        "FsrSharpnessStrenght": "Độ Sắc Nét Của FSR",
+        "experimental_features": {
+            "cometSupport": "Hỗ trợ Comet",
+            "enableHelp": "Thành phần trợ giúp",
+            "enableNewDesign": "Thiết kế mới",
+            "zoomPlatform": "Hỗ trợ nền tảng Zoom (chỉ Linux)"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Tính năng này vẫn đang thử nghiệm. Vui lòng báo cáo bất kỳ vấn đề nào bạn gặp phải với nó trên GitHub.",
+                "title": "Tính năng thử nghiệm phía trước"
+            },
+            "description": "Sử dụng cửa sổ không khung (yêu cầu khởi động lại)"
+        },
         "fsync": "Bật Fsync",
         "gamemode": "Sử Dụng GameMode (Cần cài đặt Feral Game Mode)",
+        "gamescope": {
+            "enableForceGrabCursor": "Bật Buộc Lấy Con Trỏ",
+            "enableLimiter": "Bật Giới Hạn FPS",
+            "enableUpscaling": "Cho Phép Nâng Cấp Hình Ảnh",
+            "missingMsg": "Chúng tôi không thể tìm thấy gamescope trên PATH. Cài đặt nó hoặc thêm nó vào PATH.",
+            "warningFlatpak": "Chúng tôi không thể tìm thấy phiên bản tương thích của Gamescope. Cài đặt gói Flatpak của Gamescope với thời gian chạy {{runtimeVersion}} và khởi động lại Heroic."
+        },
+        "hdr": "Bật HDR",
         "hideChangelogsOnStartup": "Không hiển thị nhật ký thay đổi khi Khởi Động",
+        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
         "language": "Chọn ngôn ngữ ứng dụng",
         "library_top_option": {
             "disabled": "Tắt",
@@ -707,9 +758,11 @@
         "maxRecentGames": "Đã Chơi Gần Đây để Hiển Thị",
         "maxworkers": "Số Lượng Công Nhân Tối Đa khi tải xuống",
         "minimize-on-launch": "Thu Nhỏ Heroic Sau Khi Khởi Chạy Trò Chơi",
+        "msync": "Bật Msync",
+        "no-tray-icon": "Ẩn Biểu Tượng Khay Hệ Thống (yêu cầu khởi động lại)",
         "offlinemode": "Chạy Trò Chơi Ngoại Tuyến",
-        "prefered_language": "Ngôn Ngữ Ưa Thích (Mã Ngôn Ngữ)",
         "preferSystemLibs": "Ưu tiên thư viện hệ thống",
+        "prefered_language": "Ngôn Ngữ Ưa Thích (Mã Ngôn Ngữ)",
         "runexe": {
             "message": "Kéo thả file vào đây",
             "title": "Chạy EXE trên Tiền Tố"
@@ -719,62 +772,9 @@
             "placeholder": "Chọn thư mục lưu trò chơi chính xác",
             "warning": "Vui lòng kiểm tra lại xem đường dẫn có đúng không (click để thử lại)"
         },
+        "scripts": "Kịch bản:",
         "select_theme": "Chọn Chủ Đề",
-        "showfps": "Hiển Thị FPS (DX9, 10 và 11)",
-        "start-in-tray": "Thu Nhỏ Khi Khởi Động",
-        "steamruntime": "Sử Dụng Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Thư Mục WinePrefix",
-        "wineversion": "Phiên Bản Wine",
-        "autoUpdateGames": "Tự động cập nhật trò chơi",
-        "ignoreGameUpdates": "Bỏ qua cập nhật trò chơi",
-        "disable_logs": "Tắt Nhật Ký",
-        "addgamestoapplications": "Tự động thêm trò chơi vào Ứng Dụng",
         "showMetalOverlay": "Hiển thị overlay thống kê",
-        "alt-nile-bin": "Chọn một Nile Binary Thay Thế",
-        "autodxvknvapi": "Tự Động Cài Đặt/Cập Nhật DXVK-NVAPI trên Tiền Tố",
-        "msync": "Bật Msync",
-        "advertiseAvxForRosetta": "Quảng cáo AVX cho Rosetta",
-        "after-launch-script-path": "Chọn kịch bản để chạy sau khi thoát trò chơi",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "message": "Các trò chơi có hệ thống chống gian lận bị hỏng hoặc bị từ chối có thể chạy nhưng tính năng nhiều người chơi sẽ không hoạt động. Đừng yêu cầu hỗ trợ nếu bạn cài đặt chúng khi biết điều này.",
-                "title": "Bạn có chắc không?",
-                "understand": "Tôi hiểu"
-            },
-            "label": "Cho phép cài đặt các trò chơi có chống gian lận bị hỏng hoặc bị từ chối"
-        },
-        "analyticsOptIn": "Gửi dữ liệu ẩn danh để giúp phát triển Heroic",
-        "before-launch-script-path": "Chọn tập lệnh để chạy trước khi trò chơi được khởi chạy",
-        "custom_css": {
-            "warning": "Cảnh báo: điều này áp dụng cho toàn bộ giao diện người dùng. Điều đó có nghĩa là kiểu dáng sai có thể khiến Heroic không thể sử dụng được. Nếu cần, bạn có thể thay đổi cài đặt theo cách thủ công trong `~/.config/heroic/config.json`. KHÔNG sao chép kiểu từ các nguồn mà bạn không tin tưởng."
-        },
-        "disablePlaytimeSync": "Vô hiệu hóa đồng bộ hóa thời gian chơi",
-        "disableUMU": "Tắt umu",
-        "download-proton-steam": "Tải GE-Proton về thư mục Steam",
-        "dxfpslimit": "Giới Hạn FPS Của Trò Chơi DirectX",
-        "experimental_features": {
-            "cometSupport": "Hỗ trợ Comet",
-            "enableHelp": "Thành phần trợ giúp",
-            "enableNewDesign": "Thiết kế mới",
-            "zoomPlatform": "Hỗ trợ nền tảng Zoom (chỉ Linux)"
-        },
-        "frameless-window": {
-            "confirmation": {
-                "message": "Tính năng này vẫn đang thử nghiệm. Vui lòng báo cáo bất kỳ vấn đề nào bạn gặp phải với nó trên GitHub.",
-                "title": "Tính năng thử nghiệm phía trước"
-            },
-            "description": "Sử dụng cửa sổ không khung (yêu cầu khởi động lại)"
-        },
-        "gamescope": {
-            "enableForceGrabCursor": "Bật Buộc Lấy Con Trỏ",
-            "enableLimiter": "Bật Giới Hạn FPS",
-            "enableUpscaling": "Cho Phép Nâng Cấp Hình Ảnh",
-            "missingMsg": "Chúng tôi không thể tìm thấy gamescope trên PATH. Cài đặt nó hoặc thêm nó vào PATH.",
-            "warningFlatpak": "Chúng tôi không thể tìm thấy phiên bản tương thích của Gamescope. Cài đặt gói Flatpak của Gamescope với thời gian chạy {{runtimeVersion}} và khởi động lại Heroic."
-        },
-        "hdr": "Bật HDR",
-        "no-tray-icon": "Ẩn Biểu Tượng Khay Hệ Thống (yêu cầu khởi động lại)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Đừng hiện chúng",
@@ -786,15 +786,17 @@
             "label": "Cho phép sử dụng các bản build Valve Proton để chạy game",
             "wine_selector_warning": "Các phiên bản Valve của Proton bị bỏ qua theo mặc định, hãy bật chúng trong cài đặt chung Nâng Cao"
         },
+        "showfps": "Hiển Thị FPS (DX9, 10 và 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Thu Nhỏ Khi Khởi Động",
+        "steamruntime": "Sử Dụng Steam Runtime",
         "verboseLogs": {
             "description": "Bật nhật ký chi tiết"
         },
         "wineWayland": "Kích hoạt Wine-Wayland (Thử nghiệm) (Phiên bản Wine cần hỗ trợ)",
-        "WoW64": "Kích hoạt WoW64 (Thử nghiệm)",
-        "scripts": "Kịch bản:",
-        "enable-quick-sync-menu": "",
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "Thư Mục WinePrefix",
+        "wineversion": "Phiên Bản Wine"
     },
     "settings": {
         "battlEyeRuntime": {

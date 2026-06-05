@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   AdvertiseAvxForRosetta,
+  GodotDepthPrepassFix,
   AlternativeExe,
   AutoDXVK,
   AutoDXVKNVAPI,
@@ -197,6 +198,7 @@ export default function GamesSettings() {
             <EnableWoW64 />
             <EnableMsync />
             <AdvertiseAvxForRosetta />
+            <GodotDepthPrepassFix />
             <EnableFSR />
             {isMac && <EnableDXVKFpsLimit />}
             <Tools />

@@ -290,11 +290,35 @@
         "uncategorized": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "AMD-ov FSR pomaže u povećanju frekvencije kadrova povećavajući niže rezolucije u načinu rada preko cijelog ekrana. Kvalitet slike se povećava sa 5 na 1 po cenu blagog smanjenja performansi. Omogućavanje može poboljšati performanse.",
+        "analytics": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "disablePlaytimeSync": "",
+        "disable_logs": "Uključite ovaj okvir za potvrdu kako biste onemogućili većinu upisivanja u datoteke dnevnika (kritične informacije se uvijek evidentiraju). Obavezno ISKLJUČITE ovu postavku prije nego što prijavite bilo kakav problem.",
+        "download_proton_steam": "",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvk": "DXVK je translacijski sloj baziran na Vulkanu za DirectX 9, 10 i 11 igre. Omogućavanje može poboljšati kompatibilnost. Može uzrokovati probleme posebno za starije DirectX igre.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse.",
         "fsync": "Fsync ima za cilj smanjenje troškova wineservera u igrama koje zahtijevaju CPU. Omogućavanje može poboljšati performanse na podržanim Linux kernelima.",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "Važeći kodovi jezika zavise od video igre."
         },
         "gamemode": "Feral GameMode primjenjuje automatska i privremena podešavanja na sistemu prilikom pokretanja igara. Omogućavanje može poboljšati performanse.",
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
         "general": "Sinhronizirajte s EGL-om ako imate ispravnu instalaciju Epic Games Launchera negdje drugdje i želite da uvezete svoje video igre kako biste izbjegli ponovno preuzimanje.",
         "mangohud": "MangoHUD je prekrivač koji prikazuje i prati FPS, temperature, CPU/GPU opterećenje i druge sistemske resurse.",
+        "msync": "",
+        "nvidiaprime": {
+            "details": "Koristite namjensku grafičku karticu za renderiranje igre na multi-GPU sistemima. Potrebno samo na laptop računarima ili desktop računarima koji koriste GPU bez glave za renderovanje (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Koristite ",
             "part5": "Argumenti igre",
@@ -323,12 +362,6 @@
             "part3": "Ručna sinhronizacija: Odaberite Preuzmi da preuzmete sačuvane igre pohranjene u cloudu. Prenesite da biste prenijeli lokalne fajlove u cloud. Primorano preuzimanje i Primorano prenošenje će zanemariti verziju koja je lokalna ili već u cloudu.",
             "part4": "Sinhroniziraj spremanja automatski će sinhronizirati spremanja svaki put kada započnete igru i nakon završetka igranja."
         },
-        "vkd3d": "VKD3D je translacijski sloj baziran na Vulkanu za DirectX 12 igre. Omogućavanje može značajno poboljšati kompatibilnost. Nema efekta na starije DirectX igre.",
-        "wine": {
-            "part1": "Heroic traži verzije Wine, Proton i CrossOver u sljedećim mapama:",
-            "part2": "Za druga mjesta koristite simboličku vezu do jednog od ovih mapa"
-        },
-        "disable_logs": "Uključite ovaj okvir za potvrdu kako biste onemogućili većinu upisivanja u datoteke dnevnika (kritične informacije se uvijek evidentiraju). Obavezno ISKLJUČITE ovu postavku prije nego što prijavite bilo kakav problem.",
         "title": {
             "accessibility": "Pristupačnost",
             "settings": "Postavke",
@@ -337,45 +370,13 @@
             "library": "Biblioteka",
             "login": ""
         },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games",
-        "content": {
-            "defaultInstallPath": "",
-            "settingsDefault": "",
-            "settingsGame": "",
-            "downloadManager": "",
-            "wineManager": "",
-            "library": "",
-            "customThemesPath": "",
-            "accessibility": "",
-            "login": ""
+        "vkd3d": "VKD3D je translacijski sloj baziran na Vulkanu za DirectX 12 igre. Omogućavanje može značajno poboljšati kompatibilnost. Nema efekta na starije DirectX igre.",
+        "wine": {
+            "part1": "Heroic traži verzije Wine, Proton i CrossOver u sljedećim mapama:",
+            "part2": "Za druga mjesta koristite simboličku vezu do jednog od ovih mapa"
         },
-        "msync": "",
-        "gamescope": {
-            "fpsLimiterNoFocus": "",
-            "upscaleMethod": "",
-            "gameWidth": "",
-            "upscaleWidth": "",
-            "gameHeight": "",
-            "additionalOptions": "",
-            "forceGrabCursor": "",
-            "upscaleHeight": "",
-            "fpsLimiter": ""
-        },
-        "button": {
-            "open": "",
-            "close": ""
-        },
-        "download_proton_steam": "",
         "wine-hdr": "",
-        "dxvknvapi": "",
-        "disablePlaytimeSync": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "nvidiaprime": {
-            "details": "Koristite namjensku grafičku karticu za renderiranje igre na multi-GPU sistemima. Potrebno samo na laptop računarima ili desktop računarima koji koriste GPU bez glave za renderovanje (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -589,28 +590,57 @@
     "Recent": "Igrano nedavno",
     "search": "Potražite igre",
     "setting": {
+        "FsrSharpnessStrenght": "FSR jačina oštrine",
+        "WoW64": "",
         "adddesktopshortcuts": "Automatski dodajte prečice na radnoj površini",
+        "addgamestoapplications": "Automatski dodajte igre u aplikacije",
         "addgamestostartmenu": "Automatski dodajte igre u početni meni",
         "addgamestosteam": "Add games to Steam automatically",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
         "alt-gogdl-bin": "Odaberite alternativnu GOGDL binarnu datoteku koju želite koristiti",
         "alt-legendary-bin": "Odaberite alternativnu Legendary binarnu datoteku",
+        "alt-nile-bin": "Odaberite alternativnu Nilsku binarnu",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "Automatski ažuriraj igre",
         "autodxvk": "Automatska instalacija/ažuriranje DXVK na prefiksu",
+        "autodxvknvapi": "Automatska instalacija/ažuriranje DXVK-NVAPI na prefiksu",
         "autosync": "Automatska sinkronizacija spremanja",
         "autovkd3d": "Automatska instalacija/ažuriranje VKD3D na prefiksu",
+        "before-launch-script-path": "",
         "change-target-exe": "Odaberite alternativni EXE za pokretanje",
         "checkForUpdatesOnStartup": "Provjeri ima li Heroic Updates pri pokretanju",
         "crossover-version": "Crossover/Wine verzija",
-        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Prilagođeni putevi za Wine/Proton",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "Custom Themes Path",
         "darktray": "Koristite Dark Tray ikonu",
         "default-install-path": "Zadani instalacijski put",
         "default-steam-path": "Zadana staza Steam-a",
         "defaultWinePrefix": "Postavite mapu za nove Wine prefikse",
+        "disablePlaytimeSync": "",
+        "disableUMU": "",
         "disable_controller": "Onemogućite navigaciju pomoću kontrolera u Heroicu",
+        "disable_gog_presence": "",
+        "disable_logs": "Onemogući dnevnike",
         "discordRPC": "Omogućite Discord bogatu prisutnost",
         "download-no-https": "Preuzmite igre bez HTTPS-a (korisno za CDN-ove, npr. LanCache)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Sinkronizacija s instaliranim Epic igrama",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Omogući FSR Hack (Wine verzija ga mora podržavati)",
         "eosOverlay": {
             "cancelInstall": "Otkaži",
@@ -634,10 +664,31 @@
         },
         "esync": "Omogućite Esync",
         "exit-to-tray": "Izađite u System Tray",
-        "FsrSharpnessStrenght": "FSR jačina oštrine",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
         "fsync": "Omogućite Fsync",
         "gamemode": "Koristite GameMode (Feral Game Mode mora biti instaliran)",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "ignoreGameUpdates": "Zanemari ažuriranja igre",
         "language": "Odaberite jezik aplikacije",
         "library_top_option": {
             "disabled": "Onemogućeno",
@@ -707,9 +758,11 @@
         "maxRecentGames": "Priaži nedavno igrane igre",
         "maxworkers": "Maksimalni broj radnika prilikom preuzimanja",
         "minimize-on-launch": "Smanjite Heroic nakon pokretanja igre",
+        "msync": "Omogućite Esync",
+        "no-tray-icon": "",
         "offlinemode": "Pokreni igru izvan mreže",
-        "prefered_language": "Željeni jezik (šifra jezika)",
         "preferSystemLibs": "Preferirajte sistemske biblioteke",
+        "prefered_language": "Željeni jezik (šifra jezika)",
         "runexe": {
             "message": "Povucite i ispustite datoteke ovdje",
             "title": "Pokrenite EXE na prefiksu"
@@ -719,40 +772,9 @@
             "placeholder": "Odaberite tačnu mapu za spremanje video igara",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
-        "select_theme": "Izaberite temu",
-        "showfps": "Pokaži FPS (DX9, 10 i 11)",
-        "start-in-tray": "Pokreni minimizirano",
-        "steamruntime": "Koristi Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix mapa",
-        "wineversion": "Wine verzija",
-        "ignoreGameUpdates": "Zanemari ažuriranja igre",
-        "autoUpdateGames": "Automatski ažuriraj igre",
-        "disable_logs": "Onemogući dnevnike",
-        "addgamestoapplications": "Automatski dodajte igre u aplikacije",
-        "showMetalOverlay": "Prikaži preklapanje statistike",
-        "alt-nile-bin": "Odaberite alternativnu Nilsku binarnu",
-        "autodxvknvapi": "Automatska instalacija/ažuriranje DXVK-NVAPI na prefiksu",
-        "msync": "Omogućite Esync",
-        "WoW64": "",
-        "frameless-window": {
-            "confirmation": {
-                "message": "",
-                "title": ""
-            },
-            "description": ""
-        },
-        "download-proton-steam": "",
         "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "experimental_features": {
-            "cometSupport": "",
-            "enableNewDesign": "",
-            "enableHelp": "",
-            "zoomPlatform": ""
-        },
-        "hdr": "",
+        "select_theme": "Izaberite temu",
+        "showMetalOverlay": "Prikaži preklapanje statistike",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -764,37 +786,17 @@
             "label": "",
             "info_label": ""
         },
-        "dxfpslimit": "",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "gamescope": {
-            "enableLimiter": "",
-            "enableUpscaling": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": "",
-            "missingMsg": ""
-        },
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
-        "disablePlaytimeSync": "",
+        "showfps": "Pokaži FPS (DX9, 10 i 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Pokreni minimizirano",
+        "steamruntime": "Koristi Steam Runtime",
         "verboseLogs": {
             "description": ""
         },
-        "before-launch-script-path": "",
-        "disableUMU": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "WinePrefix mapa",
+        "wineversion": "Wine verzija"
     },
     "settings": {
         "battlEyeRuntime": {

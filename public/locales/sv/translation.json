@@ -291,11 +291,35 @@
         "show_updates_only": "Visa spel med uppdateringar endast"
     },
     "help": {
+        "WoW64": "Wine WoW64-läget gör att 32-bitars Windows-spel kan köras på 64-bitars Wine. Aktivering kan förbättra prestandan, men kan också förstöra äldre 32-bitars spel.",
+        "advertiseAvxForRosetta": "Aktiverar stöd för AVX-instruktionsuppsättningar när Windows-spel körs via Rosetta på Apple Silicon Macar. Detta kan krävas för vissa spel som Death Stranding som behöver AVX-stöd.",
         "amdfsr": "AMD's FSR hjälper till att öka bildhastigheten genom att skala upp lägre upplösningar i helskärmsläge. Bildkvaliteten ökar från 5 mot 1 till priset av en liten påverkan av prestandan. Aktivering kan förbättra prestandan.",
+        "analytics": "Gör det möjligt för Heroic att samla in 100 % anonym användningsdata för att förbättra programmet. Kräver omstart för att det ska träda i kraft.",
+        "button": {
+            "open": "Öppna hjälp",
+            "close": "Stäng hjälp"
+        },
+        "content": {
+            "defaultInstallPath": "Detta är den sökvägen som är förvald när du installerar spel.",
+            "settingsDefault": "Visar alla inställningar för Heroic och standardinställningar för spel.",
+            "settingsGame": "Visar alla inställningar för ett spel.",
+            "downloadManager": "Visar nuvarande och tidigare nedladdningar.",
+            "wineManager": "Installera olika versioner av Wine, Proton, Crossover, etc.",
+            "library": "Visar alla ägda spel.",
+            "customThemesPath": "Kolla vår wiki.",
+            "accessibility": "Visar tillgänglighetsinställningar.",
+            "login": "Logga in i olika butiker."
+        },
         "custom_themes_path": "Använd inte CSS filer från otillförlitliga källor. Om du är osäker, be om en granskning i vår Discord-kanal.",
         "custom_themes_wiki": "Kontrollera Wiki för mer information om att lägga till anpassade teman. Klicka här.",
+        "disablePlaytimeSync": "Inaktiverar speltidssynkronisering med givna butiksservrar (för närvarande stöds endast GOG)",
+        "disable_logs": "Slå den här kryssrutan PÅ för att inaktivera de flesta skrivningar till loggfiler (kritisk information loggas alltid). Se till att stänga AV den här inställningen innan du rapporterar något problem.",
+        "download_proton_steam": "När det är aktiverat kommer GE-Proton att laddas ner direkt till Steams kompatibilitetsverktygskatalog istället för standardsökvägen för Heroic. Det kommer att använda Steam-sökvägen som angetts i inställningen \"Standardsökväg för Steam\" ovan.",
+        "dxfpslimit": "Ställer in ett bildhastighetstak för DirectX spel (9-12)",
         "dxvk": "DXVK är ett Vulkan-baserat översättningslager för DirectX 9, 10 och 11 spel. Aktivering kan förbättra kompatibiliteten. Kan orsaka problem särskilt för äldre DirectX-spel.",
         "dxvkfpslimit": "Ställer in ett bildhastighetstak för DXVK spel",
+        "dxvknvapi": "DXVK-NVAPI är en implementering av NVAPI byggt ovanpå DXVK och Linux-native NVAPI, det tillåter användning av DLSS på Nvidia GPU:er.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan.",
         "fsync": "Fsync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan om stöd finns i Linux kärnan.",
         "game_language": {
@@ -304,8 +328,23 @@
             "valid_codes": "Giltiga språkkoder beror på spelet."
         },
         "gamemode": "Feral GameMode tillämpar automatiska och tillfälliga justeringar av systemet när spel körs. Aktivering kan förbättra prestandan.",
+        "gamescope": {
+            "upscaleMethod": "Uppskalningsmetod gamescope ska använda.",
+            "upscaleWidth": "Breddupplösningen som används av gamescope. Ett bildförhållande på 16:9 antas.",
+            "upscaleHeight": "Höjdupplösningen som används av gamescope. Ett bildförhållande på 16:9 antas.",
+            "fpsLimiter": "Antal bildrutor som gamescope ska begränsas till exempelvis 60",
+            "fpsLimiterNoFocus": "Gränsen för bildhastighet gamescope ska avgränsa per sekund om spelet inte är fokuserat.",
+            "gameWidth": "Breddupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
+            "gameHeight": "Höjdupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
+            "additionalOptions": "Ytterligare kommandoradsflaggor att skicka in i gamescope.",
+            "forceGrabCursor": "Använd alltid relativt musläge istället för att vända musen beroende på markörens synlighet. (Användbart när program tappar fokus)"
+        },
         "general": "Synkronisera med EGS om du har en fungerande Epic Games Launcher installation och vill importera spel istället för att ladda ner dem igen.",
         "mangohud": "MangoHUD är en siktlinjesindikator som visar och övervakar FPS, temperaturer, CPU/GPU-belastning och andra systemresurser.",
+        "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds.",
+        "nvidiaprime": {
+            "details": "Använd dedikerat grafikkort för att rendera spel på multi-GPU system. Behövs endast på laptop eller stationära datorer som använder en headless GPU för rendering (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Använd ",
             "part5": "Spelspecifika argument",
@@ -324,25 +363,6 @@
             "part3": "Manuell synkronisering: Ladda ner sparfiler från molnlagring. Ladda upp lokala sparfiler till molnlagring. Tvingad nedladdning och tvingad uppladdning ignorerar versionskontroll både lokalt och i molnlagring.",
             "part4": "Synkronisera sparfiler automatiskt kommer synkronisera sparfiler varje gång ett spel startas samt avslutas."
         },
-        "vkd3d": "VKD3D är ett Vulkan-baserat översättningslager för DirectX 12 spel. Aktivering kan förbättra kompatibiliteten avsevärt. Har ingen effekt på äldre DirectX spel, det kräver DXVK.",
-        "wine": {
-            "part1": "Heroic söker efter Wine, Proton och CrossOver i dessa mappar:",
-            "part2": "För övriga platser, använd symbolisk länk till en av dessa mappar"
-        },
-        "disable_logs": "Slå den här kryssrutan PÅ för att inaktivera de flesta skrivningar till loggfiler (kritisk information loggas alltid). Se till att stänga AV den här inställningen innan du rapporterar något problem.",
-        "dxvknvapi": "DXVK-NVAPI är en implementering av NVAPI byggt ovanpå DXVK och Linux-native NVAPI, det tillåter användning av DLSS på Nvidia GPU:er.",
-        "disablePlaytimeSync": "Inaktiverar speltidssynkronisering med givna butiksservrar (för närvarande stöds endast GOG)",
-        "gamescope": {
-            "upscaleMethod": "Uppskalningsmetod gamescope ska använda.",
-            "upscaleWidth": "Breddupplösningen som används av gamescope. Ett bildförhållande på 16:9 antas.",
-            "upscaleHeight": "Höjdupplösningen som används av gamescope. Ett bildförhållande på 16:9 antas.",
-            "fpsLimiter": "Antal bildrutor som gamescope ska begränsas till exempelvis 60",
-            "fpsLimiterNoFocus": "Gränsen för bildhastighet gamescope ska avgränsa per sekund om spelet inte är fokuserat.",
-            "gameWidth": "Breddupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
-            "gameHeight": "Höjdupplösningen som används av spelet. Ett bildförhållande på 16:9 antas av gamescope.",
-            "additionalOptions": "Ytterligare kommandoradsflaggor att skicka in i gamescope.",
-            "forceGrabCursor": "Använd alltid relativt musläge istället för att vända musen beroende på markörens synlighet. (Användbart när program tappar fokus)"
-        },
         "title": {
             "accessibility": "Handikappsanpassning",
             "login": "Login",
@@ -351,32 +371,13 @@
             "wineManager": "Wine hanterare",
             "library": "Bibliotek"
         },
-        "content": {
-            "defaultInstallPath": "Detta är den sökvägen som är förvald när du installerar spel.",
-            "settingsDefault": "Visar alla inställningar för Heroic och standardinställningar för spel.",
-            "settingsGame": "Visar alla inställningar för ett spel.",
-            "downloadManager": "Visar nuvarande och tidigare nedladdningar.",
-            "wineManager": "Installera olika versioner av Wine, Proton, Crossover, etc.",
-            "library": "Visar alla ägda spel.",
-            "customThemesPath": "Kolla vår wiki.",
-            "accessibility": "Visar tillgänglighetsinställningar.",
-            "login": "Logga in i olika butiker."
+        "vkd3d": "VKD3D är ett Vulkan-baserat översättningslager för DirectX 12 spel. Aktivering kan förbättra kompatibiliteten avsevärt. Har ingen effekt på äldre DirectX spel, det kräver DXVK.",
+        "wine": {
+            "part1": "Heroic söker efter Wine, Proton och CrossOver i dessa mappar:",
+            "part2": "För övriga platser, använd symbolisk länk till en av dessa mappar"
         },
-        "button": {
-            "open": "Öppna hjälp",
-            "close": "Stäng hjälp"
-        },
-        "msync": "Msync syftar till att minska wineserver overhead i CPU-intensiva spel. Aktivering kan förbättra prestandan med Linux-kärnor som stöds.",
-        "dxfpslimit": "Ställer in ett bildhastighetstak för DirectX spel (9-12)",
-        "advertiseAvxForRosetta": "Aktiverar stöd för AVX-instruktionsuppsättningar när Windows-spel körs via Rosetta på Apple Silicon Macar. Detta kan krävas för vissa spel som Death Stranding som behöver AVX-stöd.",
-        "analytics": "Gör det möjligt för Heroic att samla in 100 % anonym användningsdata för att förbättra programmet. Kräver omstart för att det ska träda i kraft.",
-        "download_proton_steam": "När det är aktiverat kommer GE-Proton att laddas ner direkt till Steams kompatibilitetsverktygskatalog istället för standardsökvägen för Heroic. Det kommer att använda Steam-sökvägen som angetts i inställningen \"Standardsökväg för Steam\" ovan.",
         "wine-hdr": "HDR förstärker färgerna genom att ge ljusare höjdpunkter och djupare kontraster. För att HDR ska fungera måste både skärmen och spelet stödja det.",
-        "wine-wayland": "Den experimentella drivrutinen Wine-Wayland tillåter spel att köras direkt under Wayland visningsprotokoll. Aktivering kan orsaka problem i vissa spel.",
-        "WoW64": "Wine WoW64-läget gör att 32-bitars Windows-spel kan köras på 64-bitars Wine. Aktivering kan förbättra prestandan, men kan också förstöra äldre 32-bitars spel.",
-        "nvidiaprime": {
-            "details": "Använd dedikerat grafikkort för att rendera spel på multi-GPU system. Behövs endast på laptop eller stationära datorer som använder en headless GPU för rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": "Den experimentella drivrutinen Wine-Wayland tillåter spel att köras direkt under Wayland visningsprotokoll. Aktivering kan orsaka problem i vissa spel."
     },
     "info": {
         "heroic": {
@@ -590,28 +591,62 @@
     "Recent": "Nyligen spelat",
     "search": "Sök efter spel",
     "setting": {
+        "FsrSharpnessStrenght": "FSR skärpningsnivå",
+        "WoW64": "Aktivera WoW64 (Experimentellt)",
         "adddesktopshortcuts": "Skapa skrivbordsgenvägar automatiskt",
+        "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
         "addgamestostartmenu": "Lägg till spel i startmenyn automatiskt",
         "addgamestosteam": "Lägg till spel till Steam automatiskt",
+        "advertiseAvxForRosetta": "Annonsera AVX för Rosetta",
+        "after-launch-script-path": "Välj ett skript att köra efter att spelet avslutats",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "Är du säker?",
+                "message": "Spel med trasiga eller nekade antifusk kanske inte kan köras, men flerspelarspel funktioner fungerar inte. Be inte om support om du installerar dem med vetskap om detta.",
+                "understand": "Jag förstår"
+            },
+            "label": "Tillåt installation av spel med trasigt eller nekat antifusk"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Är du säker?"
+            }
+        },
         "alt-gogdl-bin": "Ange alternativ GOGDL version (omstart krävs)",
         "alt-legendary-bin": "Ange alternativ Legendary version",
+        "alt-nile-bin": "Välj en alternativ Nile Binär",
+        "analyticsOptIn": "Skicka anonym data för att hjälpa Heroics utveckling",
+        "autoUpdateGames": "Uppdatera spel automatiskt",
         "autodxvk": "Installera/uppdatera DXVK i prefix automatiskt",
+        "autodxvknvapi": "Installera/uppdatera DXVK-NVAPI i prefix automatiskt",
         "autosync": "Synkronisera sparfiler automatiskt",
         "autovkd3d": "Installera/uppdatera VKD3D i prefix automatiskt",
+        "before-launch-script-path": "Välj ett skript att köra innan spelet startas",
         "change-target-exe": "Ange alternativ EXE-fil att köra",
         "checkForUpdatesOnStartup": "Sök efter Heroic-uppdateringar vid uppstart",
         "crossover-version": "Crossover/Wine version",
-        "custom_themes_path": "Sökväg till anpassade teman",
         "customWineProton": "Anpassad Wine/Proton sökväg",
+        "custom_css": {
+            "warning": "Varning: detta gäller hela frontenden. Detta betyder att fel stil kan göra att Heroic blir oanvändbar. Om det behövs kan inställningen ändras manuellt i `~/.config/heroic/config.json`. Kopiera INTE stiler from källor du inte litar på."
+        },
+        "custom_themes_path": "Sökväg till anpassade teman",
         "darktray": "Använd mörk ikon i systemfältet",
         "default-install-path": "Standard installationssökväg",
         "default-steam-path": "Standard Steam sökväg",
         "defaultWinePrefix": "Ange sökväg för nya Wine-prefix",
+        "disablePlaytimeSync": "Inaktivera speltidssynkronisering",
+        "disableUMU": "Inaktivera umu",
         "disable_controller": "Deaktivera navigering via handkontroll",
+        "disable_gog_presence": "Inaktivera GOG-närvarouppdateringar",
+        "disable_logs": "Inaktivera loggar",
         "discordRPC": "Aktivera Discord Rich Presence",
         "download-no-https": "Ladda ner spel utan HTTPS (användbart till CDNs t.ex. LanCache)",
+        "download-proton-steam": "Ladda ner GE-Proton till Steam katalog",
+        "dxfpslimit": "Begränsa FPS i DirectX-spel",
         "dxvkfpslimit": "Begränsa FPS (DX9, 10 and 11)",
         "egs-sync": "Synkronisera med installerade Epic spel",
+        "enable-quick-sync-menu": "Aktivera snabbspara synkronisera meny på spelsidan",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Aktivera FSR Hack (Wine-versionen måste stödja det)",
         "eosOverlay": {
             "cancelInstall": "Avbryt",
@@ -635,10 +670,33 @@
         },
         "esync": "Aktivera Esync",
         "exit-to-tray": "Minimera till systemfältet",
-        "FsrSharpnessStrenght": "FSR skärpningsnivå",
+        "experimental_features": {
+            "enableNewDesign": "Ny design",
+            "enableHelp": "Hjälp komponent",
+            "automaticWinetricksFixes": "Tillämpa kända fixar automatiskt",
+            "umuSupport": "Använd umu som Proton körtid",
+            "cometSupport": "Comet stöd",
+            "zoomPlatform": "Stöd för Zoom-plattformen (endast Linux)"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Denna funktion är fortfarande experimentell. Vänligen rapportera eventuella problem du stöter på med den på GitHub.",
+                "title": "Experimentell funktioner framför"
+            },
+            "description": "Använd kantlöst fönster (kräver omstart)"
+        },
         "fsync": "Aktivera Fsync",
         "gamemode": "Använd GameMode (Feral Game Mode måste vara installerat)",
+        "gamescope": {
+            "enableLimiter": "Aktivera FPS-begränsning",
+            "enableUpscaling": "Aktiverar uppskalning",
+            "missingMsg": "Vi kunde inte hitta gamescope i PATH (sökväg). Installera eller lägg till den i PATH.",
+            "enableForceGrabCursor": "Aktivera tvinga greppmarkören",
+            "warningFlatpak": "Vi kunde inte hitta en kompatibel version av Gamescope. Installera Gamescopes flatpak-paket med körtid {{runtimeVersion}} och starta om Heroic."
+        },
+        "hdr": "Aktivera HDR",
         "hideChangelogsOnStartup": "Visa inte ändringsloggen vid uppstart",
+        "ignoreGameUpdates": "Ignorera speluppdateringar",
         "language": "Välj språk",
         "library_top_option": {
             "disabled": "Deaktiverad",
@@ -708,9 +766,11 @@
         "maxRecentGames": "Visa nyligen spelat",
         "maxworkers": "Maximalt antal samtida nedladdningar",
         "minimize-on-launch": "Minimera Heroic efter spelstart",
+        "msync": "Aktivera Msync",
+        "no-tray-icon": "Dölj ikonen i systemfältet (kräver omstart)",
         "offlinemode": "Kör spelet offline",
-        "prefered_language": "Föredraget språk (Språkkod)",
         "preferSystemLibs": "Föredra systemets bibliotek",
+        "prefered_language": "Föredraget språk (Språkkod)",
         "runexe": {
             "message": "Drag och släpp filer här",
             "title": "Kör EXE-fil i prefix"
@@ -720,66 +780,9 @@
             "placeholder": "Ange specifik sparfilsmapp",
             "warning": "Dubbelkolla att sökvägen är korrekt (klicka för att försöka igen)"
         },
+        "scripts": "Skript:",
         "select_theme": "Välj tema",
-        "showfps": "Visa FPS (DX9, 10 och 11)",
-        "start-in-tray": "Starta minimerad",
-        "steamruntime": "Använd Steam Runtime",
-        "winecrossoverbottle": "CrossOver prefix",
-        "wineprefix": "Wine-prefix mapp",
-        "wineversion": "Wineversion",
-        "ignoreGameUpdates": "Ignorera speluppdateringar",
-        "autoUpdateGames": "Uppdatera spel automatiskt",
-        "disable_logs": "Inaktivera loggar",
-        "addgamestoapplications": "Lägg till spel till applikationer automatiskt",
         "showMetalOverlay": "Visa statistiköverlägg",
-        "alt-nile-bin": "Välj en alternativ Nile Binär",
-        "autodxvknvapi": "Installera/uppdatera DXVK-NVAPI i prefix automatiskt",
-        "disablePlaytimeSync": "Inaktivera speltidssynkronisering",
-        "experimental_features": {
-            "enableNewDesign": "Ny design",
-            "enableHelp": "Hjälp komponent",
-            "automaticWinetricksFixes": "Tillämpa kända fixar automatiskt",
-            "umuSupport": "Använd umu som Proton körtid",
-            "cometSupport": "Comet stöd",
-            "zoomPlatform": "Stöd för Zoom-plattformen (endast Linux)"
-        },
-        "frameless-window": {
-            "confirmation": {
-                "message": "Denna funktion är fortfarande experimentell. Vänligen rapportera eventuella problem du stöter på med den på GitHub.",
-                "title": "Experimentell funktioner framför"
-            },
-            "description": "Använd kantlöst fönster (kräver omstart)"
-        },
-        "gamescope": {
-            "enableLimiter": "Aktivera FPS-begränsning",
-            "enableUpscaling": "Aktiverar uppskalning",
-            "missingMsg": "Vi kunde inte hitta gamescope i PATH (sökväg). Installera eller lägg till den i PATH.",
-            "enableForceGrabCursor": "Aktivera tvinga greppmarkören",
-            "warningFlatpak": "Vi kunde inte hitta en kompatibel version av Gamescope. Installera Gamescopes flatpak-paket med körtid {{runtimeVersion}} och starta om Heroic."
-        },
-        "msync": "Aktivera Msync",
-        "after-launch-script-path": "Välj ett skript att köra efter att spelet avslutats",
-        "before-launch-script-path": "Välj ett skript att köra innan spelet startas",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "title": "Är du säker?",
-                "message": "Spel med trasiga eller nekade antifusk kanske inte kan köras, men flerspelarspel funktioner fungerar inte. Be inte om support om du installerar dem med vetskap om detta.",
-                "understand": "Jag förstår"
-            },
-            "label": "Tillåt installation av spel med trasigt eller nekat antifusk"
-        },
-        "verboseLogs": {
-            "description": "Aktivera detaljerade loggar"
-        },
-        "disableUMU": "Inaktivera umu",
-        "custom_css": {
-            "warning": "Varning: detta gäller hela frontenden. Detta betyder att fel stil kan göra att Heroic blir oanvändbar. Om det behövs kan inställningen ändras manuellt i `~/.config/heroic/config.json`. Kopiera INTE stiler from källor du inte litar på."
-        },
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "Är du säker?"
-            }
-        },
         "show_valve_proton": {
             "confirmation": {
                 "title": "Är du säker?",
@@ -791,18 +794,17 @@
             "label": "Tillåt användning av Valve Proton-byggen för att köra spel",
             "wine_selector_warning": "Valve version av Proton ignoreras som standard, aktivera dem i de avancerade globala inställningarna"
         },
-        "advertiseAvxForRosetta": "Annonsera AVX för Rosetta",
-        "analyticsOptIn": "Skicka anonym data för att hjälpa Heroics utveckling",
-        "download-proton-steam": "Ladda ner GE-Proton till Steam katalog",
-        "dxfpslimit": "Begränsa FPS i DirectX-spel",
-        "hdr": "Aktivera HDR",
-        "no-tray-icon": "Dölj ikonen i systemfältet (kräver omstart)",
+        "showfps": "Visa FPS (DX9, 10 och 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Starta minimerad",
+        "steamruntime": "Använd Steam Runtime",
+        "verboseLogs": {
+            "description": "Aktivera detaljerade loggar"
+        },
         "wineWayland": "Aktivera Wine-Wayland (Experimentellt) (Wine-versionen behöver stödja det)",
-        "WoW64": "Aktivera WoW64 (Experimentellt)",
-        "scripts": "Skript:",
-        "enable-quick-sync-menu": "Aktivera snabbspara synkronisera meny på spelsidan",
-        "disable_gog_presence": "Inaktivera GOG-närvarouppdateringar",
-        "start-in-console-mode": ""
+        "winecrossoverbottle": "CrossOver prefix",
+        "wineprefix": "Wine-prefix mapp",
+        "wineversion": "Wineversion"
     },
     "settings": {
         "battlEyeRuntime": {

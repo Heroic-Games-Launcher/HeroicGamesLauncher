@@ -290,11 +290,35 @@
         "show_updates_only": "Näytä vain pelit joihin on päivityksiä"
     },
     "help": {
+        "WoW64": "Wine WoW64 -tila mahdollistaa 32-bittisten Windows-pelien käytön 64-bittisessä Winessä. Tämä voi parantaa suorituskykyä, mutta voi myös rikkoa 32-bittisiä pelejä.",
+        "advertiseAvxForRosetta": "Ottaa käyttöön AVX-käskykannan tuen ajettaessa Windows-pelejä Rosettan kautta Apple Silicon -Maceilla. Tämä saattaa olla välttämätöntä peleissä, kuten Death Stranding, jotka vaativat AVX-tukea.",
         "amdfsr": "AMD FSR auttaa parantamaan ruudunpäivitysnopeutta ylösskaalaamalla alemman resoluution kuvaa koko näytön tilassa. Kuvanlaatu paranee asteikolla 5–1 pienen suorituskykyvaikutuksen kustannuksella. Käyttöönotto saattaa parantaa suorituskykyä.",
+        "analytics": "Sallii Heroicin kerätä 100% anonyymejä käyttötietoja sovelluksen parantamiseksi. Muutos vaatii ohjelman uudelleenkäynnistämisen.",
+        "button": {
+            "close": "Sulje apu",
+            "open": "Avaa apu"
+        },
+        "content": {
+            "library": "Näyttää kaikki omistetut pelit.",
+            "accessibility": "Näyttää käytettävyysasetukset.",
+            "customThemesPath": "Lue Wiki-tietokantamme.",
+            "downloadManager": "Näyttää nykyiset- ja menneet lataukset.",
+            "login": "Sisäänkirjaudu eri kauppoihin.",
+            "defaultInstallPath": "Tämä on ennalta valittu vakiopolku pelejä asennettaessa.",
+            "settingsGame": "Näytä pelille kaikki asetukset.",
+            "settingsDefault": "Näyttää kaikki Heroic:in asetukset sekä pelien vakiot niille.",
+            "wineManager": "Asenna eri versioita; Wine, Proton, Crossover, jne."
+        },
         "custom_themes_path": "Älä käytä CSS-tiedostoja luottamattomista lähteistä. Jos epäröit, kysy tarkistusta Discord-kanavallamme.",
         "custom_themes_wiki": "Lue Wiki-tietokantaa saadaksesi lisätietoja räätälöityjen teemojen lisäämiseksi. Napsauta tässä.",
+        "disablePlaytimeSync": "Kytkee pois päältä peliaikojen synkronisoinnin kauppojen palvelimien kanssa (tällä hetkellä vain GOG on tuettu)",
+        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan kirjoituksista lokitiedostoihin (kriittiset tiedot kirjataan aina). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
+        "download_proton_steam": "Kun asetus on käytössä, GE-Proton ladataan suoraan Steamin yhteensopivuustyökalujen hakemistoon Heroicin oletussijainnin sijasta. Latauksessa käytetään ylempänä kohdassa ”Steamin oletuspolku” määritettyä polkua.",
+        "dxfpslimit": "Asettaa ruudunpäivitykselle katon DXVK-peleissä",
         "dxvk": "DXVK on Vulkan-pohjainen tulkki DirectX 9-, 10- ja 11-peleille. Päällekytkentä voi parantaa yhteensopivuutta. Tämä voi aiheuttaa ongelmia erityisesti vanhemmissa DirectX-peleissä.",
         "dxvkfpslimit": "Asettaa ruudunpäivitykselle katon DXVK-peleissä",
+        "dxvknvapi": "DXVK-NVAPI on NVAPI:n sulautus joka on rakennettu DXVK:n ja kotoperäisen Linux-NVAPI:n päälle, ja se mahdollistaa DLSS:n käytön Nvidian näytönohjaimilla.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä.",
         "fsync": "Fsync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä tuettujen Linux-ydinten kohdalla.",
         "game_language": {
@@ -303,8 +327,24 @@
             "valid_codes": "Kelvolliset kielikoodit riippuvat aina pelistä."
         },
         "gamemode": "Feral GameMode asettaa käyttöön automaattisia ja tilapäisiä säätöjä pelejä ajettaessa. Päällekytkentä voi parantaa suorituskykyä.",
+        "gamescope": {
+            "fpsLimiter": "Ruuturajoitus Gamescopelle. Esim. 60",
+            "additionalOptions": "Lisää komentorivin lippuja jotka toimitetaan Gamescopeen.",
+            "fpsLimiterNoFocus": "Rajoitettu ruutuvaste Gamescopelle jokaista sekuntia kohti mikäli pelinäkymä ei kohdistettu.",
+            "gameHeight": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
+            "gameWidth": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
+            "upscaleHeight": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
+            "upscaleWidth": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
+            "forceGrabCursor": "Käytä aina suhteellista hiiritilaa kursorin näkyvyydestä riippuvan vaihtelutilan sijaan. (Hyödyllinen kun ohjelmisto menettää jatkuvasti kohdistuksensa)",
+            "upscaleMethod": "Ylösskaalauksen menetelmä jota Gamescope asetetaan toteuttamaan."
+        },
         "general": "Synkronisoi EGL:n kanssa mikäli sinulla on toimiva Epic Games Launcher:in asennus toisaalla ja haluat tuoda pelisi välttääksesi niiden uudelleenlatauksen.",
         "mangohud": "MangoHUD on päällinen joka näyttää ruudunpäivityksen, lämpötilat, suorittimen/näytönohjaimen kuormituksen ja muita resursseja.",
+        "msync": "Fsync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä tuettujen Linux-ydinten kohdalla.",
+        "nvidiaprime": {
+            "details": "Käytä omistautunutta tehokkaampaa grafiikkakorttia pelin hahmontamiseen moninäytönohjaimisissa järjestelmissä. Tarvitaan vain kannettavissa tietokoneissa tai työpöytäkonessa, jotka käyttävät vaihtelevaa näytönohjainmallia (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Lue lisää yksityiskohtia wikistämme"
+        },
         "other": {
             "part4": "Käytä ",
             "part5": "Pelin lisävivut",
@@ -323,14 +363,6 @@
             "part3": "Manuaalinen synkronointi: valitse \"Lataa\" ladataksesi pelien tallennukset pilvipalvelusta. Valitse \"Lähetä\" lähettääksesi paikalliset tallennukset pilvipalveluun. \"Pakota Lataus\" ja \"Pakota Lähetys\" jättävät huomiotta version, jota säilytetään joko paikallisesti tai pilvipalvelussa.",
             "part4": "\"Synkronoi tallennukset automaattisesti\" synkronoi tallennukset joka kerta kun käynnistät pelin ja suljet sen."
         },
-        "vkd3d": "VKD3D on Vulkan-pohjainen tulkki DirectX 12 -peleille. Päällekytkeminen saattaa parantaa merkittävästi yhteensopivuutta. Vaikutusta ei tule olemaan vanhempien DirectX-pelien kohdalla; se vaatii DXKV:n.",
-        "wine": {
-            "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
-            "part2": "Muille sijainneille käytä symbolista linkkiä johonkin näistä kansioista"
-        },
-        "disable_logs": "Ota tämä valintaruutu PÄÄLLE, jos haluat poistaa suurimman osan kirjoituksista lokitiedostoihin (kriittiset tiedot kirjataan aina). Muista poistaa tämä asetus käytöstä ennen kuin ilmoitat ongelmasta.",
-        "dxvknvapi": "DXVK-NVAPI on NVAPI:n sulautus joka on rakennettu DXVK:n ja kotoperäisen Linux-NVAPI:n päälle, ja se mahdollistaa DLSS:n käytön Nvidian näytönohjaimilla.",
-        "disablePlaytimeSync": "Kytkee pois päältä peliaikojen synkronisoinnin kauppojen palvelimien kanssa (tällä hetkellä vain GOG on tuettu)",
         "title": {
             "accessibility": "Käytettävyys",
             "login": "Kirjaudu",
@@ -339,44 +371,13 @@
             "wineManager": "Wine-hallinta",
             "library": "Kirjasto"
         },
-        "msync": "Fsync pyrkii vähentämään Wine-palvelimen taakkaa suoritinta kuormittavissa peleissä. Päällekytkentä voi parantaa suorituskykyä tuettujen Linux-ydinten kohdalla.",
-        "content": {
-            "library": "Näyttää kaikki omistetut pelit.",
-            "accessibility": "Näyttää käytettävyysasetukset.",
-            "customThemesPath": "Lue Wiki-tietokantamme.",
-            "downloadManager": "Näyttää nykyiset- ja menneet lataukset.",
-            "login": "Sisäänkirjaudu eri kauppoihin.",
-            "defaultInstallPath": "Tämä on ennalta valittu vakiopolku pelejä asennettaessa.",
-            "settingsGame": "Näytä pelille kaikki asetukset.",
-            "settingsDefault": "Näyttää kaikki Heroic:in asetukset sekä pelien vakiot niille.",
-            "wineManager": "Asenna eri versioita; Wine, Proton, Crossover, jne."
+        "vkd3d": "VKD3D on Vulkan-pohjainen tulkki DirectX 12 -peleille. Päällekytkeminen saattaa parantaa merkittävästi yhteensopivuutta. Vaikutusta ei tule olemaan vanhempien DirectX-pelien kohdalla; se vaatii DXKV:n.",
+        "wine": {
+            "part1": "Heroic etsii Wine, Proton- ja CrossOver -versioita seuraavista kansioista:",
+            "part2": "Muille sijainneille käytä symbolista linkkiä johonkin näistä kansioista"
         },
-        "button": {
-            "close": "Sulje apu",
-            "open": "Avaa apu"
-        },
-        "gamescope": {
-            "fpsLimiter": "Ruuturajoitus Gamescopelle. Esim. 60",
-            "additionalOptions": "Lisää komentorivin lippuja jotka toimitetaan Gamescopeen.",
-            "fpsLimiterNoFocus": "Rajoitettu ruutuvaste Gamescopelle jokaista sekuntia kohti mikäli pelinäkymä ei kohdistettu.",
-            "gameHeight": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
-            "gameWidth": "Korkein ruuduntarkkuus pelille. 16:9 -kuvasuhde on Gamescope-oletus.",
-            "upscaleHeight": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
-            "upscaleWidth": "Korkeussuuntainen ruuduntarkkuus jota Gamescope käyttää. 16:9 -kuvasuhde on oletus.",
-            "forceGrabCursor": "Käytä aina suhteellista hiiritilaa kursorin näkyvyydestä riippuvan vaihtelutilan sijaan. (Hyödyllinen kun ohjelmisto menettää jatkuvasti kohdistuksensa)",
-            "upscaleMethod": "Ylösskaalauksen menetelmä jota Gamescope asetetaan toteuttamaan."
-        },
-        "dxfpslimit": "Asettaa ruudunpäivitykselle katon DXVK-peleissä",
-        "advertiseAvxForRosetta": "Ottaa käyttöön AVX-käskykannan tuen ajettaessa Windows-pelejä Rosettan kautta Apple Silicon -Maceilla. Tämä saattaa olla välttämätöntä peleissä, kuten Death Stranding, jotka vaativat AVX-tukea.",
-        "analytics": "Sallii Heroicin kerätä 100% anonyymejä käyttötietoja sovelluksen parantamiseksi. Muutos vaatii ohjelman uudelleenkäynnistämisen.",
-        "download_proton_steam": "Kun asetus on käytössä, GE-Proton ladataan suoraan Steamin yhteensopivuustyökalujen hakemistoon Heroicin oletussijainnin sijasta. Latauksessa käytetään ylempänä kohdassa ”Steamin oletuspolku” määritettyä polkua.",
         "wine-hdr": "HDR parantaa värejä tarjoamalla kirkkaampia kohokohtia ja syvempiä kontrasteja. Jotta HDR toimisi, sekä näytön että pelin on tuettava sitä.",
-        "WoW64": "Wine WoW64 -tila mahdollistaa 32-bittisten Windows-pelien käytön 64-bittisessä Winessä. Tämä voi parantaa suorituskykyä, mutta voi myös rikkoa 32-bittisiä pelejä.",
-        "wine-wayland": "Wine-Wayland-kokeellinen ajuri sallii pelien toimia natiivisti Wayland-näyttöprotokollan alla. Tämä ajuri saattaa rikkoa joitakin pelejä.",
-        "nvidiaprime": {
-            "details": "Käytä omistautunutta tehokkaampaa grafiikkakorttia pelin hahmontamiseen moninäytönohjaimisissa järjestelmissä. Tarvitaan vain kannettavissa tietokoneissa tai työpöytäkonessa, jotka käyttävät vaihtelevaa näytönohjainmallia (NVIDIA Optimus, AMD CrossFire)",
-            "link": "Lue lisää yksityiskohtia wikistämme"
-        }
+        "wine-wayland": "Wine-Wayland-kokeellinen ajuri sallii pelien toimia natiivisti Wayland-näyttöprotokollan alla. Tämä ajuri saattaa rikkoa joitakin pelejä."
     },
     "info": {
         "heroic": {
@@ -590,28 +591,62 @@
     "Recent": "Viimeksi pelatut",
     "search": "Etsi pelejä",
     "setting": {
+        "FsrSharpnessStrenght": "FSR-terävyyden voimakkuus",
+        "WoW64": "Salli WoW64 (kokeellinen)",
         "adddesktopshortcuts": "Lisää työpöydän pikakuvakkeet automaattisesti",
+        "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
         "addgamestostartmenu": "Lisää pelit aloitusvalikkoon automaattisesti",
         "addgamestosteam": "Lisää pelit Steam:iin automaattisesti",
+        "advertiseAvxForRosetta": "Mainosta AVX:ää Rosettalle",
+        "after-launch-script-path": "Valitse skripti, joka ajetaan kun peli sulkeutuu",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "Ymmärrän",
+                "title": "Oletko varma?",
+                "message": "Pelit joissa on rikkinäinen tai ongelmallinen huijauksenesto voivat toimia, mutta moninpeliominaisuudet eivät toimi. Älä pyydä tukea, jos asennat sellaisen tietoisesti."
+            },
+            "label": "Salli pelien asennus, joissa on rikkinäinen tai ongelmallinen huijauksenesto"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Oletko varma?"
+            }
+        },
         "alt-gogdl-bin": "Valitse vaihtoehtoinen GOGDL-binääri käytettäväksi (vaatii uudelleenkäynnistyksen)",
         "alt-legendary-bin": "Valitse vaihtoehtoinen Legendary-binääritiedosto (uudelleenkäynnistys vaaditaan)",
+        "alt-nile-bin": "Valitse vaihtoehtoinen Nile-binääri",
+        "analyticsOptIn": "Lähetä anonyymiä tietoa auttaaksesi Heroicin kehittämisessä",
+        "autoUpdateGames": "Päivitä pelit automaattisesti",
         "autodxvk": "Asenna automaattisesti/päivitä DXVK etuasteessa",
+        "autodxvknvapi": "Asenna automaattisesti/päivitä DXVK-NVAPI etuasteessa",
         "autosync": "Synkronoi tallennukset automaattisesti",
         "autovkd3d": "VKD3D:n automaattinen asennus/päivitys etuasteeseen",
+        "before-launch-script-path": "Valitse skripti, joka ajetaan ennen kuin peli käynnistyy",
         "change-target-exe": "Valitse vaihtoehtoinen EXE-tiedosto joka ajetaan",
         "checkForUpdatesOnStartup": "Tarkista Heroic:in päivitykset käynnistyksen yhteydessä",
         "crossover-version": "Crossover/Wine-versio",
-        "custom_themes_path": "Omien teemojen polku",
         "customWineProton": "Mukautetut Wine/Proton sijainnit",
+        "custom_css": {
+            "warning": "Varoitus: tämä pätee koko käyttöliittymään. Tämä tarkoittaa, että väärä tyyli voi tehdä Heroicista käyttökelvottoman. Asetusta voi tarvittaessa muuttaa `~/.config/heroic/config.json` tiedostossa. Älä kopioi tyylejä lähteistä joihin et luota."
+        },
+        "custom_themes_path": "Omien teemojen polku",
         "darktray": "Käytä tummaa ilmaisinalueen kuvaketta",
         "default-install-path": "Oletus asennussijainti",
         "default-steam-path": "Vakio Steam-polku",
         "defaultWinePrefix": "Aseta kansio uusille Wine-etuasteille",
+        "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä",
+        "disableUMU": "Poista umu käytöstä",
         "disable_controller": "Poiskytke Heroic-navigaatio käyttäen peliohjainta",
+        "disable_gog_presence": "Poista GOG:n läsnäolopäivitykset käytöstä",
+        "disable_logs": "Poista lokikirjaukset käytöstä",
         "discordRPC": "Ota käyttöön Discord Rich Presence",
         "download-no-https": "Lataa pelit ilman HTTPS:ää (hyödyllinen CDN:ille kuten LanCache)",
+        "download-proton-steam": "Lataa GE-Proton Steam-kansioon",
+        "dxfpslimit": "Rajoita DirectX pelien FPS:ää",
         "dxvkfpslimit": "Aseta ruudunpäivityskatto (DX9, 10 ja 11)",
         "egs-sync": "Synkronoi asennettujen Epic Games -pelien kanssa",
+        "enable-quick-sync-menu": "Ota käyttöön pikatallennuksen synkronointivalikko pelisivulla",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Ota käyttöön FSR Hack (Wine-version pitää tukea sitä)",
         "eosOverlay": {
             "cancelInstall": "Peruuta",
@@ -635,10 +670,32 @@
         },
         "esync": "Ota Esync käyttöön",
         "exit-to-tray": "Sulje ilmaisinalueelle",
-        "FsrSharpnessStrenght": "FSR-terävyyden voimakkuus",
+        "experimental_features": {
+            "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus",
+            "enableNewDesign": "Uusi malli",
+            "cometSupport": "Comet-tuki",
+            "enableHelp": "Apukomponentti",
+            "zoomPlatform": "Zoom-alustan tuki (ainoastaan Linux)"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "title": "Kokeelliset ominaisuudet",
+                "message": "Tämä ominaisuus on kokeellinen. Raportoi kohtaamasi virheet GitHub-sivulla."
+            },
+            "description": "Käytä reunatonta ikkunaa (vaatii uudelleenkäynnistyksen)"
+        },
         "fsync": "Ota Fsync käyttöön",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
+        "gamescope": {
+            "enableLimiter": "Ota käyttöön FPS-rajoitin",
+            "enableUpscaling": "Ota käyttöön ylösskaalaus",
+            "missingMsg": "Emme löytäneet Gamescopea PATH-ympäristömuuttujassa. Asenna Gamescope, tai lisää se PATH-ympäristömuuttujaan.",
+            "enableForceGrabCursor": "Ota käyttöön kursorin pakotettu kaappaus",
+            "warningFlatpak": "Emme löytäneet yhteensopivaa versiota Gamescopesta. Asenna Gamescopen flatpak-paketti ajoympäristöllä {{runtimeVersion}} ja uudelleenkäynnistä Heroic."
+        },
+        "hdr": "Ota käyttöön HDR",
         "hideChangelogsOnStartup": "Älä näytä muutoskirjauksia käynnistyksen yhteydessä",
+        "ignoreGameUpdates": "Ohita pelipäivitykset",
         "language": "Valitse sovelluksen kieli",
         "library_top_option": {
             "disabled": "Kytketty pois",
@@ -708,9 +765,14 @@
         "maxRecentGames": "Viimeksi pelatut näkyvillä",
         "maxworkers": "Työstäjien enimmäismäärä ladattaessa",
         "minimize-on-launch": "Pienennä Heroic palkkiin pelin käynnistämisen jälkeen",
+        "msync": "Ota Msync käyttöön",
+        "no-tray-icon": "Piiloita ilmoitusalueen kuvake (vaatii uudelleenkäynnistyksen)",
+        "nvidiaprime": {
+            "description": "Pakota NVIDIA Optimus tai AMD:n Dynamic Switchable Graphics dGPU käyttöön. Käytä tätä VAIN OpenGL ja Vulkan peleille."
+        },
         "offlinemode": "Käynnistä peli offline-tilassa",
-        "prefered_language": "Mitä kieltä suositaan (kielikoodi)",
         "preferSystemLibs": "Suosi järjestelmäkirjastoja",
+        "prefered_language": "Mitä kieltä suositaan (kielikoodi)",
         "runexe": {
             "message": "Raahaa ja pudota tiedostoja tänne",
             "title": "Aja EXE etusasteessa"
@@ -720,49 +782,9 @@
             "placeholder": "Valitse täsmällinen pelitallennuksien kansio",
             "warning": "Tarkista kaksikin kertaa että polku on oikein (napsauta uudelleenyritystä varten)"
         },
+        "scripts": "Skriptit:",
         "select_theme": "Valitse teema",
-        "showfps": "Näytä ruudunpäivitys (DX9, 10 ja 11)",
-        "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
-        "steamruntime": "Käytä Steam Runtimea",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix-kansio",
-        "wineversion": "Wine-versio",
-        "autoUpdateGames": "Päivitä pelit automaattisesti",
-        "ignoreGameUpdates": "Ohita pelipäivitykset",
-        "disable_logs": "Poista lokikirjaukset käytöstä",
-        "addgamestoapplications": "Lisää pelejä automaattisesti sovelluksiin",
         "showMetalOverlay": "Näytä tilastopäällinen",
-        "alt-nile-bin": "Valitse vaihtoehtoinen Nile-binääri",
-        "autodxvknvapi": "Asenna automaattisesti/päivitä DXVK-NVAPI etuasteessa",
-        "experimental_features": {
-            "enableNewShinyFeature": "Tuore uutuuttakiiltävä ominaisuus",
-            "enableNewDesign": "Uusi malli",
-            "cometSupport": "Comet-tuki",
-            "enableHelp": "Apukomponentti",
-            "zoomPlatform": "Zoom-alustan tuki (ainoastaan Linux)"
-        },
-        "disablePlaytimeSync": "Kytke peliaikojen synkronointi pois päältä",
-        "msync": "Ota Msync käyttöön",
-        "frameless-window": {
-            "confirmation": {
-                "title": "Kokeelliset ominaisuudet",
-                "message": "Tämä ominaisuus on kokeellinen. Raportoi kohtaamasi virheet GitHub-sivulla."
-            },
-            "description": "Käytä reunatonta ikkunaa (vaatii uudelleenkäynnistyksen)"
-        },
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "Ymmärrän",
-                "title": "Oletko varma?",
-                "message": "Pelit joissa on rikkinäinen tai ongelmallinen huijauksenesto voivat toimia, mutta moninpeliominaisuudet eivät toimi. Älä pyydä tukea, jos asennat sellaisen tietoisesti."
-            },
-            "label": "Salli pelien asennus, joissa on rikkinäinen tai ongelmallinen huijauksenesto"
-        },
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "Oletko varma?"
-            }
-        },
         "show_valve_proton": {
             "confirmation": {
                 "title": "Oletko varma?",
@@ -774,37 +796,17 @@
             "label": "Salli pelien suoritus Valven Proton-buildeillä",
             "info_label": "Valven Proton-versiot sivuutetaan"
         },
-        "WoW64": "Salli WoW64 (kokeellinen)",
+        "showfps": "Näytä ruudunpäivitys (DX9, 10 ja 11)",
+        "start-in-console-mode": "Käynnistä konsolitilassa",
+        "start-in-tray": "Käynnistä minimoituna ilmoitusalueelle",
+        "steamruntime": "Käytä Steam Runtimea",
         "verboseLogs": {
             "description": "Salli laajat lokit"
         },
-        "advertiseAvxForRosetta": "Mainosta AVX:ää Rosettalle",
-        "download-proton-steam": "Lataa GE-Proton Steam-kansioon",
-        "scripts": "Skriptit:",
         "wineWayland": "Ota käyttöön Wine-Wayland (Kokeellinen) (Wine-version täytyy tukea sitä)",
-        "after-launch-script-path": "Valitse skripti, joka ajetaan kun peli sulkeutuu",
-        "hdr": "Ota käyttöön HDR",
-        "dxfpslimit": "Rajoita DirectX pelien FPS:ää",
-        "gamescope": {
-            "enableLimiter": "Ota käyttöön FPS-rajoitin",
-            "enableUpscaling": "Ota käyttöön ylösskaalaus",
-            "missingMsg": "Emme löytäneet Gamescopea PATH-ympäristömuuttujassa. Asenna Gamescope, tai lisää se PATH-ympäristömuuttujaan.",
-            "enableForceGrabCursor": "Ota käyttöön kursorin pakotettu kaappaus",
-            "warningFlatpak": "Emme löytäneet yhteensopivaa versiota Gamescopesta. Asenna Gamescopen flatpak-paketti ajoympäristöllä {{runtimeVersion}} ja uudelleenkäynnistä Heroic."
-        },
-        "enable-quick-sync-menu": "Ota käyttöön pikatallennuksen synkronointivalikko pelisivulla",
-        "no-tray-icon": "Piiloita ilmoitusalueen kuvake (vaatii uudelleenkäynnistyksen)",
-        "analyticsOptIn": "Lähetä anonyymiä tietoa auttaaksesi Heroicin kehittämisessä",
-        "before-launch-script-path": "Valitse skripti, joka ajetaan ennen kuin peli käynnistyy",
-        "disableUMU": "Poista umu käytöstä",
-        "custom_css": {
-            "warning": "Varoitus: tämä pätee koko käyttöliittymään. Tämä tarkoittaa, että väärä tyyli voi tehdä Heroicista käyttökelvottoman. Asetusta voi tarvittaessa muuttaa `~/.config/heroic/config.json` tiedostossa. Älä kopioi tyylejä lähteistä joihin et luota."
-        },
-        "start-in-console-mode": "Käynnistä konsolitilassa",
-        "disable_gog_presence": "Poista GOG:n läsnäolopäivitykset käytöstä",
-        "nvidiaprime": {
-            "description": "Pakota NVIDIA Optimus tai AMD:n Dynamic Switchable Graphics dGPU käyttöön. Käytä tätä VAIN OpenGL ja Vulkan peleille."
-        }
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "WinePrefix-kansio",
+        "wineversion": "Wine-versio"
     },
     "settings": {
         "battlEyeRuntime": {

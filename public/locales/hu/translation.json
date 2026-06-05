@@ -298,11 +298,35 @@
         "show_updates_only": "Csak a frissítésekkel rendelkező játékok megjelenítése"
     },
     "help": {
+        "WoW64": "A Wine WoW64 mód lehetővé teszi a 32 bites Windows játékok futtatását 64 bites Wine-on. Engedélyezése javíthatja a teljesítményt, de problémákat okozhat régebbi 32 bites játékoknál.",
+        "advertiseAvxForRosetta": "Engedélyezi az AVX utasításkészlet támogatását, ha Windowsos játékokat futtat a Rosettával az Apple Silicon Maceken. Ez az olyan játékok esetén lehet szükséges, mint a Death Stranding, amelyhez AVX támogatás szükséges.",
         "amdfsr": "Az AMD FSR segít a képkockasebesség növelésében az alacsonyabb felbontások felskálázásával teljes képernyős módban. A képminőség 5-ről 1-re növekszik, némi teljesítménycsökkenés mellett. Engedélyezése javíthat a teljesítményen.",
+        "analytics": "Lehetővé teszi a Heroic számára, hogy 100%-ban anonim használati adatokat gyűjtsön az alkalmazás fejlesztésének érdekében. Újraindítás után lép életbe.",
+        "button": {
+            "close": "Súgó bezárása",
+            "open": "Súgó megnyitása"
+        },
+        "content": {
+            "defaultInstallPath": "A játékok telepítésénél előre kiválasztott, alapértelmezett elérési út.",
+            "settingsDefault": "Megjeleníti a Heroic összes beállítását és a játékok alapértelmezéseit.",
+            "settingsGame": "A játék összes beállításának megjelenítése.",
+            "wineManager": "A Wine, Proton, Crossover stb. különböző verzióinak telepítése",
+            "accessibility": "Megjeleníti az akadálymentességi beállításokat.",
+            "customThemesPath": "Nézd meg a wikinket.",
+            "downloadManager": "Megjeleníti a jelenlegi és múltbéli letöltéseket.",
+            "library": "Megjeleníti az összes birtokolt játékot.",
+            "login": "Bejelentkezés a különböző áruházakba."
+        },
         "custom_themes_path": "Ne használj nem megbízható forrásokból származó CSS-fájlokat. Kétség esetén kérj felülvizsgálatot a Discord csatornánkon.",
         "custom_themes_wiki": "Nézd meg a Wikit az egyéni témák hozzáadásával kapcsolatos további részletekért. Kattints ide.",
+        "disablePlaytimeSync": "Letiltja a játék közbeni szinkronizációt az adott áruház kiszolgálóival (jelenleg csak a GOG támogatott)",
+        "disable_logs": "Jelöld be ezt a négyzetet, hogy letiltsd a legtöbb írást a naplófájlokba (a kritikus információk mindig naplózásra kerülnek). Mielőtt bármilyen problémát jelentenél, feltétlenül kapcsold KI ezt a beállítást.",
+        "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni.",
+        "dxfpslimit": "Képkockaszámkorlátot állít be a DXVK-s játékokhoz",
         "dxvk": "A DXVK egy Vulkanon alapuló fordítási szoftverréteg a DirectX 9, 10 és 11 játékoknak. Engedélyezése növelheti a kompatibilitást. Okozhat problémákat, különösen a régebbi DirectX játékok esetén.",
         "dxvkfpslimit": "Képkockaszámkorlátot állít be a DXVK-s játékokhoz",
+        "dxvknvapi": "DXVK-NVAPI a NVAPI egy megvalósítása, amely a DXVK-ra és a Linux eredeti NVAPI-jára épül, és lehetővé teszi a DLSS használatát az Nvidia videókártyákon.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Az Esync célja, hogy csökkentse a wineserver többletterhelését a CPU-intenzív játékoknál. Engedélyezése növelheti a teljesítményt.",
         "fsync": "Az Fsync segít csökkenteni a wineserver többletterhelését a CPU-intenzív játékoknál. Engedélyezése javíthatja a teljesítményt a támogatott Linux kernelek esetén.",
         "game_language": {
@@ -311,8 +335,24 @@
             "valid_codes": "A működő nyelvkódok a játékokon múlnak."
         },
         "gamemode": "A Feral GameMode automatikus és ideiglenes finomhangolásokat végez a rendszeren a játékok futása közben. Engedélyezése javíthatja a teljesítményt.",
+        "gamescope": {
+            "fpsLimiterNoFocus": "A másodpercenkénti képfrissítési sebesség, amelyre a gamescope korlátozva van, amikor a játék nincs fókuszban.",
+            "upscaleMethod": "A felskálázási mód, melyet a gamescope használ.",
+            "gameWidth": "A játék által használt szélességi felbontás. A gamescope 16:9-es képarányt feltételez.",
+            "upscaleWidth": "A gamescope által használt szélességi felbontás. 16:9-es képarányt feltételez.",
+            "gameHeight": "A játék által használt magassági felbontás. A gamescope 16:9-es képarányt feltételez.",
+            "fpsLimiter": "A gamescope képkockaszámkorlátja. Például 60.",
+            "upscaleHeight": "A gamescope által használt magassági felbontás. 16:9-es képarányt feltételez.",
+            "additionalOptions": "További átadandó parancssori kapcsolók a gamescope-hoz.",
+            "forceGrabCursor": "Mindig relatív egérmód használata a kurzor láthatóságától függő váltás helyett. (Hasznos, ha az alkalmazások elveszítik a fókuszt)"
+        },
         "general": "Ha van máshol egy működő Epic Games Launcher telepítésed, akkor szinkronizálja az EGL-lel a játékaid importálásához, hogy elkerülje az újbóli letöltésüket.",
         "mangohud": "A MangoHUD egy átfedés, amely megjeleníti és figyeli az FPS-t, hőmérsékleteket, CPU- és GPU-terhelést és más rendszererőforrásokat.",
+        "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken.",
+        "nvidiaprime": {
+            "details": "Dedikált grafikus kártya használata a játék megjelenítéséhez a több GPU-s rendszereken. Csak olyan játékra szánt laptopokon és asztali számítógépeken van rá szükség, amelyek kimenet nélküli GPU-t használnak a megjelenítéshez (NVIDIA Optimus, AMD CrossFire)",
+            "link": "További részletekért nézd meg a wikinket"
+        },
         "other": {
             "part4": "Játékargumentumok ",
             "part5": "használata",
@@ -331,25 +371,6 @@
             "part3": "Kézi szinkronizálás: válaszd a letöltést, hogy letöltsd a felhőben tárolt játékmentéseket. Válaszd a feltöltést, hogy feltöltsd a helyieket a felhőbe. A kényszerített letöltés és kényszerített feltöltés figyelmen kívül hagyja a helyi vagy a felhőben lévő fájlverziókat.",
             "part4": "A mentések automatikus szinkronizálása minden egyes alkalommal szinkronizálja a mentéseket, amikor elindítja és miután befejezed a játékot."
         },
-        "vkd3d": "A VKD3D egy Vulkan-alapú fordítóréteg DirectX 12-es játékokhoz. Engedélyezése jelentősen javíthatja a kompatibilitást. Nincs hatása régebbi DirectX-es játékokra, használatához DXVK szükséges.",
-        "wine": {
-            "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
-            "part2": "Más hely esetén használj egy szimbolikus linket az egyik mappához"
-        },
-        "disable_logs": "Jelöld be ezt a négyzetet, hogy letiltsd a legtöbb írást a naplófájlokba (a kritikus információk mindig naplózásra kerülnek). Mielőtt bármilyen problémát jelentenél, feltétlenül kapcsold KI ezt a beállítást.",
-        "gamescope": {
-            "fpsLimiterNoFocus": "A másodpercenkénti képfrissítési sebesség, amelyre a gamescope korlátozva van, amikor a játék nincs fókuszban.",
-            "upscaleMethod": "A felskálázási mód, melyet a gamescope használ.",
-            "gameWidth": "A játék által használt szélességi felbontás. A gamescope 16:9-es képarányt feltételez.",
-            "upscaleWidth": "A gamescope által használt szélességi felbontás. 16:9-es képarányt feltételez.",
-            "gameHeight": "A játék által használt magassági felbontás. A gamescope 16:9-es képarányt feltételez.",
-            "fpsLimiter": "A gamescope képkockaszámkorlátja. Például 60.",
-            "upscaleHeight": "A gamescope által használt magassági felbontás. 16:9-es képarányt feltételez.",
-            "additionalOptions": "További átadandó parancssori kapcsolók a gamescope-hoz.",
-            "forceGrabCursor": "Mindig relatív egérmód használata a kurzor láthatóságától függő váltás helyett. (Hasznos, ha az alkalmazások elveszítik a fókuszt)"
-        },
-        "dxvknvapi": "DXVK-NVAPI a NVAPI egy megvalósítása, amely a DXVK-ra és a Linux eredeti NVAPI-jára épül, és lehetővé teszi a DLSS használatát az Nvidia videókártyákon.",
-        "disablePlaytimeSync": "Letiltja a játék közbeni szinkronizációt az adott áruház kiszolgálóival (jelenleg csak a GOG támogatott)",
         "title": {
             "accessibility": "Akadálymentesség",
             "login": "Bejelentkezés",
@@ -358,33 +379,13 @@
             "wineManager": "Wine kezelő",
             "library": "Könyvtár"
         },
-        "button": {
-            "close": "Súgó bezárása",
-            "open": "Súgó megnyitása"
+        "vkd3d": "A VKD3D egy Vulkan-alapú fordítóréteg DirectX 12-es játékokhoz. Engedélyezése jelentősen javíthatja a kompatibilitást. Nincs hatása régebbi DirectX-es játékokra, használatához DXVK szükséges.",
+        "wine": {
+            "part1": "A Heroic a Wine, Proton és CrossOver verzióit a következő mappákban keresi:",
+            "part2": "Más hely esetén használj egy szimbolikus linket az egyik mappához"
         },
-        "content": {
-            "defaultInstallPath": "A játékok telepítésénél előre kiválasztott, alapértelmezett elérési út.",
-            "settingsDefault": "Megjeleníti a Heroic összes beállítását és a játékok alapértelmezéseit.",
-            "settingsGame": "A játék összes beállításának megjelenítése.",
-            "wineManager": "A Wine, Proton, Crossover stb. különböző verzióinak telepítése",
-            "accessibility": "Megjeleníti az akadálymentességi beállításokat.",
-            "customThemesPath": "Nézd meg a wikinket.",
-            "downloadManager": "Megjeleníti a jelenlegi és múltbéli letöltéseket.",
-            "library": "Megjeleníti az összes birtokolt játékot.",
-            "login": "Bejelentkezés a különböző áruházakba."
-        },
-        "msync": "Az Msync célja, hogy csökkentse a wineserver többletterhelését a CPU-igényes játékokban. Engedélyezése javíthatja a teljesítményt a támogatott Linux kerneleken.",
-        "dxfpslimit": "Képkockaszámkorlátot állít be a DXVK-s játékokhoz",
-        "advertiseAvxForRosetta": "Engedélyezi az AVX utasításkészlet támogatását, ha Windowsos játékokat futtat a Rosettával az Apple Silicon Maceken. Ez az olyan játékok esetén lehet szükséges, mint a Death Stranding, amelyhez AVX támogatás szükséges.",
-        "download_proton_steam": "Ha engedélyezve van, a GE-Proton közvetlenül a Steam kompatibilitási eszközök könyvtárába lesz letöltve, és nem a Heroic alapértelmezett elérési útjára. A fenti „Alapértelmezett Steam útvonal” beállításban megadott Steam elérési utat fogja használni.",
         "wine-hdr": "A HDR javítja a színeket azáltal, hogy világosabb fényeket és mélyebb kontrasztokat biztosít. A HDR működéséhez mind a kijelzőnek, mind a játéknak támogatnia kell azt.",
-        "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat.",
-        "analytics": "Lehetővé teszi a Heroic számára, hogy 100%-ban anonim használati adatokat gyűjtsön az alkalmazás fejlesztésének érdekében. Újraindítás után lép életbe.",
-        "WoW64": "A Wine WoW64 mód lehetővé teszi a 32 bites Windows játékok futtatását 64 bites Wine-on. Engedélyezése javíthatja a teljesítményt, de problémákat okozhat régebbi 32 bites játékoknál.",
-        "nvidiaprime": {
-            "details": "Dedikált grafikus kártya használata a játék megjelenítéséhez a több GPU-s rendszereken. Csak olyan játékra szánt laptopokon és asztali számítógépeken van rá szükség, amelyek kimenet nélküli GPU-t használnak a megjelenítéshez (NVIDIA Optimus, AMD CrossFire)",
-            "link": "További részletekért nézd meg a wikinket"
-        }
+        "wine-wayland": "A kísérleti Wine-Wayland illesztőprogram lehetővé teszi a játékok natív futtatását a Wayland megjelenítési protokoll alatt. Engedélyezése néhány játéknál problémákat okozhat."
     },
     "info": {
         "heroic": {
@@ -598,28 +599,68 @@
     "Recent": "Nemrég játszott",
     "search": "Játékok keresése",
     "setting": {
+        "FsrSharpnessStrenght": "FSR élesség erőssége",
+        "WoW64": "WoW64 engedélyezése (kísérleti)",
         "adddesktopshortcuts": "Parancsikonok automatikus hozzáadása az asztalhoz",
+        "addgamestoapplications": "Játékok automatikus hozzáadása az Alkalmazásokhoz",
         "addgamestostartmenu": "Parancsikonok automatikus hozzáadása a Start menühöz",
         "addgamestosteam": "Játékok automatikus hozzáadása a Steamhez",
+        "advertiseAvxForRosetta": "AVX hirdetése a Rosetta esetén",
+        "after-launch-script-path": "Válaszd ki a játék kilépése után futtatandó parancsfájlt",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok lehet, hogy futnak, de a többjátékos funkciók nem fognak működni. Ne kérj támogatást, ha ennek tudatában telepíted.",
+                "title": "Biztos vagy benne?",
+                "understand": "Igen, megértettem"
+            },
+            "label": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezése"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Biztos benne?",
+                "dont_show": "Ne jelenjenek meg",
+                "show": "Értem, jelenjenek meg",
+                "message": "A Heroic használatához a GE-Proton verziót ajánljuk, mivel a nem GE-Proton verziókból hiányzik a winetricks és a protonfixes. Ennek ellenére használhatod őket, ha szeretnéd."
+            },
+            "info_label": "Nem GE-Proton verziók figyelmen kívül hagyva",
+            "label": "Nem GE-Proton verziók engedélyezése játékok futtatásához",
+            "wine_selector_warning": "A nem GE-Proton verziók alapértelmezetten figyelmen kívül vannak hagyva, engedélyezd őket a Globális speciális beállításokban"
+        },
         "alt-gogdl-bin": "Válassz egy alternatív GOGDL binárist",
         "alt-legendary-bin": "Válassz egy alternatív Legendary binárist",
+        "alt-nile-bin": "Válassz egy alternatív Nile binárist",
+        "analyticsOptIn": "Anonim adatok küldése a Heroic fejlesztésének támogatására",
+        "autoUpdateGames": "Játékok automatikus frissítése",
         "autodxvk": "A DXVK automatikus telepítése/frissítése a környezeten",
+        "autodxvknvapi": "A DXVK-NVAPI automatikus telepítése/frissítése a környezeten",
         "autosync": "Mentések automatikus szinkronizálása",
         "autovkd3d": "A VKD3D automatikus telepítése/frissítése a környezeten",
+        "before-launch-script-path": "Válassz egy a játék indítása előtt futtatandó parancsfájlt",
         "change-target-exe": "Válassz egy alternatív EXE-fájlt a futtatáshoz",
         "checkForUpdatesOnStartup": "A Heroic frissítéseinek keresése indításkor",
         "crossover-version": "Crossover/Wine verzió",
-        "custom_themes_path": "Egyéni témaútvonalak",
         "customWineProton": "Egyéni Wine/Proton elérési utak",
+        "custom_css": {
+            "warning": "Figyelmeztetés: ez az egész felhasználói felületre érvényes. Ez azt jelenti, hogy a hibás stílus használhatatlanná teheti a Heroicot. Ha szükséges, a beállítás kézileg megváltoztatható a `~/.config/heroic/config.json` fájlban. NE másolj stílusokat olyan forrásokból, melyekben nem bízol."
+        },
+        "custom_themes_path": "Egyéni témaútvonalak",
         "darktray": "Sötét tálcaikon használata",
         "default-install-path": "Alapértelmezett telepítési útvonal",
         "default-steam-path": "A Steam alapértelmezett elérési útja",
         "defaultWinePrefix": "Mappa beállítása az új Wine-környezeteknek",
+        "disablePlaytimeSync": "Játék közbeni szinkronizáció letiltása",
+        "disableUMU": "Az umu letiltása",
         "disable_controller": "Játékvezérlős navigáció letiltása a Heroicban",
+        "disable_gog_presence": "GOG jelenlétfrissítések letiltása",
+        "disable_logs": "Naplók letiltása",
         "discordRPC": "Discord Rich Presence engedélyezése",
         "download-no-https": "Játékok letöltése HTTPS nélkül (CDN-ek esetén hasznos, például LanCache esetén)",
+        "download-proton-steam": "A GE-Proton letöltése a Steam könyvtárába",
+        "dxfpslimit": "A DirectX-es játékok FPS-ének korlátozása",
         "dxvkfpslimit": "FPS korlátozása (DX9, 10 and 11)",
         "egs-sync": "Szinkronizálás a telepített Epic Gamesszel",
+        "enable-quick-sync-menu": "Gyors mentés szinkronizálás menü engedélyezése a játék adatlapján",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "FSR hack engedélyezése (a Wine verziónak támogatnia kell)",
         "eosOverlay": {
             "cancelInstall": "Mégse",
@@ -643,10 +684,34 @@
         },
         "esync": "Esync engedélyezése",
         "exit-to-tray": "Kilépés a rendszertálcára",
-        "FsrSharpnessStrenght": "FSR élesség erőssége",
+        "experimental_features": {
+            "enableNewDesign": "Új dizájn",
+            "automaticWinetricksFixes": "Ismert javítások automatikus alkalmazása",
+            "enableHelp": "Súgó összetevő",
+            "cometSupport": "Comet támogatás",
+            "umuSupport": "Az umu használata Proton futtatókörnyezetként",
+            "zoomPlatform": "Zoom Platform támogatása (csak Linux)"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Ez még mindig egy kísérleti funkció. Jelentsd az esetleges hibákat a GitHubon.",
+                "title": "Kísérleti funkció következik"
+            },
+            "description": "Keret nélküli ablak használata (újraindítás szükséges)"
+        },
         "fsync": "Fsync engedélyezése",
         "gamemode": "GameMode használata (a Feral Game Mode-nak telepítve kell lennie)",
+        "gamescope": {
+            "enableUpscaling": "Engedélyezi a felskálázást",
+            "missingMsg": "A gamescope nem található a PATH-on. Telepítsd, vagy add hozzá a PATH-hoz.",
+            "enableLimiter": "FPS korlátozó engedélyezése",
+            "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése",
+            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel, és indítsa újra a Heroicot.",
+            "warningFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítsd a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel és indítsd újra a Heroicot."
+        },
+        "hdr": "HDR engedélyezése",
         "hideChangelogsOnStartup": "Ne jelenítse meg a változásnaplókat indításkor",
+        "ignoreGameUpdates": "Játékfrissítések figyelmen kívül hagyása",
         "language": "Alkalmazás nyelvének kiválasztása",
         "library_top_option": {
             "disabled": "Tiltva",
@@ -716,9 +781,14 @@
         "maxRecentGames": "Nemrég játszottak megjelenítése",
         "maxworkers": "Feldolgozók legnagyobb száma letöltéskor",
         "minimize-on-launch": "A Heroic minimalizálása játékindítás után",
+        "msync": "Az Msync engedélyezése",
+        "no-tray-icon": "Rendszertálca ikon elrejtése (újraindítás szükséges)",
+        "nvidiaprime": {
+            "description": "NVIDIA Optimus vagy AMD Dynamic Switchable Graphics dedikált GPU kényszerített használata. CSAK OpenGL- és Vulkan-játékokhoz használd."
+        },
         "offlinemode": "Játék futtatása offline",
-        "prefered_language": "Előnyben részesített nyelv (nyelvkód)",
         "preferSystemLibs": "Rendszer programkönyvtárainak előnyben részesítése",
+        "prefered_language": "Előnyben részesített nyelv (nyelvkód)",
         "runexe": {
             "message": "Húzza és ejtse ide ide a fájlokat",
             "title": "EXE-fájl futtatása a környezeten"
@@ -728,80 +798,9 @@
             "placeholder": "Pontos játékmentési mappa kiválasztása",
             "warning": "Jelöld be kétszer, ha az elérési út helyes (kattints az újrapróbálkozáshoz)"
         },
+        "scripts": "Parancsfájlok:",
         "select_theme": "Téma kiválasztása",
-        "showfps": "FPS megjelenítése (DX9, 10 és 11)",
-        "start-in-tray": "Indítás minimalizálva",
-        "steamruntime": "Steam futtatókörnyezet használata",
-        "winecrossoverbottle": "CrossOver palack",
-        "wineprefix": "Wine-környezetmappa",
-        "wineversion": "Wine verzió",
-        "ignoreGameUpdates": "Játékfrissítések figyelmen kívül hagyása",
-        "autoUpdateGames": "Játékok automatikus frissítése",
-        "disable_logs": "Naplók letiltása",
         "showMetalOverlay": "Statisztikai átfedés megjelenítése",
-        "addgamestoapplications": "Játékok automatikus hozzáadása az Alkalmazásokhoz",
-        "alt-nile-bin": "Válassz egy alternatív Nile binárist",
-        "autodxvknvapi": "A DXVK-NVAPI automatikus telepítése/frissítése a környezeten",
-        "frameless-window": {
-            "confirmation": {
-                "message": "Ez még mindig egy kísérleti funkció. Jelentsd az esetleges hibákat a GitHubon.",
-                "title": "Kísérleti funkció következik"
-            },
-            "description": "Keret nélküli ablak használata (újraindítás szükséges)"
-        },
-        "gamescope": {
-            "enableUpscaling": "Engedélyezi a felskálázást",
-            "missingMsg": "A gamescope nem található a PATH-on. Telepítsd, vagy add hozzá a PATH-hoz.",
-            "enableLimiter": "FPS korlátozó engedélyezése",
-            "enableForceGrabCursor": "Kurzor erőltetett megragadásának engedélyezése",
-            "missingMsgFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítse a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel, és indítsa újra a Heroicot.",
-            "warningFlatpak": "Nem található a Gamescope kompatibilis verziója. Telepítsd a Gamescope flatpak csomagját a 25.08-as futtatókörnyezettel és indítsd újra a Heroicot."
-        },
-        "disablePlaytimeSync": "Játék közbeni szinkronizáció letiltása",
-        "experimental_features": {
-            "enableNewDesign": "Új dizájn",
-            "automaticWinetricksFixes": "Ismert javítások automatikus alkalmazása",
-            "enableHelp": "Súgó összetevő",
-            "cometSupport": "Comet támogatás",
-            "umuSupport": "Az umu használata Proton futtatókörnyezetként",
-            "zoomPlatform": "Zoom Platform támogatása (csak Linux)"
-        },
-        "msync": "Az Msync engedélyezése",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "message": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok lehet, hogy futnak, de a többjátékos funkciók nem fognak működni. Ne kérj támogatást, ha ennek tudatában telepíted.",
-                "title": "Biztos vagy benne?",
-                "understand": "Igen, megértettem"
-            },
-            "label": "A hibás vagy letiltott csalás elleni szoftverrel rendelkező játékok telepítésének engedélyezése"
-        },
-        "before-launch-script-path": "Válassz egy a játék indítása előtt futtatandó parancsfájlt",
-        "after-launch-script-path": "Válaszd ki a játék kilépése után futtatandó parancsfájlt",
-        "disableUMU": "Az umu letiltása",
-        "verboseLogs": {
-            "description": "Bőbeszédű naplók engedélyezése"
-        },
-        "custom_css": {
-            "warning": "Figyelmeztetés: ez az egész felhasználói felületre érvényes. Ez azt jelenti, hogy a hibás stílus használhatatlanná teheti a Heroicot. Ha szükséges, a beállítás kézileg megváltoztatható a `~/.config/heroic/config.json` fájlban. NE másolj stílusokat olyan forrásokból, melyekben nem bízol."
-        },
-        "advertiseAvxForRosetta": "AVX hirdetése a Rosetta esetén",
-        "dxfpslimit": "A DirectX-es játékok FPS-ének korlátozása",
-        "download-proton-steam": "A GE-Proton letöltése a Steam könyvtárába",
-        "hdr": "HDR engedélyezése",
-        "wineWayland": "Wine-Wayland engedélyezése (Kísérleti) (A Wine verziónak támogatnia kell)",
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "Biztos benne?",
-                "dont_show": "Ne jelenjenek meg",
-                "show": "Értem, jelenjenek meg",
-                "message": "A Heroic használatához a GE-Proton verziót ajánljuk, mivel a nem GE-Proton verziókból hiányzik a winetricks és a protonfixes. Ennek ellenére használhatod őket, ha szeretnéd."
-            },
-            "info_label": "Nem GE-Proton verziók figyelmen kívül hagyva",
-            "label": "Nem GE-Proton verziók engedélyezése játékok futtatásához",
-            "wine_selector_warning": "A nem GE-Proton verziók alapértelmezetten figyelmen kívül vannak hagyva, engedélyezd őket a Globális speciális beállításokban"
-        },
-        "analyticsOptIn": "Anonim adatok küldése a Heroic fejlesztésének támogatására",
-        "no-tray-icon": "Rendszertálca ikon elrejtése (újraindítás szükséges)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Ne jelenjenek meg",
@@ -813,14 +812,17 @@
             "wine_selector_warning": "A nem GE-Proton verziók alapértelmezetten figyelmen kívül vannak hagyva, engedélyezd őket a Globális speciális beállításokban",
             "info_label": "A Valve Proton-verziók figyelmen kívül hagyva"
         },
-        "WoW64": "WoW64 engedélyezése (kísérleti)",
-        "scripts": "Parancsfájlok:",
-        "enable-quick-sync-menu": "Gyors mentés szinkronizálás menü engedélyezése a játék adatlapján",
-        "disable_gog_presence": "GOG jelenlétfrissítések letiltása",
+        "showfps": "FPS megjelenítése (DX9, 10 és 11)",
         "start-in-console-mode": "Indítás konzol módban",
-        "nvidiaprime": {
-            "description": "NVIDIA Optimus vagy AMD Dynamic Switchable Graphics dedikált GPU kényszerített használata. CSAK OpenGL- és Vulkan-játékokhoz használd."
-        }
+        "start-in-tray": "Indítás minimalizálva",
+        "steamruntime": "Steam futtatókörnyezet használata",
+        "verboseLogs": {
+            "description": "Bőbeszédű naplók engedélyezése"
+        },
+        "wineWayland": "Wine-Wayland engedélyezése (Kísérleti) (A Wine verziónak támogatnia kell)",
+        "winecrossoverbottle": "CrossOver palack",
+        "wineprefix": "Wine-környezetmappa",
+        "wineversion": "Wine verzió"
     },
     "settings": {
         "battlEyeRuntime": {

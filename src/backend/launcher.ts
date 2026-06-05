@@ -56,7 +56,7 @@ import { showDialogBoxModalAuto } from './dialog/dialog'
 import { legendarySetup } from './storeManagers/legendary/setup'
 import { gameManagerMap } from 'backend/storeManagers'
 import * as VDF from '@node-steam/vdf'
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync, writeFileSync, unlinkSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
@@ -372,6 +372,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableMsync
     delete gameSettings.wineCrossoverBottle
     delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.godotDepthPrepassFix
 
     if (notNative) {
       const wineVersion = gameSettings.wineVersion
@@ -455,6 +456,7 @@ function filterGameSettingsForLog(
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
       delete gameSettings.advertiseAvxForRosetta
+      delete gameSettings.godotDepthPrepassFix
       delete gameSettings.autoInstallDxvk
       delete gameSettings.autoInstallDxvkNvapi
       delete gameSettings.autoInstallVkd3d
@@ -488,10 +490,159 @@ function filterGameSettingsForLog(
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
     delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.godotDepthPrepassFix
     delete gameSettings.useSteamRuntime
   }
 
   return gameSettings
+}
+
+function applyDepthPrepassFix(installPath: string, enable: boolean) {
+  const filePath = join(installPath, 'override.cfg')
+  const key1 = 'quality/depth_prepass/disable_for_vendors'
+  const val1 = '""'
+  const key2 = 'quality/depth_prepass/enable'
+  const val2 = 'true'
+
+  if (!enable) {
+    if (!existsSync(filePath)) {
+      return
+    }
+    const content = readFileSync(filePath, 'utf-8')
+    const lines = content.split(/\r?\n/)
+    const newLines: string[] = []
+    let currentSection = ''
+
+    for (const line of lines) {
+      const trimmed = line.trim()
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        currentSection = trimmed.slice(1, -1).trim().toLowerCase()
+        newLines.push(line)
+        continue
+      }
+
+      if (currentSection === 'rendering') {
+        const parts = trimmed.split('=')
+        if (parts.length >= 1) {
+          const key = parts[0].trim()
+          if (key === key1 || key === key2) {
+            continue
+          }
+        }
+      }
+      newLines.push(line)
+    }
+
+    const finalLines: string[] = []
+    let sectionStartIndex = -1
+    let hasKeys = false
+    for (let i = 0; i < newLines.length; i++) {
+      const trimmed = newLines[i].trim()
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        if (sectionStartIndex !== -1 && !hasKeys) {
+          finalLines.splice(
+            sectionStartIndex,
+            finalLines.length - sectionStartIndex
+          )
+        }
+        sectionStartIndex = finalLines.length
+        hasKeys = false
+        finalLines.push(newLines[i])
+      } else if (
+        trimmed !== '' &&
+        !trimmed.startsWith(';') &&
+        !trimmed.startsWith('#')
+      ) {
+        hasKeys = true
+        finalLines.push(newLines[i])
+      } else {
+        finalLines.push(newLines[i])
+      }
+    }
+    if (sectionStartIndex !== -1 && !hasKeys) {
+      finalLines.splice(
+        sectionStartIndex,
+        finalLines.length - sectionStartIndex
+      )
+    }
+
+    const hasAnyContent = finalLines.some((l) => {
+      const t = l.trim()
+      return t !== '' && !t.startsWith(';') && !t.startsWith('#')
+    })
+
+    if (!hasAnyContent) {
+      try {
+        unlinkSync(filePath)
+      } catch (e) {}
+    } else {
+      writeFileSync(filePath, finalLines.join('\n'), 'utf-8')
+    }
+  } else {
+    if (!existsSync(filePath)) {
+      const content = `[rendering]\n${key1}=${val1}\n${key2}=${val2}\n`
+      writeFileSync(filePath, content, 'utf-8')
+      return
+    }
+
+    const content = readFileSync(filePath, 'utf-8')
+    const lines = content.split(/\r?\n/)
+    const newLines: string[] = []
+    let currentSection = ''
+    let foundRendering = false
+    let foundKey1 = false
+    let foundKey2 = false
+
+    for (const line of lines) {
+      const trimmed = line.trim()
+      if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+        if (currentSection === 'rendering') {
+          if (!foundKey1) newLines.push(`${key1}=${val1}`)
+          if (!foundKey2) newLines.push(`${key2}=${val2}`)
+        }
+        currentSection = trimmed.slice(1, -1).trim().toLowerCase()
+        if (currentSection === 'rendering') {
+          foundRendering = true
+        }
+        newLines.push(line)
+        continue
+      }
+
+      if (currentSection === 'rendering') {
+        const parts = trimmed.split('=')
+        if (parts.length >= 1) {
+          const key = parts[0].trim()
+          if (key === key1) {
+            newLines.push(`${key1}=${val1}`)
+            foundKey1 = true
+            continue
+          }
+          if (key === key2) {
+            newLines.push(`${key2}=${val2}`)
+            foundKey2 = true
+            continue
+          }
+        }
+      }
+      newLines.push(line)
+    }
+
+    if (currentSection === 'rendering') {
+      if (!foundKey1) newLines.push(`${key1}=${val1}`)
+      if (!foundKey2) newLines.push(`${key2}=${val2}`)
+    }
+
+    if (!foundRendering) {
+      if (newLines.length > 0 && newLines[newLines.length - 1].trim() !== '') {
+        newLines.push('')
+      }
+      newLines.push('[rendering]')
+      newLines.push(`${key1}=${val1}`)
+      newLines.push(`${key2}=${val2}`)
+    }
+
+    writeFileSync(filePath, newLines.join('\n'), 'utf-8')
+  }
 }
 
 async function prepareLaunch(
@@ -530,6 +681,22 @@ async function prepareLaunch(
 
   const isThirdPartyManagedApp = gameInfo && !!gameInfo.thirdPartyManagedApp
 
+  const installPath =
+    gameInfo.runner === 'sideload'
+      ? gameInfo.folder_name
+      : gameInfo.install.install_path
+
+  if (installPath) {
+    try {
+      applyDepthPrepassFix(installPath, gameSettings.godotDepthPrepassFix)
+    } catch (err) {
+      logError([
+        'Failed to apply/remove Godot depth prepass fix:',
+        err
+      ])
+    }
+  }
+
   if (isThirdPartyManagedApp) {
     if (!isWindows) {
       let prefixOrBottleFolder: string | null = gameSettings.winePrefix
@@ -546,11 +713,6 @@ async function prepareLaunch(
       '\n\n'
     ])
   } else {
-    const installPath =
-      gameInfo.runner === 'sideload'
-        ? gameInfo.folder_name
-        : gameInfo.install.install_path
-
     await logWriter.logInfo(['Installed in:', installPath, '\n\n'])
   }
 

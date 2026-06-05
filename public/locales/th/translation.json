@@ -254,23 +254,14 @@
         "uncategorized": ""
     },
     "help": {
-        "title": {
-            "settings": "การตั้งค่า",
-            "accessibility": "",
-            "login": "",
-            "downloadManager": "",
-            "wineManager": "",
-            "library": ""
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
+        "amdfsr": "",
+        "analytics": "",
+        "button": {
+            "open": "",
+            "close": ""
         },
-        "sync": {
-            "part2": "",
-            "part1": "",
-            "part3": "",
-            "part4": ""
-        },
-        "disable_logs": "",
-        "dxfpslimit": "",
-        "dxvk": "",
         "content": {
             "defaultInstallPath": "",
             "settingsDefault": "",
@@ -282,13 +273,23 @@
             "accessibility": "",
             "login": ""
         },
-        "msync": "",
-        "other": {
-            "part6": "",
-            "part4": "",
-            "part5": "",
-            "part7": ""
+        "custom_themes_path": "",
+        "custom_themes_wiki": "",
+        "disablePlaytimeSync": "",
+        "disable_logs": "",
+        "download_proton_steam": "",
+        "dxfpslimit": "",
+        "dxvk": "",
+        "dxvknvapi": "",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
+        "esync": "",
+        "fsync": "",
+        "game_language": {
+            "valid_codes": "",
+            "in_game_config": "",
+            "fallback": ""
         },
+        "gamemode": "",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -300,41 +301,41 @@
             "upscaleHeight": "",
             "fpsLimiter": ""
         },
-        "amdfsr": "",
-        "button": {
-            "open": "",
-            "close": ""
+        "general": "",
+        "mangohud": "",
+        "msync": "",
+        "other": {
+            "part6": "",
+            "part4": "",
+            "part5": "",
+            "part7": ""
         },
         "preferSystemLibs": "",
-        "download_proton_steam": "",
-        "wine-hdr": "",
-        "game_language": {
-            "valid_codes": "",
-            "in_game_config": "",
-            "fallback": ""
+        "steam_path": {
+            "info": ""
         },
-        "mangohud": "",
+        "steamruntime": "",
+        "sync": {
+            "part2": "",
+            "part1": "",
+            "part3": "",
+            "part4": ""
+        },
+        "title": {
+            "settings": "การตั้งค่า",
+            "accessibility": "",
+            "login": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": ""
+        },
+        "vkd3d": "",
         "wine": {
             "part1": "",
             "part2": ""
         },
-        "dxvknvapi": "",
-        "disablePlaytimeSync": "",
-        "steamruntime": "",
-        "steam_path": {
-            "info": ""
-        },
-        "general": "",
-        "vkd3d": "",
-        "WoW64": "",
-        "custom_themes_path": "",
-        "custom_themes_wiki": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "fsync": "",
-        "gamemode": "",
-        "esync": ""
+        "wine-hdr": "",
+        "wine-wayland": ""
     },
     "infobox": {
         "requirements": "## ข้อกำหนดของระบบ",
@@ -417,6 +418,57 @@
         }
     },
     "setting": {
+        "FsrSharpnessStrenght": "",
+        "WoW64": "",
+        "adddesktopshortcuts": "",
+        "addgamestoapplications": "",
+        "addgamestostartmenu": "",
+        "addgamestosteam": "",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
+        "alt-gogdl-bin": "",
+        "alt-legendary-bin": "",
+        "alt-nile-bin": "",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "",
+        "autodxvk": "",
+        "autodxvknvapi": "",
+        "autosync": "",
+        "autovkd3d": "",
+        "before-launch-script-path": "",
+        "change-target-exe": "",
+        "checkForUpdatesOnStartup": "",
+        "crossover-version": "",
+        "customWineProton": "",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "",
+        "darktray": "",
+        "default-install-path": "",
+        "default-steam-path": "",
+        "defaultWinePrefix": "",
+        "disablePlaytimeSync": "",
+        "disableUMU": "",
+        "disable_controller": "",
+        "disable_gog_presence": "",
+        "disable_logs": "",
+        "discordRPC": "",
+        "download-no-https": "",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
+        "egs-sync": "",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
+        "enableFSRHack": "",
         "eosOverlay": {
             "disable": "ปิดใช้งานแล้ว",
             "enable": "เปิดใช้งาน",
@@ -437,13 +489,14 @@
             "cancelInstall": "",
             "removeConfirmTitle": ""
         },
-        "library_top_option": {
-            "disabled": "ปิดใช้งานแล้ว",
-            "favourites": "",
-            "recently_played_installed": "",
-            "recently_played": ""
+        "esync": "",
+        "exit-to-tray": "",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
         },
-        "WoW64": "",
         "frameless-window": {
             "confirmation": {
                 "message": "",
@@ -451,6 +504,26 @@
             },
             "description": ""
         },
+        "fsync": "",
+        "gamemode": "",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "missingMsg": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
+        },
+        "hdr": "",
+        "hideChangelogsOnStartup": "",
+        "ignoreGameUpdates": "",
+        "language": "",
+        "library_top_option": {
+            "disabled": "ปิดใช้งานแล้ว",
+            "favourites": "",
+            "recently_played_installed": "",
+            "recently_played": ""
+        },
+        "library_top_section": "",
         "log": {
             "upload": {
                 "delete": "",
@@ -496,6 +569,7 @@
             "instructions": "",
             "show-in-folder": ""
         },
+        "mangohud": "",
         "manualsync": {
             "title": "",
             "sync": "",
@@ -505,32 +579,25 @@
             "forcedownload": "",
             "download": ""
         },
-        "disable_controller": "",
-        "alt-gogdl-bin": "",
-        "alt-nile-bin": "",
-        "download-proton-steam": "",
-        "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "fsync": "",
-        "showfps": "",
-        "experimental_features": {
-            "cometSupport": "",
-            "enableNewDesign": "",
-            "enableHelp": "",
-            "zoomPlatform": ""
+        "maxRecentGames": "",
+        "maxworkers": "",
+        "minimize-on-launch": "",
+        "msync": "",
+        "no-tray-icon": "",
+        "offlinemode": "",
+        "preferSystemLibs": "",
+        "prefered_language": "",
+        "runexe": {
+            "title": ""
         },
-        "egs-sync": "",
-        "hdr": "",
-        "custom_themes_path": "",
-        "autodxvknvapi": "",
-        "library_top_section": "",
         "savefolder": {
             "placeholder": "",
             "warning": "",
             "not-found": ""
         },
-        "autosync": "",
+        "scripts": "",
+        "select_theme": "",
+        "showMetalOverlay": "",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -542,82 +609,17 @@
             "label": "",
             "info_label": ""
         },
-        "preferSystemLibs": "",
-        "dxfpslimit": "",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "autodxvk": "",
-        "addgamestostartmenu": "",
-        "download-no-https": "",
-        "customWineProton": "",
-        "exit-to-tray": "",
-        "gamescope": {
-            "enableLimiter": "",
-            "enableUpscaling": "",
-            "missingMsg": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": ""
-        },
-        "enable-quick-sync-menu": "",
-        "runexe": {
-            "title": ""
-        },
-        "disable_logs": "",
+        "showfps": "",
+        "start-in-console-mode": "",
         "start-in-tray": "",
-        "change-target-exe": "",
-        "offlinemode": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
-        "addgamestoapplications": "",
-        "language": "",
-        "FsrSharpnessStrenght": "",
-        "disablePlaytimeSync": "",
-        "crossover-version": "",
-        "adddesktopshortcuts": "",
-        "esync": "",
-        "addgamestosteam": "",
-        "winecrossoverbottle": "",
-        "alt-legendary-bin": "",
-        "minimize-on-launch": "",
-        "autovkd3d": "",
-        "ignoreGameUpdates": "",
+        "steamruntime": "",
         "verboseLogs": {
             "description": ""
         },
-        "mangohud": "",
-        "before-launch-script-path": "",
-        "wineversion": "",
-        "default-steam-path": "",
-        "maxworkers": "",
-        "steamruntime": "",
-        "disableUMU": "",
-        "defaultWinePrefix": "",
-        "discordRPC": "",
-        "gamemode": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "select_theme": "",
-        "maxRecentGames": "",
-        "default-install-path": "",
-        "enableFSRHack": "",
-        "autoUpdateGames": "",
-        "msync": "",
+        "wineWayland": "",
+        "winecrossoverbottle": "",
         "wineprefix": "",
-        "advertiseAvxForRosetta": "",
-        "darktray": "",
-        "checkForUpdatesOnStartup": "",
-        "prefered_language": "",
-        "hideChangelogsOnStartup": "",
-        "showMetalOverlay": "",
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineversion": ""
     },
     "settings": {
         "advanced": {

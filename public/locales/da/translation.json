@@ -245,53 +245,13 @@
         "continue": "Blive ved"
     },
     "help": {
-        "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
-        "steamruntime": "Brugerdefinerede biblioteker leveret af Steam til at hjælpe med at køre Linux og Windows (Proton) spil. Aktivering kan forbedre kompatibiliteten.",
-        "fsync": "Fsync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
-        "gamemode": "Feral GameMode anvender automatiske og midlertidige tweaks til systemet, når du kører spil. Aktivering kan forbedre ydeevnen.",
-        "mangohud": "MangoHUD er en overlay, der viser og overvåger FPS, temperaturer, CPU/GPU-belastning og andre systemressourcer.",
-        "other": {
-            "part7": " at springe startprogrammet over i nogle spil osv.",
-            "part4": "Brug ",
-            "part5": "Spilargumenter",
-            "part6": " skal kaldes efter startkommandoen, for eksempel: "
-        },
-        "sync": {
-            "part2": "Hvis du ændrer præfiksmappen for Wine eller Proton, skal du tjekke stien igen, da Proton bruger et andet præfiks (/pfx) og brugernavn (steamuser). Så du kan simpelthen slette den aktuelle sti for at komme ud af siden med synkroniseringsindstillinger og komme tilbage igen, så Heroic kan gætte mappen en gang til med det rigtige præfiks.",
-            "part1": "Heroic forsøger at gætte den rigtige gemmemappe, og dette vil fungere i de fleste tilfælde. Hvis mappen er forkert, skal du bruge tilsidesættelsesboksen til at ændre den.",
-            "part3": "Manuel synkronisering: Vælg Download for at downloade spil, der er gemt i skyen. Upload for at uploade de lokale til skyen. Force Download og Force Upload ignorerer den version, der er lokalt eller i skyen.",
-            "part4": "Synkronisering gemmer Automatisk vil synkronisere gemmerne hver gang du starter et spil og efter at have spillet færdig."
-        },
-        "wine": {
-            "part2": "For andre steder skal du bruge et symbolsk link til en af disse mapper",
-            "part1": "Heroiske søgninger efter versioner af Wine, Proton og CrossOver i følgende mapper:"
-        },
+        "WoW64": "Wine WoW64-tilstanden gør det muligt at køre 32-bit Windows-spil på 64-bit Wine. Aktivering kan forbedre ydeevnen, men kan også ødelægge ældre 32-bit spil.",
+        "advertiseAvxForRosetta": "Aktiverer understøttelse af AVX-instruktionssæt, når Windows-spil køres via Rosetta på Apple Silicon Mac-computere. Dette kan være nødvendigt for nogle spil såsom Death Stranding, der kræver AVX-understøttelse.",
         "amdfsr": "AMD's FSR hjælper med at øge billedhastigheden ved at opskalere lavere opløsninger i fuldskærmstilstand. Billedkvaliteten øges fra 5 til 1 på bekostning af et lille præstationshit. Aktivering kan forbedre ydeevnen.",
-        "dxvk": "DXVK er et Vulkan-baseret translationslag til DirectX 9, 10 og 11 spil. Aktivering kan forbedre kompatibiliteten. Kan forårsage problemer især for ældre DirectX-spil.",
-        "preferSystemLibs": "Tilpassede vinversioner (Wine-GE, Wine-Lutris) leveres med deres biblioteksafhængigheder. Ved at aktivere denne mulighed ignoreres disse afsendte biblioteker, og Wine indlæser systembiblioteker i stedet. Advarsel! Problemer kan opstå, hvis afhængigheder ikke opfyldes.",
-        "resizablebar": "NVIDIAs Resizable Bar hjælper med at booste framerate ved at få CPU'en til at få adgang til hele grafikbufferen. Aktivering kan forbedre ydeevnen for Vulkan-baserede spil.",
-        "vkd3d": "VKD3D er et Vulkan-baseret [MANGLER] til DirectX 12-spil. Aktivering kan forbedre kompatibiliteten betydeligt. Har ingen effekt på ældre DirectX-spil, det kræver DXVK.",
-        "game_language": {
-            "fallback": "Lad stå tomt for at bruge Heroics sprog.",
-            "in_game_config": "Ikke alle spil understøtter denne konfiguration, nogle har sprogindstilling i spillet.",
-            "valid_codes": "Gyldige sprogkoder er spilafhængige."
-        },
-        "general": "Synkroniser med EGL, hvis du har en fungerende installation af Epic Games Launcher et andet sted og vil importere dine spil for at undgå at downloade dem igen.",
-        "primerun": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)",
-        "custom_themes_path": "Brug ikke CSS-filer fra upålidelige kilder. Når du er i tvivl, så bed om en anmeldelse i vores Discord-kanal.",
-        "custom_themes_wiki": "Tjek Wiki for flere detaljer om tilføjelse af brugerdefinerede temaer. Klik her.",
-        "steam_path": {
-            "info": "Denne sti lader Heroic bestemme, hvilken version af Proton Steam bruger, til at tilføje ikke-Steam-spil til Steam."
-        },
-        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil",
-        "disable_logs": "Slå dette afkrydsningsfelt TIL for at deaktivere de fleste skrivninger til logfiler (kritisk information logges altid). Sørg for at slå denne indstilling FRA, før du rapporterer et problem.",
-        "title": {
-            "accessibility": "Tilgængelighed",
-            "settings": "Indstillinger",
-            "downloadManager": "Download manager",
-            "library": "Bibliotek",
-            "login": "Login",
-            "wineManager": "Wine manager"
+        "analytics": "Gør det muligt for Heroic at indsamle 100% anonyme brugerdata for at forbedre applikationen. Kræver genstart, før det træder i kraft.",
+        "button": {
+            "open": "Åben Hjælp",
+            "close": "Luk Hjælp"
         },
         "content": {
             "customThemesPath": "Tjek vores wiki.",
@@ -304,16 +264,24 @@
             "settingsGame": "Viser alle indstillinger for et spil.",
             "wineManager": "Installer forskellige versioner af Wine, Proton, Crossover og så videre."
         },
-        "button": {
-            "open": "Åben Hjælp",
-            "close": "Luk Hjælp"
-        },
-        "advertiseAvxForRosetta": "Aktiverer understøttelse af AVX-instruktionssæt, når Windows-spil køres via Rosetta på Apple Silicon Mac-computere. Dette kan være nødvendigt for nogle spil såsom Death Stranding, der kræver AVX-understøttelse.",
-        "analytics": "Gør det muligt for Heroic at indsamle 100% anonyme brugerdata for at forbedre applikationen. Kræver genstart, før det træder i kraft.",
+        "custom_themes_path": "Brug ikke CSS-filer fra upålidelige kilder. Når du er i tvivl, så bed om en anmeldelse i vores Discord-kanal.",
+        "custom_themes_wiki": "Tjek Wiki for flere detaljer om tilføjelse af brugerdefinerede temaer. Klik her.",
         "disablePlaytimeSync": "Deaktiverer synkronisering af spilletid med den pågældende butiks servere (i øjeblikket understøttes kun GOG)",
+        "disable_logs": "Slå dette afkrydsningsfelt TIL for at deaktivere de fleste skrivninger til logfiler (kritisk information logges altid). Sørg for at slå denne indstilling FRA, før du rapporterer et problem.",
         "download_proton_steam": "Når denne funktion er aktiveret, downloades GE-Proton direkte til Steam-kompatibilitetsværktøjernes mappe i stedet for den standard Heroic-sti. Den bruger den Steam-sti, der er angivet i indstillingen 'Standard Steam-sti' ovenfor.",
         "dxfpslimit": "Indstiller en begrænsning for billedfrekvensen for DirectX-spil (9-12)",
+        "dxvk": "DXVK er et Vulkan-baseret translationslag til DirectX 9, 10 og 11 spil. Aktivering kan forbedre kompatibiliteten. Kan forårsage problemer især for ældre DirectX-spil.",
+        "dxvkfpslimit": "Indstiller et billedhastighedsloft for DXVK-spil",
         "dxvknvapi": "DXVK-NVAPI er en implementering af NVAPI, der er bygget oven på DXVK og Linux' lokale NVAPI, og som gør det muligt at bruge DLSS på Nvidia-GPU'er.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
+        "esync": "Esync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen.",
+        "fsync": "Fsync sigter mod at reducere vinserveroverhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
+        "game_language": {
+            "fallback": "Lad stå tomt for at bruge Heroics sprog.",
+            "in_game_config": "Ikke alle spil understøtter denne konfiguration, nogle har sprogindstilling i spillet.",
+            "valid_codes": "Gyldige sprogkoder er spilafhængige."
+        },
+        "gamemode": "Feral GameMode anvender automatiske og midlertidige tweaks til systemet, når du kører spil. Aktivering kan forbedre ydeevnen.",
         "gamescope": {
             "additionalOptions": "Yderligere kommandolinjeflag, der skal videregives til Gamescope.",
             "forceGrabCursor": "Brug altid 'relative mouse mode' i stedet for 'flipping dependent on cursor visibility'. (Nyttigt, når programmer bliver ved med at miste fokus)",
@@ -325,13 +293,46 @@
             "upscaleMethod": "Den opskaleringsmetode, som Gamescope skal bruge.",
             "upscaleWidth": "Den breddeopløsning, der bruges af Gamescope. Et billedformat på 16:9 antages."
         },
+        "general": "Synkroniser med EGL, hvis du har en fungerende installation af Epic Games Launcher et andet sted og vil importere dine spil for at undgå at downloade dem igen.",
+        "mangohud": "MangoHUD er en overlay, der viser og overvåger FPS, temperaturer, CPU/GPU-belastning og andre systemressourcer.",
         "msync": "Msync har til formål at reducere wineserver-overhead i CPU-intensive spil. Aktivering kan forbedre ydeevnen på understøttede Linux-kerner.",
-        "wine-hdr": "HDR forbedrer farverne ved at give lysere højdepunkter og dybere kontraster. For at HDR kan fungere, skal både skærmen og spillet understøtte det.",
-        "wine-wayland": "Den eksperimentelle Wine-Wayland-driver gør det muligt at køre spil direkte under Wayland-skærmprotokollen. Aktivering kan medføre, at nogle spil ikke fungerer.",
-        "WoW64": "Wine WoW64-tilstanden gør det muligt at køre 32-bit Windows-spil på 64-bit Wine. Aktivering kan forbedre ydeevnen, men kan også ødelægge ældre 32-bit spil.",
         "nvidiaprime": {
             "details": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)"
-        }
+        },
+        "other": {
+            "part7": " at springe startprogrammet over i nogle spil osv.",
+            "part4": "Brug ",
+            "part5": "Spilargumenter",
+            "part6": " skal kaldes efter startkommandoen, for eksempel: "
+        },
+        "preferSystemLibs": "Tilpassede vinversioner (Wine-GE, Wine-Lutris) leveres med deres biblioteksafhængigheder. Ved at aktivere denne mulighed ignoreres disse afsendte biblioteker, og Wine indlæser systembiblioteker i stedet. Advarsel! Problemer kan opstå, hvis afhængigheder ikke opfyldes.",
+        "primerun": "Brug dedikeret grafikkort til at gengive spil på multi-GPU-systemer. Kun nødvendig på bærbare gaming-computere eller stationære computere, der bruger en hovedløs GPU til gengivelse (NVIDIA Optimus, AMD CrossFire)",
+        "resizablebar": "NVIDIAs Resizable Bar hjælper med at booste framerate ved at få CPU'en til at få adgang til hele grafikbufferen. Aktivering kan forbedre ydeevnen for Vulkan-baserede spil.",
+        "steam_path": {
+            "info": "Denne sti lader Heroic bestemme, hvilken version af Proton Steam bruger, til at tilføje ikke-Steam-spil til Steam."
+        },
+        "steamruntime": "Brugerdefinerede biblioteker leveret af Steam til at hjælpe med at køre Linux og Windows (Proton) spil. Aktivering kan forbedre kompatibiliteten.",
+        "sync": {
+            "part2": "Hvis du ændrer præfiksmappen for Wine eller Proton, skal du tjekke stien igen, da Proton bruger et andet præfiks (/pfx) og brugernavn (steamuser). Så du kan simpelthen slette den aktuelle sti for at komme ud af siden med synkroniseringsindstillinger og komme tilbage igen, så Heroic kan gætte mappen en gang til med det rigtige præfiks.",
+            "part1": "Heroic forsøger at gætte den rigtige gemmemappe, og dette vil fungere i de fleste tilfælde. Hvis mappen er forkert, skal du bruge tilsidesættelsesboksen til at ændre den.",
+            "part3": "Manuel synkronisering: Vælg Download for at downloade spil, der er gemt i skyen. Upload for at uploade de lokale til skyen. Force Download og Force Upload ignorerer den version, der er lokalt eller i skyen.",
+            "part4": "Synkronisering gemmer Automatisk vil synkronisere gemmerne hver gang du starter et spil og efter at have spillet færdig."
+        },
+        "title": {
+            "accessibility": "Tilgængelighed",
+            "settings": "Indstillinger",
+            "downloadManager": "Download manager",
+            "library": "Bibliotek",
+            "login": "Login",
+            "wineManager": "Wine manager"
+        },
+        "vkd3d": "VKD3D er et Vulkan-baseret [MANGLER] til DirectX 12-spil. Aktivering kan forbedre kompatibiliteten betydeligt. Har ingen effekt på ældre DirectX-spil, det kræver DXVK.",
+        "wine": {
+            "part2": "For andre steder skal du bruge et symbolsk link til en af disse mapper",
+            "part1": "Heroiske søgninger efter versioner af Wine, Proton og CrossOver i følgende mapper:"
+        },
+        "wine-hdr": "HDR forbedrer farverne ved at give lysere højdepunkter og dybere kontraster. For at HDR kan fungere, skal både skærmen og spillet understøtte det.",
+        "wine-wayland": "Den eksperimentelle Wine-Wayland-driver gør det muligt at køre spil direkte under Wayland-skærmprotokollen. Aktivering kan medføre, at nogle spil ikke fungerer."
     },
     "notify": {
         "uninstalled": "Afinstalleret",
@@ -386,15 +387,114 @@
     "Projects": "Projekter",
     "Recent": "Spillede for nylig",
     "setting": {
+        "FsrSharpnessStrenght": "FSR Skarphed Styrke",
+        "WoW64": "Aktivér WoW64 (eksperimentelt)",
+        "adddesktopshortcuts": "Tilføj skrivebordsgenveje automatisk",
+        "addgamestoapplications": "Føj spil til applikationer automatisk",
+        "addgamestostartmenu": "Tilføj spil til startmenuen automatisk",
+        "addgamestosteam": "Tilføj spil til Steam automatisk",
+        "advertiseAvxForRosetta": "Annoncér AVX for Rosetta",
+        "after-launch-script-path": "Vælg et script, der skal køres, når spillet lukkes",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Spil med ikke-fungerende anticheat kan muligvis køre, men multiplayer-funktionerne vil ikke fungere. Kontakt ikke support, hvis du installerer dem med denne viden.",
+                "title": "Er du sikker?",
+                "understand": "Jeg forstår"
+            },
+            "label": "Tillad installation af spil med ikke-fungerende anticheat"
+        },
+        "alt-gogdl-bin": "Vælg en alternativ GOGDL-binær til brug",
+        "alt-legendary-bin": "Vælg en alternativ legendarisk binær",
+        "alt-nile-bin": "Vælg en alternativ Nile Binær",
+        "analyticsOptIn": "Send anonyme data for at hjælpe Heroic med udvikling",
+        "audiofix": "Lydfiks (Pulse Audio Latency)",
+        "autoUpdateGames": "Opdater spil automatisk",
+        "autodxvk": "Autoinstaller/opdater DXVK på præfiks",
+        "autodxvknvapi": "Automatisk installation/opdatering af DXVK-NVAPI på Prefix",
+        "autosync": "Autosync gemmer",
         "autovkd3d": "Autoinstaller/opdater VKD3D på præfiks",
+        "before-launch-script-path": "Vælg et script, der skal køres, før spillet startes",
         "change-target-exe": "Vælg en alternativ EXE at køre",
+        "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart",
+        "crossover-version": "Crossover/Wine version",
         "customWineProton": "Brugerdefinerede vin-/protonstier",
+        "custom_css": {
+            "warning": "Advarsel: Dette gælder for hele frontend. Det betyder, at den forkerte stil kan gøre Heroic ubrugelig. Hvis det er nødvendigt, kan indstillingen ændres manuelt i `~/.config/heroic/config.json`. Kopier IKKE stilarter fra kilder, du ikke stoler på."
+        },
+        "custom_themes_path": "Sti til brugerdefinerede temaer",
+        "darktray": "Brug mørkt bakkeikon",
+        "default-install-path": "Standard installationssti",
+        "default-steam-path": "Standard Steam-sti",
+        "defaultWinePrefix": "Indstil mappe til nye vinpræfikser",
+        "disablePlaytimeSync": "Deaktiver synkronisering af spilletid",
+        "disableUMU": "Deaktiver umu",
+        "disable_controller": "Deaktiver heroisk navigation ved hjælp af controller",
+        "disable_gog_presence": "",
+        "disable_logs": "Deaktiver logfiler",
+        "discordRPC": "Aktiver Discord Rich Presence",
+        "download-no-https": "Download spil uden HTTPS (nyttigt til CDN'er, f.eks. LanCache)",
+        "download-proton-steam": "Download GE-Proton til Steam-mappen",
+        "dxfpslimit": "Begræns FPS på DirectX-spil",
+        "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)",
+        "egs-sync": "Synkroniser med installerede episke spil",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
+        "enableFSRHack": "Aktiver FSR Hack (vinversion skal understøtte det)",
+        "eosOverlay": {
+            "cancelInstall": "Afbestille",
+            "checkForUpdates": "Søg efter opdateringer",
+            "checkingForUpdates": "Søger efter opdateringer...",
+            "currentVersion": "Nuværende version: {{version}}",
+            "disable": "Deaktiver",
+            "enable": "Aktiver",
+            "install": "Installer",
+            "installed": "EOS Overlay er installeret",
+            "installing": "EOS Overlay er ved at blive installeret...",
+            "latestVersion": "Seneste version: {{version}}",
+            "notInstalled": "EOS Overlay er ikke installeret",
+            "notInstalledTitle": "Overlay ikke installeret",
+            "notInstalledMsg": "EOS Overlay er ikke installeret. Vil du installere det nu?",
+            "remove": "Afinstaller",
+            "removeConfirm": "Er du sikker på, at du vil afinstallere EOS Overlay?",
+            "removeConfirmTitle": "Bekræft fjernelse af overlejring",
+            "updateNow": "Opdater",
+            "updating": "Opdaterer..."
+        },
+        "esync": "Aktiver Esync",
+        "exit-to-tray": "Afslut til systembakken",
+        "experimental_features": {
+            "cometSupport": "Comet support",
+            "enableHelp": "Hjælpekomponent",
+            "enableNewDesign": "Nyt design",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Denne funktion er stadig på et eksperimentelt stadie. Rapporter eventuelle problemer, du støder på, på GitHub.",
+                "title": "Eksperimentel funktion forude"
+            },
+            "description": "Brug rammeløst vindue (kræver genstart)"
+        },
+        "fsync": "Aktiver Fsync",
+        "gamemode": "Brug GameMode (Feral Game Mode skal installeres)",
+        "gamescope": {
+            "enableForceGrabCursor": "Aktiver 'force grab' musemarkør",
+            "enableLimiter": "Aktiver FPS-begrænser",
+            "enableUpscaling": "Aktiverer opskalering",
+            "missingMsg": "Vi kunne ikke finde Gamescope på STIEN. Installer det eller tilføj det til STIEN.",
+            "warningFlatpak": "Vi kunne ikke finde en kompatibel version af Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og genstart Heroic."
+        },
+        "hdr": "Aktiver HDR",
+        "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart",
+        "ignoreGameUpdates": "Ignorer spilopdateringer",
+        "language": "Vælg appsprog",
         "library_top_option": {
             "recently_played_installed": "Senest spillede spil (kun installeret)",
             "disabled": "Slå Fra",
             "favourites": "Yndlingsspil",
             "recently_played": "Nyligt spillede spil"
         },
+        "library_top_section": "Bibliotekets øverste sektion",
         "log": {
             "instructions_title": "Hvordan rapporterer man et problem?",
             "show-in-folder": "Vis logfil i mappe",
@@ -453,6 +553,15 @@
             "title": "Manuel synkronisering gemmer",
             "upload": "Upload"
         },
+        "maxRecentGames": "Spillede for nylig for at vise",
+        "maxworkers": "Maksimalt antal arbejdere ved download",
+        "minimize-on-launch": "Minimer heroisk efter spilstart",
+        "msync": "Aktiver Msync",
+        "no-tray-icon": "Skjul ikon i systembakken (kræver genstart)",
+        "offlinemode": "Kør spil offline",
+        "preferSystemLibs": "Foretrækker systembiblioteker",
+        "prefered_language": "Foretrukken sprog (sprogkode)",
+        "resizableBar": "Aktiver BAR, der kan ændres størrelse (kun NVIDIA RTX 30xx)",
         "runexe": {
             "message": "Træk og slip filer her",
             "title": "Kør EXE på præfiks"
@@ -462,119 +571,10 @@
             "not-found": "Save-mappe blev ikke fundet, vælg den manuelt (klik for at prøve igen)",
             "warning": "Tjek venligst to gange, om stien er korrekt (klik for at prøve igen)"
         },
+        "scripts": "",
         "select_theme": "Vælg tema",
-        "showfps": "Vis FPS (DX9, 10 og 11)",
-        "showUnrealMarket": "Vis Unreal Marketplace (skal genstartes)",
-        "start-in-tray": "Start minimeret",
-        "steamruntime": "Brug Steam Runtime",
-        "winecrossoverbottle": "CrossOver flaske",
-        "defaultWinePrefix": "Indstil mappe til nye vinpræfikser",
-        "disable_controller": "Deaktiver heroisk navigation ved hjælp af controller",
-        "discordRPC": "Aktiver Discord Rich Presence",
-        "download-no-https": "Download spil uden HTTPS (nyttigt til CDN'er, f.eks. LanCache)",
-        "egs-sync": "Synkroniser med installerede episke spil",
-        "enableFSRHack": "Aktiver FSR Hack (vinversion skal understøtte det)",
-        "eosOverlay": {
-            "cancelInstall": "Afbestille",
-            "checkForUpdates": "Søg efter opdateringer",
-            "checkingForUpdates": "Søger efter opdateringer...",
-            "currentVersion": "Nuværende version: {{version}}",
-            "disable": "Deaktiver",
-            "enable": "Aktiver",
-            "install": "Installer",
-            "installed": "EOS Overlay er installeret",
-            "installing": "EOS Overlay er ved at blive installeret...",
-            "latestVersion": "Seneste version: {{version}}",
-            "notInstalled": "EOS Overlay er ikke installeret",
-            "notInstalledTitle": "Overlay ikke installeret",
-            "notInstalledMsg": "EOS Overlay er ikke installeret. Vil du installere det nu?",
-            "remove": "Afinstaller",
-            "removeConfirm": "Er du sikker på, at du vil afinstallere EOS Overlay?",
-            "removeConfirmTitle": "Bekræft fjernelse af overlejring",
-            "updateNow": "Opdater",
-            "updating": "Opdaterer..."
-        },
-        "wineprefix": "WinePrefix mappe",
-        "crossover-version": "Crossover/Wine version",
-        "darktray": "Brug mørkt bakkeikon",
-        "default-install-path": "Standard installationssti",
-        "default-steam-path": "Standard Steam-sti",
-        "esync": "Aktiver Esync",
-        "exit-to-tray": "Afslut til systembakken",
-        "FsrSharpnessStrenght": "FSR Skarphed Styrke",
-        "preferSystemLibs": "Foretrækker systembiblioteker",
-        "resizableBar": "Aktiver BAR, der kan ændres størrelse (kun NVIDIA RTX 30xx)",
-        "wineversion": "Wine Version",
-        "autosync": "Autosync gemmer",
-        "adddesktopshortcuts": "Tilføj skrivebordsgenveje automatisk",
-        "addgamestostartmenu": "Tilføj spil til startmenuen automatisk",
-        "alt-gogdl-bin": "Vælg en alternativ GOGDL-binær til brug",
-        "alt-legendary-bin": "Vælg en alternativ legendarisk binær",
-        "audiofix": "Lydfiks (Pulse Audio Latency)",
-        "autodxvk": "Autoinstaller/opdater DXVK på præfiks",
-        "fsync": "Aktiver Fsync",
-        "gamemode": "Brug GameMode (Feral Game Mode skal installeres)",
-        "language": "Vælg appsprog",
-        "library_top_section": "Bibliotekets øverste sektion",
-        "maxRecentGames": "Spillede for nylig for at vise",
-        "maxworkers": "Maksimalt antal arbejdere ved download",
-        "minimize-on-launch": "Minimer heroisk efter spilstart",
-        "offlinemode": "Kør spil offline",
-        "prefered_language": "Foretrukken sprog (sprogkode)",
-        "checkForUpdatesOnStartup": "Søg efter heroiske opdateringer ved opstart",
-        "addgamestosteam": "Tilføj spil til Steam automatisk",
-        "custom_themes_path": "Sti til brugerdefinerede temaer",
-        "hideChangelogsOnStartup": "Vis ikke ændringslogs ved opstart",
-        "dxvkfpslimit": "Begræns FPS (DX9, 10 og 11)",
-        "autoUpdateGames": "Opdater spil automatisk",
-        "ignoreGameUpdates": "Ignorer spilopdateringer",
-        "disable_logs": "Deaktiver logfiler",
-        "addgamestoapplications": "Føj spil til applikationer automatisk",
         "showMetalOverlay": "Vis statistikoverlejring",
-        "alt-nile-bin": "Vælg en alternativ Nile Binær",
-        "advertiseAvxForRosetta": "Annoncér AVX for Rosetta",
-        "after-launch-script-path": "Vælg et script, der skal køres, når spillet lukkes",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "message": "Spil med ikke-fungerende anticheat kan muligvis køre, men multiplayer-funktionerne vil ikke fungere. Kontakt ikke support, hvis du installerer dem med denne viden.",
-                "title": "Er du sikker?",
-                "understand": "Jeg forstår"
-            },
-            "label": "Tillad installation af spil med ikke-fungerende anticheat"
-        },
-        "analyticsOptIn": "Send anonyme data for at hjælpe Heroic med udvikling",
-        "autodxvknvapi": "Automatisk installation/opdatering af DXVK-NVAPI på Prefix",
-        "before-launch-script-path": "Vælg et script, der skal køres, før spillet startes",
-        "custom_css": {
-            "warning": "Advarsel: Dette gælder for hele frontend. Det betyder, at den forkerte stil kan gøre Heroic ubrugelig. Hvis det er nødvendigt, kan indstillingen ændres manuelt i `~/.config/heroic/config.json`. Kopier IKKE stilarter fra kilder, du ikke stoler på."
-        },
-        "disablePlaytimeSync": "Deaktiver synkronisering af spilletid",
-        "disableUMU": "Deaktiver umu",
-        "download-proton-steam": "Download GE-Proton til Steam-mappen",
-        "dxfpslimit": "Begræns FPS på DirectX-spil",
-        "experimental_features": {
-            "cometSupport": "Comet support",
-            "enableHelp": "Hjælpekomponent",
-            "enableNewDesign": "Nyt design",
-            "zoomPlatform": ""
-        },
-        "frameless-window": {
-            "confirmation": {
-                "message": "Denne funktion er stadig på et eksperimentelt stadie. Rapporter eventuelle problemer, du støder på, på GitHub.",
-                "title": "Eksperimentel funktion forude"
-            },
-            "description": "Brug rammeløst vindue (kræver genstart)"
-        },
-        "gamescope": {
-            "enableForceGrabCursor": "Aktiver 'force grab' musemarkør",
-            "enableLimiter": "Aktiver FPS-begrænser",
-            "enableUpscaling": "Aktiverer opskalering",
-            "missingMsg": "Vi kunne ikke finde Gamescope på STIEN. Installer det eller tilføj det til STIEN.",
-            "warningFlatpak": "Vi kunne ikke finde en kompatibel version af Gamescope. Installer Gamescopes flatpak-pakke med runtime {{runtimeVersion}} og genstart Heroic."
-        },
-        "hdr": "Aktiver HDR",
-        "msync": "Aktiver Msync",
-        "no-tray-icon": "Skjul ikon i systembakken (kræver genstart)",
+        "showUnrealMarket": "Vis Unreal Marketplace (skal genstartes)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Vis dem ikke",
@@ -586,15 +586,17 @@
             "label": "Tillad brug af Valve Proton-builds til at køre spil",
             "wine_selector_warning": "Valve-versioner af Proton ignoreres som standard. Aktiver dem i de avancerede globale indstillinger"
         },
+        "showfps": "Vis FPS (DX9, 10 og 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Start minimeret",
+        "steamruntime": "Brug Steam Runtime",
         "verboseLogs": {
             "description": "Aktivér detaljerede logfiler"
         },
         "wineWayland": "Aktivér Wine-Wayland (eksperimentelt) (Wine-versionen skal understøtte dette)",
-        "WoW64": "Aktivér WoW64 (eksperimentelt)",
-        "scripts": "",
-        "enable-quick-sync-menu": "",
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "winecrossoverbottle": "CrossOver flaske",
+        "wineprefix": "WinePrefix mappe",
+        "wineversion": "Wine Version"
     },
     "wine": {
         "manager": {

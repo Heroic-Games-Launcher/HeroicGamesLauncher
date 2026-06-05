@@ -296,11 +296,35 @@
         "show_updates_only": "Yalnızca güncellenen oyunları göster"
     },
     "help": {
+        "WoW64": "Wine WoW64 modu, 32-bit Windows oyunlarının 64-bit Wine'da çalıştırılmasını sağlar. Açmak performansı iyileştirebilir ama aynı zamanda daha eski 32-bit oyunlarda sorun çıkarabilir.",
+        "advertiseAvxForRosetta": "Rosetta üzerinden Apple Silicon Mac'lerde Windows oyunları çalıştırırken AVX komut seti desteğini etkinleştirir. Bu, AVX desteğine ihtiyaç duyan Death Stranding gibi bazı oyunlar için gerekli olabilir.",
         "amdfsr": "AMD'nin FSR özelliği, Tam Ekran Modunda daha düşük çözünürlükleri yükselterek kare hızını artırmaya yardımcı olur. Küçük bir performans artışı pahasına görüntü kalitesi 5'ten 1'e yükselir. Etkinleştirmek performansı artırabilir.",
+        "analytics": "Uygulamayı geliştirmeye yardımcı olacak %100 anonim kullanım verilerinin toplanmasını etkinleştirir. Değişikliğin etkinleşmesi için yeniden başlatma gerekir.",
+        "button": {
+            "open": "Yardımı Aç",
+            "close": "Yardımı Kapat"
+        },
+        "content": {
+            "defaultInstallPath": "Bu, oyunlar kurulurken seçili gelen varsayılan yoldur.",
+            "settingsDefault": "Tüm Heroic ayarlarını ve oyunların varsayılanlarını gösterir.",
+            "settingsGame": "Oyunla ilgili tüm ayarları göster.",
+            "downloadManager": "Şimdiki ve geçmiş indirmeleri gösterir.",
+            "wineManager": "Wine, Proton, Crossover ve benzerlerinin farklı sürümlerini kur.",
+            "library": "Sahip olunan tüm oyunları gösterir.",
+            "customThemesPath": "Wiki sayfamıza göz atın.",
+            "accessibility": "Erişilebilirlik ayarlarını gösterir.",
+            "login": "Farklı mağazalarda oturum aç."
+        },
         "custom_themes_path": "Güvenilmeyen kaynaklardan gelen CSS dosyalarını kullanmayın. Şüpheye düştüğünüzde, Discord kanalımızda incelenmesini isteyin.",
         "custom_themes_wiki": "Özel tema ekleme hakkında daha fazla bilgi için Wiki'ye göz atın. Buraya tıklayın.",
+        "disablePlaytimeSync": "Belirtilen mağazanın sunucularıyla oynatma süresi senkronizasyonunu devre dışı bırakır (şu anda yalnızca GOG desteklenmektedir)",
+        "disable_logs": "Günlük dosyalarına yazma işlemlerinin çoğunu devre dışı bırakmak için bu onay kutusunu AÇIK konuma getirin (kritik bilgiler her zaman günlüğe kaydedilir). Herhangi bir sorunu bildirmeden önce bu ayarı KAPALI konuma getirdiğinizden emin olun.",
+        "download_proton_steam": "Etkinleştirildiğinde, GE-Proton varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilecektir. Yukarıdaki 'Varsayılan Steam yolu' ayarında ayarlanan Steam yolunu kullanacaktır.",
+        "dxfpslimit": "DirectX Oyunları için bir kare hızı sınırı belirler (9-12)",
         "dxvk": "DXVK, Vulkan tabanlı bir çeviri katmanıdır ve DirectX 9, 10 ve 11 oyunları için kullanılır. Etkinleştirmek uyumluluğu artırabilir. Özellikle daha eski DirectX oyunları için sorunlara neden olabilir.",
         "dxvkfpslimit": "DXVK oyunları için bir kare hızı sınırı belirler",
+        "dxvknvapi": "DXVK-NVAPI, DXVK ve Linux yerel NVAPI üzerine kurulu bir NVAPI uygulamasıdır. Nvidia GPU'larda DLSS kullanımına izin verir.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync, CPU ağırlıklı oyunlarda wineserver ek yükünü azaltmayı amaçlamaktadır. Etkinleştirmek performansı artırabilir.",
         "fsync": "Fsync, CPU ağırlıklı oyunlarda wineserver ek yükünü azaltmayı amaçlamaktadır. Etkinleştirmek, desteklenen Linux çekirdeklerinde performansı artırabilir.",
         "game_language": {
@@ -309,8 +333,23 @@
             "valid_codes": "Geçerli dil kodları oyuna bağlıdır."
         },
         "gamemode": "Feral GameMode, oyunları çalıştırırken sisteme otomatik ve geçici ince ayarlar uygular. Etkinleştirmek performansı artırabilir.",
+        "gamescope": {
+            "upscaleMethod": "Gamescope'un kullanması gereken görüntü yükseltme yöntemi.",
+            "gameWidth": "Oyunun kullanacağı yatay çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
+            "upscaleWidth": "Gamescope'un kullanacağı yatay çözünürlük. 16:9 en boy oranı varsayılır.",
+            "gameHeight": "Oyunun kullanacağı dikey çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
+            "upscaleHeight": "Gamescope'un kullanacağı dikey çözünürlük. 16:9 en boy oranı varsayılır.",
+            "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60",
+            "fpsLimiterNoFocus": "Oyuna odaklanılmamışsa gamescope kare hızı sınırı saniye başına sınırlandırılmalıdır.",
+            "additionalOptions": "Gamescope'a aktarılacak ek komut satırı bayrakları.",
+            "forceGrabCursor": "İmleç görünürlüğüne bağlı olarak çevirmek yerine her zaman göreceli fare modunu kullanın. (Uygulamalar odak kaybetmeye devam ettiğinde yararlıdır)"
+        },
         "general": "Başka bir yerde çalışan bir Epic Games Launcher kurulumunuz varsa ve oyunlarınızı tekrar indirmemek için onları içeri aktarmak istiyorsanız EGL ile eşitleyin.",
         "mangohud": "MangoHUD, FPS'yi, sıcaklıkları, CPU/GPU yükünü ve diğer sistem kaynaklarını görüntüleyen ve izleyen bir arayüzdür.",
+        "msync": "Msync, İşlemci yoğun oyunlarda wine sunucu yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde başarımı artırabilir.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Oyunu başlatma komutuna eklenmesi için ",
             "part5": "Oyun Parametleri",
@@ -329,40 +368,6 @@
             "part3": "Elle Eşzamanla: Bulutta depolanan oyun kayıtlarını indirmek için İndir seçeneğini seçin. Yerel kayıtları buluta yüklemek için Yükle seçeneğini seçin. İndirmeye Zorla ve Yüklemeye Zorla yerel ya da buluttaki sürümü dikkate almayacaktır.",
             "part4": "Kayıtları Otomatik Eşzamanla, oyunu her başlattığınızda ve oynamayı bitirdiğinizde kayıtları eşzamanlayacak."
         },
-        "vkd3d": "VKD3D, DirectX 12 oyunları için Vulkan tabanlı bir çeviri katmanıdır. Etkinleştirilmesi uyumluluğu önemli ölçüde artırabilir. Eski DirectX oyunlarında etkisi yoktur, DXVK gerektirir.",
-        "wine": {
-            "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
-            "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
-        },
-        "disable_logs": "Günlük dosyalarına yazma işlemlerinin çoğunu devre dışı bırakmak için bu onay kutusunu AÇIK konuma getirin (kritik bilgiler her zaman günlüğe kaydedilir). Herhangi bir sorunu bildirmeden önce bu ayarı KAPALI konuma getirdiğinizden emin olun.",
-        "dxvknvapi": "DXVK-NVAPI, DXVK ve Linux yerel NVAPI üzerine kurulu bir NVAPI uygulamasıdır. Nvidia GPU'larda DLSS kullanımına izin verir.",
-        "disablePlaytimeSync": "Belirtilen mağazanın sunucularıyla oynatma süresi senkronizasyonunu devre dışı bırakır (şu anda yalnızca GOG desteklenmektedir)",
-        "gamescope": {
-            "upscaleMethod": "Gamescope'un kullanması gereken görüntü yükseltme yöntemi.",
-            "gameWidth": "Oyunun kullanacağı yatay çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
-            "upscaleWidth": "Gamescope'un kullanacağı yatay çözünürlük. 16:9 en boy oranı varsayılır.",
-            "gameHeight": "Oyunun kullanacağı dikey çözünürlük. Gamescope tarafından 16:9 en boy oranı varsayılır.",
-            "upscaleHeight": "Gamescope'un kullanacağı dikey çözünürlük. 16:9 en boy oranı varsayılır.",
-            "fpsLimiter": "Gamescope'un kaç kareye sınırlaması gerektiği. Örn. 60",
-            "fpsLimiterNoFocus": "Oyuna odaklanılmamışsa gamescope kare hızı sınırı saniye başına sınırlandırılmalıdır.",
-            "additionalOptions": "Gamescope'a aktarılacak ek komut satırı bayrakları.",
-            "forceGrabCursor": "İmleç görünürlüğüne bağlı olarak çevirmek yerine her zaman göreceli fare modunu kullanın. (Uygulamalar odak kaybetmeye devam ettiğinde yararlıdır)"
-        },
-        "content": {
-            "defaultInstallPath": "Bu, oyunlar kurulurken seçili gelen varsayılan yoldur.",
-            "settingsDefault": "Tüm Heroic ayarlarını ve oyunların varsayılanlarını gösterir.",
-            "settingsGame": "Oyunla ilgili tüm ayarları göster.",
-            "downloadManager": "Şimdiki ve geçmiş indirmeleri gösterir.",
-            "wineManager": "Wine, Proton, Crossover ve benzerlerinin farklı sürümlerini kur.",
-            "library": "Sahip olunan tüm oyunları gösterir.",
-            "customThemesPath": "Wiki sayfamıza göz atın.",
-            "accessibility": "Erişilebilirlik ayarlarını gösterir.",
-            "login": "Farklı mağazalarda oturum aç."
-        },
-        "button": {
-            "open": "Yardımı Aç",
-            "close": "Yardımı Kapat"
-        },
         "title": {
             "accessibility": "Erişilebilirlik",
             "login": "Giriş",
@@ -371,17 +376,13 @@
             "wineManager": "Wine Yöneticisi",
             "library": "Kütüphane"
         },
-        "msync": "Msync, İşlemci yoğun oyunlarda wine sunucu yükünü azaltmayı amaçlar. Etkinleştirmek, desteklenen Linux çekirdeklerinde başarımı artırabilir.",
-        "dxfpslimit": "DirectX Oyunları için bir kare hızı sınırı belirler (9-12)",
-        "advertiseAvxForRosetta": "Rosetta üzerinden Apple Silicon Mac'lerde Windows oyunları çalıştırırken AVX komut seti desteğini etkinleştirir. Bu, AVX desteğine ihtiyaç duyan Death Stranding gibi bazı oyunlar için gerekli olabilir.",
-        "download_proton_steam": "Etkinleştirildiğinde, GE-Proton varsayılan Heroic yolu yerine doğrudan Steam uyumluluk araçları dizinine indirilecektir. Yukarıdaki 'Varsayılan Steam yolu' ayarında ayarlanan Steam yolunu kullanacaktır.",
-        "analytics": "Uygulamayı geliştirmeye yardımcı olacak %100 anonim kullanım verilerinin toplanmasını etkinleştirir. Değişikliğin etkinleşmesi için yeniden başlatma gerekir.",
+        "vkd3d": "VKD3D, DirectX 12 oyunları için Vulkan tabanlı bir çeviri katmanıdır. Etkinleştirilmesi uyumluluğu önemli ölçüde artırabilir. Eski DirectX oyunlarında etkisi yoktur, DXVK gerektirir.",
+        "wine": {
+            "part1": "Heroic; Wine, Proton ve CrossOver sürümlerini şu klasörlerde arar:",
+            "part2": "Diğer yerler için bu klasörlerden birisine sembolik bağlantı kullanın"
+        },
         "wine-hdr": "HDR; daha aydınlık sahneler ve daha belirgin kontrastlar sağlayarak renkleri daha canlı ve gerçekçi hale getirir. Bu özelliğin çalışabilmesi için hem ekranınızın hem de oyunun HDR'ı desteklemesi şarttır.",
-        "wine-wayland": "Wine-Wayland deneysel sürücüsü, oyunların Wayland görüntüleme protokolüyle yerel olarak çalışmasını sağlar. Bu özelliği etkinleştirmek bazı oyunlarda sorunlara yol açabilir.",
-        "WoW64": "Wine WoW64 modu, 32-bit Windows oyunlarının 64-bit Wine'da çalıştırılmasını sağlar. Açmak performansı iyileştirebilir ama aynı zamanda daha eski 32-bit oyunlarda sorun çıkarabilir.",
-        "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": "Wine-Wayland deneysel sürücüsü, oyunların Wayland görüntüleme protokolüyle yerel olarak çalışmasını sağlar. Bu özelliği etkinleştirmek bazı oyunlarda sorunlara yol açabilir."
     },
     "info": {
         "heroic": {
@@ -595,28 +596,68 @@
     "Recent": "Yakın Zamanda Oynanan",
     "search": "Oyun Ara",
     "setting": {
+        "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
+        "WoW64": "WoW64'ü aç (Deneysel)",
         "adddesktopshortcuts": "Masaüstü kısayollarını otomatik ekle",
+        "addgamestoapplications": "Oyunları Uygulamalara otomatik ekle",
         "addgamestostartmenu": "Oyunları başlangıç menüsüne otomatik ekle",
         "addgamestosteam": "Oyunları Steam'e otomatik ekle",
+        "advertiseAvxForRosetta": "Rosetta için AVX tanıtın",
+        "after-launch-script-path": "Oyun kapandıktan sonra çalıştırılacak betiği seçin",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "Anladım",
+                "title": "Emin misiniz?",
+                "message": "Hile engelleme özelliği bozuk olan veya reddedilen oyunlar çalıştırılabilir fakat çoklu oyuncu özellikleri kullanılamaz. Bunu bilerek indiriyorsanız bu konuda destek istemeyiniz."
+            },
+            "label": "Hile engelleme özelliği bozuk olan veya reddedilen oyunların kurulmasına izin ver"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Emin misiniz?",
+                "dont_show": "Bunları Gösterme",
+                "message": "GE olmayan Proton sürümleri, winedevices ve protonfixes gibi önemli araçları içermediğinden, Heroic ile GE-Proton kullanmanızı öneriyoruz. Elbette, yine de istediğiniz diğer Proton sürümlerini kullanmakta serbestsiniz.",
+                "show": "Yine de Göster"
+            },
+            "info_label": "GE olmayan Proton sürümleri yoksayıldı",
+            "label": "GE olmayan Proton sürümleriyle oyun çalıştırmaya izin ver",
+            "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz"
+        },
         "alt-gogdl-bin": "Alternatif bir GOGDL çalıştırılabilir dosyasını seçin",
         "alt-legendary-bin": "Alternatif bir Legendary dosyası seçin",
+        "alt-nile-bin": "Alternatif bir Nile İkili Dosyası Seçin",
+        "analyticsOptIn": "Heroic'in geliştirilmesine yardımcı olmak için anonim veri gönder",
+        "autoUpdateGames": "Oyunları otomatik olarak güncelle",
         "autodxvk": "Prefix'e Otomatik DXVK Kur/Güncelle",
+        "autodxvknvapi": "Prefix'e Otomatik DXVK-NVAPI Kur/Güncelle",
         "autosync": "Kayıtları Otomatik Eşzamanla",
         "autovkd3d": "Prefix'e Otomatik VKD3D Kur/Güncelle",
+        "before-launch-script-path": "Oyun başlatılmadan önce çalıştırılacak betiği seçin",
         "change-target-exe": "Çalıştırmak için alternatif bir EXE seçin",
         "checkForUpdatesOnStartup": "Başlangıçta Heroic Güncellemelerini kontrol et",
         "crossover-version": "Crossover/Wine Sürümü",
-        "custom_themes_path": "Özel Temaların Yolu",
         "customWineProton": "Özel Wine/Proton Yolları",
+        "custom_css": {
+            "warning": "Uyarı: Bu değişiklik tüm arayüzü etkiler. Bu, yanlış bir stilin Heroic'i kullanılamaz hale getirebileceği anlamına gelir. Gerekirse, ayar `~/.config/heroic/config.json` dosyası üzerinden elle değiştirilebilir. Güvenmediğiniz kaynaklardan stil KOPYALAMAYIN."
+        },
+        "custom_themes_path": "Özel Temaların Yolu",
         "darktray": "Koyu tepsi simgesi kullan",
         "default-install-path": "Öntanımlı Kurulum Yolu",
         "default-steam-path": "Öntanımlı Steam Yolu",
         "defaultWinePrefix": "Yeni Wine Prefix'leri için Klasörü Ayarla",
+        "disablePlaytimeSync": "Oynama süresi eşzamanlamasını devre dışı bırak",
+        "disableUMU": "Umu devre dışı bırak",
         "disable_controller": "Denetleyiciyi kullanarak Heroic gezinmesini devre dışı bırak",
+        "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak",
+        "disable_logs": "Günlükleri Devre Dışı Bırak",
         "discordRPC": "Discord Rich Presence'i Etkinleştir",
         "download-no-https": "Oyunları HTTPS olmadan indirin (LanCache gibi CDN'ler için kullanışlıdır)",
+        "download-proton-steam": "GE-Protonu Steam dizinine indirin",
+        "dxfpslimit": "DirectX Oyunlarında FPS Sınırla",
         "dxvkfpslimit": "FPS'i sınırla (DX9, 10 and 11)",
         "egs-sync": "Kurulu Epic Games ile Eşitle",
+        "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "FSR Hack'i Etkinleştir (Wine sürümünün desteklemesi gerekiyor)",
         "eosOverlay": {
             "cancelInstall": "İptal",
@@ -640,10 +681,33 @@
         },
         "esync": "Esync'i Etkinleştir",
         "exit-to-tray": "Sistem tepsisine küçült",
-        "FsrSharpnessStrenght": "FSR Keskinlik Gücü",
+        "experimental_features": {
+            "enableNewDesign": "Yeni tasarım",
+            "enableHelp": "Yardım bileşeni",
+            "automaticWinetricksFixes": "Bilinen düzeltmeleri kendiliğinden uygula",
+            "cometSupport": "Comet desteği",
+            "umuSupport": "Proton çalışma zamanı olarak umu kullan",
+            "zoomPlatform": "Zoom Platform desteği (yalnızca Linux)"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Bu özellik hala deneyseldir. Lütfen karşılaştığınız sorunları GitHub'da bildirin.",
+                "title": "Deneysel özellik önde"
+            },
+            "description": "Çerçevesiz pencere kullan (yeniden başlatma gerektirir)"
+        },
         "fsync": "Fsync'i Etkinleştir",
         "gamemode": "GameMode Kullan (Feral Game Mode kurulu olmalıdır)",
+        "gamescope": {
+            "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir",
+            "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
+            "missingMsg": "Yolda gamesscope bulamadık. Kurun veya yola ekleyin.",
+            "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir",
+            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
+        },
+        "hdr": "HDR'ı Etkinleştir",
         "hideChangelogsOnStartup": "Başlangıçta değişiklik günlüklerini gösterme",
+        "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
         "language": "Uygulama Dilini Seç",
         "library_top_option": {
             "disabled": "Devre dışı",
@@ -713,9 +777,11 @@
         "maxRecentGames": "Gösterilecek Son Oynananlar",
         "maxworkers": "İndirme sırasında en yüksek bağlantı noktaları",
         "minimize-on-launch": "Oyun Başlatıldıktan Sonra Heroic'i Simge Durumuna Küçült",
+        "msync": "Msync Etkinleştir",
+        "no-tray-icon": "Sistem Tepsi Simgesini Gizle (yeniden başlatma gerektirir)",
         "offlinemode": "Oyunu Çevrim Dışı Çalıştır",
-        "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
         "preferSystemLibs": "Sistem kitaplıklarını tercih et",
+        "prefered_language": "Tercih Edilen Dil (Dil Kodu)",
         "runexe": {
             "message": "Dosyaları buraya Sürükle ve Bırak",
             "title": "Prefix'te EXE Çalıştır"
@@ -725,79 +791,9 @@
             "placeholder": "Tam oyun kaydetme klasörünü seçin",
             "warning": "Lütfen yolun doğruluğunu iki kez denetleyin (tekrar denemek için tıklayın)"
         },
+        "scripts": "Betikler:",
         "select_theme": "Tema Seç",
-        "showfps": "FPS Göster (DX9, 10 and 11)",
-        "start-in-tray": "Simge Durumunda Başlat",
-        "steamruntime": "Steam Çalışma Zamanını Kullan",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "WinePrefix klasörü",
-        "wineversion": "Wine Sürümü",
-        "autoUpdateGames": "Oyunları otomatik olarak güncelle",
-        "ignoreGameUpdates": "Oyun güncellemelerini yoksay",
-        "disable_logs": "Günlükleri Devre Dışı Bırak",
         "showMetalOverlay": "İstatistik Kaplamasını Göster",
-        "addgamestoapplications": "Oyunları Uygulamalara otomatik ekle",
-        "alt-nile-bin": "Alternatif bir Nile İkili Dosyası Seçin",
-        "autodxvknvapi": "Prefix'e Otomatik DXVK-NVAPI Kur/Güncelle",
-        "disablePlaytimeSync": "Oynama süresi eşzamanlamasını devre dışı bırak",
-        "experimental_features": {
-            "enableNewDesign": "Yeni tasarım",
-            "enableHelp": "Yardım bileşeni",
-            "automaticWinetricksFixes": "Bilinen düzeltmeleri kendiliğinden uygula",
-            "cometSupport": "Comet desteği",
-            "umuSupport": "Proton çalışma zamanı olarak umu kullan",
-            "zoomPlatform": "Zoom Platform desteği (yalnızca Linux)"
-        },
-        "frameless-window": {
-            "confirmation": {
-                "message": "Bu özellik hala deneyseldir. Lütfen karşılaştığınız sorunları GitHub'da bildirin.",
-                "title": "Deneysel özellik önde"
-            },
-            "description": "Çerçevesiz pencere kullan (yeniden başlatma gerektirir)"
-        },
-        "gamescope": {
-            "enableLimiter": "FPS Sınırlayıcıyı Etkinleştir",
-            "enableUpscaling": "Çözünürlük Artırmayı Etkinleştirir",
-            "missingMsg": "Yolda gamesscope bulamadık. Kurun veya yola ekleyin.",
-            "enableForceGrabCursor": "Kuvvet Yakalama İmlecini Etkinleştir",
-            "warningFlatpak": "Uyumlu bir Gamescope sürümü bulunamadı. {{runtimeVersion}} çalışma zamanı sürümüne sahip Gamescope'un flatpak paketini kurun ve ardından Heroic'i yeniden başlatın."
-        },
-        "after-launch-script-path": "Oyun kapandıktan sonra çalıştırılacak betiği seçin",
-        "before-launch-script-path": "Oyun başlatılmadan önce çalıştırılacak betiği seçin",
-        "msync": "Msync Etkinleştir",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "Anladım",
-                "title": "Emin misiniz?",
-                "message": "Hile engelleme özelliği bozuk olan veya reddedilen oyunlar çalıştırılabilir fakat çoklu oyuncu özellikleri kullanılamaz. Bunu bilerek indiriyorsanız bu konuda destek istemeyiniz."
-            },
-            "label": "Hile engelleme özelliği bozuk olan veya reddedilen oyunların kurulmasına izin ver"
-        },
-        "advertiseAvxForRosetta": "Rosetta için AVX tanıtın",
-        "download-proton-steam": "GE-Protonu Steam dizinine indirin",
-        "dxfpslimit": "DirectX Oyunlarında FPS Sınırla",
-        "disableUMU": "Umu devre dışı bırak",
-        "custom_css": {
-            "warning": "Uyarı: Bu değişiklik tüm arayüzü etkiler. Bu, yanlış bir stilin Heroic'i kullanılamaz hale getirebileceği anlamına gelir. Gerekirse, ayar `~/.config/heroic/config.json` dosyası üzerinden elle değiştirilebilir. Güvenmediğiniz kaynaklardan stil KOPYALAMAYIN."
-        },
-        "verboseLogs": {
-            "description": "Ayrıntılı günlükleri etkinleştir"
-        },
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "Emin misiniz?",
-                "dont_show": "Bunları Gösterme",
-                "message": "GE olmayan Proton sürümleri, winedevices ve protonfixes gibi önemli araçları içermediğinden, Heroic ile GE-Proton kullanmanızı öneriyoruz. Elbette, yine de istediğiniz diğer Proton sürümlerini kullanmakta serbestsiniz.",
-                "show": "Yine de Göster"
-            },
-            "info_label": "GE olmayan Proton sürümleri yoksayıldı",
-            "label": "GE olmayan Proton sürümleriyle oyun çalıştırmaya izin ver",
-            "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz"
-        },
-        "analyticsOptIn": "Heroic'in geliştirilmesine yardımcı olmak için anonim veri gönder",
-        "hdr": "HDR'ı Etkinleştir",
-        "no-tray-icon": "Sistem Tepsi Simgesini Gizle (yeniden başlatma gerektirir)",
-        "wineWayland": "Wine-Wayland'ı Etkinleştir (Deneysel) (Wine sürümünüzün bunu desteklemesi gerekir)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Bunları Gösterme",
@@ -809,11 +805,17 @@
             "wine_selector_warning": "GE olmayan Proton sürümleri varsayılan olarak yoksayılır. Bu sürümleri, Gelişmiş genel ayarlardan etkinleştirebilirsiniz",
             "info_label": "Valve Proton sürümleri göz ardı edildi"
         },
-        "WoW64": "WoW64'ü aç (Deneysel)",
-        "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
-        "scripts": "Betikler:",
-        "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak",
-        "start-in-console-mode": "Uçbirim Modunda başlat"
+        "showfps": "FPS Göster (DX9, 10 and 11)",
+        "start-in-console-mode": "Uçbirim Modunda başlat",
+        "start-in-tray": "Simge Durumunda Başlat",
+        "steamruntime": "Steam Çalışma Zamanını Kullan",
+        "verboseLogs": {
+            "description": "Ayrıntılı günlükleri etkinleştir"
+        },
+        "wineWayland": "Wine-Wayland'ı Etkinleştir (Deneysel) (Wine sürümünüzün bunu desteklemesi gerekir)",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "WinePrefix klasörü",
+        "wineversion": "Wine Sürümü"
     },
     "settings": {
         "battlEyeRuntime": {

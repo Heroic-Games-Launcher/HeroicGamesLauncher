@@ -1,4 +1,5 @@
 export { default as AdvertiseAvxForRosetta } from './AdvertiseAvxForRosetta'
+export { default as GodotDepthPrepassFix } from './GodotDepthPrepassFix'
 export { default as ShowValveProton } from './ShowValveProton'
 export { default as AlternativeExe } from './AlternativeExe'
 export { default as AltGOGdlBin } from './AltGOGdlBin'

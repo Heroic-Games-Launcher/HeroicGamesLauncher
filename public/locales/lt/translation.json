@@ -280,23 +280,13 @@
         "show_updates_only": ""
     },
     "help": {
-        "title": {
-            "settings": "Nustatymai",
-            "accessibility": "Prieinamumas",
-            "downloadManager": "Atsisiuntimo tvarkytuvas/-ė",
-            "login": "Prisijungti",
-            "library": "Biblioteka",
-            "wineManager": "„Wine“ tvarkytuvė/-as"
-        },
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
+        "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą.",
+        "analytics": "",
         "button": {
             "close": "Uždaryti pagalbą",
             "open": "Atidaryti pagalbą"
-        },
-        "other": {
-            "part4": "Naudokite – ",
-            "part5": "Žaidimo argumentai",
-            "part7": " –, kad praleistu paleidiklį kai kuriuose žaidimuose ir pan.",
-            "part6": " , kad būtų pakviestas po komandos paleidimo, pavyzdžiui: "
         },
         "content": {
             "accessibility": "Rodo prieinamumo nustatymus.",
@@ -309,22 +299,24 @@
             "library": "Rodo visus turimus žaidimus.",
             "settingsGame": "Rodo visus nustatymus žaidimui."
         },
+        "custom_themes_path": "Nenaudoti „CSS“ failų iš nepatikimų šaltinių. Kai esate abejonėje, klauskite apžiūros mūsų „Discord“ kanale.",
         "custom_themes_wiki": "Peržiūrėkite žinių aiškinamąjį puslapį išsamumui kaip pridėti pasirinktinius apvalkalus. Spauskite čia.",
+        "disablePlaytimeSync": "Išjungia/Išgalina žaidimo laikotarpio sinchronizavimą su duotos parduotuvės serveriais (kol kas tik „GOG“ yra palaikomas)",
+        "disable_logs": "Perjungiant šį pažymėjimo lauką į – „ON“, išjungia didžiąsias žurnalų failų įrašymus (kritinė informacija visada yra įrašoma). Įsitikinkite, kad išjungėte šį nustatymą prieš pranešant apie bet kokią problemą.",
+        "download_proton_steam": "",
+        "dxfpslimit": "Nustato kadrų dažnio ribą „DXVK“ žaidimams",
+        "dxvk": "„DXVK“ yra „Vulkan“ pagrindo vertimo sluoksnis „DirectX 9/10/11“ žaidimams. Įjungus/Įgalinant gali pagerinti palaikomumą. Gali sukelti problemų, ypatingai senesniems „DirectX“ žaidimams.",
         "dxvkfpslimit": "Nustato kadrų dažnio ribą „DXVK“ žaidimams",
+        "dxvknvapi": "„DXVK-NVAPI“ yra „NVAPI“ realizacija, kuri sukurta ant „DXVK“ ir jo „Linux NVAPI“, jis leidžia „DLSS“ naudojimą, skirtiems „Nvidia GPU“ (dgs.).",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
+        "esync": "„Esync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą.",
+        "fsync": "„Fsync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikančių „Linux“ branduolių.",
         "game_language": {
             "in_game_config": "Nevisi žaidimai palaiko šią konfigūraciją, kai kurie žaidimai turi nuosava kalbos nustatymą.",
             "valid_codes": "Tinkami kalbos kodai yra priklausomi nuo žaidimo.",
             "fallback": "Palikti tuščią, norint naudoti „Heroic“ kalbą."
         },
-        "wine": {
-            "part1": "„Heroic“ ieško „Wine“, „Proton“ ir „CrossOver“ versijų, šiuose aplankuose:",
-            "part2": "Kitoks vietoms, naudokite virtualųjį katalogą į vieną iš šių aplankų/-alų"
-        },
-        "custom_themes_path": "Nenaudoti „CSS“ failų iš nepatikimų šaltinių. Kai esate abejonėje, klauskite apžiūros mūsų „Discord“ kanale.",
-        "mangohud": "„MangoHUD“ yra perdanga, kuri rodo ir stebi kdr./sek., temperatūrą, „CPU“/„GPU“ apkrovą ir kitus sisteminius išteklius.",
-        "steam_path": {
-            "info": "Šis kelias leidžia „Heroic“ numatyti kokią „Proton“ versiją „Steam“ naudos, skirta pridedant ne „Steam“ žaidimus į „Steam“."
-        },
+        "gamemode": "„Feral“ žaidimo veiksena pritaiko automatinius ir laikinus pakoregavimus sistemai, kai veikia žaidimai. Įjungiant/Įgalinant gali pagerinti našumą.",
         "gamescope": {
             "fpsLimiter": "Kiekis kadrų, kurias „gamescope“ ribos. Pvz.: 60",
             "fpsLimiterNoFocus": "Kiekis kadrų, kurias „gamescope“ ribos per sekundę, jei žaidimas nėra fokusuotas.",
@@ -336,36 +328,45 @@
             "additionalOptions": "Papildomos komandinės eilutės „vėliavos“, kurias pravesti į „gamescope“.",
             "forceGrabCursor": ""
         },
-        "dxvk": "„DXVK“ yra „Vulkan“ pagrindo vertimo sluoksnis „DirectX 9/10/11“ žaidimams. Įjungus/Įgalinant gali pagerinti palaikomumą. Gali sukelti problemų, ypatingai senesniems „DirectX“ žaidimams.",
+        "general": "Sinchronizuoti su „EGL“, jei Jūs turite veikiantį „Epic Games“ paleidiklio įdiegimą kitur ir norite importuoti savo žaidimus, siekiant išvengti jų atsisiuntimą dar kartą.",
+        "mangohud": "„MangoHUD“ yra perdanga, kuri rodo ir stebi kdr./sek., temperatūrą, „CPU“/„GPU“ apkrovą ir kitus sisteminius išteklius.",
+        "msync": "„Msync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikomų „Linux“ branduolių.",
+        "nvidiaprime": {
+            "details": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)"
+        },
+        "other": {
+            "part4": "Naudokite – ",
+            "part5": "Žaidimo argumentai",
+            "part7": " –, kad praleistu paleidiklį kai kuriuose žaidimuose ir pan.",
+            "part6": " , kad būtų pakviestas po komandos paleidimo, pavyzdžiui: "
+        },
+        "preferSystemLibs": "Pasirinktinės „Wine“ versijos („Wine-GE“, „Wine-Lutris“) yra įtraukiamos su jų bibliotekų priklausomybėm. Įjungiant/Įgalinant šią parinktį, šios įtraukiamos bibliotekos bus ignoruojamos ir „Wine“ įkraus sistemines bibliotekas vietoj to. Įspėjimas! Problemos gali kilti, jeigu priklausomybės nebus pasiekiamos.",
+        "primerun": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
+        "steam_path": {
+            "info": "Šis kelias leidžia „Heroic“ numatyti kokią „Proton“ versiją „Steam“ naudos, skirta pridedant ne „Steam“ žaidimus į „Steam“."
+        },
+        "steamruntime": "Pasirinktinės bibliotekos, kurios yra telkiamos „Steam“, siekant paleisti „Linux“ ir „Windows“ („Proton“) žaidimus. Įjungiant/Įgalinant gali pagerinti palaikomumą.",
         "sync": {
             "part1": "„Heroic“ bandys atspėti teisinga išsaugojimų aplanką/-alą ir jis dažniausiai atspėja. Atvejais kai jis yra neteisingas, naudokite perkeičiamąjį parinkimą, norint pakeisti jį.",
             "part2": "Tuo atveju, kai Jūs pakeičiate prielinksnio/priešdėlio aplanką/-alą, skirtus „Wine“ ar „Proton“, reikės dar kart patikrinti šį kelią, kadangi „Proton“ naudoja kitokį prielinksnį/priešdėlį („/pfx“) or vartotojo/naudotojo vardą („steamuser“). Taigi, Jūs galite paprastai pašalinti dabartinį kelią ir išeiti iš sinchronizavimų nustatymo puslapio ir vėl sugrįžti, norint, kad „Heroic“ dar kartą atspėtų teisingąjį prielinksnį/priešdėlį.",
             "part3": "Rankinis sinchronizavimas: Pasirinkite atsisiuntimą, norint atsisiųsti žaidimo išsaugojimus, kurie laikomi debesijoje. Pasirinkite įkėlimą, norint įkelti vietinius išsaugojimus į debesiją. Priverstinai atsisiųsti ir įkelti nepaisys jos parinkties versiją.",
             "part4": "Automatinis išsaugojimų sinchronizavimas, sinchronizuos išsaugojimus kiekvieną kartą, kada Jūs pradėsite žaidimą ir kai jį baigsite žaisti."
         },
-        "disablePlaytimeSync": "Išjungia/Išgalina žaidimo laikotarpio sinchronizavimą su duotos parduotuvės serveriais (kol kas tik „GOG“ yra palaikomas)",
-        "general": "Sinchronizuoti su „EGL“, jei Jūs turite veikiantį „Epic Games“ paleidiklio įdiegimą kitur ir norite importuoti savo žaidimus, siekiant išvengti jų atsisiuntimą dar kartą.",
-        "preferSystemLibs": "Pasirinktinės „Wine“ versijos („Wine-GE“, „Wine-Lutris“) yra įtraukiamos su jų bibliotekų priklausomybėm. Įjungiant/Įgalinant šią parinktį, šios įtraukiamos bibliotekos bus ignoruojamos ir „Wine“ įkraus sistemines bibliotekas vietoj to. Įspėjimas! Problemos gali kilti, jeigu priklausomybės nebus pasiekiamos.",
-        "disable_logs": "Perjungiant šį pažymėjimo lauką į – „ON“, išjungia didžiąsias žurnalų failų įrašymus (kritinė informacija visada yra įrašoma). Įsitikinkite, kad išjungėte šį nustatymą prieš pranešant apie bet kokią problemą.",
-        "dxvknvapi": "„DXVK-NVAPI“ yra „NVAPI“ realizacija, kuri sukurta ant „DXVK“ ir jo „Linux NVAPI“, jis leidžia „DLSS“ naudojimą, skirtiems „Nvidia GPU“ (dgs.).",
-        "esync": "„Esync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą.",
-        "fsync": "„Fsync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikančių „Linux“ branduolių.",
-        "msync": "„Msync“ siekia sumažinti „wineserver“ pridėtinių išlaidų procesoriaus apkraunančių žaidimų. Įjungiant/Įgalinant gali pagerinti našumą ant palaikomų „Linux“ branduolių.",
-        "steamruntime": "Pasirinktinės bibliotekos, kurios yra telkiamos „Steam“, siekant paleisti „Linux“ ir „Windows“ („Proton“) žaidimus. Įjungiant/Įgalinant gali pagerinti palaikomumą.",
+        "title": {
+            "settings": "Nustatymai",
+            "accessibility": "Prieinamumas",
+            "downloadManager": "Atsisiuntimo tvarkytuvas/-ė",
+            "login": "Prisijungti",
+            "library": "Biblioteka",
+            "wineManager": "„Wine“ tvarkytuvė/-as"
+        },
         "vkd3d": "„VKD3D“ yra „Vulkas“ paremtas vertimo sluoksnis, skirtas „DirectX 12“ žaidimams. Įjungiant/Įgalinant gali žymiai pagerinti palaikomumą. Neturi jokio poveikio ant senesnių „DirectX“ žaidimų, jie reikalauja „DXVK“.",
-        "gamemode": "„Feral“ žaidimo veiksena pritaiko automatinius ir laikinus pakoregavimus sistemai, kai veikia žaidimai. Įjungiant/Įgalinant gali pagerinti našumą.",
-        "primerun": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)",
-        "amdfsr": "„AMD FSR“ padeda pagerinti kadrų dažnį išplečiant mažesnes skiriamąsias gebas, pilno ekrano veiksenoje. Vaizdo kokybė pasitobulina nuo 5-ių iki 1-erių, tačiau našumas sumažėja. Įjungiant/Įgalinant gali pagerinti našumą.",
-        "dxfpslimit": "Nustato kadrų dažnio ribą „DXVK“ žaidimams",
-        "download_proton_steam": "",
+        "wine": {
+            "part1": "„Heroic“ ieško „Wine“, „Proton“ ir „CrossOver“ versijų, šiuose aplankuose:",
+            "part2": "Kitoks vietoms, naudokite virtualųjį katalogą į vieną iš šių aplankų/-alų"
+        },
         "wine-hdr": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "nvidiaprime": {
-            "details": "Naudoti paskirtąją vaizdo plokštę, kad apdorotų žaidimus daugia-„GPU“ sistemose. Reikalinga žaidimų nešiojamiesiems kompiuteriams arba stacionariems, kurie naudoja be išvestinį „GPU“, skirtus apdorojimui („NVIDIA Optimus“, „AMD CrossFire“)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "version": "„Wine“ versija",
@@ -417,6 +418,63 @@
         }
     },
     "setting": {
+        "FsrSharpnessStrenght": "„FSR“ ryškumo stiprumas",
+        "WoW64": "",
+        "adddesktopshortcuts": "Pridėti darbalaukio nuorodas automatiškai",
+        "addgamestoapplications": "Automatiškai pridėti žaidimus prie programų sąrašo",
+        "addgamestostartmenu": "Automatiškai pridėti žaidimus prie pradžios meniu",
+        "addgamestosteam": "Automatiškai pridėti žaidimus į „Steam“",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "Pasirinkti skriptą, kurį vykdyti po žaidimo išjungimo",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "Aš supratau",
+                "title": "Ar Jūs esate tikra/-s?",
+                "message": "Žaidimai su sugedusiu ar atmestu anti-sukčiavimu gali veikti, bet daugiažaidėjė̄škos funkcijos neveiks. Neprašykite pagalbos, jeigu įdiegiate žinodami šį."
+            },
+            "label": "Leisti žaidimų įdiegimą su neveikiančiu ar atmestu anti-sukčiavimu"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Ar Jūs esate tikra/-s?"
+            }
+        },
+        "alt-gogdl-bin": "Pasirinkite kurią pakaitinę „GOGDL“ dvejetainę naudoti",
+        "alt-legendary-bin": "Pasirinkite kurią pakaitinę „Legendary“ dvejetainę naudoti",
+        "alt-nile-bin": "Pasirinkite kurią pakaitinę „Nile“ dvejetainę naudoti",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "Automatiškai atnaujinti žaidimus",
+        "autodxvk": "Automatiškai įdiegti/atnaujinti „DXVK“ ant prielinksnio/priešdėlio",
+        "autodxvknvapi": "Automatiškai įdiegti/atnaujinti „DXVK-NVAPI“ ant prielinksnio/priešdėlio",
+        "autosync": "Automatiškai sinchronizuoti išsaugojimus",
+        "autovkd3d": "Automatiškai įdiegti/atnaujinti „VKD3D“ ant prielinksnio/priešdėlio",
+        "before-launch-script-path": "Pasirinkti skriptą, kurį vykdyti prieš paleidžiant žaidimą",
+        "change-target-exe": "Pasirinkti pakaitinį „EXE“, kurį vykdyti",
+        "checkForUpdatesOnStartup": "Tikrinti ar yra „Heroic“ atnaujinimų, paleidimo metu",
+        "crossover-version": "„Crossover“/„Wine“ versija",
+        "customWineProton": "Pasirinktiniai „Wine“/„Proton“ keliai",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "Pasirinktinių apipavidalinimų kelias",
+        "darktray": "Naudoti tamsią juostos piktogramą",
+        "default-install-path": "Numatytas įdiegimo kelias",
+        "default-steam-path": "Numatytas „Steam“ kelias",
+        "defaultWinePrefix": "Nustatyti aplanką/-alą naujiems „Wine“ prielinksniams/priešdėliams",
+        "disablePlaytimeSync": "Išjungti/Išgalinti žaidimo laikotarpio sinchronizavimą",
+        "disableUMU": "Išjungti/Išgalinti „UMU“",
+        "disable_controller": "Išjungti/Išgalinti „Heroic“ valdymą naudojant pultelį/valdiklį",
+        "disable_gog_presence": "",
+        "disable_logs": "Išjungti žurnalus",
+        "discordRPC": "Įjungti/Įgalinti išplėstinį „Discord“ veikimo palaikymą",
+        "download-no-https": "Atsisiųsti žaidimus be „HTTPS“ (naudinga naudojant „CDNs“; pvz.: „LanCache“)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
+        "dxvkfpslimit": "Riboti kadrus per sekundę („DX9/10/11“)",
+        "egs-sync": "Sinchronizuoti su įdiegtu „Epic Games“",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
+        "enableFSRHack": "Įjungti/Įgalinti „FSR“ nulaužimą („Wine“ versija turi jį palaikyti)",
         "eosOverlay": {
             "disable": "Išjungta/Neįgalinta (-as/-i)",
             "enable": "Įjungta/Įgalinta (-as/-i)",
@@ -437,31 +495,8 @@
             "removeConfirmTitle": "Patvirtinti perdangos pašalinimą",
             "notInstalled": "„EOS“ perdanga nėra įdiegta"
         },
-        "library_top_option": {
-            "disabled": "Išjungta/Neįgalinta (-as/-i)",
-            "favourites": "Mėgstamiausi žaidimai",
-            "recently_played": "Neseniai žaisti žaidimai",
-            "recently_played_installed": "Neseniai žaisti žaidimai (tik įdiegti)"
-        },
-        "winecrossoverbottle": "„CrossOver butelis“",
-        "wineversion": "„Wine“ versija",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "Aš supratau",
-                "title": "Ar Jūs esate tikra/-s?",
-                "message": "Žaidimai su sugedusiu ar atmestu anti-sukčiavimu gali veikti, bet daugiažaidėjė̄škos funkcijos neveiks. Neprašykite pagalbos, jeigu įdiegiate žinodami šį."
-            },
-            "label": "Leisti žaidimų įdiegimą su neveikiančiu ar atmestu anti-sukčiavimu"
-        },
-        "manualsync": {
-            "download": "Atsisiųsti",
-            "forceupload": "Priverstinai įkelti",
-            "forcedownload": "Priverstinai atsisiųsti",
-            "upload": "Įkelti",
-            "sync": "Sinchronizuoti",
-            "syncing": "Sinchronizuojama",
-            "title": "Rankinio sinchronizavimo išsaugojimai"
-        },
+        "esync": "Įjungti „Esync“",
+        "exit-to-tray": "Išeiti į sistemos užduočių juostą",
         "experimental_features": {
             "enableNewDesign": "Naujas dizainas",
             "enableHelp": "Pagalbos komponentas",
@@ -470,10 +505,6 @@
             "umuSupport": "Naudoti „umu“ kaip „Pronton“ vykdantįjį",
             "zoomPlatform": ""
         },
-        "crossover-version": "„Crossover“/„Wine“ versija",
-        "default-install-path": "Numatytas įdiegimo kelias",
-        "default-steam-path": "Numatytas „Steam“ kelias",
-        "download-no-https": "Atsisiųsti žaidimus be „HTTPS“ (naudinga naudojant „CDNs“; pvz.: „LanCache“)",
         "frameless-window": {
             "confirmation": {
                 "message": "Ši funkcija vis dar eksperimentinė. Prašome pranešti apie problemas, su kuriomis Jūs susiduriate „GitHub“ platformoje.",
@@ -481,7 +512,26 @@
             },
             "description": "Naudoti berėmi langą (reikalauja paleidimo iš naujo)"
         },
-        "autoUpdateGames": "Automatiškai atnaujinti žaidimus",
+        "fsync": "Įjungti „Fsync“",
+        "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)",
+        "gamescope": {
+            "missingMsg": "Mes negalėjome surasti „Gamescope“ kelio vietoje. Įdiekite jį arba pridėkite prie kelio.",
+            "enableLimiter": "Įjungti/Įgalinti kadrų per sekundę ribotuvą/-ę",
+            "enableUpscaling": "Įjungia/Įgalina išplečiama gebą",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
+        },
+        "hdr": "",
+        "hideChangelogsOnStartup": "Nerodyti keitinių žurnalo paleidime",
+        "ignoreGameUpdates": "Ignoruoti žaidimų atnaujinimus",
+        "language": "Pasirinkti programos kalbą",
+        "library_top_option": {
+            "disabled": "Išjungta/Neįgalinta (-as/-i)",
+            "favourites": "Mėgstamiausi žaidimai",
+            "recently_played": "Neseniai žaisti žaidimai",
+            "recently_played_installed": "Neseniai žaisti žaidimai (tik įdiegti)"
+        },
+        "library_top_section": "Viršutinis bibliotekos skyrius",
         "log": {
             "upload": {
                 "actions": "Veiksmai",
@@ -527,77 +577,36 @@
             "no-file": "Joks žurnalo failas nebuvo rastas",
             "instructions": "Prisijunkite prie mūsų „Discord“ ir paieškokite – „#-support“ skyriaus. Peržiūrėkite prisegta – „Read Me First | Frequently Asked Questions“ giją ir sekite instrukcijas kaip bendrinti šiuos žurnalus ir visą susijusią informaciją apie Jūsų problemą."
         },
-        "after-launch-script-path": "Pasirinkti skriptą, kurį vykdyti po žaidimo išjungimo",
-        "before-launch-script-path": "Pasirinkti skriptą, kurį vykdyti prieš paleidžiant žaidimą",
-        "checkForUpdatesOnStartup": "Tikrinti ar yra „Heroic“ atnaujinimų, paleidimo metu",
-        "customWineProton": "Pasirinktiniai „Wine“/„Proton“ keliai",
+        "mangohud": "Įjungti/Įgalinti „Mangohud“ („Mangohud“ turi būti įdiegtas)",
+        "manualsync": {
+            "download": "Atsisiųsti",
+            "forceupload": "Priverstinai įkelti",
+            "forcedownload": "Priverstinai atsisiųsti",
+            "upload": "Įkelti",
+            "sync": "Sinchronizuoti",
+            "syncing": "Sinchronizuojama",
+            "title": "Rankinio sinchronizavimo išsaugojimai"
+        },
+        "maxRecentGames": "Rodyti neseniai žaistus",
+        "maxworkers": "Didžiausias darbuotojų skaičius, kai siunčiamasi",
+        "minimize-on-launch": "Nuleisti „Heroic“ po žaidimo paleidimo",
+        "msync": "Įjungti „Msync“",
+        "no-tray-icon": "",
         "offlinemode": "Paleisti žaidimą kaip neprisijungus",
+        "preferSystemLibs": "Pageidauti sisteminių bibliotekų",
         "prefered_language": "Pageidaujama kalba (kalbos kodas)",
+        "runexe": {
+            "title": "Vykdyti „*.EXE“ ant prielinksnio/priešdėlio",
+            "message": "Vilkti ir nutempti failus čia"
+        },
         "savefolder": {
             "not-found": "Išsaugojimo aplankas/-las nebuvo rastas, prašome jį pasirinkti rankiniu būdu (spauskite, norint bandyti dar kartą)",
             "warning": "Prašome patikrinti dar kartą ar šis kelias yra teisingas (spausti, norint bandyti iš naujo)",
             "placeholder": "Pažymėkite tikslų žaidimų išsaugojimų aplanką/-alą"
         },
-        "showfps": "Rodyti kdr./sek. („DX9/10/11“)",
-        "steamruntime": "Naudoti „Steam“ vykdantįjį",
-        "language": "Pasirinkti programos kalbą",
-        "library_top_section": "Viršutinis bibliotekos skyrius",
-        "ignoreGameUpdates": "Ignoruoti žaidimų atnaujinimus",
-        "adddesktopshortcuts": "Pridėti darbalaukio nuorodas automatiškai",
-        "addgamestoapplications": "Automatiškai pridėti žaidimus prie programų sąrašo",
-        "addgamestosteam": "Automatiškai pridėti žaidimus į „Steam“",
-        "addgamestostartmenu": "Automatiškai pridėti žaidimus prie pradžios meniu",
-        "darktray": "Naudoti tamsią juostos piktogramą",
-        "dxvkfpslimit": "Riboti kadrus per sekundę („DX9/10/11“)",
-        "minimize-on-launch": "Nuleisti „Heroic“ po žaidimo paleidimo",
-        "gamescope": {
-            "missingMsg": "Mes negalėjome surasti „Gamescope“ kelio vietoje. Įdiekite jį arba pridėkite prie kelio.",
-            "enableLimiter": "Įjungti/Įgalinti kadrų per sekundę ribotuvą/-ę",
-            "enableUpscaling": "Įjungia/Įgalina išplečiama gebą",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": ""
-        },
-        "hideChangelogsOnStartup": "Nerodyti keitinių žurnalo paleidime",
-        "maxRecentGames": "Rodyti neseniai žaistus",
-        "maxworkers": "Didžiausias darbuotojų skaičius, kai siunčiamasi",
-        "autodxvk": "Automatiškai įdiegti/atnaujinti „DXVK“ ant prielinksnio/priešdėlio",
-        "autodxvknvapi": "Automatiškai įdiegti/atnaujinti „DXVK-NVAPI“ ant prielinksnio/priešdėlio",
-        "autosync": "Automatiškai sinchronizuoti išsaugojimus",
-        "autovkd3d": "Automatiškai įdiegti/atnaujinti „VKD3D“ ant prielinksnio/priešdėlio",
-        "defaultWinePrefix": "Nustatyti aplanką/-alą naujiems „Wine“ prielinksniams/priešdėliams",
-        "egs-sync": "Sinchronizuoti su įdiegtu „Epic Games“",
-        "runexe": {
-            "title": "Vykdyti „*.EXE“ ant prielinksnio/priešdėlio",
-            "message": "Vilkti ir nutempti failus čia"
-        },
-        "alt-gogdl-bin": "Pasirinkite kurią pakaitinę „GOGDL“ dvejetainę naudoti",
-        "alt-legendary-bin": "Pasirinkite kurią pakaitinę „Legendary“ dvejetainę naudoti",
-        "alt-nile-bin": "Pasirinkite kurią pakaitinę „Nile“ dvejetainę naudoti",
-        "change-target-exe": "Pasirinkti pakaitinį „EXE“, kurį vykdyti",
-        "custom_themes_path": "Pasirinktinių apipavidalinimų kelias",
-        "disable_logs": "Išjungti žurnalus",
-        "disablePlaytimeSync": "Išjungti/Išgalinti žaidimo laikotarpio sinchronizavimą",
-        "esync": "Įjungti „Esync“",
-        "preferSystemLibs": "Pageidauti sisteminių bibliotekų",
+        "scripts": "&scenarijai",
         "select_theme": "Pasirinkti apipavidalinimą",
-        "wineprefix": "„Wine“ prielinksnio/priešdėlio aplankas/-las",
-        "fsync": "Įjungti „Fsync“",
-        "msync": "Įjungti „Msync“",
-        "disable_controller": "Išjungti/Išgalinti „Heroic“ valdymą naudojant pultelį/valdiklį",
-        "enableFSRHack": "Įjungti/Įgalinti „FSR“ nulaužimą („Wine“ versija turi jį palaikyti)",
-        "exit-to-tray": "Išeiti į sistemos užduočių juostą",
-        "discordRPC": "Įjungti/Įgalinti išplėstinį „Discord“ veikimo palaikymą",
-        "FsrSharpnessStrenght": "„FSR“ ryškumo stiprumas",
-        "mangohud": "Įjungti/Įgalinti „Mangohud“ („Mangohud“ turi būti įdiegtas)",
-        "start-in-tray": "Pradėti minimizuotai",
         "showMetalOverlay": "Rodyti perdangos statistiką",
-        "gamemode": "Naudoti žaidimo veikseną („Feral“ žaidimo veiksena turi būti įdiegta)",
-        "disableUMU": "Išjungti/Išgalinti „UMU“",
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "Ar Jūs esate tikra/-s?"
-            }
-        },
         "show_valve_proton": {
             "confirmation": {
                 "title": "Ar Jūs esate tikra/-s?",
@@ -609,24 +618,17 @@
             "label": "",
             "info_label": ""
         },
-        "scripts": "&scenarijai",
-        "WoW64": "",
-        "download-proton-steam": "",
-        "wineWayland": "",
-        "hdr": "",
-        "dxfpslimit": "",
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
+        "showfps": "Rodyti kdr./sek. („DX9/10/11“)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Pradėti minimizuotai",
+        "steamruntime": "Naudoti „Steam“ vykdantįjį",
         "verboseLogs": {
             "description": "Įjungti derinimo veikseną"
         },
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "„CrossOver butelis“",
+        "wineprefix": "„Wine“ prielinksnio/priešdėlio aplankas/-las",
+        "wineversion": "„Wine“ versija"
     },
     "settings": {
         "advanced": {

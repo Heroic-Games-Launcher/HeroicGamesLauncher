@@ -343,11 +343,35 @@
         "uncategorized": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "AMD ning FSR to'liq ekran rejimida pastroq piksellar sonini oshirish orqali kadrlar tezligini oshirishga yordam beradi. Tasvir sifati unchalik katta bo'lmagan samaradorlik evaziga 5 dan 1 gacha oshadi. Yoqish unumdorlikni oshirishi mumkin.",
+        "analytics": "",
+        "button": {
+            "open": "",
+            "close": ""
+        },
+        "content": {
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "settingsGame": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
         "custom_themes_path": "Ishonchsiz manbalardan CSS fayllaridan foydalanmang. Agar shubhangiz bo'lsa, Discord kanalimizda ko'rib chiqishni so'rang.",
         "custom_themes_wiki": "Shaxsiy mavzularni qo'shish haqida batafsil ma'lumot olish uchun Wiki-ni tekshiring. Bu yerni bosing.",
+        "disablePlaytimeSync": "",
+        "disable_logs": "Jurnal fayllariga yozishning ko'p qismini o'chirish uchun ushbu katakchani ON holatiga o'tkazing (muhim ma'lumotlar har doim qayd qilinadi). Har qanday muammo haqida xabar berishdan oldin ushbu sozlamani O‘CHIRING.",
+        "download_proton_steam": "",
+        "dxfpslimit": "",
         "dxvk": "DXVK - DirectX 9, 10 va 11 o'yinlari uchun Vulkanga asoslangan tarjima qatlami. Yoqish moslikni yaxshilashi mumkin. Ayniqsa eski DirectX o'yinlarida muammolarga olib kelishi mumkin.",
         "dxvkfpslimit": "DXVK o'yinlari uchun kadr tezligi chegarasini o'rnatadi",
+        "dxvknvapi": "",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync protsessor talab qiladigan o'yinlarda vinoserver yukini kamaytirishga qaratilgan. Yoqish unumdorlikni oshirishi mumkin.",
         "fsync": "Fsync protsessor talab qiladigan o'yinlarda vinoserver yukini kamaytirishga qaratilgan. Yoqish qoʻllab-quvvatlanadigan Linux yadrolarida ish faoliyatini yaxshilashi mumkin.",
         "game_language": {
@@ -356,8 +380,20 @@
             "valid_codes": "Yaroqli til kodlari o'yinga bog'liq."
         },
         "gamemode": "Feral GameMode o'yinlarni ishga tushirishda tizimga avtomatik va vaqtinchalik sozlashlarni qo'llaydi. Yoqish unumdorlikni oshirishi mumkin.",
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
         "general": "Agar boshqa joyda Epic Games Launcher oʻrnatilgan boʻlsa va ularni qayta yuklab olmaslik uchun oʻyinlaringizni import qilmoqchi boʻlsangiz, EGL bilan sinxronlang.",
         "mangohud": "MangoHUD - bu FPS, harorat, protsessor/GPU yuklanishi va boshqa tizim resurslarini ko'rsatadigan va kuzatuvchi qoplama.",
+        "msync": "",
         "other": {
             "part4": "dan foydalaning ",
             "part5": "O'yin argumentlari",
@@ -376,36 +412,6 @@
             "part3": "Qo'lda sinxronlash: Bulutda saqlangan o'yinlarni yuklab olish uchun Yuklab olish-ni tanlang. Mahalliylarni bulutga yuklash uchun yuklang. Majburiy yuklab olish va Majburiy yuklash mahalliy yoki bulutdagi versiyani e'tiborsiz qoldiradi.",
             "part4": "Saqlashlarni sinxronlash Avtomatik ravishda har safar oʻyinni boshlaganingizda va oʻyinni tugatganingizdan soʻng saqlaydi."
         },
-        "vkd3d": "VKD3D DirectX 12 o'yinlari uchun Vulkanga asoslangan tarjima qatlamidir. Yoqish moslikni sezilarli darajada yaxshilashi mumkin. Eski DirectX o'yinlariga ta'sir qilmaydi.",
-        "wine": {
-            "part1": "Qahramonlik quyidagi papkalarda Wine, Proton va CrossOver versiyalarini qidiradi:",
-            "part2": "Boshqa joylar uchun ushbu papkalardan biriga ramziy havoladan foydalaning"
-        },
-        "disable_logs": "Jurnal fayllariga yozishning ko'p qismini o'chirish uchun ushbu katakchani ON holatiga o'tkazing (muhim ma'lumotlar har doim qayd qilinadi). Har qanday muammo haqida xabar berishdan oldin ushbu sozlamani O‘CHIRING.",
-        "dxfpslimit": "",
-        "content": {
-            "defaultInstallPath": "",
-            "settingsDefault": "",
-            "settingsGame": "",
-            "downloadManager": "",
-            "wineManager": "",
-            "library": "",
-            "customThemesPath": "",
-            "accessibility": "",
-            "login": ""
-        },
-        "msync": "",
-        "gamescope": {
-            "fpsLimiterNoFocus": "",
-            "upscaleMethod": "",
-            "gameWidth": "",
-            "upscaleWidth": "",
-            "gameHeight": "",
-            "additionalOptions": "",
-            "forceGrabCursor": "",
-            "upscaleHeight": "",
-            "fpsLimiter": ""
-        },
         "title": {
             "accessibility": "",
             "login": "",
@@ -414,18 +420,13 @@
             "wineManager": "",
             "library": ""
         },
-        "button": {
-            "open": "",
-            "close": ""
+        "vkd3d": "VKD3D DirectX 12 o'yinlari uchun Vulkanga asoslangan tarjima qatlamidir. Yoqish moslikni sezilarli darajada yaxshilashi mumkin. Eski DirectX o'yinlariga ta'sir qilmaydi.",
+        "wine": {
+            "part1": "Qahramonlik quyidagi papkalarda Wine, Proton va CrossOver versiyalarini qidiradi:",
+            "part2": "Boshqa joylar uchun ushbu papkalardan biriga ramziy havoladan foydalaning"
         },
-        "download_proton_steam": "",
         "wine-hdr": "",
-        "dxvknvapi": "",
-        "disablePlaytimeSync": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": ""
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -632,29 +633,57 @@
     "Recent": "Yaqinda o'ynadi",
     "search": "O'yinlarni qidirish",
     "setting": {
+        "FsrSharpnessStrenght": "FSR aniqlik kuchi",
+        "WoW64": "",
         "adddesktopshortcuts": "Ish stoli yorliqlarini avtomatik ravishda qo'shing",
+        "addgamestoapplications": "Ilovalarga o'yinlarni avtomatik ravishda qo'shing",
         "addgamestostartmenu": "Avtomatik boshlash menyusiga o'yinlarni qo'shing",
         "addgamestosteam": "O'yinlarni Steam-ga avtomatik qo'shing",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
         "alt-gogdl-bin": "Foydalanish uchun muqobil GOGDL Binary-ni tanlang",
         "alt-legendary-bin": "Muqobil afsonaviy binarni tanlang",
-        "autodxvk": "Prefiksda DXVK-ni avtomatik o'rnatish/yangilash",
-        "autosync": "Avtosinxronlash Saqlash",
+        "alt-nile-bin": "Muqobil Nil Binarini tanlang",
+        "analyticsOptIn": "",
         "autoUpdateGames": "O'yinlarni avtomatik yangilash",
+        "autodxvk": "Prefiksda DXVK-ni avtomatik o'rnatish/yangilash",
+        "autodxvknvapi": "",
+        "autosync": "Avtosinxronlash Saqlash",
         "autovkd3d": "Prefiksda VKD3D-ni avtomatik o'rnatish/yangilash",
+        "before-launch-script-path": "",
         "change-target-exe": "Ishlash uchun muqobil EXE ni tanlang",
         "checkForUpdatesOnStartup": "Ishga tushganda qahramonlik yangilanishlarini tekshiring",
         "crossover-version": "Krossover/sharob versiyasi",
-        "custom_themes_path": "Maxsus mavzular yoʻli",
         "customWineProton": "Maxsus sharob/proton yo'llari",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "Maxsus mavzular yoʻli",
         "darktray": "Qorong'i laganda belgisidan foydalaning",
         "default-install-path": "Standart o'rnatish yo'li",
         "default-steam-path": "Standart Steam yo'li",
         "defaultWinePrefix": "Yangi sharob prefikslari uchun papkani o'rnating",
+        "disablePlaytimeSync": "",
+        "disableUMU": "",
         "disable_controller": "Kontroller yordamida qahramonlik navigatsiyasini o'chiring",
+        "disable_gog_presence": "",
+        "disable_logs": "Jurnallarni o'chirib qo'ying",
         "discordRPC": "Discord Rich Presence-ni yoqing",
         "download-no-https": "HTTPSsiz o'yinlarni yuklab oling (CDN uchun foydali, masalan, LanCache)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "FPSni cheklash (DX9, 10 va 11)",
         "egs-sync": "O'rnatilgan Epic Games bilan sinxronlash",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "FSR Hack-ni yoqing (Wine versiyasi uni qo'llab-quvvatlashi kerak)",
         "eosOverlay": {
             "cancelInstall": "Bekor qilish",
@@ -678,10 +707,29 @@
         },
         "esync": "Esync-ni yoqing",
         "exit-to-tray": "Tizim tepsisiga chiqing",
-        "FsrSharpnessStrenght": "FSR aniqlik kuchi",
+        "experimental_features": {
+            "cometSupport": "",
+            "enableNewDesign": "",
+            "enableHelp": "",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "",
+                "title": ""
+            },
+            "description": ""
+        },
         "fsync": "Fsync-ni yoqing",
-        "prefered_language": "Afzal til (til kodi)",
         "gamemode": "GameMode-dan foydalaning (Feral Game Mode o'rnatilishi kerak)",
+        "gamescope": {
+            "enableLimiter": "",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "Ishga tushirishda o'zgarishlar jurnallarini ko'rsatmang",
         "ignoreGameUpdates": "O'yin yangilanishlariga e'tibor bermang",
         "language": "Ilova tilini tanlang",
@@ -753,8 +801,11 @@
         "maxRecentGames": "Ko'rsatish uchun yaqinda o'ynadi",
         "maxworkers": "Yuklab olishda maksimal ishchilar soni",
         "minimize-on-launch": "O'yin boshlanganidan keyin qahramonlikni minimallashtiring",
+        "msync": "",
+        "no-tray-icon": "",
         "offlinemode": "O'yinni oflayn rejimda ishga tushiring",
         "preferSystemLibs": "Tizim kutubxonalarini afzal ko'ring",
+        "prefered_language": "Afzal til (til kodi)",
         "runexe": {
             "message": "Fayllarni bu yerga sudrab tashlang",
             "title": "Prefiksda EXE-ni ishga tushiring"
@@ -764,37 +815,9 @@
             "placeholder": "Aniq saqlash o'yinlari papkasini tanlang",
             "warning": "Iltimos, yo'l to'g'ri yoki yo'qligini ikki marta tekshiring (qayta urinish uchun bosing)"
         },
-        "select_theme": "Mavzuni tanlang",
-        "showfps": "FPSni ko'rsatish (DX9, 10 va 11)",
-        "start-in-tray": "Minimallashtirilgan boshlang",
-        "steamruntime": "Steam Runtime dan foydalaning",
-        "winecrossoverbottle": "Krossover shishasi",
-        "wineprefix": "WinePrefix papkasi",
-        "wineversion": "Vino versiyasi",
-        "disable_logs": "Jurnallarni o'chirib qo'ying",
-        "addgamestoapplications": "Ilovalarga o'yinlarni avtomatik ravishda qo'shing",
-        "showMetalOverlay": "Statistika qavatini ko'rsatish",
-        "alt-nile-bin": "Muqobil Nil Binarini tanlang",
-        "WoW64": "",
-        "frameless-window": {
-            "confirmation": {
-                "message": "",
-                "title": ""
-            },
-            "description": ""
-        },
-        "download-proton-steam": "",
         "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "experimental_features": {
-            "cometSupport": "",
-            "enableNewDesign": "",
-            "enableHelp": "",
-            "zoomPlatform": ""
-        },
-        "hdr": "",
-        "autodxvknvapi": "",
+        "select_theme": "Mavzuni tanlang",
+        "showMetalOverlay": "Statistika qavatini ko'rsatish",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -806,38 +829,17 @@
             "label": "",
             "info_label": ""
         },
-        "dxfpslimit": "",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "gamescope": {
-            "enableLimiter": "",
-            "enableUpscaling": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": "",
-            "missingMsg": ""
-        },
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
-        "disablePlaytimeSync": "",
+        "showfps": "FPSni ko'rsatish (DX9, 10 va 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Minimallashtirilgan boshlang",
+        "steamruntime": "Steam Runtime dan foydalaning",
         "verboseLogs": {
             "description": ""
         },
-        "before-launch-script-path": "",
-        "disableUMU": "",
-        "msync": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "Krossover shishasi",
+        "wineprefix": "WinePrefix papkasi",
+        "wineversion": "Vino versiyasi"
     },
     "settings": {
         "battlEyeRuntime": {

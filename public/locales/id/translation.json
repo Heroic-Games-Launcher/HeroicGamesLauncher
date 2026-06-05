@@ -291,11 +291,35 @@
         "show_updates_only": "Tampilkan game dengan pembaruan saja"
     },
     "help": {
+        "WoW64": "Mode Wine WoW64 memungkinkan game Windows 32-bit dijalankan pada Wine 64-bit. Mengaktifkannya dapat meningkatkan performa, tetapi juga bisa menyebabkan gangguan pada game 32-bit lama.",
+        "advertiseAvxForRosetta": "Mengaktifkan dukungan set instruksi AVX saat menjalankan game Windows melalui Rosetta di Mac dengan Apple Silicon. Ini mungkin diperlukan untuk beberapa game seperti Death Stranding yang membutuhkan dukungan AVX.",
         "amdfsr": "FSR AMD membantu untuk meningkatkan framerate dengan meningkatkan resolusi yang lebih rendah dalam Mode Layar Penuh. Kualitas gambar meningkat dari 5 menjadi 1 dengan mengorbankan sedikit kinerja. Mengaktifkannya dapat meningkatkan kinerja.",
+        "analytics": "Mengizinkan Heroic mengumpulkan data penggunaan anonim 100% untuk membantu meningkatkan aplikasi. Perlu dimulai ulang agar berpengaruh.",
+        "button": {
+            "close": "Tutup Bantuan",
+            "open": "Buka Bantuan"
+        },
+        "content": {
+            "accessibility": "Menampilkan pengaturan aksesibilitas.",
+            "customThemesPath": "Periksa wiki kami.",
+            "defaultInstallPath": "Ini adalah jalur default yang dipilih sebelumnya saat menginstal game.",
+            "downloadManager": "Menampilkan unduhan saat ini dan sebelumnya.",
+            "library": "Menampilkan semua game yang dimiliki.",
+            "login": "Masuk ke berbagai toko.",
+            "settingsDefault": "Menampilkan semua pengaturan Heroic dan pengaturan default untuk game.",
+            "settingsGame": "Tampilkan semua pengaturan untuk sebuah game.",
+            "wineManager": "Instal berbagai versi Wine, Proton, Crossover, dan lainnya."
+        },
         "custom_themes_path": "Jangan gunakan file CSS dari sumber yang tidak tepercaya. Jika ragu, mintalah ulasan di saluran Discord kami.",
         "custom_themes_wiki": "Cek Wiki untuk detail lebih lanjut tentang kustomisasi tema. Klik disini.",
+        "disablePlaytimeSync": "Menonaktifkan sinkronisasi waktu bermain dengan server toko yang bersangkutan (saat ini hanya GOG yang didukung).",
+        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun.",
+        "download_proton_steam": "Jika diaktifkan, GE-Proton akan diunduh langsung ke direktori alat kompatibilitas Steam, bukan ke jalur default Heroic. Akan menggunakan jalur Steam yang diatur dalam pengaturan 'Jalur Steam Default' di atas.",
+        "dxfpslimit": "Atur batas maksimal frame untuk gim DXVK",
         "dxvk": "DXVK adalah lapisan translasi berbasis Vulkan untuk gim yang memakai DirectX 9, 10, dan 11. Mengaktifkannya dapat meningkatkan kompatibilitas. Mungkin dapat menyebabkan masalah terutama untuk gim dengan versi DirectX yang lebih lama.",
         "dxvkfpslimit": "Atur batas maksimal frame untuk gim DXVK",
+        "dxvknvapi": "DXVK-NVAPI adalah implementasi NVAPI yang dibangun di atas DXVK dan NVAPI native Linux, yang memungkinkan penggunaan DLSS pada GPU Nvidia.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU yang intensif. Mengaktifkannya dapat meningkatkan kinerja.",
         "fsync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
         "game_language": {
@@ -304,8 +328,23 @@
             "valid_codes": "Kode bahasa yang valid bergantung pada gim."
         },
         "gamemode": "Feral GameMode menerapkan penyesuaian otomatis dan penyesuaian sementara ke sistem saat menjalankan gim. Mengaktifkannya dapat meningkatkan kinerja.",
+        "gamescope": {
+            "additionalOptions": "Tambahan flag baris perintah untuk diteruskan ke gamescope.",
+            "forceGrabCursor": "Selalu gunakan mode mouse relatif alih-alih bergantung pada visibilitas kursor. (Berguna ketika aplikasi sering kehilangan fokus.)",
+            "fpsLimiter": "Jumlah frame yang harus dibatasi oleh gamescope. Misalnya: 60.",
+            "fpsLimiterNoFocus": "Batas frame per detik yang diterapkan oleh gamescope jika game tidak difokuskan.",
+            "gameHeight": "Resolusi tinggi yang digunakan oleh game. Rasio aspek 16:9 diasumsikan oleh gamescope.",
+            "gameWidth": "Resolusi lebar yang digunakan oleh game. Rasio aspek 16:9 diasumsikan oleh gamescope.",
+            "upscaleHeight": "Resolusi tinggi yang digunakan oleh gamescope. Rasio aspek 16:9 diasumsikan.",
+            "upscaleMethod": "Metode peningkatan skala yang harus digunakan oleh gamescope.",
+            "upscaleWidth": "Resolusi lebar yang digunakan oleh gamescope. Rasio aspek 16:9 diasumsikan."
+        },
         "general": "Sinkronkan dengan EGL jika Anda memiliki instalasi Epic Games Launcher yang berjalan di tempat lain dan ingin mengimpor gim Anda untuk menghindari pengunduhan ulang.",
         "mangohud": "MangoHUD adalah hamparan yang menampilkan dan memantau FPS, suhu, beban CPU/GPU, dan sumber daya sistem lainnya.",
+        "msync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
+        "nvidiaprime": {
+            "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Gunakan ",
             "part5": "Argumen Gim",
@@ -324,12 +363,6 @@
             "part3": "Sinkronisasi Manual: Pilih Unduh untuk mengunduh gim yang tersimpan di Awan. Unggah untuk mengunggah berkas lokal ke Awan. Unduh Paksa dan Unggah Paksa akan mengabaikan versi yang ada di penyimpanan lokal atau awan.",
             "part4": "Sinkroninasi Penyimpanan Secara Otomatis akan menyinkronkan penyimpanan setiap kali Anda Memulai Gim dan setelah Anda selesai bermain."
         },
-        "vkd3d": "VKD3D adalah lapisan translasi berbasis Vulkan untuk game DirectX 12. Mengaktifkannya dapat meningkatkan kompatibilitas secara signifikan. Tidak berpengaruh pada game DirectX yang lebih lama, dan memerlukan DXVK.",
-        "wine": {
-            "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
-            "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
-        },
-        "disable_logs": "Aktifkan kotak centang ini untuk menonaktifkan sebagian besar penulisan ke berkas log (informasi penting selalu dicatat). Pastikan untuk MENONAKTIFKAN setelan ini sebelum melaporkan masalah apa pun.",
         "title": {
             "accessibility": "Aksesibilitas",
             "login": "Masuk",
@@ -338,45 +371,13 @@
             "wineManager": "Manajer Wine",
             "library": "Pustaka"
         },
-        "msync": "Fsync bertujuan untuk mengurangi overhead server Wine di gim dengan CPU intensif. Mengaktifkannya dapat meningkatkan kinerja pada kernel Linux yang didukung.",
-        "dxfpslimit": "Atur batas maksimal frame untuk gim DXVK",
-        "advertiseAvxForRosetta": "Mengaktifkan dukungan set instruksi AVX saat menjalankan game Windows melalui Rosetta di Mac dengan Apple Silicon. Ini mungkin diperlukan untuk beberapa game seperti Death Stranding yang membutuhkan dukungan AVX.",
-        "analytics": "Mengizinkan Heroic mengumpulkan data penggunaan anonim 100% untuk membantu meningkatkan aplikasi. Perlu dimulai ulang agar berpengaruh.",
-        "button": {
-            "close": "Tutup Bantuan",
-            "open": "Buka Bantuan"
-        },
-        "content": {
-            "accessibility": "Menampilkan pengaturan aksesibilitas.",
-            "customThemesPath": "Periksa wiki kami.",
-            "defaultInstallPath": "Ini adalah jalur default yang dipilih sebelumnya saat menginstal game.",
-            "downloadManager": "Menampilkan unduhan saat ini dan sebelumnya.",
-            "library": "Menampilkan semua game yang dimiliki.",
-            "login": "Masuk ke berbagai toko.",
-            "settingsDefault": "Menampilkan semua pengaturan Heroic dan pengaturan default untuk game.",
-            "settingsGame": "Tampilkan semua pengaturan untuk sebuah game.",
-            "wineManager": "Instal berbagai versi Wine, Proton, Crossover, dan lainnya."
-        },
-        "disablePlaytimeSync": "Menonaktifkan sinkronisasi waktu bermain dengan server toko yang bersangkutan (saat ini hanya GOG yang didukung).",
-        "download_proton_steam": "Jika diaktifkan, GE-Proton akan diunduh langsung ke direktori alat kompatibilitas Steam, bukan ke jalur default Heroic. Akan menggunakan jalur Steam yang diatur dalam pengaturan 'Jalur Steam Default' di atas.",
-        "dxvknvapi": "DXVK-NVAPI adalah implementasi NVAPI yang dibangun di atas DXVK dan NVAPI native Linux, yang memungkinkan penggunaan DLSS pada GPU Nvidia.",
-        "gamescope": {
-            "additionalOptions": "Tambahan flag baris perintah untuk diteruskan ke gamescope.",
-            "forceGrabCursor": "Selalu gunakan mode mouse relatif alih-alih bergantung pada visibilitas kursor. (Berguna ketika aplikasi sering kehilangan fokus.)",
-            "fpsLimiter": "Jumlah frame yang harus dibatasi oleh gamescope. Misalnya: 60.",
-            "fpsLimiterNoFocus": "Batas frame per detik yang diterapkan oleh gamescope jika game tidak difokuskan.",
-            "gameHeight": "Resolusi tinggi yang digunakan oleh game. Rasio aspek 16:9 diasumsikan oleh gamescope.",
-            "gameWidth": "Resolusi lebar yang digunakan oleh game. Rasio aspek 16:9 diasumsikan oleh gamescope.",
-            "upscaleHeight": "Resolusi tinggi yang digunakan oleh gamescope. Rasio aspek 16:9 diasumsikan.",
-            "upscaleMethod": "Metode peningkatan skala yang harus digunakan oleh gamescope.",
-            "upscaleWidth": "Resolusi lebar yang digunakan oleh gamescope. Rasio aspek 16:9 diasumsikan."
+        "vkd3d": "VKD3D adalah lapisan translasi berbasis Vulkan untuk game DirectX 12. Mengaktifkannya dapat meningkatkan kompatibilitas secara signifikan. Tidak berpengaruh pada game DirectX yang lebih lama, dan memerlukan DXVK.",
+        "wine": {
+            "part1": "Heroic mencari versi Wine, Proton, dan CrossOver di folder berikut ini:",
+            "part2": "Untuk tempat lain, gunakan tautan simbolis ke salah satu folder ini"
         },
         "wine-hdr": "HDR meningkatkan warna dengan memberikan sorotan yang lebih terang dan kontras yang lebih dalam. Agar HDR berfungsi, baik tampilan maupun game harus mendukungnya.",
-        "wine-wayland": "Driver eksperimental Wine-Wayland memungkinkan game dijalankan secara native di bawah protokol tampilan Wayland. Mengaktifkannya dapat menyebabkan beberapa game tidak berfungsi.",
-        "WoW64": "Mode Wine WoW64 memungkinkan game Windows 32-bit dijalankan pada Wine 64-bit. Mengaktifkannya dapat meningkatkan performa, tetapi juga bisa menyebabkan gangguan pada game 32-bit lama.",
-        "nvidiaprime": {
-            "details": "Gunakan kartu grafis khusus untuk merender game pada sistem multi-GPU. Hanya diperlukan pada laptop gaming atau desktop yang menggunakan GPU terpisah untuk rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": "Driver eksperimental Wine-Wayland memungkinkan game dijalankan secara native di bawah protokol tampilan Wayland. Mengaktifkannya dapat menyebabkan beberapa game tidak berfungsi."
     },
     "info": {
         "heroic": {
@@ -590,28 +591,57 @@
     "Recent": "Dimainkan Baru-Baru Ini",
     "search": "Cari Gim",
     "setting": {
+        "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
+        "WoW64": "Aktifkan WoW64 (Eksperimental)",
         "adddesktopshortcuts": "Tambahkan pintasan desktop secara otomatis",
+        "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
         "addgamestostartmenu": "Tambahkan gim untuk memulai menu secara otomatis",
         "addgamestosteam": "Tambahkan game ke Steam secara otomatis",
+        "advertiseAvxForRosetta": "Iklankan AVX untuk Rosetta",
+        "after-launch-script-path": "Pilih skrip untuk dijalankan setelah game keluar",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Game dengan anticheat rusak atau ditolak mungkin dapat dijalankan, tetapi fitur multipemain tidak akan berfungsi. Jangan meminta dukungan jika Anda memasangnya dengan mengetahui hal ini.",
+                "title": "Apakah Anda yakin?",
+                "understand": "Saya mengerti"
+            },
+            "label": "Izinkan pemasangan game dengan anticheat rusak atau ditolak"
+        },
         "alt-gogdl-bin": "Pilih GOGDL Binary alternatif untuk digunakan",
         "alt-legendary-bin": "Pilih Legendary Binary Alternatif",
+        "alt-nile-bin": "Pilih Nile Binary Alternatif",
+        "analyticsOptIn": "Kirim data anonim untuk membantu pengembangan Heroic",
+        "autoUpdateGames": "Perbarui gim secara otomatis",
         "autodxvk": "Instal/Perbarui Otomatis DXVK di Prefiks",
+        "autodxvknvapi": "Instal/ Perbarui Otomatis DXVK-NVAPI sesuai Prefiks",
         "autosync": "Sinkronisasi Penyimpanan Otomatis",
         "autovkd3d": "Pemasangan/Pembaruan VKD3D Otomatis di Prefiks",
+        "before-launch-script-path": "Pilih skrip untuk dijalankan sebelum game diluncurkan",
         "change-target-exe": "Pilih EXE alternatif untuk dijalankan",
         "checkForUpdatesOnStartup": "Periksa Pembaruan Heroik saat Memulai",
         "crossover-version": "Versi Crossover/Wine",
-        "custom_themes_path": "Lokasi Tema Kustom",
         "customWineProton": "Lokasi Wine/Proton Khusus",
+        "custom_css": {
+            "warning": "Peringatan: ini berlaku untuk seluruh antarmuka. Artinya, gaya yang salah dapat membuat Heroic tidak dapat digunakan. Jika diperlukan, pengaturan dapat diubah secara manual di `~/.config/heroic/config.json`. Jangan menyalin gaya dari sumber yang tidak tepercaya."
+        },
+        "custom_themes_path": "Lokasi Tema Kustom",
         "darktray": "Gunakan Ikon Baki Gelap",
         "default-install-path": "Lokasi Pemasangan Bawaan",
         "default-steam-path": "Lokasi Steam bawaan",
         "defaultWinePrefix": "Atur Folder untuk Prefiks Wine baru",
+        "disablePlaytimeSync": "Nonaktifkan sinkronisasi waktu bermain",
+        "disableUMU": "Nonaktifkan umu",
         "disable_controller": "Nonaktifkan navigasi Heroic menggunakan pengontrol",
+        "disable_gog_presence": "Nonaktifkan pembaruan GOG Presence",
+        "disable_logs": "Nonaktifkan Log",
         "discordRPC": "Aktifkan Discord Rich Presence",
         "download-no-https": "Unduh gim tanpa HTTPS (berguna untuk CDN misalnya LanCache)",
+        "download-proton-steam": "Unduh GE-Proton ke direktori Steam",
+        "dxfpslimit": "Batasi FPS Game DirectX",
         "dxvkfpslimit": "Batasi FPS (DX9, 10 dan 11)",
         "egs-sync": "Sinkronkan dengan Epic Games yang Terinstal",
+        "enable-quick-sync-menu": "Aktifkan Menu Quick Save-Sync di halaman game",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Aktifkan Peretasan FSR (perlu versi Wine yang mendukung)",
         "eosOverlay": {
             "cancelInstall": "Batalkan",
@@ -635,10 +665,31 @@
         },
         "esync": "Aktifkan Esync",
         "exit-to-tray": "Keluar ke Baki Sistem",
-        "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
+        "experimental_features": {
+            "enableNewDesign": "Desain baru",
+            "cometSupport": "Dukungan Comet",
+            "enableHelp": "Komponen Bantuan",
+            "zoomPlatform": "Dukungan platform Zoom (hanya Linux)"
+        },
+        "frameless-window": {
+            "description": "Gunakan frameless window (perlu restart)",
+            "confirmation": {
+                "title": "Fitur Eksperimental",
+                "message": "Fitur ini masih bersifat eksperimental. Harap laporkan setiap masalah yang Anda temui di GitHub."
+            }
+        },
         "fsync": "Aktifkan Fsync",
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu diinstal)",
+        "gamescope": {
+            "enableLimiter": "Hidupkan Pembatas FPS",
+            "enableForceGrabCursor": "Aktifkan Paksa Pengambilan Kursor",
+            "enableUpscaling": "Mengaktifkan Peningkatan Skala",
+            "missingMsg": "Kami tidak dapat menemukan gamescope di PATH. Instal atau tambahkan ke PATH.",
+            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic."
+        },
+        "hdr": "Aktifkan HDR",
         "hideChangelogsOnStartup": "Jangan tampilkan daftar ubahan saat memulai",
+        "ignoreGameUpdates": "Abaikan pembaruan gim",
         "language": "Pilih Bahasa",
         "library_top_option": {
             "disabled": "Matikan",
@@ -708,9 +759,11 @@
         "maxRecentGames": "Gim yang Dimainkan Baru-Baru Ini",
         "maxworkers": "Jumlah Maksimum Worker saat mengunduh",
         "minimize-on-launch": "Minimalkan Jendela Heroic Setelah Gim Diluncurkan",
+        "msync": "Aktifkan Esync",
+        "no-tray-icon": "Sembunyikan Ikon Sistem Tray (memerlukan restart)",
         "offlinemode": "Jalankan Game Secara Luring",
-        "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "preferSystemLibs": "Lebih memilih pustaka sistem",
+        "prefered_language": "Bahasa Pilihan (Kode Bahasa)",
         "runexe": {
             "message": "Seret dan Jatuhkan Berkas di sini",
             "title": "Jalankan EXE di Prefiks"
@@ -720,62 +773,9 @@
             "placeholder": "Pilih folder gim tersimpan yang tepat",
             "warning": "Silakan periksa dua kali apakah lokasinya sudah benar (klik untuk coba kembali)"
         },
+        "scripts": "Skrip:",
         "select_theme": "Pilih Tema",
-        "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
-        "start-in-tray": "Mulai Diminimalkan",
-        "steamruntime": "Gunakan Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Folder Prefiks Wine",
-        "wineversion": "Versi Wine",
-        "autoUpdateGames": "Perbarui gim secara otomatis",
-        "ignoreGameUpdates": "Abaikan pembaruan gim",
-        "disable_logs": "Nonaktifkan Log",
-        "addgamestoapplications": "Tambahkan gim ke Aplikasi secara otomatis",
         "showMetalOverlay": "Tampilkan Overlay Statistik",
-        "alt-nile-bin": "Pilih Nile Binary Alternatif",
-        "autodxvknvapi": "Instal/ Perbarui Otomatis DXVK-NVAPI sesuai Prefiks",
-        "gamescope": {
-            "enableLimiter": "Hidupkan Pembatas FPS",
-            "enableForceGrabCursor": "Aktifkan Paksa Pengambilan Kursor",
-            "enableUpscaling": "Mengaktifkan Peningkatan Skala",
-            "missingMsg": "Kami tidak dapat menemukan gamescope di PATH. Instal atau tambahkan ke PATH.",
-            "warningFlatpak": "Kami tidak dapat menemukan versi Gamescope yang kompatibel. Instal paket flatpak Gamescope dengan runtime {{runtimeVersion}} dan mulai ulang Heroic."
-        },
-        "experimental_features": {
-            "enableNewDesign": "Desain baru",
-            "cometSupport": "Dukungan Comet",
-            "enableHelp": "Komponen Bantuan",
-            "zoomPlatform": "Dukungan platform Zoom (hanya Linux)"
-        },
-        "frameless-window": {
-            "description": "Gunakan frameless window (perlu restart)",
-            "confirmation": {
-                "title": "Fitur Eksperimental",
-                "message": "Fitur ini masih bersifat eksperimental. Harap laporkan setiap masalah yang Anda temui di GitHub."
-            }
-        },
-        "msync": "Aktifkan Esync",
-        "advertiseAvxForRosetta": "Iklankan AVX untuk Rosetta",
-        "after-launch-script-path": "Pilih skrip untuk dijalankan setelah game keluar",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "message": "Game dengan anticheat rusak atau ditolak mungkin dapat dijalankan, tetapi fitur multipemain tidak akan berfungsi. Jangan meminta dukungan jika Anda memasangnya dengan mengetahui hal ini.",
-                "title": "Apakah Anda yakin?",
-                "understand": "Saya mengerti"
-            },
-            "label": "Izinkan pemasangan game dengan anticheat rusak atau ditolak"
-        },
-        "analyticsOptIn": "Kirim data anonim untuk membantu pengembangan Heroic",
-        "before-launch-script-path": "Pilih skrip untuk dijalankan sebelum game diluncurkan",
-        "custom_css": {
-            "warning": "Peringatan: ini berlaku untuk seluruh antarmuka. Artinya, gaya yang salah dapat membuat Heroic tidak dapat digunakan. Jika diperlukan, pengaturan dapat diubah secara manual di `~/.config/heroic/config.json`. Jangan menyalin gaya dari sumber yang tidak tepercaya."
-        },
-        "disablePlaytimeSync": "Nonaktifkan sinkronisasi waktu bermain",
-        "disableUMU": "Nonaktifkan umu",
-        "download-proton-steam": "Unduh GE-Proton ke direktori Steam",
-        "dxfpslimit": "Batasi FPS Game DirectX",
-        "hdr": "Aktifkan HDR",
-        "no-tray-icon": "Sembunyikan Ikon Sistem Tray (memerlukan restart)",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Jangan tampilkan mereka",
@@ -787,15 +787,17 @@
             "label": "Izinkan penggunaan build Proton dari Valve untuk menjalankan game",
             "wine_selector_warning": "Versi Proton dari Valve diabaikan secara default, aktifkan di pengaturan global lanjutan"
         },
+        "showfps": "Tampilkan FPS (DX9, 10, dan 11)",
+        "start-in-console-mode": "Mulai dalam Mode Konsol",
+        "start-in-tray": "Mulai Diminimalkan",
+        "steamruntime": "Gunakan Steam Runtime",
         "verboseLogs": {
             "description": "Aktifkan log mendetail"
         },
         "wineWayland": "Aktifkan Wine-Wayland (Eksperimental) (versi Wine harus mendukungnya)",
-        "WoW64": "Aktifkan WoW64 (Eksperimental)",
-        "scripts": "Skrip:",
-        "enable-quick-sync-menu": "Aktifkan Menu Quick Save-Sync di halaman game",
-        "start-in-console-mode": "Mulai dalam Mode Konsol",
-        "disable_gog_presence": "Nonaktifkan pembaruan GOG Presence"
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "Folder Prefiks Wine",
+        "wineversion": "Versi Wine"
     },
     "settings": {
         "battlEyeRuntime": {

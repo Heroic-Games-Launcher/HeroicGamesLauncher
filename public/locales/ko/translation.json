@@ -290,11 +290,35 @@
         "show_updates_only": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "AMD의 FSR 기술은 전체화면 모드에서 저해상도를 업스케일링하여 프레임 향상에 도움을 줍니다. 약간의 성능을 잃으며 이미지 품질은 5에서 1로 갈수록 증가합니다. 사용하면 성능이 향상될 수도 있습니다.",
+        "analytics": "",
+        "button": {
+            "open": "도움말 열기",
+            "close": "도움말 닫기"
+        },
+        "content": {
+            "accessibility": "접근성 설정을 표시합니다.",
+            "customThemesPath": "위키를 확인해 보세요.",
+            "downloadManager": "현재 및 과거 다운로드를 보여줍니다.",
+            "library": "보유한 모든 게임을 표시합니다.",
+            "login": "다양한 스토어에 로그인하세요.",
+            "settingsDefault": "게임의 Heroic 설정과 기본 설정을 모두 표시합니다.",
+            "settingsGame": "게임의 모든 설정을 표시합니다.",
+            "wineManager": "와인, 프로톤, 크로스오버 등의 다양한 버전을 설치",
+            "defaultInstallPath": "이는 게임을 설치할 때 기본적으로 선택된 경로입니다."
+        },
         "custom_themes_path": "신뢰할 수 없는 출처의 CSS 파일을 사용하지 마세요. 의심될 경우, 디스코드 채널에 검토를 요청하세요.",
         "custom_themes_wiki": "커스텀 테마 추가에 대한 더 상세한 사항은 위키를 확인하세요. 여기를 클릭하세요.",
+        "disablePlaytimeSync": "지정된 스토어 서버(현재는 GOG만 지원됨)의 플레이타임 동기화를 비활성화",
+        "disable_logs": "이 확인란을 켜면 대부분의 로그 파일(중요한 정보는 항상 기록됨) 쓰기가 비활성화 전환됩니다. 문제를 보고하기 전에 이 설정을 끄세요.",
+        "download_proton_steam": "",
+        "dxfpslimit": "DXVK 게임에 대한 프레임 속도 제한 설정",
         "dxvk": "DXVK는 DirectX 9, 10, 11 게임을 위한 Vulkan 기반 변환 레이어입니다. 활성화하면 호환성이 향상될 수 있습니다. 특히 오래된 DirectX 게임의 경우 문제가 발생할 수 있습니다.",
         "dxvkfpslimit": "DXVK 게임에 대한 프레임 속도 제한 설정",
+        "dxvknvapi": "DXVK-NVAPI는 DXVK와 리눅스 기본 NVAPI를 기반으로 구축된 NVAPI 구현으로, 엔비디아 GPU에서 DLSS를 사용할 수 있도록 해줍니다.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync는 CPU 집약적 게임에서 와인서버 오버헤드를 줄이는 것을 목표로 합니다. 활성화하면 성능이 향상될 수 있습니다.",
         "fsync": "Fsync는 CPU 집약적 게임에서 와인서버 오버헤드를 줄이는 것을 목표로 합니다. 활성화하면 지원되는 리눅스 커널에서 성능이 향상될 수 있습니다.",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "유효한 언어 코드는 게임에 따라 다릅니다."
         },
         "gamemode": "Feral GameMode는 게임을 실행할 때 시스템에 자동 및 임시 조정을 적용합니다. 활성화하면 성능이 향상될 수 있습니다.",
+        "gamescope": {
+            "upscaleHeight": "gamescope에서 사용하는 높이 해상도입니다. 16:9 화면비가 가정됩니다.",
+            "additionalOptions": "gamescope에 전달할 추가 명령줄 플래그입니다.",
+            "fpsLimiter": "gamescope가 제한해야 하는 프레임 수. 예: 60",
+            "fpsLimiterNoFocus": "게임에 집중하지 못하면 gamescope가 초당 제한해야 하는 프레임 속도입니다.",
+            "gameWidth": "게임에서 사용하는 너비 해상도입니다. gamescope는 16:9 화면비를 가정합니다.",
+            "gameHeight": "게임에서 사용하는 높이 해상도입니다. gamescope는 16:9 화면비를 가정합니다.",
+            "upscaleMethod": "gamescope가 사용해야 하는 업스케일링 방법입니다.",
+            "upscaleWidth": "gamescope에서 사용하는 폭 해상도입니다. 16:9 화면비가 가정됩니다.",
+            "forceGrabCursor": ""
+        },
         "general": "다른 곳에 에릭 게임즈 실행기가 정상적으로 설치되어 있고 게임을 다시 다운로드하지 않고도 가져오려면 EGL과 동기화하세요.",
         "mangohud": "MangoHUD는 FPS, 온도, CPU/GPU 부하, 기타 시스템 리소스를 표시하고 모니터링하는 오버레이입니다.",
+        "msync": "Fsync는 CPU 집약적 게임에서 와인서버 오버헤드를 줄이는 것을 목표로 합니다. 활성화하면 지원되는 리눅스 커널에서 성능이 향상될 수 있습니다.",
+        "nvidiaprime": {
+            "details": "전용 그래픽 카드를 사용하여 다중 GPU 시스템에서 게임을 렌더링합니다. 렌더링에 헤드리스 GPU를 사용하는 게임용 노트북이나 데스크탑에서만 필요(엔비디아 옵티머스, AMD 크로스파이어)"
+        },
         "other": {
             "part4": "다음을 사용 ",
             "part5": "게임 인자",
@@ -323,12 +362,6 @@
             "part3": "수동 동기화: 다운로드를 선택하여 클라우드에 저장된 게임 저장 파일을 다운로드합니다. 로컬 항목을 클라우드에 업로드하려면 업로드를 선택합니다. 강제 다운로드 및 강제 업로드는 로컬 또는 클라우드에 있는 버전을 무시합니다.",
             "part4": "자동으로 저장 동기화를 선택하면 게임을 시작할 시 또는 플레이를 끝낼 때마다 저장 데이터가 동기화됩니다."
         },
-        "vkd3d": "VKD3D는 DirectX 12 게임을 위한 Vulkan 기반 변환 레이어입니다. 활성화하면 호환성이 상당히 향상될 수 있습니다. 이전 DirectX 게임에는 효과가 없으며 DXVK가 필요합니다.",
-        "wine": {
-            "part1": "Heroric은 다음 폴더에서 와인, 프로톤, 크로스오버의 버전을 검색합니다:",
-            "part2": "다른 경로의 경우에는, 이 폴더 중 하나에 심볼릭 링크를 사용"
-        },
-        "disable_logs": "이 확인란을 켜면 대부분의 로그 파일(중요한 정보는 항상 기록됨) 쓰기가 비활성화 전환됩니다. 문제를 보고하기 전에 이 설정을 끄세요.",
         "title": {
             "accessibility": "접근성",
             "login": "로그인",
@@ -337,45 +370,13 @@
             "wineManager": "와인 관리자",
             "library": "라이브러리"
         },
-        "msync": "Fsync는 CPU 집약적 게임에서 와인서버 오버헤드를 줄이는 것을 목표로 합니다. 활성화하면 지원되는 리눅스 커널에서 성능이 향상될 수 있습니다.",
-        "gamescope": {
-            "upscaleHeight": "gamescope에서 사용하는 높이 해상도입니다. 16:9 화면비가 가정됩니다.",
-            "additionalOptions": "gamescope에 전달할 추가 명령줄 플래그입니다.",
-            "fpsLimiter": "gamescope가 제한해야 하는 프레임 수. 예: 60",
-            "fpsLimiterNoFocus": "게임에 집중하지 못하면 gamescope가 초당 제한해야 하는 프레임 속도입니다.",
-            "gameWidth": "게임에서 사용하는 너비 해상도입니다. gamescope는 16:9 화면비를 가정합니다.",
-            "gameHeight": "게임에서 사용하는 높이 해상도입니다. gamescope는 16:9 화면비를 가정합니다.",
-            "upscaleMethod": "gamescope가 사용해야 하는 업스케일링 방법입니다.",
-            "upscaleWidth": "gamescope에서 사용하는 폭 해상도입니다. 16:9 화면비가 가정됩니다.",
-            "forceGrabCursor": ""
+        "vkd3d": "VKD3D는 DirectX 12 게임을 위한 Vulkan 기반 변환 레이어입니다. 활성화하면 호환성이 상당히 향상될 수 있습니다. 이전 DirectX 게임에는 효과가 없으며 DXVK가 필요합니다.",
+        "wine": {
+            "part1": "Heroric은 다음 폴더에서 와인, 프로톤, 크로스오버의 버전을 검색합니다:",
+            "part2": "다른 경로의 경우에는, 이 폴더 중 하나에 심볼릭 링크를 사용"
         },
-        "content": {
-            "accessibility": "접근성 설정을 표시합니다.",
-            "customThemesPath": "위키를 확인해 보세요.",
-            "downloadManager": "현재 및 과거 다운로드를 보여줍니다.",
-            "library": "보유한 모든 게임을 표시합니다.",
-            "login": "다양한 스토어에 로그인하세요.",
-            "settingsDefault": "게임의 Heroic 설정과 기본 설정을 모두 표시합니다.",
-            "settingsGame": "게임의 모든 설정을 표시합니다.",
-            "wineManager": "와인, 프로톤, 크로스오버 등의 다양한 버전을 설치",
-            "defaultInstallPath": "이는 게임을 설치할 때 기본적으로 선택된 경로입니다."
-        },
-        "button": {
-            "open": "도움말 열기",
-            "close": "도움말 닫기"
-        },
-        "disablePlaytimeSync": "지정된 스토어 서버(현재는 GOG만 지원됨)의 플레이타임 동기화를 비활성화",
-        "dxvknvapi": "DXVK-NVAPI는 DXVK와 리눅스 기본 NVAPI를 기반으로 구축된 NVAPI 구현으로, 엔비디아 GPU에서 DLSS를 사용할 수 있도록 해줍니다.",
-        "dxfpslimit": "DXVK 게임에 대한 프레임 속도 제한 설정",
-        "download_proton_steam": "",
         "wine-hdr": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "nvidiaprime": {
-            "details": "전용 그래픽 카드를 사용하여 다중 GPU 시스템에서 게임을 렌더링합니다. 렌더링에 헤드리스 GPU를 사용하는 게임용 노트북이나 데스크탑에서만 필요(엔비디아 옵티머스, AMD 크로스파이어)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -589,28 +590,62 @@
     "Recent": "최근 플레이한 게임",
     "search": "게임 검색",
     "setting": {
+        "FsrSharpnessStrenght": "FSR 선명도 강도",
+        "WoW64": "",
         "adddesktopshortcuts": "데스크톱 바로가기 자동 추가",
+        "addgamestoapplications": "응용 프로그램에 자동으로 게임 추가",
         "addgamestostartmenu": "시작 메뉴에 게임 자동 추가",
         "addgamestosteam": "스팀에 게임을 자동으로 추가",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "손상되거나 거부된 안티치트가 있는 게임은 실행될 수 있지만 멀티플레이어 기능은 작동하지 않습니다. 이 사실을 알면서 설치한 경우 지원을 요청하지 마세요.",
+                "title": "확실합니까?",
+                "understand": "나는 이해합니다"
+            },
+            "label": "손상되거나 거부된 안티치트가 있는 게임 설치 허용"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "확실합니까?"
+            }
+        },
         "alt-gogdl-bin": "대신 사용할 GOGDL 바이너리 선택",
         "alt-legendary-bin": "대신 사용할 레전더리 바이너리 선택",
+        "alt-nile-bin": "다른 나일 바이너리 선택",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "게임 자동 업데이트",
         "autodxvk": "설치 경로에서 DXVK 자동 설치/업데이트",
+        "autodxvknvapi": "설치 경로에서 DXVK-NVAPI 자동 설치/업데이트",
         "autosync": "저장 자동 동기화",
         "autovkd3d": "설치 경로에서 VKD3D 자동 설치/업데이트",
+        "before-launch-script-path": "게임을 시작하기 전에 실행할 스크립트를 선택",
         "change-target-exe": "실행할 다른 EXE 선택",
         "checkForUpdatesOnStartup": "시작 시 Heroic 업데이트 확인",
         "crossover-version": "크로스오버/와인 버전",
-        "custom_themes_path": "커스텀 테마 경로",
         "customWineProton": "커스텀 와인/프로톤 경로",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "커스텀 테마 경로",
         "darktray": "어두운 트레이 아이콘 사용",
         "default-install-path": "기본 설치 경로",
         "default-steam-path": "기본 스팀 경로",
         "defaultWinePrefix": "새 와인 설치 경로 폴더 설정",
+        "disablePlaytimeSync": "플레이타임 동기화 비활성화",
+        "disableUMU": "",
         "disable_controller": "컨트롤러를 이용한 Heroic 탐색 비활성화",
+        "disable_gog_presence": "",
+        "disable_logs": "로그 비활성화",
         "discordRPC": "디스코드 Rich Presence 활성화",
         "download-no-https": "HTTPS를 사용하지 않고 게임 다운로드 (예를 들어 LanCache와 같은 CDN에 유용)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "FPS 제한 (DX9, 10, 11)",
         "egs-sync": "설치된 에픽 게임즈와 동기화",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "FSR 핵 활성화 (와인 버전에서 지원해야 함)",
         "eosOverlay": {
             "cancelInstall": "취소",
@@ -634,10 +669,33 @@
         },
         "esync": "Esync 활성화",
         "exit-to-tray": "시스템 트레이로 나가기",
-        "FsrSharpnessStrenght": "FSR 선명도 강도",
+        "experimental_features": {
+            "enableNewDesign": "새 디자인",
+            "enableHelp": "도움말 구성 요소",
+            "automaticWinetricksFixes": "알려진 수정 사항을 자동으로 적용",
+            "cometSupport": "코멧 지원",
+            "umuSupport": "umu를 프로톤 런타임으로 사용",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "이 기능은 아직 실험 중입니다. 이 기능과 관련하여 발생하는 문제는 깃허브에 보고해 주세요.",
+                "title": "앞으로의 실험적 기능"
+            },
+            "description": "프레임 없는 창 사용 (재시작 필요)"
+        },
         "fsync": "Fsync 활성화",
         "gamemode": "GameMode 사용 (Feral Game Mode가 설치되어 있어야 함)",
+        "gamescope": {
+            "enableUpscaling": "업스케일링 가능",
+            "enableLimiter": "FPS 제한기 활성화",
+            "missingMsg": "PATH에서 gamescope를 찾을 수 없습니다. 설치하거나 PATH에 추가하세요.",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "시작 시 변경로그 표시 안 함",
+        "ignoreGameUpdates": "게임 업데이트 무시",
         "language": "앱 언어 선택",
         "library_top_option": {
             "disabled": "비활성화",
@@ -707,9 +765,11 @@
         "maxRecentGames": "표시할 최근 플레이한 게임",
         "maxworkers": "다운로드할 때 최대 워커 수",
         "minimize-on-launch": "게임 실행 후 Heroic 최소화",
+        "msync": "Msync 활성화",
+        "no-tray-icon": "",
         "offlinemode": "게임 오프라인으로 실행",
-        "prefered_language": "선호 언어 (언어 코드)",
         "preferSystemLibs": "시스템 라이브러리를 선호",
+        "prefered_language": "선호 언어 (언어 코드)",
         "runexe": {
             "message": "여기에 파일을 끌어다 놓기",
             "title": "설치 경로에서 EXE 실행"
@@ -719,59 +779,9 @@
             "placeholder": "정확한 게임 저장 폴더 선택",
             "warning": "경로가 올바른지 두 번 확인 (클릭하여 재시도)"
         },
+        "scripts": "",
         "select_theme": "테마 선택",
-        "showfps": "FPS 표시 (DX9, 10, 11)",
-        "start-in-tray": "최소화로 시작",
-        "steamruntime": "스팀 런타임 사용",
-        "winecrossoverbottle": "크로스오버 보틀",
-        "wineprefix": "WinePrefix 폴더",
-        "wineversion": "와인 버전",
-        "autoUpdateGames": "게임 자동 업데이트",
-        "ignoreGameUpdates": "게임 업데이트 무시",
-        "disable_logs": "로그 비활성화",
-        "addgamestoapplications": "응용 프로그램에 자동으로 게임 추가",
         "showMetalOverlay": "통계 오버레이 표시",
-        "alt-nile-bin": "다른 나일 바이너리 선택",
-        "autodxvknvapi": "설치 경로에서 DXVK-NVAPI 자동 설치/업데이트",
-        "msync": "Msync 활성화",
-        "frameless-window": {
-            "confirmation": {
-                "message": "이 기능은 아직 실험 중입니다. 이 기능과 관련하여 발생하는 문제는 깃허브에 보고해 주세요.",
-                "title": "앞으로의 실험적 기능"
-            },
-            "description": "프레임 없는 창 사용 (재시작 필요)"
-        },
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "message": "손상되거나 거부된 안티치트가 있는 게임은 실행될 수 있지만 멀티플레이어 기능은 작동하지 않습니다. 이 사실을 알면서 설치한 경우 지원을 요청하지 마세요.",
-                "title": "확실합니까?",
-                "understand": "나는 이해합니다"
-            },
-            "label": "손상되거나 거부된 안티치트가 있는 게임 설치 허용"
-        },
-        "before-launch-script-path": "게임을 시작하기 전에 실행할 스크립트를 선택",
-        "disablePlaytimeSync": "플레이타임 동기화 비활성화",
-        "experimental_features": {
-            "enableNewDesign": "새 디자인",
-            "enableHelp": "도움말 구성 요소",
-            "automaticWinetricksFixes": "알려진 수정 사항을 자동으로 적용",
-            "cometSupport": "코멧 지원",
-            "umuSupport": "umu를 프로톤 런타임으로 사용",
-            "zoomPlatform": ""
-        },
-        "gamescope": {
-            "enableUpscaling": "업스케일링 가능",
-            "enableLimiter": "FPS 제한기 활성화",
-            "missingMsg": "PATH에서 gamescope를 찾을 수 없습니다. 설치하거나 PATH에 추가하세요.",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": ""
-        },
-        "after-launch-script-path": "게임을 나간 후 실행할 스크립트를 선택",
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "확실합니까?"
-            }
-        },
         "show_valve_proton": {
             "confirmation": {
                 "title": "확실합니까?",
@@ -783,25 +793,17 @@
             "label": "",
             "info_label": ""
         },
-        "WoW64": "",
-        "download-proton-steam": "",
-        "scripts": "",
-        "wineWayland": "",
-        "hdr": "",
-        "dxfpslimit": "",
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
+        "showfps": "FPS 표시 (DX9, 10, 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "최소화로 시작",
+        "steamruntime": "스팀 런타임 사용",
         "verboseLogs": {
             "description": ""
         },
-        "disableUMU": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "크로스오버 보틀",
+        "wineprefix": "WinePrefix 폴더",
+        "wineversion": "와인 버전"
     },
     "settings": {
         "battlEyeRuntime": {

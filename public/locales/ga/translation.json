@@ -199,14 +199,7 @@
         "yes": "TÁ"
     },
     "help": {
-        "title": {
-            "accessibility": "Inrochtaineacht",
-            "downloadManager": "Bainisteoir Íoslódála",
-            "library": "Leabharlann",
-            "login": "Logáil Isteach",
-            "settings": "Socruithe",
-            "wineManager": "Bainisteoir Fíona"
-        },
+        "WoW64": "Ligeann mód Wine WoW64 do chluichí Windows 32-giotán a bheith á rith ar Wine 64-giotán. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú, ach d’fhéadfadh sé go gcuirfeadh sé isteach ar chluichí 32-giotán níos sine freisin.",
         "advertiseAvxForRosetta": "Cumasaíonn sé seo tacaíocht do shraith treoracha AVX agus cluichí Windows á reáchtáil trí Rosetta ar ríomhairí Mac Apple Silicon. D’fhéadfadh sé seo a bheith riachtanach do roinnt cluichí cosúil le Death Stranding a bhfuil tacaíocht AVX ag teastáil uathu.",
         "amdfsr": "Cuidíonn FSR AMD le ráta fráma a threisiú trí réiteach níos ísle a uasghrádú i Mód Lánscáileáin. Méadaíonn cáilíocht íomhá ó 5 go 1 ar chostas beagán feidhmíochta. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú.",
         "analytics": "Cumasaíonn sé Heroic chun sonraí úsáide 100% gan ainm a bhailiú chun cabhrú leis an bhfeidhmchlár a fheabhsú. Ní mór atosú a dhéanamh chun go dtiocfaidh sé i bhfeidhm.",
@@ -227,12 +220,13 @@
         },
         "custom_themes_path": "Ná húsáid comhaid CSS ó fhoinsí neamhiontaofa. Má tá amhras ort, iarr athbhreithniú ar ár gcainéal Discord.",
         "custom_themes_wiki": "Seiceáil an Vicí le haghaidh tuilleadh sonraí maidir le téamaí saincheaptha a chur leis. Cliceáil anseo.",
-        "disable_logs": "Cuir an bosca seiceála seo AR SIÚL chun an chuid is mó de na scríobh chuig comhaid loga a dhíchumasú (logáiltear faisnéis ríthábhachtach i gcónaí). Déan cinnte an socrú seo a mhúchadh sula dtuairiscíonn tú aon fhadhb.",
         "disablePlaytimeSync": "Díchumasaíonn sé sioncrónú ama súgartha le freastalaithe an tsiopa áirithe (ní thacaítear ach le GOG faoi láthair)",
+        "disable_logs": "Cuir an bosca seiceála seo AR SIÚL chun an chuid is mó de na scríobh chuig comhaid loga a dhíchumasú (logáiltear faisnéis ríthábhachtach i gcónaí). Déan cinnte an socrú seo a mhúchadh sula dtuairiscíonn tú aon fhadhb.",
         "download_proton_steam": "Nuair a bheidh sé cumasaithe, déanfar GE-Proton a íoslódáil go díreach chuig eolaire uirlisí comhoiriúnachta Steam in ionad an chosáin réamhshocraithe Heroic. Úsáidfidh sé an cosán Steam atá socraithe sa socrú 'Cosán réamhshocraithe Steam' thuas.",
         "dxfpslimit": "Socraíonn sé uasteorainn ráta fráma do Chluichí DirectX (9-12)",
         "dxvk": "Is ciseal aistriúcháin bunaithe ar Vulkan é DXVK do chluichí DirectX 9, 10 agus 11. D’fhéadfadh sé go mbeadh feabhas ar chomhoiriúnacht má chuirtear ar chumas é. D’fhéadfadh fadhbanna a bheith mar thoradh air sin go háirithe i gcás cluichí DirectX níos sine.",
         "dxvknvapi": "Is cur i bhfeidhm de NVAPI é DXVK-NVAPI atá tógtha ar bharr DXVK agus an NVAPI dúchasach Linux, agus ceadaíonn sé úsáid DLSS ar GPUanna Nvidia.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Tá sé mar aidhm ag Esync forchostais fíona a laghdú i gcluichí a bhfuil go leor LAP iontu. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú.",
         "fsync": "Tá sé mar aidhm ag Fsync forchostais fíona a laghdú i gcluichí a bhfuil go leor LAP iontu. D’fhéadfadh feabhas a chur ar fheidhmíocht ar chroíthe Linux a dtacaítear leo má chuirtear ar chumas é.",
         "game_language": {
@@ -255,6 +249,9 @@
         "general": "Sioncrónaigh le EGL má tá suiteáil oibre den Epic Games Launcher agat in áit eile agus más mian leat do chluichí a allmhairiú chun nach mbeidh ort iad a íoslódáil arís.",
         "mangohud": "Is forleagan é MangoHUD a thaispeánann agus a dhéanann monatóireacht ar FPS, teochtaí, ualach LAP/GPU agus acmhainní córais eile.",
         "msync": "Tá sé mar aidhm ag Msync forchostais fíona a laghdú i gcluichí a bhfuil go leor LAP iontu. D’fhéadfadh feabhas a chur ar fheidhmíocht ar chroíthe Linux a dtacaítear leo má chuirtear ar chumas é.",
+        "nvidiaprime": {
+            "details": "Bain úsáid as cárta grafaicí tiomnaithe chun cluiche a rindreáil ar chórais il-GPU. Ní gá ach ar ríomhairí glúine nó deisce cearrbhachais a úsáideann GPU gan cheann le haghaidh rindreála (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Bain úsáid as an ",
             "part5": "Argóintí Cluiche",
@@ -273,17 +270,21 @@
             "part3": "Sioncrónú Láimhe: Roghnaigh Íoslódáil chun na cluichí atá stóráilte ar an Néal a íoslódáil. Uaslódáil chun na cinn áitiúla a uaslódáil chuig an néal. Déanfaidh Íoslódáil Fórsach agus Uaslódáil Fórsach neamhaird den leagan atá go háitiúil nó ar an néal.",
             "part4": "Déanfaidh Sioncrónú Sábhálacha go huathoibríoch na sábhálacha a sioncrónú gach uair a thosaíonn tú Cluiche agus tar éis duit críochnú ag imirt."
         },
+        "title": {
+            "accessibility": "Inrochtaineacht",
+            "downloadManager": "Bainisteoir Íoslódála",
+            "library": "Leabharlann",
+            "login": "Logáil Isteach",
+            "settings": "Socruithe",
+            "wineManager": "Bainisteoir Fíona"
+        },
         "vkd3d": "Is ciseal aistriúcháin bunaithe ar Vulkan é VKD3D do chluichí DirectX 12. D’fhéadfadh feabhas suntasach a bheith ar chomhoiriúnacht má chuirtear ar chumas é. Níl aon éifeacht aige ar chluichí DirectX níos sine, teastaíonn DXVK uaidh.",
         "wine": {
             "part1": "Déanann Heroic cuardach ar leaganacha de Wine, Proton, agus CrossOver sna fillteáin seo a leanas:",
             "part2": "I gcás áiteanna eile, bain úsáid as nasc siombalach chuig ceann de na fillteáin seo"
         },
         "wine-hdr": "Feabhsaíonn HDR dathanna trí bhuaicphointí níos gile agus codarsnachtaí níos doimhne a sholáthar. Chun go n-oibreoidh HDR, ní mór don taispeáint agus don chluiche tacú leis.",
-        "wine-wayland": "Ligeann an tiománaí turgnamhach Wine-Wayland do chluichí rith go dúchasach faoin bprótacal taispeána Wayland. D’fhéadfadh sé go gcuirfeadh cumasú isteach ar roinnt cluichí.",
-        "WoW64": "Ligeann mód Wine WoW64 do chluichí Windows 32-giotán a bheith á rith ar Wine 64-giotán. D’fhéadfadh feabhas a chur ar fheidhmíocht trí chumasú, ach d’fhéadfadh sé go gcuirfeadh sé isteach ar chluichí 32-giotán níos sine freisin.",
-        "nvidiaprime": {
-            "details": "Bain úsáid as cárta grafaicí tiomnaithe chun cluiche a rindreáil ar chórais il-GPU. Ní gá ach ar ríomhairí glúine nó deisce cearrbhachais a úsáideann GPU gan cheann le haghaidh rindreála (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": "Ligeann an tiománaí turgnamhach Wine-Wayland do chluichí rith go dúchasach faoin bprótacal taispeána Wayland. D’fhéadfadh sé go gcuirfeadh cumasú isteach ar roinnt cluichí."
     },
     "placeholder": {
         "egs-prefix": "Roghnaigh Réimír ina bhfuil EGS suiteáilte",
@@ -295,6 +296,57 @@
         "prefered_language": "Cód 2 charachtar nó 4 charachtar (i.e.: \"fr\" nó \"pt-BR\")"
     },
     "setting": {
+        "FsrSharpnessStrenght": "Neart Géire FSR",
+        "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
+        "adddesktopshortcuts": "Cuir aicearraí deisce leis go huathoibríoch",
+        "addgamestoapplications": "Cuir cluichí le Feidhmchláir go huathoibríoch",
+        "addgamestostartmenu": "Cuir cluichí leis an roghchlár tosaigh go huathoibríoch",
+        "addgamestosteam": "Cuir cluichí le Steam go huathoibríoch",
+        "advertiseAvxForRosetta": "Fógraigh AVX do Rosetta",
+        "after-launch-script-path": "Roghnaigh script le rith tar éis don chluiche críochnú",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "D’fhéadfadh cluichí a bhfuil frith-cheat briste nó diúltaithe acu rith, ach ní oibreoidh gnéithe il-imreora. Ná hiarr tacaíocht má shuiteálann tú iad agus tú ar an eolas faoi seo.",
+                "title": "An bhfuil tú cinnte?",
+                "understand": "Tuigim"
+            },
+            "label": "Ceadaigh suiteáil cluichí a bhfuil frith-cheilt briste nó diúltaithe acu"
+        },
+        "alt-gogdl-bin": "Roghnaigh GOGDL Dénártha Malartach le húsáid",
+        "alt-legendary-bin": "Roghnaigh Dénártha Finscéalach Malartach",
+        "alt-nile-bin": "Roghnaigh Binary Malartach Níle",
+        "analyticsOptIn": "Seol sonraí gan ainm chun cabhrú le forbairt Heroic",
+        "autoUpdateGames": "Nuashonraigh cluichí go huathoibríoch",
+        "autodxvk": "Suiteáil/Nuashonraigh DXVK go huathoibríoch ar réimír",
+        "autodxvknvapi": "Suiteáil/Nuashonrú Uathoibríoch DXVK-NVAPI ar Réimír",
+        "autosync": "Sábhálacha Uath-Shioncrónaithe",
+        "autovkd3d": "Suiteáil/Nuashonrú Uathoibríoch VKD3D ar Réimír",
+        "before-launch-script-path": "Roghnaigh script le rith sula seoltar an cluiche",
+        "change-target-exe": "Roghnaigh EXE malartach le rith",
+        "checkForUpdatesOnStartup": "Seiceáil le haghaidh Nuashonruithe Heroic ar an Startup",
+        "crossover-version": "Leagan Trasnaithe/Wine",
+        "customWineProton": "Cosáin Saincheaptha Wine/Proton",
+        "custom_css": {
+            "warning": "Rabhadh: baineann sé seo leis an taobh tosaigh ar fad. Ciallaíonn sé sin gur féidir le stíl mhícheart Heroic a dhéanamh neamh-inúsáidte. Más gá, is féidir an socrú a athrú de láimh i `~/.config/heroic/config.json`. NÁ cóipeáil stíleanna ó fhoinsí nach bhfuil muinín agat astu."
+        },
+        "custom_themes_path": "Cosán Téamaí Saincheaptha",
+        "darktray": "Úsáid Deilbhín Tráidire Dorcha",
+        "default-install-path": "Cosán Suiteála Réamhshocraithe",
+        "default-steam-path": "Cosán réamhshocraithe Steam",
+        "defaultWinePrefix": "Socraigh Fillteán le haghaidh Réimíreanna Wine nua",
+        "disablePlaytimeSync": "Díchumasaigh sioncrónú ama súgartha",
+        "disableUMU": "Díchumasaigh umu",
+        "disable_controller": "Díchumasaigh nascleanúint Heroic ag baint úsáide as an rialtán",
+        "disable_gog_presence": "Díchumasaigh nuashonruithe GOG Presence",
+        "disable_logs": "Díchumasaigh Logaí",
+        "discordRPC": "Cumasaigh Láithreacht Shaibhir Discord",
+        "download-no-https": "Íoslódáil cluichí gan HTTPS (úsáideach do CDNanna m.sh. LanCache)",
+        "download-proton-steam": "Íoslódáil GE-Proton chuig eolaire Steam",
+        "dxfpslimit": "Teorainn a chur le FPS Cluichí DirectX",
+        "egs-sync": "Sioncrónaigh le Cluichí Epic Suiteáilte",
+        "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
+        "enableFSRHack": "Cumasaigh FSR Hack (ní mór don leagan Wine tacú leis)",
         "eosOverlay": {
             "disable": "Díchumasaigh",
             "enable": "Cumasaigh",
@@ -315,59 +367,6 @@
             "updateNow": "Nuashonrú",
             "updating": "Ag nuashonrú..."
         },
-        "library_top_option": {
-            "disabled": "Díchumasaigh",
-            "favourites": "Cluichí is Fearr Leat",
-            "recently_played": "Cluichí a Imríodh Le Déanaí",
-            "recently_played_installed": "Cluichí a Imríodh Le Déanaí (Suiteáilte Amháin)"
-        },
-        "winecrossoverbottle": "Buidéal CrossOver",
-        "adddesktopshortcuts": "Cuir aicearraí deisce leis go huathoibríoch",
-        "addgamestoapplications": "Cuir cluichí le Feidhmchláir go huathoibríoch",
-        "addgamestostartmenu": "Cuir cluichí leis an roghchlár tosaigh go huathoibríoch",
-        "addgamestosteam": "Cuir cluichí le Steam go huathoibríoch",
-        "advertiseAvxForRosetta": "Fógraigh AVX do Rosetta",
-        "after-launch-script-path": "Roghnaigh script le rith tar éis don chluiche críochnú",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "message": "D’fhéadfadh cluichí a bhfuil frith-cheat briste nó diúltaithe acu rith, ach ní oibreoidh gnéithe il-imreora. Ná hiarr tacaíocht má shuiteálann tú iad agus tú ar an eolas faoi seo.",
-                "title": "An bhfuil tú cinnte?",
-                "understand": "Tuigim"
-            },
-            "label": "Ceadaigh suiteáil cluichí a bhfuil frith-cheilt briste nó diúltaithe acu"
-        },
-        "alt-gogdl-bin": "Roghnaigh GOGDL Dénártha Malartach le húsáid",
-        "alt-legendary-bin": "Roghnaigh Dénártha Finscéalach Malartach",
-        "alt-nile-bin": "Roghnaigh Binary Malartach Níle",
-        "analyticsOptIn": "Seol sonraí gan ainm chun cabhrú le forbairt Heroic",
-        "autodxvk": "Suiteáil/Nuashonraigh DXVK go huathoibríoch ar réimír",
-        "autodxvknvapi": "Suiteáil/Nuashonrú Uathoibríoch DXVK-NVAPI ar Réimír",
-        "autosync": "Sábhálacha Uath-Shioncrónaithe",
-        "autoUpdateGames": "Nuashonraigh cluichí go huathoibríoch",
-        "autovkd3d": "Suiteáil/Nuashonrú Uathoibríoch VKD3D ar Réimír",
-        "before-launch-script-path": "Roghnaigh script le rith sula seoltar an cluiche",
-        "change-target-exe": "Roghnaigh EXE malartach le rith",
-        "checkForUpdatesOnStartup": "Seiceáil le haghaidh Nuashonruithe Heroic ar an Startup",
-        "crossover-version": "Leagan Trasnaithe/Wine",
-        "custom_css": {
-            "warning": "Rabhadh: baineann sé seo leis an taobh tosaigh ar fad. Ciallaíonn sé sin gur féidir le stíl mhícheart Heroic a dhéanamh neamh-inúsáidte. Más gá, is féidir an socrú a athrú de láimh i `~/.config/heroic/config.json`. NÁ cóipeáil stíleanna ó fhoinsí nach bhfuil muinín agat astu."
-        },
-        "custom_themes_path": "Cosán Téamaí Saincheaptha",
-        "customWineProton": "Cosáin Saincheaptha Wine/Proton",
-        "darktray": "Úsáid Deilbhín Tráidire Dorcha",
-        "default-install-path": "Cosán Suiteála Réamhshocraithe",
-        "default-steam-path": "Cosán réamhshocraithe Steam",
-        "defaultWinePrefix": "Socraigh Fillteán le haghaidh Réimíreanna Wine nua",
-        "disable_controller": "Díchumasaigh nascleanúint Heroic ag baint úsáide as an rialtán",
-        "disable_logs": "Díchumasaigh Logaí",
-        "disablePlaytimeSync": "Díchumasaigh sioncrónú ama súgartha",
-        "disableUMU": "Díchumasaigh umu",
-        "discordRPC": "Cumasaigh Láithreacht Shaibhir Discord",
-        "download-no-https": "Íoslódáil cluichí gan HTTPS (úsáideach do CDNanna m.sh. LanCache)",
-        "download-proton-steam": "Íoslódáil GE-Proton chuig eolaire Steam",
-        "dxfpslimit": "Teorainn a chur le FPS Cluichí DirectX",
-        "egs-sync": "Sioncrónaigh le Cluichí Epic Suiteáilte",
-        "enableFSRHack": "Cumasaigh FSR Hack (ní mór don leagan Wine tacú leis)",
         "esync": "Cumasaigh Esync",
         "exit-to-tray": "Scoir go Tráidire an Chórais",
         "experimental_features": {
@@ -383,7 +382,6 @@
             },
             "description": "Úsáid fuinneog gan fhráma (tá atosú ag teastáil)"
         },
-        "FsrSharpnessStrenght": "Neart Géire FSR",
         "fsync": "Cumasaigh Fsync",
         "gamemode": "Bain úsáid as GameMode (ní mór Feral Game Mode a shuiteáil)",
         "gamescope": {
@@ -397,6 +395,12 @@
         "hideChangelogsOnStartup": "Ná taispeáin logaí athraithe ar an Tosaithe",
         "ignoreGameUpdates": "Déan neamhaird de nuashonruithe cluiche",
         "language": "Roghnaigh Teanga an Aipe",
+        "library_top_option": {
+            "disabled": "Díchumasaigh",
+            "favourites": "Cluichí is Fearr Leat",
+            "recently_played": "Cluichí a Imríodh Le Déanaí",
+            "recently_played_installed": "Cluichí a Imríodh Le Déanaí (Suiteáilte Amháin)"
+        },
         "library_top_section": "An Roinn Uachtarach sa Leabharlann",
         "log": {
             "descriptiveNames": {
@@ -459,8 +463,8 @@
         "msync": "Cumasaigh Msync",
         "no-tray-icon": "Folaigh Deilbhín Tráidire an Chórais (tá atosú ag teastáil)",
         "offlinemode": "Rith Cluiche As Líne",
-        "prefered_language": "Teanga is Fearr leat (Cód Teanga)",
         "preferSystemLibs": "Is fearr leabharlanna córais",
+        "prefered_language": "Teanga is Fearr leat (Cód Teanga)",
         "runexe": {
             "title": "Rith EXE ar Réimír"
         },
@@ -469,7 +473,9 @@
             "placeholder": "Roghnaigh an fillteán cluichí sábhála cruinn",
             "warning": "Seiceáil faoi dhó le do thoil an bhfuil an cosán ceart (cliceáil chun iarracht eile a dhéanamh)"
         },
+        "scripts": "Scripteanna:",
         "select_theme": "Roghnaigh Téama",
+        "showMetalOverlay": "Taispeáin Forleagan Staitisticí",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Ná taispeáin iad",
@@ -482,20 +488,16 @@
             "wine_selector_warning": "Déantar neamhaird de leaganacha comhla de Proton de réir réamhshocraithe, cumasaigh iad sna socruithe domhanda Ardleibhéil"
         },
         "showfps": "Taispeáin FPS (DX9, 10 agus 11)",
-        "showMetalOverlay": "Taispeáin Forleagan Staitisticí",
+        "start-in-console-mode": "Tosaigh i Mód Consóil",
         "start-in-tray": "Tosaigh Íoslaghdaithe",
         "steamruntime": "Úsáid Am Rith Steam",
         "verboseLogs": {
             "description": "Cumasaigh logaí foclacha"
         },
-        "wineprefix": "Fillteán WinePrefix",
-        "wineversion": "Leagan Wine",
         "wineWayland": "Cumasaigh Wine-Wayland (Turgnamhach) (Ní mór don leagan Wine tacú leis)",
-        "WoW64": "Cumasaigh WoW64 (Turgnamhach)",
-        "scripts": "Scripteanna:",
-        "enable-quick-sync-menu": "Cumasaigh an Roghchlár Sábháil-Sioncrónaithe Tapa ar leathanach an chluiche",
-        "disable_gog_presence": "Díchumasaigh nuashonruithe GOG Presence",
-        "start-in-console-mode": "Tosaigh i Mód Consóil"
+        "winecrossoverbottle": "Buidéal CrossOver",
+        "wineprefix": "Fillteán WinePrefix",
+        "wineversion": "Leagan Wine"
     },
     "button": {
         "login": "Logáil isteach",

@@ -290,11 +290,35 @@
         "no_categories": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "AMD FSR 通過在全螢幕模式下提高較低解析度來提高畫面幀率。影像品質從 5 提高到 1，但代價是效能稍有下降。啟用可能會提高效能。",
+        "analytics": "",
+        "button": {
+            "open": "開啟幫助",
+            "close": "關閉幫助"
+        },
+        "content": {
+            "settingsGame": "顯示遊戲的全部設定。",
+            "defaultInstallPath": "",
+            "settingsDefault": "",
+            "downloadManager": "",
+            "wineManager": "",
+            "library": "",
+            "customThemesPath": "",
+            "accessibility": "",
+            "login": ""
+        },
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "disablePlaytimeSync": "",
+        "disable_logs": "將此核取方塊切換為“開啟”可停用對日誌檔案的大部分寫入（始終記錄關鍵訊息）。請確保在報告任何問題之前關閉此設定。",
+        "download_proton_steam": "",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvk": "DXVK 是一個基於 Vulkan 的轉譯層，用於 DirectX 9、10 和 11 遊戲。啟用也許會提高相容性。但可能會導致問題，特別是對老舊的 DirectX 遊戲。",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高效能。",
         "fsync": "Fsync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支援的 Linux 內核的效能。",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "有效語言代碼取決於遊戲。"
         },
         "gamemode": "執行遊戲時，Feral GameMode 使用自動和臨時的系統調整。啟用可能會提高效能。",
+        "gamescope": {
+            "fpsLimiterNoFocus": "",
+            "upscaleMethod": "",
+            "gameWidth": "",
+            "upscaleWidth": "",
+            "gameHeight": "",
+            "additionalOptions": "",
+            "forceGrabCursor": "",
+            "upscaleHeight": "",
+            "fpsLimiter": ""
+        },
         "general": "與 Epic Games 啟動器同步，如果您在其它地方安裝了 Epic Games 啟動器，而且想要導入您的遊戲，以免再次下載它們。",
         "mangohud": "MangoHUD 是一個內嵌介面，顯示和監控 FPS、溫度、CPU/GPU 負載和其它系統資源。",
+        "msync": "Fsync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支援的 Linux 內核的效能。",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "使用 ",
             "part5": "遊戲參數",
@@ -323,12 +362,6 @@
             "part3": "手動同步：選擇下載以下載儲存在雲端的存檔。選擇上傳將會把本地存檔上傳到雲端。強制下載將會忽略本地版本，強制上傳將會忽略雲端版本。",
             "part4": "自動同步將在您每次開始遊戲時和結束遊戲後同步存檔。"
         },
-        "vkd3d": "VKD3D 是一個基於 Vulkan 的轉換層，用於 DirectX 12 遊戲。啟用可能會顯著提高相容性。對老舊的 DirectX 遊戲沒有效果。",
-        "wine": {
-            "part1": "Heroic 啟動器會在以下資料夾中搜尋現有的 Wine/Proton/CrossOver：",
-            "part2": "如果在其它位置，請使用軟鏈接連接到這些中的一個資料夾"
-        },
-        "disable_logs": "將此核取方塊切換為“開啟”可停用對日誌檔案的大部分寫入（始終記錄關鍵訊息）。請確保在報告任何問題之前關閉此設定。",
         "title": {
             "accessibility": "無障礙設定",
             "login": "登入",
@@ -337,45 +370,13 @@
             "wineManager": "Wine 管理員",
             "library": "遊戲庫"
         },
-        "msync": "Fsync 的目標是在 CPU 消耗很大的遊戲中減少 wineserver 的開銷。啟用可能會提高受支援的 Linux 內核的效能。",
-        "content": {
-            "settingsGame": "顯示遊戲的全部設定。",
-            "defaultInstallPath": "",
-            "settingsDefault": "",
-            "downloadManager": "",
-            "wineManager": "",
-            "library": "",
-            "customThemesPath": "",
-            "accessibility": "",
-            "login": ""
+        "vkd3d": "VKD3D 是一個基於 Vulkan 的轉換層，用於 DirectX 12 遊戲。啟用可能會顯著提高相容性。對老舊的 DirectX 遊戲沒有效果。",
+        "wine": {
+            "part1": "Heroic 啟動器會在以下資料夾中搜尋現有的 Wine/Proton/CrossOver：",
+            "part2": "如果在其它位置，請使用軟鏈接連接到這些中的一個資料夾"
         },
-        "button": {
-            "open": "開啟幫助",
-            "close": "關閉幫助"
-        },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games",
-        "gamescope": {
-            "fpsLimiterNoFocus": "",
-            "upscaleMethod": "",
-            "gameWidth": "",
-            "upscaleWidth": "",
-            "gameHeight": "",
-            "additionalOptions": "",
-            "forceGrabCursor": "",
-            "upscaleHeight": "",
-            "fpsLimiter": ""
-        },
-        "download_proton_steam": "",
         "wine-hdr": "",
-        "dxvknvapi": "",
-        "disablePlaytimeSync": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -589,28 +590,57 @@
     "Recent": "最近遊玩的遊戲",
     "search": "搜尋遊戲",
     "setting": {
+        "FsrSharpnessStrenght": "FSR 銳利度",
+        "WoW64": "",
         "adddesktopshortcuts": "自動新增桌面捷徑",
+        "addgamestoapplications": "自動將遊戲新增到應用程式",
         "addgamestostartmenu": "自動新增捷徑到開始功能表",
         "addgamestosteam": "自動新增遊戲到 Steam",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "understand": "我理解",
+                "title": "",
+                "message": ""
+            },
+            "label": ""
+        },
         "alt-gogdl-bin": "選擇要使用的替代 GOGDL 二進位檔案",
         "alt-legendary-bin": "選擇替代的 Legendary 二進位檔案",
+        "alt-nile-bin": "選擇替代的 Nile 二進位檔案",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "自動更新遊戲",
         "autodxvk": "自動在 Prefix 中安裝/更新 DXVK",
+        "autodxvknvapi": "自動在 Prefix 中安裝/更新 DXVK-NVAPI",
         "autosync": "自動同步存檔",
         "autovkd3d": "自動在 Prefix 中安裝/更新 VKD3D",
+        "before-launch-script-path": "選擇遊戲啟動前要執行的指令碼",
         "change-target-exe": "選擇要執行的替代 EXE",
         "checkForUpdatesOnStartup": "啟動時檢查 Heroic 更新",
         "crossover-version": "Crossover/Wine 版本",
-        "custom_themes_path": "自訂主題路徑",
         "customWineProton": "自訂 Wine/Proton 路徑",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "自訂主題路徑",
         "darktray": "使用暗色系統列圖示",
         "default-install-path": "預設安裝路徑",
         "default-steam-path": "預設 Steam 路徑",
         "defaultWinePrefix": "為新的 Wine Prefix 設定資料夾",
+        "disablePlaytimeSync": "停用遊戲時數同步",
+        "disableUMU": "",
         "disable_controller": "停用控制器操作 Heroic",
+        "disable_gog_presence": "",
+        "disable_logs": "停用日誌",
         "discordRPC": "啟用 Discord 的 Rich Presence（活動狀態）",
         "download-no-https": "不使用 HTTPS 下載遊戲 （對 LanCache 等 CDN 有用）",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "與已安裝的 Epic Games 同步",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "啟用 FSR（需要支援的 Wine 版本）",
         "eosOverlay": {
             "cancelInstall": "取消",
@@ -634,10 +664,31 @@
         },
         "esync": "啟用 Esync",
         "exit-to-tray": "縮小到系統列",
-        "FsrSharpnessStrenght": "FSR 銳利度",
+        "experimental_features": {
+            "enableHelp": "幫助元件",
+            "enableNewDesign": "新設計",
+            "cometSupport": "",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "title": "實驗性功能",
+                "message": ""
+            },
+            "description": ""
+        },
         "fsync": "啟用 Fsync",
         "gamemode": "使用 GameMode（需要已安裝 Feral Game Mode）",
+        "gamescope": {
+            "enableLimiter": "啟用 FPS 限制器",
+            "enableUpscaling": "",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": "",
+            "missingMsg": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "啟動時不顯示更新日誌",
+        "ignoreGameUpdates": "忽略遊戲更新",
         "language": "選擇 Heroic 語言",
         "library_top_option": {
             "disabled": "已關閉",
@@ -707,9 +758,11 @@
         "maxRecentGames": "要顯示最近遊玩的遊戲",
         "maxworkers": "下載時的最大 Worker 數量",
         "minimize-on-launch": "遊戲啟動後最小化 Heroic",
+        "msync": "啟用 Esync",
+        "no-tray-icon": "",
         "offlinemode": "離線執行遊戲",
-        "prefered_language": "偏好語言（語言代碼）",
         "preferSystemLibs": "偏好系統庫",
+        "prefered_language": "偏好語言（語言代碼）",
         "runexe": {
             "message": "將檔案拖曳到此處",
             "title": "在 Prefix 上執行 EXE 檔案"
@@ -719,57 +772,9 @@
             "placeholder": "選擇存檔的儲存位置",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
-        "select_theme": "選擇主題",
-        "showfps": "顯示幀數（Directx 9，10 和 11）",
-        "start-in-tray": "啟動時最小化",
-        "steamruntime": "使用 Steam 執行環境",
-        "winecrossoverbottle": "CrossOver 容器",
-        "wineprefix": "WinePrefix 資料夾",
-        "wineversion": "Wine 版本",
-        "autoUpdateGames": "自動更新遊戲",
-        "ignoreGameUpdates": "忽略遊戲更新",
-        "disable_logs": "停用日誌",
-        "addgamestoapplications": "自動將遊戲新增到應用程式",
-        "showMetalOverlay": "顯示統計數據疊加",
-        "alt-nile-bin": "選擇替代的 Nile 二進位檔案",
-        "autodxvknvapi": "自動在 Prefix 中安裝/更新 DXVK-NVAPI",
-        "msync": "啟用 Esync",
-        "before-launch-script-path": "選擇遊戲啟動前要執行的指令碼",
-        "disablePlaytimeSync": "停用遊戲時數同步",
-        "gamescope": {
-            "enableLimiter": "啟用 FPS 限制器",
-            "enableUpscaling": "",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": "",
-            "missingMsg": ""
-        },
-        "experimental_features": {
-            "enableHelp": "幫助元件",
-            "enableNewDesign": "新設計",
-            "cometSupport": "",
-            "zoomPlatform": ""
-        },
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "understand": "我理解",
-                "title": "",
-                "message": ""
-            },
-            "label": ""
-        },
-        "frameless-window": {
-            "confirmation": {
-                "title": "實驗性功能",
-                "message": ""
-            },
-            "description": ""
-        },
-        "WoW64": "",
-        "download-proton-steam": "",
         "scripts": "",
-        "wineWayland": "",
-        "after-launch-script-path": "",
-        "hdr": "",
+        "select_theme": "選擇主題",
+        "showMetalOverlay": "顯示統計數據疊加",
         "show_valve_proton": {
             "wine_selector_warning": "",
             "confirmation": {
@@ -781,20 +786,17 @@
             "label": "",
             "info_label": ""
         },
-        "dxfpslimit": "",
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
+        "showfps": "顯示幀數（Directx 9，10 和 11）",
+        "start-in-console-mode": "",
+        "start-in-tray": "啟動時最小化",
+        "steamruntime": "使用 Steam 執行環境",
         "verboseLogs": {
             "description": ""
         },
-        "disableUMU": "",
-        "advertiseAvxForRosetta": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "CrossOver 容器",
+        "wineprefix": "WinePrefix 資料夾",
+        "wineversion": "Wine 版本"
     },
     "settings": {
         "battlEyeRuntime": {

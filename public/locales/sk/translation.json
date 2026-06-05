@@ -290,11 +290,35 @@
         "show_updates_only": ""
     },
     "help": {
+        "WoW64": "",
+        "advertiseAvxForRosetta": "",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
+        "analytics": "",
+        "button": {
+            "close": "Zatvoriť Pomocník",
+            "open": "Otvoriť Pomocník"
+        },
+        "content": {
+            "customThemesPath": "Pozrite si našu wiki.",
+            "accessibility": "Zobrazuje nastavenia dostupnosti.",
+            "defaultInstallPath": "Toto je predvolená cesta predvybraná keď inštalujete hry.",
+            "downloadManager": "Zobrazuje aktuálne a minulé stiahnuté súbory.",
+            "login": "Prihlásiť sa do iných obchodov.",
+            "settingsGame": "Zobraziť všetky nastavenia pre hru.",
+            "settingsDefault": "Zobrazuje všetky nastavenia Heroic a predvolené hodnoty pre hry.",
+            "library": "Ukáže všetky vlastnené hry.",
+            "wineManager": "Nainštalujte rôzne verzie Wine, Proton, Crossover, atď."
+        },
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
+        "disablePlaytimeSync": "Zakáže synchronizáciu času hrania s danými servermi obchodu (momentálne je podporovaný iba s GOG)",
+        "disable_logs": "Zapnite toto začiarkavacie políčko, ak chcete zakázať väčšinu zápisov do protokolových súborov (kritické informácie sú vždy protokolované). Pred nahlásením akéhokoľvek problému nezabudnite toto nastavenie VYPNÚŤ.",
+        "download_proton_steam": "",
+        "dxfpslimit": "Sets a frame rate cap for DXVK games",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvkfpslimit": "Sets a frame rate cap for DXVK games",
+        "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -303,8 +327,23 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "gamescope": {
+            "gameHeight": "Rozlíšenie výšky používané hrou. Gamescope predpokladá pomer strán 16:9.",
+            "fpsLimiterNoFocus": "Na koľko by mal Limit FPS obmedziť, ak okno hry nie je vybrané.",
+            "upscaleHeight": "Rozlíšenie výšky používané gamescope. Predpokladá sa pomer strán 16:9.",
+            "additionalOptions": "Dodatočné príznaky príkazového riadku na prechod do gamescope.",
+            "fpsLimiter": "Počet FPS gamescope by mal limitovať na. napr. 60",
+            "gameWidth": "Rozlíšenie šírky používané hrou. Gamescope predpokladá pomer strán 16:9.",
+            "upscaleMethod": "Spôsob upscalingu, Ktorý by mal používať Gamescope.",
+            "upscaleWidth": "Rozlíšenie šírky používané gamescope. Predpokladá sa pomer strán 16:9.",
+            "forceGrabCursor": ""
+        },
         "general": "Synchronizujte s EGL, ak máte funkčnú inštaláciu Epic Games Launcher inde a chcete importovať svoje hry, aby ste sa vyhli ich opätovnému sťahovaniu.",
         "mangohud": "MangoHUD is an overlay that displays and monitors FPS, temperatures, CPU/GPU load and other system resources.",
+        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
+        "nvidiaprime": {
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "Použi ",
             "part5": "Argumenty hry",
@@ -323,12 +362,6 @@
             "part3": "Manuálna synchronizácia: Ak chcete stiahnuť uložené hry uložené v cloude, vyberte možnosť Stiahnuť. Nahrať na nahranie miestnych do cloudu. Vynútiť stiahnutie a Vynútiť odovzdanie bude ignorovať verziu, ktorá je lokálne alebo v cloude.",
             "part4": "Automatická synchronizácia uloženia synchronizuje uložené položky pri každom spustení hry a po dokončení hry."
         },
-        "vkd3d": "VKD3D je prekladová vrstva založená na Vulkan pre hry DirectX 12. Povolenie môže výrazne zlepšiť kompatibilitu. Nemá žiadny vplyv na staršie hry DirectX.",
-        "wine": {
-            "part1": "Heroic hľadá verzie Wine, Proton a CrossOver v nasledujúcich priečinkoch:",
-            "part2": "Pre ostatné miesta použite symbolický odkaz na jeden z týchto priečinkov"
-        },
-        "disable_logs": "Zapnite toto začiarkavacie políčko, ak chcete zakázať väčšinu zápisov do protokolových súborov (kritické informácie sú vždy protokolované). Pred nahlásením akéhokoľvek problému nezabudnite toto nastavenie VYPNÚŤ.",
         "title": {
             "accessibility": "Accessibility",
             "settings": "nastavenie",
@@ -337,45 +370,13 @@
             "library": "Knižnica",
             "login": "Prihlásiť sa"
         },
-        "msync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
-        "content": {
-            "customThemesPath": "Pozrite si našu wiki.",
-            "accessibility": "Zobrazuje nastavenia dostupnosti.",
-            "defaultInstallPath": "Toto je predvolená cesta predvybraná keď inštalujete hry.",
-            "downloadManager": "Zobrazuje aktuálne a minulé stiahnuté súbory.",
-            "login": "Prihlásiť sa do iných obchodov.",
-            "settingsGame": "Zobraziť všetky nastavenia pre hru.",
-            "settingsDefault": "Zobrazuje všetky nastavenia Heroic a predvolené hodnoty pre hry.",
-            "library": "Ukáže všetky vlastnené hry.",
-            "wineManager": "Nainštalujte rôzne verzie Wine, Proton, Crossover, atď."
+        "vkd3d": "VKD3D je prekladová vrstva založená na Vulkan pre hry DirectX 12. Povolenie môže výrazne zlepšiť kompatibilitu. Nemá žiadny vplyv na staršie hry DirectX.",
+        "wine": {
+            "part1": "Heroic hľadá verzie Wine, Proton a CrossOver v nasledujúcich priečinkoch:",
+            "part2": "Pre ostatné miesta použite symbolický odkaz na jeden z týchto priečinkov"
         },
-        "disablePlaytimeSync": "Zakáže synchronizáciu času hrania s danými servermi obchodu (momentálne je podporovaný iba s GOG)",
-        "gamescope": {
-            "gameHeight": "Rozlíšenie výšky používané hrou. Gamescope predpokladá pomer strán 16:9.",
-            "fpsLimiterNoFocus": "Na koľko by mal Limit FPS obmedziť, ak okno hry nie je vybrané.",
-            "upscaleHeight": "Rozlíšenie výšky používané gamescope. Predpokladá sa pomer strán 16:9.",
-            "additionalOptions": "Dodatočné príznaky príkazového riadku na prechod do gamescope.",
-            "fpsLimiter": "Počet FPS gamescope by mal limitovať na. napr. 60",
-            "gameWidth": "Rozlíšenie šírky používané hrou. Gamescope predpokladá pomer strán 16:9.",
-            "upscaleMethod": "Spôsob upscalingu, Ktorý by mal používať Gamescope.",
-            "upscaleWidth": "Rozlíšenie šírky používané gamescope. Predpokladá sa pomer strán 16:9.",
-            "forceGrabCursor": ""
-        },
-        "dxvknvapi": "DXVK-NVAPI je implementácia NVAPI postavená na DXVK a linuxovom natívnom NVAPI, umožňuje použitie DLSS na GPU Nvidia.",
-        "button": {
-            "close": "Zatvoriť Pomocník",
-            "open": "Otvoriť Pomocník"
-        },
-        "dxfpslimit": "Sets a frame rate cap for DXVK games",
-        "download_proton_steam": "",
         "wine-hdr": "",
-        "WoW64": "",
-        "wine-wayland": "",
-        "advertiseAvxForRosetta": "",
-        "analytics": "",
-        "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": ""
     },
     "info": {
         "heroic": {
@@ -589,28 +590,62 @@
     "Recent": "Played Recently",
     "search": "Vyhľadajte hry",
     "setting": {
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "WoW64": "",
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
+        "addgamestoapplications": "Automaticky pridávajte hry do aplikácií",
         "addgamestostartmenu": "Add games to start menu automatically",
         "addgamestosteam": "Add games to Steam automatically",
+        "advertiseAvxForRosetta": "",
+        "after-launch-script-path": "Vyberte skript, ktorý sa má spustiť po ukončení hry",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "message": "Hry s nefunkčným alebo odmietnutým anticheatom sa môžu spustiť, ale funkcie pre viacerých hráčov nebudú fungovať. Ak ich inštalujete s vedomím, nežiadajte o podporu.",
+                "title": "Ste si istý?",
+                "understand": "Ja Rozumiem"
+            },
+            "label": "Povoliť inštaláciu hier s nefunkčným alebo odmietnutým anticheatom"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Ste si istý?"
+            }
+        },
         "alt-gogdl-bin": "Choose an Alternative GOGDL Binary to use (needs restart)",
         "alt-legendary-bin": "Choose an Alternative Legendary Binary (needs restart)to use",
+        "alt-nile-bin": "Vyberte si alternatívny binárny súbor Níl",
+        "analyticsOptIn": "",
+        "autoUpdateGames": "Automaticky aktualizovať hry",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
+        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Automatická synchronizácia Uloží",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
+        "before-launch-script-path": "Vyberte skript, ktorý sa má spustiť pred spustením hry",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
-        "custom_themes_path": "Custom Themes Path",
         "customWineProton": "Custom Wine/Proton Paths",
+        "custom_css": {
+            "warning": ""
+        },
+        "custom_themes_path": "Custom Themes Path",
         "darktray": "Use Dark Tray Icon (needs restart)",
         "default-install-path": "Predvolená inštalačná cesta",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disablePlaytimeSync": "Vypnúť Synchronizáciu Hrania",
+        "disableUMU": "",
         "disable_controller": "Disable Heroic navigation using controller",
+        "disable_gog_presence": "",
+        "disable_logs": "Zakázať denníky",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
+        "download-proton-steam": "",
+        "dxfpslimit": "",
         "dxvkfpslimit": "Limit FPS (DX9, 10 and 11)",
         "egs-sync": "Synchronizácia s nainštalovanými epickými hrami",
+        "enable-quick-sync-menu": "",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -634,10 +669,33 @@
         },
         "esync": "Enable Esync",
         "exit-to-tray": "Výstup do systémovej lišty",
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "experimental_features": {
+            "enableHelp": "Komponent pomoci",
+            "enableNewDesign": "Nový Dizajn",
+            "automaticWinetricksFixes": "Automaticky použiť známe opravy",
+            "cometSupport": "Podpora",
+            "umuSupport": "Použite umu ako Proton runtime",
+            "zoomPlatform": ""
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Táto funkcia je zatiaľ experimentálna. Nahláste akékoľvek problémy, s ktorými sa stretnete, na GitHube.",
+                "title": "Experimentálna funkcia pred vami"
+            },
+            "description": "Použiť bezrámové okno (vyžaduje reštart)"
+        },
         "fsync": "Enable Fsync",
         "gamemode": "Použite GameMode (je potrebné nainštalovať režim Feral Game)",
+        "gamescope": {
+            "missingMsg": "Na PATH sa nám nepodarilo nájsť gamescope. Nainštalujte ho alebo pridajte do PATH.",
+            "enableUpscaling": "Zapne Upscalovanie",
+            "enableLimiter": "Zapnúť Limiter FPS",
+            "enableForceGrabCursor": "",
+            "warningFlatpak": ""
+        },
+        "hdr": "",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
+        "ignoreGameUpdates": "Ignorovať aktualizácie hry",
         "language": "Choose App Language",
         "library_top_option": {
             "disabled": "Disabled",
@@ -707,9 +765,11 @@
         "maxRecentGames": "Recent Games to Show",
         "maxworkers": "Maximálny počet pracovníkov pri sťahovaní",
         "minimize-on-launch": "Minimize Heroic After Game Launch",
+        "msync": "Enable Esync",
+        "no-tray-icon": "",
         "offlinemode": "Spustite hru offline",
-        "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
+        "prefered_language": "Prefered Language (Language Code)",
         "runexe": {
             "message": "Presuňte sem súbory",
             "title": "Select EXE to Run"
@@ -719,59 +779,9 @@
             "placeholder": "Vyberte presný priečinok na uloženie hier",
             "warning": "Please check twice if the path is correct (click to retry)"
         },
+        "scripts": "",
         "select_theme": "Select Theme",
-        "showfps": "Zobraziť FPS (DX9, 10 a 11)",
-        "start-in-tray": "Start Minimized",
-        "steamruntime": "Use Steam Runtime",
-        "winecrossoverbottle": "CrossOver Bottle",
-        "wineprefix": "Priečinok WinePrefix",
-        "wineversion": "Wine Version",
-        "autoUpdateGames": "Automaticky aktualizovať hry",
-        "ignoreGameUpdates": "Ignorovať aktualizácie hry",
-        "disable_logs": "Zakázať denníky",
-        "addgamestoapplications": "Automaticky pridávajte hry do aplikácií",
         "showMetalOverlay": "Zobraziť prekrytie štatistík",
-        "alt-nile-bin": "Vyberte si alternatívny binárny súbor Níl",
-        "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
-        "msync": "Enable Esync",
-        "gamescope": {
-            "missingMsg": "Na PATH sa nám nepodarilo nájsť gamescope. Nainštalujte ho alebo pridajte do PATH.",
-            "enableUpscaling": "Zapne Upscalovanie",
-            "enableLimiter": "Zapnúť Limiter FPS",
-            "enableForceGrabCursor": "",
-            "warningFlatpak": ""
-        },
-        "experimental_features": {
-            "enableHelp": "Komponent pomoci",
-            "enableNewDesign": "Nový Dizajn",
-            "automaticWinetricksFixes": "Automaticky použiť známe opravy",
-            "cometSupport": "Podpora",
-            "umuSupport": "Použite umu ako Proton runtime",
-            "zoomPlatform": ""
-        },
-        "frameless-window": {
-            "confirmation": {
-                "message": "Táto funkcia je zatiaľ experimentálna. Nahláste akékoľvek problémy, s ktorými sa stretnete, na GitHube.",
-                "title": "Experimentálna funkcia pred vami"
-            },
-            "description": "Použiť bezrámové okno (vyžaduje reštart)"
-        },
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "message": "Hry s nefunkčným alebo odmietnutým anticheatom sa môžu spustiť, ale funkcie pre viacerých hráčov nebudú fungovať. Ak ich inštalujete s vedomím, nežiadajte o podporu.",
-                "title": "Ste si istý?",
-                "understand": "Ja Rozumiem"
-            },
-            "label": "Povoliť inštaláciu hier s nefunkčným alebo odmietnutým anticheatom"
-        },
-        "before-launch-script-path": "Vyberte skript, ktorý sa má spustiť pred spustením hry",
-        "disablePlaytimeSync": "Vypnúť Synchronizáciu Hrania",
-        "after-launch-script-path": "Vyberte skript, ktorý sa má spustiť po ukončení hry",
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "Ste si istý?"
-            }
-        },
         "show_valve_proton": {
             "confirmation": {
                 "title": "Ste si istý?",
@@ -783,25 +793,17 @@
             "label": "",
             "info_label": ""
         },
-        "WoW64": "",
-        "download-proton-steam": "",
-        "scripts": "",
-        "wineWayland": "",
-        "hdr": "",
-        "dxfpslimit": "",
-        "enable-quick-sync-menu": "",
-        "no-tray-icon": "",
-        "analyticsOptIn": "",
+        "showfps": "Zobraziť FPS (DX9, 10 a 11)",
+        "start-in-console-mode": "",
+        "start-in-tray": "Start Minimized",
+        "steamruntime": "Use Steam Runtime",
         "verboseLogs": {
             "description": ""
         },
-        "advertiseAvxForRosetta": "",
-        "disableUMU": "",
-        "custom_css": {
-            "warning": ""
-        },
-        "start-in-console-mode": "",
-        "disable_gog_presence": ""
+        "wineWayland": "",
+        "winecrossoverbottle": "CrossOver Bottle",
+        "wineprefix": "Priečinok WinePrefix",
+        "wineversion": "Wine Version"
     },
     "settings": {
         "battlEyeRuntime": {

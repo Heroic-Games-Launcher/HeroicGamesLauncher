@@ -299,11 +299,35 @@
         "show_updates_only": "仅显示有更新的游戏"
     },
     "help": {
+        "WoW64": "Wine WoW64 模式允许在 64 位 Wine 上运行 32 位 Windows 游戏。启用该选项可能会提高性能，但也可能会无法运行较早的 32 位游戏。",
+        "advertiseAvxForRosetta": "在 Apple Silicon Mac 机器上通过 Rosetta 运行 Windows 游戏时启用 AVX 指令集支持。这对于一些需要 AVX 支持的游戏如《死亡搁浅》等来说可能是必需的。",
         "amdfsr": "AMD 的 FSR 通过在全屏模式下提高较低分辨率来提高帧率。图像质量从 5 提高到 1，但代价是性能稍有下降。启用可能会提高性能。",
+        "analytics": "允许 Heroic 收集 100% 匿名的使用数据帮助改进应用。需要重启才能生效。",
+        "button": {
+            "open": "打开帮助",
+            "close": "关闭帮助"
+        },
+        "content": {
+            "defaultInstallPath": "这是安装游戏时预先选择的默认路径。",
+            "settingsDefault": "显示 Heroic 的所有设置及游戏的默认值。",
+            "settingsGame": "显示游戏的全部设置。",
+            "downloadManager": "显示当前和过往下载。",
+            "wineManager": "安装不同版本的 Wine、Proton、Crossover 等。",
+            "library": "显示拥有的全部游戏。",
+            "customThemesPath": "查看我们的维基。",
+            "accessibility": "显示无障碍设置。",
+            "login": "登录到不同商店。"
+        },
         "custom_themes_path": "不要使用来自不受信任来源的 CSS 文件。有疑问时，请在我们的 Discord 频道请求审核。",
         "custom_themes_wiki": "查看 Wiki 了解添加定制主题的更多详情。单击此处。",
+        "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）",
+        "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
+        "download_proton_steam": "启用后，GE-Proton 将被直接下载到 Steam 兼容性工具目录而非默认的 Heroic 路径。它会使用上方 “默认 Steam 路径”设置中设定的 Steam 路径。",
+        "dxfpslimit": "设置 DirectX 游戏（9-12）的帧率上限",
         "dxvk": "DXVK 是一个基于 Vulkan 的转译层，用于 DirectX 9、10和11游戏。启用也许会提高兼容性。但可能会导致问题，特别是对老的 DirectX 游戏。",
         "dxvkfpslimit": "设置 DXVK 游戏帧率上限",
+        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync 的目标是在 CPU 消耗很大的游戏中减少 wineserver 的开销。启用可能会提高性能。",
         "fsync": "Fsync 的目标是在 CPU 开销很大的游戏中减少 wineserver 的开销。启用可能会提高受支持的 Linux 内核的性能。",
         "game_language": {
@@ -312,8 +336,23 @@
             "valid_codes": "有效语言代码取决于游戏。"
         },
         "gamemode": "运行游戏时，Feral GameMode 应用自动和临时的系统调整。启用可能会提高性能。",
+        "gamescope": {
+            "fpsLimiterNoFocus": "如未聚焦游戏，Gamescope 每秒应限制的帧率。",
+            "upscaleMethod": "Gamescope 应使用的分辨率提升方法。",
+            "gameWidth": "游戏所用的宽度分辨率。Gamescope 假定 16:9 长宽比。",
+            "upscaleWidth": "Gamescope 所用的宽度分辨率。假定 16:9 的长宽比。",
+            "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
+            "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
+            "fpsLimiter": "Gamescope 帧数限制，比如 60",
+            "additionalOptions": "要传递给 gamescope 的额外命令行标记。",
+            "forceGrabCursor": "总是使用相对鼠标模式而不是取决于指针可见性的翻转。（当程序一直失去焦点时有用）"
+        },
         "general": "与 Epic Games 启动器同步，如果你在其他地方安装了Epic Games 启动器，而且想要导入你的游戏，以免再次下载它们。",
         "mangohud": "MangoHUD 是一个覆盖，显示和监控 FPS、温度、CPU/GPU 负载和其他系统资源。",
+        "msync": "Msync 旨在减少 wineserver 在 CPU 消耗巨大的游戏中的开销。开启它可能会改善受支持的 Linux 内核上的性能。",
+        "nvidiaprime": {
+            "details": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)"
+        },
         "other": {
             "part4": "使用 ",
             "part5": "游戏参数",
@@ -332,36 +371,6 @@
             "part3": "手动同步：选择下载以下载存储在云端的存档。选择上传将会把本地存档上传到云端。强制下载将会忽略本地版本，强制上传将会忽略云端版本。",
             "part4": "自动同步将在你每次开始游戏时和结束游戏后同步存档。"
         },
-        "vkd3d": "VKD3D 是一个基于 Vulkan 的转换层，用于 DirectX 12 游戏。启用可能会显著提高兼容性。对老的 DirectX 游戏没有效果。它需要 DXVK。",
-        "wine": {
-            "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
-            "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
-        },
-        "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
-        "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
-        "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）",
-        "gamescope": {
-            "fpsLimiterNoFocus": "如未聚焦游戏，Gamescope 每秒应限制的帧率。",
-            "upscaleMethod": "Gamescope 应使用的分辨率提升方法。",
-            "gameWidth": "游戏所用的宽度分辨率。Gamescope 假定 16:9 长宽比。",
-            "upscaleWidth": "Gamescope 所用的宽度分辨率。假定 16:9 的长宽比。",
-            "gameHeight": "游戏所用的高度分辨率。Gamescope 假定 16:9 的长宽比。",
-            "upscaleHeight": "Gamescope 所用的高度分辨率。假定 16:9 长宽比。",
-            "fpsLimiter": "Gamescope 帧数限制，比如 60",
-            "additionalOptions": "要传递给 gamescope 的额外命令行标记。",
-            "forceGrabCursor": "总是使用相对鼠标模式而不是取决于指针可见性的翻转。（当程序一直失去焦点时有用）"
-        },
-        "content": {
-            "defaultInstallPath": "这是安装游戏时预先选择的默认路径。",
-            "settingsDefault": "显示 Heroic 的所有设置及游戏的默认值。",
-            "settingsGame": "显示游戏的全部设置。",
-            "downloadManager": "显示当前和过往下载。",
-            "wineManager": "安装不同版本的 Wine、Proton、Crossover 等。",
-            "library": "显示拥有的全部游戏。",
-            "customThemesPath": "查看我们的维基。",
-            "accessibility": "显示无障碍设置。",
-            "login": "登录到不同商店。"
-        },
         "title": {
             "accessibility": "无障碍",
             "login": "登录",
@@ -370,21 +379,13 @@
             "wineManager": "Wine 管理器",
             "library": "库"
         },
-        "button": {
-            "open": "打开帮助",
-            "close": "关闭帮助"
+        "vkd3d": "VKD3D 是一个基于 Vulkan 的转换层，用于 DirectX 12 游戏。启用可能会显著提高兼容性。对老的 DirectX 游戏没有效果。它需要 DXVK。",
+        "wine": {
+            "part1": "Heroic 启动器会在以下文件夹中查找现有的 Wine/Proton/CrossOver：",
+            "part2": "如果在其它位置，请使用软链接连接到这些中的一个文件夹"
         },
-        "msync": "Msync 旨在减少 wineserver 在 CPU 消耗巨大的游戏中的开销。开启它可能会改善受支持的 Linux 内核上的性能。",
-        "download_proton_steam": "启用后，GE-Proton 将被直接下载到 Steam 兼容性工具目录而非默认的 Heroic 路径。它会使用上方 “默认 Steam 路径”设置中设定的 Steam 路径。",
-        "dxfpslimit": "设置 DirectX 游戏（9-12）的帧率上限",
-        "advertiseAvxForRosetta": "在 Apple Silicon Mac 机器上通过 Rosetta 运行 Windows 游戏时启用 AVX 指令集支持。这对于一些需要 AVX 支持的游戏如《死亡搁浅》等来说可能是必需的。",
         "wine-hdr": "HDR 提供更明亮的高潮和更深的对比增强色彩。要让 HDR 工作，显示器和游戏都必须支持 HDR。",
-        "wine-wayland": "Wine-Wayland 实验性驱动允许游戏在 Wayland 显示协议下原生运行。启用可能破坏一些游戏。",
-        "analytics": "允许 Heroic 收集 100% 匿名的使用数据帮助改进应用。需要重启才能生效。",
-        "WoW64": "Wine WoW64 模式允许在 64 位 Wine 上运行 32 位 Windows 游戏。启用该选项可能会提高性能，但也可能会无法运行较早的 32 位游戏。",
-        "nvidiaprime": {
-            "details": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)"
-        }
+        "wine-wayland": "Wine-Wayland 实验性驱动允许游戏在 Wayland 显示协议下原生运行。启用可能破坏一些游戏。"
     },
     "info": {
         "heroic": {
@@ -598,28 +599,68 @@
     "Recent": "最近玩过",
     "search": "搜索游戏",
     "setting": {
+        "FsrSharpnessStrenght": "FSR 锐化强度",
+        "WoW64": "启用 WoW64（实验性）",
         "adddesktopshortcuts": "自动添加桌面快捷方式",
+        "addgamestoapplications": "自动将游戏添加到应用程序",
         "addgamestostartmenu": "自动添加到启动菜单快捷方式",
         "addgamestosteam": "自动添加游戏到 Steam",
+        "advertiseAvxForRosetta": "通告 Rosetta 的 AVX 支持",
+        "after-launch-script-path": "选择在游戏退出后要运行的脚本",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "你确定吗？",
+                "understand": "我理解",
+                "message": "反作弊损坏或被拒绝的游戏可以运行，但多玩家功能不会正常运作。如果你知晓这一点但仍安装了这样的游戏，请不要寻求支持。"
+            },
+            "label": "允许安装反作弊损坏或被拒绝的游戏"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "你确定吗？",
+                "dont_show": "不显示它们",
+                "message": "我们推荐 GE-Proton 和 Heroic 启动器一起使用，因为非 GE-Proton 构建缺少 winetricks 和 proton 修复。如果你愿意还是可以使用它们。",
+                "show": "了解，显示它们"
+            },
+            "label": "允许使用非 GE-Proton 构建运行游戏",
+            "wine_selector_warning": "非 GE 版本的 Proton 默认被忽略，在高级全局设置中启用它们",
+            "info_label": "忽略了非 GE Proton 版本"
+        },
         "alt-gogdl-bin": "选择要使用的备选 GOGDL 二进制文件",
         "alt-legendary-bin": "选择备选的 Legendary 二进制文件",
+        "alt-nile-bin": "选择替代的 Nile 二进制文件",
+        "analyticsOptIn": "发送匿名数据帮助 Heroic 开发",
+        "autoUpdateGames": "自动更新游戏",
         "autodxvk": "在前置自动安装并更新 DXVK",
+        "autodxvknvapi": "在前置自动安装并更新 DXVK-NVAPI",
         "autosync": "自动同步存档",
         "autovkd3d": "自动在前置中安装/更新 VKD3D",
+        "before-launch-script-path": "选择游戏启动前要运行的脚本",
         "change-target-exe": "选择要运行的替代 EXE",
         "checkForUpdatesOnStartup": "启动时检查 Heroic 更新",
         "crossover-version": "Crossover/Wine 版本",
-        "custom_themes_path": "自定义主题路径",
         "customWineProton": "自定义 Wine/Proton 路径",
+        "custom_css": {
+            "warning": "警告：这应用到整个前端，意味着错误样式可以造成 Heroic 不稳定。如果有需要，可以手动在 `~/.config/heroic/config.json`文件中更改设置。不要从你不信任的来源复制样式。"
+        },
+        "custom_themes_path": "自定义主题路径",
         "darktray": "使用暗色托盘图标",
         "default-install-path": "默认安装路径",
         "default-steam-path": "默认 Steam 路径",
         "defaultWinePrefix": "为新的 WinePrefix设置文件夹",
+        "disablePlaytimeSync": "停用游戏时间同步",
+        "disableUMU": "禁用 umu",
         "disable_controller": "使用控制器禁止 Heroic 导航",
+        "disable_gog_presence": "禁用 GOG Presence 更新",
+        "disable_logs": "禁用日志",
         "discordRPC": "启用 Discord 的 Rich Presence（活动状态）",
         "download-no-https": "不使用 HTTPS 下载游戏 (对 LanCache 等 CDN 有用)",
+        "download-proton-steam": "下载 GE-Proton 到 Steam 目录",
+        "dxfpslimit": "限制 DirectX 游戏的每秒帧率",
         "dxvkfpslimit": "限制 FPS (DX9、10 和 11)",
         "egs-sync": "与已安装的 Epic 游戏同步",
+        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "启用 FSR（需要支持的WINE版本）",
         "eosOverlay": {
             "cancelInstall": "取消",
@@ -643,10 +684,35 @@
         },
         "esync": "启用 Esync",
         "exit-to-tray": "退出到系统托盘",
-        "FsrSharpnessStrenght": "FSR 锐化强度",
+        "experimental_features": {
+            "enableNewShinyFeature": "新功能",
+            "enableNewDesign": "新设计",
+            "enableHelp": "帮助组件",
+            "automaticWinetricksFixes": "自动应用已知的修复",
+            "umuSupport": "将 umu 用作 Proton 运行时",
+            "cometSupport": "Comet 支持",
+            "zoomPlatform": "Zoom 平台支持（仅 Linux）"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "此功能仍是实验性的。请在 GitHub 上报告任何你在使用该功能时遇到的问题。",
+                "title": "实验性功能"
+            },
+            "description": "使用无框架窗口（需要重启）"
+        },
         "fsync": "启用 Fsync",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
+        "gamescope": {
+            "enableLimiter": "启用 FPS 限制程序",
+            "enableUpscaling": "启用分辨率提升",
+            "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
+            "enableForceGrabCursor": "启用强制抓取指针",
+            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
+            "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
+        },
+        "hdr": "启用 HDR",
         "hideChangelogsOnStartup": "启动程序时不显示变更日志",
+        "ignoreGameUpdates": "忽略游戏更新",
         "language": "选择应用语言",
         "library_top_option": {
             "disabled": "已禁用",
@@ -716,9 +782,11 @@
         "maxRecentGames": "要显示的最近玩过的游戏",
         "maxworkers": "下载时的最大线程数量",
         "minimize-on-launch": "游戏启动后最小化 Heroic",
+        "msync": "启用 Msync",
+        "no-tray-icon": "隐藏系统托盘图标（需要重启）",
         "offlinemode": "离线运行游戏",
-        "prefered_language": "首选语言 (语言代码)",
         "preferSystemLibs": "首选系统库",
+        "prefered_language": "首选语言 (语言代码)",
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"
@@ -728,81 +796,9 @@
             "placeholder": "选择存档的保存位置",
             "warning": "请确保路径正确无误（单击重试）"
         },
+        "scripts": "脚本：",
         "select_theme": "选择主题",
-        "showfps": "显示帧率（DX 9、10 和 11）",
-        "start-in-tray": "启动时最小化",
-        "steamruntime": "使用 Steam 运行时",
-        "winecrossoverbottle": "CrossOver 容器",
-        "wineprefix": "WinePrefix文件夹",
-        "wineversion": "Wine 版本",
-        "autoUpdateGames": "自动更新游戏",
-        "ignoreGameUpdates": "忽略游戏更新",
-        "disable_logs": "禁用日志",
-        "addgamestoapplications": "自动将游戏添加到应用程序",
         "showMetalOverlay": "显示统计数据叠加",
-        "alt-nile-bin": "选择替代的 Nile 二进制文件",
-        "autodxvknvapi": "在前置自动安装并更新 DXVK-NVAPI",
-        "experimental_features": {
-            "enableNewShinyFeature": "新功能",
-            "enableNewDesign": "新设计",
-            "enableHelp": "帮助组件",
-            "automaticWinetricksFixes": "自动应用已知的修复",
-            "umuSupport": "将 umu 用作 Proton 运行时",
-            "cometSupport": "Comet 支持",
-            "zoomPlatform": "Zoom 平台支持（仅 Linux）"
-        },
-        "disablePlaytimeSync": "停用游戏时间同步",
-        "gamescope": {
-            "enableLimiter": "启用 FPS 限制程序",
-            "enableUpscaling": "启用分辨率提升",
-            "missingMsg": "我们在 PATH 上找不到 Gamescope。请先安装它或将其添加到 PATH。",
-            "enableForceGrabCursor": "启用强制抓取指针",
-            "missingMsgFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 25.08 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic.",
-            "warningFlatpak": "我们找不到兼容的 Gamescope 版本。安装带 {{runtimeVersion}} 版 runtime 的 Gamescope flatpak 包 ，然后重启 Heroic。"
-        },
-        "frameless-window": {
-            "confirmation": {
-                "message": "此功能仍是实验性的。请在 GitHub 上报告任何你在使用该功能时遇到的问题。",
-                "title": "实验性功能"
-            },
-            "description": "使用无框架窗口（需要重启）"
-        },
-        "msync": "启用 Msync",
-        "after-launch-script-path": "选择在游戏退出后要运行的脚本",
-        "before-launch-script-path": "选择游戏启动前要运行的脚本",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "title": "你确定吗？",
-                "understand": "我理解",
-                "message": "反作弊损坏或被拒绝的游戏可以运行，但多玩家功能不会正常运作。如果你知晓这一点但仍安装了这样的游戏，请不要寻求支持。"
-            },
-            "label": "允许安装反作弊损坏或被拒绝的游戏"
-        },
-        "disableUMU": "禁用 umu",
-        "custom_css": {
-            "warning": "警告：这应用到整个前端，意味着错误样式可以造成 Heroic 不稳定。如果有需要，可以手动在 `~/.config/heroic/config.json`文件中更改设置。不要从你不信任的来源复制样式。"
-        },
-        "verboseLogs": {
-            "description": "启用详细记录"
-        },
-        "download-proton-steam": "下载 GE-Proton 到 Steam 目录",
-        "dxfpslimit": "限制 DirectX 游戏的每秒帧率",
-        "advertiseAvxForRosetta": "通告 Rosetta 的 AVX 支持",
-        "hdr": "启用 HDR",
-        "wineWayland": "启用 Wine-Wayland (实验性）（Wine 版本需要支持它）",
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "你确定吗？",
-                "dont_show": "不显示它们",
-                "message": "我们推荐 GE-Proton 和 Heroic 启动器一起使用，因为非 GE-Proton 构建缺少 winetricks 和 proton 修复。如果你愿意还是可以使用它们。",
-                "show": "了解，显示它们"
-            },
-            "label": "允许使用非 GE-Proton 构建运行游戏",
-            "wine_selector_warning": "非 GE 版本的 Proton 默认被忽略，在高级全局设置中启用它们",
-            "info_label": "忽略了非 GE Proton 版本"
-        },
-        "no-tray-icon": "隐藏系统托盘图标（需要重启）",
-        "analyticsOptIn": "发送匿名数据帮助 Heroic 开发",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "不要显示它们",
@@ -814,11 +810,17 @@
             "label": "允许使用 Valve Proton 构建运行游戏",
             "wine_selector_warning": "默认忽略 Valve 版本的 Proton，可在高级全局设置中启用它们"
         },
-        "WoW64": "启用 WoW64（实验性）",
-        "scripts": "脚本：",
-        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单",
-        "disable_gog_presence": "禁用 GOG Presence 更新",
-        "start-in-console-mode": ""
+        "showfps": "显示帧率（DX 9、10 和 11）",
+        "start-in-console-mode": "",
+        "start-in-tray": "启动时最小化",
+        "steamruntime": "使用 Steam 运行时",
+        "verboseLogs": {
+            "description": "启用详细记录"
+        },
+        "wineWayland": "启用 Wine-Wayland (实验性）（Wine 版本需要支持它）",
+        "winecrossoverbottle": "CrossOver 容器",
+        "wineprefix": "WinePrefix文件夹",
+        "wineversion": "Wine 版本"
     },
     "settings": {
         "battlEyeRuntime": {

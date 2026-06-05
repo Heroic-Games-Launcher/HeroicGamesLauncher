@@ -299,11 +299,35 @@
         "show_updates_only": "Mostra només els jocs amb actualitzacions"
     },
     "help": {
+        "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics.",
+        "advertiseAvxForRosetta": "Activa la compatibilitat amb el conjunt d'instruccions AVX en executar jocs de Windows mitjançant Rosetta als Mac amb Apple Silicon. Això podria ser un requisit per a alguns jocs, com ara el Death Stranding, que necessita compatibilitat amb AVX.",
         "amdfsr": "L'FSR d'AMD ajuda a augmentar els fotogrames per segon emprant resolucions més baixes en el mode de pantalla completa i després escalant-les. La qualitat d'imatge augmenta de 5 a 1 a costa d'un petit increment de rendiment. Si s'activa, podria millorar el rendiment.",
+        "analytics": "Permet a l'Heroic recopilar dades d'ús 100% anònimes per a ajudar-nos a millorar l'aplicació. Cal que reiniciïs per a aplicar-ho.",
+        "button": {
+            "close": "Tanca l'ajuda",
+            "open": "Obre l'ajuda"
+        },
+        "content": {
+            "settingsDefault": "Mostra tots els paràmetres de l'Heroic i els predefinits dels jocs.",
+            "settingsGame": "Mostra tots els paràmetres d'un joc.",
+            "accessibility": "Mostra la configuració d'accessibilitat.",
+            "customThemesPath": "Consulta la nostra wiki.",
+            "defaultInstallPath": "Aquesta és la ruta predeterminada per a instal·lar jocs.",
+            "downloadManager": "Mostra les baixades actuals i antigues.",
+            "wineManager": "Instal·la diverses versions del Wine, Proton, Crossover, etc.",
+            "library": "Mostra tots els jocs que tens.",
+            "login": "Inicia la sessió en diverses botigues."
+        },
         "custom_themes_path": "No facis servir fitxers CSS de fonts poc fiables. Si tens cap dubte, demana en el nostre canal de Discord que el revisin.",
         "custom_themes_wiki": "Llegeix la Wiki per a més detalls sobre com afegir temes personalitzats. Fes clic aquí.",
+        "disablePlaytimeSync": "Desactiva la sincronització del temps de joc amb els servidors d'una botiga determinada. Actualment, només ho suporta el GOG.",
+        "disable_logs": "Activa aquesta opció per a desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegura't de desactivar-la abans d'informar de qualsevol problema.",
+        "download_proton_steam": "En activar-ho, el GE-Proton es baixarà directament a la carpeta d'eines de compatibilitat del Steam en compte de la ruta predefinida de l'Heroic. S'utilitzarà la ruta del Steam definida al paràmetre «Ruta predefinida del Steam» de sobre.",
+        "dxfpslimit": "Estableix un límit als FPS per als jocs que utilitzin DirectX (9-12)",
         "dxvk": "DXVK és una capa de traducció basada en Vulkan per a jocs que emprin DirectX 9, 10 i 11. Si s'activa, podria millorar la compatibilitat. Pot causar problemes, especialment per als jocs que facin servir versions del DirectX més antigues.",
         "dxvkfpslimit": "Estableix un límit als FPS per als jocs DXVK",
+        "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment.",
         "fsync": "Fsync té com a objectiu reduir sobrecàrregues del Wineserver en jocs intensius en CPU. Si s'activa, podria millorar el rendiment en versions de Linux compatibles.",
         "game_language": {
@@ -312,8 +336,24 @@
             "valid_codes": "Els codis de llengua vàlids depenen del joc."
         },
         "gamemode": "Feral GameMode aplica ajustaments automàtics i temporals al sistema quan s'executen jocs. Si s'activa, podria millorar el rendiment.",
+        "gamescope": {
+            "fpsLimiter": "El nombre de FPS límit del gamescope, com ara 60",
+            "fpsLimiterNoFocus": "El límit de FPS que ha d'aplicar gamescope si el joc no està en primer pla.",
+            "upscaleMethod": "El mètode d'escalatge que hauria de fer servir el gamescope.",
+            "gameWidth": "La resolució horitzontal del joc. El gamescope assumeix una relació 16:9.",
+            "upscaleWidth": "La resolució horitzontal que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
+            "gameHeight": "La resolució vertical del joc. El gamescope assumeix una relació 16:9.",
+            "upscaleHeight": "La resolució vertical que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
+            "additionalOptions": "Opcions d'ordre de comandes addicionals per al gamescope",
+            "forceGrabCursor": "Fes servir sempre el mode de ratolí relatiu en lloc del gir dependent de la visibilitat del cursor. (Útil quan les aplicacions perden el focus)"
+        },
         "general": "Sincronitza amb l'EGL si ja tens instal·lat el llançador de jocs Heroic en qualsevol altre lloc i vols importar els jocs sense haver de baixar-los de nou.",
         "mangohud": "MangoHUD és una capa addicional que mostra i supervisa els FPS, la temperatura, la càrrega de CPU/GPU i altres recursos del sistema.",
+        "msync": "L'Msync vol reduir la sobrecàrrega del wineserver en jocs intensius de CPU. Si s'habilita, pot millorar el rendiment en nuclis Linux compatibles.",
+        "nvidiaprime": {
+            "details": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes amb diverses GPU. Només cal en portàtils o ordinadors que tinguin una GPU «headless» per al renderitzat (NVIDIA Optimus, AMD Crossfire)",
+            "link": "Obtén més informació en la nostra wiki"
+        },
         "other": {
             "part4": "Utilitza els ",
             "part5": "arguments del joc",
@@ -332,25 +372,6 @@
             "part3": "Sincronització manual: Tria «Baixa» per a baixar les partides desades al núvol. «Puja» per a pujar les dades locals al núvol. «Força la baixada» i «Força la pujada» ignorarà la versió local o del núvol.",
             "part4": "«Sincronitza les partides desades automàticament» sincronitzarà les dades cada vegada que iniciïs un joc i quan acabis de jugar."
         },
-        "vkd3d": "VKD3D és una capa de traducció basada en Vulkan per a jocs que fan servir DirectX 12. Si s'activa, podria millorar significativament la compatibilitat. No té cap efecte en jocs que emprin versions DirectX més antigues, ja que requereixen DXVK.",
-        "wine": {
-            "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
-            "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
-        },
-        "disable_logs": "Activa aquesta opció per a desactivar la majoria de les escriptures als fitxers de registre (la informació crítica sempre es registra). Assegura't de desactivar-la abans d'informar de qualsevol problema.",
-        "dxvknvapi": "DXVK-NVAPI és una implementació de NVAPI construïda sobre DXVK i Linux natiu NVAPI. Permet l'ús de DLSS en les GPU de Nvidia.",
-        "disablePlaytimeSync": "Desactiva la sincronització del temps de joc amb els servidors d'una botiga determinada. Actualment, només ho suporta el GOG.",
-        "gamescope": {
-            "fpsLimiter": "El nombre de FPS límit del gamescope, com ara 60",
-            "fpsLimiterNoFocus": "El límit de FPS que ha d'aplicar gamescope si el joc no està en primer pla.",
-            "upscaleMethod": "El mètode d'escalatge que hauria de fer servir el gamescope.",
-            "gameWidth": "La resolució horitzontal del joc. El gamescope assumeix una relació 16:9.",
-            "upscaleWidth": "La resolució horitzontal que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
-            "gameHeight": "La resolució vertical del joc. El gamescope assumeix una relació 16:9.",
-            "upscaleHeight": "La resolució vertical que farà servir el gamescope. S'assumeix una relació d'aspecte 16:9.",
-            "additionalOptions": "Opcions d'ordre de comandes addicionals per al gamescope",
-            "forceGrabCursor": "Fes servir sempre el mode de ratolí relatiu en lloc del gir dependent de la visibilitat del cursor. (Útil quan les aplicacions perden el focus)"
-        },
         "title": {
             "accessibility": "Accessibilitat",
             "login": "Inici de sessió",
@@ -359,33 +380,13 @@
             "wineManager": "Gestor del Wine",
             "library": "Biblioteca"
         },
-        "button": {
-            "close": "Tanca l'ajuda",
-            "open": "Obre l'ajuda"
+        "vkd3d": "VKD3D és una capa de traducció basada en Vulkan per a jocs que fan servir DirectX 12. Si s'activa, podria millorar significativament la compatibilitat. No té cap efecte en jocs que emprin versions DirectX més antigues, ja que requereixen DXVK.",
+        "wine": {
+            "part1": "L'Heroic cerca les versions del Wine, Proton i CrossOver als directoris següents:",
+            "part2": "Per a altres llocs, utilitza un enllaç simbòlic (symlink) a algun d'aquests directoris"
         },
-        "content": {
-            "settingsDefault": "Mostra tots els paràmetres de l'Heroic i els predefinits dels jocs.",
-            "settingsGame": "Mostra tots els paràmetres d'un joc.",
-            "accessibility": "Mostra la configuració d'accessibilitat.",
-            "customThemesPath": "Consulta la nostra wiki.",
-            "defaultInstallPath": "Aquesta és la ruta predeterminada per a instal·lar jocs.",
-            "downloadManager": "Mostra les baixades actuals i antigues.",
-            "wineManager": "Instal·la diverses versions del Wine, Proton, Crossover, etc.",
-            "library": "Mostra tots els jocs que tens.",
-            "login": "Inicia la sessió en diverses botigues."
-        },
-        "msync": "L'Msync vol reduir la sobrecàrrega del wineserver en jocs intensius de CPU. Si s'habilita, pot millorar el rendiment en nuclis Linux compatibles.",
-        "dxfpslimit": "Estableix un límit als FPS per als jocs que utilitzin DirectX (9-12)",
-        "download_proton_steam": "En activar-ho, el GE-Proton es baixarà directament a la carpeta d'eines de compatibilitat del Steam en compte de la ruta predefinida de l'Heroic. S'utilitzarà la ruta del Steam definida al paràmetre «Ruta predefinida del Steam» de sobre.",
-        "advertiseAvxForRosetta": "Activa la compatibilitat amb el conjunt d'instruccions AVX en executar jocs de Windows mitjançant Rosetta als Mac amb Apple Silicon. Això podria ser un requisit per a alguns jocs, com ara el Death Stranding, que necessita compatibilitat amb AVX.",
-        "analytics": "Permet a l'Heroic recopilar dades d'ús 100% anònimes per a ajudar-nos a millorar l'aplicació. Cal que reiniciïs per a aplicar-ho.",
         "wine-hdr": "L'HDR millora els colors proporcionant punts de llum més brillants i contrastos més profunds. Perquè l'HDR funcioni, cal que tant el joc com la pantalla hi siguin compatibles.",
-        "wine-wayland": "El controlador experimental Wine-Wayland permet als jocs executar-se de manera nativa sota el protocol de visualització Wayland. Activar-ho podria trencar alguns jocs.",
-        "WoW64": "El mode Wine WoW64 permet que els jocs de Windows a 32 bits s'executin amb el Wine de 64 bits. Activar-ho podria millorar el rendiment, però també podria trencar alguns jocs de 32 bits més antics.",
-        "nvidiaprime": {
-            "details": "Fa servir la targeta gràfica dedicada per a renderitzar el joc en sistemes amb diverses GPU. Només cal en portàtils o ordinadors que tinguin una GPU «headless» per al renderitzat (NVIDIA Optimus, AMD Crossfire)",
-            "link": "Obtén més informació en la nostra wiki"
-        }
+        "wine-wayland": "El controlador experimental Wine-Wayland permet als jocs executar-se de manera nativa sota el protocol de visualització Wayland. Activar-ho podria trencar alguns jocs."
     },
     "info": {
         "heroic": {
@@ -599,28 +600,62 @@
     "Recent": "Jugats fa poc",
     "search": "Cerca jocs",
     "setting": {
+        "FsrSharpnessStrenght": "Força de la nitidesa de l'FSR",
+        "WoW64": "Activa el WoW64 (Experimental)",
         "adddesktopshortcuts": "Afegeix les dreceres a l'escriptori automàticament",
+        "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament",
         "addgamestostartmenu": "Afegeix els jocs al menú d'inici automàticament",
         "addgamestosteam": "Afegeix els jocs al Steam automàticament",
+        "advertiseAvxForRosetta": "Promociona l'AVX per a Rosetta",
+        "after-launch-script-path": "Selecciona un script que s'executarà després de sortir del joc",
+        "allow_installation_broken_anticheat": {
+            "confirmation": {
+                "title": "Estàs segur?",
+                "understand": "Sí, ho entenc.",
+                "message": "Els jocs amb suport antitrampes trencat o denegat poden funcionar, però les característiques multijugador no funcionaran. No demanis suport si les instal·les en aquest cas."
+            },
+            "label": "Permet instal·lar jocs amb suport antitrampes trencat o denegat"
+        },
+        "allow_non_ge_proton": {
+            "confirmation": {
+                "title": "Estàs segur?"
+            }
+        },
         "alt-gogdl-bin": "Tria un binari alternatiu del GOGDL",
         "alt-legendary-bin": "Tria un binari alternatiu del Legendary",
+        "alt-nile-bin": "Tria un binari alternatiu del Nile",
+        "analyticsOptIn": "Envia dades anònimes per a ajudar al desenvolupament de l'Heroic",
+        "autoUpdateGames": "Actualitza els jocs automàticament",
         "autodxvk": "Instal·la/Actualitza el DXVK al prefix automàticament",
+        "autodxvknvapi": "Instal·la/Actualitza el DXVK-NVAPI al prefix automàticament",
         "autosync": "Sincronitza automàticament les partides desades",
         "autovkd3d": "Instal·la/Actualitza el VKD3D al prefix automàticament",
+        "before-launch-script-path": "Selecciona un script que s'executarà abans que s'iniciï el joc",
         "change-target-exe": "Selecciona un EXE alternatiu a executar",
         "checkForUpdatesOnStartup": "Comprova si hi ha actualitzacions de l'Heroic a l'inici",
         "crossover-version": "Versió híbrida/Wine",
-        "custom_themes_path": "Ruta dels temes personalitzats",
         "customWineProton": "Rutes personalitzades del Wine i del Proton",
+        "custom_css": {
+            "warning": "Avís: s'aplica a tota la interfície. Això significa que amb un estil erroni pots inutilitzar l'Heroic. Si ho necessites, pots canviar manualment l'opció des de `~/.config/heroic/config.json`. No copiïs estils d'orígens desconeguts o de poca confiança."
+        },
+        "custom_themes_path": "Ruta dels temes personalitzats",
         "darktray": "Utilitza la icona fosca a la safata",
         "default-install-path": "Ruta d'instal·lació predefinida",
         "default-steam-path": "Ruta predefinida del Steam",
         "defaultWinePrefix": "Directori de prefixos Wine nous",
+        "disablePlaytimeSync": "Desactiva la sincronització del temps de reproducció",
+        "disableUMU": "Desactiva l'umu",
         "disable_controller": "Desactiva la navegació de l'Heroic amb el controlador",
+        "disable_gog_presence": "Desactiva les actualitzacions del GOG Presence",
+        "disable_logs": "Desactiva els registres",
         "discordRPC": "Activa la Discord Rich Presence",
         "download-no-https": "Baixa jocs sense HTTPS (útil per a CDNs com ara LanCache)",
+        "download-proton-steam": "Baixa el GE-Proton a la carpeta del Steam",
+        "dxfpslimit": "Limita els FPS dels jocs per DirectX",
         "dxvkfpslimit": "Límit de FPS (DX9, 10 i 11)",
         "egs-sync": "Sincronitza amb l'Epic Games instal·lat",
+        "enable-quick-sync-menu": "Activa el menú de sincronització de desades ràpides en la pàgina del joc",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Activa el FSR Hack (cal que la versió del Wine en sigui compatible)",
         "eosOverlay": {
             "cancelInstall": "Cancel·la",
@@ -644,10 +679,34 @@
         },
         "esync": "Activa l'Esync",
         "exit-to-tray": "Surt a la safata del sistema",
-        "FsrSharpnessStrenght": "Força de la nitidesa de l'FSR",
+        "experimental_features": {
+            "enableNewDesign": "Disseny nou",
+            "automaticWinetricksFixes": "Aplica les correccions conegudes de manera automàtica",
+            "enableHelp": "Component d'ajuda",
+            "cometSupport": "Suport Comet",
+            "umuSupport": "Fes servir umu com a execució Proton",
+            "zoomPlatform": "Compatibilitat amb Zoom Platform (només Linux)"
+        },
+        "frameless-window": {
+            "confirmation": {
+                "message": "Aquesta funció és experimental. Informa de qualsevol problema que hi trobis a través de GitHub.",
+                "title": "Funció experimental avançada"
+            },
+            "description": "Mostra la finestra sense marc (requereix reiniciar)"
+        },
         "fsync": "Activa l'Fsync",
         "gamemode": "Utilitza el GameMode (cal que el Feral Game Mode estigui instal·lat)",
+        "gamescope": {
+            "enableLimiter": "Activa el limitador de FPS",
+            "enableUpscaling": "Activa l'escalatge",
+            "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
+            "enableForceGrabCursor": "Activa la captura forçada de cursor",
+            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 25.08 i reinicia l'Heroic.",
+            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb l'entorn d'execució {{runtimeVersion}} i reinicia l'Heroic."
+        },
+        "hdr": "Activa l'HDR",
         "hideChangelogsOnStartup": "No mostris el registre de canvis a l'inici",
+        "ignoreGameUpdates": "Ignora les actualitzacions del joc",
         "language": "Tria la llengua de l'aplicació",
         "library_top_option": {
             "disabled": "Desactivat",
@@ -717,9 +776,14 @@
         "maxRecentGames": "Jugats fa poc a mostrar",
         "maxworkers": "Nombre màxim de processos en baixar",
         "minimize-on-launch": "Minimitza l'Heroic després d'executar un joc",
+        "msync": "Activa l'Msync",
+        "no-tray-icon": "Amaga la icona de la safata del sistema (cal reiniciar)",
+        "nvidiaprime": {
+            "description": "Força l'ús de les GPU NVIDIA Optimus o AMD Dynamic Switchable Graphics. Usa-ho NOMÉS per a jocs OpenGL i Vulkan."
+        },
         "offlinemode": "Executa el joc sense connexió",
-        "prefered_language": "Idioma preferit (codi de l'idioma)",
         "preferSystemLibs": "Dóna preferència a les biblioteques del sistema",
+        "prefered_language": "Idioma preferit (codi de l'idioma)",
         "runexe": {
             "message": "Arrossega i solta els fitxers aquí",
             "title": "Executa l'EXE al prefix"
@@ -729,70 +793,9 @@
             "placeholder": "Selecciona el directori exacte on es desen els jocs",
             "warning": "Comprova si la ruta és correcta (fes clic per a provar-ho de nou)"
         },
+        "scripts": "Scripts:",
         "select_theme": "Tema de la interfície",
-        "showfps": "Mostra els FPS (DX9, 10 i 11)",
-        "start-in-tray": "Inicia minimitzat",
-        "steamruntime": "Utilitza l'entorn d'execució del Steam",
-        "winecrossoverbottle": "Ampolla CrossOver",
-        "wineprefix": "Directori WinePrefix",
-        "wineversion": "Versió del Wine",
-        "autoUpdateGames": "Actualitza els jocs automàticament",
-        "ignoreGameUpdates": "Ignora les actualitzacions del joc",
-        "disable_logs": "Desactiva els registres",
         "showMetalOverlay": "Mostra la superposició d'estadístiques",
-        "addgamestoapplications": "Afegeix jocs a Aplicacions automàticament",
-        "alt-nile-bin": "Tria un binari alternatiu del Nile",
-        "autodxvknvapi": "Instal·la/Actualitza el DXVK-NVAPI al prefix automàticament",
-        "disablePlaytimeSync": "Desactiva la sincronització del temps de reproducció",
-        "experimental_features": {
-            "enableNewDesign": "Disseny nou",
-            "automaticWinetricksFixes": "Aplica les correccions conegudes de manera automàtica",
-            "enableHelp": "Component d'ajuda",
-            "cometSupport": "Suport Comet",
-            "umuSupport": "Fes servir umu com a execució Proton",
-            "zoomPlatform": "Compatibilitat amb Zoom Platform (només Linux)"
-        },
-        "frameless-window": {
-            "confirmation": {
-                "message": "Aquesta funció és experimental. Informa de qualsevol problema que hi trobis a través de GitHub.",
-                "title": "Funció experimental avançada"
-            },
-            "description": "Mostra la finestra sense marc (requereix reiniciar)"
-        },
-        "gamescope": {
-            "enableLimiter": "Activa el limitador de FPS",
-            "enableUpscaling": "Activa l'escalatge",
-            "missingMsg": "No s'ha trobat el gamescope a PATH. Instal·la'l o afegeix-lo a PATH.",
-            "enableForceGrabCursor": "Activa la captura forçada de cursor",
-            "missingMsgFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb Runtime 25.08 i reinicia l'Heroic.",
-            "warningFlatpak": "No hem pogut trobar una versió compatible del Gamescope. Instal·la el paquet flatpak del Gamescope amb l'entorn d'execució {{runtimeVersion}} i reinicia l'Heroic."
-        },
-        "after-launch-script-path": "Selecciona un script que s'executarà després de sortir del joc",
-        "msync": "Activa l'Msync",
-        "before-launch-script-path": "Selecciona un script que s'executarà abans que s'iniciï el joc",
-        "allow_installation_broken_anticheat": {
-            "confirmation": {
-                "title": "Estàs segur?",
-                "understand": "Sí, ho entenc.",
-                "message": "Els jocs amb suport antitrampes trencat o denegat poden funcionar, però les característiques multijugador no funcionaran. No demanis suport si les instal·les en aquest cas."
-            },
-            "label": "Permet instal·lar jocs amb suport antitrampes trencat o denegat"
-        },
-        "verboseLogs": {
-            "description": "Activa els registres detallats"
-        },
-        "disableUMU": "Desactiva l'umu",
-        "custom_css": {
-            "warning": "Avís: s'aplica a tota la interfície. Això significa que amb un estil erroni pots inutilitzar l'Heroic. Si ho necessites, pots canviar manualment l'opció des de `~/.config/heroic/config.json`. No copiïs estils d'orígens desconeguts o de poca confiança."
-        },
-        "dxfpslimit": "Limita els FPS dels jocs per DirectX",
-        "download-proton-steam": "Baixa el GE-Proton a la carpeta del Steam",
-        "advertiseAvxForRosetta": "Promociona l'AVX per a Rosetta",
-        "allow_non_ge_proton": {
-            "confirmation": {
-                "title": "Estàs segur?"
-            }
-        },
         "show_valve_proton": {
             "confirmation": {
                 "title": "Estàs segur?",
@@ -804,18 +807,17 @@
             "label": "Permet utilitzar les versions de Proton de Valve per a executar jocs",
             "wine_selector_warning": "Les versions de Proton de Valve s'ignoren de manera predefinida, activa-les a la configuració avançada global"
         },
-        "analyticsOptIn": "Envia dades anònimes per a ajudar al desenvolupament de l'Heroic",
-        "hdr": "Activa l'HDR",
-        "no-tray-icon": "Amaga la icona de la safata del sistema (cal reiniciar)",
-        "wineWayland": "Activa el Wine-Wayland (Experimental) (Cal que la versió del Wine hi sigui compatible)",
-        "WoW64": "Activa el WoW64 (Experimental)",
-        "scripts": "Scripts:",
-        "enable-quick-sync-menu": "Activa el menú de sincronització de desades ràpides en la pàgina del joc",
+        "showfps": "Mostra els FPS (DX9, 10 i 11)",
         "start-in-console-mode": "Inicia en mode consola",
-        "disable_gog_presence": "Desactiva les actualitzacions del GOG Presence",
-        "nvidiaprime": {
-            "description": "Força l'ús de les GPU NVIDIA Optimus o AMD Dynamic Switchable Graphics. Usa-ho NOMÉS per a jocs OpenGL i Vulkan."
-        }
+        "start-in-tray": "Inicia minimitzat",
+        "steamruntime": "Utilitza l'entorn d'execució del Steam",
+        "verboseLogs": {
+            "description": "Activa els registres detallats"
+        },
+        "wineWayland": "Activa el Wine-Wayland (Experimental) (Cal que la versió del Wine hi sigui compatible)",
+        "winecrossoverbottle": "Ampolla CrossOver",
+        "wineprefix": "Directori WinePrefix",
+        "wineversion": "Versió del Wine"
     },
     "settings": {
         "battlEyeRuntime": {

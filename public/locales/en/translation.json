@@ -447,6 +447,7 @@
         "uncategorized": "Uncategorized"
     },
     "help": {
+        "WoW64": "The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games.",
         "advertiseAvxForRosetta": "Enables AVX instruction set support when running Windows games through Rosetta on Apple Silicon Macs. This may be required for some games like Death Stranding that need AVX support.",
         "amdfsr": "AMD's FSR helps boost framerate by upscaling lower resolutions in Fullscreen Mode. Image quality increases from 5 to 1 at the cost of a slight performance hit. Enabling may improve performance.",
         "analytics": "Enables Heroic to collect 100% anonymous usage data to help improve the application. Needs restart to take effect.",
@@ -467,12 +468,13 @@
         },
         "custom_themes_path": "Do not use CSS files from untrusted sources. When in doubt, ask for a review in our Discord channel.",
         "custom_themes_wiki": "Check the Wiki for more details on adding custom themes. Click here.",
-        "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "disablePlaytimeSync": "Disables playtime synchronization with given store's servers (currently only GOG is supported)",
+        "disable_logs": "Toggle this checkbox ON to disable most of the writes to log files (critical information is always logged). Make sure to turn OFF this setting before reporting any issue.",
         "download_proton_steam": "When enabled, GE-Proton will be downloaded directly to the Steam compatibility tools directory instead of the default Heroic path. It will use the Steam path set in the 'Default Steam path' setting above.",
         "dxfpslimit": "Sets a frame rate cap for DirectX Games (9-12)",
         "dxvk": "DXVK is a Vulkan-based translational layer for DirectX 9, 10 and 11 games. Enabling may improve compatibility. Might cause issues especially for older DirectX games.",
         "dxvknvapi": "DXVK-NVAPI is an implementation of NVAPI built on top of DXVK and the linux native NVAPI, it allows for the usage of DLSS on Nvidia GPUs.",
+        "godotDepthPrepassFix": "Forces Godot depth pre-pass to be enabled. Fixes invisible/transparent character and monster sprites in games like Cassette Beasts on Apple Silicon Macs.",
         "esync": "Esync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance.",
         "fsync": "Fsync aims to reduce wineserver overhead in CPU-intensive games. Enabling may improve performance on supported Linux kernels.",
         "game_language": {
@@ -531,8 +533,7 @@
             "part2": "For other places, use a symbolic link to one of these folders"
         },
         "wine-hdr": "HDR enhances colors by providing brighter highlights and deeper contrasts. For HDR to work, both the display and the game must support it.",
-        "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games.",
-        "WoW64": "The Wine WoW64 mode allows 32-bit Windows games to be run on 64-bit Wine. Enabling may improve performance, but could also break older 32-bit games."
+        "wine-wayland": "The Wine-Wayland experimental driver allows games to run natively under the Wayland display protocol. Enabling might break some games."
     },
     "info": {
         "heroic": {
@@ -741,6 +742,8 @@
     "Recent": "Played Recently",
     "search": "Search for Games",
     "setting": {
+        "FsrSharpnessStrenght": "FSR Sharpness Strength",
+        "WoW64": "Enable WoW64 (Experimental)",
         "adddesktopshortcuts": "Add desktop shortcuts automatically",
         "addgamestoapplications": "Add games to Applications automatically",
         "addgamestostartmenu": "Add games to start menu automatically",
@@ -759,35 +762,36 @@
         "alt-legendary-bin": "Choose an Alternative Legendary Binary",
         "alt-nile-bin": "Choose an Alternative Nile Binary",
         "analyticsOptIn": "Send anonymous data to help Heroic development",
+        "autoUpdateGames": "Automatically update games",
         "autodxvk": "Auto Install/Update DXVK on Prefix",
         "autodxvknvapi": "Auto Install/Update DXVK-NVAPI on Prefix",
         "autosync": "Autosync Saves",
-        "autoUpdateGames": "Automatically update games",
         "autovkd3d": "Auto Install/Update VKD3D on Prefix",
         "before-launch-script-path": "Select a script to run before the game is launched",
         "change-target-exe": "Select an alternative EXE to run",
         "checkForUpdatesOnStartup": "Check for Heroic Updates on Startup",
         "crossover-version": "Crossover/Wine Version",
+        "customWineProton": "Custom Wine/Proton Paths",
         "custom_css": {
             "warning": "Warning: this applies to the whole frontend. That means the wrong style can render Heroic unusable. If needed, the setting can be changed manually in `~/.config/heroic/config.json`. Do NOT copy styles from sources you don't trust."
         },
         "custom_themes_path": "Custom Themes Path",
-        "customWineProton": "Custom Wine/Proton Paths",
         "darktray": "Use Dark Tray Icon",
         "default-install-path": "Default Installation Path",
         "default-steam-path": "Default Steam path",
         "defaultWinePrefix": "Set Folder for new Wine Prefixes",
+        "disablePlaytimeSync": "Disable playtime synchronization",
+        "disableUMU": "Disable umu",
         "disable_controller": "Disable Heroic navigation using controller",
         "disable_gog_presence": "Disable GOG Presence updates",
         "disable_logs": "Disable Logs",
-        "disablePlaytimeSync": "Disable playtime synchronization",
-        "disableUMU": "Disable umu",
         "discordRPC": "Enable Discord Rich Presence",
         "download-no-https": "Download games without HTTPS (useful for CDNs e.g. LanCache)",
         "download-proton-steam": "Download GE-Proton to Steam directory",
         "dxfpslimit": "Limit DirectX Games FPS",
         "egs-sync": "Sync with Installed Epic Games",
         "enable-quick-sync-menu": "Enable Quick Save-Sync Menu on game page",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "enableFSRHack": "Enable FSR Hack (Wine version needs to support it)",
         "eosOverlay": {
             "cancelInstall": "Cancel",
@@ -824,7 +828,6 @@
             },
             "description": "Use frameless window (requires restart)"
         },
-        "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "gamescope": {
@@ -910,8 +913,8 @@
             "description": "Force use of NVIDIA Optimus or AMD Dynamic Switchable Graphics dGPU. ONLY use this for OpenGL and Vulkan games."
         },
         "offlinemode": "Run Game Offline",
-        "prefered_language": "Prefered Language (Language Code)",
         "preferSystemLibs": "Prefer system libraries",
+        "prefered_language": "Prefered Language (Language Code)",
         "runexe": {
             "title": "Run EXE on Prefix"
         },
@@ -922,6 +925,7 @@
         },
         "scripts": "Scripts:",
         "select_theme": "Select Theme",
+        "showMetalOverlay": "Show Stats Overlay",
         "show_valve_proton": {
             "confirmation": {
                 "dont_show": "Don't show them",
@@ -934,18 +938,16 @@
             "wine_selector_warning": "Valve versions of Proton are ignored by default, enable them in the Advanced global settings"
         },
         "showfps": "Show FPS (DX9, 10 and 11)",
-        "showMetalOverlay": "Show Stats Overlay",
         "start-in-console-mode": "Start in Console Mode",
         "start-in-tray": "Start Minimized",
         "steamruntime": "Use Steam Runtime",
         "verboseLogs": {
             "description": "Enable verbose logs"
         },
+        "wineWayland": "Enable Wine-Wayland (Experimental) (Wine version needs to support it)",
         "winecrossoverbottle": "CrossOver Bottle",
         "wineprefix": "WinePrefix folder",
-        "wineversion": "Wine Version",
-        "wineWayland": "Enable Wine-Wayland (Experimental) (Wine version needs to support it)",
-        "WoW64": "Enable WoW64 (Experimental)"
+        "wineversion": "Wine Version"
     },
     "settings": {
         "advanced": {
