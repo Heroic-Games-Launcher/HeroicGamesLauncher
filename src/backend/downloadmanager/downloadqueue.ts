@@ -142,13 +142,14 @@ async function initQueue() {
     let element = getFirstQueueElement()
 
     while (element) {
+      const currentProcessing = element
       let status: DMStatus = 'error'
 
       try {
-        const extraElements = await enrichElement(element)
+        const extraElements = await enrichElement(currentProcessing)
         const currentQueue = downloadManager.get('queue', [])
         const currentIndex = currentQueue.findIndex(
-          (el) => el.params.appName === element.params.appName
+          (el) => el.params.appName === currentProcessing.params.appName
         )
 
         if (currentIndex < 0) {
@@ -160,33 +161,37 @@ async function initQueue() {
           currentQueue.splice(currentIndex + 1, 0, ...extraElements)
         }
 
-        element.startTime = Date.now()
-        currentQueue[currentIndex] = element
+        currentProcessing.startTime = Date.now()
+        currentQueue[currentIndex] = currentProcessing
         downloadManager.set('queue', currentQueue)
 
-        currentElement = element
+        currentElement = currentProcessing
         queueState = 'running'
-        sendFrontendMessage('changedDMQueueInformation', currentQueue, queueState)
+        sendFrontendMessage(
+          'changedDMQueueInformation',
+          currentQueue,
+          queueState
+        )
 
         const result =
-          element.type === 'install'
-            ? await installQueueElement(element.params)
-            : await updateQueueElement(element.params)
+          currentProcessing.type === 'install'
+            ? await installQueueElement(currentProcessing.params)
+            : await updateQueueElement(currentProcessing.params)
         status = result.status
       } catch (error) {
         logError(
-          [`Error processing ${element.params.appName}:`, error],
+          [`Error processing ${currentProcessing.params.appName}:`, error],
           LogPrefix.DownloadManager
         )
         status = 'error'
       }
 
-      element.endTime = Date.now()
-      processNotification(element, status)
+      currentProcessing.endTime = Date.now()
+      processNotification(currentProcessing, status)
 
       if (!isPaused()) {
-        addToFinished(element, status)
-        removeFromQueue(element.params.appName)
+        addToFinished(currentProcessing, status)
+        removeFromQueue(currentProcessing.params.appName)
         element = getFirstQueueElement()
       } else {
         element = null
