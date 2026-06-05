@@ -1008,8 +1008,6 @@ async function prepareWineLaunch(
     await download('battleye_runtime')
   }
 
-  console.log(gameInfo)
-
   if (gameInfo.install.install_path) {
     applyDepthPrepassFix(
       gameInfo.install.install_path,
