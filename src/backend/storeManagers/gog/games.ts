@@ -37,7 +37,8 @@ import {
   InstallPlatform,
   InstallProgress,
   LaunchOption,
-  GOGAchievement
+  GOGAchievement,
+  GameAchievement
 } from 'common/types'
 import { existsSync, rmSync } from 'graceful-fs'
 import {
@@ -142,37 +143,58 @@ export async function getExtraInfo(appName: string): Promise<ExtraInfo> {
   return extra
 }
 
+function mapGogAchievement(achievement: GOGAchievement): GameAchievement {
+  const colors: { [key: string]: string | undefined } = {
+    epic: 'gold',
+    legendary: 'orangered'
+  }
+
+  return {
+    id: achievement.achievement_key,
+    name: achievement.name,
+    hidden: !achievement.visible,
+    description: achievement.description,
+    date_unlocked: achievement.date_unlocked,
+    rarity: achievement.rarity,
+    rarity_name: achievement.rarity_level_description,
+    rarity_color: colors[achievement.rarity_level_slug],
+    image_url_locked: achievement.image_url_locked,
+    image_url_unlocked: achievement.image_url_unlocked
+  }
+}
+
 export async function getAchievements(
   appName: string,
   lang = 'en-US'
-): Promise<GOGAchievement[]> {
+): Promise<GameAchievement[]> {
   const cached = achievementStore.get(appName)
-  if (cached) return cached
+  if (cached) return cached.map((gogAch) => mapGogAchievement(gogAch))
 
   if (!GOGUser.isLoggedIn()) return []
   const credentials = await GOGUser.getCredentials()
   if (!credentials) return []
   const url = `https://gameplay.gog.com/clients/${appName}/users/${credentials?.user_id}/achievements`
 
-  const response: AxiosResponse | null = await axiosClient
-    .get(url, {
-      headers: {
-        Authorization: `Bearer ${credentials.access_token}`,
-        'X-Gog-Lc': lang
-      }
-    })
-    .catch(() => {
-      return null
-    })
+  const response: AxiosResponse<{ items: GOGAchievement[] }> | null =
+    await axiosClient
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${credentials.access_token}`,
+          'X-Gog-Lc': lang
+        }
+      })
+      .catch(() => {
+        return null
+      })
 
   if (!response?.data?.items) {
     return []
   }
 
-  const achievements: GOGAchievement[] = response.data.items
+  const achievements = response.data.items
   achievementStore.set(appName, achievements)
 
-  return achievements
+  return achievements.map((gogAch) => mapGogAchievement(gogAch))
 }
 
 export function getGameInfo(appName: string): GameInfo {

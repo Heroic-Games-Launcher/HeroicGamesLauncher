@@ -1,6 +1,11 @@
 import { initImagesCache } from './images_cache'
 import { fetchLastestReleases } from './utils/releases'
-import { DiskSpaceData, StatusPromise, WineInstallation } from 'common/types'
+import {
+  DiskSpaceData,
+  Runner,
+  StatusPromise,
+  WineInstallation
+} from 'common/types'
 import * as path from 'path'
 import {
   BrowserWindow,
@@ -106,6 +111,8 @@ import {
   syncQueuedPlaytimeGOG,
   getAchievements as getAchievementsGOG
 } from 'backend/storeManagers/gog/games'
+
+import { getAchievements as getAchievementsEpic } from 'backend/storeManagers/legendary/games'
 import { playtimeSyncQueue } from './storeManagers/gog/electronStores'
 import * as LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import {
@@ -725,13 +732,16 @@ addListener('clearCache', (event, showDialog, fromVersionChange = false) => {
   }
 })
 
-addListener('clearAchievementCache', (event, appName: string) => {
-  clearAchievementCache(appName)
-  logInfo(
-    'Achievement cache was cleared for game: ' + appName,
-    LogPrefix.Backend
-  )
-})
+addListener(
+  'clearAchievementCache',
+  (event, appName: string, runner: Runner) => {
+    clearAchievementCache(appName, runner)
+    logInfo(
+      'Achievement cache was cleared for game: ' + appName,
+      LogPrefix.Backend
+    )
+  }
+)
 
 addListener('resetHeroic', () => resetHeroic())
 
@@ -763,6 +773,7 @@ addHandler(
   'getAchievements',
   async (event, appName, runner, lang = 'en-US') => {
     if (runner === 'gog') return getAchievementsGOG(appName, lang)
+    if (runner === 'legendary') return getAchievementsEpic(appName)
     return []
   }
 )

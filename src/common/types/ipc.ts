@@ -79,7 +79,7 @@ interface SyncIPCFunctions {
   showConfigFileInFolder: (appName: string) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void
-  clearAchievementCache: (appName: string) => void
+  clearAchievementCache: (appName: string, runner: Runner) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void

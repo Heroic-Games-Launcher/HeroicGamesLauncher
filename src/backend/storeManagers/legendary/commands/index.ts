@@ -13,6 +13,7 @@ import ImportCommand from './import'
 import CleanupCommand from './cleanup'
 import AuthCommand from './auth'
 import EglSyncCommand from './egl_sync'
+import AchievementsCommand from './achievements'
 
 interface BaseLegendaryCommand {
   '-v'?: true
@@ -43,4 +44,5 @@ export type LegendaryCommand = BaseLegendaryCommand &
     | CleanupCommand
     | AuthCommand
     | EglSyncCommand
+    | AchievementsCommand
   )

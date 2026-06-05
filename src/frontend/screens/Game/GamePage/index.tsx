@@ -180,7 +180,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateAchievements = async () => {
       if (!isPlaying && previousIsPlaying.current)
-        window.api.clearAchievementCache(appName)
+        window.api.clearAchievementCache(appName, runner)
       setAchievements(await window.api.getAchievements(appName, runner))
     }
 
