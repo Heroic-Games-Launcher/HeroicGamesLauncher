@@ -136,27 +136,27 @@ let mockLogError: jest.Mock
 let mockExistsSync: jest.Mock
 let onConnectivityCallback: (status: 'online' | 'offline') => void
 
-beforeEach(() => {
-  jest.resetModules()
+beforeEach(async () => {
+  await jest.isolateModulesAsync(async () => {
+    dm = await import('backend/downloadmanager/downloadqueue')
 
-  dm = require('backend/downloadmanager/downloadqueue')
+    const dmUtils = await import('backend/downloadmanager/utils')
+    mockInstall = dmUtils.installQueueElement as jest.Mock
+    mockUpdate = dmUtils.updateQueueElement as jest.Mock
 
-  const dmUtils = require('backend/downloadmanager/utils')
-  mockInstall = dmUtils.installQueueElement
-  mockUpdate = dmUtils.updateQueueElement
+    const storeManagers = await import('backend/storeManagers')
+    mockLibraryManager = storeManagers.libraryManagerMap
+    mockGameManager = storeManagers.gameManagerMap
 
-  const storeManagers = require('backend/storeManagers')
-  mockLibraryManager = storeManagers.libraryManagerMap
-  mockGameManager = storeManagers.gameManagerMap
+    mockSendFrontendMessage = (await import('backend/ipc')).sendFrontendMessage as jest.Mock
+    mockSendGameStatusUpdate = (await import('backend/utils')).sendGameStatusUpdate as jest.Mock
+    mockCallAbortController = (await import('backend/utils/aborthandler/aborthandler')).callAbortController as jest.Mock
+    mockLogError = (await import('backend/logger')).logError as jest.Mock
+    mockExistsSync = (await import('fs')).existsSync as jest.Mock
 
-  mockSendFrontendMessage = require('backend/ipc').sendFrontendMessage
-  mockSendGameStatusUpdate = require('backend/utils').sendGameStatusUpdate
-  mockCallAbortController = require('backend/utils/aborthandler/aborthandler').callAbortController
-  mockLogError = require('backend/logger').logError
-  mockExistsSync = require('fs').existsSync
-
-  const onlineMonitor = require('backend/online_monitor')
-  onConnectivityCallback = (onlineMonitor.onConnectivityChange as jest.Mock).mock.calls[0]?.[0]
+    const onlineMonitor = await import('backend/online_monitor')
+    onConnectivityCallback = (onlineMonitor.onConnectivityChange as jest.Mock).mock.calls[0]?.[0]
+  })
 
   // Default implementations
   mockInstall.mockResolvedValue({ status: 'done' })
