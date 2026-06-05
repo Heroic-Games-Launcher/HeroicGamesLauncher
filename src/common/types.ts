@@ -257,6 +257,7 @@ export interface GameSettings {
   wineCrossoverBottle: string
   winePrefix: string
   wineVersion: WineInstallation
+  doNotUseWine: boolean
   wrapperOptions: WrapperVariable[]
   savesPath: string
   gogSaves?: GOGCloudSavesLocation[]

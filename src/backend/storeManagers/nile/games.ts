@@ -62,6 +62,7 @@ import { getUmuId } from 'backend/wiki_game_info/umu/utils'
 import { isLinux, isWindows } from 'backend/constants/environment'
 
 import type LogWriter from 'backend/logger/log_writer'
+import { getTargetExePath } from '..'
 
 export async function getSettings(appName: string): Promise<GameSettings> {
   const gameConfig = GameConfig.get(appName)
@@ -339,8 +340,11 @@ export async function launch(
   let exeOverrideFlag: string[] = []
   if (launchArguments?.type === 'altExe') {
     exeOverrideFlag = ['--override-exe', launchArguments.executable]
-  } else if (gameSettings.targetExe) {
-    exeOverrideFlag = ['--override-exe', gameSettings.targetExe]
+  } else {
+    const targetExe = getTargetExePath(gameSettings, logWriter)
+    if (targetExe) {
+      exeOverrideFlag = ['--override-exe', targetExe]
+    }
   }
 
   let commandEnv = {
@@ -365,41 +369,45 @@ export async function launch(
     : []
 
   if (!isNative()) {
-    // -> We're using Wine/Proton on Linux or CX on Mac
-    const {
-      success: wineLaunchPrepSuccess,
-      failureReason: wineLaunchPrepFailReason,
-      envVars: wineEnvVars
-    } = await prepareWineLaunch('nile', appName, logWriter)
-    if (!wineLaunchPrepSuccess) {
-      logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
-      if (wineLaunchPrepFailReason) {
-        showDialogBoxModalAuto({
-          title: t('box.error.launchAborted', 'Launch aborted'),
-          message: wineLaunchPrepFailReason,
-          type: 'ERROR'
-        })
+    if (gameSettings.doNotUseWine) {
+      wineFlag.push('--no-wine')
+    } else {
+      // -> We're using Wine/Proton on Linux or CX on Mac
+      const {
+        success: wineLaunchPrepSuccess,
+        failureReason: wineLaunchPrepFailReason,
+        envVars: wineEnvVars
+      } = await prepareWineLaunch('nile', appName, logWriter)
+      if (!wineLaunchPrepSuccess) {
+        logWriter.logError(['Launch aborted:', wineLaunchPrepFailReason])
+        if (wineLaunchPrepFailReason) {
+          showDialogBoxModalAuto({
+            title: t('box.error.launchAborted', 'Launch aborted'),
+            message: wineLaunchPrepFailReason,
+            type: 'ERROR'
+          })
+        }
+        return false
       }
-      return false
-    }
 
-    commandEnv = {
-      ...commandEnv,
-      ...wineEnvVars
-    }
-
-    if (await isUmuSupported(gameSettings)) {
-      const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
-      if (umuId) {
-        commandEnv['GAMEID'] = umuId
+      commandEnv = {
+        ...commandEnv,
+        ...wineEnvVars
       }
-    }
 
-    wineFlag = [
-      ...(await getWineFlagsArray(gameSettings, shlex.join(wrappers))),
-      '--wine-prefix',
-      gameSettings.winePrefix
-    ]
+      if (await isUmuSupported(gameSettings)) {
+        const umuId = await getUmuId(gameInfo.app_name, gameInfo.runner)
+        if (umuId) {
+          commandEnv['GAMEID'] = umuId
+        }
+      }
+
+      wineFlag = [
+        ...(await getWineFlagsArray(gameSettings, shlex.join(wrappers))),
+        '--wine-prefix',
+        gameSettings.winePrefix
+      ]
+    }
   }
 
   const launchArgumentsArgs =
