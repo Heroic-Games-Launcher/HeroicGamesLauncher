@@ -3,6 +3,22 @@ import { join } from 'path'
 
 type CfgFile = Map<string, Map<string, string>>
 
+function splitComments(lines: string[]): { comments: string[], dataLines: string[] } {
+  const comments: string[] = []
+  const dataLines: string[] = []
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (trimmed.startsWith('#') || trimmed.startsWith(';')) {
+      comments.push(line)
+    } else {
+      dataLines.push(line)
+    }
+  }
+
+  return { comments, dataLines }
+}
+
 function parseCfg(content: string): CfgFile {
   const result: CfgFile = new Map()
   let section = ''
@@ -47,7 +63,9 @@ const DEPTH_PREPASS_KEYS: Record<string, string> = {
 export function applyDepthPrepassFix(installPath: string, enable: boolean) {
   const filePath = join(installPath, 'override.cfg')
   const raw = existsSync(filePath) ? readFileSync(filePath, 'utf-8') : ''
-  const cfg = parseCfg(raw)
+
+  const { comments, dataLines } = splitComments(raw.split(/\r?\n/))
+  const cfg = parseCfg(dataLines.join('\n'))
 
   const rendering = cfg.get('rendering') ?? new Map<string, string>()
 
@@ -66,9 +84,10 @@ export function applyDepthPrepassFix(installPath: string, enable: boolean) {
     cfg.set('rendering', rendering)
   }
 
-  const output = serializeCfg(cfg)
+  const data = serializeCfg(cfg)
+  const output = comments.length > 0 ? `${data}\n\n${comments.join('\n')}` : data
 
-  if (!output) {
+  if (!output.trim()) {
     if (existsSync(filePath)) unlinkSync(filePath)
   } else {
     writeFileSync(filePath, output, 'utf-8')
