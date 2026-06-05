@@ -337,6 +337,7 @@
             "part2": "Más hely esetén használj egy szimbolikus linket az egyik mappához"
         },
         "disable_logs": "Jelöld be ezt a négyzetet, hogy letiltsd a legtöbb írást a naplófájlokba (a kritikus információk mindig naplózásra kerülnek). Mielőtt bármilyen problémát jelentenél, feltétlenül kapcsold KI ezt a beállítást.",
+        "godotDepthPrepassFix": "Godot depth pre-pass kényszerített engedélyezése. Ha a játéka Godot-ban íródott, és problémái vannak a sprite-ok/képek betöltésével.",
         "gamescope": {
             "fpsLimiterNoFocus": "A másodpercenkénti képfrissítési sebesség, amelyre a gamescope korlátozva van, amikor a játék nincs fókuszban.",
             "upscaleMethod": "A felskálázási mód, melyet a gamescope használ.",
@@ -645,6 +646,7 @@
         "exit-to-tray": "Kilépés a rendszertálcára",
         "FsrSharpnessStrenght": "FSR élesség erőssége",
         "fsync": "Fsync engedélyezése",
+        "godotDepthPrepassFix": "Godot depth pre-pass javítás engedélyezése",
         "gamemode": "GameMode használata (a Feral Game Mode-nak telepítve kell lennie)",
         "hideChangelogsOnStartup": "Ne jelenítse meg a változásnaplókat indításkor",
         "language": "Alkalmazás nyelvének kiválasztása",

@@ -358,6 +358,7 @@
         "disablePlaytimeSync": "Dezactivează sincronizarea timpului de joc cu serverele magazinului implicit (deocamdată doar GOG este suportat)",
         "download_proton_steam": "Atunci când este activat, GE-Proton va fi descărcat direct in directorul uneltelor de compatibilitate Steam in locul căii implicite a Heroic. Va utiliza calea Steam setată în 'Cale Steam implicită' mai sus.",
         "dxvknvapi": "DXVK-NVAPI este o implementare a NVAPI construită peste DXVK și nativul linux NVAPI, el permite utilizarea DLSS pe plăcile video Nvidia.",
+        "godotDepthPrepassFix": "Forțează activarea depth pre-pass pentru Godot. Dacă jocul tău este scris în Godot și are probleme la încărcarea sprite-urilor/imaginilor.",
         "gamescope": {
             "additionalOptions": "Flag-uri din linia de comandă adiționale de pasat în gamescope.",
             "forceGrabCursor": "Folosiți întotdeauna modul de mouse relativ în locul întoarcerii dependente de vizibilitatea cursorului. (Util atunci când aplicațiile își pierd focalizarea)",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Ieșiți în System Tray",
         "FsrSharpnessStrenght": "Forța de claritate FSR",
         "fsync": "Activați Fsync",
+        "godotDepthPrepassFix": "Activare remediere depth pre-pass Godot",
         "gamemode": "Utilizați GameMode (Feral GameMode trebuie instalat)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Alegeți Limba aplicației",

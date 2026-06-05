@@ -60,6 +60,7 @@ import { readFileSync, writeFileSync } from 'fs'
 import { LegendaryCommand } from './storeManagers/legendary/commands'
 import { commandToArgsArray } from './storeManagers/legendary/library'
 import { searchForExecutableOnPath } from './utils/os/path'
+import { applyDepthPrepassFix } from './utils/fixCfgGodot'
 import {
   createAbortController,
   deleteAbortController
@@ -372,6 +373,7 @@ function filterGameSettingsForLog(
     delete gameSettings.enableMsync
     delete gameSettings.wineCrossoverBottle
     delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.godotDepthPrepassFix
 
     if (notNative) {
       const wineVersion = gameSettings.wineVersion
@@ -455,6 +457,7 @@ function filterGameSettingsForLog(
       delete gameSettings.winePrefix
       delete gameSettings.wineCrossoverBottle
       delete gameSettings.advertiseAvxForRosetta
+      delete gameSettings.godotDepthPrepassFix
       delete gameSettings.autoInstallDxvk
       delete gameSettings.autoInstallDxvkNvapi
       delete gameSettings.autoInstallVkd3d
@@ -488,6 +491,7 @@ function filterGameSettingsForLog(
     delete gameSettings.nvidiaPrime
     delete gameSettings.disableUMU
     delete gameSettings.advertiseAvxForRosetta
+    delete gameSettings.godotDepthPrepassFix
     delete gameSettings.useSteamRuntime
   }
 
@@ -1002,6 +1006,15 @@ async function prepareWineLaunch(
     !(await isInstalled('battleye_runtime'))
   ) {
     await download('battleye_runtime')
+  }
+
+  console.log(gameInfo)
+
+  if (gameInfo.install.install_path) {
+    applyDepthPrepassFix(
+      gameInfo.install.install_path,
+      gameSettings.godotDepthPrepassFix
+    )
   }
 
   const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)

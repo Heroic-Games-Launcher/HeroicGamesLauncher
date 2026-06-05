@@ -395,6 +395,7 @@
             "login": ""
         },
         "msync": "",
+        "godotDepthPrepassFix": "Godot depth pre-pass majburiy yoqilsin. Agar o'yiningiz Godotda yozilgan bo'lsa va spritelar/tasvirlarni yuklashda muammo bo'lsa.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -680,6 +681,7 @@
         "exit-to-tray": "Tizim tepsisiga chiqing",
         "FsrSharpnessStrenght": "FSR aniqlik kuchi",
         "fsync": "Fsync-ni yoqing",
+        "godotDepthPrepassFix": "Godot depth pre-pass tuzatishini yoqish",
         "prefered_language": "Afzal til (til kodi)",
         "gamemode": "GameMode-dan foydalaning (Feral Game Mode o'rnatilishi kerak)",
         "hideChangelogsOnStartup": "Ishga tushirishda o'zgarishlar jurnallarini ko'rsatmang",

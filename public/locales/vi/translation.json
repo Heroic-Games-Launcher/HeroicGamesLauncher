@@ -359,6 +359,7 @@
         "disablePlaytimeSync": "Tắt đồng bộ hóa thời gian chơi với máy chủ của cửa hàng nhất định (hiện chỉ hỗ trợ GOG)",
         "download_proton_steam": "Khi được bật, GE-Proton sẽ được tải trực tiếp vào thư mục công cụ tương thích Steam thay vì đường dẫn Heroic mặc định. Nó sẽ sử dụng đường dẫn Steam được đặt trong cài đặt 'Đường dẫn Steam mặc định' ở trên.",
         "dxvknvapi": "DXVK-NVAPI là một triển khai NVAPI được xây dựng dựa trên DXVK và NVAPI gốc linux, nó cho phép sử dụng DLSS trên GPU Nvidia.",
+        "godotDepthPrepassFix": "Buộc bật depth pre-pass của Godot. Nếu game của bạn được viết bằng Godot và gặp sự cố khi tải sprite/hình ảnh.",
         "gamescope": {
             "additionalOptions": "Cờ dòng lệnh bổ sung để chuyển vào gamescope.",
             "forceGrabCursor": "Luôn sử dụng chế độ chuột tương đối thay vì lật phụ thuộc vào khả năng hiển thị của con trỏ. (Hữu ích khi ứng dụng liên tục mất tập trung)",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Thoát vào Khay Hệ Thống",
         "FsrSharpnessStrenght": "Độ Sắc Nét Của FSR",
         "fsync": "Bật Fsync",
+        "godotDepthPrepassFix": "Bật bản vá depth pre-pass của Godot",
         "gamemode": "Sử Dụng GameMode (Cần cài đặt Feral Game Mode)",
         "hideChangelogsOnStartup": "Không hiển thị nhật ký thay đổi khi Khởi Động",
         "language": "Chọn ngôn ngữ ứng dụng",

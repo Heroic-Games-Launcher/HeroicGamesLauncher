@@ -333,6 +333,7 @@
             "part2": "その他の場所については、これらのフォルダのいずれかへのシンボリックリンクを使用してください"
         },
         "disable_logs": "このチェックボックスをオンに切り替えると、ログ ファイルへのほとんどの書き込みが無効になります (重要な情報は常にログに記録されます)。問題を報告する前に、必ずこの設定をオフにしてください。",
+        "godotDepthPrepassFix": "Godotのdepth pre-passを強制的に有効にします。ゲームがGodotで書かれており、スプライト/画像の読み込みに問題がある場合。",
         "gamescope": {
             "fpsLimiterNoFocus": "ゲームが非アクティブの場合、Gamescopeが制限すべき1秒あたりのフレームレート。",
             "upscaleMethod": "Gamescopeが使用すべきアップスケーリング方法。",
@@ -640,6 +641,7 @@
         "exit-to-tray": "システムトレイに常駐",
         "FsrSharpnessStrenght": "FSRシャープネス強度",
         "fsync": "Fsyncを有効にする",
+        "godotDepthPrepassFix": "Godotのdepth pre-pass修正を有効にする",
         "gamemode": "GameModeを使用（Feral Game Modeがインストールされている必要があります）",
         "hideChangelogsOnStartup": "起動時に変更履歴を表示しない",
         "language": "Appの言語を選択",

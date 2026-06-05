@@ -359,6 +359,7 @@
         "download_proton_steam": "Όταν είναι ενεργοποιημένο, το GE-Proton θα ληφθεί απευθείας στον κατάλογο εργαλείων συμβατότητας Steam αντί για την προεπιλεγμένη διαδρομή Heroic. Θα χρησιμοποιήσει τη διαδρομή του Steam που έχει οριστεί στην ρύθμιση \"Προεπιλεγμένη διαδρομή Steam\" παραπάνω.",
         "advertiseAvxForRosetta": "Ενεργοποιεί την υποστήριξη εντολών AVX κατά την εκτέλεση παιχνιδιών Windows μέσω του Rosetta σε Apple Silicon Mac. Αυτό μπορεί να απαιτείται για ορισμένα παιχνίδια όπως το Death Stranding που χρειάζονται υποστήριξη AVX.",
         "dxvknvapi": "Το DXVK-NVAPI είναι μια υλοποίηση του NVAPI που βασίζεται στο DXVK και το εγγενές NVAPI του Linux, και επιτρέπει τη χρήση του DLSS σε GPU της Nvidia.",
+        "godotDepthPrepassFix": "Εξαναγκασμός ενεργοποίησης του depth pre-pass του Godot. Αν το παιχνίδι σας είναι γραμμένο σε Godot και αντιμετωπίζει προβλήματα φόρτωσης sprites/εικόνων.",
         "gamescope": {
             "additionalOptions": "Πρόσθετες παράμετροι γραμμής εντολών για το gamescope.",
             "forceGrabCursor": "Να χρησιμοποιείται πάντα relative mouse mode αντί για flipping dependent για την ορατότητα του δρομέα. (Χρήσιμο όταν οι εφαρμογές χάνουν συχνά την εστίαση)",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Έξοδος σε Μπάρα Εργαλειών",
         "FsrSharpnessStrenght": "Βαθμός οξύτητας FSR",
         "fsync": "Ενεργοποίηση Fsync",
+        "godotDepthPrepassFix": "Ενεργοποίηση επιδιόρθωσης depth pre-pass για Godot",
         "gamemode": "Χρήση του GameMode (πρέπει να έχει εγκατασταθεί το Feral Game Mode)",
         "hideChangelogsOnStartup": "Να μην γίνεται εμφάνιση των αρχείων καταγραφής αλλαγών κατά την Εκκίνηση",
         "language": "Διαλέξτε γλώσσα εφαρμογής",

@@ -354,6 +354,7 @@
             "close": "關閉幫助"
         },
         "dxfpslimit": "Sets a frame rate cap for DXVK games",
+        "godotDepthPrepassFix": "強制啟用 Godot depth pre-pass。如果您的遊戲是用 Godot 編寫的，並且在加載精靈/圖片時遇到問題。",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -636,6 +637,7 @@
         "exit-to-tray": "縮小到系統列",
         "FsrSharpnessStrenght": "FSR 銳利度",
         "fsync": "啟用 Fsync",
+        "godotDepthPrepassFix": "啟用 Godot depth pre-pass 修復",
         "gamemode": "使用 GameMode（需要已安裝 Feral Game Mode）",
         "hideChangelogsOnStartup": "啟動時不顯示更新日誌",
         "language": "選擇 Heroic 語言",

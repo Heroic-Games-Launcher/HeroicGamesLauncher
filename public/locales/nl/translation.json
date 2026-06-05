@@ -355,6 +355,7 @@
             "wineManager": "Installeer verschillende versies van Wine, Proton, Crossover, etc."
         },
         "dxvknvapi": "DXVK-NVAPI is een implementatie van NVAPI gebouwd bovenop DXVK en het linux native NVAPI, het staat toe dat DLSS werkt met Nvidia GPUs.",
+        "godotDepthPrepassFix": "Forceer dat Godot depth pre-pass wordt ingeschakeld. Als je spel is geschreven in Godot en problemen heeft met het laden van sprites/afbeeldingen.",
         "gamescope": {
             "fpsLimiter": "Het aantal frames gamescope moet naar limiteren. Bijvb. 60",
             "fpsLimiterNoFocus": "De framelimiet gamescope moet aanhouden als de game niet is gefocused.",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Afsluiten naar Systeemvak",
         "FsrSharpnessStrenght": "FSR Scherpte Sterkte",
         "fsync": "Fsync inschakelen",
+        "godotDepthPrepassFix": "Schakel Godot depth pre-pass fix in",
         "gamemode": "Gebruik GameMode (Feral Game Mode moet geïnstalleerd zijn)",
         "hideChangelogsOnStartup": "Laat wijzigingslogboeken niet zien bij Opstarten",
         "language": "Selecteer App taal",

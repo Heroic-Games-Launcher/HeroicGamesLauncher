@@ -270,6 +270,7 @@
         "wineWayland": "",
         "after-launch-script-path": "",
         "fsync": "",
+        "godotDepthPrepassFix": "Godot-ის depth pre-pass-ის შესწორების ჩართვა",
         "showfps": "",
         "experimental_features": {
             "cometSupport": "",
@@ -465,6 +466,7 @@
             "part5": "",
             "part7": ""
         },
+        "godotDepthPrepassFix": "Godot-ის depth pre-pass-ის იძულებითი ჩართვა. თუ თქვენი თამაში დაწერილია Godot-ში და აქვს პრობლემა სპრაიტების/სურათების ჩატვირთვაში.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",

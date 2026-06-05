@@ -265,6 +265,7 @@ export interface GameSettings {
   disableUMU: boolean
   verboseLogs: boolean
   advertiseAvxForRosetta: boolean
+  godotDepthPrepassFix: boolean
   enableQuickSavesMenu: boolean
 }
 

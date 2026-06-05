@@ -366,6 +366,7 @@
         "disablePlaytimeSync": "Desactiva a sincronización do tempo de xogo co servidor da tenda correspondente (actualmente só GOG está soportado)",
         "download_proton_steam": "Se se activa, GE-Proton descargarase directamente no cartafol das ferramentas de compatibilidade de Steam en lugar do directorio por defecto de Heroic. Usará a ruta de Steam da configuración ''Ruta de Steam por defecto\" enriba.",
         "dxvknvapi": "DXVK-NVAPI é unha implementación de NVAPI construída sobre DXVK e a NVAPI nativa de Linux, permitindo o uso de DLSS en GPUs de Nvidia.",
+        "godotDepthPrepassFix": "Forzar a activación do depth pre-pass de Godot. Se o teu xogo está escrito en Godot e ten problemas para cargar sprites/imaxes.",
         "gamescope": {
             "additionalOptions": "Variables de liña de comandos adicionais para gamescope.",
             "forceGrabCursor": "Usa o modo do rato relativo en lugar de cambiar dependendo da visibilidade do cursor. (É útil cando as aplicacións perden o foco)",
@@ -644,6 +645,7 @@
         "exit-to-tray": "Saír á bandexa do sistema",
         "FsrSharpnessStrenght": "Forza da nitidez de FSR",
         "fsync": "Activar Fsync",
+        "godotDepthPrepassFix": "Activar corrección depth pre-pass de Godot",
         "gamemode": "Usar GameMode (Feral Game Mode debe estar instalado)",
         "hideChangelogsOnStartup": "Non amosar os rexistros de cambios ao inicio",
         "language": "Seleccionar o idioma da aplicación",

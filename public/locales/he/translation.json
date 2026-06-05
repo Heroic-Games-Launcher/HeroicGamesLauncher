@@ -375,6 +375,7 @@
         "exit-to-tray": "סגור תוכנה לתוך System tray",
         "FsrSharpnessStrenght": "עוצמת חידוד FSR",
         "fsync": "הפעל Fsync",
+        "godotDepthPrepassFix": "הפעל תיקון depth pre-pass של Godot",
         "hideChangelogsOnStartup": "אל תציג שינויים בסטארט-אפ",
         "ignoreGameUpdates": "התעלם מעדכוני המשחק",
         "language": "בחירת שפה",
@@ -669,6 +670,7 @@
             "accessibility": "",
             "login": ""
         },
+        "godotDepthPrepassFix": "אלץ הפעלת depth pre-pass של Godot. אם המשחק שלך כתוב ב-Godot ויש לו בעיה בטעינת ספרייטים/תמונות.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",

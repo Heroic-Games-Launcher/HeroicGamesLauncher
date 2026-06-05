@@ -481,6 +481,7 @@
             "valid_codes": "Valid language codes are game-dependant."
         },
         "gamemode": "Feral GameMode applies automatic and temporary tweaks to the system when running games. Enabling may improve performance.",
+        "godotDepthPrepassFix": "Force Godot depth pre-pass to be enabled. If your game is written in Godot and is having trouble loading sprites/imgs.",
         "gamescope": {
             "additionalOptions": "Additional commandline flags to pass into gamescope.",
             "forceGrabCursor": "Always use relative mouse mode instead of flipping dependent on cursor visibility. (Useful for when applications keep losing focus)",
@@ -826,6 +827,7 @@
         },
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
+        "godotDepthPrepassFix": "Enable Godot depth pre-pass fix",
         "gamemode": "Use GameMode (Feral Game Mode needs to be installed)",
         "gamescope": {
             "enableForceGrabCursor": "Enable Force Grab Cursor",

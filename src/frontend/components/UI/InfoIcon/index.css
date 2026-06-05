@@ -5,6 +5,16 @@
     display: none;
     right: 0px;
   }
+
+  &:hover > span {
+    display: block;
+    position: absolute;
+    width: min(400px, 70vw);
+    top: 100%;
+    z-index: 1;
+    padding: 0.3rem 0.5rem;
+    background: var(--background);
+  }
 }
 
 .isRTL .InfoIcon > span {

@@ -362,6 +362,7 @@
             "open": "Åpne hjelp"
         },
         "dxvknvapi": "DXVK-NVAPI er en implementering av NVAPI bygget på toppen av DXVK og den Linux-native NVAPI. Den muliggjør bruk av DLSS på Nvidia GPU-er.",
+        "godotDepthPrepassFix": "Tving Godot depth pre-pass aktivert. Hvis spillet ditt er skrevet i Godot og har problemer med å laste sprites/bilder.",
         "gamescope": {
             "fpsLimiter": "Antall bilder per sekund gamescope skal begrense til. F.eks. 60",
             "additionalOptions": "Ekstra kommandolinjeflagg som skal sendes til gamescope.",
@@ -644,6 +645,7 @@
         "exit-to-tray": "Avslutt til systemkurv",
         "FsrSharpnessStrenght": "FSR Skarphet Styrke",
         "fsync": "Aktiver Fsync",
+        "godotDepthPrepassFix": "Aktiver Godot depth pre-pass-rettelse",
         "gamemode": "Bruk GameMode (Feral Game Mode må installeres)",
         "hideChangelogsOnStartup": "Ikke vis endringslogger ved oppstart",
         "language": "Velg programspråk",

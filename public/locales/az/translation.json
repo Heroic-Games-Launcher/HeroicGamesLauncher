@@ -350,6 +350,7 @@
             "login": ""
         },
         "msync": "",
+        "godotDepthPrepassFix": "Godot depth pre-pass-in aktivləşdirilməsini məcbur et. Oyununuz Godot ilə yazılıbsa və şəkilləri yükləməkdə problem yaşayırsa.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Sistem Tepsisinə çıxın",
         "FsrSharpnessStrenght": "FSR Kəskinlik Gücü",
         "fsync": "Fsync-i aktivləşdirin",
+        "godotDepthPrepassFix": "Godot depth pre-pass düzəlişini aktivləşdirin",
         "gamemode": "GameMode istifadə edin (Feral Game Mode quraşdırılmalıdır)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Tətbiq dilini seçin",

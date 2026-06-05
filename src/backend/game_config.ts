@@ -240,7 +240,8 @@ class GameConfigV0 extends GameConfig {
       afterLaunchScriptPath,
       gamescope,
       verboseLogs,
-      advertiseAvxForRosetta
+      advertiseAvxForRosetta,
+      godotDepthPrepassFix
     } = GlobalConfig.get().getSettings()
 
     // initialize generic defaults
@@ -280,6 +281,7 @@ class GameConfigV0 extends GameConfig {
       gamescope,
       verboseLogs,
       advertiseAvxForRosetta,
+      godotDepthPrepassFix,
       enableQuickSavesMenu: false
     } as GameSettings
 

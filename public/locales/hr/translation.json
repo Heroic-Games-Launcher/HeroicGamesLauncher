@@ -350,6 +350,7 @@
             "accessibility": "",
             "login": ""
         },
+        "godotDepthPrepassFix": "Prisilno omogući Godot depth pre-pass. Ako je vaša igra napisana u Godotu i ima problema s učitavanjem spriteova/slika.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Izađi u ikonu na sistemsku ladicu",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
+        "godotDepthPrepassFix": "Omogući Godot depth pre-pass popravak",
         "gamemode": "Koristi GameMode(Feral Game Mode mora biti instaliran)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Odaberi Jezik",

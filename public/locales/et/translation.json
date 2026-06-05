@@ -346,6 +346,7 @@
             "library": "Varamu"
         },
         "dxvknvapi": "DXVK-NVAPI on NVAPI implementatsioon, mis on ehitatud DXVK põhjal ning Linuxi oma NVAPI põhjal, lubades DLSS-i kasutamist Nvidia graafikaprotsessoritel.",
+        "godotDepthPrepassFix": "Sunniviisiliselt lubada Godot depth pre-pass. Kui teie mäng on kirjutatud Godot'is ja sellel on probleeme sprite'ide/piltide laadimisega.",
         "gamescope": {
             "fpsLimiterNoFocus": "Kaadrisageduse limiit sekundi kohta, milleni gamescope peaks piirama, kui mäng ei ole fookuses.",
             "additionalOptions": "Lisatud käsuliini lipud, mida edasi anda gamescope'ile.",
@@ -645,6 +646,7 @@
         "exit-to-tray": "Välju süsteemiriiulisse",
         "FsrSharpnessStrenght": "FSR teravuse tugevus",
         "fsync": "Luba Fsync",
+        "godotDepthPrepassFix": "Luba Godot depth pre-pass parandus",
         "gamemode": "Kasuta GameMode'i (Feral Game Mode peab olema paigaldatud)",
         "hideChangelogsOnStartup": "Ära näita käivitamisel muutuste nimekirjasid",
         "language": "Valige rakenduse keel",

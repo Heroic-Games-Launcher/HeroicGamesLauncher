@@ -351,6 +351,7 @@
             "accessibility": "",
             "login": ""
         },
+        "godotDepthPrepassFix": "اجبار فعال‌سازی depth pre-pass برای Godot. اگر بازی شما با Godot نوشته شده و در بارگذاری اسپرایت‌ها/تصاویر مشکل دارد.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -636,6 +637,7 @@
         "exit-to-tray": "خروج به میزکار سیستم",
         "FsrSharpnessStrenght": "قدرت تیزی FSR",
         "fsync": "فعالسازی Fsync",
+        "godotDepthPrepassFix": "فعال‌سازی رفع مشکل depth pre-pass گودوت",
         "gamemode": "استفاده از GameMode (Feral Game Mode باید نصب شده باشد)",
         "hideChangelogsOnStartup": "عدم نمایش تغییرات در هنگام اجرا",
         "language": "انتخاب زبان نرم افزار",

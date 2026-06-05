@@ -340,6 +340,7 @@
         "disable_logs": "Zapnutím tohoto políčka zakážete většinu zápisů do souborů protokolu (kritické informace jsou vždy protokolovány). Před nahlášením jakéhokoli problému nezapomeňte toto nastavení vypnout.",
         "dxvknvapi": "DXVK-NVAPI je implementace NVAPI postavená na DXVK a nativním NVAPI Linuxu, umožňuje použití DLSS na grafických kartách Nvidia.",
         "disablePlaytimeSync": "Zakáže synchronizaci času hraní se servery obchodu (aktualně je podporován jen GOG)",
+        "godotDepthPrepassFix": "Vynutit povolení depth pre-pass pro Godot. Pokud je vaše hra napsaná v Godotu a má problémy s načítáním spriteů/obrázků.",
         "gamescope": {
             "fpsLimiterNoFocus": "Počet snímků, na které by měl být omezen gamescope když není hra na popředí (zaměřená).",
             "upscaleMethod": "Způsob upscalingu, který by měl gamescope využít.",
@@ -646,6 +647,7 @@
         "exit-to-tray": "Ukončit do systémové oblasti",
         "FsrSharpnessStrenght": "Síla ostrosti FSR",
         "fsync": "Povolit Fsync",
+        "godotDepthPrepassFix": "Povolit opravu depth pre-pass pro Godot",
         "gamemode": "Použít GameMode (Feral GameMode musí být nainstalován)",
         "hideChangelogsOnStartup": "Nezobrazovat seznamy změn při spuštění systému",
         "language": "Vybrat jazyk aplikace",

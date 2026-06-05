@@ -325,6 +325,7 @@
         "steam_path": {
             "info": "Šis kelias leidžia „Heroic“ numatyti kokią „Proton“ versiją „Steam“ naudos, skirta pridedant ne „Steam“ žaidimus į „Steam“."
         },
+        "godotDepthPrepassFix": "Priverstinai įjungti Godot depth pre-pass. Jei jūsų žaidimas sukurtas naudojant Godot ir turi problemų įkeliant spraitus/paveikslėlius.",
         "gamescope": {
             "fpsLimiter": "Kiekis kadrų, kurias „gamescope“ ribos. Pvz.: 60",
             "fpsLimiterNoFocus": "Kiekis kadrų, kurias „gamescope“ ribos per sekundę, jei žaidimas nėra fokusuotas.",
@@ -582,6 +583,7 @@
         "select_theme": "Pasirinkti apipavidalinimą",
         "wineprefix": "„Wine“ prielinksnio/priešdėlio aplankas/-las",
         "fsync": "Įjungti „Fsync“",
+        "godotDepthPrepassFix": "Įjungti Godot depth pre-pass pataisymą",
         "msync": "Įjungti „Msync“",
         "disable_controller": "Išjungti/Išgalinti „Heroic“ valdymą naudojant pultelį/valdiklį",
         "enableFSRHack": "Įjungti/Įgalinti „FSR“ nulaužimą („Wine“ versija turi jį palaikyti)",

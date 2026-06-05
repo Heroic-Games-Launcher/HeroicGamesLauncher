@@ -360,6 +360,7 @@
         "disablePlaytimeSync": "Menonaktifkan sinkronisasi waktu bermain dengan server toko yang bersangkutan (saat ini hanya GOG yang didukung).",
         "download_proton_steam": "Jika diaktifkan, GE-Proton akan diunduh langsung ke direktori alat kompatibilitas Steam, bukan ke jalur default Heroic. Akan menggunakan jalur Steam yang diatur dalam pengaturan 'Jalur Steam Default' di atas.",
         "dxvknvapi": "DXVK-NVAPI adalah implementasi NVAPI yang dibangun di atas DXVK dan NVAPI native Linux, yang memungkinkan penggunaan DLSS pada GPU Nvidia.",
+        "godotDepthPrepassFix": "Paksa aktifkan depth pre-pass Godot. Jika game Anda ditulis di Godot dan mengalami masalah memuat sprite/gambar.",
         "gamescope": {
             "additionalOptions": "Tambahan flag baris perintah untuk diteruskan ke gamescope.",
             "forceGrabCursor": "Selalu gunakan mode mouse relatif alih-alih bergantung pada visibilitas kursor. (Berguna ketika aplikasi sering kehilangan fokus.)",
@@ -637,6 +638,7 @@
         "exit-to-tray": "Keluar ke Baki Sistem",
         "FsrSharpnessStrenght": "Kekuatan Ketajaman FSR",
         "fsync": "Aktifkan Fsync",
+        "godotDepthPrepassFix": "Aktifkan perbaikan depth pre-pass Godot",
         "gamemode": "Gunakan GameMode (Feral Game Mode perlu diinstal)",
         "hideChangelogsOnStartup": "Jangan tampilkan daftar ubahan saat memulai",
         "language": "Pilih Bahasa",

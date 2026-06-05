@@ -362,6 +362,7 @@
             "wineManager": "Installa diverse versioni di Wine, Proton, Crossover, ecc.",
             "defaultInstallPath": "Questo è il percorso predefinito preselezionato durante l'installazione dei giochi."
         },
+        "godotDepthPrepassFix": "Forza l'attivazione del depth pre-pass di Godot. Se il tuo gioco è scritto in Godot e ha problemi a caricare sprite/immagini.",
         "gamescope": {
             "fpsLimiter": "La quantità di fotogrammi a cui gamescope dovrebbe limitarsi. Per esempio. 60",
             "gameHeight": "L'altezza della risoluzione usata dal gioco. L'aspetto 16:9 è predefinito da Gamescope.",
@@ -644,6 +645,7 @@
         "exit-to-tray": "Riduci ad icona nell'area di notifica",
         "FsrSharpnessStrenght": "Forza della nitidezza dell'FSR",
         "fsync": "Abilita Fsync",
+        "godotDepthPrepassFix": "Abilita fix depth pre-pass Godot",
         "gamemode": "Usa GameMode (Feral Game Mode necessita di essere installato)",
         "hideChangelogsOnStartup": "Non mostrare i changelog all'avvio",
         "language": "Seleziona il linguaggio dell'app",

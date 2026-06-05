@@ -314,6 +314,7 @@
         "download_proton_steam": "Når denne funktion er aktiveret, downloades GE-Proton direkte til Steam-kompatibilitetsværktøjernes mappe i stedet for den standard Heroic-sti. Den bruger den Steam-sti, der er angivet i indstillingen 'Standard Steam-sti' ovenfor.",
         "dxfpslimit": "Indstiller en begrænsning for billedfrekvensen for DirectX-spil (9-12)",
         "dxvknvapi": "DXVK-NVAPI er en implementering af NVAPI, der er bygget oven på DXVK og Linux' lokale NVAPI, og som gør det muligt at bruge DLSS på Nvidia-GPU'er.",
+        "godotDepthPrepassFix": "Tving Godot depth pre-pass aktiveret. Hvis dit spil er skrevet i Godot og har problemer med at indlæse sprites/billeder.",
         "gamescope": {
             "additionalOptions": "Yderligere kommandolinjeflag, der skal videregives til Gamescope.",
             "forceGrabCursor": "Brug altid 'relative mouse mode' i stedet for 'flipping dependent on cursor visibility'. (Nyttigt, når programmer bliver ved med at miste fokus)",
@@ -513,6 +514,7 @@
         "audiofix": "Lydfiks (Pulse Audio Latency)",
         "autodxvk": "Autoinstaller/opdater DXVK på præfiks",
         "fsync": "Aktiver Fsync",
+        "godotDepthPrepassFix": "Aktiver Godot depth pre-pass rettelse",
         "gamemode": "Brug GameMode (Feral Game Mode skal installeres)",
         "language": "Vælg appsprog",
         "library_top_section": "Bibliotekets øverste sektion",

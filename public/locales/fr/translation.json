@@ -340,6 +340,7 @@
         "disable_logs": "COCHEZ cette case pour désactiver la consignation de la plupart des opérations dans les rapports d'événements (les informations critiques sont toujours enregistrées). Assurez-vous de DÉSACTIVER ce paramètre avant de signaler un problème.",
         "dxvknvapi": "DXVK-NVAPI est une implémentation de NVAPI construite par dessus DXVK et la version native de NVAPI. Elle permet d'utiliser le DLSS sur les cartes graphiques Nvidia.",
         "disablePlaytimeSync": "Désactive la synchronisation du temps de jeu avec les serveurs d'une boutique donnée (seuls les services proposés par GOG sont actuellement pris en charge)",
+        "godotDepthPrepassFix": "Forcer l'activation du depth pre-pass de Godot. Si votre jeu est écrit en Godot et a des difficultés à charger les sprites/images.",
         "gamescope": {
             "upscaleMethod": "La méthode de mise à l'échelle que Gamescope devrait utiliser.",
             "gameWidth": "La largeur de la résolution utilisée par le jeu. Gamescope présuppose un format d'affichage 16/9.",
@@ -645,6 +646,7 @@
         "exit-to-tray": "Minimiser dans la barre des tâches",
         "FsrSharpnessStrenght": "Niveau de netteté pour FSR",
         "fsync": "Activer Fsync",
+        "godotDepthPrepassFix": "Activer le correctif depth pre-pass de Godot",
         "gamemode": "Utiliser GameMode (Feral GameMode doit être installé)",
         "hideChangelogsOnStartup": "Ne pas afficher le journal des changements au démarrage",
         "language": "Choix de la langue",

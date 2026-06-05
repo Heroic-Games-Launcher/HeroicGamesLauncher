@@ -350,6 +350,7 @@
             "wineManager": "Nainštalujte rôzne verzie Wine, Proton, Crossover, atď."
         },
         "disablePlaytimeSync": "Zakáže synchronizáciu času hrania s danými servermi obchodu (momentálne je podporovaný iba s GOG)",
+        "godotDepthPrepassFix": "Vynútiť povolenie depth pre-pass pre Godot. Ak je vaša hra napísaná v Godote a má problémy s načítaním spritov/obrázkov.",
         "gamescope": {
             "gameHeight": "Rozlíšenie výšky používané hrou. Gamescope predpokladá pomer strán 16:9.",
             "fpsLimiterNoFocus": "Na koľko by mal Limit FPS obmedziť, ak okno hry nie je vybrané.",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Výstup do systémovej lišty",
         "FsrSharpnessStrenght": "FSR Sharpness Strength",
         "fsync": "Enable Fsync",
+        "godotDepthPrepassFix": "Povoliť opravu depth pre-pass pre Godot",
         "gamemode": "Použite GameMode (je potrebné nainštalovať režim Feral Game)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Choose App Language",

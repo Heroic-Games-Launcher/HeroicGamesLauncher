@@ -350,6 +350,7 @@
             "login": ""
         },
         "msync": "",
+        "godotDepthPrepassFix": "Behartu Godot depth pre-pass gaitzea. Zure jokoa Godot-en idatzita badago eta spriteak/irudiak kargatzeko arazoak baditu.",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -636,6 +637,7 @@
         "exit-to-tray": "Irten sistemaren erretilura",
         "FsrSharpnessStrenght": "FSR zorroztasunaren indarra",
         "fsync": "Gaitu Fsync",
+        "godotDepthPrepassFix": "Gaitu Godot depth pre-pass konponketa",
         "gamemode": "Erabili GameMode (Feral Game Mode instalatu behar da)",
         "hideChangelogsOnStartup": "Don't show changelogs on Startup",
         "language": "Aukeratu aplikazioaren hizkuntza",

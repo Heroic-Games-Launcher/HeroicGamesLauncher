@@ -241,6 +241,7 @@
             "valid_codes": "Braitheann cóid theanga bailí ar an gcluiche."
         },
         "gamemode": "Cuireann Feral GameMode coigeartuithe uathoibríocha agus sealadacha i bhfeidhm ar an gcóras agus cluichí á reáchtáil. D’fhéadfadh feabhas a chur ar fheidhmíocht má chuirtear ar chumas é.",
+        "godotDepthPrepassFix": "Iarr go gcuirfear réiteach depth pre-pass Godot i bhfeidhm. Má tá do chluiche scríofa i Godot agus má tá sé ag streachailt le sprites/íomhánna a lódáil.",
         "gamescope": {
             "additionalOptions": "Bratacha breise líne ordaithe le cur isteach i Gamescope.",
             "forceGrabCursor": "Bain úsáid as modh coibhneasta na luiche i gcónaí in ionad smeach ag brath ar infheictheacht an chúrsóra. (Úsáideach nuair a bhíonn feidhmchláir ag cailleadh fócas i gcónaí)",
@@ -385,6 +386,7 @@
         },
         "FsrSharpnessStrenght": "Neart Géire FSR",
         "fsync": "Cumasaigh Fsync",
+        "godotDepthPrepassFix": "Cumasaigh réiteach depth pre-pass Godot",
         "gamemode": "Bain úsáid as GameMode (ní mór Feral Game Mode a shuiteáil)",
         "gamescope": {
             "enableForceGrabCursor": "Cumasaigh Cúrsóir Greamaithe Fórsa",

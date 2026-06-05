@@ -355,6 +355,7 @@
             "close": "Sulje apu",
             "open": "Avaa apu"
         },
+        "godotDepthPrepassFix": "Pakota Godot depth pre-pass käyttöön. Jos pelisi on kirjoitettu Godotilla ja sillä on ongelmia spritejen/kuvien lataamisessa.",
         "gamescope": {
             "fpsLimiter": "Ruuturajoitus Gamescopelle. Esim. 60",
             "additionalOptions": "Lisää komentorivin lippuja jotka toimitetaan Gamescopeen.",
@@ -637,6 +638,7 @@
         "exit-to-tray": "Sulje ilmaisinalueelle",
         "FsrSharpnessStrenght": "FSR-terävyyden voimakkuus",
         "fsync": "Ota Fsync käyttöön",
+        "godotDepthPrepassFix": "Ota käyttöön Godot depth pre-pass -korjaus",
         "gamemode": "Käytä GameModea (Feral Game Mode tulee olla asennettu)",
         "hideChangelogsOnStartup": "Älä näytä muutoskirjauksia käynnistyksen yhteydessä",
         "language": "Valitse sovelluksen kieli",

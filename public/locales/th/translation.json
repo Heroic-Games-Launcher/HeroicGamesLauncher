@@ -289,6 +289,7 @@
             "part5": "",
             "part7": ""
         },
+        "godotDepthPrepassFix": "บังคับให้เปิดใช้งาน depth pre-pass ของ Godot หากเกมของคุณเขียนด้วย Godot และมีปัญหาในการโหลดสไปรท์/รูปภาพ",
         "gamescope": {
             "fpsLimiterNoFocus": "",
             "upscaleMethod": "",
@@ -513,6 +514,7 @@
         "wineWayland": "",
         "after-launch-script-path": "",
         "fsync": "",
+        "godotDepthPrepassFix": "เปิดใช้งานการแก้ไข depth pre-pass ของ Godot",
         "showfps": "",
         "experimental_features": {
             "cometSupport": "",

@@ -340,6 +340,7 @@
         "disable_logs": "将此复选框切换为“开”可禁用对日志文件的大部分写入（始终记录关键信息）。请确保在报告任何问题之前关闭此设置。",
         "dxvknvapi": "DXVK-NVAPI 是基于 DXVK 和 linux 原生 NVAPI 构建的 NVAPI 的实现，它允许在 Nvidia GPU 上使用 DLSS。",
         "disablePlaytimeSync": "停用与给定游戏商店服务器的游戏时间同步（当前只支持 GOG）",
+        "godotDepthPrepassFix": "强制启用 Godot depth pre-pass。如果您的游戏是用 Godot 编写的，并且在加载精灵/图片时遇到问题。",
         "gamescope": {
             "fpsLimiterNoFocus": "如未聚焦游戏，Gamescope 每秒应限制的帧率。",
             "upscaleMethod": "Gamescope 应使用的分辨率提升方法。",
@@ -645,6 +646,7 @@
         "exit-to-tray": "退出到系统托盘",
         "FsrSharpnessStrenght": "FSR 锐化强度",
         "fsync": "启用 Fsync",
+        "godotDepthPrepassFix": "启用 Godot depth pre-pass 修复",
         "gamemode": "使用 GameMode（需要已安装 Feral Game Mode）",
         "hideChangelogsOnStartup": "启动程序时不显示变更日志",
         "language": "选择应用语言",
