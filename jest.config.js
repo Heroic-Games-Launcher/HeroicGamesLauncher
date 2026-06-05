@@ -1,10 +1,7 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('jest').Config} */
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  globals: {
-    'ts-jest': {}
-  },
 
   collectCoverageFrom: ['**/*.{js,jsx,ts,tsx}', '!**/*.config.js'],
   coverageDirectory: '<rootDir>/coverage',

@@ -20,6 +20,7 @@ interface GithubAssetMetadata {
  * Takes a GitHub download URL (https://www.github.com/AUTHOR/REPO/releases/download/TAGNAME/ASSET) and returns relevant asset metadata
  * @param url
  * @returns
+ * @internal
  */
 async function getAssetDataFromDownload(
   url: string
@@ -96,4 +97,7 @@ async function extractTarFile(
   })
 }
 
+/**
+ * @internal
+ */
 export { getAssetDataFromDownload, downloadFile, extractTarFile }

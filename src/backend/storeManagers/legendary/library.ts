@@ -65,7 +65,7 @@ export async function initLegendaryLibraryManager() {
 /**
  * Loads all of the user's games into `allGames`
  */
-export function loadGamesInAccount() {
+function loadGamesInAccount() {
   if (!existsSync(legendaryMetadata)) {
     return
   }

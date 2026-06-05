@@ -1,0 +1,42 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/backend/main.ts!",
+    "src/preload/index.ts!",
+    "src/frontend/index.tsx!",
+    "electron.vite.config.ts",
+    "downloadCount.js",
+    "meta/*.ts!",
+    "flathub/update-flathub.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx,js,jsx}!",
+    "!src/common/typedefs/**",
+    "!e2e/**/*.ts",
+    "meta/**/*.ts!",
+    "*.{ts,js,mjs}"
+  ],
+  "ignoreBinaries": ["flatpak-builder", "esbuild", "electron-vite!"],
+  "ignoreDependencies": [
+    "@fontsource/cabin",
+    "@fontsource/rubik",
+    "sass",
+    "node-gyp",
+    "vite"
+  ],
+  "ignoreUnresolved": ["./src/backend"],
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  },
+  "ignoreIssues": {
+    "src/backend/storeManagers/**/library.ts": ["exports"]
+  },
+  "rules": {
+    "unlisted": "warn"
+  },
+  "jest": {
+    "config": ["jest.config.js", "src/backend/jest.config.js"],
+    "entry": ["**/__tests__/**/*.test.ts"]
+  }
+}
