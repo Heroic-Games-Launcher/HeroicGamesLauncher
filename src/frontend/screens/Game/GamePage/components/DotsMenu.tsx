@@ -29,8 +29,6 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
 
   const { is_installed, title } = gameInfo
 
-  const hasRequirements = (gameExtraInfo?.reqs || []).length > 0
-
   return (
     <>
       <div className="game-actions">
@@ -53,9 +51,6 @@ const DotsMenu = ({ gameInfo, handleUpdate }: Props) => {
           handleUpdate={handleUpdate}
           handleChangeLog={() => setShowChangelog(true)}
           disableUpdate={is.installing || is.updating}
-          onShowRequirements={
-            hasRequirements ? () => setShowRequirements(true) : undefined
-          }
           onShowModifyInstall={() => setShowModifyInstallModal(true)}
           gameInfo={gameInfo}
         />
