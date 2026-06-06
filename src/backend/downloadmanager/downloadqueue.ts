@@ -235,6 +235,74 @@ async function initQueue() {
   }
 }
 
+let backgroundAnalysisChain: Promise<void> = Promise.resolve()
+
+async function analyzeElementSize(element: DMQueueElement): Promise<void> {
+  const gameInfo = libraryManagerMap[element.params.runner].getGameInfo(
+    element.params.appName
+  )
+  if (
+    gameInfo?.isEAManaged ||
+    gameInfo?.isUbisoftManaged ||
+    element.params.appName === 'gog-redist'
+  ) {
+    return
+  }
+
+  const cacheKey = buildCacheKey(
+    element.type,
+    element.params.appName,
+    element.params.runner,
+    element.params.platformToInstall,
+    element.params.installLanguage,
+    element.params.sdlList,
+    element.params.branch,
+    element.params.build
+  )
+
+  if (getCachedSize(cacheKey)) return
+
+  try {
+    const installInfo = await libraryManagerMap[
+      element.params.runner
+    ].getInstallInfo(element.params.appName, element.params.platformToInstall, {
+      branch: element.params.branch,
+      build: element.params.build
+    })
+
+    if (!installInfo?.manifest?.download_size) return
+
+    const formattedSize = getFileSize(installInfo.manifest.download_size)
+    setCachedSize(cacheKey, formattedSize)
+
+    const queue = downloadManager.get('queue', [])
+    const index = queue.findIndex(
+      (el) =>
+        el.params.appName === element.params.appName &&
+        el.params.runner === element.params.runner
+    )
+    if (index >= 0 && queue[index].params.size === '?? MB') {
+      queue[index].params.size = formattedSize
+      downloadManager.set('queue', queue)
+      sendFrontendMessage('changedDMQueueInformation', queue, queueState)
+      logInfo(
+        [
+          `Background size analysis for ${element.params.appName}: ${formattedSize}`
+        ],
+        LogPrefix.DownloadManager
+      )
+    }
+  } catch (error) {
+    logWarning(
+      [
+        `Background size analysis failed for ${element.params.appName}:`,
+        error
+      ],
+      LogPrefix.DownloadManager
+    )
+  }
+}
+
 async function addToQueue(element: DMQueueElement): Promise<void> {
   if (!element) {
     logError(
@@ -259,6 +327,7 @@ async function addToQueue(element: DMQueueElement): Promise<void> {
       el.params.runner === element.params.runner
   )
 
+  let isNewElement = false
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
@@ -275,6 +344,7 @@ async function addToQueue(element: DMQueueElement): Promise<void> {
     element.params.size =
       element.params.size ?? getCachedSize(cacheKey) ?? '?? MB'
     elements.push(element)
+    isNewElement = true
   }
 
   downloadManager.set('queue', elements)
@@ -286,6 +356,10 @@ async function addToQueue(element: DMQueueElement): Promise<void> {
 
   if (isIdle()) {
     void initQueue()
+  } else if (isNewElement && element.params.size === '?? MB') {
+    backgroundAnalysisChain = backgroundAnalysisChain.then(() =>
+      analyzeElementSize(element)
+    )
   }
 }
 

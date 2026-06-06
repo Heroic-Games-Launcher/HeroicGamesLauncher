@@ -3,6 +3,7 @@ import { SizeCacheEntry } from 'common/types'
 import { logInfo, LogPrefix } from 'backend/logger'
 
 const MAX_CACHE_ENTRIES = 10
+const TTL_MS = 12 * 60 * 60 * 1000
 
 const sizeCacheStore = new TypeCheckedStoreBackend('sizeCache', {
   cwd: 'store',
@@ -47,7 +48,9 @@ function buildCacheKey(
 function getCachedSize(key: string): string | null {
   const entries = sizeCacheStore.get('entries', [])
   const entry = entries.find((e) => e.key === key)
-  return entry?.formattedSize ?? null
+  if (!entry) return null
+  if (Date.now() - entry.cachedAt > TTL_MS) return null
+  return entry.formattedSize
 }
 
 function setCachedSize(key: string, formattedSize: string): void {
