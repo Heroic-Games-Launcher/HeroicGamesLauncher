@@ -25,7 +25,6 @@ import {
   logDebug
 } from 'backend/logger'
 import { basename, dirname, join, normalize } from 'path'
-import { runRunnerCommand as runLegendaryCommand } from 'backend/storeManagers/legendary/library'
 import {
   gameInfoStore,
   installStore,
@@ -50,7 +49,7 @@ import { sendFrontendMessage } from './ipc'
 import { GlobalConfig } from './config'
 import { GameConfig } from './game_config'
 import { validWine, runWineCommand } from './launcher'
-import { gameManagerMap } from 'backend/storeManagers'
+import { gameManagerMap, libraryManagerMap } from 'backend/storeManagers'
 import {
   installWineVersion,
   updateWineVersionInfos,
@@ -88,8 +87,6 @@ import { isRunning } from './downloadmanager/downloadqueue'
 import { isOnline } from './online_monitor'
 
 const execAsync = promisify(exec)
-
-const { showMessageBox } = dialog
 
 /**
  * Compares 2 SemVer strings following "major.minor.patch".
@@ -242,7 +239,7 @@ async function handleExit() {
   const mainWindow = getMainWindow()
 
   if ((isLocked || isRunning()) && mainWindow) {
-    const { response } = await showMessageBox(mainWindow, {
+    const { response } = await dialog.showMessageBox(mainWindow, {
       buttons: [i18next.t('box.no'), i18next.t('box.yes')],
       message: i18next.t(
         'box.quit.message',
@@ -286,7 +283,7 @@ type ErrorHandlerMessage = {
 
 export async function askForceUninstall(runner: Runner, appName: string) {
   const { title } = gameManagerMap[runner].getGameInfo(appName)
-  const { response } = await showMessageBox({
+  const { response } = await dialog.showMessageBox({
     type: 'question',
     title,
     message: i18next.t(
@@ -386,7 +383,7 @@ function clearCache(
     installStore.clear()
     libraryStore.clear()
     gameInfoStore.clear()
-    runLegendaryCommand(
+    libraryManagerMap['legendary'].runRunnerCommand(
       { subcommand: 'cleanup' },
       { abortId: 'legandary-cleanup' }
     )
