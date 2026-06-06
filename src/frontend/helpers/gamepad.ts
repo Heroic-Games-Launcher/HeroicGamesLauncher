@@ -127,8 +127,7 @@ export const initGamepad = () => {
       // out of /console during a launch or while a console modal is open.
       if (
         action === 'back' &&
-        (document.body.classList.contains('console-launching') ||
-          document.body.classList.contains('console-modal-open'))
+        document.body.classList.contains('console-ignore-back')
       ) {
         return
       }
