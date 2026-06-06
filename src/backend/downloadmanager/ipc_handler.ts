@@ -10,7 +10,7 @@ import {
 
 import type { DMQueueElement } from 'common/types'
 
-addHandler('install', async (_e, args) => {
+addHandler('install', (_e, args) => {
   const dmQueueElement: DMQueueElement = {
     params: args,
     type: 'install',
@@ -19,7 +19,7 @@ addHandler('install', async (_e, args) => {
     startTime: 0
   }
 
-  await addToQueue(dmQueueElement)
+  addToQueue(dmQueueElement)
 
   // Add Dlcs to the queue
   if (
@@ -38,12 +38,12 @@ addHandler('install', async (_e, args) => {
         endTime: 0,
         startTime: 0
       }
-      await addToQueue(dlcQueueElement)
+      addToQueue(dlcQueueElement)
     }
   }
 })
 
-addHandler('updateGame', async (_e, args) => {
+addHandler('updateGame', (_e, args) => {
   const {
     gameInfo: {
       install: { platform, install_path }
@@ -58,7 +58,7 @@ addHandler('updateGame', async (_e, args) => {
     startTime: 0
   }
 
-  await addToQueue(dmQueueElement)
+  addToQueue(dmQueueElement)
 })
 
 addListener('removeFromDMQueue', (e, appName) => removeFromQueue(appName))

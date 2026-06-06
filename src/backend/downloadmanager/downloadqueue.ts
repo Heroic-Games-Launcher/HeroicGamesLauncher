@@ -307,7 +307,7 @@ async function analyzeElementSize(element: DMQueueElement): Promise<void> {
   }
 }
 
-async function addToQueue(element: DMQueueElement): Promise<void> {
+function addToQueue(element: DMQueueElement): void {
   if (!element) {
     logError(
       'Can not add undefined element to queue!',
