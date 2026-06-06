@@ -141,6 +141,16 @@ export default function Discounts() {
     pageSize
   ])
 
+  const [wishlistIds, setWishlistIds] = useState<Set<string>>(new Set())
+
+  // The "Wishlist Only" and "Hide Owned" checkboxes are hidden in the filter
+  // bar when the user is logged out of GOG, but the toggle state still lives
+  // in localStorage from a previous logged-in session. Treat them as off
+  // while logged out so the persisted preference doesn't silently filter the
+  // grid or trigger an authenticated refetch the backend can't fulfill.
+  const effectiveWishlistOnly = isGogLoggedIn && wishlistOnly
+  const effectiveHideOwned = isGogLoggedIn && hideOwned
+
   useEffect(() => {
     let cancelled = false
 
@@ -152,8 +162,7 @@ export default function Discounts() {
       try {
         const result = await window.api.getGogDiscounts(
           localeSettings,
-          hideOwned,
-          wishlistOnly
+          effectiveHideOwned
         )
         if (!cancelled) {
           setProducts(result)
@@ -185,7 +194,34 @@ export default function Discounts() {
     return () => {
       cancelled = true
     }
-  }, [localeSettings, hideOwned, wishlistOnly, t])
+  }, [localeSettings, effectiveHideOwned, t])
+
+  // Wishlist is fetched separately and applied client-side, so toggling the
+  // "Wishlist Only" filter never wipes the loaded products. Without this,
+  // a wishlist with no items currently on sale would empty the grid and hide
+  // the filter bar, leaving the user with no way to untoggle. See issue #5588.
+  useEffect(() => {
+    let cancelled = false
+
+    if (!isGogLoggedIn) {
+      setWishlistIds(new Set())
+      return
+    }
+
+    const loadWishlist = async () => {
+      try {
+        const ids = await window.api.getGogWishlist()
+        if (!cancelled) setWishlistIds(new Set(ids))
+      } catch (err) {
+        if (!cancelled) window.api.logError(String(err))
+      }
+    }
+
+    void loadWishlist()
+    return () => {
+      cancelled = true
+    }
+  }, [isGogLoggedIn])
 
   const priceMax = useMemo(() => {
     const max = products.reduce((acc, p) => {
@@ -276,6 +312,8 @@ export default function Discounts() {
       if (search && !p.title.toLowerCase().includes(search)) return false
 
       if (hideDlcs && p.productType === 'dlc') return false
+
+      if (effectiveWishlistOnly && !wishlistIds.has(p.id)) return false
 
       const amount = parsePriceAmount(p.price.finalMoney?.amount)
       if (amount < minPrice || amount > maxPrice) return false
@@ -393,6 +431,8 @@ export default function Discounts() {
     selectedOS,
     searchQuery,
     hideDlcs,
+    effectiveWishlistOnly,
+    wishlistIds,
     sortBy
   ])
 
@@ -412,8 +452,8 @@ export default function Discounts() {
     maxPegiAge,
     searchQuery,
     hideDlcs,
-    hideOwned,
-    wishlistOnly,
+    effectiveHideOwned,
+    effectiveWishlistOnly,
     pageSize,
     products
   ])
@@ -438,8 +478,8 @@ export default function Discounts() {
     maxPegiAge !== null ||
     searchQuery.trim() !== '' ||
     hideDlcs ||
-    hideOwned ||
-    wishlistOnly ||
+    effectiveHideOwned ||
+    effectiveWishlistOnly ||
     (priceRange !== null &&
       (priceRange[0] !== 0 || priceRange[1] !== priceMax)) ||
     (releaseYearRange !== null &&
@@ -542,13 +582,13 @@ export default function Discounts() {
 
       {!loading && error && <p className="discountsScreen__message">{error}</p>}
 
-      {!loading && !error && products.length === 0 && (
+      {!loading && !error && products.length === 0 && !hasActiveFilters && (
         <p className="discountsScreen__message">
           {t('discounts.empty', 'No discounted games available right now.')}
         </p>
       )}
 
-      {!loading && !error && products.length > 0 && (
+      {!loading && !error && (products.length > 0 || hasActiveFilters) && (
         <>
           <DiscountFilters
             sortBy={sortBy}
