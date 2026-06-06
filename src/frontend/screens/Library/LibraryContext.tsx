@@ -37,12 +37,15 @@ const initialContext: LibraryContextType = {
   showUpdatesOnly: false,
   setShowUpdatesOnly: () => null,
   handleAddGameButtonClick: () => null,
+  handleDownloadAllExtraInfo: () => null,
   setShowCategories: () => null,
   showAlphabetFilter: false,
   onToggleAlphabetFilter: () => null,
   alphabetFilterLetter: null,
   setAlphabetFilterLetter: () => null,
-  gamesForAlphabetFilter: [] as GameInfo[]
+  gamesForAlphabetFilter: [] as GameInfo[],
+  sortBy: 'title',
+  setSortBy: () => null
 }
 
 export default React.createContext(initialContext)

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import CurrentDownload from './components/CurrentDownload'
+import BatchExtraInfoProgress from './components/BatchExtraInfoProgress'
 import SidebarLinks from './components/SidebarLinks'
 import './index.scss'
 import HeroicVersion from './components/HeroicVersion'
@@ -148,6 +149,7 @@ export default React.memo(function Sidebar() {
           />
         )}
       </div>
+      <BatchExtraInfoProgress />
       <HeroicVersion />
       <div className="resizer" onMouseDown={handleDragStart} />
       <SidebarTour />

@@ -5,6 +5,7 @@ import { GameInfo } from 'common/types'
 import LibraryContext from '../../LibraryContext'
 import './index.css'
 import AddGameButton from '../AddGameButton'
+import DownloadExtraInfoButton from '../DownloadExtraInfoButton'
 
 type Props = {
   list: GameInfo[]
@@ -12,7 +13,7 @@ type Props = {
 
 export default React.memo(function LibraryHeader({ list }: Props) {
   const { t } = useTranslation()
-  const { showFavourites } = useContext(LibraryContext)
+  const { showFavourites, handleDownloadAllExtraInfo } = useContext(LibraryContext)
 
   const numberOfGames = useMemo(() => {
     if (!list) {
@@ -36,6 +37,10 @@ export default React.memo(function LibraryHeader({ list }: Props) {
             : t('title.allGames', 'All Games')}
           <span className="numberOfgames">{numberOfGames}</span>
           <AddGameButton data-tour="library-add-game" />
+          <DownloadExtraInfoButton
+            onClick={handleDownloadAllExtraInfo}
+            data-tour="library-download-extra-info"
+          />
         </span>
         <ActionIcons />
       </div>
