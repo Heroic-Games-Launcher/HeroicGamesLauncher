@@ -294,10 +294,7 @@ async function analyzeElementSize(element: DMQueueElement): Promise<void> {
     }
   } catch (error) {
     logWarning(
-      [
-        `Background size analysis failed for ${element.params.appName}:`,
-        error
-      ],
+      [`Background size analysis failed for ${element.params.appName}:`, error],
       LogPrefix.DownloadManager
     )
   }

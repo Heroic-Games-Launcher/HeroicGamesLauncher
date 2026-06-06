@@ -812,9 +812,8 @@ addHandler(
       if (info === undefined) return null
 
       if (info.manifest?.download_size) {
-        const { buildCacheKey, setCachedSize } = await import(
-          './downloadmanager/sizeCache'
-        )
+        const { buildCacheKey, setCachedSize } =
+          await import('./downloadmanager/sizeCache')
         const { getFileSize } = await import('./utils')
         const key = buildCacheKey(
           'install',
