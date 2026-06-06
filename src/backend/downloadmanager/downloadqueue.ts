@@ -260,7 +260,31 @@ async function analyzeElementSize(element: DMQueueElement): Promise<void> {
     element.params.build
   )
 
-  if (getCachedSize(cacheKey)) return
+  const applySize = (formattedSize: string) => {
+    const queue = downloadManager.get('queue', [])
+    const index = queue.findIndex(
+      (el) =>
+        el.params.appName === element.params.appName &&
+        el.params.runner === element.params.runner
+    )
+    if (index >= 0 && queue[index].params.size !== formattedSize) {
+      queue[index].params.size = formattedSize
+      downloadManager.set('queue', queue)
+      sendFrontendMessage('changedDMQueueInformation', queue, queueState)
+      logInfo(
+        [
+          `Background size analysis for ${element.params.appName}: ${formattedSize}`
+        ],
+        LogPrefix.DownloadManager
+      )
+    }
+  }
+
+  const cachedSize = getCachedSize(cacheKey)
+  if (cachedSize) {
+    applySize(cachedSize)
+    return
+  }
 
   try {
     const installInfo = await libraryManagerMap[
@@ -274,24 +298,7 @@ async function analyzeElementSize(element: DMQueueElement): Promise<void> {
 
     const formattedSize = getFileSize(installInfo.manifest.download_size)
     setCachedSize(cacheKey, formattedSize)
-
-    const queue = downloadManager.get('queue', [])
-    const index = queue.findIndex(
-      (el) =>
-        el.params.appName === element.params.appName &&
-        el.params.runner === element.params.runner
-    )
-    if (index >= 0 && queue[index].params.size === '?? MB') {
-      queue[index].params.size = formattedSize
-      downloadManager.set('queue', queue)
-      sendFrontendMessage('changedDMQueueInformation', queue, queueState)
-      logInfo(
-        [
-          `Background size analysis for ${element.params.appName}: ${formattedSize}`
-        ],
-        LogPrefix.DownloadManager
-      )
-    }
+    applySize(formattedSize)
   } catch (error) {
     logWarning(
       [`Background size analysis failed for ${element.params.appName}:`, error],
@@ -338,8 +345,8 @@ async function addToQueue(element: DMQueueElement): Promise<void> {
       element.params.branch,
       element.params.build
     )
-    element.params.size =
-      element.params.size ?? getCachedSize(cacheKey) ?? '?? MB'
+    const cachedSize = getCachedSize(cacheKey)
+    element.params.size = cachedSize ?? element.params.size ?? '?? MB'
     elements.push(element)
     isNewElement = true
   }
@@ -353,7 +360,7 @@ async function addToQueue(element: DMQueueElement): Promise<void> {
 
   if (isIdle()) {
     void initQueue()
-  } else if (isNewElement && element.params.size === '?? MB') {
+  } else if (isNewElement) {
     backgroundAnalysisChain = backgroundAnalysisChain.then(() =>
       analyzeElementSize(element)
     )
