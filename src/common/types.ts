@@ -625,6 +625,12 @@ export interface Tool {
   strip?: number
 }
 
+export interface SizeCacheEntry {
+  key: string
+  formattedSize: string
+  cachedAt: number
+}
+
 export type DMStatus = 'done' | 'error' | 'abort' | 'paused'
 export interface DMQueueElement {
   type: 'update' | 'install'
