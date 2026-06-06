@@ -12,6 +12,7 @@ import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
 import { onConnectivityChange } from 'backend/online_monitor'
+import { buildCacheKey, getCachedSize, setCachedSize } from './sizeCache'
 
 const downloadManager = new TypeCheckedStoreBackend('downloadManager', {
   cwd: 'store',
@@ -96,6 +97,31 @@ async function enrichElement(
     return []
   }
 
+  const isGOGWindows =
+    element.params.runner === 'gog' &&
+    element.params.platformToInstall.toLowerCase() === 'windows'
+
+  const cacheKey = buildCacheKey(
+    element.type,
+    element.params.appName,
+    element.params.runner,
+    element.params.platformToInstall,
+    element.params.installLanguage,
+    element.params.sdlList,
+    element.params.branch,
+    element.params.build
+  )
+
+  const cachedSize = getCachedSize(cacheKey)
+  if (cachedSize && !isGOGWindows) {
+    element.params.size = cachedSize
+    logInfo(
+      [`Size cache hit for ${element.params.appName}: ${cachedSize}`],
+      LogPrefix.DownloadManager
+    )
+    return []
+  }
+
   try {
     const installInfo = await libraryManagerMap[
       element.params.runner
@@ -104,13 +130,18 @@ async function enrichElement(
       build: element.params.build
     })
 
-    element.params.size = installInfo?.manifest?.download_size
-      ? getFileSize(installInfo?.manifest?.download_size)
+    const formattedSize = installInfo?.manifest?.download_size
+      ? getFileSize(installInfo.manifest.download_size)
       : '?? MB'
 
+    element.params.size = cachedSize ?? formattedSize
+
+    if (formattedSize !== '?? MB') {
+      setCachedSize(cacheKey, formattedSize)
+    }
+
     if (
-      element.params.runner === 'gog' &&
-      element.params.platformToInstall.toLowerCase() === 'windows' &&
+      isGOGWindows &&
       installInfo &&
       installInfo.manifest &&
       'dependencies' in installInfo.manifest
@@ -231,7 +262,18 @@ async function addToQueue(element: DMQueueElement): Promise<void> {
   if (elementIndex >= 0) {
     elements[elementIndex] = element
   } else {
-    element.params.size = element.params.size ?? '?? MB'
+    const cacheKey = buildCacheKey(
+      element.type,
+      element.params.appName,
+      element.params.runner,
+      element.params.platformToInstall,
+      element.params.installLanguage,
+      element.params.sdlList,
+      element.params.branch,
+      element.params.build
+    )
+    element.params.size =
+      element.params.size ?? getCachedSize(cacheKey) ?? '?? MB'
     elements.push(element)
   }
 

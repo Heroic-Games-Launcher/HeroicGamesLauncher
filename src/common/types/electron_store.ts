@@ -9,6 +9,7 @@ import {
   HiddenGame,
   FavouriteGame,
   DMQueueElement,
+  SizeCacheEntry,
   GOGLoginData,
   AppSettings,
   WikiInfo,
@@ -91,6 +92,9 @@ export interface StoreStructure {
   downloadManager: {
     queue: DMQueueElement[]
     finished: DMQueueElement[]
+  }
+  sizeCache: {
+    entries: SizeCacheEntry[]
   }
   gogSyncStore: {
     [appName: string]: {
