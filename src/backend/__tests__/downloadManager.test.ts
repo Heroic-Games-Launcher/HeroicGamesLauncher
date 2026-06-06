@@ -452,6 +452,32 @@ describe('cancelCurrentDownload', () => {
     await flushPromises()
   })
 
+  it('cancels correctly when download was previously paused', async () => {
+    let resolveInstall: (val: any) => void
+    mockInstall.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveInstall = resolve
+        })
+    )
+
+    dm.addToQueue(makeElement('game1'))
+    await flushPromises() // past enrichment, install hanging
+
+    dm.pauseCurrentDownload()
+    resolveInstall!({ status: 'abort' })
+    await flushPromises() // finally block runs, currentElement = null
+
+    expect(dm.getQueueInformation().state).toBe('paused')
+
+    dm.cancelCurrentDownload({ removeDownloaded: false })
+
+    const { elements } = dm.getQueueInformation()
+    expect(
+      elements.find((e: any) => e.params.appName === 'game1')
+    ).toBeUndefined()
+  })
+
   it('cancelling also removes DLC entries from queue', async () => {
     let resolveInstall: (val: any) => void
     mockInstall.mockImplementation(

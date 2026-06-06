@@ -393,9 +393,12 @@ function getQueueInformation() {
 }
 
 function cancelCurrentDownload({ removeDownloaded = false }) {
-  if (currentElement) {
-    if (Array.isArray(currentElement.params.installDlcs)) {
-      const dlcsToRemove = currentElement.params.installDlcs
+  const elementToCancel =
+    currentElement ?? (isPaused() ? getFirstQueueElement() : null)
+
+  if (elementToCancel) {
+    if (Array.isArray(elementToCancel.params.installDlcs)) {
+      const dlcsToRemove = elementToCancel.params.installDlcs
       for (const dlc of dlcsToRemove) {
         removeFromQueue(dlc)
       }
@@ -403,13 +406,13 @@ function cancelCurrentDownload({ removeDownloaded = false }) {
     if (isRunning()) {
       stopCurrentDownload()
     }
-    removeFromQueue(currentElement.params.appName)
+    removeFromQueue(elementToCancel.params.appName)
 
     if (removeDownloaded) {
-      const { appName, runner } = currentElement.params
+      const { appName, runner } = elementToCancel.params
       const { folder_name } = gameManagerMap[runner].getGameInfo(appName)
       if (folder_name) {
-        removeFolder(currentElement.params.path, folder_name)
+        removeFolder(elementToCancel.params.path, folder_name)
       }
     }
     currentElement = null
