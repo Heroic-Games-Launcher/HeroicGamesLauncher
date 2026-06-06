@@ -7,7 +7,7 @@ import { installQueueElement, updateQueueElement } from './utils'
 import { sendFrontendMessage } from '../ipc'
 import { callAbortController } from 'backend/utils/aborthandler/aborthandler'
 import { notify } from '../dialog/dialog'
-import i18next from 'i18next'
+import { t } from 'i18next'
 import { createRedistDMQueueElement } from 'backend/storeManagers/gog/redist'
 import { existsSync } from 'fs'
 import { gogRedistPath } from 'backend/storeManagers/gog/constants'
@@ -476,32 +476,32 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
         [action, 'of', element.params.appName, 'paused!'],
         LogPrefix.DownloadManager
       )
-      // i18next.t('notify.update.paused', 'Update Paused')
-      // i18next.t('notify.install.paused', 'Installation Paused')
-      notify({ title, body: i18next.t(`notify.${element.type}.paused`) })
+      // t('notify.update.paused', 'Update Paused')
+      // t('notify.install.paused', 'Installation Paused')
+      notify({ title, body: t(`notify.${element.type}.paused`) })
     } else {
       logWarning(
         [action, 'of', element.params.appName, 'aborted!'],
         LogPrefix.DownloadManager
       )
-      // i18next.t('notify.update.canceled', 'Update Canceled')
-      // i18next.t('notify.install.canceled', 'Installation Canceled')
-      notify({ title, body: i18next.t(`notify.${element.type}.canceled`) })
+      // t('notify.update.canceled', 'Update Canceled')
+      // t('notify.install.canceled', 'Installation Canceled')
+      notify({ title, body: t(`notify.${element.type}.canceled`) })
     }
   } else if (status === 'error') {
     logWarning(
       [action, 'of', element.params.appName, 'failed!'],
       LogPrefix.DownloadManager
     )
-    // i18next.t('notify.update.failed', 'Update Failed')
-    // i18next.t('notify.install.failed', 'Installation Failed')
-    notify({ title, body: i18next.t(`notify.${element.type}.failed`) })
+    // t('notify.update.failed', 'Update Failed')
+    // t('notify.install.failed', 'Installation Failed')
+    notify({ title, body: t(`notify.${element.type}.failed`) })
   } else if (status === 'done') {
-    // i18next.t('notify.update.finished', 'Update Finished')
-    // i18next.t('notify.install.finished', 'Installation Finished')
+    // t('notify.update.finished', 'Update Finished')
+    // t('notify.install.finished', 'Installation Finished')
     notify({
       title,
-      body: i18next.t(`notify.${element.type}.finished`)
+      body: t(`notify.${element.type}.finished`)
     })
 
     logInfo(

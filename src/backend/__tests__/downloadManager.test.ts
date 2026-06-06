@@ -64,7 +64,8 @@ jest.mock('backend/storeManagers/gog/constants', () => ({
 
 jest.mock('i18next', () => ({
   __esModule: true,
-  default: { t: jest.fn((key: string) => key) }
+  default: { t: jest.fn((key: string) => key) },
+  t: jest.fn((key: string) => key)
 }))
 
 jest.mock('backend/electron_store', () => {
