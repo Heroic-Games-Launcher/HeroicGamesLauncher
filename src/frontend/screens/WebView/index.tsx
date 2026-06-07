@@ -24,6 +24,8 @@ const validStoredUrl = (url: string, store: string) => {
       return url.includes('gaming.amazon.com')
     case 'zoom':
       return url.includes('zoom-platform.com')
+    case 'steam':
+      return url.includes('steampowered.com')
     default:
       return false
   }
@@ -63,6 +65,7 @@ export default function WebView() {
   const gogStore = `https://af.gog.com?as=1838482841`
   const amazonStore = `https://gaming.amazon.com`
   const zoomStore = `https://www.zoom-platform.com`
+  const steamStore = `https://store.steampowered.com/?l=${lang}`
   const wikiURL =
     'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki'
   const gogEmbedRegExp = new RegExp('https://embed.gog.com/on_login_success?')
@@ -78,6 +81,7 @@ export default function WebView() {
     '/store/gog': gogStore,
     '/store/amazon': amazonStore,
     '/store/zoom': zoomStore,
+    '/store/steam': steamStore,
     '/wiki': wikiURL,
     '/loginEpic': epicLoginUrl,
     '/loginGOG': gogLoginUrl,
