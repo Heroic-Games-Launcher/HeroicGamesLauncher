@@ -173,8 +173,8 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
   })
 
   const mainWindow = getMainWindow()
-  if (minimizeOnLaunch && !noTrayIcon) {
-    mainWindow?.hide()
+  if (minimizeOnLaunch && !noTrayIcon && mainWindow?.isVisible()) {
+    mainWindow.hide()
   }
 
   // Prevent display from sleep
@@ -264,9 +264,10 @@ const launchEventCallback: (args: LaunchParams) => StatusPromise = async ({
     await gogPresence.setPresence()
   }
   // Stop display sleep blocker
-  if (powerDisplayId !== null) {
+  if (powerDisplayId !== null && powerDisplayId !== undefined) {
     logInfo('Stopping Display Power Saver Blocker', LogPrefix.Backend)
     powerSaveBlocker.stop(powerDisplayId)
+    powerDisplayId = null
   }
 
   // Update playtime and last played date
