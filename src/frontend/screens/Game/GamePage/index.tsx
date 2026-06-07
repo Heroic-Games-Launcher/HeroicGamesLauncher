@@ -215,6 +215,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
         if (
           runner !== 'sideload' &&
+          runner !== 'steam' &&
           !notSupportedGame &&
           !notInstallable &&
           !thirdPartyManagedApp &&

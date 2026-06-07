@@ -24,6 +24,11 @@ export const steamCdnImageBase =
 // Store page for a given Steam app id.
 export const steamStoreAppUrl = 'https://store.steampowered.com/app'
 
+// Public Steam storefront API returning rich metadata (description,
+// requirements, release date, genres, ...) for a given app id.
+export const steamAppDetailsApiUrl =
+  'https://store.steampowered.com/api/appdetails'
+
 // App ids that show up as `appmanifest_*.acf` files but are not actual games
 // (Steam runtimes, redistributables, Proton, server tools, etc.). These are
 // filtered out when scanning the local library.
