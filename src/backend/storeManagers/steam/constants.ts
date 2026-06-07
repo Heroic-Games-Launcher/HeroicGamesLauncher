@@ -15,3 +15,31 @@ export const profileApiUrl = 'https://steamcommunity.com/profiles'
 export const steamRealm = 'https://store.steampowered.com'
 export const steamReturnUrl =
   'https://store.steampowered.com/?heroic_steam_login=1'
+
+// Base URL for Steam's public CDN game art. Appending `/<appId>/<file>` yields
+// the various artwork images (header, capsule, hero, logo) for a given game.
+export const steamCdnImageBase =
+  'https://cdn.cloudflare.steamstatic.com/steam/apps'
+
+// Store page for a given Steam app id.
+export const steamStoreAppUrl = 'https://store.steampowered.com/app'
+
+// App ids that show up as `appmanifest_*.acf` files but are not actual games
+// (Steam runtimes, redistributables, Proton, server tools, etc.). These are
+// filtered out when scanning the local library.
+export const ignoredSteamAppIds = [
+  '228980', // Steamworks Common Redistributables
+  '1070560', // Steam Linux Runtime
+  '1391110', // Steam Linux Runtime 2.0 (soldier)
+  '1628350', // Steam Linux Runtime 3.0 (sniper)
+  '1493710', // Proton Experimental
+  '2348590' // Proton 8.0
+]
+
+// Games whose name starts with any of these prefixes are treated as Steam
+// tooling rather than user games and are skipped during the local scan.
+export const ignoredSteamAppNamePrefixes = [
+  'Steam Linux Runtime',
+  'Proton',
+  'Steamworks Common Redistributables'
+]

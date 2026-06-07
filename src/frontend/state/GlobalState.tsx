@@ -762,7 +762,7 @@ class GlobalState extends PureComponent<Props> {
   ): Promise<void> => {
     console.log('refreshing')
 
-    const { epic, gog, amazon, zoom, gameUpdates } = this.state
+    const { epic, gog, amazon, zoom, steam, gameUpdates } = this.state
 
     const overrides = overridesArg || currentOverrides()
 
@@ -801,6 +801,16 @@ class GlobalState extends PureComponent<Props> {
       }
     }
 
+    let steamLibrary: GameInfo[] = []
+    if (steam.enabled) {
+      steamLibrary = this.loadSteamLibrary(overrides)
+      if (!steamLibrary.length || !steam.library.length) {
+        window.api.logInfo('No cache found, getting data from steam...')
+        await window.api.refreshLibrary('steam')
+        steamLibrary = this.loadSteamLibrary(overrides)
+      }
+    }
+
     let amazonLibrary = nileLibraryStore.get('library', [])
     if (amazon.user_id && (!amazonLibrary.length || !amazon.library.length)) {
       window.api.logInfo('No cache found, getting data from nile...')
@@ -823,6 +833,11 @@ class GlobalState extends PureComponent<Props> {
         library: zoomLibrary,
         username: zoom.username,
         enabled: zoom.enabled
+      },
+      steam: {
+        library: steamLibrary,
+        username: steam.username,
+        enabled: steam.enabled
       },
       amazon: {
         library: amazonLibrary,
@@ -1024,6 +1039,24 @@ class GlobalState extends PureComponent<Props> {
           zoom: {
             library: [...library],
             username: this.state.zoom.username,
+            enabled: true
+          }
+        })
+      } else if (args.runner === 'steam') {
+        // Handle Steam game push
+        const library = [...this.state.steam.library]
+        const index = library.findIndex(
+          (game) => game.app_name === args.app_name
+        )
+        if (index !== -1) {
+          library[index] = args
+        } else {
+          library.push(args)
+        }
+        this.setState({
+          steam: {
+            library: [...library],
+            username: this.state.steam.username,
             enabled: true
           }
         })
