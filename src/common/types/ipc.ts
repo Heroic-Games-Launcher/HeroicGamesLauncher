@@ -124,6 +124,7 @@ interface SyncIPCFunctions {
     status: boolean
   ) => void
   logoutZoom: () => void
+  logoutSteam: () => void
   setGameMetadataOverride: (args: {
     appName: string
     title?: string
@@ -195,6 +196,7 @@ interface AsyncIPCFunctions {
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
+  getSteamUserInfo: () => Promise<{ username: string } | undefined>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'
@@ -209,6 +211,7 @@ interface AsyncIPCFunctions {
     user: NileUserData | undefined
   }>
   authZoom: (url: string) => Promise<{ status: 'done' | 'error' }>
+  authSteam: (url: string) => Promise<{ status: 'done' | 'error' }>
   logoutLegendary: () => Promise<void>
   logoutAmazon: () => Promise<void>
   getAlternativeWine: () => Promise<WineInstallation[]>

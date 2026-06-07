@@ -36,7 +36,10 @@ import {
   sideloadLibrary,
   zoomConfigStore,
   zoomInstalledGamesStore,
-  zoomLibraryStore
+  zoomLibraryStore,
+  steamConfigStore,
+  steamInstalledGamesStore,
+  steamLibraryStore
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
@@ -70,6 +73,11 @@ interface StateProps {
     username?: string
   }
   zoom: {
+    library: GameInfo[]
+    username?: string
+    enabled: boolean
+  }
+  steam: {
     library: GameInfo[]
     username?: string
     enabled: boolean
@@ -192,6 +200,23 @@ class GlobalState extends PureComponent<Props> {
     return applyGameOverrides(games, overrides)
   }
 
+  loadSteamLibrary = (
+    overrides: Record<string, GameOverride> = currentOverrides()
+  ): Array<GameInfo> => {
+    const games = steamLibraryStore.get('games', [])
+    const installedGames = steamInstalledGamesStore.get('installed', [])
+    for (const game of games) {
+      const igame = installedGames.find(
+        (igame) => igame.appName === game.app_name
+      )
+      if (igame) {
+        game.install = igame
+        game.is_installed = true
+      }
+    }
+    return applyGameOverrides(games, overrides)
+  }
+
   state: StateProps = {
     epic: {
       library: this.loadLegendaryLibrary(),
@@ -210,6 +235,11 @@ class GlobalState extends PureComponent<Props> {
       library: this.loadZoomLibrary(),
       username: zoomConfigStore.get_nodefault('username'),
       enabled: !!globalSettings?.experimentalFeatures?.zoomPlatform
+    },
+    steam: {
+      library: this.loadSteamLibrary(),
+      username: steamConfigStore.get_nodefault('username'),
+      enabled: !!globalSettings?.experimentalFeatures?.steamImport
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -262,6 +292,7 @@ class GlobalState extends PureComponent<Props> {
       enableHelp: false,
       cometSupport: true,
       zoomPlatform: false,
+      steamImport: false,
       ...(globalSettings?.experimentalFeatures || {})
     },
     disableDialogBackdropClose: configStore.get(
@@ -522,7 +553,8 @@ class GlobalState extends PureComponent<Props> {
   handleExperimentalFeatures = (value: ExperimentalFeatures) => {
     this.setState({
       experimentalFeatures: value,
-      zoom: { ...this.state.zoom, enabled: value }
+      zoom: { ...this.state.zoom, enabled: value },
+      steam: { ...this.state.steam, enabled: !!value.steamImport }
     })
   }
 
@@ -661,6 +693,39 @@ class GlobalState extends PureComponent<Props> {
       }
     })
     console.log('Logging out from zoom')
+    window.location.reload()
+  }
+
+  steamLogin = async (url: string) => {
+    console.log('logging steam')
+    const response = await window.api.authSteam(url)
+
+    if (response.status === 'done') {
+      const userInfo = await window.api.getSteamUserInfo()
+      this.setState({
+        steam: {
+          library: [],
+          username: userInfo?.username,
+          enabled: true
+        }
+      })
+
+      this.handleSuccessfulLogin('steam')
+    }
+
+    return response.status
+  }
+
+  steamLogout = async () => {
+    window.api.logoutSteam()
+    this.setState({
+      steam: {
+        library: [],
+        username: null,
+        enabled: true
+      }
+    })
+    console.log('Logging out from steam')
     window.location.reload()
   }
 
@@ -884,6 +949,7 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       zoom,
+      steam,
       gameUpdates = [],
       libraryStatus,
       platform
@@ -982,6 +1048,7 @@ class GlobalState extends PureComponent<Props> {
     const gogUser = gogConfigStore.has('userData')
     const amazonUser = nileConfigStore.has('userData')
     const zoomUser = zoomConfigStore.has('isLoggedIn')
+    const steamUser = steamConfigStore.has('isLoggedIn')
 
     if (legendaryUser) {
       await window.api.getUserInfo()
@@ -993,6 +1060,10 @@ class GlobalState extends PureComponent<Props> {
 
     if (zoom.enabled && zoomUser) {
       await window.api.getZoomUserInfo()
+    }
+
+    if (steam.enabled && steamUser) {
+      await window.api.getSteamUserInfo()
     }
 
     if (!gameUpdates.length) {
@@ -1105,6 +1176,7 @@ class GlobalState extends PureComponent<Props> {
       gog,
       amazon,
       zoom,
+      steam,
       favouriteGames,
       customCategories,
       hiddenGames,
@@ -1148,6 +1220,13 @@ class GlobalState extends PureComponent<Props> {
             login: this.zoomLogin,
             logout: this.zoomLogout,
             enabled: this.state.zoom.enabled
+          },
+          steam: {
+            library: this.state.steam.enabled ? steam.library : [],
+            username: this.state.steam.enabled ? steam.username : undefined,
+            login: this.steamLogin,
+            logout: this.steamLogout,
+            enabled: this.state.steam.enabled
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

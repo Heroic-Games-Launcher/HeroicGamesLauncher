@@ -3,12 +3,14 @@ import GOGGameManager from 'backend/storeManagers/gog/games'
 import LegendaryGameManager from 'backend/storeManagers/legendary/games'
 import NileGameManager from 'backend/storeManagers/nile/games'
 import ZoomGameManager from 'backend/storeManagers/zoom/games'
+import SteamGameManager from 'backend/storeManagers/steam/games'
 
 import SideloadLibraryManager from 'backend/storeManagers/sideload/library'
 import GOGLibraryManager from 'backend/storeManagers/gog/library'
 import LegendaryLibraryManager from 'backend/storeManagers/legendary/library'
 import NileLibraryManager from 'backend/storeManagers/nile/library'
 import ZoomLibraryManager from 'backend/storeManagers/zoom/library'
+import SteamLibraryManager from 'backend/storeManagers/steam/library'
 
 import { logInfo, RunnerToLogPrefixMap } from 'backend/logger'
 import { addToQueue } from 'backend/downloadmanager/downloadqueue'
@@ -21,7 +23,8 @@ export const gameManagerMap = {
   gog: new GOGGameManager(),
   legendary: new LegendaryGameManager(),
   nile: new NileGameManager(),
-  zoom: new ZoomGameManager()
+  zoom: new ZoomGameManager(),
+  steam: new SteamGameManager()
 } satisfies Record<Runner, GameManager>
 
 export const libraryManagerMap = {
@@ -29,7 +32,8 @@ export const libraryManagerMap = {
   gog: new GOGLibraryManager(),
   legendary: new LegendaryLibraryManager(),
   nile: new NileLibraryManager(),
-  zoom: new ZoomLibraryManager()
+  zoom: new ZoomLibraryManager(),
+  steam: new SteamLibraryManager()
 } satisfies Record<Runner, LibraryManager>
 
 function getDMElement(gameInfo: GameInfo, appName: string) {

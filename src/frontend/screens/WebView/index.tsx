@@ -35,7 +35,8 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, connectivity } = useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, steam, connectivity } =
+    useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string
@@ -73,6 +74,17 @@ export default function WebView() {
     'https://auth.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=galaxy'
   const zoomLoginUrl =
     'https://www.zoom-platform.com/login?li=heroic&return_li_token=true'
+  const steamReturnUrl = 'https://store.steampowered.com/?heroic_steam_login=1'
+  const steamLoginUrl = `https://steamcommunity.com/openid/login?${new URLSearchParams(
+    {
+      'openid.ns': 'http://specs.openid.net/auth/2.0',
+      'openid.mode': 'checkid_setup',
+      'openid.return_to': steamReturnUrl,
+      'openid.realm': 'https://store.steampowered.com',
+      'openid.identity': 'http://specs.openid.net/auth/2.0/identifier_select',
+      'openid.claimed_id': 'http://specs.openid.net/auth/2.0/identifier_select'
+    }
+  ).toString()}`
 
   const trueAsStr = 'true' as unknown as boolean | undefined
 
@@ -88,7 +100,8 @@ export default function WebView() {
     '/loginweb/legendary': epicLoginUrl,
     '/loginweb/gog': gogLoginUrl,
     '/loginweb/nile': amazonLoginData ? amazonLoginData.url : '',
-    '/loginweb/zoom': zoomLoginUrl
+    '/loginweb/zoom': zoomLoginUrl,
+    '/loginweb/steam': steamLoginUrl
   }
   let startUrl = urls[pathname]
 
@@ -279,6 +292,17 @@ export default function WebView() {
               message: t('status.logging', 'Logging In...')
             })
             zoom.login(pageURL).then(() => handleSuccessfulLogin())
+          }
+        } else if (runner === 'steam') {
+          const pageURL = webview.getURL()
+          const parsedURL = new URL(pageURL)
+          const claimedId = parsedURL.searchParams.get('openid.claimed_id')
+          if (claimedId) {
+            setLoading({
+              refresh: true,
+              message: t('status.logging', 'Logging In...')
+            })
+            steam.login(pageURL).then(() => handleSuccessfulLogin())
           }
         }
       }

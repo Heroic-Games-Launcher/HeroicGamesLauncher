@@ -60,6 +60,9 @@ export interface StoreStructure {
   zoomInstalledGamesStore: {
     installed: InstalledInfo[]
   }
+  steamInstalledGamesStore: {
+    installed: InstalledInfo[]
+  }
   timestampStore: {
     [K: string]: {
       firstPlayed: string
@@ -78,6 +81,11 @@ export interface StoreStructure {
   zoomConfigStore: {
     credentials?: ZoomCredentials
     isLoggedIn: boolean
+    username?: string
+  }
+  steamConfigStore: {
+    isLoggedIn: boolean
+    steamId?: string
     username?: string
   }
   nileConfigStore: {

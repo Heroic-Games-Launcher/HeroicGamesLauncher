@@ -25,6 +25,7 @@ export type Category =
   | 'sideload'
   | 'nile'
   | 'zoom'
+  | 'steam'
 
 export interface ContextType {
   error: boolean
@@ -89,6 +90,13 @@ export interface ContextType {
     logout: () => Promise<void>
   }
   zoom: {
+    library: GameInfo[]
+    username?: string
+    login: (url: string) => Promise<string>
+    logout: () => Promise<void>
+    enabled: boolean
+  }
+  steam: {
     library: GameInfo[]
     username?: string
     login: (url: string) => Promise<string>
@@ -212,6 +220,7 @@ export interface StoresFilters {
   nile: boolean
   sideload: boolean
   zoom: boolean
+  steam: boolean
 }
 
 export interface PlatformsFilters {
