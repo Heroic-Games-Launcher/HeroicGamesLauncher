@@ -613,7 +613,9 @@ export default class SteamLibraryManager implements LibraryManager {
    */
   async findInstalledGame(
     appId: string
-  ): Promise<{ installed: InstalledInfo; fullyInstalled: boolean } | undefined> {
+  ): Promise<
+    { installed: InstalledInfo; fullyInstalled: boolean } | undefined
+  > {
     let steamLibraries: string[] = []
     try {
       steamLibraries = await getSteamLibraries()

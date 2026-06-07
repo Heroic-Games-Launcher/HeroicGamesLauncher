@@ -272,8 +272,7 @@ export default class SteamGameManager implements GameManager {
     const gameInfo = this.getGameInfo(appName)
 
     // If Steam already has the game fully installed, just sync Heroic's view.
-    const existing =
-      await libraryManagerMap['steam'].findInstalledGame(appName)
+    const existing = await libraryManagerMap['steam'].findInstalledGame(appName)
     if (existing?.fullyInstalled) {
       await libraryManagerMap['steam'].refresh()
       return { status: 'done' }
@@ -302,8 +301,7 @@ export default class SteamGameManager implements GameManager {
     for (;;) {
       await delay(STEAM_INSTALL_POLL_INTERVAL_MS)
 
-      const state =
-        await libraryManagerMap['steam'].findInstalledGame(appName)
+      const state = await libraryManagerMap['steam'].findInstalledGame(appName)
 
       if (state) {
         // Steam has begun the download; keep waiting until it finishes.
