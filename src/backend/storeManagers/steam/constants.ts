@@ -29,6 +29,11 @@ export const steamStoreAppUrl = 'https://store.steampowered.com/app'
 export const steamAppDetailsApiUrl =
   'https://store.steampowered.com/api/appdetails'
 
+// Steam client protocol URL used to launch an installed game. Appending the
+// app id (`steam://rungameid/<appId>`) tells the running Steam client to start
+// the game, letting Steam handle compatibility (Proton), DRM and cloud saves.
+export const steamRunGameUrl = 'steam://rungameid'
+
 // App ids that show up as `appmanifest_*.acf` files but are not actual games
 // (Steam runtimes, redistributables, Proton, server tools, etc.). These are
 // filtered out when scanning the local library.

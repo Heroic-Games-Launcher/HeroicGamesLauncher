@@ -1,16 +1,85 @@
 import { GameConfig } from '../../game_config'
 import { ExtraInfo, GameInfo, GameSettings, ExecResult } from 'common/types'
 import { existsSync } from 'graceful-fs'
-import { logError, logWarning, LogPrefix } from 'backend/logger'
+import { spawnSync } from 'child_process'
+import { shell } from 'electron'
+import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
 import {
   addShortcuts as addShortcutsUtil,
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
 import { GameManager, InstallResult } from 'common/types/game_manager'
-import { axiosClient } from 'backend/utils'
+import { axiosClient, sendGameStatusUpdate } from 'backend/utils'
+import { isWindows } from 'backend/constants/environment'
+import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
 import { extraInfoStore } from './electronStores'
-import { steamAppDetailsApiUrl, steamStoreAppUrl } from './constants'
+import {
+  steamAppDetailsApiUrl,
+  steamRunGameUrl,
+  steamStoreAppUrl
+} from './constants'
+
+import type LogWriter from 'backend/logger/log_writer'
+
+// How often to poll for the launched game's process while it is running.
+const STEAM_PROCESS_POLL_INTERVAL_MS = 5000
+// How long to wait for the game's process to appear after asking Steam to
+// launch it before giving up (Steam itself might need to start first).
+const STEAM_PROCESS_STARTUP_TIMEOUT_MS = 120000
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+/**
+ * Checks whether any process is currently running from inside the given
+ * install directory. Steam launches games as its own child processes (outside
+ * of Heroic), so we detect the running game by matching process executables
+ * against the game's install path.
+ */
+function isSteamGameRunning(installPath: string): boolean {
+  try {
+    if (isWindows) {
+      const escaped = installPath.replace(/'/g, "''")
+      const script = `@(Get-CimInstance Win32_Process | Where-Object { $_.Path -and $_.Path.StartsWith('${escaped}\\') }).Count`
+      const ret = spawnSync('powershell.exe', [
+        '-NoProfile',
+        '-NonInteractive',
+        '-Command',
+        script
+      ])
+      const count = parseInt(ret.stdout?.toString().trim() || '0', 10)
+      return Number.isFinite(count) && count > 0
+    }
+    const ret = spawnSync('pgrep', ['-f', '--', installPath])
+    return ret.status === 0
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Terminates any process running from inside the given install directory.
+ */
+function killSteamGameProcesses(installPath: string): void {
+  if (isWindows) {
+    const escaped = installPath.replace(/'/g, "''")
+    const script = `Get-CimInstance Win32_Process | Where-Object { $_.Path -and $_.Path.StartsWith('${escaped}\\') } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`
+    spawnSync('powershell.exe', [
+      '-NoProfile',
+      '-NonInteractive',
+      '-Command',
+      script
+    ])
+  } else {
+    spawnSync('pkill', ['-f', '--', installPath])
+  }
+}
+
+function isSteamImportEnabled(): boolean {
+  return !!GlobalConfig.get().getSettings().experimentalFeatures?.steamImport
+}
 
 interface SteamRequirementsBlock {
   minimum?: string
@@ -189,9 +258,11 @@ export default class SteamGameManager implements GameManager {
     return { status: 'error', error: 'Install not implemented' }
   }
 
-  isNative(appName: string): boolean {
-    const gameInfo = this.getGameInfo(appName)
-    return Boolean(gameInfo.is_linux_native || gameInfo.is_mac_native)
+  isNative(): boolean {
+    // Steam games are always launched through the Steam client itself, which
+    // handles compatibility (Proton) on its own. Heroic never wraps them in
+    // Wine, so from Heroic's point of view they always run "natively".
+    return true
   }
 
   async addShortcuts(appName: string, fromMenu?: boolean): Promise<void> {
@@ -202,8 +273,78 @@ export default class SteamGameManager implements GameManager {
     return removeShortcutsUtil(this.getGameInfo(appName))
   }
 
-  async launch(): Promise<boolean> {
-    return false
+  async launch(appName: string, logWriter: LogWriter): Promise<boolean> {
+    if (!isSteamImportEnabled()) {
+      logWarning(
+        `Steam import is disabled, cannot launch ${appName}`,
+        LogPrefix.Steam
+      )
+      return false
+    }
+
+    const gameInfo = this.getGameInfo(appName)
+    const installPath = gameInfo.install?.install_path
+
+    if (!gameInfo.is_installed || !installPath) {
+      logError(
+        `Cannot launch ${appName}, game is not installed`,
+        LogPrefix.Steam
+      )
+      return false
+    }
+
+    if (!existsSync(installPath)) {
+      logError(
+        `Cannot launch ${appName}, install path ${installPath} does not exist`,
+        LogPrefix.Steam
+      )
+      return false
+    }
+
+    logInfo(
+      `Launching ${gameInfo.title} (${appName}) through Steam`,
+      LogPrefix.Steam
+    )
+    await logWriter.logInfo(`Launching ${gameInfo.title} through Steam`)
+
+    sendGameStatusUpdate({ appName, runner: 'steam', status: 'playing' })
+
+    try {
+      await shell.openExternal(`${steamRunGameUrl}/${appName}`)
+    } catch (error) {
+      logError(
+        [`Failed to ask Steam to launch ${appName}`, error],
+        LogPrefix.Steam
+      )
+      return false
+    }
+
+    // Steam runs the game as its own (detached) process, so block here until
+    // the game's process appears and then exits. This keeps Heroic's "playing"
+    // status accurate and lets play time be recorded by the launcher.
+    let started = false
+    let waited = 0
+    let running = true
+    do {
+      await delay(STEAM_PROCESS_POLL_INTERVAL_MS)
+      running = isSteamGameRunning(installPath)
+      if (running) {
+        started = true
+      } else if (!started) {
+        waited += STEAM_PROCESS_POLL_INTERVAL_MS
+      }
+    } while (running || (!started && waited < STEAM_PROCESS_STARTUP_TIMEOUT_MS))
+
+    if (!started) {
+      logWarning(
+        `Did not detect ${gameInfo.title} (${appName}) starting; it may have been launched by Steam in another way`,
+        LogPrefix.Steam
+      )
+    } else {
+      logInfo(`${gameInfo.title} (${appName}) has stopped`, LogPrefix.Steam)
+    }
+
+    return true
   }
 
   async moveInstall(): Promise<InstallResult> {
@@ -230,8 +371,20 @@ export default class SteamGameManager implements GameManager {
     return
   }
 
-  async stop(): Promise<void> {
-    return
+  async stop(appName: string): Promise<void> {
+    const gameInfo = this.getGameInfo(appName)
+    const installPath = gameInfo.install?.install_path
+
+    if (!installPath) {
+      logWarning(
+        `Cannot stop ${appName}, no install path is known`,
+        LogPrefix.Steam
+      )
+      return
+    }
+
+    logInfo(`Stopping ${gameInfo.title} (${appName})`, LogPrefix.Steam)
+    killSteamGameProcesses(installPath)
   }
 
   async isGameAvailable(appName: string): Promise<boolean> {
