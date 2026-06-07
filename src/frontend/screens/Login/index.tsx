@@ -11,7 +11,11 @@ import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
 import SteamLogo from 'frontend/assets/steam-logo.svg?react'
 
-import { LanguageSelector, ToggleSwitch, UpdateComponent } from '../../components/UI'
+import {
+  LanguageSelector,
+  ToggleSwitch,
+  UpdateComponent
+} from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
