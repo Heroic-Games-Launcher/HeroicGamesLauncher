@@ -27,6 +27,12 @@ const DownloadSizeInfo = ({ gameInfo }: Props) => {
     return null
   }
 
+  // Steam manages downloads in its own client, so Heroic has no download/
+  // install size to report.
+  if (runner === 'steam') {
+    return null
+  }
+
   if (gameInfo.thirdPartyManagedApp) {
     return (
       <div className="iconWithText">

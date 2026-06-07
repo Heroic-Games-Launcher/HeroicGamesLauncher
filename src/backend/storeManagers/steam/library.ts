@@ -33,7 +33,9 @@ import {
   steamStoreAppUrl,
   profileApiUrl,
   steamAppDetailsApiUrl,
-  steamId64Offset
+  steamId64Offset,
+  steamStateFullyInstalled,
+  steamStateInProgressMask
 } from './constants'
 
 const library: Map<string, GameInfo> = new Map()
@@ -602,6 +604,59 @@ export default class SteamLibraryManager implements LibraryManager {
       game.install = installedInfo
     }
     return game
+  }
+
+  /**
+   * Looks for an `appmanifest_<appId>.acf` across all Steam library folders and
+   * reports whether the game is installed locally and, if so, whether Steam has
+   * finished downloading it (as opposed to an install/update still running).
+   */
+  async findInstalledGame(
+    appId: string
+  ): Promise<{ installed: InstalledInfo; fullyInstalled: boolean } | undefined> {
+    let steamLibraries: string[] = []
+    try {
+      steamLibraries = await getSteamLibraries()
+    } catch (error) {
+      logError(['Unable to get Steam libraries', error], LogPrefix.Steam)
+      return
+    }
+
+    for (const libraryPath of new Set(steamLibraries)) {
+      const manifestPath = join(
+        libraryPath,
+        'steamapps',
+        `appmanifest_${appId}.acf`
+      )
+      if (!existsSync(manifestPath)) {
+        continue
+      }
+
+      const parsed = this.parseManifest(libraryPath, manifestPath)
+      if (!parsed) {
+        continue
+      }
+
+      let flags = 0
+      try {
+        const data = parse(
+          readFileSync(manifestPath, 'utf-8')
+        ) as SteamAppManifest
+        flags = Number(data.AppState?.StateFlags ?? 0)
+      } catch {
+        // Treat an unreadable manifest as "not fully installed yet".
+      }
+
+      const fullyInstalled =
+        (flags & steamStateFullyInstalled) !== 0 &&
+        (flags & steamStateInProgressMask) === 0 &&
+        !!parsed.installed.install_path &&
+        existsSync(parsed.installed.install_path)
+
+      return { installed: parsed.installed, fullyInstalled }
+    }
+
+    return
   }
 
   async getInstallInfo(): Promise<InstallInfo | undefined> {

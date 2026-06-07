@@ -34,6 +34,27 @@ export const steamAppDetailsApiUrl =
 // the game, letting Steam handle compatibility (Proton), DRM and cloud saves.
 export const steamRunGameUrl = 'steam://rungameid'
 
+// Steam client protocol URLs used to install/uninstall a game. Appending the
+// app id (`steam://install/<appId>`) opens Steam's install dialog; Steam then
+// downloads the game and writes the corresponding `appmanifest_<appId>.acf`.
+export const steamInstallUrl = 'steam://install'
+export const steamUninstallUrl = 'steam://uninstall'
+
+// Steam `appmanifest_*.acf` `StateFlags` bit indicating the game is fully
+// installed. https://github.com/lutris/lutris/blob/master/docs/steam.rst
+export const steamStateFullyInstalled = 4
+
+// `StateFlags` bits indicating an install/update is still in progress, used to
+// tell an in-progress download apart from a finished one.
+export const steamStateInProgressMask =
+  2 | // Update required
+  8 | // Update started
+  32 | // Files missing
+  128 | // Files corrupt
+  256 | // Update running
+  512 | // Update paused
+  1024 // Update started (committing)
+
 // Offset to convert a 64-bit SteamID into the 32-bit account id used as the
 // `userdata/<accountId>` folder name on disk.
 export const steamId64Offset = BigInt('76561197960265728')

@@ -609,6 +609,19 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     if (!is_installed && !isInstalling) {
+      // Steam manages its own downloads, so skip Heroic's install dialog and
+      // hand off to the Steam client (the install path is chosen in Steam).
+      if (gameInfo.runner === 'steam') {
+        return install({
+          gameInfo,
+          installPath: 'default',
+          isInstalling,
+          previousProgress,
+          progress,
+          t,
+          showDialogModal
+        })
+      }
       return handleModal()
     }
 

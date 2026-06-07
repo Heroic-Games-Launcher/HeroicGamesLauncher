@@ -16,6 +16,7 @@ import { libraryManagerMap } from '..'
 import { extraInfoStore } from './electronStores'
 import {
   steamAppDetailsApiUrl,
+  steamInstallUrl,
   steamRunGameUrl,
   steamStoreAppUrl
 } from './constants'
@@ -27,6 +28,12 @@ const STEAM_PROCESS_POLL_INTERVAL_MS = 5000
 // How long to wait for the game's process to appear after asking Steam to
 // launch it before giving up (Steam itself might need to start first).
 const STEAM_PROCESS_STARTUP_TIMEOUT_MS = 120000
+
+// How often to poll for an install's progress (the game's `appmanifest`).
+const STEAM_INSTALL_POLL_INTERVAL_MS = 5000
+// How long to wait for Steam to start the download (i.e. for the manifest to
+// appear) before assuming the user cancelled the Steam install dialog.
+const STEAM_INSTALL_START_TIMEOUT_MS = 15 * 60 * 1000
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -254,8 +261,88 @@ export default class SteamGameManager implements GameManager {
   }
 
   async install(appName: string): Promise<InstallResult> {
-    logWarning(`Install not implemented for Steam: ${appName}`, LogPrefix.Steam)
-    return { status: 'error', error: 'Install not implemented' }
+    if (!isSteamImportEnabled()) {
+      logWarning(
+        `Steam import is disabled, cannot install ${appName}`,
+        LogPrefix.Steam
+      )
+      return { status: 'error', error: 'Steam import disabled' }
+    }
+
+    const gameInfo = this.getGameInfo(appName)
+
+    // If Steam already has the game fully installed, just sync Heroic's view.
+    const existing =
+      await libraryManagerMap['steam'].findInstalledGame(appName)
+    if (existing?.fullyInstalled) {
+      await libraryManagerMap['steam'].refresh()
+      return { status: 'done' }
+    }
+
+    logInfo(
+      `Asking Steam to install ${gameInfo.title} (${appName})`,
+      LogPrefix.Steam
+    )
+
+    try {
+      await shell.openExternal(`${steamInstallUrl}/${appName}`)
+    } catch (error) {
+      logError(
+        [`Failed to ask Steam to install ${appName}`, error],
+        LogPrefix.Steam
+      )
+      return { status: 'error', error: `${error}` }
+    }
+
+    // Steam downloads the game in its own client. Poll the game's appmanifest
+    // until Steam reports it fully installed (or the user cancels, in which
+    // case the manifest never appears within the startup window).
+    let waitedForStart = 0
+    let started = false
+    for (;;) {
+      await delay(STEAM_INSTALL_POLL_INTERVAL_MS)
+
+      const state =
+        await libraryManagerMap['steam'].findInstalledGame(appName)
+
+      if (state) {
+        // Steam has begun the download; keep waiting until it finishes.
+        started = true
+        if (state.fullyInstalled) {
+          break
+        }
+      } else if (!started) {
+        waitedForStart += STEAM_INSTALL_POLL_INTERVAL_MS
+        if (waitedForStart >= STEAM_INSTALL_START_TIMEOUT_MS) {
+          logWarning(
+            `Steam did not start installing ${appName}; assuming it was cancelled`,
+            LogPrefix.Steam
+          )
+          return {
+            status: 'error',
+            error: 'Steam installation was not started'
+          }
+        }
+      } else {
+        // The manifest disappeared after the download had started, meaning the
+        // install was cancelled in Steam.
+        logWarning(
+          `Steam installation of ${appName} appears to have been cancelled`,
+          LogPrefix.Steam
+        )
+        return { status: 'error', error: 'Steam installation was cancelled' }
+      }
+    }
+
+    logInfo(
+      `Steam finished installing ${gameInfo.title} (${appName})`,
+      LogPrefix.Steam
+    )
+
+    // Re-scan so the game now shows up as installed in Heroic.
+    await libraryManagerMap['steam'].refresh()
+
+    return { status: 'done' }
   }
 
   isNative(): boolean {

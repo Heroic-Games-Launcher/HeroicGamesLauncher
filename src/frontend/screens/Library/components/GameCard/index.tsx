@@ -266,7 +266,11 @@ const GameCard = ({
       return (
         <SvgButton
           className="downIcon"
-          onClick={() => buttonClick()}
+          onClick={() =>
+            // Steam manages its own downloads, so install through the Steam
+            // client directly instead of opening Heroic's install dialog.
+            runner === 'steam' ? handlePlay(runner) : buttonClick()
+          }
           title={`${t('button.install')} (${title})`}
         >
           <DownIcon />
