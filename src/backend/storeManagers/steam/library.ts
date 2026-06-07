@@ -1,4 +1,5 @@
 import { join } from 'path'
+import { readFile } from 'node:fs/promises'
 import { existsSync, readdirSync, readFileSync } from 'graceful-fs'
 import { parse } from '@node-steam/vdf'
 import {
@@ -8,7 +9,11 @@ import {
   InstalledInfo,
   LaunchOption
 } from 'common/types'
+import { SteamAppInfo } from 'common/types/steam'
 import { LibraryManager } from 'common/types/game_manager'
+import { HeroicVDFParser } from './vdf'
+import { RandomStream } from './xor'
+import { CMsgClientLicenseList } from './steammessages'
 import {
   getRunnerLogWriter,
   logError,
@@ -99,6 +104,178 @@ function getNestedCaseInsensitive(
 
 function isSteamImportEnabled(): boolean {
   return !!GlobalConfig.get().getSettings().experimentalFeatures?.steamImport
+}
+
+/**
+ * Reads the list of package ids the user owns from the local, encrypted Steam
+ * `licensecache` file. The cache is XOR-encrypted with the account's 64-bit
+ * SteamID and, once decrypted, contains a `CMsgClientLicenseList` protobuf
+ * message. Works entirely offline.
+ */
+async function getOwnedPackages(
+  steamPath: string,
+  userId: string,
+  steamId: string
+): Promise<number[]> {
+  const licenseCache = join(
+    steamPath,
+    'userdata',
+    userId,
+    'config',
+    'licensecache'
+  )
+  if (!existsSync(licenseCache)) {
+    return []
+  }
+  try {
+    const licenseCacheData = await readFile(licenseCache)
+    const stream = new RandomStream()
+    const data = stream.decrypt_data(BigInt(steamId), licenseCacheData)
+    // The last 4 bytes are a trailing checksum, not part of the message.
+    const licenses = CMsgClientLicenseList.decode(data.subarray(0, -4))
+    return licenses.licenses
+      .map((license) => license.packageId)
+      .filter((pkg): pkg is number => pkg !== undefined)
+  } catch (error) {
+    logWarning(['Unable to read Steam license cache', error], LogPrefix.Steam)
+    return []
+  }
+}
+
+/**
+ * Parses Steam's binary `appcache/appinfo.vdf` into a map of app id -> app info
+ * (which includes the nested `data.appinfo.common` tree with the game's name,
+ * type and art). Based on the format documented at
+ * https://github.com/SteamDatabase/SteamAppInfo
+ */
+async function loadAppInfo(
+  steamPath: string
+): Promise<{ [appid: string]: SteamAppInfo }> {
+  const appInfoPath = join(steamPath, 'appcache', 'appinfo.vdf')
+  const data = await readFile(appInfoPath)
+  let offset = 0
+
+  const magic = data.readUInt32LE(offset)
+  offset += 4
+  offset += 4 // universe
+  const version = magic & 0xff
+
+  if (version < 39 || version > 41) {
+    logWarning(['Unknown Steam appinfo.vdf version', version], LogPrefix.Steam)
+    return {}
+  }
+
+  const table: string[] = []
+  if (version >= 41) {
+    const stringTableOffset = data.readBigInt64LE(offset)
+    offset += 8
+    const position = offset
+    offset = Number(stringTableOffset)
+    const count = data.readUInt32LE(offset)
+    offset += 4
+    for (let i = 0; i < count; i++) {
+      let pos = offset
+      while (data.at(pos) !== 0) {
+        pos++
+      }
+      if (pos !== offset) {
+        table.push(data.toString('utf-8', offset, pos))
+      }
+      offset = pos + 1
+    }
+    offset = position
+  }
+
+  const parser = new HeroicVDFParser(table)
+  const games: { [appid: string]: SteamAppInfo } = {}
+  while (true) {
+    const appid = data.readUInt32LE(offset)
+    offset += 4
+    if (appid === 0) break
+    const size = data.readUInt32LE(offset)
+    offset += 4
+    const end = offset + size
+    const infoState = data.readUInt32LE(offset)
+    offset += 4
+    const updateTime = data.readUInt32LE(offset)
+    offset += 4
+    const token = data.readBigInt64LE(offset)
+    offset += 8
+    offset += 20 // sha1 hash
+    const changeNumber = data.readUInt32LE(offset)
+    offset += 4
+    if (version >= 40) {
+      offset += 20 // binary vdf hash
+    }
+    const vdfData = data.subarray(offset, end)
+    offset = end
+    try {
+      const parsedData = parser.parse(vdfData)
+      games[appid.toString()] = {
+        appid,
+        infoState,
+        updateTime,
+        token,
+        changeNumber,
+        data: parsedData
+      }
+    } catch (error) {
+      logWarning(
+        ['Failed to parse Steam appinfo entry', error],
+        LogPrefix.Steam
+      )
+    }
+  }
+
+  return games
+}
+
+/**
+ * Parses Steam's binary `appcache/packageinfo.vdf` into a map of package id ->
+ * package data (which includes the `appids` list of apps in that package).
+ */
+async function loadPackageInfo(
+  steamPath: string
+): Promise<{ [packageid: string]: unknown }> {
+  const packageInfoPath = join(steamPath, 'appcache', 'packageinfo.vdf')
+  const data = await readFile(packageInfoPath)
+  let offset = 0
+  const magic = data.readUInt32LE(offset)
+  offset += 4
+  offset += 4 // universe
+  const version = magic & 0xff
+  if (version < 39 || version > 40) {
+    logWarning(
+      ['Unknown Steam packageinfo.vdf version', version],
+      LogPrefix.Steam
+    )
+    return {}
+  }
+
+  const parser = new HeroicVDFParser([])
+  let packages: { [packageid: string]: unknown } = {}
+  while (true) {
+    const subid = data.readUInt32LE(offset)
+    offset += 4
+    if (subid === 0xffffffff) break
+    offset += 20 // sha1 hash
+    offset += 4 // change number
+    if (version >= 40) {
+      offset += 8 // token
+    }
+    try {
+      const parsedData = parser.parse(data, offset)
+      offset = parser.offset
+      packages = { ...packages, ...parsedData }
+    } catch (error) {
+      logWarning(
+        ['Failed to parse Steam packageinfo entry', error],
+        LogPrefix.Steam
+      )
+      break
+    }
+  }
+  return packages
 }
 
 /**
@@ -250,9 +427,24 @@ export default class SteamLibraryManager implements LibraryManager {
       )
     }
 
+    // Source 3 (prioritized, local): owned games read from the encrypted Steam
+    // license cache plus the binary app/package info caches. Works offline and
+    // for private profiles, and resolves names locally so most ids need no
+    // throttled storefront lookup.
+    const licenseTitles = await this.readOwnedFromLicenseCache(
+      credentials.steamId
+    )
+    if (licenseTitles.size) {
+      logInfo(
+        `Found ${licenseTitles.size} owned games in Steam license cache`,
+        LogPrefix.Steam
+      )
+    }
+
     const candidateIds = new Set<string>([
       ...profileTitles.keys(),
-      ...localAppIds
+      ...localAppIds,
+      ...licenseTitles.keys()
     ])
 
     let added = 0
@@ -267,6 +459,13 @@ export default class SteamLibraryManager implements LibraryManager {
       const profileTitle = profileTitles.get(appId)
       if (profileTitle) {
         if (this.addOwnedGame(appId, profileTitle)) added++
+        continue
+      }
+
+      // Next prefer a name resolved locally from the Steam app info cache.
+      const licenseTitle = licenseTitles.get(appId)
+      if (licenseTitle) {
+        if (this.addOwnedGame(appId, licenseTitle)) added++
         continue
       }
 
@@ -464,6 +663,112 @@ export default class SteamLibraryManager implements LibraryManager {
     }
 
     return Array.from(appIds)
+  }
+
+  /**
+   * Reads the games the user owns directly from the local Steam client data:
+   * decrypts the license cache to get owned package ids, maps them to app ids
+   * via the binary `packageinfo.vdf`, then resolves their names/types via the
+   * binary `appinfo.vdf`. Works offline and for private profiles, and yields
+   * names locally so most ids need no throttled storefront lookup. Returns a
+   * map of app id -> title for entries that are actually games.
+   */
+  private async readOwnedFromLicenseCache(
+    steamId: string
+  ): Promise<Map<string, string>> {
+    const result = new Map<string, string>()
+
+    const { defaultSteamPath } = GlobalConfig.get().getSettings()
+    const steamRoot = defaultSteamPath.replaceAll("'", '')
+
+    let accountId: string
+    try {
+      // The license cache is stored under the 32-bit account id folder.
+      accountId = (BigInt(steamId) & BigInt(0xffffffff)).toString()
+    } catch {
+      return result
+    }
+
+    let ownedPackages: number[] = []
+    try {
+      ownedPackages = await getOwnedPackages(steamRoot, accountId, steamId)
+    } catch (error) {
+      logWarning(
+        ['Unable to read Steam owned packages', error],
+        LogPrefix.Steam
+      )
+      return result
+    }
+    if (!ownedPackages.length) {
+      return result
+    }
+
+    let appInfo: { [appid: string]: SteamAppInfo } = {}
+    let packageInfo: { [packageid: string]: unknown } = {}
+    try {
+      ;[appInfo, packageInfo] = await Promise.all([
+        loadAppInfo(steamRoot),
+        loadPackageInfo(steamRoot)
+      ])
+    } catch (error) {
+      logWarning(
+        ['Unable to read Steam app/package info caches', error],
+        LogPrefix.Steam
+      )
+      return result
+    }
+
+    const appIds = new Set<string>()
+    for (const packageId of ownedPackages) {
+      const packageData = packageInfo[packageId.toString()]
+      if (
+        typeof packageData === 'object' &&
+        packageData !== null &&
+        'appids' in packageData &&
+        typeof (packageData as { appids: unknown }).appids === 'object' &&
+        (packageData as { appids: unknown }).appids !== null
+      ) {
+        const ids = (packageData as { appids: Record<string, unknown> }).appids
+        for (const appId of Object.values(ids)) {
+          appIds.add(String(appId))
+        }
+      }
+    }
+
+    for (const appId of appIds) {
+      const common = this.getAppInfoCommon(appInfo[appId])
+      if (!common || common.type.toLowerCase() !== 'game') {
+        continue
+      }
+      result.set(appId, common.name)
+    }
+
+    return result
+  }
+
+  /**
+   * Safely extracts the `data.appinfo.common.{name,type}` fields from a parsed
+   * `appinfo.vdf` entry, returning undefined when the structure does not match.
+   */
+  private getAppInfoCommon(
+    app: SteamAppInfo | undefined
+  ): { name: string; type: string } | undefined {
+    if (!app || typeof app.data !== 'object' || app.data === null) {
+      return
+    }
+    const appinfo = (app.data as Record<string, unknown>).appinfo
+    if (typeof appinfo !== 'object' || appinfo === null) {
+      return
+    }
+    const common = (appinfo as Record<string, unknown>).common
+    if (typeof common !== 'object' || common === null) {
+      return
+    }
+    const record = common as Record<string, unknown>
+    if (typeof record.name !== 'string' || typeof record.type !== 'string') {
+      return
+    }
+    return { name: record.name, type: record.type }
   }
 
   /**

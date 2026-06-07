@@ -43,6 +43,7 @@ import {
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
+import { SteamLoginUser } from 'common/types/steam'
 import useGlobalState from './GlobalStateV2'
 
 const storage: Storage = window.localStorage
@@ -81,6 +82,8 @@ interface StateProps {
     library: GameInfo[]
     username?: string
     enabled: boolean
+    users: SteamLoginUser[]
+    enabledUsers: string[]
   }
   wineVersions: WineVersionInfo[]
   error: boolean
@@ -239,7 +242,9 @@ class GlobalState extends PureComponent<Props> {
     steam: {
       library: this.loadSteamLibrary(),
       username: steamConfigStore.get_nodefault('username'),
-      enabled: !!globalSettings?.experimentalFeatures?.steamImport
+      enabled: !!globalSettings?.experimentalFeatures?.steamImport,
+      users: [],
+      enabledUsers: []
     },
     wineVersions: wineDownloaderInfoStore.get('wine-releases', []),
     error: false,
@@ -716,6 +721,7 @@ class GlobalState extends PureComponent<Props> {
       const userInfo = await window.api.getSteamUserInfo()
       this.setState({
         steam: {
+          ...this.state.steam,
           library: [],
           username: userInfo?.username,
           enabled: true
@@ -732,6 +738,7 @@ class GlobalState extends PureComponent<Props> {
     window.api.logoutSteam()
     this.setState({
       steam: {
+        ...this.state.steam,
         library: [],
         username: null,
         enabled: true
@@ -739,6 +746,27 @@ class GlobalState extends PureComponent<Props> {
     })
     console.log('Logging out from steam')
     window.location.reload()
+  }
+
+  loadSteamUsers = async () => {
+    const [users, enabledUsers] = await Promise.all([
+      window.api.getSteamUsers(),
+      window.api.getSteamUsersEnabled()
+    ])
+    this.setState({
+      steam: { ...this.state.steam, users, enabledUsers }
+    })
+  }
+
+  setSteamUser = (userId: string, enabled: boolean) => {
+    window.api.setSteamUserStatus(userId, enabled)
+    const enabledUsers = enabled
+      ? [...this.state.steam.enabledUsers, userId]
+      : this.state.steam.enabledUsers.filter((id) => id !== userId)
+    this.setState({
+      steam: { ...this.state.steam, enabledUsers }
+    })
+    void this.refreshLibrary({ runInBackground: true })
   }
 
   updateGameOverrides = (overrides: Record<string, GameOverride>) => {
@@ -982,6 +1010,10 @@ class GlobalState extends PureComponent<Props> {
       platform
     } = this.state
 
+    if (steam.enabled) {
+      void this.loadSteamUsers()
+    }
+
     window.api.handleInstallGame(async (e, appName, runner) => {
       const currentApp = libraryStatus.filter(
         (game) => game.appName === appName
@@ -1067,6 +1099,7 @@ class GlobalState extends PureComponent<Props> {
         }
         this.setState({
           steam: {
+            ...this.state.steam,
             library: [...library],
             username: this.state.steam.username,
             enabled: true
@@ -1271,7 +1304,10 @@ class GlobalState extends PureComponent<Props> {
             username: this.state.steam.enabled ? steam.username : undefined,
             login: this.steamLogin,
             logout: this.steamLogout,
-            enabled: this.state.steam.enabled
+            enabled: this.state.steam.enabled,
+            users: this.state.steam.users,
+            enabledUsers: this.state.steam.enabledUsers,
+            setUser: this.setSteamUser
           },
           installingEpicGame,
           setLanguage: this.setLanguage,

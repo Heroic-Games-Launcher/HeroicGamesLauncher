@@ -88,6 +88,9 @@ export interface StoreStructure {
     steamId?: string
     username?: string
   }
+  steamEnabledUsersConfig: {
+    [userId: string]: boolean
+  }
   nileConfigStore: {
     userData?: NileUserData
   }

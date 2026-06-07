@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { join } from 'path'
+import { readFile } from 'node:fs/promises'
 import {
   existsSync,
   mkdirSync,
@@ -6,7 +8,9 @@ import {
   unlinkSync,
   writeFileSync
 } from 'graceful-fs'
+import { parse } from '@node-steam/vdf'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
+import { GlobalConfig } from 'backend/config'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { clearCache } from 'backend/utils'
@@ -16,7 +20,7 @@ import {
   profileApiUrl,
   steamSupportFolder
 } from './constants'
-import { SteamCredentials } from 'common/types/steam'
+import { SteamCredentials, SteamLoginUser } from 'common/types/steam'
 
 export class SteamUser {
   static async login(url: string): Promise<{
@@ -203,5 +207,43 @@ export class SteamUser {
 
   public static async isLoggedIn(): Promise<boolean> {
     return existsSync(credentialsPath) && !!configStore.get('isLoggedIn', false)
+  }
+}
+
+/**
+ * Loads every Steam account known to the local Steam client by parsing
+ * `config/loginusers.vdf`. Supports multiple accounts so the user can choose
+ * which ones to import games from.
+ */
+export async function loadUsers(): Promise<SteamLoginUser[]> {
+  const { defaultSteamPath } = GlobalConfig.get().getSettings()
+  const steamPath = defaultSteamPath.replaceAll("'", '')
+
+  const loginUsersConfigPath = join(steamPath, 'config', 'loginusers.vdf')
+
+  if (!existsSync(loginUsersConfigPath)) {
+    logError(
+      ['Unable to load Steam users, file does not exist', loginUsersConfigPath],
+      LogPrefix.Steam
+    )
+    return []
+  }
+
+  try {
+    const fileData = await readFile(loginUsersConfigPath, { encoding: 'utf8' })
+    const loginUsers = parse(fileData) as {
+      users?: { [id: string]: Omit<SteamLoginUser, 'id'> }
+    }
+    if (!loginUsers.users) {
+      return []
+    }
+
+    return Object.keys(loginUsers.users).map((userId) => ({
+      id: userId,
+      ...loginUsers.users![userId]
+    }))
+  } catch (error) {
+    logError(['Failed to load Steam users', error], LogPrefix.Steam)
+    return []
   }
 }

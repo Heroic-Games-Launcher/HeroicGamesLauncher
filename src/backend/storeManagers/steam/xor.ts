@@ -11,7 +11,7 @@ export class RandomStream {
 
   private m_idum: number = 0
   private m_iy: number = 0
-  private m_iv: number[] = new Array(32).fill(0)
+  private m_iv: number[] = new Array<number>(32).fill(0)
 
   constructor() {
     this.set_seed(0)
@@ -37,7 +37,7 @@ export class RandomStream {
 
     this.m_idum = s < 0 ? s : -s
     this.m_iy = 0
-    this.m_iv = new Array(this.NTAB).fill(0)
+    this.m_iv = new Array<number>(this.NTAB).fill(0)
   }
 
   private generate_random_number(): number {
@@ -73,7 +73,7 @@ export class RandomStream {
     let j = (this.m_iy / this.NDIV) | 0
 
     if (j >= this.NTAB || j < 0) {
-      j = j % this.NTAB & 0x7fffffff
+      j = (j % this.NTAB) & 0x7fffffff
     }
 
     this.m_iy = this.m_iv[j]

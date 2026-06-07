@@ -11,7 +11,7 @@ import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
 import SteamLogo from 'frontend/assets/steam-logo.svg?react'
 
-import { LanguageSelector, UpdateComponent } from '../../components/UI'
+import { LanguageSelector, ToggleSwitch, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
@@ -186,6 +186,30 @@ export default React.memo(function NewLogin() {
                 disabled={oldMac}
               />
             )}
+            {steam.enabled &&
+              steam.users.map((user) => (
+                <div
+                  key={user.id}
+                  className={`runnerWrapper ${oldMac ? 'disabled' : ''}`}
+                >
+                  <div className="runnerIcon alternative">
+                    <SteamLogo />
+                  </div>
+                  <div className="runnerButtons">
+                    <div className="runnerLogin">
+                      <ToggleSwitch
+                        htmlId={user.id}
+                        value={steam.enabledUsers.includes(user.id)}
+                        handleChange={(event) =>
+                          steam.setUser(user.id, event.target.checked)
+                        }
+                        title={user.PersonaName}
+                        disabled={oldMac}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
         <button

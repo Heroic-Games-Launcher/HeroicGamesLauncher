@@ -50,6 +50,7 @@ import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
+import type { SteamLoginUser } from './steam'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -125,6 +126,7 @@ interface SyncIPCFunctions {
   ) => void
   logoutZoom: () => void
   logoutSteam: () => void
+  setSteamUserStatus: (userId: string, status: boolean) => void
   setGameMetadataOverride: (args: {
     appName: string
     title?: string
@@ -347,6 +349,8 @@ interface AsyncIPCFunctions {
   getUploadedLogFiles: () => Promise<Record<string, UploadedLogData>>
   getCustomCSS: () => Promise<string>
   isIntelMac: () => boolean
+  getSteamUsers: () => Promise<SteamLoginUser[]>
+  getSteamUsersEnabled: () => Promise<string[]>
   getGogDiscounts: (
     locale: CatalogLocaleSettings,
     hideOwned?: boolean,
