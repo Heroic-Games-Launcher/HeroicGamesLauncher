@@ -551,11 +551,23 @@ class GlobalState extends PureComponent<Props> {
   }
 
   handleExperimentalFeatures = (value: ExperimentalFeatures) => {
+    const steamWasEnabled = this.state.steam.enabled
+    const steamNowEnabled = !!value.steamImport
+
     this.setState({
       experimentalFeatures: value,
       zoom: { ...this.state.zoom, enabled: value },
-      steam: { ...this.state.steam, enabled: !!value.steamImport }
+      steam: { ...this.state.steam, enabled: steamNowEnabled }
     })
+
+    // When Steam integration is turned on, scan the local Steam library
+    // immediately so games show up without requiring an app restart.
+    if (steamNowEnabled && !steamWasEnabled) {
+      this.refreshLibrary({
+        runInBackground: false,
+        library: 'steam'
+      })
+    }
   }
 
   handleSuccessfulLogin = (runner: Runner) => {
