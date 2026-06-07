@@ -439,7 +439,10 @@ export default class GOGGameManager implements GameManager {
       return { status: 'error' }
     }
 
-    const sizeOnDisk = await getPathDiskSize(join(path, gameInfo.folder_name))
+    const sizeOnDisk = await getPathDiskSize(
+      join(path, gameInfo.folder_name),
+      installInfo.manifest.download_size
+    )
     const install_path = join(path, gameInfo.folder_name)
 
     const installedData: InstalledInfo = {
@@ -1200,6 +1203,7 @@ export default class GOGGameManager implements GameManager {
     )
     const gameObject = installedArray[gameIndex]
 
+    let downloadSizeHint: number | undefined
     if (gameData.install.platform !== 'linux') {
       const installInfo = await libraryManagerMap['gog'].getInstallInfo(
         appName,
@@ -1221,6 +1225,7 @@ export default class GOGGameManager implements GameManager {
       gameObject.branch = updateOverwrites?.branch
       gameObject.language = overwrittenLanguage
       gameObject.versionEtag = etag
+      downloadSizeHint = installInfo.manifest.download_size
     } else {
       const installerInfo =
         await libraryManagerMap['gog'].getLinuxInstallerInfo(appName)
@@ -1232,7 +1237,10 @@ export default class GOGGameManager implements GameManager {
     if (updateOverwrites?.dlcs) {
       gameObject.installedDLCs = updateOverwrites?.dlcs
     }
-    const sizeOnDisk = await getPathDiskSize(join(gameObject.install_path))
+    const sizeOnDisk = await getPathDiskSize(
+      join(gameObject.install_path),
+      downloadSizeHint
+    )
     gameObject.install_size = getFileSize(sizeOnDisk)
     installedGamesStore.set('installed', installedArray)
     libraryManagerMap['gog'].refreshInstalled()
