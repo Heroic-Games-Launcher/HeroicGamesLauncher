@@ -281,12 +281,31 @@ export default function WebView() {
         }
       }
 
-      const onLoginNavigate = () => {
+      // Guards against processing the same login callback more than once (the
+      // callback URL can be observed by several navigation events).
+      let loginHandled = false
+
+      // Handles the OAuth/OpenID callback for runners that log in through the
+      // embedded webview. The callback URL is read from the navigation event so
+      // we capture every query parameter (e.g. Steam's `openid.sig`) *before*
+      // the storefront can redirect and strip them, which previously caused the
+      // login verification to fail.
+      const handleLoginCallback = (pageURL: string) => {
+        if (loginHandled || !pageURL) {
+          return
+        }
+
+        let parsedURL: URL
+        try {
+          parsedURL = new URL(pageURL)
+        } catch {
+          return
+        }
+
         if (runner === 'zoom') {
-          const pageURL = webview.getURL()
-          const parsedURL = new URL(pageURL)
           const token = parsedURL.searchParams.get('li_token')
           if (token) {
+            loginHandled = true
             setLoading({
               refresh: true,
               message: t('status.logging', 'Logging In...')
@@ -294,10 +313,15 @@ export default function WebView() {
             zoom.login(pageURL).then(() => handleSuccessfulLogin())
           }
         } else if (runner === 'steam') {
-          const pageURL = webview.getURL()
-          const parsedURL = new URL(pageURL)
+          // Only react to Steam's OpenID *response* (`openid.mode=id_res`),
+          // which carries the resolved SteamID in `openid.claimed_id`. The
+          // outgoing login *request* also has a `claimed_id`, but it is the
+          // `identifier_select` placeholder, so reacting to it would abort the
+          // flow before Steam ever sends the real callback.
+          const mode = parsedURL.searchParams.get('openid.mode')
           const claimedId = parsedURL.searchParams.get('openid.claimed_id')
-          if (claimedId) {
+          if (mode === 'id_res' && claimedId) {
+            loginHandled = true
             setLoading({
               refresh: true,
               message: t('status.logging', 'Logging In...')
@@ -307,15 +331,33 @@ export default function WebView() {
         }
       }
 
+      const onLoginStartNavigation = (e: Electron.DidStartNavigationEvent) => {
+        if (e.isMainFrame) {
+          handleLoginCallback(e.url)
+        }
+      }
+
+      const onLoginNavigate = () => {
+        handleLoginCallback(webview.getURL())
+      }
+
       // this one is needed for gog/amazon
       webview.addEventListener('did-navigate', onNavigate)
       // this one is needed for epic
       webview.addEventListener('did-navigate-in-page', onNavigate)
+      // Catch the login callback as early as possible (before any storefront
+      // redirect strips the auth query parameters), with `did-navigate` as a
+      // fallback for callbacks that only surface once navigation has committed.
+      webview.addEventListener('did-start-navigation', onLoginStartNavigation)
       webview.addEventListener('did-navigate', onLoginNavigate)
 
       return () => {
         webview.removeEventListener('did-navigate', onNavigate)
         webview.removeEventListener('did-navigate-in-page', onNavigate)
+        webview.removeEventListener(
+          'did-start-navigation',
+          onLoginStartNavigation
+        )
         webview.removeEventListener('did-navigate', onLoginNavigate)
       }
     }

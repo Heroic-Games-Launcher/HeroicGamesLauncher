@@ -25,6 +25,18 @@ export class SteamUser {
     logInfo('Logging in using Steam OpenID', LogPrefix.Steam)
 
     const { searchParams } = new URL(url)
+
+    // Only the OpenID *response* (`openid.mode=id_res`) carries a real SteamID.
+    // The outgoing login *request* uses the `identifier_select` placeholder for
+    // `openid.claimed_id`, so guard against being called with it.
+    if (searchParams.get('openid.mode') !== 'id_res') {
+      logError(
+        'Steam login callback is not an OpenID response (openid.mode != id_res)',
+        LogPrefix.Steam
+      )
+      return { status: 'error' }
+    }
+
     const claimedId = searchParams.get('openid.claimed_id')
 
     if (!claimedId) {
@@ -37,7 +49,10 @@ export class SteamUser {
 
     const steamId = claimedId.match(/\/openid\/id\/(\d+)/)?.[1]
     if (!steamId) {
-      logError('Could not extract SteamID from claimed_id', LogPrefix.Steam)
+      logError(
+        ['Could not extract SteamID from claimed_id. Value was:', claimedId],
+        LogPrefix.Steam
+      )
       return { status: 'error' }
     }
 
@@ -91,7 +106,17 @@ export class SteamUser {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }
       )
-      return /is_valid\s*:\s*true/i.test(response.data)
+      const isValid = /is_valid\s*:\s*true/i.test(response.data)
+      if (!isValid) {
+        logWarning(
+          [
+            'Steam OpenID assertion was rejected. Response:',
+            response.data.trim()
+          ],
+          LogPrefix.Steam
+        )
+      }
+      return isValid
     } catch (error) {
       logError(
         ['Steam OpenID verification request failed:', error],

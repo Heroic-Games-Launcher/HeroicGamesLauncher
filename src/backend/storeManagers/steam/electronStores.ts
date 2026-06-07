@@ -20,4 +20,16 @@ const libraryStore = new CacheStore<GameInfo[], 'games'>('steam_library', null)
 // release date, etc.) per app id so we don't hit the API on every page open.
 const extraInfoStore = new CacheStore<ExtraInfo>('steam_extra_info')
 
-export { configStore, installedGamesStore, libraryStore, extraInfoStore }
+// Caches resolved app id -> game name pairs (from Steam's public GetAppList),
+// used to name owned-but-not-installed games discovered from the local Steam
+// client data when the user's profile is private. Long lifespan: app names
+// rarely change.
+const appNamesStore = new CacheStore<string>('steam_app_names', 60 * 24 * 7)
+
+export {
+  configStore,
+  installedGamesStore,
+  libraryStore,
+  extraInfoStore,
+  appNamesStore
+}

@@ -34,6 +34,10 @@ export const steamAppDetailsApiUrl =
 // the game, letting Steam handle compatibility (Proton), DRM and cloud saves.
 export const steamRunGameUrl = 'steam://rungameid'
 
+// Offset to convert a 64-bit SteamID into the 32-bit account id used as the
+// `userdata/<accountId>` folder name on disk.
+export const steamId64Offset = BigInt('76561197960265728')
+
 // App ids that show up as `appmanifest_*.acf` files but are not actual games
 // (Steam runtimes, redistributables, Proton, server tools, etc.). These are
 // filtered out when scanning the local library.
