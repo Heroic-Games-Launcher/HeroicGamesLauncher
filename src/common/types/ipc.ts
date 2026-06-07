@@ -216,7 +216,7 @@ interface AsyncIPCFunctions {
   requestAppSettings: () => AppSettings
   requestGameSettings: (appName: string) => Promise<GameSettings>
   writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
-  refreshLibrary: (library?: Runner | 'all') => Promise<void>
+  refreshLibrary: (library?: Runner | 'all', localOnly?: boolean) => Promise<void>
   launch: (args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
   install: (args: InstallParams) => Promise<void>

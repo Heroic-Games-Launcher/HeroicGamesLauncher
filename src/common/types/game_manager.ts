@@ -78,6 +78,7 @@ export interface GameManager {
 export interface LibraryManager {
   init: () => Promise<void>
   refresh: () => Promise<ExecResult | null>
+  refreshLocal?: () => Promise<void>
   getGameInfo: (appName: string, forceReload?: boolean) => GameInfo | undefined
   getInstallInfo: (
     appName: string,
