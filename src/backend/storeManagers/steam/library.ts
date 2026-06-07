@@ -356,13 +356,24 @@ export default class SteamLibraryManager implements LibraryManager {
       }
     }
 
+    // Installed games are fully discovered above; the owned-games fetch below
+    // only ever adds owned-but-not-installed entries. Persist the installed
+    // games now so any failure while reading the optional owned-games sources
+    // can never wipe out install info (size/version/path) for installed games.
+    installedGamesStore.set('installed', Array.from(installedGames.values()))
+
     // In addition to the locally installed games found above, fetch the full
     // list of games the user owns on Steam (including ones that are not
-    // installed) so they show up in the library as well.
-    await this.refreshOwnedGames()
+    // installed) so they show up in the library as well. This is best-effort:
+    // a failure (e.g. parsing the local Steam binary caches) must never abort
+    // the refresh or prevent the library/installed stores from being saved.
+    try {
+      await this.refreshOwnedGames()
+    } catch (error) {
+      logError(['Failed to fetch owned Steam games', error], LogPrefix.Steam)
+    }
 
     libraryStore.set('games', Array.from(library.values()))
-    installedGamesStore.set('installed', Array.from(installedGames.values()))
 
     const logLines = Array.from(library.values()).map(
       (game) =>
