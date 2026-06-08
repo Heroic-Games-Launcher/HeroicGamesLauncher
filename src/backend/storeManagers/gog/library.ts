@@ -42,14 +42,14 @@ import {
   installedGamesStore,
   installInfoStore,
   apiInfoCache,
-  privateBranchesStore
+  privateBranchesStore,
+  remoteConfigStore
 } from './electronStores'
 import { callRunner } from '../../launcher'
 import { isOnline, runOnceWhenOnline } from '../../online_monitor'
 import i18next from 'i18next'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile, rm, readdir } from 'node:fs/promises'
 import { unzipSync } from 'node:zlib'
-import { readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { checkForRedistUpdates } from './redist'
 import { runGogdlCommandStub } from './e2eMock'
 import { gogdlConfigPath } from './constants'
@@ -138,7 +138,7 @@ export default class GOGLibraryManager implements LibraryManager {
       manifestData.HGLInstallLanguage = importData.installedLanguage
       manifestData.HGLdlcs = importData.dlcs.map((dlc) => ({ id: dlc }))
 
-      writeFileSync(manifestPath, JSON.stringify(manifestData), {
+      await writeFile(manifestPath, JSON.stringify(manifestData), {
         encoding: 'utf8'
       })
     } catch (e) {
@@ -162,30 +162,7 @@ export default class GOGLibraryManager implements LibraryManager {
         break
     }
 
-    let clientId
-
-    const manifestPath = join(gogdlConfigPath, 'manifests', appName)
-    if (existsSync(manifestPath)) {
-      try {
-        const dataRaw = readFileSync(manifestPath, { encoding: 'utf-8' })
-        const data: GOGv1Manifest | GOGv2Manifest = JSON.parse(dataRaw)
-        if (data.version === 2) {
-          clientId = data.clientId
-        }
-      } catch (err) {
-        clientId = undefined
-        logWarning(
-          [
-            'Was not able to read clientId from manifest, falling back to info file:',
-            err
-          ],
-          LogPrefix.Gog
-        )
-        clientId = this.readInfoFile(appName, install.install_path)?.clientId
-      }
-    } else {
-      clientId = this.readInfoFile(appName, install.install_path)?.clientId
-    }
+    const clientId = await this.getClientId(appName, install.install_path)
 
     if (!clientId) {
       logWarning(
@@ -194,23 +171,11 @@ export default class GOGLibraryManager implements LibraryManager {
       return
     }
 
-    let response: GOGClientsResponse | undefined
-    try {
-      response = (
-        await axiosClient.get(
-          `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=2.0.45`
-        )
-      ).data
-    } catch (error) {
-      logError(
-        ['Failed to get remote config information for', appName, ':', error],
-        LogPrefix.Gog
-      )
-    }
-    if (!response) {
+    const remoteConfig = await this.getRemoteConfig(clientId)
+    if (!remoteConfig) {
       return
     }
-    const platformInfo = response.content[syncPlatform]
+    const platformInfo = remoteConfig.content[syncPlatform]
     const savesInfo = platformInfo.cloudStorage
     if (!savesInfo.enabled) {
       return
@@ -297,7 +262,7 @@ export default class GOGLibraryManager implements LibraryManager {
     }
 
     // Update installed DLCs
-    const installedProducts = this.listInstalledProducts(appName)
+    const installedProducts = await this.listInstalledProducts(appName)
     const dlcs = installedProducts
       .filter((product) => product !== appName)
       .sort()
@@ -345,7 +310,7 @@ export default class GOGLibraryManager implements LibraryManager {
       // manifest and re-import it
       const manifestPath = join(gogdlConfigPath, 'manifests', appName)
       if (existsSync(manifestPath)) {
-        rmSync(manifestPath)
+        await rm(manifestPath)
       }
       const credentials = await GOGUser.getCredentials()
       await this.createMissingGogdlManifest(appName, credentials)
@@ -1080,7 +1045,7 @@ export default class GOGLibraryManager implements LibraryManager {
 
   /* Get product ids installed in for given game
    */
-  listInstalledProducts(appName: string): string[] {
+  async listInstalledProducts(appName: string): Promise<string[]> {
     const installedData = installedGames.get(appName)
     if (!installedData) {
       return []
@@ -1094,7 +1059,7 @@ export default class GOGLibraryManager implements LibraryManager {
       return []
     }
 
-    const files = readdirSync(root)
+    const files = await readdir(root)
     return files.reduce((acc, file) => {
       const matcher = file.match(/goggame-(\d+)\.info/)
       if (matcher) {
@@ -1447,5 +1412,57 @@ export default class GOGLibraryManager implements LibraryManager {
     installedGames.set(cpId, installed)
     installedGamesStore.set('installed', installedArray)
     sendFrontendMessage('pushGameToLibrary', game)
+  }
+
+  async getRemoteConfig(clientId: string): Promise<GOGClientsResponse | null> {
+    const resp = remoteConfigStore.get(clientId)
+    if (resp) return resp
+
+    let response: GOGClientsResponse | undefined
+    try {
+      response = (
+        await axiosClient.get<GOGClientsResponse>(
+          `https://remote-config.gog.com/components/galaxy_client/clients/${clientId}?component_version=2.0.80`
+        )
+      ).data
+    } catch (error) {
+      logError(
+        ['Failed to get remote config information for', clientId, ':', error],
+        LogPrefix.Gog
+      )
+    }
+    if (!response) {
+      return null
+    }
+    remoteConfigStore.set(clientId, response)
+    return response
+  }
+
+  async getClientId(
+    appName: string,
+    install_path: string
+  ): Promise<string | undefined> {
+    let clientId = this.readInfoFile(appName, install_path)?.clientId
+
+    const manifestPath = join(gogdlConfigPath, 'manifests', appName)
+    if (existsSync(manifestPath)) {
+      try {
+        const dataRaw = await readFile(manifestPath, { encoding: 'utf-8' })
+        const data: GOGv1Manifest | GOGv2Manifest = JSON.parse(dataRaw)
+        if (data.version === 2) {
+          clientId = data.clientId
+        }
+      } catch (err) {
+        clientId = undefined
+        logWarning(
+          [
+            'Was not able to read clientId from manifest, falling back to info file:',
+            err
+          ],
+          LogPrefix.Gog
+        )
+      }
+    }
+    return clientId
   }
 }

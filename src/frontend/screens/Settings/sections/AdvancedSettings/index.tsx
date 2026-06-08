@@ -21,6 +21,7 @@ import {
   AltLegendaryBin,
   AltNileBin,
   ClearCache,
+  CometComponents,
   CustomCSS,
   DisableLogs,
   DownloadNoHTTPS,
@@ -308,6 +309,11 @@ export default function AdvancedSetting() {
             </button>
           )}
         </div>
+        <hr />
+      </div>
+
+      <div className="advancedSetting">
+        <CometComponents />
         <hr />
       </div>
 

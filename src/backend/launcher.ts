@@ -80,6 +80,8 @@ import {
   flatpakHome,
   galaxyCommunicationExePath,
   gamesConfigPath,
+  galaxyOverlayShimExePath,
+  galaxyOverlayShimUnixlibExePath,
   runtimePath,
   userHome
 } from './constants/paths'
@@ -821,6 +823,7 @@ async function prepareWineLaunch(
 }> {
   const gameInfo = gameManagerMap[runner].getGameInfo(appName)
 
+  const extendedEnv: Record<string, string> = {}
   const gameSettings =
     GameConfig.get(appName).config ||
     (await GameConfig.get(appName).getSettings())
@@ -946,34 +949,65 @@ async function prepareWineLaunch(
 
   try {
     if (runner === 'gog' && experimentalFeatures?.cometSupport !== false) {
-      const galaxyCommWinePath =
-        'C:\\ProgramData\\GOG.com\\Galaxy\\redists\\GalaxyCommunication.exe'
+      const galaxyCommPath = 'C:\\ProgramData\\GOG.com\\Galaxy'
       const communicationDest = await getWinePath({
-        path: galaxyCommWinePath,
+        path: galaxyCommPath,
         gameSettings,
         variant: 'unix'
       })
 
-      if (!existsSync(communicationDest)) {
-        mkdirSync(dirname(communicationDest), { recursive: true })
-        await copyFile(galaxyCommunicationExePath, communicationDest)
+      const communicationExe = join(
+        communicationDest,
+        'redists/GalaxyCommunication.exe'
+      )
+      const galaxyOverlay = join(communicationDest, 'overlay-heroic')
+
+      if (!existsSync(communicationExe)) {
+        mkdirSync(dirname(communicationExe), { recursive: true })
+        await copyFile(galaxyCommunicationExePath, communicationExe)
         await runWineCommand({
           commandParts: [
             'sc',
             'create',
             'GalaxyCommunication',
-            `binpath=${galaxyCommWinePath}`
+            `binpath=${galaxyCommPath}`
           ],
           gameSettings,
           protonVerb: 'runinprefix'
         })
       }
+      if (!existsSync(galaxyOverlay)) {
+        mkdirSync(galaxyOverlay, { recursive: true })
+        await copyFile(
+          galaxyOverlayShimExePath,
+          join(galaxyOverlay, 'galaxy.exe')
+        )
+        await copyFile(
+          galaxyOverlayShimUnixlibExePath,
+          join(galaxyOverlay, 'libgalaxyunixlib.dll.so')
+        )
+      }
+      const clientId = await libraryManagerMap['gog'].getClientId(
+        appName,
+        gameInfo.install.install_path!
+      )
+
+      if (!gameSettings.forceDisableOverlay && isOnline() && clientId) {
+        const remoteConfig =
+          await libraryManagerMap['gog'].getRemoteConfig(clientId)
+        if (
+          remoteConfig?.content.Windows.overlay.supported ||
+          gameSettings.forceEnableOverlay
+        ) {
+          extendedEnv['HEROIC_GOGDL_WRAPPER_EXE'] = join(
+            galaxyCommPath,
+            'overlay-heroic/galaxy.exe'
+          )
+        }
+      }
     }
   } catch (err) {
-    logError([
-      'Failed to install GalaxyCommunication dummy into the prefix:',
-      err
-    ])
+    logError(['Failed to install galaxy components into the prefix', err])
   }
 
   // If DXVK/VKD3D installation is enabled, install it
@@ -1007,7 +1041,7 @@ async function prepareWineLaunch(
 
   const envVars = setupWineEnvVars(gameSettings, gameInfo.folder_name)
 
-  return { success: true, envVars: envVars }
+  return { success: true, envVars: { ...envVars, ...extendedEnv } }
 }
 
 export function readKnownFixes(appName: string, runner: Runner) {

@@ -493,6 +493,16 @@ export default class GOGGameManager implements GameManager {
         )
       }
     }
+
+    // Preload remote config
+    const clientId = await libraryManagerMap['gog'].getClientId(
+      appName,
+      install_path
+    )
+    if (clientId) {
+      await libraryManagerMap['gog'].getRemoteConfig(clientId)
+    }
+
     this.addShortcuts(appName)
     return { status: 'done' }
   }
@@ -748,12 +758,16 @@ export default class GOGGameManager implements GameManager {
         false
     ) {
       const path = getCometBin()
-      child = spawn(join(path.dir, path.bin), [
-        '--from-heroic',
-        '--username',
-        userData.username,
-        '--quit'
-      ])
+      child = spawn(
+        join(path.dir, path.bin),
+        ['--from-heroic', '--username', userData.username, '--quit'],
+        {
+          env: {
+            ...process.env,
+            ...setupWrapperEnvVars({ appName, appRunner: 'gog' })
+          }
+        }
+      )
       child.stdout.setEncoding('utf-8')
       child.stderr.setEncoding('utf-8')
       child.stdout.on('data', (data: string) => {
