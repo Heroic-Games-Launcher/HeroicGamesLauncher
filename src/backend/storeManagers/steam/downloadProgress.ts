@@ -31,6 +31,11 @@ import { GlobalConfig } from 'backend/config'
 // download, in which case the caller falls back to the appmanifest estimate).
 const CONTENT_LOG_TAIL_BYTES = 4 * 1024 * 1024
 
+// Steam logs the download rate roughly once a minute. When estimating progress
+// we extrapolate from the latest rate sample to "now", but cap that window so a
+// paused/stalled download (no new samples) doesn't make the estimate run away.
+const MAX_RATE_EXTRAPOLATION_SECONDS = 120
+
 export interface SteamDownloadProgress {
   // 0-100, or undefined if it can't be determined yet.
   percent?: number
@@ -151,7 +156,14 @@ export async function getSteamDownloadProgress(
 
   const latestRate = samples.at(-1)?.bytesPerSecond
   if (latestRate !== undefined) {
-    const trailingSeconds = (Date.now() - previousTime) / 1000
+    // Extrapolate from the last rate sample up to now, but only for a bounded
+    // window: Steam logs the rate ~once a minute, so if much more time than that
+    // has elapsed without a new sample the download has likely stalled or been
+    // paused - keep extrapolating in that case and the estimate would run away.
+    const trailingSeconds = Math.min(
+      (Date.now() - previousTime) / 1000,
+      MAX_RATE_EXTRAPOLATION_SECONDS
+    )
     if (trailingSeconds > 0) downloadedBytes += latestRate * trailingSeconds
   }
 
@@ -164,4 +176,63 @@ export async function getSteamDownloadProgress(
     totalBytes,
     bytesPerSecond: latestRate
   }
+}
+
+/**
+ * The live state of a Steam app's download, derived from `content_log.txt`.
+ * - `downloading`: Steam is actively fetching/staging the app.
+ * - `queued`: the update is queued but hasn't started downloading yet.
+ * - `paused`: the download is paused/suspended in Steam.
+ * - `stopped`: the app was uninstalled/cancelled (no longer being installed).
+ * - `done`: the app finished downloading and is fully installed.
+ * - `unknown`: the log has nothing about this app (yet).
+ */
+export type SteamDownloadState =
+  | 'downloading'
+  | 'queued'
+  | 'paused'
+  | 'stopped'
+  | 'done'
+  | 'unknown'
+
+/**
+ * Reads the latest known download state for the given Steam app id from
+ * `content_log.txt`. Steam logs a `AppID <id> state changed : <flags>` line on
+ * every transition (queued, started, paused, finished, uninstalled), which lets
+ * Heroic tell whether a download actually started, is paused, was stopped, or
+ * completed - none of which the (depot-boundary-only) appmanifest reveals in
+ * real time.
+ */
+export async function getSteamDownloadState(
+  appId: string
+): Promise<SteamDownloadState> {
+  const text = await readContentLogTail()
+  if (!text) return 'unknown'
+
+  const lines = text.split(/\r?\n/)
+  const stateRe = new RegExp(`AppID ${appId} state changed : (.+)`)
+
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const match = lines[i].match(stateRe)
+    if (!match) continue
+
+    const flags = match[1]
+    // Order matters: an in-progress update can carry several flags at once
+    // (e.g. "Fully Installed,Update Queued,Update Running,"), so check the most
+    // specific/active states first.
+    if (flags.includes('Uninstalled')) return 'stopped'
+    if (flags.includes('Update Paused') || flags.includes('(Suspended)')) {
+      return 'paused'
+    }
+    if (flags.includes('Update Running') || flags.includes('Update Started')) {
+      return 'downloading'
+    }
+    if (flags.includes('Update Queued')) return 'queued'
+    if (flags.includes('Fully Installed')) return 'done'
+    // Any other terminal flag set (e.g. just "Update Required,") means Steam
+    // isn't currently working on it.
+    return 'stopped'
+  }
+
+  return 'unknown'
 }

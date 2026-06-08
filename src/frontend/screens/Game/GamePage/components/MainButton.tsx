@@ -206,7 +206,16 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
         <span className="installButtons">
           <button
             onClick={async () => {
-              if (!is_installed && !is.queued) {
+              if (
+                !is_installed &&
+                !is.queued &&
+                // Steam manages the download (location, size and queue) in its
+                // own client, so Heroic's install dialog has nothing to
+                // configure. Hand off to the Steam client directly via
+                // handleInstall instead of opening the (for Steam, pointless)
+                // download dialog - matching the library card's behavior.
+                gameInfo.runner !== 'steam'
+              ) {
                 openInstallGameModal({
                   appName: gameInfo.app_name,
                   runner: gameInfo.runner,

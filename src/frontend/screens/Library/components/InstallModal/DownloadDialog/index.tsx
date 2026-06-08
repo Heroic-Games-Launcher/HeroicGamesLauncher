@@ -580,7 +580,13 @@ export default function DownloadDialog({
   }
 
   const readyToInstall =
-    installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath
+    installPath &&
+    // Steam manages the download (size, location and queue) in its own client,
+    // so Heroic can't know the size up front - don't gate the button on it or
+    // it would spin forever for Steam games.
+    (runner === 'steam' || !!diskSize) &&
+    !gettingInstallInfo &&
+    validFlatpakPath
 
   const showDlcSelector =
     ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0

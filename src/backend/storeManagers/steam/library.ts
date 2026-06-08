@@ -945,9 +945,7 @@ export default class SteamLibraryManager implements LibraryManager {
    * reports whether the game is installed locally and, if so, whether Steam has
    * finished downloading it (as opposed to an install/update still running).
    */
-  async findInstalledGame(
-    appId: string
-  ): Promise<
+  async findInstalledGame(appId: string): Promise<
     | {
         installed: InstalledInfo
         fullyInstalled: boolean

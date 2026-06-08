@@ -27,7 +27,11 @@ import { isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
 import { extraInfoStore } from './electronStores'
-import { getSteamDownloadProgress } from './downloadProgress'
+import {
+  getSteamDownloadProgress,
+  getSteamDownloadState,
+  type SteamDownloadState
+} from './downloadProgress'
 import {
   steamAppDetailsApiUrl,
   steamInstallUrl,
@@ -371,7 +375,8 @@ export default class SteamGameManager implements GameManager {
     downloadedBytes: number
     totalBytes: number
   }> {
-    const { bytesDownloaded, bytesToDownload, bytesStaged, bytesToStage } = state
+    const { bytesDownloaded, bytesToDownload, bytesStaged, bytesToStage } =
+      state
 
     const ratios: number[] = []
     if (bytesToDownload > 0) ratios.push(bytesDownloaded / bytesToDownload)
@@ -475,6 +480,49 @@ export default class SteamGameManager implements GameManager {
     })
   }
 
+  /**
+   * Logs a human-readable line whenever Steam's reported download state for the
+   * game changes, so the Steam log makes it clear whether a download actually
+   * started, is queued, was paused, stopped or finished.
+   */
+  private logDownloadStateChange(
+    appName: string,
+    title: string,
+    state: SteamDownloadState
+  ): void {
+    switch (state) {
+      case 'downloading':
+        logInfo(`Steam started downloading ${title} (${appName})`, LogPrefix.Steam)
+        break
+      case 'queued':
+        logInfo(
+          `Steam queued ${title} (${appName}) for download`,
+          LogPrefix.Steam
+        )
+        break
+      case 'paused':
+        logInfo(
+          `Steam paused the download of ${title} (${appName})`,
+          LogPrefix.Steam
+        )
+        break
+      case 'stopped':
+        logWarning(
+          `Steam stopped the download of ${title} (${appName})`,
+          LogPrefix.Steam
+        )
+        break
+      case 'done':
+        logInfo(
+          `Steam finished downloading ${title} (${appName})`,
+          LogPrefix.Steam
+        )
+        break
+      default:
+        break
+    }
+  }
+
   async install(appName: string): Promise<InstallResult> {
     if (!isSteamImportEnabled()) {
       logWarning(
@@ -514,12 +562,28 @@ export default class SteamGameManager implements GameManager {
     diskSizeSamples.delete(appName)
 
     // Steam downloads the game in its own client. Poll the game's appmanifest
-    // until Steam reports it fully installed (or the user cancels, in which
-    // case the manifest never appears within the startup window).
+    // until Steam reports it fully installed, while reading Steam's content log
+    // to tell whether the download has actually started, is queued behind other
+    // downloads, was paused, or was cancelled.
     let waitedForStart = 0
     let started = false
+    let sawActiveState = false
+    let lastLoggedState: SteamDownloadState | undefined
     for (;;) {
       await delay(STEAM_INSTALL_POLL_INTERVAL_MS)
+
+      const logState = await getSteamDownloadState(appName)
+      if (logState !== lastLoggedState) {
+        this.logDownloadStateChange(appName, gameInfo.title, logState)
+        lastLoggedState = logState
+      }
+      if (
+        logState === 'downloading' ||
+        logState === 'queued' ||
+        logState === 'paused'
+      ) {
+        sawActiveState = true
+      }
 
       const state = await libraryManagerMap['steam'].findInstalledGame(appName)
 
@@ -530,19 +594,48 @@ export default class SteamGameManager implements GameManager {
           break
         }
 
-        // Report the download progress Steam writes into the appmanifest so
-        // Heroic's UI can show a percentage while Steam downloads the game.
-        await this.reportInstallProgress(appName, state)
-      } else if (!started) {
-        waitedForStart += STEAM_INSTALL_POLL_INTERVAL_MS
-        if (waitedForStart >= STEAM_INSTALL_START_TIMEOUT_MS) {
+        // A cancelled download can briefly leave the manifest behind; trust the
+        // content log telling us Steam is no longer installing it. Only act on
+        // this once we've actually seen the download active, so a stale
+        // "Uninstalled" line from a previous session can't cancel a fresh start.
+        if (logState === 'stopped' && sawActiveState) {
           logWarning(
-            `Steam did not start installing ${appName}; assuming it was cancelled`,
+            `Steam installation of ${appName} was cancelled`,
             LogPrefix.Steam
           )
-          return {
-            status: 'error',
-            error: 'Steam installation was not started'
+          return { status: 'error', error: 'Steam installation was cancelled' }
+        }
+
+        // While paused, freeze the progress bar instead of reporting (the
+        // estimate would otherwise keep advancing with no bytes coming in).
+        if (logState !== 'paused') {
+          // Report the download progress so Heroic's UI can show a percentage
+          // while Steam downloads the game.
+          await this.reportInstallProgress(appName, state)
+        }
+      } else if (!started) {
+        // No manifest yet. If Steam reports the app as queued/downloading/paused
+        // it just hasn't created the manifest yet (e.g. it's behind other
+        // downloads in Steam's queue), so keep waiting. Only time out when Steam
+        // doesn't know about the install at all, which means the user dismissed
+        // its install dialog.
+        if (
+          logState === 'queued' ||
+          logState === 'downloading' ||
+          logState === 'paused'
+        ) {
+          waitedForStart = 0
+        } else {
+          waitedForStart += STEAM_INSTALL_POLL_INTERVAL_MS
+          if (waitedForStart >= STEAM_INSTALL_START_TIMEOUT_MS) {
+            logWarning(
+              `Steam did not start installing ${appName}; assuming it was cancelled`,
+              LogPrefix.Steam
+            )
+            return {
+              status: 'error',
+              error: 'Steam installation was not started'
+            }
           }
         }
       } else {
