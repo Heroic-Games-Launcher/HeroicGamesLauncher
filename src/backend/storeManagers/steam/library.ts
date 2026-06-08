@@ -1010,11 +1010,31 @@ export default class SteamLibraryManager implements LibraryManager {
     )
   }
 
-  installState(): void {
-    logWarning(
-      'installState not implemented on Steam Library Manager',
-      LogPrefix.Steam
-    )
+  installState(appName: string, state: boolean): void {
+    if (state) {
+      // Steam manages installs itself; the on-disk `appmanifest` is the source
+      // of truth and is picked up by `refresh`, so there is nothing to mark
+      // here when a game becomes installed.
+      return
+    }
+
+    // Mark the game as uninstalled in both the in-memory cache and the
+    // persisted store so Heroic stops showing it as installed.
+    installedGames.delete(appName)
+
+    const stored = installedGamesStore.get('installed', [])
+    const filtered = stored.filter((value) => value.appName !== appName)
+    if (filtered.length !== stored.length) {
+      installedGamesStore.set('installed', filtered)
+    }
+
+    const cached = this.getGameInfo(appName)
+    if (cached) {
+      cached.is_installed = false
+      cached.install = {}
+      library.set(appName, cached)
+      sendFrontendMessage('pushGameToLibrary', cached)
+    }
   }
 
   getLaunchOptions(): LaunchOption[] {

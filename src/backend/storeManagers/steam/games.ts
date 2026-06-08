@@ -8,8 +8,13 @@ import {
   addShortcuts as addShortcutsUtil,
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
-import { GameManager, InstallResult } from 'common/types/game_manager'
+import {
+  GameManager,
+  InstallResult,
+  RemoveArgs
+} from 'common/types/game_manager'
 import { axiosClient, sendGameStatusUpdate } from 'backend/utils'
+import { sendFrontendMessage } from 'backend/ipc'
 import { isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
@@ -18,7 +23,8 @@ import {
   steamAppDetailsApiUrl,
   steamInstallUrl,
   steamRunGameUrl,
-  steamStoreAppUrl
+  steamStoreAppUrl,
+  steamUninstallUrl
 } from './constants'
 
 import type LogWriter from 'backend/logger/log_writer'
@@ -34,6 +40,13 @@ const STEAM_INSTALL_POLL_INTERVAL_MS = 5000
 // How long to wait for Steam to start the download (i.e. for the manifest to
 // appear) before assuming the user cancelled the Steam install dialog.
 const STEAM_INSTALL_START_TIMEOUT_MS = 15 * 60 * 1000
+
+// How often to poll for an uninstall to complete (the game's `appmanifest`
+// being removed by Steam).
+const STEAM_UNINSTALL_POLL_INTERVAL_MS = 3000
+// How long to wait for Steam to remove the game before assuming the user
+// cancelled the Steam uninstall dialog.
+const STEAM_UNINSTALL_TIMEOUT_MS = 15 * 60 * 1000
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -444,16 +457,86 @@ export default class SteamGameManager implements GameManager {
     return ''
   }
 
-  async uninstall(): Promise<ExecResult> {
-    return { stdout: '', stderr: 'Uninstall not implemented' }
+  async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+    if (!isSteamImportEnabled()) {
+      logWarning(
+        `Steam import is disabled, cannot uninstall ${appName}`,
+        LogPrefix.Steam
+      )
+      return { stdout: '', stderr: 'Steam import disabled' }
+    }
+
+    const gameInfo = this.getGameInfo(appName)
+
+    // If the game is already gone from Steam, just sync Heroic's view.
+    const existing = await libraryManagerMap['steam'].findInstalledGame(appName)
+    if (!existing) {
+      libraryManagerMap['steam'].installState(appName, false)
+      await removeShortcutsUtil(gameInfo)
+      sendFrontendMessage('refreshLibrary', 'steam')
+      return { stdout: '', stderr: '' }
+    }
+
+    logInfo(
+      `Asking Steam to uninstall ${gameInfo.title} (${appName})`,
+      LogPrefix.Steam
+    )
+
+    try {
+      await shell.openExternal(`${steamUninstallUrl}/${appName}`)
+    } catch (error) {
+      logError(
+        [`Failed to ask Steam to uninstall ${appName}`, error],
+        LogPrefix.Steam
+      )
+      return { stdout: '', stderr: `${error}` }
+    }
+
+    // Steam removes the game in its own client once the user confirms. Poll the
+    // game's appmanifest until Steam has deleted it (or the user cancels, in
+    // which case the manifest is still present after the timeout).
+    let waited = 0
+    for (;;) {
+      await delay(STEAM_UNINSTALL_POLL_INTERVAL_MS)
+
+      const state = await libraryManagerMap['steam'].findInstalledGame(appName)
+      if (!state) {
+        break
+      }
+
+      waited += STEAM_UNINSTALL_POLL_INTERVAL_MS
+      if (waited >= STEAM_UNINSTALL_TIMEOUT_MS) {
+        logWarning(
+          `Steam did not uninstall ${appName}; assuming it was cancelled`,
+          LogPrefix.Steam
+        )
+        return { stdout: '', stderr: 'Steam uninstall was cancelled' }
+      }
+    }
+
+    await removeShortcutsUtil(gameInfo)
+    libraryManagerMap['steam'].installState(appName, false)
+
+    logInfo(
+      `Steam finished uninstalling ${gameInfo.title} (${appName})`,
+      LogPrefix.Steam
+    )
+
+    // Re-scan so the game now shows up as not installed in Heroic.
+    await libraryManagerMap['steam'].refresh()
+
+    return { stdout: '', stderr: '' }
   }
 
   async update(): Promise<InstallResult> {
     return { status: 'error', error: 'Update not implemented' }
   }
 
-  async forceUninstall(): Promise<void> {
-    return
+  async forceUninstall(appName: string): Promise<void> {
+    const gameInfo = this.getGameInfo(appName)
+    await removeShortcutsUtil(gameInfo)
+    libraryManagerMap['steam'].installState(appName, false)
+    sendFrontendMessage('refreshLibrary', 'steam')
   }
 
   async stop(appName: string): Promise<void> {
