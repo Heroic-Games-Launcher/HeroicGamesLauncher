@@ -3,19 +3,12 @@ export interface SteamCredentials {
 }
 
 /**
- * A single Steam account parsed from the local `config/loginusers.vdf`. Used to
- * let the user pick which of the accounts known to the local Steam client
- * should have their owned library imported into Heroic.
+ * A Steam account the user has logged into via Steam OpenID. Heroic supports
+ * stacking multiple accounts; each one contributes its owned library.
  */
-export interface SteamLoginUser {
-  id: string
-  PersonaName: string
-  AccountName: string
-  RememberPassword: string
-  WantsOfflineMode: string
-  AllowAutoLogin: string
-  MostRecent: string
-  Timestamp: string
+export interface SteamAccount {
+  steamId: string
+  username: string
 }
 
 /**

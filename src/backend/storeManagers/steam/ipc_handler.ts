@@ -1,15 +1,8 @@
 import { addHandler, addListener } from 'backend/ipc'
-import { loadUsers } from './user'
-import { steamEnabledUsers } from './electronStores'
+import { SteamUser } from './user'
 
-addHandler('getSteamUsers', () => loadUsers())
+addHandler('getSteamUsers', () => SteamUser.getAccounts())
 
-addHandler('getSteamUsersEnabled', () =>
-  Object.entries(steamEnabledUsers.raw_store)
-    .filter(([, enabled]) => enabled)
-    .map(([id]) => id)
-)
-
-addListener('setSteamUserStatus', (_e, userId, status) =>
-  steamEnabledUsers.set(userId, status)
+addListener('logoutSteamAccount', (_e, steamId) =>
+  SteamUser.logoutAccount(steamId)
 )

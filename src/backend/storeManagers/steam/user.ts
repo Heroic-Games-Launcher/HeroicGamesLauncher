@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { join } from 'path'
-import { readFile } from 'node:fs/promises'
 import {
   existsSync,
   mkdirSync,
@@ -8,9 +6,7 @@ import {
   unlinkSync,
   writeFileSync
 } from 'graceful-fs'
-import { parse } from '@node-steam/vdf'
 import { logError, logInfo, LogPrefix, logWarning } from 'backend/logger'
-import { GlobalConfig } from 'backend/config'
 import { configStore } from './electronStores'
 import { isOnline } from '../../online_monitor'
 import { clearCache } from 'backend/utils'
@@ -20,7 +16,7 @@ import {
   profileApiUrl,
   steamSupportFolder
 } from './constants'
-import { SteamCredentials, SteamLoginUser } from 'common/types/steam'
+import { SteamAccount, SteamCredentials } from 'common/types/steam'
 
 export class SteamUser {
   static async login(url: string): Promise<{
@@ -76,8 +72,21 @@ export class SteamUser {
       writeFileSync(credentialsPath, JSON.stringify(credentials), {
         encoding: 'utf-8'
       })
+
+      // Resolve a friendly name now so the account can be shown immediately and
+      // works offline later.
+      const username = (await this.fetchPersonaName(steamId)) || steamId
+
+      // Stack the account alongside any previously logged-in ones (replacing an
+      // existing entry for the same SteamID).
+      const accounts = this.getAccounts().filter((a) => a.steamId !== steamId)
+      accounts.push({ steamId, username })
+      configStore.set('accounts', accounts)
+
       configStore.set('isLoggedIn', true)
+      // Keep the legacy single-account keys pointing at the most recent login.
       configStore.set('steamId', steamId)
+      configStore.set('username', username)
       logInfo('Steam credentials saved successfully', LogPrefix.Steam)
       return { status: 'done' }
     } catch (err) {
@@ -131,34 +140,15 @@ export class SteamUser {
   }
 
   public static async getUserDetails() {
-    if (!isOnline()) {
-      logError(
-        'Unable to get login information, Heroic offline',
-        LogPrefix.Steam
-      )
-      return
-    }
-
-    logInfo('Checking if login is valid', LogPrefix.Steam)
-    if (!(await this.isLoggedIn())) {
+    const accounts = this.getAccounts()
+    if (!accounts.length) {
       logWarning('User is not logged in', LogPrefix.Steam)
       return
     }
 
-    const credentials = await this.getCredentials()
-    if (!credentials) {
-      return
-    }
-
-    let username = configStore.get_nodefault('username')
-    if (!username) {
-      username = await this.fetchPersonaName(credentials.steamId)
-      if (username) {
-        configStore.set('username', username)
-      }
-    }
-
-    return { username: username || credentials.steamId }
+    // The most recently logged-in account.
+    const account = accounts[accounts.length - 1]
+    return { username: account.username }
   }
 
   private static async fetchPersonaName(
@@ -178,6 +168,10 @@ export class SteamUser {
   }
 
   public static async getCredentials(): Promise<SteamCredentials | undefined> {
+    const accounts = this.getAccounts()
+    if (accounts.length) {
+      return { steamId: accounts[accounts.length - 1].steamId }
+    }
     if (!existsSync(credentialsPath)) {
       logWarning('No Steam credentials available', LogPrefix.Steam)
       return
@@ -196,6 +190,46 @@ export class SteamUser {
     }
   }
 
+  /**
+   * Returns every Steam account the user has logged into via OpenID. Migrates a
+   * legacy single-account login into the accounts list on first read.
+   */
+  public static getAccounts(): SteamAccount[] {
+    const accounts = configStore.get('accounts', [])
+    if (accounts.length) {
+      return accounts
+    }
+
+    // Migrate a pre-multi-account login (single steamId/username) if present.
+    const steamId = configStore.get_nodefault('steamId')
+    if (steamId && configStore.get('isLoggedIn', false)) {
+      const username = configStore.get_nodefault('username') || steamId
+      const migrated: SteamAccount[] = [{ steamId, username }]
+      configStore.set('accounts', migrated)
+      return migrated
+    }
+
+    return []
+  }
+
+  /**
+   * Logs a single Steam account out, leaving any other logged-in accounts in
+   * place. Falls back to a full logout when the last account is removed.
+   */
+  public static logoutAccount(steamId: string) {
+    const accounts = this.getAccounts().filter((a) => a.steamId !== steamId)
+    if (!accounts.length) {
+      this.logout()
+      return
+    }
+    configStore.set('accounts', accounts)
+    const last = accounts[accounts.length - 1]
+    configStore.set('steamId', last.steamId)
+    configStore.set('username', last.username)
+    clearCache('steam')
+    logInfo(`Logged Steam account ${steamId} out`, LogPrefix.Steam)
+  }
+
   public static logout() {
     clearCache('steam')
     configStore.clear()
@@ -206,44 +240,6 @@ export class SteamUser {
   }
 
   public static async isLoggedIn(): Promise<boolean> {
-    return existsSync(credentialsPath) && !!configStore.get('isLoggedIn', false)
-  }
-}
-
-/**
- * Loads every Steam account known to the local Steam client by parsing
- * `config/loginusers.vdf`. Supports multiple accounts so the user can choose
- * which ones to import games from.
- */
-export async function loadUsers(): Promise<SteamLoginUser[]> {
-  const { defaultSteamPath } = GlobalConfig.get().getSettings()
-  const steamPath = defaultSteamPath.replaceAll("'", '')
-
-  const loginUsersConfigPath = join(steamPath, 'config', 'loginusers.vdf')
-
-  if (!existsSync(loginUsersConfigPath)) {
-    logError(
-      ['Unable to load Steam users, file does not exist', loginUsersConfigPath],
-      LogPrefix.Steam
-    )
-    return []
-  }
-
-  try {
-    const fileData = await readFile(loginUsersConfigPath, { encoding: 'utf8' })
-    const loginUsers = parse(fileData) as {
-      users?: { [id: string]: Omit<SteamLoginUser, 'id'> }
-    }
-    if (!loginUsers.users) {
-      return []
-    }
-
-    return Object.keys(loginUsers.users).map((userId) => ({
-      id: userId,
-      ...loginUsers.users![userId]
-    }))
-  } catch (error) {
-    logError(['Failed to load Steam users', error], LogPrefix.Steam)
-    return []
+    return this.getAccounts().length > 0
   }
 }

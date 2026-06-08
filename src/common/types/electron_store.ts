@@ -19,6 +19,7 @@ import {
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ZoomCredentials } from './zoom'
+import { SteamAccount } from './steam'
 
 export interface StoreStructure {
   configStore: {
@@ -87,9 +88,7 @@ export interface StoreStructure {
     isLoggedIn: boolean
     steamId?: string
     username?: string
-  }
-  steamEnabledUsersConfig: {
-    [userId: string]: boolean
+    accounts?: SteamAccount[]
   }
   nileConfigStore: {
     userData?: NileUserData

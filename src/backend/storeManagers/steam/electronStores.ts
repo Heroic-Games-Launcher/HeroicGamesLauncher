@@ -14,15 +14,6 @@ const configStore = new TypeCheckedStoreBackend('steamConfigStore', {
   cwd: 'steam_store'
 })
 
-// Tracks which local Steam accounts (from loginusers.vdf) the user has enabled
-// for library import. Keyed by 64-bit SteamID -> enabled boolean.
-const steamEnabledUsers = new TypeCheckedStoreBackend(
-  'steamEnabledUsersConfig',
-  {
-    cwd: 'steam_store'
-  }
-)
-
 const libraryStore = new CacheStore<GameInfo[], 'games'>('steam_library', null)
 
 // Caches the Steam storefront "appdetails" response (description, requirements,
@@ -40,6 +31,5 @@ export {
   installedGamesStore,
   libraryStore,
   extraInfoStore,
-  appNamesStore,
-  steamEnabledUsers
+  appNamesStore
 }

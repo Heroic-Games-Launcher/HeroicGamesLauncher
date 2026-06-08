@@ -405,7 +405,8 @@ export default class SteamLibraryManager implements LibraryManager {
    * shows up quickly instead of blocking on a long sequence of lookups.
    */
   private async refreshOwnedGames(): Promise<void> {
-    if (!(await SteamUser.isLoggedIn())) {
+    const accounts = SteamUser.getAccounts()
+    if (!accounts.length) {
       logInfo(
         'Not logged in to Steam, skipping owned games fetch',
         LogPrefix.Steam
@@ -413,38 +414,45 @@ export default class SteamLibraryManager implements LibraryManager {
       return
     }
 
-    const credentials = await SteamUser.getCredentials()
-    if (!credentials?.steamId) {
-      return
-    }
-
-    // Source 1 (supplement): public community profile. Entries already carry a
-    // title, so no extra lookup is needed. Only works for public profiles.
+    // Owned games are collected across every logged-in Steam account and merged
+    // into a single library view.
     const profileTitles = new Map<string, string>()
-    for (const { appId, title } of await this.fetchOwnedGamesFromProfile(
-      credentials.steamId
-    )) {
-      profileTitles.set(appId, title)
+    const localAppIds = new Set<string>()
+    const licenseTitles = new Map<string, string>()
+
+    for (const { steamId } of accounts) {
+      // Source 1 (supplement): public community profile. Entries already carry a
+      // title, so no extra lookup is needed. Only works for public profiles.
+      for (const { appId, title } of await this.fetchOwnedGamesFromProfile(
+        steamId
+      )) {
+        profileTitles.set(appId, title)
+      }
+
+      // Source 2 (prioritized): local Steam client data. Works for private
+      // profiles too since the data is stored locally on the user's machine.
+      // These are just app ids and need their names resolved.
+      for (const appId of this.readLocalOwnedAppIds(steamId)) {
+        localAppIds.add(appId)
+      }
+
+      // Source 3 (prioritized, local): owned games read from the encrypted Steam
+      // license cache plus the binary app/package info caches. Works offline and
+      // for private profiles, and resolves names locally so most ids need no
+      // throttled storefront lookup.
+      for (const [appId, title] of await this.readOwnedFromLicenseCache(
+        steamId
+      )) {
+        licenseTitles.set(appId, title)
+      }
     }
 
-    // Source 2 (prioritized): local Steam client data. Works for private
-    // profiles too since the data is stored locally on the user's machine.
-    // These are just app ids and need their names resolved.
-    const localAppIds = this.readLocalOwnedAppIds(credentials.steamId)
-    if (localAppIds.length) {
+    if (localAppIds.size) {
       logInfo(
-        `Found ${localAppIds.length} owned games in local Steam data`,
+        `Found ${localAppIds.size} owned games in local Steam data`,
         LogPrefix.Steam
       )
     }
-
-    // Source 3 (prioritized, local): owned games read from the encrypted Steam
-    // license cache plus the binary app/package info caches. Works offline and
-    // for private profiles, and resolves names locally so most ids need no
-    // throttled storefront lookup.
-    const licenseTitles = await this.readOwnedFromLicenseCache(
-      credentials.steamId
-    )
     if (licenseTitles.size) {
       logInfo(
         `Found ${licenseTitles.size} owned games in Steam license cache`,
@@ -461,8 +469,14 @@ export default class SteamLibraryManager implements LibraryManager {
     let added = 0
     const deferred: string[] = []
     for (const appId of candidateIds) {
-      // Already discovered as an installed game during the local scan.
-      if (library.has(appId) || ignoredSteamAppIds.includes(appId)) {
+      // Skip invalid ids (e.g. "0" can show up from the local package caches),
+      // already-known installed games, and ignored runtimes/redistributables.
+      if (
+        !appId ||
+        appId === '0' ||
+        library.has(appId) ||
+        ignoredSteamAppIds.includes(appId)
+      ) {
         continue
       }
 

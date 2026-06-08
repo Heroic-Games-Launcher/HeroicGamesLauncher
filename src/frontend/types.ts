@@ -17,7 +17,7 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
-import { SteamLoginUser } from 'common/types/steam'
+import { SteamAccount } from 'common/types/steam'
 
 export type Category =
   | 'all'
@@ -103,9 +103,8 @@ export interface ContextType {
     login: (url: string) => Promise<string>
     logout: () => Promise<void>
     enabled: boolean
-    users: SteamLoginUser[]
-    enabledUsers: string[]
-    setUser: (userId: string, enabled: boolean) => void
+    users: SteamAccount[]
+    logoutUser: (steamId: string) => void
   }
   installingEpicGame: boolean
   allTilesInColor: boolean

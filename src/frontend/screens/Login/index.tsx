@@ -11,11 +11,7 @@ import AmazonLogo from 'frontend/assets/amazon-logo.svg?react'
 import ZoomLogo from 'frontend/assets/zoom-logo.svg?react'
 import SteamLogo from 'frontend/assets/steam-logo.svg?react'
 
-import {
-  LanguageSelector,
-  ToggleSwitch,
-  UpdateComponent
-} from '../../components/UI'
+import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
 import ContextProvider from '../../state/ContextProvider'
@@ -48,9 +44,6 @@ export default React.memo(function NewLogin() {
     Boolean(amazon.user_id)
   )
   const [isZoomLoggedIn, setIsZoomLoggedIn] = useState(Boolean(zoom.username))
-  const [isSteamLoggedIn, setIsSteamLoggedIn] = useState(
-    Boolean(steam.username)
-  )
 
   const systemInfo = useAwaited(window.api.systemInfo.get)
 
@@ -82,15 +75,7 @@ export default React.memo(function NewLogin() {
     setIsGogLoggedIn(Boolean(gog.username))
     setIsAmazonLoggedIn(Boolean(amazon.user_id))
     setIsZoomLoggedIn(Boolean(zoom.username))
-    setIsSteamLoggedIn(Boolean(steam.username))
-  }, [
-    epic.username,
-    gog.username,
-    amazon.user_id,
-    zoom.username,
-    steam.username,
-    t
-  ])
+  }, [epic.username, gog.username, amazon.user_id, zoom.username, t])
 
   async function handleLibraryClick() {
     await refreshLibrary({ runInBackground: false })
@@ -179,41 +164,32 @@ export default React.memo(function NewLogin() {
               />
             )}
             {steam.enabled && (
-              <Runner
-                class="steam"
-                buttonText={t('login.steam', 'Steam Login')}
-                icon={() => <SteamLogo />}
-                loginUrl={steamLoginPath}
-                isLoggedIn={isSteamLoggedIn}
-                user={steam.username}
-                logoutAction={steam.logout}
-                disabled={oldMac}
-              />
+              <>
+                <Runner
+                  class="steam"
+                  buttonText={t('login.steam_add', 'Add Steam Account')}
+                  icon={() => <SteamLogo />}
+                  loginUrl={steamLoginPath}
+                  isLoggedIn={false}
+                  user={undefined}
+                  logoutAction={steam.logout}
+                  disabled={oldMac}
+                />
+                {steam.users.map((account) => (
+                  <Runner
+                    key={account.steamId}
+                    class="steam"
+                    buttonText={t('login.steam', 'Steam Login')}
+                    icon={() => <SteamLogo />}
+                    loginUrl={steamLoginPath}
+                    isLoggedIn={true}
+                    user={account.username}
+                    logoutAction={() => steam.logoutUser(account.steamId)}
+                    disabled={oldMac}
+                  />
+                ))}
+              </>
             )}
-            {steam.enabled &&
-              steam.users.map((user) => (
-                <div
-                  key={user.id}
-                  className={`runnerWrapper ${oldMac ? 'disabled' : ''}`}
-                >
-                  <div className="runnerIcon alternative">
-                    <SteamLogo />
-                  </div>
-                  <div className="runnerButtons">
-                    <div className="runnerLogin">
-                      <ToggleSwitch
-                        htmlId={user.id}
-                        value={steam.enabledUsers.includes(user.id)}
-                        handleChange={(event) =>
-                          steam.setUser(user.id, event.target.checked)
-                        }
-                        title={user.PersonaName}
-                        disabled={oldMac}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
           </div>
         </div>
         <button
