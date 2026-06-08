@@ -71,6 +71,10 @@ interface SteamAppManifest {
     StateFlags?: string | number
     SizeOnDisk?: string | number
     buildid?: string | number
+    BytesDownloaded?: string | number
+    BytesToDownload?: string | number
+    BytesStaged?: string | number
+    BytesToStage?: string | number
   }
 }
 
@@ -944,7 +948,16 @@ export default class SteamLibraryManager implements LibraryManager {
   async findInstalledGame(
     appId: string
   ): Promise<
-    { installed: InstalledInfo; fullyInstalled: boolean } | undefined
+    | {
+        installed: InstalledInfo
+        fullyInstalled: boolean
+        bytesDownloaded: number
+        bytesToDownload: number
+        bytesStaged: number
+        bytesToStage: number
+        sizeOnDisk: number
+      }
+    | undefined
   > {
     let steamLibraries: string[] = []
     try {
@@ -970,11 +983,26 @@ export default class SteamLibraryManager implements LibraryManager {
       }
 
       let flags = 0
+      let bytesDownloaded = 0
+      let bytesToDownload = 0
+      let bytesStaged = 0
+      let bytesToStage = 0
+      let sizeOnDisk = 0
       try {
         const data = parse(
           readFileSync(manifestPath, 'utf-8')
         ) as SteamAppManifest
         flags = Number(data.AppState?.StateFlags ?? 0)
+        bytesDownloaded = Number(data.AppState?.BytesDownloaded ?? 0)
+        bytesToDownload = Number(data.AppState?.BytesToDownload ?? 0)
+        bytesStaged = Number(data.AppState?.BytesStaged ?? 0)
+        bytesToStage = Number(data.AppState?.BytesToStage ?? 0)
+        sizeOnDisk = Number(data.AppState?.SizeOnDisk ?? 0)
+        if (!Number.isFinite(bytesDownloaded)) bytesDownloaded = 0
+        if (!Number.isFinite(bytesToDownload)) bytesToDownload = 0
+        if (!Number.isFinite(bytesStaged)) bytesStaged = 0
+        if (!Number.isFinite(bytesToStage)) bytesToStage = 0
+        if (!Number.isFinite(sizeOnDisk)) sizeOnDisk = 0
       } catch {
         // Treat an unreadable manifest as "not fully installed yet".
       }
@@ -985,7 +1013,15 @@ export default class SteamLibraryManager implements LibraryManager {
         !!parsed.installed.install_path &&
         existsSync(parsed.installed.install_path)
 
-      return { installed: parsed.installed, fullyInstalled }
+      return {
+        installed: parsed.installed,
+        fullyInstalled,
+        bytesDownloaded,
+        bytesToDownload,
+        bytesStaged,
+        bytesToStage,
+        sizeOnDisk
+      }
     }
 
     return

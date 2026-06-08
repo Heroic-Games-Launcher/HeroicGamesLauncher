@@ -1,6 +1,8 @@
 import { GameConfig } from '../../game_config'
 import { ExtraInfo, GameInfo, GameSettings, ExecResult } from 'common/types'
 import { existsSync } from 'graceful-fs'
+import { readdir, stat } from 'node:fs/promises'
+import { join } from 'path'
 import { spawnSync } from 'child_process'
 import { shell } from 'electron'
 import { logError, logInfo, logWarning, LogPrefix } from 'backend/logger'
@@ -13,12 +15,19 @@ import {
   InstallResult,
   RemoveArgs
 } from 'common/types/game_manager'
-import { axiosClient, sendGameStatusUpdate } from 'backend/utils'
+import {
+  axiosClient,
+  calculateEta,
+  getFileSize,
+  sendGameStatusUpdate,
+  sendProgressUpdate
+} from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isWindows } from 'backend/constants/environment'
 import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
 import { extraInfoStore } from './electronStores'
+import { getSteamDownloadProgress } from './downloadProgress'
 import {
   steamAppDetailsApiUrl,
   steamInstallUrl,
@@ -36,10 +45,54 @@ const STEAM_PROCESS_POLL_INTERVAL_MS = 5000
 const STEAM_PROCESS_STARTUP_TIMEOUT_MS = 120000
 
 // How often to poll for an install's progress (the game's `appmanifest`).
-const STEAM_INSTALL_POLL_INTERVAL_MS = 5000
+// Polled fairly frequently so the reported download percentage updates smoothly
+// in Heroic's UI while Steam downloads the game.
+const STEAM_INSTALL_POLL_INTERVAL_MS = 2000
 // How long to wait for Steam to start the download (i.e. for the manifest to
 // appear) before assuming the user cancelled the Steam install dialog.
 const STEAM_INSTALL_START_TIMEOUT_MS = 15 * 60 * 1000
+// How often (at most) to fall back to measuring the partially-installed game's
+// size on disk. This is comparatively expensive, so it is throttled and only
+// used when Steam's `appmanifest` counters aren't usable yet.
+const STEAM_DISK_FALLBACK_INTERVAL_MS = 5000
+
+// Per-install bookkeeping used to derive download speed/ETA from the change in
+// downloaded bytes between two polls, and to throttle the on-disk size fallback.
+interface InstallProgressSample {
+  bytes: number
+  time: number
+}
+const installProgressSamples = new Map<string, InstallProgressSample>()
+const diskSizeSamples = new Map<string, InstallProgressSample>()
+
+/**
+ * Recursively sums the size of every file under `path`. Used as a fallback to
+ * estimate Steam download progress when the `appmanifest` byte counters are not
+ * yet populated. Missing entries (Steam moves files around while staging) are
+ * ignored rather than aborting the whole measurement.
+ */
+async function getDirectorySize(path: string): Promise<number> {
+  let total = 0
+  let entries
+  try {
+    entries = await readdir(path, { withFileTypes: true })
+  } catch {
+    return 0
+  }
+  for (const entry of entries) {
+    const entryPath = join(path, entry.name)
+    try {
+      if (entry.isDirectory()) {
+        total += await getDirectorySize(entryPath)
+      } else if (entry.isFile()) {
+        total += (await stat(entryPath)).size
+      }
+    } catch {
+      // Ignore files that vanish mid-scan.
+    }
+  }
+  return total
+}
 
 // How often to poll for an uninstall to complete (the game's `appmanifest`
 // being removed by Steam).
@@ -273,6 +326,155 @@ export default class SteamGameManager implements GameManager {
     return
   }
 
+  /**
+   * Throttled measurement of how many bytes of `installPath` exist on disk,
+   * used as a fallback progress source when Steam's `appmanifest` counters are
+   * not yet usable. Cached for {@link STEAM_DISK_FALLBACK_INTERVAL_MS} so the
+   * recursive scan doesn't run on every poll.
+   */
+  private async measureDiskSize(
+    appName: string,
+    installPath: string
+  ): Promise<number> {
+    const now = Date.now()
+    const cached = diskSizeSamples.get(appName)
+    if (cached && now - cached.time < STEAM_DISK_FALLBACK_INTERVAL_MS) {
+      return cached.bytes
+    }
+    const size = await getDirectorySize(installPath)
+    diskSizeSamples.set(appName, { bytes: size, time: now })
+    return size
+  }
+
+  /**
+   * Estimates download progress from the game's `appmanifest`. This is only a
+   * fallback for when Steam's live download log isn't available: Steam tracks an
+   * install with two pairs of counters - the compressed bytes fetched from the
+   * network (`BytesDownloaded`/`BytesToDownload`) and the decompressed bytes
+   * written to disk (`BytesStaged`/`BytesToStage`) - and only flushes them to
+   * the manifest at depot boundaries, so they sit frozen for long stretches
+   * mid-download. We take whichever pair shows the most progress, and as a last
+   * resort estimate from the partially-installed size on disk.
+   */
+  private async estimateFromManifest(
+    appName: string,
+    state: {
+      installed: { install_path?: string }
+      bytesDownloaded: number
+      bytesToDownload: number
+      bytesStaged: number
+      bytesToStage: number
+      sizeOnDisk: number
+    }
+  ): Promise<{
+    percent?: number
+    downloadedBytes: number
+    totalBytes: number
+  }> {
+    const { bytesDownloaded, bytesToDownload, bytesStaged, bytesToStage } = state
+
+    const ratios: number[] = []
+    if (bytesToDownload > 0) ratios.push(bytesDownloaded / bytesToDownload)
+    if (bytesToStage > 0) ratios.push(bytesStaged / bytesToStage)
+
+    let percent = ratios.length
+      ? Math.min(100, Math.max(...ratios) * 100)
+      : undefined
+    let downloadedBytes = Math.max(bytesDownloaded, bytesStaged)
+    let totalBytes = Math.max(bytesToDownload, bytesToStage)
+
+    if ((percent === undefined || percent === 0) && state.sizeOnDisk > 0) {
+      const installPath = state.installed.install_path
+      if (installPath) {
+        const diskSize = await this.measureDiskSize(appName, installPath)
+        if (diskSize > 0) {
+          downloadedBytes = diskSize
+          totalBytes = state.sizeOnDisk
+          percent = Math.min(100, (diskSize / state.sizeOnDisk) * 100)
+        }
+      }
+    }
+
+    return { percent, downloadedBytes, totalBytes }
+  }
+
+  /**
+   * Sends a live download-progress update to the frontend.
+   *
+   * The primary source is Steam's `content_log.txt`, which is the only file
+   * Steam updates in real time while downloading (see {@link
+   * getSteamDownloadProgress}); it yields the live transfer rate and a total
+   * size from which we derive speed, percentage and ETA. When the log can't be
+   * read (or doesn't cover this app yet) we fall back to estimating from the
+   * `appmanifest`, deriving speed from the change in bytes between polls.
+   */
+  private async reportInstallProgress(
+    appName: string,
+    state: {
+      installed: { install_path?: string }
+      bytesDownloaded: number
+      bytesToDownload: number
+      bytesStaged: number
+      bytesToStage: number
+      sizeOnDisk: number
+    }
+  ): Promise<void> {
+    let percent: number | undefined
+    let downloadedBytes: number
+    let totalBytes: number
+    let bytesPerSecond: number | undefined
+
+    const logProgress = await getSteamDownloadProgress(appName)
+    if (logProgress) {
+      ;({ percent, downloadedBytes, totalBytes, bytesPerSecond } = logProgress)
+    } else {
+      ;({ percent, downloadedBytes, totalBytes } =
+        await this.estimateFromManifest(appName, state))
+
+      // The manifest counters are frozen between depot boundaries, so derive a
+      // rough speed from how many bytes were added since the previous poll.
+      const now = Date.now()
+      const previous = installProgressSamples.get(appName)
+      if (previous && now > previous.time && downloadedBytes > previous.bytes) {
+        const elapsedSeconds = (now - previous.time) / 1000
+        bytesPerSecond = (downloadedBytes - previous.bytes) / elapsedSeconds
+      }
+      installProgressSamples.set(appName, { bytes: downloadedBytes, time: now })
+    }
+
+    // Never show a finished bar before the install loop sees Steam report the
+    // game as fully installed (the estimate can reach 100% slightly early).
+    if (percent !== undefined) percent = Math.min(99, percent)
+
+    let downSpeed: number | undefined
+    let eta = ''
+    if (bytesPerSecond && bytesPerSecond > 0) {
+      // Match the MiB/s unit the other runners report.
+      downSpeed = bytesPerSecond / 1024 ** 2
+      if (totalBytes > 0) {
+        eta = calculateEta(downloadedBytes, bytesPerSecond, totalBytes) ?? ''
+      }
+    }
+
+    sendProgressUpdate({
+      appName,
+      runner: 'steam',
+      status: 'installing',
+      progress: {
+        bytes: getFileSize(downloadedBytes),
+        // The download manager only renders its progress bar when an ETA is
+        // present, so send a placeholder until a real one can be computed.
+        eta: eta || '--:--:--',
+        percent:
+          percent !== undefined ? Math.round(percent * 100) / 100 : undefined,
+        downSpeed,
+        // Steam's "staging" is effectively the disk write, so reuse the same
+        // rate for the disk speed shown in the download manager.
+        diskSpeed: downSpeed
+      }
+    })
+  }
+
   async install(appName: string): Promise<InstallResult> {
     if (!isSteamImportEnabled()) {
       logWarning(
@@ -306,6 +508,11 @@ export default class SteamGameManager implements GameManager {
       return { status: 'error', error: `${error}` }
     }
 
+    // Start each install from a clean slate so download speed/ETA aren't
+    // derived from a previous install's samples.
+    installProgressSamples.delete(appName)
+    diskSizeSamples.delete(appName)
+
     // Steam downloads the game in its own client. Poll the game's appmanifest
     // until Steam reports it fully installed (or the user cancels, in which
     // case the manifest never appears within the startup window).
@@ -322,6 +529,10 @@ export default class SteamGameManager implements GameManager {
         if (state.fullyInstalled) {
           break
         }
+
+        // Report the download progress Steam writes into the appmanifest so
+        // Heroic's UI can show a percentage while Steam downloads the game.
+        await this.reportInstallProgress(appName, state)
       } else if (!started) {
         waitedForStart += STEAM_INSTALL_POLL_INTERVAL_MS
         if (waitedForStart >= STEAM_INSTALL_START_TIMEOUT_MS) {
@@ -344,6 +555,9 @@ export default class SteamGameManager implements GameManager {
         return { status: 'error', error: 'Steam installation was cancelled' }
       }
     }
+
+    installProgressSamples.delete(appName)
+    diskSizeSamples.delete(appName)
 
     logInfo(
       `Steam finished installing ${gameInfo.title} (${appName})`,
