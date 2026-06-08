@@ -3,11 +3,11 @@ import path from 'path'
 import { existsSync } from 'graceful-fs'
 
 import { Path } from 'backend/schemas'
-import { hasGame } from '../library'
+import { libraryManagerMap } from '../../index'
 
 export const LegendaryAppName = z
   .string()
-  .refine((val) => hasGame(val), {
+  .refine((val) => libraryManagerMap['legendary'].hasGame(val), {
     message: 'AppName was not found on account'
   })
   .brand('LegendaryAppName')

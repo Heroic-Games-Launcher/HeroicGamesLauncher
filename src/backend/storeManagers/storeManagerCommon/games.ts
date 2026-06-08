@@ -1,11 +1,6 @@
 import { GameInfo, GameSettings, Runner } from 'common/types'
 import { GameConfig } from '../../game_config'
-import {
-  createGameLogWriter,
-  logInfo,
-  LogPrefix,
-  logWarning
-} from 'backend/logger'
+import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { basename, dirname } from 'path'
 import { constants as FS_CONSTANTS } from 'graceful-fs'
 import i18next from 'i18next'
@@ -228,7 +223,6 @@ export async function launchGame(
         extraArgs.unshift(...wrappers, executable)
         executable = extraArgs.shift()!
       }
-      const logFileWriter = await createGameLogWriter(appName, 'sideload')
 
       await callRunner(
         extraArgs,
@@ -241,7 +235,7 @@ export async function launchGame(
         {
           env,
           wrappers,
-          logWriters: [logFileWriter],
+          logWriters: [logWriter],
           logMessagePrefix: LogPrefix.Backend
         }
       )

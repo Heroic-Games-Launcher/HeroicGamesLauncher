@@ -11,28 +11,28 @@ const WinePrefixesBasePath = () => {
   const { isDefault } = useContext(SettingsContext)
   const isWindows = platform === 'win32'
 
+  const [defaultWinePrefixDir, setDefaultWinePrefixDir] = useSetting(
+    'defaultWinePrefixDir',
+    ''
+  )
+
   if (!isDefault || isWindows) {
     return <></>
   }
-
-  const [defaultWinePrefix, setDefaultWinePrefix] = useSetting(
-    'defaultWinePrefix',
-    ''
-  )
 
   return (
     <PathSelectionBox
       htmlId="selectDefaultWinePrefix"
       label={t('setting.defaultWinePrefix', 'Set Folder for new Wine Prefixes')}
-      path={defaultWinePrefix}
-      onPathChange={setDefaultWinePrefix}
+      path={defaultWinePrefixDir}
+      onPathChange={setDefaultWinePrefixDir}
       type="directory"
       pathDialogTitle={t(
         'toolbox.settings.wineprefix',
         'Select a Folder for new Wine Prefixes'
       )}
       noDeleteButton
-      pathDialogDefaultPath={defaultWinePrefix}
+      pathDialogDefaultPath={defaultWinePrefixDir}
     />
   )
 }

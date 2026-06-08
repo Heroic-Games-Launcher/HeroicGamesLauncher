@@ -19,14 +19,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2025, ubuntu-24.04, macos-15]
+        include:
+          - os: windows-2025
+            arch: x64
+          - os: windows-11-arm
+            arch: arm64
+          - os: ubuntu-24.04
+            arch: x64
+          - os: macos-15
+            arch: x64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/install-deps
-      - name: Build Windows Portable version
-        run: pnpm dist:win portable
-        if: runner.os == 'Windows'
+      - name: Build Windows x64 Portable version
+        run: pnpm dist:win portable --x64
+        if: matrix.os == 'windows-2025'
+      - name: Build Windows ARM64 Portable version
+        run: pnpm dist:win portable --arm64
+        if: matrix.os == 'windows-11-arm'
       - name: Build macOS x64 & arm64 versions
         run: pnpm dist:mac --x64 --arm64 --publish=never
         env:
@@ -47,12 +58,14 @@ jobs:
       - name: Upload built version
         uses: actions/upload-artifact@v6
         with:
-          name: ${{ (matrix.os == 'windows-2025'  && 'win-portable'  ) ||
-                    (matrix.os == 'macos-15'      && 'mac-x64'       ) ||
-                    (matrix.os == 'ubuntu-24.04'  && 'linux-AppImage-x64') }}
-          path: ${{ (matrix.os == 'windows-2025'  && 'dist/Heroic*.exe'      ) ||
-                    (matrix.os == 'macos-15'      && 'dist/Heroic*x64.dmg'   ) ||
-                    (matrix.os == 'ubuntu-24.04'  && 'dist/Heroic*x86_64.AppImage') }}
+          name: ${{ (matrix.os == 'windows-2025'  && 'win-x64-portable'  ) ||
+                    (matrix.os == 'windows-11-arm' && 'win-arm64-portable') ||
+                    (matrix.os == 'macos-15'       && 'mac-x64'           ) ||
+                    (matrix.os == 'ubuntu-24.04'   && 'linux-AppImage-x64') }}
+          path: ${{ (matrix.os == 'windows-2025'  && 'dist/Heroic*.exe'           ) ||
+                    (matrix.os == 'windows-11-arm' && 'dist/Heroic*.exe'           ) ||
+                    (matrix.os == 'macos-15'       && 'dist/Heroic*x64.dmg'        ) ||
+                    (matrix.os == 'ubuntu-24.04'   && 'dist/Heroic*x86_64.AppImage') }}
           retention-days: 14
           if-no-files-found: error
           compression-level: 3

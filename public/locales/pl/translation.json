@@ -189,7 +189,7 @@
                 "message": "Program Heroic wymaga programu Rosetta do prawidłowego działania na macOS z procesorami Apple Silicon. Zainstaluj go z terminala macOS za pomocą polecenia: 'softwareupdate --install-rosetta', a następnie uruchom ponownie Heroic.• "
             }
         },
-        "wineprefix": "Wybierz folder z prefiksem Wine",
+        "wineprefix": "Wybierz folder z prefiksami Wine",
         "yes": "TAK",
         "dontShowAgain": "Nie pokazuj więcej",
         "choose-nile-binary": "Wybierz plik wykonywalny Nile",
@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "Odśwież bibliotekę"
-        }
+        },
+        "abort": "",
+        "install": "Instaluj",
+        "uninstall": "Odinstaluj"
     },
     "globalSettings": "Ustawienia globalne",
     "GOG": "GOG",
@@ -377,7 +380,10 @@
         "analytics": "Umożliwia Heroic zbieranie w 100% zanonimizowanych danych o użytkowaniu w celu ulepszenia aplikacji. Wymaga ponownego uruchomienia.",
         "wine-hdr": "HDR poprawia kolory, zapewniając jaśniejsze światła i głębsze kontrasty. Aby HDR działał, zarówno wyświetlacz, jak i gra muszą go obsługiwać.",
         "wine-wayland": "Eksperymentalny sterownik Wine-Wayland umożliwia natywne uruchamianie gier w protokole graficznym Wayland. Włączenie może spowodować uszkodzenie niektórych gier.",
-        "WoW64": "Tryb Wine WoW64 pozwala 32-bitowym grom używać 64-bitowego Wine'a. Włączenie może poprawić wydajność, ale może również zepsuć niektóre starsze 32-bitowe gry."
+        "WoW64": "Tryb Wine WoW64 pozwala 32-bitowym grom używać 64-bitowego Wine'a. Włączenie może poprawić wydajność, ale może również zepsuć niektóre starsze 32-bitowe gry.",
+        "nvidiaprime": {
+            "details": "Używaj dedykowanej karty graficznej do renderowania na urządzeniach multi-GPU. Potrzebne tylko dla gamingowych laptopów lub komputerów używających więcej niż jednej karty graficznej (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -671,7 +677,8 @@
                 },
                 "error": {
                     "title": "Przesyłanie nie powiodło się",
-                    "content": "Nie udało się przesłać pliku dziennika. Sprawdź ogólny dziennik Heroic, aby uzyskać szczegółowe informacje"
+                    "content": "Nie udało się przesłać pliku dziennika. Sprawdź ogólny dziennik Heroic, aby uzyskać szczegółowe informacje",
+                    "manual_upload": ""
                 },
                 "header": "Przesłane pliki dziennika",
                 "no-files": "Nie przesłano żadnych plików dziennika",
@@ -711,13 +718,6 @@
         "offlinemode": "Uruchom grę w trybie offline",
         "prefered_language": "Preferowany język (kod języka)",
         "preferSystemLibs": "Preferuj biblioteki systemowe",
-        "primerun": {
-            "confirmation": {
-                "message": "W tym komputerze wykryto tylko jedną kartę graficzną. Zwróć uwagę, że ta opcja jest przeznaczona dla komputerów z wieloma układami GPU i układami bez obudowy GPU (np. laptopy). W komputerach z jedną kartą graficzną układ GPU jest wykorzystywany automatycznie i włączenie tej opcji może spowodować problemy. Czy na pewno chcesz włączyć tę funkcję?",
-                "title": "Wykryto tylko jedną kartę graficzną"
-            },
-            "description": "Używaj dedykowanej karty graficznej"
-        },
         "runexe": {
             "message": "Przeciągnij i upuść pliki tutaj",
             "title": "Uruchom EXE w prefiksie"
@@ -813,7 +813,10 @@
             "info_label": "Wersje Protona od Valve ignorowane"
         },
         "WoW64": "Włącz WoW64 (Eksperymentalne)",
-        "scripts": "Skrypty:"
+        "scripts": "Skrypty:",
+        "enable-quick-sync-menu": "",
+        "start-in-console-mode": "",
+        "disable_gog_presence": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -850,7 +853,8 @@
             "sync": "Synchronizuj zapisy w chmurze",
             "wineExt": "Rozszerzenia Wine",
             "systemInformation": "Informacje o systemie",
-            "gamescope": "Gamescope"
+            "gamescope": "Gamescope",
+            "legacy": ""
         },
         "open-config-file": "Otwórz plik konfiguracyjny",
         "reset-heroic": "Zresetuj Heroic",
@@ -917,12 +921,24 @@
         "custom_css": {
             "title": "Własny styl CSS"
         },
-        "launchOptions": "Opcje startowe"
+        "launchOptions": "Opcje startowe",
+        "legacy_warning": "",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "Ustawienia",
     "sidebar": {
         "collapse": "Zwiń pasek boczny",
-        "uncollapse": "Pokaż pasek boczny"
+        "uncollapse": "Pokaż pasek boczny",
+        "console": ""
     },
     "status": {
         "installing": "Instalowanie",
@@ -979,7 +995,13 @@
             "link": "Menedżer Wine",
             "not-found": "Nie znaleziono żadnych wersji Wine. Kliknij ikonę odświeżania, by spróbować ponownie.",
             "title": "Menedżer Wine",
-            "unzipping": "Dekompresowanie"
+            "unzipping": "Dekompresowanie",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "Aktualizuj",
+            "settings": "Ustawienia",
+            "no-results": ""
         },
         "release": "Data wydania",
         "size": "Rozmiar",
@@ -1029,7 +1051,10 @@
     },
     "wineExplanation": {
         "proton-ge": "GE-Proton to wersja Proton stworzona przez Glorious Eggroll. Jest przeznaczona do użycia razem z launcherem umu (domyślnym dla Heroic).",
-        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest przestarzała i zamiast niej powinno używać się GE-Proton z launcherem umu."
+        "wine-ge": "Wine-GE-Proton to wersja Wine stworzona przez Glorious Eggroll. Jest przestarzała i zamiast niej powinno używać się GE-Proton z launcherem umu.",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "Wybrane filtry nie zwróciły wyników.",
@@ -1123,5 +1148,132 @@
     "zoom-store": "Sklep Zoom",
     "launch": {
         "options": "Opcje uruchamiania..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "System operacyjny:",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "Wszystkie",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "Nie znaleziono żadnej gry",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "Wyjdź",
+            "change_store": ""
+        },
+        "launching": "Uruchamianie",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "Other",
+            "all": "Wszystkie"
+        },
+        "empty": "",
+        "games": "Zainstalowane gry",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "Następny"
 }

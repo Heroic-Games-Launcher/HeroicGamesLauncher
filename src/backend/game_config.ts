@@ -8,7 +8,7 @@ import { currentGameConfigVersion } from 'backend/constants/others'
 import { isMac, isWindows } from './constants/environment'
 import {
   configPath,
-  defaultWinePrefix,
+  sharedWinePrefix,
   gamesConfigPath,
   userHome
 } from './constants/paths'
@@ -303,7 +303,7 @@ class GameConfigV0 extends GameConfig {
         defaultSettings.wineCrossoverBottle = wineCrossoverBottle
       }
 
-      defaultSettings.winePrefix = winePrefix || defaultWinePrefix
+      defaultSettings.winePrefix = winePrefix || sharedWinePrefix
 
       // fix winePrefix if needed
       if (gameSettings.winePrefix?.includes('~')) {

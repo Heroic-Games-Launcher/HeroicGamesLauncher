@@ -189,7 +189,7 @@
                 "message": "Heroic 需要 Rosetta 在配备 Apple Silicon 芯片的 macOS 上正确运行。请用以下命令从 macOS 终端安装它：\"softwareupdate --install-rosetta\"，并重启 Heroic。 "
             }
         },
-        "wineprefix": "选择 Wine Prefix 文件夹",
+        "wineprefix": "选择 Wine 前置文件夹",
         "yes": "是",
         "dontShowAgain": "不再显示",
         "choose-nile-binary": "选择 Nile 二进制文件",
@@ -268,7 +268,10 @@
         },
         "library": {
             "refresh": "刷新游戏库"
-        }
+        },
+        "abort": "",
+        "install": "安装",
+        "uninstall": "卸载"
     },
     "globalSettings": "全局设置",
     "GOG": "GOG",
@@ -378,7 +381,10 @@
         "wine-hdr": "HDR 提供更明亮的高潮和更深的对比增强色彩。要让 HDR 工作，显示器和游戏都必须支持 HDR。",
         "wine-wayland": "Wine-Wayland 实验性驱动允许游戏在 Wayland 显示协议下原生运行。启用可能破坏一些游戏。",
         "analytics": "允许 Heroic 收集 100% 匿名的使用数据帮助改进应用。需要重启才能生效。",
-        "WoW64": "Wine WoW64 模式允许在 64 位 Wine 上运行 32 位 Windows 游戏。启用该选项可能会提高性能，但也可能会无法运行较早的 32 位游戏。"
+        "WoW64": "Wine WoW64 模式允许在 64 位 Wine 上运行 32 位 Windows 游戏。启用该选项可能会提高性能，但也可能会无法运行较早的 32 位游戏。",
+        "nvidiaprime": {
+            "details": "在多 GPU 系统上使用独立显卡渲染游戏。仅适用于使用无头 GPU 进行渲染的游戏笔记本或台式机 (NVIDIA Optimus, AMD CrossFire)"
+        }
     },
     "info": {
         "heroic": {
@@ -565,7 +571,7 @@
         "custom_themes_path": "选择查找自定义 CSS 文件的路径",
         "dxvkfpsvalue": "正整数值 (如30, 60, ...)",
         "egs-prefix": "Epic 游戏商城安装位置",
-        "prefered_language": "双字符代码 (如: \"en\" 或 \"fr\")",
+        "prefered_language": "双字符或四字符代码 (如: \"fr\" 或 \"pt-BR\")",
         "alt-nile-bin": "使用内置 Nile 二进制文件..."
     },
     "platforms": {
@@ -713,13 +719,6 @@
         "offlinemode": "离线运行游戏",
         "prefered_language": "首选语言 (语言代码)",
         "preferSystemLibs": "首选系统库",
-        "primerun": {
-            "confirmation": {
-                "message": "此系统中已检测到一张显卡。请注意，这个选项是针对带无头 GPU 的多 GPU 系统（如笔记本电脑）。在单 GPU 系统中，自动使用唯一的 GPU，启用这个选项会导致问题。你真的要启用此选项吗?",
-                "title": "只检测到 1 个 GPU"
-            },
-            "description": "使用独立显卡"
-        },
         "runexe": {
             "message": "将文件拖放到此处",
             "title": "在前置上运行 EXE"
@@ -817,7 +816,9 @@
         },
         "WoW64": "启用 WoW64（实验性）",
         "scripts": "脚本：",
-        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单"
+        "enable-quick-sync-menu": "在游戏页上开启“快速保存—同步”菜单",
+        "disable_gog_presence": "禁用 GOG Presence 更新",
+        "start-in-console-mode": ""
     },
     "settings": {
         "battlEyeRuntime": {
@@ -923,12 +924,23 @@
             "title": "自定义 CSS 样式"
         },
         "launchOptions": "启动选项",
-        "legacy_warning": "警告：此选项卡上的设置大多已废弃，可能完全无法使用。"
+        "legacy_warning": "警告：此选项卡上的设置大多已废弃，可能完全无法使用。",
+        "steamgriddb": {
+            "apikey": {
+                "title": "",
+                "placeholder": "",
+                "placeholder_saved": ""
+            },
+            "help": {
+                "description": ""
+            }
+        }
     },
     "Settings": "设置",
     "sidebar": {
         "collapse": "收起侧栏",
-        "uncollapse": "展开侧栏"
+        "uncollapse": "展开侧栏",
+        "console": ""
     },
     "status": {
         "installing": "安装中",
@@ -985,7 +997,13 @@
             "link": "Wine 管理器",
             "not-found": "未找到 Wine 版本。请单击刷新按钮重试。",
             "title": "Wine 管理器",
-            "unzipping": "解压缩"
+            "unzipping": "解压缩",
+            "search": "",
+            "loading": "",
+            "open_folder": "",
+            "update": "更新",
+            "settings": "设置",
+            "no-results": ""
         },
         "release": "发布日期",
         "size": "大小",
@@ -1035,7 +1053,10 @@
     },
     "wineExplanation": {
         "wine-ge": "Wine-GE-Protonis 是 Glorious Eggroll 创建的 Wine 变体。它是建议用于 Steam 之外的 Wine 版本，提供对故障排除有用的日志。",
-        "proton-ge": "GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。"
+        "proton-ge": "GE-Proton 是 Glorious Eggroll 创建的 Proton 变体。该变体意在用于 Steam 中，但某些 Steam 之外的游戏也许可以和它更好地配合。它提供大多是用于故障排除的无用日志。",
+        "gpt": "",
+        "wine-crossover": "",
+        "wine-staging-macos": ""
     },
     "emptyLibrary": {
         "noResults": "使用当前筛选器找不到结果。",
@@ -1129,5 +1150,132 @@
     "zoom-store": "Zoom 商店",
     "launch": {
         "options": "启动选项..."
-    }
+    },
+    "discounts": {
+        "region": {
+            "countries": {
+                "IT": "",
+                "ES": "",
+                "FI": "",
+                "GR": "",
+                "RO": "",
+                "NO": "",
+                "KR": "",
+                "US": "",
+                "HU": "",
+                "PT": "",
+                "NL": "",
+                "AU": "",
+                "TW": "",
+                "IL": "",
+                "JP": "",
+                "DK": "",
+                "DE": "",
+                "CZ": "",
+                "FR": "",
+                "UA": "",
+                "GB": "",
+                "SE": "",
+                "CN": "",
+                "RU": "",
+                "CA": "",
+                "PL": "",
+                "BR": "",
+                "CH": "",
+                "TR": ""
+            },
+            "auto": "",
+            "label": ""
+        },
+        "filters": {
+            "moreFilters": "",
+            "ageRating": "",
+            "os": "操作系统：",
+            "price": "",
+            "activeCount_other": "",
+            "hideDlcs": "",
+            "ageRatingOption": "",
+            "genres": "",
+            "activeCount_one": "",
+            "lessFilters": "",
+            "rating": "",
+            "sort": "",
+            "genresPlaceholder": "",
+            "features": "",
+            "featuresPlaceholder": "",
+            "ageRatingAll": "全部",
+            "pageSize": "",
+            "releaseYear": ""
+        },
+        "sidebar": "",
+        "sort": {
+            "priceDesc": "",
+            "trending": "",
+            "priceAsc": "",
+            "releaseDesc": "",
+            "ratingAsc": "",
+            "releaseAsc": "",
+            "ratingDesc": "",
+            "discount": ""
+        },
+        "noMatches": "",
+        "aria": {
+            "pagination": "",
+            "rating": ""
+        },
+        "error": "",
+        "empty": "",
+        "loading": "",
+        "title": "",
+        "pagination": {
+            "prev": ""
+        }
+    },
+    "steamgriddb": {
+        "error": {
+            "no-games": "未找到游戏",
+            "no-grids": "",
+            "search": "",
+            "grids": ""
+        },
+        "picker": {
+            "search": "",
+            "title": "",
+            "select-game": ""
+        }
+    },
+    "console": {
+        "update": {
+            "hintPrefix": "",
+            "body": "",
+            "title": "",
+            "hintSuffix": ""
+        },
+        "sort": "",
+        "cancel": {
+            "hintSuffix": "",
+            "hintPrefix": ""
+        },
+        "quit": "",
+        "hints": {
+            "launch": "",
+            "sort": "",
+            "navigate": "",
+            "quit": "退出",
+            "change_store": ""
+        },
+        "launching": "启动中",
+        "card": {
+            "needsUpdate": ""
+        },
+        "filter": {
+            "sideload": "其他",
+            "all": "全部"
+        },
+        "empty": "",
+        "games": "已安装的游戏",
+        "quitApp": "",
+        "loading": ""
+    },
+    "next": "下一步"
 }

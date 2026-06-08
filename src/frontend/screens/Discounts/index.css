@@ -1,0 +1,106 @@
+.discountsScreen {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 20vw;
+  padding: var(--space-md-fixed);
+  color: var(--text-default);
+}
+
+.discountsScreen__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin: 0 0 var(--space-md);
+  flex-wrap: wrap;
+}
+
+.discountsScreen__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin: 0;
+  font-size: var(--text-2xl);
+}
+
+.discountsScreen__region {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.discountsScreen__regionLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--semibold);
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.discountsScreen__regionSelect.MuiInputBase-root {
+  min-width: 220px;
+}
+
+.discountsScreen__regionSelect .MuiSelect-select {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+/* Shared MUI outlined-input appearance for all inputs in the Discounts screen.
+   Keeps per-component styles from each re-declaring the same overrides. */
+.discountsScreen .MuiOutlinedInput-root {
+  min-height: 40px;
+  background-color: var(--input-background, var(--background));
+  color: var(--text-default);
+  border-radius: var(--space-3xs);
+}
+
+.discountsScreen .MuiOutlinedInput-notchedOutline {
+  border-color: var(--divider, rgba(255, 255, 255, 0.12));
+  transition: border-color 150ms ease;
+}
+
+.discountsScreen .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+.discountsScreen
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: var(--accent);
+  border-width: 1px;
+}
+
+.discountsScreen__regionCurrency {
+  margin-left: auto;
+  padding: 1px var(--space-2xs);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  font-size: calc(var(--text-sm) * 0.85);
+  font-weight: var(--semibold);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 700px) {
+  .discountsScreen__region {
+    width: 100%;
+  }
+
+  .discountsScreen__regionSelect.MuiInputBase-root {
+    flex: 1;
+  }
+}
+
+.discountsScreen__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-gap: var(--space-md);
+}
+
+.discountsScreen__message {
+  margin: var(--space-xl) 0;
+  text-align: center;
+  color: var(--text-secondary);
+}

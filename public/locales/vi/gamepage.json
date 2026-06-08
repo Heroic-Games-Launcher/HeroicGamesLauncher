@@ -63,7 +63,9 @@
         },
         "ok": "OK",
         "offline_warning": {
-            "message": "Trò chơi có thể không hoạt động như ý khi ngoại tuyến. Bạn có muốn chơi không?"
+            "message": "Trò chơi có thể không hoạt động như ý khi ngoại tuyến. Bạn có muốn chơi không?",
+            "playAnyway": "",
+            "title": ""
         }
     },
     "button": {
@@ -129,7 +131,8 @@
         "changelogFor": "Nhật ký thay đổi của {{gameTitle}}",
         "extra_info": "Thông tin thêm",
         "install_info": "Thông tin cài đặt",
-        "modify": "Sửa Đổi Cài Đặt"
+        "modify": "Sửa Đổi Cài Đặt",
+        "achievements": ""
     },
     "gamecard": {
         "moving": "Đang Chuyển",

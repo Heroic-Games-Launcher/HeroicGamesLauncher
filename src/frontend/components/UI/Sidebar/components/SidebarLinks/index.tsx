@@ -8,12 +8,18 @@ import {
   faCoffee,
   faUserAlt,
   faWineGlass,
-  faBarsProgress
+  faBarsProgress,
+  faTv,
+  faTags
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import {
+  faDiscord,
+  faGithub,
+  faPatreon
+} from '@fortawesome/free-brands-svg-icons'
 import { openDiscordLink } from 'frontend/helpers'
 
 import ContextProvider from 'frontend/state/ContextProvider'
@@ -155,6 +161,12 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
+      <SidebarItem
+        url="/discounts"
+        icon={faTags}
+        label={t('discounts.sidebar', 'Deals')}
+        dataTour="sidebar-discounts"
+      />
       <div className="divider" />
       <div className="SidebarItemWithSubmenu">
         <SidebarItem
@@ -211,6 +223,13 @@ export default function SidebarLinks() {
           </div>
         )}
       </div>
+      <SidebarItem
+        url="/console"
+        icon={faTv}
+        label={t('sidebar.console', 'Console Mode')}
+        dataTour="sidebar-console"
+      />
+
       <SidebarItem
         url="/download-manager"
         icon={faBarsProgress}
@@ -272,6 +291,13 @@ export default function SidebarLinks() {
           onClick={() => handleExternalLink(window.api.openKofiPage)}
           icon={faCoffee}
           label="Ko-fi"
+        />
+
+        <SidebarItem
+          elementType="button"
+          onClick={() => handleExternalLink(window.api.openGithubSponsorsPage)}
+          icon={faGithub}
+          label="GitHub Sponsors"
         />
       </div>
 

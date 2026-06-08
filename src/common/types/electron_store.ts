@@ -10,7 +10,6 @@ import {
   FavouriteGame,
   DMQueueElement,
   GOGLoginData,
-  WineManagerUISettings,
   AppSettings,
   WikiInfo,
   GameInfo,
@@ -106,16 +105,22 @@ export interface StoreStructure {
   gogPrivateBranches: {
     [appName: string]: string
   }
-  wineManagerConfigStore: {
-    'wine-manager-settings': WineManagerUISettings[]
-    'wine-releases': WineVersionInfo[]
-  }
   wikigameinfo: {
     [title: string]: WikiInfo
   }
   uploadedLogs: Record<string, UploadedLogData>
   migrationsStore: {
     appliedMigrations: string[]
+  }
+  gameOverridesStore: {
+    overrides: Record<
+      string,
+      {
+        title?: string
+        art_cover?: string
+        art_square?: string
+      }
+    >
   }
 }
 

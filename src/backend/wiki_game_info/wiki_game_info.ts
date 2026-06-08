@@ -10,12 +10,15 @@ import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
 import { getUmuId } from './umu/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
+import { gameManagerMap } from 'backend/storeManagers'
 
 export async function getWikiGameInfo(
   title: string,
   appName: string,
   runner: Runner
 ): Promise<WikiInfo | null> {
+  const gameInfo = gameManagerMap[runner].getGameInfo(appName)
+
   try {
     title = removeSpecialcharacters(title)
 
@@ -31,14 +34,19 @@ export async function getWikiGameInfo(
 
     logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
 
-    const [pcgamingwiki, howlongtobeat, gamesdb, applegamingwiki, umuId] =
-      await Promise.all([
-        getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
-        getHowLongToBeat(title),
-        getInfoFromGamesDB(title, appName, runner),
-        isMac ? getInfoFromAppleGamingWiki(title) : null,
-        isLinux ? getUmuId(appName, runner) : null
-      ])
+    const [pcgamingwiki, gamesdb, applegamingwiki, umuId] = await Promise.all([
+      getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
+      getInfoFromGamesDB(title, appName, runner),
+      isMac ? getInfoFromAppleGamingWiki(title) : null,
+      isLinux ? getUmuId(appName, runner) : null
+    ])
+
+    // Get HowLongToBeat data, using gog.com site for GOG games, and HLTB ID from PCGamingWiki if available
+    const howlongtobeat = await getHowLongToBeat(
+      title,
+      gameInfo,
+      pcgamingwiki?.howLongToBeatID
+    )
 
     let steamInfo = null
     if (isLinux) {

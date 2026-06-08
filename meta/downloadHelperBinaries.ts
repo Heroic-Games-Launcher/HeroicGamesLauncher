@@ -16,7 +16,7 @@ type DownloadedBinary =
   | 'galaxy-helper'
 
 const RELEASE_TAGS = {
-  legendary: '0.20.42',
+  legendary: '0.20.43',
   gogdl: 'v1.2.1',
   nile: 'v1.1.2',
   comet: 'v0.3.2',
@@ -116,7 +116,8 @@ async function downloadLegendary() {
       },
       arm64: {
         linux: 'legendary_linux_arm64',
-        darwin: 'legendary_macOS_arm64'
+        darwin: 'legendary_macOS_arm64',
+        win32: 'legendary_windows_arm64.exe'
       }
     }
   )
@@ -135,7 +136,8 @@ async function downloadGogdl() {
       },
       arm64: {
         linux: 'gogdl_linux_arm64',
-        darwin: 'gogdl_macOS_arm64'
+        darwin: 'gogdl_macOS_arm64',
+        win32: 'gogdl_windows_arm64.exe'
       }
     }
   )
@@ -176,7 +178,8 @@ async function downloadComet() {
       },
       arm64: {
         darwin: 'comet-aarch64-apple-darwin',
-        linux: 'comet-aarch64-unknown-linux-gnu'
+        linux: 'comet-aarch64-unknown-linux-gnu',
+        win32: 'comet-aarch64-pc-windows-msvc.exe'
       }
     })
   ])

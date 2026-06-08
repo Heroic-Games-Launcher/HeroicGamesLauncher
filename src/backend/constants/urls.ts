@@ -14,6 +14,8 @@ export const weblateUrl =
   'https://hosted.weblate.org/projects/heroic-games-launcher'
 export const kofiPage = 'https://ko-fi.com/heroicgames'
 export const patreonPage = 'https://www.patreon.com/heroicgameslauncher'
+export const githubSponsorsPage =
+  'https://github.com/sponsors/Heroic-Games-Launcher'
 export const wineprefixFAQ = 'https://wiki.winehq.org/FAQ#Wineprefixes'
 export const customThemesWikiLink =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/wiki/Custom-Themes'

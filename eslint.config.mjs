@@ -33,7 +33,6 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-return': 'warn',
       '@typescript-eslint/require-await': 'warn',
       '@typescript-eslint/restrict-template-expressions': 'warn',
-      '@typescript-eslint/unbound-method': 'warn',
 
       'react/no-unknown-property': [
         'error',
@@ -43,6 +42,7 @@ export default tseslint.config(
         'error',
         { checksVoidReturn: false }
       ],
+      '@typescript-eslint/unbound-method': 'error',
       'no-restricted-imports': [
         'error',
         {
@@ -73,7 +73,8 @@ export default tseslint.config(
   {
     files: ['**/__tests__/**/*.ts', '**/__mocks__/**/*.ts'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off'
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/unbound-method': 'warn'
     }
   },
   {

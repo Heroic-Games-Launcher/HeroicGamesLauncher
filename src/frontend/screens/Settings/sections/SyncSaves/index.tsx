@@ -22,8 +22,8 @@ const SyncSaves = () => {
     false
   )
 
-  const [defaultWinePrefix] = useSetting('defaultWinePrefix', '')
-  const [winePrefix] = useSetting('winePrefix', defaultWinePrefix + '/default')
+  const [sharedWinePrefix] = useSetting('sharedWinePrefix', '')
+  const [winePrefix] = useSetting('winePrefix', sharedWinePrefix)
 
   const [wineVersion] = useSetting('wineVersion', defaultWineVersion)
 

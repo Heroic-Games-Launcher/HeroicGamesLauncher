@@ -36,6 +36,7 @@ import {
   Gamescope,
   BeforeLaunchScriptPath,
   AfterLaunchScriptPath,
+  NvidiaPrime,
   Overlay
 } from '../../components'
 import { TabPanel } from 'frontend/components/UI'
@@ -211,6 +212,7 @@ export default function GamesSettings() {
         <GameMode />
         {isLinux && <PreferSystemLibs />}
         <SteamRuntime />
+        <NvidiaPrime />
         {!isNative && (
           <>
             <BattlEyeRuntime />

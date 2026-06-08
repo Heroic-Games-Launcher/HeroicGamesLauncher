@@ -1,5 +1,9 @@
 import { GlobalConfig } from 'backend/config'
-import { fixesPath, gamesConfigPath } from 'backend/constants/paths'
+import {
+  defaultWinePrefix,
+  fixesPath,
+  gamesConfigPath
+} from 'backend/constants/paths'
 import { notify } from 'backend/dialog/dialog'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { gameManagerMap } from 'backend/storeManagers'
@@ -21,7 +25,7 @@ export const removePrefix = async (appName: string, runner: Runner) => {
   }
 
   // folder exists, do some sanity checks before deleting it
-  const { defaultInstallPath, defaultWinePrefix } =
+  const { defaultInstallPath, sharedWinePrefix } =
     GlobalConfig.get().getSettings()
 
   if (winePrefix === defaultInstallPath) {
@@ -31,6 +35,14 @@ export const removePrefix = async (appName: string, runner: Runner) => {
     return
   }
 
+  if (winePrefix === sharedWinePrefix) {
+    logInfo(
+      `Can't delete folder ${winePrefix}, prefix folder is the shared prefix directory ${sharedWinePrefix}`
+    )
+    return
+  }
+
+  // keep this check for backwards compatibility
   if (winePrefix === defaultWinePrefix) {
     logInfo(
       `Can't delete folder ${winePrefix}, prefix folder is the default prefix directory ${defaultWinePrefix}`

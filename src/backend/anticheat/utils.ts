@@ -7,7 +7,7 @@ import { join } from 'node:path'
 import { appFolder } from 'backend/constants/paths'
 import { isMac, isWindows } from 'backend/constants/environment'
 import { createHash } from 'node:crypto'
-import { createReadStream } from 'graceful-fs'
+import { createReadStream, existsSync } from 'graceful-fs'
 import { finished } from 'node:stream/promises'
 
 async function createMD5(filePath: string) {
@@ -24,20 +24,22 @@ async function downloadAntiCheatData(latestFileHash?: string) {
   if (process.env.CI === 'e2e') return
   if (isWindows) return
 
-  const localFileHash = await createMD5(anticheatDataPath)
+  if (existsSync(anticheatDataPath)) {
+    const localFileHash = await createMD5(anticheatDataPath)
 
-  if (latestFileHash && localFileHash === latestFileHash) {
+    if (latestFileHash && localFileHash === latestFileHash) {
+      logDebug(
+        'AreWeAnticheatYet data did not change. Skipping.',
+        LogPrefix.Backend
+      )
+      return
+    }
+
     logDebug(
-      'AreWeAnticheatYet data did not change. Skipping.',
+      'AreWeAnticheatYet data changed. Downloading latest file.',
       LogPrefix.Backend
     )
-    return
   }
-
-  logDebug(
-    'AreWeAnticheatYet data changed. Downloading latest file.',
-    LogPrefix.Backend
-  )
 
   runOnceWhenOnline(async () => {
     const url = isMac

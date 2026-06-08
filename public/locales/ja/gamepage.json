@@ -21,7 +21,8 @@
             "title": "実行するEXEを選択してください"
         },
         "select": {
-            "button": "選択"
+            "button": "選択",
+            "image": "画像を選択"
         },
         "sideload": {
             "exe": "実行可能ファイルを選択"
@@ -45,13 +46,26 @@
             "message": "このゲームにはアップデートがありますが、今すぐアップデートしますか？",
             "title": "ゲームのアップデート"
         },
-        "wineprefix": "Wine環境フォルダを選択",
+        "wineprefix": "WinePrefixフォルダを選択",
         "yes": "はい",
         "close": "閉じる",
         "warning": {
-            "title": "Warning"
+            "title": "警告"
         },
-        "ok": "OK"
+        "ok": "OK",
+        "offline_warning": {
+            "message": "このゲームはオフラインでは正常に動作しない可能性があります。それでもプレイしますか？",
+            "playAnyway": "とにかくプレイする",
+            "title": "オフラインに関する警告"
+        },
+        "selectLaunchOption": {
+            "title": "起動オプションを選択してください ({{seconds}}s)",
+            "body": "このゲームの起動オプションを選択してください（後からゲーム設定で変更可能です）："
+        },
+        "sync": {
+            "force_download_warning": "ローカルの保存データが消去されます。続行しますか？",
+            "force_upload_warning": "クラウドの保存データが上書きされます。続行しますか？"
+        }
     },
     "button": {
         "add_to_favourites": "お気に入りに追加",
@@ -78,7 +92,10 @@
         "uninstall": "アンインストール",
         "update": "アップデート",
         "details": "詳細",
-        "changelog": "変更履歴を確認"
+        "changelog": "変更履歴を確認",
+        "browse_wine_prefix": "Wine Prefixを閲覧",
+        "play": "プレイ",
+        "browse_files": "ファイルを閲覧"
     },
     "cloud_save_unsupported": "非対応",
     "disabled": "無効",
@@ -113,7 +130,8 @@
         "changelogFor": "{{gameTitle}}の変更履歴",
         "modify": "インストールの変更",
         "extra_info": "追加情報",
-        "install_info": "インストール情報"
+        "install_info": "インストール情報",
+        "achievements": "実績"
     },
     "gamecard": {
         "moving": "移動中",
@@ -159,7 +177,7 @@
             "install": "はい（正しく機能しないことは理解しています）",
             "title": "アンチチート 破損/拒否",
             "ok": "Ok",
-            "disabled_installation": "アンチチートのサポートが壊れているか拒否されており、マルチプレイ機能が動作しません。 ゲームをインストールできません。 このゲームをインストールする場合は、詳細設定でこのチェックを無効にしてください。",
+            "disabled_installation": "このゲームは、お使いのOSと互換性のないアンチチートソフトウェアを使用しているか、ゲーム開発者によってそのサポートが有効化されていないようです。そのため、マルチプレイヤー機能は動作せず、これについてあなた（またはHeroicチーム）にできることは何もありません。<br /><br />それでもこのゲームをインストールして試してみたい場合は、[設定] > [詳細設定] へ進み、アンチチート機能が破損しているか無効化されているゲームのインストールを許可するオプションにチェックを入れてください。<br /><br />なお、この問題に対する解決策はなく、ゲーム内でアカウント停止処分を受けるリスクがあることにご注意ください。",
             "install_anyway": "OK（マルチプレイ機能が使えないことを理解しました）",
             "multiplayer_message": "アンチチートのサポートが壊れているか拒否されています。 マルチプレイ機能は動作しませんが、インストールしますか？"
         },
@@ -172,7 +190,8 @@
         },
         "playing": {
             "start": "今すぐプレイ",
-            "stop": "プレイ中（中止）"
+            "stop": "プレイ中（中止）",
+            "start_with_logs": "今すぐプレイ (ログを出力する)"
         },
         "saves": {
             "syncing": "セーブデータを同期中"
@@ -189,7 +208,8 @@
         }
     },
     "launch": {
-        "options": "起動オプション…"
+        "options": "起動オプション…",
+        "default": "既定"
     },
     "not_logged_in": {
         "epic": "HeroicにEpicアカウントでログインしていません。ストアページを使用してログインせず、代わりに次のボタンをクリックしてください:",
@@ -197,7 +217,7 @@
         "login": "ログイン",
         "title": "ログインしていません",
         "amazon": "HeroicのAmazonアカウントでログインしていません。 ストアページを使用してログインしないでください。代わりに次のボタンをクリックしてください:",
-        "zoom": "You are not logged in with a GOG account in Heroic. Don't use the store page to login, click the following button instead:"
+        "zoom": "Heroicでは、Zoomアカウントでログインしていません。ストアページからログインせず、代わりに以下のボタンをクリックしてください："
     },
     "report_problem": "このゲームの実行に関する問題を報告",
     "sdl": {
@@ -206,7 +226,8 @@
     "setting": {
         "winecrossoverbottle": "CrossOverボトル",
         "show-wine-settings": "Wineの設定を表示する",
-        "warn-use-shared-wine-config": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。"
+        "warn-use-shared-wine-config": "このオプションは、自分で理解できる場合のみ使用してください。<br/>複数のゲームで同じprefixフォルダを共用すると、依存関係に互換性がない場合に問題が発生する可能性があります。",
+        "use-shared-wine-config": "共有Wine prefixを使用する"
     },
     "sideload": {
         "field": {
@@ -221,7 +242,7 @@
             "fullscreen": "フルスクリーンで起動（F11で終了）"
         },
         "placeholder": {
-            "image": "ここにイメージURLをペーストしてください",
+            "image": "画像のURLを貼り付けるか、お使いのコンピュータから画像を選択してください",
             "title": "ゲーム/Appにタイトルを追加してください",
             "url": "ゲームのURLをここに貼り付けます",
             "useragent": "このブラウザゲーム/Appで使用するカスタムユーザーエージェントを入力します"
@@ -263,7 +284,8 @@
         "goodie": "インストール不可",
         "prerequisites": "前提条件のインストール",
         "winetricks": "Winetricksの修正を適用する",
-        "redist": "再頒布可能ファイルのインストール ({{redist}})"
+        "redist": "再頒布可能ファイルのインストール ({{redist}})",
+        "importing": "インポート中"
     },
     "submenu": {
         "addShortcut": "ショートカットを追加",
@@ -283,7 +305,7 @@
         "categories": "カテゴリー"
     },
     "help": {
-        "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブシステムを実装しているものもあります",
+        "cloud_save_unsupported": "このゲームはクラウドセーブに対応していません。この情報はゲーム開発者によって提供されたものです。一部のゲームでは、独自のクラウドセーブ機能を実装しているものもあります。",
         "content": {
             "gamePage": "すべてのゲームの詳細とアクションを表示します。より多くのオプションを表示するには、3つのドットメニューを使用します。"
         },
@@ -308,11 +330,12 @@
     "Open": "開く",
     "queue": {
         "label": {
-            "canceled": "Canceled",
-            "remove": "Remove from Downloads",
+            "canceled": "キャンセルされました",
+            "remove": "ダウンロードキューから削除",
             "pause": "ダウンロードを一時停止",
             "resume": "ダウンロードを再開"
         }
     },
-    "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>"
+    "wikiLink": "このゲームに関する重要な情報については、こちらをご確認ください:&nbsp;<1>ページを開く</1>",
+    "open-saves-folder": "保存フォルダを開く"
 }
