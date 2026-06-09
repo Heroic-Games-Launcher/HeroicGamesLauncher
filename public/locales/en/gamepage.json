@@ -291,6 +291,8 @@
     },
     "specs": {
         "minimum": "Minimum",
+        "notes": "Notes",
+        "other": "Other",
         "recommended": "Recommended"
     },
     "status": {

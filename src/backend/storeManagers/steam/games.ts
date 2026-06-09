@@ -1,5 +1,12 @@
 import { GameConfig } from '../../game_config'
-import { ExtraInfo, GameInfo, GameSettings, ExecResult } from 'common/types'
+import {
+  ExtraInfo,
+  GameInfo,
+  GameSettings,
+  ExecResult,
+  REQS_OTHER_TITLE,
+  REQS_NOTES_TITLE
+} from 'common/types'
 import { existsSync } from 'graceful-fs'
 import { readdir, stat } from 'node:fs/promises'
 import { join } from 'path'
@@ -24,6 +31,7 @@ import {
 } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isWindows } from 'backend/constants/environment'
+import { configStore } from 'backend/constants/key_value_stores'
 import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
 import { extraInfoStore } from './electronStores'
@@ -214,6 +222,228 @@ function requirementsBlock(
   return block
 }
 
+// Heroic language code -> Steam storefront "API language name". Steam's
+// appdetails endpoint expects these names (not ISO codes) for the `l` param.
+// Codes Heroic supports but Steam doesn't translate the store for fall back
+// to English via the default in getSteamStoreLanguage().
+const STEAM_LANGUAGE_MAP: Record<string, string> = {
+  ar: 'arabic',
+  bg: 'bulgarian',
+  cs: 'czech',
+  de: 'german',
+  el: 'greek',
+  en: 'english',
+  es: 'spanish',
+  fi: 'finnish',
+  fr: 'french',
+  hu: 'hungarian',
+  id: 'indonesian',
+  it: 'italian',
+  ja: 'japanese',
+  ko: 'koreana',
+  nb_NO: 'norwegian',
+  nl: 'dutch',
+  pl: 'polish',
+  pt: 'portuguese',
+  pt_BR: 'brazilian',
+  ro: 'romanian',
+  ru: 'russian',
+  sv: 'swedish',
+  tr: 'turkish',
+  uk: 'ukrainian',
+  vi: 'vietnamese',
+  zh_Hans: 'schinese',
+  zh_Hant: 'tchinese'
+}
+
+/**
+ * Resolves the Steam storefront language name from Heroic's configured UI
+ * language so requirements (and descriptions) are fetched in the user's
+ * language, falling back to English for unsupported codes.
+ */
+function getSteamStoreLanguage(): string {
+  const lang = configStore.get('language', '') || 'en'
+  return (
+    STEAM_LANGUAGE_MAP[lang] ||
+    STEAM_LANGUAGE_MAP[lang.split('_')[0]] ||
+    'english'
+  )
+}
+
+/**
+ * Parses one Steam requirements HTML block (e.g. `pc_requirements.minimum`)
+ * into ordered `label -> value` pairs.
+ *
+ * Steam wraps each spec in `<li><strong>Label:</strong> value</li>` inside a
+ * `<ul>`, preceded by a `<strong>Minimum:/Recommended:</strong>` header and
+ * sometimes followed by footnotes (e.g. the Windows 10 support note). The
+ * header is dropped, each labeled `<li>` becomes a row, and any footnotes or
+ * unlabeled text are collected under an `Other` key so nothing is lost.
+ */
+function parseRequirementsBlock(html?: string): Map<string, string> {
+  const specs = new Map<string, string>()
+  if (!html) return specs
+
+  const otherParts: string[] = []
+
+  // Each <li> is a labeled spec line ("<strong>OS:</strong> Windows ...").
+  const liRegex = /<li\b[^>]*>([\s\S]*?)<\/li>/gi
+  let liMatch: RegExpExecArray | null
+  while ((liMatch = liRegex.exec(html))) {
+    const inner = liMatch[1]
+    const labeled = inner.match(
+      /<strong>([\s\S]*?)<\/strong>\s*:?\s*([\s\S]*)/i
+    )
+    if (labeled) {
+      const label = stripHtml(labeled[1])
+        .replace(/:+\s*$/, '')
+        .trim()
+      const value = stripHtml(labeled[2]).trim()
+      if (label) {
+        specs.set(label, value)
+        continue
+      }
+      if (value) otherParts.push(value)
+      continue
+    }
+    const text = stripHtml(inner).trim()
+    if (text) otherParts.push(text)
+  }
+
+  // Anything outside the <ul> becomes "Other". Dropping everything up to the
+  // last </ul> removes the localized "Minimum:"/"Recommended:" header while
+  // keeping trailing footnotes; when there's no list at all, strip just the
+  // leading header so free-text requirements still show up.
+  let trailing: string
+  if (/<ul\b/i.test(html)) {
+    trailing = html.replace(/^[\s\S]*<\/ul>/i, '')
+  } else {
+    trailing = html.replace(
+      /^\s*<strong>[\s\S]*?<\/strong>\s*(<br\s*\/?>)?/i,
+      ''
+    )
+  }
+  const trailingText = stripHtml(trailing).trim()
+  if (trailingText) otherParts.push(trailingText)
+
+  if (otherParts.length) {
+    specs.set(REQS_OTHER_TITLE, otherParts.join('\n').trim())
+  }
+
+  return specs
+}
+
+/**
+ * Combines the same labeled value from the minimum and recommended blocks into
+ * a single string for the full-width "Other" row, de-duplicating when Steam
+ * repeats the identical text in both columns.
+ */
+function combineDuplicate(a?: string, b?: string): string {
+  const left = (a ?? '').trim()
+  const right = (b ?? '').trim()
+  if (!left) return right
+  if (!right || left === right) return left
+  return `${left}\n${right}`
+}
+
+/**
+ * Merges a platform's minimum/recommended requirement blocks into Heroic's
+ * `Reqs[]` shape (one labeled row per spec), matching how GOG/Epic populate
+ * the game page's requirements table. The catch-all "Other" content and the
+ * optional store-page note are appended last as full-width rows.
+ */
+function buildReqs(
+  block: SteamRequirementsBlock,
+  note: string
+): ExtraInfo['reqs'] {
+  const minSpecs = parseRequirementsBlock(block.minimum)
+  const recSpecs = parseRequirementsBlock(block.recommended)
+
+  // Regular labeled specs (exclude the "Other" sentinel, handled separately).
+  const labels: string[] = []
+  for (const label of minSpecs.keys()) {
+    if (label !== REQS_OTHER_TITLE) labels.push(label)
+  }
+  for (const label of recSpecs.keys()) {
+    if (label !== REQS_OTHER_TITLE && !labels.includes(label)) {
+      labels.push(label)
+    }
+  }
+
+  const reqs: ExtraInfo['reqs'] = labels.map((title) => ({
+    title,
+    minimum: minSpecs.get(title) ?? '',
+    recommended: recSpecs.get(title) ?? ''
+  }))
+
+  // Full-width "Other" row (uncategorized requirement text).
+  const otherText = combineDuplicate(
+    minSpecs.get(REQS_OTHER_TITLE),
+    recSpecs.get(REQS_OTHER_TITLE)
+  )
+  if (otherText) {
+    reqs.push({ title: REQS_OTHER_TITLE, minimum: otherText, recommended: '' })
+  }
+
+  // Full-width "Notes" row (Steam's `game_area_sys_req_note`).
+  if (note) {
+    reqs.push({ title: REQS_NOTES_TITLE, minimum: note, recommended: '' })
+  }
+
+  return reqs
+}
+
+/**
+ * Scrapes Steam's store page for the system-requirements note
+ * (`game_area_sys_req_note`) for the given platform. This note is rendered by
+ * the store page and is not part of the `appdetails` API, so it must be read
+ * from the page HTML. Best-effort: returns an empty string on any failure.
+ */
+async function getSteamSysReqNote(
+  appId: string,
+  language: string,
+  os: 'win' | 'mac' | 'linux'
+): Promise<string> {
+  try {
+    const { data } = await axiosClient.get<string>(
+      `https://store.steampowered.com/app/${appId}/`,
+      {
+        params: { l: language },
+        // Bypass the age gate so mature games still return the page body.
+        headers: {
+          Cookie: 'birthtime=0; mature_content=1; wants_mature_content=1'
+        },
+        responseType: 'text',
+        timeout: 10000
+      }
+    )
+    if (typeof data !== 'string') return ''
+
+    // Each platform's requirements live in their own
+    // `<div class="game_area_sys_req sysreq_content ..." data-os="...">` block;
+    // split on that marker and pick the chunk matching the current platform.
+    const chunks = data.split(/<div class="game_area_sys_req sysreq_content/i)
+    for (const chunk of chunks.slice(1)) {
+      const osMatch = chunk.match(/^[^>]*data-os="([^"]+)"/i)
+      if (!osMatch || osMatch[1] !== os) continue
+      const noteMatch = chunk.match(
+        /<div class="game_area_sys_req_note">([\s\S]*?)<\/div>/i
+      )
+      if (!noteMatch) return ''
+      // Collapse the store page's indentation whitespace so the note reads as a
+      // single clean line (e.g. "* Starting January 1st, 2024, ...").
+      return stripHtml(noteMatch[1]).replace(/\s+/g, ' ').trim()
+    }
+    return ''
+  } catch (error) {
+    logInfo(
+      [`Unable to get Steam system-requirements note for ${appId}`, error],
+      LogPrefix.Steam
+    )
+    return ''
+  }
+}
+
 /**
  * Steam game manager.
  *
@@ -255,7 +485,11 @@ export default class SteamGameManager implements GameManager {
   }
 
   async getExtraInfo(appName: string): Promise<ExtraInfo> {
-    const cached = extraInfoStore.get(appName)
+    const storeLanguage = getSteamStoreLanguage()
+    // Key the cache by language so switching Heroic's language re-fetches the
+    // requirements/description in the new language instead of serving stale text.
+    const cacheKey = `${appName}_${storeLanguage}`
+    const cached = extraInfoStore.get(cacheKey)
     if (cached) {
       return cached
     }
@@ -273,7 +507,7 @@ export default class SteamGameManager implements GameManager {
       const { data } = await axiosClient.get<SteamAppDetailsResponse>(
         steamAppDetailsApiUrl,
         {
-          params: { appids: appName, l: 'english' }
+          params: { appids: appName, l: storeLanguage }
         }
       )
 
@@ -287,19 +521,21 @@ export default class SteamGameManager implements GameManager {
       const mac = requirementsBlock(details.mac_requirements)
       const linux = requirementsBlock(details.linux_requirements)
 
-      const reqs: ExtraInfo['reqs'] = []
-      const pushReqs = (title: string, block: SteamRequirementsBlock) => {
-        if (block.minimum || block.recommended) {
-          reqs.push({
-            title,
-            minimum: stripHtml(block.minimum),
-            recommended: stripHtml(block.recommended)
-          })
-        }
+      // Only show requirements for the platform Heroic is running on. Mac/Linux
+      // fall back to the Windows block when the game has no native entry.
+      const hasMac = !!(mac.minimum || mac.recommended)
+      const hasLinux = !!(linux.minimum || linux.recommended)
+      let platformBlock = pc
+      let effectiveOs: 'win' | 'mac' | 'linux' = 'win'
+      if (process.platform === 'darwin' && hasMac) {
+        platformBlock = mac
+        effectiveOs = 'mac'
+      } else if (process.platform === 'linux' && hasLinux) {
+        platformBlock = linux
+        effectiveOs = 'linux'
       }
-      pushReqs('Windows', pc)
-      pushReqs('macOS', mac)
-      pushReqs('Linux', linux)
+      const note = await getSteamSysReqNote(appName, storeLanguage, effectiveOs)
+      const reqs = buildReqs(platformBlock, note)
 
       const extraInfo: ExtraInfo = {
         about: {
@@ -318,8 +554,7 @@ export default class SteamGameManager implements GameManager {
         // A reliable cover image (Steam's `header_image`/capsule come from a
         // different CDN host than the library art), used as a fallback when the
         // library portrait is missing or unreachable.
-        cover:
-          details.header_image || details.capsule_imagev5 || undefined,
+        cover: details.header_image || details.capsule_imagev5 || undefined,
         // Steam exposes a Metacritic score for many games.
         score:
           typeof details.metacritic?.score === 'number'
@@ -327,7 +562,7 @@ export default class SteamGameManager implements GameManager {
             : undefined
       }
 
-      extraInfoStore.set(appName, extraInfo)
+      extraInfoStore.set(cacheKey, extraInfo)
       return extraInfo
     } catch (error) {
       logError(
@@ -509,7 +744,10 @@ export default class SteamGameManager implements GameManager {
   ): void {
     switch (state) {
       case 'downloading':
-        logInfo(`Steam started downloading ${title} (${appName})`, LogPrefix.Steam)
+        logInfo(
+          `Steam started downloading ${title} (${appName})`,
+          LogPrefix.Steam
+        )
         break
       case 'queued':
         logInfo(

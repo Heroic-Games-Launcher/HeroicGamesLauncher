@@ -372,6 +372,12 @@ export interface Reqs {
   title: string
 }
 
+// Sentinel `Reqs.title` values for rows that aren't a Minimum/Recommended spec
+// pair but a single full-width block (rendered without columns). The label
+// shown to the user is localized in the GameRequirements component.
+export const REQS_OTHER_TITLE = '__other__'
+export const REQS_NOTES_TITLE = '__notes__'
+
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 
 export type UserInfo = {
