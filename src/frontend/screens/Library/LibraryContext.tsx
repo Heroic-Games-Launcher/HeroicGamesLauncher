@@ -37,6 +37,8 @@ const initialContext: LibraryContextType = {
   setShowThirdPartyManagedOnly: () => null,
   showUpdatesOnly: false,
   setShowUpdatesOnly: () => null,
+  showSteamOwnedOnly: false,
+  setShowSteamOwnedOnly: () => null,
   handleAddGameButtonClick: () => null,
   setShowCategories: () => null,
   showAlphabetFilter: false,

@@ -194,6 +194,14 @@ export default React.memo(function Library(): JSX.Element {
     setShowUpdatesOnly(value)
   }
 
+  const [showSteamOwnedOnly, setShowSteamOwnedOnly] = useState(
+    JSON.parse(storage.getItem('show_steam_owned_only') || 'false')
+  )
+  const handleShowSteamOwnedOnly = (value: boolean) => {
+    storage.setItem('show_steam_owned_only', JSON.stringify(value))
+    setShowSteamOwnedOnly(value)
+  }
+
   const [showCategories, setShowCategories] = useState(false)
 
   const [showAlphabetFilter, setShowAlphabetFilter] = useState(
@@ -508,6 +516,12 @@ export default React.memo(function Library(): JSX.Element {
         library = library.filter((game) => gameUpdates.includes(game.app_name))
       }
 
+      if (showSteamOwnedOnly) {
+        // Only hides Steam family-shared games; games from other stores (and
+        // owned Steam games) are left untouched.
+        library = library.filter((game) => !game.isSteamFamilyShare)
+      }
+
       if (!showNonAvailable) {
         const nonAvailbleGames = storage.getItem('nonAvailableGames') || '[]'
         const nonAvailbleGamesArray = JSON.parse(nonAvailbleGames)
@@ -596,6 +610,7 @@ export default React.memo(function Library(): JSX.Element {
     showSupportOfflineOnly,
     showThirdPartyManagedOnly,
     showUpdatesOnly,
+    showSteamOwnedOnly,
     gameUpdates
   ])
 
@@ -723,6 +738,8 @@ export default React.memo(function Library(): JSX.Element {
         setShowThirdPartyManagedOnly: handleShowThirdPartyOnly,
         showUpdatesOnly,
         setShowUpdatesOnly: handleShowUpdatesOnly,
+        showSteamOwnedOnly,
+        setShowSteamOwnedOnly: handleShowSteamOwnedOnly,
         sortDescending,
         sortInstalled,
         handleAddGameButtonClick: () => handleModal('', 'sideload', null),

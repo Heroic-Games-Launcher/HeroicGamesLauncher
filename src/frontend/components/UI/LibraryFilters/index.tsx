@@ -38,7 +38,9 @@ export default function LibraryFilters() {
     showThirdPartyManagedOnly,
     setShowThirdPartyManagedOnly,
     showUpdatesOnly,
-    setShowUpdatesOnly
+    setShowUpdatesOnly,
+    showSteamOwnedOnly,
+    setShowSteamOwnedOnly
   } = useContext(LibraryContext)
 
   const toggleShowHidden = () => {
@@ -67,6 +69,10 @@ export default function LibraryFilters() {
 
   const toggleUpdatesOnly = () => {
     setShowUpdatesOnly(!showUpdatesOnly)
+  }
+
+  const toggleSteamOwnedOnly = () => {
+    setShowSteamOwnedOnly(!showSteamOwnedOnly)
   }
 
   const toggleStoreFilter = (store: Runner) => {
@@ -175,6 +181,7 @@ export default function LibraryFilters() {
     setShowSupportOfflineOnly(false)
     setShowThirdPartyManagedOnly(false)
     setShowUpdatesOnly(false)
+    setShowSteamOwnedOnly(false)
   }
 
   return (
@@ -252,6 +259,18 @@ export default function LibraryFilters() {
         value={showUpdatesOnly}
         title={t('header.show_updates_only', 'Show games with updates only')}
       />
+      {steam.enabled && (
+        <ToggleSwitch
+          key="only-steam-owned"
+          htmlId="only-steam-owned"
+          handleChange={() => toggleSteamOwnedOnly()}
+          value={showSteamOwnedOnly}
+          title={t(
+            'header.show_steam_owned_only',
+            'Show Steam owned games only'
+          )}
+        />
+      )}
       <hr />
       <button
         type="reset"
