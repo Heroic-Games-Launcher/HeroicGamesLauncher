@@ -223,6 +223,9 @@ export interface GameInfo {
   isUbisoftManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
+  // True for Steam games that come from a Steam Family member's library (the
+  // local appmanifest was installed under another account's license).
+  isSteamFamilyShare?: boolean
   browserUrl?: string
   description?: string
   //used for store release versions. if remote !== local, then update

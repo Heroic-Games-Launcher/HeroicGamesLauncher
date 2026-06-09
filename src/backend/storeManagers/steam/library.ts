@@ -120,7 +120,7 @@ async function getOwnedPackages(
   steamPath: string,
   userId: string,
   steamId: string
-): Promise<number[]> {
+): Promise<{ own: number[]; family: number[] }> {
   const licenseCache = join(
     steamPath,
     'userdata',
@@ -129,7 +129,7 @@ async function getOwnedPackages(
     'licensecache'
   )
   if (!existsSync(licenseCache)) {
-    return []
+    return { own: [], family: [] }
   }
   try {
     const licenseCacheData = await readFile(licenseCache)
@@ -137,12 +137,24 @@ async function getOwnedPackages(
     const data = stream.decrypt_data(BigInt(steamId), licenseCacheData)
     // The last 4 bytes are a trailing checksum, not part of the message.
     const licenses = CMsgClientLicenseList.decode(data.subarray(0, -4))
-    return licenses.licenses
-      .map((license) => license.packageId)
-      .filter((pkg): pkg is number => pkg !== undefined)
+    // The license cache also lists licenses shared by Steam Family members; each
+    // license's `ownerId` is the 32-bit account id of whoever actually owns it.
+    const accountId = Number(userId)
+    const own: number[] = []
+    const family: number[] = []
+    for (const license of licenses.licenses) {
+      if (license.packageId !== undefined) {
+        if (license.ownerId === accountId) {
+          own.push(license.packageId)
+        } else {
+          family.push(license.packageId)
+        }
+      }
+    }
+    return { own, family }
   } catch (error) {
     logWarning(['Unable to read Steam license cache', error], LogPrefix.Steam)
-    return []
+    return { own: [], family: [] }
   }
 }
 
@@ -313,6 +325,10 @@ export default class SteamLibraryManager implements LibraryManager {
       return { stdout: '', stderr: 'Unable to get Steam libraries' }
     }
 
+    // The app ids the user owns a license for, used to tell the user's own
+    // games apart from ones only available through a Steam Family member.
+    const ownedAppIds = await this.getOwnedAppIds()
+
     const uniqueLibraries = Array.from(new Set(steamLibraries))
     for (const libraryPath of uniqueLibraries) {
       const steamappsPath = join(libraryPath, 'steamapps')
@@ -336,7 +352,8 @@ export default class SteamLibraryManager implements LibraryManager {
       for (const manifest of manifests) {
         const parsed = this.parseManifest(
           libraryPath,
-          join(steamappsPath, manifest)
+          join(steamappsPath, manifest),
+          ownedAppIds
         )
         if (!parsed) {
           continue
@@ -372,7 +389,7 @@ export default class SteamLibraryManager implements LibraryManager {
     // a failure (e.g. parsing the local Steam binary caches) must never abort
     // the refresh or prevent the library/installed stores from being saved.
     try {
-      await this.refreshOwnedGames()
+      await this.refreshOwnedGames(ownedAppIds)
     } catch (error) {
       logError(['Failed to fetch owned Steam games', error], LogPrefix.Steam)
     }
@@ -408,7 +425,7 @@ export default class SteamLibraryManager implements LibraryManager {
    * resolved in the background via {@link enrichOwnedGames} so the library
    * shows up quickly instead of blocking on a long sequence of lookups.
    */
-  private async refreshOwnedGames(): Promise<void> {
+  private async refreshOwnedGames(ownedAppIds: Set<string>): Promise<void> {
     const accounts = SteamUser.getAccounts()
     if (!accounts.length) {
       logInfo(
@@ -423,6 +440,7 @@ export default class SteamLibraryManager implements LibraryManager {
     const profileTitles = new Map<string, string>()
     const localAppIds = new Set<string>()
     const licenseTitles = new Map<string, string>()
+    const licenseFamilyTitles = new Map<string, string>()
 
     for (const { steamId } of accounts) {
       // Source 1 (supplement): public community profile. Entries already carry a
@@ -444,10 +462,12 @@ export default class SteamLibraryManager implements LibraryManager {
       // license cache plus the binary app/package info caches. Works offline and
       // for private profiles, and resolves names locally so most ids need no
       // throttled storefront lookup.
-      for (const [appId, title] of await this.readOwnedFromLicenseCache(
-        steamId
-      )) {
+      const { own, family } = await this.readOwnedFromLicenseCache(steamId)
+      for (const [appId, title] of own.entries()) {
         licenseTitles.set(appId, title)
+      }
+      for (const [appId, title] of family.entries()) {
+        licenseFamilyTitles.set(appId, title)
       }
     }
 
@@ -457,9 +477,9 @@ export default class SteamLibraryManager implements LibraryManager {
         LogPrefix.Steam
       )
     }
-    if (licenseTitles.size) {
+    if (licenseTitles.size || licenseFamilyTitles.size) {
       logInfo(
-        `Found ${licenseTitles.size} owned games in Steam license cache`,
+        `Found ${licenseTitles.size} owned and ${licenseFamilyTitles.size} family-shared games in Steam license cache`,
         LogPrefix.Steam
       )
     }
@@ -467,7 +487,8 @@ export default class SteamLibraryManager implements LibraryManager {
     const candidateIds = new Set<string>([
       ...profileTitles.keys(),
       ...localAppIds,
-      ...licenseTitles.keys()
+      ...licenseTitles.keys(),
+      ...licenseFamilyTitles.keys()
     ])
 
     let added = 0
@@ -484,24 +505,27 @@ export default class SteamLibraryManager implements LibraryManager {
         continue
       }
 
+      const isFamilyShare = ownedAppIds.size > 0 && !ownedAppIds.has(appId)
+
       // Prefer the title from the public profile; otherwise use a cached name.
       const profileTitle = profileTitles.get(appId)
       if (profileTitle) {
-        if (this.addOwnedGame(appId, profileTitle)) added++
+        if (this.addOwnedGame(appId, profileTitle, isFamilyShare)) added++
         continue
       }
 
       // Next prefer a name resolved locally from the Steam app info cache.
-      const licenseTitle = licenseTitles.get(appId)
+      const licenseTitle =
+        licenseTitles.get(appId) || licenseFamilyTitles.get(appId)
       if (licenseTitle) {
-        if (this.addOwnedGame(appId, licenseTitle)) added++
+        if (this.addOwnedGame(appId, licenseTitle, isFamilyShare)) added++
         continue
       }
 
       const cached = appNamesStore.get(appId)
       if (cached !== undefined) {
         // An empty string is our sentinel for "known, but not a game".
-        if (cached && this.addOwnedGame(appId, cached)) added++
+        if (cached && this.addOwnedGame(appId, cached, isFamilyShare)) added++
         continue
       }
 
@@ -511,14 +535,14 @@ export default class SteamLibraryManager implements LibraryManager {
 
     if (added) {
       logInfo(
-        `Added ${added} owned (not installed) Steam games`,
+        `Added ${added} owned/shared (not installed) Steam games`,
         LogPrefix.Steam
       )
     }
 
     if (!candidateIds.size) {
       logWarning(
-        'No owned Steam games found. Make sure you are logged in and the Steam client is installed (or set your Steam profile game details to public).',
+        'No Steam games found. Make sure you are logged in and the Steam client is installed (or set your Steam profile game details to public).',
         LogPrefix.Steam
       )
     }
@@ -526,16 +550,20 @@ export default class SteamLibraryManager implements LibraryManager {
     // Resolve any remaining names in the background; they trickle into the
     // library as they are fetched and are persisted once done.
     if (deferred.length) {
-      void this.enrichOwnedGames(deferred)
+      void this.enrichOwnedGames(deferred, ownedAppIds)
     }
   }
 
   /**
-   * Adds a single owned (not installed) game to the library and pushes it to
+   * Adds a single owned/shared (not installed) game to the library and pushes it to
    * the frontend. Returns whether the game was actually added (it is skipped if
    * already present or filtered out as an ignored app/name).
    */
-  private addOwnedGame(appId: string, title: string): boolean {
+  private addOwnedGame(
+    appId: string,
+    title: string,
+    isFamilyShare: boolean
+  ): boolean {
     if (library.has(appId) || ignoredSteamAppIds.includes(appId)) {
       return false
     }
@@ -546,6 +574,9 @@ export default class SteamLibraryManager implements LibraryManager {
     }
 
     const info = this.steamToUnifiedInfo(appId, title)
+    if (isFamilyShare) {
+      info.isSteamFamilyShare = true
+    }
     library.set(appId, info)
     sendFrontendMessage('pushGameToLibrary', info)
     return true
@@ -556,7 +587,10 @@ export default class SteamLibraryManager implements LibraryManager {
    * adds the ones that turn out to be games to the library. Persists the
    * library store once finished so the newly added games survive a restart.
    */
-  private async enrichOwnedGames(appIds: string[]): Promise<void> {
+  private async enrichOwnedGames(
+    appIds: string[],
+    ownedAppIds: Set<string>
+  ): Promise<void> {
     let added = 0
     for (const appId of appIds) {
       if (library.has(appId)) {
@@ -564,8 +598,11 @@ export default class SteamLibraryManager implements LibraryManager {
       }
 
       const title = await this.resolveAppName(appId)
-      if (title && this.addOwnedGame(appId, title)) {
-        added++
+      if (title) {
+        const isFamilyShare = ownedAppIds.size > 0 && !ownedAppIds.has(appId)
+        if (this.addOwnedGame(appId, title, isFamilyShare)) {
+          added++
+        }
       }
     }
 
@@ -695,6 +732,72 @@ export default class SteamLibraryManager implements LibraryManager {
   }
 
   /**
+   * Returns the set of Steam app ids the user owns a license for, read from the
+   * local encrypted license cache plus the binary `packageinfo.vdf` (across
+   * every logged-in account). Works offline and for private profiles. Used to
+   * tell games the user owns apart from ones only available through a Steam
+   * Family member's library. Returns an empty set if ownership can't be
+   * determined (so callers can avoid mislabeling games as family-shared).
+   */
+  private async getOwnedAppIds(): Promise<Set<string>> {
+    const owned = new Set<string>()
+
+    const accounts = SteamUser.getAccounts()
+    if (!accounts.length) {
+      return owned
+    }
+
+    const { defaultSteamPath } = GlobalConfig.get().getSettings()
+    const steamRoot = defaultSteamPath.replaceAll("'", '')
+
+    let packageInfo: { [packageid: string]: unknown } = {}
+    try {
+      packageInfo = await loadPackageInfo(steamRoot)
+    } catch (error) {
+      logWarning(
+        ['Unable to read Steam package info cache', error],
+        LogPrefix.Steam
+      )
+      return owned
+    }
+
+    for (const { steamId } of accounts) {
+      let accountId: string
+      try {
+        accountId = (BigInt(steamId) & BigInt(0xffffffff)).toString()
+      } catch {
+        continue
+      }
+
+      let packages: { own: number[]; family: number[] }
+      try {
+        packages = await getOwnedPackages(steamRoot, accountId, steamId)
+      } catch {
+        continue
+      }
+
+      for (const packageId of packages.own) {
+        const packageData = packageInfo[packageId.toString()]
+        if (
+          typeof packageData === 'object' &&
+          packageData !== null &&
+          'appids' in packageData &&
+          typeof (packageData as { appids: unknown }).appids === 'object' &&
+          (packageData as { appids: unknown }).appids !== null
+        ) {
+          const ids = (packageData as { appids: Record<string, unknown> })
+            .appids
+          for (const appId of Object.values(ids)) {
+            owned.add(String(appId))
+          }
+        }
+      }
+    }
+
+    return owned
+  }
+
+  /**
    * Reads the games the user owns directly from the local Steam client data:
    * decrypts the license cache to get owned package ids, maps them to app ids
    * via the binary `packageinfo.vdf`, then resolves their names/types via the
@@ -704,8 +807,9 @@ export default class SteamLibraryManager implements LibraryManager {
    */
   private async readOwnedFromLicenseCache(
     steamId: string
-  ): Promise<Map<string, string>> {
-    const result = new Map<string, string>()
+  ): Promise<{ own: Map<string, string>; family: Map<string, string> }> {
+    const ownResult = new Map<string, string>()
+    const familyResult = new Map<string, string>()
 
     const { defaultSteamPath } = GlobalConfig.get().getSettings()
     const steamRoot = defaultSteamPath.replaceAll("'", '')
@@ -715,21 +819,21 @@ export default class SteamLibraryManager implements LibraryManager {
       // The license cache is stored under the 32-bit account id folder.
       accountId = (BigInt(steamId) & BigInt(0xffffffff)).toString()
     } catch {
-      return result
+      return { own: ownResult, family: familyResult }
     }
 
-    let ownedPackages: number[] = []
+    let packages: { own: number[]; family: number[] }
     try {
-      ownedPackages = await getOwnedPackages(steamRoot, accountId, steamId)
+      packages = await getOwnedPackages(steamRoot, accountId, steamId)
     } catch (error) {
       logWarning(
         ['Unable to read Steam owned packages', error],
         LogPrefix.Steam
       )
-      return result
+      return { own: ownResult, family: familyResult }
     }
-    if (!ownedPackages.length) {
-      return result
+    if (!packages.own.length && !packages.family.length) {
+      return { own: ownResult, family: familyResult }
     }
 
     let appInfo: { [appid: string]: SteamAppInfo } = {}
@@ -744,35 +848,41 @@ export default class SteamLibraryManager implements LibraryManager {
         ['Unable to read Steam app/package info caches', error],
         LogPrefix.Steam
       )
-      return result
+      return { own: ownResult, family: familyResult }
     }
 
-    const appIds = new Set<string>()
-    for (const packageId of ownedPackages) {
-      const packageData = packageInfo[packageId.toString()]
-      if (
-        typeof packageData === 'object' &&
-        packageData !== null &&
-        'appids' in packageData &&
-        typeof (packageData as { appids: unknown }).appids === 'object' &&
-        (packageData as { appids: unknown }).appids !== null
-      ) {
-        const ids = (packageData as { appids: Record<string, unknown> }).appids
-        for (const appId of Object.values(ids)) {
-          appIds.add(String(appId))
+    const mapIds = (pkgList: number[], outputMap: Map<string, string>) => {
+      const appIds = new Set<string>()
+      for (const packageId of pkgList) {
+        const packageData = packageInfo[packageId.toString()]
+        if (
+          typeof packageData === 'object' &&
+          packageData !== null &&
+          'appids' in packageData &&
+          typeof (packageData as { appids: unknown }).appids === 'object' &&
+          (packageData as { appids: unknown }).appids !== null
+        ) {
+          const ids = (packageData as { appids: Record<string, unknown> })
+            .appids
+          for (const appId of Object.values(ids)) {
+            appIds.add(String(appId))
+          }
         }
       }
-    }
 
-    for (const appId of appIds) {
-      const common = this.getAppInfoCommon(appInfo[appId])
-      if (!common || common.type.toLowerCase() !== 'game') {
-        continue
+      for (const appId of appIds) {
+        const common = this.getAppInfoCommon(appInfo[appId])
+        if (!common || common.type.toLowerCase() !== 'game') {
+          continue
+        }
+        outputMap.set(appId, common.name)
       }
-      result.set(appId, common.name)
     }
 
-    return result
+    mapIds(packages.own, ownResult)
+    mapIds(packages.family, familyResult)
+
+    return { own: ownResult, family: familyResult }
   }
 
   /**
@@ -848,7 +958,8 @@ export default class SteamLibraryManager implements LibraryManager {
 
   private parseManifest(
     libraryPath: string,
-    manifestPath: string
+    manifestPath: string,
+    ownedAppIds?: Set<string>
   ): { info: GameInfo; installed: InstalledInfo } | undefined {
     try {
       const data = parse(
@@ -886,7 +997,18 @@ export default class SteamLibraryManager implements LibraryManager {
         appName: appId
       }
 
-      return { info: this.steamToUnifiedInfo(appId, title), installed }
+      const info = this.steamToUnifiedInfo(appId, title)
+
+      // The game is only shown via Steam Family sharing if the user doesn't own
+      // a license for it themselves (who installed it - the `LastOwner` - is
+      // irrelevant; a family member may have installed a game the user also
+      // owns). `ownedAppIds` being empty means ownership couldn't be determined,
+      // so don't flag anything in that case.
+      if (ownedAppIds && ownedAppIds.size > 0 && !ownedAppIds.has(appId)) {
+        info.isSteamFamilyShare = true
+      }
+
+      return { info, installed }
     } catch (error) {
       logError(
         ['Unable to parse Steam manifest', manifestPath, error],

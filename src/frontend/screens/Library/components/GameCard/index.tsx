@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
 
 import DownIcon from 'frontend/assets/down-icon.svg?react'
+import FamilyShareIcon from 'frontend/assets/ico_familysharing.svg?react'
 import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
 import { Link, useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
@@ -528,6 +529,14 @@ const GameCard = ({
             }
           >
             <StoreLogos runner={runner} />
+            {gameInfo.isSteamFamilyShare && (
+              <span
+                className="store-icon family-share-icon"
+                title={t('label.steam-family-share', 'Steam Family Sharing')}
+              >
+                <FamilyShareIcon />
+              </span>
+            )}
             {justPlayed ? (
               <CachedImage
                 src={art_cover || fallBackImage}
