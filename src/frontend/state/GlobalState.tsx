@@ -1049,57 +1049,49 @@ class GlobalState extends PureComponent<Props> {
 
     window.api.handleGamePush((e: IpcRendererEvent, args: GameInfo) => {
       if (!args.app_name) return
-      if (args.runner === 'gog') {
-        const library = [...this.state.gog.library]
-        const index = library.findIndex(
-          (game) => game.app_name === args.app_name
-        )
+      // Use the functional setState form so a burst of pushes (e.g. hundreds of
+      // games streamed in during a library refresh) can't lose updates: each
+      // push must read the latest library, not a stale `this.state` snapshot
+      // from before the previous setState was applied.
+      const upsert = (library: GameInfo[]): GameInfo[] => {
+        const next = [...library]
+        const index = next.findIndex((game) => game.app_name === args.app_name)
         if (index !== -1) {
-          library[index] = args
+          next[index] = args
         } else {
-          library.push(args)
+          next.push(args)
         }
-        this.setState({
-          gog: {
-            library: [...library],
-            username: this.state.gog.username
+        return next
+      }
+      // `prevState` is typed via the component's (empty) State generic, while
+      // the real state shape is declared as `state: StateProps`; cast to read it.
+      if (args.runner === 'gog') {
+        this.setState((prev) => {
+          const prevState = prev as StateProps
+          return {
+            gog: { ...prevState.gog, library: upsert(prevState.gog.library) }
           }
         })
       } else if (args.runner === 'zoom') {
-        // Handle Zoom game push
-        const library = [...this.state.zoom.library]
-        const index = library.findIndex(
-          (game) => game.app_name === args.app_name
-        )
-        if (index !== -1) {
-          library[index] = args
-        } else {
-          library.push(args)
-        }
-        this.setState({
-          zoom: {
-            library: [...library],
-            username: this.state.zoom.username,
-            enabled: true
+        this.setState((prev) => {
+          const prevState = prev as StateProps
+          return {
+            zoom: {
+              ...prevState.zoom,
+              library: upsert(prevState.zoom.library),
+              enabled: true
+            }
           }
         })
       } else if (args.runner === 'steam') {
-        // Handle Steam game push
-        const library = [...this.state.steam.library]
-        const index = library.findIndex(
-          (game) => game.app_name === args.app_name
-        )
-        if (index !== -1) {
-          library[index] = args
-        } else {
-          library.push(args)
-        }
-        this.setState({
-          steam: {
-            ...this.state.steam,
-            library: [...library],
-            username: this.state.steam.username,
-            enabled: true
+        this.setState((prev) => {
+          const prevState = prev as StateProps
+          return {
+            steam: {
+              ...prevState.steam,
+              library: upsert(prevState.steam.library),
+              enabled: true
+            }
           }
         })
       }

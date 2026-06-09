@@ -178,6 +178,12 @@
         "apple-gaming-wiki": "AppleGamingWiki Rating",
         "canRunOffline": "Online Required",
         "clickToOpen": "Click to open",
+        "dlc": {
+            "installed": "Installed",
+            "notBought": "Not owned",
+            "notInstalled": "Not installed"
+        },
+        "dlcs": "DLCs",
         "game-scores": "Game Scores",
         "installedInfo": "Installed Information",
         "installedPlatform": "Installed Platform",

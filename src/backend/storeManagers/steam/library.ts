@@ -9,7 +9,7 @@ import {
   InstalledInfo,
   LaunchOption
 } from 'common/types'
-import { SteamAppInfo } from 'common/types/steam'
+import { SteamAppInfo, SteamDLCInfo } from 'common/types/steam'
 import { LibraryManager } from 'common/types/game_manager'
 import { HeroicVDFParser } from './vdf'
 import { RandomStream } from './xor'
@@ -75,6 +75,9 @@ interface SteamAppManifest {
     BytesToDownload?: string | number
     BytesStaged?: string | number
     BytesToStage?: string | number
+    // Map of installed depot id -> depot details. Used to tell which DLC
+    // (whose files ship as their own depot) are currently installed.
+    InstalledDepots?: Record<string, unknown>
   }
 }
 
@@ -1145,6 +1148,206 @@ export default class SteamLibraryManager implements LibraryManager {
     }
 
     return
+  }
+
+  /**
+   * Lists a Steam game's DLC with whether the user owns each one and whether its
+   * files are installed.
+   *
+   * Ownership comes from the local license cache; the DLC list and their depots
+   * come from `appinfo.vdf`. A DLC's depots can be declared two ways: on the
+   * parent game's depots via a `dlcappid` back-reference, or (when the parent
+   * sets `hasdepotsindlc`) inside the DLC's own appinfo entry. A DLC is
+   * installed when any of its depots appears in the base game's `appmanifest`
+   * `InstalledDepots`. License-only DLC (no depot) counts as installed once
+   * owned, since there is nothing separate to download.
+   */
+  async getDLCInfo(appId: string): Promise<SteamDLCInfo[]> {
+    if (!isSteamImportEnabled()) {
+      return []
+    }
+
+    const { defaultSteamPath } = GlobalConfig.get().getSettings()
+    const steamRoot = defaultSteamPath.replaceAll("'", '')
+
+    let appInfo: { [appid: string]: SteamAppInfo } = {}
+    try {
+      appInfo = await loadAppInfo(steamRoot)
+    } catch (error) {
+      logWarning(
+        ['Unable to read Steam app info cache for DLC', error],
+        LogPrefix.Steam
+      )
+      return []
+    }
+
+    const parentAppInfo = this.getAppInfoData(appInfo[appId])
+    if (!parentAppInfo) {
+      return []
+    }
+
+    // All DLC app ids the game declares.
+    const listOfDlc = this.getListOfDlc(parentAppInfo)
+    if (!listOfDlc.length) {
+      return []
+    }
+
+    // We can only meaningfully report ownership when the license cache could be
+    // read; an empty set means we couldn't determine it, so don't guess.
+    const ownedAppIds = await this.getOwnedAppIds()
+    if (ownedAppIds.size === 0) {
+      return []
+    }
+
+    // depot id -> owning DLC app id, for DLC whose depots are declared on the
+    // parent game (the other pattern - depots declared in the DLC's own appinfo
+    // entry - is read per-DLC below).
+    const parentDlcDepots = this.getDlcDepots(parentAppInfo)
+    // Depots currently installed for the base game.
+    const installedDepots = await this.getInstalledDepots(appId)
+
+    const dlcs: SteamDLCInfo[] = listOfDlc.map((dlcId) => {
+      const title =
+        this.getAppInfoCommon(appInfo[dlcId])?.name ||
+        appNamesStore.get(dlcId) ||
+        `DLC ${dlcId}`
+
+      const owned = ownedAppIds.has(dlcId)
+
+      // Gather this DLC's depots from both declaration styles.
+      const depots = new Set<string>()
+      for (const [depotId, owner] of Object.entries(parentDlcDepots)) {
+        if (owner === dlcId) depots.add(depotId)
+      }
+      for (const depotId of this.getOwnDepots(appInfo[dlcId])) {
+        depots.add(depotId)
+      }
+
+      // Unowned DLC is never installed. Owned DLC with depots is installed when
+      // any of them is present; owned license-only DLC (no depots) is installed.
+      const installed =
+        owned &&
+        (depots.size === 0
+          ? true
+          : [...depots].some((depot) => installedDepots.has(depot)))
+
+      return { appId: dlcId, title, owned, installed }
+    })
+
+    // Installed first, then owned-but-not-installed, then not owned; alphabetical
+    // within each group.
+    const rank = (dlc: SteamDLCInfo) => (dlc.installed ? 0 : dlc.owned ? 1 : 2)
+    dlcs.sort((a, b) => rank(a) - rank(b) || (a.title < b.title ? -1 : 1))
+    return dlcs
+  }
+
+  /** Safely returns the `data.appinfo` object from a parsed appinfo entry. */
+  private getAppInfoData(
+    app: SteamAppInfo | undefined
+  ): Record<string, unknown> | undefined {
+    if (!app || typeof app.data !== 'object' || app.data === null) {
+      return
+    }
+    const appinfo = (app.data as Record<string, unknown>).appinfo
+    if (typeof appinfo !== 'object' || appinfo === null) {
+      return
+    }
+    return appinfo as Record<string, unknown>
+  }
+
+  /** Reads `extended.listofdlc` (a comma-separated list of DLC app ids). */
+  private getListOfDlc(appinfo: Record<string, unknown>): string[] {
+    const extended = appinfo.extended
+    if (typeof extended !== 'object' || extended === null) {
+      return []
+    }
+    const raw = (extended as Record<string, unknown>).listofdlc
+    if (typeof raw !== 'string' && typeof raw !== 'number') {
+      return []
+    }
+    return String(raw)
+      .split(',')
+      .map((id) => id.trim())
+      .filter(Boolean)
+  }
+
+  /** Maps each DLC depot id to the DLC app id it belongs to (via `dlcappid`). */
+  private getDlcDepots(
+    appinfo: Record<string, unknown>
+  ): Record<string, string> {
+    const result: Record<string, string> = {}
+    const depots = appinfo.depots
+    if (typeof depots !== 'object' || depots === null) {
+      return result
+    }
+    for (const [depotId, value] of Object.entries(
+      depots as Record<string, unknown>
+    )) {
+      if (typeof value !== 'object' || value === null) {
+        continue
+      }
+      const dlcappid = (value as Record<string, unknown>).dlcappid
+      if (typeof dlcappid !== 'string' && typeof dlcappid !== 'number') {
+        continue
+      }
+      result[depotId] = String(dlcappid)
+    }
+    return result
+  }
+
+  /**
+   * Reads the depot ids declared directly inside a DLC's own appinfo entry
+   * (used when the parent game sets `hasdepotsindlc`). Depot ids are the numeric
+   * keys of the DLC's `depots` section.
+   */
+  private getOwnDepots(app: SteamAppInfo | undefined): string[] {
+    const appinfo = this.getAppInfoData(app)
+    if (!appinfo) {
+      return []
+    }
+    const depots = appinfo.depots
+    if (typeof depots !== 'object' || depots === null) {
+      return []
+    }
+    return Object.keys(depots as Record<string, unknown>).filter((key) =>
+      /^\d+$/.test(key)
+    )
+  }
+
+  /** Reads the set of installed depot ids from a game's `appmanifest`. */
+  private async getInstalledDepots(appId: string): Promise<Set<string>> {
+    const installed = new Set<string>()
+    let steamLibraries: string[] = []
+    try {
+      steamLibraries = await getSteamLibraries()
+    } catch {
+      return installed
+    }
+    for (const libraryPath of new Set(steamLibraries)) {
+      const manifestPath = join(
+        libraryPath,
+        'steamapps',
+        `appmanifest_${appId}.acf`
+      )
+      if (!existsSync(manifestPath)) {
+        continue
+      }
+      try {
+        const data = parse(
+          readFileSync(manifestPath, 'utf-8')
+        ) as SteamAppManifest
+        const depots = data.AppState?.InstalledDepots
+        if (depots && typeof depots === 'object') {
+          for (const depotId of Object.keys(depots)) {
+            installed.add(depotId)
+          }
+        }
+      } catch {
+        // Treat an unreadable manifest as "nothing installed".
+      }
+      break
+    }
+    return installed
   }
 
   async getInstallInfo(): Promise<InstallInfo | undefined> {

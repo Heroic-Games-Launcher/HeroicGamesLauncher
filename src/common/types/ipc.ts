@@ -50,7 +50,7 @@ import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
-import type { SteamAccount } from './steam'
+import type { SteamAccount, SteamDLCInfo } from './steam'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -199,6 +199,7 @@ interface AsyncIPCFunctions {
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
   getSteamUserInfo: () => Promise<{ username: string } | undefined>
+  getSteamDlcInfo: (appName: string) => Promise<SteamDLCInfo[]>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'

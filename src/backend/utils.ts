@@ -362,7 +362,10 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
-  if (url.startsWith('http')) {
+  // Open http(s) and other protocol URLs (e.g. steam://) in their registered
+  // external handler; treat everything else as a local filesystem path. The
+  // `scheme://` test won't match Windows paths, which use `C:\`/`C:/` (no `//`).
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(url)) {
     return shell.openExternal(url)
   }
   return shell.openPath(url)

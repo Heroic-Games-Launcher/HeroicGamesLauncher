@@ -24,3 +24,15 @@ export interface SteamAppInfo {
   changeNumber: number
   data: unknown
 }
+
+/**
+ * A DLC for a Steam game, with whether the user owns it and whether its files
+ * are currently installed. License-only DLC (no downloadable depot) is reported
+ * as installed once owned, since there is nothing separate to download.
+ */
+export interface SteamDLCInfo {
+  appId: string
+  title: string
+  owned: boolean
+  installed: boolean
+}
