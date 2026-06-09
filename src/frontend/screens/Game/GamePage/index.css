@@ -347,6 +347,11 @@
             margin-inline-end: 0;
           }
         }
+
+        & .steamStoreButton {
+          margin-inline-start: var(--space-xs);
+          text-decoration: none;
+        }
       }
     }
   }

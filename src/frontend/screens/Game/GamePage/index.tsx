@@ -7,7 +7,8 @@ import {
   Info,
   Star,
   Monitor,
-  EmojiEvents
+  EmojiEvents,
+  ShoppingCart
 } from '@mui/icons-material'
 
 import { Tab, Tabs } from '@mui/material'
@@ -491,6 +492,17 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           handlePlay={handlePlay}
                           handleInstall={handleInstall}
                         />
+                        {runner === 'steam' && (
+                          <NavLink
+                            className="button mainBtn outline steamStoreButton buttonWithIcon"
+                            to={`/store-page?store-url=${encodeURIComponent(
+                              `https://store.steampowered.com/app/${appName}`
+                            )}`}
+                          >
+                            <ShoppingCart />
+                            {t('button.steamStore', 'Open Store Page')}
+                          </NavLink>
+                        )}
                       </div>
                       {wikiLink}
                     </div>

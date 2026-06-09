@@ -91,6 +91,7 @@
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
+        "steamStore": "Open Steam Page",
         "sideload": {
             "edit": "Edit App/Game"
         },

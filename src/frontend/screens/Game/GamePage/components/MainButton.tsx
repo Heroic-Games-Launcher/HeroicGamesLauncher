@@ -244,20 +244,24 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
           >
             {getButtonLabel()}
           </button>
-          <button
-            disabled={disabledInstallButtons || is.installing || is.importing}
-            className={'button mainBtn outline'}
-            onClick={() =>
-              openInstallGameModal({
-                appName: gameInfo.app_name,
-                runner: gameInfo.runner,
-                gameInfo,
-                action: 'import'
-              })
-            }
-          >
-            {t('button.import', 'Import Game')}
-          </button>
+          {/* Steam manages its own installs, so importing an existing
+              installation into Heroic doesn't apply. */}
+          {gameInfo.runner !== 'steam' && (
+            <button
+              disabled={disabledInstallButtons || is.installing || is.importing}
+              className={'button mainBtn outline'}
+              onClick={() =>
+                openInstallGameModal({
+                  appName: gameInfo.app_name,
+                  runner: gameInfo.runner,
+                  gameInfo,
+                  action: 'import'
+                })
+              }
+            >
+              {t('button.import', 'Import Game')}
+            </button>
+          )}
         </span>
       )}
     </div>
