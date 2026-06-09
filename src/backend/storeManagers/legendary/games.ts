@@ -381,7 +381,12 @@ export default class LegendaryGameManager implements GameManager {
     return (this.currentDownloadSize[appName] = size)
   }
 
-  private defaultTmpProgres = () => ({
+  private resetInstallProgress(appName: string) {
+    delete this.currentDownloadSize[appName]
+    delete this.tmpProgress[appName]
+  }
+
+  private defaultTmpProgress = () => ({
     bytes: '',
     eta: '',
     percent: undefined,
@@ -401,42 +406,40 @@ export default class LegendaryGameManager implements GameManager {
     // store the download size, needed for correct calculation
     // when cancel/resume downloads
     if (downloadSizeMatch) {
-      this.currentDownloadSize[appName] = parseFloat(downloadSizeMatch[1])
+      const downloadSize = parseFloat(downloadSizeMatch[1])
+      if (Number.isFinite(downloadSize) && downloadSize > 0) {
+        this.currentDownloadSize[appName] = downloadSize
+      }
     }
 
     if (!Object.hasOwn(this.tmpProgress, appName)) {
-      this.tmpProgress[appName] = this.defaultTmpProgres()
+      this.tmpProgress[appName] = this.defaultTmpProgress()
     }
 
     const progress = this.tmpProgress[appName]
 
     // parse log for eta
-    if (progress.eta === '') {
-      const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
-      progress.eta = etaMatch && etaMatch?.length >= 2 ? etaMatch[1] : ''
+    const etaMatch = data.match(/ETA: (\d\d:\d\d:\d\d)/m)
+    if (etaMatch && etaMatch.length >= 2) {
+      progress.eta = etaMatch[1]
     }
 
     // parse log for game download progress
-    if (progress.bytes === '') {
-      const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
-      progress.bytes =
-        bytesMatch && bytesMatch?.length >= 2 ? `${bytesMatch[1]}MB` : ''
+    const bytesMatch = data.match(/Downloaded: (\S+.) MiB/m)
+    if (bytesMatch && bytesMatch.length >= 2) {
+      progress.bytes = `${bytesMatch[1]}MB`
     }
 
     // parse log for download speed
-    if (!progress.downSpeed) {
-      const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
-      progress.downSpeed = !Number.isNaN(Number(downSpeedMBytes?.at(1)))
-        ? Number(downSpeedMBytes?.at(1))
-        : undefined
+    const downSpeedMBytes = data.match(/Download\t- (\S+.) MiB/m)
+    if (!Number.isNaN(Number(downSpeedMBytes?.at(1)))) {
+      progress.downSpeed = Number(downSpeedMBytes?.at(1))
     }
 
     // parse disk write speed
-    if (!progress.diskSpeed) {
-      const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
-      progress.diskSpeed = !Number.isNaN(Number(diskSpeedMBytes?.at(1)))
-        ? Number(diskSpeedMBytes?.at(1))
-        : undefined
+    const diskSpeedMBytes = data.match(/Disk\t- (\S+.) MiB/m)
+    if (!Number.isNaN(Number(diskSpeedMBytes?.at(1)))) {
+      progress.diskSpeed = Number(diskSpeedMBytes?.at(1))
     }
 
     // original is in bytes, convert to MiB with 2 decimals
@@ -446,12 +449,20 @@ export default class LegendaryGameManager implements GameManager {
     // calculate percentage
     if (progress.bytes !== '') {
       const downloaded = parseFloat(progress.bytes)
-      const downloadCache =
-        totalDownloadSize - this.currentDownloadSize[appName]
-      const totalDownloaded = downloaded + downloadCache
-      const newPercent =
-        Math.round((totalDownloaded / totalDownloadSize) * 10000) / 100
-      progress.percent = newPercent >= 0 ? newPercent : undefined
+      const currentDownloadSize = this.currentDownloadSize[appName]
+      const effectiveTotalDownloadSize =
+        currentDownloadSize || totalDownloadSize
+
+      if (
+        Number.isFinite(downloaded) &&
+        Number.isFinite(effectiveTotalDownloadSize) &&
+        effectiveTotalDownloadSize > 0
+      ) {
+        const newPercent =
+          Math.round((downloaded / effectiveTotalDownloadSize) * 10000) / 100
+        progress.percent =
+          newPercent >= 0 ? Math.min(newPercent, 100) : undefined
+      }
     }
 
     // only send to frontend if all values are updated
@@ -477,7 +488,7 @@ export default class LegendaryGameManager implements GameManager {
       })
 
       // reset
-      this.tmpProgress[appName] = this.defaultTmpProgres()
+      this.tmpProgress[appName] = this.defaultTmpProgress()
     }
   }
 
@@ -492,11 +503,7 @@ export default class LegendaryGameManager implements GameManager {
       status: 'updating'
     })
     const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
-    const installPlatform = this.getGameInfo(appName).install.platform!
-    const info = await libraryManagerMap['legendary'].getInstallInfo(
-      appName,
-      installPlatform
-    )
+    this.resetInstallProgress(appName)
 
     const command: LegendaryCommand = {
       subcommand: 'update',
@@ -508,12 +515,7 @@ export default class LegendaryGameManager implements GameManager {
     if (downloadNoHttps) command['--no-https'] = true
 
     const onOutput = (data: string) => {
-      this.onInstallOrUpdateOutput(
-        appName,
-        'updating',
-        data,
-        info.manifest?.download_size
-      )
+      this.onInstallOrUpdateOutput(appName, 'updating', data, 0)
     }
 
     const updateLogWriter = await createGameLogWriter(
@@ -590,10 +592,7 @@ export default class LegendaryGameManager implements GameManager {
       return { status: 'error' }
     }
     const { maxWorkers, downloadNoHttps } = GlobalConfig.get().getSettings()
-    const info = await libraryManagerMap['legendary'].getInstallInfo(
-      appName,
-      platformToInstall
-    )
+    this.resetInstallProgress(appName)
 
     const command: LegendaryCommand = {
       subcommand: 'install',
@@ -610,12 +609,7 @@ export default class LegendaryGameManager implements GameManager {
     else command['--skip-sdl'] = true
 
     const onOutput = (data: string) => {
-      this.onInstallOrUpdateOutput(
-        appName,
-        'installing',
-        data,
-        info.manifest?.download_size
-      )
+      this.onInstallOrUpdateOutput(appName, 'installing', data, 0)
     }
 
     const installLogWriter = await createGameLogWriter(
