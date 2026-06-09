@@ -1,6 +1,13 @@
 import './index.css'
 
-import { useContext, CSSProperties, useMemo, useState, useEffect } from 'react'
+import {
+  useContext,
+  CSSProperties,
+  useMemo,
+  useState,
+  useEffect,
+  useRef
+} from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRepeat, faBan } from '@fortawesome/free-solid-svg-icons'
@@ -98,6 +105,11 @@ const GameCard = ({
   const [gameInfo, setGameInfo] = useState<GameInfo>(gameInfoFromProps)
   const [showUninstallModal, setShowUninstallModal] = useState(false)
   const [isLaunching, setIsLaunching] = useState(false)
+  // A cover fetched from the store API to replace a missing/unreachable Steam
+  // library image (see handleCoverError).
+  const [steamCover, setSteamCover] = useState<string>()
+  const triedSteamCover = useRef(false)
+  const coverErrorCount = useRef(0)
 
   const { t } = useTranslation('gamepage')
   const { t: t2 } = useTranslation()
@@ -132,6 +144,29 @@ const GameCard = ({
     gameInfoFromProps.overrides?.art_cover || gameInfoFromProps.art_cover
   const cover =
     gameInfoFromProps.overrides?.art_square || gameInfoFromProps.art_square
+
+  // Steam's CDN portrait art (library_600x900) is frequently missing or
+  // unreachable, which leaves the card black. Only when that portrait is truly
+  // gone do we fall back to a PCGamingWiki portrait (then Steam's own store
+  // image, via the CachedImage fallback) - the Steam portrait always takes
+  // priority and is never preempted while it could still load.
+  //
+  // CachedImage tries an `imagecache://` URL (error #1) before the real Steam
+  // CDN URL, so we only fetch once the *real* URL has failed (error #2+). Images
+  // are lazy-loaded, so this only runs for cards the user can actually see.
+  const handleCoverError = (): void => {
+    if (runner !== 'steam' || triedSteamCover.current) return
+    coverErrorCount.current += 1
+    if (coverErrorCount.current < 2) return
+    triedSteamCover.current = true
+    window.api
+      .getWikiGameInfo(title, appName, 'steam')
+      .then((info) => {
+        const wikiCover = info?.pcgamingwiki?.cover
+        if (wikiCover) setSteamCover(wikiCover)
+      })
+      .catch(() => undefined)
+  }
 
   const isInstallable =
     gameInfo.installable === undefined || gameInfo.installable // If it's undefined we assume it's installable
@@ -501,9 +536,11 @@ const GameCard = ({
               />
             ) : (
               <CachedImage
-                src={getImageFormatting(cover, runner)}
+                src={steamCover || getImageFormatting(cover, runner)}
+                fallback={art_cover}
                 className={imgClasses}
                 alt="cover"
+                onError={handleCoverError}
               />
             )}
             {(justPlayed || runner !== 'nile') && logo && (

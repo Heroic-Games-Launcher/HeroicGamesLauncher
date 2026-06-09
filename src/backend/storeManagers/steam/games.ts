@@ -173,6 +173,11 @@ interface SteamAppDetailsData {
   pc_requirements?: SteamRequirementsBlock | []
   mac_requirements?: SteamRequirementsBlock | []
   linux_requirements?: SteamRequirementsBlock | []
+  metacritic?: { score?: number; url?: string }
+  background?: string
+  background_raw?: string
+  header_image?: string
+  capsule_imagev5?: string
 }
 
 interface SteamAppDetailsResponse {
@@ -307,7 +312,19 @@ export default class SteamGameManager implements GameManager {
         releaseDate: details.release_date?.date || undefined,
         storeUrl: details.website || `${steamStoreAppUrl}/${appName}`,
         changelog: undefined,
-        genres: details.genres?.map((genre) => genre.description) ?? []
+        genres: details.genres?.map((genre) => genre.description) ?? [],
+        // Steam's store-page background, used as the game page splash image.
+        background: details.background_raw || details.background || undefined,
+        // A reliable cover image (Steam's `header_image`/capsule come from a
+        // different CDN host than the library art), used as a fallback when the
+        // library portrait is missing or unreachable.
+        cover:
+          details.header_image || details.capsule_imagev5 || undefined,
+        // Steam exposes a Metacritic score for many games.
+        score:
+          typeof details.metacritic?.score === 'number'
+            ? String(details.metacritic.score)
+            : undefined
       }
 
       extraInfoStore.set(appName, extraInfo)

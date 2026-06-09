@@ -42,6 +42,11 @@ const getImageFromCache = (url: string) => {
           responseType: 'stream'
         })
           .then((response) => response.data.pipe(createWriteStream(cachePath)))
+          .catch(() => {
+            // The image URL may be unreachable (e.g. a 404 for missing Steam
+            // library art). Nothing gets cached in that case; swallow the error
+            // so it doesn't surface as an unhandled promise rejection.
+          })
           .finally(() => {
             pending.delete(digest)
             res()

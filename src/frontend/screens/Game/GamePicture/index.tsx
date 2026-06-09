@@ -8,6 +8,8 @@ interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   art_square: string
   art_logo?: string | undefined
   store: string
+  // Optional override for the image shown when `art_square` fails to load.
+  fallback?: string
 }
 
 function GamePicture({
@@ -15,6 +17,7 @@ function GamePicture({
   art_logo,
   store,
   className,
+  fallback: fallbackOverride,
   ...props
 }: Props) {
   function getImageFormatting() {
@@ -38,7 +41,7 @@ function GamePicture({
         alt="cover-art"
         className={`gameImg ${className}`}
         src={src}
-        fallback={fallback}
+        fallback={fallbackOverride ?? fallback}
         {...props}
       />
       {art_logo && (

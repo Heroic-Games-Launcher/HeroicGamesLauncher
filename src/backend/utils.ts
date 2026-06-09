@@ -1631,7 +1631,14 @@ async function extractTarFile({
 
 const axiosClient = axios.create({
   timeout: 10 * 1000,
-  httpsAgent: new https.Agent({ keepAlive: true })
+  httpsAgent: new https.Agent({ keepAlive: true }),
+  // Identify as a browser-like Heroic client. Axios' default `axios/<version>`
+  // User-Agent is blocked by some services' bot protection (e.g. PCGamingWiki's
+  // Cloudflare returns 403 for it), which is why those lookups were failing even
+  // though the pages exist.
+  headers: {
+    'User-Agent': `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
+  }
 })
 
 export const writeConfig = (appName: string, config: Partial<AppSettings>) => {

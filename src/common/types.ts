@@ -166,6 +166,14 @@ export interface ExtraInfo {
   storeUrl?: string
   changelog?: string
   genres?: string[]
+  // Splash/background image for the game page (used by Steam, which provides a
+  // store-page background via its Web API).
+  background?: string
+  // Cover/preview image, fetched from the store API as a fallback when the
+  // library art (e.g. Steam's CDN portrait) is missing/unreachable.
+  cover?: string
+  // Critic review score (0-100), e.g. Steam exposes a Metacritic score.
+  score?: string
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'
@@ -720,6 +728,9 @@ export interface PCGamingWikiInfo {
   direct3DVersions: string[]
   genres: string[]
   releaseDate: string[]
+  // Portrait cover image resolved from the page's infobox, used as a fallback
+  // when a store's own library art is missing.
+  cover?: string
 }
 
 export interface AppleGamingWikiInfo {
