@@ -36,6 +36,7 @@ const CONTENT_LOG_TAIL_BYTES = 4 * 1024 * 1024
 // paused/stalled download (no new samples) doesn't make the estimate run away.
 const MAX_RATE_EXTRAPOLATION_SECONDS = 120
 
+// ts-prune-ignore-next
 export interface SteamDownloadProgress {
   // 0-100, or undefined if it can't be determined yet.
   percent?: number
