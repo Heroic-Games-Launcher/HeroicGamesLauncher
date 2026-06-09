@@ -45,7 +45,7 @@ async function getSteamWikiInfo(
     opencritic: pcgw?.opencritic ?? { score: '', urlid: '' },
     igdb: pcgw?.igdb ?? { score: '', urlid: '' },
     direct3DVersions: pcgw?.direct3DVersions ?? [],
-    genres: hasList(pcgw?.genres) ? pcgw!.genres : extraInfo.genres ?? [],
+    genres: hasList(pcgw?.genres) ? pcgw!.genres : (extraInfo.genres ?? []),
     releaseDate: hasList(pcgw?.releaseDate)
       ? pcgw!.releaseDate
       : extraInfo.releaseDate
@@ -96,7 +96,10 @@ export async function getWikiGameInfo(
         )
         return cached
       }
-      logInfo(`Getting ExtraGameInfo data for ${title}`, LogPrefix.ExtraGameInfo)
+      logInfo(
+        `Getting ExtraGameInfo data for ${title}`,
+        LogPrefix.ExtraGameInfo
+      )
       const steamWikiInfo = await getSteamWikiInfo(title, appName)
       wikiGameInfoStore.set(steamCacheKey, steamWikiInfo)
       return steamWikiInfo
