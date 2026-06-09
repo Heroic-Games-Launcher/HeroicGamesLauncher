@@ -11,6 +11,7 @@
         "move": {
             "message": "This can take a long time, are you sure?",
             "path": "Choose where you want to move",
+            "steamMessage": "Steam will open its Storage Manager, where you can choose a different drive and move this game. Heroic will refresh once Steam's move is complete.",
             "title": "Move Game Installation"
         },
         "no": "NO",

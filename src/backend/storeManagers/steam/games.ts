@@ -44,6 +44,7 @@ import {
   steamAppDetailsApiUrl,
   steamInstallUrl,
   steamRunGameUrl,
+  steamStorageSettingsUrl,
   steamStoreAppUrl,
   steamUninstallUrl
 } from './constants'
@@ -1007,8 +1008,42 @@ export default class SteamGameManager implements GameManager {
     return true
   }
 
-  async moveInstall(): Promise<InstallResult> {
-    return { status: 'error', error: 'Move not implemented' }
+  async moveInstall(appName: string): Promise<InstallResult> {
+    if (!isSteamImportEnabled()) {
+      logWarning(
+        `Steam import is disabled, cannot move ${appName}`,
+        LogPrefix.Steam
+      )
+      return { status: 'error', error: 'Steam import disabled' }
+    }
+
+    const gameInfo = this.getGameInfo(appName)
+
+    logInfo(
+      `Opening Steam's storage manager to move ${gameInfo.title} (${appName})`,
+      LogPrefix.Steam
+    )
+
+    // Steam owns the game's files, so we can't move them ourselves. Hand off to
+    // Steam's Storage Manager where the user picks the destination drive and
+    // Steam performs the move (it can run for a while and is user-driven).
+    try {
+      await shell.openExternal(steamStorageSettingsUrl)
+    } catch (error) {
+      logError(
+        [`Failed to open Steam's storage manager for ${appName}`, error],
+        LogPrefix.Steam
+      )
+      return { status: 'error', error: `${error}` }
+    }
+
+    // We can't track the user-driven move to completion, so refresh the library
+    // so Heroic picks up the new install path once Steam has moved the game.
+    // The user can refresh again if the move is still running.
+    await libraryManagerMap['steam'].refresh()
+    sendFrontendMessage('refreshLibrary', 'steam')
+
+    return { status: 'done' }
   }
 
   async repair(): Promise<ExecResult> {

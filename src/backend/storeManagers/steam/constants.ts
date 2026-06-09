@@ -32,6 +32,11 @@ export const steamRunGameUrl = 'steam://rungameid'
 export const steamInstallUrl = 'steam://install'
 export const steamUninstallUrl = 'steam://uninstall'
 
+// Opens Steam's Storage Manager (Settings → Storage), the client UI for moving
+// installed games between drives/library folders. Steam handles the actual move
+// and drive selection there; Heroic just hands off and refreshes afterwards.
+export const steamStorageSettingsUrl = 'steam://settings/storage'
+
 // Steam `appmanifest_*.acf` `StateFlags` bit indicating the game is fully
 // installed. https://github.com/lutris/lutris/blob/master/docs/steam.rst
 export const steamStateFullyInstalled = 4

@@ -89,6 +89,12 @@ export default function GamesSubmenu({
   const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
 
   async function onMoveInstallYesClick() {
+    // Steam manages the move (and destination drive selection) in its own
+    // Storage Manager, so skip Heroic's directory picker and hand off to Steam.
+    if (runner === 'steam') {
+      await window.api.moveInstall({ appName, path: '', runner })
+      return
+    }
     const { defaultInstallPath } = await window.api.requestAppSettings()
     const path = await window.api.openDialog({
       buttonLabel: t('box.choose'),
@@ -104,7 +110,13 @@ export default function GamesSubmenu({
   function handleMoveInstall() {
     showDialogModal({
       showDialog: true,
-      message: t('box.move.message'),
+      message:
+        runner === 'steam'
+          ? t(
+              'box.move.steamMessage',
+              "Steam will open its Storage Manager, where you can choose a different drive and move this game. Heroic will refresh once Steam's move is complete."
+            )
+          : t('box.move.message'),
       title: t('box.move.title'),
       buttons: [
         { text: t('box.yes'), onClick: onMoveInstallYesClick },
