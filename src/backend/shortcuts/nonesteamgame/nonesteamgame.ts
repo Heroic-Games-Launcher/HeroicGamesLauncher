@@ -24,7 +24,12 @@ import { notify, showDialogBoxModalAuto } from '../../dialog/dialog'
 import { GlobalConfig } from '../../config'
 import { getWikiGameInfo } from 'backend/wiki_game_info/wiki_game_info'
 import { tsStore } from 'backend/constants/key_value_stores'
-import { isAppImage, isFlatpak, isWindows } from 'backend/constants/environment'
+import {
+  isAppImage,
+  isFlatpak,
+  isWindows,
+  isSteamFlatpak
+} from 'backend/constants/environment'
 
 const getSteamUserdataDir = async () => {
   const { defaultSteamPath } = GlobalConfig.get().getSettings()
@@ -266,7 +271,10 @@ async function addNonSteamGame(props: {
     newEntry.Exe = `"${app.getPath('exe')}"`
     newEntry.StartDir = `"${process.cwd()}"`
 
-    if (isFlatpak) {
+    // use xdg-open if Steam installed as flatpak
+    if (isFlatpak && isSteamFlatpak) {
+      newEntry.Exe = `"xdg-open"`
+    } else if (isFlatpak) {
       newEntry.Exe = `"flatpak"`
     } else if (!isWindows && isAppImage) {
       newEntry.Exe = `"${process.env.APPIMAGE}"`
@@ -296,17 +304,21 @@ async function addNonSteamGame(props: {
       steamID: steamID
     })
 
+    // no args when using xdg-open..
     const args = []
-    args.push('--no-gui')
-    if (!isWindows) {
-      args.push('--no-sandbox')
+    if (!isSteamFlatpak) {
+      args.push('--no-gui')
+      if (!isWindows) {
+        args.push('--no-sandbox')
+      }
     }
 
     const { runner, app_name } = props.gameInfo
 
+    // no run option for flatpak when using xdg-open
     args.push(`"heroic://launch?appName=${app_name}&runner=${runner}"`)
     newEntry.LaunchOptions = args.join(' ')
-    if (isFlatpak) {
+    if (isFlatpak && !isSteamFlatpak) {
       newEntry.LaunchOptions = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
     }
     newEntry.IsHidden = false
