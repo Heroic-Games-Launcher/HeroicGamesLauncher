@@ -738,7 +738,10 @@ export default class LegendaryGameManager implements GameManager {
     return { status: 'done' }
   }
 
-  async uninstall({ appName, partialInstallFolder }: RemoveArgs): Promise<ExecResult> {
+  async uninstall({
+    appName,
+    partialInstallFolder
+  }: RemoveArgs): Promise<ExecResult> {
     const gameInfo = this.getGameInfo(appName)
     if (gameInfo.thirdPartyManagedApp) {
       await thirdParty.removeInstalledGame(appName)

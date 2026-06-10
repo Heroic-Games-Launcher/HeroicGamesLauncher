@@ -146,10 +146,10 @@ const GameCard = ({
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
 
-  const {
-    hasPartialInstall,
-    partialInstallFolder
-  } = hasPartialInstallHook(appName, isInstalled)
+  const { hasPartialInstall, partialInstallFolder } = hasPartialInstallHook(
+    appName,
+    isInstalled
+  )
 
   useEffect(() => {
     setIsLaunching(false)

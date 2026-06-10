@@ -108,7 +108,11 @@ export const uninstallGameCallback = async (
   let uninstalled = false
 
   try {
-    await gameManagerMap[runner].uninstall({ appName, shouldRemovePrefix, partialInstallFolder })
+    await gameManagerMap[runner].uninstall({
+      appName,
+      shouldRemovePrefix,
+      partialInstallFolder
+    })
     uninstalled = true
   } catch (error) {
     notify({

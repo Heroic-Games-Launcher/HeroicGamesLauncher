@@ -89,10 +89,10 @@ export default function GamesSubmenu({
   const isSideloaded = runner === 'sideload'
   const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
 
-  const {
-    hasPartialInstall,
-    partialInstallFolder
-  } = hasPartialInstallHook(appName, isInstalled)
+  const { hasPartialInstall, partialInstallFolder } = hasPartialInstallHook(
+    appName,
+    isInstalled
+  )
 
   async function onMoveInstallYesClick() {
     const { defaultInstallPath } = await window.api.requestAppSettings()
