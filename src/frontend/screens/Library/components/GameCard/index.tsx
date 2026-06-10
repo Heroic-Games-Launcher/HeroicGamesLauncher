@@ -26,6 +26,7 @@ import { updateGame } from 'frontend/helpers/library'
 import { CachedImage, SvgButton } from 'frontend/components/UI'
 import ContextMenu, { Item } from '../ContextMenu'
 import { hasProgress } from 'frontend/hooks/hasProgress'
+import { hasPartialInstall as hasPartialInstallHook } from 'frontend/hooks/hasPartialInstall'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 
 import classNames from 'classnames'
@@ -144,6 +145,11 @@ const GameCard = ({
   const { status, folder, label } = hasStatus(gameInfo, size)
 
   const isBrowserGame = gameInfo.install.platform === 'Browser'
+
+  const {
+    hasPartialInstall,
+    partialInstallFolder
+  } = hasPartialInstallHook(appName, isInstalled)
 
   useEffect(() => {
     setIsLaunching(false)
@@ -425,7 +431,7 @@ const GameCard = ({
       // uninstall
       label: t('button.uninstall'),
       onclick: onUninstallClick,
-      show: isInstalled && !isUpdating && !isPlaying,
+      show: (isInstalled || hasPartialInstall) && !isUpdating && !isPlaying,
       icon: <DeleteForever />
     }
   ]
@@ -467,6 +473,7 @@ const GameCard = ({
           runner={runner}
           isDlc={Boolean(gameInfo.install.is_dlc)}
           onClose={() => setShowUninstallModal(false)}
+          partialInstallFolder={partialInstallFolder}
         />
       )}
       <ContextMenu items={items}>

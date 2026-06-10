@@ -85,6 +85,10 @@ async function install({
     storage.removeItem(appName)
   }
 
+  // Store the install folder so partial installs can be detected and cleaned up
+  // even if legendary crashes (not just when the user explicitly stops via UI)
+  storage.setItem(appName, JSON.stringify({ folder: installPath }))
+
   return window.api.install({
     appName,
     path: installPath,

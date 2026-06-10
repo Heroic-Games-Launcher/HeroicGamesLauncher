@@ -20,6 +20,7 @@ export type RemoveArgs = {
   appName: string
   shouldRemovePrefix?: boolean
   deleteFiles?: boolean
+  partialInstallFolder?: string
 }
 
 export interface GameManager {

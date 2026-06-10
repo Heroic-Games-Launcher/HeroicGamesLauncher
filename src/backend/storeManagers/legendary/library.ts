@@ -233,6 +233,9 @@ export default class LegendaryLibraryManager implements LibraryManager {
       logError(['Failed to get more details:', res.error], LogPrefix.Legendary)
     }
     try {
+      if (!res.stdout) {
+        throw Error('Empty response from legendary')
+      }
       const info: LegendaryInstallInfo = JSON.parse(res.stdout)
       if (info.manifest) {
         installStore.set(appName, info)

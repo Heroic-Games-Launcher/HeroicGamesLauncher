@@ -17,13 +17,15 @@ interface UninstallModalProps {
   runner: Runner
   onClose: () => void
   isDlc: boolean
+  partialInstallFolder?: string
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function ({
   appName,
   runner,
   onClose,
-  isDlc
+  isDlc,
+  partialInstallFolder
 }) {
   const [isNative, setIsNative] = useState(true)
   const [winePrefix, setWinePrefix] = useState('')
@@ -94,7 +96,8 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       appName,
       runner,
       deletePrefixChecked,
-      deleteSettingsChecked
+      deleteSettingsChecked,
+      partialInstallFolder
     )
     if (runner === 'sideload' && location.pathname.match(/gamepage/)) {
       navigate('/#library')

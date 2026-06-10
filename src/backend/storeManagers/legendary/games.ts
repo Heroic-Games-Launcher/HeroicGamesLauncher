@@ -19,6 +19,7 @@ import {
   killPattern,
   moveOnUnix,
   moveOnWindows,
+  removeFolder,
   sendGameStatusUpdate,
   sendProgressUpdate,
   shutdownWine,
@@ -737,10 +738,18 @@ export default class LegendaryGameManager implements GameManager {
     return { status: 'done' }
   }
 
-  async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+  async uninstall({ appName, partialInstallFolder }: RemoveArgs): Promise<ExecResult> {
     const gameInfo = this.getGameInfo(appName)
     if (gameInfo.thirdPartyManagedApp) {
       await thirdParty.removeInstalledGame(appName)
+      return { stdout: '', stderr: '' }
+    }
+
+    if (!gameInfo.is_installed && partialInstallFolder) {
+      if (gameInfo.folder_name) {
+        removeFolder(partialInstallFolder, gameInfo.folder_name)
+      }
+      sendFrontendMessage('refreshLibrary', 'legendary')
       return { stdout: '', stderr: '' }
     }
 
