@@ -87,7 +87,9 @@ async function install({
 
   // Store the install folder so partial installs can be detected and cleaned up
   // even if legendary crashes (not just when the user explicitly stops via UI)
-  storage.setItem(appName, JSON.stringify({ folder: installPath }))
+  const partialInstallData = JSON.stringify({ folder: installPath })
+  storage.setItem(appName, partialInstallData)
+  window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: partialInstallData }))
 
   return window.api.install({
     appName,
@@ -119,10 +121,9 @@ function handleStopInstallation(
       {
         text: t('box.yes'),
         onClick: () => {
-          storage.setItem(
-            appName,
-            JSON.stringify({ ...progress, folder: path })
-          )
+          const partialData = JSON.stringify({ ...progress, folder: path })
+          storage.setItem(appName, partialData)
+          window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: partialData }))
           window.api.cancelDownload(false)
         }
       },
@@ -131,6 +132,7 @@ function handleStopInstallation(
         onClick: () => {
           window.api.cancelDownload(true)
           storage.removeItem(appName)
+          window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: null }))
         }
       }
     ]
