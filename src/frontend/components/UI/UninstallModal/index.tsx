@@ -113,7 +113,8 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
   const showWineCheckbox = !isNative && !isDlc
 
   // disallow uninstalling epic games if an epic game is being installed
-  if (installingEpicGame && runner === 'legendary') {
+  // partial install cleanup is exempt: the backend cancels the active download before deleting
+  if (installingEpicGame && runner === 'legendary' && !partialInstallFolder) {
     return (
       <>
         {showUninstallModal && (

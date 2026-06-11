@@ -330,12 +330,21 @@ function processNotification(element: DMQueueElement, status: DMStatus) {
   }
 }
 
+function cancelDownloadForApp(appName: string) {
+  if (currentElement?.params.appName === appName) {
+    cancelCurrentDownload({ removeDownloaded: false })
+  } else {
+    removeFromQueue(appName)
+  }
+}
+
 export {
   initQueue,
   addToQueue,
   removeFromQueue,
   getQueueInformation,
   cancelCurrentDownload,
+  cancelDownloadForApp,
   pauseCurrentDownload,
   resumeCurrentDownload,
   isRunning

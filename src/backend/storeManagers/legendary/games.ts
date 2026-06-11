@@ -55,6 +55,7 @@ import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
+import { cancelDownloadForApp } from '../../downloadmanager/downloadqueue'
 import { GameManager, RemoveArgs } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
@@ -749,6 +750,7 @@ export default class LegendaryGameManager implements GameManager {
     }
 
     if (!gameInfo.is_installed && partialInstallFolder) {
+      cancelDownloadForApp(appName)
       if (gameInfo.folder_name) {
         removeFolder(partialInstallFolder, gameInfo.folder_name)
       }
