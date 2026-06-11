@@ -1,5 +1,6 @@
 import './index.scss'
 import React, { useContext, useEffect, useState } from 'react'
+import { clearInstallProgress } from 'frontend/state/InstallProgress'
 import {
   Dialog,
   DialogContent,
@@ -104,6 +105,9 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
     }
     storage.removeItem(appName)
     window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: null }))
+    if (partialInstallFolder) {
+      clearInstallProgress(appName, runner)
+    }
   }
 
   const showWineCheckbox = !isNative && !isDlc

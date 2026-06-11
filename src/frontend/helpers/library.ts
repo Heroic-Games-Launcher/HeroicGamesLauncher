@@ -11,6 +11,7 @@ import {
 import { TFunction } from 'i18next'
 import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
+import { clearInstallProgress } from 'frontend/state/InstallProgress'
 
 const storage: Storage = window.localStorage
 
@@ -133,6 +134,7 @@ function handleStopInstallation(
           window.api.cancelDownload(true)
           storage.removeItem(appName)
           window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: null }))
+          clearInstallProgress(appName, runner)
         }
       }
     ]
