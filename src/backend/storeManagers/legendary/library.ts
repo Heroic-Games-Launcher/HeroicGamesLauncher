@@ -1,4 +1,10 @@
-import { existsSync, mkdirSync, readFile, readFileSync, readdirSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFile,
+  readFileSync,
+  readdirSync
+} from 'graceful-fs'
 
 import {
   GameInfo,
@@ -472,7 +478,10 @@ export default class LegendaryLibraryManager implements LibraryManager {
     )
   }
 
-  private processMetadata(app_name: string, metadata: GameMetadataInner): boolean {
+  private processMetadata(
+    app_name: string,
+    metadata: GameMetadataInner
+  ): boolean {
     const { namespace } = metadata
 
     const ueCategories = ['assets', 'asset-format', 'plugins', 'projects']
