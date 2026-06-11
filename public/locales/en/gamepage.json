@@ -179,9 +179,9 @@
         "canRunOffline": "Online Required",
         "clickToOpen": "Click to open",
         "dlc": {
-            "installed": "Installed",
-            "notBought": "Not owned",
-            "notInstalled": "Not installed"
+            "disabled": "Disabled — click to enable",
+            "enabled": "Enabled — click to disable",
+            "notBought": "Not owned"
         },
         "dlcs": "DLCs",
         "game-scores": "Game Scores",
