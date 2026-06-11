@@ -490,6 +490,36 @@ export default class SteamGameManager implements GameManager {
     return removeShortcutsUtil(this.getGameInfo(appName))
   }
 
+  /**
+   * Runs a Steam Cloud sync for `appName` around a launch via `aurelia cloud
+   * sync`. We force `--down` before the game starts (pull the latest cloud saves
+   * locally) and `--up` after it exits (push whatever it wrote). Failures are
+   * logged but deliberately swallowed: a cloud-sync hiccup must never block the
+   * game from launching or leave Heroic hanging after it closes.
+   */
+  private async syncCloudSaves(
+    appName: string,
+    direction: 'up' | 'down',
+    logWriter: LogWriter
+  ): Promise<void> {
+    const action = direction === 'down' ? 'download' : 'upload'
+    try {
+      await logWriter.logInfo(`Steam Cloud sync (${action})`)
+      await runAurelia(['cloud', 'sync', appName, `--${direction}`], {
+        abortId: `${appName}-cloud-${direction}`,
+        logWriters: [logWriter]
+      })
+    } catch (error) {
+      logWarning(
+        [
+          `Failed to ${action} Steam Cloud saves for ${appName}`,
+          describeError(error)
+        ],
+        LogPrefix.Steam
+      )
+    }
+  }
+
   async launch(appName: string, logWriter: LogWriter): Promise<boolean> {
     if (!isSteamImportEnabled()) {
       logWarning(
@@ -518,6 +548,10 @@ export default class SteamGameManager implements GameManager {
     // then launch. Doing it here means the user isn't interrupted at toggle time.
     await this.applyPendingDlcChanges()
 
+    // Pull the latest Steam Cloud saves before the game starts so it opens with
+    // whatever was last played on another device.
+    await this.syncCloudSaves(appName, 'down', logWriter)
+
     sendGameStatusUpdate({ appName, runner: 'steam', status: 'playing' })
 
     // Aurelia auto-detects the runner (native/Proton) itself; `play` blocks
@@ -534,6 +568,10 @@ export default class SteamGameManager implements GameManager {
       )
       return false
     }
+
+    // The game has exited (or was stopped by the user): push any saves it wrote
+    // back up to Steam Cloud.
+    await this.syncCloudSaves(appName, 'up', logWriter)
 
     logInfo(`${gameInfo.title} (${appName}) has stopped`, LogPrefix.Steam)
     return true
