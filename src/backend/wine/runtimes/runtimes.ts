@@ -9,8 +9,8 @@ import {
 import { join } from 'path'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
 import { Runtime, RuntimeName } from 'common/types'
-import { downloadFile, extractTarFile } from './util'
-import { axiosClient } from 'backend/utils'
+import { extractTarFile } from './util'
+import { axiosClient, downloadFile } from 'backend/utils'
 import { runtimePath } from 'backend/constants/paths'
 
 async function _get(): Promise<Runtime[]> {
@@ -38,7 +38,7 @@ async function download(name: RuntimeName): Promise<boolean> {
 
     const tarFileName = runtime.url.split('/').pop()!
     const tarFilePath = join(runtimePath, tarFileName)
-    await downloadFile(runtime.url, tarFilePath)
+    await downloadFile({ url: runtime.url, dest: tarFilePath })
 
     const extractedFolderPath = join(runtimePath, name)
 
