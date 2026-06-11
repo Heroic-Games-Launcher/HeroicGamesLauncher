@@ -174,17 +174,19 @@ export default React.memo(function NewLogin() {
             )}
             {steam.enabled && (
               <>
-                <Runner
-                  class="steam"
-                  buttonText={t('login.steam_add', 'Add Steam Account')}
-                  icon={() => <SteamLogo />}
-                  loginUrl={steamLoginPath}
-                  isLoggedIn={false}
-                  user={undefined}
-                  logoutAction={steam.logout}
-                  onLogin={() => setShowSteamLogin(true)}
-                  disabled={oldMac}
-                />
+                {steam.users.length === 0 && (
+                  <Runner
+                    class="steam"
+                    buttonText={t('login.steam_add', 'Add Steam Account')}
+                    icon={() => <SteamLogo />}
+                    loginUrl={steamLoginPath}
+                    isLoggedIn={false}
+                    user={undefined}
+                    logoutAction={steam.logout}
+                    onLogin={() => setShowSteamLogin(true)}
+                    disabled={oldMac}
+                  />
+                )}
                 {steam.users.map((account) => (
                   <Runner
                     key={account.steamId}
