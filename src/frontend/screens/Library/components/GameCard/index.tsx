@@ -45,6 +45,7 @@ import {
   Edit,
   Favorite,
   FavoriteBorder,
+  Storage,
   List,
   OpenInNew,
   PlayArrow,
@@ -486,6 +487,17 @@ const GameCard = ({
           {showUpdateBadge && (
             <span className="gameCardUpdateBadge">
               {t('status.hasUpdates')}
+            </span>
+          )}
+          {hasPartialInstall && !isInstalled && (
+            <span
+              className="partialInstallBadge"
+              title={t(
+                'label.game.partial-install',
+                'Partial install on disk — right-click to clean up'
+              )}
+            >
+              <Storage />
             </span>
           )}
           <Link

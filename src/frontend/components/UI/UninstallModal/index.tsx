@@ -103,6 +103,7 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       navigate('/#library')
     }
     storage.removeItem(appName)
+    window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: null }))
   }
 
   const showWineCheckbox = !isNative && !isDlc
