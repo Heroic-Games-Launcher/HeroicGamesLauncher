@@ -56,7 +56,10 @@ function describeError(error: unknown): string {
 // rate limit. Results are cached for a short window; state-changing operations
 // (install/uninstall/move) invalidate the entry so it refreshes promptly.
 const AVAILABILITY_CACHE_TTL_MS = 5 * 60 * 1000
-const availabilityCache = new Map<string, { available: boolean; time: number }>()
+const availabilityCache = new Map<
+  string,
+  { available: boolean; time: number }
+>()
 
 function invalidateAvailability(appName: string): void {
   availabilityCache.delete(appName)
@@ -112,7 +115,10 @@ function buildReqs(minimum: string[] = [], recommended: string[] = []): Reqs[] {
     for (const line of lines) {
       if (!line.trim()) continue
       const [label, value] = splitRequirement(line)
-      target.set(label, target.has(label) ? `${target.get(label)}\n${value}` : value)
+      target.set(
+        label,
+        target.has(label) ? `${target.get(label)}\n${value}` : value
+      )
     }
   }
   collect(minimum, min)
@@ -123,7 +129,8 @@ function buildReqs(minimum: string[] = [], recommended: string[] = []): Reqs[] {
     if (label !== REQS_OTHER_TITLE) labels.push(label)
   }
   for (const label of rec.keys()) {
-    if (label !== REQS_OTHER_TITLE && !labels.includes(label)) labels.push(label)
+    if (label !== REQS_OTHER_TITLE && !labels.includes(label))
+      labels.push(label)
   }
 
   const reqs: Reqs[] = labels.map((title) => ({
@@ -229,7 +236,10 @@ export default class SteamGameManager implements GameManager {
             '',
           shortDescription: details.description ?? ''
         },
-        reqs: buildReqs(ext.requirements?.minimum, ext.requirements?.recommended),
+        reqs: buildReqs(
+          ext.requirements?.minimum,
+          ext.requirements?.recommended
+        ),
         releaseDate: details.release_date || undefined,
         storeUrl: ext.website || `${steamStoreAppUrl}/${appName}`,
         changelog: undefined,
@@ -305,7 +315,11 @@ export default class SteamGameManager implements GameManager {
     if (!isSteamImportEnabled()) {
       return { stdout: '', stderr: 'Steam import disabled' }
     }
-    const importLogWriter = await createGameLogWriter(appName, 'steam', 'import')
+    const importLogWriter = await createGameLogWriter(
+      appName,
+      'steam',
+      'import'
+    )
     const res = await libraryManagerMap['steam'].runRunnerCommand(
       ['import', appName, path, '--json'],
       { abortId: appName, logWriters: [importLogWriter] }
@@ -472,11 +486,7 @@ export default class SteamGameManager implements GameManager {
     }
   }
 
-  async syncSaves(
-    appName: string,
-    arg: string,
-    path: string
-  ): Promise<string> {
+  async syncSaves(appName: string, arg: string, path: string): Promise<string> {
     if (!isSteamImportEnabled()) {
       return ''
     }
@@ -494,7 +504,10 @@ export default class SteamGameManager implements GameManager {
       return 'Steam Cloud sync finished'
     } catch (error) {
       logError(
-        [`Failed to sync Steam Cloud saves for ${appName}`, describeError(error)],
+        [
+          `Failed to sync Steam Cloud saves for ${appName}`,
+          describeError(error)
+        ],
         LogPrefix.Steam
       )
       return `${describeError(error)}`
@@ -511,10 +524,7 @@ export default class SteamGameManager implements GameManager {
     }
 
     const gameInfo = this.getGameInfo(appName)
-    logInfo(
-      `Uninstalling ${gameInfo.title} (${appName})`,
-      LogPrefix.Steam
-    )
+    logInfo(`Uninstalling ${gameInfo.title} (${appName})`, LogPrefix.Steam)
 
     try {
       // `deleteFiles` here means "also remove the Wine prefix/compat data".
@@ -608,9 +618,7 @@ export default class SteamGameManager implements GameManager {
         status?: string
       }>(['available', appName])
       const available =
-        result.available ??
-        result.is_available ??
-        result.status === 'available'
+        result.available ?? result.is_available ?? result.status === 'available'
       availabilityCache.set(appName, { available, time: Date.now() })
       return available
     } catch (error) {
@@ -626,8 +634,8 @@ export default class SteamGameManager implements GameManager {
       }
       return Boolean(
         info.is_installed &&
-          info.install?.install_path &&
-          existsSync(info.install.install_path)
+        info.install?.install_path &&
+        existsSync(info.install.install_path)
       )
     }
   }

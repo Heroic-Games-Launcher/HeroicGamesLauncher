@@ -6,7 +6,12 @@ import {
   formatTime,
   sendProgressUpdate
 } from 'backend/utils'
-import { getRunnerLogWriter, logError, logInfo, LogPrefix } from 'backend/logger'
+import {
+  getRunnerLogWriter,
+  logError,
+  logInfo,
+  LogPrefix
+} from 'backend/logger'
 import {
   createAbortController,
   deleteAbortController
@@ -60,7 +65,10 @@ export async function runAureliaCommand(
   const fullPath = dir ? join(dir, bin) : bin
   const parts = commandParts.filter(Boolean)
 
-  const logWriters = [...(options.logWriters ?? []), getRunnerLogWriter('steam')]
+  const logWriters = [
+    ...(options.logWriters ?? []),
+    getRunnerLogWriter('steam')
+  ]
   const safeCommand = redactCommand(parts)
   const prefix = `${options.logMessagePrefix ?? 'Running command'}:`
   logInfo([prefix, safeCommand], LogPrefix.Steam)
@@ -101,10 +109,7 @@ export async function runAureliaCommand(
         resolve({ stdout, stderr, fullCommand: safeCommand, abort: true })
         return
       }
-      logError(
-        ['Error running', `"${safeCommand}":`, error],
-        LogPrefix.Steam
-      )
+      logError(['Error running', `"${safeCommand}":`, error], LogPrefix.Steam)
       resolve({ stdout, stderr, fullCommand: safeCommand, error: `${error}` })
     })
 
@@ -227,7 +232,8 @@ export function parseAureliaJson<T>(res: ExecResult): T {
     // Aurelia sometimes prints failures as plain text (e.g. a Steam
     // "TwoFactorCodeMismatch") rather than a JSON `{ error }`. Surface that
     // text so the real reason reaches the logs and UI.
-    const raw = res.error || lastNonEmptyLine(stderr) || lastNonEmptyLine(stdout)
+    const raw =
+      res.error || lastNonEmptyLine(stderr) || lastNonEmptyLine(stdout)
     throw new AureliaError(raw || 'aurelia produced no JSON output')
   }
   if (

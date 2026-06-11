@@ -232,7 +232,14 @@ async function compareDownloadedTags(): Promise<DownloadedBinary[]> {
   try {
     storedTagsParsed = JSON.parse(storedTagsText)
   } catch {
-    return ['legendary', 'gogdl', 'nile', 'comet', 'aurelia', 'epic-integration']
+    return [
+      'legendary',
+      'gogdl',
+      'nile',
+      'comet',
+      'aurelia',
+      'epic-integration'
+    ]
   }
   const binariesToDownload: DownloadedBinary[] = []
   for (const [runner, currentTag] of Object.entries(RELEASE_TAGS)) {

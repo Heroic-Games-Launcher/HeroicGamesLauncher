@@ -59,7 +59,10 @@ export class SteamUser {
    * Mobile app. {@link cancelQrLogin} aborts the wait if the user closes the
    * dialog first.
    */
-  static async loginQr(): Promise<{ status: 'done' | 'error'; error?: string }> {
+  static async loginQr(): Promise<{
+    status: 'done' | 'error'
+    error?: string
+  }> {
     logInfo('Logging in to Steam through Aurelia (QR code)', LogPrefix.Steam)
 
     try {

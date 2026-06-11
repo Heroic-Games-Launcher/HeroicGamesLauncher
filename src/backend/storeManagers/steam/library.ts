@@ -85,7 +85,10 @@ export default class SteamLibraryManager implements LibraryManager {
     try {
       games = await runAurelia<AureliaLibraryGame[]>(['list'])
     } catch (error) {
-      logError(['Unable to list Steam games', describeError(error)], LogPrefix.Steam)
+      logError(
+        ['Unable to list Steam games', describeError(error)],
+        LogPrefix.Steam
+      )
       return { stdout: '', stderr: 'Unable to list Steam games' }
     }
 
@@ -280,7 +283,10 @@ export default class SteamLibraryManager implements LibraryManager {
       return info
     } catch (error) {
       logError(
-        [`Unable to get Steam install info for ${appName}`, describeError(error)],
+        [
+          `Unable to get Steam install info for ${appName}`,
+          describeError(error)
+        ],
         LogPrefix.Steam
       )
       return undefined
@@ -371,23 +377,27 @@ export default class SteamLibraryManager implements LibraryManager {
         appName
       ])
       const currentOs = isWindows ? 'windows' : isMac ? 'macos' : 'linux'
-      return (response.launch_options ?? [])
-        // Aurelia lists options for every platform; only show this OS's (or
-        // platform-agnostic) ones.
-        .filter(
-          (option) =>
-            !option.oslist ||
-            option.oslist.toLowerCase().includes(currentOs)
-        )
-        .map((option) => ({
-          type: 'basic',
-          name:
-            option.description || option.executable || `Option ${option.id}`,
-          parameters: option.arguments ?? ''
-        }))
+      return (
+        (response.launch_options ?? [])
+          // Aurelia lists options for every platform; only show this OS's (or
+          // platform-agnostic) ones.
+          .filter(
+            (option) =>
+              !option.oslist || option.oslist.toLowerCase().includes(currentOs)
+          )
+          .map((option) => ({
+            type: 'basic',
+            name:
+              option.description || option.executable || `Option ${option.id}`,
+            parameters: option.arguments ?? ''
+          }))
+      )
     } catch (error) {
       logWarning(
-        [`Unable to get Steam launch options for ${appName}`, describeError(error)],
+        [
+          `Unable to get Steam launch options for ${appName}`,
+          describeError(error)
+        ],
         LogPrefix.Steam
       )
       return []

@@ -35,8 +35,7 @@ export default function WebView() {
   const { i18n } = useTranslation()
   const { pathname, search } = useLocation()
   const { t } = useTranslation()
-  const { epic, gog, amazon, zoom, connectivity } =
-    useContext(ContextProvider)
+  const { epic, gog, amazon, zoom, connectivity } = useContext(ContextProvider)
   const [loading, setLoading] = useState<{
     refresh: boolean
     message: string

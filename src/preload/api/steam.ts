@@ -1,8 +1,4 @@
-import {
-  makeHandlerInvoker,
-  makeListenerCaller,
-  frontendListenerSlot
-} from '../ipc'
+import { makeHandlerInvoker, makeListenerCaller, frontendListenerSlot } from '../ipc'
 
 export const getSteamUserInfo = makeHandlerInvoker('getSteamUserInfo')
 export const getSteamDlcInfo = makeHandlerInvoker('getSteamDlcInfo')
