@@ -361,7 +361,7 @@ export interface AureliaLibraryGame {
   online_required?: boolean | null
 }
 
-export interface AureliaDlcEntry {
+interface AureliaDlcEntry {
   app_id: number
   name?: string | null
   owned?: boolean | null
@@ -374,7 +374,7 @@ export interface AureliaDlcResponse {
   dlc: AureliaDlcEntry[]
 }
 
-export interface AureliaInfoResponse {
+interface AureliaInfoResponse {
   app_id: number
   name?: string
   type?: string
@@ -410,6 +410,30 @@ export interface AureliaInfoResponse {
   }
 }
 
+/**
+ * Fetches Steam store details for one or more app ids via `aurelia info`.
+ *
+ * Aurelia resolves several ids over a single Steam logon (one batched
+ * StoreBrowse call), so `info <id1> <id2> <id3>` costs one connection: a single
+ * id yields one JSON object, several yield a JSON array in the requested order.
+ * This normalises both shapes to an array (preserving order) so callers can
+ * batch lookups without special-casing the count.
+ */
+export async function fetchAureliaInfo(
+  appIds: string[],
+  options: { extended?: boolean } = {}
+): Promise<AureliaInfoResponse[]> {
+  if (!appIds.length) {
+    return []
+  }
+  const result = await runAurelia<AureliaInfoResponse | AureliaInfoResponse[]>([
+    'info',
+    ...appIds,
+    ...(options.extended ? ['--extended'] : [])
+  ])
+  return Array.isArray(result) ? result : [result]
+}
+
 export interface AureliaDryRunResponse {
   app_id: number
   platform?: string
@@ -418,7 +442,7 @@ export interface AureliaDryRunResponse {
   depot_count?: number
 }
 
-export interface AureliaLaunchOption {
+interface AureliaLaunchOption {
   // Aurelia prints the launch-option index as a string ("0", "1", ...).
   id: string | number
   description?: string

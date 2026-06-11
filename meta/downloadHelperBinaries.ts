@@ -20,7 +20,7 @@ const RELEASE_TAGS = {
   gogdl: 'v1.2.1',
   nile: 'v1.1.2',
   comet: 'v0.2.0',
-  aurelia: 'v0.1.0',
+  aurelia: 'v0.1.1',
   'epic-integration': 'v0.4'
 } as const satisfies Record<DownloadedBinary, string>
 

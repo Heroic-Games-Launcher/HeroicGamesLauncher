@@ -1,7 +1,3 @@
-export interface SteamCredentials {
-  steamId: string
-}
-
 /**
  * Credentials collected by Heroic's Steam login form and handed to
  * `aurelia login`. `guard` is an optional Steam Guard code.
@@ -20,20 +16,6 @@ export interface SteamLoginData {
 export interface SteamAccount {
   steamId: string
   username: string
-}
-
-/**
- * A single entry parsed from Steam's binary `appcache/appinfo.vdf`. `data`
- * holds the nested key-value tree (typically `data.appinfo.common.{name,type}`)
- * and is left untyped since its shape varies by app and Steam version.
- */
-export interface SteamAppInfo {
-  appid: number
-  infoState: number
-  updateTime: number
-  token: bigint
-  changeNumber: number
-  data: unknown
 }
 
 /**

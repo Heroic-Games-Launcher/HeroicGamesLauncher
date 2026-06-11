@@ -35,10 +35,10 @@ import { extraInfoStore } from './electronStores'
 import { steamCdnImageBase, steamStoreAppUrl } from './constants'
 import {
   runAurelia,
+  fetchAureliaInfo,
   parseAureliaJson,
   makeAureliaProgressHandler,
-  AureliaError,
-  type AureliaInfoResponse
+  AureliaError
 } from './aurelia'
 
 import type LogWriter from 'backend/logger/log_writer'
@@ -49,20 +49,6 @@ function isSteamImportEnabled(): boolean {
 
 function describeError(error: unknown): string {
   return error instanceof AureliaError ? error.message : String(error)
-}
-
-// `isGameAvailable` runs Aurelia's `available`, which makes a network call to
-// Steam and is polled frequently by the UI - calling it every time triggers a
-// rate limit. Results are cached for a short window; state-changing operations
-// (install/uninstall/move) invalidate the entry so it refreshes promptly.
-const AVAILABILITY_CACHE_TTL_MS = 5 * 60 * 1000
-const availabilityCache = new Map<
-  string,
-  { available: boolean; time: number }
->()
-
-function invalidateAvailability(appName: string): void {
-  availabilityCache.delete(appName)
 }
 
 /**
@@ -210,18 +196,18 @@ export default class SteamGameManager implements GameManager {
     }
 
     // Only fetch details for games actually in the Heroic Steam library;
-    // running `info` on unknown app ids wastes requests and trips Steam's rate
-    // limit.
+    // `info` logs on to Steam, so we don't spend a connection on unknown ids.
     if (!libraryManagerMap['steam'].getGameInfo(appName)) {
       return empty
     }
 
     try {
-      const details = await runAurelia<AureliaInfoResponse>([
-        'info',
-        appName,
-        '--extended'
-      ])
+      // `fetchAureliaInfo` accepts several ids and batches them over one logon;
+      // here we ask for a single game, so we take the first (and only) entry.
+      const [details] = await fetchAureliaInfo([appName], { extended: true })
+      if (!details) {
+        return empty
+      }
 
       // The rich fields (genres, requirements, metacritic, website) live under
       // `extended`; `--extended` populates it.
@@ -371,7 +357,6 @@ export default class SteamGameManager implements GameManager {
     if (result.status === 'done') {
       void this.addShortcuts(appName)
       libraryManagerMap['steam'].installState(appName, true)
-      invalidateAvailability(appName)
       await libraryManagerMap['steam'].refresh()
       logInfo(
         `Steam finished installing ${gameInfo.title} (${appName})`,
@@ -463,7 +448,6 @@ export default class SteamGameManager implements GameManager {
     )
 
     if (result.status === 'done') {
-      invalidateAvailability(appName)
       await libraryManagerMap['steam'].refresh()
       sendFrontendMessage('refreshLibrary', 'steam')
     }
@@ -543,7 +527,6 @@ export default class SteamGameManager implements GameManager {
 
     await removeShortcutsUtil(gameInfo)
     libraryManagerMap['steam'].installState(appName, false)
-    invalidateAvailability(appName)
     await libraryManagerMap['steam'].refresh()
 
     logInfo(
@@ -573,7 +556,6 @@ export default class SteamGameManager implements GameManager {
     const gameInfo = this.getGameInfo(appName)
     await removeShortcutsUtil(gameInfo)
     libraryManagerMap['steam'].installState(appName, false)
-    invalidateAvailability(appName)
     sendFrontendMessage('refreshLibrary', 'steam')
   }
 
@@ -598,40 +580,29 @@ export default class SteamGameManager implements GameManager {
       return false
     }
 
-    // Only query Aurelia for games that are actually in the Heroic Steam
-    // library. Running `available` on unknown app ids wastes requests and trips
-    // Steam's rate limit.
+    // Heroic only manages games in its own Steam library; ignore unknown ids.
     const info = libraryManagerMap['steam'].getGameInfo(appName)
     if (!info) {
       return false
     }
 
-    const cached = availabilityCache.get(appName)
-    if (cached && Date.now() - cached.time < AVAILABILITY_CACHE_TTL_MS) {
-      return cached.available
-    }
-
     try {
+      // `aurelia available <id>` is a local, offline check: it reads only the
+      // on-disk Steam files and never logs on to Steam, so it's safe to call
+      // freely per game (no caching needed) without hitting Steam's rate limit.
       const result = await runAurelia<{
+        app_id?: number
         available?: boolean
-        is_available?: boolean
-        status?: string
+        install_path?: string | null
       }>(['available', appName])
-      const available =
-        result.available ?? result.is_available ?? result.status === 'available'
-      availabilityCache.set(appName, { available, time: Date.now() })
-      return available
+      return Boolean(result.available)
     } catch (error) {
       logWarning(
         [`Unable to check availability for ${appName}`, describeError(error)],
         LogPrefix.Steam
       )
-      // Don't cache failures. Fall back to the last known value, otherwise a
-      // local presence check, so a rate-limited lookup never reports an
+      // Fall back to a local presence check so a failed lookup never reports an
       // installed game as unavailable.
-      if (cached) {
-        return cached.available
-      }
       return Boolean(
         info.is_installed &&
         info.install?.install_path &&
