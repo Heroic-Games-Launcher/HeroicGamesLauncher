@@ -104,7 +104,9 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       navigate('/#library')
     }
     storage.removeItem(appName)
-    window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: null }))
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: appName, newValue: null })
+    )
     if (partialInstallFolder) {
       clearInstallProgress(appName, runner)
     }

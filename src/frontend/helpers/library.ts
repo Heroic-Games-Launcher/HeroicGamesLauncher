@@ -90,7 +90,9 @@ async function install({
   // even if legendary crashes (not just when the user explicitly stops via UI)
   const partialInstallData = JSON.stringify({ folder: installPath })
   storage.setItem(appName, partialInstallData)
-  window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: partialInstallData }))
+  window.dispatchEvent(
+    new StorageEvent('storage', { key: appName, newValue: partialInstallData })
+  )
 
   return window.api.install({
     appName,
@@ -124,7 +126,9 @@ function handleStopInstallation(
         onClick: () => {
           const partialData = JSON.stringify({ ...progress, folder: path })
           storage.setItem(appName, partialData)
-          window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: partialData }))
+          window.dispatchEvent(
+            new StorageEvent('storage', { key: appName, newValue: partialData })
+          )
           window.api.cancelDownload(false)
         }
       },
@@ -133,7 +137,9 @@ function handleStopInstallation(
         onClick: () => {
           window.api.cancelDownload(true)
           storage.removeItem(appName)
-          window.dispatchEvent(new StorageEvent('storage', { key: appName, newValue: null }))
+          window.dispatchEvent(
+            new StorageEvent('storage', { key: appName, newValue: null })
+          )
           clearInstallProgress(appName, runner)
         }
       }
