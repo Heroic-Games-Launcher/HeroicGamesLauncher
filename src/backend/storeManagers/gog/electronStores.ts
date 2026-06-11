@@ -20,7 +20,10 @@ const configStore = new TypeCheckedStoreBackend('gogConfigStore', {
 })
 
 const apiInfoCache = new CacheStore<GamesDBData>('gog_api_info')
-const libraryStore = new CacheStore<GameInfo[], 'games'>('gog_library', 60 * 24 * 7)
+const libraryStore = new CacheStore<GameInfo[], 'games'>(
+  'gog_library',
+  60 * 24 * 7
+)
 const achievementStore = new CacheStore<GOGAchievement[]>(
   'gog_achievements',
   null
