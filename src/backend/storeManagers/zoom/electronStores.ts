@@ -15,7 +15,10 @@ const configStore = new TypeCheckedStoreBackend('zoomConfigStore', {
   cwd: 'zoom_store'
 })
 
-const libraryStore = new CacheStore<GameInfo[], 'games'>('zoom_library', null)
+const libraryStore = new CacheStore<GameInfo[], 'games'>(
+  'zoom_library',
+  60 * 24 * 7
+)
 
 const installInfoStore = new CacheStore<ZoomInstallInfo>('zoom_install_info')
 

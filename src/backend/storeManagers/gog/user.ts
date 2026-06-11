@@ -7,6 +7,7 @@ import { isOnline } from '../../online_monitor'
 import { GOGCredentials, UserData } from 'common/types/gog'
 import { libraryManagerMap } from '../index'
 import { clearCache } from 'backend/utils'
+import { GameConfig } from 'backend/game_config'
 import { app } from 'electron'
 import { gogdlAuthConfig } from './constants'
 
@@ -129,6 +130,7 @@ export class GOGUser {
 
   public static logout() {
     clearCache('gog')
+    GameConfig.evictAll()
     configStore.clear()
     if (existsSync(gogdlAuthConfig)) {
       unlinkSync(gogdlAuthConfig)

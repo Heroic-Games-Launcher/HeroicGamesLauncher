@@ -3,7 +3,10 @@ import { GameInfo } from 'common/types'
 import { basename, dirname, extname, join } from 'path'
 import { libraryManagerMap } from '../storeManagers'
 import { downloadFile } from 'backend/utils'
-import { createAbortController } from 'backend/utils/aborthandler/aborthandler'
+import {
+  createAbortController,
+  deleteAbortController
+} from 'backend/utils/aborthandler/aborthandler'
 import { heroicIconFolder as iconsFolder } from 'backend/constants/paths'
 
 function createImage(
@@ -29,8 +32,11 @@ function downloadImage(
       url: imageURL,
       dest: outputFilePath,
       abortSignal: createAbortController(imageURL).signal
+    }).finally(() => {
+      deleteAbortController(imageURL)
     })
   } catch (error) {
+    deleteAbortController(imageURL)
     return `Donwloading of ${imageURL} failed with:\n${error}`
   }
   return

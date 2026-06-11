@@ -6,7 +6,7 @@ import { NileInstallInfo } from 'common/types/nile'
 export const installStore = new CacheStore<NileInstallInfo>('nile_install_info')
 export const libraryStore = new CacheStore<GameInfo[], 'library'>(
   'nile_library',
-  null
+  60 * 24 * 7
 )
 
 export const configStore = new TypeCheckedStoreBackend('nileConfigStore', {

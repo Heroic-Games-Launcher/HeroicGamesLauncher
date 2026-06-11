@@ -87,16 +87,15 @@ describe('progress_bar', () => {
     })
 
     it('stops listening for progress updates', () => {
-      jest.spyOn(backendEvents, 'off')
+      jest.spyOn(backendEvents, 'removeAllListeners')
 
       sendGameStatusUpdate({
         appName: 'Test',
         status: 'done'
       })
 
-      expect(backendEvents.off).toBeCalledWith(
-        'progressUpdate-Test',
-        expect.any(Function)
+      expect(backendEvents.removeAllListeners).toBeCalledWith(
+        'progressUpdate-Test'
       )
     })
   })
