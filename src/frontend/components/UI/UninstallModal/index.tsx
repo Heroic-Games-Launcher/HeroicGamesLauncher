@@ -1,5 +1,6 @@
 import './index.scss'
 import React, { useContext, useEffect, useState } from 'react'
+import { clearInstallProgress } from 'frontend/state/InstallProgress'
 import {
   Dialog,
   DialogContent,
@@ -17,13 +18,15 @@ interface UninstallModalProps {
   runner: Runner
   onClose: () => void
   isDlc: boolean
+  partialInstallFolder?: string
 }
 
 const UninstallModal: React.FC<UninstallModalProps> = function ({
   appName,
   runner,
   onClose,
-  isDlc
+  isDlc,
+  partialInstallFolder
 }) {
   const [isNative, setIsNative] = useState(true)
   const [winePrefix, setWinePrefix] = useState('')
@@ -94,18 +97,26 @@ const UninstallModal: React.FC<UninstallModalProps> = function ({
       appName,
       runner,
       deletePrefixChecked,
-      deleteSettingsChecked
+      deleteSettingsChecked,
+      partialInstallFolder
     )
     if (runner === 'sideload' && location.pathname.match(/gamepage/)) {
       navigate('/#library')
     }
     storage.removeItem(appName)
+    window.dispatchEvent(
+      new StorageEvent('storage', { key: appName, newValue: null })
+    )
+    if (partialInstallFolder) {
+      clearInstallProgress(appName, runner)
+    }
   }
 
   const showWineCheckbox = !isNative && !isDlc
 
   // disallow uninstalling epic games if an epic game is being installed
-  if (installingEpicGame && runner === 'legendary') {
+  // partial install cleanup is exempt: the backend cancels the active download before deleting
+  if (installingEpicGame && runner === 'legendary' && !partialInstallFolder) {
     return (
       <>
         {showUninstallModal && (

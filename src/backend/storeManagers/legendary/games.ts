@@ -19,6 +19,7 @@ import {
   killPattern,
   moveOnUnix,
   moveOnWindows,
+  removeFolder,
   sendGameStatusUpdate,
   sendProgressUpdate,
   shutdownWine,
@@ -54,6 +55,7 @@ import { isOnline } from '../../online_monitor'
 import { showDialogBoxModalAuto } from '../../dialog/dialog'
 import { Catalog, Product } from 'common/types/epic-graphql'
 import { sendFrontendMessage } from '../../ipc'
+import { cancelDownloadForApp } from '../../downloadmanager/downloadqueue'
 import { GameManager, RemoveArgs } from 'common/types/game_manager'
 import {
   AllowedWineFlags,
@@ -737,10 +739,22 @@ export default class LegendaryGameManager implements GameManager {
     return { status: 'done' }
   }
 
-  async uninstall({ appName }: RemoveArgs): Promise<ExecResult> {
+  async uninstall({
+    appName,
+    partialInstallFolder
+  }: RemoveArgs): Promise<ExecResult> {
     const gameInfo = this.getGameInfo(appName)
     if (gameInfo.thirdPartyManagedApp) {
       await thirdParty.removeInstalledGame(appName)
+      return { stdout: '', stderr: '' }
+    }
+
+    if (!gameInfo.is_installed && partialInstallFolder) {
+      cancelDownloadForApp(appName)
+      if (gameInfo.folder_name) {
+        removeFolder(partialInstallFolder, gameInfo.folder_name)
+      }
+      sendFrontendMessage('refreshLibrary', 'legendary')
       return { stdout: '', stderr: '' }
     }
 

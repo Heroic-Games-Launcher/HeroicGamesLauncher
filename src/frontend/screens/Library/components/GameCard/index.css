@@ -70,6 +70,32 @@
   top: 35px; /* Offset if status is present */
 }
 
+.gameCard .partialInstallBadge {
+  position: absolute;
+  z-index: 5;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.65);
+  padding: var(--space-3xs);
+  border-radius: 4px;
+  color: var(--status-warning, var(--warning));
+  pointer-events: none;
+}
+
+.gameCard .partialInstallBadge svg {
+  font-size: 20px;
+}
+
+.gameCard:has(.gameCardStatus) .partialInstallBadge {
+  top: 35px;
+}
+
+.gameListItem .partialInstallBadge {
+  display: none;
+}
+
 .gameListItem .gameCardUpdateBadge {
   display: none;
 }

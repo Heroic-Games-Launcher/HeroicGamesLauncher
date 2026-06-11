@@ -11,6 +11,7 @@ import {
 import { TFunction } from 'i18next'
 import { getGameInfo } from './index'
 import { DialogModalOptions } from 'frontend/types'
+import { clearInstallProgress } from 'frontend/state/InstallProgress'
 
 const storage: Storage = window.localStorage
 
@@ -85,6 +86,14 @@ async function install({
     storage.removeItem(appName)
   }
 
+  // Store the install folder so partial installs can be detected and cleaned up
+  // even if legendary crashes (not just when the user explicitly stops via UI)
+  const partialInstallData = JSON.stringify({ folder: installPath })
+  storage.setItem(appName, partialInstallData)
+  window.dispatchEvent(
+    new StorageEvent('storage', { key: appName, newValue: partialInstallData })
+  )
+
   return window.api.install({
     appName,
     path: installPath,
@@ -115,9 +124,10 @@ function handleStopInstallation(
       {
         text: t('box.yes'),
         onClick: () => {
-          storage.setItem(
-            appName,
-            JSON.stringify({ ...progress, folder: path })
+          const partialData = JSON.stringify({ ...progress, folder: path })
+          storage.setItem(appName, partialData)
+          window.dispatchEvent(
+            new StorageEvent('storage', { key: appName, newValue: partialData })
           )
           window.api.cancelDownload(false)
         }
@@ -127,6 +137,10 @@ function handleStopInstallation(
         onClick: () => {
           window.api.cancelDownload(true)
           storage.removeItem(appName)
+          window.dispatchEvent(
+            new StorageEvent('storage', { key: appName, newValue: null })
+          )
+          clearInstallProgress(appName, runner)
         }
       }
     ]
