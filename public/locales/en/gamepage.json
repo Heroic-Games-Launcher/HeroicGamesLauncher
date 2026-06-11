@@ -208,6 +208,7 @@
     "label": {
         "game": {
             "not-installable-game": "Game is NOT Installable",
+            "partial-install": "Partial install on disk — right-click to clean up",
             "third-party-game": "Third-Party Game NOT Supported"
         },
         "launching": "Launching",
