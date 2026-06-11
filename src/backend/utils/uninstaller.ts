@@ -1,4 +1,5 @@
 import { GlobalConfig } from 'backend/config'
+import { GameConfig } from 'backend/game_config'
 import {
   defaultWinePrefix,
   fixesPath,
@@ -126,6 +127,7 @@ export const uninstallGameCallback = async (
     }
     removeFixFile(appName, runner)
 
+    GameConfig.evict(appName)
     notify({ title, body: i18next.t('notify.uninstalled') })
     logInfo('Finished uninstalling', LogPrefix.Backend)
   }

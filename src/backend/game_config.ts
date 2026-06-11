@@ -82,6 +82,14 @@ abstract class GameConfig {
    * @param version Config version to load file using.
    * @returns void
    */
+  public static evict(appName: string): void {
+    GameConfig.instances.delete(appName)
+  }
+
+  public static evictAll(): void {
+    GameConfig.instances.clear()
+  }
+
   private static reload(appName: string, version: GameConfigVersion): void {
     // Select loader to use.
     switch (version) {

@@ -45,7 +45,10 @@ import {
   get_vulkan_instance_version
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
-import { createAbortController } from '../utils/aborthandler/aborthandler'
+import {
+  createAbortController,
+  deleteAbortController
+} from '../utils/aborthandler/aborthandler'
 import { gameManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../ipc'
 import {
@@ -140,6 +143,8 @@ export async function installOrUpdateTool(tool: Tool) {
       type: 'ERROR'
     })
     return
+  } finally {
+    deleteAbortController(tool.name)
   }
 
   logInfo(`Downloaded ${tool.name}, extracting...`, LogPrefix.ToolInstaller)
