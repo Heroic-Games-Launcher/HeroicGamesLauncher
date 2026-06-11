@@ -755,6 +755,8 @@ addHandler(
   async (event, appName, runner, lang = 'en-US') => {
     if (runner === 'gog')
       return gameManagerMap['gog'].getAchievements(appName, lang)
+    if (runner === 'steam')
+      return gameManagerMap['steam'].getAchievements(appName, lang)
     return []
   }
 )

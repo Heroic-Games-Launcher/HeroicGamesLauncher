@@ -22,10 +22,26 @@ export interface SteamAccount {
  * A DLC for a Steam game, with whether the user owns it and whether its files
  * are currently installed. License-only DLC (no downloadable depot) is reported
  * as installed once owned, since there is nothing separate to download.
+ *
+ * `disabled` mirrors Steam's `DisabledDLC` flag in the base game's appmanifest:
+ * an owned DLC the user has turned off. It can be toggled with `aurelia
+ * enable`/`disable` (see {@link SteamPendingDlcChange}).
  */
 export interface SteamDLCInfo {
   appId: string
   title: string
   owned: boolean
   installed: boolean
+  disabled: boolean
+}
+
+/**
+ * A DLC enable/disable the user requested in Heroic but which hasn't been made
+ * permanent yet. Steam overwrites `DisabledDLC` from memory when it exits, so
+ * the change is re-applied with `aurelia ... --restart-steam` on the next Steam
+ * game launch to make it stick.
+ */
+export interface SteamPendingDlcChange {
+  appId: string
+  enable: boolean
 }

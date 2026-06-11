@@ -459,6 +459,28 @@ export interface AureliaLaunchOptionsResponse {
   launch_options: AureliaLaunchOption[]
 }
 
+/** One entry from `aurelia achievements <id> --json`. */
+interface AureliaAchievement {
+  achievement_id: string
+  achievement_key: string
+  name: string
+  description: string
+  visible?: boolean
+  image_url_unlocked?: string
+  image_url_locked?: string
+  rarity?: number
+  unlocked?: boolean
+  unlock_time?: number | null
+  date_unlocked?: string | null
+}
+
+export interface AureliaAchievementsResponse {
+  app_id: number
+  unlocked?: number
+  total?: number
+  achievements: AureliaAchievement[]
+}
+
 export interface AureliaAccount {
   // Aurelia prints the 64-bit SteamID as a JSON number; it exceeds JS's safe
   // integer range, so callers should coerce it to a string rather than rely on

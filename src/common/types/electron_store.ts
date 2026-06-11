@@ -19,7 +19,7 @@ import {
 import { UserData } from 'common/types/gog'
 import { NileUserData } from './nile'
 import { ZoomCredentials } from './zoom'
-import { SteamAccount } from './steam'
+import { SteamAccount, SteamPendingDlcChange } from './steam'
 
 export interface StoreStructure {
   configStore: {
@@ -89,6 +89,7 @@ export interface StoreStructure {
     steamId?: string
     username?: string
     accounts?: SteamAccount[]
+    pendingDlc?: SteamPendingDlcChange[]
   }
   nileConfigStore: {
     userData?: NileUserData

@@ -224,7 +224,8 @@ export default class SteamLibraryManager implements LibraryManager {
       appId: String(dlc.app_id),
       title: dlc.name || `DLC ${dlc.app_id}`,
       owned: !!dlc.owned,
-      installed: !!dlc.installed
+      installed: !!dlc.installed,
+      disabled: !!dlc.disabled
     }))
 
     // Installed first, then owned-but-not-installed, then not owned; alphabetical

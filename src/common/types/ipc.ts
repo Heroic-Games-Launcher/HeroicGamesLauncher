@@ -202,6 +202,7 @@ interface AsyncIPCFunctions {
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
   getSteamUserInfo: () => Promise<{ username: string } | undefined>
   getSteamDlcInfo: (appName: string) => Promise<SteamDLCInfo[]>
+  setSteamDlcEnabled: (dlcAppId: string, enabled: boolean) => Promise<void>
   isLoggedIn: () => boolean
   login: (sid: string) => Promise<{
     status: 'done' | 'failed'

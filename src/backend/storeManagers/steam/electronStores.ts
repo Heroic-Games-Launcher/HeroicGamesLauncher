@@ -24,9 +24,4 @@ const libraryStore = new CacheStore<GameInfo[], 'games'>('steam_library', null)
 // after the cache's normal lifespan.
 const extraInfoStore = new CacheStore<ExtraInfo>('steam_extra_info_v2')
 
-// `configStore` registers the `steamConfigStore` electron-store so the frontend
-// (TypeCheckedStoreFrontend) can read it over IPC; no backend module imports it,
-// so it's an intentionally unused export.
-// ts-prune-ignore-next
-export { configStore }
-export { installedGamesStore, libraryStore, extraInfoStore }
+export { configStore, installedGamesStore, libraryStore, extraInfoStore }

@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {
+  Block,
   CheckCircle,
-  Download,
   OpenInNew,
   ShoppingCart
 } from '@mui/icons-material'
@@ -12,10 +12,6 @@ import { SteamDLCInfo } from 'common/types/steam'
 
 const STEAM_CDN = 'https://cdn.cloudflare.steamstatic.com/steam/apps'
 const STEAM_STORE = 'https://store.steampowered.com/app'
-// Opens the parent game's Properties window in the Steam client, where DLC are
-// enabled/installed/removed. Steam has no reliable per-DLC install protocol, so
-// this is the canonical place to manage DLC.
-const STEAM_GAME_PROPERTIES = 'steam://gameproperties'
 
 interface Props {
   appName: string
@@ -25,18 +21,41 @@ const SteamDlcList = ({ appName }: Props) => {
   const { t } = useTranslation('gamepage')
   const navigate = useNavigate()
   const [dlcs, setDlcs] = useState<SteamDLCInfo[]>([])
+  // App ids currently mid-toggle, so their buttons can be disabled.
+  const [busy, setBusy] = useState<Set<string>>(new Set())
 
   const dlcStorePage = (dlcAppId: string) =>
     `/store-page?store-url=${encodeURIComponent(`${STEAM_STORE}/${dlcAppId}`)}`
 
-  // The status icon doubles as an action: owned DLC (installed or not) opens the
-  // game's DLC settings in Steam (to install/manage it); unowned DLC opens its
-  // store page to buy it.
-  const onStatusClick = (dlc: SteamDLCInfo) => {
-    if (dlc.owned) {
-      window.api.openExternalUrl(`${STEAM_GAME_PROPERTIES}/${appName}`)
-    } else {
+  const loadDlcs = useCallback(async () => {
+    try {
+      setDlcs(await window.api.getSteamDlcInfo(appName))
+    } catch {
+      setDlcs([])
+    }
+  }, [appName])
+
+  // The status icon doubles as an action: owned DLC toggles enabled/disabled
+  // (`aurelia enable`/`disable`), which takes effect on the next Steam game
+  // launch; unowned DLC opens its store page to buy it.
+  const onStatusClick = async (dlc: SteamDLCInfo) => {
+    if (!dlc.owned) {
       navigate(dlcStorePage(dlc.appId))
+      return
+    }
+    if (busy.has(dlc.appId)) {
+      return
+    }
+    setBusy((prev) => new Set(prev).add(dlc.appId))
+    try {
+      await window.api.setSteamDlcEnabled(dlc.appId, dlc.disabled)
+      await loadDlcs()
+    } finally {
+      setBusy((prev) => {
+        const next = new Set(prev)
+        next.delete(dlc.appId)
+        return next
+      })
     }
   }
 
@@ -59,16 +78,10 @@ const SteamDlcList = ({ appName }: Props) => {
     return null
   }
 
-  // Resolve a DLC's three possible states to an icon, style and tooltip:
-  // installed (checkmark), owned but not installed (download), not owned (shop).
+  // Resolve a DLC's state to an icon, style and tooltip: not owned (shop),
+  // disabled (click to enable), or enabled (click to disable). The toggle is
+  // applied on the next Steam game launch.
   const statusFor = (dlc: SteamDLCInfo) => {
-    if (dlc.installed) {
-      return {
-        className: 'installed',
-        icon: <CheckCircle />,
-        label: t('info.dlc.installed', 'Installed')
-      }
-    }
     if (!dlc.owned) {
       return {
         className: 'notBought',
@@ -76,10 +89,17 @@ const SteamDlcList = ({ appName }: Props) => {
         label: t('info.dlc.notBought', 'Not owned')
       }
     }
+    if (dlc.disabled) {
+      return {
+        className: 'notInstalled',
+        icon: <Block />,
+        label: t('info.dlc.disabled', 'Disabled — click to enable')
+      }
+    }
     return {
-      className: 'notInstalled',
-      icon: <Download />,
-      label: t('info.dlc.notInstalled', 'Not installed')
+      className: 'installed',
+      icon: <CheckCircle />,
+      label: t('info.dlc.enabled', 'Enabled — click to disable')
     }
   }
 
@@ -101,6 +121,7 @@ const SteamDlcList = ({ appName }: Props) => {
                 type="button"
                 className={`steamDlcStatus ${status.className}`}
                 onClick={() => onStatusClick(dlc)}
+                disabled={busy.has(dlc.appId)}
                 title={status.label}
                 aria-label={status.label}
               >

@@ -2,6 +2,7 @@ import { existsSync } from 'graceful-fs'
 import { GameConfig } from '../../game_config'
 import {
   ExtraInfo,
+  GameAchievement,
   GameInfo,
   GameSettings,
   ExecResult,
@@ -31,14 +32,15 @@ import { sendGameStatusUpdate } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
 import { GlobalConfig } from 'backend/config'
 import { libraryManagerMap } from '..'
-import { extraInfoStore } from './electronStores'
+import { configStore, extraInfoStore } from './electronStores'
 import { steamCdnImageBase, steamStoreAppUrl } from './constants'
 import {
   runAurelia,
   fetchAureliaInfo,
   parseAureliaJson,
   makeAureliaProgressHandler,
-  AureliaError
+  AureliaError,
+  type AureliaAchievementsResponse
 } from './aurelia'
 
 import type LogWriter from 'backend/logger/log_writer'
@@ -253,6 +255,113 @@ export default class SteamGameManager implements GameManager {
     }
   }
 
+  async getAchievements(
+    appName: string,
+    lang = 'en-US'
+  ): Promise<GameAchievement[]> {
+    if (!isSteamImportEnabled()) {
+      return []
+    }
+    try {
+      const res = await runAurelia<AureliaAchievementsResponse>([
+        'achievements',
+        appName,
+        '-l',
+        lang
+      ])
+      // Aurelia's achievement shape already lines up with Heroic's
+      // GameAchievement (= GOGAchievement); the GOG-only rarity-level fields
+      // have no Steam equivalent, so they're left blank.
+      return (res.achievements ?? []).map((a) => ({
+        achievement_id: a.achievement_id,
+        achievement_key: a.achievement_key,
+        visible: a.visible ?? true,
+        name: a.name,
+        description: a.description,
+        image_url_unlocked: a.image_url_unlocked ?? '',
+        image_url_locked: a.image_url_locked ?? '',
+        rarity: a.rarity ?? 0,
+        date_unlocked: a.date_unlocked ?? null,
+        rarity_level_description: '',
+        rarity_level_slug: ''
+      }))
+    } catch (error) {
+      logWarning(
+        [
+          `Unable to get Steam achievements for ${appName}`,
+          describeError(error)
+        ],
+        LogPrefix.Steam
+      )
+      return []
+    }
+  }
+
+  /**
+   * Enables or disables an owned DLC (`aurelia enable`/`disable <dlcAppId>`).
+   *
+   * The flag is flipped right away so the DLC list reflects it immediately, but
+   * Steam rewrites `DisabledDLC` from memory when it exits, so the change is
+   * also queued and re-applied with `--restart-steam` on the next Steam game
+   * launch (see {@link applyPendingDlcChanges}) to make it permanent.
+   */
+  async setDlcEnabled(dlcAppId: string, enabled: boolean): Promise<void> {
+    if (!isSteamImportEnabled()) {
+      return
+    }
+    const verb = enabled ? 'enable' : 'disable'
+    try {
+      await runAurelia([verb, dlcAppId])
+    } catch (error) {
+      logError(
+        [`Unable to ${verb} Steam DLC ${dlcAppId}`, describeError(error)],
+        LogPrefix.Steam
+      )
+      throw error
+    }
+
+    const pending = configStore
+      .get('pendingDlc', [])
+      .filter((change) => change.appId !== dlcAppId)
+    pending.push({ appId: dlcAppId, enable: enabled })
+    configStore.set('pendingDlc', pending)
+  }
+
+  /**
+   * Makes any queued DLC enable/disable permanent by re-applying it with
+   * `--restart-steam` (stop Steam → edit the manifest → start Steam). Called
+   * just before launching a Steam game, since that's a natural point to cycle
+   * Steam and the only reliable way to keep the `DisabledDLC` edits.
+   */
+  private async applyPendingDlcChanges(): Promise<void> {
+    const pending = configStore.get('pendingDlc', [])
+    if (!pending.length) {
+      return
+    }
+    logInfo(
+      `Applying ${pending.length} pending Steam DLC change(s) with a Steam restart`,
+      LogPrefix.Steam
+    )
+    for (const change of pending) {
+      try {
+        await runAurelia([
+          change.enable ? 'enable' : 'disable',
+          change.appId,
+          '--restart-steam'
+        ])
+      } catch (error) {
+        logWarning(
+          [
+            `Unable to apply pending DLC change for ${change.appId}`,
+            describeError(error)
+          ],
+          LogPrefix.Steam
+        )
+      }
+    }
+    configStore.delete('pendingDlc')
+  }
+
   /**
    * Runs one of Aurelia's streaming maintenance commands (install/update/verify/
    * move), forwarding its NDJSON `progress` events to the download manager and
@@ -404,6 +513,10 @@ export default class SteamGameManager implements GameManager {
       LogPrefix.Steam
     )
     await logWriter.logInfo(`Launching ${gameInfo.title} through Aurelia`)
+
+    // Make any queued DLC enable/disable permanent (it needs a Steam restart),
+    // then launch. Doing it here means the user isn't interrupted at toggle time.
+    await this.applyPendingDlcChanges()
 
     sendGameStatusUpdate({ appName, runner: 'steam', status: 'playing' })
 
