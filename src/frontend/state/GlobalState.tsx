@@ -43,7 +43,7 @@ import {
 } from '../helpers/electronStores'
 import { IpcRendererEvent } from 'electron'
 import { NileRegisterData } from 'common/types/nile'
-import { SteamAccount } from 'common/types/steam'
+import { SteamAccount, SteamLoginData } from 'common/types/steam'
 import useGlobalState from './GlobalStateV2'
 
 const storage: Storage = window.localStorage
@@ -711,10 +711,11 @@ class GlobalState extends PureComponent<Props> {
     window.location.reload()
   }
 
-  steamLogin = async (url: string) => {
-    console.log('logging steam')
-    const response = await window.api.authSteam(url)
-
+  // Shared post-login handling for both the credentials and QR Steam flows.
+  private finishSteamLogin = async (response: {
+    status: 'done' | 'error'
+    error?: string
+  }) => {
     if (response.status === 'done') {
       const userInfo = await window.api.getSteamUserInfo()
       this.setState({
@@ -730,7 +731,19 @@ class GlobalState extends PureComponent<Props> {
       this.handleSuccessfulLogin('steam')
     }
 
-    return response.status
+    return response
+  }
+
+  steamLogin = async (credentials: SteamLoginData) => {
+    console.log('logging steam')
+    const response = await window.api.loginSteam(credentials)
+    return this.finishSteamLogin(response)
+  }
+
+  steamLoginQr = async () => {
+    console.log('logging steam (QR)')
+    const response = await window.api.loginSteamQr()
+    return this.finishSteamLogin(response)
   }
 
   steamLogout = async () => {
@@ -1292,6 +1305,7 @@ class GlobalState extends PureComponent<Props> {
             library: this.state.steam.enabled ? steam.library : [],
             username: this.state.steam.enabled ? steam.username : undefined,
             login: this.steamLogin,
+            loginQr: this.steamLoginQr,
             logout: this.steamLogout,
             enabled: this.state.steam.enabled,
             users: this.state.steam.users,

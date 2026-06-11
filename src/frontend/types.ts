@@ -17,7 +17,7 @@ import {
   InstallInfo
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
-import { SteamAccount } from 'common/types/steam'
+import { SteamAccount, SteamLoginData } from 'common/types/steam'
 
 export type Category =
   | 'all'
@@ -100,7 +100,10 @@ export interface ContextType {
   steam: {
     library: GameInfo[]
     username?: string
-    login: (url: string) => Promise<string>
+    login: (
+      credentials: SteamLoginData
+    ) => Promise<{ status: 'done' | 'error'; error?: string }>
+    loginQr: () => Promise<{ status: 'done' | 'error'; error?: string }>
     logout: () => Promise<void>
     enabled: boolean
     users: SteamAccount[]

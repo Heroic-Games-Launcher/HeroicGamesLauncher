@@ -33,7 +33,8 @@ const initialContext: ContextType = {
   },
   steam: {
     library: [],
-    login: async () => Promise.resolve(''),
+    login: async () => Promise.resolve({ status: 'error' as const }),
+    loginQr: async () => Promise.resolve({ status: 'error' as const }),
     logout: async () => Promise.resolve(),
     enabled: false,
     users: [],

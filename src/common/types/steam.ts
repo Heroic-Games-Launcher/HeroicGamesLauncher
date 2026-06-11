@@ -3,8 +3,19 @@ export interface SteamCredentials {
 }
 
 /**
- * A Steam account the user has logged into via Steam OpenID. Heroic supports
- * stacking multiple accounts; each one contributes its owned library.
+ * Credentials collected by Heroic's Steam login form and handed to
+ * `aurelia login`. `guard` is an optional Steam Guard code.
+ */
+export interface SteamLoginData {
+  username: string
+  password: string
+  guard?: string
+}
+
+/**
+ * A Steam account the user is signed into via Aurelia. Kept as an array
+ * elsewhere to match Heroic's multi-account shape, though Aurelia is
+ * single-session.
  */
 export interface SteamAccount {
   steamId: string

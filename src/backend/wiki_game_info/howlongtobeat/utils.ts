@@ -166,21 +166,34 @@ export async function getHowLongToBeat(
   gameInfo: GameInfo,
   hltbId?: string
 ): Promise<HeroicHowLongToBeatEntry | null> {
-  const gameExtraInfo = await gameManagerMap[gameInfo.runner].getExtraInfo(
-    gameInfo.app_name
-  )
-  if (gameInfo.runner == 'gog' && gameExtraInfo.storeUrl) {
-    logInfo(
-      `Getting HowLongToBeat data for ${title} ${gameInfo.app_name} - ${gameInfo.runner}`,
-      LogPrefix.ExtraGameInfo
+  // Only GOG derives HLTB data from a store URL. Fetch its `getExtraInfo`
+  // lazily here so other runners aren't queried for it - in particular Steam,
+  // whose getExtraInfo runs the rate-limited `aurelia info` and would otherwise
+  // fire for every library card.
+  let gogHandled = false
+  if (gameInfo.runner == 'gog') {
+    const gameExtraInfo = await gameManagerMap['gog'].getExtraInfo(
+      gameInfo.app_name
     )
+    if (gameExtraInfo.storeUrl) {
+      gogHandled = true
+      logInfo(
+        `Getting HowLongToBeat data for ${title} ${gameInfo.app_name} - ${gameInfo.runner}`,
+        LogPrefix.ExtraGameInfo
+      )
 
-    const gameData = await getGogHLTBGameData(gameInfo, gameExtraInfo)
-    if (gameData) {
-      return gameData
+      const gameData = await getGogHLTBGameData(gameInfo, gameExtraInfo)
+      if (gameData) {
+        return gameData
+      }
+      logInfo(
+        `HLTB ID ${hltbId} not found for ${title}`,
+        LogPrefix.ExtraGameInfo
+      )
     }
-    logInfo(`HLTB ID ${hltbId} not found for ${title}`, LogPrefix.ExtraGameInfo)
-  } else if (hltbId) {
+  }
+
+  if (!gogHandled && hltbId) {
     logInfo(
       `Getting HowLongToBeat data for ${title}${hltbId ? ` (ID: ${hltbId})` : ''} - ${gameInfo.runner}`,
       LogPrefix.ExtraGameInfo

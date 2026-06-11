@@ -505,6 +505,26 @@ function getNileBin(): { dir: string; bin: string } {
   return splitPathAndName(fixAsarPath(defaultNilePath))
 }
 
+let defaultAureliaPath: string | undefined = undefined
+function getAureliaBin(): { dir: string; bin: string } {
+  const settings = GlobalConfig.get().getSettings()
+  if (settings?.altAureliaBin) {
+    return splitPathAndName(settings.altAureliaBin)
+  }
+
+  if (!defaultAureliaPath) defaultAureliaPath = archSpecificBinary('aurelia')
+
+  const bundledPath = fixAsarPath(defaultAureliaPath)
+  // Aurelia is a third-party CLI that may not be bundled with Heroic. When the
+  // bundled binary is missing, fall back to a system-wide `aurelia` on PATH so
+  // a user-installed copy still works.
+  if (!existsSync(bundledPath)) {
+    return { dir: '', bin: isWindows ? 'aurelia.exe' : 'aurelia' }
+  }
+
+  return splitPathAndName(bundledPath)
+}
+
 export function createNecessaryFolders() {
   const defaultFolders = [gamesConfigPath, heroicIconFolder]
 
@@ -1700,6 +1720,7 @@ export {
   getGOGdlBin,
   getCometBin,
   getNileBin,
+  getAureliaBin,
   formatEpicStoreUrl,
   getSteamRuntime,
   constructAndUpdateRPC,
@@ -1719,6 +1740,7 @@ export {
   sendGameStatusUpdate,
   sendProgressUpdate,
   calculateEta,
+  formatTime,
   extractFiles,
   axiosClient,
   parseSize

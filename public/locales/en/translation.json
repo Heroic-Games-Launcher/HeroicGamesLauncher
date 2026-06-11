@@ -441,6 +441,7 @@
         "show_favourites_only": "Show Favourites only",
         "show_hidden": "Show Hidden",
         "show_installed_only": "Show Installed only",
+        "show_steam_owned_only": "Show Steam owned games only",
         "show_support_offline_only": "Show offline-supported only",
         "show_third_party_managed_only": "Show third-party managed only",
         "show_updates_only": "Show games with updates only",
@@ -592,8 +593,9 @@
         "gog": "GOG Login",
         "message": "Login with your platform. You can login to more than one platform at the same time.",
         "old-mac": "Your macOS version is {{version}}. macOS 12 or newer is required to log in.",
-        "zoom": "Zoom Login",
-        "steam": "Steam Login"
+        "steam": "Steam Login",
+        "steam_add": "Add Steam Account",
+        "zoom": "Zoom Login"
     },
     "message": {
         "sync": "Sync Complete",
@@ -816,6 +818,7 @@
             "cometSupport": "Comet support",
             "enableHelp": "Help component",
             "enableNewDesign": "New design",
+            "steamImport": "Steam library integration",
             "zoomPlatform": "Zoom Platform support (only Linux)"
         },
         "frameless-window": {
@@ -1039,6 +1042,7 @@
             }
         },
         "systemInformation": {
+            "aureliaVersion": "Aurelia: {{aureliaVersion}}",
             "cometVersion": "Comet: {{cometVersion}}",
             "copyToClipboard": "Copy to clipboard",
             "cpu": "CPU:",
@@ -1073,6 +1077,8 @@
         "preparing_login": "Preparing Login... ",
         "processing": "Processing files, please wait"
     },
+    "Steam": "Steam",
+    "steam-store": "Steam Store",
     "steamgriddb": {
         "error": {
             "grids": "Failed to fetch grids",
@@ -1086,7 +1092,6 @@
             "title": "SteamGridDB Covers"
         }
     },
-    "steam-store": "Steam Store",
     "store": "Epic Store",
     "stores": "Stores",
     "title": {

@@ -103,6 +103,7 @@ export interface AppSettings extends GameSettings {
   altCometBin: string
   altLegendaryBin: string
   altNileBin: string
+  altAureliaBin: string
   autoUpdateGames: boolean
   checkForUpdatesOnStartup: boolean
   checkUpdatesInterval: number

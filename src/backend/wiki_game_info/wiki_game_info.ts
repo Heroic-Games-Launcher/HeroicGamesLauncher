@@ -13,47 +13,35 @@ import { isLinux, isMac } from 'backend/constants/environment'
 import { gameManagerMap } from 'backend/storeManagers'
 
 /**
- * Builds the "wiki" info for a Steam game. PCGamingWiki (which works again after
- * the User-Agent fix) is the primary source - it provides a portrait cover, the
- * HowLongToBeat ID and review scores - and Steam's own store API fills in
- * anything missing (score, genres, release date and a fallback cover). Results
- * are mapped into the same shape the UI reads from PCGamingWiki, so no frontend
- * changes are needed.
+ * Builds the "wiki" info for a Steam game from PCGamingWiki (portrait cover,
+ * HowLongToBeat ID, review scores).
+ *
+ * This intentionally does NOT call the Steam game manager's `getExtraInfo`
+ * (which runs `aurelia info`, a rate-limited Steam request): the library's
+ * GameCards call this for their cover fallback, so doing so would fire
+ * `aurelia info` for every visible Steam game. The full Steam store details
+ * (description, genres, requirements, score, artwork) are fetched separately by
+ * the game-details page via `getExtraInfo`, so `aurelia info` only runs when a
+ * game is actually opened.
  */
 async function getSteamWikiInfo(
   title: string,
   appName: string
 ): Promise<WikiInfo> {
   const gameInfo = gameManagerMap['steam'].getGameInfo(appName)
-  const extraInfo = await gameManagerMap['steam'].getExtraInfo(appName)
 
   const pcgw = await getInfoFromPCGamingWiki(title)
-
-  const hasScore = (score: { score: string } | undefined) =>
-    !!score && !!score.score
-  const hasList = (list: string[] | undefined) =>
-    !!list && list.some((entry) => entry !== '')
 
   const pcgamingwiki: PCGamingWikiInfo = {
     steamID: pcgw?.steamID || appName,
     howLongToBeatID: pcgw?.howLongToBeatID || '',
-    // Prefer PCGamingWiki's Metacritic (it has a real slug to link to);
-    // otherwise use Steam's score with an empty slug (UI then title-searches).
-    metacritic: hasScore(pcgw?.metacritic)
-      ? pcgw!.metacritic
-      : { score: extraInfo.score ?? '', urlid: '' },
+    metacritic: pcgw?.metacritic ?? { score: '', urlid: '' },
     opencritic: pcgw?.opencritic ?? { score: '', urlid: '' },
     igdb: pcgw?.igdb ?? { score: '', urlid: '' },
     direct3DVersions: pcgw?.direct3DVersions ?? [],
-    genres: hasList(pcgw?.genres) ? pcgw!.genres : (extraInfo.genres ?? []),
-    releaseDate: hasList(pcgw?.releaseDate)
-      ? pcgw!.releaseDate
-      : extraInfo.releaseDate
-        ? [extraInfo.releaseDate]
-        : [],
-    // Prefer PCGamingWiki's portrait cover; fall back to Steam's (landscape)
-    // store image when the game has no PCGamingWiki cover.
-    cover: pcgw?.cover || extraInfo.cover || undefined
+    genres: pcgw?.genres ?? [],
+    releaseDate: pcgw?.releaseDate ?? [],
+    cover: pcgw?.cover || undefined
   }
 
   const howlongtobeat = await getHowLongToBeat(

@@ -8,6 +8,6 @@ addHandler('getSteamDlcInfo', async (_e, appName) =>
   libraryManagerMap['steam'].getDLCInfo(appName)
 )
 
-addListener('logoutSteamAccount', (_e, steamId) =>
-  SteamUser.logoutAccount(steamId)
-)
+addListener('logoutSteamAccount', (_e, steamId) => {
+  void SteamUser.logoutAccount(steamId)
+})

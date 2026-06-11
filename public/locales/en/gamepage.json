@@ -92,10 +92,10 @@
         "remove_from_recent": "Remove From Recent",
         "run-exe-first": "Run Installer First",
         "running-setup": "Running Setup",
-        "steamStore": "Open Steam Page",
         "sideload": {
             "edit": "Edit App/Game"
         },
+        "steamStore": "Open Steam Page",
         "unhide_game": "Unhide Game",
         "uninstall": "Uninstall",
         "update": "Update"
@@ -228,6 +228,7 @@
         "saves": {
             "syncing": "Syncing Saves"
         },
+        "steam-family-share": "Steam Family Sharing",
         "winetricks": "Installing Winetricks Packages"
     },
     "launch": {

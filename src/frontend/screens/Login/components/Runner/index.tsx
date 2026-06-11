@@ -15,6 +15,10 @@ interface RunnerProps {
   logoutAction: () => any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   alternativeLoginAction?: () => any
+  // When provided, clicking the primary login button runs this instead of
+  // navigating to `loginUrl` (used by runners that log in via a local form
+  // rather than an embedded webview, e.g. Steam through Aurelia).
+  onLogin?: () => void
   buttonText: string
   disabled: boolean
 }
@@ -35,6 +39,11 @@ export default function Runner(props: RunnerProps) {
 
   function handleLogin() {
     if (props.disabled) {
+      return
+    }
+
+    if (props.onLogin) {
+      props.onLogin()
       return
     }
 

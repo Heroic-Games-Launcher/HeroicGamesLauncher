@@ -10,4 +10,3 @@ sign/
 signatures/version1/cla.json
 playwright-report
 pnpm-lock.yaml
-src/backend/storeManagers/steam/steammessages.ts

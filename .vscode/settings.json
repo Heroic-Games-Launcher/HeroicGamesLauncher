@@ -3,5 +3,13 @@
   "prettier.configPath": "${fileDirname}/../.prettierrc.json",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "files.watcherExclude": {
+    "**/dist/**": true,
+    "**/build/**": true
+  },
+  "search.exclude": {
+    "**/dist": true,
+    "**/build": true
+  }
 }

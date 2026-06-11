@@ -836,15 +836,29 @@ addHandler('authZoom', async (event, url) => {
 addListener('logoutZoom', () => ZoomUser.logout())
 addHandler('getZoomUserInfo', async () => ZoomUser.getUserDetails())
 
-addHandler('authSteam', async (event, url) => {
-  const login = await SteamUser.login(url)
+addHandler('loginSteam', async (event, credentials) => {
+  const login = await SteamUser.login(credentials)
   if (login.status === 'done') {
     await SteamUser.getUserDetails()
   }
   return login
 })
 
-addListener('logoutSteam', () => SteamUser.logout())
+addHandler('loginSteamQr', async () => {
+  const login = await SteamUser.loginQr()
+  if (login.status === 'done') {
+    await SteamUser.getUserDetails()
+  }
+  return login
+})
+
+addListener('cancelSteamQrLogin', () => {
+  SteamUser.cancelQrLogin()
+})
+
+addListener('logoutSteam', () => {
+  void SteamUser.logout()
+})
 addHandler('getSteamUserInfo', async () => SteamUser.getUserDetails())
 
 addHandler('getAlternativeWine', async () =>

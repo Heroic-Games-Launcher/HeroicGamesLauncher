@@ -14,6 +14,7 @@ import SteamLogo from 'frontend/assets/steam-logo.svg?react'
 import { LanguageSelector, UpdateComponent } from '../../components/UI'
 import { FlagPosition } from '../../components/UI/LanguageSelector'
 import SIDLogin from './components/SIDLogin'
+import SteamLogin from './components/SteamLogin'
 import ContextProvider from '../../state/ContextProvider'
 import { useAwaited } from '../../hooks/useAwaited'
 import { hasHelp } from 'frontend/hooks/hasHelp'
@@ -38,6 +39,7 @@ export default React.memo(function NewLogin() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [showSidLogin, setShowSidLogin] = useState(false)
+  const [showSteamLogin, setShowSteamLogin] = useState(false)
   const [isEpicLoggedIn, setIsEpicLoggedIn] = useState(Boolean(epic.username))
   const [isGogLoggedIn, setIsGogLoggedIn] = useState(Boolean(gog.username))
   const [isAmazonLoggedIn, setIsAmazonLoggedIn] = useState(
@@ -92,6 +94,13 @@ export default React.memo(function NewLogin() {
         <SIDLogin
           backdropClick={() => {
             setShowSidLogin(false)
+          }}
+        />
+      )}
+      {showSteamLogin && (
+        <SteamLogin
+          backdropClick={() => {
+            setShowSteamLogin(false)
           }}
         />
       )}
@@ -173,6 +182,7 @@ export default React.memo(function NewLogin() {
                   isLoggedIn={false}
                   user={undefined}
                   logoutAction={steam.logout}
+                  onLogin={() => setShowSteamLogin(true)}
                   disabled={oldMac}
                 />
                 {steam.users.map((account) => (
