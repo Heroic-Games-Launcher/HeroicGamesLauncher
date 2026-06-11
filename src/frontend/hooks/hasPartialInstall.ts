@@ -22,6 +22,16 @@ export function hasPartialInstall(
     setPartialInstallFolder(getFolder())
   }, [appName, isInstalled])
 
+  useEffect(() => {
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === appName) {
+        setPartialInstallFolder(getFolder())
+      }
+    }
+    window.addEventListener('storage', handleStorage)
+    return () => window.removeEventListener('storage', handleStorage)
+  }, [appName, isInstalled])
+
   return {
     hasPartialInstall: !!partialInstallFolder,
     partialInstallFolder
