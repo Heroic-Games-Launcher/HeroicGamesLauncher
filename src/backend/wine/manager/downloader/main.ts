@@ -302,8 +302,8 @@ async function installVersion({
   })
 
   // Check if download checksum is correct
-  const downloadChecksum = await hashFile(tarFile)
   if (sourceChecksum) {
+    const downloadChecksum = await hashFile(tarFile)
     if (!sourceChecksum.includes(downloadChecksum)) {
       unlinkFile(tarFile)
       throw new Error('Checksum verification failed')
