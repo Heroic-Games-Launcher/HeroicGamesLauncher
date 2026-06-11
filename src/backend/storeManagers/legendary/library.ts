@@ -58,7 +58,7 @@ let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
 // Timestamp (ms) of the last successful `legendary list` run; used to skip
 // redundant calls in listUpdateableGames when refresh just ran.
-const LIST_TTL_MS = 60 * 1000
+const LIST_TTL_MS = 30 * 1000
 let lastLegendaryListTimestamp = 0
 
 export default class LegendaryLibraryManager implements LibraryManager {
