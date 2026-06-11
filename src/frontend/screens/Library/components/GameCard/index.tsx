@@ -489,7 +489,7 @@ const GameCard = ({
               {t('status.hasUpdates')}
             </span>
           )}
-          {hasPartialInstall && !isInstalled && (
+          {hasPartialInstall && !isInstalled && !isInstalling && !isQueued && (
             <span
               className="partialInstallBadge"
               title={t(
