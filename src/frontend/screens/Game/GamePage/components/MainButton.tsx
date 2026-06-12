@@ -17,8 +17,6 @@ import {
 import classNames from 'classnames'
 import { DownloadManagerState, GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
-import { hasProgress } from 'frontend/hooks/hasProgress'
-import { handleStopInstallation } from 'frontend/helpers/library'
 
 interface Props {
   gameInfo: GameInfo
@@ -33,7 +31,6 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { is } = useContext(GameContext)
   const { showDialogModal } = useContext(ContextProvider)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
-  const [progress] = hasProgress(gameInfo.app_name, gameInfo.runner)
 
   // Keep track of the Download Manager state so the button can react to the
   // real download status. When a download is paused the backend reports the
@@ -85,16 +82,17 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   }
 
   const handleCancelDownload = () => {
-    const path =
-      gameInfo.install.install_path || gameInfo.folder_name || 'default'
-    handleStopInstallation(
-      gameInfo.app_name,
-      path,
-      t,
-      progress,
-      gameInfo.runner,
-      showDialogModal
-    )
+    showDialogModal({
+      title: t('gamepage:box.stopInstall.title'),
+      message: t('gamepage:box.stopInstall.message'),
+      buttons: [
+        { text: t('gamepage:box.stopInstall.keepInstalling') },
+        {
+          text: t('button.cancel'),
+          onClick: () => window.api.cancelDownload(false)
+        }
+      ]
+    })
   }
   const disabledPlayButtons =
     is.reparing ||
@@ -258,7 +256,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
           </button>
           <button
             onClick={handleCancelDownload}
-            className={'button mainBtn outline'}
+            className={'button mainBtn is-secondary'}
           >
             <span className="buttonWithIcon">
               <Stop data-icon="stop" />
