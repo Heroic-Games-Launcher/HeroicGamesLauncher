@@ -861,6 +861,7 @@
                 "heroic": "General Heroic log",
                 "legendary": "Epic Games / Legendary log",
                 "nile": "Amazon / Nile log",
+                "steam": "Steam / Aurelia log",
                 "zoom": "Zoom log"
             },
             "instructions": "Join our Discord and look for the \"#-support\" section. Read the pinned \"Read Me First | Frequently Asked Questions\" thread and follow the instructions to share these logs and any relevant information about your problem.",

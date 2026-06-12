@@ -80,7 +80,7 @@ export default function LogSettings() {
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 
-  const { epic, gog, amazon, zoom, sideloadedLibrary } =
+  const { epic, gog, amazon, zoom, steam, sideloadedLibrary } =
     useContext(ContextProvider)
   const [installedGames, setInstalledGames] = useState<GameInfo[]>([])
 
@@ -151,6 +151,8 @@ export default function LogSettings() {
       return t('setting.log.descriptiveNames.nile', 'Amazon / Nile log')
     if (showLogOf.runner === 'zoom')
       return t('setting.log.descriptiveNames.zoom', 'Zoom log')
+    if (showLogOf.runner === 'steam')
+      return t('setting.log.descriptiveNames.steam', 'Steam / Aurelia log')
     return ''
   }, [showLogOf, installedGames, t])
 
@@ -164,6 +166,9 @@ export default function LogSettings() {
     if (zoom.enabled) {
       baseFiles.push({ title: 'Zoom', args: { runner: 'zoom' } })
     }
+    if (steam.enabled) {
+      baseFiles.push({ title: 'Aurelia', args: { runner: 'steam' } })
+    }
     const logsForInstalledGames = installedGames.map((game) => ({
       title: game.overrides?.title || game.title,
       args: {
@@ -172,7 +177,7 @@ export default function LogSettings() {
       }
     }))
     return baseFiles.concat(logsForInstalledGames)
-  }, [installedGames, zoom.enabled])
+  }, [installedGames, zoom.enabled, steam.enabled])
 
   return (
     <>
