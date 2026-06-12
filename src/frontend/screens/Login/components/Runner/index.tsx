@@ -15,6 +15,8 @@ interface RunnerProps {
   logoutAction: () => any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   alternativeLoginAction?: () => any
+  addAccountAction?: () => void | Promise<void>
+  addAccountText?: string
   buttonText: string
   disabled: boolean
 }
@@ -82,6 +84,18 @@ export default function Runner(props: RunnerProps) {
               }}
             >
               {t('userselector.logout', 'Logout')}
+            </div>
+          )}
+          {props.isLoggedIn && props.addAccountAction && (
+            <div
+              className="runnerLogin addAccount"
+              onClick={() => {
+                if (!props.disabled) {
+                  void props.addAccountAction?.()
+                }
+              }}
+            >
+              {props.addAccountText}
             </div>
           )}
         </div>

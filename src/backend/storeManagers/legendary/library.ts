@@ -81,6 +81,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
    * Loads all of the user's games into `allGames`
    */
   loadGamesInAccount() {
+    allGames.clear()
     if (!existsSync(legendaryMetadata)) {
       return
     }
@@ -174,6 +175,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
     await this.refreshLegendary()
     this.loadGamesInAccount()
     this.refreshInstalled()
+    library.clear()
 
     try {
       await this.loadAll()
@@ -701,7 +703,7 @@ export default class LegendaryLibraryManager implements LibraryManager {
     }
 
     // if not on a SNAP environment, set the XDG_CONFIG_HOME to the same location as the config file
-    if (!process.env.SNAP) {
+    if (!process.env.SNAP && !options.env.LEGENDARY_CONFIG_PATH) {
       options.env.LEGENDARY_CONFIG_PATH = legendaryConfigPath
     }
 
