@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import GameContext from '../../GameContext'
@@ -15,7 +15,7 @@ import {
   Warning
 } from '@mui/icons-material'
 import classNames from 'classnames'
-import { DownloadManagerState, GameInfo } from 'common/types'
+import { GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
 
 interface Props {
@@ -32,49 +32,12 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { showDialogModal } = useContext(ContextProvider)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
 
-  // Keep track of the Download Manager state so the button can react to the
-  // real download status. When a download is paused the backend reports the
-  // game status as "done", so `is.installing`/`is.updating` are no longer
-  // reliable on their own to know if there's an ongoing (paused) download.
-  const [dmState, setDmState] = useState<DownloadManagerState>('idle')
-  const [currentDownloadAppName, setCurrentDownloadAppName] = useState<string>()
-
-  useEffect(() => {
-    window.api
-      .getDMQueueInformation()
-      .then(({ elements, state }) => {
-        setCurrentDownloadAppName(elements[0]?.params.appName)
-        setDmState(state)
-      })
-      .catch((error) => {
-        console.error('Failed to get DM queue information:', error)
-      })
-
-    const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
-      (e, elements, state) => {
-        setCurrentDownloadAppName(elements[0]?.params.appName)
-        setDmState(state)
-      }
-    )
-
-    return () => {
-      removeHandleDMQueueInformation()
-    }
-  }, [])
-
   const is_installed = gameInfo.is_installed
 
-  // This game is the one currently being processed by the Download Manager
-  const isCurrentDownload = currentDownloadAppName === gameInfo.app_name
-  const isDownloadPaused = dmState === 'paused'
-
-  // Show the pause/cancel controls while the game is actively downloading or
-  // while its download is the current (paused) one in the queue.
-  const showDownloadControls =
-    is.installing || is.updating || (isCurrentDownload && isDownloadPaused)
+  const showDownloadControls = is.installing || is.updating || is.downloadPaused
 
   const handlePauseResume = () => {
-    if (isDownloadPaused) {
+    if (is.downloadPaused) {
       window.api.resumeCurrentDownload()
     } else {
       window.api.pauseCurrentDownload()
@@ -242,7 +205,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             autoFocus={true}
             className={classNames('button', 'is-tertiary', 'mainBtn')}
           >
-            {isDownloadPaused ? (
+            {is.downloadPaused ? (
               <span className="buttonWithIcon">
                 <PlayArrow data-icon="play" />
                 {t('queue.label.resume', 'Resume download')}
