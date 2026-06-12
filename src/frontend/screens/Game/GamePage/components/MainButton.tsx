@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
 import GameContext from '../../GameContext'
+import ContextProvider from 'frontend/state/ContextProvider'
 import {
   ArrowBackIosNew,
   Cancel,
@@ -14,8 +15,10 @@ import {
   Warning
 } from '@mui/icons-material'
 import classNames from 'classnames'
-import { GameInfo } from 'common/types'
+import { DownloadManagerState, GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
+import { hasProgress } from 'frontend/hooks/hasProgress'
+import { handleStopInstallation } from 'frontend/helpers/library'
 
 interface Props {
   gameInfo: GameInfo
@@ -28,9 +31,71 @@ interface Props {
 const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
+  const { showDialogModal } = useContext(ContextProvider)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
+  const [progress] = hasProgress(gameInfo.app_name, gameInfo.runner)
+
+  // Keep track of the Download Manager state so the button can react to the
+  // real download status. When a download is paused the backend reports the
+  // game status as "done", so `is.installing`/`is.updating` are no longer
+  // reliable on their own to know if there's an ongoing (paused) download.
+  const [dmState, setDmState] = useState<DownloadManagerState>('idle')
+  const [currentDownloadAppName, setCurrentDownloadAppName] = useState<string>()
+
+  useEffect(() => {
+    window.api
+      .getDMQueueInformation()
+      .then(({ elements, state }) => {
+        setCurrentDownloadAppName(elements[0]?.params.appName)
+        setDmState(state)
+      })
+      .catch((error) => {
+        console.error('Failed to get DM queue information:', error)
+      })
+
+    const removeHandleDMQueueInformation = window.api.handleDMQueueInformation(
+      (e, elements, state) => {
+        setCurrentDownloadAppName(elements[0]?.params.appName)
+        setDmState(state)
+      }
+    )
+
+    return () => {
+      removeHandleDMQueueInformation()
+    }
+  }, [])
 
   const is_installed = gameInfo.is_installed
+
+  // This game is the one currently being processed by the Download Manager
+  const isCurrentDownload = currentDownloadAppName === gameInfo.app_name
+  const isDownloadPaused = dmState === 'paused'
+
+  // Show the pause/cancel controls while the game is actively downloading or
+  // while its download is the current (paused) one in the queue.
+  const showDownloadControls =
+    is.installing || is.updating || (isCurrentDownload && isDownloadPaused)
+
+  const handlePauseResume = () => {
+    if (isDownloadPaused) {
+      window.api.resumeCurrentDownload()
+    } else {
+      window.api.pauseCurrentDownload()
+    }
+  }
+
+  const handleCancelDownload = () => {
+    const path =
+      gameInfo.install.install_path || gameInfo.folder_name || 'default'
+    handleStopInstallation(
+      gameInfo.app_name,
+      path,
+      t,
+      progress,
+      gameInfo.runner,
+      showDialogModal
+    )
+  }
   const disabledPlayButtons =
     is.reparing ||
     is.moving ||
@@ -168,6 +233,41 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
   const handleAltLaunch = async () => {
     setVerboseLogs(!verboseLogs)
     await handlePlay(gameInfo)
+  }
+
+  if (showDownloadControls) {
+    return (
+      <div className="buttonsWrapper">
+        <span className="installButtons">
+          <button
+            onClick={handlePauseResume}
+            autoFocus={true}
+            className={classNames('button', 'is-tertiary', 'mainBtn')}
+          >
+            {isDownloadPaused ? (
+              <span className="buttonWithIcon">
+                <PlayArrow data-icon="play" />
+                {t('queue.label.resume', 'Resume download')}
+              </span>
+            ) : (
+              <span className="buttonWithIcon">
+                <Pause />
+                {t('queue.label.pause', 'Pause download')}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={handleCancelDownload}
+            className={'button mainBtn outline'}
+          >
+            <span className="buttonWithIcon">
+              <Stop data-icon="stop" />
+              {t('button.cancel')}
+            </span>
+          </button>
+        </span>
+      </div>
+    )
   }
 
   return (
