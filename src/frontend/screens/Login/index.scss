@@ -149,6 +149,102 @@
   gap: var(--login-padding);
 }
 
+.epicAccountsManager {
+  width: 100%;
+  background-color: var(--input-background);
+  border-radius: var(--space-xs);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: var(--space-md);
+}
+
+.epicAccountsHeader,
+.epicAccountRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.epicAccountsHeader {
+  color: var(--text-default);
+  font-family: var(--font-primary-bold);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+}
+
+.epicAccountsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.epicAccountRow {
+  border-top: 1px solid var(--background-lighter);
+  padding-top: var(--space-sm);
+}
+
+.epicAccountDetails {
+  min-width: 0;
+  text-align: start;
+}
+
+.epicAccountName {
+  color: var(--text-default);
+  font-size: var(--text-md);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.epicAccountMeta,
+.epicAccountsEmpty {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.epicAccountsEmpty {
+  margin: 0;
+  text-align: start;
+}
+
+.epicAccountActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-xs);
+}
+
+.epicAccountButton {
+  border: 1px solid var(--accent);
+  border-radius: var(--space-3xs);
+  background: transparent;
+  color: var(--text-default);
+  cursor: pointer;
+  font-family: var(--font-primary-bold);
+  font-size: var(--text-sm);
+  padding: var(--space-xs) var(--space-sm);
+  text-transform: uppercase;
+}
+
+.epicAccountButton:hover:not(:disabled) {
+  color: var(--accent);
+}
+
+.epicAccountButton.primary {
+  background: var(--primary-button, var(--accent));
+  color: var(--background);
+}
+
+.epicAccountButton.danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.epicAccountButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .runnerList .disabledMessage {
   border: 2px solid var(--anticheat-denied);
   padding: 1rem;

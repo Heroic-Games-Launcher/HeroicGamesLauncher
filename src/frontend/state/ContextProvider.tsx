@@ -5,8 +5,12 @@ import { ContextType } from 'frontend/types'
 const initialContext: ContextType = {
   epic: {
     library: [],
-    login: async () => Promise.resolve(''),
-    logout: async () => Promise.resolve()
+    accounts: [],
+    login: async () => Promise.resolve({ status: 'failed' }),
+    logout: async () => Promise.resolve(),
+    switchAccount: async () => Promise.resolve('failed'),
+    removeAccount: async () => Promise.resolve('failed'),
+    refreshAccounts: async () => Promise.resolve([])
   },
   gog: {
     library: [],
