@@ -66,6 +66,63 @@ function aureliaPlatform(platform: InstallPlatform): string | undefined {
 }
 
 /**
+ * Steam's `Player.GetGameAchievements` expects one of Steam's API language
+ * *names* (`english`, `german`, `koreana`, `brazilian`, ...), not a BCP-47
+ * locale like `en-US`. Heroic shares the achievements IPC handler with GOG and
+ * hands us GOG's locale code, so map it to the closest Steam language; anything
+ * unrecognised falls back to `english` (also Aurelia's default when `-l` is
+ * omitted), since passing the raw locale makes Steam reject the call with
+ * `InvalidParam`.
+ */
+function toSteamApiLanguage(lang: string): string {
+  const lc = lang.toLowerCase().replace('_', '-')
+  // Locales whose Steam name isn't derivable from the primary subtag alone.
+  const exact: Record<string, string> = {
+    'pt-br': 'brazilian',
+    'zh-cn': 'schinese',
+    'zh-hans': 'schinese',
+    'zh-sg': 'schinese',
+    'zh-tw': 'tchinese',
+    'zh-hk': 'tchinese',
+    'zh-hant': 'tchinese',
+    'es-419': 'latam',
+    'es-mx': 'latam'
+  }
+  if (exact[lc]) return exact[lc]
+
+  const byPrimary: Record<string, string> = {
+    ar: 'arabic',
+    bg: 'bulgarian',
+    cs: 'czech',
+    da: 'danish',
+    nl: 'dutch',
+    en: 'english',
+    fi: 'finnish',
+    fr: 'french',
+    de: 'german',
+    el: 'greek',
+    hu: 'hungarian',
+    id: 'indonesian',
+    it: 'italian',
+    ja: 'japanese',
+    ko: 'koreana',
+    no: 'norwegian',
+    pl: 'polish',
+    pt: 'portuguese',
+    ro: 'romanian',
+    ru: 'russian',
+    es: 'spanish',
+    sv: 'swedish',
+    th: 'thai',
+    tr: 'turkish',
+    uk: 'ukrainian',
+    vi: 'vietnamese',
+    zh: 'schinese'
+  }
+  return byPrimary[lc.split('-')[0]] ?? 'english'
+}
+
+/**
  * Strips Steam's store-description markup (the `[p]…[/p]`, `[h2]`, `[list]`,
  * `[img]`, … BBCode-style tags Aurelia returns in `full_description`) down to
  * plain text, turning paragraph breaks into blank lines.
@@ -267,7 +324,7 @@ export default class SteamGameManager implements GameManager {
         'achievements',
         appName,
         '-l',
-        lang
+        toSteamApiLanguage(lang)
       ])
       // Aurelia's achievement shape already lines up with Heroic's
       // GameAchievement (= GOGAchievement); the GOG-only rarity-level fields
