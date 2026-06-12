@@ -151,7 +151,6 @@ import { supportedLanguages } from 'common/languages'
 import MigrationSystem from './migration'
 
 if (isLinux) app.commandLine?.appendSwitch('--gtk-version', '3')
-
 async function initializeWindow(): Promise<BrowserWindow> {
   createNecessaryFolders()
   configStore.set('userHome', userHome)
@@ -815,7 +814,17 @@ addHandler('getAmazonUserInfo', async () => NileUser.getUserData())
 // Checks if the user have logged in with Legendary already
 addHandler('isLoggedIn', () => LegendaryUser.isLoggedIn())
 
-addHandler('login', async (event, sid) => LegendaryUser.login(sid))
+addHandler('login', async (event, sid, options) =>
+  LegendaryUser.login(sid, options)
+)
+addHandler('getLegendaryAccounts', () => LegendaryUser.getAccounts())
+addHandler('switchLegendaryAccount', async (event, accountId) =>
+  LegendaryUser.switchAccount(accountId)
+)
+addHandler('clearLegendaryWebSession', () => LegendaryUser.clearWebSession())
+addHandler('removeLegendaryAccount', async (event, accountId) =>
+  LegendaryUser.removeAccount(accountId)
+)
 addHandler('authGOG', async (event, code) => GOGUser.login(code))
 addHandler('logoutLegendary', () => LegendaryUser.logout())
 addListener('logoutGOG', () => GOGUser.logout())
