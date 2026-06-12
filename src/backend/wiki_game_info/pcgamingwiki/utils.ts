@@ -99,10 +99,6 @@ async function getPageID(title: string, id?: string): Promise<string | null> {
   return data.query.search[0]?.pageid
 }
 
-/**
- * Resolves a wiki `File:` name (e.g. from the infobox `cover` field) to its
- * actual image URL via the MediaWiki imageinfo API.
- */
 async function getImageUrl(fileName: string): Promise<string | undefined> {
   try {
     const { data } = await axiosClient.get(

@@ -8,19 +8,12 @@ import {
   runAureliaCommand,
   parseAureliaJson,
   makeAureliaQrHandler,
-  AureliaError,
-  type AureliaAccount
+  AureliaError
 } from './aurelia'
+import type { AureliaAccount } from './aurelia_types'
 
-/** Abort id for the in-flight `aurelia login --qr` process (single session). */
 const QR_LOGIN_ABORT_ID = 'steam-qr-login'
 
-/**
- * Steam authentication, delegated to the bundled `aurelia` CLI. Aurelia owns the
- * Steam session, so Heroic logs in with credentials (`aurelia login`), reads the
- * signed-in account from `aurelia account`, and clears it with `aurelia logout`
- * instead of running its own Steam OpenID web flow.
- */
 export class SteamUser {
   static async login(
     credentials: SteamLoginData
@@ -52,13 +45,6 @@ export class SteamUser {
     }
   }
 
-  /**
-   * Logs in by QR code (`aurelia login --qr`). Aurelia emits a `qr_challenge`
-   * URL up front, which we forward to the frontend (`steamQrChallenge`) to draw
-   * as a QR code, then blocks until the user approves the sign-in in the Steam
-   * Mobile app. {@link cancelQrLogin} aborts the wait if the user closes the
-   * dialog first.
-   */
   static async loginQr(): Promise<{
     status: 'done' | 'error'
     error?: string
@@ -94,17 +80,14 @@ export class SteamUser {
     }
   }
 
-  /** Aborts an in-flight {@link loginQr} (e.g. the user closed the dialog). */
   static cancelQrLogin(): void {
     callAbortController(QR_LOGIN_ABORT_ID)
   }
 
-  /** Reads the currently signed-in account, or undefined when logged out. */
   private static async getAccount(): Promise<AureliaAccount | undefined> {
     try {
       return await runAurelia<AureliaAccount>(['account'])
     } catch {
-      // `account` errors when no session exists; treat that as "logged out".
       return undefined
     }
   }
@@ -120,11 +103,6 @@ export class SteamUser {
     return { username: account.account_name }
   }
 
-  /**
-   * Returns the signed-in Steam account. Aurelia is single-session, so this is
-   * either one account or none (kept as an array to match the multi-account
-   * shape the rest of Heroic expects).
-   */
   public static async getAccounts(): Promise<SteamAccount[]> {
     const account = await this.getAccount()
     if (!account) {

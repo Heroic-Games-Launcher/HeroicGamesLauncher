@@ -17,14 +17,8 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
+import type { AureliaInfoResponse, AureliaProgressEvent } from './aurelia_types'
 
-/**
- * Thin wrapper around the bundled `aurelia` CLI. Every Steam store operation is
- * delegated to Aurelia (a standalone command-line Steam client) instead of
- * reading Steam's own files or driving the Steam client through `steam://`
- * URLs. Commands are run through Heroic's shared {@link callRunner} so they
- * share the runner log writers and the abort handling used by the other runners.
- */
 export class AureliaError extends Error {
   readonly aborted: boolean
   constructor(message: string, aborted = false) {
@@ -34,7 +28,6 @@ export class AureliaError extends Error {
   }
 }
 
-// Flags whose following value is a secret and must be redacted from logs.
 const SENSITIVE_FLAGS = new Set(['-p', '--password', '--guard'])
 
 function redactCommand(parts: string[]): string {
@@ -46,16 +39,7 @@ function redactCommand(parts: string[]): string {
 }
 
 /**
- * Runs an `aurelia` command and returns the raw {@link ExecResult}. Callers that
- * want the parsed JSON should use {@link runAurelia} instead; this is for the
- * streaming commands (install/update/verify/move) that also need an `onOutput`.
- *
- * Unlike the other runners, Aurelia is spawned directly rather than through the
- * shared `callRunner`: on Windows that helper wraps commands in PowerShell's
- * `Start-Process`, which does not pipe the child's stdout back to us, so the
- * `--json` output (and the streaming `onOutput`) would be lost. Aurelia exits on
- * its own (even `play` blocks until the game closes), so we don't need the
- * "wait for detached children" behaviour `Start-Process` provides.
+ * Runs an `aurelia` command and returns the raw {@link ExecResult}.
  */
 export async function runAureliaCommand(
   commandParts: string[],
@@ -123,8 +107,7 @@ export async function runAureliaCommand(
       if (signal) {
         result.error = `Process terminated with signal ${signal}`
       } else if (code !== 0 && code !== null) {
-        // Surface a non-zero exit; the JSON `{ error }` body (if any) is still
-        // parsed by callers via parseAureliaJson.
+        // non-zero exit
         result.error = stderr.trim() || `aurelia exited with code ${code}`
       }
       resolve(result)
@@ -134,11 +117,6 @@ export async function runAureliaCommand(
 
 /**
  * Runs an `aurelia` command with `--json` and returns its parsed result.
- *
- * Aurelia prints one JSON value per line; the streaming commands emit a series
- * of `{event:"progress"}` lines followed by a final result object, so the
- * result is always the last JSON line. An `{ "error": ... }` line (Aurelia's
- * error shape) is surfaced as an {@link AureliaError}.
  */
 export async function runAurelia<T = unknown>(
   commandParts: string[],
@@ -158,13 +136,6 @@ function stripAnsi(text: string): string {
 
 /**
  * Extracts every top-level JSON value (object/array) found in `text`, in order.
- *
- * Aurelia formats its output inconsistently: simple commands (login, account,
- * list, info, ...) pretty-print a single multi-line JSON value, while the
- * streaming commands emit a sequence of compact one-line `progress` events
- * followed by a result. A line-by-line parse can't read the pretty-printed form
- * (no single line is valid JSON), so we walk the text tracking brace/bracket
- * depth - respecting string literals - and parse each balanced top-level value.
  */
 function extractJsonValues(text: string): unknown[] {
   const values: unknown[] = []
@@ -193,7 +164,7 @@ function extractJsonValues(text: string): unknown[] {
           try {
             values.push(JSON.parse(text.slice(start, i + 1)))
           } catch {
-            // Not valid JSON (e.g. unbalanced log noise); skip it.
+            // Not valid JSON
           }
           start = -1
         }
@@ -218,10 +189,7 @@ export function parseAureliaJson<T>(res: ExecResult): T {
     throw new AureliaError('aurelia command was aborted', true)
   }
 
-  // The result is the last top-level JSON value. Aurelia normally writes it to
-  // stdout, but errors (and some `--json` output) can land on stderr, so fall
-  // back to scanning stderr before giving up. ANSI colour codes from Aurelia's
-  // tracing logger are stripped first so they don't confuse the extractor.
+  // fall back to scanning stderr
   const stdout = stripAnsi(res.stdout)
   const stderr = stripAnsi(res.stderr)
   const stdoutValues = extractJsonValues(stdout)
@@ -229,9 +197,6 @@ export function parseAureliaJson<T>(res: ExecResult): T {
   const parsed = values[values.length - 1]
 
   if (parsed === undefined) {
-    // Aurelia sometimes prints failures as plain text (e.g. a Steam
-    // "TwoFactorCodeMismatch") rather than a JSON `{ error }`. Surface that
-    // text so the real reason reaches the logs and UI.
     const raw =
       res.error || lastNonEmptyLine(stderr) || lastNonEmptyLine(stdout)
     throw new AureliaError(raw || 'aurelia produced no JSON output')
@@ -247,23 +212,9 @@ export function parseAureliaJson<T>(res: ExecResult): T {
   return parsed as T
 }
 
-/** One `{event:"progress"}` line emitted by install/update/verify/move. */
-interface AureliaProgressEvent {
-  event?: string
-  state?: string
-  bytes_downloaded?: number
-  total_bytes?: number
-  percent?: number
-  speed_bps?: number
-  eta_seconds?: number | null
-  file?: string
-}
-
 /**
  * Builds an `onOutput` handler that forwards Aurelia's NDJSON `progress` events
- * to Heroic's download manager via {@link sendProgressUpdate}. Shared by
- * install, update, verify and move (Aurelia emits the same event shape for all
- * four), replacing the old `appmanifest`-polling progress estimation.
+ * {@link sendProgressUpdate}. Shared by install, update, verify and move
  */
 export function makeAureliaProgressHandler(
   appName: string,
@@ -305,7 +256,6 @@ export function makeAureliaProgressHandler(
               ? Math.round(evt.percent * 100) / 100
               : undefined,
           downSpeed,
-          // Aurelia's staging is effectively the disk write, so reuse the rate.
           diskSpeed: downSpeed,
           file: evt.file
         }
@@ -314,13 +264,6 @@ export function makeAureliaProgressHandler(
   }
 }
 
-/**
- * Builds an `onOutput` handler that watches Aurelia's `login --qr` stream for the
- * `qr_challenge` event and forwards its URL to `onUrl`. The URL encodes a Steam
- * login token; rendering it as a QR code lets the user approve the sign-in from
- * the Steam Mobile app instead of typing a username/password. Aurelia keeps
- * running (blocked on the scan) and emits the account result once approved.
- */
 export function makeAureliaQrHandler(
   onUrl: (url: string) => void
 ): (data: string) => void {
@@ -343,81 +286,8 @@ export function makeAureliaQrHandler(
   }
 }
 
-// ---------------------------------------------------------------------------
-// JSON shapes returned by the Aurelia CLI (only the fields Heroic consumes).
-// ---------------------------------------------------------------------------
-
-export interface AureliaLibraryGame {
-  app_id: number
-  name: string
-  playtime_forever_minutes?: number
-  is_installed: boolean
-  install_path?: string | null
-  update_available?: boolean
-  update_queued?: boolean
-  active_branch?: string
-  is_owned?: boolean
-  is_family_shared?: boolean
-  online_required?: boolean | null
-}
-
-interface AureliaDlcEntry {
-  app_id: number
-  name?: string | null
-  owned?: boolean | null
-  installed?: boolean | null
-  disabled?: boolean | null
-}
-
-export interface AureliaDlcResponse {
-  app_id: number
-  dlc: AureliaDlcEntry[]
-}
-
-interface AureliaInfoResponse {
-  app_id: number
-  name?: string
-  type?: string
-  is_free?: boolean
-  // Short store blurb; `full_description` is the long one (with Steam `[p]`
-  // markup). Genres/tags/metacritic/requirements/website live under `extended`.
-  description?: string
-  full_description?: string
-  developers?: string[]
-  publishers?: string[]
-  release_date?: string | null
-  coming_soon?: boolean
-  price?: string | null
-  platforms?: string[]
-  reviews?: string
-  assets?: {
-    background?: string
-    capsule?: string
-    header?: string
-    hero?: string
-    logo?: string
-  }
-  extended?: {
-    categories?: string[]
-    genres?: string[]
-    tags?: string[]
-    metacritic?: number | null
-    website?: string | null
-    requirements?: {
-      minimum?: string[]
-      recommended?: string[]
-    }
-  }
-}
-
 /**
  * Fetches Steam store details for one or more app ids via `aurelia info`.
- *
- * Aurelia resolves several ids over a single Steam logon (one batched
- * StoreBrowse call), so `info <id1> <id2> <id3>` costs one connection: a single
- * id yields one JSON object, several yield a JSON array in the requested order.
- * This normalises both shapes to an array (preserving order) so callers can
- * batch lookups without special-casing the count.
  */
 export async function fetchAureliaInfo(
   appIds: string[],
@@ -432,62 +302,4 @@ export async function fetchAureliaInfo(
     ...(options.extended ? ['--extended'] : [])
   ])
   return Array.isArray(result) ? result : [result]
-}
-
-export interface AureliaDryRunResponse {
-  app_id: number
-  platform?: string
-  download_size: number
-  disk_size: number
-  depot_count?: number
-}
-
-interface AureliaLaunchOption {
-  // Aurelia prints the launch-option index as a string ("0", "1", ...).
-  id: string | number
-  description?: string
-  executable?: string
-  arguments?: string
-  working_dir?: string
-  oslist?: string
-  osarch?: string
-  type?: string
-}
-
-export interface AureliaLaunchOptionsResponse {
-  app_id: number
-  launch_options: AureliaLaunchOption[]
-}
-
-/** One entry from `aurelia achievements <id> --json`. */
-interface AureliaAchievement {
-  achievement_id: string
-  achievement_key: string
-  name: string
-  description: string
-  visible?: boolean
-  image_url_unlocked?: string
-  image_url_locked?: string
-  rarity?: number
-  unlocked?: boolean
-  unlock_time?: number | null
-  date_unlocked?: string | null
-}
-
-export interface AureliaAchievementsResponse {
-  app_id: number
-  unlocked?: number
-  total?: number
-  achievements: AureliaAchievement[]
-}
-
-export interface AureliaAccount {
-  // Aurelia prints the 64-bit SteamID as a JSON number; it exceeds JS's safe
-  // integer range, so callers should coerce it to a string rather than rely on
-  // the (precision-lossy) numeric value.
-  steam_id: string | number
-  account_name: string
-  country?: string
-  email?: string
-  email_validated?: boolean
 }

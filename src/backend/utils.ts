@@ -41,6 +41,11 @@ import {
   installStore as nileInstallStore,
   libraryStore as nileLibraryStore
 } from './storeManagers/nile/electronStores'
+import {
+  installInfoStore as steamInstallInfoStore,
+  libraryStore as steamLibraryStore,
+  extraInfoStore as steamExtraInfoStore
+} from './storeManagers/steam/electronStores'
 import * as fileSize from 'filesize'
 import { Client as discordClient } from '@xhayper/discord-rpc'
 import { notify, showDialogBoxModalAuto } from './dialog/dialog'
@@ -362,9 +367,6 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
-  // Open http(s) and other protocol URLs (e.g. steam://) in their registered
-  // external handler; treat everything else as a local filesystem path. The
-  // `scheme://` test won't match Windows paths, which use `C:\`/`C:/` (no `//`).
   if (/^[a-z][a-z0-9+.-]*:\/\//i.test(url)) {
     return shell.openExternal(url)
   }
@@ -394,6 +396,11 @@ function clearCache(
   if (library === 'nile' || !library) {
     nileInstallStore.clear()
     nileLibraryStore.clear()
+  }
+  if (library === 'steam' || !library) {
+    steamInstallInfoStore.clear()
+    steamLibraryStore.clear()
+    steamExtraInfoStore.clear()
   }
 
   if (!fromVersionChange) {
@@ -515,9 +522,7 @@ function getAureliaBin(): { dir: string; bin: string } {
   if (!defaultAureliaPath) defaultAureliaPath = archSpecificBinary('aurelia')
 
   const bundledPath = fixAsarPath(defaultAureliaPath)
-  // Aurelia is a third-party CLI that may not be bundled with Heroic. When the
-  // bundled binary is missing, fall back to a system-wide `aurelia` on PATH so
-  // a user-installed copy still works.
+  // check PATH
   if (!existsSync(bundledPath)) {
     return { dir: '', bin: isWindows ? 'aurelia.exe' : 'aurelia' }
   }
@@ -1655,10 +1660,6 @@ async function extractTarFile({
 const axiosClient = axios.create({
   timeout: 10 * 1000,
   httpsAgent: new https.Agent({ keepAlive: true }),
-  // Identify as a browser-like Heroic client. Axios' default `axios/<version>`
-  // User-Agent is blocked by some services' bot protection (e.g. PCGamingWiki's
-  // Cloudflare returns 403 for it), which is why those lookups were failing even
-  // though the pages exist.
   headers: {
     'User-Agent': `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeroicGamesLauncher/${app.getVersion()}`
   }

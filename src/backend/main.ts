@@ -1164,13 +1164,6 @@ addHandler('getLaunchOptions', async (event, appName, runner) => {
   const availableLaunchOptions =
     await libraryManagerMap[runner].getLaunchOptions(appName)
 
-  // Epic/GOG/Amazon expose their launch options as *extra* configurations
-  // layered on top of a normal launch, so we prepend a synthetic "Default"
-  // (= launch with no extra options) as the fallback entry. Steam's options
-  // (via Aurelia) are the concrete per-OS executables themselves, and Aurelia
-  // already picks the Steam-designated default when none is passed - so a
-  // synthetic "Default" would just duplicate the single real entry and force a
-  // needless launch prompt / dropdown on every game. Skip it for Steam.
   if (
     runner !== 'steam' &&
     availableLaunchOptions.length > 0 &&

@@ -39,9 +39,9 @@ import {
   fetchAureliaInfo,
   parseAureliaJson,
   makeAureliaProgressHandler,
-  AureliaError,
-  type AureliaAchievementsResponse
+  AureliaError
 } from './aurelia'
+import type { AureliaAchievementsResponse } from './aurelia_types'
 
 import type LogWriter from 'backend/logger/log_writer'
 
@@ -53,11 +53,6 @@ function describeError(error: unknown): string {
   return error instanceof AureliaError ? error.message : String(error)
 }
 
-/**
- * Maps Heroic's install platform to Aurelia's `-p` value (`windows`/`linux`).
- * Returns undefined for anything else (e.g. macOS) so Aurelia auto-detects the
- * depot platform itself.
- */
 function aureliaPlatform(platform: InstallPlatform): string | undefined {
   const lc = String(platform).toLowerCase()
   if (lc.startsWith('win')) return 'windows'
@@ -65,15 +60,6 @@ function aureliaPlatform(platform: InstallPlatform): string | undefined {
   return undefined
 }
 
-/**
- * Steam's `Player.GetGameAchievements` expects one of Steam's API language
- * *names* (`english`, `german`, `koreana`, `brazilian`, ...), not a BCP-47
- * locale like `en-US`. Heroic shares the achievements IPC handler with GOG and
- * hands us GOG's locale code, so map it to the closest Steam language; anything
- * unrecognised falls back to `english` (also Aurelia's default when `-l` is
- * omitted), since passing the raw locale makes Steam reject the call with
- * `InvalidParam`.
- */
 function toSteamApiLanguage(lang: string): string {
   const lc = lang.toLowerCase().replace('_', '-')
   // Locales whose Steam name isn't derivable from the primary subtag alone.
@@ -123,9 +109,7 @@ function toSteamApiLanguage(lang: string): string {
 }
 
 /**
- * Strips Steam's store-description markup (the `[p]…[/p]`, `[h2]`, `[list]`,
- * `[img]`, … BBCode-style tags Aurelia returns in `full_description`) down to
- * plain text, turning paragraph breaks into blank lines.
+ * Strips Steam's store-description markup
  */
 function stripSteamMarkup(input?: string): string {
   if (!input) return ''
@@ -137,9 +121,7 @@ function stripSteamMarkup(input?: string): string {
 }
 
 /**
- * Splits a single Steam requirement line ("OS: Windows 10") into a
- * `label -> value` pair, falling back to the full-width "Other" row when the
- * line has no recognisable label.
+ * `label -> value` pair
  */
 function splitRequirement(line: string): [string, string] {
   const idx = line.indexOf(':')
@@ -148,9 +130,7 @@ function splitRequirement(line: string): [string, string] {
 }
 
 /**
- * Builds Heroic's `Reqs[]` table (one labeled row per spec) from Aurelia's
- * minimum/recommended requirement line arrays, matching how the other runners
- * populate the game page's requirements table.
+ * Builds `Reqs[]` table
  */
 function buildReqs(minimum: string[] = [], recommended: string[] = []): Reqs[] {
   const min = new Map<string, string>()
@@ -196,11 +176,6 @@ function buildReqs(minimum: string[] = [], recommended: string[] = []): Reqs[] {
 
 /**
  * Steam game manager.
- *
- * All operations are delegated to the bundled `aurelia` CLI (a standalone
- * command-line Steam client): Aurelia performs the downloads, launches, cloud
- * saves and metadata lookups itself, so Heroic no longer depends on the Steam
- * client being installed or running.
  */
 export default class SteamGameManager implements GameManager {
   getGameInfo(appName: string): GameInfo {
@@ -254,22 +229,17 @@ export default class SteamGameManager implements GameManager {
       return empty
     }
 
-    // Only fetch details for games actually in the Heroic Steam library;
-    // `info` logs on to Steam, so we don't spend a connection on unknown ids.
     if (!libraryManagerMap['steam'].getGameInfo(appName)) {
       return empty
     }
 
     try {
-      // `fetchAureliaInfo` accepts several ids and batches them over one logon;
-      // here we ask for a single game, so we take the first (and only) entry.
       const [details] = await fetchAureliaInfo([appName], { extended: true })
       if (!details) {
         return empty
       }
 
-      // The rich fields (genres, requirements, metacritic, website) live under
-      // `extended`; `--extended` populates it.
+      // `--extended` populate rich fields
       const ext = details.extended ?? {}
       const assets = details.assets ?? {}
 
@@ -326,9 +296,6 @@ export default class SteamGameManager implements GameManager {
         '-l',
         toSteamApiLanguage(lang)
       ])
-      // Aurelia's achievement shape already lines up with Heroic's
-      // GameAchievement (= GOGAchievement); the GOG-only rarity-level fields
-      // have no Steam equivalent, so they're left blank.
       return (res.achievements ?? []).map((a) => ({
         achievement_id: a.achievement_id,
         achievement_key: a.achievement_key,
@@ -356,11 +323,7 @@ export default class SteamGameManager implements GameManager {
 
   /**
    * Enables or disables an owned DLC (`aurelia enable`/`disable <dlcAppId>`).
-   *
-   * The flag is flipped right away so the DLC list reflects it immediately, but
-   * Steam rewrites `DisabledDLC` from memory when it exits, so the change is
-   * also queued and re-applied with `--restart-steam` on the next Steam game
-   * launch (see {@link applyPendingDlcChanges}) to make it permanent.
+   * (see {@link applyPendingDlcChanges}) to make it permanent.
    */
   async setDlcEnabled(dlcAppId: string, enabled: boolean): Promise<void> {
     if (!isSteamImportEnabled()) {
@@ -385,10 +348,7 @@ export default class SteamGameManager implements GameManager {
   }
 
   /**
-   * Makes any queued DLC enable/disable permanent by re-applying it with
-   * `--restart-steam` (stop Steam → edit the manifest → start Steam). Called
-   * just before launching a Steam game, since that's a natural point to cycle
-   * Steam and the only reliable way to keep the `DisabledDLC` edits.
+   * Makes any queued DLC enable/disable permanent by re-applying it with `--restart-steam`
    */
   private async applyPendingDlcChanges(): Promise<void> {
     const pending = configStore.get('pendingDlc', [])
@@ -420,9 +380,7 @@ export default class SteamGameManager implements GameManager {
   }
 
   /**
-   * Runs one of Aurelia's streaming maintenance commands (install/update/verify/
-   * move), forwarding its NDJSON `progress` events to the download manager and
-   * validating the final result object.
+   * streaming maintenance commands (install/update/verify)
    */
   private async runStreamingCommand(
     appName: string,
@@ -485,9 +443,8 @@ export default class SteamGameManager implements GameManager {
     return { stdout: res.stdout, stderr: res.stderr }
   }
 
+  // TODO: Add Aurelia Functionality here
   onInstallOrUpdateOutput(): void {
-    // Progress is forwarded straight to the download manager by the shared
-    // Aurelia progress handler, so there is nothing to do here.
     return
   }
 
@@ -522,8 +479,7 @@ export default class SteamGameManager implements GameManager {
 
     if (result.status === 'done') {
       void this.addShortcuts(appName)
-      libraryManagerMap['steam'].installState(appName, true)
-      await libraryManagerMap['steam'].refresh()
+      await libraryManagerMap['steam'].markInstalled(appName)
       logInfo(
         `Steam finished installing ${gameInfo.title} (${appName})`,
         LogPrefix.Steam
@@ -532,10 +488,9 @@ export default class SteamGameManager implements GameManager {
     return result
   }
 
+  // TODO: Add Heroic handler to Aurelia
+  // Currently Aurelia handles Proton layer
   isNative(): boolean {
-    // Steam games are launched through Aurelia, which handles compatibility
-    // (Proton) on its own, so from Heroic's point of view they always run
-    // "natively".
     return true
   }
 
@@ -548,11 +503,7 @@ export default class SteamGameManager implements GameManager {
   }
 
   /**
-   * Runs a Steam Cloud sync for `appName` around a launch via `aurelia cloud
-   * sync`. We force `--down` before the game starts (pull the latest cloud saves
-   * locally) and `--up` after it exits (push whatever it wrote). Failures are
-   * logged but deliberately swallowed: a cloud-sync hiccup must never block the
-   * game from launching or leave Heroic hanging after it closes.
+   * Runs a Steam Cloud sync
    */
   private async syncCloudSaves(
     appName: string,
@@ -601,18 +552,13 @@ export default class SteamGameManager implements GameManager {
     )
     await logWriter.logInfo(`Launching ${gameInfo.title} through Aurelia`)
 
-    // Make any queued DLC enable/disable permanent (it needs a Steam restart),
-    // then launch. Doing it here means the user isn't interrupted at toggle time.
     await this.applyPendingDlcChanges()
 
-    // Pull the latest Steam Cloud saves before the game starts so it opens with
-    // whatever was last played on another device.
+    // Sync before starting a game
     await this.syncCloudSaves(appName, 'down', logWriter)
 
     sendGameStatusUpdate({ appName, runner: 'steam', status: 'playing' })
 
-    // Aurelia auto-detects the runner (native/Proton) itself; `play` blocks
-    // until the game exits, keeping Heroic's "playing" status accurate.
     const res = await libraryManagerMap['steam'].runRunnerCommand(
       ['play', appName, '--json'],
       { abortId: appName, logWriters: [logWriter] }
@@ -626,8 +572,7 @@ export default class SteamGameManager implements GameManager {
       return false
     }
 
-    // The game has exited (or was stopped by the user): push any saves it wrote
-    // back up to Steam Cloud.
+    // Sync after game stopped
     await this.syncCloudSaves(appName, 'up', logWriter)
 
     logInfo(`${gameInfo.title} (${appName}) has stopped`, LogPrefix.Steam)
@@ -682,9 +627,6 @@ export default class SteamGameManager implements GameManager {
     if (!isSteamImportEnabled()) {
       return ''
     }
-    // `arg` carries the desired direction (e.g. an upload/download hint); Aurelia
-    // performs a bidirectional Steam Cloud sync by default, with optional
-    // --up/--down to force one direction.
     const directionFlag = /upload/i.test(arg)
       ? ['--up']
       : /download/i.test(arg)
@@ -719,7 +661,7 @@ export default class SteamGameManager implements GameManager {
     logInfo(`Uninstalling ${gameInfo.title} (${appName})`, LogPrefix.Steam)
 
     try {
-      // `deleteFiles` here means "also remove the Wine prefix/compat data".
+      // `deleteFiles` here means "remove the Wine prefix/compat data".
       await runAurelia([
         'uninstall',
         appName,
@@ -788,16 +730,13 @@ export default class SteamGameManager implements GameManager {
       return false
     }
 
-    // Heroic only manages games in its own Steam library; ignore unknown ids.
+    // ignore unknown ids.
     const info = libraryManagerMap['steam'].getGameInfo(appName)
     if (!info) {
       return false
     }
 
     try {
-      // `aurelia available <id>` is a local, offline check: it reads only the
-      // on-disk Steam files and never logs on to Steam, so it's safe to call
-      // freely per game (no caching needed) without hitting Steam's rate limit.
       const result = await runAurelia<{
         app_id?: number
         available?: boolean
@@ -809,8 +748,7 @@ export default class SteamGameManager implements GameManager {
         [`Unable to check availability for ${appName}`, describeError(error)],
         LogPrefix.Steam
       )
-      // Fall back to a local presence check so a failed lookup never reports an
-      // installed game as unavailable.
+      // Fall back to a local presence check
       return Boolean(
         info.is_installed &&
         info.install?.install_path &&

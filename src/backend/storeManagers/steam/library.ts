@@ -11,6 +11,7 @@ import { SteamDLCInfo, SteamInstallInfo } from 'common/types/steam'
 import { LibraryManager } from 'common/types/game_manager'
 import {
   getRunnerLogWriter,
+  logDebug,
   logError,
   logInfo,
   logWarning,
@@ -20,17 +21,19 @@ import { GlobalConfig } from 'backend/config'
 import { getFileSize } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isLinux, isMac, isWindows } from 'backend/constants/environment'
-import { libraryStore, installedGamesStore } from './electronStores'
-import { steamCdnImageBase, steamStoreAppUrl } from './constants'
 import {
-  runAurelia,
-  runAureliaCommand,
-  AureliaError,
-  type AureliaLibraryGame,
-  type AureliaDlcResponse,
-  type AureliaLaunchOptionsResponse,
-  type AureliaDryRunResponse
-} from './aurelia'
+  libraryStore,
+  installedGamesStore,
+  installInfoStore
+} from './electronStores'
+import { steamCdnImageBase, steamStoreAppUrl } from './constants'
+import { runAurelia, runAureliaCommand, AureliaError } from './aurelia'
+import type {
+  AureliaLibraryGame,
+  AureliaDlcResponse,
+  AureliaLaunchOptionsResponse,
+  AureliaDryRunResponse
+} from './aurelia_types'
 
 const library: Map<string, GameInfo> = new Map()
 const installedGames: Map<string, InstalledInfo> = new Map()
@@ -47,11 +50,6 @@ function describeError(error: unknown): string {
 
 /**
  * Steam library manager.
- *
- * Every operation is delegated to the bundled `aurelia` CLI (a standalone
- * command-line Steam client). The library is read from `aurelia list --json`
- * rather than by parsing Steam's own on-disk files, so Heroic no longer needs
- * the Steam client installed to discover the user's games.
  */
 export default class SteamLibraryManager implements LibraryManager {
   async init(): Promise<void> {
@@ -59,11 +57,6 @@ export default class SteamLibraryManager implements LibraryManager {
     await this.refresh()
   }
 
-  /**
-   * Runs an arbitrary `aurelia` command through Heroic's shared runner plumbing.
-   * Exposed so callers reached via `libraryManagerMap['steam']` (e.g. the runner
-   * version diagnostic) can invoke Aurelia the same way the other runners do.
-   */
   async runRunnerCommand(
     commandParts: string[],
     options?: CallRunnerOptions
@@ -135,9 +128,7 @@ export default class SteamLibraryManager implements LibraryManager {
   }
 
   /**
-   * Builds Heroic's `InstalledInfo` from an Aurelia library entry. Aurelia's
-   * `list` doesn't report the on-disk size or build id, so those are left empty
-   * (the install path is what Heroic actually needs to launch/manage the game).
+   * Builds Heroic's `InstalledInfo`
    */
   private toInstalledInfo(
     appId: string,
@@ -245,6 +236,12 @@ export default class SteamLibraryManager implements LibraryManager {
       return undefined
     }
 
+    const cache = installInfoStore.get(appName)
+    if (cache && cache.manifest) {
+      logDebug('Using cached Steam install info', LogPrefix.Steam)
+      return cache
+    }
+
     const game = this.getGameInfo(appName)
     try {
       // PICS size estimate, no files fetched.
@@ -282,6 +279,7 @@ export default class SteamLibraryManager implements LibraryManager {
           title: game?.title ?? appName
         }
       }
+      installInfoStore.set(appName, info)
       return info
     } catch (error) {
       logError(
@@ -347,8 +345,6 @@ export default class SteamLibraryManager implements LibraryManager {
 
   installState(appName: string, state: boolean): void {
     if (state) {
-      // Aurelia manages installs itself and `refresh` is the source of truth, so
-      // there is nothing to mark here when a game becomes installed.
       return
     }
 
@@ -369,6 +365,50 @@ export default class SteamLibraryManager implements LibraryManager {
     }
   }
 
+  async markInstalled(appName: string): Promise<void> {
+    if (!isSteamImportEnabled()) {
+      return
+    }
+
+    let installPath: string
+    try {
+      const result = await runAurelia<{
+        available?: boolean
+        install_path?: string | null
+      }>(['available', appName])
+      if (!result.available || !result.install_path) {
+        return
+      }
+      installPath = result.install_path
+    } catch (error) {
+      logWarning(
+        [`Unable to mark ${appName} as installed`, describeError(error)],
+        LogPrefix.Steam
+      )
+      return
+    }
+
+    const installed: InstalledInfo = {
+      executable: '',
+      install_path: installPath,
+      install_size: getFileSize(0),
+      is_dlc: false,
+      version: '',
+      platform: installPlatform,
+      appName
+    }
+    installedGames.set(appName, installed)
+    installedGamesStore.set('installed', Array.from(installedGames.values()))
+
+    const cached = this.getGameInfo(appName)
+    if (cached) {
+      cached.is_installed = true
+      cached.install = installed
+      library.set(appName, cached)
+      sendFrontendMessage('pushGameToLibrary', cached)
+    }
+  }
+
   async getLaunchOptions(appName: string): Promise<LaunchOption[]> {
     if (!isSteamImportEnabled()) {
       return []
@@ -381,8 +421,8 @@ export default class SteamLibraryManager implements LibraryManager {
       const currentOs = isWindows ? 'windows' : isMac ? 'macos' : 'linux'
       return (
         (response.launch_options ?? [])
-          // Aurelia lists options for every platform; only show this OS's (or
-          // platform-agnostic) ones.
+          // Aurelia lists options for every platform
+          // only show current OS's.
           .filter(
             (option) =>
               !option.oslist || option.oslist.toLowerCase().includes(currentOs)
