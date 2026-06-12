@@ -20,7 +20,7 @@
     "steam": {
         "error": "Login failed. Check your credentials and Steam Guard code.",
         "guard": "Steam Guard code",
-        "message": "Enter your Steam credentials. If your account uses Steam Guard, enter the current code as well — it is required.",
+        "message": "Enter your Steam credentials. If your account uses Steam Guard, you can directly enter the code.",
         "password": "Password",
         "qr": {
             "error": "QR sign-in failed. Please try again.",

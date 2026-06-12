@@ -168,13 +168,8 @@ export interface ExtraInfo {
   storeUrl?: string
   changelog?: string
   genres?: string[]
-  // Splash/background image for the game page (used by Steam, which provides a
-  // store-page background via its Web API).
   background?: string
-  // Cover/preview image, fetched from the store API as a fallback when the
-  // library art (e.g. Steam's CDN portrait) is missing/unreachable.
   cover?: string
-  // Critic review score (0-100), e.g. Steam exposes a Metacritic score.
   score?: string
 }
 
@@ -225,8 +220,7 @@ export interface GameInfo {
   isUbisoftManaged?: boolean
   is_mac_native?: boolean
   is_linux_native?: boolean
-  // True for Steam games that come from a Steam Family member's library (the
-  // local appmanifest was installed under another account's license).
+  // True for Steam games that come from a Steam Family member's library
   isSteamFamilyShare?: boolean
   browserUrl?: string
   description?: string
@@ -375,8 +369,6 @@ export interface Reqs {
 }
 
 // Sentinel `Reqs.title` values for rows that aren't a Minimum/Recommended spec
-// pair but a single full-width block (rendered without columns). The label
-// shown to the user is localized in the GameRequirements component.
 export const REQS_OTHER_TITLE = '__other__'
 export const REQS_NOTES_TITLE = '__notes__'
 
@@ -739,8 +731,6 @@ export interface PCGamingWikiInfo {
   direct3DVersions: string[]
   genres: string[]
   releaseDate: string[]
-  // Portrait cover image resolved from the page's infobox, used as a fallback
-  // when a store's own library art is missing.
   cover?: string
 }
 

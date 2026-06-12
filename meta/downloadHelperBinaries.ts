@@ -193,8 +193,7 @@ async function downloadAurelia() {
     {
       x64: {
         linux: 'aurelia_linux_x86_64',
-        // Aurelia stopped shipping an Intel-Mac (x86_64) build in v0.1.5; only
-        // the arm64 macOS asset is published now.
+        darwin: 'aurelia_macOS_x86_64',
         win32: 'aurelia_windows_x86_64.exe'
       },
       arm64: {
