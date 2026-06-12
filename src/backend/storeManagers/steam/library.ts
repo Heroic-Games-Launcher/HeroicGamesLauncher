@@ -7,8 +7,7 @@ import {
   InstallPlatform,
   LaunchOption
 } from 'common/types'
-import { SteamDLCInfo } from 'common/types/steam'
-import { NileInstallInfo } from 'common/types/nile'
+import { SteamDLCInfo, SteamInstallInfo } from 'common/types/steam'
 import { LibraryManager } from 'common/types/game_manager'
 import {
   getRunnerLogWriter,
@@ -262,7 +261,9 @@ export default class SteamLibraryManager implements LibraryManager {
         ...platformArg
       ])
 
-      const info: NileInstallInfo = {
+      const launchOptions = await this.getLaunchOptions(appName)
+
+      const info: SteamInstallInfo = {
         manifest: {
           download_size: dryRun.download_size,
           disk_size: dryRun.disk_size
@@ -275,9 +276,9 @@ export default class SteamLibraryManager implements LibraryManager {
           cloud_saves_supported: false,
           external_activation: '',
           is_dlc: false,
-          launch_options: [],
+          launch_options: launchOptions,
           owned_dlc: [],
-          platform_versions: { Windows: '' },
+          platform_versions: {},
           title: game?.title ?? appName
         }
       }

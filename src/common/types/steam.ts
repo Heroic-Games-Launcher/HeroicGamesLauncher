@@ -1,32 +1,16 @@
-/**
- * Credentials collected by Heroic's Steam login form and handed to
- * `aurelia login`. `guard` is an optional Steam Guard code.
- */
+import { LaunchOption } from 'common/types'
+
 export interface SteamLoginData {
   username: string
   password: string
   guard?: string
 }
 
-/**
- * A Steam account the user is signed into via Aurelia. Kept as an array
- * elsewhere to match Heroic's multi-account shape, though Aurelia is
- * single-session.
- */
 export interface SteamAccount {
   steamId: string
   username: string
 }
 
-/**
- * A DLC for a Steam game, with whether the user owns it and whether its files
- * are currently installed. License-only DLC (no downloadable depot) is reported
- * as installed once owned, since there is nothing separate to download.
- *
- * `disabled` mirrors Steam's `DisabledDLC` flag in the base game's appmanifest:
- * an owned DLC the user has turned off. It can be toggled with `aurelia
- * enable`/`disable` (see {@link SteamPendingDlcChange}).
- */
 export interface SteamDLCInfo {
   appId: string
   title: string
@@ -35,13 +19,36 @@ export interface SteamDLCInfo {
   disabled: boolean
 }
 
-/**
- * A DLC enable/disable the user requested in Heroic but which hasn't been made
- * permanent yet. Steam overwrites `DisabledDLC` from memory when it exits, so
- * the change is re-applied with `aurelia ... --restart-steam` on the next Steam
- * game launch to make it stick.
- */
 export interface SteamPendingDlcChange {
   appId: string
   enable: boolean
+}
+
+interface SteamInstallManifest {
+  download_size: number
+  disk_size: number
+}
+
+interface SteamInstallDlcInfo {
+  app_name: string
+  title: string
+}
+
+interface SteamGameInstallInfo {
+  id: string
+  version: string
+  path: string
+  app_name: string
+  cloud_saves_supported: boolean
+  external_activation: string
+  is_dlc: boolean
+  launch_options: Array<LaunchOption>
+  owned_dlc: Array<SteamInstallDlcInfo>
+  platform_versions: Record<string, string>
+  title: string
+}
+
+export interface SteamInstallInfo {
+  manifest: SteamInstallManifest
+  game: SteamGameInstallInfo
 }
