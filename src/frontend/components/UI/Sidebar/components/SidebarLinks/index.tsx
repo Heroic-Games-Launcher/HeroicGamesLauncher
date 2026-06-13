@@ -10,7 +10,8 @@ import {
   faWineGlass,
   faBarsProgress,
   faTv,
-  faTags
+  faTags,
+  faUserGroup
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
 import { useContext } from 'react'
@@ -167,6 +168,14 @@ export default function SidebarLinks() {
         label={t('discounts.sidebar', 'Deals')}
         dataTour="sidebar-discounts"
       />
+      {epic.username && (
+        <SidebarItem
+          url="/friends"
+          icon={faUserGroup}
+          label={t('friends.sidebar', 'Epic Friends')}
+          dataTour="sidebar-friends"
+        />
+      )}
       <div className="divider" />
       <div className="SidebarItemWithSubmenu">
         <SidebarItem

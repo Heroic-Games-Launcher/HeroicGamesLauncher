@@ -157,6 +157,10 @@ const router = createHashRouter([
         lazy: makeLazyFunc(import('./screens/Discounts'))
       },
       {
+        path: 'friends',
+        lazy: makeLazyFunc(import('./screens/Friends'))
+      },
+      {
         path: 'loginweb/:runner',
         lazy: makeLazyFunc(import('./screens/WebView'))
       },

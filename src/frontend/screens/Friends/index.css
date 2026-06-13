@@ -1,0 +1,131 @@
+.friendsScreen {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+  padding: var(--space-md-fixed);
+  color: var(--text-default);
+}
+
+.friendsScreen--message,
+.friendsScreen__message {
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.friendsScreen__header,
+.friendsScreen__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.friendsScreen__header {
+  margin-bottom: var(--space-md);
+}
+
+.friendsScreen__header h2,
+.friendsScreen__header p {
+  margin: 0;
+}
+
+.friendsScreen__header h2 {
+  font-size: var(--text-2xl);
+}
+
+.friendsScreen__header p {
+  margin-top: var(--space-3xs);
+  color: var(--text-secondary);
+}
+
+.friendsScreen__header .MuiIconButton-root {
+  color: var(--text-default);
+}
+
+.friendsScreen__controls {
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--divider);
+}
+
+.friendsScreen__controls .MuiTabs-root {
+  min-width: 0;
+}
+
+.friendsScreen__controls .MuiTab-root {
+  color: var(--text-secondary);
+}
+
+.friendsScreen__controls .Mui-selected {
+  color: var(--text-default);
+}
+
+.friendsScreen__controls .MuiTextField-root {
+  width: min(280px, 35vw);
+}
+
+.friendsScreen__controls .MuiInputBase-root {
+  color: var(--text-default);
+  background: var(--input-background);
+}
+
+.friendsScreen__controls .MuiOutlinedInput-notchedOutline {
+  border-color: var(--divider);
+}
+
+.friendsScreen__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.friendsScreen__friend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+  padding: var(--space-sm);
+  border-bottom: 1px solid var(--divider);
+}
+
+.friendsScreen__avatar {
+  display: grid;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--text-on-accent, white);
+  font-weight: var(--bold);
+}
+
+.friendsScreen__friendText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.friendsScreen__friendText strong,
+.friendsScreen__friendText span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friendsScreen__friendText span {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 700px) {
+  .friendsScreen__controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .friendsScreen__controls .MuiTextField-root {
+    width: 100%;
+  }
+}
