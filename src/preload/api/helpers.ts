@@ -17,6 +17,12 @@ export const kill = makeHandlerInvoker('kill')
 export const abort = makeListenerCaller('abort')
 export const getUserInfo = makeHandlerInvoker('getUserInfo')
 export const getEpicFriends = makeHandlerInvoker('getEpicFriends')
+export const getEpicFriendDetails = makeHandlerInvoker('getEpicFriendDetails')
+export const runEpicFriendAction = makeHandlerInvoker('runEpicFriendAction')
+export const searchEpicUsers = makeHandlerInvoker('searchEpicUsers')
+export const stopEpicFriendsBackground = makeHandlerInvoker(
+  'stopEpicFriendsBackground'
+)
 export const getAmazonUserInfo = makeHandlerInvoker('getAmazonUserInfo')
 export const syncSaves = makeHandlerInvoker('syncSaves')
 export const getDefaultSavePath = makeHandlerInvoker('getDefaultSavePath')

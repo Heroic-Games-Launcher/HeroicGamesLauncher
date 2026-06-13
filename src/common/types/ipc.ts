@@ -49,7 +49,12 @@ import type { CatalogLocaleSettings, CatalogProduct } from './discounts'
 import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
-import type { EpicFriendsList } from './epic_friends'
+import type {
+  EpicFriendAction,
+  EpicFriendDetails,
+  EpicFriendSearchResult,
+  EpicFriendsList
+} from './epic_friends'
 import type { GetLogFileArgs } from 'backend/logger/paths'
 
 // ts-prune-ignore-next
@@ -151,6 +156,10 @@ interface TestSyncIPCFunctions {
 // ts-prune-ignore-next
 interface AsyncIPCFunctions {
   getEpicFriends: () => Promise<EpicFriendsList>
+  getEpicFriendDetails: (accountId: string) => Promise<EpicFriendDetails>
+  runEpicFriendAction: (action: EpicFriendAction) => Promise<void>
+  searchEpicUsers: (prefix: string) => Promise<EpicFriendSearchResult[]>
+  stopEpicFriendsBackground: () => Promise<void>
   kill: (appName: string, runner: Runner) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
   callTool: (args: Tools) => Promise<void>

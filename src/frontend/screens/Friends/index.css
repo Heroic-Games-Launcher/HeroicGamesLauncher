@@ -7,6 +7,237 @@
   color: var(--text-default);
 }
 
+.friendsPanelBackdrop {
+  position: fixed;
+  z-index: 1200;
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  padding: var(--space-md-fixed);
+  background: rgb(0 0 0 / 58%);
+}
+
+.friendsScreen--panel {
+  box-sizing: border-box;
+  flex-grow: 0;
+  width: min(460px, calc(100vw - 32px));
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  border: 1px solid var(--divider);
+  border-radius: 24px;
+  background: var(--background);
+  box-shadow: 0 18px 60px rgb(0 0 0 / 55%);
+}
+
+.friendsScreen--panel .friendsScreen__controls {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.friendsScreen--panel .friendsScreen__controls .MuiTextField-root {
+  width: 100%;
+}
+
+.friendsScreen--panel .friendsScreen__list {
+  grid-template-columns: 1fr;
+}
+
+.friendsScreen--panel .friendsScreen__friend {
+  box-sizing: border-box;
+  min-height: 68px;
+  padding: 4px 12px;
+  contain-intrinsic-block-size: 68px;
+}
+
+.friendsScreen__socialNav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+  padding: var(--space-xs);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  background: var(--input-background);
+}
+
+.friendsScreen__socialNav .MuiIconButton-root {
+  position: relative;
+  border-radius: 8px;
+  color: var(--text-secondary);
+}
+
+.friendsScreen__socialNav .MuiIconButton-root:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.friendsScreen__socialNav .MuiIconButton-root.active {
+  background: var(--text-default);
+  color: var(--background);
+}
+
+.friendsScreen__socialSections {
+  display: flex;
+  flex-direction: column;
+}
+
+.friendsScreen__socialSection {
+  border-bottom: 1px solid var(--divider);
+}
+
+.friendsScreen__socialSectionToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-sm);
+  border: 0;
+  background: transparent;
+  color: var(--text-default);
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--bold);
+  text-align: left;
+}
+
+.friendsScreen__socialSectionToggle:hover {
+  background: var(--background-secondary);
+}
+
+.friendsScreen__socialSectionMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-secondary);
+}
+
+.friendsScreen__socialSectionMeta .MuiSvgIcon-root {
+  width: 18px;
+  height: 18px;
+}
+
+.friendsScreen__requestCount {
+  position: absolute;
+  top: 2px;
+  right: 15%;
+  min-width: 18px;
+  padding: 1px 4px;
+  border-radius: 9px;
+  background: #00a7d7;
+  color: #001014;
+  font-size: 11px;
+  font-weight: var(--bold);
+}
+
+.friendsScreen__profile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-xl) var(--space-md);
+  color: var(--text-default);
+}
+
+.friendsScreen__profileAvatar {
+  position: relative;
+  display: grid;
+  width: 96px;
+  height: 96px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--input-background);
+  color: #101417;
+  font-size: var(--text-3xl);
+  font-weight: var(--bold);
+}
+
+.friendsScreen__profileAvatar::after {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 18px;
+  height: 18px;
+  border: 4px solid var(--background);
+  border-radius: 50%;
+  background: #4ade62;
+  content: '';
+}
+
+.friendsScreen__profile strong {
+  font-size: var(--text-xl);
+}
+
+.friendsScreen__profile span,
+.friendsScreen__sectionMessage {
+  color: var(--text-secondary);
+}
+
+.friendsScreen__addFriends {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.friendsScreen__addFriends .MuiInputBase-root {
+  background: var(--input-background);
+  color: var(--text-default);
+}
+
+.friendsScreen__addFriends > .MuiTextField-root {
+  margin-bottom: var(--space-sm);
+}
+
+.friendsScreen__requestSection {
+  border-bottom: 1px solid var(--divider);
+}
+
+.friendsScreen__requestSection h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  margin: 0;
+  padding: var(--space-sm);
+  color: var(--text-default);
+  font-size: var(--text-md);
+}
+
+.friendsScreen__requestSection h3 span {
+  color: var(--text-secondary);
+}
+
+.friendsScreen__request {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 76px;
+  align-items: center;
+  gap: var(--space-sm);
+  box-sizing: border-box;
+  min-height: 68px;
+  padding: 4px 12px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.friendsScreen__request strong {
+  overflow: hidden;
+  color: var(--text-default);
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friendsScreen__request .MuiButton-root {
+  width: 76px;
+  min-width: 76px;
+  min-height: 36px;
+  padding: 4px 10px;
+  border: 1px solid var(--divider);
+  background: var(--input-background);
+  color: var(--text-default);
+  font-size: var(--text-sm);
+}
+
 .friendsScreen--message,
 .friendsScreen__message {
   align-items: center;
@@ -27,6 +258,11 @@
   margin-bottom: var(--space-md);
 }
 
+.friendsScreen__header > div {
+  min-width: 0;
+  text-align: left;
+}
+
 .friendsScreen__header h2,
 .friendsScreen__header p {
   margin: 0;
@@ -39,10 +275,23 @@
 .friendsScreen__header p {
   margin-top: var(--space-3xs);
   color: var(--text-secondary);
+  font-size: var(--text-sm);
+  text-align: left;
 }
 
 .friendsScreen__header .MuiIconButton-root {
   color: var(--text-default);
+}
+
+.friendsScreen__headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.friendsScreen__headerActions .MuiIconButton-root {
+  border: 1px solid var(--divider);
+  background: var(--input-background);
 }
 
 .friendsScreen__controls {
@@ -80,16 +329,54 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
+.friendsScreen__unnamed {
+  border-top: 1px solid var(--divider);
+}
+
+.friendsScreen__unnamedToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-sm);
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-weight: var(--bold);
+  text-align: left;
+}
+
+.friendsScreen__unnamedToggle:hover {
+  color: var(--text-default);
+  background: var(--background-secondary);
+}
+
 .friendsScreen__friend {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
   min-width: 0;
+  min-height: 64px;
   padding: var(--space-sm);
   border-bottom: 1px solid var(--divider);
+  content-visibility: auto;
+  contain-intrinsic-block-size: 64px;
+}
+
+.friendsScreen__friend--clickable {
+  cursor: pointer;
+}
+
+.friendsScreen__friend--clickable:hover,
+.friendsScreen__friend--clickable:focus-visible {
+  background: var(--background-secondary);
+  outline: none;
 }
 
 .friendsScreen__avatar {
+  position: relative;
   display: grid;
   flex: 0 0 40px;
   width: 40px;
@@ -97,14 +384,212 @@
   place-items: center;
   border-radius: 50%;
   background: var(--accent);
-  color: var(--text-on-accent, white);
+  color: #101417;
   font-weight: var(--bold);
+}
+
+.friendsScreen__avatar--online::after,
+.friendsScreen__avatar--away::after,
+.friendsScreen__avatar--offline::after {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid var(--background);
+  border-radius: 50%;
+  content: '';
+}
+
+.friendsScreen__avatar--online::after {
+  background: #4ade62;
+}
+
+.friendsScreen__avatar--away::after {
+  background: #ff9f43;
+}
+
+.friendsScreen__avatar--offline::after {
+  background: #8a9296;
+}
+
+.friendsScreen__avatar--gradient-0 {
+  background: linear-gradient(145deg, #ff9a9e, #fad0c4);
+}
+
+.friendsScreen__avatar--gradient-1 {
+  background: linear-gradient(145deg, #f6d365, #fda085);
+}
+
+.friendsScreen__avatar--gradient-2 {
+  background: linear-gradient(145deg, #84fab0, #8fd3f4);
+}
+
+.friendsScreen__avatar--gradient-3 {
+  background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
+}
+
+.friendsScreen__avatar--gradient-4 {
+  background: linear-gradient(145deg, #d4a5ff, #8ec5fc);
+}
+
+.friendsScreen__avatar--gradient-5 {
+  background: linear-gradient(145deg, #fbc2eb, #a6c1ee);
+}
+
+.friendsScreen__avatar--gradient-6 {
+  background: linear-gradient(145deg, #43e97b, #38f9d7);
+}
+
+.friendsScreen__avatar--gradient-7 {
+  background: linear-gradient(145deg, #fa709a, #fee140);
+}
+
+.friendsScreen__avatar--gradient-8 {
+  background: linear-gradient(145deg, #30cfd0, #a8edea);
 }
 
 .friendsScreen__friendText {
   display: flex;
+  flex: 1;
+  align-items: flex-start;
   flex-direction: column;
   min-width: 0;
+  text-align: left;
+}
+
+.friendsScreen__friendName {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.friendsScreen__friendName > span {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.friendsScreen__dialog .MuiDialog-paper {
+  border: 1px solid var(--divider);
+  background: var(--background);
+  color: var(--text-default);
+}
+
+.friendsScreen__friendProfile {
+  position: fixed;
+  z-index: 1300;
+  right: min(508px, calc(100vw - 476px));
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: min(480px, calc(100vw - 540px));
+  max-height: calc(100vh - 64px);
+  padding: var(--space-lg);
+  overflow-y: auto;
+  border: 1px solid var(--divider);
+  border-radius: 24px;
+  background: var(--background);
+  box-shadow: 0 18px 60px rgb(0 0 0 / 55%);
+  color: var(--text-default);
+  text-align: center;
+}
+
+.friendsScreen__friendProfileHeader {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.friendsScreen__friendProfileHeader .MuiIconButton-root {
+  border: 1px solid var(--divider);
+  background: var(--input-background);
+  color: var(--text-default);
+}
+
+.friendsScreen__friendProfile > .friendsScreen__avatar {
+  align-self: center;
+  flex-basis: 104px;
+  width: 104px;
+  height: 104px;
+  font-size: var(--text-3xl);
+}
+
+.friendsScreen__friendProfile h2 {
+  margin: var(--space-xs) 0 0;
+}
+
+.friendsScreen__friendProfileStatus {
+  color: var(--text-secondary);
+}
+
+.friendsScreen__connections {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.friendsScreen__connections .MuiChip-root {
+  max-width: 100%;
+  border: 1px solid var(--divider);
+  background: var(--input-background);
+  color: var(--text-default);
+}
+
+.friendsScreen__nicknameEditor,
+.friendsScreen__moreOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.friendsScreen__friendProfile .MuiInputBase-root {
+  background: var(--input-background);
+  color: var(--text-default);
+}
+
+.friendsScreen__friendProfile .MuiInputLabel-root {
+  color: var(--text-secondary);
+}
+
+.friendsScreen__friendProfile .MuiInputLabel-root.Mui-focused {
+  color: var(--text-default);
+}
+
+.friendsScreen__friendProfile .MuiOutlinedInput-notchedOutline {
+  border-color: var(--divider);
+}
+
+.friendsScreen__friendProfile .MuiButton-root,
+.friendsScreen__dialog .MuiDialogActions-root .MuiButton-root {
+  min-height: 44px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--divider);
+  background: var(--input-background);
+  color: var(--text-default);
+  font-weight: var(--bold);
+}
+
+.friendsScreen__friendProfile .MuiButton-root:hover,
+.friendsScreen__dialog .MuiDialogActions-root .MuiButton-root:hover {
+  border-color: var(--text-secondary);
+  background: var(--background-secondary);
+}
+
+.friendsScreen__friendProfile .MuiButton-colorError,
+.friendsScreen__dialog .MuiDialogActions-root .MuiButton-colorError {
+  border-color: #ef5350;
+  color: #ff8a80;
+}
+
+.friendsScreen__friendProfile .MuiButton-root.Mui-disabled {
+  border-color: var(--divider);
+  background: transparent;
+  color: var(--text-secondary);
+  opacity: 0.55;
 }
 
 .friendsScreen__friendText strong,
@@ -120,6 +605,22 @@
 }
 
 @media (max-width: 700px) {
+  .friendsPanelBackdrop {
+    padding: 0;
+  }
+
+  .friendsScreen--panel {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .friendsScreen__friendProfile {
+    inset: var(--space-sm);
+    width: auto;
+    max-height: none;
+    transform: none;
+  }
+
   .friendsScreen__controls {
     align-items: stretch;
     flex-direction: column;

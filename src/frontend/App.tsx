@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import './App.css'
 import {
@@ -22,6 +22,39 @@ import { TourProvider } from './state/TourContext'
 import { InstallGameWrapper } from './screens/Library/components/InstallModal'
 import { SettingsModalWrapper } from './screens/Settings/components/SettingsModal'
 import AnalyticsDialog from './screens/Settings/components/AnalyticsDialog'
+import Friends from './screens/Friends'
+
+function EpicFriendsPanel() {
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const toggle = () => setOpen((current) => !current)
+    window.addEventListener('toggle-epic-friends-panel', toggle)
+    return () => window.removeEventListener('toggle-epic-friends-panel', toggle)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [open])
+
+  if (!open) return null
+
+  return (
+    <div
+      className="friendsPanelBackdrop"
+      onClick={() => setOpen(false)}
+      role="presentation"
+    >
+      <Friends panel />
+    </div>
+  )
+}
 
 function Root() {
   const {
@@ -98,6 +131,7 @@ function Root() {
               <UploadedLogFilesList />
               <Outlet />
               <AnalyticsDialog />
+              <EpicFriendsPanel />
             </main>
             <div className="controller">
               <ControllerHints />
