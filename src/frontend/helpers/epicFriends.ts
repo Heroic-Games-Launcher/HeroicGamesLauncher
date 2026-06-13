@@ -2,9 +2,7 @@ import type { EpicFriendsList } from 'common/types/epic_friends'
 
 type EpicFriendsListener = (username: string, friends: EpicFriendsList) => void
 
-let cachedFriends:
-  | { username: string; friends: EpicFriendsList }
-  | undefined
+let cachedFriends: { username: string; friends: EpicFriendsList } | undefined
 let pendingLoad:
   | { username: string; promise: Promise<EpicFriendsList> }
   | undefined

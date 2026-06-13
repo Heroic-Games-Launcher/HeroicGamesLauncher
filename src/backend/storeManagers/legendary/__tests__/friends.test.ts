@@ -100,8 +100,9 @@ describe('Epic friends', () => {
       friend('Away', 'away')
     ]
 
-    expect(friends.sort(compareEpicFriends).map(({ displayName }) => displayName))
-      .toEqual(['Online', 'Away', 'Offline', 'Unavailable'])
+    expect(
+      friends.sort(compareEpicFriends).map(({ displayName }) => displayName)
+    ).toEqual(['Online', 'Away', 'Offline', 'Unavailable'])
   })
 
   test('retries display-name lookups when Epic throttles the request', async () => {

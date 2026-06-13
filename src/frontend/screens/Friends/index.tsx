@@ -109,20 +109,23 @@ export default function Friends({ panel = false }: { panel?: boolean }) {
     setSelectedFriendAnchorY(anchorY)
   }, [])
 
-  const loadFriends = useCallback(async (forceRefresh = false) => {
-    if (!epic.username) return
+  const loadFriends = useCallback(
+    async (forceRefresh = false) => {
+      if (!epic.username) return
 
-    setLoading(!getCachedEpicFriends(epic.username))
-    setError(false)
-    try {
-      setFriends(await loadEpicFriends(epic.username, forceRefresh))
-    } catch (loadError) {
-      window.api.logError(String(loadError))
-      setError(true)
-    } finally {
-      setLoading(false)
-    }
-  }, [epic.username])
+      setLoading(!getCachedEpicFriends(epic.username))
+      setError(false)
+      try {
+        setFriends(await loadEpicFriends(epic.username, forceRefresh))
+      } catch (loadError) {
+        window.api.logError(String(loadError))
+        setError(true)
+      } finally {
+        setLoading(false)
+      }
+    },
+    [epic.username]
+  )
 
   useEffect(() => {
     void loadFriends()
@@ -155,10 +158,9 @@ export default function Friends({ panel = false }: { panel?: boolean }) {
   }, [panel, socialMode, userSearch])
 
   const selectedFriends = useMemo(() => {
-    const list =
-      panel
-        ? friends.friends
-        : selectedTab === 'accepted'
+    const list = panel
+      ? friends.friends
+      : selectedTab === 'accepted'
         ? friends.friends
         : selectedTab === 'incoming'
           ? friends.incoming
@@ -199,8 +201,12 @@ export default function Friends({ panel = false }: { panel?: boolean }) {
     ...generatedUserFriends
   ]
   const socialFriends = {
-    online: namedFriends.filter(({ presenceStatus }) => presenceStatus === 'online'),
-    away: namedFriends.filter(({ presenceStatus }) => presenceStatus === 'away'),
+    online: namedFriends.filter(
+      ({ presenceStatus }) => presenceStatus === 'online'
+    ),
+    away: namedFriends.filter(
+      ({ presenceStatus }) => presenceStatus === 'away'
+    ),
     offline: namedFriends.filter(
       ({ presenceStatus }) =>
         presenceStatus === 'offline' || presenceStatus === 'unknown'
@@ -280,13 +286,13 @@ export default function Friends({ panel = false }: { panel?: boolean }) {
         {!panel && (
           <div className="friendsScreen__headerActions">
             <Tooltip title={t('friends.refresh', 'Refresh friends')}>
-            <IconButton
+              <IconButton
                 aria-label={t('friends.refresh', 'Refresh friends')}
                 disabled={loading}
                 onClick={() => void loadFriends(true)}
-            >
+              >
                 <RefreshIcon />
-            </IconButton>
+              </IconButton>
             </Tooltip>
           </div>
         )}
@@ -321,41 +327,43 @@ export default function Friends({ panel = false }: { panel?: boolean }) {
       )}
 
       {(!panel || socialMode === 'friends') && (
-      <div className="friendsScreen__controls">
-        {!panel && (
-        <Tabs
-          value={selectedTab}
-          onChange={(_event, value: EpicFriendStatus) => setSelectedTab(value)}
-          variant="scrollable"
-        >
-          <Tab
-            value="accepted"
-            label={t('friends.tabs.friends', 'Friends ({{count}})', {
-              count: friends.friends.length
-            })}
+        <div className="friendsScreen__controls">
+          {!panel && (
+            <Tabs
+              value={selectedTab}
+              onChange={(_event, value: EpicFriendStatus) =>
+                setSelectedTab(value)
+              }
+              variant="scrollable"
+            >
+              <Tab
+                value="accepted"
+                label={t('friends.tabs.friends', 'Friends ({{count}})', {
+                  count: friends.friends.length
+                })}
+              />
+              <Tab
+                value="incoming"
+                label={t('friends.tabs.incoming', 'Incoming ({{count}})', {
+                  count: friends.incoming.length
+                })}
+              />
+              <Tab
+                value="outgoing"
+                label={t('friends.tabs.outgoing', 'Sent ({{count}})', {
+                  count: friends.outgoing.length
+                })}
+              />
+            </Tabs>
+          )}
+          <TextField
+            size="small"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder={t('friends.search', 'Search friends')}
+            inputProps={{ 'aria-label': t('friends.search', 'Search friends') }}
           />
-          <Tab
-            value="incoming"
-            label={t('friends.tabs.incoming', 'Incoming ({{count}})', {
-              count: friends.incoming.length
-            })}
-          />
-          <Tab
-            value="outgoing"
-            label={t('friends.tabs.outgoing', 'Sent ({{count}})', {
-              count: friends.outgoing.length
-            })}
-          />
-        </Tabs>
-        )}
-        <TextField
-          size="small"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder={t('friends.search', 'Search friends')}
-          inputProps={{ 'aria-label': t('friends.search', 'Search friends') }}
-        />
-      </div>
+        </div>
       )}
 
       {socialMode !== 'profile' && loading && friends === emptyFriends && (
@@ -377,17 +385,17 @@ export default function Friends({ panel = false }: { panel?: boolean }) {
         !error &&
         !loading &&
         selectedFriends.length === 0 && (
-        <p className="friendsScreen__message">
-          {search
-            ? t('friends.noMatches', 'No friends match your search.')
-            : t('friends.empty', 'There is nobody in this list.')}
-        </p>
+          <p className="friendsScreen__message">
+            {search
+              ? t('friends.noMatches', 'No friends match your search.')
+              : t('friends.empty', 'There is nobody in this list.')}
+          </p>
         )}
 
       {(!panel || socialMode === 'friends') &&
         !error &&
-        selectedFriends.length > 0 && (
-        panel ? (
+        selectedFriends.length > 0 &&
+        (panel ? (
           <div className="friendsScreen__socialSections">
             {(
               [
@@ -413,125 +421,124 @@ export default function Friends({ panel = false }: { panel?: boolean }) {
             ))}
           </div>
         ) : (
-        <>
-          {namedFriends.length > 0 && (
-            <div className="friendsScreen__list">
-              {namedFriends.map((friend) => (
-                <FriendRow
-                  key={friend.accountId}
-                  friend={friend}
-                  onOpen={openFriend}
-                />
-              ))}
-            </div>
-          )}
-          {selectedTab === 'accepted' && unnamedFriends.length > 0 && (
-            <section className="friendsScreen__unnamed">
-              <button
-                type="button"
-                className="friendsScreen__unnamedToggle"
-                aria-expanded={unnamedFriendsExpanded}
-                onClick={() => setShowUnnamedFriends((expanded) => !expanded)}
-              >
-                <span>
-                  {t(
-                    'friends.unnamed',
-                    'Unnamed Epic accounts ({{count}})',
-                    { count: unnamedFriends.length }
+          <>
+            {namedFriends.length > 0 && (
+              <div className="friendsScreen__list">
+                {namedFriends.map((friend) => (
+                  <FriendRow
+                    key={friend.accountId}
+                    friend={friend}
+                    onOpen={openFriend}
+                  />
+                ))}
+              </div>
+            )}
+            {selectedTab === 'accepted' && unnamedFriends.length > 0 && (
+              <section className="friendsScreen__unnamed">
+                <button
+                  type="button"
+                  className="friendsScreen__unnamedToggle"
+                  aria-expanded={unnamedFriendsExpanded}
+                  onClick={() => setShowUnnamedFriends((expanded) => !expanded)}
+                >
+                  <span>
+                    {t('friends.unnamed', 'Unnamed Epic accounts ({{count}})', {
+                      count: unnamedFriends.length
+                    })}
+                  </span>
+                  {unnamedFriendsExpanded ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
                   )}
-                </span>
-                {unnamedFriendsExpanded ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
+                </button>
+                {unnamedFriendsExpanded && (
+                  <div className="friendsScreen__list">
+                    {unnamedFriends.map((friend) => (
+                      <FriendRow
+                        key={friend.accountId}
+                        friend={friend}
+                        onOpen={openFriend}
+                      />
+                    ))}
+                  </div>
                 )}
-              </button>
-              {unnamedFriendsExpanded && (
-                <div className="friendsScreen__list">
-                  {unnamedFriends.map((friend) => (
-                    <FriendRow
-                      key={friend.accountId}
-                      friend={friend}
-                      onOpen={openFriend}
-                    />
-                  ))}
-                </div>
-              )}
-            </section>
-          )}
-          {selectedTab === 'accepted' && hiddenIdFriends.length > 0 && (
-            <section className="friendsScreen__unnamed">
-              <button
-                type="button"
-                className="friendsScreen__unnamedToggle"
-                aria-expanded={hiddenIdFriendsExpanded}
-                onClick={() => setShowHiddenIdFriends((expanded) => !expanded)}
-              >
-                <span>
-                  {t(
-                    'friends.hiddenIds',
-                    'Hidden Epic accounts ({{count}})',
-                    { count: hiddenIdFriends.length }
+              </section>
+            )}
+            {selectedTab === 'accepted' && hiddenIdFriends.length > 0 && (
+              <section className="friendsScreen__unnamed">
+                <button
+                  type="button"
+                  className="friendsScreen__unnamedToggle"
+                  aria-expanded={hiddenIdFriendsExpanded}
+                  onClick={() =>
+                    setShowHiddenIdFriends((expanded) => !expanded)
+                  }
+                >
+                  <span>
+                    {t(
+                      'friends.hiddenIds',
+                      'Hidden Epic accounts ({{count}})',
+                      { count: hiddenIdFriends.length }
+                    )}
+                  </span>
+                  {hiddenIdFriendsExpanded ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
                   )}
-                </span>
-                {hiddenIdFriendsExpanded ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
+                </button>
+                {hiddenIdFriendsExpanded && (
+                  <div className="friendsScreen__list">
+                    {hiddenIdFriends.map((friend) => (
+                      <FriendRow
+                        key={friend.accountId}
+                        friend={friend}
+                        onOpen={openFriend}
+                      />
+                    ))}
+                  </div>
                 )}
-              </button>
-              {hiddenIdFriendsExpanded && (
-                <div className="friendsScreen__list">
-                  {hiddenIdFriends.map((friend) => (
-                    <FriendRow
-                      key={friend.accountId}
-                      friend={friend}
-                      onOpen={openFriend}
-                    />
-                  ))}
-                </div>
-              )}
-            </section>
-          )}
-          {selectedTab === 'accepted' && generatedUserFriends.length > 0 && (
-            <section className="friendsScreen__unnamed">
-              <button
-                type="button"
-                className="friendsScreen__unnamedToggle"
-                aria-expanded={generatedUserFriendsExpanded}
-                onClick={() =>
-                  setShowGeneratedUserFriends((expanded) => !expanded)
-                }
-              >
-                <span>
-                  {t(
-                    'friends.generatedUsers',
-                    'Generated Epic accounts ({{count}})',
-                    { count: generatedUserFriends.length }
+              </section>
+            )}
+            {selectedTab === 'accepted' && generatedUserFriends.length > 0 && (
+              <section className="friendsScreen__unnamed">
+                <button
+                  type="button"
+                  className="friendsScreen__unnamedToggle"
+                  aria-expanded={generatedUserFriendsExpanded}
+                  onClick={() =>
+                    setShowGeneratedUserFriends((expanded) => !expanded)
+                  }
+                >
+                  <span>
+                    {t(
+                      'friends.generatedUsers',
+                      'Generated Epic accounts ({{count}})',
+                      { count: generatedUserFriends.length }
+                    )}
+                  </span>
+                  {generatedUserFriendsExpanded ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
                   )}
-                </span>
-                {generatedUserFriendsExpanded ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
+                </button>
+                {generatedUserFriendsExpanded && (
+                  <div className="friendsScreen__list">
+                    {generatedUserFriends.map((friend) => (
+                      <FriendRow
+                        key={friend.accountId}
+                        friend={friend}
+                        onOpen={openFriend}
+                      />
+                    ))}
+                  </div>
                 )}
-              </button>
-              {generatedUserFriendsExpanded && (
-                <div className="friendsScreen__list">
-                  {generatedUserFriends.map((friend) => (
-                    <FriendRow
-                      key={friend.accountId}
-                      friend={friend}
-                      onOpen={openFriend}
-                    />
-                  ))}
-                </div>
-              )}
-            </section>
-          )}
-        </>
-        )
-        )}
+              </section>
+            )}
+          </>
+        ))}
       <FriendDetailsDialog
         friend={selectedFriend}
         anchorY={selectedFriendAnchorY}
@@ -575,11 +582,7 @@ function SocialFriendSection({
       {expanded && (
         <div className="friendsScreen__list">
           {friends.map((friend) => (
-            <FriendRow
-              key={friend.accountId}
-              friend={friend}
-              onOpen={onOpen}
-            />
+            <FriendRow key={friend.accountId} friend={friend} onOpen={onOpen} />
           ))}
         </div>
       )}
@@ -842,9 +845,10 @@ function FriendDetailsDialog({
   const { t } = useTranslation()
   const [details, setDetails] = useState<EpicFriendDetails>()
   const [alias, setAlias] = useState('')
-  const [pendingAction, setPendingAction] = useState<
-    Extract<EpicFriendAction, { type: 'block' | 'unfriend' }>['type']
-  >()
+  const [pendingAction, setPendingAction] =
+    useState<
+      Extract<EpicFriendAction, { type: 'block' | 'unfriend' }>['type']
+    >()
   const [editingNickname, setEditingNickname] = useState(false)
   const [showMoreOptions, setShowMoreOptions] = useState(false)
   const [working, setWorking] = useState(false)
@@ -923,10 +927,7 @@ function FriendDetailsDialog({
         onClick={(event) => event.stopPropagation()}
       >
         <header className="friendsScreen__friendProfileHeader">
-          <IconButton
-            aria-label={t('button.close', 'Close')}
-            onClick={onClose}
-          >
+          <IconButton aria-label={t('button.close', 'Close')} onClick={onClose}>
             <CloseIcon />
           </IconButton>
         </header>
@@ -970,26 +971,26 @@ function FriendDetailsDialog({
         </Button>
         {editingNickname && (
           <div className="friendsScreen__nicknameEditor">
-          <TextField
-            fullWidth
-            label={t('friends.actions.nickname', 'Nickname')}
-            value={alias}
-            disabled={working}
-            onChange={(event) => setAlias(event.target.value)}
-          />
-          <Button
-            variant="contained"
-            disabled={working || alias.trim() === friend.alias}
-            onClick={() =>
-              void runAction({
-                type: 'setAlias',
-                accountId: friend.accountId,
-                alias
-              })
-            }
-          >
-            {t('friends.actions.saveNickname', 'Save nickname')}
-          </Button>
+            <TextField
+              fullWidth
+              label={t('friends.actions.nickname', 'Nickname')}
+              value={alias}
+              disabled={working}
+              onChange={(event) => setAlias(event.target.value)}
+            />
+            <Button
+              variant="contained"
+              disabled={working || alias.trim() === friend.alias}
+              onClick={() =>
+                void runAction({
+                  type: 'setAlias',
+                  accountId: friend.accountId,
+                  alias
+                })
+              }
+            >
+              {t('friends.actions.saveNickname', 'Save nickname')}
+            </Button>
           </div>
         )}
         <Button
@@ -1002,22 +1003,22 @@ function FriendDetailsDialog({
         </Button>
         {showMoreOptions && (
           <div className="friendsScreen__moreOptions">
-          <Button
-            color="error"
-            variant="outlined"
-            disabled={working}
-            onClick={() => setPendingAction('block')}
-          >
-            {t('friends.actions.block', 'Block')}
-          </Button>
-          <Button
-            color="error"
-            variant="outlined"
-            disabled={working}
-            onClick={() => setPendingAction('unfriend')}
-          >
-            {t('friends.actions.unfriend', 'Unfriend')}
-          </Button>
+            <Button
+              color="error"
+              variant="outlined"
+              disabled={working}
+              onClick={() => setPendingAction('block')}
+            >
+              {t('friends.actions.block', 'Block')}
+            </Button>
+            <Button
+              color="error"
+              variant="outlined"
+              disabled={working}
+              onClick={() => setPendingAction('unfriend')}
+            >
+              {t('friends.actions.unfriend', 'Unfriend')}
+            </Button>
           </div>
         )}
       </aside>
@@ -1040,7 +1041,10 @@ function FriendDetailsDialog({
             disabled={working || !pendingAction}
             onClick={() =>
               pendingAction &&
-              void runAction({ type: pendingAction, accountId: friend.accountId })
+              void runAction({
+                type: pendingAction,
+                accountId: friend.accountId
+              })
             }
           >
             {pendingAction === 'block'

@@ -20,9 +20,7 @@ export const getEpicFriends = makeHandlerInvoker('getEpicFriends')
 export const getEpicFriendDetails = makeHandlerInvoker('getEpicFriendDetails')
 export const runEpicFriendAction = makeHandlerInvoker('runEpicFriendAction')
 export const searchEpicUsers = makeHandlerInvoker('searchEpicUsers')
-export const stopEpicFriendsBackground = makeHandlerInvoker(
-  'stopEpicFriendsBackground'
-)
+export const stopEpicFriendsBackground = makeHandlerInvoker('stopEpicFriendsBackground')
 export const getAmazonUserInfo = makeHandlerInvoker('getAmazonUserInfo')
 export const syncSaves = makeHandlerInvoker('syncSaves')
 export const getDefaultSavePath = makeHandlerInvoker('getDefaultSavePath')
