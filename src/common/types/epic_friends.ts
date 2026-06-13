@@ -1,5 +1,5 @@
 export type EpicFriendStatus = 'accepted' | 'incoming' | 'outgoing'
-export type EpicFriendPresenceStatus = 'online' | 'away' | 'offline' | 'unknown'
+type EpicFriendPresenceStatus = 'online' | 'away' | 'offline' | 'unknown'
 
 export interface EpicFriendPresence {
   presenceStatus: EpicFriendPresenceStatus
@@ -16,7 +16,7 @@ export interface EpicFriend extends EpicFriendPresence {
   created: string
 }
 
-export interface EpicFriendConnection {
+interface EpicFriendConnection {
   type: string
   displayName: string
 }
