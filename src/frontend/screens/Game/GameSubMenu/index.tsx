@@ -111,9 +111,7 @@ export default function GamesSubmenu({
     showDialogModal({
       showDialog: true,
       message:
-        runner === 'steam'
-          ? t('box.move.steamMessage')
-          : t('box.move.message'),
+        runner === 'steam' ? t('box.move.steamMessage') : t('box.move.message'),
       title: t('box.move.title'),
       buttons: [
         { text: t('box.yes'), onClick: onMoveInstallYesClick },
