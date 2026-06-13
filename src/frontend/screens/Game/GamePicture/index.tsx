@@ -8,7 +8,6 @@ interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   art_square: string
   art_logo?: string | undefined
   store: string
-  // Optional override for the image shown when `art_square` fails to load.
   fallback?: string
 }
 

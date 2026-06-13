@@ -209,11 +209,8 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
               if (
                 !is_installed &&
                 !is.queued &&
-                // Steam manages the download (location, size and queue) in its
-                // own client, so Heroic's install dialog has nothing to
-                // configure. Hand off to the Steam client directly via
-                // handleInstall instead of opening the (for Steam, pointless)
-                // download dialog - matching the library card's behavior.
+                // Steam manages the download (location, size and queue)
+                // TODO: Add Install path behaviour
                 gameInfo.runner !== 'steam'
               ) {
                 openInstallGameModal({
@@ -244,8 +241,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
           >
             {getButtonLabel()}
           </button>
-          {/* Steam manages its own installs, so importing an existing
-              installation into Heroic doesn't apply. */}
+          {/* FIXME: Steam manages its own installs, `aurelia relink` exists but is not really an import. */}
           {gameInfo.runner !== 'steam' && (
             <button
               disabled={disabledInstallButtons || is.installing || is.importing}

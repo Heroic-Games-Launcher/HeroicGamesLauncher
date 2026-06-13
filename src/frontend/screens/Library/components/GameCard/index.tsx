@@ -146,15 +146,8 @@ const GameCard = ({
   const cover =
     gameInfoFromProps.overrides?.art_square || gameInfoFromProps.art_square
 
-  // Steam's CDN portrait art (library_600x900) is frequently missing or
-  // unreachable, which leaves the card black. Only when that portrait is truly
-  // gone do we fall back to a PCGamingWiki portrait (then Steam's own store
-  // image, via the CachedImage fallback) - the Steam portrait always takes
-  // priority and is never preempted while it could still load.
-  //
-  // CachedImage tries an `imagecache://` URL (error #1) before the real Steam
-  // CDN URL, so we only fetch once the *real* URL has failed (error #2+). Images
-  // are lazy-loaded, so this only runs for cards the user can actually see.
+  // Steam's library_600x900 portrait is often missing
+  // only after its real CDN URL fails fetch a wiki portrait.
   const handleCoverError = (): void => {
     if (runner !== 'steam' || triedSteamCover.current) return
     coverErrorCount.current += 1

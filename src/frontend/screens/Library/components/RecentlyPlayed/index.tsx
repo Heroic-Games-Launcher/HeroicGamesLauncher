@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { memo, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { GameInfo, Runner } from 'common/types'
@@ -33,7 +33,7 @@ function getRecentGames(
   return games
 }
 
-export default React.memo(function RecentlyPlayed({
+export default memo(function RecentlyPlayed({
   handleModal,
   onlyInstalled,
   showHidden
@@ -45,7 +45,7 @@ export default React.memo(function RecentlyPlayed({
 
   const hiddenGames = useContext(ContextProvider).hiddenGames
 
-  const loadRecentGames = async () => {
+  const loadRecentGames = useCallback(async () => {
     const hiddenAppNames = hiddenGames.list.map((game) => game.appName)
     const { maxRecentGames } = await window.api.requestAppSettings()
     let newRecentGames = getRecentGames(
@@ -66,13 +66,23 @@ export default React.memo(function RecentlyPlayed({
       )
     }
     setRecentGames(newRecentGames)
-  }
+  }, [
+    epic.library,
+    gog.library,
+    sideloadedLibrary,
+    amazon.library,
+    zoom.library,
+    steam.library,
+    hiddenGames,
+    onlyInstalled,
+    showHidden
+  ])
 
   useEffect(() => {
-    loadRecentGames()
+    void loadRecentGames()
 
     const onRecentGamesUpdated = () => {
-      loadRecentGames()
+      void loadRecentGames()
     }
 
     const recentGamesChangedRemoveListener =
@@ -81,16 +91,7 @@ export default React.memo(function RecentlyPlayed({
     return () => {
       recentGamesChangedRemoveListener()
     }
-  }, [
-    epic.library,
-    gog.library,
-    amazon.library,
-    zoom.library,
-    steam.library,
-    sideloadedLibrary,
-    hiddenGames,
-    showHidden
-  ])
+  }, [loadRecentGames])
 
   if (!recentGames.length) {
     return null

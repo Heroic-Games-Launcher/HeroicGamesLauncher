@@ -15,16 +15,14 @@ function GameRequirements({ reqs }: Props) {
 
   if (!reqs || !reqs.length) return null
 
-  // Regular labeled specs go into the Minimum/Recommended table; the "Other"
-  // and "Notes" rows are rendered below as full-width sections without columns.
+  // Regular labeled specs go into the Minimum/Recommended table
   const specs = reqs.filter(
     (e) => e && e.title && !FULL_WIDTH_TITLES.includes(e.title)
   )
   const other = reqs.find((e) => e?.title === REQS_OTHER_TITLE)
   const notes = reqs.find((e) => e?.title === REQS_NOTES_TITLE)
 
-  // Only split into Minimum/Recommended columns when there's actual recommended
-  // data; otherwise collapse to a single value column.
+  //  collapse to a single value column.
   const hasRecommended = specs.some((e) => e.recommended)
 
   const sectionLabel = (title: string) =>

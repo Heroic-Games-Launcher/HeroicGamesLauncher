@@ -68,6 +68,8 @@ export default React.memo(function NewLogin() {
     'Login with your platform. You can login to more than one platform at the same time.'
   )
 
+  const steamUser = steam.users[0]
+
   useEffect(() => {
     setLoading(false)
   }, [epic, gog])
@@ -173,34 +175,21 @@ export default React.memo(function NewLogin() {
               />
             )}
             {steam.enabled && (
-              <>
-                {steam.users.length === 0 && (
-                  <Runner
-                    class="steam"
-                    buttonText={t('login.steam_add', 'Add Steam Account')}
-                    icon={() => <SteamLogo />}
-                    loginUrl={steamLoginPath}
-                    isLoggedIn={false}
-                    user={undefined}
-                    logoutAction={steam.logout}
-                    onLogin={() => setShowSteamLogin(true)}
-                    disabled={oldMac}
-                  />
-                )}
-                {steam.users.map((account) => (
-                  <Runner
-                    key={account.steamId}
-                    class="steam"
-                    buttonText={t('login.steam', 'Steam Login')}
-                    icon={() => <SteamLogo />}
-                    loginUrl={steamLoginPath}
-                    isLoggedIn={true}
-                    user={account.username}
-                    logoutAction={() => steam.logoutUser(account.steamId)}
-                    disabled={oldMac}
-                  />
-                ))}
-              </>
+              <Runner
+                class="steam"
+                buttonText={t('login.steam_add', 'Add Steam Account')}
+                icon={() => <SteamLogo />}
+                loginUrl={steamLoginPath}
+                isLoggedIn={Boolean(steamUser)}
+                user={steamUser?.username}
+                logoutAction={
+                  steamUser
+                    ? () => steam.logoutUser(steamUser.steamId)
+                    : steam.logout
+                }
+                onLogin={() => setShowSteamLogin(true)}
+                disabled={oldMac}
+              />
             )}
           </div>
         </div>

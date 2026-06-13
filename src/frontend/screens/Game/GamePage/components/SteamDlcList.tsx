@@ -8,10 +8,11 @@ import {
   ShoppingCart
 } from '@mui/icons-material'
 import { CachedImage } from 'frontend/components/UI'
-import { SteamDLCInfo } from 'common/types/steam'
-
-const STEAM_CDN = 'https://cdn.cloudflare.steamstatic.com/steam/apps'
-const STEAM_STORE = 'https://store.steampowered.com/app'
+import {
+  SteamDLCInfo,
+  steamCdnImageBase,
+  steamStoreAppUrl
+} from 'common/types/steam'
 
 interface Props {
   appName: string
@@ -21,11 +22,12 @@ const SteamDlcList = ({ appName }: Props) => {
   const { t } = useTranslation('gamepage')
   const navigate = useNavigate()
   const [dlcs, setDlcs] = useState<SteamDLCInfo[]>([])
-  // App ids currently mid-toggle, so their buttons can be disabled.
   const [busy, setBusy] = useState<Set<string>>(new Set())
 
   const dlcStorePage = (dlcAppId: string) =>
-    `/store-page?store-url=${encodeURIComponent(`${STEAM_STORE}/${dlcAppId}`)}`
+    `/store-page?store-url=${encodeURIComponent(
+      `${steamStoreAppUrl}/${dlcAppId}`
+    )}`
 
   const loadDlcs = useCallback(async () => {
     try {
@@ -35,9 +37,6 @@ const SteamDlcList = ({ appName }: Props) => {
     }
   }, [appName])
 
-  // The status icon doubles as an action: owned DLC toggles enabled/disabled
-  // (`aurelia enable`/`disable`), which takes effect on the next Steam game
-  // launch; unowned DLC opens its store page to buy it.
   const onStatusClick = async (dlc: SteamDLCInfo) => {
     if (!dlc.owned) {
       navigate(dlcStorePage(dlc.appId))
@@ -78,9 +77,7 @@ const SteamDlcList = ({ appName }: Props) => {
     return null
   }
 
-  // Resolve a DLC's state to an icon, style and tooltip: not owned (shop),
-  // disabled (click to enable), or enabled (click to disable). The toggle is
-  // applied on the next Steam game launch.
+  // Resolve a DLC's state to an icon
   const statusFor = (dlc: SteamDLCInfo) => {
     if (!dlc.owned) {
       return {
@@ -113,8 +110,8 @@ const SteamDlcList = ({ appName }: Props) => {
             <li key={dlc.appId} className="steamDlcRow">
               <CachedImage
                 className="steamDlcImage"
-                src={`${STEAM_CDN}/${dlc.appId}/header.jpg`}
-                fallback={`${STEAM_CDN}/${dlc.appId}/capsule_231x87.jpg`}
+                src={`${steamCdnImageBase}/${dlc.appId}/header.jpg`}
+                fallback={`${steamCdnImageBase}/${dlc.appId}/capsule_231x87.jpg`}
               />
               <span className="steamDlcTitle">{dlc.title}</span>
               <button

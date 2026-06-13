@@ -14,11 +14,7 @@ interface Props {
 type Mode = 'password' | 'qr'
 
 /**
- * Credentials form for signing in to Steam through Aurelia (`aurelia login`).
- * Replaces the old Steam OpenID webview: Aurelia owns the Steam session, so we
- * collect the username/password (and an optional Steam Guard code) here and hand
- * them to the backend. A QR mode is also offered, mirroring the Steam Mobile
- * app's scan-to-approve flow (`aurelia login --qr`).
+ * Credentials form for signing in to Steam
  */
 export default function SteamLogin({ backdropClick, onSuccess }: Props) {
   const { steam } = useContext(ContextProvider)
@@ -35,13 +31,10 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
 
   const { loading, error } = status
 
-  // Tracks whether the QR sign-in completed (success or hard failure) so the
-  // cleanup below doesn't abort an already-finished `aurelia login --qr`.
+  // Tracks whether the QR sign-in completed
   const qrDone = useRef(false)
 
-  // QR flow: kick off `aurelia login --qr`, draw the challenge URL it streams
-  // back, and resolve once the user approves the sign-in on their phone. The
-  // process is aborted if the dialog is closed before that happens.
+  // QR flow: kick off `aurelia login --qr`, draw challenge URL
   useEffect(() => {
     if (mode !== 'qr') return
 
@@ -74,8 +67,7 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
         window.api.cancelSteamQrLogin()
       }
     }
-    // Re-run only when switching into/out of QR mode; the closed-over callbacks
-    // are stable for the lifetime of the dialog.
+    // Re-run only when switching into/out of QR mode
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode])
 
@@ -118,17 +110,12 @@ export default function SteamLogin({ backdropClick, onSuccess }: Props) {
         <div className="loginInstructions">
           <strong>{t('steam.welcome', 'Sign in to Steam')}</strong>
           {mode === 'password' ? (
-            <p>
-              {t(
-                'steam.message',
-                'Enter your Steam credentials. If your account uses Steam Guard, enter the current code as well — it is required.'
-              )}
-            </p>
+            <p>{t('steam.message', 'Enter your Steam credentials.')}</p>
           ) : (
             <p>
               {t(
                 'steam.qr.message',
-                'Open the Steam Mobile app, tap the QR icon and scan this code to approve the sign-in.'
+                'Open the Steam Mobile app and scan the QR code.'
               )}
             </p>
           )}

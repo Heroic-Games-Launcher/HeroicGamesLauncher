@@ -1,5 +1,11 @@
 import { LaunchOption } from 'common/types'
 
+// TODO: Modify Aurelia to bake the URL's into
+export const steamCdnImageBase =
+  'https://cdn.cloudflare.steamstatic.com/steam/apps'
+
+export const steamStoreAppUrl = 'https://store.steampowered.com/app'
+
 export interface SteamLoginData {
   username: string
   password: string

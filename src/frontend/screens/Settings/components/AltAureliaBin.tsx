@@ -20,7 +20,8 @@ const AltAureliaBin = () => {
       }
       return setAureliaVersion(aureliaVer)
     }
-    getMoreInfo()
+    void getMoreInfo()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [altAureliaBin])
 
   return (

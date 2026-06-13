@@ -35,6 +35,7 @@ import {
   InstallInfo,
   GameAchievement
 } from 'common/types'
+import { steamStoreAppUrl } from 'common/types/steam'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -216,7 +217,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
         if (
           runner !== 'sideload' &&
-          runner !== 'steam' &&
           !notSupportedGame &&
           !notInstallable &&
           !thirdPartyManagedApp &&
@@ -440,9 +440,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                   <div className="mainInfoWrapper">
                     <div className="mainInfo">
                       <GamePicture
-                        // For Steam, prefer its own portrait art; only fall
-                        // back to the PCGamingWiki cover (then Steam's store
-                        // header) when that portrait is missing.
+                        // For Steam, prefer its own portrait art
                         art_square={
                           runner === 'steam'
                             ? gameInfo.art_square || art_cover
@@ -496,7 +494,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           <NavLink
                             className="button mainBtn outline steamStoreButton buttonWithIcon"
                             to={`/store-page?store-url=${encodeURIComponent(
-                              `https://store.steampowered.com/app/${appName}`
+                              `${steamStoreAppUrl}/${appName}`
                             )}`}
                           >
                             <ShoppingCart />
@@ -639,8 +637,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     if (!is_installed && !isInstalling) {
-      // Steam manages its own downloads, so skip Heroic's install dialog and
-      // hand off to the Steam client (the install path is chosen in Steam).
+      // TODO: Add Aurelia Functionality
       if (gameInfo.runner === 'steam') {
         return install({
           gameInfo,

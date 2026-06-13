@@ -194,6 +194,7 @@ export default React.memo(function Library(): JSX.Element {
     setShowUpdatesOnly(value)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [showSteamOwnedOnly, setShowSteamOwnedOnly] = useState(
     JSON.parse(storage.getItem('show_steam_owned_only') || 'false')
   )

@@ -177,7 +177,6 @@
   fill: var(--text-default);
 }
 
-/* Steam Family Sharing badge: same design as the store icon, stacked below it. */
 .gameCard .family-share-icon {
   top: 44px;
   box-sizing: border-box;

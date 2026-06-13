@@ -112,10 +112,7 @@ export default function GamesSubmenu({
       showDialog: true,
       message:
         runner === 'steam'
-          ? t(
-              'box.move.steamMessage',
-              "Steam will open its Storage Manager, where you can choose a different drive and move this game. Heroic will refresh once Steam's move is complete."
-            )
+          ? t('box.move.steamMessage')
           : t('box.move.message'),
       title: t('box.move.title'),
       buttons: [
