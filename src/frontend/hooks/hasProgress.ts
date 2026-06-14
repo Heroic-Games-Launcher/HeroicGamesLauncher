@@ -1,15 +1,19 @@
-import { useCallback, useEffect, useState } from 'react'
-import { InstallProgress, Runner } from 'common/types'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { InstallProgress } from 'common/types'
 import { useInstallProgress } from 'frontend/state/InstallProgress'
+import type { GameHandle } from '../helpers/ipc'
 
 const storage: Storage = window.localStorage
 
-export const hasProgress = (appName: string, runner: Runner) => {
-  const [previousProgress] = useState<InstallProgress>(
-    JSON.parse(
-      storage.getItem(`${appName}_${runner}_progress`) || '{}'
+export const hasProgress = (
+  game: GameHandle | null
+): [InstallProgress, InstallProgress | null] => {
+  const previousProgress = useMemo(() => {
+    if (!game) return null
+    return JSON.parse(
+      storage.getItem(`${game.id}_${game.runner}_progress`) || '{}'
     ) as InstallProgress
-  )
+  }, [game])
 
   const [currentProgress, setProgress] = useState<InstallProgress>(
     previousProgress ?? {
@@ -22,7 +26,7 @@ export const hasProgress = (appName: string, runner: Runner) => {
   const calculatePercent = useCallback(
     (newProgress: InstallProgress) => {
       // current/100 * (100-heroic_stored) + heroic_stored
-      if (newProgress.percent && previousProgress.percent) {
+      if (newProgress.percent && previousProgress?.percent) {
         const currentPercent = newProgress.percent
         const storedPercent = previousProgress.percent
         const newPercent: number = Math.round(
@@ -35,8 +39,8 @@ export const hasProgress = (appName: string, runner: Runner) => {
     [previousProgress]
   )
 
-  const installationProgress = useInstallProgress(
-    (state) => state[`${appName}_${runner}`]
+  const installationProgress = useInstallProgress((state) =>
+    game ? state[`${game.id}_${game.runner}`] : null
   )
 
   useEffect(() => {
@@ -47,13 +51,7 @@ export const hasProgress = (appName: string, runner: Runner) => {
           percent: calculatePercent(installationProgress)
         })
     }
-  }, [
-    installationProgress,
-    appName,
-    runner,
-    calculatePercent,
-    currentProgress.percent
-  ])
+  }, [installationProgress, game, calculatePercent, currentProgress.percent])
 
   return [currentProgress, previousProgress]
 }

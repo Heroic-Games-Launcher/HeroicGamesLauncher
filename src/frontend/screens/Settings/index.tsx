@@ -37,7 +37,6 @@ function Settings() {
     useState<Partial<AppSettings> | null>(null)
 
   const { type = 'general' } = useParams()
-  const appName = 'default'
   const isGeneralSettings = type === 'general'
   const isSyncSettings = type === 'sync'
   const isGamesSettings = type === 'games_settings'
@@ -71,9 +70,7 @@ function Settings() {
   }, [])
 
   // create setting context functions
-  const contextValues: SettingsContextType | null = useSettingsContext({
-    appName
-  })
+  const contextValues: SettingsContextType | null = useSettingsContext(null)
 
   // render `loading` while we fetch the settings
   if (!currentConfig || !contextValues) {
@@ -92,14 +89,14 @@ function Settings() {
           ),
           onclick: async () =>
             window.api.clipboardWriteText(
-              JSON.stringify({ appName, title, ...currentConfig })
+              JSON.stringify({ title, ...currentConfig })
             ),
           show: !isLogSettings,
           icon: <ContentCopy />
         },
         {
           label: t('settings.open-config-file', 'Open Config File'),
-          onclick: () => window.api.showConfigFileInFolder(appName),
+          onclick: () => window.api.showConfigFileInFolder(),
           show: !isLogSettings,
           icon: <FileOpen />
         }

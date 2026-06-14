@@ -7,9 +7,10 @@ import type {
   ReleasesInfo,
   WineVersionInfo
 } from 'common/types'
+import type { Game } from 'common/types/game_manager'
 
 type BackendEvents = {
-  gameStatusUpdate: (payload: GameStatus) => void
+  gameStatusUpdate: (game: Game, payload: GameStatus) => void
   recentGamesChanged: (recentGames: RecentGame[]) => void
   languageChanged: () => void
   settingChanged: (obj: {
@@ -17,7 +18,7 @@ type BackendEvents = {
     oldValue: unknown
     newValue: unknown
   }) => void
-  [key: `progressUpdate-${string}`]: (progress: GameStatus) => void
+  [key: `progressUpdate-${string}`]: (game: Game, progress: GameStatus) => void
   wineVersionInstalled: (versionInfo: WineVersionInfo, path: string) => void
   wineVersionUninstalled: (versionInfo: WineVersionInfo) => void
   releasesInfoReady: (releasesInfo: ReleasesInfo) => void

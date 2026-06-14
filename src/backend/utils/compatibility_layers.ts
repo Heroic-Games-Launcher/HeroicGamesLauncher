@@ -2,7 +2,7 @@ import { GlobalConfig } from 'backend/config'
 import { logError, LogPrefix, logInfo } from 'backend/logger'
 import { execAsync, getSteamLibraries } from 'backend/utils'
 import { execSync } from 'child_process'
-import { GameSettings, WineInstallation } from 'common/types'
+import { WineInstallation } from 'common/types'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
 import { homedir } from 'os'
 import { dirname, join } from 'path'
@@ -18,6 +18,7 @@ import {
   userHome
 } from 'backend/constants/paths'
 import { isLinux, isMac } from 'backend/constants/environment'
+import type { Game } from 'common/types/game_manager'
 
 /**
  * Loads the default wine installation path and version.
@@ -502,11 +503,12 @@ export type AllowedWineFlags = Pick<
  * @param wrapper Any wrappers to be used, may be `''`
  */
 export async function getWineFlags(
-  gameSettings: GameSettings,
+  game: Game,
   wrapper: string
 ): Promise<AllowedWineFlags> {
   let partialCommand: AllowedWineFlags = {}
-  const { type: wineType, bin: wineExec } = gameSettings.wineVersion
+  const { wineVersion } = await game.getSettings()
+  const { type: wineType, bin: wineExec } = wineVersion
 
   // Fix for people with old config
   const wineBin =
@@ -527,7 +529,7 @@ export async function getWineFlags(
           `${wrapper} "${wineBin}" waitforexitandrun`
         )
       }
-      if (await isUmuSupported(gameSettings)) {
+      if (await isUmuSupported(game)) {
         partialCommand['--wrapper'] = NonEmptyString.parse(
           (wrapper ? `${wrapper} ` : '') + `"${await getUmuPath()}"`
         )
@@ -549,10 +551,10 @@ export async function getWineFlags(
  * Like {@link getWineFlags}, but returns a `string[]` with the flags instead
  */
 export async function getWineFlagsArray(
-  gameSettings: GameSettings,
+  game: Game,
   wrapper: string
 ): Promise<string[]> {
-  const partialCommand = await getWineFlags(gameSettings, wrapper)
+  const partialCommand = await getWineFlags(game, wrapper)
 
   const commandArray: string[] = []
   for (const [key, value] of Object.entries(partialCommand)) {
@@ -566,9 +568,10 @@ export const getUmuPath = async () =>
   searchForExecutableOnPath('umu-run').then((path) => path ?? defaultUmuPath)
 
 export async function isUmuSupported(
-  gameSettings: GameSettings,
+  game: Game,
   checkUmuInstalled = true
 ): Promise<boolean> {
+  const gameSettings = await game.getSettings()
   if (!isLinux) return false
   if (gameSettings.wineVersion.type !== 'proton') return false
   if (gameSettings.disableUMU === true) {

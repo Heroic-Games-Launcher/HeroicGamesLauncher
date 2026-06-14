@@ -12,6 +12,7 @@ import type { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 
 import { BTN_ACTION, BTN_BACK } from '../controller'
 import { useGamepadButtonPress } from '../hooks'
+import { GameHandle } from '../../../helpers/ipc'
 
 type PlatformOption = {
   value: InstallPlatform
@@ -20,16 +21,16 @@ type PlatformOption = {
 
 type FocusKey = 'platform' | 'wine' | 'cancel' | 'install'
 
-export default function InstallOverlay({
-  game,
-  onDismiss
-}: {
+interface Props {
   game: GameInfo
   onDismiss: () => void
-}) {
+}
+
+export default function InstallOverlay({ game, onDismiss }: Props) {
   const { t } = useTranslation()
   const { platform } = useContext(ContextProvider)
-  const [progress] = hasProgress(game.app_name, game.runner)
+  const gameHandle = useMemo(() => GameHandle.fromGameInfo(game), [game])
+  const [progress] = hasProgress(gameHandle)
 
   const isWin = platform === 'win32'
   const isMac = platform === 'darwin'
@@ -137,11 +138,8 @@ export default function InstallOverlay({
   const installGame = async () => {
     try {
       if (!isWin && wineVersion) {
-        const gameSettings = await window.api.requestGameSettings(game.app_name)
-        await writeConfig({
-          appName: game.app_name,
-          config: { ...gameSettings, wineVersion }
-        })
+        const gameHandle = GameHandle.fromGameInfo(game)
+        await writeConfig(gameHandle, { wineVersion })
       }
       void install({
         gameInfo: game,

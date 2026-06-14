@@ -19,13 +19,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGripLines } from '@fortawesome/free-solid-svg-icons'
 import { faXmarkCircle } from '@fortawesome/free-regular-svg-icons'
 import BranchSelector from 'frontend/screens/Library/components/InstallModal/DownloadDialog/BranchSelector'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 interface GOGModifyInstallModal {
+  game: GameHandle
   gameInfo: GameInfo
   onClose: () => void
 }
 
 export default function GOGModifyInstallModal({
+  game,
   gameInfo,
   onClose
 }: GOGModifyInstallModal) {
@@ -107,10 +110,7 @@ export default function GOGModifyInstallModal({
 
     if (gameModified) {
       // Create update
-      window.api.updateGame({
-        gameInfo,
-        appName: gameInfo.app_name,
-        runner: gameInfo.runner,
+      window.api.updateGame(game, {
         installDlcs: installedDlcs,
         installLanguage: installLanguage,
         branch: branch,
@@ -119,30 +119,23 @@ export default function GOGModifyInstallModal({
     }
 
     // Update version pin
-    window.api.changeGameVersionPinnedStatus(
-      gameInfo.app_name,
-      gameInfo.runner,
-      versionPinned
-    )
+    window.api.changeGameVersionPinnedStatus(game, versionPinned)
 
     onClose()
   }
 
   useEffect(() => {
     async function get() {
-      const branchPassword = await window.api.getPrivateBranchPassword(
-        gameInfo.app_name
-      )
+      const branchPassword = await window.api.getPrivateBranchPassword(game)
       setSavedBranchPassword(branchPassword)
     }
     get()
-  }, [])
+  }, [game])
 
   useEffect(() => {
     async function get() {
       const installInfo = (await getInstallInfo(
-        gameInfo.app_name,
-        'gog',
+        game,
         gameInfo.install.platform || 'windows',
         undefined,
         branch || gameInfo.install.branch
@@ -253,7 +246,7 @@ export default function GOGModifyInstallModal({
         {!!branches.length && (
           <div className="ModifyInstall__branch">
             <BranchSelector
-              appName={gameInfo.app_name}
+              game={game}
               branches={branches}
               branch={branch}
               setBranch={setBranch}

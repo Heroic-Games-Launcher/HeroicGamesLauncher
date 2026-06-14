@@ -69,14 +69,14 @@ const LogBox: React.FC<LogBoxProps> = ({ logFileContent }) => {
 
 export default function LogSettings() {
   const { t } = useTranslation()
-  const { appName, runner } = useContext(SettingsContext)
+  const { game } = useContext(SettingsContext)
   const { setUploadLogFileProps } = useGlobalState.keys('setUploadLogFileProps')
-  const isInSettingsMenu = appName === 'default'
+  const isInSettingsMenu = !game
 
   const [logFileContent, setLogFileContent] = useState<string>('')
   const [logFileExist, setLogFileExist] = useState<boolean>(false)
   const [showLogOf, setShowLogOf] = useState<GetLogFileArgs>(
-    !runner ? {} : { appName, runner }
+    !game ? {} : { appName: game.id, runner: game.runner }
   )
   const [refreshing, setRefreshing] = useState<boolean>(true)
 

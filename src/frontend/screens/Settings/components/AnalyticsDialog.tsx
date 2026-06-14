@@ -69,11 +69,7 @@ export default function AnalyticsDialog() {
             text: t('analyticsModal.enable', 'Enable'),
             onClick: () => {
               localStorage.setItem(STORAGE_KEY, 'true')
-              window.api.setSetting({
-                appName: 'default',
-                key: 'analyticsOptIn',
-                value: true
-              })
+              window.api.setSetting(null, 'analyticsOptIn', true)
               showDialogModal({ showDialog: false })
             }
           },
@@ -81,11 +77,7 @@ export default function AnalyticsDialog() {
             text: t('analyticsModal.disable', 'Disable'),
             onClick: () => {
               localStorage.setItem(STORAGE_KEY, 'true')
-              window.api.setSetting({
-                appName: 'default',
-                key: 'analyticsOptIn',
-                value: false
-              })
+              window.api.setSetting(null, 'analyticsOptIn', false)
               showDialogModal({ showDialog: false })
             }
           }

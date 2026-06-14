@@ -8,10 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import {
   GameInfo,
-  GameStatus,
   InstallInfo,
   InstallPlatform,
-  Runner,
   WineInstallation
 } from 'common/types'
 import {
@@ -52,11 +50,11 @@ import GameLanguageSelector from './GameLanguageSelector'
 import { hasAnticheatInfo } from 'frontend/hooks/hasAnticheatInfo'
 import BranchSelector from './BranchSelector'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
+  game: GameHandle
   backdropClick: () => void
-  appName: string
-  runner: Runner
   platformToInstall: InstallPlatform
   availablePlatforms: AvailablePlatforms
   winePrefix: string
@@ -93,9 +91,8 @@ function getDefaultInstallPath() {
 }
 
 export default function DownloadDialog({
+  game,
   backdropClick,
-  appName,
-  runner,
   platformToInstall,
   availablePlatforms,
   winePrefix,
@@ -105,16 +102,16 @@ export default function DownloadDialog({
   crossoverBottle
 }: Props) {
   const previousProgress = JSON.parse(
-    storage.getItem(appName) || '{}'
+    storage.getItem(game.id) || '{}'
   ) as InstallProgress
   const { libraryStatus, platform, showDialogModal } =
     useContext(ContextProvider)
 
   const isWin = platform === 'win32'
 
-  const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
-    null
-  )
+  const [gameInstallInfo, setGameInstallInfo] = useState<
+    InstallInfo | null | undefined
+  >(null)
   const [installLanguages, setInstallLanguages] = useState(Array<string>())
   const [installLanguage, setInstallLanguage] = useState('')
 
@@ -130,9 +127,7 @@ export default function DownloadDialog({
   const [installPath, setInstallPath] = useState(
     previousProgress.folder || getDefaultInstallPath()
   )
-  const gameStatus: GameStatus = libraryStatus.filter(
-    (game: GameStatus) => game.appName === appName
-  )[0]
+  const gameStatus = libraryStatus.find((s) => s.appName === game.id)
 
   const [dlcsToInstall, setDlcsToInstall] = useState<string[]>([])
   const [sdls, setSdls] = useState<SelectiveDownload[]>([])
@@ -174,13 +169,11 @@ export default function DownloadDialog({
 
   useEffect(() => {
     async function get() {
-      const branchPassword = await window.api.getPrivateBranchPassword(
-        gameInfo.app_name
-      )
+      const branchPassword = await window.api.getPrivateBranchPassword(game)
       setSavedBranchPassword(branchPassword)
     }
     get()
-  }, [])
+  }, [game])
 
   const handleSdl = useCallback(
     (sdl: SelectiveDownload, value: boolean) => {
@@ -268,17 +261,11 @@ export default function DownloadDialog({
 
     // Write Default game config with prefix on linux
     if (!isWin) {
-      const gameSettings = await window.api.requestGameSettings(appName)
-
       if (wineVersion) {
-        writeConfig({
-          appName,
-          config: {
-            ...gameSettings,
-            winePrefix,
-            wineVersion,
-            wineCrossoverBottle: crossoverBottle
-          }
+        writeConfig(game, {
+          winePrefix,
+          wineVersion,
+          wineCrossoverBottle: crossoverBottle
         })
       }
     }
@@ -303,8 +290,7 @@ export default function DownloadDialog({
   function handleSwitchToImport() {
     backdropClick()
     openInstallGameModal({
-      appName,
-      runner,
+      game,
       gameInfo,
       action: 'import'
     })
@@ -317,8 +303,7 @@ export default function DownloadDialog({
         const fetchedBuild = selectedBuild
         setGettingInstallInfo(true)
         const gameInstallInfo = await getInstallInfo(
-          appName,
-          runner,
+          game,
           platformToInstall,
           selectedBuild,
           branch
@@ -430,7 +415,7 @@ export default function DownloadDialog({
     }
     void getInstInfo()
   }, [
-    appName,
+    game,
     i18n.languages,
     platformToInstall,
     selectedBuild,
@@ -439,19 +424,10 @@ export default function DownloadDialog({
   ])
 
   useEffect(() => {
-    const getGameSdl = async () => {
-      if (runner === 'legendary') {
-        const { sdl_config } = await window.api.getGameOverride()
-        if (sdl_config && sdl_config[appName]) {
-          const sdl = await window.api.getGameSdl(appName)
-          if (sdl.length > 0) {
-            setSdls(sdl)
-          }
-        }
-      }
-    }
-    getGameSdl()
-  }, [appName, runner])
+    void window.api.getGameSdl(game).then((sdl) => {
+      if (sdl) setSdls(sdl)
+    })
+  }, [game])
 
   useEffect(() => {
     const getSpace = async () => {
@@ -583,7 +559,7 @@ export default function DownloadDialog({
     installPath && !!diskSize && !gettingInstallInfo && validFlatpakPath
 
   const showDlcSelector =
-    ['legendary', 'gog'].includes(runner) && DLCList && DLCList?.length > 0
+    ['legendary', 'gog'].includes(game.runner) && DLCList && DLCList?.length > 0
 
   return (
     <>
@@ -728,7 +704,7 @@ export default function DownloadDialog({
         {platformToInstall !== 'linux' && branches.length > 1 && (
           <div>
             <BranchSelector
-              appName={gameInfo.app_name}
+              game={game}
               branches={branches}
               branch={branch}
               setBranch={setBranch}
