@@ -931,7 +931,8 @@
         "installing": "قيد التثبيت",
         "logging": "قيد تسجيل الدخول...",
         "processing": "قيد معالجة الملفات، يرجى الانتظار",
-        "preparing_login": "يحضِّر الولوج "
+        "preparing_login": "يحضِّر الولوج ",
+        "installed": "مثبت"
     },
     "store": "متجر أََبِك",
     "stores": "المتاجر",
@@ -1253,7 +1254,12 @@
         "empty": "",
         "games": "الألعاب المثبتة",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "منصة",
+            "title": "ثبت اللعبة",
+            "wineLoading": "يحمَّل"
+        }
     },
     "next": ""
 }
