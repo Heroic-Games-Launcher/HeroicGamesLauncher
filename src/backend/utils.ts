@@ -1301,22 +1301,85 @@ function removeFolder(path: string, folderName: string) {
   return
 }
 
-async function getPathDiskSize(path: string): Promise<number> {
-  const statData = await lstat(path)
-  let size = 0
-  if (statData.isSymbolicLink()) {
-    return 0
+// Games above this compressed download size likely have enough files to make
+// PowerShell's startup cost worthwhile over the sequential JS walk on Windows.
+const POWERSHELL_SIZE_THRESHOLD = 5 * 1024 * 1024 * 1024 // 5 GB
+
+async function getPathDiskSize(
+  dirPath: string,
+  hintBytes?: number
+): Promise<number> {
+  if (!isWindows) {
+    try {
+      // du -sb on Linux gives bytes directly; du -sk on macOS gives 1K-blocks
+      const args = isMac ? ['-sk', dirPath] : ['-sb', dirPath]
+      const { code, stdout } = await spawnAsync('du', args)
+      if (code === 0) {
+        const raw = parseInt(stdout.split('\t')[0], 10)
+        logInfo(
+          [`Disk size for ${dirPath} calculated via du`],
+          LogPrefix.Backend
+        )
+        return isMac ? raw * 1024 : raw
+      }
+    } catch {
+      logWarning(
+        [`du failed for ${dirPath}, falling back to JS recursive walk`],
+        LogPrefix.Backend
+      )
+    }
+  } else if (
+    hintBytes !== undefined &&
+    hintBytes >= POWERSHELL_SIZE_THRESHOLD
+  ) {
+    try {
+      // PowerShell is always available on Windows 10+; output is a plain number.
+      // Only used for large games where the JS walk would be prohibitively slow.
+      const escapedPath = dirPath.replace(/'/g, "''")
+      const psCommand = `(Get-ChildItem -Recurse -File -LiteralPath '${escapedPath}' | Measure-Object -Property Length -Sum).Sum`
+      const { code, stdout } = await spawnAsync('powershell', [
+        '-NoProfile',
+        '-NonInteractive',
+        '-Command',
+        psCommand
+      ])
+      if (code === 0) {
+        const bytes = parseInt(stdout.trim(), 10)
+        if (!isNaN(bytes)) {
+          logInfo(
+            [`Disk size for ${dirPath} calculated via PowerShell`],
+            LogPrefix.Backend
+          )
+          return bytes
+        }
+      }
+    } catch {
+      logWarning(
+        [
+          `PowerShell size query failed for ${dirPath}, falling back to JS recursive walk`
+        ],
+        LogPrefix.Backend
+      )
+    }
   }
+  logInfo(
+    [`Disk size for ${dirPath} calculated via JS recursive walk`],
+    LogPrefix.Backend
+  )
+  return getPathDiskSizeJS(dirPath)
+}
+
+async function getPathDiskSizeJS(path: string): Promise<number> {
+  const statData = await lstat(path)
+  if (statData.isSymbolicLink()) return 0
   if (statData.isDirectory()) {
     const contents = await readdir(path)
-
+    let size = 0
     for (const item of contents) {
-      const itemPath = join(path, item)
-      size += await getPathDiskSize(itemPath)
+      size += await getPathDiskSizeJS(join(path, item))
     }
     return size
   }
-
   return statData.size
 }
 
