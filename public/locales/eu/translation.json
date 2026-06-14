@@ -1244,7 +1244,11 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "wineLoading": "Kargatzen"
+        }
     },
     "next": ""
 }
