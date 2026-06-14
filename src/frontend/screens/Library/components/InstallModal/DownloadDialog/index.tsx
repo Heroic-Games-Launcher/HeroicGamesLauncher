@@ -58,6 +58,7 @@ interface Props {
   appName: string
   runner: Runner
   platformToInstall: InstallPlatform
+  setPlatformToInstall: (platform: InstallPlatform) => void
   availablePlatforms: AvailablePlatforms
   winePrefix: string
   crossoverBottle: string
@@ -97,6 +98,7 @@ export default function DownloadDialog({
   appName,
   runner,
   platformToInstall,
+  setPlatformToInstall,
   availablePlatforms,
   winePrefix,
   wineVersion,
@@ -325,11 +327,25 @@ export default function DownloadDialog({
           branch
         )
 
-        if (
+        const noContent =
           gameInstallInfo?.manifest &&
           gameInstallInfo?.manifest.disk_size === 0 &&
           gameInstallInfo.manifest.download_size === 0
+
+        // Steam: the current platform was auto-selected, but this game has no
+        // depots for it (dry-run reports 0 sizes). Fall back to Windows (run via
+        // Proton) instead of declaring the game uninstallable.
+        if (
+          noContent &&
+          isSteam &&
+          platformToInstall !== 'Windows' &&
+          availablePlatforms.some((p) => p.value === 'Windows')
         ) {
+          setPlatformToInstall('Windows')
+          return
+        }
+
+        if (noContent) {
           showDialogModal({
             showDialog: true,
             title: t(
