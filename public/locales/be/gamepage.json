@@ -359,5 +359,8 @@
         }
     },
     "wikiLink": "Азнаёмцеся з важная інфармацыя пра гульню:&nbsp;<1>Адкрыць старонку</1>",
-    "open-saves-folder": ""
+    "open-saves-folder": "",
+    "edit-game": {
+        "advanced": "Пашыраныя"
+    }
 }
