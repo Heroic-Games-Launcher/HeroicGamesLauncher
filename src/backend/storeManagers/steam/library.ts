@@ -34,6 +34,7 @@ import {
   AureliaError
 } from './aurelia'
 import { join } from 'path'
+import SteamGame from './games'
 import type {
   AureliaLibraryGame,
   AureliaDlcResponse,
@@ -61,6 +62,10 @@ export default class SteamLibraryManager implements LibraryManager {
   async init(): Promise<void> {
     if (!isSteamImportEnabled()) return
     await this.refresh()
+  }
+
+  getGame(id: string): SteamGame {
+    return new SteamGame(id)
   }
 
   async runRunnerCommand(

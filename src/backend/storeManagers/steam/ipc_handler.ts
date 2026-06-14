@@ -1,6 +1,6 @@
 import { addHandler, addListener } from 'backend/ipc'
 import { SteamUser } from './user'
-import { gameManagerMap, libraryManagerMap } from '..'
+import { libraryManagerMap } from '..'
 
 addHandler('getSteamUsers', () => SteamUser.getAccounts())
 
@@ -9,7 +9,8 @@ addHandler('getSteamDlcInfo', async (_e, appName) =>
 )
 
 addHandler('setSteamDlcEnabled', async (_e, dlcAppId, enabled) =>
-  gameManagerMap['steam'].setDlcEnabled(dlcAppId, enabled)
+  // setDlcEnabled operates on the DLC's app id, not a specific game instance.
+  libraryManagerMap['steam'].getGame(dlcAppId).setDlcEnabled(dlcAppId, enabled)
 )
 
 addListener('logoutSteamAccount', (_e, steamId) => {

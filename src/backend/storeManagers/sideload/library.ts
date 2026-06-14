@@ -7,9 +7,14 @@ import { addShortcuts } from 'backend/shortcuts/shortcuts/shortcuts'
 import { sendFrontendMessage } from 'backend/ipc'
 import { isMac } from 'backend/constants/environment'
 import { LibraryManager } from 'common/types/game_manager'
+import SideloadGame from './games'
 
 export default class SideloadLibraryManager implements LibraryManager {
   init = () => Promise.resolve()
+
+  getGame(id: string): SideloadGame {
+    return new SideloadGame(id)
+  }
 
   addNewApp({
     app_name,
@@ -64,7 +69,7 @@ export default class SideloadLibraryManager implements LibraryManager {
       current[gameIndex] = { ...current[gameIndex], ...game }
     } else {
       current.push(game)
-      addShortcuts(game)
+      addShortcuts(new SideloadGame(app_name))
     }
 
     libraryStore.set('games', current)

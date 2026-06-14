@@ -94,10 +94,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
   )
 
   const getDefaultplatform = (): InstallPlatform => {
-    // Prefer the current OS's platform version when the game offers it, otherwise
-    // fall back to Windows. For Steam the actual depot support is confirmed by the
-    // dry-run in DownloadDialog, which falls back to Windows if the current
-    // platform turns out to be unsupported.
+    // Prefer the current OS's platform .
     const currentPlatform: InstallPlatform = isMac
       ? 'Mac'
       : isLinux

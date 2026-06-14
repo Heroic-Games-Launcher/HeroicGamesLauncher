@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { logError, logInfo, LogPrefix } from 'backend/logger'
-import { gameManagerMap } from 'backend/storeManagers'
-import { ExtraInfo, GameInfo } from 'common/types'
+import type { Game } from 'common/types/game_manager'
 
 export interface HeroicHowLongToBeatEntry {
   completionist: number
@@ -92,11 +91,14 @@ async function getGameDataById(
 }
 
 async function getGogHLTBGameData(
-  gameInfo: GameInfo,
-  gameExtraInfo: ExtraInfo
+  game: Game
 ): Promise<HeroicHowLongToBeatEntry | null> {
+  const { app_name, title } = game.getGameInfo()
+  const { storeUrl } = await game.getExtraInfo()
+  if (!storeUrl) return null
+
   try {
-    const response = await axios.get(gameExtraInfo.storeUrl!, {
+    const response = await axios.get(storeUrl, {
       headers: {
         'User-Agent':
           'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -149,12 +151,12 @@ async function getGogHLTBGameData(
       mainExtra,
       completionist,
       gameId: hltbId,
-      gameName: gameInfo.title,
+      gameName: title,
       gameWebLink: `${HLTB_BASE_URL}/game/${hltbId}`
     }
   } catch (error) {
     logError(
-      [`Error fetching HLTB game data for ID ${gameInfo.app_name}:`, error],
+      [`Error fetching HLTB game data for ID ${app_name}:`, error],
       LogPrefix.ExtraGameInfo
     )
     return null
@@ -162,40 +164,27 @@ async function getGogHLTBGameData(
 }
 
 export async function getHowLongToBeat(
-  title: string,
-  gameInfo: GameInfo,
+  game: Game,
   hltbId?: string
 ): Promise<HeroicHowLongToBeatEntry | null> {
-  // Only GOG derives HLTB data from a store URL. Fetch its `getExtraInfo`
-  // lazily here so other runners aren't queried for it - in particular Steam,
-  // whose getExtraInfo runs the rate-limited `aurelia info` and would otherwise
-  // fire for every library card.
-  let gogHandled = false
+  const gameInfo = game.getGameInfo()
   if (gameInfo.runner == 'gog') {
-    const gameExtraInfo = await gameManagerMap['gog'].getExtraInfo(
-      gameInfo.app_name
-    )
-    if (gameExtraInfo.storeUrl) {
-      gogHandled = true
-      logInfo(
-        `Getting HowLongToBeat data for ${title} ${gameInfo.app_name} - ${gameInfo.runner}`,
-        LogPrefix.ExtraGameInfo
-      )
-
-      const gameData = await getGogHLTBGameData(gameInfo, gameExtraInfo)
-      if (gameData) {
-        return gameData
-      }
-      logInfo(
-        `HLTB ID ${hltbId} not found for ${title}`,
-        LogPrefix.ExtraGameInfo
-      )
-    }
-  }
-
-  if (!gogHandled && hltbId) {
     logInfo(
-      `Getting HowLongToBeat data for ${title}${hltbId ? ` (ID: ${hltbId})` : ''} - ${gameInfo.runner}`,
+      `Getting HowLongToBeat data for ${gameInfo.title} ${gameInfo.app_name} - ${gameInfo.runner}`,
+      LogPrefix.ExtraGameInfo
+    )
+
+    const gameData = await getGogHLTBGameData(game)
+    if (gameData) {
+      return gameData
+    }
+    logInfo(
+      `HLTB ID ${hltbId} not found for ${gameInfo.title}`,
+      LogPrefix.ExtraGameInfo
+    )
+  } else if (hltbId) {
+    logInfo(
+      `Getting HowLongToBeat data for ${gameInfo.title}${hltbId ? ` (ID: ${hltbId})` : ''} - ${gameInfo.runner}`,
       LogPrefix.ExtraGameInfo
     )
 
@@ -203,11 +192,14 @@ export async function getHowLongToBeat(
     if (gameData) {
       return gameData
     }
-    logInfo(`HLTB ID ${hltbId} not found for ${title}`, LogPrefix.ExtraGameInfo)
+    logInfo(
+      `HLTB ID ${hltbId} not found for ${gameInfo.title}`,
+      LogPrefix.ExtraGameInfo
+    )
   }
 
   logInfo(
-    `No HLTB ID available for ${title}, cannot fetch data`,
+    `No HLTB ID available for ${gameInfo.title}, cannot fetch data`,
     LogPrefix.ExtraGameInfo
   )
   return null

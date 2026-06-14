@@ -23,11 +23,7 @@ import {
   addShortcuts as addShortcutsUtil,
   removeShortcuts as removeShortcutsUtil
 } from '../../shortcuts/shortcuts/shortcuts'
-import {
-  GameManager,
-  InstallResult,
-  RemoveArgs
-} from 'common/types/game_manager'
+import { Game, InstallResult, RemoveArgs } from 'common/types/game_manager'
 import { sendGameStatusUpdate } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
 import { GlobalConfig } from 'backend/config'
@@ -177,14 +173,20 @@ function buildReqs(minimum: string[] = [], recommended: string[] = []): Reqs[] {
 /**
  * Steam game manager.
  */
-export default class SteamGameManager implements GameManager {
-  getGameInfo(appName: string): GameInfo {
-    const info = libraryManagerMap['steam'].getGameInfo(appName)
+export default class SteamGame implements Game {
+  private readonly id: string
+
+  constructor(id: string) {
+    this.id = id
+  }
+
+  getGameInfo(): GameInfo {
+    const info = libraryManagerMap['steam'].getGameInfo(this.id)
     if (!info) {
       logError(
         [
           'Could not get game info for',
-          `${appName},`,
+          `${this.id},`,
           'returning empty object. Something is probably gonna go wrong soon'
         ],
         LogPrefix.Steam
@@ -203,14 +205,15 @@ export default class SteamGameManager implements GameManager {
     return info
   }
 
-  async getSettings(appName: string): Promise<GameSettings> {
+  async getSettings(): Promise<GameSettings> {
     return (
-      GameConfig.get(appName).config ||
-      (await GameConfig.get(appName).getSettings())
+      GameConfig.get(this.id).config ||
+      (await GameConfig.get(this.id).getSettings())
     )
   }
 
-  async getExtraInfo(appName: string): Promise<ExtraInfo> {
+  async getExtraInfo(): Promise<ExtraInfo> {
+    const appName = this.id
     const cached = extraInfoStore.get(appName)
     if (cached) {
       return cached
@@ -282,10 +285,8 @@ export default class SteamGameManager implements GameManager {
     }
   }
 
-  async getAchievements(
-    appName: string,
-    lang = 'en-US'
-  ): Promise<GameAchievement[]> {
+  async getAchievements(lang = 'en-US'): Promise<GameAchievement[]> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return []
     }
@@ -421,7 +422,8 @@ export default class SteamGameManager implements GameManager {
     return { status: 'done' }
   }
 
-  async importGame(appName: string, path: string): Promise<ExecResult> {
+  async importGame(path: string): Promise<ExecResult> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return { stdout: '', stderr: 'Steam import disabled' }
     }
@@ -448,10 +450,8 @@ export default class SteamGameManager implements GameManager {
     return
   }
 
-  async install(
-    appName: string,
-    { platformToInstall }: InstallArgs
-  ): Promise<InstallResult> {
+  async install({ platformToInstall }: InstallArgs): Promise<InstallResult> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       logWarning(
         `Steam import is disabled, cannot install ${appName}`,
@@ -460,7 +460,7 @@ export default class SteamGameManager implements GameManager {
       return { status: 'error', error: 'Steam import disabled' }
     }
 
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     logInfo(`Installing ${gameInfo.title} (${appName})`, LogPrefix.Steam)
 
     const platformArg = aureliaPlatform(platformToInstall)
@@ -478,7 +478,7 @@ export default class SteamGameManager implements GameManager {
     )
 
     if (result.status === 'done') {
-      void this.addShortcuts(appName)
+      void this.addShortcuts()
       await libraryManagerMap['steam'].markInstalled(appName)
       logInfo(
         `Steam finished installing ${gameInfo.title} (${appName})`,
@@ -494,12 +494,12 @@ export default class SteamGameManager implements GameManager {
     return true
   }
 
-  async addShortcuts(appName: string, fromMenu?: boolean): Promise<void> {
-    return addShortcutsUtil(this.getGameInfo(appName), fromMenu)
+  async addShortcuts(fromMenu?: boolean): Promise<void> {
+    return addShortcutsUtil(this, fromMenu)
   }
 
-  async removeShortcuts(appName: string): Promise<void> {
-    return removeShortcutsUtil(this.getGameInfo(appName))
+  async removeShortcuts(): Promise<void> {
+    return removeShortcutsUtil(this)
   }
 
   /**
@@ -528,7 +528,8 @@ export default class SteamGameManager implements GameManager {
     }
   }
 
-  async launch(appName: string, logWriter: LogWriter): Promise<boolean> {
+  async launch(logWriter: LogWriter): Promise<boolean> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       logWarning(
         `Steam import is disabled, cannot launch ${appName}`,
@@ -537,7 +538,7 @@ export default class SteamGameManager implements GameManager {
       return false
     }
 
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     if (!gameInfo.is_installed) {
       logError(
         `Cannot launch ${appName}, game is not installed`,
@@ -579,15 +580,13 @@ export default class SteamGameManager implements GameManager {
     return true
   }
 
-  async moveInstall(
-    appName: string,
-    newInstallPath: string
-  ): Promise<InstallResult> {
+  async moveInstall(newInstallPath: string): Promise<InstallResult> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return { status: 'error', error: 'Steam import disabled' }
     }
 
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     logInfo(
       `Moving ${gameInfo.title} (${appName}) to ${newInstallPath}`,
       LogPrefix.Steam
@@ -607,7 +606,8 @@ export default class SteamGameManager implements GameManager {
     return result
   }
 
-  async repair(appName: string): Promise<ExecResult> {
+  async repair(): Promise<ExecResult> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return { stdout: '', stderr: 'Steam import disabled' }
     }
@@ -623,7 +623,8 @@ export default class SteamGameManager implements GameManager {
     }
   }
 
-  async syncSaves(appName: string, arg: string, path: string): Promise<string> {
+  async syncSaves(arg: string, path: string): Promise<string> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return ''
     }
@@ -648,7 +649,8 @@ export default class SteamGameManager implements GameManager {
     }
   }
 
-  async uninstall({ appName, deleteFiles }: RemoveArgs): Promise<ExecResult> {
+  async uninstall({ deleteFiles }: RemoveArgs): Promise<ExecResult> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       logWarning(
         `Steam import is disabled, cannot uninstall ${appName}`,
@@ -657,7 +659,7 @@ export default class SteamGameManager implements GameManager {
       return { stdout: '', stderr: 'Steam import disabled' }
     }
 
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     logInfo(`Uninstalling ${gameInfo.title} (${appName})`, LogPrefix.Steam)
 
     try {
@@ -675,7 +677,7 @@ export default class SteamGameManager implements GameManager {
       return { stdout: '', stderr: describeError(error) }
     }
 
-    await removeShortcutsUtil(gameInfo)
+    await removeShortcutsUtil(this)
     libraryManagerMap['steam'].installState(appName, false)
     await libraryManagerMap['steam'].refresh()
 
@@ -686,7 +688,8 @@ export default class SteamGameManager implements GameManager {
     return { stdout: '', stderr: '' }
   }
 
-  async update(appName: string): Promise<InstallResult> {
+  async update(): Promise<InstallResult> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return { status: 'error', error: 'Steam import disabled' }
     }
@@ -702,18 +705,19 @@ export default class SteamGameManager implements GameManager {
     return result
   }
 
-  async forceUninstall(appName: string): Promise<void> {
-    const gameInfo = this.getGameInfo(appName)
-    await removeShortcutsUtil(gameInfo)
+  async forceUninstall(): Promise<void> {
+    const appName = this.id
+    await removeShortcutsUtil(this)
     libraryManagerMap['steam'].installState(appName, false)
     sendFrontendMessage('refreshLibrary', 'steam')
   }
 
-  async stop(appName: string): Promise<void> {
+  async stop(): Promise<void> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return
     }
-    const gameInfo = this.getGameInfo(appName)
+    const gameInfo = this.getGameInfo()
     logInfo(`Stopping ${gameInfo.title} (${appName})`, LogPrefix.Steam)
     try {
       await runAurelia(['stop', appName])
@@ -725,7 +729,8 @@ export default class SteamGameManager implements GameManager {
     }
   }
 
-  async isGameAvailable(appName: string): Promise<boolean> {
+  async isGameAvailable(): Promise<boolean> {
+    const appName = this.id
     if (!isSteamImportEnabled()) {
       return false
     }

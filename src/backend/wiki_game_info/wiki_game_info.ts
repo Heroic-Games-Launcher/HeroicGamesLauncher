@@ -10,14 +10,13 @@ import { getHowLongToBeat } from './howlongtobeat/utils'
 import { getInfoFromPCGamingWiki } from './pcgamingwiki/utils'
 import { getUmuId } from './umu/utils'
 import { isLinux, isMac } from 'backend/constants/environment'
-import { gameManagerMap } from 'backend/storeManagers'
+import type { Game } from 'common/types/game_manager'
 
 async function getSteamWikiInfo(
   title: string,
-  appName: string
+  appName: string,
+  game: Game
 ): Promise<WikiInfo> {
-  const gameInfo = gameManagerMap['steam'].getGameInfo(appName)
-
   const pcgw = await getInfoFromPCGamingWiki(title)
 
   const pcgamingwiki: PCGamingWikiInfo = {
@@ -33,8 +32,7 @@ async function getSteamWikiInfo(
   }
 
   const howlongtobeat = await getHowLongToBeat(
-    title,
-    gameInfo,
+    game,
     pcgamingwiki.howLongToBeatID || undefined
   )
 
@@ -51,10 +49,9 @@ async function getSteamWikiInfo(
 async function getGenericWikiInfo(
   title: string,
   appName: string,
-  runner: Runner
+  runner: Runner,
+  game: Game
 ): Promise<WikiInfo> {
-  const gameInfo = gameManagerMap[runner].getGameInfo(appName)
-
   const [pcgamingwiki, gamesdb, applegamingwiki, umuId] = await Promise.all([
     getInfoFromPCGamingWiki(title, runner === 'gog' ? appName : undefined),
     getInfoFromGamesDB(title, appName, runner),
@@ -64,8 +61,7 @@ async function getGenericWikiInfo(
 
   // Get HowLongToBeat data, using gog.com site for GOG games, and HLTB ID from PCGamingWiki if available
   const howlongtobeat = await getHowLongToBeat(
-    title,
-    gameInfo,
+    game,
     pcgamingwiki?.howLongToBeatID
   )
 
@@ -97,13 +93,13 @@ async function getGenericWikiInfo(
   }
 }
 
-export async function getWikiGameInfo(
-  title: string,
-  appName: string,
-  runner: Runner
-): Promise<WikiInfo | null> {
+export async function getWikiGameInfo(game: Game): Promise<WikiInfo | null> {
+  const gameInfo = game.getGameInfo()
+  const appName = gameInfo.app_name
+  const runner = gameInfo.runner
+
   try {
-    title = removeSpecialcharacters(title)
+    const title = removeSpecialcharacters(gameInfo.title)
 
     const cacheKey = runner === 'steam' ? `steam:${appName}` : title
 
@@ -120,15 +116,15 @@ export async function getWikiGameInfo(
 
     const wikiGameInfo =
       runner === 'steam'
-        ? await getSteamWikiInfo(title, appName)
-        : await getGenericWikiInfo(title, appName, runner)
+        ? await getSteamWikiInfo(title, appName, game)
+        : await getGenericWikiInfo(title, appName, runner, game)
 
     wikiGameInfoStore.set(cacheKey, wikiGameInfo)
 
     return wikiGameInfo
   } catch (error) {
     logError(
-      [`Was not able to get ExtraGameInfo data for ${title}`, error],
+      [`Was not able to get ExtraGameInfo data for ${gameInfo.title}`, error],
       LogPrefix.ExtraGameInfo
     )
     return null
