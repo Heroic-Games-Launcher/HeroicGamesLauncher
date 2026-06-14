@@ -359,5 +359,11 @@
             "canceled": "已取消"
         }
     },
-    "open-saves-folder": "打开保存文件夹"
+    "open-saves-folder": "打开保存文件夹",
+    "edit-game": {
+        "advanced": "高级",
+        "sgdb": {
+            "no-key-link": "设置 → 高级"
+        }
+    }
 }
