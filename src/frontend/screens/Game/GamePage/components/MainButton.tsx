@@ -206,13 +206,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
         <span className="installButtons">
           <button
             onClick={async () => {
-              if (
-                !is_installed &&
-                !is.queued &&
-                // Steam manages the download (location, size and queue)
-                // TODO: Add Install path behaviour
-                gameInfo.runner !== 'steam'
-              ) {
+              if (!is_installed && !is.queued) {
                 openInstallGameModal({
                   appName: gameInfo.app_name,
                   runner: gameInfo.runner,
