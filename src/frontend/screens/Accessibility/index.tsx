@@ -259,7 +259,7 @@ const Accessibility = React.memo(function Accessibility() {
 })
 
 export default function AccessibilityWrapper() {
-  const settingsContext = useSettingsContext({ appName: 'default' })
+  const settingsContext = useSettingsContext(null)
   if (!settingsContext) return <></>
   return (
     <SettingsContext.Provider value={settingsContext}>

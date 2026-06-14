@@ -1,6 +1,6 @@
 import './index.css'
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 
 import { DMQueueElement, DownloadManagerState } from 'common/types'
 import StopIcon from 'frontend/assets/stop-icon.svg?react'
@@ -13,6 +13,7 @@ import ContextProvider from 'frontend/state/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import PlayIcon from 'frontend/assets/play-icon.svg?react'
 import PauseIcon from 'frontend/assets/pause-icon.svg?react'
+import { GameHandle } from '../../../../helpers/ipc'
 
 type Props = {
   element?: DMQueueElement
@@ -69,11 +70,13 @@ const DownloadManagerItem = ({
     platformToInstall
   } = params
 
+  const game = useMemo(() => GameHandle.fromGameInfo(DmGameInfo), [DmGameInfo])
+
   const [gameInfo, setGameInfo] = useState(DmGameInfo)
 
   useEffect(() => {
     const getNewInfo = async () => {
-      const newInfo = await getGameInfo(appName, runner)
+      const newInfo = await getGameInfo(game)
       if (newInfo && newInfo.runner !== 'sideload') {
         setGameInfo(newInfo)
       }
@@ -87,7 +90,7 @@ const DownloadManagerItem = ({
     install: { is_dlc }
   } = gameInfo || {}
 
-  const [progress] = hasProgress(appName, runner)
+  const [progress] = hasProgress(game)
   const { status } = element
   const finished = status === 'done'
   const canceled = status === 'error' || (status === 'abort' && !current)
@@ -128,7 +131,7 @@ const DownloadManagerItem = ({
     }
 
     if (current) stopInstallation()
-    else window.api.removeFromDMQueue(appName)
+    else window.api.removeFromDMQueue(game)
   }
 
   // using one element for the different states so it doesn't

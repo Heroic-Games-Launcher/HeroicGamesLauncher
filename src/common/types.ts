@@ -19,8 +19,10 @@ import { ChildProcess } from 'child_process'
 import type { HeroicHowLongToBeatEntry } from 'backend/wiki_game_info/howlongtobeat/utils'
 import type { Path } from 'backend/schemas'
 import type LogWriter from 'backend/logger/log_writer'
+import type { Runner } from './schemas'
+import type { Game } from './types/game_manager'
 
-export type Runner = 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom'
+export type { Runner }
 
 // NOTE: Do not put enum's in this module or it will break imports
 
@@ -32,9 +34,7 @@ export interface ButtonOptions {
 }
 
 export type LaunchParams = {
-  appName: string
   launchArguments?: LaunchOption
-  runner: Runner
   skipVersionCheck?: boolean
   args?: string[]
 }
@@ -291,12 +291,15 @@ export type Status =
   | 'winetricks'
 
 export interface GameStatus {
-  appName: string
   progress?: InstallProgress
   folder?: string
   context?: string // Additional context e.g current step
-  runner?: Runner
   status: Status
+}
+
+export interface GameStatusLegacy extends GameStatus {
+  appName: string
+  runner: Runner
 }
 
 export type GlobalConfigVersion = 'auto' | 'v0'
@@ -389,9 +392,6 @@ export interface InstallParams extends InstallArgs {
 }
 
 export interface UpdateParams {
-  appName: string
-  runner: Runner
-  gameInfo: GameInfo
   installDlcs?: Array<string>
   installLanguage?: string
   build?: string
@@ -457,6 +457,7 @@ export interface CallRunnerOptions {
   onOutput?: (output: string, child: ChildProcess) => void
   abortId?: string
   cwd?: string
+  game?: Game
 }
 
 export interface EnviromentVariable {
@@ -467,11 +468,6 @@ export interface EnviromentVariable {
 export interface WrapperVariable {
   exe: string
   args: string
-}
-
-export interface WrapperEnv {
-  appName: string
-  appRunner: Runner
 }
 
 type AntiCheat =
@@ -611,13 +607,6 @@ export type InstallPlatform =
 
 export type ConnectivityStatus = 'offline' | 'check-online' | 'online'
 
-export interface Tools {
-  exe?: string
-  tool: string
-  appName: string
-  runner: Runner
-}
-
 export interface Tool {
   name: string
   url: string
@@ -647,42 +636,18 @@ export type WineCommandArgs = {
   commandParts: string[]
   wait?: boolean
   protonVerb?: ProtonVerb
-  gameSettings?: GameSettings
-  gameInstallPath?: string
-  installFolderName?: string
   options?: CallRunnerOptions
   startFolder?: string
   skipPrefixCheckIKnowWhatImDoing?: boolean
   ignoreLogging?: boolean
 }
 
-export interface SaveSyncArgs {
-  arg: string | undefined
-  path: string
-  appName: string
-  runner: Runner
-}
-
-export interface RunWineCommandArgs {
-  appName: string
-  runner: Runner
-  commandParts: string[]
-}
-
 export interface ImportGameArgs {
-  appName: string
   path: string
-  runner: Runner
   platform: InstallPlatform
   winePrefix?: string
   wineVersion?: WineInstallation
   wineCrossoverBottle?: string
-}
-
-export interface MoveGameArgs {
-  appName: string
-  path: string
-  runner: Runner
 }
 
 export interface DiskSpaceData {
@@ -691,11 +656,6 @@ export interface DiskSpaceData {
   message: string
   validPath: boolean
   validFlatpakPath: boolean
-}
-
-export interface ToolArgs {
-  appName: string
-  action: 'backup' | 'restore'
 }
 
 export type StatusPromise = Promise<{ status: 'done' | 'error' | 'abort' }>

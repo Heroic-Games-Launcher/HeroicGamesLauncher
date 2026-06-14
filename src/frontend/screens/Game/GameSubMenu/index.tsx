@@ -2,7 +2,7 @@ import './index.css'
 
 import { useCallback, useContext, useEffect, useState } from 'react'
 
-import { GameInfo, GameStatus, Runner } from 'common/types'
+import { GameInfo } from 'common/types'
 
 import { createNewWindow, repair } from 'frontend/helpers'
 import { useTranslation } from 'react-i18next'
@@ -35,14 +35,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinux, faSteam } from '@fortawesome/free-brands-svg-icons'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 interface Props {
-  appName: string
+  game: GameHandle
   isInstalled: boolean
   title: string
   storeUrl: string
   changelog?: string
-  runner: Runner
   handleUpdate: () => void
   handleChangeLog: () => void
   disableUpdate: boolean
@@ -52,12 +52,11 @@ interface Props {
 }
 
 export default function GamesSubmenu({
-  appName,
+  game,
   isInstalled,
   title,
   storeUrl,
   changelog,
-  runner,
   handleUpdate,
   handleChangeLog,
   disableUpdate,
@@ -85,7 +84,7 @@ export default function GamesSubmenu({
     `https://www.protondb.com/search?q=${title}`
   )
   const { t } = useTranslation('gamepage')
-  const isSideloaded = runner === 'sideload'
+  const isSideloaded = game.runner === 'sideload'
   const isThirdPartyManaged = !!gameInfo.thirdPartyManagedApp
 
   async function onMoveInstallYesClick() {
@@ -97,7 +96,7 @@ export default function GamesSubmenu({
       defaultPath: defaultInstallPath
     })
     if (path) {
-      await window.api.moveInstall({ appName, path, runner })
+      await window.api.moveInstall(game, path)
     }
   }
 
@@ -122,8 +121,8 @@ export default function GamesSubmenu({
       defaultPath: defaultInstallPath
     })
     if (path) {
-      await window.api.changeInstallPath({ appName, path, runner })
-      await refresh(runner)
+      await window.api.changeInstallPath(game, path)
+      await refresh(game.runner)
     }
   }
 
@@ -139,17 +138,13 @@ export default function GamesSubmenu({
     })
   }
 
-  async function onRepairYesClick(appName: string) {
-    await repair(appName, runner)
-  }
-
-  function handleRepair(appName: string) {
+  function handleRepair() {
     showDialogModal({
       showDialog: true,
       message: t('box.repair.message'),
       title: t('box.repair.title'),
       buttons: [
-        { text: t('box.yes'), onClick: async () => onRepairYesClick(appName) },
+        { text: t('box.yes'), onClick: async () => repair(game) },
         { text: t('box.no') }
       ]
     })
@@ -157,17 +152,17 @@ export default function GamesSubmenu({
 
   function handleShortcuts() {
     if (hasShortcuts) {
-      window.api.removeShortcut(appName, runner)
+      window.api.removeShortcut(game)
       return setHasShortcuts(false)
     }
-    window.api.addShortcut(appName, runner, true)
+    window.api.addShortcut(game, true)
 
     return setHasShortcuts(true)
   }
 
   function handleEdit() {
     if (isSideloaded) {
-      openInstallGameModal({ appName, runner, gameInfo })
+      openInstallGameModal({ game, gameInfo, action: 'install' })
       return
     }
 
@@ -176,6 +171,7 @@ export default function GamesSubmenu({
       title: t('edit-game.title', 'Edit Game'),
       message: (
         <EditGameDialog
+          game={game}
           gameInfo={gameInfo}
           backdropClick={() => showDialogModal({ showDialog: false })}
         />
@@ -186,16 +182,16 @@ export default function GamesSubmenu({
   async function handleEosOverlay() {
     setEosOverlayRefresh(true)
     if (eosOverlayEnabled) {
-      await window.api.disableEosOverlay(appName)
+      await window.api.disableEosOverlay(game)
       setEosOverlayEnabled(false)
     } else {
-      const initialEnableResult = await window.api.enableEosOverlay(appName)
+      const initialEnableResult = await window.api.enableEosOverlay(game)
       const { installNow } = initialEnableResult
       let { wasEnabled } = initialEnableResult
 
       if (installNow) {
         await window.api.installEosOverlay()
-        wasEnabled = (await window.api.enableEosOverlay(appName)).wasEnabled
+        wasEnabled = (await window.api.enableEosOverlay(game)).wasEnabled
       }
       setEosOverlayEnabled(wasEnabled)
     }
@@ -205,20 +201,16 @@ export default function GamesSubmenu({
   async function handleAddToSteam() {
     setSteamRefresh(true)
     if (addedToSteam) {
-      await window.api
-        .removeFromSteam(appName, runner)
-        .then(() => setAddedToSteam(false))
+      await window.api.removeFromSteam(game).then(() => setAddedToSteam(false))
     } else {
-      await window.api
-        .addToSteam(appName, runner)
-        .then((added) => setAddedToSteam(added))
+      await window.api.addToSteam(game).then((added) => setAddedToSteam(added))
     }
     setSteamRefresh(false)
   }
 
   useEffect(() => {
     // Check for game shortcuts on Steam
-    window.api.isAddedToSteam(appName, runner).then((added) => {
+    window.api.isAddedToSteam(game).then((added) => {
       setAddedToSteam(added)
     })
 
@@ -227,34 +219,33 @@ export default function GamesSubmenu({
     }
 
     // Check for game shortcuts on desktop and start menu
-    window.api.shortcutsExists(appName, runner).then((added) => {
+    window.api.shortcutsExists(game).then((added) => {
       setHasShortcuts(added)
     })
 
     // only unix specific
-    if (!isWin && runner === 'legendary') {
+    if (!isWin && game.runner === 'legendary') {
       // check if eos overlay is enabled
-      const { status } =
-        libraryStatus.filter(
-          (game: GameStatus) => game.appName === eosOverlayAppName
-        )[0] || {}
+      const status = libraryStatus.find(
+        (game) => game.appName === eosOverlayAppName
+      )?.status
       setEosOverlayRefresh(status === 'installing')
 
       window.api
-        .isEosOverlayEnabled(appName)
+        .isEosOverlayEnabled(game)
         .then((enabled) => setEosOverlayEnabled(enabled))
     }
   }, [isInstalled])
 
   useEffect(() => {
     // Get steam id and set direct proton db link
-    window.api.getWikiGameInfo(title, appName, runner).then((info) => {
+    window.api.getWikiGameInfo(game).then((info) => {
       const steamID = info?.pcgamingwiki?.steamID ?? info?.gamesdb?.steamID
       if (steamID) {
         setProtonDBurl(`https://www.protondb.com/app/${steamID}`)
       }
     })
-  }, [title, appName])
+  }, [game])
 
   const refreshCircle = () => {
     return <CircularProgress className="link button is-text is-link" />
@@ -262,7 +253,7 @@ export default function GamesSubmenu({
 
   const showModifyItem =
     onShowModifyInstall &&
-    ['legendary', 'gog'].includes(runner) &&
+    ['legendary', 'gog'].includes(game.runner) &&
     isInstalled &&
     !isThirdPartyManaged
 
@@ -290,8 +281,7 @@ export default function GamesSubmenu({
       <div className="gameTools subMenuContainer">
         {showUninstallModal && (
           <UninstallModal
-            appName={appName}
-            runner={runner}
+            game={game}
             onClose={() => setShowUninstallModal(false)}
             isDlc={false}
           />
@@ -355,7 +345,7 @@ export default function GamesSubmenu({
               )}{' '}
               {!isSideloaded && !isThirdPartyManaged && (
                 <button
-                  onClick={async () => handleRepair(appName)}
+                  onClick={() => handleRepair()}
                   className="link button is-text is-link buttonWithIcon"
                 >
                   <CheckCircleIcon />
@@ -363,7 +353,7 @@ export default function GamesSubmenu({
                 </button>
               )}{' '}
               {isLinux &&
-                runner === 'legendary' &&
+                game.runner === 'legendary' &&
                 (eosOverlayRefresh ? (
                   refreshCircle()
                 ) : (
@@ -395,7 +385,7 @@ export default function GamesSubmenu({
             </button>
           )}
           <button
-            onClick={() => openGameCategoriesModal(gameInfo)}
+            onClick={() => openGameCategoriesModal(game)}
             className="link button is-text is-link buttonWithIcon"
           >
             <FormatListBulletedIcon />

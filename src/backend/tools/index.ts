@@ -1,10 +1,4 @@
-import {
-  ExecResult,
-  GameSettings,
-  Runner,
-  Tool,
-  WineCommandArgs
-} from 'common/types'
+import { Tool } from 'common/types'
 
 import {
   existsSync,
@@ -46,7 +40,6 @@ import {
 } from '../utils/graphics/vulkan'
 import { lt as semverLt } from 'semver'
 import { createAbortController } from '../utils/aborthandler/aborthandler'
-import { libraryManagerMap } from '../storeManagers'
 import { sendFrontendMessage } from '../ipc'
 import {
   DAYS,
@@ -204,10 +197,11 @@ export const DXVK = {
   },
 
   installRemove: async (
-    gameSettings: GameSettings,
+    game: Game,
     tool: 'dxvk' | 'dxvk-nvapi' | 'vkd3d' | 'dxvk-macOS',
     action: 'backup' | 'restore'
   ): Promise<boolean> => {
+    const gameSettings = await game.getSettings()
     if (gameSettings.wineVersion.bin.includes('toolkit')) {
       // we don't want to install dxvk on the toolkit prefix since it breaks Apple's implementation
       logWarning(
@@ -305,8 +299,7 @@ export const DXVK = {
             dll,
             '/f'
           ]
-          await runWineCommand({
-            gameSettings,
+          await runWineCommand(game, {
             commandParts: unregisterDll,
             wait: true,
             protonVerb: 'run'
@@ -323,8 +316,7 @@ export const DXVK = {
           dll,
           '/f'
         ]
-        await runWineCommand({
-          gameSettings,
+        await runWineCommand(game, {
           commandParts: unregisterDll,
           wait: true,
           protonVerb: 'run'
@@ -358,8 +350,7 @@ export const DXVK = {
       // Restore stock Wine libraries
       logInfo('Restoring Wine stock DLLs', LogPrefix.ToolInstaller)
 
-      await runWineCommand({
-        gameSettings,
+      await runWineCommand(game, {
         commandParts: ['wineboot', '-u'],
         wait: true,
         protonVerb: 'run'
@@ -436,8 +427,7 @@ export const DXVK = {
           'native,builtin',
           '/f'
         ]
-        await runWineCommand({
-          gameSettings,
+        await runWineCommand(game, {
           commandParts: registerDll,
           wait: true,
           protonVerb: 'run'
@@ -457,8 +447,7 @@ export const DXVK = {
         'native,builtin',
         '/f'
       ]
-      await runWineCommand({
-        gameSettings,
+      await runWineCommand(game, {
         commandParts: registerDll,
         wait: true,
         protonVerb: 'run'
@@ -496,8 +485,7 @@ export const DXVK = {
             'C:\\windows\\system32',
             '/f'
           ]
-          await runWineCommand({
-            gameSettings,
+          await runWineCommand(game, {
             commandParts: regModNvngx,
             wait: true,
             protonVerb: 'run'
@@ -556,16 +544,8 @@ export const Winetricks = {
       )
     }
   },
-  runWithArgs: async (
-    runner: Runner,
-    appName: string,
-    args: string[],
-    returnOutput = false
-  ) => {
-    const gameSettings = await libraryManagerMap[runner]
-      .getGame(appName)
-      .getSettings()
-
+  runWithArgs: async (game: Game, args: string[], returnOutput = false) => {
+    const gameSettings = await game.getSettings()
     const { wineVersion } = gameSettings
 
     if (!(await validWine(wineVersion))) {
@@ -579,7 +559,7 @@ export const Winetricks = {
       await Winetricks.download()
     }
 
-    if (await isUmuSupported(gameSettings)) {
+    if (await isUmuSupported(game)) {
       winetricks = await getUmuPath()
 
       if (args.includes('-q')) {
@@ -595,7 +575,7 @@ export const Winetricks = {
     }
 
     const { winePrefix, wineVersion: alwaysWine_wineVersion } =
-      await getWineFromProton(gameSettings)
+      await getWineFromProton(game)
     return new Promise<string[] | null>((resolve) => {
       const wineBin = alwaysWine_wineVersion.bin
       // We have to run Winetricks with an actual `wine` binary, meaning we
@@ -613,7 +593,7 @@ export const Winetricks = {
       const linuxEnvs = {
         ...process.env,
         ...setupEnvVars(settingsWithWineVersion),
-        ...setupWineEnvVars(settingsWithWineVersion, appName),
+        ...setupWineEnvVars(settingsWithWineVersion),
         WINEPREFIX: winePrefix,
         PATH: `${winepath}:${process.env.PATH}`,
         GAMEID: gui ? 'winetricks-gui' : 'umu-0',
@@ -626,7 +606,7 @@ export const Winetricks = {
         ...process.env,
         // FIXME: Do we want to use `settingsWithWineVersion` here?
         ...setupEnvVars(gameSettings),
-        ...setupWineEnvVars(gameSettings, appName),
+        ...setupWineEnvVars(gameSettings),
         WINEPREFIX: winePrefix,
         WINESERVER: wineServer,
         WINE: wineBin,
@@ -714,15 +694,14 @@ export const Winetricks = {
       })
     })
   },
-  run: async (runner: Runner, appName: string) => {
-    await Winetricks.runWithArgs(runner, appName, ['-q', '--gui'])
+  run: async (game: Game) => {
+    await Winetricks.runWithArgs(game, ['-q', '--gui'])
   },
-  listAvailable: async (runner: Runner, appName: string) => {
+  listAvailable: async (game: Game) => {
     try {
       const dlls: string[] = []
       const outputDlls = await Winetricks.runWithArgs(
-        runner,
-        appName,
+        game,
         ['dlls', 'list'],
         true
       )
@@ -735,8 +714,7 @@ export const Winetricks = {
 
       const fonts: string[] = []
       const outputFonts = await Winetricks.runWithArgs(
-        runner,
-        appName,
+        game,
         ['fonts', 'list'],
         true
       )
@@ -750,8 +728,7 @@ export const Winetricks = {
     }
   },
   listInstalled: async (game: Game) => {
-    const gameSettings = await game.getSettings()
-    const { winePrefix } = await getWineFromProton(gameSettings)
+    const { winePrefix } = await getWineFromProton(game)
     const winetricksLogPath = join(winePrefix, 'winetricks.log')
     try {
       const winetricksLog = await readFile(winetricksLogPath, 'utf8')
@@ -760,11 +737,11 @@ export const Winetricks = {
       return []
     }
   },
-  install: async (runner: Runner, appName: string, component: string) => {
+  install: async (game: Game, component: string) => {
     sendFrontendMessage('installing-winetricks-component', component)
     try {
       installingComponent = component
-      await Winetricks.runWithArgs(runner, appName, ['-q', component])
+      await Winetricks.runWithArgs(game, ['-q', component])
     } finally {
       installingComponent = ''
       sendFrontendMessage('installing-winetricks-component', '')
@@ -866,28 +843,4 @@ function getVkd3dUrl(): string {
   // FIXME: We currently lack a "Don't download at all" option here, but
   //        that would also need bigger changes in the frontend
   return 'https://api.github.com/repos/Heroic-Games-Launcher/vkd3d-proton/releases/latest'
-}
-
-export async function runWineCommandOnGame(
-  runner: Runner,
-  appName: string,
-  { commandParts, wait = false, protonVerb, startFolder }: WineCommandArgs
-): Promise<ExecResult> {
-  const game = libraryManagerMap[runner].getGame(appName)
-  if (game.isNative()) {
-    logError('runWineCommand called on native game!', LogPrefix.Gog)
-    return { stdout: '', stderr: '' }
-  }
-  const { folder_name, install } = game.getGameInfo()
-  const gameSettings = await game.getSettings()
-
-  return runWineCommand({
-    gameSettings,
-    installFolderName: folder_name,
-    gameInstallPath: install.install_path,
-    commandParts,
-    wait,
-    protonVerb,
-    startFolder
-  })
 }

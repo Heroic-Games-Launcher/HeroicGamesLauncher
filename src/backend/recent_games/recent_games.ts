@@ -1,8 +1,9 @@
-import { GameInfo, RecentGame } from 'common/types'
+import { RecentGame } from 'common/types'
 import { backendEvents } from '../backend_events'
 import { sendFrontendMessage } from '../ipc'
 import { GlobalConfig } from '../config'
 import { configStore } from 'backend/constants/key_value_stores'
+import type { Game } from 'common/types/game_manager'
 
 const maxRecentGames = async () => {
   const { maxRecentGames } = GlobalConfig.get().getSettings()
@@ -27,22 +28,20 @@ const setRecentGames = (recentGames: RecentGame[]) => {
   backendEvents.emit('recentGamesChanged', recentGames)
 }
 
-const addRecentGame = async (game: GameInfo) => {
+const addRecentGame = async (game: Game) => {
   const games = await getRecentGames()
 
   // update list
-  const updatedList = games.filter(
-    (a) => a.appName && a.appName !== game.app_name
-  )
-  updatedList.unshift({ appName: game.app_name, title: game.title })
+  const updatedList = games.filter((a) => a.appName && a.appName !== game.id)
+  updatedList.unshift({ appName: game.id, title: game.getGameInfo().title })
   setRecentGames(updatedList)
 }
 
-const removeRecentGame = async (appName: string) => {
+const removeRecentGame = async (game: Game) => {
   const games = await getRecentGames()
 
   if (games.length) {
-    const updatedList = games.filter((a) => a.appName && a.appName !== appName)
+    const updatedList = games.filter((a) => a.appName && a.appName !== game.id)
     setRecentGames(updatedList)
   }
 }

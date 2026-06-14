@@ -8,31 +8,30 @@ import { timestampStore } from 'frontend/helpers/electronStores'
 import './index.css'
 import PopoverComponent from 'frontend/components/UI/PopoverComponent'
 import { AvTimer } from '@mui/icons-material'
-import { GameInfo } from 'common/types'
 import { hasStatus } from 'frontend/hooks/hasStatus'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
-  gameInfo: GameInfo
+  game: GameHandle
 }
 
-function TimeContainer({ gameInfo }: Props) {
-  const { app_name: game, runner } = gameInfo
+function TimeContainer({ game }: Props) {
   const { t } = useTranslation('gamepage')
-  const [tsInfo, setTsInfo] = useState(timestampStore.get_nodefault(game))
-  const { status } = hasStatus(gameInfo)
+  const [tsInfo, setTsInfo] = useState(timestampStore.get_nodefault(game.id))
+  const { status } = hasStatus(game)
 
   useEffect(() => {
     // update local stored time after playing
-    setTsInfo(timestampStore.get_nodefault(game))
+    setTsInfo(timestampStore.get_nodefault(game.id))
     async function fetchPlaytime() {
-      const playTime = await window.api.fetchPlaytimeFromServer(runner, game)
+      const playTime = await window.api.fetchPlaytimeFromServer(game)
       if (!playTime) {
         return
       }
       if (tsInfo?.totalPlayed) {
         if (tsInfo.totalPlayed < playTime) {
           const newObject = { ...tsInfo, totalPlayed: playTime }
-          timestampStore.set(game, newObject)
+          timestampStore.set(game.id, newObject)
           setTsInfo(newObject)
         }
       } else {
@@ -41,7 +40,7 @@ function TimeContainer({ gameInfo }: Props) {
           lastPlayed: '',
           totalPlayed: playTime
         }
-        timestampStore.set(game, newObject)
+        timestampStore.set(game.id, newObject)
         setTsInfo(newObject)
       }
     }
