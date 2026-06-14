@@ -10,6 +10,7 @@ import {
   DiscordRPC,
   EgsSettings,
   HideChangelogOnStartup,
+  HideEpicFriends,
   LibraryTopSection,
   MaxRecentGames,
   MaxWorkers,
@@ -48,6 +49,8 @@ export default function GeneralSettings() {
       <AutoUpdateGames />
 
       <HideChangelogOnStartup />
+
+      <HideEpicFriends />
 
       <StartInConsoleMode />
 
