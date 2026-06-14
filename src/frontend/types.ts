@@ -14,9 +14,15 @@ import {
   WikiInfo,
   ExtraInfo,
   Status,
-  InstallInfo
+  InstallInfo,
+  LegendaryAccount
 } from 'common/types'
 import { NileLoginData, NileRegisterData } from 'common/types/nile'
+
+type EpicLoginResult = {
+  status: 'done' | 'failed'
+  message?: string
+}
 
 export type Category =
   | 'all'
@@ -71,8 +77,16 @@ export interface ContextType {
   epic: {
     library: GameInfo[]
     username?: string
-    login: (sid: string) => Promise<string>
+    accounts: LegendaryAccount[]
+    activeAccountId?: string
+    login: (
+      sid: string,
+      options?: { addAccount?: boolean }
+    ) => Promise<EpicLoginResult>
     logout: () => Promise<void>
+    switchAccount: (accountId: string) => Promise<string>
+    removeAccount: (accountId: string) => Promise<string>
+    refreshAccounts: () => Promise<LegendaryAccount[]>
   }
   gog: {
     library: GameInfo[]
