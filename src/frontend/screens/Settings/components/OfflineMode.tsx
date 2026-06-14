@@ -9,27 +9,23 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 const OfflineMode = () => {
   const { t } = useTranslation()
-  const { isDefault, appName, runner } = useContext(SettingsContext)
+  const { isDefault, game } = useContext(SettingsContext)
   const [canRunOffline, setCanRunOffline] = useState(true)
 
   useEffect(() => {
     const getInfo = async () => {
-      if (!runner) {
-        return
-      }
-      const info = await getGameInfo(appName, runner)
-      if (info) {
-        const { canRunOffline: can_run_offline } = info
-        setCanRunOffline(can_run_offline)
-      }
+      if (isDefault) return
+
+      const info = await getGameInfo(game)
+      if (info) setCanRunOffline(info.canRunOffline)
     }
 
-    getInfo()
-  }, [])
+    void getInfo()
+  }, [isDefault, game])
 
   const [offlineMode, setOfflineMode] = useSetting('offlineMode', false)
 
-  if (isDefault || runner !== 'legendary') {
+  if (isDefault || game.runner !== 'legendary') {
     return <></>
   }
 

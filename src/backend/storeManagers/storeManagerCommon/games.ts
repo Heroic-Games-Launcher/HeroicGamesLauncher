@@ -1,5 +1,3 @@
-import { GameSettings } from 'common/types'
-import { GameConfig } from '../../game_config'
 import { logInfo, LogPrefix, logWarning } from 'backend/logger'
 import { basename, dirname } from 'path'
 import { constants as FS_CONSTANTS } from 'graceful-fs'
@@ -29,13 +27,6 @@ import { windowIcon } from 'backend/constants/paths'
 
 import type LogWriter from 'backend/logger/log_writer'
 import { Game } from '../../../common/types/game_manager'
-
-async function getAppSettings(appName: string): Promise<GameSettings> {
-  return (
-    GameConfig.get(appName).config ||
-    (await GameConfig.get(appName).getSettings())
-  )
-}
 
 type BrowserGameOptions = {
   browserUrl: string
@@ -119,8 +110,6 @@ export async function launchGame(
   args: string[] = []
 ): Promise<boolean> {
   const gameInfo = game.getGameInfo()
-  const appName = gameInfo.app_name
-  const runner = gameInfo.runner
 
   let {
     install: { executable }
@@ -128,26 +117,21 @@ export async function launchGame(
 
   const { browserUrl, customUserAgent, launchFullScreen } = gameInfo
 
-  const gameSettingsOverrides = await GameConfig.get(appName).getSettings()
-  if (
-    gameSettingsOverrides.targetExe !== undefined &&
-    gameSettingsOverrides.targetExe !== ''
-  ) {
-    executable = gameSettingsOverrides.targetExe
+  const gameSettings = await game.getSettings()
+  if (gameSettings.targetExe !== undefined && gameSettings.targetExe !== '') {
+    executable = gameSettings.targetExe
   }
 
   if (browserUrl) {
     return openNewBrowserGameWindow({
       browserUrl,
-      abortId: appName,
+      abortId: game.id,
       customUserAgent,
       launchFullScreen
     })
   }
 
-  const gameSettings = await getAppSettings(appName)
-  const { launcherArgs } = gameSettings
-  const extraArgs = [...shlex.split(launcherArgs ?? ''), ...args]
+  const extraArgs = [...shlex.split(gameSettings.launcherArgs ?? ''), ...args]
   const extraArgsJoined = extraArgs.join(' ')
 
   if (executable) {
@@ -160,7 +144,7 @@ export async function launchGame(
       gameScopeCommand,
       gameModeBin,
       steamRuntime
-    } = await prepareLaunch(gameSettings, logWriter, gameInfo, isNative)
+    } = await prepareLaunch(game, logWriter)
 
     if (!isNative) {
       await prepareWineLaunch(game, logWriter)
@@ -185,11 +169,7 @@ export async function launchGame(
       return false
     }
 
-    sendGameStatusUpdate({
-      appName,
-      runner: gameInfo.runner,
-      status: 'playing'
-    })
+    sendGameStatusUpdate(game, 'playing')
 
     // Native
     if (isNative) {
@@ -212,9 +192,9 @@ export async function launchGame(
       }
 
       const env = {
-        ...setupWrapperEnvVars({ appName, appRunner: runner }),
+        ...setupWrapperEnvVars(game),
         ...setupEnvVars(gameSettings, gameInfo.install.install_path),
-        ...getKnownFixesEnvVariables(appName, runner)
+        ...getKnownFixesEnvVariables(game)
       }
 
       if (wrappers.length > 0) {
@@ -225,7 +205,7 @@ export async function launchGame(
       await callRunner(
         extraArgs,
         {
-          name: runner,
+          name: game.runner,
           logPrefix: LogPrefix.Backend,
           bin: basename(executable),
           dir: dirname(executable)
@@ -234,7 +214,8 @@ export async function launchGame(
           env,
           wrappers,
           logWriters: [logWriter],
-          logMessagePrefix: LogPrefix.Backend
+          logMessagePrefix: LogPrefix.Backend,
+          game
         }
       )
 
@@ -251,9 +232,8 @@ export async function launchGame(
       LogPrefix.Backend
     )
 
-    await runWineCommand({
+    await runWineCommand(game, {
       commandParts: [executable, ...extraArgs],
-      gameSettings,
       wait: true,
       protonVerb: 'waitforexitandrun',
       startFolder: dirname(executable),

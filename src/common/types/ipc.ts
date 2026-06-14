@@ -25,17 +25,12 @@ import type {
   KnowFixesInfo,
   LaunchOption,
   LaunchParams,
-  MoveGameArgs,
   RecentGame,
   Release,
   Runner,
   RunnerCommandStub,
   RuntimeName,
-  RunWineCommandArgs,
-  SaveSyncArgs,
   StatusPromise,
-  ToolArgs,
-  Tools,
   UpdateParams,
   UploadedLogData,
   UserInfo,
@@ -50,6 +45,9 @@ import type { GOGCloudSavesLocation, UserData } from './gog'
 import type { NileLoginData, NileRegisterData, NileUserData } from './nile'
 import type { GameOverride, SelectiveDownload } from './legendary'
 import type { GetLogFileArgs } from 'backend/logger/paths'
+import type { Game } from './game_manager'
+import type { GameHandle } from 'frontend/helpers/ipc'
+import type { GameMetadataOverride } from 'backend/game_overrides/electronStores'
 
 // ts-prune-ignore-next
 interface SyncIPCFunctions {
@@ -76,10 +74,10 @@ interface SyncIPCFunctions {
   openWikiLink: () => void
   openSidInfoPage: () => void
   openCustomThemesWiki: () => void
-  showConfigFileInFolder: (appName: string) => void
+  showConfigFileInFolder: (game?: Game) => void
   removeFolder: ([path, folderName]: [string, string]) => void
   clearCache: (showDialog?: boolean, fromVersionChange?: boolean) => void
-  clearAchievementCache: (appName: string) => void
+  clearAchievementCache: (game: Game) => void
   resetHeroic: () => void
   createNewWindow: (url: string) => void
   logoutGOG: () => void
@@ -90,19 +88,19 @@ interface SyncIPCFunctions {
   processShortcut: (combination: string) => void
   addNewApp: (args: GameInfo) => void
   showLogFileInFolder: (args: GetLogFileArgs) => void
-  addShortcut: (appName: string, runner: Runner, fromMenu: boolean) => void
-  removeShortcut: (appName: string, runner: Runner) => void
-  removeFromDMQueue: (appName: string) => void
+  addShortcut: (game: Game, fromMenu: boolean) => void
+  removeShortcut: (game: Game) => void
+  removeFromDMQueue: (game: Game) => void
   clearDMFinished: () => void
   abort: (id: string) => void
   'connectivity-changed': (newStatus: ConnectivityStatus) => void
   'set-connectivity-online': () => void
   changeTrayColor: () => void
-  setSetting: (args: {
-    appName: string
-    key: keyof AppSettings
+  setSetting: (
+    game: Game | null,
+    key: keyof AppSettings,
     value: unknown
-  }) => void
+  ) => void
   resumeCurrentDownload: () => void
   pauseCurrentDownload: () => void
   cancelDownload: (removeDownloaded: boolean) => void
@@ -113,23 +111,10 @@ interface SyncIPCFunctions {
   closeWindow: () => void
   setFullscreen: (enabled: boolean) => void
   setTitleBarOverlay: (options: TitleBarOverlay) => void
-  winetricksInstall: (
-    runner: Runner,
-    appName: string,
-    component: string
-  ) => void
-  changeGameVersionPinnedStatus: (
-    appName: string,
-    runner: Runner,
-    status: boolean
-  ) => void
+  winetricksInstall: (game: Game, component: string) => void
+  changeGameVersionPinnedStatus: (game: Game, status: boolean) => void
   logoutZoom: () => void
-  setGameMetadataOverride: (args: {
-    appName: string
-    title?: string
-    art_cover?: string
-    art_square?: string
-  }) => void
+  setGameMetadataOverride: (game: Game, overrides: GameMetadataOverride) => void
 }
 
 /*
@@ -149,14 +134,15 @@ interface TestSyncIPCFunctions {
 
 // ts-prune-ignore-next
 interface AsyncIPCFunctions {
-  kill: (appName: string, runner: Runner) => Promise<void>
+  kill: (game: Game) => Promise<void>
   checkDiskSpace: (folder: string) => Promise<DiskSpaceData>
-  callTool: (args: Tools) => Promise<void>
+  callTool: (game: Game, tool: string, exe?: string) => Promise<void>
   runWineCommand: (
+    game: Game,
     args: WineCommandArgs
   ) => Promise<{ stdout: string; stderr: string }>
-  winetricksInstalled: (runner: Runner, appName: string) => Promise<string[]>
-  winetricksAvailable: (runner: Runner, appName: string) => Promise<string[]>
+  winetricksInstalled: (game: Game) => Promise<string[]>
+  winetricksAvailable: (game: Game) => Promise<string[]>
   checkGameUpdates: () => Promise<string[]>
   getEpicGamesStatus: () => Promise<boolean>
   updateAll: () => Promise<({ status: 'done' | 'error' | 'abort' } | null)[]>
@@ -173,25 +159,17 @@ interface AsyncIPCFunctions {
   showUpdateSetting: () => boolean
   getLatestReleases: () => Promise<Release[]>
   getCurrentChangelog: () => Promise<Release | null>
-  getGameInfo: (appName: string, runner: Runner) => Promise<GameInfo | null>
-  getAchievements: (
-    appName: string,
-    runner: Runner,
-    lang?: string
-  ) => Promise<GameAchievement[]>
-  getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
-  getGameSettings: (
-    appName: string,
-    runner: Runner
-  ) => Promise<GameSettings | null>
-  getGOGLinuxInstallersLangs: (appName: string) => Promise<string[]>
+  getGameInfo: (game: Game) => Promise<GameInfo | null>
+  getAchievements: (game: Game, lang?: string) => Promise<GameAchievement[]>
+  getExtraInfo: (game: Game) => Promise<ExtraInfo | null>
+  getGameSettings: (game: Game) => Promise<GameSettings | null>
+  getGOGLinuxInstallersLangs: (game: Game) => Promise<string[]>
   getInstallInfo: (
-    appName: string,
-    runner: Runner,
+    game: Game,
     installPlatform: InstallPlatform,
     branch?: string,
     build?: string
-  ) => Promise<InstallInfo | null>
+  ) => Promise<InstallInfo | null | undefined>
   getUserInfo: () => Promise<UserInfo | undefined>
   getAmazonUserInfo: () => Promise<NileUserData | undefined>
   getZoomUserInfo: () => Promise<{ username: string } | undefined>
@@ -214,64 +192,57 @@ interface AsyncIPCFunctions {
   getAlternativeWine: () => Promise<WineInstallation[]>
   readConfig: (config_class: 'library' | 'user') => Promise<GameInfo[] | string>
   requestAppSettings: () => AppSettings
-  requestGameSettings: (appName: string) => Promise<GameSettings>
-  writeConfig: (args: { appName: string; config: Partial<AppSettings> }) => void
+  requestGameSettings: (game: Game) => Promise<GameSettings>
+  writeConfig: (game: Game | null, config: Partial<AppSettings>) => void
   refreshLibrary: (library?: Runner | 'all') => Promise<void>
-  launch: (args: LaunchParams) => StatusPromise
+  launch: (game: Game, args: LaunchParams) => StatusPromise
   openDialog: (args: OpenDialogOptions) => Promise<string | false>
   install: (args: InstallParams) => Promise<void>
   uninstall: (
-    appName: string,
-    runner: Runner,
+    game: Game,
     shouldRemovePrefix: boolean,
     shoudlRemoveSetting: boolean
   ) => Promise<void>
-  repair: (appName: string, runner: Runner) => Promise<void>
-  moveInstall: (args: MoveGameArgs) => Promise<void>
-  importGame: (args: ImportGameArgs) => StatusPromise
-  updateGame: (args: UpdateParams) => Promise<void>
-  changeInstallPath: (args: MoveGameArgs) => Promise<void>
+  repair: (game: Game) => Promise<void>
+  moveInstall: (game: Game, path: string) => Promise<void>
+  importGame: (game: Game, args: ImportGameArgs) => StatusPromise
+  updateGame: (game: Game, args: UpdateParams) => Promise<void>
+  changeInstallPath: (game: Game, path: string) => Promise<void>
   egsSync: (arg: string) => Promise<string>
   syncGOGSaves: (
+    game: Game,
     gogSaves: GOGCloudSavesLocation[],
-    appname: string,
     arg: string
   ) => Promise<string>
-  syncSaves: (args: SaveSyncArgs) => Promise<string>
+  syncSaves: (
+    game: Game,
+    path: string,
+    arg: string | undefined
+  ) => Promise<string>
   gamepadAction: (args: GamepadActionArgs) => Promise<void>
-  runWineCommandForGame: (args: RunWineCommandArgs) => Promise<ExecResult>
+  runWineCommandForGame: (
+    game: Game,
+    commandParts: string[]
+  ) => Promise<ExecResult>
   getShellPath: (path: string) => Promise<string>
   getWebviewPreloadPath: () => string
   clipboardReadText: () => string
   getCustomThemes: () => Promise<string[]>
   getThemeCSS: (theme: string) => Promise<string>
-  isNative: (args: { appName: string; runner: Runner }) => boolean
+  isNative: (game: Game) => boolean
   getLogContent: (args: GetLogFileArgs) => string
   installWineVersion: (release: WineVersionInfo) => Promise<void>
   refreshWineVersionInfo: (fetch?: boolean) => Promise<void>
   removeWineVersion: (release: WineVersionInfo) => Promise<void>
   'wine.isValidVersion': (release: WineInstallation) => Promise<boolean>
-  shortcutsExists: (appName: string, runner: Runner) => boolean
-  addToSteam: (appName: string, runner: Runner) => Promise<boolean>
-  removeFromSteam: (appName: string, runner: Runner) => Promise<void>
-  isAddedToSteam: (appName: string, runner: Runner) => Promise<boolean>
+  shortcutsExists: (game: Game) => boolean
+  addToSteam: (game: Game) => Promise<boolean>
+  removeFromSteam: (game: Game) => Promise<void>
+  isAddedToSteam: (game: Game) => Promise<boolean>
   getAnticheatInfo: (appNamespace: string) => Promise<AntiCheatInfo | null>
-  getKnownFixes: (appName: string, runner: Runner) => KnowFixesInfo | null
-  getGameMetadataOverride: (appName: string) => Promise<{
-    title?: string
-    art_cover?: string
-    art_square?: string
-  } | null>
-  getAllGameOverrides: () => Promise<
-    Record<
-      string,
-      {
-        title?: string
-        art_cover?: string
-        art_square?: string
-      }
-    >
-  >
+  getKnownFixes: (game: Game) => KnowFixesInfo | null
+  getGameMetadataOverride: (game: Game) => Promise<GameMetadataOverride | null>
+  getAllGameOverrides: () => Promise<Record<string, GameMetadataOverride>>
   getEosOverlayStatus: () => {
     isInstalled: boolean
     version?: string
@@ -282,10 +253,10 @@ interface AsyncIPCFunctions {
   installEosOverlay: () => Promise<string | undefined>
   removeEosOverlay: () => Promise<boolean>
   enableEosOverlay: (
-    appName: string
+    game?: Game
   ) => Promise<{ wasEnabled: boolean; installNow?: boolean }>
-  disableEosOverlay: (appName: string) => Promise<void>
-  isEosOverlayEnabled: (appName?: string) => Promise<boolean>
+  disableEosOverlay: (game?: Game) => Promise<void>
+  isEosOverlayEnabled: (game?: Game) => Promise<boolean>
   downloadRuntime: (runtime_name: RuntimeName) => Promise<boolean>
   isRuntimeInstalled: (runtime_name: RuntimeName) => Promise<boolean>
   getDMQueueInformation: () => {
@@ -298,37 +269,29 @@ interface AsyncIPCFunctions {
     retryIn: number
   }
   getSystemInfo: (cache?: boolean) => Promise<SystemInformation>
-  removeRecent: (appName: string) => Promise<void>
-  getWikiGameInfo: (
-    title: string,
-    appName: string,
-    runner: Runner
-  ) => Promise<WikiInfo | null>
+  removeRecent: (game: Game) => Promise<void>
+  getWikiGameInfo: (game: Game) => Promise<WikiInfo | null>
   getDefaultSavePath: (
-    appName: string,
-    runner: Runner,
+    game: Game,
     alreadyDefinedGogSaves: GOGCloudSavesLocation[]
   ) => Promise<string | GOGCloudSavesLocation[]>
-  isGameAvailable: (args: {
-    appName: string
-    runner: Runner
-  }) => Promise<boolean>
-  toggleDXVK: (args: ToolArgs) => Promise<boolean>
-  toggleVKD3D: (args: ToolArgs) => Promise<boolean>
-  toggleDXVKNVAPI: (args: ToolArgs) => Promise<boolean>
+  isGameAvailable: (game: Game) => Promise<boolean>
+  toggleDXVK: (game: Game, action: 'backup' | 'restore') => Promise<boolean>
+  toggleVKD3D: (game: Game, action: 'backup' | 'restore') => Promise<boolean>
+  toggleDXVKNVAPI: (
+    game: Game,
+    action: 'backup' | 'restore'
+  ) => Promise<boolean>
   pathExists: (path: string) => Promise<boolean>
-  getLaunchOptions: (appName: string, runner: Runner) => Promise<LaunchOption[]>
+  getLaunchOptions: (game: Game) => Promise<LaunchOption[]>
   getGameOverride: () => Promise<GameOverride>
-  getGameSdl: (appName: string) => Promise<SelectiveDownload[]>
-  getPlaytimeFromRunner: (
-    runner: Runner,
-    appName: string
-  ) => Promise<number | undefined>
+  getGameSdl: (game: Game) => Promise<SelectiveDownload[]>
+  getPlaytimeFromRunner: (game: Game) => Promise<number | undefined>
   getAmazonLoginData: () => Promise<NileLoginData>
   hasExecutable: (executable: string) => Promise<boolean>
 
-  setPrivateBranchPassword: (appName: string, password: string) => void
-  getPrivateBranchPassword: (appName: string) => string
+  setPrivateBranchPassword: (game: Game, password: string) => void
+  getPrivateBranchPassword: (game: Game) => string
 
   getAvailableCyberpunkMods: () => Promise<string[]>
   setCyberpunkModConfig: (props: {
@@ -366,8 +329,8 @@ interface AsyncIPCFunctions {
   }) => Promise<Array<{ id: number; url: string; thumb: string }>>
 }
 
-interface FrontendMessages {
-  gameStatusUpdate: (status: GameStatus) => void
+interface FrontendEvent {
+  gameStatusUpdate: (game: Game, status: GameStatus) => void
   wineVersionsUpdated: () => void
   showDialog: (
     title: string,
@@ -388,8 +351,8 @@ interface FrontendMessages {
     status: ConnectivityStatus
     retryIn: number
   }) => void
-  launchGame: (appName: string, runner: Runner, args: string[]) => void
-  installGame: (appName: string, runner: Runner) => void
+  launchGame: (game: Game, args: string[]) => void
+  installGame: (game: Game) => void
   recentGamesChanged: (newRecentGames: RecentGame[]) => void
   pushGameToLibrary: (info: GameInfo) => void
   progressOfWinetricks: (payload: {
@@ -400,7 +363,7 @@ interface FrontendMessages {
   'installing-winetricks-component': (component: string) => void
   logFileUploaded: (url: string, data: UploadedLogData) => void
   logFileUploadDeleted: (url: string) => void
-  progressUpdate: (progress: GameStatus) => void
+  progressUpdate: (game: Game, progress: GameStatus) => void
   metadataChanged: (
     overrides: Record<
       string,
@@ -412,9 +375,18 @@ interface FrontendMessages {
   message: (...params: unknown[]) => void
 }
 
+// List of mappings of <backend type> to <frontend type>
+// This is used to automatically transform from a backend representation of a
+// thing to a frontend one. Taking the first entry as an example, it notes that
+// wherever the Backend expects or returns a `Game`, the Frontend will instead
+// use/get a `GameHandle` (the game's id & runner). The IPC system
+// will automatically transform one type to the other
+type ParameterMappings = [Game, GameHandle]
+
 export type {
   SyncIPCFunctions,
   TestSyncIPCFunctions,
   AsyncIPCFunctions,
-  FrontendMessages
+  FrontendEvent,
+  ParameterMappings
 }

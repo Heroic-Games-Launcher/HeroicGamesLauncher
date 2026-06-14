@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   ArrowBackIosNew,
@@ -75,6 +75,7 @@ import SettingsContext from 'frontend/screens/Settings/SettingsContext'
 import useGlobalState from 'frontend/state/GlobalStateV2'
 import Achievements from './components/Achievements'
 import { LaunchOptionSelector } from 'frontend/screens/Settings/components'
+import { GameHandle } from '../../../helpers/ipc'
 
 export default React.memo(function GamePage(): JSX.Element | null {
   const { appName, runner } = useParams() as { appName: string; runner: Runner }
@@ -106,12 +107,13 @@ export default React.memo(function GamePage(): JSX.Element | null {
   )
 
   const [gameInfo, setGameInfo] = useState(locationGameInfo)
+  const game = useMemo(() => GameHandle.fromGameInfo(gameInfo), [gameInfo])
   const [gameSettings, setGameSettings] = useState<GameSettings | null>(null)
 
-  const { status, folder, statusContext } = hasStatus(gameInfo)
+  const { status, folder, statusContext } = hasStatus(game)
   const gameAvailable = gameInfo.is_installed && status !== 'notAvailable'
 
-  const [progress, previousProgress] = hasProgress(appName, runner)
+  const [progress, previousProgress] = hasProgress(game)
 
   const [extraInfo, setExtraInfo] = useState<ExtraInfo | null>(
     gameInfo.extra || null
@@ -139,7 +141,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
   const anticheatInfo = hasAnticheatInfo(gameInfo)
 
-  const knownFixes = hasKnownFixes(appName, runner)
+  const knownFixes = hasKnownFixes(game)
 
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
@@ -180,8 +182,8 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateAchievements = async () => {
       if (!isPlaying && previousIsPlaying.current)
-        window.api.clearAchievementCache(appName)
-      setAchievements(await window.api.getAchievements(appName, runner))
+        window.api.clearAchievementCache(game)
+      setAchievements(await window.api.getAchievements(game))
     }
 
     updateAchievements()
@@ -191,11 +193,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
   useEffect(() => {
     const updateGameInfo = async () => {
       if (status) {
-        const newInfo = await getGameInfo(appName, runner)
+        const newInfo = await getGameInfo(game)
         if (newInfo) {
           setGameInfo(newInfo)
         }
-        setExtraInfo(await window.api.getExtraInfo(appName, runner))
+        setExtraInfo(await window.api.getExtraInfo(game))
       }
     }
     updateGameInfo()
@@ -220,7 +222,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
           !thirdPartyManagedApp &&
           !isOffline
         ) {
-          getInstallInfo(appName, runner, installPlatform)
+          getInstallInfo(game, installPlatform)
             .then((info) => {
               if (!info) {
                 throw new Error('Cannot get game info')
@@ -243,7 +245,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         }
 
         try {
-          const gameSettings = await window.api.requestGameSettings(appName)
+          const gameSettings = await window.api.requestGameSettings(game)
           setGameSettings(gameSettings)
         } catch (error) {
           setHasError({ error: true, message: error })
@@ -262,7 +264,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   ])
 
   useEffect(() => {
-    window.api.getWikiGameInfo(gameInfo.title, appName, runner).then((info) => {
+    window.api.getWikiGameInfo(game).then((info) => {
       if (
         info &&
         (info.applegamingwiki || info.howlongtobeat || info.pcgamingwiki)
@@ -270,7 +272,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
         setWikiInfo(info)
       }
     })
-  }, [appName])
+  }, [game])
 
   useEffect(() => {
     // when the user clicks the Play button, we disable it so the user can't click it again
@@ -279,21 +281,16 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }, [status])
 
   function handleUpdate() {
-    if (gameInfo.runner !== 'sideload')
-      updateGame({ appName, runner, gameInfo })
+    if (gameInfo.runner !== 'sideload') updateGame(game)
   }
 
   function handleModal() {
-    openInstallGameModal({ appName, runner, gameInfo })
+    openInstallGameModal({ game, gameInfo, action: 'install' })
   }
 
   let hasUpdate = false
 
-  const settingsContextValues = useSettingsContext({
-    appName,
-    gameInfo,
-    runner
-  })
+  const settingsContextValues = useSettingsContext(game)
 
   if (gameInfo && gameInfo.install && settingsContextValues) {
     const {
@@ -404,8 +401,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
           )}
           {showUninstallModal && (
             <UninstallModal
-              appName={appName}
-              runner={runner}
+              game={game}
               onClose={() => setShowUninstallModal(false)}
               isDlc={false}
             />
@@ -425,8 +421,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <ArrowBackIosNew />
                     </NavLink>
                     <div className="topRowWapperInner">
-                      {!isBrowserGame && <SettingsButton gameInfo={gameInfo} />}
+                      {!isBrowserGame && (
+                        <SettingsButton game={game} gameInfo={gameInfo} />
+                      )}
                       <DotsMenu
+                        game={game}
                         gameInfo={gameInfo}
                         handleUpdate={handleUpdate}
                       />
@@ -458,7 +457,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       />
 
                       <Description />
-                      {!notInstallable && <TimeContainer gameInfo={gameInfo} />}
+                      {!notInstallable && <TimeContainer game={game} />}
                       <GameStatus
                         gameInfo={gameInfo}
                         progress={progress}
@@ -468,6 +467,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                       <LaunchOptionSelector showTitle={false} />
                       <div className="buttons">
                         <MainButton
+                          game={game}
                           gameInfo={gameInfo}
                           handlePlay={handlePlay}
                           handleInstall={handleInstall}
@@ -545,7 +545,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
                         >
                           <DownloadSizeInfo gameInfo={gameInfo} />
                           <InstalledInfo gameInfo={gameInfo} />
-                          <CloudSavesSync gameInfo={gameInfo} />
+                          <CloudSavesSync game={game} gameInfo={gameInfo} />
                         </TabPanel>
 
                         <TabPanel
@@ -571,7 +571,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
 
                     <Anticheat anticheatInfo={anticheatInfo} />
                   </div>
-                  <ReportIssue gameInfo={gameInfo} />
+                  <ReportIssue game={game} gameInfo={gameInfo} />
                 </>
               </GameContext.Provider>
             </>
@@ -584,16 +584,15 @@ export default React.memo(function GamePage(): JSX.Element | null {
   }
   return <UpdateComponent />
 
-  async function handlePlay(gameInfo: GameInfo) {
+  async function handlePlay() {
     if (isPlaying || isUpdating) {
-      return sendKill(appName, gameInfo.runner)
+      return sendKill(game)
     }
 
     setPlayClicked(true)
     await launch({
-      appName,
+      game,
       t,
-      runner: gameInfo.runner,
       hasUpdate,
       showDialogModal,
       notPlayableOffline
@@ -604,7 +603,7 @@ export default React.memo(function GamePage(): JSX.Element | null {
   async function handleInstall(is_installed: boolean) {
     if (isQueued) {
       storage.removeItem(appName)
-      return window.api.removeFromDMQueue(appName)
+      return window.api.removeFromDMQueue(game)
     }
 
     if (!is_installed && !isInstalling) {

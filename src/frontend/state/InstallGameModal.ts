@@ -1,38 +1,35 @@
-import { GameInfo, Runner } from 'common/types'
+import { GameInfo } from 'common/types'
 import { create } from 'zustand'
+import type { GameHandle } from '../helpers/ipc'
 
-interface InstallGameModalState {
-  isOpen: boolean
-  appName?: string
-  runner?: Runner
-  gameInfo: GameInfo | null
-  action?: 'install' | 'import'
+interface InstallGameModalStateClosed {
+  isOpen: false
+  game?: undefined
+  gameInfo?: undefined
+  action?: undefined
 }
+
+interface InstallGameModalStateOpen {
+  isOpen: boolean
+  game: GameHandle
+  gameInfo: GameInfo | null
+  action: 'install' | 'import'
+}
+
+type InstallGameModalState =
+  | InstallGameModalStateClosed
+  | InstallGameModalStateOpen
 
 export const useInstallGameModal = create<InstallGameModalState>()(() => ({
-  isOpen: false,
-  gameInfo: null,
-  action: 'install'
+  isOpen: false
 }))
 
-interface OpenInstallGameModalParams {
-  appName: string
-  runner: Runner
-  gameInfo: GameInfo | null
-  action?: 'install' | 'import'
-}
-export const openInstallGameModal = ({
-  appName,
-  runner,
-  gameInfo,
-  action = 'install'
-}: OpenInstallGameModalParams) => {
+export const openInstallGameModal = (
+  args: Pick<InstallGameModalStateOpen, 'game' | 'gameInfo' | 'action'>
+) => {
   useInstallGameModal.setState({
     isOpen: true,
-    appName,
-    runner,
-    gameInfo,
-    action
+    ...args
   })
 }
 

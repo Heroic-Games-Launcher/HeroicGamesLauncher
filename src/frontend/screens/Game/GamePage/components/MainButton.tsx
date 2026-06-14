@@ -16,8 +16,9 @@ import {
 import classNames from 'classnames'
 import { GameInfo } from 'common/types'
 import useSetting from 'frontend/hooks/useSetting'
-
+import type { GameHandle } from 'frontend/helpers/ipc'
 interface Props {
+  game: GameHandle
   gameInfo: GameInfo
   handlePlay: (gameInfo: GameInfo) => Promise<void>
   handleInstall: (
@@ -25,7 +26,7 @@ interface Props {
   ) => Promise<void | { status: 'done' | 'error' | 'abort' }>
 }
 
-const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
+const MainButton = ({ game, gameInfo, handlePlay, handleInstall }: Props) => {
   const { t } = useTranslation('gamepage')
   const { is } = useContext(GameContext)
   const [verboseLogs, setVerboseLogs] = useSetting('verboseLogs', true)
@@ -208,8 +209,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             onClick={async () => {
               if (!is_installed && !is.queued) {
                 openInstallGameModal({
-                  appName: gameInfo.app_name,
-                  runner: gameInfo.runner,
+                  game,
                   gameInfo,
                   action: 'install'
                 })
@@ -240,8 +240,7 @@ const MainButton = ({ gameInfo, handlePlay, handleInstall }: Props) => {
             className={'button mainBtn outline'}
             onClick={() =>
               openInstallGameModal({
-                appName: gameInfo.app_name,
-                runner: gameInfo.runner,
+                game,
                 gameInfo,
                 action: 'import'
               })
