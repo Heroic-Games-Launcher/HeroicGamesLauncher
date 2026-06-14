@@ -929,7 +929,8 @@
         "installing": "설치 중",
         "logging": "로그인 중…",
         "processing": "파일 처리 중, 기다려 주세요",
-        "preparing_login": "로그인 준비 중... "
+        "preparing_login": "로그인 준비 중... ",
+        "installed": "설치됨"
     },
     "store": "에픽 스토어",
     "stores": "스토어",
@@ -1251,7 +1252,12 @@
         "empty": "",
         "games": "설치된 게임",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "platform": "Platform",
+            "title": "게임 설치",
+            "wineLoading": "Loading"
+        }
     },
     "next": ""
 }

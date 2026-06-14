@@ -940,13 +940,14 @@
     "sidebar": {
         "collapse": "收起侧栏",
         "uncollapse": "展开侧栏",
-        "console": ""
+        "console": "主机模式"
     },
     "status": {
         "installing": "安装中",
         "logging": "正在登录...",
         "processing": "处理文件中，请稍等",
-        "preparing_login": "正在准备登录... "
+        "preparing_login": "正在准备登录... ",
+        "installed": "已安装"
     },
     "store": "Epic 商店",
     "stores": "商店",
@@ -1188,35 +1189,37 @@
             "label": ""
         },
         "filters": {
-            "moreFilters": "",
+            "moreFilters": "更多筛选项",
             "ageRating": "",
             "os": "操作系统：",
-            "price": "",
+            "price": "价格",
             "activeCount_other": "",
-            "hideDlcs": "",
+            "hideDlcs": "隐藏 DLC",
             "ageRatingOption": "",
             "genres": "",
             "activeCount_one": "",
-            "lessFilters": "",
-            "rating": "",
-            "sort": "",
+            "lessFilters": "更少筛选项",
+            "rating": "评分",
+            "sort": "排序依据",
             "genresPlaceholder": "",
             "features": "",
             "featuresPlaceholder": "",
             "ageRatingAll": "全部",
             "pageSize": "",
-            "releaseYear": ""
+            "releaseYear": "发布年份",
+            "wishlistOnly": "仅显示愿望单",
+            "hideOwned": "隐藏已拥有"
         },
-        "sidebar": "",
+        "sidebar": "优惠",
         "sort": {
-            "priceDesc": "",
+            "priceDesc": "价格：从高到低",
             "trending": "",
-            "priceAsc": "",
-            "releaseDesc": "",
-            "ratingAsc": "",
-            "releaseAsc": "",
-            "ratingDesc": "",
-            "discount": ""
+            "priceAsc": "价格：从低到高",
+            "releaseDesc": "发布日期：从新到旧",
+            "ratingAsc": "评分：从低到高",
+            "releaseAsc": "发布日期：从旧到新",
+            "ratingDesc": "评分：从高到低",
+            "discount": "最大折扣"
         },
         "noMatches": "",
         "aria": {
@@ -1226,7 +1229,7 @@
         "error": "",
         "empty": "",
         "loading": "",
-        "title": "",
+        "title": "GOG 优惠",
         "pagination": {
             "prev": ""
         }
@@ -1256,7 +1259,7 @@
             "hintSuffix": "",
             "hintPrefix": ""
         },
-        "quit": "",
+        "quit": "退出主机模式",
         "hints": {
             "launch": "",
             "sort": "",
@@ -1274,8 +1277,20 @@
         },
         "empty": "",
         "games": "已安装的游戏",
-        "quitApp": "",
-        "loading": ""
+        "quitApp": "退出软件",
+        "loading": "",
+        "cancelInstall": {
+            "title": "取消安装"
+        },
+        "cancelUpdate": {
+            "title": "取消更新"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "安装游戏",
+            "wineLoading": "加载中…",
+            "path": "安装到"
+        }
     },
     "next": "下一步"
 }

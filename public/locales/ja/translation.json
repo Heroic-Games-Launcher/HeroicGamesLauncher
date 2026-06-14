@@ -934,7 +934,8 @@
         "installing": "インストール中",
         "logging": "ログイン中…",
         "processing": "ファイルを処理中。しばらくお待ちください",
-        "preparing_login": "ログインを準備しています... "
+        "preparing_login": "ログインを準備しています... ",
+        "installed": "インストールされています"
     },
     "store": "Epic Store",
     "stores": "ストア",
@@ -1170,6 +1171,11 @@
             "hintPrefix": "押す",
             "hintSuffix": "戻る",
             "title": "更新が必要です"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Install game",
+            "wineLoading": "Loading"
         }
     },
     "discounts": {

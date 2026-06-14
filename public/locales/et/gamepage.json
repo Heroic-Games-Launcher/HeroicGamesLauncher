@@ -357,5 +357,8 @@
         }
     },
     "Open": "Ava",
-    "open-saves-folder": "Ava salvestuste kaust"
+    "open-saves-folder": "Ava salvestuste kaust",
+    "edit-game": {
+        "advanced": "Täpsem"
+    }
 }

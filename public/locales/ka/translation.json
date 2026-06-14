@@ -385,7 +385,8 @@
         "installing": "მიმდინარეობს დაყენება",
         "preparing_login": "",
         "logging": "",
-        "processing": ""
+        "processing": "",
+        "installed": "დაყენებულია"
     },
     "dlc": {
         "size": "ზომა",
@@ -1185,7 +1186,10 @@
         "empty": "",
         "games": "",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "install": {
+            "wineLoading": "იტვირთება"
+        }
     },
     "next": "შემდეგი",
     "sidebar": {

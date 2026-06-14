@@ -380,8 +380,10 @@
         "wine-wayland": "Wine-Wayland deneysel sürücüsü, oyunların Wayland görüntüleme protokolüyle yerel olarak çalışmasını sağlar. Bu özelliği etkinleştirmek bazı oyunlarda sorunlara yol açabilir.",
         "WoW64": "Wine WoW64 modu, 32-bit Windows oyunlarının 64-bit Wine'da çalıştırılmasını sağlar. Açmak performansı iyileştirebilir ama aynı zamanda daha eski 32-bit oyunlarda sorun çıkarabilir.",
         "nvidiaprime": {
-            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)"
-        }
+            "details": "Use dedicated graphics card to render game on multi-GPU systems. Only needed on gaming laptops or desktops that use a headless GPU for rendering (NVIDIA Optimus, AMD CrossFire)",
+            "link": "Daha fazla detayı wikimizde bulabilirsin"
+        },
+        "hide-window-on-protocol-launch": "Oyun, \"Steam'e Ekle\" özelliği gibi harici bir kısayol aracılığıyla başlatıldığında Heroic penceresini gizli tutar."
     },
     "info": {
         "heroic": {
@@ -813,7 +815,11 @@
         "enable-quick-sync-menu": "Oyun sayfasında Hızlı Kaydet-Eşitle Menüsü'nü etkinleştir",
         "scripts": "Betikler:",
         "disable_gog_presence": "GOG Durum güncellemelerini devre dışı bırak",
-        "start-in-console-mode": "Uçbirim Modunda başlat"
+        "start-in-console-mode": "Konsol Modunda başlat",
+        "hide-window-on-protocol-launch": "heroic://bağlantılardan oyun başlatılırken Heroic penceresini gizle",
+        "nvidiaprime": {
+            "description": "NVIDIA Optimus veya AMD Dynamic Switchable Graphics dGPU'nun kullanılmasını zorla. Bunu YALNIZCA OpenGL ve Vulkan oyunları için kullanın."
+        }
     },
     "settings": {
         "battlEyeRuntime": {
@@ -935,13 +941,14 @@
     "sidebar": {
         "collapse": "Kenar çubuğunu daralt",
         "uncollapse": "Kenar çubuğunu genişlet",
-        "console": "Uçbirim Modu"
+        "console": "Konsol Modu"
     },
     "status": {
         "installing": "Kuruluyor",
         "logging": "Oturum Açılıyor…",
         "processing": "Dosyalar işleniyor, lütfen bekleyin",
-        "preparing_login": "Oturum açmaya hazırlanıyor... "
+        "preparing_login": "Oturum açmaya hazırlanıyor... ",
+        "installed": "Kuruldu"
     },
     "store": "Epic Mağazası",
     "stores": "Mağazalar",
@@ -1267,12 +1274,31 @@
             "hintSuffix": "iptal etmek için 3s",
             "hintPrefix": "Tut"
         },
-        "quit": "Uçbirimden Çık",
+        "quit": "Konsoldan Çık",
         "card": {
             "needsUpdate": "Güncelleme gerekli"
         },
         "empty": "Gösterilecek indirilmiş bir oyun yok. Önce bir oyun indirin.",
         "quitApp": "Uygulamadan Çık",
-        "loading": "Kütüphaneniz yükleniyor…"
+        "loading": "Kütüphaneniz yükleniyor…",
+        "cancelInstall": {
+            "title": "Kurulumu İptal Et",
+            "message": "Bu oyun şu anda yükleniyor. Yüklemeyi iptal et?"
+        },
+        "cancelUpdate": {
+            "title": "Güncellemeyi İptal Et",
+            "message": "Bu oyun şu anda indiriliyor. Devam eden güncellemeyi iptal et?"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "Oyunu kur",
+            "wineLoading": "Yükleniyor",
+            "wine": "Wine",
+            "wineMissing": "Seçilmedi",
+            "path": "Şuraya kur"
+        },
+        "removeFromQueue": {
+            "message": "Bu oyun indirmek için kuyrukta. Kuyruktan çıkar?"
+        }
     }
 }

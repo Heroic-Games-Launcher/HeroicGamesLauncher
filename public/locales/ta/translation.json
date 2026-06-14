@@ -936,7 +936,8 @@
         "installing": "நிறுவப்படுகிறது",
         "logging": "உள்நுழைதல்...",
         "processing": "கோப்புகளைச் செயலாக்குகிறது, காத்திருக்கவும்",
-        "preparing_login": "உள்நுழைவு தயாராகிறது... "
+        "preparing_login": "உள்நுழைவு தயாராகிறது... ",
+        "installed": "நிறுவப்பட்டது"
     },
     "store": "Epic விற்பனைக்கூடம்",
     "stores": "கடைகள்",
@@ -1265,7 +1266,18 @@
         "empty": "",
         "games": "Installed Games",
         "quitApp": "",
-        "loading": ""
+        "loading": "",
+        "cancelInstall": {
+            "title": "நிறுவலை நீக்கறல்"
+        },
+        "cancelUpdate": {
+            "title": "புதுப்பிப்பை ரத்துசெய்"
+        },
+        "install": {
+            "platform": "Platform",
+            "title": "விளையாட்டை நிறுவவும்",
+            "wineLoading": "ஏற்றுகிறது…"
+        }
     },
     "next": "அடுத்தது"
 }
