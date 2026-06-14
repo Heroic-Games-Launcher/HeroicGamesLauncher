@@ -7,24 +7,24 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 
 import BackHint from '../BackHint'
 
-import type { GameInfo, Runner } from 'common/types'
+import type { GameInfo } from 'common/types'
 import { useContext, useEffect } from 'react'
 import { useCancelOnHold, useGamepadButtonHold } from '../../hooks'
 import { BTN_BACK } from '../../controller'
 import { launch, sendKill } from 'frontend/helpers'
 import ContextProvider from 'frontend/state/ContextProvider'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 const CANCEL_HOLD_MS = 3000
 
-export default function LaunchOverlay({
-  game,
-  onDismiss
-}: {
+interface Props {
   game: GameInfo
   onDismiss: () => void
-}) {
+}
+
+export default function LaunchOverlay({ game, onDismiss }: Props) {
   const { t } = useTranslation()
-  const { status, statusContext } = hasStatus(game)
+  const { status, statusContext } = hasStatus(GameHandle.fromGameInfo(game))
   let label: string | null = null
 
   const { showDialogModal } = useContext(ContextProvider)
@@ -35,7 +35,7 @@ export default function LaunchOverlay({
     active: !!game,
     holdMs: CANCEL_HOLD_MS,
     onCancel: () => {
-      if (game) void sendKill(game.app_name, game.runner)
+      if (game) void sendKill(GameHandle.fromGameInfo(game))
 
       // prevent UX from hanging in "Launching" mode
       onDismiss()
@@ -65,9 +65,8 @@ export default function LaunchOverlay({
   // in the finally block. Intentionally not depending on the launch inputs.
   useEffect(() => {
     void launch({
-      appName: game.app_name,
+      game: GameHandle.fromGameInfo(game),
       t,
-      runner: game.runner as Runner,
       hasUpdate: false,
       showDialogModal
     }).finally(() => {

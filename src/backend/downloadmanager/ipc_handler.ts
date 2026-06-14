@@ -43,15 +43,19 @@ addHandler('install', async (_e, args) => {
   }
 })
 
-addHandler('updateGame', async (_e, args) => {
-  const {
-    gameInfo: {
-      install: { platform, install_path }
-    }
-  } = args
+addHandler('updateGame', async (_e, game, args) => {
+  const gameInfo = game.getGameInfo()
+  const { platform, install_path } = gameInfo.install
 
   const dmQueueElement: DMQueueElement = {
-    params: { ...args, path: install_path!, platformToInstall: platform! },
+    params: {
+      ...args,
+      path: install_path!,
+      platformToInstall: platform!,
+      appName: game.id,
+      runner: game.runner,
+      gameInfo
+    },
     type: 'update',
     addToQueueTime: Date.now(),
     endTime: 0,
@@ -61,7 +65,7 @@ addHandler('updateGame', async (_e, args) => {
   await addToQueue(dmQueueElement)
 })
 
-addListener('removeFromDMQueue', (e, appName) => removeFromQueue(appName))
+addListener('removeFromDMQueue', (e, game) => removeFromQueue(game.id))
 addListener('resumeCurrentDownload', () => resumeCurrentDownload())
 addListener('pauseCurrentDownload', () => pauseCurrentDownload())
 addListener('cancelDownload', (e, removeDownloaded) =>

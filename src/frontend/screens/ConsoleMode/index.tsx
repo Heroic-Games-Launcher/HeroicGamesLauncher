@@ -32,6 +32,7 @@ import { useColumnCount, useGamepadButtonPress, useGamepadInfo } from './hooks'
 
 import type { TFunction } from 'i18next'
 import type { GameInfo, Runner } from 'common/types'
+import { GameHandle } from 'frontend/helpers/ipc'
 
 type StoreKey = Runner | 'all'
 
@@ -266,14 +267,10 @@ export default function ConsoleMode() {
 
   const handleUpdateFromNotice = useCallback(() => {
     if (!updateNoticeGame) return
-    const game = updateNoticeGame
+    const game = GameHandle.fromGameInfo(updateNoticeGame)
     setUpdateNoticeGame(null)
     if (game.runner !== 'sideload') {
-      void updateGame({
-        appName: game.app_name,
-        runner: game.runner as Runner,
-        gameInfo: game
-      })
+      void updateGame(game)
     }
   }, [updateNoticeGame])
 
@@ -288,9 +285,9 @@ export default function ConsoleMode() {
 
   const handleCancelDownload = useCallback(() => {
     if (!cancelDownloadGame) return
-    const { game } = cancelDownloadGame
+    const game = GameHandle.fromGameInfo(cancelDownloadGame.game)
     setCancelDownloadGame(null)
-    void sendKill(game.app_name, game.runner)
+    void sendKill(game)
   }, [cancelDownloadGame])
 
   const dismissCancelDownload = useCallback(
@@ -300,10 +297,10 @@ export default function ConsoleMode() {
 
   const handleRemoveFromQueue = useCallback(() => {
     if (!queuedNoticeGame) return
-    const game = queuedNoticeGame
+    const game = GameHandle.fromGameInfo(queuedNoticeGame)
     setQueuedNoticeGame(null)
-    window.localStorage.removeItem(game.app_name)
-    void window.api.removeFromDMQueue(game.app_name)
+    window.localStorage.removeItem(game.id)
+    void window.api.removeFromDMQueue(game)
   }, [queuedNoticeGame])
 
   const dismissQueuedNotice = useCallback(() => setQueuedNoticeGame(null), [])

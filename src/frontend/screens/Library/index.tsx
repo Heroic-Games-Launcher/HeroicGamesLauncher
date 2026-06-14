@@ -17,7 +17,7 @@ import Fuse from 'fuse.js'
 import ContextProvider from 'frontend/state/ContextProvider'
 
 import GamesList from './components/GamesList'
-import { FavouriteGame, GameInfo, HiddenGame, Runner } from 'common/types'
+import { FavouriteGame, GameInfo, HiddenGame } from 'common/types'
 import ErrorComponent from 'frontend/components/UI/ErrorComponent'
 import LibraryHeader from './components/LibraryHeader'
 import {
@@ -37,6 +37,7 @@ import CategoriesManager from './components/CategoriesManager'
 import LibraryTour from './components/LibraryTour'
 import AlphabetFilter from './components/AlphabetFilter'
 import { openInstallGameModal } from 'frontend/state/InstallGameModal'
+import { GameHandle } from '../../helpers/ipc'
 
 const storage = window.localStorage
 
@@ -265,12 +266,8 @@ export default React.memo(function Library(): JSX.Element {
     }
   }
 
-  function handleModal(
-    appName: string,
-    runner: Runner,
-    gameInfo: GameInfo | null
-  ) {
-    openInstallGameModal({ appName, runner, gameInfo })
+  function handleModal(game: GameHandle, gameInfo: GameInfo | null) {
+    openInstallGameModal({ game, gameInfo, action: 'install' })
   }
 
   // cache list of games being installed
@@ -712,7 +709,6 @@ export default React.memo(function Library(): JSX.Element {
         setShowUpdatesOnly: handleShowUpdatesOnly,
         sortDescending,
         sortInstalled,
-        handleAddGameButtonClick: () => handleModal('', 'sideload', null),
         setShowCategories,
         showAlphabetFilter: showAlphabetFilter,
         onToggleAlphabetFilter: handleToggleAlphabetFilter,

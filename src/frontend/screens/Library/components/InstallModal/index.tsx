@@ -4,12 +4,7 @@ import { IconDefinition, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import { useContext, useEffect, useState } from 'react'
 
 import ContextProvider from 'frontend/state/ContextProvider'
-import {
-  GameInfo,
-  InstallPlatform,
-  Runner,
-  WineInstallation
-} from 'common/types'
+import { GameInfo, InstallPlatform, WineInstallation } from 'common/types'
 import { Dialog } from 'frontend/components/UI/Dialog'
 
 import './index.scss'
@@ -27,10 +22,10 @@ import {
   useInstallGameModal
 } from 'frontend/state/InstallGameModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { GameHandle } from 'frontend/helpers/ipc'
 
 type Props = {
-  appName: string
-  runner: Runner
+  game: GameHandle
   gameInfo?: GameInfo | null
 }
 
@@ -41,7 +36,7 @@ export type AvailablePlatforms = {
   icon: IconDefinition
 }[]
 
-function InstallModal({ appName, runner, gameInfo = null }: Props) {
+function InstallModal({ game, gameInfo = null }: Props) {
   const { platform } = useContext(ContextProvider)
   const { t } = useTranslation('gamepage')
   const { action = 'install' } = useInstallGameModal()
@@ -60,7 +55,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const isMac = platform === 'darwin'
   const isWin = platform === 'win32'
   const isLinux = platform === 'linux'
-  const isSideload = runner === 'sideload'
+  const isSideload = game.runner === 'sideload'
 
   const platforms: AvailablePlatforms = [
     {
@@ -132,7 +127,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
     if (!showPlatformSelection) {
       return null
     }
-    const disabledPlatformSelection = Boolean(runner === 'sideload' && appName)
+    const disabledPlatformSelection = Boolean(isSideload && game.id)
     return (
       <SelectField
         label={`${t('game.platform', 'Select Platform Version to Install')}:`}
@@ -172,8 +167,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
       >
         {isThirdPartyManagedApp ? (
           <ThirdPartyDialog
-            appName={appName}
-            runner={runner}
+            game={game}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
@@ -185,7 +179,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             {platformSelection()}
             {hasWine ? (
               <WineSelector
-                appName={appName}
+                game={game}
                 winePrefix={winePrefix}
                 wineVersion={wineVersion}
                 wineVersionList={wineVersionList}
@@ -200,8 +194,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
           </ThirdPartyDialog>
         ) : isImportMode && showDownloadDialog ? (
           <ImportDialog
-            appName={appName}
-            runner={runner}
+            game={game}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
@@ -213,7 +206,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             {platformSelection()}
             {hasWine ? (
               <WineSelector
-                appName={appName}
+                game={game}
                 winePrefix={winePrefix}
                 wineVersion={wineVersion}
                 wineVersionList={wineVersionList}
@@ -227,8 +220,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
           </ImportDialog>
         ) : showDownloadDialog ? (
           <DownloadDialog
-            appName={appName}
-            runner={runner}
+            game={game}
             winePrefix={winePrefix}
             wineVersion={wineVersion}
             availablePlatforms={availablePlatforms}
@@ -240,7 +232,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             {platformSelection()}
             {hasWine ? (
               <WineSelector
-                appName={appName}
+                game={game}
                 winePrefix={winePrefix}
                 wineVersion={wineVersion}
                 wineVersionList={wineVersionList}
@@ -254,6 +246,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
           </DownloadDialog>
         ) : (
           <SideloadDialog
+            game={game}
             title={sideloadTitle}
             setTitle={setSideloadTitle}
             winePrefix={winePrefix}
@@ -261,12 +254,11 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
             availablePlatforms={availablePlatforms}
             backdropClick={closeModal}
             platformToInstall={platformToInstall}
-            appName={appName}
           >
             {platformSelection()}
             {hasWine ? (
               <WineSelector
-                appName={appName}
+                game={game}
                 winePrefix={winePrefix}
                 wineVersion={wineVersion}
                 wineVersionList={wineVersionList}
@@ -285,17 +277,11 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
 }
 
 export function InstallGameWrapper() {
-  const installGameModalState = useInstallGameModal()
+  const { isOpen, game, gameInfo } = useInstallGameModal()
 
-  if (!installGameModalState.isOpen) {
+  if (!isOpen) {
     return <></>
   }
 
-  return (
-    <InstallModal
-      appName={installGameModalState.appName!}
-      runner={installGameModalState.runner!}
-      gameInfo={installGameModalState.gameInfo}
-    />
-  )
+  return <InstallModal game={game} gameInfo={gameInfo} />
 }

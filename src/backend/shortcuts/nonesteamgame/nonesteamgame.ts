@@ -269,7 +269,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
 
     newEntry.appid = generateShortcutId(newEntry.Exe, newEntry.AppName)
 
-    await getIcon(gameInfo.app_name, gameInfo)
+    await getIcon(game)
       .then((path) => (newEntry.icon = path))
       .catch((error) =>
         logWarning(
@@ -294,9 +294,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
       args.push('--no-sandbox')
     }
 
-    const { runner, app_name } = gameInfo
-
-    args.push(`"heroic://launch?appName=${app_name}&runner=${runner}"`)
+    args.push(`"heroic://launch?appName=${game.id}&runner=${game.runner}"`)
     newEntry.LaunchOptions = args.join(' ')
     if (isFlatpak) {
       newEntry.LaunchOptions = `run com.heroicgameslauncher.hgl ${newEntry.LaunchOptions}`
@@ -308,7 +306,7 @@ async function addNonSteamGame(game: Game): Promise<boolean> {
     newEntry.Devkit = false
     newEntry.DevkitOverrideAppID = false
 
-    const lastPlayed = tsStore.get_nodefault(`${gameInfo.app_name}.lastPlayed`)
+    const lastPlayed = tsStore.get_nodefault(`${game.id}.lastPlayed`)
     if (lastPlayed) {
       newEntry.LastPlayTime = new Date(lastPlayed)
     } else {

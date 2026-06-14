@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ContextProvider from 'frontend/state/ContextProvider'
 import { SelectField, InfoBox, PathSelectionBox } from '..'
-import { AppSettings } from 'common/types'
-import { writeConfig } from 'frontend/helpers'
 import { hasHelp } from 'frontend/hooks/hasHelp'
 import { MenuItem } from '@mui/material'
 
@@ -27,7 +25,6 @@ export const defaultThemes: Record<string, string> = {
 export const ThemeSelector = () => {
   const { theme, setTheme } = useContext(ContextProvider)
   const { t } = useTranslation()
-  const [appConfig, setAppConfig] = useState<AppSettings | null>(null)
   const [themesPath, setThemesPath] = useState('')
   const [themes, setThemes] = useState<string[]>(Object.keys(defaultThemes))
 
@@ -45,21 +42,14 @@ export const ThemeSelector = () => {
 
   // update config, update component state, reload themes
   const updatePath = async (path: string) => {
-    if (!appConfig) {
-      return
-    }
-
-    const newAppConfig = { ...appConfig, customThemesPath: path }
     setThemesPath(path)
-    await writeConfig({ appName: 'default', config: newAppConfig })
-    setAppConfig(newAppConfig)
+    window.api.setSetting(null, 'customThemesPath', path)
     loadThemes()
   }
 
   useEffect(() => {
     const getPath = async () => {
       const config = await window.api.requestAppSettings()
-      setAppConfig(config)
       setThemesPath(config.customThemesPath || '')
       loadThemes()
     }

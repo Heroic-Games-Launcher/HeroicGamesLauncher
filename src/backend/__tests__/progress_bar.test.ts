@@ -2,8 +2,11 @@ import { BrowserWindow } from 'electron'
 import { backendEvents } from '../backend_events'
 import { sendGameStatusUpdate, sendProgressUpdate } from '../utils'
 import '../progress_bar'
+import { FakeGame } from './util'
 
 jest.mock('../logger')
+
+const game = new FakeGame('Test', 'legendary')
 
 describe('progress_bar', () => {
   const window = {
@@ -30,10 +33,7 @@ describe('progress_bar', () => {
 
   describe('on gameStatusUpdate with status="queued"', () => {
     it('does nothing', () => {
-      sendGameStatusUpdate({
-        appName: 'Test',
-        status: 'queued'
-      })
+      sendGameStatusUpdate({ id: 'Test', runner: 'legendary' }, 'queued')
 
       expect(window.setProgressBar).not.toBeCalled()
     })
@@ -41,10 +41,7 @@ describe('progress_bar', () => {
 
   describe('on gameStatusUpdate with status other than "done"', () => {
     it('sets progress bar to indeterminate', () => {
-      sendGameStatusUpdate({
-        appName: 'Test',
-        status: 'installing'
-      })
+      sendGameStatusUpdate({ id: 'Test', runner: 'legendary' }, 'installing')
 
       expect(window.setProgressBar).toBeCalledWith(2)
     })
@@ -52,10 +49,7 @@ describe('progress_bar', () => {
     it('starts listening for progress updates', () => {
       jest.spyOn(backendEvents, 'on')
 
-      sendGameStatusUpdate({
-        appName: 'Test',
-        status: 'installing'
-      })
+      sendGameStatusUpdate({ id: 'Test', runner: 'legendary' }, 'installing')
 
       expect(backendEvents.on).toBeCalledWith(
         'progressUpdate-Test',
@@ -66,8 +60,7 @@ describe('progress_bar', () => {
 
   describe('on progressUpdate-${appName}', () => {
     it('sets progress bar according to progress', () => {
-      sendProgressUpdate({
-        appName: 'Test',
+      sendProgressUpdate(game, {
         status: 'installing',
         progress: { percent: 42, bytes: '', eta: '' }
       })
@@ -78,10 +71,7 @@ describe('progress_bar', () => {
 
   describe('on gameStatusUpdate with status="done"', () => {
     it('removes the progress bar', () => {
-      sendGameStatusUpdate({
-        appName: 'Test',
-        status: 'done'
-      })
+      sendGameStatusUpdate({ id: 'Test', runner: 'legendary' }, 'done')
 
       expect(window.setProgressBar).toBeCalledWith(-1)
     })
@@ -89,10 +79,7 @@ describe('progress_bar', () => {
     it('stops listening for progress updates', () => {
       jest.spyOn(backendEvents, 'off')
 
-      sendGameStatusUpdate({
-        appName: 'Test',
-        status: 'done'
-      })
+      sendGameStatusUpdate({ id: 'Test', runner: 'legendary' }, 'done')
 
       expect(backendEvents.off).toBeCalledWith(
         'progressUpdate-Test',
