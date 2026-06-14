@@ -57,6 +57,10 @@ const fallBackImage = 'fallback'
 const allGames: Set<string> = new Set()
 let installedGames: Map<string, InstalledJsonMetadata> = new Map()
 const library: Map<string, GameInfo> = new Map()
+// Timestamp (ms) of the last successful `legendary list` run; used to skip
+// redundant calls in listUpdateableGames when refresh just ran.
+const LIST_TTL_MS = 30 * 1000
+let lastLegendaryListTimestamp = 0
 
 export default class LegendaryLibraryManager implements LibraryManager {
   private readonly gameCache: Map<LegendaryAppName, LegendaryGame> = new Map()
@@ -120,6 +124,8 @@ export default class LegendaryLibraryManager implements LibraryManager {
 
     if (res.error) {
       logError(['Failed to refresh library:', res.error], LogPrefix.Legendary)
+    } else {
+      lastLegendaryListTimestamp = Date.now()
     }
     this.refreshInstalled()
     return res
@@ -296,24 +302,34 @@ export default class LegendaryLibraryManager implements LibraryManager {
       return []
     }
 
-    const res = await this.runRunnerCommand(
-      { subcommand: 'list', '--third-party': true },
-      {
-        abortId: 'legendary-check-updates',
-        logMessagePrefix: 'Checking for game updates'
-      }
-    )
-
-    if (res.abort) {
-      return []
-    }
-
-    if (res.error) {
-      logError(
-        ['Failed to check for game updates:', res.error],
+    const listAge = Date.now() - lastLegendaryListTimestamp
+    if (listAge < LIST_TTL_MS) {
+      logDebug(
+        `Skipping 'legendary list' for update check (ran ${Math.round(listAge / 1000)}s ago)`,
         LogPrefix.Legendary
       )
-      return []
+    } else {
+      const res = await this.runRunnerCommand(
+        { subcommand: 'list', '--third-party': true },
+        {
+          abortId: 'legendary-check-updates',
+          logMessagePrefix: 'Checking for game updates'
+        }
+      )
+
+      if (res.abort) {
+        return []
+      }
+
+      if (res.error) {
+        logError(
+          ['Failed to check for game updates:', res.error],
+          LogPrefix.Legendary
+        )
+        return []
+      }
+
+      lastLegendaryListTimestamp = Date.now()
     }
 
     // Once we ran `legendary list`, `assets.json` will be updated with the newest
