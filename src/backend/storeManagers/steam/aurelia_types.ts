@@ -81,6 +81,10 @@ export interface AureliaDryRunResponse {
   depot_count?: number
 }
 
+export interface AureliaConfigShowResponse {
+  steam_library_path: string
+}
+
 interface AureliaLaunchOption {
   id: string | number
   description?: string

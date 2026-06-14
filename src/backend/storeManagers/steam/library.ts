@@ -27,7 +27,13 @@ import {
   installInfoStore
 } from './electronStores'
 import { steamCdnImageBase, steamStoreAppUrl } from './constants'
-import { runAurelia, runAureliaCommand, AureliaError } from './aurelia'
+import {
+  runAurelia,
+  runAureliaCommand,
+  getSteamLibraryPath,
+  AureliaError
+} from './aurelia'
+import { join } from 'path'
 import type {
   AureliaLibraryGame,
   AureliaDlcResponse,
@@ -259,6 +265,10 @@ export default class SteamLibraryManager implements LibraryManager {
       ])
 
       const launchOptions = await this.getLaunchOptions(appName)
+      const libraryPath = await getSteamLibraryPath()
+      const installPath = libraryPath
+        ? join(libraryPath, 'steamapps', 'common')
+        : ''
 
       const info: SteamInstallInfo = {
         manifest: {
@@ -268,7 +278,7 @@ export default class SteamLibraryManager implements LibraryManager {
         game: {
           id: appName,
           version: '',
-          path: '',
+          path: installPath,
           app_name: appName,
           cloud_saves_supported: false,
           external_activation: '',

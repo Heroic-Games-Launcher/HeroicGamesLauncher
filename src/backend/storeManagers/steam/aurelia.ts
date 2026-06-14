@@ -17,7 +17,11 @@ import {
   deleteAbortController
 } from 'backend/utils/aborthandler/aborthandler'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
-import type { AureliaInfoResponse, AureliaProgressEvent } from './aurelia_types'
+import type {
+  AureliaConfigShowResponse,
+  AureliaInfoResponse,
+  AureliaProgressEvent
+} from './aurelia_types'
 
 export class AureliaError extends Error {
   readonly aborted: boolean
@@ -302,4 +306,20 @@ export async function fetchAureliaInfo(
     ...(options.extended ? ['--extended'] : [])
   ])
   return Array.isArray(result) ? result : [result]
+}
+
+export async function getSteamLibraryPath(): Promise<string | undefined> {
+  try {
+    const config = await runAurelia<AureliaConfigShowResponse>([
+      'config',
+      'show'
+    ])
+    return config.steam_library_path || undefined
+  } catch (error) {
+    logError(
+      ['Unable to read Aurelia config for Steam library path', error],
+      LogPrefix.Steam
+    )
+    return undefined
+  }
 }

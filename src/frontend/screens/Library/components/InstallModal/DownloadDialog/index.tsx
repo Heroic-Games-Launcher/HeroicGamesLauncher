@@ -111,6 +111,7 @@ export default function DownloadDialog({
     useContext(ContextProvider)
 
   const isWin = platform === 'win32'
+  const isSteam = runner === 'steam'
 
   const [gameInstallInfo, setGameInstallInfo] = useState<InstallInfo | null>(
     null
@@ -439,6 +440,18 @@ export default function DownloadDialog({
   ])
 
   useEffect(() => {
+    if (
+      isSteam &&
+      gameInstallInfo &&
+      'game' in gameInstallInfo &&
+      'path' in gameInstallInfo.game &&
+      gameInstallInfo.game.path
+    ) {
+      setInstallPath(gameInstallInfo.game.path)
+    }
+  }, [isSteam, gameInstallInfo])
+
+  useEffect(() => {
     const getGameSdl = async () => {
       if (runner === 'legendary') {
         const { sdl_config } = await window.api.getGameOverride()
@@ -668,10 +681,22 @@ export default function DownloadDialog({
           pathDialogTitle={t('install.path')}
           pathDialogDefaultPath={getDefaultInstallPath()}
           htmlId="setinstallpath"
-          label={t('install.path', 'Select Install Path')}
+          disabled={isSteam}
+          label={
+            isSteam
+              ? t('install.steam-path', 'Install Path (Steam library)')
+              : t('install.path', 'Select Install Path')
+          }
           noDeleteButton
           afterInput={
-            downloadSize ? (
+            isSteam ? (
+              <span className="smallInputInfo">
+                {t(
+                  'install.steam-path-info',
+                  'Steam games install into the Steam library.'
+                )}
+              </span>
+            ) : downloadSize ? (
               <span className="smallInputInfo">
                 {validPath && validFlatpakPath && (
                   <>
@@ -783,9 +808,14 @@ export default function DownloadDialog({
         {children}
       </DialogContent>
       <DialogFooter>
-        <button onClick={handleSwitchToImport} className="button is-secondary">
-          {t('button.import', 'Import Game')}
-        </button>
+        {!isSteam && (
+          <button
+            onClick={handleSwitchToImport}
+            className="button is-secondary"
+          >
+            {t('button.import', 'Import Game')}
+          </button>
+        )}
         <button
           onClick={async () => handleInstall()}
           className="button is-primary"

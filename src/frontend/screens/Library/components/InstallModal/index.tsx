@@ -103,8 +103,8 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
 
   const [platformToInstall, setPlatformToInstall] =
     useState<InstallPlatform>(getDefaultplatform())
-
-  const hasWine = platformToInstall === 'Windows' && !isWin
+  const hasWine =
+    platformToInstall === 'Windows' && !isWin && runner !== 'steam'
 
   useEffect(() => {
     if (hasWine) {

@@ -637,18 +637,6 @@ export default React.memo(function GamePage(): JSX.Element | null {
     }
 
     if (!is_installed && !isInstalling) {
-      // TODO: Add Aurelia Functionality
-      if (gameInfo.runner === 'steam') {
-        return install({
-          gameInfo,
-          installPath: 'default',
-          isInstalling,
-          previousProgress,
-          progress,
-          t,
-          showDialogModal
-        })
-      }
       return handleModal()
     }
 
