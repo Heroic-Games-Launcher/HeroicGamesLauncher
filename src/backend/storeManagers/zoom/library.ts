@@ -8,6 +8,7 @@ import {
   ZoomFilesResponse,
   ZoomInstallInfo
 } from 'common/types/zoom'
+import ZoomGame from './games'
 
 import {
   getRunnerLogWriter,
@@ -39,6 +40,10 @@ export default class ZoomLibraryManager implements LibraryManager {
       return
 
     await this.refresh()
+  }
+
+  getGame(id: string): ZoomGame {
+    return new ZoomGame(id)
   }
 
   async refresh(): Promise<ExecResult> {
