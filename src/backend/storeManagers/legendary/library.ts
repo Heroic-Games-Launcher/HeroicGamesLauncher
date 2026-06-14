@@ -189,6 +189,22 @@ export default class LegendaryLibraryManager implements LibraryManager {
     return this.defaultExecResult
   }
 
+  async refreshLocal(): Promise<void> {
+    this.loadGamesInAccount()
+    this.refreshInstalled()
+    try {
+      await this.loadAll()
+    } catch (error) {
+      logError(error, LogPrefix.Legendary)
+    }
+    const arr = Array.from(library.values())
+    libraryStore.set('library', arr)
+    logInfo(
+      ['Game list updated locally, got', `${arr.length}`, 'games & DLCs'],
+      LogPrefix.Legendary
+    )
+  }
+
   getListOfGames() {
     return libraryStore.get('library', [])
   }

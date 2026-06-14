@@ -104,6 +104,7 @@ import {
   initStoreManagers,
   libraryManagerMap
 } from './storeManagers'
+import type { LibraryManager } from 'common/types/game_manager'
 import {
   setGameOverrides,
   getGameOverrides,
@@ -904,9 +905,14 @@ if (existsSync(legendaryInstalled)) {
   })
 }
 
-addHandler('refreshLibrary', async (e, library?) => {
+addHandler('refreshLibrary', async (e, library?, localOnly?) => {
   if (library !== undefined && library !== 'all') {
-    await libraryManagerMap[library].refresh()
+    const manager = libraryManagerMap[library] as LibraryManager
+    if (localOnly && manager.refreshLocal) {
+      await manager.refreshLocal()
+    } else {
+      await manager.refresh()
+    }
   } else {
     const allRefreshPromises = []
     for (const manager of Object.values(libraryManagerMap)) {

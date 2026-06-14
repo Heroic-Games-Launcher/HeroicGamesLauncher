@@ -779,7 +779,8 @@ class GlobalState extends PureComponent<Props> {
   refreshLibrary = async ({
     checkForUpdates,
     runInBackground = true,
-    library = undefined
+    library = undefined,
+    localOnly = false
   }: RefreshOptions): Promise<void> => {
     if (this.state.refreshing) return
 
@@ -789,7 +790,7 @@ class GlobalState extends PureComponent<Props> {
     })
     window.api.logInfo(`Refreshing ${library} Library`)
     try {
-      await window.api.refreshLibrary(library)
+      await window.api.refreshLibrary(library, localOnly)
       return await this.refresh(library, checkForUpdates)
     } catch (error) {
       window.api.logError(`Library refresh failed: ${String(error)}`)
@@ -858,7 +859,6 @@ class GlobalState extends PureComponent<Props> {
         const updatedGamesUpdates = gameUpdates.filter(
           (game) => game !== appName
         )
-        // This avoids calling legendary again before the previous process is killed when canceling
         this.refreshLibrary({
           checkForUpdates: true,
           runInBackground: true,
@@ -872,7 +872,11 @@ class GlobalState extends PureComponent<Props> {
         })
       }
 
-      this.refreshLibrary({ runInBackground: true, library: runner })
+      this.refreshLibrary({
+        runInBackground: true,
+        library: runner,
+        localOnly: runner === 'legendary'
+      })
 
       this.setState({ libraryStatus: newLibraryStatus })
     }
