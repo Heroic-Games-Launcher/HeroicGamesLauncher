@@ -1,4 +1,10 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync } from 'graceful-fs'
+import {
+  existsSync,
+  mkdirSync,
+  readFile,
+  readFileSync,
+  readdirSync
+} from 'graceful-fs'
 
 import {
   GameInfo,
@@ -11,6 +17,7 @@ import {
 import {
   InstalledJsonMetadata,
   GameMetadata,
+  GameMetadataInner,
   LegendaryInstallInfo,
   LegendaryInstallPlatform,
   ResponseDataLegendaryAPI,
@@ -476,24 +483,19 @@ export default class LegendaryLibraryManager implements LibraryManager {
     return JSON.parse(readFileSync(fullPath, 'utf-8'))
   }
 
-  /**
-   * Load the file completely into our in-memory library.
-   * Largely derived from legacy code.
-   *
-   * @returns True/False, whether or not the file was loaded
-   */
-  private loadFile(app_name: string): boolean {
-    let metadata
-    try {
-      const data = this.loadGameMetadata(app_name)
-      metadata = data.metadata
-    } catch (error) {
-      logError(
-        [`Failed to parse metadata for ${app_name}:`, error],
-        LogPrefix.Legendary
+  private async loadGameMetadataAsync(appName: string): Promise<GameMetadata> {
+    const fullPath = join(legendaryMetadata, appName + '.json')
+    return new Promise((resolve, reject) =>
+      readFile(fullPath, 'utf-8', (err, data) =>
+        err ? reject(err) : resolve(JSON.parse(data))
       )
-      return false
-    }
+    )
+  }
+
+  private processMetadata(
+    app_name: string,
+    metadata: GameMetadataInner
+  ): boolean {
     const { namespace } = metadata
 
     const ueCategories = ['assets', 'asset-format', 'plugins', 'projects']
@@ -656,22 +658,60 @@ export default class LegendaryLibraryManager implements LibraryManager {
   }
 
   /**
+   * Load the file completely into our in-memory library.
+   * Largely derived from legacy code.
+   *
+   * @returns True/False, whether or not the file was loaded
+   */
+  private loadFile(app_name: string): boolean {
+    try {
+      const data = this.loadGameMetadata(app_name)
+      return this.processMetadata(app_name, data.metadata)
+    } catch (error) {
+      logError(
+        [`Failed to parse metadata for ${app_name}:`, error],
+        LogPrefix.Legendary
+      )
+      return false
+    }
+  }
+
+  private async loadFileAsync(app_name: string): Promise<boolean> {
+    try {
+      const data = await this.loadGameMetadataAsync(app_name)
+      return this.processMetadata(app_name, data.metadata)
+    } catch (error) {
+      logError(
+        [`Failed to parse metadata for ${app_name}:`, error],
+        LogPrefix.Legendary
+      )
+      return false
+    }
+  }
+
+  /**
    * Fully loads all files in library into memory.
    *
    * @returns App names of loaded files.
    */
   private async loadAll(): Promise<string[]> {
-    if (existsSync(legendaryMetadata)) {
-      const loadedFiles: string[] = []
-      allGames.forEach((appName) => {
-        const wasLoaded = this.loadFile(appName)
-        if (wasLoaded) {
-          loadedFiles.push(appName)
-        }
+    if (!existsSync(legendaryMetadata)) return []
+
+    const CONCURRENCY = 64
+    const names = [...allGames]
+    const loadedFiles: string[] = []
+
+    for (let i = 0; i < names.length; i += CONCURRENCY) {
+      const batch = names.slice(i, i + CONCURRENCY)
+      const results = await Promise.all(
+        batch.map((name) => this.loadFileAsync(name))
+      )
+      results.forEach((wasLoaded, idx) => {
+        if (wasLoaded) loadedFiles.push(batch[idx])
       })
-      return loadedFiles
     }
-    return []
+
+    return loadedFiles
   }
 
   /**
