@@ -1,9 +1,9 @@
 import { logWarning, LogPrefix, logError } from 'backend/logger'
-import * as crypto from 'crypto'
+import { createHash } from 'crypto'
 import {
+  createReadStream,
   existsSync,
   mkdirSync,
-  readFileSync,
   renameSync,
   rmSync,
   statSync
@@ -171,6 +171,16 @@ interface installProps {
   abortSignal?: AbortSignal
 }
 
+function hashFile(filePath: string, algorithm = 'sha512'): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const hash = createHash(algorithm)
+    const stream = createReadStream(filePath)
+    stream.on('data', (chunk) => hash.update(chunk))
+    stream.on('end', () => resolve(hash.digest('hex')))
+    stream.on('error', reject)
+  })
+}
+
 /**
  * Installs a given version to the given installation directory.
  *
@@ -292,12 +302,8 @@ async function installVersion({
   })
 
   // Check if download checksum is correct
-  const fileBuffer = readFileSync(tarFile)
-  const hashSum = crypto.createHash('sha512')
-  hashSum.update(fileBuffer)
-
-  const downloadChecksum = hashSum.digest('hex')
   if (sourceChecksum) {
+    const downloadChecksum = await hashFile(tarFile)
     if (!sourceChecksum.includes(downloadChecksum)) {
       unlinkFile(tarFile)
       throw new Error('Checksum verification failed')

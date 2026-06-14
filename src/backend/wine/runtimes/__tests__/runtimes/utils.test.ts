@@ -1,7 +1,5 @@
-import { join } from 'path'
-import graceful_fs, { readFileSync } from 'graceful-fs'
 import { axiosClient } from 'backend/utils'
-import { getAssetDataFromDownload, downloadFile } from '../../util'
+import { getAssetDataFromDownload } from '../../util'
 import { test_data } from './test_data/github-api-heroic-test-data.json'
 import { describeSkipOnWindows } from 'backend/__tests__/skip'
 
@@ -9,7 +7,6 @@ jest.mock('backend/logger')
 
 const testUrl =
   'https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v2.3.9/Heroic-2.3.9.AppImage'
-const testTarFilePath = join(__dirname, 'test_data/TestArchive.tar.xz')
 
 afterEach(jest.restoreAllMocks)
 
@@ -62,81 +59,6 @@ describeSkipOnWindows('getAssetDataFromDownload', () => {
     })
     await expect(getAssetDataFromDownload(testUrl)).rejects.toEqual(
       Error('Failed to access GitHub API: { "message": "Some error message" }')
-    )
-  })
-})
-
-describeSkipOnWindows('downloadFile', () => {
-  it('Success', async () => {
-    const expectedData = readFileSync(testTarFilePath)
-
-    jest.spyOn(axiosClient, 'get').mockResolvedValue({
-      status: 200,
-      data: expectedData
-    })
-    jest
-      .spyOn(graceful_fs, 'writeFile')
-      .mockImplementation(
-        (
-          path: any,
-          data: any,
-          callback: (err: NodeJS.ErrnoException | null) => void
-        ) => {
-          callback(null)
-        }
-      )
-
-    const tmpFileName = '/tmp/someFile'
-    await expect(downloadFile(testUrl, tmpFileName)).resolves.toBeUndefined()
-    expect(graceful_fs.writeFile).toBeCalledWith(
-      tmpFileName,
-      expectedData,
-      expect.anything()
-    )
-  })
-
-  it('Axios error', async () => {
-    expect.assertions(1)
-
-    jest.spyOn(axiosClient, 'get').mockRejectedValue({
-      toJSON: () => '{ "message": "Some error message" }'
-    })
-
-    await expect(downloadFile(testUrl, '')).rejects.toEqual(
-      Error(
-        `Failed to download ${testUrl}: { "message": "Some error message" }`
-      )
-    )
-  })
-
-  it('HTTP error', async () => {
-    expect.assertions(1)
-
-    jest.spyOn(axiosClient, 'get').mockResolvedValue({
-      status: 404,
-      data: {}
-    })
-    await expect(downloadFile(testUrl, '')).rejects.toEqual(
-      Error(`Failed to download ${testUrl}: HTTP error code 404`)
-    )
-  })
-
-  it('writeFile error', async () => {
-    const expectedData = readFileSync(
-      join(__dirname, 'test_data/TestArchive.tar.xz')
-    )
-
-    jest.spyOn(axiosClient, 'get').mockResolvedValue({
-      status: 200,
-      data: expectedData
-    })
-
-    jest.spyOn(graceful_fs, 'writeFile').mockImplementation((fn, data, cb) => {
-      cb({ stack: 'Mocked error stack' } as Error)
-    })
-
-    await expect(downloadFile(testUrl, '')).rejects.toEqual(
-      Error('Failed to save downloaded data to file: Mocked error stack')
     )
   })
 })

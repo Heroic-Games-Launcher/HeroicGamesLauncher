@@ -1,5 +1,5 @@
 import { axiosClient, extractFiles } from 'backend/utils'
-import { existsSync, mkdirSync, writeFile } from 'graceful-fs'
+import { existsSync, mkdirSync } from 'graceful-fs'
 
 interface GithubAssetMetadata {
   url: string
@@ -51,27 +51,6 @@ async function getAssetDataFromDownload(
   return asset
 }
 
-async function downloadFile(url: string, filePath: string) {
-  const response = await axiosClient
-    .get(url, { responseType: 'arraybuffer' })
-    .catch((error) => {
-      throw new Error(`Failed to download ${url}: ${error.toJSON()}`)
-    })
-  if (response.status !== 200) {
-    throw new Error(
-      `Failed to download ${url}: HTTP error code ${response.status}`
-    )
-  }
-  return new Promise<void>((res, rej) => {
-    writeFile(filePath, response.data, (err) => {
-      if (err) {
-        rej(new Error(`Failed to save downloaded data to file: ${err.stack}`))
-      }
-      res()
-    })
-  })
-}
-
 async function extractTarFile(
   filePath: string,
   options?: { extractedPath?: string; strip?: number }
@@ -96,4 +75,4 @@ async function extractTarFile(
   })
 }
 
-export { getAssetDataFromDownload, downloadFile, extractTarFile }
+export { getAssetDataFromDownload, extractTarFile }
