@@ -385,7 +385,8 @@
         "nvidiaprime": {
             "details": "K vykreslování hry na systémech s více grafickými procesory používejte dedikovanou grafickou kartu. Potřebné pouze u herních notebooků nebo stolních počítačů, které pro vykreslování používají headless GPU (NVIDIA Optimus, AMD CrossFire)",
             "link": "Další podrobnosti najdete na naší wiki"
-        }
+        },
+        "hide-window-on-protocol-launch": "Ponechává okno Heroicu schované když je hra spuštěna z externí zkratky, jako třeba přes \"Přidat na Steam\"."
     },
     "info": {
         "heroic": {
@@ -822,7 +823,8 @@
         "start-in-console-mode": "Začít v konzolovém módu",
         "nvidiaprime": {
             "description": "Vynutit použití diskrétní grafické karty s technologií NVIDIA Optimus nebo AMD Dynamic Switchable Graphics. Tuto možnost používejte POUZE pro hry využívající OpenGL a Vulkan."
-        }
+        },
+        "hide-window-on-protocol-launch": "Schovat Heroic okno při spuštění hry z heroic:// odkaz"
     },
     "settings": {
         "battlEyeRuntime": {
@@ -950,7 +952,8 @@
         "installing": "Instaluji",
         "logging": "Přihlašování...",
         "processing": "Zpracovávám soubory, čekejte prosím",
-        "preparing_login": "Příprava přihlášení... "
+        "preparing_login": "Příprava přihlášení... ",
+        "installed": "Nainstalováno"
     },
     "store": "Epic Store",
     "stores": "Obchody",
@@ -1281,7 +1284,26 @@
         "empty": "Žádné stažené hry. Nejprve si nějaké stáhněte.",
         "games": "Instalované hry",
         "quitApp": "Zavřít Aplikaci",
-        "loading": "Načítám vaší knihovnu…"
+        "loading": "Načítám vaší knihovnu…",
+        "cancelInstall": {
+            "title": "Zrušit instalaci?",
+            "message": "Tato hra se instaluje. Zrušit instalaci?"
+        },
+        "cancelUpdate": {
+            "title": "Zrušit aktualizaci?",
+            "message": "Tato hra nyní něco stahuje. Zrušit tuto aktualizaci?"
+        },
+        "install": {
+            "platform": "Platforma",
+            "title": "Instalovat hru",
+            "wineLoading": "Načítání…",
+            "path": "Instalovat do",
+            "wine": "Wine",
+            "wineMissing": "Nevybráno"
+        },
+        "removeFromQueue": {
+            "message": "Tato hra je ve frontě na stažení. Odstranit z fronty?"
+        }
     },
     "next": "Další"
 }
