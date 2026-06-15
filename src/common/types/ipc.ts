@@ -184,7 +184,11 @@ interface AsyncIPCFunctions {
     runner: Runner,
     lang?: string
   ) => Promise<GameAchievement[]>
-  getExtraInfo: (appName: string, runner: Runner) => Promise<ExtraInfo | null>
+  getExtraInfo: (
+    appName: string,
+    runner: Runner,
+    lang?: string
+  ) => Promise<ExtraInfo | null>
   getGameSettings: (
     appName: string,
     runner: Runner

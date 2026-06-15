@@ -211,7 +211,7 @@ export function makeAureliaQrHandler(
  */
 export async function fetchAureliaInfo(
   appIds: string[],
-  options: { extended?: boolean } = {}
+  options: { extended?: boolean; language?: string } = {}
 ): Promise<AureliaInfoResponse[]> {
   if (!appIds.length) {
     return []
@@ -219,7 +219,8 @@ export async function fetchAureliaInfo(
   const result = await runAurelia<AureliaInfoResponse | AureliaInfoResponse[]>([
     'info',
     ...appIds,
-    ...(options.extended ? ['--extended'] : [])
+    ...(options.extended ? ['--extended'] : []),
+    ...(options.language ? ['-l', options.language] : [])
   ])
   return Array.isArray(result) ? result : [result]
 }

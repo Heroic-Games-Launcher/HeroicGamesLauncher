@@ -43,7 +43,7 @@ export type AvailablePlatforms = {
 
 function InstallModal({ appName, runner, gameInfo = null }: Props) {
   const { platform } = useContext(ContextProvider)
-  const { t } = useTranslation('gamepage')
+  const { t, i18n } = useTranslation('gamepage')
   const { action = 'install' } = useInstallGameModal()
 
   const [winePrefix, setWinePrefix] = useState('...')
@@ -64,7 +64,11 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
     }
     let active = true
     window.api
-      .getExtraInfo(appName, runner)
+      .getExtraInfo(
+        appName,
+        runner,
+        runner === 'steam' ? i18n.language : undefined
+      )
       .then((info) => {
         if (active && info?.platforms) {
           setSteamPlatforms(info.platforms)
@@ -76,7 +80,7 @@ function InstallModal({ appName, runner, gameInfo = null }: Props) {
     return () => {
       active = false
     }
-  }, [appName, runner])
+  }, [appName, runner, i18n.language])
 
   const isLinuxNative =
     runner === 'steam'

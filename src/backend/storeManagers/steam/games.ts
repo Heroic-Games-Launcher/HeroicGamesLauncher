@@ -227,8 +227,10 @@ export default class SteamGame implements Game {
     )
   }
 
-  async getExtraInfo(): Promise<ExtraInfo> {
-    const cached = extraInfoStore.get(this.id)
+  async getExtraInfo(lang = 'en-US'): Promise<ExtraInfo> {
+    const steamLang = toSteamApiLanguage(lang)
+    const cacheKey = `${this.id}-${steamLang}`
+    const cached = extraInfoStore.get(cacheKey)
     if (cached) {
       return cached
     }
@@ -251,7 +253,10 @@ export default class SteamGame implements Game {
     }
 
     try {
-      const [details] = await fetchAureliaInfo([this.id], { extended: true })
+      const [details] = await fetchAureliaInfo([this.id], {
+        extended: true,
+        language: steamLang
+      })
       if (!details) {
         return empty
       }
@@ -286,7 +291,7 @@ export default class SteamGame implements Game {
         platforms: toInstallPlatforms(details.platforms)
       }
 
-      extraInfoStore.set(this.id, extraInfo)
+      extraInfoStore.set(cacheKey, extraInfo)
       return extraInfo
     } catch (error) {
       logError(

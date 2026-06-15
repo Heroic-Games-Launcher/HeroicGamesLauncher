@@ -757,7 +757,7 @@ addHandler(
   }
 )
 
-addHandler('getExtraInfo', async (event, appName, runner) => {
+addHandler('getExtraInfo', async (event, appName, runner, lang) => {
   // Fastpath since we sometimes have to request info for a GOG game as Legendary because we don't know it's a GOG game yet
   if (
     runner === 'legendary' &&
@@ -765,7 +765,7 @@ addHandler('getExtraInfo', async (event, appName, runner) => {
   ) {
     return null
   }
-  return libraryManagerMap[runner].getGame(appName).getExtraInfo()
+  return libraryManagerMap[runner].getGame(appName).getExtraInfo(lang)
 })
 
 addHandler('getGameSettings', async (event, appName, runner) => {
