@@ -171,6 +171,7 @@ export interface ExtraInfo {
   background?: string
   cover?: string
   score?: string
+  platforms?: InstallPlatform[]
 }
 
 export type GameConfigVersion = 'auto' | 'v0' | 'v0.1'

@@ -20,7 +20,7 @@ import {
 import { GlobalConfig } from 'backend/config'
 import { getFileSize } from 'backend/utils'
 import { sendFrontendMessage } from 'backend/ipc'
-import { isLinux, isMac, isWindows } from 'backend/constants/environment'
+import { isMac, isWindows } from 'backend/constants/environment'
 import {
   libraryStore,
   installedGamesStore,
@@ -171,10 +171,9 @@ export default class SteamLibraryManager implements LibraryManager {
       install: {},
       is_installed: false,
       canRunOffline: true,
-      // Aurelia manages compatibility (Proton) itself, so from Heroic's point of
-      // view these games run "natively" on the current platform.
-      is_mac_native: isMac,
-      is_linux_native: isLinux
+      // Aurelia installs the Windows depots and runs them
+      is_mac_native: false,
+      is_linux_native: false
     }
   }
 
@@ -247,7 +246,12 @@ export default class SteamLibraryManager implements LibraryManager {
       return undefined
     }
 
-    const cache = installInfoStore.get(appName)
+    // Key the cache by platform too: a Windows-only game returns 0 sizes for a
+    // Linux/macOS dry-run, and a platform-agnostic key would let that 0-size
+    // result be served for the Windows request, wrongly flagging it as "not
+    // installable".
+    const cacheKey = `${appName}_${String(platform).toLowerCase()}`
+    const cache = installInfoStore.get(cacheKey)
     if (cache && cache.manifest) {
       logDebug('Using cached Steam install info', LogPrefix.Steam)
       return cache
@@ -294,7 +298,7 @@ export default class SteamLibraryManager implements LibraryManager {
           title: game?.title ?? appName
         }
       }
-      installInfoStore.set(appName, info)
+      installInfoStore.set(cacheKey, info)
       return info
     } catch (error) {
       logError(

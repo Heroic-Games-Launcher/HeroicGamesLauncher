@@ -56,52 +56,68 @@ function aureliaPlatform(platform: InstallPlatform): string | undefined {
   return undefined
 }
 
+// Maps Aurelia's store platform strings
+function toInstallPlatforms(platforms?: string[]): InstallPlatform[] {
+  if (!platforms) return []
+  const mapped = platforms
+    .map((p): InstallPlatform | undefined => {
+      const lc = p.toLowerCase()
+      if (lc.startsWith('win')) return 'Windows'
+      if (lc.startsWith('mac') || lc === 'osx') return 'Mac'
+      if (lc.startsWith('lin') || lc.startsWith('steam')) return 'linux'
+      return undefined
+    })
+    .filter((p): p is InstallPlatform => p !== undefined)
+  return Array.from(new Set(mapped))
+}
+
+// Locales whose Steam name isn't derivable from the primary subtag alone.
+const STEAM_LANG_EXACT: Record<string, string> = {
+  'pt-br': 'brazilian',
+  'zh-cn': 'schinese',
+  'zh-hans': 'schinese',
+  'zh-sg': 'schinese',
+  'zh-tw': 'tchinese',
+  'zh-hk': 'tchinese',
+  'zh-hant': 'tchinese',
+  'es-419': 'latam',
+  'es-mx': 'latam'
+}
+
+const STEAM_LANG_BY_PRIMARY: Record<string, string> = {
+  ar: 'arabic',
+  bg: 'bulgarian',
+  cs: 'czech',
+  da: 'danish',
+  nl: 'dutch',
+  en: 'english',
+  fi: 'finnish',
+  fr: 'french',
+  de: 'german',
+  el: 'greek',
+  hu: 'hungarian',
+  id: 'indonesian',
+  it: 'italian',
+  ja: 'japanese',
+  ko: 'koreana',
+  no: 'norwegian',
+  pl: 'polish',
+  pt: 'portuguese',
+  ro: 'romanian',
+  ru: 'russian',
+  es: 'spanish',
+  sv: 'swedish',
+  th: 'thai',
+  tr: 'turkish',
+  uk: 'ukrainian',
+  vi: 'vietnamese',
+  zh: 'schinese'
+}
+
 function toSteamApiLanguage(lang: string): string {
   const lc = lang.toLowerCase().replace('_', '-')
-  // Locales whose Steam name isn't derivable from the primary subtag alone.
-  const exact: Record<string, string> = {
-    'pt-br': 'brazilian',
-    'zh-cn': 'schinese',
-    'zh-hans': 'schinese',
-    'zh-sg': 'schinese',
-    'zh-tw': 'tchinese',
-    'zh-hk': 'tchinese',
-    'zh-hant': 'tchinese',
-    'es-419': 'latam',
-    'es-mx': 'latam'
-  }
-  if (exact[lc]) return exact[lc]
-
-  const byPrimary: Record<string, string> = {
-    ar: 'arabic',
-    bg: 'bulgarian',
-    cs: 'czech',
-    da: 'danish',
-    nl: 'dutch',
-    en: 'english',
-    fi: 'finnish',
-    fr: 'french',
-    de: 'german',
-    el: 'greek',
-    hu: 'hungarian',
-    id: 'indonesian',
-    it: 'italian',
-    ja: 'japanese',
-    ko: 'koreana',
-    no: 'norwegian',
-    pl: 'polish',
-    pt: 'portuguese',
-    ro: 'romanian',
-    ru: 'russian',
-    es: 'spanish',
-    sv: 'swedish',
-    th: 'thai',
-    tr: 'turkish',
-    uk: 'ukrainian',
-    vi: 'vietnamese',
-    zh: 'schinese'
-  }
-  return byPrimary[lc.split('-')[0]] ?? 'english'
+  if (STEAM_LANG_EXACT[lc]) return STEAM_LANG_EXACT[lc]
+  return STEAM_LANG_BY_PRIMARY[lc.split('-')[0]] ?? 'english'
 }
 
 /**
@@ -271,7 +287,8 @@ export default class SteamGame implements Game {
         score:
           typeof ext.metacritic === 'number'
             ? String(ext.metacritic)
-            : undefined
+            : undefined,
+        platforms: toInstallPlatforms(details.platforms)
       }
 
       extraInfoStore.set(appName, extraInfo)
