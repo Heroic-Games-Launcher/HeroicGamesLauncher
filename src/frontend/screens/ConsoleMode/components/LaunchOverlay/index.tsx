@@ -7,7 +7,7 @@ import { hasStatus } from 'frontend/hooks/hasStatus'
 
 import BackHint from '../BackHint'
 
-import type { GameInfo, Runner } from 'common/types'
+import type { GameInfo } from 'common/types'
 import { useContext, useEffect } from 'react'
 import { useCancelOnHold, useGamepadButtonHold } from '../../hooks'
 import { BTN_BACK } from '../../controller'
@@ -67,7 +67,7 @@ export default function LaunchOverlay({
     void launch({
       appName: game.app_name,
       t,
-      runner: game.runner as Runner,
+      runner: game.runner,
       hasUpdate: false,
       showDialogModal
     }).finally(() => {
