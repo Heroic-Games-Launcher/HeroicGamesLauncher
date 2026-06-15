@@ -520,7 +520,7 @@ export default React.memo(function Library(): JSX.Element {
       if (showSteamOwnedOnly) {
         // Only hides Steam family-shared games; games from other stores (and
         // owned Steam games) are left untouched.
-        library = library.filter((game) => !game.isSteamFamilyShare)
+        library = library.filter((game) => !game.isFamilyShare)
       }
 
       if (!showNonAvailable) {

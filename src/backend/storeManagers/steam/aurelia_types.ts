@@ -12,6 +12,15 @@ export interface AureliaProgressEvent {
   file?: string
 }
 
+/** Artwork URLs baked into Aurelia's responses (see `aurelia list`/`info`). */
+export interface AureliaAssets {
+  header?: string
+  capsule?: string
+  hero?: string
+  background?: string
+  logo?: string
+}
+
 export interface AureliaLibraryGame {
   app_id: number
   name: string
@@ -24,6 +33,8 @@ export interface AureliaLibraryGame {
   is_owned?: boolean
   is_family_shared?: boolean
   online_required?: boolean | null
+  assets?: AureliaAssets
+  store_url?: string
 }
 
 interface AureliaDlcEntry {
@@ -32,6 +43,9 @@ interface AureliaDlcEntry {
   owned?: boolean | null
   installed?: boolean | null
   disabled?: boolean | null
+  image_url?: string
+  image_fallback_url?: string
+  store_url?: string
 }
 
 export interface AureliaDlcResponse {
@@ -53,13 +67,8 @@ export interface AureliaInfoResponse {
   price?: string | null
   platforms?: string[]
   reviews?: string
-  assets?: {
-    background?: string
-    capsule?: string
-    header?: string
-    hero?: string
-    logo?: string
-  }
+  store_url?: string
+  assets?: AureliaAssets
   extended?: {
     categories?: string[]
     genres?: string[]

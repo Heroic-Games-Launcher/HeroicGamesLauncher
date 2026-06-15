@@ -35,7 +35,6 @@ import {
   InstallInfo,
   GameAchievement
 } from 'common/types'
-import { steamStoreAppUrl } from 'common/types/steam'
 
 import GamePicture from '../GamePicture'
 import TimeContainer from '../TimeContainer'
@@ -490,11 +489,11 @@ export default React.memo(function GamePage(): JSX.Element | null {
                           handlePlay={handlePlay}
                           handleInstall={handleInstall}
                         />
-                        {runner === 'steam' && (
+                        {runner === 'steam' && gameInfo.store_url && (
                           <NavLink
                             className="button mainBtn outline steamStoreButton buttonWithIcon"
                             to={`/store-page?store-url=${encodeURIComponent(
-                              `${steamStoreAppUrl}/${appName}`
+                              gameInfo.store_url
                             )}`}
                           >
                             <ShoppingCart />

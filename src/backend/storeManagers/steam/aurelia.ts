@@ -1,21 +1,11 @@
-import { spawn } from 'child_process'
-import { join } from 'path'
+import { callRunner } from 'backend/launcher'
 import {
   getAureliaBin,
   getFileSize,
   formatTime,
   sendProgressUpdate
 } from 'backend/utils'
-import {
-  getRunnerLogWriter,
-  logError,
-  logInfo,
-  LogPrefix
-} from 'backend/logger'
-import {
-  createAbortController,
-  deleteAbortController
-} from 'backend/utils/aborthandler/aborthandler'
+import { logError, LogPrefix } from 'backend/logger'
 import type { CallRunnerOptions, ExecResult, Status } from 'common/types'
 import type {
   AureliaConfigShowResponse,
@@ -32,16 +22,6 @@ export class AureliaError extends Error {
   }
 }
 
-const SENSITIVE_FLAGS = new Set(['-p', '--password', '--guard'])
-
-function redactCommand(parts: string[]): string {
-  const out = [...parts]
-  for (let i = 0; i < out.length - 1; i++) {
-    if (SENSITIVE_FLAGS.has(out[i])) out[i + 1] = '<redacted>'
-  }
-  return `aurelia ${out.join(' ')}`
-}
-
 /**
  * Runs an `aurelia` command and returns the raw {@link ExecResult}.
  */
@@ -50,73 +30,11 @@ export async function runAureliaCommand(
   options: CallRunnerOptions = {}
 ): Promise<ExecResult> {
   const { dir, bin } = getAureliaBin()
-  const fullPath = dir ? join(dir, bin) : bin
-  const parts = commandParts.filter(Boolean)
-
-  const logWriters = [
-    ...(options.logWriters ?? []),
-    getRunnerLogWriter('steam')
-  ]
-  const safeCommand = redactCommand(parts)
-  const prefix = `${options.logMessagePrefix ?? 'Running command'}:`
-  logInfo([prefix, safeCommand], LogPrefix.Steam)
-  for (const writer of logWriters) {
-    await writer.logInfo([prefix, safeCommand].join(' '))
-  }
-
-  const abortId = options.abortId || Math.random().toString()
-  const abortController = createAbortController(abortId)
-
-  return new Promise<ExecResult>((resolve) => {
-    const child = spawn(fullPath, parts, {
-      cwd: options.cwd || dir,
-      env: { ...process.env, ...options.env },
-      signal: abortController.signal
-    })
-
-    let stdout = ''
-    let stderr = ''
-
-    child.stdout.setEncoding('utf-8')
-    child.stdout.on('data', (data: string) => {
-      stdout += data
-      logWriters.forEach((writer) => writer.writeString(data))
-      options.onOutput?.(data, child)
-    })
-
-    child.stderr.setEncoding('utf-8')
-    child.stderr.on('data', (data: string) => {
-      stderr += data
-      logWriters.forEach((writer) => writer.writeString(data))
-      options.onOutput?.(data, child)
-    })
-
-    child.on('error', (error) => {
-      deleteAbortController(abortId)
-      if (abortController.signal.aborted) {
-        resolve({ stdout, stderr, fullCommand: safeCommand, abort: true })
-        return
-      }
-      logError(['Error running', `"${safeCommand}":`, error], LogPrefix.Steam)
-      resolve({ stdout, stderr, fullCommand: safeCommand, error: `${error}` })
-    })
-
-    child.on('close', (code, signal) => {
-      deleteAbortController(abortId)
-      if (abortController.signal.aborted) {
-        resolve({ stdout, stderr, fullCommand: safeCommand, abort: true })
-        return
-      }
-      const result: ExecResult = { stdout, stderr, fullCommand: safeCommand }
-      if (signal) {
-        result.error = `Process terminated with signal ${signal}`
-      } else if (code !== 0 && code !== null) {
-        // non-zero exit
-        result.error = stderr.trim() || `aurelia exited with code ${code}`
-      }
-      resolve(result)
-    })
-  })
+  return callRunner(
+    commandParts,
+    { name: 'steam', logPrefix: LogPrefix.Steam, bin, dir },
+    options
+  )
 }
 
 /**
@@ -198,7 +116,7 @@ export function parseAureliaJson<T>(res: ExecResult): T {
   const stderr = stripAnsi(res.stderr)
   const stdoutValues = extractJsonValues(stdout)
   const values = stdoutValues.length ? stdoutValues : extractJsonValues(stderr)
-  const parsed = values[values.length - 1]
+  const parsed = values.at(-1)
 
   if (parsed === undefined) {
     const raw =
@@ -206,12 +124,12 @@ export function parseAureliaJson<T>(res: ExecResult): T {
     throw new AureliaError(raw || 'aurelia produced no JSON output')
   }
   if (
-    parsed &&
+    parsed !== null &&
     typeof parsed === 'object' &&
     'error' in parsed &&
-    (parsed as { error: unknown }).error
+    parsed.error
   ) {
-    throw new AureliaError(String((parsed as { error: unknown }).error))
+    throw new AureliaError(String(parsed.error))
   }
   return parsed as T
 }
@@ -229,13 +147,12 @@ export function makeAureliaProgressHandler(
       const line = rawLine.trim()
       if (!line.startsWith('{')) continue
 
-      let parsed: unknown
+      let evt: AureliaProgressEvent
       try {
-        parsed = JSON.parse(line)
+        evt = JSON.parse(line)
       } catch {
         continue
       }
-      const evt = parsed as AureliaProgressEvent
       if (evt.event !== 'progress') continue
 
       // Match the MiB/s unit the other runners report.
@@ -276,13 +193,12 @@ export function makeAureliaQrHandler(
       const line = rawLine.trim()
       if (!line.startsWith('{')) continue
 
-      let parsed: unknown
+      let evt: { event?: string; url?: string }
       try {
-        parsed = JSON.parse(line)
+        evt = JSON.parse(line)
       } catch {
         continue
       }
-      const evt = parsed as { event?: string; url?: string }
       if (evt.event === 'qr_challenge' && typeof evt.url === 'string') {
         onUrl(evt.url)
       }

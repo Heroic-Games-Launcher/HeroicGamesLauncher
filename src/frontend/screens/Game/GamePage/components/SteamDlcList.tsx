@@ -8,11 +8,7 @@ import {
   ShoppingCart
 } from '@mui/icons-material'
 import { CachedImage } from 'frontend/components/UI'
-import {
-  SteamDLCInfo,
-  steamCdnImageBase,
-  steamStoreAppUrl
-} from 'common/types/steam'
+import { SteamDLCInfo } from 'common/types/steam'
 
 interface Props {
   appName: string
@@ -24,10 +20,8 @@ const SteamDlcList = ({ appName }: Props) => {
   const [dlcs, setDlcs] = useState<SteamDLCInfo[]>([])
   const [busy, setBusy] = useState<Set<string>>(new Set())
 
-  const dlcStorePage = (dlcAppId: string) =>
-    `/store-page?store-url=${encodeURIComponent(
-      `${steamStoreAppUrl}/${dlcAppId}`
-    )}`
+  const dlcStorePage = (storeUrl: string) =>
+    `/store-page?store-url=${encodeURIComponent(storeUrl)}`
 
   const loadDlcs = useCallback(async () => {
     try {
@@ -39,7 +33,7 @@ const SteamDlcList = ({ appName }: Props) => {
 
   const onStatusClick = async (dlc: SteamDLCInfo) => {
     if (!dlc.owned) {
-      navigate(dlcStorePage(dlc.appId))
+      navigate(dlcStorePage(dlc.storeUrl))
       return
     }
     if (busy.has(dlc.appId)) {
@@ -110,8 +104,8 @@ const SteamDlcList = ({ appName }: Props) => {
             <li key={dlc.appId} className="steamDlcRow">
               <CachedImage
                 className="steamDlcImage"
-                src={`${steamCdnImageBase}/${dlc.appId}/header.jpg`}
-                fallback={`${steamCdnImageBase}/${dlc.appId}/capsule_231x87.jpg`}
+                src={dlc.imageUrl}
+                fallback={dlc.imageFallbackUrl}
               />
               <span className="steamDlcTitle">{dlc.title}</span>
               <button
@@ -126,7 +120,7 @@ const SteamDlcList = ({ appName }: Props) => {
               </button>
               <NavLink
                 className="steamDlcStoreBtn"
-                to={dlcStorePage(dlc.appId)}
+                to={dlcStorePage(dlc.storeUrl)}
                 title={t('button.steamStore', 'Open Steam Page')}
                 aria-label={t('button.steamStore', 'Open Steam Page')}
               >

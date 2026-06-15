@@ -26,7 +26,6 @@ import {
   installedGamesStore,
   installInfoStore
 } from './electronStores'
-import { steamCdnImageBase, steamStoreAppUrl } from './constants'
 import {
   runAurelia,
   runAureliaCommand,
@@ -97,12 +96,12 @@ export default class SteamLibraryManager implements LibraryManager {
 
     for (const game of games) {
       const appId = String(game.app_id)
-      const info = this.steamToUnifiedInfo(appId, game.name)
+      const info = this.steamToUnifiedInfo(game)
 
       // The game is only shown via Steam Family sharing when the user doesn't
       // own a license for it themselves.
       if (game.is_family_shared) {
-        info.isSteamFamilyShare = true
+        info.isFamilyShare = true
       }
 
       if (game.is_installed && game.install_path) {
@@ -157,17 +156,19 @@ export default class SteamLibraryManager implements LibraryManager {
     }
   }
 
-  steamToUnifiedInfo(appId: string, title: string): GameInfo {
+  steamToUnifiedInfo(game: AureliaLibraryGame): GameInfo {
+    const appId = String(game.app_id)
+    const assets = game.assets ?? {}
     return {
       runner: 'steam',
       app_name: appId,
-      title,
-      art_cover: `${steamCdnImageBase}/${appId}/header.jpg`,
-      art_square: `${steamCdnImageBase}/${appId}/library_600x900.jpg`,
-      art_background: `${steamCdnImageBase}/${appId}/library_hero.jpg`,
-      art_logo: `${steamCdnImageBase}/${appId}/logo.png`,
-      store_url: `${steamStoreAppUrl}/${appId}`,
-      folder_name: title,
+      title: game.name,
+      art_cover: assets.header ?? '',
+      art_square: assets.capsule ?? '',
+      art_background: assets.hero ?? '',
+      art_logo: assets.logo,
+      store_url: game.store_url,
+      folder_name: game.name,
       install: {},
       is_installed: false,
       canRunOffline: true,
@@ -225,7 +226,10 @@ export default class SteamLibraryManager implements LibraryManager {
       title: dlc.name || `DLC ${dlc.app_id}`,
       owned: !!dlc.owned,
       installed: !!dlc.installed,
-      disabled: !!dlc.disabled
+      disabled: !!dlc.disabled,
+      imageUrl: dlc.image_url ?? '',
+      imageFallbackUrl: dlc.image_fallback_url ?? '',
+      storeUrl: dlc.store_url ?? ''
     }))
 
     // Installed first, then owned-but-not-installed, then not owned; alphabetical
@@ -246,10 +250,7 @@ export default class SteamLibraryManager implements LibraryManager {
       return undefined
     }
 
-    // Key the cache by platform too: a Windows-only game returns 0 sizes for a
-    // Linux/macOS dry-run, and a platform-agnostic key would let that 0-size
-    // result be served for the Windows request, wrongly flagging it as "not
-    // installable".
+    // Key the cache by platform
     const cacheKey = `${appName}_${String(platform).toLowerCase()}`
     const cache = installInfoStore.get(cacheKey)
     if (cache && cache.manifest) {

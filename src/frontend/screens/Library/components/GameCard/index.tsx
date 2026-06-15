@@ -518,7 +518,7 @@ const GameCard = ({
             }
           >
             <StoreLogos runner={runner} />
-            {gameInfo.isSteamFamilyShare && (
+            {gameInfo.isFamilyShare && (
               <span
                 className="store-icon family-share-icon"
                 title={t('label.steam-family-share', 'Steam Family Sharing')}

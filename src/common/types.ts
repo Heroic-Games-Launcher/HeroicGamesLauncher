@@ -193,7 +193,7 @@ export type GOGAchievement = {
 export type GameAchievement = GOGAchievement
 
 export interface GameInfo {
-  runner: 'legendary' | 'gog' | 'sideload' | 'nile' | 'zoom' | 'steam'
+  runner: Runner
   store_url?: string
   app_name: string
   art_cover: string
@@ -222,7 +222,7 @@ export interface GameInfo {
   is_mac_native?: boolean
   is_linux_native?: boolean
   // True for Steam games that come from a Steam Family member's library
-  isSteamFamilyShare?: boolean
+  isFamilyShare?: boolean
   browserUrl?: string
   description?: string
   //used for store release versions. if remote !== local, then update
@@ -368,10 +368,6 @@ export interface Reqs {
   recommended: string
   title: string
 }
-
-// Sentinel `Reqs.title` values for rows that aren't a Minimum/Recommended spec
-export const REQS_OTHER_TITLE = '__other__'
-export const REQS_NOTES_TITLE = '__notes__'
 
 export type SyncType = 'Download' | 'Upload' | 'Force download' | 'Force upload'
 

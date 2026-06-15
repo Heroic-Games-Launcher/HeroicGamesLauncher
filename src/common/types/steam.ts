@@ -1,11 +1,5 @@
 import { LaunchOption } from 'common/types'
 
-// TODO: Modify Aurelia to bake the URL's into
-export const steamCdnImageBase =
-  'https://cdn.cloudflare.steamstatic.com/steam/apps'
-
-export const steamStoreAppUrl = 'https://store.steampowered.com/app'
-
 export interface SteamLoginData {
   username: string
   password: string
@@ -23,6 +17,9 @@ export interface SteamDLCInfo {
   owned: boolean
   installed: boolean
   disabled: boolean
+  imageUrl: string
+  imageFallbackUrl: string
+  storeUrl: string
 }
 
 export interface SteamPendingDlcChange {

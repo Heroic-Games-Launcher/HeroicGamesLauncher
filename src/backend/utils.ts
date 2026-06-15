@@ -366,7 +366,7 @@ function removeSpecialcharacters(text: string): string {
 }
 
 async function openUrlOrFile(url: string): Promise<string | void> {
-  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(url)) {
+  if (url.includes('://') && URL.canParse(url)) {
     return shell.openExternal(url)
   }
   return shell.openPath(url)

@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Reqs, REQS_NOTES_TITLE, REQS_OTHER_TITLE } from 'common/types'
+import { Reqs } from 'common/types'
+import { REQS_NOTES_TITLE, REQS_OTHER_TITLE } from 'common/utils'
 
 import './index.css'
 
