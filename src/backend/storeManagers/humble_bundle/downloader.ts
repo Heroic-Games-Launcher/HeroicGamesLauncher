@@ -1,11 +1,12 @@
 import https from 'https'
 import fs from 'fs'
 import path from 'path'
-import unzipper from 'unzipper'
+import extract from 'extract-zip'
 import { readdir, stat } from 'fs/promises'
 import { URL } from 'url'
 import { GameInfo } from 'common/types'
 import { throttle } from 'backend/utils'
+import { logDebug, LogPrefix } from 'backend/logger'
 
 export interface InstallProgress {
   bytes: string
@@ -63,8 +64,14 @@ export function downloadAndExtract(
         },
         (res) => {
           const acceptRanges = res.headers['accept-ranges'] === 'bytes'
-          console.log({ headers: res.headers })
-          console.log({ code: res.statusCode })
+          logDebug(
+            ['Download response headers:', res.headers],
+            LogPrefix.HumbleBundle
+          )
+          logDebug(
+            ['Download response status code:', res.statusCode],
+            LogPrefix.HumbleBundle
+          )
           const statusResumable = acceptRanges
           const canResume =
             acceptRanges && downloadedBytes > 0 && statusResumable
@@ -113,9 +120,8 @@ export function downloadAndExtract(
               fs.renameSync(outFilePath, finalFileName)
               return resolve()
             }
-            fs.createReadStream(outFilePath)
-              .pipe(unzipper.Extract({ path: outputDir }))
-              .on('close', () => {
+            extract(outFilePath, { dir: path.resolve(outputDir) })
+              .then(() => {
                 fs.writeFileSync(
                   path.join(outputDir, '__extracted_successfully.txt'),
                   ''
@@ -123,6 +129,7 @@ export function downloadAndExtract(
                 fs.unlinkSync(outFilePath)
                 resolve()
               })
+              .catch(reject)
           })
         }
       )

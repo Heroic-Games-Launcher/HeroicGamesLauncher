@@ -16,10 +16,10 @@ const LibraryTour: React.FC = () => {
   // Check if there are any games in the library
   const hasGames = Boolean(
     epic.library.length ||
-      gog.library.length ||
-      amazon.library.length ||
-      humbleBundle.library.length ||
-      sideloadedLibrary.length
+    gog.library.length ||
+    amazon.library.length ||
+    humbleBundle.library.length ||
+    sideloadedLibrary.length
   )
 
   // Create intro steps first

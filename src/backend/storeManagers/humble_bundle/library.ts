@@ -199,12 +199,18 @@ export async function extractGameInfoFromProduct(
 async function extractGameInfoFromOrder(orders: Order[]) {
   const games: GameInfo[] = []
   const apiCache: { [key: string]: Subproduct } = {}
+  // Dedupe
+  const seen = new Set<string>()
   for (const order of orders) {
     for (const product of order.subproducts) {
+      if (seen.has(product.machine_name)) {
+        continue
+      }
       const gameInfo = await extractGameInfoFromProduct(product)
       if (!gameInfo) {
         continue
       }
+      seen.add(product.machine_name)
       apiCache[product.machine_name] = product
       games.push(gameInfo)
     }
